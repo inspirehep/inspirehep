@@ -10,6 +10,7 @@ from itertools import chain
 
 import structlog
 from inspire_utils.helpers import force_list
+from invenio_db import db
 from marshmallow import fields, missing, pre_dump
 
 from inspirehep.pidstore.api import PidStoreBase
@@ -23,6 +24,7 @@ from inspirehep.records.marshmallow.literature.common.author import (
 from inspirehep.records.marshmallow.literature.common.thesis_info import (
     ThesisInfoSchemaForESV1,
 )
+from inspirehep.records.models import RecordCitations, RecordsAuthors
 
 from ..base import ElasticSearchBaseSchema
 from ..utils import get_display_name_for_author_name, get_facet_author_name_for_author
@@ -50,6 +52,23 @@ class LiteratureElasticSearchSchema(ElasticSearchBaseSchema, LiteratureRawSchema
     facet_author_name = fields.Method("get_facet_author_name")
     id_field = fields.Integer(dump_only=True, dump_to="id", attribute="control_number")
     thesis_info = fields.Nested(ThesisInfoSchemaForESV1, dump_only=True)
+    referenced_authors_bais = fields.Method(
+        "get_referenced_authors_bais", dump_only=True
+    )
+
+    @staticmethod
+    def get_referenced_authors_bais(record):
+        return [
+            result.author_id
+            for result in db.session.query(RecordsAuthors.author_id)
+            .filter(
+                RecordsAuthors.id_type == "INSPIRE BAI",
+                RecordsAuthors.record_id == RecordCitations.cited_id,
+                RecordCitations.citer_id == record.id,
+            )
+            .distinct(RecordsAuthors.author_id)
+            .all()
+        ]
 
     def get_ui_display(self, record):
         return json.dumps(LiteratureDetailSchema().dump(record).data)

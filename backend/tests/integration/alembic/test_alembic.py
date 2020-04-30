@@ -13,6 +13,11 @@ from sqlalchemy.engine import reflection
 def test_downgrade(base_app, database):
     alembic = Alembic(base_app)
 
+    alembic.downgrade(target="8ba47044154a")
+    assert "ix_records_authors_id_type_record_id" not in _get_indexes(
+        "records_authors", database
+    )
+
     alembic.downgrade(target="5a0e2405b624")
     assert "ix_records_citations_cited_id_citation_type" not in _get_indexes(
         "records_citations", database
@@ -197,6 +202,11 @@ def test_upgrade(base_app, database):
     )
     assert "ix_records_citations_citer_id_citation_type" in _get_indexes(
         "records_citations", database
+    )
+
+    alembic.upgrade(target="020b99d0beb7")
+    assert "ix_records_authors_id_type_record_id" in _get_indexes(
+        "records_authors", database
     )
 
 

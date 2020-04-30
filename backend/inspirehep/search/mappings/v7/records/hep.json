@@ -743,6 +743,9 @@
       "facet_author_name": {
         "type": "keyword"
       },
+      "referenced_authors_bais": {
+        "type": "keyword"
+      },
       "facet_experiment": {
         "type": "keyword"
       },

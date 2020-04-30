@@ -8,11 +8,16 @@
 import json
 
 from helpers.providers.faker import faker
+from mock import patch
 
 from inspirehep.records.marshmallow.literature import LiteratureElasticSearchSchema
 
 
-def test_es_schema_removes_supervisors_from_authors():
+@patch(
+    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_referenced_authors_bais",
+    return_value=[],
+)
+def test_es_schema_removes_supervisors_from_authors(mock_referenced_authors):
     schema = LiteratureElasticSearchSchema()
     authors = [
         {"full_name": "Frank Castle"},
@@ -26,7 +31,11 @@ def test_es_schema_removes_supervisors_from_authors():
     assert expected_author == result[0]["full_name"]
 
 
-def test_es_schema_removes_supervisors_from_facet_author_name():
+@patch(
+    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_referenced_authors_bais",
+    return_value=[],
+)
+def test_es_schema_removes_supervisors_from_facet_author_name(mock_referenced_authors):
     schema = LiteratureElasticSearchSchema()
     authors = [
         {"full_name": "Frank Castle"},

@@ -12,8 +12,8 @@ from deepdiff import DeepDiff
 from freezegun import freeze_time
 from helpers.utils import es_search
 from invenio_search import current_search
-from invenio_search import current_search_client as es
-from mock import patch
+
+from inspirehep.search.api import LiteratureSearch
 
 
 @freeze_time("1994-12-19")
@@ -233,3 +233,55 @@ def test_indexer_separates_supervisors_from_authors(
     result_supervisors = result["supervisors"]
     assert len(result_supervisors) == 1
     assert result_supervisors[0]["full_name"] == expected_supervisor
+
+
+def test_indexer_populates_referenced_authors_bais(
+    base_app, db, create_record, es_clear
+):
+    data_authors = {
+        "authors": [
+            {
+                "full_name": "Jean-Luc Picard",
+                "ids": [{"schema": "INSPIRE BAI", "value": "Jean.L.Picard.1"}],
+            },
+            {
+                "full_name": "John Doe",
+                "ids": [{"schema": "INSPIRE BAI", "value": "J.Doe.1"}],
+            },
+        ]
+    }
+    cited_record_1 = create_record("lit", data=data_authors)
+    data_authors = {
+        "authors": [
+            {
+                "full_name": "Jean-Luc Picard",
+                "ids": [{"schema": "INSPIRE BAI", "value": "Jean.L.Picard.1"}],
+            },
+            {
+                "full_name": "Steven Johnson",
+                "ids": [{"schema": "INSPIRE BAI", "value": "S.Johnson.1"}],
+            },
+        ]
+    }
+    cited_record_2 = create_record("lit", data=data_authors)
+    citing_record = create_record(
+        "lit",
+        literature_citations=[
+            cited_record_1["control_number"],
+            cited_record_2["control_number"],
+        ],
+    )
+    expected_rec3_referenced_authors_bais = [
+        "J.Doe.1",
+        "Jean.L.Picard.1",
+        "S.Johnson.1",
+    ]
+    rec1_es = LiteratureSearch.get_record_data_from_es(cited_record_1)
+    rec2_es = LiteratureSearch.get_record_data_from_es(cited_record_2)
+    rec3_es = LiteratureSearch.get_record_data_from_es(citing_record)
+    assert "referenced_authors_bais" not in rec1_es
+    assert "referenced_authors_bais" not in rec2_es
+    assert (
+        sorted(rec3_es["referenced_authors_bais"])
+        == expected_rec3_referenced_authors_bais
+    )
