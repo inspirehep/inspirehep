@@ -27,11 +27,7 @@ class Author extends Component {
       affiliations && (
         <span className="pl1 secondary-color">
           (
-          <AuthorAffiliationList
-            affiliations={affiliations.map(affiliation =>
-              affiliation.get('value')
-            )}
-          />
+          <AuthorAffiliationList affiliations={affiliations} />
           )
         </span>
       )

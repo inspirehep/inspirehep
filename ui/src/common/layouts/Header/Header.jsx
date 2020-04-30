@@ -31,7 +31,10 @@ function Header({ isHomePage, isSubmissionsPage, isBetaPage }) {
               xl={13}
               xxl={14}
             >
-              {!isHomePage && !isSubmissionsPage && <SearchBoxContainer />}
+              {!isHomePage &&
+                !isSubmissionsPage && (
+                  <SearchBoxContainer className="search-box" />
+                )}
             </Col>
             <Col
               xs={{ span: 11, order: 2 }}

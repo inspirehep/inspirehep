@@ -1,5 +1,8 @@
 import { fromJS, List } from 'immutable';
-import { getCurrentAffiliationsFromPositions, getAuthorMetaDescription } from '../utils';
+import {
+  getCurrentAffiliationsFromPositions,
+  getAuthorMetaDescription,
+} from '../utils';
 
 describe('utils', () => {
   describe('getCurrentAffiliationsFromPositions', () => {
@@ -9,7 +12,10 @@ describe('utils', () => {
         { institution: 'CERN2' },
         { institution: 'CERN3', current: 'true' },
       ]);
-      const expected = List(['CERN', 'CERN3']);
+      const expected = fromJS([
+        { institution: 'CERN', current: 'true' },
+        { institution: 'CERN3', current: 'true' },
+      ]);
       const currentPositions = getCurrentAffiliationsFromPositions(positions);
       expect(currentPositions).toEqual(expected);
     });
@@ -33,7 +39,8 @@ describe('utils', () => {
         ],
         arxiv_categories: ['hep-th', 'hep-ex'],
       });
-      const expected = 'エドウィン. CERN and DESY. hep-th and hep-ex. CERN-LHC-CMS and CERN-AMS'
+      const expected =
+        'エドウィン. CERN and DESY. hep-th and hep-ex. CERN-LHC-CMS and CERN-AMS';
       const currentPositions = getAuthorMetaDescription(author);
       expect(currentPositions).toEqual(expected);
     });
@@ -46,19 +53,18 @@ describe('utils', () => {
           { institution: 'CERN', current: true },
           { rank: 'STAFF', current: true },
         ],
-      })
-      const expected = 'エドウィン. CERN'
+      });
+      const expected = 'エドウィン. CERN';
       const result = getAuthorMetaDescription(author);
       expect(result).toBe(expected);
     });
-
 
     it('returns empty if author does have sone of the used fields but not subfields', () => {
       const author = fromJS({
         project_membership: [{ current: true }],
         positions: [{ rank: 'STAFF', current: true }],
-        name: { value: 'Urhan, Harun' }
-      })
+        name: { value: 'Urhan, Harun' },
+      });
       const result = getAuthorMetaDescription(author);
       expect(result).toBe('');
     });
@@ -67,8 +73,8 @@ describe('utils', () => {
       const author = fromJS({
         project_membership: [{ current: true }],
         positions: [{ rank: 'STAFF', current: true }],
-        name: { value: 'Urhan, Harun' }
-      })
+        name: { value: 'Urhan, Harun' },
+      });
       const result = getAuthorMetaDescription(author);
       expect(result).toBe('');
     });
@@ -76,7 +82,7 @@ describe('utils', () => {
     it('returns empty if author does not have any of the used fields', () => {
       const author = fromJS({
         control_number: 12345,
-      })
+      });
       const result = getAuthorMetaDescription(author);
       expect(result).toBe('');
     });

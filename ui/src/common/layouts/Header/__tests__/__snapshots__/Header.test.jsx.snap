@@ -56,7 +56,9 @@ exports[`Header renders with Banner and Ribbon if it is on beta page 1`] = `
           }
           xxl={14}
         >
-          <Connect(SearchBox) />
+          <Connect(SearchBox)
+            className="search-box"
+          />
         </Col>
         <Col
           lg={7}
@@ -148,7 +150,9 @@ exports[`Header renders with search box if it is not on home or submission 1`] =
           }
           xxl={14}
         >
-          <Connect(SearchBox) />
+          <Connect(SearchBox)
+            className="search-box"
+          />
         </Col>
         <Col
           lg={7}

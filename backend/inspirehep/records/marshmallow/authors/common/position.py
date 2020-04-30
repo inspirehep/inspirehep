@@ -13,6 +13,7 @@ class PositionSchemaV1(Schema):
     institution = fields.Raw()
     rank = fields.Raw()
     display_date = fields.Method("get_display_date", default=missing)
+    record = fields.Raw()
 
     def get_display_date(self, data):
         current = data.get("current")

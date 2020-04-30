@@ -1,4 +1,10 @@
 .__Header__ {
+  .search-box {
+    @media (max-width: $screen-sm-max) {
+      padding-bottom: 0.5rem;
+    }
+  }
+
   .sticky {
     z-index: $zindex-header;
     position: fixed;

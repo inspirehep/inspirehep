@@ -267,3 +267,7 @@ export function addCommasToNumber(number) {
 export function getRootOfLocationPathname(pathname) {
   return pathname.split('/')[1];
 }
+
+export function getInstitutionName(affiliation) {
+  return affiliation.get('value') || affiliation.get('institution');
+}

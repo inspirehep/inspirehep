@@ -2,7 +2,7 @@ import React, { useCallback, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Input, AutoComplete } from 'antd';
 import { HistoryOutlined } from '@ant-design/icons';
-
+import classNames from 'classnames';
 import './SearchBox.scss';
 import SearchScopeSelectContainer from '../../containers/SearchScopeSelectContainer';
 import { readHistory, persistHistory } from './searchHistory';
@@ -13,7 +13,7 @@ readHistory(history => {
   HISTORY_BY_NAMESPACE = history;
 });
 
-function SearchBox({ value, placeholder, onSearch, namespace }) {
+function SearchBox({ value, placeholder, onSearch, namespace, className }) {
   const [inputValue, setInputValue] = useState(value);
   const [autoCompleteOptions, setAutoCompleteOptions] = useState([]);
   const [shouldSearch, setShouldSearch] = useState(false);
@@ -76,7 +76,7 @@ function SearchBox({ value, placeholder, onSearch, namespace }) {
     // HACK: autocomplete select and scope select interferes with each other
     // when search scope is rendered using `Input.addonBefore` prop, inside autocomplete
     // that's why it's pulled out, and classNames are set manually to make it look like an addon
-    <span className="__SearchBox__ ant-input-group">
+    <span className={classNames('__SearchBox__ ant-input-group', className)}>
       <span className="ant-input-group-addon">
         <SearchScopeSelectContainer />
       </span>
@@ -104,6 +104,7 @@ function SearchBox({ value, placeholder, onSearch, namespace }) {
 
 SearchBox.propTypes = {
   namespace: PropTypes.string.isRequired,
+  className: PropTypes.string,
   onSearch: PropTypes.func.isRequired,
   value: PropTypes.string,
   placeholder: PropTypes.string,

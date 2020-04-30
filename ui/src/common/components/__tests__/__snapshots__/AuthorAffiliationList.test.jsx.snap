@@ -6,19 +6,30 @@ exports[`AuthorAffiliationList renders author with multiple affiliations 1`] = `
 >
   <ul>
     <li
-      key="Affiliation1"
+      key="CERN2"
     >
-      <span>
-        Affiliation1
-      </span>
+      <AuthorAffiliation
+        affiliation={
+          Immutable.Map {
+            "value": "CERN2",
+            "record": Immutable.Map {
+              "$ref": "http://inspirehep.net/api/institutions/12345",
+            },
+          }
+        }
+      />
        and 
     </li>
     <li
-      key="Affiliation2"
+      key="CERN1"
     >
-      <span>
-        Affiliation2
-      </span>
+      <AuthorAffiliation
+        affiliation={
+          Immutable.Map {
+            "value": "CERN1",
+          }
+        }
+      />
     </li>
   </ul>
 </div>
@@ -30,11 +41,18 @@ exports[`AuthorAffiliationList renders author with one affiliation 1`] = `
 >
   <ul>
     <li
-      key="Affiliation"
+      key="CERN2"
     >
-      <span>
-        Affiliation
-      </span>
+      <AuthorAffiliation
+        affiliation={
+          Immutable.Map {
+            "value": "CERN2",
+            "record": Immutable.Map {
+              "$ref": "http://inspirehep.net/api/institutions/12345",
+            },
+          }
+        }
+      />
     </li>
   </ul>
 </div>

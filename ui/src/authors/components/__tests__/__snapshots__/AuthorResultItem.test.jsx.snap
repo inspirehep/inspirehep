@@ -28,8 +28,14 @@ exports[`AuthorResultItem renders full author result 1`] = `
     <AuthorAffiliationList
       affiliations={
         Immutable.List [
-          "CERN",
-          "CERN3",
+          Immutable.Map {
+            "institution": "CERN",
+            "current": "true",
+          },
+          Immutable.Map {
+            "institution": "CERN3",
+            "current": "true",
+          },
         ]
       }
     />
