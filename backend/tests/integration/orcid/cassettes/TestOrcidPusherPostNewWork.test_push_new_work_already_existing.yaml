@@ -1,7 +1,7 @@
 interactions:
 - request:
-    body: "<work:work xmlns:common=\"http://www.orcid.org/ns/common\" xmlns:work=\"\
-      http://www.orcid.org/ns/work\"><work:title><common:title>Some Results Arising\
+    body: "<work:work xmlns:work=\"http://www.orcid.org/ns/work\" xmlns:common=\"\
+      http://www.orcid.org/ns/common\"><work:title><common:title>Some Results Arising\
       \ from the Study of ORCID push</common:title></work:title><work:citation><work:citation-type>bibtex</work:citation-type><work:citation-value>@article{45,\n\
       \    author = \"Rossoni, A.\",\n    doi = \"10.1111/test.orcid.push\",\n   \
       \ month = \"5\",\n    title = \"{Some Results Arising from the Study of ORCID\
@@ -24,7 +24,7 @@ interactions:
     body:
       string: '{"response-code":409,"developer-message":"409 Conflict: You have already
         added this activity (matched by external identifiers), please see element
-        with put-code 71114492. If you are trying to edit the item, please use PUT
+        with put-code 73086013. If you are trying to edit the item, please use PUT
         instead of POST.","user-message":"There was an error when updating the record.
         Please try again. If the error persists, please contact INSPIRE-HEP for assistance.","error-code":9021,"more-info":"https://members.orcid.org/api/resources/troubleshooting"}'
     headers:
@@ -39,7 +39,7 @@ interactions:
       Content-Type:
       - application/orcid+json; qs=2;charset=UTF-8
       Date:
-      - Thu, 26 Mar 2020 15:06:23 GMT
+      - Wed, 29 Apr 2020 15:08:27 GMT
       Expires:
       - '0'
       Pragma:
@@ -68,8 +68,8 @@ interactions:
     uri: https://api.orcid.org/v2.0/0000-0003-1134-6827/works
   response:
     body:
-      string: "{\n  \"last-modified-date\" : {\n    \"value\" : 1585235178756\n  },\n\
-        \  \"group\" : [ {\n    \"last-modified-date\" : {\n      \"value\" : 1585235178756\n\
+      string: "{\n  \"last-modified-date\" : {\n    \"value\" : 1588172903233\n  },\n\
+        \  \"group\" : [ {\n    \"last-modified-date\" : {\n      \"value\" : 1588172903233\n\
         \    },\n    \"external-ids\" : {\n      \"external-id\" : [ {\n        \"\
         external-id-type\" : \"other-id\",\n        \"external-id-value\" : \"45\"\
         ,\n        \"external-id-url\" : {\n          \"value\" : \"http://inspirehep.net/record/45\"\
@@ -78,9 +78,9 @@ interactions:
         \ \"10.1111/test.orcid.push\",\n        \"external-id-url\" : {\n        \
         \  \"value\" : \"http://dx.doi.org/10.1111/test.orcid.push\"\n        },\n\
         \        \"external-id-relationship\" : \"SELF\"\n      } ]\n    },\n    \"\
-        work-summary\" : [ {\n      \"put-code\" : 71114492,\n      \"created-date\"\
-        \ : {\n        \"value\" : 1585235178756\n      },\n      \"last-modified-date\"\
-        \ : {\n        \"value\" : 1585235178756\n      },\n      \"source\" : {\n\
+        work-summary\" : [ {\n      \"put-code\" : 73086013,\n      \"created-date\"\
+        \ : {\n        \"value\" : 1588172903233\n      },\n      \"last-modified-date\"\
+        \ : {\n        \"value\" : 1588172903233\n      },\n      \"source\" : {\n\
         \        \"source-orcid\" : null,\n        \"source-client-id\" : {\n    \
         \      \"uri\" : \"http://orcid.org/client/0000-0001-8607-8906\",\n      \
         \    \"path\" : \"0000-0001-8607-8906\",\n          \"host\" : \"orcid.org\"\
@@ -97,7 +97,7 @@ interactions:
         external-id-url\" : {\n            \"value\" : \"http://dx.doi.org/10.1111/test.orcid.push\"\
         \n          },\n          \"external-id-relationship\" : \"SELF\"\n      \
         \  } ]\n      },\n      \"type\" : \"JOURNAL_ARTICLE\",\n      \"publication-date\"\
-        \ : null,\n      \"visibility\" : \"PUBLIC\",\n      \"path\" : \"/0000-0003-1134-6827/work/71114492\"\
+        \ : null,\n      \"visibility\" : \"PUBLIC\",\n      \"path\" : \"/0000-0003-1134-6827/work/73086013\"\
         ,\n      \"display-index\" : \"0\"\n    } ]\n  } ],\n  \"path\" : \"/0000-0003-1134-6827/works\"\
         \n}"
     headers:
@@ -110,7 +110,7 @@ interactions:
       Content-Type:
       - application/orcid+json; qs=2;charset=UTF-8
       Date:
-      - Thu, 26 Mar 2020 15:06:23 GMT
+      - Wed, 29 Apr 2020 15:08:28 GMT
       Expires:
       - '0'
       Pragma:
@@ -131,8 +131,8 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: "<work:work xmlns:common=\"http://www.orcid.org/ns/common\" xmlns:work=\"\
-      http://www.orcid.org/ns/work\" put-code=\"71114492\"><work:title><common:title>Some\
+    body: "<work:work xmlns:work=\"http://www.orcid.org/ns/work\" xmlns:common=\"\
+      http://www.orcid.org/ns/common\" put-code=\"73086013\"><work:title><common:title>Some\
       \ Results Arising from the Study of ORCID push</common:title></work:title><work:citation><work:citation-type>bibtex</work:citation-type><work:citation-value>@article{45,\n\
       \    author = \"Rossoni, A.\",\n    doi = \"10.1111/test.orcid.push\",\n   \
       \ month = \"5\",\n    title = \"{Some Results Arising from the Study of ORCID\
@@ -150,16 +150,16 @@ interactions:
       Content-Type:
       - application/orcid+xml
     method: PUT
-    uri: https://api.orcid.org/v2.0/0000-0003-1134-6827/work/71114492
+    uri: https://api.orcid.org/v2.0/0000-0003-1134-6827/work/73086013
   response:
     body:
-      string: "{\n  \"created-date\" : {\n    \"value\" : 1585235178756\n  },\n  \"\
-        last-modified-date\" : {\n    \"value\" : 1585235178756\n  },\n  \"source\"\
+      string: "{\n  \"created-date\" : {\n    \"value\" : 1588172903233\n  },\n  \"\
+        last-modified-date\" : {\n    \"value\" : 1588172903233\n  },\n  \"source\"\
         \ : {\n    \"source-orcid\" : null,\n    \"source-client-id\" : {\n      \"\
         uri\" : \"http://orcid.org/client/0000-0001-8607-8906\",\n      \"path\" :\
         \ \"0000-0001-8607-8906\",\n      \"host\" : \"orcid.org\"\n    },\n    \"\
         source-name\" : {\n      \"value\" : \"INSPIRE-HEP\"\n    }\n  },\n  \"put-code\"\
-        \ : 71114492,\n  \"path\" : null,\n  \"title\" : {\n    \"title\" : {\n  \
+        \ : 73086013,\n  \"path\" : null,\n  \"title\" : {\n    \"title\" : {\n  \
         \    \"value\" : \"Some Results Arising from the Study of ORCID push\"\n \
         \   },\n    \"subtitle\" : null,\n    \"translated-title\" : null\n  },\n\
         \  \"journal-title\" : null,\n  \"short-description\" : null,\n  \"citation\"\
@@ -192,7 +192,7 @@ interactions:
       Content-Type:
       - application/orcid+json; qs=2;charset=UTF-8
       Date:
-      - Thu, 26 Mar 2020 15:06:24 GMT
+      - Wed, 29 Apr 2020 15:08:28 GMT
       Expires:
       - '0'
       Pragma:

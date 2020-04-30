@@ -469,7 +469,7 @@ class TestOrcidPusherDuplicatedIdentifier(TestOrcidPusherBase):
             self.factory_clashing.record_metadata.json["deleted"] = True
 
             with pytest.raises(exceptions.DuplicatedExternalIdentifierPusherException):
-                tasks.orcid_push.apply_async(
+                tasks.orcid_push.apply(
                     queue="orcid_push_legacy_tokens",
                     kwargs={
                         "orcid": self.orcid,

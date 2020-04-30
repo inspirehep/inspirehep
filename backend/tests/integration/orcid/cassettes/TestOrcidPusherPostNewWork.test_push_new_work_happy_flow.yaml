@@ -24,7 +24,7 @@ interactions:
       Content-Type:
       - application/orcid+json; qs=2;charset=UTF-8
       Date:
-      - Thu, 26 Mar 2020 15:06:17 GMT
+      - Wed, 29 Apr 2020 15:08:21 GMT
       Expires:
       - '0'
       Pragma:
@@ -69,7 +69,7 @@ interactions:
       Content-Type:
       - application/orcid+json; qs=2;charset=UTF-8
       Date:
-      - Thu, 26 Mar 2020 15:06:17 GMT
+      - Wed, 29 Apr 2020 15:08:22 GMT
       Expires:
       - '0'
       Pragma:
@@ -90,8 +90,8 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: "<work:work xmlns:common=\"http://www.orcid.org/ns/common\" xmlns:work=\"\
-      http://www.orcid.org/ns/work\"><work:title><common:title>Some Results Arising\
+    body: "<work:work xmlns:work=\"http://www.orcid.org/ns/work\" xmlns:common=\"\
+      http://www.orcid.org/ns/common\"><work:title><common:title>Some Results Arising\
       \ from the Study of ORCID push</common:title></work:title><work:citation><work:citation-type>bibtex</work:citation-type><work:citation-value>@article{45,\n\
       \    author = \"Rossoni, A.\",\n    doi = \"10.1111/test.orcid.push\",\n   \
       \ month = \"5\",\n    title = \"{Some Results Arising from the Study of ORCID\
@@ -125,11 +125,11 @@ interactions:
       Content-Type:
       - application/orcid+json; qs=2;charset=UTF-8
       Date:
-      - Thu, 26 Mar 2020 15:06:18 GMT
+      - Wed, 29 Apr 2020 15:08:23 GMT
       Expires:
       - '0'
       Location:
-      - http://api.orcid.org/v2.0/0000-0003-1134-6827/work/71114492
+      - http://api.orcid.org/v2.0/0000-0003-1134-6827/work/73086013
       Pragma:
       - no-cache
       Server:
