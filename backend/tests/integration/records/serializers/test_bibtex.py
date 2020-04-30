@@ -64,7 +64,7 @@ def test_bibtex_returns_all_expected_fields_for_conference_papers(
     record_control_number = record["control_number"]
 
     expected_status_code = 200
-    expected_result = '@inproceedings{Smith:2019abc,\n    author = "Rossi, Maria",\n    editor = "Smith, John",\n    booktitle = "{This is the parent conference title}",\n    title = "{This is a conference paper title}"\n}\n'
+    expected_result = '@inproceedings{Smith:2019abc,\n    author = "Rossi, Maria",\n    editor = "Smith, John",\n    title = "{This is a conference paper title}",\n    booktitle = "{This is the parent conference title}"\n}\n'
     response = api_client.get(
         "/literature/{}".format(record_control_number), headers=headers
     )
@@ -109,7 +109,7 @@ def test_bibtex_returns_all_expected_fields_for_book_chapters(
     record_control_number = record["control_number"]
 
     expected_status_code = 200
-    expected_result = '@inbook{Smith:2019abc,\n    author = "Rossi, Maria",\n    editor = "Smith, John",\n    booktitle = "{This is the parent book title}",\n    title = "{This is a book chapter title}"\n}\n'
+    expected_result = '@inbook{Smith:2019abc,\n    author = "Rossi, Maria",\n    editor = "Smith, John",\n    title = "{This is a book chapter title}",\n    booktitle = "{This is the parent book title}"\n}\n'
     response = api_client.get(
         "/literature/{}".format(record_control_number), headers=headers
     )
