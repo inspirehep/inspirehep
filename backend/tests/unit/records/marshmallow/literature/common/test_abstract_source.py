@@ -15,9 +15,15 @@ from inspirehep.records.marshmallow.literature import LiteratureElasticSearchSch
 
 
 @mock.patch(
+    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_referenced_authors_bais",
+    return_value=[],
+)
+@mock.patch(
     ("inspirehep.records.api.literature.LiteratureRecord.get_es_linked_references")
 )
-def test_abstract_source_full(mockget_linked_records_from_dict_field):
+def test_abstract_source_full(
+    mockget_linked_records_from_dict_field, mock_referenced_authors
+):
     schema = LiteratureElasticSearchSchema
     data = {
         "abstracts": [
@@ -42,9 +48,15 @@ def test_abstract_source_full(mockget_linked_records_from_dict_field):
 
 
 @mock.patch(
+    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_referenced_authors_bais",
+    return_value=[],
+)
+@mock.patch(
     ("inspirehep.records.api.literature.LiteratureRecord.get_es_linked_references")
 )
-def test_abstract_source_one_missing_source(mockget_linked_records_from_dict_field):
+def test_abstract_source_one_missing_source(
+    mockget_linked_records_from_dict_field, mock_referenced_authors
+):
     schema = LiteratureElasticSearchSchema
     data = {
         "abstracts": [
@@ -67,9 +79,15 @@ def test_abstract_source_one_missing_source(mockget_linked_records_from_dict_fie
 
 
 @mock.patch(
+    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_referenced_authors_bais",
+    return_value=[],
+)
+@mock.patch(
     ("inspirehep.records.api.literature.LiteratureRecord.get_es_linked_references")
 )
-def test_abstract_source_missing(mockget_linked_records_from_dict_field):
+def test_abstract_source_missing(
+    mockget_linked_records_from_dict_field, mock_referenced_authors
+):
     schema = LiteratureElasticSearchSchema
 
     record = faker.record("lit")
@@ -78,9 +96,15 @@ def test_abstract_source_missing(mockget_linked_records_from_dict_field):
 
 
 @mock.patch(
+    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_referenced_authors_bais",
+    return_value=[],
+)
+@mock.patch(
     ("inspirehep.records.api.literature.LiteratureRecord.get_es_linked_references")
 )
-def test_abstract_source_one_only(mockget_linked_records_from_dict_field):
+def test_abstract_source_one_only(
+    mockget_linked_records_from_dict_field, mock_referenced_authors
+):
     schema = LiteratureElasticSearchSchema
     data = {
         "abstracts": [

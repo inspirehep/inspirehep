@@ -12,6 +12,10 @@ from inspirehep.records.api import LiteratureRecord
 
 
 @mock.patch(
+    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_referenced_authors_bais",
+    return_value=[],
+)
+@mock.patch(
     "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_bibtex_display"
 )
 @mock.patch(
@@ -34,6 +38,7 @@ def test_indexer_prepare_record(
     mock_latex_us_display,
     mock_latex_eu_display,
     mock_bibtex_display,
+    mock_referenced_authors,
 ):
     query_mock.return_value.filter_by.return_value.count.return_value = 1
     query_mock.return_value.filter_by.return_value.filter.return_value.count.return_value = (
