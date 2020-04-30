@@ -34,7 +34,13 @@ from inspirehep.records.api import InspireRecord
 
 
 @pytest.fixture(scope="module")
-def app_config(app_config):
+def instance_path():
+    """Override pytest-invenio fixture creating a temp dir."""
+    return
+
+
+@pytest.fixture(scope="module")
+def app_config(instance_path, app_config):
     # add extra global config if you would like to customize the config
     # for a specific test you can chagne create fixture per-directory
     # using ``conftest.py`` or per-file.
