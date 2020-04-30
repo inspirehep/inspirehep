@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Field, Form } from 'formik';
-import { Col, Row } from 'antd';
+import { Row } from 'antd';
 
 import ExternalLink from '../../../common/components/ExternalLink';
 import TextField from '../../common/components/TextField';
@@ -17,6 +17,7 @@ import StatusFieldContainer from '../containers/StatusFieldContainer';
 import { isValidDeadlineDate } from '../schemas/job';
 import FieldInfoAlert from '../../common/components/FieldInfoAlert';
 import { POST_DOC_RANK_VALUE } from '../../../common/constants';
+import ContactsField from '../../common/components/ContactsField';
 
 class JobForm extends Component {
   static isInvalidDeadlineDate(date) {
@@ -143,38 +144,7 @@ class JobForm extends Component {
           disabledDate={JobForm.isInvalidDeadlineDate}
           component={DateField}
         />
-        <ArrayOf
-          values={values}
-          label="* Contact Details"
-          name="contacts"
-          emptyItem={{}}
-          renderItem={itemName => (
-            <Row type="flex" justify="space-between">
-              <Col span={11}>
-                <Field
-                  onlyChild
-                  recordFieldPath={`${itemName}.record`}
-                  name={`${itemName}.name`}
-                  placeholder="Name"
-                  pidType="authors"
-                  suggesterName="author"
-                  extractItemCompletionValue={
-                    JobForm.getSuggestionSourceNameValue
-                  }
-                  component={SuggesterField}
-                />
-              </Col>
-              <Col span={11}>
-                <Field
-                  onlyChild
-                  name={`${itemName}.email`}
-                  placeholder="Email"
-                  component={TextField}
-                />
-              </Col>
-            </Row>
-          )}
-        />
+        <ContactsField label="* Contact Details" />
         <ArrayOf
           values={values}
           name="reference_letters"

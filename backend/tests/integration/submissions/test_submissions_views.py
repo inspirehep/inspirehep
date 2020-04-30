@@ -15,7 +15,7 @@ from invenio_accounts.testutils import login_user_via_session
 from mock import patch
 
 from inspirehep.accounts.roles import Roles
-from inspirehep.records.api import ConferencesRecord, JobsRecord
+from inspirehep.records.api import ConferencesRecord, JobsRecord, SeminarsRecord
 from inspirehep.submissions.views import AuthorSubmissionsResource
 
 
@@ -1233,3 +1233,234 @@ def test_conference_raise_loader_error(ticket_mock, api_client, db, create_user)
         data=json.dumps({"data": DATA}),
     )
     assert response.status_code == 400
+
+
+SEMINAR_RECORD_DATA = {
+    "title": {"title": "The Cool Seminar"},
+    "public_notes": [{"value": "A public note"}],
+    "series": [{"name": "A seminar serie", "number": 1}],
+    "contact_details": [
+        {
+            "curated_relation": False,
+            "email": "contact1@example",
+            "name": "Contact 1",
+            "record": {"$ref": "http://authors/1"},
+        },
+        {"email": "contact2@example"},
+    ],
+    "inspire_categories": [{"term": "Accelerators"}, {"term": "Math and Math Physics"}],
+    "address": {"cities": ["Geneva"], "country_code": "CH"},
+    "speakers": [
+        {"name": "Urhan, Ahmet", "record": {"$ref": "http://authors/ahmet"}},
+        {
+            "name": "Urhan, Harun",
+            "affiliations": [
+                {"value": "CERN", "record": {"$ref": "http://institutions/cern"}}
+            ],
+            "record": {"$ref": "http://authors/harun"},
+        },
+    ],
+    "join_urls": [
+        {"description": "primary", "value": "http://example.com/join/1"},
+        {"value": "http://example.com/join/2"},
+    ],
+    "end_datetime": "2020-05-06T16:30:00.000000",
+    "start_datetime": "2020-05-06T10:30:00.000000",
+    "timezone": "Europe/Zurich",
+}
+
+SEMINAR_FORM_DATA = {
+    "name": "The Cool Seminar",
+    "timezone": "Europe/Zurich",
+    "dates": ["2020-05-06 08:30 AM", "2020-05-06 02:30 PM"],
+    "join_urls": SEMINAR_RECORD_DATA["join_urls"],
+    "speakers": [
+        {"name": "Urhan, Ahmet", "record": {"$ref": "http://authors/ahmet"}},
+        {
+            "name": "Urhan, Harun",
+            "affiliation": "CERN",
+            "affiliation_record": {"$ref": "http://institutions/cern"},
+            "record": {"$ref": "http://authors/harun"},
+        },
+    ],
+    "address": {"city": "Geneva", "country": "Switzerland"},
+    "field_of_interest": ["Accelerators", "Math and Math Physics"],
+    "contacts": SEMINAR_RECORD_DATA["contact_details"],
+    "series_name": "A seminar serie",
+    "series_number": 1,
+    "additional_info": "A public note",
+}
+
+
+def test_get_seminar_update_data(api_client, db, create_user, create_record_factory):
+    user = create_user()
+    login_user_via_session(api_client, email=user.email)
+
+    seminar_data = {"control_number": 123, **SEMINAR_RECORD_DATA}
+    create_record_factory("sem", data=seminar_data)
+    expected_data = {"data": SEMINAR_FORM_DATA}
+    response = api_client.get(
+        "/submissions/seminars/123", headers={"Accept": "application/json"}
+    )
+    response_data = json.loads(response.data)
+
+    assert response_data == expected_data
+
+
+def test_get_seminar_update_data_not_found(api_client, db, create_user):
+    user = create_user()
+    login_user_via_session(api_client, email=user.email)
+
+    response = api_client.get(
+        "/submissions/seminars/1993", headers={"Accept": "application/json"}
+    )
+
+    assert response.status_code == 404
+
+
+def test_get_seminar_update_data_requires_auth(api_client):
+    response = api_client.get(
+        "/submissions/seminars/1993", headers={"Accept": "application/json"}
+    )
+
+    assert response.status_code == 401
+
+
+def test_new_seminar_submission(api_client, db, create_user):
+    orcid = "0000-0001-5109-3700"
+    user = create_user(orcid=orcid)
+    login_user_via_session(api_client, email=user.email)
+
+    form_data = deepcopy(SEMINAR_FORM_DATA)
+
+    response = api_client.post(
+        "/submissions/seminars",
+        content_type="application/json",
+        data=json.dumps({"data": form_data}),
+    )
+
+    assert response.status_code == 201
+
+    payload = json.loads(response.data)
+    seminar_id = payload["pid_value"]
+    seminar_record = SeminarsRecord.get_record_by_pid_value(seminar_id)
+    seminar_record_data = {
+        key: value
+        for (key, value) in seminar_record.items()
+        if key in SEMINAR_RECORD_DATA
+    }
+    assert seminar_record_data == SEMINAR_RECORD_DATA
+    assert get_value(seminar_record, 'acquisition_source.orcid') == orcid
+
+
+def test_seminar_update_submission(api_client, db, create_user, create_record_factory):
+    orcid = "0000-0001-5109-3700"
+    user = create_user(orcid=orcid)
+    login_user_via_session(api_client, email=user.email)
+
+    seminar_data = {
+        "control_number": 123,
+        "acquisition_source": {"orcid": orcid},
+        **SEMINAR_RECORD_DATA,
+    }
+    create_record_factory("sem", data=seminar_data)
+
+    form_data = deepcopy({**SEMINAR_FORM_DATA, "name": "New name"})
+    form_data.pop("address")
+
+    expected_record_data = {**SEMINAR_RECORD_DATA, "title": {"title": "New name"}}
+    expected_record_data.pop("address")
+
+    response = api_client.put(
+        "/submissions/seminars/123",
+        content_type="application/json",
+        data=json.dumps({"data": form_data}),
+    )
+    assert response.status_code == 200
+
+    payload = json.loads(response.data)
+    seminar_id = payload["pid_value"]
+    seminar_record = SeminarsRecord.get_record_by_pid_value(seminar_id)
+    seminar_record_data = {
+        key: value
+        for (key, value) in seminar_record.items()
+        if key in SEMINAR_RECORD_DATA
+    }
+    assert seminar_record_data == expected_record_data
+
+
+def test_seminar_update_submission_with_cataloger_login(api_client, db, create_user, create_record_factory):
+    cataloger = create_user(role=Roles.cataloger.value, orcid="0000-0002-6665-4934")
+    login_user_via_session(api_client, email=cataloger.email)
+    orcid = "0000-0001-5109-3700"
+
+    seminar_data = {
+        "control_number": 123,
+        "acquisition_source": {"orcid": orcid},
+        **SEMINAR_RECORD_DATA,
+    }
+    create_record_factory("sem", data=seminar_data)
+
+    form_data = deepcopy({**SEMINAR_FORM_DATA, "name": "New name"})
+    form_data.pop("address")
+
+    expected_record_data = {**SEMINAR_RECORD_DATA, "title": {"title": "New name"}}
+    expected_record_data.pop("address")
+
+    response = api_client.put(
+        "/submissions/seminars/123",
+        content_type="application/json",
+        data=json.dumps({"data": form_data}),
+    )
+    assert response.status_code == 200
+
+    payload = json.loads(response.data)
+    seminar_id = payload["pid_value"]
+    seminar_record = SeminarsRecord.get_record_by_pid_value(seminar_id)
+    seminar_record_data = {
+        key: value
+        for (key, value) in seminar_record.items()
+        if key in SEMINAR_RECORD_DATA
+    }
+    assert seminar_record_data == expected_record_data
+    # cataloger's orcid shouldn't override the original submitter's
+    assert get_value(seminar_record, 'acquisition_source.orcid') == orcid
+
+
+def test_seminar_update_submission_without_login(api_client, db, create_record_factory):
+    seminar_data = {
+        "control_number": 123,
+        "acquisition_source": {"orcid": "0000-0001-5109-3700"},
+        **SEMINAR_RECORD_DATA,
+    }
+    create_record_factory("sem", data=seminar_data)
+
+    form_data = deepcopy({**SEMINAR_FORM_DATA, "name": "New name"})
+
+    response = api_client.put(
+        "/submissions/seminars/123",
+        content_type="application/json",
+        data=json.dumps({"data": form_data}),
+    )
+    assert response.status_code == 401
+
+
+def test_seminar_update_submission_with_different_user(api_client, db, create_user, create_record_factory):
+    user = create_user()
+    login_user_via_session(api_client, email=user.email)
+
+    seminar_data = {
+        "control_number": 123,
+        "acquisition_source": {"orcid": "0000-0001-5109-3700"},
+        **SEMINAR_RECORD_DATA,
+    }
+    create_record_factory("sem", data=seminar_data)
+
+    form_data = deepcopy({**SEMINAR_FORM_DATA, "name": "New name"})
+
+    response = api_client.put(
+        "/submissions/seminars/123",
+        content_type="application/json",
+        data=json.dumps({"data": form_data}),
+    )
+    assert response.status_code == 403

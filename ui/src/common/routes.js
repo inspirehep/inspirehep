@@ -35,6 +35,7 @@ export const SUBMISSIONS_AUTHOR = `${SUBMISSIONS}/authors`;
 export const SUBMISSIONS_LITERATURE = `${SUBMISSIONS}/literature`;
 export const SUBMISSIONS_JOB = `${SUBMISSIONS}/jobs`;
 export const SUBMISSIONS_CONFERENCE = `${SUBMISSIONS}/conferences`;
+export const SUBMISSIONS_SEMINAR = `${SUBMISSIONS}/seminars`;
 export const SUBMISSION_SUCCESS = `${SUBMISSIONS}/success`;
 
 export const EDIT_LITERATURE = '/workflows/edit_article';

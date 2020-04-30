@@ -4,10 +4,11 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-import pycountry
 import structlog
 from inspire_utils.name import ParsedName
 from inspire_utils.record import get_value, get_values_for_schema
+
+from inspirehep.records.utils import country_code_to_name
 
 LOGGER = structlog.getLogger()
 
@@ -37,8 +38,7 @@ def get_adresses_with_country(record):
     for address in addresses:
         if "country_code" in address:
             try:
-                country = pycountry.countries.get(alpha_2=address["country_code"])
-                address["country"] = getattr(country, "common_name", country.name)
+                address["country"] = country_code_to_name(address["country_code"])
             except KeyError:
                 LOGGER.warning(
                     "Wrong Country code",

@@ -11,10 +11,10 @@ function joinPaths(...paths) {
   return paths.filter(path => path != null).join('.');
 }
 
-async function fillDateInputElement(element, dateValue) {
+async function fillDateInputElement(elementHandle, dateValue, format = DATE_FORMAT) {
   const dateMoment = moment(dateValue);
-  const formattedDate = dateMoment.format(DATE_FORMAT);
-  await element.type(formattedDate);
+  const formattedDate = dateMoment.format(format);
+  await elementHandle.type(formattedDate);
 }
 
 class FormSubmitter {
@@ -184,13 +184,20 @@ class FormSubmitter {
   async fillDateRangeField(path, [startDate, endDate]) {
     const fieldSelector = `[${ID_ATTRIBUTE}="${path}"]`;
     const inputsSelector = `${fieldSelector} input`;
+    const dateFormat = await this.page.$eval(
+      fieldSelector,
+      (fieldEl) => fieldEl.getAttribute('data-test-format'),
+    );
   
     const [startDateInputElement, endDateInputElement] = await this.page.$$(inputsSelector);
 
-    await fillDateInputElement(startDateInputElement, startDate);
-    await fillDateInputElement(endDateInputElement, endDate);
+    await fillDateInputElement(startDateInputElement, startDate, dateFormat);
+    await startDateInputElement.press('Enter');
 
+
+    await fillDateInputElement(endDateInputElement, endDate, dateFormat);
     await endDateInputElement.press('Enter');
+
   }
 
   async fillRichTextField(path, value) {

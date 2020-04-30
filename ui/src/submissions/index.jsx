@@ -8,6 +8,7 @@ import {
   SUBMISSIONS_LITERATURE,
   SUBMISSIONS_CONFERENCE,
   SUBMISSION_SUCCESS,
+  SUBMISSIONS_SEMINAR,
 } from '../common/routes';
 
 import SafeSwitch from '../common/components/SafeSwitch';
@@ -21,6 +22,8 @@ import ConferenceSubmissionPageContainer from './conferences/containers/Conferen
 import JobUpdateSubmissionSuccessPage from './jobs/components/JobUpdateSubmissionSuccessPage';
 import ConferenceSubmissionSuccessPageContainer from './conferences/containers/ConferenceSubmissionSuccessPageContainer';
 import SubmissionSuccessPage from './common/components/SubmissionSuccessPage';
+import SeminarSubmissionPageContainer from './seminars/containers/SeminarSubmissionPageContainer';
+import SeminarUpdateSubmissionPageContainer from './seminars/containers/SeminarUpdateSubmissionPageContainer';
 
 class Submissions extends Component {
   render() {
@@ -61,6 +64,16 @@ class Submissions extends Component {
               path={SUBMISSIONS_CONFERENCE}
               component={ConferenceSubmissionPageContainer}
             />
+            <Route
+              exact
+              path={SUBMISSIONS_SEMINAR}
+              component={SeminarSubmissionPageContainer}
+            />
+            <Route
+              exact
+              path={`${SUBMISSIONS_SEMINAR}/:id`}
+              component={SeminarUpdateSubmissionPageContainer}
+            />
             <Redirect
               exact
               from={`${SUBMISSIONS_AUTHOR}/:id/success`}
@@ -69,6 +82,16 @@ class Submissions extends Component {
             <Redirect
               exact
               from={`${SUBMISSIONS_AUTHOR}/new/success`}
+              to={SUBMISSION_SUCCESS}
+            />
+            <Redirect
+              exact
+              from={`${SUBMISSIONS_SEMINAR}/:id/success`}
+              to={SUBMISSION_SUCCESS}
+            />
+            <Redirect
+              exact
+              from={`${SUBMISSIONS_SEMINAR}/new/success`}
               to={SUBMISSION_SUCCESS}
             />
             <Redirect

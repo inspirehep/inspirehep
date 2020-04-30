@@ -1,8 +1,10 @@
 import { string, object, array, date, number } from 'yup';
 
-import { countryValues } from './constants';
-import { inspireCategoryValues } from '../../common/schemas/constants';
-import emptyObjectOrShapeOf from '../../common/schemas/emptyObjectOrShapeOf';
+import {
+  inspireCategoryValues,
+  countryValues,
+} from '../../common/schemas/constants';
+import contacts from '../../common/schemas/contacts';
 
 const conferenceSchema = object().shape({
   name: string()
@@ -52,20 +54,7 @@ const conferenceSchema = object().shape({
         .url()
         .label('Website')
     ),
-  contacts: array()
-    .default([{}])
-    .of(
-      emptyObjectOrShapeOf({
-        name: string()
-          .trim()
-          .required()
-          .label('Contact name'),
-        email: string()
-          .email()
-          .required()
-          .label('Contact email'),
-      })
-    ),
+  contacts: contacts(),
   description: string(),
   additional_info: string(),
   keywords: array()

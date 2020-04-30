@@ -13,7 +13,8 @@ import structlog
 from flask import Blueprint, abort, current_app, jsonify, request, url_for
 from flask.views import MethodView
 from flask_login import current_user
-from inspire_schemas.builders import JobBuilder
+from inspire_schemas.builders import JobBuilder, SeminarBuilder
+from inspire_utils.record import get_value
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
 from jsonschema import SchemaError, ValidationError
@@ -24,16 +25,23 @@ from inspirehep.accounts.api import (
 )
 from inspirehep.accounts.decorators import login_required_with_roles
 from inspirehep.mailing.api.conferences import send_conference_confirmation_email
-from inspirehep.records.api import AuthorsRecord, ConferencesRecord, JobsRecord
+from inspirehep.records.api import (
+    AuthorsRecord,
+    ConferencesRecord,
+    JobsRecord,
+    SeminarsRecord,
+)
 from inspirehep.submissions.errors import RESTDataError
 from inspirehep.utils import get_inspirehep_url
 
 from .errors import WorkflowStartError
-from .loaders import author_v1 as authors_loader_v1
+from .loaders import author_v1 as author_loader_v1
 from .loaders import conference_v1 as conference_loader_v1
 from .loaders import job_v1 as job_loader_v1
 from .loaders import literature_v1 as literature_loader_v1
+from .loaders import seminar_v1 as seminar_loader_v1
 from .serializers import author_v1, job_v1
+from .serializers import seminar_v1 as seminar_serializer_v1
 from .tasks import async_create_ticket_with_template
 from .utils import has_30_days_passed_after_deadline
 
@@ -98,7 +106,7 @@ class AuthorSubmissionsResource(BaseSubmissionsResource):
         return self.start_workflow_for_submission(pid_value)
 
     def load_data_from_request(self):
-        return authors_loader_v1()
+        return author_loader_v1()
 
     def start_workflow_for_submission(self, control_number=None):
         submission_data = self.load_data_from_request()
@@ -156,6 +164,74 @@ class ConferenceSubmissionsResource(BaseSubmissionsResource):
             f"New Conference Submission {control_number}.",
             control_number,
         )
+
+
+class SeminarSubmissionsResource(BaseSubmissionsResource):
+    def post(self):
+        """Adds new conference record"""
+
+        data = self.load_data_from_request()
+
+        data["acquisition_source"] = self.get_acquisition_source()
+        record = SeminarsRecord.create(data)
+        db.session.commit()
+        return (jsonify({"pid_value": record["control_number"]}), 201)
+
+    def get(self, pid_value):
+        try:
+            record = SeminarsRecord.get_record_by_pid_value(pid_value)
+        except PIDDoesNotExistError:
+            abort(404)
+
+        serialized_record = seminar_serializer_v1.dump(record)
+
+        return jsonify({"data": serialized_record})
+
+    def put(self, pid_value):
+        try:
+            record = SeminarsRecord.get_record_by_pid_value(pid_value)
+            if not self.user_can_edit(record):
+                return (
+                    jsonify({"message": "You are not allowed to edit this seminar"}),
+                    403,
+                )
+        except PIDDoesNotExistError:
+            abort(404)
+        data = self.load_data_from_request()
+        updated_record_data = self.get_updated_record_data(data, record)
+        record.update(updated_record_data)
+        db.session.commit()
+
+        return jsonify({"pid_value": record["control_number"]})
+
+    def get_updated_record_data(self, update_data, record):
+        deletable_fields = [
+            "address",
+            "series",
+            "contact_details",
+            "urls",
+            "join_urls",
+            "abstract",
+            "keywords",
+            "public_notes",
+        ]
+
+        record_data = dict(record)
+        for field in deletable_fields:
+            if field not in update_data and field in record_data:
+                del record_data[field]
+        record_data.update(update_data)
+        return record_data
+
+    def user_can_edit(self, record):
+        submitter_orcid = get_value(record, "acquisition_source.orcid")
+        return (
+            is_superuser_or_cataloger_logged_in()
+            or submitter_orcid == get_current_user_orcid()
+        )
+
+    def load_data_from_request(self):
+        return seminar_loader_v1()
 
 
 class LiteratureSubmissionResource(BaseSubmissionsResource):
@@ -374,11 +450,12 @@ blueprint.add_url_rule(
     '/jobs/<pid(job,record_class="inspirehep.records.api.JobsRecord"):pid_value>',
     view_func=job_submission_view,
 )
+
+seminar_submission_view = SeminarSubmissionsResource.as_view("seminar_submission_view")
+blueprint.add_url_rule("/seminars", view_func=seminar_submission_view)
+blueprint.add_url_rule("/seminars/<int:pid_value>", view_func=seminar_submission_view)
+
 conference_submission_view = ConferenceSubmissionsResource.as_view(
     "conference_submissions_view"
 )
 blueprint.add_url_rule("/conferences", view_func=conference_submission_view)
-blueprint.add_url_rule(
-    '/conferences/<pid(conference,record_class="inspirehep.records.api.ConferencesRecord"):pid_value>',
-    view_func=conference_submission_view,
-)
