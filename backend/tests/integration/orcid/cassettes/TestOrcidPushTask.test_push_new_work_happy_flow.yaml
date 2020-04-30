@@ -3,9 +3,9 @@ interactions:
     body: "<work:work xmlns:work=\"http://www.orcid.org/ns/work\" xmlns:common=\"\
       http://www.orcid.org/ns/common\"><work:title><common:title>Some Results Arising\
       \ from the Study of ORCID push</common:title></work:title><work:citation><work:citation-type>bibtex</work:citation-type><work:citation-value>@article{45,\n\
-      \    author = \"Rossoni, A.\",\n    doi = \"10.1000/test.orcid.push\",\n   \
-      \ month = \"5\",\n    title = \"{Some Results Arising from the Study of ORCID\
-      \ push}\",\n    year = \"2017\"\n}\n</work:citation-value></work:citation><work:type>journal-article</work:type><common:external-ids><common:external-id><common:external-id-type>other-id</common:external-id-type><common:external-id-value>45</common:external-id-value><common:external-id-url>http://inspirehep.net/record/45</common:external-id-url><common:external-id-relationship>self</common:external-id-relationship></common:external-id><common:external-id><common:external-id-type>doi</common:external-id-type><common:external-id-value>10.1000/test.orcid.push</common:external-id-value><common:external-id-url>http://dx.doi.org/10.1000/test.orcid.push</common:external-id-url><common:external-id-relationship>self</common:external-id-relationship></common:external-id></common:external-ids><work:url>http://inspirehep.net/record/45</work:url><work:contributors><work:contributor><work:credit-name>Rossoni,\
+      \    author = \"Rossoni, A.\",\n    title = \"{Some Results Arising from the\
+      \ Study of ORCID push}\",\n    doi = \"10.1000/test.orcid.push\",\n    month\
+      \ = \"5\",\n    year = \"2017\"\n}\n</work:citation-value></work:citation><work:type>journal-article</work:type><common:external-ids><common:external-id><common:external-id-type>other-id</common:external-id-type><common:external-id-value>45</common:external-id-value><common:external-id-url>http://inspirehep.net/record/45</common:external-id-url><common:external-id-relationship>self</common:external-id-relationship></common:external-id><common:external-id><common:external-id-type>doi</common:external-id-type><common:external-id-value>10.1000/test.orcid.push</common:external-id-value><common:external-id-url>http://dx.doi.org/10.1000/test.orcid.push</common:external-id-url><common:external-id-relationship>self</common:external-id-relationship></common:external-id></common:external-ids><work:url>http://inspirehep.net/record/45</work:url><work:contributors><work:contributor><work:credit-name>Rossoni,\
       \ A.</work:credit-name><work:contributor-attributes><work:contributor-sequence>first</work:contributor-sequence><work:contributor-role>author</work:contributor-role></work:contributor-attributes></work:contributor></work:contributors></work:work>"
     headers:
       Accept:
@@ -35,11 +35,11 @@ interactions:
       Content-Type:
       - application/orcid+json; qs=2;charset=UTF-8
       Date:
-      - Wed, 29 Apr 2020 15:29:57 GMT
+      - Thu, 30 Apr 2020 11:48:44 GMT
       Expires:
       - '0'
       Location:
-      - http://api.orcid.org/v2.0/0000-0003-1134-6827/work/73087602
+      - http://api.orcid.org/v2.0/0000-0003-1134-6827/work/73151471
       Pragma:
       - no-cache
       Server:

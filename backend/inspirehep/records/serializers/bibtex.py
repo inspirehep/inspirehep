@@ -45,96 +45,62 @@ class BibtexWriter(Writer):
 
 
 class BibTexSerializer:
-
-    COMMON_FIELDS_FOR_ENTRIES = {
-        "key",
-        "archivePrefix",
-        "collaboration",
-        "doi",
-        "eprint",
-        "month",
-        "note",
-        "primaryClass",
-        "reportNumber",
-        "title",
-        "year",
-    }
-
-    FIELDS_FOR_ENTRY_TYPE = {
-        "techreport": {"author", "number", "address", "type", "institution"},
-        "phdthesis": {"school", "address", "type", "author"},
-        "inproceedings": {
-            "publisher",
-            "author",
-            "series",
-            "booktitle",
-            "number",
-            "volume",
-            "editor",
+    # author, editor and texkey are handled separately
+    fields_and_doc_types = [
+        ("collaboration", True),
+        ("title", True),
+        ("booktitle", {"inproceedings", "inbook"}),
+        ("edition", {"book", "inbook"}),
+        ("eprint", True),
+        ("archivePrefix", True),
+        ("primaryClass", True),
+        ("reportNumber", True),
+        ("doi", True),
+        ("isbn", {"book"}),
+        ("type", {"phdthesis", "mastersthesis", "techreport", "inbook"}),
+        ("school", {"phdthesis", "mastersthesis"}),
+        ("publisher", {"book", "inproceedings", "inbook", "proceedings"}),
+        (
             "address",
-            "organization",
-            "pages",
-        },
-        "misc": {"howpublished", "author"},
-        "mastersthesis": {"school", "address", "type", "author"},
-        "proceedings": {
-            "publisher",
-            "series",
+            {
+                "inproceedings",
+                "proceedings",
+                "phdthesis",
+                "techreport",
+                "mastersthesis",
+                "inbook",
+                "book",
+            },
+        ),
+        ("series", {"book", "inproceedings", "inbook", "proceedings"}),
+        ("chapter", {"inbook"}),
+        ("journal", {"article"}),
+        ("volume", {"inproceedings", "proceedings", "article", "inbook", "book"}),
+        (
             "number",
-            "volume",
-            "editor",
-            "address",
-            "organization",
-            "pages",
-        },
-        "book": {
-            "publisher",
-            "isbn",
-            "author",
-            "series",
-            "number",
-            "volume",
-            "edition",
-            "editor",
-            "address",
-        },
-        "inbook": {
-            "chapter",
-            "publisher",
-            "author",
-            "series",
-            "booktitle",
-            "number",
-            "volume",
-            "edition",
-            "editor",
-            "address",
-            "type",
-            "pages",
-        },
-        "article": {"author", "journal", "number", "volume", "pages"},
-    }
+            {"inproceedings", "proceedings", "article", "techreport", "inbook", "book"},
+        ),
+        ("pages", {"article", "inproceedings", "inbook", "proceedings"}),
+        ("month", True),
+        ("year", True),
+        ("note", True),
+    ]
 
     def __init__(self, schema_class=BibTexCommonSchema):
         self.schema_class = schema_class()
 
     def create_bibliography_entry(self, record):
-        bibtex_document_type = self.schema_class.get_bibtex_document_type(record)
-
         data = self.schema_class.dump(record).data
         doc_type = data.pop("doc_type", None)
         texkey = data.pop("texkey", None)
         authors = [Person(person) for person in data.pop("authors_with_role_author")]
         editors = [Person(person) for person in data.pop("authors_with_role_editor")]
 
-        fields = (
-            self.COMMON_FIELDS_FOR_ENTRIES
-            | self.FIELDS_FOR_ENTRY_TYPE[bibtex_document_type]
-        )
         template_data = [
-            (key, str(value)) for key, value in data.items() if value and key in fields
+            (field, str(data[field]))
+            for (field, doc_types) in self.fields_and_doc_types
+            if data.get(field) and (doc_types is True or doc_type in doc_types)
         ]
-        template_data = sorted(template_data, key=lambda x: x[0])
 
         data_entry = Entry(
             doc_type, template_data, persons={"author": authors, "editor": editors}
