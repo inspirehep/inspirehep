@@ -1429,12 +1429,12 @@ description = "INSPIRE-specific utils."
 name = "inspire-utils"
 optional = false
 python-versions = "*"
-version = "3.0.9"
+version = "3.0.12"
 
 [package.dependencies]
 Unidecode = ">=1.0.22,<2.0"
 babel = ">=2.5.1,<3.0"
-lxml = ">=4.0.0,<5.0"
+lxml = ">=4.4.0,<5.0"
 nameparser = ">=0.5.3,<1.0"
 python-dateutil = ">=2.6.1,<3.0"
 six = ">=1.10.0,<2.0"
@@ -3970,7 +3970,7 @@ test = ["zope.event"]
 testing = ["coverage", "nose", "zope.event"]
 
 [metadata]
-content-hash = "5bd008803e0334510cb6bc1d4c1aab54b558a1e17220dedf280517981b2febdc"
+content-hash = "1ad9496b068a216a859c9b3dd3f83c2f734e9e11870745b86b3848d9c3b2e4e3"
 python-versions = ">=3.6,<3.8"
 
 [metadata.files]
@@ -4478,7 +4478,7 @@ inspire-schemas = [
 ]
 inspire-service-orcid = []
 inspire-utils = [
-    {file = "inspire-utils-3.0.9.tar.gz", hash = "sha256:e8043c35b9674d90098a7e5ebe9bff73931f7f78976a6f784a59f9ba349c9d07"},
+    {file = "inspire-utils-3.0.12.tar.gz", hash = "sha256:6b0e470bee375489f14f3389313a528fc0a04a9a4191e53b5243d47ca445c1ca"},
 ]
 intervals = [
     {file = "intervals-0.8.1.tar.gz", hash = "sha256:37921da1407a5e9384e8e1350cfb8500f8d0d69fc43d03d01a4fdc6e7a7c7166"},

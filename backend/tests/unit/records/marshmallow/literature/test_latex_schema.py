@@ -72,9 +72,16 @@ def test_authors_schema():
             {"full_name": "Smith, John"},
             {"full_name": "Black, Joe Jr."},
             {"full_name": "Jimmy"},
+            {"full_name": "Anna-Maria Elisabeth Dinkelbach"},
         ],
     }
-    expected = ["F.~Castle", "J.~Smith", "J.~Black, Jr.", "Jimmy"]
+    expected = [
+        "F.~Castle",
+        "J.~Smith",
+        "J.~Black, Jr.",
+        "Jimmy",
+        "A.~M.~E.~Dinkelbach",
+    ]
     result = json.loads(schema.dumps(record).data)
     assert expected == result["authors"]
 
