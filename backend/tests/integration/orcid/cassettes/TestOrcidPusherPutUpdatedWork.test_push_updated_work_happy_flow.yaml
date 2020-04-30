@@ -47,11 +47,11 @@ interactions:
       Content-Type:
       - application/orcid+json; qs=2;charset=UTF-8
       Date:
-      - Fri, 27 Mar 2020 11:22:05 GMT
+      - Wed, 29 Apr 2020 15:08:43 GMT
       Expires:
       - '0'
       Location:
-      - http://api.orcid.org/v2.0/0000-0003-1134-6827/work/71156708
+      - http://api.orcid.org/v2.0/0000-0003-1134-6827/work/73086116
       Pragma:
       - no-cache
       Server:
@@ -66,8 +66,8 @@ interactions:
       code: 201
       message: Created
 - request:
-    body: "<work:work xmlns:common=\"http://www.orcid.org/ns/common\" xmlns:work=\"\
-      http://www.orcid.org/ns/work\" put-code=\"71156708\"><work:title><common:title>Some\
+    body: "<work:work xmlns:work=\"http://www.orcid.org/ns/work\" xmlns:common=\"\
+      http://www.orcid.org/ns/common\" put-code=\"73086116\"><work:title><common:title>Some\
       \ Results Arising from the Study of ORCID push</common:title></work:title><work:citation><work:citation-type>bibtex</work:citation-type><work:citation-value>@article{999,\n\
       \    author = \"Rossoni, A.\",\n    doi = \"10.9999/test.orcid.push\",\n   \
       \ month = \"5\",\n    title = \"{Some Results Arising from the Study of ORCID\
@@ -85,16 +85,16 @@ interactions:
       Content-Type:
       - application/orcid+xml
     method: PUT
-    uri: https://api.orcid.org/v2.0/0000-0003-1134-6827/work/71156708
+    uri: https://api.orcid.org/v2.0/0000-0003-1134-6827/work/73086116
   response:
     body:
-      string: "{\n  \"created-date\" : {\n    \"value\" : 1585308125350\n  },\n  \"\
-        last-modified-date\" : {\n    \"value\" : 1585308127085\n  },\n  \"source\"\
+      string: "{\n  \"created-date\" : {\n    \"value\" : 1588172923398\n  },\n  \"\
+        last-modified-date\" : {\n    \"value\" : 1588172924098\n  },\n  \"source\"\
         \ : {\n    \"source-orcid\" : null,\n    \"source-client-id\" : {\n      \"\
         uri\" : \"http://orcid.org/client/0000-0001-8607-8906\",\n      \"path\" :\
         \ \"0000-0001-8607-8906\",\n      \"host\" : \"orcid.org\"\n    },\n    \"\
         source-name\" : {\n      \"value\" : \"INSPIRE-HEP\"\n    }\n  },\n  \"put-code\"\
-        \ : 71156708,\n  \"path\" : null,\n  \"title\" : {\n    \"title\" : {\n  \
+        \ : 73086116,\n  \"path\" : null,\n  \"title\" : {\n    \"title\" : {\n  \
         \    \"value\" : \"Some Results Arising from the Study of ORCID push\"\n \
         \   },\n    \"subtitle\" : null,\n    \"translated-title\" : null\n  },\n\
         \  \"journal-title\" : null,\n  \"short-description\" : null,\n  \"citation\"\
@@ -127,7 +127,7 @@ interactions:
       Content-Type:
       - application/orcid+json; qs=2;charset=UTF-8
       Date:
-      - Fri, 27 Mar 2020 11:22:07 GMT
+      - Wed, 29 Apr 2020 15:08:44 GMT
       Expires:
       - '0'
       Pragma:

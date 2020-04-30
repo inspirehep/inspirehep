@@ -19,7 +19,7 @@
 # In applying this licenseCERN does not waive the privileges and immunities
 # granted to it by virtue of its status as an Intergovernmental Organization
 # or submit itself to any jurisdiction.
-
+import io
 import json
 import os
 
@@ -29,6 +29,15 @@ from lxml import etree
 
 from inspirehep.orcid.cache import _OrcidHasher
 from inspirehep.orcid.converter import ExternalIdentifier, OrcidConverter
+
+
+def canonicalize_xml_element(element):
+    """Return a string with a canonical representation of the element.
+    """
+    element_tree = element.getroottree()
+    output_stream = io.BytesIO()
+    element_tree.write_c14n(output_stream, with_comments=False, exclusive=True)
+    return output_stream.getvalue()
 
 
 def valid_against_schema(xml):
@@ -49,9 +58,9 @@ def xml_parse(xml_string):
 
 def xml_compare(expected, result):
     """Assert two XML nodes equal."""
-    assert etree.tostring(result, pretty_print=True) == etree.tostring(
-        expected, pretty_print=True
-    )
+    result_xml_canonicalized = canonicalize_xml_element(result)
+    expected_xml_canonicalized = canonicalize_xml_element(expected)
+    assert result_xml_canonicalized == expected_xml_canonicalized
     return True
 
 

@@ -1,7 +1,7 @@
 interactions:
 - request:
-    body: "<work:work xmlns:common=\"http://www.orcid.org/ns/common\" xmlns:work=\"\
-      http://www.orcid.org/ns/work\"><work:title><common:title>Some Results Arising\
+    body: "<work:work xmlns:work=\"http://www.orcid.org/ns/work\" xmlns:common=\"\
+      http://www.orcid.org/ns/common\"><work:title><common:title>Some Results Arising\
       \ from the Study of ORCID push</common:title></work:title><work:citation><work:citation-type>bibtex</work:citation-type><work:citation-value>@article{999,\n\
       \    author = \"Rossoni, A.\",\n    doi = \"10.9999/test.orcid.push\",\n   \
       \ month = \"5\",\n    title = \"{Some Results Arising from the Study of ORCID\
@@ -34,7 +34,7 @@ interactions:
       Content-Type:
       - application/orcid+json;charset=UTF-8
       Date:
-      - Fri, 27 Mar 2020 11:22:16 GMT
+      - Wed, 29 Apr 2020 15:08:50 GMT
       Pragma:
       - no-cache
       Server:
