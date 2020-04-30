@@ -9,6 +9,7 @@ import hashlib
 from itertools import chain
 
 import numpy as np
+import pycountry
 import requests
 from beard.clustering import block_phonetic
 from flask import current_app
@@ -130,3 +131,19 @@ def get_pid_for_pid(pid_type, pid_value, provider):
 def get_ref_from_pid(pid_type, pid_value):
     """Return full $ref for record with pid_type and pid_value"""
     return get_record_ref(pid_value, PidStoreBase.get_endpoint_from_pid_type(pid_type))
+
+
+def country_code_to_name(country_code):
+    country = pycountry.countries.get(alpha_2=country_code)
+    return getattr(country, "common_name", country.name)
+
+
+def country_name_to_code(country_name):
+    try:
+        country = pycountry.countries.get(name=country_name)
+    except KeyError:
+        country = pycountry.countries.get(official_name=country_name)
+    except KeyError:
+        country = pycountry.countries.get(common_name=country_name)
+
+    return country.alpha_2 if country else None

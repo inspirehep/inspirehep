@@ -1387,7 +1387,7 @@ description = "Inspire JSON schemas and utilities to use them."
 name = "inspire-schemas"
 optional = false
 python-versions = "*"
-version = "61.2.1"
+version = "61.2.2"
 
 [package.dependencies]
 Unidecode = ">=1.0.22,<2.0"
@@ -2690,7 +2690,7 @@ version = "2.8.4"
 [[package]]
 category = "main"
 description = "Run a subprocess in a pseudo terminal"
-marker = "python_version >= \"3.4\" and sys_platform != \"win32\" or sys_platform != \"win32\""
+marker = "python_version >= \"3.4\" and sys_platform != \"win32\" or sys_platform != \"win32\" or python_version >= \"3.4\" and sys_platform != \"win32\" and (python_version >= \"3.4\" and sys_platform != \"win32\" or sys_platform != \"win32\")"
 name = "ptyprocess"
 optional = false
 python-versions = "*"
@@ -3942,7 +3942,7 @@ multidict = ">=4.0"
 [[package]]
 category = "main"
 description = "Backport of pathlib-compatible object wrapper for zip files"
-marker = "python_version < \"3.8\" or python_version >= \"3.7\" and python_version < \"3.8\""
+marker = "python_version < \"3.8\" or python_version >= \"3.7\" and python_version < \"3.8\" or python_version >= \"3.7\" and python_version < \"3.8\" and (python_version < \"3.8\" or python_version >= \"3.7\" and python_version < \"3.8\") or python_version == \"3.7\" and python_version == \"3.7\""
 name = "zipp"
 optional = false
 python-versions = ">=3.6"
@@ -4476,7 +4476,7 @@ inspire-query-parser = [
     {file = "inspire-query-parser-6.0.23.tar.gz", hash = "sha256:e22a6ae2b45bf1feb3da106564ed577fb2706ee3d6b0f1e3e443b6b5f206bce4"},
 ]
 inspire-schemas = [
-    {file = "inspire-schemas-61.2.1.tar.gz", hash = "sha256:5564a3795127e45224d6e5305608799b820786f73332641da93e7182e15105f8"},
+    {file = "inspire-schemas-61.2.2.tar.gz", hash = "sha256:66bf013a7c1475144bcdc67a558659912f8d44223e7623e4b1f465665866511c"},
 ]
 inspire-service-orcid = []
 inspire-utils = [

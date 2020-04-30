@@ -13,6 +13,9 @@ const CONFERENCE_API = `${BASE_URL}/api/conferences`;
 const JOB_SUBMISSION = `${BASE_URL}/submissions/jobs`;
 const JOB_SUBMISSION_API = `${BASE_URL}/api/submissions/jobs`;
 const JOB_API = `${BASE_URL}/api/jobs`;
+const SEMINAR_SUBMISSION = `${BASE_URL}/submissions/seminars`;
+const SEMINAR_SUBMISSION_API = `${BASE_URL}/api/submissions/seminars`;
+const SEMINAR_API = `${BASE_URL}/api/seminars`;
 const SUBMISSIONS_SUCCESS = `${BASE_URL}/submissions/success`;
 
 const HOLDINGPEN_API = `${BASE_URL}/api/holdingpen`;
@@ -27,6 +30,9 @@ module.exports = {
   CONFERENCE_SUBMISSION,
   CONFERENCE_SUBMISSION_API,
   CONFERENCE_API,
+  SEMINAR_SUBMISSION,
+  SEMINAR_SUBMISSION_API,
+  SEMINAR_API,
   SUBMISSIONS_SUCCESS,
   HOLDINGPEN_API,
   JOB_SUBMISSION,

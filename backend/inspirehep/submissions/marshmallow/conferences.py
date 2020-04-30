@@ -7,11 +7,12 @@
 
 """JSON Schemas."""
 
-import pycountry
 from flask import url_for
 from inspire_schemas.builders import ConferenceBuilder
 from inspire_utils.record import get_value
 from marshmallow import Schema, fields, post_load
+
+from inspirehep.records.utils import country_name_to_code
 
 
 class Conference(Schema):
@@ -51,18 +52,11 @@ class Conference(Schema):
             name=data.get("series_name"), number=data.get("series_number")
         )
         for address in data.get("addresses"):
-            try:
-                country = pycountry.countries.get(name=address.get("country"))
-            except KeyError:
-                country = pycountry.countries.get(official_name=address.get("country"))
-            except KeyError:
-                country = pycountry.countries.get(common_name=address.get("country"))
-
             builder.add_address(
                 cities=[address.get("city")],
                 state=address.get("state"),
                 place_name=address.get("venue"),
-                country_code=country.alpha_2 if country else None,
+                country_code=country_name_to_code(address.get("country")),
             )
         for contact in data.get("contacts", []):
             builder.add_contact(**contact)

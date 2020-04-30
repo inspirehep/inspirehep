@@ -8,17 +8,15 @@ import SelectField from '../../common/components/SelectField';
 import ArrayOf from '../../common/components/ArrayOf';
 import SuggesterField from '../../common/components/SuggesterField';
 import SubmitButton from '../../common/components/SubmitButton';
-import { inspireCategoryOptions } from '../../common/schemas/constants';
+import {
+  inspireCategoryOptions,
+  countryOptions,
+} from '../../common/schemas/constants';
 import RichTextField from '../../common/components/RichTextField';
 import NumberField from '../../common/components/NumberField';
-import { countryOptions } from '../schemas/constants';
 import DateRangeField from '../../common/components/DateRangeField';
 import ExistingConferencesAlertContainer from '../containers/ExistingConferencesAlertContainer';
-
-// TODO: move them somewhere common to share with `AuthorForm`
-function getSuggestionSourceNameValue(suggestion) {
-  return suggestion._source.name.value;
-}
+import ContactsField from '../../common/components/ContactsField';
 
 function ConferenceForm({ values, isSubmitting, isValid, isValidating }) {
   return (
@@ -111,37 +109,7 @@ function ConferenceForm({ values, isSubmitting, isValid, isValidating }) {
           <Field onlyChild name={itemName} component={TextField} />
         )}
       />
-      <ArrayOf
-        // TODO: is it worth to move this and its schema to common since it's used in jobs
-        values={values}
-        label="Contact Detail(s)"
-        name="contacts"
-        emptyItem={{}}
-        renderItem={itemName => (
-          <Row type="flex" justify="space-between">
-            <Col span={11}>
-              <Field
-                onlyChild
-                recordFieldPath={`${itemName}.record`}
-                name={`${itemName}.name`}
-                placeholder="Name"
-                pidType="authors"
-                suggesterName="author"
-                extractItemCompletionValue={getSuggestionSourceNameValue}
-                component={SuggesterField}
-              />
-            </Col>
-            <Col span={11}>
-              <Field
-                onlyChild
-                name={`${itemName}.email`}
-                placeholder="Email"
-                component={TextField}
-              />
-            </Col>
-          </Row>
-        )}
-      />
+      <ContactsField />
       <Field name="description" label="Description" component={RichTextField} />
       <Field
         name="additional_info"

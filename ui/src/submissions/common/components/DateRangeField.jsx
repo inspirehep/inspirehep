@@ -7,7 +7,7 @@ import withFormItem from '../withFormItem';
 const BOTH_TRUE = [true, true];
 
 function DateRangeField({ value = [], ...props }) {
-  const { form, name } = props;
+  const { form, name, format } = props;
 
   const [startDate, endDate] = value;
   const valueAsMoment = useMemo(
@@ -28,13 +28,14 @@ function DateRangeField({ value = [], ...props }) {
     },
     [form, name]
   );
-
+  
   return (
     <DatePicker.RangePicker
       {...props}
       // set BOTH_TRUE for e2e, it is validate via schema any case.
       allowEmpty={BOTH_TRUE}
       data-test-type="date-range-picker"
+      data-test-format={format}
       value={valueAsMoment}
       onBlur={onBlur}
       onChange={onChange}

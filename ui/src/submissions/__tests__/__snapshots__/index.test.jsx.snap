@@ -44,6 +44,16 @@ exports[`Submissions renders initial state 1`] = `
         exact={true}
         path="/submissions/conferences"
       />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/submissions/seminars"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/submissions/seminars/:id"
+      />
       <Redirect
         exact={true}
         from="/submissions/authors/:id/success"
@@ -52,6 +62,16 @@ exports[`Submissions renders initial state 1`] = `
       <Redirect
         exact={true}
         from="/submissions/authors/new/success"
+        to="/submissions/success"
+      />
+      <Redirect
+        exact={true}
+        from="/submissions/seminars/:id/success"
+        to="/submissions/success"
+      />
+      <Redirect
+        exact={true}
+        from="/submissions/seminars/new/success"
         to="/submissions/success"
       />
       <Redirect

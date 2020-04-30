@@ -1,41 +1,23 @@
-import conferenceSchema from '../conference';
+import seminarSchema from '../seminar';
 import { inspireCategoryValues } from '../../../common/schemas/constants';
 
 const dataWithRequiredFields = {
-  name: 'International Cool Conf 2020',
-  dates: ['2020-06-01', '2020-06-10'],
-  addresses: [{ city: 'Geneva', country: 'Switzerland' }],
+  name: ' Cool Seminar',
+  dates: ['2020-05-06 08:30 AM', '2020-05-06 02:30 PM'],
   field_of_interest: [inspireCategoryValues[0]],
+  speakers: [{ name: 'Harun Urhan' }]
 };
 
-describe('conferenceSchema', () => {
+describe('seminarSchema', () => {
   it('invalidates when required fields are missing', async () => {
     const data = {};
-    const isValid = await conferenceSchema.isValid(data);
+    const isValid = await seminarSchema.isValid(data);
     expect(isValid).toBe(false);
   });
 
   it('validates when all required fields are present', async () => {
     const data = dataWithRequiredFields;
-    const isValid = await conferenceSchema.isValid(data);
-    expect(isValid).toBe(true);
-  });
-
-  it('validates when acroynms empty', async () => {
-    const data = {
-      ...dataWithRequiredFields,
-      acroynms: [''],
-    };
-    const isValid = await conferenceSchema.isValid(data);
-    expect(isValid).toBe(true);
-  });
-
-  it('validates when acroynms are not empty', async () => {
-    const data = {
-      ...dataWithRequiredFields,
-      acroynms: ['CoCo'],
-    };
-    const isValid = await conferenceSchema.isValid(data);
+    const isValid = await seminarSchema.isValid(data);
     expect(isValid).toBe(true);
   });
 
@@ -44,7 +26,7 @@ describe('conferenceSchema', () => {
       ...dataWithRequiredFields,
       series_number: 123,
     };
-    const isValid = await conferenceSchema.isValid(data);
+    const isValid = await seminarSchema.isValid(data);
     expect(isValid).toBe(true);
   });
 
@@ -53,34 +35,34 @@ describe('conferenceSchema', () => {
       ...dataWithRequiredFields,
       series_number: 'not a number',
     };
-    const isValid = await conferenceSchema.isValid(data);
+    const isValid = await seminarSchema.isValid(data);
     expect(isValid).toBe(false);
   });
 
   it('invalidates when dates are not both valid dates', async () => {
     const data = {
       ...dataWithRequiredFields,
-      dates: ['2020-06-01', 'not a date'],
+      dates: ['2020-05-06 08:30 AM', 'not a date'],
     };
-    const isValid = await conferenceSchema.isValid(data);
+    const isValid = await seminarSchema.isValid(data);
     expect(isValid).toBe(false);
   });
 
   it('invalidates when dates are not both valid dates', async () => {
     const data = {
       ...dataWithRequiredFields,
-      dates: ['not a date', '2020-06-01'],
+      dates: ['not a date', '2020-05-06 08:30 AM'],
     };
-    const isValid = await conferenceSchema.isValid(data);
+    const isValid = await seminarSchema.isValid(data);
     expect(isValid).toBe(false);
   });
 
   it('invalidates when only one of the dates is present', async () => {
     const data = {
       ...dataWithRequiredFields,
-      dates: ['2020-06-01', ''],
+      dates: ['', '2020-05-06 08:30 AM'],
     };
-    const isValid = await conferenceSchema.isValid(data);
+    const isValid = await seminarSchema.isValid(data);
     expect(isValid).toBe(false);
   });
 
@@ -89,25 +71,25 @@ describe('conferenceSchema', () => {
       ...dataWithRequiredFields,
       dates: ['2020-06-01'],
     };
-    const isValid = await conferenceSchema.isValid(data);
+    const isValid = await seminarSchema.isValid(data);
     expect(isValid).toBe(false);
   });
 
   it('invalidates when dates have more than 2 dates', async () => {
     const data = {
       ...dataWithRequiredFields,
-      dates: ['2020-06-01', '2020-06-02', '2020-06-03'],
+      dates: ['2020-05-06 08:30 AM', '2020-05-06 09:30 AM', '2020-05-06 10:30 AM'],
     };
-    const isValid = await conferenceSchema.isValid(data);
+    const isValid = await seminarSchema.isValid(data);
     expect(isValid).toBe(false);
   });
 
   it('invalidates when dates is only single date', async () => {
     const data = {
       ...dataWithRequiredFields,
-      dates: '2020-06-01',
+      dates: '2020-05-06 08:30 AM',
     };
-    const isValid = await conferenceSchema.isValid(data);
+    const isValid = await seminarSchema.isValid(data);
     expect(isValid).toBe(false);
   });
 
@@ -116,16 +98,16 @@ describe('conferenceSchema', () => {
       ...dataWithRequiredFields,
       websites: [''],
     };
-    const isValid = await conferenceSchema.isValid(data);
+    const isValid = await seminarSchema.isValid(data);
     expect(isValid).toBe(true);
   });
 
   it('validates when websites are url', async () => {
     const data = {
       ...dataWithRequiredFields,
-      websites: ['https://coolconf.com'],
+      websites: ['https://coolsem.com'],
     };
-    const isValid = await conferenceSchema.isValid(data);
+    const isValid = await seminarSchema.isValid(data);
     expect(isValid).toBe(true);
   });
 
@@ -134,7 +116,59 @@ describe('conferenceSchema', () => {
       ...dataWithRequiredFields,
       websites: ['not a url'],
     };
-    const isValid = await conferenceSchema.isValid(data);
+    const isValid = await seminarSchema.isValid(data);
+    expect(isValid).toBe(false);
+  });
+
+  it('validates when join_urls has only empty object', async () => {
+    const data = {
+      ...dataWithRequiredFields,
+      join_urls: [{}],
+    };
+    const isValid = await seminarSchema.isValid(data);
+    expect(isValid).toBe(true);
+  });
+
+  it('validates when join_urls is empty', async () => {
+    const data = {
+      ...dataWithRequiredFields,
+      join_urls: [],
+    };
+    const isValid = await seminarSchema.isValid(data);
+    expect(isValid).toBe(true);
+  });
+
+  it('validates when join_urls has a url with a description', async () => {
+    const data = {
+      ...dataWithRequiredFields,
+      join_urls: [{
+        value: 'https://coolsem.com/join',
+        description: 'Not zoom link'
+      }],
+    };
+    const isValid = await seminarSchema.isValid(data);
+    expect(isValid).toBe(true);
+  });
+
+  it('validates when join_urls has a url without a description', async () => {
+    const data = {
+      ...dataWithRequiredFields,
+      join_urls: [{
+        value: 'https://coolsem.com/join',
+      }],
+    };
+    const isValid = await seminarSchema.isValid(data);
+    expect(isValid).toBe(true);
+  });
+
+  it('invalidates when join_urls has an invalid url', async () => {
+    const data = {
+      ...dataWithRequiredFields,
+      join_urls: [{
+        value: 'not a url',
+      }],
+    };
+    const isValid = await seminarSchema.isValid(data);
     expect(isValid).toBe(false);
   });
 
@@ -143,73 +177,105 @@ describe('conferenceSchema', () => {
       ...dataWithRequiredFields,
       field_of_interest: [inspireCategoryValues[0], 'not a field'],
     };
-    const isValid = await conferenceSchema.isValid(data);
+    const isValid = await seminarSchema.isValid(data);
     expect(isValid).toBe(false);
   });
 
-  it('invalidates when addresses are empty', async () => {
+  it('validates when addres is empty', async () => {
     const data = {
       ...dataWithRequiredFields,
-      addresses: [{}],
+      address: {},
     };
-    const isValid = await conferenceSchema.isValid(data);
-    expect(isValid).toBe(false);
+    const isValid = await seminarSchema.isValid(data);
+    expect(isValid).toBe(true);
   });
 
   it('invalidates when addresses have invalid country', async () => {
     const data = {
       ...dataWithRequiredFields,
-      addresses: [
-        {
-          country: 'not a country',
-          city: 'Geneva',
-        },
-      ],
+      address: {
+        country: 'not a country',
+        city: 'Geneva',
+      },
     };
-    const isValid = await conferenceSchema.isValid(data);
+    const isValid = await seminarSchema.isValid(data);
     expect(isValid).toBe(false);
   });
 
   it('invalidates when addresses do not have country', async () => {
     const data = {
       ...dataWithRequiredFields,
-      addresses: [
-        {
-          city: 'Geneva',
-        },
-      ],
+      address: {
+        city: 'Geneva',
+      },
     };
-    const isValid = await conferenceSchema.isValid(data);
+    const isValid = await seminarSchema.isValid(data);
     expect(isValid).toBe(false);
   });
 
   it('invalidates when addresses do not have city', async () => {
     const data = {
       ...dataWithRequiredFields,
-      addresses: [
-        {
-          country: 'Switzerland',
-        },
-      ],
+      address: {
+        country: 'Switzerland',
+      },
     };
-    const isValid = await conferenceSchema.isValid(data);
+    const isValid = await seminarSchema.isValid(data);
     expect(isValid).toBe(false);
   });
 
   it('validates full address', async () => {
     const data = {
       ...dataWithRequiredFields,
-      addresses: [
+      addresses: {
+        country: 'Switzerland',
+        city: 'Geneva',
+        state: 'Geneva',
+        venue: 'CERN',
+      },
+    };
+    const isValid = await seminarSchema.isValid(data);
+    expect(isValid).toBe(true);
+  });
+
+  it('validates when speakers have only name', async () => {
+    const data = {
+      ...dataWithRequiredFields,
+      speakers: [
         {
-          country: 'Switzerland',
-          city: 'Geneva',
-          state: 'Geneva',
-          venue: 'CERN',
+          name: 'Cool Dude',
         },
       ],
     };
-    const isValid = await conferenceSchema.isValid(data);
+    const isValid = await seminarSchema.isValid(data);
     expect(isValid).toBe(true);
+  });
+
+  it('validates when speakers have both name and affiliation', async () => {
+    const data = {
+      ...dataWithRequiredFields,
+      speakers: [
+        {
+          name: 'Cool Dude',
+          affiliation: 'CERN'
+        },
+      ],
+    };
+    const isValid = await seminarSchema.isValid(data);
+    expect(isValid).toBe(true);
+  });
+
+  it('invalidates when speakers have only affiliation', async () => {
+    const data = {
+      ...dataWithRequiredFields,
+      speakers: [
+        {
+          affiliation: 'CERN'
+        },
+      ],
+    };
+    const isValid = await seminarSchema.isValid(data);
+    expect(isValid).toBe(false);
   });
 
   it('validates when contacts are empty', async () => {
@@ -217,9 +283,10 @@ describe('conferenceSchema', () => {
       ...dataWithRequiredFields,
       contacts: [{}],
     };
-    const isValid = await conferenceSchema.isValid(data);
+    const isValid = await seminarSchema.isValid(data);
     expect(isValid).toBe(true);
   });
+
 
   it('validates when contacts have both name and email', async () => {
     const data = {
@@ -231,7 +298,7 @@ describe('conferenceSchema', () => {
         },
       ],
     };
-    const isValid = await conferenceSchema.isValid(data);
+    const isValid = await seminarSchema.isValid(data);
     expect(isValid).toBe(true);
   });
 
@@ -245,7 +312,7 @@ describe('conferenceSchema', () => {
         },
       ],
     };
-    const isValid = await conferenceSchema.isValid(data);
+    const isValid = await seminarSchema.isValid(data);
     expect(isValid).toBe(false);
   });
 
@@ -258,7 +325,7 @@ describe('conferenceSchema', () => {
         },
       ],
     };
-    const isValid = await conferenceSchema.isValid(data);
+    const isValid = await seminarSchema.isValid(data);
     expect(isValid).toBe(false);
   });
 
@@ -271,7 +338,7 @@ describe('conferenceSchema', () => {
         },
       ],
     };
-    const isValid = await conferenceSchema.isValid(data);
+    const isValid = await seminarSchema.isValid(data);
     expect(isValid).toBe(false);
   });
 
@@ -280,7 +347,7 @@ describe('conferenceSchema', () => {
       ...dataWithRequiredFields,
       keywords: [''],
     };
-    const isValid = await conferenceSchema.isValid(data);
+    const isValid = await seminarSchema.isValid(data);
     expect(isValid).toBe(true);
   });
 
@@ -289,7 +356,7 @@ describe('conferenceSchema', () => {
       ...dataWithRequiredFields,
       keywords: ['cool'],
     };
-    const isValid = await conferenceSchema.isValid(data);
+    const isValid = await seminarSchema.isValid(data);
     expect(isValid).toBe(true);
   });
 });
