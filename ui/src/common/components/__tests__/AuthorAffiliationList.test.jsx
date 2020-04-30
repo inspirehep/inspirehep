@@ -6,7 +6,12 @@ import AuthorAffiliationList from '../AuthorAffiliationList';
 
 describe('AuthorAffiliationList', () => {
   it('renders author with one affiliation', () => {
-    const affiliations = fromJS(['Affiliation']);
+    const affiliations = fromJS([
+      {
+        value: 'CERN2',
+        record: { $ref: 'http://inspirehep.net/api/institutions/12345' },
+      },
+    ]);
     const wrapper = shallow(
       <AuthorAffiliationList affiliations={affiliations} />
     );
@@ -14,7 +19,15 @@ describe('AuthorAffiliationList', () => {
   });
 
   it('renders author with multiple affiliations', () => {
-    const affiliations = fromJS(['Affiliation1', 'Affiliation2']);
+    const affiliations = fromJS([
+      {
+        value: 'CERN2',
+        record: { $ref: 'http://inspirehep.net/api/institutions/12345' },
+      },
+      {
+        value: 'CERN1',
+      },
+    ]);
     const wrapper = shallow(
       <AuthorAffiliationList affiliations={affiliations} />
     );

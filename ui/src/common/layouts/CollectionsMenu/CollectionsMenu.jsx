@@ -5,13 +5,20 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import './CollectionsMenu.scss';
-import { LITERATURE, AUTHORS, JOBS, CONFERENCES } from '../../routes';
+import {
+  LITERATURE,
+  AUTHORS,
+  JOBS,
+  CONFERENCES,
+  INSTITUTIONS,
+} from '../../routes';
 import { getRootOfLocationPathname } from '../../utils';
 import {
   LITERATURE_PID_TYPE,
   AUTHORS_PID_TYPE,
   JOBS_PID_TYPE,
   CONFERENCES_PID_TYPE,
+  INSTITUTIONS_PID_TYPE,
 } from '../../constants';
 
 const COLLECTION_LINK_CLASSNAME = 'collection-link mh4 sm-mh2 f5 white';
@@ -62,6 +69,16 @@ function CollectionsMenu({ currentPathname }) {
           to={CONFERENCES}
         >
           Conferences
+        </Link>
+      </Col>
+      <Col>
+        <Link
+          className={classNames(COLLECTION_LINK_CLASSNAME, {
+            active: activeCollection === INSTITUTIONS_PID_TYPE,
+          })}
+          to={INSTITUTIONS}
+        >
+          Institutions
         </Link>
       </Col>
     </Row>

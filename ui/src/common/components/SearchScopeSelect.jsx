@@ -2,11 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import SelectBox from './SelectBox';
-import { SEARCH_BOX_NAMESPACES, INSTITUTIONS_NS } from '../../reducers/search';
+import { SEARCH_BOX_NAMESPACES } from '../../reducers/search';
 
-const SCOPE_OPTIONS = SEARCH_BOX_NAMESPACES.filter(
-  value => value !== INSTITUTIONS_NS
-).map(value => ({ value }));
+const SCOPE_OPTIONS = SEARCH_BOX_NAMESPACES.map(value => ({ value }));
 
 class SearchScopeSelect extends Component {
   render() {

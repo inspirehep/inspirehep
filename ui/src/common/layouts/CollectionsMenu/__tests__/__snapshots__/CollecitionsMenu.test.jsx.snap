@@ -38,6 +38,14 @@ exports[`CollectionsMenu renders when authors page 1`] = `
       Conferences
     </Link>
   </Col>
+  <Col>
+    <Link
+      className="collection-link mh4 sm-mh2 f5 white"
+      to="/institutions"
+    >
+      Institutions
+    </Link>
+  </Col>
 </Row>
 `;
 
@@ -77,6 +85,14 @@ exports[`CollectionsMenu renders when conferences page 1`] = `
       to="/conferences"
     >
       Conferences
+    </Link>
+  </Col>
+  <Col>
+    <Link
+      className="collection-link mh4 sm-mh2 f5 white"
+      to="/institutions"
+    >
+      Institutions
     </Link>
   </Col>
 </Row>
@@ -120,6 +136,14 @@ exports[`CollectionsMenu renders when home page 1`] = `
       Conferences
     </Link>
   </Col>
+  <Col>
+    <Link
+      className="collection-link mh4 sm-mh2 f5 white"
+      to="/institutions"
+    >
+      Institutions
+    </Link>
+  </Col>
 </Row>
 `;
 
@@ -159,6 +183,14 @@ exports[`CollectionsMenu renders when jobs page 1`] = `
       to="/conferences"
     >
       Conferences
+    </Link>
+  </Col>
+  <Col>
+    <Link
+      className="collection-link mh4 sm-mh2 f5 white"
+      to="/institutions"
+    >
+      Institutions
     </Link>
   </Col>
 </Row>
@@ -202,6 +234,14 @@ exports[`CollectionsMenu renders when literature page 1`] = `
       Conferences
     </Link>
   </Col>
+  <Col>
+    <Link
+      className="collection-link mh4 sm-mh2 f5 white"
+      to="/institutions"
+    >
+      Institutions
+    </Link>
+  </Col>
 </Row>
 `;
 
@@ -241,6 +281,14 @@ exports[`CollectionsMenu renders when submissions page 1`] = `
       to="/conferences"
     >
       Conferences
+    </Link>
+  </Col>
+  <Col>
+    <Link
+      className="collection-link mh4 sm-mh2 f5 white"
+      to="/institutions"
+    >
+      Institutions
     </Link>
   </Col>
 </Row>

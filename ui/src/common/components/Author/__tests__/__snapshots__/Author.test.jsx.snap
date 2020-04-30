@@ -28,7 +28,9 @@ exports[`Author renders editor 1`] = `
     <AuthorAffiliationList
       affiliations={
         Immutable.List [
-          "Affiliation",
+          Immutable.Map {
+            "value": "Affiliation",
+          },
         ]
       }
     />
@@ -121,7 +123,9 @@ exports[`Author renders unlinkedAuthor with affiliations 1`] = `
     <AuthorAffiliationList
       affiliations={
         Immutable.List [
-          "Affiliation",
+          Immutable.Map {
+            "value": "Affiliation",
+          },
         ]
       }
     />

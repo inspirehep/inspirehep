@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
 import InlineList, { SEPARATOR_AND } from './InlineList';
+import AuthorAffiliation from './AuthorAffiliation';
+import { getInstitutionName } from '../utils';
 
 class AuthorAffiliationList extends Component {
   static renderAffiliation(affiliation) {
-    return <span>{affiliation}</span>;
+    return <AuthorAffiliation affiliation={affiliation} />;
   }
 
   render() {
@@ -18,6 +20,7 @@ class AuthorAffiliationList extends Component {
           separator={SEPARATOR_AND}
           items={affiliations}
           renderItem={AuthorAffiliationList.renderAffiliation}
+          extractKey={getInstitutionName}
         />
       );
     }

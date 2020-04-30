@@ -14,12 +14,21 @@ from inspirehep.records.marshmallow.authors.common import PositionSchemaV1
 
 def test_returns_display_date_if_start_and_end_date_present():
     schema = PositionSchemaV1()
-    dump = {"institution": "CERN", "start_date": "2000", "end_date": "2015"}
+    dump = {
+        "institution": "CERN",
+        "start_date": "2000",
+        "end_date": "2015",
+        "record": {"$ref": "http://localhost:5000/api/institutions/903138"},
+    }
 
     position_schema = load_schema("authors")["properties"]["positions"]["items"]
     assert validate(dump, position_schema) is None
 
-    expected = {"institution": "CERN", "display_date": "2000-2015"}
+    expected = {
+        "institution": "CERN",
+        "display_date": "2000-2015",
+        "record": {"$ref": "http://localhost:5000/api/institutions/903138"},
+    }
 
     result = schema.dumps(dump).data
 

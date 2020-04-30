@@ -18,6 +18,9 @@ exports[`SearchScopeSelect render initial state with all props set 1`] = `
       Object {
         "value": "conferences",
       },
+      Object {
+        "value": "institutions",
+      },
     ]
   }
   value="authors"

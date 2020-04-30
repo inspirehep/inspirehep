@@ -14,9 +14,13 @@ exports[`PositionsTimeline renders all when ExpandListToggle is toggled by defau
     >
       <div />
       <div>
-        <span>
-          Inst 1
-        </span>
+        <AuthorAffiliation
+          affiliation={
+            Immutable.Map {
+              "institution": "Inst 1",
+            }
+          }
+        />
       </div>
     </TimelineItem>
     <TimelineItem
@@ -27,9 +31,13 @@ exports[`PositionsTimeline renders all when ExpandListToggle is toggled by defau
     >
       <div />
       <div>
-        <span>
-          Inst 2
-        </span>
+        <AuthorAffiliation
+          affiliation={
+            Immutable.Map {
+              "institution": "Inst 2",
+            }
+          }
+        />
       </div>
     </TimelineItem>
     <TimelineItem
@@ -40,9 +48,13 @@ exports[`PositionsTimeline renders all when ExpandListToggle is toggled by defau
     >
       <div />
       <div>
-        <span>
-          Inst 3
-        </span>
+        <AuthorAffiliation
+          affiliation={
+            Immutable.Map {
+              "institution": "Inst 3",
+            }
+          }
+        />
       </div>
     </TimelineItem>
     <TimelineItem
@@ -53,9 +65,13 @@ exports[`PositionsTimeline renders all when ExpandListToggle is toggled by defau
     >
       <div />
       <div>
-        <span>
-          Inst 4
-        </span>
+        <AuthorAffiliation
+          affiliation={
+            Immutable.Map {
+              "institution": "Inst 4",
+            }
+          }
+        />
       </div>
     </TimelineItem>
     <TimelineItem
@@ -66,9 +82,13 @@ exports[`PositionsTimeline renders all when ExpandListToggle is toggled by defau
     >
       <div />
       <div>
-        <span>
-          Inst 5
-        </span>
+        <AuthorAffiliation
+          affiliation={
+            Immutable.Map {
+              "institution": "Inst 5",
+            }
+          }
+        />
       </div>
     </TimelineItem>
     <TimelineItem
@@ -79,9 +99,13 @@ exports[`PositionsTimeline renders all when ExpandListToggle is toggled by defau
     >
       <div />
       <div>
-        <span>
-          Inst 6
-        </span>
+        <AuthorAffiliation
+          affiliation={
+            Immutable.Map {
+              "institution": "Inst 6",
+            }
+          }
+        />
       </div>
     </TimelineItem>
   </Timeline>
@@ -109,9 +133,13 @@ exports[`PositionsTimeline renders only first 3 by default 1`] = `
     >
       <div />
       <div>
-        <span>
-          Inst 1
-        </span>
+        <AuthorAffiliation
+          affiliation={
+            Immutable.Map {
+              "institution": "Inst 1",
+            }
+          }
+        />
       </div>
     </TimelineItem>
     <TimelineItem
@@ -122,9 +150,13 @@ exports[`PositionsTimeline renders only first 3 by default 1`] = `
     >
       <div />
       <div>
-        <span>
-          Inst 2
-        </span>
+        <AuthorAffiliation
+          affiliation={
+            Immutable.Map {
+              "institution": "Inst 2",
+            }
+          }
+        />
       </div>
     </TimelineItem>
     <TimelineItem
@@ -135,9 +167,13 @@ exports[`PositionsTimeline renders only first 3 by default 1`] = `
     >
       <div />
       <div>
-        <span>
-          Inst 3
-        </span>
+        <AuthorAffiliation
+          affiliation={
+            Immutable.Map {
+              "institution": "Inst 3",
+            }
+          }
+        />
       </div>
     </TimelineItem>
   </Timeline>
@@ -171,9 +207,15 @@ exports[`PositionsTimeline renders with positions 1`] = `
           UNDERGRADUATE
           , 
         </strong>
-        <span>
-          Inst 1
-        </span>
+        <AuthorAffiliation
+          affiliation={
+            Immutable.Map {
+              "institution": "Inst 1",
+              "display_date": "1990-1994",
+              "rank": "UNDERGRADUATE",
+            }
+          }
+        />
       </div>
     </TimelineItem>
     <TimelineItem
@@ -190,9 +232,15 @@ exports[`PositionsTimeline renders with positions 1`] = `
           PHD
           , 
         </strong>
-        <span>
-          Inst 2
-        </span>
+        <AuthorAffiliation
+          affiliation={
+            Immutable.Map {
+              "institution": "Inst 2",
+              "display_date": "1994-2000",
+              "rank": "PHD",
+            }
+          }
+        />
       </div>
     </TimelineItem>
     <TimelineItem
@@ -209,9 +257,16 @@ exports[`PositionsTimeline renders with positions 1`] = `
           STAFF
           , 
         </strong>
-        <span>
-          CERN
-        </span>
+        <AuthorAffiliation
+          affiliation={
+            Immutable.Map {
+              "institution": "CERN",
+              "display_date": "2000-present",
+              "rank": "STAFF",
+              "current": true,
+            }
+          }
+        />
       </div>
     </TimelineItem>
   </Timeline>
@@ -245,9 +300,16 @@ exports[`PositionsTimeline renders with single position 1`] = `
           UNDERGRADUATE
           , 
         </strong>
-        <span>
-          Inst 1
-        </span>
+        <AuthorAffiliation
+          affiliation={
+            Immutable.Map {
+              "institution": "Inst 1",
+              "rank": "UNDERGRADUATE",
+              "display_date": "present",
+              "current": true,
+            }
+          }
+        />
       </div>
     </TimelineItem>
   </Timeline>
