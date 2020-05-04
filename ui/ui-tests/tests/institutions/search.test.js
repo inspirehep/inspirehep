@@ -6,7 +6,7 @@ const {
 } = require('../../utils/screenshot');
 
 describe('Institutions Search', () => {
-  xit('should match image snapshot for empty institutions search', async () => {
+  it('should match image snapshot for empty institutions search', async () => {
     const polly = await createPollyInstance('InstitutionSearch');
 
     await page.goto(`${routes.public.institutionsSearch}?q=`, {

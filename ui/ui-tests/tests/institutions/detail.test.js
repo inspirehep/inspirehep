@@ -16,7 +16,7 @@ describe('Institution Detail', () => {
     });
   });
 
-  xit('should match image snapshot for an Institution', async () => {
+  it('should match image snapshot for an Institution', async () => {
     await page.waitFor(selectors.searchResults);
 
     const desktopSS = await takeScreenShotForDesktop(page);
@@ -26,13 +26,13 @@ describe('Institution Detail', () => {
     expect(mobileSS).toMatchImageSnapshot();
   });
 
-  xit('sets institution name as document title', async () => {
+  it('sets institution name as document title', async () => {
     const documentTitle = await page.title();
 
     expect(documentTitle).toMatch(/^Aachen, Tech. Hochsch./);
   });
 
-  xit('sets correct description as meta description', async () => {
+  it('sets correct description as meta description', async () => {
     const metaDescription = await getMetaDescription(page);
     expect(metaDescription).toMatchSnapshot();
   });
