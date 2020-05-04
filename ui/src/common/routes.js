@@ -44,5 +44,5 @@ export const EDIT_CONFERENCE = '/editor/record/conferences';
 export const EDIT_INSTITUTION = '/editor/record/institutions';
 
 export function isBetaRoute(locationPathname) {
-  return locationPathname.startsWith(INSTITUTIONS);
+  return locationPathname.startsWith(SEMINARS);
 }
