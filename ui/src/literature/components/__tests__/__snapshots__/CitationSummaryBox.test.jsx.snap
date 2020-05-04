@@ -9,6 +9,21 @@ exports[`CitationSummaryBox renders 1`] = `
   subTitle="Citation Summary"
   title={null}
 >
+  <Connect(Authorized)
+    authorizedRoles={
+      Immutable.List [
+        "superuser",
+        "cataloger",
+      ]
+    }
+  >
+    <Checkbox
+      indeterminate={false}
+      onChange={[Function]}
+    >
+      Exclude self-citations
+    </Checkbox>
+  </Connect(Authorized)>
   <Row
     gutter={
       Object {
