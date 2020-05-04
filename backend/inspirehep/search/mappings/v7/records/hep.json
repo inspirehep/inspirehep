@@ -245,7 +245,7 @@
           },
           "full_name": {
             "copy_to": "_all",
-            "analyzer": "author_name_analyzer",
+            "analyzer": "names_analyzer",
             "fields": {
               "raw": {
                 "type": "keyword"
@@ -395,6 +395,7 @@
           },
           "full_name": {
             "copy_to": "_all",
+            "analyzer": "names_analyzer",
             "fields": {
               "raw": {
                 "type": "keyword"
@@ -496,7 +497,7 @@
             "type": "keyword"
           },
           "full_name": {
-            "analyzer": "author_name_analyzer",
+            "analyzer": "names_analyzer",
             "fields": {
               "raw": {
                 "type": "keyword"
@@ -1118,6 +1119,7 @@
               "authors": {
                 "properties": {
                   "full_name": {
+                    "analyzer": "names_analyzer",
                     "type": "text"
                   },
                   "inspire_role": {
