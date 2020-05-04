@@ -17,6 +17,7 @@ from inspirehep.pidstore.minters.control_number import (
     JobsMinter,
     JournalsMinter,
     LiteratureMinter,
+    SeminarsMinter,
 )
 
 
@@ -315,6 +316,44 @@ def test_control_number_institutions_without_control_number(
 
     expected_pid_value = str(data["control_number"])
     expected_pid_type = "ins"
+    expected_pid_object_uuid = record.id
+
+    result_pid = PersistentIdentifier.query.filter_by(object_uuid=record.id).one()
+
+    assert expected_pid_type == result_pid.pid_type
+    assert expected_pid_value == result_pid.pid_value
+    assert expected_pid_object_uuid == result_pid.object_uuid
+
+
+def test_control_number_seminars_with_control_number(
+    base_app, db, create_record_factory
+):
+    data = {"control_number": 1}
+    record = create_record_factory("sem", data=data, with_pid=False)
+    data = record.json
+
+    SeminarsMinter.mint(record.id, data)
+    expected_pid_value = str(data["control_number"])
+    expected_pid_type = "sem"
+    expected_pid_object_uuid = record.id
+
+    result_pid = PersistentIdentifier.query.filter_by(object_uuid=record.id).one()
+
+    assert expected_pid_type == result_pid.pid_type
+    assert expected_pid_value == result_pid.pid_value
+    assert expected_pid_object_uuid == result_pid.object_uuid
+
+
+def test_control_number_seminars_without_control_number(
+    base_app, db, create_record_factory
+):
+    record = create_record_factory("sem", with_pid=False)
+    data = record.json
+
+    SeminarsMinter.mint(record.id, data)
+
+    expected_pid_value = str(data["control_number"])
+    expected_pid_type = "sem"
     expected_pid_object_uuid = record.id
 
     result_pid = PersistentIdentifier.query.filter_by(object_uuid=record.id).one()

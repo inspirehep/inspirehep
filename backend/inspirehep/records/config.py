@@ -34,6 +34,7 @@ from inspirehep.search.api import (
     JobsSearch,
     JournalsSearch,
     LiteratureSearch,
+    SeminarsSearch,
 )
 from inspirehep.search.facets import (
     citation_summary,
@@ -394,6 +395,27 @@ INSTITUTIONS.update(
     }
 )
 
+SEMINARS = deepcopy(RECORD)
+SEMINARS.update(
+    {
+        "pid_type": "sem",
+        "pid_minter": "seminars_minter",
+        "search_class": SeminarsSearch,
+        "search_index": "records-seminars",
+        "list_route": "/seminars/",
+        "item_route": '/seminars/<inspirepid(sem,record_class="inspirehep.records.api:SeminarsRecord"):pid_value>',
+        "record_class": "inspirehep.records.api:SeminarsRecord",
+        "search_factory_imp": "inspirehep.search.factories.search:search_factory_with_aggs",
+        "search_serializers": {
+            "application/json": INSPIRE_SERIALIZERS + ":seminars_json_response_search"
+        },
+        "record_serializers": {
+            "application/json": INSPIRE_SERIALIZERS + ":seminars_json_response"
+        },
+    }
+)
+
+
 RECORDS_REST_ENDPOINTS = {
     "literature": LITERATURE,
     "literature_facets": LITERATURE_FACETS,
@@ -410,6 +432,7 @@ RECORDS_REST_ENDPOINTS = {
     "conferences_facets": CONFERENCES_FACETS,
     "data": DATA,
     "institutions": INSTITUTIONS,
+    "seminars": SEMINARS,
 }
 
 HEP_FILTERS = {

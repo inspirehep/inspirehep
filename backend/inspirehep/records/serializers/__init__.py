@@ -33,6 +33,8 @@ from .json import (
     literature_json_list_response,
     literature_json_response,
     literature_json_response_search,
+    seminars_json_response,
+    seminars_json_response_search,
 )
 from .latex import (
     latex_response_eu,

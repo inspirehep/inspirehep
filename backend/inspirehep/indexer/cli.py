@@ -75,7 +75,7 @@ def _prepare_logdir(log_path):
     "--pidtype",
     multiple=True,
     help="Reindex only the specified PIDs. "
-    'Allowed values are "lit", "con", "dat", "exp", "jou", "aut", "job", "ins".',
+    'Allowed values are "lit", "con", "dat", "exp", "jou", "aut", "job", "ins", "sem".',
 )
 @click.option(
     "-id",
@@ -150,7 +150,7 @@ def reindex_records(
             "Please, specify only one of the args between 'all', 'pidtype', and 'pid'."
         )
 
-    allowed_pids = ("lit", "con", "dat", "exp", "jou", "aut", "job", "ins")
+    allowed_pids = ("lit", "con", "dat", "exp", "jou", "aut", "job", "ins", "sem")
 
     if pid:
         pid_type = pid[0]

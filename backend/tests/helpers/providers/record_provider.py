@@ -10,6 +10,7 @@
 import random
 import re
 
+import pytz
 from faker import Faker
 from faker.providers import BaseProvider
 from inspire_schemas.api import validate as schema_validate
@@ -75,6 +76,27 @@ class RecordProvider(BaseProvider):
             "position": "staff",
             "regions": ["Europe"],
             "status": random.choice(["open", "closed", "pending"]),
+        }
+
+    @staticmethod
+    def seminars_record():
+        end_datetime = fake.date_time(tzinfo=pytz.utc)
+        return {
+            "$schema": "http://localhost:5000/schemas/records/seminars.json",
+            "_collections": ["Seminars"],
+            "end_datetime": end_datetime.isoformat(),
+            "start_datetime": fake.date_time(
+                tzinfo=pytz.utc, end_datetime=end_datetime
+            ).isoformat(),
+            "inspire_categories": [
+                {
+                    "term": random.choice(
+                        ["Accelerators", "Experiment-HEP", "Theory-HEP"]
+                    )
+                }
+            ],
+            "speakers": [{"name": fake.name()}],
+            "timezone": fake.timezone(),
         }
 
     @staticmethod
@@ -171,6 +193,8 @@ class RecordProvider(BaseProvider):
             record = self.data_record()
         elif record_type == "ins":
             record = self.institutions_record()
+        elif record_type == "sem":
+            record = self.seminars_record()
         if with_control_number:
             record["control_number"] = self.control_number()
         if data:
