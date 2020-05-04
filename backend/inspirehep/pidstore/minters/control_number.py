@@ -39,3 +39,7 @@ class DataMinter(ControlNumberMinter):
 
 class InstitutionsMinter(ControlNumberMinter):
     pid_type = "ins"
+
+
+class SeminarsMinter(ControlNumberMinter):
+    pid_type = "sem"

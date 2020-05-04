@@ -18,6 +18,7 @@ from inspirehep.records.api import (
     JournalsRecord,
     LiteratureRecord,
 )
+from inspirehep.records.api.seminars import SeminarsRecord
 
 
 def test_strip_empty_values():
@@ -41,6 +42,7 @@ def test_get_subclasses_from_inspire_records():
         "con": ConferencesRecord,
         "dat": DataRecord,
         "ins": InstitutionsRecord,
+        "sem": SeminarsRecord,
     }
     subclasses = InspireRecord.get_subclasses()
 
@@ -92,6 +94,7 @@ def test_get_subclasses():
         "con": ConferencesRecord,
         "dat": DataRecord,
         "ins": InstitutionsRecord,
+        "sem": SeminarsRecord,
     }
 
     assert subclasses == expected_subclasses

@@ -18,3 +18,4 @@ from .institutions import InstitutionsRecord  # noqa: F401
 from .jobs import JobsRecord  # noqa: F401
 from .journals import JournalsRecord  # noqa: F401
 from .literature import LiteratureRecord  # noqa: F401
+from .seminars import SeminarsRecord  # noqa: F401

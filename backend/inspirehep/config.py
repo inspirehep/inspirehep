@@ -51,6 +51,7 @@ PID_TYPES_TO_ENDPOINTS = {
     "con": "conferences",
     "dat": "data",
     "ins": "institutions",
+    "sem": "seminars",
 }
 SCHEMA_TO_PID_TYPES = {
     "hep": "lit",
@@ -61,6 +62,7 @@ SCHEMA_TO_PID_TYPES = {
     "conferences": "con",
     "data": "dat",
     "institutions": "ins",
+    "seminars": "sem",
 }
 PID_TYPE_TO_INDEX = {
     "lit": "records-hep",
@@ -71,6 +73,7 @@ PID_TYPE_TO_INDEX = {
     "con": "records-conferences",
     "dat": "records-data",
     "ins": "records-institutions",
+    "sem": "records-seminars",
 }
 # Add here new collections as we release them in labs
 COLLECTION_EQUIVALENCE = {

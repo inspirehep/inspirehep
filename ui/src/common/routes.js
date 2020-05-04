@@ -10,6 +10,8 @@ export const CONFERENCES = '/conferences';
 
 export const INSTITUTIONS = '/institutions';
 
+export const SEMINARS = '/seminars';
+
 export const USER = '/user';
 export const USER_PROFILE = `${USER}/profile`;
 export const USER_LOGIN = `${USER}/login`;

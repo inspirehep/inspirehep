@@ -272,3 +272,11 @@ class JournalsSearch(InspireSearch):
     class Meta:
         index = "records-journals"
         doc_types = "_doc"
+
+
+class SeminarsSearch(InspireSearch):
+    """Elasticsearch-dsl specialized class to search in Seminars database."""
+
+    class Meta:
+        index = "records-seminars"
+        doc_types = "_doc"

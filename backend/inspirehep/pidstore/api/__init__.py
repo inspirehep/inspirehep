@@ -16,3 +16,4 @@ from .institutions import PidStoreInstitutions
 from .jobs import PidStoreJobs
 from .journals import PidStoreJournals
 from .literature import PidStoreLiterature
+from .seminars import PidStoreSeminars
