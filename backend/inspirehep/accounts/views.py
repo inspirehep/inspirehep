@@ -32,12 +32,7 @@ def me():
 
 @blueprint.route("/login-success")
 def login_success():
-    return redirect(session["next_url"])
-
-
-@blueprint.route("/signup", methods=["GET"])
-def sign_up_required():
-    return redirect(session["signup_url"])
+    return redirect(session.get("next_url", "/"))
 
 
 @blueprint.route("/signup", methods=["POST"])
@@ -58,7 +53,6 @@ def sign_up_user():
 @blueprint.route("/login", methods=["GET"])
 def login():
     session["next_url"] = request.args.get("next")
-    session["signup_url"] = request.args.get("signup_url")
     return redirect("/api/oauth/login/orcid")
 
 
