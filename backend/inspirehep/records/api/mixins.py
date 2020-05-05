@@ -343,7 +343,7 @@ class CitationMixin(PapersAuthorsExtensionMixin):
         else:
             self.update_refs_in_citation_table()
 
-    def get_all_connected_papers_of_modified_authors(self):
+    def get_all_connected_records_uuids_of_modified_authors(self):
         prev_version = self._previous_version
         current_authors = set(self.get_authors_bais())
         old_authors = set(prev_version.get_authors_bais())
@@ -367,7 +367,7 @@ class CitationMixin(PapersAuthorsExtensionMixin):
             ]
         return differed_papers_uuids
 
-    def get_all_connected_papers_of_modified_collaborations(self):
+    def get_all_connected_records_uuids_of_modified_collaborations(self):
         prev_version = self._previous_version
         current_collaborations = set(self.get_collaborations_values())
         old_collaborations = set(prev_version.get_collaborations_values())

@@ -222,3 +222,17 @@ def test_indexer_updates_authors_papers_when_name_changes(
         len(results["hits"]["hits"][0]["_source"]["facet_author_name"])
         == expected_facet_author_name_count
     )
+
+
+def test_regression_get_linked_author_records_uuids_if_author_changed_name_does_not_return_none_for_author_which_name_didnt_change(
+    app, celery_app_with_context, celery_session_worker
+):
+    author_data = faker.record("aut")
+    author = AuthorsRecord.create(author_data)
+    db.session.commit()
+    data = dict(author)
+    data["birth_date"] = "1950-01-01"
+    author.update(data)
+    db.session.commit()
+    new_author = AuthorsRecord.get_record_by_pid_value(author["control_number"])
+    assert [] == new_author.get_linked_author_records_uuids_if_author_changed_name()
