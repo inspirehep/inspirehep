@@ -86,19 +86,19 @@ def index_record(self, uuid, record_version=None, force_delete=None):
     else:
         InspireRecordIndexer().index(record)
 
-    papers_to_reindex = []
+    uuids_to_reindex = []
     if isinstance(record, LiteratureRecord):
-        papers_to_reindex.extend(record.get_linked_papers_if_reference_changed())
+        uuids_to_reindex.extend(record.get_linked_papers_if_reference_changed())
         if current_app.config.get("FEATURE_FLAG_ENABLE_SELF_CITATIONS"):
-            papers_to_reindex.extend(
-                record.get_all_connected_papers_of_modified_authors()
+            uuids_to_reindex.extend(
+                record.get_all_connected_records_uuids_of_modified_authors()
             )
-            papers_to_reindex.extend(
-                record.get_all_connected_papers_of_modified_collaborations()
+            uuids_to_reindex.extend(
+                record.get_all_connected_records_uuids_of_modified_collaborations()
             )
     if isinstance(record, AuthorsRecord):
-        papers_to_reindex.extend(
-            record.get_linked_author_papers_if_author_changed_name()
+        uuids_to_reindex.extend(
+            record.get_linked_author_records_uuids_if_author_changed_name()
         )
-    if papers_to_reindex:
-        batch_index(list(set(papers_to_reindex)))
+    if uuids_to_reindex:
+        batch_index(list(set(uuids_to_reindex)))
