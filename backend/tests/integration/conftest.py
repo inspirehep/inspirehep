@@ -7,16 +7,20 @@
 
 """INSPIRE module that adds more fun to the platform."""
 import os
+from collections import namedtuple
+from functools import partial
 
 import boto3
 import pytest
+from click.testing import CliRunner
 from flask import current_app
+from flask.cli import ScriptInfo
 from helpers.cleanups import db_cleanup, es_cleanup
 from helpers.factories.models.base import BaseFactory
 from helpers.factories.models.migrator import LegacyRecordsMirrorFactory
 from helpers.factories.models.pidstore import PersistentIdentifierFactory
 from helpers.factories.models.records import RecordMetadataFactory
-from helpers.utils import get_test_redis
+from helpers.utils import get_test_redis, override_config
 from moto import mock_s3
 
 from inspirehep.factory import create_app as inspire_create_app
@@ -49,26 +53,20 @@ def db_uri(instance_path):
 
 @pytest.fixture(scope="function")
 def enable_files(app_clean):
-    original_value = app_clean.config.get("FEATURE_FLAG_ENABLE_FILES")
-    app_clean.config["FEATURE_FLAG_ENABLE_FILES"] = True
-    yield app_clean
-    app_clean.config["FEATURE_FLAG_ENABLE_FILES"] = original_value
+    with override_config(FEATURE_FLAG_ENABLE_FILES=True):
+        yield app_clean
 
 
 @pytest.fixture(scope="function")
-def disable_files(base_app):
-    original_value = base_app.config.get("FEATURE_FLAG_ENABLE_FILES")
-    base_app.config["FEATURE_FLAG_ENABLE_FILES"] = False
-    yield base_app
-    base_app.config["FEATURE_FLAG_ENABLE_FILES"] = original_value
+def disable_files(app_clean):
+    with override_config(FEATURE_FLAG_ENABLE_FILES=False):
+        yield app_clean
 
 
 @pytest.fixture(scope="function")
-def enable_self_citations():
-    original_value = current_app.config.get("FEATURE_FLAG_ENABLE_SELF_CITATIONS")
-    current_app.config["FEATURE_FLAG_ENABLE_SELF_CITATIONS"] = True
-    yield current_app
-    current_app.config["FEATURE_FLAG_ENABLE_SELF_CITATIONS"] = original_value
+def enable_self_citations(app_clean):
+    with override_config(FEATURE_FLAG_ENABLE_SELF_CITATIONS=True):
+        yield app_clean
 
 
 @pytest.fixture(scope="module")
@@ -140,12 +138,27 @@ def es_clear(es):
     yield es
 
 
+_app_ = namedtuple("APP", ["app", "redis", "cli"])
+
+
+def _setup_cli(app):
+    runner = CliRunner()
+    obj = ScriptInfo(create_app=lambda info: app)
+    runner._invoke = runner.invoke
+    runner.invoke = partial(runner.invoke, obj=obj)
+    return runner
+
+
 @pytest.fixture(scope="function")
 def app_clean(base_app, db, es_clear, vcr_config):
     redis = get_test_redis()
     redis.flushall()
+    yield _app_(app=base_app, redis=redis, cli=_setup_cli(base_app))
+    redis.flushall()
     redis.close()
-    yield base_app
+
+
+_s3_app_ = namedtuple("APP", ["app", "redis", "cli", "s3"])
 
 
 @pytest.fixture()
@@ -159,22 +172,18 @@ def app_with_s3(app_clean, enable_files):
     class MockedInspireS3:
         s3_instance = s3
 
-    real_inspirehep_s3 = app_clean.extensions["inspirehep-s3"]
-    app_clean.extensions["inspirehep-s3"] = MockedInspireS3
+    real_inspirehep_s3 = app_clean.app.extensions["inspirehep-s3"]
+    app_clean.app.extensions["inspirehep-s3"] = MockedInspireS3
 
-    yield s3
+    yield _s3_app_(app=app_clean.app, redis=app_clean.redis, cli=app_clean.cli, s3=s3)
     mock.stop()
-    app_clean.extensions["inspirehep-s3"] = real_inspirehep_s3
+    app_clean.app.extensions["inspirehep-s3"] = real_inspirehep_s3
 
 
-@pytest.fixture(scope="function")
-def api_client(app_clean):
-    """Test client for the base application fixture.
-    Scope: function
-    If you need the database and search indexes initialized, simply use the
-    Pytest-Flask fixture ``client`` instead. This fixture is mainly useful if
-    you need a test client without needing to initialize both the database and
-    search indexes.
-    """
-    with app_clean.test_client() as client:
-        yield client
+# @pytest.fixture(scope="function")
+# def api_client(app_clean):
+#     """Test client for the base application fixture.
+#     Scope: function
+#     """
+#     with app_clean.app.test_client() as client:
+#         yield client

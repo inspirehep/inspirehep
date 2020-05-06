@@ -19,7 +19,7 @@ from inspirehep.records.cli import importer, jobs
 
 
 @pytest.mark.vcr()
-def test_create_record_with_one_url(api_client):
+def test_create_record_with_one_url(app_clean):
     runner = app_cli_runner()
     control_number = 20
     result = runner.invoke(

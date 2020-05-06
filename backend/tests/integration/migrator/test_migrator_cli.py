@@ -50,27 +50,29 @@ def test_migrate_file_doesnt_halt_in_debug_mode_when_forced(app_clean):
         assert "DEBUG" not in result.output
 
 
-def test_migrate_file(api_client):
+def test_migrate_file(app_clean):
     file_name = pkg_resources.resource_filename(
         __name__, os.path.join("fixtures", "1663923.xml")
     )
 
     result = app_cli_runner().invoke(cli, ["migrate", "file", "-f", file_name])
-    response = api_client.get("/literature/1663923")
+    with app_clean.app.test_client() as client:
+        response = client.get("/literature/1663923")
 
     assert result.exit_code == 0
     assert response.status_code == 200
     assert json.loads(response.data)["metadata"]["control_number"] == 1663923
 
 
-def test_migrate_file_mirror_only(api_client):
+def test_migrate_file_mirror_only(app_clean):
     file_name = pkg_resources.resource_filename(
         __name__, os.path.join("fixtures", "1663924.xml")
     )
 
     result = app_cli_runner().invoke(cli, ["migrate", "file", "-m", "-f", file_name])
     prod_record = LegacyRecordsMirror.query.get(1663924)
-    response = api_client.get("/literature/1663924")
+    with app_clean.app.test_client() as client:
+        response = client.get("/literature/1663924")
 
     assert result.exit_code == 0
     assert prod_record.recid == 1663924
@@ -96,21 +98,22 @@ def test_migrate_mirror_doesnt_halt_in_debug_mode_when_forced(app_clean):
         assert "DEBUG" not in result.output
 
 
-def test_migrate_mirror_migrates_pending(api_client):
+def test_migrate_mirror_migrates_pending(app_clean):
     file_name = pkg_resources.resource_filename(
         __name__, os.path.join("fixtures", "1663924.xml")
     )
     populate_mirror_from_file(file_name)
 
     result = app_cli_runner().invoke(cli, ["migrate", "mirror", "-f"])
-    response = api_client.get("/literature/1663924")
+    with app_clean.app.test_client() as client:
+        response = client.get("/literature/1663924")
 
     assert result.exit_code == 0
     assert response.status_code == 200
     assert json.loads(response.data)["metadata"]["control_number"] == 1663924
 
 
-def test_migrate_mirror_broken_migrates_invalid(api_client):
+def test_migrate_mirror_broken_migrates_invalid(app_clean):
 
     file_name = pkg_resources.resource_filename(
         __name__, os.path.join("fixtures", "1663927_broken.xml")
@@ -118,7 +121,8 @@ def test_migrate_mirror_broken_migrates_invalid(api_client):
     populate_mirror_from_file(file_name)
 
     result = app_cli_runner().invoke(cli, ["migrate", "mirror", "-f"])
-    response = api_client.get("/literature/1663927")
+    with app_clean.app.test_client() as client:
+        response = client.get("/literature/1663927")
 
     assert result.exit_code == 0
     assert response.status_code == 404  # it's broken
@@ -131,7 +135,8 @@ def test_migrate_mirror_broken_migrates_invalid(api_client):
     db.session.merge(prod_record)
 
     result = app_cli_runner().invoke(cli, ["migrate", "mirror", "-f", "-b"])
-    response = api_client.get("/literature/1663927")
+    with app_clean.app.test_client() as client:
+        response = client.get("/literature/1663927")
 
     assert result.exit_code == 0
     assert response.status_code == 200
@@ -144,14 +149,15 @@ def test_migrate_mirror_broken_migrates_invalid(api_client):
     version, which fails ES indexing because of the version bug with the
     citation counts."""
 )
-def test_migrate_mirror_all_migrates_all(api_client):
+def test_migrate_mirror_all_migrates_all(app_clean):
     file_name = pkg_resources.resource_filename(
         __name__, os.path.join("fixtures", "1663924.xml")
     )
     populate_mirror_from_file(file_name)
 
     result = app_cli_runner().invoke(cli, ["migrate", "mirror", "-f"])
-    response = api_client.get("/literature/1663924")
+    with app_clean.app.test_client() as client:
+        response = client.get("/literature/1663924")
 
     assert result.exit_code == 0
     assert response.status_code == 200
@@ -166,7 +172,8 @@ def test_migrate_mirror_all_migrates_all(api_client):
     db.session.merge(prod_record)
 
     result = app_cli_runner().invoke(cli, ["migrate", "mirror", "-f", "-a"])
-    response = api_client.get("/literature/1663924")
+    with app_clean.app.test_client() as client:
+        response = client.get("/literature/1663924")
 
     assert result.exit_code == 0
     assert response.status_code == 200
@@ -176,7 +183,7 @@ def test_migrate_mirror_all_migrates_all(api_client):
 
 
 def test_migrate_records_correctly_with_author_and_indexes_correctly(
-    api_client, datadir
+    app_clean, datadir
 ):
     file_name = (datadir / "1734025.xml").as_posix()
     #  Add literature record
@@ -190,17 +197,16 @@ def test_migrate_records_correctly_with_author_and_indexes_correctly(
     assert result.exit_code == 0
     current_search.flush_and_refresh("records-hep")
     current_search.flush_and_refresh("records-authors")
+    with app_clean.app.test_client() as client:
+        search_response = client.get("/literature?q=")
+        facets_response = client.get("/literature/facets?q=")
 
-    search_response = api_client.get("/literature?q=")
+        assert search_response.json["hits"]["total"] == 1
 
-    assert search_response.json["hits"]["total"] == 1
-
-    facets_response = api_client.get("/literature/facets?q=")
-
-    authors = [
-        author.get("key")
-        for author in facets_response.json["aggregations"]["author"]["buckets"]
-    ]
+        authors = [
+            author.get("key")
+            for author in facets_response.json["aggregations"]["author"]["buckets"]
+        ]
     assert "1607957_Fernando Pastawski" in authors
 
 

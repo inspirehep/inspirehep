@@ -394,7 +394,7 @@ def test_disable_conference_update_feature_flag_disabled(
 
 
 def test_self_citations_in_detail_view_not_logged_user(
-    api_client, enable_self_citations
+    app_clean, enable_self_citations
 ):
     author_1 = {
         "full_name": "James T Kirk",
@@ -428,7 +428,8 @@ def test_self_citations_in_detail_view_not_logged_user(
     expected_non_self_citations = 1
 
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
-    response = api_client.get(f"/literature/{rec1['control_number']}", headers=headers)
+    with app_clean.app.test_client() as client:
+        response = client.get(f"/literature/{rec1['control_number']}", headers=headers)
 
     assert response.status_code == 200
     assert response.json["metadata"]["citation_count"] == expected_citations

@@ -10,7 +10,7 @@ from datetime import datetime
 import mock
 from flask import current_app
 from freezegun import freeze_time
-from helpers.utils import app_cli_runner, get_test_redis
+from helpers.utils import app_cli_runner, get_test_redis, override_config
 
 from inspirehep.cli import cli
 from inspirehep.mailing.cli import mailing
@@ -42,13 +42,13 @@ def test_update_weekly_jobs(app_clean, create_jobs):
 
 
 @freeze_time(datetime(2019, 9, 17, 6, 0, 0))
-def test_update_weekly_jobs_populates_rss_feed(api_client, create_jobs):
+def test_update_weekly_jobs_populates_rss_feed(app_clean, create_jobs):
     config = {
         "WEEKLY_JOBS_EMAIL_REDIS_KEY": "MAILTRAIN_KEY",
         "WEEKLY_JOBS_EMAIL_TITLE": "Weekly jobs",
     }
-    with mock.patch.dict(current_app.config, config):
-        result = app_cli_runner().invoke(mailing, ["update_weekly_jobs"])
+    with override_config(**config), app_clean.app.test_client() as client:
+        result = app_clean.cli.invoke(mailing, ["update_weekly_jobs"])
         assert result.exit_code == 0
         assert "Campaign updated" in result.output
 
@@ -57,8 +57,7 @@ def test_update_weekly_jobs_populates_rss_feed(api_client, create_jobs):
             "Weekly jobs",
             '<!doctype html>\n<html xmlns="http://www.w3.org/1999/xhtml"',
         ]
-
-        response = api_client.get(
+        response = client.get(
             "/mailing/rss/jobs/weekly", content_type="application/rss+xml"
         )
         rss_data = response.data.decode("UTF-8")

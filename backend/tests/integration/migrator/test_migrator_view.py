@@ -15,10 +15,9 @@ from inspirehep.accounts.roles import Roles
 
 
 def test_get_returns_the_records_in_descending_order_by_last_updated(
-    api_client, datadir
+    app_clean, datadir
 ):
     user = create_user(role=Roles.cataloger.value)
-    login_user_via_session(api_client, email=user.email)
 
     data = (datadir / "1674997.xml").read_bytes()
     LegacyRecordsMirrorFactory(
@@ -44,7 +43,9 @@ def test_get_returns_the_records_in_descending_order_by_last_updated(
         _errors="Error: Most recent error.",
         valid=False,
     )
-    response = api_client.get("/migrator/errors", content_type="application/json")
+    with app_clean.app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get("/migrator/errors", content_type="application/json")
 
     expected_data = {
         "data": [
@@ -75,9 +76,8 @@ def test_get_returns_the_records_in_descending_order_by_last_updated(
     assert expected_data == response_data
 
 
-def test_get_does_not_return_deleted_records(api_client, datadir):
+def test_get_does_not_return_deleted_records(app_clean, datadir):
     user = create_user(role=Roles.cataloger.value)
-    login_user_via_session(api_client, email=user.email)
 
     data = (datadir / "1674997.xml").read_bytes()
     LegacyRecordsMirrorFactory(
@@ -103,8 +103,9 @@ def test_get_does_not_return_deleted_records(api_client, datadir):
         _errors="Error: Most recent error.",
         valid=False,
     )
-
-    response = api_client.get("/migrator/errors", content_type="application/json")
+    with app_clean.app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get("/migrator/errors", content_type="application/json")
 
     expected_data = {
         "data": [
@@ -130,11 +131,12 @@ def test_get_does_not_return_deleted_records(api_client, datadir):
 
 
 def test_get_returns_empty_data_because_there_are_no_mirror_records_with_errors(
-    api_client
+    app_clean
 ):
     user = create_user(role=Roles.cataloger.value)
-    login_user_via_session(api_client, email=user.email)
-    response = api_client.get("/migrator/errors", content_type="application/json")
+    with app_clean.app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get("/migrator/errors", content_type="application/json")
 
     expected_data = {"data": []}
 
@@ -142,7 +144,8 @@ def test_get_returns_empty_data_because_there_are_no_mirror_records_with_errors(
     assert json.loads(response.data) == expected_data
 
 
-def test_get_returns_permission_denied_if_not_logged_in_as_privileged_user(api_client):
-    response = api_client.get("/migrator/errors", content_type="application/json")
+def test_get_returns_permission_denied_if_not_logged_in_as_privileged_user(app_clean):
+    with app_clean.app.test_client() as client:
+        response = client.get("/migrator/errors", content_type="application/json")
 
     assert response.status_code == 401

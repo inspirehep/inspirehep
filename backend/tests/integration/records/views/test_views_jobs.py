@@ -13,66 +13,71 @@ from invenio_accounts.testutils import login_user_via_session
 from inspirehep.accounts.roles import Roles
 
 
-def test_jobs_application_json_get(api_client):
+def test_jobs_application_json_get(app_clean):
     record = create_record("job")
     record_control_number = record["control_number"]
 
     expected_status_code = 200
-    response = api_client.get(f"/jobs/{record_control_number}")
+    with app_clean.app.test_client() as client:
+        response = client.get(f"/jobs/{record_control_number}")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
 
 
-def test_jobs_application_json_put(api_client):
+def test_jobs_application_json_put(app_clean):
     record = create_record("job")
     record_control_number = record["control_number"]
 
     expected_status_code = 401
-    response = api_client.put(f"/jobs/{record_control_number}")
+    with app_clean.app.test_client() as client:
+        response = client.put(f"/jobs/{record_control_number}")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
 
 
-def test_jobs_application_json_delete(api_client):
+def test_jobs_application_json_delete(app_clean):
     record = create_record("job")
     record_control_number = record["control_number"]
 
     expected_status_code = 401
-    response = api_client.delete(f"/jobs/{record_control_number}")
+    with app_clean.app.test_client() as client:
+        response = client.delete(f"/jobs/{record_control_number}")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
 
 
-def test_jobs_application_json_post(api_client):
+def test_jobs_application_json_post(app_clean):
     expected_status_code = 401
-    response = api_client.post("/jobs")
+    with app_clean.app.test_client() as client:
+        response = client.post("/jobs")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
 
 
-def test_jobs_search_json_get(api_client):
+def test_jobs_search_json_get(app_clean):
     create_record("job")
 
     expected_status_code = 200
-    response = api_client.get("/jobs")
+    with app_clean.app.test_client() as client:
+        response = client.get("/jobs")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
 
 
-def test_jobs_facets(api_client, datadir):
+def test_jobs_facets(app_clean, datadir):
     data = json.loads((datadir / "1735925.json").read_text())
     create_record("job", data=data)
 
     expected_aggregations = json.loads(
         (datadir / "es_aggregations_for_1735925.json").read_text()
     )
-
-    response = api_client.get("/jobs/facets")
+    with app_clean.app.test_client() as client:
+        response = client.get("/jobs/facets")
     response_data = response.json
 
     response_status_code = response.status_code
@@ -85,9 +90,8 @@ def test_jobs_facets(api_client, datadir):
     assert len(response_data["hits"]["hits"]) == 0
 
 
-def test_jobs_facets_cataloger(api_client, datadir):
+def test_jobs_facets_cataloger(app_clean, datadir):
     user = create_user(role=Roles.cataloger.value)
-    login_user_via_session(api_client, email=user.email)
 
     data = json.loads((datadir / "1735925.json").read_text())
     create_record("job", data=data)
@@ -95,8 +99,9 @@ def test_jobs_facets_cataloger(api_client, datadir):
     expected_aggregations = json.loads(
         (datadir / "es_aggregations_cataloger_for_1735925.json").read_text()
     )
-
-    response = api_client.get("/jobs/facets")
+    with app_clean.app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get("/jobs/facets")
     response_data = response.json
 
     response_status_code = response.status_code
@@ -108,11 +113,12 @@ def test_jobs_facets_cataloger(api_client, datadir):
     assert expected_aggregations == response_aggregations
 
 
-def test_jobs_sort_options(api_client, datadir):
+def test_jobs_sort_options(app_clean, datadir):
     data = json.loads((datadir / "1735925.json").read_text())
     record = create_record("job", data=data)
 
-    response = api_client.get("/jobs")
+    with app_clean.app.test_client() as client:
+        response = client.get("/jobs")
     response_data = response.json
 
     response_status_code = response.status_code
@@ -125,10 +131,11 @@ def test_jobs_sort_options(api_client, datadir):
     assert expected_sort_options_1 in response_data_sort_options
 
 
-def test_jobs_accelerator_experiments(api_client, datadir):
+def test_jobs_accelerator_experiments(app_clean, datadir):
     data = json.loads((datadir / "1735925.json").read_text())
     create_record("job", data=data)
-    response = api_client.get("/jobs/1735925")
+    with app_clean.app.test_client() as client:
+        response = client.get("/jobs/1735925")
     response_accelerator_experiments = response.json["metadata"][
         "accelerator_experiments"
     ]
@@ -142,18 +149,19 @@ def test_jobs_accelerator_experiments(api_client, datadir):
 
 
 def test_jobs_record_search_results_does_not_return_pending_job_to_non_superuser(
-    api_client
+    app_clean
 ):
     create_record("job", data={"status": "pending"})
-
-    result = api_client.get("/jobs")
+    with app_clean.app.test_client() as client:
+        result = client.get("/jobs")
     assert result.json["hits"]["total"] == 0
 
 
-def test_jobs_record_search_results_returns_open_job_to_non_superuser(api_client):
+def test_jobs_record_search_results_returns_open_job_to_non_superuser(app_clean):
     record = create_record("job", data={"status": "open"})
 
-    result = api_client.get("/jobs")
+    with app_clean.app.test_client() as client:
+        result = client.get("/jobs")
 
     expected_metadata = record.serialize_for_es()
     expected_metadata.pop("_updated")
@@ -168,52 +176,56 @@ def test_jobs_record_search_results_returns_open_job_to_non_superuser(api_client
     assert expected_results == result.json["hits"]["total"]
 
 
-def test_jobs_record_search_results_returns_pending_job_to_superuser(api_client):
+def test_jobs_record_search_results_returns_pending_job_to_superuser(app_clean):
     user = create_user(role=Roles.cataloger.value)
-    login_user_via_session(api_client, email=user.email)
 
     record = create_record("job", data={"status": "pending"})
 
-    result = api_client.get("/jobs")
+    with app_clean.app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        result = client.get("/jobs")
 
-    expected_metadata = record.serialize_for_es()
-    expected_metadata.pop("_updated")
-    expected_metadata.pop("_created")
-    expected_results = 1
+        expected_metadata = record.serialize_for_es()
+        expected_metadata.pop("_updated")
+        expected_metadata.pop("_created")
+        expected_results = 1
 
-    result_metadata = result.json["hits"]["hits"][0]["metadata"]
+        result_metadata = result.json["hits"]["hits"][0]["metadata"]
 
-    assert expected_metadata == result_metadata
-    assert expected_results == result.json["hits"]["total"]
+        assert expected_metadata == result_metadata
+        assert expected_results == result.json["hits"]["total"]
 
 
-def test_jobs_search_permissions(api_client):
+def test_jobs_search_permissions(app_clean):
     create_record("job", data={"status": "pending"})
     create_record("job", data={"status": "open"})
-
-    response = api_client.get("/jobs")
+    with app_clean.app.test_client() as client:
+        response = client.get("/jobs")
     response_data = json.loads(response.data)
     assert response_data["hits"]["total"] == 1
 
     user = create_user(role=Roles.cataloger.value)
-    login_user_via_session(api_client, email=user.email)
+    with app_clean.app.test_client() as client:
+        login_user_via_session(client, email=user.email)
 
-    response = api_client.get("/jobs")
-    response_data = json.loads(response.data)
-    assert response_data["hits"]["total"] == 2
+        response = client.get("/jobs")
+        response_data = json.loads(response.data)
 
-    logout(api_client)
+        assert response_data["hits"]["total"] == 2
 
-    response = api_client.get("/jobs")
+        logout(client)
+
+        response = client.get("/jobs")
     response_data = json.loads(response.data)
     assert response_data["hits"]["total"] == 1
 
 
-def test_jobs_sort_options(api_client, datadir):
+def test_jobs_sort_options(app_clean, datadir):
     data = json.loads((datadir / "1735925.json").read_text())
     record = create_record("job", data=data)
 
-    response = api_client.get("/jobs")
+    with app_clean.app.test_client() as client:
+        response = client.get("/jobs")
     response_data = response.json
 
     response_status_code = response.status_code
@@ -228,7 +240,7 @@ def test_jobs_sort_options(api_client, datadir):
     assert expected_sort_options_2 in response_data_sort_options
 
 
-def test_jobs_sort_by_deadline(api_client, datadir):
+def test_jobs_sort_by_deadline(app_clean, datadir):
     data = json.loads((datadir / "1735925.json").read_text())
     create_record("job", data=data)
     data["deadline_date"] = "2020-12-31"
@@ -237,7 +249,8 @@ def test_jobs_sort_by_deadline(api_client, datadir):
     expected_first_control_number = 1_735_925
     expected_second_control_number = 1_735_926
 
-    response = api_client.get("/jobs?sort=deadline")
+    with app_clean.app.test_client() as client:
+        response = client.get("/jobs?sort=deadline")
 
     response_data = response.json
     response_first_control_number = response_data["hits"]["hits"][0]["metadata"][

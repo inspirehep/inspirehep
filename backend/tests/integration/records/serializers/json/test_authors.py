@@ -13,7 +13,7 @@ from invenio_accounts.testutils import login_user_via_session
 from inspirehep.accounts.roles import Roles
 
 
-def test_authors_detail(api_client, datadir):
+def test_authors_detail(app_clean, datadir):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
 
     data = json.loads((datadir / "999108.json").read_text())
@@ -85,7 +85,8 @@ def test_authors_detail(api_client, datadir):
         "stub": False,
         "urls": [{"value": "http://www.sns.ias.edu/~malda"}],
     }
-    response = api_client.get(f"/authors/{record_control_number}", headers=headers)
+    with app_clean.app.test_client() as client:
+        response = client.get(f"/authors/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
     response_data = json.loads(response.data)
@@ -97,7 +98,7 @@ def test_authors_detail(api_client, datadir):
     assert response_data["updated"] is not None
 
 
-def test_authors_json_without_login(api_client):
+def test_authors_json_without_login(app_clean):
     headers = {"Accept": "application/json"}
 
     data = {
@@ -123,7 +124,8 @@ def test_authors_json_without_login(api_client):
         "deleted": False,
         "email_addresses": [{"value": "public@urhan.ch"}],
     }
-    response = api_client.get(f"/authors/{record_control_number}", headers=headers)
+    with app_clean.app.test_client() as client:
+        response = client.get(f"/authors/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
     response_data = json.loads(response.data)
@@ -135,9 +137,8 @@ def test_authors_json_without_login(api_client):
     assert expected_uuid == response_uuid
 
 
-def test_authors_json_with_logged_in_cataloger(api_client):
+def test_authors_json_with_logged_in_cataloger(app_clean):
     user = create_user(role=Roles.cataloger.value)
-    login_user_via_session(api_client, email=user.email)
 
     headers = {"Accept": "application/json"}
 
@@ -168,7 +169,9 @@ def test_authors_json_with_logged_in_cataloger(api_client):
             {"value": "private@urhan.ch", "hidden": True},
         ],
     }
-    response = api_client.get(f"/authors/{record_control_number}", headers=headers)
+    with app_clean.app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(f"/authors/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
     response_data = json.loads(response.data)
@@ -178,7 +181,7 @@ def test_authors_json_with_logged_in_cataloger(api_client):
     assert expected_result == response_data_metadata
 
 
-def test_authors_only_control_number(api_client, datadir):
+def test_authors_only_control_number(app_clean, datadir):
     headers = {"Accept": "application/vnd+inspire.record.control_number+json"}
 
     data = json.loads((datadir / "999108.json").read_text())
@@ -188,7 +191,8 @@ def test_authors_only_control_number(api_client, datadir):
 
     expected_status_code = 200
     expected_result = {"control_number": record_control_number}
-    response = api_client.get(f"/authors/{record_control_number}", headers=headers)
+    with app_clean.app.test_client() as client:
+        response = client.get(f"/authors/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
     response_data = json.loads(response.data)
@@ -198,7 +202,7 @@ def test_authors_only_control_number(api_client, datadir):
     assert expected_result == response_data_metadata
 
 
-def test_authors_search_json(api_client):
+def test_authors_search_json(app_clean):
     headers = {"Accept": "application/json"}
 
     data = {
@@ -225,7 +229,8 @@ def test_authors_search_json(api_client):
         "email_addresses": [{"value": "public@urhan.ch"}],
     }
     expected_id = str(record_control_number)
-    response = api_client.get("/authors", headers=headers)
+    with app_clean.app.test_client() as client:
+        response = client.get("/authors", headers=headers)
 
     response_status_code = response.status_code
     response_data = json.loads(response.data)
@@ -242,13 +247,14 @@ def test_authors_search_json(api_client):
     assert response_data_hits_updated is not None
 
 
-def test_authors_search_json_does_not_have_sort_options(api_client):
+def test_authors_search_json_does_not_have_sort_options(app_clean):
     headers = {"Accept": "application/json"}
     record = create_record("aut")
 
     expected_status_code = 200
     expected_sort_options = None
-    response = api_client.get("/authors", headers=headers)
+    with app_clean.app.test_client() as client:
+        response = client.get("/authors", headers=headers)
 
     response_status_code = response.status_code
     response_data = json.loads(response.data)
@@ -258,9 +264,8 @@ def test_authors_search_json_does_not_have_sort_options(api_client):
     assert expected_sort_options == sort_options
 
 
-def test_authors_search_json_with_logged_in_cataloger(api_client):
+def test_authors_search_json_with_logged_in_cataloger(app_clean):
     user = create_user(role=Roles.cataloger.value)
-    login_user_via_session(api_client, email=user.email)
 
     headers = {"Accept": "application/json"}
 
@@ -292,7 +297,9 @@ def test_authors_search_json_with_logged_in_cataloger(api_client):
             {"value": "private@urhan.ch", "hidden": True},
         ],
     }
-    response = api_client.get("/authors".format(record_control_number), headers=headers)
+    with app_clean.app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get("/authors".format(record_control_number), headers=headers)
 
     response_status_code = response.status_code
     response_data = json.loads(response.data)

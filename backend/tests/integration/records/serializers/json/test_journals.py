@@ -12,7 +12,7 @@ from helpers.utils import create_record, create_record_factory
 from marshmallow import utils
 
 
-def test_journals_json(api_client, datadir):
+def test_journals_json(app_clean, datadir):
     headers = {"Accept": "application/json"}
 
     data = json.loads((datadir / "1212042.json").read_text())
@@ -23,8 +23,8 @@ def test_journals_json(api_client, datadir):
     expected_metadata = deepcopy(record.json)
     expected_created = utils.isoformat(record.created)
     expected_updated = utils.isoformat(record.updated)
-
-    response = api_client.get(f"/journals/{record_control_number}", headers=headers)
+    with app_clean.app.test_client() as client:
+        response = client.get(f"/journals/{record_control_number}", headers=headers)
 
     response_data = json.loads(response.data)
     response_data_metadata = response_data["metadata"]
@@ -36,7 +36,7 @@ def test_journals_json(api_client, datadir):
     assert expected_updated == response_updated
 
 
-def test_journals_search_json(api_client, datadir):
+def test_journals_search_json(app_clean, datadir):
     headers = {"Accept": "application/json"}
 
     data = json.loads((datadir / "1212042.json").read_text())
@@ -46,8 +46,8 @@ def test_journals_search_json(api_client, datadir):
     expected_result = deepcopy(record)
     expected_created = utils.isoformat(record.created)
     expected_updated = utils.isoformat(record.updated)
-
-    response = api_client.get("/journals", headers=headers)
+    with app_clean.app.test_client() as client:
+        response = client.get("/journals", headers=headers)
 
     response_data_hit = response.json["hits"]["hits"][0]
 

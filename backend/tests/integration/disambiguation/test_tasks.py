@@ -84,7 +84,7 @@ def test_disambiguate_signatures_cluster_with_0_authors(app_clean):
 
 
 def test_disambiguate_signatures_cluster_creates_author_with_facet_author_name(
-    api_client
+    app_clean
 ):
     data = {
         "authors": [
@@ -111,7 +111,8 @@ def test_disambiguate_signatures_cluster_creates_author_with_facet_author_name(
     author_control_number = author.pop("control_number")
     expected_facet_author_name = f"{author_control_number}_John Doe"
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
-    response = api_client.get(f"/authors/{author_control_number}", headers=headers)
+    with app_clean.app.test_client() as client:
+        response = client.get(f"/authors/{author_control_number}", headers=headers)
     author_details_json = json.loads(response.data)
     assert (
         expected_facet_author_name

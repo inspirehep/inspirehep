@@ -6,10 +6,11 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
-def test_ping_view(api_client):
+def test_ping_view(app_clean):
 
     expected_status_code = 200
-    response = api_client.get("/ping")
+    with app_clean.app.test_client() as client:
+        response = client.get("/ping")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code

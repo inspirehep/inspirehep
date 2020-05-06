@@ -56,10 +56,11 @@ def xml_compare(expected, result):
     return True
 
 
-def test_format_article(api_client, datadir):
+def test_format_article(app_clean, datadir):
     data = json.loads((datadir / "4328.json").read_text())
     create_record("lit", data=data)
-    response = api_client.get("/literature/4328")
+    with app_clean.app.test_client() as client:
+        response = client.get("/literature/4328")
     assert response.status_code == 200
     article = json.loads(response.data)
 
@@ -112,15 +113,15 @@ def test_format_article(api_client, datadir):
     )._hash_xml_element(result)
 
 
-def test_format_conference_paper(api_client, datadir):
+def test_format_conference_paper(app_clean, datadir):
     data = json.loads((datadir / "524480.json").read_text())
     record = create_record("lit", data=data)
     data_conference = json.loads((datadir / "972464.json").read_text())
     record_conference = create_record_factory(
         "con", data=data_conference, with_indexing=True
     )
-
-    response = api_client.get("/literature/524480")
+    with app_clean.app.test_client() as client:
+        response = client.get("/literature/524480")
     assert response.status_code == 200
     inproceedings = json.loads(response.data)
 
@@ -169,10 +170,11 @@ def test_format_conference_paper(api_client, datadir):
     )._hash_xml_element(result)
 
 
-def test_format_proceedings(api_client, datadir):
+def test_format_proceedings(app_clean, datadir):
     data = json.loads((datadir / "701585.json").read_text())
     record = create_record("lit", data=data)
-    response = api_client.get("/literature/701585")
+    with app_clean.app.test_client() as client:
+        response = client.get("/literature/701585")
     assert response.status_code == 200
     proceedings = json.loads(response.data)
 
@@ -231,10 +233,11 @@ def test_format_proceedings(api_client, datadir):
     )._hash_xml_element(result)
 
 
-def test_format_thesis(api_client, datadir):
+def test_format_thesis(app_clean, datadir):
     data = json.loads((datadir / "1395663.json").read_text())
     record = create_record("lit", data=data)
-    response = api_client.get("/literature/1395663")
+    with app_clean.app.test_client() as client:
+        response = client.get("/literature/1395663")
     assert response.status_code == 200
     phdthesis = json.loads(response.data)
 
@@ -277,10 +280,11 @@ def test_format_thesis(api_client, datadir):
     )._hash_xml_element(result)
 
 
-def test_format_book(api_client, datadir):
+def test_format_book(app_clean, datadir):
     data = json.loads((datadir / "736770.json").read_text())
     record = create_record("lit", data=data)
-    response = api_client.get("/literature/736770")
+    with app_clean.app.test_client() as client:
+        response = client.get("/literature/736770")
     assert response.status_code == 200
     book = json.loads(response.data)
 
@@ -340,10 +344,11 @@ def test_format_book(api_client, datadir):
     )._hash_xml_element(result)
 
 
-def test_format_book_chapter(api_client, datadir):
+def test_format_book_chapter(app_clean, datadir):
     data = json.loads((datadir / "1375491.json").read_text())
     record = create_record("lit", data=data)
-    response = api_client.get("/literature/1375491")
+    with app_clean.app.test_client() as client:
+        response = client.get("/literature/1375491")
     assert response.status_code == 200
     inbook = json.loads(response.data)
 
@@ -415,10 +420,11 @@ def test_format_book_chapter(api_client, datadir):
     )._hash_xml_element(result)
 
 
-def test_format_thesis_with_author_orcid(api_client, datadir):
+def test_format_thesis_with_author_orcid(app_clean, datadir):
     data = json.loads((datadir / "1395663.json").read_text())
     record = create_record("lit", data=data)
-    response = api_client.get("/literature/1395663")
+    with app_clean.app.test_client() as client:
+        response = client.get("/literature/1395663")
     assert response.status_code == 200
     phdthesis = json.loads(response.data)
 
@@ -472,10 +478,11 @@ def test_format_thesis_with_author_orcid(api_client, datadir):
     )._hash_xml_element(result)
 
 
-def test_external_identifiers(api_client, datadir):
+def test_external_identifiers(app_clean, datadir):
     data = json.loads((datadir / "1375491.json").read_text())
     record = create_record("lit", data=data)
-    response = api_client.get("/literature/1375491")
+    with app_clean.app.test_client() as client:
+        response = client.get("/literature/1375491")
     assert response.status_code == 200
     inbook = json.loads(response.data)
 

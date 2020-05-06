@@ -11,7 +11,7 @@ import pytest
 import vcr
 from flask import current_app, render_template
 from freezegun import freeze_time
-from helpers.utils import get_test_redis
+from helpers.utils import get_test_redis, override_config
 from mock import patch
 
 from inspirehep.mailing.api.jobs import (
@@ -23,27 +23,33 @@ from inspirehep.records.api import InspireRecord
 
 
 @pytest.mark.vcr()
-def test_view_subscribe_to_list(api_client, vcr_cassette):
-    response = api_client.post(
-        "/mailing/subscribe/jobs/weekly",
-        content_type="application/json",
-        data=json.dumps(
-            {"email": "frank@castle.com", "first_name": "Frank", "last_name": "Castle"}
-        ),
-    )
+def test_view_subscribe_to_list(app_clean, vcr_cassette):
+    with app_clean.app.test_client() as client:
+        response = client.post(
+            "/mailing/subscribe/jobs/weekly",
+            content_type="application/json",
+            data=json.dumps(
+                {
+                    "email": "frank@castle.com",
+                    "first_name": "Frank",
+                    "last_name": "Castle",
+                }
+            ),
+        )
 
     assert response.status_code == 200
     assert vcr_cassette.all_played
 
 
-def test_view_subscribe_to_list_with_invalid_email(api_client):
-    response = api_client.post(
-        "/mailing/subscribe/jobs/weekly",
-        content_type="application/json",
-        data=json.dumps(
-            {"email": "frank", "first_name": "Frank", "last_name": "Castle"}
-        ),
-    )
+def test_view_subscribe_to_list_with_invalid_email(app_clean):
+    with app_clean.app.test_client() as client:
+        response = client.post(
+            "/mailing/subscribe/jobs/weekly",
+            content_type="application/json",
+            data=json.dumps(
+                {"email": "frank", "first_name": "Frank", "last_name": "Castle"}
+            ),
+        )
     expected_message = "Validation Error."
     expected_status_code = 400
     expected_errors = {"email": ["Not a valid email address."]}
@@ -57,12 +63,13 @@ def test_view_subscribe_to_list_with_invalid_email(api_client):
     assert expected_errors == result_errors
 
 
-def test_view_subscribe_to_list_with_missing_data(api_client):
-    response = api_client.post(
-        "/mailing/subscribe/jobs/weekly",
-        content_type="application/json",
-        data=json.dumps({"email": "frank@castle.com"}),
-    )
+def test_view_subscribe_to_list_with_missing_data(app_clean):
+    with app_clean.app.test_client() as client:
+        response = client.post(
+            "/mailing/subscribe/jobs/weekly",
+            content_type="application/json",
+            data=json.dumps({"email": "frank@castle.com"}),
+        )
     expected_message = "Validation Error."
     expected_status_code = 400
     expected_errors = {
@@ -79,10 +86,8 @@ def test_view_subscribe_to_list_with_missing_data(api_client):
     assert expected_errors == result_errors
 
 
-def test_get_weekly_jobs_rss(api_client, shared_datadir):
-    with patch.dict(
-        current_app.config, {"WEEKLY_JOBS_EMAIL_REDIS_KEY": "weekly_jobs_email"}
-    ):
+def test_get_weekly_jobs_rss(app_clean, shared_datadir):
+    with override_config(WEEKLY_JOBS_EMAIL_REDIS_KEY="weekly_jobs_email"):
         entry = {
             "title": "New HEP positions opened last week",
             "timestamp": 1568789887.583032,
@@ -90,9 +95,10 @@ def test_get_weekly_jobs_rss(api_client, shared_datadir):
         }
 
         get_test_redis().hmset("weekly_jobs_email", entry)
-        response = api_client.get(
-            "/mailing/rss/jobs/weekly", content_type="application/rss+xml"
-        )
+        with app_clean.app.test_client() as client:
+            response = client.get(
+                "/mailing/rss/jobs/weekly", content_type="application/rss+xml"
+            )
         rss_data = response.data.decode("UTF-8")
         expected_data = (shared_datadir / "rss.xml").read_text()
 

@@ -15,7 +15,7 @@ from marshmallow import utils
 from inspirehep.accounts.roles import Roles
 
 
-def test_institutions_json_without_login(api_client, datadir):
+def test_institutions_json_without_login(app_clean, datadir):
     headers = {"Accept": "application/json"}
 
     data = json.loads((datadir / "903324.json").read_text())
@@ -30,8 +30,8 @@ def test_institutions_json_without_login(api_client, datadir):
     del expected_metadata["_private_notes"]
     expected_created = utils.isoformat(record.created)
     expected_updated = utils.isoformat(record.updated)
-
-    response = api_client.get(f"/institutions/{record_control_number}", headers=headers)
+    with app_clean.app.test_client() as client:
+        response = client.get(f"/institutions/{record_control_number}", headers=headers)
 
     response_data = json.loads(response.data)
     response_data_metadata = response_data["metadata"]
@@ -43,9 +43,8 @@ def test_institutions_json_without_login(api_client, datadir):
     assert expected_updated == response_updated
 
 
-def test_institutions_json_with_logged_in_cataloger(api_client, datadir):
+def test_institutions_json_with_logged_in_cataloger(app_clean, datadir):
     user = create_user(role=Roles.cataloger.value)
-    login_user_via_session(api_client, email=user.email)
 
     headers = {"Accept": "application/json"}
 
@@ -59,8 +58,9 @@ def test_institutions_json_with_logged_in_cataloger(api_client, datadir):
     expected_metadata["number_of_papers"] = 0
     expected_created = utils.isoformat(record.created)
     expected_updated = utils.isoformat(record.updated)
-
-    response = api_client.get(f"/institutions/{record_control_number}", headers=headers)
+    with app_clean.app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(f"/institutions/{record_control_number}", headers=headers)
 
     response_data = json.loads(response.data)
     response_data_metadata = response_data["metadata"]
@@ -72,7 +72,7 @@ def test_institutions_json_with_logged_in_cataloger(api_client, datadir):
     assert expected_updated == response_updated
 
 
-def test_institutions_search_json(api_client, datadir):
+def test_institutions_search_json(app_clean, datadir):
     headers = {"Accept": "application/json"}
 
     data = json.loads((datadir / "903324.json").read_text())
@@ -87,7 +87,8 @@ def test_institutions_search_json(api_client, datadir):
     expected_created = utils.isoformat(record.created)
     expected_updated = utils.isoformat(record.updated)
 
-    response = api_client.get("/institutions", headers=headers)
+    with app_clean.app.test_client() as client:
+        response = client.get("/institutions", headers=headers)
 
     response_data_hit = response.json["hits"]["hits"][0]
 
@@ -100,7 +101,7 @@ def test_institutions_search_json(api_client, datadir):
     assert expected_updated == response_updated
 
 
-def test_institutions_detail(api_client, datadir):
+def test_institutions_detail(app_clean, datadir):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
 
     data = json.loads((datadir / "903324.json").read_text())
@@ -132,7 +133,8 @@ def test_institutions_detail(api_client, datadir):
     expected_created = utils.isoformat(record.created)
     expected_updated = utils.isoformat(record.updated)
 
-    response = api_client.get(f"/institutions/{record_control_number}", headers=headers)
+    with app_clean.app.test_client() as client:
+        response = client.get(f"/institutions/{record_control_number}", headers=headers)
 
     response_data = json.loads(response.data)
     response_data_metadata = response_data["metadata"]
@@ -144,7 +146,7 @@ def test_institutions_detail(api_client, datadir):
     assert expected_updated == response_updated
 
 
-def test_parent_institutions_in_detail_page(api_client):
+def test_parent_institutions_in_detail_page(app_clean):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
 
     data = {"legacy_ICN": "Ins Parent"}
@@ -173,7 +175,8 @@ def test_parent_institutions_in_detail_page(api_client):
     ]
     record = create_record_factory("ins", data=data)
     record_control_number = record.json["control_number"]
-    response = api_client.get(f"/institutions/{record_control_number}", headers=headers)
+    with app_clean.app.test_client() as client:
+        response = client.get(f"/institutions/{record_control_number}", headers=headers)
     response_data = json.loads(response.data)
     response_data_metadata = response_data["metadata"]
     assert (
@@ -182,7 +185,7 @@ def test_parent_institutions_in_detail_page(api_client):
     )
 
 
-def test_successor_institutions_in_detail_page(api_client):
+def test_successor_institutions_in_detail_page(app_clean):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
 
     data = {"legacy_ICN": "Ins Parent"}
@@ -206,7 +209,8 @@ def test_successor_institutions_in_detail_page(api_client):
     ]
     record = create_record_factory("ins", data=data)
     record_control_number = record.json["control_number"]
-    response = api_client.get(f"/institutions/{record_control_number}", headers=headers)
+    with app_clean.app.test_client() as client:
+        response = client.get(f"/institutions/{record_control_number}", headers=headers)
     response_data = json.loads(response.data)
     response_data_metadata = response_data["metadata"]
     assert (
@@ -215,7 +219,7 @@ def test_successor_institutions_in_detail_page(api_client):
     )
 
 
-def test_predecessor_institutions_in_detail_page(api_client):
+def test_predecessor_institutions_in_detail_page(app_clean):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
 
     data = {"legacy_ICN": "Ins Parent"}
@@ -240,7 +244,8 @@ def test_predecessor_institutions_in_detail_page(api_client):
     ]
     record = create_record_factory("ins", data=data)
     record_control_number = record.json["control_number"]
-    response = api_client.get(f"/institutions/{record_control_number}", headers=headers)
+    with app_clean.app.test_client() as client:
+        response = client.get(f"/institutions/{record_control_number}", headers=headers)
     response_data = json.loads(response.data)
     response_data_metadata = response_data["metadata"]
     assert (
@@ -249,7 +254,7 @@ def test_predecessor_institutions_in_detail_page(api_client):
     )
 
 
-def test_subsidiary_institutions_in_detail_page(api_client):
+def test_subsidiary_institutions_in_detail_page(app_clean):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
 
     data = {"legacy_ICN": "Institution"}
@@ -293,7 +298,8 @@ def test_subsidiary_institutions_in_detail_page(api_client):
             "legacy_ICN": "Subsidiary institution",
         }
     ]
-    response = api_client.get(f"/institutions/{record_control_number}", headers=headers)
+    with app_clean.app.test_client() as client:
+        response = client.get(f"/institutions/{record_control_number}", headers=headers)
     response_data = json.loads(response.data)
     response_data_metadata = response_data["metadata"]
     assert (

@@ -10,7 +10,7 @@ import json
 from helpers.utils import create_record_factory
 
 
-def test_citation_summary_facet(api_client):
+def test_citation_summary_facet(app_clean):
     unpublished_paper_data = {
         "refereed": False,
         "citation_count": 8,
@@ -31,9 +31,10 @@ def test_citation_summary_facet(api_client):
         }
         create_record_factory("lit", data=data, with_indexing=True)
 
-    response = api_client.get(
-        "/literature/facets?author=NOREC_N.%20Girard&facet_name=citation-summary"
-    )
+    with app_clean.app.test_client() as client:
+        response = client.get(
+            "/literature/facets?author=NOREC_N.%20Girard&facet_name=citation-summary"
+        )
 
     expected_citation_summary_aggregation = {
         "doc_count": 8,
@@ -114,7 +115,7 @@ def test_citation_summary_facet(api_client):
 
 
 def test_citation_summary_without_self_citations_facet(
-    api_client, enable_self_citations
+    app_clean, enable_self_citations
 ):
     unpublished_paper_data = {
         "refereed": False,
@@ -136,9 +137,10 @@ def test_citation_summary_without_self_citations_facet(
         }
         create_record_factory("lit", data=data, with_indexing=True)
 
-    response = api_client.get(
-        "/literature/facets?author=NOREC_N.%20Girard&facet_name=citation-summary&exclude-self-citations"
-    )
+    with app_clean.app.test_client() as client:
+        response = client.get(
+            "/literature/facets?author=NOREC_N.%20Girard&facet_name=citation-summary&exclude-self-citations"
+        )
 
     expected_citation_summary_aggregation = {
         "doc_count": 8,
@@ -218,7 +220,7 @@ def test_citation_summary_without_self_citations_facet(
     assert len(response_data["hits"]["hits"]) == 0
 
 
-def test_h_index_with_more_papers_than_citations(api_client):
+def test_h_index_with_more_papers_than_citations(app_clean):
     published_papers_citation_count = [1, 2, 2, 2, 2]
     for count in published_papers_citation_count:
         data = {
@@ -229,9 +231,10 @@ def test_h_index_with_more_papers_than_citations(api_client):
         }
         create_record_factory("lit", data=data, with_indexing=True)
 
-    response = api_client.get(
-        "/literature/facets?author=NOREC_N.%20Girard&facet_name=citation-summary"
-    )
+    with app_clean.app.test_client() as client:
+        response = client.get(
+            "/literature/facets?author=NOREC_N.%20Girard&facet_name=citation-summary"
+        )
 
     expected_h_index = {"value": {"all": 2, "published": 2}}
 
@@ -242,7 +245,7 @@ def test_h_index_with_more_papers_than_citations(api_client):
     assert response_data_h_index == expected_h_index
 
 
-def test_h_index_with_as_many_papers_as_citations(api_client):
+def test_h_index_with_as_many_papers_as_citations(app_clean):
     published_papers_citation_count = [5, 5, 5, 5, 5]
     for count in published_papers_citation_count:
         data = {
@@ -253,9 +256,10 @@ def test_h_index_with_as_many_papers_as_citations(api_client):
         }
         create_record_factory("lit", data=data, with_indexing=True)
 
-    response = api_client.get(
-        "/literature/facets?author=NOREC_N.%20Girard&facet_name=citation-summary"
-    )
+    with app_clean.app.test_client() as client:
+        response = client.get(
+            "/literature/facets?author=NOREC_N.%20Girard&facet_name=citation-summary"
+        )
 
     expected_h_index = {"value": {"all": 5, "published": 5}}
 
@@ -266,7 +270,7 @@ def test_h_index_with_as_many_papers_as_citations(api_client):
     assert response_data_h_index == expected_h_index
 
 
-def test_citation_summary_facet_filters(api_client):
+def test_citation_summary_facet_filters(app_clean):
     book_chapter_paper = {
         "refereed": False,
         "citation_count": 8,
@@ -286,9 +290,10 @@ def test_citation_summary_facet_filters(api_client):
         }
         create_record_factory("lit", data=data, with_indexing=True)
 
-    response = api_client.get(
-        "/literature/facets?author=NOREC_N.%20Girard&facet_name=citation-summary&doc_type=book%20chapter"
-    )
+    with app_clean.app.test_client() as client:
+        response = client.get(
+            "/literature/facets?author=NOREC_N.%20Girard&facet_name=citation-summary&doc_type=book%20chapter"
+        )
 
     expected_citation_summary_aggregation = {
         "doc_count": 1,
@@ -367,7 +372,7 @@ def test_citation_summary_facet_filters(api_client):
     assert response_data_citation_summary == expected_citation_summary_aggregation
 
 
-def test_citation_summary_facet_excluded_filters(api_client):
+def test_citation_summary_facet_excluded_filters(app_clean):
     non_refereed_paper = {
         "refereed": False,
         "citation_count": 8,
@@ -386,9 +391,10 @@ def test_citation_summary_facet_excluded_filters(api_client):
         }
         create_record_factory("lit", data=data, with_indexing=True)
 
-    response = api_client.get(
-        "/literature/facets?author=NOREC_N.%20Girard&facet_name=citation-summary&refereed=True&citeable=False&citation_count=500--505"
-    )
+    with app_clean.app.test_client() as client:
+        response = client.get(
+            "/literature/facets?author=NOREC_N.%20Girard&facet_name=citation-summary&refereed=True&citeable=False&citation_count=500--505"
+        )
     response_data = json.loads(response.data)
     response_status_code = response.status_code
     assert response_status_code == 200

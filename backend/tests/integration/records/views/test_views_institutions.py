@@ -7,58 +7,63 @@
 from helpers.utils import create_record, create_record_factory
 
 
-def test_institutions_application_json_get(api_client):
+def test_institutions_application_json_get(app_clean):
     record = create_record_factory("ins", with_indexing=True)
     record_control_number = record.json["control_number"]
 
     expected_status_code = 200
-    response = api_client.get(f"/institutions/{record_control_number}")
+    with app_clean.app.test_client() as client:
+        response = client.get(f"/institutions/{record_control_number}")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
 
 
-def test_institutions_application_json_put(api_client):
+def test_institutions_application_json_put(app_clean):
     record = create_record_factory("ins", with_indexing=True)
     record_control_number = record.json["control_number"]
 
     expected_status_code = 401
-    response = api_client.put(f"/institutions/{record_control_number}")
+    with app_clean.app.test_client() as client:
+        response = client.put(f"/institutions/{record_control_number}")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
 
 
-def test_institutions_application_json_delete(api_client):
+def test_institutions_application_json_delete(app_clean):
     record = create_record_factory("ins", with_indexing=True)
     record_control_number = record.json["control_number"]
 
     expected_status_code = 401
-    response = api_client.delete(f"/institutions/{record_control_number}")
+    with app_clean.app.test_client() as client:
+        response = client.delete(f"/institutions/{record_control_number}")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
 
 
-def test_institutions_application_json_post(api_client):
+def test_institutions_application_json_post(app_clean):
     expected_status_code = 401
-    response = api_client.post("/institutions")
+    with app_clean.app.test_client() as client:
+        response = client.post("/institutions")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
 
 
-def test_institutions_search_json_get(api_client):
+def test_institutions_search_json_get(app_clean):
     create_record_factory("ins", with_indexing=True)
 
     expected_status_code = 200
-    response = api_client.get("/institutions")
+    with app_clean.app.test_client() as client:
+        response = client.get("/institutions")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
 
 
-def test_institution_record_search_results(api_client):
+def test_institution_record_search_results(app_clean):
     record = create_record("ins")
 
     expected_metadata = record.serialize_for_es()
@@ -66,7 +71,8 @@ def test_institution_record_search_results(api_client):
     expected_metadata.pop("_updated")
     expected_metadata.pop("_collections")
 
-    result = api_client.get("/institutions")
+    with app_clean.app.test_client() as client:
+        result = client.get("/institutions")
 
     assert result.json["hits"]["total"] == 1
     assert result.json["hits"]["hits"][0]["metadata"] == expected_metadata

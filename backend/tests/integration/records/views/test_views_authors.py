@@ -14,12 +14,12 @@ from invenio_accounts.testutils import login_user_via_session
 from inspirehep.accounts.roles import Roles
 
 
-def test_author_facets(api_client):
+def test_author_facets(app_clean):
     create_record("lit")
-
-    response = api_client.get(
-        f"/literature/facets?facet_name=hep-author-publication&author_recid=9999"
-    )
+    with app_clean.app.test_client() as client:
+        response = client.get(
+            f"/literature/facets?facet_name=hep-author-publication&author_recid=9999"
+        )
 
     response_data = json.loads(response.data)
     response_status_code = response.status_code
@@ -42,15 +42,14 @@ def test_author_facets(api_client):
     assert len(response_data["hits"]["hits"]) == 0
 
 
-def test_author_cataloger_facets(api_client):
+def test_author_cataloger_facets(app_clean):
     user = create_user(role=Roles.cataloger.value)
-    login_user_via_session(api_client, email=user.email)
-
     create_record("lit")
-
-    response = api_client.get(
-        f"/literature/facets?facet_name=hep-author-publication&author_recid=9999"
-    )
+    with app_clean.app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(
+            f"/literature/facets?facet_name=hep-author-publication&author_recid=9999"
+        )
 
     response_data = json.loads(response.data)
     response_status_code = response.status_code
@@ -77,37 +76,40 @@ def test_author_cataloger_facets(api_client):
     assert len(response_data["hits"]["hits"]) == 0
 
 
-def test_authors_application_json_put_without_token(api_client):
+def test_authors_application_json_put_without_token(app_clean):
     record = create_record("aut")
     record_control_number = record["control_number"]
 
     expected_status_code = 401
-    response = api_client.put("/authors/{}".format(record_control_number))
+    with app_clean.app.test_client() as client:
+        response = client.put("/authors/{}".format(record_control_number))
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
 
 
-def test_authors_application_json_delete_without_token(api_client):
+def test_authors_application_json_delete_without_token(app_clean):
     record = create_record("aut")
     record_control_number = record["control_number"]
 
     expected_status_code = 401
-    response = api_client.delete("/authors/{}".format(record_control_number))
+    with app_clean.app.test_client() as client:
+        response = client.delete("/authors/{}".format(record_control_number))
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
 
 
-def test_authors_application_json_post_without_token(api_client):
+def test_authors_application_json_post_without_token(app_clean):
     expected_status_code = 401
-    response = api_client.post("/authors")
+    with app_clean.app.test_client() as client:
+        response = client.post("/authors")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
 
 
-def test_authors_application_json_put_with_token(api_client):
+def test_authors_application_json_put_with_token(app_clean):
     record = create_record("aut")
     record_control_number = record["control_number"]
     token = create_user_and_token()
@@ -115,15 +117,16 @@ def test_authors_application_json_put_with_token(api_client):
     expected_status_code = 200
 
     headers = {"Authorization": "BEARER " + token.access_token}
-    response = api_client.put(
-        "/authors/{}".format(record_control_number), headers=headers, json=record
-    )
+    with app_clean.app.test_client() as client:
+        response = client.put(
+            "/authors/{}".format(record_control_number), headers=headers, json=record
+        )
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
 
 
-def test_authors_application_json_delete_with_token(api_client):
+def test_authors_application_json_delete_with_token(app_clean):
     record = create_record("aut")
     record_control_number = record["control_number"]
     token = create_user_and_token()
@@ -131,21 +134,23 @@ def test_authors_application_json_delete_with_token(api_client):
     expected_status_code = 403
 
     headers = {"Authorization": "BEARER " + token.access_token}
-    response = api_client.delete(
-        "/authors/{}".format(record_control_number), headers=headers
-    )
+    with app_clean.app.test_client() as client:
+        response = client.delete(
+            "/authors/{}".format(record_control_number), headers=headers
+        )
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
 
 
-def test_authors_application_json_post_with_token(api_client):
+def test_authors_application_json_post_with_token(app_clean):
     expected_status_code = 201
     token = create_user_and_token()
     headers = {"Authorization": "BEARER " + token.access_token}
     rec_data = faker.record("aut")
 
-    response = api_client.post("/authors", headers=headers, json=rec_data)
+    with app_clean.app.test_client() as client:
+        response = client.post("/authors", headers=headers, json=rec_data)
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code

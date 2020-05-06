@@ -17,7 +17,7 @@ def _get_suggester_text(response, suggester):
     return response.json[suggester][0]["options"][0]["text"]
 
 
-def test_literature_suggesters_book_title(api_client):
+def test_literature_suggesters_book_title(app_clean):
     expected_title_suggestion = "Suggested title"
     data = {
         "authors": [{"full_name": "Weinberg, Steven"}],
@@ -25,8 +25,8 @@ def test_literature_suggesters_book_title(api_client):
         "titles": [{"title": expected_title_suggestion}],
     }
     lit = create_record("lit", data=data)
-
-    resp = api_client.get("/literature/_suggest?book_title=su")
+    with app_clean.app.test_client() as client:
+        resp = client.get("/literature/_suggest?book_title=su")
 
     result = _get_suggester_source(resp, "book_title")
     assert result["control_number"] == lit["control_number"]
@@ -37,14 +37,14 @@ def test_literature_suggesters_book_title(api_client):
     assert result_suggest == expected_title_suggestion
 
 
-def test_literature_suggesters_abstract_source(api_client):
+def test_literature_suggesters_abstract_source(app_clean):
     expected_source_suggest = "WSP"
     data = {
         "abstracts": [{"value": "Fancy abstract", "source": expected_source_suggest}]
     }
     lit = create_record("lit", data=data)
-
-    resp = api_client.get("/literature/_suggest?abstract_source=ws")
+    with app_clean.app.test_client() as client:
+        resp = client.get("/literature/_suggest?abstract_source=ws")
 
     result = _get_suggester_source(resp, "abstract_source")
     assert result["control_number"] == lit["control_number"]
@@ -54,10 +54,10 @@ def test_literature_suggesters_abstract_source(api_client):
     assert result_suggest == expected_source_suggest
 
 
-def test_literature_suggesters_empty_result(api_client):
+def test_literature_suggesters_empty_result(app_clean):
     lit = create_record("lit", data={"titles": [{"title": "Suggested title"}]})
-
-    resp = api_client.get("/literature/_suggest?book_title=nope")
+    with app_clean.app.test_client() as client:
+        resp = client.get("/literature/_suggest?book_title=nope")
 
     result = resp.json["book_title"][0]["options"]
     expected = []
@@ -65,7 +65,7 @@ def test_literature_suggesters_empty_result(api_client):
     assert result == expected
 
 
-def test_author_suggesters(api_client):
+def test_author_suggesters(app_clean):
     data = {
         "name": {
             "name_variants": ["Maldacena, Juan Martin"],
@@ -74,8 +74,8 @@ def test_author_suggesters(api_client):
         }
     }
     auth = create_record("aut", data=data)
-
-    resp = api_client.get("/authors/_suggest?author=mal")
+    with app_clean.app.test_client() as client:
+        resp = client.get("/authors/_suggest?author=mal")
 
     result_rec_id = _get_suggester_source(resp, "author")["control_number"]
     expected_rec_id = auth["control_number"]
@@ -98,7 +98,7 @@ def test_experiments_suggesters():
     raise NotImplementedError("Missing serializer")
 
 
-def test_conferences_suggesters_using_series_name(api_client):
+def test_conferences_suggesters_using_series_name(app_clean):
     expected_series = "ICFA_cool series"
     data = {
         "$schema": "https://labs.inspirehep.net/schemas/records/conferences.json",
@@ -112,18 +112,18 @@ def test_conferences_suggesters_using_series_name(api_client):
         ],
     }
     create_record("con", data=data)
-    resp = api_client.get("/conferences/_suggest?series_name=ICFA")
+    with app_clean.app.test_client() as client:
+        resp = client.get("/conferences/_suggest?series_name=ICFA")
+        resp2 = client.get("/conferences/_suggest?series_name=UNKNOWN")
 
     assert resp.status_code == 200
     assert _get_suggester_text(resp, "series_name") == expected_series
 
-    resp = api_client.get("/conferences/_suggest?series_name=UNKNOWN")
-
-    assert resp.status_code == 200
-    assert resp.json["series_name"][0]["options"] == []
+    assert resp2.status_code == 200
+    assert resp2.json["series_name"][0]["options"] == []
 
 
-def test_conferences_suggesters_using_series_name_ignores_duplicates(api_client):
+def test_conferences_suggesters_using_series_name_ignores_duplicates(app_clean):
     expected_series_count = 2
     data = {
         "$schema": "https://labs.inspirehep.net/schemas/records/conferences.json",
@@ -144,7 +144,8 @@ def test_conferences_suggesters_using_series_name_ignores_duplicates(api_client)
     data["cnum"] = "C06-06-25.4"
     data["series"] = [{"name": "ICFA_other series", "number": 12}]
     create_record("con", data=data)
-    resp = api_client.get("/conferences/_suggest?series_name=ICFA")
+    with app_clean.app.test_client() as client:
+        resp = client.get("/conferences/_suggest?series_name=ICFA")
 
     assert resp.status_code == 200
     assert len(resp.json["series_name"][0]["options"]) == expected_series_count

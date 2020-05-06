@@ -84,6 +84,7 @@ def async_app(
     app, celery_app_with_context, celery_session_worker, cache, clear_environment
 ):
     redis_client = StrictRedis.from_url(app.config["CACHE_REDIS_URL"])
+    redis_client.flushall()
 
     yield _app_(
         app=app,
@@ -94,3 +95,4 @@ def async_app(
     )
 
     redis_client.flushall()
+    redis_client.close()

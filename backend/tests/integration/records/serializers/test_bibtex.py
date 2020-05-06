@@ -8,7 +8,7 @@ import pytest
 from helpers.utils import create_record
 
 
-def test_bibtex(api_client):
+def test_bibtex(app_clean):
     headers = {"Accept": "application/x-bibtex"}
     data = {"control_number": 637275237, "titles": [{"title": "This is a title."}]}
     record = create_record("lit", data=data)
@@ -17,9 +17,10 @@ def test_bibtex(api_client):
     expected_status_code = 200
     expected_etag = '"application/x-bibtex@v1"'
     expected_result = '@article{637275237,\n    title = "{This is a title.}"\n}\n'
-    response = api_client.get(
-        "/literature/{}".format(record_control_number), headers=headers
-    )
+    with app_clean.app.test_client() as client:
+        response = client.get(
+            "/literature/{}".format(record_control_number), headers=headers
+        )
 
     response_status_code = response.status_code
     etag = response.headers.get("Etag")
@@ -31,7 +32,7 @@ def test_bibtex(api_client):
     assert expected_result == response_data
 
 
-def test_bibtex_returns_all_expected_fields_for_conference_papers(api_client):
+def test_bibtex_returns_all_expected_fields_for_conference_papers(app_clean):
     headers = {"Accept": "application/x-bibtex"}
 
     conference_data = {
@@ -64,9 +65,10 @@ def test_bibtex_returns_all_expected_fields_for_conference_papers(api_client):
 
     expected_status_code = 200
     expected_result = '@inproceedings{Smith:2019abc,\n    author = "Rossi, Maria",\n    editor = "Smith, John",\n    booktitle = "{This is the parent conference title}",\n    title = "{This is a conference paper title}"\n}\n'
-    response = api_client.get(
-        "/literature/{}".format(record_control_number), headers=headers
-    )
+    with app_clean.app.test_client() as client:
+        response = client.get(
+            "/literature/{}".format(record_control_number), headers=headers
+        )
 
     response_status_code = response.status_code
     response_data = response.get_data(as_text=True)
@@ -74,7 +76,7 @@ def test_bibtex_returns_all_expected_fields_for_conference_papers(api_client):
     assert expected_result == response_data
 
 
-def test_bibtex_returns_all_expected_fields_for_book_chapters(api_client):
+def test_bibtex_returns_all_expected_fields_for_book_chapters(app_clean):
     headers = {"Accept": "application/x-bibtex"}
 
     book_data = {
@@ -107,9 +109,10 @@ def test_bibtex_returns_all_expected_fields_for_book_chapters(api_client):
 
     expected_status_code = 200
     expected_result = '@inbook{Smith:2019abc,\n    author = "Rossi, Maria",\n    editor = "Smith, John",\n    booktitle = "{This is the parent book title}",\n    title = "{This is a book chapter title}"\n}\n'
-    response = api_client.get(
-        "/literature/{}".format(record_control_number), headers=headers
-    )
+    with app_clean.app.test_client() as client:
+        response = client.get(
+            "/literature/{}".format(record_control_number), headers=headers
+        )
 
     response_status_code = response.status_code
     response_data = response.get_data(as_text=True)
@@ -117,7 +120,7 @@ def test_bibtex_returns_all_expected_fields_for_book_chapters(api_client):
     assert expected_result == response_data
 
 
-def test_bibtex_search(api_client):
+def test_bibtex_search(app_clean):
     headers = {"Accept": "application/x-bibtex"}
     data_1 = {"control_number": 637275237, "titles": [{"title": "This is a title."}]}
     data_2 = {"control_number": 637275232, "titles": [{"title": "Yet another title."}]}
@@ -131,8 +134,8 @@ def test_bibtex_search(api_client):
     expected_result_2 = (
         "@article{637275232,\n" '    title = "{Yet another title.}"\n' "}\n"
     )
-
-    response = api_client.get("/literature", headers=headers)
+    with app_clean.app.test_client() as client:
+        response = client.get("/literature", headers=headers)
 
     response_status_code = response.status_code
     response_data = response.get_data(as_text=True)
@@ -141,7 +144,7 @@ def test_bibtex_search(api_client):
     assert expected_result_2 in response_data
 
 
-def test_bibtex_doesnt_encode_math_environments(api_client):
+def test_bibtex_doesnt_encode_math_environments(app_clean):
     headers = {"Accept": "application/x-bibtex"}
     data = {
         "control_number": 637275237,
@@ -156,9 +159,10 @@ def test_bibtex_doesnt_encode_math_environments(api_client):
 
     expected_status_code = 200
     expected_result = '@article{637275237,\n    title = "{Low-energy theorem for $\\gamma\\to 3\\pi$: $\\Sigma$ surface terms against $\\pi a_1$-mixing}"\n}\n'
-    response = api_client.get(
-        "/literature/{}".format(record_control_number), headers=headers
-    )
+    with app_clean.app.test_client() as client:
+        response = client.get(
+            "/literature/{}".format(record_control_number), headers=headers
+        )
 
     response_status_code = response.status_code
     response_data = response.get_data(as_text=True)
@@ -167,7 +171,7 @@ def test_bibtex_doesnt_encode_math_environments(api_client):
 
 
 @pytest.mark.xfail(reason="latexcodec doesn't know about the special characters")
-def test_bibtex_encodes_unicode_outside_of_math_environments(api_client):
+def test_bibtex_encodes_unicode_outside_of_math_environments(app_clean):
     headers = {"Accept": "application/x-bibtex"}
     data = {
         "control_number": 637275237,
@@ -180,9 +184,10 @@ def test_bibtex_encodes_unicode_outside_of_math_environments(api_client):
 
     expected_status_code = 200
     expected_result = '@article{637275237,\n    title = "{Core polarization effects up to 12$\hbar\omega$ in 7Li and 10B nuclei}"\n}\n'
-    response = api_client.get(
-        "/literature/{}".format(record_control_number), headers=headers
-    )
+    with app_clean.app.test_client() as client:
+        response = client.get(
+            "/literature/{}".format(record_control_number), headers=headers
+        )
 
     response_status_code = response.status_code
     response_data = response.get_data(as_text=True)
