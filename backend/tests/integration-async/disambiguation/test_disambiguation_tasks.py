@@ -8,20 +8,17 @@
 import json
 
 from helpers.providers.faker import faker
-from helpers.utils import es_search
+from helpers.utils import es_search, retry_until_matched
 from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_search import current_search
-from invenio_search import current_search_client as es
 
 from inspirehep.disambiguation.tasks import disambiguate_signatures
 from inspirehep.records.api import AuthorsRecord
 from inspirehep.records.api.literature import LiteratureRecord
 
 
-def test_signature_linked_by_disambiguation_has_correct_facet_author_name(
-    app, celery_app_with_context, celery_session_worker, retry_until_matched
-):
+def test_signature_linked_by_disambiguation_has_correct_facet_author_name(async_app):
     data = faker.record("lit")
     data["authors"] = [
         {"full_name": "Doe, John", "uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e51"}

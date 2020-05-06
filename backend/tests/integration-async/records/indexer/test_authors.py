@@ -8,17 +8,14 @@ import time
 
 from helpers.factories.models.user_access_token import AccessTokenFactory
 from helpers.providers.faker import faker
-from helpers.utils import es_search
+from helpers.utils import es_search, retry_until_matched
 from invenio_db import db
 from invenio_search import current_search
-from invenio_search import current_search_client as es
 
 from inspirehep.records.api import AuthorsRecord, LiteratureRecord
 
 
-def test_aut_record_appear_in_es_when_created(
-    app, celery_app_with_context, celery_session_worker, retry_until_matched
-):
+def test_aut_record_appear_in_es_when_created(async_app):
     data = faker.record("aut")
     rec = AuthorsRecord.create(data)
     db.session.commit()
@@ -45,9 +42,7 @@ def test_aut_record_appear_in_es_when_created(
     retry_until_matched(steps)
 
 
-def test_aut_record_update_when_changed(
-    app, celery_app_with_context, celery_session_worker, retry_until_matched
-):
+def test_aut_record_update_when_changed(async_app):
     data = faker.record("aut")
     rec = AuthorsRecord.create(data)
     db.session.commit()
@@ -79,9 +74,7 @@ def test_aut_record_update_when_changed(
     retry_until_matched(steps)["hits"]["hits"]
 
 
-def test_aut_record_removed_form_es_when_deleted(
-    app, celery_app_with_context, celery_session_worker, retry_until_matched
-):
+def test_aut_record_removed_form_es_when_deleted(async_app):
     data = faker.record("aut")
     rec = AuthorsRecord.create(data)
     db.session.commit()
@@ -113,19 +106,13 @@ def test_aut_record_removed_form_es_when_deleted(
     retry_until_matched(steps)
 
 
-def test_record_created_through_api_is_indexed(
-    app,
-    celery_app_with_context,
-    celery_session_worker,
-    retry_until_matched,
-    clear_environment,
-):
+def test_record_created_through_api_is_indexed(async_app):
     data = faker.record("aut")
     token = AccessTokenFactory()
     db.session.commit()
     headers = {"Authorization": f"Bearer {token.access_token}"}
     content_type = "application/json"
-    response = app.test_client().post(
+    response = async_app.app.test_client().post(
         "/api/authors", json=data, headers=headers, content_type=content_type
     )
     assert response.status_code == 201
@@ -145,9 +132,7 @@ def test_record_created_through_api_is_indexed(
     retry_until_matched(steps)
 
 
-def test_indexer_updates_authors_papers_when_name_changes(
-    app, celery_app_with_context, celery_session_worker, retry_until_matched
-):
+def test_indexer_updates_authors_papers_when_name_changes(async_app):
     author_data = faker.record("aut")
     author = AuthorsRecord.create(author_data)
     db.session.commit()

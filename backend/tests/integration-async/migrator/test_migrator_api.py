@@ -9,6 +9,7 @@ import time
 import zlib
 
 import pytest
+from celery import shared_task
 from invenio_pidstore.errors import PIDDoesNotExistError
 
 from inspirehep.migrator.api import continuous_migration
@@ -16,9 +17,7 @@ from inspirehep.records.api import InspireRecord
 from inspirehep.search.api import InspireSearch
 
 
-def test_continuous_migration(
-    app, cache, celery_app_with_context, celery_session_worker
-):
+def test_continuous_migration(async_app):
     raw_record_citer = (
         b"<record>"
         b'  <controlfield tag="001">666</controlfield>'
@@ -59,11 +58,11 @@ def test_continuous_migration(
     )
     cited_control_number = 667
 
-    cache.rpush("legacy_records", zlib.compress(raw_record_citer))
-    cache.rpush("legacy_records", zlib.compress(raw_record_cited))
-    cache.rpush("legacy_records", b"END")
+    async_app.redis.rpush("legacy_records", zlib.compress(raw_record_citer))
+    async_app.redis.rpush("legacy_records", zlib.compress(raw_record_cited))
+    async_app.redis.rpush("legacy_records", b"END")
 
-    assert cache.llen("legacy_records") == 3
+    assert async_app.redis.llen("legacy_records") == 3
 
     continuous_migration()
 
@@ -85,7 +84,7 @@ def test_continuous_migration(
 
     assert cited_control_number == result_cited_control_number
 
-    with app.test_client() as client:
+    with async_app.app.test_client() as client:
         result = client.get(
             f"/api/literature/{result_cited_control_number}/citations"
         ).json
@@ -93,12 +92,10 @@ def test_continuous_migration(
 
         assert 1 == result_citation_count
 
-    assert cache.llen("legacy_records") == 0
+    assert async_app.redis.llen("legacy_records") == 0
 
 
-def test_continuous_migration_with_an_invalid_record(
-    app, cache, celery_app_with_context, celery_session_worker
-):
+def test_continuous_migration_with_an_invalid_record(async_app):
     raw_record_citer = (
         b"<record>"
         b'  <controlfield tag="001">666</controlfield>'
@@ -152,12 +149,12 @@ def test_continuous_migration_with_an_invalid_record(
     )
     invalid_control_number = 668
 
-    cache.rpush("legacy_records", zlib.compress(raw_record_citer))
-    cache.rpush("legacy_records", zlib.compress(raw_record_invalid))
-    cache.rpush("legacy_records", zlib.compress(raw_record_cited))
-    cache.rpush("legacy_records", b"END")
+    async_app.redis.rpush("legacy_records", zlib.compress(raw_record_citer))
+    async_app.redis.rpush("legacy_records", zlib.compress(raw_record_invalid))
+    async_app.redis.rpush("legacy_records", zlib.compress(raw_record_cited))
+    async_app.redis.rpush("legacy_records", b"END")
 
-    assert cache.llen("legacy_records") == 4
+    assert async_app.redis.llen("legacy_records") == 4
 
     continuous_migration()
 
@@ -182,7 +179,7 @@ def test_continuous_migration_with_an_invalid_record(
 
     assert cited_control_number == result_cited_control_number
 
-    with app.test_client() as client:
+    with async_app.app.test_client() as client:
         result = client.get(
             f"/api/literature/{result_cited_control_number}/citations"
         ).json
@@ -190,12 +187,10 @@ def test_continuous_migration_with_an_invalid_record(
 
         assert 1 == result_citation_count
 
-    assert cache.llen("legacy_records") == 0
+    assert async_app.redis.llen("legacy_records") == 0
 
 
-def test_continuous_migration_with_different_type_of_records(
-    app, cache, celery_app_with_context, celery_session_worker
-):
+def test_continuous_migration_with_different_type_of_records(async_app):
     raw_record_citer = (
         b"<record>"
         b'  <controlfield tag="001">666</controlfield>'
@@ -250,12 +245,12 @@ def test_continuous_migration_with_different_type_of_records(
     )
     author_control_number = 668
 
-    cache.rpush("legacy_records", zlib.compress(raw_record_citer))
-    cache.rpush("legacy_records", zlib.compress(raw_author))
-    cache.rpush("legacy_records", zlib.compress(raw_record_cited))
-    cache.rpush("legacy_records", b"END")
+    async_app.redis.rpush("legacy_records", zlib.compress(raw_record_citer))
+    async_app.redis.rpush("legacy_records", zlib.compress(raw_author))
+    async_app.redis.rpush("legacy_records", zlib.compress(raw_record_cited))
+    async_app.redis.rpush("legacy_records", b"END")
 
-    assert cache.llen("legacy_records") == 4
+    assert async_app.redis.llen("legacy_records") == 4
 
     continuous_migration()
 
@@ -283,7 +278,7 @@ def test_continuous_migration_with_different_type_of_records(
 
     assert author_control_number == result_author_control_number
 
-    with app.test_client() as client:
+    with async_app.app.test_client() as client:
         result = client.get(
             f"/api/literature/{result_cited_control_number}/citations"
         ).json
@@ -291,12 +286,10 @@ def test_continuous_migration_with_different_type_of_records(
 
         assert 1 == result_citation_count
 
-    assert cache.llen("legacy_records") == 0
+    assert async_app.redis.llen("legacy_records") == 0
 
 
-def test_continuous_migration_with_invalid_control_number(
-    app, cache, celery_app_with_context, celery_session_worker
-):
+def test_continuous_migration_with_invalid_control_number(async_app):
     raw_record_citer = (
         b"<record>"
         b'  <controlfield tag="001">666</controlfield>'
@@ -336,11 +329,11 @@ def test_continuous_migration_with_invalid_control_number(
         b"</record>"
     )
 
-    cache.rpush("legacy_records", zlib.compress(raw_record_citer))
-    cache.rpush("legacy_records", zlib.compress(raw_record_cited))
-    cache.rpush("legacy_records", b"END")
+    async_app.redis.rpush("legacy_records", zlib.compress(raw_record_citer))
+    async_app.redis.rpush("legacy_records", zlib.compress(raw_record_cited))
+    async_app.redis.rpush("legacy_records", b"END")
 
-    assert cache.llen("legacy_records") == 3
+    assert async_app.redis.llen("legacy_records") == 3
 
     with pytest.raises(ValueError):
         continuous_migration()
@@ -348,4 +341,4 @@ def test_continuous_migration_with_invalid_control_number(
     # I don't like timeouts, it's the only way to wait for this chain
     time.sleep(5)
 
-    assert cache.llen("legacy_records") == 2
+    assert async_app.redis.llen("legacy_records") == 2

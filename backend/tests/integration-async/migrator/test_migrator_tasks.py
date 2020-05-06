@@ -11,19 +11,14 @@ import pytest
 from elasticsearch import TransportError
 from flask_sqlalchemy import models_committed
 from helpers.providers.faker import faker
+from helpers.utils import create_record_async
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
 
 from inspirehep.migrator.models import LegacyRecordsMirror
 from inspirehep.migrator.tasks import (
-    chunker,
-    create_records_from_mirror_recids,
     index_records,
-    migrate_and_insert_record,
-    migrate_from_file,
     migrate_from_mirror,
-    migrate_recids_from_mirror,
-    populate_mirror_from_file,
     process_references_in_records,
     update_relations,
 )
@@ -37,9 +32,7 @@ from inspirehep.records.receivers import index_after_commit
 from inspirehep.search.api import InspireSearch
 
 
-def test_process_references_in_records(
-    app, celery_app_with_context, celery_session_worker
-):
+def test_process_references_in_records(async_app):
     # disconnect this signal so records don't get indexed
     models_committed.disconnect(index_after_commit)
 
@@ -83,7 +76,7 @@ def test_process_references_in_records(
 
 
 def test_process_references_in_records_reindexes_conferences_when_pub_info_changes(
-    app, celery_app_with_context, celery_session_worker
+    async_app
 ):
     # disconnect this signal so records don't get indexed
     models_committed.disconnect(index_after_commit)
@@ -121,7 +114,7 @@ def test_process_references_in_records_reindexes_conferences_when_pub_info_chang
 
 
 def test_process_references_in_records_reindexes_institutions_when_linked_institutions_change(
-    app, celery_app_with_context, celery_session_worker
+    async_app
 ):
     # disconnect this signal so records don't get indexed
     models_committed.disconnect(index_after_commit)
@@ -182,7 +175,7 @@ def test_process_references_in_records_reindexes_institutions_when_linked_instit
 
 
 def test_process_references_in_records_with_different_type_of_records_doesnt_throw_an_exception(
-    app, celery_app_with_context, celery_session_worker, create_record
+    async_app
 ):
     # disconnect this signal so records don't get indexed
     models_committed.disconnect(index_after_commit)
@@ -202,13 +195,13 @@ def test_process_references_in_records_with_different_type_of_records_doesnt_thr
     db.session.commit()
 
     records = [
-        create_record("aut"),
-        create_record("job"),
-        create_record("jou"),
-        create_record("exp"),
-        create_record("con"),
-        create_record("dat"),
-        create_record("ins"),
+        create_record_async("aut"),
+        create_record_async("job"),
+        create_record_async("jou"),
+        create_record_async("exp"),
+        create_record_async("con"),
+        create_record_async("dat"),
+        create_record_async("ins"),
     ]
 
     # reconnect signal before we call process_references_in_records
@@ -237,7 +230,7 @@ def test_process_references_in_records_with_different_type_of_records_doesnt_thr
     )
 
 
-def test_update_relations(app, celery_app_with_context, celery_session_worker):
+def test_update_relations(async_app):
     conference_data = faker.record("con", with_control_number=True)
     conference_record = InspireRecord.create(conference_data)
 
@@ -285,9 +278,7 @@ def test_update_relations(app, celery_app_with_context, celery_session_worker):
     assert conf_paper.literature_uuid == record.id
 
 
-def test_update_relations_with_modified_institutions(
-    app, celery_app_with_context, celery_session_worker
-):
+def test_update_relations_with_modified_institutions(async_app):
     institution_data = faker.record("ins", with_control_number=True)
     institution = InspireRecord.create(institution_data)
     db.session.commit()
@@ -319,7 +310,7 @@ def test_update_relations_with_modified_institutions(
 
 
 def test_update_relations_recalculate_citations_with_different_type_of_records_doesnt_throw_an_exception(
-    app, celery_app_with_context, celery_session_worker, create_record
+    async_app
 ):
     data_cited = faker.record("lit", with_control_number=True)
     record_cited = InspireRecord.create(data_cited, disable_relations_update=True)
@@ -335,13 +326,13 @@ def test_update_relations_recalculate_citations_with_different_type_of_records_d
     db.session.commit()
 
     records = [
-        create_record("aut"),
-        create_record("job"),
-        create_record("jou"),
-        create_record("exp"),
-        create_record("con"),
-        create_record("dat"),
-        create_record("ins"),
+        create_record_async("aut"),
+        create_record_async("job"),
+        create_record_async("jou"),
+        create_record_async("exp"),
+        create_record_async("con"),
+        create_record_async("dat"),
+        create_record_async("ins"),
     ]
 
     uuids = [record.id for record in records] + [record_cited.id, record_citing.id]
@@ -365,20 +356,18 @@ def test_update_relations_recalculate_citations_with_different_type_of_records_d
     assert record_cited_citation_count == record_cited.citation_count
 
 
-def test_index_record(
-    app, celery_app_with_context, celery_session_worker, create_record
-):
+def test_index_record(async_app):
     models_committed.disconnect(index_after_commit)
 
     records = [
-        create_record("lit"),
-        create_record("aut"),
-        create_record("job"),
-        create_record("jou"),
-        create_record("exp"),
-        create_record("con"),
-        create_record("dat"),
-        create_record("ins"),
+        create_record_async("lit"),
+        create_record_async("aut"),
+        create_record_async("job"),
+        create_record_async("jou"),
+        create_record_async("exp"),
+        create_record_async("con"),
+        create_record_async("dat"),
+        create_record_async("ins"),
     ]
 
     uuids = [record.id for record in records]
@@ -395,10 +384,8 @@ def test_index_record(
     models_committed.connect(index_after_commit)
 
 
-def test_index_record_deletes_a_deleted_record(
-    app, celery_app_with_context, celery_session_worker, create_record
-):
-    record_to_delete = create_record("lit")
+def test_index_record_deletes_a_deleted_record(async_app):
+    record_to_delete = create_record_async("lit")
     record_to_delete_control_number = record_to_delete["control_number"]
     record_to_delete = InspireRecord.get_record_by_pid_value(
         record_to_delete_control_number, "lit"
@@ -418,9 +405,7 @@ def test_index_record_deletes_a_deleted_record(
         InspireSearch.get_record_data_from_es(record_to_delete)
 
 
-def test_migrate_recids_from_mirror_all_only_with_literature(
-    app, celery_app_with_context, celery_session_worker
-):
+def test_migrate_recids_from_mirror_all_only_with_literature(async_app):
     raw_record_citer = (
         b"<record>"
         b'  <controlfield tag="001">666</controlfield>'
@@ -490,7 +475,7 @@ def test_migrate_recids_from_mirror_all_only_with_literature(
 
 
 def test_migrate_recids_from_mirror_all_only_with_literature_author_and_invalid(
-    app, celery_app_with_context, celery_session_worker
+    async_app
 ):
     raw_record_citer = (
         b"<record>"

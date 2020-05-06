@@ -9,15 +9,16 @@ from operator import add
 from time import sleep
 
 import pytest
+from helpers.utils import retry_until_matched
 
 
-def test_retry_until_matched_simple_step_without_expected_key(retry_until_matched):
+def test_retry_until_matched_simple_step_without_expected_key():
 
     steps = [{"step": add, "args": [1, 2], "expected_result": 3}]
     retry_until_matched(steps)
 
 
-def test_retry_until_matched_simple_step_with_expected_key(retry_until_matched):
+def test_retry_until_matched_simple_step_with_expected_key():
     steps = [
         {
             "step": dict,
@@ -28,9 +29,7 @@ def test_retry_until_matched_simple_step_with_expected_key(retry_until_matched):
     retry_until_matched(steps)
 
 
-def test_retry_until_matched_multi_step_with_expected_key_simpler_definition(
-    retry_until_matched
-):
+def test_retry_until_matched_multi_step_with_expected_key_simpler_definition():
     steps = [
         {
             "step": dict,
@@ -43,7 +42,7 @@ def test_retry_until_matched_multi_step_with_expected_key_simpler_definition(
     retry_until_matched(steps)
 
 
-def test_retry_until_matched_multi_step_wrong_value(retry_until_matched):
+def test_retry_until_matched_multi_step_wrong_value():
 
     steps = [{"step": add, "args": [1, 2], "expected_result": 4}]
     with pytest.raises(AssertionError):
@@ -61,7 +60,7 @@ def test_retry_until_matched_multi_step_wrong_value(retry_until_matched):
         retry_until_matched(steps, timeout=1)
 
 
-def test_retry_until_matched_actually_retries_all_steps(retry_until_matched):
+def test_retry_until_matched_actually_retries_all_steps():
     def _test_func(l, p):
         l.append(p)
         return l
@@ -74,7 +73,7 @@ def test_retry_until_matched_actually_retries_all_steps(retry_until_matched):
     retry_until_matched(steps)
 
 
-def test_retry_until_matched_raises_last_error_on_timeout(retry_until_matched):
+def test_retry_until_matched_raises_last_error_on_timeout():
     def _test_func():
         raise ConnectionError
 
@@ -83,9 +82,7 @@ def test_retry_until_matched_raises_last_error_on_timeout(retry_until_matched):
         retry_until_matched(steps, 1)
 
 
-def test_retry_until_matched_raises_timeout_on_timeout_when_no_other_exceptions(
-    retry_until_matched
-):
+def test_retry_until_matched_raises_timeout_on_timeout_when_no_other_exceptions():
     steps = [{"step": sleep, "args": [2]}, {"step": sleep, "args": [2]}]
     with pytest.raises(TimeoutError):
         retry_until_matched(steps, 1)
