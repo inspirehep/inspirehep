@@ -6,6 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import pytest
+from inspire_utils.record import get_value
 
 
 def _get_suggester_source(response, suggester):
@@ -149,6 +150,49 @@ def test_conferences_suggesters_using_series_name_ignores_duplicates(
 
     assert resp.status_code == 200
     assert len(resp.json["series_name"][0]["options"]) == expected_series_count
+
+
+def test_seminars_series_name_suggester(api_client, db, es, create_record):
+    data_cool = {
+        "series": [{"name": "Cool Series", "number": 1}],
+    }
+    data_coolest = {
+        "series": [{"name": "Coolest Series", "number": 2}],
+    }
+    data_other = {
+        "series": [{"name": "Other Series", "number": 2}],
+    }
+    create_record("sem", data=data_cool)
+    create_record("sem", data=data_coolest)
+    create_record("sem", data=data_other)
+    response = api_client.get("/seminars/_suggest?series_name=Cool")
+
+    assert response.status_code == 200
+    assert get_value(response.json, "series_name[0].options.text") == [
+        "Cool Series",
+        "Coolest Series",
+    ]
+
+    response = api_client.get("/seminars/_suggest?series_name=Whatevs")
+
+    assert response.status_code == 200
+    assert response.json["series_name"][0]["options"] == []
+
+
+def test_seminars_series_name_suggester_ignores_duplicates(
+    api_client, db, es, create_record
+):
+    data = {
+        "series": [{"name": "Cool Series", "number": 11}],
+    }
+    create_record("sem", data=data)
+    create_record("sem", data=data)
+
+    response = api_client.get("/seminars/_suggest?series_name=Cool")
+    assert response.status_code == 200
+
+    suggestion_count = len(response.json["series_name"][0]["options"])
+    assert suggestion_count == 1
 
 
 @pytest.mark.xfail

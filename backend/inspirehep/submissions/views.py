@@ -13,7 +13,7 @@ import structlog
 from flask import Blueprint, abort, current_app, jsonify, request, url_for
 from flask.views import MethodView
 from flask_login import current_user
-from inspire_schemas.builders import JobBuilder, SeminarBuilder
+from inspire_schemas.builders import JobBuilder
 from inspire_utils.record import get_value
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
