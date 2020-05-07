@@ -412,6 +412,11 @@ SEMINARS.update(
         "record_serializers": {
             "application/json": INSPIRE_SERIALIZERS + ":seminars_json_response"
         },
+        "suggesters": {
+            "series_name": {
+                "completion": {"field": "series_autocomplete", "skip_duplicates": True},
+            },
+        }
     }
 )
 

@@ -202,6 +202,7 @@
       "series": {
         "properties": {
           "name": {
+            "copy_to": "series_autocomplete",
             "normalizer": "lowercase_normalizer",
             "type": "keyword"
           },
@@ -210,6 +211,9 @@
           }
         },
         "type": "object"
+      },
+      "series_autocomplete": {
+        "type": "completion"
       },
       "speakers": {
         "properties": {
