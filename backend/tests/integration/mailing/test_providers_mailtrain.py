@@ -9,7 +9,7 @@ from datetime import datetime
 import pytest
 from flask import current_app
 from freezegun import freeze_time
-from helpers.utils import get_test_redis
+from helpers.utils import get_test_redis, override_config
 from mock import patch
 
 from inspirehep.mailing.providers.mailtrain import (
@@ -31,7 +31,7 @@ def test_mailtrain_subscribe_user_to_list(app_clean, vcr_cassette):
 @freeze_time(datetime(2019, 9, 17, 6, 0, 0))
 def test_set_mailtrain_campaign_in_redis(app_clean):
     config = {"WEEKLY_JOBS_EMAIL_REDIS_KEY": "MAILTRAIN_KEY"}
-    with patch.dict(current_app.config, config):
+    with override_config(**config):
         html_content = "<html><a>Some HTML content</a> Blah</html>"
         mailtrain_update_weekly_campaign_content(html_content)
 

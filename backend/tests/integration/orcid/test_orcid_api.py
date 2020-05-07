@@ -156,7 +156,7 @@ def record(raw_record):
 
 @pytest.fixture
 def enable_orcid_push_feature(app_clean):
-    with mock.patch.dict(current_app.config, {"FEATURE_FLAG_ENABLE_ORCID_PUSH": True}):
+    with override_config(**{"FEATURE_FLAG_ENABLE_ORCID_PUSH": True}):
         yield
 
 

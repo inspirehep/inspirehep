@@ -7,6 +7,7 @@
 
 from elasticsearch_dsl import Search
 from flask import current_app
+from helpers.utils import override_config
 from mock import patch
 
 from inspirehep.search.factories.facet import inspire_facets_factory
@@ -16,7 +17,7 @@ def test_inspire_facets_factory(app_clean):
     index_name = "test_facet_aggs"
     facets_aggs = {"aggs": {"type": {"terms": {"field": "value"}}}}
     config = {"RECORDS_REST_FACETS": {index_name: facets_aggs}}
-    with patch.dict(current_app.config, config):
+    with override_config(**config):
         with current_app.test_request_context("?type=FOO&q=BAR"):
             search = Search()
             search, urlwargs = inspire_facets_factory(search, index_name)
@@ -30,7 +31,7 @@ def test_inspire_facets_factory_with_missing_index(app_clean):
     index_name_missing = "test_facet_aggs_missing"
     facets_aggs = {"aggs": {"type": {"terms": {"field": "value"}}}}
     config = {"RECORDS_REST_FACETS": {index_name: facets_aggs}}
-    with patch.dict(current_app.config, config):
+    with override_config(**config):
         with current_app.test_request_context("?type=FOO&q=BAR"):
             search = Search()
             search, urlwargs = inspire_facets_factory(search, index_name_missing)

@@ -6,6 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import pytest
 from flask import current_app
+from helpers.utils import override_config
 from mock import Mock, patch
 
 from inspirehep.search.utils import RecursionLimit, get_facet_configuration
@@ -25,7 +26,7 @@ def test_facet_configuration_with_existing_facet_import_string(facet_mock, app_c
         "aggs": {"jessica-jones": {"terms": {"field": "defenders", "size": 20}}}
     }
     with current_app.test_request_context("?facet_name=defenders"):
-        with patch.dict(current_app.config, config):
+        with override_config(**config):
             result = get_facet_configuration("records-hep")
             facet_mock.assert_called_once()
             assert expected == result
@@ -41,7 +42,7 @@ def test_facet_configuration_with_existing_facet_callable(app_clean):
         "aggs": {"jessica-jones": {"terms": {"field": "defenders", "size": 20}}}
     }
     with current_app.test_request_context("?facet_name=defenders"):
-        with patch.dict(current_app.config, config):
+        with override_config(**config):
             result = get_facet_configuration("records-hep")
             facet_mock.assert_called_once()
             assert expected == result
@@ -59,7 +60,7 @@ def test_facet_configuration_with_existing_facet_dict(app_clean):
         "aggs": {"jessica-jones": {"terms": {"field": "defenders", "size": 20}}}
     }
     with current_app.test_request_context("?facet_name=defenders"):
-        with patch.dict(current_app.config, config):
+        with override_config(**config):
             result = get_facet_configuration("records-hep")
             assert expected == result
 
@@ -76,7 +77,7 @@ def test_facet_configuration_without_request_facet_name(app_clean):
         "aggs": {"jessica-jones": {"terms": {"field": "defenders", "size": 20}}}
     }
     with current_app.test_request_context():
-        with patch.dict(current_app.config, config):
+        with override_config(**config):
             result = get_facet_configuration("records-hep")
             assert expected == result
 
@@ -93,7 +94,7 @@ def test_facet_configuration_with_fallback_to_default_facet(app_clean):
         "aggs": {"jessica-jones": {"terms": {"field": "defenders", "size": 20}}}
     }
     with current_app.test_request_context("?facet_name=defenders"):
-        with patch.dict(current_app.config, config):
+        with override_config(**config):
             result = get_facet_configuration("records-hep")
             assert expected == result
 

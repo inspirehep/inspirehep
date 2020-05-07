@@ -1,5 +1,5 @@
 from flask import current_app
-from helpers.utils import create_record, create_user
+from helpers.utils import create_record, create_user, override_config
 from invenio_accounts.testutils import login_user_via_session
 from mock import patch
 
@@ -31,7 +31,7 @@ def test_hep_rpp_aggregation_and_filter(app_clean):
         }
     }
 
-    with patch.dict(current_app.config, config):
+    with override_config(**config):
         data = {"titles": [{"title": "This is my title"}]}
         expected_record = create_record("lit", data)
         data = {"titles": [{"title": "RPP"}]}
@@ -70,7 +70,7 @@ def test_hep_earliest_date_aggregation_and_filter(app_clean):
         }
     }
 
-    with patch.dict(current_app.config, config):
+    with override_config(**config):
         data = {"preprint_date": "2019-06-28"}
         expected_record = create_record("lit", data)
         data = {"preprint_date": "2015-06-28"}
@@ -106,7 +106,7 @@ def test_hep_doc_type_aggregation_and_filter(app_clean):
         }
     }
 
-    with patch.dict(current_app.config, config):
+    with override_config(**config):
         data = {"document_type": ["article"]}
         expected_record = create_record("lit", data)
         data = {"document_type": ["conference paper"]}
@@ -152,7 +152,7 @@ def test_hep_author_count_aggregation_and_filter(app_clean):
         }
     }
 
-    with patch.dict(current_app.config, config):
+    with override_config(**config):
         data = {"authors": [{"full_name": "John Doe"}]}
         expected_record = create_record("lit", data)
         data = {"authors": [{"full_name": "John Doe"}, {"full_name": "Jane Doe"}]}
@@ -187,7 +187,7 @@ def test_hep_collaboration_aggregation_and_filter(app_clean):
         }
     }
 
-    with patch.dict(current_app.config, config):
+    with override_config(**config):
         data = {"collaborations": [{"value": "CMS"}]}
         expected_record = create_record("lit", data)
         data = {"collaborations": [{"value": "CDF"}]}
@@ -221,7 +221,7 @@ def test_hep_author_aggregation_and_filter(app_clean):
         }
     }
 
-    with patch.dict(current_app.config, config):
+    with override_config(**config):
         data = {"authors": [{"full_name": "John Doe"}]}
         expected_record = create_record("lit", data)
         data = {"authors": [{"full_name": "Jane Doe"}]}
@@ -258,7 +258,7 @@ def test_hep_author_aggregation_with_exclude(app_clean):
         }
     }
 
-    with patch.dict(current_app.config, config):
+    with override_config(**config):
         data = {"authors": [{"full_name": "John Doe"}]}
         create_record("lit", data)
         data = {"authors": [{"full_name": "Jane Doe"}]}
@@ -284,7 +284,7 @@ def test_hep_subject_aggregation_and_filter(app_clean):
         }
     }
 
-    with patch.dict(current_app.config, config):
+    with override_config(**config):
         data = {"inspire_categories": [{"term": "Experiment-HEP"}]}
         expected_record = create_record("lit", data)
         data = {"inspire_categories": [{"term": "Phenomenology-HEP"}]}
@@ -321,7 +321,7 @@ def test_hep_arxiv_categories_aggregation_and_filter(app_clean):
         }
     }
 
-    with patch.dict(current_app.config, config):
+    with override_config(**config):
         data = {
             "arxiv_eprints": [{"categories": ["astro-ph.GA"], "value": "2002.12811"}]
         }
@@ -360,7 +360,7 @@ def test_jobs_field_of_interest_aggregation_and_filter(app_clean):
         }
     }
 
-    with patch.dict(current_app.config, config):
+    with override_config(**config):
         data = {"arxiv_categories": ["physics"], "status": "open"}
         expected_record = create_record("job", data)
         data = {"arxiv_categories": ["hep-ex"], "status": "open"}
@@ -397,7 +397,7 @@ def test_jobs_rank_aggregation_and_filter(app_clean):
         }
     }
 
-    with patch.dict(current_app.config, config):
+    with override_config(**config):
         data = {"ranks": ["POSTDOC"], "status": "open"}
         expected_record = create_record("job", data)
         data = {"ranks": ["JUNIOR"], "status": "open"}
@@ -434,7 +434,7 @@ def test_jobs_region_aggregation_and_filter(app_clean):
         }
     }
 
-    with patch.dict(current_app.config, config):
+    with override_config(**config):
         data = {"regions": ["Europe"], "status": "open"}
         expected_record = create_record("job", data)
         data = {"regions": ["North America"], "status": "open"}
@@ -471,7 +471,7 @@ def test_jobs_status_aggregation_and_filter(app_clean):
         }
     }
 
-    with patch.dict(current_app.config, config):
+    with override_config(**config):
         data = {"status": "open"}
         expected_record = create_record("job", data)
         data = {"status": "closed"}
@@ -510,7 +510,7 @@ def test_conf_subject_aggregation_and_filter(app_clean):
         }
     }
 
-    with patch.dict(current_app.config, config):
+    with override_config(**config):
         data = {"inspire_categories": [{"term": "Lattice"}]}
         expected_record = create_record("con", data)
         data = {"inspire_categories": [{"term": "Instrumentation"}]}
@@ -545,7 +545,7 @@ def test_hep_self_author_affiliations_aggregation_and_filter(app_clean):
         }
 
     config = {"RECORDS_REST_FACETS": {"records-hep": records_hep}}
-    with patch.dict(current_app.config, config):
+    with override_config(**config):
         data = {"control_number": 999107, "name": {"value": "Doe, John"}}
         create_record("aut", data)
         data = {
@@ -603,7 +603,7 @@ def test_hep_self_author_names_aggregation_and_filter(app_clean):
         }
 
     config = {"RECORDS_REST_FACETS": {"records-hep": records_hep}}
-    with patch.dict(current_app.config, config):
+    with override_config(**config):
         data = {"control_number": 999108, "name": {"value": "Maldacena, Juan Martin"}}
         create_record("aut", data)
         data = {
@@ -659,7 +659,7 @@ def test_hep_collection_aggregation(app_clean):
         }
     }
 
-    with patch.dict(current_app.config, config):
+    with override_config(**config):
         data = {"_collections": ["Literature", "Fermilab"]}
         expected_record = create_record("lit", data)
         data = {"_collections": ["Fermilab"]}

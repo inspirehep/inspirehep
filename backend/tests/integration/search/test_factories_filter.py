@@ -7,6 +7,7 @@
 
 from elasticsearch_dsl import Search
 from flask import current_app
+from helpers.utils import override_config
 from mock import MagicMock, patch
 
 from inspirehep.search.factories.filter import inspire_filter_factory
@@ -28,7 +29,7 @@ def test_inspire_filter_factory(app_clean):
     }
     config = {"RECORDS_REST_FACETS": {index_name: facets_filter}}
 
-    with patch.dict(current_app.config, config):
+    with override_config(**config):
         with current_app.test_request_context("?type=FOO&q=BAR"):
 
             search = Search()

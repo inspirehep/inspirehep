@@ -23,6 +23,7 @@ from helpers.factories.models.records import RecordMetadataFactory
 from helpers.utils import get_test_redis, override_config
 from moto import mock_s3
 
+from inspirehep.cli import cli
 from inspirehep.factory import create_app as inspire_create_app
 from inspirehep.files.api.s3 import S3
 
@@ -142,10 +143,11 @@ _app_ = namedtuple("APP", ["app", "redis", "cli"])
 
 
 def _setup_cli(app):
+    """Click CLI runner inside the Flask application."""
     runner = CliRunner()
-    obj = ScriptInfo(create_app=lambda info: app)
+    obj = ScriptInfo(create_app=lambda info: current_app)
     runner._invoke = runner.invoke
-    runner.invoke = partial(runner.invoke, obj=obj)
+    runner.invoke = partial(runner._invoke, cli, obj=obj)
     return runner
 
 
@@ -178,12 +180,3 @@ def app_with_s3(app_clean, enable_files):
     yield _s3_app_(app=app_clean.app, redis=app_clean.redis, cli=app_clean.cli, s3=s3)
     mock.stop()
     app_clean.app.extensions["inspirehep-s3"] = real_inspirehep_s3
-
-
-# @pytest.fixture(scope="function")
-# def api_client(app_clean):
-#     """Test client for the base application fixture.
-#     Scope: function
-#     """
-#     with app_clean.app.test_client() as client:
-#         yield client

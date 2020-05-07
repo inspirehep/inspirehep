@@ -7,12 +7,11 @@
 from io import BytesIO
 
 from flask import render_template
-from helpers.utils import app_cli_runner, create_record, override_config
+from helpers.utils import create_record, override_config
 from invenio_search import current_search
 from lxml import etree
 from mock import mock_open, patch
 
-from inspirehep.sitemap.cli import sitemap
 from inspirehep.utils import get_inspirehep_url
 
 
@@ -34,7 +33,7 @@ def test_generate_multiple_sitemap_files_with_multiple_collection(
 
     config = {"SITEMAP_FILES_PATH": "/tmp", "SITEMAP_PAGE_SIZE": 1}
     with override_config(**config):
-        result = app_cli_runner().invoke(sitemap, ["generate"])
+        result = app_clean.cli.invoke(["sitemap", "generate"])
 
         assert result.exit_code == 0
 
@@ -59,7 +58,7 @@ def test_generate_sitemap_file(mocked_open, app_clean):
 
     config = {"SITEMAP_FILES_PATH": "/tmp", "SITEMAP_PAGE_SIZE": 1}
     with override_config(**config):
-        result = app_cli_runner().invoke(sitemap, ["generate"])
+        result = app_clean.cli.invoke(["sitemap", "generate"])
 
         assert result.exit_code == 0
 

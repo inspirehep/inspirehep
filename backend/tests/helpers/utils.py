@@ -154,8 +154,8 @@ def logout(client):
             del sess["user_id"]
 
 
-def app_cli_runner():
-    """Click CLI runner inside the Flask application."""
+def orcid_app_cli_runner():
+    """Click CLI runner inside the Flask application for orcid tests."""
     runner = CliRunner()
     obj = ScriptInfo(create_app=lambda info: current_app)
     runner._invoke = runner.invoke
@@ -164,8 +164,6 @@ def app_cli_runner():
 
 
 # Integration-async helpers
-
-
 def retry_until_matched(steps={}, timeout=15):
     """Allows to wait for task to finish, by doing steps and proper checks assigned
       to them.

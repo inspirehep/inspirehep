@@ -19,6 +19,7 @@ from helpers.utils import (
     create_record,
     create_s3_bucket,
     get_test_redis,
+    override_config,
 )
 from invenio_db import db
 from invenio_pidstore.errors import PIDAlreadyExists
@@ -1682,7 +1683,7 @@ def test_files_metadata_is_replaced_when_replacing_metadata_is_enabled(app_with_
 
         record_data = dict(record)
         files_count = 2
-        with mock.patch.dict(current_app.config, {"UPDATE_S3_FILES_METADATA": True}):
+        with override_config(**{"UPDATE_S3_FILES_METADATA": True}):
             with mock.patch.object(
                 current_s3_instance, "replace_file_metadata"
             ) as mocked_s3_replace_metadata:

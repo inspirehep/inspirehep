@@ -1,7 +1,7 @@
 import json
 
 from flask import current_app
-from helpers.utils import create_user_and_token
+from helpers.utils import create_user_and_token, override_config
 from mock import patch
 
 
@@ -21,7 +21,7 @@ def test_view_disambiguate(disambiguate_signatures_mock, app_clean):
         }
     ]
     config = {"FEATURE_FLAG_ENABLE_DISAMBIGUATION": True}
-    with patch.dict(current_app.config, config), app_clean.app.test_client() as client:
+    with override_config(**config), app_clean.app.test_client() as client:
         response = client.post(
             "/disambiguation",
             content_type="application/json",

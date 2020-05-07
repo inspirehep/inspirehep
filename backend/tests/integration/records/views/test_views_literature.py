@@ -17,6 +17,7 @@ from helpers.utils import (
     create_user,
     create_user_and_token,
     logout,
+    override_config,
 )
 from invenio_accounts.testutils import login_user_via_session
 from invenio_search import current_search
@@ -367,9 +368,7 @@ def test_literature_citations_with_size_bigger_than_maximum(app_clean):
     record = create_record("lit", data=faker.record("lit"))
     headers = {"Accept": "application/json"}
     config = {"MAX_API_RESULTS": 3}
-    with mock.patch.dict(
-        current_app.config, config
-    ), app_clean.app.test_client() as client:
+    with override_config(**config), app_clean.app.test_client() as client:
         response = client.get(
             f"/literature/{record['control_number']}/citations?size=5", headers=headers
         )
