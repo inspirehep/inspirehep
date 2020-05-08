@@ -8,7 +8,6 @@ import './LoginPage.scss';
 import ExternalLink from '../../../common/components/ExternalLink';
 import DocumentHead from '../../../common/components/DocumentHead';
 import { WHAT_IS_ORCID_URL } from '../../../common/constants';
-import { USER_SIGNUP } from '../../../common/routes';
 
 const META_DESCRIPTION = 'Log in to your INSPIRE account. Log in with ORCID';
 const TITLE = 'Login';
@@ -16,7 +15,7 @@ const TITLE = 'Login';
 class LoginPage extends Component {
   render() {
     const { previousUrl } = this.props;
-    const loginHref = `/api/accounts/login?next=${previousUrl}&signup_url=${USER_SIGNUP}`;
+    const loginHref = `/api/accounts/login?next=${previousUrl}`;
     return (
       <>
         <DocumentHead title={TITLE} description={META_DESCRIPTION} />

@@ -35,15 +35,14 @@ def test_me_returns_user_data_if_logged_in(api_client, create_user):
     assert response.json == expected_data
 
 
-def test_login_sets_next_url_and_signup_url(api_client):
-    api_client.get("/accounts/login?next=/jobs&signup_url=/user/signup")
+def test_login_sets_next_url(api_client):
+    api_client.get("/accounts/login?next=/jobs")
 
     assert session["next_url"] == "/jobs"
-    assert session["signup_url"] == "/user/signup"
 
 
 def test_login_redirects_to_oauthclient_login(api_client):
-    response = api_client.get("/accounts/login?next=/jobs&signup_url=/user/signup")
+    response = api_client.get("/accounts/login?next=/jobs")
 
     response_status_code = response.status_code
     response_location_header = response.headers.get("Location")
@@ -71,18 +70,14 @@ def test_login_success_redirects_to_next_url(api_client):
     assert response_location_header == expected_redirect_url
 
 
-def test_sign_up_required_redirects_to_signup_form(api_client):
-    signup_form_url = "http://localhost:3000/user/signup"
-
-    with api_client.session_transaction() as sess:
-        sess["signup_url"] = signup_form_url
-
-    response = api_client.get("/accounts/signup")
+# Session is lost in rare occasions due to issues with redis
+def test_login_success_redirects_to_home_if_next_url_not_in_session(api_client):
+    response = api_client.get("/accounts/login-success")
 
     response_status_code = response.status_code
     response_location_header = response.headers.get("Location")
 
-    expected_redirect_url = signup_form_url
+    expected_redirect_url = "http://localhost:5000/"
     expected_status_code = 302
     assert expected_status_code == response_status_code
     assert response_location_header == expected_redirect_url
