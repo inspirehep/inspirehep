@@ -15,6 +15,8 @@ JOBS_DEADLINE_PASSED_SENDER_EMAIL = "jobs@inspirehep.net"
 CONFERENCES_CONFIRMATION_EMAIL_ADDRESS = "conf@inspirehep.net"
 """Email address for sending confirmation email for conferences"""
 
+SEMINARS_CONFIRMATION_EMAIL_ADDRESS = "seminars@inspirehep.net"
+
 INVENIO_MAIL_SERVER = "localhost"
 """SMTP server settings for the mail sending"""
 
