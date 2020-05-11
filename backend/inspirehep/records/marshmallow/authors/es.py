@@ -32,4 +32,5 @@ class AuthorsElasticSearchSchema(ElasticSearchBaseSchema, AuthorsRawSchema):
                 force_list(record.get_value(path, default=[])) for path in paths
             )
         )
+
         return {"input": input_values}

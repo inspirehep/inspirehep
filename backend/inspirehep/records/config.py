@@ -185,7 +185,7 @@ AUTHORS.update(
         },
         "suggesters": {
             "author": {
-                "_source": ["name", "control_number", "self"],
+                "_source": ["name", "positions", "control_number", "self"],
                 "completion": {"field": "author_suggest"},
             }
         },

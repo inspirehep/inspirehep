@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Field, Form } from 'formik';
 import { Row } from 'antd';
 
+
 import ExternalLink from '../../../common/components/ExternalLink';
 import TextField from '../../common/components/TextField';
 import SelectField from '../../common/components/SelectField';
@@ -19,31 +20,33 @@ import FieldInfoAlert from '../../common/components/FieldInfoAlert';
 import { POST_DOC_RANK_VALUE } from '../../../common/constants';
 import ContactsField from '../../common/components/ContactsField';
 
+
 class JobForm extends Component {
   static isInvalidDeadlineDate(date) {
     return !isValidDeadlineDate(date);
   }
+
 
   // TODO: move them somewhere common to share with `AuthorForm`
   static getSuggestionSourceLegacyICN(suggestion) {
     return suggestion._source.legacy_ICN;
   }
 
+
   static getSuggestionSourceLegacyName(suggestion) {
     return suggestion._source.legacy_name;
   }
 
-  static getSuggestionSourceNameValue(suggestion) {
-    return suggestion._source.name.value;
-  }
 
   isPostDocSubmission() {
     const { values } = this.props;
+
 
     return (
       values.ranks && values.ranks.some(rank => rank === POST_DOC_RANK_VALUE)
     );
   }
+
 
   render() {
     const { values, isSubmitting, isValid, isValidating } = this.props;
@@ -160,6 +163,7 @@ class JobForm extends Component {
           )}
         />
 
+
         <Field
           name="description"
           label="* Description"
@@ -177,11 +181,13 @@ class JobForm extends Component {
   }
 }
 
+
 JobForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
   isValidating: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
   values: PropTypes.objectOf(PropTypes.any).isRequired, // current form data
 };
+
 
 export default JobForm;
