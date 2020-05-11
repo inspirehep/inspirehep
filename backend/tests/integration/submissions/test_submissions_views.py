@@ -1326,7 +1326,11 @@ def test_get_seminar_update_data_requires_auth(api_client):
     assert response.status_code == 401
 
 
-def test_new_seminar_submission(api_client, db, create_user):
+@patch("inspirehep.submissions.views.send_seminar_confirmation_email")
+@patch("inspirehep.submissions.views.async_create_ticket_with_template")
+def test_new_seminar_submission(
+    create_ticket_mock, send_confirmation_mock, api_client, db, create_user
+):
     orcid = "0000-0001-5109-3700"
     user = create_user(orcid=orcid)
     login_user_via_session(api_client, email=user.email)
@@ -1350,10 +1354,50 @@ def test_new_seminar_submission(api_client, db, create_user):
         if key in SEMINAR_RECORD_DATA
     }
     assert seminar_record_data == SEMINAR_RECORD_DATA
-    assert get_value(seminar_record, 'acquisition_source.orcid') == orcid
+    assert get_value(seminar_record, "acquisition_source.orcid") == orcid
+
+    create_ticket_mock.delay.assert_called_once()
+    send_confirmation_mock.assert_called_once_with(user.email, seminar_record)
 
 
-def test_seminar_update_submission(api_client, db, create_user, create_record_factory):
+@patch("inspirehep.submissions.views.send_seminar_confirmation_email")
+@patch("inspirehep.submissions.views.async_create_ticket_with_template")
+def test_new_seminar_submission_with_cataloger_login(
+    create_ticket_mock, send_confirmation_mock, api_client, db, create_user
+):
+    orcid = "0000-0001-5109-3700"
+    cataloger = create_user(role=Roles.cataloger.value, orcid=orcid)
+    login_user_via_session(api_client, email=cataloger.email)
+
+    form_data = deepcopy(SEMINAR_FORM_DATA)
+
+    response = api_client.post(
+        "/submissions/seminars",
+        content_type="application/json",
+        data=json.dumps({"data": form_data}),
+    )
+
+    assert response.status_code == 201
+
+    payload = json.loads(response.data)
+    seminar_id = payload["pid_value"]
+    seminar_record = SeminarsRecord.get_record_by_pid_value(seminar_id)
+    seminar_record_data = {
+        key: value
+        for (key, value) in seminar_record.items()
+        if key in SEMINAR_RECORD_DATA
+    }
+    assert seminar_record_data == SEMINAR_RECORD_DATA
+    assert get_value(seminar_record, "acquisition_source.orcid") == orcid
+
+    create_ticket_mock.delay.assert_not_called()
+    send_confirmation_mock.assert_not_called()
+
+
+@patch("inspirehep.submissions.views.async_create_ticket_with_template")
+def test_seminar_update_submission(
+    create_ticket_mock, api_client, db, create_user, create_record_factory
+):
     orcid = "0000-0001-5109-3700"
     user = create_user(orcid=orcid)
     login_user_via_session(api_client, email=user.email)
@@ -1388,8 +1432,13 @@ def test_seminar_update_submission(api_client, db, create_user, create_record_fa
     }
     assert seminar_record_data == expected_record_data
 
+    create_ticket_mock.delay.assert_called_once()
 
-def test_seminar_update_submission_with_cataloger_login(api_client, db, create_user, create_record_factory):
+
+@patch("inspirehep.submissions.views.async_create_ticket_with_template")
+def test_seminar_update_submission_with_cataloger_login(
+    create_ticket_mock, api_client, db, create_user, create_record_factory
+):
     cataloger = create_user(role=Roles.cataloger.value, orcid="0000-0002-6665-4934")
     login_user_via_session(api_client, email=cataloger.email)
     orcid = "0000-0001-5109-3700"
@@ -1424,7 +1473,9 @@ def test_seminar_update_submission_with_cataloger_login(api_client, db, create_u
     }
     assert seminar_record_data == expected_record_data
     # cataloger's orcid shouldn't override the original submitter's
-    assert get_value(seminar_record, 'acquisition_source.orcid') == orcid
+    assert get_value(seminar_record, "acquisition_source.orcid") == orcid
+
+    create_ticket_mock.assert_not_called()
 
 
 def test_seminar_update_submission_without_login(api_client, db, create_record_factory):
@@ -1445,7 +1496,9 @@ def test_seminar_update_submission_without_login(api_client, db, create_record_f
     assert response.status_code == 401
 
 
-def test_seminar_update_submission_with_different_user(api_client, db, create_user, create_record_factory):
+def test_seminar_update_submission_with_different_user(
+    api_client, db, create_user, create_record_factory
+):
     user = create_user()
     login_user_via_session(api_client, email=user.email)
 

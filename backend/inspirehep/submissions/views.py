@@ -25,6 +25,7 @@ from inspirehep.accounts.api import (
 )
 from inspirehep.accounts.decorators import login_required_with_roles
 from inspirehep.mailing.api.conferences import send_conference_confirmation_email
+from inspirehep.mailing.api.seminars import send_seminar_confirmation_email
 from inspirehep.records.api import (
     AuthorsRecord,
     ConferencesRecord,
@@ -146,11 +147,8 @@ class ConferenceSubmissionsResource(BaseSubmissionsResource):
         CONFERENCE_EDIT = f"{INSPIREHEP_URL}/submissions/conferences/{control_number}"
 
         rt_queue = "CONF_add_user"
-        requestor = (
-            (current_user.is_authenticated and current_user.email)
-            or record["contact_details"]["email"]
-            or record["contact_details"].get("name", "UNKNOWN")
-        )
+
+        requestor = current_user.email
         rt_template_context = {
             "conference_url": CONFERENCE_DETAILS,
             "conference_url_edit": CONFERENCE_EDIT,
@@ -175,6 +173,11 @@ class SeminarSubmissionsResource(BaseSubmissionsResource):
         data["acquisition_source"] = self.get_acquisition_source()
         record = SeminarsRecord.create(data)
         db.session.commit()
+
+        if not is_superuser_or_cataloger_logged_in():
+            self.create_ticket(record, "rt/new_seminar.html")
+            send_seminar_confirmation_email(current_user.email, record)
+
         return (jsonify({"pid_value": record["control_number"]}), 201)
 
     def get(self, pid_value):
@@ -202,6 +205,9 @@ class SeminarSubmissionsResource(BaseSubmissionsResource):
         record.update(updated_record_data)
         db.session.commit()
 
+        if not is_superuser_or_cataloger_logged_in():
+            self.create_ticket(record, "rt/update_seminar.html")
+
         return jsonify({"pid_value": record["control_number"]})
 
     def get_updated_record_data(self, update_data, record):
@@ -222,6 +228,30 @@ class SeminarSubmissionsResource(BaseSubmissionsResource):
                 del record_data[field]
         record_data.update(update_data)
         return record_data
+
+    def create_ticket(self, record, rt_template):
+        control_number = record["control_number"]
+
+        hep_url = get_inspirehep_url()
+        seminar_url = f"{hep_url}/seminars/{control_number}"
+        seminar_edit_url = f"{hep_url}/submissions/seminars/{control_number}"
+
+        rt_queue = "SEMINARS"
+
+        requestor = current_user.email
+        rt_template_context = {
+            "seminar_url": seminar_url,
+            "seminar_edit_url": seminar_edit_url,
+            "hep_url": hep_url,
+        }
+        async_create_ticket_with_template.delay(
+            rt_queue,
+            requestor,
+            rt_template,
+            rt_template_context,
+            f"New Seminar Submission {control_number}.",
+            control_number,
+        )
 
     def user_can_edit(self, record):
         submitter_orcid = get_value(record, "acquisition_source.orcid")
