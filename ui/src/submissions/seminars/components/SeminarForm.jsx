@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Field, Form } from 'formik';
 import { Col, Row, Form as AntForm } from 'antd';
 
+
 import TextField from '../../common/components/TextField';
 import SelectField from '../../common/components/SelectField';
 import ArrayOf from '../../common/components/ArrayOf';
@@ -23,20 +24,21 @@ import {
   DATE_RANGE_FORMAT,
   TIME_FORMAT,
 } from '../../../common/constants';
+import AuthorSuggesterField from '../../common/components/AuthorSuggesterField';
 
-function getSuggestionSourceNameValue(suggestion) {
-  return suggestion._source.name.value;
-}
 
 function getSuggestionSourceLegacyICN(suggestion) {
   return suggestion._source.legacy_ICN;
 }
 
+
 const DISPLAY_TIME = {
   format: TIME_FORMAT,
 };
 
+
 const DATE_FORMAT = `${DATE_RANGE_FORMAT} ${DISPLAY_TIME.format}`;
+
 
 function SeminarForm({ values, isSubmitting, isValid, isValidating }) {
   return (
@@ -65,15 +67,11 @@ function SeminarForm({ values, isSubmitting, isValid, isValidating }) {
         renderItem={itemName => (
           <Row type="flex" justify="space-between">
             <Col span={11}>
-              <Field
+              <AuthorSuggesterField
                 onlyChild
-                recordFieldPath={`${itemName}.record`}
                 name={`${itemName}.name`}
+                recordFieldPath={`${itemName}.record`}
                 placeholder="Family name, first name"
-                pidType="authors"
-                suggesterName="author"
-                extractItemCompletionValue={getSuggestionSourceNameValue}
-                component={SuggesterField}
               />
             </Col>
             <Col span={11}>
@@ -215,11 +213,13 @@ function SeminarForm({ values, isSubmitting, isValid, isValidating }) {
   );
 }
 
+
 SeminarForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
   isValidating: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
   values: PropTypes.objectOf(PropTypes.any).isRequired, // current form data
 };
+
 
 export default SeminarForm;
