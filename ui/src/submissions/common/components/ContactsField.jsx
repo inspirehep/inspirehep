@@ -3,13 +3,11 @@ import PropTypes from 'prop-types';
 import { Field, useFormikContext } from 'formik';
 import { Row, Col } from 'antd';
 
-import SuggesterField from './SuggesterField';
+
 import ArrayOf from './ArrayOf';
 import TextField from './TextField';
+import AuthorSuggesterField from './AuthorSuggesterField';
 
-function getSuggestionSourceNameValue(suggestion) {
-  return suggestion._source.name.value;
-}
 
 function ContactsField({ label = 'Contact Detail(s)', name = 'contacts' }) {
   const { values } = useFormikContext();
@@ -22,15 +20,11 @@ function ContactsField({ label = 'Contact Detail(s)', name = 'contacts' }) {
       renderItem={itemName => (
         <Row type="flex" justify="space-between">
           <Col span={11}>
-            <Field
+            <AuthorSuggesterField
               onlyChild
-              recordFieldPath={`${itemName}.record`}
               name={`${itemName}.name`}
+              recordFieldPath={`${itemName}.record`}
               placeholder="Name"
-              pidType="authors"
-              suggesterName="author"
-              extractItemCompletionValue={getSuggestionSourceNameValue}
-              component={SuggesterField}
             />
           </Col>
           <Col span={11}>
@@ -47,9 +41,11 @@ function ContactsField({ label = 'Contact Detail(s)', name = 'contacts' }) {
   );
 }
 
+
 ContactsField.propTypes = {
   label: PropTypes.string,
   name: PropTypes.string,
 };
+
 
 export default ContactsField;

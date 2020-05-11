@@ -72,7 +72,14 @@ def test_author_suggesters(inspire_app):
             "name_variants": ["Maldacena, Juan Martin"],
             "preferred_name": "Juan Martin Maldacena",
             "value": "Maldacena, Juan Martin",
-        }
+        },
+        "positions": [
+            {
+                "current": True,
+                "institution": "Princeton, Inst. Advanced Study",
+                "start_date": "2001",
+            }
+        ],
     }
     auth = create_record("aut", data=data)
     with inspire_app.test_client() as client:

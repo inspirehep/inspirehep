@@ -3,20 +3,21 @@ import { Field } from 'formik';
 import { Row, Col } from 'antd';
 import PropTypes from 'prop-types';
 
+
 import ArrayOf from '../../common/components/ArrayOf';
 import SuggesterField from '../../common/components/SuggesterField';
+import AuthorSuggesterField from '../../common/components/AuthorSuggesterField';
+
 
 class LiteratureAuthorsField extends Component {
-  static getSuggestionSourceNameValue(suggestion) {
-    return suggestion._source.name.value;
-  }
-
   static getSuggestionSourceLegacyICN(suggestion) {
     return suggestion._source.legacy_ICN;
   }
 
+
   render() {
     const { values, name, label } = this.props;
+
 
     return (
       <ArrayOf
@@ -27,17 +28,11 @@ class LiteratureAuthorsField extends Component {
         renderItem={itemName => (
           <Row type="flex" justify="space-between">
             <Col span={11}>
-              <Field
+              <AuthorSuggesterField
                 onlyChild
-                recordFieldPath={`${itemName}.record`}
                 name={`${itemName}.full_name`}
+                recordFieldPath={`${itemName}.record`}
                 placeholder="Family name, first name"
-                pidType="authors"
-                suggesterName="author"
-                extractItemCompletionValue={
-                  LiteratureAuthorsField.getSuggestionSourceNameValue
-                }
-                component={SuggesterField}
               />
             </Col>
             <Col span={11}>
@@ -61,10 +56,12 @@ class LiteratureAuthorsField extends Component {
   }
 }
 
+
 LiteratureAuthorsField.propTypes = {
   values: PropTypes.objectOf(PropTypes.any).isRequired, // current form data
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
 };
+
 
 export default LiteratureAuthorsField;

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Field, Form } from 'formik';
 import { Col, Row, Tooltip } from 'antd';
 
+
 import { authorStatusOptions } from '../schemas/constants';
 import {
   degreeTypeOptions,
@@ -19,6 +20,8 @@ import TextAreaField from '../../common/components/TextAreaField';
 import LabelWithHelp from '../../../common/components/LabelWithHelp';
 import SubmitButton from '../../common/components/SubmitButton';
 import DateField from '../../common/components/DateField';
+import AuthorSuggesterField from '../../common/components/AuthorSuggesterField';
+
 
 const OPEN_SECTIONS = [
   'personal_info',
@@ -27,18 +30,17 @@ const OPEN_SECTIONS = [
   'comments',
 ];
 
+
 class AuthorForm extends Component {
   static getSuggestionSourceLegacyICN(suggestion) {
     return suggestion._source.legacy_ICN;
   }
 
+
   static getSuggestionSourceLegacyName(suggestion) {
     return suggestion._source.legacy_name;
   }
 
-  static getSuggestionSourceNameValue(suggestion) {
-    return suggestion._source.name.value;
-  }
 
   render() {
     const { values, isSubmitting, isValid, isValidating } = this.props;
@@ -282,17 +284,11 @@ class AuthorForm extends Component {
               renderItem={itemName => (
                 <Row type="flex" justify="space-between">
                   <Col span={11}>
-                    <Field
+                    <AuthorSuggesterField
                       onlyChild
                       name={`${itemName}.name`}
                       recordFieldPath={`${itemName}.record`}
                       placeholder="Family name, first name"
-                      pidType="authors"
-                      suggesterName="author"
-                      extractItemCompletionValue={
-                        AuthorForm.getSuggestionSourceNameValue
-                      }
-                      component={SuggesterField}
                     />
                   </Col>
                   <Col span={11}>
@@ -330,11 +326,13 @@ class AuthorForm extends Component {
   }
 }
 
+
 AuthorForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
   isValidating: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
   values: PropTypes.objectOf(PropTypes.any).isRequired, // current form data
 };
+
 
 export default AuthorForm;
