@@ -16,7 +16,7 @@ function SeminarSubmissionPage({ error, onSubmit }) {
       <Col className="mt3 mb3" xs={24} md={21} lg={16} xl={15} xxl={14}>
         <Row className="mb3 pa3 bg-white">
           <Col span={24}>
-            <h3>Submit a new conference</h3>
+            <h3>Submit a new seminar</h3>
             This form allows you to submit a new seminar to INSPIRE. It will
             appear in the <Link to={`${SEMINARS}?q=`}> Seminar List</Link>{' '}
             immediately.

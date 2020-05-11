@@ -18,7 +18,7 @@ const seminarSchema = object().shape({
   dates: array()
     .of(date())
     .compact()
-    .min(2)
+    .min(2, 'Please fill in both start and end dates')
     .max(2)
     .required()
     .label('Dates'),

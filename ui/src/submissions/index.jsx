@@ -24,6 +24,7 @@ import ConferenceSubmissionSuccessPageContainer from './conferences/containers/C
 import SubmissionSuccessPage from './common/components/SubmissionSuccessPage';
 import SeminarSubmissionPageContainer from './seminars/containers/SeminarSubmissionPageContainer';
 import SeminarUpdateSubmissionPageContainer from './seminars/containers/SeminarUpdateSubmissionPageContainer';
+import SeminarSubmissionSuccessPageContainer from './seminars/containers/SeminarSubmissionSuccessPageContainer';
 
 class Submissions extends Component {
   render() {
@@ -86,16 +87,6 @@ class Submissions extends Component {
             />
             <Redirect
               exact
-              from={`${SUBMISSIONS_SEMINAR}/:id/success`}
-              to={SUBMISSION_SUCCESS}
-            />
-            <Redirect
-              exact
-              from={`${SUBMISSIONS_SEMINAR}/new/success`}
-              to={SUBMISSION_SUCCESS}
-            />
-            <Redirect
-              exact
               from={`${SUBMISSIONS_LITERATURE}/new/success`}
               to={SUBMISSION_SUCCESS}
             />
@@ -114,7 +105,16 @@ class Submissions extends Component {
               path={`${SUBMISSIONS_CONFERENCE}/new/success`}
               component={ConferenceSubmissionSuccessPageContainer}
             />
-
+            <Route
+              exact
+              path={`${SUBMISSIONS_SEMINAR}/:id/success`}
+              component={SeminarSubmissionSuccessPageContainer}
+            />
+            <Route
+              exact
+              path={`${SUBMISSIONS_SEMINAR}/new/success`}
+              component={SeminarSubmissionSuccessPageContainer}
+            />
             <Route
               exact
               path={SUBMISSION_SUCCESS}
