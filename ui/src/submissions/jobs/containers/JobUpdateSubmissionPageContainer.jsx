@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Map } from 'immutable';
-import { Row, Col, Alert } from 'antd';
 
 import {
   fetchUpdateFormData,
@@ -11,6 +10,8 @@ import {
 import { JOBS_PID_TYPE } from '../../../common/constants';
 import JobSubmission from '../components/JobSubmission';
 import LoadingOrChildren from '../../../common/components/LoadingOrChildren';
+import SubmissionPage from '../../common/components/SubmissionPage';
+import ErrorAlertOrChildren from '../../../common/components/ErrorAlertOrChildren';
 
 class JobUpdateSubmissionPage extends Component {
   static getRecordIdFromProps(props) {
@@ -56,35 +57,20 @@ class JobUpdateSubmissionPage extends Component {
       updateFormDataError,
     } = this.props;
     return (
-      <Row type="flex" justify="center">
-        <Col className="mt3 mb3" xs={24} md={21} lg={16} xl={15} xxl={14}>
-          <Row className="mb3 pa3 bg-white">
-            <Col span={24}>
-              <h3>Update a job opening</h3>
-              All modifications will appear immediately.
-            </Col>
-          </Row>
-          <LoadingOrChildren loading={loadingUpdateFormData}>
-            <Row>
-              <Col span={24}>
-                {updateFormDataError ? (
-                  <Alert
-                    message={updateFormDataError.get('message')}
-                    type="error"
-                    showIcon
-                  />
-                ) : (
-                  <JobSubmission
-                    error={error}
-                    onSubmit={this.onSubmit}
-                    initialFormData={updateFormData}
-                  />
-                )}
-              </Col>
-            </Row>
-          </LoadingOrChildren>
-        </Col>
-      </Row>
+      <SubmissionPage
+        title="Update a job opening"
+        description="All modifications will appear immediately."
+      >
+        <LoadingOrChildren loading={loadingUpdateFormData}>
+          <ErrorAlertOrChildren error={updateFormDataError}>
+            <JobSubmission
+              error={error}
+              onSubmit={this.onSubmit}
+              initialFormData={updateFormData}
+            />
+          </ErrorAlertOrChildren>
+        </LoadingOrChildren>
+      </SubmissionPage>
     );
   }
 }

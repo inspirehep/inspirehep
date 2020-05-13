@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Map } from 'immutable';
 import { Link } from 'react-router-dom';
-import { Row, Col } from 'antd';
 
 import { submit } from '../../../actions/submissions';
 import { JOBS_PID_TYPE } from '../../../common/constants';
 import JobSubmission from '../components/JobSubmission';
 import { JOBS } from '../../../common/routes';
+import SubmissionPage from '../../common/components/SubmissionPage';
 
 class JobSubmissionPage extends Component {
   constructor(props) {
@@ -24,23 +24,17 @@ class JobSubmissionPage extends Component {
   render() {
     const { error } = this.props;
     return (
-      <Row type="flex" justify="center">
-        <Col className="mt3 mb3" xs={24} md={21} lg={16} xl={15} xxl={14}>
-          <Row className="mb3 pa3 bg-white">
-            <Col span={24}>
-              <h3>Submit a new job opening</h3>
-              This form allows you to advertise a new job opening. It will
-              appear in the <Link to={`${JOBS}?q=`}>Jobs List</Link> upon
-              approval.
-            </Col>
-          </Row>
-          <Row>
-            <Col span={24}>
-              <JobSubmission error={error} onSubmit={this.onSubmit} />
-            </Col>
-          </Row>
-        </Col>
-      </Row>
+      <SubmissionPage
+        title="Submit a new job opening"
+        description={
+          <span>
+            This form allows you to advertise a new job opening. It will appear
+            in the <Link to={`${JOBS}?q=`}>Jobs List</Link> upon approval.
+          </span>
+        }
+      >
+        <JobSubmission error={error} onSubmit={this.onSubmit} />
+      </SubmissionPage>
     );
   }
 }
