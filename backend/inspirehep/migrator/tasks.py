@@ -316,7 +316,14 @@ def create_records_from_mirror_recids(self, recids):
     return list(processed_records)
 
 
-@shared_task(ignore_results=False, queue="migrator", acks_late=True)
+@shared_task(
+    ignore_results=False,
+    queue="migrator",
+    acks_late=True,
+    retry_backoff=2,
+    retry_kwargs={"max_retries": 6},
+    autoretry_for=(OperationalError,),
+)
 def update_relations(uuids):
     """Task which updates records_citations and conference_literature tables tabls with
     relations of proper literature record.
