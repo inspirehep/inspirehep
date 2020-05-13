@@ -124,8 +124,8 @@ describe('seminar submissions', () => {
           value: 'https://example.com/join/2',
         },
       ],
-      end_datetime: '2020-05-06T16:30:00.000000',
-      start_datetime: '2020-05-06T10:30:00.000000',
+      end_datetime: '2020-05-06T12:30:00.000000',
+      start_datetime: '2020-05-06T06:30:00.000000',
       timezone: 'Europe/Zurich',
     };
     const { metadata } = await seminarResponse.json();

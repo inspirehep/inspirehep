@@ -1313,8 +1313,8 @@ SEMINAR_RECORD_DATA = {
         {"description": "primary", "value": "http://example.com/join/1"},
         {"value": "http://example.com/join/2"},
     ],
-    "end_datetime": "2020-05-06T16:30:00.000000",
-    "start_datetime": "2020-05-06T10:30:00.000000",
+    "end_datetime": "2020-05-06T12:30:00.000000",
+    "start_datetime": "2020-05-06T06:30:00.000000",
     "timezone": "Europe/Zurich",
 }
 
@@ -1447,9 +1447,7 @@ def test_new_seminar_submission_with_cataloger_login(
 
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
-def test_seminar_update_submission(
-    create_ticket_mock, inspire_app
-):
+def test_seminar_update_submission(create_ticket_mock, inspire_app):
     orcid = "0000-0001-5109-3700"
     user = create_user(orcid=orcid)
 
@@ -1528,6 +1526,7 @@ def test_seminar_update_submission_with_cataloger_login(
     assert get_value(seminar_record, "acquisition_source.orcid") == orcid
 
     create_ticket_mock.assert_not_called()
+
 
 def test_seminar_update_submission_without_login(inspire_app):
     seminar_data = {
