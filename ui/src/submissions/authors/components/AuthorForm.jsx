@@ -43,7 +43,7 @@ class AuthorForm extends Component {
 
 
   render() {
-    const { values, isSubmitting, isValid, isValidating } = this.props;
+    const { values } = this.props;
     return (
       <Form>
         <CollapsableForm openSections={OPEN_SECTIONS}>
@@ -315,11 +315,7 @@ class AuthorForm extends Component {
           </CollapsableForm.Section>
         </CollapsableForm>
         <Row type="flex" justify="end">
-          <SubmitButton
-            isSubmitting={isSubmitting}
-            isValidating={isValidating}
-            isValid={isValid}
-          />
+          <SubmitButton />
         </Row>
       </Form>
     );
@@ -328,9 +324,6 @@ class AuthorForm extends Component {
 
 
 AuthorForm.propTypes = {
-  isSubmitting: PropTypes.bool.isRequired,
-  isValidating: PropTypes.bool.isRequired,
-  isValid: PropTypes.bool.isRequired,
   values: PropTypes.objectOf(PropTypes.any).isRequired, // current form data
 };
 

@@ -112,11 +112,7 @@ exports[`ArticleForm renders all props 1`] = `
     justify="end"
     type="flex"
   >
-    <SubmitButton
-      isSubmitting={false}
-      isValid={true}
-      isValidating={false}
-    />
+    <SubmitButton />
   </Row>
 </Form>
 `;

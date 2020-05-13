@@ -1,32 +1,30 @@
 import React from 'react';
-import { act } from 'react-dom/test-utils';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
+import { useFormikContext } from 'formik';
 import SubmitButton from '../SubmitButton';
+
+jest.mock('formik');
 
 describe('SubmitButton', () => {
   it('renders with all props set', () => {
-    const wrapper = shallow(
-      <SubmitButton isValid isSubmitting={false} isValidating={false} />
-    );
+    const contextValue = {
+      isValid: true,
+      isSubmitting: false,
+      isValidating: false,
+    };
+    useFormikContext.mockImplementation(() => contextValue);
+    const wrapper = shallow(<SubmitButton />);
     expect(wrapper).toMatchSnapshot();
   });
 
   it('renders with loading', () => {
-    const wrapper = shallow(
-      <SubmitButton isValid isSubmitting isValidating={false} />
-    );
+    const contextValue = {
+      isValid: true,
+      isSubmitting: true,
+      isValidating: false,
+    };
+    useFormikContext.mockImplementation(() => contextValue);
+    const wrapper = shallow(<SubmitButton />);
     expect(wrapper).toMatchSnapshot();
-  });
-
-  it('calls scrollTo when form is submitted and is not valid', () => {
-    const wrapper = mount(
-      <SubmitButton isValid={false} isSubmitting isValidating={false} />
-    );
-    global.scrollTo = jest.fn();
-    act(() => {
-      wrapper.setProps({ isSubmitting: false });
-      wrapper.update();
-    });
-    expect(global.scrollTo).toHaveBeenCalled();
   });
 });

@@ -34,7 +34,7 @@ const DISPLAY_TIME = {
   format: TIME_FORMAT,
 };
 
-function SeminarForm({ values, isSubmitting, isValid, isValidating }) {
+function SeminarForm({ values }) {
   return (
     <Form className="bg-white pa3">
       <Field name="name" label="* Seminar Name" component={TextField} />
@@ -197,11 +197,7 @@ function SeminarForm({ values, isSubmitting, isValid, isValidating }) {
         )}
       />
       <Row type="flex" justify="end">
-        <SubmitButton
-          isSubmitting={isSubmitting}
-          isValidating={isValidating}
-          isValid={isValid}
-        />
+        <SubmitButton />
       </Row>
     </Form>
   );
@@ -209,9 +205,6 @@ function SeminarForm({ values, isSubmitting, isValid, isValidating }) {
 
 
 SeminarForm.propTypes = {
-  isSubmitting: PropTypes.bool.isRequired,
-  isValidating: PropTypes.bool.isRequired,
-  isValid: PropTypes.bool.isRequired,
   values: PropTypes.objectOf(PropTypes.any).isRequired, // current form data
 };
 

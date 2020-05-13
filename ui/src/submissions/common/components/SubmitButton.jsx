@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { Button } from 'antd';
+import { useFormikContext } from 'formik';
+
 import usePrevious from '../../../common/hooks/usePrevious';
 
-function SubmitButton({ isSubmitting, isValidating, isValid }) {
+function SubmitButton() {
+  const { isSubmitting, isValid, isValidating } = useFormikContext();
   const previousIsSubmitting = usePrevious(isSubmitting);
-
   useEffect(
     () => {
       const hasTriedToSubmitInvalidForm =
@@ -27,11 +28,5 @@ function SubmitButton({ isSubmitting, isValidating, isValid }) {
     </Button>
   );
 }
-
-SubmitButton.propTypes = {
-  isSubmitting: PropTypes.bool.isRequired,
-  isValidating: PropTypes.bool.isRequired,
-  isValid: PropTypes.bool.isRequired,
-};
 
 export default SubmitButton;
