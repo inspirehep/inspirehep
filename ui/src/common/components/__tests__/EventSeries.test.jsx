@@ -2,17 +2,17 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
 
-import ConferenceSeries from '../ConferenceSeries';
+import EventSeries from '../EventSeries';
 
-describe('ConferenceSeries', () => {
+describe('EventSeries', () => {
   it('renders with only name', () => {
     const series = fromJS([{ name: 'Conference Name' }]);
-    const wrapper = shallow(<ConferenceSeries series={series} />);
+    const wrapper = shallow(<EventSeries series={series} />);
     expect(wrapper.dive()).toMatchSnapshot();
   });
   it('renders with name and number', () => {
     const series = fromJS([{ name: 'Conference Name', number: 10 }]);
-    const wrapper = shallow(<ConferenceSeries series={series} />);
+    const wrapper = shallow(<EventSeries series={series} />);
     expect(wrapper.dive()).toMatchSnapshot();
   });
   it('renders several series', () => {
@@ -21,7 +21,7 @@ describe('ConferenceSeries', () => {
       { name: 'Conference 2', number: 10 },
       { name: 'Conference 3' },
     ]);
-    const wrapper = shallow(<ConferenceSeries series={series} />);
+    const wrapper = shallow(<EventSeries series={series} />);
     expect(wrapper.dive()).toMatchSnapshot();
   });
 });

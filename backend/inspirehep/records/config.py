@@ -53,6 +53,7 @@ from inspirehep.search.facets import (
     records_hep_cataloger,
     records_jobs,
     records_jobs_cataloger,
+    records_seminars,
 )
 
 INSPIRE_SERIALIZERS = "inspirehep.records.serializers"
@@ -407,19 +408,34 @@ SEMINARS.update(
         "record_class": "inspirehep.records.api:SeminarsRecord",
         "search_factory_imp": "inspirehep.search.factories.search:search_factory_with_aggs",
         "search_serializers": {
-            "application/json": INSPIRE_SERIALIZERS + ":seminars_json_response_search"
+            "application/json": INSPIRE_SERIALIZERS + ":seminars_json_response_search",
+            "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
+            + ":seminars_json_list_response",
         },
         "record_serializers": {
-            "application/json": INSPIRE_SERIALIZERS + ":seminars_json_response"
+            "application/json": INSPIRE_SERIALIZERS + ":seminars_json_response",
+            "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
+            + ":seminars_json_detail_response",
         },
         "suggesters": {
             "series_name": {
-                "completion": {"field": "series_autocomplete", "skip_duplicates": True},
-            },
-        }
+                "completion": {"field": "series_autocomplete", "skip_duplicates": True}
+            }
+        },
     }
 )
 
+SEMINARS_FACETS = deepcopy(SEMINARS)
+SEMINARS_FACETS.update(
+    {
+        "default_endpoint_prefix": False,
+        "search_factory_imp": "inspirehep.search.factories.search:search_factory_only_with_aggs",
+        "list_route": "/seminars/facets/",
+        "search_serializers": {
+            "application/json": f"{INSPIRE_SERIALIZERS}:facets_json_response_search"
+        },
+    }
+)
 
 RECORDS_REST_ENDPOINTS = {
     "literature": LITERATURE,
@@ -438,6 +454,7 @@ RECORDS_REST_ENDPOINTS = {
     "data": DATA,
     "institutions": INSTITUTIONS,
     "seminars": SEMINARS,
+    "seminars_facets": SEMINARS_FACETS,
 }
 
 HEP_FILTERS = {
@@ -471,6 +488,11 @@ CONFERENCES_FILTERS = {
     "contains": conferences_date_range_contains_other_conferences(),
 }
 
+SEMINARS_FILTERS = {
+    "subject": must_match_all_filter("inspire_categories.term"),
+    "series": must_match_all_filter("series.name.raw"),
+}
+
 RECORDS_REST_FACETS = {
     "hep-author-publication": hep_author_publications,
     "hep-conference-contribution": hep_conference_contributions,
@@ -480,6 +502,7 @@ RECORDS_REST_FACETS = {
     "records-hep": records_hep,
     "records-jobs": records_jobs,
     "records-conferences": records_conferences,
+    "records-seminars": records_seminars,
 }
 CATALOGER_RECORDS_REST_FACETS = deepcopy(RECORDS_REST_FACETS)
 CATALOGER_RECORDS_REST_FACETS.update(
@@ -517,6 +540,18 @@ RECORDS_REST_SORT_OPTIONS = {
         "datedesc": {
             "title": "Date descending",
             "fields": ["-opening_date"],
+            "order": 2,
+        },
+    },
+    "records-seminars": {
+        "dateasc": {
+            "title": "Date ascending",
+            "fields": ["start_datetime"],
+            "order": 1,
+        },
+        "datedesc": {
+            "title": "Date descending",
+            "fields": ["-start_datetime"],
             "order": 2,
         },
     },

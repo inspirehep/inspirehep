@@ -1,5 +1,6 @@
 import mergeWith from 'lodash.mergewith';
 import cloneDeep from 'lodash.clonedeep';
+import moment from 'moment-timezone';
 import { Map } from 'immutable';
 import NumberAbbreviator from 'number-abbreviate';
 import { LITERATURE } from './routes';
@@ -257,7 +258,7 @@ export function getAuthorName(author) {
     const lastName = author.get('last_name', '');
     return `${firstName} ${lastName}`;
   }
-  return author.get('full_name');
+  return author.get('name') || author.get('full_name');
 }
 
 export function addCommasToNumber(number) {
@@ -270,4 +271,12 @@ export function getRootOfLocationPathname(pathname) {
 
 export function getInstitutionName(affiliation) {
   return affiliation.get('value') || affiliation.get('institution');
+}
+
+export function doTimezonesHaveDifferentTimes(timezone1, timezone2) {
+  const now = Date.now();
+  return (
+    moment.tz.zone(timezone1).utcOffset(now) !==
+    moment.tz.zone(timezone2).utcOffset(now)
+  );
 }

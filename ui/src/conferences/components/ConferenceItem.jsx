@@ -8,7 +8,6 @@ import { Row, Col } from 'antd';
 import EditRecordAction from '../../common/components/EditRecordAction';
 import ResultItem from '../../common/components/ResultItem';
 import { CONFERENCES, LITERATURE } from '../../common/routes';
-import ConferenceTitle from './ConferenceTitle';
 import ConferenceDates from './ConferenceDates';
 import AddressList from '../../common/components/AddressList';
 import InspireCategoryList from './InspireCategoryList';
@@ -18,6 +17,7 @@ import pluralizeUnlessSingle from '../../common/utils';
 import IconText from '../../common/components/IconText';
 import ListItemAction from '../../common/components/ListItemAction';
 import { getContributionsQueryString } from '../utils';
+import EventTitle from '../../common/components/EventTitle';
 
 class ConferenceItem extends Component {
   render() {
@@ -74,7 +74,7 @@ class ConferenceItem extends Component {
               to={`${CONFERENCES}/${recordId}`}
               target={openDetailInNewTab ? '_blank' : null}
             >
-              <ConferenceTitle title={title} acronym={acronym} />
+              <EventTitle title={title} acronym={acronym} />
             </Link>
           </Col>
         </Row>

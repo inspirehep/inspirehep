@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 
-function ConferenceTitle({ title, acronym }) {
+function EventTitle({ title, acronym }) {
   const mainTitle = title.get('title');
   const subTitle = title.get('subtitle');
   return (
@@ -19,9 +19,9 @@ function ConferenceTitle({ title, acronym }) {
   );
 }
 
-ConferenceTitle.propTypes = {
+EventTitle.propTypes = {
   acronym: PropTypes.string,
   title: PropTypes.instanceOf(Map).isRequired,
 };
 
-export default ConferenceTitle;
+export default EventTitle;

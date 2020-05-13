@@ -5,6 +5,12 @@ exports[`ConferenceItem renders with all props set 1`] = `
   leftActions={
     <React.Fragment>
       <WebsitesAction
+        title={
+          <IconText
+            icon={<ForwardRef(LinkOutlined) />}
+            text="website"
+          />
+        }
         websites={
           Immutable.List [
             Immutable.Map {
@@ -56,7 +62,7 @@ exports[`ConferenceItem renders with all props set 1`] = `
         target="_blank"
         to="/conferences/12345"
       >
-        <ConferenceTitle
+        <EventTitle
           acronym="acronym"
           title={
             Immutable.Map {
@@ -127,7 +133,7 @@ exports[`ConferenceItem renders with only needed props 1`] = `
         target={null}
         to="/conferences/12345"
       >
-        <ConferenceTitle
+        <EventTitle
           title={
             Immutable.Map {
               "title": "test",

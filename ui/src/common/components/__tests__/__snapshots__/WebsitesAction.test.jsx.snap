@@ -55,3 +55,14 @@ exports[`WebsitesAction renders urls with and without description 1`] = `
   </DropdownMenu>
 </ListItemAction>
 `;
+
+exports[`WebsitesAction renders with title 1`] = `
+<ListItemAction>
+  <ExternalLink
+    as="a"
+    href="https://author.wordpress.com"
+  >
+    My own title
+  </ExternalLink>
+</ListItemAction>
+`;

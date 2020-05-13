@@ -28,6 +28,8 @@ from inspirehep.search.aggregations import (
     jobs_rank_aggregation,
     jobs_region_aggregation,
     jobs_status_aggregation,
+    seminar_series_aggregation,
+    seminar_subject_aggregation,
 )
 from inspirehep.search.utils import minify_painless
 
@@ -109,6 +111,24 @@ def conferences_start_date_range_filter():
     return inner
 
 
+def seminars_start_date_range_filter(timezone):
+    date_range_filter = range_filter("start_datetime", time_zone=timezone)
+
+    def inner(values):
+        value = values and values[0]
+
+        if value == "upcoming":
+            now = datetime.utcnow().isoformat()
+            return Range(**{"start_datetime": {"gte": now}})
+
+        if value == "all":
+            return Q()
+
+        return date_range_filter(values)
+
+    return inner
+
+
 def get_filters_without_excluded(filters, excluded_filters):
     return {key: val for key, val in filters.items() if key not in excluded_filters}
 
@@ -148,6 +168,14 @@ def hep_filters():
     if request:
         author_recid = request.values.get("author", "", type=str).split("_")[0]
         filters.update(**nested_filters(author_recid))
+    return filters
+
+
+def seminars_filters():
+    filters = {**current_app.config["SEMINARS_FILTERS"]}
+    if request:
+        timezone = request.values.get("timezone", "", type=str)
+        filters.update({"start_date": seminars_start_date_range_filter(timezone)})
     return filters
 
 
@@ -364,6 +392,18 @@ def records_conferences(order=None):
     return {
         "filters": {**current_app.config["CONFERENCES_FILTERS"]},
         "aggs": {**conf_subject_aggregation(order=next(order))},
+    }
+
+
+def records_seminars(order=None):
+    if order is None:
+        order = count(start=1)
+    return {
+        "filters": seminars_filters(),
+        "aggs": {
+            **seminar_series_aggregation(order=next(order)),
+            **seminar_subject_aggregation(order=next(order)),
+        },
     }
 
 

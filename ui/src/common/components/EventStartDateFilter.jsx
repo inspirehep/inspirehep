@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { Row, Switch, Col } from 'antd';
 
 // TODO: rename AggregationBox to FilterBox, since it is used for this (Filter) and AggregationFilter
-import AggregationBox from '../../common/components/AggregationBox';
-import DateRangeFilter from '../../common/components/DateRangeFilter';
-import { START_DATE_UPCOMING, START_DATE_ALL } from '../../common/constants';
+import AggregationBox from './AggregationBox';
+import DateRangeFilter from './DateRangeFilter';
+import { START_DATE_UPCOMING, START_DATE_ALL } from '../constants';
 
-function ConferenceStartDateFilter({ onChange, selection = '' }) {
+function EventStartDateFilter({ onChange, selection = '', switchTitle }) {
   const [isUpcoming, setUpcoming] = useState(selection === START_DATE_UPCOMING);
 
   useEffect(
@@ -58,7 +58,7 @@ function ConferenceStartDateFilter({ onChange, selection = '' }) {
               onAnimationEnd={onUpcomingSwitchAnimationEnd}
             />
           </Col>
-          <Col>Upcoming conferences</Col>
+          <Col>{switchTitle}</Col>
         </Row>
         <DateRangeFilter
           onChange={onDateRangeFilterChange}
@@ -69,9 +69,10 @@ function ConferenceStartDateFilter({ onChange, selection = '' }) {
   );
 }
 
-ConferenceStartDateFilter.propTypes = {
+EventStartDateFilter.propTypes = {
   onChange: PropTypes.func.isRequired,
   selection: PropTypes.string,
+  switchTitle: PropTypes.string.isRequired,
 };
 
-export default ConferenceStartDateFilter;
+export default EventStartDateFilter;

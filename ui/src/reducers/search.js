@@ -21,6 +21,7 @@ import {
   LITERATURE,
   CONFERENCES,
   INSTITUTIONS,
+  SEMINARS,
 } from '../common/routes';
 import { START_DATE_UPCOMING, START_DATE_ALL } from '../common/constants';
 
@@ -33,6 +34,7 @@ export const CONFERENCES_NS = 'conferences';
 export const EXISTING_CONFERENCES_NS = 'existingConferences';
 export const INSTITUTIONS_NS = 'institutions';
 export const INSTITUTION_PAPERS_NS = 'institutionPapers';
+export const SEMINARS_NS = 'seminars';
 
 const initialBaseQuery = {
   sort: 'mostrecent',
@@ -132,7 +134,7 @@ export const initialState = fromJS({
         'start_date',
       ],
       aggregationsFetchMode: FETCH_MODE_ALWAYS,
-      order: 4,
+      order: 5,
     },
     [EXISTING_CONFERENCES_NS]: {
       ...initialNamespaceState,
@@ -159,6 +161,7 @@ export const initialState = fromJS({
       pathname: INSTITUTIONS,
       embedded: false,
       aggregationsFetchMode: FETCH_MODE_NEVER,
+      order: 6,
     },
     [INSTITUTION_PAPERS_NS]: {
       ...initialNamespaceState,
@@ -168,6 +171,27 @@ export const initialState = fromJS({
       baseAggregationsQuery: {
         facet_name: 'hep-institution-papers',
       },
+    },
+    [SEMINARS_NS]: {
+      ...initialNamespaceState,
+      pathname: SEMINARS,
+      embedded: false,
+      baseQuery: {
+        ...initialBaseQuery,
+        start_date: START_DATE_UPCOMING,
+        sort: 'dateasc',
+      },
+      query: {
+        ...initialBaseQuery,
+        start_date: START_DATE_UPCOMING,
+        sort: 'dateasc',
+      },
+      persistedQueryParamsDuringNewSearch: [
+        ...initialPersistedQueryParamsDuringNewSearch,
+        'start_date',
+      ],
+      aggregationsFetchMode: FETCH_MODE_ALWAYS,
+      order: 4,
     },
   },
 });

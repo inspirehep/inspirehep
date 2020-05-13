@@ -13,8 +13,12 @@ from inspirehep.records.marshmallow.seminars.base import (
     SeminarsAdminSchema,
     SeminarsPublicSchema,
 )
+from inspirehep.records.marshmallow.seminars.ui import (
+    SeminarsDetailSchema,
+    SeminarsListSchema,
+)
 from inspirehep.records.serializers.response import record_responsify
-from inspirehep.serializers import ConditionalMultiSchemaJSONSerializer
+from inspirehep.serializers import ConditionalMultiSchemaJSONSerializer, JSONSerializer
 
 seminars_json = ConditionalMultiSchemaJSONSerializer(
     [
@@ -27,3 +31,17 @@ seminars_json = ConditionalMultiSchemaJSONSerializer(
 )
 seminars_json_response = record_responsify(seminars_json, "application/json")
 seminars_json_response_search = search_responsify(seminars_json, "application/json")
+
+seminars_json_detail = JSONSerializer(
+    wrap_schema_class_with_metadata(SeminarsDetailSchema)
+)
+seminars_json_detail_response = record_responsify(
+    seminars_json_detail, "application/vnd+inspire.record.ui+json"
+)
+
+seminars_json_list = JSONSerializer(
+    wrap_schema_class_with_metadata(SeminarsListSchema), index_name="records-seminars"
+)
+seminars_json_list_response = search_responsify(
+    seminars_json_list, "application/vnd+inspire.record.ui+json"
+)

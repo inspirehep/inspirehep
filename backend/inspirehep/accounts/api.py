@@ -7,6 +7,7 @@
 
 
 from flask_login import current_user
+from inspire_utils.record import get_value
 from invenio_oauthclient.models import RemoteAccount, UserIdentity
 from sqlalchemy.orm.exc import NoResultFound
 
@@ -19,6 +20,14 @@ def is_superuser_or_cataloger_logged_in():
         user_roles = {role.name for role in current_user.roles}
         return bool(user_roles & {Roles.cataloger.value, Roles.superuser.value})
     return False
+
+
+def can_user_edit_record(record):
+    submitter_orcid = get_value(record, "acquisition_source.orcid")
+    return (
+        is_superuser_or_cataloger_logged_in()
+        or submitter_orcid == get_current_user_orcid()
+    )
 
 
 def is_loggedin_user_email(email):

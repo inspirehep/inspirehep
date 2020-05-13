@@ -233,3 +233,21 @@ def hep_rpp(order, title="Exclude RPP", agg_type="checkbox"):
             },
         }
     }
+
+
+def seminar_subject_aggregation(order, title="Subject", agg_type="checkbox"):
+    return {
+        "subject": {
+            "terms": {"field": "inspire_categories.term", "size": 20},
+            "meta": {"title": title, "order": order, "type": agg_type},
+        }
+    }
+
+
+def seminar_series_aggregation(order, title="Series", agg_type="checkbox"):
+    return {
+        "series": {
+            "terms": {"field": "series.name.raw", "size": 20},
+            "meta": {"title": title, "order": order, "type": agg_type},
+        }
+    }

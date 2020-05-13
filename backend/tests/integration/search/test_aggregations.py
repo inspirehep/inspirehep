@@ -1,4 +1,5 @@
 from flask import current_app
+from freezegun.api import freeze_time
 from helpers.utils import create_record, create_user, override_config
 from invenio_accounts.testutils import login_user_via_session
 from mock import patch
@@ -20,6 +21,8 @@ from inspirehep.search.aggregations import (
     jobs_rank_aggregation,
     jobs_region_aggregation,
     jobs_status_aggregation,
+    seminar_series_aggregation,
+    seminar_subject_aggregation,
 )
 from inspirehep.search.facets import hep_filters
 
@@ -683,3 +686,110 @@ def test_hep_collection_aggregation(inspire_app):
             response["hits"]["hits"][0]["metadata"]["control_number"]
             == expected_record["control_number"]
         )
+
+
+def test_seminar_subject_aggregation_and_filter(inspire_app):
+    config = {
+        "RECORDS_REST_FACETS": {
+            "records-seminars": {
+                "filters": {**current_app.config["SEMINARS_FILTERS"]},
+                "aggs": {**seminar_subject_aggregation(1)},
+            }
+        }
+    }
+
+    with override_config(**config):
+        data = {"inspire_categories": [{"term": "Lattice"}]}
+        expected_record = create_record("sem", data)
+        data = {"inspire_categories": [{"term": "Instrumentation"}]}
+        create_record("sem", data)
+        with inspire_app.test_client() as client:
+            response = client.get("/seminars/facets").json
+        expected_aggregation = {
+            "meta": {"title": "Subject", "type": "checkbox", "order": 1},
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+                {"key": "Instrumentation", "doc_count": 1},
+                {"key": "Lattice", "doc_count": 1},
+            ],
+        }
+        assert response["aggregations"]["subject"] == expected_aggregation
+
+        with inspire_app.test_client() as client:
+            response = client.get("/seminars?subject=Lattice").json
+        assert len(response["hits"]["hits"]) == 1
+        assert (
+            response["hits"]["hits"][0]["metadata"]["control_number"]
+            == expected_record["control_number"]
+        )
+
+
+def test_seminar_series_aggregation_and_filter(inspire_app):
+    config = {
+        "RECORDS_REST_FACETS": {
+            "records-seminars": {
+                "filters": {**current_app.config["SEMINARS_FILTERS"]},
+                "aggs": {**seminar_series_aggregation(1)},
+            }
+        }
+    }
+
+    with override_config(**config):
+        data = {"series": [{"name": "Series1"}]}
+        expected_record = create_record("sem", data)
+        data = {"series": [{"name": "ICHEP"}]}
+        create_record("sem", data)
+        with inspire_app.test_client() as client:
+            response = client.get("/seminars/facets").json
+        expected_aggregation = {
+            "meta": {"title": "Series", "type": "checkbox", "order": 1},
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+                {"key": "ICHEP", "doc_count": 1},
+                {"key": "Series1", "doc_count": 1},
+            ],
+        }
+        assert response["aggregations"]["series"] == expected_aggregation
+
+        with inspire_app.test_client() as client:
+            response = client.get("/seminars?series=Series1").json
+        assert len(response["hits"]["hits"]) == 1
+        assert (
+            response["hits"]["hits"][0]["metadata"]["control_number"]
+            == expected_record["control_number"]
+        )
+
+
+def test_seminars_start_date_filter_with_range(inspire_app):
+    seminar1 = {"start_datetime": "2019-11-23T20:18:22.063Z"}
+    create_record("sem", data=seminar1)
+    seminar2 = {"start_datetime": "2019-11-23T23:18:22.063Z"}
+    expected_record = create_record("sem", data=seminar2)
+    with inspire_app.test_client() as client:
+        response = client.get(
+            "/seminars?start_date=2019-11-24--2019-11-25&timezone=Europe%2FVienna"
+        )
+    response_data = response.json
+    assert len(response_data["hits"]["hits"]) == 1
+    assert (
+        response_data["hits"]["hits"][0]["metadata"]["control_number"]
+        == expected_record["control_number"]
+    )
+
+
+@freeze_time("2019-11-23T21:18:22.063Z")
+def test_seminars_start_date_filter_with_upcoming(inspire_app):
+    seminar1 = {"start_datetime": "2019-11-23T20:18:22.063Z"}
+    create_record("sem", data=seminar1)
+    seminar2 = {"start_datetime": "2019-11-23T23:18:22.063Z"}
+    expected_record = create_record("sem", data=seminar2)
+    with inspire_app.test_client() as client:
+        response = client.get("/seminars?start_date=upcoming")
+    response_data = response.json
+    assert len(response_data["hits"]["hits"]) == 1
+    assert (
+        response_data["hits"]["hits"][0]["metadata"]["control_number"]
+        == expected_record["control_number"]
+    )

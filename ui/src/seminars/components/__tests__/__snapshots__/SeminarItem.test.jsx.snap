@@ -1,0 +1,318 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SeminarItem renders with all props set 1`] = `
+<ResultItem
+  leftActions={
+    <React.Fragment>
+      <WebsitesAction
+        title={
+          <IconText
+            icon={<ForwardRef(LinkOutlined) />}
+            text="website"
+          />
+        }
+        websites={
+          Immutable.List [
+            Immutable.Map {
+              "value": "http://url.com",
+            },
+          ]
+        }
+      />
+      <WebsitesAction
+        title={
+          <IconText
+            icon={<ForwardRef(VideoCameraAddOutlined) />}
+            text="join"
+          />
+        }
+        websites={
+          Immutable.List [
+            Immutable.Map {
+              "value": "http://urljoin.com",
+              "description": "zoom",
+            },
+          ]
+        }
+      />
+      <EditRecordAction
+        pidType="seminars"
+        pidValue={12345}
+      />
+    </React.Fragment>
+  }
+>
+  <Row
+    gutter={0}
+    type="flex"
+  >
+    <Col>
+      <Link
+        className="result-item-title"
+        to="/seminars/12345"
+      >
+        <EventTitle
+          title={
+            Immutable.Map {
+              "title": "test",
+            }
+          }
+        />
+      </Link>
+    </Col>
+  </Row>
+  <Row
+    gutter={0}
+  >
+    <Col>
+      <AuthorList
+        authors={
+          Immutable.List [
+            Immutable.Map {
+              "name": "John, Doe",
+              "affiliations": Immutable.List [
+                Immutable.Map {
+                  "value": "CERN",
+                },
+              ],
+            },
+          ]
+        }
+        enableShowAll={false}
+        limit={5}
+        total={-1}
+        wrapperClassName={null}
+      />
+    </Col>
+  </Row>
+  <Row
+    gutter={0}
+  >
+    <Col>
+      <SeminarDateTimes
+        displayTimezone={false}
+        endDate="2020-05-17T00:45:00.000000"
+        startDate="2020-05-15T11:45:00.000000"
+        timezone="Europe/Zurich"
+      />
+    </Col>
+  </Row>
+</ResultItem>
+`;
+
+exports[`SeminarItem renders with only needed props 1`] = `
+<ResultItem
+  leftActions={
+    <React.Fragment>
+      <EditRecordAction
+        pidType="seminars"
+        pidValue={12345}
+      />
+    </React.Fragment>
+  }
+>
+  <Row
+    gutter={0}
+    type="flex"
+  >
+    <Col>
+      <Link
+        className="result-item-title"
+        to="/seminars/12345"
+      >
+        <EventTitle
+          title={
+            Immutable.Map {
+              "title": "test",
+            }
+          }
+        />
+      </Link>
+    </Col>
+  </Row>
+  <Row
+    gutter={0}
+  >
+    <Col>
+      <AuthorList
+        authors={
+          Immutable.List [
+            Immutable.Map {
+              "name": "John, Doe",
+              "affiliations": Immutable.List [
+                Immutable.Map {
+                  "value": "CERN",
+                },
+              ],
+            },
+          ]
+        }
+        enableShowAll={false}
+        limit={5}
+        total={-1}
+        wrapperClassName={null}
+      />
+    </Col>
+  </Row>
+  <Row
+    gutter={0}
+  >
+    <Col>
+      <SeminarDateTimes
+        displayTimezone={false}
+        endDate="2020-05-17T00:45:00.000000"
+        startDate="2020-05-15T11:45:00.000000"
+        timezone="Europe/Zurich"
+      />
+    </Col>
+  </Row>
+</ResultItem>
+`;
+
+exports[`SeminarItem renders with selected timezone with a different time than local timezone 1`] = `
+<ResultItem
+  leftActions={
+    <React.Fragment>
+      <EditRecordAction
+        pidType="seminars"
+        pidValue={12345}
+      />
+    </React.Fragment>
+  }
+>
+  <Row
+    gutter={0}
+    type="flex"
+  >
+    <Col>
+      <Link
+        className="result-item-title"
+        to="/seminars/12345"
+      >
+        <EventTitle
+          title={
+            Immutable.Map {
+              "title": "test",
+            }
+          }
+        />
+      </Link>
+    </Col>
+  </Row>
+  <Row
+    gutter={0}
+  >
+    <Col>
+      <AuthorList
+        authors={
+          Immutable.List [
+            Immutable.Map {
+              "name": "John, Doe",
+              "affiliations": Immutable.List [
+                Immutable.Map {
+                  "value": "CERN",
+                },
+              ],
+            },
+          ]
+        }
+        enableShowAll={false}
+        limit={5}
+        total={-1}
+        wrapperClassName={null}
+      />
+    </Col>
+  </Row>
+  <Row
+    gutter={0}
+  >
+    <Col>
+      <SeminarDateTimes
+        className="red"
+        displayTimezone={true}
+        endDate="2020-05-17T00:45:00.000000"
+        startDate="2020-05-15T11:45:00.000000"
+        timezone="America/Chicago"
+      />
+       
+      (
+      <SeminarDateTimes
+        displayTimezone={true}
+        endDate="2020-05-17T00:45:00.000000"
+        startDate="2020-05-15T11:45:00.000000"
+        timezone="Europe/Zurich"
+      />
+      )
+    </Col>
+  </Row>
+</ResultItem>
+`;
+
+exports[`SeminarItem renders with selected timezone with a same time as local timezone 1`] = `
+<ResultItem
+  leftActions={
+    <React.Fragment>
+      <EditRecordAction
+        pidType="seminars"
+        pidValue={12345}
+      />
+    </React.Fragment>
+  }
+>
+  <Row
+    gutter={0}
+    type="flex"
+  >
+    <Col>
+      <Link
+        className="result-item-title"
+        to="/seminars/12345"
+      >
+        <EventTitle
+          title={
+            Immutable.Map {
+              "title": "test",
+            }
+          }
+        />
+      </Link>
+    </Col>
+  </Row>
+  <Row
+    gutter={0}
+  >
+    <Col>
+      <AuthorList
+        authors={
+          Immutable.List [
+            Immutable.Map {
+              "name": "John, Doe",
+              "affiliations": Immutable.List [
+                Immutable.Map {
+                  "value": "CERN",
+                },
+              ],
+            },
+          ]
+        }
+        enableShowAll={false}
+        limit={5}
+        total={-1}
+        wrapperClassName={null}
+      />
+    </Col>
+  </Row>
+  <Row
+    gutter={0}
+  >
+    <Col>
+      <SeminarDateTimes
+        displayTimezone={false}
+        endDate="2020-05-17T00:45:00.000000"
+        startDate="2020-05-15T11:45:00.000000"
+        timezone="Europe/Zurich"
+      />
+    </Col>
+  </Row>
+</ResultItem>
+`;

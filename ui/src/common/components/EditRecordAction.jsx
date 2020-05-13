@@ -13,6 +13,7 @@ import {
   EDIT_CONFERENCE,
   EDIT_AUTHOR,
   EDIT_INSTITUTION,
+  EDIT_SEMINAR,
 } from '../routes';
 import {
   LITERATURE_PID_TYPE,
@@ -20,6 +21,7 @@ import {
   CONFERENCES_PID_TYPE,
   AUTHORS_PID_TYPE,
   INSTITUTIONS_PID_TYPE,
+  SEMINARS_PID_TYPE,
 } from '../constants';
 
 const pidTypeToEditRoutePrefix = {
@@ -28,6 +30,7 @@ const pidTypeToEditRoutePrefix = {
   conferences: EDIT_CONFERENCE,
   authors: EDIT_AUTHOR,
   institutions: EDIT_INSTITUTION,
+  seminars: EDIT_SEMINAR,
 };
 
 class EditRecordAction extends Component {
@@ -55,6 +58,7 @@ EditRecordAction.propTypes = {
     CONFERENCES_PID_TYPE,
     AUTHORS_PID_TYPE,
     INSTITUTIONS_PID_TYPE,
+    SEMINARS_PID_TYPE,
   ]).isRequired,
   pidValue: PropTypes.number.isRequired,
 };
