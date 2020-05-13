@@ -18,7 +18,7 @@ import DateRangeField from '../../common/components/DateRangeField';
 import ExistingConferencesAlertContainer from '../containers/ExistingConferencesAlertContainer';
 import ContactsField from '../../common/components/ContactsField';
 
-function ConferenceForm({ values, isSubmitting, isValid, isValidating }) {
+function ConferenceForm({ values }) {
   return (
     <Form className="bg-white pa3">
       <Field name="name" label="* Conference Name" component={TextField} />
@@ -126,20 +126,13 @@ function ConferenceForm({ values, isSubmitting, isValid, isValidating }) {
         )}
       />
       <Row type="flex" justify="end">
-        <SubmitButton
-          isSubmitting={isSubmitting}
-          isValidating={isValidating}
-          isValid={isValid}
-        />
+        <SubmitButton />
       </Row>
     </Form>
   );
 }
 
 ConferenceForm.propTypes = {
-  isSubmitting: PropTypes.bool.isRequired,
-  isValidating: PropTypes.bool.isRequired,
-  isValid: PropTypes.bool.isRequired,
   values: PropTypes.objectOf(PropTypes.any).isRequired, // current form data
 };
 

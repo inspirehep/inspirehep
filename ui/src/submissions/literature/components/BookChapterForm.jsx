@@ -26,7 +26,7 @@ class BookChapterForm extends Component {
   }
 
   render() {
-    const { values, isSubmitting, isValid, isValidating } = this.props;
+    const { values } = this.props;
     return (
       <Form>
         <CollapsableForm openSections={OPEN_SECTIONS}>
@@ -63,11 +63,7 @@ class BookChapterForm extends Component {
           </CollapsableForm.Section>
         </CollapsableForm>
         <Row type="flex" justify="end">
-          <SubmitButton
-            isSubmitting={isSubmitting}
-            isValidating={isValidating}
-            isValid={isValid}
-          />
+          <SubmitButton />
         </Row>
       </Form>
     );

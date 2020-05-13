@@ -30,7 +30,7 @@ const TIME_PICKER_OPTIONS = {
   minuteStep: 5,
 };
 
-function SeminarForm({ values, isSubmitting, isValid, isValidating }) {
+function SeminarForm({ values }) {
   return (
     <Form className="bg-white pa3">
       <Field name="name" label="* Seminar Title" component={TextField} />
@@ -193,20 +193,13 @@ function SeminarForm({ values, isSubmitting, isValid, isValidating }) {
         )}
       />
       <Row type="flex" justify="end">
-        <SubmitButton
-          isSubmitting={isSubmitting}
-          isValidating={isValidating}
-          isValid={isValid}
-        />
+        <SubmitButton />
       </Row>
     </Form>
   );
 }
 
 SeminarForm.propTypes = {
-  isSubmitting: PropTypes.bool.isRequired,
-  isValidating: PropTypes.bool.isRequired,
-  isValid: PropTypes.bool.isRequired,
   values: PropTypes.objectOf(PropTypes.any).isRequired, // current form data
 };
 
