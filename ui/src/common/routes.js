@@ -43,6 +43,7 @@ export const EDIT_AUTHOR = SUBMISSIONS_AUTHOR;
 export const EDIT_JOB = SUBMISSIONS_JOB;
 export const EDIT_CONFERENCE = '/editor/record/conferences';
 export const EDIT_INSTITUTION = '/editor/record/institutions';
+export const EDIT_SEMINAR = SUBMISSIONS_SEMINAR;
 
 export function isBetaRoute(locationPathname) {
   return locationPathname.startsWith(SEMINARS);

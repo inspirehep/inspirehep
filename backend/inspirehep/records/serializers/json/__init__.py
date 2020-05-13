@@ -36,4 +36,9 @@ from .literature import (
     literature_json_response,
     literature_json_response_search,
 )
-from .seminars import seminars_json_response, seminars_json_response_search
+from .seminars import (
+    seminars_json_detail_response,
+    seminars_json_list_response,
+    seminars_json_response,
+    seminars_json_response_search,
+)

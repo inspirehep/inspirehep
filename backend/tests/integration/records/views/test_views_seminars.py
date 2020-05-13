@@ -4,6 +4,8 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+from operator import itemgetter
+
 from helpers.utils import create_record, create_record_factory
 
 
@@ -76,3 +78,27 @@ def test_seminars_record_search_results(inspire_app):
 
     assert result.json["hits"]["total"] == 1
     assert result.json["hits"]["hits"][0]["metadata"] == expected_metadata
+
+
+def test_seminars_sort_options(inspire_app):
+    create_record("sem")
+
+    with inspire_app.test_client() as client:
+        response = client.get(
+            "/seminars", headers={"Accept": "application/vnd+inspire.record.ui+json"}
+        )
+    response_data = response.json
+
+    response_status_code = response.status_code
+    response_data_sort_options = response_data["sort_options"]
+
+    expected_status_code = 200
+    expected_sort_options = [
+        {"display": "Date ascending", "value": "dateasc"},
+        {"display": "Date descending", "value": "datedesc"},
+    ]
+
+    assert expected_status_code == response_status_code
+    assert expected_sort_options == sorted(
+        response_data_sort_options, key=itemgetter("value")
+    )

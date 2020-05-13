@@ -21,6 +21,7 @@ import { LABEL_COL, WRAPPER_COL } from '../../common/withFormItem';
 import {
   SEMINARS_PID_TYPE,
   DATE_RANGE_FORMAT,
+  TIME_FORMAT,
 } from '../../../common/constants';
 
 function getSuggestionSourceNameValue(suggestion) {
@@ -32,8 +33,9 @@ function getSuggestionSourceLegacyICN(suggestion) {
 }
 
 const DISPLAY_TIME = {
-  format: 'hh:mm A',
+  format: TIME_FORMAT,
 };
+
 const DATE_FORMAT = `${DATE_RANGE_FORMAT} ${DISPLAY_TIME.format}`;
 
 function SeminarForm({ values, isSubmitting, isValid, isValidating }) {

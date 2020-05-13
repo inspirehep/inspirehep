@@ -203,6 +203,11 @@
         "properties": {
           "name": {
             "copy_to": "series_autocomplete",
+            "fields": {
+              "raw": {
+                "type": "keyword"
+              }
+            },
             "normalizer": "lowercase_normalizer",
             "type": "keyword"
           },

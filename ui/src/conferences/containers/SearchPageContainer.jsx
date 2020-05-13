@@ -28,7 +28,7 @@ function ConferenceSearchPage({ loading, loadingAggregations }) {
   const renderAggregations = useCallback(
     () => (
       <>
-        <ConferenceStartDateFilterContainer />
+        <ConferenceStartDateFilterContainer switchTitle="Upcoming conferences" />
         <LoadingOrChildren loading={loadingAggregations}>
           <AggregationFiltersContainer
             displayWhenNoResults

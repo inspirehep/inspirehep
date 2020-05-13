@@ -6,6 +6,7 @@ import { Modal } from 'antd';
 import InlineList from './InlineList';
 import Author from './Author';
 import SecondaryButton from './SecondaryButton';
+import { getAuthorName } from '../utils';
 
 class AuthorList extends Component {
   constructor(props) {
@@ -51,7 +52,7 @@ class AuthorList extends Component {
             ? this.renderShowAllOrEtAl()
             : null
         }
-        extractKey={author => author.get('full_name')}
+        extractKey={getAuthorName}
         renderItem={author => <Author author={author} />}
       />
     );

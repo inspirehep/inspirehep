@@ -24,21 +24,24 @@ function renderWebsiteAction(website, title) {
   return <ExternalLink href={website.get('value')}>{title}</ExternalLink>;
 }
 
-const ACTION_TITLE = <IconText icon={<LinkOutlined />} text="website" />;
-
-function WebsitesAction({ websites }) {
+function WebsitesAction({ websites, title }) {
   return (
     <ActionsDropdownOrAction
       values={websites}
       renderAction={renderWebsiteAction}
       renderDropdownAction={renderWebsitesDropdownAction}
-      title={ACTION_TITLE}
+      title={title}
     />
   );
 }
 
 WebsitesAction.propTypes = {
   websites: PropTypes.instanceOf(List).isRequired,
+  title: PropTypes.node,
+};
+
+WebsitesAction.defaultProps = {
+  title: <IconText icon={<LinkOutlined />} text="website" />,
 };
 
 export default WebsitesAction;

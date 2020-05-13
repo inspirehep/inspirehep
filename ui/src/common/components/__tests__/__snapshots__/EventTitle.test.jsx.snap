@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ConferenceTitle renders with also subtitle 1`] = `
+exports[`EventTitle renders with also subtitle 1`] = `
 <span>
   Conference Title
   <span>
@@ -12,7 +12,7 @@ exports[`ConferenceTitle renders with also subtitle 1`] = `
 </span>
 `;
 
-exports[`ConferenceTitle renders with everything 1`] = `
+exports[`EventTitle renders with everything 1`] = `
 <span>
   Conference Title
   <span>
@@ -29,7 +29,7 @@ exports[`ConferenceTitle renders with everything 1`] = `
 </span>
 `;
 
-exports[`ConferenceTitle renders with only title 1`] = `
+exports[`EventTitle renders with only title 1`] = `
 <span>
   Conference Title
 </span>

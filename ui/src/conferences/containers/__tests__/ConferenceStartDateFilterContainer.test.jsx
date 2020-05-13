@@ -7,8 +7,8 @@ import { getStoreWithState, getStore } from '../../../fixtures/store';
 import { CONFERENCES_NS } from '../../../reducers/search';
 import { SEARCH_QUERY_UPDATE } from '../../../actions/actionTypes';
 import ConferenceStartDateFilterContainer from '../ConferenceStartDateFilterContainer';
-import ConferenceStartDateFilter from '../../components/ConferenceStartDateFilter';
 import { START_DATE_ALL, START_DATE_UPCOMING } from '../../../common/constants';
+import EventStartDateFilter from '../../../common/components/EventStartDateFilter';
 
 describe('ConferenceStartDateFilterContainer', () => {
   it('passes conference search query start_date', () => {
@@ -25,11 +25,11 @@ describe('ConferenceStartDateFilterContainer', () => {
     });
     const wrapper = mount(
       <Provider store={store}>
-        <ConferenceStartDateFilterContainer />
+        <ConferenceStartDateFilterContainer switchTitle="title" />
       </Provider>
     );
 
-    expect(wrapper.find(ConferenceStartDateFilter)).toHaveProp({
+    expect(wrapper.find(EventStartDateFilter)).toHaveProp({
       selection: START_DATE_ALL,
     });
   });
@@ -38,10 +38,10 @@ describe('ConferenceStartDateFilterContainer', () => {
     const store = getStore();
     const wrapper = mount(
       <Provider store={store}>
-        <ConferenceStartDateFilterContainer />
+        <ConferenceStartDateFilterContainer switchTitle="title" />
       </Provider>
     );
-    const onChange = wrapper.find(ConferenceStartDateFilter).prop('onChange');
+    const onChange = wrapper.find(EventStartDateFilter).prop('onChange');
     onChange(START_DATE_ALL);
     const expectedActions = [
       {
@@ -59,10 +59,10 @@ describe('ConferenceStartDateFilterContainer', () => {
     const store = getStore();
     const wrapper = mount(
       <Provider store={store}>
-        <ConferenceStartDateFilterContainer />
+        <ConferenceStartDateFilterContainer switchTitle="title" />
       </Provider>
     );
-    const onChange = wrapper.find(ConferenceStartDateFilter).prop('onChange');
+    const onChange = wrapper.find(EventStartDateFilter).prop('onChange');
     onChange(START_DATE_UPCOMING);
     const expectedActions = [
       {
@@ -84,10 +84,10 @@ describe('ConferenceStartDateFilterContainer', () => {
     const store = getStore();
     const wrapper = mount(
       <Provider store={store}>
-        <ConferenceStartDateFilterContainer />
+        <ConferenceStartDateFilterContainer switchTitle="title" />
       </Provider>
     );
-    const onChange = wrapper.find(ConferenceStartDateFilter).prop('onChange');
+    const onChange = wrapper.find(EventStartDateFilter).prop('onChange');
     onChange('2020-02-13--');
     const expectedActions = [
       {

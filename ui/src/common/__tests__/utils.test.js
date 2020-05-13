@@ -1,4 +1,5 @@
 import { fromJS, Set, Map } from 'immutable';
+import { clear, advanceTo } from 'jest-date-mock';
 
 import pluralizeUnlessSingle, {
   forceArray,
@@ -22,6 +23,7 @@ import pluralizeUnlessSingle, {
   makeCompliantMetaDescription,
   getAuthorName,
   addCommasToNumber,
+  doTimezonesHaveDifferentTimes,
 } from '../utils';
 
 describe('utils', () => {
@@ -666,6 +668,36 @@ describe('utils', () => {
       });
       const output = getAuthorName(author);
       expect(output).toEqual('Name ');
+    });
+    it('returns name if first name and full name are missing', () => {
+      const author = fromJS({
+        name: 'Name, Full',
+        last_name: 'Name',
+      });
+      const output = getAuthorName(author);
+      expect(output).toEqual('Name, Full');
+    });
+  });
+
+  describe('doTimezonesHaveDifferentTimes', () => {
+    afterEach(() => {
+      clear();
+    });
+    it('returns false if timezones have same times', () => {
+      advanceTo(new Date('2020-05-13T13:31:00+00:00'));
+      const output = doTimezonesHaveDifferentTimes(
+        'Europe/Zurich',
+        'Europe/Vienna'
+      );
+      expect(output).toEqual(false);
+    });
+    it('returns true if timezones have different times', () => {
+      advanceTo(new Date('2020-05-13T13:31:00+00:00'));
+      const output = doTimezonesHaveDifferentTimes(
+        'Europe/Zurich',
+        'America/Chicago'
+      );
+      expect(output).toEqual(true);
     });
   });
 });

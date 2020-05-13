@@ -4,13 +4,12 @@ import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 import { Row, Col } from 'antd';
 import DocumentHead from '../../common/components/DocumentHead';
-import ConferenceTitle from '../components/ConferenceTitle';
 import ConferenceDates from '../components/ConferenceDates';
 import fetchConference from '../../actions/conferences';
 import InspireCategoryList from '../components/InspireCategoryList';
 import ContentBox from '../../common/components/ContentBox';
 import RichDescription from '../../common/components/RichDescription';
-import ConferenceSeries from '../components/ConferenceSeries';
+import EventSeries from '../../common/components/EventSeries';
 import ContactList from '../../common/components/ContactList';
 import PublicNotesList from '../../common/components/PublicNotesList';
 import KeywordList from '../../common/components/KeywordList';
@@ -24,6 +23,7 @@ import { CONFERENCE_CONTRIBUTIONS_NS } from '../../reducers/search';
 import DeletedAlert from '../../common/components/DeletedAlert';
 import { makeCompliantMetaDescription } from '../../common/utils';
 import withRouteActionsDispatcher from '../../common/withRouteActionsDispatcher';
+import EventTitle from '../../common/components/EventTitle';
 
 function DetailPage({ record }) {
   const metadata = record.get('metadata');
@@ -73,7 +73,7 @@ function DetailPage({ record }) {
             <Row>
               <Col>
                 <h2>
-                  <ConferenceTitle title={title} acronym={acronym} />
+                  <EventTitle title={title} acronym={acronym} />
                 </h2>
               </Col>
             </Row>
@@ -112,7 +112,7 @@ function DetailPage({ record }) {
             {series && (
               <Row className="mt3">
                 <Col>
-                  <ConferenceSeries series={series} />
+                  <EventSeries series={series} />
                 </Col>
               </Row>
             )}

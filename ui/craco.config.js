@@ -3,6 +3,7 @@ const path = require('path');
 const SassRuleRewirer = require('react-app-rewire-sass-rule');
 const CracoAntDesignPlugin = require('craco-antd');
 const FilterWarningsPlugin = require('webpack-filter-warnings-plugin');
+const MomentTimezoneDataPlugin = require('moment-timezone-data-webpack-plugin');
 
 const styleVariables = require('./src/styleVariables');
 
@@ -37,10 +38,18 @@ function withFilterWarningsPluginForCssImportOrderConflict({ webpackConfig }) {
 function appendLoaderOptionsIntoUseForSassRule({ webpackConfig }) {
   const oneOfRule = webpackConfig.module.rules.find(rule => rule.oneOf);
   const sassRule = oneOfRule.oneOf.find(
-    rule => rule.test && rule.test.toString().includes("scss|sass")
+    rule => rule.test && rule.test.toString().includes('scss|sass')
   );
   sassRule.use = [...(sassRule.use || []), ...(sassRule.loader || [])];
   delete sassRule.loader;
+  return webpackConfig;
+}
+
+function withMomentTimezoneDataPlugin({ webpackConfig }) {
+  const reduceMomentTimezoneData = new MomentTimezoneDataPlugin({
+    startYear: 2020,
+  });
+  webpackConfig.plugins.push(reduceMomentTimezoneData);
   return webpackConfig;
 }
 
@@ -61,6 +70,7 @@ module.exports = {
     makeOverrideWebpackPlugin(
       withFilterWarningsPluginForCssImportOrderConflict
     ),
+    makeOverrideWebpackPlugin(withMomentTimezoneDataPlugin),
     makeOverrideWebpackPlugin(appendLoaderOptionsIntoUseForSassRule),
     {
       plugin: CracoAntDesignPlugin,
@@ -71,7 +81,7 @@ module.exports = {
             lessVars[name] = value;
             return lessVars;
           }),
-      }
+      },
     },
   ],
 };

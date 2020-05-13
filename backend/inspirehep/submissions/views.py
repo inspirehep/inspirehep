@@ -14,12 +14,12 @@ from flask import Blueprint, abort, current_app, jsonify, request, url_for
 from flask.views import MethodView
 from flask_login import current_user
 from inspire_schemas.builders import JobBuilder
-from inspire_utils.record import get_value
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
 from jsonschema import SchemaError, ValidationError
 
 from inspirehep.accounts.api import (
+    can_user_edit_record,
     get_current_user_orcid,
     is_superuser_or_cataloger_logged_in,
 )
@@ -193,7 +193,7 @@ class SeminarSubmissionsResource(BaseSubmissionsResource):
     def put(self, pid_value):
         try:
             record = SeminarsRecord.get_record_by_pid_value(pid_value)
-            if not self.user_can_edit(record):
+            if not can_user_edit_record(record):
                 return (
                     jsonify({"message": "You are not allowed to edit this seminar"}),
                     403,
@@ -251,13 +251,6 @@ class SeminarSubmissionsResource(BaseSubmissionsResource):
             rt_template_context,
             f"New Seminar Submission {control_number}.",
             control_number,
-        )
-
-    def user_can_edit(self, record):
-        submitter_orcid = get_value(record, "acquisition_source.orcid")
-        return (
-            is_superuser_or_cataloger_logged_in()
-            or submitter_orcid == get_current_user_orcid()
         )
 
     def load_data_from_request(self):

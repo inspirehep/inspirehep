@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ConferenceSeries renders several series 1`] = `
+exports[`EventSeries renders several series 1`] = `
 <div
   className="__InlineList__"
 >
@@ -59,7 +59,7 @@ exports[`ConferenceSeries renders several series 1`] = `
 </div>
 `;
 
-exports[`ConferenceSeries renders with name and number 1`] = `
+exports[`EventSeries renders with name and number 1`] = `
 <div
   className="__InlineList__"
 >
@@ -84,7 +84,7 @@ exports[`ConferenceSeries renders with name and number 1`] = `
 </div>
 `;
 
-exports[`ConferenceSeries renders with only name 1`] = `
+exports[`EventSeries renders with only name 1`] = `
 <div
   className="__InlineList__"
 >

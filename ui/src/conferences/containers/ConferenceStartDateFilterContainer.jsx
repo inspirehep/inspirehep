@@ -1,13 +1,15 @@
 import { connect } from 'react-redux';
 
 import { searchQueryUpdate } from '../../actions/search';
-import ConferenceStartDateFilter from '../components/ConferenceStartDateFilter';
+import EventStartDateFilter from '../../common/components/EventStartDateFilter';
 import { CONFERENCES_NS } from '../../reducers/search';
-import { START_DATE_UPCOMING, START_DATE_ALL } from '../../common/constants';
-
-const START_DATE = 'start_date';
-const DATE_ASC = 'dateasc';
-const DATE_DESC = 'datedesc';
+import {
+  START_DATE_UPCOMING,
+  START_DATE_ALL,
+  START_DATE,
+  DATE_ASC,
+  DATE_DESC,
+} from '../../common/constants';
 
 const stateToProps = state => ({
   selection: state.search.getIn([
@@ -32,6 +34,4 @@ export const dispatchToProps = dispatch => ({
   },
 });
 
-export default connect(stateToProps, dispatchToProps)(
-  ConferenceStartDateFilter
-);
+export default connect(stateToProps, dispatchToProps)(EventStartDateFilter);

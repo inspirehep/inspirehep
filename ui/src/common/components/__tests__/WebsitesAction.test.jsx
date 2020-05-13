@@ -21,4 +21,14 @@ describe('WebsitesAction', () => {
     const wrapper = shallow(<WebsitesAction websites={websites} />);
     expect(wrapper.dive()).toMatchSnapshot();
   });
+
+  it('renders with title', () => {
+    const websites = fromJS([
+      { description: 'blog', value: 'https://author.wordpress.com' },
+    ]);
+    const wrapper = shallow(
+      <WebsitesAction websites={websites} title="My own title" />
+    );
+    expect(wrapper.dive()).toMatchSnapshot();
+  });
 });

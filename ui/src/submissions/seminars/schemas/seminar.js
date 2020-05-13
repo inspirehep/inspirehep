@@ -7,8 +7,7 @@ import {
 import emptyObjectOrShapeOf from '../../common/schemas/emptyObjectOrShapeOf';
 import contacts from '../../common/schemas/contacts';
 import { timeZoneValues } from './constants';
-
-const { timeZone } = Intl.DateTimeFormat().resolvedOptions();
+import { LOCAL_TIMEZONE } from '../../../common/constants';
 
 const seminarSchema = object().shape({
   name: string()
@@ -25,7 +24,7 @@ const seminarSchema = object().shape({
   timezone: string()
     .oneOf(timeZoneValues)
     .required()
-    .default(timeZone)
+    .default(LOCAL_TIMEZONE)
     .label('Timezone'),
   speakers: array()
     .default([{}])

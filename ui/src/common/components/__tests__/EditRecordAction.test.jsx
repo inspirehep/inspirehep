@@ -7,6 +7,7 @@ import {
   CONFERENCES_PID_TYPE,
   AUTHORS_PID_TYPE,
   LITERATURE_PID_TYPE,
+  SEMINARS_PID_TYPE,
 } from '../../constants';
 
 describe('EditRecordAction', () => {
@@ -41,6 +42,13 @@ describe('EditRecordAction', () => {
   it('renders edit button with pidType institutions and pidValue', () => {
     const wrapper = shallow(
       <EditRecordAction pidType={INSTITUTIONS_PID_TYPE} pidValue={1} />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('renders edit button with pidType seminars and pidValue', () => {
+    const wrapper = shallow(
+      <EditRecordAction pidType={SEMINARS_PID_TYPE} pidValue={1} />
     );
     expect(wrapper).toMatchSnapshot();
   });

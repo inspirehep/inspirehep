@@ -36,13 +36,14 @@ def get_first_value_for_schema(list, schema):
 def get_adresses_with_country(record):
     addresses = record.get("addresses", [])
     for address in addresses:
-        if "country_code" in address:
-            try:
-                address["country"] = country_code_to_name(address["country_code"])
-            except KeyError:
-                LOGGER.warning(
-                    "Wrong Country code",
-                    country_code=address["country_code"],
-                    recid=record.get("control_number"),
-                )
+        set_country_for_address(address)
     return addresses
+
+
+def set_country_for_address(address):
+    if address and "country_code" in address:
+        try:
+            address["country"] = country_code_to_name(address["country_code"])
+        except KeyError:
+            LOGGER.warning("Wrong Country code", country_code=address["country_code"])
+    return address

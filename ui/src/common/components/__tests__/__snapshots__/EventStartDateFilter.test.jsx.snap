@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ConferenceStartDateFilter renders with selection: a date range 1`] = `
+exports[`EventStartDateFilter renders with selection: a date range 1`] = `
 <Row
   className="pa3 bg-white mb3"
   gutter={0}
@@ -24,7 +24,7 @@ exports[`ConferenceStartDateFilter renders with selection: a date range 1`] = `
         />
       </Col>
       <Col>
-        Upcoming conferences
+        Upcoming items
       </Col>
     </Row>
     <DateRangeFilter
@@ -35,7 +35,7 @@ exports[`ConferenceStartDateFilter renders with selection: a date range 1`] = `
 </Row>
 `;
 
-exports[`ConferenceStartDateFilter renders with selection: all 1`] = `
+exports[`EventStartDateFilter renders with selection: all 1`] = `
 <Row
   className="pa3 bg-white mb3"
   gutter={0}
@@ -59,7 +59,7 @@ exports[`ConferenceStartDateFilter renders with selection: all 1`] = `
         />
       </Col>
       <Col>
-        Upcoming conferences
+        Upcoming items
       </Col>
     </Row>
     <DateRangeFilter
@@ -70,7 +70,7 @@ exports[`ConferenceStartDateFilter renders with selection: all 1`] = `
 </Row>
 `;
 
-exports[`ConferenceStartDateFilter renders with selection: upcoming 1`] = `
+exports[`EventStartDateFilter renders with selection: upcoming 1`] = `
 <Row
   className="pa3 bg-white mb3"
   gutter={0}
@@ -94,7 +94,7 @@ exports[`ConferenceStartDateFilter renders with selection: upcoming 1`] = `
         />
       </Col>
       <Col>
-        Upcoming conferences
+        Upcoming items
       </Col>
     </Row>
     <DateRangeFilter
@@ -105,7 +105,7 @@ exports[`ConferenceStartDateFilter renders with selection: upcoming 1`] = `
 </Row>
 `;
 
-exports[`ConferenceStartDateFilter renders without selection 1`] = `
+exports[`EventStartDateFilter renders without selection 1`] = `
 <Row
   className="pa3 bg-white mb3"
   gutter={0}
@@ -129,7 +129,7 @@ exports[`ConferenceStartDateFilter renders without selection 1`] = `
         />
       </Col>
       <Col>
-        Upcoming conferences
+        Upcoming items
       </Col>
     </Row>
     <DateRangeFilter

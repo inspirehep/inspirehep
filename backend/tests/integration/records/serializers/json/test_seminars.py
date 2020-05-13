@@ -120,3 +120,121 @@ def test_seminars_logged_in_search_json(inspire_app, datadir):
         assert expected_result == response_metadata
         assert expected_created == response_created
         assert expected_updated == response_updated
+
+
+def test_seminars_detail(inspire_app, datadir):
+    with inspire_app.test_client() as client:
+        headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+
+        data = json.loads((datadir / "1.json").read_text())
+
+        record = create_record("sem", data=data)
+        record_control_number = record["control_number"]
+
+        expected_metadata = dict(deepcopy(record))
+
+        expected_metadata["can_edit"] = False
+        del expected_metadata["_collections"]
+        del expected_metadata["_private_notes"]
+        expected_created = utils.isoformat(record.created)
+        expected_updated = utils.isoformat(record.updated)
+
+        response = client.get(f"/seminars/{record_control_number}", headers=headers)
+
+        response_data = json.loads(response.data)
+        response_data_metadata = response_data["metadata"]
+        response_created = response_data["created"]
+        response_updated = response_data["updated"]
+
+        assert expected_metadata == response_data_metadata
+        assert expected_created == response_created
+        assert expected_updated == response_updated
+
+
+def test_seminars_search(inspire_app, datadir):
+    with inspire_app.test_client() as client:
+        headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+
+        data = json.loads((datadir / "1.json").read_text())
+
+        record = create_record("sem", data=data)
+
+        expected_metadata = dict(deepcopy(record))
+
+        expected_metadata["can_edit"] = False
+        del expected_metadata["_collections"]
+        del expected_metadata["_private_notes"]
+        expected_created = utils.isoformat(record.created)
+        expected_updated = utils.isoformat(record.updated)
+
+        response = client.get(f"/seminars", headers=headers)
+
+        response_data = json.loads(response.data)
+        response_data_metadata = response_data["hits"]["hits"][0]["metadata"]
+        response_created = response_data["hits"]["hits"][0]["created"]
+        response_updated = response_data["hits"]["hits"][0]["updated"]
+
+        assert expected_metadata == response_data_metadata
+        assert expected_created == response_created
+        assert expected_updated == response_updated
+
+
+def test_seminars_detail_submitter_can_edit(inspire_app):
+    with inspire_app.test_client() as client:
+        headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+
+        user = create_user(email="john@cern.ch", orcid="0000-0002-6665-4934")
+        create_record(
+            "sem",
+            data={
+                "acquisition_source": {
+                    "email": "john@cern.ch",
+                    "orcid": "0000-0002-6665-4934",
+                }
+            },
+        )
+        create_record(
+            "sem",
+            data={
+                "acquisition_source": {
+                    "email": "guy@cern.ch",
+                    "orcid": "0000-0002-6665-1234",
+                }
+            },
+        )
+
+        login_user_via_session(client, email=user.email)
+
+        response = client.get("/seminars", headers=headers)
+
+        hits = response.json["hits"]["hits"]
+
+        own_job_metadata = next(
+            hit["metadata"]
+            for hit in hits
+            if hit["metadata"]["acquisition_source"]["email"] == user.email
+        )
+        another_job_metadata = next(
+            hit["metadata"]
+            for hit in hits
+            if hit["metadata"]["acquisition_source"]["email"] != user.email
+        )
+
+        assert not another_job_metadata["can_edit"]
+        assert own_job_metadata["can_edit"]
+
+
+def test_seminars_detail_superuser_can_edit(inspire_app):
+    with inspire_app.test_client() as client:
+        headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+
+        create_record("sem", data={"acquisition_source": {"email": "john@cern.ch"}})
+
+        user = create_user(role=Roles.cataloger.value)
+        login_user_via_session(client, email=user.email)
+
+        response = client.get("/seminars", headers=headers)
+
+        response_metadata = response.json["hits"]["hits"][0]["metadata"]
+
+        assert response_metadata["can_edit"]

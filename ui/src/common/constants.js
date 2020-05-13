@@ -52,10 +52,17 @@ export const PUBLISHED_URL = `${FAQ_URL}/#faq-published`;
 export const PAPER_SEARCH_URL = `${KNOWLEDGE_BASE_URL}/inspire-paper-search`;
 
 export const DATE_RANGE_FORMAT = 'YYYY-MM-DD';
+export const TIME_FORMAT = 'hh:mm A';
 
 export const RANGE_AGGREGATION_SELECTION_SEPARATOR = '--';
 
 export const START_DATE_ALL = 'all';
 export const START_DATE_UPCOMING = 'upcoming';
 
+export const START_DATE = 'start_date';
+export const DATE_ASC = 'dateasc';
+export const DATE_DESC = 'datedesc';
+
 export const SEARCH_PAGE_GUTTER = { xs: 0, lg: 32 };
+
+export const LOCAL_TIMEZONE = Intl.DateTimeFormat().resolvedOptions().timeZone;
