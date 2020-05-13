@@ -8,6 +8,7 @@
 
 import structlog
 from invenio_db import db
+from sqlalchemy.exc import OperationalError
 
 from inspirehep.records.api import InspireRecord, LiteratureRecord
 
@@ -31,6 +32,11 @@ def update_records_relations(uuids):
                     record.update_refs_in_citation_table()
                     record.update_conference_paper_and_proccedings()
                     record.update_institution_relations()
+        except OperationalError:
+            LOGGER.exception(
+                "OperationalError on recalculate relations.", uuid=str(uuid)
+            )
+            raise
         except Exception:
             LOGGER.exception("Cannot recalculate relations", uuid=str(uuid))
 
