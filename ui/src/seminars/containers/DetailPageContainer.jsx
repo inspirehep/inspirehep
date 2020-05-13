@@ -53,7 +53,9 @@ function DetailPage({ record }) {
     <>
       <DocumentHead
         title={title.get('title')}
-        description={makeCompliantMetaDescription(abstract.get('value'))}
+        description={makeCompliantMetaDescription(
+          abstract && abstract.get('value')
+        )}
       />
       <Row type="flex" justify="center">
         <Col className="mv3" xs={24} md={22} lg={21} xxl={18}>
