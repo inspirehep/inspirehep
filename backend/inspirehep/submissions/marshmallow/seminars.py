@@ -21,23 +21,19 @@ FORM_DATE_FORMAT = "%Y-%m-%d %I:%M %p"
 ISO_FORMAT = "%Y-%m-%dT%H:%M:%S.%f"
 
 
-def utc_offset_from(timezone):
-    timezone_obj = pytz.timezone(timezone)
-    utc_now = datetime.utcnow()
-    return timezone_obj.utcoffset(utc_now)
-
-
 def local_form_datetime_to_iso_utc(local_form_datetime_str, local_timezone):
+    timezone = pytz.timezone(local_timezone)
     local_datetime_obj = datetime.strptime(local_form_datetime_str, FORM_DATE_FORMAT)
-    utc_offset = utc_offset_from(local_timezone)
-    utc_datetime_obj = local_datetime_obj + utc_offset
+    local_datetime_obj = timezone.localize(local_datetime_obj)
+    utc_datetime_obj = local_datetime_obj.astimezone(pytz.utc)
     return utc_datetime_obj.strftime(ISO_FORMAT)
 
 
 def iso_utc_to_local_form_datetime(iso_utc_datetime_str, local_timezone):
     utc_datetime_obj = datetime.strptime(iso_utc_datetime_str, ISO_FORMAT)
-    utc_offset = utc_offset_from(local_timezone)
-    local_datetime_obj = utc_datetime_obj - utc_offset
+    utc_datetime_obj = pytz.utc.localize(utc_datetime_obj)
+    timezone = pytz.timezone(local_timezone)
+    local_datetime_obj = utc_datetime_obj.astimezone(timezone)
     return local_datetime_obj.strftime(FORM_DATE_FORMAT)
 
 
