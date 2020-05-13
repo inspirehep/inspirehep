@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col, Alert } from 'antd';
 import { Formik, yupToFormErrors } from 'formik';
@@ -6,7 +6,6 @@ import useAsyncEffect from 'use-async-effect';
 
 import articleSchema from '../schemas/article';
 import thesisSchema from '../schemas/thesis';
-import cleanupFormData from '../../common/cleanupFormData';
 import { convertAllImmutablePropsToJS } from '../../../common/immutableToJS';
 import ArticleForm from './ArticleForm';
 import ThesisForm from './ThesisForm';
@@ -14,7 +13,7 @@ import BookForm from './BookForm';
 import bookSchema from '../schemas/book';
 import BookChapterForm from './BookChapterForm';
 import bookChapterSchema from '../schemas/bookChapter';
-import useIsMounted from '../../../common/hooks/useIsMounted';
+import useSubmitCallback from '../../common/hooks/useSubmitCallback';
 
 const FORMS_BY_DOC_TYPE = {
   article: {
@@ -83,21 +82,7 @@ function LiteratureSubmission({
     [initialValues, schema]
   );
 
-  const isMounted = useIsMounted();
-
-  const onFormikSubmit = useCallback(
-    async (values, actions) => {
-      const cleanValues = cleanupFormData(values);
-      await onSubmit(cleanValues);
-      // since it's an async callback might run after this component is unmounted
-      // this happens when successful submissions routes to success page
-      if (isMounted) {
-        actions.setSubmitting(false);
-        window.scrollTo(0, 0);
-      }
-    },
-    [onSubmit, isMounted]
-  );
+  const onFormikSubmit = useSubmitCallback(onSubmit);
   return (
     <div>
       {error && (
