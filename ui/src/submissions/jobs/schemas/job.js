@@ -1,10 +1,12 @@
-import { string, object, array, date } from 'yup';
+import { string, object, array, mixed } from 'yup';
 import moment from 'moment';
 
 import { regionValues, statusValues, fieldOfInterestValues } from './constants';
 import { rankValues } from '../../common/schemas/constants';
 import emptyObjectOrShapeOf from '../../common/schemas/emptyObjectOrShapeOf';
+import date from '../../common/schemas/date';
 import OR from '../../common/schemas/OR';
+import { DATE_RANGE_FORMAT } from '../../../common/constants';
 
 export function isValidDeadlineDate(value) {
   const dateValue = value instanceof moment ? value : moment(value);
@@ -71,10 +73,10 @@ const jobSchema = object().shape({
           .label('Contact email'),
       })
     ),
-  deadline_date: date().when('status', {
+  deadline_date: mixed().when('status', {
     is: 'closed',
-    then: date(),
-    otherwise: date()
+    then: date(DATE_RANGE_FORMAT),
+    otherwise: date(DATE_RANGE_FORMAT)
       .required()
       .test(
         'is-valid-deadline-date',

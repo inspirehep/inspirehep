@@ -1,13 +1,13 @@
 import { string } from 'yup';
+import moment from 'moment';
 
-function isValidDate(value) {
-  if (value == null) {
-    return true;
-  }
-  const parsedDate = Date.parse(value);
-  return !Number.isNaN(parsedDate);
+function getDateValidatorFor(format) {
+  return value => moment(value, format, Boolean(format)).isValid();
 }
 
-export default function date(validationMessage = 'Not a valid date') {
-  return string().test('date', validationMessage, isValidDate);
+export default function date(format) {
+  const validationMessage = format
+    ? `Does not match with ${format}`
+    : 'Not a valid date';
+  return string().test('date', validationMessage, getDateValidatorFor(format));
 }

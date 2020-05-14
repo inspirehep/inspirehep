@@ -5,7 +5,7 @@ const dataWithRequiredFields = {
   name: ' Cool Seminar',
   dates: ['2020-05-06 08:30 AM', '2020-05-06 02:30 PM'],
   field_of_interest: [inspireCategoryValues[0]],
-  speakers: [{ name: 'Harun Urhan' }]
+  speakers: [{ name: 'Harun Urhan' }],
 };
 
 describe('seminarSchema', () => {
@@ -42,7 +42,25 @@ describe('seminarSchema', () => {
   it('invalidates when dates are not both valid dates', async () => {
     const data = {
       ...dataWithRequiredFields,
-      dates: ['2020-05-06 08:30 AM', 'not a date'],
+      dates: ['not a date', '2020-05-06 08:30 AM'],
+    };
+    const isValid = await seminarSchema.isValid(data);
+    expect(isValid).toBe(false);
+  });
+
+  it('invalidates when one of dates is not in the required format', async () => {
+    const data = {
+      ...dataWithRequiredFields,
+      dates: ['2020-05-06 21:30', '2020-05-07 02:30 PM'],
+    };
+    const isValid = await seminarSchema.isValid(data);
+    expect(isValid).toBe(false);
+  });
+
+  it('invalidates when both dates are not in the required format', async () => {
+    const data = {
+      ...dataWithRequiredFields,
+      dates: ['2020-05-06 21:30', '2020-05-07 02:30'],
     };
     const isValid = await seminarSchema.isValid(data);
     expect(isValid).toBe(false);
@@ -78,7 +96,11 @@ describe('seminarSchema', () => {
   it('invalidates when dates have more than 2 dates', async () => {
     const data = {
       ...dataWithRequiredFields,
-      dates: ['2020-05-06 08:30 AM', '2020-05-06 09:30 AM', '2020-05-06 10:30 AM'],
+      dates: [
+        '2020-05-06 08:30 AM',
+        '2020-05-06 09:30 AM',
+        '2020-05-06 10:30 AM',
+      ],
     };
     const isValid = await seminarSchema.isValid(data);
     expect(isValid).toBe(false);
@@ -141,10 +163,12 @@ describe('seminarSchema', () => {
   it('validates when join_urls has a url with a description', async () => {
     const data = {
       ...dataWithRequiredFields,
-      join_urls: [{
-        value: 'https://coolsem.com/join',
-        description: 'Not zoom link'
-      }],
+      join_urls: [
+        {
+          value: 'https://coolsem.com/join',
+          description: 'Not zoom link',
+        },
+      ],
     };
     const isValid = await seminarSchema.isValid(data);
     expect(isValid).toBe(true);
@@ -153,9 +177,11 @@ describe('seminarSchema', () => {
   it('validates when join_urls has a url without a description', async () => {
     const data = {
       ...dataWithRequiredFields,
-      join_urls: [{
-        value: 'https://coolsem.com/join',
-      }],
+      join_urls: [
+        {
+          value: 'https://coolsem.com/join',
+        },
+      ],
     };
     const isValid = await seminarSchema.isValid(data);
     expect(isValid).toBe(true);
@@ -164,9 +190,11 @@ describe('seminarSchema', () => {
   it('invalidates when join_urls has an invalid url', async () => {
     const data = {
       ...dataWithRequiredFields,
-      join_urls: [{
-        value: 'not a url',
-      }],
+      join_urls: [
+        {
+          value: 'not a url',
+        },
+      ],
     };
     const isValid = await seminarSchema.isValid(data);
     expect(isValid).toBe(false);
@@ -257,7 +285,7 @@ describe('seminarSchema', () => {
       speakers: [
         {
           name: 'Cool Dude',
-          affiliation: 'CERN'
+          affiliation: 'CERN',
         },
       ],
     };
@@ -270,7 +298,7 @@ describe('seminarSchema', () => {
       ...dataWithRequiredFields,
       speakers: [
         {
-          affiliation: 'CERN'
+          affiliation: 'CERN',
         },
       ],
     };
@@ -286,7 +314,6 @@ describe('seminarSchema', () => {
     const isValid = await seminarSchema.isValid(data);
     expect(isValid).toBe(true);
   });
-
 
   it('validates when contacts have both name and email', async () => {
     const data = {

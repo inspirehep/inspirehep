@@ -17,11 +17,10 @@ import RichTextField from '../../common/components/RichTextField';
 import NumberField from '../../common/components/NumberField';
 import DateRangeField from '../../common/components/DateRangeField';
 import ContactsField from '../../common/components/ContactsField';
-import { timeZoneOptions } from '../schemas/constants';
+import { timeZoneOptions, SEMINAR_DATETIME_FORMAT } from '../schemas/constants';
 import { LABEL_COL, WRAPPER_COL } from '../../common/withFormItem';
 import {
   SEMINARS_PID_TYPE,
-  DATE_RANGE_FORMAT,
   TIME_FORMAT,
 } from '../../../common/constants';
 import AuthorSuggesterField from '../../common/components/AuthorSuggesterField';
@@ -31,14 +30,9 @@ function getSuggestionSourceLegacyICN(suggestion) {
   return suggestion._source.legacy_ICN;
 }
 
-
 const DISPLAY_TIME = {
   format: TIME_FORMAT,
 };
-
-
-const DATE_FORMAT = `${DATE_RANGE_FORMAT} ${DISPLAY_TIME.format}`;
-
 
 function SeminarForm({ values, isSubmitting, isValid, isValidating }) {
   return (
@@ -49,7 +43,7 @@ function SeminarForm({ values, isSubmitting, isValid, isValidating }) {
         label="* Dates"
         component={DateRangeField}
         showTime={DISPLAY_TIME}
-        format={DATE_FORMAT}
+        format={SEMINAR_DATETIME_FORMAT}
       />
       <Field
         name="timezone"
