@@ -1,10 +1,12 @@
-import { string, object, array, date, number } from 'yup';
+import { string, object, array, number } from 'yup';
 
 import {
   inspireCategoryValues,
   countryValues,
 } from '../../common/schemas/constants';
 import contacts from '../../common/schemas/contacts';
+import date from '../../common/schemas/date';
+import { DATE_RANGE_FORMAT } from '../../../common/constants';
 
 const conferenceSchema = object().shape({
   name: string()
@@ -18,7 +20,7 @@ const conferenceSchema = object().shape({
   series_name: string(),
   series_number: number().label('Series Number'),
   dates: array()
-    .of(date())
+    .of(date(DATE_RANGE_FORMAT))
     .compact()
     .min(2)
     .max(2)

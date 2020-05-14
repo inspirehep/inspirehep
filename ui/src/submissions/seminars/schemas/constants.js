@@ -1,4 +1,7 @@
 import getValue from '../../common/getValue';
+import { DATE_RANGE_FORMAT, TIME_FORMAT } from '../../../common/constants';
+
+export const SEMINAR_DATETIME_FORMAT = `${DATE_RANGE_FORMAT} ${TIME_FORMAT}`;
 
 export const timeZoneOptions = [
   { value: 'America/Adak' },
