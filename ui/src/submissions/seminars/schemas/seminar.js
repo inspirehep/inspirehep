@@ -1,12 +1,13 @@
-import { string, object, array, date, number } from 'yup';
+import { string, object, array, number } from 'yup';
 
 import {
   inspireCategoryValues,
   countryValues,
 } from '../../common/schemas/constants';
 import emptyObjectOrShapeOf from '../../common/schemas/emptyObjectOrShapeOf';
+import date from '../../common/schemas/date';
 import contacts from '../../common/schemas/contacts';
-import { timeZoneValues } from './constants';
+import { timeZoneValues, SEMINAR_DATETIME_FORMAT } from './constants';
 import { LOCAL_TIMEZONE } from '../../../common/constants';
 
 const seminarSchema = object().shape({
@@ -15,7 +16,7 @@ const seminarSchema = object().shape({
     .required()
     .label('Seminar Name'),
   dates: array()
-    .of(date())
+    .of(date(SEMINAR_DATETIME_FORMAT))
     .compact()
     .min(2, 'Please fill in both start and end dates')
     .max(2)

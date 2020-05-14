@@ -6,6 +6,7 @@ import {
   fieldOfInterestValues,
 } from '../constants';
 import { rankValues } from '../../../common/schemas/constants';
+import { DATE_RANGE_FORMAT } from '../../../../common/constants';
 
 const dataWithRequiredFields = {
   title: 'Director',
@@ -18,7 +19,7 @@ const dataWithRequiredFields = {
   contacts: [{ name: 'Harun Urhan', email: 'harun.urhan@cern.ch' }],
   deadline_date: moment()
     .add({ months: 1 })
-    .toString(),
+    .format(DATE_RANGE_FORMAT),
   description: '<b>Director</b> at CERN',
 };
 

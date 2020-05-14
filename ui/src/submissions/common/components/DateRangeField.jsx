@@ -11,8 +11,11 @@ function DateRangeField({ value = [], ...props }) {
 
   const [startDate, endDate] = value;
   const valueAsMoment = useMemo(
-    () => [startDate && moment(startDate), endDate && moment(endDate)],
-    [startDate, endDate]
+    () => [
+      startDate && moment(startDate, format),
+      endDate && moment(endDate, format),
+    ],
+    [startDate, endDate, format]
   );
 
   const onChange = useCallback(
@@ -28,7 +31,7 @@ function DateRangeField({ value = [], ...props }) {
     },
     [form, name]
   );
-  
+
   return (
     <DatePicker.RangePicker
       {...props}
