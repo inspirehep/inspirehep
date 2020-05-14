@@ -9,15 +9,16 @@ import structlog
 from flask import current_app, render_template
 
 from inspirehep.mailing.providers.flask_mail import send_email
+from inspirehep.utils import get_inspirehep_url
 
 LOGGER = structlog.getLogger()
 
 
 def get_submissions_confirmation_email_html_content(seminar):
-    host = current_app.config["SERVER_NAME"]
+    hep_url = get_inspirehep_url()
     recid = seminar["control_number"]
-    seminar_url = f"{host}/seminars/{recid}"
-    seminar_edit_url = f"{host}/submissions/seminars/{recid}"
+    seminar_url = f"{hep_url}/seminars/{recid}"
+    seminar_edit_url = f"{hep_url}/submissions/seminars/{recid}"
     return render_template(
         "mailing/seminars/confirmation_new.html",
         seminar_url=seminar_url,
