@@ -8,6 +8,7 @@
 import json
 from copy import deepcopy
 
+import pytest
 from flask import current_app, url_for
 from freezegun import freeze_time
 from helpers.utils import (
@@ -1284,6 +1285,14 @@ def test_conference_raise_loader_error(ticket_mock, inspire_app):
     assert response.status_code == 400
 
 
+REQUIRED_SEMINAR_RECORD_DATA = {
+    "title": {"title": "The Cool Seminar"},
+    "inspire_categories": [{"term": "Accelerators"}],
+    "speakers": [{"name": "Urhan, Ahmet"},],
+    "end_datetime": "2020-05-06T12:30:00.000000",
+    "start_datetime": "2020-05-06T06:30:00.000000",
+    "timezone": "Europe/Zurich",
+}
 SEMINAR_RECORD_DATA = {
     "title": {"title": "The Cool Seminar"},
     "public_notes": [{"value": "A public note"}],
@@ -1318,6 +1327,13 @@ SEMINAR_RECORD_DATA = {
     "timezone": "Europe/Zurich",
 }
 
+REQUIRED_SEMINAR_FORM_DATA = {
+    "name": "The Cool Seminar",
+    "timezone": "Europe/Zurich",
+    "dates": ["2020-05-06 08:30 AM", "2020-05-06 02:30 PM"],
+    "speakers": [{"name": "Urhan, Ahmet"},],
+    "field_of_interest": ["Accelerators"],
+}
 SEMINAR_FORM_DATA = {
     "name": "The Cool Seminar",
     "timezone": "Europe/Zurich",
@@ -1341,12 +1357,19 @@ SEMINAR_FORM_DATA = {
 }
 
 
-def test_get_seminar_update_data(inspire_app):
+@pytest.mark.parametrize(
+    "form_data,record_data",
+    [
+        (SEMINAR_FORM_DATA, SEMINAR_RECORD_DATA),
+        (REQUIRED_SEMINAR_FORM_DATA, REQUIRED_SEMINAR_RECORD_DATA),
+    ],
+)
+def test_get_seminar_update_data(form_data, record_data, inspire_app):
     user = create_user()
 
-    seminar_data = {"control_number": 123, **SEMINAR_RECORD_DATA}
+    seminar_data = {"control_number": 123, **record_data}
     create_record_factory("sem", data=seminar_data)
-    expected_data = {"data": SEMINAR_FORM_DATA}
+    expected_data = {"data": form_data}
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.get(
@@ -1378,15 +1401,25 @@ def test_get_seminar_update_data_requires_auth(inspire_app):
     assert response.status_code == 401
 
 
+@pytest.mark.parametrize(
+    "form_data,expected_record_data",
+    [
+        (deepcopy(SEMINAR_FORM_DATA), SEMINAR_RECORD_DATA),
+        (deepcopy(REQUIRED_SEMINAR_FORM_DATA), REQUIRED_SEMINAR_RECORD_DATA),
+    ],
+)
 @patch("inspirehep.submissions.views.send_seminar_confirmation_email")
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_new_seminar_submission(
-    create_ticket_mock, send_confirmation_mock, inspire_app
+    create_ticket_mock,
+    send_confirmation_mock,
+    form_data,
+    expected_record_data,
+    inspire_app,
 ):
     orcid = "0000-0001-5109-3700"
     user = create_user(orcid=orcid)
 
-    form_data = deepcopy(SEMINAR_FORM_DATA)
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.post(
@@ -1405,7 +1438,7 @@ def test_new_seminar_submission(
         for (key, value) in seminar_record.items()
         if key in SEMINAR_RECORD_DATA
     }
-    assert seminar_record_data == SEMINAR_RECORD_DATA
+    assert seminar_record_data == expected_record_data
     assert get_value(seminar_record, "acquisition_source.orcid") == orcid
 
     create_ticket_mock.delay.assert_called_once()
@@ -1446,29 +1479,41 @@ def test_new_seminar_submission_with_cataloger_login(
     send_confirmation_mock.assert_not_called()
 
 
+@pytest.mark.parametrize(
+    "form_data,record_data",
+    [
+        (SEMINAR_FORM_DATA, SEMINAR_RECORD_DATA),
+        (REQUIRED_SEMINAR_FORM_DATA, REQUIRED_SEMINAR_RECORD_DATA),
+    ],
+)
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
-def test_seminar_update_submission(create_ticket_mock, inspire_app):
+def test_seminar_update_submission(
+    create_ticket_mock, form_data, record_data, inspire_app
+):
     orcid = "0000-0001-5109-3700"
     user = create_user(orcid=orcid)
 
     seminar_data = {
         "control_number": 123,
         "acquisition_source": {"orcid": orcid},
-        **SEMINAR_RECORD_DATA,
+        **record_data,
     }
     create_record_factory("sem", data=seminar_data)
 
-    form_data = deepcopy({**SEMINAR_FORM_DATA, "name": "New name"})
-    form_data.pop("address")
+    update_form_data = deepcopy({**form_data, "name": "New name"})
+    expected_record_data = {**record_data, "title": {"title": "New name"}}
 
-    expected_record_data = {**SEMINAR_RECORD_DATA, "title": {"title": "New name"}}
-    expected_record_data.pop("address")
+    if "address" in update_form_data:
+        # to test deletion
+        update_form_data.pop("address")
+        expected_record_data.pop("address")
+
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.put(
             "/submissions/seminars/123",
             content_type="application/json",
-            data=json.dumps({"data": form_data}),
+            data=json.dumps({"data": update_form_data}),
         )
     assert response.status_code == 200
 
@@ -1476,9 +1521,7 @@ def test_seminar_update_submission(create_ticket_mock, inspire_app):
     seminar_id = payload["pid_value"]
     seminar_record = SeminarsRecord.get_record_by_pid_value(seminar_id)
     seminar_record_data = {
-        key: value
-        for (key, value) in seminar_record.items()
-        if key in SEMINAR_RECORD_DATA
+        key: value for (key, value) in seminar_record.items() if key in record_data
     }
     assert seminar_record_data == expected_record_data
 
