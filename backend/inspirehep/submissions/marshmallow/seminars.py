@@ -86,7 +86,7 @@ class Seminar(Schema):
         processed_data = {
             "name": data.get_value("title.title", missing),
             "additional_info": data.get_value("public_notes[0].value", missing),
-            "address": address,
+            "address": address or missing,
             "speakers": speakers,
             "contacts": data.get_value("contact_details", missing),
             "series_name": data.get_value("series[0].name", missing),
