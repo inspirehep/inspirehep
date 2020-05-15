@@ -19,13 +19,7 @@ exports[`CollectionLink renders active and new 1`] = `
     className="link f5 white active"
     to="/literature"
   />
-  <Tag
-    className="new-tag"
-    closable={false}
-    color="#52c41a"
-  >
-    New
-  </Tag>
+  <NewFeatureTag />
 </span>
 `;
 
@@ -48,12 +42,6 @@ exports[`CollectionLink renders new 1`] = `
     className="link f5 white"
     to="/literature"
   />
-  <Tag
-    className="new-tag"
-    closable={false}
-    color="#52c41a"
-  >
-    New
-  </Tag>
+  <NewFeatureTag />
 </span>
 `;

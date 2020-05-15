@@ -40,6 +40,7 @@ function LiteratureSearch({
   isCitationSummaryVisible,
   hasQueryBeenUpdatedAtLeastOnce,
   embedded,
+  hideCitationSummarySwitch,
 }) {
   const renderAggregations = useCallback(
     () => (
@@ -100,9 +101,11 @@ function LiteratureSearch({
                   />
                 </Col>
                 <Col className="tr" span={16}>
-                  <span className="mr2">
-                    <CitationSummarySwitchContainer />
-                  </span>
+                  {!hideCitationSummarySwitch && (
+                    <span className="mr2">
+                      <CitationSummarySwitchContainer />
+                    </span>
+                  )}
                   <SortByContainer namespace={namespace} />
                 </Col>
               </Row>
@@ -143,6 +146,7 @@ LiteratureSearch.propTypes = {
   isCitationSummaryVisible: PropTypes.bool.isRequired,
   hasQueryBeenUpdatedAtLeastOnce: PropTypes.bool.isRequired,
   embedded: PropTypes.bool,
+  hideCitationSummarySwitch: PropTypes.bool,
 };
 
 const stateToProps = (state, { namespace }) => ({

@@ -2,12 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
-import { Tag } from 'antd';
 
 import './CollectionLink.scss';
-import styleVariables from '../../../styleVariables';
-
-const GREEN = styleVariables['success-color'];
+import NewFeatureTag from '../../components/NewFeatureTag';
 
 function CollectionLink({ to, active, children, newCollection }) {
   return (
@@ -20,11 +17,7 @@ function CollectionLink({ to, active, children, newCollection }) {
       >
         {children}
       </Link>
-      {newCollection && (
-        <Tag className="new-tag" color={GREEN}>
-          New
-        </Tag>
-      )}
+      {newCollection && <NewFeatureTag />}
     </span>
   );
 }

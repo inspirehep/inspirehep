@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NewFeatureTag renders 1`] = `
+<Tag
+  className="__NewFeatureTag__"
+  closable={false}
+  color="#52c41a"
+>
+  New
+</Tag>
+`;

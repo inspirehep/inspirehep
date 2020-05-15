@@ -29,6 +29,7 @@ export const AUTHORS_NS = 'authors';
 export const LITERATURE_NS = 'literature';
 export const JOBS_NS = 'jobs';
 export const AUTHOR_PUBLICATIONS_NS = 'authorPublications';
+export const AUTHOR_CITATIONS_NS = 'authorCitations';
 export const CONFERENCE_CONTRIBUTIONS_NS = 'conferenceContributions';
 export const CONFERENCES_NS = 'conferences';
 export const EXISTING_CONFERENCES_NS = 'existingConferences';
@@ -96,6 +97,15 @@ export const initialState = fromJS({
       aggregationsFetchMode: FETCH_MODE_ALWAYS,
       baseAggregationsQuery: {
         facet_name: 'hep-author-publication',
+      },
+    },
+    [AUTHOR_CITATIONS_NS]: {
+      ...initialNamespaceState,
+      pathname: LITERATURE,
+      embedded: true,
+      aggregationsFetchMode: FETCH_MODE_ALWAYS,
+      baseAggregationsQuery: {
+        facet_name: 'hep-author-citations',
       },
     },
     [CONFERENCE_CONTRIBUTIONS_NS]: {

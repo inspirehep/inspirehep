@@ -7,6 +7,7 @@ from mock import patch
 from inspirehep.search.aggregations import (
     conf_subject_aggregation,
     hep_arxiv_categories_aggregation,
+    hep_author_affiliations_aggregation,
     hep_author_aggregation,
     hep_author_count_aggregation,
     hep_collaboration_aggregation,
@@ -82,7 +83,7 @@ def test_hep_earliest_date_aggregation_and_filter(inspire_app):
         with inspire_app.test_client() as client:
             response = client.get("/literature/facets").json
         earliest_date_aggregation = {
-            "meta": {"title": "Date of paper", "type": "range", "order": 1},
+            "meta": {"title": "Papers per year", "type": "range", "order": 1},
             "buckets": [
                 {"doc_count": 1, "key": 1420070400000, "key_as_string": "2015"},
                 {"doc_count": 1, "key": 1546300800000, "key_as_string": "2019"},
@@ -590,6 +591,65 @@ def test_hep_self_author_affiliations_aggregation_and_filter(inspire_app):
         with inspire_app.test_client() as client:
             response = client.get(
                 "/literature?author=999107_John%20Doe&self_affiliations=CERN"
+            ).json
+        assert len(response["hits"]["hits"]) == 1
+        assert (
+            response["hits"]["hits"][0]["metadata"]["control_number"]
+            == expected_record["control_number"]
+        )
+
+
+def test_hep_author_affiliations_aggregation_and_filter(inspire_app):
+    def records_hep():
+        return {
+            "filters": hep_filters(),
+            "aggs": {**hep_author_affiliations_aggregation(1)},
+        }
+
+    config = {"RECORDS_REST_FACETS": {"records-hep": records_hep}}
+    with override_config(**config):
+        data = {"control_number": 999107, "name": {"value": "Doe, John"}}
+        create_record("aut", data)
+        data = {
+            "authors": [
+                {
+                    "affiliations": [{"value": "Princeton"}, {"value": "Harvard U."}],
+                    "full_name": "Maldacena, Juan Martin",
+                    "record": {"$ref": "http://labs.inspirehep.net/api/authors/999108"},
+                },
+                {
+                    "full_name": "John Doe",
+                    "record": {"$ref": "http://labs.inspirehep.net/api/authors/999107"},
+                },
+            ]
+        }
+        create_record("lit", data)
+        data = {
+            "authors": [
+                {
+                    "affiliations": [{"value": "CERN"}, {"value": "Princeton"}],
+                    "full_name": "John Doe",
+                    "record": {"$ref": "http://labs.inspirehep.net/api/authors/999107"},
+                }
+            ]
+        }
+        expected_record = create_record("lit", data)
+        with inspire_app.test_client() as client:
+            response = client.get("/literature/facets").json
+        expected_aggregation = {
+            "meta": {"title": "Affiliations", "type": "checkbox", "order": 1},
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+                {"key": "Princeton", "doc_count": 2},
+                {"key": "CERN", "doc_count": 1},
+                {"key": "Harvard U.", "doc_count": 1},
+            ],
+        }
+        assert response["aggregations"]["affiliations"] == expected_aggregation
+        with inspire_app.test_client() as client:
+            response = client.get(
+                "/literature?author=999107_John%20Doe&affiliations=CERN"
             ).json
         assert len(response["hits"]["hits"]) == 1
         assert (

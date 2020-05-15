@@ -113,16 +113,28 @@ class JSONSerializerFacets(InvenioJSONSerializer):
 
     @staticmethod
     def flatten_aggregations(aggregations):
-        """Flatten the aggregation dict in case there are nested or filters aggregations."""
+        """Flatten the aggregation dict in case there are nested or filters aggregations.
+
+        Note:
+            For double nested aggregations like self_affiliations, we need to have 'nested_agg'
+            inside the first 'aggs'. For other nested aggregations like affiliations, the
+            name of the aggregation and the name of the nested aggregation should be the same.
+        """
 
         new_aggs = {}
 
         for agg_key, agg_value in aggregations.items():
-            if "nested" in agg_value:
-                nested = agg_value["nested"]
+            if "nested_agg" in agg_value:
+                nested = agg_value["nested_agg"]
                 for nested_key in nested:
                     if nested_key != "doc_count":
                         new_aggs[nested_key] = nested[nested_key]
+            elif agg_key in agg_value:
+                nested_agg_content = agg_value[agg_key]
+                for bucket in nested_agg_content["buckets"]:
+                    bucket["doc_count"] = bucket[agg_key]["doc_count"]
+                    del bucket[agg_key]
+                new_aggs[agg_key] = nested_agg_content
             elif agg_value.get("meta", {}).get("is_filter_aggregation"):
                 agg_value["buckets"] = [
                     {
