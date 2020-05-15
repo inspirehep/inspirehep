@@ -1,46 +1,52 @@
 import React, { useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Row, Col } from 'antd';
+import { Row, Col, Tabs, Tooltip } from 'antd';
 import { Map, List } from 'immutable';
 
-import ContentBox from '../../common/components/ContentBox';
-import AuthorName from '../components/AuthorName';
-import ExperimentList from '../../common/components/ExperimentList';
-import { fetchAuthor } from '../../actions/authors';
-import { fetchCitationsByYear } from '../../actions/citations';
-import AuthorAffiliationList from '../../common/components/AuthorAffiliationList';
+import './DetailPage.scss';
+import ContentBox from '../../../common/components/ContentBox';
+import AuthorName from '../../components/AuthorName';
+import ExperimentList from '../../../common/components/ExperimentList';
+import { fetchAuthor } from '../../../actions/authors';
+import { fetchCitationsByYear } from '../../../actions/citations';
+import AuthorAffiliationList from '../../../common/components/AuthorAffiliationList';
 import {
   getCurrentAffiliationsFromPositions,
   getAuthorDisplayName,
   getAuthorMetaDescription,
-} from '../utils';
-import PositionsTimeline from '../components/PositionsTimeline';
-import ArxivCategoryList from '../../common/components/ArxivCategoryList';
-import AuthorTwitterAction from '../components/AuthorTwitterAction';
-import AuthorLinkedinAction from '../components/AuthorLinkedinAction';
-import AuthorWebsitesAction from '../components/AuthorWebsitesAction';
-import AuthorOrcid from '../components/AuthorOrcid';
-import DocumentHead from '../../common/components/DocumentHead';
-import AuthorEmailsAction from '../components/AuthorEmailsAction';
-import AuthorPublicationsContainer from './AuthorPublicationsContainer';
-import { AUTHOR_PUBLICATIONS_NS } from '../../reducers/search';
-import { newSearch } from '../../actions/search';
-import EmptyOrChildren from '../../common/components/EmptyOrChildren';
-import EditRecordAction from '../../common/components/EditRecordAction';
-import DeletedAlert from '../../common/components/DeletedAlert';
-import UserSettingsAction from '../components/UserSettingsAction';
-import withRouteActionsDispatcher from '../../common/withRouteActionsDispatcher';
-import AuthorBAI from '../components/AuthorBAI';
-import CitationsByYearGraphContainer from '../../common/containers/CitationsByYearGraphContainer';
-import Advisors from '../components/Advisors';
+} from '../../utils';
+import PositionsTimeline from '../../components/PositionsTimeline';
+import ArxivCategoryList from '../../../common/components/ArxivCategoryList';
+import AuthorTwitterAction from '../../components/AuthorTwitterAction';
+import AuthorLinkedinAction from '../../components/AuthorLinkedinAction';
+import AuthorWebsitesAction from '../../components/AuthorWebsitesAction';
+import AuthorOrcid from '../../components/AuthorOrcid';
+import DocumentHead from '../../../common/components/DocumentHead';
+import AuthorEmailsAction from '../../components/AuthorEmailsAction';
+import AuthorPublicationsContainer from '../AuthorPublicationsContainer';
+import {
+  AUTHOR_PUBLICATIONS_NS,
+  AUTHOR_CITATIONS_NS,
+} from '../../../reducers/search';
+import { newSearch } from '../../../actions/search';
+import EditRecordAction from '../../../common/components/EditRecordAction';
+import DeletedAlert from '../../../common/components/DeletedAlert';
+import UserSettingsAction from '../../components/UserSettingsAction';
+import withRouteActionsDispatcher from '../../../common/withRouteActionsDispatcher';
+import AuthorBAI from '../../components/AuthorBAI';
+import Advisors from '../../components/Advisors';
+import TabNameWithCount from '../../../common/components/TabNameWithCount';
+import AuthorCitationsContainer from '../AuthorCitationsContainer';
+import NewFeatureTag from '../../../common/components/NewFeatureTag';
 
 function DetailPage({
   record,
   publicationsQuery,
-  publications,
   userOrcid,
   dispatch,
+  publicationsCount,
+  citationsCount,
 }) {
   const authorFacetName = publicationsQuery.getIn(['author', 0]);
   const metadata = record.get('metadata');
@@ -89,14 +95,15 @@ function DetailPage({
         title={getAuthorDisplayName(name)}
         description={metaDescription}
       />
-      <Row className="mv3" type="flex" justify="center">
+      <Row className="__DetailPage__" type="flex" justify="center">
         <Col xs={24} md={22} lg={21} xxl={18}>
           <Row
+            className="mv3"
             type="flex"
             gutter={{ xs: 0, md: 16, xl: 32 }}
             justify="space-between"
           >
-            <Col xs={24} md={12} lg={16}>
+            <Col span={24}>
               <ContentBox
                 className="sm-pb3"
                 leftActions={
@@ -145,21 +152,49 @@ function DetailPage({
                 </Row>
               </ContentBox>
             </Col>
-            <Col xs={24} md={12} lg={8}>
-              <ContentBox subTitle="Citations per year">
-                <EmptyOrChildren data={publications} title="0 Research works">
-                  <CitationsByYearGraphContainer />
-                </EmptyOrChildren>
-              </ContentBox>
+          </Row>
+          <Row>
+            <Col span={24}>
+              <Tabs type="card" tabBarStyle={{ marginBottom: 0 }}>
+                <Tabs.TabPane
+                  tab={
+                    <Tooltip title="Research from the author">
+                      <span>
+                        <TabNameWithCount
+                          name="Research works"
+                          count={publicationsCount}
+                        />
+                      </span>
+                    </Tooltip>
+                  }
+                  key="1"
+                >
+                  <ContentBox className="remove-top-border-of-card">
+                    <AuthorPublicationsContainer />
+                  </ContentBox>
+                </Tabs.TabPane>
+                <Tabs.TabPane
+                  tab={
+                    <Tooltip title="Research citing the author">
+                      <span>
+                        <TabNameWithCount
+                          name="Cited by"
+                          count={citationsCount}
+                        />
+                        <NewFeatureTag />
+                      </span>
+                    </Tooltip>
+                  }
+                  key="2"
+                  forceRender
+                >
+                  <ContentBox className="remove-top-border-of-card">
+                    <AuthorCitationsContainer />
+                  </ContentBox>
+                </Tabs.TabPane>
+              </Tabs>
             </Col>
           </Row>
-        </Col>
-      </Row>
-      <Row type="flex" justify="center">
-        <Col xs={24} md={22} lg={21} xxl={18}>
-          <ContentBox>
-            <AuthorPublicationsContainer />
-          </ContentBox>
         </Col>
       </Row>
     </>
@@ -172,6 +207,8 @@ DetailPage.propTypes = {
   publicationsQuery: PropTypes.instanceOf(Map).isRequired,
   publications: PropTypes.instanceOf(List),
   userOrcid: PropTypes.string,
+  publicationsCount: PropTypes.string,
+  citationsCount: PropTypes.string,
 };
 
 const mapStateToProps = state => ({
@@ -187,6 +224,16 @@ const mapStateToProps = state => ({
     'results',
   ]),
   userOrcid: state.user.getIn(['data', 'orcid']),
+  publicationsCount: state.search.getIn([
+    'namespaces',
+    AUTHOR_PUBLICATIONS_NS,
+    'total',
+  ]),
+  citationsCount: state.search.getIn([
+    'namespaces',
+    AUTHOR_CITATIONS_NS,
+    'total',
+  ]),
 });
 const dispatchToProps = dispatch => ({ dispatch });
 const DetailPageContainer = connect(mapStateToProps, dispatchToProps)(

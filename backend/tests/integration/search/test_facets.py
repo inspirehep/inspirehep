@@ -3,6 +3,7 @@ from flask import current_app
 from inspirehep.search.aggregations import (
     conf_subject_aggregation,
     hep_arxiv_categories_aggregation,
+    hep_author_affiliations_aggregation,
     hep_author_aggregation,
     hep_author_count_aggregation,
     hep_collaboration_aggregation,
@@ -60,6 +61,7 @@ def test_hep_author_publications_facets(inspire_app):
             "subject",
             "arxiv_categories",
             "self_affiliations",
+            "affiliations",
             "self_author_names",
             "rpp",
         }
@@ -84,6 +86,45 @@ def test_hep_author_publications_facets(inspire_app):
         assert aggregations == expected_aggregations
 
 
+def test_hep_author_citations_facets(inspire_app):
+    with current_app.test_request_context():
+        expected_filters = {
+            "author",
+            "author_count",
+            "doc_type",
+            "earliest_date",
+            "citation_count",
+            "citation_count_without_self_citations",
+            "collaboration",
+            "refereed",
+            "citeable",
+            "collection",
+            "subject",
+            "arxiv_categories",
+            "self_affiliations",
+            "affiliations",
+            "self_author_names",
+            "rpp",
+        }
+        expected_aggregations = {
+            **hep_earliest_date_aggregation(order=1, title="Citations per year"),
+            **hep_author_count_aggregation(order=2),
+            **hep_rpp(order=3),
+            **hep_doc_type_aggregation(order=4),
+            **hep_author_aggregation(order=5),
+            **hep_collaboration_aggregation(order=6),
+            **hep_author_affiliations_aggregation(order=7),
+        }
+        filters = current_app.config["RECORDS_REST_FACETS"]["hep-author-citations"]()[
+            "filters"
+        ].keys()
+        aggregations = current_app.config["RECORDS_REST_FACETS"][
+            "hep-author-citations"
+        ]()["aggs"]
+        assert filters == expected_filters
+        assert aggregations == expected_aggregations
+
+
 def test_records_hep_facets(inspire_app):
     with current_app.test_request_context():
         expected_filters = {
@@ -100,11 +141,12 @@ def test_records_hep_facets(inspire_app):
             "subject",
             "arxiv_categories",
             "self_affiliations",
+            "affiliations",
             "self_author_names",
             "rpp",
         }
         expected_aggregations = {
-            **hep_earliest_date_aggregation(order=1),
+            **hep_earliest_date_aggregation(order=1, title="Date of paper"),
             **hep_author_count_aggregation(order=2),
             **hep_rpp(order=3),
             **hep_doc_type_aggregation(order=4),
@@ -139,6 +181,7 @@ def test_hep_conference_contributions_facets(inspire_app):
             "subject",
             "arxiv_categories",
             "self_affiliations",
+            "affiliations",
             "self_author_names",
             "rpp",
         }
@@ -173,6 +216,7 @@ def test_hep_institution_papers_facets(inspire_app):
             "subject",
             "arxiv_categories",
             "self_affiliations",
+            "affiliations",
             "self_author_names",
             "rpp",
         }
@@ -203,6 +247,7 @@ def test_citation_summary_facets(inspire_app):
             "subject",
             "arxiv_categories",
             "self_affiliations",
+            "affiliations",
             "self_author_names",
             "rpp",
         }
@@ -227,6 +272,7 @@ def test_citations_by_year_facets(inspire_app):
             "subject",
             "arxiv_categories",
             "self_affiliations",
+            "affiliations",
             "self_author_names",
             "rpp",
         }
@@ -294,6 +340,7 @@ def test_hep_author_publications_cataloger_facets(inspire_app):
             "subject",
             "arxiv_categories",
             "self_affiliations",
+            "affiliations",
             "self_author_names",
             "rpp",
         }
@@ -323,6 +370,49 @@ def test_hep_author_publications_cataloger_facets(inspire_app):
         assert aggregations == expected_aggregations
 
 
+def test_hep_author_citations_cataloger_facets(inspire_app):
+    with current_app.test_request_context():
+        expected_filters = {
+            "author",
+            "author_count",
+            "doc_type",
+            "earliest_date",
+            "citation_count",
+            "citation_count_without_self_citations",
+            "collaboration",
+            "refereed",
+            "citeable",
+            "collection",
+            "subject",
+            "arxiv_categories",
+            "self_affiliations",
+            "affiliations",
+            "self_author_names",
+            "rpp",
+        }
+        expected_aggregations = {
+            **hep_earliest_date_aggregation(order=1, title="Citations per year"),
+            **hep_author_count_aggregation(order=2),
+            **hep_rpp(order=3),
+            **hep_doc_type_aggregation(order=4),
+            **hep_author_aggregation(order=5),
+            **hep_collaboration_aggregation(order=6),
+            **hep_author_affiliations_aggregation(order=7),
+            **hep_subject_aggregation(order=8),
+            **hep_arxiv_categories_aggregation(order=9),
+            **hep_collection_aggregation(order=10),
+        }
+
+        filters = current_app.config["CATALOGER_RECORDS_REST_FACETS"][
+            "hep-author-citations"
+        ]()["filters"].keys()
+        aggregations = current_app.config["CATALOGER_RECORDS_REST_FACETS"][
+            "hep-author-citations"
+        ]()["aggs"]
+        assert filters == expected_filters
+        assert aggregations == expected_aggregations
+
+
 def test_records_hep_cataloger_facets(inspire_app):
     with current_app.test_request_context():
         expected_filters = {
@@ -339,11 +429,12 @@ def test_records_hep_cataloger_facets(inspire_app):
             "subject",
             "arxiv_categories",
             "self_affiliations",
+            "affiliations",
             "self_author_names",
             "rpp",
         }
         expected_aggregations = {
-            **hep_earliest_date_aggregation(order=1),
+            **hep_earliest_date_aggregation(order=1, title="Date of paper"),
             **hep_author_count_aggregation(order=2),
             **hep_rpp(order=3),
             **hep_doc_type_aggregation(order=4),

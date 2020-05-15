@@ -6,7 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
-def hep_earliest_date_aggregation(order, title="Date of paper", agg_type="range"):
+def hep_earliest_date_aggregation(order, title="Papers per year", agg_type="range"):
     return {
         "earliest_date": {
             "date_histogram": {
@@ -157,7 +157,7 @@ def hep_self_author_affiliations_aggregation(
         "self_affiliations": {
             "nested": {"path": "authors"},
             "aggs": {
-                "nested": {
+                "nested_agg": {
                     "filter": {"term": {"authors.record.$ref": author_recid}},
                     "aggs": {
                         "self_affiliations": {
@@ -174,6 +174,23 @@ def hep_self_author_affiliations_aggregation(
     }
 
 
+def hep_author_affiliations_aggregation(
+    order, title="Affiliations", agg_type="checkbox"
+):
+    return {
+        "affiliations": {
+            "nested": {"path": "authors"},
+            "aggs": {
+                "affiliations": {
+                    "terms": {"field": "authors.affiliations.value.raw", "size": 20},
+                    "meta": {"title": title, "order": order, "type": agg_type},
+                    "aggs": {"affiliations": {"reverse_nested": {}}},
+                }
+            },
+        }
+    }
+
+
 def hep_self_author_names_aggregation(
     order, author_recid, title="Name variations", agg_type="checkbox"
 ):
@@ -181,7 +198,7 @@ def hep_self_author_names_aggregation(
         "self_author_names": {
             "nested": {"path": "authors"},
             "aggs": {
-                "nested": {
+                "nested_agg": {
                     "filter": {"term": {"authors.record.$ref": author_recid}},
                     "aggs": {
                         "self_author_names": {

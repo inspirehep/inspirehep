@@ -42,6 +42,8 @@ from inspirehep.search.facets import (
     conferences_date_range_contains_other_conferences,
     conferences_start_date_range_filter,
     filter_from_filters_aggregation,
+    hep_author_citations,
+    hep_author_citations_cataloger,
     hep_author_publications,
     hep_author_publications_cataloger,
     hep_conference_contributions,
@@ -495,6 +497,7 @@ SEMINARS_FILTERS = {
 
 RECORDS_REST_FACETS = {
     "hep-author-publication": hep_author_publications,
+    "hep-author-citations": hep_author_citations,
     "hep-conference-contribution": hep_conference_contributions,
     "hep-institution-papers": hep_institution_papers,
     "citation-summary": citation_summary,
@@ -508,6 +511,7 @@ CATALOGER_RECORDS_REST_FACETS = deepcopy(RECORDS_REST_FACETS)
 CATALOGER_RECORDS_REST_FACETS.update(
     {
         "hep-author-publication": hep_author_publications_cataloger,
+        "hep-author-citations": hep_author_citations_cataloger,
         "records-hep": records_hep_cataloger,
         "records-jobs": records_jobs_cataloger,
     }

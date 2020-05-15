@@ -14,6 +14,7 @@ from invenio_records_rest.facets import range_filter
 from inspirehep.search.aggregations import (
     conf_subject_aggregation,
     hep_arxiv_categories_aggregation,
+    hep_author_affiliations_aggregation,
     hep_author_aggregation,
     hep_author_count_aggregation,
     hep_collaboration_aggregation,
@@ -149,6 +150,19 @@ def must_match_all_filter_nested(nested_path, match_field, explicit_filter=None)
     return inner
 
 
+def must_match_all_filter_reverse_nested(nested_path, match_field):
+    """Bool filter containing a list of must matches for reverse nested queries."""
+
+    def inner(values):
+        filters = [
+            Q("nested", path=nested_path, query=Q("match", **{match_field: value}))
+            for value in values
+        ]
+        return Q("bool", filter=filters)
+
+    return inner
+
+
 def nested_filters(author_recid):
     return {
         "self_affiliations": must_match_all_filter_nested(
@@ -158,6 +172,9 @@ def nested_filters(author_recid):
         ),
         "self_author_names": must_match_all_filter_nested(
             "authors", "authors.full_name.raw", ("authors.record.$ref", author_recid)
+        ),
+        "affiliations": must_match_all_filter_reverse_nested(
+            "authors", "authors.affiliations.value.raw"
         ),
     }
 
@@ -202,6 +219,25 @@ def hep_author_publications(order=None):
     }
 
 
+def hep_author_citations(order=None):
+    if order is None:
+        order = count(start=1)
+    return {
+        "filters": hep_filters(),
+        "aggs": {
+            **hep_earliest_date_aggregation(
+                order=next(order), title="Citations per year"
+            ),
+            **hep_author_count_aggregation(order=next(order)),
+            **hep_rpp(order=next(order)),
+            **hep_doc_type_aggregation(order=next(order)),
+            **hep_author_aggregation(order=next(order)),
+            **hep_collaboration_aggregation(order=next(order)),
+            **hep_author_affiliations_aggregation(order=next(order)),
+        },
+    }
+
+
 def hep_conference_contributions(order=None):
     if order is None:
         order = count(start=1)
@@ -232,7 +268,7 @@ def records_hep(order=None):
     return {
         "filters": hep_filters(),
         "aggs": {
-            **hep_earliest_date_aggregation(order=next(order)),
+            **hep_earliest_date_aggregation(order=next(order), title="Date of paper"),
             **hep_author_count_aggregation(order=next(order)),
             **hep_rpp(order=next(order)),
             **hep_doc_type_aggregation(order=next(order)),
@@ -427,6 +463,20 @@ def hep_author_publications_cataloger(order=None):
             **hep_self_author_names_aggregation(
                 order=next(order), author_recid=author_recid
             ),
+            **hep_collection_aggregation(order=next(order)),
+        }
+    )
+    return records
+
+
+def hep_author_citations_cataloger(order=None):
+    if order is None:
+        order = count(start=1)
+    records = hep_author_citations(order=order)
+    records["aggs"].update(
+        {
+            **hep_subject_aggregation(order=next(order)),
+            **hep_arxiv_categories_aggregation(order=next(order)),
             **hep_collection_aggregation(order=next(order)),
         }
     )

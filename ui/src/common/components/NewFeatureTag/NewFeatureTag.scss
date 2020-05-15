@@ -1,0 +1,11 @@
+.__NewFeatureTag__ {
+  margin-left: 8px;
+  padding: 0 2px;
+  line-height: 0.9rem;
+  font-size: 0.6rem;
+  font-weight: 600;
+  cursor: unset;
+  &:hover {
+    opacity: 1;
+  }
+}
