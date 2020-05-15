@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Field, Form } from 'formik';
 import { Col, Row, Form as AntForm } from 'antd';
 
-
 import TextField from '../../common/components/TextField';
 import SelectField from '../../common/components/SelectField';
 import ArrayOf from '../../common/components/ArrayOf';
@@ -19,12 +18,8 @@ import DateRangeField from '../../common/components/DateRangeField';
 import ContactsField from '../../common/components/ContactsField';
 import { timeZoneOptions, SEMINAR_DATETIME_FORMAT } from '../schemas/constants';
 import { LABEL_COL, WRAPPER_COL } from '../../common/withFormItem';
-import {
-  SEMINARS_PID_TYPE,
-  TIME_FORMAT,
-} from '../../../common/constants';
+import { SEMINARS_PID_TYPE, TIME_FORMAT } from '../../../common/constants';
 import AuthorSuggesterField from '../../common/components/AuthorSuggesterField';
-
 
 function getSuggestionSourceLegacyICN(suggestion) {
   return suggestion._source.legacy_ICN;
@@ -37,7 +32,7 @@ const DISPLAY_TIME = {
 function SeminarForm({ values, isSubmitting, isValid, isValidating }) {
   return (
     <Form className="bg-white pa3">
-      <Field name="name" label="* Seminar Name" component={TextField} />
+      <Field name="name" label="* Seminar Title" component={TextField} />
       <Field
         name="dates"
         label="* Dates"
@@ -207,13 +202,11 @@ function SeminarForm({ values, isSubmitting, isValid, isValidating }) {
   );
 }
 
-
 SeminarForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
   isValidating: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
   values: PropTypes.objectOf(PropTypes.any).isRequired, // current form data
 };
-
 
 export default SeminarForm;
