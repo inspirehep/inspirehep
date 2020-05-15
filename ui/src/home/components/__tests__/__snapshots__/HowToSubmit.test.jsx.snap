@@ -2,26 +2,11 @@
 
 exports[`HowToSubmit renders 1`] = `
 <Row
-  gutter={
-    Array [
-      Object {
-        "md": 32,
-        "xl": 64,
-        "xs": 0,
-      },
-      Object {
-        "lg": 0,
-        "md": 16,
-        "xs": 16,
-      },
-    ]
-  }
+  gutter={0}
   justify="center"
 >
   <Col
-    lg={6}
-    md={12}
-    xs={24}
+    className="pa3"
   >
     <SubmissionCard
       formLink="/submissions/literature"
@@ -36,9 +21,7 @@ exports[`HowToSubmit renders 1`] = `
     </SubmissionCard>
   </Col>
   <Col
-    lg={6}
-    md={12}
-    xs={24}
+    className="pa3"
   >
     <SubmissionCard
       formLink="/submissions/authors"
@@ -53,9 +36,7 @@ exports[`HowToSubmit renders 1`] = `
     </SubmissionCard>
   </Col>
   <Col
-    lg={6}
-    md={12}
-    xs={24}
+    className="pa3"
   >
     <SubmissionCard
       formLink="/submissions/jobs"
@@ -70,9 +51,22 @@ exports[`HowToSubmit renders 1`] = `
     </SubmissionCard>
   </Col>
   <Col
-    lg={6}
-    md={12}
-    xs={24}
+    className="pa3"
+  >
+    <SubmissionCard
+      formLink="/submissions/seminars"
+      title="Seminar"
+    >
+      <p>
+        Submit a new seminar.
+      </p>
+      <p>
+        All submissions will be visible immediately.
+      </p>
+    </SubmissionCard>
+  </Col>
+  <Col
+    className="pa3"
   >
     <SubmissionCard
       formLink="/submissions/conferences"

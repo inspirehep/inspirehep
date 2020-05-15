@@ -5,15 +5,4 @@
   @media (max-width: $screen-sm-max) {
     display: none;
   }
-
-  .collection-link {
-    padding-bottom: 0.2em;
-
-    &:hover,
-    &.active {
-      $color: white;
-      color: $color;
-      border-bottom: solid 0.15em $color;
-    }
-  }
 }

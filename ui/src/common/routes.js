@@ -45,6 +45,7 @@ export const EDIT_CONFERENCE = '/editor/record/conferences';
 export const EDIT_INSTITUTION = '/editor/record/institutions';
 export const EDIT_SEMINAR = SUBMISSIONS_SEMINAR;
 
+// eslint-disable-next-line no-unused-vars
 export function isBetaRoute(locationPathname) {
-  return locationPathname.startsWith(SEMINARS);
+  return false;
 }
