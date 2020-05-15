@@ -47,6 +47,9 @@ class HeaderMenu extends Component {
           title="Submit"
           popupClassName="header-submenu"
         >
+          <Menu.Item key="submit.literature">
+            <Link to={SUBMISSIONS_LITERATURE}>Literature</Link>
+          </Menu.Item>
           <Menu.Item key="submit.author">
             <Link to={SUBMISSIONS_AUTHOR}>Author</Link>
           </Menu.Item>
@@ -54,10 +57,7 @@ class HeaderMenu extends Component {
             <Link to={SUBMISSIONS_JOB}>Job</Link>
           </Menu.Item>
           <Menu.Item key="submit.seminar">
-            <Link to={SUBMISSIONS_SEMINAR}>Seminars</Link>
-          </Menu.Item>
-          <Menu.Item key="submit.literature">
-            <Link to={SUBMISSIONS_LITERATURE}>Literature</Link>
+            <Link to={SUBMISSIONS_SEMINAR}>Seminar</Link>
           </Menu.Item>
           <Menu.Item key="submit.conference">
             <Link to={SUBMISSIONS_CONFERENCE}>Conference</Link>
