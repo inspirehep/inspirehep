@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CollectionLink renders active 1`] = `
+<span
+  className="__CollectionLink__ mh4 m-mh2"
+>
+  <Link
+    className="link f5 white active"
+    to="/literature"
+  />
+</span>
+`;
+
+exports[`CollectionLink renders active and new 1`] = `
+<span
+  className="__CollectionLink__ mh4 m-mh2"
+>
+  <Link
+    className="link f5 white active"
+    to="/literature"
+  />
+  <Tag
+    className="new-tag"
+    closable={false}
+    color="#52c41a"
+  >
+    New
+  </Tag>
+</span>
+`;
+
+exports[`CollectionLink renders default 1`] = `
+<span
+  className="__CollectionLink__ mh4 m-mh2"
+>
+  <Link
+    className="link f5 white"
+    to="/literature"
+  />
+</span>
+`;
+
+exports[`CollectionLink renders new 1`] = `
+<span
+  className="__CollectionLink__ mh4 m-mh2"
+>
+  <Link
+    className="link f5 white"
+    to="/literature"
+  />
+  <Tag
+    className="new-tag"
+    closable={false}
+    color="#52c41a"
+  >
+    New
+  </Tag>
+</span>
+`;

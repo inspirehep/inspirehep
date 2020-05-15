@@ -64,6 +64,15 @@ exports[`HeaderMenu renders when logged in 1`] = `
       </Link>
     </MenuItem>
     <MenuItem
+      key="submit.seminar"
+    >
+      <Link
+        to="/submissions/seminars"
+      >
+        Seminars
+      </Link>
+    </MenuItem>
+    <MenuItem
       key="submit.literature"
     >
       <Link
@@ -156,6 +165,15 @@ exports[`HeaderMenu renders when not logged in 1`] = `
         to="/submissions/jobs"
       >
         Job
+      </Link>
+    </MenuItem>
+    <MenuItem
+      key="submit.seminar"
+    >
+      <Link
+        to="/submissions/seminars"
+      >
+        Seminars
       </Link>
     </MenuItem>
     <MenuItem

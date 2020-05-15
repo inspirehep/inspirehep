@@ -29,10 +29,7 @@ function SeminarSearchPage({ loading, loadingAggregations, selectedTimezone }) {
       <>
         <SeminarStartDateFilterContainer switchTitle="Upcoming seminars" />
         <LoadingOrChildren loading={loadingAggregations}>
-          <AggregationFiltersContainer
-            displayWhenNoResults
-            namespace={SEMINARS_NS}
-          />
+          <AggregationFiltersContainer namespace={SEMINARS_NS} />
         </LoadingOrChildren>
       </>
     ),

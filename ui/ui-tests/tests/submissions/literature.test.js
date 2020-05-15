@@ -36,7 +36,10 @@ describe('Literature Submission', () => {
     await selectDocType(page, 'article');
 
     const image = await takeScreenShotForDesktop(page);
-    expect(image).toMatchImageSnapshot();
+    expect(image).toMatchImageSnapshot({
+      failureThreshold: 0.0006,
+      failureThresholdType: 'percent',
+    });
 
     await polly.stop();
   });

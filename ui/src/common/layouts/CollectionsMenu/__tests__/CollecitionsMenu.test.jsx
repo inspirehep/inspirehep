@@ -9,6 +9,7 @@ import {
   CONFERENCES,
   AUTHORS,
   SUBMISSIONS_LITERATURE,
+  SEMINARS,
 } from '../../../routes';
 
 describe('CollectionsMenu', () => {
@@ -50,6 +51,14 @@ describe('CollectionsMenu', () => {
 
   it('renders when authors page', () => {
     const wrapper = shallow(<CollectionsMenu currentPathname={AUTHORS} />);
+
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('renders when seminars page', () => {
+    const wrapper = shallow(
+      <CollectionsMenu currentPathname={`${SEMINARS}/1`} />
+    );
 
     expect(wrapper).toMatchSnapshot();
   });
