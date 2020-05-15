@@ -9,7 +9,7 @@ class SuggesterField extends Component {
     this.onBlur = this.onBlur.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onSelect = this.onSelect.bind(this);
-    this.hasChangedBySuggestionSelection = false;
+    this.recordFieldPopulated = false;
   }
 
   onBlur() {
@@ -21,13 +21,10 @@ class SuggesterField extends Component {
     const { form, name, recordFieldPath } = this.props;
     form.setFieldValue(name, value);
 
-    if (!this.hasChangedBySuggestionSelection) {
-      // flag is necessary to prevent resetting $ref after select for the first time
-      // because after each onSelect, onChange is fired
+    if (this.recordFieldPopulated) {
       form.setFieldValue(recordFieldPath, null);
+      this.recordFieldPopulated = false;
     }
-
-    this.hasChangedBySuggestionSelection = false;
   }
 
   onSelect(_, selectedOption) {
@@ -38,7 +35,7 @@ class SuggesterField extends Component {
       selectedRecordData.control_number
     }`;
     form.setFieldValue(recordFieldPath, { $ref });
-    this.hasChangedBySuggestionSelection = true;
+    this.recordFieldPopulated = true;
   }
 
   render() {
