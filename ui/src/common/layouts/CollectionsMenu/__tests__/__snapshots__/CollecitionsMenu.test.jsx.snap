@@ -7,44 +7,53 @@ exports[`CollectionsMenu renders when authors page 1`] = `
   justify="center"
 >
   <Col>
-    <Link
-      className="collection-link mh4 sm-mh2 f5 white"
+    <CollectionLink
+      active={false}
       to="/literature"
     >
       Literature
-    </Link>
+    </CollectionLink>
   </Col>
   <Col>
-    <Link
-      className="collection-link mh4 sm-mh2 f5 white active"
+    <CollectionLink
+      active={true}
       to="/authors"
     >
       Authors
-    </Link>
+    </CollectionLink>
   </Col>
   <Col>
-    <Link
-      className="collection-link mh4 sm-mh2 f5 white"
+    <CollectionLink
+      active={false}
       to="/jobs"
     >
       Jobs
-    </Link>
+    </CollectionLink>
   </Col>
   <Col>
-    <Link
-      className="collection-link mh4 sm-mh2 f5 white"
+    <CollectionLink
+      active={false}
+      newCollection={true}
+      to="/seminars"
+    >
+      Seminars
+    </CollectionLink>
+  </Col>
+  <Col>
+    <CollectionLink
+      active={false}
       to="/conferences"
     >
       Conferences
-    </Link>
+    </CollectionLink>
   </Col>
   <Col>
-    <Link
-      className="collection-link mh4 sm-mh2 f5 white"
+    <CollectionLink
+      active={false}
       to="/institutions"
     >
       Institutions
-    </Link>
+    </CollectionLink>
   </Col>
 </Row>
 `;
@@ -56,44 +65,53 @@ exports[`CollectionsMenu renders when conferences page 1`] = `
   justify="center"
 >
   <Col>
-    <Link
-      className="collection-link mh4 sm-mh2 f5 white"
+    <CollectionLink
+      active={false}
       to="/literature"
     >
       Literature
-    </Link>
+    </CollectionLink>
   </Col>
   <Col>
-    <Link
-      className="collection-link mh4 sm-mh2 f5 white"
+    <CollectionLink
+      active={false}
       to="/authors"
     >
       Authors
-    </Link>
+    </CollectionLink>
   </Col>
   <Col>
-    <Link
-      className="collection-link mh4 sm-mh2 f5 white"
+    <CollectionLink
+      active={false}
       to="/jobs"
     >
       Jobs
-    </Link>
+    </CollectionLink>
   </Col>
   <Col>
-    <Link
-      className="collection-link mh4 sm-mh2 f5 white active"
+    <CollectionLink
+      active={false}
+      newCollection={true}
+      to="/seminars"
+    >
+      Seminars
+    </CollectionLink>
+  </Col>
+  <Col>
+    <CollectionLink
+      active={true}
       to="/conferences"
     >
       Conferences
-    </Link>
+    </CollectionLink>
   </Col>
   <Col>
-    <Link
-      className="collection-link mh4 sm-mh2 f5 white"
+    <CollectionLink
+      active={false}
       to="/institutions"
     >
       Institutions
-    </Link>
+    </CollectionLink>
   </Col>
 </Row>
 `;
@@ -105,44 +123,53 @@ exports[`CollectionsMenu renders when home page 1`] = `
   justify="center"
 >
   <Col>
-    <Link
-      className="collection-link mh4 sm-mh2 f5 white"
+    <CollectionLink
+      active={false}
       to="/literature"
     >
       Literature
-    </Link>
+    </CollectionLink>
   </Col>
   <Col>
-    <Link
-      className="collection-link mh4 sm-mh2 f5 white"
+    <CollectionLink
+      active={false}
       to="/authors"
     >
       Authors
-    </Link>
+    </CollectionLink>
   </Col>
   <Col>
-    <Link
-      className="collection-link mh4 sm-mh2 f5 white"
+    <CollectionLink
+      active={false}
       to="/jobs"
     >
       Jobs
-    </Link>
+    </CollectionLink>
   </Col>
   <Col>
-    <Link
-      className="collection-link mh4 sm-mh2 f5 white"
+    <CollectionLink
+      active={false}
+      newCollection={true}
+      to="/seminars"
+    >
+      Seminars
+    </CollectionLink>
+  </Col>
+  <Col>
+    <CollectionLink
+      active={false}
       to="/conferences"
     >
       Conferences
-    </Link>
+    </CollectionLink>
   </Col>
   <Col>
-    <Link
-      className="collection-link mh4 sm-mh2 f5 white"
+    <CollectionLink
+      active={false}
       to="/institutions"
     >
       Institutions
-    </Link>
+    </CollectionLink>
   </Col>
 </Row>
 `;
@@ -154,44 +181,53 @@ exports[`CollectionsMenu renders when jobs page 1`] = `
   justify="center"
 >
   <Col>
-    <Link
-      className="collection-link mh4 sm-mh2 f5 white"
+    <CollectionLink
+      active={false}
       to="/literature"
     >
       Literature
-    </Link>
+    </CollectionLink>
   </Col>
   <Col>
-    <Link
-      className="collection-link mh4 sm-mh2 f5 white"
+    <CollectionLink
+      active={false}
       to="/authors"
     >
       Authors
-    </Link>
+    </CollectionLink>
   </Col>
   <Col>
-    <Link
-      className="collection-link mh4 sm-mh2 f5 white active"
+    <CollectionLink
+      active={true}
       to="/jobs"
     >
       Jobs
-    </Link>
+    </CollectionLink>
   </Col>
   <Col>
-    <Link
-      className="collection-link mh4 sm-mh2 f5 white"
+    <CollectionLink
+      active={false}
+      newCollection={true}
+      to="/seminars"
+    >
+      Seminars
+    </CollectionLink>
+  </Col>
+  <Col>
+    <CollectionLink
+      active={false}
       to="/conferences"
     >
       Conferences
-    </Link>
+    </CollectionLink>
   </Col>
   <Col>
-    <Link
-      className="collection-link mh4 sm-mh2 f5 white"
+    <CollectionLink
+      active={false}
       to="/institutions"
     >
       Institutions
-    </Link>
+    </CollectionLink>
   </Col>
 </Row>
 `;
@@ -203,44 +239,111 @@ exports[`CollectionsMenu renders when literature page 1`] = `
   justify="center"
 >
   <Col>
-    <Link
-      className="collection-link mh4 sm-mh2 f5 white active"
+    <CollectionLink
+      active={true}
       to="/literature"
     >
       Literature
-    </Link>
+    </CollectionLink>
   </Col>
   <Col>
-    <Link
-      className="collection-link mh4 sm-mh2 f5 white"
+    <CollectionLink
+      active={false}
       to="/authors"
     >
       Authors
-    </Link>
+    </CollectionLink>
   </Col>
   <Col>
-    <Link
-      className="collection-link mh4 sm-mh2 f5 white"
+    <CollectionLink
+      active={false}
       to="/jobs"
     >
       Jobs
-    </Link>
+    </CollectionLink>
   </Col>
   <Col>
-    <Link
-      className="collection-link mh4 sm-mh2 f5 white"
+    <CollectionLink
+      active={false}
+      newCollection={true}
+      to="/seminars"
+    >
+      Seminars
+    </CollectionLink>
+  </Col>
+  <Col>
+    <CollectionLink
+      active={false}
       to="/conferences"
     >
       Conferences
-    </Link>
+    </CollectionLink>
   </Col>
   <Col>
-    <Link
-      className="collection-link mh4 sm-mh2 f5 white"
+    <CollectionLink
+      active={false}
       to="/institutions"
     >
       Institutions
-    </Link>
+    </CollectionLink>
+  </Col>
+</Row>
+`;
+
+exports[`CollectionsMenu renders when seminars page 1`] = `
+<Row
+  className="__CollectionsMenu__"
+  gutter={0}
+  justify="center"
+>
+  <Col>
+    <CollectionLink
+      active={false}
+      to="/literature"
+    >
+      Literature
+    </CollectionLink>
+  </Col>
+  <Col>
+    <CollectionLink
+      active={false}
+      to="/authors"
+    >
+      Authors
+    </CollectionLink>
+  </Col>
+  <Col>
+    <CollectionLink
+      active={false}
+      to="/jobs"
+    >
+      Jobs
+    </CollectionLink>
+  </Col>
+  <Col>
+    <CollectionLink
+      active={true}
+      newCollection={true}
+      to="/seminars"
+    >
+      Seminars
+    </CollectionLink>
+  </Col>
+  <Col>
+    <CollectionLink
+      active={false}
+      to="/conferences"
+    >
+      Conferences
+    </CollectionLink>
+  </Col>
+  <Col>
+    <CollectionLink
+      active={false}
+      to="/institutions"
+    >
+      Institutions
+    </CollectionLink>
   </Col>
 </Row>
 `;
@@ -252,44 +355,53 @@ exports[`CollectionsMenu renders when submissions page 1`] = `
   justify="center"
 >
   <Col>
-    <Link
-      className="collection-link mh4 sm-mh2 f5 white"
+    <CollectionLink
+      active={false}
       to="/literature"
     >
       Literature
-    </Link>
+    </CollectionLink>
   </Col>
   <Col>
-    <Link
-      className="collection-link mh4 sm-mh2 f5 white"
+    <CollectionLink
+      active={false}
       to="/authors"
     >
       Authors
-    </Link>
+    </CollectionLink>
   </Col>
   <Col>
-    <Link
-      className="collection-link mh4 sm-mh2 f5 white"
+    <CollectionLink
+      active={false}
       to="/jobs"
     >
       Jobs
-    </Link>
+    </CollectionLink>
   </Col>
   <Col>
-    <Link
-      className="collection-link mh4 sm-mh2 f5 white"
+    <CollectionLink
+      active={false}
+      newCollection={true}
+      to="/seminars"
+    >
+      Seminars
+    </CollectionLink>
+  </Col>
+  <Col>
+    <CollectionLink
+      active={false}
       to="/conferences"
     >
       Conferences
-    </Link>
+    </CollectionLink>
   </Col>
   <Col>
-    <Link
-      className="collection-link mh4 sm-mh2 f5 white"
+    <CollectionLink
+      active={false}
       to="/institutions"
     >
       Institutions
-    </Link>
+    </CollectionLink>
   </Col>
 </Row>
 `;

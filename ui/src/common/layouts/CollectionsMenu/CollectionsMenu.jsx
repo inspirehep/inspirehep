@@ -1,8 +1,6 @@
 import React, { useMemo } from 'react';
 import { Row, Col } from 'antd';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
 import './CollectionsMenu.scss';
 import {
@@ -11,6 +9,7 @@ import {
   JOBS,
   CONFERENCES,
   INSTITUTIONS,
+  SEMINARS,
 } from '../../routes';
 import { getRootOfLocationPathname } from '../../utils';
 import {
@@ -19,9 +18,9 @@ import {
   JOBS_PID_TYPE,
   CONFERENCES_PID_TYPE,
   INSTITUTIONS_PID_TYPE,
+  SEMINARS_PID_TYPE,
 } from '../../constants';
-
-const COLLECTION_LINK_CLASSNAME = 'collection-link mh4 sm-mh2 f5 white';
+import CollectionLink from './CollectionLink';
 
 function CollectionsMenu({ currentPathname }) {
   const activeCollection = useMemo(
@@ -32,54 +31,50 @@ function CollectionsMenu({ currentPathname }) {
   return (
     <Row className="__CollectionsMenu__" justify="center">
       <Col>
-        <Link
-          className={classNames(COLLECTION_LINK_CLASSNAME, {
-            active: activeCollection === LITERATURE_PID_TYPE,
-          })}
+        <CollectionLink
+          active={activeCollection === LITERATURE_PID_TYPE}
           to={LITERATURE}
         >
           Literature
-        </Link>
+        </CollectionLink>
       </Col>
       <Col>
-        <Link
-          className={classNames(COLLECTION_LINK_CLASSNAME, {
-            active: activeCollection === AUTHORS_PID_TYPE,
-          })}
+        <CollectionLink
+          active={activeCollection === AUTHORS_PID_TYPE}
           to={AUTHORS}
         >
           Authors
-        </Link>
+        </CollectionLink>
       </Col>
       <Col>
-        <Link
-          className={classNames(COLLECTION_LINK_CLASSNAME, {
-            active: activeCollection === JOBS_PID_TYPE,
-          })}
-          to={JOBS}
-        >
+        <CollectionLink active={activeCollection === JOBS_PID_TYPE} to={JOBS}>
           Jobs
-        </Link>
+        </CollectionLink>
       </Col>
       <Col>
-        <Link
-          className={classNames(COLLECTION_LINK_CLASSNAME, {
-            active: activeCollection === CONFERENCES_PID_TYPE,
-          })}
+        <CollectionLink
+          active={activeCollection === SEMINARS_PID_TYPE}
+          to={SEMINARS}
+          newCollection
+        >
+          Seminars
+        </CollectionLink>
+      </Col>
+      <Col>
+        <CollectionLink
+          active={activeCollection === CONFERENCES_PID_TYPE}
           to={CONFERENCES}
         >
           Conferences
-        </Link>
+        </CollectionLink>
       </Col>
       <Col>
-        <Link
-          className={classNames(COLLECTION_LINK_CLASSNAME, {
-            active: activeCollection === INSTITUTIONS_PID_TYPE,
-          })}
+        <CollectionLink
+          active={activeCollection === INSTITUTIONS_PID_TYPE}
           to={INSTITUTIONS}
         >
           Institutions
-        </Link>
+        </CollectionLink>
       </Col>
     </Row>
   );

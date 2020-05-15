@@ -9,6 +9,7 @@ import {
   SUBMISSIONS_JOB,
   SUBMISSIONS_LITERATURE,
   SUBMISSIONS_CONFERENCE,
+  SUBMISSIONS_SEMINAR,
 } from '../../routes';
 import ExternalLink from '../../components/ExternalLink';
 import LinkLikeButton from '../../components/LinkLikeButton';
@@ -51,6 +52,9 @@ class HeaderMenu extends Component {
           </Menu.Item>
           <Menu.Item key="submit.job">
             <Link to={SUBMISSIONS_JOB}>Job</Link>
+          </Menu.Item>
+          <Menu.Item key="submit.seminar">
+            <Link to={SUBMISSIONS_SEMINAR}>Seminars</Link>
           </Menu.Item>
           <Menu.Item key="submit.literature">
             <Link to={SUBMISSIONS_LITERATURE}>Literature</Link>
