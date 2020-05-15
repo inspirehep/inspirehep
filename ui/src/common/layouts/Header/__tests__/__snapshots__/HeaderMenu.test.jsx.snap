@@ -46,6 +46,15 @@ exports[`HeaderMenu renders when logged in 1`] = `
     title="Submit"
   >
     <MenuItem
+      key="submit.literature"
+    >
+      <Link
+        to="/submissions/literature"
+      >
+        Literature
+      </Link>
+    </MenuItem>
+    <MenuItem
       key="submit.author"
     >
       <Link
@@ -69,16 +78,7 @@ exports[`HeaderMenu renders when logged in 1`] = `
       <Link
         to="/submissions/seminars"
       >
-        Seminars
-      </Link>
-    </MenuItem>
-    <MenuItem
-      key="submit.literature"
-    >
-      <Link
-        to="/submissions/literature"
-      >
-        Literature
+        Seminar
       </Link>
     </MenuItem>
     <MenuItem
@@ -150,6 +150,15 @@ exports[`HeaderMenu renders when not logged in 1`] = `
     title="Submit"
   >
     <MenuItem
+      key="submit.literature"
+    >
+      <Link
+        to="/submissions/literature"
+      >
+        Literature
+      </Link>
+    </MenuItem>
+    <MenuItem
       key="submit.author"
     >
       <Link
@@ -173,16 +182,7 @@ exports[`HeaderMenu renders when not logged in 1`] = `
       <Link
         to="/submissions/seminars"
       >
-        Seminars
-      </Link>
-    </MenuItem>
-    <MenuItem
-      key="submit.literature"
-    >
-      <Link
-        to="/submissions/literature"
-      >
-        Literature
+        Seminar
       </Link>
     </MenuItem>
     <MenuItem
