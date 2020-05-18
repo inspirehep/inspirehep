@@ -25,8 +25,9 @@ function getSuggestionSourceLegacyICN(suggestion) {
   return suggestion._source.legacy_ICN;
 }
 
-const DISPLAY_TIME = {
+const TIME_PICKER_OPTIONS = {
   format: TIME_FORMAT,
+  minuteStep: 5,
 };
 
 function SeminarForm({ values, isSubmitting, isValid, isValidating }) {
@@ -37,7 +38,7 @@ function SeminarForm({ values, isSubmitting, isValid, isValidating }) {
         name="dates"
         label="* Dates"
         component={DateRangeField}
-        showTime={DISPLAY_TIME}
+        showTime={TIME_PICKER_OPTIONS}
         format={SEMINAR_DATETIME_FORMAT}
       />
       <Field
