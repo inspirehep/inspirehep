@@ -1,5 +1,61 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`EventSeries renders conference series with name and number 1`] = `
+<div
+  className="__InlineList__"
+>
+  <ul>
+    <li
+      key="Conference Name"
+    >
+      <span>
+        <span>
+          10th
+           
+          conference
+           in the
+           
+        </span>
+        <Link
+          to="/conferences?q=series.name:\\"Conference Name\\"&start_date=all"
+        >
+          Conference Name
+        </Link>
+         series
+      </span>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`EventSeries renders seminar series with name and number 1`] = `
+<div
+  className="__InlineList__"
+>
+  <ul>
+    <li
+      key="Seminar Name"
+    >
+      <span>
+        <span>
+          10th
+           
+          seminar
+           in the
+           
+        </span>
+        <Link
+          to="/seminars?q=series.name:\\"Seminar Name\\"&start_date=all"
+        >
+          Seminar Name
+        </Link>
+         series
+      </span>
+    </li>
+  </ul>
+</div>
+`;
+
 exports[`EventSeries renders several series 1`] = `
 <div
   className="__InlineList__"
@@ -28,7 +84,10 @@ exports[`EventSeries renders several series 1`] = `
       <span>
         <span>
           10th
-           conference in the 
+           
+          conference
+           in the
+           
         </span>
         <Link
           to="/conferences?q=series.name:\\"Conference 2\\"&start_date=all"
@@ -51,31 +110,6 @@ exports[`EventSeries renders several series 1`] = `
           to="/conferences?q=series.name:\\"Conference 3\\"&start_date=all"
         >
           Conference 3
-        </Link>
-         series
-      </span>
-    </li>
-  </ul>
-</div>
-`;
-
-exports[`EventSeries renders with name and number 1`] = `
-<div
-  className="__InlineList__"
->
-  <ul>
-    <li
-      key="Conference Name"
-    >
-      <span>
-        <span>
-          10th
-           conference in the 
-        </span>
-        <Link
-          to="/conferences?q=series.name:\\"Conference Name\\"&start_date=all"
-        >
-          Conference Name
         </Link>
          series
       </span>

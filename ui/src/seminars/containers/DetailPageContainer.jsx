@@ -27,7 +27,7 @@ import {
 } from '../../common/utils';
 import EventTitle from '../../common/components/EventTitle';
 import SeminarDateTimes from '../components/SeminarDateTimes';
-import { LOCAL_TIMEZONE } from '../../common/constants';
+import { LOCAL_TIMEZONE, SEMINARS_PID_TYPE } from '../../common/constants';
 
 function DetailPage({ record }) {
   const metadata = record.get('metadata');
@@ -142,7 +142,7 @@ function DetailPage({ record }) {
             {series && (
               <Row className="mt3">
                 <Col>
-                  <EventSeries series={series} />
+                  <EventSeries series={series} pidType={SEMINARS_PID_TYPE} />
                 </Col>
               </Row>
             )}
