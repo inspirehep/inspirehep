@@ -2,16 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 
+import Latex from './Latex';
+
 function EventTitle({ title, acronym }) {
   const mainTitle = title.get('title');
   const subTitle = title.get('subtitle');
   return (
     <span>
-      {mainTitle}
+      <Latex>{mainTitle}</Latex>
       {subTitle && (
         <span>
           <span> : </span>
-          {subTitle}
+          <Latex>{subTitle}</Latex>
         </span>
       )}
       {acronym && <span> ({acronym})</span>}
