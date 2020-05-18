@@ -2,24 +2,32 @@
 
 exports[`EventTitle renders with also subtitle 1`] = `
 <span>
-  Conference Title
+  <Latex>
+    Conference Title
+  </Latex>
   <span>
     <span>
        : 
     </span>
-    Sub
+    <Latex>
+      Sub
+    </Latex>
   </span>
 </span>
 `;
 
 exports[`EventTitle renders with everything 1`] = `
 <span>
-  Conference Title
+  <Latex>
+    Conference Title
+  </Latex>
   <span>
     <span>
        : 
     </span>
-    Sub
+    <Latex>
+      Sub
+    </Latex>
   </span>
   <span>
      (
@@ -31,6 +39,8 @@ exports[`EventTitle renders with everything 1`] = `
 
 exports[`EventTitle renders with only title 1`] = `
 <span>
-  Conference Title
+  <Latex>
+    Conference Title
+  </Latex>
 </span>
 `;
