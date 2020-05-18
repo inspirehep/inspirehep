@@ -24,6 +24,7 @@ import DeletedAlert from '../../common/components/DeletedAlert';
 import { makeCompliantMetaDescription } from '../../common/utils';
 import withRouteActionsDispatcher from '../../common/withRouteActionsDispatcher';
 import EventTitle from '../../common/components/EventTitle';
+import { CONFERENCES_PID_TYPE } from '../../common/constants';
 
 function DetailPage({ record }) {
   const metadata = record.get('metadata');
@@ -112,7 +113,7 @@ function DetailPage({ record }) {
             {series && (
               <Row className="mt3">
                 <Col>
-                  <EventSeries series={series} />
+                  <EventSeries series={series} pidType={CONFERENCES_PID_TYPE} />
                 </Col>
               </Row>
             )}
