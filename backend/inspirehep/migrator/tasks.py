@@ -238,7 +238,7 @@ def migrate_recids_from_mirror(
 
 
 @shared_task(ignore_results=False, queue="migrator", acks_late=True)
-def stop_after_one_step():
+def stop_after_one_step(task_uuid=None):
     LOGGER.info("Only one step was requested. Stopping next steps")
 
 

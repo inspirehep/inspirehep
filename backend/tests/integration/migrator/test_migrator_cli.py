@@ -10,7 +10,7 @@ import os
 
 import pkg_resources
 import pytest
-from helpers.utils import override_config
+from helpers.utils import create_record, override_config
 from invenio_db import db
 from invenio_search import current_search
 from mock import patch
@@ -220,3 +220,11 @@ def test_migrate_continuously(mock_migration, mock_handler, inspire_app, cli):
     assert result.exit_code == 0
     assert mock_handler.call_count == 3
     assert mock_migration.call_count == 2
+
+
+def test_regression_migration_step_exits_without_error_when_steps_ends(
+    inspire_app, cli
+):
+    create_record("lit")
+    result = cli.invoke(["migrate", "mirror_step", "-s", "2"])
+    assert 0 == result.exit_code
