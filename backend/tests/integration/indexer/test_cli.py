@@ -7,6 +7,7 @@
 
 import random
 
+from celery import current_app
 from helpers.utils import create_record_factory, override_config
 from invenio_search import current_search
 from invenio_search.utils import build_index_name
@@ -192,3 +193,143 @@ def test_remap_index_when_there_are_more_than_one_indexes_with_same_name_but_dif
 
     list(current_search.delete("*"))
     current_search._current_suffix = None
+
+
+def _test_alias_to_index(alias_name, expected_index_name):
+    index_info = current_search.client.indices.get_alias(name=alias_name)
+    indexes = list(index_info)
+    assert len(indexes) == 1
+    assert expected_index_name in indexes[0]
+
+
+def test_cli_create_aliases(inspire_app, cli):
+    prefix = "test-cli-create-aliases-prefix-"
+    with override_config(SEARCH_INDEX_PREFIX=prefix):
+        list(current_search.create(ignore_existing=True))
+        result = cli.invoke(["index", "create-aliases", "--yes-i-know"])
+    assert result.exit_code == 0
+    assert (
+        result.output
+        != "This command can be executed only if SEARCH_INDEX_PREFIX is set.\n"
+    )
+    assert "does not contain current prefix" in result.output
+
+    aliases = []
+    for x in current_search.client.indices.get_alias().values():
+        aliases.extend(x["aliases"].keys())
+
+    assert "records-hep" in aliases
+    assert "records-authors" in aliases
+    assert "records-seminars" in aliases
+    assert "records-jobs" in aliases
+    assert "records-institutions" in aliases
+    assert "records-journals" in aliases
+    assert "records-data" in aliases
+    assert "records-experiments" in aliases
+    assert "records-conferences" in aliases
+
+    _test_alias_to_index("records-hep", "test-cli-create-aliases-prefix-records-hep")
+    _test_alias_to_index(
+        "records-authors", "test-cli-create-aliases-prefix-records-authors"
+    )
+    _test_alias_to_index(
+        "records-seminars", "test-cli-create-aliases-prefix-records-seminars"
+    )
+    _test_alias_to_index("records-jobs", "test-cli-create-aliases-prefix-records-jobs")
+    _test_alias_to_index(
+        "records-institutions", "test-cli-create-aliases-prefix-records-institutions"
+    )
+    _test_alias_to_index(
+        "records-journals", "test-cli-create-aliases-prefix-records-journals"
+    )
+    _test_alias_to_index("records-data", "test-cli-create-aliases-prefix-records-data")
+    _test_alias_to_index(
+        "records-experiments", "test-cli-create-aliases-prefix-records-experiments"
+    )
+    _test_alias_to_index(
+        "records-conferences", "test-cli-create-aliases-prefix-records-conferences"
+    )
+
+    current_search.flush_and_refresh("*")
+    current_search.client.indices.delete_alias(f"{prefix}*", "*")
+
+
+def test_cli_create_aliases_stops_if_prefix_not_set(inspire_app, cli):
+    with override_config(SEARCH_INDEX_PREFIX=""):
+        result = cli.invoke(["index", "create-aliases"])
+    assert (
+        result.output
+        == "This command can be executed only if SEARCH_INDEX_PREFIX is set.\n"
+    )
+
+
+def test_cli_create_prefixed_aliases(inspire_app, cli):
+    prefix = "test-cli-create-aliases-prefix-"
+    with override_config(SEARCH_INDEX_PREFIX=prefix):
+        list(current_search.create(ignore_existing=True))
+        result = cli.invoke(
+            [
+                "index",
+                "create-aliases",
+                "--yes-i-know",
+                "--prefix-alias",
+                "test-alias-prefix-",
+            ]
+        )
+    assert result.exit_code == 0
+    assert (
+        result.output
+        != "This command can be executed only if SEARCH_INDEX_PREFIX is set.\n"
+    )
+    assert "does not contain current prefix" in result.output
+
+    aliases = []
+    for x in current_search.client.indices.get_alias().values():
+        aliases.extend(x["aliases"].keys())
+
+    assert "test-alias-prefix-records-hep" in aliases
+    assert "test-alias-prefix-records-authors" in aliases
+    assert "test-alias-prefix-records-seminars" in aliases
+    assert "test-alias-prefix-records-jobs" in aliases
+    assert "test-alias-prefix-records-institutions" in aliases
+    assert "test-alias-prefix-records-journals" in aliases
+    assert "test-alias-prefix-records-data" in aliases
+    assert "test-alias-prefix-records-experiments" in aliases
+    assert "test-alias-prefix-records-conferences" in aliases
+
+    _test_alias_to_index(
+        "test-alias-prefix-records-hep", "test-cli-create-aliases-prefix-records-hep"
+    )
+    _test_alias_to_index(
+        "test-alias-prefix-records-authors",
+        "test-cli-create-aliases-prefix-records-authors",
+    )
+    _test_alias_to_index(
+        "test-alias-prefix-records-seminars",
+        "test-cli-create-aliases-prefix-records-seminars",
+    )
+    _test_alias_to_index(
+        "test-alias-prefix-records-jobs", "test-cli-create-aliases-prefix-records-jobs"
+    )
+    _test_alias_to_index(
+        "test-alias-prefix-records-institutions",
+        "test-cli-create-aliases-prefix-records-institutions",
+    )
+    _test_alias_to_index(
+        "test-alias-prefix-records-journals",
+        "test-cli-create-aliases-prefix-records-journals",
+    )
+    _test_alias_to_index(
+        "test-alias-prefix-records-data", "test-cli-create-aliases-prefix-records-data"
+    )
+    _test_alias_to_index(
+        "test-alias-prefix-records-experiments",
+        "test-cli-create-aliases-prefix-records-experiments",
+    )
+    _test_alias_to_index(
+        "test-alias-prefix-records-conferences",
+        "test-cli-create-aliases-prefix-records-conferences",
+    )
+
+    current_search.flush_and_refresh("*")
+    current_search.client.indices.delete_alias(f"{prefix}*", "*")
