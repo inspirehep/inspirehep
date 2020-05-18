@@ -6,6 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import logging
+import re
 from os import makedirs, path
 from time import sleep
 
@@ -299,3 +300,37 @@ def remap_indexes(ctx, yes_i_know, indexes, ignore_checks):
         current_search.create(ignore_existing=True, index_list=indexes)
     )
     click.echo("remapped indexes %s" % [i[0] for i in created_indexes])
+
+
+@index.command(
+    "create-aliases",
+    help="Creates aliases without prefix for indexes if prefix was set",
+)
+@click.option("--yes-i-know", is_flag=True)
+@click.option("--prefix-alias", default="", type=str)
+@with_appcontext
+@click.pass_context
+def create_aliases(ctx, yes_i_know, prefix_alias):
+    prefix = current_app.config.get("SEARCH_INDEX_PREFIX")
+    if not prefix:
+        click.echo("This command can be executed only if SEARCH_INDEX_PREFIX is set.")
+        return 1
+    indexes = current_search.client.indices.get_mapping()
+    for index_name in indexes:
+        if prefix not in index_name:
+            click.echo(
+                f"Index '{index_name}' does not contain current prefix '{prefix}'."
+            )
+            continue
+        alias_name = prefix_alias + re.sub(fr"(^{prefix}|-\d{{10,}}$)", "", index_name)
+
+        if current_search.client.indices.exists_alias(alias_name):
+            if not yes_i_know and not click.confirm(
+                f"This operation will remove current '{alias_name}' alias. Are you sure you want to continue?"
+            ):
+                click.echo(f"Skipping alias {alias_name}")
+                continue
+            click.echo(f"Removing old alias ({alias_name})")
+            current_search.client.indices.delete_alias("*", alias_name)
+        click.echo(f"Creating alias '{alias_name}' -> '{index_name}'")
+        current_search.client.indices.put_alias(index=index_name, name=alias_name)
