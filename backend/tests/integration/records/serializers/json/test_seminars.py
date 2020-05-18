@@ -134,6 +134,9 @@ def test_seminars_detail(inspire_app, datadir):
         expected_metadata = dict(deepcopy(record))
 
         expected_metadata["can_edit"] = False
+        expected_metadata["speakers"][0]["first_name"] = "Frank"
+        expected_metadata["speakers"][0]["last_name"] = "Castle"
+        expected_metadata["speakers"][1]["first_name"] = "Jane Smith"
         del expected_metadata["_collections"]
         del expected_metadata["_private_notes"]
         expected_created = utils.isoformat(record.created)
@@ -162,6 +165,9 @@ def test_seminars_search(inspire_app, datadir):
         expected_metadata = dict(deepcopy(record))
 
         expected_metadata["can_edit"] = False
+        expected_metadata["speakers"][0]["first_name"] = "Frank"
+        expected_metadata["speakers"][0]["last_name"] = "Castle"
+        expected_metadata["speakers"][1]["first_name"] = "Jane Smith"
         del expected_metadata["_collections"]
         del expected_metadata["_private_notes"]
         expected_created = utils.isoformat(record.created)

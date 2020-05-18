@@ -11,7 +11,11 @@ from inspire_dojson.utils import get_recid_from_ref
 from inspire_utils.name import generate_name_variations
 from marshmallow import Schema, fields, missing, pre_dump
 
-from inspirehep.records.marshmallow.utils import get_first_value_for_schema
+from inspirehep.records.marshmallow.utils import (
+    get_first_name,
+    get_first_value_for_schema,
+    get_last_name,
+)
 
 
 class FirstAuthorSchemaV1(Schema):
@@ -23,21 +27,13 @@ class FirstAuthorSchemaV1(Schema):
     first_name = fields.Method("get_first_name", default=missing)
     last_name = fields.Method("get_last_name", default=missing)
 
-    def get_first_name(self, data):
-        names = data.get("full_name", "").split(",", 1)
+    @staticmethod
+    def get_first_name(data):
+        return get_first_name(data.get("full_name", ""))
 
-        if len(names) > 1:
-            return names[1].replace(",", "").strip()
-
-        return names[0] or missing
-
-    def get_last_name(self, data):
-        names = data.get("full_name", "").split(",", 1)
-
-        if len(names) > 1:
-            return names[0] or missing
-
-        return missing
+    @staticmethod
+    def get_last_name(data):
+        return get_last_name(data.get("full_name", ""))
 
     def get_recid(self, data):
         # FIXME: missing from everwhere
