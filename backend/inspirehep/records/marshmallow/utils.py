@@ -7,6 +7,7 @@
 import structlog
 from inspire_utils.name import ParsedName
 from inspire_utils.record import get_value, get_values_for_schema
+from marshmallow import missing
 
 from inspirehep.records.utils import country_code_to_name
 
@@ -47,3 +48,21 @@ def set_country_for_address(address):
         except KeyError:
             LOGGER.warning("Wrong Country code", country_code=address["country_code"])
     return address
+
+
+def get_first_name(name):
+    names = name.split(",", 1)
+
+    if len(names) > 1:
+        return names[1].replace(",", "").strip()
+
+    return names[0] or missing
+
+
+def get_last_name(name):
+    names = name.split(",", 1)
+
+    if len(names) > 1:
+        return names[0] or missing
+
+    return missing
