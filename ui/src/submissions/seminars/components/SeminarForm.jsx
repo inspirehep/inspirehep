@@ -136,7 +136,7 @@ function SeminarForm({ values, isSubmitting, isValid, isValidating }) {
             <Field
               onlyChild
               name="address.city"
-              placeholder="* City"
+              placeholder="City"
               component={TextField}
             />
           </Col>
@@ -144,7 +144,7 @@ function SeminarForm({ values, isSubmitting, isValid, isValidating }) {
             <Field
               onlyChild
               name="address.country"
-              placeholder="* Country/Region"
+              placeholder="Country/Region"
               showSearch
               options={countryOptions}
               component={SelectField}
