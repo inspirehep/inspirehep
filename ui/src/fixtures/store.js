@@ -39,11 +39,23 @@ export function getState() {
   };
 }
 
-export function getStore() {
-  const mockStore = configureMockStore([thunkMiddleware]);
-  return mockStore(getState());
+export function mockActionCreator(actionCreator) {
+  const mockedImplementation = (...args) => ({
+    type: actionCreator.name,
+    payload: args,
+  });
+
+  actionCreator.mockImplementation(mockedImplementation);
 }
 
+export function getStore(overrideState = {}) {
+  const mockStore = configureMockStore([thunkMiddleware]);
+  return mockStore({ ...getState(), ...overrideState });
+}
+
+/**
+ * DEPRECATED! use `getStore` instead
+ */
 export function getStoreWithState(state) {
   const mockStore = configureMockStore([thunkMiddleware]);
   return mockStore({ ...getState(), ...state });

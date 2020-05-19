@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import SelectBox from './SelectBox';
-import { SEARCH_BOX_NAMESPACES } from '../../reducers/search';
+import { SEARCH_BOX_NAMESPACES } from '../../search/constants';
 
 const SCOPE_OPTIONS = SEARCH_BOX_NAMESPACES.map(value => ({ value }));
 

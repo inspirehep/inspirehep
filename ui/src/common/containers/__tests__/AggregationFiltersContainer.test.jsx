@@ -3,11 +3,18 @@ import { mount } from 'enzyme';
 import { fromJS } from 'immutable';
 import { Provider } from 'react-redux';
 
-import { getStoreWithState, getStore } from '../../../fixtures/store';
+import {
+  getStoreWithState,
+  getStore,
+  mockActionCreator,
+} from '../../../fixtures/store';
 import AggregationFiltersContainer from '../AggregationFiltersContainer';
 import AggregationFilters from '../../components/AggregationFilters';
-import { LITERATURE_NS } from '../../../reducers/search';
-import { SEARCH_QUERY_UPDATE } from '../../../actions/actionTypes';
+import { LITERATURE_NS } from '../../../search/constants';
+import { searchQueryUpdate } from '../../../actions/search';
+
+jest.mock('../../../actions/search');
+mockActionCreator(searchQueryUpdate);
 
 describe('AggregationFiltersContainer', () => {
   it('passes namespace search state', () => {
@@ -93,13 +100,7 @@ describe('AggregationFiltersContainer', () => {
       .prop('onAggregationChange');
     onAggregationChange('agg1', ['selected']);
     const expectedActions = [
-      {
-        type: SEARCH_QUERY_UPDATE,
-        payload: {
-          namespace,
-          query: { agg1: ['selected'], page: '1' },
-        },
-      },
+      searchQueryUpdate(namespace, { agg1: ['selected'], page: '1' }),
     ];
     expect(store.getActions()).toEqual(expectedActions);
   });

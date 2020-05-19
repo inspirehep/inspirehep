@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { getStoreWithState } from '../../../fixtures/store';
 import AuthorPublicationsContainer from '../AuthorPublicationsContainer';
 import LiteratureSearchContainer from '../../../literature/containers/LiteratureSearchContainer';
-import { AUTHOR_PUBLICATIONS_NS } from '../../../reducers/search';
+import { AUTHOR_PUBLICATIONS_NS } from '../../../search/constants';
 
 describe('AuthorPublicationsContainer', () => {
   it('passes all props to LiteratureSearchContainer', () => {

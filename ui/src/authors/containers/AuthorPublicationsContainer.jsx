@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import LiteratureSearchContainer from '../../literature/containers/LiteratureSearchContainer';
-import { AUTHOR_PUBLICATIONS_NS } from '../../reducers/search';
+import { AUTHOR_PUBLICATIONS_NS } from '../../search/constants';
 
 function AuthorPublications({ authorFacetName }) {
   const baseQuery = useMemo(

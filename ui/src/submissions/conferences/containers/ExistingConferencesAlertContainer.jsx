@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { EXISTING_CONFERENCES_NS } from '../../../reducers/search';
+import { EXISTING_CONFERENCES_NS } from '../../../search/constants';
 import { RANGE_AGGREGATION_SELECTION_SEPARATOR } from '../../../common/constants';
 import { searchQueryUpdate } from '../../../actions/search';
 import ExistingConferencesAlert from '../components/ExistingConferencesAlert';

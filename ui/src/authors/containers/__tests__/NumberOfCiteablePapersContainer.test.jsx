@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { getStore } from '../../../fixtures/store';
 import NumberOfCiteablePapersContainer from '../NumberOfCiteablePapersContainer';
 import { SEARCH_QUERY_UPDATE } from '../../../actions/actionTypes';
-import { AUTHOR_PUBLICATIONS_NS } from '../../../reducers/search';
+import { AUTHOR_PUBLICATIONS_NS } from '../../../search/constants';
 import LinkLikeButton from '../../../common/components/LinkLikeButton';
 import { CITEABLE_QUERY } from '../../../common/constants';
 

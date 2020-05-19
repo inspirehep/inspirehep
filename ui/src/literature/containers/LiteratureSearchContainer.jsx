@@ -38,9 +38,8 @@ function LiteratureSearch({
   noResultsTitle,
   noResultsDescription,
   isCitationSummaryVisible,
-  hasQueryBeenUpdatedAtLeastOnce,
   embedded,
-  hideCitationSummarySwitch,
+  enableCitationSummary,
 }) {
   const renderAggregations = useCallback(
     () => (
@@ -67,18 +66,17 @@ function LiteratureSearch({
   );
 
   return (
-    hasQueryBeenUpdatedAtLeastOnce && (
-      <Row
-        className="mt3"
-        gutter={SEARCH_PAGE_GUTTER}
-        type="flex"
-        justify="center"
+    <Row
+      className="mt3"
+      gutter={SEARCH_PAGE_GUTTER}
+      type="flex"
+      justify="center"
+    >
+      <EmptyOrChildren
+        data={results}
+        title={noResultsTitle}
+        description={noResultsDescription}
       >
-        <EmptyOrChildren
-          data={results}
-          title={noResultsTitle}
-          description={noResultsDescription}
-        >
           <Col xs={0} lg={7}>
             <ResponsiveView min="lg" render={renderAggregations} />
           </Col>
@@ -101,35 +99,35 @@ function LiteratureSearch({
                   />
                 </Col>
                 <Col className="tr" span={16}>
-                  {!hideCitationSummarySwitch && (
+                  {enableCitationSummary && (
                     <span className="mr2">
-                      <CitationSummarySwitchContainer />
+                      <CitationSummarySwitchContainer namespace={namespace}/>
                     </span>
                   )}
                   <SortByContainer namespace={namespace} />
                 </Col>
               </Row>
-              {isCitationSummaryVisible && (
+              {enableCitationSummary && isCitationSummaryVisible && (
                 <Row className="mt2">
                   <Col span={24}>
                     <CitationSummaryBoxContainer namespace={namespace} />
                   </Col>
                 </Row>
               )}
-              <Row>
-                <Col span={24}>
-                  <ResultsContainer
-                    namespace={namespace}
-                    renderItem={renderLiteratureItem}
-                  />
-                  <PaginationContainer namespace={namespace} />
-                </Col>
-              </Row>
-            </LoadingOrChildren>
-          </Col>
-        </EmptyOrChildren>
-      </Row>
-    )
+
+            <Row>
+              <Col span={24}>
+                <ResultsContainer
+                  namespace={namespace}
+                  renderItem={renderLiteratureItem}
+                />
+                <PaginationContainer namespace={namespace} />
+              </Col>
+            </Row>
+          </LoadingOrChildren>
+        </Col>
+      </EmptyOrChildren>
+    </Row>
   );
 }
 
@@ -144,10 +142,13 @@ LiteratureSearch.propTypes = {
   noResultsTitle: PropTypes.string,
   noResultsDescription: PropTypes.node,
   isCitationSummaryVisible: PropTypes.bool.isRequired,
-  hasQueryBeenUpdatedAtLeastOnce: PropTypes.bool.isRequired,
   embedded: PropTypes.bool,
-  hideCitationSummarySwitch: PropTypes.bool,
+  enableCitationSummary: PropTypes.bool,
 };
+
+LiteratureSearch.defaultProps = {
+  enableCitationSummary: true,
+}
 
 const stateToProps = (state, { namespace }) => ({
   loading: state.search.getIn(['namespaces', namespace, 'loading']),
@@ -158,11 +159,6 @@ const stateToProps = (state, { namespace }) => ({
   ]),
   results: state.search.getIn(['namespaces', namespace, 'results']),
   isCitationSummaryVisible: isCitationSummaryEnabled(state),
-  hasQueryBeenUpdatedAtLeastOnce: state.search.getIn([
-    'namespaces',
-    namespace,
-    'hasQueryBeenUpdatedAtLeastOnce',
-  ]),
 });
 
 const dispatchToProps = dispatch => ({

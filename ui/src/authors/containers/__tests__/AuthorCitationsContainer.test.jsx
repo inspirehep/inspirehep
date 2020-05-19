@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 
 import { getStoreWithState } from '../../../fixtures/store';
 import LiteratureSearchContainer from '../../../literature/containers/LiteratureSearchContainer';
-import { AUTHOR_CITATIONS_NS } from '../../../reducers/search';
+import { AUTHOR_CITATIONS_NS } from '../../../search/constants';
 import AuthorCitationsContainer from '../AuthorCitationsContainer';
 
 describe('AuthorCitationsContainer', () => {

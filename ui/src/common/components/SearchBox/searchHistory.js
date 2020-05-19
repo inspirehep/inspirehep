@@ -1,4 +1,4 @@
-import { SEARCH_BOX_NAMESPACES } from '../../../reducers/search';
+import { SEARCH_BOX_NAMESPACES } from '../../../search/constants';
 import LRASet from './LRASet';
 
 const STORAGE_KEY = 'search-box-history';

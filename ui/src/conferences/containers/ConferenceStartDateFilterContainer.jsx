@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import { searchQueryUpdate } from '../../actions/search';
 import EventStartDateFilter from '../../common/components/EventStartDateFilter';
-import { CONFERENCES_NS } from '../../reducers/search';
+import { CONFERENCES_NS } from '../../search/constants';
 import {
   START_DATE_UPCOMING,
   START_DATE_ALL,

@@ -4,7 +4,7 @@ import { fromJS } from 'immutable';
 import { Checkbox } from 'antd';
 
 import CitationSummaryBox from '../CitationSummaryBox';
-import { LITERATURE_NS } from '../../../reducers/search';
+import { LITERATURE_NS } from '../../../search/constants';
 
 describe('CitationSummaryBox', () => {
   it('renders', () => {

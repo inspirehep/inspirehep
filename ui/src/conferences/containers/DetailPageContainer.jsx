@@ -19,7 +19,7 @@ import ConferenceWebsitesAction from '../../common/components/WebsitesAction';
 import AddressList from '../../common/components/AddressList';
 import ConferenceContributions from '../components/ConferenceContributions';
 import { newSearch } from '../../actions/search';
-import { CONFERENCE_CONTRIBUTIONS_NS } from '../../reducers/search';
+import { CONFERENCE_CONTRIBUTIONS_NS } from '../../search/constants';
 import DeletedAlert from '../../common/components/DeletedAlert';
 import { makeCompliantMetaDescription } from '../../common/utils';
 import withRouteActionsDispatcher from '../../common/withRouteActionsDispatcher';

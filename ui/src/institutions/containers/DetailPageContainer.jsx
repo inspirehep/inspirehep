@@ -12,7 +12,7 @@ import DocumentHead from '../../common/components/DocumentHead';
 import InstitutionHierarchyList from '../components/InstitutionHierarchyList';
 import InstitutionPapers from './InstitutionPapers';
 import { newSearch } from '../../actions/search';
-import { INSTITUTION_PAPERS_NS } from '../../reducers/search';
+import { INSTITUTION_PAPERS_NS } from '../../search/constants';
 import RequireOneOf from '../../common/components/RequireOneOf';
 import GridLink from '../components/GridLink';
 import RorLink from '../components/RorLink';

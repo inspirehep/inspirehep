@@ -1,14 +1,15 @@
 import { Map, fromJS } from 'immutable';
 import { LOCATION_CHANGE } from 'connected-react-router';
 
-import reducer, {
-  initialState,
+import reducer, { initialState } from '../search';
+import {
   AUTHORS_NS,
   LITERATURE_NS,
   SEARCH_BOX_NAMESPACES,
   JOBS_NS,
   AUTHOR_PUBLICATIONS_NS,
-} from '../search';
+} from '../../search/constants';
+import searchConfig from '../../search/config';
 import * as types from '../../actions/actionTypes';
 
 describe('search reducer', () => {
@@ -58,43 +59,16 @@ describe('search reducer', () => {
 
   it('NEW_SEARCH_REQUEST', () => {
     const namespace = AUTHOR_PUBLICATIONS_NS;
+    const { persistedQueryParamsDuringNewSearch } = searchConfig[namespace];
+    const aPersistedParam = persistedQueryParamsDuringNewSearch[0];
     const initialReducerState = fromJS({
       namespaces: {
         [namespace]: {
           initialAggregations: { initAggs: {} },
-          query: { q: 'dude', page: 3 },
-          persistedQueryParamsDuringNewSearch: [],
-        },
-      },
-    });
-    const state = reducer(initialReducerState, {
-      type: types.NEW_SEARCH_REQUEST,
-      payload: { namespace },
-    });
-    const expected = fromJS({
-      namespaces: {
-        [namespace]: {
-          initialAggregations: initialState.getIn([
-            'namespaces',
-            namespace,
-            'initialAggregations',
-          ]),
-          query: initialState.getIn(['namespaces', namespace, 'query']),
-          persistedQueryParamsDuringNewSearch: [],
-        },
-      },
-    });
-    expect(state).toEqual(expected);
-  });
-
-  it('NEW_SEARCH_REQUEST with persistedQueryParamsDuringNewSearch', () => {
-    const namespace = AUTHOR_PUBLICATIONS_NS;
-    const initialReducerState = fromJS({
-      namespaces: {
-        [namespace]: {
-          initialAggregations: { initAggs: {} },
-          query: { q: 'dude', page: 3, a: '1', b: '2' },
-          persistedQueryParamsDuringNewSearch: ['a', 'b'],
+          query: {
+            notPersisted: 'will be deleted',
+            [aPersistedParam]: 'will be kept',
+          },
         },
       },
     });
@@ -112,10 +86,8 @@ describe('search reducer', () => {
           ]),
           query: {
             ...initialState.getIn(['namespaces', namespace, 'query']).toJS(),
-            a: '1',
-            b: '2',
+            [aPersistedParam]: 'will be kept',
           },
-          persistedQueryParamsDuringNewSearch: ['a', 'b'],
         },
       },
     });
@@ -149,7 +121,6 @@ describe('search reducer', () => {
             sort: 'mostrecent',
             size: 99,
           },
-          hasQueryBeenUpdatedAtLeastOnce: true,
         },
       },
     });
@@ -175,11 +146,6 @@ describe('search reducer', () => {
       namespaces: {
         [namespace]: {
           query: initialState.getIn(['namespaces', namespace, 'query']),
-          hasQueryBeenUpdatedAtLeastOnce: initialState.getIn([
-            'namespaces',
-            namespace,
-            'hasQueryBeenUpdatedAtLeastOnce',
-          ]),
         },
       },
     });
@@ -214,7 +180,6 @@ describe('search reducer', () => {
             sort: 'mostcited',
             page: 1,
           },
-          hasQueryBeenUpdatedAtLeastOnce: true,
         },
       },
     });

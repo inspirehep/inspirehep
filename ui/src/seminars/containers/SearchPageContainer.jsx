@@ -12,7 +12,7 @@ import LoadingOrChildren from '../../common/components/LoadingOrChildren';
 import ResponsiveView from '../../common/components/ResponsiveView';
 import DrawerHandle from '../../common/components/DrawerHandle';
 import DocumentHead from '../../common/components/DocumentHead';
-import { SEMINARS_NS } from '../../reducers/search';
+import { SEMINARS_NS } from '../../search/constants';
 import { SEARCH_PAGE_GUTTER, LOCAL_TIMEZONE } from '../../common/constants';
 import SeminarItem from '../components/SeminarItem';
 import SeminarStartDateFilterContainer from './SeminarStartDateFilterContainer';

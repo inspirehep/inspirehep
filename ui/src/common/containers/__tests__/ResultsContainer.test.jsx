@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { getStoreWithState } from '../../../fixtures/store';
 import ResultsContainer from '../ResultsContainer';
 import SearchResults from '../../components/SearchResults';
-import { JOBS_NS } from '../../../reducers/search';
+import { JOBS_NS } from '../../../search/constants';
 
 describe('ResultsContainer', () => {
   it('passes results from state', () => {

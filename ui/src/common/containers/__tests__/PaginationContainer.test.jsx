@@ -3,11 +3,18 @@ import { mount } from 'enzyme';
 import { fromJS } from 'immutable';
 import { Provider } from 'react-redux';
 
-import { getStoreWithState, getStore } from '../../../fixtures/store';
+import {
+  getStoreWithState,
+  getStore,
+  mockActionCreator,
+} from '../../../fixtures/store';
 import PaginationContainer from '../PaginationContainer';
 import SearchPagination from '../../components/SearchPagination';
-import { LITERATURE_NS } from '../../../reducers/search';
-import { SEARCH_QUERY_UPDATE } from '../../../actions/actionTypes';
+import { LITERATURE_NS } from '../../../search/constants';
+import { searchQueryUpdate } from '../../../actions/search';
+
+jest.mock('../../../actions/search');
+mockActionCreator(searchQueryUpdate);
 
 describe('PaginationContainer', () => {
   it('passes page, size and total from search namespace state', () => {
@@ -34,8 +41,9 @@ describe('PaginationContainer', () => {
     });
   });
 
-  it('calls pushQueryToLocation onPageChange', () => {
+  it('dispatcheds searchQueryUpdate onPageChange', () => {
     const store = getStore();
+
     const namespace = LITERATURE_NS;
     const wrapper = mount(
       <Provider store={store}>
@@ -47,16 +55,11 @@ describe('PaginationContainer', () => {
 
     onPageChange(page);
 
-    const expectedActions = [
-      {
-        type: SEARCH_QUERY_UPDATE,
-        payload: { namespace, query: { page: '3' } },
-      },
-    ];
+    const expectedActions = [searchQueryUpdate(namespace, { page: '3' })];
     expect(store.getActions()).toEqual(expectedActions);
   });
 
-  it('calls pushQueryToLocation onSizeChange', () => {
+  it('dispatches searchQueryUpdate onSizeChange', () => {
     const store = getStore();
     const namespace = LITERATURE_NS;
     const wrapper = mount(
@@ -70,12 +73,7 @@ describe('PaginationContainer', () => {
 
     onSizeChange(page, size);
 
-    const expectedActions = [
-      {
-        type: SEARCH_QUERY_UPDATE,
-        payload: { namespace, query: { size, page: '1' } },
-      },
-    ];
+    const expectedActions = [searchQueryUpdate(namespace, { size, page: '1' })];
     expect(store.getActions()).toEqual(expectedActions);
   });
 });

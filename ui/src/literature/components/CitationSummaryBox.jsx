@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Col, Row, Checkbox } from 'antd';
 import PropTypes from 'prop-types';
-import { Map } from 'immutable';
 
 import ContentBox from '../../common/components/ContentBox';
 import CitationSummaryGraphContainer from '../../common/containers/CitationSummaryGraphContainer';
@@ -10,19 +9,10 @@ import AuthorizedContainer from '../../common/containers/AuthorizedContainer';
 import { SUPERUSER_OR_CATALOGER } from '../../common/authorization';
 
 function CitationSummaryBox({
-  query,
-  onQueryChange,
   namespace,
   excludeSelfCitations,
   onExcludeSelfCitationsChange,
 }) {
-  useEffect(
-    () => {
-      onQueryChange(query, excludeSelfCitations);
-    },
-    [query, onQueryChange, excludeSelfCitations]
-  );
-
   return (
     <ContentBox subTitle="Citation Summary">
       <AuthorizedContainer authorizedRoles={SUPERUSER_OR_CATALOGER}>
@@ -46,8 +36,6 @@ function CitationSummaryBox({
 }
 
 CitationSummaryBox.propTypes = {
-  query: PropTypes.instanceOf(Map),
-  onQueryChange: PropTypes.func.isRequired,
   namespace: PropTypes.string.isRequired,
   excludeSelfCitations: PropTypes.bool.isRequired,
   onExcludeSelfCitationsChange: PropTypes.func.isRequired,
