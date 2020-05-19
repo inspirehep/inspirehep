@@ -8,7 +8,7 @@ import ResultsContainer from '../../common/containers/ResultsContainer';
 import NumberOfResultsContainer from '../../common/containers/NumberOfResultsContainer';
 import LoadingOrChildren from '../../common/components/LoadingOrChildren';
 import DocumentHead from '../../common/components/DocumentHead';
-import { INSTITUTIONS_NS } from '../../reducers/search';
+import { INSTITUTIONS_NS } from '../../search/constants';
 import { SEARCH_PAGE_GUTTER } from '../../common/constants';
 import InstitutionItem from '../components/InstitutionItem';
 

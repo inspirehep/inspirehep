@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { fromJS } from 'immutable';
 
 import ExistingConferencesAlertContainer from '../ExistingConferencesAlertContainer';
-import { EXISTING_CONFERENCES_NS } from '../../../../reducers/search';
+import { EXISTING_CONFERENCES_NS } from '../../../../search/constants';
 import { SEARCH_QUERY_UPDATE } from '../../../../actions/actionTypes';
 import { getStore, getStoreWithState } from '../../../../fixtures/store';
 import { RANGE_AGGREGATION_SELECTION_SEPARATOR } from '../../../../common/constants';

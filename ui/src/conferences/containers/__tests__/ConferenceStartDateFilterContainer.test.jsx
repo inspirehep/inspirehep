@@ -3,12 +3,20 @@ import { mount } from 'enzyme';
 import { fromJS } from 'immutable';
 import { Provider } from 'react-redux';
 
-import { getStoreWithState, getStore } from '../../../fixtures/store';
-import { CONFERENCES_NS } from '../../../reducers/search';
-import { SEARCH_QUERY_UPDATE } from '../../../actions/actionTypes';
+import {
+  getStoreWithState,
+  getStore,
+  mockActionCreator,
+} from '../../../fixtures/store';
+import { CONFERENCES_NS } from '../../../search/constants';
 import ConferenceStartDateFilterContainer from '../ConferenceStartDateFilterContainer';
 import { START_DATE_ALL, START_DATE_UPCOMING } from '../../../common/constants';
 import EventStartDateFilter from '../../../common/components/EventStartDateFilter';
+
+import { searchQueryUpdate } from '../../../actions/search';
+
+jest.mock('../../../actions/search');
+mockActionCreator(searchQueryUpdate);
 
 describe('ConferenceStartDateFilterContainer', () => {
   it('passes conference search query start_date', () => {
@@ -44,13 +52,11 @@ describe('ConferenceStartDateFilterContainer', () => {
     const onChange = wrapper.find(EventStartDateFilter).prop('onChange');
     onChange(START_DATE_ALL);
     const expectedActions = [
-      {
-        type: SEARCH_QUERY_UPDATE,
-        payload: {
-          namespace: CONFERENCES_NS,
-          query: { start_date: START_DATE_ALL, page: '1', sort: 'datedesc' },
-        },
-      },
+      searchQueryUpdate(CONFERENCES_NS, {
+        start_date: START_DATE_ALL,
+        page: '1',
+        sort: 'datedesc',
+      }),
     ];
     expect(store.getActions()).toEqual(expectedActions);
   });
@@ -65,17 +71,11 @@ describe('ConferenceStartDateFilterContainer', () => {
     const onChange = wrapper.find(EventStartDateFilter).prop('onChange');
     onChange(START_DATE_UPCOMING);
     const expectedActions = [
-      {
-        type: SEARCH_QUERY_UPDATE,
-        payload: {
-          namespace: CONFERENCES_NS,
-          query: {
-            start_date: START_DATE_UPCOMING,
-            page: '1',
-            sort: 'dateasc',
-          },
-        },
-      },
+      searchQueryUpdate(CONFERENCES_NS, {
+        start_date: START_DATE_UPCOMING,
+        page: '1',
+        sort: 'dateasc',
+      }),
     ];
     expect(store.getActions()).toEqual(expectedActions);
   });
@@ -90,13 +90,10 @@ describe('ConferenceStartDateFilterContainer', () => {
     const onChange = wrapper.find(EventStartDateFilter).prop('onChange');
     onChange('2020-02-13--');
     const expectedActions = [
-      {
-        type: SEARCH_QUERY_UPDATE,
-        payload: {
-          namespace: CONFERENCES_NS,
-          query: { start_date: '2020-02-13--', page: '1' },
-        },
-      },
+      searchQueryUpdate(CONFERENCES_NS, {
+        start_date: '2020-02-13--',
+        page: '1',
+      }),
     ];
     expect(store.getActions()).toEqual(expectedActions);
   });

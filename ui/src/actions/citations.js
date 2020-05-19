@@ -33,10 +33,10 @@ function fetchCitationsError(error) {
   };
 }
 
-function fetchingCitationSummary(query) {
+function fetchingCitationSummary(namespace) {
   return {
     type: CITATIONS_SUMMARY_REQUEST,
-    payload: { query },
+    payload: { namespace },
   };
 }
 
@@ -74,14 +74,21 @@ export function fetchCitations(recordId, newQuery = {}) {
   };
 }
 
-export function fetchCitationSummary(literatureSearchQuery) {
+export function fetchCitationSummary(namespace) {
   return async (dispatch, getState, http) => {
-    dispatch(fetchingCitationSummary(literatureSearchQuery));
+    dispatch(fetchingCitationSummary(namespace));
     try {
+      const { search, ui } = getState();
+      const literatureSearchQuery = search
+        .getIn(['namespaces', namespace, 'query'])
+        .toJS();
+      const excludeSelfCitations = ui.get('excludeSelfCitations');
       const query = {
         ...literatureSearchQuery,
         facet_name: 'citation-summary',
+        'exclude-self-citations': excludeSelfCitations || undefined,
       };
+
       const queryString = stringify(query, { indices: false });
       const url = `/literature/facets?${queryString}`;
       const response = await http.get(url);

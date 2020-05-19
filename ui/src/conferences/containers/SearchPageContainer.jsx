@@ -12,7 +12,7 @@ import LoadingOrChildren from '../../common/components/LoadingOrChildren';
 import ResponsiveView from '../../common/components/ResponsiveView';
 import DrawerHandle from '../../common/components/DrawerHandle';
 import DocumentHead from '../../common/components/DocumentHead';
-import { CONFERENCES_NS } from '../../reducers/search';
+import { CONFERENCES_NS } from '../../search/constants';
 import ConferenceItem from '../components/ConferenceItem';
 import ConferenceStartDateFilterContainer from './ConferenceStartDateFilterContainer';
 import { SEARCH_PAGE_GUTTER } from '../../common/constants';

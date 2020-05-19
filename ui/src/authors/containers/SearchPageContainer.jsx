@@ -9,7 +9,7 @@ import ResultsContainer from '../../common/containers/ResultsContainer';
 import NumberOfResultsContainer from '../../common/containers/NumberOfResultsContainer';
 import LoadingOrChildren from '../../common/components/LoadingOrChildren';
 import DocumentHead from '../../common/components/DocumentHead';
-import { AUTHORS_NS } from '../../reducers/search';
+import { AUTHORS_NS } from '../../search/constants';
 import { SEARCH_PAGE_GUTTER } from '../../common/constants';
 
 const META_DESCRIPTION = 'Find authors in High Energy Physics';

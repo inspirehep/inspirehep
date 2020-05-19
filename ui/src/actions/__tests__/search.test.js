@@ -1,95 +1,38 @@
-import { push, replace } from 'connected-react-router';
 import MockAdapter from 'axios-mock-adapter';
-import { fromJS } from 'immutable';
 
-import { getStoreWithState, getStore } from '../../fixtures/store';
+import { getStore } from '../../fixtures/store';
 import http from '../../common/http';
 import * as types from '../actionTypes';
 import {
-  searchForCurrentQuery,
-  fetchSearchAggregationsForCurrentQuery,
+  fetchSearchResults,
+  fetchSearchAggregations,
   changeSearchBoxNamespace,
   searchBaseQueriesUpdate,
   searchQueryUpdate,
   newSearch,
 } from '../search';
-import {
-  LITERATURE_NS,
-  AUTHOR_PUBLICATIONS_NS,
-  FETCH_MODE_ALWAYS,
-  AUTHORS_NS,
-  FETCH_MODE_NEVER,
-  FETCH_MODE_INITIAL,
-  JOBS_NS,
-} from '../../reducers/search';
-import { LITERATURE, AUTHORS, JOBS } from '../../common/routes';
+import { LITERATURE_NS, AUTHOR_PUBLICATIONS_NS } from '../../search/constants';
+import { LITERATURE } from '../../common/routes';
+import searchConfig from '../../search/config';
+
+jest.mock('../../search/config');
 
 const mockHttp = new MockAdapter(http);
 
 describe('search - action creators', () => {
-  describe('searchForCurrentQuery', () => {
-    it('creates SEARCH_REQUEST and SEARCH_SUCCESS if search request is successful and pushes search url to history if search namespace is not embedded', async () => {
+  describe('fetchSearchResults', () => {
+    it('creates SEARCH_REQUEST and SEARCH_SUCCESS', async () => {
       const namespace = LITERATURE_NS;
       const pathname = LITERATURE;
-      const store = getStoreWithState({
-        router: {
-          location: { hash: '#hash' },
-        },
-        search: fromJS({
-          namespaces: {
-            [namespace]: {
-              pathname,
-              query: { page: 1, size: 10, q: 'test' },
-              baseQuery: { page: 1, size: 10 },
-              embedded: false,
-            },
-          },
-        }),
-      });
+      const store = getStore();
       const data = { foo: 'bar' };
       const url = `${pathname}?page=1&size=10&q=test`;
       mockHttp.onGet(url).replyOnce(200, data);
 
-      await store.dispatch(searchForCurrentQuery(namespace));
+      await store.dispatch(fetchSearchResults(namespace, url));
 
       const expectedActions = [
         { type: types.SEARCH_REQUEST, payload: { namespace } },
-        push(`${url}#hash`),
-        { type: types.SEARCH_SUCCESS, payload: { namespace, data } },
-      ];
-      expect(store.getActions()).toEqual(expectedActions);
-    });
-
-    it('creates SEARCH_REQUEST and SEARCH_SUCCESS if search request is successful and replaces search url in history when only difference between current url and searcn query is the baseQuery, if search namespace is embeded,', async () => {
-      const namespace = LITERATURE_NS;
-      const pathname = LITERATURE;
-      const store = getStoreWithState({
-        router: {
-          location: {
-            query: { q: 'test' },
-            hash: '',
-          },
-        },
-        search: fromJS({
-          namespaces: {
-            [namespace]: {
-              pathname,
-              query: { page: 1, size: 10, q: 'test' },
-              baseQuery: { page: 1, size: 10 },
-              embedded: false,
-            },
-          },
-        }),
-      });
-      const data = { foo: 'bar' };
-      const url = `${pathname}?page=1&size=10&q=test`;
-      mockHttp.onGet(url).replyOnce(200, data);
-
-      await store.dispatch(searchForCurrentQuery(namespace));
-
-      const expectedActions = [
-        { type: types.SEARCH_REQUEST, payload: { namespace } },
-        replace(url),
         { type: types.SEARCH_SUCCESS, payload: { namespace, data } },
       ];
       expect(store.getActions()).toEqual(expectedActions);
@@ -98,21 +41,11 @@ describe('search - action creators', () => {
     it('creates SEARCH_REQUEST and SEARCH_ERROR if search request is unsuccessful', async () => {
       const namespace = AUTHOR_PUBLICATIONS_NS;
       const pathname = LITERATURE;
-      const store = getStoreWithState({
-        search: fromJS({
-          namespaces: {
-            [namespace]: {
-              pathname,
-              query: { page: 1, size: 10, q: 'test' },
-              baseQuery: { page: 1, size: 10 },
-              embedded: true,
-            },
-          },
-        }),
-      });
+      const store = getStore();
+      const url = `${pathname}?page=1&size=10&q=test`;
       mockHttp.onGet(`${pathname}?page=1&size=10&q=test`).networkError();
 
-      await store.dispatch(searchForCurrentQuery(namespace));
+      await store.dispatch(fetchSearchResults(namespace, url));
 
       const expectedActions = [
         { type: types.SEARCH_REQUEST, payload: { namespace } },
@@ -126,31 +59,16 @@ describe('search - action creators', () => {
     });
   });
 
-  describe('fetchSearchAggregationsForCurrentQuery', () => {
-    it('creates SEARCH_AGGREGATIONS_REQUEST and SEARCH_AGGREGATIONS_SUCCESS if search request is successful when aggregationsFetchMode is ALWAYS', async () => {
+  describe('fetchSearchAggregations', () => {
+    it('creates SEARCH_AGGREGATIONS_REQUEST and SEARCH_AGGREGATIONS_SUCCESS if search request is successful', async () => {
       const namespace = AUTHOR_PUBLICATIONS_NS;
       const pathname = LITERATURE;
-      const store = getStoreWithState({
-        search: fromJS({
-          namespaces: {
-            [namespace]: {
-              pathname,
-              query: { page: 1, size: 10, q: 'test' },
-              baseQuery: { page: 1, size: 10 },
-              embedded: true,
-              aggregationsFetchMode: FETCH_MODE_ALWAYS,
-              baseAggregationsQuery: { facet_name: 'pubs' },
-              aggregations: {},
-            },
-          },
-        }),
-      });
+      const store = getStore();
       const data = { foo: 'bar' };
-      mockHttp
-        .onGet(`${pathname}/facets?page=1&size=10&q=test&facet_name=pubs`)
-        .replyOnce(200, data);
+      const url = `${pathname}/facets?page=1&size=10&q=test&facet_name=pubs`;
+      mockHttp.onGet(url).replyOnce(200, data);
 
-      await store.dispatch(fetchSearchAggregationsForCurrentQuery(namespace));
+      await store.dispatch(fetchSearchAggregations(namespace, url));
 
       const expectedActions = [
         { type: types.SEARCH_AGGREGATIONS_REQUEST, payload: { namespace } },
@@ -159,113 +77,17 @@ describe('search - action creators', () => {
           payload: { namespace, data },
         },
       ];
-      expect(store.getActions()).toEqual(expectedActions);
-    });
-
-    it('does not create SEARCH_AGGREGATIONS_REQUEST and SEARCH_AGGREGATIONS_SUCCESS if search request is successful when aggregationsFetchMode is NEVER', async () => {
-      const namespace = AUTHORS_NS;
-      const pathname = AUTHORS;
-      const store = getStoreWithState({
-        search: fromJS({
-          namespaces: {
-            [namespace]: {
-              pathname,
-              query: { page: 1, size: 10, q: 'test' },
-              baseQuery: { page: 1, size: 10 },
-              embedded: false,
-              aggregationsFetchMode: FETCH_MODE_NEVER,
-              aggregations: {},
-            },
-          },
-        }),
-      });
-
-      await store.dispatch(fetchSearchAggregationsForCurrentQuery(namespace));
-
-      const expectedActions = [];
-      expect(store.getActions()).toEqual(expectedActions);
-    });
-
-    it('creates SEARCH_AGGREGATIONS_REQUEST without query and SEARCH_AGGREGATIONS_SUCCESS if search request is successful when aggregationsFetchMode is INITIAL and aggregations is empty', async () => {
-      const namespace = JOBS_NS;
-      const pathname = JOBS;
-      const store = getStoreWithState({
-        search: fromJS({
-          namespaces: {
-            [namespace]: {
-              pathname,
-              query: { page: 1, size: 10, q: 'test' },
-              baseQuery: { page: 1, size: 10 },
-              embedded: false,
-              aggregationsFetchMode: FETCH_MODE_INITIAL,
-              baseAggregationsQuery: {},
-              aggregations: {},
-            },
-          },
-        }),
-      });
-      const data = { foo: 'bar' };
-      mockHttp.onGet(`${pathname}/facets?`).replyOnce(200, data);
-
-      await store.dispatch(fetchSearchAggregationsForCurrentQuery(namespace));
-
-      const expectedActions = [
-        { type: types.SEARCH_AGGREGATIONS_REQUEST, payload: { namespace } },
-        {
-          type: types.SEARCH_AGGREGATIONS_SUCCESS,
-          payload: { namespace, data },
-        },
-      ];
-      expect(store.getActions()).toEqual(expectedActions);
-    });
-
-    it('does not create SEARCH_AGGREGATIONS_REQUEST and SEARCH_AGGREGATIONS_SUCCESS if search request is successful when aggregationsFetchMode is INITIAL and aggregations is not empty', async () => {
-      const namespace = AUTHORS_NS;
-      const pathname = AUTHORS;
-      const store = getStoreWithState({
-        search: fromJS({
-          namespaces: {
-            [namespace]: {
-              pathname,
-              query: { page: 1, size: 10, q: 'test' },
-              baseQuery: { page: 1, size: 10 },
-              embedded: false,
-              aggregationsFetchMode: FETCH_MODE_INITIAL,
-              aggregations: { foo: 'bar' },
-            },
-          },
-        }),
-      });
-
-      await store.dispatch(fetchSearchAggregationsForCurrentQuery(namespace));
-
-      const expectedActions = [];
       expect(store.getActions()).toEqual(expectedActions);
     });
 
     it('creates SEARCH_AGGREGATIONS_REQUEST and SEARCH_AGGREGATIONS_ERROR if search request is unsuccessful', async () => {
       const namespace = LITERATURE_NS;
       const pathname = LITERATURE;
-      const store = getStoreWithState({
-        search: fromJS({
-          namespaces: {
-            [namespace]: {
-              pathname,
-              query: { page: 1, size: 10, q: 'test' },
-              baseQuery: { page: 1, size: 10 },
-              embedded: false,
-              baseAggregationsQuery: {},
-              aggregationsFetchMode: FETCH_MODE_ALWAYS,
-              aggregations: {},
-            },
-          },
-        }),
-      });
-      mockHttp
-        .onGet(`${pathname}/facets?page=1&size=10&q=test`)
-        .replyOnce(400, { message: 'error' });
+      const store = getStore();
+      const url = `${pathname}/facets?page=1&size=10&q=test`;
+      mockHttp.onGet(url).replyOnce(400, { message: 'error' });
 
-      await store.dispatch(fetchSearchAggregationsForCurrentQuery(namespace));
+      await store.dispatch(fetchSearchAggregations(namespace, url));
 
       const expectedActions = [
         { type: types.SEARCH_AGGREGATIONS_REQUEST, payload: { namespace } },
@@ -312,6 +134,8 @@ describe('search - action creators', () => {
         },
       ];
 
+      expect(searchConfig[namespace].onQueryChange).toHaveBeenCalled();
+
       expect(store.getActions()).toEqual(expectedActions);
     });
   });
@@ -319,7 +143,7 @@ describe('search - action creators', () => {
   describe('searchQueryUpdate', () => {
     it('creates SEARCH_QUERY_UPDATE', async () => {
       const store = getStore();
-      const namespace = LITERATURE_NS;
+      const namespace = AUTHOR_PUBLICATIONS_NS;
       const query = { foo: 'bar' };
       store.dispatch(searchQueryUpdate(namespace, query));
 
@@ -329,6 +153,9 @@ describe('search - action creators', () => {
           payload: { namespace, query },
         },
       ];
+
+      // TODO: assert parameters
+      expect(searchConfig[namespace].onQueryChange).toHaveBeenCalled();
 
       expect(store.getActions()).toEqual(expectedActions);
     });

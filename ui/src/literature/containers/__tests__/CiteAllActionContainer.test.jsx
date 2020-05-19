@@ -6,7 +6,7 @@ import { fromJS } from 'immutable';
 import { getStoreWithState } from '../../../fixtures/store';
 import CiteAllActionContainer from '../CiteAllActionContainer';
 import CiteAllAction from '../../components/CiteAllAction';
-import { LITERATURE_NS } from '../../../reducers/search';
+import { LITERATURE_NS } from '../../../search/constants';
 
 describe('CiteAllActionContainer', () => {
   it('passes literature namespace query and number of results', () => {

@@ -9,7 +9,7 @@ UI for inspirehep
 ### Runtime
 
 * react (with react-router)
-* redux (with immutable)
+* redux (with immutable sub states)
 * ant-design
 
 ### Development
@@ -31,12 +31,24 @@ UI for inspirehep
 * use [enzyme](https://airbnb.io/enzyme), do not use `ReactTestUtils` directly.
 * utilize [enzyme-matchers](https://github.com/FormidableLabs/enzyme-matchers).
 
-#### render
+#### components
 
-* prefer `shallow` over `mount`, for snapshot testing
-* use `dive` with shallow for components that are wrapped by `HOC`
+* use `shallow` for snapshot testing
+* use `dive` with shallow for components that are wrapped by `HOC`, or to assert logic of a render prop
 * do not test render results of a child component, test only props of a child component (`toHaveProp()`)
-  * prefer snapshot testing unless explicit `toHaveProp()` assertion is necessary, (it is when testing function props)
+  * prefer snapshot testing unless explicit `toHaveProp()` assertion is necessary, (it is when testing function props, such as event callbacks)
+
+#### containers
+
+* use `mount` to render a container with a provider that has mock store.
+  * example: `<Provider store={getStore({...})}>`
+* wrap the container with `
+* use `find(Component)` to get wrapper of the "dummy" component
+* use `dummyWrapper.toHaveProp({...})` to assert `stateToProps` logic
+* use `mockStore.getActions()` to assert logic of `dispatchToProps`.
+  * mock action creators that are returning functions with `jest.mock` and `mockActionCreator` utility
+  * call the action create instead of hard coding the action object, when creating expected actions for assertions
+    * `[do(aThing)]` rather than `[{ type: 'DO', payload: { thing: aThing }}]`
 
 ### UI
 

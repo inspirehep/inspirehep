@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import SearchBox from '../components/SearchBox';
 import { searchQueryUpdate } from '../../actions/search';
 import { setHash } from '../../actions/router';
-import { LITERATURE_NS } from '../../reducers/search';
+import { LITERATURE_NS } from '../../search/constants';
 
 const stateToProps = state => ({
   value: state.search.getIn([

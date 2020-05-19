@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import LiteratureSearchContainer from '../../literature/containers/LiteratureSearchContainer';
-import { CONFERENCE_CONTRIBUTIONS_NS } from '../../reducers/search';
+import { CONFERENCE_CONTRIBUTIONS_NS } from '../../search/constants';
 import { getContributionsQueryString } from '../utils';
 
 function ConferenceContributions({ conferenceRecordId }) {

@@ -6,7 +6,7 @@ import {
   newSearch,
   searchQueryReset,
 } from '../actions/search';
-import { SEARCHABLE_COLLECTION_PATHNAMES } from '../reducers/search';
+import { SEARCHABLE_COLLECTION_PATHNAMES } from '../search/constants';
 import { getRootOfLocationPathname } from '../common/utils';
 
 const idInUrlRegExp = new RegExp('/\\d+');

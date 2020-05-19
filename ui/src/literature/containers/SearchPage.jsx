@@ -2,7 +2,7 @@ import React from 'react';
 import { Row, Col } from 'antd';
 
 import LiteratureSearchContainer from './LiteratureSearchContainer';
-import { LITERATURE_NS } from '../../reducers/search';
+import { LITERATURE_NS } from '../../search/constants';
 import DocumentHead from '../../common/components/DocumentHead';
 import ExternalLink from '../../common/components/ExternalLink';
 import { PAPER_SEARCH_URL } from '../../common/constants';

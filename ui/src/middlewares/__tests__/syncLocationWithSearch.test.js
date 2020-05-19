@@ -2,17 +2,23 @@ import { LOCATION_CHANGE } from 'connected-react-router';
 import { fromJS } from 'immutable';
 
 import middleware from '../syncLocationWithSearch';
-import { LITERATURE_NS } from '../../reducers/search';
-import {
-  SEARCH_QUERY_UPDATE,
-  NEW_SEARCH_REQUEST,
-  SEARCH_QUERY_RESET,
-} from '../../actions/actionTypes';
+import { LITERATURE_NS } from '../../search/constants';
+import { mockActionCreator } from '../../fixtures/store';
 import { LITERATURE } from '../../common/routes';
+import {
+  searchQueryUpdate,
+  searchQueryReset,
+  newSearch,
+} from '../../actions/search';
+
+jest.mock('../../actions/search');
+mockActionCreator(searchQueryUpdate);
+mockActionCreator(newSearch);
+mockActionCreator(searchQueryReset);
 
 describe('syncLocationWithSearch middleware', () => {
   describe('on LOCATION_CHANGE returns next(original action) and', () => {
-    it('dispatches SEARCH_QUERY_UPDATE if pathame is search page and location query is not sync with search namespace query', () => {
+    it('dispatches searchQueryUpdate if pathame is search page and location query is not sync with search namespace query', () => {
       // TODO: extract this repetitive part to a function to make test cases less verbose
       const namespace = LITERATURE_NS;
       const location = {
@@ -42,14 +48,12 @@ describe('syncLocationWithSearch middleware', () => {
       const resultAction = testMiddleware(action);
 
       expect(resultAction).toEqual(action);
-      expect(mockDispatch).toHaveBeenCalledWith({
-        type: SEARCH_QUERY_UPDATE,
-        payload: { namespace, query: location.query },
-      });
+      expect(mockDispatch).toHaveBeenCalledWith(
+        searchQueryUpdate(namespace, location.query)
+      );
     });
 
-    it('dispatches SEARCH_QUERY_RESET if there is a POP (back) but pathname has not changed', () => {
-      // TODO: extract this repetitive part to a function to make test cases less verbose
+    it('dispatches searchQueryReset if there is a POP (back) but pathname has not changed', () => {
       const namespace = LITERATURE_NS;
       const location = {
         pathname: LITERATURE,
@@ -78,14 +82,10 @@ describe('syncLocationWithSearch middleware', () => {
       const resultAction = testMiddleware(action);
 
       expect(resultAction).toEqual(action);
-      expect(mockDispatch).toHaveBeenCalledWith({
-        type: SEARCH_QUERY_RESET,
-        payload: { namespace },
-      });
+      expect(mockDispatch).toHaveBeenCalledWith(searchQueryReset(namespace));
     });
 
-    it('dispatches SEARCH_QUERY_UPDATE when isFirstRendering even if namespace query equals to location query', () => {
-      // TODO: extract this repetitive part to a function to make test cases less verbose
+    it('dispatches searchQueryUpdate when isFirstRendering even if namespace query equals to location query', () => {
       const namespace = LITERATURE_NS;
       const location = {
         pathname: LITERATURE,
@@ -114,13 +114,12 @@ describe('syncLocationWithSearch middleware', () => {
       const resultAction = testMiddleware(action);
 
       expect(resultAction).toEqual(action);
-      expect(mockDispatch).toHaveBeenCalledWith({
-        type: SEARCH_QUERY_UPDATE,
-        payload: { namespace, query: location.query },
-      });
+      expect(mockDispatch).toHaveBeenCalledWith(
+        searchQueryUpdate(namespace, location.query)
+      );
     });
 
-    it('dispatches NEW_SEARCH_REQUEST for previous namespace when pathname changes', () => {
+    it('dispatches newSearch for previous namespace when pathname changes', () => {
       const namespace = LITERATURE_NS;
       const location = {
         pathname: LITERATURE,
@@ -142,13 +141,10 @@ describe('syncLocationWithSearch middleware', () => {
       const resultAction = testMiddleware(action);
 
       expect(resultAction).toEqual(action);
-      expect(mockDispatch).toHaveBeenCalledWith({
-        type: NEW_SEARCH_REQUEST,
-        payload: { namespace },
-      });
+      expect(mockDispatch).toHaveBeenCalledWith(newSearch(namespace));
     });
 
-    it('does not dispatch NEW_SEARCH_REQUEST if pathname does not change', () => {
+    it('does not dispatch newSearch if pathname does not change', () => {
       const namespace = LITERATURE_NS;
       const location = {
         pathname: LITERATURE,
@@ -177,13 +173,10 @@ describe('syncLocationWithSearch middleware', () => {
       const resultAction = testMiddleware(action);
 
       expect(resultAction).toEqual(action);
-      expect(mockDispatch).not.toHaveBeenCalledWith({
-        type: NEW_SEARCH_REQUEST,
-        payload: { namespace },
-      });
+      expect(mockDispatch).not.toHaveBeenCalledWith(newSearch(namespace));
     });
 
-    it('does not dispatch NEW_SEARCH_REQUEST if previous pathname is not a search page', () => {
+    it('does not dispatch newSearch if previous pathname is not a search page', () => {
       const namespace = LITERATURE_NS;
       const location = {
         pathname: '/whatever',
@@ -205,10 +198,7 @@ describe('syncLocationWithSearch middleware', () => {
       const resultAction = testMiddleware(action);
 
       expect(resultAction).toEqual(action);
-      expect(mockDispatch).not.toHaveBeenCalledWith({
-        type: NEW_SEARCH_REQUEST,
-        payload: { namespace },
-      });
+      expect(mockDispatch).not.toHaveBeenCalledWith(newSearch(namespace));
     });
 
     it('does not dispatch SEARCH_QUERY_UPDATE if pathame is not search page but location query is not sync with search namespace query', () => {

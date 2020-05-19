@@ -23,12 +23,12 @@ import AuthorLinkedinAction from '../../components/AuthorLinkedinAction';
 import AuthorWebsitesAction from '../../components/AuthorWebsitesAction';
 import AuthorOrcid from '../../components/AuthorOrcid';
 import DocumentHead from '../../../common/components/DocumentHead';
+import TabNameWithCount from '../../../common/components/TabNameWithCount';
+import NewFeatureTag from '../../../common/components/NewFeatureTag';
+import AuthorCitationsContainer from '../AuthorCitationsContainer';
 import AuthorEmailsAction from '../../components/AuthorEmailsAction';
 import AuthorPublicationsContainer from '../AuthorPublicationsContainer';
-import {
-  AUTHOR_PUBLICATIONS_NS,
-  AUTHOR_CITATIONS_NS,
-} from '../../../reducers/search';
+import { AUTHOR_PUBLICATIONS_NS, AUTHOR_CITATIONS_NS } from '../../../search/constants';
 import { newSearch } from '../../../actions/search';
 import EditRecordAction from '../../../common/components/EditRecordAction';
 import DeletedAlert from '../../../common/components/DeletedAlert';
@@ -36,9 +36,6 @@ import UserSettingsAction from '../../components/UserSettingsAction';
 import withRouteActionsDispatcher from '../../../common/withRouteActionsDispatcher';
 import AuthorBAI from '../../components/AuthorBAI';
 import Advisors from '../../components/Advisors';
-import TabNameWithCount from '../../../common/components/TabNameWithCount';
-import AuthorCitationsContainer from '../AuthorCitationsContainer';
-import NewFeatureTag from '../../../common/components/NewFeatureTag';
 
 function DetailPage({
   record,
@@ -242,6 +239,6 @@ const DetailPageContainer = connect(mapStateToProps, dispatchToProps)(
 
 export default withRouteActionsDispatcher(DetailPageContainer, {
   routeParamSelector: ({ id }) => id,
-  routeActions: id => [fetchAuthor(id), newSearch(AUTHOR_PUBLICATIONS_NS)],
+  routeActions: id => [fetchAuthor(id), newSearch(AUTHOR_PUBLICATIONS_NS), newSearch(AUTHOR_CITATIONS_NS)],
   loadingStateSelector: state => !state.authors.hasIn(['data', 'metadata']),
 });

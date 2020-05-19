@@ -14,11 +14,11 @@ import DrawerHandle from '../../common/components/DrawerHandle';
 import JobItem from '../components/JobItem';
 import SubscribeJobsModalButton from '../components/SubscribeJobsModalButton';
 import DocumentHead from '../../common/components/DocumentHead';
-import { JOBS_NS } from '../../reducers/search';
+import { JOBS_NS } from '../../search/constants';
 
-
-const META_DESCRIPTION = "Jobs in High-Energy Physics. A listing of academic and research jobs of interest to the community in high energy physics, nuclear physics, accelerator physics and astrophysics."
-const TITLE = "Jobs Search"
+const META_DESCRIPTION =
+  'Jobs in High-Energy Physics. A listing of academic and research jobs of interest to the community in high energy physics, nuclear physics, accelerator physics and astrophysics.';
+const TITLE = 'Jobs Search';
 
 class SearchPage extends Component {
   static renderJobResultItem(result) {

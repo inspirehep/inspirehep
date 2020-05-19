@@ -3,11 +3,19 @@ import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import { fromJS } from 'immutable';
 
-import { getStoreWithState, getStore } from '../../../fixtures/store';
+import {
+  getStoreWithState,
+  getStore,
+  mockActionCreator,
+} from '../../../fixtures/store';
 import SortByContainer from '../SortByContainer';
 import SortBy from '../../components/SortBy';
-import { SEARCH_QUERY_UPDATE } from '../../../actions/actionTypes';
-import { LITERATURE_NS } from '../../../reducers/search';
+import { LITERATURE_NS } from '../../../search/constants';
+
+import { searchQueryUpdate } from '../../../actions/search';
+
+jest.mock('../../../actions/search');
+mockActionCreator(searchQueryUpdate);
 
 describe('SortByContainer', () => {
   it('passes namespace query sort param to SortBy', () => {
@@ -40,12 +48,7 @@ describe('SortByContainer', () => {
     const onSortChange = wrapper.find(SortBy).prop('onSortChange');
     const sort = 'mostcited';
     onSortChange(sort);
-    const expectedActions = [
-      {
-        type: SEARCH_QUERY_UPDATE,
-        payload: { namespace, query: { sort, page: '1' } },
-      },
-    ];
+    const expectedActions = [searchQueryUpdate(namespace, { sort, page: '1' })];
     expect(store.getActions()).toEqual(expectedActions);
   });
 });

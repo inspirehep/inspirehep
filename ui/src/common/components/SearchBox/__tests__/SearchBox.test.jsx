@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import { Input } from 'antd';
 
 import SearchBox from '../SearchBox';
-import { LITERATURE_NS } from '../../../../reducers/search';
+import { LITERATURE_NS } from '../../../../search/constants';
 
 describe('SearchBox', () => {
   it('render initial state with all props set', () => {

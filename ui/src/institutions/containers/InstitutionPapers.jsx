@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import LiteratureSearchContainer from '../../literature/containers/LiteratureSearchContainer';
-import { INSTITUTION_PAPERS_NS } from '../../reducers/search';
+import { INSTITUTION_PAPERS_NS } from '../../search/constants';
 import { getPapersQueryString } from '../utils';
 
 function InstitutionPapers({ recordId }) {

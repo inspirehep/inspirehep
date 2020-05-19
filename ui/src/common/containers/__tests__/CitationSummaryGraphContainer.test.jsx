@@ -7,7 +7,7 @@ import { getStoreWithState, getStore } from '../../../fixtures/store';
 import CitationSummaryGraphContainer from '../CitationSummaryGraphContainer';
 import CitationSummaryGraph from '../../components/CitationSummaryGraph/CitationSummaryGraph';
 import { CITEABLE_BAR_TYPE, PUBLISHED_BAR_TYPE } from '../../constants';
-import { AUTHOR_PUBLICATIONS_NS } from '../../../reducers/search';
+import { AUTHOR_PUBLICATIONS_NS } from '../../../search/constants';
 import { SEARCH_QUERY_UPDATE } from '../../../actions/actionTypes';
 
 jest.mock('../../../actions/citations');

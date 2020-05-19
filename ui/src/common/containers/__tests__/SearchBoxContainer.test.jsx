@@ -4,10 +4,13 @@ import { Provider } from 'react-redux';
 import { fromJS } from 'immutable';
 import { replace } from 'connected-react-router';
 
-import { getStoreWithState } from '../../../fixtures/store';
+import { getStoreWithState, mockActionCreator } from '../../../fixtures/store';
 import SearchBoxContainer from '../SearchBoxContainer';
 import SearchBox from '../../components/SearchBox';
-import { SEARCH_QUERY_UPDATE } from '../../../actions/actionTypes';
+import { searchQueryUpdate } from '../../../actions/search';
+
+jest.mock('../../../actions/search');
+mockActionCreator(searchQueryUpdate);
 
 describe('SearchBoxContainer', () => {
   it('passes namespace query q param to SearchBox', () => {
@@ -49,10 +52,7 @@ describe('SearchBoxContainer', () => {
     onSearch(searchBoxNamespace, 'test');
 
     const expectedActions = [
-      {
-        type: SEARCH_QUERY_UPDATE,
-        payload: { query: { q: 'test' }, namespace: searchBoxNamespace },
-      },
+      searchQueryUpdate(searchBoxNamespace, { q: 'test' }),
     ];
     expect(store.getActions()).toEqual(expectedActions);
   });

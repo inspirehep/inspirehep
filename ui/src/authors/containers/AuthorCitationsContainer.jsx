@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import LiteratureSearchContainer from '../../literature/containers/LiteratureSearchContainer';
-import { AUTHOR_CITATIONS_NS } from '../../reducers/search';
+import { AUTHOR_CITATIONS_NS } from '../../search/constants';
 
 function AuthorCitations({ authorBai }) {
   const baseQuery = useMemo(
@@ -19,7 +19,7 @@ function AuthorCitations({ authorBai }) {
       baseQuery={baseQuery}
       noResultsTitle="0 Citations"
       embedded
-      hideCitationSummarySwitch
+      enableCitationSummary={false}
     />
   );
 }
