@@ -66,7 +66,10 @@ class AccessTokenFactory(BaseFactory):
 
     @classmethod
     def _create(cls, model_class, *args, **kwargs):
-        user = UserFactory()
+        if "role" in kwargs:
+            user = UserFactory(role=kwargs["role"])
+        else:
+            user = UserFactory()
         user = User.query.filter(User.email == user.email).one_or_none()
         token = Token.create_personal(fake.name(), user.id, scopes={}, is_internal=True)
         return token

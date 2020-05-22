@@ -120,9 +120,9 @@ def create_s3_bucket(key):
     )
 
 
-def create_user_and_token():
+def create_user_and_token(user_role="superuser"):
     """Test helper function to create user and authentication token."""
-    return AccessTokenFactory()
+    return AccessTokenFactory(**{"role": user_role})
 
 
 def create_user(role="user", orcid=None, email=None, allow_push=True, token="token"):
