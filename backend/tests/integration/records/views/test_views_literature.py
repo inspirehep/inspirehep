@@ -178,6 +178,51 @@ def test_literature_application_json_post_with_token(inspire_app):
     assert expected_status_code == response_status_code
 
 
+def test_literature_application_json_put_with_token_authenticated(inspire_app):
+    expected_status_code = 200
+    token = create_user_and_token()
+    headers = {"Authorization": "BEARER " + token.access_token}
+    record = create_record("lit")
+    record_control_number = record["control_number"]
+
+    with inspire_app.test_client() as client:
+        response = client.put(
+            "/literature/{}".format(record_control_number), headers=headers, json=record
+        )
+    response_status_code = response.status_code
+
+    assert expected_status_code == response_status_code
+
+
+def test_literature_application_json_post_with_token_not_authenticated(inspire_app):
+    expected_status_code = 403
+    token = create_user_and_token("cataloger")
+    headers = {"Authorization": "BEARER " + token.access_token}
+    rec_data = faker.record("lit")
+
+    with inspire_app.test_client() as client:
+        response = client.post("/literature", headers=headers, json=rec_data)
+    response_status_code = response.status_code
+
+    assert expected_status_code == response_status_code
+
+
+def test_literature_application_json_put_with_token_not_authenticated(inspire_app):
+    expected_status_code = 403
+    token = create_user_and_token("cataloger")
+    headers = {"Authorization": "BEARER " + token.access_token}
+    record = create_record("lit")
+    record_control_number = record["control_number"]
+
+    with inspire_app.test_client() as client:
+        response = client.put(
+            "/literature/{}".format(record_control_number), headers=headers, json=record
+        )
+    response_status_code = response.status_code
+
+    assert expected_status_code == response_status_code
+
+
 def test_literature_citations(inspire_app):
     record = create_record("lit")
     record_control_number = record["control_number"]
