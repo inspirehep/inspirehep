@@ -33,6 +33,11 @@ function ReferenceList({
     onQueryChange,
   ]);
 
+  const onSizeChange = useCallback(
+    (page, size) => onQueryChange({ size, page: '1' }),
+    [onQueryChange]
+  );
+
   const renderList = useCallback(
     () =>
       total > 0 && (
@@ -40,6 +45,7 @@ function ReferenceList({
           renderItem={renderReferenceItem}
           pageItems={references}
           onPageChange={onPageChange}
+          onSizeChange={onSizeChange}
           total={total}
           page={query.page}
           pageSize={query.size}
@@ -52,6 +58,7 @@ function ReferenceList({
       references,
       renderReferenceItem,
       onPageChange,
+      onSizeChange,
     ]
   );
 

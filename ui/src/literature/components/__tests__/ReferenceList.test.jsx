@@ -100,3 +100,27 @@ describe('ReferenceList', () => {
     expect(wrapper).toMatchSnapshot();
   });
 });
+
+it('calls onQueryChange and sets display to 50 references/page', () => {
+  const onQueryChange = jest.fn();
+  const wrapper = shallow(
+    <ReferenceList
+      loading={false}
+      error={null}
+      references={fromJS([{ titles: [{ title: 'Reference 1' }] }])}
+      total={50}
+      onQueryChange={onQueryChange}
+      query={{ size: 50 }}
+    />
+  );
+  const page = '1';
+  const size = 50;
+  const onListPageSizeChange = wrapper
+    .find(ListWithPagination)
+    .prop('onSizeChange');
+  onListPageSizeChange(page, size);
+  expect(onQueryChange).toHaveBeenCalledWith({
+    page,
+    size,
+  });
+});
