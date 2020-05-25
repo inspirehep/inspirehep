@@ -66,6 +66,7 @@ exports[`ReferenceList renders items with (page * index) key if title is absent 
       <ListWithPagination
         loading={false}
         onPageChange={[Function]}
+        onSizeChange={[Function]}
         page={1}
         pageItems={
           Immutable.List [
@@ -155,6 +156,7 @@ exports[`ReferenceList renders with references 1`] = `
       <ListWithPagination
         loading={false}
         onPageChange={[Function]}
+        onSizeChange={[Function]}
         page={1}
         pageItems={
           Immutable.List [

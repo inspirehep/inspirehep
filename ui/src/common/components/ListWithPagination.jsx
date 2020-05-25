@@ -12,6 +12,7 @@ const GRID_CONFIG = {
   xl: 4,
 };
 
+const PAGE_SIZE_OPTIONS = ['25', '50', '100', '250'];
 
 /**
  * Only displays given page items at once and pagination ui
@@ -26,11 +27,19 @@ class ListWithPagination extends Component {
   constructor(props) {
     super(props);
 
-    this.renderItem = this.renderItem.bind(this)
+    this.renderItem = this.renderItem.bind(this);
   }
 
   renderPagination() {
-    const { pageSize, loading, total, page, onPageChange, grid } = this.props;
+    const {
+      pageSize,
+      loading,
+      total,
+      page,
+      onPageChange,
+      grid,
+      onSizeChange,
+    } = this.props;
     return (
       <Pagination
         className={classNames({ 'ant-col-24': grid })}
@@ -41,6 +50,10 @@ class ListWithPagination extends Component {
         pageSize={pageSize}
         loading={loading}
         showTotal={ListWithPagination.getPaginationRangeInfo}
+        onShowSizeChange={onSizeChange}
+        showSizeChanger={onSizeChange != null}
+        pageSizeOptions={PAGE_SIZE_OPTIONS}
+        responsive
       />
     );
   }
@@ -48,7 +61,7 @@ class ListWithPagination extends Component {
   renderItem(item, index) {
     const { renderItem, pageSize, page } = this.props;
     const absoluteIndex = (page - 1) * pageSize + index;
-    return renderItem(item, absoluteIndex)
+    return renderItem(item, absoluteIndex);
   }
 
   render() {
@@ -70,8 +83,9 @@ ListWithPagination.propTypes = {
   pageItems: PropTypes.instanceOf(Immutable.List).isRequired,
   renderItem: PropTypes.func.isRequired,
   onPageChange: PropTypes.func.isRequired,
-  pageSize: PropTypes.number.isRequired,
-  page: PropTypes.number.isRequired,
+  onSizeChange: PropTypes.func,
+  pageSize: PropTypes.number,
+  page: PropTypes.number,
   title: PropTypes.node,
   loading: PropTypes.bool,
   grid: PropTypes.bool,
@@ -80,6 +94,8 @@ ListWithPagination.propTypes = {
 ListWithPagination.defaultProps = {
   title: null,
   loading: false,
+  page: 1,
+  pageSize: 25,
 };
 
 export default ListWithPagination;

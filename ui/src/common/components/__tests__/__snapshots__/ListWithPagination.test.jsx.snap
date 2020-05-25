@@ -39,6 +39,16 @@ exports[`ListWithPagination renders in grid mode 1`] = `
       loading={false}
       onChange={[MockFunction]}
       pageSize={50}
+      pageSizeOptions={
+        Array [
+          "25",
+          "50",
+          "100",
+          "250",
+        ]
+      }
+      responsive={true}
+      showSizeChanger={false}
       showTotal={[Function]}
       total={100}
     />
@@ -99,6 +109,16 @@ exports[`ListWithPagination renders with all props 1`] = `
       loading={true}
       onChange={[MockFunction]}
       pageSize={25}
+      pageSizeOptions={
+        Array [
+          "25",
+          "50",
+          "100",
+          "250",
+        ]
+      }
+      responsive={true}
+      showSizeChanger={false}
       showTotal={[Function]}
       total={100}
     />
@@ -151,6 +171,16 @@ exports[`ListWithPagination renders with required props 1`] = `
       loading={false}
       onChange={[MockFunction]}
       pageSize={50}
+      pageSizeOptions={
+        Array [
+          "25",
+          "50",
+          "100",
+          "250",
+        ]
+      }
+      responsive={true}
+      showSizeChanger={false}
       showTotal={[Function]}
       total={100}
     />
