@@ -9,7 +9,6 @@ import hashlib
 from itertools import chain
 
 import numpy as np
-import pycountry
 import requests
 from beard.clustering import block_phonetic
 from flask import current_app
@@ -21,6 +20,10 @@ from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier
 from sqlalchemy.orm import aliased
 
+from inspirehep.countries import (
+    countries_code_to_name_dict,
+    countries_name_to_code_dict,
+)
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.errors import DownloadFileError
 from inspirehep.utils import get_inspirehep_url
@@ -134,16 +137,8 @@ def get_ref_from_pid(pid_type, pid_value):
 
 
 def country_code_to_name(country_code):
-    country = pycountry.countries.get(alpha_2=country_code)
-    return getattr(country, "common_name", country.name)
+    return countries_code_to_name_dict[country_code]
 
 
 def country_name_to_code(country_name):
-    try:
-        country = pycountry.countries.get(name=country_name)
-    except KeyError:
-        country = pycountry.countries.get(official_name=country_name)
-    except KeyError:
-        country = pycountry.countries.get(common_name=country_name)
-
-    return country.alpha_2 if country else None
+    return countries_name_to_code_dict[country_name]

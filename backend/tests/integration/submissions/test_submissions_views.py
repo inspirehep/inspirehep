@@ -1248,29 +1248,6 @@ def test_confirmation_email_sent_for_regular_user(
 
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
-def test_conference_with_country_official_name(ticket_mock, inspire_app):
-    CZECH_CONFERENCE_FORM_DATA = deepcopy(CONFERENCE_FORM_DATA)
-    CZECH_CONFERENCE_FORM_DATA["addresses"][0]["country"] = "Czech Republic"
-    user = create_user()
-    with inspire_app.test_client() as client:
-        login_user_via_session(client, email=user.email)
-        response = client.post(
-            "/submissions/conferences",
-            content_type="application/json",
-            data=json.dumps({"data": CZECH_CONFERENCE_FORM_DATA}),
-        )
-
-    assert response.status_code == 201
-
-    payload = json.loads(response.data)
-    conference_id = payload["pid_value"]
-
-    conference_rec = ConferencesRecord.get_record_by_pid_value(conference_id)
-    assert get_value(conference_rec, "addresses[0].country_code") == "CZ"
-    ticket_mock.delay.assert_called_once()
-
-
-@patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_conference_raise_loader_error(ticket_mock, inspire_app):
     DATA = deepcopy(CONFERENCE_FORM_DATA)
     DATA["addresses"][0]["country"] = "Graham City"
@@ -1288,7 +1265,7 @@ def test_conference_raise_loader_error(ticket_mock, inspire_app):
 REQUIRED_SEMINAR_RECORD_DATA = {
     "title": {"title": "The Cool Seminar"},
     "inspire_categories": [{"term": "Accelerators"}],
-    "speakers": [{"name": "Urhan, Ahmet"},],
+    "speakers": [{"name": "Urhan, Ahmet"}],
     "end_datetime": "2020-05-06T12:30:00.000000",
     "start_datetime": "2020-05-06T06:30:00.000000",
     "timezone": "Europe/Zurich",
@@ -1331,7 +1308,7 @@ REQUIRED_SEMINAR_FORM_DATA = {
     "name": "The Cool Seminar",
     "timezone": "Europe/Zurich",
     "dates": ["2020-05-06 08:30 AM", "2020-05-06 02:30 PM"],
-    "speakers": [{"name": "Urhan, Ahmet"},],
+    "speakers": [{"name": "Urhan, Ahmet"}],
     "field_of_interest": ["Accelerators"],
 }
 SEMINAR_FORM_DATA = {
