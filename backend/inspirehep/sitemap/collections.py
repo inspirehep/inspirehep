@@ -12,6 +12,7 @@ from inspirehep.search.api import (
     ConferencesSearch,
     JobsSearch,
     LiteratureSearch,
+    SeminarsSearch,
 )
 
 
@@ -32,5 +33,9 @@ def conferences():
     return ConferencesSearch()
 
 
+def seminars():
+    return SeminarsSearch()
+
+
 def get_indexable_record_searches():
-    return [jobs(), literature(), authors(), conferences()]
+    return [jobs(), literature(), authors(), conferences(), seminars()]
