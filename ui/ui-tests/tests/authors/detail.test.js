@@ -10,10 +10,6 @@ const {
 describe('Author Detail', () => {
   let polly;
 
-  beforeAll(async () => {
-    await login();
-  });
-
   beforeEach(async () => {
     polly = await createPollyInstance('AuthorDetail');
 
@@ -45,9 +41,5 @@ describe('Author Detail', () => {
 
   afterEach(async () => {
     await polly.stop();
-  });
-
-  afterAll(async () => {
-    await logout();
   });
 });

@@ -9,21 +9,25 @@ exports[`CitationSummaryBox renders 1`] = `
   subTitle="Citation Summary"
   title={null}
 >
-  <Connect(Authorized)
-    authorizedRoles={
-      Immutable.List [
-        "superuser",
-        "cataloger",
-      ]
-    }
+  <Checkbox
+    indeterminate={false}
+    onChange={[Function]}
   >
-    <Checkbox
-      indeterminate={false}
-      onChange={[Function]}
-    >
-      Exclude self-citations
-    </Checkbox>
-  </Connect(Authorized)>
+    <LabelWithHelp
+      help={
+        <p>
+          Self-citations are citations from the same collaboration or any of the authors of the paper being cited.
+           
+          <a
+            href="https://inspirehep.net/help/knowledge-base/citation-metrics/"
+          >
+            Learn more.
+          </a>
+        </p>
+      }
+      label="Exclude self-citations"
+    />
+  </Checkbox>
   <Row
     gutter={
       Object {
