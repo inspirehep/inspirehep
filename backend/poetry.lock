@@ -1368,7 +1368,7 @@ description = "A PEG-based query parser for INSPIRE."
 name = "inspire-query-parser"
 optional = false
 python-versions = "*"
-version = "6.0.25"
+version = "6.0.26"
 
 [package.dependencies]
 inspire-schemas = ">=61.0,<62.0"
@@ -4473,7 +4473,7 @@ inspire-json-merger = [
     {file = "inspire-json-merger-11.0.2.tar.gz", hash = "sha256:e016a713ac165655c958fa64caa81e46bb044b05cb6b2bf45c95c586a5b26288"},
 ]
 inspire-query-parser = [
-    {file = "inspire-query-parser-6.0.25.tar.gz", hash = "sha256:d986c01889d112d4bbdaecf07443fc36be35560eacfc0b535ddb70f4914e1667"},
+    {file = "inspire-query-parser-6.0.26.tar.gz", hash = "sha256:281a6ab687948bba58ead6308c86408a144b500de19b8f58b76c252a65e7ac52"},
 ]
 inspire-schemas = [
     {file = "inspire-schemas-61.2.3.tar.gz", hash = "sha256:1816d07f5b7e7edd4065c6c0672fd27ffde7aa3d82fabfebcc615887405a63be"},
