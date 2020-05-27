@@ -317,3 +317,25 @@ def test_authors_search_json_with_logged_in_cataloger(inspire_app):
 
     assert expected_status_code == response_status_code
     assert expected_result == response_data_hits_metadata
+
+
+def test_authors_detail_links(inspire_app):
+    expected_status_code = 200
+    record = create_record("aut")
+    expected_links = {
+        "json": f"http://localhost:5000/authors/{record['control_number']}?format=json"
+    }
+    with inspire_app.test_client() as client:
+        response = client.get(f"/authors/{record['control_number']}")
+    assert response.status_code == expected_status_code
+    assert response.json["links"] == expected_links
+
+
+def test_authors_detail_json_format(inspire_app):
+    expected_status_code = 200
+    record = create_record("aut")
+    expected_content_type = "application/json"
+    with inspire_app.test_client() as client:
+        response = client.get(f"/authors/{record['control_number']}?format=json")
+    assert response.status_code == expected_status_code
+    assert response.content_type == expected_content_type

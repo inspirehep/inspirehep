@@ -14,6 +14,8 @@ from invenio_records_rest.serializers.json import (
 )
 from invenio_search.utils import build_alias_name
 
+from inspirehep.records.links import inspire_search_links
+
 
 class JSONSerializer(InvenioJSONSerializer):
     def __init__(self, schema_class=None, index_name=None, **kwargs):
@@ -24,6 +26,7 @@ class JSONSerializer(InvenioJSONSerializer):
         """Prepare a record and persistent identifier for serialization.
         We are overriding it to put the actual record in the metadata instead of a dict."""
         return dict(
+            links=links_factory(pid) if links_factory else None,
             pid=pid,
             metadata=record,
             revision=record.revision_id,
@@ -47,6 +50,7 @@ class JSONSerializer(InvenioJSONSerializer):
         :param search_result: Elasticsearch search result.
         :param links: Dictionary of links to add to response.
         """
+        links = inspire_search_links(links)
         return json.dumps(
             dict(
                 hits=dict(
@@ -61,7 +65,7 @@ class JSONSerializer(InvenioJSONSerializer):
                     ],
                     total=search_result["hits"]["total"]["value"],
                 ),
-                links=links or {},
+                links=links,
                 sort_options=self._get_sort_options(),
             ),
             **self._format_args()

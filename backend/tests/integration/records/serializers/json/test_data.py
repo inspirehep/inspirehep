@@ -58,3 +58,25 @@ def test_data_search_json(inspire_app, datadir):
     assert expected_result == response_metadata
     assert expected_created == response_created
     assert expected_updated == response_updated
+
+
+def test_data_detail_links(inspire_app):
+    expected_status_code = 200
+    record = create_record("dat")
+    expected_links = {
+        "json": f"http://localhost:5000/data/{record['control_number']}?format=json"
+    }
+    with inspire_app.test_client() as client:
+        response = client.get(f"/data/{record['control_number']}")
+    assert response.status_code == expected_status_code
+    assert response.json["links"] == expected_links
+
+
+def test_data_detail_json_format(inspire_app):
+    expected_status_code = 200
+    record = create_record("dat")
+    expected_content_type = "application/json"
+    with inspire_app.test_client() as client:
+        response = client.get(f"/data/{record['control_number']}?format=json")
+    assert response.status_code == expected_status_code
+    assert response.content_type == expected_content_type

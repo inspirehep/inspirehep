@@ -10,12 +10,13 @@
 
 from elasticsearch import RequestError
 from elasticsearch_dsl.query import Match, Q
-from flask import current_app
+from flask import current_app, request
 from invenio_search import current_search_client as es
 from invenio_search.api import DefaultFilter, RecordsSearch
 
 from inspirehep.accounts.api import is_superuser_or_cataloger_logged_in
 from inspirehep.pidstore.api import PidStoreBase
+from inspirehep.search.errors import MaximumSearchPageSizeExceeded
 from inspirehep.search.factories import inspire_query_factory
 from inspirehep.search.utils import RecursionLimit
 
@@ -100,6 +101,11 @@ class InspireSearch(RecordsSearch, SearchMixin):
         return self
 
     def execute(self, *args, **kwargs):
+        if request:
+            size = request.args.get("size", default=25, type=int)
+            max_page_size = current_app.config.get("SEARCH_MAX_SEARCH_PAGE_SIZE", 500)
+            if size > max_page_size:
+                raise MaximumSearchPageSizeExceeded(max_size=max_page_size)
         with RecursionLimit(current_app.config.get("SEARCH_MAX_RECURSION_LIMIT", 5000)):
             return super().execute(*args, **kwargs)
 

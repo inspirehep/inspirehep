@@ -244,3 +244,25 @@ def test_seminars_detail_superuser_can_edit(inspire_app):
         response_metadata = response.json["hits"]["hits"][0]["metadata"]
 
         assert response_metadata["can_edit"]
+
+
+def test_seminars_detail_links(inspire_app):
+    expected_status_code = 200
+    record = create_record("sem")
+    expected_links = {
+        "json": f"http://localhost:5000/seminars/{record['control_number']}?format=json"
+    }
+    with inspire_app.test_client() as client:
+        response = client.get(f"/seminars/{record['control_number']}")
+    assert response.status_code == expected_status_code
+    assert response.json["links"] == expected_links
+
+
+def test_seminars_detail_json_link_alias_format(inspire_app):
+    expected_status_code = 200
+    record = create_record("sem")
+    expected_content_type = "application/json"
+    with inspire_app.test_client() as client:
+        response = client.get(f"/seminars/{record['control_number']}?format=json")
+    assert response.status_code == expected_status_code
+    assert response.content_type == expected_content_type

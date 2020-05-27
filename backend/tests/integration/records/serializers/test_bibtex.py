@@ -10,7 +10,7 @@ from helpers.utils import create_record
 
 def test_bibtex(inspire_app):
     headers = {"Accept": "application/x-bibtex"}
-    data = {"control_number": 637275237, "titles": [{"title": "This is a title."}]}
+    data = {"control_number": 637_275_237, "titles": [{"title": "This is a title."}]}
     record = create_record("lit", data=data)
     record_control_number = record["control_number"]
 
@@ -37,7 +37,7 @@ def test_bibtex_returns_all_expected_fields_for_conference_papers(inspire_app):
 
     conference_data = {
         "_collections": ["Conferences"],
-        "control_number": 73415311,
+        "control_number": 73_415_311,
         "titles": [{"title": "This is the parent conference title"}],
     }
     create_record("con", data=conference_data)
@@ -48,7 +48,7 @@ def test_bibtex_returns_all_expected_fields_for_conference_papers(inspire_app):
             {"full_name": "Smith, John", "inspire_roles": ["editor"]},
             {"full_name": "Rossi, Maria", "inspire_roles": ["author"]},
         ],
-        "control_number": 1203999,
+        "control_number": 1_203_999,
         "titles": [{"title": "This is a conference paper title"}],
         "document_type": ["conference paper"],
         "texkeys": ["Smith:2019abc"],
@@ -81,7 +81,7 @@ def test_bibtex_returns_all_expected_fields_for_book_chapters(inspire_app):
 
     book_data = {
         "_collections": ["Literature"],
-        "control_number": 98141514,
+        "control_number": 98_141_514,
         "titles": [{"title": "This is the parent book title"}],
     }
     create_record("lit", data=book_data)
@@ -92,7 +92,7 @@ def test_bibtex_returns_all_expected_fields_for_book_chapters(inspire_app):
             {"full_name": "Smith, John", "inspire_roles": ["editor"]},
             {"full_name": "Rossi, Maria", "inspire_roles": ["author"]},
         ],
-        "control_number": 4454431,
+        "control_number": 4_454_431,
         "titles": [{"title": "This is a book chapter title"}],
         "document_type": ["book chapter"],
         "texkeys": ["Smith:2019abc"],
@@ -122,8 +122,11 @@ def test_bibtex_returns_all_expected_fields_for_book_chapters(inspire_app):
 
 def test_bibtex_search(inspire_app):
     headers = {"Accept": "application/x-bibtex"}
-    data_1 = {"control_number": 637275237, "titles": [{"title": "This is a title."}]}
-    data_2 = {"control_number": 637275232, "titles": [{"title": "Yet another title."}]}
+    data_1 = {"control_number": 637_275_237, "titles": [{"title": "This is a title."}]}
+    data_2 = {
+        "control_number": 637_275_232,
+        "titles": [{"title": "Yet another title."}],
+    }
     create_record("lit", data=data_1)
     create_record("lit", data=data_2)
 
@@ -147,7 +150,7 @@ def test_bibtex_search(inspire_app):
 def test_bibtex_doesnt_encode_math_environments(inspire_app):
     headers = {"Accept": "application/x-bibtex"}
     data = {
-        "control_number": 637275237,
+        "control_number": 637_275_237,
         "titles": [
             {
                 "title": "Low-energy theorem for $\\gamma\\to 3\\pi$: Σ surface terms against $\\pi a_1$-mixing"
@@ -174,7 +177,7 @@ def test_bibtex_doesnt_encode_math_environments(inspire_app):
 def test_bibtex_encodes_unicode_outside_of_math_environments(inspire_app):
     headers = {"Accept": "application/x-bibtex"}
     data = {
-        "control_number": 637275237,
+        "control_number": 637_275_237,
         "titles": [
             {"title": "Core polarization effects up to 12ℏω in 7Li and 10B nuclei"}
         ],
@@ -193,3 +196,13 @@ def test_bibtex_encodes_unicode_outside_of_math_environments(inspire_app):
     response_data = response.get_data(as_text=True)
     assert expected_status_code == response_status_code
     assert expected_result == response_data
+
+
+def test_literature_detail_bibtex_link_alias_format(inspire_app):
+    expected_status_code = 200
+    record = create_record("lit")
+    expected_content_type = "application/x-bibtex"
+    with inspire_app.test_client() as client:
+        response = client.get(f"/literature/{record['control_number']}?format=bibtex")
+    assert response.status_code == expected_status_code
+    assert response.content_type == expected_content_type
