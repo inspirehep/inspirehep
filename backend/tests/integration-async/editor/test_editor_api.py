@@ -136,7 +136,7 @@ def test_revert_to_revision(
         response = client.put(
             "/api/editor/literature/111/revisions/revert",
             content_type="application/json",
-            data=json.dumps({"revision_id": 0}),
+            data=json.dumps({"revision_id": 1}),
         )
 
     assert response.status_code == 200
@@ -154,7 +154,7 @@ def test_get_revision_requires_authentication(
 ):
     record = LiteratureRecord.get_record_by_pid_value(111)
 
-    transaction_id_of_first_rev = record.revisions[0].model.transaction_id
+    transaction_id_of_first_rev = record.revisions[1].model.transaction_id
     rec_uuid = record.id
     with inspire_app.test_client() as client:
         response = client.get(
@@ -198,7 +198,7 @@ def test_get_revision(
     user = create_user(role=Roles.cataloger.value)
     record = LiteratureRecord.get_record_by_pid_value(111)
 
-    transaction_id_of_first_rev = record.revisions[0].model.transaction_id
+    transaction_id_of_first_rev = record.revisions[1].model.transaction_id
     rec_uuid = record.id
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)

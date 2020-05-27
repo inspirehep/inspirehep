@@ -13,6 +13,7 @@ from itertools import chain
 
 import structlog
 from elasticsearch import NotFoundError
+from flask import current_app
 from inspire_dojson.utils import strip_empty_values
 from inspire_schemas.api import validate as schema_validate
 from inspire_utils.record import get_value
@@ -20,7 +21,9 @@ from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier, RecordIdentifier
 from invenio_records.api import Record
+from invenio_records.errors import MissingModelError
 from invenio_records.models import RecordMetadata
+from invenio_records.signals import after_record_revert, before_record_revert
 from sqlalchemy import tuple_
 from sqlalchemy.orm.attributes import flag_modified
 from sqlalchemy.orm.exc import NoResultFound
@@ -451,3 +454,17 @@ class InspireRecord(Record):
     def get_value(self, field, default=None):
         """Method which makes ``get_value`` more intuitive"""
         return get_value(self, field, default)
+
+    def revert(self, revision_id):
+        if self.model is None:
+            raise MissingModelError()
+
+        revision = self.revisions[revision_id]
+
+        with db.session.begin_nested():
+            before_record_revert.send(current_app._get_current_object(), record=self)
+
+            self.update(dict(revision))
+
+        after_record_revert.send(current_app._get_current_object(), record=self)
+        return self

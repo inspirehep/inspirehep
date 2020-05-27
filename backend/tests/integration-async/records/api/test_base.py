@@ -5,8 +5,6 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import pytest
-from helpers.providers.faker import faker
 from invenio_db import db
 
 from inspirehep.records.api import LiteratureRecord
@@ -140,3 +138,57 @@ def test_get_modified_references_returns_no_references_when_non_impacting_metada
     db.session.commit()
 
     assert citing_record.get_modified_references() == []
+
+
+def test_revert_revision_works_correctly_and_runs_update(inspire_app):
+    cited_data = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
+        "titles": [{"title": "Test a valid record"}],
+        "document_type": ["article"],
+        "_collections": ["Literature"],
+    }
+    cited_record = LiteratureRecord.create(cited_data)
+
+    citing_data = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
+        "titles": [{"title": "My title"}],
+        "document_type": ["article"],
+        "_collections": ["Literature"],
+        "preprint_date": "2019-06-28",
+        "references": [
+            {
+                "record": {
+                    "$ref": f"http://localhost:5000/api/literature/{cited_record['control_number']}"
+                }
+            }
+        ],
+    }
+    citing_record = LiteratureRecord.create(citing_data)
+    db.session.commit()
+
+    assert len(citing_record.model.references) == 1
+    assert len(cited_record.model.citations) == 1
+    assert citing_record.revision_id == 1
+
+    citing_record = LiteratureRecord.get_record(citing_record.id)
+    data = dict(citing_record)
+    del data["references"]
+    citing_record.update(data)
+    db.session.commit()
+
+    citing_record = LiteratureRecord.get_record(citing_record.id)
+    assert len(citing_record.model.references) == 0
+    assert len(cited_record.model.citations) == 0
+    assert citing_record.revision_id == 2
+
+    citing_record.revert(1)
+    db.session.commit()
+
+    citing_record = LiteratureRecord.get_record(citing_record.id)
+    assert len(citing_record.model.references) == 1
+    assert len(cited_record.model.citations) == 1
+
+    # Reverted to revision 1 but added as next revision
+    # so it will be revision 3
+    assert citing_record.revision_id == 3
+    assert dict(citing_record.revisions[1]) == dict(citing_record)
