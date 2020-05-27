@@ -23,6 +23,21 @@ def test_redirects_records_from_legacy_url(inspire_app):
     assert response_location_header == expected_redirect_url
 
 
+def test_redirects_data_records_to_legacy_url(inspire_app):
+    create_record("dat", data={"control_number": 777})
+
+    with inspire_app.test_client() as client:
+        response = client.get("/record/777")
+
+    response_status_code = response.status_code
+    response_location_header = response.headers.get("Location")
+
+    expected_status_code = 302
+    expected_redirect_url = "https://old.inspirehep.net/record/777"
+    assert expected_status_code == response_status_code
+    assert response_location_header == expected_redirect_url
+
+
 def test_redirects_non_existing_records_from_legacy_url(inspire_app):
     with inspire_app.test_client() as client:
         response = client.get("/record/111")
