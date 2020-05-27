@@ -7,7 +7,8 @@
 import json
 import urllib
 
-from helpers.utils import create_record
+import pytest
+from helpers.utils import create_record, override_config
 
 from inspirehep.search.api import AuthorsSearch, LiteratureSearch
 
@@ -185,3 +186,206 @@ def test_big_query_execute_without_recursion_depth_exception(inspire_app):
     with inspire_app.test_client() as client:
         response = client.get(url)
     assert response.status_code == 200
+
+
+def test_public_api_generates_correct_links_in_literature_search(inspire_app):
+    expected_search_links = {
+        "self": "http://localhost:5000/api/literature/?q=&size=10&page=1",
+        "bibtex": "http://localhost:5000/api/literature/?q=&size=10&page=1&format=bibtex",
+        "latex-eu": "http://localhost:5000/api/literature/?q=&size=10&page=1&format=latex-eu",
+        "latex-us": "http://localhost:5000/api/literature/?q=&size=10&page=1&format=latex-us",
+        "json": "http://localhost:5000/api/literature/?q=&size=10&page=1&format=json",
+    }
+    record = create_record("lit")
+    cn = record["control_number"]
+    expected_details_links = {
+        "bibtex": f"http://localhost:5000/api/literature/{cn}?format=bibtex",
+        "latex-eu": f"http://localhost:5000/api/literature/{cn}?format=latex-eu",
+        "latex-us": f"http://localhost:5000/api/literature/{cn}?format=latex-us",
+        "json": f"http://localhost:5000/api/literature/{cn}?format=json",
+        "citations": f"http://localhost:5000/api/literature/?q=refersto%3Arecid%3A{cn}",
+    }
+    with inspire_app.test_client() as client:
+        url = "/api/literature"
+        response = client.get(url)
+    assert response.status_code == 200
+    response_links = response.json["links"]
+    record_details_links = response.json["hits"]["hits"][0]["links"]
+    assert response_links == expected_search_links
+    assert record_details_links == expected_details_links
+
+
+def test_public_api_generates_correct_links_in_authors_search(inspire_app):
+    expected_search_links = {
+        "self": "http://localhost:5000/api/authors/?q=&size=10&page=1",
+        "json": "http://localhost:5000/api/authors/?q=&size=10&page=1&format=json",
+    }
+    record = create_record("aut")
+    cn = record["control_number"]
+    expected_details_links = {
+        "json": f"http://localhost:5000/api/authors/{cn}?format=json"
+    }
+    with inspire_app.test_client() as client:
+        url = "/api/authors"
+        response = client.get(url)
+    assert response.status_code == 200
+    response_links = response.json["links"]
+    record_details_links = response.json["hits"]["hits"][0]["links"]
+    assert response_links == expected_search_links
+    assert record_details_links == expected_details_links
+
+
+def test_public_api_generates_correct_links_in_jobs_search(inspire_app):
+    expected_search_links = {
+        "self": "http://localhost:5000/api/jobs/?q=&size=10&page=1",
+        "json": "http://localhost:5000/api/jobs/?q=&size=10&page=1&format=json",
+    }
+    record = create_record("job", data={"status": "open"})
+    cn = record["control_number"]
+    expected_details_links = {
+        "json": f"http://localhost:5000/api/jobs/{cn}?format=json"
+    }
+    with inspire_app.test_client() as client:
+        url = "/api/jobs"
+        response = client.get(url)
+    assert response.status_code == 200
+    response_links = response.json["links"]
+    record_details_links = response.json["hits"]["hits"][0]["links"]
+    assert response_links == expected_search_links
+    assert record_details_links == expected_details_links
+
+
+def test_public_api_generates_correct_links_in_journals_search(inspire_app):
+    expected_search_links = {
+        "self": "http://localhost:5000/api/journals/?q=&size=10&page=1",
+        "json": "http://localhost:5000/api/journals/?q=&size=10&page=1&format=json",
+    }
+    record = create_record("jou")
+    cn = record["control_number"]
+    expected_details_links = {
+        "json": f"http://localhost:5000/api/journals/{cn}?format=json"
+    }
+    with inspire_app.test_client() as client:
+        url = "/api/journals"
+        response = client.get(url)
+    assert response.status_code == 200
+    response_links = response.json["links"]
+    record_details_links = response.json["hits"]["hits"][0]["links"]
+    assert response_links == expected_search_links
+    assert record_details_links == expected_details_links
+
+
+def test_public_api_generates_correct_links_in_experiments_search(inspire_app):
+    expected_search_links = {
+        "self": "http://localhost:5000/api/experiments/?q=&size=10&page=1",
+        "json": "http://localhost:5000/api/experiments/?q=&size=10&page=1&format=json",
+    }
+    record = create_record("exp")
+    cn = record["control_number"]
+    expected_details_links = {
+        "json": f"http://localhost:5000/api/experiments/{cn}?format=json"
+    }
+    with inspire_app.test_client() as client:
+        url = "/api/experiments"
+        response = client.get(url)
+    assert response.status_code == 200
+    response_links = response.json["links"]
+    record_details_links = response.json["hits"]["hits"][0]["links"]
+    assert response_links == expected_search_links
+    assert record_details_links == expected_details_links
+
+
+def test_public_api_generates_correct_links_in_conferences_search(inspire_app):
+    expected_search_links = {
+        "self": "http://localhost:5000/api/conferences/?q=&size=10&page=1",
+        "json": "http://localhost:5000/api/conferences/?q=&size=10&page=1&format=json",
+    }
+    record = create_record("con")
+    cn = record["control_number"]
+    expected_details_links = {
+        "json": f"http://localhost:5000/api/conferences/{cn}?format=json"
+    }
+    with inspire_app.test_client() as client:
+        url = "/api/conferences"
+        response = client.get(url)
+    assert response.status_code == 200
+    response_links = response.json["links"]
+    record_details_links = response.json["hits"]["hits"][0]["links"]
+    assert response_links == expected_search_links
+    assert record_details_links == expected_details_links
+
+
+@pytest.mark.xfail(
+    reason="Json Serializer for search is not yet configured for data collection so it's using default Invenio one."
+)
+def test_public_api_generates_correct_links_in_data_search(inspire_app):
+    expected_search_links = {
+        "self": "http://localhost:5000/api/data/?q=&size=10&page=1",
+        "json": "http://localhost:5000/api/data/?q=&size=10&page=1&format=json",
+    }
+    record = create_record("dat")
+    cn = record["control_number"]
+    expected_details_links = {
+        "json": f"http://localhost:5000/api/data/{cn}?format=json"
+    }
+    with inspire_app.test_client() as client:
+        url = "/api/data"
+        response = client.get(url)
+    assert response.status_code == 200
+    response_links = response.json["links"]
+    record_details_links = response.json["hits"]["hits"][0]["links"]
+    assert response_links == expected_search_links
+    assert record_details_links == expected_details_links
+
+
+def test_public_api_generates_correct_links_in_institutions_search(inspire_app):
+    expected_search_links = {
+        "self": "http://localhost:5000/api/institutions/?q=&size=10&page=1",
+        "json": "http://localhost:5000/api/institutions/?q=&size=10&page=1&format=json",
+    }
+    record = create_record("ins")
+    cn = record["control_number"]
+    expected_details_links = {
+        "json": f"http://localhost:5000/api/institutions/{cn}?format=json"
+    }
+    with inspire_app.test_client() as client:
+        url = "/api/institutions"
+        response = client.get(url)
+    assert response.status_code == 200
+    response_links = response.json["links"]
+    record_details_links = response.json["hits"]["hits"][0]["links"]
+    assert response_links == expected_search_links
+    assert record_details_links == expected_details_links
+
+
+def test_public_api_generates_correct_links_in_seminars_search(inspire_app):
+    expected_search_links = {
+        "self": "http://localhost:5000/api/seminars/?q=&size=10&page=1",
+        "json": "http://localhost:5000/api/seminars/?q=&size=10&page=1&format=json",
+    }
+    record = create_record("sem")
+    cn = record["control_number"]
+    expected_details_links = {
+        "json": f"http://localhost:5000/api/seminars/{cn}?format=json"
+    }
+    with inspire_app.test_client() as client:
+        url = "/api/seminars"
+        response = client.get(url)
+    assert response.status_code == 200
+    response_links = response.json["links"]
+    record_details_links = response.json["hits"]["hits"][0]["links"]
+    assert response_links == expected_search_links
+    assert record_details_links == expected_details_links
+
+
+def test_public_api_returns_400_when_requested_too_much_results(inspire_app):
+    expected_response = {
+        "status": 400,
+        "message": "Maximum search page size of `500` results exceeded.",
+    }
+
+    with inspire_app.test_client() as client:
+        url = "/api/seminars?size=600"
+        response = client.get(url)
+        assert response.status_code == 400
+        assert response.json == expected_response

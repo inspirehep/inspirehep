@@ -224,3 +224,25 @@ def test_proceedings_in_detail_page(inspire_app):
         )
     response_metadata = response.json["metadata"]
     assert expected_metadata == response_metadata
+
+
+def test_conferences_detail_links(inspire_app):
+    expected_status_code = 200
+    record = create_record("con")
+    expected_links = {
+        "json": f"http://localhost:5000/conferences/{record['control_number']}?format=json"
+    }
+    with inspire_app.test_client() as client:
+        response = client.get(f"/conferences/{record['control_number']}")
+    assert response.status_code == expected_status_code
+    assert response.json["links"] == expected_links
+
+
+def test_conferences_detail_json_format(inspire_app):
+    expected_status_code = 200
+    record = create_record("con")
+    expected_content_type = "application/json"
+    with inspire_app.test_client() as client:
+        response = client.get(f"/conferences/{record['control_number']}?format=json")
+    assert response.status_code == expected_status_code
+    assert response.content_type == expected_content_type

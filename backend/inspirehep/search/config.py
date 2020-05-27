@@ -6,3 +6,4 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 FEATURE_FLAG_ENABLE_QUERY_PARSER_ENDPOINT = True
+SEARCH_MAX_SEARCH_PAGE_SIZE = 500

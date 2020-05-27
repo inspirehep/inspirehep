@@ -287,3 +287,23 @@ def test_latex_us_search_response_full_record(inspire_app):
     response_data = response.get_data(as_text=True)
     assert expected_status_code == response_status_code
     assert expected_result == response_data
+
+
+def test_literature_detail_latex_eu_link_alias_format(inspire_app):
+    expected_status_code = 200
+    record = create_record("lit")
+    expected_content_type = "application/vnd+inspire.latex.eu+x-latex"
+    with inspire_app.test_client() as client:
+        response = client.get(f"/literature/{record['control_number']}?format=latex-eu")
+    assert response.status_code == expected_status_code
+    assert response.content_type == expected_content_type
+
+
+def test_literature_detail_latex_us_link_alias_format(inspire_app):
+    expected_status_code = 200
+    record = create_record("lit")
+    expected_content_type = "application/vnd+inspire.latex.us+x-latex"
+    with inspire_app.test_client() as client:
+        response = client.get(f"/literature/{record['control_number']}?format=latex-us")
+    assert response.status_code == expected_status_code
+    assert response.content_type == expected_content_type

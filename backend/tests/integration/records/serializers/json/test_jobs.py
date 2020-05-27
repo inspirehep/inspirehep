@@ -215,3 +215,25 @@ def test_jobs_search_json_can_edit(inspire_app):
 
     assert "can_edit" not in another_job_metadata
     assert own_job_metadata["can_edit"]
+
+
+def test_jobs_detail_links(inspire_app):
+    expected_status_code = 200
+    record = create_record("job")
+    expected_links = {
+        "json": f"http://localhost:5000/jobs/{record['control_number']}?format=json"
+    }
+    with inspire_app.test_client() as client:
+        response = client.get(f"/jobs/{record['control_number']}")
+    assert response.status_code == expected_status_code
+    assert response.json["links"] == expected_links
+
+
+def test_jobs_detail_json_link_alias_format(inspire_app):
+    expected_status_code = 200
+    record = create_record("job")
+    expected_content_type = "application/json"
+    with inspire_app.test_client() as client:
+        response = client.get(f"/jobs/{record['control_number']}?format=json")
+    assert response.status_code == expected_status_code
+    assert response.content_type == expected_content_type

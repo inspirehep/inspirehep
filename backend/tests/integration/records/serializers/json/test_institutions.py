@@ -305,3 +305,25 @@ def test_subsidiary_institutions_in_detail_page(inspire_app):
     assert (
         response_data_metadata["subsidiary_institutions"] == expected_subsidiary_records
     )
+
+
+def test_institutions_detail_links(inspire_app):
+    expected_status_code = 200
+    record = create_record("ins")
+    expected_links = {
+        "json": f"http://localhost:5000/institutions/{record['control_number']}?format=json"
+    }
+    with inspire_app.test_client() as client:
+        response = client.get(f"/institutions/{record['control_number']}")
+    assert response.status_code == expected_status_code
+    assert response.json["links"] == expected_links
+
+
+def test_institutions_detail_json_link_alias_format(inspire_app):
+    expected_status_code = 200
+    record = create_record("ins")
+    expected_content_type = "application/json"
+    with inspire_app.test_client() as client:
+        response = client.get(f"/institutions/{record['control_number']}?format=json")
+    assert response.status_code == expected_status_code
+    assert response.content_type == expected_content_type

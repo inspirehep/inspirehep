@@ -900,3 +900,31 @@ def test_record_link_to_hepdata_in_detail_view(inspire_app):
         response.json["metadata"]["external_system_identifiers"]
         == expected_response_metadata
     )
+
+
+def test_literature_detail_links(inspire_app):
+    expected_status_code = 200
+    record = create_record("lit")
+    cn = record["control_number"]
+    expected_links = {
+        "bibtex": f"http://localhost:5000/literature/{cn}?format=bibtex",
+        "citations": f"http://localhost:5000/literature/?q=refersto%3Arecid%3A{cn}",
+        "json": f"http://localhost:5000/literature/{cn}?format=json",
+        "latex-eu": f"http://localhost:5000/literature/{cn}?format=latex-eu",
+        "latex-us": f"http://localhost:5000/literature/{cn}?format=latex-us",
+    }
+
+    with inspire_app.test_client() as client:
+        response = client.get(f"/literature/{record['control_number']}")
+    assert response.status_code == expected_status_code
+    assert response.json["links"] == expected_links
+
+
+def test_literature_detail_json_link_alias_format(inspire_app):
+    expected_status_code = 200
+    record = create_record("lit")
+    expected_content_type = "application/json"
+    with inspire_app.test_client() as client:
+        response = client.get(f"/literature/{record['control_number']}?format=json")
+    assert response.status_code == expected_status_code
+    assert response.content_type == expected_content_type

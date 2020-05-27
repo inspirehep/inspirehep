@@ -39,6 +39,7 @@ INSPIRE_NEXT_URL = "http://web-next:5000"
 LEGACY_BASE_URL = "https://old.inspirehep.net"
 LEGACY_RECORD_URL_PATTERN = "http://inspirehep.net/record/{recid}"
 MAX_API_RESULTS = 10000
+REST_MIMETYPE_QUERY_ARG_NAME = "format"
 
 # Helpers
 # =======

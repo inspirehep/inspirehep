@@ -24,6 +24,7 @@ from inspirehep.access_control import (
     SessionCatalogerPermission,
     SessionSuperuserPermission,
 )
+from inspirehep.records.links import build_citation_search_link
 from inspirehep.search.aggregations import hep_rpp
 from inspirehep.search.api import (
     AuthorsSearch,
@@ -66,7 +67,7 @@ RECORD = {
     "pid_fetcher": "recid",
     "default_endpoint_prefix": True,
     # XXX decide about the links
-    "links_factory_imp": lambda links: {},
+    "links_factory_imp": "inspirehep.records.links:inspire_detail_links_factory",
     "indexer_class": RecordIndexer,
     "search_type": None,
     "search_factory_imp": "inspirehep.search.factories.search:search_factory_without_aggs",
@@ -83,6 +84,8 @@ RECORD = {
     "update_permission_factory_imp": deny_all,
     "delete_permission_factory_imp": deny_all,
     "list_permission_factory_imp": allow_all,
+    "record_serializers_aliases": {"json": "application/json"},
+    "search_serializers_aliases": {"json": "application/json"},
 }
 
 LITERATURE = deepcopy(RECORD)
@@ -121,6 +124,18 @@ LITERATURE.update(
                 "_source": ["control_number", "self", "titles", "authors"],
                 "completion": {"field": "bookautocomplete"},
             },
+        },
+        "record_serializers_aliases": {
+            "bibtex": "application/x-bibtex",
+            "latex-eu": "application/vnd+inspire.latex.eu+x-latex",
+            "latex-us": "application/vnd+inspire.latex.us+x-latex",
+            "json": "application/json",
+        },
+        "search_serializers_aliases": {
+            "bibtex": "application/x-bibtex",
+            "latex-eu": "application/vnd+inspire.latex.eu+x-latex",
+            "latex-us": "application/vnd+inspire.latex.us+x-latex",
+            "json": "application/json",
         },
     }
 )
@@ -592,3 +607,6 @@ LITERATURE_SOURCE_EXCLUDES_BY_CONTENT_TYPE = {
         "_bibtex_display",
     ]
 }
+
+
+ADDITIONAL_LINKS = {"LITERATURE": {"citations": build_citation_search_link}}

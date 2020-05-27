@@ -190,3 +190,20 @@ def test_get_author_papers(inspire_app):
     author_papers = author.get_papers_uuids()
     assert str(lit_1.id) in author_papers
     assert str(lit_2.id) not in author_papers
+
+
+def test_orcid_url_also_supports_format_alias(inspire_app):
+    expected_content_type = "application/json"
+    expected_links = {
+        "json": "http://localhost:5000/api/orcid/0000-0002-9127-1687?format=json"
+    }
+    data = {"ids": [{"schema": "ORCID", "value": "0000-0002-9127-1687"}]}
+    record = create_record("aut", data)
+
+    with inspire_app.test_client() as client:
+        url = "/api/orcid/0000-0002-9127-1687"
+        response = client.get(f"{url}?format=json")
+
+    assert response.status_code == 200
+    assert response.content_type == expected_content_type
+    assert response.json["links"] == expected_links
