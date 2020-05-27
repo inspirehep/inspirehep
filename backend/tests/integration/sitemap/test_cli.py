@@ -29,6 +29,7 @@ def test_generate_multiple_sitemap_files_with_multiple_collection(
     create_record("job", data={"status": "closed"})  # excluded
     create_record("job", data={"status": "pending"})  # excluded
     create_record("aut")
+    create_record("sem")
     create_record("exp")  # excluded
 
     config = {"SITEMAP_FILES_PATH": "/tmp", "SITEMAP_PAGE_SIZE": 1}
@@ -41,10 +42,11 @@ def test_generate_multiple_sitemap_files_with_multiple_collection(
         mocked_open.assert_any_call("/tmp/sitemap2.xml", "w+")
         mocked_open.assert_any_call("/tmp/sitemap3.xml", "w+")
         mocked_open.assert_any_call("/tmp/sitemap4.xml", "w+")
+        mocked_open.assert_any_call("/tmp/sitemap5.xml", "w+")
         mocked_open.assert_any_call("/tmp/sitemap.xml", "w+")
 
         # make sure no more file is added for experiment and not open jobs
-        assert mocked_open.call_count == 5
+        assert mocked_open.call_count == 6
 
 
 @patch("inspirehep.sitemap.cli.open", new_callable=mock_open)
