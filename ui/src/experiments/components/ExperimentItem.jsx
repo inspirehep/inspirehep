@@ -6,11 +6,13 @@ import { Row, Col } from 'antd';
 
 import { LinkOutlined } from '@ant-design/icons';
 import ResultItem from '../../common/components/ResultItem';
+import IncomingLiteratureReferencesLinkAction from '../../common/components/IncomingLiteratureReferencesLinkAction';
 import { EXPERIMENTS } from '../../common/routes';
 import AffiliationList from '../../common/components/AffiliationList';
 import { SEPARATOR_MIDDLEDOT } from '../../common/components/InlineList';
 import ExperimentCollaboration from './ExperimentCollaboration';
 import UrlsAction from '../../literature/components/UrlsAction';
+import { getPapersQueryString } from '../utils';
 
 function ExperimentItem({ metadata }) {
   const legacyName = metadata.get('legacy_name');
@@ -19,6 +21,7 @@ function ExperimentItem({ metadata }) {
   const longName = metadata.get('long_name');
   const collaboration = metadata.get('collaboration');
   const urls = metadata.get('urls');
+  const papersCount = metadata.get('number_of_papers', 0);
 
   return (
     <ResultItem
@@ -28,6 +31,14 @@ function ExperimentItem({ metadata }) {
             <UrlsAction urls={urls} iconText="links" icon={<LinkOutlined />} />
           )}
         </>
+      }
+      rightActions={
+        <IncomingLiteratureReferencesLinkAction
+          itemCount={papersCount}
+          displayedName="paper"
+          linkQuery={getPapersQueryString(recordId)}
+          trackerEventId="Experiments:PapersLink"
+        />
       }
     >
       <Row>

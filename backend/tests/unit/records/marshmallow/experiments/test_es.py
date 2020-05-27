@@ -5,13 +5,17 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+import mock
 from helpers.providers.faker import faker
 
 from inspirehep.records.api import ExperimentsRecord
 from inspirehep.records.marshmallow.experiments import ExperimentsElasticSearchSchema
 
 
-def test_experiment_serializer_should_serialize_whole_basic_record():
+@mock.patch("inspirehep.records.api.experiments.ExperimentLiterature")
+def test_experiment_serializer_should_serialize_whole_basic_record(
+    mock_experiment_literature_table,
+):
     schema = ExperimentsElasticSearchSchema()
     expected_result = {
         "$schema": "http://localhost:5000/schemas/records/experiments.json",
@@ -19,13 +23,16 @@ def test_experiment_serializer_should_serialize_whole_basic_record():
         "project_type": ["experiment"],
     }
 
-    experiment = ExperimentsRecord(faker.record("exp", data={"experiment": {}}))
+    experiment = faker.record("exp", data={"experiment": {}})
     result = schema.dump(experiment).data
 
     assert result == expected_result
 
 
-def test_experiment_serializer_populates_experiment_suggest():
+@mock.patch("inspirehep.records.api.experiments.ExperimentLiterature")
+def test_experiment_serializer_populates_experiment_suggest(
+    mock_experiment_literature_table,
+):
     schema = ExperimentsElasticSearchSchema()
     data = {
         "accelerator": {"value": "ACC"},

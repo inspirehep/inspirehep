@@ -5,6 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+
 import time
 
 import pytest
@@ -25,6 +26,7 @@ from inspirehep.migrator.tasks import (
 from inspirehep.records.api import InspireRecord, LiteratureRecord
 from inspirehep.records.models import (
     ConferenceLiterature,
+    ExperimentLiterature,
     InstitutionLiterature,
     RecordCitations,
 )
@@ -82,18 +84,13 @@ def test_process_references_in_records_reindexes_conferences_when_pub_info_chang
 ):
     # disconnect this signal so records don't get indexed
     models_committed.disconnect(index_after_commit)
-
     conference_data = faker.record("con", with_control_number=True)
     conference_record = InspireRecord.create(conference_data)
-
     conference_control_number = conference_record["control_number"]
     conf_ref = f"http://localhost:8000/api/conferences/{conference_control_number}"
-
     data = faker.record("lit", with_control_number=True)
-
     data["publication_info"] = [{"conference_record": {"$ref": conf_ref}}]
     data["document_type"] = ["conference paper"]
-
     record = InspireRecord.create(data)
     db.session.commit()
 
@@ -593,3 +590,66 @@ def test_migrate_recids_from_mirror_all_only_with_literature_author_and_invalid(
 
     with pytest.raises(PIDDoesNotExistError):
         InspireRecord.get_record_by_pid_value(invalid_control_number, "lit")
+
+
+def test_process_references_in_records_reindexes_experiments_when_linked_experiments_change(
+    app, celery_app_with_context, celery_session_worker
+):
+    # disconnect this signal so records don't get indexed
+    models_committed.disconnect(index_after_commit)
+
+    experiment_data = faker.record("exp", with_control_number=True)
+    experiment = InspireRecord.create(experiment_data)
+    db.session.commit()
+
+    experiment_control_number = experiment["control_number"]
+    exp_ref = f"http://localhost:8000/api/experiments/{experiment_control_number}"
+
+    data = faker.record("lit", with_control_number=True)
+
+    data["accelerator_experiments"] = [
+        {"legacy_name": "LIGO", "record": {"$ref": exp_ref}}
+    ]
+
+    record = InspireRecord.create(data)
+    db.session.commit()
+
+    models_committed.connect(index_after_commit)
+
+    task = process_references_in_records.delay([record.id])
+    task.get(timeout=5)
+
+    experiment_record_es = InspireSearch.get_record_data_from_es(experiment)
+    expected_number_of_paper = 1
+
+    assert expected_number_of_paper == experiment_record_es["number_of_papers"]
+
+
+def test_update_relations_with_modified_experiments(
+    app, celery_app_with_context, celery_session_worker
+):
+    experiment_data = faker.record("exp", with_control_number=True)
+    experiment = InspireRecord.create(experiment_data)
+    db.session.commit()
+
+    experiment_control_number = experiment["control_number"]
+    exp_ref = f"http://localhost:8000/api/experiments/{experiment_control_number}"
+
+    data = faker.record("lit", with_control_number=True)
+
+    data["accelerator_experiments"] = [
+        {"legacy_name": "LIGO", "record": {"$ref": exp_ref}}
+    ]
+
+    record = InspireRecord.create(data, disable_relations_update=True)
+    db.session.commit()
+
+    task = update_relations.delay([record.id])
+
+    task.get(timeout=5)
+
+    experiment_literature_relation = ExperimentLiterature.query.filter_by(
+        experiment_uuid=experiment.id
+    ).one()
+
+    assert experiment_literature_relation.literature_uuid == record.id

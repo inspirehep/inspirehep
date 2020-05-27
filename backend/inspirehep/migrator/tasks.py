@@ -336,7 +336,8 @@ def create_records_from_mirror_recids(self, recids):
     autoretry_for=(OperationalError,),
 )
 def update_relations(uuids):
-    """Task which updates records_citations and conference_literature tables tabls with
+    """Task which updates records_citations, institution_literature,
+     experiments_literature and conference_literature tables tabls with
     relations of proper literature record.
 
     Args:
@@ -358,6 +359,7 @@ def process_references_in_records(uuids):
                     references = record.get_modified_references()
                     references.extend(record.get_newest_linked_conferences_uuid())
                     references.extend(record.get_modified_institutions_uuids())
+                    references.extend(record.get_modified_experiment_uuids())
                     LOGGER.info(
                         f"Reindexing {len(references)} references",
                         recid=record["control_number"],

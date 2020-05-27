@@ -10,13 +10,14 @@ import uuid
 
 import pytest
 from helpers.providers.faker import faker
-from helpers.utils import create_pidstore
+from helpers.utils import create_pidstore, create_record
 from invenio_pidstore.errors import PIDAlreadyExists
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_records.models import RecordMetadata
 from jsonschema import ValidationError
 
 from inspirehep.records.api import ExperimentsRecord, InspireRecord
+from inspirehep.records.models import ExperimentLiterature
 
 
 def test_experiments_create(inspire_app):
@@ -165,3 +166,67 @@ def test_aut_citation_count_property_blows_up_on_wrong_pid_type(inspire_app):
 
     with pytest.raises(AttributeError):
         record.citation_count
+
+
+def test_deleted_experiment_deletes_relations_in_experiment_literature_table(
+    inspire_app,
+):
+    experiment = create_record("exp")
+    experiment_control_number = experiment["control_number"]
+    ref = f"http://localhost:8000/api/experiments/{experiment_control_number}"
+
+    rec_data = {
+        "accelerator_experiments": [{"legacy_name": "LIGO", "record": {"$ref": ref}}]
+    }
+
+    rec = create_record("lit", rec_data)
+    assert ExperimentLiterature.query.filter_by(literature_uuid=rec.id).count() == 1
+    experiment.delete()
+
+    assert ExperimentLiterature.query.filter_by(literature_uuid=rec.id).count() == 0
+
+
+def test_hard_delete_experiment_deletes_relations_in_experiment_literature_table(
+    inspire_app,
+):
+    experiment = create_record("exp")
+    experiment_control_number = experiment["control_number"]
+    ref = f"http://localhost:8000/api/experiments/{experiment_control_number}"
+
+    rec_data = {
+        "accelerator_experiments": [{"legacy_name": "LIGO", "record": {"$ref": ref}}]
+    }
+
+    rec = create_record("lit", rec_data)
+    assert ExperimentLiterature.query.filter_by(literature_uuid=rec.id).count() == 1
+    experiment.hard_delete()
+
+    assert ExperimentLiterature.query.filter_by(literature_uuid=rec.id).count() == 0
+
+
+def test_number_of_papers_query(inspire_app):
+    experiment = create_record("exp")
+    experiment_control_number = experiment["control_number"]
+    ref = f"http://localhost:8000/api/experiments/{experiment_control_number}"
+
+    expected_number_of_papers = 0
+    assert expected_number_of_papers == experiment.number_of_papers
+
+    rec_data = {
+        "accelerator_experiments": [{"legacy_name": "LIGO", "record": {"$ref": ref}}]
+    }
+
+    rec1 = create_record("lit", rec_data)
+
+    expected_number_of_papers = 1
+    assert expected_number_of_papers == experiment.number_of_papers
+
+    rec2 = create_record("lit", rec_data)
+
+    expected_number_of_papers = 2
+    assert expected_number_of_papers == experiment.number_of_papers
+
+    rec1.delete()
+
+    expected_number_of_papers = 1
+    assert expected_number_of_papers == experiment.number_of_papers

@@ -49,6 +49,8 @@ class InspireRecord(Record):
         "record_affiliations.record",
     ]
 
+    experiment_field = "accelerator_experiments.record"
+
     @staticmethod
     def strip_empty_values(data):
         return strip_empty_values(data)
@@ -442,6 +444,10 @@ class InspireRecord(Record):
                 for field in self.institution_fields
             )
         )
+
+    @property
+    def linked_experiments_pids(self):
+        return self.get_linked_pids_from_field(self.experiment_field)
 
     def serialize_for_es(self):
         """Prepares proper json data for es serializer

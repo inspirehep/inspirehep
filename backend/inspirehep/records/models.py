@@ -191,3 +191,38 @@ class RecordsAuthors(db.Model):
         db.ForeignKey("records_metadata.id", name="fk_authors_records_record_id"),
         nullable=False,
     )
+
+
+class ExperimentLiterature(db.Model):
+    """Keeps track of papers linked to Experiment Records."""
+
+    __tablename__ = "experiment_literature"
+    __table_args__ = (
+        db.Index("ix_experiment_literature_experiment_uuid", "experiment_uuid"),
+        db.Index("ix_experiment_literature_literature_uuid", "literature_uuid"),
+    )
+
+    experiment_uuid = db.Column(
+        UUIDType,
+        db.ForeignKey(
+            "records_metadata.id", name="fk_experiment_literature_experiment_uuid"
+        ),
+        nullable=False,
+        primary_key=True,
+    )
+    literature_uuid = db.Column(
+        UUIDType,
+        db.ForeignKey(
+            "records_metadata.id", name="fk_experiment_literature_literature_uuid"
+        ),
+        nullable=False,
+        primary_key=True,
+    )
+
+    experiment = db.relationship(
+        RecordMetadata, backref="experiment_papers", foreign_keys=[experiment_uuid]
+    )
+
+    experiment_paper = db.relationship(
+        RecordMetadata, backref="experiments", foreign_keys=[literature_uuid]
+    )

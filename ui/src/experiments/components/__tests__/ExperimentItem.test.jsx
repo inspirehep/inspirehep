@@ -8,6 +8,7 @@ describe('ExperimentItem', () => {
     const metadata = fromJS({
       legacy_name: 'Experiment new',
       control_number: 1234,
+      number_of_papers: 99,
       institutions: [
         {
           value: 'CERN',
