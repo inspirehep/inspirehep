@@ -20,6 +20,9 @@ def redirect_record(record_path):
     if not endpoint:
         abort(404)
 
+    if endpoint == "data":
+        return redirect(f"{current_app.config['LEGACY_BASE_URL']}/record/{recid}", 302)
+
     return redirect(f"/{endpoint}/{recid}", 301)
 
 
