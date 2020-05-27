@@ -16,6 +16,7 @@ from inspirehep.records.models import (
     AuthorSchemaType,
     ConferenceLiterature,
     ConferenceToLiteratureRelationshipType,
+    ExperimentLiterature,
     InstitutionLiterature,
     RecordCitations,
     RecordsAuthors,
@@ -565,6 +566,73 @@ class InstitutionPapersMixin:
             return list(self.get_records_ids_by_pids(pids_latest))
 
         pids_previous = self._previous_version.linked_institutions_pids
+
+        pids_changed = set.symmetric_difference(set(pids_latest), set(pids_previous))
+
+        return list(self.get_records_ids_by_pids(list(pids_changed)))
+
+
+class ExperimentPapersMixin:
+    def clean_experiment_literature_relations(self):
+        ExperimentLiterature.query.filter_by(literature_uuid=self.id).delete()
+
+    def create_experiment_relations(self):
+        experiments_pids = self.linked_experiments_pids
+        experiments = self.get_records_by_pids(experiments_pids)
+        experiment_literature_relations_waiting_for_commit = []
+
+        for experiment in experiments:
+            if experiment.get("deleted") is not True:
+                experiment_literature_relations_waiting_for_commit.append(
+                    ExperimentLiterature(
+                        experiment_uuid=experiment.id, literature_uuid=self.id
+                    )
+                )
+        if len(experiment_literature_relations_waiting_for_commit) > 0:
+            db.session.bulk_save_objects(
+                experiment_literature_relations_waiting_for_commit
+            )
+            LOGGER.info(
+                "Adding experiment-literature relations",
+                recid=self.get("control_number"),
+                uuid=str(self.id),
+                records_attached=len(
+                    experiment_literature_relations_waiting_for_commit
+                ),
+            )
+
+    def update_experiment_relations(self):
+        self.clean_experiment_literature_relations()
+        if self.get("deleted") is not True:
+            self.create_experiment_relations()
+
+    def hard_delete(self):
+        self.clean_experiment_literature_relations()
+        super().hard_delete()
+
+    def update(self, data, disable_relations_update=False, *args, **kwargs):
+        super().update(data, disable_relations_update, *args, **kwargs)
+        if not disable_relations_update:
+            self.update_experiment_relations()
+        else:
+            LOGGER.info(
+                "Record experiment papers update disabled",
+                recid=self.get("control_number"),
+                uuid=str(self.id),
+            )
+
+    def get_modified_experiment_uuids(self):
+        prev_version = self._previous_version
+
+        changed_deleted_status = self.get("deleted", False) ^ prev_version.get(
+            "deleted", False
+        )
+        pids_latest = list(self.linked_experiments_pids)
+
+        if changed_deleted_status:
+            return list(self.get_records_ids_by_pids(pids_latest))
+
+        pids_previous = self._previous_version.linked_experiments_pids
 
         pids_changed = set.symmetric_difference(set(pids_latest), set(pids_previous))
 

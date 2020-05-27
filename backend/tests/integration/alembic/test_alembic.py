@@ -14,6 +14,16 @@ from sqlalchemy.engine import reflection
 def test_downgrade(inspire_app):
     alembic = Alembic(current_app)
 
+    alembic.downgrade(target="020b99d0beb7")
+
+    assert "ix_experiment_literature_literature_uuid" not in _get_indexes(
+        "experiment_literature"
+    )
+    assert "ix_experiment_literature_experiment_uuid" not in _get_indexes(
+        "experiment_literature"
+    )
+    assert "experiment_literature" not in _get_table_names()
+
     alembic.downgrade(target="8ba47044154a")
     assert "ix_records_authors_id_type_record_id" not in _get_indexes("records_authors")
 
@@ -183,6 +193,17 @@ def test_upgrade(inspire_app):
 
     alembic.upgrade(target="020b99d0beb7")
     assert "ix_records_authors_id_type_record_id" in _get_indexes("records_authors")
+
+    alembic.upgrade(target="afe5f484abcc")
+
+    assert "experiment_literature" in _get_table_names()
+
+    assert "ix_experiment_literature_literature_uuid" in _get_indexes(
+        "experiment_literature"
+    )
+    assert "ix_experiment_literature_experiment_uuid" in _get_indexes(
+        "experiment_literature"
+    )
 
 
 def _get_indexes(tablename):

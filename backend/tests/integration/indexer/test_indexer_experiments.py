@@ -32,6 +32,7 @@ def test_index_experiment_record(inspire_app, datadir):
     ]
     expected_metadata["_created"] = utils.isoformat(record.created)
     expected_metadata["_updated"] = utils.isoformat(record.updated)
+    expected_metadata["number_of_papers"] = 0
 
     response = es_search("records-experiments")
 

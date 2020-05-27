@@ -31,6 +31,7 @@ from inspirehep.pidstore.api import PidStoreLiterature
 from inspirehep.records.api.mixins import (
     CitationMixin,
     ConferencePaperAndProceedingsMixin,
+    ExperimentPapersMixin,
     InstitutionPapersMixin,
 )
 from inspirehep.records.errors import (
@@ -70,6 +71,7 @@ CROSSREF_URL = "https://api.crossref.org/works/<ID>"
 class LiteratureRecord(
     CitationMixin,
     ConferencePaperAndProceedingsMixin,
+    ExperimentPapersMixin,
     InstitutionPapersMixin,
     InspireRecord,
 ):
@@ -456,6 +458,7 @@ class LiteratureRecord(
         uuids = set(self.get_modified_references())
         uuids |= set(self.get_newest_linked_conferences_uuid())
         uuids |= set(self.get_modified_institutions_uuids())
+        uuids |= set(self.get_modified_experiment_uuids())
         if uuids:
             LOGGER.info(
                 f"Found {len(uuids)} references changed, indexing them",

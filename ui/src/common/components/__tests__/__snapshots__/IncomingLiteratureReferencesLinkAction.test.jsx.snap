@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`IncomingLiteratureReferencesLinkAction renders with required props 1`] = `
+<ListItemAction>
+  <EventTracker
+    eventId="Citations:Search"
+    eventPropName="onClick"
+    extractEventArgsToForward={null}
+  >
+    <Link
+      to="/literature?q=refersto:recid:888"
+    >
+      <IconText
+        icon={<ForwardRef(LoginOutlined) />}
+        text={
+          <React.Fragment>
+            <FormattedNumber>
+              29
+            </FormattedNumber>
+             
+            citations
+          </React.Fragment>
+        }
+      />
+    </Link>
+  </EventTracker>
+</ListItemAction>
+`;
+
+exports[`IncomingLiteratureReferencesLinkAction renders with required props when reference count is singular 1`] = `
+<ListItemAction>
+  <EventTracker
+    eventId="Papers:Search"
+    eventPropName="onClick"
+    extractEventArgsToForward={null}
+  >
+    <Link
+      to="/literature?q=refersto:recid:888"
+    >
+      <IconText
+        icon={<ForwardRef(LoginOutlined) />}
+        text={
+          <React.Fragment>
+            <FormattedNumber>
+              1
+            </FormattedNumber>
+             
+            paper
+          </React.Fragment>
+        }
+      />
+    </Link>
+  </EventTracker>
+</ListItemAction>
+`;

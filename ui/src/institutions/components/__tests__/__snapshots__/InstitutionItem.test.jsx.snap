@@ -36,14 +36,12 @@ exports[`InstitutionItem renders with all props set 1`] = `
   }
   rightActions={
     <ListItemAction>
-      <ForwardRef
-        to="/literature?q=affid 1234"
-      >
-        <IconText
-          icon={<ForwardRef(LoginOutlined) />}
-          text="1 paper"
-        />
-      </ForwardRef>
+      <IncomingLiteratureReferencesLinkAction
+        itemCount={1}
+        linkQuery="affid 1234"
+        referenceType="paper"
+        trackerEventId="Institutions:PaperLink"
+      />
     </ListItemAction>
   }
 >
@@ -115,14 +113,12 @@ exports[`InstitutionItem renders with only needed props 1`] = `
   }
   rightActions={
     <ListItemAction>
-      <ForwardRef
-        to="/literature?q=affid 123"
-      >
-        <IconText
-          icon={<ForwardRef(LoginOutlined) />}
-          text="0 papers"
-        />
-      </ForwardRef>
+      <IncomingLiteratureReferencesLinkAction
+        itemCount={0}
+        linkQuery="affid 123"
+        referenceType="paper"
+        trackerEventId="Institutions:PaperLink"
+      />
     </ListItemAction>
   }
 >

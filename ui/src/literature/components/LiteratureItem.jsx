@@ -16,12 +16,12 @@ import { LITERATURE } from '../../common/routes';
 import LiteratureTitle from '../../common/components/LiteratureTitle';
 import ResponsiveView from '../../common/components/ResponsiveView';
 import CiteModalActionContainer from '../containers/CiteModalActionContainer';
+import IncomingLiteratureReferencesLinkAction from '../../common/components/IncomingLiteratureReferencesLinkAction';
 import ConferenceInfoList from './ConferenceInfoList';
 import {
   InlineUL,
   SEPARATOR_MIDDLEDOT,
 } from '../../common/components/InlineList';
-import CitationsLinkAction from './CitationsLinkAction';
 
 class LiteratureItem extends Component {
   render() {
@@ -75,9 +75,10 @@ class LiteratureItem extends Component {
         rightActions={
           <Fragment>
             {citationCount != null && (
-              <CitationsLinkAction
+              <IncomingLiteratureReferencesLinkAction
                 recordId={recordId}
-                citationCount={citationCount}
+                referenceType="citation"
+                itemCount={citationCount}
                 trackerEventId="Citations:Search"
               />
             )}

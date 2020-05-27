@@ -10,6 +10,7 @@ from helpers.utils import create_record
 
 from inspirehep.records.models import (
     ConferenceLiterature,
+    ExperimentLiterature,
     InstitutionLiterature,
     RecordCitations,
 )
@@ -112,3 +113,24 @@ def test_update_records_relations_with_no_literatrure_records(inspire_app):
     record_uuids = [record_aut.id, record_job.id, record_con.id]
     result = update_records_relations(record_uuids)
     assert record_uuids == result
+
+
+def test_update_records_relations_updated_experiment_literature_relations(inspire_app):
+    experiment = create_record("exp")
+    exp_ref = f"http://localhost:8000/api/experiments/{experiment['control_number']}"
+    lit_data_with_experiment = {
+        "accelerator_experiments": [
+            {"legacy_name": "LIGO", "record": {"$ref": exp_ref}}
+        ]
+    }
+    record = create_record("lit", data=lit_data_with_experiment)
+
+    result = update_records_relations([record.id])
+
+    assert [record.id] == result
+
+    experiment_literature_relation = ExperimentLiterature.query.filter_by(
+        experiment_uuid=experiment.id
+    ).one()
+
+    assert experiment_literature_relation.literature_uuid == record.id

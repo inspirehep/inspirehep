@@ -17,6 +17,14 @@ exports[`ExperimentItem renders with all props set 1`] = `
       />
     </React.Fragment>
   }
+  rightActions={
+    <IncomingLiteratureReferencesLinkAction
+      displayedName="paper"
+      itemCount={99}
+      linkQuery="accelerator_experiments.record.$ref:1234"
+      trackerEventId="Experiments:PapersLink"
+    />
+  }
 >
   <Row
     gutter={0}
@@ -79,6 +87,14 @@ exports[`ExperimentItem renders with all props set 1`] = `
 exports[`ExperimentItem renders with only needed props 1`] = `
 <ResultItem
   leftActions={<React.Fragment />}
+  rightActions={
+    <IncomingLiteratureReferencesLinkAction
+      displayedName="paper"
+      itemCount={0}
+      linkQuery="accelerator_experiments.record.$ref:1234"
+      trackerEventId="Experiments:PapersLink"
+    />
+  }
 >
   <Row
     gutter={0}

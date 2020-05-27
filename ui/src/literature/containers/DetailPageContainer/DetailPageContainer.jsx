@@ -42,7 +42,7 @@ import DeletedAlert from '../../../common/components/DeletedAlert';
 import SupervisorList from '../../components/SupervisorList';
 import withRouteActionsDispatcher from '../../../common/withRouteActionsDispatcher';
 import LiteratureDocumentHead from '../../components/LiteratureDocumentHead';
-import CitationsLinkAction from '../../components/CitationsLinkAction';
+import IncomingLiteratureReferencesLinkAction from '../../../common/components/IncomingLiteratureReferencesLinkAction';
 
 function DetailPage({ authors, record, referencesCount, supervisors }) {
   const metadata = record.get('metadata');
@@ -122,9 +122,10 @@ function DetailPage({ authors, record, referencesCount, supervisors }) {
                 rightActions={
                   <>
                     {citationCount != null && (
-                      <CitationsLinkAction
+                      <IncomingLiteratureReferencesLinkAction
                         recordId={controlNumber}
-                        citationCount={citationCount}
+                        referenceType="citation"
+                        itemCount={citationCount}
                         trackerEventId="Citations:Detail"
                       />
                     )}

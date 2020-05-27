@@ -13,7 +13,7 @@ from helpers.providers.faker import faker
 from helpers.utils import create_record
 
 from inspirehep.records.api import LiteratureRecord
-from inspirehep.records.models import InstitutionLiterature
+from inspirehep.records.models import ExperimentLiterature, InstitutionLiterature
 
 
 def test_records_links_correctly_with_conference(inspire_app):
@@ -46,7 +46,7 @@ def test_records_links_correctly_with_conference(inspire_app):
 
 
 def test_creating_lit_record_with_linked_institutions_populates_institution_relation_table(
-    inspire_app
+    inspire_app,
 ):
     author_institution = create_record("ins")
     author_institution_ref = (
@@ -138,7 +138,7 @@ def test_updating_record_updates_institution_relations(inspire_app):
 
 
 def test_record_with_institutions_adds_only_linked_ones_in_institution_lit_table(
-    inspire_app
+    inspire_app,
 ):
     ref = "http://localhost:8000/api/institutions/1234"
     rec_data = {
@@ -155,7 +155,7 @@ def test_record_with_institutions_adds_only_linked_ones_in_institution_lit_table
 
 
 def test_record_with_institutions_doesnt_add_deleted_institutions_in_institution_lit_table(
-    inspire_app
+    inspire_app,
 ):
     institution = create_record("ins")
     institution_control_number = institution["control_number"]
@@ -196,7 +196,7 @@ def test_deleted_record_deletes_relations_in_institution_literature_table(inspir
 
 
 def test_hard_delete_record_deletes_relations_in_institution_literature_table(
-    inspire_app
+    inspire_app,
 ):
     institution = create_record("ins")
     institution_control_number = institution["control_number"]
@@ -243,7 +243,7 @@ def test_institution_literature_table_is_not_updated_when_feature_flag_is_disabl
 
 
 def test_record_links_when_correct_type_is_not_first_document_type_conference(
-    inspire_app
+    inspire_app,
 ):
     conference = create_record("con")
     conference_control_number = conference["control_number"]
@@ -352,7 +352,7 @@ def test_delete_literature_clears_entries_in_conference_literature_table(inspire
 
 
 def test_hard_delete_literature_clears_entries_in_conference_literature_table(
-    inspire_app
+    inspire_app,
 ):
     conference = create_record("con")
     conference_control_number = conference["control_number"]
@@ -437,3 +437,133 @@ def test_self_citations_in_detail_view_not_logged_user(
         response.json["metadata"]["citation_count_without_self_citations"]
         == expected_non_self_citations
     )
+
+
+def test_creating_lit_record_with_linked_experiment_populates_experiment_relation_table(
+    inspire_app,
+):
+    experiment = create_record("exp")
+    experiment_control_number = experiment["control_number"]
+    exp_ref = f"http://localhost:8000/api/experiments/{experiment_control_number}"
+
+    data = {
+        "accelerator_experiments": [
+            {"legacy_name": "LIGO", "record": {"$ref": exp_ref}}
+        ]
+    }
+    rec = create_record("lit", data)
+    assert ExperimentLiterature.query.filter_by(literature_uuid=rec.id).count() == 1
+
+
+def test_updating_record_updates_experiment_relations(inspire_app):
+    experiment = create_record("exp")
+    experiment_control_number = experiment["control_number"]
+    exp_ref_1 = f"http://localhost:8000/api/experiments/{experiment_control_number}"
+
+    experiment_2 = create_record("exp")
+    experiment_control_number_2 = experiment_2["control_number"]
+    exp_ref_2 = f"http://localhost:8000/api/experiments/{experiment_control_number_2}"
+    data = {
+        "accelerator_experiments": [
+            {"legacy_name": "LIGO", "record": {"$ref": exp_ref_1}}
+        ]
+    }
+    rec = create_record("lit", data)
+
+    rec_data = deepcopy(dict(rec))
+    rec_data.update(
+        {
+            "accelerator_experiments": [
+                {"legacy_name": "LIGO", "record": {"$ref": exp_ref_2}}
+            ]
+        }
+    )
+    rec.update(rec_data)
+
+    experiment_papers = experiment.model.experiment_papers
+    experiment_2_papers = experiment_2.model.experiment_papers
+    lit_record_experiments = rec.model.experiments
+
+    assert len(experiment_papers) == 0
+    assert len(experiment_2_papers) == 1
+    assert len(lit_record_experiments) == 1
+    assert lit_record_experiments[0].experiment_uuid == experiment_2.id
+
+
+def test_record_with_experiment_adds_only_linked_ones_in_experiment_lit_table(
+    inspire_app,
+):
+    ref = "http://localhost:8000/api/experiments/1234"
+    rec_data = {
+        "accelerator_experiments": [{"legacy_name": "LIGO", "record": {"$ref": ref}}]
+    }
+    rec = create_record("lit", rec_data)
+
+    assert len(rec.model.experiments) == 0
+
+
+def test_record_with_experiment_doesnt_add_deleted_experiment_in_experiment_lit_table(
+    inspire_app,
+):
+    experiment = create_record("exp")
+    experiment_control_number = experiment["control_number"]
+    ref = f"http://localhost:8000/api/experiments/{experiment_control_number}"
+    experiment.delete()
+    rec_data = {
+        "accelerator_experiments": [{"legacy_name": "LIGO", "record": {"$ref": ref}}]
+    }
+    rec = create_record("lit", rec_data)
+    assert len(rec.model.experiments) == 0
+
+
+def test_deleted_record_deletes_relations_in_experiment_literature_table(inspire_app):
+    experiment = create_record("exp")
+    experiment_control_number = experiment["control_number"]
+    ref = f"http://localhost:8000/api/experiments/{experiment_control_number}"
+
+    rec_data = {
+        "accelerator_experiments": [{"legacy_name": "LIGO", "record": {"$ref": ref}}]
+    }
+
+    rec = create_record("lit", rec_data)
+    assert ExperimentLiterature.query.filter_by(literature_uuid=rec.id).count() == 1
+    rec.delete()
+
+    assert ExperimentLiterature.query.filter_by(literature_uuid=rec.id).count() == 0
+
+
+def test_hard_delete_record_deletes_relations_in_experiment_literature_table(
+    inspire_app,
+):
+    experiment = create_record("exp")
+    experiment_control_number = experiment["control_number"]
+    ref = f"http://localhost:8000/api/experiments/{experiment_control_number}"
+
+    rec_data = {
+        "accelerator_experiments": [{"legacy_name": "LIGO", "record": {"$ref": ref}}]
+    }
+
+    rec = create_record("lit", rec_data)
+    assert ExperimentLiterature.query.filter_by(literature_uuid=rec.id).count() == 1
+    rec.hard_delete()
+
+    assert ExperimentLiterature.query.filter_by(literature_uuid=rec.id).count() == 0
+
+
+@mock.patch.object(LiteratureRecord, "update_experiment_relations")
+def test_experiment_literature_table_is_not_updated_when_feature_flag_is_disabled(
+    update_function_mock, inspire_app
+):
+    institution = create_record("exp")
+    institution_control_number = institution["control_number"]
+    ref = f"http://localhost:8000/api/experiments/{institution_control_number}"
+
+    data = {
+        "accelerator_experiments": [{"legacy_name": "LIGO", "record": {"$ref": ref}}]
+    }
+    record_data = faker.record("lit", data)
+    LiteratureRecord.create(record_data, disable_relations_update=True)
+    update_function_mock.assert_not_called()
+
+    LiteratureRecord.create(record_data, disable_relations_update=False)
+    update_function_mock.assert_called()

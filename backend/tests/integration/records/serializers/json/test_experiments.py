@@ -26,6 +26,7 @@ def test_experiments_json_without_login(inspire_app, datadir):
     expected_metadata = deepcopy(record.json)
     del expected_metadata["_collections"]
     del expected_metadata["_private_notes"]
+    expected_metadata["number_of_papers"] = 0
     expected_created = utils.isoformat(record.created)
     expected_updated = utils.isoformat(record.updated)
     with inspire_app.test_client() as client:
@@ -52,6 +53,7 @@ def test_experiments_json_with_loggedin_cataloger(inspire_app, datadir):
     record_control_number = record.json["control_number"]
 
     expected_metadata = deepcopy(record.json)
+    expected_metadata["number_of_papers"] = 0
     expected_created = utils.isoformat(record.created)
     expected_updated = utils.isoformat(record.updated)
     with inspire_app.test_client() as client:
@@ -80,6 +82,7 @@ def test_experiments_json_search(inspire_app, datadir):
     expected_updated = utils.isoformat(record.updated)
     del expected_result["_collections"]
     del expected_result["_private_notes"]
+    expected_result["number_of_papers"] = 0
     with inspire_app.test_client() as client:
         response = client.get("/experiments", headers=headers)
 
@@ -105,6 +108,7 @@ def test_experiments_detail(inspire_app, datadir):
     expected_metadata = deepcopy(record.json)
     del expected_metadata["_collections"]
     del expected_metadata["_private_notes"]
+    expected_metadata["number_of_papers"] = 0
     expected_created = utils.isoformat(record.created)
     expected_updated = utils.isoformat(record.updated)
     with inspire_app.test_client() as client:
