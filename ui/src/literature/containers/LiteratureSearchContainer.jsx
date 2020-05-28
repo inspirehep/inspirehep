@@ -55,7 +55,8 @@ function LiteratureSearch({
 
   useEffect(
     () => {
-      if (onBaseQueriesChange) {
+      // FIXME: this should be the responsibility of the parent component
+      if (baseQuery || baseAggregationsQuery) {
         onBaseQueriesChange(namespace, {
           baseQuery,
           baseAggregationsQuery,
@@ -77,37 +78,38 @@ function LiteratureSearch({
         title={noResultsTitle}
         description={noResultsDescription}
       >
-          <Col xs={0} lg={7}>
-            <ResponsiveView min="lg" render={renderAggregations} />
-          </Col>
-          <Col xs={24} lg={17}>
-            <LoadingOrChildren loading={loading}>
-              <Row type="flex" align="middle" justify="end">
-                <Col xs={24} lg={8}>
-                  <NumberOfResultsContainer namespace={namespace} />
-                  <VerticalDivider />
-                  <CiteAllActionContainer namespace={namespace} />
-                </Col>
-                <Col xs={8} lg={0}>
-                  <ResponsiveView
-                    max="md"
-                    render={() => (
-                      <DrawerHandle handleText="Filter" drawerTitle="Filter">
-                        {renderAggregations()}
-                      </DrawerHandle>
-                    )}
-                  />
-                </Col>
-                <Col className="tr" span={16}>
-                  {enableCitationSummary && (
-                    <span className="mr2">
-                      <CitationSummarySwitchContainer namespace={namespace}/>
-                    </span>
+        <Col xs={0} lg={7}>
+          <ResponsiveView min="lg" render={renderAggregations} />
+        </Col>
+        <Col xs={24} lg={17}>
+          <LoadingOrChildren loading={loading}>
+            <Row type="flex" align="middle" justify="end">
+              <Col xs={24} lg={8}>
+                <NumberOfResultsContainer namespace={namespace} />
+                <VerticalDivider />
+                <CiteAllActionContainer namespace={namespace} />
+              </Col>
+              <Col xs={8} lg={0}>
+                <ResponsiveView
+                  max="md"
+                  render={() => (
+                    <DrawerHandle handleText="Filter" drawerTitle="Filter">
+                      {renderAggregations()}
+                    </DrawerHandle>
                   )}
-                  <SortByContainer namespace={namespace} />
-                </Col>
-              </Row>
-              {enableCitationSummary && isCitationSummaryVisible && (
+                />
+              </Col>
+              <Col className="tr" span={16}>
+                {enableCitationSummary && (
+                  <span className="mr2">
+                    <CitationSummarySwitchContainer namespace={namespace} />
+                  </span>
+                )}
+                <SortByContainer namespace={namespace} />
+              </Col>
+            </Row>
+            {enableCitationSummary &&
+              isCitationSummaryVisible && (
                 <Row className="mt2">
                   <Col span={24}>
                     <CitationSummaryBoxContainer namespace={namespace} />
@@ -148,7 +150,7 @@ LiteratureSearch.propTypes = {
 
 LiteratureSearch.defaultProps = {
   enableCitationSummary: true,
-}
+};
 
 const stateToProps = (state, { namespace }) => ({
   loading: state.search.getIn(['namespaces', namespace, 'loading']),
