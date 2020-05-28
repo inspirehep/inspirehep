@@ -62,4 +62,12 @@ describe('CollectionsMenu', () => {
 
     expect(wrapper).toMatchSnapshot();
   });
+
+  it('renders with hash', () => {
+    const wrapper = shallow(
+      <CollectionsMenu currentPathname={`${SEMINARS}/1`} currentHash="#yep" />
+    );
+
+    expect(wrapper).toMatchSnapshot();
+  });
 });
