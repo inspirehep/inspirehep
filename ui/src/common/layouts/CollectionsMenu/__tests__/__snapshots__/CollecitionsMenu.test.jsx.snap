@@ -405,3 +405,61 @@ exports[`CollectionsMenu renders when submissions page 1`] = `
   </Col>
 </Row>
 `;
+
+exports[`CollectionsMenu renders with hash 1`] = `
+<Row
+  className="__CollectionsMenu__"
+  gutter={0}
+  justify="center"
+>
+  <Col>
+    <CollectionLink
+      active={false}
+      to="/literature#yep"
+    >
+      Literature
+    </CollectionLink>
+  </Col>
+  <Col>
+    <CollectionLink
+      active={false}
+      to="/authors"
+    >
+      Authors
+    </CollectionLink>
+  </Col>
+  <Col>
+    <CollectionLink
+      active={false}
+      to="/jobs"
+    >
+      Jobs
+    </CollectionLink>
+  </Col>
+  <Col>
+    <CollectionLink
+      active={true}
+      newCollection={true}
+      to="/seminars"
+    >
+      Seminars
+    </CollectionLink>
+  </Col>
+  <Col>
+    <CollectionLink
+      active={false}
+      to="/conferences"
+    >
+      Conferences
+    </CollectionLink>
+  </Col>
+  <Col>
+    <CollectionLink
+      active={false}
+      to="/institutions"
+    >
+      Institutions
+    </CollectionLink>
+  </Col>
+</Row>
+`;
