@@ -18,10 +18,12 @@ function SearchBox({ value, placeholder, onSearch, namespace, className }) {
   const [autoCompleteOptions, setAutoCompleteOptions] = useState([]);
   const [shouldSearch, setShouldSearch] = useState(false);
 
+  // always override inputValue when `value` prop is changed
   useEffect(
     () => {
-      // always override inputValue when `value` prop is changed
-      setInputValue(value);
+      // set empty string if `value` is null to force clearing text value of internal Input field.
+      const valueOrEmpty = value != null ? value : '';
+      setInputValue(valueOrEmpty);
     },
     [value]
   );
