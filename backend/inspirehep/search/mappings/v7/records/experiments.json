@@ -252,7 +252,7 @@
             "type": "text"
           }
         },
-        "type": "object"
+        "type": "nested"
       },
       "self": {
         "properties": {

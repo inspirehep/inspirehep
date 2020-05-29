@@ -10,6 +10,8 @@ import {
   INSTITUTIONS_NS,
   INSTITUTION_PAPERS_NS,
   AUTHOR_CITATIONS_NS,
+  EXPERIMENTS_NS,
+  EXPERIMENT_PAPERS_NS,
 } from './constants';
 import { START_DATE_UPCOMING, START_DATE_ALL } from '../common/constants';
 
@@ -115,6 +117,15 @@ const namespacesState = {
       ...initialBaseQuery,
       start_date: START_DATE_UPCOMING,
       sort: 'dateasc',
+    },
+  },
+  [EXPERIMENTS_NS]: {
+    ...initialNamespaceState,
+  },
+  [EXPERIMENT_PAPERS_NS]: {
+    ...initialNamespaceState,
+    baseAggregationsQuery: {
+      facet_name: 'hep-experiment-papers',
     },
   },
 };

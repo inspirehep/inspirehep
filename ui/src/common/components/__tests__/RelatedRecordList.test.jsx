@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
 import RelatedRecordsList from '../RelatedRecordsList';
+import { INSTITUTIONS_PID_TYPE, EXPERIMENTS_PID_TYPE } from '../../constants';
 
 describe('RelatedRecordsList', () => {
   it('renders with multiple records', () => {
@@ -19,6 +20,8 @@ describe('RelatedRecordsList', () => {
       <RelatedRecordsList
         relatedRecords={relatedRecords}
         relationType="Subsidiary"
+        label="Institution"
+        pidType={INSTITUTIONS_PID_TYPE}
       />
     );
     expect(wrapper.dive()).toMatchSnapshot();
@@ -34,6 +37,8 @@ describe('RelatedRecordsList', () => {
       <RelatedRecordsList
         relatedRecords={relatedRecords}
         relationType="Subsidiary"
+        label="Experiment"
+        pidType={EXPERIMENTS_PID_TYPE}
       />
     );
     expect(wrapper.dive()).toMatchSnapshot();

@@ -12,6 +12,8 @@ export const INSTITUTIONS = '/institutions';
 
 export const SEMINARS = '/seminars';
 
+export const EXPERIMENTS = '/experiments';
+
 export const USER = '/user';
 export const USER_PROFILE = `${USER}/profile`;
 export const USER_LOGIN = `${USER}/login`;
@@ -47,5 +49,5 @@ export const EDIT_SEMINAR = SUBMISSIONS_SEMINAR;
 
 // eslint-disable-next-line no-unused-vars
 export function isBetaRoute(locationPathname) {
-  return false;
+  return locationPathname.startsWith(EXPERIMENTS);
 }

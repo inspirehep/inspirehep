@@ -1,13 +1,6 @@
 import PropTypes from 'prop-types';
 import moment from 'moment';
-
-function hasMonthAndYear(date) {
-  return date.length >= 6;
-}
-
-function hasDayMonthAndYear(date) {
-  return date.length >= 8;
-}
+import { hasDayMonthAndYear, hasMonthAndYear } from '../../common/utils';
 
 function getDisplayFormatForDateString(date) {
   if (hasDayMonthAndYear(date)) {

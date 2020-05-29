@@ -280,3 +280,11 @@ export function doTimezonesHaveDifferentTimes(timezone1, timezone2) {
     moment.tz.zone(timezone2).utcOffset(now)
   );
 }
+
+export function hasMonthAndYear(date) {
+  return date.length >= 6;
+}
+
+export function hasDayMonthAndYear(date) {
+  return date.length >= 8;
+}

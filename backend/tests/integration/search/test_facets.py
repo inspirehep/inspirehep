@@ -510,3 +510,78 @@ def test_records_seminars_facets(inspire_app):
         ]
         assert filters == expected_filters
         assert aggregations == expected_aggregations
+
+
+def test_hep_experiment_papers_facets(inspire_app):
+    with current_app.test_request_context():
+        expected_filters = {
+            "author",
+            "author_count",
+            "doc_type",
+            "earliest_date",
+            "citation_count",
+            "citation_count_without_self_citations",
+            "collaboration",
+            "refereed",
+            "citeable",
+            "collection",
+            "subject",
+            "arxiv_categories",
+            "self_affiliations",
+            "self_author_names",
+            "rpp",
+            "affiliations",
+        }
+
+        expected_aggregations = {
+            **hep_earliest_date_aggregation(order=1),
+            **hep_author_count_aggregation(order=2),
+            **hep_doc_type_aggregation(order=3),
+            **hep_subject_aggregation(order=4),
+        }
+        filters = current_app.config["RECORDS_REST_FACETS"]["hep-experiment-papers"]()[
+            "filters"
+        ].keys()
+        aggregations = current_app.config["RECORDS_REST_FACETS"][
+            "hep-experiment-papers"
+        ]()["aggs"]
+        assert filters == expected_filters
+        assert aggregations == expected_aggregations
+
+
+def test_hep_experiment_papers_cataloger_facets(inspire_app):
+    with current_app.test_request_context():
+        expected_filters = {
+            "author",
+            "author_count",
+            "doc_type",
+            "earliest_date",
+            "citation_count",
+            "citation_count_without_self_citations",
+            "collaboration",
+            "refereed",
+            "citeable",
+            "collection",
+            "subject",
+            "arxiv_categories",
+            "self_affiliations",
+            "self_author_names",
+            "rpp",
+            "affiliations",
+        }
+        expected_aggregations = {
+            **hep_earliest_date_aggregation(order=1),
+            **hep_author_count_aggregation(order=2),
+            **hep_doc_type_aggregation(order=3),
+            **hep_subject_aggregation(order=4),
+            **hep_collection_aggregation(order=5),
+        }
+
+        filters = current_app.config["CATALOGER_RECORDS_REST_FACETS"][
+            "hep-experiment-papers"
+        ]()["filters"].keys()
+        aggregations = current_app.config["CATALOGER_RECORDS_REST_FACETS"][
+            "hep-experiment-papers"
+        ]()["aggs"]
+        assert filters == expected_filters
+        assert aggregations == expected_aggregations

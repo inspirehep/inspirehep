@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AuthorAffiliation renders linked affiliation with institution 1`] = `
+exports[`Affiliation renders linked affiliation with institution 1`] = `
 <Link
   to="/institutions/12345"
 >
@@ -8,7 +8,7 @@ exports[`AuthorAffiliation renders linked affiliation with institution 1`] = `
 </Link>
 `;
 
-exports[`AuthorAffiliation renders linked affiliation with value 1`] = `
+exports[`Affiliation renders linked affiliation with value 1`] = `
 <Link
   to="/institutions/12345"
 >
@@ -16,13 +16,13 @@ exports[`AuthorAffiliation renders linked affiliation with value 1`] = `
 </Link>
 `;
 
-exports[`AuthorAffiliation renders unlinked affiliation with institution 1`] = `
+exports[`Affiliation renders unlinked affiliation with institution 1`] = `
 <span>
   CERN2
 </span>
 `;
 
-exports[`AuthorAffiliation renders unlinked affiliation with value 1`] = `
+exports[`Affiliation renders unlinked affiliation with value 1`] = `
 <span>
   CERN2
 </span>

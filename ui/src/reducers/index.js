@@ -13,6 +13,7 @@ import jobs from './jobs';
 import conferences from './conferences';
 import institutions from './institutions';
 import seminars from './seminars';
+import experiments from './experiments';
 import ui, { initialState as uiInitialState } from './ui';
 
 export default function createRootReducer(history) {
@@ -31,6 +32,7 @@ export default function createRootReducer(history) {
     conferences,
     institutions,
     seminars,
+    experiments,
   });
 }
 

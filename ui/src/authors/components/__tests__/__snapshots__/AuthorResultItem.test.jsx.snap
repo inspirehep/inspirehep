@@ -25,7 +25,7 @@ exports[`AuthorResultItem renders full author result 1`] = `
     className="pl1"
   >
     (
-    <AuthorAffiliationList
+    <AffiliationList
       affiliations={
         Immutable.List [
           Immutable.Map {
@@ -38,6 +38,7 @@ exports[`AuthorResultItem renders full author result 1`] = `
           },
         ]
       }
+      separator=" and "
     />
     )
   </span>

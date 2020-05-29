@@ -489,3 +489,25 @@ def records_jobs_cataloger(order=None):
     records = records_jobs(order=order)
     records["aggs"].update({**jobs_status_aggregation(order=next(order))})
     return records
+
+
+def hep_experiment_papers(order=None):
+    if order is None:
+        order = count(start=1)
+    return {
+        "filters": hep_filters(),
+        "aggs": {
+            **hep_earliest_date_aggregation(order=next(order)),
+            **hep_author_count_aggregation(order=next(order)),
+            **hep_doc_type_aggregation(order=next(order)),
+            **hep_subject_aggregation(order=next(order)),
+        },
+    }
+
+
+def hep_experiment_papers_cataloger(order=None):
+    if order is None:
+        order = count(start=1)
+    records = hep_experiment_papers(order=order)
+    records["aggs"].update({**hep_collection_aggregation(order=next(order))})
+    return records

@@ -25,6 +25,7 @@ import {
   CONFERENCES,
   INSTITUTIONS,
   SEMINARS,
+  EXPERIMENTS,
 } from './common/routes';
 import UserFeedback from './common/components/UserFeedback';
 import { setUserCategoryFromRoles, setClientId } from './tracker';
@@ -41,6 +42,7 @@ import { changeGuideModalVisibility } from './actions/ui';
 import { getConfigFor } from './common/config';
 import Institutions from './institutions';
 import Seminars from './seminars';
+import Experiments from './experiments';
 
 const Holdingpen$ = Loadable({
   loader: () => import('./holdingpen'),
@@ -97,6 +99,7 @@ function App({ userRoles, dispatch, guideModalVisibility }) {
           <Route path={CONFERENCES} component={Conferences} />
           <Route path={INSTITUTIONS} component={Institutions} />
           <Route path={SEMINARS} component={Seminars} />
+          <Route path={EXPERIMENTS} component={Experiments} />
           <PrivateRoute path={SUBMISSIONS} component={Submissions$} />
           <Route path={ERRORS} component={Errors} />
         </SafeSwitch>

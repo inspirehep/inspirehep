@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExperimentAssociatedArticlesLink renders 1`] = `
+<Link
+  to="/literature?q=accelerator_experiments.record.$ref:12345"
+>
+  Articles associated with Experiment
+</Link>
+`;

@@ -25,7 +25,7 @@ exports[`Author renders editor 1`] = `
     className="pl1 secondary-color"
   >
     (
-    <AuthorAffiliationList
+    <AffiliationList
       affiliations={
         Immutable.List [
           Immutable.Map {
@@ -33,6 +33,7 @@ exports[`Author renders editor 1`] = `
           },
         ]
       }
+      separator=" and "
     />
     )
   </span>
@@ -120,7 +121,7 @@ exports[`Author renders unlinkedAuthor with affiliations 1`] = `
     className="pl1 secondary-color"
   >
     (
-    <AuthorAffiliationList
+    <AffiliationList
       affiliations={
         Immutable.List [
           Immutable.Map {
@@ -128,6 +129,7 @@ exports[`Author renders unlinkedAuthor with affiliations 1`] = `
           },
         ]
       }
+      separator=" and "
     />
     )
   </span>

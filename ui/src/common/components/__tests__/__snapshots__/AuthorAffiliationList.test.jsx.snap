@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AuthorAffiliationList renders author with multiple affiliations 1`] = `
+exports[`AffiliationList renders author with multiple affiliations 1`] = `
 <div
   className="__InlineList__ di"
 >
@@ -8,7 +8,7 @@ exports[`AuthorAffiliationList renders author with multiple affiliations 1`] = `
     <li
       key="CERN2"
     >
-      <AuthorAffiliation
+      <Affiliation
         affiliation={
           Immutable.Map {
             "value": "CERN2",
@@ -23,7 +23,7 @@ exports[`AuthorAffiliationList renders author with multiple affiliations 1`] = `
     <li
       key="CERN1"
     >
-      <AuthorAffiliation
+      <Affiliation
         affiliation={
           Immutable.Map {
             "value": "CERN1",
@@ -35,7 +35,7 @@ exports[`AuthorAffiliationList renders author with multiple affiliations 1`] = `
 </div>
 `;
 
-exports[`AuthorAffiliationList renders author with one affiliation 1`] = `
+exports[`AffiliationList renders author with one affiliation 1`] = `
 <div
   className="__InlineList__ di"
 >
@@ -43,7 +43,7 @@ exports[`AuthorAffiliationList renders author with one affiliation 1`] = `
     <li
       key="CERN2"
     >
-      <AuthorAffiliation
+      <Affiliation
         affiliation={
           Immutable.Map {
             "value": "CERN2",
