@@ -4,7 +4,6 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-from elasticsearch_dsl.query import Match, Q
 from marshmallow import fields
 
 from inspirehep.records.marshmallow.fields.nested_without_empty_objects import (
@@ -66,23 +65,8 @@ class InstitutionsDetailSchema(InstitutionsBaseSchema):
 
     @staticmethod
     def get_subsidiary_institutions(data):
-        query = Q(
-            "nested",
-            path="related_records",
-            query=Q(
-                "bool",
-                must=[
-                    Match(
-                        **{"related_records.record.$ref": data.get("control_number")}
-                    ),
-                    Match(**{"related_records.relation": "parent"}),
-                ],
-            ),
-        )
-        query_results = (
-            InstitutionsSearch()
-            .query(query)
-            .params(size=10000, _source=["legacy_ICN", "control_number"])
+        query_results = InstitutionsSearch.get_subsidiary_institutions(
+            data, source=["legacy_ICN", "control_number"]
         )
         results = [
             query_result.to_dict() for query_result in query_results.execute().hits

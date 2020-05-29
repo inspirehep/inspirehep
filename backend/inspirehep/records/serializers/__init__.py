@@ -17,6 +17,8 @@ from .json import (
     conferences_json_list_response,
     conferences_json_response,
     conferences_json_response_search,
+    experiments_json_detail_response,
+    experiments_json_list_response,
     experiments_json_response,
     experiments_json_response_search,
     facets_json_response_search,

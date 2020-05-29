@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExperimentCollaborationMembersLink renders 1`] = `
+<Link
+  to="/authors?q=project_membership.record.$ref:1234"
+>
+  Collaboration members
+</Link>
+`;

@@ -67,6 +67,7 @@ def test_experiments_record_search_results(inspire_app):
     record = create_record("exp")
 
     expected_metadata = record.serialize_for_es()
+    del expected_metadata["_collections"]
     expected_metadata.pop("_created")
     expected_metadata.pop("_updated")
 

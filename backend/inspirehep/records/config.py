@@ -47,6 +47,8 @@ from inspirehep.search.facets import (
     hep_author_publications,
     hep_author_publications_cataloger,
     hep_conference_contributions,
+    hep_experiment_papers,
+    hep_experiment_papers_cataloger,
     hep_institution_papers,
     must_match_all_filter,
     range_author_count_filter,
@@ -288,10 +290,14 @@ EXPERIMENTS.update(
         },
         "search_serializers": {
             "application/json": INSPIRE_SERIALIZERS
-            + ":experiments_json_response_search"
+            + ":experiments_json_response_search",
+            "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
+            + ":experiments_json_list_response",
         },
         "record_serializers": {
-            "application/json": INSPIRE_SERIALIZERS + ":experiments_json_response"
+            "application/json": INSPIRE_SERIALIZERS + ":experiments_json_response",
+            "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
+            + ":experiments_json_detail_response",
         },
     }
 )
@@ -506,6 +512,7 @@ RECORDS_REST_FACETS = {
     "records-jobs": records_jobs,
     "records-conferences": records_conferences,
     "records-seminars": records_seminars,
+    "hep-experiment-papers": hep_experiment_papers,
 }
 CATALOGER_RECORDS_REST_FACETS = deepcopy(RECORDS_REST_FACETS)
 CATALOGER_RECORDS_REST_FACETS.update(
@@ -514,6 +521,7 @@ CATALOGER_RECORDS_REST_FACETS.update(
         "hep-author-citations": hep_author_citations_cataloger,
         "records-hep": records_hep_cataloger,
         "records-jobs": records_jobs_cataloger,
+        "hep-experiment-papers": hep_experiment_papers_cataloger,
     }
 )
 RECORDS_REST_SORT_OPTIONS = {

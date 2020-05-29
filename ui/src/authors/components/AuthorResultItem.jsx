@@ -5,11 +5,11 @@ import { Map, List } from 'immutable';
 
 import ResultItem from '../../common/components/ResultItem';
 import AuthorName from './AuthorName';
-import AuthorAffiliationList from '../../common/components/AuthorAffiliationList';
 import { getCurrentAffiliationsFromPositions } from '../utils';
 import ArxivCategoryList from '../../common/components/ArxivCategoryList';
 import ExperimentList from '../../common/components/ExperimentList';
 import EditRecordAction from '../../common/components/EditRecordAction';
+import AffiliationList from '../../common/components/AffiliationList';
 
 class AuthorResultItem extends Component {
   render() {
@@ -33,7 +33,7 @@ class AuthorResultItem extends Component {
         {currentPositions.size > 0 && (
           <span className="pl1">
             (
-            <AuthorAffiliationList affiliations={currentPositions} />
+            <AffiliationList affiliations={currentPositions} />
             )
           </span>
         )}

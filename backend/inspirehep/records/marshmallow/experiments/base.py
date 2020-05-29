@@ -13,7 +13,7 @@ class ExperimentsRawSchema(RecordBaseSchema):
     pass
 
 
-# Fields that are needed to be indexed but exluded from API responses
+# Fields that are needed to be indexed but excluded from API responses
 FIELDS_TO_EXCLUDE = ["experiment_suggest"]
 
 
@@ -24,4 +24,4 @@ class ExperimentsAdminSchema(ExperimentsRawSchema):
 
 class ExperimentsPublicSchema(ExperimentsRawSchema):
     class Meta:
-        exclude = FIELDS_TO_EXCLUDE
+        exclude = FIELDS_TO_EXCLUDE + ["_private_notes", "_collections"]

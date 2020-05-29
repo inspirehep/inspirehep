@@ -10,7 +10,6 @@ import AuthorName from '../../components/AuthorName';
 import ExperimentList from '../../../common/components/ExperimentList';
 import { fetchAuthor } from '../../../actions/authors';
 import { fetchCitationsByYear } from '../../../actions/citations';
-import AuthorAffiliationList from '../../../common/components/AuthorAffiliationList';
 import {
   getCurrentAffiliationsFromPositions,
   getAuthorDisplayName,
@@ -36,6 +35,7 @@ import UserSettingsAction from '../../components/UserSettingsAction';
 import withRouteActionsDispatcher from '../../../common/withRouteActionsDispatcher';
 import AuthorBAI from '../../components/AuthorBAI';
 import Advisors from '../../components/Advisors';
+import AffiliationList from '../../../common/components/AffiliationList';
 
 function DetailPage({
   record,
@@ -121,7 +121,7 @@ function DetailPage({
                   <AuthorName name={name} />
                   {currentPositions.size > 0 && (
                     <span className="pl1 f6">
-                      (<AuthorAffiliationList affiliations={currentPositions} />)
+                      (<AffiliationList affiliations={currentPositions} />)
                     </span>
                   )}
                   {orcid && (

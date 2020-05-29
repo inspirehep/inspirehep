@@ -25,6 +25,7 @@ import { LITERATURE } from '../common/routes';
 
 export const initialState = fromJS({
   searchBoxNamespace: LITERATURE_NS,
+      embedded: false,
   namespaces: namespacesState,
 });
 

@@ -9,7 +9,7 @@
 
 
 from elasticsearch import RequestError
-from elasticsearch_dsl.query import Q
+from elasticsearch_dsl.query import Match, Q
 from flask import current_app
 from invenio_search import current_search_client as es
 from invenio_search.api import DefaultFilter, RecordsSearch
@@ -257,6 +257,28 @@ class InstitutionsSearch(InspireSearch):
         index = "records-institutions"
         doc_types = "_doc"
 
+    @staticmethod
+    def get_subsidiary_institutions(institution, source=None, size=10000):
+        query = Q(
+            "nested",
+            path="related_records",
+            query=Q(
+                "bool",
+                must=[
+                    Match(
+                        **{
+                            "related_records.record.$ref": institution.get(
+                                "control_number"
+                            )
+                        }
+                    ),
+                    Match(**{"related_records.relation": "parent"}),
+                ],
+            ),
+        )
+        results = InstitutionsSearch().query(query).params(size=size, _source=source)
+        return results
+
 
 class ExperimentsSearch(InspireSearch):
     """Elasticsearch-dsl specialized class to search in Experiments database."""
@@ -264,6 +286,28 @@ class ExperimentsSearch(InspireSearch):
     class Meta:
         index = "records-experiments"
         doc_types = "_doc"
+
+    @staticmethod
+    def get_subsidiary_experiments(experiment, source=None, size=10000):
+        query = Q(
+            "nested",
+            path="related_records",
+            query=Q(
+                "bool",
+                must=[
+                    Match(
+                        **{
+                            "related_records.record.$ref": experiment.get(
+                                "control_number"
+                            )
+                        }
+                    ),
+                    Match(**{"related_records.relation": "parent"}),
+                ],
+            ),
+        )
+        results = ExperimentsSearch().query(query).params(size=size, _source=source)
+        return results
 
 
 class JournalsSearch(InspireSearch):

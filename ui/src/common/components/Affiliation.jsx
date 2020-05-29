@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { INSTITUTIONS } from '../routes';
 import { getRecordIdFromRef, getInstitutionName } from '../utils';
 
-function AuthorAffiliation({ affiliation }) {
+function Affiliation({ affiliation }) {
   const institutionRecordId = getRecordIdFromRef(
     affiliation.getIn(['record', '$ref'])
   );
@@ -19,8 +19,8 @@ function AuthorAffiliation({ affiliation }) {
   );
 }
 
-AuthorAffiliation.propTypes = {
+Affiliation.propTypes = {
   affiliation: PropTypes.instanceOf(Map).isRequired,
 };
 
-export default AuthorAffiliation;
+export default Affiliation;

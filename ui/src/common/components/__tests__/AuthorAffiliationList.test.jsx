@@ -2,9 +2,9 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
 
-import AuthorAffiliationList from '../AuthorAffiliationList';
+import AffiliationList from '../AffiliationList';
 
-describe('AuthorAffiliationList', () => {
+describe('AffiliationList', () => {
   it('renders author with one affiliation', () => {
     const affiliations = fromJS([
       {
@@ -12,9 +12,7 @@ describe('AuthorAffiliationList', () => {
         record: { $ref: 'http://inspirehep.net/api/institutions/12345' },
       },
     ]);
-    const wrapper = shallow(
-      <AuthorAffiliationList affiliations={affiliations} />
-    );
+    const wrapper = shallow(<AffiliationList affiliations={affiliations} />);
     expect(wrapper.dive()).toMatchSnapshot();
   });
 
@@ -28,9 +26,7 @@ describe('AuthorAffiliationList', () => {
         value: 'CERN1',
       },
     ]);
-    const wrapper = shallow(
-      <AuthorAffiliationList affiliations={affiliations} />
-    );
+    const wrapper = shallow(<AffiliationList affiliations={affiliations} />);
     expect(wrapper.dive()).toMatchSnapshot();
   });
 });

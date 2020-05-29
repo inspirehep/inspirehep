@@ -9,7 +9,9 @@ import {
   CONFERENCE_CONTRIBUTIONS_NS,
   INSTITUTIONS_NS,
   INSTITUTION_PAPERS_NS,
-  AUTHOR_CITATIONS_NS
+  AUTHOR_CITATIONS_NS,
+  EXPERIMENTS_NS,
+  EXPERIMENT_PAPERS_NS,
 } from './constants';
 import {
   onLiteratureQueryChange,
@@ -72,7 +74,15 @@ const searchConfig = {
   [AUTHOR_CITATIONS_NS]: {
     persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
     onQueryChange: onAuthorCitationsQueryChange,
-  } 
+  },
+  [EXPERIMENTS_NS]: {
+    persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
+    onQueryChange: onAggregationlessCollectionQueryChange,
+  },
+  [EXPERIMENT_PAPERS_NS]: {
+    persistedQueryParamsDuringNewSearch: persistedQueryParamsDuringNewSearchForEvents,
+    onQueryChange: onEmbeddedLiteratureQueryChange,
+  },
 };
 
 export default searchConfig;

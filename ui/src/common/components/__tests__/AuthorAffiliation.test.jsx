@@ -2,15 +2,15 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
 
-import AuthorAffiliation from '../AuthorAffiliation';
+import Affiliation from '../Affiliation';
 
-describe('AuthorAffiliation', () => {
+describe('Affiliation', () => {
   it('renders linked affiliation with institution', () => {
     const affiliation = fromJS({
       institution: 'CERN2',
       record: { $ref: 'http://inspirehep.net/api/institutions/12345' },
     });
-    const wrapper = shallow(<AuthorAffiliation affiliation={affiliation} />);
+    const wrapper = shallow(<Affiliation affiliation={affiliation} />);
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -18,7 +18,7 @@ describe('AuthorAffiliation', () => {
     const affiliation = fromJS({
       institution: 'CERN2',
     });
-    const wrapper = shallow(<AuthorAffiliation affiliation={affiliation} />);
+    const wrapper = shallow(<Affiliation affiliation={affiliation} />);
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -27,7 +27,7 @@ describe('AuthorAffiliation', () => {
       value: 'CERN2',
       record: { $ref: 'http://inspirehep.net/api/institutions/12345' },
     });
-    const wrapper = shallow(<AuthorAffiliation affiliation={affiliation} />);
+    const wrapper = shallow(<Affiliation affiliation={affiliation} />);
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -35,7 +35,7 @@ describe('AuthorAffiliation', () => {
     const affiliation = fromJS({
       value: 'CERN2',
     });
-    const wrapper = shallow(<AuthorAffiliation affiliation={affiliation} />);
+    const wrapper = shallow(<Affiliation affiliation={affiliation} />);
     expect(wrapper).toMatchSnapshot();
   });
 });

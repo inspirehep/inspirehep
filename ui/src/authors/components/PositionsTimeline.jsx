@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { List } from 'immutable';
 import { Timeline } from 'antd';
 import ExpandListToggle from '../../common/components/ExpandListToggle';
-import AuthorAffiliation from '../../common/components/AuthorAffiliation';
+import Affiliation from '../../common/components/Affiliation';
 
 const DISPLAY_LIMIT = 3;
 
@@ -18,7 +18,7 @@ class PositionsTimeline extends Component {
         <div>{displayDate}</div>
         <div>
           {rank && <strong>{rank}, </strong>}
-          <AuthorAffiliation affiliation={position} />
+          <Affiliation affiliation={position} />
         </div>
       </Timeline.Item>
     );

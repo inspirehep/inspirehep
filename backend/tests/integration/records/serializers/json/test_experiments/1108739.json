@@ -37,6 +37,9 @@
   "self": {
     "$ref": "http://labs.inspirehep.net/api/experiments/1108739"
   },
+  "_private_notes": [
+    { "value": "The completed date is different from the record on greybook" }
+  ],
   "urls": [
     {
       "description": "Wikipedia",

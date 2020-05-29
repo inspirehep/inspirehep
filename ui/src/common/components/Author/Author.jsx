@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 import { Tooltip } from 'antd';
 
-import AuthorAffiliationList from '../AuthorAffiliationList';
+import AffiliationList from '../AffiliationList';
 import UnlinkedAuthor from './UnlinkedAuthor';
 import AuthorWithBAI from './AuthorWithBAI';
 import LinkedAuthor from './LinkedAuthor';
@@ -27,7 +27,7 @@ class Author extends Component {
       affiliations && (
         <span className="pl1 secondary-color">
           (
-          <AuthorAffiliationList affiliations={affiliations} />
+          <AffiliationList affiliations={affiliations} />
           )
         </span>
       )

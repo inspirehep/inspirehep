@@ -18,7 +18,6 @@ import GridLink from '../components/GridLink';
 import RorLink from '../components/RorLink';
 import InstitutionsNameVariantsList from '../components/InstitutionNameVariantsList';
 import InstitutionPeople from '../components/InstitutionPeople';
-import RelatedRecordsList from '../components/RelatedRecordsList';
 import { getInstitutionMetaDescription } from '../utils';
 import InstitutionsHistoricalDataList from '../components/InstitutionsHistoricalDataList';
 import PublicNotesList from '../../common/components/PublicNotesList';
@@ -27,6 +26,7 @@ import AuthorizedContainer from '../../common/containers/AuthorizedContainer';
 import { SUPERUSER_OR_CATALOGER } from '../../common/authorization';
 import { INSTITUTIONS_PID_TYPE } from '../../common/constants';
 import EditRecordAction from '../../common/components/EditRecordAction';
+import RelatedRecordsList from '../../common/components/RelatedRecordsList';
 
 function DetailPage({ record }) {
   const metadata = record.get('metadata');
@@ -115,18 +115,26 @@ function DetailPage({ record }) {
                   <RelatedRecordsList
                     relatedRecords={parentInstitutions}
                     relationType="Parent"
+                    label="Institution"
+                    pidType={INSTITUTIONS_PID_TYPE}
                   />
                   <RelatedRecordsList
                     relatedRecords={subsidiaryInstitutions}
                     relationType="Subsidiary"
+                    label="Institution"
+                    pidType={INSTITUTIONS_PID_TYPE}
                   />
                   <RelatedRecordsList
                     relatedRecords={successorInstitutitons}
                     relationType="Successor"
+                    label="Institution"
+                    pidType={INSTITUTIONS_PID_TYPE}
                   />
                   <RelatedRecordsList
                     relatedRecords={predecessorInstitutions}
                     relationType="Predecessor"
+                    label="Institution"
+                    pidType={INSTITUTIONS_PID_TYPE}
                   />
                 </Col>
               </Row>

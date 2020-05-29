@@ -1,0 +1,96 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExperimentItem renders with all props set 1`] = `
+<ResultItem
+  leftActions={
+    <React.Fragment>
+      <UrlsAction
+        icon={<ForwardRef(LinkOutlined) />}
+        iconText="links"
+        urls={
+          Immutable.List [
+            Immutable.Map {
+              "value": "http://url.com",
+            },
+          ]
+        }
+      />
+    </React.Fragment>
+  }
+>
+  <Row
+    gutter={0}
+  >
+    <Col>
+      <Link
+        className="result-item-title"
+        to="/experiments/1234"
+      >
+        Experiment new
+      </Link>
+      <span
+        className="pl1"
+      >
+        (
+        <AffiliationList
+          affiliations={
+            Immutable.List [
+              Immutable.Map {
+                "value": "CERN",
+                "record": Immutable.Map {
+                  "$ref": "https://inspirehep.net/api/institutions/902725",
+                },
+                "curated_relation": true,
+              },
+              Immutable.Map {
+                "value": "University",
+              },
+            ]
+          }
+          separator=" • "
+        />
+        )
+      </span>
+    </Col>
+  </Row>
+  <Row
+    gutter={0}
+  >
+    <Col>
+      This is a long name describing the experiment
+    </Col>
+  </Row>
+  <Row
+    gutter={0}
+  >
+    <Col>
+      <ExperimentCollaboration
+        collaboration={
+          Immutable.Map {
+            "value": "ATLAS",
+          }
+        }
+      />
+    </Col>
+  </Row>
+</ResultItem>
+`;
+
+exports[`ExperimentItem renders with only needed props 1`] = `
+<ResultItem
+  leftActions={<React.Fragment />}
+>
+  <Row
+    gutter={0}
+  >
+    <Col>
+      <Link
+        className="result-item-title"
+        to="/experiments/1234"
+      >
+        Experiment new
+      </Link>
+    </Col>
+  </Row>
+</ResultItem>
+`;
