@@ -8,7 +8,7 @@ import { fetchCitationSummary, fetchCitationsByYear } from '../citations';
 import { AUTHOR_PUBLICATIONS_NS } from '../../search/constants';
 import { LITERATURE } from '../../common/routes';
 
-const mockHttp = new MockAdapter(http);
+const mockHttp = new MockAdapter(http.httpClient);
 
 describe('citations - async action creator', () => {
   afterEach(() => {

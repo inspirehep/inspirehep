@@ -1,5 +1,5 @@
 import { SEMINAR_REQUEST, SEMINAR_SUCCESS, SEMINAR_ERROR } from './actionTypes';
-import { UI_SERIALIZER_REQUEST_OPTIONS } from '../common/http';
+import { UI_SERIALIZER_REQUEST_OPTIONS, isCancelError } from '../common/http';
 import { httpErrorToActionPayload } from '../common/utils';
 import { SEMINARS_PID_TYPE } from '../common/constants';
 
@@ -31,12 +31,15 @@ function fetchSeminar(recordId) {
     try {
       const response = await http.get(
         `/${SEMINARS_PID_TYPE}/${recordId}`,
-        UI_SERIALIZER_REQUEST_OPTIONS
+        UI_SERIALIZER_REQUEST_OPTIONS,
+        'seminars-detail'
       );
       dispatch(fetchSeminarSuccess(response.data));
     } catch (error) {
-      const payload = httpErrorToActionPayload(error);
-      dispatch(fetchSeminarError(payload));
+      if (!isCancelError(error)) {
+        const payload = httpErrorToActionPayload(error);
+        dispatch(fetchSeminarError(payload));
+      }
     }
   };
 }

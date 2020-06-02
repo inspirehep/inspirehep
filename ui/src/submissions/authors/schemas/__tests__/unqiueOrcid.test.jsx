@@ -3,7 +3,7 @@ import MockAdapter from 'axios-mock-adapter';
 import uniqueOrcid from '../uniqueOrcid';
 import http from '../../../../common/http';
 
-const mockHttp = new MockAdapter(http);
+const mockHttp = new MockAdapter(http.httpClient);
 
 describe('uniqueOrcid', () => {
   const schema = uniqueOrcid();

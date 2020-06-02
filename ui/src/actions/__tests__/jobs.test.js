@@ -5,7 +5,7 @@ import http from '../../common/http';
 import { JOB_REQUEST, JOB_SUCCESS, JOB_ERROR } from '../actionTypes';
 import fetchJob from '../jobs';
 
-const mockHttp = new MockAdapter(http);
+const mockHttp = new MockAdapter(http.httpClient);
 
 describe('jobs - async action creators', () => {
   describe('fetch job', () => {
@@ -35,7 +35,7 @@ describe('jobs - async action creators', () => {
         {
           type: JOB_ERROR,
           payload: {
-            error: { message: 'Error', status: 500 }
+            error: { message: 'Error', status: 500 },
           },
           meta: { redirectableError: true },
         },

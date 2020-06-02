@@ -17,7 +17,7 @@ import searchConfig from '../../search/config';
 
 jest.mock('../../search/config');
 
-const mockHttp = new MockAdapter(http);
+const mockHttp = new MockAdapter(http.httpClient);
 
 describe('search - action creators', () => {
   describe('fetchSearchResults', () => {

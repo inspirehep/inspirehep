@@ -5,7 +5,7 @@ import http from '../../common/http';
 import { AUTHOR_ERROR, AUTHOR_REQUEST, AUTHOR_SUCCESS } from '../actionTypes';
 import { fetchAuthor } from '../authors';
 
-const mockHttp = new MockAdapter(http);
+const mockHttp = new MockAdapter(http.httpClient);
 
 describe('AUTHOR - async action creators', () => {
   describe('fetch author', () => {
@@ -36,8 +36,9 @@ describe('AUTHOR - async action creators', () => {
           type: AUTHOR_ERROR,
           payload: {
             error: {
-              message: 'Error', status: 500
-            }
+              message: 'Error',
+              status: 500,
+            },
           },
           meta: { redirectableError: true },
         },

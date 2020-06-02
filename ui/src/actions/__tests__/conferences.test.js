@@ -9,7 +9,7 @@ import {
 } from '../actionTypes';
 import fetchConference from '../conferences';
 
-const mockHttp = new MockAdapter(http);
+const mockHttp = new MockAdapter(http.httpClient);
 
 describe('conferences - async action creators', () => {
   describe('fetch conference', () => {
@@ -39,7 +39,7 @@ describe('conferences - async action creators', () => {
         {
           type: CONFERENCE_ERROR,
           payload: {
-            error: { message: 'Error', status: 500 }
+            error: { message: 'Error', status: 500 },
           },
           meta: { redirectableError: true },
         },

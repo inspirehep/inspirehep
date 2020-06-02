@@ -1,5 +1,5 @@
 import { AUTHOR_REQUEST, AUTHOR_SUCCESS, AUTHOR_ERROR } from './actionTypes';
-import { UI_SERIALIZER_REQUEST_OPTIONS } from '../common/http';
+import { UI_SERIALIZER_REQUEST_OPTIONS, isCancelError } from '../common/http';
 import { httpErrorToActionPayload } from '../common/utils';
 
 function fetchingAuthor(recordId) {
@@ -30,12 +30,15 @@ export function fetchAuthor(recordId) {
     try {
       const response = await http.get(
         `/authors/${recordId}`,
-        UI_SERIALIZER_REQUEST_OPTIONS
+        UI_SERIALIZER_REQUEST_OPTIONS,
+        'authors-detail'
       );
       dispatch(fetchAuthorSuccess(response.data));
     } catch (error) {
-      const payload = httpErrorToActionPayload(error);
-      dispatch(fetchAuthorError(payload));
+      if (!isCancelError(error)) {
+        const payload = httpErrorToActionPayload(error);
+        dispatch(fetchAuthorError(payload));
+      }
     }
   };
 }

@@ -5,7 +5,7 @@ import http from '../../common/http';
 import * as types from '../actionTypes';
 import fetch from '../inspect';
 
-const mockHttp = new MockAdapter(http);
+const mockHttp = new MockAdapter(http.httpClient);
 
 describe('inspect dashboard - async action creator', () => {
   afterEach(() => {
@@ -34,9 +34,9 @@ describe('inspect dashboard - async action creator', () => {
       {
         type: types.INSPECT_ERROR,
         payload: {
-          error: { status: 404 }
+          error: { status: 404 },
         },
-        meta: { redirectableError: true }
+        meta: { redirectableError: true },
       },
     ];
 

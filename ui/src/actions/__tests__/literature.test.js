@@ -20,7 +20,7 @@ import {
   fetchLiteratureReferences,
 } from '../literature';
 
-const mockHttp = new MockAdapter(http);
+const mockHttp = new MockAdapter(http.httpClient);
 
 describe('literature - async action creators', () => {
   afterEach(() => {
@@ -148,8 +148,8 @@ describe('literature - async action creators', () => {
         {
           type: LITERATURE_AUTHORS_ERROR,
           payload: {
-            error: { status: 500 }
-          }
+            error: { status: 500 },
+          },
         },
       ];
 

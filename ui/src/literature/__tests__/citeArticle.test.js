@@ -3,7 +3,7 @@ import MockAdapter from 'axios-mock-adapter';
 import http from '../../common/http';
 import citeArticle from '../citeArticle';
 
-const mockHttp = new MockAdapter(http);
+const mockHttp = new MockAdapter(http.httpClient);
 
 describe('citeArticle', () => {
   afterEach(() => {
@@ -27,7 +27,9 @@ describe('citeArticle', () => {
     mockHttp
       .onGet(citeUrl, null, { Accept: 'application/x-test' })
       .replyOnce(500);
-    await expect(citeArticle(format, 12345)).rejects.toThrow(new Error('Request failed with status code 500'));
+    await expect(citeArticle(format, 12345)).rejects.toThrow(
+      new Error('Request failed with status code 500')
+    );
     done();
   });
 
@@ -35,8 +37,11 @@ describe('citeArticle', () => {
     const citeUrl = '/literature/12345';
     const format = 'x-test';
     mockHttp
-      .onGet(citeUrl, null, { Accept: 'application/x-test' }).networkError();
-    await expect(citeArticle(format, 12345)).rejects.toThrow(new Error('Network Error'));
+      .onGet(citeUrl, null, { Accept: 'application/x-test' })
+      .networkError();
+    await expect(citeArticle(format, 12345)).rejects.toThrow(
+      new Error('Network Error')
+    );
     done();
   });
 });

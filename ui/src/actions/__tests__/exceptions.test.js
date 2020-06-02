@@ -5,7 +5,7 @@ import http from '../../common/http';
 import * as types from '../actionTypes';
 import fetch from '../exceptions';
 
-const mockHttp = new MockAdapter(http);
+const mockHttp = new MockAdapter(http.httpClient);
 
 describe('exceptions dashboard - async action creator', () => {
   afterEach(() => {
@@ -34,9 +34,9 @@ describe('exceptions dashboard - async action creator', () => {
       {
         type: types.EXCEPTIONS_ERROR,
         payload: {
-          error: { status: 500 }
+          error: { status: 500 },
         },
-        meta: { redirectableError: true }
+        meta: { redirectableError: true },
       },
     ];
 

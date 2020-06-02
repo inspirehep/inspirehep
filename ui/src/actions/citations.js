@@ -8,6 +8,7 @@ import {
   CITATIONS_BY_YEAR_ERROR,
 } from './actionTypes';
 import { httpErrorToActionPayload } from '../common/utils';
+import { isCancelError } from '../common/http';
 
 function fetchingCitationSummary(namespace) {
   return {
@@ -47,11 +48,13 @@ export function fetchCitationSummary(namespace) {
 
       const queryString = stringify(query, { indices: false });
       const url = `/literature/facets?${queryString}`;
-      const response = await http.get(url);
+      const response = await http.get(url, {}, 'citations-summary');
       dispatch(fetchCitationSummarySuccess(response.data));
     } catch (error) {
-      const payload = httpErrorToActionPayload(error);
-      dispatch(fetchCitationSummaryError(payload));
+      if (!isCancelError(error)) {
+        const payload = httpErrorToActionPayload(error);
+        dispatch(fetchCitationSummaryError(payload));
+      }
     }
   };
 }
@@ -86,11 +89,13 @@ export function fetchCitationsByYear(literatureSearchQuery) {
       };
       const queryString = stringify(query, { indices: false });
       const url = `/literature/facets?${queryString}`;
-      const response = await http.get(url);
+      const response = await http.get(url, {}, 'citations-by-year');
       dispatch(fetchCitationsByYearSuccess(response.data));
     } catch (error) {
-      const payload = httpErrorToActionPayload(error);
-      dispatch(fetchCitationsByYearError(payload));
+      if (!isCancelError(error)) {
+        const payload = httpErrorToActionPayload(error);
+        dispatch(fetchCitationsByYearError(payload));
+      }
     }
   };
 }

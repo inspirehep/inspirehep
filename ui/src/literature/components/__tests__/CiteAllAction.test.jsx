@@ -10,7 +10,7 @@ import { downloadTextAsFile } from '../../../common/utils';
 
 jest.mock('../../../common/utils');
 
-const mockHttp = new MockAdapter(http);
+const mockHttp = new MockAdapter(http.httpClient);
 describe('CiteAllAction', () => {
   beforeEach(() => {
     downloadTextAsFile.mockClear();
