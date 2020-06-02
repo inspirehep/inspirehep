@@ -2,11 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
-import {
-  LoginOutlined,
-  FilePdfOutlined,
-  LinkOutlined,
-} from '@ant-design/icons';
+import { FilePdfOutlined, LinkOutlined } from '@ant-design/icons';
 
 import ArxivEprintList from './ArxivEprintList';
 import LiteratureDate from './LiteratureDate';
@@ -14,22 +10,18 @@ import AuthorsAndCollaborations from '../../common/components/AuthorsAndCollabor
 import PublicationInfoList from '../../common/components/PublicationInfoList';
 import UrlsAction from './UrlsAction';
 import DOILinkAction from './DOILinkAction';
-import IconText from '../../common/components/IconText';
-import ListItemAction from '../../common/components/ListItemAction';
 import EditRecordAction from '../../common/components/EditRecordAction';
 import ResultItem from '../../common/components/ResultItem';
 import { LITERATURE } from '../../common/routes';
-import EventTracker from '../../common/components/EventTracker';
 import LiteratureTitle from '../../common/components/LiteratureTitle';
 import ResponsiveView from '../../common/components/ResponsiveView';
 import CiteModalActionContainer from '../containers/CiteModalActionContainer';
 import ConferenceInfoList from './ConferenceInfoList';
-import pluralizeUnlessSingle from '../../common/utils';
 import {
   InlineUL,
   SEPARATOR_MIDDLEDOT,
 } from '../../common/components/InlineList';
-import FormattedNumber from '../../common/components/FormattedNumber';
+import CitationsLinkAction from './CitationsLinkAction';
 
 class LiteratureItem extends Component {
   render() {
@@ -83,21 +75,11 @@ class LiteratureItem extends Component {
         rightActions={
           <Fragment>
             {citationCount != null && (
-              <ListItemAction>
-                <EventTracker eventId="Citations:Search">
-                  <Link to={`${LITERATURE}?q=refersto:recid:${recordId}`}>
-                    <IconText
-                      text={
-                        <>
-                          <FormattedNumber>{citationCount}</FormattedNumber>{' '}
-                          {pluralizeUnlessSingle('citation', citationCount)}
-                        </>
-                      }
-                      icon={<LoginOutlined />}
-                    />
-                  </Link>
-                </EventTracker>
-              </ListItemAction>
+              <CitationsLinkAction
+                recordId={recordId}
+                citationCount={citationCount}
+                trackerEventId="Citations:Search"
+              />
             )}
           </Fragment>
         }

@@ -12,7 +12,7 @@ describe('Literature Detail', () => {
   beforeEach(async () => {
     polly = await createPollyInstance('LiteratureDetail');
 
-    await page.goto(routes.public.literatureDetail1472986, {
+    await page.goto(routes.public.literatureDetail1517533, {
       waitUntil: 'networkidle0',
     });
   });
@@ -28,7 +28,7 @@ describe('Literature Detail', () => {
   it('sets literature title as document title', async () => {
     const documentTitle = await page.title();
 
-    expect(documentTitle).toMatch(/^Estimating/);
+    expect(documentTitle).toMatch(/^Fermionic/);
   });
 
   it('sets abstract as meta description', async () => {

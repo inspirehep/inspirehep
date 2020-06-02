@@ -9,12 +9,12 @@ const routes = {
     literatureSubmission: `${appBaseUrl}/submissions/literature`,
     jobSubmission: `${appBaseUrl}/submissions/jobs`,
     conferenceSubmission: `${appBaseUrl}/submissions/conferences`,
-    seminarSubmission: `${appBaseUrl}/submissions/seminars`
+    seminarSubmission: `${appBaseUrl}/submissions/seminars`,
   },
   public: {
     home: appBaseUrl,
     literatureSearch: `${appBaseUrl}/literature#with-citation-summary`,
-    literatureDetail1472986: `${appBaseUrl}/literature/1472986`,
+    literatureDetail1517533: `${appBaseUrl}/literature/1517533`,
     authorSearch: `${appBaseUrl}/authors`,
     authorDetail1274753: `${appBaseUrl}/authors/1274753#with-citation-summary`,
     jobsSearch: `${appBaseUrl}/jobs`,

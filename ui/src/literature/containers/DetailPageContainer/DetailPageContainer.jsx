@@ -27,15 +27,11 @@ import ThesisInfo from '../../components/ThesisInfo';
 import IsbnList from '../../components/IsbnList';
 import ConferenceInfoList from '../../components/ConferenceInfoList';
 import NumberOfPages from '../../components/NumberOfPages';
-import CitationListContainer from '../../../common/containers/CitationListContainer';
 import TabNameWithCount from '../../../common/components/TabNameWithCount';
 import AcceleratorExperimentList from '../../components/AcceleratorExperimentList';
 import LiteratureTitle from '../../../common/components/LiteratureTitle';
 import CiteModalActionContainer from '../CiteModalActionContainer';
-import {
-  fetchCitationsByYear,
-  fetchCitations,
-} from '../../../actions/citations';
+import { fetchCitationsByYear } from '../../../actions/citations';
 import CitationsByYearGraphContainer from '../../../common/containers/CitationsByYearGraphContainer';
 import Figures from '../../components/Figures';
 import RequireOneOf from '../../../common/components/RequireOneOf';
@@ -46,15 +42,9 @@ import DeletedAlert from '../../../common/components/DeletedAlert';
 import SupervisorList from '../../components/SupervisorList';
 import withRouteActionsDispatcher from '../../../common/withRouteActionsDispatcher';
 import LiteratureDocumentHead from '../../components/LiteratureDocumentHead';
+import CitationsLinkAction from '../../components/CitationsLinkAction';
 
-function DetailPage({
-  authors,
-  citationCount,
-  loadingCitations,
-  record,
-  referencesCount,
-  supervisors,
-}) {
+function DetailPage({ authors, record, referencesCount, supervisors }) {
   const metadata = record.get('metadata');
 
   const title = metadata.getIn(['titles', 0]);
@@ -79,6 +69,7 @@ function DetailPage({
 
   const keywords = metadata.get('keywords');
   const authorCount = metadata.get('author_count');
+  const citationCount = metadata.get('citation_count');
 
   const canEdit = metadata.get('can_edit', false);
   const figures = metadata.get('figures');
@@ -124,6 +115,17 @@ function DetailPage({
                       <EditRecordAction
                         pidType="literature"
                         pidValue={controlNumber}
+                      />
+                    )}
+                  </>
+                }
+                rightActions={
+                  <>
+                    {citationCount != null && (
+                      <CitationsLinkAction
+                        recordId={controlNumber}
+                        citationCount={citationCount}
+                        trackerEventId="Citations:Detail"
                       />
                     )}
                   </>
@@ -213,24 +215,11 @@ function DetailPage({
                 <Tabs.TabPane
                   tab={
                     <TabNameWithCount
-                      name="Citations"
-                      loading={loadingCitations}
-                      count={citationCount}
-                    />
-                  }
-                  key="2"
-                  forceRender
-                >
-                  <CitationListContainer recordId={controlNumber} />
-                </Tabs.TabPane>
-                <Tabs.TabPane
-                  tab={
-                    <TabNameWithCount
                       name="Figures"
                       count={figures ? figures.size : 0}
                     />
                   }
-                  key="3"
+                  key="2"
                 >
                   <ContentBox>
                     <Figures figures={figures} />
@@ -248,11 +237,8 @@ function DetailPage({
 DetailPage.propTypes = {
   record: PropTypes.instanceOf(Map).isRequired,
   authors: PropTypes.instanceOf(List).isRequired,
-  citationCount: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-    .isRequired,
   referencesCount: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
     .isRequired,
-  loadingCitations: PropTypes.bool.isRequired,
   supervisors: PropTypes.instanceOf(List),
 };
 
@@ -260,9 +246,7 @@ const mapStateToProps = state => ({
   record: state.literature.get('data'),
   authors: state.literature.get('authors'),
   supervisors: state.literature.get('supervisors'),
-  citationCount: state.citations.get('total'),
   referencesCount: state.literature.get('totalReferences'),
-  loadingCitations: state.citations.get('loading'),
 });
 
 const DetailPageContainer = connect(mapStateToProps)(DetailPage);
@@ -272,7 +256,6 @@ export default withRouteActionsDispatcher(DetailPageContainer, {
   routeActions: id => [
     fetchLiterature(id),
     fetchLiteratureReferences(id),
-    fetchCitations(id),
     fetchLiteratureAuthors(id),
     fetchCitationsByYear({ q: `recid:${id}` }),
   ],
