@@ -12,10 +12,9 @@ from datetime import datetime
 import pytz
 from flask import url_for
 from inspire_schemas.builders import SeminarBuilder
+from inspire_schemas.utils import country_code_to_name, country_name_to_code
 from inspire_utils.record import get_value
 from marshmallow import Schema, fields, missing, post_load, pre_dump
-
-from inspirehep.records.utils import country_code_to_name, country_name_to_code
 
 FORM_DATE_FORMAT = "%Y-%m-%d %I:%M %p"
 ISO_FORMAT = "%Y-%m-%dT%H:%M:%S.%f"

@@ -9,10 +9,9 @@
 
 from flask import url_for
 from inspire_schemas.builders import ConferenceBuilder
+from inspire_schemas.utils import country_name_to_code
 from inspire_utils.record import get_value
 from marshmallow import Schema, fields, post_load
-
-from inspirehep.records.utils import country_name_to_code
 
 
 class Conference(Schema):
