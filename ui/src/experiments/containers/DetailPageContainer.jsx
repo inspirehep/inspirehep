@@ -178,11 +178,15 @@ function DetailPage({ record }) {
                 />
               </Col>
             </Row>
-            <Row>
-              <Col>
-                <ExperimentCollaborationArticlesLink recordId={recordId} />
-              </Col>
-            </Row>
+            {collaboration && (
+              <Row>
+                <Col>
+                  <ExperimentCollaborationArticlesLink
+                    collaboration={collaboration}
+                  />
+                </Col>
+              </Row>
+            )}
             <Row>
               <Col>
                 <ExperimentCollaborationMembersLink recordId={recordId} />

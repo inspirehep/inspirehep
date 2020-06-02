@@ -2,7 +2,7 @@
 
 exports[`ExperimentCollaborationArticlesLink renders 1`] = `
 <Link
-  to="/literature?q=collaboration.value:1234"
+  to="/literature?q=collaboration:Atlas"
 >
   Collaboration articles
 </Link>
