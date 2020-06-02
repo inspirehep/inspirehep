@@ -9,7 +9,7 @@ import {
 } from '../actionTypes';
 import fetchInstitution from '../institutions';
 
-const mockHttp = new MockAdapter(http);
+const mockHttp = new MockAdapter(http.httpClient);
 
 describe('institutions - async action creators', () => {
   describe('fetch institution', () => {

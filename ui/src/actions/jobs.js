@@ -1,5 +1,6 @@
 import { JOB_REQUEST, JOB_SUCCESS, JOB_ERROR } from './actionTypes';
 import { httpErrorToActionPayload } from '../common/utils';
+import { isCancelError } from '../common/http';
 
 function fetchingJob(recordId) {
   return {
@@ -27,11 +28,13 @@ function fetchJob(recordId) {
   return async (dispatch, getState, http) => {
     dispatch(fetchingJob(recordId));
     try {
-      const response = await http.get(`/jobs/${recordId}`);
+      const response = await http.get(`/jobs/${recordId}`, {}, 'jobs-detail');
       dispatch(fetchJobSuccess(response.data));
     } catch (error) {
-      const payload = httpErrorToActionPayload(error);
-      dispatch(fetchJobError(payload));
+      if (!isCancelError(error)) {
+        const payload = httpErrorToActionPayload(error);
+        dispatch(fetchJobError(payload));
+      }
     }
   };
 }

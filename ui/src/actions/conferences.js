@@ -3,7 +3,7 @@ import {
   CONFERENCE_SUCCESS,
   CONFERENCE_ERROR,
 } from './actionTypes';
-import { UI_SERIALIZER_REQUEST_OPTIONS } from '../common/http';
+import { UI_SERIALIZER_REQUEST_OPTIONS, isCancelError } from '../common/http';
 import { httpErrorToActionPayload } from '../common/utils';
 
 function fetchingConference(recordId) {
@@ -34,12 +34,15 @@ function fetchConference(recordId) {
     try {
       const response = await http.get(
         `/conferences/${recordId}`,
-        UI_SERIALIZER_REQUEST_OPTIONS
+        UI_SERIALIZER_REQUEST_OPTIONS,
+        'conference-detail'
       );
       dispatch(fetchConferenceSuccess(response.data));
     } catch (error) {
-      const payload = httpErrorToActionPayload(error);
-      dispatch(fetchConferenceError(payload));
+      if (!isCancelError(error)) {
+        const payload = httpErrorToActionPayload(error);
+        dispatch(fetchConferenceError(payload));
+      }
     }
   };
 }

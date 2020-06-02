@@ -11,7 +11,7 @@ import {
   SEARCH_BASE_QUERIES_UPDATE,
   SEARCH_QUERY_RESET,
 } from './actionTypes';
-import { UI_SERIALIZER_REQUEST_OPTIONS } from '../common/http';
+import { UI_SERIALIZER_REQUEST_OPTIONS, isCancelError } from '../common/http';
 import { httpErrorToActionPayload } from '../common/utils';
 import SearchHelper from '../search/helper';
 import searchConfig from '../search/config';
@@ -49,11 +49,17 @@ export function fetchSearchResults(namespace, url) {
   return async (dispatch, getState, http) => {
     dispatch(searching(namespace));
     try {
-      const response = await http.get(url, UI_SERIALIZER_REQUEST_OPTIONS);
+      const response = await http.get(
+        url,
+        UI_SERIALIZER_REQUEST_OPTIONS,
+        `search-results-${namespace}`
+      );
       dispatch(searchSuccess(namespace, response.data));
     } catch (error) {
-      const errorPayload = httpErrorToActionPayload(error);
-      dispatch(searchError(namespace, errorPayload));
+      if (!isCancelError(error)) {
+        const errorPayload = httpErrorToActionPayload(error);
+        dispatch(searchError(namespace, errorPayload));
+      }
     }
   };
 }
@@ -83,11 +89,17 @@ export function fetchSearchAggregations(namespace, url) {
   return async (dispatch, getState, http) => {
     dispatch(fetchingSearchAggregations(namespace));
     try {
-      const response = await http.get(url);
+      const response = await http.get(
+        url,
+        {},
+        `search-aggregations-${namespace}`
+      );
       dispatch(searchAggregationsSuccess(namespace, response.data));
     } catch (error) {
-      const errorPayload = httpErrorToActionPayload(error);
-      dispatch(searchAggregationsError(namespace, errorPayload));
+      if (!isCancelError(error)) {
+        const errorPayload = httpErrorToActionPayload(error);
+        dispatch(searchAggregationsError(namespace, errorPayload));
+      }
     }
   };
 }

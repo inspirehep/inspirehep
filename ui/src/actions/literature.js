@@ -10,7 +10,7 @@ import {
   LITERATURE_AUTHORS_REQUEST,
   LITERATURE_AUTHORS_SUCCESS,
 } from './actionTypes';
-import { UI_SERIALIZER_REQUEST_OPTIONS } from '../common/http';
+import { UI_SERIALIZER_REQUEST_OPTIONS, isCancelError } from '../common/http';
 import { httpErrorToActionPayload } from '../common/utils';
 
 function fetchingLiterature(recordId) {
@@ -72,7 +72,7 @@ function fetchLiteratureAuthorsSuccess(result) {
 function fetchLiteratureAuthorsError(errorPayload) {
   return {
     type: LITERATURE_AUTHORS_ERROR,
-    payload: errorPayload
+    payload: errorPayload,
   };
 }
 
@@ -82,12 +82,15 @@ export function fetchLiterature(recordId) {
     try {
       const response = await http.get(
         `/literature/${recordId}`,
-        UI_SERIALIZER_REQUEST_OPTIONS
+        UI_SERIALIZER_REQUEST_OPTIONS,
+        'literature-detail'
       );
       dispatch(fetchLiteratureSuccess(response.data));
     } catch (error) {
-      const payload = httpErrorToActionPayload(error);
-      dispatch(fetchLiteratureError(payload));
+      if (!isCancelError(error)) {
+        const payload = httpErrorToActionPayload(error);
+        dispatch(fetchLiteratureError(payload));
+      }
     }
   };
 }
@@ -103,12 +106,16 @@ export function fetchLiteratureReferences(recordId, newQuery = {}) {
     const queryString = stringify(query, { indices: false });
     try {
       const response = await http.get(
-        `/literature/${recordId}/references?${queryString}`
+        `/literature/${recordId}/references?${queryString}`,
+        {},
+        'literature-references-detail'
       );
       dispatch(fetchLiteratureReferencesSuccess(response.data));
     } catch (error) {
-      const payload = httpErrorToActionPayload(error);
-      dispatch(fetchLiteratureReferencesError(payload));
+      if (!isCancelError(error)) {
+        const payload = httpErrorToActionPayload(error);
+        dispatch(fetchLiteratureReferencesError(payload));
+      }
     }
   };
 }
@@ -117,11 +124,17 @@ export function fetchLiteratureAuthors(recordId) {
   return async (dispatch, getState, http) => {
     dispatch(fetchingLiteratureAuthors());
     try {
-      const response = await http.get(`/literature/${recordId}/authors`);
+      const response = await http.get(
+        `/literature/${recordId}/authors`,
+        {},
+        'literature-authors-detail'
+      );
       dispatch(fetchLiteratureAuthorsSuccess(response.data));
     } catch (error) {
-      const errorPayload = httpErrorToActionPayload(error)
-      dispatch(fetchLiteratureAuthorsError(errorPayload));
+      if (!isCancelError(error)) {
+        const errorPayload = httpErrorToActionPayload(error);
+        dispatch(fetchLiteratureAuthorsError(errorPayload));
+      }
     }
   };
 }

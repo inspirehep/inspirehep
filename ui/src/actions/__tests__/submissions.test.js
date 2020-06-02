@@ -18,7 +18,7 @@ import {
   importExternalLiterature,
 } from '../submissions';
 
-const mockHttp = new MockAdapter(http);
+const mockHttp = new MockAdapter(http.httpClient);
 
 describe('submissions - async action creator', () => {
   afterEach(() => {
@@ -61,7 +61,7 @@ describe('submissions - async action creator', () => {
         {
           type: SUBMIT_ERROR,
           payload: {
-            error: { message: 'Error', status: 400 }
+            error: { message: 'Error', status: 400 },
           },
         },
       ];
@@ -106,7 +106,7 @@ describe('submissions - async action creator', () => {
         {
           type: SUBMIT_ERROR,
           payload: {
-            error: { message: 'Error', status: 400 }
+            error: { message: 'Error', status: 400 },
           },
         },
       ];
@@ -160,7 +160,7 @@ describe('submissions - async action creator', () => {
         {
           type: INITIAL_FORM_DATA_ERROR,
           payload: {
-            error: { message: 'Error', status: 404 }
+            error: { message: 'Error', status: 404 },
           },
         },
       ];
@@ -211,7 +211,7 @@ describe('submissions - async action creator', () => {
         {
           type: INITIAL_FORM_DATA_ERROR,
           payload: {
-            error: { message: 'Error', status: 404 }
+            error: { message: 'Error', status: 404 },
           },
         },
       ];

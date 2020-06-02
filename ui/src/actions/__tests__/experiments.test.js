@@ -9,7 +9,7 @@ import {
 } from '../actionTypes';
 import fetchExperiment from '../experiments';
 
-const mockHttp = new MockAdapter(http);
+const mockHttp = new MockAdapter(http.httpClient);
 
 describe('experiments - async action creators', () => {
   describe('fetch experiment', () => {

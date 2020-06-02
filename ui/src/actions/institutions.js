@@ -3,7 +3,7 @@ import {
   INSTITUTION_SUCCESS,
   INSTITUTION_ERROR,
 } from './actionTypes';
-import { UI_SERIALIZER_REQUEST_OPTIONS } from '../common/http';
+import { UI_SERIALIZER_REQUEST_OPTIONS, isCancelError } from '../common/http';
 import { httpErrorToActionPayload } from '../common/utils';
 
 function fetchingInstitution(recordId) {
@@ -34,12 +34,15 @@ function fetchInstitution(recordId) {
     try {
       const response = await http.get(
         `/institutions/${recordId}`,
-        UI_SERIALIZER_REQUEST_OPTIONS
+        UI_SERIALIZER_REQUEST_OPTIONS,
+        'institutions-detail'
       );
       dispatch(fetchInstitutionSuccess(response.data));
     } catch (error) {
-      const payload = httpErrorToActionPayload(error);
-      dispatch(fetchInstitutionError(payload));
+      if (!isCancelError(error)) {
+        const payload = httpErrorToActionPayload(error);
+        dispatch(fetchInstitutionError(payload));
+      }
     }
   };
 }

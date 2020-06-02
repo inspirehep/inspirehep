@@ -21,7 +21,7 @@ import http from '../../common/http';
 import { HOME } from '../../common/routes';
 import { CITATION_SUMMARY_ENABLING_PREFERENCE } from '../../reducers/user';
 
-const mockHttp = new MockAdapter(http);
+const mockHttp = new MockAdapter(http.httpClient);
 
 describe('user - async action creator', () => {
   it('successful logged in user fetch creates USER_LOGIN_SUCCESS', async () => {

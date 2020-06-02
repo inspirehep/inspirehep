@@ -3,7 +3,7 @@ import {
   EXPERIMENT_SUCCESS,
   EXPERIMENT_ERROR,
 } from './actionTypes';
-import { UI_SERIALIZER_REQUEST_OPTIONS } from '../common/http';
+import { UI_SERIALIZER_REQUEST_OPTIONS, isCancelError } from '../common/http';
 import { httpErrorToActionPayload } from '../common/utils';
 import { EXPERIMENTS_PID_TYPE } from '../common/constants';
 
@@ -35,12 +35,15 @@ function fetchExperiment(recordId) {
     try {
       const response = await http.get(
         `/${EXPERIMENTS_PID_TYPE}/${recordId}`,
-        UI_SERIALIZER_REQUEST_OPTIONS
+        UI_SERIALIZER_REQUEST_OPTIONS,
+        'experiments-detail'
       );
       dispatch(fetchExperimentSuccess(response.data));
     } catch (error) {
-      const payload = httpErrorToActionPayload(error);
-      dispatch(fetchExperimentError(payload));
+      if (!isCancelError(error)) {
+        const payload = httpErrorToActionPayload(error);
+        dispatch(fetchExperimentError(payload));
+      }
     }
   };
 }

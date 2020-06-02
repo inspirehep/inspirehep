@@ -5,7 +5,7 @@ import MockAdapter from 'axios-mock-adapter';
 import http from '../../http';
 import Suggester, { REQUEST_DEBOUNCE_MS } from '../Suggester';
 
-const mockHttp = new MockAdapter(http);
+const mockHttp = new MockAdapter(http.httpClient);
 
 // TODO: use fake timers after https://github.com/facebook/jest/pull/7776
 function wait(milisec = REQUEST_DEBOUNCE_MS + 25) {
