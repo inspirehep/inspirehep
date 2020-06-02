@@ -4,16 +4,16 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { LITERATURE } from '../../common/routes';
 
-function ExperimentCollaborationArticlesLink({ recordId }) {
+function ExperimentCollaborationArticlesLink({ collaboration }) {
   return (
-    <Link to={`${LITERATURE}?q=collaboration.value:${recordId}`}>
+    <Link to={`${LITERATURE}?q=collaboration:${collaboration.get('value')}`}>
       Collaboration articles
     </Link>
   );
 }
 
 ExperimentCollaborationArticlesLink.propTypes = {
-  recordId: PropTypes.number.isRequired,
+  collaboration: PropTypes.instanceOf(Map).isRequired,
 };
 
 export default ExperimentCollaborationArticlesLink;
