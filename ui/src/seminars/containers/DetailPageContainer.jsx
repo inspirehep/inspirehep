@@ -28,6 +28,7 @@ import {
 import EventTitle from '../../common/components/EventTitle';
 import SeminarDateTimes from '../components/SeminarDateTimes';
 import { LOCAL_TIMEZONE, SEMINARS_PID_TYPE } from '../../common/constants';
+import ExportToCalendarAction from '../components/ExportToCalendarAction/ExportToCalendarAction';
 
 function DetailPage({ record }) {
   const metadata = record.get('metadata');
@@ -72,6 +73,7 @@ function DetailPage({ record }) {
                     }
                   />
                 )}
+                <ExportToCalendarAction seminar={metadata} />
                 {canEdit && (
                   <EditRecordAction pidType="seminars" pidValue={recordId} />
                 )}
@@ -104,7 +106,8 @@ function DetailPage({ record }) {
                 {doTimezonesHaveDifferentTimes(timezone, LOCAL_TIMEZONE) && (
                   <>
                     {' '}
-                    (<SeminarDateTimes
+                    (
+                    <SeminarDateTimes
                       startDate={startDate}
                       endDate={endDate}
                       timezone={timezone}

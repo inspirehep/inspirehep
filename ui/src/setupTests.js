@@ -34,3 +34,11 @@ global.window.matchMedia = jest.fn().mockImplementation(query => ({
   removeEventListener: jest.fn(),
   dispatchEvent: jest.fn(),
 }));
+
+global.window.location = {
+  origin: 'http://localhost:3000',
+  host: 'localhost:3000',
+  protocol: 'http:',
+  port: '3000',
+  hostname: 'localhost',
+};

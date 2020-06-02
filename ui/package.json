@@ -36,6 +36,7 @@
     "craco-antd": "1.11.0",
     "formik": "^2.0.0",
     "history": "^4.7.2",
+    "ics": "^2.19.0",
     "immutable": "^3.8.2",
     "is-valid-orcid": "^1.2.0",
     "jsondiffpatch": "^0.3.11",

@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExportToCalendarAction renders with seminar 1`] = `
+<ListItemAction>
+  <DropdownMenu
+    disabled={false}
+    title={
+      <Button
+        block={false}
+        ghost={false}
+        htmlType="button"
+        loading={false}
+      >
+        <IconText
+          icon={<ForwardRef(CalendarOutlined) />}
+          text="export"
+        />
+      </Button>
+    }
+  >
+    <MenuItem
+      onClick={[Function]}
+    >
+      Download .ics
+    </MenuItem>
+    <MenuItem>
+      <ExternalLink
+        as="a"
+        href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Seminar%20Title&details=&dates=20200515T114500Z%2F20200517T004500Z"
+      >
+        Google Calendar
+      </ExternalLink>
+    </MenuItem>
+  </DropdownMenu>
+</ListItemAction>
+`;
