@@ -31,9 +31,16 @@ def test_base_schema_addresses():
 
 
 def test_base_schema_addresses_wrong_country_code():
-    expected_result = {"addresses": [{"cities": ["City Name"], "country_code": "CS"}]}
+    expected_result = {
+        "addresses": [
+            {
+                "cities": ["City Name"],
+                "country_code": "CS",
+                "country": "Serbia and Montenegro",
+            }
+        ]
+    }
     data = {"addresses": [{"cities": ["City Name"], "country_code": "CS"}]}
-
     result = ConferencesRawSchema().dump(data).data
     assert expected_result == result
 

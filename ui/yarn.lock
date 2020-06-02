@@ -3041,6 +3041,7 @@ deep-equal@^1.0.1:
 deep-extend@^0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/deep-extend/-/deep-extend-0.6.0.tgz#c4fa7c95404a17a9c3e8ca7e1537312b736330ac"
+  integrity sha512-LOHxIOaPYdHlJRtCQfDIVZtfw/ufM8+rVj649RIHzcm/vGwQRXFt6OPqIFWsm2XEMrNIEtWR64sY1LEKD2vAOA==
 
 deep-is@~0.1.3:
   version "0.1.3"
@@ -5036,6 +5037,11 @@ insert-css@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/insert-css/-/insert-css-2.0.0.tgz#eb5d1097b7542f4c79ea3060d3aee07d053880f4"
   integrity sha1-610Ql7dUL0x56jBg067gfQU4gPQ=
+
+inspire-schemas@^61.2.6-2-g90a8aaf:
+  version "61.3.1"
+  resolved "https://registry.yarnpkg.com/inspire-schemas/-/inspire-schemas-61.3.1.tgz#146631ad64ee7f85522b7ec17e75dc93b7f23b2a"
+  integrity sha512-a2Mq5vFKt09sWksMBLwSjHNtEwziVwuLgE1d8LTMg4W3myIylU/ba8I0O0hKQbaqTlYgIozP3j2OdPKVfX0Syg==
 
 internal-ip@^3.0.1:
   version "3.0.1"
