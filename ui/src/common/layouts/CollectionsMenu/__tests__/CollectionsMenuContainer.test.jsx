@@ -14,7 +14,6 @@ describe('CollectionsMenuContainer', () => {
       router: {
         location: {
           pathname: SUBMISSIONS_AUTHOR,
-          hash: '#whatever',
         },
       },
     });
@@ -27,7 +26,6 @@ describe('CollectionsMenuContainer', () => {
     );
     expect(wrapper.find(CollectionsMenu)).toHaveProp({
       currentPathname: SUBMISSIONS_AUTHOR,
-      currentHash: '#whatever',
     });
   });
 });
