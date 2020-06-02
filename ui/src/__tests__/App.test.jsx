@@ -18,6 +18,7 @@ import { setUserCategoryFromRoles } from '../tracker';
 import Jobs from '../jobs';
 import Conferences from '../conferences';
 import { LOGGED_IN_USER_REQUEST } from '../actions/actionTypes';
+import BibliographyGeneratorPageContainer from '../bibliographyGenerator/BibliographyGeneratorPageContainer';
 
 jest.mock('../tracker');
 
@@ -234,5 +235,19 @@ describe('App', () => {
       </Provider>
     );
     expect(wrapper.find(Jobs)).toExist();
+  });
+
+  it('navigates to BibliographyGenerator when /bibliography-generator', () => {
+    const wrapper = mount(
+      <Provider store={getStore()}>
+        <MemoryRouter
+          initialEntries={['/bibliography-generator']}
+          initialIndex={0}
+        >
+          <App />
+        </MemoryRouter>
+      </Provider>
+    );
+    expect(wrapper.find(BibliographyGeneratorPageContainer)).toExist();
   });
 });

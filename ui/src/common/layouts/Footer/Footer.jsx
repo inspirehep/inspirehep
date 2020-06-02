@@ -20,6 +20,8 @@ import {
   INVENIO_URL,
 } from '../../constants';
 import ExternalLink from '../../components/ExternalLink';
+import NewFeatureTag from '../../components/NewFeatureTag';
+import { BIBLIOGRAPHY_GENERATOR } from '../../routes';
 
 const COLUMNS = [
   {
@@ -64,17 +66,28 @@ const COLUMNS = [
   },
   {
     title: 'Tools',
-    onlyCatalogers: true,
     items: [
       {
         title: 'Holdingpen',
+        onlyCatalogers: true,
         url: HOLDINGPEN_URL,
         openExternal: true,
       },
       {
         title: 'Author list',
+        onlyCatalogers: true,
         url: AUTHORLIST_TOOL_URL,
         openExternal: true,
+      },
+      {
+        title: (
+          <span>
+            Bibliography generator{' '}
+            <NewFeatureTag className="without-margin-left" />
+          </span>
+        ),
+        url: BIBLIOGRAPHY_GENERATOR,
+        openExternal: false,
       },
     ],
   },
@@ -116,7 +129,10 @@ function Footer({ isCatalogerLoggedIn }) {
     () =>
       isCatalogerLoggedIn
         ? COLUMNS
-        : COLUMNS.filter(column => !column.onlyCatalogers),
+        : COLUMNS.map(col => ({
+            ...col,
+            items: col.items.filter(item => !item.onlyCatalogers),
+          })),
     [isCatalogerLoggedIn]
   );
   return <RcFooter className="__Footer__" bottom={BOTTOM} columns={columns} />;

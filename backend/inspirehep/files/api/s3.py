@@ -46,7 +46,7 @@ class S3:
         """
         return url.startswith(current_app.config.get("S3_HOSTNAME"))
 
-    def upload_file(self, data, key, filename, mimetype, acl):
+    def upload_file(self, data, key, filename, mimetype, acl, bucket=None):
         """Upload a file in s3 bucket with the given metadata
 
         :param data: the data of the file.
@@ -56,10 +56,13 @@ class S3:
         :param acl: the access control list for the file.
         :return: dict
         """
+
+        if not bucket:
+            bucket = self.get_bucket_for_file_key(key)
         try:
             response = self.client.upload_fileobj(
                 data,
-                self.get_bucket_for_file_key(key),
+                bucket,
                 key,
                 ExtraArgs={
                     "ContentType": mimetype,

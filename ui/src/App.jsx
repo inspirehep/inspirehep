@@ -26,6 +26,7 @@ import {
   INSTITUTIONS,
   SEMINARS,
   EXPERIMENTS,
+  BIBLIOGRAPHY_GENERATOR,
 } from './common/routes';
 import UserFeedback from './common/components/UserFeedback';
 import { setUserCategoryFromRoles, setClientId } from './tracker';
@@ -43,6 +44,7 @@ import { getConfigFor } from './common/config';
 import Institutions from './institutions';
 import Seminars from './seminars';
 import Experiments from './experiments';
+import BibliographyGeneratorPageContainer from './bibliographyGenerator/BibliographyGeneratorPageContainer';
 
 const Holdingpen$ = Loadable({
   loader: () => import('./holdingpen'),
@@ -101,6 +103,10 @@ function App({ userRoles, dispatch, guideModalVisibility }) {
           <Route path={SEMINARS} component={Seminars} />
           <Route path={EXPERIMENTS} component={Experiments} />
           <PrivateRoute path={SUBMISSIONS} component={Submissions$} />
+          <Route
+            path={BIBLIOGRAPHY_GENERATOR}
+            component={BibliographyGeneratorPageContainer}
+          />
           <Route path={ERRORS} component={Errors} />
         </SafeSwitch>
         <UserFeedback />
