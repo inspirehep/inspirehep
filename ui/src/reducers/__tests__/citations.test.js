@@ -9,56 +9,6 @@ describe('citations reducer', () => {
     expect(state).toEqual(initialState);
   });
 
-  it('CITATIONS_REQUEST', () => {
-    const state = reducer(Map(), {
-      type: types.CITATIONS_REQUEST,
-      payload: { page: 1, size: 25 },
-    });
-    const expected = fromJS({
-      loading: true,
-      query: { page: 1, size: 25 },
-    });
-    expect(state).toEqual(expected);
-  });
-
-  it('CITATIONS_SUCCESS', () => {
-    const payload = {
-      metadata: {
-        citation_count: 1,
-        citations: [
-          {
-            control_number: 123,
-          },
-        ],
-      },
-    };
-    const state = reducer(Map(), { type: types.CITATIONS_SUCCESS, payload });
-    const expected = fromJS({
-      loading: false,
-      error: initialState.get('error'),
-      data: payload.metadata.citations,
-      total: payload.metadata.citation_count,
-    });
-    expect(state).toEqual(expected);
-  });
-
-  it('CITATIONS_ERROR', () => {
-    const payload = {
-      error: { message: 'error' }
-    };
-    const state = reducer(Map(), {
-      type: types.CITATIONS_ERROR,
-      payload,
-    });
-    const expected = fromJS({
-      loading: false,
-      error: payload.error,
-      data: initialState.get('data'),
-      total: initialState.get('total'),
-    });
-    expect(state).toEqual(expected);
-  });
-
   it('CITATIONS_SUMMARY_REQUEST', () => {
     const state = reducer(Map(), { type: types.CITATIONS_SUMMARY_REQUEST });
     expect(state.get('loadingCitationSummary')).toEqual(true);
@@ -78,7 +28,7 @@ describe('citations reducer', () => {
     });
     const expected = fromJS({
       loadingCitationSummary: false,
-      errorCitationSummary: initialState.get('error'),
+      errorCitationSummary: initialState.get('errorCitationSummary'),
       citationSummary: payload.aggregations.citation_summary,
     });
     expect(state).toEqual(expected);
@@ -86,7 +36,7 @@ describe('citations reducer', () => {
 
   it('CITATIONS_SUMMARY_ERROR', () => {
     const payload = {
-      error: { message: 'error' }
+      error: { message: 'error' },
     };
     const state = reducer(Map(), {
       type: types.CITATIONS_SUMMARY_ERROR,
@@ -125,7 +75,7 @@ describe('citations reducer', () => {
     });
     const expected = fromJS({
       loadingCitationsByYear: false,
-      errorCitationsByYear: initialState.get('error'),
+      errorCitationsByYear: initialState.get('errorCitationsByYear'),
       byYear: payload.aggregations.citations_by_year.value,
     });
     expect(state).toEqual(expected);

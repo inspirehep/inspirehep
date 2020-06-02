@@ -1,8 +1,5 @@
 import { stringify } from 'qs';
 import {
-  CITATIONS_ERROR,
-  CITATIONS_SUCCESS,
-  CITATIONS_REQUEST,
   CITATIONS_SUMMARY_REQUEST,
   CITATIONS_SUMMARY_SUCCESS,
   CITATIONS_SUMMARY_ERROR,
@@ -11,27 +8,6 @@ import {
   CITATIONS_BY_YEAR_ERROR,
 } from './actionTypes';
 import { httpErrorToActionPayload } from '../common/utils';
-
-function fetchingCitations(query) {
-  return {
-    type: CITATIONS_REQUEST,
-    payload: query,
-  };
-}
-
-function fetchCitationsSuccess(result) {
-  return {
-    type: CITATIONS_SUCCESS,
-    payload: result,
-  };
-}
-
-function fetchCitationsError(error) {
-  return {
-    type: CITATIONS_ERROR,
-    payload: error,
-  };
-}
 
 function fetchingCitationSummary(namespace) {
   return {
@@ -51,26 +27,6 @@ function fetchCitationSummaryError(error) {
   return {
     type: CITATIONS_SUMMARY_ERROR,
     payload: error,
-  };
-}
-
-export function fetchCitations(recordId, newQuery = {}) {
-  return async (dispatch, getState, http) => {
-    const { citations } = getState();
-    const query = {
-      ...citations.get('query').toJS(),
-      ...newQuery,
-    };
-    dispatch(fetchingCitations(query));
-    const queryString = stringify(query, { indices: false });
-    try {
-      const citationsApiUrl = `/literature/${recordId}/citations?${queryString}`;
-      const response = await http.get(citationsApiUrl);
-      dispatch(fetchCitationsSuccess(response.data));
-    } catch (error) {
-      const payload = httpErrorToActionPayload(error);
-      dispatch(fetchCitationsError(payload));
-    }
   };
 }
 
