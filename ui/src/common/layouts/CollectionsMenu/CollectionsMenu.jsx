@@ -22,7 +22,7 @@ import {
 } from '../../constants';
 import CollectionLink from './CollectionLink';
 
-function CollectionsMenu({ currentPathname, currentHash = '' }) {
+function CollectionsMenu({ currentPathname }) {
   const activeCollection = useMemo(
     () => getRootOfLocationPathname(currentPathname),
     [currentPathname]
@@ -33,7 +33,7 @@ function CollectionsMenu({ currentPathname, currentHash = '' }) {
       <Col>
         <CollectionLink
           active={activeCollection === LITERATURE_PID_TYPE}
-          to={`${LITERATURE}${currentHash}`}
+          to={`${LITERATURE}`}
         >
           Literature
         </CollectionLink>
@@ -82,7 +82,6 @@ function CollectionsMenu({ currentPathname, currentHash = '' }) {
 
 CollectionsMenu.propTypes = {
   currentPathname: PropTypes.string.isRequired,
-  currentHash: PropTypes.string,
 };
 
 export default CollectionsMenu;

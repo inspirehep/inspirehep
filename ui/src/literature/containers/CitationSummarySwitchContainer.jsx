@@ -10,12 +10,17 @@ import { fetchCitationSummary } from '../../actions/citations';
 export function isCitationSummaryEnabled(state) {
   return state.router.location.hash === WITH_CITATION_SUMMARY;
 }
-const stateToProps = state => ({
-  checked: isCitationSummaryEnabled(state),
-  citationSummaryEnablingPreference: state.user.getIn([
+
+export function isCitationSummaryPreferenceSet(state) {
+  return state.user.getIn([
     'preferences',
     CITATION_SUMMARY_ENABLING_PREFERENCE,
-  ]),
+  ]);
+}
+
+const stateToProps = state => ({
+  checked: isCitationSummaryEnabled(state),
+  citationSummaryEnablingPreference: isCitationSummaryPreferenceSet(state),
 });
 
 const dispatchToProps = (dispatch, { namespace }) => ({

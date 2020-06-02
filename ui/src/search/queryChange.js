@@ -2,7 +2,16 @@ import { push, replace } from 'connected-react-router';
 
 import { fetchSearchResults, fetchSearchAggregations } from '../actions/search';
 import { fetchCitationSummary } from '../actions/citations';
-import { isCitationSummaryEnabled } from '../literature/containers/CitationSummarySwitchContainer';
+import {
+  isCitationSummaryEnabled,
+  isCitationSummaryPreferenceSet,
+} from '../literature/containers/CitationSummarySwitchContainer';
+
+function shouldDispatchCitationSummary(state) {
+  return (
+    isCitationSummaryEnabled(state) || isCitationSummaryPreferenceSet(state)
+  );
+}
 
 export function onLiteratureQueryChange(helper, dispatch) {
   const isInitialQueryUpdate = helper.isInitialQueryUpdate();
@@ -34,7 +43,8 @@ export function onLiteratureQueryChange(helper, dispatch) {
     const searchAggsUrl = `${helper.getPathname()}/facets?${aggsQueryString}`;
     dispatch(fetchSearchAggregations(helper.namespace, searchAggsUrl));
 
-    if (isCitationSummaryEnabled(helper.state)) {
+    // `if shouldDispatchCitationSummary` can be pushed down to `fetchCitationSummary`
+    if (shouldDispatchCitationSummary(helper.state)) {
       dispatch(fetchCitationSummary(helper.namespace));
     }
   }
@@ -51,7 +61,7 @@ export function onEmbeddedLiteratureQueryChange(helper, dispatch) {
     const searchAggsUrl = `${helper.getPathname()}/facets?${aggsQueryString}`;
     dispatch(fetchSearchAggregations(helper.namespace, searchAggsUrl));
 
-    if (isCitationSummaryEnabled(helper.state)) {
+    if (shouldDispatchCitationSummary(helper.state)) {
       dispatch(fetchCitationSummary(helper.namespace));
     }
   }
