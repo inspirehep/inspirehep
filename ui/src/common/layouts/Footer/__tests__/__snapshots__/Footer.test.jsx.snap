@@ -79,17 +79,29 @@ exports[`Footer renders when cataloger 1`] = `
       Object {
         "items": Array [
           Object {
+            "onlyCatalogers": true,
             "openExternal": true,
             "title": "Holdingpen",
             "url": "/holdingpen",
           },
           Object {
+            "onlyCatalogers": true,
             "openExternal": true,
             "title": "Author list",
             "url": "/tools/authorlist",
           },
+          Object {
+            "openExternal": false,
+            "title": <span>
+              Bibliography generator
+               
+              <NewFeatureTag
+                className="without-margin-left"
+              />
+            </span>,
+            "url": "/bibliography-generator",
+          },
         ],
-        "onlyCatalogers": true,
         "title": "Tools",
       },
       Object {
@@ -192,6 +204,22 @@ exports[`Footer renders when not cataloger 1`] = `
           },
         ],
         "title": "Help",
+      },
+      Object {
+        "items": Array [
+          Object {
+            "openExternal": false,
+            "title": <span>
+              Bibliography generator
+               
+              <NewFeatureTag
+                className="without-margin-left"
+              />
+            </span>,
+            "url": "/bibliography-generator",
+          },
+        ],
+        "title": "Tools",
       },
       Object {
         "items": Array [

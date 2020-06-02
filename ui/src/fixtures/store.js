@@ -8,6 +8,7 @@ import { initialState as submissions } from '../reducers/submissions';
 import { initialState as inspect } from '../reducers/inspect';
 import { initialState as exceptions } from '../reducers/exceptions';
 import { initialState as ui } from '../reducers/ui';
+import { initialState as bibliographyGenerator } from '../reducers/bibliographyGenerator';
 
 import { thunkMiddleware } from '../store';
 import { initialState } from '../reducers/recordsFactory';
@@ -34,6 +35,7 @@ export function getState() {
     ui,
     jobs: initialState,
     conferences: initialState,
+    bibliographyGenerator,
   };
 }
 
