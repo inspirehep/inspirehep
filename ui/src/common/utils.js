@@ -202,8 +202,8 @@ export function getRecordIdFromRef($ref) {
   return parts[parts.length - 1];
 }
 
-export function downloadTextAsFile(text) {
-  const blob = new Blob([text], { type: 'application/txt' });
+export function downloadTextAsFile(text, type = 'application/txt') {
+  const blob = new Blob([text], { type });
   // support IE & edge
   if (window.navigator && window.navigator.msSaveOrOpenBlob) {
     window.navigator.msSaveOrOpenBlob(blob, 'download.txt');
@@ -236,9 +236,13 @@ export function abbreviateNumber(number) {
 }
 
 const HTML_TAG_REGEXP = /(<([^>]+)>)/gi;
+export function stripHtml(richText) {
+  return richText.replace(HTML_TAG_REGEXP, '');
+}
+
 const MAX_DESCRIPTION_LENGTH = 160;
 export function makeCompliantMetaDescription(description = '') {
-  const withoutHtml = description.replace(HTML_TAG_REGEXP, '');
+  const withoutHtml = stripHtml(description);
 
   if (withoutHtml.length > 160) {
     const truncated = withoutHtml.slice(0, MAX_DESCRIPTION_LENGTH - 3);

@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`google matches google url with all fields 1`] = `"https://calendar.google.com/calendar/render?action=TEMPLATE&text=Seminar%20Title&details=This%20is%20a%20test%20seminar&location=CERN&dates=20200515T113400Z%2F20200515T173400Z"`;
+
+exports[`google matches google url with only required fields 1`] = `"https://calendar.google.com/calendar/render?action=TEMPLATE&text=Seminar%20Title&details=&dates=20200515T114500Z%2F20200517T004500Z"`;
