@@ -1,0 +1,37 @@
+interactions:
+- request:
+    body: citations=W.+Buchm%C3%BCller+and+O.+Philipsen%2C+Nucl.+Phys.+B+443+%281995%29+47
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '80'
+      Content-Type:
+      - application/x-www-form-urlencoded
+    method: POST
+    uri: https://grobid.inspirebeta.net/api/processCitation
+  response:
+    body:
+      string: "<biblStruct >\n\t<analytic>\n\t\t<title/>\n\t\t<author>\n\t\t\t<persName\
+        \ xmlns=\"http://www.tei-c.org/ns/1.0\"><forename type=\"first\">W</forename><surname>Buchm\xFC\
+        ller</surname></persName>\n\t\t</author>\n\t\t<author>\n\t\t\t<persName xmlns=\"\
+        http://www.tei-c.org/ns/1.0\"><forename type=\"first\">O</forename><surname>Philipsen</surname></persName>\n\
+        \t\t</author>\n\t</analytic>\n\t<monogr>\n\t\t<title level=\"j\">Nucl. Phys.\
+        \ B</title>\n\t\t<imprint>\n\t\t\t<biblScope unit=\"volume\">443</biblScope>\n\
+        \t\t\t<biblScope unit=\"page\">47</biblScope>\n\t\t\t<date type=\"published\"\
+        \ when=\"1995\" />\n\t\t</imprint>\n\t</monogr>\n</biblStruct>\n"
+    headers:
+      Content-Length:
+      - '573'
+      Content-Type:
+      - application/xml; charset=UTF-8
+      Date:
+      - Sun, 14 Jun 2020 18:34:10 GMT
+    status:
+      code: 200
+      message: OK
+version: 1
