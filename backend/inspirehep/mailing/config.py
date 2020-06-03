@@ -5,7 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-MAILTRAIN_URL = "https://lists.labs.inspirehep.net"
+MAILTRAIN_URL = "https://lists.inspirehep.net"
 MAILTRAIN_API_TOKEN = ""
 MAILTRAIN_JOBS_WEEKLY_LIST_ID = ""
 

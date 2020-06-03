@@ -7,6 +7,7 @@
 
 import pytest
 from flask import render_template
+from helpers.utils import override_config
 from invenio_accounts.models import User
 from invenio_db import db
 from invenio_oauthclient.models import UserIdentity
@@ -52,13 +53,13 @@ def test_render_jobs_weekly_campaign_job_record_template_only(create_jobs):
         assert result in expected_results
 
 
-@pytest.mark.vrc()
-def test_subscirbe_to_the_list(inspire_app, vcr_cassette):
-    result = subscribe_to_jobs_weekly_list("luke@cage.com", "Luke", "Cage")
-    assert vcr_cassette.all_played
+@pytest.mark.vcr()
+def test_subscribe_to_the_list(inspire_app):
+    subscribe_to_jobs_weekly_list("luke@cage.com", "Luke", "Cage")
 
 
-def test_subscirbe_to_the_list_with_invalid_email(inspire_app):
+@pytest.mark.vcr()
+def test_subscribe_to_the_list_with_invalid_email(inspire_app):
     with pytest.raises(ValueError):
         subscribe_to_jobs_weekly_list("luke", "Luke", "Cage")
 

@@ -17,13 +17,12 @@ from inspirehep.mailing.providers.mailtrain import (
 
 
 @pytest.mark.vrc()
-def test_mailtrain_subscribe_user_to_list(inspire_app, vcr_cassette):
+def test_mailtrain_subscribe_user_to_list(inspire_app):
     list_id = "xKU-qcq8U"
     email = "test@email.ch"
     first_name = "Firstname"
     last_name = "Lastname"
     mailtrain_subscribe_user_to_list(list_id, email, first_name, last_name)
-    assert vcr_cassette.all_played
 
 
 @freeze_time(datetime(2019, 9, 17, 6, 0, 0))

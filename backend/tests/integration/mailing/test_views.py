@@ -12,7 +12,7 @@ from helpers.utils import override_config
 
 
 @pytest.mark.vcr()
-def test_view_subscribe_to_list(inspire_app, vcr_cassette):
+def test_view_subscribe_to_list(inspire_app):
     with inspire_app.test_client() as client:
         response = client.post(
             "/mailing/subscribe/jobs/weekly",
@@ -27,7 +27,6 @@ def test_view_subscribe_to_list(inspire_app, vcr_cassette):
         )
 
     assert response.status_code == 200
-    assert vcr_cassette.all_played
 
 
 def test_view_subscribe_to_list_with_invalid_email(inspire_app):

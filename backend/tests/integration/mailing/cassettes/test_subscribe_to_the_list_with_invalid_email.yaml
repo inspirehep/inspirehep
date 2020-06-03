@@ -1,6 +1,6 @@
 interactions:
 - request:
-    body: FIRST_NAME=Luke&LAST_NAME=Cage&EMAIL=luke%40cage.com
+    body: FIRST_NAME=Luke&LAST_NAME=Cage&EMAIL=luke
     headers:
       Accept:
       - '*/*'
@@ -9,26 +9,28 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '52'
+      - '41'
       Content-Type:
       - application/x-www-form-urlencoded
+      User-Agent:
+      - python-requests/2.22.0
     method: POST
-    uri: https://lists.labs.inspirehep.net/api/subscribe/xKU-qcq8U?access_token=1111111111111111111111111111111111111111
+    uri: https://lists.inspirehep.net/api/subscribe/xKU-qcq8U
   response:
     body:
-      string: '{"data":{"id":"I00SuzA3x"}}'
+      string: '{"error":"Invalid email address \"luke\".","data":[]}'
     headers:
       Content-Length:
-      - '27'
+      - '53'
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 09 Sep 2019 10:51:07 GMT
+      - Wed, 03 Jun 2020 15:48:20 GMT
       Etag:
-      - W/"1b-tusi1BhWhJMN0+Og1v7xdASnTsM"
+      - W/"35-TOVFaPnMApSk4oy2ZH+YpMFAmKo"
       Vary:
       - Accept-Encoding
     status:
-      code: 200
-      message: OK
+      code: 400
+      message: Bad Request
 version: 1
