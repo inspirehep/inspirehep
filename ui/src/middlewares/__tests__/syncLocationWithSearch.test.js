@@ -49,7 +49,7 @@ describe('syncLocationWithSearch middleware', () => {
 
       expect(resultAction).toEqual(action);
       expect(mockDispatch).toHaveBeenCalledWith(
-        searchQueryUpdate(namespace, location.query)
+        searchQueryUpdate(namespace, location.query, true)
       );
     });
 
@@ -115,7 +115,7 @@ describe('syncLocationWithSearch middleware', () => {
 
       expect(resultAction).toEqual(action);
       expect(mockDispatch).toHaveBeenCalledWith(
-        searchQueryUpdate(namespace, location.query)
+        searchQueryUpdate(namespace, location.query, true)
       );
     });
 

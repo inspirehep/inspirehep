@@ -1,17 +1,27 @@
 import { stringify } from 'qs';
 import omit from 'lodash.omit';
+import { replace, push } from 'connected-react-router';
 
 import { shallowEqual } from '../common/utils';
 import { NAMESPACE_TO_PATHNAME } from './constants';
+import { fetchSearchResults, fetchSearchAggregations } from '../actions/search';
 
 const SORT_AND_PAGINATION_PARAMS = ['sort', 'page', 'size'];
 
 // FIXME: needs better name
 export default class SearchHelper {
-  constructor(namespace, prevState, state) {
+  constructor(
+    namespace,
+    prevState,
+    state,
+    dispatch,
+    dueToNavigationToSearchPage
+  ) {
     this.namespace = namespace;
     this.prevState = prevState;
     this.state = state;
+    this.dispatch = dispatch;
+    this.dueToNavigationToSearchPage = dueToNavigationToSearchPage;
   }
 
   /**
@@ -32,6 +42,35 @@ export default class SearchHelper {
     );
   }
 
+  updateLocation(urlSuffix = '') {
+    const searchUrl = `${this.getPathname()}?${this.getQueryString()}${urlSuffix}`;
+    if (this.isInitialQueryUpdate() || this.dueToNavigationToSearchPage) {
+      /**
+       * Call `replace` which basically sets some extra base query params
+       * that weren't part of the initial location query
+       * example: `/literature?page=1` would be changed to `/literature?page=1&size=25...`
+       *
+       * `replace` is used instead of `push` no to create a endless loop
+       * and allow "go-back" on the location history.
+       * Otherwise each time we go back we would get  `/literature?page=1` which then
+       * would cause `/literature?page=1&size=25...` to be pushed to the history and so on.
+       */
+      this.dispatch(replace(searchUrl));
+    } else {
+      this.dispatch(push(searchUrl));
+    }
+  }
+
+  fetchSearchResults() {
+    const searchUrl = `${this.getPathname()}?${this.getQueryString()}`;
+    this.dispatch(fetchSearchResults(this.namespace, searchUrl));
+  }
+
+  fetchSearchAggregations(queryString = this.getAggregationsQueryString()) {
+    const searchAggsUrl = `${this.getPathname()}/facets?${queryString}`;
+    this.dispatch(fetchSearchAggregations(this.namespace, searchAggsUrl));
+  }
+
   hasQueryChanged() {
     return this.getQuery() !== this.getPrevQuery();
   }
@@ -45,12 +84,6 @@ export default class SearchHelper {
 
   getPathname() {
     return NAMESPACE_TO_PATHNAME[this.namespace];
-  }
-
-  getSearchAggregationsUrl() {
-    const pathname = NAMESPACE_TO_PATHNAME[this.namespace];
-    const queryString = this.getAggregationsQueryString();
-    return `${pathname}/facets?${queryString}`;
   }
 
   getQueryString() {

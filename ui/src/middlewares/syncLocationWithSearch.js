@@ -69,7 +69,7 @@ export default function({ dispatch, getState }) {
           }
 
           const { query } = nextLocation;
-          dispatch(searchQueryUpdate(nextNamespace, query));
+          dispatch(searchQueryUpdate(nextNamespace, query, true));
         }
       }
 
