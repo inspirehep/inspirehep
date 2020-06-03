@@ -8,4 +8,9 @@ describe('NewFeatureTag', () => {
     const wrapper = shallow(<NewFeatureTag />);
     expect(wrapper).toMatchSnapshot();
   });
+
+  it('renders with class name', () => {
+    const wrapper = shallow(<NewFeatureTag className="test" />);
+    expect(wrapper).toMatchSnapshot();
+  });
 });

@@ -21,13 +21,16 @@ exports[`CitationSummaryBox renders 1`] = `
           <a
             href="https://inspirehep.net/help/knowledge-base/citation-metrics/"
           >
-            Learn more.
+            Learn More
           </a>
         </p>
       }
       label="Exclude self-citations"
     />
   </Checkbox>
+  <NewFeatureTag
+    className="without-margin-left"
+  />
   <Row
     gutter={
       Object {

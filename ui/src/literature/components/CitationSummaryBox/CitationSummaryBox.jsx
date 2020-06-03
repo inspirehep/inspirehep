@@ -2,17 +2,19 @@ import React from 'react';
 import { Col, Row, Checkbox } from 'antd';
 import PropTypes from 'prop-types';
 
-import ContentBox from '../../common/components/ContentBox';
-import CitationSummaryGraphContainer from '../../common/containers/CitationSummaryGraphContainer';
-import CitationSummaryTableContainer from '../../common/containers/CitationSummaryTableContainer';
-import LabelWithHelp from '../../common/components/LabelWithHelp';
+import ContentBox from '../../../common/components/ContentBox';
+import CitationSummaryGraphContainer from '../../../common/containers/CitationSummaryGraphContainer';
+import CitationSummaryTableContainer from '../../../common/containers/CitationSummaryTableContainer';
+import LabelWithHelp from '../../../common/components/LabelWithHelp';
+import NewFeatureTag from '../../../common/components/NewFeatureTag';
+import './CitationSummaryBox.scss';
 
 const EXCLUDE_SELF_CITATIONS_HELP = (
   <p>
     Self-citations are citations from the same collaboration or any of the
     authors of the paper being cited.{' '}
     <a href="https://inspirehep.net/help/knowledge-base/citation-metrics/">
-      Learn more.
+      Learn More
     </a>
   </p>
 );
@@ -33,6 +35,7 @@ function CitationSummaryBox({
           help={EXCLUDE_SELF_CITATIONS_HELP}
         />
       </Checkbox>
+      <NewFeatureTag className="without-margin-left" />
       <Row gutter={{ xs: 0, lg: 32 }}>
         <Col span={24}>
           <CitationSummaryTableContainer />
