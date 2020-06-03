@@ -5,22 +5,27 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-"""inspirehep."""
 
-
+import structlog
 from elasticsearch import RequestError
 from elasticsearch_dsl.query import Match, Q
 from flask import current_app, request
+from inspire_utils.record import get_value
 from invenio_search import current_search_client as es
 from invenio_search.api import DefaultFilter, RecordsSearch
 
 from inspirehep.accounts.api import is_superuser_or_cataloger_logged_in
+from inspirehep.matcher.api import (
+    get_reference_from_grobid,
+    match_reference_control_number,
+)
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.search.errors import MaximumSearchPageSizeExceeded
 from inspirehep.search.factories import inspire_query_factory
 from inspirehep.search.utils import RecursionLimit
 
 IQ = inspire_query_factory()
+LOGGER = structlog.getLogger()
 
 
 class SearchMixin(object):
@@ -118,18 +123,48 @@ class LiteratureSearch(InspireSearch):
         doc_types = "_doc"
         default_filter = DefaultFilter(Q())
 
-    def query_from_iq(self, query_string):
-        """Initialize ES DSL object using INSPIRE query parser.
-        :param query_string: Query string as a user would input in INSPIRE's search box.
-        :type query_string: string
-        :returns: Elasticsearch DSL search class
-        """
+    def query_for_superuser_or_users(self, query_string):
         if not is_superuser_or_cataloger_logged_in():
             user_query = Q(
                 IQ(query_string, self) & Q("term", _collections="Literature")
             )
             return self.query(user_query)
         return self.query(IQ(query_string, self))
+
+    def query_from_iq(self, query_string):
+        """Initialize ES DSL object using INSPIRE query parser.
+
+        :param query_string: Query string as a user would input in INSPIRE's search box.
+        :type query_string: string
+        :returns: Elasticsearch DSL search class
+        """
+        search_query = self.query_for_superuser_or_users(query_string)
+        search_results = search_query.execute()
+
+        if search_results.hits.total["value"] == 0 and request:
+            reference_match = self.match_reference_from_request_query()
+            if reference_match:
+                return self.query(Q("term", control_number=reference_match))
+        return search_query
+
+    def match_reference_from_request_query(self):
+        query_string = request.values.get("q", "", type=str)
+        if not query_string:
+            return None
+
+        reference = get_reference_from_grobid(query_string)
+        if not reference:
+            return None
+
+        journal_title = get_value(reference, "reference.publication_info.journal_title")
+        try:
+            reference["reference"]["publication_info"][
+                "journal_title"
+            ] = JournalsSearch().normalize_title(journal_title)
+        except KeyError:
+            pass
+
+        return match_reference_control_number(reference)
 
     def source_for_content_type(self, content_type):
         includes = current_app.config.get(
@@ -329,6 +364,16 @@ class JournalsSearch(InspireSearch):
     class Meta:
         index = "records-journals"
         doc_types = "_doc"
+
+    def normalize_title(self, journal_title):
+        normalized_journal_title = journal_title
+        hits = self.query("match", lowercase_journal_titles=journal_title).execute()
+        if hits:
+            try:
+                normalized_journal_title = hits[0].short_title
+            except (AttributeError, IndexError):
+                LOGGER.info("Failed to normalize journal title in", result=hits[0])
+        return normalized_journal_title
 
 
 class SeminarsSearch(InspireSearch):

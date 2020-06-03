@@ -10,7 +10,7 @@ import urllib
 import pytest
 from helpers.utils import create_record, override_config
 
-from inspirehep.search.api import AuthorsSearch, LiteratureSearch
+from inspirehep.search.api import AuthorsSearch, JournalsSearch, LiteratureSearch
 
 
 def test_literature_get_records_by_pids_returns_correct_record(inspire_app):
@@ -32,6 +32,159 @@ def test_literature_get_records_by_pids_returns_correct_record(inspire_app):
     assert len(result) == len(expected_control_numbers)
     for rec in result:
         assert rec.to_dict()["control_number"] in expected_control_numbers
+
+
+@pytest.mark.vcr()
+def test_return_record_for_publication_info_search_example_1(inspire_app):
+    query = "Phys. Lett. B 704 (2011) 223"
+
+    cited_record_json = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "control_number": 1,
+        "document_type": ["article"],
+        "publication_info": [
+            {
+                "journal_title": "Phys.Lett.B",
+                "journal_volume": "704",
+                "page_start": "223",
+                "year": 2011,
+            }
+        ],
+        "titles": [{"title": "The Strongly-Interacting Light Higgs"}],
+    }
+
+    create_record(
+        "jou",
+        data={
+            "short_title": "Phys.Lett.B",
+            "journal_title": {"title": "Phys. Lett. B"},
+        },
+    )
+    create_record("lit", cited_record_json)
+
+    expected_control_number = 1
+
+    with inspire_app.test_client() as client:
+        response = client.get("api/literature", query_string={"q": query})
+
+    response_record = response.json
+    response_record_control_number = response_record["hits"]["hits"][0]["metadata"][
+        "control_number"
+    ]
+
+    assert expected_control_number == response_record_control_number
+    assert 200 == response.status_code
+
+
+@pytest.mark.vcr()
+def test_return_record_for_publication_info_search_example_2(inspire_app):
+    query = "W. Buchmüller and O. Philipsen, Nucl. Phys. B 443 (1995) 47"
+
+    cited_record_json = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "control_number": 1,
+        "document_type": ["article"],
+        "publication_info": [
+            {
+                "journal_title": "Nucl.Phys.B",
+                "journal_volume": "443",
+                "page_end": "69",
+                "page_start": "47",
+                "year": 1995,
+            }
+        ],
+        "titles": [
+            {
+                "title": "Phase structure and phase transition of the SU(2) Higgs model in three-dimensions"
+            }
+        ],
+    }
+
+    create_record(
+        "jou",
+        data={
+            "short_title": "Nucl.Phys.B",
+            "journal_title": {"title": "Nucl. Phys. B"},
+        },
+    )
+    create_record("lit", cited_record_json)
+
+    expected_control_number = 1
+
+    with inspire_app.test_client() as client:
+        response = client.get("api/literature", query_string={"q": query})
+
+    response_record = response.json
+    response_record_control_number = response_record["hits"]["hits"][0]["metadata"][
+        "control_number"
+    ]
+
+    assert expected_control_number == response_record_control_number
+    assert 200 == response.status_code
+
+
+@pytest.mark.vcr()
+def test_return_record_for_publication_info_search_example_3(inspire_app):
+    query = "Phys. Rev. Lett., 65:21–24, 1990"
+
+    cited_record_json = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "control_number": 1,
+        "document_type": ["article"],
+        "publication_info": [
+            {
+                "journal_record": {
+                    "$ref": "https://inspirehep.net/api/journals/1214495"
+                },
+                "journal_title": "Phys.Rev.Lett.",
+                "journal_volume": "65",
+                "page_end": "24",
+                "page_start": "21",
+                "year": 1990,
+            },
+            {
+                "artid": "2920",
+                "journal_record": {
+                    "$ref": "https://inspirehep.net/api/journals/1214495"
+                },
+                "journal_title": "Phys.Rev.Lett.",
+                "journal_volume": "65",
+                "material": "erratum",
+                "page_start": "2920",
+                "year": 1990,
+            },
+        ],
+        "titles": [
+            {
+                "title": "Phase structure and phase transition of the SU(2) Higgs model in three-dimensions"
+            }
+        ],
+    }
+
+    create_record("lit", cited_record_json)
+    create_record(
+        "jou",
+        data={
+            "short_title": "Phys.Rev.Lett.",
+            "journal_title": {"title": "Phys. Rev. Lett"},
+        },
+    )
+
+    expected_control_number = 1
+
+    with inspire_app.test_client() as client:
+        response = client.get("api/literature", query_string={"q": query})
+
+    response_record = response.json
+    response_record_control_number = response_record["hits"]["hits"][0]["metadata"][
+        "control_number"
+    ]
+
+    assert expected_control_number == response_record_control_number
+    assert 200 == response.status_code
 
 
 def test_empty_literature_search(inspire_app):
@@ -192,11 +345,12 @@ def test_citations_query_result(inspire_app):
     assert citation["control_number"] == record_citing["control_number"]
 
 
+@pytest.mark.vcr()
 def test_big_query_execute_without_recursion_depth_exception(inspire_app):
-    query = {"q": "find a name" + " or a name" * 300}
-    url = "api/literature?" + urllib.parse.urlencode(query)
     with inspire_app.test_client() as client:
-        response = client.get(url)
+        response = client.get(
+            "api/literature", query_string={"q": "find a name" + " or a name" * 300}
+        )
     assert response.status_code == 200
 
 
@@ -401,3 +555,32 @@ def test_public_api_returns_400_when_requested_too_much_results(inspire_app):
         response = client.get(url)
         assert response.status_code == 400
         assert response.json == expected_response
+
+
+def test_journal_title_normalization(inspire_app):
+    create_record(
+        "jou",
+        data={
+            "journal_title": {"title": "Physical Review Accelerators and Beams"},
+            "short_title": "Phys.Rev.Accel.Beams",
+        },
+    )
+    journal_title = "Physical Review Accelerators and Beams"
+    expected_journal_title = "Phys.Rev.Accel.Beams"
+    result_journal_title = JournalsSearch().normalize_title(journal_title)
+
+    assert expected_journal_title == result_journal_title
+
+
+def test_journal_title_normalization_without_match(inspire_app):
+    create_record(
+        "jou",
+        data={
+            "journal_title": {"title": "Physical Review Accelerators and Beams"},
+            "short_title": "Phys.Rev.Accel.Beams",
+        },
+    )
+    journal_title = "Something else"
+    result_journal_title = JournalsSearch().normalize_title(journal_title)
+
+    assert journal_title == result_journal_title
