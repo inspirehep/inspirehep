@@ -92,7 +92,11 @@ export function fetchSearchAggregations(namespace, url) {
   };
 }
 
-export function searchQueryUpdate(namespace, query) {
+export function searchQueryUpdate(
+  namespace,
+  query,
+  dueToNavigationToSearchPage = false
+) {
   return async (dispatch, getState) => {
     const currentQuery = getState().search.getIn([
       'namespaces',
@@ -116,8 +120,18 @@ export function searchQueryUpdate(namespace, query) {
 
     const nextState = getState();
 
-    const helper = new SearchHelper(namespace, prevState, nextState);
-    searchConfig[namespace].onQueryChange(helper, dispatch);
+    const helper = new SearchHelper(
+      namespace,
+      prevState,
+      nextState,
+      dispatch,
+      dueToNavigationToSearchPage
+    );
+    searchConfig[namespace].onQueryChange(
+      helper,
+      dispatch,
+      dueToNavigationToSearchPage
+    );
   };
 }
 
@@ -141,7 +155,7 @@ export function searchBaseQueriesUpdate(
     });
 
     const nextState = getState();
-    const helper = new SearchHelper(namespace, prevState, nextState);
+    const helper = new SearchHelper(namespace, prevState, nextState, dispatch);
     searchConfig[namespace].onQueryChange(helper, dispatch);
   };
 }
