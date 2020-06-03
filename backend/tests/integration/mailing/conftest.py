@@ -22,7 +22,7 @@ def app_config(app_config):
     # Should be in this format format and length
     # NOTE: Change this with the correct token to record new cassettes
     app_config["MAILTRAIN_API_TOKEN"] = "1111111111111111111111111111111111111111"
-    app_config["MAILTRAIN_URL"] = "https://lists.labs.inspirehep.net"
+    app_config["MAILTRAIN_URL"] = "https://lists.inspirehep.net"
     app_config["MAILTRAIN_JOBS_WEEKLY_LIST_ID"] = "xKU-qcq8U"
     return app_config
 
@@ -78,3 +78,20 @@ def create_jobs(inspire_app, shared_datadir):
     create_record("job", data=job_60_days_old)
 
     current_search.flush_and_refresh("records-jobs")
+
+
+@pytest.fixture(scope="module")
+def vcr_config():
+    return {"filter_query_parameters": ["access_token"], "ignore_localhost": True}
+
+
+@pytest.fixture(autouse=True, scope="function")
+def assert_all_played(request, vcr_cassette):
+    """
+    Ensure that all all episodes have been played in the current test.
+    Only if the current test has a cassette.
+    """
+    yield
+
+    if vcr_cassette:
+        assert vcr_cassette.all_played
