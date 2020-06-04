@@ -44,6 +44,8 @@ import withRouteActionsDispatcher from '../../../common/withRouteActionsDispatch
 import LiteratureDocumentHead from '../../components/LiteratureDocumentHead';
 import IncomingLiteratureReferencesLinkAction from '../../../common/components/IncomingLiteratureReferencesLinkAction';
 import { getPapersQueryString } from '../../utils';
+import ParentRecordLink from '../../components/ParentRecordLink';
+import BookSeriesInfoList from '../../components/BookSeriesInfoList';
 
 function DetailPage({ authors, record, referencesCount, supervisors }) {
   const metadata = record.get('metadata');
@@ -67,6 +69,8 @@ function DetailPage({ authors, record, referencesCount, supervisors }) {
   const urls = metadata.get('urls');
   const collaborations = metadata.get('collaborations');
   const collaborationsWithSuffix = metadata.get('collaborations_with_suffix');
+  const linkedBook = metadata.get('linked_book');
+  const bookSeries = metadata.get('book_series');
 
   const keywords = metadata.get('keywords');
   const authorCount = metadata.get('author_count');
@@ -152,6 +156,8 @@ function DetailPage({ authors, record, referencesCount, supervisors }) {
                   <NumberOfPages numberOfPages={numberOfPages} />
                   <SupervisorList supervisors={supervisors} />
                   <ThesisInfo thesisInfo={thesisInfo} />
+                  {linkedBook && <ParentRecordLink parentRecord={linkedBook} />}
+                  {bookSeries && <BookSeriesInfoList bookSeries={bookSeries} />}
                   <PublicationInfoList publicationInfo={publicationInfo} />
                   <ConferenceInfoList conferenceInfo={conferenceInfo} />
                   <IsbnList isbns={isbns} />

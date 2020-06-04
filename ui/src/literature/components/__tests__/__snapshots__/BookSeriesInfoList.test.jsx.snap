@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BookSeriesInfoList renders many book series info 1`] = `
+<InlineList
+  extractKey={[Function]}
+  items={
+    Immutable.List [
+      Immutable.Map {
+        "title": "A title of book",
+        "volume": "1",
+      },
+      Immutable.Map {
+        "title": "Another title of book",
+        "volume": "2",
+      },
+    ]
+  }
+  label="Series of"
+  renderItem={[Function]}
+  separateItems={true}
+  separator=" and "
+  suffix={null}
+  wrapperClassName={null}
+/>
+`;
+
+exports[`BookSeriesInfoList renders one book series info 1`] = `
+<InlineList
+  extractKey={[Function]}
+  items={
+    Immutable.List [
+      Immutable.Map {
+        "title": "A title of book",
+        "volume": "1",
+      },
+    ]
+  }
+  label="Series of"
+  renderItem={[Function]}
+  separateItems={true}
+  separator=" and "
+  suffix={null}
+  wrapperClassName={null}
+/>
+`;
