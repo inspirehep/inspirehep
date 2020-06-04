@@ -240,16 +240,20 @@ export function stripHtml(richText) {
   return richText.replace(HTML_TAG_REGEXP, '');
 }
 
+export function truncateStringWithEllipsis(string, charCountLimit) {
+  if (string.length > charCountLimit) {
+    const truncated = string.slice(0, charCountLimit - 3);
+    return `${truncated}...`;
+  }
+
+  return string;
+}
+
 const MAX_DESCRIPTION_LENGTH = 160;
 export function makeCompliantMetaDescription(description = '') {
   const withoutHtml = stripHtml(description);
 
-  if (withoutHtml.length > 160) {
-    const truncated = withoutHtml.slice(0, MAX_DESCRIPTION_LENGTH - 3);
-    return `${truncated}...`;
-  }
-
-  return withoutHtml;
+  return truncateStringWithEllipsis(withoutHtml, MAX_DESCRIPTION_LENGTH);
 }
 
 export function getLiteratureSearchUrlForAuthorBAI(bai) {

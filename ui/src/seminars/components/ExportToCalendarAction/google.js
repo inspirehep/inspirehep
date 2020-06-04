@@ -1,6 +1,6 @@
 import moment from 'moment';
 import { stringify } from 'qs';
-import { stripHtml } from '../../../common/utils';
+import { stripHtml, truncateStringWithEllipsis } from '../../../common/utils';
 
 const RENDER_URL = 'https://calendar.google.com/calendar/render';
 
@@ -9,9 +9,17 @@ function toGoogleCalendarDate(datetimeString) {
   return datetime.format('YYYYMMDD[T]HHmm[00Z]');
 }
 
+function stripHtmlAndTruncate(text) {
+  const withoutHtml = stripHtml(text);
+  // not to have extremely long url.
+  return truncateStringWithEllipsis(withoutHtml, 1000);
+}
+
 export default function getGoogleCalendarUrl(seminar) {
   const text = seminar.getIn(['title', 'title']);
-  const details = stripHtml(seminar.getIn(['abstract', 'value'], ''));
+  const details = stripHtmlAndTruncate(
+    seminar.getIn(['abstract', 'value'], '')
+  );
   const location = seminar.getIn(['address', 'place_name']);
 
   const start = seminar.get('start_datetime');
