@@ -15,6 +15,7 @@ import { doTimezonesHaveDifferentTimes } from '../../common/utils';
 import EventTitle from '../../common/components/EventTitle';
 import SeminarDateTimes from './SeminarDateTimes';
 import { LOCAL_TIMEZONE } from '../../common/constants';
+import ExportToCalendarAction from './ExportToCalendarAction/ExportToCalendarAction';
 
 function SeminarItem({ metadata, selectedTimezone }) {
   const title = metadata.get('title');
@@ -39,6 +40,7 @@ function SeminarItem({ metadata, selectedTimezone }) {
               title={<IconText icon={<VideoCameraAddOutlined />} text="join" />}
             />
           )}
+          <ExportToCalendarAction seminar={metadata} />
           {canEdit && (
             <EditRecordAction pidType="seminars" pidValue={recordId} />
           )}

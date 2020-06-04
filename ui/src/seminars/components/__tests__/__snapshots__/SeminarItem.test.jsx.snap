@@ -35,6 +35,40 @@ exports[`SeminarItem renders with all props set 1`] = `
           ]
         }
       />
+      <ExportToCalendarAction
+        seminar={
+          Immutable.Map {
+            "title": Immutable.Map {
+              "title": "test",
+            },
+            "control_number": 12345,
+            "can_edit": true,
+            "urls": Immutable.List [
+              Immutable.Map {
+                "value": "http://url.com",
+              },
+            ],
+            "join_urls": Immutable.List [
+              Immutable.Map {
+                "value": "http://urljoin.com",
+                "description": "zoom",
+              },
+            ],
+            "speakers": Immutable.List [
+              Immutable.Map {
+                "name": "John, Doe",
+                "affiliations": Immutable.List [
+                  Immutable.Map {
+                    "value": "CERN",
+                  },
+                ],
+              },
+            ],
+            "start_datetime": "2020-05-15T11:45:00.000000",
+            "end_datetime": "2020-05-17T00:45:00.000000",
+          }
+        }
+      />
       <EditRecordAction
         pidType="seminars"
         pidValue={12345}
@@ -104,6 +138,29 @@ exports[`SeminarItem renders with only needed props 1`] = `
 <ResultItem
   leftActions={
     <React.Fragment>
+      <ExportToCalendarAction
+        seminar={
+          Immutable.Map {
+            "title": Immutable.Map {
+              "title": "test",
+            },
+            "control_number": 12345,
+            "can_edit": true,
+            "speakers": Immutable.List [
+              Immutable.Map {
+                "name": "John, Doe",
+                "affiliations": Immutable.List [
+                  Immutable.Map {
+                    "value": "CERN",
+                  },
+                ],
+              },
+            ],
+            "start_datetime": "2020-05-15T11:45:00.000000",
+            "end_datetime": "2020-05-17T00:45:00.000000",
+          }
+        }
+      />
       <EditRecordAction
         pidType="seminars"
         pidValue={12345}
@@ -173,6 +230,29 @@ exports[`SeminarItem renders with selected timezone with a different time than l
 <ResultItem
   leftActions={
     <React.Fragment>
+      <ExportToCalendarAction
+        seminar={
+          Immutable.Map {
+            "title": Immutable.Map {
+              "title": "test",
+            },
+            "control_number": 12345,
+            "can_edit": true,
+            "speakers": Immutable.List [
+              Immutable.Map {
+                "name": "John, Doe",
+                "affiliations": Immutable.List [
+                  Immutable.Map {
+                    "value": "CERN",
+                  },
+                ],
+              },
+            ],
+            "start_datetime": "2020-05-15T11:45:00.000000",
+            "end_datetime": "2020-05-17T00:45:00.000000",
+          }
+        }
+      />
       <EditRecordAction
         pidType="seminars"
         pidValue={12345}
@@ -252,6 +332,29 @@ exports[`SeminarItem renders with selected timezone with a same time as local ti
 <ResultItem
   leftActions={
     <React.Fragment>
+      <ExportToCalendarAction
+        seminar={
+          Immutable.Map {
+            "title": Immutable.Map {
+              "title": "test",
+            },
+            "control_number": 12345,
+            "can_edit": true,
+            "speakers": Immutable.List [
+              Immutable.Map {
+                "name": "John, Doe",
+                "affiliations": Immutable.List [
+                  Immutable.Map {
+                    "value": "CERN",
+                  },
+                ],
+              },
+            ],
+            "start_datetime": "2020-05-15T11:45:00.000000",
+            "end_datetime": "2020-05-17T00:45:00.000000",
+          }
+        }
+      />
       <EditRecordAction
         pidType="seminars"
         pidValue={12345}
