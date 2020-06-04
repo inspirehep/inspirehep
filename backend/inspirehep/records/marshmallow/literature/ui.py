@@ -7,13 +7,15 @@
 
 import json
 
-from flask import current_app
+from flask import current_app, url_for
 from inspire_utils.date import format_date
 from inspire_utils.record import get_value, get_values_for_schema
 from marshmallow import fields, missing, pre_dump
 
 from inspirehep.accounts.api import is_superuser_or_cataloger_logged_in
+from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.marshmallow.common.mixins import CatalogerCanEditMixin
+from inspirehep.records.marshmallow.literature.utils import get_parent_record
 from inspirehep.records.utils import get_literature_earliest_date
 
 from ..base import EnvelopeSchema
@@ -82,6 +84,9 @@ class LiteratureDetailSchema(CatalogerCanEditMixin, LiteraturePublicSchema):
     )
     fulltext_links = fields.Method("get_fulltext_links", dump_only=True)
     isbns = fields.List(fields.Nested(IsbnSchemaV1, dump_only=True))
+    linked_book = fields.Method(
+        "get_linked_book", dump_only=True, attribute="publication_info"
+    )
     number_of_authors = fields.Method("get_number_of_authors")
     number_of_references = fields.Method("get_number_of_references")
     publication_info = NonHiddenNested(
@@ -149,6 +154,19 @@ class LiteratureDetailSchema(CatalogerCanEditMixin, LiteraturePublicSchema):
 
         references = data.get("references")
         return self.get_len_or_missing(references)
+
+    def get_linked_book(self, data):
+        parent = get_parent_record(data)
+        if parent and "titles" in parent and "control_number" in parent:
+            endpoint = PidStoreBase.get_endpoint_from_pid_type(
+                PidStoreBase.get_pid_type_from_schema(data["$schema"])
+            )
+            endpoint_item = f"invenio_records_rest.{endpoint}_item"
+            ref = get_value(parent, "self.$ref") or url_for(
+                endpoint_item, pid_value=parent["control_number"], _external=True
+            )
+            return {**parent["titles"][0], "record": {"$ref": ref}}
+        return None
 
     @staticmethod
     def get_len_or_missing(maybe_none_list):

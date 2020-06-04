@@ -345,7 +345,7 @@ def test_get_page():
 
 
 @mock.patch(
-    "inspirehep.records.marshmallow.literature.bibtex.BibTexCommonSchema.get_parent_record",
+    "inspirehep.records.marshmallow.literature.bibtex.get_parent_record",
     return_value={"titles": [{"title": "Parent title"}]},
 )
 def test_get_book_title_with_parent_record(mock_get_linked_records):
@@ -363,7 +363,7 @@ def test_get_book_title_with_parent_record(mock_get_linked_records):
 
 
 @mock.patch(
-    "inspirehep.records.marshmallow.literature.bibtex.BibTexCommonSchema.get_parent_record",
+    "inspirehep.records.marshmallow.literature.bibtex.get_parent_record",
     return_value={},
 )
 def test_get_book_title_without_parent_record(mock_get_linked_records):
@@ -504,7 +504,7 @@ def test_bibtex_document_type_conference_paper():
 
 
 @mock.patch(
-    "inspirehep.records.marshmallow.literature.bibtex.BibTexCommonSchema.get_parent_record",
+    "inspirehep.records.marshmallow.literature.bibtex.get_parent_record",
     create=True,
     return_value={
         "document_type": ["book"],
@@ -512,9 +512,7 @@ def test_bibtex_document_type_conference_paper():
     },
 )
 def test_get_editor_from_book_parent_record(mock_get_linked_records_from_dict_field):
-    record = {
-        "document_type": ["book chapter"],
-    }
+    record = {"document_type": ["book chapter"]}
     expected_editors = ["Kiritsis, Elias"]
     schema = BibTexCommonSchema()
 
@@ -525,7 +523,7 @@ def test_get_editor_from_book_parent_record(mock_get_linked_records_from_dict_fi
 
 
 @mock.patch(
-    "inspirehep.records.marshmallow.literature.bibtex.BibTexCommonSchema.get_parent_record",
+    "inspirehep.records.marshmallow.literature.bibtex.get_parent_record",
     create=True,
     return_value={
         "document_type": ["proceedings"],
@@ -535,9 +533,7 @@ def test_get_editor_from_book_parent_record(mock_get_linked_records_from_dict_fi
 def test_get_editor_from_proceedings_parent_record(
     mock_get_linked_records_from_dict_field,
 ):
-    record = {
-        "document_type": ["conference paper"],
-    }
+    record = {"document_type": ["conference paper"]}
     expected_editors = ["Kiritsis, Elias"]
     schema = BibTexCommonSchema()
 

@@ -16,7 +16,7 @@ from isbn import ISBNError
 from marshmallow import Schema, fields, pre_dump
 from six import text_type
 
-from inspirehep.records.api import InspireRecord
+from inspirehep.records.marshmallow.literature.utils import get_parent_record
 
 
 class BibTexCommonSchema(Schema):
@@ -256,29 +256,15 @@ class BibTexCommonSchema(Schema):
     def get_series(self, data):
         return get_value(data, "book_series.title[0]")
 
-    def get_parent_record(self, data):
-        if data.get("doc_type") == "inproceedings":
-            conference_records = InspireRecord.get_linked_records_from_dict_field(
-                data, "publication_info.conference_record"
-            )
-            conference_record = next(conference_records, {})
-            return conference_record
-
-        book_records = InspireRecord.get_linked_records_from_dict_field(
-            data, "publication_info.parent_record"
-        )
-        book_record = next(book_records, {})
-        return book_record
-
     def get_book_title(self, data):
 
-        parent_record = self.get_parent_record(data)
+        parent_record = get_parent_record(data)
         parent_title = self.get_title(parent_record)
 
         return parent_title
 
     def get_book_editors(self, data):
-        parent_record = self.get_parent_record(data)
+        parent_record = get_parent_record(data)
         parent_editors = self.get_authors_with_role_editor(parent_record)
 
         return parent_editors

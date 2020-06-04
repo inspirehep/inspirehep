@@ -928,3 +928,31 @@ def test_literature_detail_json_link_alias_format(inspire_app):
         response = client.get(f"/literature/{record['control_number']}?format=json")
     assert response.status_code == expected_status_code
     assert response.content_type == expected_content_type
+
+
+def test_record_returns_linked_book(inspire_app):
+    parent_record = create_record("lit")
+
+    expected_linked_book = {
+        "record": {
+            "$ref": f"http://localhost:5000/literature/{parent_record['control_number']}"
+        },
+        "title": parent_record["titles"][0]["title"],
+    }
+
+    data = {
+        "publication_info": [
+            {
+                "parent_record": {
+                    "$ref": f"http://localhost:5000/literature/{parent_record['control_number']}"
+                }
+            }
+        ]
+    }
+    rec = create_record("lit", data=data)
+    headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+    with inspire_app.test_client() as client:
+        response = client.get(f"/literature/{rec['control_number']}", headers=headers)
+    assert response.status_code == 200
+    assert "linked_book" in response.json["metadata"]
+    assert response.json["metadata"]["linked_book"] == expected_linked_book

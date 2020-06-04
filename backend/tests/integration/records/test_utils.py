@@ -10,6 +10,7 @@ import requests_mock
 from helpers.utils import create_record
 
 from inspirehep.records.errors import DownloadFileError
+from inspirehep.records.marshmallow.literature.utils import get_parent_record
 from inspirehep.records.utils import download_file_from_url, get_pid_for_pid
 
 
@@ -56,3 +57,57 @@ def test_get_pids_for_one_pid(inspire_app):
     expected_recid = str(rec["control_number"])
     recid = get_pid_for_pid("cnum", rec["cnum"], "recid")
     assert expected_recid == recid
+
+
+def test_get_parent_record(inspire_app):
+    parent_record = create_record("lit")
+    data = {
+        "publication_info": [
+            {
+                "parent_record": {
+                    "$ref": f"http://localhost:5000/literature/{parent_record['control_number']}"
+                }
+            }
+        ]
+    }
+    rec = create_record("lit", data=data)
+    extracted_parent_record = get_parent_record(rec)
+    assert extracted_parent_record == parent_record
+
+
+def test_get_parent_record_when_more_than_one(inspire_app):
+    parent_record = create_record("lit")
+    second_parent_record = create_record("lit")
+    data = {
+        "publication_info": [
+            {
+                "parent_record": {
+                    "$ref": f"http://localhost:5000/literature/{parent_record['control_number']}"
+                }
+            },
+            {
+                "parent_record": {
+                    "$ref": f"http://localhost:5000/literature/{second_parent_record['control_number']}"
+                }
+            },
+        ]
+    }
+    rec = create_record("lit", data=data)
+    extracted_parent_record = get_parent_record(rec)
+    assert extracted_parent_record == parent_record
+
+
+def test_get_parent_record_for_proceedings_from_es(inspire_app):
+    parent_record = create_record("lit")
+    data = {
+        "doc_type": "inproceedings",
+        "publication_info": [
+            {
+                "conference_record": {
+                    "$ref": f"http://localhost:5000/literature/{parent_record['control_number']}"
+                }
+            }
+        ],
+    }
+    extracted_parent_record = get_parent_record(data)
+    assert extracted_parent_record == parent_record
