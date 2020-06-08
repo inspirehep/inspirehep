@@ -2,12 +2,6 @@ import { fromJS } from 'immutable';
 
 import getIcsFileContent from '../ics';
 
-// mock `ics` because it adds timestamp to `.ics` file content and hard to mock the internal moment.
-jest.mock('ics', () => ({
-  // mirror to assert
-  createEvent: value => ({ value }),
-}));
-
 describe('ics', () => {
   it('matches ics file content with only required fields', () => {
     const seminar = fromJS({
@@ -18,17 +12,7 @@ describe('ics', () => {
     });
 
     const content = getIcsFileContent(seminar);
-    expect(content).toEqual({
-      productId: 'inspirehep/seminars',
-      uid: 'inspirehep-seminar-12345',
-      start: [2020, 5, 15, 11, 45],
-      end: [2020, 5, 17, 0, 45],
-      title: 'Seminar Title',
-      description: '',
-      location: undefined,
-      url: 'http://localhost/seminars/12345',
-      categories: undefined,
-    });
+    expect(content).toMatchSnapshot();
   });
 
   it('matches ics file content with all fields', () => {
@@ -51,16 +35,6 @@ describe('ics', () => {
     });
 
     const content = getIcsFileContent(seminar);
-    expect(content).toEqual({
-      categories: ['Accelerators', 'Experiment-HEP'],
-      description: 'This is a test seminar',
-      end: [2020, 5, 15, 17, 34],
-      location: 'CERN',
-      productId: 'inspirehep/seminars',
-      start: [2020, 5, 15, 11, 34],
-      title: 'Seminar Title',
-      uid: 'inspirehep-seminar-12345',
-      url: 'http://localhost/seminars/12345',
-    });
+    expect(content).toMatchSnapshot();
   });
 });
