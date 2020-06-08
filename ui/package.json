@@ -36,7 +36,6 @@
     "craco-antd": "1.11.0",
     "formik": "^2.0.0",
     "history": "^4.7.2",
-    "ics": "^2.19.0",
     "immutable": "^3.8.2",
     "inspire-schemas": "^61.2.6-2-g90a8aaf",
     "is-valid-orcid": "^1.2.0",
