@@ -23,6 +23,7 @@ const initialBaseQuery = {
 
 const initialNamespaceState = {
   loading: false,
+  initialTotal: null,
   total: 0,
   error: null,
   sortOptions: null,

@@ -27,7 +27,10 @@ import NewFeatureTag from '../../../common/components/NewFeatureTag';
 import AuthorCitationsContainer from '../AuthorCitationsContainer';
 import AuthorEmailsAction from '../../components/AuthorEmailsAction';
 import AuthorPublicationsContainer from '../AuthorPublicationsContainer';
-import { AUTHOR_PUBLICATIONS_NS, AUTHOR_CITATIONS_NS } from '../../../search/constants';
+import {
+  AUTHOR_PUBLICATIONS_NS,
+  AUTHOR_CITATIONS_NS,
+} from '../../../search/constants';
 import { newSearch } from '../../../actions/search';
 import EditRecordAction from '../../../common/components/EditRecordAction';
 import DeletedAlert from '../../../common/components/DeletedAlert';
@@ -44,6 +47,8 @@ function DetailPage({
   dispatch,
   publicationsCount,
   citationsCount,
+  loadingCitations,
+  loadingPublications,
 }) {
   const authorFacetName = publicationsQuery.getIn(['author', 0]);
   const metadata = record.get('metadata');
@@ -158,6 +163,9 @@ function DetailPage({
                     <Tooltip title="Research from the author">
                       <span>
                         <TabNameWithCount
+                          loading={
+                            publicationsCount === null && loadingPublications
+                          }
                           name="Research works"
                           count={publicationsCount}
                         />
@@ -175,6 +183,7 @@ function DetailPage({
                     <Tooltip title="Research citing the author">
                       <span>
                         <TabNameWithCount
+                          loading={citationsCount === null && loadingCitations}
                           name="Cited by"
                           count={citationsCount}
                         />
@@ -221,15 +230,25 @@ const mapStateToProps = state => ({
     'results',
   ]),
   userOrcid: state.user.getIn(['data', 'orcid']),
+  loadingPublications: state.search.getIn([
+    'namespaces',
+    AUTHOR_PUBLICATIONS_NS,
+    'loading',
+  ]),
   publicationsCount: state.search.getIn([
     'namespaces',
     AUTHOR_PUBLICATIONS_NS,
-    'total',
+    'initialTotal',
+  ]),
+  loadingCitations: state.search.getIn([
+    'namespaces',
+    AUTHOR_CITATIONS_NS,
+    'loading',
   ]),
   citationsCount: state.search.getIn([
     'namespaces',
     AUTHOR_CITATIONS_NS,
-    'total',
+    'initialTotal',
   ]),
 });
 const dispatchToProps = dispatch => ({ dispatch });
@@ -239,6 +258,10 @@ const DetailPageContainer = connect(mapStateToProps, dispatchToProps)(
 
 export default withRouteActionsDispatcher(DetailPageContainer, {
   routeParamSelector: ({ id }) => id,
-  routeActions: id => [fetchAuthor(id), newSearch(AUTHOR_PUBLICATIONS_NS), newSearch(AUTHOR_CITATIONS_NS)],
+  routeActions: id => [
+    fetchAuthor(id),
+    newSearch(AUTHOR_PUBLICATIONS_NS),
+    newSearch(AUTHOR_CITATIONS_NS),
+  ],
   loadingStateSelector: state => !state.authors.hasIn(['data', 'metadata']),
 });
