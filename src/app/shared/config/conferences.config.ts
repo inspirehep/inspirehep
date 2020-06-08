@@ -21,9 +21,10 @@
  */
 
 import { JsonEditorConfig } from 'ng2-json-editor';
+import { countryCodeToName } from 'inspire-schemas';
 import { customValidationForDateTypes } from './commons';
 import { environment } from '../../../environments/environment';
-import { ISO_COUNTRY_MAP } from '../constants';
+
 
 export const conferences: JsonEditorConfig = {
   customFormatValidation: customValidationForDateTypes,
@@ -123,7 +124,7 @@ export const conferences: JsonEditorConfig = {
           order: ['cities', 'state', 'country_code', 'place_name'],
           properties: {
             country_code: {
-              enumDisplayValueMap: ISO_COUNTRY_MAP
+              enumDisplayValueMap: countryCodeToName
             },
             postal_code: {
               hidden: true,
