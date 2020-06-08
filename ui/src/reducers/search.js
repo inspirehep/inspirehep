@@ -25,7 +25,7 @@ import { LITERATURE } from '../common/routes';
 
 export const initialState = fromJS({
   searchBoxNamespace: LITERATURE_NS,
-      embedded: false,
+  embedded: false,
   namespaces: namespacesState,
 });
 
@@ -75,6 +75,10 @@ const searchReducer = (state = initialState, action) => {
           initialState.getIn(['namespaces', namespace, 'initialAggregations'])
         )
         .setIn(
+          ['namespaces', namespace, 'initialTotal'],
+          initialState.getIn(['namespaces', namespace, 'initialTotal'])
+        )
+        .setIn(
           ['namespaces', namespace, 'query'],
           initialState
             .getIn(['namespaces', namespace, 'query'])
@@ -102,9 +106,16 @@ const searchReducer = (state = initialState, action) => {
     case SEARCH_REQUEST:
       return state.setIn(['namespaces', namespace, 'loading'], true);
     case SEARCH_SUCCESS:
+      if (state.getIn(['namespaces', namespace, 'initialTotal']) === null) {
+        // eslint-disable-next-line no-param-reassign
+        state = state.setIn(
+          ['namespaces', namespace, 'initialTotal'],
+          data.hits.total
+        );
+      }
       return state
         .setIn(['namespaces', namespace, 'loading'], false)
-        .setIn(['namespaces', namespace, 'total'], fromJS(data.hits.total))
+        .setIn(['namespaces', namespace, 'total'], data.hits.total)
         .setIn(
           ['namespaces', namespace, 'sortOptions'],
           fromJS(data.sort_options)

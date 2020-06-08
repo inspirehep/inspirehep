@@ -64,6 +64,7 @@ describe('search reducer', () => {
     const initialReducerState = fromJS({
       namespaces: {
         [namespace]: {
+          initialTotal: 34,
           initialAggregations: { initAggs: {} },
           query: {
             notPersisted: 'will be deleted',
@@ -79,6 +80,11 @@ describe('search reducer', () => {
     const expected = fromJS({
       namespaces: {
         [namespace]: {
+          initialTotal: initialState.getIn([
+            'namespaces',
+            namespace,
+            'initialTotal',
+          ]),
           initialAggregations: initialState.getIn([
             'namespaces',
             namespace,
@@ -202,8 +208,15 @@ describe('search reducer', () => {
     expect(state).toEqual(expected);
   });
 
-  it('SEARCH_SUCCESS', () => {
+  it('SEARCH_SUCCESS when initial total is not set', () => {
     const namespace = JOBS_NS;
+    const initialReducerState = fromJS({
+      namespaces: {
+        [namespace]: {
+          initialTotal: null,
+        },
+      },
+    });
     const data = {
       hits: {
         hits: ['found'],
@@ -211,13 +224,49 @@ describe('search reducer', () => {
       },
       sort_options: [{ value: 'mostrecent', display: 'Most Recent' }],
     };
-    const state = reducer(Map(), {
+    const state = reducer(initialReducerState, {
       type: types.SEARCH_SUCCESS,
       payload: { namespace, data },
     });
     const expected = fromJS({
       namespaces: {
         [namespace]: {
+          initialTotal: 1,
+          loading: false,
+          total: data.hits.total,
+          sortOptions: data.sort_options,
+          results: data.hits.hits,
+          error: initialState.getIn(['namespaces', namespace, 'error']),
+        },
+      },
+    });
+    expect(state).toEqual(expected);
+  });
+
+  it('SEARCH_SUCCESS when initial total is set', () => {
+    const namespace = JOBS_NS;
+    const initialReducerState = fromJS({
+      namespaces: {
+        [namespace]: {
+          initialTotal: 5,
+        },
+      },
+    });
+    const data = {
+      hits: {
+        hits: ['found'],
+        total: 1,
+      },
+      sort_options: [{ value: 'mostrecent', display: 'Most Recent' }],
+    };
+    const state = reducer(initialReducerState, {
+      type: types.SEARCH_SUCCESS,
+      payload: { namespace, data },
+    });
+    const expected = fromJS({
+      namespaces: {
+        [namespace]: {
+          initialTotal: 5,
           loading: false,
           total: data.hits.total,
           sortOptions: data.sort_options,
