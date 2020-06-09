@@ -1324,7 +1324,7 @@ description = "INSPIRE-specific rules to transform from MARCXML to JSON and back
 name = "inspire-dojson"
 optional = false
 python-versions = "*"
-version = "63.0.8"
+version = "63.0.10"
 
 [package.dependencies]
 Flask = ">=0.12.3,<2.0.0"
@@ -1387,7 +1387,7 @@ description = "Inspire JSON schemas and utilities to use them."
 name = "inspire-schemas"
 optional = false
 python-versions = "*"
-version = "61.3.0"
+version = "61.3.2"
 
 [package.dependencies]
 Unidecode = ">=1.0.22,<2.0"
@@ -3972,7 +3972,7 @@ test = ["zope.event"]
 testing = ["coverage", "nose", "zope.event"]
 
 [metadata]
-content-hash = "2d109b775a4a2469ee7f27c61702d1e21e7998800f703f6a18663e7019c107a4"
+content-hash = "d79d2dfe33d9470156669bd7cabd1ce7d32dbb1e78f05f5ebb04fdfdf3e67659"
 python-versions = ">=3.6,<3.8"
 
 [metadata.files]
@@ -4072,6 +4072,7 @@ black = [
 ]
 bleach = [
     {file = "bleach-3.1.0-py2.py3-none-any.whl", hash = "sha256:213336e49e102af26d9cde77dd2d0397afabc5a6bf2fed985dc35b5d1e285a16"},
+    {file = "bleach-3.1.0-py3.8.egg", hash = "sha256:4ca3ec10244c9f11ec129b054912e8bc9ecefc2e0b6bf0dab273f0e72cf381e4"},
     {file = "bleach-3.1.0.tar.gz", hash = "sha256:3fdf7f77adcf649c9911387df51254b813185e32b2c6619f690b593a617e19fa"},
 ]
 blinker = [
@@ -4467,7 +4468,7 @@ influxdb = [
     {file = "influxdb-5.2.3.tar.gz", hash = "sha256:30276c7e04bf7659424c733b239ba2f0804d7a1f3c59ec5dd3f88c56176c8d36"},
 ]
 inspire-dojson = [
-    {file = "inspire-dojson-63.0.8.tar.gz", hash = "sha256:1f0ec26ec4d4ad381bb4b87c9df9b0952ce383131efb39ec36545460822471b0"},
+    {file = "inspire-dojson-63.0.10.tar.gz", hash = "sha256:b6478774bb5ec13ea03b4f8856b9373057e8e40fb999c875dd5ae17ee8f04ec3"},
 ]
 inspire-json-merger = [
     {file = "inspire-json-merger-11.0.2.tar.gz", hash = "sha256:e016a713ac165655c958fa64caa81e46bb044b05cb6b2bf45c95c586a5b26288"},
@@ -4476,7 +4477,7 @@ inspire-query-parser = [
     {file = "inspire-query-parser-6.0.26.tar.gz", hash = "sha256:281a6ab687948bba58ead6308c86408a144b500de19b8f58b76c252a65e7ac52"},
 ]
 inspire-schemas = [
-    {file = "inspire-schemas-61.3.0.tar.gz", hash = "sha256:ff9c47e66a040c2d2508800b2c4c093774a10f7205cf6f534715d34b5cf714fa"},
+    {file = "inspire-schemas-61.3.2.tar.gz", hash = "sha256:9755f2a82cd4137385f9b04ca7cdb42081c4f90535f1500d02ecf5dd25a4e344"},
 ]
 inspire-service-orcid = []
 inspire-utils = [
@@ -4726,6 +4727,11 @@ markupsafe = [
     {file = "MarkupSafe-1.1.1-cp37-cp37m-manylinux1_x86_64.whl", hash = "sha256:ba59edeaa2fc6114428f1637ffff42da1e311e29382d81b339c1817d37ec93c6"},
     {file = "MarkupSafe-1.1.1-cp37-cp37m-win32.whl", hash = "sha256:b00c1de48212e4cc9603895652c5c410df699856a2853135b3967591e4beebc2"},
     {file = "MarkupSafe-1.1.1-cp37-cp37m-win_amd64.whl", hash = "sha256:9bf40443012702a1d2070043cb6291650a0841ece432556f784f004937f0f32c"},
+    {file = "MarkupSafe-1.1.1-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:6788b695d50a51edb699cb55e35487e430fa21f1ed838122d722e0ff0ac5ba15"},
+    {file = "MarkupSafe-1.1.1-cp38-cp38-manylinux1_i686.whl", hash = "sha256:cdb132fc825c38e1aeec2c8aa9338310d29d337bebbd7baa06889d09a60a1fa2"},
+    {file = "MarkupSafe-1.1.1-cp38-cp38-manylinux1_x86_64.whl", hash = "sha256:13d3144e1e340870b25e7b10b98d779608c02016d5184cfb9927a9f10c689f42"},
+    {file = "MarkupSafe-1.1.1-cp38-cp38-win32.whl", hash = "sha256:596510de112c685489095da617b5bcbbac7dd6384aeebeda4df6025d0256a81b"},
+    {file = "MarkupSafe-1.1.1-cp38-cp38-win_amd64.whl", hash = "sha256:e8313f01ba26fbbe36c7be1966a7b7424942f670f38e666995b88d012765b9be"},
     {file = "MarkupSafe-1.1.1.tar.gz", hash = "sha256:29872e92839765e546828bb7754a68c418d927cd064fd4708fab9fe9c8bb116b"},
 ]
 marshmallow = [
