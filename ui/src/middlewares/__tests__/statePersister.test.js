@@ -7,13 +7,14 @@ import {
 } from '../statePersister';
 
 import * as reducersModule from '../../reducers';
+import storage from '../../common/storage';
 
 jest.mock('../../reducers');
+jest.mock('../../common/storage');
 
 describe('statePersister', () => {
   afterEach(() => {
-    localStorage.clear();
-    localStorage.setItem.mockClear();
+    storage.set.mockClear();
   });
 
   describe('createPersistToStorageMiddleware', () => {
@@ -35,15 +36,13 @@ describe('statePersister', () => {
       dispatch(action);
       expect(next).toHaveBeenCalledWith(action);
 
-      expect(localStorage.setItem).toHaveBeenCalledWith(
-        getStorageKeyForReducer('a'),
-        '{"foo":"A"}'
-      );
-      expect(localStorage.setItem).toHaveBeenCalledWith(
-        getStorageKeyForReducer('b'),
-        '{"bar":"B"}'
-      );
-      expect(localStorage.setItem).toHaveBeenCalledTimes(2);
+      expect(storage.set).toHaveBeenCalledWith(getStorageKeyForReducer('a'), {
+        foo: 'A',
+      });
+      expect(storage.set).toHaveBeenCalledWith(getStorageKeyForReducer('b'), {
+        bar: 'B',
+      });
+      expect(storage.set).toHaveBeenCalledTimes(2);
     });
   });
 
@@ -53,8 +52,14 @@ describe('statePersister', () => {
         { name: 'a', initialState: fromJS({}) },
         { name: 'b', initialState: fromJS({}) },
       ];
-      localStorage.setItem(getStorageKeyForReducer('a'), '{"foo":"A"}');
-      localStorage.setItem(getStorageKeyForReducer('b'), '{"bar":"B"}');
+
+      storage.getSync = jest.fn().mockImplementation(key => {
+        const store = {
+          [getStorageKeyForReducer('a')]: { foo: 'A' },
+          [getStorageKeyForReducer('b')]: { bar: 'B' },
+        };
+        return store[key];
+      });
       const expected = {
         a: fromJS({ foo: 'A' }),
         b: fromJS({ bar: 'B' }),
@@ -68,7 +73,14 @@ describe('statePersister', () => {
         { name: 'a', initialState: fromJS({}) },
         { name: 'b', initialState: fromJS({}) },
       ];
-      localStorage.setItem(getStorageKeyForReducer('a'), '{"foo":"A"}');
+
+      storage.getSync = jest.fn().mockImplementation(key => {
+        const store = {
+          [getStorageKeyForReducer('a')]: { foo: 'A' },
+        };
+        return store[key];
+      });
+
       const expected = {
         a: fromJS({ foo: 'A' }),
         b: undefined,
@@ -88,10 +100,16 @@ describe('statePersister', () => {
           }),
         },
       ];
-      localStorage.setItem(
-        getStorageKeyForReducer('a'),
-        '{"foo":"A", "deep":{"child":"child2"}}'
-      );
+      storage.getSync = jest.fn().mockImplementation(key => {
+        const store = {
+          [getStorageKeyForReducer('a')]: {
+            foo: 'A',
+            deep: { child: 'child2' },
+          },
+        };
+        return store[key];
+      });
+
       const expected = {
         a: fromJS({
           foo: 'A',
