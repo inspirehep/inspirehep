@@ -266,11 +266,10 @@ def test_authors_search_json_does_not_have_sort_options(inspire_app):
         response = client.get("/authors", headers=headers)
 
     response_status_code = response.status_code
-    response_data = json.loads(response.data)
-    sort_options = response_data["sort_options"]
+    response_data = response.json
 
     assert expected_status_code == response_status_code
-    assert expected_sort_options == sort_options
+    assert "sort_options" not in response_data
 
 
 def test_authors_search_json_with_logged_in_cataloger(inspire_app):
