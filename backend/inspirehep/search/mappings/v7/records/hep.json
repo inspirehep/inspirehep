@@ -745,7 +745,8 @@
         "type": "keyword"
       },
       "referenced_authors_bais": {
-        "type": "keyword"
+        "type": "keyword",
+        "normalizer": "lowercase_normalizer"
       },
       "facet_experiment": {
         "type": "keyword"
