@@ -51,25 +51,25 @@ class JSONSerializer(InvenioJSONSerializer):
         :param links: Dictionary of links to add to response.
         """
         links = inspire_search_links(links)
-        return json.dumps(
-            dict(
-                hits=dict(
-                    hits=[
-                        self.transform_search_hit(
-                            pid_fetcher(hit["_id"], hit["_source"]),
-                            hit,
-                            links_factory=item_links_factory,
-                            **kwargs
-                        )
-                        for hit in search_result["hits"]["hits"]
-                    ],
-                    total=search_result["hits"]["total"]["value"],
-                ),
-                links=links,
-                sort_options=self._get_sort_options(),
+        data = dict(
+            hits=dict(
+                hits=[
+                    self.transform_search_hit(
+                        pid_fetcher(hit["_id"], hit["_source"]),
+                        hit,
+                        links_factory=item_links_factory,
+                        **kwargs
+                    )
+                    for hit in search_result["hits"]["hits"]
+                ],
+                total=search_result["hits"]["total"]["value"],
             ),
-            **self._format_args()
+            links=links,
         )
+        sort_options = self._get_sort_options()
+        if sort_options:
+            data["sort_options"] = sort_options
+        return json.dumps(data, **self._format_args())
 
     def _get_sort_options(self):
         alias_name = None
