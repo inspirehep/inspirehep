@@ -1,5 +1,6 @@
 import { fromJS } from 'immutable';
 import { REDUCERS_TO_PERSISTS } from '../reducers';
+import storage from '../common/storage';
 
 export function getStorageKeyForReducer(reducerName) {
   return `state.${reducerName}`;
@@ -7,14 +8,15 @@ export function getStorageKeyForReducer(reducerName) {
 
 export function reHydrateRootStateFromStorage() {
   return REDUCERS_TO_PERSISTS.map(({ name, initialState }) => {
-    const rawSubState = localStorage.getItem(getStorageKeyForReducer(name));
+    // TODO: set up async rehydration, and remove `getSync`
+    const subState = storage.getSync(getStorageKeyForReducer(name));
 
-    if (rawSubState === null) {
+    if (subState == null) {
       // set undefined in order to skip reHydrating
       return { [name]: undefined };
     }
 
-    const state = fromJS(JSON.parse(rawSubState));
+    const state = fromJS(subState);
     // merge persisted on top of initialState in order to keep persisted state updated
     // when initialState structure is changed
     return { [name]: initialState.mergeDeep(state) };
@@ -25,8 +27,7 @@ export function createPersistToStorageMiddleware() {
   const writeStateToStorage = async state => {
     REDUCERS_TO_PERSISTS.forEach(({ name }) => {
       const key = getStorageKeyForReducer(name);
-      const serializedData = JSON.stringify(state[name]);
-      localStorage.setItem(key, serializedData);
+      storage.set(key, state[name].toJS());
     });
   };
 

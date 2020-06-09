@@ -1,5 +1,6 @@
 import { SEARCH_BOX_NAMESPACES } from '../../../search/constants';
 import LRASet from './LRASet';
+import storage from '../../storage';
 
 const STORAGE_KEY = 'search-box-history';
 const HISTORY_LIMIT = 25;
@@ -19,16 +20,14 @@ function runWhenIdle(task) {
 }
 
 export function persistHistory(history) {
-  runWhenIdle(() => {
-    const rawHistory = JSON.stringify(history);
-    localStorage.setItem(STORAGE_KEY, rawHistory);
+  runWhenIdle(async () => {
+    await storage.set(STORAGE_KEY, history);
   });
 }
 
 export function readHistory(callback) {
-  return runWhenIdle(() => {
-    const rawHistory = localStorage.getItem(STORAGE_KEY);
-    const historyFromStorage = rawHistory ? JSON.parse(rawHistory) : {};
+  return runWhenIdle(async () => {
+    const historyFromStorage = (await storage.get(STORAGE_KEY)) || {};
 
     const history = {};
     SEARCH_BOX_NAMESPACES.forEach(namespace => {
