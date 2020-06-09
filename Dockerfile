@@ -1,4 +1,4 @@
-FROM inspirehep/poetry:1.0.0b1
+FROM inspirehep/poetry:1.0.0
 WORKDIR /opt/disambiguation
 
 CMD [ "run", "inspire-disambiguation", "cluster" ]
