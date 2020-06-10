@@ -3,48 +3,16 @@ import {
   INSTITUTION_SUCCESS,
   INSTITUTION_ERROR,
 } from './actionTypes';
-import { UI_SERIALIZER_REQUEST_OPTIONS, isCancelError } from '../common/http';
-import { httpErrorToActionPayload } from '../common/utils';
+import { UI_SERIALIZER_REQUEST_OPTIONS } from '../common/http';
+import generateRecordFetchAction from './recordsFactory';
+import { INSTITUTIONS_PID_TYPE } from '../common/constants';
 
-function fetchingInstitution(recordId) {
-  return {
-    type: INSTITUTION_REQUEST,
-    payload: { recordId },
-  };
-}
-
-function fetchInstitutionSuccess(result) {
-  return {
-    type: INSTITUTION_SUCCESS,
-    payload: result,
-  };
-}
-
-function fetchInstitutionError(error) {
-  return {
-    type: INSTITUTION_ERROR,
-    payload: error,
-    meta: { redirectableError: true },
-  };
-}
-
-function fetchInstitution(recordId) {
-  return async (dispatch, getState, http) => {
-    dispatch(fetchingInstitution(recordId));
-    try {
-      const response = await http.get(
-        `/institutions/${recordId}`,
-        UI_SERIALIZER_REQUEST_OPTIONS,
-        'institutions-detail'
-      );
-      dispatch(fetchInstitutionSuccess(response.data));
-    } catch (error) {
-      if (!isCancelError(error)) {
-        const payload = httpErrorToActionPayload(error);
-        dispatch(fetchInstitutionError(payload));
-      }
-    }
-  };
-}
+const fetchInstitution = generateRecordFetchAction({
+  pidType: INSTITUTIONS_PID_TYPE,
+  fetchingActionActionType: INSTITUTION_REQUEST,
+  fecthSuccessActionType: INSTITUTION_SUCCESS,
+  fetchErrorActionType: INSTITUTION_ERROR,
+  headerOptions: UI_SERIALIZER_REQUEST_OPTIONS,
+});
 
 export default fetchInstitution;

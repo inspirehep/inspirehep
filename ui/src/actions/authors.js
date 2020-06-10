@@ -1,44 +1,14 @@
 import { AUTHOR_REQUEST, AUTHOR_SUCCESS, AUTHOR_ERROR } from './actionTypes';
-import { UI_SERIALIZER_REQUEST_OPTIONS, isCancelError } from '../common/http';
-import { httpErrorToActionPayload } from '../common/utils';
+import { UI_SERIALIZER_REQUEST_OPTIONS } from '../common/http';
+import generateRecordFetchAction from './recordsFactory';
+import { AUTHORS_PID_TYPE } from '../common/constants';
 
-function fetchingAuthor(recordId) {
-  return {
-    type: AUTHOR_REQUEST,
-    payload: { recordId },
-  };
-}
+const fetchAuthor = generateRecordFetchAction({
+  pidType: AUTHORS_PID_TYPE,
+  fetchingActionActionType: AUTHOR_REQUEST,
+  fecthSuccessActionType: AUTHOR_SUCCESS,
+  fetchErrorActionType: AUTHOR_ERROR,
+  requestOptions: UI_SERIALIZER_REQUEST_OPTIONS,
+});
 
-function fetchAuthorSuccess(result) {
-  return {
-    type: AUTHOR_SUCCESS,
-    payload: result,
-  };
-}
-
-function fetchAuthorError(error) {
-  return {
-    type: AUTHOR_ERROR,
-    payload: error,
-    meta: { redirectableError: true },
-  };
-}
-
-export function fetchAuthor(recordId) {
-  return async (dispatch, getState, http) => {
-    dispatch(fetchingAuthor(recordId));
-    try {
-      const response = await http.get(
-        `/authors/${recordId}`,
-        UI_SERIALIZER_REQUEST_OPTIONS,
-        'authors-detail'
-      );
-      dispatch(fetchAuthorSuccess(response.data));
-    } catch (error) {
-      if (!isCancelError(error)) {
-        const payload = httpErrorToActionPayload(error);
-        dispatch(fetchAuthorError(payload));
-      }
-    }
-  };
-}
+export default fetchAuthor;

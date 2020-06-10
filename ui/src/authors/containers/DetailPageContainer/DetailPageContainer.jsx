@@ -8,7 +8,7 @@ import './DetailPage.scss';
 import ContentBox from '../../../common/components/ContentBox';
 import AuthorName from '../../components/AuthorName';
 import ExperimentList from '../../../common/components/ExperimentList';
-import { fetchAuthor } from '../../../actions/authors';
+import fetchAuthor from '../../../actions/authors';
 import { fetchCitationsByYear } from '../../../actions/citations';
 import {
   getCurrentAffiliationsFromPositions,

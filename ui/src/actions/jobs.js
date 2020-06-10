@@ -1,42 +1,12 @@
 import { JOB_REQUEST, JOB_SUCCESS, JOB_ERROR } from './actionTypes';
-import { httpErrorToActionPayload } from '../common/utils';
-import { isCancelError } from '../common/http';
+import generateRecordFetchAction from './recordsFactory';
+import { JOBS_PID_TYPE } from '../common/constants';
 
-function fetchingJob(recordId) {
-  return {
-    type: JOB_REQUEST,
-    payload: { recordId },
-  };
-}
-
-function fetchJobSuccess(result) {
-  return {
-    type: JOB_SUCCESS,
-    payload: result,
-  };
-}
-
-function fetchJobError(error) {
-  return {
-    type: JOB_ERROR,
-    payload: error,
-    meta: { redirectableError: true },
-  };
-}
-
-function fetchJob(recordId) {
-  return async (dispatch, getState, http) => {
-    dispatch(fetchingJob(recordId));
-    try {
-      const response = await http.get(`/jobs/${recordId}`, {}, 'jobs-detail');
-      dispatch(fetchJobSuccess(response.data));
-    } catch (error) {
-      if (!isCancelError(error)) {
-        const payload = httpErrorToActionPayload(error);
-        dispatch(fetchJobError(payload));
-      }
-    }
-  };
-}
+const fetchJob = generateRecordFetchAction({
+  pidType: JOBS_PID_TYPE,
+  fetchingActionActionType: JOB_REQUEST,
+  fecthSuccessActionType: JOB_SUCCESS,
+  fetchErrorActionType: JOB_ERROR,
+});
 
 export default fetchJob;

@@ -3,49 +3,16 @@ import {
   EXPERIMENT_SUCCESS,
   EXPERIMENT_ERROR,
 } from './actionTypes';
-import { UI_SERIALIZER_REQUEST_OPTIONS, isCancelError } from '../common/http';
-import { httpErrorToActionPayload } from '../common/utils';
+import { UI_SERIALIZER_REQUEST_OPTIONS } from '../common/http';
 import { EXPERIMENTS_PID_TYPE } from '../common/constants';
+import generateRecordFetchAction from './recordsFactory';
 
-function fetchingExperiment(recordId) {
-  return {
-    type: EXPERIMENT_REQUEST,
-    payload: { recordId },
-  };
-}
-
-function fetchExperimentSuccess(result) {
-  return {
-    type: EXPERIMENT_SUCCESS,
-    payload: result,
-  };
-}
-
-function fetchExperimentError(error) {
-  return {
-    type: EXPERIMENT_ERROR,
-    payload: error,
-    meta: { redirectableError: true },
-  };
-}
-
-function fetchExperiment(recordId) {
-  return async (dispatch, getState, http) => {
-    dispatch(fetchingExperiment(recordId));
-    try {
-      const response = await http.get(
-        `/${EXPERIMENTS_PID_TYPE}/${recordId}`,
-        UI_SERIALIZER_REQUEST_OPTIONS,
-        'experiments-detail'
-      );
-      dispatch(fetchExperimentSuccess(response.data));
-    } catch (error) {
-      if (!isCancelError(error)) {
-        const payload = httpErrorToActionPayload(error);
-        dispatch(fetchExperimentError(payload));
-      }
-    }
-  };
-}
+const fetchExperiment = generateRecordFetchAction({
+  pidType: EXPERIMENTS_PID_TYPE,
+  fetchingActionActionType: EXPERIMENT_REQUEST,
+  fecthSuccessActionType: EXPERIMENT_SUCCESS,
+  fetchErrorActionType: EXPERIMENT_ERROR,
+  requestOptions: UI_SERIALIZER_REQUEST_OPTIONS,
+});
 
 export default fetchExperiment;
