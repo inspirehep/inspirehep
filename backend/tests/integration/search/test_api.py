@@ -381,11 +381,11 @@ def test_public_api_generates_correct_links_in_seminars_search(inspire_app):
 def test_public_api_returns_400_when_requested_too_much_results(inspire_app):
     expected_response = {
         "status": 400,
-        "message": "Maximum search page size of `500` results exceeded.",
+        "message": "Maximum search page size of `1000` results exceeded.",
     }
 
     with inspire_app.test_client() as client:
-        url = "/api/seminars?size=600"
+        url = "/api/seminars?size=1001"
         response = client.get(url)
         assert response.status_code == 400
         assert response.json == expected_response
