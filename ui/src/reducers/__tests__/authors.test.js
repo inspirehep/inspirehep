@@ -1,12 +1,13 @@
 import { Map, fromJS } from 'immutable';
 
-import reducer, { initialState } from '../authors';
+import reducer from '../authors';
 import {
   AUTHOR_ERROR,
   AUTHOR_REQUEST,
   AUTHOR_SUCCESS,
   CLEAR_STATE,
 } from '../../actions/actionTypes';
+import { initialState } from '../recordsFactory';
 
 describe('authors reducer', () => {
   it('default', () => {
@@ -56,7 +57,7 @@ describe('authors reducer', () => {
     const state = reducer(Map(), {
       type: AUTHOR_ERROR,
       payload: {
-        error: { message: 'error' }
+        error: { message: 'error' },
       },
     });
     const expected = fromJS({

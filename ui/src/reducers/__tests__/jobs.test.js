@@ -1,5 +1,7 @@
 import { Map, fromJS } from 'immutable';
-import reducer, { initialState } from '../jobs';
+import reducer from '../jobs';
+import { initialState } from '../recordsFactory';
+
 import {
   CLEAR_STATE,
   JOB_REQUEST,
@@ -52,7 +54,7 @@ describe('jobs reducer', () => {
     const state = reducer(Map(), {
       type: JOB_ERROR,
       payload: {
-        error: { message: 'error' }
+        error: { message: 'error' },
       },
     });
     const expected = fromJS({

@@ -1,5 +1,7 @@
 import { Map, fromJS } from 'immutable';
-import reducer, { initialState } from '../conferences';
+import reducer from '../conferences';
+import { initialState } from '../recordsFactory';
+
 import {
   CLEAR_STATE,
   CONFERENCE_REQUEST,
@@ -52,7 +54,7 @@ describe('conferences reducer', () => {
     const state = reducer(Map(), {
       type: CONFERENCE_ERROR,
       payload: {
-        error: { message: 'error' }
+        error: { message: 'error' },
       },
     });
     const expected = fromJS({

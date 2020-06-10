@@ -49,6 +49,7 @@ describe('literature reducer', () => {
     const expected = fromJS({
       loading: false,
       data: payload,
+      error: null,
     });
     expect(state).toEqual(expected);
   });

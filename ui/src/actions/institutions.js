@@ -12,7 +12,7 @@ const fetchInstitution = generateRecordFetchAction({
   fetchingActionActionType: INSTITUTION_REQUEST,
   fecthSuccessActionType: INSTITUTION_SUCCESS,
   fetchErrorActionType: INSTITUTION_ERROR,
-  headerOptions: UI_SERIALIZER_REQUEST_OPTIONS,
+  requestOptions: UI_SERIALIZER_REQUEST_OPTIONS,
 });
 
 export default fetchInstitution;
