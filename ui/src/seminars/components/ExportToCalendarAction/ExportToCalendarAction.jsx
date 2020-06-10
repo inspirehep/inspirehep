@@ -18,7 +18,7 @@ function ExportToCalendarAction({ seminar }) {
   const onDownloadClick = useCallback(
     () => {
       const fileContent = getIcsFileContent(seminar);
-      downloadTextAsFile(fileContent, 'text/calendar');
+      downloadTextAsFile(fileContent, 'text/calendar', 'ics');
     },
     [seminar]
   );
