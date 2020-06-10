@@ -12,28 +12,8 @@ import {
 } from './actionTypes';
 import { UI_SERIALIZER_REQUEST_OPTIONS, isCancelError } from '../common/http';
 import { httpErrorToActionPayload } from '../common/utils';
-
-function fetchingLiterature(recordId) {
-  return {
-    type: LITERATURE_REQUEST,
-    payload: { recordId },
-  };
-}
-
-function fetchLiteratureSuccess(result) {
-  return {
-    type: LITERATURE_SUCCESS,
-    payload: result,
-  };
-}
-
-function fetchLiteratureError(error) {
-  return {
-    type: LITERATURE_ERROR,
-    payload: error,
-    meta: { redirectableError: true },
-  };
-}
+import generateRecordFetchAction from './recordsFactory';
+import { LITERATURE_PID_TYPE } from '../common/constants';
 
 function fetchingLiteratureReferences(query) {
   return {
@@ -76,24 +56,13 @@ function fetchLiteratureAuthorsError(errorPayload) {
   };
 }
 
-export function fetchLiterature(recordId) {
-  return async (dispatch, getState, http) => {
-    dispatch(fetchingLiterature(recordId));
-    try {
-      const response = await http.get(
-        `/literature/${recordId}`,
-        UI_SERIALIZER_REQUEST_OPTIONS,
-        'literature-detail'
-      );
-      dispatch(fetchLiteratureSuccess(response.data));
-    } catch (error) {
-      if (!isCancelError(error)) {
-        const payload = httpErrorToActionPayload(error);
-        dispatch(fetchLiteratureError(payload));
-      }
-    }
-  };
-}
+export const fetchLiterature = generateRecordFetchAction({
+  pidType: LITERATURE_PID_TYPE,
+  fetchingActionActionType: LITERATURE_REQUEST,
+  fecthSuccessActionType: LITERATURE_SUCCESS,
+  fetchErrorActionType: LITERATURE_ERROR,
+  requestOptions: UI_SERIALIZER_REQUEST_OPTIONS,
+});
 
 export function fetchLiteratureReferences(recordId, newQuery = {}) {
   return async (dispatch, getState, http) => {

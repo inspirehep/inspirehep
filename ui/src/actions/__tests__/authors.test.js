@@ -3,7 +3,7 @@ import MockAdapter from 'axios-mock-adapter';
 import { getStore } from '../../fixtures/store';
 import http from '../../common/http';
 import { AUTHOR_ERROR, AUTHOR_REQUEST, AUTHOR_SUCCESS } from '../actionTypes';
-import { fetchAuthor } from '../authors';
+import fetchAuthor from '../authors';
 
 const mockHttp = new MockAdapter(http.httpClient);
 
