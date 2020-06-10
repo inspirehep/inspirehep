@@ -66,7 +66,7 @@ def test_hep_author_publications_facets(inspire_app):
             "rpp",
         }
         expected_aggregations = {
-            **hep_earliest_date_aggregation(order=1),
+            **hep_earliest_date_aggregation(order=1, title="Date of paper"),
             **hep_author_count_aggregation(order=2),
             **hep_rpp(order=3),
             **hep_doc_type_aggregation(order=4),
@@ -107,7 +107,7 @@ def test_hep_author_citations_facets(inspire_app):
             "rpp",
         }
         expected_aggregations = {
-            **hep_earliest_date_aggregation(order=1, title="Citations per year"),
+            **hep_earliest_date_aggregation(order=1, title="Date of citing paper"),
             **hep_author_count_aggregation(order=2),
             **hep_rpp(order=3),
             **hep_doc_type_aggregation(order=4),
@@ -347,7 +347,7 @@ def test_hep_author_publications_cataloger_facets(inspire_app):
             "rpp",
         }
         expected_aggregations = {
-            **hep_earliest_date_aggregation(order=1),
+            **hep_earliest_date_aggregation(order=1, title="Date of paper"),
             **hep_author_count_aggregation(order=2),
             **hep_rpp(order=3),
             **hep_doc_type_aggregation(order=4),
@@ -393,7 +393,7 @@ def test_hep_author_citations_cataloger_facets(inspire_app):
             "rpp",
         }
         expected_aggregations = {
-            **hep_earliest_date_aggregation(order=1, title="Citations per year"),
+            **hep_earliest_date_aggregation(order=1, title="Date of citing paper"),
             **hep_author_count_aggregation(order=2),
             **hep_rpp(order=3),
             **hep_doc_type_aggregation(order=4),

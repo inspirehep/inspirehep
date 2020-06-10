@@ -204,7 +204,7 @@ def hep_author_publications(order=None):
     return {
         "filters": hep_filters(),
         "aggs": {
-            **hep_earliest_date_aggregation(order=next(order)),
+            **hep_earliest_date_aggregation(order=next(order), title="Date of paper"),
             **hep_author_count_aggregation(order=next(order)),
             **hep_rpp(order=next(order)),
             **hep_doc_type_aggregation(order=next(order)),
@@ -226,7 +226,7 @@ def hep_author_citations(order=None):
         "filters": hep_filters(),
         "aggs": {
             **hep_earliest_date_aggregation(
-                order=next(order), title="Citations per year"
+                order=next(order), title="Date of citing paper"
             ),
             **hep_author_count_aggregation(order=next(order)),
             **hep_rpp(order=next(order)),

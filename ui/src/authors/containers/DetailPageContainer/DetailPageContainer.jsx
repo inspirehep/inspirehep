@@ -46,8 +46,6 @@ function DetailPage({
   userOrcid,
   dispatch,
   publicationsCount,
-  citationsCount,
-  loadingCitations,
   loadingPublications,
 }) {
   const authorFacetName = publicationsQuery.getIn(['author', 0]);
@@ -182,11 +180,7 @@ function DetailPage({
                   tab={
                     <Tooltip title="Research citing the author">
                       <span>
-                        <TabNameWithCount
-                          loading={citationsCount === null && loadingCitations}
-                          name="Cited by"
-                          count={citationsCount}
-                        />
+                        Cited by
                         <NewFeatureTag />
                       </span>
                     </Tooltip>
@@ -214,7 +208,6 @@ DetailPage.propTypes = {
   publications: PropTypes.instanceOf(List),
   userOrcid: PropTypes.string,
   publicationsCount: PropTypes.string,
-  citationsCount: PropTypes.string,
 };
 
 const mapStateToProps = state => ({
@@ -238,16 +231,6 @@ const mapStateToProps = state => ({
   publicationsCount: state.search.getIn([
     'namespaces',
     AUTHOR_PUBLICATIONS_NS,
-    'initialTotal',
-  ]),
-  loadingCitations: state.search.getIn([
-    'namespaces',
-    AUTHOR_CITATIONS_NS,
-    'loading',
-  ]),
-  citationsCount: state.search.getIn([
-    'namespaces',
-    AUTHOR_CITATIONS_NS,
     'initialTotal',
   ]),
 });
