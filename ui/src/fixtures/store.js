@@ -7,12 +7,10 @@ import { initialState as user } from '../reducers/user';
 import { initialState as submissions } from '../reducers/submissions';
 import { initialState as inspect } from '../reducers/inspect';
 import { initialState as exceptions } from '../reducers/exceptions';
-import { initialState as authors } from '../reducers/authors';
 import { initialState as ui } from '../reducers/ui';
-import { initialState as jobs } from '../reducers/jobs';
-import { initialState as conferences } from '../reducers/conferences';
 
 import { thunkMiddleware } from '../store';
+import { initialState } from '../reducers/recordsFactory';
 
 export function getState() {
   return {
@@ -32,10 +30,10 @@ export function getState() {
     submissions,
     inspect,
     exceptions,
-    authors,
+    authors: initialState,
     ui,
-    jobs,
-    conferences,
+    jobs: initialState,
+    conferences: initialState,
   };
 }
 

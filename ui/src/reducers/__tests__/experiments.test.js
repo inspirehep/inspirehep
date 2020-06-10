@@ -1,5 +1,7 @@
 import { Map, fromJS } from 'immutable';
-import reducer, { initialState } from '../experiments';
+import reducer from '../experiments';
+import { initialState } from '../recordsFactory';
+
 import {
   CLEAR_STATE,
   EXPERIMENT_REQUEST,

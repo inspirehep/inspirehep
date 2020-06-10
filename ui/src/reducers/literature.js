@@ -12,11 +12,14 @@ import {
   LITERATURE_AUTHORS_SUCCESS,
   CLEAR_STATE,
 } from '../actions/actionTypes';
+import {
+  onRequest,
+  onSuccess,
+  onError,
+  initialState as initialRecordState,
+} from './recordsFactory';
 
 export const initialState = fromJS({
-  loading: false,
-  data: {},
-  error: null,
   loadingReferences: false,
   errorReferences: null,
   references: [],
@@ -29,21 +32,18 @@ export const initialState = fromJS({
   errorAuthors: null,
   authors: [],
   supervisors: [],
-});
+}).merge(initialRecordState);
 
 const literatureReducer = (state = initialState, action) => {
   switch (action.type) {
     case CLEAR_STATE:
       return initialState;
     case LITERATURE_REQUEST:
-      return state.set('loading', true);
+      return onRequest(state);
     case LITERATURE_SUCCESS:
-      return state.set('loading', false).set('data', fromJS(action.payload));
+      return onSuccess(state, action);
     case LITERATURE_ERROR:
-      return state
-        .set('loading', false)
-        .set('data', fromJS({}))
-        .set('error', fromJS(action.payload.error));
+      return onError(state, action);
     case LITERATURE_REFERENCES_REQUEST:
       return state
         .set('loadingReferences', true)
