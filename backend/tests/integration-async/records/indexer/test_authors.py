@@ -230,4 +230,4 @@ def test_regression_get_linked_author_records_uuids_if_author_changed_name_does_
     author.update(data)
     db.session.commit()
     new_author = AuthorsRecord.get_record_by_pid_value(author["control_number"])
-    assert [] == new_author.get_linked_author_records_uuids_if_author_changed_name()
+    assert set() == new_author.get_linked_author_records_uuids_if_author_changed_name()

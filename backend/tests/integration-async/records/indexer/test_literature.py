@@ -337,3 +337,49 @@ def test_literature_citations_superseded_status_change_and_cited_records_are_rei
 
     # record_2 is not superseded anymore, it is counted again in the citations
     assert_citation_count(record_1, 1)
+
+
+def test_literature_regression_changing_bai_in_record_reindex_records_which_are_citing_changed_one(
+    inspire_app, celery_app_with_context, celery_session_worker, enable_self_citations
+):
+    data = {
+        "authors": [
+            {
+                "full_name": "Jean-Luc Picard",
+                "ids": [{"schema": "INSPIRE BAI", "value": "Jean.L.Picard.1"}],
+            }
+        ]
+    }
+    data = faker.record("lit", data=data)
+    base_record = LiteratureRecord.create(data)
+    citer_data = faker.record(
+        "lit", literature_citations=[base_record["control_number"]]
+    )
+    citer = LiteratureRecord.create(citer_data)
+    db.session.commit()
+
+    steps = [
+        {"step": current_search.flush_and_refresh, "args": ["records-hep"]},
+        {
+            "step": LiteratureSearch.get_record_data_from_es,
+            "args": [citer],
+            "expected_key": "referenced_authors_bais",
+            "expected_result": ["Jean.L.Picard.1"],
+        },
+    ]
+    retry_until_matched(steps)
+
+    data = dict(base_record)
+    data["authors"][0]["ids"][0]["value"] = "Jean.L.Picard.2"
+    base_record.update(data)
+    db.session.commit()
+    steps = [
+        {"step": current_search.flush_and_refresh, "args": ["records-hep"]},
+        {
+            "step": LiteratureSearch.get_record_data_from_es,
+            "args": [citer],
+            "expected_key": "referenced_authors_bais",
+            "expected_result": ["Jean.L.Picard.2"],
+        },
+    ]
+    retry_until_matched(steps)
