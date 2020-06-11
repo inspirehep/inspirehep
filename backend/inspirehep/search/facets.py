@@ -431,6 +431,18 @@ def records_conferences(order=None):
     }
 
 
+def records_institutions(order=None):
+    if order is None:
+        order = count(start=1)
+    return {
+        "filters": {**current_app.config["INSTITUTIONS_FILTERS"]},
+        "aggs": {
+            **hep_collaboration_aggregation(order=next(order)),
+            **hep_subject_aggregation(order=next(order)),
+        },
+    }
+
+
 def records_seminars(order=None):
     if order is None:
         order = count(start=1)

@@ -512,6 +512,24 @@ def test_records_seminars_facets(inspire_app):
         assert aggregations == expected_aggregations
 
 
+def test_records_institutions_facets(inspire_app):
+    with current_app.test_request_context():
+        expected_filters = {"collaboration", "subject"}
+        expected_aggregations = {
+            **hep_collaboration_aggregation(order=1),
+            **hep_subject_aggregation(order=2),
+        }
+
+        filters = current_app.config["RECORDS_REST_FACETS"]["records-institutions"]()[
+            "filters"
+        ].keys()
+        aggregations = current_app.config["RECORDS_REST_FACETS"][
+            "records-institutions"
+        ]()["aggs"]
+        assert filters == expected_filters
+        assert aggregations == expected_aggregations
+
+
 def test_hep_experiment_papers_facets(inspire_app):
     with current_app.test_request_context():
         expected_filters = {

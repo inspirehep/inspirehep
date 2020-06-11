@@ -53,7 +53,7 @@ const searchConfig = {
   },
   [INSTITUTIONS_NS]: {
     persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
-    onQueryChange: onAggregationlessCollectionQueryChange,
+    onQueryChange: onEventsQuerychange,
   },
   [INSTITUTION_PAPERS_NS]: {
     persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col } from 'antd';
 import { connect } from 'react-redux';
@@ -11,6 +11,8 @@ import DocumentHead from '../../common/components/DocumentHead';
 import { INSTITUTIONS_NS } from '../../search/constants';
 import { SEARCH_PAGE_GUTTER } from '../../common/constants';
 import InstitutionItem from '../components/InstitutionItem';
+import ResponsiveView from '../../common/components/ResponsiveView';
+import AggregationFiltersContainer from '../../common/containers/AggregationFiltersContainer';
 
 const META_DESCRIPTION = 'Find institutions in High Energy Physics';
 const TITLE = 'Institutions Search';
@@ -19,7 +21,15 @@ function renderInstitutionItem(result) {
   return <InstitutionItem metadata={result.get('metadata')} />;
 }
 
-function InstitutionSearchPage({ loading }) {
+function InstitutionSearchPage({ loading, loadingAggregations }) {
+  const renderAggregations = useCallback(
+    () => (
+      <LoadingOrChildren loading={loadingAggregations}>
+        <AggregationFiltersContainer namespace={INSTITUTIONS_NS} />
+      </LoadingOrChildren>
+    ),
+    [loadingAggregations]
+  );
   return (
     <>
       <DocumentHead title={TITLE} description={META_DESCRIPTION} />
@@ -29,6 +39,9 @@ function InstitutionSearchPage({ loading }) {
         type="flex"
         justify="center"
       >
+        <Col xs={0} lg={7}>
+          <ResponsiveView min="lg" render={renderAggregations} />
+        </Col>
         <Col xs={24} lg={16} xl={16} xxl={14}>
           <LoadingOrChildren loading={loading}>
             <Row>
@@ -54,10 +67,16 @@ function InstitutionSearchPage({ loading }) {
 
 InstitutionSearchPage.propTypes = {
   loading: PropTypes.bool.isRequired,
+  loadingAggregations: PropTypes.bool.isRequired,
 };
 
 const stateToProps = state => ({
   loading: state.search.getIn(['namespaces', INSTITUTIONS_NS, 'loading']),
+  loadingAggregations: state.search.getIn([
+    'namespaces',
+    INSTITUTIONS_NS,
+    'loadingAggregations',
+  ]),
 });
 
 export default connect(stateToProps)(InstitutionSearchPage);
