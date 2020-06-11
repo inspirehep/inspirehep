@@ -9,6 +9,7 @@
 import gzip
 import re
 import tarfile
+import time
 from concurrent.futures import TimeoutError as ThreadsTimeoutError
 from contextlib import closing
 
@@ -27,6 +28,7 @@ from invenio_pidstore.errors import PIDValueError
 from invenio_pidstore.models import PersistentIdentifier
 from jsonschema import ValidationError
 from psycopg2._psycopg import OperationalError
+from redis import ResponseError
 from sqlalchemy.exc import InvalidRequestError, StatementError
 
 from inspirehep.indexer.tasks import batch_index
@@ -48,6 +50,8 @@ from inspirehep.utils import chunker
 LOGGER = structlog.getLogger()
 CHUNK_SIZE = 100
 LARGE_CHUNK_SIZE = 2000
+MAX_RETRY_COUNT = 6
+RETRY_BACKOFF = 10
 
 
 split_marc = re.compile("<record.*?>.*?</record>", re.DOTALL)
@@ -178,7 +182,14 @@ def migrate_from_mirror(also_migrate=None, disable_orcid_push=True):
     return task
 
 
-@shared_task(ignore_results=False, queue="migrator", acks_late=True)
+@shared_task(
+    ignore_results=False,
+    queue="migrator",
+    acks_late=True,
+    retry_backoff=RETRY_BACKOFF,
+    retry_kwargs={"max_retries": MAX_RETRY_COUNT},
+    autoretry_for=(ResponseError,),
+)
 def migrate_recids_from_mirror(
     recids_chunks,
     step_no=0,
@@ -266,8 +277,8 @@ def populate_mirror_from_file(source):
     soft_time_limit=60 * 60,
     time_limit=120 * 60,
     bind=True,
-    retry_backoff=2,
-    retry_kwargs={"max_retries": 6},
+    retry_backoff=RETRY_BACKOFF,
+    retry_kwargs={"max_retries": MAX_RETRY_COUNT},
     autoretry_for=(
         SoftTimeLimitExceeded,
         OperationalError,
@@ -320,8 +331,8 @@ def create_records_from_mirror_recids(self, recids):
     ignore_results=False,
     queue="migrator",
     acks_late=True,
-    retry_backoff=2,
-    retry_kwargs={"max_retries": 6},
+    retry_backoff=RETRY_BACKOFF,
+    retry_kwargs={"max_retries": MAX_RETRY_COUNT},
     autoretry_for=(OperationalError,),
 )
 def update_relations(uuids):
@@ -504,11 +515,30 @@ def migrate_record_from_mirror(
         return record
 
 
-def wait_for_all_tasks(task):
+def wait_for_all_tasks(task, retry_count=0):
     if not task:
         return None
-    LOGGER.info(f"Waiting for task completion.", waiting_task_id=task)
-    next_task = AsyncResult(task).get()
+    LOGGER.info(
+        f"Waiting for task completion.", waiting_task_id=task, retry_count=retry_count
+    )
+    try:
+        next_task = AsyncResult(task).get()
+    except ResponseError:
+        if retry_count < MAX_RETRY_COUNT:
+            LOGGER.info(
+                "Redis ResponseError Exception, retrying",
+                waiting_task_id=task,
+                retry_count=retry_count,
+            )
+            time.sleep(RETRY_BACKOFF * retry_count + 1)
+            return wait_for_all_tasks(task, retry_count + 1)
+        else:
+            LOGGER.exception(
+                "Redis ResponseError Exception failed too many times times.",
+                waiting_task_id=task,
+                retry_count=retry_count,
+            )
+            raise
     if next_task:
         return wait_for_all_tasks(next_task)
     return None
