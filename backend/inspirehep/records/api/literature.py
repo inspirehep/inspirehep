@@ -453,10 +453,9 @@ class LiteratureRecord(
         Returns:
             list(uuid): List of uuids of changed references.
         """
-        uuids = self.get_modified_references()
-        uuids.extend(self.get_newest_linked_conferences_uuid())
-        uuids.extend(self.get_modified_institutions_uuids())
-        uuids = list(set(uuids))
+        uuids = set(self.get_modified_references())
+        uuids |= set(self.get_newest_linked_conferences_uuid())
+        uuids |= set(self.get_modified_institutions_uuids())
         if uuids:
             LOGGER.info(
                 f"Found {len(uuids)} references changed, indexing them",
@@ -464,7 +463,7 @@ class LiteratureRecord(
             )
             return uuids
         LOGGER.info("No references changed", uuid=str(self.id))
-        return []
+        return set()
 
 
 def import_article(identifier):

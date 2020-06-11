@@ -24,8 +24,8 @@ class AuthorsRecord(InspireRecord):
 
     def get_papers_uuids(self):
         all_papers = AuthorsSearch.get_author_papers(self, source="_id")
-        papers_ids = [paper.meta["id"] for paper in all_papers]
-        return list(set(papers_ids))
+        papers_ids = {paper.meta["id"] for paper in all_papers}
+        return papers_ids
 
     def get_linked_author_records_uuids_if_author_changed_name(self):
         """Checks if author has changed his name and returns uuids of all his papers if he did
@@ -39,7 +39,7 @@ class AuthorsRecord(InspireRecord):
             list(uuid): List of records for author if his name changed
         """
         if self.get("name") == self._previous_version.get("name"):
-            return []
+            return set()
         # This is not 100% safe as it might happen that paper will be in the middle
         # of indexing (with author loaded before name changes) but not yet in ES.
         # This might result in paper not re-indexed with proper data.
@@ -58,4 +58,4 @@ class AuthorsRecord(InspireRecord):
                 uuid=str(self.id),
             )
             return uuids
-        return []
+        return set()

@@ -347,10 +347,16 @@ class CitationMixin(PapersAuthorsExtensionMixin):
         prev_version = self._previous_version
         current_authors = set(self.get_authors_bais())
         old_authors = set(prev_version.get_authors_bais())
-        diff = list(current_authors.symmetric_difference(old_authors))
-        differed_papers_uuids = []
+        diff = current_authors.symmetric_difference(old_authors)
+        connected_papers = set()
         if diff:
-            differed_papers_uuids = [
+            citers = {
+                citer[0]
+                for citer in RecordCitations.query.filter_by(cited_id=self.id)
+                .with_entities("citer_id")
+                .all()
+            }
+            self_cited = {
                 result.record_id
                 for result in RecordsAuthors.query.filter(
                     RecordsAuthors.record_id != self.id
@@ -364,17 +370,25 @@ class CitationMixin(PapersAuthorsExtensionMixin):
                 )
                 .distinct(RecordsAuthors.record_id)
                 .all()
-            ]
-        return differed_papers_uuids
+            }
+            connected_papers = citers | self_cited
+
+        return connected_papers
 
     def get_all_connected_records_uuids_of_modified_collaborations(self):
         prev_version = self._previous_version
         current_collaborations = set(self.get_collaborations_values())
         old_collaborations = set(prev_version.get_collaborations_values())
-        diff = list(current_collaborations.symmetric_difference(old_collaborations))
-        differed_papers_uuids = []
+        diff = current_collaborations.symmetric_difference(old_collaborations)
+        connected_papers = set()
         if diff:
-            differed_papers_uuids = [
+            citers = {
+                citer[0]
+                for citer in RecordCitations.query.filter_by(cited_id=self.id)
+                .with_entities("citer_id")
+                .all()
+            }
+            self_cited = {
                 result.record_id
                 for result in RecordsAuthors.query.filter(
                     RecordsAuthors.record_id != self.id
@@ -388,8 +402,10 @@ class CitationMixin(PapersAuthorsExtensionMixin):
                 )
                 .distinct(RecordsAuthors.record_id)
                 .all()
-            ]
-        return differed_papers_uuids
+            }
+            connected_papers = citers | self_cited
+
+        return connected_papers
 
 
 class ConferencePaperAndProceedingsMixin:

@@ -11,6 +11,7 @@ import structlog
 from click.testing import CliRunner
 from flask.cli import ScriptInfo
 from helpers.cleanups import db_cleanup, es_cleanup
+from helpers.utils import override_config
 from invenio_search import current_search_client as es
 from redis import StrictRedis
 
@@ -90,3 +91,9 @@ def redis(inspire_app):
 @pytest.fixture(scope="function")
 def inspire_app(app, cache, clear_environment):
     yield app
+
+
+@pytest.fixture(scope="function")
+def enable_self_citations(inspire_app):
+    with override_config(FEATURE_FLAG_ENABLE_SELF_CITATIONS=True):
+        yield inspire_app
