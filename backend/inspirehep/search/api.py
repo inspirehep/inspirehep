@@ -194,15 +194,22 @@ class AuthorsSearch(InspireSearch):
     def query_from_iq(self, query_string):
         if not query_string:
             return self.query()
-
-        names_analyzed_query = Q("match", names_analyzed=query_string)
-        names_analyzed_initials_query = Q("match", names_analyzed_initials=query_string)
-        query_string = Q("query_string", query=query_string)
-        query = Q(
-            "bool",
-            should=[names_analyzed_query, names_analyzed_initials_query, query_string],
-        )
-        return self.query(query)
+        query_string_query = Q("query_string", query=query_string)
+        if ":" not in query_string:
+            names_analyzed_query = Q("match", names_analyzed=query_string)
+            names_analyzed_initials_query = Q(
+                "match", names_analyzed_initials=query_string
+            )
+            query = Q(
+                "bool",
+                should=[
+                    names_analyzed_query,
+                    names_analyzed_initials_query,
+                    query_string_query,
+                ],
+            )
+            return self.query(query)
+        return self.query(query_string_query)
 
     @staticmethod
     def get_author_papers(author, source=None, size=10000):

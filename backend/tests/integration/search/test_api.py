@@ -109,6 +109,18 @@ def test_authors_search_query(inspire_app):
     assert expexted_query == query_to_dict
 
 
+def test_authors_query_for_query_with_colon(inspire_app):
+    query_to_dict = (
+        AuthorsSearch().query_from_iq("positions.record.$ref:905189").to_dict()
+    )
+
+    expected_query = {
+        "query": {"query_string": {"query": "positions.record.$ref:905189"}},
+        "track_total_hits": True,
+    }
+    assert expected_query == query_to_dict
+
+
 def test_empty_jobs_search(inspire_app):
     create_record("job", data={"status": "open"})
     create_record("job", data={"status": "open"})
