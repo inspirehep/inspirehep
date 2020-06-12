@@ -223,6 +223,8 @@ def test_hep_institution_papers_facets(inspire_app):
         expected_aggregations = {
             **hep_earliest_date_aggregation(order=1),
             **hep_doc_type_aggregation(order=2),
+            **hep_collaboration_aggregation(order=3),
+            **hep_subject_aggregation(order=4),
         }
 
         filters = current_app.config["RECORDS_REST_FACETS"]["hep-institution-papers"]()[
