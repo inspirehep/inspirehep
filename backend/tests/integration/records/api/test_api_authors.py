@@ -171,7 +171,7 @@ def test_create_or_update_record_from_db_depending_on_its_pid_type(inspire_app):
 
 
 def test_get_author_papers(inspire_app):
-    author = create_record("aut")
+    author = create_record("aut", other_pids=["bai"])
 
     author_cn = author["control_number"]
     lit_data = {
@@ -181,6 +181,7 @@ def test_get_author_papers(inspire_app):
                     "$ref": f"https://labs.inspirehep.net/api/authors/{author_cn}"
                 },
                 "full_name": author["name"]["value"],
+                "ids": author["ids"],
             }
         ]
     }
@@ -188,8 +189,8 @@ def test_get_author_papers(inspire_app):
     lit_2 = create_record("lit")
 
     author_papers = author.get_papers_uuids()
-    assert str(lit_1.id) in author_papers
-    assert str(lit_2.id) not in author_papers
+    assert lit_1.id in author_papers
+    assert lit_2.id not in author_papers
 
 
 def test_orcid_url_also_supports_format_alias(inspire_app):

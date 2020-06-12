@@ -344,7 +344,7 @@ class CitationMixin(PapersAuthorsExtensionMixin):
             self.update_refs_in_citation_table()
 
     def get_all_connected_records_uuids_of_modified_authors(self):
-        prev_version = self._previous_version
+        prev_version = self._last_indexed
         current_authors = set(self.get_authors_bais())
         old_authors = set(prev_version.get_authors_bais())
         diff = current_authors.symmetric_difference(old_authors)
@@ -376,7 +376,7 @@ class CitationMixin(PapersAuthorsExtensionMixin):
         return connected_papers
 
     def get_all_connected_records_uuids_of_modified_collaborations(self):
-        prev_version = self._previous_version
+        prev_version = self._last_indexed
         current_collaborations = set(self.get_collaborations_values())
         old_collaborations = set(prev_version.get_collaborations_values())
         diff = current_collaborations.symmetric_difference(old_collaborations)
@@ -470,7 +470,7 @@ class ConferencePaperAndProceedingsMixin:
     def get_newest_linked_conferences_uuid(self):
         """Returns referenced conferences for which perspective this record has changed
         """
-        prev_version = self._previous_version
+        prev_version = self._last_indexed
 
         changed_deleted_status = self.get("deleted", False) ^ prev_version.get(
             "deleted", False
@@ -491,7 +491,7 @@ class ConferencePaperAndProceedingsMixin:
         type_changed = True if doc_type_diff.intersection(allowed_types) else False
 
         pids_previous = set(
-            self._previous_version.get_linked_pids_from_field(
+            prev_version.get_linked_pids_from_field(
                 "publication_info.conference_record"
             )
         )
@@ -554,7 +554,7 @@ class InstitutionPapersMixin:
             )
 
     def get_modified_institutions_uuids(self):
-        prev_version = self._previous_version
+        prev_version = self._last_indexed
 
         changed_deleted_status = self.get("deleted", False) ^ prev_version.get(
             "deleted", False
@@ -564,7 +564,7 @@ class InstitutionPapersMixin:
         if changed_deleted_status:
             return list(self.get_records_ids_by_pids(pids_latest))
 
-        pids_previous = self._previous_version.linked_institutions_pids
+        pids_previous = prev_version.linked_institutions_pids
 
         pids_changed = set.symmetric_difference(set(pids_latest), set(pids_previous))
 

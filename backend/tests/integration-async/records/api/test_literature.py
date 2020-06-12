@@ -7,9 +7,12 @@
 import copy
 
 from helpers.providers.faker import faker
+from helpers.utils import retry_until_matched
 from invenio_db import db
+from invenio_search import current_search
 
 from inspirehep.records.api import ConferencesRecord, LiteratureRecord
+from inspirehep.search.api import LiteratureSearch
 
 
 def test_authors_signature_blocks_and_uuids_added_after_create_and_update(
@@ -86,12 +89,23 @@ def test_conference_paper_get_updated_reference_when_replacing_conference(
     record = LiteratureRecord.create(faker.record("lit", data))
     db.session.commit()
 
+    steps = [
+        {"step": current_search.flush_and_refresh, "args": ["records-hep"]},
+        {
+            "step": LiteratureSearch.get_record_data_from_es,
+            "args": [record],
+            "expected_key": "document_type",
+            "expected_result": ["conference paper"],
+        },
+    ]
+    retry_until_matched(steps)
+
     data = copy.deepcopy(dict(record))
 
     data["publication_info"] = [{"conference_record": {"$ref": ref_2}}]
     record.update(data)
-    db.session.commit()
     assert expected_result == sorted(record.get_newest_linked_conferences_uuid())
+    db.session.commit()
 
 
 def test_conference_paper_get_updated_reference_conference_when_updates_one_conference(
@@ -115,11 +129,22 @@ def test_conference_paper_get_updated_reference_conference_when_updates_one_conf
     record = LiteratureRecord.create(faker.record("lit", data))
     db.session.commit()
 
+    steps = [
+        {"step": current_search.flush_and_refresh, "args": ["records-hep"]},
+        {
+            "step": LiteratureSearch.get_record_data_from_es,
+            "args": [record],
+            "expected_key": "document_type",
+            "expected_result": ["conference paper"],
+        },
+    ]
+    retry_until_matched(steps)
+
     data = copy.deepcopy(dict(record))
     data["publication_info"].append({"conference_record": {"$ref": ref_2}})
     record.update(data)
-    db.session.commit()
     assert expected_result == sorted(record.get_newest_linked_conferences_uuid())
+    db.session.commit()
 
 
 def test_conference_paper_get_updated_reference_conference_returns_nothing_when_not_updating_conference(
@@ -138,12 +163,22 @@ def test_conference_paper_get_updated_reference_conference_returns_nothing_when_
 
     record = LiteratureRecord.create(faker.record("lit", data))
     db.session.commit()
+    steps = [
+        {"step": current_search.flush_and_refresh, "args": ["records-hep"]},
+        {
+            "step": LiteratureSearch.get_record_data_from_es,
+            "args": [record],
+            "expected_key": "document_type",
+            "expected_result": ["conference paper"],
+        },
+    ]
+    retry_until_matched(steps)
 
     data = copy.deepcopy(dict(record))
     expected_result = []
     record.update(data)
-    db.session.commit()
     assert expected_result == record.get_newest_linked_conferences_uuid()
+    db.session.commit()
 
 
 def test_conference_paper_get_updated_reference_conference_returns_all_when_deleting_lit_record(
@@ -184,10 +219,21 @@ def test_conference_paper_get_updated_reference_conference_returns_nothing_when_
 
     record = LiteratureRecord.create(faker.record("lit", data))
     db.session.commit()
+    steps = [
+        {"step": current_search.flush_and_refresh, "args": ["records-hep"]},
+        {
+            "step": LiteratureSearch.get_record_data_from_es,
+            "args": [record],
+            "expected_key": "document_type",
+            "expected_result": ["conference paper"],
+        },
+    ]
+    retry_until_matched(steps)
 
     data = copy.deepcopy(dict(record))
     data["document_type"].append("article")
     record.update(data)
+
     db.session.commit()
     assert expected_result == sorted(record.get_newest_linked_conferences_uuid())
 

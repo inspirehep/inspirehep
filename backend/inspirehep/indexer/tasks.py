@@ -77,15 +77,6 @@ def index_record(self, uuid, record_version=None, force_delete=None):
     if not force_delete:
         deleted = record.get("deleted", False)
 
-    if force_delete or deleted:
-        try:
-            InspireRecordIndexer().delete(record)
-            LOGGER.debug("Record removed from ES", uuid=str(uuid))
-        except NotFoundError:
-            LOGGER.debug("Record to delete not found", uuid=str(uuid))
-    else:
-        InspireRecordIndexer().index(record)
-
     uuids_to_reindex = set()
     if isinstance(record, LiteratureRecord):
         uuids_to_reindex |= record.get_linked_papers_if_reference_changed()
@@ -102,3 +93,12 @@ def index_record(self, uuid, record_version=None, force_delete=None):
         )
     if uuids_to_reindex:
         batch_index(list(uuids_to_reindex))
+
+    if force_delete or deleted:
+        try:
+            InspireRecordIndexer().delete(record)
+            LOGGER.debug("Record removed from ES", uuid=str(uuid))
+        except NotFoundError:
+            LOGGER.debug("Record to delete not found", uuid=str(uuid))
+    else:
+        InspireRecordIndexer().index(record)

@@ -143,7 +143,7 @@ def test_record_created_through_api_is_indexed(
 def test_indexer_updates_authors_papers_when_name_changes(
     inspire_app, celery_app_with_context, celery_session_worker
 ):
-    author_data = faker.record("aut")
+    author_data = faker.record("aut", other_pids=["bai"])
     author = AuthorsRecord.create(author_data)
     db.session.commit()
     current_search.flush_and_refresh("records-authors")
@@ -156,6 +156,7 @@ def test_indexer_updates_authors_papers_when_name_changes(
                     "$ref": f"https://labs.inspirehep.net/api/authors/{author_cn}"
                 },
                 "full_name": author["name"]["value"],
+                "ids": [{"schema": "INSPIRE BAI", "value": author["ids"][0]["value"]}],
             }
         ]
     }

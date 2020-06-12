@@ -86,3 +86,15 @@ def test_retry_until_matched_raises_timeout_on_timeout_when_no_other_exceptions(
     steps = [{"step": sleep, "args": [2]}, {"step": sleep, "args": [2]}]
     with pytest.raises(TimeoutError):
         retry_until_matched(steps, 1)
+
+
+def test_regression_retry_until_matched_works_correctly_when_logical_false_is_expected_value():
+    def _test_return_value(value):
+        return value
+
+    steps = [
+        {"step": _test_return_value, "args": [0], "expected_result": 0},
+        {"step": _test_return_value, "args": [False], "expected_result": False},
+        {"step": _test_return_value, "args": [""], "expected_result": ""},
+    ]
+    retry_until_matched(steps)

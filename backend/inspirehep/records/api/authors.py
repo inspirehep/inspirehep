@@ -5,9 +5,10 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 import structlog
+from inspire_utils.record import get_values_for_schema
 
 from inspirehep.records.marshmallow.authors import AuthorsElasticSearchSchema
-from inspirehep.search.api import AuthorsSearch
+from inspirehep.records.models import RecordsAuthors
 
 from ...pidstore.api import PidStoreAuthors
 from .base import InspireRecord
@@ -23,9 +24,11 @@ class AuthorsRecord(InspireRecord):
     pidstore_handler = PidStoreAuthors
 
     def get_papers_uuids(self):
-        all_papers = AuthorsSearch.get_author_papers(self, source="_id")
-        papers_ids = {paper.meta["id"] for paper in all_papers}
-        return papers_ids
+        uuids = RecordsAuthors.query.filter_by(author_id=self.bai).with_entities(
+            "record_id"
+        )
+        papers_uuids = {uuid[0] for uuid in uuids}
+        return papers_uuids
 
     def get_linked_author_records_uuids_if_author_changed_name(self):
         """Checks if author has changed his name and returns uuids of all his papers if he did
@@ -38,18 +41,9 @@ class AuthorsRecord(InspireRecord):
         Returns:
             list(uuid): List of records for author if his name changed
         """
-        if self.get("name") == self._previous_version.get("name"):
+
+        if self.get("name") == self._last_indexed.get("name"):
             return set()
-        # This is not 100% safe as it might happen that paper will be in the middle
-        # of indexing (with author loaded before name changes) but not yet in ES.
-        # This might result in paper not re-indexed with proper data.
-        # Chances that this will happen are extremely small, but non 0.
-        # For now we should try this solution as it's faster and cheaper,
-        # but if we will notice records which are not updated,
-        # we should consider more complex way.
-        # Solution to this would be to create table similar to citations table which would
-        # hold relation between papers and authors
-        # and it would be source for papers of author.
         uuids = self.get_papers_uuids()
         if uuids:
             LOGGER.info(
@@ -59,3 +53,8 @@ class AuthorsRecord(InspireRecord):
             )
             return uuids
         return set()
+
+    @property
+    def bai(self):
+        ids_for_schema = get_values_for_schema(self.get("ids", []), "INSPIRE BAI")
+        return ids_for_schema[0] if ids_for_schema else None

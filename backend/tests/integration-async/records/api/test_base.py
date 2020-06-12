@@ -4,10 +4,14 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+import time
 
+from helpers.utils import retry_until_matched
 from invenio_db import db
+from invenio_search import current_search
 
 from inspirehep.records.api import LiteratureRecord
+from inspirehep.search.api import LiteratureSearch
 
 
 def test_record_versioning(inspire_app, celery_app_with_context, celery_session_worker):
@@ -26,7 +30,7 @@ def test_record_versioning(inspire_app, celery_app_with_context, celery_session_
 
     assert expected_version_created == record.model.version_id
     assert expected_count_created == record.model.versions.count()
-    assert LiteratureRecord({}) == record._previous_version
+    assert LiteratureRecord({}) == record._last_indexed
 
     expected_version_updated = 3
     expected_count_updated = 2
@@ -36,10 +40,20 @@ def test_record_versioning(inspire_app, celery_app_with_context, celery_session_
 
     assert expected_version_updated == record_updated.model.version_id
     assert expected_count_updated == record_updated.model.versions.count()
-    assert record._previous_version
+    steps = [
+        {"step": current_search.flush_and_refresh, "args": ["records-hep"]},
+        {
+            "step": LiteratureSearch.get_record_data_from_es,
+            "args": [record],
+            "expected_key": "id",
+            "expected_result": record["control_number"],
+        },
+    ]
+    retry_until_matched(steps)
+    assert record._last_indexed == record
 
 
-def test_record_previous_version_doesnt_fail_if_previous_version_missing(
+def test_record_last_indexed_doesnt_fail_if_current_version_id_first(
     inspire_app, celery_app_with_context, celery_session_worker
 ):
     data = {
@@ -53,7 +67,24 @@ def test_record_previous_version_doesnt_fail_if_previous_version_missing(
     expected_count_created = 1
     record = LiteratureRecord.create(data)
     record_control_number = record["control_number"]
-    assert LiteratureRecord({}) == record._previous_version
+    assert LiteratureRecord({}) == record._last_indexed
+
+
+def test_record_last_indexed_version_doesnt_fail_if_last_indexed_version_missing(
+    inspire_app, celery_app_with_context, celery_session_worker
+):
+    data = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
+        "titles": [{"title": "Test a valid record"}],
+        "document_type": ["article"],
+        "_collections": ["Literature"],
+    }
+
+    expected_version_created = 1
+    expected_count_created = 1
+    record = LiteratureRecord.create(data)
+    record_control_number = record["control_number"]
+    assert LiteratureRecord({}) == record._last_indexed
 
 
 def test_get_modified_references_returns_all_references_when_earliest_date_changed(
@@ -125,9 +156,20 @@ def test_get_modified_references_returns_no_references_when_non_impacting_metada
     }
 
     citing_record = LiteratureRecord.create(citing_data)
-    db.session.commit()
 
     assert citing_record.get_modified_references() == [cited_record.id]
+
+    db.session.commit()
+    steps = [
+        {"step": current_search.flush_and_refresh, "args": ["records-hep"]},
+        {
+            "step": LiteratureSearch.get_record_data_from_es,
+            "args": [citing_record],
+            "expected_key": "references",
+            "expected_result": citing_record["references"],
+        },
+    ]
+    retry_until_matched(steps)
 
     data_update = {
         "titles": [{"title": "updated title"}],
@@ -135,9 +177,9 @@ def test_get_modified_references_returns_no_references_when_non_impacting_metada
     }
     citing_data.update(data_update)
     citing_record.update(citing_data)
-    db.session.commit()
 
     assert citing_record.get_modified_references() == []
+    db.session.commit()
 
 
 def test_revert_revision_works_correctly_and_runs_update(inspire_app):

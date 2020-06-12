@@ -383,3 +383,48 @@ def test_literature_regression_changing_bai_in_record_reindex_records_which_are_
         },
     ]
     retry_until_matched(steps)
+
+
+def test_literature_regression_delay_on_reindexing_do_not_affect_reference_recalculation(
+    inspire_app, celery_app_with_context, celery_session_worker
+):
+    data = faker.record("lit")
+    record = LiteratureRecord.create(data)
+    citer_data = faker.record("lit", literature_citations=[record["control_number"]])
+    citer = LiteratureRecord.create(citer_data)
+    db.session.commit()
+
+    steps = [
+        {"step": current_search.flush_and_refresh, "args": ["records-hep"]},
+        {
+            "step": LiteratureSearch.get_record_data_from_es,
+            "args": [record],
+            "expected_key": "citation_count",
+            "expected_result": 1,
+        },
+    ]
+    retry_until_matched(steps)
+
+    citer_data = dict(citer)
+
+    models_committed.disconnect(index_after_commit)
+    del citer_data["references"]
+    citer.update(citer_data)
+    db.session.commit()
+    models_committed.connect(index_after_commit)
+
+    citer_data = dict(citer)
+    citer_data["titles"][0]["title"] = "Other title"
+    citer.update(citer_data)
+    db.session.commit()
+
+    steps = [
+        {"step": current_search.flush_and_refresh, "args": ["records-hep"]},
+        {
+            "step": LiteratureSearch.get_record_data_from_es,
+            "args": [record],
+            "expected_key": "citation_count",
+            "expected_result": 0,
+        },
+    ]
+    retry_until_matched(steps)

@@ -192,6 +192,7 @@ def retry_until_matched(steps={}, timeout=30):
                 },
             ]
     """
+    _wait_time = 0.3
     start = datetime.now()
     finished = False
     _current_result = None
@@ -215,10 +216,11 @@ def retry_until_matched(steps={}, timeout=30):
                     _current_result = _fun(*_args, **_kwargs)
             except Exception as e:
                 _last_error = e
+                time.sleep(_wait_time)
                 break
-            if _expected_result:
+            if _expected_result is not None:
                 if (
-                    not _expected_key
+                    _expected_key is None
                     and isinstance(_expected_result, dict)
                     and "expected_key" in _expected_result
                     and "expected_result" in _expected_result
@@ -236,8 +238,10 @@ def retry_until_matched(steps={}, timeout=30):
                 except AssertionError as e:
                     _last_error = e
                     finished = False
-                    time.sleep(0.3)
+                    time.sleep(_wait_time)
                     break
+            else:
+                time.sleep(_wait_time)
     return _current_result
 
 

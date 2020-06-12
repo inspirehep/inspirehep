@@ -31,6 +31,7 @@ from sqlalchemy.orm.exc import NoResultFound
 from inspirehep.indexer.base import InspireRecordIndexer
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.errors import MissingSerializerError, WrongRecordSubclass
+from inspirehep.search.api import InspireSearch
 from inspirehep.utils import flatten_list
 
 LOGGER = structlog.getLogger()
@@ -412,21 +413,20 @@ class InspireRecord(Record):
         index_record(**arguments)
 
     @property
-    def _previous_version(self):
-        """Returns the previous version of the record"""
+    def _last_indexed(self):
+        """Returns the last indexed version of the record"""
         data = {}
         try:
-            current = self.model.versions.filter_by(
-                version_id=self.model.version_id
-            ).one()
-            if current.previous:
-                data = current.previous.json
-        except NoResultFound:
-            LOGGER.warning(
-                "Record previous version is not found",
-                version_id=self.model.version_id,
-                uuid=self.id,
-            )
+            currently_indexed = InspireSearch.get_record_data_from_es(self)
+            if currently_indexed and "_updated" in currently_indexed:
+                data = (
+                    self.model.versions.filter_by(updated=currently_indexed["_updated"])
+                    .one()
+                    .json
+                )
+
+        except (NoResultFound, NotFoundError):
+            LOGGER.warning("Record last indexed version not found on ES", uuid=self.id)
 
         return type(self)(data=data)
 
