@@ -15,10 +15,7 @@ export default function({ getState, dispatch }) {
       const currentLocation = getLocationFromRootState(getState());
       const result = next(action);
       const nextLocation = action.payload.location; // use this instead of `getLocationFromRootState(getState())` for testability.
-      if (
-        nextLocation.search !== currentLocation.search ||
-        nextLocation.pathname !== currentLocation.pathname
-      ) {
+      if (nextLocation.pathname !== currentLocation.pathname) {
         dispatch({
           type: CLEAR_STATE,
           payload: { cause: 'LOCATION_REALLY_CHANGED' }, // explicit cause to help with debugging

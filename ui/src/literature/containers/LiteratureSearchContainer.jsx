@@ -17,11 +17,11 @@ import CiteAllActionContainer from './CiteAllActionContainer';
 import VerticalDivider from '../../common/VerticalDivider';
 import { searchBaseQueriesUpdate } from '../../actions/search';
 import EmptyOrChildren from '../../common/components/EmptyOrChildren';
-import CitationSummaryBoxContainer from './CitationSummaryBoxContainer';
 import CitationSummarySwitchContainer, {
   isCitationSummaryEnabled,
 } from './CitationSummarySwitchContainer';
 import { SEARCH_PAGE_GUTTER } from '../../common/constants';
+import CitationSummaryBox from '../components/CitationSummaryBox/CitationSummaryBox';
 
 function renderLiteratureItem(result, rank) {
   return <LiteratureItem metadata={result.get('metadata')} searchRank={rank} />;
@@ -112,7 +112,7 @@ function LiteratureSearch({
               isCitationSummaryVisible && (
                 <Row className="mt2">
                   <Col span={24}>
-                    <CitationSummaryBoxContainer namespace={namespace} />
+                    <CitationSummaryBox namespace={namespace} />
                   </Col>
                 </Row>
               )}

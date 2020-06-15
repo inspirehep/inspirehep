@@ -1,9 +1,12 @@
-import { replace } from "connected-react-router"
+import { replace } from 'connected-react-router';
+import { stringify } from 'qs';
 
-export function setHash(hash) {
+export function appendQueryToLocationSearch(query) {
   return (dispatch, getState) => {
     const { router } = getState();
-    const newLocation = { ...router.location, hash }
+    const newQuery = { ...router.location.query, ...query };
+    const search = `?${stringify(newQuery, { indices: false })}`;
+    const newLocation = { ...router.location, search };
     dispatch(replace(newLocation));
-  }
+  };
 }

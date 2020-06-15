@@ -2,8 +2,10 @@ import { connect } from 'react-redux';
 
 import SearchBox from '../components/SearchBox';
 import { searchQueryUpdate } from '../../actions/search';
-import { setHash } from '../../actions/router';
 import { LITERATURE_NS } from '../../search/constants';
+import { appendQueryToLocationSearch } from '../../actions/router';
+import { UI_CITATION_SUMMARY_PARAM } from '../../literature/containers/CitationSummarySwitchContainer';
+import { UI_EXCLUDE_SELF_CITATIONS_PARAM } from '../../literature/containers/ExcludeSelfCitationsContainer';
 
 const stateToProps = state => ({
   value: state.search.getIn([
@@ -17,10 +19,15 @@ const stateToProps = state => ({
 
 export const dispatchToProps = dispatch => ({
   onSearch(namespace, value) {
-    // HACK: This avoids carrying the hash to other searches when changing collection
     if (namespace !== LITERATURE_NS) {
-      dispatch(setHash(''));
+      dispatch(
+        appendQueryToLocationSearch({
+          [UI_CITATION_SUMMARY_PARAM]: undefined,
+          [UI_EXCLUDE_SELF_CITATIONS_PARAM]: undefined,
+        })
+      );
     }
+
     dispatch(searchQueryUpdate(namespace, { q: value }));
   },
 });

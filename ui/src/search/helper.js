@@ -42,8 +42,8 @@ export default class SearchHelper {
     );
   }
 
-  updateLocation(urlSuffix = '') {
-    const searchUrl = `${this.getPathname()}?${this.getQueryString()}${urlSuffix}`;
+  updateLocation() {
+    const searchUrl = `${this.getPathname()}?${this.getQueryString()}`;
     if (this.isInitialQueryUpdate() || this.dueToNavigationToSearchPage) {
       /**
        * Call `replace` which basically sets some extra base query params

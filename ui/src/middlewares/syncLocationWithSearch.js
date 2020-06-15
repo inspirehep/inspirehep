@@ -18,14 +18,24 @@ function isSearchPage(location) {
   return isCollectionPage && !idInUrlRegExp.test(location.pathname);
 }
 
+function removeUiParam(param, value) {
+  return param.startsWith('ui-') ? undefined : value;
+}
+
 function isLocationSyncedWithSearchQuery(namespace, state) {
   const {
     search,
     router: { location },
   } = state;
   const searchQuery = search.getIn(['namespaces', namespace, 'query']).toJS();
-  const searchQueryString = stringify(searchQuery, { indices: false });
-  const locationQueryStirng = location.search.substring(1);
+  const searchQueryString = stringify(searchQuery, {
+    indices: false,
+    filter: removeUiParam,
+  });
+  const locationQueryStirng = stringify(location.query, {
+    indices: false,
+    filter: removeUiParam,
+  });
   return searchQueryString === locationQueryStirng;
 }
 

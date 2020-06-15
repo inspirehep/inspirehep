@@ -9,6 +9,7 @@ import {
 } from './actionTypes';
 import { httpErrorToActionPayload } from '../common/utils';
 import { isCancelError } from '../common/http';
+import { shouldExcludeSelfCitations } from '../literature/containers/ExcludeSelfCitationsContainer';
 
 function fetchingCitationSummary(namespace) {
   return {
@@ -35,11 +36,11 @@ export function fetchCitationSummary(namespace) {
   return async (dispatch, getState, http) => {
     dispatch(fetchingCitationSummary(namespace));
     try {
-      const { search, ui } = getState();
-      const literatureSearchQuery = search
+      const state = getState();
+      const literatureSearchQuery = state.search
         .getIn(['namespaces', namespace, 'query'])
         .toJS();
-      const excludeSelfCitations = ui.get('excludeSelfCitations');
+      const excludeSelfCitations = shouldExcludeSelfCitations(state);
       const query = {
         ...literatureSearchQuery,
         facet_name: 'citation-summary',
