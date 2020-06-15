@@ -2,15 +2,20 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import { fromJS } from 'immutable';
-import { replace } from 'connected-react-router';
 
 import { getStoreWithState, mockActionCreator } from '../../../fixtures/store';
 import SearchBoxContainer from '../SearchBoxContainer';
 import SearchBox from '../../components/SearchBox';
 import { searchQueryUpdate } from '../../../actions/search';
+import { appendQueryToLocationSearch } from '../../../actions/router';
+import { UI_EXCLUDE_SELF_CITATIONS_PARAM } from '../../../literature/containers/ExcludeSelfCitationsContainer';
+import { UI_CITATION_SUMMARY_PARAM } from '../../../literature/containers/CitationSummarySwitchContainer';
 
 jest.mock('../../../actions/search');
 mockActionCreator(searchQueryUpdate);
+
+jest.mock('../../../actions/router');
+mockActionCreator(appendQueryToLocationSearch);
 
 describe('SearchBoxContainer', () => {
   it('passes namespace query q param to SearchBox', () => {
@@ -57,18 +62,13 @@ describe('SearchBoxContainer', () => {
     expect(store.getActions()).toEqual(expectedActions);
   });
 
-  it('resets the hash on search in collection different to literature', async () => {
-    const currentNamespace = 'literature';
+  it('resets the ui query params on Search unless literature namespace', async () => {
+    const searchBoxNamespace = 'literature';
     const newNamespace = 'authors';
     const store = getStoreWithState({
       search: fromJS({
-        currentNamespace,
+        searchBoxNamespace,
       }),
-      router: {
-        location: {
-          hash: '#whatever',
-        },
-      },
     });
     const wrapper = mount(
       <Provider store={store}>
@@ -78,7 +78,10 @@ describe('SearchBoxContainer', () => {
     const onSearch = wrapper.find(SearchBox).prop('onSearch');
     onSearch(newNamespace, 'test');
 
-    const expectedAction = replace({ hash: '' });
+    const expectedAction = appendQueryToLocationSearch({
+      [UI_CITATION_SUMMARY_PARAM]: undefined,
+      [UI_EXCLUDE_SELF_CITATIONS_PARAM]: undefined,
+    });
     expect(store.getActions()).toContainEqual(expectedAction);
   });
 });

@@ -4,7 +4,6 @@ import reducer from '../ui';
 import {
   UI_CLOSE_BANNER,
   UI_CHANGE_GUIDE_MODAL_VISIBILITY,
-  UI_CHANGE_EXCLUDE_SELF_CITATIONS,
 } from '../../actions/actionTypes';
 
 describe('ui reducer', () => {
@@ -27,17 +26,5 @@ describe('ui reducer', () => {
     };
     const state = reducer(currentState, action);
     expect(state.get('guideModalVisibility')).toEqual(true);
-  });
-
-  it('UI_CHANGE_EXCLUDE_SELF_CITATIONS', () => {
-    const currentState = fromJS({
-      excludeSelfCitations: false,
-    });
-    const action = {
-      type: UI_CHANGE_EXCLUDE_SELF_CITATIONS,
-      payload: { isEnabled: true },
-    };
-    const state = reducer(currentState, action);
-    expect(state.get('excludeSelfCitations')).toEqual(true);
   });
 });

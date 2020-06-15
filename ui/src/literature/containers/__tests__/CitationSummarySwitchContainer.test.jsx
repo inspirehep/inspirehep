@@ -8,10 +8,11 @@ import {
   getStoreWithState,
   mockActionCreator,
 } from '../../../fixtures/store';
-import CitationSummarySwitchContainer from '../CitationSummarySwitchContainer';
+import CitationSummarySwitchContainer, {
+  UI_CITATION_SUMMARY_PARAM,
+} from '../CitationSummarySwitchContainer';
 import CitationSummarySwitch from '../../components/CitationSummarySwitch';
-import { setHash } from '../../../actions/router';
-import { WITH_CITATION_SUMMARY } from '../../constants';
+import { appendQueryToLocationSearch } from '../../../actions/router';
 import { CITATION_SUMMARY_ENABLING_PREFERENCE } from '../../../reducers/user';
 import {
   LITERATURE_NS,
@@ -21,7 +22,7 @@ import { setPreference } from '../../../actions/user';
 import { fetchCitationSummary } from '../../../actions/citations';
 
 jest.mock('../../../actions/router');
-mockActionCreator(setHash);
+mockActionCreator(appendQueryToLocationSearch);
 
 jest.mock('../../../actions/citations');
 mockActionCreator(fetchCitationSummary);
@@ -45,7 +46,7 @@ describe('CitationSummarySwitchContainer', () => {
     expect(store.getActions()).toEqual(expectedActions);
   });
 
-  it('removes hash when switch is toggled to false', () => {
+  it('removes citation summary param when switch is toggled to false', () => {
     const namespace = AUTHOR_PUBLICATIONS_NS;
     const store = getStore();
     const wrapper = mount(
@@ -58,16 +59,19 @@ describe('CitationSummarySwitchContainer', () => {
 
     const expectedActions = [
       setPreference(CITATION_SUMMARY_ENABLING_PREFERENCE, false),
-      setHash(''),
+      appendQueryToLocationSearch({ [UI_CITATION_SUMMARY_PARAM]: undefined }),
     ];
     expect(store.getActions()).toEqual(expectedActions);
   });
 
-  it('sets checked if hash is set', () => {
+  it('sets checked if citation summary param is set', () => {
     const namespace = AUTHOR_PUBLICATIONS_NS;
     const store = getStoreWithState({
       router: {
-        location: { hash: WITH_CITATION_SUMMARY },
+        location: {
+          search: `?${UI_CITATION_SUMMARY_PARAM}=true`,
+          query: { [UI_CITATION_SUMMARY_PARAM]: true },
+        },
       },
     });
 
@@ -84,8 +88,9 @@ describe('CitationSummarySwitchContainer', () => {
   it('sets unchecked if hash is not set', () => {
     const namespace = AUTHOR_PUBLICATIONS_NS;
     const store = getStoreWithState({
-      router: {
-        location: { hash: '' },
+      location: {
+        search: '?another-thing=5',
+        query: { 'another-thing': 5 },
       },
     });
 
@@ -117,7 +122,7 @@ describe('CitationSummarySwitchContainer', () => {
     });
   });
 
-  it('dispatches setHash onCitationSummaryUserPreferenceChange if the citation summary is enabled', () => {
+  it('dispatches appendQueryToLocationSearch onCitationSummaryUserPreferenceChange if the citation summary is enabled', () => {
     const namespace = AUTHOR_PUBLICATIONS_NS;
     const store = getStore();
     const wrapper = mount(
@@ -130,7 +135,9 @@ describe('CitationSummarySwitchContainer', () => {
       .prop('onCitationSummaryUserPreferenceChange');
     onCitationSummaryUserPreferenceChange(true);
 
-    const expectedActions = [setHash(WITH_CITATION_SUMMARY)];
+    const expectedActions = [
+      appendQueryToLocationSearch({ [UI_CITATION_SUMMARY_PARAM]: true }),
+    ];
     expect(store.getActions()).toEqual(expectedActions);
   });
 });

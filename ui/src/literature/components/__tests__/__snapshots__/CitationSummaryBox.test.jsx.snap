@@ -9,25 +9,9 @@ exports[`CitationSummaryBox renders 1`] = `
   subTitle="Citation Summary"
   title={null}
 >
-  <Checkbox
-    indeterminate={false}
-    onChange={[Function]}
-  >
-    <LabelWithHelp
-      help={
-        <p>
-          Self-citations are citations from the same collaboration or any of the authors of the paper being cited.
-           
-          <a
-            href="https://inspirehep.net/help/knowledge-base/citation-metrics/"
-          >
-            Learn More
-          </a>
-        </p>
-      }
-      label="Exclude self-citations"
-    />
-  </Checkbox>
+  <Connect(ExcludeSelfCitations)
+    namespace="literature"
+  />
   <NewFeatureTag
     className="without-margin-left"
   />

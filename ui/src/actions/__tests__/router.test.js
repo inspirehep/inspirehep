@@ -1,23 +1,32 @@
 import { replace } from 'connected-react-router';
 
 import { getStoreWithState } from '../../fixtures/store';
-import { setHash } from '../router';
-
+import { appendQueryToLocationSearch } from '../router';
 
 describe('router', () => {
-  it('create router.replace with new hash', () => {
-    const currentLocation = { pathname: '/pathname', search: '?param=value', hash: '#whatever' };
-    const store = getStoreWithState({
-      router: {
-        location: currentLocation
-      }
-    });
-    const hash = '#hash';
-    const expectedActions = [
-      replace({ ...currentLocation, hash })
-    ];
+  describe('appendQueryToLocationSearch', () => {
+    it('creates router.replace with new search', () => {
+      const currentLocation = {
+        pathname: '/pathname',
+        search: '?foo=bar',
+        query: { foo: 'bar' },
+      };
+      const store = getStoreWithState({
+        router: {
+          location: currentLocation,
+        },
+      });
+      const expectedActions = [
+        replace({
+          ...currentLocation,
+          search: '?foo=bar&param1=value1&param2=value2',
+        }),
+      ];
 
-    store.dispatch(setHash(hash));
-    expect(store.getActions()).toEqual(expectedActions);
+      store.dispatch(
+        appendQueryToLocationSearch({ param1: 'value1', param2: 'value2' })
+      );
+      expect(store.getActions()).toEqual(expectedActions);
+    });
   });
 });

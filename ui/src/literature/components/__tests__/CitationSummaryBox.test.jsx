@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
-import { Checkbox } from 'antd';
 
 import CitationSummaryBox from '../CitationSummaryBox';
 import { LITERATURE_NS } from '../../../search/constants';
@@ -56,23 +55,5 @@ describe('CitationSummaryBox', () => {
 
     expect(onQueryChange).toHaveBeenCalledWith(query, initialExcludeSC);
     expect(onQueryChange).toHaveBeenCalledWith(query, newExcludeSC);
-  });
-
-  it('calls onExcludeSelfCitationsChange when checkbox state changes', () => {
-    const onExcludeSelfCitationsChange = jest.fn();
-    const wrapper = shallow(
-      <CitationSummaryBox
-        namespace={LITERATURE_NS}
-        onExcludeSelfCitationsChange={onExcludeSelfCitationsChange}
-      />
-    );
-    const event = {
-      target: {
-        checked: true,
-      },
-    };
-    const onCheckboxChange = wrapper.find(Checkbox).prop('onChange');
-    onCheckboxChange(event);
-    expect(onExcludeSelfCitationsChange).toHaveBeenCalled();
   });
 });
