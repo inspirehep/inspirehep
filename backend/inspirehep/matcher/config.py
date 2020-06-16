@@ -5,7 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-GROBID_URL = "https://grobid.inspirebeta.net/api/processCitation"
+GROBID_URL = "https://grobid.inspirebeta.net"
 
 REFERENCE_MATCHER_UNIQUE_IDENTIFIERS_CONFIG = {
     "algorithm": [
