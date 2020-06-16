@@ -35,7 +35,7 @@ function ExperimentItem({ metadata }) {
       rightActions={
         <IncomingLiteratureReferencesLinkAction
           itemCount={papersCount}
-          displayedName="paper"
+          referenceType="paper"
           linkQuery={getPapersQueryString(recordId)}
           trackerEventId="Experiments:PapersLink"
         />
