@@ -12,14 +12,15 @@ from inspire_matcher import match
 from inspire_utils.dedupers import dedupe_list
 from inspire_utils.record import get_value
 
-from .utils import grobid_to_reference
+from .parsers import GrobidReferenceParser
 
 
 def get_reference_from_grobid(query):
     data = {"citations": query}
-    url = current_app.config["GROBID_URL"]
-    result_xml = requests.post(url, data=data).content
-    return grobid_to_reference(result_xml)
+    url = f"{current_app.config['GROBID_URL']}/api/processCitation"
+    response = requests.post(url, data=data)
+    response.raise_for_status()
+    return GrobidReferenceParser(response.text).parse()
 
 
 def _add_match_to_reference(reference, matched_recid, es_index):
@@ -73,17 +74,18 @@ def match_reference_with_config(reference, config, previous_matched_recid=None):
     return reference
 
 
-def match_reference_control_number(reference, previous_matched_recid=None):
+def match_reference(reference, previous_matched_recid=None):
     """Match a reference using inspire-matcher.
+
     Args:
         reference (dict): the metadata of a reference.
         previous_matched_recid (int): the record id of the last matched
             reference from the list of references.
     Returns:
-        int: the control number of the reference or `None`.
+        dict: the matched reference.
     """
     if reference.get("curated_relation"):
-        return None
+        return reference
 
     config_unique_identifiers = current_app.config[
         "REFERENCE_MATCHER_UNIQUE_IDENTIFIERS_CONFIG"
@@ -95,6 +97,7 @@ def match_reference_control_number(reference, previous_matched_recid=None):
     config_jcap_and_jhep_publication_info = current_app.config[
         "REFERENCE_MATCHER_JHEP_AND_JCAP_PUBLICATION_INFO_CONFIG"
     ]
+    config_data = current_app.config["REFERENCE_MATCHER_DATA_CONFIG"]
 
     journal_title = get_value(reference, "reference.publication_info.journal_title")
     config_publication_info = (
@@ -103,15 +106,34 @@ def match_reference_control_number(reference, previous_matched_recid=None):
         else config_default_publication_info
     )
 
-    configs = [config_unique_identifiers, config_publication_info, config_texkey]
+    configs = [
+        config_unique_identifiers,
+        config_publication_info,
+        config_texkey,
+        config_data,
+    ]
 
     matches = (
         match_reference_with_config(reference, config, previous_matched_recid)
         for config in configs
     )
-    matched_control_number = (
-        get_recid_from_ref(matched_record["record"])
-        for matched_record in matches
-        if "record" in matched_record
+    matches = (
+        matched_record for matched_record in matches if "record" in matched_record
     )
-    return next(matched_control_number, None)
+    reference = next(matches, reference)
+    return reference
+
+
+def match_reference_control_number(reference):
+    """Match reference and return the `control_number`.
+
+    Args:
+        reference (dict): the metadata of a reference.
+    Returns:
+        int: the `control_number` or `None`.
+    """
+    reference = match_reference(reference)
+    try:
+        return get_recid_from_ref(reference["record"])
+    except KeyError:
+        return None

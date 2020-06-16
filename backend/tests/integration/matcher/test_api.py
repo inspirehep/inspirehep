@@ -13,6 +13,7 @@ from mock import patch
 
 from inspirehep.matcher.api import (
     get_reference_from_grobid,
+    match_reference,
     match_reference_control_number,
 )
 
@@ -44,49 +45,9 @@ def test_grobid_without_match(inspire_app):
     assert expected == result
 
 
-def test_match_reference_control_numbers_with_publication_info(inspire_app):
-    """Test reference matcher for when inspire-matcher returns multiple matches
-    where the matched record id is one of the previous matched record id as well"""
-
-    cited_record_json = {
-        "$schema": "http://localhost:5000/schemas/records/hep.json",
-        "_collections": ["Literature"],
-        "control_number": 1,
-        "document_type": ["article"],
-        "publication_info": [
-            {
-                "journal_title": "Phys.Lett.B",
-                "journal_volume": "704",
-                "page_start": "223",
-                "year": 2011,
-            }
-        ],
-        "titles": [{"title": "The Strongly-Interacting Light Higgs"}],
-    }
-
-    create_record("lit", cited_record_json)
-
-    reference = {
-        "reference": {
-            "publication_info": {
-                "journal_title": "Phys.Lett.B",
-                "journal_volume": "704",
-                "year": 2011,
-            }
-        }
-    }
-
-    schema = load_schema("hep")
-    subschema = schema["properties"]["references"]
-
-    assert validate([reference], subschema) is None
-
-    reference = match_reference_control_number(reference)
-    assert reference == 1
-
-
-def test_match_reference_control_number_for_jcap_and_jhep_config(inspire_app):
+def test_match_reference_for_jcap_and_jhep_config(inspire_app):
     """Test reference matcher for the JCAP and JHEP configuration"""
+
     cited_record_json = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Literature"],
@@ -105,7 +66,6 @@ def test_match_reference_control_number_for_jcap_and_jhep_config(inspire_app):
     }
 
     create_record("lit", cited_record_json)
-
     reference = {
         "reference": {
             "publication_info": {
@@ -122,12 +82,134 @@ def test_match_reference_control_number_for_jcap_and_jhep_config(inspire_app):
     subschema = schema["properties"]["references"]
 
     assert validate([reference], subschema) is None
+    reference = match_reference(reference)
 
-    reference = match_reference_control_number(reference)
-    assert reference == 1
+    assert reference["record"]["$ref"] == "http://localhost:5000/api/literature/1"
+    assert validate([reference], subschema) is None
+
+    expected_control_number = 1
+    result_coontrol_number = match_reference_control_number(reference)
+
+    assert expected_control_number == result_coontrol_number
 
 
-def test_match_reference_control_number_ignores_hidden_collections(inspire_app):
+def test_match_reference_for_data_config(inspire_app):
+    """Test reference matcher for the JCAP and JHEP configuration"""
+
+    cited_record_json = {
+        "$schema": "http://localhost:5000/schemas/records/data.json",
+        "_collections": ["Data"],
+        "control_number": 1,
+        "dois": [{"value": "10.5281/zenodo.11020"}],
+    }
+
+    create_record("dat", cited_record_json)
+
+    reference = {
+        "reference": {
+            "dois": ["10.5281/zenodo.11020"],
+            "publication_info": {"year": 2007},
+        }
+    }
+
+    reference = match_reference(reference)
+
+    assert reference["record"]["$ref"] == "http://localhost:5000/api/data/1"
+
+    expected_control_number = 1
+    result_coontrol_number = match_reference_control_number(reference)
+
+    assert expected_control_number == result_coontrol_number
+
+
+def test_match_reference_on_texkey(inspire_app):
+    cited_record_json = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "control_number": 1,
+        "document_type": ["article"],
+        "texkeys": ["Giudice:2007fh"],
+        "titles": [{"title": "The Strongly-Interacting Light Higgs"}],
+    }
+    create_record("lit", cited_record_json)
+
+    reference = {"reference": {"texkey": "Giudice:2007fh"}}
+
+    schema = load_schema("hep")
+    subschema = schema["properties"]["references"]
+
+    assert validate([reference], subschema) is None
+    reference = match_reference(reference)
+
+    assert reference["record"]["$ref"] == "http://localhost:5000/api/literature/1"
+    assert validate([reference], subschema) is None
+
+    expected_control_number = 1
+    result_coontrol_number = match_reference_control_number(reference)
+
+    assert expected_control_number == result_coontrol_number
+
+
+def test_match_reference_on_texkey_has_lower_priority_than_pub_info(inspire_app):
+    cited_record_with_texkey_json = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "control_number": 1,
+        "document_type": ["article"],
+        "texkeys": ["MyTexKey:2008fh"],
+        "titles": [{"title": "The Strongly-Interacting Light Higgs"}],
+    }
+
+    create_record("lit", cited_record_with_texkey_json)
+
+    cited_record_with_pub_info_json = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "control_number": 2,
+        "document_type": ["article"],
+        "publication_info": [
+            {
+                "artid": "100",
+                "journal_title": "JHEP",
+                "journal_volume": "100",
+                "page_start": "100",
+                "year": 2020,
+            }
+        ],
+        "titles": [{"title": "The Strongly-Interacting Light Higgs"}],
+    }
+
+    create_record("lit", cited_record_with_pub_info_json)
+
+    reference = {
+        "reference": {
+            "texkey": "MyTexKey:2008fh",
+            "publication_info": {
+                "artid": "100",
+                "journal_title": "JHEP",
+                "journal_volume": "100",
+                "page_start": "100",
+                "year": 2020,
+            },
+        }
+    }
+
+    schema = load_schema("hep")
+    subschema = schema["properties"]["references"]
+
+    assert validate([reference], subschema) is None
+    reference = match_reference(reference)
+
+    assert reference["record"]["$ref"] == "http://localhost:5000/api/literature/2"
+    assert validate([reference], subschema) is None
+
+    expected_control_number = 2
+    result_coontrol_number = match_reference_control_number(reference)
+
+    assert expected_control_number == result_coontrol_number
+
+
+def test_match_reference_ignores_hidden_collections(inspire_app):
     cited_record_json = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["HAL Hidden"],
@@ -137,18 +219,19 @@ def test_match_reference_control_number_ignores_hidden_collections(inspire_app):
     }
 
     create_record("lit", cited_record_json)
+
     reference = {"reference": {"dois": ["10.1371/journal.pone.0188398"]}}
 
     schema = load_schema("hep")
     subschema = schema["properties"]["references"]
 
     assert validate([reference], subschema) is None
-    reference = match_reference_control_number(reference)
+    reference = match_reference(reference)
 
-    assert reference == None
+    assert "record" not in reference
 
 
-def test_match_reference_control_number_ignores_deleted(inspire_app):
+def test_match_reference_ignores_deleted(inspire_app):
     cited_record_json = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Literature"],
@@ -166,12 +249,12 @@ def test_match_reference_control_number_ignores_deleted(inspire_app):
     subschema = schema["properties"]["references"]
 
     assert validate([reference], subschema) is None
-    reference = match_reference_control_number(reference)
+    reference = match_reference(reference)
 
-    assert reference == None
+    assert "record" not in reference
 
 
-def test_match_reference_control_number_doesnt_touch_curated(inspire_app):
+def test_match_reference_doesnt_touch_curated(inspire_app):
     cited_record_json = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Literature"],
@@ -181,7 +264,6 @@ def test_match_reference_control_number_doesnt_touch_curated(inspire_app):
     }
 
     create_record("lit", cited_record_json)
-
     reference = {
         "curated_relation": True,
         "record": {"$ref": "http://localhost:5000/api/literature/42"},
@@ -192,5 +274,11 @@ def test_match_reference_control_number_doesnt_touch_curated(inspire_app):
     subschema = schema["properties"]["references"]
 
     assert validate([reference], subschema) is None
-    control_number = match_reference_control_number(reference)
-    assert control_number == None
+    reference = match_reference(reference)
+
+    assert reference["record"]["$ref"] == "http://localhost:5000/api/literature/42"
+
+    expected_control_number = 42
+    result_coontrol_number = match_reference_control_number(reference)
+
+    assert expected_control_number == result_coontrol_number

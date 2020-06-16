@@ -13,6 +13,7 @@ from flask import current_app, request
 from inspire_utils.record import get_value
 from invenio_search import current_search_client as es
 from invenio_search.api import DefaultFilter, RecordsSearch
+from requests.exceptions import RequestException
 
 from inspirehep.accounts.api import is_superuser_or_cataloger_logged_in
 from inspirehep.matcher.api import (
@@ -139,20 +140,32 @@ class LiteratureSearch(InspireSearch):
         :returns: Elasticsearch DSL search class
         """
         search_query = self.query_for_superuser_or_users(query_string)
-        search_results = search_query.execute()
-
-        if search_results.hits.total["value"] == 0 and request:
-            reference_match = self.match_reference_from_request_query()
-            if reference_match:
-                return self.query(Q("term", control_number=reference_match))
+        if current_app.config.get(
+            "FEATURE_FLAG_ENABLE_REFERENCE_MATCH_IN_LITERATURE_SEARCH"
+        ):
+            search_results = search_query.execute()
+            if search_results.hits.total["value"] == 0 and request:
+                query_string = request.values.get("q", "", type=str)
+                reference_match = self.match_reference(query_string)
+                if reference_match:
+                    return self.query(Q("term", control_number=reference_match))
         return search_query
 
-    def match_reference_from_request_query(self):
-        query_string = request.values.get("q", "", type=str)
+    def match_reference(self, query_string):
         if not query_string:
             return None
 
-        reference = get_reference_from_grobid(query_string)
+        try:
+            reference = get_reference_from_grobid(query_string)
+        except RequestException:
+            LOGGER.exception("GROBID request error", query_string=query_string)
+            return None
+        except Exception:
+            LOGGER.exception(
+                "Error processing reference from GROBID", query_string=query_string
+            )
+            return None
+
         if not reference:
             return None
 
@@ -366,14 +379,10 @@ class JournalsSearch(InspireSearch):
         doc_types = "_doc"
 
     def normalize_title(self, journal_title):
-        normalized_journal_title = journal_title
         hits = self.query("match", lowercase_journal_titles=journal_title).execute()
         if hits:
-            try:
-                normalized_journal_title = hits[0].short_title
-            except (AttributeError, IndexError):
-                LOGGER.info("Failed to normalize journal title in", result=hits[0])
-        return normalized_journal_title
+            return hits[0].short_title
+        return journal_title
 
 
 class SeminarsSearch(InspireSearch):

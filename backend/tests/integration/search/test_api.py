@@ -4,11 +4,14 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+
 import json
 import urllib
 
+import mock
 import pytest
 from helpers.utils import create_record, override_config
+from requests.exceptions import RequestException
 
 from inspirehep.search.api import AuthorsSearch, JournalsSearch, LiteratureSearch
 
@@ -36,6 +39,7 @@ def test_literature_get_records_by_pids_returns_correct_record(inspire_app):
 
 @pytest.mark.vcr()
 def test_return_record_for_publication_info_search_example_1(inspire_app):
+
     query = "Phys. Lett. B 704 (2011) 223"
 
     cited_record_json = {
@@ -66,7 +70,10 @@ def test_return_record_for_publication_info_search_example_1(inspire_app):
     expected_control_number = 1
 
     with inspire_app.test_client() as client:
-        response = client.get("api/literature", query_string={"q": query})
+        with override_config(
+            FEATURE_FLAG_ENABLE_REFERENCE_MATCH_IN_LITERATURE_SEARCH=True
+        ):
+            response = client.get("api/literature", query_string={"q": query})
 
     response_record = response.json
     response_record_control_number = response_record["hits"]["hits"][0]["metadata"][
@@ -79,6 +86,7 @@ def test_return_record_for_publication_info_search_example_1(inspire_app):
 
 @pytest.mark.vcr()
 def test_return_record_for_publication_info_search_example_2(inspire_app):
+
     query = "W. Buchmüller and O. Philipsen, Nucl. Phys. B 443 (1995) 47"
 
     cited_record_json = {
@@ -114,7 +122,10 @@ def test_return_record_for_publication_info_search_example_2(inspire_app):
     expected_control_number = 1
 
     with inspire_app.test_client() as client:
-        response = client.get("api/literature", query_string={"q": query})
+        with override_config(
+            FEATURE_FLAG_ENABLE_REFERENCE_MATCH_IN_LITERATURE_SEARCH=True
+        ):
+            response = client.get("api/literature", query_string={"q": query})
 
     response_record = response.json
     response_record_control_number = response_record["hits"]["hits"][0]["metadata"][
@@ -176,7 +187,10 @@ def test_return_record_for_publication_info_search_example_3(inspire_app):
     expected_control_number = 1
 
     with inspire_app.test_client() as client:
-        response = client.get("api/literature", query_string={"q": query})
+        with override_config(
+            FEATURE_FLAG_ENABLE_REFERENCE_MATCH_IN_LITERATURE_SEARCH=True
+        ):
+            response = client.get("api/literature", query_string={"q": query})
 
     response_record = response.json
     response_record_control_number = response_record["hits"]["hits"][0]["metadata"][
@@ -184,6 +198,27 @@ def test_return_record_for_publication_info_search_example_3(inspire_app):
     ]
 
     assert expected_control_number == response_record_control_number
+    assert 200 == response.status_code
+
+
+@mock.patch("inspirehep.search.api.get_reference_from_grobid")
+def test_reference_search_with_request_exception(
+    mock_get_reference_from_grobid, inspire_app
+):
+    query = "Phys. Lett. B 704 (2011) 223"
+    mock_get_reference_from_grobid.side_effect = RequestException()
+    with inspire_app.test_client() as client:
+        response = client.get("api/literature", query_string={"q": query})
+
+    assert 200 == response.status_code
+
+
+@mock.patch("inspirehep.search.api.get_reference_from_grobid")
+def test_reference_search_with_exception(mock_get_reference_from_grobid, inspire_app):
+    query = "Phys. Lett. B 704 (2011) 223"
+    mock_get_reference_from_grobid.side_effect = Exception()
+    with inspire_app.test_client() as client:
+        response = client.get("api/literature", query_string={"q": query})
     assert 200 == response.status_code
 
 
@@ -348,9 +383,12 @@ def test_citations_query_result(inspire_app):
 @pytest.mark.vcr()
 def test_big_query_execute_without_recursion_depth_exception(inspire_app):
     with inspire_app.test_client() as client:
-        response = client.get(
-            "api/literature", query_string={"q": "find a name" + " or a name" * 300}
-        )
+        with override_config(
+            FEATURE_FLAG_ENABLE_REFERENCE_MATCH_IN_LITERATURE_SEARCH=True
+        ):
+            response = client.get(
+                "api/literature", query_string={"q": "find a name" + " or a name" * 300}
+            )
     assert response.status_code == 200
 
 
