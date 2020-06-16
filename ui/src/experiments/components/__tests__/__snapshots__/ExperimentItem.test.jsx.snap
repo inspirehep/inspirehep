@@ -19,9 +19,9 @@ exports[`ExperimentItem renders with all props set 1`] = `
   }
   rightActions={
     <IncomingLiteratureReferencesLinkAction
-      displayedName="paper"
       itemCount={99}
       linkQuery="accelerator_experiments.record.$ref:1234"
+      referenceType="paper"
       trackerEventId="Experiments:PapersLink"
     />
   }
@@ -89,9 +89,9 @@ exports[`ExperimentItem renders with only needed props 1`] = `
   leftActions={<React.Fragment />}
   rightActions={
     <IncomingLiteratureReferencesLinkAction
-      displayedName="paper"
       itemCount={0}
       linkQuery="accelerator_experiments.record.$ref:1234"
+      referenceType="paper"
       trackerEventId="Experiments:PapersLink"
     />
   }
