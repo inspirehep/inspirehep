@@ -9,13 +9,15 @@
 
 version: '2.1'
 services:
-  kibana:
-    extends:
-      file: docker-compose.services.yml
-      service: kibana
   web:
+    build:
+      context: backend
+      dockerfile: Dockerfile_local
     volumes:
-      - ./backend/inspirehep:/opt/inspire/inspirehep
+      - ./backend:/opt/inspire
   worker:
+    build:
+      context: backend
+      dockerfile: Dockerfile_local
     volumes:
-      - ./backend/inspirehep:/opt/inspire/inspirehep
+      - ./backend:/opt/inspire
