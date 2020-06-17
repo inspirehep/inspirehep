@@ -1,4 +1,3 @@
-
 FROM node:lts-jessie as build-stage
 
 WORKDIR /usr/src/app

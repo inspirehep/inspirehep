@@ -1,7 +1,6 @@
 version: '2.1'
 
 services:
-
   e2e:
     image: alekzonder/puppeteer:1.8.0-0
     volumes:
@@ -11,3 +10,11 @@ services:
       - CI=${CI}
     depends_on:
       - ui
+  web:
+    build:
+      context: backend
+      dockerfile: Dockerfile_local
+  worker:
+    build:
+      context: backend
+      dockerfile: Dockerfile_local

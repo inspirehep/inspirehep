@@ -48,8 +48,10 @@ services:
       - .:/opt/inspire/ui
       - ${PWD}/ui/docker/nginx/config/local.conf:/etc/nginx/conf.d/default.conf
     depends_on:
-      - web
-      - web-next
+      web:
+        condition: service_started
+      web-next:
+        condition: service_started
   web:
     extends:
       file: docker-compose.services.yml
