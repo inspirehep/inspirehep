@@ -7,7 +7,6 @@ import { Row, Col } from 'antd';
 import ResultItem from '../../common/components/ResultItem';
 import IncomingLiteratureReferencesLinkAction from '../../common/components/IncomingLiteratureReferencesLinkAction';
 import { INSTITUTIONS } from '../../common/routes';
-import WebsitesAction from '../../common/components/WebsitesAction';
 import ListItemAction from '../../common/components/ListItemAction';
 import InstitutionHierarchyList from './InstitutionHierarchyList';
 import InstitutionAddressList from './InstitutionAddressList';
@@ -16,6 +15,7 @@ import AuthorizedContainer from '../../common/containers/AuthorizedContainer';
 import { SUPERUSER_OR_CATALOGER } from '../../common/authorization';
 import { INSTITUTIONS_PID_TYPE } from '../../common/constants';
 import { getPapersQueryString } from '../utils';
+import UrlsAction from '../../literature/components/UrlsAction';
 
 function InstitutionItem({ metadata }) {
   const legacyIcn = metadata.get('legacy_ICN');
@@ -29,7 +29,7 @@ function InstitutionItem({ metadata }) {
     <ResultItem
       leftActions={
         <>
-          {urls && <WebsitesAction websites={urls} />}
+          {urls && <UrlsAction urls={urls} />}
           <AuthorizedContainer authorizedRoles={SUPERUSER_OR_CATALOGER}>
             <EditRecordAction
               pidType={INSTITUTIONS_PID_TYPE}

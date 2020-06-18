@@ -8,14 +8,13 @@ import { Row, Col } from 'antd';
 import EditRecordAction from '../../common/components/EditRecordAction';
 import ResultItem from '../../common/components/ResultItem';
 import { SEMINARS } from '../../common/routes';
-import WebsitesAction from '../../common/components/WebsitesAction';
-import IconText from '../../common/components/IconText';
 import AuthorList from '../../common/components/AuthorList';
 import { doTimezonesHaveDifferentTimes } from '../../common/utils';
 import EventTitle from '../../common/components/EventTitle';
 import SeminarDateTimes from './SeminarDateTimes';
 import { LOCAL_TIMEZONE } from '../../common/constants';
 import ExportToCalendarAction from './ExportToCalendarAction/ExportToCalendarAction';
+import UrlsAction from '../../literature/components/UrlsAction';
 
 function SeminarItem({ metadata, selectedTimezone }) {
   const title = metadata.get('title');
@@ -33,11 +32,12 @@ function SeminarItem({ metadata, selectedTimezone }) {
     <ResultItem
       leftActions={
         <>
-          {urls && <WebsitesAction websites={urls} />}
+          {urls && <UrlsAction urls={urls} />}
           {joinUrls && (
-            <WebsitesAction
-              websites={joinUrls}
-              title={<IconText icon={<VideoCameraAddOutlined />} text="join" />}
+            <UrlsAction
+              urls={joinUrls}
+              icon={<VideoCameraAddOutlined />}
+              text="join"
             />
           )}
           <ExportToCalendarAction seminar={metadata} />

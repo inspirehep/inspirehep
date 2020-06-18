@@ -4,14 +4,10 @@ exports[`SeminarItem renders with all props set 1`] = `
 <ResultItem
   leftActions={
     <React.Fragment>
-      <WebsitesAction
-        title={
-          <IconText
-            icon={<ForwardRef(LinkOutlined) />}
-            text="website"
-          />
-        }
-        websites={
+      <UrlsAction
+        icon={<ForwardRef(LinkOutlined) />}
+        text="website"
+        urls={
           Immutable.List [
             Immutable.Map {
               "value": "http://url.com",
@@ -19,14 +15,10 @@ exports[`SeminarItem renders with all props set 1`] = `
           ]
         }
       />
-      <WebsitesAction
-        title={
-          <IconText
-            icon={<ForwardRef(VideoCameraAddOutlined) />}
-            text="join"
-          />
-        }
-        websites={
+      <UrlsAction
+        icon={<ForwardRef(VideoCameraAddOutlined) />}
+        text="join"
+        urls={
           Immutable.List [
             Immutable.Map {
               "value": "http://urljoin.com",

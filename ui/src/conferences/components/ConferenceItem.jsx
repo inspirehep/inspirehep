@@ -11,13 +11,13 @@ import { CONFERENCES, LITERATURE } from '../../common/routes';
 import ConferenceDates from './ConferenceDates';
 import AddressList from '../../common/components/AddressList';
 import InspireCategoryList from './InspireCategoryList';
-import WebsitesAction from '../../common/components/WebsitesAction';
 import ProceedingsAction from './ProceedingsAction';
 import pluralizeUnlessSingle from '../../common/utils';
 import IconText from '../../common/components/IconText';
 import ListItemAction from '../../common/components/ListItemAction';
 import { getContributionsQueryString } from '../utils';
 import EventTitle from '../../common/components/EventTitle';
+import UrlsAction from '../../literature/components/UrlsAction';
 
 class ConferenceItem extends Component {
   render() {
@@ -40,7 +40,7 @@ class ConferenceItem extends Component {
       <ResultItem
         leftActions={
           <>
-            {urls && <WebsitesAction websites={urls} />}
+            {urls && <UrlsAction urls={urls} />}
             {proceedings && <ProceedingsAction proceedings={proceedings} />}
             {canEdit && (
               <EditRecordAction pidType="conferences" pidValue={recordId} />

@@ -6,7 +6,7 @@ exports[`ExperimentItem renders with all props set 1`] = `
     <React.Fragment>
       <UrlsAction
         icon={<ForwardRef(LinkOutlined) />}
-        iconText="links"
+        text="links"
         urls={
           Immutable.List [
             Immutable.Map {

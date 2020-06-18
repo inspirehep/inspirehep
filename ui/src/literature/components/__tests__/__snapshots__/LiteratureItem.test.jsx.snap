@@ -146,7 +146,7 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
     <React.Fragment>
       <UrlsAction
         icon={<ForwardRef(FilePdfOutlined) />}
-        iconText="pdf"
+        text="pdf"
         trackerEventId="PdfDownload"
         urls={
           Immutable.List [
@@ -158,7 +158,7 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
       />
       <UrlsAction
         icon={<ForwardRef(LinkOutlined) />}
-        iconText="links"
+        text="links"
         trackerEventId="LiteratureFileLink"
         urls={
           Immutable.List [
