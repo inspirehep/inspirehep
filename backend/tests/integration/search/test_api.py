@@ -38,6 +38,52 @@ def test_literature_get_records_by_pids_returns_correct_record(inspire_app):
 
 
 @pytest.mark.vcr()
+def test_return_record_for_publication_info_search_with_journal_title_without_dots(
+    inspire_app
+):
+
+    query = "Phys. Lett. B 704 (2011) 223"
+
+    cited_record_json = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "control_number": 1,
+        "document_type": ["article"],
+        "publication_info": [
+            {
+                "journal_title": "Phys.Lett.B",
+                "journal_volume": "704",
+                "page_start": "223",
+                "year": 2011,
+            }
+        ],
+        "titles": [{"title": "The Strongly-Interacting Light Higgs"}],
+    }
+
+    create_record(
+        "jou",
+        data={"short_title": "Phys.Lett.B", "journal_title": {"title": "Phys Lett B"}},
+    )
+    create_record("lit", cited_record_json)
+
+    expected_control_number = 1
+
+    with inspire_app.test_client() as client:
+        with override_config(
+            FEATURE_FLAG_ENABLE_REFERENCE_MATCH_IN_LITERATURE_SEARCH=True
+        ):
+            response = client.get("api/literature", query_string={"q": query})
+
+    response_record = response.json
+    response_record_control_number = response_record["hits"]["hits"][0]["metadata"][
+        "control_number"
+    ]
+
+    assert expected_control_number == response_record_control_number
+    assert 200 == response.status_code
+
+
+@pytest.mark.vcr()
 def test_return_record_for_publication_info_search_example_1(inspire_app):
 
     query = "Phys. Lett. B 704 (2011) 223"
@@ -605,6 +651,18 @@ def test_journal_title_normalization(inspire_app):
     )
     journal_title = "Physical Review Accelerators and Beams"
     expected_journal_title = "Phys.Rev.Accel.Beams"
+    result_journal_title = JournalsSearch().normalize_title(journal_title)
+
+    assert expected_journal_title == result_journal_title
+
+
+def test_journal_title_normalization_with_multiple_spaces(inspire_app):
+    create_record(
+        "jou",
+        data={"journal_title": {"title": "Nucl Phys B"}, "short_title": "Nucl.Phys.B"},
+    )
+    journal_title = "Nucl.    Phys.    B"
+    expected_journal_title = "Nucl.Phys.B"
     result_journal_title = JournalsSearch().normalize_title(journal_title)
 
     assert expected_journal_title == result_journal_title
