@@ -13,7 +13,7 @@ exports[`LiteratureItem does not arxiv pdf download action if there is no eprint
     <React.Fragment>
       <IncomingLiteratureReferencesLinkAction
         itemCount={0}
-        recordId={12345}
+        linkQuery="refersto:recid:12345"
         referenceType="citation"
         trackerEventId="Citations:Search"
       />
@@ -83,7 +83,7 @@ exports[`LiteratureItem renders 0 citations if it does not exist 1`] = `
     <React.Fragment>
       <IncomingLiteratureReferencesLinkAction
         itemCount={0}
-        recordId={12345}
+        linkQuery="refersto:recid:12345"
         referenceType="citation"
         trackerEventId="Citations:Search"
       />
@@ -177,7 +177,7 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
     <React.Fragment>
       <IncomingLiteratureReferencesLinkAction
         itemCount={12435}
-        recordId={12345}
+        linkQuery="refersto:recid:12345"
         referenceType="citation"
         trackerEventId="Citations:Search"
       />

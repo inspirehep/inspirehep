@@ -43,6 +43,7 @@ import SupervisorList from '../../components/SupervisorList';
 import withRouteActionsDispatcher from '../../../common/withRouteActionsDispatcher';
 import LiteratureDocumentHead from '../../components/LiteratureDocumentHead';
 import IncomingLiteratureReferencesLinkAction from '../../../common/components/IncomingLiteratureReferencesLinkAction';
+import { getPapersQueryString } from '../../utils';
 
 function DetailPage({ authors, record, referencesCount, supervisors }) {
   const metadata = record.get('metadata');
@@ -123,7 +124,7 @@ function DetailPage({ authors, record, referencesCount, supervisors }) {
                   <>
                     {citationCount != null && (
                       <IncomingLiteratureReferencesLinkAction
-                        recordId={controlNumber}
+                        linkQuery={getPapersQueryString(controlNumber)}
                         referenceType="citation"
                         itemCount={citationCount}
                         trackerEventId="Citations:Detail"

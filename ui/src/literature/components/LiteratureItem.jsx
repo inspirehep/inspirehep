@@ -18,6 +18,7 @@ import ResponsiveView from '../../common/components/ResponsiveView';
 import CiteModalActionContainer from '../containers/CiteModalActionContainer';
 import IncomingLiteratureReferencesLinkAction from '../../common/components/IncomingLiteratureReferencesLinkAction';
 import ConferenceInfoList from './ConferenceInfoList';
+import { getPapersQueryString } from '../utils';
 import {
   InlineUL,
   SEPARATOR_MIDDLEDOT,
@@ -76,7 +77,7 @@ class LiteratureItem extends Component {
           <Fragment>
             {citationCount != null && (
               <IncomingLiteratureReferencesLinkAction
-                recordId={recordId}
+                linkQuery={getPapersQueryString(recordId)}
                 referenceType="citation"
                 itemCount={citationCount}
                 trackerEventId="Citations:Search"
