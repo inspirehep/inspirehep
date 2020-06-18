@@ -80,11 +80,6 @@ def create_jobs(inspire_app, shared_datadir):
     current_search.flush_and_refresh("records-jobs")
 
 
-@pytest.fixture(scope="module")
-def vcr_config():
-    return {"filter_query_parameters": ["access_token"], "ignore_localhost": True}
-
-
 @pytest.fixture(autouse=True, scope="function")
 def assert_all_played(request, vcr_cassette):
     """

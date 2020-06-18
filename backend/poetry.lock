@@ -1364,6 +1364,29 @@ tests = ["decorator (>=4.1.2,<5.0)", "flake8-future-import (>=0.4.3,<1.0)", "moc
 
 [[package]]
 category = "main"
+description = "Find the records in INSPIRE most similar to a given record or reference."
+name = "inspire-matcher"
+optional = false
+python-versions = "*"
+version = "9.0.2"
+
+[package.dependencies]
+Flask = ">=0.12.2"
+Werkzeug = ">=0.12.2,<1.0"
+inspire-json-merger = ">=11.0.0,<12.0"
+inspire-utils = ">=3.0.0,<4.0"
+invenio-search = ">=1.0.0a10"
+six = ">=1.11.0,<2.0"
+
+[package.extras]
+all = ["flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pytest-cov (>=2.5.1,<3.0)", "pytest (>=3.6.0,<4.0)", "unicode-string-literal (>=1.1,<2.0)", "flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pytest-cov (>=2.5.1,<3.0)", "pytest (>=3.6.0,<4.0)", "unicode-string-literal (>=1.1,<2.0)"]
+elasticsearch2 = ["elasticsearch-dsl (>=2.2.0,<3.0)", "elasticsearch (>=2.4.1,<3.0)"]
+elasticsearch5 = ["elasticsearch-dsl (>=5.0,<6.0)", "elasticsearch (>=5.0,<6.0)"]
+elasticsearch7 = ["elasticsearch-dsl (>=7.0,<8.0)", "elasticsearch (>=7.0,<8.0)"]
+tests = ["flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pytest-cov (>=2.5.1,<3.0)", "pytest (>=3.6.0,<4.0)", "unicode-string-literal (>=1.1,<2.0)"]
+
+[[package]]
+category = "main"
 description = "A PEG-based query parser for INSPIRE."
 name = "inspire-query-parser"
 optional = false
@@ -3920,7 +3943,7 @@ test = ["pytest (>=2.2.3)", "flexmock (>=0.9.7)", "WTForms-Test (>=0.1.1)", "fla
 timezone = ["python-dateutil"]
 
 [[package]]
-category = "dev"
+category = "main"
 description = "Makes working with XML feel like you are working with JSON"
 name = "xmltodict"
 optional = false
@@ -3972,7 +3995,7 @@ test = ["zope.event"]
 testing = ["coverage", "nose", "zope.event"]
 
 [metadata]
-content-hash = "d79d2dfe33d9470156669bd7cabd1ce7d32dbb1e78f05f5ebb04fdfdf3e67659"
+content-hash = "9d2c0d98c333febc881c010934ac6bbf04cf5c35473db15d755c0cea3944d5e0"
 python-versions = ">=3.6,<3.8"
 
 [metadata.files]
@@ -4472,6 +4495,9 @@ inspire-dojson = [
 ]
 inspire-json-merger = [
     {file = "inspire-json-merger-11.0.2.tar.gz", hash = "sha256:e016a713ac165655c958fa64caa81e46bb044b05cb6b2bf45c95c586a5b26288"},
+]
+inspire-matcher = [
+    {file = "inspire-matcher-9.0.2.tar.gz", hash = "sha256:8458397d14baf59a5488b8cf010f1af291c98910c8bc64f69a6f99ab3e431e6d"},
 ]
 inspire-query-parser = [
     {file = "inspire-query-parser-6.0.26.tar.gz", hash = "sha256:281a6ab687948bba58ead6308c86408a144b500de19b8f58b76c252a65e7ac52"},

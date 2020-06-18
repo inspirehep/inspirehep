@@ -1,0 +1,38 @@
+interactions:
+- request:
+    body: citations=%5B27%5D+K.+P.+Das+and+R.+C.+Hwa%2C+Phys.+Lett.+B+68%2C+459+%281977%29%3B
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '83'
+      Content-Type:
+      - application/x-www-form-urlencoded
+    method: POST
+    uri: https://grobid.inspirebeta.net/api/processCitation
+  response:
+    body:
+      string: "<biblStruct >\n\t<analytic>\n\t\t<title/>\n\t\t<author>\n\t\t\t<persName\
+        \ xmlns=\"http://www.tei-c.org/ns/1.0\"><forename type=\"first\">K</forename><forename\
+        \ type=\"middle\">P</forename><surname>Das</surname></persName>\n\t\t</author>\n\
+        \t\t<author>\n\t\t\t<persName xmlns=\"http://www.tei-c.org/ns/1.0\"><forename\
+        \ type=\"first\">R</forename><forename type=\"middle\">C</forename><surname>Hwa</surname></persName>\n\
+        \t\t</author>\n\t</analytic>\n\t<monogr>\n\t\t<title level=\"j\">Phys. Lett.\
+        \ B</title>\n\t\t<imprint>\n\t\t\t<biblScope unit=\"volume\">68</biblScope>\n\
+        \t\t\t<biblScope unit=\"page\">459</biblScope>\n\t\t\t<date type=\"published\"\
+        \ when=\"1977\" />\n\t\t</imprint>\n\t</monogr>\n</biblStruct>\n"
+    headers:
+      Content-Length:
+      - '631'
+      Content-Type:
+      - application/xml; charset=UTF-8
+      Date:
+      - Tue, 09 Jun 2020 13:10:35 GMT
+    status:
+      code: 200
+      message: OK
+version: 1
