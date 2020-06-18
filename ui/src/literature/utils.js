@@ -9,3 +9,7 @@ export function getPageDisplay(pagesInfo) {
 
   return null;
 }
+
+export function getPapersQueryString(recordId) {
+  return `refersto:recid:${recordId}`;
+}
