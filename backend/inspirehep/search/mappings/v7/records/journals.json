@@ -133,8 +133,8 @@
         "type": "object"
       },
       "lowercase_journal_titles": {
-        "analyzer": "lowercase_analyzer",
-        "type": "text"
+        "normalizer": "journal_title_normalizer",
+        "type": "keyword"
       },
       "new_recid": {
         "type": "integer"
@@ -247,6 +247,26 @@
           "type": "custom",
           "char_filter": [],
           "filter": ["lowercase"]
+        },
+        "journal_title_normalizer": {
+          "type": "custom",
+          "char_filter": [
+            "journal_title_punctuation",
+            "whitespace_normalization"
+          ],
+          "filter": ["lowercase"]
+        }
+      },
+      "char_filter": {
+        "journal_title_punctuation": {
+          "pattern": "[\\.,;'\\(\\)-]",
+          "replacement": " ",
+          "type": "pattern_replace"
+        },
+        "whitespace_normalization": {
+          "pattern": "\\s+",
+          "replacement": " ",
+          "type": "pattern_replace"
         }
       },
       "tokenizer": {
