@@ -11,9 +11,7 @@ import ContentBox from '../../common/components/ContentBox';
 import EditRecordAction from '../../common/components/EditRecordAction';
 import DeletedAlert from '../../common/components/DeletedAlert';
 import withRouteActionsDispatcher from '../../common/withRouteActionsDispatcher';
-import WebsitesAction from '../../common/components/WebsitesAction';
 import AuthorList from '../../common/components/AuthorList';
-import IconText from '../../common/components/IconText';
 import Address from '../../common/components/Address';
 import InspireCategoryList from '../../conferences/components/InspireCategoryList';
 import Abstract from '../../literature/components/Abstract';
@@ -29,6 +27,7 @@ import EventTitle from '../../common/components/EventTitle';
 import SeminarDateTimes from '../components/SeminarDateTimes';
 import { LOCAL_TIMEZONE, SEMINARS_PID_TYPE } from '../../common/constants';
 import ExportToCalendarAction from '../components/ExportToCalendarAction/ExportToCalendarAction';
+import UrlsAction from '../../literature/components/UrlsAction';
 
 function DetailPage({ record }) {
   const metadata = record.get('metadata');
@@ -64,13 +63,12 @@ function DetailPage({ record }) {
             className="sm-pb3"
             leftActions={
               <>
-                {urls && <WebsitesAction websites={urls} />}
+                {urls && <UrlsAction urls={urls} />}
                 {joinUrls && (
-                  <WebsitesAction
-                    websites={joinUrls}
-                    title={
-                      <IconText icon={<VideoCameraAddOutlined />} text="join" />
-                    }
+                  <UrlsAction
+                    urls={joinUrls}
+                    icon={<VideoCameraAddOutlined />}
+                    text="join"
                   />
                 )}
                 <ExportToCalendarAction seminar={metadata} />

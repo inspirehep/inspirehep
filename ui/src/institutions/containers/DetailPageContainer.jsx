@@ -6,7 +6,6 @@ import { Row, Col } from 'antd';
 
 import withRouteActionsDispatcher from '../../common/withRouteActionsDispatcher';
 import fetchInstitution from '../../actions/institutions';
-import WebsitesAction from '../../common/components/WebsitesAction';
 import ContentBox from '../../common/components/ContentBox';
 import DocumentHead from '../../common/components/DocumentHead';
 import InstitutionHierarchyList from '../components/InstitutionHierarchyList';
@@ -27,6 +26,7 @@ import { SUPERUSER_OR_CATALOGER } from '../../common/authorization';
 import { INSTITUTIONS_PID_TYPE } from '../../common/constants';
 import EditRecordAction from '../../common/components/EditRecordAction';
 import RelatedRecordsList from '../../common/components/RelatedRecordsList';
+import UrlsAction from '../../literature/components/UrlsAction';
 
 function DetailPage({ record }) {
   const metadata = record.get('metadata');
@@ -58,7 +58,7 @@ function DetailPage({ record }) {
             className="sm-pb3"
             leftActions={
               <>
-                {urls && <WebsitesAction websites={urls} />}
+                {urls && <UrlsAction urls={urls} />}
                 <AuthorizedContainer authorizedRoles={SUPERUSER_OR_CATALOGER}>
                   <EditRecordAction
                     pidType={INSTITUTIONS_PID_TYPE}

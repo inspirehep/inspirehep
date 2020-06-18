@@ -15,7 +15,6 @@ import PublicNotesList from '../../common/components/PublicNotesList';
 import KeywordList from '../../common/components/KeywordList';
 import EditRecordAction from '../../common/components/EditRecordAction';
 import ProceedingsAction from '../components/ProceedingsAction';
-import ConferenceWebsitesAction from '../../common/components/WebsitesAction';
 import AddressList from '../../common/components/AddressList';
 import ConferenceContributions from '../components/ConferenceContributions';
 import { newSearch } from '../../actions/search';
@@ -25,6 +24,7 @@ import { makeCompliantMetaDescription } from '../../common/utils';
 import withRouteActionsDispatcher from '../../common/withRouteActionsDispatcher';
 import EventTitle from '../../common/components/EventTitle';
 import { CONFERENCES_PID_TYPE } from '../../common/constants';
+import UrlsAction from '../../literature/components/UrlsAction';
 
 function DetailPage({ record }) {
   const metadata = record.get('metadata');
@@ -57,7 +57,7 @@ function DetailPage({ record }) {
             className="sm-pb3"
             leftActions={
               <>
-                {urls && <ConferenceWebsitesAction websites={urls} />}
+                {urls && <UrlsAction urls={urls} />}
                 {proceedings && <ProceedingsAction proceedings={proceedings} />}
                 {canEdit && (
                   <EditRecordAction

@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { Map, List } from 'immutable';
 import { Row, Col } from 'antd';
 
-import { LinkOutlined } from '@ant-design/icons';
 import ResultItem from '../../common/components/ResultItem';
 import IncomingLiteratureReferencesLinkAction from '../../common/components/IncomingLiteratureReferencesLinkAction';
 import { EXPERIMENTS } from '../../common/routes';
@@ -25,13 +24,7 @@ function ExperimentItem({ metadata }) {
 
   return (
     <ResultItem
-      leftActions={
-        <>
-          {urls && (
-            <UrlsAction urls={urls} iconText="links" icon={<LinkOutlined />} />
-          )}
-        </>
-      }
+      leftActions={<>{urls && <UrlsAction urls={urls} text="links" />}</>}
       rightActions={
         <IncomingLiteratureReferencesLinkAction
           itemCount={papersCount}

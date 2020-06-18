@@ -4,14 +4,10 @@ exports[`InstitutionItem renders with all props set 1`] = `
 <ResultItem
   leftActions={
     <React.Fragment>
-      <WebsitesAction
-        title={
-          <IconText
-            icon={<ForwardRef(LinkOutlined) />}
-            text="website"
-          />
-        }
-        websites={
+      <UrlsAction
+        icon={<ForwardRef(LinkOutlined) />}
+        text="website"
+        urls={
           Immutable.List [
             Immutable.Map {
               "value": "http://url.com",

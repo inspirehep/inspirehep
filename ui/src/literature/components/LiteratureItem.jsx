@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
-import { FilePdfOutlined, LinkOutlined } from '@ant-design/icons';
+import { FilePdfOutlined } from '@ant-design/icons';
 
 import ArxivEprintList from './ArxivEprintList';
 import LiteratureDate from './LiteratureDate';
@@ -54,15 +54,14 @@ class LiteratureItem extends Component {
               <UrlsAction
                 urls={fullTextLinks}
                 icon={<FilePdfOutlined />}
-                iconText="pdf"
+                text="pdf"
                 trackerEventId="PdfDownload"
               />
             )}
             {urls && (
               <UrlsAction
                 urls={urls}
-                iconText="links"
-                icon={<LinkOutlined />}
+                text="links"
                 trackerEventId="LiteratureFileLink"
               />
             )}

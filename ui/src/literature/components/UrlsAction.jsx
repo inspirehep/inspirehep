@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import { List } from 'immutable';
 import PropTypes from 'prop-types';
 import { Menu } from 'antd';
+import { LinkOutlined } from '@ant-design/icons';
 
 import IconText from '../../common/components/IconText';
 import ExternalLink from '../../common/components/ExternalLink';
@@ -16,7 +17,7 @@ function linkToHrefDisplayPair(link) {
   return [href, display];
 }
 
-function UrlsAction({ urls, iconText, icon, trackerEventId }) {
+function UrlsAction({ urls, text, icon, trackerEventId }) {
   const renderUrlsAction = useCallback(
     (url, title) => (
       <EventTracker eventId={trackerEventId}>
@@ -40,7 +41,7 @@ function UrlsAction({ urls, iconText, icon, trackerEventId }) {
     [trackerEventId]
   );
 
-  const ACTION_TITLE = <IconText text={iconText} icon={icon} />;
+  const ACTION_TITLE = <IconText icon={icon} text={text} />;
 
   return (
     <ActionsDropdownOrAction
@@ -54,9 +55,14 @@ function UrlsAction({ urls, iconText, icon, trackerEventId }) {
 
 UrlsAction.propTypes = {
   urls: PropTypes.instanceOf(List).isRequired,
-  iconText: PropTypes.string.isRequired,
-  icon: PropTypes.node.isRequired,
-  trackerEventId: PropTypes.string.isRequired,
+  text: PropTypes.string,
+  icon: PropTypes.node,
+  trackerEventId: PropTypes.string,
+};
+
+UrlsAction.defaultProps = {
+  text: 'website',
+  icon: <LinkOutlined />,
 };
 
 export default UrlsAction;

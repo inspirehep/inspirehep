@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 import { Row, Col } from 'antd';
 
-import { LinkOutlined } from '@ant-design/icons';
 import fetchExperiment from '../../actions/experiments';
 import withRouteActionsDispatcher from '../../common/withRouteActionsDispatcher';
 import ContentBox from '../../common/components/ContentBox';
@@ -60,17 +59,7 @@ function DetailPage({ record }) {
         <Col className="mv3" xs={24} md={22} lg={21} xxl={18}>
           <ContentBox
             className="sm-pb3"
-            leftActions={
-              <>
-                {urls && (
-                  <UrlsAction
-                    urls={urls}
-                    iconText="links"
-                    icon={<LinkOutlined />}
-                  />
-                )}
-              </>
-            }
+            leftActions={urls && <UrlsAction urls={urls} text="links" />}
           >
             <Row>
               <Col span={24}>{deleted && <DeletedAlert />}</Col>

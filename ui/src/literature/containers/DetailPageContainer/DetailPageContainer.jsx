@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Row, Col, Tabs } from 'antd';
 import { Map, List } from 'immutable';
 import classNames from 'classnames';
-import { LinkOutlined, FilePdfOutlined } from '@ant-design/icons';
+import { FilePdfOutlined } from '@ant-design/icons';
 
 import './DetailPage.scss';
 import {
@@ -98,7 +98,7 @@ function DetailPage({ authors, record, referencesCount, supervisors }) {
                     {fullTextLinks && (
                       <UrlsAction
                         urls={fullTextLinks}
-                        iconText="pdf"
+                        text="pdf"
                         icon={<FilePdfOutlined />}
                         trackerEventId="PdfDownload"
                       />
@@ -106,8 +106,7 @@ function DetailPage({ authors, record, referencesCount, supervisors }) {
                     {urls && (
                       <UrlsAction
                         urls={urls}
-                        iconText="links"
-                        icon={<LinkOutlined />}
+                        text="links"
                         trackerEventId="LiteratureFileLink"
                       />
                     )}

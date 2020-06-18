@@ -18,7 +18,7 @@ describe('UrlsAction', () => {
       <UrlsAction
         urls={links}
         icon={<DownloadOutlined />}
-        iconText="download"
+        text="download"
         trackerEventId="PdfDownload"
       />
     );
@@ -35,7 +35,7 @@ describe('UrlsAction', () => {
     const wrapper = shallow(
       <UrlsAction
         urls={links}
-        iconText="pdf"
+        text="pdf"
         icon={<DownloadOutlined />}
         trackerEventId="PdfDownload"
       />
