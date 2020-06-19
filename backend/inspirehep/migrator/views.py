@@ -14,13 +14,9 @@ from inspirehep.accounts.roles import Roles
 
 from .marshmallow.error import ErrorList
 from .models import LegacyRecordsMirror
-from .utils import REAL_COLLECTIONS
+from .utils import get_collections_for_errors
 
 blueprint = Blueprint("inspire_migrator", __name__, url_prefix="/migrator")
-
-NON_DELETED_COLLECTIONS = [
-    collection for collection in REAL_COLLECTIONS if collection != "DELETED"
-]
 
 
 class MigratorErrorListResource(MethodView):
@@ -31,10 +27,11 @@ class MigratorErrorListResource(MethodView):
     ]
 
     def get(self):
+        collections = get_collections_for_errors()
         errors = (
             LegacyRecordsMirror.query.filter(
                 LegacyRecordsMirror.valid.is_(False),
-                LegacyRecordsMirror.collection.in_(NON_DELETED_COLLECTIONS),
+                LegacyRecordsMirror.collection.in_(collections),
             )
             .order_by(LegacyRecordsMirror.last_updated.desc())
             .all()
