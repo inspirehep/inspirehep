@@ -456,7 +456,7 @@ def migrate_record_from_mirror(
         pid_type = PidStoreBase.get_pid_type_from_schema(json_record.get("$schema"))
         if pid_type in current_app.config.get("MIGRATION_PID_TYPE_BLACKLIST"):
             prod_record.error = Exception(
-                f"Record: ${prod_record.recid} has blacklisted pid_type: ${pid_type} is blacklisted"
+                f"Record: {prod_record.recid} has blacklisted pid_type: {pid_type} is blacklisted"
             )
             db.session.merge(prod_record)
             return
