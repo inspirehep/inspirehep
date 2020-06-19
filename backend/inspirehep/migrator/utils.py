@@ -19,7 +19,7 @@ from redis import StrictRedis
 LOGGER = structlog.getLogger()
 
 
-REAL_COLLECTIONS = (
+REAL_COLLECTIONS = {
     "INSTITUTION",
     "EXPERIMENT",
     "JOURNALS",
@@ -30,7 +30,17 @@ REAL_COLLECTIONS = (
     "JOBHIDDEN",
     "CONFERENCES",
     "DATA",
-)
+}
+PID_TO_COLLECTIONS = {
+    "ins": ("INSTITUTION",),
+    "exp": ("EXPERIMENT",),
+    "jou": ("JOURNALS", "JOURNALSNEW"),
+    "aut": ("HEPNAMES",),
+    "lit": ("HEP",),
+    "job": ("JOB", "JOBHIDDEN"),
+    "con": ("CONFERENCES",),
+    "dat": ("DATA",),
+}
 
 
 def get_collection(marc_record):
@@ -50,6 +60,15 @@ def get_collection(marc_record):
 def get_collection_from_marcxml(marcxml):
     marc_record = create_record(marcxml, keep_singletons=False)
     return get_collection(marc_record)
+
+
+def get_collections_for_errors():
+    return REAL_COLLECTIONS.difference(
+        *[
+            PID_TO_COLLECTIONS[pid]
+            for pid in current_app.config["MIGRATION_PID_TYPE_BLACKLIST"]
+        ]
+    )
 
 
 def ensure_valid_schema(record):
