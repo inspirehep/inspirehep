@@ -36,6 +36,9 @@ export function getState() {
     jobs: initialState,
     conferences: initialState,
     bibliographyGenerator,
+    seminars: initialState,
+    institutions: initialState,
+    experiments: initialState,
   };
 }
 

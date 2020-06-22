@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Institutions renders initial state 1`] = `
+<div
+  className="w-100"
+>
+  <Route
+    component={[Function]}
+    exact={true}
+    path="/institutions"
+  />
+  <Route
+    component={[Function]}
+    exact={true}
+    path="/institutions/:id"
+  />
+</div>
+`;
