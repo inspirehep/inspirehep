@@ -27,6 +27,7 @@ def test_grobid_with_match(inspire_app):
             "publication_info": {
                 "journal_title": "Phys. Lett. B",
                 "journal_volume": "68",
+                "page_start": "459",
                 "year": 1977,
             }
         }
