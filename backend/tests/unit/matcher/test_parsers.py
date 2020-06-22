@@ -101,6 +101,7 @@ def test_grobid_to_reference_doesnt_return_empty_values():
                 "and D3/D(-1)-brane "
                 "System in R-R Background",
                 "year": 2010,
+                "page_start": "93",
             },
         }
     }
@@ -141,6 +142,54 @@ def test_grobid_to_reference_with_report_number():
     schema = load_schema("hep")
     subschema = schema["properties"]["references"]
 
+    assert validate([result], subschema) is None
+    assert expected == result
+
+
+def test_grobid_with_only_one_page_instead_of_page_range():
+    # Phys. Lett. B 704 (2011) 223
+    xml = """
+<biblStruct >
+    <analytic>
+        <title/>
+        <author>
+            <persName xmlns="http://www.tei-c.org/ns/1.0">
+                <forename type="first">K</forename>
+                <forename type="middle">P</forename>
+                <surname>Das</surname>
+            </persName>
+        </author>
+        <author>
+            <persName xmlns="http://www.tei-c.org/ns/1.0">
+                <forename type="first">R</forename>
+                <forename type="middle">C</forename>
+                <surname>Hwa</surname>
+            </persName>
+        </author>
+    </analytic>
+    <monogr>
+        <title level="j">Phys. Lett. B</title>
+        <imprint>
+            <biblScope unit="volume">68</biblScope>
+            <biblScope unit="page">459</biblScope>
+            <date type="published" when="1977" />
+        </imprint>
+    </monogr>
+</biblStruct>
+"""
+    result = GrobidReferenceParser(xml).parse()
+    expected = {
+        "reference": {
+            "publication_info": {
+                "journal_volume": "68",
+                "journal_title": "Phys. Lett. B",
+                "page_start": "459",
+                "year": 1977,
+            }
+        }
+    }
+    schema = load_schema("hep")
+    subschema = schema["properties"]["references"]
     assert validate([result], subschema) is None
     assert expected == result
 

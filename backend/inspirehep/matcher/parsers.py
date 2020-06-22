@@ -69,7 +69,7 @@ class GrobidReferenceParser:
     @property
     def page_start(self):
         return self.root.xpath(
-            "/biblStruct/monogr/imprint/biblScope[@unit='page']/@from"
+            "(/biblStruct/monogr/imprint/biblScope[@unit='page']/@from | /biblStruct/monogr/imprint/biblScope[@unit='page']/text())"
         ).get()
 
     @property
