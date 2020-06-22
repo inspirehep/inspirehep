@@ -119,19 +119,6 @@ REFERENCE_MATCHER_DEFAULT_PUBLICATION_INFO_CONFIG = {
                     ],
                     "type": "nested",
                 },
-                {
-                    "paths": [
-                        "reference.publication_info.journal_title",
-                        "reference.publication_info.journal_volume",
-                        "reference.publication_info.year",
-                    ],
-                    "search_paths": [
-                        "publication_info.journal_title.raw",
-                        "publication_info.journal_volume",
-                        "publication_info.year",
-                    ],
-                    "type": "nested",
-                },
             ]
         }
     ],

@@ -131,6 +131,72 @@ def test_return_record_for_publication_info_search_example_1(inspire_app):
 
 
 @pytest.mark.vcr()
+def test_return_record_for_publication_info_search_with_multiple_records_with_the_same_journal_title(
+    inspire_app
+):
+
+    query = "Phys. Lett. B 704 (2011) 223"
+
+    cited_record_json = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "control_number": 1,
+        "document_type": ["article"],
+        "publication_info": [
+            {
+                "journal_title": "Phys.Lett.B",
+                "journal_volume": "704",
+                "page_start": "223",
+                "year": 2011,
+            }
+        ],
+        "titles": [{"title": "The Strongly-Interacting Light Higgs"}],
+    }
+
+    cited_record_2_json = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "control_number": 2,
+        "document_type": ["article"],
+        "publication_info": [
+            {
+                "journal_title": "Phys.Lett.B",
+                "journal_volume": "704",
+                "page_start": "666",
+                "year": 2011,
+            }
+        ],
+        "titles": [{"title": "The Strongly-Interacting Light Higgs"}],
+    }
+
+    create_record(
+        "jou",
+        data={
+            "short_title": "Phys.Lett.B",
+            "journal_title": {"title": "Phys. Lett. B"},
+        },
+    )
+    create_record("lit", cited_record_json)
+    create_record("lit", cited_record_2_json)
+
+    expected_control_number = 1
+
+    with inspire_app.test_client() as client:
+        with override_config(
+            FEATURE_FLAG_ENABLE_REFERENCE_MATCH_IN_LITERATURE_SEARCH=True
+        ):
+            response = client.get("api/literature", query_string={"q": query})
+
+    response_record = response.json
+    response_record_control_number = response_record["hits"]["hits"][0]["metadata"][
+        "control_number"
+    ]
+
+    assert expected_control_number == response_record_control_number
+    assert 200 == response.status_code
+
+
+@pytest.mark.vcr()
 def test_return_record_for_publication_info_search_example_2(inspire_app):
 
     query = "W. Buchmüller and O. Philipsen, Nucl. Phys. B 443 (1995) 47"
