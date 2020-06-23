@@ -124,6 +124,15 @@ class LiteratureSearch(InspireSearch):
         doc_types = "_doc"
         default_filter = DefaultFilter(Q())
 
+    def execute(self, *args, **kwargs):
+        results = super().execute(*args, **kwargs)
+        if not results.hits and request:
+            query_string = request.values.get("q", "", type=str)
+            reference_match = self.match_reference(query_string)
+            if reference_match:
+                return reference_match
+        return results
+
     def query_for_superuser_or_users(self, query_string):
         if not is_superuser_or_cataloger_logged_in():
             user_query = Q(
@@ -139,17 +148,7 @@ class LiteratureSearch(InspireSearch):
         :type query_string: string
         :returns: Elasticsearch DSL search class
         """
-        search_query = self.query_for_superuser_or_users(query_string)
-        if current_app.config.get(
-            "FEATURE_FLAG_ENABLE_REFERENCE_MATCH_IN_LITERATURE_SEARCH"
-        ):
-            search_results = search_query.execute()
-            if search_results.hits.total["value"] == 0 and request:
-                query_string = request.values.get("q", "", type=str)
-                reference_match = self.match_reference(query_string)
-                if reference_match:
-                    return self.query(Q("term", control_number=reference_match))
-        return search_query
+        return self.query_for_superuser_or_users(query_string)
 
     def match_reference(self, query_string):
         if not query_string:
@@ -177,7 +176,15 @@ class LiteratureSearch(InspireSearch):
         except KeyError:
             pass
 
-        return match_reference_control_number(reference)
+        reference_match_control_number = match_reference_control_number(reference)
+        if reference_match_control_number:
+            return (
+                InspireSearch()
+                .params(version=True)
+                .query("term", control_number=reference_match_control_number)
+                .execute()
+            )
+        return None
 
     def source_for_content_type(self, content_type):
         includes = current_app.config.get(
