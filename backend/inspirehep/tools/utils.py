@@ -67,7 +67,7 @@ def find_references(references, requested_format):
         results = (
             LiteratureSearch()
             .query_from_iq(f"{keyword}:{ref}")
-            .params(size=2, _source=display_format)
+            .params(size=2, _source=[display_format, "texkeys", "control_number"])
             .execute()
         )
 
@@ -77,7 +77,10 @@ def find_references(references, requested_format):
         elif len(hits) > 1:
             errors.append({"ref": ref, "line": line, "type": "ambiguous"})
         else:
-            ret.append(hits[0]["_source"][display_format])
+            source_field = hits[0]["_source"]
+            control_number = source_field["control_number"]
+            texkey = getattr(source_field, "texkeys", [control_number])[0]
+            ret.append(source_field[display_format].replace(f"{{{texkey}", f"{{{ref}"))
 
     return ret, errors
 

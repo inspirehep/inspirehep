@@ -8,7 +8,7 @@
 from io import BytesIO, TextIOWrapper
 from os.path import splitext
 
-from flask import Blueprint, abort, current_app, jsonify, request
+from flask import Blueprint, current_app, jsonify, request
 
 from inspirehep.files.api import current_s3_instance
 from inspirehep.records.utils import hash_data
@@ -18,6 +18,8 @@ from inspirehep.tools.utils import (
     get_mimetype,
     get_references,
 )
+
+from .errors import FileFormatNotSupportedError, FileTooBigError, NoReferencesFoundError
 
 blueprint = Blueprint("inspirehep_tools", __name__, url_prefix="")
 
@@ -33,18 +35,21 @@ def allowed_file(filename):
 def generate_bibliography():
     content_length = request.content_length
     if content_length is not None and content_length > 10 * 1024 * 1024:
-        abort(413)
+        raise FileTooBigError
 
     requested_format = request.args.get("format")
     bytes_file = request.files["file"]
 
     if not allowed_file(bytes_file.filename):
-        abort(400)
+        raise FileFormatNotSupportedError
 
     text_file = TextIOWrapper(bytes_file, errors="ignore")
 
     reference_names = get_references(text_file)
     references, errors = find_references(reference_names, requested_format)
+
+    if not references:
+        raise NoReferencesFoundError
 
     file_data = "\n\n".join(references).encode("utf-8")
     key = hash_data(file_data)
