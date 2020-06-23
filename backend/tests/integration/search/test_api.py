@@ -69,10 +69,8 @@ def test_return_record_for_publication_info_search_with_journal_title_without_do
     expected_control_number = 1
 
     with inspire_app.test_client() as client:
-        with override_config(
-            FEATURE_FLAG_ENABLE_REFERENCE_MATCH_IN_LITERATURE_SEARCH=True
-        ):
-            response = client.get("api/literature", query_string={"q": query})
+
+        response = client.get("api/literature", query_string={"q": query})
 
     response_record = response.json
     response_record_control_number = response_record["hits"]["hits"][0]["metadata"][
@@ -116,10 +114,8 @@ def test_return_record_for_publication_info_search_example_1(inspire_app):
     expected_control_number = 1
 
     with inspire_app.test_client() as client:
-        with override_config(
-            FEATURE_FLAG_ENABLE_REFERENCE_MATCH_IN_LITERATURE_SEARCH=True
-        ):
-            response = client.get("api/literature", query_string={"q": query})
+
+        response = client.get("api/literature", query_string={"q": query})
 
     response_record = response.json
     response_record_control_number = response_record["hits"]["hits"][0]["metadata"][
@@ -182,10 +178,8 @@ def test_return_record_for_publication_info_search_with_multiple_records_with_th
     expected_control_number = 1
 
     with inspire_app.test_client() as client:
-        with override_config(
-            FEATURE_FLAG_ENABLE_REFERENCE_MATCH_IN_LITERATURE_SEARCH=True
-        ):
-            response = client.get("api/literature", query_string={"q": query})
+
+        response = client.get("api/literature", query_string={"q": query})
 
     response_record = response.json
     response_record_control_number = response_record["hits"]["hits"][0]["metadata"][
@@ -234,10 +228,8 @@ def test_return_record_for_publication_info_search_example_2(inspire_app):
     expected_control_number = 1
 
     with inspire_app.test_client() as client:
-        with override_config(
-            FEATURE_FLAG_ENABLE_REFERENCE_MATCH_IN_LITERATURE_SEARCH=True
-        ):
-            response = client.get("api/literature", query_string={"q": query})
+
+        response = client.get("api/literature", query_string={"q": query})
 
     response_record = response.json
     response_record_control_number = response_record["hits"]["hits"][0]["metadata"][
@@ -299,10 +291,8 @@ def test_return_record_for_publication_info_search_example_3(inspire_app):
     expected_control_number = 1
 
     with inspire_app.test_client() as client:
-        with override_config(
-            FEATURE_FLAG_ENABLE_REFERENCE_MATCH_IN_LITERATURE_SEARCH=True
-        ):
-            response = client.get("api/literature", query_string={"q": query})
+
+        response = client.get("api/literature", query_string={"q": query})
 
     response_record = response.json
     response_record_control_number = response_record["hits"]["hits"][0]["metadata"][
@@ -495,12 +485,10 @@ def test_citations_query_result(inspire_app):
 @pytest.mark.vcr()
 def test_big_query_execute_without_recursion_depth_exception(inspire_app):
     with inspire_app.test_client() as client:
-        with override_config(
-            FEATURE_FLAG_ENABLE_REFERENCE_MATCH_IN_LITERATURE_SEARCH=True
-        ):
-            response = client.get(
-                "api/literature", query_string={"q": "find a name" + " or a name" * 300}
-            )
+
+        response = client.get(
+            "api/literature", query_string={"q": "find a name" + " or a name" * 300}
+        )
     assert response.status_code == 200
 
 
