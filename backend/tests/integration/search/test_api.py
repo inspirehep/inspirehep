@@ -315,6 +315,15 @@ def test_reference_search_with_request_exception(
     assert 200 == response.status_code
 
 
+@pytest.mark.vcr()
+def test_reference_search_without_journal_title(inspire_app):
+    query = "michele vallisneri PRL 116, 221101 (2016)"
+    with inspire_app.test_client() as client:
+        response = client.get("api/literature", query_string={"q": query})
+
+    assert 200 == response.status_code
+
+
 @mock.patch("inspirehep.search.api.get_reference_from_grobid")
 def test_reference_search_with_exception(mock_get_reference_from_grobid, inspire_app):
     query = "Phys. Lett. B 704 (2011) 223"
