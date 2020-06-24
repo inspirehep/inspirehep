@@ -127,10 +127,13 @@ class LiteratureSearch(InspireSearch):
     def execute(self, *args, **kwargs):
         results = super().execute(*args, **kwargs)
         if not results.hits and request:
-            query_string = request.values.get("q", "", type=str)
-            reference_match = self.match_reference(query_string)
-            if reference_match:
-                return reference_match
+            try:
+                query_string = request.values.get("q", "", type=str)
+                reference_match = self.match_reference(query_string)
+                if reference_match:
+                    return reference_match
+            except Exception:
+                LOGGER.exception("Match reference error.", query_string=query_string)
         return results
 
     def query_for_superuser_or_users(self, query_string):
@@ -386,9 +389,14 @@ class JournalsSearch(InspireSearch):
         doc_types = "_doc"
 
     def normalize_title(self, journal_title):
-        hits = self.query("match", lowercase_journal_titles=journal_title).execute()
-        if hits:
-            return hits[0].short_title
+        try:
+            hits = self.query("match", lowercase_journal_titles=journal_title).execute()
+            if hits:
+                return hits[0].short_title
+        except RequestError as e:
+            LOGGER.info(
+                "Error normalizing `journal_title`", journal_title=journal_title, exc=e
+            )
         return journal_title
 
 
