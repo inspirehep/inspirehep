@@ -10,6 +10,7 @@ import structlog
 from elasticsearch import RequestError
 from elasticsearch_dsl.query import Match, Q
 from flask import current_app, request
+from inspire_schemas.utils import convert_old_publication_info_to_new
 from inspire_utils.record import get_value
 from invenio_search import current_search_client as es
 from invenio_search.api import DefaultFilter, RecordsSearch
@@ -124,6 +125,49 @@ class LiteratureSearch(InspireSearch):
         doc_types = "_doc"
         default_filter = DefaultFilter(Q())
 
+    @staticmethod
+    def query_string_to_reference_object_or_none(query_string):
+        try:
+            return get_reference_from_grobid(query_string)
+        except RequestException:
+            LOGGER.exception("Request error from GROBID.", query_string=query_string)
+        except Exception:
+            LOGGER.exception(
+                "Error processing reference from GROBID", query_string=query_string
+            )
+        return None
+
+    def convert_old_publication_info_to_new(self, reference):
+        try:
+            publication_info = [
+                get_value(reference, "reference.publication_info", default={})
+            ]
+            converted_publication_info = convert_old_publication_info_to_new(
+                publication_info
+            )
+            reference["reference"]["publication_info"] = converted_publication_info[0]
+            return reference
+        except Exception as e:
+            LOGGER.exception(
+                "Error converting old `publication_info` to new.",
+                publication_info=publication_info,
+                reference=reference,
+                exec=e,
+            )
+        return reference
+
+    def normalize_journal_title(self, reference):
+        try:
+            journal_title = get_value(
+                reference, "reference.publication_info.journal_title"
+            )
+            reference["reference"]["publication_info"][
+                "journal_title"
+            ] = JournalsSearch().normalize_title(journal_title)
+        except KeyError:
+            pass
+        return reference
+
     def execute(self, *args, **kwargs):
         results = super().execute(*args, **kwargs)
         if not results.hits and request:
@@ -157,37 +201,28 @@ class LiteratureSearch(InspireSearch):
         if not query_string:
             return None
 
-        try:
-            reference = get_reference_from_grobid(query_string)
-        except RequestException:
-            LOGGER.exception("GROBID request error", query_string=query_string)
-            return None
-        except Exception:
-            LOGGER.exception(
-                "Error processing reference from GROBID", query_string=query_string
-            )
-            return None
-
+        reference = self.query_string_to_reference_object_or_none(query_string)
         if not reference:
             return None
 
-        journal_title = get_value(reference, "reference.publication_info.journal_title")
-        try:
-            reference["reference"]["publication_info"][
-                "journal_title"
-            ] = JournalsSearch().normalize_title(journal_title)
-        except KeyError:
-            pass
+        reference = self.normalize_journal_title(reference)
+        reference = self.convert_old_publication_info_to_new(reference)
 
         reference_match_control_number = match_reference_control_number(reference)
-        if reference_match_control_number:
-            return (
-                InspireSearch()
-                .params(version=True)
-                .query("term", control_number=reference_match_control_number)
-                .execute()
+        if not reference_match_control_number:
+            LOGGER.info(
+                "Reference didn't match.",
+                query_string=query_string,
+                reference=reference,
             )
-        return None
+            return None
+
+        return (
+            InspireSearch()
+            .params(version=True)
+            .query("term", control_number=reference_match_control_number)
+            .execute()
+        )
 
     def source_for_content_type(self, content_type):
         includes = current_app.config.get(
