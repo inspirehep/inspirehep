@@ -23,6 +23,7 @@ from mock import patch
 
 from inspirehep.accounts.roles import Roles
 from inspirehep.records.api import ConferencesRecord, JobsRecord, SeminarsRecord
+from inspirehep.submissions.errors import LoaderDataError
 from inspirehep.submissions.views import AuthorSubmissionsResource
 
 
@@ -1344,8 +1345,14 @@ SEMINAR_FORM_DATA = {
 def test_get_seminar_update_data(form_data, record_data, inspire_app):
     user = create_user()
 
+    record_data = deepcopy(record_data)
+    record_data["literature_records"] = [
+        {"record": {"$ref": "http://localhost:5000/api/123"}}
+    ]
     seminar_data = {"control_number": 123, **record_data}
     create_record_factory("sem", data=seminar_data)
+    form_data = deepcopy(form_data)
+    form_data["literature_records"] = ["123"]
     expected_data = {"data": form_data}
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
@@ -1585,3 +1592,57 @@ def test_seminar_update_submission_with_different_user(inspire_app):
             data=json.dumps({"data": form_data}),
         )
     assert response.status_code == 403
+
+
+@patch("inspirehep.submissions.views.send_seminar_confirmation_email")
+@patch("inspirehep.submissions.views.async_create_ticket_with_template")
+def test_new_seminar_submission_with_valid_lit_record(
+    create_ticket_mock, send_confirmation_mock, inspire_app
+):
+    orcid = "0000-0001-5109-3700"
+    user = create_user(orcid=orcid)
+    data = deepcopy(REQUIRED_SEMINAR_FORM_DATA)
+    lit_record = create_record("lit")
+    lit_record_control_number = lit_record["control_number"]
+    data["literature_records"] = [lit_record_control_number]
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/submissions/seminars",
+            content_type="application/json",
+            data=json.dumps({"data": data}),
+        )
+
+    assert response.status_code == 201
+
+    payload = json.loads(response.data)
+    seminar_id = payload["pid_value"]
+    seminar_record = SeminarsRecord.get_record_by_pid_value(seminar_id)
+    assert seminar_record["literature_records"] == [
+        {
+            "record": {
+                "$ref": f"http://localhost:5000/api/literature/{lit_record_control_number}"
+            }
+        }
+    ]
+
+
+@patch("inspirehep.submissions.views.send_seminar_confirmation_email")
+@patch("inspirehep.submissions.views.async_create_ticket_with_template")
+def test_new_seminar_submission_with_invalid_lit_record(
+    create_ticket_mock, send_confirmation_mock, inspire_app
+):
+    orcid = "0000-0001-5109-3700"
+    user = create_user(orcid=orcid)
+    data = deepcopy(REQUIRED_SEMINAR_FORM_DATA)
+    lit_record = create_record("lit")
+    data["literature_records"] = [lit_record["control_number"], 3]
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/submissions/seminars",
+            content_type="application/json",
+            data=json.dumps({"data": data}),
+        )
+        assert response.status_code == 400
+        assert response.json["message"][0] == "3 is not a valid literature record."

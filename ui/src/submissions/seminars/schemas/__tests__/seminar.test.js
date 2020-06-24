@@ -386,4 +386,22 @@ describe('seminarSchema', () => {
     const isValid = await seminarSchema.isValid(data);
     expect(isValid).toBe(true);
   });
+
+  it('validates when literature_records are empty', async () => {
+    const data = {
+      ...dataWithRequiredFields,
+      literature_records: [''],
+    };
+    const isValid = await seminarSchema.isValid(data);
+    expect(isValid).toBe(true);
+  });
+
+  it('validates when keywords are not empty', async () => {
+    const data = {
+      ...dataWithRequiredFields,
+      literature_records: ['123'],
+    };
+    const isValid = await seminarSchema.isValid(data);
+    expect(isValid).toBe(true);
+  });
 });

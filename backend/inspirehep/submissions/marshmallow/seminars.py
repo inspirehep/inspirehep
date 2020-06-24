@@ -14,7 +14,13 @@ from flask import url_for
 from inspire_schemas.builders import SeminarBuilder
 from inspire_schemas.utils import country_code_to_name, country_name_to_code
 from inspire_utils.record import get_value
+from invenio_pidstore.errors import PIDDoesNotExistError
 from marshmallow import Schema, fields, missing, post_load, pre_dump
+
+from inspirehep.pidstore.api.base import PidStoreBase
+from inspirehep.records.api.literature import LiteratureRecord
+from inspirehep.submissions.errors import InvalidDataError
+from inspirehep.utils import get_inspirehep_url
 
 FORM_DATE_FORMAT = "%Y-%m-%d %I:%M %p"
 ISO_FORMAT = "%Y-%m-%dT%H:%M:%S.%f"
@@ -51,6 +57,7 @@ class Seminar(Schema):
     series_number = fields.Raw()
     websites = fields.Raw()
     join_urls = fields.Raw()
+    literature_records = fields.Raw()
 
     @pre_dump
     def convert_to_form_data(self, data):
@@ -82,6 +89,11 @@ class Seminar(Schema):
         end_datetime = data.get("end_datetime")
         form_end_datetime = iso_utc_to_local_form_datetime(end_datetime, timezone)
 
+        literature_records = [
+            PidStoreBase.get_pid_from_record_uri(rec["record"]["$ref"])[1]
+            for rec in data.get("literature_records", [])
+        ]
+
         processed_data = {
             "name": data.get_value("title.title", missing),
             "additional_info": data.get_value("public_notes[0].value", missing),
@@ -97,6 +109,7 @@ class Seminar(Schema):
             "timezone": timezone,
             "abstract": data.get_value("abstract.value", missing),
             "keywords": data.get_value("keywords.value", missing),
+            "literature_records": literature_records or missing,
         }
         return processed_data
 
@@ -162,6 +175,18 @@ class Seminar(Schema):
 
         for keyword in data.get("keywords", []):
             builder.add_keyword(value=keyword)
+
+        for literature_record_pid in data.get("literature_records", []):
+            try:
+                LiteratureRecord.get_record_by_pid_value(literature_record_pid)
+            except PIDDoesNotExistError:
+                raise InvalidDataError(
+                    f"{literature_record_pid} is not a valid literature record."
+                )
+            record = {
+                "$ref": f"{get_inspirehep_url()}/api/literature/{literature_record_pid}"
+            }
+            builder.add_literature_record(record=record)
 
         builder.record["$schema"] = url_for(
             "invenio_jsonschemas.get_schema",
