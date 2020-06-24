@@ -55,6 +55,7 @@ describe('seminar submissions', () => {
       series_name: 'A seminar serie',
       series_number: '1',
       additional_info: 'A public note',
+      literature_records: ['374836'],
     });
 
     await formSubmitter.waitForSubmissionSuccess();
@@ -127,6 +128,9 @@ describe('seminar submissions', () => {
       end_datetime: '2020-05-06T12:30:00.000000',
       start_datetime: '2020-05-06T06:30:00.000000',
       timezone: 'Europe/Zurich',
+      literature_records: [
+        { record: { $ref: 'http://localhost:8000/api/literature/374836' } },
+      ],
     };
     const { metadata } = await seminarResponse.json();
 

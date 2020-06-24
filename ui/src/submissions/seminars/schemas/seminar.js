@@ -78,6 +78,13 @@ const seminarSchema = object().shape({
     .required()
     .label('Field of Interest'),
   contacts: contacts(),
+  literature_records: array()
+    .default([''])
+    .of(
+      string()
+        .nullable()
+        .label('Related paper')
+    ),
   abstract: string(),
   additional_info: string(),
   keywords: array()

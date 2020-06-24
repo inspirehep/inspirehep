@@ -30,9 +30,9 @@ def inspire_submission_marshmallow_loader(schema_class):
         try:
             result = schema_class(context=context).load(request_json)
         except ValueError as e:
-            raise RESTDataError(e.args)
+            raise RESTDataError() from e
         except Exception as e:
-            raise LoaderDataError() from e
+            raise LoaderDataError(e.args) from e
 
         if result.errors:
             raise MarshmallowErrors(result.errors)

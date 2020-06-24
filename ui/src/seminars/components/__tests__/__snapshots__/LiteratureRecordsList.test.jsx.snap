@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LiteratureRecordsList renders with multiple records 1`] = `
+<div
+  className="__InlineList__"
+>
+  <span
+    className=""
+  >
+    INSPIRE papers
+    : 
+  </span>
+  <ul>
+    <li
+      key="123"
+    >
+      <Link
+        data-test-id="author-link"
+        to="/literature/123"
+      >
+        <LiteratureTitle
+          title={
+            Immutable.Map {
+              "title": "Title1",
+            }
+          }
+        />
+      </Link>
+      , 
+    </li>
+    <li
+      key="124"
+    >
+      <Link
+        data-test-id="author-link"
+        to="/literature/124"
+      >
+        <LiteratureTitle
+          title={
+            Immutable.Map {
+              "title": "Title2",
+            }
+          }
+        />
+      </Link>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`LiteratureRecordsList renders with one record 1`] = `
+<div
+  className="__InlineList__"
+>
+  <span
+    className=""
+  >
+    INSPIRE paper
+    : 
+  </span>
+  <ul>
+    <li
+      key="123"
+    >
+      <Link
+        data-test-id="author-link"
+        to="/literature/123"
+      >
+        <LiteratureTitle
+          title={
+            Immutable.Map {
+              "title": "Title1",
+            }
+          }
+        />
+      </Link>
+    </li>
+  </ul>
+</div>
+`;
