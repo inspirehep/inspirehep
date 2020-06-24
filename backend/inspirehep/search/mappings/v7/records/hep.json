@@ -1006,7 +1006,8 @@
             "type": "keyword"
           },
           "page_artid": {
-            "type": "keyword"
+            "type": "keyword",
+            "normalizer": "page_artid_normalizer"
           },
           "page_end": {
             "copy_to": "_all",
@@ -1504,6 +1505,11 @@
           "type": "custom",
           "char_filter": [],
           "filter": ["lowercase"]
+        },
+        "page_artid_normalizer": {
+          "type": "custom",
+          "char_filter": ["remove_leading_zero_normalizer"],
+          "filter": []
         }
       },
       "char_filter": {
@@ -1521,6 +1527,11 @@
           "type": "pattern_replace",
           "pattern": "\\.",
           "replacement": " "
+        },
+        "remove_leading_zero_normalizer": {
+          "type": "pattern_replace",
+          "pattern": "^0+",
+          "replacement": ""
         }
       },
       "filter": {
