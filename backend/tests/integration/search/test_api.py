@@ -353,21 +353,56 @@ def test_return_record_for_publication_info_search_with_leading_zeros_in_page_ar
     assert 200 == response.status_code
 
 
+@pytest.mark.vcr()
+def test_return_record_for_publication_info_search_with_old_format(inspire_app):
+    query = "JHEP 1806 (2018) 131"
+
+    cited_record_json = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "control_number": 1,
+        "document_type": ["article"],
+        "publication_info": [
+            {
+                "artid": "131",
+                "journal_record": {
+                    "$ref": "https://inspirehep.net/api/journals/1213103"
+                },
+                "journal_title": "JHEP",
+                "journal_volume": "06",
+                "page_start": "131",
+                "year": 2018,
+            }
+        ],
+        "titles": [
+            {
+                "title": "Phase structure and phase transition of the SU(2) Higgs model in three-dimensions"
+            }
+        ],
+    }
+
+    create_record("lit", cited_record_json)
+    expected_control_number = 1
+
+    with inspire_app.test_client() as client:
+
+        response = client.get("api/literature", query_string={"q": query})
+
+    response_record = response.json
+    response_record_control_number = response_record["hits"]["hits"][0]["metadata"][
+        "control_number"
+    ]
+
+    assert expected_control_number == response_record_control_number
+    assert 200 == response.status_code
+
+
 @mock.patch("inspirehep.search.api.get_reference_from_grobid")
 def test_reference_search_with_request_exception(
     mock_get_reference_from_grobid, inspire_app
 ):
     query = "Phys. Lett. B 704 (2011) 223"
     mock_get_reference_from_grobid.side_effect = RequestException()
-    with inspire_app.test_client() as client:
-        response = client.get("api/literature", query_string={"q": query})
-
-    assert 200 == response.status_code
-
-
-@pytest.mark.vcr()
-def test_reference_search_without_journal_title(inspire_app):
-    query = "michele vallisneri PRL 116, 221101 (2016)"
     with inspire_app.test_client() as client:
         response = client.get("api/literature", query_string={"q": query})
 
@@ -381,6 +416,42 @@ def test_reference_search_with_exception(mock_get_reference_from_grobid, inspire
     with inspire_app.test_client() as client:
         response = client.get("api/literature", query_string={"q": query})
     assert 200 == response.status_code
+
+
+@pytest.mark.vcr()
+def test_reference_search_without_journal_title(inspire_app):
+    query = "michele vallisneri PRL 116, 221101 (2016)"
+    with inspire_app.test_client() as client:
+        response = client.get("api/literature", query_string={"q": query})
+
+    assert 200 == response.status_code
+
+
+def test_reference_convert_old_publication_info_to_new_with_empty_reference(
+    inspire_app
+):
+    reference = {"reference": {"publication_info": {}}}
+    result = LiteratureSearch().convert_old_publication_info_to_new(reference)
+    assert reference == result
+
+
+@mock.patch("inspirehep.search.api.convert_old_publication_info_to_new")
+def test_reference_convert_old_publication_info_to_new_with_exception(
+    mock_convert_old_publication_info_to_new, inspire_app
+):
+    mock_convert_old_publication_info_to_new.side_effect = Exception()
+    reference = {
+        "reference": {
+            "publication_info": {
+                "journal_title": "JHEP",
+                "journal_volume": "06",
+                "page_start": "131",
+                "year": 2018,
+            }
+        }
+    }
+    result = LiteratureSearch().convert_old_publication_info_to_new(reference)
+    assert reference == result
 
 
 def test_empty_literature_search(inspire_app):
