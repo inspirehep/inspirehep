@@ -34,6 +34,7 @@ from inspire_disambiguation import conf
 from inspire_disambiguation.core.data_models import Signature
 from inspire_disambiguation.core.data_models import PublicationCache
 
+
 LOGGER = structlog.getLogger()
 
 
