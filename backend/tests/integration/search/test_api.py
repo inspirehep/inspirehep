@@ -303,6 +303,56 @@ def test_return_record_for_publication_info_search_example_3(inspire_app):
     assert 200 == response.status_code
 
 
+@pytest.mark.vcr()
+def test_return_record_for_publication_info_search_with_leading_zeros_in_page_artid(
+    inspire_app
+):
+    query = "Phys. Rev. D 82 0074024 (2010)"
+
+    cited_record_json = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "control_number": 1,
+        "document_type": ["article"],
+        "publication_info": [
+            {
+                "journal_record": {
+                    "$ref": "https://inspirehep.net/api/journals/1214495"
+                },
+                "journal_title": "Phys.Rev.D",
+                "journal_volume": "82",
+                "page_start": "74024",
+                "year": 2010,
+            }
+        ],
+        "titles": [
+            {
+                "title": "Phase structure and phase transition of the SU(2) Higgs model in three-dimensions"
+            }
+        ],
+    }
+
+    create_record("lit", cited_record_json)
+    create_record(
+        "jou",
+        data={"short_title": "Phys.Rev.D", "journal_title": {"title": "Phys. Rev. D"}},
+    )
+
+    expected_control_number = 1
+
+    with inspire_app.test_client() as client:
+
+        response = client.get("api/literature", query_string={"q": query})
+
+    response_record = response.json
+    response_record_control_number = response_record["hits"]["hits"][0]["metadata"][
+        "control_number"
+    ]
+
+    assert expected_control_number == response_record_control_number
+    assert 200 == response.status_code
+
+
 @mock.patch("inspirehep.search.api.get_reference_from_grobid")
 def test_reference_search_with_request_exception(
     mock_get_reference_from_grobid, inspire_app
