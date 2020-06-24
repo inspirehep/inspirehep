@@ -177,6 +177,20 @@ function SeminarForm({ values }) {
         component={SelectField}
       />
       <ContactsField />
+      <ArrayOf
+        values={values}
+        name="literature_records"
+        label="Related paper(s)"
+        emptyItem=""
+        renderItem={itemName => (
+          <Field
+            onlyChild
+            addonBefore="inspirehep.net/literature/"
+            name={itemName}
+            component={TextField}
+          />
+        )}
+      />
       <Field name="abstract" label="Abstract" component={RichTextField} />
       <Field
         name="additional_info"

@@ -266,3 +266,35 @@ def test_seminars_detail_json_link_alias_format(inspire_app):
         response = client.get(f"/seminars/{record['control_number']}?format=json")
     assert response.status_code == expected_status_code
     assert response.content_type == expected_content_type
+
+
+def test_seminars_detail_literature_records(inspire_app):
+    with inspire_app.test_client() as client:
+        headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+        lit_record = create_record("lit", data={"titles": [{"title": "Lit title"}]})
+        record = create_record(
+            "sem",
+            data={
+                "literature_records": [
+                    {
+                        "record": {
+                            "$ref": f"http://localhost:5000/api/literature/{lit_record['control_number']}"
+                        }
+                    }
+                ]
+            },
+        )
+
+        response = client.get(f"/seminars/{record['control_number']}", headers=headers)
+
+        response_metadata = response.json["metadata"]
+        expected_literature_records = [
+            {
+                "control_number": lit_record["control_number"],
+                "titles": [{"title": "Lit title"}],
+                "record": {
+                    "$ref": f"http://localhost:5000/api/literature/{lit_record['control_number']}"
+                },
+            }
+        ]
+        assert response_metadata["literature_records"] == expected_literature_records

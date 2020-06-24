@@ -8,6 +8,9 @@ from marshmallow import fields
 
 from inspirehep.accounts.api import can_user_edit_record
 from inspirehep.records.marshmallow.seminars.base import SeminarsPublicSchema
+from inspirehep.records.marshmallow.seminars.common.literature_record import (
+    LiteratureRecordSchemaV1,
+)
 from inspirehep.records.marshmallow.seminars.common.speaker import SpeakerSchemaV1
 
 
@@ -21,7 +24,9 @@ class SeminarsBaseSchema(SeminarsPublicSchema):
 
 
 class SeminarsDetailSchema(SeminarsBaseSchema):
-    pass
+    literature_records = fields.Nested(
+        LiteratureRecordSchemaV1, dump_only=True, many=True
+    )
 
 
 class SeminarsListSchema(SeminarsBaseSchema):
