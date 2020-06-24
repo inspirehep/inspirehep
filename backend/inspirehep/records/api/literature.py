@@ -309,7 +309,7 @@ class LiteratureRecord(
         try:
             add_file_func(**file_data)
         except ValueError:
-            LOGGER.exception(
+            LOGGER.warning(
                 "Duplicated file found",
                 recid=self.get("control_number"),
                 uuid=self.id,
