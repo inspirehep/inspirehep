@@ -32,7 +32,8 @@ from beard.clustering import (
     ScipyHierarchicalClustering,
     block_phonetic,
 )
-from beard.metrics import b3_f_score
+from beard.metrics import b3_f_score, \
+    b3_precision_recall_fscore
 from beard.similarity import (
     CosineSimilarity,
     ElementMultiplication,
@@ -56,6 +57,7 @@ from inspire_disambiguation.core.helpers import (
     get_topics,
     group_by_signature,
     load_signatures,
+    compute_clustering_statistics
 )
 from inspire_disambiguation.utils import open_file_in_folder
 from scipy.special import expit
@@ -596,6 +598,9 @@ class DistanceEstimator(object):
         )
         self.distance_estimator.fit(self.X, self.y)
 
+    def score(self):
+        return self.distance_estimator.score(self.X, self.y)
+
 
 class Clusterer(object):
     def __init__(self, estimator):
@@ -630,14 +635,12 @@ class Clusterer(object):
         self.X = np.empty((len(signatures_by_uuid), 1), dtype=np.object)
         self.y = -np.ones(len(self.X), dtype=np.int)
 
-        i = 0
-        for cluster in input_clusters:
+        for i, cluster in enumerate(input_clusters):
             for signature_uuid in cluster["signature_uuids"]:
                 if signature_uuid not in signatures_by_uuid:
                     continue  # TODO figure out how this can happen
                 self.X[i, 0] = signatures_by_uuid[signature_uuid]
                 self.y[i] = cluster["cluster_id"]
-                i += 1
 
     def load_model(self, input_filename):
         """Loads model dumped by pickle
@@ -671,6 +674,26 @@ class Clusterer(object):
             verbose=True,
         )
         self.clusterer.fit(self.X, self.y)
+
+    def score(self, test_uuids, labels):
+        """
+        Return the clustering statistics (b3 precision, b3 recall, b3 f1 score)
+        and wrongly clustered samples for training, test and the whole dataset.
+
+        Args:
+            test_uuids - list of signatures uuids used for testing
+            labels - list of labels (author id) for test dataset
+        """
+        all_uuids = np.vectorize(lambda x: x.signature_uuid)(self.X).flatten()
+        test_uuids_array = np.array(test_uuids)
+        mask = np.isin(all_uuids, test_uuids_array)
+        y_train = self.y[~mask]
+        y_test = np.array(labels)
+        labels_train = self.clusterer.labels_[~mask]
+        labels_test = self.clusterer.labels_[mask]
+        return compute_clustering_statistics(
+            self.X, self.y, self.clusterer.labels_
+        ), b3_precision_recall_fscore(y_train, labels_train), b3_precision_recall_fscore(y_test, labels_test)
 
 
 def _affinity(X, step=10000):

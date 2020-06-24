@@ -27,10 +27,14 @@ import requests
 import json
 
 import structlog
+import math
 
 from inspire_disambiguation import conf
 from inspire_disambiguation.core.es.readers import get_input_clusters, get_signatures
-from inspire_disambiguation.core.helpers import process_clustering_output
+from inspire_disambiguation.core.helpers import (
+    process_clustering_output,
+    train_validation_split,
+)
 from inspire_disambiguation.core.ml.models import (
     Clusterer,
     DistanceEstimator,
@@ -68,7 +72,8 @@ def train_and_save_ethnicity_model(load_data_path, save_model_path):
 
 
 def train_and_save_distance_model(
-    ethnicity_model_path, save_distance_model_path, sampled_pairs_size
+    ethnicity_model_path, save_distance_model_path, sampled_pairs_size,
+        train_to_validation_split_fraction=0.8
 ):
     """Train the distance estimator model and save it to disk.
 
@@ -78,32 +83,47 @@ def train_and_save_distance_model(
             will be saved.
         sampled_pairs_size (int): Number of pairs to be generated for the training.
             Note:
-                Must be multiple of 12.
+                Must be multiple of 4.
     """
     LOGGER.info("Pulling training data from ES")
     start_time = datetime.now()
     curated_signatures = get_signatures(only_curated=True)
-    input_clusters = get_input_clusters(curated_signatures)
+    LOGGER.info(
+        "Splitting data into training and test set.",
+        training_set_fraction=train_to_validation_split_fraction,
+    )
+    train_signatures_dict, test_signatures_dict = train_validation_split(
+        curated_signatures, train_to_validation_split_fraction
+    )
+    train_signatures_list = train_signatures_dict.values()
+    test_signatures_list = test_signatures_dict.values()
+    input_clusters_train = get_input_clusters(train_signatures_list)
+    input_clusters_test = get_input_clusters(test_signatures_list)
     prepare_intput_time = datetime.now()
     LOGGER.info(
         "Preparing pairs from sampled data for training.",
         pairs_count=sampled_pairs_size,
     )
-    pairs = list(
-        sample_signature_pairs(curated_signatures, input_clusters, sampled_pairs_size)
+    pairs_train = list(
+        sample_signature_pairs(train_signatures_list, input_clusters_train, sampled_pairs_size)
     )
     prepare_pairs_time = datetime.now()
-
+    pair_size_test = math.ceil(((1 - train_to_validation_split_fraction) / train_to_validation_split_fraction)**2 * sampled_pairs_size)
+    pairs_test = list(
+        sample_signature_pairs(test_signatures_list, input_clusters_test, pair_size_test)
+    )
     ethnicity_estimator = EthnicityEstimator(ethnicity_model_path)
     distance_estimator = DistanceEstimator(ethnicity_estimator)
     prepare_estimators_time = datetime.now()
-    distance_estimator.load_data(curated_signatures, pairs, sampled_pairs_size)
+    distance_estimator.load_data(train_signatures_list, pairs_train, sampled_pairs_size)
     load_data_to_model_time = datetime.now()
     LOGGER.info("Training DistanceEstimator...")
     distance_estimator.fit()
     training_model_time = datetime.now()
     distance_estimator.save_model(save_distance_model_path)
     save_model_time = datetime.now()
+    distance_estimator.load_data(test_signatures_list, pairs_test, sampled_pairs_size)
+    test_score = distance_estimator.score()
     LOGGER.info(
         "Train distance model",
         prepare_input_runtime=str(prepare_intput_time - start_time),
@@ -113,10 +133,18 @@ def train_and_save_distance_model(
         training_model_runtime=str(training_model_time - load_data_to_model_time),
         save_model_runtime=str(save_model_time - training_model_time),
         total_runtime=str(save_model_time - start_time),
+        test_score=str(test_score),
     )
+    return list(test_signatures_dict)
 
 
-def cluster(ethnicity_model_path, distance_model_path, n_jobs, signature_block=None):
+def cluster(
+    ethnicity_model_path,
+    distance_model_path,
+    n_jobs,
+    test_signatures_uuids=None,
+    signature_block=None,
+):
     """Train the clustering model and process the output.
 
     Args:
@@ -125,9 +153,17 @@ def cluster(ethnicity_model_path, distance_model_path, n_jobs, signature_block=N
         n_jobs (int): Number of processes to use.
         signature_block (str): Signature block indicating which block should be
             clustered. If set to None, clustering will run on all blocks.
+        test_signatures_uuids (list): Signature uuids which will be used
+        for model validation.
     """
     start_time = datetime.now()
     signatures = get_signatures(signature_block=signature_block)
+    if test_signatures_uuids:
+        test_labels = []
+        for signature in signatures:
+            if signature.signature_uuid in test_signatures_uuids:
+                test_labels.append(signature.author_id)
+                signature.author_id = None
     input_clusters = get_input_clusters(signatures)
     LOGGER.info(
         "Input data",
@@ -164,6 +200,20 @@ def cluster(ethnicity_model_path, distance_model_path, n_jobs, signature_block=N
             B3_f_score=cluster.supervised_scoring(clusterer.y, cluster.labels_)
             if hasattr(cluster, "supervised_scoring")
             else None,
+        )
+    if test_signatures_uuids:
+        statistics_names = ('precision', 'recall', 'f1')
+        training_statistics = cluster.score(test_signatures_uuids, test_labels)
+        (
+            (B3_statistics_all, wrongly_classified_pairs),
+            B3_statistics_training,
+            B3_statistics_test,
+        ) = training_statistics
+        LOGGER.info(
+            B3_precision_recall_f_score_all=dict(zip(statistics_names, B3_statistics_all)),
+            B3_precision_recall_f_score_training=dict(zip(statistics_names, B3_statistics_training)),
+            B3_precision_recall_f_score_test=dict(zip(statistics_names, B3_statistics_test)),
+            wrongly_classified_pairs=wrongly_classified_pairs,
         )
 
     return process_clustering_output(clusterer)

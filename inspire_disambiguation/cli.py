@@ -92,12 +92,36 @@ def ethnicity_model(load_data_path, save_model_path):
     f"(default:'{conf['SAMPLED_PAIRS_SIZE']}')",
     type=int,
 )
-def distance_model(ethnicity_model_path, save_model_path, sampled_pairs_size):
+@click.option(
+    "-t",
+    "--test",
+    help=f"Test model performance on a test set.",
+    is_flag=True,
+)
+@click.option(
+    "-f",
+    "--train_fraction",
+    help=f"Fraction of training samples in dataset.",
+    default=0.8,
+    type=float,
+)
+@click.option(
+    "-j",
+    "--n_jobs",
+    "n_jobs",
+    default=conf["CLUSTERING_N_JOBS"],
+    help=f"Number of processes to use. (default: '{conf['CLUSTERING_N_JOBS']}')",
+    type=int,
+)
+def distance_model(ethnicity_model_path, save_model_path,
+                   sampled_pairs_size, test, train_fraction, n_jobs):
     """Train distance model and save it."""
     click.secho("Starting Distance training.")
-    train_and_save_distance_model(
-        ethnicity_model_path, save_model_path, sampled_pairs_size
-    )
+    test_signatures = train_and_save_distance_model(
+            ethnicity_model_path, save_model_path, sampled_pairs_size,
+            train_fraction)
+    if test:
+        cluster(ethnicity_model_path, save_model_path, n_jobs, test_signatures)
     click.secho(f"Done. Model saved in {save_model_path}", fg="green")
 
 
