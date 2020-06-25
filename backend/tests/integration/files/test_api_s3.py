@@ -124,10 +124,10 @@ def test_get_bucket(inspire_app, s3):
     assert result == expected_result
 
 
-def test_get_file_url(inspire_app, s3):
+def test_get_public_url(inspire_app, s3):
     key = "e50c2ea2d26571e0c5a3411e320586289fd715c2"
-    expected_result = f"https://s3.cern.ch/inspire-files-e/{key}"
-    result = current_s3_instance.get_file_url(key)
+    expected_result = f"http://localhost:5000/files/{key}"
+    result = current_s3_instance.get_public_url(key)
     assert result == expected_result
 
 

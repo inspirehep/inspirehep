@@ -4,12 +4,15 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+from urllib.parse import urljoin, urlsplit
 
 import structlog
 from boto3.s3.transfer import TransferConfig
 from botocore.exceptions import ClientError
 from flask import current_app
 from werkzeug import secure_filename
+
+from inspirehep.utils import get_inspirehep_url
 
 LOGGER = structlog.getLogger()
 
@@ -21,6 +24,12 @@ class S3:
         if not config:
             config = TransferConfig(max_concurrency=1, use_threads=False)
         self.config = config
+
+    @property
+    def public_file_path(self):
+        return urljoin(
+            get_inspirehep_url(), current_app.config.get("FILES_PUBLIC_PATH")
+        )
 
     @staticmethod
     def get_bucket_for_file_key(key):
@@ -45,6 +54,14 @@ class S3:
         :return: boolean
         """
         return url.startswith(current_app.config.get("S3_HOSTNAME"))
+
+    def is_public_url(self, url):
+        """Checks if the url is an file public url
+
+        :param url: the given url.
+        :return: boolean
+        """
+        return url.startswith(self.public_file_path)
 
     def upload_file(self, data, key, filename, mimetype, acl, bucket=None):
         """Upload a file in s3 bucket with the given metadata
@@ -92,13 +109,24 @@ class S3:
             raise
 
     @staticmethod
-    def get_file_url(key):
+    def get_s3_url(key, bucket=None):
         """Returns the S3 link for the file.
 
         :param key: the key of the file.
-        :return: string: the s3 link for the file
+        :param bucket: bucket in which file is located. If not provided default s3-files bucket is generated.
+        :return: string: the s3 link for the file.
         """
-        return f"{current_app.config.get('S3_HOSTNAME')}/{S3.get_bucket_for_file_key(key)}/{key}"
+        if not bucket:
+            bucket = S3.get_bucket_for_file_key(key)
+        return f"{current_app.config.get('S3_HOSTNAME')}/{bucket}/{key}"
+
+    def get_public_url(self, key):
+        """Returns the public url for the file.
+
+        :param key: the key of the file.
+        :return: string: the s3 link for the file.
+        """
+        return urljoin(self.public_file_path, key)
 
     @staticmethod
     def get_content_disposition(filename):
@@ -178,3 +206,32 @@ class S3:
             Bucket=self.get_prefixed_bucket(bucket),
             ACL=current_app.config.get("S3_FILE_ACL"),
         )
+
+    def get_key_from_url(self, url):
+        try:
+            return urlsplit(url).path.split("/")[-1]
+        except (IndexError, AttributeError):
+            LOGGER.exception("S3 incorrect url.", url=url)
+            raise
+
+    def convert_to_s3_url(self, url):
+        """Converts public url to s3 url.
+
+        :param url: Full public url
+        :return: Full s3 url
+        """
+        if self.is_public_url(url):
+            key = self.get_key_from_url(url)
+            return self.get_s3_url(key)
+        return None
+
+    def convert_to_public_url(self, url):
+        """converts s3 url to public url.
+
+        :param url: Full public url
+        :return: Full public url
+        """
+        if self.is_s3_url(url):
+            key = self.get_key_from_url(url)
+            return self.get_public_url(key)
+        return None

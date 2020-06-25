@@ -1049,7 +1049,7 @@ def test_add_record_with_documents_and_figures(inspire_app, s3):
         {
             "source": "arxiv",
             "key": expected_document_key,
-            "url": f"{current_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_document_key)}/{expected_document_key}",
+            "url": current_s3_instance.get_public_url(expected_document_key),
             "original_url": "http://original-url.com/2",
             "filename": "fermilab.pdf",
         }
@@ -1057,7 +1057,7 @@ def test_add_record_with_documents_and_figures(inspire_app, s3):
     expected_figures = [
         {
             "key": expected_figure_key,
-            "url": f"{current_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_figure_key)}/{expected_figure_key}",
+            "url": current_s3_instance.get_public_url(expected_figure_key),
             "filename": "channel.png",
             "original_url": "http://original-url.com/3",
         }
@@ -1111,7 +1111,7 @@ def test_adding_record_with_documents_skips_hidden(inspire_app, s3):
     expected_document = {
         "source": "arxiv",
         "key": expected_document_key,
-        "url": f"{current_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_document_key)}/{expected_document_key}",
+        "url": current_s3_instance.get_public_url(expected_document_key),
         "original_url": "http://original-url.com/2",
         "filename": "fermilab.pdf",
     }
@@ -1164,7 +1164,7 @@ def test_adding_record_with_duplicated_documents_and_figures(inspire_app, s3):
         {
             "source": "arxiv",
             "key": expected_document_key,
-            "url": f"{current_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_document_key)}/{expected_document_key}",
+            "url": current_s3_instance.get_public_url(expected_document_key),
             "original_url": "http://original-url.com/2",
             "filename": "fermilab.pdf",
         }
@@ -1174,7 +1174,7 @@ def test_adding_record_with_duplicated_documents_and_figures(inspire_app, s3):
         {
             "source": "arxiv",
             "key": expected_document_key,
-            "url": f"{current_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_document_key)}/{expected_document_key}",
+            "url": current_s3_instance.get_public_url(expected_document_key),
             "original_url": "http://original-url.com/1",
             "filename": "fermilab2.pdf",
         }
@@ -1183,7 +1183,7 @@ def test_adding_record_with_duplicated_documents_and_figures(inspire_app, s3):
     expected_figures1 = [
         {
             "key": expected_figure_key,
-            "url": f"{current_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_figure_key)}/{expected_figure_key}",
+            "url": current_s3_instance.get_public_url(expected_figure_key),
             "filename": "channel.jpg",
             "original_url": "http://original-url.com/3",
         }
@@ -1192,7 +1192,7 @@ def test_adding_record_with_duplicated_documents_and_figures(inspire_app, s3):
     expected_figures2 = [
         {
             "key": expected_figure_key,
-            "url": f"{current_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_figure_key)}/{expected_figure_key}",
+            "url": current_s3_instance.get_public_url(expected_figure_key),
             "filename": "channel2.jpg",
             "original_url": "http://original-url.com/4",
         }
@@ -1229,7 +1229,7 @@ def test_adding_record_with_document_without_filename(inspire_app, s3):
         {
             "source": "arxiv",
             "key": expected_document_key,
-            "url": f"{current_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_document_key)}/{expected_document_key}",
+            "url": current_s3_instance.get_public_url(expected_document_key),
             "original_url": "http://original-url.com/2",
             "filename": "key",
         }
@@ -1289,7 +1289,7 @@ def test_adding_record_with_documents_with_full_url_without_original_url(
         {
             "source": "arxiv",
             "key": expected_document_key,
-            "url": f"{current_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_document_key)}/{expected_document_key}",
+            "url": current_s3_instance.get_public_url(expected_document_key),
             "original_url": "http://inspirehep.net/record/863300/files/fermilab-pub-10-255-e.pdf",
             "filename": "file1.pdf",
         }
@@ -1325,7 +1325,7 @@ def test_adding_record_with_documents_with_relative_url_without_original_url(
             {
                 "source": "arxiv",
                 "key": expected_document_key,
-                "url": f"{current_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_document_key)}/{expected_document_key}",
+                "url": current_s3_instance.get_public_url(expected_document_key),
                 "filename": "file1.pdf",
             }
         ]
@@ -1386,7 +1386,7 @@ def test_update_record_with_documents_and_figures(inspire_app, s3):
         {
             "source": "arxiv",
             "key": expected_document_key,
-            "url": f"{current_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_document_key)}/{expected_document_key}",
+            "url": current_s3_instance.get_public_url(expected_document_key),
             "original_url": "http://original-url.com/2",
             "filename": "fermilab.pdf",
         }
@@ -1394,7 +1394,7 @@ def test_update_record_with_documents_and_figures(inspire_app, s3):
     expected_figures = [
         {
             "key": expected_figure_key,
-            "url": f"{current_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_figure_key)}/{expected_figure_key}",
+            "url": current_s3_instance.get_public_url(expected_figure_key),
             "filename": "channel.png",
             "original_url": "http://original-url.com/3",
         }
@@ -1488,14 +1488,14 @@ def test_update_record_add_more_documents(inspire_app, s3):
     expected_document_old = {
         "source": "arxiv",
         "key": expected_document_key,
-        "url": f"{current_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_document_key)}/{expected_document_key}",
+        "url": current_s3_instance.get_public_url(expected_document_key),
         "original_url": "http://original-url.com/2",
         "filename": "myfile.pdf",
     }
     expected_document_new = {
         "source": "arxiv",
         "key": expected_updated_document_key,
-        "url": f"{current_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_updated_document_key)}/{expected_updated_document_key}",
+        "url": current_s3_instance.get_public_url(expected_updated_document_key),
         "original_url": "http://original-url.com/2",
         "filename": "fermilab.pdf",
     }
@@ -1601,7 +1601,7 @@ def test_do_not_add_files_which_are_already_on_s3(inspire_app, s3):
                 "key": "some_document_key_on_s3",
                 "original_url": "http://inspire-afs-web.cern.ch/var/data/files/g188/3771224/content.pdf%3B2",
                 "source": "arxiv",
-                "url": "https://s3.cern.ch/inspire-qa-files-s/some_document_key_on_s3",
+                "url": "http://localhost:5000/files/some_document_key_on_s3",
             }
         ],
         "figures": [
@@ -1611,7 +1611,7 @@ def test_do_not_add_files_which_are_already_on_s3(inspire_app, s3):
                 "key": "some_figure_key_on_s3",
                 "original_url": "http://inspire-afs-web.cern.ch/var/data/files/g188/3771220/content.png%3B2",
                 "source": "arxiv",
-                "url": "https://s3.cern.ch/inspire-qa-files-s/some_figure_key_on_s3",
+                "url": "http://localhost:5000/files/some_figure_key_on_s3",
             }
         ],
     }
@@ -1626,7 +1626,7 @@ def test_do_not_add_files_which_are_already_on_s3(inspire_app, s3):
             "key": "some_document_key_on_s3",
             "original_url": "http://inspire-afs-web.cern.ch/var/data/files/g188/3771224/content.pdf%3B2",
             "source": "arxiv",
-            "url": "https://s3.cern.ch/inspire-qa-files-s/some_document_key_on_s3",
+            "url": "http://localhost:5000/files/some_document_key_on_s3",
         }
     ]
     expected_figures = [
@@ -1636,7 +1636,7 @@ def test_do_not_add_files_which_are_already_on_s3(inspire_app, s3):
             "key": "some_figure_key_on_s3",
             "original_url": "http://inspire-afs-web.cern.ch/var/data/files/g188/3771220/content.png%3B2",
             "source": "arxiv",
-            "url": "https://s3.cern.ch/inspire-qa-files-s/some_figure_key_on_s3",
+            "url": "http://localhost:5000/files/some_figure_key_on_s3",
         }
     ]
     assert record["figures"] == expected_figures
@@ -1668,12 +1668,12 @@ def test_files_metadata_is_replaced_when_replacing_metadata_is_enabled(inspire_a
         )
         mocker.get("http://original-url.com/3", status_code=200, content=figure_content)
         mocker.get(
-            current_s3_instance.get_file_url(expected_document_key),
+            current_s3_instance.get_public_url(expected_document_key),
             status_code=200,
             content=document_content,
         )
         mocker.get(
-            current_s3_instance.get_file_url(expected_figure_key),
+            current_s3_instance.get_public_url(expected_figure_key),
             status_code=200,
             content=figure_content,
         )
@@ -1690,7 +1690,7 @@ def test_files_metadata_is_replaced_when_replacing_metadata_is_enabled(inspire_a
                 assert mocked_s3_replace_metadata.call_count == files_count
 
 
-def test_adding_files_with_s3_url_but_wrong_key(inspire_app, s3):
+def test_adding_files_with_public_file_url_but_wrong_key(inspire_app, s3):
     expected_figure_key = "cb071d80d1a54f21c8867a038f6a6c66"
     expected_document_key = "fdc3bdefb79cec8eb8211d2499e04704"
     create_s3_bucket(expected_figure_key)
@@ -1698,7 +1698,7 @@ def test_adding_files_with_s3_url_but_wrong_key(inspire_app, s3):
     data = {
         "documents": [
             {
-                "url": current_s3_instance.get_file_url(expected_document_key),
+                "url": current_s3_instance.get_public_url(expected_document_key),
                 "source": "arxiv",
                 "key": "arXiv:nucl-th_9310031.pdf",
                 "original_url": "http://original-url.com/2",
@@ -1706,7 +1706,7 @@ def test_adding_files_with_s3_url_but_wrong_key(inspire_app, s3):
         ],
         "figures": [
             {
-                "url": current_s3_instance.get_file_url(expected_figure_key),
+                "url": current_s3_instance.get_public_url(expected_figure_key),
                 "original_url": "http://original-url.com/3",
                 "key": "channel.png",
             }
@@ -1715,7 +1715,7 @@ def test_adding_files_with_s3_url_but_wrong_key(inspire_app, s3):
 
     expected_documents = [
         {
-            "url": current_s3_instance.get_file_url(expected_document_key),
+            "url": current_s3_instance.get_public_url(expected_document_key),
             "source": "arxiv",
             "filename": "arXiv:nucl-th_9310031.pdf",
             "original_url": "http://original-url.com/2",
@@ -1725,7 +1725,7 @@ def test_adding_files_with_s3_url_but_wrong_key(inspire_app, s3):
 
     expected_figures = [
         {
-            "url": current_s3_instance.get_file_url(expected_figure_key),
+            "url": current_s3_instance.get_public_url(expected_figure_key),
             "original_url": "http://original-url.com/3",
             "filename": "channel.png",
             "key": expected_figure_key,
@@ -1736,12 +1736,12 @@ def test_adding_files_with_s3_url_but_wrong_key(inspire_app, s3):
     document_content = b"document"
     with requests_mock.Mocker() as mocker:
         mocker.get(
-            current_s3_instance.get_file_url(expected_document_key),
+            current_s3_instance.get_public_url(expected_document_key),
             status_code=200,
             content=document_content,
         )
         mocker.get(
-            current_s3_instance.get_file_url(expected_figure_key),
+            current_s3_instance.get_public_url(expected_figure_key),
             status_code=200,
             content=figure_content,
         )
