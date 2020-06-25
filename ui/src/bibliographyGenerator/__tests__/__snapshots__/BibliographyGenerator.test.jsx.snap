@@ -3,7 +3,7 @@
 exports[`BibliographyGenerator renders 1`] = `
 <Fragment>
   <DocumentHead
-    description="Generate a list of references from a LaTeX file"
+    description="Generate a LaTeX/BibTeX bibliography from citations in a LaTeX file."
     title="Bibliography Generator"
   />
   <Row
@@ -29,12 +29,7 @@ exports[`BibliographyGenerator renders 1`] = `
             Bibliography generator
           </h2>
           <p>
-            <strong>
-              Want to use INSPIRE to generate you LaTeX/BibTeX bibliography?
-            </strong>
-          </p>
-          <p>
-            You can upload a LaTeX file here to generate a list of the references in the order they are cited in your paper. Just follow the three steps below and you will receive a bibliography ready to insert at the bottom of your LaTeX file with all the references properly ordered and formatted.
+            Generate a LaTeX/BibTeX bibliography from citations in a LaTeX file.
           </p>
         </Col>
       </Row>
@@ -122,7 +117,12 @@ Finally, let me make a mistake citing this paper \\cite{hep-scifi/0101001}.
                 </pre>
                 <p>
                   <strong>
-                    This will return:
+                    This will warn about the unknown reference to
+                     
+                    <code>
+                      hep-scifi/0101001
+                    </code>
+                     and generate a file containing:
                   </strong>
                 </p>
                 <pre
@@ -130,99 +130,102 @@ Finally, let me make a mistake citing this paper \\cite{hep-scifi/0101001}.
                 >
                   
 %\\cite{Brodsky:2012ms}
-\\bibitem{Brodsky:2012ms} 
-  S.~J.~Brodsky and X.~-G.~Wu,
-  %\`\`Self-Consistency Requirements of the Renormalization Group for Setting the Renormalization Scale,''
-  Phys.\\ Rev.\\ D {\\bf 86}, 054018 (2012)
-  [arXiv:1208.0700 [hep-ph]].
-  %%CITATION = ARXIV:1208.0700;%%
-
+\\bibitem{Brodsky:2012ms}
+S.~J.~Brodsky and X.~G.~Wu,
+%\`\`Self-Consistency Requirements of the Renormalization Group for Setting the Renormalization Scale,''
+Phys. Rev. D \\textbf{86} (2012), 054018
+doi:10.1103/PhysRevD.86.054018
+[arXiv:1208.0700 [hep-ph]].
+%53 citations counted in INSPIRE as of 24 Jun 2020
 
 %\\cite{Beacom:2004yd}
-\\bibitem{Beacom:2004yd} 
-  J.~F.~Beacom, N.~F.~Bell and S.~Dodelson,
-  %\`\`Neutrinoless universe,''
-  Phys.\\ Rev.\\ Lett.\\  {\\bf 93}, 121302 (2004)
-  [astro-ph/0404585].
-  %%CITATION = ASTRO-PH/0404585;%%
-
+\\bibitem{Beacom:2004yd}
+J.~F.~Beacom, N.~F.~Bell and S.~Dodelson,
+%\`\`Neutrinoless universe,''
+Phys. Rev. Lett. \\textbf{93} (2004), 121302
+doi:10.1103/PhysRevLett.93.121302
+[arXiv:astro-ph/0404585 [astro-ph]].
+%143 citations counted in INSPIRE as of 24 Jun 2020
 
 %\\cite{physics/0309027}
-\\bibitem{physics/0309027} 
-  P.~A.~Kreitz and T.~C.~Brooks,
-  %\`\`Subject access through community partnerships: A Case study,''
-  Sci.\\ Tech.\\ Libraries {\\bf 24}, 153 (2003)
-  [physics/0309027 [physics.hist-ph]].
-  %%CITATION = PHYSICS/0309027;%%
-
+\\bibitem{physics/0309027}
+P.~A.~Kreitz and T.~C.~Brooks,
+%\`\`Subject access through community partnerships: A Case study,''
+Sci. Tech. Libraries \\textbf{24} (2003), 153-172
+doi:10.1300/J122v24n01_10
+[arXiv:physics/0309027 [physics.hist-ph]].
+%4 citations counted in INSPIRE as of 24 Jun 2020
 
 %\\cite{hep-th/0501240}
-\\bibitem{hep-th/0501240} 
-  Z.~Bern, L.~J.~Dixon and D.~A.~Kosower,
-  %\`\`On-shell recurrence relations for one-loop QCD amplitudes,''
-  Phys.\\ Rev.\\ D {\\bf 71}, 105013 (2005)
-  [hep-th/0501240].
-  %%CITATION = HEP-TH/0501240;%%
-
+\\bibitem{hep-th/0501240}
+Z.~Bern, L.~J.~Dixon and D.~A.~Kosower,
+%\`\`On-shell recurrence relations for one-loop QCD amplitudes,''
+Phys. Rev. D \\textbf{71} (2005), 105013
+doi:10.1103/PhysRevD.71.105013
+[arXiv:hep-th/0501240 [hep-th]].
+%226 citations counted in INSPIRE as of 24 Jun 2020
 
 %\\cite{hep-th/0412210}
-\\bibitem{hep-th/0412210} 
-  Z.~Bern, L.~J.~Dixon and D.~A.~Kosower,
-  %\`\`All Next-to-maximally-helicity-violating one-loop gluon amplitudes in N=4 super-Yang-Mills theory,''
-  Phys.\\ Rev.\\ D {\\bf 72}, 045014 (2005)
-  [hep-th/0412210].
-  %%CITATION = HEP-TH/0412210;%%
-
+\\bibitem{hep-th/0412210}
+Z.~Bern, L.~J.~Dixon and D.~A.~Kosower,
+%\`\`All Next-to-maximally-helicity-violating one-loop gluon amplitudes in N=4 super-Yang-Mills theory,''
+Phys. Rev. D \\textbf{72} (2005), 045014
+doi:10.1103/PhysRevD.72.045014
+[arXiv:hep-th/0412210 [hep-th]].
+%136 citations counted in INSPIRE as of 24 Jun 2020
 
 %\\cite{JHEP.0412.015}
-\\bibitem{JHEP.0412.015} 
-  L.~J.~Dixon, E.~W.~N.~Glover and V.~V.~Khoze,
-  %\`\`MHV rules for Higgs plus multi-gluon amplitudes,''
-  JHEP {\\bf 0412}, 015 (2004)
-  [hep-th/0411092].
-  %%CITATION = HEP-TH/0411092;%%
-
+\\bibitem{JHEP.0412.015}
+L.~J.~Dixon, E.~Glover and V.~V.~Khoze,
+%\`\`MHV rules for Higgs plus multi-gluon amplitudes,''
+JHEP \\textbf{12} (2004), 015
+doi:10.1088/1126-6708/2004/12/015
+[arXiv:hep-th/0411092 [hep-th]].
+%192 citations counted in INSPIRE as of 24 Jun 2020
 
 %\\cite{Akimov:2012vv}
-\\bibitem{Akimov:2012vv} 
-  D.~Akimov {\\it et al.}  [DarkSide Collaboration],
-  %\`\`Light Yield in DarkSide-10: a Prototype Two-phase Liquid Argon TPC for Dark Matter Searches,''
-  arXiv:1204.6218 [astro-ph.IM].
-  %%CITATION = ARXIV:1204.6218;%%
-
+\\bibitem{Akimov:2012vv}
+T.~Alexander \\textit{et al.} [DarkSide],
+%\`\`Light Yield in DarkSide-10: A Prototype Two-Phase Argon TPC for Dark Matter Searches,''
+Astropart. Phys. \\textbf{49} (2013), 44-51
+doi:10.1016/j.astropartphys.2013.08.004
+[arXiv:1204.6218 [astro-ph.IM]].
+%69 citations counted in INSPIRE as of 24 Jun 2020
 
 %\\cite{Nakamura:2010zzi}
-\\bibitem{Nakamura:2010zzi} 
-  K.~Nakamura {\\it et al.}  [Particle Data Group Collaboration],
-  %\`\`Review of particle physics,''
-  J.\\ Phys.\\ G {\\bf 37}, 075021 (2010).
-
+\\bibitem{Nakamura:2010zzi}
+K.~Nakamura \\textit{et al.} [Particle Data Group],
+%\`\`Review of particle physics,''
+J. Phys. G \\textbf{37} (2010), 075021
+doi:10.1088/0954-3899/37/7A/075021
+%6467 citations counted in INSPIRE as of 24 Jun 2020
 
 %\\cite{hep-th/9711200}
-\\bibitem{hep-th/9711200} 
-  J.~M.~Maldacena,
-  %\`\`The Large N limit of superconformal field theories and supergravity,''
-  Adv.\\ Theor.\\ Math.\\ Phys.\\  {\\bf 2}, 231 (1998)
-  [hep-th/9711200].
-  %%CITATION = HEP-TH/9711200;%%
-
+\\bibitem{hep-th/9711200}
+J.~M.~Maldacena,
+%\`\`The Large N limit of superconformal field theories and supergravity,''
+Int. J. Theor. Phys. \\textbf{38} (1999), 1113-1133
+doi:10.1023/A:1026654312961
+[arXiv:hep-th/9711200 [hep-th]].
+%15702 citations counted in INSPIRE as of 24 Jun 2020
 
 %\\cite{hep-ph/9803315}
-\\bibitem{hep-ph/9803315} 
-  N.~Arkani-Hamed, S.~Dimopoulos and G.~R.~Dvali,
-  %\`\`The Hierarchy problem and new dimensions at a millimeter,''
-  Phys.\\ Lett.\\ B {\\bf 429}, 263 (1998)
-  [hep-ph/9803315].
-  %%CITATION = HEP-PH/9803315;%%
-
+\\bibitem{hep-ph/9803315}
+N.~Arkani-Hamed, S.~Dimopoulos and G.~Dvali,
+%\`\`The Hierarchy problem and new dimensions at a millimeter,''
+Phys. Lett. B \\textbf{429} (1998), 263-272
+doi:10.1016/S0370-2693(98)00466-3
+[arXiv:hep-ph/9803315 [hep-ph]].
+%6724 citations counted in INSPIRE as of 24 Jun 2020
 
 %\\cite{hep-ph/9905221}
-\\bibitem{hep-ph/9905221} 
-  L.~Randall and R.~Sundrum,
-  %\`\`A Large mass hierarchy from a small extra dimension,''
-  Phys.\\ Rev.\\ Lett.\\  {\\bf 83}, 3370 (1999)
-  [hep-ph/9905221].
-  %%CITATION = HEP-PH/9905221;%%
+\\bibitem{hep-ph/9905221}
+L.~Randall and R.~Sundrum,
+%\`\`A Large mass hierarchy from a small extra dimension,''
+Phys. Rev. Lett. \\textbf{83} (1999), 3370-3373
+doi:10.1103/PhysRevLett.83.3370
+[arXiv:hep-ph/9905221 [hep-ph]].
+%8745 citations counted in INSPIRE as of 24 Jun 2020
                     
                 </pre>
               </CollapsableFormSection>
@@ -241,53 +244,84 @@ Finally, let me make a mistake citing this paper \\cite{hep-scifi/0101001}.
                       Instructions
                     </h3>
                     <p>
-                      Write your paper in LaTeX as usual. Cite papers in your LaTeX file in the following way:
+                      Write your paper in LaTeX as usual. Cite papers in your LaTeX file using the 
+                      <Cite>
+                        ...
+                      </Cite>
+                       macro. The citation keys will be used to retrieve the bibliographic information for the referenced papers from the INSPIRE database. The following types of citation keys are supported:
                     </p>
                     <ol>
                       <li>
-                        INSPIRE Texkeys, e.g. \\cite{Beacom:2010kk}
+                        INSPIRE Texkeys, e.g. 
+                        <Cite>
+                          Beacom:2010kk
+                        </Cite>
                       </li>
                       <li>
-                        Eprint numbers, e.g. \\cite{1004.3311} or \\cite{hep-th/9711200}
+                        arXiv eprint numbers, e.g. 
+                        <Cite>
+                          1004.3311
+                        </Cite>
+                         or
+                         
+                        <Cite>
+                          hep-th/9711200
+                        </Cite>
+                      </li>
+                      <li>
+                        Journal references as present on INSPIRE, with the spaces and dots removed from the title, and dots used as separator between title, volume and page-number/article ID, e.g.
+                         
+                        <Cite>
+                          PhysRev.D66.010001
+                        </Cite>
+                      </li>
+                      <li>
+                        ADS bibcodes, e.g. 
+                        <Cite>
+                          1999IJTP...38.1113M
+                        </Cite>
+                      </li>
+                      <li>
+                        Report numbers, e.g.
+                         
+                        <Cite>
+                          CERN-PH-EP-2012-218
+                        </Cite>
                       </li>
                     </ol>
                     <p>
-                      You can then upload your LaTeX file here to generate a list of the references in the order they are cited in your paper. The system will understand cite fields with multiple papers such as \\cite{Beacom:2010kk, hep-th/9711200}. Note that if you combine multiple papers under a single texkey only the one belonging to the texkey will show up, the others will not.
+                      You can then upload your LaTeX file here to generate a list of the references in the order they are cited in your paper. You’ll receive an output file that can be used as a BibTeX database or copy/pasted in the bibliography environment depending on the selected format. In case some citations can’t be found or are ambiguous, you’ll receive an error message (but a bibliography will still be generated for the other citations).
                     </p>
                     <p>
-                      You have several options for the bibkey:
+                      Notes:
                     </p>
-                    <ol>
+                    <ul>
                       <li>
-                        hep-th/0001001 or any eprint number
+                        You can cite multiple papers at once by separating the keys with commas, such as
+                         
+                        <Cite>
+                          Beacom:2010kk, hep-th/9711200
+                        </Cite>
+                        . Each of them will appear as a separate entry in the bibliography.
                       </li>
                       <li>
-                        PhysRev.D66.010001 or any journal reference using typical abbreviations for the journal name (note no periods in the journal name)
-                      </li>
-                      <li>
-                        Hagiwara:2002fs or any INSPIRE LaTeX key for the paper
-                      </li>
-                    </ol>
-                    <p>
-                      You may also want to remember the following tips when citing papers:
-                    </p>
-                    <ol>
-                      <li>
-                        You can combine multiple references in one \\cite command, again using commas to separate the references. Example: \\cite{Hagiwara:2002fs,hep-ex/0101001,PhysRev.D13.1}. These will be cited separately in your bibliography.
-                      </li>
-                      <li>
-                        The reference will always appear in the same format regardless of how you cite it so if you have a choice, use the eprint number as the identifier rather than a journal publication note.
+                        The reference will always appear in the same format regardless of how you cite it so if you have a choice, use the eprint number as the identifier rather than a journal publication note for simplicity.
                       </li>
                       <li>
                         Do not worry about whether you have cited something before, INSPIRE will get the order right based on when you cited the references in the paper.
                       </li>
                       <li>
-                        The only allowed characters in \\cite commands are letters, numbers and the following signs: "-", "/", ":", "," and ".". If your alias or bibkey contains something else, it will not be processed.
+                        The only allowed characters in 
+                        <Cite>
+                          ...
+                        </Cite>
+                         
+                        commands are letters, numbers and the following punctuation characters: “-”, “/”, “:”, “,” and “.”. If your citation key contains anything else, it will not be processed.
                       </li>
-                    </ol>
-                    <p>
-                      Output format: You can select "LaTeX (EU)" to create references in the European style (year before page). If you'd like the output in BiBTeX format, suitable for adding to your .bib file try generate bibtex, but beware that aliases to multiple articles (i.e., a nickname for many papers, cited as one) don't really work, since the .bib file expects separate entries for each paper. Note that this will generate BiBTeX output for the citations in you paper. You can't send a .bib file and get results this way.
-                    </p>
+                      <li>
+                        You have to send a LaTeX file containing citations, you can’t send a BibTeX database.
+                      </li>
+                    </ul>
                   </Col>
                 </Row>
                 <Row
