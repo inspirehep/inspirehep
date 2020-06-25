@@ -61,7 +61,7 @@ def generate_bibliography():
     current_s3_instance.upload_file(
         file_data, key, filename, mime_type, current_app.config["S3_FILE_ACL"], bucket
     )
-    download_url = f"{current_app.config.get('S3_HOSTNAME')}/{bucket}/{key}"
+    download_url = current_s3_instance.get_s3_url(key, bucket)
 
     formatted_errors = []
     for error in errors:

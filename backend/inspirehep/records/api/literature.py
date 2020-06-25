@@ -388,7 +388,10 @@ class LiteratureRecord(
             app_context: Original app context should be passed here if running in separate thread
         """
         with app_context.app.app_context():
-            if current_s3_instance.is_s3_url(url) and not current_app.config.get(
+            is_s3_or_public_url = current_s3_instance.is_s3_url(
+                url
+            ) or current_s3_instance.is_public_url(url)
+            if is_s3_or_public_url and not current_app.config.get(
                 "UPDATE_S3_FILES_METADATA", False
             ):
                 result = {}
@@ -396,6 +399,10 @@ class LiteratureRecord(
                     filename = filename or key
                     key = url.split("/")[-1]
                     result.update({"key": key, "filename": filename})
+                if current_s3_instance.is_s3_url(url):
+                    url = current_s3_instance.get_public_url(key)
+                    result.update({"url": url})
+
                 LOGGER.info(
                     "File already on S3 - Skipping",
                     url=url,
@@ -436,11 +443,12 @@ class LiteratureRecord(
             result = {
                 "key": new_key,
                 "filename": filename,
-                "url": current_s3_instance.get_file_url(new_key),
+                "url": current_s3_instance.get_public_url(new_key),
             }
             if (
                 url.startswith("http")
                 and not current_s3_instance.is_s3_url(url)
+                and not current_s3_instance.is_public_url(url)
                 and not original_url
             ):
                 result["original_url"] = url
