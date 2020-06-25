@@ -48,6 +48,7 @@ def find_references(references, requested_format):
     ret = []
     errors = []
     for ref, line in references:
+        query = ref
         keyword = None
         if re.search(r"^\d{4}[\w.&]{15}$", ref):
             # ads
@@ -60,13 +61,13 @@ def find_references(references, requested_format):
             keyword = "eprint"
         elif re.search(r"\w\.\w+\.\w", ref):
             keyword = "j"
-            ref = re.sub(r"\.", ",", ref)
+            query = re.sub(r"\.", ",", ref)
         elif re.search(r"\w\-\w", ref):
             keyword = "r"
 
         results = (
             LiteratureSearch()
-            .query_from_iq(f"{keyword}:{ref}")
+            .query_from_iq(f"{keyword}:{query}")
             .params(size=2, _source=[display_format, "texkeys", "control_number"])
             .execute()
         )
