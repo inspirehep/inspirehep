@@ -11,7 +11,7 @@ ENV REACT_APP_VERSION="${VERSION}"
 RUN yarn run build
 
 
-FROM nginx:1.17-alpine
+FROM nginx:1.19-alpine
 
 EXPOSE 8080
 COPY --from=build-stage /usr/src/app/build /usr/share/nginx/html
