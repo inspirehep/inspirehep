@@ -8,6 +8,7 @@
 
 import pytest
 from helpers.providers.faker import faker
+from helpers.providers.record_provider import RecordProvider
 from helpers.utils import create_record, create_record_factory
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
@@ -144,3 +145,34 @@ def test_adding_record_with_duplicated_dois_different_case(inspire_app):
     assert record["dois"] == expected_dois_in_record
     assert expected_dois_count == len(pids)
     assert expected_doi == pids[0].pid_value
+
+
+def test_doi_minter_without_deleting_all_external_pids(inspire_app):
+    rec = create_record("lit", dois=True)
+    doi = rec["dois"][0]["value"]
+
+    doi_pid = PersistentIdentifier.query.filter_by(pid_type="doi").one()
+    assert doi_pid.pid_value == doi
+
+    data = dict(rec)
+    new_doi = RecordProvider.doi()
+    data["dois"][0]["value"] = new_doi
+    rec.update(data)
+
+    doi_pid = PersistentIdentifier.query.filter_by(pid_type="doi").one()
+    assert doi_pid.pid_value == new_doi
+
+    rec.delete()
+    assert PersistentIdentifier.query.filter_by(pid_type="doi").count() == 0
+
+
+def test_multiple_doi_minter_without_deleting_all_external_pids(inspire_app):
+    rec = create_record("lit", dois=3)
+
+    assert PersistentIdentifier.query.filter_by(pid_type="doi").count() == 3
+
+    data = dict(rec)
+    data["dois"] = data["dois"][0:2]
+    rec.update(data)
+
+    assert PersistentIdentifier.query.filter_by(pid_type="doi").count() == 2

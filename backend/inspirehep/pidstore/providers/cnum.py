@@ -22,9 +22,14 @@ class InspireCNUMProvider(BaseProvider):
     default_status = PIDStatus.RESERVED
 
     @classmethod
-    def create(cls, object_type=None, object_uuid=None, **kwargs):
+    def create(
+        cls, object_type=None, object_uuid=None, data=None, pid_value=None, **kwargs
+    ):
         """Create a new record identifier."""
-        cnum = cls.next(kwargs["pid_value"])
+        if pid_value or "cnum" in data:
+            cnum = pid_value or data.get("cnum")
+        else:
+            cnum = cls.next(data)
         if not cnum:
             return
         kwargs["pid_value"] = cnum
