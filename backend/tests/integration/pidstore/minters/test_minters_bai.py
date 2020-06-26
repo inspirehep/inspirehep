@@ -8,6 +8,8 @@
 
 import pytest
 from helpers.providers.faker import faker
+from helpers.providers.record_provider import RecordProvider
+from helpers.utils import create_record
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
 from inspirehep.pidstore.errors import PIDAlreadyExists
@@ -67,3 +69,24 @@ def test_if_bai_is_processed_on_authors_record_creation(inspire_app):
     assert (
         PersistentIdentifier.query.filter_by(pid_type="bai", pid_value=bai).count() == 1
     )
+
+
+def test_bai_minter_without_deleting_all_external_pids(inspire_app):
+    rec = create_record("aut", other_pids=["bai"])
+    rec_bai = rec["ids"][0]["value"]
+    bai_pid = PersistentIdentifier.query.filter_by(pid_type="bai").one()
+
+    assert bai_pid.pid_value == rec_bai
+
+    new_bai = RecordProvider.bai()
+    data = dict(rec)
+    data["ids"][0]["value"] = new_bai
+    rec.update(data)
+    bai_pid = PersistentIdentifier.query.filter_by(pid_type="bai").one()
+
+    assert bai_pid.pid_value == new_bai
+
+    rec.delete()
+    bai_count = PersistentIdentifier.query.filter_by(pid_type="bai").count()
+
+    assert bai_count == 0

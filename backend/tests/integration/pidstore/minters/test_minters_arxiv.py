@@ -8,7 +8,8 @@
 
 import pytest
 from helpers.providers.faker import faker
-from helpers.utils import create_record_factory
+from helpers.providers.record_provider import RecordProvider
+from helpers.utils import create_record, create_record_factory
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
 from inspirehep.pidstore.errors import MissingSchema, PIDAlreadyExists
@@ -110,3 +111,50 @@ def test_mitner_arxiv_eprints_missing_schema(inspire_app):
 
     with pytest.raises(MissingSchema):
         ArxivMinter.mint(record_id, record_data)
+
+
+def test_arxiv_minter_without_deleting_all_external_pids(inspire_app):
+    rec = create_record("lit", arxiv_eprints=True)
+    data = dict(rec)
+    old_arxiv = rec["arxiv_eprints"][0]["value"]
+    new_arxiv = RecordProvider.arxiv()
+    data["arxiv_eprints"][0]["value"] = new_arxiv
+    rec.update(data)
+
+    expected_arxiv_old_pid_count = 0
+    expected_arxiv_new_pid_count = 1
+    expected_recid_pid_status = "R"
+
+    arxiv_old_pid_count = PersistentIdentifier.query.filter_by(
+        pid_value=old_arxiv, pid_type="arxiv"
+    ).count()
+    arxiv_new_pid_count = PersistentIdentifier.query.filter_by(
+        pid_value=new_arxiv, pid_type="arxiv"
+    ).count()
+    recid_pid = PersistentIdentifier.query.filter_by(
+        pid_value=str(rec["control_number"]), pid_type="lit"
+    ).one()
+
+    assert arxiv_old_pid_count == expected_arxiv_old_pid_count
+    assert arxiv_new_pid_count == expected_arxiv_new_pid_count
+    assert recid_pid.status == expected_recid_pid_status
+
+    rec.delete()
+
+    expected_arxiv_old_pid_count = 0
+    expected_arxiv_new_pid_count = 0
+    expected_recid_pid_status = PIDStatus.DELETED
+
+    arxiv_old_pid_count = PersistentIdentifier.query.filter_by(
+        pid_value=old_arxiv, pid_type="arxiv"
+    ).count()
+    arxiv_new_pid_count = PersistentIdentifier.query.filter_by(
+        pid_value=new_arxiv, pid_type="arxiv"
+    ).count()
+    recid_pid = PersistentIdentifier.query.filter_by(
+        pid_value=str(rec["control_number"]), pid_type="lit"
+    ).one()
+
+    assert arxiv_old_pid_count == expected_arxiv_old_pid_count
+    assert arxiv_new_pid_count == expected_arxiv_new_pid_count
+    assert recid_pid.status == expected_recid_pid_status

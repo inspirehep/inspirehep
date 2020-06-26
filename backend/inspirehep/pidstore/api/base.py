@@ -30,16 +30,12 @@ class PidStoreBase(object):
     @classmethod
     def update(cls, object_uuid, data):
         LOGGER.info("Updating PIDs", uuid=str(object_uuid))
-        pid_base = cls(object_uuid, data)
-        pid_base.delete_external_pids()
         for minter in cls.minters:
             minter.update(object_uuid, data)
 
     @classmethod
     def delete(cls, object_uuid, data):
         LOGGER.info("Deleting PIDs", uuid=str(object_uuid))
-        pid_base = cls(object_uuid, data)
-        pid_base.delete_external_pids()
         for minter in cls.minters:
             try:
                 minter.delete(object_uuid, data)
@@ -47,15 +43,6 @@ class PidStoreBase(object):
                 LOGGER.warning(
                     "Pid is missing or already deleted", object_uuid=object_uuid
                 )
-
-    def delete_external_pids(self):
-        try:
-            LOGGER.info("Deleting external PIDs", uuid=str(self.object_uuid))
-            return PersistentIdentifier.query.filter_by(
-                object_type="rec", object_uuid=self.object_uuid, pid_provider="external"
-            ).delete()
-        except PIDDoesNotExistError:
-            LOGGER.warning("Pids ``external`` not found", uuid=str(self.object_uuid))
 
     @staticmethod
     def get_endpoint_from_pid_type(pid_type):

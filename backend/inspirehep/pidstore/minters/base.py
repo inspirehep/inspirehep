@@ -9,6 +9,7 @@ import structlog
 from inspire_utils.helpers import force_list
 from inspire_utils.record import get_value
 from invenio_pidstore.errors import PIDAlreadyExists
+from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
 from inspirehep.pidstore.errors import MissingSchema
 from inspirehep.pidstore.providers.external import InspireExternalIdProvider
@@ -48,13 +49,14 @@ class Minter:
         """
         return self.get_pid_values()
 
-    def create(self, pid_value):
+    def create(self, pid_value, **kwargs):
         LOGGER.info(
             "Minting",
             pid_type=self.pid_type,
             recid=pid_value,
             object_type=self.object_type,
             object_uuid=str(self.object_uuid),
+            pid_provider=self.provider.pid_provider,
         )
         try:
             return self.provider.create(
@@ -62,6 +64,7 @@ class Minter:
                 pid_value=pid_value,
                 object_type=self.object_type,
                 object_uuid=self.object_uuid,
+                **kwargs
             )
         except PIDAlreadyExists as e:
             raise PIDAlreadyExistsError(e.pid_type, e.pid_value) from e
@@ -78,11 +81,42 @@ class Minter:
 
     @classmethod
     def update(cls, object_uuid, data):
-        cls.mint(object_uuid, data)
+        minter = cls(object_uuid, data)
+        minter.validate()
+        pids_in_db = {
+            pid[0]
+            for pid in PersistentIdentifier.query.filter_by(
+                object_uuid=object_uuid,
+                pid_type=minter.pid_type,
+                object_type=minter.object_type,
+            )
+            .filter(PersistentIdentifier.status != PIDStatus.DELETED)
+            .with_entities("pid_value")
+            .all()
+        }
+        pids_requested = minter.get_pid_values()
+        pids_to_delete = pids_in_db - pids_requested
+        pids_to_create = pids_requested - pids_in_db
+        minter.delete(object_uuid, None, pids_to_delete)
+        for pid_value in pids_to_create:
+            minter.create(pid_value)
 
     @classmethod
-    def delete(cls, object_uuid, data):
-        pass
+    def delete(cls, object_uuid, data, pids_to_delete=None):
+        LOGGER.info(
+            "Some pids for record are going to be removed",
+            pids_to_delete=pids_to_delete or "all",
+            object_uuid=object_uuid,
+        )
+        if pids_to_delete is None:
+            PersistentIdentifier.query.filter_by(
+                object_uuid=object_uuid,
+                pid_type=cls.pid_type,
+                object_type=cls.object_type,
+            ).delete()
+        else:
+            for pid_value in pids_to_delete:
+                cls.provider.get(pid_value, cls.pid_type).delete()
 
 
 class ControlNumberMinter(Minter):

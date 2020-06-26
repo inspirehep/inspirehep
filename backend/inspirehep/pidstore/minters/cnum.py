@@ -4,7 +4,6 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
 from inspirehep.pidstore.errors import CNUMChanged
@@ -40,18 +39,17 @@ class CNUMMinter(Minter):
         minter = cls(object_uuid, data)
         minter.validate()
         if "cnum" not in data:
-            cnum_provider = minter.create(data)
+            cnum_provider = minter.create(pid_value=None, data=data)
             if cnum_provider:
                 cnum = cnum_provider.pid.pid_value
                 data["cnum"] = cnum
         else:
             # migrated record already have a CNUM identifier in metadata
-            PersistentIdentifier.create(
-                pid_type="cnum",
-                pid_value=data["cnum"],
+            cls.provider.create(
+                object_type=cls.object_type,
                 object_uuid=object_uuid,
-                object_type="rec",
-                status=PIDStatus.REGISTERED,
+                pid_type=cls.pid_type,
+                pid_value=data["cnum"],
             )
         return minter
 

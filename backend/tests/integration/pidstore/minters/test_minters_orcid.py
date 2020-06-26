@@ -8,7 +8,9 @@
 
 import pytest
 from helpers.providers.faker import faker
-from helpers.utils import create_record_factory
+from helpers.providers.record_provider import RecordProvider
+from helpers.utils import create_record, create_record_factory
+from idutils import is_isni, is_orcid
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
 from inspirehep.pidstore.errors import MissingSchema, PIDAlreadyExists
@@ -87,3 +89,28 @@ def test_minter_orcid_missing_schema(inspire_app):
 
     with pytest.raises(MissingSchema):
         OrcidMinter.mint(record_id, record_data)
+
+
+def test_orcid_number_generator(inspire_app):
+    orcid = RecordProvider.orcid()
+    assert is_isni(orcid) == True
+    assert is_orcid(orcid) == True
+
+
+def test_orcid_minter_without_deleting_all_external_pids(inspire_app):
+    rec = create_record("aut", other_pids=["orcid"])
+    orcid = rec["ids"][0]["value"]
+
+    orcid_pid = PersistentIdentifier.query.filter_by(pid_type="orcid").one()
+    assert orcid_pid.pid_value == orcid
+
+    new_orcid = RecordProvider.orcid()
+    data = dict(rec)
+    data["ids"][0]["value"] = new_orcid
+    rec.update(data)
+
+    orcid_pid = PersistentIdentifier.query.filter_by(pid_type="orcid").one()
+    assert orcid_pid.pid_value == new_orcid
+
+    rec.delete()
+    assert PersistentIdentifier.query.filter_by(pid_type="orcid").count() == 0

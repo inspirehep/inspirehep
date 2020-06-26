@@ -467,9 +467,9 @@ def migrate_record_from_mirror(
             for deleted_record in cls.get_linked_records_from_dict_field(
                 json_record, "deleted_records"
             ):
-                deleted_record.pidstore_handler(
+                deleted_record.pidstore_handler.delete(
                     deleted_record.id, deleted_record
-                ).delete_external_pids()
+                )
             original_urls = replace_afs_file_locations_with_local(json_record)
             record = cls.create_or_update(
                 json_record,

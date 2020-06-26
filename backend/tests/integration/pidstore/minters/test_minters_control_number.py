@@ -4,10 +4,9 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-
-
-from helpers.utils import create_record_factory
-from invenio_pidstore.models import PersistentIdentifier
+import pytest
+from helpers.utils import create_record, create_record_factory
+from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
 from inspirehep.pidstore.minters.control_number import (
     AuthorsMinter,
@@ -326,3 +325,24 @@ def test_control_number_seminars_without_control_number(inspire_app):
     assert expected_pid_type == result_pid.pid_type
     assert expected_pid_value == result_pid.pid_value
     assert expected_pid_object_uuid == result_pid.object_uuid
+
+
+def test_control_number_not_deleting_pid_when_record_removed(inspire_app):
+    record = create_record("lit")
+    expected_cn = str(record["control_number"])
+    cn_pid = PersistentIdentifier.query.filter_by(pid_type="lit").one()
+
+    assert cn_pid.pid_value == expected_cn
+
+    data = dict(record)
+    data["control_number"] = f"{expected_cn}1"
+    with pytest.raises(ValueError):
+        record.update(data)
+
+    cn_pid = PersistentIdentifier.query.filter_by(pid_type="lit").one()
+    assert cn_pid.pid_value == expected_cn
+
+    record.delete()
+    cn_pid = PersistentIdentifier.query.filter_by(pid_type="lit").one()
+
+    cn_pid.status == PIDStatus.DELETED

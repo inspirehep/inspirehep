@@ -39,11 +39,22 @@ class RecordProvider(BaseProvider):
 
     @staticmethod
     def orcid():
-        return "0000-{}-{}-{}".format(
-            fake.random_number(digits=4, fix_len=True),
-            fake.random_number(digits=4, fix_len=True),
-            fake.random_number(digits=4, fix_len=True),
+        """Orcid has to be 15000000 >= orcid <= 35000000"""
+        orcid_integer = str(random.randint(15_000_000, 35_000_000))
+        orcid_id = (
+            f"0000-000{orcid_integer[0]}-{orcid_integer[1:5]}-{orcid_integer[5:]}"
         )
+
+        val = str(orcid_id).replace("-", "").replace(" ", "").upper()
+        r = 0
+        for x in val:
+            r = (r + int(x)) * 2
+        ck = (12 - r % 11) % 11
+        if ck == 10:
+            ck = "X"
+
+        orcid_id += str(ck)
+        return orcid_id
 
     @staticmethod
     def bai():
@@ -167,6 +178,26 @@ class RecordProvider(BaseProvider):
                 ids.append({"schema": "INSPIRE BAI", "value": cls.bai()})
         return ids
 
+    @classmethod
+    def generate_special_pids(cls, key, pid_generator, count):
+        if isinstance(count, bool):
+            count = 1
+        if not isinstance(count, int) or count <= 0:
+            return {}
+        data = {key: []}
+        for i in range(count):
+            data[key].append({"value": pid_generator()})
+        return data
+
+    @classmethod
+    def add_arxiv_eprints(cls, arxiv_eprints):
+        """Create radnom arxiv eprints which means that arxiv ids will be added to pidstore"""
+        return cls.generate_special_pids("arxiv_eprints", cls.arxiv, arxiv_eprints)
+
+    @classmethod
+    def add_dois(cls, dois):
+        return cls.generate_special_pids("dois", cls.doi, dois)
+
     def record(
         self,
         record_type,
@@ -176,6 +207,8 @@ class RecordProvider(BaseProvider):
         data_citations=[],
         skip_validation=False,
         other_pids=[],
+        arxiv_eprints=None,
+        dois=None,
     ):
         if record_type == "lit":
             record = self.hep_record()
@@ -203,6 +236,10 @@ class RecordProvider(BaseProvider):
             record.update(self.add_citations(literature_citations))
         if data_citations:
             record.update(self.add_data_citations(data_citations))
+        if arxiv_eprints:
+            record.update(self.add_arxiv_eprints(arxiv_eprints))
+        if dois:
+            record.update(self.add_dois(dois))
         if other_pids:
             ids = record.get("ids", [])
             ids.extend(self.add_other_pids(other_pids))

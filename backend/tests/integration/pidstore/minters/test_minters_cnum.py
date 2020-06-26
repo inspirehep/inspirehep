@@ -12,6 +12,7 @@ from invenio_pidstore.errors import PIDAlreadyExists
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from jsonschema.exceptions import ValidationError
 
+from inspirehep.pidstore.errors import CNUMChanged
 from inspirehep.pidstore.minters.cnum import CNUMMinter
 from inspirehep.records.api import ConferencesRecord
 
@@ -222,3 +223,28 @@ def test_generate_cnum_when_holes_in_cnums_sequence_and_big_holes(inspire_app):
     rec2.hard_delete()
     rec4 = create_record("con", data)
     assert rec4["cnum"] == "C20-01-01.21"
+
+
+def test_cnum_minter_without_deleting_when_record_removed(inspire_app):
+    data = {"opening_date": "2020-01-01", "cnum": "C20-01-01.20"}
+    expected_cnum = "C20-01-01.20"
+    rec = create_record("con", data)
+    cnum_pid = PersistentIdentifier.query.filter_by(pid_type="cnum").one()
+
+    assert cnum_pid.pid_value == expected_cnum
+
+    data = dict(rec)
+    data["cnum"] = "C20-01-01.22"
+    with pytest.raises(CNUMChanged):
+        rec.update(data)
+
+    cnum_pid = PersistentIdentifier.query.filter_by(pid_type="cnum").one()
+    assert cnum_pid.pid_value == expected_cnum
+
+    data["cnum"] = "C20-01-01.20"
+    rec.update(data)
+
+    rec.delete()
+    cnum_pid = PersistentIdentifier.query.filter_by(pid_type="cnum").one()
+
+    assert cnum_pid.status == PIDStatus.DELETED
