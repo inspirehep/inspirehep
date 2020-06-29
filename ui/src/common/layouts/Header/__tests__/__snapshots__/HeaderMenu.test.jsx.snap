@@ -9,7 +9,7 @@ exports[`HeaderMenu renders when logged in 1`] = `
 >
   <SubMenu
     key="help"
-    popupClassName="header-submenu"
+    popupClassName="header-submenu ant-menu-dark"
     title="Help"
   >
     <MenuItem
@@ -42,7 +42,7 @@ exports[`HeaderMenu renders when logged in 1`] = `
   </SubMenu>
   <SubMenu
     key="submit"
-    popupClassName="header-submenu"
+    popupClassName="header-submenu ant-menu-dark"
     title="Submit"
   >
     <MenuItem
@@ -113,7 +113,7 @@ exports[`HeaderMenu renders when not logged in 1`] = `
 >
   <SubMenu
     key="help"
-    popupClassName="header-submenu"
+    popupClassName="header-submenu ant-menu-dark"
     title="Help"
   >
     <MenuItem
@@ -146,7 +146,7 @@ exports[`HeaderMenu renders when not logged in 1`] = `
   </SubMenu>
   <SubMenu
     key="submit"
-    popupClassName="header-submenu"
+    popupClassName="header-submenu ant-menu-dark"
     title="Submit"
   >
     <MenuItem
