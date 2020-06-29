@@ -94,7 +94,8 @@ def test_get_parent_record_when_more_than_one(inspire_app):
     }
     rec = create_record("lit", data=data)
     extracted_parent_record = get_parent_record(rec)
-    assert extracted_parent_record == parent_record
+    parent_records = [parent_record, second_parent_record]
+    assert extracted_parent_record in parent_records
 
 
 def test_get_parent_record_for_proceedings_from_es(inspire_app):
