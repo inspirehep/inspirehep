@@ -21,7 +21,7 @@ import CitationSummarySwitchContainer, {
   isCitationSummaryEnabled,
 } from './CitationSummarySwitchContainer';
 import { SEARCH_PAGE_GUTTER } from '../../common/constants';
-import CitationSummaryBox from '../components/CitationSummaryBox/CitationSummaryBox';
+import CitationSummaryBox from '../components/CitationSummaryBox';
 
 function renderLiteratureItem(result, rank) {
   return <LiteratureItem metadata={result.get('metadata')} searchRank={rank} />;

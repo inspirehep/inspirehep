@@ -23,7 +23,6 @@ import AuthorWebsitesAction from '../../components/AuthorWebsitesAction';
 import AuthorOrcid from '../../components/AuthorOrcid';
 import DocumentHead from '../../../common/components/DocumentHead';
 import TabNameWithCount from '../../../common/components/TabNameWithCount';
-import NewFeatureTag from '../../../common/components/NewFeatureTag';
 import AuthorCitationsContainer from '../AuthorCitationsContainer';
 import AuthorEmailsAction from '../../components/AuthorEmailsAction';
 import AuthorPublicationsContainer from '../AuthorPublicationsContainer';
@@ -179,10 +178,7 @@ function DetailPage({
                 <Tabs.TabPane
                   tab={
                     <Tooltip title="Research citing the author">
-                      <span>
-                        Cited by
-                        <NewFeatureTag />
-                      </span>
+                      <span>Cited by</span>
                     </Tooltip>
                   }
                   key="2"
