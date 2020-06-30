@@ -1,4 +1,4 @@
-import { string, object, array, number } from 'yup';
+import { string, object, array, number, boolean } from 'yup';
 
 import {
   inspireCategoryValues,
@@ -49,6 +49,18 @@ const seminarSchema = object().shape({
         .url()
         .label('Seminar Website')
     ),
+  material_urls: array()
+    .default([{}])
+    .of(
+      emptyObjectOrShapeOf({
+        value: string()
+          .trim()
+          .url()
+          .required()
+          .label('Material'),
+        description: string(),
+      })
+    ),
   join_urls: array()
     .default([{}])
     .of(
@@ -61,6 +73,7 @@ const seminarSchema = object().shape({
         description: string(),
       })
     ),
+  captioned: boolean(),
   address: emptyObjectOrShapeOf({
     city: string()
       .trim()

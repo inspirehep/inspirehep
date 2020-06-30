@@ -17,6 +17,9 @@ describe('SeminarItem', () => {
       speakers: [{ name: 'John, Doe', affiliations: [{ value: 'CERN' }] }],
       start_datetime: '2020-05-15T11:45:00.000000',
       end_datetime: '2020-05-17T00:45:00.000000',
+      material_urls: [
+        { value: 'http://urlmaterial.com', description: 'slides' },
+      ],
     });
 
     const wrapper = shallow(<SeminarItem metadata={metadata} />);
@@ -36,6 +39,7 @@ describe('SeminarItem', () => {
     const wrapper = shallow(<SeminarItem metadata={metadata} />);
     expect(wrapper).toMatchSnapshot();
   });
+
   it('renders with selected timezone with a different time than local timezone', () => {
     const metadata = fromJS({
       title: { title: 'test' },
@@ -51,6 +55,7 @@ describe('SeminarItem', () => {
     );
     expect(wrapper).toMatchSnapshot();
   });
+
   it('renders with selected timezone with a same time as local timezone', () => {
     const metadata = fromJS({
       title: { title: 'test' },

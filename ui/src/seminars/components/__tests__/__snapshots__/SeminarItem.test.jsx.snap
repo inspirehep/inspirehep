@@ -27,25 +27,27 @@ exports[`SeminarItem renders with all props set 1`] = `
           ]
         }
       />
+      <UrlsAction
+        icon={<ForwardRef(FileOutlined) />}
+        text="material"
+        urls={
+          Immutable.List [
+            Immutable.Map {
+              "value": "http://urlmaterial.com",
+              "description": "slides",
+            },
+          ]
+        }
+      />
       <ExportToCalendarAction
         seminar={
           Immutable.Map {
-            "title": Immutable.Map {
-              "title": "test",
-            },
-            "control_number": 12345,
-            "can_edit": true,
             "urls": Immutable.List [
               Immutable.Map {
                 "value": "http://url.com",
               },
             ],
-            "join_urls": Immutable.List [
-              Immutable.Map {
-                "value": "http://urljoin.com",
-                "description": "zoom",
-              },
-            ],
+            "control_number": 12345,
             "speakers": Immutable.List [
               Immutable.Map {
                 "name": "John, Doe",
@@ -56,7 +58,23 @@ exports[`SeminarItem renders with all props set 1`] = `
                 ],
               },
             ],
+            "title": Immutable.Map {
+              "title": "test",
+            },
             "start_datetime": "2020-05-15T11:45:00.000000",
+            "can_edit": true,
+            "join_urls": Immutable.List [
+              Immutable.Map {
+                "value": "http://urljoin.com",
+                "description": "zoom",
+              },
+            ],
+            "material_urls": Immutable.List [
+              Immutable.Map {
+                "value": "http://urlmaterial.com",
+                "description": "slides",
+              },
+            ],
             "end_datetime": "2020-05-17T00:45:00.000000",
           }
         }

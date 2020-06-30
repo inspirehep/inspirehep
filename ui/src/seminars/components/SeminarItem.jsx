@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 
-import { VideoCameraAddOutlined } from '@ant-design/icons';
+import { VideoCameraAddOutlined, FileOutlined } from '@ant-design/icons';
 import { Row, Col } from 'antd';
 import EditRecordAction from '../../common/components/EditRecordAction';
 import ResultItem from '../../common/components/ResultItem';
@@ -22,6 +22,7 @@ function SeminarItem({ metadata, selectedTimezone }) {
   const canEdit = metadata.get('can_edit', false);
   const urls = metadata.get('urls');
   const joinUrls = metadata.get('join_urls');
+  const materialUrls = metadata.get('material_urls');
   const speakers = metadata.get('speakers');
   const startDate = metadata.get('start_datetime');
   const endDate = metadata.get('end_datetime');
@@ -38,6 +39,13 @@ function SeminarItem({ metadata, selectedTimezone }) {
               urls={joinUrls}
               icon={<VideoCameraAddOutlined />}
               text="join"
+            />
+          )}
+          {materialUrls && (
+            <UrlsAction
+              urls={materialUrls}
+              icon={<FileOutlined />}
+              text="material"
             />
           )}
           <ExportToCalendarAction seminar={metadata} />

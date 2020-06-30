@@ -18,6 +18,7 @@ from inspirehep.search.aggregations import (
     jobs_rank_aggregation,
     jobs_region_aggregation,
     jobs_status_aggregation,
+    seminar_accessibility_aggregation,
     seminar_series_aggregation,
     seminar_subject_aggregation,
 )
@@ -498,10 +499,11 @@ def test_all_facets_have_a_corresponding_filter_for_every_aggregation(inspire_ap
 
 def test_records_seminars_facets(inspire_app):
     with current_app.test_request_context():
-        expected_filters = {"subject", "series", "start_date"}
+        expected_filters = {"subject", "series", "start_date", "accessibility"}
         expected_aggregations = {
             **seminar_series_aggregation(order=1),
             **seminar_subject_aggregation(order=2),
+            **seminar_accessibility_aggregation(order=3),
         }
 
         filters = current_app.config["RECORDS_REST_FACETS"]["records-seminars"]()[
