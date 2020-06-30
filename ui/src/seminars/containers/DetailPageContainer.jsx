@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 import { Row, Col } from 'antd';
-import { VideoCameraAddOutlined } from '@ant-design/icons';
+import { VideoCameraAddOutlined, FileOutlined } from '@ant-design/icons';
 
 import DocumentHead from '../../common/components/DocumentHead';
 import fetchSeminar from '../../actions/seminars';
@@ -50,6 +50,8 @@ function DetailPage({ record }) {
   const endDate = metadata.get('end_datetime');
   const timezone = metadata.get('timezone');
   const literatureRecords = metadata.get('literature_records');
+  const captioned = metadata.get('captioned');
+  const materialUrls = metadata.get('material_urls');
 
   return (
     <>
@@ -71,6 +73,13 @@ function DetailPage({ record }) {
                     urls={joinUrls}
                     icon={<VideoCameraAddOutlined />}
                     text="join"
+                  />
+                )}
+                {materialUrls && (
+                  <UrlsAction
+                    urls={materialUrls}
+                    icon={<FileOutlined />}
+                    text="material"
                   />
                 )}
                 <ExportToCalendarAction seminar={metadata} />
@@ -157,6 +166,11 @@ function DetailPage({ record }) {
                     wrapperClassName="di"
                   />
                 </Col>
+              </Row>
+            )}
+            {captioned && (
+              <Row className="mt2">
+                <Col>Contains captions</Col>
               </Row>
             )}
             {contacts && (

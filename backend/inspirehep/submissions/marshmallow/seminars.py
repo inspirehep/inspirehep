@@ -56,7 +56,9 @@ class Seminar(Schema):
     series_name = fields.Raw()
     series_number = fields.Raw()
     websites = fields.Raw()
+    material_urls = fields.Raw()
     join_urls = fields.Raw()
+    captioned = fields.Raw()
     literature_records = fields.Raw()
 
     @pre_dump
@@ -105,7 +107,9 @@ class Seminar(Schema):
             "field_of_interest": data.get_value("inspire_categories.term", missing),
             "dates": [form_start_datetime, form_end_datetime],
             "websites": data.get_value("urls.value", missing),
+            "material_urls": data.get_value("material_urls", missing),
             "join_urls": data.get_value("join_urls", missing),
+            "captioned": data.get("captioned", missing),
             "timezone": timezone,
             "abstract": data.get_value("abstract.value", missing),
             "keywords": data.get_value("keywords.value", missing),
@@ -147,6 +151,10 @@ class Seminar(Schema):
         if abstract:
             builder.set_abstract(value=abstract)
 
+        captioned = data.get("captioned")
+        if captioned:
+            builder.set_captioned(captioned)
+
         for contact in data.get("contacts", []):
             builder.add_contact(**contact)
 
@@ -166,6 +174,9 @@ class Seminar(Schema):
             affiliations = [affiliation] if affiliation else None
 
             builder.add_speaker(name=name, record=record, affiliations=affiliations)
+
+        for url in data.get("material_urls", []):
+            builder.add_material_url(**url)
 
         for url in data.get("join_urls", []):
             builder.add_join_url(**url)

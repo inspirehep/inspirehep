@@ -22,6 +22,14 @@
     "orcid": "5544-5406-5372-448X",
     "source": "esse quis"
   },
+  "$schema": "https://inspirebeta.net/schemas/records/seminars.json",
+  "captioned": true,
+  "material_urls": [
+    {
+      "description": "slides",
+      "value": "http://google.com"
+    }
+  ],
   "address": {
     "cities": ["Geneva", "Lausanne"],
     "country_code": "DK",

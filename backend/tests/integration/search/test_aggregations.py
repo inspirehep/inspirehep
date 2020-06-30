@@ -22,6 +22,7 @@ from inspirehep.search.aggregations import (
     jobs_rank_aggregation,
     jobs_region_aggregation,
     jobs_status_aggregation,
+    seminar_accessibility_aggregation,
     seminar_series_aggregation,
     seminar_subject_aggregation,
 )
@@ -853,3 +854,49 @@ def test_seminars_start_date_filter_with_upcoming(inspire_app):
         response_data["hits"]["hits"][0]["metadata"]["control_number"]
         == expected_record["control_number"]
     )
+
+
+def test_seminar_accessibility_aggregation(inspire_app):
+    config = {
+        "RECORDS_REST_FACETS": {
+            "records-seminars": {
+                "filters": {**current_app.config["SEMINARS_FILTERS"]},
+                "aggs": {**seminar_accessibility_aggregation(1)},
+            }
+        }
+    }
+
+    with override_config(**config):
+        data = {
+            "material_urls": [
+                {"description": "slides", "value": "http://slides.com"},
+                {"value": "http://pdf.com"},
+            ],
+            "captioned": True,
+        }
+        expected_record = create_record("sem", data)
+        data = {"captioned": True}
+        create_record("sem", data)
+        with inspire_app.test_client() as client:
+            response = client.get("/seminars/facets").json
+        expected_aggregation = {
+            "meta": {
+                "title": "Accessibility",
+                "type": "checkbox",
+                "order": 1,
+                "is_filter_aggregation": True,
+            },
+            "buckets": [
+                {"key": "Has captions", "doc_count": 2},
+                {"key": "Has material", "doc_count": 1},
+            ],
+        }
+        assert response["aggregations"]["accessibility"] == expected_aggregation
+
+        with inspire_app.test_client() as client:
+            response = client.get("/seminars?accessibility=Has%20material").json
+        assert len(response["hits"]["hits"]) == 1
+        assert (
+            response["hits"]["hits"][0]["metadata"]["control_number"]
+            == expected_record["control_number"]
+        )

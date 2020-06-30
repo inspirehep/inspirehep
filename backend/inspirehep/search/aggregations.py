@@ -268,3 +268,24 @@ def seminar_series_aggregation(order, title="Series", agg_type="checkbox"):
             "meta": {"title": title, "order": order, "type": agg_type},
         }
     }
+
+
+def seminar_accessibility_aggregation(
+    order, title="Accessibility", agg_type="checkbox"
+):
+    return {
+        "accessibility": {
+            "filters": {
+                "filters": {
+                    "Has material": {"exists": {"field": "material_urls"}},
+                    "Has captions": {"term": {"captioned": True}},
+                }
+            },
+            "meta": {
+                "title": title,
+                "order": order,
+                "type": agg_type,
+                "is_filter_aggregation": True,
+            },
+        }
+    }
