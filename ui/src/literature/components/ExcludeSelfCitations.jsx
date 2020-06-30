@@ -43,7 +43,7 @@ ExcludeSelfCitations.propTypes = {
   onChange: PropTypes.func.isRequired,
   excluded: PropTypes.bool,
   preference: PropTypes.bool.isRequired,
-  onPreferenceChange: PropTypes.bool,
+  onPreferenceChange: PropTypes.func,
 };
 
 export default ExcludeSelfCitations;
