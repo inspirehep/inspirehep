@@ -2686,7 +2686,7 @@ description = "Prometheus metrics exporter for Flask"
 name = "prometheus-flask-exporter"
 optional = false
 python-versions = "*"
-version = "0.9.3"
+version = "0.14.1"
 
 [package.dependencies]
 flask = "*"
@@ -3995,7 +3995,7 @@ test = ["zope.event"]
 testing = ["coverage", "nose", "zope.event"]
 
 [metadata]
-content-hash = "35a5f7b9433cfb295b1dfb9a9f92c5b5f5f1946e5522f9b250ae4b29c759ddae"
+content-hash = "f82b9c903e7ff9c6ee9f7feff06d7b7c5735deba87be8bcb1e2cfe5020891439"
 python-versions = ">=3.6,<3.8"
 
 [metadata.files]
@@ -4910,7 +4910,7 @@ prometheus-client = [
     {file = "prometheus_client-0.7.1.tar.gz", hash = "sha256:71cd24a2b3eb335cb800c7159f423df1bd4dcd5171b234be15e3f31ec9f622da"},
 ]
 prometheus-flask-exporter = [
-    {file = "prometheus_flask_exporter-0.9.3.tar.gz", hash = "sha256:ac69dad8b2472147f2efcc2a2576877f166f66b120b8a979864242ac0dbc7b34"},
+    {file = "prometheus_flask_exporter-0.14.1.tar.gz", hash = "sha256:794ff244a5316f5ac2b6c44972cc7d366b1829913cdc9572c044097ee62cc5a3"},
 ]
 prompt-toolkit = [
     {file = "prompt_toolkit-3.0.2-py3-none-any.whl", hash = "sha256:0278d2f51b5ceba6ea8da39f76d15684e84c996b325475f6e5720edc584326a7"},

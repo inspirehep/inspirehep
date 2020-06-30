@@ -37,10 +37,10 @@ def test_ext_without_dsn(mock_sentry_sdk):
     mock_sentry_sdk.assert_not_called()
 
 
-@mock.patch("inspirehep.logger.ext.PrometheusMetrics.init_app")
-def test_ext_with_prometheus_flask_metrics(mock_prometheus_metrics):
+@mock.patch("inspirehep.logger.ext.GunicornInternalPrometheusMetrics.init_app")
+def test_ext_with_prometheus_flask_metrics(mock_prometheus_metrics, monkeypatch):
     PROMETHEUS_ENABLE_EXPORTER_FLASK = True
-
+    monkeypatch.setenv("prometheus_multiproc_dir", "/tmp")
     app = Flask("testapp")
     app.config.update(
         {"PROMETHEUS_ENABLE_EXPORTER_FLASK": PROMETHEUS_ENABLE_EXPORTER_FLASK}
@@ -49,7 +49,7 @@ def test_ext_with_prometheus_flask_metrics(mock_prometheus_metrics):
     mock_prometheus_metrics.assert_called_once()
 
 
-@mock.patch("inspirehep.logger.ext.PrometheusMetrics.init_app")
+@mock.patch("inspirehep.logger.ext.GunicornInternalPrometheusMetrics.init_app")
 def test_ext_without_prometheus_flask_metrics(mock_prometheus_metrics):
     PROMETHEUS_ENABLE_EXPORTER_FLASK = False
 
