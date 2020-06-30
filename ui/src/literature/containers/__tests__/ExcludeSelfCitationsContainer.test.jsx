@@ -17,12 +17,20 @@ import ExcludeSelfCitations from '../../components/ExcludeSelfCitations';
 import { EXCLUDE_SELF_CITATIONS_PREFERENCE } from '../../../reducers/user';
 import { appendQueryToLocationSearch } from '../../../actions/router';
 import { setPreference } from '../../../actions/user';
+import { searchQueryUpdate } from '../../../actions/search';
+import {
+  CITATION_COUNT_PARAM,
+  CITATION_COUNT_WITHOUT_SELF_CITATIONS_PARAM,
+} from '../../../common/constants';
 
 jest.mock('../../../actions/citations');
 mockActionCreator(fetchCitationSummary);
 
 jest.mock('../../../actions/router');
 mockActionCreator(appendQueryToLocationSearch);
+
+jest.mock('../../../actions/search');
+mockActionCreator(searchQueryUpdate);
 
 describe('ExcludeSelfCitationsContainer', () => {
   it('dispatches setPreference and fetchCitationSummary when excluded', () => {
@@ -38,6 +46,10 @@ describe('ExcludeSelfCitationsContainer', () => {
 
     const expectedActions = [
       setPreference(EXCLUDE_SELF_CITATIONS_PREFERENCE, true),
+      searchQueryUpdate(namespace, {
+        [CITATION_COUNT_PARAM]: undefined,
+        [CITATION_COUNT_WITHOUT_SELF_CITATIONS_PARAM]: undefined,
+      }),
       fetchCitationSummary(namespace),
     ];
     expect(store.getActions()).toEqual(expectedActions);
@@ -54,14 +66,11 @@ describe('ExcludeSelfCitationsContainer', () => {
     const onChange = wrapper.find(ExcludeSelfCitations).prop('onChange');
     onChange(false);
 
-    const expectedActions = [
-      setPreference(EXCLUDE_SELF_CITATIONS_PREFERENCE, false),
+    expect(store.getActions()).toContainEqual(
       appendQueryToLocationSearch({
         [UI_EXCLUDE_SELF_CITATIONS_PARAM]: undefined,
-      }),
-      fetchCitationSummary(namespace),
-    ];
-    expect(store.getActions()).toEqual(expectedActions);
+      })
+    );
   });
 
   it('sets excluded true if exclude self citations param is present and true', () => {
