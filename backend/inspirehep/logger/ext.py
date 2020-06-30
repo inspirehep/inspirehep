@@ -11,7 +11,7 @@ import sentry_sdk
 import structlog
 from flask import request, request_started, request_tearing_down
 from flask.logging import default_handler
-from prometheus_flask_exporter import PrometheusMetrics
+from prometheus_flask_exporter.multiprocess import GunicornInternalPrometheusMetrics
 from sentry_sdk.integrations.celery import CeleryIntegration
 from sentry_sdk.integrations.flask import FlaskIntegration
 
@@ -77,8 +77,8 @@ class InspireLogger:
             return
 
         prefix = app.name
-        metrics_flask = PrometheusMetrics(
-            app=None, defaults_prefix=prefix, group_by=url_rule
+        metrics_flask = GunicornInternalPrometheusMetrics.for_app_factory(
+            defaults_prefix=prefix, group_by=url_rule
         )
         metrics_flask.init_app(app)
         LOGGER.debug(f"Prometheus Flask exporter is initialized with prefix {prefix}.")

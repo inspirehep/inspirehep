@@ -58,7 +58,7 @@ munkres = "^1.0"
 rt = "^1.0"
 gunicorn = "^19.0.0"
 sentry-sdk = {version = "^0.10.2",extras = ["flask"]}
-prometheus-flask-exporter = "^0.9.0"
+prometheus-flask-exporter = "0.14.1"
 beard = ">=0.2.0"
 numpy = ">=1.17.0"
 structlog = "^19.2"
