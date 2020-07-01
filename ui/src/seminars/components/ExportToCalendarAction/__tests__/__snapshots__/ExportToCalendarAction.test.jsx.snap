@@ -26,7 +26,7 @@ exports[`ExportToCalendarAction renders with seminar 1`] = `
     <MenuItem>
       <ExternalLink
         as="a"
-        href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Seminar%20Title&details=&dates=20200515T114500Z%2F20200517T004500Z"
+        href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Harun%20Urhan%20%20%E2%80%94%20Seminar%20Title&details=&dates=20200515T114500Z%2F20200517T004500Z"
       >
         Google Calendar
       </ExternalLink>
