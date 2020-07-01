@@ -9,7 +9,7 @@ BEGIN:VEVENT
 DTSTART:20200515T113400Z
 DTEND:20200515T173400Z
 UID:inspirehep-seminar-12345
-SUMMARY:Seminar Title
+SUMMARY:Harun Urhan  et al.  — Seminar Title
 URL:http://localhost/seminars/12345
 DESCRIPTION:This is a test seminar
 CATEGORIES:Accelerators,Experiment-HEP
@@ -27,7 +27,7 @@ BEGIN:VEVENT
 DTSTART:20200515T114500Z
 DTEND:20200517T004500Z
 UID:inspirehep-seminar-12345
-SUMMARY:Seminar Title
+SUMMARY:Harun Urhan  — Seminar Title
 URL:http://localhost/seminars/12345
 END:VEVENT
 END:VCALENDAR"

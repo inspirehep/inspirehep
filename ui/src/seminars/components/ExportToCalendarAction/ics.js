@@ -3,6 +3,7 @@ import { List } from 'immutable';
 
 import { SEMINARS } from '../../../common/routes';
 import { stripHtml } from '../../../common/utils';
+import { getEventTitle } from './common';
 
 function formatDateTime(datetimeString) {
   const datetime = moment.utc(datetimeString);
@@ -14,7 +15,7 @@ export default function getIcsFileContent(seminar) {
   const id = `inspirehep-seminar-${controlNumber}`;
   const location = seminar.getIn(['address', 'place_name']);
   const url = `${window.location.origin}${SEMINARS}/${controlNumber}`;
-  const title = seminar.getIn(['title', 'title']);
+  const title = getEventTitle(seminar);
   const start = formatDateTime(seminar.get('start_datetime'));
   const end = formatDateTime(seminar.get('end_datetime'));
   const description = stripHtml(seminar.getIn(['abstract', 'value'], ''));
