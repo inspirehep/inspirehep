@@ -1,6 +1,7 @@
 import moment from 'moment';
 import { stringify } from 'qs';
 import { stripHtml, truncateStringWithEllipsis } from '../../../common/utils';
+import { getEventTitle } from './common';
 
 const RENDER_URL = 'https://calendar.google.com/calendar/render';
 
@@ -16,7 +17,7 @@ function stripHtmlAndTruncate(text) {
 }
 
 export default function getGoogleCalendarUrl(seminar) {
-  const text = seminar.getIn(['title', 'title']);
+  const text = getEventTitle(seminar);
   const details = stripHtmlAndTruncate(
     seminar.getIn(['abstract', 'value'], '')
   );
