@@ -4,7 +4,6 @@ import moment from 'moment-timezone';
 import { Map } from 'immutable';
 import NumberAbbreviator from 'number-abbreviate';
 import { LITERATURE } from './routes';
-import { browser } from './browser';
 
 export function forceArray(maybeArray) {
   return maybeArray === undefined || Array.isArray(maybeArray)
@@ -205,29 +204,22 @@ export function getRecordIdFromRef($ref) {
 
 export function downloadTextAsFile(
   text,
-  type = 'application/txt',
-  extension = 'txt'
+  filename = 'download.txt',
+  type = 'text/plain'
 ) {
   const blob = new Blob([text], { type });
-
   if (window.navigator && window.navigator.msSaveOrOpenBlob) {
     // Edge
-    window.navigator.msSaveOrOpenBlob(blob, `download.${extension}`);
-  } else if (browser.isSafari()) {
-    // Safari
+    window.navigator.msSaveOrOpenBlob(blob, filename);
+  } else {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.style.display = 'none';
     a.href = url;
-    a.download = `download.${extension}`;
+    a.download = filename;
     document.body.appendChild(a);
     a.click();
     window.URL.revokeObjectURL(url);
-  } else {
-    // the rest
-    const url = URL.createObjectURL(blob);
-    window.open(url, '_self');
-    URL.revokeObjectURL(url);
   }
 }
 

@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 
 import CiteAllAction from '../CiteAllAction';
 import DropdownMenu from '../../../common/components/DropdownMenu';
-import { CITE_FORMAT_VALUES, MAX_CITEABLE_RECORDS } from '../../constants';
+import { MAX_CITEABLE_RECORDS } from '../../constants';
 import http from '../../../common/http';
 import { downloadTextAsFile } from '../../../common/utils';
 
@@ -49,7 +49,7 @@ describe('CiteAllAction', () => {
         `/literature?sort=mostcited&q=query&page=1&size=${MAX_CITEABLE_RECORDS}`,
         null,
         {
-          Accept: `application/${CITE_FORMAT_VALUES[1]}`,
+          Accept: 'application/vnd+inspire.latex.eu+x-latex',
         }
       )
       .replyOnce(200, 'Test');
@@ -60,9 +60,13 @@ describe('CiteAllAction', () => {
       />
     );
     await wrapper.find(DropdownMenu).prop('onClick')({
-      key: CITE_FORMAT_VALUES[1],
+      key: 'vnd+inspire.latex.eu+x-latex',
     });
-    expect(downloadTextAsFile).toHaveBeenCalledWith('Test');
+    expect(downloadTextAsFile).toHaveBeenCalledWith(
+      'Test',
+      'INSPIRE-CiteAll.tex',
+      'application/x-latex'
+    );
   });
 
   it('calls downloadTextAsFile with correct data omitting page and size when option is clicked', async () => {
@@ -71,7 +75,7 @@ describe('CiteAllAction', () => {
         `/literature?sort=mostrecent&q=query&page=1&size=${MAX_CITEABLE_RECORDS}`,
         null,
         {
-          Accept: `application/${CITE_FORMAT_VALUES[1]}`,
+          Accept: 'application/vnd+inspire.latex.eu+x-latex',
         }
       )
       .replyOnce(200, 'Test');
@@ -82,8 +86,12 @@ describe('CiteAllAction', () => {
       />
     );
     await wrapper.find(DropdownMenu).prop('onClick')({
-      key: CITE_FORMAT_VALUES[1],
+      key: 'vnd+inspire.latex.eu+x-latex',
     });
-    expect(downloadTextAsFile).toHaveBeenCalledWith('Test');
+    expect(downloadTextAsFile).toHaveBeenCalledWith(
+      'Test',
+      'INSPIRE-CiteAll.tex',
+      'application/x-latex'
+    );
   });
 });

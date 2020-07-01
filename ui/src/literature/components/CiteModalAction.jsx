@@ -12,7 +12,11 @@ import SelectBox from '../../common/components/SelectBox';
 import ListItemAction from '../../common/components/ListItemAction';
 import IconText from '../../common/components/IconText';
 import EventTracker from '../../common/components/EventTracker';
-import { CITE_FORMAT_OPTIONS, CITE_FORMAT_VALUES } from '../constants';
+import {
+  CITE_FORMAT_OPTIONS,
+  CITE_FORMAT_VALUES,
+  CITE_FILE_FORMAT,
+} from '../constants';
 import citeArticle from '../citeArticle';
 import { downloadTextAsFile } from '../../common/utils';
 
@@ -43,8 +47,13 @@ class CiteModalAction extends Component {
   }
 
   onDownloadClick() {
-    const { citeContent } = this.state;
-    downloadTextAsFile(citeContent);
+    const { citeContent, format } = this.state;
+    const { recordId } = this.props;
+    downloadTextAsFile(
+      citeContent,
+      `INSPIRE-Cite-${recordId}.${CITE_FILE_FORMAT[format].extension}`,
+      CITE_FILE_FORMAT[format].mimetype
+    );
   }
 
   onModalCancel() {
@@ -74,7 +83,7 @@ class CiteModalAction extends Component {
       }
     }
 
-    this.setState({ citeContent });
+    this.setState({ citeContent, format });
   }
 
   render() {
