@@ -7,7 +7,11 @@ import PropTypes from 'prop-types';
 import ListItemAction from '../../common/components/ListItemAction';
 import IconText from '../../common/components/IconText';
 import DropdownMenu from '../../common/components/DropdownMenu';
-import { CITE_FORMAT_OPTIONS, MAX_CITEABLE_RECORDS } from '../constants';
+import {
+  CITE_FORMAT_OPTIONS,
+  MAX_CITEABLE_RECORDS,
+  CITE_FILE_FORMAT,
+} from '../constants';
 import http from '../../common/http';
 import { downloadTextAsFile } from '../../common/utils';
 
@@ -36,7 +40,11 @@ class CiteAllAction extends Component {
         },
       });
       this.setState({ loading: false });
-      downloadTextAsFile(response.data);
+      downloadTextAsFile(
+        response.data,
+        `INSPIRE-CiteAll.${CITE_FILE_FORMAT[key].extension}`,
+        CITE_FILE_FORMAT[key].mimetype
+      );
     } catch (error) {
       this.setState({ loading: false });
     }

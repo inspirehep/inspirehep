@@ -18,7 +18,12 @@ function ExportToCalendarAction({ seminar }) {
   const onDownloadClick = useCallback(
     () => {
       const fileContent = getIcsFileContent(seminar);
-      downloadTextAsFile(fileContent, 'text/calendar', 'ics');
+      const controlNumber = seminar.get('control_number');
+      downloadTextAsFile(
+        fileContent,
+        `INSPIRE-Seminar-${controlNumber}.ics`,
+        'text/calendar'
+      );
     },
     [seminar]
   );

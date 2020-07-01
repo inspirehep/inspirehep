@@ -106,8 +106,10 @@ describe('CiteModalAction', () => {
       />
     );
     const setCiteContentFor = wrapper.find(SelectBox).prop('onChange');
-    await setCiteContentFor('testformat');
-    expect(wrapper.state('citeContent')).toEqual('Cite 12345 in testformat');
+    await setCiteContentFor('vnd+inspire.latex.us+x-latex');
+    expect(wrapper.state('citeContent')).toEqual(
+      'Cite 12345 in vnd+inspire.latex.us+x-latex'
+    );
   });
 
   it('sets modalVisible false onModalCancel', () => {
