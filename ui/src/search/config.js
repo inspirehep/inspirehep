@@ -12,6 +12,7 @@ import {
   AUTHOR_CITATIONS_NS,
   EXPERIMENTS_NS,
   EXPERIMENT_PAPERS_NS,
+  AUTHOR_SEMINARS_NS,
 } from './constants';
 import {
   onLiteratureQueryChange,
@@ -20,7 +21,7 @@ import {
   onEventsQuerychange,
   onJobsQueryChange,
   onExistingConferencesQueryChange,
-  onAuthorCitationsQueryChange,
+  onEmbeddedSearchWithAggregationsQueryChange,
 } from './queryChange';
 
 const defaultPersistedQueryParamsDuringNewSearch = ['size'];
@@ -73,7 +74,7 @@ const searchConfig = {
   },
   [AUTHOR_CITATIONS_NS]: {
     persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
-    onQueryChange: onAuthorCitationsQueryChange,
+    onQueryChange: onEmbeddedSearchWithAggregationsQueryChange,
   },
   [EXPERIMENTS_NS]: {
     persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
@@ -82,6 +83,10 @@ const searchConfig = {
   [EXPERIMENT_PAPERS_NS]: {
     persistedQueryParamsDuringNewSearch: persistedQueryParamsDuringNewSearchForEvents,
     onQueryChange: onEmbeddedLiteratureQueryChange,
+  },
+  [AUTHOR_SEMINARS_NS]: {
+    persistedQueryParamsDuringNewSearch: persistedQueryParamsDuringNewSearchForEvents,
+    onQueryChange: onEmbeddedSearchWithAggregationsQueryChange,
   },
 };
 

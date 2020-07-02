@@ -298,7 +298,7 @@
             "type": "text"
           }
         },
-        "type": "nested"
+        "type": "object"
       },
       "start_datetime": {
         "type": "date"

@@ -12,6 +12,7 @@ import {
   AUTHOR_CITATIONS_NS,
   EXPERIMENTS_NS,
   EXPERIMENT_PAPERS_NS,
+  AUTHOR_SEMINARS_NS,
 } from './constants';
 import { START_DATE_UPCOMING, START_DATE_ALL } from '../common/constants';
 
@@ -128,6 +129,9 @@ const namespacesState = {
     baseAggregationsQuery: {
       facet_name: 'hep-experiment-papers',
     },
+  },
+  [AUTHOR_SEMINARS_NS]: {
+    ...initialNamespaceState,
   },
 };
 
