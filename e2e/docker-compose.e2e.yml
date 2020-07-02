@@ -13,8 +13,8 @@ services:
   web:
     build:
       context: backend
-      dockerfile: Dockerfile_local
+      dockerfile: Dockerfile-local
   worker:
     build:
       context: backend
-      dockerfile: Dockerfile_local
+      dockerfile: Dockerfile-local

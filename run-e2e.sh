@@ -8,5 +8,6 @@ docker-compose $files exec web-next inspirehep db create
 docker-compose $files exec web inspirehep importer records -d data/records/authors
 docker-compose $files exec web inspirehep importer records -f data/records/conference/7577512.json
 docker-compose $files exec web inspirehep importer records -f data/records/literature/374836.json
+docker wait inspirehep_ui-build_1
 docker-compose $files run --rm e2e bash -c "cd /opt/e2e && yarn && yarn test" || rc=$?
 exit $rc

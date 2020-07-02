@@ -12,12 +12,12 @@ services:
   web:
     build:
       context: backend
-      dockerfile: Dockerfile_local
+      dockerfile: Dockerfile-local
     volumes:
       - ./backend:/opt/inspire
   worker:
     build:
       context: backend
-      dockerfile: Dockerfile_local
+      dockerfile: Dockerfile-local
     volumes:
       - ./backend:/opt/inspire
