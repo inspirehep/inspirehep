@@ -56,6 +56,7 @@ def test_distance_model_cli_function_default_params(train_and_save_distance_mode
         conf["ETHNICITY_MODEL_PATH"],
         conf["DISTANCE_MODEL_PATH"],
         conf["SAMPLED_PAIRS_SIZE"],
+        0.8
     )
 
 
@@ -78,7 +79,7 @@ def test_distance_model_cli_function_provided_params(
         ],
     )
     train_and_save_distance_model_mock.assert_called_with(
-        "ethnicity_model", "distance_model", 12
+        "ethnicity_model", "distance_model", 12, 0.8
     )
 
 

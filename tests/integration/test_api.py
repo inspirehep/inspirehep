@@ -25,15 +25,24 @@ import os
 
 from inspire_disambiguation import conf
 from inspire_disambiguation.api import train_and_save_distance_model, cluster_from_redis
+from inspire_disambiguation.core.data_models.publication import (
+    Publication,
+)
+from inspire_disambiguation.core.data_models.signature import Signature
+from inspire_disambiguation.core.es.readers import get_signatures
 
 
+@patch("inspire_disambiguation.core.ml.models.Pipeline.score")
 @patch("inspire_disambiguation.core.ml.models.Pipeline.fit")
 @patch("inspire_disambiguation.core.ml.sampling.random.choice")
+@patch("inspire_disambiguation.api.train_validation_split")
 @patch("inspire_disambiguation.core.es.readers.LiteratureSearch.scan")
 def test_train_and_save_distance_model(
     scan_mock,
+    sample_mock,
     choices_mock,
     fit_mock,
+    score_mock,
     tmpdir,
     ethnicity_path,
     es_record_with_many_curated_authors,
@@ -52,8 +61,222 @@ def test_train_and_save_distance_model(
         ("JOhn", "94fc2b0a-dc17-42c2-bae3-ca0024079e52"),
         "94fc2b0a-dc17-42c2-bae3-ca0024079e54",
     ]
-    choices_mock.side_effect = choices
     scan_mock.side_effect = [[es_record_with_many_curated_authors]]
+    signatures = [
+    Signature(
+        author_affiliation='Rutgers U., Piscataway',
+        author_id=1,
+        author_name='Doe, John',
+        publication=Publication(
+            abstract='Many curated authors',
+            authors=[
+                'Doe, John',
+                'Doe, J',
+                'Doe, John',
+                'Doe, John',
+                'Doe, John',
+                'Doe, John',
+                'Jamie',
+                'Jamie',
+                ],
+            collaborations=[],
+            keywords=['keyword'],
+            publication_id=1,
+            title='Title',
+            topics=['category'],
+            ),
+        signature_block='JOhn',
+        signature_uuid='94fc2b0a-dc17-42c2-bae3-ca0024079e52',
+        is_curated_author_id=True,
+        ),
+    Signature(
+        author_affiliation='Rutgers U., Piscataway',
+        author_id=1,
+        author_name='Doe, John',
+        publication=Publication(
+            abstract='Many curated authors',
+            authors=[
+                'Doe, John',
+                'Doe, J',
+                'Doe, John',
+                'Doe, John',
+                'Doe, John',
+                'Doe, John',
+                'Jamie',
+                'Jamie',
+                ],
+            collaborations=[],
+            keywords=['keyword'],
+            publication_id=1,
+            title='Title',
+            topics=['category'],
+            ),
+        signature_block='JOhn',
+        signature_uuid='94fc2b0a-dc17-42c2-bae3-ca0024079e53',
+        is_curated_author_id=True,
+        ),
+    Signature(
+        author_affiliation='Rutgers U., Piscataway',
+        author_id=1,
+        author_name='Doe, J',
+        publication=Publication(
+            abstract='Many curated authors',
+            authors=[
+                'Doe, John',
+                'Doe, J',
+                'Doe, John',
+                'Doe, John',
+                'Doe, John',
+                'Doe, John',
+                'Jamie',
+                'Jamie',
+                ],
+            collaborations=[],
+            keywords=['keyword'],
+            publication_id=1,
+            title='Title',
+            topics=['category'],
+            ),
+        signature_block='JOhn',
+        signature_uuid='94fc2b0a-dc17-42c2-bae3-ca0024079e54',
+        is_curated_author_id=True,
+        ),
+    Signature(
+        author_affiliation='Rutgers U., Piscataway',
+        author_id=2,
+        author_name='Doe, John',
+        publication=Publication(
+            abstract='Many curated authors',
+            authors=[
+                'Doe, John',
+                'Doe, J',
+                'Doe, John',
+                'Doe, John',
+                'Doe, John',
+                'Doe, John',
+                'Jamie',
+                'Jamie',
+                ],
+            collaborations=[],
+            keywords=['keyword'],
+            publication_id=1,
+            title='Title',
+            topics=['category'],
+            ),
+        signature_block='JOhn',
+        signature_uuid='94fc2b0a-dc17-42c2-bae3-ca0024079e55',
+        is_curated_author_id=True,
+        ),
+    Signature(
+        author_affiliation='Rutgers U., Piscataway',
+        author_id=2,
+        author_name='Doe, John',
+        publication=Publication(
+            abstract='Many curated authors',
+            authors=[
+                'Doe, John',
+                'Doe, J',
+                'Doe, John',
+                'Doe, John',
+                'Doe, John',
+                'Doe, John',
+                'Jamie',
+                'Jamie',
+                ],
+            collaborations=[],
+            keywords=['keyword'],
+            publication_id=1,
+            title='Title',
+            topics=['category'],
+            ),
+        signature_block='JOhn',
+        signature_uuid='94fc2b0a-dc17-42c2-bae3-ca0024079e56',
+        is_curated_author_id=True,
+        ),
+    Signature(
+        author_affiliation='',
+        author_id=3,
+        author_name='Doe, John',
+        publication=Publication(
+            abstract='Many curated authors',
+            authors=[
+                'Doe, John',
+                'Doe, J',
+                'Doe, John',
+                'Doe, John',
+                'Doe, John',
+                'Doe, John',
+                'Jamie',
+                'Jamie',
+                ],
+            collaborations=[],
+            keywords=['keyword'],
+            publication_id=1,
+            title='Title',
+            topics=['category'],
+            ),
+        signature_block='JOhn',
+        signature_uuid='94fc2b0a-dc17-42c2-bae3-ca0024079e57',
+        is_curated_author_id=True,
+        ),
+    Signature(
+        author_affiliation='',
+        author_id=6,
+        author_name='Doe, John',
+        publication=Publication(
+            abstract='Many curated authors',
+            authors=[
+                'Doe, John',
+                'Doe, J',
+                'Doe, John',
+                'Doe, John',
+                'Doe, John',
+                'Doe, John',
+                'Jamie',
+                'Jamie',
+                ],
+            collaborations=[],
+            keywords=['keyword'],
+            publication_id=1,
+            title='Title',
+            topics=['category'],
+            ),
+        signature_block='JOhn',
+        signature_uuid='94fc2b0a-dc17-42c2-bae3-ca0024079e58',
+        is_curated_author_id=True,
+        ),
+    Signature(
+        author_affiliation='Rutgers U., Piscataway',
+        author_id=7,
+        author_name='Jamie',
+        publication=Publication(
+            abstract='Many curated authors',
+            authors=[
+                'Doe, John',
+                'Doe, J',
+                'Doe, John',
+                'Doe, John',
+                'Doe, John',
+                'Doe, John',
+                'Jamie',
+                'Jamie',
+                ],
+            collaborations=[],
+            keywords=['keyword'],
+            publication_id=1,
+            title='Title',
+            topics=['category'],
+            ),
+        signature_block='Jana',
+        signature_uuid='94fc2b0a-dc17-42c2-bae3-ca0024079e59',
+        is_curated_author_id=True,
+        ),
+    ]
+    choices_mock.side_effect = choices
+    signatures_dict = {signature.signature_uuid: signature for signature in signatures}
+    signatures_list = [signatures_dict, signatures_dict]
+    sample_mock.return_value = signatures_list
+    score_mock.return_value = 0.85
     distance_model_path = tmpdir.join("distance.pkl")
     train_and_save_distance_model(ethnicity_path, distance_model_path, 4)
     assert os.path.getsize(distance_model_path) > 0

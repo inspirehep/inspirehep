@@ -25,6 +25,8 @@ import numpy
 from beard.utils import given_name, given_name_initial, normalize_name
 from inspire_utils.helpers import maybe_int
 from inspire_utils.record import get_value
+from random import sample, seed
+from sklearn.metrics.cluster.supervised import check_clusterings
 
 
 def load_signatures(signatures):
@@ -320,6 +322,21 @@ def process_clustering_output(clusterer):
     return output
 
 
+def train_validation_split(curated_signatures, split_fraction):
+    """
+    Returns dictionary of training and test Signatures
+    """
+    seed(99)
+    curated_signatures_dict = load_signatures(curated_signatures)
+    train_signatures_uuids = set(sample(curated_signatures_dict.keys(),
+                                 k=round(len(curated_signatures_dict) * split_fraction)))
+    train_signatures = {k: curated_signatures_dict[k] for k in train_signatures_uuids}
+    test_signatures_uuids = set(curated_signatures_dict.keys()) - train_signatures_uuids
+    test_signatures = {k: curated_signatures_dict[k] for k in test_signatures_uuids}
+
+    return train_signatures, test_signatures
+
+
 class CachedObject(object):
     """Simple helper to cache objects"""
 
@@ -355,3 +372,87 @@ class CachedObject(object):
         """Clears cache for the object.
         """
         cls.cache = {}
+
+
+def compute_clustering_statistics(X, labels_true, labels_pred):
+    """Modified b3_precision_recall_fscore function from bear
+     which returns also wrongly classified samples.
+
+    Parameters
+    ----------
+    :param X: array of the signatures to validate predictions
+    :param labels_true: 1d array containing the ground truth cluster labels.
+    :param labels_pred: 1d array containing the predicted cluster labels.
+
+    Returns
+    -------
+    :return float precision: calculated precision
+    :return float recall: calculated recall
+    :return float f_score: calculated f_score
+    :return list(signature_uuid): list of signature uuids which were wrongly classified
+
+    Reference
+    ---------
+    Amigo, Enrique, et al. "A comparison of extrinsic clustering evaluation
+    metrics based on formal constraints." Information retrieval 12.4
+    (2009): 461-486.
+    """
+    # Check that labels_* are 1d arrays and have the same size
+    labels_true, labels_pred = check_clusterings(labels_true, labels_pred)
+
+    # Check that input given is not the empty set
+    if labels_true.shape == (0, ):
+        raise ValueError(
+            "input labels must not be empty.")
+
+    # Compute P/R/F scores
+    n_samples = len(labels_true)
+    true_clusters = {}  # true cluster_id => set of sample indices in this cluster
+    pred_clusters = {}  # pred cluster_id => set of sample indices
+
+    for i in range(n_samples):
+        true_cluster_id = labels_true[i]
+        pred_cluster_id = labels_pred[i]
+
+        if true_cluster_id not in true_clusters:
+            true_clusters[true_cluster_id] = set()
+        if pred_cluster_id not in pred_clusters:
+            pred_clusters[pred_cluster_id] = set()
+
+        true_clusters[true_cluster_id].add(i)
+        pred_clusters[pred_cluster_id].add(i)
+
+    for cluster_id, cluster in true_clusters.items():
+        true_clusters[cluster_id] = frozenset(cluster)
+    for cluster_id, cluster in pred_clusters.items():
+        pred_clusters[cluster_id] = frozenset(cluster)
+
+    precision = 0.0
+    recall = 0.0
+
+    intersections = {}
+    wrongly_classified_samples = set()
+
+    for i in range(n_samples):
+        pred_cluster_i = pred_clusters[labels_pred[i]]
+        true_cluster_i = true_clusters[labels_true[i]]
+
+        if (pred_cluster_i, true_cluster_i) in intersections:
+            intersection = intersections[(pred_cluster_i, true_cluster_i)]
+        else:
+            intersection = pred_cluster_i.intersection(true_cluster_i)
+            # checks for the samples which should be in the cluster and are not
+            # and for the samples which shouldn't be in the cluster and they are in it.
+            wrongly_classified_samples |= true_cluster_i.symmetric_difference(pred_cluster_i)
+            intersections[(pred_cluster_i, true_cluster_i)] = intersection
+
+        precision += len(intersection) / len(pred_cluster_i)
+        recall += len(intersection) / len(true_cluster_i)
+
+    precision /= n_samples
+    recall /= n_samples
+
+    f_score = 2 * precision * recall / (precision + recall)
+    wrongly_classified_samples = [X[sample]['signature_uuid'] for sample in wrongly_classified_samples]
+
+    return (precision, recall, f_score), wrongly_classified_samples

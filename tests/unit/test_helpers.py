@@ -40,7 +40,13 @@ from inspire_disambiguation.core.helpers import (
     get_title,
     group_by_signature,
     get_normalized_affiliation,
+    train_validation_split
 )
+
+from inspire_disambiguation.core.data_models.publication import (
+    Publication,
+)
+from inspire_disambiguation.core.data_models.signature import Signature
 
 
 def test_get_author_affiliation(curated_author):
@@ -215,3 +221,13 @@ def test_group_by_signature(curated_signature, non_curated_signature):
     result = group_by_signature([curated_signature, non_curated_signature])
     expected_result = "94fc2b0a-dc17-42c2-bae3-ca0024079e52"
     assert result == expected_result
+
+
+def test_train_validation_data_split(curated_signature):
+    expected_result = (
+        {'94fc2b0a-dc17-42c2-bae3-ca0024079e52': curated_signature},
+        {}
+    )
+    split_result = train_validation_split([curated_signature], 0.9)
+
+    assert split_result == expected_result
