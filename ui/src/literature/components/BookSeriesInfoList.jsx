@@ -4,14 +4,16 @@ import { List } from 'immutable';
 
 import InlineList, { SEPARATOR_AND } from '../../common/components/InlineList';
 
-function extractChapter(bookChapter) {
-  return bookChapter.get('title') + bookChapter.get('volume', '');
+function extractSeries(bookSeries) {
+  return bookSeries.get('title') + bookSeries.get('volume', '');
 }
 
-function renderSeriesInfo(bookChapter) {
+function renderSeriesInfo(bookSeries) {
+  const volume = bookSeries.get('volume');
   return (
     <span>
-      {bookChapter.get('title')} volume:{bookChapter.get('volume')}
+      {bookSeries.get('title')}
+      {volume && `, ${volume}`}
     </span>
   );
 }
@@ -19,10 +21,10 @@ function renderSeriesInfo(bookChapter) {
 function BookSeriesInfoList({ bookSeries }) {
   return (
     <InlineList
-      label="Series of"
+      label="Published in"
       items={bookSeries}
       separator={SEPARATOR_AND}
-      extractKey={extractChapter}
+      extractKey={extractSeries}
       renderItem={renderSeriesInfo}
     />
   );

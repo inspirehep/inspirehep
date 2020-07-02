@@ -15,7 +15,7 @@ exports[`BookSeriesInfoList renders many book series info 1`] = `
       },
     ]
   }
-  label="Series of"
+  label="Published in"
   renderItem={[Function]}
   separateItems={true}
   separator=" and "
@@ -35,7 +35,7 @@ exports[`BookSeriesInfoList renders one book series info 1`] = `
       },
     ]
   }
-  label="Series of"
+  label="Published in"
   renderItem={[Function]}
   separateItems={true}
   separator=" and "
