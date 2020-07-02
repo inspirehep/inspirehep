@@ -14,6 +14,7 @@ function AuthorSeminars({ recordId }) {
 
   return (
     <SeminarSearchContainer
+      embedded
       namespace={AUTHOR_SEMINARS_NS}
       baseQuery={baseQuery}
     />
