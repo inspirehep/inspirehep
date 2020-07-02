@@ -153,6 +153,6 @@ def distance_model(ethnicity_model_path, save_model_path,
 )
 def cluster(ethnicity_model_path, distance_model_path, n_jobs):
     """Cluster data for signature_blocks stored in redis"""
-    click.secho(f"Starting clustering.")
+    click.secho("Starting clustering.")
     cluster_from_redis(ethnicity_model_path, distance_model_path, n_jobs)
-    click.secho(f"Done.", fg="green")
+    click.secho("Done.", fg="green")
