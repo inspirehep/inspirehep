@@ -1,0 +1,5 @@
+FROM node:lts-jessie as build-stage
+
+WORKDIR /usr/src/app
+ARG VERSION
+ENV VERSION="${VERSION}"

@@ -45,13 +45,21 @@ services:
     ports:
      - "8080:8080"
     volumes:
-      - .:/opt/inspire/ui
+      - ${PWD}/ui/:/opt/inspire/ui
+      - ${PWD}/ui/build/:/usr/share/nginx/html
       - ${PWD}/ui/docker/nginx/config/local.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       web:
         condition: service_started
       web-next:
         condition: service_started
+  ui-build:
+    build:
+      context: ui
+      dockerfile: Dockerfile-build
+    volumes:
+      - ./ui:/usr/src/app
+    command: /usr/src/app/build.sh
   web:
     extends:
       file: docker-compose.services.yml
