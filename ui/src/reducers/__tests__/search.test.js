@@ -192,6 +192,39 @@ describe('search reducer', () => {
     expect(state).toEqual(expected);
   });
 
+  it('SEARCH_BASE_QUERIES_UPDATE with only baseQuery', () => {
+    const namespace = LITERATURE_NS;
+    const initialReducerState = fromJS({
+      namespaces: {
+        [namespace]: {
+          baseAggregationsQuery: { facet_name: 'first' },
+          baseQuery: { sort: 'mostrecent' },
+          query: { sort: 'mostrecent', page: 1 },
+        },
+      },
+    });
+    const baseQuery = { sort: 'mostcited' };
+
+    const state = reducer(initialReducerState, {
+      type: types.SEARCH_BASE_QUERIES_UPDATE,
+      payload: { namespace, baseQuery },
+    });
+
+    const expected = fromJS({
+      namespaces: {
+        [namespace]: {
+          baseQuery: { sort: 'mostcited' },
+          baseAggregationsQuery: { facet_name: 'first' },
+          query: {
+            sort: 'mostcited',
+            page: 1,
+          },
+        },
+      },
+    });
+    expect(state).toEqual(expected);
+  });
+
   it('SEARCH_REQUEST', () => {
     const namespace = JOBS_NS;
     const state = reducer(Map(), {

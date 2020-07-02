@@ -29,6 +29,7 @@ import AuthorPublicationsContainer from '../AuthorPublicationsContainer';
 import {
   AUTHOR_PUBLICATIONS_NS,
   AUTHOR_CITATIONS_NS,
+  AUTHOR_SEMINARS_NS,
 } from '../../../search/constants';
 import { newSearch } from '../../../actions/search';
 import EditRecordAction from '../../../common/components/EditRecordAction';
@@ -38,6 +39,7 @@ import withRouteActionsDispatcher from '../../../common/withRouteActionsDispatch
 import AuthorBAI from '../../components/AuthorBAI';
 import Advisors from '../../components/Advisors';
 import AffiliationList from '../../../common/components/AffiliationList';
+import AuthorSeminars from '../../components/AuthorSeminars';
 
 function DetailPage({
   record,
@@ -46,6 +48,8 @@ function DetailPage({
   dispatch,
   publicationsCount,
   loadingPublications,
+  seminarsCount,
+  loadingSeminars,
 }) {
   const authorFacetName = publicationsQuery.getIn(['author', 0]);
   const metadata = record.get('metadata');
@@ -188,6 +192,25 @@ function DetailPage({
                     <AuthorCitationsContainer />
                   </ContentBox>
                 </Tabs.TabPane>
+                <Tabs.TabPane
+                  tab={
+                    <Tooltip title="Seminars from the author">
+                      <span>
+                        <TabNameWithCount
+                          loading={seminarsCount == null && loadingSeminars}
+                          name="Seminars"
+                          count={seminarsCount}
+                        />
+                      </span>
+                    </Tooltip>
+                  }
+                  key="3"
+                  forceRender
+                >
+                  <ContentBox className="remove-top-border-of-card">
+                    <AuthorSeminars recordId={recordId} />
+                  </ContentBox>
+                </Tabs.TabPane>
               </Tabs>
             </Col>
           </Row>
@@ -229,6 +252,16 @@ const mapStateToProps = state => ({
     AUTHOR_PUBLICATIONS_NS,
     'initialTotal',
   ]),
+  loadingSeminars: state.search.getIn([
+    'namespaces',
+    AUTHOR_SEMINARS_NS,
+    'loading',
+  ]),
+  seminarsCount: state.search.getIn([
+    'namespaces',
+    AUTHOR_SEMINARS_NS,
+    'initialTotal',
+  ]),
 });
 const dispatchToProps = dispatch => ({ dispatch });
 const DetailPageContainer = connect(mapStateToProps, dispatchToProps)(
@@ -241,6 +274,7 @@ export default withRouteActionsDispatcher(DetailPageContainer, {
     fetchAuthor(id),
     newSearch(AUTHOR_PUBLICATIONS_NS),
     newSearch(AUTHOR_CITATIONS_NS),
+    newSearch(AUTHOR_SEMINARS_NS),
   ],
   loadingStateSelector: state => !state.authors.hasIn(['data', 'metadata']),
 });

@@ -21,6 +21,7 @@ export const INSTITUTION_PAPERS_NS = 'institutionPapers';
 export const SEMINARS_NS = 'seminars';
 export const EXPERIMENTS_NS = 'experiments';
 export const EXPERIMENT_PAPERS_NS = 'experimentPapers';
+export const AUTHOR_SEMINARS_NS = 'authorSeminars';
 
 export const SEARCH_BOX_NAMESPACES = [
   LITERATURE_NS,
@@ -51,6 +52,7 @@ export const NAMESPACE_TO_PATHNAME = {
   [INSTITUTION_PAPERS_NS]: LITERATURE,
   [EXISTING_CONFERENCES_NS]: CONFERENCES_NS,
   [EXPERIMENT_PAPERS_NS]: LITERATURE,
+  [AUTHOR_SEMINARS_NS]: SEMINARS,
 
   [AUTHORS_NS]: AUTHORS,
   [JOBS_NS]: JOBS,

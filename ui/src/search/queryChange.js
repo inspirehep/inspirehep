@@ -34,7 +34,7 @@ export function onEmbeddedLiteratureQueryChange(helper) {
   }
 }
 
-export function onAuthorCitationsQueryChange(helper) {
+export function onEmbeddedSearchWithAggregationsQueryChange(helper) {
   if (helper.hasQueryChanged()) {
     helper.fetchSearchResults();
   }
