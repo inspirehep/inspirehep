@@ -15,7 +15,7 @@ function SearchPage() {
       <DocumentHead title={TITLE} description={META_DESCRIPTION} />
       <Row>
         <Col xs={24} lg={22} xl={20} xxl={18}>
-          <SeminarSearchContainer namespace={SEMINARS_NS} />
+          <SeminarSearchContainer namespace={SEMINARS_NS} enableDateFilter />
         </Col>
       </Row>
     </>

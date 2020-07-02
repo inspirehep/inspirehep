@@ -27,17 +27,27 @@ function SeminarSearch({
   namespace,
   baseQuery,
   onBaseQueryChange,
+  enableDateFilter,
+  embedded,
 }) {
   const renderAggregations = useCallback(
     () => (
       <>
-        <SeminarStartDateFilterContainer switchTitle="Upcoming seminars" />
+        {enableDateFilter && (
+          <SeminarStartDateFilterContainer
+            namespace={namespace}
+            switchTitle="Upcoming seminars"
+          />
+        )}
         <LoadingOrChildren loading={loadingAggregations}>
-          <AggregationFiltersContainer namespace={namespace} />
+          <AggregationFiltersContainer
+            namespace={namespace}
+            embedded={embedded}
+          />
         </LoadingOrChildren>
       </>
     ),
-    [loadingAggregations, namespace]
+    [loadingAggregations, enableDateFilter, namespace, embedded]
   );
 
   useEffect(
@@ -131,6 +141,8 @@ SeminarSearch.propTypes = {
   loading: PropTypes.bool.isRequired,
   loadingAggregations: PropTypes.bool.isRequired,
   selectedTimezone: PropTypes.string,
+  enableDateFilter: PropTypes.bool,
+  embedded: PropTypes.bool,
 };
 
 const stateToProps = (state, { namespace }) => ({
