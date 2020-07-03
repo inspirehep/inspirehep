@@ -138,12 +138,12 @@ const namespacesState = {
     ...initialNamespaceState,
     baseQuery: {
       ...initialBaseQuery,
-      start_date: START_DATE_UPCOMING,
+      start_date: START_DATE_ALL,
       sort: DATE_DESC,
     },
     query: {
       ...initialBaseQuery,
-      start_date: START_DATE_UPCOMING,
+      start_date: START_DATE_ALL,
       sort: DATE_DESC,
     },
   },
