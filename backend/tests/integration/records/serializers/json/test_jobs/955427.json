@@ -2,7 +2,8 @@
   "$schema": "https://qa.inspirehep.net/schemas/records/jobs.json",
   "_collections": ["Jobs"],
   "acquisition_source": {
-    "email": "georgews@ntu.com"
+    "email": "georgews@ntu.com",
+    "orcid": "0000-0002-9127-1687"
   },
   "contact_details": [
     {

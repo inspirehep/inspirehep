@@ -16,7 +16,9 @@ from inspirehep.search.api import JobsSearch
 
 
 def test_index_job_record(inspire_app):
-    record = create_record("job")
+    record = create_record(
+        "job", data={"acquisition_source": {"orcid": "0000-0000-0000-0000"}}
+    )
 
     expected_total = 1
     expected_source = deepcopy(record)

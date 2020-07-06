@@ -240,12 +240,12 @@ JOBS.update(
         "search_serializers": {
             "application/json": INSPIRE_SERIALIZERS + ":jobs_json_response_search",
             "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
-            + ":jobs_json_response_search",
+            + ":jobs_json_list_response",
         },
         "record_serializers": {
             "application/json": INSPIRE_SERIALIZERS + ":jobs_json_response",
             "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
-            + ":jobs_json_response",
+            + ":jobs_json_detail_response",
         },
     }
 )

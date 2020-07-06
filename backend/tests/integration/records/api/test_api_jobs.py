@@ -168,9 +168,12 @@ def test_aut_citation_count_property_blows_up_on_wrong_pid_type(inspire_app):
 
 def test_get_jobs_by_deadline_gets_open_expired_job(inspire_app):
     deadline = datetime.date(2019, 9, 27)
-    data = faker.record("job")
-    data["deadline_date"] = deadline.isoformat()
-    data["status"] = "open"
+    record_data = {
+        "deadline_date": deadline.isoformat(),
+        "status": "open",
+        "acquisition_source": {"orcid": "0000-0000-0000-0000"},
+    }
+    data = faker.record("job", data=record_data)
     expected_result = create_record("job", data=data)
 
     results = JobsRecord.get_jobs_by_deadline(deadline)
