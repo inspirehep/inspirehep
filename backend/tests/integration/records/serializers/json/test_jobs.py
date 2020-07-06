@@ -7,9 +7,11 @@
 import json
 from copy import deepcopy
 
+import mock
 from freezegun import freeze_time
 from helpers.utils import create_record, create_user, logout
 from invenio_accounts.testutils import login_user_via_session
+from invenio_oauthclient import current_oauthclient
 from marshmallow import utils
 
 from inspirehep.accounts.roles import Roles
@@ -44,7 +46,7 @@ def test_jobs_json(inspire_app, datadir):
 
 
 def test_jobs_json_cataloger_can_edit(inspire_app, datadir):
-    headers = {"Accept": "application/json"}
+    headers = {"Accept": "application/vnd+inspire.record.ui+json"}
 
     data = json.loads((datadir / "955427.json").read_text())
 
@@ -68,8 +70,16 @@ def test_jobs_json_cataloger_can_edit(inspire_app, datadir):
     assert expected_result == response_data_metadata
 
 
-def test_jobs_json_author_can_edit_but_random_user_cant(inspire_app, datadir):
-    headers = {"Accept": "application/json"}
+@mock.patch("flask_login.utils._get_user")
+def test_jobs_json_author_can_edit_but_random_user_cant(
+    mock_current_user, inspire_app, datadir
+):
+    headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+
+    user_orcid = "0000-0002-9127-1687"
+    current_oauthclient.signup_handlers["orcid"] = {"view": True}
+    jobs_author = create_user(role="user", orcid=user_orcid, allow_push=True)
+    mock_current_user.return_value = jobs_author
 
     data = json.loads((datadir / "955427.json").read_text())
 
@@ -80,9 +90,7 @@ def test_jobs_json_author_can_edit_but_random_user_cant(inspire_app, datadir):
     expected_result = deepcopy(record)
     expected_result["can_edit"] = True
 
-    jobs_author = create_user(email="georgews@ntu.com")
     with inspire_app.test_client() as client:
-        login_user_via_session(client, email=jobs_author.email)
         response = client.get(f"/jobs/{record_control_number}", headers=headers)
 
         response_status_code = response.status_code
@@ -91,22 +99,20 @@ def test_jobs_json_author_can_edit_but_random_user_cant(inspire_app, datadir):
         assert expected_status_code == response_status_code
         assert expected_result == response_data_metadata
 
-        logout(client)
-
-        random_user = create_user(email="random@user.com")
-        login_user_via_session(client, email=random_user.email)
+        random_user = create_user(email="random@user.com", orcid="not_valid")
+        mock_current_user.return_value = random_user
 
         response = client.get(f"/jobs/{record_control_number}", headers=headers)
         response_data_metadata = json.loads(response.data)["metadata"]
 
-    assert "can_edit" not in response_data_metadata
+    assert not response_data_metadata["can_edit"]
 
 
 @freeze_time("2020-02-01")
 def test_jobs_json_author_can_edit_if_closed_and_less_than_30_days_after_deadline(
     inspire_app, datadir
 ):
-    headers = {"Accept": "application/json"}
+    headers = {"Accept": "application/vnd+inspire.record.ui+json"}
 
     data = json.loads((datadir / "955427.json").read_text())
     data["deadline_date"] = "2020-01-15"
@@ -119,10 +125,11 @@ def test_jobs_json_author_can_edit_if_closed_and_less_than_30_days_after_deadlin
     expected_result = deepcopy(record)
     expected_result["can_edit"] = True
 
-    jobs_author = create_user(email="georgews@ntu.com")
+    jobs_author = create_user(email="test@cern.ch", orcid="0000-0002-9127-1687")
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=jobs_author.email)
         response = client.get(f"/jobs/{record_control_number}", headers=headers)
+
     response_status_code = response.status_code
     response_data_metadata = json.loads(response.data)["metadata"]
 
@@ -131,10 +138,11 @@ def test_jobs_json_author_can_edit_if_closed_and_less_than_30_days_after_deadlin
 
 
 @freeze_time("2020-02-01")
+@mock.patch("flask_login.utils._get_user")
 def test_jobs_json_author_cannot_edit_if_is_closed_and_more_than_30_days_after_deadline(
-    inspire_app, datadir
+    mock_current_user, inspire_app, datadir
 ):
-    headers = {"Accept": "application/json"}
+    headers = {"Accept": "application/vnd+inspire.record.ui+json"}
 
     data = json.loads((datadir / "955427.json").read_text())
     data["deadline_date"] = "2019-06-01"
@@ -144,11 +152,13 @@ def test_jobs_json_author_cannot_edit_if_is_closed_and_more_than_30_days_after_d
 
     expected_status_code = 200
     expected_result = deepcopy(record)
+    expected_result["can_edit"] = False
 
-    jobs_author = create_user(email="georgews@ntu.com")
-
+    user_orcid = "0000-0002-9127-1687"
+    current_oauthclient.signup_handlers["orcid"] = {"view": True}
+    jobs_author = create_user(role="user", orcid=user_orcid, allow_push=True)
+    mock_current_user.return_value = jobs_author
     with inspire_app.test_client() as client:
-        login_user_via_session(client, email=jobs_author.email)
         response = client.get(f"/jobs/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
@@ -156,8 +166,6 @@ def test_jobs_json_author_cannot_edit_if_is_closed_and_more_than_30_days_after_d
 
     assert expected_status_code == response_status_code
     assert expected_result == response_data_metadata
-
-    assert "can_edit" not in response_data_metadata
 
 
 def test_jobs_search_json(inspire_app, datadir):
@@ -185,35 +193,42 @@ def test_jobs_search_json(inspire_app, datadir):
     assert expected_updated == response_updated
 
 
-def test_jobs_search_json_can_edit(inspire_app):
-    headers = {"Accept": "application/json"}
+@mock.patch("flask_login.utils._get_user")
+def test_jobs_search_json_can_edit(mock_current_user, inspire_app):
+    headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+    user_orcid = "0000-0002-9127-1687"
 
-    user = create_user(email="harun@cern.ch")
     create_record(
-        "job", data={"status": "open", "acquisition_source": {"email": "harun@cern.ch"}}
+        "job", data={"status": "open", "acquisition_source": {"orcid": user_orcid}}
     )
     create_record(
-        "job", data={"status": "open", "acquisition_source": {"email": "guy@cern.ch"}}
+        "job",
+        data={
+            "status": "open",
+            "acquisition_source": {"orcid": "0100-0002-9127-1687"},
+        },
     )
-
+    user_orcid = "0000-0002-9127-1687"
+    current_oauthclient.signup_handlers["orcid"] = {"view": True}
+    jobs_author = create_user(role="user", orcid=user_orcid, allow_push=True)
+    mock_current_user.return_value = jobs_author
     with inspire_app.test_client() as client:
-        login_user_via_session(client, email=user.email)
-        response = client.get("/jobs", headers=headers)
+        response = client.get(f"/jobs/", headers=headers)
 
     hits = response.json["hits"]["hits"]
 
     own_job_metadata = next(
         hit["metadata"]
         for hit in hits
-        if hit["metadata"]["acquisition_source"]["email"] == user.email
+        if hit["metadata"]["acquisition_source"]["orcid"] == user_orcid
     )
     another_job_metadata = next(
         hit["metadata"]
         for hit in hits
-        if hit["metadata"]["acquisition_source"]["email"] != user.email
+        if hit["metadata"]["acquisition_source"]["orcid"] != user_orcid
     )
 
-    assert "can_edit" not in another_job_metadata
+    assert not another_job_metadata["can_edit"]
     assert own_job_metadata["can_edit"]
 
 

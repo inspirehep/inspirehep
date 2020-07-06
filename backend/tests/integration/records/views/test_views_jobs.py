@@ -149,7 +149,7 @@ def test_jobs_accelerator_experiments(inspire_app, datadir):
 
 
 def test_jobs_record_search_results_does_not_return_pending_job_to_non_superuser(
-    inspire_app
+    inspire_app,
 ):
     create_record("job", data={"status": "pending"})
     with inspire_app.test_client() as client:
@@ -158,7 +158,10 @@ def test_jobs_record_search_results_does_not_return_pending_job_to_non_superuser
 
 
 def test_jobs_record_search_results_returns_open_job_to_non_superuser(inspire_app):
-    record = create_record("job", data={"status": "open"})
+    record = create_record(
+        "job",
+        data={"status": "open", "acquisition_source": {"orcid": "0000-0000-0000-0000"}},
+    )
 
     with inspire_app.test_client() as client:
         result = client.get("/jobs")
