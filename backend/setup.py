@@ -63,6 +63,7 @@ setup(
             "inspirehep_legacy = inspirehep.legacy.views:blueprint",
             "inspirehep_editor = inspirehep.editor.views:blueprint",
             "inspirehep_tools = inspirehep.tools.views:blueprint",
+            "inspirehep_assign = inspirehep.assign.views:blueprint",
         ],
         "invenio_config.module": [
             "inspirehep = inspirehep.config",
