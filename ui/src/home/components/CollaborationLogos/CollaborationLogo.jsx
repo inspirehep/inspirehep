@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ExternalLink from '../../common/components/ExternalLink';
+import ExternalLink from '../../../common/components/ExternalLink';
 
-function CollaborationLogo({ href, name }) {
-  // collaboration logos are stored at `public` folder with below name format
-  const src = `/collab-logo-${name}.png`;
+function CollaborationLogo({ href, name, src }) {
   return (
     <ExternalLink href={href}>
       <img height={60} src={src} alt={name} />
@@ -16,6 +14,7 @@ function CollaborationLogo({ href, name }) {
 CollaborationLogo.propTypes = {
   name: PropTypes.string.isRequired,
   href: PropTypes.string.isRequired,
+  src: PropTypes.string.isRequired,
 };
 
 export default CollaborationLogo;
