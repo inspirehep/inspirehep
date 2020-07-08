@@ -216,6 +216,31 @@ $ cd ui
 $ yarn test # in ui folder
 ```
 
+#### How to record API responses for ui-tests
+
+Set `UI_TESTS_HOST` and `UI_TESTS_HTTP_SCHEME`
+
+Example, recording from prod:
+
+```bash
+export UI_TESTS_HOST=inspirehep.net
+export UI_TESTS_HTTP_SCHEME=https
+```
+
+Then run the `ui-tests`, it will record the response for requests that are not in the current recordings.
+
+NOTE: if existing recordings are invalid anymore, just delete the whole recording first, to record from scratch.
+
+#### Running specific ui-tests
+
+```bash
+docker-compose run --rm node bash # in /ui/ui-tests folder
+cd /opt/app/ui-tests
+yarn test --testPathPattern=... # to run selected tests
+```
+
+NOTE: code changes in `ui/src` doesn't reflect without building the whole ui (`yarn build`)
+
 ### e2e
 
 ```bash
