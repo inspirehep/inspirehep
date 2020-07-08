@@ -16,7 +16,7 @@ import { LOCAL_TIMEZONE } from '../../common/constants';
 import ExportToCalendarAction from './ExportToCalendarAction/ExportToCalendarAction';
 import UrlsAction from '../../literature/components/UrlsAction';
 
-function SeminarItem({ metadata, selectedTimezone }) {
+function SeminarItem({ metadata, selectedTimezone, enableActions }) {
   const title = metadata.get('title');
   const recordId = metadata.get('control_number');
   const canEdit = metadata.get('can_edit', false);
@@ -32,27 +32,29 @@ function SeminarItem({ metadata, selectedTimezone }) {
   return (
     <ResultItem
       leftActions={
-        <>
-          {urls && <UrlsAction urls={urls} />}
-          {joinUrls && (
-            <UrlsAction
-              urls={joinUrls}
-              icon={<VideoCameraAddOutlined />}
-              text="join"
-            />
-          )}
-          {materialUrls && (
-            <UrlsAction
-              urls={materialUrls}
-              icon={<FileOutlined />}
-              text="material"
-            />
-          )}
-          <ExportToCalendarAction seminar={metadata} />
-          {canEdit && (
-            <EditRecordAction pidType="seminars" pidValue={recordId} />
-          )}
-        </>
+        enableActions && (
+          <>
+            {urls && <UrlsAction urls={urls} />}
+            {joinUrls && (
+              <UrlsAction
+                urls={joinUrls}
+                icon={<VideoCameraAddOutlined />}
+                text="join"
+              />
+            )}
+            {materialUrls && (
+              <UrlsAction
+                urls={materialUrls}
+                icon={<FileOutlined />}
+                text="material"
+              />
+            )}
+            <ExportToCalendarAction seminar={metadata} />
+            {canEdit && (
+              <EditRecordAction pidType="seminars" pidValue={recordId} />
+            )}
+          </>
+        )
       }
     >
       <Row type="flex">
@@ -103,6 +105,11 @@ function SeminarItem({ metadata, selectedTimezone }) {
 SeminarItem.propTypes = {
   metadata: PropTypes.instanceOf(Map).isRequired,
   selectedTimezone: PropTypes.string,
+  enableActions: PropTypes.bool,
+};
+
+SeminarItem.defaultProps = {
+  enableActions: true,
 };
 
 export default SeminarItem;
