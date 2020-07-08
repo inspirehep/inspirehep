@@ -76,7 +76,7 @@ export function onEventsQuerychange(helper) {
   }
 }
 
-export function onExistingConferencesQueryChange(helper) {
+export function onEmbeddedSearchWithoutAggregationsQueryChange(helper) {
   if (helper.hasQueryChanged()) {
     helper.fetchSearchResults();
   }
