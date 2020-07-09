@@ -43,11 +43,6 @@ from inspire_disambiguation.core.helpers import (
     train_validation_split
 )
 
-from inspire_disambiguation.core.data_models.publication import (
-    Publication,
-)
-from inspire_disambiguation.core.data_models.signature import Signature
-
 
 def test_get_author_affiliation(curated_author):
     result = get_author_affiliation(curated_author)
