@@ -21,11 +21,12 @@
 # or submit itself to any jurisdiction.
 
 """Disambiguation helpers."""
+from random import sample, seed
+
 import numpy
 from beard.utils import given_name, given_name_initial, normalize_name
 from inspire_utils.helpers import maybe_int
 from inspire_utils.record import get_value
-from random import sample, seed
 from sklearn.metrics.cluster.supervised import check_clusterings
 
 
@@ -328,8 +329,12 @@ def train_validation_split(curated_signatures, split_fraction):
     """
     seed(99)
     curated_signatures_dict = load_signatures(curated_signatures)
-    train_signatures_uuids = set(sample(curated_signatures_dict.keys(),
-                                 k=round(len(curated_signatures_dict) * split_fraction)))
+    train_signatures_uuids = set(
+        sample(
+            curated_signatures_dict.keys(),
+            k=round(len(curated_signatures_dict) * split_fraction),
+        )
+    )
     train_signatures = {k: curated_signatures_dict[k] for k in train_signatures_uuids}
     test_signatures_uuids = set(curated_signatures_dict.keys()) - train_signatures_uuids
     test_signatures = {k: curated_signatures_dict[k] for k in test_signatures_uuids}
@@ -401,9 +406,8 @@ def compute_clustering_statistics(X, labels_true, labels_pred):
     labels_true, labels_pred = check_clusterings(labels_true, labels_pred)
 
     # Check that input given is not the empty set
-    if labels_true.shape == (0, ):
-        raise ValueError(
-            "input labels must not be empty.")
+    if labels_true.shape == (0,):
+        raise ValueError("input labels must not be empty.")
 
     # Compute P/R/F scores
     n_samples = len(labels_true)
@@ -443,7 +447,9 @@ def compute_clustering_statistics(X, labels_true, labels_pred):
             intersection = pred_cluster_i.intersection(true_cluster_i)
             # checks for the samples which should be in the cluster and are not
             # and for the samples which shouldn't be in the cluster and they are in it.
-            wrongly_classified_samples |= true_cluster_i.symmetric_difference(pred_cluster_i)
+            wrongly_classified_samples |= true_cluster_i.symmetric_difference(
+                pred_cluster_i
+            )
             intersections[(pred_cluster_i, true_cluster_i)] = intersection
 
         precision += len(intersection) / len(pred_cluster_i)
@@ -453,6 +459,8 @@ def compute_clustering_statistics(X, labels_true, labels_pred):
     recall /= n_samples
 
     f_score = 2 * precision * recall / (precision + recall)
-    wrongly_classified_samples = [X[sample]['signature_uuid'] for sample in wrongly_classified_samples]
+    wrongly_classified_samples = [
+        X[sample][0]["signature_uuid"] for sample in wrongly_classified_samples
+    ]
 
     return (precision, recall, f_score), wrongly_classified_samples
