@@ -21,25 +21,20 @@
 # or submit itself to any jurisdiction
 
 """Disambiguation API."""
+import json
+import math
 from datetime import datetime
 
 import requests
-import json
-
 import structlog
-import math
-
 from inspire_disambiguation import conf
-from inspire_disambiguation.core.es.readers import get_input_clusters, get_signatures
-from inspire_disambiguation.core.helpers import (
-    process_clustering_output,
-    train_validation_split,
-)
-from inspire_disambiguation.core.ml.models import (
-    Clusterer,
-    DistanceEstimator,
-    EthnicityEstimator,
-)
+from inspire_disambiguation.core.es.readers import (get_input_clusters,
+                                                    get_signatures)
+from inspire_disambiguation.core.helpers import (process_clustering_output,
+                                                 train_validation_split)
+from inspire_disambiguation.core.ml.models import (Clusterer,
+                                                   DistanceEstimator,
+                                                   EthnicityEstimator)
 from inspire_disambiguation.core.ml.sampling import sample_signature_pairs
 from redis import StrictRedis
 
@@ -72,8 +67,10 @@ def train_and_save_ethnicity_model(load_data_path, save_model_path):
 
 
 def train_and_save_distance_model(
-    ethnicity_model_path, save_distance_model_path, sampled_pairs_size,
-        train_to_validation_split_fraction=0.8
+    ethnicity_model_path,
+    save_distance_model_path,
+    sampled_pairs_size,
+    train_to_validation_split_fraction=0.8,
 ):
     """Train the distance estimator model and save it to disk.
 
@@ -84,6 +81,8 @@ def train_and_save_distance_model(
         sampled_pairs_size (int): Number of pairs to be generated for the training.
             Note:
                 Must be multiple of 4.
+        train_to_validation_split_fraction (float): fraction of the data
+            used for training.
     """
     LOGGER.info("Pulling training data from ES")
     start_time = datetime.now()
@@ -105,12 +104,32 @@ def train_and_save_distance_model(
         pairs_count=sampled_pairs_size,
     )
     pairs_train = list(
-        sample_signature_pairs(train_signatures_list, input_clusters_train, sampled_pairs_size)
+        sample_signature_pairs(
+            train_signatures_list, input_clusters_train, sampled_pairs_size
+        )
     )
     prepare_pairs_time = datetime.now()
-    pair_size_test = math.ceil(((1 - train_to_validation_split_fraction) / train_to_validation_split_fraction)**2 * sampled_pairs_size)
+    # must be multiple of 4
+    pair_size_test = 4 * math.ceil(
+        (
+            (
+                (1 - train_to_validation_split_fraction)
+                / train_to_validation_split_fraction
+            )
+            ** 2
+            * sampled_pairs_size
+        )
+        / 4
+    )
     pairs_test = list(
-        sample_signature_pairs(test_signatures_list, input_clusters_test, pair_size_test)
+        sample_signature_pairs(
+            test_signatures_list, input_clusters_test, pair_size_test
+        )
+    )
+    LOGGER.info(
+        "Pairs prepared.",
+        n_training_pairs=len(pairs_train),
+        n_test_pairs=len(pairs_test),
     )
     ethnicity_estimator = EthnicityEstimator(ethnicity_model_path)
     distance_estimator = DistanceEstimator(ethnicity_estimator)
@@ -122,7 +141,8 @@ def train_and_save_distance_model(
     training_model_time = datetime.now()
     distance_estimator.save_model(save_distance_model_path)
     save_model_time = datetime.now()
-    distance_estimator.load_data(test_signatures_list, pairs_test, sampled_pairs_size)
+    LOGGER.info("Scoring test dataset...")
+    distance_estimator.load_data(test_signatures_list, pairs_test, pair_size_test)
     test_score = distance_estimator.score()
     LOGGER.info(
         "Train distance model",
@@ -198,35 +218,41 @@ def cluster(
             ),
             signature_block=phonetic_block,
             B3_f_score=cluster.supervised_scoring(clusterer.y, cluster.labels_)
-            if hasattr(cluster, "supervised_scoring")
+            if hasattr(cluster, "supervised_scoring") and not test_labels
             else None,
         )
-    if test_signatures_uuids:
-        statistics_names = ('precision', 'recall', 'f1')
-        training_statistics = cluster.score(test_signatures_uuids, test_labels)
+    if test_labels:
+        statistics_names = ("precision", "recall", "f1")
+        training_statistics = clusterer.score(test_signatures_uuids, test_labels)
         (
             (B3_statistics_all, wrongly_classified_pairs),
             B3_statistics_training,
             B3_statistics_test,
         ) = training_statistics
         LOGGER.info(
-            B3_precision_recall_f_score_all=dict(zip(statistics_names, B3_statistics_all)),
-            B3_precision_recall_f_score_training=dict(zip(statistics_names, B3_statistics_training)),
-            B3_precision_recall_f_score_test=dict(zip(statistics_names, B3_statistics_test)),
+            B3_precision_recall_f_score_all=dict(
+                zip(statistics_names, B3_statistics_all)
+            ),
+            B3_precision_recall_f_score_training=dict(
+                zip(statistics_names, B3_statistics_training)
+            ),
+            B3_precision_recall_f_score_test=dict(
+                zip(statistics_names, B3_statistics_test)
+            ),
             wrongly_classified_pairs=wrongly_classified_pairs,
         )
-
     return process_clustering_output(clusterer)
 
 
-def cluster_from_redis(ethnicity_model_path, distance_model_path, n_jobs):
+def cluster_from_redis(
+    ethnicity_model_path, distance_model_path, n_jobs,
+):
     """
     Process all signature blocks from redis set (one by one).
     Args:
         ethnicity_model_path (str): Full path where ethnicity model is saved.
         distance_model_path (str): Full path where distance model is saved.
         n_jobs (int): How many jobs will be running to fit data.
-
     """
     redis_url = conf["REDIS_URL"]
     redis = StrictRedis.from_url(redis_url, decode_responses=True)
@@ -240,7 +266,7 @@ def cluster_from_redis(ethnicity_model_path, distance_model_path, n_jobs):
         signature_block = signature_block_data[1]
         LOGGER.info("Clustering signature_block", signature_block=signature_block)
         clusters = cluster(
-            ethnicity_model_path, distance_model_path, n_jobs, signature_block
+            ethnicity_model_path, distance_model_path, n_jobs, signature_block,
         )
         LOGGER.info("Output", output_clusters=clusters, signature_block=signature_block)
         response = send_clusters_to_inspirehep(clusters)

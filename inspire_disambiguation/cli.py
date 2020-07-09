@@ -22,11 +22,10 @@
 
 import click
 from inspire_disambiguation import conf
-from inspire_disambiguation.api import (
-    train_and_save_ethnicity_model,
-    train_and_save_distance_model,
-    cluster_from_redis,
-)
+from inspire_disambiguation.api import cluster as clustering_test
+from inspire_disambiguation.api import (cluster_from_redis,
+                                        train_and_save_distance_model,
+                                        train_and_save_ethnicity_model)
 
 
 @click.group()
@@ -93,15 +92,12 @@ def ethnicity_model(load_data_path, save_model_path):
     type=int,
 )
 @click.option(
-    "-t",
-    "--test",
-    help=f"Test model performance on a test set.",
-    is_flag=True,
+    "-t", "--test", help="Test model performance on a test set.", is_flag=True,
 )
 @click.option(
     "-f",
     "--train_fraction",
-    help=f"Fraction of training samples in dataset.",
+    help="Fraction of training samples in dataset.",
     default=0.8,
     type=float,
 )
@@ -113,15 +109,22 @@ def ethnicity_model(load_data_path, save_model_path):
     help=f"Number of processes to use. (default: '{conf['CLUSTERING_N_JOBS']}')",
     type=int,
 )
-def distance_model(ethnicity_model_path, save_model_path,
-                   sampled_pairs_size, test, train_fraction, n_jobs):
+def distance_model(
+    ethnicity_model_path,
+    save_model_path,
+    sampled_pairs_size,
+    test,
+    train_fraction,
+    n_jobs,
+):
     """Train distance model and save it."""
     click.secho("Starting Distance training.")
     test_signatures = train_and_save_distance_model(
-            ethnicity_model_path, save_model_path, sampled_pairs_size,
-            train_fraction)
+        ethnicity_model_path, save_model_path, sampled_pairs_size, train_fraction
+    )
     if test:
-        cluster(ethnicity_model_path, save_model_path, n_jobs, test_signatures)
+        click.secho("Starting clustering.")
+        clustering_test(ethnicity_model_path, save_model_path, n_jobs, test_signatures)
     click.secho(f"Done. Model saved in {save_model_path}", fg="green")
 
 
