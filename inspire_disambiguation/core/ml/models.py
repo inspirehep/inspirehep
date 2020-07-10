@@ -27,38 +27,27 @@ import pickle
 from functools import partial
 
 import numpy as np
-from beard.clustering import (
-    BlockClustering,
-    ScipyHierarchicalClustering,
-    block_phonetic,
-)
-from beard.metrics import b3_f_score, \
-    b3_precision_recall_fscore
-from beard.similarity import (
-    CosineSimilarity,
-    ElementMultiplication,
-    EstimatorTransformer,
-    PairTransformer,
-    StringDistance,
-)
+from beard.clustering import (BlockClustering, ScipyHierarchicalClustering,
+                              block_phonetic)
+from beard.metrics import b3_f_score, b3_precision_recall_fscore
+from beard.similarity import (CosineSimilarity, ElementMultiplication,
+                              EstimatorTransformer, PairTransformer,
+                              StringDistance)
 from beard.utils import FuncTransformer, Shaper, normalize_name
-from inspire_disambiguation.core.helpers import (
-    get_abstract,
-    get_author_full_name,
-    get_author_other_names,
-    get_coauthors_neighborhood,
-    get_collaborations,
-    get_first_given_name,
-    get_keywords,
-    get_normalized_affiliation,
-    get_second_given_name,
-    get_second_initial,
-    get_title,
-    get_topics,
-    group_by_signature,
-    load_signatures,
-    compute_clustering_statistics
-)
+from inspire_disambiguation.core.helpers import (compute_clustering_statistics,
+                                                 get_abstract,
+                                                 get_author_full_name,
+                                                 get_author_other_names,
+                                                 get_coauthors_neighborhood,
+                                                 get_collaborations,
+                                                 get_first_given_name,
+                                                 get_keywords,
+                                                 get_normalized_affiliation,
+                                                 get_second_given_name,
+                                                 get_second_initial, get_title,
+                                                 get_topics,
+                                                 group_by_signature,
+                                                 load_signatures)
 from inspire_disambiguation.utils import open_file_in_folder
 from scipy.special import expit
 from sklearn.ensemble import RandomForestClassifier
@@ -635,12 +624,14 @@ class Clusterer(object):
         self.X = np.empty((len(signatures_by_uuid), 1), dtype=np.object)
         self.y = -np.ones(len(self.X), dtype=np.int)
 
-        for i, cluster in enumerate(input_clusters):
+        i = 0
+        for cluster in input_clusters:
             for signature_uuid in cluster["signature_uuids"]:
                 if signature_uuid not in signatures_by_uuid:
                     continue  # TODO figure out how this can happen
                 self.X[i, 0] = signatures_by_uuid[signature_uuid]
                 self.y[i] = cluster["cluster_id"]
+                i += 1
 
     def load_model(self, input_filename):
         """Loads model dumped by pickle
@@ -691,9 +682,11 @@ class Clusterer(object):
         y_test = np.array(labels)
         labels_train = self.clusterer.labels_[~mask]
         labels_test = self.clusterer.labels_[mask]
-        return compute_clustering_statistics(
-            self.X, self.y, self.clusterer.labels_
-        ), b3_precision_recall_fscore(y_train, labels_train), b3_precision_recall_fscore(y_test, labels_test)
+        return (
+            compute_clustering_statistics(self.X, self.y, self.clusterer.labels_),
+            b3_precision_recall_fscore(y_train, labels_train),
+            b3_precision_recall_fscore(y_test, labels_test),
+        )
 
 
 def _affinity(X, step=10000):
