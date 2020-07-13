@@ -21,7 +21,7 @@ const stateToProps = state => ({
   ]),
 });
 
-export const dispatchToProps = dispatch => ({
+export const dispatchToProps = (dispatch, { namespace }) => ({
   onChange(selection) {
     const query = { [START_DATE]: selection, page: '1' };
 
@@ -35,7 +35,7 @@ export const dispatchToProps = dispatch => ({
       query.timezone = LOCAL_TIMEZONE;
     }
 
-    dispatch(searchQueryUpdate(SEMINARS_NS, query));
+    dispatch(searchQueryUpdate(namespace, query));
   },
 });
 

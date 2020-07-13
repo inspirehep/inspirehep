@@ -38,6 +38,7 @@ from inspirehep.search.api import (
     SeminarsSearch,
 )
 from inspirehep.search.facets import (
+    accessibility_filter,
     citation_summary,
     citations_by_year,
     conferences_date_range_contains_other_conferences,
@@ -239,12 +240,12 @@ JOBS.update(
         "search_serializers": {
             "application/json": INSPIRE_SERIALIZERS + ":jobs_json_response_search",
             "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
-            + ":jobs_json_response_search",
+            + ":jobs_json_list_response",
         },
         "record_serializers": {
             "application/json": INSPIRE_SERIALIZERS + ":jobs_json_response",
             "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
-            + ":jobs_json_response",
+            + ":jobs_json_detail_response",
         },
     }
 )
@@ -514,6 +515,7 @@ CONFERENCES_FILTERS = {
 SEMINARS_FILTERS = {
     "subject": must_match_all_filter("inspire_categories.term"),
     "series": must_match_all_filter("series.name.raw"),
+    "accessibility": accessibility_filter(),
 }
 
 RECORDS_REST_FACETS = {

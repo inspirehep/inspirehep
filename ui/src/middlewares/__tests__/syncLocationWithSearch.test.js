@@ -237,14 +237,14 @@ describe('syncLocationWithSearch middleware', () => {
       const namespace = LITERATURE_NS;
       const location = {
         pathname: LITERATURE,
-        search: '?size=10&q=guy',
-        query: { size: 10, q: 'guy' },
+        search: '?size=10&q=guy&ui-param=ignored',
+        query: { size: 10, q: 'guy', 'ui-param': 'ignored' },
       };
       const router = { location };
       const search = fromJS({
         namespaces: {
           [namespace]: {
-            query: { size: 10, q: 'guy' },
+            query: { size: 10, q: 'guy', 'ui-param': 'also-ignored' },
           },
         },
       });

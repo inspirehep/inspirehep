@@ -37,37 +37,6 @@ describe('clearStateDispatcher middleware', () => {
       });
     });
 
-    it('dispatches CLEAR_STATE if search changed', () => {
-      const router = {
-        location: {
-          pathname: '/one',
-          search: '?filter=value',
-        },
-      };
-      const getState = () => ({ router });
-      const mockNextFuncThatMirrors = action => action;
-      const mockDispatch = jest.fn();
-      const testMiddleware = middleware({ getState, dispatch: mockDispatch })(
-        mockNextFuncThatMirrors
-      );
-
-      const action = {
-        type: LOCATION_CHANGE,
-        payload: {
-          location: {
-            pathname: '/one',
-            search: '?filter=new',
-          },
-        },
-      };
-      const resultAction = testMiddleware(action);
-      expect(mockDispatch).toHaveBeenCalledWith({
-        type: CLEAR_STATE,
-        payload: { cause: 'LOCATION_REALLY_CHANGED' },
-      });
-      expect(resultAction).toEqual(action);
-    });
-
     it('does not dispatch CLEAR_STATE if search or pathname not changed', () => {
       const router = {
         location: {

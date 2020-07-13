@@ -6,12 +6,15 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
+import structlog
 from flask_login import current_user
 from inspire_utils.record import get_value
 from invenio_oauthclient.models import RemoteAccount, UserIdentity
-from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy.exc import SQLAlchemyError
 
 from inspirehep.accounts.roles import Roles
+
+LOGGER = structlog.getLogger()
 
 
 def is_superuser_or_cataloger_logged_in():
@@ -44,7 +47,8 @@ def get_current_user_orcid():
             .id
         )
         return orcid
-    except NoResultFound:
+    except SQLAlchemyError:
+        LOGGER.info("No access granted to the user.")
         return None
 
 

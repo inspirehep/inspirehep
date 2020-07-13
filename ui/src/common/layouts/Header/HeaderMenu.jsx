@@ -28,7 +28,11 @@ class HeaderMenu extends Component {
         mode="horizontal"
         selectable={false}
       >
-        <Menu.SubMenu key="help" title="Help" popupClassName="header-submenu">
+        <Menu.SubMenu
+          key="help"
+          title="Help"
+          popupClassName="header-submenu ant-menu-dark"
+        >
           <Menu.Item key="help.search-tips">
             <ExternalLink href={PAPER_SEARCH_URL}>Search Tips</ExternalLink>
           </Menu.Item>
@@ -45,7 +49,7 @@ class HeaderMenu extends Component {
         <Menu.SubMenu
           key="submit"
           title="Submit"
-          popupClassName="header-submenu"
+          popupClassName="header-submenu ant-menu-dark"
         >
           <Menu.Item key="submit.literature">
             <Link to={SUBMISSIONS_LITERATURE}>Literature</Link>

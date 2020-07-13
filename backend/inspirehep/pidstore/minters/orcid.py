@@ -14,4 +14,4 @@ class OrcidMinter(Minter):
     pid_type = "orcid"
 
     def get_pid_values(self):
-        return get_values_for_schema(self.data.get("ids", []), "ORCID")
+        return set(get_values_for_schema(self.data.get("ids", []), "ORCID"))

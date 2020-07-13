@@ -5,40 +5,52 @@ import {
   PUBLISHED_QUERY,
   CITEABLE_BAR_TYPE,
   PUBLISHED_BAR_TYPE,
+  CITATION_COUNT_WITHOUT_SELF_CITATIONS_PARAM,
+  CITATION_COUNT_PARAM,
 } from '../constants';
 import CitationSummaryGraph from '../components/CitationSummaryGraph';
 import { searchQueryUpdate } from '../../actions/search';
+import { shouldExcludeSelfCitations } from '../../literature/containers/ExcludeSelfCitationsContainer';
 
 const CLEAR_QUERY = {
   citeable: undefined,
   refereed: undefined,
-  citation_count: undefined,
+  [CITATION_COUNT_PARAM]: undefined,
+  [CITATION_COUNT_WITHOUT_SELF_CITATIONS_PARAM]: undefined,
 };
 
-function barToQuery(bar) {
+function barToQuery(bar, excludeSelfCitations) {
   if (bar == null) {
     return CLEAR_QUERY;
   }
+
+  const citationCountParam = excludeSelfCitations
+    ? CITATION_COUNT_WITHOUT_SELF_CITATIONS_PARAM
+    : CITATION_COUNT_PARAM;
   if (bar.type === CITEABLE_BAR_TYPE) {
     return {
       ...CITEABLE_QUERY,
-      citation_count: bar.xValue,
+      [citationCountParam]: bar.xValue,
     };
   }
-  return { ...PUBLISHED_QUERY, citation_count: bar.xValue };
+  return { ...PUBLISHED_QUERY, [citationCountParam]: bar.xValue };
 }
 
-export function queryToBar(query) {
-  if (query.get('citeable') && query.get('citation_count')) {
+function getSelectedBar(state, namespace) {
+  const citationCountParam = shouldExcludeSelfCitations(state)
+    ? CITATION_COUNT_WITHOUT_SELF_CITATIONS_PARAM
+    : CITATION_COUNT_PARAM;
+  const query = state.search.getIn(['namespaces', namespace, 'query']);
+  if (query.get('citeable') && query.get(citationCountParam)) {
     if (query.get('refereed')) {
       return {
         type: PUBLISHED_BAR_TYPE,
-        xValue: query.get('citation_count'),
+        xValue: query.get(citationCountParam),
       };
     }
     return {
       type: CITEABLE_BAR_TYPE,
-      xValue: query.get('citation_count'),
+      xValue: query.get(citationCountParam),
     };
   }
   return null;
@@ -63,15 +75,14 @@ const stateToProps = (state, { namespace }) => ({
     'buckets',
   ]),
   error: state.citations.get('errorCitationSummary'),
-  selectedBar: queryToBar(
-    state.search.getIn(['namespaces', namespace, 'query'])
-  ),
+  selectedBar: getSelectedBar(state, namespace),
+  excludeSelfCitations: shouldExcludeSelfCitations(state),
 });
 
 const dispatchToProps = (dispatch, { namespace }) => ({
   // TODO: rename to onSelectedBarChange
-  onSelectBarChange(bar) {
-    const query = barToQuery(bar);
+  onSelectBarChange(bar, excludeSelfCitations) {
+    const query = barToQuery(bar, excludeSelfCitations);
     dispatch(searchQueryUpdate(namespace, { page: '1', ...query }));
   },
 });

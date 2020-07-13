@@ -95,11 +95,11 @@ class CitationSummaryGraph extends Component {
   }
 
   onBarClick(clickedBar) {
-    const { onSelectBarChange } = this.props;
+    const { onSelectBarChange, excludeSelfCitations } = this.props;
     if (this.isSelectedBar(clickedBar)) {
       onSelectBarChange(null);
     } else {
-      onSelectBarChange(clickedBar);
+      onSelectBarChange(clickedBar, excludeSelfCitations);
     }
   }
 
@@ -266,6 +266,7 @@ class CitationSummaryGraph extends Component {
 }
 
 CitationSummaryGraph.propTypes = {
+  excludeSelfCitations: PropTypes.bool,
   publishedData: PropTypes.arrayOf(PropTypes.any),
   citeableData: PropTypes.arrayOf(PropTypes.any),
   loading: PropTypes.bool,
@@ -283,6 +284,7 @@ CitationSummaryGraph.defaultProps = {
   loading: false,
   error: null,
   selectedBar: null,
+  excludeSelfCitations: false,
 };
 
 export default CitationSummaryGraph;

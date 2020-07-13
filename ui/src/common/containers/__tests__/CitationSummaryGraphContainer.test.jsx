@@ -3,14 +3,23 @@ import { mount } from 'enzyme';
 import { fromJS } from 'immutable';
 import { Provider } from 'react-redux';
 
-import { getStoreWithState, getStore } from '../../../fixtures/store';
+import { getStore, mockActionCreator } from '../../../fixtures/store';
 import CitationSummaryGraphContainer from '../CitationSummaryGraphContainer';
 import CitationSummaryGraph from '../../components/CitationSummaryGraph/CitationSummaryGraph';
-import { CITEABLE_BAR_TYPE, PUBLISHED_BAR_TYPE } from '../../constants';
+import {
+  CITEABLE_BAR_TYPE,
+  PUBLISHED_BAR_TYPE,
+  CITATION_COUNT_PARAM,
+  CITATION_COUNT_WITHOUT_SELF_CITATIONS_PARAM,
+} from '../../constants';
 import { AUTHOR_PUBLICATIONS_NS } from '../../../search/constants';
-import { SEARCH_QUERY_UPDATE } from '../../../actions/actionTypes';
+import { searchQueryUpdate } from '../../../actions/search';
+import { EXCLUDE_SELF_CITATIONS_PREFERENCE } from '../../../reducers/user';
 
 jest.mock('../../../actions/citations');
+
+jest.mock('../../../actions/search');
+mockActionCreator(searchQueryUpdate);
 
 const mockCiteableData = [
   {
@@ -121,8 +130,13 @@ const mockCitationsState = fromJS({
 describe('CitationSummaryGraphContainer', () => {
   it('passes props from state', () => {
     const namespace = AUTHOR_PUBLICATIONS_NS;
-    const store = getStoreWithState({
+    const store = getStore({
       citations: mockCitationsState,
+      user: fromJS({
+        preferences: {
+          [EXCLUDE_SELF_CITATIONS_PREFERENCE]: true,
+        },
+      }),
     });
     const wrapper = mount(
       <Provider store={store}>
@@ -135,6 +149,7 @@ describe('CitationSummaryGraphContainer', () => {
       error: mockError,
       loading: mockLoading,
       selectedBar: null,
+      excludeSelfCitations: true,
     });
   });
 
@@ -152,77 +167,71 @@ describe('CitationSummaryGraphContainer', () => {
     onSelectBarChange(null);
 
     const query = {
-      citation_count: undefined,
+      [CITATION_COUNT_PARAM]: undefined,
+      [CITATION_COUNT_WITHOUT_SELF_CITATIONS_PARAM]: undefined,
       citeable: undefined,
       refereed: undefined,
       page: '1',
     };
-    const expectedActions = [
-      {
-        type: SEARCH_QUERY_UPDATE,
-        payload: { namespace, query },
-      },
-    ];
+    const expectedActions = [searchQueryUpdate(namespace, query)];
     expect(store.getActions()).toEqual(expectedActions);
   });
 
-  it('dispatches SEARCH_QUERY_UPDATE for author publication namespace with citeable query when onSelectBarChange called with citeable bar', () => {
+  it('dispatches SEARCH_QUERY_UPDATE for author publication namespace with citeable query when onSelectBarChange called with citeable bar with excluded self citations', () => {
     const namespace = AUTHOR_PUBLICATIONS_NS;
+    const excludeSelfCitations = true;
     const store = getStore();
     const wrapper = mount(
       <Provider store={store}>
         <CitationSummaryGraphContainer namespace={namespace} />
       </Provider>
     );
-    wrapper.find(CitationSummaryGraph).prop('onSelectBarChange')({
-      xValue: '0--0',
-      type: CITEABLE_BAR_TYPE,
-    });
+    wrapper.find(CitationSummaryGraph).prop('onSelectBarChange')(
+      {
+        xValue: '0--0',
+        type: CITEABLE_BAR_TYPE,
+      },
+      excludeSelfCitations
+    );
     const query = {
-      citation_count: '0--0',
+      [CITATION_COUNT_WITHOUT_SELF_CITATIONS_PARAM]: '0--0',
       citeable: true,
       refereed: undefined,
       page: '1',
     };
-    const expectedActions = [
-      {
-        type: SEARCH_QUERY_UPDATE,
-        payload: { namespace: AUTHOR_PUBLICATIONS_NS, query },
-      },
-    ];
+    const expectedActions = [searchQueryUpdate(namespace, query)];
     expect(store.getActions()).toEqual(expectedActions);
   });
 
   it('dispatches SEARCH_QUERY_UPDATE for author publication namespace with published query when onSelectBarChange called with published bar', () => {
     const namespace = AUTHOR_PUBLICATIONS_NS;
+    const excludeSelfCitations = false;
     const store = getStore();
     const wrapper = mount(
       <Provider store={store}>
         <CitationSummaryGraphContainer namespace={namespace} />
       </Provider>
     );
-    wrapper.find(CitationSummaryGraph).prop('onSelectBarChange')({
-      xValue: '0--0',
-      type: PUBLISHED_BAR_TYPE,
-    });
+    wrapper.find(CitationSummaryGraph).prop('onSelectBarChange')(
+      {
+        xValue: '0--0',
+        type: PUBLISHED_BAR_TYPE,
+      },
+      excludeSelfCitations
+    );
     const query = {
-      citation_count: '0--0',
+      [CITATION_COUNT_PARAM]: '0--0',
       citeable: true,
       refereed: true,
       page: '1',
     };
-    const expectedActions = [
-      {
-        type: SEARCH_QUERY_UPDATE,
-        payload: { namespace: AUTHOR_PUBLICATIONS_NS, query },
-      },
-    ];
+    const expectedActions = [searchQueryUpdate(namespace, query)];
     expect(store.getActions()).toEqual(expectedActions);
   });
 
   it('sets selectedBar prop from author publications namespace state for a citable bar', () => {
     const namespace = AUTHOR_PUBLICATIONS_NS;
-    const store = getStoreWithState({
+    const store = getStore({
       citations: mockCitationsState,
       search: fromJS({
         namespaces: {
@@ -247,7 +256,7 @@ describe('CitationSummaryGraphContainer', () => {
 
   it('sets selectedBar prop from author publications namespace state for a published bar', () => {
     const namespace = AUTHOR_PUBLICATIONS_NS;
-    const store = getStoreWithState({
+    const store = getStore({
       citations: mockCitationsState,
       search: fromJS({
         namespaces: {

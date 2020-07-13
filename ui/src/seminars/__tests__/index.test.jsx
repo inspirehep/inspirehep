@@ -7,7 +7,7 @@ import Loadable from 'react-loadable';
 import { getStore } from '../../fixtures/store';
 import Seminars from '..';
 import DetailPageContainer from '../containers/DetailPageContainer';
-import SearchPageContainer from '../containers/SearchPageContainer';
+import SearchPage from '../components/SearchPage';
 
 describe('Seminars', () => {
   it('renders initial state', () => {
@@ -26,7 +26,7 @@ describe('Seminars', () => {
     await Loadable.preloadAll();
     wrapper.update();
 
-    expect(wrapper.find(SearchPageContainer)).toExist();
+    expect(wrapper.find(SearchPage)).toExist();
 
     done();
   });

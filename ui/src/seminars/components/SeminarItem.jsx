@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 
-import { VideoCameraAddOutlined } from '@ant-design/icons';
+import { VideoCameraAddOutlined, FileOutlined } from '@ant-design/icons';
 import { Row, Col } from 'antd';
 import EditRecordAction from '../../common/components/EditRecordAction';
 import ResultItem from '../../common/components/ResultItem';
@@ -16,12 +16,13 @@ import { LOCAL_TIMEZONE } from '../../common/constants';
 import ExportToCalendarAction from './ExportToCalendarAction/ExportToCalendarAction';
 import UrlsAction from '../../literature/components/UrlsAction';
 
-function SeminarItem({ metadata, selectedTimezone }) {
+function SeminarItem({ metadata, selectedTimezone, enableActions }) {
   const title = metadata.get('title');
   const recordId = metadata.get('control_number');
   const canEdit = metadata.get('can_edit', false);
   const urls = metadata.get('urls');
   const joinUrls = metadata.get('join_urls');
+  const materialUrls = metadata.get('material_urls');
   const speakers = metadata.get('speakers');
   const startDate = metadata.get('start_datetime');
   const endDate = metadata.get('end_datetime');
@@ -31,20 +32,29 @@ function SeminarItem({ metadata, selectedTimezone }) {
   return (
     <ResultItem
       leftActions={
-        <>
-          {urls && <UrlsAction urls={urls} />}
-          {joinUrls && (
-            <UrlsAction
-              urls={joinUrls}
-              icon={<VideoCameraAddOutlined />}
-              text="join"
-            />
-          )}
-          <ExportToCalendarAction seminar={metadata} />
-          {canEdit && (
-            <EditRecordAction pidType="seminars" pidValue={recordId} />
-          )}
-        </>
+        enableActions && (
+          <>
+            {urls && <UrlsAction urls={urls} />}
+            {joinUrls && (
+              <UrlsAction
+                urls={joinUrls}
+                icon={<VideoCameraAddOutlined />}
+                text="join"
+              />
+            )}
+            {materialUrls && (
+              <UrlsAction
+                urls={materialUrls}
+                icon={<FileOutlined />}
+                text="material"
+              />
+            )}
+            <ExportToCalendarAction seminar={metadata} />
+            {canEdit && (
+              <EditRecordAction pidType="seminars" pidValue={recordId} />
+            )}
+          </>
+        )
       }
     >
       <Row type="flex">
@@ -95,6 +105,11 @@ function SeminarItem({ metadata, selectedTimezone }) {
 SeminarItem.propTypes = {
   metadata: PropTypes.instanceOf(Map).isRequired,
   selectedTimezone: PropTypes.string,
+  enableActions: PropTypes.bool,
+};
+
+SeminarItem.defaultProps = {
+  enableActions: true,
 };
 
 export default SeminarItem;

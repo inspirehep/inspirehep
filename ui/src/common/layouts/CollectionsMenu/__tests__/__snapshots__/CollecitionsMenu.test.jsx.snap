@@ -33,7 +33,6 @@ exports[`CollectionsMenu renders when authors page 1`] = `
   <Col>
     <CollectionLink
       active={false}
-      newCollection={true}
       to="/seminars"
     >
       Seminars
@@ -91,7 +90,6 @@ exports[`CollectionsMenu renders when conferences page 1`] = `
   <Col>
     <CollectionLink
       active={false}
-      newCollection={true}
       to="/seminars"
     >
       Seminars
@@ -149,7 +147,6 @@ exports[`CollectionsMenu renders when home page 1`] = `
   <Col>
     <CollectionLink
       active={false}
-      newCollection={true}
       to="/seminars"
     >
       Seminars
@@ -207,7 +204,6 @@ exports[`CollectionsMenu renders when jobs page 1`] = `
   <Col>
     <CollectionLink
       active={false}
-      newCollection={true}
       to="/seminars"
     >
       Seminars
@@ -265,7 +261,6 @@ exports[`CollectionsMenu renders when literature page 1`] = `
   <Col>
     <CollectionLink
       active={false}
-      newCollection={true}
       to="/seminars"
     >
       Seminars
@@ -323,7 +318,6 @@ exports[`CollectionsMenu renders when seminars page 1`] = `
   <Col>
     <CollectionLink
       active={true}
-      newCollection={true}
       to="/seminars"
     >
       Seminars
@@ -381,7 +375,6 @@ exports[`CollectionsMenu renders when submissions page 1`] = `
   <Col>
     <CollectionLink
       active={false}
-      newCollection={true}
       to="/seminars"
     >
       Seminars

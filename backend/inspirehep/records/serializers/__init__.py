@@ -26,6 +26,8 @@ from .json import (
     institutions_json_list_response,
     institutions_json_response,
     institutions_json_response_search,
+    jobs_json_detail_response,
+    jobs_json_list_response,
     jobs_json_response,
     jobs_json_response_search,
     journals_json_response,

@@ -1,19 +1,10 @@
 import { fetchCitationSummary } from '../actions/citations';
-import {
-  isCitationSummaryEnabled,
-  isCitationSummaryPreferenceSet,
-} from '../literature/containers/CitationSummarySwitchContainer';
-
-function shouldDispatchCitationSummary(state) {
-  return (
-    isCitationSummaryEnabled(state) || isCitationSummaryPreferenceSet(state)
-  );
-}
+import { isCitationSummaryEnabled } from '../literature/containers/CitationSummarySwitchContainer';
 
 export function onLiteratureQueryChange(helper) {
   if (helper.isInitialQueryUpdate() || helper.hasQueryChanged()) {
     helper.fetchSearchResults();
-    helper.updateLocation(helper.state.router.location.hash);
+    helper.updateLocation();
   }
 
   if (
@@ -22,8 +13,8 @@ export function onLiteratureQueryChange(helper) {
   ) {
     helper.fetchSearchAggregations();
 
-    // `if shouldDispatchCitationSummary` can be pushed down to `fetchCitationSummary`
-    if (shouldDispatchCitationSummary(helper.state)) {
+    // `if isCitationSummaryEnabled` can be pushed down to `fetchCitationSummary`
+    if (isCitationSummaryEnabled(helper.state)) {
       helper.dispatch(fetchCitationSummary(helper.namespace));
     }
   }
@@ -37,13 +28,13 @@ export function onEmbeddedLiteratureQueryChange(helper) {
   if (helper.hasQueryChangedExceptSortAndPagination()) {
     helper.fetchSearchAggregations();
 
-    if (shouldDispatchCitationSummary(helper.state)) {
+    if (isCitationSummaryEnabled(helper.state)) {
       helper.dispatch(fetchCitationSummary(helper.namespace));
     }
   }
 }
 
-export function onAuthorCitationsQueryChange(helper) {
+export function onEmbeddedSearchWithAggregationsQueryChange(helper) {
   if (helper.hasQueryChanged()) {
     helper.fetchSearchResults();
   }
@@ -85,7 +76,7 @@ export function onEventsQuerychange(helper) {
   }
 }
 
-export function onExistingConferencesQueryChange(helper) {
+export function onEmbeddedSearchWithoutAggregationsQueryChange(helper) {
   if (helper.hasQueryChanged()) {
     helper.fetchSearchResults();
   }

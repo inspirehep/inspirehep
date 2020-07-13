@@ -1410,7 +1410,7 @@ description = "Inspire JSON schemas and utilities to use them."
 name = "inspire-schemas"
 optional = false
 python-versions = "*"
-version = "61.3.3"
+version = "61.3.5"
 
 [package.dependencies]
 Unidecode = ">=1.0.22,<2.0"
@@ -2686,7 +2686,7 @@ description = "Prometheus metrics exporter for Flask"
 name = "prometheus-flask-exporter"
 optional = false
 python-versions = "*"
-version = "0.9.3"
+version = "0.14.1"
 
 [package.dependencies]
 flask = "*"
@@ -3995,7 +3995,7 @@ test = ["zope.event"]
 testing = ["coverage", "nose", "zope.event"]
 
 [metadata]
-content-hash = "35a5f7b9433cfb295b1dfb9a9f92c5b5f5f1946e5522f9b250ae4b29c759ddae"
+content-hash = "f82b9c903e7ff9c6ee9f7feff06d7b7c5735deba87be8bcb1e2cfe5020891439"
 python-versions = ">=3.6,<3.8"
 
 [metadata.files]
@@ -4095,7 +4095,6 @@ black = [
 ]
 bleach = [
     {file = "bleach-3.1.0-py2.py3-none-any.whl", hash = "sha256:213336e49e102af26d9cde77dd2d0397afabc5a6bf2fed985dc35b5d1e285a16"},
-    {file = "bleach-3.1.0-py3.8.egg", hash = "sha256:4ca3ec10244c9f11ec129b054912e8bc9ecefc2e0b6bf0dab273f0e72cf381e4"},
     {file = "bleach-3.1.0.tar.gz", hash = "sha256:3fdf7f77adcf649c9911387df51254b813185e32b2c6619f690b593a617e19fa"},
 ]
 blinker = [
@@ -4503,7 +4502,7 @@ inspire-query-parser = [
     {file = "inspire-query-parser-6.0.26.tar.gz", hash = "sha256:281a6ab687948bba58ead6308c86408a144b500de19b8f58b76c252a65e7ac52"},
 ]
 inspire-schemas = [
-    {file = "inspire-schemas-61.3.3.tar.gz", hash = "sha256:5420850da26bd6261cb2fbbf8ee0acabfa17fc402ceedb8b22a74e33dfe5cc08"},
+    {file = "inspire-schemas-61.3.5.tar.gz", hash = "sha256:dbc06d7baa437b497bd05cb5af929a3194215b88d97f7860b6eb5d1996e8958b"},
 ]
 inspire-service-orcid = []
 inspire-utils = [
@@ -4753,11 +4752,6 @@ markupsafe = [
     {file = "MarkupSafe-1.1.1-cp37-cp37m-manylinux1_x86_64.whl", hash = "sha256:ba59edeaa2fc6114428f1637ffff42da1e311e29382d81b339c1817d37ec93c6"},
     {file = "MarkupSafe-1.1.1-cp37-cp37m-win32.whl", hash = "sha256:b00c1de48212e4cc9603895652c5c410df699856a2853135b3967591e4beebc2"},
     {file = "MarkupSafe-1.1.1-cp37-cp37m-win_amd64.whl", hash = "sha256:9bf40443012702a1d2070043cb6291650a0841ece432556f784f004937f0f32c"},
-    {file = "MarkupSafe-1.1.1-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:6788b695d50a51edb699cb55e35487e430fa21f1ed838122d722e0ff0ac5ba15"},
-    {file = "MarkupSafe-1.1.1-cp38-cp38-manylinux1_i686.whl", hash = "sha256:cdb132fc825c38e1aeec2c8aa9338310d29d337bebbd7baa06889d09a60a1fa2"},
-    {file = "MarkupSafe-1.1.1-cp38-cp38-manylinux1_x86_64.whl", hash = "sha256:13d3144e1e340870b25e7b10b98d779608c02016d5184cfb9927a9f10c689f42"},
-    {file = "MarkupSafe-1.1.1-cp38-cp38-win32.whl", hash = "sha256:596510de112c685489095da617b5bcbbac7dd6384aeebeda4df6025d0256a81b"},
-    {file = "MarkupSafe-1.1.1-cp38-cp38-win_amd64.whl", hash = "sha256:e8313f01ba26fbbe36c7be1966a7b7424942f670f38e666995b88d012765b9be"},
     {file = "MarkupSafe-1.1.1.tar.gz", hash = "sha256:29872e92839765e546828bb7754a68c418d927cd064fd4708fab9fe9c8bb116b"},
 ]
 marshmallow = [
@@ -4916,7 +4910,7 @@ prometheus-client = [
     {file = "prometheus_client-0.7.1.tar.gz", hash = "sha256:71cd24a2b3eb335cb800c7159f423df1bd4dcd5171b234be15e3f31ec9f622da"},
 ]
 prometheus-flask-exporter = [
-    {file = "prometheus_flask_exporter-0.9.3.tar.gz", hash = "sha256:ac69dad8b2472147f2efcc2a2576877f166f66b120b8a979864242ac0dbc7b34"},
+    {file = "prometheus_flask_exporter-0.14.1.tar.gz", hash = "sha256:794ff244a5316f5ac2b6c44972cc7d366b1829913cdc9572c044097ee62cc5a3"},
 ]
 prompt-toolkit = [
     {file = "prompt_toolkit-3.0.2-py3-none-any.whl", hash = "sha256:0278d2f51b5ceba6ea8da39f76d15684e84c996b325475f6e5720edc584326a7"},

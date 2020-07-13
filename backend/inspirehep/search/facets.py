@@ -29,6 +29,7 @@ from inspirehep.search.aggregations import (
     jobs_rank_aggregation,
     jobs_region_aggregation,
     jobs_status_aggregation,
+    seminar_accessibility_aggregation,
     seminar_series_aggregation,
     seminar_subject_aggregation,
 )
@@ -46,6 +47,19 @@ def range_author_count_filter(field):
     def inner(values):
         ranges = [Q("range", **{field: range_for_option[value]}) for value in values]
         return Q("bool", filter=ranges)
+
+    return inner
+
+
+def accessibility_filter():
+    filter_for_option = {
+        "Has material": {"exists": {"field": "material_urls"}},
+        "Has captions": {"term": {"captioned": True}},
+    }
+
+    def inner(values):
+        filters = [filter_for_option[value] for value in values]
+        return Q("bool", must=filters)
 
     return inner
 
@@ -441,6 +455,7 @@ def records_seminars(order=None):
         "aggs": {
             **seminar_series_aggregation(order=next(order)),
             **seminar_subject_aggregation(order=next(order)),
+            **seminar_accessibility_aggregation(order=next(order)),
         },
     }
 

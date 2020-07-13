@@ -13,10 +13,10 @@ const routes = {
   },
   public: {
     home: appBaseUrl,
-    literatureSearch: `${appBaseUrl}/literature#with-citation-summary`,
+    literatureSearch: `${appBaseUrl}/literature?ui-citation-summary=true`,
     literatureDetail1517533: `${appBaseUrl}/literature/1517533`,
     authorSearch: `${appBaseUrl}/authors`,
-    authorDetail1274753: `${appBaseUrl}/authors/1274753#with-citation-summary`,
+    authorDetail1274753: `${appBaseUrl}/authors/1274753?ui-citation-summary=true`,
     jobsSearch: `${appBaseUrl}/jobs`,
     jobDetail1727456: `${appBaseUrl}/jobs/1727456`,
     conferenceSearch: `${appBaseUrl}/conferences`,

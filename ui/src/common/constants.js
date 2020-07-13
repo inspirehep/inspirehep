@@ -63,6 +63,9 @@ export const START_DATE_UPCOMING = 'upcoming';
 export const START_DATE = 'start_date';
 export const DATE_ASC = 'dateasc';
 export const DATE_DESC = 'datedesc';
+export const CITATION_COUNT_PARAM = 'citation_count';
+export const CITATION_COUNT_WITHOUT_SELF_CITATIONS_PARAM =
+  'citation_count_without_self_citations';
 
 export const SEARCH_PAGE_GUTTER = { xs: 0, lg: 32 };
 

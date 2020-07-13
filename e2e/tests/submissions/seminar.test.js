@@ -23,6 +23,15 @@ describe('seminar submissions', () => {
       timezone: 'Europe/Zurich',
       dates: ['2020-05-06 08:30 AM', '2020-05-06 02:30 PM'],
       abstract: 'This is cool',
+      material_urls: [
+        {
+          description: 'slides',
+          value: 'https://example.com/slides/',
+        },
+        {
+          value: 'https://example.com/pdf',
+        },
+      ],
       join_urls: [
         {
           description: 'primary',
@@ -32,6 +41,7 @@ describe('seminar submissions', () => {
           value: 'https://example.com/join/2',
         },
       ],
+      captioned: true,
       speakers: [
         {
           name: 'Urhan, Ahmet',
@@ -116,6 +126,15 @@ describe('seminar submissions', () => {
           ],
         },
       ],
+      material_urls: [
+        {
+          description: 'slides',
+          value: 'https://example.com/slides/',
+        },
+        {
+          value: 'https://example.com/pdf',
+        },
+      ],
       join_urls: [
         {
           description: 'primary',
@@ -125,6 +144,7 @@ describe('seminar submissions', () => {
           value: 'https://example.com/join/2',
         },
       ],
+      captioned: true,
       end_datetime: '2020-05-06T12:30:00.000000',
       start_datetime: '2020-05-06T06:30:00.000000',
       timezone: 'Europe/Zurich',

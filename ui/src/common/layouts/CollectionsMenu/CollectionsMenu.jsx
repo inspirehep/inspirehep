@@ -55,7 +55,6 @@ function CollectionsMenu({ currentPathname }) {
         <CollectionLink
           active={activeCollection === SEMINARS_PID_TYPE}
           to={SEMINARS}
-          newCollection
         >
           Seminars
         </CollectionLink>

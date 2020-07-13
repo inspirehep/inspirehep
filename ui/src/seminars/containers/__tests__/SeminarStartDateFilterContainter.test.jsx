@@ -8,7 +8,7 @@ import {
   getStore,
   mockActionCreator,
 } from '../../../fixtures/store';
-import { SEMINARS_NS } from '../../../search/constants';
+import { SEMINARS_NS, AUTHOR_SEMINARS_NS } from '../../../search/constants';
 import * as constants from '../../../common/constants';
 import SeminarStartDateFilterContainer from '../SeminarStartDateFilterContainer';
 import EventStartDateFilter from '../../../common/components/EventStartDateFilter';
@@ -21,10 +21,11 @@ describe('SeminarStartDateFilterContainer', () => {
   constants.LOCAL_TIMEZONE = 'Europe/Zurich';
 
   it('passes seminar search query start_date', () => {
+    const namespace = SEMINARS_NS;
     const store = getStoreWithState({
       search: fromJS({
         namespaces: {
-          [SEMINARS_NS]: {
+          [namespace]: {
             query: {
               start_date: constants.START_DATE_ALL,
             },
@@ -34,7 +35,10 @@ describe('SeminarStartDateFilterContainer', () => {
     });
     const wrapper = mount(
       <Provider store={store}>
-        <SeminarStartDateFilterContainer switchTitle="title" />
+        <SeminarStartDateFilterContainer
+          namespace={namespace}
+          switchTitle="title"
+        />
       </Provider>
     );
 
@@ -45,9 +49,13 @@ describe('SeminarStartDateFilterContainer', () => {
 
   it('dispatches SEARCH_QUERY_UPDATE onChange with start_date and sort=datedesc and empties timezone if all', () => {
     const store = getStore();
+    const namespace = SEMINARS_NS;
     const wrapper = mount(
       <Provider store={store}>
-        <SeminarStartDateFilterContainer switchTitle="title" />
+        <SeminarStartDateFilterContainer
+          namespace={namespace}
+          switchTitle="title"
+        />
       </Provider>
     );
     const onChange = wrapper.find(EventStartDateFilter).prop('onChange');
@@ -59,15 +67,19 @@ describe('SeminarStartDateFilterContainer', () => {
       sort: 'datedesc',
       timezone: undefined,
     };
-    const expectedActions = [searchQueryUpdate(SEMINARS_NS, query)];
+    const expectedActions = [searchQueryUpdate(namespace, query)];
     expect(store.getActions()).toEqual(expectedActions);
   });
 
   it('dispatches SEARCH_QUERY_UPDATE onChange with start_date and sort=dateasc and empties timezone if upcoming', () => {
     const store = getStore();
+    const namespace = AUTHOR_SEMINARS_NS;
     const wrapper = mount(
       <Provider store={store}>
-        <SeminarStartDateFilterContainer switchTitle="title" />
+        <SeminarStartDateFilterContainer
+          namespace={namespace}
+          switchTitle="title"
+        />
       </Provider>
     );
     const onChange = wrapper.find(EventStartDateFilter).prop('onChange');
@@ -79,15 +91,19 @@ describe('SeminarStartDateFilterContainer', () => {
       sort: 'dateasc',
       timezone: undefined,
     };
-    const expectedActions = [searchQueryUpdate(SEMINARS_NS, query)];
+    const expectedActions = [searchQueryUpdate(namespace, query)];
     expect(store.getActions()).toEqual(expectedActions);
   });
 
   it('dispatches SEARCH_QUERY_UPDATE onChange with start_date and timezone if specific date', () => {
     const store = getStore();
+    const namespace = SEMINARS_NS;
     const wrapper = mount(
       <Provider store={store}>
-        <SeminarStartDateFilterContainer switchTitle="title" />
+        <SeminarStartDateFilterContainer
+          namespace={namespace}
+          switchTitle="title"
+        />
       </Provider>
     );
     const onChange = wrapper.find(EventStartDateFilter).prop('onChange');
@@ -98,7 +114,7 @@ describe('SeminarStartDateFilterContainer', () => {
       page: '1',
       timezone: 'Europe/Zurich',
     };
-    const expectedActions = [searchQueryUpdate(SEMINARS_NS, query)];
+    const expectedActions = [searchQueryUpdate(namespace, query)];
     expect(store.getActions()).toEqual(expectedActions);
   });
 });

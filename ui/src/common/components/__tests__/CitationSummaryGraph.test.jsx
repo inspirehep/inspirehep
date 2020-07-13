@@ -237,6 +237,7 @@ describe('CitationSummaryGraph', () => {
     const onSelectBarChange = jest.fn();
     const wrapper = shallow(
       <CitationSummaryGraph
+        excludeSelfCitations={false}
         publishedData={mockPublishedData}
         citeableData={mockCiteableData}
         loadingCitationSummary={false}
@@ -248,16 +249,20 @@ describe('CitationSummaryGraph', () => {
       .find('[data-test-id="citeable-bar-series"]')
       .prop('onValueClick');
     onCiteableBarClick({ x: '0--0' });
-    expect(onSelectBarChange).toHaveBeenCalledWith({
-      type: CITEABLE_BAR_TYPE,
-      xValue: '0--0',
-    });
+    expect(onSelectBarChange).toHaveBeenCalledWith(
+      {
+        type: CITEABLE_BAR_TYPE,
+        xValue: '0--0',
+      },
+      false
+    );
   });
 
   it('calls onSelectBarChange with null when selected citeable bar clicked', () => {
     const onSelectBarChange = jest.fn();
     const wrapper = shallow(
       <CitationSummaryGraph
+        excludeSelfCitations
         publishedData={mockPublishedData}
         citeableData={mockCiteableData}
         loadingCitationSummary={false}
@@ -277,6 +282,7 @@ describe('CitationSummaryGraph', () => {
     const onSelectBarChange = jest.fn();
     const wrapper = shallow(
       <CitationSummaryGraph
+        excludeSelfCitations
         publishedData={mockPublishedData}
         citeableData={mockCiteableData}
         loadingCitationSummary={false}
@@ -288,10 +294,13 @@ describe('CitationSummaryGraph', () => {
       .find('[data-test-id="published-bar-series"]')
       .prop('onValueClick');
     onPublishedBarClick({ x: '0--0' });
-    expect(onSelectBarChange).toHaveBeenCalledWith({
-      type: PUBLISHED_BAR_TYPE,
-      xValue: '0--0',
-    });
+    expect(onSelectBarChange).toHaveBeenCalledWith(
+      {
+        type: PUBLISHED_BAR_TYPE,
+        xValue: '0--0',
+      },
+      true
+    );
   });
 
   it('adds hoveredBar to state when citeable bar is hovered', () => {

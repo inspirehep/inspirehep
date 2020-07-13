@@ -46,8 +46,18 @@ import IncomingLiteratureReferencesLinkAction from '../../../common/components/I
 import { getPapersQueryString } from '../../utils';
 import ParentRecordLink from '../../components/ParentRecordLink';
 import BookSeriesInfoList from '../../components/BookSeriesInfoList';
+import { LITERATURE_SEMINARS_NS } from '../../../search/constants';
+import LiteratureSeminars from '../LiteratureSeminars';
+import { newSearch } from '../../../actions/search';
 
-function DetailPage({ authors, record, referencesCount, supervisors }) {
+function DetailPage({
+  authors,
+  record,
+  referencesCount,
+  supervisors,
+  seminarsCount,
+  loadingSeminars,
+}) {
   const metadata = record.get('metadata');
 
   const title = metadata.getIn(['titles', 0]);
@@ -232,6 +242,21 @@ function DetailPage({ authors, record, referencesCount, supervisors }) {
                     <Figures figures={figures} />
                   </ContentBox>
                 </Tabs.TabPane>
+                <Tabs.TabPane
+                  tab={
+                    <TabNameWithCount
+                      loading={seminarsCount == null && loadingSeminars}
+                      name="Seminars"
+                      count={seminarsCount}
+                    />
+                  }
+                  key="3"
+                  forceRender
+                >
+                  <ContentBox>
+                    <LiteratureSeminars recordId={controlNumber} />
+                  </ContentBox>
+                </Tabs.TabPane>
               </Tabs>
             </Col>
           </Row>
@@ -254,6 +279,16 @@ const mapStateToProps = state => ({
   authors: state.literature.get('authors'),
   supervisors: state.literature.get('supervisors'),
   referencesCount: state.literature.get('totalReferences'),
+  loadingSeminars: state.search.getIn([
+    'namespaces',
+    LITERATURE_SEMINARS_NS,
+    'loading',
+  ]),
+  seminarsCount: state.search.getIn([
+    'namespaces',
+    LITERATURE_SEMINARS_NS,
+    'initialTotal',
+  ]),
 });
 
 const DetailPageContainer = connect(mapStateToProps)(DetailPage);
@@ -265,6 +300,7 @@ export default withRouteActionsDispatcher(DetailPageContainer, {
     fetchLiteratureReferences(id),
     fetchLiteratureAuthors(id),
     fetchCitationsByYear({ q: `recid:${id}` }),
+    newSearch(LITERATURE_SEMINARS_NS),
   ],
   loadingStateSelector: state => !state.literature.hasIn(['data', 'metadata']),
 });

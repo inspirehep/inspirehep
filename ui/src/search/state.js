@@ -12,8 +12,14 @@ import {
   AUTHOR_CITATIONS_NS,
   EXPERIMENTS_NS,
   EXPERIMENT_PAPERS_NS,
+  AUTHOR_SEMINARS_NS,
+  LITERATURE_SEMINARS_NS,
 } from './constants';
-import { START_DATE_UPCOMING, START_DATE_ALL } from '../common/constants';
+import {
+  START_DATE_UPCOMING,
+  START_DATE_ALL,
+  DATE_DESC,
+} from '../common/constants';
 
 const initialBaseQuery = {
   sort: 'mostrecent',
@@ -127,6 +133,32 @@ const namespacesState = {
     ...initialNamespaceState,
     baseAggregationsQuery: {
       facet_name: 'hep-experiment-papers',
+    },
+  },
+  [AUTHOR_SEMINARS_NS]: {
+    ...initialNamespaceState,
+    baseQuery: {
+      ...initialBaseQuery,
+      start_date: START_DATE_ALL,
+      sort: DATE_DESC,
+    },
+    query: {
+      ...initialBaseQuery,
+      start_date: START_DATE_ALL,
+      sort: DATE_DESC,
+    },
+  },
+  [LITERATURE_SEMINARS_NS]: {
+    ...initialNamespaceState,
+    baseQuery: {
+      ...initialBaseQuery,
+      start_date: START_DATE_ALL,
+      sort: DATE_DESC,
+    },
+    query: {
+      ...initialBaseQuery,
+      start_date: START_DATE_ALL,
+      sort: DATE_DESC,
     },
   },
 };

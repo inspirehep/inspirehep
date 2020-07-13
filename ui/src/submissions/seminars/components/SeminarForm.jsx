@@ -20,6 +20,8 @@ import { timeZoneOptions, SEMINAR_DATETIME_FORMAT } from '../schemas/constants';
 import { LABEL_COL, WRAPPER_COL } from '../../common/withFormItem';
 import { SEMINARS_PID_TYPE, TIME_FORMAT } from '../../../common/constants';
 import AuthorSuggesterField from '../../common/components/AuthorSuggesterField';
+import BooleanField from '../../common/components/BooleanField';
+import LabelWithHelp from '../../../common/components/LabelWithHelp';
 
 function getSuggestionSourceLegacyICN(suggestion) {
   return suggestion._source.legacy_ICN;
@@ -103,6 +105,32 @@ function SeminarForm({ values }) {
       />
       <ArrayOf
         values={values}
+        name="material_urls"
+        label="Material(s)"
+        emptyItem={{}}
+        renderItem={itemName => (
+          <Row type="flex" justify="space-between">
+            <Col span={11}>
+              <Field
+                onlyChild
+                name={`${itemName}.value`}
+                placeholder="https://drive.google.com/slides"
+                component={TextField}
+              />
+            </Col>
+            <Col span={11}>
+              <Field
+                onlyChild
+                name={`${itemName}.description`}
+                placeholder="Description, eg. Slides, PDF"
+                component={TextField}
+              />
+            </Col>
+          </Row>
+        )}
+      />
+      <ArrayOf
+        values={values}
         name="join_urls"
         label="Join URL(s)"
         emptyItem={{}}
@@ -127,6 +155,7 @@ function SeminarForm({ values }) {
           </Row>
         )}
       />
+      <Field name="captioned" label="Has captions" component={BooleanField} />
       <AntForm.Item
         label="Address"
         labelCol={LABEL_COL}
@@ -180,7 +209,12 @@ function SeminarForm({ values }) {
       <ArrayOf
         values={values}
         name="literature_records"
-        label="Related paper(s)"
+        label={
+          <LabelWithHelp
+            label="Related paper(s)"
+            help="If the seminar refers to an INSPIRE paper, please fill in the link."
+          />
+        }
         emptyItem=""
         renderItem={itemName => (
           <Field

@@ -7,6 +7,7 @@ import * as types from '../actionTypes';
 import { fetchCitationSummary, fetchCitationsByYear } from '../citations';
 import { AUTHOR_PUBLICATIONS_NS } from '../../search/constants';
 import { LITERATURE } from '../../common/routes';
+import { EXCLUDE_SELF_CITATIONS_PREFERENCE } from '../../reducers/user';
 
 const mockHttp = new MockAdapter(http.httpClient);
 
@@ -53,7 +54,6 @@ describe('citations - async action creator', () => {
 
   it('creates CITATIONS_SUMMARY_ERROR if unsuccessful', async done => {
     const query = { q: 'stuff' };
-    const excludeSelfCitations = true;
     const namespace = LITERATURE;
 
     mockHttp
@@ -70,8 +70,10 @@ describe('citations - async action creator', () => {
           },
         },
       }),
-      ui: fromJS({
-        excludeSelfCitations,
+      user: fromJS({
+        preferences: {
+          [EXCLUDE_SELF_CITATIONS_PREFERENCE]: true,
+        },
       }),
     });
 

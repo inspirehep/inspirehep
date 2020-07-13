@@ -1,4 +1,8 @@
 .__Footer__ {
   z-index: $zindex-footer;
   background-color: $layout-header-background;
+
+  .without-margin-left {
+    margin-left: 0px;
+  }
 }

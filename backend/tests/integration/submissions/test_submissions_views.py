@@ -1275,6 +1275,7 @@ SEMINAR_RECORD_DATA = {
     "title": {"title": "The Cool Seminar"},
     "public_notes": [{"value": "A public note"}],
     "series": [{"name": "A seminar serie", "number": 1}],
+    "captioned": True,
     "contact_details": [
         {
             "curated_relation": False,
@@ -1300,6 +1301,10 @@ SEMINAR_RECORD_DATA = {
         {"description": "primary", "value": "http://example.com/join/1"},
         {"value": "http://example.com/join/2"},
     ],
+    "material_urls": [
+        {"description": "slides", "value": "http://example.com/slides"},
+        {"value": "http://example.com/pdf"},
+    ],
     "end_datetime": "2020-05-06T12:30:00.000000",
     "start_datetime": "2020-05-06T06:30:00.000000",
     "timezone": "Europe/Zurich",
@@ -1316,7 +1321,9 @@ SEMINAR_FORM_DATA = {
     "name": "The Cool Seminar",
     "timezone": "Europe/Zurich",
     "dates": ["2020-05-06 08:30 AM", "2020-05-06 02:30 PM"],
+    "captioned": True,
     "join_urls": SEMINAR_RECORD_DATA["join_urls"],
+    "material_urls": SEMINAR_RECORD_DATA["material_urls"],
     "speakers": [
         {"name": "Urhan, Ahmet", "record": {"$ref": "http://authors/ahmet"}},
         {
