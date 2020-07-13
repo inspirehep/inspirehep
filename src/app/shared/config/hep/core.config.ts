@@ -204,6 +204,12 @@ export const coreHep: JsonEditorConfig = {
           maxVisiblePageCount: 5,
           headerItemTemplateName: 'authorExtractTemplate'
         },
+        viewTemplateConfig: {
+          itemTemplateName: 'authorTemplate',
+          showEditForm: (value) => {
+            return false;
+          }
+        },
         sortable: true,
         items: {
           order: [

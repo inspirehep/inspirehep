@@ -39,7 +39,7 @@
     "core-js": "^2.4.1",
     "font-awesome": "^4.7.0",
     "immutable": "^3.8.1",
-    "inspire-schemas": "^61.2.6-2-g90a8aaf",
+    "inspire-schemas": "^61.3.1",
     "lodash": "4.17.2",
     "ng2-json-editor": "^0.25.14",
     "ngx-bootstrap": "2.0.0-beta.7",

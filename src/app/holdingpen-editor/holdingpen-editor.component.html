@@ -2,6 +2,10 @@
   <re-reference-brief [reference]="reference"></re-reference-brief>
 </ng-template>
 
+<ng-template let-author="item" #authorTemplate>
+  <re-author-brief [author]="author"></re-author-brief>
+</ng-template>
+
 <ng-template let-item="item" #affiliationAutocompleteTemplate>
   <re-affiliation-brief [affiliation]="item._source"></re-affiliation-brief>
 </ng-template>
@@ -27,6 +31,7 @@
     [(jsonPatches)]="workflowExtraData.conflicts" [schema]="schema" [config]="config" [problemMap]="workflowProblems"
     (validationProblems)="onValidationProblems($event)" [templates]="{
       referenceTemplate: referenceTemplate,
+      authorTemplate: authorTemplate,
       affiliationAutocompleteTemplate: affiliationAutocompleteTemplate,
       refActionsTemplate: refActionsTemplate,
       authorExtractTemplate: authorExtractTemplate
