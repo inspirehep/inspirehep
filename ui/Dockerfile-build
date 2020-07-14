@@ -1,4 +1,4 @@
-FROM node:lts-jessie as build-stage
+FROM node:lts-jessie
 
 WORKDIR /usr/src/app
 ARG VERSION

@@ -38,12 +38,13 @@ services:
       file: docker-compose.services.yml
       service: es
     ports:
-     - "9200:9200"
+      - "9200:9200"
   ui: # TODO: change the name since to app or lb since it's the main entry point for every request
     build:
       context: ui
+      dockerfile: Dockerfile-local
     ports:
-     - "8080:8080"
+      - "8080:8080"
     volumes:
       - ${PWD}/ui/:/opt/inspire/ui
       - ${PWD}/ui/build/:/usr/share/nginx/html
