@@ -10,7 +10,7 @@ ARG VERSION
 ENV REACT_APP_VERSION="${VERSION}"
 RUN yarn run build
 
-FROM nginx:1.19-alpine
+FROM inspirehep/nginx:1.19-alpine-with-lua
 
 EXPOSE 8080
 COPY --from=build-stage /usr/src/app/build /usr/share/nginx/html

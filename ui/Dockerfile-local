@@ -1,4 +1,4 @@
-FROM nginx:1.19-alpine
+FROM inspirehep/nginx:1.19-alpine-with-lua
 
 EXPOSE 8080
 
