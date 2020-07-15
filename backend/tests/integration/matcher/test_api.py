@@ -283,3 +283,74 @@ def test_match_reference_doesnt_touch_curated(inspire_app):
     result_coontrol_number = match_reference_control_number(reference)
 
     assert expected_control_number == result_coontrol_number
+
+
+def test_match_pubnote_info_when_journal_is_missing_a_letter(inspire_app):
+    cited_record_with_pub_info_json = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "control_number": 1,
+        "document_type": ["article"],
+        "publication_info": [
+            {
+                "artid": "101",
+                "journal_title": "Phys. Rev. B.",
+                "journal_volume": "100",
+                "page_start": "100",
+                "year": 2020,
+            }
+        ],
+        "titles": [{"title": "The Strongly-Interacting Light Higgs"}],
+    }
+
+    create_record("lit", cited_record_with_pub_info_json)
+
+    reference = {
+        "reference": {
+            "publication_info": {
+                "journal_title": "Phys. Rev.",
+                "journal_volume": "100",
+                "page_start": "100",
+            },
+        }
+    }
+    reference = match_reference(reference)
+    assert reference["record"]["$ref"] == "http://localhost:5000/api/literature/1"
+
+    expected_control_number = 1
+    result_control_number = match_reference_control_number(reference)
+
+    assert expected_control_number == result_control_number
+
+
+def test_match_pubnote_info_doesnt_match_when_only_journal_title_match(inspire_app):
+    cited_record_with_pub_info_json = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "control_number": 3,
+        "document_type": ["article"],
+        "publication_info": [
+            {
+                "artid": "100",
+                "journal_title": "Phys. Rev. D.",
+                "journal_volume": "101",
+                "page_start": "101",
+                "year": 2020,
+            }
+        ],
+        "titles": [{"title": "A cool title"}],
+    }
+
+    create_record("lit", cited_record_with_pub_info_json)
+
+    reference = {
+        "reference": {
+            "publication_info": {
+                "journal_title": "Phys. Rev.",
+                "journal_volume": "100",
+                "page_start": "100",
+            },
+        }
+    }
+    reference = match_reference(reference)
+    assert not reference.get("record")
