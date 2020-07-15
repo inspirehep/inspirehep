@@ -58,7 +58,7 @@ def match_reference_with_config(reference, config, previous_matched_recid=None):
     same_as_previous = any(
         matched_recid == previous_matched_recid for matched_recid in matched_recids
     )
-    if len(matched_recids) == 1:
+    if 0 < len(matched_recids) <= 5:
         _add_match_to_reference(reference, matched_recids[0], config["index"])
     elif same_as_previous:
         _add_match_to_reference(reference, previous_matched_recid, config["index"])
@@ -94,6 +94,9 @@ def match_reference(reference, previous_matched_recid=None):
     config_default_publication_info = current_app.config[
         "REFERENCE_MATCHER_DEFAULT_PUBLICATION_INFO_CONFIG"
     ]
+    config_default_publication_info_with_prefix = current_app.config[
+        "REFERENCE_MATCHER_DEFAULT_PUBLICATION_INFO_WITH_PREFIX_CONFIG"
+    ]
     config_jcap_and_jhep_publication_info = current_app.config[
         "REFERENCE_MATCHER_JHEP_AND_JCAP_PUBLICATION_INFO_CONFIG"
     ]
@@ -101,14 +104,16 @@ def match_reference(reference, previous_matched_recid=None):
 
     journal_title = get_value(reference, "reference.publication_info.journal_title")
     config_publication_info = (
-        config_jcap_and_jhep_publication_info
+        [config_jcap_and_jhep_publication_info]
         if journal_title in ["JCAP", "JHEP"]
-        else config_default_publication_info
+        else [
+            config_default_publication_info,
+            config_default_publication_info_with_prefix,
+        ]
     )
-
     configs = [
         config_unique_identifiers,
-        config_publication_info,
+        *config_publication_info,
         config_texkey,
         config_data,
     ]

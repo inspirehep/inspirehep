@@ -131,6 +131,83 @@ These are separate from the unique queries since these can result in
 multiple matches (particularly in the case of errata)."""
 
 
+REFERENCE_MATCHER_DEFAULT_PUBLICATION_INFO_WITH_PREFIX_CONFIG = {
+    "algorithm": [
+        {
+            "queries": [
+                {
+                    "paths": [
+                        "reference.publication_info.journal_issue",
+                        "reference.publication_info.journal_title",
+                        "reference.publication_info.journal_volume",
+                        "reference.publication_info.artid",
+                    ],
+                    "search_paths": [
+                        "publication_info.journal_issue",
+                        "publication_info.journal_title",
+                        "publication_info.journal_volume",
+                        "publication_info.page_artid",
+                    ],
+                    "type": "nested-prefix",
+                    "prefix_search_path": "publication_info.journal_title",
+                },
+                {
+                    "paths": [
+                        "reference.publication_info.journal_issue",
+                        "reference.publication_info.journal_title",
+                        "reference.publication_info.journal_volume",
+                        "reference.publication_info.page_start",
+                    ],
+                    "search_paths": [
+                        "publication_info.journal_issue",
+                        "publication_info.journal_title",
+                        "publication_info.journal_volume",
+                        "publication_info.page_artid",
+                    ],
+                    "type": "nested-prefix",
+                    "prefix_search_path": "publication_info.journal_title",
+                },
+                {
+                    "paths": [
+                        "reference.publication_info.journal_title",
+                        "reference.publication_info.journal_volume",
+                        "reference.publication_info.artid",
+                    ],
+                    "search_paths": [
+                        "publication_info.journal_title",
+                        "publication_info.journal_volume",
+                        "publication_info.page_artid",
+                    ],
+                    "type": "nested-prefix",
+                    "prefix_search_path": "publication_info.journal_title",
+                },
+                {
+                    "paths": [
+                        "reference.publication_info.journal_title",
+                        "reference.publication_info.journal_volume",
+                        "reference.publication_info.page_start",
+                    ],
+                    "search_paths": [
+                        "publication_info.journal_title",
+                        "publication_info.journal_volume",
+                        "publication_info.page_artid",
+                    ],
+                    "type": "nested-prefix",
+                    "prefix_search_path": "publication_info.journal_title",
+                },
+            ]
+        }
+    ],
+    "index": "records-hep",
+    "collections": ["Literature"],
+    "source": ["control_number"],
+}
+"""Configuration for matching all HEP records using publication_info
+when journal_title is missing a part name.
+These are separate from the unique queries since these can result in
+multiple matches (particularly in the case of errata)."""
+
+
 REFERENCE_MATCHER_JHEP_AND_JCAP_PUBLICATION_INFO_CONFIG = {
     "algorithm": [
         {
