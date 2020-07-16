@@ -2,8 +2,17 @@ import MockAdapter from 'axios-mock-adapter';
 
 import { getStore } from '../../fixtures/store';
 import http from '../../common/http';
-import { AUTHOR_ERROR, AUTHOR_REQUEST, AUTHOR_SUCCESS } from '../actionTypes';
-import fetchAuthor from '../authors';
+import {
+  AUTHOR_ERROR,
+  AUTHOR_REQUEST,
+  AUTHOR_SUCCESS,
+  AUTHOR_PUBLICATION_SELECTION_SET,
+  AUTHOR_PUBLICATION_SELECTION_CLEAR,
+} from '../actionTypes';
+import fetchAuthor, {
+  setPulicationSelection,
+  clearPulicationSelection,
+} from '../authors';
 
 const mockHttp = new MockAdapter(http.httpClient);
 
@@ -48,6 +57,33 @@ describe('AUTHOR - async action creators', () => {
       await store.dispatch(fetchAuthor(123));
       expect(store.getActions()).toEqual(expectedActions);
       done();
+    });
+  });
+
+  describe('select publication', () => {
+    it('setPulicationSelection', () => {
+      const expectedActions = [
+        {
+          type: AUTHOR_PUBLICATION_SELECTION_SET,
+          payload: { publicationIds: [1, 2], selected: true },
+        },
+      ];
+
+      const store = getStore();
+      store.dispatch(setPulicationSelection([1, 2], true));
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+
+    it('clearPulicationSelection', () => {
+      const expectedActions = [
+        {
+          type: AUTHOR_PUBLICATION_SELECTION_CLEAR,
+        },
+      ];
+
+      const store = getStore();
+      store.dispatch(clearPulicationSelection());
+      expect(store.getActions()).toEqual(expectedActions);
     });
   });
 });
