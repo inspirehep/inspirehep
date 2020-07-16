@@ -3,6 +3,7 @@ import configureMockStore from 'redux-mock-store';
 import { initialState as citations } from '../reducers/citations';
 import { initialState as search } from '../reducers/search';
 import { initialState as literature } from '../reducers/literature';
+import { initialState as authors } from '../reducers/authors';
 import { initialState as user } from '../reducers/user';
 import { initialState as submissions } from '../reducers/submissions';
 import { initialState as inspect } from '../reducers/inspect';
@@ -11,7 +12,7 @@ import { initialState as ui } from '../reducers/ui';
 import { initialState as bibliographyGenerator } from '../reducers/bibliographyGenerator';
 
 import { thunkMiddleware } from '../store';
-import { initialState } from '../reducers/recordsFactory';
+import { initialState as initialRecordState } from '../reducers/recordsFactory';
 
 export function getState() {
   return {
@@ -31,14 +32,14 @@ export function getState() {
     submissions,
     inspect,
     exceptions,
-    authors: initialState,
+    authors,
     ui,
-    jobs: initialState,
-    conferences: initialState,
+    jobs: initialRecordState,
+    conferences: initialRecordState,
     bibliographyGenerator,
-    seminars: initialState,
-    institutions: initialState,
-    experiments: initialState,
+    seminars: initialRecordState,
+    institutions: initialRecordState,
+    experiments: initialRecordState,
   };
 }
 

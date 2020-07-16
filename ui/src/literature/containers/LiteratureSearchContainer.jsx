@@ -22,10 +22,8 @@ import CitationSummarySwitchContainer, {
 } from './CitationSummarySwitchContainer';
 import { SEARCH_PAGE_GUTTER } from '../../common/constants';
 import CitationSummaryBox from '../components/CitationSummaryBox';
-
-function renderLiteratureItem(result, rank) {
-  return <LiteratureItem metadata={result.get('metadata')} searchRank={rank} />;
-}
+import PublicationSelectContainer from '../../authors/containers/PublicationSelectContainer';
+import PublicationsSelectAllContainer from '../../authors/containers/PublicationsSelectAllContainer';
 
 function LiteratureSearch({
   loading,
@@ -40,6 +38,7 @@ function LiteratureSearch({
   isCitationSummaryVisible,
   embedded,
   enableCitationSummary,
+  assignView,
 }) {
   const renderAggregations = useCallback(
     () => (
@@ -85,6 +84,11 @@ function LiteratureSearch({
           <LoadingOrChildren loading={loading}>
             <Row type="flex" align="middle" justify="end">
               <Col xs={24} lg={8}>
+                {assignView && (
+                  <span className="mr1">
+                    <PublicationsSelectAllContainer />
+                  </span>
+                )}
                 <NumberOfResultsContainer namespace={namespace} />
                 <VerticalDivider />
                 <CiteAllActionContainer namespace={namespace} />
@@ -121,7 +125,26 @@ function LiteratureSearch({
               <Col span={24}>
                 <ResultsContainer
                   namespace={namespace}
-                  renderItem={renderLiteratureItem}
+                  renderItem={(result, rank) => (
+                    <Row>
+                      {assignView && (
+                        <Col className="mr1" flex="0 1 1px">
+                          <PublicationSelectContainer
+                            recordId={result.getIn([
+                              'metadata',
+                              'control_number',
+                            ])}
+                          />
+                        </Col>
+                      )}
+                      <Col flex="1 1 1px">
+                        <LiteratureItem
+                          metadata={result.get('metadata')}
+                          searchRank={rank}
+                        />
+                      </Col>
+                    </Row>
+                  )}
                 />
                 <PaginationContainer namespace={namespace} />
               </Col>
@@ -146,6 +169,7 @@ LiteratureSearch.propTypes = {
   isCitationSummaryVisible: PropTypes.bool.isRequired,
   embedded: PropTypes.bool,
   enableCitationSummary: PropTypes.bool,
+  assignView: PropTypes.bool,
 };
 
 LiteratureSearch.defaultProps = {

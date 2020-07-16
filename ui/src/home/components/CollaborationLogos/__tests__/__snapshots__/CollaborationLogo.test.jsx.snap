@@ -8,6 +8,7 @@ exports[`CollaborationLogo render with all props 1`] = `
   <img
     alt="CERN"
     height={60}
+    src="/link/to/logo.png"
   />
 </ExternalLink>
 `;

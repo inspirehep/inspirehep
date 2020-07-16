@@ -1,7 +1,6 @@
 const { routes, selectors } = require('../../utils/constants');
 const { createPollyInstance } = require('../../utils/polly');
 const { getMetaDescription } = require('../../utils/dom');
-const { login, logout } = require('../../utils/user');
 const {
   takeScreenShotForDesktop,
   takeScreenShotForMobile,

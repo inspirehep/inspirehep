@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 
 import LiteratureSearchContainer from '../../literature/containers/LiteratureSearchContainer';
 import { AUTHOR_PUBLICATIONS_NS } from '../../search/constants';
+import { isCataloger } from '../../common/authorization';
 
-function AuthorPublications({ authorFacetName }) {
+function AuthorPublications({ authorFacetName, assignView }) {
   const baseQuery = useMemo(
     () => ({
       author: [authorFacetName],
@@ -25,6 +26,7 @@ function AuthorPublications({ authorFacetName }) {
       baseQuery={baseQuery}
       baseAggregationsQuery={baseAggregationsQuery}
       noResultsTitle="0 Research works"
+      assignView={assignView}
       embedded
     />
   );
@@ -32,6 +34,7 @@ function AuthorPublications({ authorFacetName }) {
 
 AuthorPublications.propTypes = {
   authorFacetName: PropTypes.string.isRequired,
+  assignView: PropTypes.bool,
 };
 
 const stateToProps = state => ({
@@ -40,6 +43,7 @@ const stateToProps = state => ({
     'metadata',
     'facet_author_name',
   ]),
+  assignView: isCataloger(state.user.getIn(['data', 'roles'])),
 });
 
 export default connect(stateToProps)(AuthorPublications);

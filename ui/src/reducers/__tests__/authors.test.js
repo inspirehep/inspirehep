@@ -1,13 +1,14 @@
-import { Map, fromJS } from 'immutable';
+import { Map, fromJS, Set } from 'immutable';
 
-import reducer from '../authors';
+import reducer, { initialState } from '../authors';
 import {
   AUTHOR_ERROR,
   AUTHOR_REQUEST,
   AUTHOR_SUCCESS,
   CLEAR_STATE,
+  AUTHOR_PUBLICATION_SELECTION_SET,
+  AUTHOR_PUBLICATION_SELECTION_CLEAR,
 } from '../../actions/actionTypes';
-import { initialState } from '../recordsFactory';
 
 describe('authors reducer', () => {
   it('default', () => {
@@ -64,6 +65,49 @@ describe('authors reducer', () => {
       loading: false,
       error: { message: 'error' },
       data: initialState.get('data'),
+    });
+    expect(state).toEqual(expected);
+  });
+
+  it('AUTHOR_PUBLICATION_SELECTION_SET when selected', () => {
+    const payload = {
+      publicationIds: [2, 3],
+      selected: true,
+    };
+    const currentState = Map({ publicationSelection: Set([1, 2]) });
+    const state = reducer(currentState, {
+      type: AUTHOR_PUBLICATION_SELECTION_SET,
+      payload,
+    });
+    const expected = fromJS({
+      publicationSelection: Set([1, 2, 3]),
+    });
+    expect(state).toEqual(expected);
+  });
+
+  it('AUTHOR_PUBLICATION_SELECTION_SET when deselected', () => {
+    const payload = {
+      publicationIds: [2, 3],
+      selected: false,
+    };
+    const currentState = Map({ publicationSelection: Set([1, 2]) });
+    const state = reducer(currentState, {
+      type: AUTHOR_PUBLICATION_SELECTION_SET,
+      payload,
+    });
+    const expected = fromJS({
+      publicationSelection: Set([1]),
+    });
+    expect(state).toEqual(expected);
+  });
+
+  it('AUTHOR_PUBLICATION_SELECTION_CLEAR when deselected', () => {
+    const currentState = Map({ publicationSelection: Set([1, 2]) });
+    const state = reducer(currentState, {
+      type: AUTHOR_PUBLICATION_SELECTION_CLEAR,
+    });
+    const expected = fromJS({
+      publicationSelection: Set(),
     });
     expect(state).toEqual(expected);
   });
