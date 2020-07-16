@@ -336,3 +336,19 @@ def seminar_accessibility_aggregation(
             },
         }
     }
+
+
+def experiment_inspire_classification_aggregation(
+    order, title="Classification", agg_type="tree"
+):
+    return {
+        "classification": {
+            "terms": {"field": "inspire_classification", "size": 20},
+            "meta": {
+                "title": title,
+                "order": order,
+                "type": agg_type,
+                "split_tree_by": "|",
+            },
+        }
+    }

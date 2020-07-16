@@ -7,6 +7,7 @@ exports[`ExperimentItem renders with all props set 1`] = `
       <UrlsAction
         icon={<ForwardRef(LinkOutlined) />}
         text="links"
+        trackerEventId="Experiments:Url"
         urls={
           Immutable.List [
             Immutable.Map {

@@ -163,7 +163,10 @@
         "type": "object"
       },
       "inspire_classification": {
-        "type": "keyword"
+        "type": "text",
+        "fielddata": true,
+        "analyzer": "inspire_classification_analyzer",
+        "search_analyzer": "keyword"
       },
       "institutions": {
         "properties": {
@@ -287,6 +290,9 @@
       "analyzer": {
         "recid_analyzer": {
           "tokenizer": "recid_tokenizer"
+        },
+        "inspire_classification_analyzer": {
+          "tokenizer": "inspire_classification_tokenizer"
         }
       },
       "normalizer": {
@@ -301,6 +307,10 @@
           "type": "pattern",
           "pattern": "(\\d+)",
           "group": 1
+        },
+        "inspire_classification_tokenizer": {
+          "type": "path_hierarchy",
+          "delimiter": "|"
         }
       }
     }

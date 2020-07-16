@@ -81,3 +81,27 @@ exports[`AggregationFilter renders RangeAggregation if aggregation type is range
   selections="2011--2012"
 />
 `;
+
+exports[`AggregationFilter renders TreeAggregation if aggregation type is tree 1`] = `
+<TreeAggregation
+  buckets={
+    Immutable.List [
+      Immutable.Map {
+        "key": "bucket1",
+        "doc_count": 1,
+      },
+      Immutable.Map {
+        "key": "bucket1|bucket2",
+        "doc_count": 2,
+      },
+    ]
+  }
+  name="Test"
+  onChange={[MockFunction]}
+  selections={
+    Array [
+      "bucket1",
+    ]
+  }
+/>
+`;

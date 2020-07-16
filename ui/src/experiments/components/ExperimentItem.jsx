@@ -24,7 +24,17 @@ function ExperimentItem({ metadata }) {
 
   return (
     <ResultItem
-      leftActions={<>{urls && <UrlsAction urls={urls} text="links" />}</>}
+      leftActions={
+        <>
+          {urls && (
+            <UrlsAction
+              urls={urls}
+              text="links"
+              trackerEventId="Experiments:Url"
+            />
+          )}
+        </>
+      }
       rightActions={
         <IncomingLiteratureReferencesLinkAction
           itemCount={papersCount}

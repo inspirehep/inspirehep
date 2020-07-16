@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import CheckboxAggregation from './CheckboxAggregation';
 import RangeAggregation from './RangeAggregation';
 import MultiSelectAggregation from './MultiSelectAggregation';
+import TreeAggregation from './TreeAggregation';
 
 class AggregationFilter extends Component {
   render() {
@@ -13,6 +14,8 @@ class AggregationFilter extends Component {
         return <RangeAggregation {...aggregationProps} />;
       case 'multiselect':
         return <MultiSelectAggregation {...aggregationProps} />;
+      case 'tree':
+        return <TreeAggregation {...aggregationProps} />;
       case 'checkbox':
       default:
         return <CheckboxAggregation {...aggregationProps} />;
@@ -21,7 +24,7 @@ class AggregationFilter extends Component {
 }
 
 AggregationFilter.propTypes = {
-  aggregationType: PropTypes.oneOf(['range', 'checkbox', 'multiselect'])
+  aggregationType: PropTypes.oneOf(['range', 'checkbox', 'multiselect', 'tree'])
     .isRequired,
 };
 

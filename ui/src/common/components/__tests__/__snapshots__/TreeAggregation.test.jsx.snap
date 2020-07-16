@@ -1,0 +1,142 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TreeAggregation render initial state with all props set 1`] = `
+<AggregationBox
+  headerAction={null}
+  name="Test"
+>
+  <Tree
+    blockNode={true}
+    checkStrictly={true}
+    checkable={true}
+    checkedKeys={
+      Array [
+        "a|b",
+      ]
+    }
+    defaultExpandedKeys={
+      Array [
+        "a|b",
+      ]
+    }
+    motion={
+      Object {
+        "motionAppear": false,
+        "motionName": "ant-motion-collapse",
+        "onAppearActive": [Function],
+        "onAppearStart": [Function],
+        "onEnterActive": [Function],
+        "onEnterStart": [Function],
+        "onLeaveActive": [Function],
+        "onLeaveStart": [Function],
+      }
+    }
+    onCheck={[Function]}
+    selectable={false}
+    showIcon={false}
+    treeData={
+      Array [
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [
+                Object {
+                  "key": "a|b|c",
+                  "title": <Row
+                    className="mv1"
+                    gutter={0}
+                    justify="space-between"
+                  >
+                    <Col>
+                      c
+                    </Col>
+                    <Col>
+                      <UnclickableTag>
+                        <FormattedNumber>
+                          1
+                        </FormattedNumber>
+                      </UnclickableTag>
+                    </Col>
+                  </Row>,
+                },
+                Object {
+                  "key": "a|b|d",
+                  "title": <Row
+                    className="mv1"
+                    gutter={0}
+                    justify="space-between"
+                  >
+                    <Col>
+                      d
+                    </Col>
+                    <Col>
+                      <UnclickableTag>
+                        <FormattedNumber>
+                          1
+                        </FormattedNumber>
+                      </UnclickableTag>
+                    </Col>
+                  </Row>,
+                },
+              ],
+              "key": "a|b",
+              "title": <Row
+                className="mv1"
+                gutter={0}
+                justify="space-between"
+              >
+                <Col>
+                  b
+                </Col>
+                <Col>
+                  <UnclickableTag>
+                    <FormattedNumber>
+                      2
+                    </FormattedNumber>
+                  </UnclickableTag>
+                </Col>
+              </Row>,
+            },
+          ],
+          "key": "a",
+          "title": <Row
+            className="mv1"
+            gutter={0}
+            justify="space-between"
+          >
+            <Col>
+              a
+            </Col>
+            <Col>
+              <UnclickableTag>
+                <FormattedNumber>
+                  3
+                </FormattedNumber>
+              </UnclickableTag>
+            </Col>
+          </Row>,
+        },
+        Object {
+          "key": "j",
+          "title": <Row
+            className="mv1"
+            gutter={0}
+            justify="space-between"
+          >
+            <Col>
+              j
+            </Col>
+            <Col>
+              <UnclickableTag>
+                <FormattedNumber>
+                  2
+                </FormattedNumber>
+              </UnclickableTag>
+            </Col>
+          </Row>,
+        },
+      ]
+    }
+  />
+</AggregationBox>
+`;
