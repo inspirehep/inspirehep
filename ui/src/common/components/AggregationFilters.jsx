@@ -68,12 +68,14 @@ class AggregationFilters extends Component {
                       aggregationKey,
                       'buckets',
                     ])}
+                    // TODO: pass `{...agg.get('meta')}` instead of passing them separately
                     splitDisplayName={aggregation.getIn(['meta', 'split'])}
                     bucketHelp={aggregation.getIn(['meta', 'bucket_help'])}
                     selections={query[aggregationKey]}
                     onChange={selections => {
                       onAggregationChange(aggregationKey, selections);
                     }}
+                    splitTreeBy={aggregation.getIn(['meta', 'split_tree_by'])}
                   />
                 </EventTracker>
               </Col>

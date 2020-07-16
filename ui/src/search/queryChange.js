@@ -62,7 +62,7 @@ export function onJobsQueryChange(helper) {
   }
 }
 
-export function onEventsQuerychange(helper) {
+export function onCollectionQueryChange(helper) {
   if (helper.isInitialQueryUpdate() || helper.hasQueryChanged()) {
     helper.fetchSearchResults();
     helper.updateLocation();

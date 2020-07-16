@@ -2,6 +2,7 @@ from flask import current_app
 
 from inspirehep.search.aggregations import (
     conf_subject_aggregation,
+    experiment_inspire_classification_aggregation,
     hep_arxiv_categories_aggregation,
     hep_author_affiliations_aggregation,
     hep_author_aggregation,
@@ -531,6 +532,23 @@ def test_records_seminars_facets(inspire_app):
         aggregations = current_app.config["RECORDS_REST_FACETS"]["records-seminars"]()[
             "aggs"
         ]
+        assert filters == expected_filters
+        assert aggregations == expected_aggregations
+
+
+def test_records_experiments_facets(inspire_app):
+    with current_app.test_request_context():
+        expected_filters = {"classification"}
+        expected_aggregations = {
+            **experiment_inspire_classification_aggregation(order=1)
+        }
+
+        filters = current_app.config["RECORDS_REST_FACETS"]["records-experiments"]()[
+            "filters"
+        ].keys()
+        aggregations = current_app.config["RECORDS_REST_FACETS"][
+            "records-experiments"
+        ]()["aggs"]
         assert filters == expected_filters
         assert aggregations == expected_aggregations
 

@@ -90,4 +90,27 @@ describe('AggregationFilter', () => {
     );
     expect(wrapper).toMatchSnapshot();
   });
+
+  it('renders TreeAggregation if aggregation type is tree', () => {
+    const buckets = fromJS([
+      {
+        key: 'bucket1',
+        doc_count: 1,
+      },
+      {
+        key: 'bucket1|bucket2',
+        doc_count: 2,
+      },
+    ]);
+    const wrapper = shallow(
+      <AggregationFilter
+        onChange={jest.fn()}
+        buckets={buckets}
+        selections={['bucket1']}
+        aggregationType="tree"
+        name="Test"
+      />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
 });

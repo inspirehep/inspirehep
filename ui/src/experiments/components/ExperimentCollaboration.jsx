@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Map } from 'immutable';
 
 import CollaborationLink from '../../common/components/CollaborationLink';
 

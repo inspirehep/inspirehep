@@ -6,6 +6,7 @@ from mock import patch
 
 from inspirehep.search.aggregations import (
     conf_subject_aggregation,
+    experiment_inspire_classification_aggregation,
     hep_arxiv_categories_aggregation,
     hep_author_affiliations_aggregation,
     hep_author_aggregation,
@@ -944,6 +945,51 @@ def test_seminar_accessibility_aggregation(inspire_app):
 
         with inspire_app.test_client() as client:
             response = client.get("/seminars?accessibility=Has%20material").json
+        assert len(response["hits"]["hits"]) == 1
+        assert (
+            response["hits"]["hits"][0]["metadata"]["control_number"]
+            == expected_record["control_number"]
+        )
+
+
+def test_experiment_inspire_classification_aggregation(inspire_app):
+    config = {
+        "RECORDS_REST_FACETS": {
+            "records-experiments": {
+                "filters": {**current_app.config["EXPERIMENTS_FILTERS"]},
+                "aggs": {**experiment_inspire_classification_aggregation(1)},
+            }
+        }
+    }
+
+    with override_config(**config):
+        data = {"inspire_classification": ["Collider Experiments|Hadrons|p p"]}
+        expected_record = create_record("exp", data)
+        data = {"inspire_classification": ["Collider Experiments|Hadrons"]}
+        create_record("exp", data)
+        with inspire_app.test_client() as client:
+            response = client.get("/experiments/facets").json
+        expected_aggregation = {
+            "meta": {
+                "title": "Classification",
+                "type": "tree",
+                "order": 1,
+                "split_tree_by": "|",
+            },
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+                {"key": "Collider Experiments", "doc_count": 2},
+                {"key": "Collider Experiments|Hadrons", "doc_count": 2},
+                {"key": "Collider Experiments|Hadrons|p p", "doc_count": 1},
+            ],
+        }
+        assert response["aggregations"]["classification"] == expected_aggregation
+
+        with inspire_app.test_client() as client:
+            response = client.get(
+                "/experiments?classification=Collider%20Experiments%7CHadrons%7Cp%20p"
+            ).json
         assert len(response["hits"]["hits"]) == 1
         assert (
             response["hits"]["hits"][0]["metadata"]["control_number"]

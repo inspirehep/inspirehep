@@ -36,7 +36,7 @@
     "craco-antd": "1.11.0",
     "formik": "^2.0.0",
     "history": "^4.7.2",
-    "immutable": "^3.8.2",
+    "immutable": "4.0.0-rc.10",
     "inspire-schemas": "^61.2.6-2-g90a8aaf",
     "is-valid-orcid": "^1.2.0",
     "jsondiffpatch": "^0.3.11",
