@@ -27,7 +27,7 @@ def test_assign_without_login(inspire_app):
                     "record": {
                         "$ref": f"http://localhost:5000/api/authors/{from_author['control_number']}"
                     },
-                },
+                }
             ]
         },
     )
@@ -76,7 +76,7 @@ def test_assign_requires_cataloger_login(inspire_app):
                     "record": {
                         "$ref": f"http://localhost:5000/api/authors/{from_author['control_number']}"
                     },
-                },
+                }
             ]
         },
     )
@@ -238,7 +238,7 @@ def test_assign_from_an_author_to_another_that_is_not_stub(inspire_app):
 def test_assign_without_to_author(inspire_app):
     cataloger = create_user(role="cataloger")
     from_author = create_record("aut")
-    literature = create_record(
+    literature1 = create_record(
         "lit",
         data={
             "authors": [
@@ -253,13 +253,31 @@ def test_assign_without_to_author(inspire_app):
         },
     )
 
+    literature2 = create_record(
+        "lit",
+        data={
+            "authors": [
+                {
+                    "curated_relation": False,
+                    "full_name": "Urhan, H",
+                    "record": {
+                        "$ref": f"http://localhost:5000/api/authors/{from_author['control_number']}"
+                    },
+                }
+            ]
+        },
+    )
+
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=cataloger.email)
         response = client.post(
             "/assign",
             data=json.dumps(
                 {
-                    "literature_recids": [literature["control_number"]],
+                    "literature_recids": [
+                        literature1["control_number"],
+                        literature2["control_number"],
+                    ],
                     "from_author_recid": from_author["control_number"],
                 }
             ),
@@ -268,14 +286,26 @@ def test_assign_without_to_author(inspire_app):
     response_status_code = response.status_code
 
     assert response_status_code == 200
+    stub_author_id = response.json["stub_author_id"]
 
-    literature_after = LiteratureRecord.get_record_by_pid_value(
-        literature["control_number"]
+    literature1_after = LiteratureRecord.get_record_by_pid_value(
+        literature1["control_number"]
     )
-    literature_author = literature_after["authors"][0]
-    literature_author_recid = get_recid_from_ref(literature_author["record"])
-    assert literature_author_recid != from_author["control_number"]
-    assert literature_author["curated_relation"] == True
+    literature1_author = literature1_after["authors"][0]
+    literature1_author_recid = get_recid_from_ref(literature1_author["record"])
+    assert literature1_author_recid != from_author["control_number"]
+    assert literature1_author_recid == stub_author_id
+    assert literature1_author["curated_relation"] is True
 
-    author = AuthorsRecord.get_record_by_pid_value(literature_author_recid)
-    assert author["stub"] == True
+    literature2_after = LiteratureRecord.get_record_by_pid_value(
+        literature1["control_number"]
+    )
+    literature2_author = literature2_after["authors"][0]
+    literature2_author_recid = get_recid_from_ref(literature2_author["record"])
+    assert literature2_author_recid != from_author["control_number"]
+    assert literature2_author_recid == stub_author_id
+    assert literature2_author["curated_relation"] is True
+
+    author = AuthorsRecord.get_record_by_pid_value(stub_author_id)
+    assert author["stub"] is True
+    assert author["name"] == {"value": "Urhan, Harun", "name_variants": ["Urhan, H"]}
