@@ -23,6 +23,7 @@ from inspirehep.search.aggregations import (
     hep_earliest_date_aggregation,
     hep_rpp,
     hep_self_author_affiliations_aggregation,
+    hep_self_author_claimed_papers_aggregation,
     hep_self_author_names_aggregation,
     hep_subject_aggregation,
     jobs_field_of_interest_aggregation,
@@ -172,6 +173,41 @@ def must_match_all_filter_reverse_nested(nested_path, match_field):
             Q("nested", path=nested_path, query=Q("match", **{match_field: value}))
             for value in values
         ]
+        return Q("bool", filter=filters)
+
+    return inner
+
+
+def self_author_claimed_papers_filter(author_recid):
+    filter_for_option = {
+        "Claimed papers": {
+            "nested": {
+                "path": "authors",
+                "query": {
+                    "bool": {
+                        "must": [
+                            {"term": {"authors.curated_relation": True}},
+                            {"term": {"authors.record.$ref": author_recid}},
+                        ]
+                    }
+                },
+            }
+        },
+        "Unclaimed papers": {
+            "nested": {
+                "path": "authors",
+                "query": {
+                    "bool": {
+                        "must_not": [{"term": {"authors.curated_relation": True}}],
+                        "must": [{"term": {"authors.record.$ref": author_recid}}],
+                    }
+                },
+            }
+        },
+    }
+
+    def inner(values):
+        filters = [filter_for_option[value] for value in values]
         return Q("bool", filter=filters)
 
     return inner
@@ -481,6 +517,16 @@ def hep_author_publications_cataloger(order=None):
                 order=next(order), author_recid=author_recid
             ),
             **hep_collection_aggregation(order=next(order)),
+            **hep_self_author_claimed_papers_aggregation(
+                order=next(order), author_recid=author_recid
+            ),
+        }
+    )
+    records["filters"].update(
+        **{
+            "self_curated_relation": self_author_claimed_papers_filter(
+                author_recid=author_recid
+            )
         }
     )
     return records

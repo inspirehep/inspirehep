@@ -66,6 +66,7 @@ def test_author_cataloger_facets(inspire_app):
         "arxiv_categories",
         "self_affiliations",
         "self_author_names",
+        "self_curated_relation",
         "collection",
         "rpp",
     ]
