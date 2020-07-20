@@ -379,6 +379,7 @@ class LiteratureRecord(
         original_url=None,
         key=None,
         filename=None,
+        source=None,
         *args,
         **kwargs,
     ):
@@ -402,6 +403,8 @@ class LiteratureRecord(
                 if current_s3_instance.is_s3_url(url):
                     url = current_s3_instance.get_public_url(key)
                     result.update({"url": url})
+                if source:
+                    result["source"] = source
 
                 LOGGER.info(
                     "File already on S3 - Skipping",
@@ -452,6 +455,8 @@ class LiteratureRecord(
                 and not original_url
             ):
                 result["original_url"] = url
+            if source:
+                result["source"] = source
             return result
 
     def get_linked_papers_if_reference_changed(self):

@@ -2261,3 +2261,39 @@ def test_arxiv_url_also_supports_format_alias(inspire_app):
 
     assert response_bibtex.status_code == 200
     assert response_bibtex.content_type == expected_bibtex_type
+
+
+@pytest.mark.vcr()
+def test_documents_preserve_source_after_download(inspire_app, s3):
+    key = "990cb9322b82cc60d3314a5811261d92"
+    create_s3_bucket(key)
+    expected_source = "arxiv"
+    documents = [
+        {
+            "key": "doc1.pdf",
+            "url": "https://arxiv.org/pdf/2007.10024",
+            "source": "arxiv",
+        }
+    ]
+    rec = create_record("lit", data={"documents": documents})
+    assert rec["documents"][0]["source"] == expected_source
+
+
+@pytest.mark.vcr()
+def test_figures_preserve_source_after_download(inspire_app, s3):
+    key = "47f0a9161506be124d5eaf82f63adc28"
+    create_s3_bucket(key)
+    data = {
+        "figures": [
+            {
+                "url": "https://inspirehep.net/record/1759380/files/channelxi3.png",
+                "key": "key",
+                "original_url": "http://original-url.com/3",
+                "filename": "channel.png",
+                "source": "document",
+            }
+        ]
+    }
+    expected_source = "document"
+    rec = create_record("lit", data=data)
+    assert rec["figures"][0]["source"] == expected_source

@@ -1324,7 +1324,7 @@ description = "INSPIRE-specific rules to transform from MARCXML to JSON and back
 name = "inspire-dojson"
 optional = false
 python-versions = "*"
-version = "63.0.11"
+version = "63.0.12"
 
 [package.dependencies]
 Flask = ">=0.12.3,<2.0.0"
@@ -1337,8 +1337,8 @@ langdetect = ">=1.0.7,<2.0"
 pycountry = ">=17.5.4,<18.0"
 
 [package.extras]
-all = ["flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pytest (>=3.6.0,<4.0)", "pytest-cov (>=2.6.1,<3.0)", "unicode-string-literal (>=1.1,<2.0)", "flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pytest (>=3.6.0,<4.0)", "pytest-cov (>=2.6.1,<3.0)", "unicode-string-literal (>=1.1,<2.0)"]
-tests = ["flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pytest (>=3.6.0,<4.0)", "pytest-cov (>=2.6.1,<3.0)", "unicode-string-literal (>=1.1,<2.0)"]
+all = ["flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pytest (>=4.6,<5.0)", "pytest-cov (>=2.6.1,<3.0)", "unicode-string-literal (>=1.1,<2.0)", "flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pytest (>=4.6,<5.0)", "pytest-cov (>=2.6.1,<3.0)", "unicode-string-literal (>=1.1,<2.0)"]
+tests = ["flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pytest (>=4.6,<5.0)", "pytest-cov (>=2.6.1,<3.0)", "unicode-string-literal (>=1.1,<2.0)"]
 
 [[package]]
 category = "main"
@@ -1509,22 +1509,21 @@ description = "Invenio user management and authentication."
 name = "invenio-accounts"
 optional = false
 python-versions = "*"
-version = "1.1.1"
+version = "1.1.3"
 
 [package.dependencies]
-Flask = ">=0.11.1"
-Flask-BabelEx = ">=0.9.3"
-Flask-Breadcrumbs = ">=0.3.0"
-Flask-CeleryExt = ">=0.3.1"
+Flask = ">=1.0.4"
+Flask-Breadcrumbs = ">=0.4.0"
 Flask-KVSession = ">=0.6.1"
-Flask-Login = ">=0.3.0"
+Flask-Login = ">=0.3.0,<0.5.0"
 Flask-Mail = ">=0.9.1"
-Flask-Menu = ">=0.4.0"
+Flask-Menu = ">=0.5.0"
 Flask-Security = ">=3.0.0"
 Flask-WTF = ">=0.13.1"
 SQLAlchemy-Utils = ">=0.31.0"
 cryptography = ">=2.1.4"
 future = ">=0.16.0"
+invenio-celery = ">=1.1.2"
 invenio-i18n = ">=1.0.0"
 invenio-rest = ">=1.1.0"
 maxminddb-geolite2 = ">=2017.404"
@@ -1533,12 +1532,11 @@ pyjwt = ">=1.5.0"
 redis = ">=2.10.5"
 simplekv = ">=0.11.2"
 ua-parser = ">=0.7.3"
-werkzeug = ">=0.14.1"
+werkzeug = ">=0.15"
 
 [package.extras]
 admin = ["Flask-Admin (>=1.3.0)"]
-all = ["Flask-Admin (>=1.3.0)", "celery (>=3.1.0,<4.0)", "Sphinx (>=1.4.2,<1.6)", "check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.3.0)", "mock (>=2.0.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-flask (>=0.10.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.0.0,<5.0.0)", "selenium (>=3.0.1)", "Flask-Admin (>=1.3.0)", "celery (>=3.1.0,<4.0)", "Sphinx (>=1.4.2,<1.6)", "check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.3.0)", "mock (>=2.0.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-flask (>=0.10.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.0.0,<5.0.0)", "selenium (>=3.0.1)"]
-celery = ["celery (>=3.1.0,<4.0)"]
+all = ["Flask-Admin (>=1.3.0)", "Sphinx (>=1.4.2,<1.6)", "check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.3.0)", "mock (>=2.0.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-flask (>=0.10.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.0.0,<5.0.0)", "selenium (>=3.0.1)", "Flask-Admin (>=1.3.0)", "Sphinx (>=1.4.2,<1.6)", "check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.3.0)", "mock (>=2.0.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-flask (>=0.10.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.0.0,<5.0.0)", "selenium (>=3.0.1)"]
 docs = ["Sphinx (>=1.4.2,<1.6)"]
 mysql = ["invenio-db (>=1.0.0)"]
 postgresql = ["invenio-db (>=1.0.0)"]
@@ -1549,7 +1547,6 @@ tests = ["check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.3.0)", "mock
 reference = "f4e8192f12883eb6065c9866c443a9e86b7181f4"
 type = "git"
 url = "https://github.com/inspirehep/invenio-accounts.git"
-
 [[package]]
 category = "main"
 description = "WSGI, Celery and CLI applications for Invenio flavours."
@@ -2714,7 +2711,7 @@ version = "2.8.4"
 [[package]]
 category = "main"
 description = "Run a subprocess in a pseudo terminal"
-marker = "python_version >= \"3.4\" and sys_platform != \"win32\" or sys_platform != \"win32\""
+marker = "python_version >= \"3.4\" and sys_platform != \"win32\" or sys_platform != \"win32\" or python_version >= \"3.4\" and sys_platform != \"win32\" and (python_version >= \"3.4\" and sys_platform != \"win32\" or sys_platform != \"win32\")"
 name = "ptyprocess"
 optional = false
 python-versions = "*"
@@ -3966,7 +3963,7 @@ multidict = ">=4.0"
 [[package]]
 category = "main"
 description = "Backport of pathlib-compatible object wrapper for zip files"
-marker = "python_version < \"3.8\" or python_version >= \"3.7\" and python_version < \"3.8\""
+marker = "python_version < \"3.8\" or python_version >= \"3.7\" and python_version < \"3.8\" or python_version >= \"3.7\" and python_version < \"3.8\" and (python_version < \"3.8\" or python_version >= \"3.7\" and python_version < \"3.8\") or python_version == \"3.7\" and python_version == \"3.7\""
 name = "zipp"
 optional = false
 python-versions = ">=3.6"
@@ -4490,7 +4487,7 @@ influxdb = [
     {file = "influxdb-5.2.3.tar.gz", hash = "sha256:30276c7e04bf7659424c733b239ba2f0804d7a1f3c59ec5dd3f88c56176c8d36"},
 ]
 inspire-dojson = [
-    {file = "inspire-dojson-63.0.11.tar.gz", hash = "sha256:90915094601360e19f2664ef39a554c66d67d977c4ed2bf180d6de15655b1cce"},
+    {file = "inspire-dojson-63.0.12.tar.gz", hash = "sha256:093a5c6bd0694145c01ec06845ba3a63819b888d2069b2c806ad8f8caa27ecd3"},
 ]
 inspire-json-merger = [
     {file = "inspire-json-merger-11.0.2.tar.gz", hash = "sha256:e016a713ac165655c958fa64caa81e46bb044b05cb6b2bf45c95c586a5b26288"},

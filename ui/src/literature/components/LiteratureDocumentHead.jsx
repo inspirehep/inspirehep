@@ -44,7 +44,7 @@ function LiteratureDocumentHead({ metadata, created }) {
 
   const arxiv = metadata.getIn(['arxiv_eprints', 0, 'value']);
   const doi = metadata.getIn(['dois', 0, 'value']);
-  const fulltextLinks = metadata.get('fulltext_links');
+  const CitationPdfUrls = metadata.get('citation_pdf_urls');
   const authors = metadata.get('authors');
 
   const publicationInfo = metadata.getIn(['publication_info', 0], Map());
@@ -76,13 +76,9 @@ function LiteratureDocumentHead({ metadata, created }) {
       )}
       {doi && <meta name="citation_doi" content={doi} />}
 
-      {fulltextLinks &&
-        fulltextLinks.map(link => (
-          <meta
-            key={link.get('value')}
-            name="citation_pdf_url"
-            content={link.get('value')}
-          />
+      {CitationPdfUrls &&
+        CitationPdfUrls.map(link => (
+          <meta key={link} name="citation_pdf_url" content={link} />
         ))}
 
       {authors &&

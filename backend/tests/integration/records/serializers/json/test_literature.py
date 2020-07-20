@@ -9,11 +9,13 @@ import json
 from uuid import UUID
 
 import mock
+import pytest
 from flask import current_app
 from helpers.providers.faker import faker
 from helpers.utils import (
     create_record,
     create_record_factory,
+    create_s3_bucket,
     create_user,
     override_config,
 )
@@ -956,3 +958,26 @@ def test_record_returns_linked_book(inspire_app):
     assert response.status_code == 200
     assert "linked_book" in response.json["metadata"]
     assert response.json["metadata"]["linked_book"] == expected_linked_book
+
+
+@pytest.mark.vcr()
+def test_arxiv_links_in_citation_pdf_urls(inspire_app, s3):
+    key = "990cb9322b82cc60d3314a5811261d92"
+    create_s3_bucket(key)
+    expected_s3_url = f"http://localhost:5000/files/{key}"
+    documents = [
+        {
+            "key": "doc1.pdf",
+            "url": "https://arxiv.org/pdf/2007.10024",
+            "source": "arxiv",
+        }
+    ]
+    expected_citation_pdf_urls = [expected_s3_url]
+
+    rec = create_record("lit", data={"documents": documents})
+    headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+    with inspire_app.test_client() as client:
+        response = client.get(f"/literature/{rec['control_number']}", headers=headers)
+    assert response.status_code == 200
+    assert "citation_pdf_urls" in response.json["metadata"]
+    assert response.json["metadata"]["citation_pdf_urls"] == expected_citation_pdf_urls

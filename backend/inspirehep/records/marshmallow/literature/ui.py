@@ -64,6 +64,7 @@ class LiteratureDetailSchema(CatalogerCanEditMixin, LiteraturePublicSchema):
         AcceleratorExperimentSchemaV1, dump_only=True, many=True
     )
     authors = ListWithLimit(fields.Nested(AuthorSchemaV1, dump_only=True), limit=10)
+    citation_pdf_urls = fields.Method("get_citation_pdf_urls")
     collaborations = fields.List(
         fields.Nested(CollaborationSchemaV1, dump_only=True), attribute="collaborations"
     )
@@ -134,12 +135,16 @@ class LiteratureDetailSchema(CatalogerCanEditMixin, LiteraturePublicSchema):
             }
         return missing
 
-    def get_internal_fulltext_link(self, data):
+    def get_internal_fulltext_link(self, document):
         if not current_app.config.get("FEATURE_FLAG_ENABLE_FILES"):
             return missing
-        description = data.get("description") or "fulltext"
-        url = data.get("url")
-        if url and not data.get("hidden", False):
+        description = document.get("description") or "fulltext"
+        url = document.get("url")
+        if (
+            url
+            and not self.is_document_hidden(document)
+            and not self.is_document_arxiv(document)
+        ):
             return {"description": description, "value": url}
         return missing
 
@@ -186,6 +191,22 @@ class LiteratureDetailSchema(CatalogerCanEditMixin, LiteraturePublicSchema):
             data["external_system_identifiers"] = external_system_ids
 
         return data
+
+    def is_document_arxiv(self, document):
+        return document.get("source") == "arxiv"
+
+    def is_document_hidden(self, document):
+        return document.get("hidden", False)
+
+    def get_citation_pdf_urls(self, data):
+        urls = []
+        for document in data.get("documents", []):
+            url = document.get("url")
+            if url and not self.is_document_hidden(document):
+                urls.append(url)
+        if urls:
+            return urls
+        return missing
 
 
 class LiteratureListWrappedSchema(EnvelopeSchema):
