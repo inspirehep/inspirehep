@@ -12,6 +12,7 @@ from inspirehep.search.aggregations import (
     hep_earliest_date_aggregation,
     hep_rpp,
     hep_self_author_affiliations_aggregation,
+    hep_self_author_claimed_papers_aggregation,
     hep_self_author_names_aggregation,
     hep_subject_aggregation,
     jobs_field_of_interest_aggregation,
@@ -22,7 +23,10 @@ from inspirehep.search.aggregations import (
     seminar_series_aggregation,
     seminar_subject_aggregation,
 )
-from inspirehep.search.facets import hep_author_publications
+from inspirehep.search.facets import (
+    hep_author_publications,
+    self_author_claimed_papers_filter,
+)
 
 
 def test_hep_author_publications_facets_without_exclude(inspire_app):
@@ -345,6 +349,7 @@ def test_hep_author_publications_cataloger_facets(inspire_app):
             "self_affiliations",
             "affiliations",
             "self_author_names",
+            "self_curated_relation",
             "rpp",
         }
         expected_aggregations = {
@@ -361,11 +366,16 @@ def test_hep_author_publications_cataloger_facets(inspire_app):
             **hep_arxiv_categories_aggregation(order=9),
             **hep_self_author_names_aggregation(order=10, author_recid=author_recid),
             **hep_collection_aggregation(order=11),
+            **hep_self_author_claimed_papers_aggregation(
+                order=12, author_recid=author_recid
+            ),
         }
 
-        filters = current_app.config["CATALOGER_RECORDS_REST_FACETS"][
-            "hep-author-publication"
-        ]()["filters"].keys()
+        filters = set(
+            current_app.config["CATALOGER_RECORDS_REST_FACETS"][
+                "hep-author-publication"
+            ]()["filters"].keys()
+        )
         aggregations = current_app.config["CATALOGER_RECORDS_REST_FACETS"][
             "hep-author-publication"
         ]()["aggs"]

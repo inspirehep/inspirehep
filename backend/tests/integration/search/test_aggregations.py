@@ -16,6 +16,7 @@ from inspirehep.search.aggregations import (
     hep_earliest_date_aggregation,
     hep_rpp,
     hep_self_author_affiliations_aggregation,
+    hep_self_author_claimed_papers_aggregation,
     hep_self_author_names_aggregation,
     hep_subject_aggregation,
     jobs_field_of_interest_aggregation,
@@ -713,6 +714,54 @@ def test_hep_self_author_names_aggregation_and_filter(inspire_app):
             response["hits"]["hits"][0]["metadata"]["control_number"]
             == expected_record["control_number"]
         )
+
+
+def test_hep_self_curated_relation_aggregation_and_filter(inspire_app):
+    config = {
+        "RECORDS_REST_FACETS": {
+            "records-hep": {
+                "filters": hep_filters(),
+                "aggs": {**hep_self_author_claimed_papers_aggregation(1, "999108")},
+            }
+        }
+    }
+
+    with override_config(**config):
+        data = {
+            "authors": [
+                {
+                    "full_name": "Maldacena, Juan",
+                    "curated_relation": True,
+                    "record": {"$ref": "http://labs.inspirehep.net/api/authors/999108"},
+                }
+            ]
+        }
+        record = create_record("lit", data)
+        data = {
+            "authors": [
+                {
+                    "full_name": "Maldacena, Juan",
+                    "curated_relation": False,
+                    "record": {"$ref": "http://labs.inspirehep.net/api/authors/999108"},
+                }
+            ]
+        }
+        create_record("lit", data)
+        with inspire_app.test_client() as client:
+            response = client.get("/literature/facets").json
+        expected_aggregation = {
+            "meta": {
+                "is_filter_aggregation": True,
+                "title": "Claims",
+                "type": "checkbox",
+                "order": 1,
+            },
+            "buckets": [
+                {"key": "Claimed papers", "doc_count": 1},
+                {"key": "Unclaimed papers", "doc_count": 1},
+            ],
+        }
+        assert response["aggregations"]["self_curated_relation"] == expected_aggregation
 
 
 def test_hep_collection_aggregation(inspire_app):

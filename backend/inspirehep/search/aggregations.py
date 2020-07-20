@@ -252,6 +252,53 @@ def hep_rpp(order, title="Exclude RPP", agg_type="checkbox"):
     }
 
 
+def hep_self_author_claimed_papers_aggregation(
+    order, author_recid, title="Claims", agg_type="checkbox"
+):
+    return {
+        "self_curated_relation": {
+            "filters": {
+                "filters": {
+                    "Claimed papers": {
+                        "nested": {
+                            "path": "authors",
+                            "query": {
+                                "bool": {
+                                    "must": [
+                                        {"term": {"authors.curated_relation": True}},
+                                        {"term": {"authors.record.$ref": author_recid}},
+                                    ]
+                                }
+                            },
+                        }
+                    },
+                    "Unclaimed papers": {
+                        "nested": {
+                            "path": "authors",
+                            "query": {
+                                "bool": {
+                                    "must_not": [
+                                        {"term": {"authors.curated_relation": True}}
+                                    ],
+                                    "must": [
+                                        {"term": {"authors.record.$ref": author_recid}}
+                                    ],
+                                }
+                            },
+                        }
+                    },
+                },
+                "meta": {
+                    "title": title,
+                    "order": order,
+                    "type": agg_type,
+                    "is_filter_aggregation": True,
+                },
+            }
+        }
+    }
+
+
 def seminar_subject_aggregation(order, title="Subject", agg_type="checkbox"):
     return {
         "subject": {
