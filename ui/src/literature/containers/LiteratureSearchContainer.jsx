@@ -141,6 +141,7 @@ function LiteratureSearch({
                         <LiteratureItem
                           metadata={result.get('metadata')}
                           searchRank={rank}
+                          assignView={assignView}
                         />
                       </Col>
                     </Row>

@@ -23,10 +23,11 @@ import {
   InlineUL,
   SEPARATOR_MIDDLEDOT,
 } from '../../common/components/InlineList';
+import ClaimAction from './ClaimAction';
 
 class LiteratureItem extends Component {
   render() {
-    const { metadata, searchRank } = this.props;
+    const { metadata, searchRank, assignView } = this.props;
 
     const title = metadata.getIn(['titles', 0]);
     const authors = metadata.get('authors');
@@ -45,6 +46,7 @@ class LiteratureItem extends Component {
     const collaborations = metadata.get('collaborations');
     const collaborationsWithSuffix = metadata.get('collaborations_with_suffix');
     const canEdit = metadata.get('can_edit', false);
+    const curatedRelation = metadata.get('curatedRelation', false);
 
     return (
       <ResultItem
@@ -95,6 +97,8 @@ class LiteratureItem extends Component {
               >
                 <LiteratureTitle title={title} />
               </Link>
+              {assignView &&
+                !curatedRelation && <ClaimAction pidValue={recordId} />}
             </div>
             <ResponsiveView
               min="sm"
@@ -137,6 +141,7 @@ class LiteratureItem extends Component {
 LiteratureItem.propTypes = {
   metadata: PropTypes.instanceOf(Map).isRequired,
   searchRank: PropTypes.number.isRequired,
+  assignView: PropTypes.bool,
 };
 
 export default LiteratureItem;

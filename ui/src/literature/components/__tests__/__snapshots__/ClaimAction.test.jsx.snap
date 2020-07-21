@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ClaimAction renders 1`] = `
+<ListItemAction>
+  <Tooltip
+    arrowPointAtCenter={false}
+    autoAdjustOverflow={true}
+    mouseEnterDelay={0.1}
+    mouseLeaveDelay={0.1}
+    placement="top"
+    title="Unclaimed paper. Click on the Claim button to claim or remove it from the profile."
+    transitionName="zoom-big-fast"
+  >
+    <ForwardRef(FileExclamationTwoTone) />
+  </Tooltip>
+</ListItemAction>
+`;
