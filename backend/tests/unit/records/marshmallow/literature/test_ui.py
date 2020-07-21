@@ -12,7 +12,8 @@ from inspirehep.records.marshmallow.literature import LiteratureDetailSchema
 
 
 @mock.patch("inspirehep.records.marshmallow.literature.ui.current_app")
-def test_internal_fulltext(current_app_mock):
+@mock.patch("inspirehep.records.marshmallow.literature.ui.current_s3_instance")
+def test_internal_fulltext(current_s3_mock, current_app_mock):
     current_app_mock.config = {"FEATURE_FLAG_ENABLE_FILES": True}
     expected_data = [
         {
@@ -37,7 +38,8 @@ def test_internal_fulltext(current_app_mock):
 
 
 @mock.patch("inspirehep.records.marshmallow.literature.ui.current_app")
-def test_internal_fulltext_no_description(current_app_mock):
+@mock.patch("inspirehep.records.marshmallow.literature.ui.current_s3_instance")
+def test_internal_fulltext_no_description(current_s3_mock, current_app_mock):
     current_app_mock.config = {"FEATURE_FLAG_ENABLE_FILES": True}
     expected_data = [
         {
@@ -76,7 +78,10 @@ def test_internal_fulltext_hidden(current_app_mock):
 
 
 @mock.patch("inspirehep.records.marshmallow.literature.ui.current_app")
-def test_non_fulltext_documents_appear_in_fulltext_links_field(current_app_mock):
+@mock.patch("inspirehep.records.marshmallow.literature.ui.current_s3_instance")
+def test_non_fulltext_documents_appear_in_fulltext_links_field(
+    current_s3_mock, current_app_mock
+):
     current_app_mock.config = {"FEATURE_FLAG_ENABLE_FILES": True}
 
     expected_data = [
@@ -111,7 +116,8 @@ def test_internal_missing_url(current_app_mock):
 
 
 @mock.patch("inspirehep.records.marshmallow.literature.ui.current_app")
-def test_internal_fulltext_files_turned_off(current_app_mock):
+@mock.patch("inspirehep.records.marshmallow.literature.ui.current_s3_instance")
+def test_internal_fulltext_files_turned_off(current_s3_mock, current_app_mock):
     current_app_mock.config = {"FEATURE_FLAG_ENABLE_FILES": False}
     entry_data = {
         "documents": [

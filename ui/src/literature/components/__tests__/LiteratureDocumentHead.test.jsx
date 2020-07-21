@@ -60,9 +60,9 @@ describe('LiteratureDocumentHead', () => {
       ],
       arxiv_eprints: [{ value: '1910.06344' }],
       dois: [{ value: '12.1234/1234567890123_1234' }],
-      fulltext_links: [
-        { value: 'https://fulltext.cern/pdf/1' },
-        { value: 'https://fulltext.cern/pdf/2' },
+      citation_pdf_urls: [
+        'https://fulltext.cern/pdf/1',
+        'https://fulltext.cern/pdf/2',
       ],
       publication_info: [
         {

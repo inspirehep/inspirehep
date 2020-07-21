@@ -1324,7 +1324,7 @@ description = "INSPIRE-specific rules to transform from MARCXML to JSON and back
 name = "inspire-dojson"
 optional = false
 python-versions = "*"
-version = "63.0.11"
+version = "63.0.13"
 
 [package.dependencies]
 Flask = ">=0.12.3,<2.0.0"
@@ -1337,8 +1337,8 @@ langdetect = ">=1.0.7,<2.0"
 pycountry = ">=17.5.4,<18.0"
 
 [package.extras]
-all = ["flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pytest (>=3.6.0,<4.0)", "pytest-cov (>=2.6.1,<3.0)", "unicode-string-literal (>=1.1,<2.0)", "flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pytest (>=3.6.0,<4.0)", "pytest-cov (>=2.6.1,<3.0)", "unicode-string-literal (>=1.1,<2.0)"]
-tests = ["flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pytest (>=3.6.0,<4.0)", "pytest-cov (>=2.6.1,<3.0)", "unicode-string-literal (>=1.1,<2.0)"]
+all = ["flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pytest (>=4.6,<5.0)", "pytest-cov (>=2.6.1,<3.0)", "unicode-string-literal (>=1.1,<2.0)", "flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pytest (>=4.6,<5.0)", "pytest-cov (>=2.6.1,<3.0)", "unicode-string-literal (>=1.1,<2.0)"]
+tests = ["flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pytest (>=4.6,<5.0)", "pytest-cov (>=2.6.1,<3.0)", "unicode-string-literal (>=1.1,<2.0)"]
 
 [[package]]
 category = "main"
@@ -1509,22 +1509,21 @@ description = "Invenio user management and authentication."
 name = "invenio-accounts"
 optional = false
 python-versions = "*"
-version = "1.1.1"
+version = "1.1.3"
 
 [package.dependencies]
-Flask = ">=0.11.1"
-Flask-BabelEx = ">=0.9.3"
-Flask-Breadcrumbs = ">=0.3.0"
-Flask-CeleryExt = ">=0.3.1"
+Flask = ">=1.0.4"
+Flask-Breadcrumbs = ">=0.4.0"
 Flask-KVSession = ">=0.6.1"
-Flask-Login = ">=0.3.0"
+Flask-Login = ">=0.3.0,<0.5.0"
 Flask-Mail = ">=0.9.1"
-Flask-Menu = ">=0.4.0"
+Flask-Menu = ">=0.5.0"
 Flask-Security = ">=3.0.0"
 Flask-WTF = ">=0.13.1"
 SQLAlchemy-Utils = ">=0.31.0"
 cryptography = ">=2.1.4"
 future = ">=0.16.0"
+invenio-celery = ">=1.1.2"
 invenio-i18n = ">=1.0.0"
 invenio-rest = ">=1.1.0"
 maxminddb-geolite2 = ">=2017.404"
@@ -1533,12 +1532,11 @@ pyjwt = ">=1.5.0"
 redis = ">=2.10.5"
 simplekv = ">=0.11.2"
 ua-parser = ">=0.7.3"
-werkzeug = ">=0.14.1"
+werkzeug = ">=0.15"
 
 [package.extras]
 admin = ["Flask-Admin (>=1.3.0)"]
-all = ["Flask-Admin (>=1.3.0)", "celery (>=3.1.0,<4.0)", "Sphinx (>=1.4.2,<1.6)", "check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.3.0)", "mock (>=2.0.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-flask (>=0.10.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.0.0,<5.0.0)", "selenium (>=3.0.1)", "Flask-Admin (>=1.3.0)", "celery (>=3.1.0,<4.0)", "Sphinx (>=1.4.2,<1.6)", "check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.3.0)", "mock (>=2.0.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-flask (>=0.10.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.0.0,<5.0.0)", "selenium (>=3.0.1)"]
-celery = ["celery (>=3.1.0,<4.0)"]
+all = ["Flask-Admin (>=1.3.0)", "Sphinx (>=1.4.2,<1.6)", "check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.3.0)", "mock (>=2.0.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-flask (>=0.10.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.0.0,<5.0.0)", "selenium (>=3.0.1)", "Flask-Admin (>=1.3.0)", "Sphinx (>=1.4.2,<1.6)", "check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.3.0)", "mock (>=2.0.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-flask (>=0.10.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.0.0,<5.0.0)", "selenium (>=3.0.1)"]
 docs = ["Sphinx (>=1.4.2,<1.6)"]
 mysql = ["invenio-db (>=1.0.0)"]
 postgresql = ["invenio-db (>=1.0.0)"]
@@ -1549,7 +1547,6 @@ tests = ["check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.3.0)", "mock
 reference = "f4e8192f12883eb6065c9866c443a9e86b7181f4"
 type = "git"
 url = "https://github.com/inspirehep/invenio-accounts.git"
-
 [[package]]
 category = "main"
 description = "WSGI, Celery and CLI applications for Invenio flavours."
@@ -2714,7 +2711,7 @@ version = "2.8.4"
 [[package]]
 category = "main"
 description = "Run a subprocess in a pseudo terminal"
-marker = "python_version >= \"3.4\" and sys_platform != \"win32\" or sys_platform != \"win32\""
+marker = "python_version >= \"3.4\" and sys_platform != \"win32\" or sys_platform != \"win32\" or python_version >= \"3.4\" and sys_platform != \"win32\" and (python_version >= \"3.4\" and sys_platform != \"win32\" or sys_platform != \"win32\")"
 name = "ptyprocess"
 optional = false
 python-versions = "*"
@@ -3966,7 +3963,7 @@ multidict = ">=4.0"
 [[package]]
 category = "main"
 description = "Backport of pathlib-compatible object wrapper for zip files"
-marker = "python_version < \"3.8\" or python_version >= \"3.7\" and python_version < \"3.8\""
+marker = "python_version < \"3.8\" or python_version >= \"3.7\" and python_version < \"3.8\" or python_version >= \"3.7\" and python_version < \"3.8\" and (python_version < \"3.8\" or python_version >= \"3.7\" and python_version < \"3.8\") or python_version == \"3.7\" and python_version == \"3.7\""
 name = "zipp"
 optional = false
 python-versions = ">=3.6"
@@ -4095,7 +4092,6 @@ black = [
 ]
 bleach = [
     {file = "bleach-3.1.0-py2.py3-none-any.whl", hash = "sha256:213336e49e102af26d9cde77dd2d0397afabc5a6bf2fed985dc35b5d1e285a16"},
-    {file = "bleach-3.1.0-py3.8.egg", hash = "sha256:4ca3ec10244c9f11ec129b054912e8bc9ecefc2e0b6bf0dab273f0e72cf381e4"},
     {file = "bleach-3.1.0.tar.gz", hash = "sha256:3fdf7f77adcf649c9911387df51254b813185e32b2c6619f690b593a617e19fa"},
 ]
 blinker = [
@@ -4491,7 +4487,7 @@ influxdb = [
     {file = "influxdb-5.2.3.tar.gz", hash = "sha256:30276c7e04bf7659424c733b239ba2f0804d7a1f3c59ec5dd3f88c56176c8d36"},
 ]
 inspire-dojson = [
-    {file = "inspire-dojson-63.0.11.tar.gz", hash = "sha256:90915094601360e19f2664ef39a554c66d67d977c4ed2bf180d6de15655b1cce"},
+    {file = "inspire-dojson-63.0.13.tar.gz", hash = "sha256:6c7b681687e4dc68df0ba4026d38be3ff8e4f5d7ed6bf31c88ce19f803fb8a76"},
 ]
 inspire-json-merger = [
     {file = "inspire-json-merger-11.0.2.tar.gz", hash = "sha256:e016a713ac165655c958fa64caa81e46bb044b05cb6b2bf45c95c586a5b26288"},
@@ -4753,11 +4749,6 @@ markupsafe = [
     {file = "MarkupSafe-1.1.1-cp37-cp37m-manylinux1_x86_64.whl", hash = "sha256:ba59edeaa2fc6114428f1637ffff42da1e311e29382d81b339c1817d37ec93c6"},
     {file = "MarkupSafe-1.1.1-cp37-cp37m-win32.whl", hash = "sha256:b00c1de48212e4cc9603895652c5c410df699856a2853135b3967591e4beebc2"},
     {file = "MarkupSafe-1.1.1-cp37-cp37m-win_amd64.whl", hash = "sha256:9bf40443012702a1d2070043cb6291650a0841ece432556f784f004937f0f32c"},
-    {file = "MarkupSafe-1.1.1-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:6788b695d50a51edb699cb55e35487e430fa21f1ed838122d722e0ff0ac5ba15"},
-    {file = "MarkupSafe-1.1.1-cp38-cp38-manylinux1_i686.whl", hash = "sha256:cdb132fc825c38e1aeec2c8aa9338310d29d337bebbd7baa06889d09a60a1fa2"},
-    {file = "MarkupSafe-1.1.1-cp38-cp38-manylinux1_x86_64.whl", hash = "sha256:13d3144e1e340870b25e7b10b98d779608c02016d5184cfb9927a9f10c689f42"},
-    {file = "MarkupSafe-1.1.1-cp38-cp38-win32.whl", hash = "sha256:596510de112c685489095da617b5bcbbac7dd6384aeebeda4df6025d0256a81b"},
-    {file = "MarkupSafe-1.1.1-cp38-cp38-win_amd64.whl", hash = "sha256:e8313f01ba26fbbe36c7be1966a7b7424942f670f38e666995b88d012765b9be"},
     {file = "MarkupSafe-1.1.1.tar.gz", hash = "sha256:29872e92839765e546828bb7754a68c418d927cd064fd4708fab9fe9c8bb116b"},
 ]
 marshmallow = [
