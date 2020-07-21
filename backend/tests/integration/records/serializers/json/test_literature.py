@@ -9,7 +9,6 @@ import json
 from uuid import UUID
 
 import mock
-from flask import current_app
 from helpers.providers.faker import faker
 from helpers.utils import (
     create_record,
@@ -20,6 +19,7 @@ from helpers.utils import (
 from invenio_accounts.testutils import login_user_via_session
 
 from inspirehep.accounts.roles import Roles
+from inspirehep.files import current_s3_instance
 from inspirehep.records.errors import MaxResultWindowRESTError
 from inspirehep.records.marshmallow.literature import LiteratureDetailSchema
 
@@ -956,3 +956,28 @@ def test_record_returns_linked_book(inspire_app):
     assert response.status_code == 200
     assert "linked_book" in response.json["metadata"]
     assert response.json["metadata"]["linked_book"] == expected_linked_book
+
+
+def test_citation_pdf_urls(inspire_app):
+    expected_url = f"{current_s3_instance.public_file_path}/bucket/file.pdf"
+    data = {
+        "documents": [
+            {
+                "key": "external_file.pdf",
+                "url": "https://some.external/path/external_file.podf",
+            },
+            {
+                "key": "hidden_file.pdf",
+                "url": f"{current_s3_instance.public_file_path}/bucket/hidden_file.pdf",
+                "hidden": True,
+            },
+            {"key": "file.pdf", "url": expected_url},
+        ]
+    }
+
+    rec = create_record("lit", data)
+    headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+    with inspire_app.test_client() as client:
+        response = client.get(f"/literature/{rec['control_number']}", headers=headers)
+    assert response.status_code == 200
+    assert response.json["metadata"]["citation_pdf_urls"] == [expected_url]

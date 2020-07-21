@@ -13,6 +13,7 @@ from inspire_utils.record import get_value, get_values_for_schema
 from marshmallow import fields, missing, pre_dump
 
 from inspirehep.accounts.api import is_superuser_or_cataloger_logged_in
+from inspirehep.files.api import current_s3_instance
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.marshmallow.common.mixins import CatalogerCanEditMixin
 from inspirehep.records.marshmallow.literature.utils import get_parent_record
@@ -67,6 +68,7 @@ class LiteratureDetailSchema(CatalogerCanEditMixin, LiteraturePublicSchema):
     collaborations = fields.List(
         fields.Nested(CollaborationSchemaV1, dump_only=True), attribute="collaborations"
     )
+    citation_pdf_urls = fields.Method("get_citation_pdf_urls")
     collaborations_with_suffix = fields.List(
         fields.Nested(CollaborationWithSuffixSchemaV1, dump_only=True),
         attribute="collaborations",
@@ -134,12 +136,12 @@ class LiteratureDetailSchema(CatalogerCanEditMixin, LiteraturePublicSchema):
             }
         return missing
 
-    def get_internal_fulltext_link(self, data):
+    def get_internal_fulltext_link(self, document):
         if not current_app.config.get("FEATURE_FLAG_ENABLE_FILES"):
             return missing
-        description = data.get("description") or "fulltext"
-        url = data.get("url")
-        if url and not data.get("hidden", False):
+        description = document.get("description") or "fulltext"
+        url = document.get("url")
+        if url and not self.is_document_hidden(document):
             return {"description": description, "value": url}
         return missing
 
@@ -186,6 +188,26 @@ class LiteratureDetailSchema(CatalogerCanEditMixin, LiteraturePublicSchema):
             data["external_system_identifiers"] = external_system_ids
 
         return data
+
+    @staticmethod
+    def is_document_hidden(document):
+        return document.get("hidden", False)
+
+    @staticmethod
+    def is_document_local(document):
+        return current_s3_instance.is_public_url(document["url"])
+
+    def get_citation_pdf_urls(self, data):
+        urls = []
+        for document in data.get("documents", []):
+            url = document.get("url")
+            if (
+                url
+                and not self.is_document_hidden(document)
+                and self.is_document_local(document)
+            ):
+                urls.append(url)
+        return urls or missing
 
 
 class LiteratureListWrappedSchema(EnvelopeSchema):
