@@ -1347,7 +1347,7 @@ description = "INSPIRE-specific configuration of the JSON Merger."
 name = "inspire-json-merger"
 optional = false
 python-versions = "*"
-version = "11.0.2"
+version = "11.0.3"
 
 [package.dependencies]
 inspire-schemas = ">=61.0,<62.0"
@@ -4520,7 +4520,7 @@ inspire-dojson = [
     {file = "inspire-dojson-63.0.13.tar.gz", hash = "sha256:6c7b681687e4dc68df0ba4026d38be3ff8e4f5d7ed6bf31c88ce19f803fb8a76"},
 ]
 inspire-json-merger = [
-    {file = "inspire-json-merger-11.0.2.tar.gz", hash = "sha256:e016a713ac165655c958fa64caa81e46bb044b05cb6b2bf45c95c586a5b26288"},
+    {file = "inspire-json-merger-11.0.3.tar.gz", hash = "sha256:bd12c091b928d8bc35a7a185050b945087facbd7c6846da1577662c5ba229f2a"},
 ]
 inspire-matcher = [
     {file = "inspire-matcher-9.0.4.tar.gz", hash = "sha256:575615a0a128f9ad49c456a240b382af927076a03ba597d30520f67dc089ab87"},
