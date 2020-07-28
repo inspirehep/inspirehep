@@ -672,11 +672,11 @@ class Clusterer(object):
         and wrongly clustered samples for training, test and the whole dataset.
 
         Args:
-            test_uuids - list of signatures uuids used for testing
+            test_uuids - set of signatures uuids used for testing
             labels - list of labels (author id) for test dataset
         """
         all_uuids = np.vectorize(lambda x: x.signature_uuid)(self.X).flatten()
-        test_uuids_array = np.array(test_uuids)
+        test_uuids_array = np.array(list(test_uuids))
         mask = np.isin(all_uuids, test_uuids_array)
         y_train = self.y[~mask]
         y_test = np.array(labels)
