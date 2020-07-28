@@ -69,6 +69,7 @@ def test_hep_author_publications_facets(inspire_app):
             "affiliations",
             "self_author_names",
             "rpp",
+            "self_curated_relation",
         }
         expected_aggregations = {
             **hep_earliest_date_aggregation(order=1, title="Date of paper"),
@@ -110,6 +111,7 @@ def test_hep_author_citations_facets(inspire_app):
             "affiliations",
             "self_author_names",
             "rpp",
+            "self_curated_relation",
         }
         expected_aggregations = {
             **hep_earliest_date_aggregation(order=1, title="Date of citing paper"),
@@ -149,6 +151,7 @@ def test_records_hep_facets(inspire_app):
             "affiliations",
             "self_author_names",
             "rpp",
+            "self_curated_relation",
         }
         expected_aggregations = {
             **hep_earliest_date_aggregation(order=1, title="Date of paper"),
@@ -189,6 +192,7 @@ def test_hep_conference_contributions_facets(inspire_app):
             "affiliations",
             "self_author_names",
             "rpp",
+            "self_curated_relation",
         }
         expected_aggregations = {
             **hep_subject_aggregation(order=1),
@@ -224,6 +228,7 @@ def test_hep_institution_papers_facets(inspire_app):
             "affiliations",
             "self_author_names",
             "rpp",
+            "self_curated_relation",
         }
         expected_aggregations = {
             **hep_earliest_date_aggregation(order=1),
@@ -257,6 +262,7 @@ def test_citation_summary_facets(inspire_app):
             "affiliations",
             "self_author_names",
             "rpp",
+            "self_curated_relation",
         }
         expected_aggregations = {"citation_summary"}
 
@@ -282,6 +288,7 @@ def test_citations_by_year_facets(inspire_app):
             "affiliations",
             "self_author_names",
             "rpp",
+            "self_curated_relation",
         }
         expected_aggregations = {"citations_by_year"}
 
@@ -402,6 +409,7 @@ def test_hep_author_citations_cataloger_facets(inspire_app):
             "affiliations",
             "self_author_names",
             "rpp",
+            "self_curated_relation",
         }
         expected_aggregations = {
             **hep_earliest_date_aggregation(order=1, title="Date of citing paper"),
@@ -445,6 +453,7 @@ def test_records_hep_cataloger_facets(inspire_app):
             "affiliations",
             "self_author_names",
             "rpp",
+            "self_curated_relation",
         }
         expected_aggregations = {
             **hep_earliest_date_aggregation(order=1, title="Date of paper"),
@@ -545,6 +554,7 @@ def test_hep_experiment_papers_facets(inspire_app):
             "self_author_names",
             "rpp",
             "affiliations",
+            "self_curated_relation",
         }
 
         expected_aggregations = {
@@ -582,6 +592,7 @@ def test_hep_experiment_papers_cataloger_facets(inspire_app):
             "self_author_names",
             "rpp",
             "affiliations",
+            "self_curated_relation",
         }
         expected_aggregations = {
             **hep_earliest_date_aggregation(order=1),
