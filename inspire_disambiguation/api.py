@@ -155,7 +155,7 @@ def train_and_save_distance_model(
         total_runtime=str(save_model_time - start_time),
         test_score=str(test_score),
     )
-    return list(test_signatures_dict)
+    return set(test_signatures_dict)
 
 
 def cluster(
@@ -173,17 +173,20 @@ def cluster(
         n_jobs (int): Number of processes to use.
         signature_block (str): Signature block indicating which block should be
             clustered. If set to None, clustering will run on all blocks.
-        test_signatures_uuids (list): Signature uuids which will be used
+        test_signatures_uuids (set): Signature uuids which will be used
         for model validation.
     """
     start_time = datetime.now()
-    signatures = get_signatures(signature_block=signature_block)
+    LOGGER.info("Preparing test dataset...")
     if test_signatures_uuids:
+        signatures = get_signatures(signature_block=signature_block, only_curated=True)
         test_labels = []
         for signature in signatures:
             if signature.signature_uuid in test_signatures_uuids:
                 test_labels.append(signature.author_id)
                 signature.author_id = None
+    else:
+        signatures = get_signatures(signature_block=signature_block)
     input_clusters = get_input_clusters(signatures)
     LOGGER.info(
         "Input data",
@@ -193,7 +196,7 @@ def cluster(
             [sig for sig in signatures if sig.get("is_curated_author_id")]
         ),
         input_clusters_count=len(input_clusters),
-        input_clusters=input_clusters,
+        input_clusters=input_clusters
     )
     load_data_time = datetime.now()
 
