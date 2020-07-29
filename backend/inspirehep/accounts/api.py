@@ -50,6 +50,9 @@ def get_current_user_orcid():
     except SQLAlchemyError:
         LOGGER.info("No access granted to the user.")
         return None
+    except AttributeError:
+        LOGGER.info("current_user is None")
+        return None
 
 
 def get_current_user_remote_orcid_account():

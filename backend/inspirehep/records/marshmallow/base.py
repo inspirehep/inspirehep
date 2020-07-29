@@ -4,6 +4,7 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+from copy import deepcopy
 
 from inspire_dojson.utils import strip_empty_values
 from invenio_records_rest.schemas.json import RecordSchemaJSONV1
@@ -76,6 +77,12 @@ class RecordBaseSchema(Schema):
             if key not in data and key not in self.exclude:
                 data[key] = original_data[key]
         return data
+
+    def dump(self, obj, *args, **kwargs):
+        obj_copy = deepcopy(obj)
+        if hasattr(obj, "model"):
+            obj_copy.model = obj.model
+        return super().dump(obj_copy, *args, **kwargs)
 
     @post_dump(pass_original=True)
     def process_post_dump_in_order(self, data, original_data):
