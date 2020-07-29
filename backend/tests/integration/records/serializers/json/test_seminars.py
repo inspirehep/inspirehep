@@ -6,13 +6,20 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import json
-from copy import deepcopy
 
 from helpers.utils import create_record, create_user
 from invenio_accounts.testutils import login_user_via_session
 from marshmallow import utils
 
 from inspirehep.accounts.roles import Roles
+from inspirehep.records.marshmallow.seminars import (
+    SeminarsDetailSchema,
+    SeminarsElasticSearchSchema,
+)
+from inspirehep.records.marshmallow.seminars.base import (
+    SeminarsAdminSchema,
+    SeminarsPublicSchema,
+)
 
 
 def test_seminars_json_without_login(inspire_app, datadir):
@@ -23,9 +30,7 @@ def test_seminars_json_without_login(inspire_app, datadir):
     record = create_record("sem", data=data)
     record_control_number = record["control_number"]
 
-    expected_metadata = deepcopy(record)
-    del expected_metadata["_collections"]
-    del expected_metadata["_private_notes"]
+    expected_metadata = SeminarsPublicSchema().dump(record).data
     expected_created = utils.isoformat(record.created)
     expected_updated = utils.isoformat(record.updated)
     with inspire_app.test_client() as client:
@@ -51,13 +56,12 @@ def test_seminars_json_with_logged_in_cataloger(inspire_app, datadir):
     record = create_record("sem", data=data)
     record_control_number = record["control_number"]
 
-    expected_metadata = deepcopy(record)
+    expected_metadata = SeminarsAdminSchema().dump(record).data
     expected_created = utils.isoformat(record.created)
     expected_updated = utils.isoformat(record.updated)
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.get(f"/seminars/{record_control_number}", headers=headers)
-
     response_data = json.loads(response.data)
     response_data_metadata = response_data["metadata"]
     response_created = response_data["created"]
@@ -75,11 +79,9 @@ def test_seminars_search_json(inspire_app, datadir):
 
     record = create_record("sem", data=data)
 
-    expected_result = deepcopy(record)
+    expected_result = SeminarsPublicSchema().dump(record).data
     expected_created = utils.isoformat(record.created)
     expected_updated = utils.isoformat(record.updated)
-    del expected_result["_collections"]
-    del expected_result["_private_notes"]
     with inspire_app.test_client() as client:
         response = client.get("/seminars", headers=headers)
 
@@ -105,7 +107,7 @@ def test_seminars_logged_in_search_json(inspire_app, datadir):
 
         record = create_record("sem", data=data)
 
-        expected_result = deepcopy(record)
+        expected_result = SeminarsAdminSchema().dump(record).data
         expected_created = utils.isoformat(record.created)
         expected_updated = utils.isoformat(record.updated)
 
@@ -131,14 +133,8 @@ def test_seminars_detail(inspire_app, datadir):
         record = create_record("sem", data=data)
         record_control_number = record["control_number"]
 
-        expected_metadata = dict(deepcopy(record))
+        expected_metadata = SeminarsDetailSchema().dump(record).data
 
-        expected_metadata["can_edit"] = False
-        expected_metadata["speakers"][0]["first_name"] = "Frank"
-        expected_metadata["speakers"][0]["last_name"] = "Castle"
-        expected_metadata["speakers"][1]["first_name"] = "Jane Smith"
-        del expected_metadata["_collections"]
-        del expected_metadata["_private_notes"]
         expected_created = utils.isoformat(record.created)
         expected_updated = utils.isoformat(record.updated)
 
@@ -162,14 +158,8 @@ def test_seminars_search(inspire_app, datadir):
 
         record = create_record("sem", data=data)
 
-        expected_metadata = dict(deepcopy(record))
+        expected_metadata = SeminarsDetailSchema().dump(record).data
 
-        expected_metadata["can_edit"] = False
-        expected_metadata["speakers"][0]["first_name"] = "Frank"
-        expected_metadata["speakers"][0]["last_name"] = "Castle"
-        expected_metadata["speakers"][1]["first_name"] = "Jane Smith"
-        del expected_metadata["_collections"]
-        del expected_metadata["_private_notes"]
         expected_created = utils.isoformat(record.created)
         expected_updated = utils.isoformat(record.updated)
 

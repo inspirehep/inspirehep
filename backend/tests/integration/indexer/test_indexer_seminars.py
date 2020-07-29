@@ -5,12 +5,12 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 import json
-from copy import deepcopy
 
 from helpers.utils import create_record, es_search
 from invenio_search import current_search
 from marshmallow import utils
 
+from inspirehep.records.marshmallow.seminars import SeminarsElasticSearchSchema
 from inspirehep.search.api import SeminarsSearch
 
 
@@ -19,7 +19,7 @@ def test_index_seminars_record(inspire_app, datadir):
     record = create_record("sem", data=seminar_data)
 
     expected_count = 1
-    expected_metadata = deepcopy(record)
+    expected_metadata = SeminarsElasticSearchSchema().dump(record).data
     expected_metadata["_created"] = utils.isoformat(record.created)
     expected_metadata["_updated"] = utils.isoformat(record.updated)
 

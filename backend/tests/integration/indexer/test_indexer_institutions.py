@@ -13,6 +13,7 @@ from invenio_search import current_search
 from invenio_search import current_search_client as es
 from marshmallow import utils
 
+from inspirehep.records.marshmallow.institutions import InstitutionsElasticSearchSchema
 from inspirehep.search.api import InstitutionsSearch
 
 
@@ -21,7 +22,7 @@ def test_index_institutions_record(inspire_app, datadir):
     record = create_record("ins", data=data)
 
     expected_count = 1
-    expected_metadata = deepcopy(record)
+    expected_metadata = InstitutionsElasticSearchSchema().dump(record).data
     expected_metadata["affiliation_suggest"] = {
         "input": [
             "CERN, Geneva",

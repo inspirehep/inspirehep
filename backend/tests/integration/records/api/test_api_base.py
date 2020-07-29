@@ -9,7 +9,7 @@
 
 
 import json
-from copy import copy
+from copy import copy, deepcopy
 
 import pytest
 from helpers.providers.faker import faker
@@ -416,3 +416,14 @@ def test_get_year_from_book_chapter_when_pubinfo_present(inspire_app):
     result_year = result["year"]
 
     assert expected_year == result_year
+
+
+def test_get_enhanced_es_data_do_not_change_original_record(inspire_app, datadir):
+    data = json.loads((datadir / "788797.json").read_text())
+
+    original_data = deepcopy(data)
+
+    record = LiteratureRecord.create(data=data)
+    record.get_enhanced_es_data()
+
+    assert sorted(record) == sorted(original_data)
