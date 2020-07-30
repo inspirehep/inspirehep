@@ -35,42 +35,41 @@ function ExperimentSearchPage({ loading, loadingAggregations }) {
   return (
     <>
       <DocumentHead title={TITLE} description={META_DESCRIPTION} />
-      <Row
-        className="mt3"
-        gutter={SEARCH_PAGE_GUTTER}
-        type="flex"
-        justify="center"
-      >
-        <Col xs={0} lg={7}>
-          <ResponsiveView min="lg" render={renderAggregations} />
-        </Col>
-        <Col xs={24} lg={16} xl={16} xxl={14}>
-          <LoadingOrChildren loading={loading}>
-            <Row>
-              <Col>
-                <NumberOfResultsContainer namespace={EXPERIMENTS_NS} />
-              </Col>
-              <Col xs={8} lg={0}>
-                <ResponsiveView
-                  max="md"
-                  render={() => (
-                    <DrawerHandle handleText="Filter" drawerTitle="Filter">
-                      {renderAggregations()}
-                    </DrawerHandle>
-                  )}
-                />
-              </Col>
-            </Row>
-            <Row>
-              <Col span={24}>
-                <ResultsContainer
-                  namespace={EXPERIMENTS_NS}
-                  renderItem={renderExperimentItem}
-                />
-                <PaginationContainer namespace={EXPERIMENTS_NS} />
-              </Col>
-            </Row>
-          </LoadingOrChildren>
+      <Row>
+        <Col xs={24} lg={22} xl={20} xxl={18}>
+          <Row className="mt3" gutter={SEARCH_PAGE_GUTTER} justify="start">
+            <Col xs={0} lg={7}>
+              <ResponsiveView min="lg" render={renderAggregations} />
+            </Col>
+            <Col xs={24} lg={17}>
+              <LoadingOrChildren loading={loading}>
+                <Row>
+                  <Col xs={24} lg={12}>
+                    <NumberOfResultsContainer namespace={EXPERIMENTS_NS} />
+                  </Col>
+                  <Col xs={12} lg={0}>
+                    <ResponsiveView
+                      max="md"
+                      render={() => (
+                        <DrawerHandle handleText="Filter" drawerTitle="Filter">
+                          {renderAggregations()}
+                        </DrawerHandle>
+                      )}
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col span={24}>
+                    <ResultsContainer
+                      namespace={EXPERIMENTS_NS}
+                      renderItem={renderExperimentItem}
+                    />
+                    <PaginationContainer namespace={EXPERIMENTS_NS} />
+                  </Col>
+                </Row>
+              </LoadingOrChildren>
+            </Col>
+          </Row>
         </Col>
       </Row>
     </>
