@@ -81,6 +81,40 @@ def test_return_record_for_publication_info_search_with_journal_title_without_do
     assert 200 == response.status_code
 
 
+def test_facets_for_publication_info_search(inspire_app):
+
+    query = "Phys. Lett. B 704 (2011) 223"
+
+    cited_record_json = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "control_number": 1,
+        "document_type": ["article"],
+        "publication_info": [
+            {
+                "journal_title": "Phys.Lett.B",
+                "journal_volume": "704",
+                "page_start": "223",
+                "year": 2011,
+            }
+        ],
+        "titles": [{"title": "The Strongly-Interacting Light Higgs"}],
+    }
+
+    create_record(
+        "jou",
+        data={"short_title": "Phys.Lett.B", "journal_title": {"title": "Phys Lett B"}},
+    )
+    create_record("lit", cited_record_json)
+
+    with inspire_app.test_client() as client:
+
+        response = client.get("api/literature/facets", query_string={"q": query})
+    response_record = response.json
+    assert len(response_record["hits"]["hits"]) == 0
+    assert len(response_record["aggregations"]) > 0
+
+
 @pytest.mark.vcr()
 def test_return_record_for_publication_info_search_example_1(inspire_app):
 
