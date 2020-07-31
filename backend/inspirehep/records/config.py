@@ -34,6 +34,7 @@ from inspirehep.search.api import (
     InstitutionsSearch,
     JobsSearch,
     JournalsSearch,
+    LiteratureAggregationsSearch,
     LiteratureSearch,
     SeminarsSearch,
 )
@@ -147,6 +148,7 @@ LITERATURE_FACETS.update(
         "default_endpoint_prefix": False,
         "search_factory_imp": "inspirehep.search.factories.search:search_factory_only_with_aggs",
         "pid_type": "lit",
+        "search_class": LiteratureAggregationsSearch,
         "list_route": "/literature/facets/",
         "search_serializers": {
             "application/json": f"{INSPIRE_SERIALIZERS}:facets_json_response_search"

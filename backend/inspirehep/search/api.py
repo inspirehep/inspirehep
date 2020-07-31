@@ -277,6 +277,11 @@ class LiteratureSearch(InspireSearch):
         return results.execute().hits
 
 
+class LiteratureAggregationsSearch(LiteratureSearch):
+    def execute(self, *args, **kwargs):
+        return super(LiteratureSearch, self).execute(*args, **kwargs)
+
+
 class AuthorsSearch(InspireSearch):
     """Elasticsearch-dsl specialized class to search in Authors database."""
 
