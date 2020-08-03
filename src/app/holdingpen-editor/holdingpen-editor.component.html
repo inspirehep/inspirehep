@@ -25,6 +25,12 @@
   <re-author-extract-actions></re-author-extract-actions>
 </ng-template>
 
+<ng-template #patchesHeaderTemplate>
+  <ng-container *ngIf="workflowExtraData.conflicts_metadata">
+    From {{workflowExtraData.conflicts_metadata.update_source}} on {{workflowExtraData.conflicts_metadata.datetime}}
+  </ng-container>
+</ng-template>
+
 <re-holdingpen-toolbar (revisionChange)="onRevisionChange($event)"></re-holdingpen-toolbar>
 <div id="editor-container">
   <json-editor *ngIf="workflowObject && schema" [record]="revision || workflowObject.metadata" (recordChange)="onWorkflowMetadataChange($event)"
@@ -34,7 +40,8 @@
       authorTemplate: authorTemplate,
       affiliationAutocompleteTemplate: affiliationAutocompleteTemplate,
       refActionsTemplate: refActionsTemplate,
-      authorExtractTemplate: authorExtractTemplate
+      authorExtractTemplate: authorExtractTemplate,
+      patchesHeaderTemplate: patchesHeaderTemplate
     }">
   </json-editor>
 </div>
