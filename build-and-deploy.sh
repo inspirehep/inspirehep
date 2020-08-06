@@ -40,11 +40,11 @@ deployQA() {
   token="${INSPIRE_BOT_TOKEN}"
 
   curl \
-    -u "${username}:${token}"
+    -u "${username}:${token}" \
     -X POST \
     -H "Accept: application/vnd.github.v3+json" \
-    https://api.github.com/repos/inspirehep/kubernetes/dispatches \
-    -d '{"event_type":"new_image", "client_payload":{"image":"'${image}'", "tag":"'${TAG}'"}}'
+    -d '{"event_type":"new_image", "client_payload":{"image":"'${image}'", "tag":"'${TAG}'"}}' \
+    https://api.github.com/repos/inspirehep/kubernetes/dispatches
 }
 
 
