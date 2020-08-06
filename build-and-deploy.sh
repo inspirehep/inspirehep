@@ -108,7 +108,7 @@ maybeDeploySmokeTestsQA() {
   fi
 }
 
-dispatch_github_event() {
+dispatchGithubEvent() {
   image=${1}
   username='inspire-bot'
   token="${INSPIRE_BOT_TOKEN}"
@@ -125,8 +125,8 @@ main() {
   login
   buildPush "ui" "inspirehep/ui"
   buildPush "backend" "inspirehep/hep"
-  dispatch_github_event "inspirehep/ui"
-  dispatch_github_event "inspirehep/hep"
+  dispatchGithubEvent "inspirehep/ui"
+  dispatchGithubEvent "inspirehep/hep"
   maybeBuildSmokeTests
   logout
   if [ -z "${TRAVIS_TAG}" ]; then
