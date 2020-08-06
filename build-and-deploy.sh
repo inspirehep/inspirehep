@@ -95,8 +95,9 @@ maybeDeploySmokeTestsQA() {
   fi
 }
 
-deployQA() {
-  image=${1}
+deploy() {
+  environment=${1}
+  image=${2}
   username='inspire-bot'
   token="${INSPIRE_BOT_TOKEN}"
 
@@ -104,7 +105,7 @@ deployQA() {
     -u "${username}:${token}" \
     -X POST \
     -H "Accept: application/vnd.github.v3+json" \
-    -d '{"event_type":"new_image", "client_payload":{"image":"'${image}'", "tag":"'${TAG}'"}}' \
+    -d '{"event_type":"deploy", "client_payload":{"environment":"'${environment}'",image":"'${image}'", "tag":"'${TAG}'"}}' \
     https://api.github.com/repos/inspirehep/kubernetes/dispatches
 }
 
@@ -112,11 +113,17 @@ main() {
   login
   buildPush "ui" "inspirehep/ui"
   buildPush "backend" "inspirehep/hep"
-  deployQA "inspirehep/ui"
-  deployQA "inspirehep/hep"
   maybeBuildSmokeTests
-  sentryQA
-  maybeDeploySmokeTestsQA
   logout
+  if [ -z "${TRAVIS_TAG}" ]; then
+    deploy "qa" "inspirehep/ui"
+    deploy "qa" "inspirehep/hep"
+    sentryQA
+    maybeDeploySmokeTestsQA
+  else
+    deploy "prod" "inspirehep/ui"
+    deploy "prod" "inspirehep/hep"
+    sentryPROD
+  fi
 }
 main
