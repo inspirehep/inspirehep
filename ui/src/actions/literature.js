@@ -10,7 +10,7 @@ import {
   LITERATURE_AUTHORS_REQUEST,
   LITERATURE_AUTHORS_SUCCESS,
 } from './actionTypes';
-import { UI_SERIALIZER_REQUEST_OPTIONS, isCancelError } from '../common/http';
+import { isCancelError } from '../common/http';
 import { httpErrorToActionPayload } from '../common/utils';
 import generateRecordFetchAction from './recordsFactory';
 import { LITERATURE_PID_TYPE } from '../common/constants';
@@ -61,7 +61,6 @@ export const fetchLiterature = generateRecordFetchAction({
   fetchingActionActionType: LITERATURE_REQUEST,
   fecthSuccessActionType: LITERATURE_SUCCESS,
   fetchErrorActionType: LITERATURE_ERROR,
-  requestOptions: UI_SERIALIZER_REQUEST_OPTIONS,
 });
 
 export function fetchLiteratureReferences(recordId, newQuery = {}) {

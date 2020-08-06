@@ -1,4 +1,4 @@
-import { isCancelError } from '../common/http';
+import { isCancelError, UI_SERIALIZER_REQUEST_OPTIONS } from '../common/http';
 import { httpErrorToActionPayload } from '../common/utils';
 
 export default function generateRecordFetchAction({
@@ -6,7 +6,7 @@ export default function generateRecordFetchAction({
   fetchingActionActionType,
   fecthSuccessActionType,
   fetchErrorActionType,
-  requestOptions = {},
+  requestOptions = UI_SERIALIZER_REQUEST_OPTIONS,
 }) {
   const fetching = recordId => ({
     type: fetchingActionActionType,
