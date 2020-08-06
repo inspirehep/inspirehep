@@ -9,7 +9,7 @@ license = "MIT License"
 [tool.poetry.dependencies]
 python = ">=3.6,<4"
 attrs = '~=19.0,>=19.1.0'
-beard = '~=0.0,>=0.2'
+beard = "0.2.2"
 click = "*"
 httplib2 = '~=0.0,>=0.12.0'
 langdetect = '~=1.0,>=1.0.7'
