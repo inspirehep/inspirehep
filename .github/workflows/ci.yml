@@ -1,0 +1,40 @@
+name: ci
+
+on:
+  push:
+    branches: [ $default-branch ]
+  pull_request:
+    branches: [ $default-branch ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: setup nodejs
+        uses: actions/setup-node@v1
+        with:
+          node-version: 6.9.1
+
+      - name: lint
+        run: npm run lint
+
+      - name: write version
+        run: node ./write-version.js
+
+      - name: install
+        run: |
+          npm install buffer-shims
+          export CHROME_BIN=chromium-browser
+          export DISPLAY=:99.0
+          npm install
+
+      - name: build
+        run: npm run build
+
+      - name: coverage
+        run: npm run coveralls
