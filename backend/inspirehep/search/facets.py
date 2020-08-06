@@ -14,6 +14,7 @@ from invenio_records_rest.facets import range_filter
 from inspirehep.search.aggregations import (
     conf_subject_aggregation,
     experiment_inspire_classification_aggregation,
+    experiment_institution_aggregation,
     hep_arxiv_categories_aggregation,
     hep_author_affiliations_aggregation,
     hep_author_aggregation,
@@ -570,5 +571,8 @@ def records_experiments(order=None):
         order = count(start=1)
     return {
         "filters": {**current_app.config["EXPERIMENTS_FILTERS"]},
-        "aggs": {**experiment_inspire_classification_aggregation(order=next(order))},
+        "aggs": {
+            **experiment_inspire_classification_aggregation(order=next(order)),
+            **experiment_institution_aggregation(order=next(order)),
+        },
     }
