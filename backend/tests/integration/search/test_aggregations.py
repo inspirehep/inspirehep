@@ -7,6 +7,7 @@ from mock import patch
 from inspirehep.search.aggregations import (
     conf_subject_aggregation,
     experiment_inspire_classification_aggregation,
+    experiment_institution_aggregation,
     hep_arxiv_categories_aggregation,
     hep_author_affiliations_aggregation,
     hep_author_aggregation,
@@ -994,4 +995,42 @@ def test_experiment_inspire_classification_aggregation(inspire_app):
         assert (
             response["hits"]["hits"][0]["metadata"]["control_number"]
             == expected_record["control_number"]
+        )
+
+
+def test_experiment_institution_aggregation_and_filter(inspire_app):
+    config = {
+        "RECORDS_REST_FACETS": {
+            "records-experiments": {
+                "filters": {**current_app.config["EXPERIMENTS_FILTERS"]},
+                "aggs": {**experiment_institution_aggregation(1)},
+            }
+        }
+    }
+    with override_config(**config):
+        create_record("exp", data={"institutions": [{"value": "CERN"}]})
+        create_record("exp", data={"institutions": [{"value": "CERN"}]})
+        desy_record = create_record("exp", data={"institutions": [{"value": "DESY"}]})
+
+        # aggregation
+        with inspire_app.test_client() as client:
+            response = client.get("/experiments/facets").json
+        expected_aggregation = {
+            "meta": {"title": "Institution", "type": "checkbox", "order": 1},
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+                {"key": "CERN", "doc_count": 2},
+                {"key": "DESY", "doc_count": 1},
+            ],
+        }
+        assert response["aggregations"]["institution"] == expected_aggregation
+
+        # filter
+        with inspire_app.test_client() as client:
+            response = client.get("/experiments?institution=DESY").json
+        assert len(response["hits"]["hits"]) == 1
+        assert (
+            response["hits"]["hits"][0]["metadata"]["control_number"]
+            == desy_record["control_number"]
         )

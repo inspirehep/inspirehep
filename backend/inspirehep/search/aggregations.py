@@ -352,3 +352,12 @@ def experiment_inspire_classification_aggregation(
             },
         }
     }
+
+
+def experiment_institution_aggregation(order):
+    return {
+        "institution": {
+            "terms": {"field": "institutions.value", "size": 20},
+            "meta": {"title": "Institution", "order": order, "type": "checkbox"},
+        }
+    }
