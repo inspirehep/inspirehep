@@ -62,19 +62,6 @@ logout() {
   retry docker logout
 }
 
-deploy() {
-  app="${1}"
-  env="${2}"
-  echo "Deploying ${app} to ${env}..."
-  curl -X POST \
-    -F token=${DEPLOY_TOKEN} \
-    -F ref=master \
-    -F variables[APP_NAME]=${app} \
-    -F variables[NEW_TAG]=${TAG} \
-    -F variables[ENVIRONMENT]=${env} \
-    https://gitlab.cern.ch/api/v4/projects/62928/trigger/pipeline
-}
-
 sentryQA() {
   export SENTRY_AUTH_TOKEN=${SENTRY_QA_AUTH_TOKEN}
   export SENTRY_URL="https://sentry.inspirebeta.net"
@@ -108,36 +95,28 @@ maybeDeploySmokeTestsQA() {
   fi
 }
 
-dispatchGithubEvent() {
+deployQA() {
   image=${1}
   username='inspire-bot'
   token="${INSPIRE_BOT_TOKEN}"
 
   curl \
-    -u "${username}:${token}"
+    -u "${username}:${token}" \
     -X POST \
     -H "Accept: application/vnd.github.v3+json" \
-    https://api.github.com/repos/inspirehep/kubernetes/dispatches \
-    -d '{"event_type":"new_image", "client_payload":{"image":"'${image}'", "tag":"'${TAG}'"}}'
+    -d '{"event_type":"new_image", "client_payload":{"image":"'${image}'", "tag":"'${TAG}'"}}' \
+    https://api.github.com/repos/inspirehep/kubernetes/dispatches
 }
 
 main() {
   login
   buildPush "ui" "inspirehep/ui"
   buildPush "backend" "inspirehep/hep"
-  dispatchGithubEvent "inspirehep/ui"
-  dispatchGithubEvent "inspirehep/hep"
+  deployQA "inspirehep/ui"
+  deployQA "inspirehep/hep"
   maybeBuildSmokeTests
+  sentryQA
+  maybeDeploySmokeTestsQA
   logout
-  if [ -z "${TRAVIS_TAG}" ]; then
-    deploy "ui" "qa"
-    deploy "hep" "qa"
-    sentryQA
-    maybeDeploySmokeTestsQA
-  else
-    deploy "ui" "prod"
-    deploy "hep" "prod"
-    sentryPROD
-  fi
 }
 main
