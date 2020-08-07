@@ -57,6 +57,7 @@ jobs:
       - name: deploy on qa
         uses: peter-evans/repository-dispatch@v1
         with:
+          repository: inspirehep/kubernetes
           token: ${{ secrets.INSPIRE_BOT_TOKEN }}
           event-type: deploy
           client-payload: >
