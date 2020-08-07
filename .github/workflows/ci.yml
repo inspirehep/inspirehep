@@ -36,7 +36,7 @@ jobs:
       - name: build
         run: npm run build
 
-      - name: generate tag
+      - name: describe
         run: |
           echo "::set-output name=tag::$(git describe --always --tags)"
         if: ${{ github.event_name == 'push' }}
@@ -47,7 +47,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: inspirehep/editor
-          tags: ${{ steps.generate_tag.outputs.tag }}
+          tags: ${{ steps.describe.outputs.tag }}
         if: ${{ github.event_name == 'push' }}
 
       - name: deploy on qa
@@ -58,5 +58,5 @@ jobs:
           client-payload: >
             {"environment": "qa",
              "image": "inspirehep/editor",
-             "tag": "${{ steps.generate_tag.outputs.tag }}"}
+             "tag": "${{ steps.describe.outputs.tag }}"}
         if: ${{ github.event_name == 'push' }}
