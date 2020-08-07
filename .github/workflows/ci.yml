@@ -37,8 +37,8 @@ jobs:
         run: npm run build
 
       - name: generate tag
-        run: >
-          echo ::set-output name=tag::$(git describe --always --tags)
+        run: |
+          echo "::set-output name=tag::$(git describe --always --tags)"
         if: ${{ github.event_name == 'push' }}
 
       - name: build and push Docker image
