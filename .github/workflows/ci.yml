@@ -14,6 +14,8 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: setup nodejs
         uses: actions/setup-node@v1
@@ -48,6 +50,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: inspirehep/editor
+          add_git_labels: true
           tags: ${{ steps.describe.outputs.tag }}
         if: ${{ github.event_name == 'push' }}
 
