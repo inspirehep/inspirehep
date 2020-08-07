@@ -343,7 +343,7 @@ def experiment_inspire_classification_aggregation(
 ):
     return {
         "classification": {
-            "terms": {"field": "inspire_classification", "size": 20},
+            "terms": {"field": "inspire_classification", "size": 500},
             "meta": {
                 "title": title,
                 "order": order,
