@@ -39,7 +39,7 @@ jobs:
       - name: generate tag
         run: >
           echo ::set-output name=tag::$(git describe --always --tags)
-        if: ${{ github.event_name == 'push' && github.ref == 'master' }}
+        if: ${{ github.event_name == 'push' }}
 
       - name: build and push Docker image
         uses: docker/build-push-action@v1
@@ -48,7 +48,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: inspirehep/editor
           tags: ${{ steps.generate_tag.outputs.tag }}
-        if: ${{ github.event_name == 'push' && github.ref == 'master' }}
+        if: ${{ github.event_name == 'push' }}
 
       - name: deploy on qa
         uses: peter-evans/repository-dispatch@v1
@@ -59,4 +59,4 @@ jobs:
             {"environment": "qa",
              "image": "inspirehep/editor",
              "tag": "${{ steps.generate_tag.outputs.tag }}"}
-        if: ${{ github.event_name == 'push' && github.ref == 'master' }}
+        if: ${{ github.event_name == 'push' }}
