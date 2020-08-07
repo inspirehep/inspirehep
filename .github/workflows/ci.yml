@@ -37,6 +37,7 @@ jobs:
         run: npm run build
 
       - name: describe
+        id: describe
         run: |
           echo "::set-output name=tag::$(git describe --always --tags)"
         if: ${{ github.event_name == 'push' }}
