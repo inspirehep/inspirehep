@@ -14,6 +14,7 @@ from flask import Blueprint, abort, current_app, jsonify, request, url_for
 from flask.views import MethodView
 from flask_login import current_user
 from inspire_schemas.builders import JobBuilder
+from inspire_utils.record import get_value
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
 from jsonschema import SchemaError, ValidationError
@@ -421,16 +422,11 @@ class JobSubmissionsResource(BaseSubmissionsResource):
         return data
 
     def user_can_edit(self, record):
-        if is_superuser_or_cataloger_logged_in():
-            return True
-        acquisition_source = record.get("acquisition_source", {})
-        if (
-            acquisition_source.get("orcid") == self.get_user_orcid()
-            and acquisition_source.get("email") == current_user.email
-            and record.get("status") != "closed"
-        ):
-            return True
-        return False
+        orcid = get_value(record, "acquisition_source.orcid")
+        email = get_value(record, "acquisition_source.email")
+        return is_superuser_or_cataloger_logged_in() or (
+            orcid == self.get_user_orcid() and email == current_user.email
+        )
 
     def create_ticket(self, record, rt_template):
         control_number = record["control_number"]

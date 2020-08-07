@@ -7,6 +7,7 @@
 
 import json
 from copy import deepcopy
+from datetime import datetime, timedelta
 
 import pytest
 from flask import current_app, url_for
@@ -864,43 +865,7 @@ def test_job_update_data_less_than_30_days_after_deadline(inspire_app):
 
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
-def test_update_job_from_closed_by_user(ticket_mock, inspire_app):
-    user = create_user()
-    curator = create_user(role="cataloger")
-    with inspire_app.test_client() as client:
-        login_user_via_session(client, email=user.email)
-        data = {**DEFAULT_EXAMPLE_JOB_DATA}
-        response = client.post(
-            "/submissions/jobs",
-            content_type="application/json",
-            data=json.dumps({"data": data}),
-        )
-        assert response.status_code == 201
-        pid_value = response.json["pid_value"]
-        record_url = url_for(
-            "inspirehep_submissions.job_submission_view", pid_value=pid_value
-        )
-        #  Login as curator to update job status
-        login_user_via_session(client, email=curator.email)
-        data["status"] = "closed"
-        response2 = client.put(
-            record_url, content_type="application/json", data=json.dumps({"data": data})
-        )
-        assert response2.status_code == 200
-        #  Login as user again to update job title
-        login_user_via_session(client, email=user.email)
-        data["title"] = "Another Title"
-        response3 = client.put(
-            record_url, content_type="application/json", data=json.dumps({"data": data})
-        )
-
-        assert response3.status_code == 403
-        record = client.get(record_url).json["data"]
-        assert record["title"] == DEFAULT_EXAMPLE_JOB_DATA["title"]
-
-
-@patch("inspirehep.submissions.views.async_create_ticket_with_template")
-def test_update_job_status_update_30_days_after_deadline_by_user(
+def test_update_job_from_closed_less_than_30_days_after_deadline_by_user(
     ticket_mock, inspire_app
 ):
     user = create_user()
@@ -921,6 +886,48 @@ def test_update_job_status_update_30_days_after_deadline_by_user(
         #  Login as curator to update job status
         login_user_via_session(client, email=curator.email)
         data["status"] = "closed"
+        data["deadline_date"] = (datetime.now() - timedelta(1)).strftime(
+            "%Y-%m-%d"
+        )  # yesterday
+        response2 = client.put(
+            record_url, content_type="application/json", data=json.dumps({"data": data})
+        )
+        assert response2.status_code == 200
+        #  Login as user again to update job title
+        login_user_via_session(client, email=user.email)
+        data["title"] = "Another Title"
+        response3 = client.put(
+            record_url, content_type="application/json", data=json.dumps({"data": data})
+        )
+
+        assert response3.status_code == 200
+        record = client.get(record_url).json["data"]
+        assert record["title"] == "Another Title"
+
+
+@patch("inspirehep.submissions.views.async_create_ticket_with_template")
+def test_update_job_status_update_more_than_30_days_after_deadline_by_user(
+    ticket_mock, inspire_app
+):
+    user = create_user()
+    curator = create_user(role="cataloger")
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        data = {**DEFAULT_EXAMPLE_JOB_DATA}
+        response = client.post(
+            "/submissions/jobs",
+            content_type="application/json",
+            data=json.dumps({"data": data}),
+        )
+        assert response.status_code == 201
+        pid_value = response.json["pid_value"]
+        record_url = url_for(
+            "inspirehep_submissions.job_submission_view", pid_value=pid_value
+        )
+        #  Login as curator to update job status
+        login_user_via_session(client, email=curator.email)
+        data["status"] = "closed"
+        data["deadline_date"] = "2020-01-01"
         response2 = client.put(
             record_url, content_type="application/json", data=json.dumps({"data": data})
         )
@@ -932,7 +939,7 @@ def test_update_job_status_update_30_days_after_deadline_by_user(
             record_url, content_type="application/json", data=json.dumps({"data": data})
         )
 
-        assert response3.status_code == 403
+        assert response3.status_code == 400
         record = client.get(record_url).json["data"]
         assert record["status"] == "closed"
 
