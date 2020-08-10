@@ -10,6 +10,7 @@ import {
   AUTHORS,
   SUBMISSIONS_LITERATURE,
   SEMINARS,
+  EXPERIMENTS,
 } from '../../../routes';
 
 describe('CollectionsMenu', () => {
@@ -58,6 +59,14 @@ describe('CollectionsMenu', () => {
   it('renders when seminars page', () => {
     const wrapper = shallow(
       <CollectionsMenu currentPathname={`${SEMINARS}/1`} />
+    );
+
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('renders when experiments page', () => {
+    const wrapper = shallow(
+      <CollectionsMenu currentPathname={`${EXPERIMENTS}/1`} />
     );
 
     expect(wrapper).toMatchSnapshot();

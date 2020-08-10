@@ -9,9 +9,13 @@ class DropdownMenu extends Component {
   }
 
   render() {
-    const { title, disabled } = this.props;
+    const { title, disabled, overlayClassName } = this.props;
     return (
-      <Dropdown disabled={disabled} overlay={this.renderMenu()}>
+      <Dropdown
+        disabled={disabled}
+        overlay={this.renderMenu()}
+        overlayClassName={overlayClassName}
+      >
         {title}
       </Dropdown>
     );
@@ -23,6 +27,7 @@ DropdownMenu.propTypes = {
   title: PropTypes.node.isRequired,
   onClick: PropTypes.func,
   disabled: PropTypes.bool,
+  overlayClassName: PropTypes.string,
 };
 
 DropdownMenu.defaultProps = {

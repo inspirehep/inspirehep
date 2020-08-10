@@ -447,7 +447,7 @@ def test_literature_list_has_sort_options(inspire_app):
 
 
 def test_literature_references_json_with_empty_and_unlinked_and_duplicated_linked_records(
-    inspire_app
+    inspire_app,
 ):
     headers = {"Accept": "application/json"}
     reference_without_link_title = faker.sentence()
@@ -666,7 +666,9 @@ def test_literature_references_no_references(inspire_app):
     assert expected_result == response_data_metadata
 
 
-def test_literature_detail_serialize_experiments(inspire_app, datadir):
+def test_literature_detail_serialize_experiment_with_referenced_record(
+    inspire_app, datadir
+):
     data = json.loads((datadir / "1630825.json").read_text())
     record = create_record("lit", data=data)
     experiment_data = {
@@ -675,39 +677,105 @@ def test_literature_detail_serialize_experiments(inspire_app, datadir):
         "institutions": [{"value": "Institute"}],
         "experiment": {"value": "Experiment"},
     }
-
-    expected_experiment = [
-        {"name": "LIGO"},
-        {"name": "VIRGO"},
-        {"name": "FERMI-GBM"},
-        {"name": "INTEGRAL"},
-        {"name": "ICECUBE"},
-        {"name": "ANTARES"},
-        {"name": "Swift"},
-        {"name": "AGILE"},
-        {"name": "DES"},
-        {"name": "FERMI-LAT"},
-        {"name": "ATCA"},
-        {"name": "OzGrav"},
+    create_record_factory("exp", data=experiment_data)
+    expected_experiment_data = [
+        {
+            "name": "LIGO",
+            "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1110623"},
+        },
+        {
+            "name": "VIRGO",
+            "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1110601"},
+        },
+        {
+            "name": "FERMI-GBM",
+            "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1602540"},
+        },
+        {
+            "name": "INTEGRAL",
+            "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1110529"},
+        },
+        {
+            "name": "ICECUBE",
+            "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1108514"},
+        },
+        {
+            "name": "ANTARES",
+            "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1110619"},
+        },
+        {
+            "name": "Swift",
+            "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1108323"},
+        },
+        {
+            "name": "AGILE",
+            "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1110607"},
+        },
+        {
+            "name": "DES",
+            "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1108381"},
+        },
+        {
+            "name": "FERMI-LAT",
+            "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1108250"},
+        },
+        {
+            "name": "ATCA",
+            "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1110594"},
+        },
+        {
+            "name": "OzGrav",
+            "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1599770"},
+        },
         {"name": "Institute-Accelerator-Experiment"},
-        {"name": "PAN-STARRS"},
-        {"name": "MWA"},
-        {"name": "CALET"},
-        {"name": "HESS"},
-        {"name": "LOFAR"},
-        {"name": "HAWC"},
-        {"name": "AUGER"},
-        {"name": "ALMA"},
+        {
+            "name": "PAN-STARRS",
+            "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1310781"},
+        },
+        {
+            "name": "MWA",
+            "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1400944"},
+        },
+        {
+            "name": "CALET",
+            "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1108212"},
+        },
+        {
+            "name": "HESS",
+            "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1110512"},
+        },
+        {
+            "name": "LOFAR",
+            "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1108319"},
+        },
+        {
+            "name": "HAWC",
+            "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1108207"},
+        },
+        {
+            "name": "AUGER",
+            "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1110614"},
+        },
+        {
+            "name": "ALMA",
+            "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1108272"},
+        },
         {"name": "VLBI"},
     ]
-    #  Create experiment with data:
-    create_record_factory("exp", data=experiment_data)
-    #  Create dummy experiments:
-    create_record_factory("exp", data={"control_number": 1_110_601})
-    create_record_factory("exp", data={"control_number": 1_108_514})
-    dumped_record = LiteratureDetailSchema().dump(record).data
+    headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+    with inspire_app.test_client() as client:
+        response = client.get(
+            "/literature/" + str(record["control_number"]), headers=headers
+        )
 
-    assert dumped_record["accelerator_experiments"] == expected_experiment
+    response_status_code = response.status_code
+    response_data = json.loads(response.data)
+    response_data_accelerator_experiments = response_data["metadata"][
+        "accelerator_experiments"
+    ]
+
+    assert response_status_code == 200
+    assert response_data_accelerator_experiments == expected_experiment_data
 
 
 def test_literature_detail_serializes_conference_info(inspire_app):

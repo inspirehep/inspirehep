@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
-import { Row, Col } from 'antd';
+import { Link } from 'react-router-dom';
+import { Row, Col, Menu, Button } from 'antd';
 import PropTypes from 'prop-types';
 
 import './CollectionsMenu.scss';
@@ -10,6 +11,7 @@ import {
   CONFERENCES,
   INSTITUTIONS,
   SEMINARS,
+  EXPERIMENTS,
 } from '../../routes';
 import { getRootOfLocationPathname } from '../../utils';
 import {
@@ -17,16 +19,18 @@ import {
   AUTHORS_PID_TYPE,
   JOBS_PID_TYPE,
   CONFERENCES_PID_TYPE,
-  INSTITUTIONS_PID_TYPE,
   SEMINARS_PID_TYPE,
 } from '../../constants';
 import CollectionLink from './CollectionLink';
+import DropdownMenu from '../../components/DropdownMenu';
+import NewFeatureTag from '../../components/NewFeatureTag';
 
 function CollectionsMenu({ currentPathname }) {
   const activeCollection = useMemo(
     () => getRootOfLocationPathname(currentPathname),
     [currentPathname]
   );
+  const dropdownTitle = 'More...';
 
   return (
     <Row className="__CollectionsMenu__" justify="center">
@@ -68,12 +72,30 @@ function CollectionsMenu({ currentPathname }) {
         </CollectionLink>
       </Col>
       <Col>
-        <CollectionLink
-          active={activeCollection === INSTITUTIONS_PID_TYPE}
-          to={INSTITUTIONS}
+        <DropdownMenu
+          overlayClassName="more-collections-menu"
+          className="dropdown mh4 m-mh2"
+          title={
+            <Button
+              className="button-no-background ml4"
+              onClick={e => e.preventDefault()}
+            >
+              <span className="button-title f5 white"> {dropdownTitle} </span>
+            </Button>
+          }
         >
-          Institutions
-        </CollectionLink>
+          <Menu.Item className="dropdown-menu-item" key="more.institutions">
+            <Link className="dropdown-link" to={INSTITUTIONS}>
+              Institutions
+            </Link>
+            <Menu.Item className="dropdown-menu-item" key="more.experiments">
+              <Link className="dropdown-link" to={EXPERIMENTS}>
+                Experiments
+              </Link>
+            </Menu.Item>
+          </Menu.Item>
+        </DropdownMenu>
+        <NewFeatureTag className="centered" />
       </Col>
     </Row>
   );

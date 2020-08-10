@@ -141,7 +141,16 @@ def test_jobs_accelerator_experiments(inspire_app, datadir):
     ]
     response_status_code = response.status_code
 
-    expected_accelerator_experiments = [{"name": "FNAL-E-0973"}, {"name": "LDMX"}]
+    expected_accelerator_experiments = [
+        {
+            "name": "FNAL-E-0973",
+            "record": {"$ref": "http://qa.inspirebeta.net/api/experiments/1108209"},
+        },
+        {
+            "name": "LDMX",
+            "record": {"$ref": "http://qa.inspirebeta.net/api/experiments/1621547"},
+        },
+    ]
     expected_status_code = 200
 
     assert expected_status_code == response_status_code

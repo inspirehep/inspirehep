@@ -47,12 +47,55 @@ exports[`CollectionsMenu renders when authors page 1`] = `
     </CollectionLink>
   </Col>
   <Col>
-    <CollectionLink
-      active={false}
-      to="/institutions"
+    <DropdownMenu
+      className="dropdown mh4 m-mh2"
+      disabled={false}
+      overlayClassName="more-collections-menu"
+      title={
+        <Button
+          block={false}
+          className="button-no-background ml4"
+          ghost={false}
+          htmlType="button"
+          loading={false}
+          onClick={[Function]}
+        >
+          <span
+            className="button-title f5 white"
+          >
+             
+            More...
+             
+          </span>
+        </Button>
+      }
     >
-      Institutions
-    </CollectionLink>
+      <MenuItem
+        className="dropdown-menu-item"
+        key="more.institutions"
+      >
+        <Link
+          className="dropdown-link"
+          to="/institutions"
+        >
+          Institutions
+        </Link>
+        <MenuItem
+          className="dropdown-menu-item"
+          key="more.experiments"
+        >
+          <Link
+            className="dropdown-link"
+            to="/experiments"
+          >
+            Experiments
+          </Link>
+        </MenuItem>
+      </MenuItem>
+    </DropdownMenu>
+    <NewFeatureTag
+      className="centered"
+    />
   </Col>
 </Row>
 `;
@@ -104,12 +147,155 @@ exports[`CollectionsMenu renders when conferences page 1`] = `
     </CollectionLink>
   </Col>
   <Col>
+    <DropdownMenu
+      className="dropdown mh4 m-mh2"
+      disabled={false}
+      overlayClassName="more-collections-menu"
+      title={
+        <Button
+          block={false}
+          className="button-no-background ml4"
+          ghost={false}
+          htmlType="button"
+          loading={false}
+          onClick={[Function]}
+        >
+          <span
+            className="button-title f5 white"
+          >
+             
+            More...
+             
+          </span>
+        </Button>
+      }
+    >
+      <MenuItem
+        className="dropdown-menu-item"
+        key="more.institutions"
+      >
+        <Link
+          className="dropdown-link"
+          to="/institutions"
+        >
+          Institutions
+        </Link>
+        <MenuItem
+          className="dropdown-menu-item"
+          key="more.experiments"
+        >
+          <Link
+            className="dropdown-link"
+            to="/experiments"
+          >
+            Experiments
+          </Link>
+        </MenuItem>
+      </MenuItem>
+    </DropdownMenu>
+    <NewFeatureTag
+      className="centered"
+    />
+  </Col>
+</Row>
+`;
+
+exports[`CollectionsMenu renders when experiments page 1`] = `
+<Row
+  className="__CollectionsMenu__"
+  gutter={0}
+  justify="center"
+>
+  <Col>
     <CollectionLink
       active={false}
-      to="/institutions"
+      to="/literature"
     >
-      Institutions
+      Literature
     </CollectionLink>
+  </Col>
+  <Col>
+    <CollectionLink
+      active={false}
+      to="/authors"
+    >
+      Authors
+    </CollectionLink>
+  </Col>
+  <Col>
+    <CollectionLink
+      active={false}
+      to="/jobs"
+    >
+      Jobs
+    </CollectionLink>
+  </Col>
+  <Col>
+    <CollectionLink
+      active={false}
+      to="/seminars"
+    >
+      Seminars
+    </CollectionLink>
+  </Col>
+  <Col>
+    <CollectionLink
+      active={false}
+      to="/conferences"
+    >
+      Conferences
+    </CollectionLink>
+  </Col>
+  <Col>
+    <DropdownMenu
+      className="dropdown mh4 m-mh2"
+      disabled={false}
+      overlayClassName="more-collections-menu"
+      title={
+        <Button
+          block={false}
+          className="button-no-background ml4"
+          ghost={false}
+          htmlType="button"
+          loading={false}
+          onClick={[Function]}
+        >
+          <span
+            className="button-title f5 white"
+          >
+             
+            More...
+             
+          </span>
+        </Button>
+      }
+    >
+      <MenuItem
+        className="dropdown-menu-item"
+        key="more.institutions"
+      >
+        <Link
+          className="dropdown-link"
+          to="/institutions"
+        >
+          Institutions
+        </Link>
+        <MenuItem
+          className="dropdown-menu-item"
+          key="more.experiments"
+        >
+          <Link
+            className="dropdown-link"
+            to="/experiments"
+          >
+            Experiments
+          </Link>
+        </MenuItem>
+      </MenuItem>
+    </DropdownMenu>
+    <NewFeatureTag
+      className="centered"
+    />
   </Col>
 </Row>
 `;
@@ -161,12 +347,55 @@ exports[`CollectionsMenu renders when home page 1`] = `
     </CollectionLink>
   </Col>
   <Col>
-    <CollectionLink
-      active={false}
-      to="/institutions"
+    <DropdownMenu
+      className="dropdown mh4 m-mh2"
+      disabled={false}
+      overlayClassName="more-collections-menu"
+      title={
+        <Button
+          block={false}
+          className="button-no-background ml4"
+          ghost={false}
+          htmlType="button"
+          loading={false}
+          onClick={[Function]}
+        >
+          <span
+            className="button-title f5 white"
+          >
+             
+            More...
+             
+          </span>
+        </Button>
+      }
     >
-      Institutions
-    </CollectionLink>
+      <MenuItem
+        className="dropdown-menu-item"
+        key="more.institutions"
+      >
+        <Link
+          className="dropdown-link"
+          to="/institutions"
+        >
+          Institutions
+        </Link>
+        <MenuItem
+          className="dropdown-menu-item"
+          key="more.experiments"
+        >
+          <Link
+            className="dropdown-link"
+            to="/experiments"
+          >
+            Experiments
+          </Link>
+        </MenuItem>
+      </MenuItem>
+    </DropdownMenu>
+    <NewFeatureTag
+      className="centered"
+    />
   </Col>
 </Row>
 `;
@@ -218,12 +447,55 @@ exports[`CollectionsMenu renders when jobs page 1`] = `
     </CollectionLink>
   </Col>
   <Col>
-    <CollectionLink
-      active={false}
-      to="/institutions"
+    <DropdownMenu
+      className="dropdown mh4 m-mh2"
+      disabled={false}
+      overlayClassName="more-collections-menu"
+      title={
+        <Button
+          block={false}
+          className="button-no-background ml4"
+          ghost={false}
+          htmlType="button"
+          loading={false}
+          onClick={[Function]}
+        >
+          <span
+            className="button-title f5 white"
+          >
+             
+            More...
+             
+          </span>
+        </Button>
+      }
     >
-      Institutions
-    </CollectionLink>
+      <MenuItem
+        className="dropdown-menu-item"
+        key="more.institutions"
+      >
+        <Link
+          className="dropdown-link"
+          to="/institutions"
+        >
+          Institutions
+        </Link>
+        <MenuItem
+          className="dropdown-menu-item"
+          key="more.experiments"
+        >
+          <Link
+            className="dropdown-link"
+            to="/experiments"
+          >
+            Experiments
+          </Link>
+        </MenuItem>
+      </MenuItem>
+    </DropdownMenu>
+    <NewFeatureTag
+      className="centered"
+    />
   </Col>
 </Row>
 `;
@@ -275,12 +547,55 @@ exports[`CollectionsMenu renders when literature page 1`] = `
     </CollectionLink>
   </Col>
   <Col>
-    <CollectionLink
-      active={false}
-      to="/institutions"
+    <DropdownMenu
+      className="dropdown mh4 m-mh2"
+      disabled={false}
+      overlayClassName="more-collections-menu"
+      title={
+        <Button
+          block={false}
+          className="button-no-background ml4"
+          ghost={false}
+          htmlType="button"
+          loading={false}
+          onClick={[Function]}
+        >
+          <span
+            className="button-title f5 white"
+          >
+             
+            More...
+             
+          </span>
+        </Button>
+      }
     >
-      Institutions
-    </CollectionLink>
+      <MenuItem
+        className="dropdown-menu-item"
+        key="more.institutions"
+      >
+        <Link
+          className="dropdown-link"
+          to="/institutions"
+        >
+          Institutions
+        </Link>
+        <MenuItem
+          className="dropdown-menu-item"
+          key="more.experiments"
+        >
+          <Link
+            className="dropdown-link"
+            to="/experiments"
+          >
+            Experiments
+          </Link>
+        </MenuItem>
+      </MenuItem>
+    </DropdownMenu>
+    <NewFeatureTag
+      className="centered"
+    />
   </Col>
 </Row>
 `;
@@ -332,12 +647,55 @@ exports[`CollectionsMenu renders when seminars page 1`] = `
     </CollectionLink>
   </Col>
   <Col>
-    <CollectionLink
-      active={false}
-      to="/institutions"
+    <DropdownMenu
+      className="dropdown mh4 m-mh2"
+      disabled={false}
+      overlayClassName="more-collections-menu"
+      title={
+        <Button
+          block={false}
+          className="button-no-background ml4"
+          ghost={false}
+          htmlType="button"
+          loading={false}
+          onClick={[Function]}
+        >
+          <span
+            className="button-title f5 white"
+          >
+             
+            More...
+             
+          </span>
+        </Button>
+      }
     >
-      Institutions
-    </CollectionLink>
+      <MenuItem
+        className="dropdown-menu-item"
+        key="more.institutions"
+      >
+        <Link
+          className="dropdown-link"
+          to="/institutions"
+        >
+          Institutions
+        </Link>
+        <MenuItem
+          className="dropdown-menu-item"
+          key="more.experiments"
+        >
+          <Link
+            className="dropdown-link"
+            to="/experiments"
+          >
+            Experiments
+          </Link>
+        </MenuItem>
+      </MenuItem>
+    </DropdownMenu>
+    <NewFeatureTag
+      className="centered"
+    />
   </Col>
 </Row>
 `;
@@ -389,12 +747,55 @@ exports[`CollectionsMenu renders when submissions page 1`] = `
     </CollectionLink>
   </Col>
   <Col>
-    <CollectionLink
-      active={false}
-      to="/institutions"
+    <DropdownMenu
+      className="dropdown mh4 m-mh2"
+      disabled={false}
+      overlayClassName="more-collections-menu"
+      title={
+        <Button
+          block={false}
+          className="button-no-background ml4"
+          ghost={false}
+          htmlType="button"
+          loading={false}
+          onClick={[Function]}
+        >
+          <span
+            className="button-title f5 white"
+          >
+             
+            More...
+             
+          </span>
+        </Button>
+      }
     >
-      Institutions
-    </CollectionLink>
+      <MenuItem
+        className="dropdown-menu-item"
+        key="more.institutions"
+      >
+        <Link
+          className="dropdown-link"
+          to="/institutions"
+        >
+          Institutions
+        </Link>
+        <MenuItem
+          className="dropdown-menu-item"
+          key="more.experiments"
+        >
+          <Link
+            className="dropdown-link"
+            to="/experiments"
+          >
+            Experiments
+          </Link>
+        </MenuItem>
+      </MenuItem>
+    </DropdownMenu>
+    <NewFeatureTag
+      className="centered"
+    />
   </Col>
 </Row>
 `;

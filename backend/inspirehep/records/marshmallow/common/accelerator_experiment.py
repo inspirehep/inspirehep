@@ -15,6 +15,7 @@ from inspirehep.records.api import InspireRecord
 class AcceleratorExperimentSchemaV1(Schema):
 
     name = fields.Method("get_name")
+    record = fields.Raw()
 
     @pre_dump(pass_many=True)
     def resolve_experiment_records(self, data, many):
