@@ -6,6 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import random
+import re
 
 from celery import current_app
 from helpers.utils import create_record_factory, override_config
@@ -333,3 +334,45 @@ def test_cli_create_prefixed_aliases(inspire_app, cli):
 
     current_search.flush_and_refresh("*")
     current_search.client.indices.delete_alias(f"{prefix}*", "*")
+
+
+def test_cli_delete_indexes_prefixed_aliases(inspire_app, cli):
+    prefix = "test-cli-delete-aliases-prefix-"
+    prefix_regex = re.compile(f"""{prefix}.*""")
+    with override_config(SEARCH_INDEX_PREFIX=prefix):
+        list(current_search.create(ignore_existing=True))
+        result = cli.invoke(
+            [
+                "index",
+                "delete-indexes",
+                "--yes-i-know",
+                "--prefix",
+                "test-cli-delete-aliases-prefix-",
+            ]
+        )
+        current_search.flush_and_refresh("*")
+    assert result.exit_code == 0
+
+    assert not list(
+        filter(prefix_regex.match, current_search.client.indices.get_alias().keys())
+    )
+    assert "No indices matching given prefix found." not in result.output
+
+
+def test_cli_delete_prefixed_indexes_not_delete_when_no_matching_indexes(
+    inspire_app, cli
+):
+    prefix = "test-cli-delete-aliases-prefix-"
+    with override_config(SEARCH_INDEX_PREFIX=prefix):
+        result = cli.invoke(
+            [
+                "index",
+                "delete-indexes",
+                "--yes-i-know",
+                "--prefix",
+                "test-cli-delete-aliases-prefix-",
+            ]
+        )
+        current_search.flush_and_refresh("*")
+    assert "No indices matching given prefix found." in result.output
+    assert "index and all linked aliases." not in result.output
