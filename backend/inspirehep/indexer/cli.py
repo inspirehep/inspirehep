@@ -334,3 +334,30 @@ def create_aliases(ctx, yes_i_know, prefix_alias):
             current_search.client.indices.delete_alias("*", alias_name)
         click.echo(f"Creating alias '{alias_name}' -> '{index_name}'")
         current_search.client.indices.put_alias(index=index_name, name=alias_name)
+
+
+@index.command(
+    "delete-indexes", help="Removes indexes with specified prefix",
+)
+@click.option("--yes-i-know", is_flag=True)
+@click.option("--prefix", default="", type=str)
+@with_appcontext
+@click.pass_context
+def delete_aliases(ctx, yes_i_know, prefix):
+    indices = current_search.client.indices.get_alias()
+    prefix_regex = re.compile(f"""{prefix}.*""")
+    indices_to_delete = list(filter(prefix_regex.match, indices))
+    indices_to_delete = {k: indices[k] for k in indices_to_delete}
+
+    if not indices_to_delete:
+        click.echo("No indices matching given prefix found.")
+        return 1
+    click.echo(f"""Found {len(indices_to_delete)} indices to delete""")
+    for index_to_delete in indices_to_delete:
+        if not yes_i_know and not click.confirm(
+            f"This operation will remove '{index_to_delete}' index. Are you sure you want to continue?"
+        ):
+            continue
+        current_search.client.indices.delete_alias(index=index_to_delete, name="*")
+        current_search.client.indices.delete(index_to_delete)
+        click.echo(f"Deleted '{index_to_delete}' index and all linked aliases.")
