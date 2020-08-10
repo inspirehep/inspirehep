@@ -28,7 +28,7 @@ import IsbnList from '../../components/IsbnList';
 import ConferenceInfoList from '../../components/ConferenceInfoList';
 import NumberOfPages from '../../components/NumberOfPages';
 import TabNameWithCount from '../../../common/components/TabNameWithCount';
-import AcceleratorExperimentList from '../../components/AcceleratorExperimentList';
+import ExperimentList from '../../../common/components/ExperimentList';
 import LiteratureTitle from '../../../common/components/LiteratureTitle';
 import CiteModalActionContainer from '../CiteModalActionContainer';
 import { fetchCitationsByYear } from '../../../actions/citations';
@@ -174,9 +174,7 @@ function DetailPage({
                   <ArxivEprintList eprints={eprints} />
                   <DOIList dois={dois} />
                   <ReportNumberList reportNumbers={reportNumbers} />
-                  <AcceleratorExperimentList
-                    acceleratorExperiments={acceleratorExperiments}
-                  />
+                  <ExperimentList experiments={acceleratorExperiments} />
                   <ExternalSystemIdentifierList
                     externalSystemIdentifiers={externalSystemIdentifiers}
                   />

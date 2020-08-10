@@ -252,3 +252,35 @@ def test_jobs_detail_json_link_alias_format(inspire_app):
         response = client.get(f"/jobs/{record['control_number']}?format=json")
     assert response.status_code == expected_status_code
     assert response.content_type == expected_content_type
+
+
+def test_jobs_detail_serialize_experiment_with_referenced_record(inspire_app):
+    expected_status_code = 200
+    expected_accelerator_experiments = [
+        {
+            "name": "LIGO",
+            "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1110623"},
+        }
+    ]
+    headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+    record = create_record(
+        "job",
+        data={
+            "accelerator_experiments": [
+                {
+                    "legacy_name": "LIGO",
+                    "record": {
+                        "$ref": "http://labs.inspirehep.net/api/experiments/1110623"
+                    },
+                }
+            ]
+        },
+    )
+    with inspire_app.test_client() as client:
+        response = client.get(f"/jobs/{record['control_number']}", headers=headers)
+
+    assert response.status_code == expected_status_code
+    assert (
+        response.json["metadata"]["accelerator_experiments"]
+        == expected_accelerator_experiments
+    )

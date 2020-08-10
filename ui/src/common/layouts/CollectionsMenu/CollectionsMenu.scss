@@ -5,4 +5,55 @@
   @media (max-width: $screen-sm-max) {
     display: none;
   }
+  .button-no-background {
+    top: -15%;
+    padding: 0;
+    background-color: $layout-header-background;
+    border-style: none;
+    border-width: 0;
+    vertical-align: top;
+  }
+
+  .button-no-background:hover,
+  .button-no-background:active,
+  .button-no-background:focus {
+    color: $layout-header-background;
+    background: $layout-header-background;
+  }
+
+  .button-title:hover,
+  .button-title:active {
+    text-decoration: underline;
+    border-bottom: solid 0.15em white;
+  }
+
+  .centered {
+    top: 10%;
+    position: absolute;
+  }
+}
+
+.more-collections-menu {
+  .ant-dropdown-menu {
+    background-color: $layout-header-background !important;
+    min-width: 160px;
+  }
+
+  .dropdown-menu-item {
+    padding-top: 0.3em;
+    paddig-bottom: 0.3em;
+    &:hover {
+      background-color: $layout-header-background !important;
+    }
+  }
+
+  .dropdown-link {
+    font-size: 1rem;
+    text-align: left;
+    color: white !important;
+    &:hover {
+      text-decoration: underline;
+      background-color: $layout-header-background;
+    }
+  }
 }

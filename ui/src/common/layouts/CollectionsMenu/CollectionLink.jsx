@@ -9,12 +9,7 @@ import NewFeatureTag from '../../components/NewFeatureTag';
 function CollectionLink({ to, active, children, newCollection }) {
   return (
     <span className="__CollectionLink__ mh4 m-mh2">
-      <Link
-        className={classNames('link f5 white', {
-          active,
-        })}
-        to={to}
-      >
+      <Link className={classNames('link f5 white', { active })} to={to}>
         {children}
       </Link>
       {newCollection && <NewFeatureTag />}
