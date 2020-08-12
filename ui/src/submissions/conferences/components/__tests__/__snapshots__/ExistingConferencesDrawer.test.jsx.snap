@@ -2,7 +2,7 @@
 
 exports[`ExistingConferencesDrawer renders drawer with number of conferences 1`] = `
 <withConfigConsumer(Drawer)
-  className="__ExistingConferencesDrawer__"
+  className="search-drawer"
   closable={false}
   onClose={[MockFunction]}
   placement="right"

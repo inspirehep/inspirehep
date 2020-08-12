@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col } from 'antd';
 import { connect } from 'react-redux';
@@ -24,6 +24,8 @@ import { SEARCH_PAGE_GUTTER } from '../../common/constants';
 import CitationSummaryBox from '../components/CitationSummaryBox';
 import PublicationSelectContainer from '../../authors/containers/PublicationSelectContainer';
 import PublicationsSelectAllContainer from '../../authors/containers/PublicationsSelectAllContainer';
+import AssignViewContext from '../../authors/AssignViewContext';
+import AssignAllActionContainer from '../../authors/containers/AssignAllActionContainer';
 
 function LiteratureSearch({
   loading,
@@ -38,7 +40,6 @@ function LiteratureSearch({
   isCitationSummaryVisible,
   embedded,
   enableCitationSummary,
-  assignView,
 }) {
   const renderAggregations = useCallback(
     () => (
@@ -64,6 +65,8 @@ function LiteratureSearch({
     },
     [namespace, baseQuery, baseAggregationsQuery, onBaseQueriesChange]
   );
+
+  const assignView = useContext(AssignViewContext);
 
   return (
     <Row
@@ -92,6 +95,7 @@ function LiteratureSearch({
                 <NumberOfResultsContainer namespace={namespace} />
                 <VerticalDivider />
                 <CiteAllActionContainer namespace={namespace} />
+                {assignView && <AssignAllActionContainer />}
               </Col>
               <Col xs={8} lg={0}>
                 <ResponsiveView
@@ -169,7 +173,6 @@ LiteratureSearch.propTypes = {
   isCitationSummaryVisible: PropTypes.bool.isRequired,
   embedded: PropTypes.bool,
   enableCitationSummary: PropTypes.bool,
-  assignView: PropTypes.bool,
 };
 
 LiteratureSearch.defaultProps = {

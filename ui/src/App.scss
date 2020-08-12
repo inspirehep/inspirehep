@@ -191,3 +191,20 @@ body {
 .ant-form-item-label > label::after {
   margin-right: 0 !important;
 }
+
+.search-drawer {
+  z-index: $zindex-header + 1 !important;
+
+  .ant-drawer-content-wrapper {
+    width: 25% !important;
+
+    @media (max-width: $screen-sm-max) {
+      width: 80% !important;
+      padding-top: 0px;
+    }
+
+    .ant-drawer-content {
+      background-color: $layout-body-background;
+    }
+  }
+}

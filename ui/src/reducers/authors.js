@@ -7,6 +7,7 @@ import {
   CLEAR_STATE,
   AUTHOR_PUBLICATION_SELECTION_SET,
   AUTHOR_PUBLICATION_SELECTION_CLEAR,
+  AUTHOR_SET_ASSIGN_DRAWER_VISIBILITY,
 } from '../actions/actionTypes';
 import {
   onRequest,
@@ -17,6 +18,7 @@ import {
 
 export const initialState = Map({
   publicationSelection: Set(),
+  isAssignDrawerVisible: false,
 }).merge(initialRecordState);
 
 const authorsReducer = (state = initialState, action) => {
@@ -39,6 +41,8 @@ const authorsReducer = (state = initialState, action) => {
       return state.set('publicationSelection', nextSelection);
     case AUTHOR_PUBLICATION_SELECTION_CLEAR:
       return state.set('publicationSelection', Set());
+    case AUTHOR_SET_ASSIGN_DRAWER_VISIBILITY:
+      return state.set('isAssignDrawerVisible', action.payload.visible);
     default:
       return state;
   }
