@@ -34,8 +34,7 @@ from beard.similarity import (CosineSimilarity, ElementMultiplication,
                               EstimatorTransformer, PairTransformer,
                               StringDistance)
 from beard.utils import FuncTransformer, Shaper, normalize_name
-from inspire_disambiguation.core.helpers import (compute_clustering_statistics,
-                                                 get_abstract,
+from inspire_disambiguation.core.helpers import (get_abstract,
                                                  get_author_full_name,
                                                  get_author_other_names,
                                                  get_coauthors_neighborhood,
@@ -666,10 +665,9 @@ class Clusterer(object):
         )
         self.clusterer.fit(self.X, self.y)
 
-    def score(self, test_uuids, labels):
+    def prepare_test_data(self, test_uuids, labels):
         """
-        Return the clustering statistics (b3 precision, b3 recall, b3 f1 score)
-        and wrongly clustered samples for training, test and the whole dataset.
+        Returns the arrays used for scoring training and test datasets
 
         Args:
             test_uuids - set of signatures uuids used for testing
@@ -682,10 +680,36 @@ class Clusterer(object):
         y_test = np.array(labels)
         labels_train = self.clusterer.labels_[~mask]
         labels_test = self.clusterer.labels_[mask]
+        return labels_train, y_train, labels_test, y_test
+
+    def nb_of_clusters_predicted_for_author(self, input_clusters_with_all_author_labels, test_signature_authors_ids):
+        author_ids = np.array([sample[0]['author_id'] for sample in self.X])
+        author_ids[author_ids == None] = test_signature_authors_ids
+        signatures_per_author = {cluster['author_id']: set(
+            cluster['signature_uuids']
+        ) for cluster in input_clusters_with_all_author_labels}
+        nb_of_clusters_per_author = {}
+        for author_id in signatures_per_author.keys():
+            author_mask = author_ids == author_id
+            signatures_predicted_in_one_cluster = self.clusterer.labels_[author_mask]
+            nb_of_clusters_per_author[author_id] = np.unique(signatures_predicted_in_one_cluster).size
+        return nb_of_clusters_per_author
+
+    def score(self, labels_train, y_train, labels_test, y_test):
+        """
+        Return the clustering statistics (b3 precision, b3 recall, b3 f1 score)
+        and wrongly clustered samples for training, test and the whole dataset.
+
+        Args:
+            labels_train - array of labels predicted for training set
+            y_train - array of true labels for training set
+            labels_train - array of labels predicted for test set
+            y_test - array of true labels for test set
+        """
         return (
-            compute_clustering_statistics(self.X, self.y, self.clusterer.labels_),
-            b3_precision_recall_fscore(y_train, labels_train),
-            b3_precision_recall_fscore(y_test, labels_test),
+        b3_precision_recall_fscore(self.y, self.clusterer.labels_),
+        b3_precision_recall_fscore(y_train, labels_train),
+        b3_precision_recall_fscore(y_test, labels_test) if labels_test.size != 0 else None
         )
 
 
