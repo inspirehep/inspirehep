@@ -13,6 +13,7 @@ from inspire_utils.record import get_value, get_values_for_schema
 from marshmallow import fields, missing, pre_dump
 
 from inspirehep.accounts.api import is_superuser_or_cataloger_logged_in
+from inspirehep.assign.utils import is_assign_view_enabled
 from inspirehep.files.api import current_s3_instance
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.marshmallow.common.mixins import CatalogerCanEditMixin
@@ -223,6 +224,10 @@ class LiteratureListWrappedSchema(EnvelopeSchema):
             ui_display = json.loads(get_value(data, "metadata._ui_display", ""))
             if is_superuser_or_cataloger_logged_in():
                 ui_display["can_edit"] = True
+            if is_assign_view_enabled():
+                ui_display["curated_relation"] = get_value(
+                    data, "metadata.curated_relation", False
+                )
             return ui_display
         except json.JSONDecodeError:
             return {}

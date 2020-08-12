@@ -54,6 +54,14 @@ const namespacesState = {
   },
   [AUTHOR_PUBLICATIONS_NS]: {
     ...initialNamespaceState,
+    baseQuery: {
+      ...initialBaseQuery,
+      search_type: 'hep-author-publication',
+    },
+    query: {
+      ...initialBaseQuery,
+      search_type: 'hep-author-publication',
+    },
     baseAggregationsQuery: {
       facet_name: 'hep-author-publication',
     },

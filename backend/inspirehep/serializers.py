@@ -8,13 +8,16 @@
 import json
 
 import pytz
-from flask import current_app
+from elasticsearch_dsl import Q
+from flask import current_app, request
 from invenio_records_rest.serializers.json import (
     JSONSerializer as InvenioJSONSerializer,
 )
 from invenio_search.utils import build_alias_name
 
+from inspirehep.assign.utils import is_assign_view_enabled
 from inspirehep.records.links import inspire_search_links
+from inspirehep.search.api import LiteratureSearch
 
 
 class JSONSerializer(InvenioJSONSerializer):
@@ -153,3 +156,37 @@ class JSONSerializerFacets(InvenioJSONSerializer):
                 new_aggs[agg_key] = agg_value
 
         return new_aggs
+
+
+class JSONSerializerLiteratureSearch(JSONSerializer):
+    def serialize_search(
+        self, pid_fetcher, search_result, links=None, item_links_factory=None, **kwargs
+    ):
+        hits = search_result["hits"]["hits"]
+        if is_assign_view_enabled() and hits:
+            self.populate_curated_relation(hits)
+        return super().serialize_search(
+            pid_fetcher, search_result, links, item_links_factory, **kwargs
+        )
+
+    @staticmethod
+    def populate_curated_relation(hits):
+        author_recid = request.values.get("author", "", type=str).split("_")[0]
+        hits_control_numbers = [hit["_source"]["control_number"] for hit in hits]
+        nested_query = Q("match", authors__curated_relation=True) & Q(
+            "match", **{"authors.record.$ref": author_recid}
+        )
+        papers_with_author_curated = (
+            LiteratureSearch()
+            .filter("terms", control_number=hits_control_numbers)
+            .query("nested", path="authors", query=nested_query)
+            .params(_source=["control_number"], size=9999)
+        )
+        papers_with_author_curated_recids = {
+            el["control_number"] for el in papers_with_author_curated
+        }
+
+        for hit in hits:
+            if hit["_source"]["control_number"] in papers_with_author_curated_recids:
+                hit["_source"]["curated_relation"] = True
+        return hits
