@@ -14,6 +14,7 @@ import {
   EXPERIMENT_PAPERS_NS,
   AUTHOR_SEMINARS_NS,
   LITERATURE_SEMINARS_NS,
+  ASSIGN_AUTHOR_NS,
 } from './constants';
 import {
   START_DATE_UPCOMING,
@@ -103,6 +104,9 @@ const namespacesState = {
       start_date: START_DATE_ALL,
       sort: 'dateasc',
     },
+  },
+  [ASSIGN_AUTHOR_NS]: {
+    ...initialNamespaceState,
   },
   [INSTITUTIONS_NS]: {
     ...initialNamespaceState,

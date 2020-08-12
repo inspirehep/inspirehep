@@ -8,6 +8,7 @@ import {
   CLEAR_STATE,
   AUTHOR_PUBLICATION_SELECTION_SET,
   AUTHOR_PUBLICATION_SELECTION_CLEAR,
+  AUTHOR_SET_ASSIGN_DRAWER_VISIBILITY,
 } from '../../actions/actionTypes';
 
 describe('authors reducer', () => {
@@ -101,13 +102,25 @@ describe('authors reducer', () => {
     expect(state).toEqual(expected);
   });
 
-  it('AUTHOR_PUBLICATION_SELECTION_CLEAR when deselected', () => {
+  it('AUTHOR_PUBLICATION_SELECTION_CLEAR', () => {
     const currentState = Map({ publicationSelection: Set([1, 2]) });
     const state = reducer(currentState, {
       type: AUTHOR_PUBLICATION_SELECTION_CLEAR,
     });
     const expected = fromJS({
       publicationSelection: Set(),
+    });
+    expect(state).toEqual(expected);
+  });
+
+  it('AUTHOR_SET_ASSIGN_DRAWER_VISIBILITY', () => {
+    const currentState = Map({ isAssignDrawerVisible: false });
+    const state = reducer(currentState, {
+      type: AUTHOR_SET_ASSIGN_DRAWER_VISIBILITY,
+      payload: { visible: true },
+    });
+    const expected = fromJS({
+      isAssignDrawerVisible: true,
     });
     expect(state).toEqual(expected);
   });

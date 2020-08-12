@@ -5,8 +5,10 @@ import PropTypes from 'prop-types';
 import LiteratureSearchContainer from '../../literature/containers/LiteratureSearchContainer';
 import { AUTHOR_PUBLICATIONS_NS } from '../../search/constants';
 import { isCataloger } from '../../common/authorization';
+import AssignViewContext from '../AssignViewContext';
+import AssignDrawerContainer from './AssignDrawerContainer';
 
-function AuthorPublications({ authorFacetName, assignView }) {
+export function AuthorPublications({ authorFacetName, assignView }) {
   const baseQuery = useMemo(
     () => ({
       author: [authorFacetName],
@@ -21,14 +23,16 @@ function AuthorPublications({ authorFacetName, assignView }) {
   );
 
   return (
-    <LiteratureSearchContainer
-      namespace={AUTHOR_PUBLICATIONS_NS}
-      baseQuery={baseQuery}
-      baseAggregationsQuery={baseAggregationsQuery}
-      noResultsTitle="0 Research works"
-      assignView={assignView}
-      embedded
-    />
+    <AssignViewContext.Provider value={assignView}>
+      <LiteratureSearchContainer
+        namespace={AUTHOR_PUBLICATIONS_NS}
+        baseQuery={baseQuery}
+        baseAggregationsQuery={baseAggregationsQuery}
+        noResultsTitle="0 Research works"
+        embedded
+      />
+      {assignView && <AssignDrawerContainer />}
+    </AssignViewContext.Provider>
   );
 }
 

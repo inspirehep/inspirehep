@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AssignAction renders 1`] = `
+<ListItemAction>
+  <DropdownMenu
+    disabled={false}
+    title={
+      <Button
+        block={false}
+        ghost={false}
+        htmlType="button"
+        loading={false}
+      >
+        <IconText
+          icon={<ForwardRef(FileDoneOutlined) />}
+          text="claim"
+        />
+      </Button>
+    }
+  >
+    <MenuItem
+      data-test-id="assign-self"
+      key="assign-self"
+      onClick={[Function]}
+    >
+      This is my paper
+    </MenuItem>
+    <MenuItem
+      data-test-id="unassign"
+      key="unassign"
+      onClick={[Function]}
+    >
+      This is not my paper
+    </MenuItem>
+    <MenuItem
+      data-test-id="assign-another"
+      key="assign-another"
+      onClick={[Function]}
+    >
+      Assign to another author
+    </MenuItem>
+  </DropdownMenu>
+</ListItemAction>
+`;

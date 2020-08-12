@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorAlert renders with all props 1`] = `
+<Search
+  enterButton={true}
+  onSearch={[MockFunction]}
+  placeholder="Type to search"
+/>
+`;
+
+exports[`ErrorAlert renders with default message 1`] = `
+<Search
+  enterButton={true}
+  onSearch={[MockFunction]}
+/>
+`;

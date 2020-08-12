@@ -1,6 +1,8 @@
 import MockAdapter from 'axios-mock-adapter';
+import { fromJS, Set } from 'immutable';
+import { advanceTo, clear } from 'jest-date-mock';
 
-import { getStore } from '../../fixtures/store';
+import { getStore, mockActionCreator } from '../../fixtures/store';
 import http from '../../common/http';
 import {
   AUTHOR_ERROR,
@@ -12,7 +14,17 @@ import {
 import fetchAuthor, {
   setPulicationSelection,
   clearPulicationSelection,
+  setAssignDrawerVisibility,
+  assignPapers,
 } from '../authors';
+import { searchQueryUpdate } from '../search';
+import { assignError, assignSuccess } from '../../authors/assignNotification';
+
+import { AUTHOR_PUBLICATIONS_NS } from '../../search/constants';
+
+jest.mock('../../authors/assignNotification');
+jest.mock('../search');
+mockActionCreator(searchQueryUpdate);
 
 const mockHttp = new MockAdapter(http.httpClient);
 
@@ -84,6 +96,118 @@ describe('AUTHOR - async action creators', () => {
       const store = getStore();
       store.dispatch(clearPulicationSelection());
       expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
+  describe('assignPapers', () => {
+    afterEach(() => {
+      clear();
+    });
+
+    it('successful with stub author', async () => {
+      const stubAuthorId = 5555;
+      const fromAuthorId = 123;
+      const publicationSelection = [1, 2, 3];
+      const fakeNow = 1597314028798;
+
+      advanceTo(fakeNow);
+
+      const store = getStore({
+        authors: fromJS({
+          publicationSelection: Set(publicationSelection),
+        }),
+      });
+
+      mockHttp
+        .onPost('/assign', {
+          from_author_recid: fromAuthorId,
+          literature_recids: publicationSelection,
+        })
+        .replyOnce(200, { stub_author_id: stubAuthorId });
+
+      const expectedActions = [
+        searchQueryUpdate(AUTHOR_PUBLICATIONS_NS, { assigned: fakeNow }),
+        clearPulicationSelection(),
+        setAssignDrawerVisibility(false),
+      ];
+
+      await store.dispatch(assignPapers({ from: fromAuthorId }));
+      expect(store.getActions()).toEqual(expectedActions);
+
+      expect(assignSuccess).toHaveBeenCalledWith({
+        from: fromAuthorId,
+        to: stubAuthorId,
+        papers: Set(publicationSelection),
+      });
+    });
+
+    it('successful without stub author', async () => {
+      const toAuthorId = 321;
+      const fromAuthorId = 123;
+      const publicationSelection = [1, 2, 3];
+      const fakeNow = 1597314028798;
+
+      advanceTo(fakeNow);
+
+      const store = getStore({
+        authors: fromJS({
+          publicationSelection: Set(publicationSelection),
+        }),
+      });
+
+      mockHttp
+        .onPost('/assign', {
+          from_author_recid: fromAuthorId,
+          to_author_recid: toAuthorId,
+          literature_recids: publicationSelection,
+        })
+        .replyOnce(200, {});
+
+      const expectedActions = [
+        searchQueryUpdate(AUTHOR_PUBLICATIONS_NS, { assigned: fakeNow }),
+        clearPulicationSelection(),
+        setAssignDrawerVisibility(false),
+      ];
+
+      await store.dispatch(
+        assignPapers({ from: fromAuthorId, to: toAuthorId })
+      );
+      expect(store.getActions()).toEqual(expectedActions);
+
+      expect(assignSuccess).toHaveBeenCalledWith({
+        from: fromAuthorId,
+        to: toAuthorId,
+        papers: Set(publicationSelection),
+      });
+    });
+
+    it('error', async () => {
+      const toAuthorId = 321;
+      const fromAuthorId = 123;
+      const publicationSelection = [1, 2, 3];
+
+      const store = getStore({
+        authors: fromJS({
+          publicationSelection: Set(publicationSelection),
+        }),
+      });
+
+      mockHttp
+        .onPost('/assign', {
+          from_author_recid: fromAuthorId,
+          to_author_recid: toAuthorId,
+          literature_recids: publicationSelection,
+        })
+        .replyOnce(500, {});
+
+      const expectedActions = [];
+
+      await store.dispatch(
+        assignPapers({ from: fromAuthorId, to: toAuthorId })
+      );
+      expect(store.getActions()).toEqual(expectedActions);
+
+      expect(assignError).toHaveBeenCalled();
     });
   });
 });

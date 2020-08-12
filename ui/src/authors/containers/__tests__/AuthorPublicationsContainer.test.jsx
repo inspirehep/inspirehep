@@ -2,9 +2,12 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { fromJS } from 'immutable';
 import { Provider } from 'react-redux';
+import { MemoryRouter } from 'react-router-dom';
 
 import { getStoreWithState } from '../../../fixtures/store';
-import AuthorPublicationsContainer from '../AuthorPublicationsContainer';
+import AuthorPublicationsContainer, {
+  AuthorPublications,
+} from '../AuthorPublicationsContainer';
 import LiteratureSearchContainer from '../../../literature/containers/LiteratureSearchContainer';
 import { AUTHOR_PUBLICATIONS_NS } from '../../../search/constants';
 import { initialState } from '../../../reducers/authors';
@@ -35,7 +38,6 @@ describe('AuthorPublicationsContainer', () => {
       baseAggregationsQuery: {
         author_recid: '1234_ThatDude',
       },
-      assignView: false,
     });
   });
 
@@ -50,11 +52,13 @@ describe('AuthorPublicationsContainer', () => {
     });
     const wrapper = mount(
       <Provider store={store}>
-        <AuthorPublicationsContainer />
+        <MemoryRouter initialEntries={['/authors/123']} initialIndex={0}>
+          <AuthorPublicationsContainer />
+        </MemoryRouter>
       </Provider>
     );
 
-    expect(wrapper.find(LiteratureSearchContainer)).toHaveProp({
+    expect(wrapper.find(AuthorPublications)).toHaveProp({
       assignView: true,
     });
   });
