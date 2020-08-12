@@ -4,7 +4,6 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-from copy import copy
 
 import pytest
 from helpers.utils import create_record
@@ -13,7 +12,6 @@ from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from jsonschema.exceptions import ValidationError
 
 from inspirehep.pidstore.errors import CNUMChanged
-from inspirehep.pidstore.minters.cnum import CNUMMinter
 from inspirehep.records.api import ConferencesRecord
 
 
