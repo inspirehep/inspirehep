@@ -38,3 +38,19 @@ class PIDAlreadyExistsError(PIDAlreadyExists, PIDError):
         self.description = (
             f"PIDAlreadyExists: pid_type:'{pid_type}', pid_value:'{pid_value}'."
         )
+
+
+class NoAvailableTexKeyFound(BaseInspirePidStoreError):
+    pass
+
+
+class CannotGenerateUniqueTexKey(BaseInspirePidStoreError):
+    pass
+
+
+class TexkeyCannotGenerateFirstPart(BaseInspirePidStoreError):
+    pass
+
+
+class TexkeyCannotGenerateSecondPart(BaseInspirePidStoreError):
+    pass
