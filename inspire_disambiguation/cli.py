@@ -22,7 +22,7 @@
 
 import click
 from inspire_disambiguation import conf
-from inspire_disambiguation.api import cluster as clustering_test
+from inspire_disambiguation.api import cluster_with_evaluation
 from inspire_disambiguation.api import (cluster_from_redis,
                                         train_and_save_distance_model,
                                         train_and_save_ethnicity_model)
@@ -124,7 +124,7 @@ def distance_model(
     )
     if test:
         click.secho("Starting clustering.")
-        clustering_test(ethnicity_model_path, save_model_path, n_jobs, test_signatures)
+        cluster_with_evaluation(ethnicity_model_path, save_model_path, n_jobs, test_signatures)
     click.secho(f"Done. Model saved in {save_model_path}", fg="green")
 
 

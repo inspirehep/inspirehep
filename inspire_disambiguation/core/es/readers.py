@@ -103,6 +103,29 @@ def get_literature_records_query(signature_block, only_curated):
     return query
 
 
+def get_curated_signature_blocks_query():
+    literature_query = Q("match", _collections="Literature")
+    partial_authors_query = Q("term", authors__curated_relation=True)
+    authors_query = Q("nested", path="authors", query=partial_authors_query)
+    query = (
+        LiteratureSearch()
+        .query(Q("bool", must=[literature_query, authors_query]))
+        .params(size=conf["ES_MAX_QUERY_SIZE"], _source=["authors.signature_block", "authors.curated_relation"])
+    )
+    return query
+
+
+def get_curated_signature_blocks():
+    query = get_curated_signature_blocks_query()
+    clusters = set()
+    for cluster in query.scan():
+        clusters_per_literature = cluster.to_dict().get('authors')
+        clusters_per_literature = [author_signature['signature_block'] for author_signature in clusters_per_literature
+                                   if author_signature.get("curated_relation", False) is True]
+        clusters.update(clusters_per_literature)
+    return clusters
+
+
 def get_signatures(signature_block=None, only_curated=False):
     """Get all signatures from ES.
 

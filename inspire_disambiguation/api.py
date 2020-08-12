@@ -25,10 +25,13 @@ import json
 import math
 from datetime import datetime
 
+import numpy as np
 import requests
 import structlog
+from beard.metrics import b3_f_score, b3_precision_recall_fscore
 from inspire_disambiguation import conf
 from inspire_disambiguation.core.es.readers import (get_input_clusters,
+                                                    get_curated_signature_blocks,
                                                     get_signatures)
 from inspire_disambiguation.core.helpers import (process_clustering_output,
                                                  train_validation_split)
@@ -84,7 +87,6 @@ def train_and_save_distance_model(
         train_to_validation_split_fraction (float): fraction of the data
             used for training.
     """
-    LOGGER.info("Pulling training data from ES")
     start_time = datetime.now()
     curated_signatures = get_signatures(only_curated=True)
     LOGGER.info(
@@ -136,12 +138,10 @@ def train_and_save_distance_model(
     prepare_estimators_time = datetime.now()
     distance_estimator.load_data(train_signatures_list, pairs_train, sampled_pairs_size)
     load_data_to_model_time = datetime.now()
-    LOGGER.info("Training DistanceEstimator...")
     distance_estimator.fit()
     training_model_time = datetime.now()
     distance_estimator.save_model(save_distance_model_path)
     save_model_time = datetime.now()
-    LOGGER.info("Scoring test dataset...")
     distance_estimator.load_data(test_signatures_list, pairs_test, pair_size_test)
     test_score = distance_estimator.score()
     LOGGER.info(
@@ -159,11 +159,7 @@ def train_and_save_distance_model(
 
 
 def cluster(
-    ethnicity_model_path,
-    distance_model_path,
-    n_jobs,
-    test_signatures_uuids=None,
-    signature_block=None,
+    ethnicity_model_path, distance_model_path, n_jobs, signature_block=None,
 ):
     """Train the clustering model and process the output.
 
@@ -173,20 +169,10 @@ def cluster(
         n_jobs (int): Number of processes to use.
         signature_block (str): Signature block indicating which block should be
             clustered. If set to None, clustering will run on all blocks.
-        test_signatures_uuids (set): Signature uuids which will be used
-        for model validation.
     """
     start_time = datetime.now()
     LOGGER.info("Preparing test dataset...")
-    if test_signatures_uuids:
-        signatures = get_signatures(signature_block=signature_block, only_curated=True)
-        test_labels = []
-        for signature in signatures:
-            if signature.signature_uuid in test_signatures_uuids:
-                test_labels.append(signature.author_id)
-                signature.author_id = None
-    else:
-        signatures = get_signatures(signature_block=signature_block)
+    signatures = get_signatures(signature_block=signature_block)
     input_clusters = get_input_clusters(signatures)
     LOGGER.info(
         "Input data",
@@ -196,7 +182,7 @@ def cluster(
             [sig for sig in signatures if sig.get("is_curated_author_id")]
         ),
         input_clusters_count=len(input_clusters),
-        input_clusters=input_clusters
+        input_clusters=input_clusters,
     )
     load_data_time = datetime.now()
 
@@ -221,30 +207,142 @@ def cluster(
             ),
             signature_block=phonetic_block,
             B3_f_score=cluster.supervised_scoring(clusterer.y, cluster.labels_)
-            if hasattr(cluster, "supervised_scoring") and not test_labels
+            if hasattr(cluster, "supervised_scoring")
             else None,
         )
-    if test_labels:
-        statistics_names = ("precision", "recall", "f1")
-        training_statistics = clusterer.score(test_signatures_uuids, test_labels)
-        (
-            (B3_statistics_all, wrongly_classified_pairs),
-            B3_statistics_training,
-            B3_statistics_test,
-        ) = training_statistics
-        LOGGER.info(
-            B3_precision_recall_f_score_all=dict(
-                zip(statistics_names, B3_statistics_all)
-            ),
-            B3_precision_recall_f_score_training=dict(
-                zip(statistics_names, B3_statistics_training)
-            ),
-            B3_precision_recall_f_score_test=dict(
-                zip(statistics_names, B3_statistics_test)
-            ),
-            wrongly_classified_pairs=wrongly_classified_pairs,
-        )
     return process_clustering_output(clusterer)
+
+
+def cluster_with_evaluation(
+    ethnicity_model_path, distance_model_path, n_jobs, test_signatures_uuids=None,
+):
+    """Train the clustering model and process the output.
+
+    Args:
+        ethnicity_model_path (str): Full path where ethnicity model is saved.
+        distance_model_path (str): Full path where distance model is saved.
+        n_jobs (int): Number of processes to use.
+        signature_block (str): Signature block indicating which block should be
+            clustered. If set to None, clustering will run on all blocks.
+        test_signatures_uuids (set): Signature uuids which will be used
+        for model validation.
+    """
+    start_time = datetime.now()
+    signature_blocks = get_curated_signature_blocks(only_curated=True)
+    labels_train, labels_test, y_train, y_test = (
+        np.array([]),
+        np.array([]),
+        np.array([]),
+        np.array([]),
+    )
+    statistics_names = ("precision", "recall", "f1")
+    for clustered_blocks, block in enumerate(signature_blocks, 1):
+        LOGGER.info(
+            "Clustering a new block",  current=clustered_blocks, total=(len(signature_blocks) + 1)
+        )
+        test_signatures = []
+        test_authors_ids = []
+        signatures = get_signatures(signature_block=block, only_curated=True)
+        input_clusters_with_all_labels = get_input_clusters(signatures)
+        for signature in signatures:
+            if signature.signature_uuid in test_signatures_uuids:
+                test_authors_ids.append(signature.author_id)
+                signature.author_id = None
+                test_signatures.append(signature.signature_uuid)
+        input_clusters = get_input_clusters(signatures)
+        test_labels = []
+        for cluster in input_clusters:
+            for signature in cluster["signature_uuids"]:
+                if signature in test_signatures:
+                    test_labels.append(cluster["cluster_id"])
+        LOGGER.info(
+            "Input data",
+            signature_block=block,
+            signatures_count=len(signatures),
+            input_clusters_count=len(input_clusters),
+            input_clusters=input_clusters,
+        )
+        load_data_time = datetime.now()
+
+        distance_estimator = DistanceEstimator.get(
+            ethnicity_model_path, distance_model_path
+        )
+        clusterer = Clusterer(distance_estimator)
+        clusterer.load_data(signatures, input_clusters)
+        prepare_clusterer_time = datetime.now()
+        LOGGER.info("Clustering", signature_block=block)
+        clusterer.fit(n_jobs=n_jobs)
+        fit_time = datetime.now()
+        for phonetic_block, cluster in clusterer.clusterer.clusterers_.items():
+            LOGGER.info(
+                "Clustering stats",
+                load_data_runtime=str(load_data_time - start_time),
+                prepare_clusterer_runtime=str(prepare_clusterer_time - load_data_time),
+                clustering_runtime=str(fit_time - prepare_clusterer_time),
+                total_runtime=str(fit_time - start_time),
+                threshold=getattr(
+                    cluster,
+                    "best_threshold_",
+                    clusterer.clusterer.base_estimator.threshold,
+                ),
+                signature_block=phonetic_block,
+            )
+            (
+                labels_train_per_block,
+                y_train_per_block,
+                labels_test_per_block,
+                y_test_per_block,
+            ) = clusterer.prepare_test_data(test_signatures_uuids, test_labels)
+            (
+                B3_statistics_all_per_block,
+                B3_statistics_training_per_block,
+                B3_statistics_test_per_block,
+            ) = clusterer.score(
+                labels_train_per_block,
+                y_train_per_block,
+                labels_test_per_block,
+                y_test_per_block,
+            )
+            nb_of_clusters_per_author = clusterer.nb_of_clusters_predicted_for_author(
+                input_clusters_with_all_labels, test_authors_ids
+            )
+            LOGGER.info(
+                "Clustering results for block {}".format(block),
+                train_dataset_size=y_train_per_block.size,
+                test_dataset_size=y_test_per_block.size,
+                true_number_of_clusters=np.unique(clusterer.y).size,
+                predicted_number_of_clusters=np.unique(
+                    clusterer.clusterer.labels_
+                ).size,
+                B3_precision_recall_f_score_all=dict(
+                    zip(statistics_names, B3_statistics_all_per_block)
+                ),
+                B3_precision_recall_f_score_training=dict(
+                    zip(statistics_names, B3_statistics_training_per_block)
+                ),
+                B3_precision_recall_f_score_test=dict(
+                    zip(statistics_names, B3_statistics_test_per_block)
+                )
+                if B3_statistics_test_per_block
+                else None,
+                nb_of_clusters_per_author=nb_of_clusters_per_author
+            )
+            labels_train = np.concatenate((labels_train, labels_train_per_block))
+            y_train = np.concatenate((y_train, y_train_per_block))
+            labels_test = np.concatenate((labels_test, labels_test_per_block))
+            y_test = np.concatenate((y_test, y_test_per_block))
+
+    B3_statistics_training = b3_precision_recall_fscore(y_train, labels_train)
+    B3_statistics_test = b3_precision_recall_fscore(y_test, labels_test)
+    B3_statistics_all = b3_precision_recall_fscore(
+        np.append(y_train, y_test), np.append(labels_train, labels_test)
+    )
+    LOGGER.info(
+        "Clustering results for all the blocks",
+        B3_precision_recall_f_score_all=B3_statistics_all,
+        B3_statistics_training=B3_statistics_training,
+        B3_statistics_test=B3_statistics_test,
+    )
 
 
 def cluster_from_redis(
