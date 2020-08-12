@@ -22,6 +22,7 @@ from inspirehep.serializers import (
     ConditionalMultiSchemaJSONSerializer,
     JSONSerializer,
     JSONSerializerFacets,
+    JSONSerializerLiteratureSearch,
 )
 
 # Facets
@@ -45,7 +46,9 @@ literature_json_response_search = search_responsify(literature_json, "applicatio
 literature_detail = JSONSerializer(
     wrap_schema_class_with_metadata(LiteratureDetailSchema)
 )
-literature_list = JSONSerializer(LiteratureListWrappedSchema, index_name="records-hep")
+literature_list = JSONSerializerLiteratureSearch(
+    LiteratureListWrappedSchema, index_name="records-hep"
+)
 
 literature_json_detail_response = record_responsify(
     literature_detail, "application/vnd+inspire.record.ui+json"

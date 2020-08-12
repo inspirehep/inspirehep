@@ -981,3 +981,200 @@ def test_citation_pdf_urls(inspire_app):
         response = client.get(f"/literature/{rec['control_number']}", headers=headers)
     assert response.status_code == 200
     assert response.json["metadata"]["citation_pdf_urls"] == [expected_url]
+
+
+def test_literature_list_with_cataloger_and_author_curated_relation(inspire_app):
+    headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+    author = create_record("aut", data={"name": {"value": "Doe, John"}})
+    record_with_curated_relation = create_record(
+        "lit",
+        data={
+            "authors": [
+                {
+                    "curated_relation": True,
+                    "full_name": "Doe, John",
+                    "record": {
+                        "$ref": f"http://localhost:5000/api/authors/{author['control_number']}"
+                    },
+                },
+                {
+                    "full_name": "Urhan, Ahmet",
+                    "record": {"$ref": f"http://localhost:5000/api/authors/17200"},
+                },
+            ]
+        },
+    )
+
+    record_without_curated_relation = create_record(
+        "lit",
+        data={
+            "authors": [
+                {
+                    "full_name": "Doe, John",
+                    "record": {
+                        "$ref": f"http://localhost:5000/api/authors/{author['control_number']}"
+                    },
+                },
+                {
+                    "curated_relation": True,
+                    "full_name": "Urhan, Ahmet",
+                    "record": {"$ref": f"http://localhost:5000/api/authors/17200"},
+                },
+            ]
+        },
+    )
+
+    record_without_author = create_record(
+        "lit",
+        data={
+            "authors": [
+                {
+                    "curated_relation": True,
+                    "full_name": "Urhan, Ahmet",
+                    "record": {"$ref": f"http://localhost:5000/api/authors/17200"},
+                }
+            ]
+        },
+    )
+
+    expected_status_code = 200
+
+    user = create_user(role=Roles.cataloger.value)
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(
+            f"/literature?author={author['control_number']}_John%20Doe&search_type=hep-author-publication",
+            headers=headers,
+        )
+    response_status_code = response.status_code
+    response_data = json.loads(response.data)
+
+    hits = response.json["hits"]["hits"]
+    curated_hit = next(
+        hit["metadata"]
+        for hit in hits
+        if hit["metadata"]["control_number"]
+        == record_with_curated_relation["control_number"]
+    )
+    non_curated_hit = next(
+        hit["metadata"]
+        for hit in hits
+        if hit["metadata"]["control_number"]
+        == record_without_curated_relation["control_number"]
+    )
+
+    assert expected_status_code == response_status_code
+    assert response_data["hits"]["total"] == 2
+    assert curated_hit["curated_relation"] is True
+    assert non_curated_hit["curated_relation"] is False
+
+
+def test_literature_list_with_normal_user_doesnt_have_curated_relation(inspire_app):
+    headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+    author = create_record("aut", data={"name": {"value": "Doe, John"}})
+    record_with_curated_relation = create_record(
+        "lit",
+        data={
+            "authors": [
+                {
+                    "curated_relation": True,
+                    "full_name": "Doe, John",
+                    "record": {
+                        "$ref": f"http://localhost:5000/api/authors/{author['control_number']}"
+                    },
+                },
+                {
+                    "full_name": "Urhan, Ahmet",
+                    "record": {"$ref": f"http://localhost:5000/api/authors/17200"},
+                },
+            ]
+        },
+    )
+
+    record_without_curated_relation = create_record(
+        "lit",
+        data={
+            "authors": [
+                {
+                    "full_name": "Doe, John",
+                    "record": {
+                        "$ref": f"http://localhost:5000/api/authors/{author['control_number']}"
+                    },
+                },
+                {
+                    "curated_relation": True,
+                    "full_name": "Urhan, Ahmet",
+                    "record": {"$ref": f"http://localhost:5000/api/authors/17200"},
+                },
+            ]
+        },
+    )
+
+    expected_status_code = 200
+
+    with inspire_app.test_client() as client:
+        response = client.get(
+            f"/literature?author={author['control_number']}_John%20Doe&search_type=hep-author-publication",
+            headers=headers,
+        )
+    response_status_code = response.status_code
+    response_data = json.loads(response.data)
+
+    hits = response.json["hits"]["hits"]
+    curated_hit = next(
+        hit["metadata"]
+        for hit in hits
+        if hit["metadata"]["control_number"]
+        == record_with_curated_relation["control_number"]
+    )
+    non_curated_hit = next(
+        hit["metadata"]
+        for hit in hits
+        if hit["metadata"]["control_number"]
+        == record_without_curated_relation["control_number"]
+    )
+
+    assert expected_status_code == response_status_code
+    assert response_data["hits"]["total"] == 2
+    assert "curated_relation" not in curated_hit
+    assert "curated_relation" not in non_curated_hit
+
+
+def test_literature_list_for_non_author_publication_search_doesnt_have_curated_relation(
+    inspire_app
+):
+    headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+    author = create_record("aut", data={"name": {"value": "Doe, John"}})
+    create_record(
+        "lit",
+        data={
+            "authors": [
+                {
+                    "curated_relation": True,
+                    "full_name": "Doe, John",
+                    "record": {
+                        "$ref": f"http://localhost:5000/api/authors/{author['control_number']}"
+                    },
+                },
+                {
+                    "full_name": "Urhan, Ahmet",
+                    "record": {"$ref": f"http://localhost:5000/api/authors/17200"},
+                },
+            ]
+        },
+    )
+
+    expected_status_code = 200
+
+    with inspire_app.test_client() as client:
+        response = client.get(
+            f"/literature?author={author['control_number']}_John%20Doe", headers=headers
+        )
+    response_status_code = response.status_code
+    response_data = json.loads(response.data)
+
+    hits = response.json["hits"]["hits"]
+
+    assert expected_status_code == response_status_code
+    assert response_data["hits"]["total"] == 1
+    assert "curated_relation" not in hits[0]
