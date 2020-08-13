@@ -21,7 +21,6 @@ from invenio_accounts.testutils import login_user_via_session
 from inspirehep.accounts.roles import Roles
 from inspirehep.files import current_s3_instance
 from inspirehep.records.errors import MaxResultWindowRESTError
-from inspirehep.records.marshmallow.literature import LiteratureDetailSchema
 
 
 @mock.patch("inspirehep.records.api.literature.uuid.uuid4")
@@ -673,93 +672,36 @@ def test_literature_detail_serialize_experiment_with_referenced_record(
     record = create_record("lit", data=data)
     experiment_data = {
         "accelerator": {"value": "Accelerator"},
-        "control_number": 1_118_472,
+        "control_number": 1_110_623,
         "institutions": [{"value": "Institute"}],
         "experiment": {"value": "Experiment"},
     }
     create_record_factory("exp", data=experiment_data)
     expected_experiment_data = [
         {
-            "name": "LIGO",
+            "name": "Institute-Accelerator-Experiment",
             "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1110623"},
         },
-        {
-            "name": "VIRGO",
-            "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1110601"},
-        },
-        {
-            "name": "FERMI-GBM",
-            "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1602540"},
-        },
-        {
-            "name": "INTEGRAL",
-            "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1110529"},
-        },
-        {
-            "name": "ICECUBE",
-            "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1108514"},
-        },
-        {
-            "name": "ANTARES",
-            "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1110619"},
-        },
-        {
-            "name": "Swift",
-            "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1108323"},
-        },
-        {
-            "name": "AGILE",
-            "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1110607"},
-        },
-        {
-            "name": "DES",
-            "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1108381"},
-        },
-        {
-            "name": "FERMI-LAT",
-            "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1108250"},
-        },
-        {
-            "name": "ATCA",
-            "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1110594"},
-        },
-        {
-            "name": "OzGrav",
-            "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1599770"},
-        },
-        {"name": "Institute-Accelerator-Experiment"},
-        {
-            "name": "PAN-STARRS",
-            "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1310781"},
-        },
-        {
-            "name": "MWA",
-            "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1400944"},
-        },
-        {
-            "name": "CALET",
-            "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1108212"},
-        },
-        {
-            "name": "HESS",
-            "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1110512"},
-        },
-        {
-            "name": "LOFAR",
-            "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1108319"},
-        },
-        {
-            "name": "HAWC",
-            "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1108207"},
-        },
-        {
-            "name": "AUGER",
-            "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1110614"},
-        },
-        {
-            "name": "ALMA",
-            "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1108272"},
-        },
+        {"name": "VIRGO"},
+        {"name": "FERMI-GBM"},
+        {"name": "INTEGRAL"},
+        {"name": "ICECUBE"},
+        {"name": "ANTARES"},
+        {"name": "Swift"},
+        {"name": "AGILE"},
+        {"name": "DES"},
+        {"name": "FERMI-LAT"},
+        {"name": "ATCA"},
+        {"name": "OzGrav"},
+        {"name": "NuSTAR"},
+        {"name": "PAN-STARRS"},
+        {"name": "MWA"},
+        {"name": "CALET"},
+        {"name": "HESS"},
+        {"name": "LOFAR"},
+        {"name": "HAWC"},
+        {"name": "AUGER"},
+        {"name": "ALMA"},
         {"name": "VLBI"},
     ]
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}

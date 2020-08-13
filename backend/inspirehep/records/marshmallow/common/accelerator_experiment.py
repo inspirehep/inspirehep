@@ -15,7 +15,7 @@ from inspirehep.records.api import InspireRecord
 class AcceleratorExperimentSchemaV1(Schema):
 
     name = fields.Method("get_name")
-    record = fields.Raw()
+    record = fields.Raw(attribute="self", dump_only=True)
 
     @pre_dump(pass_many=True)
     def resolve_experiment_records(self, data, many):
@@ -37,10 +37,14 @@ class AcceleratorExperimentSchemaV1(Schema):
         return {record["control_number"]: record for record in resolved_records}
 
     def get_resolved_record_or_experiment(self, experiment_records_map, experiment):
-        experiment_record_id = get_recid_from_ref(experiment.get("record"))
+        record_ref = experiment.get("record")
+        experiment_record_id = get_recid_from_ref(record_ref)
         experiment_record = experiment_records_map.get(experiment_record_id)
-        if experiment_record and "legacy_name" not in experiment_record:
-            experiment_record["legacy_name"] = experiment.get("legacy_name")
+        if experiment_record:
+            if "legacy_name" not in experiment_record:
+                experiment_record["legacy_name"] = experiment.get("legacy_name")
+            if "self" not in experiment_record:
+                experiment_record["self"] = record_ref
 
         return experiment_record or experiment
 
