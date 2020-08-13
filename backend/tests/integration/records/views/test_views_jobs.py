@@ -134,6 +134,10 @@ def test_jobs_sort_options(inspire_app, datadir):
 def test_jobs_accelerator_experiments(inspire_app, datadir):
     data = json.loads((datadir / "1735925.json").read_text())
     create_record("job", data=data)
+    exp1 = create_record(
+        "exp", data={"control_number": 1_108_209, "legacy_name": "FNAL-E-0973"}
+    )
+
     with inspire_app.test_client() as client:
         response = client.get("/jobs/1735925")
     response_accelerator_experiments = response.json["metadata"][
@@ -146,10 +150,7 @@ def test_jobs_accelerator_experiments(inspire_app, datadir):
             "name": "FNAL-E-0973",
             "record": {"$ref": "http://qa.inspirebeta.net/api/experiments/1108209"},
         },
-        {
-            "name": "LDMX",
-            "record": {"$ref": "http://qa.inspirebeta.net/api/experiments/1621547"},
-        },
+        {"name": "LDMX"},
     ]
     expected_status_code = 200
 

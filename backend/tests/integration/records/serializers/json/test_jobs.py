@@ -203,10 +203,7 @@ def test_jobs_search_json_can_edit(mock_current_user, inspire_app):
     )
     create_record(
         "job",
-        data={
-            "status": "open",
-            "acquisition_source": {"orcid": "0100-0002-9127-1687"},
-        },
+        data={"status": "open", "acquisition_source": {"orcid": "0100-0002-9127-1687"}},
     )
     user_orcid = "0000-0002-9127-1687"
     current_oauthclient.signup_handlers["orcid"] = {"view": True}
@@ -275,6 +272,10 @@ def test_jobs_detail_serialize_experiment_with_referenced_record(inspire_app):
                 }
             ]
         },
+    )
+
+    experiment = create_record(
+        "exp", data={"control_number": 1_110_623, "institutions": [{"value": "LIGO"}]}
     )
     with inspire_app.test_client() as client:
         response = client.get(f"/jobs/{record['control_number']}", headers=headers)
