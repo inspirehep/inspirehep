@@ -14,7 +14,8 @@ from mock import patch
 from inspirehep.matcher.api import (
     get_reference_from_grobid,
     match_reference,
-    match_reference_control_number,
+    match_reference_control_numbers,
+    match_references,
 )
 
 
@@ -88,8 +89,8 @@ def test_match_reference_for_jcap_and_jhep_config(inspire_app):
     assert reference["record"]["$ref"] == "http://localhost:5000/api/literature/1"
     assert validate([reference], subschema) is None
 
-    expected_control_number = 1
-    result_coontrol_number = match_reference_control_number(reference)
+    expected_control_number = [1]
+    result_coontrol_number = match_reference_control_numbers(reference)
 
     assert expected_control_number == result_coontrol_number
 
@@ -117,8 +118,8 @@ def test_match_reference_for_data_config(inspire_app):
 
     assert reference["record"]["$ref"] == "http://localhost:5000/api/data/1"
 
-    expected_control_number = 1
-    result_coontrol_number = match_reference_control_number(reference)
+    expected_control_number = [1]
+    result_coontrol_number = match_reference_control_numbers(reference)
 
     assert expected_control_number == result_coontrol_number
 
@@ -145,8 +146,8 @@ def test_match_reference_on_texkey(inspire_app):
     assert reference["record"]["$ref"] == "http://localhost:5000/api/literature/1"
     assert validate([reference], subschema) is None
 
-    expected_control_number = 1
-    result_coontrol_number = match_reference_control_number(reference)
+    expected_control_number = [1]
+    result_coontrol_number = match_reference_control_numbers(reference)
 
     assert expected_control_number == result_coontrol_number
 
@@ -204,10 +205,11 @@ def test_match_reference_on_texkey_has_lower_priority_than_pub_info(inspire_app)
     assert reference["record"]["$ref"] == "http://localhost:5000/api/literature/2"
     assert validate([reference], subschema) is None
 
-    expected_control_number = 2
-    result_coontrol_number = match_reference_control_number(reference)
+    expected_control_number = [2, 1]
+    result_coontrol_number = match_reference_control_numbers(reference)
 
-    assert expected_control_number == result_coontrol_number
+    assert set(expected_control_number) == set(result_coontrol_number)
+    assert len(expected_control_number) == len(result_coontrol_number)
 
 
 def test_match_reference_ignores_hidden_collections(inspire_app):
@@ -279,8 +281,8 @@ def test_match_reference_doesnt_touch_curated(inspire_app):
 
     assert reference["record"]["$ref"] == "http://localhost:5000/api/literature/42"
 
-    expected_control_number = 42
-    result_coontrol_number = match_reference_control_number(reference)
+    expected_control_number = [42]
+    result_coontrol_number = match_reference_control_numbers(reference)
 
     assert expected_control_number == result_coontrol_number
 
@@ -317,8 +319,8 @@ def test_match_pubnote_info_when_journal_is_missing_a_letter(inspire_app):
     reference = match_reference(reference)
     assert reference["record"]["$ref"] == "http://localhost:5000/api/literature/1"
 
-    expected_control_number = 1
-    result_control_number = match_reference_control_number(reference)
+    expected_control_number = [1]
+    result_control_number = match_reference_control_numbers(reference)
 
     assert expected_control_number == result_control_number
 
@@ -354,3 +356,130 @@ def test_match_pubnote_info_doesnt_match_when_only_journal_title_match(inspire_a
     }
     reference = match_reference(reference)
     assert not reference.get("record")
+
+
+def test_match_references_returns_five_references(inspire_app):
+    cited_record_with_pub_info_json_1 = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "control_number": 1,
+        "document_type": ["article"],
+        "publication_info": [
+            {
+                "artid": "100",
+                "journal_title": "Phys. Rev. D.",
+                "journal_volume": "100",
+                "page_start": "100",
+                "year": 2020,
+            }
+        ],
+        "titles": [{"title": "A cool title"}],
+    }
+
+    create_record("lit", cited_record_with_pub_info_json_1)
+
+    cited_record_with_pub_info_json_2 = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "control_number": 2,
+        "document_type": ["article"],
+        "publication_info": [
+            {
+                "artid": "100",
+                "journal_title": "Phys. Rev. A.",
+                "journal_volume": "100",
+                "page_start": "100",
+                "year": 2020,
+            }
+        ],
+        "titles": [{"title": "A cool title"}],
+    }
+
+    create_record("lit", cited_record_with_pub_info_json_2)
+
+    cited_record_with_pub_info_json_3 = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "control_number": 3,
+        "document_type": ["article"],
+        "publication_info": [
+            {
+                "artid": "100",
+                "journal_title": "Phys. Rev. B.",
+                "journal_volume": "100",
+                "page_start": "100",
+                "year": 2020,
+            }
+        ],
+        "titles": [{"title": "A cool title"}],
+    }
+
+    create_record("lit", cited_record_with_pub_info_json_3)
+
+    cited_record_with_pub_info_json_4 = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "control_number": 4,
+        "document_type": ["article"],
+        "publication_info": [
+            {
+                "artid": "100",
+                "journal_title": "Phys. Rev. C.",
+                "journal_volume": "100",
+                "page_start": "100",
+                "year": 2020,
+            }
+        ],
+        "titles": [{"title": "A cool title"}],
+    }
+
+    create_record("lit", cited_record_with_pub_info_json_4)
+
+    cited_record_with_pub_info_json_5 = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "control_number": 5,
+        "document_type": ["article"],
+        "publication_info": [
+            {
+                "artid": "100",
+                "journal_title": "Phys. Rev. E.",
+                "journal_volume": "100",
+                "page_start": "100",
+                "year": 2020,
+            }
+        ],
+        "titles": [{"title": "A cool title"}],
+    }
+
+    cited_record_with_pub_info_json_6 = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "control_number": 6,
+        "document_type": ["article"],
+        "publication_info": [
+            {
+                "artid": "100",
+                "journal_title": "Phys. Rev. E.",
+                "journal_volume": "100",
+                "page_start": "100",
+                "year": 2020,
+            }
+        ],
+        "titles": [{"title": "A cool title"}],
+    }
+
+    create_record("lit", cited_record_with_pub_info_json_5)
+    create_record("lit", cited_record_with_pub_info_json_6)
+
+    reference = {
+        "reference": {
+            "publication_info": {
+                "journal_title": "Phys. Rev.",
+                "journal_volume": "100",
+                "page_start": "100",
+            },
+        }
+    }
+    reference = match_references(reference)
+    assert len(reference) == 5
