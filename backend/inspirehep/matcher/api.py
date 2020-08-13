@@ -58,7 +58,7 @@ def match_reference_with_config(reference, config, previous_matched_recid=None):
     same_as_previous = any(
         matched_recid == previous_matched_recid for matched_recid in matched_recids
     )
-    if 0 < len(matched_recids) <= 5:
+    if len(matched_recids) == 1:
         _add_match_to_reference(reference, matched_recids[0], config["index"])
     elif same_as_previous:
         _add_match_to_reference(reference, previous_matched_recid, config["index"])
@@ -74,19 +74,14 @@ def match_reference_with_config(reference, config, previous_matched_recid=None):
     return reference
 
 
-def match_reference(reference, previous_matched_recid=None):
-    """Match a reference using inspire-matcher.
+def match_reference_config(reference):
+    """Returns the configs which will be used for matching reference.
 
     Args:
         reference (dict): the metadata of a reference.
-        previous_matched_recid (int): the record id of the last matched
-            reference from the list of references.
     Returns:
-        dict: the matched reference.
+        list: configs for given reference.
     """
-    if reference.get("curated_relation"):
-        return reference
-
     config_unique_identifiers = current_app.config[
         "REFERENCE_MATCHER_UNIQUE_IDENTIFIERS_CONFIG"
     ]
@@ -118,6 +113,24 @@ def match_reference(reference, previous_matched_recid=None):
         config_data,
     ]
 
+    return configs
+
+
+def match_reference(reference, previous_matched_recid=None):
+    """Match a reference using inspire-matcher.
+
+    Args:
+        reference (dict): the metadata of a reference.
+        previous_matched_recid (int): the record id of the last matched
+            reference from the list of references.
+    Returns:
+        dict: the matched reference.
+    """
+    if reference.get("curated_relation"):
+        return reference
+
+    configs = match_reference_config(reference)
+
     matches = (
         match_reference_with_config(reference, config, previous_matched_recid)
         for config in configs
@@ -129,16 +142,40 @@ def match_reference(reference, previous_matched_recid=None):
     return reference
 
 
-def match_reference_control_number(reference):
+def match_references(reference):
+    """Match a reference using inspire-matcher.
+
+    Args:
+        reference (dict): the metadata of a reference.
+    Returns:
+        list: list of matched recids or None.
+    """
+    if reference.get("curated_relation"):
+        try:
+            return [get_recid_from_ref(reference["record"])]
+        except KeyError:
+            return None
+
+    configs = match_reference_config(reference)
+
+    matches = set()
+    for config in configs:
+        matched_recids = [
+            matched_record["_source"]["control_number"]
+            for matched_record in match(reference, config)
+        ]
+        matches.update(matched_recids)
+    matches = list(matches)[0:5]
+
+    return matches
+
+
+def match_reference_control_numbers(reference):
     """Match reference and return the `control_number`.
 
     Args:
         reference (dict): the metadata of a reference.
     Returns:
-        int: the `control_number` or `None`.
+        list: list of `control_numbers` or None.
     """
-    reference = match_reference(reference)
-    try:
-        return get_recid_from_ref(reference["record"])
-    except KeyError:
-        return None
+    return match_references(reference)
