@@ -203,10 +203,7 @@ def test_jobs_search_json_can_edit(mock_current_user, inspire_app):
     )
     create_record(
         "job",
-        data={
-            "status": "open",
-            "acquisition_source": {"orcid": "0100-0002-9127-1687"},
-        },
+        data={"status": "open", "acquisition_source": {"orcid": "0100-0002-9127-1687"}},
     )
     user_orcid = "0000-0002-9127-1687"
     current_oauthclient.signup_handlers["orcid"] = {"view": True}
@@ -262,6 +259,8 @@ def test_jobs_detail_serialize_experiment_with_referenced_record(inspire_app):
             "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1110623"},
         }
     ]
+    experiment_record = create_record("exp", data={"control_number": 1_110_623})
+
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
     record = create_record(
         "job",
