@@ -40,20 +40,28 @@
   }
 
   .dropdown-menu-item {
-    padding-top: 0.3em;
-    paddig-bottom: 0.3em;
+    line-height: 2.5rem;
+    margin-top: 0.25rem;
+    padding: 0 1rem;
     &:hover {
       background-color: $layout-header-background !important;
     }
   }
 
+  .ant-dropdown-menu-item > a {
+    display: unset;
+    padding: 0;
+  }
+
   .dropdown-link {
     font-size: 1rem;
+    margin: 0;
     text-align: left;
-    color: white !important;
+    color: white;
     &:hover {
-      text-decoration: underline;
       background-color: $layout-header-background;
+      border-bottom: solid 0.15em white;
+      color: white;
     }
   }
 }
