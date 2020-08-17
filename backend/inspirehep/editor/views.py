@@ -6,6 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from flask import Blueprint, jsonify, request
+from flask_login import current_user
 from invenio_db import db
 from invenio_records.models import RecordMetadata
 from sqlalchemy_continuum import transaction_class, version_class
@@ -14,6 +15,7 @@ from inspirehep.accounts.decorators import login_required_with_roles
 from inspirehep.accounts.roles import Roles
 from inspirehep.pidstore.api.base import PidStoreBase
 from inspirehep.records.api import InspireRecord
+from inspirehep.rt import tickets
 
 from .errors import EditorGetRevisionError, EditorRevertToRevisionError
 
@@ -86,3 +88,76 @@ def get_revision(transaction_id, rec_uuid):
         return jsonify(revision.json)
     except Exception:
         raise EditorGetRevisionError
+
+
+@blueprint.route("/<endpoint>/<int:pid_value>/rt/tickets/create", methods=["POST"])
+@login_required_with_roles([Roles.cataloger.value])
+def create_rt_ticket(endpoint, pid_value):
+    """View to create an rt ticket"""
+    json = request.json
+    ticket_id = tickets.create_ticket(
+        json["queue"],
+        current_user.email,
+        json.get("description"),
+        json.get("subject"),
+        pid_value,
+        Owner=json.get("owner"),
+    )
+    if ticket_id != -1:
+        return jsonify(
+            success=True,
+            data={
+                "id": str(ticket_id),
+                "link": tickets.get_rt_link_for_ticket(ticket_id),
+            },
+        )
+    else:
+        return jsonify(success=False), 500
+
+
+@blueprint.route(
+    "/<endpoint>/<pid_value>/rt/tickets/<ticket_id>/resolve", methods=["GET"]
+)
+@login_required_with_roles([Roles.cataloger.value])
+def resolve_rt_ticket(endpoint, pid_value, ticket_id):
+    """View to resolve an rt ticket"""
+    tickets.resolve_ticket(ticket_id)
+    return jsonify(success=True)
+
+
+@blueprint.route("/<endpoint>/<pid_value>/rt/tickets", methods=["GET"])
+@login_required_with_roles([Roles.cataloger.value])
+def get_tickets_for_record(endpoint, pid_value):
+    """View to get rt ticket belongs to given record"""
+    tickets_for_record = tickets.get_tickets_by_recid(pid_value)
+    simplified_tickets = [
+        _simplify_ticket_response(ticket) for ticket in tickets_for_record
+    ]
+    return jsonify(simplified_tickets)
+
+
+@blueprint.route("/rt/users", methods=["GET"])
+@login_required_with_roles([Roles.cataloger.value])
+def get_rt_users():
+    """View to get all rt users"""
+
+    return jsonify(tickets.get_users())
+
+
+@blueprint.route("/rt/queues", methods=["GET"])
+@login_required_with_roles([Roles.cataloger.value])
+def get_rt_queues():
+    """View to get all rt queues"""
+    return jsonify(tickets.get_queues())
+
+
+def _simplify_ticket_response(ticket):
+    return dict(
+        id=ticket["Id"],
+        queue=ticket["Queue"],
+        subject=ticket["Subject"],
+        description=ticket["Text"],
+        owner=ticket["Owner"],
+        date=ticket["Created"],
+        link=ticket["Link"],
+    )

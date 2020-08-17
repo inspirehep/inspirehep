@@ -1151,7 +1151,7 @@ def test_literature_list_with_normal_user_doesnt_have_curated_relation(inspire_a
 
 
 def test_literature_list_for_non_author_publication_search_doesnt_have_curated_relation(
-    inspire_app
+    inspire_app,
 ):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
     author = create_record("aut", data={"name": {"value": "Doe, John"}})

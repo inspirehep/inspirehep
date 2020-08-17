@@ -212,7 +212,7 @@ def _get_all_of(query_type):
     del lines[:2]
     del lines[-3:]
     # create dict for each result item
-    return map(_query_result_item_id_name_mapper, lines)
+    return [_query_result_item_id_name_mapper(line) for line in lines]
 
 
 def _query_result_item_id_name_mapper(raw_item):
