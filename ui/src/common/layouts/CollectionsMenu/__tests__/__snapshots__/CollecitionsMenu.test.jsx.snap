@@ -80,17 +80,17 @@ exports[`CollectionsMenu renders when authors page 1`] = `
         >
           Institutions
         </Link>
-        <MenuItem
-          className="dropdown-menu-item"
-          key="more.experiments"
+      </MenuItem>
+      <MenuItem
+        className="dropdown-menu-item"
+        key="more.experiments"
+      >
+        <Link
+          className="dropdown-link"
+          to="/experiments"
         >
-          <Link
-            className="dropdown-link"
-            to="/experiments"
-          >
-            Experiments
-          </Link>
-        </MenuItem>
+          Experiments
+        </Link>
       </MenuItem>
     </DropdownMenu>
     <NewFeatureTag
@@ -180,17 +180,17 @@ exports[`CollectionsMenu renders when conferences page 1`] = `
         >
           Institutions
         </Link>
-        <MenuItem
-          className="dropdown-menu-item"
-          key="more.experiments"
+      </MenuItem>
+      <MenuItem
+        className="dropdown-menu-item"
+        key="more.experiments"
+      >
+        <Link
+          className="dropdown-link"
+          to="/experiments"
         >
-          <Link
-            className="dropdown-link"
-            to="/experiments"
-          >
-            Experiments
-          </Link>
-        </MenuItem>
+          Experiments
+        </Link>
       </MenuItem>
     </DropdownMenu>
     <NewFeatureTag
@@ -280,17 +280,17 @@ exports[`CollectionsMenu renders when experiments page 1`] = `
         >
           Institutions
         </Link>
-        <MenuItem
-          className="dropdown-menu-item"
-          key="more.experiments"
+      </MenuItem>
+      <MenuItem
+        className="dropdown-menu-item"
+        key="more.experiments"
+      >
+        <Link
+          className="dropdown-link"
+          to="/experiments"
         >
-          <Link
-            className="dropdown-link"
-            to="/experiments"
-          >
-            Experiments
-          </Link>
-        </MenuItem>
+          Experiments
+        </Link>
       </MenuItem>
     </DropdownMenu>
     <NewFeatureTag
@@ -380,17 +380,17 @@ exports[`CollectionsMenu renders when home page 1`] = `
         >
           Institutions
         </Link>
-        <MenuItem
-          className="dropdown-menu-item"
-          key="more.experiments"
+      </MenuItem>
+      <MenuItem
+        className="dropdown-menu-item"
+        key="more.experiments"
+      >
+        <Link
+          className="dropdown-link"
+          to="/experiments"
         >
-          <Link
-            className="dropdown-link"
-            to="/experiments"
-          >
-            Experiments
-          </Link>
-        </MenuItem>
+          Experiments
+        </Link>
       </MenuItem>
     </DropdownMenu>
     <NewFeatureTag
@@ -480,17 +480,17 @@ exports[`CollectionsMenu renders when jobs page 1`] = `
         >
           Institutions
         </Link>
-        <MenuItem
-          className="dropdown-menu-item"
-          key="more.experiments"
+      </MenuItem>
+      <MenuItem
+        className="dropdown-menu-item"
+        key="more.experiments"
+      >
+        <Link
+          className="dropdown-link"
+          to="/experiments"
         >
-          <Link
-            className="dropdown-link"
-            to="/experiments"
-          >
-            Experiments
-          </Link>
-        </MenuItem>
+          Experiments
+        </Link>
       </MenuItem>
     </DropdownMenu>
     <NewFeatureTag
@@ -580,17 +580,17 @@ exports[`CollectionsMenu renders when literature page 1`] = `
         >
           Institutions
         </Link>
-        <MenuItem
-          className="dropdown-menu-item"
-          key="more.experiments"
+      </MenuItem>
+      <MenuItem
+        className="dropdown-menu-item"
+        key="more.experiments"
+      >
+        <Link
+          className="dropdown-link"
+          to="/experiments"
         >
-          <Link
-            className="dropdown-link"
-            to="/experiments"
-          >
-            Experiments
-          </Link>
-        </MenuItem>
+          Experiments
+        </Link>
       </MenuItem>
     </DropdownMenu>
     <NewFeatureTag
@@ -680,17 +680,17 @@ exports[`CollectionsMenu renders when seminars page 1`] = `
         >
           Institutions
         </Link>
-        <MenuItem
-          className="dropdown-menu-item"
-          key="more.experiments"
+      </MenuItem>
+      <MenuItem
+        className="dropdown-menu-item"
+        key="more.experiments"
+      >
+        <Link
+          className="dropdown-link"
+          to="/experiments"
         >
-          <Link
-            className="dropdown-link"
-            to="/experiments"
-          >
-            Experiments
-          </Link>
-        </MenuItem>
+          Experiments
+        </Link>
       </MenuItem>
     </DropdownMenu>
     <NewFeatureTag
@@ -780,17 +780,17 @@ exports[`CollectionsMenu renders when submissions page 1`] = `
         >
           Institutions
         </Link>
-        <MenuItem
-          className="dropdown-menu-item"
-          key="more.experiments"
+      </MenuItem>
+      <MenuItem
+        className="dropdown-menu-item"
+        key="more.experiments"
+      >
+        <Link
+          className="dropdown-link"
+          to="/experiments"
         >
-          <Link
-            className="dropdown-link"
-            to="/experiments"
-          >
-            Experiments
-          </Link>
-        </MenuItem>
+          Experiments
+        </Link>
       </MenuItem>
     </DropdownMenu>
     <NewFeatureTag

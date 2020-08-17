@@ -88,11 +88,11 @@ function CollectionsMenu({ currentPathname }) {
             <Link className="dropdown-link" to={INSTITUTIONS}>
               Institutions
             </Link>
-            <Menu.Item className="dropdown-menu-item" key="more.experiments">
-              <Link className="dropdown-link" to={EXPERIMENTS}>
-                Experiments
-              </Link>
-            </Menu.Item>
+          </Menu.Item>
+          <Menu.Item className="dropdown-menu-item" key="more.experiments">
+            <Link className="dropdown-link" to={EXPERIMENTS}>
+              Experiments
+            </Link>
           </Menu.Item>
         </DropdownMenu>
         <NewFeatureTag className="centered" />
