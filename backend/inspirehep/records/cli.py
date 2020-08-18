@@ -12,6 +12,7 @@ import os
 import click
 import requests
 import structlog
+from flask import current_app
 from flask.cli import with_appcontext
 from invenio_db import db
 from invenio_records.api import RecordMetadata
@@ -47,7 +48,14 @@ def _create_records_from_urls(urls):
     for url in urls:
         click.echo(f"Downloading record from {url}.")
         try:
-            request = requests.get(url, headers={"Content-Type": "application/json"})
+            authorization = f"Bearer {current_app.config['AUTHENTICATION_TOKEN']}"
+            request = requests.get(
+                url,
+                headers={
+                    "Content-Type": "application/json",
+                    "Authorization": authorization,
+                },
+            )
         except requests.exceptions.ConnectionError:
             message = f"Something went wrong! Cannot reach the given url {url}."
             click.echo(click.style(message, fg="red"))
@@ -57,7 +65,7 @@ def _create_records_from_urls(urls):
             if request.status_code != 200:
                 message = (
                     "Something went wrong! Status code "
-                    f"{status_code}, {url} cannot be downloaded."
+                    f"{status_code}, {url} cannot be imported."
                 )
                 click.echo(click.style(message, fg="red"))
                 continue

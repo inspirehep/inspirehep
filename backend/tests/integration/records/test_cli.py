@@ -83,7 +83,7 @@ def test_create_record_with_not_existing_record(inspire_app, cli):
     expected_message = (
         "Something went wrong! Status code 404, "
         f"https://labs.inspirehep.net/api/literature/{control_number} "
-        "cannot be downloaded."
+        "cannot be imported."
     )
     assert result.exit_code == 0
     assert expected_message in result.output
