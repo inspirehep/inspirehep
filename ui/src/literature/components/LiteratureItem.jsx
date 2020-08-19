@@ -2,6 +2,7 @@ import React, { Fragment, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
+import { Tooltip } from 'antd';
 import { FilePdfOutlined, FileExclamationTwoTone } from '@ant-design/icons';
 
 import ArxivEprintList from './ArxivEprintList';
@@ -99,7 +100,11 @@ function LiteratureItem({ metadata, searchRank }) {
             >
               <LiteratureTitle title={title} />
               {assignView &&
-                !curatedRelation && <FileExclamationTwoTone className="ml1" />}
+                !curatedRelation && (
+                  <Tooltip title="Unclaimed paper. Click on the Claim button to claim or remove it from the profile">
+                    <FileExclamationTwoTone className="ml1" />
+                  </Tooltip>
+                )}
             </Link>
           </div>
           <ResponsiveView
