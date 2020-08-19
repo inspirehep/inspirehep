@@ -16,6 +16,17 @@ describe('AssignAction', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it('renders disabled', () => {
+    const wrapper = shallow(
+      <AssignAction
+        onAssignToAnotherAuthor={jest.fn()}
+        onAssign={jest.fn()}
+        disabled
+      />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
   it('calls onAssign on assign-self click ', () => {
     const onAssign = jest.fn();
     const wrapper = shallow(
