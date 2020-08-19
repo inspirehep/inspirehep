@@ -103,6 +103,7 @@ LITERATURE.update(
         "record_serializers": {
             "application/json": f"{INSPIRE_SERIALIZERS}:literature_json_response",
             "application/vnd+inspire.record.ui+json": f"{INSPIRE_SERIALIZERS}:literature_json_detail_response",
+            "application/vnd+inspire.record.raw+json": f"{INSPIRE_SERIALIZERS}:raw_json_detail_response",
             "application/x-bibtex": f"{INSPIRE_SERIALIZERS}:literature_bibtex_response",
             "application/vnd+inspire.latex.eu+x-latex": f"{INSPIRE_SERIALIZERS}:latex_response_eu",
             "application/vnd+inspire.latex.us+x-latex": f"{INSPIRE_SERIALIZERS}:latex_response_us",
@@ -196,6 +197,7 @@ AUTHORS.update(
         "search_index": "records-authors",
         "record_serializers": {
             "application/json": INSPIRE_SERIALIZERS + ":authors_json_response",
+            "application/vnd+inspire.record.raw+json": f"{INSPIRE_SERIALIZERS}:raw_json_detail_response",
             "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
             + ":authors_json_detail_response",
             "application/vnd+inspire.record.control_number+json": INSPIRE_SERIALIZERS
@@ -247,6 +249,7 @@ JOBS.update(
         },
         "record_serializers": {
             "application/json": INSPIRE_SERIALIZERS + ":jobs_json_response",
+            "application/vnd+inspire.record.raw+json": f"{INSPIRE_SERIALIZERS}:raw_json_detail_response",
             "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
             + ":jobs_json_detail_response",
         },
@@ -285,7 +288,8 @@ JOURNALS.update(
             "application/json": INSPIRE_SERIALIZERS + ":journals_json_response_search"
         },
         "record_serializers": {
-            "application/json": INSPIRE_SERIALIZERS + ":journals_json_response"
+            "application/json": INSPIRE_SERIALIZERS + ":journals_json_response",
+            "application/vnd+inspire.record.raw+json": f"{INSPIRE_SERIALIZERS}:raw_json_detail_response",
         },
     }
 )
@@ -317,6 +321,7 @@ EXPERIMENTS.update(
             "application/json": INSPIRE_SERIALIZERS + ":experiments_json_response",
             "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
             + ":experiments_json_detail_response",
+            "application/vnd+inspire.record.raw+json": f"{INSPIRE_SERIALIZERS}:raw_json_detail_response",
         },
     }
 )
@@ -373,6 +378,7 @@ CONFERENCES.update(
             "application/json": INSPIRE_SERIALIZERS + ":conferences_json_response",
             "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
             + ":conferences_json_detail_response",
+            "application/vnd+inspire.record.raw+json": f"{INSPIRE_SERIALIZERS}:raw_json_detail_response",
         },
     }
 )
@@ -431,6 +437,7 @@ INSTITUTIONS.update(
             "application/json": INSPIRE_SERIALIZERS + ":institutions_json_response",
             "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
             + ":institutions_json_detail_response",
+            "application/vnd+inspire.record.raw+json": f"{INSPIRE_SERIALIZERS}:raw_json_detail_response",
         },
     }
 )
@@ -455,6 +462,7 @@ SEMINARS.update(
             "application/json": INSPIRE_SERIALIZERS + ":seminars_json_response",
             "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
             + ":seminars_json_detail_response",
+            "application/vnd+inspire.record.raw+json": f"{INSPIRE_SERIALIZERS}:raw_json_detail_response",
         },
         "suggesters": {
             "series_name": {

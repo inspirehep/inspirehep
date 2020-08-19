@@ -1,0 +1,3794 @@
+{
+  "$schema": "https://inspirehep.net/schemas/records/hep.json",
+  "_collections": ["Literature"],
+  "_desy_bookkeeping": [
+    {
+      "identifier": "D15-kj25f"
+    },
+    {
+      "date": "2015-06-19",
+      "expert": "G",
+      "status": "fullabs"
+    },
+    {
+      "date": "2015-06-21",
+      "expert": "G",
+      "status": "printed"
+    },
+    {
+      "date": "2015-06-29",
+      "status": "final"
+    }
+  ],
+  "_private_notes": [
+    {
+      "source": "CERN",
+      "value": "CDS-2024078"
+    }
+  ],
+  "abstracts": [
+    {
+      "source": "Springer",
+      "value":
+        "In this chapter, supersymmetry (SUSY) as a complete and renormalisable candidate for an extension of the Standard Model is described. SUSY at an energy scale not too far above the electroweak scale would solve the hierarchy problem of the SM Higgs boson, dynamically explain electroweak symmetry breaking, and provide a dark-matter candidate. Since it doubles the Standard Model degrees of freedom, SUSY predicts a large number of additional particles, whose properties and effects on precision measurements can be explicitly predicted in a given SUSY model. The chapter motivates SUSY, describes the searches for SUSY particles at the LHC, and describes the status of SUSY in global analyses after the LHC Run 1."
+    },
+    {
+      "source": "arXiv",
+      "value":
+        "Supersymmetry (SUSY) is a complete and renormalisable candidate for an extension of the Standard Model. At an energy scale not too far above the electroweak scale it would solve the hierarchy problem of the SM Higgs boson, dynamically explain electroweak symmetry breaking, and provide a dark-matter candidate. Since it doubles the Standard Model degrees of freedom, SUSY predicts a large number of additional particles, whose properties and effects on precision measurements can be explicitly predicted in a given SUSY model. In this review the motivation for SUSY is outlined, the various searches strategies for SUSY particles at the LHC are described, and the status of SUSY in global analyses after the LHC Run 1 is summarized."
+    }
+  ],
+  "acquisition_source": {
+    "method": "batchuploader",
+    "source": "ejl"
+  },
+  "arxiv_eprints": [
+    {
+      "categories": ["hep-ex", "hep-ph"],
+      "value": "1506.03091"
+    }
+  ],
+  "authors": [
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirehep.net/api/institutions/902676"
+          },
+          "value": "Bonn U."
+        }
+      ],
+      "curated_relation": true,
+      "full_name": "Bechtle, Philip",
+      "ids": [
+        {
+          "schema": "INSPIRE BAI",
+          "value": "P.Bechtle.1"
+        }
+      ],
+      "raw_affiliations": [
+        {
+          "value": "Physikalisches Institut, Universit\u00e4t Bonn"
+        }
+      ],
+      "record": {
+        "$ref": "https://inspirehep.net/api/authors/1020248"
+      },
+      "signature_block": "BACHTLp",
+      "uuid": "4d558a75-14af-4b1a-b1b4-48721333e439"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirehep.net/api/institutions/1209215"
+          },
+          "value": "U. Heidelberg, ITP"
+        }
+      ],
+      "full_name": "Plehn, Tilman",
+      "ids": [
+        {
+          "schema": "INSPIRE BAI",
+          "value": "T.Plehn.1"
+        }
+      ],
+      "raw_affiliations": [
+        {
+          "value":
+            "Institut f\u00fcr Theoretische Physik, Universit\u00e4t Heidelberg"
+        }
+      ],
+      "record": {
+        "$ref": "https://inspirehep.net/api/authors/993181"
+      },
+      "signature_block": "PLANt",
+      "uuid": "183a1aa9-fc4f-4ed8-9b9e-07b0e516b151"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirehep.net/api/institutions/902832"
+          },
+          "value": "Hamburg U."
+        }
+      ],
+      "curated_relation": true,
+      "full_name": "Sander, Christian",
+      "ids": [
+        {
+          "schema": "INSPIRE BAI",
+          "value": "C.Sander.1"
+        }
+      ],
+      "raw_affiliations": [
+        {
+          "value":
+            "Institut f\u00fcr Experimentalphysik, Universit\u00e4t Hamburg"
+        }
+      ],
+      "record": {
+        "$ref": "https://inspirehep.net/api/authors/1029522"
+      },
+      "signature_block": "SANDARc",
+      "uuid": "9e8b43d1-cb31-49c2-9d62-6573b0a002b5"
+    }
+  ],
+  "citeable": true,
+  "control_number": 1375491,
+  "copyright": [
+    {
+      "statement": "Springer International Publishing Switzerland",
+      "year": 2015
+    }
+  ],
+  "core": true,
+  "curated": true,
+  "deleted_records": [
+    {
+      "$ref": "https://inspirehep.net/api/literature/1377256"
+    }
+  ],
+  "document_type": ["book chapter"],
+  "documents": [
+    {
+      "hidden": true,
+      "key": "arXiv:1506.03091.pdf",
+      "source": "arxiv",
+      "url":
+        "http://inspire-afs-web2.cern.ch/var/data/files/g108/2161368/content.pdf%3B1"
+    }
+  ],
+  "dois": [
+    {
+      "source": "Springer",
+      "value": "10.1007/978-3-319-15001-7_10"
+    }
+  ],
+  "figures": [
+    {
+      "caption":
+        "The cross sections expected for different production modes of SUSY particles as a function of their mass. At the same mass scale, gluino production dominates over the production of first-generation squarks. Third-generation squark production is suppressed, since these particles cannot be produced in $t$-channel processes. Particles not participating in the strong interaction, like gauginos and sleptons, have the smallest production cross section. \\textit{(Adapted from Ref.~\\cite{Kramer:2012bx}.)}",
+      "filename": "XSoverview1206_2892_b.png",
+      "key": "adb81f35179e48d70bad114832376e66",
+      "original_url":
+        "http://inspire-afs-web2.cern.ch/var/data/files/g108/2160958/content.png%3B1",
+      "source": "arxiv",
+      "url": "https://inspirehep.net/files/adb81f35179e48d70bad114832376e66"
+    },
+    {
+      "caption":
+        "Comparison of background prediction and data for various search regions defined in \\HT, \\HTmiss, and $N_{\\text{jets}}$. \\textit{(Adapted from Ref.~\\cite{Chatrchyan:2014lfa}.)}",
+      "filename": "CMS_JetsMHT_b.png",
+      "key": "fdbcde29da558c13e146c75160e4b829",
+      "original_url":
+        "http://inspire-afs-web2.cern.ch/var/data/files/g108/2160954/content.png%3B1",
+      "source": "arxiv",
+      "url": "https://inspirehep.net/files/fdbcde29da558c13e146c75160e4b829"
+    },
+    {
+      "caption":
+        "Interpretation of ATLAS searches in final states with jets+\\ETmiss or jets+same-sign leptons+\\ETmiss in the CMSSM. \\textit{(Adapted from Refs.~\\cite{Aad:2014wea, Aad:2014pda}.)}",
+      "filename": "ATLAS_LowNjets_CMSSM_8TeV_new_b.png",
+      "key": "34fbb80bec6c5b866243a524e30e5bd2",
+      "original_url":
+        "http://inspire-afs-web2.cern.ch/var/data/files/g108/2160953/content.png%3B1",
+      "source": "arxiv",
+      "url": "https://inspirehep.net/files/34fbb80bec6c5b866243a524e30e5bd2"
+    },
+    {
+      "caption":
+        "(a) CMSSM interpretation of the ATLAS search with at least one $\\tau$ lepton, \\ETmiss and jets. The search performs best for small $m_0$, i. e.\\ small $\\tilde{\\tau}$ masses. (b) Interpretation of the same analysis in the GMSB; the limits are shown in the plane defined by the parameter $\\tan\\beta$ and the effective SUSY breaking scale $\\Lambda$. \\textit{(Adapted from Ref.~\\cite{Aad:2014mra}.)}",
+      "filename": "ATLAS_tau_CMSSM_8TeV_new_b.png",
+      "key": "35ab4314760c487d6a682fcf7443bae5",
+      "original_url":
+        "http://inspire-afs-web2.cern.ch/var/data/files/g108/2160956/content.png%3B1",
+      "source": "arxiv",
+      "url": "https://inspirehep.net/files/35ab4314760c487d6a682fcf7443bae5"
+    },
+    {
+      "caption":
+        "Interpretation of the searches with photons, jets and \\ETmiss in the GGM. (a) Exclusion limit from a search with two photons in the plane spanned by the NLSP mass and the gluino mass for a bino-like NLSP. (b) Exclusion limit from a search with at least one photon in the plane spanned by the squark mass and the gluino mass for a fixed wino-like NLSP mass. \\textit{(Adapted from Refs.~\\cite{Aad:2012zza, Chatrchyan:2012bba}.)}",
+      "filename": "ATLAS_diPhoton_GGM_bino_new_b.png",
+      "key": "c448e24340874d363c68f3bd19024c32",
+      "original_url":
+        "http://inspire-afs-web2.cern.ch/var/data/files/g108/2160960/content.png%3B1",
+      "source": "arxiv",
+      "url": "https://inspirehep.net/files/c448e24340874d363c68f3bd19024c32"
+    },
+    {
+      "caption":
+        "Example diagrams for the production of gauginos or sleptons without the production of strongly interacting sparticles. These production processes involve electroweak interactions.",
+      "filename": "Fig1_TChiNuSlep_snu_new_b.png",
+      "key": "264f2eaa2ed5ca080538860a73f99b8d",
+      "original_url":
+        "http://inspire-afs-web2.cern.ch/var/data/files/g108/2160952/content.png%3B1",
+      "source": "arxiv",
+      "url": "https://inspirehep.net/files/264f2eaa2ed5ca080538860a73f99b8d"
+    },
+    {
+      "caption":
+        "Selected observables from the searches for the production of gauginos and sleptons via the electroweak interaction from ATLAS (a,b) and CMS (c,d). See the text for a discussion of the observables, signal properties and backgrounds. \\textit{(Adapted from Refs.~\\cite{Aad:2014vma,Khachatryan:2014qwa}).}",
+      "filename": "ATLAS_1403_5294_fig_03a_new_b.png",
+      "key": "53233c4e1b72a7054ccb776a8efc2cbd",
+      "original_url":
+        "http://inspire-afs-web2.cern.ch/var/data/files/g108/2160962/content.png%3B1",
+      "source": "arxiv",
+      "url": "https://inspirehep.net/files/53233c4e1b72a7054ccb776a8efc2cbd"
+    },
+    {
+      "caption":
+        "The resulting limits on selected SMS decay chains from ATLAS (a,b) and CMS (c,d). The excluded production cross section of the decay chain given in the figures is plotted against the masses of the physical SUSY particles appearing in the decay chain. The expected exclusion lines in the plots are given by the assumption of the full electroweak coupling at the production and of 100\\% branching fractions into the studied final state. Individual kinematical assumptions on the particles involved in the decay are also given in the plots. \\textit{(Adapted from Refs.~\\cite{Aad:2014vma,Khachatryan:2014qwa}.)}",
+      "filename": "ATLAS_1403_5294_figaux_19a_new_b.png",
+      "key": "78ca83e39541e109d0b7732723f5a62c",
+      "original_url":
+        "http://inspire-afs-web2.cern.ch/var/data/files/g108/2160961/content.png%3B1",
+      "source": "arxiv",
+      "url": "https://inspirehep.net/files/78ca83e39541e109d0b7732723f5a62c"
+    },
+    {
+      "caption":
+        "Interpretation of ATLAS searches in final states with three leptons ($e$, $\\mu$ or $\\tau$) for direct chargino and neutralino production. As expected, the limits on the sparticle masses for an assumed simplified model with $\\tilde{\\chi}^0_2 \\to \\Zb + \\tilde{\\chi}^0_1$ (a) are much stronger than those for the case of decay chains involving the SM-like Higgs boson $h$: $\\tilde{\\chi}^0_2 \\to h + \\tilde{\\chi}^0_1$ (b). \\textit{(Adapted from Ref.~\\cite{Aad:2014nua}.)}",
+      "filename": "ATLAS_NeuCha_WZ_new_b.png",
+      "key": "825cbaf6fa0aad9664ef695d14e93bd0",
+      "original_url":
+        "http://inspire-afs-web2.cern.ch/var/data/files/g108/2160963/content.png%3B1",
+      "source": "arxiv",
+      "url": "https://inspirehep.net/files/825cbaf6fa0aad9664ef695d14e93bd0"
+    },
+    {
+      "caption":
+        "Overview plot of a selection of published limits on gaugino production from the CMS collaboration. All limits are given in the form of SMS limits on individual production processes. Similar results are available from the ATLAS collaboration. \\textit{(Adapted from Ref.~\\cite{Khachatryan:2014qwa}.)}",
+      "filename": "CMS_neutcharg_Fig19_exclusion_Combined_b.png",
+      "key": "e46acf47519d570c8d106ba6023133ae",
+      "original_url":
+        "http://inspire-afs-web2.cern.ch/var/data/files/g108/2160966/content.png%3B1",
+      "source": "arxiv",
+      "url": "https://inspirehep.net/files/e46acf47519d570c8d106ba6023133ae"
+    },
+    {
+      "caption":
+        "Example diagrams for the production and decay of top quarks in conjunction with the production of the lighter or heavier stops or gluinos.",
+      "filename": "st2st2_hh_new_b.png",
+      "key": "c004ecc4bd89d4ea449e6f6a0aa9b488",
+      "original_url":
+        "http://inspire-afs-web2.cern.ch/var/data/files/g108/2160964/content.png%3B1",
+      "source": "arxiv",
+      "url": "https://inspirehep.net/files/c004ecc4bd89d4ea449e6f6a0aa9b488"
+    },
+    {
+      "caption":
+        "A schematic illustration of the different kinematical areas which determine the selection topology of stop searches. \\textit{(Adapted from Ref.~\\cite{Aad:2014kra}.)}",
+      "filename": "ATLAS_stops_1407_0583_fig_001_bw.png",
+      "key": "fc73515c5b8c4c048d524e52c4bda4b5",
+      "original_url":
+        "http://inspire-afs-web2.cern.ch/var/data/files/g108/2160959/content.png%3B1",
+      "source": "arxiv",
+      "url": "https://inspirehep.net/files/fc73515c5b8c4c048d524e52c4bda4b5"
+    },
+    {
+      "caption":
+        "Illustrations of typical selection variables for searches for $\\tilde{\\tq}_1$ decays. (a) The ATLAS search for heavy stops yielding fat jets shown in the form of the jet mass of the fat jet. (b) An example from CMS with a search for intermediate-mass stops shown in the form of the transverse-mass distribution. \\textit{(Adapted from Refs.~\\cite{Aad:2014kra,Chatrchyan:2013xna})}",
+      "filename": "ATLAS_stops_1407_0583_fig_013b_new_b.png",
+      "key": "56ab42baa4885fe919d5246dfeedcedc",
+      "original_url":
+        "http://inspire-afs-web2.cern.ch/var/data/files/g108/2160965/content.png%3B1",
+      "source": "arxiv",
+      "url": "https://inspirehep.net/files/56ab42baa4885fe919d5246dfeedcedc"
+    },
+    {
+      "caption":
+        "A selection of published limits on the production of third-generation squarks from the ATLAS experiment. All limits are given in the form of SMS limits on individual production processes (see references in the plot). Similar results are obtained from the CMS experiment (see e.g.\\ Ref.~\\cite{Chatrchyan:2013xna}). \\textit{(Adapted from Refs.~\\cite{Aad:2014bva,Aad:2014kra,Aad:2014qaa,Aad:2014nra,Aad:2012ywa,Aad:2012ywaa,Aad:2012uu}.)}",
+      "filename": "ATLAS_SUSY_Stop_tLSP_b.png",
+      "key": "50adc1f0e7897d8b132718df50af8524",
+      "original_url":
+        "http://inspire-afs-web2.cern.ch/var/data/files/g108/2160957/content.png%3B1",
+      "source": "arxiv",
+      "url": "https://inspirehep.net/files/50adc1f0e7897d8b132718df50af8524"
+    },
+    {
+      "caption":
+        "Representative diagrams of SUSY final states in models with $R$-parity-violating SUSY and leptonic $R$-parity-violating couplings. (a) chargino NLSP; (b) slepton NLSP.",
+      "filename": "ATLAS_4lRPV_fig_01a_new_bw.png",
+      "key": "3d67cded58bda0725f2841e269fa3866",
+      "original_url":
+        "http://inspire-afs-web2.cern.ch/var/data/files/g108/2160955/content.png%3B1",
+      "source": "arxiv",
+      "url": "https://inspirehep.net/files/3d67cded58bda0725f2841e269fa3866"
+    }
+  ],
+  "inspire_categories": [
+    {
+      "term": "Experiment-HEP"
+    },
+    {
+      "term": "Phenomenology-HEP"
+    }
+  ],
+  "keywords": [
+    {
+      "schema": "INSPIRE",
+      "value": "supersymmetry: 1"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "scale: electroweak interaction"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "electroweak interaction: symmetry breaking"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "naturalness"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "CERN LHC Coll"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "Higgs particle: multiplet"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "renormalization group"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "supersymmetry: dark matter"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "hierarchy"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "experimental results"
+    }
+  ],
+  "legacy_creation_date": "2015-06-11",
+  "legacy_version": "20180919180435.0",
+  "license": [
+    {
+      "imposing": "arXiv",
+      "url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/"
+    }
+  ],
+  "number_of_pages": 34,
+  "preprint_date": "2015-06-09",
+  "public_notes": [
+    {
+      "source": "arXiv",
+      "value":
+        "34 Pages, 21 Figures. Originally published in \"The Large Hadron Collider -- Harvest of Run 1\", edited by T. Sch\\\"orner-Sadenius, Springer, 2015, (pp. 421-462), 532 Pages, 253 Figures, ISBN 978-3-319-15000-0, eBook ISBN 978-3-319-15001-7. For more details see http://www.springer.com/de/book/9783319150000"
+    }
+  ],
+  "publication_info": [
+    {
+      "page_end": "462",
+      "page_start": "421",
+      "parent_record": {
+        "$ref": "https://inspirehep.net/api/literature/1373790"
+      },
+      "year": 2015
+    }
+  ],
+  "references": [
+    {
+      "reference": {
+        "authors": [
+          {
+            "full_name": "Sch\u00f6rner-Sadenius, T."
+          }
+        ],
+        "imprint": {
+          "publisher": "Springer"
+        },
+        "label": "1",
+        "misc": ["Heidelberg, Germany"],
+        "publication_info": {
+          "year": 2015
+        },
+        "title": {
+          "title": "The Large Hadron Collider \u2014 Harvest of Run 1"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/40440"
+      },
+      "reference": {
+        "authors": [
+          {
+            "full_name": "Higgs, P.W."
+          }
+        ],
+        "label": "2",
+        "publication_info": {
+          "journal_title": "Phys.Lett.",
+          "journal_volume": "12",
+          "page_end": "133",
+          "page_start": "132",
+          "year": 1964
+        },
+        "title": {
+          "title": "Broken symmetries, massless particles and gauge fields"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/11883"
+      },
+      "reference": {
+        "authors": [
+          {
+            "full_name": "Higgs, P.W."
+          }
+        ],
+        "dois": ["10.1103/PhysRevLett.13.508"],
+        "label": "3",
+        "publication_info": {
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "13",
+          "page_end": "509",
+          "page_start": "508",
+          "year": 1964
+        },
+        "title": {
+          "title": "Broken Symmetries and the Masses of Gauge Bosons"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/12291"
+      },
+      "reference": {
+        "authors": [
+          {
+            "full_name": "Englert, F."
+          },
+          {
+            "full_name": "Brout, R."
+          }
+        ],
+        "dois": ["10.1103/PhysRevLett.13.321"],
+        "label": "4",
+        "publication_info": {
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "13",
+          "page_end": "323",
+          "page_start": "321",
+          "year": 1964
+        },
+        "title": {
+          "title": "Broken Symmetry and the Mass of Gauge Vector Mesons"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1124338"
+      },
+      "reference": {
+        "arxiv_eprint": "1207.7235",
+        "collaborations": ["CMS Collaboration"],
+        "dois": ["10.1016/j.physletb.2012.08.021"],
+        "label": "5",
+        "publication_info": {
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "716",
+          "page_end": "61",
+          "page_start": "30",
+          "year": 2012
+        },
+        "title": {
+          "title":
+            "Observation of a new boson at a mass of 125 GeV with the CMS experiment at the LHC"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1124337"
+      },
+      "reference": {
+        "arxiv_eprint": "1207.7214",
+        "collaborations": ["ATLAS Collaboration"],
+        "dois": ["10.1016/j.physletb.2012.08.020"],
+        "label": "6",
+        "publication_info": {
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "716",
+          "page_end": "29",
+          "page_start": "1",
+          "year": 2012
+        },
+        "title": {
+          "title":
+            "Observation of a new particle in the search for the Standard Model Higgs boson with the ATLAS detector at the LHC"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1310507"
+      },
+      "reference": {
+        "authors": [
+          {
+            "full_name": "Plehn, T."
+          }
+        ],
+        "dois": ["10.1007/978-3-319-05942-6"],
+        "label": "7",
+        "misc": ["Lect. Notes Phys. 886"],
+        "publication_info": {
+          "year": 2015
+        },
+        "title": {
+          "title": "Lectures on LHC Physics"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/448462"
+      },
+      "reference": {
+        "arxiv_eprint": "hep-ph/9709356",
+        "authors": [
+          {
+            "full_name": "Martin, S.P."
+          }
+        ],
+        "dois": ["10.1142/9789814307505_0001"],
+        "label": "8",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Adv.Ser.Direct.High Energy Phys.",
+          "journal_volume": "21",
+          "page_end": "153",
+          "page_start": "1",
+          "year": 2010
+        },
+        "title": {
+          "title": "A Supersymmetry primer"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/840434"
+      },
+      "reference": {
+        "arxiv_eprint": "0912.3259",
+        "authors": [
+          {
+            "full_name": "Morrissey, D.E."
+          },
+          {
+            "full_name": "Plehn, T."
+          },
+          {
+            "full_name": "Tait, T.M."
+          }
+        ],
+        "dois": ["10.1016/j.physrep.2012.02.007"],
+        "label": "9",
+        "publication_info": {
+          "journal_title": "Phys.Rept.",
+          "journal_volume": "515",
+          "page_end": "113",
+          "page_start": "1",
+          "year": 2012
+        },
+        "title": {
+          "title": "Physics searches at the LHC"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/396520"
+      },
+      "reference": {
+        "arxiv_eprint": "hep-ph/9506380",
+        "authors": [
+          {
+            "full_name": "Jungman, G."
+          },
+          {
+            "full_name": "Kamionkowski, M."
+          },
+          {
+            "full_name": "Griest, K."
+          }
+        ],
+        "dois": ["10.1016/0370-1573(95)00058-5"],
+        "label": "10",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Phys.Rept.",
+          "journal_volume": "267",
+          "page_end": "373",
+          "page_start": "195",
+          "year": 1996
+        },
+        "title": {
+          "title": "Supersymmetric dark matter"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/648746"
+      },
+      "reference": {
+        "arxiv_eprint": "hep-ph/0404175",
+        "authors": [
+          {
+            "full_name": "Bertone, G."
+          },
+          {
+            "full_name": "Hooper, D."
+          },
+          {
+            "full_name": "Silk, J."
+          }
+        ],
+        "dois": ["10.1016/j.physrep.2004.08.031"],
+        "label": "11",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Phys.Rept.",
+          "journal_volume": "405",
+          "page_end": "390",
+          "page_start": "279",
+          "year": 2005
+        },
+        "title": {
+          "title": "Particle dark matter: Evidence, candidates and constraints"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/587267"
+      },
+      "reference": {
+        "arxiv_eprint": "hep-ph/0205279",
+        "authors": [
+          {
+            "full_name": "Bernreuther, W."
+          }
+        ],
+        "label": "12",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Lect.Notes Phys.",
+          "journal_volume": "591",
+          "page_end": "293",
+          "page_start": "237",
+          "year": 2002
+        },
+        "title": {
+          "title": "CP violation and baryogenesis"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/314885"
+      },
+      "reference": {
+        "authors": [
+          {
+            "full_name": "Amaldi, U."
+          },
+          {
+            "full_name": "de Boer, W."
+          },
+          {
+            "full_name": "Furstenau, H."
+          }
+        ],
+        "dois": ["10.1016/0370-2693(91)91641-8"],
+        "label": "13",
+        "publication_info": {
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "260",
+          "page_end": "455",
+          "page_start": "447",
+          "year": 1991
+        },
+        "title": {
+          "title":
+            "Comparison of grand unified theories with electroweak and strong coupling constants measured at LEP"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/108931"
+      },
+      "reference": {
+        "authors": [
+          {
+            "full_name": "Gildener, E."
+          }
+        ],
+        "dois": ["10.1103/PhysRevD.14.1667"],
+        "label": "14",
+        "publication_info": {
+          "artid": "1667",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "14",
+          "page_start": "1667",
+          "year": 1976
+        },
+        "title": {
+          "title": "Gauge Symmetry Hierarchies"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/2724"
+      },
+      "reference": {
+        "authors": [
+          {
+            "full_name": "Weinberg, S."
+          }
+        ],
+        "dois": ["10.1103/PhysRevD.13.974"],
+        "label": "15",
+        "publication_info": {
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "13",
+          "page_end": "996",
+          "page_start": "974",
+          "year": 1976
+        },
+        "title": {
+          "title": "Implications of Dynamical Symmetry Breaking"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/118829"
+      },
+      "reference": {
+        "authors": [
+          {
+            "full_name": "Lee, B.W."
+          },
+          {
+            "full_name": "Quigg, C."
+          },
+          {
+            "full_name": "Thacker, H."
+          }
+        ],
+        "dois": ["10.1103/PhysRevLett.38.883"],
+        "label": "16",
+        "publication_info": {
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "38",
+          "page_end": "885",
+          "page_start": "883",
+          "year": 1977
+        },
+        "title": {
+          "title":
+            "The Strength of Weak Interactions at Very High-Energies and the Higgs Boson Mass"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/68412"
+      },
+      "reference": {
+        "authors": [
+          {
+            "full_name": "Golfand, Y."
+          },
+          {
+            "full_name": "Likhtman, E."
+          }
+        ],
+        "label": "17",
+        "publication_info": {
+          "journal_title": "JETP Lett.",
+          "journal_volume": "13",
+          "page_end": "326",
+          "page_start": "323",
+          "year": 1971
+        },
+        "title": {
+          "title":
+            "Extension of the Algebra of Poincare Group Generators and Violation of p Invariance"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/76156"
+      },
+      "reference": {
+        "authors": [
+          {
+            "full_name": "Volkov, D."
+          },
+          {
+            "full_name": "Akulov, V."
+          }
+        ],
+        "label": "18",
+        "publication_info": {
+          "journal_title": "JETP Lett.",
+          "journal_volume": "16",
+          "page_end": "440",
+          "page_start": "438",
+          "year": 1972
+        },
+        "title": {
+          "title": "Possible universal neutrino interaction"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/92122"
+      },
+      "reference": {
+        "authors": [
+          {
+            "full_name": "Wess, J."
+          },
+          {
+            "full_name": "Zumino, B."
+          }
+        ],
+        "dois": ["10.1016/0550-3213(74)90355-1"],
+        "label": "19",
+        "publication_info": {
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "70",
+          "page_end": "50",
+          "page_start": "39",
+          "year": 1974
+        },
+        "title": {
+          "title": "Supergauge Transformations in Four-Dimensions"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/89208"
+      },
+      "reference": {
+        "authors": [
+          {
+            "full_name": "Salam, A."
+          },
+          {
+            "full_name": "Strathdee, J."
+          }
+        ],
+        "dois": ["10.1016/0550-3213(74)90537-9"],
+        "label": "20",
+        "publication_info": {
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "76",
+          "page_end": "482",
+          "page_start": "477",
+          "year": 1974
+        },
+        "title": {
+          "title": "Supergauge Transformations"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/90850"
+      },
+      "reference": {
+        "authors": [
+          {
+            "full_name": "Haag, R."
+          },
+          {
+            "full_name": "Lopuszanski, J.T."
+          },
+          {
+            "full_name": "Sohnius, M."
+          }
+        ],
+        "dois": ["10.1016/0550-3213(75)90279-5"],
+        "label": "21",
+        "publication_info": {
+          "artid": "257",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "88",
+          "page_start": "257",
+          "year": 1975
+        },
+        "title": {
+          "title": "All Possible Generators of Supersymmetries of the s Matrix"
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          {
+            "full_name": "Wess, J."
+          },
+          {
+            "full_name": "Bagger, J."
+          }
+        ],
+        "label": "22",
+        "misc": ["Princeton University Press, Princeton, USA"],
+        "publication_info": {
+          "year": 1992
+        },
+        "title": {
+          "title": "Supersymmetry and supergravity"
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          {
+            "full_name": "Terning, J."
+          }
+        ],
+        "label": "23",
+        "misc": ["Oxford University Press, Oxford, United Kingdom"],
+        "publication_info": {
+          "year": 2006
+        },
+        "title": {
+          "title": "Modern supersymmetry: Dynamics and duality"
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          {
+            "full_name": "Drees, M."
+          },
+          {
+            "full_name": "Godbole, R."
+          },
+          {
+            "full_name": "Roy, P."
+          }
+        ],
+        "imprint": {
+          "publisher": "World Scientific"
+        },
+        "label": "24",
+        "misc": ["Hackensack, USA"],
+        "publication_info": {
+          "year": 2004
+        },
+        "title": {
+          "title":
+            "Theory and phenomenology of sparticles: An account of four-dimensional N=1 supersymmetry in high energy physics"
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          {
+            "full_name": "Baer, H."
+          },
+          {
+            "full_name": "Tata, X."
+          }
+        ],
+        "label": "25",
+        "misc": ["Cambridge University Press, Cambridge, United Kingdom"],
+        "publication_info": {
+          "year": 2006
+        },
+        "title": {
+          "title":
+            "Weak scale supersymmetry: From superfields to scattering events"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/141488"
+      },
+      "reference": {
+        "authors": [
+          {
+            "full_name": "Dawson, S."
+          },
+          {
+            "full_name": "Georgi, H."
+          }
+        ],
+        "dois": ["10.1103/PhysRevLett.43.821"],
+        "label": "26",
+        "publication_info": {
+          "artid": "821",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "43",
+          "page_start": "821",
+          "year": 1979
+        },
+        "title": {
+          "title": "GENERALIZED GAUGE HIERARCHIES"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/166839"
+      },
+      "reference": {
+        "authors": [
+          {
+            "full_name": "Einhorn, M."
+          },
+          {
+            "full_name": "Jones, D."
+          }
+        ],
+        "dois": ["10.1016/0550-3213(82)90502-8"],
+        "label": "27",
+        "publication_info": {
+          "artid": "475",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "196",
+          "page_start": "475",
+          "year": 1982
+        },
+        "title": {
+          "title":
+            "The Weak Mixing Angle and Unification Mass in Supersymmetric SU(5)"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/165176"
+      },
+      "reference": {
+        "authors": [
+          {
+            "full_name": "Dimopoulos, S."
+          },
+          {
+            "full_name": "Georgi, H."
+          }
+        ],
+        "dois": ["10.1016/0550-3213(81)90522-8"],
+        "label": "28",
+        "publication_info": {
+          "artid": "150",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "193",
+          "page_start": "150",
+          "year": 1981
+        },
+        "title": {
+          "title": "Softly Broken Supersymmetry and SU(5)"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/169097"
+      },
+      "reference": {
+        "authors": [
+          {
+            "full_name": "Dine, M."
+          },
+          {
+            "full_name": "Fischler, W."
+          }
+        ],
+        "dois": ["10.1016/0370-2693(82)91241-2"],
+        "label": "29",
+        "publication_info": {
+          "artid": "227",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "110",
+          "page_start": "227",
+          "year": 1982
+        },
+        "title": {
+          "title":
+            "A Phenomenological Model of Particle Physics Based on Supersymmetry"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/6487"
+      },
+      "reference": {
+        "authors": [
+          {
+            "full_name": "Farrar, G.R."
+          },
+          {
+            "full_name": "Fayet, P."
+          }
+        ],
+        "dois": ["10.1016/0370-2693(78)90858-4"],
+        "label": "30",
+        "publication_info": {
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "76",
+          "page_end": "579",
+          "page_start": "575",
+          "year": 1978
+        },
+        "title": {
+          "title":
+            "Phenomenology of the Production, Decay, and Detection of New Hadronic States Associated with Supersymmetry"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/446316"
+      },
+      "reference": {
+        "arxiv_eprint": "hep-ph/9707435",
+        "authors": [
+          {
+            "full_name": "Dreiner, H.K."
+          }
+        ],
+        "dois": ["10.1142/9789814307505_0017"],
+        "label": "31",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Adv.Ser.Direct.High Energy Phys.",
+          "journal_volume": "21",
+          "page_end": "583",
+          "page_start": "565",
+          "year": 2010
+        },
+        "title": {
+          "title": "An Introduction to explicit R-parity violation"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/279039"
+      },
+      "reference": {
+        "authors": [
+          {
+            "full_name": "Gunion, J.F."
+          },
+          {
+            "full_name": "Haber, H.E."
+          },
+          {
+            "full_name": "Kane, G.L."
+          },
+          {
+            "full_name": "Dawson, S."
+          }
+        ],
+        "label": "32",
+        "publication_info": {
+          "journal_title": "Front.Phys.",
+          "journal_volume": "80",
+          "page_end": "404",
+          "page_start": "1",
+          "year": 2000
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/678629"
+      },
+      "reference": {
+        "arxiv_eprint": "hep-ph/0503173",
+        "authors": [
+          {
+            "full_name": "Djouadi, A."
+          }
+        ],
+        "dois": ["10.1016/j.physrep.2007.10.005"],
+        "label": "33",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Phys.Rept.",
+          "journal_volume": "459",
+          "page_end": "241",
+          "page_start": "1",
+          "year": 2008
+        },
+        "title": {
+          "title":
+            "The Anatomy of electro-weak symmetry breaking. II. The Higgs bosons in the minimal supersymmetric model"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/344599"
+      },
+      "reference": {
+        "arxiv_eprint": "hep-ph/9303309",
+        "authors": [
+          {
+            "full_name": "Chankowski, P.H."
+          },
+          {
+            "full_name": "Pokorski, S."
+          },
+          {
+            "full_name": "Rosiek, J."
+          }
+        ],
+        "dois": ["10.1016/0550-3213(94)90141-4"],
+        "label": "34",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "423",
+          "page_end": "496",
+          "page_start": "437",
+          "year": 1994
+        },
+        "title": {
+          "title":
+            "Complete on-shell renormalization scheme for the minimal supersymmetric Higgs sector"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/355756"
+      },
+      "reference": {
+        "arxiv_eprint": "hep-ph/9307201",
+        "authors": [
+          {
+            "full_name": "Haber, H.E."
+          },
+          {
+            "full_name": "Hempfling, R."
+          }
+        ],
+        "dois": ["10.1103/PhysRevD.48.4280"],
+        "label": "35",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "48",
+          "page_end": "4309",
+          "page_start": "4280",
+          "year": 1993
+        },
+        "title": {
+          "title":
+            "The Renormalization group improved Higgs sector of the minimal supersymmetric model"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/360690"
+      },
+      "reference": {
+        "arxiv_eprint": "hep-ph/9401219",
+        "authors": [
+          {
+            "full_name": "Hempfling, R."
+          },
+          {
+            "full_name": "Hoang, A.H."
+          }
+        ],
+        "dois": ["10.1016/0370-2693(94)90948-2"],
+        "label": "36",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "331",
+          "page_end": "106",
+          "page_start": "99",
+          "year": 1994
+        },
+        "title": {
+          "title":
+            "Two loop radiative corrections to the upper limit of the lightest Higgs boson mass in the minimal supersymmetric model"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/522726"
+      },
+      "reference": {
+        "arxiv_eprint": "hep-ph/0001002",
+        "authors": [
+          {
+            "full_name": "Carena, M."
+          }
+        ],
+        "dois": ["10.1016/S0550-3213(00)00212-1"],
+        "label": "37",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "580",
+          "page_end": "57",
+          "page_start": "29",
+          "year": 2000
+        },
+        "title": {
+          "title":
+            "Reconciling the two loop diagrammatic and effective field theory computations of the mass of the lightest CP - even Higgs boson in the MSSM"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/166435"
+      },
+      "reference": {
+        "authors": [
+          {
+            "full_name": "Girardello, L."
+          },
+          {
+            "full_name": "Grisaru, M.T."
+          }
+        ],
+        "dois": ["10.1016/0550-3213(82)90512-0"],
+        "label": "38",
+        "publication_info": {
+          "artid": "65",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "194",
+          "page_start": "65",
+          "year": 1982
+        },
+        "title": {
+          "title": "Soft Breaking of Supersymmetry"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/188864"
+      },
+      "reference": {
+        "authors": [
+          {
+            "full_name": "Goldberg, H."
+          }
+        ],
+        "dois": ["10.1103/PhysRevLett.50.1419"],
+        "label": "39",
+        "publication_info": {
+          "artid": "1419",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "50",
+          "page_start": "1419",
+          "year": 1983
+        },
+        "title": {
+          "title": "Constraint on the Photino Mass from Cosmology"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/191839"
+      },
+      "reference": {
+        "authors": [
+          {
+            "full_name": "Ellis, J.R."
+          }
+        ],
+        "dois": ["10.1016/0550-3213(84)90461-9"],
+        "label": "40",
+        "publication_info": {
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "238",
+          "page_end": "476",
+          "page_start": "453",
+          "year": 1984
+        },
+        "title": {
+          "title": "Supersymmetric Relics from the Big Bang"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/926943"
+      },
+      "reference": {
+        "arxiv_eprint": "1109.2072",
+        "authors": [
+          {
+            "full_name": "Jaeckel, J."
+          },
+          {
+            "full_name": "Khoze, V.V."
+          },
+          {
+            "full_name": "Plehn, T."
+          },
+          {
+            "full_name": "Richardson, P."
+          }
+        ],
+        "dois": ["10.1103/PhysRevD.85.015015"],
+        "label": "41",
+        "publication_info": {
+          "artid": "015015",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "85",
+          "year": 2012
+        },
+        "title": {
+          "title": "Travels on the squark-gluino mass plane"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/650609"
+      },
+      "reference": {
+        "arxiv_eprint": "hep-th/0405159",
+        "authors": [
+          {
+            "full_name": "Arkani-Hamed, N."
+          },
+          {
+            "full_name": "Dimopoulos, S."
+          }
+        ],
+        "dois": ["10.1088/1126-6708/2005/06/073"],
+        "label": "42",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "artid": "073",
+          "journal_title": "JHEP",
+          "journal_volume": "06",
+          "page_start": "073",
+          "year": 2005
+        },
+        "title": {
+          "title":
+            "Supersymmetric unification without low energy supersymmetry and signatures for fine-tuning at the LHC"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/651938"
+      },
+      "reference": {
+        "arxiv_eprint": "hep-ph/0406088",
+        "authors": [
+          {
+            "full_name": "Giudice, G."
+          },
+          {
+            "full_name": "Romanino, A."
+          }
+        ],
+        "dois": ["10.1016/j.nuclphysb.2004.11.048"],
+        "label": "43",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "699",
+          "page_end": "89",
+          "page_start": "65",
+          "year": 2004
+        },
+        "title": {
+          "title": "Split supersymmetry"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/11001"
+      },
+      "reference": {
+        "authors": [
+          {
+            "full_name": "Ibanez, L.E."
+          },
+          {
+            "full_name": "Ross, G.G."
+          }
+        ],
+        "dois": ["10.1016/0370-2693(81)91200-4"],
+        "label": "44",
+        "publication_info": {
+          "artid": "439",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "105",
+          "page_start": "439",
+          "year": 1981
+        },
+        "title": {
+          "title":
+            "Low-Energy Predictions in Supersymmetric Grand Unified Theories"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/12417"
+      },
+      "reference": {
+        "authors": [
+          {
+            "full_name": "Chamseddine, A.H."
+          },
+          {
+            "full_name": "Arnowitt, R.L."
+          },
+          {
+            "full_name": "Nath, P."
+          }
+        ],
+        "dois": ["10.1103/PhysRevLett.49.970"],
+        "label": "45",
+        "publication_info": {
+          "artid": "970",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "49",
+          "page_start": "970",
+          "year": 1982
+        },
+        "title": {
+          "title": "Locally Supersymmetric Grand Unification"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/179100"
+      },
+      "reference": {
+        "authors": [
+          {
+            "full_name": "Barbieri, R."
+          },
+          {
+            "full_name": "Ferrara, S."
+          },
+          {
+            "full_name": "Savoy, C.A."
+          }
+        ],
+        "dois": ["10.1016/0370-2693(82)90685-2"],
+        "label": "46",
+        "publication_info": {
+          "artid": "343",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "119",
+          "page_start": "343",
+          "year": 1982
+        },
+        "title": {
+          "title": "Gauge Models with Spontaneously Broken Local Supersymmetry"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/10596"
+      },
+      "reference": {
+        "authors": [
+          {
+            "full_name": "Dine, M."
+          },
+          {
+            "full_name": "Fischler, W."
+          },
+          {
+            "full_name": "Srednicki, M."
+          }
+        ],
+        "dois": ["10.1016/0550-3213(81)90582-4"],
+        "label": "47",
+        "publication_info": {
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "189",
+          "page_end": "593",
+          "page_start": "575",
+          "year": 1981
+        },
+        "title": {
+          "title": "Supersymmetric Technicolor"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/164541"
+      },
+      "reference": {
+        "authors": [
+          {
+            "full_name": "Dimopoulos, S."
+          },
+          {
+            "full_name": "Raby, S."
+          }
+        ],
+        "dois": ["10.1016/0550-3213(81)90430-2"],
+        "label": "48",
+        "publication_info": {
+          "artid": "353",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "192",
+          "page_start": "353",
+          "year": 1981
+        },
+        "title": {
+          "title": "Supercolor"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1118175"
+      },
+      "reference": {
+        "arxiv_eprint": "1206.2892",
+        "authors": [
+          {
+            "full_name": "Kramer, M."
+          }
+        ],
+        "label": "49",
+        "title": {
+          "title":
+            "Supersymmetry production cross sections in pp collisions at \u221a s = 7 TeV"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1281837"
+      },
+      "reference": {
+        "arxiv_eprint": "1402.4770",
+        "collaborations": ["CMS Collaboration"],
+        "dois": ["10.1007/JHEP06(2014)055"],
+        "label": "50",
+        "publication_info": {
+          "artid": "055",
+          "journal_title": "JHEP",
+          "journal_volume": "06",
+          "page_start": "055",
+          "year": 2014
+        },
+        "title": {
+          "title":
+            "Search for new physics in the multijet and missing transverse momentum final state in proton-proton collisions at \u221a s= 8 TeV"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1298722"
+      },
+      "reference": {
+        "arxiv_eprint": "1405.7875",
+        "collaborations": ["ATLAS Collaboration"],
+        "dois": ["10.1007/JHEP09(2014)176"],
+        "label": "51",
+        "publication_info": {
+          "artid": "176",
+          "journal_title": "JHEP",
+          "journal_volume": "09",
+          "page_start": "176",
+          "year": 2014
+        },
+        "title": {
+          "title":
+            "Search for squarks and gluinos with the ATLAS detector in final states with jets and missing transverse momentum using \u221a s = 8 TeV proton-proton collision data"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1289225"
+      },
+      "reference": {
+        "arxiv_eprint": "1404.2500",
+        "collaborations": ["ATLAS Collaboration"],
+        "dois": ["10.1007/JHEP06(2014)035"],
+        "label": "52",
+        "publication_info": {
+          "artid": "035",
+          "journal_title": "JHEP",
+          "journal_volume": "06",
+          "page_start": "035",
+          "year": 2014
+        },
+        "title": {
+          "title":
+            "Search for supersymmetry at \u221a s=8 TeV in final states with jets and two same-sign leptons or three leptons with the ATLAS detector"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/787534"
+      },
+      "reference": {
+        "arxiv_eprint": "0806.1049",
+        "authors": [
+          {
+            "full_name": "Randall, L."
+          },
+          {
+            "full_name": "Tucker-Smith, D."
+          }
+        ],
+        "dois": ["10.1103/PhysRevLett.101.221803"],
+        "label": "53",
+        "publication_info": {
+          "artid": "221803",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "101",
+          "year": 2008
+        },
+        "title": {
+          "title": "Dijet Searches for Supersymmetry at the LHC"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1223519"
+      },
+      "reference": {
+        "arxiv_eprint": "1303.2985",
+        "collaborations": ["CMS Collaboration"],
+        "dois": ["10.1140/epjc/s10052-013-2568-6"],
+        "label": "54",
+        "publication_info": {
+          "artid": "2568",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "73",
+          "page_start": "2568",
+          "year": 2013
+        },
+        "title": {
+          "title":
+            "Search for supersymmetry in hadronic final states with missing transverse energy using the variables AlphaT and b-quark multiplicity in pp collisions at 8 TeV"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1208812"
+      },
+      "reference": {
+        "arxiv_eprint": "1212.6961",
+        "collaborations": ["CMS Collaboration"],
+        "dois": ["10.1103/PhysRevLett.111.081802"],
+        "label": "55",
+        "publication_info": {
+          "artid": "081802",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "111",
+          "year": 2013
+        },
+        "title": {
+          "title":
+            "Inclusive search for supersymmetry using the razor variables in pp collisions at \u221a s = 7 TeV"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/501707"
+      },
+      "reference": {
+        "arxiv_eprint": "hep-ph/9906349",
+        "authors": [
+          {
+            "full_name": "Lester, C."
+          },
+          {
+            "full_name": "Summers, D."
+          }
+        ],
+        "dois": ["10.1016/S0370-2693(99)00945-4"],
+        "label": "56",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "463",
+          "page_end": "103",
+          "page_start": "99",
+          "year": 1999
+        },
+        "title": {
+          "title":
+            "Measuring masses of semiinvisibly decaying particles pair produced at hadron colliders"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/617472"
+      },
+      "reference": {
+        "arxiv_eprint": "hep-ph/0304226",
+        "authors": [
+          {
+            "full_name": "Barr, A."
+          },
+          {
+            "full_name": "Lester, C."
+          },
+          {
+            "full_name": "Stephens, P."
+          }
+        ],
+        "dois": ["10.1088/0954-3899/29/10/304"],
+        "label": "57",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "J.Phys.G",
+          "journal_volume": "29",
+          "page_end": "2363",
+          "page_start": "2343",
+          "year": 2003
+        },
+        "title": {
+          "title": "m(T2): The Truth behind the glamour"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1121700"
+      },
+      "reference": {
+        "arxiv_eprint": "1207.1798",
+        "collaborations": ["CMS Collaboration"],
+        "dois": ["10.1007/JHEP10(2012)018"],
+        "label": "58",
+        "publication_info": {
+          "artid": "018",
+          "journal_title": "JHEP",
+          "journal_volume": "10",
+          "page_start": "018",
+          "year": 2012
+        },
+        "title": {
+          "title":
+            "Search for supersymmetry in hadronic final states using MT2 in pp collisions at \u221a s = 7 TeV"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1345027"
+      },
+      "reference": {
+        "arxiv_eprint": "1502.04358",
+        "collaborations": ["CMS Collaboration"],
+        "label": "59",
+        "title": {
+          "title":
+            "Searches for supersymmetry using the MT2 variable in hadronic events produced in pp collisions at 8 TeV"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1180197"
+      },
+      "reference": {
+        "arxiv_eprint": "1208.4688",
+        "collaborations": ["ATLAS Collaboration"],
+        "dois": ["10.1103/PhysRevD.86.092002"],
+        "label": "60",
+        "publication_info": {
+          "artid": "092002",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "86",
+          "year": 2012
+        },
+        "title": {
+          "title":
+            "Further search for supersymmetry at \u221a s = 7 TeV in final states with jets, missing transverse momentum and isolated leptons with the ATLAS detector"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1208988"
+      },
+      "reference": {
+        "arxiv_eprint": "1212.6428",
+        "collaborations": ["CMS Collaboration"],
+        "dois": ["10.1140/epjc/s10052-013-2404-z"],
+        "label": "61",
+        "publication_info": {
+          "artid": "2404",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "73",
+          "page_start": "2404",
+          "year": 2013
+        },
+        "title": {
+          "title":
+            "Search for supersymmetry in pp collisions at \u221a s = 7 TeV in events with a single lepton, jets, and missing transverse momentum"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1266257"
+      },
+      "reference": {
+        "arxiv_eprint": "1311.6736",
+        "collaborations": ["CMS Collaboration"],
+        "dois": ["10.1007/JHEP01(2014)163"],
+        "label": "62",
+        "publication_info": {
+          "artid": "163",
+          "journal_title": "JHEP",
+          "journal_volume": "01",
+          "page_start": "163",
+          "year": 2014
+        },
+        "title": {
+          "title":
+            "Search for new physics in events with same-sign dileptons and jets in pp collisions at \u221a s = 8 TeV"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1211187"
+      },
+      "reference": {
+        "arxiv_eprint": "1301.3792",
+        "collaborations": ["CMS Collaboration"],
+        "dois": ["10.1140/epjc/s10052-013-2493-8"],
+        "label": "63",
+        "publication_info": {
+          "artid": "2493",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "73",
+          "page_start": "2493",
+          "year": 2013
+        },
+        "title": {
+          "title":
+            "Search for physics beyond the standard model in events with \u03c4 leptons, jets, and large transverse momentum imbalance in pp collisions at \u221a s = 7 TeV"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1189432"
+      },
+      "reference": {
+        "arxiv_eprint": "1210.1314",
+        "collaborations": ["ATLAS Collaboration"],
+        "dois": ["10.1140/epjc/s10052-012-2215-7"],
+        "label": "64",
+        "publication_info": {
+          "artid": "2215",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "72",
+          "page_start": "2215",
+          "year": 2012
+        },
+        "title": {
+          "title":
+            "Search for Supersymmetry in Events with Large Missing Transverse Momentum, Jets, and at Least One Tau Lepton in 7 TeV Proton-Proton Collision Data with the ATLAS Detector"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1304458"
+      },
+      "reference": {
+        "arxiv_eprint": "1407.0603",
+        "collaborations": ["ATLAS Collaboration"],
+        "dois": ["10.1007/JHEP09(2014)103"],
+        "label": "65",
+        "publication_info": {
+          "artid": "103",
+          "journal_title": "JHEP",
+          "journal_volume": "09",
+          "page_start": "103",
+          "year": 2014
+        },
+        "title": {
+          "title":
+            "Search for supersymmetry in events with large missing transverse momentum, jets, and at least one tau lepton in 20 fb-1 of \u221a s = 8 TeV proton-proton collision data with the ATLAS detector"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1291940"
+      },
+      "reference": {
+        "arxiv_eprint": "1404.5801",
+        "collaborations": ["CMS Collaboration"],
+        "dois": ["10.1103/PhysRevD.90.032006"],
+        "label": "66",
+        "publication_info": {
+          "artid": "032006",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "90",
+          "year": 2014
+        },
+        "title": {
+          "title":
+            "Search for anomalous production of events with three or more leptons in pp collisions at sqrt(s) = 8 TeV"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/423663"
+      },
+      "reference": {
+        "arxiv_eprint": "hep-ph/9609434",
+        "authors": [
+          {
+            "full_name": "Dimopoulos, S."
+          },
+          {
+            "full_name": "Thomas, S.D."
+          },
+          {
+            "full_name": "Wells, J.D."
+          }
+        ],
+        "dois": ["10.1016/S0550-3213(97)00030-8"],
+        "label": "67",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "488",
+          "page_end": "91",
+          "page_start": "39",
+          "year": 1997
+        },
+        "title": {
+          "title":
+            "Sparticle spectroscopy and electroweak symmetry breaking with gauge mediated supersymmetry breaking"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/777865"
+      },
+      "reference": {
+        "arxiv_eprint": "0801.3278",
+        "authors": [
+          {
+            "full_name": "Meade, P."
+          },
+          {
+            "full_name": "Seiberg, N."
+          },
+          {
+            "full_name": "Shih, D."
+          }
+        ],
+        "dois": ["10.1143/PTPS.177.143"],
+        "label": "68",
+        "publication_info": {
+          "journal_title": "Prog.Theor.Phys.Suppl.",
+          "journal_volume": "177",
+          "page_end": "158",
+          "page_start": "143",
+          "year": 2009
+        },
+        "title": {
+          "title": "General Gauge Mediation"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1184351"
+      },
+      "reference": {
+        "arxiv_eprint": "1209.0753",
+        "collaborations": ["ATLAS Collaboration"],
+        "dois": ["10.1016/j.physletb.2012.10.069"],
+        "label": "69",
+        "publication_info": {
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "718",
+          "page_end": "430",
+          "page_start": "411",
+          "year": 2012
+        },
+        "title": {
+          "title":
+            "Search for diphoton events with large missing transverse momentum in 7 TeV proton-proton collision data with the ATLAS detector"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1203307"
+      },
+      "reference": {
+        "arxiv_eprint": "1211.4784",
+        "collaborations": ["CMS Collaboration"],
+        "dois": ["10.1007/JHEP03(2013)111"],
+        "label": "70",
+        "publication_info": {
+          "artid": "111",
+          "journal_title": "JHEP",
+          "journal_volume": "03",
+          "page_start": "111",
+          "year": 2013
+        },
+        "title": {
+          "title":
+            "Search for new physics in events with photons, jets, and missing transverse energy in pp collisions at \u221a s = 7 TeV"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1210032"
+      },
+      "reference": {
+        "arxiv_eprint": "1301.2175",
+        "collaborations": ["CMS Collaboration"],
+        "dois": ["10.1103/PhysRevD.88.052017"],
+        "label": "71",
+        "publication_info": {
+          "artid": "052017",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "88",
+          "year": 2013
+        },
+        "title": {
+          "title":
+            "Interpretation of Searches for Supersymmetry with simplified Models"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1282905"
+      },
+      "reference": {
+        "arxiv_eprint": "1402.7029",
+        "collaborations": ["ATLAS Collaboration"],
+        "dois": ["10.1007/JHEP04(2014)169"],
+        "label": "72",
+        "publication_info": {
+          "artid": "169",
+          "journal_title": "JHEP",
+          "journal_volume": "04",
+          "page_start": "169",
+          "year": 2014
+        },
+        "title": {
+          "title":
+            "Search for direct production of charginos and neutralinos in events with three leptons and missing transverse momentum in \u221a s = 8TeV pp collisions with the ATLAS detector"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1286761"
+      },
+      "reference": {
+        "arxiv_eprint": "1403.5294",
+        "collaborations": ["ATLAS Collaboration"],
+        "dois": ["10.1007/JHEP05(2014)071"],
+        "label": "73",
+        "publication_info": {
+          "artid": "071",
+          "journal_title": "JHEP",
+          "journal_volume": "05",
+          "page_start": "071",
+          "year": 2014
+        },
+        "title": {
+          "title":
+            "Search for direct production of charginos, neutralinos and sleptons in final states with two leptons and missing transverse momentum in pp collisions at \u221a s = 8 TeV with the ATLAS detector"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1297226"
+      },
+      "reference": {
+        "collaborations": ["ATLAS Collaboration"],
+        "label": "74",
+        "publication_info": {
+          "artid": "052001",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "90",
+          "year": 2014
+        },
+        "title": {
+          "title":
+            "Search for supersymmetry in events with four or more leptons in \u221a s = 8 TeV pp collisions with the ATLAS detector"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1296830"
+      },
+      "reference": {
+        "dois": ["10.1103/PhysRevD.90.052005"],
+        "label": "74"
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1297226"
+      },
+      "reference": {
+        "arxiv_eprint": "1405.5086",
+        "dois": ["10.1103/PhysRevD.90.052001"],
+        "label": "74"
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1304288"
+      },
+      "reference": {
+        "arxiv_eprint": "1407.0350",
+        "collaborations": ["ATLAS Collaboration"],
+        "dois": ["10.1007/JHEP10(2014)096"],
+        "label": "75",
+        "publication_info": {
+          "artid": "096",
+          "journal_title": "JHEP",
+          "journal_volume": "10",
+          "page_start": "096",
+          "year": 2014
+        },
+        "title": {
+          "title":
+            "Search for the direct production of charginos, neutralinos and staus in final states with at least two hadronically decaying taus and missing transverse momentum in pp collisions at \u221a s = 8 TeV with the ATLAS detector"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1298508"
+      },
+      "reference": {
+        "arxiv_eprint": "1405.7570",
+        "collaborations": ["CMS Collaboration"],
+        "dois": ["10.1140/epjc/s10052-014-3036-7"],
+        "label": "76",
+        "publication_info": {
+          "artid": "3036",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "74",
+          "page_start": "3036",
+          "year": 2014
+        },
+        "title": {
+          "title":
+            "Searches for electroweak production of charginos, neutralinos, and sleptons decaying to leptons and W, Z, and Higgs bosons in pp collisions at 8 TeV"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1315820"
+      },
+      "reference": {
+        "arxiv_eprint": "1409.3168",
+        "collaborations": ["CMS Collaboration"],
+        "dois": ["10.1103/PhysRevD.90.092007"],
+        "label": "77",
+        "publication_info": {
+          "artid": "092007",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "90",
+          "year": 2014
+        },
+        "title": {
+          "title":
+            "Searches for electroweak neutralino and chargino production in channels with Higgs, Z, and W bosons in pp collisions at 8 TeV"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1268812"
+      },
+      "reference": {
+        "arxiv_eprint": "1312.3310",
+        "collaborations": ["CMS Collaboration"],
+        "dois": ["10.1103/PhysRevLett.112.161802"],
+        "label": "78",
+        "publication_info": {
+          "artid": "161802",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "112",
+          "year": 2014
+        },
+        "title": {
+          "title":
+            "Search for top squark and higgsino production using diphoton Higgs boson decays"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1304456"
+      },
+      "reference": {
+        "arxiv_eprint": "1407.0583",
+        "collaborations": ["ATLAS Collaboration"],
+        "dois": ["10.1007/JHEP11(2014)118"],
+        "label": "79",
+        "publication_info": {
+          "artid": "118",
+          "journal_title": "JHEP",
+          "journal_volume": "11",
+          "page_start": "118",
+          "year": 2014
+        },
+        "title": {
+          "title":
+            "Search for top squark pair production in final states with one isolated lepton, jets, and missing transverse momentum in \u221a s =8 TeV pp collisions with the ATLAS detector"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1246905"
+      },
+      "reference": {
+        "arxiv_eprint": "1308.1586",
+        "collaborations": ["CMS Collaboration"],
+        "dois": ["10.1140/epjc/s10052-013-2677-2"],
+        "label": "80",
+        "publication_info": {
+          "artid": "2677",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "73",
+          "page_start": "2677",
+          "year": 2013
+        },
+        "title": {
+          "title":
+            "Search for top-squark pair production in the single-lepton final state in pp collisions at \u221a s = 8 TeV"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1247462"
+      },
+      "reference": {
+        "arxiv_eprint": "1308.2631",
+        "collaborations": ["ATLAS Collaboration"],
+        "dois": ["10.1007/JHEP10(2013)189"],
+        "label": "81",
+        "publication_info": {
+          "artid": "189",
+          "journal_title": "JHEP",
+          "journal_volume": "10",
+          "page_start": "189",
+          "year": 2013
+        },
+        "title": {
+          "title":
+            "Search for direct third-generation squark pair production in final states with missing transverse momentum and two b-jets in \u221a s = 8 TeV pp collisions with the ATLAS detector"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1286444"
+      },
+      "reference": {
+        "arxiv_eprint": "1403.4853",
+        "collaborations": ["ATLAS Collaboration"],
+        "dois": ["10.1007/JHEP06(2014)124"],
+        "label": "82",
+        "publication_info": {
+          "artid": "124",
+          "journal_title": "JHEP",
+          "journal_volume": "06",
+          "page_start": "124",
+          "year": 2014
+        },
+        "title": {
+          "title":
+            "Search for direct top-squark pair production in final states with two leptons in pp collisions at \u221a s = 8TeV with the ATLAS detector"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1286622"
+      },
+      "reference": {
+        "arxiv_eprint": "1403.5222",
+        "collaborations": ["ATLAS Collaboration"],
+        "dois": ["10.1140/epjc/s10052-014-2883-6"],
+        "label": "83",
+        "publication_info": {
+          "artid": "2883",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "74",
+          "page_start": "2883",
+          "year": 2014
+        },
+        "title": {
+          "title":
+            "Search for direct top squark pair production in events with a Z boson, b-jets and missing transverse momentum in sqrt(s)=8 TeV pp collisions with the ATLAS detector"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1299143"
+      },
+      "reference": {
+        "arxiv_eprint": "1406.1122",
+        "collaborations": ["ATLAS Collaboration"],
+        "dois": ["10.1007/JHEP09(2014)015"],
+        "label": "84",
+        "publication_info": {
+          "artid": "015",
+          "journal_title": "JHEP",
+          "journal_volume": "09",
+          "page_start": "015",
+          "year": 2014
+        },
+        "title": {
+          "title":
+            "Search for direct pair production of the top squark in all-hadronic final states in proton-proton collisions at \u221a s = 8 TeV with the ATLAS detector"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1301856"
+      },
+      "reference": {
+        "arxiv_eprint": "1406.5375",
+        "collaborations": ["ATLAS Collaboration"],
+        "dois": ["10.1140/epjc/s10052-014-3109-7"],
+        "label": "85",
+        "publication_info": {
+          "artid": "3109",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "74",
+          "page_start": "3109",
+          "year": 2014
+        },
+        "title": {
+          "title":
+            "Measurement of the t\u00aft production cross-section using e\u00b5 events with b-tagged jets in pp collisions at \u221a s = 7 and 8 TeV with the ATLAS detector"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1304457"
+      },
+      "reference": {
+        "arxiv_eprint": "1407.0600",
+        "collaborations": ["ATLAS Collaboration"],
+        "dois": ["10.1007/JHEP10(2014)024"],
+        "label": "86",
+        "publication_info": {
+          "artid": "024",
+          "journal_title": "JHEP",
+          "journal_volume": "10",
+          "page_start": "024",
+          "year": 2014
+        },
+        "title": {
+          "title":
+            "Search for strong production of supersymmetric particles in final states with missing transverse momentum and at least three b-jets at \u221a s = 8 TeV proton-proton collisions with the ATLAS detector"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1304459"
+      },
+      "reference": {
+        "arxiv_eprint": "1407.0608",
+        "collaborations": ["ATLAS Collaboration"],
+        "dois": ["10.1103/PhysRevD.90.052008"],
+        "label": "87",
+        "publication_info": {
+          "artid": "052008",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "90",
+          "year": 2014
+        },
+        "title": {
+          "title":
+            "Search for pair-produced third-generation squarks decaying via charm quarks or in compressed supersymmetric scenarios in pp collisions at \u221a s = 8 TeV with the ATLAS detector"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/779602"
+      },
+      "reference": {
+        "arxiv_eprint": "0802.2470",
+        "authors": [
+          {
+            "full_name": "Butterworth, J.M."
+          },
+          {
+            "full_name": "Davison, A.R."
+          },
+          {
+            "full_name": "Rubin, M."
+          },
+          {
+            "full_name": "Salam, G.P."
+          }
+        ],
+        "dois": ["10.1103/PhysRevLett.100.242001"],
+        "label": "88",
+        "publication_info": {
+          "artid": "242001",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "100",
+          "year": 2008
+        },
+        "title": {
+          "title": "Jet substructure as a new Higgs search channel at the LHC"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1239348"
+      },
+      "reference": {
+        "arxiv_eprint": "1306.4945",
+        "collaborations": ["ATLAS Collaboration"],
+        "dois": ["10.1007/JHEP09(2013)076"],
+        "label": "89",
+        "publication_info": {
+          "artid": "076",
+          "journal_title": "JHEP",
+          "journal_volume": "09",
+          "page_start": "076",
+          "year": 2013
+        },
+        "title": {
+          "title":
+            "Performance of jet substructure techniques for large-R jets in proton-proton collisions at \u221a s = 7 TeV using the ATLAS detector"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/839188"
+      },
+      "reference": {
+        "arxiv_eprint": "0912.1342",
+        "authors": [
+          {
+            "full_name": "Krohn, D."
+          },
+          {
+            "full_name": "Thaler, J."
+          },
+          {
+            "full_name": "Wang, L.-T."
+          }
+        ],
+        "dois": ["10.1007/JHEP02(2010)084"],
+        "label": "90",
+        "publication_info": {
+          "artid": "084",
+          "journal_title": "JHEP",
+          "journal_volume": "02",
+          "page_start": "084",
+          "year": 2010
+        },
+        "title": {
+          "title": "Jet Trimming"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1126136"
+      },
+      "reference": {
+        "arxiv_eprint": "1208.1447",
+        "collaborations": ["ATLAS Collaboration"],
+        "dois": ["10.1103/PhysRevLett.109.211802"],
+        "label": "91",
+        "publication_info": {
+          "artid": "211802",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "109",
+          "year": 2012
+        },
+        "title": {
+          "title":
+            "Search for a supersymmetric partner to the top quark in final states with jets and missing transverse momentum at \u221a s = 7 TeV with the ATLAS detector"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1127331"
+      },
+      "reference": {
+        "arxiv_eprint": "1208.2590",
+        "collaborations": ["ATLAS Collaboration"],
+        "dois": ["10.1103/PhysRevLett.109.211803"],
+        "label": "92",
+        "publication_info": {
+          "artid": "211803",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "109",
+          "year": 2012
+        },
+        "title": {
+          "title":
+            "Search for direct top squark pair production in final states with one isolated lepton, jets, and missing transverse momentum in \u221a s = 7 TeV pp collisions using 4.7 fb-1 of ATLAS data"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1186556"
+      },
+      "reference": {
+        "arxiv_eprint": "1209.4186",
+        "collaborations": ["ATLAS Collaboration"],
+        "dois": ["10.1007/JHEP11(2012)094"],
+        "label": "93",
+        "publication_info": {
+          "artid": "094",
+          "journal_title": "JHEP",
+          "journal_volume": "11",
+          "page_start": "094",
+          "year": 2012
+        },
+        "title": {
+          "title":
+            "Search for a heavy top-quark partner in final states with two leptons with the ATLAS detector at the LHC"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1261968"
+      },
+      "reference": {
+        "arxiv_eprint": "1310.6584",
+        "collaborations": ["ATLAS Collaboration"],
+        "dois": ["10.1103/PhysRevD.88.112003"],
+        "label": "94",
+        "publication_info": {
+          "artid": "112003",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "88",
+          "year": 2013
+        },
+        "title": {
+          "title":
+            "Search for long-lived stopped R-hadrons decaying out-of-time with pp collisions using the ATLAS detector"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1120733"
+      },
+      "reference": {
+        "arxiv_eprint": "1207.0106",
+        "collaborations": ["CMS Collaboration"],
+        "dois": ["10.1007/JHEP08(2012)026"],
+        "label": "95",
+        "publication_info": {
+          "artid": "026",
+          "journal_title": "JHEP",
+          "journal_volume": "08",
+          "page_start": "026",
+          "year": 2012
+        },
+        "title": {
+          "title":
+            "Search for stopped long-lived particles produced in pp collisions at \u221a s = 7 TeV"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1258398"
+      },
+      "reference": {
+        "arxiv_eprint": "1310.3675",
+        "collaborations": ["ATLAS Collaboration"],
+        "dois": ["10.1103/PhysRevD.88.112006"],
+        "label": "96",
+        "publication_info": {
+          "artid": "112006",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "88",
+          "year": 2013
+        },
+        "title": {
+          "title":
+            "Search for charginos nearly mass degenerate with the lightest neutralino based on a disappearing-track signature in pp collisions at (s)=8TeV with the ATLAS detector"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/167604"
+      },
+      "reference": {
+        "authors": [
+          {
+            "full_name": "Weinberg, S."
+          }
+        ],
+        "dois": ["10.1103/PhysRevD.26.287"],
+        "label": "97",
+        "publication_info": {
+          "artid": "287",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "26",
+          "page_start": "287",
+          "year": 1982
+        },
+        "title": {
+          "title":
+            "Supersymmetry at Ordinary Energies. 1. Masses and Conservation Laws"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/167901"
+      },
+      "reference": {
+        "authors": [
+          {
+            "full_name": "Sakai, N."
+          },
+          {
+            "full_name": "Yanagida, T."
+          }
+        ],
+        "dois": ["10.1016/0550-3213(82)90457-6"],
+        "label": "98",
+        "publication_info": {
+          "artid": "533",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "197",
+          "page_start": "533",
+          "year": 1982
+        },
+        "title": {
+          "title":
+            "Proton Decay in a Class of Supersymmetric Grand Unified Models"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/630518"
+      },
+      "reference": {
+        "arxiv_eprint": "hep-ex/0310030",
+        "dois": ["10.1103/PhysRevLett.92.102004"],
+        "label": "99",
+        "misc": ["SNO Collaboration arXiv:"],
+        "publication_info": {
+          "artid": "102004",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "92",
+          "year": 2004
+        },
+        "title": {
+          "title":
+            "Constraints on nucleon decay via \u2019invisible\u2019 modes from the Sudbury Neutrino Observatory"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/746051"
+      },
+      "reference": {
+        "arxiv_eprint": "hep-ph/0703097",
+        "authors": [
+          {
+            "full_name": "Martin, S.P."
+          }
+        ],
+        "dois": ["10.1103/PhysRevD.75.115005"],
+        "label": "100",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "artid": "115005",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "75",
+          "year": 2007
+        },
+        "title": {
+          "title":
+            "Compressed supersymmetry and natural neutralino dark matter from top squark-mediated annihilation to top quarks"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/300447"
+      },
+      "reference": {
+        "authors": [
+          {
+            "full_name": "Griest, K."
+          },
+          {
+            "full_name": "Seckel, D."
+          }
+        ],
+        "dois": ["10.1103/PhysRevD.43.3191"],
+        "label": "101",
+        "publication_info": {
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "43",
+          "page_end": "3203",
+          "page_start": "3191",
+          "year": 1991
+        },
+        "title": {
+          "title": "Three exceptions in the calculation of relic abundances"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/337458"
+      },
+      "reference": {
+        "arxiv_eprint": "hep-ph/9208251",
+        "authors": [
+          {
+            "full_name": "Mizuta, S."
+          },
+          {
+            "full_name": "Yamaguchi, M."
+          }
+        ],
+        "dois": ["10.1016/0370-2693(93)91717-2"],
+        "label": "102",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "298",
+          "page_end": "126",
+          "page_start": "120",
+          "year": 1993
+        },
+        "title": {
+          "title":
+            "Coannihilation effects and relic abundance of Higgsino dominant LSP(s)"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/477873"
+      },
+      "reference": {
+        "arxiv_eprint": "hep-ph/9810360",
+        "authors": [
+          {
+            "full_name": "Ellis, J.R."
+          },
+          {
+            "full_name": "Falk, T."
+          },
+          {
+            "full_name": "Olive, K.A."
+          }
+        ],
+        "dois": ["10.1016/S0370-2693(98)01392-6"],
+        "label": "103",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "444",
+          "page_end": "372",
+          "page_start": "367",
+          "year": 1998
+        },
+        "title": {
+          "title":
+            "Neutralino - Stau coannihilation and the cosmological upper limit on the mass of the lightest supersymmetric particle"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/567926"
+      },
+      "reference": {
+        "arxiv_eprint": "hep-ph/0112113",
+        "authors": [
+          {
+            "full_name": "Ellis, J.R."
+          },
+          {
+            "full_name": "Olive, K.A."
+          },
+          {
+            "full_name": "Santoso, Y."
+          }
+        ],
+        "dois": ["10.1016/S0927-6505(02)00151-2"],
+        "label": "104",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Astropart.Phys.",
+          "journal_volume": "18",
+          "page_end": "432",
+          "page_start": "395",
+          "year": 2003
+        },
+        "title": {
+          "title": "Calculations of neutralino stop coannihilation in the CMSSM"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/192641"
+      },
+      "reference": {
+        "authors": [
+          {
+            "full_name": "Binetruy, P."
+          },
+          {
+            "full_name": "Girardi, G."
+          },
+          {
+            "full_name": "Salati, P."
+          }
+        ],
+        "dois": ["10.1016/0550-3213(84)90161-5"],
+        "label": "105",
+        "publication_info": {
+          "artid": "285",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "237",
+          "page_start": "285",
+          "year": 1984
+        },
+        "title": {
+          "title":
+            "Constraints on a System of Two Neutral Fermions From Cosmology"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/442326"
+      },
+      "reference": {
+        "arxiv_eprint": "hep-ph/9704361",
+        "authors": [
+          {
+            "full_name": "Edsjo, J."
+          },
+          {
+            "full_name": "Gondolo, P."
+          }
+        ],
+        "dois": ["10.1103/PhysRevD.56.1879"],
+        "label": "106",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "56",
+          "page_end": "1894",
+          "page_start": "1879",
+          "year": 1997
+        },
+        "title": {
+          "title": "Neutralino relic density including coannihilations"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1114411"
+      },
+      "reference": {
+        "arxiv_eprint": "1205.2739",
+        "dois": ["10.1103/PhysRevD.86.022002"],
+        "label": "107",
+        "misc": ["LAT Collaboration"],
+        "publication_info": {
+          "artid": "022002",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "86",
+          "year": 2012
+        },
+        "title": {
+          "title":
+            "Fermi LAT Search for Dark Matter in Gamma-ray Lines and the Inclusive Photon Spectrum"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1110710"
+      },
+      "reference": {
+        "arxiv_eprint": "1204.2797",
+        "authors": [
+          {
+            "full_name": "Weniger, C."
+          }
+        ],
+        "dois": ["10.1088/1475-7516/2012/08/007"],
+        "label": "108",
+        "publication_info": {
+          "artid": "007",
+          "journal_title": "JCAP",
+          "journal_volume": "08",
+          "page_start": "007",
+          "year": 2012
+        },
+        "title": {
+          "title":
+            "A Tentative Gamma-Ray Line from Dark Matter Annihilation at the Fermi Large Area Telescope"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1245966"
+      },
+      "reference": {
+        "arxiv_eprint": "1308.0133",
+        "dois": ["10.1103/PhysRevLett.111.081102"],
+        "label": "109",
+        "misc": ["PAMELA Collaboration"],
+        "publication_info": {
+          "artid": "081102",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "111",
+          "year": 2013
+        },
+        "title": {
+          "title": "Cosmic-Ray Positron Energy Spectrum Measured by PAMELA"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1255668"
+      },
+      "reference": {
+        "arxiv_eprint": "1309.6958",
+        "authors": [
+          {
+            "full_name": "Henrot-Versill\u00e9, S."
+          }
+        ],
+        "label": "110",
+        "publication_info": {
+          "artid": "055017",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "89",
+          "year": 2014
+        },
+        "title": {
+          "title":
+            "Constraining Supersymmetry using the relic density and the Higgs boson"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1311334"
+      },
+      "reference": {
+        "arxiv_eprint": "1408.4060",
+        "authors": [
+          {
+            "full_name": "Buchmueller, O."
+          }
+        ],
+        "dois": ["10.1140/epjc/s10052-014-3212-9"],
+        "label": "111",
+        "publication_info": {
+          "artid": "3212",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "74",
+          "page_start": "3212",
+          "year": 2014
+        },
+        "title": {
+          "title": "The NUHM2 after LHC Run 1"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1206998"
+      },
+      "reference": {
+        "arxiv_eprint": "1212.2636",
+        "authors": [
+          {
+            "full_name": "Strege, C."
+          }
+        ],
+        "dois": ["10.1088/1475-7516/2013/04/013"],
+        "label": "112",
+        "publication_info": {
+          "artid": "013",
+          "journal_title": "JCAP",
+          "journal_volume": "04",
+          "page_start": "013",
+          "year": 2013
+        },
+        "title": {
+          "title":
+            "Global Fits of the cMSSM and NUHM including the LHC Higgs discovery and new XENON100 constraints"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1233372"
+      },
+      "reference": {
+        "arxiv_eprint": "1305.2914",
+        "authors": [
+          {
+            "full_name": "Cohen, T."
+          },
+          {
+            "full_name": "Wacker, J.G."
+          }
+        ],
+        "dois": ["10.1007/JHEP09(2013)061"],
+        "label": "113",
+        "publication_info": {
+          "artid": "061",
+          "journal_title": "JHEP",
+          "journal_volume": "09",
+          "page_start": "061",
+          "year": 2013
+        },
+        "title": {
+          "title": "Here be Dragons: The Unexplored Continents of the CMSSM"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1297006"
+      },
+      "reference": {
+        "arxiv_eprint": "1405.4289",
+        "authors": [
+          {
+            "full_name": "Roszkowski, L."
+          },
+          {
+            "full_name": "Sessolo, E.M."
+          },
+          {
+            "full_name": "Williams, A.J."
+          }
+        ],
+        "dois": ["10.1007/JHEP08(2014)067"],
+        "label": "114",
+        "publication_info": {
+          "artid": "067",
+          "journal_title": "JHEP",
+          "journal_volume": "08",
+          "page_start": "067",
+          "year": 2014
+        },
+        "title": {
+          "title":
+            "What next for the CMSSM and the NUHM: Improved prospects for superpartner and dark matter detection"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1323294"
+      },
+      "reference": {
+        "arxiv_eprint": "1410.6035",
+        "authors": [
+          {
+            "full_name": "Bechtle, P."
+          }
+        ],
+        "label": "115",
+        "title": {
+          "title": "How alive is constrained SUSY really?"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1201943"
+      },
+      "reference": {
+        "arxiv_eprint": "1211.1981",
+        "authors": [
+          {
+            "full_name": "Cahill-Rowley, M.W."
+          },
+          {
+            "full_name": "Hewett, J.L."
+          },
+          {
+            "full_name": "Ismail, A."
+          },
+          {
+            "full_name": "Rizzo, T.G."
+          }
+        ],
+        "dois": ["10.1103/PhysRevD.88.035002"],
+        "label": "116",
+        "publication_info": {
+          "artid": "035002",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "88",
+          "year": 2013
+        },
+        "title": {
+          "title":
+            "More energy, more searches, but the phenomenological MSSM lives on"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1224798"
+      },
+      "reference": {
+        "arxiv_eprint": "1303.5386",
+        "authors": [
+          {
+            "full_name": "Boehm, C."
+          },
+          {
+            "full_name": "Dev, P.S.B."
+          },
+          {
+            "full_name": "Mazumdar, A."
+          },
+          {
+            "full_name": "Pukartas, E."
+          }
+        ],
+        "dois": ["10.1007/JHEP06(2013)113"],
+        "label": "117",
+        "publication_info": {
+          "artid": "113",
+          "journal_title": "JHEP",
+          "journal_volume": "06",
+          "page_start": "113",
+          "year": 2013
+        },
+        "title": {
+          "title":
+            "Naturalness of Light Neutralino Dark Matter in pMSSM after LHC, XENON100 and Planck Data"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1275339"
+      },
+      "reference": {
+        "arxiv_eprint": "1312.7027",
+        "authors": [
+          {
+            "full_name": "Dumont, B."
+          },
+          {
+            "full_name": "Gunion, J.F."
+          },
+          {
+            "full_name": "Kraml, S."
+          }
+        ],
+        "dois": ["10.1103/PhysRevD.89.055018"],
+        "label": "118",
+        "publication_info": {
+          "artid": "055018",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "89",
+          "year": 2014
+        },
+        "title": {
+          "title": "The phenomenological MSSM in view of the 125 GeV Higgs data"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1190187"
+      },
+      "reference": {
+        "arxiv_eprint": "1210.2979",
+        "collaborations": ["ATLAS Collaboration"],
+        "dois": ["10.1103/PhysRevD.87.112001"],
+        "label": "119",
+        "publication_info": {
+          "artid": "112001",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "87",
+          "year": 2013
+        },
+        "title": {
+          "title":
+            "Measurement of W+ W- production in pp collisions at \u221a s=7TeV with the ATLAS detector and limits on anomalous WWZ and WW couplings"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1237104"
+      },
+      "reference": {
+        "arxiv_eprint": "1306.1126",
+        "collaborations": ["CMS Collaboration"],
+        "dois": ["10.1140/epjc/s10052-013-2610-8"],
+        "label": "120",
+        "publication_info": {
+          "artid": "2610",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "73",
+          "page_start": "2610",
+          "year": 2013
+        },
+        "title": {
+          "title":
+            "Measurement of the W+ W- Cross section in pp Collisions at \u221a s = 7 TeV and Limits on Anomalous WW\u03b3 and WWZ couplings"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1120521"
+      },
+      "reference": {
+        "arxiv_eprint": "1206.6888",
+        "authors": [
+          {
+            "full_name": "Curtin, D."
+          },
+          {
+            "full_name": "Jaiswal, P."
+          },
+          {
+            "full_name": "Meade, P."
+          }
+        ],
+        "dois": ["10.1103/PhysRevD.87.031701"],
+        "label": "121",
+        "publication_info": {
+          "artid": "031701",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "87",
+          "year": 2013
+        },
+        "title": {
+          "title": "Charginos Hiding In Plain Sight"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1299146"
+      },
+      "reference": {
+        "arxiv_eprint": "1406.0858",
+        "authors": [
+          {
+            "full_name": "Kim, J.S."
+          },
+          {
+            "full_name": "Rolbiecki, K."
+          },
+          {
+            "full_name": "Sakurai, K."
+          },
+          {
+            "full_name": "Tattersall, J."
+          }
+        ],
+        "dois": ["10.1007/JHEP12(2014)010"],
+        "label": "122",
+        "publication_info": {
+          "artid": "010",
+          "journal_title": "JHEP",
+          "journal_volume": "12",
+          "page_start": "010",
+          "year": 2014
+        },
+        "title": {
+          "title": "\u2019Stop\u2019 that ambulance! New physics at the LHC?"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1299141"
+      },
+      "reference": {
+        "arxiv_eprint": "1406.0848",
+        "authors": [
+          {
+            "full_name": "Curtin, D."
+          },
+          {
+            "full_name": "Meade, P."
+          },
+          {
+            "full_name": "Tien, P.-J."
+          }
+        ],
+        "dois": ["10.1103/PhysRevD.90.115012"],
+        "label": "123",
+        "publication_info": {
+          "artid": "115012",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "90",
+          "year": 2014
+        },
+        "title": {
+          "title": "Natural SUSY in Plain Sight"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1215317"
+      },
+      "reference": {
+        "arxiv_eprint": "1301.4698",
+        "collaborations": ["CMS Collaboration"],
+        "dois": ["10.1016/j.physletb.2013.03.027"],
+        "label": "124",
+        "publication_info": {
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "721",
+          "page_end": "211",
+          "page_start": "190",
+          "year": 2013
+        },
+        "title": {
+          "title":
+            "Measurement of W+W- and ZZ production cross sections in pp collisions at sqrt(s) = 8 TeV"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1351762"
+      },
+      "reference": {
+        "arxiv_eprint": "1503.03290",
+        "collaborations": ["ATLAS Collaboration"],
+        "label": "125",
+        "title": {
+          "title":
+            "Search for supersymmetry in events containing a same-flavour opposite-sign dilepton pair, jets, and large missing transverse momentum in \u221a s = 8 TeV pp collisions with the ATLAS detector"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1345823"
+      },
+      "reference": {
+        "arxiv_eprint": "1502.06031",
+        "collaborations": ["CMS Collaboration"],
+        "label": "126",
+        "title": {
+          "title":
+            "Search for physics beyond the standard model in events with two leptons, jets, and missing transverse momentum in pp collisions at \u221a s = 8 TeV"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1315970"
+      },
+      "reference": {
+        "arxiv_eprint": "1409.3532",
+        "authors": [
+          {
+            "full_name": "Allanach, B."
+          },
+          {
+            "full_name": "Raklev, A.R."
+          },
+          {
+            "full_name": "Kvellestad, A."
+          }
+        ],
+        "label": "127",
+        "title": {
+          "title":
+            "Interpreting a CMS lljjpmiss T Excess With the Golden Cascade of the MSSM"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1795400"
+      },
+      "reference": {
+        "collaborations": ["ATLAS Collaboration"],
+        "label": "128",
+        "report_numbers": ["ATL-PHYS-PUB-2014-010"],
+        "title": {
+          "title":
+            "Search for Supersymmetry at the high luminosity LHC with the ATLAS experiment"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1795415"
+      },
+      "reference": {
+        "collaborations": ["ATLAS Collaboration"],
+        "label": "129",
+        "report_numbers": ["ATL-PHYS-PUB-2013-011"],
+        "title": {
+          "title":
+            "Prospects for benchmark Supersymmetry searches at the high luminosity LHC with the ATLAS Detector"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/1244669"
+      },
+      "reference": {
+        "arxiv_eprint": "1307.7135",
+        "collaborations": ["CMS Collaboration"],
+        "label": "130",
+        "title": {
+          "title":
+            "Projected Performance of an Upgraded CMS Detector at the LHC and HL-LHC: Contribution to the Snowmass Process"
+        }
+      }
+    }
+  ],
+  "self": {
+    "$ref": "https://inspirehep.net/api/literature/1375491"
+  },
+  "texkeys": ["Bechtle:2015nta", "Bechtle:2015kja"],
+  "titles": [
+    {
+      "title": "Supersymmetry"
+    },
+    {
+      "source": "arXiv",
+      "title": "The Status of Supersymmetry after the LHC Run 1"
+    }
+  ]
+}

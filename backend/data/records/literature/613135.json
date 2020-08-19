@@ -1,0 +1,1901 @@
+{
+  "$schema": "https://inspirehep.net/schemas/records/hep.json",
+  "_collections": ["Literature"],
+  "_private_notes": [
+    {
+      "source": "SPIRES-HIDDEN",
+      "value": "90 References from cites2 direct"
+    },
+    {
+      "source": "SPIRES-HIDDEN",
+      "value": "Title standardized on 6/1/2004"
+    },
+    {
+      "source": "SPIRES-HIDDEN",
+      "value": "Cites revised by ..cites.add on 11/09/05"
+    },
+    {
+      "source": "SPIRES-HIDDEN",
+      "value": "Cites revised by ..cites.add on 03/13/06"
+    },
+    {
+      "source": "SPIRES-HIDDEN",
+      "value": "DOI from CrossRef"
+    },
+    {
+      "source": "SPIRES-HIDDEN",
+      "value": "topcites2007annual"
+    },
+    {
+      "source": "SPIRES-HIDDEN",
+      "value": "Cites revised by 68250 on 07/21/09"
+    },
+    {
+      "source": "CERN",
+      "value": "CDS-604862"
+    }
+  ],
+  "abstracts": [
+    {
+      "source": "arXiv",
+      "value":
+        "WMAP precision data enables accurate testing of cosmological models. We find that the emerging standard model of cosmology, a flat Lambda-dominated universe seeded by nearly scale-invariant adiabatic Gaussian fluctuations, fits the WMAP data. With parameters fixed only by WMAP data, we can fit finer scale CMB measurements and measurements of large scle structure (galaxy surveys and the Lyman alpha forest). This simple model is also consistent with a host of other astronomical measurements. We then fit the model parameters to a combination of WMAP data with other finer scale CMB experiments (ACBAR and CBI), 2dFGRS measurements and Lyman alpha forest data to find the model's best fit cosmological parameters: h=0.71+0.04-0.03, Omega_b h^2=0.0224+-0.0009, Omega_m h^2=0.135+0.008-0.009, tau=0.17+-0.06, n_s(0.05/Mpc)=0.93+-0.03, and sigma_8=0.84+-0.04. WMAP's best determination of tau=0.17+-0.04 arises directly from the TE data and not from this model fit, but they are consistent. These parameters imply that the age of the universe is 13.7+-0.2 Gyr. The data favors but does not require a slowly varying spectral index. By combining WMAP data with other astronomical data sets, we constrain the geometry of the universe, Omega_tot = 1.02 +- 0.02, the equation of state of the dark energy w < -0.78 (95% confidence limit assuming w >= -1), and the energy density in stable neutrinos, Omega_nu h^2 < 0.0076 (95% confidence limit). For 3 degenerate neutrino species, this limit implies that their mass is less than 0.23 eV (95% confidence limit). The WMAP detection of early reionization rules out warm dark matter."
+    }
+  ],
+  "accelerator_experiments": [
+    {
+      "legacy_name": "WMAP",
+      "record": {
+        "$ref": "https://inspirehep.net/api/experiments/1110621"
+      }
+    }
+  ],
+  "arxiv_eprints": [
+    {
+      "categories": ["astro-ph"],
+      "value": "astro-ph/0302209"
+    }
+  ],
+  "authors": [
+    {
+      "full_name": "Spergel, D.N.",
+      "ids": [
+        {
+          "schema": "INSPIRE BAI",
+          "value": "D.N.Spergel.1"
+        }
+      ],
+      "record": {
+        "$ref": "https://inspirehep.net/api/authors/987908"
+      },
+      "signature_block": "SPARGALd",
+      "uuid": "df056041-884b-446c-a600-220b08f54013"
+    },
+    {
+      "curated_relation": true,
+      "full_name": "Verde, Licia",
+      "ids": [
+        {
+          "schema": "INSPIRE BAI",
+          "value": "Licia.Verde.1"
+        }
+      ],
+      "record": {
+        "$ref": "https://inspirehep.net/api/authors/1021464"
+      },
+      "signature_block": "VARDl",
+      "uuid": "63e00372-e4e1-42dd-88e9-b719441f72b4"
+    },
+    {
+      "curated_relation": true,
+      "full_name": "Peiris, Hiranya V.",
+      "ids": [
+        {
+          "schema": "INSPIRE BAI",
+          "value": "H.V.Peiris.1"
+        }
+      ],
+      "record": {
+        "$ref": "https://inspirehep.net/api/authors/1019882"
+      },
+      "signature_block": "PARh",
+      "uuid": "1333e33a-542d-49a5-8e11-fb163b6b7244"
+    },
+    {
+      "full_name": "Komatsu, E.",
+      "ids": [
+        {
+          "schema": "INSPIRE BAI",
+          "value": "E.Komatsu.1"
+        }
+      ],
+      "record": {
+        "$ref": "https://inspirehep.net/api/authors/1024415"
+      },
+      "signature_block": "CANATSe",
+      "uuid": "9d2b574c-9bf6-4093-bb33-e491891e9c86"
+    },
+    {
+      "full_name": "Nolta, M.R.",
+      "ids": [
+        {
+          "schema": "INSPIRE BAI",
+          "value": "M.R.Nolta.1"
+        }
+      ],
+      "record": {
+        "$ref": "https://inspirehep.net/api/authors/1026859"
+      },
+      "signature_block": "NALTm",
+      "uuid": "8da2c787-2dab-4fc2-81cd-0420fd872767"
+    },
+    {
+      "curated_relation": true,
+      "full_name": "Bennett, C.L.",
+      "ids": [
+        {
+          "schema": "INSPIRE BAI",
+          "value": "C.L.Bennett.1"
+        }
+      ],
+      "record": {
+        "$ref": "https://inspirehep.net/api/authors/1016745"
+      },
+      "signature_block": "BANATc",
+      "uuid": "55bb560f-d4e0-41d4-92bb-024ba57af74f"
+    },
+    {
+      "curated_relation": true,
+      "full_name": "Halpern, M.",
+      "ids": [
+        {
+          "schema": "INSPIRE BAI",
+          "value": "Mark.Halpern.1"
+        }
+      ],
+      "record": {
+        "$ref": "https://inspirehep.net/api/authors/1036293"
+      },
+      "signature_block": "HALPARNm",
+      "uuid": "8aa79005-7e13-4977-a4da-454e0e7d7638"
+    },
+    {
+      "full_name": "Hinshaw, G.",
+      "ids": [
+        {
+          "schema": "INSPIRE BAI",
+          "value": "G.Hinshaw.1"
+        }
+      ],
+      "record": {
+        "$ref": "https://inspirehep.net/api/authors/1025814"
+      },
+      "signature_block": "HANSg",
+      "uuid": "5e1aea39-b9f9-496f-88c4-7c24ec677f03"
+    },
+    {
+      "full_name": "Jarosik, N.",
+      "ids": [
+        {
+          "schema": "INSPIRE BAI",
+          "value": "N.Jarosik.1"
+        }
+      ],
+      "record": {
+        "$ref": "https://inspirehep.net/api/authors/1026857"
+      },
+      "signature_block": "JARASACn",
+      "uuid": "c3581a86-7d16-4e68-9f34-ba1e51c51efb"
+    },
+    {
+      "full_name": "Kogut, A.",
+      "ids": [
+        {
+          "schema": "INSPIRE BAI",
+          "value": "A.Kogut.1"
+        }
+      ],
+      "record": {
+        "$ref": "https://inspirehep.net/api/authors/1021566"
+      },
+      "signature_block": "CAGATa",
+      "uuid": "d5f5d9c1-bc7e-490c-a330-ccf57afcff0a"
+    },
+    {
+      "full_name": "Limon, M.",
+      "ids": [
+        {
+          "schema": "INSPIRE BAI",
+          "value": "M.Limon.2"
+        }
+      ],
+      "record": {
+        "$ref": "https://inspirehep.net/api/authors/1000217"
+      },
+      "signature_block": "LANANm",
+      "uuid": "e8baa73c-dd16-42c3-9c23-024020852ee2"
+    },
+    {
+      "curated_relation": true,
+      "full_name": "Meyer, S.S.",
+      "ids": [
+        {
+          "schema": "INSPIRE BAI",
+          "value": "S.S.Meyer.1"
+        }
+      ],
+      "record": {
+        "$ref": "https://inspirehep.net/api/authors/1026860"
+      },
+      "signature_block": "MYARs",
+      "uuid": "88c18c85-4865-4883-9f89-65797e63d634"
+    },
+    {
+      "full_name": "Page, L.",
+      "ids": [
+        {
+          "schema": "INSPIRE BAI",
+          "value": "Lyman.A.Page.1"
+        }
+      ],
+      "record": {
+        "$ref": "https://inspirehep.net/api/authors/1020768"
+      },
+      "signature_block": "PAGl",
+      "uuid": "f410af46-74b2-4083-b56f-0bb8a3eab4f5"
+    },
+    {
+      "full_name": "Tucker, G.S.",
+      "ids": [
+        {
+          "schema": "INSPIRE BAI",
+          "value": "G.S.Tucker.1"
+        }
+      ],
+      "record": {
+        "$ref": "https://inspirehep.net/api/authors/1026861"
+      },
+      "signature_block": "TACARg",
+      "uuid": "bab6cfeb-2778-4370-af5d-13be228cca57"
+    },
+    {
+      "full_name": "Weiland, J.L.",
+      "ids": [
+        {
+          "schema": "INSPIRE BAI",
+          "value": "J.L.Weiland.1"
+        }
+      ],
+      "record": {
+        "$ref": "https://inspirehep.net/api/authors/1019868"
+      },
+      "signature_block": "WALADj",
+      "uuid": "e5cb3a71-469c-4e89-ae24-39d75eacb7d9"
+    },
+    {
+      "curated_relation": true,
+      "full_name": "Wollack, E.",
+      "ids": [
+        {
+          "schema": "INSPIRE BAI",
+          "value": "E.J.Wollack.1"
+        }
+      ],
+      "record": {
+        "$ref": "https://inspirehep.net/api/authors/1026862"
+      },
+      "signature_block": "WALACe",
+      "uuid": "c3ff6c53-13b0-4885-81ca-e38767f7899b"
+    },
+    {
+      "full_name": "Wright, E.L.",
+      "ids": [
+        {
+          "schema": "INSPIRE BAI",
+          "value": "E.L.Wright.1"
+        }
+      ],
+      "record": {
+        "$ref": "https://inspirehep.net/api/authors/983150"
+      },
+      "signature_block": "RAGTe",
+      "uuid": "edf3e810-6e3e-465f-bbaa-9d67ffc47cd8"
+    }
+  ],
+  "citeable": true,
+  "collaborations": [
+    {
+      "record": {
+        "$ref": "https://inspirehep.net/api/experiments/1110621"
+      },
+      "value": "WMAP"
+    }
+  ],
+  "control_number": 613135,
+  "curated": true,
+  "document_type": ["article"],
+  "documents": [
+    {
+      "hidden": true,
+      "key": "arXiv:astro-ph_0302209.pdf",
+      "source": "arxiv",
+      "url":
+        "http://inspire-afs-web2.cern.ch/var/data/files/g31/635493/arXiv%3Aastro-ph_0302209.pdf%3B1"
+    }
+  ],
+  "dois": [
+    {
+      "value": "10.1086/377226"
+    }
+  ],
+  "external_system_identifiers": [
+    {
+      "schema": "ADS",
+      "value": "2003ApJS..148..175S"
+    },
+    {
+      "schema": "SPIRES",
+      "value": "SPIRES-5472504"
+    }
+  ],
+  "inspire_categories": [
+    {
+      "term": "Astrophysics"
+    }
+  ],
+  "keywords": [
+    {
+      "schema": "PDG",
+      "source": "PDG",
+      "value": "S066MNS"
+    }
+  ],
+  "legacy_creation_date": "2003-02-12",
+  "legacy_version": "20160212174019.0",
+  "number_of_pages": 20,
+  "preprint_date": "2003-02",
+  "publication_info": [
+    {
+      "journal_record": {
+        "$ref": "https://inspirehep.net/api/journals/1214856"
+      },
+      "journal_title": "Astrophys.J.Suppl.",
+      "journal_volume": "148",
+      "page_end": "194",
+      "page_start": "175",
+      "year": 2003
+    }
+  ],
+  "record_affiliations": [
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/903139"
+      },
+      "value": "Princeton U."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/903048"
+      },
+      "value": "NASA, Goddard"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902688"
+      },
+      "value": "British Columbia U."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902730"
+      },
+      "value": "Chicago U., EFI"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/908957"
+      },
+      "value": "Chicago U., KICP"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902692"
+      },
+      "value": "Brown U."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/909163"
+      },
+      "value": "SSAI, Lanham"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/903303"
+      },
+      "value": "UCLA"
+    }
+  ],
+  "refereed": true,
+  "references": [
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/596803"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0203134",
+        "publication_info": {
+          "artid": "673",
+          "journal_title": "Mon.Not.Roy.Astron.Soc.",
+          "journal_volume": "344",
+          "page_start": "673"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/604625"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0212331",
+        "publication_info": {
+          "artid": "131301",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "90"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/604766"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0212363",
+        "publication_info": {
+          "artid": "L1",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "588",
+          "page_start": "L1"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/502651"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/9906463",
+        "publication_info": {
+          "artid": "1481",
+          "journal_title": "Science",
+          "journal_volume": "284",
+          "page_start": "1481"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/597993"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0205490",
+        "publication_info": {
+          "artid": "182",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "585",
+          "page_start": "182"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/570972"
+      },
+      "reference": {
+        "publication_info": {
+          "artid": "482",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "558",
+          "page_start": "482"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/16462"
+      },
+      "reference": {
+        "publication_info": {
+          "artid": "319",
+          "journal_title": "Ann.Rev.Astron.Astrophys.",
+          "journal_volume": "23",
+          "page_start": "319"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/199231"
+      },
+      "reference": {
+        "publication_info": {
+          "artid": "L45",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "285",
+          "page_start": "L45"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/467586"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/9708203",
+        "publication_info": {
+          "artid": "2117",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "57",
+          "page_start": "2117"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/597914"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0205386",
+        "publication_info": {
+          "artid": "12",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "626",
+          "page_start": "12"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/576296"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0106428",
+        "publication_info": {
+          "artid": "13",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "561",
+          "page_start": "13"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/599330"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0210213",
+        "publication_info": {
+          "artid": "100",
+          "journal_title": "Mon.Not.Roy.Astron.Soc.",
+          "journal_volume": "341",
+          "page_start": "100"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/462886"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/9712109",
+        "publication_info": {
+          "artid": "732",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "507",
+          "page_start": "732"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/535053"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0010171",
+        "publication_info": {
+          "artid": "L1",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "552",
+          "page_start": "L1"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/447100"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/9708069",
+        "publication_info": {
+          "artid": "1582",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "80",
+          "page_start": "1582"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/611622"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0301273",
+        "publication_info": {
+          "artid": "023509",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "68"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/574582"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0104357",
+        "publication_info": {
+          "artid": "691",
+          "journal_title": "Nature",
+          "journal_volume": "409",
+          "page_start": "691"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/600168"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0210473",
+        "publication_info": {
+          "artid": "12",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "591",
+          "page_start": "12"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/39648"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/9412015",
+        "publication_info": {
+          "artid": "L9",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "444",
+          "page_start": "L9"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/458668"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/9708018",
+        "publication_info": {
+          "artid": "44",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "495",
+          "page_start": "44"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/482987"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/9808200",
+        "publication_info": {
+          "artid": "23",
+          "journal_title": "Phys.Rept.",
+          "journal_volume": "307",
+          "page_start": "23"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/595775"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0201443",
+        "publication_info": {
+          "artid": "L45",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "567",
+          "page_start": "L45"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/640160"
+      },
+      "reference": {
+        "publication_info": {
+          "artid": "65",
+          "journal_title": "Science",
+          "journal_volume": "299",
+          "page_start": "65"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/576243"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0106498",
+        "publication_info": {
+          "artid": "1039",
+          "journal_title": "Mon.Not.Roy.Astron.Soc.",
+          "journal_volume": "328",
+          "page_start": "1039"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/447614"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/9708225",
+        "publication_info": {
+          "artid": "5982",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "57",
+          "page_start": "5982"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/502367"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/9906401",
+        "publication_info": {
+          "artid": "087304",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "62"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/490019"
+      },
+      "reference": {
+        "publication_info": {
+          "artid": "194",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "521",
+          "page_start": "194"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/539692"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0012324",
+        "publication_info": {
+          "artid": "20",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "581",
+          "page_start": "20"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/611633"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0301284",
+        "publication_info": {
+          "artid": "103509",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "67"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/556264"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0105068",
+        "publication_info": {
+          "artid": "044023",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "65"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/573536"
+      },
+      "reference": {
+        "publication_info": {
+          "artid": "L21",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "368",
+          "page_start": "L21"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/475294"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/9807103",
+        "publication_info": {
+          "artid": "75",
+          "journal_title": "Mon.Not.Roy.Astron.Soc.",
+          "journal_volume": "304",
+          "page_start": "75"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/549175"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0012337",
+        "publication_info": {
+          "artid": "114",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "554",
+          "page_start": "114"
+        }
+      }
+    },
+    {
+      "reference": {
+        "publication_info": {
+          "artid": "61301",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "89"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/117836"
+      },
+      "reference": {
+        "publication_info": {
+          "artid": "198",
+          "journal_title": "Nature",
+          "journal_volume": "263",
+          "page_start": "198"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/35395"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/9307001",
+        "publication_info": {
+          "artid": "50",
+          "journal_title": "Mon.Not.Roy.Astron.Soc.",
+          "journal_volume": "266",
+          "page_start": "50"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/549209"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0012376",
+        "publication_info": {
+          "artid": "47",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "553",
+          "page_start": "47"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/472848"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/9806396",
+        "publication_info": {
+          "artid": "74",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "509",
+          "page_start": "74"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/577868"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0111194",
+        "publication_info": {
+          "artid": "107",
+          "journal_title": "Mon.Not.Roy.Astron.Soc.",
+          "journal_volume": "334",
+          "page_start": "107"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/461155"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/9704150",
+        "publication_info": {
+          "artid": "749",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "491",
+          "page_start": "749"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/497192"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/9903336",
+        "publication_info": {
+          "artid": "11",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "534",
+          "page_start": "11"
+        }
+      }
+    },
+    {
+      "reference": {
+        "publication_info": {
+          "artid": "985",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "484",
+          "page_start": "985"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/553744"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0103047",
+        "publication_info": {
+          "artid": "375",
+          "journal_title": "Astropart.Phys.",
+          "journal_volume": "17",
+          "page_start": "375"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/597694"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0205087",
+        "publication_info": {
+          "artid": "L155",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "574",
+          "page_start": "L155"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/597143"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0203462",
+        "publication_info": {
+          "artid": "560",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "387",
+          "page_start": "560"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/598226"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0206103",
+        "publication_info": {
+          "artid": "604",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "577",
+          "page_start": "604"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/524480"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0002520"
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/452092"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/9712057",
+        "publication_info": {
+          "artid": "5255",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "80",
+          "page_start": "5255"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/536894"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0006436",
+        "publication_info": {
+          "artid": "669",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "549",
+          "page_start": "669"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/470259"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/9804285",
+        "publication_info": {
+          "artid": "063005",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "59"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/611789"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0301341",
+        "publication_info": {
+          "artid": "1199",
+          "journal_title": "Mon.Not.Roy.Astron.Soc.",
+          "journal_volume": "340",
+          "page_start": "1199"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/600700"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0210604"
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/494638"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/9901403",
+        "publication_info": {
+          "artid": "182",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "520",
+          "page_start": "182"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/460703"
+      },
+      "reference": {
+        "publication_info": {
+          "artid": "704",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "498",
+          "page_start": "704"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/435850"
+      },
+      "reference": {
+        "publication_info": {
+          "artid": "926",
+          "journal_title": "Mon.Not.Roy.Astron.Soc.",
+          "journal_volume": "282",
+          "page_start": "926"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/573871"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0103046",
+        "publication_info": {
+          "artid": "518",
+          "journal_title": "Mon.Not.Roy.Astron.Soc.",
+          "journal_volume": "357",
+          "page_start": "518"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/361560"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/9401003",
+        "publication_info": {
+          "artid": "L57",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "426",
+          "page_start": "L57"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/598954"
+      },
+      "reference": {
+        "arxiv_eprint": "hep-ex/0210019",
+        "publication_info": {
+          "artid": "413",
+          "journal_title": "Frascati Phys.Ser.",
+          "journal_volume": "28",
+          "page_start": "413"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/612675"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0302006",
+        "publication_info": {
+          "artid": "1",
+          "journal_title": "Astrophys.J.Suppl.",
+          "journal_volume": "149",
+          "page_start": "1"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/576792"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0109232",
+        "publication_info": {
+          "artid": "L95",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "563",
+          "page_start": "L95"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/613185"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0302213",
+        "publication_info": {
+          "artid": "161",
+          "journal_title": "Astrophys.J.Suppl.",
+          "journal_volume": "148",
+          "page_start": "161"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/597974"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0205468",
+        "publication_info": {
+          "artid": "1256",
+          "journal_title": "Mon.Not.Roy.Astron.Soc.",
+          "journal_volume": "336",
+          "page_start": "1256"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/395988"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/9504071",
+        "publication_info": {
+          "artid": "1739",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "52",
+          "page_start": "1739"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/604464"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0212289",
+        "publication_info": {
+          "artid": "32",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "600",
+          "page_start": "32"
+        }
+      }
+    },
+    {
+      "reference": {
+        "publication_info": {
+          "artid": "L11",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "555",
+          "page_start": "L11"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/390880"
+      },
+      "reference": {
+        "publication_info": {
+          "artid": "629",
+          "journal_title": "Nature",
+          "journal_volume": "370",
+          "page_start": "629"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/436917"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/9611107",
+        "publication_info": {
+          "artid": "493",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "490",
+          "page_start": "493"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/545829"
+      },
+      "reference": {
+        "publication_info": {
+          "artid": "499",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "553",
+          "page_start": "499"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/537072"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0011179",
+        "publication_info": {
+          "artid": "718",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "552",
+          "page_start": "718"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/573956"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0103143",
+        "publication_info": {
+          "artid": "169",
+          "journal_title": "Nature",
+          "journal_volume": "410",
+          "page_start": "169"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/597916"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0205388",
+        "publication_info": {
+          "artid": "556",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "591",
+          "page_start": "556"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/250261"
+      },
+      "reference": {
+        "publication_info": {
+          "artid": "L17",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "325",
+          "page_start": "L17"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/544234"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0001393",
+        "publication_info": {
+          "artid": "605",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "540",
+          "page_start": "605"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/484837"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/9812133",
+        "publication_info": {
+          "artid": "565",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "517",
+          "page_start": "565"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/556040"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0104474",
+        "publication_info": {
+          "artid": "41",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "560",
+          "page_start": "41"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/369926"
+      },
+      "reference": {
+        "publication_info": {
+          "artid": "L105",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "413",
+          "page_start": "L105"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/600597"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0210567",
+        "publication_info": {
+          "artid": "163",
+          "journal_title": "Mon.Not.Roy.Astron.Soc.",
+          "journal_volume": "342",
+          "page_start": "163"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/253512"
+      },
+      "reference": {
+        "publication_info": {
+          "artid": "3406",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "37",
+          "page_start": "3406"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/597884"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0205350",
+        "publication_info": {
+          "artid": "53",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "581",
+          "page_start": "53"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/596800"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0203131",
+        "publication_info": {
+          "artid": "L131",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "572",
+          "page_start": "L131"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/577953"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0111285",
+        "publication_info": {
+          "artid": "716",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "567",
+          "page_start": "716"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/590319"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0205086",
+        "publication_info": {
+          "artid": "L151",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "574",
+          "page_start": "L151"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/470671"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/9805201",
+        "publication_info": {
+          "artid": "1009",
+          "journal_title": "Astron.J.",
+          "journal_volume": "116",
+          "page_start": "1009"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/556114"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0104455",
+        "publication_info": {
+          "artid": "49",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "560",
+          "page_start": "49"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/379534"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/9410054",
+        "publication_info": {
+          "artid": "L17",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "438",
+          "page_start": "L17"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/574563"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0104335",
+        "publication_info": {
+          "artid": "626",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "579",
+          "page_start": "626"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/416626"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/9603033",
+        "publication_info": {
+          "artid": "437",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "469",
+          "page_start": "437"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/493878"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/9901122",
+        "publication_info": {
+          "artid": "119",
+          "journal_title": "Mon.Not.Roy.Astron.Soc.",
+          "journal_volume": "308",
+          "page_start": "119"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/546707"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0007238",
+        "publication_info": {
+          "artid": "277",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "545",
+          "page_start": "277"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/507635"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/9909386",
+        "publication_info": {
+          "artid": "3760",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "84",
+          "page_start": "3760"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/386352"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/9405042",
+        "publication_info": {
+          "artid": "458",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "441",
+          "page_start": "458"
+        }
+      }
+    },
+    {
+      "reference": {
+        "publication_info": {
+          "artid": "5",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "389",
+          "page_start": "5"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/558387"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0106051",
+        "publication_info": {
+          "artid": "18",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "569",
+          "page_start": "18"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/604063"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0212150"
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/596679"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0202503",
+        "publication_info": {
+          "artid": "369",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "393",
+          "page_start": "369"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/575572"
+      },
+      "reference": {
+        "publication_info": {
+          "artid": "1",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "563",
+          "page_start": "1"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/578343"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0112161",
+        "publication_info": {
+          "artid": "432",
+          "journal_title": "Mon.Not.Roy.Astron.Soc.",
+          "journal_volume": "335",
+          "page_start": "432"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/575585"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0108151",
+        "publication_info": {
+          "artid": "52",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "568",
+          "page_start": "52"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/22490"
+      },
+      "reference": {
+        "publication_info": {
+          "artid": "668",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "302",
+          "page_start": "668"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/488339"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/9801307",
+        "publication_info": {
+          "artid": "64",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "507",
+          "page_start": "64"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/586817"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0205216",
+        "publication_info": {
+          "artid": "043003",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "66"
+        }
+      }
+    }
+  ],
+  "self": {
+    "$ref": "https://inspirehep.net/api/literature/613135"
+  },
+  "texkeys": ["Spergel:2003cb"],
+  "titles": [
+    {
+      "title":
+        "First year Wilkinson Microwave Anisotropy Probe (WMAP) observations: Determination of cosmological parameters"
+    },
+    {
+      "title": "WILKINSON MICROWAVE ANISOTROPY PROBE"
+    },
+    {
+      "source": "arXiv",
+      "title":
+        "First Year Wilkinson Microwave Anisotropy Probe (WMAP) Observations: Determination of Cosmological Parameters"
+    }
+  ]
+}

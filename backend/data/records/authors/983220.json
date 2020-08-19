@@ -1,0 +1,168 @@
+{
+  "$schema": "https://inspirehep.net/schemas/records/authors.json",
+  "_collections": ["Authors"],
+  "advisors": [
+    {
+      "degree_type": "other",
+      "ids": [
+        {
+          "schema": "INSPIRE ID",
+          "value": "INSPIRE-00085490"
+        }
+      ],
+      "name": "Goldhaber, Gerson"
+    },
+    {
+      "degree_type": "other",
+      "ids": [
+        {
+          "schema": "INSPIRE ID",
+          "value": "INSPIRE-00146003"
+        }
+      ],
+      "name": "Trilling, George H."
+    }
+  ],
+  "arxiv_categories": ["hep-ex"],
+  "control_number": 983220,
+  "deleted": false,
+  "email_addresses": [
+    {
+      "current": true,
+      "value": "darien@neu.edu"
+    },
+    {
+      "current": true,
+      "value": "d.wood@northeastern.edu"
+    },
+    {
+      "current": true,
+      "hidden": true,
+      "value": "darien@neu.edu"
+    },
+    {
+      "current": false,
+      "hidden": true,
+      "value": "darien@neu.edu"
+    }
+  ],
+  "ids": [
+    {
+      "schema": "INSPIRE ID",
+      "value": "INSPIRE-00300234"
+    },
+    {
+      "schema": "INSPIRE BAI",
+      "value": "D.R.Wood.1"
+    },
+    {
+      "schema": "ORCID",
+      "value": "0000-0002-6477-801X"
+    },
+    {
+      "schema": "SPIRES",
+      "value": "HEPNAMES-14788"
+    }
+  ],
+  "legacy_creation_date": "1999-07-15",
+  "legacy_version": "20200304203218.0",
+  "name": {
+    "preferred_name": "Darien Robert Wood",
+    "value": "Wood, Darien Robert"
+  },
+  "positions": [
+    {
+      "curated_relation": true,
+      "current": true,
+      "institution": "Northeastern U.",
+      "rank": "SENIOR",
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/903081"
+      },
+      "start_date": "1995"
+    },
+    {
+      "curated_relation": true,
+      "end_date": "1995",
+      "institution": "Fermilab",
+      "rank": "STAFF",
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902796"
+      },
+      "start_date": "1991"
+    },
+    {
+      "curated_relation": true,
+      "end_date": "1991",
+      "institution": "Orsay, LAL",
+      "rank": "POSTDOC",
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/903100"
+      },
+      "start_date": "1990"
+    },
+    {
+      "curated_relation": true,
+      "end_date": "1990",
+      "institution": "CERN",
+      "rank": "POSTDOC",
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902725"
+      },
+      "start_date": "1988"
+    },
+    {
+      "curated_relation": true,
+      "end_date": "1987",
+      "institution": "UC, Berkeley",
+      "rank": "PHD",
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/903299"
+      },
+      "start_date": "1982"
+    },
+    {
+      "curated_relation": true,
+      "end_date": "1982",
+      "institution": "MIT",
+      "rank": "UNDERGRADUATE",
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/907455"
+      },
+      "start_date": "1978"
+    }
+  ],
+  "project_membership": [
+    {
+      "curated_relation": true,
+      "current": false,
+      "name": "CERN-LHC-CMS",
+      "record": {
+        "$ref": "https://inspirehep.net/api/experiments/1108642"
+      }
+    },
+    {
+      "curated_relation": true,
+      "current": false,
+      "name": "FNAL-E-0823",
+      "record": {
+        "$ref": "https://inspirehep.net/api/experiments/1110315"
+      }
+    },
+    {
+      "curated_relation": true,
+      "current": false,
+      "name": "FNAL-E-0740",
+      "record": {
+        "$ref": "https://inspirehep.net/api/experiments/1109214"
+      }
+    }
+  ],
+  "status": "active",
+  "stub": false,
+  "urls": [
+    {
+      "value": "http://www.physics.neu.edu/wood.html"
+    }
+  ]
+}

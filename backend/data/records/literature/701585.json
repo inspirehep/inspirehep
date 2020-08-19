@@ -1,0 +1,883 @@
+{
+  "$schema": "https://inspirehep.net/schemas/records/hep.json",
+  "_collections": ["Literature"],
+  "_desy_bookkeeping": [
+    {
+      "identifier": "D06-07092"
+    }
+  ],
+  "_private_notes": [
+    {
+      "source": "SPIRES-HIDDEN",
+      "value": "Title standardized on 1/2/2006"
+    },
+    {
+      "source": "SPIRES-HIDDEN",
+      "value": "rdupok"
+    },
+    {
+      "source": "SPIRES-HIDDEN",
+      "value":
+        "Authors obtained from HEPPH-0601012 in PROCESS.AUTHORS, 05/23/06"
+    },
+    {
+      "source": "SPIRES-HIDDEN",
+      "value": "DESY-KEYWORD changes via sul 5.10.10"
+    }
+  ],
+  "abstracts": [
+    {
+      "value":
+        "The HERA electron--proton collider has collected 100 pb$^{-1}$ of data since its start-up in 1992, and recently moved into a high-luminosity operation mode, with upgraded detectors, aiming to increase the total integrated luminosity per experiment to more than 500 pb$^{-1}$. HERA has been a machine of excellence for the study of QCD and the structure of the proton. The Large Hadron Collider (LHC), which will collide protons with a centre-of-mass energy of 14 TeV, will be completed at CERN in 2007. The main mission of the LHC is to discover and study the mechanisms of electroweak symmetry breaking, possibly via the discovery of the Higgs particle, and search for new physics in the TeV energy scale, such as supersymmetry or extra dimensions. Besides these goals, the LHC will also make a substantial number of precision measurements and will offer a new regime to study the strong force via perturbative QCD processes and diffraction. For the full LHC physics programme a good understanding of QCD phenomena and the structure function of the proton is essential. Therefore, in March 2004, a one-year-long workshop started to study the implications of HERA on LHC physics. This included proposing new measurements to be made at HERA, extracting the maximum information from the available data, and developing/improving the theoretical and experimental tools. This report summarizes the results achieved during this workshop."
+    }
+  ],
+  "arxiv_eprints": [
+    {
+      "categories": ["hep-ph"],
+      "value": "hep-ph/0601012"
+    }
+  ],
+  "authors": [
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirehep.net/api/institutions/902725"
+          },
+          "value": "CERN"
+        }
+      ],
+      "curated_relation": true,
+      "full_name": "De Roeck, A.",
+      "ids": [
+        {
+          "schema": "INSPIRE BAI",
+          "value": "A.De.Roeck.1"
+        }
+      ],
+      "inspire_roles": ["editor"],
+      "record": {
+        "$ref": "https://inspirehep.net/api/authors/1012251"
+      },
+      "signature_block": "RACa",
+      "uuid": "bf273c74-4dc5-44cd-a6bc-4e4245e3ddf3"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirehep.net/api/institutions/902770"
+          },
+          "value": "DESY"
+        }
+      ],
+      "curated_relation": true,
+      "full_name": "Jung, H.",
+      "ids": [
+        {
+          "schema": "INSPIRE BAI",
+          "value": "Hannes.Jung.1"
+        }
+      ],
+      "inspire_roles": ["editor"],
+      "record": {
+        "$ref": "https://inspirehep.net/api/authors/1004030"
+      },
+      "signature_block": "JANGh",
+      "uuid": "92a151ad-246f-47e7-9e2d-8119b6a0a180"
+    }
+  ],
+  "book_series": [
+    {
+      "title": "CERN Yellow Reports: Conference Proceedings"
+    }
+  ],
+  "citeable": true,
+  "control_number": 701585,
+  "core": true,
+  "curated": true,
+  "document_type": ["proceedings"],
+  "documents": [
+    {
+      "hidden": true,
+      "key": "arXiv:hep-ph_0601012.pdf",
+      "source": "arxiv",
+      "url":
+        "http://inspire-afs-web2.cern.ch/var/data/files/g42/847716/arXiv%3Ahep-ph_0601012.pdf%3B1"
+    },
+    {
+      "filename": "0601012.pdf",
+      "fulltext": true,
+      "key": "14781c66a8a6b83cbfdb15c03d2862ba",
+      "original_url":
+        "http://inspire-afs-web2.cern.ch/var/data/files/g136/2728563/content.pdf%3B1",
+      "url": "https://inspirehep.net/files/14781c66a8a6b83cbfdb15c03d2862ba"
+    }
+  ],
+  "dois": [
+    {
+      "value": "10.5170/CERN-2005-014"
+    }
+  ],
+  "external_system_identifiers": [
+    {
+      "schema": "HAL",
+      "value": "hal-00101644"
+    },
+    {
+      "schema": "CDS",
+      "value": "711179"
+    },
+    {
+      "schema": "SPIRES",
+      "value": "SPIRES-6475183"
+    }
+  ],
+  "imprints": [
+    {
+      "date": "2005",
+      "place": "Geneva",
+      "publisher": "CERN"
+    }
+  ],
+  "inspire_categories": [
+    {
+      "term": "Phenomenology-HEP"
+    }
+  ],
+  "keywords": [
+    {
+      "schema": "INSPIRE",
+      "value": "conference: Hamburg 2005/03/21"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "electron p: interaction"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "p p: interaction"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "hadron: multiple production"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "instanton"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "heavy quark"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "p: structure function"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "parton: momentum spectrum"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "DGLAP equation"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "quantum chromodynamics: perturbation theory"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "Feynman graph: higher-order"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "jet: multiple production"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "energy flow"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "underlying event"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "diffraction"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "parton: showers"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "DESY HERA Stor"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "CERN LHC Coll"
+    }
+  ],
+  "legacy_creation_date": "2006-01-02",
+  "legacy_version": "20200519173202.0",
+  "number_of_pages": 326,
+  "preprint_date": "2005-12",
+  "publication_info": [
+    {
+      "cnum": "C04-03-26.1",
+      "conference_record": {
+        "$ref": "https://inspirehep.net/api/conferences/975933"
+      },
+      "page_end": "326",
+      "page_start": "pp.1",
+      "year": 2005
+    }
+  ],
+  "record_affiliations": [
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/903194"
+      },
+      "value": "Serpukhov, IHEP"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902725"
+      },
+      "value": "CERN"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/906528"
+      },
+      "value": "Rome III U."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/907692"
+      },
+      "value": "INFN, Rome3"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/903297"
+      },
+      "value": "Turin U."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902889"
+      },
+      "value": "INFN, Turin"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902712"
+      },
+      "value": "Cambridge U."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902955"
+      },
+      "value": "Lebedev Inst."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/909396"
+      },
+      "value": "Piemonte Orientale U., Novara"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902720"
+      },
+      "value": "Case Western Reserve U."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/903174"
+      },
+      "value": "Rutherford"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902787"
+      },
+      "value": "Edinburgh U."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/908146"
+      },
+      "value": "Hamburg U., Inst. Theor. Phys. II"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902842"
+      },
+      "value": "Heidelberg U."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902666"
+      },
+      "value": "DESY, Zeuthen"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/903175"
+      },
+      "value": "Saclay"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902804"
+      },
+      "value": "Florida U."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/903036"
+      },
+      "value": "Munich, Max Planck Inst."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902878"
+      },
+      "value": "INFN, Bologna"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/907892"
+      },
+      "value": "Piemonte Orientale U., Alessandria"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902782"
+      },
+      "value": "Durham U."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/903361"
+      },
+      "value": "Yerevan Phys. Inst."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902841"
+      },
+      "value": "Heidelberg, Max Planck Inst."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902823"
+      },
+      "value": "Glasgow U."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/903311"
+      },
+      "value": "University Coll. London"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/908583"
+      },
+      "value": "Paris, LPTHE"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902645"
+      },
+      "value": "Argonne"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902801"
+      },
+      "value": "Florence U."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902880"
+      },
+      "value": "INFN, Florence"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/903125"
+      },
+      "value": "Penn State U."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/903112"
+      },
+      "value": "Oxford U."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902984"
+      },
+      "value": "Manchester U."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902687"
+      },
+      "value": "Bristol U."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902897"
+      },
+      "value": "Jagiellonian U."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/903881"
+      },
+      "value": "Copenhagen U."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/903113"
+      },
+      "value": "Padua U."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902884"
+      },
+      "value": "INFN, Padua"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/903369"
+      },
+      "value": "Zurich, ETH"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902770"
+      },
+      "value": "DESY"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902902"
+      },
+      "value": "Jyvaskyla U."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/903832"
+      },
+      "value": "NIKHEF, Amsterdam"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/906199"
+      },
+      "value": "DAPNIA, Saclay"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902814"
+      },
+      "value": "Genoa U."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902881"
+      },
+      "value": "INFN, Genoa"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/903009"
+      },
+      "value": "Milan U."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902882"
+      },
+      "value": "INFN, Milan"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/909859"
+      },
+      "value": "Karlsruhe U., ITP"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902776"
+      },
+      "value": "Dresden, Tech. U."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902756"
+      },
+      "value": "Cracow, INP"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/903259"
+      },
+      "value": "Tel Aviv U."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/903349"
+      },
+      "value": "Wisconsin U., Madison"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902973"
+      },
+      "value": "Lund U."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/903006"
+      },
+      "value": "Michigan State U."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/903314"
+      },
+      "value": "Uppsala U."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902843"
+      },
+      "value": "Helsinki U."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/907484"
+      },
+      "value": "Helsinki Inst. of Phys."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902780"
+      },
+      "value": "Dubna, JINR"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/903532"
+      },
+      "value": "Ljubljana U."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/903408"
+      },
+      "value": "Stefan Inst., Ljubljana"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902828"
+      },
+      "value": "LPSC, Grenoble"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902689"
+      },
+      "value": "Brookhaven"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/905435"
+      },
+      "value": "Montenegro U."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902727"
+      },
+      "value": "Charles U."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/908040"
+      },
+      "value": "Barcelona U., ECM"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/908422"
+      },
+      "value": "Kirchhoff Inst. Phys."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/908795"
+      },
+      "value": "SINP, Moscow"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902753"
+      },
+      "value": "Connecticut U."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902970"
+      },
+      "value": "Louvain U."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902671"
+      },
+      "value": "Birmingham U."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902868"
+      },
+      "value": "Imperial Coll., London"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902919"
+      },
+      "value": "Karlsruhe U., EKP"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/906372"
+      },
+      "value": "Harish-Chandra Res. Inst."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902796"
+      },
+      "value": "Fermilab"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/903100"
+      },
+      "value": "Orsay, LAL"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902960"
+      },
+      "value": "St. Petersburg, INP"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902832"
+      },
+      "value": "Hamburg U."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/905856"
+      },
+      "value": "Southern Methodist U."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/910429"
+      },
+      "value": "YITP, Stony Brook"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902948"
+      },
+      "value": "Lancaster U."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902982"
+      },
+      "value": "Mainz U., Inst. Phys."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/903384"
+      },
+      "value": "Giessen U."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902642"
+      },
+      "value": "Antwerp U."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902964"
+      },
+      "value": "Liverpool U."
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/902953"
+      },
+      "value": "LBL, Berkeley"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/903301"
+      },
+      "value": "UC, Davis"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://inspirehep.net/api/institutions/903437"
+      },
+      "value": "Baylor U."
+    }
+  ],
+  "references": [
+    {
+      "reference": {
+        "collaborations": ["the ATLAS collaboration"],
+        "misc": [
+          "hadrons. The theory of QCD at next-to-leading order generally describes well the hadronic structure and the production of heavy quarks although sometimes fails in details which are highlighted. The fragmentation of heavy quarks measured at HERA is consistent with that at LEP and hence supports the notion of universality. 1 Why study heavy quark production? The measurement of heavy quarks can give insights into many physical phenomena such as: new particles which are expected to decay predominantly to beauty (and charm) and, the subject of this paper, a deeper understanding of the strong force of nature. The strong force as described within perturbative Quantum Chromodynamics (QCD) should be able to give a precise description of heavy quark production. This postulate is described and tested here. The measurement of heavy quark production also yields valuable information on the structure of colliding hadrons. The production of a pair of heavy quarks in a generic hadron collision is shown in Fig. 1 where it can be seen that the process is directly sensitive to the gluon content of the hadron. Most information on the structure of a hadron comes from inclusive deep inelastic scattering where the gluon content is determined in the evolution of the QCD equations. Therefore measurement of such a process in Fig. 1 provides complimentary information to that from inclusive measurements. As well as understanding for its own sake, knowledge of the structure of hadrons will be important at future colliders such as the LHC and International Linear Collider where hadronic photons will have large cross section in both e+e- and γγ modes. Heavy quarks will be copiously produced at future colliders as a background to the more exotic processes expected. Therefore a precise description of their production properties within QCD will aid in the discovery of physics beyond the Standard Model. An example of this was studied by using Monte Carlo to simulate the production at the LHC of a b¯b pair along with a supersymmetric Higgs particle (H/A) which subsequently decays to a b¯b pair precise measurements of electroweak parameters"
+        ]
+      }
+    }
+  ],
+  "report_numbers": [
+    {
+      "value": "CERN-2005-014"
+    },
+    {
+      "value": "DESY-PROC-2005-01"
+    }
+  ],
+  "self": {
+    "$ref": "https://inspirehep.net/api/literature/701585"
+  },
+  "texkeys": ["Alekhin:2005dx"],
+  "titles": [
+    {
+      "title":
+        "HERA and the LHC: A Workshop on the implications of HERA for LHC physics: Proceedings Part A"
+    },
+    {
+      "title": "LARGE HADRON COLLIDER"
+    },
+    {
+      "source": "arXiv",
+      "title":
+        "HERA and the LHC - A workshop on the implications of HERA for LHC physics: Proceedings Part A."
+    }
+  ],
+  "urls": [
+    {
+      "description": "Electronic Version from a server",
+      "value": "http://www.desy.de/~heralhc"
+    }
+  ]
+}

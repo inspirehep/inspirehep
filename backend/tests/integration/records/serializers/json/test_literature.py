@@ -1188,3 +1188,53 @@ def test_literature_list_for_non_author_publication_search_doesnt_have_curated_r
     assert expected_status_code == response_status_code
     assert response_data["hits"]["total"] == 1
     assert "curated_relation" not in hits[0]
+
+
+def test_literature_raw_json_with_logged_in_cataloger(inspire_app):
+    user = create_user(role=Roles.cataloger.value)
+
+    headers = {"Accept": "application/vnd+inspire.record.raw+json"}
+
+    data = {
+        "_collections": ["Literature"],
+        "document_type": ["article"],
+        "control_number": 12345,
+        "titles": [{"title": "A Title"}],
+    }
+
+    record = create_record("lit", data=data)
+    record_control_number = record["control_number"]
+
+    expected_status_code = 200
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(f"/literature/{record_control_number}", headers=headers)
+
+    response_status_code = response.status_code
+
+    assert expected_status_code == response_status_code
+
+
+def test_literature_raw_json_without_logged_in_cataloger(inspire_app):
+    user = create_user()
+
+    headers = {"Accept": "application/vnd+inspire.record.raw+json"}
+
+    data = {
+        "_collections": ["Literature"],
+        "document_type": ["article"],
+        "control_number": 12345,
+        "titles": [{"title": "A Title"}],
+    }
+
+    record = create_record("lit", data=data)
+    record_control_number = record["control_number"]
+
+    expected_status_code = 403
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(f"/literature/{record_control_number}", headers=headers)
+
+    response_status_code = response.status_code
+
+    assert expected_status_code == response_status_code
