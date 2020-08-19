@@ -8,7 +8,11 @@ import {
 } from './actionTypes';
 import generateRecordFetchAction from './recordsFactory';
 import { AUTHORS_PID_TYPE } from '../common/constants';
-import { assignSuccess, assignError } from '../authors/assignNotification';
+import {
+  assignSuccess,
+  assignError,
+  assigning,
+} from '../authors/assignNotification';
 import { searchQueryUpdate } from './search';
 import { AUTHOR_PUBLICATIONS_NS } from '../search/constants';
 
@@ -45,6 +49,7 @@ export function assignPapers({ from, to }) {
   return async (dispatch, getState, http) => {
     try {
       const papers = getState().authors.get('publicationSelection');
+      assigning();
       const { data } = await http.post('/assign', {
         from_author_recid: from,
         to_author_recid: to,
