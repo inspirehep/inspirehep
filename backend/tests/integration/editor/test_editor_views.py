@@ -7,8 +7,13 @@
 
 
 import json
+import os
 
+import pkg_resources
+import requests_mock
 from helpers.utils import create_user
+from inspire_schemas.api import load_schema, validate
+from inspire_utils.record import get_value
 from invenio_accounts.testutils import login_user_via_session
 from invenio_cache import current_cache
 from mock import patch
@@ -217,3 +222,76 @@ def test_get_rt_queues_returns_403_on_authentication_error(inspire_app):
         response = client.get("api/editor/rt/queues")
 
     assert response.status_code == 403
+
+
+def test_refextract_text(inspire_app):
+    schema = load_schema("hep")
+    subschema = schema["properties"]["references"]
+
+    user = create_user(role=Roles.cataloger.value)
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "api/editor/refextract/text",
+            content_type="application/json",
+            data=json.dumps(
+                {
+                    "text": (
+                        "J. M. Maldacena. “The Large N Limit of Superconformal Field "
+                        "Theories and Supergravity”. Adv. Theor. Math. Phys. 2 (1998), "
+                        "pp. 231–252."
+                    ),
+                }
+            ),
+        )
+    references = json.loads(response.data)
+
+    assert response.status_code == 200
+    assert validate(references, subschema) is None
+    assert get_value(
+        {"references": references},
+        "references.reference.publication_info.journal_title",
+    )
+
+
+def test_refextract_url(inspire_app):
+    schema = load_schema("hep")
+    subschema = schema["properties"]["references"]
+    user = create_user(role=Roles.cataloger.value)
+    es_response = {
+        "_shards": {"failed": 0, "skipped": 0, "successful": 5, "total": 5},
+        "hits": {"hits": [], "max_score": None, "total": 0},
+        "timed_out": False,
+        "took": 4,
+    }
+
+    with requests_mock.Mocker() as requests_mocker:
+        requests_mocker.register_uri(
+            "GET",
+            "https://arxiv.org/pdf/1612.06414.pdf",
+            content=pkg_resources.resource_string(
+                __name__, os.path.join("fixtures", "1612.06414.pdf")
+            ),
+        )
+        requests_mocker.register_uri(
+            "GET",
+            "http://test-indexer:9200/records-hep/hep/_search?_source=control_number",
+            json=es_response,
+        )
+
+        with inspire_app.test_client() as client:
+            login_user_via_session(client, email=user.email)
+            response = client.post(
+                "api/editor/refextract/url",
+                content_type="application/json",
+                data=json.dumps({"url": "https://arxiv.org/pdf/1612.06414.pdf"}),
+            )
+        references = json.loads(response.data)
+
+    assert response.status_code == 200
+    assert validate(references, subschema) is None
+    assert get_value(
+        {"references": references},
+        "references.reference.publication_info.journal_title",
+    )

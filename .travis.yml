@@ -58,6 +58,7 @@ before_install:
       source $HOME/.poetry/env;
     fi
   - travis_retry pip install twine wheel coveralls
+  - sudo apt-get -y install poppler-utils
 
 after_script:
  -  if [ "$RUN_DOCKER" == "true" ]; then

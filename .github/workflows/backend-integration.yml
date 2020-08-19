@@ -3,12 +3,12 @@ name: Backend integration test
 on:
   push:
     branches: [master]
-    paths: 
+    paths:
       - 'backend/**'
       - '.github/workflows/backend-integration.yml'
   pull_request:
     branches: [master]
-    paths: 
+    paths:
       - 'backend/**'
       - '.github/workflows/backend-integration.yml'
 

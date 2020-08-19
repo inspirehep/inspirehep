@@ -142,8 +142,8 @@ def match_reference(reference, previous_matched_recid=None):
     return reference
 
 
-def match_references(reference):
-    """Match a reference using inspire-matcher.
+def match_reference_control_numbers(reference):
+    """Match reference and return the `control_number`.
 
     Args:
         reference (dict): the metadata of a reference.
@@ -170,12 +170,18 @@ def match_references(reference):
     return matches
 
 
-def match_reference_control_numbers(reference):
-    """Match reference and return the `control_number`.
-
+def match_references(references):
+    """Match references to their respective records in INSPIRE.
     Args:
-        reference (dict): the metadata of a reference.
+        references (list): the list of references.
     Returns:
-        list: list of `control_numbers` or None.
+        list: the matched references.
     """
-    return match_references(reference)
+    matched_references, previous_matched_recid = [], None
+    for ref in references:
+        ref = match_reference(ref, previous_matched_recid)
+        matched_references.append(ref)
+        if "record" in ref:
+            previous_matched_recid = get_recid_from_ref(ref["record"])
+
+    return matched_references
