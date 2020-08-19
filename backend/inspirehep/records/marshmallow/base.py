@@ -6,9 +6,10 @@
 # the terms of the MIT License; see LICENSE file for more details.
 from copy import deepcopy
 
+from flask import abort
 from inspire_dojson.utils import strip_empty_values
 from invenio_records_rest.schemas.json import RecordSchemaJSONV1
-from marshmallow import fields, post_dump
+from marshmallow import fields, post_dump, pre_dump
 from marshmallow.schema import Schema
 
 
@@ -30,6 +31,12 @@ class EnvelopeSchema(RecordSchemaJSONV1):
     """
 
     uuid = fields.String(dump_only=True, attribute="pid.object_uuid")
+
+
+class ForbiddenSchema(Schema):
+    @pre_dump
+    def abort(self, data):
+        abort(403)
 
 
 class ElasticSearchBaseSchema:

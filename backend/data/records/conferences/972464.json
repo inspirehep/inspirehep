@@ -1,0 +1,43 @@
+{
+  "$schema": "https://inspirehep.net/schemas/records/conferences.json",
+  "_collections": ["Conferences"],
+  "addresses": [
+    {
+      "cities": ["Tokyo"],
+      "country_code": "JP",
+      "latitude": 35.7090259,
+      "longitude": 139.7319925
+    }
+  ],
+  "closing_date": "1999-11-19",
+  "cnum": "C99-11-16.1",
+  "contact_details": [
+    {
+      "email": "birth@phys.s.u-tokyo.ac.jp"
+    }
+  ],
+  "control_number": 972464,
+  "external_system_identifiers": [
+    {
+      "schema": "SPIRES",
+      "value": "CONF-461733"
+    }
+  ],
+  "legacy_creation_date": "2011-11-30",
+  "legacy_version": "20161026165849.0",
+  "opening_date": "1999-11-16",
+  "self": {
+    "$ref": "https://labs.inspirehep.net/api/conferences/972464"
+  },
+  "titles": [
+    {
+      "title":
+        "4th RESCEU International Symposium on Birth and Evolution of the Universe"
+    }
+  ],
+  "urls": [
+    {
+      "value": "http://www.u-tokyo.ac.jp/index_e.html"
+    }
+  ]
+}

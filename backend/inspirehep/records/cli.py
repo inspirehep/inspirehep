@@ -27,11 +27,8 @@ LOGGER = structlog.getLogger()
 
 def _create_record(data):
     control_number = data["control_number"]
+
     click.echo(f"Creating record {control_number}.")
-    # ``earliest_date``` is not part of the schema and fails on
-    # validation. We are adding it in the serializers, hence
-    # it's part of our API responses.
-    data.pop("earliest_date", None)
 
     record = InspireRecord.create(data)
 
@@ -53,6 +50,7 @@ def _create_records_from_urls(urls):
                 url,
                 headers={
                     "Content-Type": "application/json",
+                    "Accept": "application/vnd+inspire.record.raw+json",
                     "Authorization": authorization,
                 },
             )

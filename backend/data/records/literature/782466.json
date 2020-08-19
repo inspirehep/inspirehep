@@ -1,0 +1,548 @@
+{
+  "$schema": "https://inspirehep.net/schemas/records/hep.json",
+  "_collections": ["Literature"],
+  "_desy_bookkeeping": [
+    {
+      "identifier": "D10-13208"
+    }
+  ],
+  "_private_notes": [
+    {
+      "source": "SPIRES-HIDDEN",
+      "value": "6 References from LaTeX"
+    },
+    {
+      "source": "CERN",
+      "value": "CDS-1096935"
+    }
+  ],
+  "abstracts": [
+    {
+      "source": "arXiv",
+      "value":
+        "We develop the idea that the particles of the standard model may arise from excitations of quantum geometry. A previously proposed topological model of preons is developed so that it incorporates an unbounded number of generations. A condition is also found on quantum gravity dynamics necessary for the interactions of the standard model to emerge."
+    }
+  ],
+  "arxiv_eprints": [
+    {
+      "categories": ["hep-th"],
+      "value": "0804.0037"
+    }
+  ],
+  "authors": [
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirehep.net/api/institutions/908474"
+          },
+          "value": "Perimeter Inst. Theor. Phys."
+        }
+      ],
+      "full_name": "Bilson-Thompson, Sundance",
+      "ids": [
+        {
+          "schema": "INSPIRE BAI",
+          "value": "S.O.Bilson.Thompson.1"
+        }
+      ],
+      "record": {
+        "$ref": "https://inspirehep.net/api/authors/1027893"
+      },
+      "signature_block": "TANPSANs",
+      "uuid": "34ea4498-d9cf-4179-b061-8924f3911b20"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirehep.net/api/institutions/908474"
+          },
+          "value": "Perimeter Inst. Theor. Phys."
+        },
+        {
+          "record": {
+            "$ref": "https://inspirehep.net/api/institutions/903340"
+          },
+          "value": "Waterloo U."
+        }
+      ],
+      "curated_relation": true,
+      "full_name": "Hackett, Jonathan",
+      "ids": [
+        {
+          "schema": "INSPIRE BAI",
+          "value": "J.Hackett.1"
+        }
+      ],
+      "record": {
+        "$ref": "https://inspirehep.net/api/authors/1067415"
+      },
+      "signature_block": "HACATj",
+      "uuid": "f5f5df27-9970-4c82-beb4-c88485cdcb6f"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirehep.net/api/institutions/902866"
+          },
+          "value": "Illinois U., Chicago"
+        }
+      ],
+      "full_name": "Kauffman, Lou",
+      "ids": [
+        {
+          "schema": "INSPIRE BAI",
+          "value": "L.H.Kauffman.2"
+        }
+      ],
+      "record": {
+        "$ref": "https://inspirehep.net/api/authors/1003443"
+      },
+      "signature_block": "CAFNANl",
+      "uuid": "9205d8fd-7ca1-471a-9597-766a6c5ab81f"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirehep.net/api/institutions/908474"
+          },
+          "value": "Perimeter Inst. Theor. Phys."
+        },
+        {
+          "record": {
+            "$ref": "https://inspirehep.net/api/institutions/903340"
+          },
+          "value": "Waterloo U."
+        }
+      ],
+      "full_name": "Smolin, Lee",
+      "ids": [
+        {
+          "schema": "INSPIRE BAI",
+          "value": "L.Smolin.1"
+        }
+      ],
+      "record": {
+        "$ref": "https://inspirehep.net/api/authors/988269"
+      },
+      "signature_block": "SNALANl",
+      "uuid": "dc250507-355b-4c31-8369-f48cd7bd7947"
+    }
+  ],
+  "citeable": true,
+  "control_number": 782466,
+  "core": true,
+  "curated": true,
+  "document_type": ["article"],
+  "documents": [
+    {
+      "hidden": true,
+      "key": "arXiv:0804.0037.pdf",
+      "source": "arxiv",
+      "url":
+        "http://inspire-afs-web2.cern.ch/var/data/files/g1/30323/arXiv%3A0804.0037.pdf%3B2"
+    }
+  ],
+  "external_system_identifiers": [
+    {
+      "schema": "SPIRES",
+      "value": "SPIRES-7713827"
+    }
+  ],
+  "figures": [
+    {
+      "caption": ":",
+      "filename": "conned.png",
+      "key": "53a013b0ce7e534ca455ed81160374ce",
+      "original_url":
+        "http://inspire-afs-web2.cern.ch/var/data/files/g15/306970/conned.png%3B1",
+      "source": "arxiv",
+      "url": "https://inspirehep.net/files/53a013b0ce7e534ca455ed81160374ce"
+    },
+    {
+      "caption": ":",
+      "filename": "trin2.png",
+      "key": "1ba85a6587859b513d008fd7f21af1f2",
+      "original_url":
+        "http://inspire-afs-web2.cern.ch/var/data/files/g15/306969/trin2.png%3B1",
+      "source": "arxiv",
+      "url": "https://inspirehep.net/files/1ba85a6587859b513d008fd7f21af1f2"
+    },
+    {
+      "caption": "A capped n-braid",
+      "filename": "nbraid.png",
+      "key": "e90fe9b344c3700bb48a048f7f982963",
+      "original_url":
+        "http://inspire-afs-web2.cern.ch/var/data/files/g15/306975/nbraid.png%3B1",
+      "source": "arxiv",
+      "url": "https://inspirehep.net/files/e90fe9b344c3700bb48a048f7f982963"
+    },
+    {
+      "caption": "A capped 3-braid",
+      "filename": "3braid.png",
+      "key": "40db70d5c5f6c3d0b73281621c211925",
+      "original_url":
+        "http://inspire-afs-web2.cern.ch/var/data/files/g15/306973/3braid.png%3B1",
+      "source": "arxiv",
+      "url": "https://inspirehep.net/files/40db70d5c5f6c3d0b73281621c211925"
+    },
+    {
+      "caption": ":",
+      "filename": "or.png",
+      "key": "ba5b1f1a553240e4c695d809ddf5f5c2",
+      "original_url":
+        "http://inspire-afs-web2.cern.ch/var/data/files/g15/306974/or.png%3B1",
+      "source": "arxiv",
+      "url": "https://inspirehep.net/files/ba5b1f1a553240e4c695d809ddf5f5c2"
+    },
+    {
+      "caption": ":",
+      "filename": "twisted.png",
+      "key": "af967a1b924c1888bd672f48cac5e905",
+      "original_url":
+        "http://inspire-afs-web2.cern.ch/var/data/files/g15/306971/twisted.png%3B1",
+      "source": "arxiv",
+      "url": "https://inspirehep.net/files/af967a1b924c1888bd672f48cac5e905"
+    },
+    {
+      "caption": "Invariant special case",
+      "filename": "except.png",
+      "key": "e7924f31cd709bb3a78e75e9df9b207e",
+      "original_url":
+        "http://inspire-afs-web2.cern.ch/var/data/files/g15/306972/except.png%3B1",
+      "source": "arxiv",
+      "url": "https://inspirehep.net/files/e7924f31cd709bb3a78e75e9df9b207e"
+    }
+  ],
+  "inspire_categories": [
+    {
+      "term": "Theory-HEP"
+    }
+  ],
+  "keywords": [
+    {
+      "schema": "INSPIRE",
+      "value": "quantum gravity"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "standard model"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "twist"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "braid group: representation"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "symmetry: discrete"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "particle: multiplet"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "interaction"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "neutrino"
+    }
+  ],
+  "legacy_creation_date": "2008-04-01",
+  "legacy_version": "20160326082055.0",
+  "number_of_pages": 9,
+  "preprint_date": "2008-04",
+  "references": [
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/89207"
+      },
+      "reference": {
+        "publication_info": {
+          "artid": "275",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "10",
+          "page_start": "275"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/154378"
+      },
+      "reference": {
+        "publication_info": {
+          "artid": "276",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "96",
+          "page_start": "276"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/140637"
+      },
+      "reference": {
+        "publication_info": {
+          "artid": "83",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "86",
+          "page_start": "83"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/146829"
+      },
+      "reference": {
+        "publication_info": {
+          "artid": "87",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "86",
+          "page_start": "87"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/154988"
+      },
+      "reference": {
+        "publication_info": {
+          "artid": "269",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "98",
+          "page_start": "269"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/678882"
+      },
+      "reference": {
+        "arxiv_eprint": "hep-ph/0503213"
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/711694"
+      },
+      "reference": {
+        "arxiv_eprint": "hep-th/0603022",
+        "publication_info": {
+          "artid": "3975",
+          "journal_title": "Class.Quant.Grav.",
+          "journal_volume": "24",
+          "page_start": "3975"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/745273"
+      },
+      "reference": {
+        "arxiv_eprint": "hep-th/0702198",
+        "publication_info": {
+          "artid": "5757",
+          "journal_title": "Class.Quant.Grav.",
+          "journal_volume": "24",
+          "page_start": "5757"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/694768"
+      },
+      "reference": {
+        "arxiv_eprint": "gr-qc/0510052"
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/714613"
+      },
+      "reference": {
+        "arxiv_eprint": "hep-th/0604120"
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/443512"
+      },
+      "reference": {
+        "arxiv_eprint": "quant-ph/9705044",
+        "publication_info": {
+          "artid": "3306",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "79",
+          "page_start": "3306"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/472631"
+      },
+      "reference": {
+        "arxiv_eprint": "quant-ph/9807004",
+        "publication_info": {
+          "artid": "2594",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "81",
+          "page_start": "2594"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/418053"
+      },
+      "reference": {
+        "arxiv_eprint": "quant-ph/9604034",
+        "publication_info": {
+          "artid": "2525",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "84",
+          "page_start": "2525"
+        }
+      }
+    },
+    {
+      "reference": {
+        "publication_info": {
+          "artid": "042307",
+          "journal_title": "Phys.Rev.A",
+          "journal_volume": "63"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/763335"
+      },
+      "reference": {
+        "arxiv_eprint": "0710.1312"
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/763430"
+      },
+      "reference": {
+        "arxiv_eprint": "0710.1548",
+        "publication_info": {
+          "artid": "331",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "796",
+          "page_start": "331"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/781849"
+      },
+      "reference": {
+        "arxiv_eprint": "0803.3203",
+        "publication_info": {
+          "artid": "125008",
+          "journal_title": "Class.Quant.Grav.",
+          "journal_volume": "26"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/403421"
+      },
+      "reference": {
+        "arxiv_eprint": "gr-qc/9512020",
+        "publication_info": {
+          "artid": "267",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "473",
+          "page_start": "267"
+        }
+      }
+    },
+    {
+      "reference": {
+        "publication_info": {
+          "artid": "3183",
+          "journal_title": "Class.Quant.Grav.",
+          "journal_volume": "12",
+          "page_start": "3183"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/404007"
+      },
+      "reference": {
+        "arxiv_eprint": "gr-qc/9512043",
+        "publication_info": {
+          "artid": "3183",
+          "journal_title": "Class.Quant.Grav.",
+          "journal_volume": "13",
+          "page_start": "3183"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "https://inspirehep.net/api/literature/594715"
+      },
+      "reference": {
+        "arxiv_eprint": "hep-th/0209079"
+      }
+    }
+  ],
+  "self": {
+    "$ref": "https://inspirehep.net/api/literature/782466"
+  },
+  "texkeys": ["BilsonThompson:2008ex"],
+  "titles": [
+    {
+      "title":
+        "Particle Identifications from Symmetries of Braided Ribbon Network Invariants"
+    },
+    {
+      "source": "arXiv",
+      "title":
+        "Particle Identifications from Symmetries of Braided Ribbon Network Invariants"
+    }
+  ]
+}

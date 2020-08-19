@@ -1,0 +1,149 @@
+{
+  "$schema": "https://inspirehep.net/schemas/records/hep.json",
+  "_collections": ["Literature"],
+  "_desy_bookkeeping": [
+    {
+      "identifier": "D07-02271"
+    }
+  ],
+  "abstracts": [
+    {
+      "source": "Cambridge University Press",
+      "value":
+        "Differential geometry plays an increasingly important role in modern theoretical physics and applied mathematics. This textbook gives an introduction to geometrical topics useful in theoretical physics and applied mathematics, covering: manifolds, tensor fields, differential forms, connections, symplectic geometry, actions of Lie groups, bundles, spinors, and so on. Written in an informal style, the author places a strong emphasis on developing the understanding of the general theory through more than 1000 simple exercises, with complete solutions or detailed hints. The book will prepare readers for studying modern treatments of Lagrangian and Hamiltonian mechanics, electromagnetism, gauge fields, relativity and gravitation. Differential Geometry and Lie Groups for Physicists is well suited for courses in physics, mathematics and engineering for advanced undergraduate or graduate students, and can also be used for active self-study. The required mathematical background knowledge does not go beyond the level of standard introductory undergraduate mathematics courses."
+    }
+  ],
+  "authors": [
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirehep.net/api/institutions/902750"
+          },
+          "value": "Comenius U."
+        }
+      ],
+      "full_name": "Fecko, M.",
+      "ids": [
+        {
+          "schema": "INSPIRE BAI",
+          "value": "M.Fecko.1"
+        }
+      ],
+      "raw_affiliations": [
+        {
+          "value": "Comenius University, Bratislava"
+        }
+      ],
+      "signature_block": "FACm",
+      "uuid": "075d6f17-e6ea-480a-b084-0fa422000bbe"
+    }
+  ],
+  "control_number": 736770,
+  "core": true,
+  "curated": true,
+  "document_type": ["book"],
+  "external_system_identifiers": [
+    {
+      "schema": "SPIRES",
+      "value": "SPIRES-7073275"
+    }
+  ],
+  "imprints": [
+    {
+      "date": "2011-03-03",
+      "publisher": "Cambridge University Press"
+    }
+  ],
+  "inspire_categories": [
+    {
+      "term": "Math and Math Physics"
+    }
+  ],
+  "isbns": [
+    {
+      "medium": "print",
+      "value": "9780521187961"
+    },
+    {
+      "medium": "print",
+      "value": "9780521845076"
+    },
+    {
+      "medium": "online",
+      "value": "9780511242960"
+    }
+  ],
+  "keywords": [
+    {
+      "schema": "INSPIRE",
+      "value": "book"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "differential geometry"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "group theory: Lie"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "algebra: Lie"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "group theory: representation"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "derivative: Lie"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "mechanics"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "differential forms: symplectic"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "field theory"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "fibre bundle"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "gauge field theory"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "spinor"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "operator: Dirac"
+    }
+  ],
+  "legacy_creation_date": "2007-02-13",
+  "legacy_version": "20150727111255.0",
+  "number_of_pages": 714,
+  "preprint_date": "2006",
+  "publication_info": [
+    {
+      "year": 2011
+    }
+  ],
+  "self": {
+    "$ref": "https://inspirehep.net/api/literature/736770"
+  },
+  "texkeys": ["Fecko:2006zy"],
+  "titles": [
+    {
+      "title": "Differential geometry and Lie groups for physicists"
+    }
+  ]
+}
