@@ -22,6 +22,8 @@ from inspirehep.utils import include_table_check
 
 # Feature flags
 # =============
+FEATURE_FLAG_ENABLE_TEXKEY_MINTER = False
+FEATURE_FLAG_ENABLE_BAI_PROVIDER = False
 FEATURE_FLAG_ENABLE_FILES = False
 FEATURE_FLAG_ENABLE_ORCID_PUSH = False
 # Only push to ORCIDs that match this regex.

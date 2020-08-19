@@ -9,12 +9,13 @@ from datetime import datetime
 
 import structlog
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
-from invenio_pidstore.providers.base import BaseProvider
+
+from inspirehep.pidstore.providers.base import InspireBaseProvider
 
 LOGGER = structlog.getLogger()
 
 
-class InspireCNUMProvider(BaseProvider):
+class InspireCNUMProvider(InspireBaseProvider):
     """CNUM identifier provider."""
 
     pid_type = None
