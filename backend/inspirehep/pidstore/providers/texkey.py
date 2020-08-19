@@ -13,7 +13,6 @@ from inspire_utils.name import ParsedName
 from inspire_utils.record import get_value
 from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
-from invenio_pidstore.providers.base import BaseProvider
 from sqlalchemy.exc import IntegrityError
 from unidecode import unidecode
 
@@ -24,12 +23,13 @@ from inspirehep.pidstore.errors import (
     TexkeyCannotGenerateFirstPart,
     TexkeyCannotGenerateSecondPart,
 )
+from inspirehep.pidstore.providers.base import InspireBaseProvider
 from inspirehep.records.utils import get_literature_earliest_date
 
 LOGGER = structlog.getLogger()
 
 
-class InspireTexKeyProvider(BaseProvider):
+class InspireTexKeyProvider(InspireBaseProvider):
     pid_type = "texkey"
     pid_provider = "texkey"
     default_status = PIDStatus.RESERVED

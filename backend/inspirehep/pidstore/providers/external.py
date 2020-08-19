@@ -7,12 +7,13 @@
 import structlog
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
-from invenio_pidstore.providers.base import BaseProvider
+
+from inspirehep.pidstore.providers.base import InspireBaseProvider
 
 LOGGER = structlog.getLogger()
 
 
-class InspireExternalIdProvider(BaseProvider):
+class InspireExternalIdProvider(InspireBaseProvider):
 
     pid_provider = "external"
     default_status = PIDStatus.REGISTERED

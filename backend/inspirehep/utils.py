@@ -32,7 +32,7 @@ def chunker(iterable, chunksize):
 
 
 def flatten_list(input_list):
-    if isinstance(input_list, list):
+    if isinstance(input_list, (list, tuple)):
         return [
             element for innerList in input_list for element in flatten_list(innerList)
         ]

@@ -10,7 +10,8 @@ import requests
 import structlog
 from flask import current_app
 from invenio_pidstore.models import PIDStatus, RecordIdentifier
-from invenio_pidstore.providers.base import BaseProvider
+
+from inspirehep.pidstore.providers.base import InspireBaseProvider
 
 LOGGER = structlog.getLogger()
 
@@ -27,7 +28,7 @@ def get_next_pid_from_legacy():
     return next_pid
 
 
-class InspireRecordIdProvider(BaseProvider):
+class InspireRecordIdProvider(InspireBaseProvider):
     """Record identifier provider."""
 
     pid_type = None

@@ -83,23 +83,14 @@ class Minter:
     def update(cls, object_uuid, data):
         minter = cls(object_uuid, data)
         minter.validate()
-        pids_in_db = {
-            pid[0]
-            for pid in PersistentIdentifier.query.filter_by(
-                object_uuid=object_uuid,
-                pid_type=minter.pid_type,
-                object_type=minter.object_type,
-            )
-            .filter(PersistentIdentifier.status != PIDStatus.DELETED)
-            .with_entities("pid_value")
-            .all()
-        }
+        pids_in_db = minter.get_all_pidstore_pids()
         pids_requested = minter.get_pid_values()
         pids_to_delete = pids_in_db - pids_requested
         pids_to_create = pids_requested - pids_in_db
         minter.delete(object_uuid, None, pids_to_delete)
         for pid_value in pids_to_create:
             minter.create(pid_value)
+        return minter
 
     @classmethod
     def delete(cls, object_uuid, data, pids_to_delete=None):
@@ -108,15 +99,24 @@ class Minter:
             pids_to_delete=pids_to_delete or "all",
             object_uuid=object_uuid,
         )
+        minter = cls(object_uuid, data)
         if pids_to_delete is None:
-            PersistentIdentifier.query.filter_by(
-                object_uuid=object_uuid,
-                pid_type=cls.pid_type,
-                object_type=cls.object_type,
-            ).delete()
-        else:
-            for pid_value in pids_to_delete:
-                cls.provider.get(pid_value, cls.pid_type).delete()
+            pids_to_delete = minter.get_all_pidstore_pids()
+        for pid_value in pids_to_delete:
+            minter.provider.get(pid_value, minter.pid_type).delete()
+        return minter
+
+    def get_all_pidstore_pids(self):
+        return {
+            result[0]
+            for result in PersistentIdentifier.query.with_entities(
+                PersistentIdentifier.pid_value
+            )
+            .filter_by(pid_type=self.pid_type or self.provider.pid_type)
+            .filter_by(object_uuid=self.object_uuid)
+            .filter_by(pid_provider=self.provider.pid_provider)
+            .filter(PersistentIdentifier.status != PIDStatus.DELETED)
+        }
 
 
 class ControlNumberMinter(Minter):
