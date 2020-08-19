@@ -208,3 +208,8 @@ body {
     }
   }
 }
+
+// forces topRight notifications over the header and drawers
+.ant-notification-topRight {
+  z-index: $zindex-header + 5 !important;
+}

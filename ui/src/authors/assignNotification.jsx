@@ -7,13 +7,22 @@ import { AUTHORS } from '../common/routes';
 import ExternalLink from '../common/components/ExternalLink';
 
 // to render notification over the drawer, if one is open.
-const getContainer = () =>
-  document.querySelector('.ant-drawer-open') || document.body;
+const ASSIGNING_NOTIFICATION_KEY = 'assigning-notification';
+
+export function assigning() {
+  notification.info({
+    key: ASSIGNING_NOTIFICATION_KEY,
+    message: 'Claiming...',
+    description: 'We are processing your request',
+    duration: null,
+  });
+}
 
 export function assignSuccess({ from, to, papers }) {
+  notification.close(ASSIGNING_NOTIFICATION_KEY);
   notification.success({
     message: 'Claim Successful!',
-    getContainer,
+    duration: null,
     description: (
       <span>
         Selected papers ({papers}) moved from{' '}
@@ -30,9 +39,10 @@ export function assignSuccess({ from, to, papers }) {
 }
 
 export function assignError() {
+  notification.close(ASSIGNING_NOTIFICATION_KEY);
   notification.error({
+    className: 'super-zindex',
     message: 'Claim Error!',
-    getContainer,
     description: 'Something went wrong.',
   });
 }

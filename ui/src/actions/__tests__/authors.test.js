@@ -18,7 +18,11 @@ import fetchAuthor, {
   assignPapers,
 } from '../authors';
 import { searchQueryUpdate } from '../search';
-import { assignError, assignSuccess } from '../../authors/assignNotification';
+import {
+  assignError,
+  assignSuccess,
+  assigning,
+} from '../../authors/assignNotification';
 
 import { AUTHOR_PUBLICATIONS_NS } from '../../search/constants';
 
@@ -131,7 +135,12 @@ describe('AUTHOR - async action creators', () => {
         setAssignDrawerVisibility(false),
       ];
 
-      await store.dispatch(assignPapers({ from: fromAuthorId }));
+      const dispatchPromise = store.dispatch(
+        assignPapers({ from: fromAuthorId })
+      );
+      expect(assigning).toHaveBeenCalled();
+
+      await dispatchPromise;
       expect(store.getActions()).toEqual(expectedActions);
 
       expect(assignSuccess).toHaveBeenCalledWith({
@@ -169,9 +178,12 @@ describe('AUTHOR - async action creators', () => {
         setAssignDrawerVisibility(false),
       ];
 
-      await store.dispatch(
+      const dispatchPromise = store.dispatch(
         assignPapers({ from: fromAuthorId, to: toAuthorId })
       );
+      expect(assigning).toHaveBeenCalled();
+
+      await dispatchPromise;
       expect(store.getActions()).toEqual(expectedActions);
 
       expect(assignSuccess).toHaveBeenCalledWith({
@@ -202,9 +214,12 @@ describe('AUTHOR - async action creators', () => {
 
       const expectedActions = [];
 
-      await store.dispatch(
+      const dispatchPromise = store.dispatch(
         assignPapers({ from: fromAuthorId, to: toAuthorId })
       );
+      expect(assigning).toHaveBeenCalled();
+
+      await dispatchPromise;
       expect(store.getActions()).toEqual(expectedActions);
 
       expect(assignError).toHaveBeenCalled();
