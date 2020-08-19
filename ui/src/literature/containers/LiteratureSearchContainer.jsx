@@ -86,7 +86,7 @@ function LiteratureSearch({
         <Col xs={24} lg={17}>
           <LoadingOrChildren loading={loading}>
             <Row type="flex" align="middle" justify="end">
-              <Col xs={24} lg={8}>
+              <Col xs={24} lg={12}>
                 {assignView && (
                   <span className="mr1">
                     <PublicationsSelectAllContainer />
@@ -107,7 +107,7 @@ function LiteratureSearch({
                   )}
                 />
               </Col>
-              <Col className="tr" span={16}>
+              <Col className="tr" xs={16} lg={12}>
                 {enableCitationSummary && (
                   <span className="mr2">
                     <CitationSummarySwitchContainer namespace={namespace} />
