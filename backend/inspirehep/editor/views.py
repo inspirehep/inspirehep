@@ -9,10 +9,13 @@ from flask import Blueprint, jsonify, request
 from flask_login import current_user
 from invenio_db import db
 from invenio_records.models import RecordMetadata
+from refextract import extract_references_from_string, extract_references_from_url
 from sqlalchemy_continuum import transaction_class, version_class
 
 from inspirehep.accounts.decorators import login_required_with_roles
 from inspirehep.accounts.roles import Roles
+from inspirehep.matcher.api import match_references
+from inspirehep.matcher.utils import local_refextract_kbs_path, map_refextract_to_schema
 from inspirehep.pidstore.api.base import PidStoreBase
 from inspirehep.records.api import InspireRecord
 from inspirehep.rt import tickets
@@ -161,3 +164,33 @@ def _simplify_ticket_response(ticket):
         date=ticket["Created"],
         link=ticket["Link"],
     )
+
+
+@blueprint.route("/refextract/text", methods=["POST"])
+@login_required_with_roles([Roles.cataloger.value])
+def refextract_text():
+    """Run refextract on a piece of text."""
+    with local_refextract_kbs_path() as kbs_path:
+        extracted_references = extract_references_from_string(
+            request.json["text"],
+            override_kbs_files=kbs_path,
+            reference_format="{title},{volume},{page}",
+        )
+    references = map_refextract_to_schema(extracted_references)
+    references = match_references(references)
+    return jsonify(references)
+
+
+@blueprint.route("/refextract/url", methods=["POST"])
+@login_required_with_roles([Roles.cataloger.value])
+def refextract_url():
+    """Run refextract on a URL."""
+    with local_refextract_kbs_path() as kbs_path:
+        extracted_references = extract_references_from_url(
+            request.json["url"],
+            override_kbs_files=kbs_path,
+            reference_format="{title},{volume},{page}",
+        )
+    references = map_refextract_to_schema(extracted_references)
+    references = match_references(references)
+    return jsonify(references)

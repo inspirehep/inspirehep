@@ -13,6 +13,8 @@ You overwrite and set instance-specific configuration by either:
 - Environment variables: ``APP_<variable name>``
 """
 
+import pkg_resources
+
 from inspirehep.utils import include_table_check
 
 # INSPIRE configuration
@@ -226,3 +228,10 @@ ALEMBIC_SKIP_TABLES = [
 ]
 
 SEARCH_MAX_RECURSION_LIMIT = 5000
+
+# Refextract
+# Path to where journal kb file is stored from `inspirehep.modules.refextract.tasks.create_journal_kb_file`
+# On production, if you enable celery beat change this path to point to a shared space.
+REFEXTRACT_JOURNAL_KB_PATH = pkg_resources.resource_filename(
+    "refextract", "references/kbs/journal-titles.kb"
+)

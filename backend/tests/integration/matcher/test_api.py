@@ -481,5 +481,214 @@ def test_match_references_returns_five_references(inspire_app):
             },
         }
     }
-    reference = match_references(reference)
+    reference = match_reference_control_numbers(reference)
     assert len(reference) == 5
+
+
+def test_match_references_matches_when_multiple_match_if_same_as_previous(inspire_app):
+    """Test reference matcher for when inspire-matcher returns multiple matches
+    where the matched record id is one of the previous matched record id as well"""
+
+    original_cited_record_json = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "control_number": 1,
+        "document_type": ["article"],
+        "publication_info": [
+            {
+                "artid": "159",
+                "journal_title": "JHEP",
+                "journal_volume": "03",
+                "page_start": "159",
+                "year": 2016,
+            },
+            {
+                "artid": "074",
+                "journal_title": "JHEP",
+                "journal_volume": "05",
+                "material": "erratum",
+                "page_start": "074",
+                "year": 2017,
+            },
+        ],
+    }
+
+    errata_cited_record_json = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "control_number": 2,
+        "document_type": ["article"],
+        "publication_info": [
+            {
+                "artid": "074",
+                "journal_title": "JHEP",
+                "journal_volume": "05",
+                "material": "erratum",
+                "page_start": "074",
+                "year": 2017,
+            }
+        ],
+    }
+
+    create_record("lit", data=original_cited_record_json)
+    create_record("lit", data=errata_cited_record_json)
+
+    references = [
+        {
+            "reference": {
+                "publication_info": {
+                    "artid": "159",
+                    "journal_title": "JHEP",
+                    "journal_volume": "03",
+                    "page_start": "159",
+                    "year": 2016,
+                }
+            }
+        },
+        {
+            "reference": {
+                "publication_info": {
+                    "artid": "074",
+                    "journal_title": "JHEP",
+                    "journal_volume": "05",
+                    "page_start": "074",
+                    "year": 2017,
+                }
+            }
+        },
+    ]
+
+    schema = load_schema("hep")
+    subschema = schema["properties"]["references"]
+
+    assert validate(references, subschema) is None
+
+    matched_references = match_references(references)
+
+    assert (
+        matched_references[1]["record"]["$ref"]
+        == "http://localhost:5000/api/literature/1"
+    )
+    assert validate(matched_references, subschema) is None
+
+
+def test_match_references_no_match_when_multiple_match_different_from_previous(
+    inspire_app,
+):
+    """Test reference matcher for when inspire-matcher returns multiple matches
+    where the matched record id is not the same as the previous matched record id"""
+
+    original_cited_record_json = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "control_number": 1,
+        "document_type": ["article"],
+        "publication_info": [
+            {
+                "artid": "159",
+                "journal_title": "JHEP",
+                "journal_volume": "03",
+                "page_start": "159",
+                "year": 2016,
+            },
+            {
+                "artid": "074",
+                "journal_title": "JHEP",
+                "journal_volume": "05",
+                "material": "erratum",
+                "page_start": "074",
+                "year": 2017,
+            },
+        ],
+    }
+
+    errata_cited_record_json = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "control_number": 2,
+        "document_type": ["article"],
+        "publication_info": [
+            {
+                "artid": "074",
+                "journal_title": "JHEP",
+                "journal_volume": "05",
+                "material": "erratum",
+                "page_start": "074",
+                "year": 2017,
+            }
+        ],
+    }
+
+    create_record("lit", data=original_cited_record_json)
+    create_record("lit", data=errata_cited_record_json)
+
+    references = [
+        {
+            "reference": {
+                "publication_info": {
+                    "artid": "074",
+                    "journal_title": "JHEP",
+                    "journal_volume": "05",
+                    "page_start": "074",
+                    "year": 2017,
+                }
+            }
+        }
+    ]
+
+    schema = load_schema("hep")
+    subschema = schema["properties"]["references"]
+
+    assert validate(references, subschema) is None
+
+    references = match_references(references)
+
+    assert get_value(references[0], "record") is None
+    assert validate(references, subschema) is None
+
+
+@patch(
+    "inspirehep.matcher.api.match",
+    return_value=[
+        {
+            "_score": 1.6650109,
+            "_type": "hep",
+            "_id": "AWRuwf9plgR0Y_yvhtt4",
+            "_source": {"control_number": 1},
+            "_index": "records-hep",
+        },
+        {
+            "_score": 3.2345618,
+            "_type": "hep",
+            "_id": "AWRuwf9plgR0Y_yvhtt4",
+            "_source": {"control_number": 1},
+            "_index": "records-hep",
+        },
+    ],
+)
+def test_match_references_finds_match_when_repeated_record_with_different_scores(
+    mocked_inspire_matcher_match, inspire_app
+):
+    references = [
+        {
+            "reference": {
+                "publication_info": {
+                    "artid": "045",
+                    "journal_title": "JHEP",
+                    "journal_volume": "06",
+                    "page_start": "045",
+                    "year": 2007,
+                }
+            }
+        }
+    ]
+
+    schema = load_schema("hep")
+    subschema = schema["properties"]["references"]
+
+    assert validate(references, subschema) is None
+    references = match_references(references)
+
+    assert len(references) == 1
+    assert references[0]["record"]["$ref"] == "http://localhost:5000/api/literature/1"
+    assert validate(references, subschema) is None
