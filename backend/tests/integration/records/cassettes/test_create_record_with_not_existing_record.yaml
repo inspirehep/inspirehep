@@ -1,0 +1,34 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://inspirebeta.net/api/literature/999999
+  response:
+    body:
+      string: '{"status": 404, "message": "PID does not exist."}'
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Expose-Headers:
+      - Content-Type, ETag, Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '49'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 20 Aug 2020 09:03:58 GMT
+      Server:
+      - nginx/1.19.0
+    status:
+      code: 404
+      message: NOT FOUND
+version: 1

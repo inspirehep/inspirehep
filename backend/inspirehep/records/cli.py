@@ -49,7 +49,6 @@ def _create_records_from_urls(urls):
             request = requests.get(
                 url,
                 headers={
-                    "Content-Type": "application/json",
                     "Accept": "application/vnd+inspire.record.raw+json",
                     "Authorization": authorization,
                 },
