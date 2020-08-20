@@ -1,0 +1,45 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/vnd+inspire.record.raw+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://inspirebeta.net/api/literature/20
+  response:
+    body:
+      string: '{"created":"1963-06-01T00:00:00+00:00","id":"20","links":{"bibtex":"https://inspirebeta.net/api/literature/20?format=bibtex","citations":"https://inspirebeta.net/api/literature/?q=refersto%3Arecid%3A20","json":"https://inspirebeta.net/api/literature/20?format=json","latex-eu":"https://inspirebeta.net/api/literature/20?format=latex-eu","latex-us":"https://inspirebeta.net/api/literature/20?format=latex-us"},"metadata":{"$schema":"https://inspirebeta.net/schemas/records/hep.json","_collections":["Literature"],"_private_notes":[{"value":"orcid-push-force-cache-miss"}],"authors":[{"affiliations":[{"record":{"$ref":"https://inspirebeta.net/api/institutions/903206"},"value":"SLAC"}],"curated_relation":true,"full_name":"Muray,
+        J.J.","ids":[{"schema":"ORCID","value":"0000-0002-5073-0816"},{"schema":"INSPIRE
+        BAI","value":"J.J.Muray.1"}],"record":{"$ref":"https://inspirebeta.net/api/authors/1712624"},"signature_block":"MARYj","uuid":"bb243ce5-2e55-452b-9691-84f9dd84226e"}],"control_number":20,"curated":true,"document_type":["article"],"documents":[{"filename":"20_slac-tn-63-050.pdf","key":"eae20c74055e554c034370f3d6d8a356","url":"https://inspirebeta.net/files/eae20c74055e554c034370f3d6d8a356"}],"external_system_identifiers":[{"schema":"SPIRES","value":"SPIRES-388"}],"legacy_creation_date":"1963-06-01","legacy_version":"20190109183814.0","number_of_pages":4,"preprint_date":"1963-06","report_numbers":[{"value":"SLAC-TN-63-050"}],"self":{"$ref":"https://inspirebeta.net/api/literature/20"},"texkeys":["Muray:1963bp"],"titles":[{"title":"IRRADIATION
+        OF A CERIUM - CONTAINING SILICATE GLASS"}],"urls":[{"description":"SLAC Document
+        Server","value":"http://www-public.slac.stanford.edu/sciDoc/docMeta.aspx?slacPubNumber=slac-tn-63-050"},{"value":"http://inspirehep.net/record/20/files/20_slac-tn-63-050.pdf"},{"value":"http://inspirehep.net/record/20/files/20_slac-tn-63-050.pdf_1"},{"value":"http://inspirehep.net/record/20/files/20_slac-tn-63-050.pdf_11"},{"value":"http://inspirehep.net/record/20/files/20_slac-tn-63-050.pdf_12"},{"value":"http://inspirehep.net/record/20/files/20_slac-tn-63-050.pdf_14"},{"value":"http://inspirehep.net/record/20/files/20_slac-tn-63-050.pdf_15"},{"value":"http://inspirehep.net/record/20/files/20_slac-tn-63-050.pdf_19"},{"value":"http://inspirehep.net/record/20/files/slac-tn-63-050.pdf"}]},"updated":"2020-07-02T09:19:35.534456+00:00"}'
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Expose-Headers:
+      - Content-Type, ETag, Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2381'
+      Content-Type:
+      - application/vnd+inspire.record.raw+json
+      Date:
+      - Thu, 20 Aug 2020 09:03:56 GMT
+      ETag:
+      - '"application/vnd+inspire.record.raw+json@v9"'
+      Link:
+      - <https://inspirebeta.net/api/literature/20?format=bibtex>; rel="bibtex", <https://inspirebeta.net/api/literature/20?format=latex-eu>;
+        rel="latex-eu", <https://inspirebeta.net/api/literature/20?format=latex-us>;
+        rel="latex-us", <https://inspirebeta.net/api/literature/20?format=json>; rel="json",
+        <https://inspirebeta.net/api/literature/?q=refersto%3Arecid%3A20>; rel="citations"
+      Server:
+      - nginx/1.19.0
+    status:
+      code: 200
+      message: OK
+version: 1
