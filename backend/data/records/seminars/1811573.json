@@ -1,0 +1,69 @@
+{
+  "$schema": "https://inspirehep.net/api/schemas/records/seminars.json",
+  "_collections": ["Seminars"],
+  "abstract": {
+    "value":
+      "<div>Collisions of heavy nuclei at ultrarelativistic velocities are currently utilized at the Relativistic Heavy-Ion Collider (RHIC) and the Large Hadron Collider (LHC) to recreate matter at temperatures and densities as have only existed in the early Universe, a couple of microseconds after the Big Bang. This state of matter, consisting of deconfined quarks and gluons is often termed the Quark-Gluon- Plasma.</div><div>A primary goal of heavy-ion physics is the measurement of the fundamental properties of the quark-gluon plasma (QGP), notably its transport coefficients and initial state properties.&nbsp;Since these properties are not directly measurable, one relies on a comparison of experimental data to computational models of the time-evolution of the collision to connect measured observables to the properties of the transient QGP state.&nbsp;These model-to-data comparisons are non-trivial due to the large number of model parameters and the non-factorizing sensitivity of measured observables to multiple parameters.</div><div>Over the last few years the Duke QCD group has developed techniques based on Bayesian statistics that allow for the simultaneous calibration of a large number of model parameters and the precision extraction of QGP properties including their quantified uncertainties. The computational model used is based on the Trento initial condition model, viscous relativistic hydrodynamics and a Boltzmann equation based transport model to describe the off-equilibrium late stage hadronic evolution. The analysis starts by selecting a set of salient model parameters -- including physical properties such as temperature and/or momentum dependent transport coefficients -- then evaluates the event-by-event heavy-ion collision model at a small set of points in the multidimensional parameter space, varying all parameters simultaneously.&nbsp;Gaussian process emulators are used to non-parametrically interpolate the parameter space, providing fast predictions at any point in parameter space with quantitative uncertainty.&nbsp;Finally, the parameter space is systematically explored using a Markov chain Monte Carlo (MCMC) to obtain rigorous constraints on all parameters simultaneously, including all correlations among the parameters.</div><div>In this talk I will review the basic components of the Bayesian analysis that have led to the first determination of the temperature-dependent specific shear-viscosity of the Quark-Gluon-Plasma with uncertainty quantification.</div>"
+  },
+  "acquisition_source": {
+    "datetime": "2020-08-13T20:59:35.835448",
+    "email": "igor.shovkovy@asu.edu",
+    "internal_uid": 60149,
+    "method": "submitter",
+    "orcid": "0000-0002-5230-6891",
+    "source": "submitter"
+  },
+  "contact_details": [
+    { "email": "Igor.Shovkovy@asu.edu", "name": "Shovkovy, Igor A." }
+  ],
+  "control_number": 1811573,
+  "end_datetime": "2020-09-30T17:00:00.000000",
+  "inspire_categories": [
+    { "term": "Theory-Nucl" },
+    { "term": "Theory-HEP" },
+    { "term": "Phenomenology-HEP" }
+  ],
+  "join_urls": [
+    {
+      "description": "Zoom",
+      "value":
+        "https://asu.zoom.us/meeting/register/uJErc-mgpj4p-5fyd3_T05F9QXgVjflQ0w"
+    }
+  ],
+  "keywords": [
+    {
+      "value":
+        "quark-gluon plasma, QCD, transport coefficients, shear viscosity, viscous relativistic hydrodynamics"
+    }
+  ],
+  "public_notes": [
+    {
+      "value":
+        "To register use the following link: https://asu.zoom.us/meeting/register/uJErc-mgpj4p-5fyd3_T05F9QXgVjflQ0w"
+    }
+  ],
+  "series": [{ "name": "Theoretical Physics Colloquium at ASU", "number": 27 }],
+  "speakers": [
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirehep.net/api/institutions/902781"
+          },
+          "value": "Duke U."
+        }
+      ],
+      "name": "Bass, Steffen Ashraf",
+      "record": { "$ref": "https://inspirehep.net/api/authors/1017182" }
+    }
+  ],
+  "start_datetime": "2020-09-30T16:00:00.000000",
+  "timezone": "America/Phoenix",
+  "title": {
+    "title":
+      "A data-driven approach to quantifying the shear viscosity of nature\u2019s most ideal liquid"
+  },
+  "urls": [
+    { "value": "http://shovkovy.faculty.asu.edu/colloquium/schedule.html" }
+  ]
+}

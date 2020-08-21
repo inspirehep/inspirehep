@@ -1,0 +1,58 @@
+{
+  "$schema": "https://inspirehep.net/api/schemas/records/seminars.json",
+  "_collections": ["Seminars"],
+  "abstract": {
+    "value":
+      "<div>The talk will describe how the discovery of dark energy is forcing a reconsideration of everything from string theory to inflation to the future evolution of the universe.</div>"
+  },
+  "acquisition_source": {
+    "datetime": "2020-08-14T03:51:48.960353",
+    "email": "aritrabanerjee1989@gmail.com",
+    "internal_uid": 57668,
+    "method": "submitter",
+    "orcid": "0000-0002-9619-7682",
+    "source": "submitter"
+  },
+  "address": { "cities": ["APCTP Pohang"], "country_code": "KR" },
+  "contact_details": [
+    {
+      "email": "ocolgain.eoin@apctp.org",
+      "name": "\u00d3 Colg\u00e1in, Eoin",
+      "record": { "$ref": "https://inspirehep.net/api/authors/1045989" }
+    }
+  ],
+  "control_number": 1811657,
+  "end_datetime": "2020-08-25T07:00:00.000000",
+  "inspire_categories": [
+    { "term": "Astrophysics" },
+    { "term": "Phenomenology-HEP" },
+    { "term": "Theory-HEP" },
+    { "term": "Gravitation and Cosmology" }
+  ],
+  "join_urls": [
+    {
+      "description": "zoom",
+      "value":
+        "https://zoom.us/meeting/register/tJcuf-6pqzosGddjwntuptODFfahDgtipaAf"
+    }
+  ],
+  "series": [{ "name": "Dark Energy in a Dark Age" }],
+  "speakers": [
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirehep.net/api/institutions/1118336"
+          },
+          "value": "Princeton U. (main)"
+        }
+      ],
+      "name": "Steinhardt, Paul J.",
+      "record": { "$ref": "https://inspirehep.net/api/authors/987602" }
+    }
+  ],
+  "start_datetime": "2020-08-25T06:00:00.000000",
+  "timezone": "Asia/Seoul",
+  "title": { "title": "Dark Energy Changes Everything" },
+  "urls": [{ "value": "https://www.apctp.org/plan.php/DEDA" }]
+}

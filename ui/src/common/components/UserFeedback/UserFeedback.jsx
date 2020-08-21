@@ -24,8 +24,7 @@ class UserFeedback extends Component {
         <div>Thank you for your response.</div>
         <div>
           For further feedback, please{' '}
-          <ExternalLink href={SURVEY_LINK}>take our survey</ExternalLink>
-          .
+          <ExternalLink href={SURVEY_LINK}>take our survey</ExternalLink>.
         </div>
         <div>It takes around 5 minutes to complete.</div>
       </ModalSuccessResult>
@@ -114,7 +113,8 @@ class UserFeedback extends Component {
                     or by email at{' '}
                     <ExternalLink href={`mailto:${FEEDBACK_EMAIL}`}>
                       {FEEDBACK_EMAIL}
-                    </ExternalLink>.
+                    </ExternalLink>
+                    .
                   </p>
                 </>
               }
@@ -161,6 +161,7 @@ class UserFeedback extends Component {
       <div className="__UserFeedback__">
         {isFeedbackButtonVisible && (
           <Button
+            data-test-id="sticky"
             className="feedback-button"
             type="primary"
             size="large"

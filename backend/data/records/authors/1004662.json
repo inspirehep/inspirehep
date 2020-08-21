@@ -1,0 +1,55 @@
+{
+  "$schema": "https://inspirehep.net/schemas/records/authors.json",
+  "_collections": ["Authors"],
+  "control_number": 1004662,
+  "deleted": false,
+  "email_addresses": [
+    { "current": true, "value": "agnieszka.jacholkowska@cern.ch" }
+  ],
+  "ids": [
+    { "schema": "INSPIRE ID", "value": "INSPIRE-00344495" },
+    { "schema": "CERN", "value": "CERN-402162" },
+    { "schema": "INSPIRE BAI", "value": "A.Jacholkowska.1" },
+    { "schema": "SPIRES", "value": "HEPNAMES-256374" }
+  ],
+  "legacy_creation_date": "1996-06-20",
+  "legacy_version": "20160311154823.0",
+  "name": {
+    "name_variants": [
+      "Jacholkowska, Agnieszka",
+      "Jacholkowski, Agnieszka Julia"
+    ],
+    "preferred_name": "Agnieszka Jacholkowski",
+    "value": "Jacholkowski, Agnieszka"
+  },
+  "positions": [
+    {
+      "curated_relation": true,
+      "current": true,
+      "institution": "LAL, Orsay",
+      "record": { "$ref": "https://inspirehep.net/api/institutions/903100" }
+    },
+    {
+      "curated_relation": true,
+      "current": true,
+      "institution": "Montpellier U.",
+      "record": { "$ref": "https://inspirehep.net/api/institutions/903024" }
+    },
+    {
+      "curated_relation": true,
+      "institution": "DESY",
+      "record": { "$ref": "https://inspirehep.net/api/institutions/902770" }
+    }
+  ],
+  "project_membership": [
+    {
+      "curated_relation": true,
+      "current": false,
+      "name": "CERN-LEP-ALEPH",
+      "record": { "$ref": "https://inspirehep.net/api/experiments/1109311" }
+    }
+  ],
+  "self": { "$ref": "https://inspirehep.net/api/authors/1004662" },
+  "status": "active",
+  "stub": false
+}

@@ -8,8 +8,22 @@ jobs:
       - checkout
       - run: sudo chown -R 999 e2e
       - run: sh run-e2e.sh
+  cypress:
+    machine:
+      image: ubuntu-1604:202004-01
+    working_directory: ~/inspirehep
+    steps:
+      - checkout
+      - run: sh run-cypress-tests.sh
+      - store_artifacts:
+          path: smoke-tests/cypress/__screenshots__
+      - store_artifacts:
+          path: smoke-tests/cypress/__videos__
+      - store_artifacts:
+          path: smoke-tests/cypress/__snapshots__
 workflows:
   version: 2
   workflow:
     jobs:
       - e2e
+      - cypress

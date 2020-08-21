@@ -1,0 +1,31 @@
+{
+  "$schema": "https://inspirehep.net/api/schemas/records/jobs.json",
+  "_collections": ["Jobs"],
+  "acquisition_source": {
+    "datetime": "2020-08-17T08:35:41.804659",
+    "email": "recruitment@desy.de",
+    "internal_uid": 64876,
+    "method": "submitter",
+    "orcid": "0000-0001-7482-2857",
+    "source": "submitter",
+    "submission_number": "None"
+  },
+  "arxiv_categories": ["hep-ph", "hep-ex", "math", "physics.acc-ph"],
+  "contact_details": [
+    { "email": "markus.tischer@desy.de", "name": "Markus Tischer" }
+  ],
+  "control_number": 1811836,
+  "deadline_date": "2020-09-17",
+  "description":
+    "<div>DESY, with its 2700 employees at its two locations in Hamburg and Zeuthen, is one of the world's leading research centres. Its research focuses on decoding the structure and function of matter, from the smallest particles of the universe to the building blocks of life. In this way, DESY contributes to solving the major questions and urgent challenges facing science, society and industry. With its ultramodern research infrastructure, its interdisciplinary research platforms and its international networks, DESY offers a highly attractive working environment in the fields of science, technology and administration as well as for the education of highly qualified young scientists.</div><div><br></div><div>Undulators are the actual light sources in DESY's accelerators. In our group, we are responsible for the undulators and permanent magnet developments for the storage ring PETRA and the free-electron laser FLASH. This covers all aspects from spectral specification, magnetic and mechanical design of undulators, to magnetic measurements and tuning, control system integration, and commissioning in the accelerator. For the new projects FLASH2020+ and PETRA IV, spectral properties of the new sources shall be simulated and several permanent magnet-based undulators and chicanes need to be developed.</div><div><br></div><div><strong>The position</strong></div><ul><li>Simulation of synchrotron radiation properties for the layout of beam diagnostics for FLASH2020+ and for the specification of PETRA IV beamlines</li><li>Design and optimisation of permanent magnet-based phase shifters and undulators using 3D-simulation tools (Radia, Opera)</li><li>Organising the manufacture, assembly and magnetic tuning of phase shifters for FLASH2020+</li><li>Participation in magnetic measurements and tuning of undulators and phase shifters</li></ul><div><br></div><div><strong>Requirements</strong></div><ul><li>MSc. or PhD in Physics or Electrical Engineering, or equivalent</li><li>Solid knowledge in magnetism and background in synchrotron radiation</li><li>Expertise in magnetostatic FEM simulation tools</li><li>Experience in magnetic measurement techniques</li><li>Fluent English and a good teamplayer</li></ul><div><br></div><div><strong>Our offer</strong></div><div>The position is limited to 3 years.</div><div>Salary and benefits are commensurate with those of public service organisations in Germany. Classification is based upon qualifications and assigned duties. Handicapped persons will be given preference to other equally qualified applicants. DESY operates flexible work schemes. DESY is an equal opportunity, affirmative action employer and encourages applications from women. Vacant positions at DESY are in general open to part-time work. During each application procedure DESY will assess whether the post can be filled with part-time employees.</div><div><br></div><div>For further information please contact Markus Tischer at +49&nbsp;40-8998 3907&nbsp;(<a href=\"mailto:markus.tischer@desy.de\">markus.tischer@desy.de</a>).</div><div><br></div><div>We are looking forward to your application via our application system:&nbsp;<a href=\"https://www.desy.de/career/online_application/index_eng.html?jobid=FSMA042/2020\">www.desy.de/onlineapplication</a></div><div><br></div><div>Code:&nbsp;FSMA042/2020</div><div><br></div><div><strong>Deadline for applications: Until the position is filled.</strong></div><div><a href=\"http://www.desy.de/career\">http://www.desy.de/career</a></div>",
+  "institutions": [
+    {
+      "record": { "$ref": "https://inspirehep.net/api/institutions/902770" },
+      "value": "DESY"
+    }
+  ],
+  "position": "Physicist / Electrical Engineer",
+  "ranks": ["MASTER"],
+  "regions": ["Europe"],
+  "status": "open"
+}

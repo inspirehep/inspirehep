@@ -1,0 +1,338 @@
+{
+  "$schema": "https://inspirehep.net/schemas/records/hep.json",
+  "_collections": ["Literature"],
+  "abstracts": [
+    {
+      "source": "Physical Society of Japan",
+      "value":
+        "Weyl fermions in magnetic oxides offer an ideal laboratory to study their two novel aspects, i.e., (i) the spin-momentum locking, and (ii) the diverging Berry curvature of magnetic monopole in momentum space. Here two representative examples are reviewed; the anomalous Hall effect and spin wave dynamics in SrRuO_3, and the various Weyl semimetal phases in pyrocholore oxides."
+    }
+  ],
+  "acquisition_source": {
+    "method": "batchuploader",
+    "source": "Physical Society of Japan"
+  },
+  "authors": [
+    {
+      "full_name": "Nagaosa, Naoto",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "N.Nagaosa.1" }],
+      "raw_affiliations": [
+        {
+          "value":
+            "RIKEN Center for Emergent Matter Science (CEMS), Wako, Saitama 351-0198, Japan"
+        },
+        {
+          "value":
+            "Department of Applied Physics, The University of Tokyo, Bunkyo, Tokyo 113-8656, Japan"
+        }
+      ],
+      "record": { "$ref": "https://inspirehep.net/api/authors/996285" },
+      "signature_block": "NAGASn",
+      "uuid": "f734828d-223a-4924-b691-2901b22eda5d"
+    }
+  ],
+  "citeable": true,
+  "control_number": 1787272,
+  "curated": false,
+  "document_type": ["conference paper"],
+  "dois": [
+    {
+      "source": "Physical Society of Japan",
+      "value": "10.7566/JPSCP.30.011007"
+    }
+  ],
+  "imprints": [{ "date": "2020" }],
+  "inspire_categories": [{ "term": "General Physics" }],
+  "legacy_creation_date": "2020-03-21",
+  "legacy_version": "20200322010335.0",
+  "license": [
+    {
+      "imposing": "Physical Society of Japan",
+      "license": "CC-BY-4.0",
+      "url": "http://creativecommons.org/licenses/by/4.0/"
+    }
+  ],
+  "number_of_pages": 5,
+  "publication_info": [
+    {
+      "artid": "011007",
+      "cnum": "C19-09-23.7",
+      "conference_record": {
+        "$ref": "https://inspirehep.net/api/conferences/1787117"
+      },
+      "journal_record": {
+        "$ref": "https://inspirehep.net/api/journals/1289282"
+      },
+      "journal_title": "JPS Conf.Proc.",
+      "journal_volume": "30",
+      "parent_record": {
+        "$ref": "https://inspirehep.net/api/literature/1787271"
+      },
+      "year": 2020
+    }
+  ],
+  "references": [
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "1) N. P.Armitage, E. J.Mele, and A.Vishwanath, Rev. Mod. Phys. 90, 015001 (2018). 10.1103/RevModPhys.90.015001"
+        }
+      ],
+      "record": { "$ref": "https://inspirehep.net/api/literature/1650045" },
+      "reference": {
+        "authors": [
+          { "full_name": "P.Armitage, N." },
+          { "full_name": "J.Mele, E." },
+          { "full_name": "A.Vishwanath" }
+        ],
+        "dois": ["10.1103/RevModPhys.90.015001"],
+        "label": "1",
+        "publication_info": {
+          "artid": "015001",
+          "journal_title": "Rev.Mod.Phys.",
+          "journal_volume": "90",
+          "year": 2018
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "2) Z.Fang et al., Science 302, 92 (2003). 10.1126/science.1089408"
+        }
+      ],
+      "record": { "$ref": "https://inspirehep.net/api/literature/630320" },
+      "reference": {
+        "authors": [{ "full_name": "Z.Fang" }],
+        "dois": ["10.1126/science.1089408"],
+        "label": "2",
+        "publication_info": {
+          "artid": "92",
+          "journal_title": "Science",
+          "journal_volume": "302",
+          "page_start": "92",
+          "year": 2003
+        }
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "3) R.Shimano et al., Europhys. Lett. 95, 17002 (2011). 10.1209/0295-5075/95/17002"
+        }
+      ],
+      "reference": {
+        "authors": [{ "full_name": "R.Shimano" }],
+        "dois": ["10.1209/0295-5075/95/17002"],
+        "label": "3",
+        "publication_info": {
+          "artid": "17002",
+          "journal_title": "Europhys.Lett.",
+          "journal_volume": "95",
+          "year": 2011
+        }
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "4) S.Itoh et al., Nat. Commun. 7, 11788 (2016). 10.1038/ncomms11788"
+        }
+      ],
+      "reference": {
+        "authors": [{ "full_name": "S.Itoh" }],
+        "dois": ["10.1038/ncomms11788"],
+        "label": "4",
+        "misc": ["Nat. Commun. 7, 11788"],
+        "publication_info": { "year": 2016 }
+      }
+    },
+    {
+      "raw_refs": [
+        { "schema": "text", "value": "5) K.Jenni et al., arXiv:1902.04036." }
+      ],
+      "reference": {
+        "arxiv_eprint": "1902.04036",
+        "authors": [{ "full_name": "K.Jenni" }],
+        "label": "5"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "6) X.Wan et al., Phys. Rev. B 83, 205101 (2011). 10.1103/PhysRevB.83.205101"
+        }
+      ],
+      "record": { "$ref": "https://inspirehep.net/api/literature/1425730" },
+      "reference": {
+        "authors": [{ "full_name": "X.Wan" }],
+        "dois": ["10.1103/PhysRevB.83.205101"],
+        "label": "6",
+        "publication_info": {
+          "artid": "205101",
+          "journal_title": "Phys.Rev.B",
+          "journal_volume": "83",
+          "year": 2011
+        }
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "7) T.Kondo et al., Nat. Commun. 6, 10042 (2015). 10.1038/ncomms10042"
+        }
+      ],
+      "reference": {
+        "authors": [{ "full_name": "T.Kondo" }],
+        "dois": ["10.1038/ncomms10042"],
+        "label": "7",
+        "misc": ["Nat. Commun. 6, 10042"],
+        "publication_info": { "year": 2015 }
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "8) K.Ueda et al., Nat. Commun. 8, 15515 (2017). 10.1038/ncomms15515"
+        }
+      ],
+      "reference": {
+        "authors": [{ "full_name": "K.Ueda" }],
+        "dois": ["10.1038/ncomms15515"],
+        "label": "8",
+        "misc": ["Nat. Commun. 8, 15515"],
+        "publication_info": { "year": 2017 }
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "9) K.Ueda et al., Nat. Commun. 9, 3032 (2018). 10.1038/s41467-018-05530-9"
+        }
+      ],
+      "reference": {
+        "authors": [{ "full_name": "K.Ueda" }],
+        "dois": ["10.1038/s41467-018-05530-9"],
+        "label": "9",
+        "misc": ["Nat. Commun. 9, 3032"],
+        "publication_info": { "year": 2018 }
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "10) K. S.Takahashi et al., Sci. Adv. 4, eaar7880 (2018). 10.1126/sciadv.aar7880"
+        }
+      ],
+      "reference": {
+        "authors": [{ "full_name": "S.Takahashi, K." }],
+        "dois": ["10.1126/sciadv.aar7880"],
+        "label": "10",
+        "misc": ["Sci. Adv. 4, eaar7880"],
+        "publication_info": { "year": 2018 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "11) H.Isobe, B.-J.Yang, A.Chubukov, J.Schmalian, and N.Nagaosa, Phys. Rev. Lett. 116, 076803 (2016). 10.1103/PhysRevLett.116.076803"
+        }
+      ],
+      "record": { "$ref": "https://inspirehep.net/api/literature/1422687" },
+      "reference": {
+        "authors": [
+          { "full_name": "H.Isobe" },
+          { "full_name": "B.-J.Yang" },
+          { "full_name": "A.Chubukov" },
+          { "full_name": "J.Schmalian" },
+          { "full_name": "N.Nagaosa" }
+        ],
+        "dois": ["10.1103/PhysRevLett.116.076803"],
+        "label": "11",
+        "publication_info": {
+          "artid": "076803",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "116",
+          "year": 2016
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "12) H.Isobe and N.Nagaosa, Phys. Rev. Lett. 116, 116803 (2016). 10.1103/PhysRevLett.116.116803"
+        }
+      ],
+      "record": { "$ref": "https://inspirehep.net/api/literature/1411888" },
+      "reference": {
+        "authors": [{ "full_name": "H.Isobe" }, { "full_name": "N.Nagaosa" }],
+        "dois": ["10.1103/PhysRevLett.116.116803"],
+        "label": "12",
+        "publication_info": {
+          "artid": "116803",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "116",
+          "year": 2016
+        }
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "13) T.Morimoto and N.Nagaosa, Sci. Rep. 6, 19853 (2016). 10.1038/srep19853"
+        }
+      ],
+      "reference": {
+        "authors": [
+          { "full_name": "T.Morimoto" },
+          { "full_name": "N.Nagaosa" }
+        ],
+        "dois": ["10.1038/srep19853"],
+        "label": "13",
+        "publication_info": {
+          "artid": "19853",
+          "journal_title": "Sci.Rep.",
+          "journal_volume": "6",
+          "year": 2016
+        }
+      }
+    }
+  ],
+  "self": { "$ref": "https://inspirehep.net/api/literature/1787272" },
+  "texkeys": ["Nagaosa:2020ijd"],
+  "titles": [
+    {
+      "source": "Physical Society of Japan",
+      "title": "Correlated Weyl Fermions in Oxides"
+    }
+  ]
+}

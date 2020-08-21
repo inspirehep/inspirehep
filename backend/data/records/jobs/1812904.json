@@ -1,0 +1,49 @@
+{
+  "$schema": "https://inspirehep.net/api/schemas/records/jobs.json",
+  "_collections": ["Jobs"],
+  "accelerator_experiments": [
+    {
+      "legacy_name": "CERN-LHC-LHCb",
+      "record": { "$ref": "https://inspirehep.net/api/experiments/1110643" }
+    }
+  ],
+  "acquisition_source": {
+    "datetime": "2020-08-24T13:04:22.338266",
+    "email": "xabier.cid.vidal@cern.ch",
+    "internal_uid": 60085,
+    "method": "submitter",
+    "orcid": "0000-0002-0468-541X",
+    "source": "submitter",
+    "submission_number": "None"
+  },
+  "arxiv_categories": ["hep-ex"],
+  "contact_details": [
+    {
+      "email": "xabier.cid.vidal@cern.ch",
+      "name": "Cid Vidal, Xabier",
+      "record": { "$ref": "https://inspirehep.net/api/authors/1070808" }
+    },
+    {
+      "email": "Diego.Martinez.Santos@cern.ch",
+      "name": "Martinez Santos, Diego",
+      "record": { "$ref": "https://inspirehep.net/api/authors/1070724" }
+    }
+  ],
+  "control_number": 1812904,
+  "deadline_date": "2020-09-21",
+  "description":
+    "<div>The High Energy Physics Group at the Universidade de Santiago de Compostela (USC) (Spain) has an opening for one postdoctoral research position to work on the LHCb experiment.</div><div>&nbsp;</div><div>Applicants must have (or be about to obtain) a PhD in particle physics, and be experienced in software and data analysis. The initial appointment will be for ~1.5 years, with potential extensions. The successful candidate is expected to play a leading role in the study of Stealth physics at LHCb, as well as to work on the High Level Trigger of LHCb for Run 3.&nbsp;</div><div>&nbsp;</div><div>The postdoc should also carry out usual duties of LHCb members, related to LHCb operation and analyses reviews.</div><div><br></div><div>The salary will be similar to a Spanish postdoctoral fellowship \u201cJuan de la Cierva\u201d.</div><div>&nbsp;</div><div>&nbsp;Desirable experience and skills</div><div>&nbsp;</div><div>\u00b7&nbsp;&nbsp;Knowledge of LHCb software.</div><div>\u00b7&nbsp;&nbsp;Experience in LHC searches and trigger.</div><div>\u00b7&nbsp;&nbsp;Ability to work with students.</div><div>&nbsp;</div><div>The expected starting date for the positions is around November 2020.</div><div>Interested candidates should send a cover letter, a CV and two recommendation letters to:</div><div><br></div><div>Xabier Cid Vidal (<a href=\"mailto:Xabier.Cid.Vidal@cern.ch\">Xabier.Cid.Vidal@cern.ch</a>)&nbsp;</div><div>Diego Martinez Santos (<a href=\"mailto:diego.martinez.santos@cern.ch\">diego.martinez.santos@cern.ch</a>)&nbsp;</div><div>&nbsp;</div><div>The Universidade de Santiago de Compostela is a five-century institution located in Santiago de Compostela, a lively city known for its beautiful and historic architecture. Its Old Town was designated a UNESCO World Heritage Site.</div>",
+  "institutions": [
+    {
+      "record": { "$ref": "https://inspirehep.net/api/institutions/1110755" },
+      "value": "U. Santiago de Compostela (main)"
+    }
+  ],
+  "position": "Research position at LHCb",
+  "ranks": ["POSTDOC"],
+  "reference_letters": {
+    "emails": ["xabier.cid.vidal@cern.ch", "Diego.Martinez.Santos@cern.ch"]
+  },
+  "regions": ["Europe"],
+  "status": "open"
+}

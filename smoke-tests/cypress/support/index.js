@@ -1,9 +1,11 @@
 import './commands';
+import installLogsCollector from 'cypress-terminal-report/src/installLogsCollector';
 
 const ALLOWED_UNCAUGHT_ERROR_MESSAGES = [
   "Cannot read property 'focus' of null", // TODO: explain why
   'ResizeObserver loop limit exceeded',
 ];
+
 Cypress.on('uncaught:exception', error => {
   const shouldThrow = !ALLOWED_UNCAUGHT_ERROR_MESSAGES.some(errorMessage =>
     error.message.includes(errorMessage)
@@ -11,3 +13,5 @@ Cypress.on('uncaught:exception', error => {
 
   return shouldThrow;
 });
+
+installLogsCollector({ collectTypes: ['cons:error', 'cons:warn'] });

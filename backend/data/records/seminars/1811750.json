@@ -1,0 +1,46 @@
+{
+  "$schema": "https://inspirehep.net/api/schemas/records/seminars.json",
+  "_collections": ["Seminars"],
+  "abstract": {
+    "value":
+      "<div>The observation of gravitational waves (GWs) from binary black hole mergers has renewed interest in the possibility of primordial black holes (PBHs) that are around 10 to 100 times more massive than the Sun. Such PBHs may form large numbers of binaries before matter-radiation equality and, if these binaries survive until today, they may contribute to the merger rate observable by LIGO-Virgo. I will present current GW constraints on PBHs, discussing some of the many uncertainties, including the impact that particle Dark Matter (DM) may have on the binaries. Even with these uncertainties, current GW data constrain stellar-mass PBHs to make up no more than around 1 part in 1000 of the total DM density in the Universe. I will also show that next-generation GW observatories have the chance to detect even this tiny, sub-dominant PBH population. And if these PBHs are detected, it will have far-reaching consequences for a creature which is notoriously hard to get rid of: Weakly Interacting Massive Particle DM.</div>"
+  },
+  "acquisition_source": {
+    "datetime": "2020-08-15T10:33:15.807567",
+    "email": "michael.schmidt@sydney.edu.au",
+    "internal_uid": 53380,
+    "method": "submitter",
+    "orcid": "0000-0002-8792-5537",
+    "source": "submitter"
+  },
+  "control_number": 1811750,
+  "end_datetime": "2020-10-22T06:00:00.000000",
+  "inspire_categories": [
+    { "term": "Phenomenology-HEP" },
+    { "term": "Astrophysics" }
+  ],
+  "join_urls": [
+    { "description": "Zoom", "value": "https://uni-sydney.zoom.us/j/610935631" }
+  ],
+  "series": [{ "name": "Sydney-CPPC" }],
+  "speakers": [
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirehep.net/api/institutions/907640"
+          },
+          "value": "Cantabria Inst. of Phys."
+        }
+      ],
+      "name": "Kavanagh, Bradley J.",
+      "record": { "$ref": "https://inspirehep.net/api/authors/1274588" }
+    }
+  ],
+  "start_datetime": "2020-10-22T05:00:00.000000",
+  "timezone": "Australia/Sydney",
+  "title": {
+    "title": "Primordial Black Holes, Gravitational Waves & Werewolves"
+  },
+  "urls": [{ "value": "https://indico.cern.ch/event/948534/" }]
+}

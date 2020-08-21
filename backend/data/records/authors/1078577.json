@@ -1,0 +1,53 @@
+{
+  "$schema": "https://inspirehep.net/schemas/records/authors.json",
+  "_collections": ["Authors"],
+  "acquisition_source": {
+    "datetime": "2017-07-20T13:36:27.271236",
+    "email": "m@sushinara.net",
+    "method": "submitter",
+    "orcid": "0000-0002-6997-6330",
+    "submission_number": "683390"
+  },
+  "advisors": [
+    {
+      "degree_type": "phd",
+      "ids": [{ "schema": "INSPIRE ID", "value": "INSPIRE-00090190" }],
+      "name": "Hildreth, Michael D."
+    }
+  ],
+  "arxiv_categories": ["hep-ex"],
+  "control_number": 1078577,
+  "deleted": false,
+  "email_addresses": [{ "current": true, "value": "cern@sushinara.net" }],
+  "ids": [
+    { "schema": "INSPIRE ID", "value": "INSPIRE-00333705" },
+    { "schema": "CERN", "value": "CERN-695852" },
+    { "schema": "INSPIRE BAI", "value": "Matthias.Wolf.1" },
+    { "schema": "ORCID", "value": "0000-0002-6997-6330" },
+    { "schema": "SPIRES", "value": "HEPNAMES-1087746" }
+  ],
+  "legacy_creation_date": "2011-10-24",
+  "legacy_version": "20170726215542.0",
+  "name": { "preferred_name": "Matthias Wolf", "value": "Wolf, Matthias" },
+  "positions": [
+    {
+      "curated_relation": true,
+      "current": true,
+      "institution": "Notre Dame U.",
+      "record": { "$ref": "https://inspirehep.net/api/institutions/903085" },
+      "start_date": "2011"
+    }
+  ],
+  "project_membership": [
+    {
+      "curated_relation": true,
+      "current": true,
+      "name": "CERN-LHC-CMS",
+      "record": { "$ref": "https://inspirehep.net/api/experiments/1108642" },
+      "start_date": "2009"
+    }
+  ],
+  "self": { "$ref": "https://inspirehep.net/api/authors/1078577" },
+  "status": "active",
+  "stub": false
+}

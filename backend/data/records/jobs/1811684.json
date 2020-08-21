@@ -1,0 +1,30 @@
+{
+  "$schema": "https://inspirehep.net/api/schemas/records/jobs.json",
+  "_collections": ["Jobs"],
+  "acquisition_source": {
+    "datetime": "2020-08-14T10:04:34.996301",
+    "email": "Julian.sonner@unige.ch",
+    "internal_uid": 69795,
+    "method": "submitter",
+    "orcid": "0000-0002-6179-1729",
+    "source": "submitter",
+    "submission_number": "None"
+  },
+  "arxiv_categories": ["hep-th"],
+  "contact_details": [
+    { "email": "Julian.sonner@unige.ch", "name": "Julian Sonner" }
+  ],
+  "control_number": 1811684,
+  "deadline_date": "2020-09-04",
+  "description":
+    "<div>Applications are invited for a PhD position in the subjects of High Energy Theory, Holography and String Theory. The PhD position is fully funded for four years and starts at the beginning of 2021.</div><div><br></div><div>The call is open until the position is filled.</div><div>&nbsp;</div><div><a href=\"http://www.unige.ch/international/en/\">University of Geneva</a>&nbsp;The successful candidate will join the group led by&nbsp;<a href=\"http://www.sonnerphysics.net/\">Julian Sonner</a>, working on string theory, holography and its applications, as well as quantum gravity and related topics. Admitted PhD students, in addition to carrying out their own research, follow advanced level instruction in the context of our doctoral school. The department of theoretical physics at the University of Geneva offers a vibrant atmosphere with a broad set of expertise, spanning from condensed matter to cosmology, particle phenomenology, gravity and mathematical physics, as well as string theory and holography. Members of our department benefit from our close association with the nearby CERN theory department as well as the wider Swiss community, through our National Center for Competence in Research \u201cThe Mathematics of Physics\", led by the University Geneva in conjunction with ETH Z\u00fcrich (<a href=\"https://www.nccr-swissmap.ch\">https://www.nccr-swissmap.ch</a>).</div><div><br></div><div>Entry Requirements:&nbsp;&nbsp;Master degree in Physics or Mathematics with strong background in Theoretical Physics (concluded before start date).&nbsp;&nbsp;&nbsp;Application Process:&nbsp;&nbsp;The applicant should submit the following documents: - cover letter (one A4 page maximum) - CV including names of the 2 academic referees (two A4 pages maximum) - Personal statement of research interests (one A4 page maximum) - Copy of official transcripts of diplomas and grades from all academic institutions of higher education listed in the CV (after and not including high-school)&nbsp;All documents should be uploaded at&nbsp;<a href=\"https://jobs.itp.phys.ethz.ch/phd/\">https://jobs.itp.phys.ethz.ch/phd/</a></div>",
+  "institutions": [{ "value": "Geneva U." }],
+  "position": "Theoretical Physics",
+  "ranks": ["PHD"],
+  "reference_letters": {
+    "urls": [{ "value": "https://jobs.itp.phys.ethz.ch/phd/" }]
+  },
+  "regions": ["Europe"],
+  "status": "open",
+  "urls": [{ "value": "http://www.sonnerphysics.net" }]
+}

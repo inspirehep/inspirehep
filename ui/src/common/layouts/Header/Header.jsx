@@ -16,7 +16,7 @@ function Header({ isHomePage, isSubmissionsPage, isBetaPage }) {
 
   return (
     <div className="__Header__">
-      <div ref={stickyContainerRef} className="sticky">
+      <div ref={stickyContainerRef} className="sticky" data-test-id="sticky">
         <Banners />
         {isBetaPage && <BetaRibbon />}
         <Layout.Header className="header">

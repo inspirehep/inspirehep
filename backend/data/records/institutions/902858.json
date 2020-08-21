@@ -1,0 +1,52 @@
+{
+  "$schema": "https://inspirebeta.net/schemas/records/institutions.json",
+  "ICN": ["Humboldt U., Berlin, Inst. Phys."],
+  "_collections": ["Institutions"],
+  "_private_notes": [
+    { "value": "grid.7468.d from Springer" },
+    { "value": "https://ror.org/01hcx6992 from grid.7468.d" },
+    { "value": "Includes Institut fur Physik" }
+  ],
+  "addresses": [
+    {
+      "cities": ["Berlin"],
+      "country_code": "DE",
+      "latitude": 52.43287,
+      "longitude": 13.52968,
+      "postal_address": ["Newtonstr. 15, 12489 Berlin"],
+      "postal_code": "12489"
+    }
+  ],
+  "control_number": 902858,
+  "core": true,
+  "external_system_identifiers": [
+    { "schema": "GRID", "value": "grid.7468.d" },
+    { "schema": "ROR", "value": "https://ror.org/01hcx6992" },
+    { "schema": "SPIRES", "value": "INST-2569" }
+  ],
+  "extra_words": [
+    "Institute of Physics, Humbolt, Univ.",
+    "University",
+    "Lise-Meitner-Haus",
+    "D-12489",
+    "DE-12489",
+    "phys"
+  ],
+  "institution_hierarchy": [
+    { "name": "Istitut f\u00fcr Physik" },
+    { "name": "Humboldt-Universit\u00e4t zu Berlin" }
+  ],
+  "institution_type": ["University"],
+  "legacy_ICN": "Humboldt U., Berlin",
+  "legacy_creation_date": "1989-08-07",
+  "legacy_version": "20191024181823.0",
+  "related_records": [
+    {
+      "curated_relation": true,
+      "record": { "$ref": "https://inspirebeta.net/api/institutions/1080534" },
+      "relation": "parent"
+    }
+  ],
+  "self": { "$ref": "https://inspirebeta.net/api/institutions/902858" },
+  "urls": [{ "value": "http://www.physik.hu-berlin.de/" }]
+}

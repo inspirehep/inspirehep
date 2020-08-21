@@ -1,0 +1,45 @@
+{
+  "$schema": "https://inspirehep.net/api/schemas/records/seminars.json",
+  "_collections": ["Seminars"],
+  "acquisition_source": {
+    "datetime": "2020-07-18T19:56:58.698346",
+    "email": "philipp.hauke@unitn.it",
+    "internal_uid": 69419,
+    "method": "submitter",
+    "orcid": "0000-0002-0414-1754",
+    "source": "submitter"
+  },
+  "control_number": 1807690,
+  "end_datetime": "2020-08-06T17:00:00.000000",
+  "inspire_categories": [
+    { "term": "Computing" },
+    { "term": "Lattice" },
+    { "term": "Theory-HEP" },
+    { "term": "Theory-Nucl" },
+    { "term": "Other" }
+  ],
+  "series": [
+    {
+      "name": "Quantum Simulation for Nuclear Physics (QS4NP), virtual program",
+      "number": 0
+    }
+  ],
+  "speakers": [
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirehep.net/api/institutions/902965"
+          },
+          "value": "LLNL, Livermore"
+        }
+      ],
+      "name": "Quaglioni, Sofia",
+      "record": { "$ref": "https://inspirehep.net/api/authors/1033966" }
+    }
+  ],
+  "start_datetime": "2020-08-06T16:00:00.000000",
+  "timezone": "Europe/Rome",
+  "title": { "title": "Quantum Simulation of Nuclear Reactions" },
+  "urls": [{ "value": "https://sites.google.com/uw.edu/seminars-qs4np" }]
+}

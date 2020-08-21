@@ -1,0 +1,588 @@
+{
+  "$schema": "https://inspirebeta.net/schemas/records/hep.json",
+  "_collections": ["Literature"],
+  "_desy_bookkeeping": [
+    { "identifier": "DA13-kp50f" },
+    { "date": "2014-05-29", "expert": "M", "status": "abs" },
+    { "date": "2013-11-14", "expert": "M", "status": "abs" },
+    { "date": "2014-06-12", "expert": "M", "status": "printed" },
+    { "date": "2013-11-21", "expert": "M", "status": "printed" },
+    { "date": "2014-07-15", "status": "final" },
+    { "date": "2014-04-03", "status": "final" }
+  ],
+  "_private_notes": [{ "source": "CERN", "value": "CDS-1624192" }],
+  "abstracts": [
+    {
+      "source": "PoS",
+      "value":
+        "We present two examples of applications of the analytic continuation method for computing the hadronic vacuum polarization function in space- and time-like momentum regions. These examples are the Adler function and the leading order hadronic contribution to the muon anomalous magnetic moment. We comment on the feasibility of the analytic continuation method and provide an outlook for possible further applications."
+    },
+    {
+      "source": "arXiv",
+      "value":
+        "We present two examples of applications of the analytic continuation method for computing the hadronic vacuum polarization function in space- and time-like momentum regions. These examples are the Adler function and the leading order hadronic contribution to the muon anomalous magnetic moment. We comment on the feasibility of the analytic continuation method and provide an outlook for possible further applications."
+    }
+  ],
+  "acquisition_source": { "method": "batchuploader", "source": "ejl" },
+  "arxiv_eprints": [{ "categories": ["hep-lat"], "value": "1311.0652" }],
+  "authors": [
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/907970"
+          },
+          "value": "NIC, Zeuthen"
+        },
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/902666"
+          },
+          "value": "DESY, Zeuthen"
+        }
+      ],
+      "curated_relation": true,
+      "emails": ["karl.jansen@desy.de"],
+      "full_name": "Jansen, Karl",
+      "ids": [
+        { "schema": "INSPIRE ID", "value": "INSPIRE-00093084" },
+        { "schema": "INSPIRE BAI", "value": "K.Jansen.1" }
+      ],
+      "record": { "$ref": "https://inspirebeta.net/api/authors/1004503" },
+      "signature_block": "JANSANk",
+      "uuid": "8ae83a80-156a-4f69-a73b-3a0302f83c30"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/902916"
+          },
+          "value": "KEK, Tsukuba"
+        }
+      ],
+      "curated_relation": true,
+      "full_name": "Feng, Xu",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "Xu.Feng.1" }],
+      "record": { "$ref": "https://inspirebeta.net/api/authors/1040303" },
+      "signature_block": "FANGx",
+      "uuid": "9f629b5d-2763-4953-8fad-d081355b4960"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/902916"
+          },
+          "value": "KEK, Tsukuba"
+        }
+      ],
+      "full_name": "Hashimoto, Shoji",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "S.Hashimoto.1" }],
+      "record": { "$ref": "https://inspirebeta.net/api/authors/1006538" },
+      "signature_block": "HASANATs",
+      "uuid": "d8483c6a-4e9b-473b-8258-09393888e414"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/902858"
+          },
+          "value": "Humboldt U., Berlin"
+        },
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/907970"
+          },
+          "value": "NIC, Zeuthen"
+        },
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/902666"
+          },
+          "value": "DESY, Zeuthen"
+        }
+      ],
+      "full_name": "Hotzel, Grit",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "G.Hotzel.1" }],
+      "record": { "$ref": "https://inspirebeta.net/api/authors/1274753" },
+      "signature_block": "HATSALg",
+      "uuid": "10bb662a-3e98-44e1-a8a0-f8739506bba1"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/911877"
+          },
+          "value": "Cyprus Inst."
+        }
+      ],
+      "full_name": "Petschlies, Marcus",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "M.Petschlies.1" }],
+      "record": { "$ref": "https://inspirebeta.net/api/authors/1052753" },
+      "signature_block": "PATSLYm",
+      "uuid": "8e485258-8f19-428d-b4b5-ca4780836596"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/904961"
+          },
+          "value": "Jefferson Lab"
+        }
+      ],
+      "full_name": "Renner, Dru B.",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "D.B.Renner.1" }],
+      "record": { "$ref": "https://inspirebeta.net/api/authors/1019811" },
+      "signature_block": "RANARd",
+      "uuid": "b2a17a91-757c-48be-b566-74eb5c055dfa"
+    }
+  ],
+  "citeable": true,
+  "control_number": 1263207,
+  "core": true,
+  "curated": true,
+  "deleted_records": [
+    { "$ref": "https://inspirebeta.net/api/literature/1297751" }
+  ],
+  "document_type": ["conference paper"],
+  "documents": [
+    {
+      "hidden": true,
+      "key": "arXiv:1311.0652.pdf",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/94b9f4c2d73fc4525db92788d183702c"
+    }
+  ],
+  "dois": [{ "value": "10.22323/1.187.0464" }],
+  "figures": [
+    {
+      "caption":
+        "left panel: The renormalized vacuum polarization function from our lattice data ($a \\approx 0.078\\,\\mathrm{fm},\\,V = (2.5\\fermi)^3$) together with a comparison to the dispersion relation data from \\cite{Jegerlehner:2011mw}. right panel: The Adler function as derived from the lattice data; for illustration the upper summation limit was chosen maximal, i.e. $t_\\mathrm{max}/a = T/2a - 1 = 31$ and the spatial momentum is set to 0.",
+      "filename": "pir_tmax31_comparison_spacelike.png",
+      "key": "ef03ea0c765301891dcd6dec22880d88",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/ef03ea0c765301891dcd6dec22880d88"
+    },
+    {
+      "caption":
+        "left panel: The renormalized vacuum polarization function from our lattice data ($a \\approx 0.078\\,\\mathrm{fm},\\,V = (2.5\\fermi)^3$) together with a comparison to the dispersion relation data from \\cite{Jegerlehner:2011mw}. right panel: The Adler function as derived from the lattice data; for illustration the upper summation limit was chosen maximal, i.e. $t_\\mathrm{max}/a = T/2a - 1 = 31$ and the spatial momentum is set to 0.",
+      "filename": "adler_tmax31_comparison_spacelike.png",
+      "key": "6902a44c971e9438e935a8c5f756a81e",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/6902a44c971e9438e935a8c5f756a81e"
+    },
+    {
+      "caption":
+        "In this figure, the open symbols represent results from the analytic continuation method where we average over {$|n|^2=1,2,3$}. In the upper panel we use the range $-t_{\\rm max} \\le t \\le t_{\\rm max}$ only. The lower panel shows the results corrected for the estimated FSE. Our earlier data from the standard method of computing $a_{\\mu}^{\\rm hvp}$ are represented by filled symbols.",
+      "filename": "eta_0p75.png",
+      "key": "96ba29fe7cbfc3d2611136ef64588c9d",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/96ba29fe7cbfc3d2611136ef64588c9d"
+    }
+  ],
+  "imprints": [{ "date": "2014" }],
+  "inspire_categories": [
+    { "term": "Lattice" },
+    { "term": "Phenomenology-HEP" }
+  ],
+  "keywords": [
+    { "schema": "INSPIRE", "value": "vacuum polarization: hadronic" },
+    { "schema": "INSPIRE", "value": "muon: magnetic moment" },
+    { "schema": "INSPIRE", "value": "numerical calculations" },
+    { "schema": "INSPIRE", "value": "quantum chromodynamics: lattice" },
+    { "schema": "INSPIRE", "value": "quark: mass: twist" },
+    { "schema": "INSPIRE", "value": "quark: flavor: 2" },
+    { "schema": "INSPIRE", "value": "quark: flavor: 4" },
+    { "schema": "INSPIRE", "value": "quark: mass dependence" }
+  ],
+  "legacy_creation_date": "2013-11-05",
+  "legacy_version": "20191129070308.0",
+  "license": [
+    {
+      "imposing": "arXiv",
+      "url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/"
+    }
+  ],
+  "number_of_pages": 7,
+  "preprint_date": "2013-11-04",
+  "public_notes": [
+    {
+      "source": "arXiv",
+      "value":
+        "Proceedings of XXXI International Symposium on Lattice Field Theory, 7 pages"
+    }
+  ],
+  "publication_info": [
+    {
+      "artid": "464",
+      "cnum": "C13-07-29.1",
+      "conference_record": {
+        "$ref": "https://inspirebeta.net/api/conferences/1217045"
+      },
+      "journal_record": {
+        "$ref": "https://inspirebeta.net/api/journals/1213080"
+      },
+      "journal_title": "PoS",
+      "journal_volume": "LATTICE2013",
+      "page_start": "464",
+      "parent_record": {
+        "$ref": "https://inspirebeta.net/api/literature/1272741"
+      },
+      "year": 2014
+    }
+  ],
+  "references": [
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/604400" },
+      "reference": {
+        "authors": [{ "full_name": "Blum, T." }],
+        "label": "1",
+        "misc": [
+          "Lattice calculation of the lowest order hadronic contribution to the muon anomalous magnetic moment"
+        ],
+        "publication_info": {
+          "artid": "052001",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "91",
+          "year": 2003
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/635923" },
+      "reference": {
+        "authors": [{ "full_name": "Gockeler, M." }],
+        "label": "2",
+        "misc": [
+          "Vacuum polarisation and hadronic contribution to muon g-2 from lattice QCD"
+        ],
+        "publication_info": {
+          "artid": "135",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "688",
+          "page_start": "135",
+          "year": 2004
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/724054" },
+      "reference": {
+        "authors": [{ "full_name": "Aubin, C." }, { "full_name": "Blum, T." }],
+        "label": "3",
+        "misc": [
+          "Calculating the hadronic vacuum polarization and leading hadronic contribution to the muon anomalous magnetic moment with improved staggered quarks"
+        ],
+        "publication_info": {
+          "artid": "114502",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "75",
+          "year": 2007
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/893768" },
+      "reference": {
+        "label": "4",
+        "misc": [
+          "Xu Feng, Karl Jansen, Marcus Petschlies, and Dru B. Renner. Two-flavor QCD correction to lepton magnetic moments at leading-order in the electromagnetic coupling"
+        ],
+        "publication_info": {
+          "artid": "081802",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "107",
+          "year": 2011
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/917356" },
+      "reference": {
+        "label": "5",
+        "misc": [
+          "Peter Boyle, Luigi Del Debbio, Eoin Kerrane, and James Zanotti. Lattice Determination of the Hadronic Contribution to the Muon g-2 using Dynamical Domain Wall Fermions"
+        ],
+        "publication_info": {
+          "artid": "074504",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "85",
+          "year": 2012
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1081162" },
+      "reference": {
+        "imprint": { "publisher": "Benjamin" },
+        "label": "6",
+        "misc": [
+          "Michele Della Morte Jager, Andreas Juttner, and Hartmut Wittig. Towards a precise lattice determination of the leading hadronic contribution to (g-2)mu"
+        ],
+        "publication_info": {
+          "artid": "055",
+          "journal_title": "JHEP",
+          "journal_volume": "03",
+          "page_start": "055",
+          "year": 2012
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1114976" },
+      "reference": {
+        "label": "7",
+        "misc": [
+          "Christopher Aubin, Thomas Blum, Maarten Golterman, and Santiago Peris. Model-independent parametrization of the hadronic vacuum polarization and g-2 for the muon on the lattice"
+        ],
+        "publication_info": {
+          "artid": "054509",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "86",
+          "year": 2012
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1182522" },
+      "reference": {
+        "authors": [
+          { "full_name": "de Divitiis, G.M." },
+          { "full_name": "Petronzio, R." },
+          { "full_name": "Tantalo, N." }
+        ],
+        "label": "8",
+        "misc": [
+          "On the extraction of zero momentum form factors on the lattice"
+        ],
+        "publication_info": {
+          "artid": "589",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "718",
+          "page_start": "589",
+          "year": 2012
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1235543" },
+      "reference": {
+        "authors": [{ "full_name": "Petschlies" }],
+        "label": "9",
+        "misc": [
+          "Xu Feng, Shoji Hashimoto, Grit Hotzel, Karl Jansen, Marcus Computing the hadronic vacuum polarization function by analytic continuation"
+        ],
+        "publication_info": {
+          "artid": "034505",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "88",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/552305" },
+      "reference": {
+        "authors": [{ "full_name": "Ji, X.D." }, { "full_name": "Jung, C.W." }],
+        "label": "10",
+        "misc": ["Studying hadronic structure of the photon in lattice QCD"],
+        "publication_info": {
+          "artid": "208",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "86",
+          "page_start": "208",
+          "year": 2001
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/899092" },
+      "reference": {
+        "authors": [{ "full_name": "Meyer, Harvey B." }],
+        "label": "11",
+        "misc": ["Lattice QCD and the Timelike Pion Form Factor"],
+        "publication_info": {
+          "artid": "072002",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "107",
+          "year": 2011
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/838187" },
+      "reference": {
+        "authors": [{ "full_name": "Baron, R." }],
+        "label": "12",
+        "misc": ["Light Meson Physics from Maximally Twisted Mass Lattice QCD"],
+        "publication_info": {
+          "artid": "097",
+          "journal_title": "JHEP",
+          "journal_volume": "08",
+          "page_start": "097",
+          "year": 2010
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/853397" },
+      "reference": {
+        "authors": [{ "full_name": "Baron, R." }],
+        "label": "13",
+        "misc": [
+          "Ph. Boucaud, J. Carbonell, A. Deuzeman, V Drach, et al Light hadrons from lattice QCD with light (u,d), strange and charm dynamical quarks"
+        ],
+        "publication_info": {
+          "artid": "111",
+          "journal_title": "JHEP",
+          "journal_volume": "06",
+          "page_start": "111",
+          "year": 2010
+        }
+      }
+    },
+    {
+      "reference": {
+        "label": "14",
+        "misc": [
+          "Fred Jegerlehner. Electroweak effective couplings for future precision experiments. Nuovo Cim., C034S1:31-40, 2011"
+        ]
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Renner, Dru B." }],
+        "label": "15",
+        "misc": [
+          "Xu Feng, Karl Jansen, and Marcus Petschlies. Nonperturbative QCD corrections to electroweak observables. 2012"
+        ]
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/222569" },
+      "reference": {
+        "authors": [{ "full_name": "Luscher, M." }],
+        "label": "16",
+        "misc": [
+          "Volume Dependence of the Energy Spectrum in Massive Quantum Field Theories. 1. Stable Particle States"
+        ],
+        "publication_info": {
+          "artid": "177",
+          "journal_title": "Commun.Math.Phys.",
+          "journal_volume": "104",
+          "page_start": "177",
+          "year": 1986
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/231480" },
+      "reference": {
+        "authors": [{ "full_name": "Luscher, M." }],
+        "label": "17",
+        "misc": [
+          "Volume Dependence of the Energy Spectrum in Massive Quantum Field Theories. 2. Scattering States"
+        ],
+        "publication_info": {
+          "artid": "153",
+          "journal_title": "Commun.Math.Phys.",
+          "journal_volume": "105",
+          "page_start": "153",
+          "year": 1986
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/316484" },
+      "reference": {
+        "label": "18",
+        "misc": [
+          "Martin Luscher. Signatures of unstable particles in finite volume"
+        ],
+        "publication_info": {
+          "artid": "237",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "364",
+          "page_start": "237",
+          "year": 1991
+        }
+      }
+    }
+  ],
+  "report_numbers": [{ "value": "JLAB-THY-13-1832" }],
+  "self": { "$ref": "https://inspirebeta.net/api/literature/1263207" },
+  "texkeys": ["Jansen:2014nta", "Feng:2013xqa"],
+  "titles": [
+    {
+      "source": "PoS",
+      "title":
+        "Using analytic continuation for the hadronic vacuum polarization computation"
+    },
+    {
+      "source": "arXiv",
+      "title":
+        "Using analytic continuation for the hadronic vacuum polarization computation"
+    },
+    {
+      "title":
+        "A method of analytic continuation for computing the hadronic vacuum polarization function"
+    }
+  ],
+  "urls": [
+    {
+      "description":
+        "00001 left panel: The renormalized vacuum polarization function from our lattice data ($a \\approx 0.078\\,\\mathrm{fm},\\,V = (2.5\\fermi)^3$) together with a comparison to the dispersion relation data from \\cite{Jegerlehner:2011mw}. right panel: The Adler function as derived from the lattice data; for illustration the upper summation limit was chosen maximal, i.e. $t_\\mathrm{max}/a = T/2a - 1 = 31$ and the spatial momentum is set to 0.",
+      "value":
+        "http://inspirehep.net/record/1263207/files/adler_tmax31_comparison_spacelike.png"
+    },
+    {
+      "description":
+        "00002 In this figure, the open symbols represent results from the analytic continuation method where we average over {$|n|^2=1,2,3$}. In the upper panel we use the range $-t_{\\rm max} \\le t \\le t_{\\rm max}$ only. The lower panel shows the results corrected for the estimated FSE. Our earlier data from the standard method of computing $a_{\\mu}^{\\rm hvp}$ are represented by filled symbols.",
+      "value": "http://inspirehep.net/record/1263207/files/eta_0p75.png"
+    },
+    {
+      "description":
+        "00000 left panel: The renormalized vacuum polarization function from our lattice data ($a \\approx 0.078\\,\\mathrm{fm},\\,V = (2.5\\fermi)^3$) together with a comparison to the dispersion relation data from \\cite{Jegerlehner:2011mw}. right panel: The Adler function as derived from the lattice data; for illustration the upper summation limit was chosen maximal, i.e. $t_\\mathrm{max}/a = T/2a - 1 = 31$ and the spatial momentum is set to 0.",
+      "value":
+        "http://inspirehep.net/record/1263207/files/pir_tmax31_comparison_spacelike.png"
+    },
+    {
+      "value": "http://inspirehep.net/record/1263207/files/arXiv:1311.0652.pdf"
+    },
+    {
+      "description": "Fulltext",
+      "value":
+        "http://inspirehep.net/record/1297751/files/LATTICE%202013_464.pdf"
+    },
+    {
+      "description": "Proceedings of Science Server",
+      "value":
+        "http://pos.sissa.it/archive/conferences/187/464/LATIICE%202013_464.pdf"
+    },
+    {
+      "description": "JLab Document Server",
+      "value":
+        "https://misportal.jlab.org/ul/publications/view_pub.cfm?pub_id=12866"
+    }
+  ]
+}

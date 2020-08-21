@@ -209,53 +209,37 @@ Run `isort` and `flake8` checks.
 $ ./run-code-checks.sh
 ```
 
-### UI tests (unit and ui-tests)
+### UI
 
 ```bash
 $ cd ui
-$ yarn test # in ui folder
+$ yarn test # runs everything (lint, bundlesize etc.) indentical to CI
+$ yarn test:unit # will open jest on watch mode
 ```
 
-#### How to record API responses for ui-tests
+Note that `jest` automatically run tests that changed files (unstaged) affect.
 
-Set `UI_TESTS_HOST` and `UI_TESTS_HTTP_SCHEME`
-
-Example, recording from prod:
+### cypress
 
 ```bash
-export UI_TESTS_HOST=inspirehep.net
-export UI_TESTS_HTTP_SCHEME=https
+$ sh run-cypress-tests.sh # runs everything from scratch, identical to CI
+
+$ cd smoke-tests
+$ yarn test:dev # open cypress runner GUI runs them against local dev server (localhost:3000)
+$ yarn test:dev --env inspirehep_url=<any url that serves inspirehep ui>
 ```
 
-Then run the `ui-tests`, it will record the response for requests that are not in the current recordings.
+#### visual tests
 
-NOTE: if existing recordings are invalid anymore, just delete the whole recording first, to record from scratch.
+Visual tests are run only on `headless` mode. So `yarn test:dev` which uses the headed browser will ignore them.
+Running existing visual tests and updating/creating snapshots requires `run-cypress-tests.sh` script.
 
-#### Running specific ui-tests
-
-```bash
-docker-compose run --rm node bash # in /ui/ui-tests folder
-cd /opt/app/ui-tests
-yarn test --testPathPattern=... # to run selected tests
-```
-
-NOTE: code changes in `ui/src` doesn't reflect without building the whole ui (`yarn build`)
+For continous runs (when local DB has required records etc.), the script can be reduced to only the last line in favor of speed.
 
 ### e2e
 
 ```bash
 $ ./run-e2e.sh
-```
-
-### script tests
-
-For script tests we're using cypress https://docs.cypress.io/
-
-```bash
-$ cd smoke-tests
-$ yarn install
-$ yarn run cypress:open # UI
-$ yarn run cypress:run  # cmd interface
 ```
 
 ---
@@ -279,7 +263,12 @@ A selection of demo records can be found in `data` directory and they are struct
 $ poetry run inspirehep importer records -u https://labs.inspirehep.net/api/literature/20 -u https://labs.inspirehep.net/api/literature/1726642
 # Docker
 $ .docker-compose run --rm web poetry run inspirehep importer records -u https://labs.inspirehep.net/api/literature/20 -u https://labs.inspirehep.net/api/literature/1726642
+
+# `--save` will save the imported record also to the data folder
+$ <...> inspirehep importer records -u https://labs.inspirehep.net/api/literature/20 --save
 ```
+
+Valid `--token` or `backend/inspirehep/config.py:AUTHENTICATION_TOKEN` is required.
 
 #### With directory
 

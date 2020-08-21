@@ -1,0 +1,586 @@
+{
+  "$schema": "https://inspirebeta.net/schemas/records/hep.json",
+  "_collections": ["Literature"],
+  "_private_notes": [
+    { "source": "SPIRES-HIDDEN", "value": "16 References from LaTeX" },
+    { "source": "CERN", "value": "CDS-1302170" }
+  ],
+  "abstracts": [
+    {
+      "source": "arXiv",
+      "value":
+        "We calculate perturbative Wilson loops of various sizes up to loop order $n=20$ at different lattice sizes for pure plaquette and tree-level improved Symanzik gauge theories using the technique of Numerical Stochastic Perturbation Theory. This allows us to investigate the behavior of the perturbative series at high orders. We observe differences in the behavior of perturbative coefficients as a function of the loop order. Up to $n=20$ we do not see evidence for the often assumed factorial growth of the coefficients. Based on the observed behavior we sum this series in a model with hypergeometric functions. Alternatively we estimate the series in boosted perturbation theory. Subtracting the estimated perturbative series for the average plaquette from the non-perturbative Monte Carlo result we estimate the gluon condensate."
+    }
+  ],
+  "arxiv_eprints": [{ "categories": ["hep-lat"], "value": "1010.4674" }],
+  "authors": [
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/902787"
+          },
+          "value": "Edinburgh U."
+        }
+      ],
+      "full_name": "Horsley, R.",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "R.Horsley.1" }],
+      "record": { "$ref": "https://inspirebeta.net/api/authors/1005563" },
+      "signature_block": "HARSLYr",
+      "uuid": "807ab936-eb2e-4b16-aa76-9862d77fab73"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/902959"
+          },
+          "value": "Leipzig U."
+        }
+      ],
+      "curated_relation": true,
+      "full_name": "Hotzel, G.",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "G.Hotzel.1" }],
+      "record": { "$ref": "https://inspirebeta.net/api/authors/1274753" },
+      "signature_block": "HATSALg",
+      "uuid": "20fdd945-6058-4f77-ae76-c7d41c1689fe"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/902670"
+          },
+          "value": "Bielefeld U."
+        },
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/902858"
+          },
+          "value": "Humboldt U., Berlin"
+        }
+      ],
+      "full_name": "Ilgenfritz, E.-M.",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "E.M.Ilgenfritz.1" }],
+      "record": { "$ref": "https://inspirebeta.net/api/authors/1005056" },
+      "signature_block": "ILGANFRATe",
+      "uuid": "0b110ae2-87e5-4b9e-bec1-903174a4493d"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/903753"
+          },
+          "value": "Regensburg U."
+        }
+      ],
+      "full_name": "Nakamura, Y.",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "Y.Nakamura.1" }],
+      "record": { "$ref": "https://inspirebeta.net/api/authors/1029125" },
+      "signature_block": "NACANARy",
+      "uuid": "10764a7a-979a-45ad-88bd-bcf1cec83aa5"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/902959"
+          },
+          "value": "Leipzig U."
+        }
+      ],
+      "full_name": "Perlt, H.",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "H.Perlt.1" }],
+      "record": { "$ref": "https://inspirebeta.net/api/authors/993744" },
+      "signature_block": "PARLTh",
+      "uuid": "9b3eb94d-6f22-4a3f-8858-584d3566299f"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/907986"
+          },
+          "value": "Liverpool U., Dept. Math."
+        }
+      ],
+      "full_name": "Rakow, P.E.L.",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "P.E.L.Rakow.1" }],
+      "record": { "$ref": "https://inspirebeta.net/api/authors/992375" },
+      "signature_block": "RACp",
+      "uuid": "aee76215-d3d8-49c0-8802-c5f66ea44941"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/902770"
+          },
+          "value": "DESY"
+        }
+      ],
+      "full_name": "Schierholz, G.",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "G.Schierholz.1" }],
+      "record": { "$ref": "https://inspirebeta.net/api/authors/989944" },
+      "signature_block": "SARALg",
+      "uuid": "f9af3368-996b-4ba4-b892-2953997a92cd"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/902959"
+          },
+          "value": "Leipzig U."
+        }
+      ],
+      "full_name": "Schiller, A.",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "A.Schiller.1" }],
+      "record": { "$ref": "https://inspirebeta.net/api/authors/989934" },
+      "signature_block": "SALARa",
+      "uuid": "d79c938e-5892-4bc6-b4b3-441596c803f8"
+    }
+  ],
+  "citeable": true,
+  "control_number": 873915,
+  "core": true,
+  "curated": true,
+  "document_type": ["conference paper"],
+  "documents": [
+    {
+      "hidden": true,
+      "key": "arXiv:1010.4674.pdf",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/640b231d03c74c870490e16272bf5ce6"
+    },
+    {
+      "filename": "Lattice 2010_264.pdf",
+      "fulltext": true,
+      "key": "fe176db166c9f617ce1b4f37e10b2315",
+      "source": "PoS",
+      "url": "https://inspirebeta.net/files/fe176db166c9f617ce1b4f37e10b2315"
+    }
+  ],
+  "dois": [{ "value": "10.22323/1.105.0264" }],
+  "external_system_identifiers": [
+    { "schema": "SPIRES", "value": "SPIRES-8841667" }
+  ],
+  "figures": [
+    {
+      "caption":
+        "Selected $W_{NM}^{(n)}$ for $L=12$ and Wilson action (left) and for $L=10$ and Symanzik action (right). Positive/negative signs of the coefficients are given by open/full symbols.",
+      "filename": "WNML12.png",
+      "key": "a797cbd2c3c4fd240f09270dde03d32d",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/a797cbd2c3c4fd240f09270dde03d32d"
+    },
+    {
+      "caption":
+        "Selected $W_{NM}^{(n)}$ for $L=12$ and Wilson action (left) and for $L=10$ and Symanzik action (right). Positive/negative signs of the coefficients are given by open/full symbols.",
+      "filename": "WNML10Sym.png",
+      "key": "9afcb0c4bb9c84683d7e76b4a073e9eb",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/9afcb0c4bb9c84683d7e76b4a073e9eb"
+    },
+    {
+      "caption":
+        "Selected $W_{N1}^{(n)}$ versus $n$ together with typical sizes (in magnitude) of non-loop contributions. Positive/negative signs of the coefficients are given by open/full symbols. Left: $L=12$ and Wilson gauge action, right: $L=10$ and Symanzik action. Points at half-integer $n$ (the non-loop terms) are pure noise - they show a good signal/noise ratio.",
+      "filename": "fit_WN1_12_W.png",
+      "key": "2c68d8d6eb01194a0fce407d107463c6",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/2c68d8d6eb01194a0fce407d107463c6"
+    },
+    {
+      "caption":
+        "Selected $W_{N1}^{(n)}$ versus $n$ together with typical sizes (in magnitude) of non-loop contributions. Positive/negative signs of the coefficients are given by open/full symbols. Left: $L=12$ and Wilson gauge action, right: $L=10$ and Symanzik action. Points at half-integer $n$ (the non-loop terms) are pure noise - they show a good signal/noise ratio.",
+      "filename": "fit_WN1_10_S.png",
+      "key": "18018f553ab87abfacbafe8dfc905679",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/18018f553ab87abfacbafe8dfc905679"
+    },
+    {
+      "caption":
+        "Domb-Sykes plots for $W_{11}$. Left: $L=12$  and Wilson action, right:  $L=8$ and Symanzik action.",
+      "filename": "CoffRatW11L12Plaq.png",
+      "key": "a0ff57a88d8e0fffcbf4e2b14c5fc494",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/a0ff57a88d8e0fffcbf4e2b14c5fc494"
+    },
+    {
+      "caption":
+        "Domb-Sykes plots for $W_{11}$. Left: $L=12$  and Wilson action, right:  $L=8$ and Symanzik action.",
+      "filename": "CoffRatW11L8Symanzik.png",
+      "key": "dfaad464590ce202ea9552f614d3b25e",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/dfaad464590ce202ea9552f614d3b25e"
+    },
+    {
+      "caption":
+        "Perturbative plaquette $P_{n^\\star}$ as function of loop order $n^\\star$ for naive and boosted series; left: all orders, right: zoomed in by the choice $8 \\le n^\\star \\le 20$. The choice $g^2=1.04$ corresponds to the largest coupling where the solution (3.2) remains real.",
+      "filename": "W11SumPlot.png",
+      "key": "0dfd598a7d0e60260aaf59d07c7b1e41",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/0dfd598a7d0e60260aaf59d07c7b1e41"
+    },
+    {
+      "caption":
+        "Perturbative plaquette $P_{n^\\star}$ as function of loop order $n^\\star$ for naive and boosted series; left: all orders, right: zoomed in by the choice $8 \\le n^\\star \\le 20$. The choice $g^2=1.04$ corresponds to the largest coupling where the solution (3.2) remains real.",
+      "filename": "W11SumPlot8_21.png",
+      "key": "cc6eaf542336aa019cc673b749172c38",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/cc6eaf542336aa019cc673b749172c38"
+    },
+    {
+      "caption":
+        "Left: Comparison of $c_4(n^\\star)$ and $c_2(n^\\star)$ for naive and boosted ($b$) perturbation theory in the extrapolated limit $L = \\infty$. Right: $\\Delta P/(a/r_0)^2$ as function of $(a/r_0)^2$ for boosted perturbation theory. The line is a linear fit in $a^2$ for the range $0.02 \\le (a/r_0)^2 \\le 0.08$, $r_0$ denotes the Sommer scale.",
+      "filename": "C4C2Boosted.png",
+      "key": "cd374a91ba6ea8a994abbfdaac619165",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/cd374a91ba6ea8a994abbfdaac619165"
+    },
+    {
+      "caption":
+        "Left: Comparison of $c_4(n^\\star)$ and $c_2(n^\\star)$ for naive and boosted ($b$) perturbation theory in the extrapolated limit $L = \\infty$. Right: $\\Delta P/(a/r_0)^2$ as function of $(a/r_0)^2$ for boosted perturbation theory. The line is a linear fit in $a^2$ for the range $0.02 \\le (a/r_0)^2 \\le 0.08$, $r_0$ denotes the Sommer scale.",
+      "filename": "diffPaaBoosted.png",
+      "key": "2144a4390c822a1b0218761c18f28b67",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/2144a4390c822a1b0218761c18f28b67"
+    }
+  ],
+  "inspire_categories": [{ "term": "Lattice" }],
+  "keywords": [
+    { "schema": "INSPIRE", "value": "perturbation theory: stochastic" },
+    { "schema": "INSPIRE", "value": "gluon: condensation" },
+    { "schema": "INSPIRE", "value": "perturbation theory: higher-order" },
+    { "schema": "INSPIRE", "value": "numerical methods: stochastic" },
+    { "schema": "INSPIRE", "value": "numerical calculations: Monte Carlo" },
+    { "schema": "INSPIRE", "value": "talk" },
+    { "schema": "INSPIRE", "value": "Wilson loop" },
+    { "schema": "INSPIRE", "value": "tree approximation" },
+    { "schema": "INSPIRE", "value": "nonperturbative" }
+  ],
+  "legacy_creation_date": "2010-10-24",
+  "legacy_version": "20180514101059.0",
+  "number_of_pages": 7,
+  "preprint_date": "2010-10",
+  "publication_info": [
+    {
+      "artid": "264",
+      "journal_record": {
+        "$ref": "https://inspirebeta.net/api/journals/1213080"
+      },
+      "journal_title": "PoS",
+      "journal_volume": "LATTICE2010",
+      "page_start": "264",
+      "year": 2010
+    },
+    {
+      "cnum": "C10-06-14.10",
+      "conference_record": {
+        "$ref": "https://inspirebeta.net/api/conferences/980531"
+      },
+      "parent_record": {
+        "$ref": "https://inspirebeta.net/api/literature/918185"
+      }
+    }
+  ],
+  "references": [
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/130694" },
+      "reference": {
+        "publication_info": {
+          "artid": "385",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "147",
+          "page_start": "385"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/10384" },
+      "reference": {
+        "publication_info": {
+          "artid": "692",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "190",
+          "page_start": "692"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/164219" },
+      "reference": {
+        "publication_info": {
+          "artid": "481",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "100",
+          "page_start": "481"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/164194" },
+      "reference": {
+        "publication_info": {
+          "artid": "169",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "101",
+          "page_start": "169"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/177317" },
+      "reference": {
+        "publication_info": {
+          "artid": "567",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "210",
+          "page_start": "567"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/181381" },
+      "reference": {
+        "publication_info": {
+          "artid": "395",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "119",
+          "page_start": "395"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/524065" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/0002018",
+        "publication_info": {
+          "artid": "383",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "578",
+          "page_start": "383"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/536910" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/0011067",
+        "publication_info": {
+          "artid": "038",
+          "journal_title": "JHEP",
+          "journal_volume": "10",
+          "page_start": "038",
+          "year": 2001
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/694390" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/0510046",
+        "publication_info": {
+          "artid": "284",
+          "journal_title": "PoS",
+          "journal_volume": "LAT2005",
+          "page_start": "284"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/725379" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/0609005",
+        "publication_info": {
+          "artid": "096005",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "74"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/823919" },
+      "reference": {
+        "arxiv_eprint": "0906.4312",
+        "publication_info": {
+          "artid": "355",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "679",
+          "page_start": "355"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/179017" },
+      "reference": {
+        "publication_info": {
+          "artid": "1",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "212",
+          "page_start": "1"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/661467" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/0410010",
+        "publication_info": {
+          "artid": "073",
+          "journal_title": "JHEP",
+          "journal_volume": "10",
+          "page_start": "073",
+          "year": 2004
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/203758" },
+      "reference": {
+        "publication_info": {
+          "artid": "254",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "251",
+          "page_start": "254"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/565153" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/0110210",
+        "publication_info": {
+          "artid": "870",
+          "journal_title": "Nucl.Phys.B Proc.Suppl.",
+          "journal_volume": "106",
+          "page_start": "870"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/561196" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/0108008",
+        "publication_info": {
+          "artid": "328",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "622",
+          "page_start": "328"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/263728" },
+      "reference": {
+        "publication_info": {
+          "artid": "339",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "205",
+          "page_start": "339"
+        }
+      }
+    }
+  ],
+  "report_numbers": [
+    { "value": "BI-TP-2010-33" },
+    { "value": "HU-EP-10-58" },
+    { "value": "DESY-10-174" },
+    { "value": "EDINBURGH-2010-29" },
+    { "value": "LU-ITP-2010-006" },
+    { "value": "LTH-888" }
+  ],
+  "self": { "$ref": "https://inspirebeta.net/api/literature/873915" },
+  "texkeys": ["Horsley:2010af"],
+  "titles": [
+    { "title": "Very high order lattice perturbation theory for Wilson loops" },
+    {
+      "source": "arXiv",
+      "title": "Very high order lattice perturbation theory for Wilson loops"
+    }
+  ],
+  "urls": [
+    {
+      "description": "Proceedings of Science Server",
+      "value":
+        "http://pos.sissa.it//archive/conferences/105/264/Lattice%202010_264.pdf"
+    },
+    {
+      "description":
+        "00008 Left: Comparison of $c_4(n^\\star)$ and $c_2(n^\\star)$ for naive and boosted ($b$) perturbation theory in the extrapolated limit $L = \\infty$. Right: $\\Delta P/(a/r_0)^2$ as function of $(a/r_0)^2$ for boosted perturbation theory. The line is a linear fit in $a^2$ for the range $0.02 \\le (a/r_0)^2 \\le 0.08$, $r_0$ denotes the Sommer scale.",
+      "value": "http://inspirehep.net/record/873915/files/C4C2Boosted.png"
+    },
+    {
+      "description":
+        "00004 Domb-Sykes plots for $W_{11}$. Left: $L=12$  and Wilson action, right:  $L=8$ and Symanzik action.",
+      "value": "http://inspirehep.net/record/873915/files/CoffRatW11L12Plaq.png"
+    },
+    {
+      "description":
+        "00005 Domb-Sykes plots for $W_{11}$. Left: $L=12$  and Wilson action, right:  $L=8$ and Symanzik action.",
+      "value":
+        "http://inspirehep.net/record/873915/files/CoffRatW11L8Symanzik.png"
+    },
+    {
+      "description":
+        "00006 Perturbative plaquette $P_{n^\\star}$ as function of loop order $n^\\star$ for naive and boosted series; left: all orders, right: zoomed in by the choice $8 \\le n^\\star \\le 20$. The choice $g^2=1.04$ corresponds to the largest coupling where the solution (3.2) remains real.",
+      "value": "http://inspirehep.net/record/873915/files/W11SumPlot.png"
+    },
+    {
+      "description":
+        "00007 Perturbative plaquette $P_{n^\\star}$ as function of loop order $n^\\star$ for naive and boosted series; left: all orders, right: zoomed in by the choice $8 \\le n^\\star \\le 20$. The choice $g^2=1.04$ corresponds to the largest coupling where the solution (3.2) remains real.",
+      "value": "http://inspirehep.net/record/873915/files/W11SumPlot8_21.png"
+    },
+    {
+      "description":
+        "00001 Selected $W_{NM}^{(n)}$ for $L=12$ and Wilson action (left) and for $L=10$ and Symanzik action (right). Positive/negative signs of the coefficients are given by open/full symbols.",
+      "value": "http://inspirehep.net/record/873915/files/WNML10Sym.png"
+    },
+    {
+      "description":
+        "00000 Selected $W_{NM}^{(n)}$ for $L=12$ and Wilson action (left) and for $L=10$ and Symanzik action (right). Positive/negative signs of the coefficients are given by open/full symbols.",
+      "value": "http://inspirehep.net/record/873915/files/WNML12.png"
+    },
+    {
+      "description":
+        "00009 Left: Comparison of $c_4(n^\\star)$ and $c_2(n^\\star)$ for naive and boosted ($b$) perturbation theory in the extrapolated limit $L = \\infty$. Right: $\\Delta P/(a/r_0)^2$ as function of $(a/r_0)^2$ for boosted perturbation theory. The line is a linear fit in $a^2$ for the range $0.02 \\le (a/r_0)^2 \\le 0.08$, $r_0$ denotes the Sommer scale.",
+      "value": "http://inspirehep.net/record/873915/files/diffPaaBoosted.png"
+    },
+    {
+      "description":
+        "00003 Selected $W_{N1}^{(n)}$ versus $n$ together with typical sizes (in magnitude) of non-loop contributions. Positive/negative signs of the coefficients are given by open/full symbols. Left: $L=12$ and Wilson gauge action, right: $L=10$ and Symanzik action. Points at half-integer $n$ (the non-loop terms) are pure noise - they show a good signal/noise ratio.",
+      "value": "http://inspirehep.net/record/873915/files/fit_WN1_10_S.png"
+    },
+    {
+      "description":
+        "00002 Selected $W_{N1}^{(n)}$ versus $n$ together with typical sizes (in magnitude) of non-loop contributions. Positive/negative signs of the coefficients are given by open/full symbols. Left: $L=12$ and Wilson gauge action, right: $L=10$ and Symanzik action. Points at half-integer $n$ (the non-loop terms) are pure noise - they show a good signal/noise ratio.",
+      "value": "http://inspirehep.net/record/873915/files/fit_WN1_12_W.png"
+    },
+    {
+      "value": "http://inspirehep.net/record/873915/files/arXiv:1010.4674.pdf"
+    },
+    {
+      "description": "Fulltext",
+      "value":
+        "http://inspirehep.net/record/873915/files/Lattice%202010_264.pdf"
+    }
+  ]
+}

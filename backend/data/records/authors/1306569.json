@@ -1,0 +1,24 @@
+{
+  "$schema": "https://inspirehep.net/schemas/records/authors.json",
+  "_collections": ["Authors"],
+  "arxiv_categories": ["astro-ph"],
+  "control_number": 1306569,
+  "deleted": false,
+  "ids": [
+    { "schema": "INSPIRE ID", "value": "INSPIRE-00420138" },
+    { "schema": "INSPIRE BAI", "value": "Guo.Xin.Chen.1" }
+  ],
+  "legacy_creation_date": "2014-07-16",
+  "legacy_version": "20150923151538.0",
+  "name": { "preferred_name": "Guo Xin Chen", "value": "Chen, Guo Xin" },
+  "positions": [
+    {
+      "curated_relation": true,
+      "current": true,
+      "institution": "Harvard-Smithsonian Ctr. Astrophys.",
+      "record": { "$ref": "https://inspirehep.net/api/institutions/902836" }
+    }
+  ],
+  "self": { "$ref": "https://inspirehep.net/api/authors/1306569" },
+  "stub": false
+}
