@@ -19,7 +19,15 @@ describe('Literature and Authors', () => {
       .first()
       .click();
 
+    // TODO: create as `waitForRoute` command
+    cy.server();
+    cy
+      .route('**/literature**search_type=hep-author-publication**')
+      .as('publications');
+    cy.wait('@publications');
+
     cy.selectFromDropdown('sort-by-select', 'mostcited');
+    cy.wait('@publications');
 
     cy
       .get('[data-test-id="literature-result-title-link"]')

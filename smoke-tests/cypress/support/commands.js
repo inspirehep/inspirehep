@@ -1,7 +1,10 @@
 Cypress.Commands.add('selectFromDropdown', (dropdownId, option) => {
   const dropdownSelector = `[data-test-id="${dropdownId}"]`;
   const optionSelector = `[data-test-id="${dropdownId}-option-${option}"]`;
-  cy.get(dropdownSelector).click();
+  cy
+    .get(dropdownSelector)
+    .first()
+    .click();
   cy.get(optionSelector).click();
 });
 
