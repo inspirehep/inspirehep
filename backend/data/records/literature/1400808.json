@@ -1,0 +1,1298 @@
+{
+  "$schema": "https://inspirebeta.net/schemas/records/hep.json",
+  "_collections": ["Literature"],
+  "_desy_bookkeeping": [
+    { "identifier": "DA15-kp51a" },
+    { "date": "2015-11-05", "expert": "M", "status": "abs" },
+    { "date": "2015-11-11", "expert": "M", "status": "printed" },
+    { "date": "2016-01-04", "expert": "S", "status": "final" },
+    { "date": "2015-12-20", "expert": "S", "status": "final" }
+  ],
+  "_private_notes": [{ "source": "CERN", "value": "CDS-2062722" }],
+  "abstracts": [
+    {
+      "source": "APS",
+      "value":
+        "The quark-connected part of the hadronic light-by-light scattering contribution to the muon\u2019s anomalous magnetic moment is computed using lattice QCD with chiral fermions. We report several significant algorithmic improvements and demonstrate their effectiveness through specific calculations which show a reduction in statistical errors by more than an order of magnitude. The most realistic of these calculations is performed with a near-physical 171\u00a0MeV pion mass on a (4.6\u2009\u2009fm)3 spatial volume using the 323\u00d764 Iwasaki+DSDR gauge ensemble of the RBC/UKQCD Collaboration."
+    },
+    {
+      "source": "arXiv",
+      "value":
+        "The quark-connected part of the hadronic light-by-light scattering contribution to the muon's anomalous magnetic moment is computed using lattice QCD with chiral fermions. We report several significant algorithmic improvements and demonstrate their effectiveness through specific calculations which show a reduction in statistical errors by more than an order of magnitude. The most realistic of these calculations is performed with a near-physical, $171$ MeV pion mass on a $(4.6\\;\\mathrm{fm})^3$ spatial volume using the $32^3\\times 64$ Iwasaki+DSDR gauge ensemble of the RBC/UKQCD Collaboration."
+    }
+  ],
+  "acquisition_source": { "method": "oai", "source": "arxiv" },
+  "arxiv_eprints": [
+    { "categories": ["hep-lat", "hep-ph"], "value": "1510.07100" }
+  ],
+  "authors": [
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/907483"
+          },
+          "value": "RIKEN BNL"
+        },
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/902753"
+          },
+          "value": "Connecticut U."
+        }
+      ],
+      "curated_relation": true,
+      "full_name": "Blum, Thomas",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "T.C.Blum.1" }],
+      "raw_affiliations": [
+        {
+          "value":
+            "Physics Department, University of Connecticut , Storrs, Connecticut 06269-3046, USA"
+        },
+        {
+          "value":
+            "RIKEN BNL Research Center, Brookhaven National Laboratory , Upton, New York 11973, USA"
+        }
+      ],
+      "record": { "$ref": "https://inspirebeta.net/api/authors/1016091" },
+      "signature_block": "BLANt",
+      "uuid": "8d382455-1eaf-4a2b-8fe0-d8f9f844368b"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/902749"
+          },
+          "value": "Columbia U."
+        }
+      ],
+      "curated_relation": true,
+      "full_name": "Christ, Norman",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "Norman.H.Christ.1" }],
+      "raw_affiliations": [
+        {
+          "value":
+            "Physics Department, Columbia University , New York, New York 10027, USA"
+        }
+      ],
+      "record": { "$ref": "https://inspirebeta.net/api/authors/1013583" },
+      "signature_block": "CHRASTn",
+      "uuid": "72bb94e8-add4-45e9-b470-77c361f270d3"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/903041"
+          },
+          "value": "Nagoya U."
+        },
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/911022"
+          },
+          "value": "Nishina Ctr., RIKEN"
+        }
+      ],
+      "full_name": "Hayakawa, Masashi",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "M.Hayakawa.1" }],
+      "raw_affiliations": [
+        {
+          "value":
+            "Department of Physics, Nagoya University , Nagoya 464-8602, Japan"
+        },
+        { "value": "Nishina Center, RIKEN , Wako, Saitama 351-0198, Japan" }
+      ],
+      "record": { "$ref": "https://inspirebeta.net/api/authors/1006437" },
+      "signature_block": "HYACm",
+      "uuid": "50608820-b935-489d-bd51-ec79ec80a265"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/902689"
+          },
+          "value": "Brookhaven"
+        },
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/907483"
+          },
+          "value": "RIKEN BNL"
+        }
+      ],
+      "full_name": "Izubuchi, Taku",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "T.Izubuchi.1" }],
+      "raw_affiliations": [
+        {
+          "value":
+            "Physics Department, Brookhaven National Laboratory , Upton, New York 11973, USA"
+        },
+        {
+          "value":
+            "RIKEN BNL Research Center, Brookhaven National Laboratory , Upton, New York 11973, USA"
+        }
+      ],
+      "record": { "$ref": "https://inspirebeta.net/api/authors/1004674" },
+      "signature_block": "ISABACt",
+      "uuid": "94e01ca8-21f4-4fb7-819c-50daaea2d13b"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/902749"
+          },
+          "value": "Columbia U."
+        }
+      ],
+      "curated_relation": true,
+      "full_name": "Jin, Luchang",
+      "ids": [
+        { "schema": "INSPIRE ID", "value": "INSPIRE-00635590" },
+        { "schema": "ORCID", "value": "0000-0003-0806-4183" },
+        { "schema": "INSPIRE BAI", "value": "Lu.Chang.Jin.1" }
+      ],
+      "raw_affiliations": [
+        {
+          "value":
+            "Physics Department, Columbia University , New York, New York 10027, USA"
+        }
+      ],
+      "record": { "$ref": "https://inspirebeta.net/api/authors/1505534" },
+      "signature_block": "JANl",
+      "uuid": "5469cc6a-4809-4337-b06c-073e15aa507a"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/902689"
+          },
+          "value": "Brookhaven"
+        }
+      ],
+      "curated_relation": true,
+      "full_name": "Lehner, Christoph",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "C.Lehner.1" }],
+      "raw_affiliations": [
+        {
+          "value":
+            "Physics Department, Brookhaven National Laboratory , Upton, New York 11973, USA"
+        }
+      ],
+      "record": { "$ref": "https://inspirebeta.net/api/authors/1063281" },
+      "signature_block": "LANARc",
+      "uuid": "6bcea293-e60f-4f35-86f6-9b33cf04a985"
+    }
+  ],
+  "citeable": true,
+  "control_number": 1400808,
+  "copyright": [
+    {
+      "holder": "American Physical Society",
+      "material": "publication",
+      "year": 2016
+    }
+  ],
+  "core": true,
+  "curated": true,
+  "document_type": ["article"],
+  "documents": [
+    {
+      "hidden": true,
+      "key": "arXiv:1510.07100.pdf",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/abef3d778e1ccd29698f1077813302ab"
+    },
+    {
+      "hidden": true,
+      "key": "fulltext.xml",
+      "source": "APS",
+      "url": "http://legacy-afs-web/var/data/files/g116/2323012/content.xml%3B1"
+    }
+  ],
+  "dois": [{ "source": "bibmatch", "value": "10.1103/PhysRevD.93.014503" }],
+  "external_system_identifiers": [{ "schema": "OSTI", "value": "1234772" }],
+  "figures": [
+    {
+      "caption":
+        "Feynman diagrams depicting the hadronic vacuum polarization (left) and hadronic light-by-light scattering (right) contributions to $g_\\mu-2$.",
+      "filename": "HVP.png",
+      "key": "17ad19c9a9fa30160cf76fabf4edf734",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/17ad19c9a9fa30160cf76fabf4edf734"
+    },
+    {
+      "caption":
+        "Feynman diagrams depicting the hadronic vacuum polarization (left) and hadronic light-by-light scattering (right) contributions to $g_\\mu-2$.",
+      "filename": "HLbL.png",
+      "key": "b5e2cc46edbcce8a9f835eb2c3f58b99",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/b5e2cc46edbcce8a9f835eb2c3f58b99"
+    },
+    {
+      "caption":
+        "Hadronic light-by-light diagrams. There are four additional diagrams resulting from further permutations of the photon vertices on the muon line.",
+      "filename": "HLbL_conn_1.png",
+      "key": "ac6e2b11ab669dd9b383d4b98403df21",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/ac6e2b11ab669dd9b383d4b98403df21"
+    },
+    {
+      "caption":
+        "Hadronic light-by-light diagrams. There are four additional diagrams resulting from further permutations of the photon vertices on the muon line.",
+      "filename": "HLbL_conn_2.png",
+      "key": "af1defa4be13a20f25ecf2c3030eb693",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/af1defa4be13a20f25ecf2c3030eb693"
+    },
+    {
+      "caption":
+        "Two of the six HLbL diagrams that result if a stochastic method is adopted to evaluate two of the three photon propagators which appear in Fig~\\ref{fig:hlbl}.  The wavy line joining the muon line and the quark loop represents the exact photon propagator while the pairs of factors, $A^{m_1}_\\rho(x)$,  $A^{m_1}_{\\rho'}(x')$ and $B^{m_2}_\\sigma(y)$,  $B^{m_2}_{\\sigma'}(y')$ are the $m_1$ and $m_2$ elements of two independent ensembles of stochastic electromagnetic fields.",
+      "filename": "HLbL_conn_AB_1.png",
+      "key": "7ffb397cc2e5600d72403cd12734eca3",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/7ffb397cc2e5600d72403cd12734eca3"
+    },
+    {
+      "caption":
+        "Two of the six HLbL diagrams that result if a stochastic method is adopted to evaluate two of the three photon propagators which appear in Fig~\\ref{fig:hlbl}.  The wavy line joining the muon line and the quark loop represents the exact photon propagator while the pairs of factors, $A^{m_1}_\\rho(x)$,  $A^{m_1}_{\\rho'}(x')$ and $B^{m_2}_\\sigma(y)$,  $B^{m_2}_{\\sigma'}(y')$ are the $m_1$ and $m_2$ elements of two independent ensembles of stochastic electromagnetic fields.",
+      "filename": "HLbL_conn_AB_2.png",
+      "key": "56ced2b3d512070afcdc352f681e2eb6",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/56ced2b3d512070afcdc352f681e2eb6"
+    },
+    {
+      "caption":
+        "Distribution of relative separations $|r|=|x-y|$ between the $x$-$y$ pairs of randomly chosen points used to compute $\\mathcal{M}_\\nu(\\vec q)$ on the $32^3\\times64$ QCD gauge ensemble described in Sec.~\\ref{sec:exact_props_numerical}",
+      "filename": "small-psrc-qcd-bin-distance-distribution-32ID.png",
+      "key": "19c82313d003275da16294c5ba38e8f5",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/19c82313d003275da16294c5ba38e8f5"
+    },
+    {
+      "caption":
+        "Diagrams showing the three different possible insertions of the external photon when the vertices $x$ and $y$ are fixed. For each of these three diagrams there are five other possible permutations of the connections between the three internal photons and the muon line that are not shown.  The contributions of each of these three sets of six contractions will be the same after the stochastic average over the vertices $x$ and $y$.",
+      "filename": "HLbL_3diag_1.png",
+      "key": "070e1dec4bf0703b35cf1bc42d14f0f3",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/070e1dec4bf0703b35cf1bc42d14f0f3"
+    },
+    {
+      "caption":
+        "Diagrams showing the three different possible insertions of the external photon when the vertices $x$ and $y$ are fixed. For each of these three diagrams there are five other possible permutations of the connections between the three internal photons and the muon line that are not shown.  The contributions of each of these three sets of six contractions will be the same after the stochastic average over the vertices $x$ and $y$.",
+      "filename": "HLbL_3diag_2.png",
+      "key": "ba120e4e92e686713b92bda3e044b713",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/ba120e4e92e686713b92bda3e044b713"
+    },
+    {
+      "caption":
+        "Diagrams showing the three different possible insertions of the external photon when the vertices $x$ and $y$ are fixed. For each of these three diagrams there are five other possible permutations of the connections between the three internal photons and the muon line that are not shown.  The contributions of each of these three sets of six contractions will be the same after the stochastic average over the vertices $x$ and $y$.",
+      "filename": "HLbL_3diag_3.png",
+      "key": "0169459853fb95c706f51520e7d0dbf7",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/0169459853fb95c706f51520e7d0dbf7"
+    },
+    {
+      "caption":
+        "The shaded circle represents the vertex: $F_1 (q^2) \\gamma_{\\nu} + i \\frac{F_2 (q^2)}{4 m_\\mu}[\\gamma_{\\nu}, \\gamma_{\\beta}] q_{\\beta}$.",
+      "filename": "fig-42.png",
+      "key": "b2b2c044ae5c2ea948c46d95875770f9",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/b2b2c044ae5c2ea948c46d95875770f9"
+    },
+    {
+      "caption":
+        "The left column shows histograms of the contribution to $F_2$ from different separations $|r| = |x-y|$. The sum of all these points gives the final result for $F_2$.  The right column contains scatter plots of results for $F_2$ for all random point pairs, adjusted by their sampling weight. The average value of $F_2$ from all points gives the $|r|\\ge r_{\\max}$ portion of the final result.  The vertical lines in the left plots and the left-hand boundaries of the right plots indicate the value of $r_{\\max}$.  The labels 16I, 24I, 24IL and 32ID indicate the ensembles given in Tab.~\\ref{tab:confs}.",
+      "filename": "small-psrc-qcd-bin-distance-f2-16I.png",
+      "key": "231651052124ca763478c4c768e20e52",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/231651052124ca763478c4c768e20e52"
+    },
+    {
+      "caption":
+        "The left column shows histograms of the contribution to $F_2$ from different separations $|r| = |x-y|$. The sum of all these points gives the final result for $F_2$.  The right column contains scatter plots of results for $F_2$ for all random point pairs, adjusted by their sampling weight. The average value of $F_2$ from all points gives the $|r|\\ge r_{\\max}$ portion of the final result.  The vertical lines in the left plots and the left-hand boundaries of the right plots indicate the value of $r_{\\max}$.  The labels 16I, 24I, 24IL and 32ID indicate the ensembles given in Tab.~\\ref{tab:confs}.",
+      "filename": "small-psrc-qcd-distance-f2-16I.png",
+      "key": "98c4b527cb8ec5ea4cad61da16e0c48f",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/98c4b527cb8ec5ea4cad61da16e0c48f"
+    },
+    {
+      "caption":
+        "The left column shows histograms of the contribution to $F_2$ from different separations $|r| = |x-y|$. The sum of all these points gives the final result for $F_2$.  The right column contains scatter plots of results for $F_2$ for all random point pairs, adjusted by their sampling weight. The average value of $F_2$ from all points gives the $|r|\\ge r_{\\max}$ portion of the final result.  The vertical lines in the left plots and the left-hand boundaries of the right plots indicate the value of $r_{\\max}$.  The labels 16I, 24I, 24IL and 32ID indicate the ensembles given in Tab.~\\ref{tab:confs}.",
+      "filename": "small-psrc-qcd-bin-distance-f2-24I.png",
+      "key": "765d6af29e40327b44863ffd05d2e698",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/765d6af29e40327b44863ffd05d2e698"
+    },
+    {
+      "caption":
+        "The left column shows histograms of the contribution to $F_2$ from different separations $|r| = |x-y|$. The sum of all these points gives the final result for $F_2$.  The right column contains scatter plots of results for $F_2$ for all random point pairs, adjusted by their sampling weight. The average value of $F_2$ from all points gives the $|r|\\ge r_{\\max}$ portion of the final result.  The vertical lines in the left plots and the left-hand boundaries of the right plots indicate the value of $r_{\\max}$.  The labels 16I, 24I, 24IL and 32ID indicate the ensembles given in Tab.~\\ref{tab:confs}.",
+      "filename": "small-psrc-qcd-distance-f2-24I.png",
+      "key": "ff8fab7626bda576461f1d009243a2d8",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/ff8fab7626bda576461f1d009243a2d8"
+    },
+    {
+      "caption":
+        "The left column shows histograms of the contribution to $F_2$ from different separations $|r| = |x-y|$. The sum of all these points gives the final result for $F_2$.  The right column contains scatter plots of results for $F_2$ for all random point pairs, adjusted by their sampling weight. The average value of $F_2$ from all points gives the $|r|\\ge r_{\\max}$ portion of the final result.  The vertical lines in the left plots and the left-hand boundaries of the right plots indicate the value of $r_{\\max}$.  The labels 16I, 24I, 24IL and 32ID indicate the ensembles given in Tab.~\\ref{tab:confs}.",
+      "filename": "small-psrc-qcd-bin-distance-f2-24I-L.png",
+      "key": "2612f3a097076278fb79d32166e6d6a1",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/2612f3a097076278fb79d32166e6d6a1"
+    },
+    {
+      "caption":
+        "The left column shows histograms of the contribution to $F_2$ from different separations $|r| = |x-y|$. The sum of all these points gives the final result for $F_2$.  The right column contains scatter plots of results for $F_2$ for all random point pairs, adjusted by their sampling weight. The average value of $F_2$ from all points gives the $|r|\\ge r_{\\max}$ portion of the final result.  The vertical lines in the left plots and the left-hand boundaries of the right plots indicate the value of $r_{\\max}$.  The labels 16I, 24I, 24IL and 32ID indicate the ensembles given in Tab.~\\ref{tab:confs}.",
+      "filename": "small-psrc-qcd-distance-f2-24I-L.png",
+      "key": "08fde3824a620cd586d64c50ad1f1066",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/08fde3824a620cd586d64c50ad1f1066"
+    },
+    {
+      "caption":
+        "The left column shows histograms of the contribution to $F_2$ from different separations $|r| = |x-y|$. The sum of all these points gives the final result for $F_2$.  The right column contains scatter plots of results for $F_2$ for all random point pairs, adjusted by their sampling weight. The average value of $F_2$ from all points gives the $|r|\\ge r_{\\max}$ portion of the final result.  The vertical lines in the left plots and the left-hand boundaries of the right plots indicate the value of $r_{\\max}$.  The labels 16I, 24I, 24IL and 32ID indicate the ensembles given in Tab.~\\ref{tab:confs}.",
+      "filename": "small-psrc-qcd-bin-distance-f2-32ID.png",
+      "key": "5231e981f7e6a1433e65bcc10a9271c9",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/5231e981f7e6a1433e65bcc10a9271c9"
+    },
+    {
+      "caption":
+        "The left column shows histograms of the contribution to $F_2$ from different separations $|r| = |x-y|$. The sum of all these points gives the final result for $F_2$.  The right column contains scatter plots of results for $F_2$ for all random point pairs, adjusted by their sampling weight. The average value of $F_2$ from all points gives the $|r|\\ge r_{\\max}$ portion of the final result.  The vertical lines in the left plots and the left-hand boundaries of the right plots indicate the value of $r_{\\max}$.  The labels 16I, 24I, 24IL and 32ID indicate the ensembles given in Tab.~\\ref{tab:confs}.",
+      "filename": "small-psrc-qcd-distance-f2-32ID.png",
+      "key": "bf383969c458e4f1f8edb7763fde69a4",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/bf383969c458e4f1f8edb7763fde69a4"
+    },
+    {
+      "caption":
+        "The left column shows histograms of the contribution to $F_2$ from different separations $|r| = |x-y|$. The sum of all these points gives the final result for $F_2$.  The right column contains scatter plots of results for $F_2$ for all random point pairs, adjusted by their sampling weight. The average value of $F_2$ from all points gives the $|r|\\ge r_{\\max}$ portion of the final result.  The vertical lines in the left plots and the left-hand boundaries of the right plots indicate the value of $r_{\\max}$.  The labels 16I, 24I, 24IL and 32ID indicate the ensembles given in Tab.~\\ref{tab:confs}.",
+      "filename": "small-psrc-qcd-bin-distance-f2-32IDs.png",
+      "key": "37477c0c77c34d8e88edaaeb33c95d51",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/37477c0c77c34d8e88edaaeb33c95d51"
+    },
+    {
+      "caption":
+        "The left column shows histograms of the contribution to $F_2$ from different separations $|r| = |x-y|$. The sum of all these points gives the final result for $F_2$.  The right column contains scatter plots of results for $F_2$ for all random point pairs, adjusted by their sampling weight. The average value of $F_2$ from all points gives the $|r|\\ge r_{\\max}$ portion of the final result.  The vertical lines in the left plots and the left-hand boundaries of the right plots indicate the value of $r_{\\max}$.  The labels 16I, 24I, 24IL and 32ID indicate the ensembles given in Tab.~\\ref{tab:confs}.",
+      "filename": "small-psrc-qcd-distance-f2-32IDs.png",
+      "key": "9f9a2e4ada6591f9def1c57635781612",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/9f9a2e4ada6591f9def1c57635781612"
+    },
+    {
+      "caption":
+        "Histograms and scatter plots for the contribution to $F_2$ from different separations $|r| = |x-y|$ are shown in the left and right plots respectively, following the conventions used in similar, previous figures. The upper two plots are obtained using the conserved version of the exact photon method on the 32ID ensemble. The lower two plots are obtained using the moment method, but from approximate propagators each obtained from 100 CG iterations, again on the 32ID ensemble.",
+      "filename": "small-cpsrc-qcd-bin-distance-f2-32ID.png",
+      "key": "2142abc0b0bac2e5aa4150bcbebd9a3e",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/2142abc0b0bac2e5aa4150bcbebd9a3e"
+    },
+    {
+      "caption":
+        "Histograms and scatter plots for the contribution to $F_2$ from different separations $|r| = |x-y|$ are shown in the left and right plots respectively, following the conventions used in similar, previous figures. The upper two plots are obtained using the conserved version of the exact photon method on the 32ID ensemble. The lower two plots are obtained using the moment method, but from approximate propagators each obtained from 100 CG iterations, again on the 32ID ensemble.",
+      "filename": "small-cpsrc-qcd-distance-f2-32ID.png",
+      "key": "a39e4b4ccf897c3a4bcc7a6716a88efb",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/a39e4b4ccf897c3a4bcc7a6716a88efb"
+    },
+    {
+      "caption":
+        "Histograms and scatter plots for the contribution to $F_2$ from different separations $|r| = |x-y|$ are shown in the left and right plots respectively, following the conventions used in similar, previous figures. The upper two plots are obtained using the conserved version of the exact photon method on the 32ID ensemble. The lower two plots are obtained using the moment method, but from approximate propagators each obtained from 100 CG iterations, again on the 32ID ensemble.",
+      "filename": "small-zero-mom-qcd-bin-distance-f2-32ID.png",
+      "key": "13bfe9df3abb078303ff78dc012f9b4d",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/13bfe9df3abb078303ff78dc012f9b4d"
+    },
+    {
+      "caption":
+        "Histograms and scatter plots for the contribution to $F_2$ from different separations $|r| = |x-y|$ are shown in the left and right plots respectively, following the conventions used in similar, previous figures. The upper two plots are obtained using the conserved version of the exact photon method on the 32ID ensemble. The lower two plots are obtained using the moment method, but from approximate propagators each obtained from 100 CG iterations, again on the 32ID ensemble.",
+      "filename": "small-zero-mom-qcd-distance-f2-32ID.png",
+      "key": "6076da551556fb57c54063f438a3ab2e",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/6076da551556fb57c54063f438a3ab2e"
+    },
+    {
+      "caption":
+        "A comparison of the results for $F_2(q^2)/(\\alpha/\\pi)^3$ obtained in the original lattice QCD cHLbL calculation~\\cite{Blum:2014oka} (diamonds) with those obtained on the same gauge field ensemble using the moment method presented here (circles).  The points from the original subtraction method with $q^2=(2\\pi/24)^2 = (457 \\mathrm{MeV})^2$ were obtained from 100 configurations and the evaluation of 81,000 point-source quark propagators for each value of the source-sink separation $t_{\\mathrm{sep}}$.  In contrast, the much more statistically precise results from the moment method required a combined 26,568 quark propagator inversions for both values of $t_{\\mathrm{sep}}$ and correspond to $q^2=0$. The moment method value for $t_\\text{sep} = 32$ is listed in Tab.~\\ref{tab:24IL-conserved-moment}.",
+      "filename": "old_new_compare.png",
+      "key": "ddb06837fd23570d2a997ce1583ce0e9",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/ddb06837fd23570d2a997ce1583ce0e9"
+    },
+    {
+      "caption":
+        "Plots of our results for the connected light-by-light scattering contribution in QED to $F_2(0)$, known to be $0.371 \\times \\left(\\alpha/\\pi\\right)^3$~\\cite{Laporta:1991zw, Jegerlehner:2009ry}, as a function of $a^2$ expressed in GeV by assigning $m_\\mu = 106$ MeV.  This is done for three choices of the physical lattice size $L= 11.9\\mathrm{fm}$ (diamonds), $8.9 \\mathrm{fm}$ (squares) and $5.9 \\mathrm{fm}$ (circles).  The curves shown are quadratic functions of $a^2$ chosen to pass through the three points for each physical volume.  The coefficients for each of these fits are listed in Tab.~\\ref{tab:QED_fit_lin}.",
+      "filename": "small-zero-mom-psrc-qed-muon-mL-continuum.png",
+      "key": "b508eeae1bdd68b82f18f087c01661ea",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/b508eeae1bdd68b82f18f087c01661ea"
+    },
+    {
+      "caption":
+        "Results for $F_2(0)$ from QED connected light-by-light scattering.  These results have been extrapolated to the $a^2\\to 0$ limit using two methods.  The upper points use the quadratic fit to all three lattice spacings shown in Fig.~\\ref{fig:QED_a2_extrapolation} while the lower point uses a linear fit to the two left most points in that figure.  Here we extrapolate to infinite volume using the linear fits shown to the two, left-most of the three points in each case.",
+      "filename": "small-zero-mom-psrc-qed-muon-mL-volume-not.png",
+      "key": "fa3ce7238a3d999382616008b4b48185",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/fa3ce7238a3d999382616008b4b48185"
+    },
+    {
+      "caption":
+        "The left-hand graph shows a sample QCD+QED diagram contributing to the HLbL amplitude.  The black dot in this diagram represents the current to which the external photon couples.  The right-hand graph shows the skeleton graph to which this sample graph contributes.  Here the shaded disk with the black dot on its circumference represents the full vertex function containing the current to which the external photon couples.",
+      "filename": "example.png",
+      "key": "522262d8a1d63f68cc55f8c01c7df7fa",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/522262d8a1d63f68cc55f8c01c7df7fa"
+    },
+    {
+      "caption":
+        "The left-hand graph shows a sample QCD+QED diagram contributing to the HLbL amplitude.  The black dot in this diagram represents the current to which the external photon couples.  The right-hand graph shows the skeleton graph to which this sample graph contributes.  Here the shaded disk with the black dot on its circumference represents the full vertex function containing the current to which the external photon couples.",
+      "filename": "example_skeleton.png",
+      "key": "3e9edfec001df5ce5055df52ca21bf04",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/3e9edfec001df5ce5055df52ca21bf04"
+    }
+  ],
+  "imprints": [{ "date": "2016-01-12" }],
+  "inspire_categories": [
+    { "term": "Lattice" },
+    { "term": "Phenomenology-HEP" }
+  ],
+  "keywords": [
+    { "schema": "INSPIRE", "value": "muon: magnetic moment" },
+    { "schema": "INSPIRE", "value": "error: statistical" },
+    { "schema": "INSPIRE", "value": "fermion: chiral" },
+    { "schema": "INSPIRE", "value": "quark: mass dependence" },
+    { "schema": "INSPIRE", "value": "lattice field theory" },
+    { "schema": "INSPIRE", "value": "quantum chromodynamics" },
+    { "schema": "INSPIRE", "value": "numerical calculations" },
+    { "schema": "INSPIRE", "value": "lattice" },
+    { "schema": "INSPIRE", "value": "numerical methods: efficiency" },
+    { "schema": "INSPIRE", "value": "electromagnetic field" },
+    { "schema": "INSPIRE", "value": "photon: propagator" },
+    { "schema": "INSPIRE", "value": "quark: domain wall" },
+    { "schema": "INSPIRE", "value": "quark: flavor: 3" },
+    { "schema": "INSPIRE", "value": "current: conservation law" }
+  ],
+  "legacy_creation_date": "2015-10-27",
+  "legacy_version": "20170221184638.0",
+  "license": [
+    {
+      "imposing": "arXiv",
+      "url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/"
+    }
+  ],
+  "number_of_pages": 25,
+  "preprint_date": "2015-10-23",
+  "public_notes": [{ "source": "arXiv", "value": "52 pages" }],
+  "publication_info": [
+    {
+      "artid": "014503",
+      "journal_issue": "1",
+      "journal_title": "Phys.Rev.D",
+      "journal_volume": "93",
+      "year": 2016
+    }
+  ],
+  "refereed": true,
+  "references": [
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/745758" },
+      "reference": {
+        "arxiv_eprint": "hep-ph/0703049",
+        "authors": [
+          { "full_name": "Miller, J.P." },
+          { "full_name": "de Rafael, E." },
+          { "full_name": "Roberts, B.L." }
+        ],
+        "label": "1",
+        "misc": ["arXiv: [hep-ph]"],
+        "publication_info": {
+          "artid": "795",
+          "journal_title": "Rept.Prog.Phys.",
+          "journal_volume": "70",
+          "page_start": "795",
+          "year": 2007
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/710962" },
+      "reference": {
+        "arxiv_eprint": "hep-ex/0602035",
+        "authors": [{ "full_name": "Bennett, G." }],
+        "label": "2",
+        "misc": ["(Muon G-2 Collaboration) arXiv: [hep-ex]"],
+        "publication_info": {
+          "artid": "072003",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "73",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1115845" },
+      "reference": {
+        "arxiv_eprint": "1205.5370",
+        "authors": [
+          { "full_name": "Aoyama, T." },
+          { "full_name": "Hayakawa, M." },
+          { "full_name": "Kinoshita, T." },
+          { "full_name": "Nio, M." }
+        ],
+        "label": "3",
+        "publication_info": {
+          "artid": "111808",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "109",
+          "year": 2012
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/900116" },
+      "reference": {
+        "arxiv_eprint": "1105.3149",
+        "authors": [
+          { "full_name": "Hagiwara, K." },
+          { "full_name": "Liao, R." },
+          { "full_name": "Martin, A.D." },
+          { "full_name": "Nomura, D." }
+        ],
+        "imprint": { "publisher": "Teubner" },
+        "label": "4",
+        "misc": ["and T"],
+        "publication_info": {
+          "artid": "085003",
+          "journal_title": "J.Phys.G",
+          "journal_volume": "38",
+          "year": 2011
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1287074" },
+      "reference": {
+        "arxiv_eprint": "1403.6400",
+        "authors": [
+          { "full_name": "Kurz, A." },
+          { "full_name": "Liu, T." },
+          { "full_name": "Marquard, P." },
+          { "full_name": "Steinhauser, M." }
+        ],
+        "label": "5",
+        "publication_info": {
+          "artid": "144",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "734",
+          "page_start": "144",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/810227" },
+      "reference": {
+        "arxiv_eprint": "0901.0306",
+        "authors": [
+          { "full_name": "Prades, J." },
+          { "full_name": "de Rafael, E." },
+          { "full_name": "Vainshtein, A." }
+        ],
+        "label": "6",
+        "publication_info": { "year": 2009 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1239669" },
+      "reference": {
+        "arxiv_eprint": "1306.5546",
+        "authors": [
+          { "full_name": "Gnendiger, C." },
+          { "full_name": "Stckinger, D." },
+          { "full_name": "Stckinger-Kim, H." }
+        ],
+        "label": "7",
+        "publication_info": {
+          "artid": "053005",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "88",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/873506" },
+      "reference": {
+        "arxiv_eprint": "1010.4180",
+        "authors": [
+          { "full_name": "Davier, M." },
+          { "full_name": "Hoecker, A." },
+          { "full_name": "Malaescu, B." },
+          { "full_name": "Zhang, Z." }
+        ],
+        "label": "8",
+        "publication_info": {
+          "artid": "1515",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "71",
+          "page_start": "1515",
+          "year": 2011
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/604400" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/0212018",
+        "authors": [{ "full_name": "Blum, T." }],
+        "label": "9",
+        "misc": ["arXiv: [hep-lat]"],
+        "publication_info": {
+          "artid": "052001",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "91",
+          "year": 2003
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1264013" },
+      "reference": {
+        "arxiv_eprint": "1311.2198",
+        "authors": [
+          { "full_name": "Blum, T." },
+          { "full_name": "Denig, A." },
+          { "full_name": "Logashenko, I." },
+          { "full_name": "de Rafael, E." },
+          { "full_name": "Roberts, B. Lee" }
+        ],
+        "label": "10",
+        "publication_info": { "year": 2013 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1306493" },
+      "reference": {
+        "arxiv_eprint": "1407.4021",
+        "authors": [
+          { "full_name": "Benayoun, M." },
+          { "full_name": "Bijnens, J." },
+          { "full_name": "Blum, T." },
+          { "full_name": "Caprini, I." },
+          { "full_name": "Colangelo, G." }
+        ],
+        "label": "11",
+        "publication_info": { "year": 2014 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1283181" },
+      "reference": {
+        "arxiv_eprint": "1402.7081",
+        "authors": [
+          { "full_name": "Colangelo, G." },
+          { "full_name": "Hoferichter, M." },
+          { "full_name": "Procura, M." },
+          { "full_name": "Stoffer, P." }
+        ],
+        "label": "12",
+        "publication_info": {
+          "artid": "091",
+          "journal_title": "JHEP",
+          "journal_volume": "09",
+          "page_start": "091",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1310649" },
+      "reference": {
+        "arxiv_eprint": "1408.2517",
+        "authors": [
+          { "full_name": "Colangelo, G." },
+          { "full_name": "Hoferichter, M." },
+          { "full_name": "Kubis, B." },
+          { "full_name": "Procura, M." },
+          { "full_name": "Stoffer, P." }
+        ],
+        "label": "13",
+        "publication_info": {
+          "artid": "6",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "738",
+          "page_start": "6",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1287763" },
+      "reference": {
+        "arxiv_eprint": "1403.7503",
+        "authors": [
+          { "full_name": "Pauk, V." },
+          { "full_name": "Vanderhaeghen, M." }
+        ],
+        "label": "14",
+        "publication_info": { "year": 2014 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1313615" },
+      "reference": {
+        "arxiv_eprint": "1409.0819",
+        "authors": [
+          { "full_name": "Pauk, V." },
+          { "full_name": "Vanderhaeghen, M." }
+        ],
+        "label": "15",
+        "publication_info": {
+          "artid": "113012",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "90",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1374620" },
+      "reference": {
+        "arxiv_eprint": "1506.01386",
+        "authors": [
+          { "full_name": "Colangelo, G." },
+          { "full_name": "Hoferichter, M." },
+          { "full_name": "Procura, M." },
+          { "full_name": "Stoffer, P." }
+        ],
+        "label": "16",
+        "publication_info": { "year": 2015 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1305630" },
+      "reference": {
+        "arxiv_eprint": "1407.2923",
+        "authors": [
+          { "full_name": "Blum, T." },
+          { "full_name": "Chowdhury, S." },
+          { "full_name": "Hayakawa, M." },
+          { "full_name": "Izubuchi, T." }
+        ],
+        "label": "17",
+        "publication_info": {
+          "artid": "012001",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "114",
+          "year": 2015
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/691579" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/0509016",
+        "authors": [
+          { "full_name": "Hayakawa, M." },
+          { "full_name": "Blum, T." },
+          { "full_name": "Izubuchi, T." },
+          { "full_name": "Yamada, N." }
+        ],
+        "label": "18",
+        "misc": ["arXiv: [hep-lat]"],
+        "publication_info": {
+          "artid": "353",
+          "journal_title": "PoS",
+          "journal_volume": "LAT2005",
+          "page_start": "353",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "reference": {
+        "label": "19",
+        "misc": [
+          "Although current conservation is exact, in a finite lattice volume with periodic boundary conditions, around the world effects will contribute to the signal and the noise even when the external momentum is zero. However, this noise is suppressed exponentially in the large volume limit. In summary, in the small q and large volume limit, the noise will behave as O(q) + O(e-m\u03c0L/2)"
+        ]
+      }
+    },
+    {
+      "reference": {
+        "label": "20",
+        "misc": [
+          "The necessary combinatoric factor is also introduced for the boundary cases where |x - y| = |x - z| or |x - y| = |y - z|"
+        ]
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Jackson, J.D." }],
+        "imprint": { "publisher": "Wiley" },
+        "label": "21",
+        "misc": ["Classical Electrodynamics New York, NY,) see Section 5.6"],
+        "publication_info": { "year": 1999 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/742565" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/0701013",
+        "authors": [{ "full_name": "Allton, C." }],
+        "label": "22",
+        "misc": ["(RBC, UKQCD) arXiv: [hep-lat]"],
+        "publication_info": {
+          "artid": "014504",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "76",
+          "year": 2007
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/782657" },
+      "reference": {
+        "arxiv_eprint": "0804.0473",
+        "authors": [{ "full_name": "Allton, C." }],
+        "label": "23",
+        "misc": ["(RBC-UKQCD)"],
+        "publication_info": {
+          "artid": "114509",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "78",
+          "year": 2008
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1180024" },
+      "reference": {
+        "arxiv_eprint": "1208.4412",
+        "authors": [{ "full_name": "Arthur, R." }],
+        "label": "24",
+        "misc": ["(RBC, UKQCD)"],
+        "publication_info": {
+          "artid": "094514",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "87",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/875390" },
+      "reference": {
+        "arxiv_eprint": "1011.0892",
+        "authors": [{ "full_name": "Aoki, Y." }],
+        "label": "25",
+        "misc": ["(RBC Collaboration, UKQCD Collaboration)"],
+        "publication_info": {
+          "artid": "074508",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "83",
+          "year": 2011
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/530864" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/0007038",
+        "authors": [{ "full_name": "Blum, T." }],
+        "label": "26",
+        "publication_info": {
+          "artid": "074502",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "69",
+          "year": 2004
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1119406" },
+      "reference": {
+        "arxiv_eprint": "1206.5214",
+        "authors": [
+          { "full_name": "Brower, R.C." },
+          { "full_name": "Neff, H." },
+          { "full_name": "Orginos, K." }
+        ],
+        "label": "27",
+        "publication_info": { "year": 2012 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/588513" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/0206013",
+        "authors": [
+          { "full_name": "Aoki, S." },
+          { "full_name": "Izubuchi, T." },
+          { "full_name": "Kuramashi, Y." },
+          { "full_name": "Taniguchi, Y." }
+        ],
+        "label": "28",
+        "misc": ["arXiv: [hep-lat]"],
+        "publication_info": {
+          "artid": "094502",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "67",
+          "year": 2003
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/783312" },
+      "reference": {
+        "arxiv_eprint": "0804.2044",
+        "authors": [
+          { "full_name": "Hayakawa, M." },
+          { "full_name": "Uno, S." }
+        ],
+        "label": "29",
+        "publication_info": {
+          "artid": "413",
+          "journal_title": "Prog.Theor.Phys.",
+          "journal_volume": "120",
+          "page_start": "413",
+          "year": 2008
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1373062" },
+      "reference": {
+        "authors": [{ "full_name": "Jin, L." }],
+        "label": "30",
+        "misc": [
+          "Proceedings, 32nd International Symposium on Lattice Field Theory (Lattice)"
+        ],
+        "publication_info": {
+          "artid": "130",
+          "journal_title": "PoS",
+          "journal_volume": "LATTICE2014",
+          "page_start": "130",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1128469" },
+      "reference": {
+        "arxiv_eprint": "1208.4349",
+        "authors": [
+          { "full_name": "Blum, T." },
+          { "full_name": "Izubuchi, T." },
+          { "full_name": "Shintani, E." }
+        ],
+        "label": "31",
+        "publication_info": {
+          "artid": "094503",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "88",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1279923" },
+      "reference": {
+        "arxiv_eprint": "1402.0244",
+        "authors": [
+          { "full_name": "Shintani, E." },
+          { "full_name": "Arthur, R." },
+          { "full_name": "Blum, T." },
+          { "full_name": "Izubuchi, T." },
+          { "full_name": "Jung, C." },
+          { "full_name": "Lehner, C." }
+        ],
+        "label": "32",
+        "publication_info": {
+          "artid": "114511",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "91",
+          "year": 2015
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/315396" },
+      "reference": {
+        "authors": [
+          { "full_name": "Laporta, S." },
+          { "full_name": "Remiddi, E." }
+        ],
+        "label": "33",
+        "publication_info": {
+          "artid": "182",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "265",
+          "page_start": "182",
+          "year": 1991
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/813721" },
+      "reference": {
+        "arxiv_eprint": "0902.3360",
+        "authors": [
+          { "full_name": "Jegerlehner, F." },
+          { "full_name": "Nyffeler, A." }
+        ],
+        "label": "34",
+        "publication_info": {
+          "artid": "1",
+          "journal_title": "Phys.Rept.",
+          "journal_volume": "477",
+          "page_start": "1",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Bjorken, J.D." },
+          { "full_name": "Drell, S.D." }
+        ],
+        "label": "35",
+        "publication_info": { "year": 1965 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/588675" },
+      "reference": {
+        "authors": [{ "full_name": "Zinn-Justin, J." }],
+        "label": "36",
+        "publication_info": {
+          "artid": "1",
+          "journal_title": "Int.Ser.Monogr.Phys.",
+          "journal_volume": "113",
+          "page_start": "1",
+          "year": 2002
+        }
+      }
+    }
+  ],
+  "self": { "$ref": "https://inspirebeta.net/api/literature/1400808" },
+  "texkeys": ["Blum:2015gfa"],
+  "titles": [
+    {
+      "source": "arXiv",
+      "title":
+        "Lattice Calculation of Hadronic Light-by-Light Contribution to the Muon Anomalous Magnetic Moment"
+    }
+  ],
+  "urls": [
+    {
+      "description":
+        "00029 The left-hand graph shows a sample QCD+QED diagram contributing to the HLbL amplitude.  The black dot in this diagram represents the current to which the external photon couples.  The right-hand graph shows the skeleton graph to which this sample graph contributes.  Here the shaded disk with the black dot on its circumference represents the full vertex function containing the current to which the external photon couples.",
+      "value": "http://inspirehep.net/record/1400808/files/example_skeleton.png"
+    },
+    {
+      "description":
+        "00028 The left-hand graph shows a sample QCD+QED diagram contributing to the HLbL amplitude.  The black dot in this diagram represents the current to which the external photon couples.  The right-hand graph shows the skeleton graph to which this sample graph contributes.  Here the shaded disk with the black dot on its circumference represents the full vertex function containing the current to which the external photon couples.",
+      "value": "http://inspirehep.net/record/1400808/files/example.png"
+    },
+    {
+      "description":
+        "00010 The shaded circle represents the vertex: $F_1 (q^2) \\gamma_{\\nu} + i \\frac{F_2 (q^2)}{4 m_\\mu}[\\gamma_{\\nu}, \\gamma_{\\beta}] q_{\\beta}$.",
+      "value": "http://inspirehep.net/record/1400808/files/fig-42.png"
+    },
+    {
+      "description":
+        "00000 Feynman diagrams depicting the hadronic vacuum polarization (left) and hadronic light-by-light scattering (right) contributions to $g_\\mu-2$.",
+      "value": "http://inspirehep.net/record/1400808/files/HVP.png"
+    },
+    {
+      "description":
+        "00001 Feynman diagrams depicting the hadronic vacuum polarization (left) and hadronic light-by-light scattering (right) contributions to $g_\\mu-2$.",
+      "value": "http://inspirehep.net/record/1400808/files/HLbL.png"
+    },
+    {
+      "description":
+        "00023 Histograms and scatter plots for the contribution to $F_2$ from different separations $|r| = |x-y|$ are shown in the left and right plots respectively, following the conventions used in similar, previous figures. The upper two plots are obtained using the conserved version of the exact photon method on the 32ID ensemble. The lower two plots are obtained using the moment method, but from approximate propagators each obtained from 100 CG iterations, again on the 32ID ensemble.",
+      "value":
+        "http://inspirehep.net/record/1400808/files/small-zero-mom-qcd-bin-distance-f2-32ID.png"
+    },
+    {
+      "description":
+        "00011 The left column shows histograms of the contribution to $F_2$ from different separations $|r| = |x-y|$. The sum of all these points gives the final result for $F_2$.  The right column contains scatter plots of results for $F_2$ for all random point pairs, adjusted by their sampling weight. The average value of $F_2$ from all points gives the $|r|\\ge r_{\\max}$ portion of the final result.  The vertical lines in the left plots and the left-hand boundaries of the right plots indicate the value of $r_{\\max}$.  The labels 16I, 24I, 24IL and 32ID indicate the ensembles given in Tab.~\\ref{tab:confs}.",
+      "value":
+        "http://inspirehep.net/record/1400808/files/small-psrc-qcd-bin-distance-f2-16I.png"
+    },
+    {
+      "description":
+        "00021 Histograms and scatter plots for the contribution to $F_2$ from different separations $|r| = |x-y|$ are shown in the left and right plots respectively, following the conventions used in similar, previous figures. The upper two plots are obtained using the conserved version of the exact photon method on the 32ID ensemble. The lower two plots are obtained using the moment method, but from approximate propagators each obtained from 100 CG iterations, again on the 32ID ensemble.",
+      "value":
+        "http://inspirehep.net/record/1400808/files/small-cpsrc-qcd-bin-distance-f2-32ID.png"
+    },
+    {
+      "description":
+        "00013 The left column shows histograms of the contribution to $F_2$ from different separations $|r| = |x-y|$. The sum of all these points gives the final result for $F_2$.  The right column contains scatter plots of results for $F_2$ for all random point pairs, adjusted by their sampling weight. The average value of $F_2$ from all points gives the $|r|\\ge r_{\\max}$ portion of the final result.  The vertical lines in the left plots and the left-hand boundaries of the right plots indicate the value of $r_{\\max}$.  The labels 16I, 24I, 24IL and 32ID indicate the ensembles given in Tab.~\\ref{tab:confs}.",
+      "value":
+        "http://inspirehep.net/record/1400808/files/small-psrc-qcd-bin-distance-f2-24I.png"
+    },
+    {
+      "description":
+        "00019 The left column shows histograms of the contribution to $F_2$ from different separations $|r| = |x-y|$. The sum of all these points gives the final result for $F_2$.  The right column contains scatter plots of results for $F_2$ for all random point pairs, adjusted by their sampling weight. The average value of $F_2$ from all points gives the $|r|\\ge r_{\\max}$ portion of the final result.  The vertical lines in the left plots and the left-hand boundaries of the right plots indicate the value of $r_{\\max}$.  The labels 16I, 24I, 24IL and 32ID indicate the ensembles given in Tab.~\\ref{tab:confs}.",
+      "value":
+        "http://inspirehep.net/record/1400808/files/small-psrc-qcd-bin-distance-f2-32IDs.png"
+    },
+    {
+      "description":
+        "00015 The left column shows histograms of the contribution to $F_2$ from different separations $|r| = |x-y|$. The sum of all these points gives the final result for $F_2$.  The right column contains scatter plots of results for $F_2$ for all random point pairs, adjusted by their sampling weight. The average value of $F_2$ from all points gives the $|r|\\ge r_{\\max}$ portion of the final result.  The vertical lines in the left plots and the left-hand boundaries of the right plots indicate the value of $r_{\\max}$.  The labels 16I, 24I, 24IL and 32ID indicate the ensembles given in Tab.~\\ref{tab:confs}.",
+      "value":
+        "http://inspirehep.net/record/1400808/files/small-psrc-qcd-bin-distance-f2-24I-L.png"
+    },
+    {
+      "description":
+        "00002 Hadronic light-by-light diagrams. There are four additional diagrams resulting from further permutations of the photon vertices on the muon line.",
+      "value": "http://inspirehep.net/record/1400808/files/HLbL_conn_1.png"
+    },
+    {
+      "description":
+        "00003 Hadronic light-by-light diagrams. There are four additional diagrams resulting from further permutations of the photon vertices on the muon line.",
+      "value": "http://inspirehep.net/record/1400808/files/HLbL_conn_2.png"
+    },
+    {
+      "description":
+        "00007 Diagrams showing the three different possible insertions of the external photon when the vertices $x$ and $y$ are fixed. For each of these three diagrams there are five other possible permutations of the connections between the three internal photons and the muon line that are not shown.  The contributions of each of these three sets of six contractions will be the same after the stochastic average over the vertices $x$ and $y$.",
+      "value": "http://inspirehep.net/record/1400808/files/HLbL_3diag_1.png"
+    },
+    {
+      "description":
+        "00004 Two of the six HLbL diagrams that result if a stochastic method is adopted to evaluate two of the three photon propagators which appear in Fig~\\ref{fig:hlbl}.  The wavy line joining the muon line and the quark loop represents the exact photon propagator while the pairs of factors, $A^{m_1}_\\rho(x)$,  $A^{m_1}_{\\rho'}(x')$ and $B^{m_2}_\\sigma(y)$,  $B^{m_2}_{\\sigma'}(y')$ are the $m_1$ and $m_2$ elements of two independent ensembles of stochastic electromagnetic fields.",
+      "value": "http://inspirehep.net/record/1400808/files/HLbL_conn_AB_1.png"
+    },
+    {
+      "description":
+        "00005 Two of the six HLbL diagrams that result if a stochastic method is adopted to evaluate two of the three photon propagators which appear in Fig~\\ref{fig:hlbl}.  The wavy line joining the muon line and the quark loop represents the exact photon propagator while the pairs of factors, $A^{m_1}_\\rho(x)$,  $A^{m_1}_{\\rho'}(x')$ and $B^{m_2}_\\sigma(y)$,  $B^{m_2}_{\\sigma'}(y')$ are the $m_1$ and $m_2$ elements of two independent ensembles of stochastic electromagnetic fields.",
+      "value": "http://inspirehep.net/record/1400808/files/HLbL_conn_AB_2.png"
+    },
+    {
+      "description":
+        "00009 Diagrams showing the three different possible insertions of the external photon when the vertices $x$ and $y$ are fixed. For each of these three diagrams there are five other possible permutations of the connections between the three internal photons and the muon line that are not shown.  The contributions of each of these three sets of six contractions will be the same after the stochastic average over the vertices $x$ and $y$.",
+      "value": "http://inspirehep.net/record/1400808/files/HLbL_3diag_3.png"
+    },
+    {
+      "description":
+        "00017 The left column shows histograms of the contribution to $F_2$ from different separations $|r| = |x-y|$. The sum of all these points gives the final result for $F_2$.  The right column contains scatter plots of results for $F_2$ for all random point pairs, adjusted by their sampling weight. The average value of $F_2$ from all points gives the $|r|\\ge r_{\\max}$ portion of the final result.  The vertical lines in the left plots and the left-hand boundaries of the right plots indicate the value of $r_{\\max}$.  The labels 16I, 24I, 24IL and 32ID indicate the ensembles given in Tab.~\\ref{tab:confs}.",
+      "value":
+        "http://inspirehep.net/record/1400808/files/small-psrc-qcd-bin-distance-f2-32ID.png"
+    },
+    {
+      "description":
+        "00008 Diagrams showing the three different possible insertions of the external photon when the vertices $x$ and $y$ are fixed. For each of these three diagrams there are five other possible permutations of the connections between the three internal photons and the muon line that are not shown.  The contributions of each of these three sets of six contractions will be the same after the stochastic average over the vertices $x$ and $y$.",
+      "value": "http://inspirehep.net/record/1400808/files/HLbL_3diag_2.png"
+    },
+    {
+      "description":
+        "00027 Results for $F_2(0)$ from QED connected light-by-light scattering.  These results have been extrapolated to the $a^2\\to 0$ limit using two methods.  The upper points use the quadratic fit to all three lattice spacings shown in Fig.~\\ref{fig:QED_a2_extrapolation} while the lower point uses a linear fit to the two left most points in that figure.  Here we extrapolate to infinite volume using the linear fits shown to the two, left-most of the three points in each case.",
+      "value":
+        "http://inspirehep.net/record/1400808/files/small-zero-mom-psrc-qed-muon-mL-volume-not.png"
+    },
+    {
+      "description":
+        "00026 Plots of our results for the connected light-by-light scattering contribution in QED to $F_2(0)$, known to be $0.371 \\times \\left(\\alpha/\\pi\\right)^3$~\\cite{Laporta:1991zw, Jegerlehner:2009ry}, as a function of $a^2$ expressed in GeV by assigning $m_\\mu = 106$ MeV.  This is done for three choices of the physical lattice size $L= 11.9\\mathrm{fm}$ (diamonds), $8.9 \\mathrm{fm}$ (squares) and $5.9 \\mathrm{fm}$ (circles).  The curves shown are quadratic functions of $a^2$ chosen to pass through the three points for each physical volume.  The coefficients for each of these fits are listed in Tab.~\\ref{tab:QED_fit_lin}.",
+      "value":
+        "http://inspirehep.net/record/1400808/files/small-zero-mom-psrc-qed-muon-mL-continuum.png"
+    },
+    {
+      "description":
+        "00006 Distribution of relative separations $|r|=|x-y|$ between the $x$-$y$ pairs of randomly chosen points used to compute $\\mathcal{M}_\\nu(\\vec q)$ on the $32^3\\times64$ QCD gauge ensemble described in Sec.~\\ref{sec:exact_props_numerical}",
+      "value":
+        "http://inspirehep.net/record/1400808/files/small-psrc-qcd-bin-distance-distribution-32ID.png"
+    },
+    {
+      "description":
+        "00025 A comparison of the results for $F_2(q^2)/(\\alpha/\\pi)^3$ obtained in the original lattice QCD cHLbL calculation~\\cite{Blum:2014oka} (diamonds) with those obtained on the same gauge field ensemble using the moment method presented here (circles).  The points from the original subtraction method with $q^2=(2\\pi/24)^2 = (457 \\mathrm{MeV})^2$ were obtained from 100 configurations and the evaluation of 81,000 point-source quark propagators for each value of the source-sink separation $t_{\\mathrm{sep}}$.  In contrast, the much more statistically precise results from the moment method required a combined 26,568 quark propagator inversions for both values of $t_{\\mathrm{sep}}$ and correspond to $q^2=0$. The moment method value for $t_\\text{sep} = 32$ is listed in Tab.~\\ref{tab:24IL-conserved-moment}.",
+      "value": "http://inspirehep.net/record/1400808/files/old_new_compare.png"
+    },
+    {
+      "description":
+        "00012 The left column shows histograms of the contribution to $F_2$ from different separations $|r| = |x-y|$. The sum of all these points gives the final result for $F_2$.  The right column contains scatter plots of results for $F_2$ for all random point pairs, adjusted by their sampling weight. The average value of $F_2$ from all points gives the $|r|\\ge r_{\\max}$ portion of the final result.  The vertical lines in the left plots and the left-hand boundaries of the right plots indicate the value of $r_{\\max}$.  The labels 16I, 24I, 24IL and 32ID indicate the ensembles given in Tab.~\\ref{tab:confs}.",
+      "value":
+        "http://inspirehep.net/record/1400808/files/small-psrc-qcd-distance-f2-16I.png"
+    },
+    {
+      "description":
+        "00014 The left column shows histograms of the contribution to $F_2$ from different separations $|r| = |x-y|$. The sum of all these points gives the final result for $F_2$.  The right column contains scatter plots of results for $F_2$ for all random point pairs, adjusted by their sampling weight. The average value of $F_2$ from all points gives the $|r|\\ge r_{\\max}$ portion of the final result.  The vertical lines in the left plots and the left-hand boundaries of the right plots indicate the value of $r_{\\max}$.  The labels 16I, 24I, 24IL and 32ID indicate the ensembles given in Tab.~\\ref{tab:confs}.",
+      "value":
+        "http://inspirehep.net/record/1400808/files/small-psrc-qcd-distance-f2-24I.png"
+    },
+    {
+      "description":
+        "00024 Histograms and scatter plots for the contribution to $F_2$ from different separations $|r| = |x-y|$ are shown in the left and right plots respectively, following the conventions used in similar, previous figures. The upper two plots are obtained using the conserved version of the exact photon method on the 32ID ensemble. The lower two plots are obtained using the moment method, but from approximate propagators each obtained from 100 CG iterations, again on the 32ID ensemble.",
+      "value":
+        "http://inspirehep.net/record/1400808/files/small-zero-mom-qcd-distance-f2-32ID.png"
+    },
+    {
+      "description":
+        "00022 Histograms and scatter plots for the contribution to $F_2$ from different separations $|r| = |x-y|$ are shown in the left and right plots respectively, following the conventions used in similar, previous figures. The upper two plots are obtained using the conserved version of the exact photon method on the 32ID ensemble. The lower two plots are obtained using the moment method, but from approximate propagators each obtained from 100 CG iterations, again on the 32ID ensemble.",
+      "value":
+        "http://inspirehep.net/record/1400808/files/small-cpsrc-qcd-distance-f2-32ID.png"
+    },
+    {
+      "description":
+        "00020 The left column shows histograms of the contribution to $F_2$ from different separations $|r| = |x-y|$. The sum of all these points gives the final result for $F_2$.  The right column contains scatter plots of results for $F_2$ for all random point pairs, adjusted by their sampling weight. The average value of $F_2$ from all points gives the $|r|\\ge r_{\\max}$ portion of the final result.  The vertical lines in the left plots and the left-hand boundaries of the right plots indicate the value of $r_{\\max}$.  The labels 16I, 24I, 24IL and 32ID indicate the ensembles given in Tab.~\\ref{tab:confs}.",
+      "value":
+        "http://inspirehep.net/record/1400808/files/small-psrc-qcd-distance-f2-32IDs.png"
+    },
+    {
+      "description":
+        "00016 The left column shows histograms of the contribution to $F_2$ from different separations $|r| = |x-y|$. The sum of all these points gives the final result for $F_2$.  The right column contains scatter plots of results for $F_2$ for all random point pairs, adjusted by their sampling weight. The average value of $F_2$ from all points gives the $|r|\\ge r_{\\max}$ portion of the final result.  The vertical lines in the left plots and the left-hand boundaries of the right plots indicate the value of $r_{\\max}$.  The labels 16I, 24I, 24IL and 32ID indicate the ensembles given in Tab.~\\ref{tab:confs}.",
+      "value":
+        "http://inspirehep.net/record/1400808/files/small-psrc-qcd-distance-f2-24I-L.png"
+    },
+    {
+      "description":
+        "00018 The left column shows histograms of the contribution to $F_2$ from different separations $|r| = |x-y|$. The sum of all these points gives the final result for $F_2$.  The right column contains scatter plots of results for $F_2$ for all random point pairs, adjusted by their sampling weight. The average value of $F_2$ from all points gives the $|r|\\ge r_{\\max}$ portion of the final result.  The vertical lines in the left plots and the left-hand boundaries of the right plots indicate the value of $r_{\\max}$.  The labels 16I, 24I, 24IL and 32ID indicate the ensembles given in Tab.~\\ref{tab:confs}.",
+      "value":
+        "http://inspirehep.net/record/1400808/files/small-psrc-qcd-distance-f2-32ID.png"
+    },
+    {
+      "value": "http://inspirehep.net/record/1400808/files/arXiv:1510.07100.pdf"
+    }
+  ]
+}

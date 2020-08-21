@@ -1,0 +1,58 @@
+{
+  "$schema": "https://inspirehep.net/api/schemas/records/jobs.json",
+  "_collections": ["Jobs"],
+  "acquisition_source": {
+    "datetime": "2020-08-20T10:25:48.797034",
+    "email": "info@hector-fellow-academy.de",
+    "internal_uid": 66864,
+    "method": "submitter",
+    "orcid": "0000-0002-0607-2422",
+    "source": "submitter",
+    "submission_number": "None"
+  },
+  "arxiv_categories": [
+    "physics",
+    "math",
+    "astro-ph",
+    "cond-mat",
+    "cs",
+    "econ",
+    "eess",
+    "gr-qc",
+    "hep-ex",
+    "hep-lat",
+    "hep-th",
+    "math-ph",
+    "nlin",
+    "nucl-ex",
+    "nucl-th",
+    "physics.acc-ph",
+    "physics.ins-det",
+    "q-bio",
+    "q-fin",
+    "quant-ph",
+    "stat"
+  ],
+  "contact_details": [
+    {
+      "email": "stefanie.peer@hector-fellow-academy.de",
+      "name": "Stefanie Peer"
+    },
+    {
+      "email": "info@hector-fellow-academy.de",
+      "name": "Hector Fellow Academy"
+    }
+  ],
+  "control_number": 1812440,
+  "deadline_date": "2020-10-30",
+  "description":
+    "<div>Do you hold a <strong>W1 assistant professorship</strong> (with or without Tenure Track) or are you an ambitious <strong>leader of a junior research group </strong>(e.g., Emmy Noether, ERC Starting Grant, or similar)? Are you working in the <strong>natural or engineering sciences, medicine or psychology</strong>? Are you aiming for obtaining a <strong>full professorship or habilitation</strong>?</div><div><br></div><div>Apply now for the <strong>Hector Research Career Development (RCD) Award</strong>! With the Hector RCD Award, the Hector Fellow Academy supports the research careers of promising research group leaders. The Award gives you the unique opportunity to benefit from research funding for an outstanding research project. In addition, you will become part of a network of top scientists including the laureates of the Hector Science Award. The Hector Fellow Academy is committed to top interdisciplinary research, innovative projects, dialogue between science and society and the promotion of young researchers.</div><div><br></div><div><strong>Extent of Funding</strong></div><div>The Hector RCD Award is given annually to 3-5 scientists; at least 50% of the Awards each year will be given to female scientists.</div><ul><li>One-time 25,000 \u20ac flexible personal research funds</li><li>Funding of 1 doctoral position (according to DFG funding scheme) and material expenses in the HFA for 3 years (9,500 \u20ac/a)</li><li>Membership in the HFA for 5 years with opportunity to apply for selected funding formats</li></ul><div><br></div><div><strong>Your Profile</strong></div><ul><li>W1 assistant professor (with or without Tenure Track) or junior research group leader in the natural or engineering sciences, medicine or psychology</li><li>Doctorate or PhD-equivalent with outstanding results &amp; completion less than 7 years ago*</li><li>Employment at a German university or research institution supporting the application**</li><li>Content-related or formal authorization to supervise doctoral researchers</li></ul><div><br></div><div><strong>Application</strong></div><div>Application period: September 1st \u2013 October 30, 2020</div><div>Program information and details: <a href=\"www.hector-fellow-academy.de/en/hector-rcd-award.html\">www.hector-fellow-academy.de/en/hector-rcd-award.html</a></div><div><br></div><div><strong>Contact:</strong> Stefanie Peer, Program Manager, <a href=\"mailto:stefanie.peer@hector-fellow-academy.de\">stefanie.peer@hector-fellow-academy.de</a></div><div><br></div><div>Interested scientists may submit a self-application. Nominations from third parties are not considered.</div><div><br></div><div>* Exceptions may apply (e.g., clinical training, parental leave), see program information. ** Support by the head of institute necessary (e.g., for the use of infrastructure during the project).</div>",
+  "institutions": [{ "value": "Hector Fellow Academy" }],
+  "position":
+    "Hector Research Career Development Award for Junior Scientists (Germany)",
+  "ranks": ["POSTDOC"],
+  "reference_letters": { "emails": ["info@hector-fellow-academy.de"] },
+  "regions": ["Europe"],
+  "status": "open",
+  "urls": [{ "value": "https://www.hector-fellow-academy.de/hector-rcd-award" }]
+}

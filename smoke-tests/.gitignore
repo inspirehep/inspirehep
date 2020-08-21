@@ -1,7 +1,11 @@
 # dependencies
 **/node_modules
+
 cypress/__videos__
 cypress/__screenshots__
+
+# image diffing output
+__diff_output__
 
 # misc
 .DS_Store

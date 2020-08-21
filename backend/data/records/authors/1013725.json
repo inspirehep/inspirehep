@@ -1,0 +1,49 @@
+{
+  "$schema": "https://inspirehep.net/schemas/records/authors.json",
+  "_collections": ["Authors"],
+  "arxiv_categories": ["nlin.CD", "gr-qc", "nlin"],
+  "control_number": 1013725,
+  "deleted": false,
+  "email_addresses": [
+    { "current": true, "value": "carmen@math.missouri.edu" },
+    { "current": true, "hidden": true, "value": "carmen@math.missouri.edu" },
+    { "current": false, "hidden": true, "value": "carmen@math.missouri.edu" }
+  ],
+  "ids": [
+    { "schema": "INSPIRE ID", "value": "INSPIRE-00072928" },
+    { "schema": "INSPIRE BAI", "value": "C.Chicone.1" },
+    { "schema": "SPIRES", "value": "HEPNAMES-359548" }
+  ],
+  "legacy_creation_date": "1999-12-15",
+  "legacy_version": "20171222202612.0",
+  "name": {
+    "preferred_name": "Carmen C. Chicone",
+    "value": "Chicone, Carmen C."
+  },
+  "positions": [
+    {
+      "curated_relation": true,
+      "current": true,
+      "institution": "Missouri U., Math. Dept.",
+      "record": { "$ref": "https://inspirehep.net/api/institutions/907883" }
+    },
+    {
+      "curated_relation": true,
+      "end_date": "1977",
+      "institution": "Wisconsin U., Madison",
+      "rank": "PHD",
+      "record": { "$ref": "https://inspirehep.net/api/institutions/903349" }
+    },
+    {
+      "curated_relation": true,
+      "end_date": "1968",
+      "institution": "SUNY, Albany",
+      "rank": "UNDERGRADUATE",
+      "record": { "$ref": "https://inspirehep.net/api/institutions/903233" }
+    }
+  ],
+  "self": { "$ref": "https://inspirehep.net/api/authors/1013725" },
+  "status": "active",
+  "stub": false,
+  "urls": [{ "value": "http://www.math.missouri.edu/~carmen/" }]
+}

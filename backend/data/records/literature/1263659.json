@@ -1,0 +1,521 @@
+{
+  "$schema": "https://inspirebeta.net/schemas/records/hep.json",
+  "_collections": ["Literature"],
+  "_desy_bookkeeping": [
+    { "identifier": "DA14-kp23b" },
+    { "identifier": "DA13-kp50e" },
+    { "date": "2013-11-14", "expert": "M", "status": "abs" },
+    { "date": "2013-11-21", "expert": "M", "status": "printed" },
+    { "date": "2014-05-29", "expert": "L", "status": "abs" },
+    { "date": "2014-06-08", "expert": "L", "status": "printed" },
+    { "date": "2014-07-02", "status": "final" },
+    { "date": "2014-04-03", "status": "final" }
+  ],
+  "_private_notes": [{ "source": "CERN", "value": "CDS-1626198" }],
+  "abstracts": [
+    {
+      "value":
+        "We present preliminary results achieved within a recently started project dealing with QCD ther- modynamics in the presence of a fully dynamical second quark family. We are employing the Wilson twisted mass discretization. To reduce the amount of zero temperature simulations and the cost of analysis we have chosen the fixed-scale approach. We show a variety of basic thermo- dynamic observables for temperatures ranging from 158 to 633 MeV. Simulations were performed for three lattice spacings below 0 : 1 fm each and at a single value of the pion mass which allows a comparison with previously obtained N f = 2 results. We determine the chiral crossover tempera- ture from the bare chiral susceptibility and show results for the gauge part of the trace anomaly."
+    },
+    {
+      "source": "arXiv",
+      "value":
+        "We present preliminary results achieved within a recently started project dealing with QCD thermodynamics in the presence of a fully dynamical second quark family. We are employing the Wilson twisted mass discretization. To reduce the amount of zero temperature simulations and the cost of analysis we have chosen the fixed-scale approach. We show a variety of basic thermodynamic observables for temperatures ranging from 158 to 633 MeV. Simulations were performed for three lattice spacings below 0.1 fm each and at a single value of the pion mass which allows a comparison with previously obtained $N_f=2$ results. We determine the chiral crossover temperature from the bare chiral susceptibility and show results for the gauge part of the trace anomaly."
+    }
+  ],
+  "acquisition_source": { "method": "oai", "source": "arxiv" },
+  "arxiv_eprints": [{ "categories": ["hep-lat"], "value": "1311.1631" }],
+  "authors": [
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/902858"
+          },
+          "value": "Humboldt U., Berlin"
+        }
+      ],
+      "curated_relation": true,
+      "full_name": "Burger, Florian",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "F.Burger.1" }],
+      "record": { "$ref": "https://inspirebeta.net/api/authors/1072753" },
+      "signature_block": "BARGARf",
+      "uuid": "2f441bde-dcea-48f7-9969-f342e9b3e8f4"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/902858"
+          },
+          "value": "Humboldt U., Berlin"
+        }
+      ],
+      "curated_relation": true,
+      "full_name": "Hotzel, Grit",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "G.Hotzel.1" }],
+      "record": { "$ref": "https://inspirebeta.net/api/authors/1274753" },
+      "signature_block": "HATSALg",
+      "uuid": "b84d2b98-b46f-45b2-8ce0-7c2cd3392e46"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/902858"
+          },
+          "value": "Humboldt U., Berlin"
+        }
+      ],
+      "full_name": "M\u00fcller-Preussker, Michael",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "M.Muller.Preussker.1" }],
+      "record": { "$ref": "https://inspirebeta.net/api/authors/996521" },
+      "signature_block": "PRASCARm",
+      "uuid": "a292ff9d-4ac5-4733-9223-e8c01ca9dd54"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/902780"
+          },
+          "value": "Dubna, JINR"
+        }
+      ],
+      "full_name": "Ilgenfritz, Ernst-Michael",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "E.M.Ilgenfritz.1" }],
+      "record": { "$ref": "https://inspirebeta.net/api/authors/1005056" },
+      "signature_block": "ILGANFRATe",
+      "uuid": "a781ebf0-ca04-4164-9c37-6d294032f36b"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/902807"
+          },
+          "value": "Frascati"
+        }
+      ],
+      "full_name": "Lombardo, Maria Paola",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "M.P.Lombardo.1" }],
+      "record": { "$ref": "https://inspirebeta.net/api/authors/999880" },
+      "signature_block": "LANBARDm",
+      "uuid": "46cd5558-9d1c-4def-8b8d-f6d75baf7b64"
+    }
+  ],
+  "citeable": true,
+  "control_number": 1263659,
+  "core": true,
+  "curated": true,
+  "deleted_records": [
+    { "$ref": "https://inspirebeta.net/api/literature/1297678" }
+  ],
+  "document_type": ["conference paper"],
+  "documents": [
+    {
+      "hidden": true,
+      "key": "arXiv:1311.1631.pdf",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/f5957f582d78cb84e2c4e405a3e7e5d6"
+    }
+  ],
+  "dois": [{ "value": "10.22323/1.187.0153" }],
+  "external_system_identifiers": [
+    { "schema": "ADS", "value": "2013slft.confE.153B" }
+  ],
+  "figures": [
+    {
+      "caption":
+        "\\links The renormalized Polyakov loop. The transition region is so far only covered entirely by the two sets with coarsest lattice spacings. \\rechts The renormalized light chiral condensate according to \\Eq{eq_pbpratio}.",
+      "filename": "fig1_l.png",
+      "key": "60ece4afcc41f800f5dc88864918cbaf",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/60ece4afcc41f800f5dc88864918cbaf"
+    },
+    {
+      "caption":
+        "\\links The renormalized Polyakov loop. The transition region is so far only covered entirely by the two sets with coarsest lattice spacings. \\rechts The renormalized light chiral condensate according to \\Eq{eq_pbpratio}.",
+      "filename": "fig1_r.png",
+      "key": "95e52c1a49638304913d69e31ef7afa5",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/95e52c1a49638304913d69e31ef7afa5"
+    },
+    {
+      "caption":
+        "\\links The light chiral condensate according to \\Eq{eq_pbpsub}. \\rechts The disconnected part of the light chiral susceptibility with a polynomial fit to estimate the pseudo-critical temperature. The previously obtained $N_f=2$ data is included for comparison. The vertical bars indicate the estimated pseudo-critical temperatures.",
+      "filename": "fig2_l.png",
+      "key": "63f2758db655ca374929934ad38f951a",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/63f2758db655ca374929934ad38f951a"
+    },
+    {
+      "caption":
+        "\\links The light chiral condensate according to \\Eq{eq_pbpsub}. \\rechts The disconnected part of the light chiral susceptibility with a polynomial fit to estimate the pseudo-critical temperature. The previously obtained $N_f=2$ data is included for comparison. The vertical bars indicate the estimated pseudo-critical temperatures.",
+      "filename": "fig2_r.png",
+      "key": "363aeea88d42293dfe93c193b69fa903",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/363aeea88d42293dfe93c193b69fa903"
+    },
+    {
+      "caption":
+        "\\links Fit of the $\\beta$-function (\\Eq{eq_fitfun}). \\rechts Gauge part of the trace anomaly $I_g$ defined in \\Eq{eq_traceanomaly_gauge}. For comparison we again show the corresponding quantity in the two flavor case.",
+      "filename": "fig3_l.png",
+      "key": "02ce17faf60284950efbdcb44a03d0da",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/02ce17faf60284950efbdcb44a03d0da"
+    },
+    {
+      "caption":
+        "\\links Fit of the $\\beta$-function (\\Eq{eq_fitfun}). \\rechts Gauge part of the trace anomaly $I_g$ defined in \\Eq{eq_traceanomaly_gauge}. For comparison we again show the corresponding quantity in the two flavor case.",
+      "filename": "fig3_r.png",
+      "key": "cdd271e2892f79d2dde42d2eb3cfa6dd",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/cdd271e2892f79d2dde42d2eb3cfa6dd"
+    }
+  ],
+  "imprints": [{ "date": "2014" }],
+  "inspire_categories": [
+    { "term": "Lattice" },
+    { "term": "Phenomenology-HEP" }
+  ],
+  "keywords": [
+    { "schema": "INSPIRE", "value": "thermodynamics: critical phenomena" },
+    { "schema": "INSPIRE", "value": "quark: flavor: 4" },
+    { "schema": "INSPIRE", "value": "quark: mass: twist" },
+    { "schema": "INSPIRE", "value": "temperature dependence" },
+    { "schema": "INSPIRE", "value": "quark: mass dependence" },
+    { "schema": "INSPIRE", "value": "quantum chromodynamics: thermodynamics" },
+    { "schema": "INSPIRE", "value": "susceptibility: chiral" },
+    { "schema": "INSPIRE", "value": "quark: family: 2" },
+    { "schema": "INSPIRE", "value": "thermodynamical" },
+    { "schema": "INSPIRE", "value": "trace anomaly" },
+    { "schema": "INSPIRE", "value": "lattice" },
+    { "schema": "INSPIRE", "value": "numerical calculations" }
+  ],
+  "legacy_creation_date": "2013-11-08",
+  "legacy_version": "20180514112137.0",
+  "license": [
+    {
+      "imposing": "arXiv",
+      "url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/"
+    }
+  ],
+  "number_of_pages": 7,
+  "preprint_date": "2013-11-07",
+  "public_notes": [
+    {
+      "source": "arXiv",
+      "value":
+        "7 pages, 6 figures, 31st International Symposium on Lattice Field Theory - LATTICE 2013"
+    }
+  ],
+  "publication_info": [
+    {
+      "artid": "153",
+      "cnum": "C13-07-29.1",
+      "conference_record": {
+        "$ref": "https://inspirebeta.net/api/conferences/1217045"
+      },
+      "journal_record": {
+        "$ref": "https://inspirebeta.net/api/journals/1213080"
+      },
+      "journal_title": "PoS",
+      "journal_volume": "Lattice2013",
+      "page_start": "153",
+      "parent_record": {
+        "$ref": "https://inspirebeta.net/api/literature/1272741"
+      },
+      "year": 2013
+    }
+  ],
+  "references": [
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1216391" },
+      "reference": {
+        "authors": [{ "full_name": "Bazavov, A." }],
+        "label": "1",
+        "misc": ["MILC Collaboration"],
+        "publication_info": {
+          "artid": "071",
+          "journal_title": "PoS",
+          "journal_volume": "LATTICE2012",
+          "page_start": "071",
+          "year": 2012
+        },
+        "title": {
+          "title":
+            "Towards a QCD equation of state with 2 + 1 + 1 flavors using the HISQ action"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "legacy_curated": true,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1236918" },
+      "reference": {
+        "authors": [{ "full_name": "Ratti, C." }],
+        "label": "2",
+        "publication_info": {
+          "artid": "869c",
+          "journal_title": "Nucl.Phys.A",
+          "journal_volume": "904-905",
+          "page_start": "869c",
+          "year": 2013
+        },
+        "title": {
+          "title":
+            "Lattice QCD thermodynamics in the presence of the charm quark"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/890336" },
+      "reference": {
+        "authors": [{ "full_name": "Burger, F." }],
+        "label": "3",
+        "misc": ["tmfT Collaboration"],
+        "publication_info": {
+          "artid": "074508",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "87",
+          "year": 2013
+        },
+        "title": {
+          "title":
+            "The thermal QCD transition with two flavours of twisted mass fermions"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1089842" },
+      "reference": {
+        "authors": [{ "full_name": "Umeda, T." }],
+        "label": "4",
+        "misc": ["WHOT-QCD Collaboration"],
+        "publication_info": {
+          "artid": "094508",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "85",
+          "year": 2012
+        },
+        "title": {
+          "title":
+            "Equation of state in 2+1 flavor QCD with improved Wilson quarks by the fixed scale approach"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/838256" },
+      "reference": {
+        "arxiv_eprint": "0911.5244",
+        "authors": [{ "full_name": "Baron, R." }],
+        "label": "5",
+        "misc": ["ETM Collaboration"],
+        "publication_info": {
+          "artid": "104",
+          "journal_title": "PoS",
+          "journal_volume": "LATTICE2009",
+          "page_start": "104",
+          "year": 2009
+        },
+        "title": {
+          "title":
+            "First results of ETMC simulations with N(f) = 2+1+1 maximally twisted mass fermions"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/883203" },
+      "reference": {
+        "arxiv_eprint": "1101.0518",
+        "authors": [{ "full_name": "Baron, R." }],
+        "label": "6",
+        "misc": ["ETM Collaboration"],
+        "publication_info": {
+          "artid": "123",
+          "journal_title": "PoS",
+          "journal_volume": "LATTICE2010",
+          "page_start": "123",
+          "year": 2010
+        },
+        "title": {
+          "title": "Light hadrons from Nf=2+1+1 dynamical twisted mass fermions"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/820936" },
+      "reference": {
+        "authors": [
+          { "full_name": "Jansen, K." },
+          { "full_name": "Urbach, C." }
+        ],
+        "label": "7",
+        "misc": [
+          "A. Abdel-Rehim et al",
+          "Additional pubnote: PoS,LATTICE2013,414"
+        ],
+        "publication_info": {
+          "artid": "2717",
+          "journal_title": "Comput.Phys.Commun.",
+          "journal_volume": "180",
+          "page_start": "2717",
+          "year": 2009
+        },
+        "title": { "title": "Recent developments in the tmLQCD software suite" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/762659" },
+      "reference": {
+        "authors": [{ "full_name": "Cheng, M." }],
+        "label": "8",
+        "publication_info": {
+          "artid": "014511",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "77",
+          "year": 2008
+        },
+        "title": {
+          "title": "The QCD equation of state with almost physical quark masses"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/120117" },
+      "reference": {
+        "authors": [
+          { "full_name": "Osterwalder, K." },
+          { "full_name": "Seiler, E." }
+        ],
+        "label": "9",
+        "publication_info": {
+          "artid": "440",
+          "journal_title": "Annals Phys.",
+          "journal_volume": "110",
+          "page_start": "440",
+          "year": 1978
+        },
+        "title": { "title": "Gauge Field Theories on the Lattice" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/653676" },
+      "reference": {
+        "authors": [
+          { "full_name": "Frezzotti, R." },
+          { "full_name": "Rossi, G." }
+        ],
+        "label": "10",
+        "publication_info": {
+          "artid": "070",
+          "journal_title": "JHEP",
+          "journal_volume": "10",
+          "page_start": "070",
+          "year": 2004
+        },
+        "title": {
+          "title":
+            "Chirally improving Wilson fermions. II. Four-quark operators"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1249881" },
+      "reference": {
+        "arxiv_eprint": "1308.4327",
+        "authors": [{ "full_name": "Burger, F." }],
+        "label": "11",
+        "title": {
+          "title":
+            "Four-Flavour Leading Hadronic Contribution To The Muon Anomalous Magnetic Moment"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1205650" },
+      "reference": {
+        "arxiv_eprint": "1212.0982",
+        "authors": [{ "full_name": "Burger, F." }],
+        "label": "12",
+        "misc": ["tmfT Collaboration"],
+        "publication_info": {
+          "artid": "068",
+          "journal_title": "PoS",
+          "journal_volume": "LATTICE2012",
+          "page_start": "068",
+          "year": 2012
+        },
+        "title": {
+          "title":
+            "Pseudo-Critical Temperature and Thermal Equation of State from Nf = 2 Twisted Mass Lattice QCD"
+        }
+      }
+    }
+  ],
+  "report_numbers": [{ "value": "HU-EP-13-55" }, { "value": "SFB-CPP-13-85" }],
+  "self": { "$ref": "https://inspirebeta.net/api/literature/1263659" },
+  "texkeys": ["Burger:2013hia", "Burger:2014sqa"],
+  "titles": [
+    {
+      "source": "arXiv",
+      "title": "Towards thermodynamics with $N_f=2+1+1$ twisted mass quarks"
+    }
+  ],
+  "urls": [
+    {
+      "description":
+        "00000 \\links The renormalized Polyakov loop. The transition region is so far only covered entirely by the two sets with coarsest lattice spacings. \\rechts The renormalized light chiral condensate according to \\Eq{eq_pbpratio}.",
+      "value": "http://inspirehep.net/record/1263659/files/fig1_l.png"
+    },
+    {
+      "description":
+        "00001 \\links The renormalized Polyakov loop. The transition region is so far only covered entirely by the two sets with coarsest lattice spacings. \\rechts The renormalized light chiral condensate according to \\Eq{eq_pbpratio}.",
+      "value": "http://inspirehep.net/record/1263659/files/fig1_r.png"
+    },
+    {
+      "description":
+        "00002 \\links The light chiral condensate according to \\Eq{eq_pbpsub}. \\rechts The disconnected part of the light chiral susceptibility with a polynomial fit to estimate the pseudo-critical temperature. The previously obtained $N_f=2$ data is included for comparison. The vertical bars indicate the estimated pseudo-critical temperatures.",
+      "value": "http://inspirehep.net/record/1263659/files/fig2_l.png"
+    },
+    {
+      "description":
+        "00003 \\links The light chiral condensate according to \\Eq{eq_pbpsub}. \\rechts The disconnected part of the light chiral susceptibility with a polynomial fit to estimate the pseudo-critical temperature. The previously obtained $N_f=2$ data is included for comparison. The vertical bars indicate the estimated pseudo-critical temperatures.",
+      "value": "http://inspirehep.net/record/1263659/files/fig2_r.png"
+    },
+    {
+      "description":
+        "00004 \\links Fit of the $\\beta$-function (\\Eq{eq_fitfun}). \\rechts Gauge part of the trace anomaly $I_g$ defined in \\Eq{eq_traceanomaly_gauge}. For comparison we again show the corresponding quantity in the two flavor case.",
+      "value": "http://inspirehep.net/record/1263659/files/fig3_l.png"
+    },
+    {
+      "description":
+        "00005 \\links Fit of the $\\beta$-function (\\Eq{eq_fitfun}). \\rechts Gauge part of the trace anomaly $I_g$ defined in \\Eq{eq_traceanomaly_gauge}. For comparison we again show the corresponding quantity in the two flavor case.",
+      "value": "http://inspirehep.net/record/1263659/files/fig3_r.png"
+    },
+    {
+      "value": "http://inspirehep.net/record/1263659/files/arXiv:1311.1631.pdf"
+    },
+    {
+      "value":
+        "http://pos.sissa.it/archive/conferences/187/153/LATTICE%202013_153.pdf"
+    },
+    {
+      "description": "Proceedings of Science Server",
+      "value":
+        "http://pos.sissa.it/archive/conferences/187/153/LATIICE%202013_153.pdf"
+    }
+  ]
+}

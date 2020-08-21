@@ -1,0 +1,1097 @@
+{
+  "$schema": "https://inspirebeta.net/schemas/records/hep.json",
+  "_collections": ["Literature"],
+  "_desy_bookkeeping": [
+    { "identifier": "DA15-kp48ab" },
+    { "date": "2015-11-27", "expert": "R", "status": "abs" },
+    { "date": "2015-11-29", "expert": "R", "status": "printed" },
+    { "date": "2015-12-13", "expert": "R", "status": "final" }
+  ],
+  "_private_notes": [{ "source": "CERN", "value": "CDS-1702795" }],
+  "abstracts": [
+    {
+      "source": "APS",
+      "value":
+        "<p>We investigate the phase structure of QCD at finite temperature and light-quark chemical potential. We improve upon earlier results for <inline-formula><mml:math display=\"inline\"><mml:msub><mml:mi>N</mml:mi><mml:mi>f</mml:mi></mml:msub><mml:mo>=</mml:mo><mml:mn>2</mml:mn><mml:mo>+</mml:mo><mml:mn>1</mml:mn></mml:math></inline-formula> dynamical quark flavors and investigate the effects of charm quarks in an extension to <inline-formula><mml:math display=\"inline\"><mml:msub><mml:mi>N</mml:mi><mml:mi>f</mml:mi></mml:msub><mml:mo>=</mml:mo><mml:mn>2</mml:mn><mml:mo>+</mml:mo><mml:mn>1</mml:mn><mml:mo>+</mml:mo><mml:mn>1</mml:mn></mml:math></inline-formula>. We determine the quark condensate and the Polyakov loop potential using solutions of a coupled set of (truncated) Dyson-Schwinger equations for the quark and gluon propagators of Landau gauge QCD. At zero chemical potential we find excellent agreement with results from lattice-QCD. With input fixed from physical observables we find only a very small influence of the charm quark on the resulting phase diagram at finite chemical potential. We discuss the location of the emerging critical end point and compare with expectations from lattice gauge theory.</p>"
+    },
+    {
+      "source": "arXiv",
+      "value":
+        "We investigate the phase structure of QCD at finite temperature and light-quark chemical potential. We improve upon earlier results for N_f=2+1 dynamical quark flavors and investigate the effects of charm quarks in an extension to N_f=2+1+1. We determine the quark condensate and the Polyakov loop potential using solutions of a coupled set of (truncated) Dyson-Schwinger equations for the quark and gluon propagators of Landau gauge QCD. At zero chemical potential we find excellent agreement with results from lattice-QCD. With input fixed from physical observables we find only a very small influence of the charm quark on the resulting phase diagram at finite chemical potential. We discuss the location of the emerging critical end-point and compare with expectations from lattice gauge theory."
+    }
+  ],
+  "acquisition_source": { "method": "oai", "source": "arxiv" },
+  "arxiv_eprints": [
+    { "categories": ["hep-ph", "hep-lat", "nucl-th"], "value": "1405.4762" }
+  ],
+  "authors": [
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/903384"
+          },
+          "value": "Giessen U."
+        }
+      ],
+      "curated_relation": true,
+      "full_name": "Fischer, Christian S.",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "Christian.S.Fischer.1" }],
+      "record": { "$ref": "https://inspirebeta.net/api/authors/1009914" },
+      "signature_block": "FASARc",
+      "uuid": "9c592be5-ef2e-4c09-93a0-fe9c21392ef3"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/902842"
+          },
+          "value": "Heidelberg U."
+        },
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/904315"
+          },
+          "value": "Frankfurt U."
+        }
+      ],
+      "full_name": "Luecker, Jan",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "J.Luecker.1" }],
+      "record": { "$ref": "https://inspirebeta.net/api/authors/1078092" },
+      "signature_block": "LACARj",
+      "uuid": "34ac247f-b966-434c-9379-15c245bf16cc"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/903384"
+          },
+          "value": "Giessen U."
+        }
+      ],
+      "curated_relation": true,
+      "full_name": "Welzbacher, Christian A.",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "C.A.Welzbacher.1" }],
+      "record": { "$ref": "https://inspirebeta.net/api/authors/1610407" },
+      "signature_block": "WALSBACARc",
+      "uuid": "f5b82cad-b37f-455d-9f40-d5f719a8e747"
+    }
+  ],
+  "citeable": true,
+  "control_number": 1297062,
+  "copyright": [
+    {
+      "holder": "American Physical Society",
+      "material": "publication",
+      "year": 2014
+    }
+  ],
+  "core": true,
+  "curated": true,
+  "document_type": ["article"],
+  "documents": [
+    {
+      "hidden": true,
+      "key": "arXiv:1405.4762.pdf",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/a592dcaebbd77707230ef505b76f081e"
+    }
+  ],
+  "dois": [{ "value": "10.1103/PhysRevD.90.034022" }],
+  "figures": [
+    {
+      "caption": "The DSE for a background field $\\bar{A}_0$.",
+      "filename": "DSE-A.png",
+      "key": "fd00de239eaec8b911280e90b7bb1c70",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/fd00de239eaec8b911280e90b7bb1c70"
+    },
+    {
+      "caption":
+        "The DSE for the quark propagator. Large blobs denote dressed propagators and vertices.",
+      "filename": "DSE1.png",
+      "key": "085a384616040e5028dd4716ba9e5fb4",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/085a384616040e5028dd4716ba9e5fb4"
+    },
+    {
+      "caption":
+        "The truncated gluon DSE for $N_f=2+1+1$ QCD. The yellow dot denotes the quenched (lattice) propagator.",
+      "filename": "GluonDSEtruncatedNf2p1p1_v2.png",
+      "key": "37a5226d390b418dbc5da9a84ac7d061",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/37a5226d390b418dbc5da9a84ac7d061"
+    },
+    {
+      "caption":
+        "The vacuum quark mass function $M(p^2)=B(p^2)/A(p^2)$ for light, strange and charm quarks in parameter set $B_{2+1+1}$.",
+      "filename": "massFunction.png",
+      "key": "186e0fd12bba32b6116fc48ffdc547b3",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/186e0fd12bba32b6116fc48ffdc547b3"
+    },
+    {
+      "caption": "Longitudinal part",
+      "filename": "verglMMPnewMassesZL_BSEFIX.png",
+      "key": "c72a72f1f7be3ce28fcfb4d455f66656",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/c72a72f1f7be3ce28fcfb4d455f66656"
+    },
+    {
+      "caption":
+        "Transversal partComparison of gluon dressing functions for $N_f$=2 in our DSE approach \\cite{Fischer:2013eca} with lattice data \\cite{Aouane:2012bk}. All results have been evaluated at a pion mass of $m_\\pi = 316$ MeV.",
+      "filename": "verglMMPnewMassesZT_BSEFIX.png",
+      "key": "2b96fcbbb065112ec676271dd10d11a3",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/2b96fcbbb065112ec676271dd10d11a3"
+    },
+    {
+      "caption": "Longitudinal part",
+      "filename": "ZLNf3lat.png",
+      "key": "2090f8b6e0224d070a5eb85f623b73e7",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/2090f8b6e0224d070a5eb85f623b73e7"
+    },
+    {
+      "caption":
+        "Transversal partGluon dressing functions for $N_f=2+1$ and physical quark masses (set $A_{2+1}$) at three different temperatures",
+      "filename": "ZTNf3lat.png",
+      "key": "f10035c894650d7ec2d9af400f76cd8d",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/f10035c894650d7ec2d9af400f76cd8d"
+    },
+    {
+      "caption": "Longitudinal partScreening mass",
+      "filename": "ZLNf3vs4TC.png",
+      "key": "a25688b4c9926cb8476ae7ef866119be",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/a25688b4c9926cb8476ae7ef866119be"
+    },
+    {
+      "caption":
+        "Gluon dressing functions $N_f=2+1$ and $N_f=2+1+1$ physical quark masses (sets $B_{2+1}$, $B_{2+1+1}$) at $T \\approx 135$ MeV.Caption not extracted",
+      "filename": "ZTNf3vs4TC.png",
+      "key": "93fdbaa05e8484dc3466c5480cb8eec0",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/93fdbaa05e8484dc3466c5480cb8eec0"
+    },
+    {
+      "caption":
+        "Left diagram: regularized chiral condensate and the Polyakov loop for $N_f=2+1$ quark flavors (set $A_{2+1}$) as a function of temperature at zero quark chemical potential $\\mu_q = 0$. Right diagram: phase diagram for $N_f=2+1$ quark flavors. Shown are our results for set $A_{2+1}$ together with an extrapolation of a range of curvatures for the chiral transition extracted at imaginary and small chemical potential from different lattice groups \\cite{Endrodi:2011gv,Kaczmarek:2011zz,Cea:2014xva}.",
+      "filename": "cond_compareLattice.png",
+      "key": "f2fde114f1e756eeac707ae4805dc5bb",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/f2fde114f1e756eeac707ae4805dc5bb"
+    },
+    {
+      "caption":
+        "Left diagram: regularized chiral condensate and the Polyakov loop for $N_f=2+1$ quark flavors (set $A_{2+1}$) as a function of temperature at zero quark chemical potential $\\mu_q = 0$. Right diagram: phase diagram for $N_f=2+1$ quark flavors. Shown are our results for set $A_{2+1}$ together with an extrapolation of a range of curvatures for the chiral transition extracted at imaginary and small chemical potential from different lattice groups \\cite{Endrodi:2011gv,Kaczmarek:2011zz,Cea:2014xva}.",
+      "filename": "phaseDiag2ddTsetA.png",
+      "key": "324dd3905e99a74e89baa237db8de690",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/324dd3905e99a74e89baa237db8de690"
+    },
+    {
+      "caption":
+        "Phase diagram for QCD with $N_f=2+1$ and $N_f=2+1+1$ flavors (sets $B_{2+1}$ and $B_{2+1+1}$). In both cases, the interaction strength and quark masses are fixed to reproduce vacuum physics.",
+      "filename": "PDNf3vsNf4setB.png",
+      "key": "52640e0f7e55cb49eba737e82d46511a",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/52640e0f7e55cb49eba737e82d46511a"
+    }
+  ],
+  "imprints": [{ "date": "2014-08-28" }],
+  "inspire_categories": [
+    { "term": "Phenomenology-HEP" },
+    { "term": "Lattice" },
+    { "term": "Theory-Nucl" },
+    { "term": "Other" }
+  ],
+  "keywords": [
+    { "schema": "PACS", "value": "12.38.Aw" },
+    { "schema": "PACS", "value": "11.10.Wx" },
+    { "schema": "PACS", "value": "12.38.Lg" },
+    {
+      "schema": "INSPIRE",
+      "value": "quantum chromodynamics: finite temperature"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "quantum chromodynamics: critical phenomena"
+    },
+    { "schema": "INSPIRE", "value": "quantum chromodynamics: lattice" },
+    { "schema": "INSPIRE", "value": "potential: chemical" },
+    { "schema": "INSPIRE", "value": "quark: condensation" },
+    { "schema": "INSPIRE", "value": "quark: flavor: 4" },
+    { "schema": "INSPIRE", "value": "Dyson-Schwinger equation" },
+    { "schema": "INSPIRE", "value": "Polyakov loop" },
+    { "schema": "INSPIRE", "value": "Landau gauge" }
+  ],
+  "legacy_creation_date": "2014-05-20",
+  "legacy_version": "20190409112511.0",
+  "license": [
+    {
+      "imposing": "arXiv",
+      "url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/"
+    }
+  ],
+  "number_of_pages": 10,
+  "preprint_date": "2014-05-19",
+  "public_notes": [
+    {
+      "source": "arXiv",
+      "value":
+        "10 pages, 9 figures, v2: typos corrected, minor changes, version accepted by PRD"
+    }
+  ],
+  "publication_info": [
+    {
+      "artid": "034022",
+      "journal_issue": "3",
+      "journal_title": "Phys.Rev.D",
+      "journal_volume": "90",
+      "pubinfo_freetext": "Phys. Rev. D 90, 034022 (2014)",
+      "year": 2014
+    }
+  ],
+  "refereed": true,
+  "references": [
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/711776" },
+      "reference": {
+        "authors": [
+          { "full_name": "Laine, M." },
+          { "full_name": "Schroder, Y." }
+        ],
+        "label": "1",
+        "publication_info": {
+          "artid": "085009",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "73",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/855185" },
+      "reference": {
+        "authors": [
+          { "full_name": "Borsanyi, S." },
+          { "full_name": "Fodor, Z." },
+          { "full_name": "Hoelbling, C." },
+          { "full_name": "Katz, S.D." },
+          { "full_name": "Krieg, S." },
+          { "full_name": "Ratti, C." },
+          { "full_name": "Szab\u00f3, K.K." }
+        ],
+        "label": "2",
+        "publication_info": {
+          "artid": "073",
+          "journal_title": "JHEP",
+          "journal_volume": "09",
+          "page_start": "073",
+          "year": 2010
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/944699" },
+      "reference": {
+        "authors": [
+          { "full_name": "Bazavov, A." },
+          { "full_name": "Bhattacharya, T." },
+          { "full_name": "Cheng, M." },
+          { "full_name": "DeTar, C." },
+          { "full_name": "Ding, H." }
+        ],
+        "label": "3",
+        "publication_info": {
+          "artid": "054503",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "85",
+          "year": 2012
+        }
+      }
+    },
+    {
+      "curated_relation": true,
+      "legacy_curated": true,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1272689" },
+      "reference": {
+        "arxiv_eprint": "1312.5011",
+        "authors": [{ "full_name": "Bazavov, A." }],
+        "label": "4",
+        "misc": ["(MILC Collaboration)"],
+        "publication_info": {
+          "artid": "154",
+          "journal_title": "PoS",
+          "journal_volume": "LATTICE2013",
+          "page_start": "154",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "legacy_curated": true,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1236918" },
+      "reference": {
+        "authors": [
+          { "full_name": "Ratti, C." },
+          { "full_name": "Borsanyi, S." },
+          { "full_name": "Endrodi, G." },
+          { "full_name": "Fodor, Z." },
+          { "full_name": "Krieg, S.D. Katz S." },
+          { "full_name": "Schroeder, C." },
+          { "full_name": "Szabo, K.K." }
+        ],
+        "label": "5",
+        "publication_info": {
+          "artid": "869c",
+          "journal_title": "Nucl.Phys.A",
+          "journal_volume": "904-905",
+          "page_start": "869c",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "legacy_curated": true,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1263659" },
+      "reference": {
+        "authors": [
+          { "full_name": "Burger, F." },
+          { "full_name": "Hotzel, G." },
+          { "full_name": "M\u00fcller-Preussker, M." },
+          { "full_name": "Ilgenfritz, E.-M." },
+          { "full_name": "Lombardo, M.P." }
+        ],
+        "label": "6",
+        "publication_info": {
+          "artid": "153",
+          "journal_title": "PoS",
+          "journal_volume": "Lattice2013",
+          "page_start": "153",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/558092" },
+      "reference": {
+        "authors": [{ "full_name": "Fodor, Z." }, { "full_name": "Katz, S." }],
+        "label": "7",
+        "publication_info": {
+          "artid": "014",
+          "journal_title": "JHEP",
+          "journal_volume": "03",
+          "page_start": "014",
+          "year": 2002
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "legacy_curated": true,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1263203" },
+      "reference": {
+        "arxiv_eprint": "1311.0473",
+        "authors": [{ "full_name": "Bonati, C." }],
+        "label": "8",
+        "misc": [
+          "M. D \u2019 Elia, P. de Forcrand, O Philipsen, and F. Sanfillippo"
+        ],
+        "publication_info": {
+          "artid": "219",
+          "journal_title": "PoS",
+          "journal_volume": "LATTICE2013",
+          "page_start": "219",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/888727" },
+      "reference": {
+        "authors": [
+          { "full_name": "Endrodi, G." },
+          { "full_name": "Fodor, Z." },
+          { "full_name": "Katz, S." },
+          { "full_name": "Szabo, K." }
+        ],
+        "label": "9",
+        "publication_info": {
+          "artid": "001",
+          "journal_title": "JHEP",
+          "journal_volume": "04",
+          "page_start": "001",
+          "year": 2011
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/848174" },
+      "reference": {
+        "authors": [
+          { "full_name": "Fischer, C.S." },
+          { "full_name": "Maas, A." },
+          { "full_name": "Muller, J.A." }
+        ],
+        "label": "10",
+        "publication_info": {
+          "artid": "165",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "68",
+          "page_start": "165",
+          "year": 2010
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1119405" },
+      "reference": {
+        "authors": [
+          { "full_name": "Fischer, C.S." },
+          { "full_name": "Luecker, J." }
+        ],
+        "label": "11",
+        "publication_info": {
+          "artid": "1036",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "718",
+          "page_start": "1036",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1239840" },
+      "reference": {
+        "authors": [
+          { "full_name": "Fischer, C.S." },
+          { "full_name": "Fister, L." },
+          { "full_name": "Luecker, J." },
+          { "full_name": "Pawlowski, J.M." }
+        ],
+        "label": "12",
+        "publication_info": {
+          "artid": "273",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "732",
+          "page_start": "273",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1282042" },
+      "reference": {
+        "authors": [
+          { "full_name": "Heupel, W." },
+          { "full_name": "Goecke, T." },
+          { "full_name": "Fischer, C.S." }
+        ],
+        "label": "13",
+        "publication_info": {
+          "artid": "85",
+          "journal_title": "Eur.Phys.J.A",
+          "journal_volume": "50",
+          "page_start": "85",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/818216" },
+      "reference": {
+        "authors": [{ "full_name": "Fischer, C.S." }],
+        "label": "14",
+        "publication_info": {
+          "artid": "052003",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "103",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/827611" },
+      "reference": {
+        "authors": [
+          { "full_name": "Braun, J." },
+          { "full_name": "Haas, L.M." },
+          { "full_name": "Marhauser, F." },
+          { "full_name": "Pawlowski, J.M." }
+        ],
+        "label": "15",
+        "publication_info": {
+          "artid": "022002",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "106",
+          "year": 2011
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/895601" },
+      "reference": {
+        "authors": [
+          { "full_name": "Fischer, C.S." },
+          { "full_name": "Luecker, J." }
+        ],
+        "imprint": { "publisher": "Mueller" },
+        "label": "16",
+        "misc": ["and J. A"],
+        "publication_info": {
+          "artid": "438",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "702",
+          "page_start": "438",
+          "year": 2011
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/758543" },
+      "reference": {
+        "authors": [
+          { "full_name": "Braun, J." },
+          { "full_name": "Gies, H." },
+          { "full_name": "Pawlowski, J.M." }
+        ],
+        "label": "17",
+        "publication_info": {
+          "artid": "262",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "684",
+          "page_start": "262",
+          "year": 2010
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1211380" },
+      "reference": {
+        "authors": [
+          { "full_name": "Fister, L." },
+          { "full_name": "Pawlowski, J.M." }
+        ],
+        "label": "18",
+        "publication_info": {
+          "artid": "045010",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "88",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/868901" },
+      "reference": {
+        "authors": [
+          { "full_name": "Fischer, C.S." },
+          { "full_name": "Nickel, D." }
+        ],
+        "imprint": { "publisher": "Mueller" },
+        "label": "19",
+        "misc": ["J. A"],
+        "publication_info": {
+          "artid": "1037",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "70",
+          "page_start": "1037",
+          "year": 2010
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/873482" },
+      "reference": {
+        "authors": [{ "full_name": "Qin" }, { "full_name": "L. Chang, Y." }],
+        "label": "20",
+        "misc": ["S.-x -x. Liu, and C. D. Roberts"],
+        "publication_info": {
+          "artid": "014017",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "84",
+          "year": 2011
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1229794" },
+      "reference": {
+        "label": "21",
+        "misc": ["S.-x. Qin and D. H. Rischke"],
+        "publication_info": {
+          "artid": "056007",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "88",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/877383" },
+      "reference": {
+        "authors": [
+          { "full_name": "Qin" },
+          { "full_name": "Chang, L." },
+          { "full_name": "H. Chen, Y." }
+        ],
+        "label": "22",
+        "misc": ["S.-x -x. Liu, and C. D. Roberts"],
+        "publication_info": {
+          "artid": "172301",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "106",
+          "year": 2011
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1276598" },
+      "reference": {
+        "authors": [
+          { "full_name": "Wang, B." },
+          { "full_name": "Cui, Z.-F." },
+          { "full_name": "Sun, W.-M." },
+          { "full_name": "Zong, H.-S." }
+        ],
+        "label": "23",
+        "misc": ["arxiv:1404.373"],
+        "publication_info": {
+          "artid": "47",
+          "journal_title": "Few Body Syst.",
+          "journal_volume": "55",
+          "page_start": "47",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/827610" },
+      "reference": {
+        "authors": [{ "full_name": "Fischer, C.S." }],
+        "imprint": { "publisher": "Mueller" },
+        "label": "24",
+        "misc": ["and J. A"],
+        "publication_info": {
+          "artid": "074029",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "80",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/913598" },
+      "reference": {
+        "authors": [{ "full_name": "Fischer, C.S." }],
+        "imprint": { "publisher": "Mueller" },
+        "label": "25",
+        "misc": ["and J. A"],
+        "publication_info": {
+          "artid": "054013",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "84",
+          "year": 2011
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/611595" },
+      "reference": {
+        "authors": [
+          { "full_name": "Fischer, C.S." },
+          { "full_name": "Alkofer, R." }
+        ],
+        "label": "26",
+        "publication_info": {
+          "artid": "094020",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "67",
+          "year": 2003
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1289244" },
+      "reference": {
+        "arxiv_eprint": "1404.2545",
+        "authors": [{ "full_name": "Williams, R." }],
+        "label": "27"
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1264131" },
+      "reference": {
+        "arxiv_eprint": "1311.2793",
+        "authors": [
+          { "full_name": "Carrasco, N." },
+          { "full_name": "Dimopoulos, P." },
+          { "full_name": "Frezzotti, R." },
+          { "full_name": "Lami, P." },
+          { "full_name": "Lubicz, V." }
+        ],
+        "label": "28"
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1266967" },
+      "reference": {
+        "arxiv_eprint": "1312.0149",
+        "authors": [{ "full_name": "Bazavov, A." }],
+        "imprint": { "publisher": "Fermilab" },
+        "label": "29",
+        "misc": [
+          "Lattice and MILC Collaborations), Proc. Sci., LATTICE(2014) 405"
+        ],
+        "publication_info": { "year": 2013 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1205653" },
+      "reference": {
+        "authors": [
+          { "full_name": "Aouane, R." },
+          { "full_name": "Burger, F." },
+          { "full_name": "Ilgenfritz, E.-M." },
+          { "full_name": "Muller-Preussker, M." },
+          { "full_name": "Sternbeck, A." }
+        ],
+        "label": "30",
+        "publication_info": {
+          "artid": "114502",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "87",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1249398" },
+      "reference": {
+        "authors": [
+          { "full_name": "Herbst, T.K." },
+          { "full_name": "Mitter, M." },
+          { "full_name": "Pawlowski, J.M." },
+          { "full_name": "Schaefer, B.-J." },
+          { "full_name": "Stiele, R." }
+        ],
+        "label": "31",
+        "publication_info": {
+          "artid": "248",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "731",
+          "page_start": "248",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/885831" },
+      "reference": {
+        "authors": [
+          { "full_name": "Kaczmarek, O." },
+          { "full_name": "Karsch, F." },
+          { "full_name": "Laermann, E." },
+          { "full_name": "Miao, C." },
+          { "full_name": "Mukherjee, S." },
+          { "full_name": "Petreczky, P." },
+          { "full_name": "Schmidt, C." },
+          { "full_name": "Soeldner, W." },
+          { "full_name": "Unger, W." }
+        ],
+        "label": "32",
+        "publication_info": {
+          "artid": "014504",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "83",
+          "year": 2011
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1283617" },
+      "reference": {
+        "authors": [
+          { "full_name": "Cea, P." },
+          { "full_name": "Cosmai, L." },
+          { "full_name": "Papa, A." }
+        ],
+        "label": "33",
+        "publication_info": {
+          "artid": "074512",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "89",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/751764" },
+      "reference": {
+        "authors": [
+          { "full_name": "Fischer, C.S." },
+          { "full_name": "Nickel, D." },
+          { "full_name": "Wambach, J." }
+        ],
+        "label": "34",
+        "publication_info": {
+          "artid": "094009",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "76",
+          "year": 2007
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/864119" },
+      "reference": {
+        "authors": [
+          { "full_name": "Herbst, T.K." },
+          { "full_name": "Pawlowski, J.M." },
+          { "full_name": "Schaefer, B.-J." }
+        ],
+        "label": "35",
+        "publication_info": {
+          "artid": "58",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "696",
+          "page_start": "58",
+          "year": 2011
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1217881" },
+      "reference": {
+        "authors": [
+          { "full_name": "Herbst, T.K." },
+          { "full_name": "Pawlowski, J.M." },
+          { "full_name": "Schaefer, B.-J." }
+        ],
+        "label": "36",
+        "publication_info": {
+          "artid": "014007",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "88",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1090731" },
+      "reference": {
+        "authors": [{ "full_name": "Cea, P." }, { "full_name": "Cosmai, L." }],
+        "label": "37",
+        "misc": ["M. D \u2019 Elia, A Papa, and F. Sanfilippo"],
+        "publication_info": {
+          "artid": "094512",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "85",
+          "year": 2012
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/5464" },
+      "reference": {
+        "authors": [
+          { "full_name": "Marciano, W.J." },
+          { "full_name": "Pagels, H." }
+        ],
+        "label": "38",
+        "publication_info": {
+          "artid": "137",
+          "journal_title": "Phys.Rept.",
+          "journal_volume": "36",
+          "page_start": "137",
+          "year": 1978
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "legacy_curated": true,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1211390" },
+      "reference": {
+        "authors": [
+          { "full_name": "Aguilar, A." },
+          { "full_name": "Binosi, D." },
+          { "full_name": "Cardona, J." },
+          { "full_name": "Papavassiliou, J." }
+        ],
+        "label": "39",
+        "publication_info": {
+          "artid": "103",
+          "journal_title": "PoS",
+          "journal_volume": "ConfinementX",
+          "page_start": "103",
+          "year": 2012
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1238425" },
+      "reference": {
+        "authors": [
+          { "full_name": "Rojas, E." },
+          { "full_name": "de Melo, J." },
+          { "full_name": "El-Bennich, B." },
+          { "full_name": "Oliveira, O." },
+          { "full_name": "Frederico, T." }
+        ],
+        "label": "40",
+        "publication_info": {
+          "artid": "193",
+          "journal_title": "JHEP",
+          "journal_volume": "10",
+          "page_start": "193",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/9599" },
+      "reference": {
+        "authors": [
+          { "full_name": "Ball, J.S." },
+          { "full_name": "Chiu, T.-W." }
+        ],
+        "label": "41",
+        "publication_info": {
+          "artid": "2542",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "22",
+          "page_start": "2542",
+          "year": 1980
+        }
+      }
+    }
+  ],
+  "self": { "$ref": "https://inspirebeta.net/api/literature/1297062" },
+  "texkeys": ["Fischer:2014ata"],
+  "titles": [
+    {
+      "source": "arXiv",
+      "title": "Phase structure of three and four flavor QCD"
+    }
+  ],
+  "urls": [
+    {
+      "value": "http://inspirehep.net/record/1297062/files/arXiv:1405.4762.pdf"
+    },
+    {
+      "description":
+        "00002 The truncated gluon DSE for $N_f=2+1+1$ QCD. The yellow dot denotes the quenched (lattice) propagator.",
+      "value":
+        "http://inspirehep.net/record/1297062/files/GluonDSEtruncatedNf2p1p1_v2.png"
+    },
+    {
+      "description":
+        "00001 The DSE for the quark propagator. Large blobs denote dressed propagators and vertices.",
+      "value": "http://inspirehep.net/record/1297062/files/DSE1.png"
+    },
+    {
+      "description": "00000 The DSE for a background field $\\bar{A}_0$.",
+      "value": "http://inspirehep.net/record/1297062/files/DSE-A.png"
+    },
+    {
+      "description":
+        "00009 Left: Longitudinal gluon dressing function for $N_f=2+1$ and $N_f=2+1+1$ physical quark masses (sets $B_{2+1}$, $B_{2+1+1}$) at $T \\approx 135$ MeV. Right: Corresponding gluon screening mass as a function of temperature.Caption not extracted",
+      "value": "http://inspirehep.net/record/1297062/files/GluonScreenMass.png"
+    },
+    {
+      "description":
+        "00009 Gluon dressing functions $N_f=2+1$ and $N_f=2+1+1$ physical quark masses (sets $B_{2+1}$, $B_{2+1+1}$) at $T \\approx 135$ MeV.Caption not extracted",
+      "value": "http://inspirehep.net/record/1297062/files/ZTNf3vs4TC.png"
+    },
+    {
+      "description": "00008 Longitudinal partScreening mass",
+      "value": "http://inspirehep.net/record/1297062/files/ZLNf3vs4TC.png"
+    },
+    {
+      "description":
+        "00003 The vacuum quark mass function $M(p^2)=B(p^2)/A(p^2)$ for light, strange and charm quarks in parameter set $B_{2+1+1}$.",
+      "value": "http://inspirehep.net/record/1297062/files/massFunction.png"
+    },
+    {
+      "description":
+        "00010 Left diagram: regularized chiral condensate and the Polyakov loop for $N_f=2+1$ quark flavors (set $A_{2+1}$) as a function of temperature at zero quark chemical potential $\\mu_q = 0$. Right diagram: phase diagram for $N_f=2+1$ quark flavors. Shown are our results for set $A_{2+1}$ together with an extrapolation of a range of curvatures for the chiral transition extracted at imaginary and small chemical potential from different lattice groups \\cite{Endrodi:2011gv,Kaczmarek:2011zz,Cea:2014xva}.",
+      "value":
+        "http://inspirehep.net/record/1297062/files/cond_compareLattice.png"
+    },
+    {
+      "description":
+        "00012 Phase diagram for QCD with $N_f=2+1$ and $N_f=2+1+1$ flavors (sets $B_{2+1}$ and $B_{2+1+1}$). In both cases, the interaction strength and quark masses are fixed to reproduce vacuum physics.",
+      "value": "http://inspirehep.net/record/1297062/files/PDNf3vsNf4setB.png"
+    },
+    {
+      "description":
+        "00007 Transversal partGluon dressing functions for $N_f=2+1$ and physical quark masses (set $A_{2+1}$) at three different temperatures",
+      "value": "http://inspirehep.net/record/1297062/files/ZTNf3lat.png"
+    },
+    {
+      "description": "00006 Longitudinal part",
+      "value": "http://inspirehep.net/record/1297062/files/ZLNf3lat.png"
+    },
+    {
+      "description":
+        "00011 Left diagram: regularized chiral condensate and the Polyakov loop for $N_f=2+1$ quark flavors (set $A_{2+1}$) as a function of temperature at zero quark chemical potential $\\mu_q = 0$. Right diagram: phase diagram for $N_f=2+1$ quark flavors. Shown are our results for set $A_{2+1}$ together with an extrapolation of a range of curvatures for the chiral transition extracted at imaginary and small chemical potential from different lattice groups \\cite{Endrodi:2011gv,Kaczmarek:2011zz,Cea:2014xva}.",
+      "value":
+        "http://inspirehep.net/record/1297062/files/phaseDiag2ddTsetA.png"
+    },
+    {
+      "description":
+        "00005 Transversal partComparison of gluon dressing functions for $N_f$=2 in our DSE approach \\cite{Fischer:2013eca} with lattice data \\cite{Aouane:2012bk}. All results have been evaluated at a pion mass of $m_\\pi = 316$ MeV.",
+      "value":
+        "http://inspirehep.net/record/1297062/files/verglMMPnewMassesZT_BSEFIX.png"
+    },
+    {
+      "description": "00004 Longitudinal part",
+      "value":
+        "http://inspirehep.net/record/1297062/files/verglMMPnewMassesZL_BSEFIX.png"
+    }
+  ]
+}

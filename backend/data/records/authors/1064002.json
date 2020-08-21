@@ -1,0 +1,37 @@
+{
+  "$schema": "https://inspirehep.net/schemas/records/authors.json",
+  "_collections": ["Authors"],
+  "arxiv_categories": ["hep-ex"],
+  "control_number": 1064002,
+  "deleted": false,
+  "ids": [
+    { "schema": "INSPIRE ID", "value": "INSPIRE-00312131" },
+    { "schema": "INSPIRE BAI", "value": "A.M.Sirunyan.1" },
+    { "schema": "SPIRES", "value": "HEPNAMES-915661" }
+  ],
+  "legacy_creation_date": "2009-11-05",
+  "legacy_version": "20161012090519.0",
+  "name": {
+    "preferred_name": "Albert M. Sirunyan",
+    "value": "Sirunyan, Albert M."
+  },
+  "positions": [
+    {
+      "curated_relation": true,
+      "current": true,
+      "institution": "Yerevan Phys. Inst.",
+      "record": { "$ref": "https://inspirehep.net/api/institutions/903361" }
+    }
+  ],
+  "project_membership": [
+    {
+      "curated_relation": true,
+      "current": false,
+      "name": "CERN-LHC-CMS",
+      "record": { "$ref": "https://inspirehep.net/api/experiments/1108642" }
+    }
+  ],
+  "self": { "$ref": "https://inspirehep.net/api/authors/1064002" },
+  "status": "active",
+  "stub": false
+}

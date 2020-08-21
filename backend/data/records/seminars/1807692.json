@@ -1,0 +1,77 @@
+{
+  "$schema": "https://inspirehep.net/api/schemas/records/seminars.json",
+  "_collections": ["Seminars"],
+  "abstract": {
+    "value":
+      "<div>Neutrinoless double beta decay experiments try to establish whether neutrinos are their own antiparticles by searching for an ultra-rare radioactive process with a half-life that may be longer than 1E+26 years. The discovery of such a decay would have major implications for particle physics and cosmology, but requires tonne-scale detectors with backgrounds below 1 count per tonne per year. This poses a formidable technical challenge that has prompted a diverse and dynamic worldwide experimental effort. I will discuss the approach followed by the NEXT Collaboration: high pressure xenon gas time projection chambers with electroluminescent amplification, which offer excellent energy resolution, tracking for the active suppression of backgrounds and scalability to large source masses. The current goal of the Collaboration is the construction, commissioning and operation of the NEXT-100 detector, with a predicted sensitivity to the half-life&nbsp;of the decay of 6E+25 years (90% CL) after a run of 3 years. The Collaboration is planning as well a future tonne-scale detector, augmented with single molecule fluorescent imaging for barium tagging, to explore \u03b2\u03b20\u03bd decay half-lives up to 1E+28 years.</div>"
+  },
+  "acquisition_source": {
+    "datetime": "2020-07-18T21:23:51.934970",
+    "email": "constantinos.andreopoulos@cern.ch",
+    "internal_uid": 69420,
+    "method": "submitter",
+    "orcid": "0000-0003-2020-8215",
+    "source": "submitter"
+  },
+  "captioned": true,
+  "contact_details": [
+    {
+      "email": "constantinos.andreopoulos@cern.ch",
+      "name": "Andreopoulos, Constantinos (Costas)",
+      "record": { "$ref": "https://inspirehep.net/api/authors/1018380" }
+    },
+    {
+      "email": "Jan.Kretzschmar@liverpool.ac.uk",
+      "name": "Kretzschmar, Jan",
+      "record": { "$ref": "https://inspirehep.net/api/authors/1032458" }
+    }
+  ],
+  "control_number": 1807692,
+  "end_datetime": "2020-07-15T15:30:00.000000",
+  "inspire_categories": [
+    { "term": "Experiment-HEP" },
+    { "term": "Instrumentation" },
+    { "term": "Phenomenology-HEP" }
+  ],
+  "join_urls": [
+    {
+      "description": "Zoom",
+      "value":
+        "https://ukri.zoom.us/j/98385060068?pwd=VmM0M1BuRXpRKzFNbUsxcnAxdXJsUT09"
+    }
+  ],
+  "material_urls": [
+    {
+      "description": "Indico page",
+      "value": "https://indico.ph.liv.ac.uk/event/138/"
+    },
+    {
+      "description": "Slides",
+      "value":
+        "https://indico.ph.liv.ac.uk/event/138/attachments/370/489/20200715_Liverpool_HEP_Seminar_NEXT.pdf"
+    }
+  ],
+  "series": [{ "name": "Liverpool Particle Physics Seminars" }],
+  "speakers": [
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirehep.net/api/institutions/907907"
+          },
+          "value": "Valencia U., IFIC"
+        }
+      ],
+      "name": "Mart\u00edn-Albo, Justo",
+      "record": { "$ref": "https://inspirehep.net/api/authors/1053077" }
+    }
+  ],
+  "start_datetime": "2020-07-15T14:30:00.000000",
+  "timezone": "Europe/London",
+  "title": {
+    "title": "The NEXT experiment for neutrinoless double beta decay searches"
+  },
+  "urls": [
+    { "value": "https://www.liverpool.ac.uk/particle-physics/seminars/" }
+  ]
+}

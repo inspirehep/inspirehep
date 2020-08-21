@@ -20,17 +20,18 @@ from sqlalchemy import DateTime, cast, not_, or_, type_coerce
 from sqlalchemy.dialects.postgresql import JSONB
 
 from inspirehep.mailing.api.jobs import send_job_deadline_reminder
+from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.api import InspireRecord, JobsRecord
 
 LOGGER = structlog.getLogger()
 
 
-def _create_record(data):
+def _create_record(data, save_to_file=False):
     control_number = data["control_number"]
 
     click.echo(f"Creating record {control_number}.")
 
-    record = InspireRecord.create(data)
+    record = InspireRecord.create_or_update(data)
 
     db.session.commit()
     record.index()
@@ -40,12 +41,22 @@ def _create_record(data):
     )
     click.echo(click.style(message, fg="green"))
 
+    if save_to_file:
+        pid_type = PidStoreBase.get_pid_type_from_schema(data["$schema"])
+        endpoint = PidStoreBase.get_endpoint_from_pid_type(pid_type)
+        file_path = os.path.join(f"data/records/{endpoint}/{control_number}.json")
+        click.echo(click.style(f"Writing to {file_path}", fg="green"))
+        with open(file_path, "w+") as file:
+            file.write(json.dumps(data))
 
-def _create_records_from_urls(urls):
+
+def _create_records_from_urls(urls, token, save_to_file):
     for url in urls:
         click.echo(f"Downloading record from {url}.")
         try:
-            authorization = f"Bearer {current_app.config['AUTHENTICATION_TOKEN']}"
+            authorization = (
+                f"Bearer {token or current_app.config['AUTHENTICATION_TOKEN']}"
+            )
             request = requests.get(
                 url,
                 headers={
@@ -68,7 +79,7 @@ def _create_records_from_urls(urls):
                 continue
             data = request.json()
             data = data.pop("metadata")
-            _create_record(data)
+            _create_record(data, save_to_file=save_to_file)
 
 
 def _create_records_from_list_files(files):
@@ -114,9 +125,24 @@ def importer():
     type=click.File("rb"),
     help="Path to a JSON file, example: ``data/records/literature/999108.json``.",
 )
+@click.option(
+    "-s",
+    "--save",
+    help="It will save the imported records (from url) to local data folder and overwrite if they exist",
+    is_flag=True,
+    default=False,
+    show_default=True,
+)
+@click.option(
+    "-t",
+    "--token",
+    help="Auth token to be used while importing from urls, instead of app.config['AUTHENTICATION_TOKEN']}",
+    is_flag=True,
+    default=None,
+)
 @with_appcontext
-def records(urls, directory, files):
-    _create_records_from_urls(urls)
+def records(urls, directory, files, save, token):
+    _create_records_from_urls(urls, token, save)
     _create_records_from_list_files(files)
     _create_records_from_files_in_directory(directory)
 

@@ -1,0 +1,45 @@
+{
+  "$schema": "https://inspirehep.net/api/schemas/records/jobs.json",
+  "_collections": ["Jobs"],
+  "accelerator_experiments": [
+    {
+      "legacy_name": "CRESST-III",
+      "record": { "$ref": "https://inspirehep.net/api/experiments/1728456" }
+    }
+  ],
+  "acquisition_source": {
+    "datetime": "2020-08-20T17:33:05.914059",
+    "email": "jochen.schieck@oeaw.ac.at",
+    "internal_uid": 52066,
+    "method": "submitter",
+    "orcid": "0000-0002-1058-8093",
+    "source": "submitter",
+    "submission_number": "None"
+  },
+  "arxiv_categories": ["astro-ph"],
+  "contact_details": [
+    { "email": "Jochen.Schieck@tuwien.ac.at", "name": "Jochen Schieck" },
+    { "email": "Florian.Reindl@tuwien.ac.at", "name": "Florian Reindl" }
+  ],
+  "control_number": 1812529,
+  "deadline_date": "2020-09-10",
+  "description":
+    "<div>The Experimental Particle Physics group, a joint working group of Atominstitut at the Technische Universit\u00e4t Wien and the Institute of High Energy Physics (HEPHY) of the Austrian Academy of Sciences, is a member of the experiments CRESST and COSINUS, both searching directly for Dark Matter, and NUCLEUS, searching for coherent elastic neutrino-nucleus scattering, all using cryogenic calorimeters at mK temperature. In all three experiments, the group is in charge of the data acquisition development, background simulation and data analysis.</div><div><br></div><div>We are looking for postdoctoral fellow joining the CRESST dark matter effort.</div><div><br></div><div>The candidate should have a PhD in experimental particle physics and a solid background in astroparticle physics. Expertise in Monte Carlo simulation techniques using the Geant4 toolkit, solid programming skills in C++ as well as data analysis experience, preferable with ROOT framework , are of advantage.</div><div><br></div><div>The successful candidate will contribute to the data analysis and background simulation of the CRESST experiment. As CRESST is one of the world leading experiments searching for low mass Dark Matter, special attention has to be given to a precise modelling of the detector response at the sub-keV energy regime. The candidate will work closely with the CRESST simulation and data analysis teams. Contributions to the ongoing operation and planned upgrade of the CRESST experiment at the Laboratori Nazionali del Gran Sasso (LNGS) in Italy are expected.</div><div><br></div><div>The position will be opened for a period of six years. Contributions to teaching at the Technische Universit\u00e4t Wien are expected.</div><div><br></div><div>The Technische Universit\u00e4t Wien is committed to increase female employment in leading scientist positions. Qualified female applicants are encouraged to apply and will be given preference if equally qualified. Handicapped persons with appropriate qualifications are also expressly encouraged to apply.</div><div><br></div><div>For this position, a minimum salary of \u20ac 3.803,90 gross per month (fourteen times a year) with a full-time employment of 40 hours per week is offered.</div><div><br></div><div>More information about HEPHY and the Atominstitut may be found at&nbsp;<a href=\"http://www.hephy.at/\">http://www.hephy.at</a>&nbsp;and at&nbsp;<a href=\"http://ati.tuwien.ac.at/\">http://ati.tuwien.ac.at</a>&nbsp;respectively.&nbsp;</div><div>For further Information please contact Prof. Jochen Schieck (&nbsp;<a href=\"mailto:Jochen.Schieck@tuwien.ac.at\">Jochen.Schieck@tuwien.ac.at</a>&nbsp;) or Dr. Florian Reindl (&nbsp;<a href=\"mailto:Florian.Reindl@tuwien.ac.at\">Florian.Reindl@tuwien.ac.at</a>&nbsp;).</div><div><br></div><div>Please arrange for two letters of recommendation and send your application to:</div><div>Technische Universit\u00e4t Wien</div><div>Personaladministration</div><div>Fachbereich wissenschaftliches Personal</div><div>Karlsplatz 13</div><div>1040 Vienna</div><div>Austria</div><div>or by email to:&nbsp;<a href=\"mailto:ildiko.haidenschuster@tuwien.ac.at\">ildiko.haidenschuster@tuwien.ac.at</a>&nbsp;.</div><div><br></div><div><strong>The closing date for the submission of applications is September 10, 2020.</strong>&nbsp;The position will remain open until the position is filled.</div><div>Candidates are not eligible for a refund of expenses for travelling and lodging related to the application process.</div>",
+  "institutions": [
+    {
+      "record": { "$ref": "https://inspirehep.net/api/institutions/904536" },
+      "value": "Vienna, Tech. U., Atominst."
+    }
+  ],
+  "position": "CRESST dark matter search experiment",
+  "ranks": ["POSTDOC"],
+  "reference_letters": { "emails": ["ildiko.haidenschuster@tuwien.ac.a"] },
+  "regions": ["Europe"],
+  "status": "open",
+  "urls": [
+    {
+      "value":
+        "https://tiss.tuwien.ac.at/mbl/blatt_struktur/anzeigen/10419#p327.3"
+    }
+  ]
+}

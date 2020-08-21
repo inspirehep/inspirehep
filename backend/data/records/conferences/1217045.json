@@ -1,0 +1,30 @@
+{
+  "$schema": "https://inspirehep.net/schemas/records/conferences.json",
+  "_collections": ["Conferences"],
+  "acronyms": ["Lattice 2013"],
+  "addresses": [
+    {
+      "cities": ["Mainz"],
+      "country_code": "DE",
+      "latitude": 49.9928617,
+      "longitude": 8.2472526
+    }
+  ],
+  "closing_date": "2013-08-03",
+  "cnum": "C13-07-29.1",
+  "contact_details": [
+    { "email": "chair@lattice2013.uni-mainz.de", "name": "Hartmut Wittig" }
+  ],
+  "control_number": 1217045,
+  "core": true,
+  "inspire_categories": [{ "term": "Lattice" }],
+  "legacy_creation_date": "2013-02-12",
+  "legacy_version": "20161028121306.0",
+  "opening_date": "2013-07-29",
+  "self": { "$ref": "https://labs.inspirehep.net/api/conferences/1217045" },
+  "series": [{ "name": "Lattice", "number": 31 }],
+  "titles": [
+    { "title": "31st International Symposium on Lattice Field Theory" }
+  ],
+  "urls": [{ "value": "http://www.lattice2013.uni-mainz.de/" }]
+}

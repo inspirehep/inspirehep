@@ -1,11 +1,12 @@
 describe('Literature and Authors', () => {
   it('literature:search -> literautre:detail -> authors:detail -> authors:publications', () => {
     cy.useDesktop();
-    // TODO: override `visit` use this as a base url
-    cy.visit('/');
-    cy.get('[data-test-id="search-box-input"]').type('a edward witten{enter}');
 
-    cy.selectFromDropdown('sort-by-select', 'mostcited');
+    cy.visit('/');
+
+    cy.registerRoute('*/literature?*');
+    cy.get('[data-test-id="search-box-input"]').type('a Grit Hotzel{enter}');
+    cy.waitForRoute('*/literature?*');
 
     cy
       .get('[data-test-id="literature-result-title-link"]')
@@ -14,20 +15,14 @@ describe('Literature and Authors', () => {
       .text()
       .as('literature-title');
 
+    cy.registerRoute('**/literature**search_type=hep-author-publication**');
+
     cy
       .get('[data-test-id="author-link"]')
-      .first()
+      .contains('Grit Hotzel')
       .click();
 
-    // TODO: create as `waitForRoute` command
-    cy.server();
-    cy
-      .route('**/literature**search_type=hep-author-publication**')
-      .as('publications');
-    cy.wait('@publications');
-
-    cy.selectFromDropdown('sort-by-select', 'mostcited');
-    cy.wait('@publications');
+    cy.waitForRoute('**/literature**search_type=hep-author-publication**');
 
     cy
       .get('[data-test-id="literature-result-title-link"]')
@@ -41,9 +36,8 @@ describe('Literature and Authors', () => {
 describe('Literature and Conferences', () => {
   it('literature:search -> conferences:detail -> conferences:contributions', () => {
     cy.useDesktop();
-    cy.visit('/');
+    cy.visit('/literature');
 
-    cy.get('[data-test-id="search-box-input"]').type('SCES{enter}');
     cy
       .get('[data-test-id="checkbox-aggregation-option-conference paper"]')
       .click();
@@ -56,15 +50,14 @@ describe('Literature and Conferences', () => {
       .invoke('text')
       .as('literature-title');
 
+    cy.registerRoute();
+
     cy
       .get('[data-test-id="literature-conference-link"]')
       .first()
       .click();
 
-    // TODO: create as `waitForRoute` command
-    cy.server();
-    cy.route('**/literature**').as('contributions');
-    cy.wait('@contributions');
+    cy.waitForRoute();
 
     cy.get('[data-test-id="literature-result-title-link"]').then(titles$ => {
       const titles = titles$.toArray().map(title => title.text);

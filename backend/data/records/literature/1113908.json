@@ -1,0 +1,1493 @@
+{
+  "$schema": "https://inspirebeta.net/schemas/records/hep.json",
+  "_collections": ["Literature"],
+  "_desy_bookkeeping": [
+    { "identifier": "DA19-kp13bh" },
+    { "date": "2019-03-21", "expert": "M", "status": "abs" },
+    { "date": "2019-03-26", "expert": "M", "status": "printed" },
+    { "date": "2019-03-27", "expert": "M", "status": "final" }
+  ],
+  "_private_notes": [
+    {
+      "source": "SPIRES-HIDDEN",
+      "value": "40 References from cites2 direct on 07/24/12"
+    },
+    {
+      "source": "SPIRES-HIDDEN",
+      "value": "40 References from cites2 direct on 09/10/12"
+    },
+    {
+      "source": "SPIRES-HIDDEN",
+      "value": "40 References from cites2 direct on 09/11/12"
+    },
+    {
+      "source": "SPIRES-HIDDEN",
+      "value": "40 References from cites2 direct on 09/12/12"
+    },
+    { "source": "SPIRES-HIDDEN", "value": "Update from APS OAI Harvest" },
+    { "source": "CERN", "value": "CDS-1447307" }
+  ],
+  "abstracts": [
+    {
+      "source": "arXiv",
+      "value":
+        "We calculate Wilson loops of various sizes up to 20 loops in SU(3) pure lattice gauge theory at different lattice sizes for Wilson gauge action using the technique of numerical stochastic perturbation theory. This allows us to investigate the perturbative series for various Wilson loops at high loop orders. We observe differences in the behavior of those series as function of the loop order. Up to $n=20$ we do not find evidence for the factorial growth of the expansion coefficients often assumed to characterize an asymptotic series. Based on the actually observed behavior we sum the series in a model parametrized by hypergeometric functions. Alternatively we estimate the total series in boosted perturbation theory using information from the first 14 loops. We introduce generalized ratios of Wilson loops of different sizes. Together with the corresponding Wilson loops from standard Monte Carlo measurements they enable us to assess their non-perturbative parts."
+    }
+  ],
+  "arxiv_eprints": [{ "categories": ["hep-lat"], "value": "1205.1659" }],
+  "authors": [
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/902787"
+          },
+          "value": "Edinburgh U."
+        }
+      ],
+      "full_name": "Horsley, R.",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "R.Horsley.1" }],
+      "record": { "$ref": "https://inspirebeta.net/api/authors/1005563" },
+      "signature_block": "HARSLYr",
+      "uuid": "ada9c5a5-9ec5-4a49-9d4b-d46d8fb5d5b9"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/902959"
+          },
+          "value": "Leipzig U."
+        }
+      ],
+      "curated_relation": true,
+      "full_name": "Hotzel, G.",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "G.Hotzel.1" }],
+      "record": { "$ref": "https://inspirebeta.net/api/authors/1274753" },
+      "signature_block": "HATSALg",
+      "uuid": "5c2549fd-2169-43ea-96a1-edefb09919ba"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/902858"
+          },
+          "value": "Humboldt U., Berlin"
+        },
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/902780"
+          },
+          "value": "Dubna, JINR"
+        }
+      ],
+      "full_name": "Ilgenfritz, E.M.",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "E.M.Ilgenfritz.1" }],
+      "record": { "$ref": "https://inspirebeta.net/api/authors/1005056" },
+      "signature_block": "ILGANFRATe",
+      "uuid": "78bcac71-cc2e-42ec-aaf4-427197d2dc8f"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/907986"
+          },
+          "value": "Liverpool U., Dept. Math."
+        }
+      ],
+      "full_name": "Millo, R.",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "R.Millo.1" }],
+      "signature_block": "MALr",
+      "uuid": "fad3a465-2d2e-4e8b-8222-c469b341ba50"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/902959"
+          },
+          "value": "Leipzig U."
+        }
+      ],
+      "full_name": "Perlt, H.",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "H.Perlt.1" }],
+      "record": { "$ref": "https://inspirebeta.net/api/authors/993744" },
+      "signature_block": "PARLTh",
+      "uuid": "b3e6cc85-c725-41da-818f-646a98e48113"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/907986"
+          },
+          "value": "Liverpool U., Dept. Math."
+        }
+      ],
+      "full_name": "Rakow, P.E.L.",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "P.E.L.Rakow.1" }],
+      "record": { "$ref": "https://inspirebeta.net/api/authors/992375" },
+      "signature_block": "RACp",
+      "uuid": "4901456d-73f9-4340-bbaf-703ba8aafe36"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/1185693"
+          },
+          "value": "RIKEN AICS, Kobe"
+        }
+      ],
+      "full_name": "Nakamura, Y.",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "Y.Nakamura.1" }],
+      "record": { "$ref": "https://inspirebeta.net/api/authors/1029125" },
+      "signature_block": "NACANARy",
+      "uuid": "4e6e5725-e881-4770-a3b8-2c6fdceea090"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/902770"
+          },
+          "value": "DESY"
+        }
+      ],
+      "full_name": "Schierholz, G.",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "G.Schierholz.1" }],
+      "record": { "$ref": "https://inspirebeta.net/api/authors/989944" },
+      "signature_block": "SARALg",
+      "uuid": "9780b340-9e9c-49c6-bfae-4e63a8a2f20e"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/902959"
+          },
+          "value": "Leipzig U."
+        }
+      ],
+      "full_name": "Schiller, A.",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "A.Schiller.1" }],
+      "record": { "$ref": "https://inspirebeta.net/api/authors/989934" },
+      "signature_block": "SALARa",
+      "uuid": "ec750012-bd32-4225-8060-b7aa4142636c"
+    }
+  ],
+  "citeable": true,
+  "control_number": 1113908,
+  "core": true,
+  "curated": true,
+  "document_type": ["article"],
+  "documents": [
+    {
+      "hidden": true,
+      "key": "arXiv:1205.1659.pdf",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/991f9b9bde44d2af4b5f187a7949eeb4"
+    }
+  ],
+  "dois": [{ "value": "10.1103/PhysRevD.86.054502" }],
+  "external_system_identifiers": [
+    { "schema": "SPIRES", "value": "SPIRES-9588256" }
+  ],
+  "figures": [
+    {
+      "caption":
+        "noimgNumber of Wilson loops measurements up to loop order 20 at various lattice volumes $L^4$ and Langevin time steps $\\varepsilon$.",
+      "filename": "fig00000.png",
+      "key": "71c026e17d9c48fdd3072eed1f6853bd",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/71c026e17d9c48fdd3072eed1f6853bd"
+    },
+    {
+      "caption":
+        "Plaquette expansion coefficients $W_{11}^{(n)}$ at some finite $\\varepsilon$ at $L=12$ versus loop number $n$. On the left-hand panel the loop expansion coefficients for integer $n$ (signal) are shown together with their extrapolations  $\\varepsilon \\to 0$. The right-hand panel shows the non-loop coefficients for half-integer $n$ which are purely noise, and 2 or 3 orders of magnitude smaller than the integer coefficients. Open/full symbols denote positive/negative numbers.",
+      "filename": "Fig1a.png",
+      "key": "7677b1ad06254a36076c6163d179d455",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/7677b1ad06254a36076c6163d179d455"
+    },
+    {
+      "caption":
+        "Plaquette expansion coefficients $W_{11}^{(n)}$ at some finite $\\varepsilon$ at $L=12$ versus loop number $n$. On the left-hand panel the loop expansion coefficients for integer $n$ (signal) are shown together with their extrapolations  $\\varepsilon \\to 0$. The right-hand panel shows the non-loop coefficients for half-integer $n$ which are purely noise, and 2 or 3 orders of magnitude smaller than the integer coefficients. Open/full symbols denote positive/negative numbers.",
+      "filename": "Fig1b.png",
+      "key": "8ba372273216077af207ea8cfc23a6ae",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/8ba372273216077af207ea8cfc23a6ae"
+    },
+    {
+      "caption":
+        "Zoom of left Figure~\\ref{fig:orderW11} into small (left) and large (right) loop number region $n$ for all finite $\\varepsilon$. The full circles in red are the extrapolated $\\varepsilon \\to 0$ values. The coefficients in the left Figure at different orders $n$ are multiplied by factors to make them comparable in size to those at $n=1$.",
+      "filename": "Fig2a.png",
+      "key": "f7c4f732001a330b95c3b4544a499034",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/f7c4f732001a330b95c3b4544a499034"
+    },
+    {
+      "caption":
+        "Zoom of left Figure~\\ref{fig:orderW11} into small (left) and large (right) loop number region $n$ for all finite $\\varepsilon$. The full circles in red are the extrapolated $\\varepsilon \\to 0$ values. The coefficients in the left Figure at different orders $n$ are multiplied by factors to make them comparable in size to those at $n=1$.",
+      "filename": "Fig2b.png",
+      "key": "0c0a3177dc6b00c7ccf75371344ad8c3",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/0c0a3177dc6b00c7ccf75371344ad8c3"
+    },
+    {
+      "caption":
+        "Same as in Figure~\\ref{fig:orderW11} but for the Wilson loop expansion coefficients  $W_{33}^{(n)}$.",
+      "filename": "Fig3a.png",
+      "key": "db3cc90a1b25ef170310a2503aeb837d",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/db3cc90a1b25ef170310a2503aeb837d"
+    },
+    {
+      "caption":
+        "Same as in Figure~\\ref{fig:orderW11} but for the Wilson loop expansion coefficients  $W_{33}^{(n)}$.",
+      "filename": "Fig3b.png",
+      "key": "a79ecd61f822e5043d17809e39de24c3",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/a79ecd61f822e5043d17809e39de24c3"
+    },
+    {
+      "caption":
+        "The extrapolation to zero Langevin step for Wilson loop expansion coefficients $W_{33}^{(n)}$: Left: Zoom of both Figs.~\\ref{fig:orderW33} in the region [3.5,11.5]. Right: Detailed extrapolation to $\\varepsilon\\to 0$ for selected loop numbers.",
+      "filename": "Fig4a.png",
+      "key": "1be8903d4d561e67a36f9939aecc29b4",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/1be8903d4d561e67a36f9939aecc29b4"
+    },
+    {
+      "caption":
+        "The extrapolation to zero Langevin step for Wilson loop expansion coefficients $W_{33}^{(n)}$: Left: Zoom of both Figs.~\\ref{fig:orderW33} in the region [3.5,11.5]. Right: Detailed extrapolation to $\\varepsilon\\to 0$ for selected loop numbers.",
+      "filename": "Fig4b.png",
+      "key": "53b66b950b84164ac272d96a628072c0",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/53b66b950b84164ac272d96a628072c0"
+    },
+    {
+      "caption":
+        "Selected loop coefficients $W_{NM}^{(n)}$ for $L=12$ versus loop order $n$ together with typical values in magnitude of non-loop coefficients. Positive/negative signs of the coefficients are given by open/full symbols, all $W_{11}^{(n)}&lt;0,W_{21}^{(n)}&lt;0$. Left: elongated Wilson loops $N\\!\\times\\!1$ with $N=1,\\dots 6$, right: square Wilson loops $N\\!\\times\\!N$ with $N=1,\\dots,4$.",
+      "filename": "Fig5a.png",
+      "key": "0a360e6a422ff424e0d4e7ccbdaad2b2",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/0a360e6a422ff424e0d4e7ccbdaad2b2"
+    },
+    {
+      "caption":
+        "Selected loop coefficients $W_{NM}^{(n)}$ for $L=12$ versus loop order $n$ together with typical values in magnitude of non-loop coefficients. Positive/negative signs of the coefficients are given by open/full symbols, all $W_{11}^{(n)}&lt;0,W_{21}^{(n)}&lt;0$. Left: elongated Wilson loops $N\\!\\times\\!1$ with $N=1,\\dots 6$, right: square Wilson loops $N\\!\\times\\!N$ with $N=1,\\dots,4$.",
+      "filename": "Fig5b.png",
+      "key": "06bdce8752bebe2253b1054e91ab4787",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/06bdce8752bebe2253b1054e91ab4787"
+    },
+    {
+      "caption":
+        "Extrapolation $L\\rightarrow \\infty$ for $W_{11}^{(n)}$ for loop orders $n=1$ (left) and $n=10$ (right).",
+      "filename": "Fig6a.png",
+      "key": "6fe5ba507c5455cd3c041a00f84e5a1b",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/6fe5ba507c5455cd3c041a00f84e5a1b"
+    },
+    {
+      "caption":
+        "Extrapolation $L\\rightarrow \\infty$ for $W_{11}^{(n)}$ for loop orders $n=1$ (left) and $n=10$ (right).",
+      "filename": "Fig6b.png",
+      "key": "fb314a928b8e865222e4257d56f7f586",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/fb314a928b8e865222e4257d56f7f586"
+    },
+    {
+      "caption":
+        "Current ratio data for the plaquette, compared with the prediction of 2001~\\cite{Horsley:2001uy}, plotted with the original parameters. The prediction was based on data with $n \\le 10$, i.e. to the right of the vertical blue bar. The second figure zooms in on the region of new data.",
+      "filename": "Fig7a.png",
+      "key": "9cebc32002058e99b82ba4d254d5a26e",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/9cebc32002058e99b82ba4d254d5a26e"
+    },
+    {
+      "caption":
+        "Current ratio data for the plaquette, compared with the prediction of 2001~\\cite{Horsley:2001uy}, plotted with the original parameters. The prediction was based on data with $n \\le 10$, i.e. to the right of the vertical blue bar. The second figure zooms in on the region of new data.",
+      "filename": "Fig7b.png",
+      "key": "c49fdbdff695f21e26caaddd198aa73a",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/c49fdbdff695f21e26caaddd198aa73a"
+    },
+    {
+      "caption":
+        "Domb-Sykes plots for $W_{NM}$ for $n \\ge 5$ together with the fit result using (\\ref{eq:HRSratio}).",
+      "filename": "Fig8.png",
+      "key": "ada7edbc4df50987aa08da4f74d9bafb",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/ada7edbc4df50987aa08da4f74d9bafb"
+    },
+    {
+      "caption":
+        "A log-log plot of the ratio~(\\ref{Wrat}), plotted for different sizes of Wilson loops. To guide the eyes, the data points for the loop orders are connected by lines.",
+      "filename": "Fig9.png",
+      "key": "34e5b280107f553ebb9ebe4db4fcb2c8",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/34e5b280107f553ebb9ebe4db4fcb2c8"
+    },
+    {
+      "caption":
+        "$\\delta^2_{\\min}$ as function of parameter $s$ for $W_{22}$.",
+      "filename": "Fig10.png",
+      "key": "25ea2f1e200db12ae9f532b0eac7e5eb",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/25ea2f1e200db12ae9f532b0eac7e5eb"
+    },
+    {
+      "caption":
+        "The hypergeometric fit to the coefficients $W_{NM}^{(n)}$ for the four small Wilson loops. Solid symbols represent positive terms, open symbols are negative terms. The blue line is an equal weight fit, including all points from $W_{NM}^{(0)}$ to $W_{NM}^{(20)}$. The agreement is remarkably good.",
+      "filename": "Fig11a.png",
+      "key": "9e457e66c2b86e6de07beda4251ab171",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/9e457e66c2b86e6de07beda4251ab171"
+    },
+    {
+      "caption":
+        "The hypergeometric fit to the coefficients $W_{NM}^{(n)}$ for the four small Wilson loops. Solid symbols represent positive terms, open symbols are negative terms. The blue line is an equal weight fit, including all points from $W_{NM}^{(0)}$ to $W_{NM}^{(20)}$. The agreement is remarkably good.",
+      "filename": "Fig11b.png",
+      "key": "62463d32caf11508c3d0384b97aa4173",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/62463d32caf11508c3d0384b97aa4173"
+    },
+    {
+      "caption":
+        "The hypergeometric fit to the coefficients $W_{NM}^{(n)}$ for the four small Wilson loops. Solid symbols represent positive terms, open symbols are negative terms. The blue line is an equal weight fit, including all points from $W_{NM}^{(0)}$ to $W_{NM}^{(20)}$. The agreement is remarkably good.",
+      "filename": "Fig11c.png",
+      "key": "213f66f1ccdcee21f6e3c0c6a15b6d1c",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/213f66f1ccdcee21f6e3c0c6a15b6d1c"
+    },
+    {
+      "caption":
+        "The hypergeometric fit to the coefficients $W_{NM}^{(n)}$ for the four small Wilson loops. Solid symbols represent positive terms, open symbols are negative terms. The blue line is an equal weight fit, including all points from $W_{NM}^{(0)}$ to $W_{NM}^{(20)}$. The agreement is remarkably good.",
+      "filename": "Fig11d.png",
+      "key": "32fdfc8e6e9c4acfbe0d5310f07011eb",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/32fdfc8e6e9c4acfbe0d5310f07011eb"
+    },
+    {
+      "caption":
+        "Domb-Sykes plots for $W_{NM}$ with fits to the parameters in the range $n \\in [2,20]$.",
+      "filename": "Fig12a.png",
+      "key": "0acace059f6de03fbce7ed65fa8b78c5",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/0acace059f6de03fbce7ed65fa8b78c5"
+    },
+    {
+      "caption":
+        "Domb-Sykes plots for $W_{NM}$ with fits to the parameters in the range $n \\in [2,20]$.",
+      "filename": "Fig12b.png",
+      "key": "2fa5bcaed2b0b672b39cc686368fb8d5",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/2fa5bcaed2b0b672b39cc686368fb8d5"
+    },
+    {
+      "caption":
+        "Domb-Sykes plots for $W_{NM}$ with fits to the parameters in the range $n \\in [2,20]$.",
+      "filename": "Fig12c.png",
+      "key": "5479db86f52ce912f53a7006961bf644",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/5479db86f52ce912f53a7006961bf644"
+    },
+    {
+      "caption":
+        "Domb-Sykes plots for $W_{NM}$ with fits to the parameters in the range $n \\in [2,20]$.",
+      "filename": "Fig12d.png",
+      "key": "fd59d9785b610ff32d1df3f5829fcf3c",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/fd59d9785b610ff32d1df3f5829fcf3c"
+    },
+    {
+      "caption":
+        "Comparison of perturbative coefficients for the naive series ($W_{11}^{(n)}$), the boosted series from NSPT raw data ($W_{11,b}^{(n)}$) and the boosted series using the hypergeometric model ($W_{11,b,hyp}^{(n)}$). The boosted coupling (\\ref{eq:gboost}) is used, positive/negative signs of the coefficients are given by open/full symbols.",
+      "filename": "Fig13.png",
+      "key": "51fa6139e1342dea60851ed17a1ee2b4",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/51fa6139e1342dea60851ed17a1ee2b4"
+    },
+    {
+      "caption":
+        "Coefficients for the naive and boosted series based on the hypergeometric model for $W_{11}$, $W_{21}$ , $W_{31}$ and $W_{22}$ as function of the loop order $n$.",
+      "filename": "Fig14a.png",
+      "key": "752ef19bb6203fc4a2f3e9fdbb324276",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/752ef19bb6203fc4a2f3e9fdbb324276"
+    },
+    {
+      "caption":
+        "Coefficients for the naive and boosted series based on the hypergeometric model for $W_{11}$, $W_{21}$ , $W_{31}$ and $W_{22}$ as function of the loop order $n$.",
+      "filename": "Fig14b.png",
+      "key": "647520416426787cdb2a2bb8ba2a3ea5",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/647520416426787cdb2a2bb8ba2a3ea5"
+    },
+    {
+      "caption":
+        "Coefficients for the naive and boosted series based on the hypergeometric model for $W_{11}$, $W_{21}$ , $W_{31}$ and $W_{22}$ as function of the loop order $n$.",
+      "filename": "Fig14c.png",
+      "key": "b4a8a5d379fd462e19174f36f024a505",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/b4a8a5d379fd462e19174f36f024a505"
+    },
+    {
+      "caption":
+        "Coefficients for the naive and boosted series based on the hypergeometric model for $W_{11}$, $W_{21}$ , $W_{31}$ and $W_{22}$ as function of the loop order $n$.",
+      "filename": "Fig14d.png",
+      "key": "40868bc39c13e23ea2cf651c0bde0879",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/40868bc39c13e23ea2cf651c0bde0879"
+    },
+    {
+      "caption":
+        "Truncation errors $T_{NM}(n^\\star)$ (\\ref{eq:delta}) for $W_{11}$ (left) and $W_{31}$ (right) at $L=12$ and $\\beta=6$ using the naive and the boosted series on the basis of the hypergeometric model. The hypergeometric model values for the total sum are $W^{(n_0=4)}_{11,\\infty}=0.59409(8)$ and $W^{(n_0=4)}_{31,\\infty}=0.25337(22)$.",
+      "filename": "Fig15a.png",
+      "key": "c98d81b7aecbdf66888b2636d9704a74",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/c98d81b7aecbdf66888b2636d9704a74"
+    },
+    {
+      "caption":
+        "Truncation errors $T_{NM}(n^\\star)$ (\\ref{eq:delta}) for $W_{11}$ (left) and $W_{31}$ (right) at $L=12$ and $\\beta=6$ using the naive and the boosted series on the basis of the hypergeometric model. The hypergeometric model values for the total sum are $W^{(n_0=4)}_{11,\\infty}=0.59409(8)$ and $W^{(n_0=4)}_{31,\\infty}=0.25337(22)$.",
+      "filename": "Fig15b.png",
+      "key": "e5330f9618f1a892ad0b840ef15d7e04",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/e5330f9618f1a892ad0b840ef15d7e04"
+    },
+    {
+      "caption":
+        "$\\widetilde{W}_{11}(\\beta)-1$ as function of $\\beta=6/g^2$ for $n^\\star=20$: ``naive'' with $W_{11,PT}=W_{11}(g,20)$; ``boost'' with $W_{11,PT}=W_{11,b}(g_b,20)$ and $g_b^2$ computed from (\\ref{eq:gboost}); ``improved boost'' with $W_{11,PT}=W_{11,b}(g_b,20)$ and $g_b$ computed from (\\ref{eq:gboostmod}). (Full/open symbols denote positive/negative numbers.)",
+      "filename": "Fig16.png",
+      "key": "558b32a6488af5efb04e83d163432371",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/558b32a6488af5efb04e83d163432371"
+    },
+    {
+      "caption":
+        "Boosted coefficients of ratios (left: $[R^{12}_{21,11}]^{(n)}$, right: $[R^{13}_{31,11}]^{(n)}$) defined in (\\ref{eq:ratioR1}). The thin lines show the corresponding boosted coefficients for the $1\\!\\times\\!1$ and $2\\!\\times\\!1$ (left) and $1\\!\\times\\!1$ and $3\\!\\times\\!1$(right) Wilson loops, respectively.",
+      "filename": "Fig17a.png",
+      "key": "f48160658db78a2e063dd291b6952e24",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/f48160658db78a2e063dd291b6952e24"
+    },
+    {
+      "caption":
+        "Boosted coefficients of ratios (left: $[R^{12}_{21,11}]^{(n)}$, right: $[R^{13}_{31,11}]^{(n)}$) defined in (\\ref{eq:ratioR1}). The thin lines show the corresponding boosted coefficients for the $1\\!\\times\\!1$ and $2\\!\\times\\!1$ (left) and $1\\!\\times\\!1$ and $3\\!\\times\\!1$(right) Wilson loops, respectively.",
+      "filename": "Fig17b.png",
+      "key": "d6154054e35b965cf52b8f6901fa32ea",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/d6154054e35b965cf52b8f6901fa32ea"
+    },
+    {
+      "caption":
+        "$\\widetilde{R}^{k,m}_{21,11}$ for $(k,m)=(1,2), (2,4)$ and $(3,3)$ as function of loop order $n^\\star$ up to which the ratio is summed up.",
+      "filename": "Fig18.png",
+      "key": "a1b220b6ad15da78c7510fe839baec2c",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/a1b220b6ad15da78c7510fe839baec2c"
+    },
+    {
+      "caption":
+        "$\\Delta_{W_{11}}$ (left) and $\\Delta_{W_{NM}}$ (right) as function of $a^4$ together with their corresponding fits assuming $a^4$ and $(a^4)^2$ contributions.",
+      "filename": "Fig19a.png",
+      "key": "40e88f1358ee9bd1ccb45aad2615602b",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/40e88f1358ee9bd1ccb45aad2615602b"
+    },
+    {
+      "caption":
+        "$\\Delta_{W_{11}}$ (left) and $\\Delta_{W_{NM}}$ (right) as function of $a^4$ together with their corresponding fits assuming $a^4$ and $(a^4)^2$ contributions.",
+      "filename": "Fig19b.png",
+      "key": "8619157a0a215ce1366c356ee3b69912",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/8619157a0a215ce1366c356ee3b69912"
+    },
+    {
+      "caption":
+        "Coefficient $c_4$ as function of the inverse loop order $1/n^\\star$ for different Wilson loops. The data points at ``$1/n^\\star=0$'' represent the series summed to infinity using the hypergeometric model.",
+      "filename": "Fig20.png",
+      "key": "0796aacc4df5db9354f3973808b01227",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/0796aacc4df5db9354f3973808b01227"
+    },
+    {
+      "caption":
+        "The perturbative potential difference $\\Delta V$ obtained from the perturbative Wilson loops up to loop order 20 as function of the distance $R$ and $g^2$.",
+      "filename": "Fig21.png",
+      "key": "f1c214130375b8b2c4c33088bfc129ee",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/f1c214130375b8b2c4c33088bfc129ee"
+    }
+  ],
+  "inspire_categories": [
+    { "term": "Lattice" },
+    { "term": "Phenomenology-HEP" }
+  ],
+  "keywords": [
+    { "schema": "PACS", "value": "12.38.Gc" },
+    { "schema": "PACS", "value": "12.38.Aw" },
+    { "schema": "PACS", "value": "11.15.Ha" },
+    { "schema": "PACS", "value": "12.38.Cy" },
+    { "schema": "INSPIRE", "value": "perturbation theory: stochastic" },
+    { "schema": "INSPIRE", "value": "Wilson loop: ratio" },
+    { "schema": "INSPIRE", "value": "lattice field theory" },
+    { "schema": "INSPIRE", "value": "nonperturbative" },
+    { "schema": "INSPIRE", "value": "condensation" },
+    { "schema": "INSPIRE", "value": "numerical calculations: Monte Carlo" },
+    { "schema": "INSPIRE", "value": "lattice" },
+    { "schema": "INSPIRE", "value": "gauge field theory: SU(3)" },
+    { "schema": "INSPIRE", "value": "numerical calculations" }
+  ],
+  "legacy_creation_date": "2012-05-08",
+  "legacy_version": "20190328115733.0",
+  "license": [
+    {
+      "imposing": "arXiv",
+      "url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/"
+    }
+  ],
+  "number_of_pages": 40,
+  "preprint_date": "2012-05",
+  "public_notes": [
+    {
+      "source": "arXiv",
+      "value":
+        "29 pages, 21 figures, version accepted for publication in Phys. Rev. D, some inconsistencies removed, more details added concerning the Langevin simulation, references added and updated"
+    }
+  ],
+  "publication_info": [
+    {
+      "artid": "054502",
+      "journal_title": "Phys.Rev.D",
+      "journal_volume": "86",
+      "year": 2012
+    }
+  ],
+  "refereed": true,
+  "references": [
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/130694" },
+      "reference": {
+        "authors": [
+          { "full_name": "Shifman, M.A." },
+          { "full_name": "Vainshtein, A.I." },
+          { "full_name": "Zakharov, V.I." }
+        ],
+        "label": "1",
+        "publication_info": {
+          "artid": "385",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "147",
+          "page_start": "385"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/10384" },
+      "reference": {
+        "authors": [
+          { "full_name": "Banks, T." },
+          { "full_name": "Horsley, R." },
+          { "full_name": "Rubinstein, H.R." },
+          { "full_name": "Wolff, U." }
+        ],
+        "label": "2",
+        "publication_info": {
+          "artid": "692",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "190",
+          "page_start": "692"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/164219" },
+      "reference": {
+        "authors": [
+          { "full_name": "Di Giacomo, A." },
+          { "full_name": "Rossi, G.C." }
+        ],
+        "label": "3",
+        "publication_info": {
+          "artid": "481",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "100",
+          "page_start": "481"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/164194" },
+      "reference": {
+        "authors": [{ "full_name": "Kripfganz, J." }],
+        "label": "4",
+        "publication_info": {
+          "artid": "169",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "101",
+          "page_start": "169"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/177317" },
+      "reference": {
+        "authors": [
+          { "full_name": "Kirschner, R." },
+          { "full_name": "Kripfganz, J." },
+          { "full_name": "Ranft, J." },
+          { "full_name": "Schiller, A." }
+        ],
+        "label": "4",
+        "publication_info": {
+          "artid": "567",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "210",
+          "page_start": "567"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/181381" },
+      "reference": {
+        "authors": [
+          { "full_name": "Ilgenfritz, E.-M." },
+          { "full_name": "M\u00fcller-Preussker, M." }
+        ],
+        "label": "5",
+        "publication_info": {
+          "artid": "395",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "119",
+          "page_start": "395"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/524065" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/0002018",
+        "authors": [
+          { "full_name": "Alfieri, R." },
+          { "full_name": "Di Renzo, F." },
+          { "full_name": "Onofri, E." },
+          { "full_name": "Scorzato, L." }
+        ],
+        "label": "6",
+        "publication_info": {
+          "artid": "383",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "578",
+          "page_start": "383"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/536910" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/0011067",
+        "authors": [
+          { "full_name": "Di Renzo, F." },
+          { "full_name": "Scorzato, L." }
+        ],
+        "label": "7",
+        "publication_info": {
+          "artid": "038",
+          "journal_title": "JHEP",
+          "journal_volume": "10",
+          "page_start": "038",
+          "year": 2001
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/694390" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/0510046",
+        "authors": [{ "full_name": "Rakow, P.E.L." }],
+        "label": "8",
+        "publication_info": {
+          "artid": "284",
+          "journal_title": "PoS",
+          "journal_volume": "LAT2005",
+          "page_start": "284"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/725379" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/0609005",
+        "authors": [{ "full_name": "Meurice, Y." }],
+        "label": "9",
+        "publication_info": {
+          "artid": "096005",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "74"
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "LeGuillou, J.C." },
+          { "full_name": "Zinn-Justin, J." }
+        ],
+        "imprint": { "publisher": "North-Holland" },
+        "label": "10",
+        "misc": [
+          "Large-Order Behavior of Perturbation Theory, , Amsterdam, 1990"
+        ]
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/823919" },
+      "reference": {
+        "arxiv_eprint": "0906.4312",
+        "authors": [
+          { "full_name": "Narison, S." },
+          { "full_name": "Zakharov, V.I." }
+        ],
+        "label": "11",
+        "misc": ["]"],
+        "publication_info": {
+          "artid": "355",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "679",
+          "page_start": "355"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/834077" },
+      "reference": {
+        "arxiv_eprint": "0910.2795",
+        "authors": [
+          { "full_name": "Ilgenfritz, E.-M." },
+          { "full_name": "Nakamura, Y." },
+          { "full_name": "Perlt, H." },
+          { "full_name": "Rakow, P.E.L." },
+          { "full_name": "Schierholz, G." },
+          { "full_name": "Schiller, A." }
+        ],
+        "label": "12",
+        "misc": ["PoS LAT : 2009 (2009) 236 [ ]"]
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/873915" },
+      "reference": {
+        "arxiv_eprint": "1010.4674",
+        "authors": [
+          { "full_name": "Horsley, R." },
+          { "full_name": "Hotzel, G." },
+          { "full_name": "Ilgenfritz, E.-M." },
+          { "full_name": "Nakamura, Y." },
+          { "full_name": "Perlt, H." },
+          { "full_name": "Rakow, P.E.L." },
+          { "full_name": "Schierholz, G." },
+          { "full_name": "Schiller, A." }
+        ],
+        "label": "13",
+        "misc": ["PoS LATTICE : 2010 (2010) 264 [ ]"]
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/9589" },
+      "reference": {
+        "authors": [{ "full_name": "Parisi, G." }],
+        "label": "14",
+        "misc": ["and Y. -s. Wu"],
+        "publication_info": {
+          "artid": "483",
+          "journal_title": "Sci.Sin.",
+          "journal_volume": "24",
+          "page_start": "483"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/661467" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/0410010",
+        "authors": [
+          { "full_name": "Di Renzo, F." },
+          { "full_name": "Scorzato, L." }
+        ],
+        "label": "15",
+        "publication_info": {
+          "artid": "073",
+          "journal_title": "JHEP",
+          "journal_volume": "10",
+          "page_start": "073",
+          "year": 2004
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Bali, G." }],
+        "label": "16",
+        "misc": ["private communication"]
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/203758" },
+      "reference": {
+        "authors": [
+          { "full_name": "Heller, U.M." },
+          { "full_name": "Karsch, F." }
+        ],
+        "label": "17",
+        "publication_info": {
+          "artid": "254",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "251",
+          "page_start": "254"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/565153" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/0110210",
+        "authors": [
+          { "full_name": "Horsley, R." },
+          { "full_name": "Rakow, P.E.L." },
+          { "full_name": "Schierholz, G." }
+        ],
+        "label": "18",
+        "publication_info": {
+          "artid": "870",
+          "journal_title": "Nucl.Phys.B Proc.Suppl.",
+          "journal_volume": "106",
+          "page_start": "870"
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Domb, C." },
+          { "full_name": "Sykes, M.F." }
+        ],
+        "label": "19",
+        "publication_info": {
+          "artid": "214",
+          "journal_title": "Proc.Roy.Soc.Lond.A",
+          "journal_volume": "A240",
+          "page_start": "214"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/340594" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/9209022",
+        "authors": [
+          { "full_name": "Lepage, G.P." },
+          { "full_name": "Mackenzie, P.B." }
+        ],
+        "label": "20",
+        "publication_info": {
+          "artid": "2250",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "48",
+          "page_start": "2250"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/202634" },
+      "reference": {
+        "authors": [
+          { "full_name": "Wohlert, R." },
+          { "full_name": "Weisz, P." },
+          { "full_name": "Wetzel, W." }
+        ],
+        "label": "21",
+        "publication_info": {
+          "artid": "85",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "259",
+          "page_start": "85"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/466035" },
+      "reference": {
+        "authors": [
+          { "full_name": "Alles, B." },
+          { "full_name": "Feo, A." },
+          { "full_name": "Panagopoulos, H." }
+        ],
+        "label": "22",
+        "publication_info": {
+          "artid": "361",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "426",
+          "page_start": "361"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/466035" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/9801003",
+        "authors": [
+          { "full_name": "Alles, B." },
+          { "full_name": "Feo, A." },
+          { "full_name": "Panagopoulos, H." }
+        ],
+        "label": "22",
+        "publication_info": {
+          "artid": "337",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "553",
+          "page_start": "337"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/659708" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/0409127",
+        "authors": [
+          { "full_name": "Athenodorou, A." },
+          { "full_name": "Panagopoulos, H." },
+          { "full_name": "Tsapalis, A." }
+        ],
+        "label": "23",
+        "publication_info": {
+          "artid": "794",
+          "journal_title": "Nucl.Phys.B Proc.Suppl.",
+          "journal_volume": "140",
+          "page_start": "794"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/427611" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/9612016",
+        "authors": [
+          { "full_name": "Di Renzo, F." },
+          { "full_name": "Marchesini, G." },
+          { "full_name": "Onofri, E." }
+        ],
+        "label": "24",
+        "publication_info": {
+          "artid": "435",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "497",
+          "page_start": "435"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/418738" },
+      "reference": {
+        "arxiv_eprint": "hep-ph/9605336",
+        "authors": [
+          { "full_name": "Martinelli, G." },
+          { "full_name": "Sachrajda, C.T." }
+        ],
+        "label": "25",
+        "publication_info": {
+          "artid": "660",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "478",
+          "page_start": "660"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/473611" },
+      "reference": {
+        "arxiv_eprint": "hep-ph/9807443",
+        "authors": [{ "full_name": "Beneke, M." }],
+        "label": "26",
+        "misc": ["See, e.g., ]"],
+        "publication_info": {
+          "artid": "1",
+          "journal_title": "Phys.Rept.",
+          "journal_volume": "317",
+          "page_start": "1"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/694798" },
+      "reference": {
+        "authors": [{ "full_name": "Suslov, I.M." }],
+        "label": "27",
+        "publication_info": {
+          "artid": "1350",
+          "journal_title": "Zh.Eksp.Teor.Fiz.",
+          "journal_volume": "127",
+          "page_start": "1350"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/694798" },
+      "reference": {
+        "arxiv_eprint": "hep-ph/0510142",
+        "label": "27",
+        "publication_info": {
+          "artid": "1188",
+          "journal_title": "J.Exp.Theor.Phys.",
+          "journal_volume": "100",
+          "page_start": "1188"
+        }
+      }
+    },
+    {
+      "legacy_curated": true,
+      "reference": {
+        "authors": [{ "full_name": "Zakharov, V." }],
+        "label": "28",
+        "misc": ["306 ["],
+        "publication_info": {
+          "artid": "207",
+          "journal_title": "Nucl.Phys.B Proc.Suppl.",
+          "journal_volume": "306",
+          "page_start": "207"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/873610" },
+      "reference": { "arxiv_eprint": "1010.4482", "label": "28", "misc": ["]"] }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Ilgenfritz, E.-M." },
+          { "full_name": "Perlt, H." },
+          { "full_name": "Schiller, A." }
+        ],
+        "label": "29",
+        "misc": ["unpublished"]
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/443763" },
+      "reference": {
+        "arxiv_eprint": "hep-ph/9706209",
+        "authors": [
+          { "full_name": "Burgio, G." },
+          { "full_name": "Di Renzo, F." },
+          { "full_name": "Marchesini, G." },
+          { "full_name": "Onofri, E." }
+        ],
+        "label": "30",
+        "publication_info": {
+          "artid": "219",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "422",
+          "page_start": "219"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/561196" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/0108008",
+        "authors": [
+          { "full_name": "Necco, S." },
+          { "full_name": "Sommer, R." }
+        ],
+        "label": "31",
+        "publication_info": {
+          "artid": "328",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "622",
+          "page_start": "328"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/152864" },
+      "reference": {
+        "authors": [{ "full_name": "Shifman, M.A." }],
+        "label": "32",
+        "publication_info": {
+          "artid": "13",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "173",
+          "page_start": "13"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/403826" },
+      "reference": {
+        "arxiv_eprint": "hep-ph/9512348",
+        "authors": [{ "full_name": "Narison, S." }],
+        "label": "33",
+        "publication_info": {
+          "artid": "162",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "387",
+          "page_start": "162"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/946471" },
+      "reference": {
+        "arxiv_eprint": "1111.3946",
+        "authors": [
+          { "full_name": "Bauer, C." },
+          { "full_name": "Bali, G.S." },
+          { "full_name": "Pineda, A." }
+        ],
+        "label": "34",
+        "misc": ["]"],
+        "publication_info": {
+          "artid": "242002",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "108"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/375283" },
+      "reference": {
+        "arxiv_eprint": "hep-ph/9407407",
+        "authors": [
+          { "full_name": "Luke, M.E." },
+          { "full_name": "Manohar, A.V." },
+          { "full_name": "Savage, M.J." }
+        ],
+        "label": "35",
+        "publication_info": {
+          "artid": "4924",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "51",
+          "page_start": "4924"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/394582" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9504141",
+        "authors": [
+          { "full_name": "Kogan, I.I." },
+          { "full_name": "Shifman, M.A." }
+        ],
+        "label": "36",
+        "publication_info": {
+          "artid": "2085",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "75",
+          "page_start": "2085"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/168022" },
+      "reference": {
+        "authors": [
+          { "full_name": "Patrascioiu, A." },
+          { "full_name": "Seiler, E." },
+          { "full_name": "Stamatescu, I.O." }
+        ],
+        "label": "37",
+        "publication_info": {
+          "artid": "364",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "107",
+          "page_start": "364"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/192686" },
+      "reference": {
+        "authors": [
+          { "full_name": "Seiler, E." },
+          { "full_name": "Stamatescu, I.O." },
+          { "full_name": "Zwanziger, D." }
+        ],
+        "label": "38",
+        "publication_info": {
+          "artid": "177",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "239",
+          "page_start": "177"
+        }
+      }
+    }
+  ],
+  "report_numbers": [
+    { "value": "DESY-12-065" },
+    { "value": "EDINBURGH-2012-04" },
+    { "value": "HU-EP-12-14" },
+    { "value": "LIVERPOOL-LTH-919" }
+  ],
+  "self": { "$ref": "https://inspirebeta.net/api/literature/1113908" },
+  "texkeys": ["Horsley:2012ra"],
+  "titles": [
+    {
+      "title":
+        "Wilson loops to 20th order numerical stochastic perturbation theory"
+    },
+    {
+      "source": "arXiv",
+      "title":
+        "Wilson loops to 20th order numerical stochastic perturbation theory"
+    }
+  ],
+  "urls": [
+    {
+      "description":
+        "00021 $\\delta^2_{\\min}$ as function of parameter $s$ for $W_{22}$.",
+      "value": "http://inspirehep.net/record/1113908/files/Fig10.png"
+    },
+    {
+      "description":
+        "00022 The hypergeometric fit to the coefficients $W_{NM}^{(n)}$ for the four small Wilson loops. Solid symbols represent positive terms, open symbols are negative terms. The blue line is an equal weight fit, including all points from $W_{NM}^{(0)}$ to $W_{NM}^{(20)}$. The agreement is remarkably good.",
+      "value": "http://inspirehep.net/record/1113908/files/Fig11a.png"
+    },
+    {
+      "description":
+        "00023 The hypergeometric fit to the coefficients $W_{NM}^{(n)}$ for the four small Wilson loops. Solid symbols represent positive terms, open symbols are negative terms. The blue line is an equal weight fit, including all points from $W_{NM}^{(0)}$ to $W_{NM}^{(20)}$. The agreement is remarkably good.",
+      "value": "http://inspirehep.net/record/1113908/files/Fig11b.png"
+    },
+    {
+      "description":
+        "00024 The hypergeometric fit to the coefficients $W_{NM}^{(n)}$ for the four small Wilson loops. Solid symbols represent positive terms, open symbols are negative terms. The blue line is an equal weight fit, including all points from $W_{NM}^{(0)}$ to $W_{NM}^{(20)}$. The agreement is remarkably good.",
+      "value": "http://inspirehep.net/record/1113908/files/Fig11c.png"
+    },
+    {
+      "description":
+        "00025 The hypergeometric fit to the coefficients $W_{NM}^{(n)}$ for the four small Wilson loops. Solid symbols represent positive terms, open symbols are negative terms. The blue line is an equal weight fit, including all points from $W_{NM}^{(0)}$ to $W_{NM}^{(20)}$. The agreement is remarkably good.",
+      "value": "http://inspirehep.net/record/1113908/files/Fig11d.png"
+    },
+    {
+      "description":
+        "00026 Domb-Sykes plots for $W_{NM}$ with fits to the parameters in the range $n \\in [2,20]$.",
+      "value": "http://inspirehep.net/record/1113908/files/Fig12a.png"
+    },
+    {
+      "description":
+        "00027 Domb-Sykes plots for $W_{NM}$ with fits to the parameters in the range $n \\in [2,20]$.",
+      "value": "http://inspirehep.net/record/1113908/files/Fig12b.png"
+    },
+    {
+      "description":
+        "00028 Domb-Sykes plots for $W_{NM}$ with fits to the parameters in the range $n \\in [2,20]$.",
+      "value": "http://inspirehep.net/record/1113908/files/Fig12c.png"
+    },
+    {
+      "description":
+        "00029 Domb-Sykes plots for $W_{NM}$ with fits to the parameters in the range $n \\in [2,20]$.",
+      "value": "http://inspirehep.net/record/1113908/files/Fig12d.png"
+    },
+    {
+      "description":
+        "00030 Comparison of perturbative coefficients for the naive series ($W_{11}^{(n)}$), the boosted series from NSPT raw data ($W_{11,b}^{(n)}$) and the boosted series using the hypergeometric model ($W_{11,b,hyp}^{(n)}$). The boosted coupling (\\ref{eq:gboost}) is used, positive/negative signs of the coefficients are given by open/full symbols.",
+      "value": "http://inspirehep.net/record/1113908/files/Fig13.png"
+    },
+    {
+      "description":
+        "00031 Coefficients for the naive and boosted series based on the hypergeometric model for $W_{11}$, $W_{21}$ , $W_{31}$ and $W_{22}$ as function of the loop order $n$.",
+      "value": "http://inspirehep.net/record/1113908/files/Fig14a.png"
+    },
+    {
+      "description":
+        "00032 Coefficients for the naive and boosted series based on the hypergeometric model for $W_{11}$, $W_{21}$ , $W_{31}$ and $W_{22}$ as function of the loop order $n$.",
+      "value": "http://inspirehep.net/record/1113908/files/Fig14b.png"
+    },
+    {
+      "description":
+        "00033 Coefficients for the naive and boosted series based on the hypergeometric model for $W_{11}$, $W_{21}$ , $W_{31}$ and $W_{22}$ as function of the loop order $n$.",
+      "value": "http://inspirehep.net/record/1113908/files/Fig14c.png"
+    },
+    {
+      "description":
+        "00034 Coefficients for the naive and boosted series based on the hypergeometric model for $W_{11}$, $W_{21}$ , $W_{31}$ and $W_{22}$ as function of the loop order $n$.",
+      "value": "http://inspirehep.net/record/1113908/files/Fig14d.png"
+    },
+    {
+      "description":
+        "00035 Truncation errors $T_{NM}(n^\\star)$ (\\ref{eq:delta}) for $W_{11}$ (left) and $W_{31}$ (right) at $L=12$ and $\\beta=6$ using the naive and the boosted series on the basis of the hypergeometric model. The hypergeometric model values for the total sum are $W^{(n_0=4)}_{11,\\infty}=0.59409(8)$ and $W^{(n_0=4)}_{31,\\infty}=0.25337(22)$.",
+      "value": "http://inspirehep.net/record/1113908/files/Fig15a.png"
+    },
+    {
+      "description":
+        "00036 Truncation errors $T_{NM}(n^\\star)$ (\\ref{eq:delta}) for $W_{11}$ (left) and $W_{31}$ (right) at $L=12$ and $\\beta=6$ using the naive and the boosted series on the basis of the hypergeometric model. The hypergeometric model values for the total sum are $W^{(n_0=4)}_{11,\\infty}=0.59409(8)$ and $W^{(n_0=4)}_{31,\\infty}=0.25337(22)$.",
+      "value": "http://inspirehep.net/record/1113908/files/Fig15b.png"
+    },
+    {
+      "description":
+        "00037 $\\widetilde{W}_{11}(\\beta)-1$ as function of $\\beta=6/g^2$ for $n^\\star=20$: ``naive'' with $W_{11,PT}=W_{11}(g,20)$; ``boost'' with $W_{11,PT}=W_{11,b}(g_b,20)$ and $g_b^2$ computed from (\\ref{eq:gboost}); ``improved boost'' with $W_{11,PT}=W_{11,b}(g_b,20)$ and $g_b$ computed from (\\ref{eq:gboostmod}). (Full/open symbols denote positive/negative numbers.)",
+      "value": "http://inspirehep.net/record/1113908/files/Fig16.png"
+    },
+    {
+      "description":
+        "00038 Boosted coefficients of ratios (left: $[R^{12}_{21,11}]^{(n)}$, right: $[R^{13}_{31,11}]^{(n)}$) defined in (\\ref{eq:ratioR1}). The thin lines show the corresponding boosted coefficients for the $1\\!\\times\\!1$ and $2\\!\\times\\!1$ (left) and $1\\!\\times\\!1$ and $3\\!\\times\\!1$(right) Wilson loops, respectively.",
+      "value": "http://inspirehep.net/record/1113908/files/Fig17a.png"
+    },
+    {
+      "description":
+        "00039 Boosted coefficients of ratios (left: $[R^{12}_{21,11}]^{(n)}$, right: $[R^{13}_{31,11}]^{(n)}$) defined in (\\ref{eq:ratioR1}). The thin lines show the corresponding boosted coefficients for the $1\\!\\times\\!1$ and $2\\!\\times\\!1$ (left) and $1\\!\\times\\!1$ and $3\\!\\times\\!1$(right) Wilson loops, respectively.",
+      "value": "http://inspirehep.net/record/1113908/files/Fig17b.png"
+    },
+    {
+      "description":
+        "00040 $\\widetilde{R}^{k,m}_{21,11}$ for $(k,m)=(1,2), (2,4)$ and $(3,3)$ as function of loop order $n^\\star$ up to which the ratio is summed up.",
+      "value": "http://inspirehep.net/record/1113908/files/Fig18.png"
+    },
+    {
+      "description":
+        "00041 $\\Delta_{W_{11}}$ (left) and $\\Delta_{W_{NM}}$ (right) as function of $a^4$ together with their corresponding fits assuming $a^4$ and $(a^4)^2$ contributions.",
+      "value": "http://inspirehep.net/record/1113908/files/Fig19a.png"
+    },
+    {
+      "description":
+        "00042 $\\Delta_{W_{11}}$ (left) and $\\Delta_{W_{NM}}$ (right) as function of $a^4$ together with their corresponding fits assuming $a^4$ and $(a^4)^2$ contributions.",
+      "value": "http://inspirehep.net/record/1113908/files/Fig19b.png"
+    },
+    {
+      "description":
+        "00005 Plaquette expansion coefficients $W_{11}^{(n)}$ at some finite $\\varepsilon$ at $L=12$ versus loop number $n$. On the left-hand panel the loop expansion coefficients for integer $n$ (signal) are shown together with their extrapolations  $\\varepsilon \\to 0$. The right-hand panel shows the non-loop coefficients for half-integer $n$ which are purely noise, and 2 or 3 orders of magnitude smaller than the integer coefficients. Open/full symbols denote positive/negative numbers.",
+      "value": "http://inspirehep.net/record/1113908/files/Fig1a.png"
+    },
+    {
+      "description":
+        "00006 Plaquette expansion coefficients $W_{11}^{(n)}$ at some finite $\\varepsilon$ at $L=12$ versus loop number $n$. On the left-hand panel the loop expansion coefficients for integer $n$ (signal) are shown together with their extrapolations  $\\varepsilon \\to 0$. The right-hand panel shows the non-loop coefficients for half-integer $n$ which are purely noise, and 2 or 3 orders of magnitude smaller than the integer coefficients. Open/full symbols denote positive/negative numbers.",
+      "value": "http://inspirehep.net/record/1113908/files/Fig1b.png"
+    },
+    {
+      "description":
+        "00043 Coefficient $c_4$ as function of the inverse loop order $1/n^\\star$ for different Wilson loops. The data points at ``$1/n^\\star=0$'' represent the series summed to infinity using the hypergeometric model.",
+      "value": "http://inspirehep.net/record/1113908/files/Fig20.png"
+    },
+    {
+      "description":
+        "00044 The perturbative potential difference $\\Delta V$ obtained from the perturbative Wilson loops up to loop order 20 as function of the distance $R$ and $g^2$.",
+      "value": "http://inspirehep.net/record/1113908/files/Fig21.png"
+    },
+    {
+      "description":
+        "00007 Zoom of left Figure~\\ref{fig:orderW11} into small (left) and large (right) loop number region $n$ for all finite $\\varepsilon$. The full circles in red are the extrapolated $\\varepsilon \\to 0$ values. The coefficients in the left Figure at different orders $n$ are multiplied by factors to make them comparable in size to those at $n=1$.",
+      "value": "http://inspirehep.net/record/1113908/files/Fig2a.png"
+    },
+    {
+      "description":
+        "00008 Zoom of left Figure~\\ref{fig:orderW11} into small (left) and large (right) loop number region $n$ for all finite $\\varepsilon$. The full circles in red are the extrapolated $\\varepsilon \\to 0$ values. The coefficients in the left Figure at different orders $n$ are multiplied by factors to make them comparable in size to those at $n=1$.",
+      "value": "http://inspirehep.net/record/1113908/files/Fig2b.png"
+    },
+    {
+      "description":
+        "00009 Same as in Figure~\\ref{fig:orderW11} but for the Wilson loop expansion coefficients  $W_{33}^{(n)}$.",
+      "value": "http://inspirehep.net/record/1113908/files/Fig3a.png"
+    },
+    {
+      "description":
+        "00010 Same as in Figure~\\ref{fig:orderW11} but for the Wilson loop expansion coefficients  $W_{33}^{(n)}$.",
+      "value": "http://inspirehep.net/record/1113908/files/Fig3b.png"
+    },
+    {
+      "description":
+        "00011 The extrapolation to zero Langevin step for Wilson loop expansion coefficients $W_{33}^{(n)}$: Left: Zoom of both Figs.~\\ref{fig:orderW33} in the region [3.5,11.5]. Right: Detailed extrapolation to $\\varepsilon\\to 0$ for selected loop numbers.",
+      "value": "http://inspirehep.net/record/1113908/files/Fig4a.png"
+    },
+    {
+      "description":
+        "00012 The extrapolation to zero Langevin step for Wilson loop expansion coefficients $W_{33}^{(n)}$: Left: Zoom of both Figs.~\\ref{fig:orderW33} in the region [3.5,11.5]. Right: Detailed extrapolation to $\\varepsilon\\to 0$ for selected loop numbers.",
+      "value": "http://inspirehep.net/record/1113908/files/Fig4b.png"
+    },
+    {
+      "description":
+        "00013 Selected loop coefficients $W_{NM}^{(n)}$ for $L=12$ versus loop order $n$ together with typical values in magnitude of non-loop coefficients. Positive/negative signs of the coefficients are given by open/full symbols, all $W_{11}^{(n)}&lt;0,W_{21}^{(n)}&lt;0$. Left: elongated Wilson loops $N\\!\\times\\!1$ with $N=1,\\dots 6$, right: square Wilson loops $N\\!\\times\\!N$ with $N=1,\\dots,4$.",
+      "value": "http://inspirehep.net/record/1113908/files/Fig5a.png"
+    },
+    {
+      "description":
+        "00014 Selected loop coefficients $W_{NM}^{(n)}$ for $L=12$ versus loop order $n$ together with typical values in magnitude of non-loop coefficients. Positive/negative signs of the coefficients are given by open/full symbols, all $W_{11}^{(n)}&lt;0,W_{21}^{(n)}&lt;0$. Left: elongated Wilson loops $N\\!\\times\\!1$ with $N=1,\\dots 6$, right: square Wilson loops $N\\!\\times\\!N$ with $N=1,\\dots,4$.",
+      "value": "http://inspirehep.net/record/1113908/files/Fig5b.png"
+    },
+    {
+      "description":
+        "00015 Extrapolation $L\\rightarrow \\infty$ for $W_{11}^{(n)}$ for loop orders $n=1$ (left) and $n=10$ (right).",
+      "value": "http://inspirehep.net/record/1113908/files/Fig6a.png"
+    },
+    {
+      "description":
+        "00016 Extrapolation $L\\rightarrow \\infty$ for $W_{11}^{(n)}$ for loop orders $n=1$ (left) and $n=10$ (right).",
+      "value": "http://inspirehep.net/record/1113908/files/Fig6b.png"
+    },
+    {
+      "description":
+        "00017 Current ratio data for the plaquette, compared with the prediction of 2001~\\cite{Horsley:2001uy}, plotted with the original parameters. The prediction was based on data with $n \\le 10$, i.e. to the right of the vertical blue bar. The second figure zooms in on the region of new data.",
+      "value": "http://inspirehep.net/record/1113908/files/Fig7a.png"
+    },
+    {
+      "description":
+        "00018 Current ratio data for the plaquette, compared with the prediction of 2001~\\cite{Horsley:2001uy}, plotted with the original parameters. The prediction was based on data with $n \\le 10$, i.e. to the right of the vertical blue bar. The second figure zooms in on the region of new data.",
+      "value": "http://inspirehep.net/record/1113908/files/Fig7b.png"
+    },
+    {
+      "description":
+        "00019 Domb-Sykes plots for $W_{NM}$ for $n \\ge 5$ together with the fit result using (\\ref{eq:HRSratio}).",
+      "value": "http://inspirehep.net/record/1113908/files/Fig8.png"
+    },
+    {
+      "description":
+        "00020 A log-log plot of the ratio~(\\ref{Wrat}), plotted for different sizes of Wilson loops. To guide the eyes, the data points for the loop orders are connected by lines.",
+      "value": "http://inspirehep.net/record/1113908/files/Fig9.png"
+    },
+    {
+      "value": "http://inspirehep.net/record/1113908/files/arXiv:1205.1659.pdf"
+    }
+  ]
+}

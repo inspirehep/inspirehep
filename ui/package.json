@@ -12,11 +12,9 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
-    "test": "yarn lint && yarn test:unit && yarn test:ui && yarn test:size",
-    "test:ui": "./run-ui-tests.sh",
     "test:unit": "craco test",
-    "test:unit:log": "craco test --verbose=false",
-    "test:size": "bundlesize",
+    "test": "yarn lint && yarn test:unit && yarn test:size",
+    "test:size": "yarn build && bundlesize",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "eject": "react-scripts eject",
     "lint":

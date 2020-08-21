@@ -7,6 +7,7 @@ exports[`UserFeedback calls trackEvent with feedback on modal Ok and renders tha
   <Button
     block={false}
     className="feedback-button"
+    data-test-id="sticky"
     ghost={false}
     htmlType="button"
     icon={<ForwardRef(MessageOutlined) />}
@@ -69,6 +70,7 @@ exports[`UserFeedback renders 1`] = `
   <Button
     block={false}
     className="feedback-button"
+    data-test-id="sticky"
     ghost={false}
     htmlType="button"
     icon={<ForwardRef(MessageOutlined) />}
@@ -144,6 +146,7 @@ exports[`UserFeedback renders when tracker is blocked 1`] = `
   <Button
     block={false}
     className="feedback-button"
+    data-test-id="sticky"
     ghost={false}
     htmlType="button"
     icon={<ForwardRef(MessageOutlined) />}

@@ -1,0 +1,569 @@
+{
+  "$schema": "https://inspirebeta.net/schemas/records/hep.json",
+  "_collections": ["Literature"],
+  "_desy_bookkeeping": [
+    { "identifier": "D15-kj12c" },
+    { "date": "2015-03-19", "expert": "Y", "status": "full" },
+    { "date": "2015-03-22", "expert": "Y", "status": "printed" },
+    { "date": "2015-07-01", "status": "final" }
+  ],
+  "_private_notes": [{ "source": "CERN", "value": "CDS-1753277" }],
+  "abstracts": [
+    {
+      "source": "APS",
+      "value":
+        "We present a new general dispersive formalism for evaluating the hadronic light-by-light scattering contribution to the anomalous magnetic moment of the muon. In the suggested approach, this correction is related to the imaginary part of the muon\u2019s electromagnetic vertex function. The latter may be directly related to measurable hadronic processes by means of unitarity and analyticity. As a test we apply the introduced formalism to the case of meson pole exchanges and find agreement with the direct two-loop calculation."
+    },
+    {
+      "source": "arXiv",
+      "value":
+        "We present a new general dispersive formalism for evaluating the hadronic light-by-light scattering contribution to the anomalous magnetic moment of the muon. In the suggested approach, this correction is related to the imaginary part of the muon's electromagnetic vertex function. The latter may be directly related to measurable hadronic processes by means of unitarity and analyticity. As a test we apply the introduced formalism to the case of meson pole exchanges and find agreement with the direct two-loop calculation."
+    }
+  ],
+  "acquisition_source": { "method": "oai", "source": "arxiv" },
+  "arxiv_eprints": [
+    { "categories": ["hep-ph", "nucl-th"], "value": "1409.0819" }
+  ],
+  "authors": [
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/902981"
+          },
+          "value": "Mainz U., Inst. Kernphys."
+        },
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/1280366"
+          },
+          "value": "U. Mainz, PRISMA"
+        }
+      ],
+      "full_name": "Pauk, Vladyslav",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "V.Pauk.1" }],
+      "record": { "$ref": "https://inspirebeta.net/api/authors/1259802" },
+      "signature_block": "PACv",
+      "uuid": "01ac5fd0-71fe-457d-a886-f3e73406b975"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/902981"
+          },
+          "value": "Mainz U., Inst. Kernphys."
+        },
+        {
+          "record": {
+            "$ref": "https://inspirebeta.net/api/institutions/1280366"
+          },
+          "value": "U. Mainz, PRISMA"
+        }
+      ],
+      "curated_relation": true,
+      "full_name": "Vanderhaeghen, Marc",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "M.Vanderhaeghen.1" }],
+      "record": { "$ref": "https://inspirebeta.net/api/authors/984999" },
+      "signature_block": "VANDARAGANm",
+      "uuid": "5aa330ad-ec8b-4ed8-9e4a-e6ee02b8ceed"
+    }
+  ],
+  "citeable": true,
+  "control_number": 1313615,
+  "copyright": [
+    {
+      "holder": "American Physical Society",
+      "material": "publication",
+      "year": 2014
+    }
+  ],
+  "core": true,
+  "curated": true,
+  "document_type": ["article"],
+  "documents": [
+    {
+      "hidden": true,
+      "key": "arXiv:1409.0819.pdf",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/ffb7a2f810115d1120e6458ccf6172c4"
+    }
+  ],
+  "dois": [{ "value": "10.1103/PhysRevD.90.113012" }],
+  "figures": [
+    {
+      "caption":
+        "The hadronic vacuum polarization (left panel) and light-by-light scattering (right panel) contributions to the anomalous magnetic moment of the muon",
+      "filename": "hadronicVP.png",
+      "key": "22e53bfe838461c12153a07aa1cb218c",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/22e53bfe838461c12153a07aa1cb218c"
+    },
+    {
+      "caption":
+        "The hadronic vacuum polarization (left panel) and light-by-light scattering (right panel) contributions to the anomalous magnetic moment of the muon",
+      "filename": "LbL.png",
+      "key": "3362cd5e0ada7373e05d8eb7c365a4a1",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/3362cd5e0ada7373e05d8eb7c365a4a1"
+    },
+    {
+      "caption":
+        "Unitarity diagrams contributing to the imaginary part of the vertex function. The cut indicates the on-shell intermediate state.",
+      "filename": "LbL_D.png",
+      "key": "5013ee0f4acfc8d1ff1e0d2e7eaca484",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/5013ee0f4acfc8d1ff1e0d2e7eaca484"
+    },
+    {
+      "caption":
+        "Unitarity diagrams contributing to the imaginary part of the vertex function. The cut indicates the on-shell intermediate state.",
+      "filename": "LbL_D2.png",
+      "key": "5cea74ae9cdd07870fef2fd20b860bb9",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/5cea74ae9cdd07870fef2fd20b860bb9"
+    },
+    {
+      "caption":
+        "Unitarity diagrams contributing to the imaginary part of the vertex function. The cut indicates the on-shell intermediate state.",
+      "filename": "LbL_D3.png",
+      "key": "634fa8b069de63f238cb942ade839ae5",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/634fa8b069de63f238cb942ade839ae5"
+    },
+    {
+      "caption":
+        "Unitarity diagrams contributing to the imaginary part of the vertex function. The cut indicates the on-shell intermediate state.",
+      "filename": "LbL_D0.png",
+      "key": "78e09bf97257ab9f830376e59637b1af",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/78e09bf97257ab9f830376e59637b1af"
+    },
+    {
+      "caption":
+        "Unitarity diagrams contributing to the imaginary part of the vertex function. The cut indicates the on-shell intermediate state.",
+      "filename": "LbL_Dlep.png",
+      "key": "51dd2cf241ce8dd63e5c57ffefa4b1ca",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/51dd2cf241ce8dd63e5c57ffefa4b1ca"
+    },
+    {
+      "caption":
+        "The two topologies of the HLbL contribution to $a_\\m$ in the pole approximation and examples of the two-particle (dashed) and three-particle (dotted line) cuts for the first topology (left panel). The wavy lines stand for photons, whereas the double-dashed (double-solid) lines stand for pseudoscalar (vector) meson poles.",
+      "filename": "amucutsprl2.png",
+      "key": "2c4f29945d22b48db117d07ba9591f78",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/2c4f29945d22b48db117d07ba9591f78"
+    },
+    {
+      "caption":
+        "The value of the HLbL pole contribution due to the diagram of topology (1) (left panel in Fig.~\\ref{fig:LbLpole}) to $a_\\m$ scaled by factor of $4\\p M^3/(e^2 \\G_{\\g\\g})$ depending on the mass of the pseudoscalar meson, with $\\G_{\\g\\g}$ the two-photon decay width of the pseudoscalar meson. The blue dashed (red dotted) curve represents the contribution of the two (three) particle cuts. Their sum is denoted by the black dashed-dotted curve. The result of the direct evaluation of the two-loop integral is illustrated by the pink solid curve.",
+      "filename": "realpart_diaga.png",
+      "key": "95d58625cd390b92acb9dd37610edb31",
+      "source": "arxiv",
+      "url": "https://inspirebeta.net/files/95d58625cd390b92acb9dd37610edb31"
+    }
+  ],
+  "imprints": [{ "date": "2014-12-18" }],
+  "inspire_categories": [
+    { "term": "Phenomenology-HEP" },
+    { "term": "Theory-Nucl" },
+    { "term": "Other" }
+  ],
+  "keywords": [
+    { "schema": "PACS", "value": "13.40.Em" },
+    { "schema": "PACS", "value": "11.55.Fv" },
+    { "schema": "PACS", "value": "12.38.Lg" },
+    { "schema": "PACS", "value": "14.60.Ef" },
+    { "schema": "INSPIRE", "value": "muon: magnetic moment" },
+    { "schema": "INSPIRE", "value": "vertex function: electromagnetic" },
+    { "schema": "INSPIRE", "value": "photon photon: scattering" },
+    { "schema": "INSPIRE", "value": "dispersion" },
+    { "schema": "INSPIRE", "value": "analytic properties" },
+    { "schema": "INSPIRE", "value": "unitarity" },
+    { "schema": "INSPIRE", "value": "meson" },
+    { "schema": "INSPIRE", "value": "pole" },
+    { "schema": "INSPIRE", "value": "vacuum polarization: hadronic" },
+    { "schema": "INSPIRE", "value": "photon: virtual" },
+    { "schema": "INSPIRE", "value": "field theory: scalar" },
+    { "schema": "INSPIRE", "value": "numerical calculations" }
+  ],
+  "legacy_creation_date": "2014-09-03",
+  "legacy_version": "20150701115606.0",
+  "license": [
+    {
+      "imposing": "arXiv",
+      "url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/"
+    }
+  ],
+  "number_of_pages": 5,
+  "preprint_date": "2014-09-02",
+  "public_notes": [{ "source": "arXiv", "value": "5 pages, 4 figures" }],
+  "publication_info": [
+    {
+      "artid": "113012",
+      "journal_issue": "11",
+      "journal_title": "Phys.Rev.D",
+      "journal_volume": "90",
+      "year": 2014
+    }
+  ],
+  "refereed": true,
+  "references": [
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1264013" },
+      "reference": {
+        "arxiv_eprint": "1311.2198",
+        "authors": [
+          { "full_name": "Blum, T." },
+          { "full_name": "Denig, A." },
+          { "full_name": "Logashenko, I." },
+          { "full_name": "de Rafael, E." },
+          { "full_name": "Roberts, B. Lee" }
+        ],
+        "imprint": { "publisher": "Teubner" },
+        "label": "1",
+        "misc": ["T and G. Venanzoni"]
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1285231" },
+      "reference": {
+        "arxiv_eprint": "1403.2309",
+        "authors": [
+          { "full_name": "Queiroz, F.S." },
+          { "full_name": "Shepherd, W." }
+        ],
+        "label": "2",
+        "publication_info": {
+          "artid": "095024",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "89",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/931463" },
+      "reference": {
+        "authors": [{ "full_name": "Roberts, B. Lee" }],
+        "imprint": { "publisher": "Fermilab" },
+        "label": "3",
+        "misc": ["P989 Collaboration]"],
+        "publication_info": {
+          "artid": "237",
+          "journal_title": "Nucl.Phys.B Proc.Suppl.",
+          "journal_volume": "218",
+          "page_start": "237",
+          "year": 2011
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/914680" },
+      "reference": {
+        "authors": [{ "full_name": "Iinuma, H." }],
+        "label": "4",
+        "misc": ["[J-PARC New g-2/EDM experiment Collaboration]"],
+        "publication_info": {
+          "artid": "012032",
+          "journal_title": "J.Phys.Conf.Ser.",
+          "journal_volume": "295",
+          "year": 2011
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/552950" },
+      "reference": {
+        "arxiv_eprint": "hep-ph/0102122",
+        "authors": [
+          { "full_name": "Czarnecki, A." },
+          { "full_name": "Marciano, W.J." }
+        ],
+        "label": "5",
+        "publication_info": {
+          "artid": "013014",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "64",
+          "year": 2001
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1267752" },
+      "reference": {
+        "authors": [{ "full_name": "Jegerlehner, F." }],
+        "label": "6",
+        "publication_info": {
+          "artid": "2257",
+          "journal_title": "Acta Phys.Polon.B",
+          "journal_volume": "44",
+          "page_start": "2257",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1306493" },
+      "reference": {
+        "arxiv_eprint": "1407.4021",
+        "authors": [
+          { "full_name": "Benayoun, M." },
+          { "full_name": "Bijnens, J." },
+          { "full_name": "Blum, T." },
+          { "full_name": "Caprini, I." },
+          { "full_name": "Colangelo, G." },
+          { "full_name": "Czy\u00b4z, H." },
+          { "full_name": "Denig, A." },
+          { "full_name": "Dominguez, C.A." }
+        ],
+        "label": "7"
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/813721" },
+      "reference": {
+        "authors": [
+          { "full_name": "Jegerlehner, F." },
+          { "full_name": "Nyffeler, A." }
+        ],
+        "label": "8",
+        "publication_info": {
+          "artid": "1",
+          "journal_title": "Phys.Rept.",
+          "journal_volume": "477",
+          "page_start": "1",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/777286" },
+      "reference": {
+        "authors": [{ "full_name": "Jegerlehner, F." }],
+        "label": "8",
+        "publication_info": {
+          "artid": "1",
+          "journal_title": "Springer Tracts Mod.Phys.",
+          "journal_volume": "226",
+          "page_start": "1",
+          "year": 2008
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/810227" },
+      "reference": {
+        "arxiv_eprint": "0901.0306",
+        "authors": [
+          { "full_name": "Prades, J." },
+          { "full_name": "de Rafael, E." },
+          { "full_name": "Vainshtein, A." }
+        ],
+        "label": "9",
+        "misc": ["(Advanced series on directions in high energy physics. 20)"]
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1283181" },
+      "reference": {
+        "arxiv_eprint": "1402.7081",
+        "authors": [
+          { "full_name": "Colangelo, G." },
+          { "full_name": "Hoferichter, M." },
+          { "full_name": "Procura, M." },
+          { "full_name": "Stoffer, P." }
+        ],
+        "label": "10"
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1310649" },
+      "reference": {
+        "arxiv_eprint": "1408.2517",
+        "authors": [
+          { "full_name": "Colangelo, G." },
+          { "full_name": "Hoferichter, M." },
+          { "full_name": "Kubis, B." },
+          { "full_name": "Procura, M." },
+          { "full_name": "Stoffer, P." }
+        ],
+        "label": "11"
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/74363" },
+      "reference": {
+        "authors": [
+          { "full_name": "Barbieri, R." },
+          { "full_name": "Mignaco, J.A." },
+          { "full_name": "Remiddi, E." }
+        ],
+        "label": "12",
+        "publication_info": {
+          "artid": "824",
+          "journal_title": "Nuovo Cim.A",
+          "journal_volume": "11",
+          "page_start": "824",
+          "year": 1972
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/305152" },
+      "reference": {
+        "authors": [
+          { "full_name": "Roskies, R.Z." },
+          { "full_name": "Levine, M.J." },
+          { "full_name": "Remiddi, E." }
+        ],
+        "label": "13",
+        "publication_info": {
+          "artid": "162",
+          "journal_title": "Adv.Ser.Direct.High Energy Phys.",
+          "journal_volume": "7",
+          "page_start": "162",
+          "year": 1990
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1233382" },
+      "reference": {
+        "arxiv_eprint": "1305.3143",
+        "authors": [{ "full_name": "Moussallam, B." }],
+        "label": "14"
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/565731" },
+      "reference": {
+        "arxiv_eprint": "hep-ph/0111058",
+        "authors": [
+          { "full_name": "Knecht, M." },
+          { "full_name": "Nyffeler, A." }
+        ],
+        "label": "15",
+        "publication_info": {
+          "artid": "073034",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "65",
+          "year": 2002
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1124040" },
+      "reference": {
+        "arxiv_eprint": "1207.6556",
+        "authors": [
+          { "full_name": "Czerwinski, E." },
+          { "full_name": "Eidelman, S." },
+          { "full_name": "Hanhart, C." },
+          { "full_name": "Kubis, B." },
+          { "full_name": "Kupsc, A." },
+          { "full_name": "Leupold, S." },
+          { "full_name": "Moskal, P." },
+          { "full_name": "Schadmand, S." }
+        ],
+        "label": "16"
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "https://inspirebeta.net/api/literature/1287763" },
+      "reference": {
+        "arxiv_eprint": "1403.7503",
+        "authors": [
+          { "full_name": "Pauk, V." },
+          { "full_name": "Vanderhaeghen, M." }
+        ],
+        "label": "17"
+      }
+    },
+    {
+      "reference": {
+        "label": "18",
+        "misc": [
+          "The anomalous thresholds for the three-point functions located below the normal thresholds do not appear in the considered case"
+        ]
+      }
+    }
+  ],
+  "self": { "$ref": "https://inspirebeta.net/api/literature/1313615" },
+  "texkeys": ["Pauk:2014rfa"],
+  "titles": [
+    {
+      "source": "arXiv",
+      "title": "Anomalous magnetic moment of the muon in a dispersive approach"
+    }
+  ],
+  "urls": [
+    {
+      "description":
+        "00000 The hadronic vacuum polarization (left panel) and light-by-light scattering (right panel) contributions to the anomalous magnetic moment of the muon",
+      "value": "http://inspirehep.net/record/1313615/files/hadronicVP.png"
+    },
+    {
+      "description":
+        "00001 The hadronic vacuum polarization (left panel) and light-by-light scattering (right panel) contributions to the anomalous magnetic moment of the muon",
+      "value": "http://inspirehep.net/record/1313615/files/LbL.png"
+    },
+    {
+      "description":
+        "00005 Unitarity diagrams contributing to the imaginary part of the vertex function. The cut indicates the on-shell intermediate state.",
+      "value": "http://inspirehep.net/record/1313615/files/LbL_D0.png"
+    },
+    {
+      "description":
+        "00004 Unitarity diagrams contributing to the imaginary part of the vertex function. The cut indicates the on-shell intermediate state.",
+      "value": "http://inspirehep.net/record/1313615/files/LbL_D3.png"
+    },
+    {
+      "description":
+        "00008 The value of the HLbL pole contribution due to the diagram of topology (1) (left panel in Fig.~\\ref{fig:LbLpole}) to $a_\\m$ scaled by factor of $4\\p M^3/(e^2 \\G_{\\g\\g})$ depending on the mass of the pseudoscalar meson, with $\\G_{\\g\\g}$ the two-photon decay width of the pseudoscalar meson. The blue dashed (red dotted) curve represents the contribution of the two (three) particle cuts. Their sum is denoted by the black dashed-dotted curve. The result of the direct evaluation of the two-loop integral is illustrated by the pink solid curve.",
+      "value": "http://inspirehep.net/record/1313615/files/realpart_diaga.png"
+    },
+    {
+      "description":
+        "00006 Unitarity diagrams contributing to the imaginary part of the vertex function. The cut indicates the on-shell intermediate state.",
+      "value": "http://inspirehep.net/record/1313615/files/LbL_Dlep.png"
+    },
+    {
+      "description":
+        "00007 The two topologies of the HLbL contribution to $a_\\m$ in the pole approximation and examples of the two-particle (dashed) and three-particle (dotted line) cuts for the first topology (left panel). The wavy lines stand for photons, whereas the double-dashed (double-solid) lines stand for pseudoscalar (vector) meson poles.",
+      "value": "http://inspirehep.net/record/1313615/files/amucutsprl2.png"
+    },
+    {
+      "description":
+        "00002 Unitarity diagrams contributing to the imaginary part of the vertex function. The cut indicates the on-shell intermediate state.",
+      "value": "http://inspirehep.net/record/1313615/files/LbL_D.png"
+    },
+    {
+      "description":
+        "00003 Unitarity diagrams contributing to the imaginary part of the vertex function. The cut indicates the on-shell intermediate state.",
+      "value": "http://inspirehep.net/record/1313615/files/LbL_D2.png"
+    },
+    {
+      "value": "http://inspirehep.net/record/1313615/files/arXiv:1409.0819.pdf"
+    }
+  ]
+}

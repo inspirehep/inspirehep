@@ -3,8 +3,10 @@
   "videosFolder": "cypress/__videos__",
   "screenshotsFolder": "cypress/__screenshots__",
   "env": {
-    "inspirehep_url": "http://localhost:3000",
+    "inspirehep_url": "localhost:3000",
     "desktop_viewport_width": 1920,
-    "desktop_viewport_height": 1080
+    "desktop_viewport_height": 1080,
+    "mobile_viewport_width": 375,
+    "mobile_viewport_height": 667
   }
 }

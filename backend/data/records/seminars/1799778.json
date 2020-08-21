@@ -1,0 +1,63 @@
+{
+  "$schema": "https://inspirehep.net/api/schemas/records/seminars.json",
+  "_collections": ["Seminars"],
+  "abstract": {
+    "value":
+      "<div>This seminar will be postponed because we are joining the #Strike4BlackLives.</div><div>You can find more info here: <a href=\"https://www.particlesforjustice.org/\">https://www.particlesforjustice.org/</a></div><div><br></div><div>A new date for this lecture will be announced asap.</div>"
+  },
+  "acquisition_source": {
+    "datetime": "2020-06-08T14:02:52.526067",
+    "email": "chiara.bellenghi@tum.de",
+    "internal_uid": 68404,
+    "method": "submitter",
+    "orcid": "0000-0001-8525-7515",
+    "source": "submitter"
+  },
+  "address": { "cities": ["M\u00fcnchen"], "country_code": "DE" },
+  "contact_details": [
+    { "email": "chiara.bellenghi@tum.de", "name": "Bellenghi, Chiara" }
+  ],
+  "control_number": 1799778,
+  "end_datetime": "2020-11-11T17:00:00.000000",
+  "inspire_categories": [
+    { "term": "Astrophysics" },
+    { "term": "Experiment-HEP" }
+  ],
+  "join_urls": [
+    {
+      "description": "Zoom",
+      "value":
+        "http://www.sfb1258.de/graduate-school/virtual-seminar-on-multimessenger-astronomy/"
+    }
+  ],
+  "public_notes": [
+    { "value": "The zoom invitation link can be found on the website." }
+  ],
+  "series": [{ "name": "Virtual Seminar in Multimessenger Astronomy" }],
+  "speakers": [
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "https://inspirehep.net/api/institutions/902666"
+          },
+          "value": "DESY, Zeuthen"
+        }
+      ],
+      "name": "Bernardini, Elisa",
+      "record": { "$ref": "https://inspirehep.net/api/authors/1047733" }
+    }
+  ],
+  "start_datetime": "2020-11-11T16:00:00.000000",
+  "timezone": "Europe/Berlin",
+  "title": {
+    "title":
+      "High-energy neutrino astronomy: looking at the Universe through the ice"
+  },
+  "urls": [
+    {
+      "value":
+        "http://www.sfb1258.de/graduate-school/virtual-seminar-on-multimessenger-astronomy/"
+    }
+  ]
+}
