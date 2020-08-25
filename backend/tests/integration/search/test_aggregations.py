@@ -5,6 +5,7 @@ from invenio_accounts.testutils import login_user_via_session
 from mock import patch
 
 from inspirehep.search.aggregations import (
+    conf_series_aggregation,
     conf_subject_aggregation,
     experiment_inspire_classification_aggregation,
     experiment_institution_aggregation,
@@ -501,6 +502,43 @@ def test_jobs_status_aggregation_and_filter(inspire_app):
             assert response["aggregations"]["status"] == expected_aggregation
 
             response = client.get("/jobs?status=open").json
+        assert len(response["hits"]["hits"]) == 1
+        assert (
+            response["hits"]["hits"][0]["metadata"]["control_number"]
+            == expected_record["control_number"]
+        )
+
+
+def test_conf_series_aggregation_and_filter(inspire_app):
+    config = {
+        "RECORDS_REST_FACETS": {
+            "records-conferences": {
+                "filters": {**current_app.config["CONFERENCES_FILTERS"]},
+                "aggs": {**conf_series_aggregation(1)},
+            }
+        }
+    }
+
+    with override_config(**config):
+        data = {"series": [{"name": "Series1"}]}
+        expected_record = create_record("con", data)
+        data = {"series": [{"name": "ICHEP"}]}
+        create_record("con", data)
+        with inspire_app.test_client() as client:
+            response = client.get("/conferences/facets").json
+        expected_aggregation = {
+            "meta": {"title": "Series", "type": "checkbox", "order": 1},
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+                {"key": "ICHEP", "doc_count": 1},
+                {"key": "Series1", "doc_count": 1},
+            ],
+        }
+        assert response["aggregations"]["series"] == expected_aggregation
+
+        with inspire_app.test_client() as client:
+            response = client.get("/conferences?series=Series1").json
         assert len(response["hits"]["hits"]) == 1
         assert (
             response["hits"]["hits"][0]["metadata"]["control_number"]

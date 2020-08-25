@@ -1,6 +1,7 @@
 from flask import current_app
 
 from inspirehep.search.aggregations import (
+    conf_series_aggregation,
     conf_subject_aggregation,
     experiment_inspire_classification_aggregation,
     experiment_institution_aggregation,
@@ -325,8 +326,11 @@ def test_records_jobs_facets(inspire_app):
 
 def test_records_conferences_facets(inspire_app):
     with current_app.test_request_context():
-        expected_filters = {"subject", "start_date", "contains"}
-        expected_aggregations = {**conf_subject_aggregation(order=1)}
+        expected_filters = {"subject", "series", "start_date", "contains"}
+        expected_aggregations = {
+            **conf_series_aggregation(order=1),
+            **conf_subject_aggregation(order=2),
+        }
 
         filters = current_app.config["RECORDS_REST_FACETS"]["records-conferences"]()[
             "filters"

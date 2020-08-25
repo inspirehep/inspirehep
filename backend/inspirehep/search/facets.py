@@ -12,6 +12,7 @@ from flask import current_app, request
 from invenio_records_rest.facets import range_filter
 
 from inspirehep.search.aggregations import (
+    conf_series_aggregation,
     conf_subject_aggregation,
     experiment_inspire_classification_aggregation,
     experiment_institution_aggregation,
@@ -476,7 +477,10 @@ def records_conferences(order=None):
         order = count(start=1)
     return {
         "filters": {**current_app.config["CONFERENCES_FILTERS"]},
-        "aggs": {**conf_subject_aggregation(order=next(order))},
+        "aggs": {
+            **conf_series_aggregation(order=next(order)),
+            **conf_subject_aggregation(order=next(order)),
+        },
     }
 
 

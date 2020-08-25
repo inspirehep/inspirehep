@@ -532,6 +532,7 @@ JOBS_FILTERS = {
 
 CONFERENCES_FILTERS = {
     "subject": must_match_all_filter("inspire_categories.term"),
+    "series": must_match_all_filter("series.name.raw"),
     "start_date": conferences_start_date_range_filter(),
     "contains": conferences_date_range_contains_other_conferences(),
 }

@@ -141,6 +141,15 @@ def jobs_status_aggregation(order, title="Status", agg_type="multiselect"):
     }
 
 
+def conf_series_aggregation(order, title="Series", agg_type="checkbox"):
+    return {
+        "series": {
+            "terms": {"field": "series.name.raw", "size": 20},
+            "meta": {"title": title, "order": order, "type": agg_type},
+        }
+    }
+
+
 def conf_subject_aggregation(order, title="Subject", agg_type="checkbox"):
     return {
         "subject": {
