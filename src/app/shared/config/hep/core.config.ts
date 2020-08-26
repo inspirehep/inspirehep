@@ -97,11 +97,14 @@ export const coreHep: JsonEditorConfig = {
       'number_of_pages',
       'public_notes',
       'publication_info',
+      'copyright',
+      'license',
       'urls',
       'refereed',
       'references',
       'report_numbers',
-      'withdrawn'
+      'withdrawn',
+      '_export_to'
     ],
     alwaysShowRegExp: new RegExp('value'),
     properties: {
@@ -286,7 +289,7 @@ export const coreHep: JsonEditorConfig = {
       },
       copyright: {
         items: {
-          alwaysShow: ['statement', 'url']
+          alwaysShow: ['statement', 'holder', 'material', 'year']
         }
       },
       documents: {
@@ -330,7 +333,7 @@ export const coreHep: JsonEditorConfig = {
       },
       license: {
         items: {
-          alwaysShow: ['license', 'url'],
+          alwaysShow: ['material', 'license', 'url'],
         }
       },
       languages: {
