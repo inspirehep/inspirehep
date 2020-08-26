@@ -10,6 +10,8 @@ from elasticsearch_dsl.query import Q
 from inspirehep.search.api import (
     AuthorsSearch,
     ConferencesSearch,
+    ExperimentsSearch,
+    InstitutionsSearch,
     JobsSearch,
     LiteratureSearch,
     SeminarsSearch,
@@ -37,5 +39,21 @@ def seminars():
     return SeminarsSearch()
 
 
+def experiments():
+    return ExperimentsSearch()
+
+
+def institutions():
+    return InstitutionsSearch()
+
+
 def get_indexable_record_searches():
-    return [jobs(), literature(), authors(), conferences(), seminars()]
+    return [
+        jobs(),
+        literature(),
+        authors(),
+        conferences(),
+        seminars(),
+        experiments(),
+        institutions(),
+    ]
