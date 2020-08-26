@@ -138,7 +138,7 @@ def test_get_random_texkey_part():
             "PIDSTORE_TEXKEY_MAX_RETRY_COUNT": 5,
             "PIDSTORE_TEXKEY_RANDOM_PART_SIZE": 3,
         }
-        model_mock.query.with_for_update.return_value.filter.return_value.filter.return_value.one_or_none.return_value = (
+        model_mock.query.return_value.filter.return_value.filter.return_value.one_or_none.return_value = (
             None
         )
 
@@ -162,7 +162,7 @@ def test_get_random_texkey_retries_count_taken_from_config():
             "PIDSTORE_TEXKEY_MAX_RETRY_COUNT": 2,
             "PIDSTORE_TEXKEY_RANDOM_PART_SIZE": 3,
         }
-        model_mock.query.with_for_update.return_value.with_entities.return_value.filter.return_value.filter.return_value = [
+        model_mock.query.with_entities.return_value.filter.return_value.filter.return_value = [
             [texkey + random_part]
         ]
         mocked_random.choices.return_value = ["a", "x", "1"]
@@ -182,7 +182,7 @@ def test_get_random_texkey_part_length_taken_from_config():
             "PIDSTORE_TEXKEY_MAX_RETRY_COUNT": 5,
             "PIDSTORE_TEXKEY_RANDOM_PART_SIZE": 9,
         }
-        model_mock.query.with_for_update.return_value.filter.return_value.filter.return_value.one_or_none.return_value = (
+        model_mock.query.return_value.filter.return_value.filter.return_value.one_or_none.return_value = (
             None
         )
 
