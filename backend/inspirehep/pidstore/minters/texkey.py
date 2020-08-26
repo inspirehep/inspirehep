@@ -32,20 +32,20 @@ class TexKeyMinter(Minter):
             if pid_provider:
                 self.update_data(pid_provider.pid.pid_value, self.data)
         except NoAvailableTexKeyFound:
-            LOGGER.exception(
+            LOGGER.error(
                 "Cannot create TexKey for record", object_uuid=self.object_uuid
             )
         except CannotGenerateUniqueTexKey:
-            LOGGER.exception(
+            LOGGER.error(
                 "Cannot generate unique texkey for record", object_uuid=self.object_uuid
             )
         except TexkeyCannotGenerateFirstPart:
-            LOGGER.exception(
+            LOGGER.error(
                 "Cannot generate first part of texkey for record",
                 object_uuid=self.object_uuid,
             )
         except TexkeyCannotGenerateSecondPart:
-            LOGGER.exception(
+            LOGGER.error(
                 "Cannot generate second part of texkey for record",
                 object_uuid=self.object_uuid,
             )
