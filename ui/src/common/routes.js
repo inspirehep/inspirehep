@@ -51,5 +51,5 @@ export const BIBLIOGRAPHY_GENERATOR = '/bibliography-generator';
 
 // eslint-disable-next-line no-unused-vars
 export function isBetaRoute(locationPathname) {
-  return locationPathname.startsWith(EXPERIMENTS);
+  return false;
 }
