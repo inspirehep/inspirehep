@@ -1,6 +1,6 @@
 /*
  * This file is part of record-editor.
- * Copyright (C) 2018 CERN.
+ * Copyright (C) 2017 CERN.
  *
  * record-editor is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -20,15 +20,18 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
 */
 
-import { anchorBuilder } from './commons';
+import { Pipe, PipeTransform } from '@angular/core';
 
-describe('Config Commons', () => {
-  describe('anchorBuilder', () => {
-    it('should return display and link without "api" part', () => {
-      const url = 'https://inspirehep.net/api/literature/1108642';
-      const result = anchorBuilder(url);
-      expect(result.display).toEqual('View literature');
-      expect(result.href).toEqual('https://inspirehep.net/literature/1108642');
-    });
-  });
-});
+@Pipe({
+  name: 'apiToDetailUrl',
+})
+
+export class ApiToDetailUrlPipe implements PipeTransform {
+
+  /**
+   * Returns the url without /api/
+   */
+  transform(apiUrl: string): string {
+    return apiUrl.replace('/api/', '/');
+  }
+}
