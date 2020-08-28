@@ -18,7 +18,7 @@ def test_record_versioning(inspire_app, celery_app_with_context, celery_session_
         "_collections": ["Literature"],
     }
 
-    expected_version_created = 2
+    expected_version_created = 3
     expected_count_created = 1
     record = LiteratureRecord.create(data)
     record_control_number = record["control_number"]
@@ -28,7 +28,7 @@ def test_record_versioning(inspire_app, celery_app_with_context, celery_session_
     assert expected_count_created == record.model.versions.count()
     assert LiteratureRecord({}) == record._previous_version
 
-    expected_version_updated = 3
+    expected_version_updated = 5
     expected_count_updated = 2
     record_updated = LiteratureRecord.get_record_by_pid_value(record_control_number)
     record_updated.update(dict(record_updated))
@@ -168,7 +168,7 @@ def test_revert_revision_works_correctly_and_runs_update(inspire_app):
 
     assert len(citing_record.model.references) == 1
     assert len(cited_record.model.citations) == 1
-    assert citing_record.revision_id == 1
+    assert citing_record.revision_id == 2
 
     citing_record = LiteratureRecord.get_record(citing_record.id)
     data = dict(citing_record)
@@ -179,16 +179,16 @@ def test_revert_revision_works_correctly_and_runs_update(inspire_app):
     citing_record = LiteratureRecord.get_record(citing_record.id)
     assert len(citing_record.model.references) == 0
     assert len(cited_record.model.citations) == 0
-    assert citing_record.revision_id == 2
+    assert citing_record.revision_id == 4
 
-    citing_record.revert(1)
+    citing_record.revert(2)
     db.session.commit()
 
     citing_record = LiteratureRecord.get_record(citing_record.id)
     assert len(citing_record.model.references) == 1
     assert len(cited_record.model.citations) == 1
 
-    # Reverted to revision 1 but added as next revision
-    # so it will be revision 3
-    assert citing_record.revision_id == 3
-    assert dict(citing_record.revisions[1]) == dict(citing_record)
+    # Reverted to revision 2 but added as next revision
+    # so it will be revision 6
+    assert citing_record.revision_id == 6
+    assert dict(citing_record.revisions[2]) == dict(citing_record)

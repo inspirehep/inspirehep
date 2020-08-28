@@ -15,7 +15,7 @@ def test_bibtex(inspire_app):
     record_control_number = record["control_number"]
 
     expected_status_code = 200
-    expected_etag = '"application/x-bibtex@v1"'
+    expected_etag = '"application/x-bibtex@v2"'
     expected_result = '@article{637275237,\n    title = "{This is a title.}"\n}\n'
     with inspire_app.test_client() as client:
         response = client.get(

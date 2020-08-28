@@ -321,14 +321,14 @@ class InspireRecord(Record):
         with db.session.begin_nested():
             self.clear()
             super().update(data)
-            self.validate()
             self.model.json = dict(self)
-            flag_modified(self.model, "json")
+            self.validate()
             if data.get("deleted"):
                 self.pidstore_handler.delete(self.id, self)
             else:
                 self.pidstore_handler.update(self.id, self)
             self.update_model_created_with_legacy_creation_date()
+            flag_modified(self.model, "json")
             db.session.add(self.model)
 
     def update_model_created_with_legacy_creation_date(self):
@@ -406,7 +406,10 @@ class InspireRecord(Record):
             "force_delete": force_delete,
         }
         LOGGER.info(
-            "Record indexing", recid=self.get("control_number"), uuid=str(self.id)
+            "Record indexing",
+            recid=self.get("control_number"),
+            uuid=str(self.id),
+            arguments=arguments,
         )
         if delay:
             index_record.delay(**arguments)
