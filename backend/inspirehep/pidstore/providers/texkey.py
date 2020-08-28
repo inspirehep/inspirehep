@@ -78,9 +78,7 @@ class InspireTexKeyProvider(BaseProvider):
         size = current_app.config.get("PIDSTORE_TEXKEY_RANDOM_PART_SIZE", 3)
         used_texkeys = cls.query_all_texkeys_starting_with(texkey)
         for _ in range(retry_count):
-            random_part = "".join(
-                random.choices(string.ascii_lowercase + string.digits, k=size)
-            )
+            random_part = "".join(random.choices(string.ascii_lowercase, k=size))
             pid_value = f"{texkey}{random_part}"
             if pid_value not in used_texkeys:
                 return pid_value
