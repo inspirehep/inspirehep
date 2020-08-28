@@ -8,5 +8,9 @@
     "desktop_viewport_height": 1080,
     "mobile_viewport_width": 375,
     "mobile_viewport_height": 667
+  },
+  "retries": {
+    "runMode": 3,
+    "openMode": 0
   }
 }

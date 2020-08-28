@@ -1,10 +1,4 @@
-# FIXME: we could make them as different CI steps, instead of a big script step so that restart is faster
-rc=0
-# TODO: rename `smoke-tests`
 files="-f docker-compose.yml -f ./smoke-tests/docker-compose.cypress.yml"
-docker-compose $files build --parallel
-docker-compose $files up -d
-docker-compose $files exec web ./scripts/setup
 
 # author and all literature records are needed for author detail (publications & cited by), author update submission, literature search, literature detail
 # experiment (some of the literature), job, conference (some of the literature), seminar records are needed for the detail pages repectively and some for update submissions
@@ -24,8 +18,3 @@ docker-compose $files exec web inspirehep importer records -f data/records/semin
 
 #conference search
 docker-compose $files exec web inspirehep importer records -f data/records/conferences/1769332.json -f data/records/conferences/1794610.json -f data/records/conferences/1809034.json -f data/records/conferences/1776122.json -f data/records/conferences/1622944.json
-
-dockef wait inspirehep_ui-build_1 
-
-docker-compose $files run -w "/tests" --rm cypress bash -c "yarn && yarn test --browser chrome --headless --env inspirehep_url=http://ui:8080" || rc=$?
-exit $rc
