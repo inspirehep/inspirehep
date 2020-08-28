@@ -222,7 +222,7 @@ Note that `jest` automatically run tests that changed files (unstaged) affect.
 ### cypress
 
 ```bash
-$ sh run-cypress-tests.sh # runs everything from scratch, identical to CI
+$ sh cypress-tests.sh # runs everything from scratch, identical to CI
 
 $ cd smoke-tests
 $ yarn test:dev # open cypress runner GUI runs them against local dev server (localhost:3000)
@@ -234,7 +234,7 @@ $ yarn test:dev --env inspirehep_url=<any url that serves inspirehep ui>
 Visual tests are run only on `headless` mode. So `yarn test:dev` which uses the headed browser will ignore them.
 Running existing visual tests and updating/creating snapshots requires `run-cypress-tests.sh` script.
 
-For continous runs (when local DB has required records etc.), the script can be reduced to only the last line in favor of speed.
+For continous runs (when local DB is running and has required records etc.), the script can be reduced to only the last part `sh cypress-tests-run.sh`
 
 ### e2e
 

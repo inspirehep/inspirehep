@@ -14,7 +14,7 @@ jobs:
     working_directory: ~/inspirehep
     steps:
       - checkout
-      - run: sh run-cypress-tests.sh
+      - run: sh cypress-tests.sh
       - store_artifacts:
           path: smoke-tests/cypress/__screenshots__
       - store_artifacts:
@@ -23,7 +23,7 @@ jobs:
           path: smoke-tests/cypress/__snapshots__
 workflows:
   version: 2
-  workflow:
+  e2e:
     jobs:
       - e2e
       - cypress
