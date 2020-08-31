@@ -4,9 +4,10 @@ import PropTypes from 'prop-types';
 
 import LiteratureSearchContainer from '../../literature/containers/LiteratureSearchContainer';
 import { AUTHOR_PUBLICATIONS_NS } from '../../search/constants';
-import { isCataloger } from '../../common/authorization';
+import { isCataloger, isSuperUser } from '../../common/authorization';
 import AssignViewContext from '../AssignViewContext';
 import AssignDrawerContainer from './AssignDrawerContainer';
+import { getConfigFor } from '../../common/config';
 
 export function AuthorPublications({ authorFacetName, assignView }) {
   const baseQuery = useMemo(
@@ -47,7 +48,10 @@ const stateToProps = state => ({
     'metadata',
     'facet_author_name',
   ]),
-  assignView: isCataloger(state.user.getIn(['data', 'roles'])),
+  assignView:
+    isSuperUser(state.user.getIn(['data', 'roles'])) ||
+    (getConfigFor('ASSIGN_UI_FEATURE_FLAG') &&
+      isCataloger(state.user.getIn(['data', 'roles']))),
 });
 
 export default connect(stateToProps)(AuthorPublications);
