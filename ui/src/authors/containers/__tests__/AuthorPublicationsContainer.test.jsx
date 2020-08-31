@@ -41,12 +41,61 @@ describe('AuthorPublicationsContainer', () => {
     });
   });
 
-  it('set assignView true if cataloger is logged in', () => {
+  it('set assignView true if cataloger is logged in and flag is enabled', () => {
+    // TODO: Remove line when the flag is not needed anymore
+    global.CONFIG = { ASSIGN_UI_FEATURE_FLAG: true };
     const store = getStoreWithState({
       user: fromJS({
         loggedIn: true,
         data: {
           roles: ['cataloger'],
+        },
+      }),
+    });
+    const wrapper = mount(
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/authors/123']} initialIndex={0}>
+          <AuthorPublicationsContainer />
+        </MemoryRouter>
+      </Provider>
+    );
+
+    expect(wrapper.find(AuthorPublications)).toHaveProp({
+      assignView: true,
+    });
+  });
+
+  // TODO: Remove test case when the flag is not needed anymore
+  it('set assignView false if cataloger is logged in and flag is disabled', () => {
+    global.CONFIG = { ASSIGN_UI_FEATURE_FLAG: false };
+    const store = getStoreWithState({
+      user: fromJS({
+        loggedIn: true,
+        data: {
+          roles: ['cataloger'],
+        },
+      }),
+    });
+    const wrapper = mount(
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/authors/123']} initialIndex={0}>
+          <AuthorPublicationsContainer />
+        </MemoryRouter>
+      </Provider>
+    );
+
+    expect(wrapper.find(AuthorPublications)).toHaveProp({
+      assignView: false,
+    });
+  });
+
+  // TODO: Remove test case when the flag is not needed anymore
+  it('set assignView true if superuser is logged in', () => {
+    const store = getStoreWithState({
+      user: fromJS({
+        loggedIn: true,
+        data: {
+          roles: ['superuser'],
         },
       }),
     });
