@@ -21,7 +21,7 @@
  */
 
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 
@@ -35,8 +35,8 @@ export class CommonApiService {
 
   constructor(protected http: Http) { }
 
-  fetchUrl(url: string): Promise<Object> {
-    return this.http.get(url)
+  fetchUrl(url: string, options?: Object): Promise<Object> {
+    return this.http.get(url, options)
       .map(res => res.json())
       .toPromise();
   }
