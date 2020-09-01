@@ -55,6 +55,9 @@ jobs:
         with:
           python-version: 3.6
 
+      - name: Install system dependencies
+        run: sudo apt-get install poppler-utils
+
       - name: Install poetry 1.0.0
         run: |
           wget https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py
