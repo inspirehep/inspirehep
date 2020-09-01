@@ -232,9 +232,11 @@ $ yarn test:dev --env inspirehep_url=<any url that serves inspirehep ui>
 #### visual tests
 
 Visual tests are run only on `headless` mode. So `yarn test:dev` which uses the headed browser will ignore them.
-Running existing visual tests and updating/creating snapshots requires `run-cypress-tests.sh` script.
+Running existing visual tests and updating/creating snapshots requires `cypress-tests.sh` script.
 
-For continous runs (when local DB is running and has required records etc.), the script can be reduced to only the last part `sh cypress-tests-run.sh`
+For continuous runs (when local DB is running and has required records etc.), the script can be reduced to only the last part `sh cypress-tests-run.sh`.
+
+If required, tests can run against `localhost:3000` by simply modifying `--host` option in `sh cypress-tests-run.sh`.
 
 ### e2e
 
