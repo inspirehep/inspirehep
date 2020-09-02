@@ -4,14 +4,11 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-import codecs
-import re
-
-import latexcodec  # noqa: F401
 import structlog
 from invenio_records_rest.serializers.response import search_responsify
 from pybtex.database import BibliographyData, Entry, Person
 from pybtex.database.output.bibtex import Writer
+from pylatexenc.latexencode import UnicodeToLatexEncoder
 
 from ..marshmallow.literature.bibtex import BibTexCommonSchema
 from .response import record_responsify
@@ -20,20 +17,12 @@ LOGGER = structlog.getLogger()
 
 
 class BibtexWriter(Writer):
-    math_expression_regex = re.compile(r"(?<!\\)\$.*?\$")
+    latex_encode = UnicodeToLatexEncoder(
+        replacement_latex_protection="braces-after-macro", non_ascii_only=True
+    ).unicode_to_latex
 
     def _encode(self, text):
-        if "$" not in text:
-            return codecs.encode(text, "ulatex+latin1", "keep")
-        math_expressions = self.math_expression_regex.findall(text)
-        encoded_math_expressions = {
-            codecs.encode(expression, "ulatex+latin1", "keep"): expression
-            for expression in math_expressions
-        }
-        encoded_text = codecs.encode(text, "ulatex+latin1", "keep")
-        for encoded_math, math in encoded_math_expressions.items():
-            encoded_text = encoded_text.replace(encoded_math, math)
-        return encoded_text
+        return self.latex_encode(text)
 
     def _write_persons(self, stream, persons, role):
         if len(persons) > 10:

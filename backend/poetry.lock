@@ -2852,6 +2852,14 @@ flake8 = ["flake8", "flake8-import-order", "pep8-naming"]
 test = ["pytest (>=4.0.1,<5.0.0)", "pytest-cov (>=2.6.0,<3.0.0)", "pytest-runner (>=4.2,<5.0.0)"]
 
 [[package]]
+category = "main"
+description = "Simple LaTeX parser providing latex-to-unicode and unicode-to-latex conversion"
+name = "pylatexenc"
+optional = false
+python-versions = "*"
+version = "2.7"
+
+[[package]]
 category = "dev"
 description = "python code static checker"
 name = "pylint"
@@ -4022,7 +4030,8 @@ test = ["zope.event"]
 testing = ["coverage", "nose", "zope.event"]
 
 [metadata]
-content-hash = "de0ef557ae9975eaf79179aa537012acd86081b1e6ad20dfde93a0798e9b2e3d"
+content-hash = "f1ce487f17dcc596cf38f4bba43cb2f27074290003752fc54c51de7a9430217a"
+lock-version = "1.0"
 python-versions = ">=3.6,<3.8"
 
 [metadata.files]
@@ -5056,6 +5065,9 @@ pyhamcrest = [
 pyjwt = [
     {file = "PyJWT-1.7.1-py2.py3-none-any.whl", hash = "sha256:5c6eca3c2940464d106b99ba83b00c6add741c9becaec087fb7ccdefea71350e"},
     {file = "PyJWT-1.7.1.tar.gz", hash = "sha256:8d59a976fb773f3e6a39c85636357c4f0e242707394cadadd9814f5cbaa20e96"},
+]
+pylatexenc = [
+    {file = "pylatexenc-2.7.tar.gz", hash = "sha256:8a3de4c035b9413a7721cab11e4cc7469d9370b441fbd498fc8d2ff37cbff678"},
 ]
 pylint = [
     {file = "pylint-2.4.4-py3-none-any.whl", hash = "sha256:886e6afc935ea2590b462664b161ca9a5e40168ea99e5300935f6591ad467df4"},
