@@ -9,8 +9,6 @@
 TAG="${TRAVIS_TAG:-$(git describe --always --tags)}"
 
 DEPLOY_TOKEN="${DEPLOY_QA_TOKEN}"
-LATEST_COMMIT=$(git rev-parse HEAD)
-LATEST_COMMIT_IN_SMOKE_TESTS=$(git log -1 --format=format:%H --full-diff smoke-tests)
 
 retry() {
     "${@}" || "${@}" || exit 2
@@ -78,22 +76,6 @@ sentryPROD() {
   sentry-cli releases set-commits --auto ${TAG}
 }
 
-maybeBuildSmokeTests() {
-  if [ $LATEST_COMMIT = $LATEST_COMMIT_IN_SMOKE_TESTS ]; then
-    buildPush "smoke-tests" "inspirehep/smoke-tests"
-  else
-    echo "Nothing changed on smoke-tests/"
-  fi
-}
-
-maybeDeploySmokeTestsQA() {
-  if [ $LATEST_COMMIT = $LATEST_COMMIT_IN_SMOKE_TESTS ]; then
-    # FIXME: smoke tests will replace e2e tests
-    deployQA "e2e"
-  else
-    echo "Nothing changed on smoke-tests/"
-  fi
-}
 
 deploy() {
   environment=${1}
@@ -113,13 +95,11 @@ main() {
   login
   buildPush "ui" "inspirehep/ui"
   buildPush "backend" "inspirehep/hep"
-  maybeBuildSmokeTests
   logout
   if [ -z "${TRAVIS_TAG}" ]; then
     deploy "qa" "inspirehep/ui"
     deploy "qa" "inspirehep/hep"
     sentryQA
-    maybeDeploySmokeTestsQA
   else
     deploy "prod" "inspirehep/ui"
     deploy "prod" "inspirehep/hep"
