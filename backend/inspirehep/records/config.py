@@ -577,13 +577,13 @@ RECORDS_REST_SORT_OPTIONS = {
         "mostrecent": {
             "title": "Most Recent",
             "fields": ["-earliest_date"],
-            "default_order": "asc",  # Used for invenio-search-js config
+            "default_order": "asc",
             "order": 1,
         },
         "mostcited": {
             "title": "Most Cited",
             "fields": ["-citation_count"],
-            "default_order": "asc",  # Used for invenio-search-js config
+            "default_order": "asc",
             "order": 2,
         },
     },
@@ -595,6 +595,7 @@ RECORDS_REST_SORT_OPTIONS = {
             "order": 2,
         },
     },
+    "records-authors": {"mostrecent": {"fields": ["-_created"], "order": 1}},
     "records-conferences": {
         "dateasc": {"title": "Date ascending", "fields": ["opening_date"], "order": 1},
         "datedesc": {
