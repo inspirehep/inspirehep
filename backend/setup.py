@@ -65,6 +65,7 @@ setup(
             "inspirehep_tools = inspirehep.tools.views:blueprint",
             "inspirehep_assign = inspirehep.assign.views:blueprint",
             "inspirehep_matcher = inspirehep.matcher.views:blueprint",
+            "invenio_oaiserver = invenio_oaiserver.views.server:blueprint",
         ],
         "invenio_config.module": [
             "inspirehep = inspirehep.config",
@@ -79,6 +80,7 @@ setup(
             "inspirehep_rt = inspirehep.rt.config",
             "inspirehep_search = inspirehep.search.config",
             "inspirehep_sitemap = inspirehep.sitemap.config",
+            "inspirehep_oai = inspirehep.oai.config",
         ],
         "invenio_base.api_apps": [
             "inspirehep_logger = inspirehep.logger:InspireLogger",

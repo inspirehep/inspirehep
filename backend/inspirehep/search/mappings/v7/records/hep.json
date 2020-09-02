@@ -6,6 +6,21 @@
       "$schema": {
         "type": "keyword"
       },
+      "_oai": {
+        "type": "object",
+        "properties": {
+          "sets": {
+            "type": "keyword"
+          },
+          "updated": {
+            "type": "date",
+            "format": "date_optional_time||yyyy-MM-dd||yyyy-MM||yyyy"
+          },
+          "id": {
+            "type": "keyword"
+          }
+        }
+      },
       "_all": {
         "type": "text"
       },

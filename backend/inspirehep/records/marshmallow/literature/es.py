@@ -9,10 +9,12 @@ import json
 from itertools import chain
 
 import structlog
+from flask import current_app
 from inspire_utils.helpers import force_list
 from invenio_db import db
 from marshmallow import fields, missing, pre_dump
 
+from inspirehep.oai.utils import is_cds_set, is_cern_arxiv_set
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.api import InspireRecord
 from inspirehep.records.marshmallow.literature.common.abstract import AbstractSource
@@ -37,6 +39,7 @@ LOGGER = structlog.getLogger()
 class LiteratureElasticSearchSchema(ElasticSearchBaseSchema, LiteratureRawSchema):
     """Elasticsearch serialzier"""
 
+    _oai = fields.Method("get_oai", dump_only=True)
     _ui_display = fields.Method("get_ui_display", dump_only=True)
     _latex_us_display = fields.Method("get_latex_us_display", dump_only=True)
     _latex_eu_display = fields.Method("get_latex_eu_display", dump_only=True)
@@ -165,6 +168,21 @@ class LiteratureElasticSearchSchema(ElasticSearchBaseSchema, LiteratureRawSchema
         input_values = [el for el in input_values if el]
 
         return {"input": input_values}
+
+    def get_oai(self, record):
+        sets = []
+        if is_cds_set(record):
+            sets.append(current_app.config["OAI_SET_CDS"])
+        if is_cern_arxiv_set(record):
+            sets.append(current_app.config["OAI_SET_CERN_ARXIV"])
+
+        if sets:
+            return {
+                "id": f"oai:inspirehep.net:{record['control_number']}",
+                "sets": sets,
+                "updated": record.updated,
+            }
+        return missing
 
     @pre_dump
     def separate_authors_and_supervisors_and_populate_first_author(self, data):
