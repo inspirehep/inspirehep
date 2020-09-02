@@ -182,7 +182,7 @@ def test_indexer_updates_authors_papers_when_name_changes(
             "expected_result": expected_facet_author_name,
         },
     ]
-    results = retry_until_matched(steps)
+    results = retry_until_matched(steps, timeout=45)
 
     assert (
         len(results["hits"]["hits"][0]["_source"]["facet_author_name"])
@@ -211,7 +211,7 @@ def test_indexer_updates_authors_papers_when_name_changes(
             "expected_result": expected_facet_author_name,
         },
     ]
-    results = retry_until_matched(steps)
+    results = retry_until_matched(steps, timeout=45)
 
     assert (
         len(results["hits"]["hits"][0]["_source"]["facet_author_name"])

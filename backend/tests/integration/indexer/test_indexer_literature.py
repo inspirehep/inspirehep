@@ -10,9 +10,11 @@ import json
 import pytest
 from deepdiff import DeepDiff
 from freezegun import freeze_time
+from helpers.providers.faker import faker
 from helpers.utils import create_record, create_s3_bucket, es_search
 from invenio_search import current_search
 
+from inspirehep.records.api import LiteratureRecord
 from inspirehep.search.api import LiteratureSearch
 
 
@@ -275,3 +277,75 @@ def test_indexer_populates_referenced_authors_bais(inspire_app):
         sorted(rec3_es["referenced_authors_bais"])
         == expected_rec3_referenced_authors_bais
     )
+
+
+@freeze_time("1994-12-19")
+def test_indexer_oai_set_CDS(inspire_app):
+    extra_data = {"_export_to": {"CDS": True}}
+
+    record_data = faker.record("lit", data=extra_data)
+    record = LiteratureRecord.create(record_data)
+    record.index(delay=False)
+    result_record = LiteratureSearch.get_record_data_from_es(record)
+
+    expected_id = f"oai:inspirehep.net:{record['control_number']}"
+    expected_updated = "1994-12-19T00:00:00"
+    expected_sets = [inspire_app.config["OAI_SET_CDS"]]
+
+    assert expected_id == result_record["_oai"]["id"]
+    assert expected_updated == result_record["_oai"]["updated"]
+    assert expected_sets == result_record["_oai"]["sets"]
+
+
+@freeze_time("1994-12-19")
+def test_indexer_oai_set_CERN_arxiv(inspire_app):
+    extra_data = {
+        "report_numbers": [{"value": "CERN-2020-001"}],
+        "arxiv_eprints": [{"value": "2009.01484"}],
+    }
+
+    record_data = faker.record("lit", data=extra_data)
+    record = LiteratureRecord.create(record_data)
+    record.index(delay=False)
+    result_record = LiteratureSearch.get_record_data_from_es(record)
+
+    expected_id = f"oai:inspirehep.net:{record['control_number']}"
+    expected_updated = "1994-12-19T00:00:00"
+    expected_sets = [inspire_app.config["OAI_SET_CERN_ARXIV"]]
+
+    assert expected_id == result_record["_oai"]["id"]
+    assert expected_updated == result_record["_oai"]["updated"]
+    assert expected_sets == result_record["_oai"]["sets"]
+
+
+@freeze_time("1994-12-19")
+def test_indexer_oai_set_CERN_arxiv_and_CDS(inspire_app):
+    extra_data = {
+        "report_numbers": [{"value": "CERN-2020-001"}],
+        "arxiv_eprints": [{"value": "2009.01484"}],
+        "_export_to": {"CDS": True},
+    }
+
+    record_data = faker.record("lit", data=extra_data)
+    record = LiteratureRecord.create(record_data)
+    record.index(delay=False)
+    result_record = LiteratureSearch.get_record_data_from_es(record)
+
+    expected_id = f"oai:inspirehep.net:{record['control_number']}"
+    expected_updated = "1994-12-19T00:00:00"
+    expected_sets = [
+        inspire_app.config["OAI_SET_CDS"],
+        inspire_app.config["OAI_SET_CERN_ARXIV"],
+    ]
+
+    assert expected_id == result_record["_oai"]["id"]
+    assert expected_updated == result_record["_oai"]["updated"]
+    assert expected_sets == result_record["_oai"]["sets"]
+
+
+def test_indexer_does_not_have_oai_set(inspire_app):
+    record_data = faker.record("lit")
+    record = LiteratureRecord.create(record_data)
+    record.index(delay=False)
+    result_record = LiteratureSearch.get_record_data_from_es(record)
+    assert "_oai" not in result_record
