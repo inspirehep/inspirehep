@@ -33,21 +33,25 @@ jobs:
           python get-poetry.py --version 1.0.0
           echo "::add-path::$HOME/.poetry/bin"
 
+      - name: Generate requirements
+        working-directory: ./backend
+        run: >
+          poetry export
+          --dev --without-hashes --format=requirements.txt
+          >requirements.txt
+
       - name: Cache virtual env
         uses: actions/cache@v2
         with:
           path: ~/.cache/pip
-          key: inspirehep-backend-pip-${{ hashFiles('./backend/poetry.lock') }}
-
-      - name: Install testing dependencies
-        working-directory: ./backend
-        run: |
-          pip install --upgrade pip
-          pip install twine wheel coveralls
+          key: inspirehep-backend-pip-${{ hashFiles('./backend/requirements.txt') }}
 
       - name: Install
         working-directory: ./backend
-        run: poetry install --no-interaction
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -e .
 
       - name: Test
         working-directory: ./backend
