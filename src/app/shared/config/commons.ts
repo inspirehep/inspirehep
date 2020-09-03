@@ -97,17 +97,10 @@ export function fullTextSearch(value: any, expression: string): boolean {
 
 export function anchorBuilder(url: string): RefAnchorAttributes {
   const parts = url.split('/');
-  const recordId = parts[parts.length - 1];
   let type = parts[parts.length - 2];
   const display = `View ${type.replace(/s$/, '')}`; // de pluralize
-
-  if (type === 'experiments' || type === 'institutions') { // modify as we release missing collections in labs
-    const href = `//old.inspirehep.net/record/${recordId}`;
-    return { href, display };
-  } else {
-    const href = url.replace(/\/api\//, '/');
-    return { href, display };
-  }
+  const href = url.replace('/api/', '/');
+  return { href, display };
 }
 
 export function splitPrimitiveReferenceField(path: Array<any>, value: string, jsonStore: JsonStoreService, keyStore: KeysStoreService) {

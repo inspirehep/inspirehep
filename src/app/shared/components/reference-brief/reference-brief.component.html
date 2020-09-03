@@ -1,7 +1,7 @@
 <div class="reference-brief-container" [ngSwitch]="reference.hasIn(['record', '$ref'])">
   <span *ngSwitchCase="true">
     <i class="fa fa-check-circle success"></i>
-    <a [href]="reference.getIn(['record', '$ref'])" target="_blank">{{reference | referenceBrief}}</a>
+    <a [href]="reference.getIn(['record', '$ref']) | apiToDetailUrl" target="_blank">{{reference | referenceBrief}}</a>
   </span>
   <span *ngSwitchDefault>
     <i class="fa fa-exclamation-triangle warning"></i>
