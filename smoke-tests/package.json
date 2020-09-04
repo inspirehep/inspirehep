@@ -5,16 +5,18 @@
   "main": "index.js",
   "scripts": {
     "test:dev": "cypress open",
-    "test": "cypress run",
+    "test": "DEBUG=cypress:* cypress run",
     "cypress": "cypress"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@cypress/skip-test": "^2.5.0",
+    "chai-like": "^1.1.1",
     "cypress": "^4.0.2",
     "cypress-image-snapshot": "^3.1.1",
-    "cypress-terminal-report": "^1.4.2"
+    "cypress-terminal-report": "^1.4.2",
+    "moment": "^2.24.0"
   },
   "devDependencies": {}
 }

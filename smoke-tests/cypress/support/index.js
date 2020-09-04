@@ -1,5 +1,7 @@
-import './commands';
 import installLogsCollector from 'cypress-terminal-report/src/installLogsCollector';
+// import chai from 'chai';
+import like from 'chai-like';
+import './commands';
 
 const ALLOWED_UNCAUGHT_ERROR_MESSAGES = [
   "Cannot read property 'focus' of null", // TODO: explain why
@@ -15,3 +17,4 @@ Cypress.on('uncaught:exception', error => {
 });
 
 installLogsCollector({ collectTypes: ['cons:error', 'cons:warn'] });
+chai.use(like);
