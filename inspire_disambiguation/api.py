@@ -228,7 +228,7 @@ def cluster_with_evaluation(
         for model validation.
     """
     start_time = datetime.now()
-    signature_blocks = get_curated_signature_blocks(only_curated=True)
+    signature_blocks = get_curated_signature_blocks()
     labels_train, labels_test, y_train, y_test = (
         np.array([]),
         np.array([]),
