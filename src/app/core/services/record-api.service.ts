@@ -39,6 +39,7 @@ export class RecordApiService extends CommonApiService {
   private currentRecordId: string;
 
   private readonly returnOnlyIdsHeaders = new Headers({ Accept: 'application/vnd+inspire.ids+json' });
+  private readonly rawJsonDataHeaders = new Headers({ Accept: 'application/vnd+inspire.record.raw+json' });
 
   readonly newRecordFetched$ = new ReplaySubject<void>(1);
 
@@ -58,7 +59,7 @@ export class RecordApiService extends CommonApiService {
     this.currentRecordApiUrl = `${apiUrl}/${pidType}/${pidValue}`;
     this.currentRecordEditorApiUrl = `${editorApiUrl}/${pidType}/${pidValue}`;
     this.newRecordFetched$.next(null);
-    return this.fetchUrl(this.currentRecordApiUrl);
+    return this.fetchUrl(this.currentRecordApiUrl, { headers: this.rawJsonDataHeaders });
   }
 
   saveRecord(record: object): Observable<void> {
