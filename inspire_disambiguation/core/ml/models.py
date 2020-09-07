@@ -708,7 +708,7 @@ class Clusterer(object):
         """
         return (
         b3_precision_recall_fscore(self.y, self.clusterer.labels_),
-        b3_precision_recall_fscore(y_train, labels_train),
+        b3_precision_recall_fscore(y_train, labels_train) if labels_train.size != 0 else None,
         b3_precision_recall_fscore(y_test, labels_test) if labels_test.size != 0 else None
         )
 

@@ -319,7 +319,9 @@ def cluster_with_evaluation(
                 ),
                 B3_precision_recall_f_score_training=dict(
                     zip(statistics_names, B3_statistics_training_per_block)
-                ),
+                )
+                if B3_statistics_training_per_block
+                else None,
                 B3_precision_recall_f_score_test=dict(
                     zip(statistics_names, B3_statistics_test_per_block)
                 )
