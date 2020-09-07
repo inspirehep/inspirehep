@@ -1141,7 +1141,7 @@ description = "Scrapy project for feeds into INSPIRE-HEP (http://inspirehep.net)
 name = "hepcrawl"
 optional = false
 python-versions = "*"
-version = "13.0.8"
+version = "13.0.10"
 
 [package.dependencies]
 LinkHeader = ">=0.4.3"
@@ -1151,11 +1151,11 @@ Twisted = ">=18.9.0,<19.0"
 amqp = ">2.2.0,<2.3.0 || >2.3.0,<3.0"
 autosemver = ">=0.2,<1.0"
 celery = ">=4.1"
-ftputil = ">=3.3.1"
+ftputil = ">=3.3.1,<4.0"
 furl = ">=0.4.95"
 harvestingkit = ">=0.6.12"
 inspire-dojson = ">=63.0,<64.0"
-inspire-schemas = ">=61.0,<62.0"
+inspire-schemas = ">=61.3,<62.0"
 inspire-utils = ">=3.0.0,<4.0"
 pyasn1 = ">=0.1.8"
 python-dateutil = ">=2.7.0,<3.0"
@@ -4551,7 +4551,7 @@ harvestingkit = [
     {file = "HarvestingKit-0.6.17.tar.gz", hash = "sha256:e55d675e4b9042c6bf73300192e317794a3bd147987a5ed052a0e1a3380aff3e"},
 ]
 hepcrawl = [
-    {file = "hepcrawl-13.0.8.tar.gz", hash = "sha256:e0627c0dcf1e5b271703f3615dd4f69b418ff9e5d0b2617a90bc73c21a205bbb"},
+    {file = "hepcrawl-13.0.10.tar.gz", hash = "sha256:4e1954bacc3cac9ceac2001b470dbf7dbabff664860178269bd31fee5486d9b1"},
 ]
 html5lib = [
     {file = "html5lib-1.0.1-py2.py3-none-any.whl", hash = "sha256:20b159aa3badc9d5ee8f5c647e5efd02ed2a66ab8d354930bd9ff139fc1dc0a3"},
