@@ -205,6 +205,7 @@ def test_latex_eu_search_response_full_record(inspire_app):
 
     response_status_code = response.status_code
     response_data = response.get_data(as_text=True)
+
     assert expected_status_code == response_status_code
     assert expected_result == response_data
 
@@ -307,3 +308,111 @@ def test_literature_detail_latex_us_link_alias_format(inspire_app):
         response = client.get(f"/literature/{record['control_number']}?format=latex-us")
     assert response.status_code == expected_status_code
     assert response.content_type == expected_content_type
+
+
+def test_latex_handle_one_erratum(inspire_app):
+    data = {
+        "publication_info": [
+            {
+                "artid": "032004",
+                "journal_issue": "3",
+                "journal_title": "Phys.Rev.D",
+                "journal_volume": "96",
+                "material": "publication",
+                "pubinfo_freetext": "Phys. Rev. D 96, 032004 (2017)",
+                "year": 2017,
+            },
+            {
+                "artid": "019903",
+                "journal_issue": "1",
+                "journal_title": "Phys.Rev.D",
+                "journal_volume": "99",
+                "material": "erratum",
+                "year": 2019,
+            },
+        ]
+    }
+
+    expected_latex_data = (
+        "[erratum: Phys. Rev. D \\textbf{99}, no.1, 019903 (2019)]".encode()
+    )
+
+    record = create_record("lit", data)
+
+    with inspire_app.test_client() as client:
+        url = f"/literature/{record['control_number']}"
+        response_latex = client.get(f"{url}?format=latex-us")
+
+    assert response_latex.status_code == 200
+    assert expected_latex_data in response_latex.data
+
+
+def test_latex_handle_multiple_erratest_latex_handle_multiple_erratumstums(inspire_app):
+
+    data = {
+        "publication_info": [
+            {
+                "artid": "032004",
+                "journal_issue": "3",
+                "journal_title": "Phys.Rev.D",
+                "journal_volume": "96",
+                "material": "publication",
+                "pubinfo_freetext": "Phys. Rev. D 96, 032004 (2017)",
+                "year": 2017,
+            },
+            {
+                "artid": "019903",
+                "journal_issue": "1",
+                "journal_title": "Phys.Rev.D",
+                "journal_volume": "99",
+                "material": "erratum",
+                "year": 2019,
+            },
+            {
+                "artid": "019903",
+                "journal_issue": "12",
+                "journal_title": "Phys.Rev.C",
+                "journal_volume": "97",
+                "material": "erratum",
+                "year": 2020,
+            },
+        ]
+    }
+
+    expected_latex_data = "[erratum: Phys. Rev. D \\textbf{99}, no.1, 019903 (2019); erratum: Phys. Rev. C \\textbf{97}, no.12, 019903 (2020)]".encode()
+
+    record = create_record("lit", data)
+
+    with inspire_app.test_client() as client:
+        url = f"/literature/{record['control_number']}"
+        response_latex = client.get(f"{url}?format=latex-us")
+
+    assert response_latex.status_code == 200
+    assert expected_latex_data in response_latex.data
+
+
+def test_latex_handle_multiple_erratums_with_missing_info(inspire_app):
+    data = {
+        "publication_info": [
+            {
+                "artid": "032004",
+                "journal_issue": "3",
+                "journal_title": "Phys.Rev.D",
+                "journal_volume": "96",
+                "material": "publication",
+                "pubinfo_freetext": "Phys. Rev. D 96, 032004 (2017)",
+                "year": 2017,
+            },
+            {"artid": "032005", "material": "erratum",},
+            {"journal_title": "Phys.Rev.D", "material": "erratum",},
+        ]
+    }
+    expected_latex_data = "[erratum: , 032005; erratum: Phys. Rev. D]".encode()
+    record = create_record("lit", data)
+
+    with inspire_app.test_client() as client:
+        url = f"/literature/{record['control_number']}"
+        response_data = client.get(f"{url}?format=latex-eu")
+
+    assert response_data.status_code == 200
+    assert expected_latex_data in response_data.data
