@@ -4,6 +4,29 @@
         {%- if loop.revindex == 2 %} and {% elif not loop.last %}, {% endif -%}
     {%- endfor -%}
 {%- endmacro -%}
+{%- macro publication_info(format, element) -%}
+         {%- if 'journal_title' in element -%}
+            \VAR{- element.journal_title }
+         {%- endif -%}
+         \VAR{- ' \\textbf{' ~ element.journal_volume ~ '}' if 'journal_volume' in element }
+         {%- if format == 'EU' -%}
+            \VAR{- ' (' ~ element.year ~ ')' if 'year' in element }
+            \VAR{- ' no.' ~ element.journal_issue if 'journal_issue' in element }
+            {%- if 'page_range' in element -%}
+                \VAR{ ', ' ~ element.page_range }
+            {%- elif 'artid' in element -%}
+                \VAR{ ', ' ~ element.artid }
+            {%- endif -%}
+         {%- elif format == 'US' -%}
+            \VAR{- ', no.' ~ element.journal_issue if 'journal_issue' in element }
+            {%- if 'page_range' in element -%}
+                \VAR{ ', ' ~ element.page_range }
+            {%- elif 'artid' in element -%}
+                \VAR{ ', ' ~ element.artid }
+            {%- endif -%}
+            \VAR{- ' (' ~ element.year ~ ')' if 'year' in element }
+         {%- endif -%}
+{%- endmacro -%}
 %\cite{\VAR{ data.texkeys }}
 \bibitem{\VAR{ data.texkeys }}
 \VAR{- '\n' if 'authors' in data or 'collaborations' in data }
@@ -21,25 +44,15 @@
 \VAR{- '\n%``' ~ data.titles.0.title ~ ",''" }
 {%- if 'journal_title' in data.publication_info -%}
     \VAR{- '\n' }
-    \VAR{- data.publication_info.journal_title }
-    \VAR{- ' \\textbf{' ~ data.publication_info.journal_volume ~ '}' if 'journal_volume' in data.publication_info }
-    {%- if format == 'EU' -%}
-        \VAR{- ' (' ~ data.publication_info.year ~ ')' if 'year' in data.publication_info }
-        \VAR{- ' no.' ~ data.publication_info.journal_issue if 'journal_issue' in data.publication_info }
-        {%- if 'page_range' in data.publication_info -%}
-            \VAR{ ', ' ~ data.publication_info.page_range }
-        {%- elif 'artid' in data.publication_info -%}
-            \VAR{ ', ' ~ data.publication_info.artid }
-        {%- endif -%}
-    {%- elif format == 'US' -%}
-        \VAR{ ', no.' ~ data.publication_info.journal_issue if 'journal_issue' in data.publication_info }
-        {%- if 'page_range' in data.publication_info -%}
-            \VAR{ ', ' ~ data.publication_info.page_range }
-        {%- elif 'artid' in data.publication_info -%}
-            \VAR{ ', ' ~ data.publication_info.artid }
-        {%- endif -%}
-        \VAR{- ' (' ~ data.publication_info.year ~ ')' if 'year' in data.publication_info }
-    {%- endif -%}
+    \VAR{- publication_info(format, data.publication_info)}
+{%- endif -%}
+{%- if data.notes -%}
+    \VAR{ '\n [' }
+    {%- for note in data.notes -%}
+         \VAR{ 'erratum: ' if loop.index == 1 else '; erratum: '}
+         \VAR{- publication_info(format, note)}
+    {%- endfor -%}
+    \VAR{ ']' }
 {%- endif -%}
 \VAR{- '\ndoi:' ~ data.dois.0.value if 'dois' in data }
 \VAR{- '\n[arXiv:' ~ data.arxiv_eprints.0.value ~ ' [' ~ data.arxiv_eprints.0.categories.0 ~ ']].' if 'arxiv_eprints' in data and 'categories' in data.arxiv_eprints.0}

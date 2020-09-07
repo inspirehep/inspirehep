@@ -9,6 +9,7 @@
 import datetime
 
 from inspire_utils.name import format_name
+from inspire_utils.record import get_value
 from marshmallow import Schema, fields, missing
 
 from .bibtex import BibTexCommonSchema
@@ -26,6 +27,25 @@ class LatexSchema(Schema):
     titles = fields.Raw()
     texkeys = fields.Method("get_texkey")
     today = fields.Method("get_current_date")
+    notes = fields.Method("get_note")
+
+    @staticmethod
+    def cleanup_publication_info(pub_info):
+        publication_info = pub_info.copy()
+        if "journal_title" in publication_info:
+            publication_info["journal_title"] = (
+                publication_info["journal_title"].replace(".", ". ").rstrip()
+            )
+
+        if "page_start" in publication_info:
+            if "page_end" in publication_info:
+                publication_info["page_range"] = "{}-{}".format(
+                    publication_info["page_start"], publication_info["page_end"]
+                )
+            else:
+                publication_info["page_range"] = publication_info["page_start"]
+
+        return publication_info
 
     def get_author_names(self, data):
         authors = data.get("authors")
@@ -41,22 +61,11 @@ class LatexSchema(Schema):
         return [name.replace(". ", ".~") for name in author_names]
 
     def get_publication_info(self, data):
-        publication_info = BibTexCommonSchema.get_best_publication_info(data).copy()
+        publication_info = BibTexCommonSchema.get_best_publication_info(data)
         if publication_info == {}:
             return missing
 
-        if "journal_title" in publication_info:
-            publication_info["journal_title"] = (
-                publication_info["journal_title"].replace(".", ". ").rstrip(" ")
-            )
-
-        if "page_start" in publication_info:
-            if "page_end" in publication_info:
-                publication_info["page_range"] = "{}-{}".format(
-                    publication_info["page_start"], publication_info["page_end"]
-                )
-            else:
-                publication_info["page_range"] = publication_info["page_start"]
+        publication_info = self.cleanup_publication_info(publication_info)
 
         return publication_info
 
@@ -75,3 +84,13 @@ class LatexSchema(Schema):
             return missing
 
         return [collab["value"] for collab in data.get("collaborations")]
+
+    def get_note(self, data):
+
+        erratums = [
+            self.cleanup_publication_info(publication)
+            for publication in get_value(data, "publication_info", [])
+            if publication.get("material") == "erratum"
+        ]
+
+        return erratums or None

@@ -6,6 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import json
+from copy import deepcopy
 
 from freezegun import freeze_time
 
@@ -58,6 +59,7 @@ def test_full_schema():
         },
         "report_numbers": [{"value": "DESY-17-036"}],
         "today": TODAY,
+        "notes": None,
     }
     result = json.loads(schema.dumps(record).data)
     assert expected == result
@@ -197,3 +199,67 @@ def test_schema_takes_control_number_when_texkeys_not_present():
     expected = "123456"
     result = json.loads(schema.dumps(record).data)
     assert expected == result["texkeys"]
+
+
+def test_schema_gets_erratum():
+    schema = LatexSchema()
+    record = {
+        "publication_info": [
+            {
+                "artid": "032004",
+                "journal_issue": "3",
+                "journal_title": "Phys.Rev.D",
+                "journal_volume": "96",
+                "material": "publication",
+                "pubinfo_freetext": "Phys. Rev. D 96, 032004 (2017)",
+                "year": 2017,
+            },
+            {
+                "artid": "019903",
+                "journal_issue": "1",
+                "journal_title": "Phys.Rev.D",
+                "journal_volume": "99",
+                "material": "erratum",
+                "year": 2019,
+            },
+            {
+                "artid": "019903",
+                "journal_issue": "12",
+                "journal_title": "Phys.Rev.C",
+                "journal_volume": "97",
+                "material": "erratum",
+                "year": 2020,
+            },
+        ]
+    }
+    expected = deepcopy(record["publication_info"][1:])
+    expected[0]["journal_title"] = "Phys. Rev. D"
+    expected[1]["journal_title"] = "Phys. Rev. C"
+    result = json.loads(schema.dumps(record).data)
+
+    assert expected == result["notes"]
+
+
+def test_schema_handles_missing_info_in_erratum():
+    schema = LatexSchema()
+    record = {
+        "publication_info": [
+            {
+                "artid": "032004",
+                "journal_issue": "3",
+                "journal_title": "Phys.Rev.D",
+                "journal_volume": "96",
+                "material": "publication",
+                "pubinfo_freetext": "Phys. Rev. D 96, 032004 (2017)",
+                "year": 2017,
+            },
+            {"artid": "032005", "material": "erratum",},
+            {"journal_title": "Phys.Rev.D", "material": "erratum",},
+        ]
+    }
+
+    expected = deepcopy(record["publication_info"][1:])
+    expected[1]["journal_title"] = "Phys. Rev. D"
+    result = json.loads(schema.dumps(record).data)
+
+    assert expected == result["notes"]
