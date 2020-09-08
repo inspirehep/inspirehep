@@ -43,8 +43,6 @@ class AcceleratorExperimentSchemaV1(Schema):
         if experiment_record:
             if "legacy_name" not in experiment_record:
                 experiment_record["legacy_name"] = experiment.get("legacy_name")
-            if "self" not in experiment_record:
-                experiment_record["self"] = record_ref
 
         return experiment_record or experiment
 

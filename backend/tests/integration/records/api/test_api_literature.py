@@ -1339,6 +1339,7 @@ def test_adding_deleted_record_with_documents_does_not_add_files(inspire_app, s3
     create_s3_bucket(expected_document_key)
     data = {
         "deleted": True,
+        "control_number": 888,
         "documents": [
             {
                 "source": "arxiv",
@@ -1890,6 +1891,7 @@ def test_deleted_record_do_not_create_entries_in_authors_records_table(inspire_a
                 "ids": [{"value": "K.Janeway.1", "schema": "INSPIRE BAI"}],
             }
         ],
+        "control_number": 555,
         "deleted": True,
     }
 

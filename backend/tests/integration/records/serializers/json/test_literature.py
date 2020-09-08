@@ -180,6 +180,7 @@ def test_literature_json_with_logged_in_cataloger(inspire_app):
         ],
         "citation_count": 0,
         "citation_count_without_self_citations": 0,
+        "self": {"$ref": "http://localhost:5000/api/literature/12345"},
     }
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
@@ -317,6 +318,7 @@ def test_literature_search_json_with_cataloger_login(inspire_app):
         "citation_count": 0,
         "citation_count_without_self_citations": 0,
         "author_count": 0,
+        "self": {"$ref": "http://localhost:5000/api/literature/12345"},
     }
     expected_result_len = 1
     with inspire_app.test_client() as client:
@@ -678,10 +680,7 @@ def test_literature_detail_serialize_experiment_with_referenced_record(
     }
     create_record_factory("exp", data=experiment_data)
     expected_experiment_data = [
-        {
-            "name": "Institute-Accelerator-Experiment",
-            "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1110623"},
-        },
+        {"name": "Institute-Accelerator-Experiment"},
         {"name": "VIRGO"},
         {"name": "FERMI-GBM"},
         {"name": "INTEGRAL"},
@@ -945,7 +944,7 @@ def test_record_returns_linked_book(inspire_app):
 
     expected_linked_book = {
         "record": {
-            "$ref": f"http://localhost:5000/literature/{parent_record['control_number']}"
+            "$ref": f"http://localhost:5000/api/literature/{parent_record['control_number']}"
         },
         "title": parent_record["titles"][0]["title"],
     }
@@ -954,7 +953,7 @@ def test_record_returns_linked_book(inspire_app):
         "publication_info": [
             {
                 "parent_record": {
-                    "$ref": f"http://localhost:5000/literature/{parent_record['control_number']}"
+                    "$ref": f"http://localhost:5000/api/literature/{parent_record['control_number']}"
                 }
             }
         ]

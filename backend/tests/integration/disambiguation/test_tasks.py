@@ -75,6 +75,7 @@ def test_disambiguate_signatures_cluster_with_0_authors(inspire_app):
         "stub": True,
         "acquisition_source": {"method": "beard", "datetime": "2019-02-15T00:00:00"},
         "$schema": "http://localhost:5000/schemas/records/authors.json",
+        "self": {"$ref": f"http://localhost:5000/api/authors/{pid_value}"},
     }
     expected_ref = f"http://localhost:5000/api/authors/{pid_value}"
 

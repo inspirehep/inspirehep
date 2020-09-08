@@ -334,11 +334,6 @@ def test_control_number_not_deleting_pid_when_record_removed(inspire_app):
 
     assert cn_pid.pid_value == expected_cn
 
-    data = dict(record)
-    data["control_number"] = f"{expected_cn}1"
-    with pytest.raises(ValueError):
-        record.update(data)
-
     cn_pid = PersistentIdentifier.query.filter_by(pid_type="lit").one()
     assert cn_pid.pid_value == expected_cn
 
