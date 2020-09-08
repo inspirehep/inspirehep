@@ -16,9 +16,12 @@ import {
   CITE_FORMAT_OPTIONS,
   CITE_FORMAT_VALUES,
   CITE_FILE_FORMAT,
+  CV,
 } from '../constants';
 import citeArticle from '../citeArticle';
 import { downloadTextAsFile } from '../../common/utils';
+import RichDescription from '../../common/components/RichDescription';
+import LoadingOrChildren from '../../common/components/LoadingOrChildren';
 
 class CiteModalAction extends Component {
   constructor(props) {
@@ -31,6 +34,7 @@ class CiteModalAction extends Component {
     this.state = {
       modalVisible: false,
       errorMessage: null,
+      loading: false,
     };
     this.citeContentCacheByFormat = {};
   }
@@ -67,18 +71,21 @@ class CiteModalAction extends Component {
   }
 
   async setCiteContentFor(format) {
+    // TODO: remove this cache and rely on the browser http caching
     let citeContent = this.citeContentCacheByFormat[format];
     if (!citeContent) {
       const { recordId } = this.props;
+      this.setState({ loading: true });
       try {
         citeContent = await citeArticle(format, recordId);
         this.citeContentCacheByFormat[format] = citeContent;
-        this.setState({ errorMessage: null });
+        this.setState({ errorMessage: null, loading: false });
       } catch (error) {
         this.setState({
           errorMessage: `Could not create cite text for the selected format. Caused by: ${
             error.message
           }`,
+          loading: false,
         });
       }
     }
@@ -88,7 +95,13 @@ class CiteModalAction extends Component {
 
   render() {
     const { initialCiteFormat } = this.props;
-    const { modalVisible, citeContent, errorMessage } = this.state;
+    const {
+      modalVisible,
+      citeContent,
+      errorMessage,
+      format,
+      loading,
+    } = this.state;
     return (
       <>
         <ListItemAction>
@@ -104,40 +117,49 @@ class CiteModalAction extends Component {
           footer={null}
           onCancel={this.onModalCancel}
         >
-          <div>
-            {errorMessage && (
-              <div className="mb3">
-                <Alert type="error" showIcon description={errorMessage} />
-              </div>
-            )}
-            <Row>
-              <pre>{citeContent}</pre>
-            </Row>
-            <Row type="flex" justify="space-between">
-              <div>
-                <CopyToClipboard text={citeContent} onCopy={this.onModalCancel}>
-                  <Button style={{ marginRight: 12 }}>
-                    <CopyOutlined /> Copy to Clipboard
+          <LoadingOrChildren loading={loading}>
+            <div>
+              {errorMessage && (
+                <div className="mb3">
+                  <Alert type="error" showIcon description={errorMessage} />
+                </div>
+              )}
+              <Row>
+                {format === CV ? (
+                  <RichDescription>{citeContent}</RichDescription>
+                ) : (
+                  <pre>{citeContent}</pre>
+                )}
+              </Row>
+              <Row type="flex" justify="space-between">
+                <div>
+                  <CopyToClipboard
+                    text={citeContent}
+                    onCopy={this.onModalCancel}
+                  >
+                    <Button style={{ marginRight: 12 }}>
+                      <CopyOutlined /> Copy to Clipboard
+                    </Button>
+                  </CopyToClipboard>
+                  <Button onClick={this.onDownloadClick}>
+                    <DownloadOutlined /> Download
                   </Button>
-                </CopyToClipboard>
-                <Button onClick={this.onDownloadClick}>
-                  <DownloadOutlined /> Download
-                </Button>
-              </div>
-              <EventTracker
-                eventId="CiteFormatSelection"
-                eventPropName="onChange"
-                extractEventArgsToForward={args => [args[0]]}
-              >
-                <SelectBox
-                  style={{ width: 140 }}
-                  defaultValue={initialCiteFormat}
-                  onChange={this.onFormatChange}
-                  options={CITE_FORMAT_OPTIONS}
-                />
-              </EventTracker>
-            </Row>
-          </div>
+                </div>
+                <EventTracker
+                  eventId="CiteFormatSelection"
+                  eventPropName="onChange"
+                  extractEventArgsToForward={args => [args[0]]}
+                >
+                  <SelectBox
+                    style={{ width: 140 }}
+                    defaultValue={initialCiteFormat}
+                    onChange={this.onFormatChange}
+                    options={CITE_FORMAT_OPTIONS}
+                  />
+                </EventTracker>
+              </Row>
+            </div>
+          </LoadingOrChildren>
         </Modal>
       </>
     );

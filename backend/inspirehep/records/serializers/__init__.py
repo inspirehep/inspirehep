@@ -7,6 +7,7 @@
 # flake8: noqa
 
 from .bibtex import literature_bibtex_response, literature_bibtex_response_search
+from .cv import literature_cv_html_response, literature_cv_html_response_search
 from .json import (
     authors_control_number_only_json_response,
     authors_json_detail_response,

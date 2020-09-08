@@ -36,7 +36,7 @@ class CiteAllAction extends Component {
       this.setState({ loading: true });
       const response = await http.get(`/literature?${queryString}`, {
         headers: {
-          Accept: `application/${key}`,
+          Accept: key,
         },
       });
       this.setState({ loading: false });

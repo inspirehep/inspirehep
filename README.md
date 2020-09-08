@@ -170,14 +170,13 @@ $ cd ui
 $ yarn start
 ```
 
-You can also connect UI to another environment by changing the proxy a server by changing the `ui/package.json`
+You can also connect UI to another environment by changing the proxy in `ui/setupProxy.js`
 
-```json
-{
+```javascript
+proxy({
+  target: 'http://A_PROXY_SERVER',
   ...
-  "proxy": "http://A_PROXY_SERVER",
-  ...
-}
+});
 ```
 
 Both backend and UI are accessible http://localhost:8080

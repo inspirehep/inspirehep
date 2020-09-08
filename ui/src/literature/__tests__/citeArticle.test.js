@@ -12,7 +12,7 @@ describe('citeArticle', () => {
 
   it('sends request with Accept header based on format and returns text', async done => {
     const citeUrl = '/literature/12345';
-    const format = 'x-test';
+    const format = 'application/x-test';
     mockHttp
       .onGet(citeUrl, null, { Accept: 'application/x-test' })
       .replyOnce(200, 'Test');
@@ -23,7 +23,7 @@ describe('citeArticle', () => {
 
   it('returns a status code that is not 2xx without data', async done => {
     const citeUrl = '/literature/12345';
-    const format = 'x-test';
+    const format = 'application/x-test';
     mockHttp
       .onGet(citeUrl, null, { Accept: 'application/x-test' })
       .replyOnce(500);
@@ -35,7 +35,7 @@ describe('citeArticle', () => {
 
   it('returns a network error', async done => {
     const citeUrl = '/literature/12345';
-    const format = 'x-test';
+    const format = 'application/x-test';
     mockHttp
       .onGet(citeUrl, null, { Accept: 'application/x-test' })
       .networkError();
