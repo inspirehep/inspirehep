@@ -235,3 +235,39 @@ def test_only_public_and_current_emails():
     result_email_addresses = result_data.get("email_addresses")
 
     assert expected_email_addresses == result_email_addresses
+
+
+def test_author_advisors_has_first_and_last_names():
+    schema = AuthorsDetailSchema()
+    data = {
+        "advisors": [
+            {
+                "degree_type": "other",
+                "ids": [{"schema": "INSPIRE ID", "value": "INSPIRE-00100407"}],
+                "name": "Stenger, Victor J.",
+            },
+            {"degree_type": "other", "name": "Learned, John Gregory"},
+        ]
+    }
+    author = faker.record("aut", data=data, with_control_number=True)
+    expected_advisors = [
+        {
+            "first_name": "Victor J.",
+            "last_name": "Stenger",
+            "degree_type": "other",
+            "name": "Stenger, Victor J.",
+            "ids": [{"schema": "INSPIRE ID", "value": "INSPIRE-00100407"}],
+        },
+        {
+            "first_name": "John Gregory",
+            "last_name": "Learned",
+            "degree_type": "other",
+            "name": "Learned, John Gregory",
+        },
+    ]
+
+    result = schema.dumps(author).data
+    result_data = json.loads(result)
+    result_advisors = result_data.get("advisors")
+
+    assert expected_advisors == result_advisors

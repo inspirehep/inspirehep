@@ -15,3 +15,19 @@ exports[`Advisor renders unliked 1`] = `
   Yoda
 </Link>
 `;
+
+exports[`Advisor renders with first_name and last_name 1`] = `
+<Link
+  to="/authors/12345"
+>
+  John Yoda
+</Link>
+`;
+
+exports[`Advisor renders with only first_name 1`] = `
+<Link
+  to="/authors/12345"
+>
+  John 
+</Link>
+`;

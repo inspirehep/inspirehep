@@ -27,7 +27,9 @@ def test_authors_detail(inspire_app, datadir):
         "advisors": [
             {
                 "degree_type": "other",
+                "first_name": "Curtis G.",
                 "ids": [{"schema": "INSPIRE ID", "value": "INSPIRE-00070625"}],
+                "last_name": "Callan",
                 "name": "Callan, Curtis G.",
             }
         ],

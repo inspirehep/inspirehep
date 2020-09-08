@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Map } from 'immutable';
-import { getRecordIdFromRef } from '../../../common/utils';
+import { getRecordIdFromRef, getAuthorName } from '../../../common/utils';
 import { AUTHORS } from '../../../common/routes';
 
 function Advisor({ advisor }) {
@@ -12,7 +12,7 @@ function Advisor({ advisor }) {
   const profileOrSearchUrl = recordId
     ? `${AUTHORS}/${recordId}`
     : `${AUTHORS}?q=${encodeURIComponent(name)}`;
-  return <Link to={profileOrSearchUrl}>{name}</Link>;
+  return <Link to={profileOrSearchUrl}>{getAuthorName(advisor)}</Link>;
 }
 
 Advisor.propTypes = {

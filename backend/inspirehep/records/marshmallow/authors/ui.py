@@ -10,6 +10,7 @@ from marshmallow import fields
 from ..utils import get_facet_author_name_for_author, get_first_value_for_schema
 from .base import AuthorsPublicSchema
 from .common import PositionSchemaV1
+from .common.advisor import AdvisorSchemaV1
 
 
 class AuthorsBaseSchema(AuthorsPublicSchema):
@@ -22,6 +23,7 @@ class AuthorsBaseSchema(AuthorsPublicSchema):
 class AuthorsDetailSchema(AuthorsBaseSchema):
     facet_author_name = fields.Method("get_facet_author_name", dump_only=True)
     positions = fields.Nested(PositionSchemaV1, dump_only=True, many=True)
+    advisors = fields.Nested(AdvisorSchemaV1, dump_only=True, many=True)
     should_display_positions = fields.Method(
         "get_should_display_positions", dump_only=True
     )
