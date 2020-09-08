@@ -1,0 +1,184 @@
+{%- macro format_collaborations(collaborations, collaborations_with_suffix) -%}
+  {%- if collaborations | length > 0 or collaborations_with_suffix | length > 0 -%}
+      <span>{{ collaborations | join(" and ")}}
+      {%- if collaborations|length > 0 -%}
+          {%- if collaborations|length > 1 %}
+            Collaborations
+          {% else %}
+            Collaboration
+          {%- endif -%}
+      {%- endif -%}
+      {%- if collaborations|length > 0 and collaborations_with_suffix|length > 0 -%}
+          and
+      {%- endif %}
+      {{ collaborations_with_suffix | join(" and ") }}</span>
+ {%- endif -%}
+{%- endmacro -%}
+
+
+{%- macro link_element(element, link_path, display) -%}
+  {%- if element.control_number is defined -%}
+<a href="https://{{ host }}/{{ link_path }}/{{ element.control_number }}">{{ display }}</a>
+  {%- else -%}
+    {{ display }}
+  {%- endif -%}
+{%- endmacro -%}
+
+
+{%- macro format_author_affiliations(affiliations) -%}
+  {%- for affiliation in affiliations -%}
+      {{ link_element(affiliation, 'institutions', affiliation.value) }}
+      {%- if not loop.last -%} and {%- endif -%}
+  {% endfor %}
+{%- endmacro -%}
+
+
+{%- macro format_author(author) -%}
+  {{ link_element(author, 'authors', author.display_name) }}
+  {%- if author.affiliations is defined and author.affiliations | length > 0 %} ({{ format_author_affiliations(author.affiliations) }})
+  {%- endif -%}
+  {%- if author.inspire_roles is defined and 'editor' in author.inspire_roles -%}
+    (ed.)
+  {%- endif -%}
+{%- endmacro -%}
+
+
+{%- macro format_arxiv(eprint) -%}
+    <a href="https://arxiv.org/abs/{{ eprint.value }}">
+      {{ eprint.value }}
+    </a>
+    {%- if eprint.categories is defined -%}
+      [{{ eprint.categories.0 }}]
+    {%- endif -%}
+{%- endmacro -%}
+
+
+{%- macro format_arxiv_eprints(eprints) -%}
+  {%- if eprints is defined -%}
+    <p>
+      e-Print:
+      {%- for eprint in eprints %}
+          {{ format_arxiv(eprint) }}
+          {%- if not loop.last -%}, {%- endif -%}
+      {% endfor -%}
+    </p>
+  {%- endif -%}
+{%- endmacro -%}
+
+
+{%- macro format_authors(authors, limit) -%}
+  {%- for author in authors[:limit] -%}
+      {{ format_author(author) }}
+      {%- if not loop.last %}, {% endif -%}
+  {%- endfor -%}
+  {%- if authors|length > limit %} et al.{% endif -%}
+{%- endmacro -%}
+
+
+{%- macro format_authors_and_collaborations(authors, collaborations) -%}
+  {%- set collaborations_values = collaborations|selectattr('value', 'defined')|map(attribute='value')|list -%}
+  {%- set collaborations_with_suffix_values = collaborations_with_suffix|selectattr('value', 'defined')|map(attribute='value')|list -%}
+  {%- set collaborations_size =  collaborations_values | length + collaborations_with_suffix_values | length -%}
+  {%- if collaborations_size > 0 or authors is defined and authors | length > 0 %}
+    <p>
+      {%- if collaborations_size == 0 -%}
+        {{ format_authors(authors, 5) }}
+      {%- elif authors | length == 1 -%}
+        {{ format_collaborations(collaborations_values, collaborations_with_suffix_values) }}
+      <span>&bull;</span>
+        {{ format_authors(authors, 1) }}
+        {%- if collaborations_size > 1 %} for the collaborations.
+        {% else %} for the collaboration.
+        {%- endif -%}
+      {% else %}
+        {{ format_collaborations(collaborations_values, collaborations_with_suffix_values) }}
+        {%- if authors | length > 0 -%}
+          &bull;
+        {%- endif -%}
+        {{ format_authors(authors, 1) }}
+      {%- endif -%}
+    </p>
+  {% endif -%}
+{%- endmacro -%}
+
+
+{%- macro format_doi(doi) -%}
+    <a href="https://doi.org/{{ doi.value }}">
+      {{ doi.value }}
+    </a>
+    {%- if doi.material is defined -%}
+      ({{ doi.material }})
+    {%- endif -%}
+{%- endmacro -%}
+
+
+{%- macro format_dois(dois) -%}
+  {%- if dois is defined -%}
+      <p>
+        DOI:
+        {% for doi in dois -%}
+            {{ format_doi(doi) }}
+            {%- if not loop.last %}, {% endif -%}
+        {%- endfor %}
+      </p>
+  {%- endif -%}
+{%- endmacro -%}
+
+
+{%- macro get_page_or_artid_display(pub_info) -%}
+    {%- if pub_info.page_start is defined and pub_info.page_end is defined -%}
+      {{ pub_info.page_start }}-{{ pub_info.page_end }}
+    {%- elif pub_info.page_start -%}
+      {{ pub_info.page_start }}
+    {%- elif pub_info.artid -%}
+      {{ pub_info.artid }}
+    {%- endif -%}
+{%- endmacro -%}
+
+
+{%- macro format_pub_info(pub_info) -%}
+    <span>
+    {%- if pub_info.journal_title is defined %}
+      {{ pub_info.journal_title }}
+      {%- if pub_info.journal_volume is defined %} {{ pub_info.journal_volume }}{%- endif %}
+      {%- if pub_info.year is defined %} ({{ pub_info.year }}){%- endif %}
+      {%- if pub_info.journal_issue is defined %} {{ pub_info.journal_issue }}{%- endif %}
+      {%- if pub_info.page_start is defined or pub_info.artid is defined %}, {%- endif %}
+      {{ get_page_or_artid_display(pub_info) }}
+      {%- if pub_info.material is defined and pub_info.material != 'publication' %}
+        ({{ pub_info.material }})
+      {% endif -%}
+    {%- elif pub_info.pubinfo_freetext is defined %}
+      {{ pub_info.pubinfo_freetext }}
+    {% endif -%}
+    </span>
+{%- endmacro -%}
+
+
+{%- macro format_pub_info_list(pub_infos) -%}
+  {%- if pub_infos is defined and pub_infos | length > 0 -%}
+    Published in:
+    {%- for pub_info in pub_infos -%} {{ format_pub_info(pub_info) }}
+        {%- if not loop.last -%}, {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+{%- endmacro -%}
+
+
+<!DOCTYPE html>
+<html>
+<body>
+{% for record in records %}
+  <p><b>
+    <a href="https://{{ host }}/literature/{{ record.control_number }}">
+      {{ record.title_display }}
+    </a>
+  </b></p>
+  {{ format_authors_and_collaborations(record.authors, record.collaborations) }}
+  {{ format_arxiv_eprints(record.arxiv_eprints) }}
+  {{ format_dois(record.dois) }}
+  {{ format_pub_info_list(record.publication_info) }}
+  <br>
+{% endfor -%}
+</body>
+</html>

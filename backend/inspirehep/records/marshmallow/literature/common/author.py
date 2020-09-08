@@ -11,6 +11,7 @@ from inspire_dojson.utils import get_recid_from_ref
 from inspire_utils.name import generate_name_variations
 from marshmallow import Schema, fields, missing, pre_dump
 
+from inspirehep.pidstore.api.base import PidStoreBase
 from inspirehep.records.marshmallow.utils import (
     get_first_name,
     get_first_value_for_schema,
@@ -63,6 +64,37 @@ class AuthorSchemaV1(FirstAuthorSchemaV1):
         if "supervisor" in data.get("inspire_roles", []):
             return {}
         return data
+
+
+class CVAuthorSchemaV1(AuthorSchemaV1):
+    display_name = fields.Method("get_display_name")
+    control_number = fields.Method("get_control_number")
+    affiliations = fields.Method("get_affiliations")
+
+    @staticmethod
+    def get_affiliations(data):
+        affiliations = data.get("affiliations", [])
+        for affiliation in affiliations:
+            if "record" in affiliation:
+                _, affiliation["control_number"] = PidStoreBase.get_pid_from_record_uri(
+                    affiliation["record"].get("$ref")
+                )
+        return affiliations
+
+    @staticmethod
+    def get_control_number(data):
+        if "record" not in data:
+            return missing
+        _, recid = PidStoreBase.get_pid_from_record_uri(data["record"].get("$ref"))
+        return recid
+
+    @staticmethod
+    def get_display_name(data):
+        first_name = get_first_name(data.get("full_name", ""))
+        last_name = get_last_name(data.get("full_name", ""))
+        if first_name:
+            return f"{first_name} {last_name}"
+        return data["full_name"]
 
 
 class AuthorAutocompleteSchema(Schema):

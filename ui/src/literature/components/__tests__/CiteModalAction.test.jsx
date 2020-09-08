@@ -21,7 +21,7 @@ describe('CiteModalAction', () => {
     const wrapper = shallow(
       <CiteModalAction
         recordId={12345}
-        initialCiteFormat="x-bibtex"
+        initialCiteFormat="application/x-bibtex"
         onCiteFormatChange={jest.fn()}
       />
     );
@@ -42,7 +42,7 @@ describe('CiteModalAction', () => {
   });
 
   it('sets modalVisible true on cite click and calls setCiteContentFor with initialCiteFormat if first time', () => {
-    const initialCiteFormat = 'x-bibtex';
+    const initialCiteFormat = 'application/x-bibtex';
     const wrapper = shallow(
       <CiteModalAction
         recordId={12345}
@@ -66,7 +66,7 @@ describe('CiteModalAction', () => {
     const wrapper = shallow(
       <CiteModalAction
         recordId={12345}
-        initialCiteFormat="x-bibtex"
+        initialCiteFormat="application/x-bibtex"
         onCiteFormatChange={jest.fn()}
       />
     );
@@ -84,7 +84,7 @@ describe('CiteModalAction', () => {
   });
 
   it('shows an alert with the error message when there is an error in setCiteContentFor', () => {
-    const initialCiteFormat = 'x-bibtex';
+    const initialCiteFormat = 'application/x-bibtex';
     const wrapper = shallow(
       <CiteModalAction
         recordId={12345}
@@ -101,14 +101,14 @@ describe('CiteModalAction', () => {
     const wrapper = shallow(
       <CiteModalAction
         recordId={12345}
-        initialCiteFormat="x-bibtex"
+        initialCiteFormat="application/x-bibtex"
         onCiteFormatChange={jest.fn()}
       />
     );
     const setCiteContentFor = wrapper.find(SelectBox).prop('onChange');
-    await setCiteContentFor('vnd+inspire.latex.us+x-latex');
+    await setCiteContentFor('application/vnd+inspire.latex.us+x-latex');
     expect(wrapper.state('citeContent')).toEqual(
-      'Cite 12345 in vnd+inspire.latex.us+x-latex'
+      'Cite 12345 in application/vnd+inspire.latex.us+x-latex'
     );
   });
 
@@ -116,7 +116,7 @@ describe('CiteModalAction', () => {
     const wrapper = shallow(
       <CiteModalAction
         recordId={12345}
-        initialCiteFormat="x-bibtex"
+        initialCiteFormat="application/x-bibtex"
         onCiteFormatChange={jest.fn()}
       />
     );
@@ -125,5 +125,18 @@ describe('CiteModalAction', () => {
     const onModalCancel = wrapper.find(Modal).prop('onCancel');
     onModalCancel();
     expect(wrapper.state('modalVisible')).toBe(false);
+  });
+
+  it('renders with loading', () => {
+    const initialCiteFormat = 'application/x-bibtex';
+    const wrapper = shallow(
+      <CiteModalAction
+        recordId={12345}
+        initialCiteFormat={initialCiteFormat}
+        onCiteFormatChange={jest.fn()}
+      />
+    );
+    wrapper.setState({ loading: true });
+    expect(wrapper).toMatchSnapshot();
   });
 });

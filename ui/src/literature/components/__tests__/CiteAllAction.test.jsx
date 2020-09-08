@@ -60,7 +60,7 @@ describe('CiteAllAction', () => {
       />
     );
     await wrapper.find(DropdownMenu).prop('onClick')({
-      key: 'vnd+inspire.latex.eu+x-latex',
+      key: 'application/vnd+inspire.latex.eu+x-latex',
     });
     expect(downloadTextAsFile).toHaveBeenCalledWith(
       'Test',
@@ -86,7 +86,7 @@ describe('CiteAllAction', () => {
       />
     );
     await wrapper.find(DropdownMenu).prop('onClick')({
-      key: 'vnd+inspire.latex.eu+x-latex',
+      key: 'application/vnd+inspire.latex.eu+x-latex',
     });
     expect(downloadTextAsFile).toHaveBeenCalledWith(
       'Test',

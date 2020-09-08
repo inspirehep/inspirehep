@@ -107,11 +107,13 @@ LITERATURE.update(
             "application/x-bibtex": f"{INSPIRE_SERIALIZERS}:literature_bibtex_response",
             "application/vnd+inspire.latex.eu+x-latex": f"{INSPIRE_SERIALIZERS}:latex_response_eu",
             "application/vnd+inspire.latex.us+x-latex": f"{INSPIRE_SERIALIZERS}:latex_response_us",
+            "text/vnd+inspire.html+html": f"{INSPIRE_SERIALIZERS}:literature_cv_html_response",
         },
         "search_serializers": {
             "application/json": f"{INSPIRE_SERIALIZERS}:literature_json_response_search",
             "application/vnd+inspire.record.ui+json": f"{INSPIRE_SERIALIZERS}:literature_json_list_response",
             "application/x-bibtex": f"{INSPIRE_SERIALIZERS}:literature_bibtex_response_search",
+            "text/vnd+inspire.html+html": f"{INSPIRE_SERIALIZERS}:literature_cv_html_response_search",
             "application/vnd+inspire.latex.eu+x-latex": f"{INSPIRE_SERIALIZERS}:literature_latex_eu_response_search",
             "application/vnd+inspire.latex.us+x-latex": f"{INSPIRE_SERIALIZERS}:literature_latex_us_response_search",
         },
@@ -632,6 +634,15 @@ LITERATURE_SOURCE_INCLUDES_BY_CONTENT_TYPE = {
     "application/vnd+inspire.latex.us+x-latex": ["_latex_us_display"],
     "application/vnd+inspire.latex.eu+x-latex": ["_latex_eu_display"],
     "application/x-bibtex": ["_bibtex_display"],
+    "text/vnd+inspire.html+html": [
+        "titles",
+        "control_number",
+        "collaborations",
+        "authors",
+        "dois",
+        "arxiv_eprints",
+        "publication_info",
+    ],
 }
 LITERATURE_SOURCE_EXCLUDES_BY_CONTENT_TYPE = {
     "application/json": [
