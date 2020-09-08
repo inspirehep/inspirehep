@@ -3605,7 +3605,7 @@
     }
   ],
   "self": {
-    "$ref": "http://labs.inspirehep.net/api/literature/1630825"
+    "$ref": "http://localhost:5000/api/literature/1630825"
   },
   "core": true,
   "curated": true,

@@ -245,10 +245,13 @@ def generate_records(
     count=10, record_type=LiteratureRecord, data={}, skip_validation=False
 ):
     for i in range(count):
-        data = faker.record(
-            record_type.pid_type, data=data, skip_validation=skip_validation
+        record_data = faker.record(
+            record_type.pid_type,
+            data=data,
+            skip_validation=skip_validation,
+            with_control_number=True,
         )
-        rec = record_type.create(data)
+        rec = record_type.create(record_data)
     db.session.commit()
 
 

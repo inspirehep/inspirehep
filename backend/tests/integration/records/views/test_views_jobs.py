@@ -148,7 +148,7 @@ def test_jobs_accelerator_experiments(inspire_app, datadir):
     expected_accelerator_experiments = [
         {
             "name": "FNAL-E-0973",
-            "record": {"$ref": "http://qa.inspirebeta.net/api/experiments/1108209"},
+            "record": {"$ref": "http://localhost:5000/api/experiments/1108209"},
         },
         {"name": "LDMX"},
     ]

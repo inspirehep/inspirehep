@@ -31,6 +31,7 @@ from sqlalchemy.orm.exc import NoResultFound
 from inspirehep.indexer.base import InspireRecordIndexer
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.errors import MissingSerializerError, WrongRecordSubclass
+from inspirehep.records.utils import get_ref_from_pid
 from inspirehep.utils import flatten_list
 
 LOGGER = structlog.getLogger()
@@ -156,6 +157,7 @@ class InspireRecord(Record):
                     cls.pidstore_handler.mint(id_, data)
             kwargs.pop("disable_orcid_push", None)
             kwargs.pop("disable_relations_update", None)
+            data["self"] = get_ref_from_pid(cls.pid_type, data["control_number"])
             record = super().create(data, id_=id_, **kwargs)
             record.update_model_created_with_legacy_creation_date()
         return record
@@ -307,7 +309,7 @@ class InspireRecord(Record):
     def update(self, data, *args, **kwargs):
         if not self.get("deleted", False):
             if "control_number" not in data:
-                raise ValueError("Missing contorl number in record update.")
+                raise ValueError("Missing control number in record update.")
             # Currently Invenio is clearing record in put method in invenio_records_rest/views.py
             # this is called just before `record.update()` so here record is already empty
             # it means that it's not possible to verify if control_number is correct in here.
@@ -315,9 +317,7 @@ class InspireRecord(Record):
                 "control_number" in self
                 and data["control_number"] != self["control_number"]
             ):
-                raise ValueError(
-                    "Control number in data update do not match one in the record."
-                )
+                data["self"] = get_ref_from_pid(self.pid_type, data["control_number"])
         with db.session.begin_nested():
             self.clear()
             super().update(data)

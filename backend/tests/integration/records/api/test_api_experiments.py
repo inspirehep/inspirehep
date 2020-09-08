@@ -148,7 +148,7 @@ def test_create_record_from_db_depending_on_its_pid_type(inspire_app):
 
 
 def test_create_or_update_record_from_db_depending_on_its_pid_type(inspire_app):
-    data = faker.record("exp")
+    data = faker.record("exp", with_control_number=True)
     record = InspireRecord.create_or_update(data)
     assert type(record) == ExperimentsRecord
     assert record.pid_type == "exp"

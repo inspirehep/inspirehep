@@ -256,7 +256,7 @@ def test_jobs_detail_serialize_experiment_with_referenced_record(inspire_app):
     expected_accelerator_experiments = [
         {
             "name": "LIGO",
-            "record": {"$ref": "http://labs.inspirehep.net/api/experiments/1110623"},
+            "record": {"$ref": "http://localhost:5000/api/experiments/1110623"},
         }
     ]
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}

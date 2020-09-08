@@ -34,7 +34,7 @@ def test_conferences_json_without_login(inspire_app, datadir):
         "legacy_creation_date": "2012-09-17",
         "legacy_version": "20161101104659.0",
         "opening_date": "2012-05-21",
-        "self": {"$ref": "http://labs.inspirehep.net/api/conferences/1185692"},
+        "self": {"$ref": "http://localhost:5000/api/conferences/1185692"},
         "series": [{"name": "First Stars", "number": 4}],
         "titles": [
             {"subtitle": "From Hayashi to the Future", "title": "First Stars IV"}
@@ -85,6 +85,7 @@ def test_conferences_json_with_logged_in_cataloger(inspire_app):
         "control_number": 1,
         "titles": [{"title": "Great conference for HEP"}],
         "number_of_contributions": 0,
+        "self": {"$ref": "http://localhost:5000/api/conferences/1"},
     }
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
@@ -116,7 +117,7 @@ def test_conferences_detail(inspire_app, datadir):
         "legacy_creation_date": "2012-09-17",
         "legacy_version": "20161101104659.0",
         "opening_date": "2012-05-21",
-        "self": {"$ref": "http://labs.inspirehep.net/api/conferences/1185692"},
+        "self": {"$ref": "http://localhost:5000/api/conferences/1185692"},
         "series": [{"name": "First Stars", "number": 4}],
         "titles": [
             {"subtitle": "From Hayashi to the Future", "title": "First Stars IV"}
@@ -164,7 +165,7 @@ def test_conferences_search_json(inspire_app, datadir):
         "legacy_creation_date": "2012-09-17",
         "legacy_version": "20161101104659.0",
         "opening_date": "2012-05-21",
-        "self": {"$ref": "http://labs.inspirehep.net/api/conferences/1185692"},
+        "self": {"$ref": "http://localhost:5000/api/conferences/1185692"},
         "series": [{"name": "First Stars", "number": 4}],
         "titles": [
             {"subtitle": "From Hayashi to the Future", "title": "First Stars IV"}
@@ -217,6 +218,9 @@ def test_proceedings_in_detail_page(inspire_app):
         "$schema": "http://localhost:5000/schemas/records/conferences.json",
         "control_number": conference["control_number"],
         "proceedings": [{"control_number": proceeding["control_number"]}],
+        "self": {
+            "$ref": f"http://localhost:5000/api/conferences/{conference_control_number}"
+        },
     }
     with inspire_app.test_client() as client:
         response = client.get(

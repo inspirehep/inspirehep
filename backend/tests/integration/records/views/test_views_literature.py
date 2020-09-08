@@ -715,6 +715,7 @@ def test_literature_search_cataloger_gets_fermilab_collection(inspire_app):
         "citation_count": 0,
         "citation_count_without_self_citations": 0,
         "author_count": 0,
+        "self": {"$ref": "http://localhost:5000/api/literature/666"},
     }
 
     with inspire_app.test_client() as client:
