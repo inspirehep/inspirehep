@@ -416,3 +416,110 @@ def test_latex_handle_multiple_erratums_with_missing_info(inspire_app):
 
     assert response_data.status_code == 200
     assert expected_latex_data in response_data.data
+
+
+def test_latex_returns_limits_number_of_authors_to_10(inspire_app):
+    data = {
+        "control_number": 637_275_237,
+        "titles": [{"title": "This is a title."}],
+        "authors": [
+            {
+                "uuid": "815f4c25-73ea-4169-8ea1-4f025abdd62b",
+                "full_name": "First, Author",
+            },
+            {
+                "uuid": "815f4c25-73ea-4169-8ea1-4f025abdd62c",
+                "full_name": "Second, Author",
+            },
+            {
+                "uuid": "815f4c25-73ea-4169-8ea1-4f025abdd62d",
+                "full_name": "Third, Author",
+            },
+            {
+                "uuid": "815f4c25-73ea-4169-8ea1-4f025abdd62e",
+                "full_name": "Fourth, Author",
+            },
+            {
+                "uuid": "815f4c25-73ea-4169-8ea1-4f025abdd62f",
+                "full_name": "Fifth, Author",
+            },
+            {
+                "uuid": "815f4c25-73ea-4169-8ea1-4f025abdd63a",
+                "full_name": "Sixth, Author",
+            },
+            {
+                "uuid": "815f4c25-73ea-4169-8ea1-4f025abdd63b",
+                "full_name": "Seventh, Author",
+            },
+            {
+                "uuid": "815f4c25-73ea-4169-8ea1-4f025abdd63c",
+                "full_name": "Eighth, Author",
+            },
+            {
+                "uuid": "815f4c25-73ea-4169-8ea1-4f025abdd63d",
+                "full_name": "Ninth, Author",
+            },
+            {
+                "uuid": "815f4c25-73ea-4169-8ea1-4f025abdd63e",
+                "full_name": "Tenth, Author",
+            },
+            {
+                "uuid": "815f4c25-73ea-4169-8ea1-4f025abdd63f",
+                "full_name": "Eleventh, Author",
+            },
+        ],
+    }
+    record = create_record("lit", data)
+    expected = (
+        "%\\cite{637275237}\n\\bibitem{637275237}\n"
+        "A.~First, A.~Second, A.~Third, A.~Fourth, A.~Fifth, A.~Sixth, A.~Seventh, A.~Eighth, A.~Ninth and A.~Tenth, \\textit{et al.}\n"
+        "%``This is a title.,''\n%0 citations counted in INSPIRE as of 11 Sep 2020"
+    )
+
+    with inspire_app.test_client() as client:
+        response = client.get(f"/literature/{record['control_number']}?format=latex-us")
+    response_data = response.get_data(as_text=True)
+
+    assert response.status_code == 200
+    assert response_data == expected
+
+
+def test_latex_not_returns_etal_when_authors_nb_less_than_10(inspire_app):
+    data = {
+        "control_number": 637_275_237,
+        "titles": [{"title": "This is a title."}],
+        "authors": [
+            {
+                "uuid": "815f4c25-73ea-4169-8ea1-4f025abdd62b",
+                "full_name": "First, Author",
+            },
+            {
+                "uuid": "815f4c25-73ea-4169-8ea1-4f025abdd62c",
+                "full_name": "Second, Author",
+            },
+            {
+                "uuid": "815f4c25-73ea-4169-8ea1-4f025abdd62d",
+                "full_name": "Third, Author",
+            },
+            {
+                "uuid": "815f4c25-73ea-4169-8ea1-4f025abdd62e",
+                "full_name": "Fourth, Author",
+            },
+            {
+                "uuid": "815f4c25-73ea-4169-8ea1-4f025abdd62f",
+                "full_name": "Fifth, Author",
+            },
+        ],
+    }
+    record = create_record("lit", data)
+    expected = (
+        "%\\cite{637275237}\n\\bibitem{637275237}\nA.~First, A.~Second, A.~Third, A.~Fourth and A.~Fifth,\n"
+        "%``This is a title.,''\n%0 citations counted in INSPIRE as of 11 Sep 2020"
+    )
+
+    with inspire_app.test_client() as client:
+        response = client.get(f"/literature/{record['control_number']}?format=latex-us")
+    response_data = response.get_data(as_text=True)
+
+    assert response.status_code == 200
+    assert response_data == expected
