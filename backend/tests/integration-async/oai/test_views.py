@@ -63,3 +63,53 @@ def test_oai_with_for_arxiv_set(
             f"/api/oai2d?verb=ListRecords&metadataPrefix=marcxml&set={set_name}"
         )
         assert record_marcxml in response.data
+
+
+def test_oai_get_single_identifier_for_CDS_set(
+    inspire_app, celery_app_with_context, celery_session_worker
+):
+    data = {"_export_to": {"CDS": True}}
+    record_data = faker.record("lit", data)
+    record = LiteratureRecord.create(record_data)
+    record_marcxml = record2marcxml(record)
+    db.session.commit()
+
+    set_name = inspire_app.config["OAI_SET_CDS"]
+    oaiset = OAISet(spec=f"{set_name}", name="Test", description="Test")
+    db.session.add(oaiset)
+    db.session.commit()
+
+    sleep(2)
+
+    with inspire_app.test_client() as client:
+        response = client.get(
+            f"/api/oai2d?verb=GetRecord&metadataPrefix=marcxml&identifier=oai:inspirehep.net:{record['control_number']}"
+        )
+        assert record_marcxml in response.data
+
+
+def test_oai_get_single_identifier_for_arxiv_set(
+    inspire_app, celery_app_with_context, celery_session_worker
+):
+    data = {
+        "arxiv_eprints": [{"value": "2009.01484"}],
+        "report_numbers": [{"value": "CERN-TH-2020-136"}],
+    }
+
+    record_data = faker.record("lit", data)
+    record = LiteratureRecord.create(record_data)
+    record_marcxml = record2marcxml(record)
+    db.session.commit()
+
+    set_name = inspire_app.config["OAI_SET_CERN_ARXIV"]
+    oaiset = OAISet(spec=f"{set_name}", name="Test", description="Test")
+    db.session.add(oaiset)
+    db.session.commit()
+
+    sleep(2)
+
+    with inspire_app.test_client() as client:
+        response = client.get(
+            f"/api/oai2d?verb=GetRecord&metadataPrefix=marcxml&identifier=oai:inspirehep.net:{record['control_number']}"
+        )
+        assert record_marcxml in response.data
