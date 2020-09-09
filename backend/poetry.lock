@@ -1404,7 +1404,7 @@ description = "A PEG-based query parser for INSPIRE."
 name = "inspire-query-parser"
 optional = false
 python-versions = "*"
-version = "6.0.28"
+version = "6.0.29"
 
 [package.dependencies]
 inspire-schemas = ">=61.0,<62.0"
@@ -1799,6 +1799,7 @@ tests = ["SQLAlchemy-Continuum (>=1.2.1)", "check-manifest (>=0.25)", "coverage 
 reference = "5d796cf354467773a7e00b75bc382ba2bf2efef7"
 type = "git"
 url = "https://github.com/inspirehep/invenio-oaiserver.git"
+
 [[package]]
 category = "main"
 description = "Invenio module that implements OAuth 2 server."
@@ -2774,7 +2775,7 @@ version = "2.8.4"
 [[package]]
 category = "main"
 description = "Run a subprocess in a pseudo terminal"
-marker = "python_version >= \"3.4\" and sys_platform != \"win32\" or sys_platform != \"win32\""
+marker = "python_version >= \"3.4\" and sys_platform != \"win32\" or sys_platform != \"win32\" or python_version >= \"3.4\" and sys_platform != \"win32\" and (python_version >= \"3.4\" and sys_platform != \"win32\" or sys_platform != \"win32\")"
 name = "ptyprocess"
 optional = false
 python-versions = "*"
@@ -4079,7 +4080,7 @@ multidict = ">=4.0"
 [[package]]
 category = "main"
 description = "Backport of pathlib-compatible object wrapper for zip files"
-marker = "python_version < \"3.8\" or python_version >= \"3.7\" and python_version < \"3.8\""
+marker = "python_version < \"3.8\" or python_version >= \"3.7\" and python_version < \"3.8\" or python_version >= \"3.7\" and python_version < \"3.8\" and (python_version < \"3.8\" or python_version >= \"3.7\" and python_version < \"3.8\") or python_version == \"3.7\" and python_version == \"3.7\""
 name = "zipp"
 optional = false
 python-versions = ">=3.6"
@@ -4109,6 +4110,7 @@ testing = ["coverage", "nose", "zope.event"]
 
 [metadata]
 content-hash = "2806a01f7fad7654a11ad7d123e341d570c763bfb01f51eaa8aa1f036b7566c3"
+lock-version = "1.0"
 python-versions = ">=3.6,<3.8"
 
 [metadata.files]
@@ -4615,7 +4617,7 @@ inspire-matcher = [
     {file = "inspire-matcher-9.0.4.tar.gz", hash = "sha256:575615a0a128f9ad49c456a240b382af927076a03ba597d30520f67dc089ab87"},
 ]
 inspire-query-parser = [
-    {file = "inspire-query-parser-6.0.28.tar.gz", hash = "sha256:e2e22fc34f16b301b8fb76ff20cda94dc27eb136b626e44fdef0cdc134471661"},
+    {file = "inspire-query-parser-6.0.29.tar.gz", hash = "sha256:1e15eeef4b7839ffabea6e797335df6b08d3543bf22f14ddbbf0df3dc27b2533"},
 ]
 inspire-schemas = [
     {file = "inspire-schemas-61.3.7.tar.gz", hash = "sha256:91a3a574a6e7042100df1975f7d11e6898ddc14b054c9668bf21742270e1206b"},

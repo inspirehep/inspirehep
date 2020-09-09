@@ -14,7 +14,7 @@ def test_query_parser(inspire_app):
         response = client.get(
             f"/search/query-parser?q={query}", content_type="application/json"
         )
-    expected = {"simple_query_string": {"fields": ["_all"], "query": "title"}}
+    expected = {"match": {"_all": {"operator": "and", "query": "title"}}}
     assert response.status_code == 200
     assert expected == response.json
 
