@@ -1,13 +1,5 @@
 version: 2.1
 jobs:
-  e2e:
-    machine:
-      image: ubuntu-1604:202004-01
-    working_directory: ~/inspirehep
-    steps:
-      - checkout
-      - run: sudo chown -R 999 e2e
-      - run: sh run-e2e.sh
   cypress:
     machine:
       image: ubuntu-1604:202004-01
@@ -25,5 +17,4 @@ workflows:
   version: 2
   e2e:
     jobs:
-      - e2e
       - cypress

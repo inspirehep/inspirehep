@@ -218,7 +218,7 @@ $ yarn test:unit # will open jest on watch mode
 
 Note that `jest` automatically run tests that changed files (unstaged) affect.
 
-### cypress
+### cypress (e2e)
 
 ```bash
 $ sh cypress-tests.sh # runs everything from scratch, identical to CI
@@ -236,12 +236,6 @@ Running existing visual tests and updating/creating snapshots requires `cypress-
 For continuous runs (when local DB is running and has required records etc.), the script can be reduced to only the last part `sh cypress-tests-run.sh`.
 
 If required, tests can run against `localhost:3000` by simply modifying `--host` option in `sh cypress-tests-run.sh`.
-
-### e2e
-
-```bash
-$ ./run-e2e.sh
-```
 
 ---
 
