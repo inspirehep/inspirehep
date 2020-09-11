@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test:dev": "cypress open",
-    "test": "DEBUG=cypress:* cypress run",
+    "test": "cypress run",
     "cypress": "cypress"
   },
   "author": "",
