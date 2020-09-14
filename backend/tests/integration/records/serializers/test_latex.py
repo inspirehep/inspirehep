@@ -418,6 +418,7 @@ def test_latex_handle_multiple_erratums_with_missing_info(inspire_app):
     assert expected_latex_data in response_data.data
 
 
+@freeze_time("2020-09-11")
 def test_latex_returns_limits_number_of_authors_to_10(inspire_app):
     data = {
         "control_number": 637_275_237,
@@ -484,6 +485,7 @@ def test_latex_returns_limits_number_of_authors_to_10(inspire_app):
     assert response_data == expected
 
 
+@freeze_time("2020-09-11")
 def test_latex_not_returns_etal_when_authors_nb_less_than_10(inspire_app):
     data = {
         "control_number": 637_275_237,
