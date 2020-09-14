@@ -263,3 +263,21 @@ def test_schema_handles_missing_info_in_erratum():
     result = json.loads(schema.dumps(record).data)
 
     assert expected == result["notes"]
+
+
+def test_schema_replaces_underscore_in_doi():
+    schema = LatexSchema()
+    record = {
+        "dois": [
+            {"value": "10.1142/9789811219313_0086"},
+            {"source": "Springer", "value": "10.1007/978-981-15-6292-1_4"},
+        ]
+    }
+
+    expected = [
+        {"value": "10.1142/9789811219313\\_0086"},
+        {"source": "Springer", "value": "10.1007/978-981-15-6292-1\\_4"},
+    ]
+    result = json.loads(schema.dumps(record).data)
+
+    assert expected == result["dois"]

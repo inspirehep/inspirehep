@@ -21,7 +21,7 @@ class LatexSchema(Schema):
     # It has to be string, otherwise if result is 0 then it's not rendered in latex
     citations = fields.String(attribute="citation_count")
     collaborations = fields.Method("get_collaborations")
-    dois = fields.Raw()
+    dois = fields.Method("get_dois")
     publication_info = fields.Method("get_publication_info")
     report_numbers = fields.Raw()
     titles = fields.Raw()
@@ -94,3 +94,11 @@ class LatexSchema(Schema):
         ]
 
         return erratums or None
+
+    def get_dois(self, data):
+        dois = get_value(data, "dois", []).copy()
+        if not dois:
+            return missing
+        for doi_data in dois:
+            doi_data["value"] = doi_data.get("value").replace("_", r"\_")
+        return dois or None
