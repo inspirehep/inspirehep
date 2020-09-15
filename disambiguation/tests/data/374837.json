@@ -1,0 +1,43 @@
+{
+  "keywords": [
+    {
+      "value": "effective action"
+    },
+    {
+      "value": "approximation: semiclassical"
+    }
+  ],
+  "inspire_categories": [
+    {
+      "term": "Theory-HEP"
+    }
+  ],
+  "abstracts": [
+    {
+      "value": "2 curated authors with recid"
+    }
+  ],
+  "control_number": 374836,
+  "titles": [
+    {
+      "title": "Title"
+    }
+  ],
+  "collaborations": [{"value":  "ATLAS"}],
+  "authors": [
+    {
+      "full_name": "Doe, John",
+      "curated_relation": true,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/authors/989441"
+      },
+      "affiliations": [
+        {
+          "value": "Rutgers U., Piscataway"
+        }
+      ],
+      "signature_block": "JOhn",
+      "uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e52"
+    }
+  ]
+}
