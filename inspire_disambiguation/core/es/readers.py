@@ -48,7 +48,9 @@ class LiteratureSearch(Search):
         hosts=[conf["ES_HOSTNAME"]],
         timeout=conf["ES_TIMEOUT"],
         ca_certs=conf["CA_CERTS"],
-        http_auth=auth,
+        max_retries=conf["ES_MAX_RETRIES_ON_TIMEOUT"],
+        retry_on_timeout=True,
+        http_auth=auth
     )
 
     def __init__(self, **kwargs):
