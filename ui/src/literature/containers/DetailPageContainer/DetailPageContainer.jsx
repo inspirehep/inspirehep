@@ -47,8 +47,8 @@ import { getPapersQueryString } from '../../utils';
 import ParentRecordLink from '../../components/ParentRecordLink';
 import BookSeriesInfoList from '../../components/BookSeriesInfoList';
 import { LITERATURE_SEMINARS_NS } from '../../../search/constants';
-import LiteratureSeminars from '../LiteratureSeminars';
-import { newSearch } from '../../../actions/search';
+import LiteratureSeminars from '../../components/LiteratureSeminars';
+import { newSearch, searchBaseQueriesUpdate } from '../../../actions/search';
 
 function DetailPage({
   authors,
@@ -56,7 +56,6 @@ function DetailPage({
   referencesCount,
   supervisors,
   seminarsCount,
-  loadingSeminars,
 }) {
   const metadata = record.get('metadata');
 
@@ -240,21 +239,13 @@ function DetailPage({
                     <Figures figures={figures} />
                   </ContentBox>
                 </Tabs.TabPane>
-                <Tabs.TabPane
-                  tab={
-                    <TabNameWithCount
-                      loading={seminarsCount == null && loadingSeminars}
-                      name="Seminars"
-                      count={seminarsCount}
-                    />
-                  }
-                  key="3"
-                  forceRender
-                >
-                  <ContentBox>
-                    <LiteratureSeminars recordId={controlNumber} />
-                  </ContentBox>
-                </Tabs.TabPane>
+                {seminarsCount > 0 && (
+                  <Tabs.TabPane tab={<span>Semianrs</span>} key="3">
+                    <ContentBox>
+                      <LiteratureSeminars />
+                    </ContentBox>
+                  </Tabs.TabPane>
+                )}
               </Tabs>
             </Col>
           </Row>
@@ -299,6 +290,9 @@ export default withRouteActionsDispatcher(DetailPageContainer, {
     fetchLiteratureAuthors(id),
     fetchCitationsByYear({ q: `recid:${id}` }),
     newSearch(LITERATURE_SEMINARS_NS),
+    searchBaseQueriesUpdate(LITERATURE_SEMINARS_NS, {
+      baseQuery: { q: `literature_records.record.$ref:${id}` },
+    }),
   ],
   loadingStateSelector: state => !state.literature.hasIn(['data', 'metadata']),
 });

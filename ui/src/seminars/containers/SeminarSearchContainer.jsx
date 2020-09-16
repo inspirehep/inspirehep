@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col, Alert } from 'antd';
 import { connect } from 'react-redux';
@@ -18,15 +18,12 @@ import SeminarStartDateFilterContainer from './SeminarStartDateFilterContainer';
 import VerticalDivider from '../../common/VerticalDivider';
 import SeminarTimezone from '../components/SeminarTimezone';
 import { doTimezonesHaveDifferentTimes } from '../../common/utils';
-import { searchBaseQueriesUpdate } from '../../actions/search';
 
 function SeminarSearch({
   loading,
   loadingAggregations,
   selectedTimezone,
   namespace,
-  baseQuery,
-  onBaseQueryChange,
   enableDateFilter,
   embedded,
 }) {
@@ -48,16 +45,6 @@ function SeminarSearch({
       </>
     ),
     [loadingAggregations, enableDateFilter, namespace, embedded]
-  );
-
-  useEffect(
-    () => {
-      // FIXME: this should be the responsibility of the parent component
-      if (baseQuery) {
-        onBaseQueryChange(namespace, baseQuery);
-      }
-    },
-    [namespace, baseQuery, onBaseQueryChange]
   );
 
   const renderSeminarItem = useCallback(
@@ -136,7 +123,6 @@ function SeminarSearch({
 
 SeminarSearch.propTypes = {
   namespace: PropTypes.oneOf([SEMINARS_NS, AUTHOR_SEMINARS_NS]),
-  onBaseQueryChange: PropTypes.func,
   baseQuery: PropTypes.object,
   loading: PropTypes.bool.isRequired,
   loadingAggregations: PropTypes.bool.isRequired,
@@ -160,10 +146,4 @@ const stateToProps = (state, { namespace }) => ({
   ]),
 });
 
-const dispatchToProps = dispatch => ({
-  onBaseQueryChange(namespace, baseQuery) {
-    dispatch(searchBaseQueriesUpdate(namespace, { baseQuery }));
-  },
-});
-
-export default connect(stateToProps, dispatchToProps)(SeminarSearch);
+export default connect(stateToProps)(SeminarSearch);

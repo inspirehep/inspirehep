@@ -1,28 +1,16 @@
-import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 
 import { AUTHOR_SEMINARS_NS } from '../../search/constants';
 import SeminarSearchContainer from '../../seminars/containers/SeminarSearchContainer';
+import SeminarCountWarning from '../../seminars/components/SeminarCountWarning';
 
-function AuthorSeminars({ recordId }) {
-  const baseQuery = useMemo(
-    () => ({
-      q: `speakers.record.$ref:${recordId}`,
-    }),
-    [recordId]
-  );
-
+function AuthorSeminars() {
   return (
-    <SeminarSearchContainer
-      embedded
-      namespace={AUTHOR_SEMINARS_NS}
-      baseQuery={baseQuery}
-    />
+    <>
+      <SeminarCountWarning />
+      <SeminarSearchContainer embedded namespace={AUTHOR_SEMINARS_NS} />
+    </>
   );
 }
-
-AuthorSeminars.propTypes = {
-  recordId: PropTypes.string.isRequired,
-};
 
 export default AuthorSeminars;
