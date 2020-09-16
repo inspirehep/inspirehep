@@ -40,7 +40,7 @@ class LatexSerializer(MarshmallowMixin, PreprocessorMixin):
 
     def latex_template(self):
         latex_jinja_env = jinja2.Environment(
-            variable_start_string="\VAR{",
+            variable_start_string="\\VAR{",
             variable_end_string="}",
             loader=jinja2.FileSystemLoader(os.path.abspath("/")),
         )  # noqa
