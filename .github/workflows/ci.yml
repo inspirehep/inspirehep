@@ -29,16 +29,16 @@ jobs:
           npm install buffer-shims
           export CHROME_BIN=chromium-browser
           export DISPLAY=:99.0
-          npm install
+          yarn install --ignore-engines
 
       - name: lint
-        run: npm run lint
+        run: yarn lint
 
       - name: write version
         run: node ./write-version.js
 
       - name: build
-        run: npm run build
+        run: yarn build
 
       - name: describe
         id: describe

@@ -26,7 +26,7 @@ Editor (used in inspirehep.net) for JSON documents with bibliographic metadata
 
 ```bash
 # install the repo with npm
-npm install
+yarn install --ingore-engines
 
 # link the module
 npm link
@@ -84,7 +84,7 @@ repo, for that, you can run `git clean -fdx` inside the record-editor repo.
 
 ```bash
 # install the repo with npm
-npm install
+yarn install --ignore-engines
 ```
 
 ### Inside the web container, under `/virtualenv/var/inspirehep-instance/static`
