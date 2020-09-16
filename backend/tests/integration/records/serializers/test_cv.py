@@ -22,9 +22,7 @@ def test_cv_with_subtitle(inspire_app, shared_datadir):
         (shared_datadir / "cv_with_subtitle.html").read_text().replace("\n", "")
     )
     with inspire_app.test_client() as client:
-        response = client.get(
-            "/literature/{}".format(record_control_number), headers=headers
-        )
+        response = client.get(f"/literature/{record_control_number}", headers=headers)
     response_status_code = response.status_code
     response_data = response.get_data(as_text=True).replace("\n", "")
     assert expected_status_code == response_status_code
@@ -81,9 +79,7 @@ def test_cv_with_linked_and_unlinked_authors(inspire_app, shared_datadir):
         .replace("\n", "")
     )
     with inspire_app.test_client() as client:
-        response = client.get(
-            "/literature/{}".format(record_control_number), headers=headers
-        )
+        response = client.get(f"/literature/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
     response_data = response.get_data(as_text=True).replace("\n", "")
@@ -109,9 +105,85 @@ def test_cv_with_multiple_collaborations(inspire_app, shared_datadir):
         .replace("\n", "")
     )
     with inspire_app.test_client() as client:
-        response = client.get(
-            "/literature/{}".format(record_control_number), headers=headers
-        )
+        response = client.get(f"/literature/{record_control_number}", headers=headers)
+
+    response_status_code = response.status_code
+    response_data = response.get_data(as_text=True).replace("\n", "")
+    assert expected_status_code == response_status_code
+    assert expected_result == response_data
+
+
+def test_cv_with_collaborations_and_no_authors(inspire_app, shared_datadir):
+    headers = {"Accept": "text/vnd+inspire.html+html"}
+    data = {
+        "control_number": 637_275_237,
+        "titles": [{"title": "This is a title."}],
+        "collaborations": [{"value": "ATLAS"}, {"value": "CMS"}],
+    }
+    record = create_record("lit", data=data)
+    record_control_number = record["control_number"]
+
+    expected_status_code = 200
+    expected_result = (
+        (shared_datadir / "cv_with_collaborations_and_no_authors.html")
+        .read_text()
+        .replace("\n", "")
+    )
+    with inspire_app.test_client() as client:
+        response = client.get(f"/literature/{record_control_number}", headers=headers)
+    response_status_code = response.status_code
+    response_data = response.get_data(as_text=True).replace("\n", "")
+    assert expected_status_code == response_status_code
+    assert expected_result == response_data
+
+
+def test_cv_with_collaboration_and_multiple_authors(inspire_app, shared_datadir):
+    headers = {"Accept": "text/vnd+inspire.html+html"}
+    data = {
+        "control_number": 637_275_237,
+        "titles": [{"title": "This is a title."}],
+        "collaborations": [{"value": "ATLAS"}],
+        "authors": [{"full_name": "Doe, John6"}, {"full_name": "Didi, Jane"}],
+    }
+    record = create_record("lit", data=data)
+    record_control_number = record["control_number"]
+
+    expected_status_code = 200
+    expected_result = (
+        (shared_datadir / "cv_with_collaboration_and_multiple_authors.html")
+        .read_text()
+        .replace("\n", "")
+    )
+    with inspire_app.test_client() as client:
+        response = client.get(f"/literature/{record_control_number}", headers=headers)
+
+    response_status_code = response.status_code
+    response_data = response.get_data(as_text=True).replace("\n", "")
+    assert expected_status_code == response_status_code
+    assert expected_result == response_data
+
+
+def test_cv_with_collaboration_with_suffix_and_multiple_authors(
+    inspire_app, shared_datadir
+):
+    headers = {"Accept": "text/vnd+inspire.html+html"}
+    data = {
+        "control_number": 637_275_237,
+        "titles": [{"title": "This is a title."}],
+        "collaborations": [{"value": "Particle Data Group"}],
+        "authors": [{"full_name": "Doe, John6"}, {"full_name": "Didi, Jane"}],
+    }
+    record = create_record("lit", data=data)
+    record_control_number = record["control_number"]
+
+    expected_status_code = 200
+    expected_result = (
+        (shared_datadir / "cv_with_collaboration_with_suffix_and_multiple_authors.html")
+        .read_text()
+        .replace("\n", "")
+    )
+    with inspire_app.test_client() as client:
+        response = client.get(f"/literature/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
     response_data = response.get_data(as_text=True).replace("\n", "")
@@ -149,9 +221,46 @@ def test_cv_with_author_with_affiliations(inspire_app, shared_datadir):
         .replace("\n", "")
     )
     with inspire_app.test_client() as client:
-        response = client.get(
-            "/literature/{}".format(record_control_number), headers=headers
-        )
+        response = client.get(f"/literature/{record_control_number}", headers=headers)
+
+    response_status_code = response.status_code
+    response_data = response.get_data(as_text=True).replace("\n", "")
+    assert expected_status_code == response_status_code
+    assert expected_result == response_data
+
+
+def test_cv_with_author_with_multiple_affiliations(inspire_app, shared_datadir):
+    headers = {"Accept": "text/vnd+inspire.html+html"}
+    institution = create_record("ins", data={"control_number": 637275238})
+    data = {
+        "control_number": 637_275_237,
+        "titles": [{"title": "This is a title."}],
+        "authors": [
+            {
+                "full_name": "Doe, John6",
+                "affiliations": [
+                    {
+                        "record": {
+                            "$ref": f"https://inspirehep.net/api/institutions/{institution['control_number']}"
+                        },
+                        "value": "Gent U.",
+                    },
+                    {"value": "New York U."},
+                ],
+            }
+        ],
+    }
+    record = create_record("lit", data=data)
+    record_control_number = record["control_number"]
+
+    expected_status_code = 200
+    expected_result = (
+        (shared_datadir / "cv_with_author_with_multiple_affiliations.html")
+        .read_text()
+        .replace("\n", "")
+    )
+    with inspire_app.test_client() as client:
+        response = client.get(f"/literature/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
     response_data = response.get_data(as_text=True).replace("\n", "")
@@ -176,9 +285,7 @@ def test_cv_with_author_with_editor_role(inspire_app, shared_datadir):
         .replace("\n", "")
     )
     with inspire_app.test_client() as client:
-        response = client.get(
-            "/literature/{}".format(record_control_number), headers=headers
-        )
+        response = client.get(f"/literature/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
     response_data = response.get_data(as_text=True).replace("\n", "")
@@ -203,9 +310,7 @@ def test_cv_with_doi(inspire_app, shared_datadir):
         (shared_datadir / "cv_with_doi.html").read_text().replace("\n", "")
     )
     with inspire_app.test_client() as client:
-        response = client.get(
-            "/literature/{}".format(record_control_number), headers=headers
-        )
+        response = client.get(f"/literature/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
     response_data = response.get_data(as_text=True).replace("\n", "")
@@ -240,9 +345,7 @@ def test_cv_with_multiple_dois_with_material(inspire_app, shared_datadir):
         .replace("\n", "")
     )
     with inspire_app.test_client() as client:
-        response = client.get(
-            "/literature/{}".format(record_control_number), headers=headers
-        )
+        response = client.get(f"/literature/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
     response_data = response.get_data(as_text=True).replace("\n", "")
@@ -277,9 +380,7 @@ def test_cv_with_publication_info_with_all_fields(inspire_app, shared_datadir):
         .replace("\n", "")
     )
     with inspire_app.test_client() as client:
-        response = client.get(
-            "/literature/{}".format(record_control_number), headers=headers
-        )
+        response = client.get(f"/literature/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
     response_data = response.get_data(as_text=True).replace("\n", "")
@@ -304,9 +405,7 @@ def test_cv_with_publication_info_with_pubinfo_freetext(inspire_app, shared_data
         .replace("\n", "")
     )
     with inspire_app.test_client() as client:
-        response = client.get(
-            "/literature/{}".format(record_control_number), headers=headers
-        )
+        response = client.get(f"/literature/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
     response_data = response.get_data(as_text=True).replace("\n", "")
@@ -331,9 +430,7 @@ def test_cv_with_publication_info_with_material(inspire_app, shared_datadir):
         .replace("\n", "")
     )
     with inspire_app.test_client() as client:
-        response = client.get(
-            "/literature/{}".format(record_control_number), headers=headers
-        )
+        response = client.get(f"/literature/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
     response_data = response.get_data(as_text=True).replace("\n", "")
@@ -362,9 +459,7 @@ def test_cv_with_publication_info_with_publication_material(
         .replace("\n", "")
     )
     with inspire_app.test_client() as client:
-        response = client.get(
-            "/literature/{}".format(record_control_number), headers=headers
-        )
+        response = client.get(f"/literature/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
     response_data = response.get_data(as_text=True).replace("\n", "")
@@ -396,9 +491,7 @@ def test_cv_with_publication_info_with_only_page_start(inspire_app, shared_datad
         .replace("\n", "")
     )
     with inspire_app.test_client() as client:
-        response = client.get(
-            "/literature/{}".format(record_control_number), headers=headers
-        )
+        response = client.get(f"/literature/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
     response_data = response.get_data(as_text=True).replace("\n", "")
@@ -424,9 +517,74 @@ def test_cv_with_arxiv_eprints(inspire_app, shared_datadir):
         (shared_datadir / "cv_with_arxiv_eprints.html").read_text().replace("\n", "")
     )
     with inspire_app.test_client() as client:
-        response = client.get(
-            "/literature/{}".format(record_control_number), headers=headers
-        )
+        response = client.get(f"/literature/{record_control_number}", headers=headers)
+
+    response_status_code = response.status_code
+    response_data = response.get_data(as_text=True).replace("\n", "")
+    assert expected_status_code == response_status_code
+    assert expected_result == response_data
+
+
+def test_cv_search_with_more_complex_records(inspire_app, shared_datadir):
+    headers = {"Accept": "text/vnd+inspire.html+html"}
+    data_1 = {
+        "control_number": 637_275_237,
+        "titles": [{"title": "This is a title."}],
+        "arxiv_eprints": [
+            {"value": "1207.7214", "categories": ["gr-qc"]},
+            {"value": "1208.7214"},
+        ],
+    }
+    data_2 = {
+        "control_number": 637_275_232,
+        "titles": [{"title": "Yet another title"}],
+        "authors": [{"full_name": "Doe, John6", "inspire_roles": ["editor"]}],
+        "publication_info": [
+            {
+                "journal_title": "Test Journal",
+                "journal_volume": "TV",
+                "year": 2016,
+                "page_start": "1",
+                "page_end": "2",
+                "artid": "012345",
+                "pubinfo_freetext": "Test. Pub. Info. Freetext",
+            }
+        ],
+    }
+    data_3 = {
+        "control_number": 637_275_231,
+        "titles": [{"title": "Yet another title 3"}],
+        "publication_info": [
+            {
+                "journal_title": "Test Journal",
+                "journal_volume": "TV",
+                "year": 2016,
+                "page_start": "1",
+                "page_end": "2",
+                "artid": "012345",
+                "pubinfo_freetext": "Test. Pub. Info. Freetext",
+            }
+        ],
+    }
+    data_4 = {
+        "control_number": 637_275_238,
+        "titles": [{"title": "This is a title."}],
+        "collaborations": [{"value": "Particle Data Group"}],
+        "authors": [{"full_name": "Doe, John6"}, {"full_name": "Didi, Jane"}],
+    }
+    create_record("lit", data=data_1)
+    create_record("lit", data=data_2)
+    create_record("lit", data=data_3)
+    create_record("lit", data=data_4)
+
+    expected_status_code = 200
+    expected_result = (
+        (shared_datadir / "cv_search_with_more_complex_records.html")
+        .read_text()
+        .replace("\n", "")
+    )
+    with inspire_app.test_client() as client:
+        response = client.get("/literature", headers=headers)
 
     response_status_code = response.status_code
     response_data = response.get_data(as_text=True).replace("\n", "")

@@ -28,7 +28,7 @@
 {%- macro format_author_affiliations(affiliations) -%}
   {%- for affiliation in affiliations -%}
       {{ link_element(affiliation, 'institutions', affiliation.value) }}
-      {%- if not loop.last -%} and {%- endif -%}
+      {%- if not loop.last %} and {% endif -%}
   {% endfor %}
 {%- endmacro -%}
 
@@ -67,15 +67,17 @@
 
 
 {%- macro format_authors(authors, limit) -%}
+  {%- if authors is defined and authors | length > 0 -%}
   {%- for author in authors[:limit] -%}
       {{ format_author(author) }}
       {%- if not loop.last %}, {% endif -%}
   {%- endfor -%}
   {%- if authors|length > limit %} et al.{% endif -%}
+  {%- endif -%}
 {%- endmacro -%}
 
 
-{%- macro format_authors_and_collaborations(authors, collaborations) -%}
+{%- macro format_authors_and_collaborations(authors, collaborations, collaborations_with_suffix) -%}
   {%- set collaborations_values = collaborations|selectattr('value', 'defined')|map(attribute='value')|list -%}
   {%- set collaborations_with_suffix_values = collaborations_with_suffix|selectattr('value', 'defined')|map(attribute='value')|list -%}
   {%- set collaborations_size =  collaborations_values | length + collaborations_with_suffix_values | length -%}
@@ -92,9 +94,9 @@
         {%- endif -%}
       {% else %}
         {{ format_collaborations(collaborations_values, collaborations_with_suffix_values) }}
-        {%- if authors | length > 0 -%}
-          &bull;
-        {%- endif -%}
+        {%- if authors | length > 0 %}
+          <span>&bull;</span>
+        {% endif -%}
         {{ format_authors(authors, 1) }}
       {%- endif -%}
     </p>
@@ -157,10 +159,12 @@
 
 {%- macro format_pub_info_list(pub_infos) -%}
   {%- if pub_infos is defined and pub_infos | length > 0 -%}
+    <p>
     Published in:
     {%- for pub_info in pub_infos -%} {{ format_pub_info(pub_info) }}
         {%- if not loop.last -%}, {%- endif -%}
     {%- endfor -%}
+    </p>
   {%- endif -%}
 {%- endmacro -%}
 
@@ -174,7 +178,7 @@
       {{ record.title_display }}
     </a>
   </b></p>
-  {{ format_authors_and_collaborations(record.authors, record.collaborations) }}
+  {{ format_authors_and_collaborations(record.authors, record.collaborations, record.collaborations_with_suffix) }}
   {{ format_arxiv_eprints(record.arxiv_eprints) }}
   {{ format_dois(record.dois) }}
   {{ format_pub_info_list(record.publication_info) }}
