@@ -6,12 +6,15 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import re
 import string
+import time
 
 import structlog
+from flask import current_app
 from inspire_utils.name import format_name
 from inspire_utils.record import get_value
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
+from sqlalchemy.exc import IntegrityError
 from unidecode import unidecode
 
 from inspirehep.pidstore.errors import PIDAlreadyExistsError
@@ -62,8 +65,9 @@ class InspireBAIProvider(InspireBaseProvider):
         """
         all_similar_bais = [
             result[0]
-            for result in PersistentIdentifier.query.with_for_update()
-            .with_entities(PersistentIdentifier.pid_value)
+            for result in PersistentIdentifier.query.with_entities(
+                PersistentIdentifier.pid_value
+            )
             .filter(PersistentIdentifier.pid_value.startswith(bai))
             .filter(PersistentIdentifier.pid_type == cls.pid_type)
         ]
@@ -80,21 +84,40 @@ class InspireBAIProvider(InspireBaseProvider):
         pid_value = pid_value or get_first_value_for_schema(
             get_value(data, "ids", []), "INSPIRE BAI"
         )
-        if not pid_value:
-            pid_value = cls.generate_bai(data)
-        pid_from_db = cls.query_pid_value(pid_value)
-        if not pid_from_db:
-            pid_from_db = super().create(
-                pid_value=pid_value,
-                object_type=object_type,
-                object_uuid=object_uuid,
-                status=PIDStatus.REGISTERED,
-                **kwargs,
-            )
-        else:
-            if pid_from_db.object_uuid != object_uuid:
-                raise PIDAlreadyExistsError(pid_value=pid_value, pid_type="bai")
-        return pid_from_db
+        retry_count = (
+            current_app.config.get("PIDSTORE_BAI_MAX_RETRY_COUNT", 5)
+            if not pid_value
+            else 1
+        )
+        for _ in range(retry_count):
+            last_exception = None
+            new_pid = pid_value or cls.generate_bai(data)
+            pid_from_db = cls.query_pid_value(new_pid)
+            if not pid_from_db:
+                try:
+                    provider_object = super().create(
+                        pid_value=new_pid,
+                        object_type=object_type,
+                        object_uuid=object_uuid,
+                        status=PIDStatus.REGISTERED,
+                        **kwargs,
+                    )
+                    # Pid created successfully.
+                    break
+                except IntegrityError as e:
+                    last_exception = e
+            elif pid_from_db.object_uuid != object_uuid:
+                last_exception = PIDAlreadyExistsError(
+                    pid_value=pid_value, pid_type="bai"
+                )
+            else:
+                break
+                # Correct pid already assigned to this object
+            time.sleep(current_app.config.get("PIDSTORE_BAI_RETRY_DELAY", 5))
+        if last_exception:
+            raise last_exception
+
+        return provider_object
 
     def delete(self):
         try:
