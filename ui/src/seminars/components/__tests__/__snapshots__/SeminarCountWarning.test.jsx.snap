@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SeminarCountWarning renders 1`] = `
+<Alert
+  message={
+    <span>
+      <strong>
+        Dislamer: 
+      </strong>
+       Please note that the list of seminars is managed by users and INSPIRE makes no claims as to its completeness and accuracy.
+    </span>
+  }
+  showIcon={true}
+  type="warning"
+/>
+`;

@@ -19,3 +19,10 @@ services:
     build:
       context: backend
       dockerfile: Dockerfile-local
+  ui-build:
+    build:
+      context: ui
+      dockerfile: Dockerfile-build
+    volumes:
+      - ./ui:/usr/src/app
+    command: /usr/src/app/build.sh

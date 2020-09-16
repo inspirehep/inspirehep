@@ -31,7 +31,7 @@ import {
   AUTHOR_CITATIONS_NS,
   AUTHOR_SEMINARS_NS,
 } from '../../../search/constants';
-import { newSearch } from '../../../actions/search';
+import { newSearch, searchBaseQueriesUpdate } from '../../../actions/search';
 import EditRecordAction from '../../../common/components/EditRecordAction';
 import DeletedAlert from '../../../common/components/DeletedAlert';
 import UserSettingsAction from '../../components/UserSettingsAction';
@@ -47,9 +47,9 @@ function DetailPage({
   userOrcid,
   dispatch,
   publicationsCount,
+  citingPapersCount,
   loadingPublications,
   seminarsCount,
-  loadingSeminars,
 }) {
   const authorFacetName = publicationsQuery.getIn(['author', 0]);
   const metadata = record.get('metadata');
@@ -182,7 +182,9 @@ function DetailPage({
                 <Tabs.TabPane
                   tab={
                     <Tooltip title="Research citing the author">
-                      <span>Cited by</span>
+                      <span>
+                        Cited By {citingPapersCount === 0 && <span> (0)</span>}
+                      </span>
                     </Tooltip>
                   }
                   key="2"
@@ -192,25 +194,20 @@ function DetailPage({
                     <AuthorCitationsContainer />
                   </ContentBox>
                 </Tabs.TabPane>
-                <Tabs.TabPane
-                  tab={
-                    <Tooltip title="Seminars from the author">
-                      <span>
-                        <TabNameWithCount
-                          loading={seminarsCount == null && loadingSeminars}
-                          name="Seminars"
-                          count={seminarsCount}
-                        />
-                      </span>
-                    </Tooltip>
-                  }
-                  key="3"
-                  forceRender
-                >
-                  <ContentBox className="remove-top-border-of-card">
-                    <AuthorSeminars recordId={recordId} />
-                  </ContentBox>
-                </Tabs.TabPane>
+                {seminarsCount > 0 && (
+                  <Tabs.TabPane
+                    tab={
+                      <Tooltip title="Seminars from the author">
+                        <span>Seminars</span>
+                      </Tooltip>
+                    }
+                    key="3"
+                  >
+                    <ContentBox className="remove-top-border-of-card">
+                      <AuthorSeminars />
+                    </ContentBox>
+                  </Tabs.TabPane>
+                )}
               </Tabs>
             </Col>
           </Row>
@@ -226,7 +223,8 @@ DetailPage.propTypes = {
   publicationsQuery: PropTypes.instanceOf(Map).isRequired,
   publications: PropTypes.instanceOf(List),
   userOrcid: PropTypes.string,
-  publicationsCount: PropTypes.string,
+  publicationsCount: PropTypes.number,
+  citingPapersCount: PropTypes.number,
 };
 
 const mapStateToProps = state => ({
@@ -252,10 +250,10 @@ const mapStateToProps = state => ({
     AUTHOR_PUBLICATIONS_NS,
     'initialTotal',
   ]),
-  loadingSeminars: state.search.getIn([
+  citingPapersCount: state.search.getIn([
     'namespaces',
-    AUTHOR_SEMINARS_NS,
-    'loading',
+    AUTHOR_CITATIONS_NS,
+    'initialTotal',
   ]),
   seminarsCount: state.search.getIn([
     'namespaces',
@@ -275,6 +273,9 @@ export default withRouteActionsDispatcher(DetailPageContainer, {
     newSearch(AUTHOR_PUBLICATIONS_NS),
     newSearch(AUTHOR_CITATIONS_NS),
     newSearch(AUTHOR_SEMINARS_NS),
+    searchBaseQueriesUpdate(AUTHOR_SEMINARS_NS, {
+      baseQuery: { q: `speakers.record.$ref:${id}` },
+    }),
   ],
   loadingStateSelector: state => !state.authors.hasIn(['data', 'metadata']),
 });
