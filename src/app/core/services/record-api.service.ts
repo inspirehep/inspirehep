@@ -47,13 +47,6 @@ export class RecordApiService extends CommonApiService {
     super(http);
   }
 
-  checkEditorPermission(pidType: string, pidValue: string): Promise<any> {
-    this.currentRecordEditorApiUrl = `${editorApiUrl}/${pidType}/${pidValue}`;
-    return this.http
-      .get(`${this.currentRecordEditorApiUrl}/permission`)
-      .toPromise();
-  }
-
   fetchRecord(pidType: string, pidValue: string): Promise<Object> {
     this.currentRecordId = pidValue;
     this.currentRecordApiUrl = `${apiUrl}/${pidType}/${pidValue}`;

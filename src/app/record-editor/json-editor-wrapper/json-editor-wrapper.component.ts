@@ -135,13 +135,13 @@ export class JsonEditorWrapperComponent extends SubscriberComponent implements O
    */
   private fetch(recordType: string, recordId: string) {
     let loadingToastId;
-    this.apiService.checkEditorPermission(recordType, recordId)
-      .then(() => {
-        // TODO: move toast call out of then after https://github.com/angular/angular/pull/18352
-        loadingToastId = this.toastrService.info(
-          `Loading ${recordType}/${recordId}`, 'Wait').toastId;
-        return this.apiService.fetchRecord(recordType, recordId);
-      }).then(json => {
+    setTimeout(() => {
+      // TODO: move toast call out of then after https://github.com/angular/angular/pull/18352
+      loadingToastId = this.toastrService.info(
+        `Loading ${recordType}/${recordId}`, 'Wait').toastId;
+    });
+    this.apiService.fetchRecord(recordType, recordId)
+      .then(json => {
         const record = json['metadata'];
         this.globalAppStateService
           .jsonBeingEdited$.next(record);
