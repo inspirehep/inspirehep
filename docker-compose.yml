@@ -54,13 +54,6 @@ services:
         condition: service_started
       web-next:
         condition: service_started
-  ui-build:
-    build:
-      context: ui
-      dockerfile: Dockerfile-build
-    volumes:
-      - ./ui:/usr/src/app
-    command: /usr/src/app/build.sh
   web:
     extends:
       file: docker-compose.services.yml
