@@ -2909,6 +2909,11 @@ optional = false
 python-versions = "*"
 version = "2.7"
 
+[package.source]
+reference = "067404829591314b1d6743e9a8e73548e7931c5d"
+type = "git"
+url = "https://github.com/phfaist/pylatexenc.git"
+
 [[package]]
 category = "dev"
 description = "python code static checker"
@@ -4109,7 +4114,8 @@ test = ["zope.event"]
 testing = ["coverage", "nose", "zope.event"]
 
 [metadata]
-content-hash = "2806a01f7fad7654a11ad7d123e341d570c763bfb01f51eaa8aa1f036b7566c3"
+content-hash = "83516c7aa574ee4da95083295b9ad6416b83ee6b7abc76326fc4500a544128cc"
+lock-version = "1.0"
 python-versions = ">=3.6,<3.8"
 
 [metadata.files]
@@ -5148,9 +5154,7 @@ pyjwt = [
     {file = "PyJWT-1.7.1-py2.py3-none-any.whl", hash = "sha256:5c6eca3c2940464d106b99ba83b00c6add741c9becaec087fb7ccdefea71350e"},
     {file = "PyJWT-1.7.1.tar.gz", hash = "sha256:8d59a976fb773f3e6a39c85636357c4f0e242707394cadadd9814f5cbaa20e96"},
 ]
-pylatexenc = [
-    {file = "pylatexenc-2.7.tar.gz", hash = "sha256:8a3de4c035b9413a7721cab11e4cc7469d9370b441fbd498fc8d2ff37cbff678"},
-]
+pylatexenc = []
 pylint = [
     {file = "pylint-2.4.4-py3-none-any.whl", hash = "sha256:886e6afc935ea2590b462664b161ca9a5e40168ea99e5300935f6591ad467df4"},
     {file = "pylint-2.4.4.tar.gz", hash = "sha256:3db5468ad013380e987410a8d6956226963aed94ecb5f9d3a28acca6d9ac36cd"},
