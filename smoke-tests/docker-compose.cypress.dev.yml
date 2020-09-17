@@ -1,0 +1,13 @@
+version: '2.1'
+
+services:
+  cypress:
+    image: cypress/included:4.0.2
+    volumes:
+      - ./smoke-tests:/tests
+    environment:
+      - NODE_ENV=test
+      - CI=${CI}
+    entrypoint: [""]
+    depends_on:
+      - ui
