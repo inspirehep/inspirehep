@@ -235,7 +235,9 @@ def orcid_push(self, orcid, rec_id, oauth_token, kwargs_to_pusher=None):
         # Enrich exception message.
         if isinstance(exc, RequestException):
             message = (exc.args[0:1] or ("",))[0]
-            message += "\nResponse={}".format(exc.response.content)
+            message += "\nResponse={}".format(
+                exc.response.content if hasattr(exc, "response") else None
+            )
             message += "\nRequest={} {}".format(exc.request.method, exc.request.url)
             exc.args = (message,) + exc.args[1:]
 
