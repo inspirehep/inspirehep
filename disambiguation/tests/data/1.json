@@ -1,0 +1,127 @@
+{
+  "keywords": [
+    {
+      "value": "keyword"
+    }
+  ],
+  "inspire_categories": [
+    {
+      "term": "category"
+    }
+  ],
+  "abstracts": [
+    {
+      "value": "Many curated authors"
+    }
+  ],
+  "control_number": 1,
+  "titles": [
+    {
+      "title": "Title"
+    }
+  ],
+  "authors": [
+    {
+      "full_name": "Doe, John",
+      "curated_relation": true,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/authors/1"
+      },
+      "affiliations": [
+        {
+          "value": "Rutgers U., Piscataway"
+        }
+      ],
+      "signature_block": "JOhn",
+      "uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e52"
+    },
+    {
+      "full_name": "Doe, J",
+      "curated_relation": true,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/authors/1"
+      },
+      "affiliations": [
+        {
+          "value": "Rutgers U., Piscataway"
+        }
+      ],
+      "signature_block": "JOhn",
+      "uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e53"
+    },
+    {
+      "full_name": "Doe, John",
+      "curated_relation": true,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/authors/2"
+      },
+      "affiliations": [
+        {
+          "value": "Rutgers U., Piscataway"
+        }
+      ],
+      "signature_block": "JOhn",
+      "uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e54"
+    },
+    {
+      "full_name": "Doe, John",
+      "curated_relation": true,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/authors/2"
+      },
+      "affiliations": [
+        {
+          "value": "Rutgers U., Piscataway"
+        }
+      ],
+      "signature_block": "JOhn",
+      "uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e55"
+    },
+    {
+      "full_name": "Doe, John",
+      "curated_relation": true,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/authors/3"
+      },
+      "signature_block": "JOhn",
+      "uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e59"
+    },
+    {
+      "full_name": "Doe, John",
+      "curated_relation": true,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/authors/6"
+      },
+      "signature_block": "JOhn",
+      "uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e56"
+    },
+    {
+      "full_name": "Jamie",
+      "curated_relation": true,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/authors/7"
+      },
+      "affiliations": [
+        {
+          "value": "Rutgers U., Piscataway"
+        }
+      ],
+      "signature_block": "Jana",
+      "uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e57"
+    },
+    {
+      "full_name": "Jamie",
+      "curated_relation": true,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/authors/8"
+      },
+      "affiliations": [
+        {
+          "value": "Rutgers U., Piscataway"
+        }
+      ],
+      "signature_block": "Jana",
+      "uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e58"
+    }
+  ]
+}
