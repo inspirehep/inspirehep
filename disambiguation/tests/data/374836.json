@@ -1,0 +1,56 @@
+{
+  "keywords": [
+    {
+      "value": "effective action"
+    },
+    {
+      "value": "approximation: semiclassical"
+    }
+  ],
+  "inspire_categories": [
+    {
+      "term": "Theory-HEP"
+    }
+  ],
+  "abstracts": [
+    {
+      "value": "2 curated authors with recid"
+    }
+  ],
+  "control_number": 374836,
+  "titles": [
+    {
+      "title": "Title"
+    }
+  ],
+  "authors": [
+    {
+      "full_name": "Seiberg, N.",
+      "curated_relation": true,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/authors/989440"
+      },
+      "affiliations": [
+        {
+          "value": "Rutgers U., Piscataway"
+        }
+      ],
+      "signature_block": "SABARGn",
+      "uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e52"
+    },
+    {
+      "full_name": "Jimmy",
+      "curated_relation": true,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/authors/989440"
+      },
+      "affiliations": [
+        {
+          "value": "UAIC"
+        }
+      ],
+      "signature_block": "JANa",
+      "uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e55"
+    }
+  ]
+}
