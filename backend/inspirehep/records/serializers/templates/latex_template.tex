@@ -42,7 +42,7 @@
     \VAR{- format_list(data.authors[:10]) ~ ',' }
     \VAR{- ' \\textit{et al.}' if data.authors|length > 10 }
 {%- endif -%}
-\VAR{- '\n%``' ~ data.titles.0.title ~ ",''" }
+\VAR{- '\n%``' ~ data.title ~ ",''" }
 {%- if 'journal_title' in data.publication_info -%}
     \VAR{- '\n' }
     \VAR{- publication_info(format, data.publication_info)}

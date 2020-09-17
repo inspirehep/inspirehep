@@ -8,7 +8,6 @@ import structlog
 from invenio_records_rest.serializers.response import search_responsify
 from pybtex.database import BibliographyData, Entry, Person
 from pybtex.database.output.bibtex import Writer
-from pylatexenc.latexencode import UnicodeToLatexEncoder
 
 from ..marshmallow.literature.bibtex import BibTexCommonSchema
 from .response import record_responsify
@@ -17,12 +16,9 @@ LOGGER = structlog.getLogger()
 
 
 class BibtexWriter(Writer):
-    latex_encode = UnicodeToLatexEncoder(
-        replacement_latex_protection="braces-after-macro", non_ascii_only=True
-    ).unicode_to_latex
-
     def _encode(self, text):
-        return self.latex_encode(text)
+        """Dummy encoding as it is already done in the marshmallow schemas."""
+        return text
 
     def _write_persons(self, stream, persons, role):
         if len(persons) > 10:
