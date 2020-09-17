@@ -49,6 +49,14 @@ const namespacesState = {
   },
   [AUTHORS_NS]: {
     ...initialNamespaceState,
+    baseQuery: {
+      ...initialBaseQuery,
+      sort: 'bestmatch',
+    },
+    query: {
+      ...initialBaseQuery,
+      sort: 'bestmatch',
+    },
   },
   [JOBS_NS]: {
     ...initialNamespaceState,

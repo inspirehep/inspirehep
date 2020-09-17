@@ -237,7 +237,15 @@ For continuous runs (when local DB is running and has required records etc.), th
 
 If required, tests can run against `localhost:3000` by simply modifying `--host` option in `sh cypress-tests-run.sh`.
 
----
+#### working with (visual) tests more efficiently
+
+(TODO: improve DX)
+
+You may not always need to run tests exactly like on the CI environment.
+
+* To run specific suite, just change `test` script in `smoke-tests/package.json` temporarily to `cypress run --spec cypress/integration/<spec.test.js>`
+* To avoid `ui-build` which destroys your local `node_modules` and builds the ui app, whenever you run `docker-compose up`; just use `smoke-tests/docker-compose.cypress.dev.yml` and run the last command manually instead of running the `cypress-tests-run.sh`
+  * Always use `docker-compose` without `-f`. In this way you will be able to control yourself whenever you want to build the ui app, and backend code will be live in the container
 
 ## How to import records
 

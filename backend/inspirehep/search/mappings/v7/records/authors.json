@@ -276,6 +276,12 @@
               "names_analyzed_initials",
               "names_analyzed"
             ],
+            "fields": {
+              "raw": {
+                "normalizer": "lowercase_normalizer",
+                "type": "keyword"
+              }
+            },
             "type": "text"
           }
         },
