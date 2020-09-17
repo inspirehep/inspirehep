@@ -43,7 +43,7 @@ def test_full_schema():
     }
     expected = {
         "texkeys": "a123bx",
-        "titles": [{"title": "Jessica Jones"}],
+        "title": "Jessica Jones",
         "authors": ["F.~Castle", "J.~Smith", "J.~Black, Jr.", "Jimmy"],
         "collaborations": ["LHCb"],
         "dois": [{"value": "10.1088/1361-6633/aa5514"}],
@@ -253,8 +253,8 @@ def test_schema_handles_missing_info_in_erratum():
                 "pubinfo_freetext": "Phys. Rev. D 96, 032004 (2017)",
                 "year": 2017,
             },
-            {"artid": "032005", "material": "erratum",},
-            {"journal_title": "Phys.Rev.D", "material": "erratum",},
+            {"artid": "032005", "material": "erratum"},
+            {"journal_title": "Phys.Rev.D", "material": "erratum"},
         ]
     }
 

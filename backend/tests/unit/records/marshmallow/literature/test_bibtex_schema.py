@@ -209,7 +209,7 @@ def test_note_on_erratum():
         "document_type": ["article"],
         "publication_info": [
             {
-                "journal_title": "Zażółć gęślą jaźń",
+                "journal_title": "J.Testing",
                 "journal_volume": "A",
                 "page_start": "12",
                 "page_end": "15",
@@ -224,9 +224,7 @@ def test_note_on_erratum():
             },
         ],
     }
-    expected_note = (
-        "[Erratum: Zażółć gęślą jaźń A, 12--15 (2016), Addendum: A Title B, 987]"
-    )
+    expected_note = "[Erratum: J.Testing A, 12--15 (2016), Addendum: A Title B, 987]"
     schema = BibTexCommonSchema()
 
     result = schema.dump(record).data

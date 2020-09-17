@@ -16,7 +16,10 @@ from isbn import ISBNError
 from marshmallow import Schema, fields, pre_dump
 from six import text_type
 
-from inspirehep.records.marshmallow.literature.utils import get_parent_record
+from inspirehep.records.marshmallow.literature.utils import (
+    get_parent_record,
+    latex_encode,
+)
 
 
 class BibTexCommonSchema(Schema):
@@ -86,7 +89,7 @@ class BibTexCommonSchema(Schema):
     @staticmethod
     def get_authors_with_role(authors, role):
         return [
-            author["full_name"]
+            latex_encode(author["full_name"])
             for author in authors
             if role in author.get("inspire_roles", ["author"])
         ]
@@ -145,7 +148,8 @@ class BibTexCommonSchema(Schema):
         return None
 
     def get_collaboration(self, data):
-        return ", ".join(get_value(data, "collaborations.value", default=[]))
+        collaboration = ", ".join(get_value(data, "collaborations.value", default=[]))
+        return latex_encode(collaboration)
 
     def get_doi(self, data):
         return get_value(data, "dois.value[0]")
@@ -192,7 +196,7 @@ class BibTexCommonSchema(Schema):
 
         note_string = "[" + ", ".join(note_strings) + "]"
         note_string = re.sub(" +", " ", note_string)
-        return re.sub(",,", ",", note_string)
+        return latex_encode(re.sub(",,", ",", note_string))
 
     def get_primary_class(self, data):
         eprint = get_value(data, "arxiv_eprints.value[0]")
@@ -203,31 +207,31 @@ class BibTexCommonSchema(Schema):
         title_dict = get_value(data, "titles[0]")
         if not title_dict:
             return None
-        title = f'{{{title_dict["title"]}}}'
+        title_parts = [title_dict["title"]]
         if "subtitle" in title_dict:
-            title = f"{title}: {{{title_dict['subtitle']}}}"
-        return title
+            title_parts.append(title_dict["subtitle"])
+        return ": ".join(
+            f"{{{latex_encode(part, contains_math=True)}}}" for part in title_parts
+        )
 
     def get_url(self, data):
         return get_value(data, "urls.value[0]")
 
     def get_author(self, data):
-        if "corporate_author" in data:
-            return " and ".join(
-                "{{{}}}".format(author) for author in data["corporate_author"]
-            )
+        return " and ".join(
+            f"{{{latex_encode(author)}}}" for author in data.get("corporate_author", [])
+        )
 
     def get_number(self, data):
         return BibTexCommonSchema.get_best_publication_info(data).get("journal_issue")
 
     def get_address(self, data):
         conference = ConferenceReader(data)
-        pubinfo_city = conference.city
-        pubinfo_country_code = conference.country
+        pubinfo_city = latex_encode(conference.city)
+        pubinfo_country_code = latex_encode(conference.country)
         if pubinfo_city and pubinfo_country_code:
             return f"{pubinfo_city}, {pubinfo_country_code}"
-            return pubinfo_city + ", " + pubinfo_country_code
-        return get_value(data, "imprints[0].place")
+        return latex_encode(get_value(data, "imprints[0].place"))
 
     def get_type(self, data):
         doc_type = data.get("doc_type")
@@ -236,25 +240,25 @@ class BibTexCommonSchema(Schema):
             return "{} thesis".format(degree_type.title())
 
     def get_report_number(self, data):
-        if "report_numbers" in data:
-            return ", ".join(
-                report["value"]
-                for report in data.get("report_numbers", [])
-                if not report.get("hidden", False)
-            )
+        report_number = ", ".join(
+            report["value"]
+            for report in data.get("report_numbers", [])
+            if not report.get("hidden", False)
+        )
+        return latex_encode(report_number)
 
     def get_school(self, data):
         schools = [
             school["name"] for school in get_value(data, "thesis_info.institutions", [])
         ]
         if schools:
-            return ", ".join(schools)
+            return latex_encode(", ".join(schools))
 
     def get_publisher(self, data):
-        return get_value(data, "imprints.publisher[0]")
+        return latex_encode(get_value(data, "imprints.publisher[0]"))
 
     def get_series(self, data):
-        return get_value(data, "book_series.title[0]")
+        return latex_encode(get_value(data, "book_series.title[0]"))
 
     def get_book_title(self, data):
 
@@ -285,7 +289,7 @@ class BibTexCommonSchema(Schema):
         return get_value(data, "editions[0]")
 
     def get_journal(self, data):
-        return (
+        return latex_encode(
             BibTexCommonSchema.get_best_publication_info(data)
             .get("journal_title")
             .replace(".", ". ")

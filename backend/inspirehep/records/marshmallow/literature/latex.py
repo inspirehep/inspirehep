@@ -13,6 +13,7 @@ from inspire_utils.record import get_value
 from marshmallow import Schema, fields, missing
 
 from .bibtex import BibTexCommonSchema
+from .utils import latex_encode
 
 
 class LatexSchema(Schema):
@@ -24,7 +25,7 @@ class LatexSchema(Schema):
     dois = fields.Method("get_dois")
     publication_info = fields.Method("get_publication_info")
     report_numbers = fields.Raw()
-    titles = fields.Raw()
+    title = fields.Method("get_title")
     texkeys = fields.Method("get_texkey")
     today = fields.Method("get_current_date")
     notes = fields.Method("get_note")
@@ -33,7 +34,7 @@ class LatexSchema(Schema):
     def cleanup_publication_info(pub_info):
         publication_info = pub_info.copy()
         if "journal_title" in publication_info:
-            publication_info["journal_title"] = (
+            publication_info["journal_title"] = latex_encode(
                 publication_info["journal_title"].replace(".", ". ").rstrip()
             )
 
@@ -54,7 +55,7 @@ class LatexSchema(Schema):
             return missing
 
         author_names = (
-            format_name(author["full_name"], initials_only=True)
+            latex_encode(format_name(author["full_name"], initials_only=True))
             for author in authors
             if "supervisor" not in author.get("inspire_roles", [])
         )
@@ -68,6 +69,15 @@ class LatexSchema(Schema):
         publication_info = self.cleanup_publication_info(publication_info)
 
         return publication_info
+
+    def get_title(self, data):
+        title_dict = get_value(data, "titles[0]")
+        if not title_dict:
+            return None
+        title_parts = [title_dict["title"]]
+        if "subtitle" in title_dict:
+            title_parts.append(title_dict["subtitle"])
+        return ": ".join(latex_encode(part, contains_math=True) for part in title_parts)
 
     def get_current_date(self, data):
         now = datetime.datetime.now()
@@ -83,7 +93,7 @@ class LatexSchema(Schema):
         if not data.get("collaborations"):
             return missing
 
-        return [collab["value"] for collab in data.get("collaborations")]
+        return [latex_encode(collab["value"]) for collab in data.get("collaborations")]
 
     def get_note(self, data):
 
@@ -100,5 +110,5 @@ class LatexSchema(Schema):
         if not dois:
             return missing
         for doi_data in dois:
-            doi_data["value"] = doi_data.get("value").replace("_", r"\_")
+            doi_data["value"] = latex_encode(doi_data.get("value"))
         return dois or None

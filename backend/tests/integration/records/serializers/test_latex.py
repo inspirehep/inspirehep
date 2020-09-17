@@ -403,8 +403,8 @@ def test_latex_handle_multiple_erratums_with_missing_info(inspire_app):
                 "pubinfo_freetext": "Phys. Rev. D 96, 032004 (2017)",
                 "year": 2017,
             },
-            {"artid": "032005", "material": "erratum",},
-            {"journal_title": "Phys.Rev.D", "material": "erratum",},
+            {"artid": "032005", "material": "erratum"},
+            {"journal_title": "Phys.Rev.D", "material": "erratum"},
         ]
     }
     expected_latex_data = "[erratum: , 032005; erratum: Phys. Rev. D]".encode()
@@ -518,6 +518,33 @@ def test_latex_not_returns_etal_when_authors_nb_less_than_10(inspire_app):
         "%\\cite{637275237}\n\\bibitem{637275237}\nA.~First, A.~Second, A.~Third, A.~Fourth and A.~Fifth,\n"
         "%``This is a title.,''\n%0 citations counted in INSPIRE as of 11 Sep 2020"
     )
+
+    with inspire_app.test_client() as client:
+        response = client.get(f"/literature/{record['control_number']}?format=latex-us")
+    response_data = response.get_data(as_text=True)
+
+    assert response.status_code == 200
+    assert response_data == expected
+
+
+@freeze_time("2020-09-16")
+def test_latex_encodes_non_latex_chars(inspire_app):
+    data = {
+        "texkeys": ["Gerard2020:abc"],
+        "titles": [{"title": "About γ-ray bursts"}],
+        "authors": [{"full_name": "Gérard, Paweł"}],
+        "collaborations": [{"value": "DAΦNE"}],
+        "publication_info": [
+            {
+                "journal_title": "Annales H.Poincaré",
+                "journal_volume": "42",
+                "page_start": "314",
+            }
+        ],
+        "dois": [{"value": "10.1234/567_89"}],
+    }
+    record = create_record("lit", data)
+    expected = "%\\cite{Gerard2020:abc}\n\\bibitem{Gerard2020:abc}\nP.~G\\'erard [DA\\ensuremath{\\Phi}NE],\n%``About \\ensuremath{\\gamma}-ray bursts,''\nAnnales H. Poincar\\'e \\textbf{42}, 314\ndoi:10.1234/567\\_89\n%0 citations counted in INSPIRE as of 16 Sep 2020"
 
     with inspire_app.test_client() as client:
         response = client.get(f"/literature/{record['control_number']}?format=latex-us")

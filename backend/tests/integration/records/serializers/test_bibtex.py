@@ -147,69 +147,28 @@ def test_bibtex_search(inspire_app):
     assert expected_result_2 in response_data
 
 
-def test_bibtex_doesnt_encode_math_environments(inspire_app):
+def test_bibtex_encodes_non_latex_chars_in_non_verbatim_fields(inspire_app):
     headers = {"Accept": "application/x-bibtex"}
     data = {
-        "control_number": 637_275_237,
-        "titles": [
+        "texkeys": ["Gerard2020:abc"],
+        "titles": [{"title": "About γ-ray bursts"}],
+        "authors": [{"full_name": "Gérard, Paweł"}],
+        "collaborations": [{"value": "DAΦNE"}],
+        "publication_info": [
             {
-                "title": "Low-energy theorem for $\\gamma\\to 3\\pi$: Σ surface terms against $\\pi a_1$-mixing"
+                "journal_title": "Annales H.Poincaré",
+                "journal_volume": "42",
+                "page_start": "314",
+                "page_end": "486",
             }
         ],
+        "dois": [{"value": "10.1234/567_89"}],
     }
     record = create_record("lit", data=data)
     record_control_number = record["control_number"]
 
     expected_status_code = 200
-    expected_result = '@article{637275237,\n    title = "{Low-energy theorem for $\\gamma\\to 3\\pi$: \\ensuremath{\Sigma} surface terms against $\\pi a_1$-mixing}"\n}\n'
-    with inspire_app.test_client() as client:
-        response = client.get(
-            "/literature/{}".format(record_control_number), headers=headers
-        )
-
-    response_status_code = response.status_code
-    response_data = response.get_data(as_text=True)
-    assert expected_status_code == response_status_code
-    assert expected_result == response_data
-
-
-def test_bibtex_encodes_unicode_outside_of_math_environments(inspire_app):
-    headers = {"Accept": "application/x-bibtex"}
-    data = {
-        "control_number": 637_275_237,
-        "titles": [
-            {"title": "Core polarization effects up to 12ℏω in 7Li and 10B nuclei"}
-        ],
-    }
-    record = create_record("lit", data=data)
-    record_control_number = record["control_number"]
-
-    expected_status_code = 200
-    expected_result = '@article{637275237,\n    title = "{Core polarization effects up to 12\\ensuremath{\hbar}\\ensuremath{\omega} in 7Li and 10B nuclei}"\n}\n'
-    with inspire_app.test_client() as client:
-        response = client.get(
-            "/literature/{}".format(record_control_number), headers=headers
-        )
-
-    response_status_code = response.status_code
-    response_data = response.get_data(as_text=True)
-    assert expected_status_code == response_status_code
-    assert expected_result == response_data
-
-
-def test_bibtex_encodes_unicode_without_adding_spurious_spacing(inspire_app):
-    headers = {"Accept": "application/x-bibtex"}
-    data = {
-        "control_number": 637_275_237,
-        "titles": [{"title": "Some notes by Rapčák"}],
-    }
-    record = create_record("lit", data=data)
-    record_control_number = record["control_number"]
-
-    expected_status_code = 200
-    expected_result = (
-        '@article{637275237,\n    title = "{Some notes by Rap\\v{c}\\\'ak}"\n}\n'
-    )
+    expected_result = '@article{Gerard2020:abc,\n    author = "G\\\'erard, Pawe\\l{}",\n    collaboration = "DA\\ensuremath{\\Phi}NE",\n    title = "{About \\ensuremath{\\gamma}-ray bursts}",\n    doi = "10.1234/567_89",\n    journal = "Annales H. Poincar\\\'e",\n    volume = "42",\n    pages = "314--486"\n}\n'
     with inspire_app.test_client() as client:
         response = client.get(
             "/literature/{}".format(record_control_number), headers=headers
