@@ -7,7 +7,7 @@ export const CITE_FORMAT_OPTIONS = [
   { value: BIBTEX, display: 'BibTeX' },
   { value: LATEX_EU, display: 'LaTeX (EU)' },
   { value: LATEX_US, display: 'LaTeX (US)' },
-  { value: CV, display: 'CV' },
+  { value: CV, display: 'CV (html)' },
 ];
 
 export const CITE_FILE_FORMAT = {
