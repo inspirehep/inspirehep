@@ -100,7 +100,7 @@ exports[`CiteModalAction renders with all props 1`] = `
                     "value": "application/vnd+inspire.latex.us+x-latex",
                   },
                   Object {
-                    "display": "CV",
+                    "display": "CV (html)",
                     "value": "text/vnd+inspire.html+html",
                   },
                 ]
@@ -219,7 +219,7 @@ exports[`CiteModalAction renders with loading 1`] = `
                     "value": "application/vnd+inspire.latex.us+x-latex",
                   },
                   Object {
-                    "display": "CV",
+                    "display": "CV (html)",
                     "value": "text/vnd+inspire.html+html",
                   },
                 ]
@@ -347,7 +347,7 @@ exports[`CiteModalAction shows an alert with the error message when there is an 
                     "value": "application/vnd+inspire.latex.us+x-latex",
                   },
                   Object {
-                    "display": "CV",
+                    "display": "CV (html)",
                     "value": "text/vnd+inspire.html+html",
                   },
                 ]
