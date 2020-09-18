@@ -1,0 +1,55 @@
+name: disambiguation tests
+
+on:
+  push:
+    branches: [ master ]
+    paths: 
+      - 'disambiguation/**'
+      - '.github/workflows/disambiguation-tests.yml'
+  pull_request:
+    branches: [ master ]
+    paths: 
+      - 'disambiguation/**'
+      - '.github/workflows/disambiguation-tests.yml'
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: Setup python 3.6
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.6
+        
+      - name: Install poetry 1.0.0
+        run: |
+          wget https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py
+          python get-poetry.py --version 1.0.0
+          echo "::add-path::$HOME/.poetry/bin"
+      
+      - name: Generate requirements
+        working-directory: ./disambiguation
+        run: >
+          poetry export
+          --dev --without-hashes --format=requirements.txt
+          >requirements.txt
+          
+      - name: Cache virtual env
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: inspirehep-disambiguation-pip-${{ hashFiles('./disambiguation/requirements.txt') }}
+      
+      - name: Install
+        working-directory: ./disambiguation
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -e .
+          
+      - name: Test
+        working-directory: ./disambiguation
+        run: ./run-tests.sh

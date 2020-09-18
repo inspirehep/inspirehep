@@ -8,13 +8,13 @@ license = "MIT License"
 
 [tool.poetry.dependencies]
 python = ">=3.6,<4"
-attrs = '~=19.0,>=19.1.0'
+attrs = '~=20.0'
 beard = "0.2.2"
 click = "*"
 httplib2 = '~=0.0,>=0.12.0'
 langdetect = '~=1.0,>=1.0.7'
 redis = '~=3.0'
-urllib3 = '==1.23'
+urllib3 = '==1.25.10'
 elasticsearch_dsl = ">=7.0.0,<8.0.0"
 inspire-utils = "^3.0"
 inspire-schemas = "^61.0"

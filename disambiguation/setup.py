@@ -24,17 +24,8 @@
 
 from setuptools import setup
 
-
-url = "https://github.com/inspirehep/inspire-disambiguation/"
-
-readme = open("README.md").read()
-
-setup_requires = ["autosemver~=0.0,>=0.5.3"]
-
 setup(
     name="inspire-disambiguation",
-    autosemver={"bugtracker_url": url + "/issues"},
-    url=url,
     license="GPLv3",
     author="CERN",
     author_email="admin@inspirehep.net",
@@ -42,8 +33,6 @@ setup(
     zip_safe=False,
     platforms="any",
     description=__doc__,
-    long_description=readme,
-    setup_requires=setup_requires,
     entry_points={
         "console_scripts": ["inspire-disambiguation = inspire_disambiguation.cli:cli"]
     },
