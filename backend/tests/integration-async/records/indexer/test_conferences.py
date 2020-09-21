@@ -5,6 +5,9 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+import json
+import time
+
 from helpers.providers.faker import faker
 from helpers.utils import es_search, retry_until_matched
 from invenio_db import db
@@ -90,3 +93,66 @@ def test_conference_record_updates_in_es_when_lit_rec_reffers_to_it(
     ]
 
     retry_until_matched(steps)
+
+
+def test_indexer_updates_conference_papers_when_name_changes(
+    inspire_app, celery_app_with_context, celery_session_worker
+):
+    conference_data = faker.record("con", data={"titles": [{"title": "Initial Title"}]})
+    conference = ConferencesRecord.create(conference_data)
+    db.session.commit()
+    current_search.flush_and_refresh("records-conferences")
+    conference_id = conference["control_number"]
+
+    conference_paper_data = faker.record(
+        "lit",
+        data={
+            "document_type": ["conference paper"],
+            "publication_info": [
+                {
+                    "conference_record": {
+                        "$ref": f"https://labs.inspirehep.net/api/conferences/{conference_id}"
+                    }
+                }
+            ],
+        },
+    )
+
+    conference_paper = LiteratureRecord.create(conference_paper_data)
+    db.session.commit()
+
+    steps = [
+        {"step": current_search.flush_and_refresh, "args": ["*"]},
+        {
+            "step": es_search,
+            "args": ["records-hep"],
+            "expected_result": {
+                "expected_key": "hits.total.value",
+                "expected_result": 1,
+            },
+        },
+    ]
+    results = retry_until_matched(steps, timeout=45)
+    ui_display = json.loads(results["hits"]["hits"][0]["_source"]["_ui_display"])
+
+    assert conference["titles"] == ui_display["conference_info"][0]["titles"]
+
+    data = dict(conference)
+    data["titles"] = [{"title": "Updated Title"}]
+    conference.update(data)
+    db.session.commit()
+    time.sleep(10)
+    steps = [
+        {"step": current_search.flush_and_refresh, "args": ["*"]},
+        {
+            "step": es_search,
+            "args": ["records-hep"],
+            "expected_result": {
+                "expected_key": "hits.total.value",
+                "expected_result": 1,
+            },
+        },
+    ]
+    results = retry_until_matched(steps, timeout=45)
+    ui_display = json.loads(results["hits"]["hits"][0]["_source"]["_ui_display"])
+    assert conference["titles"] == ui_display["conference_info"][0]["titles"]
