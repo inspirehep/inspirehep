@@ -10,13 +10,39 @@ from flask import request
 from invenio_records_rest.errors import InvalidQueryRESTError
 from invenio_records_rest.sorter import default_sorter_factory
 
+from ..errors import FieldsParamForbidden
 from .facet import inspire_facets_factory
 from .filter import inspire_filter_factory
 
 LOGGER = structlog.getLogger()
 
 
+def can_request_fields():
+    allowed_mimetypes = [
+        "application/json",
+        "application/vnd+inspire.record.ui+json",
+        "application/vnd+inspire.record.raw+json",
+    ]
+    has_accept_mimetypes = len(request.accept_mimetypes) > 0
+    if (
+        has_accept_mimetypes
+        and next(request.accept_mimetypes.values()) not in allowed_mimetypes
+    ):
+        return False
+    requested_format = request.values.get("format", "json", type=str)
+    if requested_format != "json":
+        return False
+    return True
+
+
 def get_search_with_source(search):
+    request_fields = request.values.get("fields", "", type=str)
+    if request_fields:
+        if can_request_fields():
+            search = search.source_for_requested_fields(request_fields)
+            return search
+        else:
+            raise FieldsParamForbidden()
     has_accept_mimetypes = len(request.accept_mimetypes) > 0
     if has_accept_mimetypes:
         content_type = next(request.accept_mimetypes.values())
