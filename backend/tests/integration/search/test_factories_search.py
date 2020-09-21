@@ -5,11 +5,13 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+import pytest
 from flask import current_app
 from helpers.utils import override_config
-from mock import MagicMock, patch
+from mock import MagicMock
 
 from inspirehep.search.api import InspireSearch, LiteratureSearch
+from inspirehep.search.errors import FieldsParamForbidden
 from inspirehep.search.factories.search import (
     get_search_with_source,
     inspire_search_factory,
@@ -17,6 +19,59 @@ from inspirehep.search.factories.search import (
     search_factory_with_aggs,
     search_factory_without_aggs,
 )
+
+
+def test_get_search_with_source_with_fields_query_param_and_wrong_formats(inspire_app):
+    with current_app.test_request_context("?fields=authors,ids&format=bibtex"):
+        search = LiteratureSearch()
+        with pytest.raises(FieldsParamForbidden):
+            get_search_with_source(search)
+
+    with current_app.test_request_context("?fields=authors,ids&format=latex-eu"):
+        search = LiteratureSearch()
+        with pytest.raises(FieldsParamForbidden):
+            get_search_with_source(search)
+
+    with current_app.test_request_context("?fields=authors,ids&format=latex-us"):
+        search = LiteratureSearch()
+        with pytest.raises(FieldsParamForbidden):
+            get_search_with_source(search)
+
+
+def test_get_search_with_source_with_fields_query_param_and_wrong_mimetype(inspire_app):
+    with current_app.test_request_context(
+        "?fields=authors,ids", headers={"Accept": "application/x-bibtex"}
+    ):
+        with pytest.raises(FieldsParamForbidden):
+            search = LiteratureSearch()
+            get_search_with_source(search)
+
+    with current_app.test_request_context(
+        "?fields=authors,ids",
+        headers={"Accept": "application/vnd+inspire.latex.eu+x-latex"},
+    ):
+        with pytest.raises(FieldsParamForbidden):
+            search = LiteratureSearch()
+            get_search_with_source(search)
+
+    with current_app.test_request_context(
+        "?fields=authors,ids",
+        headers={"Accept": "application/vnd+inspire.latex.us+x-latex"},
+    ):
+        with pytest.raises(FieldsParamForbidden):
+            search = LiteratureSearch()
+            get_search_with_source(search)
+
+
+def test_get_search_with_source_with_fields_query_param(inspire_app):
+    with current_app.test_request_context("?fields=authors,ids"):
+        search = LiteratureSearch()
+        search = get_search_with_source(search)
+        expected_search_to_dict_source = {
+            "includes": ["authors", "ids", "control_number"]
+        }
+        search_to_dict = search.to_dict()
+        assert expected_search_to_dict_source == search_to_dict["_source"]
 
 
 def test_get_search_with_source_with_LiteratureSearch_instance_with_defined_headers(

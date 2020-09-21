@@ -18,3 +18,10 @@ class MaximumSearchPageSizeExceeded(BaseRestError):
             )
         else:
             self.description = f"Maximum search page size exceeded."
+
+
+class FieldsParamForbidden(BaseRestError):
+    code = 400
+    description = (
+        "'fields' parameter cannot be used with the requested format or MIME type."
+    )

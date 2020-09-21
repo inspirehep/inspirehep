@@ -107,6 +107,11 @@ class InspireSearch(RecordsSearch, SearchMixin):
     def source_for_content_type(self, content_type):
         return self
 
+    def source_for_requested_fields(self, fields):
+        includes = fields.split(",")
+        includes.append("control_number")
+        return self.source(includes=includes)
+
     def execute(self, *args, **kwargs):
         if request:
             size = request.args.get("size", default=25, type=int)

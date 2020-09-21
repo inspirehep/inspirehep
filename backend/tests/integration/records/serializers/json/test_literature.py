@@ -1237,3 +1237,79 @@ def test_literature_raw_json_without_logged_in_cataloger(inspire_app):
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
+
+
+def test_literature_json_with_fields_filtering(inspire_app):
+    user = create_user()
+
+    headers = {"Accept": "application/json"}
+    aut = create_record("aut", data={"control_number": 637275238})
+    data = {
+        "_collections": ["Literature"],
+        "document_type": ["article"],
+        "control_number": 12345,
+        "titles": [{"title": "A Title"}],
+        "authors": [
+            {
+                "full_name": "Doe, John1",
+                "record": {
+                    "$ref": f'https://localhost:5000/api/authors/{aut["control_number"]}'
+                },
+            }
+        ],
+        "publication_info": [
+            {"pubinfo_freetext": "A public publication info"},
+            {"pubinfo_freetext": "A private publication info", "hidden": True},
+        ],
+    }
+
+    create_record("lit", data=data)
+
+    expected_status_code = 200
+    expected_keys = ["authors", "control_number", "document_type"]
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(
+            f"/literature?fields=authors,document_type&format=json", headers=headers
+        )
+
+    response_status_code = response.status_code
+    response_keys = sorted(list(response.json["hits"]["hits"][0]["metadata"].keys()))
+    assert expected_status_code == response_status_code
+    assert response_keys == expected_keys
+
+
+def test_literature_json_with_fields_filtering_ignores_wrong_fields(inspire_app):
+    user = create_user()
+
+    headers = {"Accept": "application/json"}
+    aut = create_record("aut", data={"control_number": 637275238})
+    data = {
+        "_collections": ["Literature"],
+        "document_type": ["article"],
+        "control_number": 12345,
+        "titles": [{"title": "A Title"}],
+        "authors": [
+            {
+                "full_name": "Doe, John1",
+                "record": {
+                    "$ref": f'https://localhost:5000/api/authors/{aut["control_number"]}'
+                },
+            }
+        ],
+    }
+
+    create_record("lit", data=data)
+
+    expected_status_code = 200
+    expected_keys = ["control_number", "titles"]
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(
+            f"/literature?fields=wrongfield,titles&format=json", headers=headers
+        )
+
+    response_status_code = response.status_code
+    response_keys = sorted(list(response.json["hits"]["hits"][0]["metadata"].keys()))
+    assert expected_status_code == response_status_code
+    assert response_keys == expected_keys
