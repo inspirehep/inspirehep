@@ -1359,7 +1359,7 @@ description = "INSPIRE-specific configuration of the JSON Merger."
 name = "inspire-json-merger"
 optional = false
 python-versions = "*"
-version = "11.0.7"
+version = "11.0.8"
 
 [package.dependencies]
 inspire-schemas = ">=61.0,<62.0"
@@ -4110,7 +4110,6 @@ testing = ["coverage", "nose", "zope.event"]
 
 [metadata]
 content-hash = "2806a01f7fad7654a11ad7d123e341d570c763bfb01f51eaa8aa1f036b7566c3"
-lock-version = "1.0"
 python-versions = ">=3.6,<3.8"
 
 [metadata.files]
@@ -4611,7 +4610,7 @@ inspire-dojson = [
     {file = "inspire-dojson-63.0.13.tar.gz", hash = "sha256:6c7b681687e4dc68df0ba4026d38be3ff8e4f5d7ed6bf31c88ce19f803fb8a76"},
 ]
 inspire-json-merger = [
-    {file = "inspire-json-merger-11.0.7.tar.gz", hash = "sha256:7e70c89214d59d24e8304b75e99909dcfd6c02196dc6f173ce855446c17c6190"},
+    {file = "inspire-json-merger-11.0.8.tar.gz", hash = "sha256:115fba3f603388972056fc65ffcfa888c1e356b36a555d1508ff60aa6e00b522"},
 ]
 inspire-matcher = [
     {file = "inspire-matcher-9.0.4.tar.gz", hash = "sha256:575615a0a128f9ad49c456a240b382af927076a03ba597d30520f67dc089ab87"},
