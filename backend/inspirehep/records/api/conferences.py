@@ -22,7 +22,7 @@ class ConferencesRecord(InspireRecord):
     pidstore_handler = PidStoreConferences
 
     def delete_relations_with_literature(self):
-        ConferenceLiterature.query.filter_by(conference_uuid=self.id).delete()
+        self.linked_papers_query.delete()
 
     def delete(self):
         super().delete()
@@ -53,3 +53,12 @@ class ConferencesRecord(InspireRecord):
             data = record.conference_document.json
             proceedings.append(data)
         return proceedings
+
+    def get_linked_literature_record_uuids_if_conference_title_changed(self):
+        if self.get("titles") == self._previous_version.get("titles"):
+            return set()
+
+        contributions = self.linked_papers_query.with_entities(
+            ConferenceLiterature.literature_uuid
+        ).all()
+        return {paper[0] for paper in contributions}

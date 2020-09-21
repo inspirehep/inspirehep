@@ -240,7 +240,7 @@ function DetailPage({
                   </ContentBox>
                 </Tabs.TabPane>
                 {seminarsCount > 0 && (
-                  <Tabs.TabPane tab={<span>Semianrs</span>} key="3">
+                  <Tabs.TabPane tab={<span>Seminars</span>} key="3">
                     <ContentBox>
                       <LiteratureSeminars />
                     </ContentBox>

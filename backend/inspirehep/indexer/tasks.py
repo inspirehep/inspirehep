@@ -20,7 +20,7 @@ from sqlalchemy.orm.exc import NoResultFound, StaleDataError
 
 from inspirehep.indexer.base import InspireRecordIndexer
 from inspirehep.indexer.utils import get_record
-from inspirehep.records.api import AuthorsRecord, LiteratureRecord
+from inspirehep.records.api import AuthorsRecord, ConferencesRecord, LiteratureRecord
 
 LOGGER = structlog.getLogger()
 
@@ -100,5 +100,11 @@ def index_record(self, uuid, record_version=None, force_delete=None):
         uuids_to_reindex |= (
             record.get_linked_author_records_uuids_if_author_changed_name()
         )
+
+    if isinstance(record, ConferencesRecord):
+        uuids_to_reindex |= (
+            record.get_linked_literature_record_uuids_if_conference_title_changed()
+        )
+
     if uuids_to_reindex:
         batch_index(list(uuids_to_reindex))
