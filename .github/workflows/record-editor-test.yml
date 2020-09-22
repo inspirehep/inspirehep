@@ -25,7 +25,7 @@ jobs:
       - name: setup nodejs
         uses: actions/setup-node@v1
         with:
-          node-version: 6.9.1
+          node-version: 10.14.0
 
       - name: install
         working-directory: ./record-editor
@@ -33,7 +33,7 @@ jobs:
           npm install buffer-shims
           export CHROME_BIN=chromium-browser
           export DISPLAY=:99.0
-          yarn install --ignore-engines
+          yarn install
 
       - name: lint
         working-directory: ./record-editor
