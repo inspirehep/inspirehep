@@ -1,0 +1,24 @@
+<div class="modal fade" (onShown)="onShown()" bsModal #modal="bs-modal" tabindex="-1" role="dialog" [config]="{ backdrop: 'static' }">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="modal.hide()">&times;</button>
+        <h4 class="modal-title">Preview</h4>
+      </div>
+      <div class="modal-body height-85-vh flex-column">
+        <div class="grow flex-column">
+          <iframe class="grow" id="re-preview-iframe">
+          </iframe>
+        </div>
+        <div class="top-padding">
+          <button class="btn btn-success" (click)="onConfirm()">
+            <i class="fa fa-check"></i> Confirm
+          </button>
+          <button class="btn btn-danger pull-right" (click)="onCancel()">
+            <i class="fa fa-times"></i> Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

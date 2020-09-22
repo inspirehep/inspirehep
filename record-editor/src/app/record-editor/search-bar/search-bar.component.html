@@ -1,0 +1,21 @@
+<div class="navbar-form input-group col-md-7 pull-left inline">
+  <input class="form-control search" [(ngModel)]="query" (keyup.enter)="searchOrGo()" placeholder="Search records" />
+  <span class="input-group-btn">
+    <a class="btn btn-default fa fa-search" (click)="searchOrGo()"></a>
+  </span>
+</div>
+<div *ngIf="resultCount >= 0" class="navbar-form col-md-5 inline">
+  <ng-container [ngSwitch]="resultCount">
+    <ng-container *ngSwitchCase="0">
+      <span class="result-text form-control-static">No results</span>
+    </ng-container>
+    <ng-container *ngSwitchCase="1">
+      <!-- PASS -->
+    </ng-container>
+    <ng-container *ngSwitchDefault>
+      <i class="btn btn-default fa fa-chevron-left" (click)="onPreviousClick()"></i>
+      <span class="result-text">{{cursor + 1}} / {{resultCount}}</span>
+      <i class="btn btn-default fa fa-chevron-right" (click)="onNextClick()"></i>
+    </ng-container>
+  </ng-container>
+</div>
