@@ -1,0 +1,40 @@
+$green-sea: #16a085;
+
+.button {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  display: inline-block;
+  padding: 4px 6px;
+  font-size: 12px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  border-radius: 5px;
+}
+
+.page-selector{
+  width:60px;
+}
+
+.selectButtons{
+  float: right;
+}
+
+.re-container{
+  margin-top: 20px;
+}
+
+.results-checkbox{
+  margin-top: -1px;
+}
+
+.preview-border{
+  border-bottom: 2px solid;
+  border-color: #dae8ef;
+  margin-bottom: 10px;
+}
+
+.tag-filter {
+  padding: 10px 0;
+}

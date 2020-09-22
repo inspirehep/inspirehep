@@ -1,0 +1,81 @@
+name: ci
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  release:
+    types: [published]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: setup nodejs
+        uses: actions/setup-node@v1
+        with:
+          node-version: 6.9.1
+
+      - name: install
+        run: |
+          npm install buffer-shims
+          export CHROME_BIN=chromium-browser
+          export DISPLAY=:99.0
+          yarn install --ignore-engines
+
+      - name: lint
+        run: yarn lint
+
+      - name: write version
+        run: node ./write-version.js
+
+      - name: build
+        run: yarn build
+
+      - name: describe
+        id: describe
+        run: |
+          echo "::set-output name=tag::$(git describe --always --tags)"
+        if: ${{ github.event_name == 'push' || github.event_name == 'release' }}
+
+      - name: build and push Docker image
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          repository: inspirehep/editor
+          add_git_labels: true
+          tags: ${{ steps.describe.outputs.tag }}
+        if: ${{ github.event_name == 'push' || github.event_name == 'release' }}
+
+      - name: deploy on qa
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          repository: inspirehep/kubernetes
+          token: ${{ secrets.INSPIRE_BOT_TOKEN }}
+          event-type: deploy
+          client-payload: >
+            {"environment": "qa",
+             "image": "inspirehep/editor",
+             "tag": "${{ steps.describe.outputs.tag }}"}
+        if: ${{ github.event_name == 'push' }}
+
+      - name: deploy on prod
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          repository: inspirehep/kubernetes
+          token: ${{ secrets.INSPIRE_BOT_TOKEN }}
+          event-type: deploy
+          client-payload: >
+            {"environment": "prod",
+             "image": "inspirehep/editor",
+             "tag": "${{ steps.describe.outputs.tag }}"}
+        if: ${{ github.event_name == 'release' }}

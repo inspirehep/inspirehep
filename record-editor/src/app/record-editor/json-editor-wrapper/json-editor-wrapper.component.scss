@@ -1,0 +1,49 @@
+$turquoise: #1abc9c;
+$green-sea: #16a085;
+$pete-river: #3498db;
+$belize-hole: #2980b9;
+$amethyst: #9b59b6;
+$wisteria: #8e44ad;
+$blue-haze: #8aa2ba;
+$wet-asphalt: #34495e;
+$midnight-blue: #2c3e50;
+$dark-blue:#1D2D3D;
+$sun-flower: #f1c40f;
+$orange: #f39c12;
+$carrot: #e67e22;
+$pumpkin: #d35400;
+$alizarin: #e74c3c;
+$pomegranate: #c0392b;
+$clouds: #ecf0f1;
+$silver: #bdc3c7;
+$concrete: #95a5a6;
+$asbestos: #7f8c8d;
+
+.navbar-default {
+  background-color: $wet-asphalt;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.2);
+  margin-bottom: 0px;
+  width: 100%;
+  border-radius: 0;
+  border: 0;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.btn {
+
+  &.btn-success {
+    background-color: $green-sea;
+    border-color: $green-sea;
+    color: white;
+
+    &:hover, &:active, &:focus {
+      background-color: lighten($green-sea, 5%) !important;
+      color: white;
+    }
+  }
+
+  .fa {
+      margin-right: 5px;
+    }
+}

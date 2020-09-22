@@ -1,0 +1,8 @@
+<div class="ticket-container">
+  <span class="queue">{{ticket.queue}}</span>
+  <a target="_blank" class="date" [href]="ticket.link" [popoverTitle]="ticket.subject" [popover]="ticket.description" placement="bottom"
+    triggers="mouseenter:mouseleave">
+    {{ticket.date | date:'short'}}
+  </a>
+  <i class="fa fa-check-circle resolve" (click)="onResolveClick()"></i>
+</div>

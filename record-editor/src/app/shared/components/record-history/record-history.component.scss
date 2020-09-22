@@ -1,0 +1,45 @@
+$cool-blue: #2983BE;
+
+@mixin text-button {
+  color: white;
+  text-decoration: underline;  
+  &:hover {
+    color: $cool-blue;
+    cursor: pointer;
+  }
+}
+
+.history-container {
+  height: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pull-right {
+  margin-right: 0px;
+}
+
+.dropdown-toggle {
+    box-shadow: none;
+    @include text-button;
+}
+
+.dropdown-menu {
+  right: 0;
+  left: initial;
+}
+
+.btn-revert {
+  border-radius: 0;
+  color: white;
+  background-color: $cool-blue;
+}
+
+.btn-current {
+  @include text-button;
+}
+
+.selected-revision {
+  color: white;
+  padding: 0 10px;
+}

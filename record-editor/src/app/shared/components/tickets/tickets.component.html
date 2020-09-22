@@ -1,0 +1,24 @@
+<ng-container *ngIf="tickets">
+  <div>
+    <ul class="display col-md-8">
+      <li *ngFor="let ticket of tickets | slice:0:displayLimit; let i = index">
+        <re-ticket [ticket]="ticket" (resolve)="onTicketResolve(i)"></re-ticket>
+      </li>
+      <li *ngIf="tickets.length > displayLimit" class="more-btn-container">
+        <button [popover]="moreTicketsTemplate" placement="bottom" class="btn navbar-btn">more...</button>
+      </li>
+    </ul>
+    <button class="btn btn-default navbar-btn new-ticket" (click)="newTicketModal.show()">New Ticket</button>
+  </div>
+
+  <ng-template #moreTicketsTemplate>
+    <ul class="more">
+      <li *ngFor="let ticket of tickets | slice:displayLimit; let i = index">
+        <re-ticket [ticket]="ticket" (resolve)="onTicketResolve(i + displayLimit)"></re-ticket>
+      </li>
+    </ul>
+  </ng-template>
+  <div class="col-md-4">
+    <re-new-ticket-modal #newTicketModal (create)="onTicketCreate($event)"></re-new-ticket-modal>
+  </div>
+</ng-container>

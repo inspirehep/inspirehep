@@ -1,0 +1,51 @@
+{
+  "project": {
+    "version": "1.0.0-beta.30",
+    "name": "record-editor"
+  },
+  "apps": [
+    {
+      "root": "src",
+      "outDir": "dist",
+      "assets": [
+        "assets"
+      ],
+      "index": "index.html",
+      "main": "main.ts",
+      "test": "test.ts",
+      "tsconfig": "tsconfig.json",
+      "prefix": "re",
+      "mobile": false,
+      "deployUrl": "/editor/dist/",
+      "styles": [
+        "styles.scss",
+        "../node_modules/font-awesome/css/font-awesome.css",
+        "../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss",
+        "../node_modules/katex/dist/katex.css",
+        "../node_modules/ngx-toastr/toastr.css"
+      ],
+      "scripts": [],
+      "environmentSource": "environments/environment.ts",
+      "environments": {
+        "dev": "environments/environment.ts",
+        "prod": "environments/environment.prod.ts"
+      }
+    }
+  ],
+  "addons": [],
+  "packages": [],
+  "e2e": {
+    "protractor": {
+      "config": "./protractor.conf.js"
+    }
+  },
+  "test": {
+    "karma": {
+      "config": "./karma.conf.js"
+    }
+  },
+  "defaults": {
+    "styleExt": "scss",
+    "prefixInterfaces": false
+  }
+}

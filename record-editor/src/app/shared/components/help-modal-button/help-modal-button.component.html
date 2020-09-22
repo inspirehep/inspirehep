@@ -1,0 +1,120 @@
+<i class="btn fa fa-question-circle" (click)="modal.show()"></i>
+
+<div class="modal fade" bsModal #modal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Help</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modal.hide()">
+          <span>&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <accordion [closeOthers]="true">
+          <accordion-group heading="Keyboard shortcuts">
+            <table class="table table-striped shortcuts">
+              <thead>
+                <tr>
+                  <th>Shortcut</th>
+                  <th class="fill-parent">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>alt+a</td>
+                  <td>add</td>
+                </tr>
+                <tr>
+                  <td>{{modChar}}+shift+b</td>
+                  <td>addBelowToRoot</td>
+                </tr>
+                <tr>
+                  <td>{{modChar}}+shift+a</td>
+                  <td>addToRoot</td>
+                </tr>
+                <tr>
+                  <td>alt+c</td>
+                  <td>copy</td>
+                </tr>
+                <tr>
+                  <td>{{modChar}}+alt+r</td>
+                  <td>copyFromRoot</td>
+                </tr>
+                <tr>
+                  <td>{{modChar}}+backspace</td>
+                  <td>delete</td>
+                </tr>
+                <tr>
+                  <td>{{modChar}}+shift+down</td>
+                  <td>moveDown</td>
+                </tr>
+                <tr>
+                  <td>{{modChar}}+alt+down</td>
+                  <td>moveDownRoot</td>
+                </tr>
+                <tr>
+                  <td>{{modChar}}+shift+up</td>
+                  <td>moveUp</td>
+                </tr>
+                <tr>
+                  <td>{{modChar}}+alt+up</td>
+                  <td>moveUpRoot</td>
+                </tr>
+                <tr>
+                  <td>{{modChar}}+down</td>
+                  <td>navigateDown</td>
+                </tr>
+                <tr>
+                  <td>{{modChar}}+up</td>
+                  <td>navigateUp</td>
+                </tr>
+                <tr>
+                  <td>{{modChar}}+right</td>
+                  <td>navigateRight</td>
+                </tr>
+                <tr>
+                  <td>{{modChar}}+left</td>
+                  <td>navigateLeft</td>
+                </tr>
+                <tr>
+                  <td>{{modChar}}+alt+z</td>
+                  <td>undo</td>
+                </tr>
+              </tbody>
+            </table>
+            For more details on action descriptions please visit:
+            <a href="https://inveniosoftware-contrib.github.io/ng2-json-editor/docs/interfaces/_interfaces_custom_shortcut_keys_.customshortcutkeys.html">docs
+              page</a>
+          </accordion-group>
+          <accordion-group heading="Shortcuts for splitting references">
+            <p>Use the operators <strong>$$</strong> to split a reference field into different fields using the shortcuts below.
+              Eg. You can split the field <strong>Bras. Ens. Fís. 29 1 100 150</strong> into several subfields (journal
+              name,
+              volume, page start, page end) if you type <strong>$$jRev. Bras. Ens. Fís. 29 $$v1 $$s100 $$e150</strong></p>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Shortcut</th>
+                  <th class="fill-parent">Field</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let shortcut of referenceSplitterMap | keys">
+                  <td>{{shortcut}}</td>
+                  <td>{{referenceSplitterMap[shortcut].join(', ')}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </accordion-group>
+          <accordion-group heading="Schema documentation">
+            <div>
+              All details on the Data Model fields and their mapping to MARC is in
+              <a target="_blank" href="https://inspire-schemas.readthedocs.io/en/latest/schemas/records/hep.html">inspire-schemas
+                docs</a>
+            </div>
+          </accordion-group>
+        </accordion>
+      </div>
+    </div>
+  </div>
+</div>

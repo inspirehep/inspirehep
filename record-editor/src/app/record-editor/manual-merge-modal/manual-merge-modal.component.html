@@ -1,0 +1,29 @@
+<div class="modal fade" bsModal #modal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Merge records</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modal.hide()">
+          <span>&times;</span>
+        </button>
+      </div>
+      <div class="modal-body form-horizontal">
+        <div class="form-group">
+          <label class="col-sm-12" for="updateRecordIdInput">Fill in the record id that should be merged into the current record</label>
+          <div class="col-sm-12">
+            <input type="text" class="form-control" id="updateRecordIdInput" [(ngModel)]="updateRecordId" placeholder="record id">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-12">
+              <label>The record above will be deleted</label>        
+          </div>
+          <div class="col-sm-12">
+            <button id="mergeButton" class="btn btn-default" (click)="onMergeClick()"><i class="fa fa-code-fork"></i> <span>Merge</span></button>
+            <a *ngIf="updateRecordId" class="record-link" href="javascript:void(0)" (click)="openUpdateRecordInNewTab()">Check {{currentRecordType}}/{{updateRecordId}} on inspire</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
