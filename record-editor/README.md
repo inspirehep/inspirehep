@@ -86,8 +86,8 @@ NOTE: you might want to completely clean up any existing installation on the
 repo, for that, you can run `git clean -fdx` inside the record-editor repo.
 
 ```bash
-# install the repo with npm
-yarn install --ignore-engines
+# install the dependencies
+yarn
 ```
 
 ### Inside the web container, under `/virtualenv/var/inspirehep-instance/static`
