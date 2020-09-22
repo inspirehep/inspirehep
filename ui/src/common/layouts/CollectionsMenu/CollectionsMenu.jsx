@@ -23,7 +23,6 @@ import {
 } from '../../constants';
 import CollectionLink from './CollectionLink';
 import DropdownMenu from '../../components/DropdownMenu';
-import NewFeatureTag from '../../components/NewFeatureTag';
 
 function CollectionsMenu({ currentPathname }) {
   const activeCollection = useMemo(
@@ -95,7 +94,6 @@ function CollectionsMenu({ currentPathname }) {
             </Link>
           </Menu.Item>
         </DropdownMenu>
-        <NewFeatureTag className="centered" />
       </Col>
     </Row>
   );

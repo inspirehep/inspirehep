@@ -20,7 +20,6 @@ import {
   INVENIO_URL,
 } from '../../constants';
 import ExternalLink from '../../components/ExternalLink';
-import NewFeatureTag from '../../components/NewFeatureTag';
 import { BIBLIOGRAPHY_GENERATOR } from '../../routes';
 
 const COLUMNS = [
@@ -80,12 +79,7 @@ const COLUMNS = [
         openExternal: true,
       },
       {
-        title: (
-          <span>
-            Bibliography generator{' '}
-            <NewFeatureTag className="without-margin-left" />
-          </span>
-        ),
+        title: <span>Bibliography generator</span>,
         url: BIBLIOGRAPHY_GENERATOR,
         openExternal: false,
       },
