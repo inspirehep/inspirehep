@@ -109,7 +109,7 @@ class InspireSearch(RecordsSearch, SearchMixin):
 
     def source_for_requested_fields(self, fields):
         includes = fields.split(",")
-        includes.append("control_number")
+        includes.extend(["control_number", "_updated", "_created"])
         return self.source(includes=includes)
 
     def execute(self, *args, **kwargs):

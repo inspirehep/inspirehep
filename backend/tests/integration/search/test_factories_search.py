@@ -68,7 +68,22 @@ def test_get_search_with_source_with_fields_query_param(inspire_app):
         search = LiteratureSearch()
         search = get_search_with_source(search)
         expected_search_to_dict_source = {
-            "includes": ["authors", "ids", "control_number"]
+            "includes": ["authors", "ids", "control_number", "_updated", "_created"]
+        }
+        search_to_dict = search.to_dict()
+        assert expected_search_to_dict_source == search_to_dict["_source"]
+
+
+def test_get_search_with_source_with_fields_query_param_and_allow_all_header(
+    inspire_app
+):
+    with current_app.test_request_context(
+        "?fields=authors,ids", headers={"Accept": "*/*"}
+    ):
+        search = LiteratureSearch()
+        search = get_search_with_source(search)
+        expected_search_to_dict_source = {
+            "includes": ["authors", "ids", "control_number", "_updated", "_created"]
         }
         search_to_dict = search.to_dict()
         assert expected_search_to_dict_source == search_to_dict["_source"]
