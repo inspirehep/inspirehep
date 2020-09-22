@@ -5,7 +5,6 @@
 [![Release](https://img.shields.io/github/tag/inspirehep/record-editor.svg)](https://github.com/inspirehep/record-editor/releases)
 [![Coverage Status](https://coveralls.io/repos/github/inspirehep/record-editor/badge.svg)](https://coveralls.io/github/inspirehep/record-editor)
 
-
 Editor (used in inspirehep.net) for JSON documents with bibliographic metadata
 
 # DEVELOPMENT
@@ -21,7 +20,6 @@ Editor (used in inspirehep.net) for JSON documents with bibliographic metadata
 
 ## Development with [inspire-next](https://github.com/inspirehep/inspire-next)
 
-
 ### On `record-editor`
 
 ```bash
@@ -36,35 +34,39 @@ npm start
 ```
 
 ### On `inspire-next`
-__inspire-next has to be installed correctly before starting__
 
-- add new line: `ASSETS_DEBUG=True` in `$VIRTUAL_ENV/var/inspirehep-instance/inspirehep.cfg`
-- run `./scripts/clean_assets` where `inspire-next` source code is
-- run `npm link record-editor` at `$VIRTUAL_ENV/var/inspirehep-instance/static`
-- run `honcho start` where `inspire-next` source code is
+**inspire-next has to be installed correctly before starting**
+
+* add new line: `ASSETS_DEBUG=True` in `$VIRTUAL_ENV/var/inspirehep-instance/inspirehep.cfg`
+* run `./scripts/clean_assets` where `inspire-next` source code is
+* run `npm link record-editor` at `$VIRTUAL_ENV/var/inspirehep-instance/static`
+* run `honcho start` where `inspire-next` source code is
 
 ### On `localhost:5000/editor`
 
-- open editor (navigate to following)
-  - `/record/<type>/<recid>` to edit a record
-  - `/record/<type>/search` to search records to edit
-  - `/holdingpen/<workflow_id>` to edit a workflow object
-  - `/multieditor` to apply edits to multiple records
-- hard refresh the page whenever you want to see the changes
+* open editor (navigate to following)
+  * `/record/<type>/<recid>` to edit a record
+  * `/record/<type>/search` to search records to edit
+  * `/holdingpen/<workflow_id>` to edit a workflow object
+  * `/multieditor` to apply edits to multiple records
+* hard refresh the page whenever you want to see the changes
 
 ## Development with [inspire-next](https://github.com/inspirehep/inspire-next) using docker
 
 ### On `inspire-next`
-__inspire-next has to be installed correctly before starting__
+
+**inspire-next has to be installed correctly before starting**
 
 ```
 # Add the path to the editor in the volummes
 vim services.yml
 ```
+
 Add to the `volumes` list, the volume
 `- "/path/to/your/editor/code:/usr/lib/node_modules/record-editor"`.
 
 Remove all containers and start them up again:
+
 ```
 docker-compose rm -f
 docker-compose -f docker-compose.test.yml rm -f
@@ -73,6 +75,7 @@ docker-composse up -d
 ```
 
 Get a shell to the web container:
+
 ```
 docker-compose exec web bash
 ```
@@ -83,8 +86,8 @@ NOTE: you might want to completely clean up any existing installation on the
 repo, for that, you can run `git clean -fdx` inside the record-editor repo.
 
 ```bash
-# install the repo with npm
-yarn install --ignore-engines
+# install the dependencies
+yarn
 ```
 
 ### Inside the web container, under `/virtualenv/var/inspirehep-instance/static`
@@ -108,4 +111,5 @@ If you don't do this, you'll have to manually install the editor to see any
 changes you make.
 
 # License
- [GNU GPLv2](/LICENSE)
+
+[GNU GPLv2](/LICENSE)
