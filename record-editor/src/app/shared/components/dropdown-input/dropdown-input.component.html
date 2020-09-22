@@ -1,0 +1,29 @@
+<div class="btn-group" dropdown (onHidden)="onHidden()">
+  <button dropdownToggle type="button" class="btn btn-default dropdown-toggle">
+    {{value || placeholder}} <span class="caret"></span>
+  </button>
+  <ul *dropdownMenu class="dropdown-menu" role="menu">
+    <li role="menuitem" class="filter-item">
+      <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+        <input type="text" class="form-control" [(ngModel)]="filterExpression" (click)="$event.stopPropagation()" placeholder="Search">
+      </div>
+    </li>
+    <li class="divider dropdown-divider"></li>
+    <ng-container *ngIf="!defaultValue && value">
+      <li role="menuitem">
+        <a class="dropdown-item" href="javascript:void(0)" (click)="onDeselectClick()">Deselect</a>
+      </li>
+      <li class="divider dropdown-divider"></li>
+    </ng-container>
+    <ng-container *ngIf="itemsArray; else loading">
+      <li *ngFor="let item of itemsArray | filterByExpression:filterExpression" role="menuitem">
+        <a class="dropdown-item" href="javascript:void(0)" (click)="value = item">{{item}}</a>
+      </li>
+    </ng-container>
+  </ul>
+</div>
+
+<ng-template #loading>
+  <li>Loading options...</li>
+</ng-template>

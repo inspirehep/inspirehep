@@ -1,0 +1,51 @@
+.display-inline-flex {
+  align-items: center;
+  height: 100%;
+  & > * {
+    margin-right: 20px;
+  }
+}
+
+ul.display {
+  list-style-type: none;
+  padding-left: 0px;
+  margin-bottom: 0px;
+  li {
+    display: inline-block;
+  }
+}
+
+.more-btn-container > button {
+  color: lightgray;
+  background: transparent;
+  border: none;
+
+  &:focus {
+    outline: 0;
+  }
+}
+
+ul.more {
+  padding-left: 0px;
+  li {
+    margin-right: 0px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+}
+
+.vertical-line {
+  border-left: 2px solid darkgray;
+  margin: 0px 10px 0px 10px;
+}
+
+$orange: #f39c12;
+button.new-ticket {
+  background-color: $orange;
+  color: white;
+  border: 0px;
+
+  &:hover {
+    background-color: lighten($orange, 5%);
+  }
+}

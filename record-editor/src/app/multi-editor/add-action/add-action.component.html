@@ -1,0 +1,13 @@
+<form class="form-inline">
+  <label class="form-group">Field:</label>
+  <re-autocomplete-input [disabled]="isEditorVisible" (valueChange)="onValueChange($event)" type="text" name="key"></re-autocomplete-input>
+  <div class="form-group">
+    <button *ngIf="isEditorVisible === false" (click)="openEditor()" class="btn btn-default btn-sm" type="button">Open Editor</button>
+    <div *ngIf="isEditorVisible === true">
+      <div class="editor">
+        <json-editor [config]="{compact:true}" [schema]="subSchema" [record]="record" (recordChange)="saveRecord($event)"></json-editor>
+      </div>
+      <button (click)="closeEditor()" class="btn-sm btn-default button" type="button">Change field</button>
+    </div>
+  </div>
+</form>

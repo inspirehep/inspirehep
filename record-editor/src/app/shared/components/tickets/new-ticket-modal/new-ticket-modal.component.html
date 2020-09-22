@@ -1,0 +1,43 @@
+<div class="modal fade" bsModal #modal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">New Ticket</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modal.hide()">
+          <span>&times;</span>
+        </button>
+      </div>
+      <div class="modal-body form-horizontal">
+        <div class="form-group">
+          <label for="queueInput" class="control-label col-sm-2">Queue</label>
+          <div class="col-sm-3">
+            <re-dropdown-input class="parent-wide" id="queueInput" [items]="apiService.fetchRTQueues()" [(value)]="newTicket.queue" [defaultValue]="'HEP_curation'"></re-dropdown-input>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="ownerInput" class="control-label col-sm-2">Owner</label>
+          <div class="col-sm-3">
+            <re-dropdown-input id="ownerInput" [items]="apiService.fetchRTUsers()" [(value)]="newTicket.owner" [placeholder]="'Select a user'"></re-dropdown-input>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="subjectInput" class="control-label col-sm-2">Subject</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="subjectInput" [(ngModel)]="newTicket.subject" placeholder="Subject">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="descriptionTextarea" class="control-label col-sm-2">Description</label>
+          <div class="col-sm-10">
+            <textarea type="text" class="form-control" id="descriptionTextarea" rows="6" [(ngModel)]="newTicket.description" placeholder="Describe the ticket"></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="pull-right col-padding-right">
+            <button class="btn btn-default" (click)="onNewClick()">New</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

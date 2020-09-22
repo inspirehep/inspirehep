@@ -1,0 +1,60 @@
+label {
+  padding-left: 15px;
+  text-indent: -15px;
+  display: inline-block;
+}
+
+input:focus {
+  background-color: #b6d4de;
+  border: 1px solid #555;
+}
+
+.input-field {
+  background-color: #f1f1f1;
+  width: 300px;
+}
+
+.regex-checkbox {
+  margin-left: 2px;
+}
+
+select {
+  width: 100%;
+  border-radius: 4px;
+  background-color: #f1f1f1;
+}
+
+.button {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  display: inline-block;
+  padding: 4px 6px;
+  font-size: 12px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: black;
+  background-color: #dae8ef;
+  border-top: 1px gray;
+  border-radius: 5px;
+}
+
+.button:hover {
+  background-color: rgb(241, 241, 241);
+}
+
+.button:active {
+  background-color: #c41313;
+  transform: translateY(2px);
+}
+
+.regex {
+  margin-left: 140px;
+}
+
+.editor {
+  width: 400px;
+  height: 250px;
+  border: 2px solid #dae8ef;
+}

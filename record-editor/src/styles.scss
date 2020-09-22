@@ -1,0 +1,62 @@
+/* You can add global styles to this file, and also import other style files */
+
+// to fix dropdown width in froms
+.form-group bs-dropdown-container {
+  padding-right: 30px;
+  width: 100%;
+}
+
+// to fix drodown height in modals
+
+.modal-body ul.dropdown-menu {
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+// ticket popover
+re-ticket {
+  .popover {
+    max-width: 400px;
+  }
+
+  .popover-content {
+    word-break: break-word;
+  }
+}
+
+// more... tickets popover
+// '>' is used because more... popover has more popovers inside.
+$background-color: #34495e;
+re-tickets .more-btn-container > .popover {
+  background-color: $background-color;
+
+  & > .arrow:after {
+    border-bottom-color: $background-color;
+  }
+}
+
+.re-disabled {
+  cursor: not-allowed;
+  input,
+  button,
+  a,
+  i,
+  [contenteditable='true'] {
+    opacity: 0.7;
+    pointer-events: none;
+  }
+}
+
+.re-bar {
+  border-top: 1px solid gray;
+  background-color: #dae8ef;
+  margin-top: 15px;
+  margin-bottom: 3px;
+  padding-left: 5px;
+}
+
+.pagination {
+  margin: 0px;
+  display: flex;
+  justify-content: flex-end;
+}

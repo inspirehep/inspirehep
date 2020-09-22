@@ -1,0 +1,20 @@
+<form class="form-inline">
+  <label class="form-group">Field:</label>
+  <div class="form-group">
+    <re-autocomplete-input type="text" name="key" (valueChange)="action.mainKey = $event" placeholder="field key">
+    </re-autocomplete-input>
+  </div>
+  <span class="form-group">when value</span>
+  <div class="form-group">
+    <select class="form-control input-sm" name="matchType" [(ngModel)]="action.matchType">
+      <option *ngFor="let matchType of matchTypes" [ngValue]="matchType"> {{matchType}} </option>
+    </select>
+  </div>
+  <div class="form-group">
+    <input type="text" name="updateValue" [(ngModel)]="action.updateValue" class="form-control input-sm" placeholder="replace value">
+  </div>
+  <span class="form-group ">replace it with</span>
+  <div class="form-group">
+    <input type="text" name="value" [(ngModel)]="action.value" class="form-control input-sm" placeholder="new value">
+  </div>
+</form>

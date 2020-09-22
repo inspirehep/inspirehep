@@ -1,0 +1,33 @@
+<nav class="navbar navbar-default" id="editor-toolbar">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="navbar-header col-md-2">
+        <div *ngIf="record" [class.re-disabled]="displayingRevision">
+          <button type="button" class="btn navbar-btn btn-success" [disabled]="saveButtonDisabledAttribute" (click)="onSaveClick($event)">
+            <i class="fa fa-floppy-o" aria-hidden="true"></i>
+            <span>Save</span>
+          </button>
+          <re-undo-button></re-undo-button>
+          <i class="btn fa fa-code-fork" (click)="manualMergeModal.show()"></i>
+          <re-help-modal-button></re-help-modal-button>
+        </div>
+      </div>
+
+      <div class="nav navbar-nav col-md-8">
+        <div class="col-md-6">
+          <re-search-bar></re-search-bar>
+        </div>
+        <div class="col-md-6">
+          <re-tickets></re-tickets>
+        </div>
+      </div>
+
+      <div *ngIf="record" class="nav navbar-nav navbar-right col-md-2">
+        <re-record-history (revisionChange)="onRevisionChange($event)" (revisionRevert)="onRevisionRevert()"></re-record-history>
+      </div>
+
+    </div>
+  </div>
+</nav>
+
+<re-manual-merge-modal #manualMergeModal></re-manual-merge-modal>
