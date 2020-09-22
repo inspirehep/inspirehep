@@ -1,0 +1,29 @@
+$result-text-padding: 5px;
+.result-text {
+  color: white;
+  padding-left: $result-text-padding;
+  padding-right: $result-text-padding;
+}
+
+.form-control,
+.input-group-btn {
+  width: initial;
+}
+
+.search-container {
+  & > div {
+    padding-right: 10px;
+  }
+}
+
+input.search {
+  min-width: 300px;
+}
+
+.pull-left {
+  float: left;
+}
+
+.inline {
+  display: inline-block;
+}

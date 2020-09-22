@@ -1,0 +1,47 @@
+<ng-template let-reference="item" #referenceTemplate>
+  <re-reference-brief [reference]="reference"></re-reference-brief>
+</ng-template>
+
+<ng-template let-author="item" #authorTemplate>
+  <re-author-brief [author]="author"></re-author-brief>
+</ng-template>
+
+<ng-template let-item="item" #affiliationAutocompleteTemplate>
+  <re-affiliation-brief [affiliation]="item._source"></re-affiliation-brief>
+</ng-template>
+
+<ng-template #refActionsTemplate>
+  <div class="row">
+    <div class="col-md-6">
+      <re-ref-extract-actions></re-ref-extract-actions>
+    </div>
+    <div class="col-md-6">
+      <re-link-references-button></re-link-references-button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #authorExtractTemplate>
+  <re-author-extract-actions></re-author-extract-actions>
+</ng-template>
+
+<ng-template #patchesHeaderTemplate>
+  <ng-container *ngIf="workflowExtraData.conflicts_metadata">
+    From {{workflowExtraData.conflicts_metadata.update_source}} on {{workflowExtraData.conflicts_metadata.datetime}}
+  </ng-container>
+</ng-template>
+
+<re-holdingpen-toolbar (revisionChange)="onRevisionChange($event)"></re-holdingpen-toolbar>
+<div id="editor-container">
+  <json-editor *ngIf="workflowObject && schema" [record]="revision || workflowObject.metadata" (recordChange)="onWorkflowMetadataChange($event)"
+    [(jsonPatches)]="workflowExtraData.conflicts" [schema]="schema" [config]="config" [problemMap]="workflowProblems"
+    (validationProblems)="onValidationProblems($event)" [templates]="{
+      referenceTemplate: referenceTemplate,
+      authorTemplate: authorTemplate,
+      affiliationAutocompleteTemplate: affiliationAutocompleteTemplate,
+      refActionsTemplate: refActionsTemplate,
+      authorExtractTemplate: authorExtractTemplate,
+      patchesHeaderTemplate: patchesHeaderTemplate
+    }">
+  </json-editor>
+</div>

@@ -1,0 +1,8 @@
+<span class="value-text" [style.margin-left.px]="depth * 10">
+    <span *ngIf="diff && diff.op !== 'replace'" [ngClass]="diff.op">{{value}}</span>
+    <div *ngIf="diff && diff.op === 'replace'">
+        <span class="add">{{newValue}}</span><br>
+        <span class="remove">{{value}}</span>
+    </div>
+    <span *ngIf="!diff">{{value}}</span>
+  </span>

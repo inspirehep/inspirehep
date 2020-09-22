@@ -1,0 +1,13 @@
+<div class="author-brief-container" [ngSwitch]="author.has('record')">
+  <span *ngSwitchCase="true">
+    <i class="fa fa-check-circle success"></i>
+    <a [href]="author.getIn(['record', '$ref']) | apiToDetailUrl" target="_blank">{{author.get('full_name')}}</a>
+  </span>
+  <span *ngSwitchDefault>
+    <i class="fa fa-exclamation-triangle warning"></i>
+    {{author.get('full_name')}}
+  </span>
+  <span *ngIf="author.has('affiliations')">
+    {{author.getIn(['affiliations', 0, 'value'])}}
+  </span>
+</div>
