@@ -1,0 +1,53 @@
+#################
+## Misc
+#################
+**/.DS_Store
+node_modules/*
+npm-debug.log
+*.ts
+*.html
+*.scss
+!*.d.ts
+example
+.github
+coverage
+!dist
+gulpfile.js
+
+#################
+## Test
+#################
+**/*.spec.js
+**/*.spec.ts
+protractor.conf.js
+webpack.config.js
+karma.conf.js
+e2e
+
+#################
+## IDE
+#################
+.idea
+.project
+.settings
+nbproject
+manifest.mf
+build.xml
+.vscode
+
+############
+## Windows
+############
+
+# Windows image file caches
+Thumbs.db
+
+# Folder config file
+Desktop.ini
+
+############
+## Mac
+############
+
+# Mac crap
+.DS_Store

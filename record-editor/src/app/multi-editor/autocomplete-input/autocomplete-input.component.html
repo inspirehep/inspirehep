@@ -1,0 +1,16 @@
+<div *ngIf="tagsEnabled then tagTemplate else defaultTemplate"></div>
+
+<ng-template #defaultTemplate>
+  <input class="form-control input-sm" [ngModel]="value" (ngModelChange)="modelChange($event)" [typeahead]="dataSource" (typeaheadNoResults)="typeaheadNoResults = $event"
+  (typeaheadOnSelect)="selectUserInput($event)" [disabled]="disabled" [class.danger]="typeaheadNoResults" [typeaheadMinLength]="0">
+</ng-template>
+
+<ng-template #tagTemplate>
+  <div class="tags-input" [class.danger]="typeaheadNoResults">
+    <span *ngFor="let value of selectedValues" class="label label-info tag">
+      {{value}} <i class="fa fa-remove" (click)="removeValue(value)"></i>
+    </span>
+    <input [(ngModel)]="value" [typeahead]="dataSource" (typeaheadNoResults)="typeaheadNoResults = $event"
+    (typeaheadOnSelect)="selectUserInput($event)" [disabled]="disabled" [typeaheadMinLength]="0" (keydown.space)="onSpaceKeydown($event)">
+  </div>
+</ng-template>
