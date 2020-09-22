@@ -94,10 +94,6 @@ exports[`Footer renders when cataloger 1`] = `
             "openExternal": false,
             "title": <span>
               Bibliography generator
-               
-              <NewFeatureTag
-                className="without-margin-left"
-              />
             </span>,
             "url": "/bibliography-generator",
           },
@@ -211,10 +207,6 @@ exports[`Footer renders when not cataloger 1`] = `
             "openExternal": false,
             "title": <span>
               Bibliography generator
-               
-              <NewFeatureTag
-                className="without-margin-left"
-              />
             </span>,
             "url": "/bibliography-generator",
           },
