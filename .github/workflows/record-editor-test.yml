@@ -1,8 +1,11 @@
-name: ci
+name: record-editor-test
 
 on:
   push:
     branches: [master]
+    paths: 
+      - 'record-editor/**'
+      - '.github/workflows/record-editor-test.yml'
   pull_request:
     branches: [master]
   release:
@@ -25,6 +28,7 @@ jobs:
           node-version: 6.9.1
 
       - name: install
+        working-directory: ./record-editor
         run: |
           npm install buffer-shims
           export CHROME_BIN=chromium-browser
@@ -32,12 +36,15 @@ jobs:
           yarn install --ignore-engines
 
       - name: lint
+        working-directory: ./record-editor
         run: yarn lint
 
       - name: write version
+        working-directory: ./record-editor
         run: node ./write-version.js
 
       - name: build
+        working-directory: ./record-editor
         run: yarn build
 
       - name: describe
