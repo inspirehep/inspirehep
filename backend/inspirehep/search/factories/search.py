@@ -6,7 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import structlog
-from flask import request
+from flask import current_app, request
 from invenio_records_rest.errors import InvalidQueryRESTError
 from invenio_records_rest.sorter import default_sorter_factory
 
@@ -18,15 +18,11 @@ LOGGER = structlog.getLogger()
 
 
 def can_request_fields():
-    allowed_mimetypes = [
-        "application/json",
-        "application/vnd+inspire.record.ui+json",
-        "application/vnd+inspire.record.raw+json",
-    ]
     has_accept_mimetypes = len(request.accept_mimetypes) > 0
     if (
         has_accept_mimetypes
-        and next(request.accept_mimetypes.values()) not in allowed_mimetypes
+        and next(request.accept_mimetypes.values())
+        in current_app.config["FORBIDDEN_MIMETYPES_FOR_API_FILTERING"]
     ):
         return False
     requested_format = request.values.get("format", "json", type=str)

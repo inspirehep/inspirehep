@@ -1275,6 +1275,8 @@ def test_literature_json_with_fields_filtering(inspire_app):
 
     response_status_code = response.status_code
     response_keys = sorted(list(response.json["hits"]["hits"][0]["metadata"].keys()))
+    assert response.json["hits"]["hits"][0]["created"] is not None
+    assert response.json["hits"]["hits"][0]["updated"] is not None
     assert expected_status_code == response_status_code
     assert response_keys == expected_keys
 
