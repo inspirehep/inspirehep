@@ -598,7 +598,7 @@ RECORDS_REST_SORT_OPTIONS = {
         },
     },
     "records-authors": {
-        "bestmatch": {"fields": ["_score", "name.value.raw", "-_updated"], "order": 1}
+        "bestmatch": {"fields": ["-_score", "name.value.raw", "-_updated"], "order": 1}
     },
     "records-conferences": {
         "dateasc": {"title": "Date ascending", "fields": ["opening_date"], "order": 1},
