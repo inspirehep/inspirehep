@@ -1,0 +1,6 @@
+FROM inspirehep/nginx:1.19-with-vts
+
+EXPOSE 8080
+
+ARG VERSION
+ENV VERSION="${VERSION}"

@@ -54,6 +54,15 @@ services:
         condition: service_started
       web-next:
         condition: service_started
+  record-editor:
+    build:
+      context: record-editor
+      dockerfile: Dockerfile-local
+    ports:
+      - "4201:8080"
+    volumes:
+      - ${PWD}/record-editor/dist/:/usr/share/nginx/html
+      - ${PWD}/record-editor/docker/nginx/config/nginx.conf:/etc/nginx/conf.d/default.conf
   web:
     extends:
       file: docker-compose.services.yml
