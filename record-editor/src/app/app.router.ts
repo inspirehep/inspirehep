@@ -11,10 +11,6 @@ const appRoutes: Routes = [
     path: 'record',
     loadChildren: './record-editor/record-editor.module#RecordEditorModule',
   },
-  {
-    path: 'multieditor',
-    loadChildren: './multi-editor/multi-editor.module#MultiEditorModule',
-  },
 ];
 
 @NgModule({
