@@ -62,6 +62,7 @@ jobs:
           add_git_labels: true
           tags: ${{ steps.describe.outputs.tag }}
           context: record-editor
+          file: ./record-editor/Dockerfile
         if: ${{ github.event_name == 'push' || github.event_name == 'release' }}
 
       - name: deploy on qa
