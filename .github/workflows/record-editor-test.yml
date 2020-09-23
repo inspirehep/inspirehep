@@ -61,7 +61,7 @@ jobs:
           repository: inspirehep/editor
           add_git_labels: true
           tags: ${{ steps.describe.outputs.tag }}
-          path: record-editor
+          context: record-editor
         if: ${{ github.event_name == 'push' || github.event_name == 'release' }}
 
       - name: deploy on qa
