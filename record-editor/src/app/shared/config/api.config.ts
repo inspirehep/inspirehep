@@ -24,4 +24,5 @@ import { environment } from '../../../environments/environment';
 
 export const apiUrl = `${environment.baseUrl}/api`;
 export const editorApiUrl = `${apiUrl}/editor`;
+export const matcherApiUrl = `${apiUrl}/matcher`;
 export const holdingpenApiUrl = `${apiUrl}/holdingpen`;

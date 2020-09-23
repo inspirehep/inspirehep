@@ -25,7 +25,7 @@ import { Http, Headers } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 
-import { editorApiUrl } from '../../shared/config';
+import { editorApiUrl, matcherApiUrl } from '../../shared/config';
 import { ApiError } from '../../shared/classes';
 import {
   AuthorExtractResult,
@@ -119,7 +119,7 @@ export class CommonApiService {
     }
 
     return this.http
-      .post(`${editorApiUrl}/linked_references`, { references })
+      .post(`${matcherApiUrl}/linked_references`, { references })
       .catch(error => Observable.throw(new ApiError(error)))
       .map(res => res.json())
       .map(json => json.references)
