@@ -63,6 +63,7 @@ jobs:
           tags: ${{ steps.describe.outputs.tag }}
           context: record-editor
           file: ./record-editor/Dockerfile
+          push: true
         if: ${{ github.event_name == 'push' || github.event_name == 'release' }}
 
       - name: deploy on qa
