@@ -14,7 +14,7 @@ import {
 } from '../actions/actionTypes';
 import { CITE_FORMAT_VALUES } from '../literature/constants';
 
-export const CITE_FORMAT_PREFERENCE = 'preferredCiteFormat';
+export const CITE_FORMAT_PREFERENCE = 'preferredCiteFormat@V2';
 export const CITATION_SUMMARY_ENABLING_PREFERENCE =
   'preferredCitationSummaryEnabling';
 export const EXCLUDE_SELF_CITATIONS_PREFERENCE = 'excludeSelfCitations';
