@@ -1,5 +1,5 @@
 {
-  "$schema": "https://inspirebeta.net/schemas/records/institutions.json",
+  "$schema": "http://ui:8080/schemas/records/institutions.json",
   "ICN": ["Humboldt U., Berlin, Inst. Phys."],
   "_collections": ["Institutions"],
   "_private_notes": [

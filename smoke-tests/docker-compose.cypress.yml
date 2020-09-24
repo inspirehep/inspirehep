@@ -26,3 +26,11 @@ services:
     volumes:
       - ./ui:/usr/src/app
     command: /usr/src/app/build.sh
+  record-editor-build:
+    build:
+      context: record-editor
+      dockerfile: Dockerfile-build
+    volumes:
+      - ./record-editor:/usr/src/app
+    working_dir: /usr/src/app
+    command: sh -c "yarn && yarn build --delete-output-path=false"

@@ -43,10 +43,6 @@ jobs:
         working-directory: ./record-editor
         run: node ./write-version.js
 
-      - name: build
-        working-directory: ./record-editor
-        run: yarn build
-
       - name: describe
         id: describe
         run: |

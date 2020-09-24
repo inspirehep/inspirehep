@@ -26,6 +26,38 @@ describe('Conference Search', () => {
   });
 });
 
+describe('Conference Editor', () => {
+  beforeEach(() => {
+    cy.login('cataloger');
+  });
+
+  afterEach(() => {
+    cy.logout();
+  });
+
+  it('edits a conference', () => {
+    const RECORD_API = '/api/conferences/1217045';
+    const SCHEMAS = '/schemas/**';
+
+    cy.registerRoute(RECORD_API);
+    cy.registerRoute(SCHEMAS);
+
+    cy.visit('/editor/record/conferences/1217045');
+
+    cy.waitForRoute(RECORD_API);
+    cy.waitForRoute(SCHEMAS);
+
+    cy
+      .get('[data-path="/titles/0/title"]')
+      .type('Updated by Cypress Test{enter}');
+    cy.contains('button', 'Save').click();
+
+    cy.waitForRoute(RECORD_API);
+
+    cy.get('h2').should('contain.text', 'Updated by Cypress');
+  });
+});
+
 describe('Conference Submission', () => {
   beforeEach(() => {
     cy.login('cataloger');
