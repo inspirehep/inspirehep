@@ -23,6 +23,47 @@ describe('Literature Detail', () => {
   });
 });
 
+describe.skip('Literature Editor', () => {
+  beforeEach(() => {
+    cy.login('cataloger');
+  });
+
+  afterEach(() => {
+    cy.logout();
+  });
+
+  it('edits a literature record', () => {
+    const RECORD_ID = '1787272';
+
+    const API = '/api/**';
+    const SAVE_CALLBACK = '/callback/workflows/**';
+    const SCHEMAS = '/schemas/**';
+
+    cy.registerRoute(API);
+    cy.registerRoute(SCHEMAS);
+
+    cy.visit(`/workflows/edit_article/${RECORD_ID}`);
+
+    cy.waitForRoute(API);
+    cy.waitForRoute(SCHEMAS);
+
+    cy.registerRoute({
+      url: SAVE_CALLBACK,
+      method: 'POST',
+    });
+
+    cy
+      .get('[data-path="/publication_info/0/journal_title"]')
+      .type('Updated by Cypress Test{enter}');
+    cy.contains('button', 'Save').click();
+
+    cy.waitForRoute(SAVE_CALLBACK);
+    cy.waitForRoute(API);
+
+    cy.get('.record-pub-info').should('contain.text', 'Updated by Cypress');
+  });
+});
+
 describe('Literature Submission', () => {
   beforeEach(() => {
     cy.login('cataloger');
