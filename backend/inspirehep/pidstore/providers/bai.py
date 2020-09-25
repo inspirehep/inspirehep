@@ -111,8 +111,9 @@ class InspireBAIProvider(InspireBaseProvider):
                     pid_value=pid_value, pid_type="bai"
                 )
             else:
+                provider_object = super().get(pid_value=pid_value)
                 break
-                # Correct pid already assigned to this object
+                # Correct pid already assigned to this record
             time.sleep(current_app.config.get("PIDSTORE_BAI_RETRY_DELAY", 5))
         if last_exception:
             raise last_exception
