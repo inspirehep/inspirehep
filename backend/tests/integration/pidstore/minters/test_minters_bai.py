@@ -12,6 +12,7 @@ from helpers.utils import create_record, override_config
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
 from inspirehep.pidstore.errors import PIDAlreadyExists
+from inspirehep.pidstore.providers.bai import InspireBAIProvider
 from inspirehep.utils import flatten_list
 
 
@@ -263,3 +264,14 @@ def test_minter_bai_minting_of_existing_bais_works_when_feature_flag_is_turned_o
     assert bai.pid_value == expected_bai_value
     assert bai.object_uuid == record.id
     assert bai.status == PIDStatus.REGISTERED
+
+
+def test_double_minting_same_record_not_breaks(inspire_app):
+    with override_config(FEATURE_FLAG_ENABLE_BAI_PROVIDER=True):
+        data = {"ids": [{"schema": "INSPIRE BAI", "value": "K.Janeway.1"}]}
+        record = create_record("aut", data=data)
+        data = dict(record)
+        bai_provider = InspireBAIProvider.create(
+            pid_value=data["ids"][0]["value"], object_uuid=record.id
+        )
+        assert bai_provider.pid.object_uuid == record.id
