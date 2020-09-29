@@ -10,13 +10,14 @@ import datetime
 
 from inspire_utils.name import format_name
 from inspire_utils.record import get_value
-from marshmallow import Schema, fields, missing
+from marshmallow import fields, missing
 
+from ..base import BaseSchema
 from .bibtex import BibTexCommonSchema
 from .utils import latex_encode
 
 
-class LatexSchema(Schema):
+class LatexSchema(BaseSchema):
     arxiv_eprints = fields.Raw()
     authors = fields.Method("get_author_names")
     # It has to be string, otherwise if result is 0 then it's not rendered in latex

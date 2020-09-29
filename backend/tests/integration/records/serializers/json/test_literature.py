@@ -1315,3 +1315,19 @@ def test_literature_json_with_fields_filtering_ignores_wrong_fields(inspire_app)
     response_keys = sorted(list(response.json["hits"]["hits"][0]["metadata"].keys()))
     assert expected_status_code == response_status_code
     assert response_keys == expected_keys
+
+
+def test_regression_serializers_mutation(inspire_app):
+    data = {
+        "dois": [
+            {"source": "World Scientific", "value": "10.1142/9789814618113_0024"},
+        ]
+    }
+    record = create_record("lit", data=data)
+    excepted_doi = "10.1142/9789814618113_0024"
+    with inspire_app.test_client() as client:
+        response = client.get("/literature/")
+
+    assert (
+        excepted_doi == response.json["hits"]["hits"][0]["metadata"]["dois"][0]["value"]
+    )
