@@ -13,7 +13,7 @@ from inspire_schemas.readers.literature import LiteratureReader
 from inspire_utils.date import PartialDate
 from inspire_utils.record import get_value
 from isbn import ISBNError
-from marshmallow import Schema, fields, pre_dump
+from marshmallow import fields, pre_dump
 from six import text_type
 
 from inspirehep.records.marshmallow.literature.utils import (
@@ -21,8 +21,10 @@ from inspirehep.records.marshmallow.literature.utils import (
     latex_encode,
 )
 
+from ..base import BaseSchema
 
-class BibTexCommonSchema(Schema):
+
+class BibTexCommonSchema(BaseSchema):
     address = fields.Method("get_address")
     archivePrefix = fields.Method("get_archive_prefix")
     author = fields.Method("get_author")
@@ -261,7 +263,6 @@ class BibTexCommonSchema(Schema):
         return latex_encode(get_value(data, "book_series.title[0]"))
 
     def get_book_title(self, data):
-
         parent_record = get_parent_record(data)
         parent_title = self.get_title(parent_record)
 
