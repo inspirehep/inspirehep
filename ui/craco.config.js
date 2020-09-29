@@ -65,6 +65,14 @@ module.exports = {
   eslint: {
     mode: ESLINT_MODES.file,
   },
+  // HACK: until https://github.com/DocSpring/craco-antd/issues/24 is fixed
+  // properly, current fix causes other problems https://github.com/DocSpring/craco-antd/pull/31#issuecomment-700829934
+  jest: {
+    configure(config) {
+      config.transformIgnorePatterns = ['/node_modules/(?!antd|rc-*)/.+\\.js$'];
+      return config;
+    },
+  },
   plugins: [
     makeOverrideWebpackPlugin(withCustomScssLoader),
     makeOverrideWebpackPlugin(

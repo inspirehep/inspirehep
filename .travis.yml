@@ -80,7 +80,7 @@ script:
     - if [[ "$SUITE" != "ui" ]]; then
         poetry run py.test tests/${SUITE};
       else
-        cd ui && yarn && yarn test;
+        cd ui && yarn install --ignore-engines && yarn test;
       fi
 
 matrix:
