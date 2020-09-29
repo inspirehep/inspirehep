@@ -46,8 +46,18 @@ class ElasticSearchBaseSchema:
     _updated = fields.DateTime(dump_only=True, attribute="updated")
 
 
-class RecordBaseSchema(Schema):
-    """Base class for Inspire Schema.
+class BaseSchema(Schema):
+    """Base schema."""
+
+    def dump(self, obj, *args, **kwargs):
+        obj_copy = deepcopy(obj)
+        if hasattr(obj, "model"):
+            obj_copy.model = obj.model
+        return super().dump(obj_copy, *args, **kwargs)
+
+
+class RecordBaseSchema(BaseSchema):
+    """Base record class for Inspire Schema.
 
     By default it will include all the fields. If you want fields to be excluded
     you should specify ``exclude``.
@@ -84,12 +94,6 @@ class RecordBaseSchema(Schema):
             if key not in data and key not in self.exclude:
                 data[key] = original_data[key]
         return data
-
-    def dump(self, obj, *args, **kwargs):
-        obj_copy = deepcopy(obj)
-        if hasattr(obj, "model"):
-            obj_copy.model = obj.model
-        return super().dump(obj_copy, *args, **kwargs)
 
     @post_dump(pass_original=True)
     def process_post_dump_in_order(self, data, original_data):
