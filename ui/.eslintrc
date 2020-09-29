@@ -58,6 +58,7 @@
     "import/prefer-default-export": "off",
     "react/no-unused-prop-types": "off",
     "react/require-default-props": "off",
+    "react/prop-types": "off",
     "react/forbid-prop-types": [
       "error",
       {

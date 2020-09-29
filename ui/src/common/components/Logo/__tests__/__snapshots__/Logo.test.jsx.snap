@@ -5,7 +5,7 @@ exports[`Logo renders 1`] = `
   className="__Logo__"
   to="/"
 >
-  <ReactComponent
+  <ForwardRef
     className="logo"
   />
 </Link>
