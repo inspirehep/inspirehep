@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { AutoComplete } from 'antd';
 import debounce from 'lodash.debounce';
 
-import http from '../http';
+import http, { isCancelError } from '../http';
 
 export const REQUEST_DEBOUNCE_MS = 250;
 
@@ -12,6 +12,7 @@ class Suggester extends Component {
     super(props);
 
     this.onSearch = debounce(this.onSearch.bind(this), REQUEST_DEBOUNCE_MS);
+    this.onSuggestionSelect = this.onSuggestionSelect.bind(this);
     this.state = {
       results: [],
     };
@@ -25,13 +26,25 @@ class Suggester extends Component {
 
     const { pidType, suggesterName } = this.props;
     const urlWithQuery = `/${pidType}/_suggest?${suggesterName}=${value}`;
+    const suggesterRequestId = `${pidType}-${suggesterName}`;
     try {
-      const response = await http.get(urlWithQuery);
+      const response = await http.get(urlWithQuery, {}, suggesterRequestId);
       const results = this.responseDataToResults(response.data);
       this.setState({ results });
     } catch (error) {
-      this.setState({ results: [] });
+      if (!isCancelError(error)) {
+        this.setState({ results: [] });
+      }
     }
+  }
+
+  onSuggestionSelect(_, { suggestion, value: uniqueItemValue }) {
+    const { onSelect, onChange, extractItemCompletionValue } = this.props;
+
+    if (extractItemCompletionValue) {
+      onChange(extractItemCompletionValue(suggestion));
+    }
+    onSelect(uniqueItemValue, suggestion);
   }
 
   responseDataToResults(responseData) {
@@ -41,16 +54,16 @@ class Suggester extends Component {
 
   renderSuggestions() {
     const { results } = this.state;
-    const { renderResultItem, extractItemCompletionValue } = this.props;
+    const { renderResultItem, extractUniqueItemValue } = this.props;
     return results.map(result => {
-      const completionValue = extractItemCompletionValue(result);
+      const uniqueValue = extractUniqueItemValue(result);
       return (
         <AutoComplete.Option
-          key={completionValue}
-          value={completionValue}
-          result={result}
+          key={uniqueValue}
+          value={uniqueValue}
+          suggestion={result}
         >
-          {renderResultItem ? renderResultItem(result) : completionValue}
+          {renderResultItem ? renderResultItem(result) : uniqueValue}
         </AutoComplete.Option>
       );
     });
@@ -60,12 +73,18 @@ class Suggester extends Component {
     const {
       renderResultItem,
       extractItemCompletionValue,
+      extractUniqueItemValue,
       suggesterName,
       pidType,
+      onSelect,
       ...autoCompleteProps
     } = this.props;
     return (
-      <AutoComplete {...autoCompleteProps} onSearch={this.onSearch}>
+      <AutoComplete
+        {...autoCompleteProps}
+        onSelect={this.onSuggestionSelect}
+        onSearch={this.onSearch}
+      >
         {this.renderSuggestions()}
       </AutoComplete>
     );
@@ -75,12 +94,13 @@ class Suggester extends Component {
 Suggester.propTypes = {
   pidType: PropTypes.string.isRequired,
   suggesterName: PropTypes.string.isRequired,
-  renderResultItem: PropTypes.func,
-  extractItemCompletionValue: PropTypes.func,
+  renderResultItem: PropTypes.func, // defaults to extractUniqueItemValue
+  extractItemCompletionValue: PropTypes.func, // only needed if extractUniqueItemValue does not return appropriate completion value
+  extractUniqueItemValue: PropTypes.func,
 };
 
 Suggester.defaultProps = {
-  extractItemCompletionValue: resultItem => resultItem.text,
+  extractUniqueItemValue: resultItem => resultItem.text,
 };
 
 export default Suggester;

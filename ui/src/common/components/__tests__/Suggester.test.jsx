@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import MockAdapter from 'axios-mock-adapter';
+import { AutoComplete } from 'antd';
 
 import http from '../../http';
 import Suggester, { REQUEST_DEBOUNCE_MS } from '../Suggester';
@@ -21,7 +22,7 @@ describe('Suggester', () => {
 
   it('renders results onSearch', async () => {
     const suggesterQueryUrl = '/literature/_suggest?abstract_source=test';
-    const reponseData = {
+    const responseData = {
       abstract_source: [
         {
           options: [
@@ -35,7 +36,7 @@ describe('Suggester', () => {
         },
       ],
     };
-    mockHttp.onGet(suggesterQueryUrl).replyOnce(200, reponseData);
+    mockHttp.onGet(suggesterQueryUrl).replyOnce(200, responseData);
     const wrapper = shallow(
       <Suggester pidType="literature" suggesterName="abstract_source" />
     );
@@ -45,9 +46,9 @@ describe('Suggester', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('renders results with custom completion value', async () => {
+  it('renders results with custom extractUniqueItemValue', async () => {
     const suggesterQueryUrl = '/literature/_suggest?abstract_source=test';
-    const reponseData = {
+    const responseData = {
       abstract_source: [
         {
           options: [
@@ -63,14 +64,12 @@ describe('Suggester', () => {
         },
       ],
     };
-    mockHttp.onGet(suggesterQueryUrl).replyOnce(200, reponseData);
+    mockHttp.onGet(suggesterQueryUrl).replyOnce(200, responseData);
     const wrapper = shallow(
       <Suggester
         pidType="literature"
         suggesterName="abstract_source"
-        extractItemCompletionValue={result =>
-          `${result.text} - ${result.extra}`
-        }
+        extractUniqueItemValue={result => `${result.text} - ${result.extra}`}
       />
     );
     await wrapper.instance().onSearch('test');
@@ -81,7 +80,7 @@ describe('Suggester', () => {
 
   it('does not render results onSearch without waiting for debounce', async () => {
     const suggesterQueryUrl = '/literature/_suggest?abstract_source=test';
-    const reponseData = {
+    const responseData = {
       abstract_source: [
         {
           options: [
@@ -92,7 +91,7 @@ describe('Suggester', () => {
         },
       ],
     };
-    mockHttp.onGet(suggesterQueryUrl).replyOnce(200, reponseData);
+    mockHttp.onGet(suggesterQueryUrl).replyOnce(200, responseData);
     const wrapper = shallow(
       <Suggester pidType="literature" suggesterName="abstract_source" />
     );
@@ -105,7 +104,7 @@ describe('Suggester', () => {
 
   it('renders results with custom result template', async () => {
     const suggesterQueryUrl = '/literature/_suggest?abstract_source=test';
-    const reponseData = {
+    const responseData = {
       abstract_source: [
         {
           options: [
@@ -121,7 +120,7 @@ describe('Suggester', () => {
         },
       ],
     };
-    mockHttp.onGet(suggesterQueryUrl).replyOnce(200, reponseData);
+    mockHttp.onGet(suggesterQueryUrl).replyOnce(200, responseData);
     const wrapper = shallow(
       <Suggester
         pidType="literature"
@@ -137,6 +136,87 @@ describe('Suggester', () => {
     await wait();
     wrapper.update();
     expect(wrapper).toMatchSnapshot();
+  });
+
+  it('calls onSelect with unique item value and whole suggestion', async () => {
+    const suggesterQueryUrl = '/literature/_suggest?abstract_source=test';
+    const responseData = {
+      abstract_source: [
+        {
+          options: [
+            {
+              id: '1',
+              name: 'Result',
+            },
+          ],
+        },
+      ],
+    };
+    mockHttp.onGet(suggesterQueryUrl).replyOnce(200, responseData);
+    const onChange = jest.fn();
+    const onSelect = jest.fn();
+    const wrapper = shallow(
+      <Suggester
+        onChange={onChange}
+        onSelect={onSelect}
+        pidType="literature"
+        extractUniqueItemValue={suggestion => suggestion.id}
+        suggesterName="abstract_source"
+      />
+    );
+    await wrapper.instance().onSearch('test');
+    await wait();
+    wrapper.update();
+    const suggestionWrapper = wrapper.find(AutoComplete.Option);
+    wrapper
+      .find(AutoComplete)
+      .simulate('select', null, suggestionWrapper.props());
+    expect(onSelect).toHaveBeenCalledWith('1', {
+      id: '1',
+      name: 'Result',
+    });
+    expect(onChange).not.toHaveBeenCalled();
+  });
+
+  it('calls onSelect with unique item value and whole suggestion and onChange if extractItemCompletionValue prop is present', async () => {
+    const suggesterQueryUrl = '/literature/_suggest?abstract_source=test';
+    const responseData = {
+      abstract_source: [
+        {
+          options: [
+            {
+              id: '1',
+              name: 'Result',
+            },
+          ],
+        },
+      ],
+    };
+    mockHttp.onGet(suggesterQueryUrl).replyOnce(200, responseData);
+    const onChange = jest.fn();
+    const onSelect = jest.fn();
+    const wrapper = shallow(
+      <Suggester
+        onChange={onChange}
+        onSelect={onSelect}
+        pidType="literature"
+        extractItemCompletionValue={suggestion => suggestion.name}
+        extractUniqueItemValue={suggestion => suggestion.id}
+        suggesterName="abstract_source"
+      />
+    );
+    await wrapper.instance().onSearch('test');
+    await wait();
+    wrapper.update();
+    const suggestionWrapper = wrapper.find(AutoComplete.Option);
+    wrapper
+      .find(AutoComplete)
+      .simulate('select', null, suggestionWrapper.props());
+    expect(onSelect).toHaveBeenCalledWith('1', {
+      id: '1',
+      name: 'Result',
+    });
+    expect(onChange).toHaveBeenCalledWith('Result');
   });
 
   it('renders empty if request fails', async () => {

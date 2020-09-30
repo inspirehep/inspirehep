@@ -3,6 +3,10 @@ import Suggester from '../../../common/components/Suggester';
 
 import withFormItem from '../withFormItem';
 
+function getSuggestionControlNumber(suggestion) {
+  return String(suggestion._source.control_number);
+}
+
 class SuggesterField extends Component {
   constructor(props) {
     super(props);
@@ -27,13 +31,10 @@ class SuggesterField extends Component {
     }
   }
 
-  onSelect(_, selectedOption) {
-    const selectedRecordData = selectedOption.result._source;
+  onSelect(controlNumber) {
     const { form, recordFieldPath, pidType } = this.props;
     // TODO: only send control_number to backend, and create the $ref url there.
-    const $ref = `${window.location.origin}/api/${pidType}/${
-      selectedRecordData.control_number
-    }`;
+    const $ref = `${window.location.origin}/api/${pidType}/${controlNumber}`;
     form.setFieldValue(recordFieldPath, { $ref });
     this.recordFieldPopulated = true;
   }
@@ -44,6 +45,7 @@ class SuggesterField extends Component {
       <Suggester
         {...restProps}
         data-test-type="suggester"
+        extractUniqueItemValue={getSuggestionControlNumber}
         onBlur={this.onBlur}
         onChange={this.onChange}
         onSelect={this.onSelect}
