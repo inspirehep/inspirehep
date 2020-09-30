@@ -3,22 +3,25 @@
 exports[`Suggester does not render results onSearch without waiting for debounce 1`] = `
 <ForwardRef(AutoComplete)
   onSearch={[Function]}
+  onSelect={[Function]}
 />
 `;
 
 exports[`Suggester renders empty if request fails 1`] = `
 <ForwardRef(AutoComplete)
   onSearch={[Function]}
+  onSelect={[Function]}
 />
 `;
 
 exports[`Suggester renders results onSearch 1`] = `
 <ForwardRef(AutoComplete)
   onSearch={[Function]}
+  onSelect={[Function]}
 >
   <Option
     key="Result 1"
-    result={
+    suggestion={
       Object {
         "text": "Result 1",
       }
@@ -29,7 +32,7 @@ exports[`Suggester renders results onSearch 1`] = `
   </Option>
   <Option
     key="Result 2"
-    result={
+    suggestion={
       Object {
         "text": "Result 2",
       }
@@ -41,13 +44,14 @@ exports[`Suggester renders results onSearch 1`] = `
 </ForwardRef(AutoComplete)>
 `;
 
-exports[`Suggester renders results with custom completion value 1`] = `
+exports[`Suggester renders results with custom extractUniqueItemValue 1`] = `
 <ForwardRef(AutoComplete)
   onSearch={[Function]}
+  onSelect={[Function]}
 >
   <Option
     key="Result 1 - Extra 1"
-    result={
+    suggestion={
       Object {
         "extra": "Extra 1",
         "text": "Result 1",
@@ -59,7 +63,7 @@ exports[`Suggester renders results with custom completion value 1`] = `
   </Option>
   <Option
     key="Result 2 - Extra 2"
-    result={
+    suggestion={
       Object {
         "extra": "Extra 2",
         "text": "Result 2",
@@ -75,10 +79,11 @@ exports[`Suggester renders results with custom completion value 1`] = `
 exports[`Suggester renders results with custom result template 1`] = `
 <ForwardRef(AutoComplete)
   onSearch={[Function]}
+  onSelect={[Function]}
 >
   <Option
     key="Result 1"
-    result={
+    suggestion={
       Object {
         "extra": "Extra 1",
         "text": "Result 1",
@@ -96,7 +101,7 @@ exports[`Suggester renders results with custom result template 1`] = `
   </Option>
   <Option
     key="Result 2"
-    result={
+    suggestion={
       Object {
         "extra": "Extra 2",
         "text": "Result 2",
