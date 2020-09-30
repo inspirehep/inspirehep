@@ -1,12 +1,21 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2019 CERN.
+# Copyright (C) 2020 CERN.
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-FROM inspirehep/poetry:1.0.10
+FROM inspirehep/python:3.6-with-certs
 RUN apt update && apt install poppler-utils -y
+
+ENV PATH="/root/.poetry/bin:${PATH}" \
+    POETRY_VIRTUALENVS_CREATE=false
+
+ARG POETRY_VERSION
+ENV POETRY_VERSION="${POETRY_VERSION:-1.0.10}"
+RUN curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python - --version "${POETRY_VERSION}" \
+ && poetry --version
+
 WORKDIR /opt/inspire
 
 ENTRYPOINT ["poetry", "run", "inspirehep"]
