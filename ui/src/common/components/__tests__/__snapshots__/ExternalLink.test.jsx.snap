@@ -7,7 +7,7 @@ exports[`ExternalLink renders as custom component 1`] = `
   href="//example.com"
   htmlType="button"
   loading={false}
-  rel="noopener noreferrer"
+  rel="noopener"
   target="_blank"
 >
   button example
@@ -17,7 +17,7 @@ exports[`ExternalLink renders as custom component 1`] = `
 exports[`ExternalLink renders with only href and children 1`] = `
 <a
   href="//example.com"
-  rel="noopener noreferrer"
+  rel="noopener"
   target="_blank"
 >
   example
@@ -28,7 +28,7 @@ exports[`ExternalLink renders with only href, children and extra props 1`] = `
 <a
   className="test"
   href="//example.com"
-  rel="noopener noreferrer"
+  rel="noopener"
   target="_blank"
 >
   example
