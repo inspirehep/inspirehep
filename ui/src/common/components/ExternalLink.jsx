@@ -5,7 +5,7 @@ function ExternalLink({ as, ...linkProps }) {
   const externalLinkProps = {
     ...linkProps,
     target: '_blank',
-    rel: 'noopener noreferrer',
+    rel: 'noopener',
   };
   return React.createElement(as, externalLinkProps);
 }
