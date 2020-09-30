@@ -318,6 +318,31 @@ class InspireRecord(Record):
                 and data["control_number"] != self["control_number"]
             ):
                 data["self"] = get_ref_from_pid(self.pid_type, data["control_number"])
+            diff_deleted_records = [
+                item
+                for item in data.get("deleted_records", [])
+                if item not in self.get("deleted_records", [])
+            ]
+            if diff_deleted_records:
+                for deleted_record in diff_deleted_records:
+                    old_record_pid_type, old_record_pid_value = PidStoreBase.get_pid_from_record_uri(
+                        deleted_record["$ref"]
+                    )
+                    old_record = InspireRecord.get_record_by_pid_value(
+                        old_record_pid_value, old_record_pid_type
+                    )
+                    new_record_pid_value = data["control_number"]
+                    new_record_pid_type = PidStoreBase.get_pid_type_from_recid(
+                        new_record_pid_value
+                    )
+                    PersistentIdentifier.get(
+                        old_record_pid_type, old_record_pid_value
+                    ).redirect(
+                        PersistentIdentifier.get(
+                            new_record_pid_type, new_record_pid_value
+                        )
+                    )
+                    old_record.delete()
         with db.session.begin_nested():
             self.clear()
             super().update(data)
