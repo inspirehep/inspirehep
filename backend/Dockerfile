@@ -5,7 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-FROM inspirehep/poetry:1.0.0
+FROM inspirehep/poetry:1.0.10
 RUN apt update && apt install poppler-utils -y
 WORKDIR /opt/inspire
 
