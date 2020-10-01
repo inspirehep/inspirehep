@@ -47,8 +47,24 @@ def inspire_search_links(links):
         .get("search_serializers_aliases", {})
         .keys()
     )
+    request_fields = request.values.get("fields", "", type=str)
+    url_fields = ""
+    if request_fields:
+        url_fields = f"&fields={request_fields}"
+        links["self"] = self_url + url_fields
+        next_url = links.get("next")
+        if next_url:
+            links["next"] = next_url + url_fields
+        prev_url = links.get("prev")
+        if prev_url:
+            links["prev"] = prev_url + url_fields
     links.update(
-        {format_name: f"{self_url}&format={format_name}" for format_name in formats}
+        {
+            format_name: f"{self_url}{url_fields}&format={format_name}"
+            if format_name == "json"
+            else f"{self_url}&format={format_name}"
+            for format_name in formats
+        }
     )
 
     return links

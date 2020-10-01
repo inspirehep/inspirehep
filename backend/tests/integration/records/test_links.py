@@ -7,6 +7,7 @@
 import mock
 from helpers.utils import create_record, override_config
 from invenio_pidstore.models import PersistentIdentifier
+from werkzeug import MultiDict
 
 from inspirehep.records.links import (
     find_record_endpoint,
@@ -80,6 +81,7 @@ def test_generate_inspire_search_links_gets_proper_formats(inspire_app):
         links_test = {"self": "http://localhost:5000/api/test/?q=&size=10&page=1"}
         links_test2 = {"self": "http://localhost:5000/api/test2/?q=&size=10&page=1"}
         with mock.patch("inspirehep.records.links.request") as mock_request:
+            mock_request.values = MultiDict()
             mock_request.path = "/test"
             links_test = inspire_search_links(links_test)
             mock_request.path = "/test2"
@@ -139,3 +141,30 @@ def test_detail_links_factory_generates_proper_additional_links(inspire_app):
         pid = PersistentIdentifier(pid_type="lit", pid_value=1)
         links = inspire_detail_links_factory(pid)
     assert links == expected_links
+
+
+def test_search_links_with_fields_filtering(inspire_app):
+    expected_links_test = {
+        "self": "http://localhost:5000/api/test/?q=&size=10&page=1&fields=ids,authors",
+        "next": "http://localhost:5000/api/test/?q=&size=10&page=2&fields=ids,authors",
+        "format1": "http://localhost:5000/api/test/?q=&size=10&page=1&format=format1",
+        "json": "http://localhost:5000/api/test/?q=&size=10&page=1&fields=ids,authors&format=json",
+    }
+    config = {
+        "TEST": {
+            "search_serializers_aliases": {
+                "format1": "format/1",
+                "json": "application/json",
+            }
+        }
+    }
+    with override_config(**config):
+        links_test = {
+            "self": "http://localhost:5000/api/test/?q=&size=10&page=1",
+            "next": "http://localhost:5000/api/test/?q=&size=10&page=2",
+        }
+        with mock.patch("inspirehep.records.links.request") as mock_request:
+            mock_request.path = "/test"
+            mock_request.values = MultiDict([("fields", "ids,authors")])
+            links_test = inspire_search_links(links_test)
+    assert links_test == expected_links_test
