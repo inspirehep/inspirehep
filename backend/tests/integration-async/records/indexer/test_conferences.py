@@ -9,7 +9,8 @@ import json
 import time
 
 from helpers.providers.faker import faker
-from helpers.utils import es_search, retry_until_matched
+from helpers.utils import es_search, retry_until_matched, retry_until_pass
+from inspire_utils.record import get_value
 from invenio_db import db
 from invenio_search import current_search
 from invenio_search import current_search_client as es
@@ -118,41 +119,27 @@ def test_indexer_updates_conference_papers_when_name_changes(
         },
     )
 
-    conference_paper = LiteratureRecord.create(conference_paper_data)
+    LiteratureRecord.create(conference_paper_data)
     db.session.commit()
 
-    steps = [
-        {"step": current_search.flush_and_refresh, "args": ["*"]},
-        {
-            "step": es_search,
-            "args": ["records-hep"],
-            "expected_result": {
-                "expected_key": "hits.total.value",
-                "expected_result": 1,
-            },
-        },
-    ]
-    results = retry_until_matched(steps, timeout=45)
-    ui_display = json.loads(results["hits"]["hits"][0]["_source"]["_ui_display"])
+    def assert_literature_has_correct_conference_title():
+        current_search.flush_and_refresh("*")
+        result = es_search("records-hep")
+        total = get_value(result, "hits.total.value")
 
-    assert conference["titles"] == ui_display["conference_info"][0]["titles"]
+        assert total == 1
+
+        literature = get_value(result, "hits.hits[0]._source")
+        ui_display = json.loads(literature["_ui_display"])
+        assert conference["titles"] == get_value(
+            ui_display, "conference_info[0].titles"
+        )
+
+    retry_until_pass(assert_literature_has_correct_conference_title, timeout=45)
 
     data = dict(conference)
     data["titles"] = [{"title": "Updated Title"}]
     conference.update(data)
     db.session.commit()
-    time.sleep(10)
-    steps = [
-        {"step": current_search.flush_and_refresh, "args": ["*"]},
-        {
-            "step": es_search,
-            "args": ["records-hep"],
-            "expected_result": {
-                "expected_key": "hits.total.value",
-                "expected_result": 1,
-            },
-        },
-    ]
-    results = retry_until_matched(steps, timeout=45)
-    ui_display = json.loads(results["hits"]["hits"][0]["_source"]["_ui_display"])
-    assert conference["titles"] == ui_display["conference_info"][0]["titles"]
+
+    retry_until_pass(assert_literature_has_correct_conference_title, timeout=45)
