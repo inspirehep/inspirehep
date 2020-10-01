@@ -898,3 +898,26 @@ def test_journal_title_normalization_without_match(inspire_app):
     result_journal_title = JournalsSearch().normalize_title(journal_title)
 
     assert journal_title == result_journal_title
+
+
+def test_public_api_generates_correct_links_in_literature_search_with_fields(
+    inspire_app
+):
+    expected_search_links = {
+        "self": "http://localhost:5000/api/literature/?q=&size=1&page=2&fields=ids,authors",
+        "bibtex": "http://localhost:5000/api/literature/?q=&size=1&page=2&format=bibtex",
+        "latex-eu": "http://localhost:5000/api/literature/?q=&size=1&page=2&format=latex-eu",
+        "latex-us": "http://localhost:5000/api/literature/?q=&size=1&page=2&format=latex-us",
+        "json": "http://localhost:5000/api/literature/?q=&size=1&page=2&fields=ids,authors&format=json",
+        "prev": "http://localhost:5000/api/literature/?q=&size=1&page=1&fields=ids,authors",
+        "next": "http://localhost:5000/api/literature/?q=&size=1&page=3&fields=ids,authors",
+    }
+    create_record("lit")
+    create_record("lit")
+    create_record("lit")
+    with inspire_app.test_client() as client:
+        url = "/api/literature?fields=ids,authors&size=1&page=2"
+        response = client.get(url)
+    assert response.status_code == 200
+    response_links = response.json["links"]
+    assert response_links == expected_search_links
