@@ -38,11 +38,14 @@ class Suggester extends Component {
     }
   }
 
-  onSuggestionSelect(_, { suggestion, value: uniqueItemValue }) {
-    const { onSelect, onChange, extractItemCompletionValue } = this.props;
+  onSuggestionSelect(
+    _,
+    { suggestion, value: uniqueItemValue, completionValue }
+  ) {
+    const { onSelect, onChange } = this.props;
 
-    if (extractItemCompletionValue) {
-      onChange(extractItemCompletionValue(suggestion));
+    if (uniqueItemValue !== completionValue) {
+      onChange(completionValue);
     }
     onSelect(uniqueItemValue, suggestion);
   }
@@ -54,16 +57,24 @@ class Suggester extends Component {
 
   renderSuggestions() {
     const { results } = this.state;
-    const { renderResultItem, extractUniqueItemValue } = this.props;
+    const {
+      renderResultItem,
+      extractUniqueItemValue,
+      extractItemCompletionValue,
+    } = this.props;
     return results.map(result => {
       const uniqueValue = extractUniqueItemValue(result);
+      const completionValue = extractItemCompletionValue
+        ? extractItemCompletionValue(result)
+        : uniqueValue;
       return (
         <AutoComplete.Option
           key={uniqueValue}
           value={uniqueValue}
+          completionValue={completionValue}
           suggestion={result}
         >
-          {renderResultItem ? renderResultItem(result) : uniqueValue}
+          {renderResultItem ? renderResultItem(result) : completionValue}
         </AutoComplete.Option>
       );
     });
@@ -94,8 +105,8 @@ class Suggester extends Component {
 Suggester.propTypes = {
   pidType: PropTypes.string.isRequired,
   suggesterName: PropTypes.string.isRequired,
-  renderResultItem: PropTypes.func, // defaults to extractUniqueItemValue
-  extractItemCompletionValue: PropTypes.func, // only needed if extractUniqueItemValue does not return appropriate completion value
+  renderResultItem: PropTypes.func, // defaults to extractItemCompletionValue
+  extractItemCompletionValue: PropTypes.func, // defaults to extractUniqueItemValue
   extractUniqueItemValue: PropTypes.func,
 };
 

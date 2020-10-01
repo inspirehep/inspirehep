@@ -78,6 +78,35 @@ describe('Suggester', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it('renders results with custom extractItemCompletionValue', async () => {
+    const suggesterQueryUrl = '/literature/_suggest?abstract_source=test';
+    const responseData = {
+      abstract_source: [
+        {
+          options: [
+            {
+              id: '1',
+              name: 'Result',
+            },
+          ],
+        },
+      ],
+    };
+    mockHttp.onGet(suggesterQueryUrl).replyOnce(200, responseData);
+    const wrapper = shallow(
+      <Suggester
+        pidType="literature"
+        suggesterName="abstract_source"
+        extractItemCompletionValue={suggestion => suggestion.name}
+        extractUniqueItemValue={suggestion => suggestion.id}
+      />
+    );
+    await wrapper.instance().onSearch('test');
+    await wait();
+    wrapper.update();
+    expect(wrapper).toMatchSnapshot();
+  });
+
   it('does not render results onSearch without waiting for debounce', async () => {
     const suggesterQueryUrl = '/literature/_suggest?abstract_source=test';
     const responseData = {
