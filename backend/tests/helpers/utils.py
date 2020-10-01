@@ -8,6 +8,7 @@ import random
 import time
 from datetime import datetime, timedelta
 from functools import partial
+from inspect import signature
 
 import mock
 from click.testing import CliRunner
@@ -156,7 +157,23 @@ def orcid_app_cli_runner():
     return runner
 
 
-# Integration-async helpers
+def retry_until_pass(assert_function, timeout=30, retry_interval=0.3):
+    last_raised_assertion_error = None
+    start = time.monotonic()
+    while True:
+        time_passed = time.monotonic() - start
+        if time_passed > timeout:
+            raise last_raised_assertion_error or TimeoutError(
+                f"Timed out after {timeout} seconds"
+            )
+        try:
+            return assert_function()
+        except AssertionError as error:
+            last_raised_assertion_error = error
+            time.sleep(retry_interval)
+
+
+# deprecated
 def retry_until_matched(steps={}, timeout=30):
     """Allows to wait for task to finish, by doing steps and proper checks assigned
       to them.
