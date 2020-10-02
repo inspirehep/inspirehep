@@ -12,6 +12,9 @@ on:
       - 'backend/**'
       - '.github/workflows/backend-unit.yml'
 
+env:
+  POETRY_VIRTUALENVS_CREATE: false
+
 jobs:
   Unit:
     runs-on: ubuntu-latest
