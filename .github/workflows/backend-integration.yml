@@ -84,6 +84,7 @@ jobs:
         working-directory: ./backend
         run: |
           pip install --upgrade pip
+          pip install install "setuptools==40.6.2"
           pip install -r requirements.txt
           pip install -e .
 
