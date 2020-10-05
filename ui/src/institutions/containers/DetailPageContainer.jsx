@@ -27,6 +27,7 @@ import { INSTITUTIONS_PID_TYPE } from '../../common/constants';
 import EditRecordAction from '../../common/components/EditRecordAction';
 import RelatedRecordsList from '../../common/components/RelatedRecordsList';
 import UrlsAction from '../../literature/components/UrlsAction';
+import DeletedAlert from '../../common/components/DeletedAlert';
 
 function DetailPage({ record }) {
   const metadata = record.get('metadata');
@@ -49,6 +50,7 @@ function DetailPage({ record }) {
     () => getInstitutionMetaDescription(metadata),
     [metadata]
   );
+  const deleted = metadata.get('deleted', false);
   return (
     <>
       <DocumentHead title={legacyIcn} description={metaDescription} />
@@ -68,6 +70,9 @@ function DetailPage({ record }) {
               </>
             }
           >
+            <Row>
+              <Col span={24}>{deleted && <DeletedAlert />}</Col>
+            </Row>
             <Row>
               <Col>
                 <h2>{legacyIcn}</h2>
