@@ -11,13 +11,13 @@ from os.path import splitext
 from flask import Blueprint, current_app, jsonify, request
 
 from inspirehep.files.api import current_s3_instance
-from inspirehep.records.utils import hash_data
 from inspirehep.tools.utils import (
     find_references,
     get_filename,
     get_mimetype,
     get_references,
 )
+from inspirehep.utils import hash_data
 
 from .errors import FileFormatNotSupportedError, FileTooBigError, NoReferencesFoundError
 

@@ -37,26 +37,43 @@ def test_generate_public_file_path(config_mock_fixture):
     assert s3.public_file_path == "https://inspire/file_prefix/"
 
 
-def test_is_public_url(config_mock_fixture):
+@pytest.mark.parametrize(
+    "url,expected",
+    [
+        ("https://inspire/file_prefix/hash123456", True),
+        ("https://inspire/api/hash123456", False),
+        ("https://s3.cern.ch/test-prefix-h/hash1234546", False),
+    ],
+)
+def test_is_public_url(url, expected, config_mock_fixture):
     s3 = S3(None, None)
-    file_public_url = "https://inspire/file_prefix/hash123456"
-    wrong_url = "https://inspire/api/hash123456"
-    s3_url = "https://s3.cern.ch/test-prefix-h/hash1234546"
 
-    assert s3.is_public_url(file_public_url) is True
-    assert s3.is_public_url(wrong_url) is False
-    assert s3.is_public_url(s3_url) is False
+    assert expected == s3.is_public_url(url)
 
 
-def test_is_s3_url(config_mock_fixture):
+@pytest.mark.parametrize(
+    "url,expected",
+    [
+        ("https://inspire/file_prefix/hash123456", False),
+        ("https://inspire/api/hash123456", False),
+        ("https://s3.cern.ch/test-prefix-h/hash1234546", True),
+    ],
+)
+def test_is_s3_url(url, expected, config_mock_fixture):
     s3 = S3(None, None)
-    file_public_url = "https://inspire/file_prefix/hash123456"
-    wrong_url = "https://inspire/api/hash123456"
-    s3_url = "https://s3.cern.ch/test-prefix-h/hash1234546"
+    assert expected == s3.is_s3_url(url)
 
-    assert s3.is_s3_url(file_public_url) is False
-    assert s3.is_s3_url(wrong_url) is False
-    assert s3.is_s3_url(s3_url) is True
+
+@pytest.mark.parametrize(
+    "url,expected",
+    [
+        ("https://inspire/test-editor-prefix/hash123456", False),
+        ("https://s3.cern.ch/test-prefix-h/hash1234546", True),
+    ],
+)
+def test_is_s3_url_with_bucket_prefix(url, expected, config_mock_fixture):
+    s3 = S3(None, None)
+    assert expected == s3.is_s3_url_with_bucket_prefix(url)
 
 
 def test_generate_public_file_url(config_mock_fixture):

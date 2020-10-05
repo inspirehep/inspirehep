@@ -5,6 +5,8 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+import hashlib
+
 from flask import current_app
 
 
@@ -37,3 +39,9 @@ def flatten_list(input_list):
             element for innerList in input_list for element in flatten_list(innerList)
         ]
     return [input_list]
+
+
+def hash_data(data):
+    if data:
+        return hashlib.md5(data).hexdigest()
+    raise ValueError("Data for hashing cannot be empty")
