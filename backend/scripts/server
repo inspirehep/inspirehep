@@ -13,7 +13,7 @@ script_path=$(dirname "$0")
 FLASK_ENV=development
 
 # Start Worker and Server. Whatchdog detects any change to the .py files and restarts celery
-poetry run watchmedo auto-restart -d . -p '*.py' -- celery worker -E -B -A inspirehep.celery -l INFO --queues celery,indexer_task,migrator & pid_celery=$!
+poetry run watchmedo auto-restart -d . -p '*.py' -- celery worker -E -B -A inspirehep.celery -l INFO --queues celery,indexer_task,migrator,matcher & pid_celery=$!
 
 poetry run gunicorn --reload -b 0.0.0.0:8000  --access-logfile "-" --error-logfile - inspirehep.wsgi:application & pid_server=$!
 

@@ -563,13 +563,18 @@ def test_match_references_matches_when_multiple_match_if_same_as_previous(inspir
 
     assert validate(references, subschema) is None
 
-    matched_references = match_references(references)
+    match_result = match_references(references)
+    matched_references = match_result["matched_references"]
 
     assert (
         matched_references[1]["record"]["$ref"]
         == "http://localhost:5000/api/literature/1"
     )
     assert validate(matched_references, subschema) is None
+
+    assert match_result["any_link_modified"] == True
+    assert match_result["added_recids"] == [1, 1]
+    assert match_result["removed_recids"] == []
 
 
 def test_match_references_no_match_when_multiple_match_different_from_previous(
@@ -641,10 +646,15 @@ def test_match_references_no_match_when_multiple_match_different_from_previous(
 
     assert validate(references, subschema) is None
 
-    references = match_references(references)
+    match_result = match_references(references)
+    references = match_result["matched_references"]
 
     assert get_value(references[0], "record") is None
     assert validate(references, subschema) is None
+
+    assert match_result["any_link_modified"] == False
+    assert match_result["added_recids"] == []
+    assert match_result["removed_recids"] == []
 
 
 @patch(
@@ -687,8 +697,14 @@ def test_match_references_finds_match_when_repeated_record_with_different_scores
     subschema = schema["properties"]["references"]
 
     assert validate(references, subschema) is None
-    references = match_references(references)
+
+    match_result = match_references(references)
+    references = match_result["matched_references"]
 
     assert len(references) == 1
     assert references[0]["record"]["$ref"] == "http://localhost:5000/api/literature/1"
     assert validate(references, subschema) is None
+
+    assert match_result["any_link_modified"] == True
+    assert match_result["added_recids"] == [1]
+    assert match_result["removed_recids"] == []

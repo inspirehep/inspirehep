@@ -108,6 +108,7 @@ setup(
             "inspirehep_migrator = inspirehep.migrator.tasks",
             "inspirehep_orcid = inspirehep.orcid.tasks",
             "inspirehep_submissions = inspirehep.submissions.tasks",
+            "inspirehep_matcher = inspirehep.matcher.tasks",
             "inspirehep.disambiguation = inspirehep.disambiguation.tasks",
         ],
     },

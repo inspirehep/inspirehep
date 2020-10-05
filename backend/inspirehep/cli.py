@@ -14,6 +14,7 @@ from inspirehep.files.cli import files
 from inspirehep.fixtures import fixtures
 from inspirehep.indexer.cli import index
 from inspirehep.mailing.cli import mailing
+from inspirehep.matcher.cli import match
 from inspirehep.orcid.cli import orcid
 from inspirehep.records.cli import citations, importer, jobs
 from inspirehep.sitemap.cli import sitemap
@@ -29,3 +30,4 @@ cli.add_command(mailing)
 cli.add_command(files)
 cli.add_command(sitemap)
 cli.add_command(index)
+cli.add_command(match)
