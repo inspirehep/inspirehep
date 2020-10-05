@@ -48,9 +48,9 @@ from inspirehep.records.utils import (
     get_literature_earliest_date,
     get_pid_for_pid,
     get_ref_from_pid,
-    hash_data,
 )
 from inspirehep.search.api import LiteratureSearch
+from inspirehep.utils import hash_data
 
 from .base import InspireRecord
 
@@ -140,8 +140,7 @@ class LiteratureRecord(
 
     @staticmethod
     def update_refs_to_conferences(data):
-        """Assign $ref to every publication_info which cnum we have in PIDStore
-        """
+        """Assign $ref to every publication_info which cnum we have in PIDStore"""
         for conference in data.get("publication_info", []):
             cnum = conference.get("cnum")
             if not cnum:
@@ -388,7 +387,7 @@ class LiteratureRecord(
             app_context: Original app context should be passed here if running in separate thread
         """
         with app_context.app.app_context():
-            is_s3_or_public_url = current_s3_instance.is_s3_url(
+            is_s3_or_public_url = current_s3_instance.is_s3_url_with_bucket_prefix(
                 url
             ) or current_s3_instance.is_public_url(url)
             if is_s3_or_public_url and not current_app.config.get(

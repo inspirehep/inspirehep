@@ -600,7 +600,9 @@ def test_create_record_from_mirror_recids_retries_on_timeout_error(
     db.session.add(record_literature)
     with patch.dict(
         current_app.config, {"FILES_UPLOAD_THREAD_TIMEOUT": 1}
-    ), patch.object(current_s3_instance, "is_s3_url") as is_s3_url_mock:
+    ), patch.object(
+        current_s3_instance, "is_s3_url_with_bucket_prefix"
+    ) as is_s3_url_mock:
 
         def sleep_2s(*args):
             sleep(2)

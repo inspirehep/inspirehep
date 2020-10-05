@@ -5,7 +5,6 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import hashlib
 from itertools import chain
 
 import numpy as np
@@ -96,12 +95,6 @@ def download_file_from_url(url):
             f"Cannot download file from url {download_url}. Reason: {exc}"
         )
     return request.content
-
-
-def hash_data(data):
-    if data:
-        return hashlib.md5(data).hexdigest()
-    raise ValueError("Data for hashing cannot be empty")
 
 
 def get_pid_for_pid(pid_type, pid_value, provider):
