@@ -1,0 +1,129 @@
+name: Backend build and test
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'backend/**'
+      - '!backend/poetry.lock'
+      - '.github/workflows/backend-build-and-test.yml'
+  pull_request:
+    branches: [master]
+    paths:
+      - 'backend/**'
+      - '!backend/poetry.lock'
+      - '.github/workflows/backend-build-and-test.yml'
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Login
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD}}
+
+      - name: Build image
+        run: >
+          docker build
+          -t inspirehep/hep:${{ github.sha }}
+          --build-arg LOCK_HASH=${{ hashFiles('backend/poetry.lock') }}
+          backend/
+
+      - name: Push
+        run: docker push inspirehep/hep:${{ github.sha }}
+
+  Integration:
+    runs-on: ubuntu-latest
+    needs: Build
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: [integration-async, integration]
+    services:
+      redis:
+        image: redis
+        ports:
+          - 6379:6379
+      postgres:
+        image: postgres:9.6
+        env:
+          POSTGRES_USER: inspirehep
+          POSTGRES_PASSWORD: inspirehep
+          POSTGRES_DB: inspirehep
+        ports:
+        - 5432:5432
+      rabbitmq:
+        image: rabbitmq:3-management
+        ports:
+          - 5672:5672
+      elasticsearch:
+        image: inspirehep/elasticsearch:7.1.1
+        env:
+          bootstrap.memory_lock: true
+          ES_JAVA_OPTS: -Xms1024m -Xmx1024m
+          discovery.type: single-node
+        ports:
+          - 9200:9200
+    steps:
+      - name: Test
+        run: >
+          docker run
+          --entrypoint poetry
+          --network="host"
+          inspirehep/hep:${{ github.sha }}
+          run py.test tests/${{ matrix.suite }}
+
+  Unit:
+    runs-on: ubuntu-latest
+    needs: Build
+    steps:
+      - name: Test
+        run: >
+          docker run
+          --entrypoint poetry
+          --network="host"
+          inspirehep/hep:${{ github.sha }}
+          run py.test tests/unit
+
+  Deploy:
+    runs-on: ubuntu-latest
+    needs: [Build, Integration, Unit]
+    if: ${{ github.event_name == 'push' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Login
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD}}
+
+      - name: Re-tag
+        id: retag
+        run: |
+          export NEW_TAG=$(git describe --always --tags)
+          echo "New tag: $NEW_TAG"
+          docker pull inspirehep/hep:${{ github.sha }}
+          docker tag inspirehep/hep:${{ github.sha }} inspirehep/hep:$NEW_TAG
+          docker push inspirehep/hep:$NEW_TAG
+          echo "::set-output name=new_tag::$NEW_TAG"
+
+      - name: Deploy
+        uses: peter-evans/repository-dispatch@v1
+        if: ${{ success() }}
+        with:
+          repository: inspirehep/kubernetes
+          token: ${{ secrets.INSPIRE_BOT_TOKEN }}
+          event-type: deploy
+          client-payload: >
+            {"environment": "qa",
+            "image": "inspirehep/hep",
+            "tag": "${{ steps.retag.outputs.new_tag }}"}
