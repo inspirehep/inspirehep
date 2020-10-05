@@ -11,14 +11,17 @@ import os
 
 import pkg_resources
 import requests_mock
+from flask import current_app
 from helpers.utils import create_user
 from inspire_schemas.api import load_schema, validate
 from inspire_utils.record import get_value
 from invenio_accounts.testutils import login_user_via_session
 from invenio_cache import current_cache
 from mock import patch
+from werkzeug.datastructures import FileStorage
 
 from inspirehep.accounts.roles import Roles
+from inspirehep.files import current_s3_instance
 
 
 @patch("inspirehep.editor.views.tickets")
@@ -46,9 +49,7 @@ def test_create_rt_ticket(mock_tickets, inspire_app):
 
 
 @patch("inspirehep.editor.views.tickets")
-def test_create_rt_ticket_only_needs_queue_and_recid(
-    mock_tickets, inspire_app,
-):
+def test_create_rt_ticket_only_needs_queue_and_recid(mock_tickets, inspire_app):
     mock_tickets.create_ticket.return_value = 1
     user = create_user(role=Roles.cataloger.value)
 
@@ -57,7 +58,7 @@ def test_create_rt_ticket_only_needs_queue_and_recid(
         response = client.post(
             "api/editor/literature/1497201/rt/tickets/create",
             content_type="application/json",
-            data=json.dumps({"queue": "queue", "recid": "4328",}),
+            data=json.dumps({"queue": "queue", "recid": "4328"}),
         )
 
     assert response.status_code == 200
@@ -241,7 +242,7 @@ def test_refextract_text(inspire_app):
                         "J. M. Maldacena. “The Large N Limit of Superconformal Field "
                         "Theories and Supergravity”. Adv. Theor. Math. Phys. 2 (1998), "
                         "pp. 231–252."
-                    ),
+                    )
                 }
             ),
         )
@@ -295,3 +296,64 @@ def test_refextract_url(inspire_app):
         {"references": references},
         "references.reference.publication_info.journal_title",
     )
+
+
+def test_file_upload(inspire_app, s3, datadir):
+    current_s3_instance.client.create_bucket(Bucket="inspire-editor")
+    user = create_user(role=Roles.cataloger.value)
+    config = {"EDITOR_UPLOAD_ALLOWED_EXTENSIONS": {".pdf"}}
+
+    with patch.dict(current_app.config, config):
+        with inspire_app.test_client() as client:
+            login_user_via_session(client, email=user.email)
+            file_pdf = open(f"{datadir}/test.pdf", "rb")
+            bytes_file = FileStorage(file_pdf)
+            data = {"file": bytes_file}
+            response = client.post("/editor/upload", data=data)
+
+        expected_status_code = 200
+        assert expected_status_code == response.status_code
+        assert "path" in response.json
+
+
+def test_file_upload_without_a_file(inspire_app, s3, datadir):
+    current_s3_instance.client.create_bucket(Bucket="inspire-editor")
+    user = create_user(role=Roles.cataloger.value)
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post("/editor/upload")
+
+    expected_status_code = 400
+    assert expected_status_code == response.status_code
+
+
+def test_file_upload_with_wrong_mimetype(inspire_app, s3, datadir):
+    current_s3_instance.client.create_bucket(Bucket="inspire-editor")
+    user = create_user(role=Roles.cataloger.value)
+
+    config = {"EDITOR_UPLOAD_ALLOWED_EXTENSIONS": {".pdf"}}
+
+    with patch.dict(current_app.config, config):
+        with inspire_app.test_client() as client:
+            login_user_via_session(client, email=user.email)
+            file_txt = open(f"{datadir}/test.txt", "rb")
+            bytes_file = FileStorage(file_txt)
+            data = {"file": bytes_file}
+            response = client.post("/editor/upload", data=data)
+
+    expected_status_code = 400
+    assert expected_status_code == response.status_code
+
+
+def test_file_upload_without_permissions(inspire_app, s3, datadir):
+    current_s3_instance.client.create_bucket(Bucket="inspire-editor")
+
+    with inspire_app.test_client() as client:
+        file_pdf = open(f"{datadir}/test.pdf", "rb")
+        bytes_file = FileStorage(file_pdf)
+        data = {"file": bytes_file}
+        response = client.post("/editor/upload", data=data)
+
+    expected_status_code = 401
+    assert expected_status_code == response.status_code

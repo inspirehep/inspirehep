@@ -59,6 +59,18 @@ def test_is_s3_url(config_mock_fixture):
     assert s3.is_s3_url(s3_url) is True
 
 
+@pytest.mark.parametrize(
+    "url,expected",
+    [
+        ("https://inspire/test-editor-prefix/hash123456", False),
+        ("https://s3.cern.ch/test-prefix-h/hash1234546", True),
+    ],
+)
+def test_is_s3_url_with_bucket_prefix(url, expected, config_mock_fixture):
+    s3 = S3(None, None)
+    assert s3.is_s3_url_with_bucket_prefix(url) is expected
+
+
 def test_generate_public_file_url(config_mock_fixture):
     s3 = S3(None, None)
     expected_url = "https://inspire/file_prefix/hash123456"

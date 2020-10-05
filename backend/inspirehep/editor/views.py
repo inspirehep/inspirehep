@@ -5,7 +5,9 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from flask import Blueprint, jsonify, request
+from os.path import splitext
+
+from flask import Blueprint, current_app, jsonify, request
 from flask_login import current_user
 from invenio_db import db
 from invenio_records.models import RecordMetadata
@@ -14,11 +16,13 @@ from sqlalchemy_continuum import transaction_class, version_class
 
 from inspirehep.accounts.decorators import login_required_with_roles
 from inspirehep.accounts.roles import Roles
+from inspirehep.files.api import current_s3_instance
 from inspirehep.matcher.api import match_references
 from inspirehep.matcher.utils import local_refextract_kbs_path, map_refextract_to_schema
 from inspirehep.pidstore.api.base import PidStoreBase
 from inspirehep.records.api import InspireRecord
 from inspirehep.rt import tickets
+from inspirehep.utils import hash_data
 
 from .errors import EditorGetRevisionError, EditorRevertToRevisionError
 
@@ -194,3 +198,34 @@ def refextract_url():
     references = map_refextract_to_schema(extracted_references)
     references = match_references(references)
     return jsonify(references)
+
+
+@blueprint.route("/upload", methods=["POST"])
+@login_required_with_roles([Roles.cataloger.value])
+def upload():
+    """Upload file to S3."""
+
+    if "file" not in request.files:
+        return jsonify(success=False, message="File key is missing."), 400
+
+    file_data = request.files["file"]
+    filename = file_data.filename
+    mime_type = file_data.mimetype
+    _, extension = splitext(filename)
+
+    if extension not in current_app.config["EDITOR_UPLOAD_ALLOWED_EXTENSIONS"]:
+        return (
+            jsonify(
+                success=False, message=f"File extension '{extension}' is not supported."
+            ),
+            400,
+        )
+
+    key = hash_data(file_data.read())
+    bucket = current_app.config.get("S3_EDITOR_BUCKET")
+
+    current_s3_instance.upload_file(
+        file_data, key, filename, mime_type, current_app.config["S3_FILE_ACL"], bucket
+    )
+    file_url = current_s3_instance.get_s3_url(key, bucket)
+    return jsonify({"path": file_url}), 200

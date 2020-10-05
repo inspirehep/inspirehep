@@ -55,6 +55,15 @@ class S3:
         """
         return url.startswith(current_app.config.get("S3_HOSTNAME"))
 
+    @staticmethod
+    def is_s3_url_with_bucket_prefix(url):
+        """Checks if the url is an S3 bucket and if contains `S3_BUCKET_PREFIX`.
+
+        :param url: the given url.
+        :return: boolean
+        """
+        return S3.is_s3_url(url) and current_app.config.get("S3_BUCKET_PREFIX") in url
+
     def is_public_url(self, url):
         """Checks if the url is an file public url
 
