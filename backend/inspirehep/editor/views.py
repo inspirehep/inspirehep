@@ -181,8 +181,8 @@ def refextract_text():
             reference_format="{title},{volume},{page}",
         )
     references = map_refextract_to_schema(extracted_references)
-    references = match_references(references)
-    return jsonify(references)
+    match_result = match_references(references)
+    return jsonify(match_result.get("matched_references"))
 
 
 @blueprint.route("/refextract/url", methods=["POST"])
@@ -196,8 +196,8 @@ def refextract_url():
             reference_format="{title},{volume},{page}",
         )
     references = map_refextract_to_schema(extracted_references)
-    references = match_references(references)
-    return jsonify(references)
+    match_result = match_references(references)
+    return jsonify(match_result.get("matched_references"))
 
 
 @blueprint.route("/upload", methods=["POST"])

@@ -175,13 +175,31 @@ def match_references(references):
     Args:
         references (list): the list of references.
     Returns:
-        list: the matched references.
+        dict: the match result
     """
     matched_references, previous_matched_recid = [], None
-    for ref in references:
-        ref = match_reference(ref, previous_matched_recid)
-        matched_references.append(ref)
-        if "record" in ref:
-            previous_matched_recid = get_recid_from_ref(ref["record"])
+    any_link_modified = False
+    added_recids = []
+    removed_recids = []
+    for reference in references:
+        current_record_ref = get_value(reference, "record.$ref")
+        reference = match_reference(reference, previous_matched_recid)
+        new_record_ref = get_value(reference, "record.$ref")
 
-    return matched_references
+        if current_record_ref != new_record_ref:
+            any_link_modified = True
+            if current_record_ref:
+                removed_recids.append(get_recid_from_ref({"$ref": current_record_ref}))
+            if new_record_ref:
+                added_recids.append(get_recid_from_ref({"$ref": new_record_ref}))
+
+        matched_references.append(reference)
+        if "record" in reference:
+            previous_matched_recid = get_recid_from_ref(reference["record"])
+
+    return {
+        "matched_references": matched_references,
+        "any_link_modified": any_link_modified,
+        "added_recids": added_recids,
+        "removed_recids": removed_recids,
+    }
