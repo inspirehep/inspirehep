@@ -70,9 +70,13 @@ function DetailPage({ record }) {
               </>
             }
           >
-            <Row>
-              <Col span={24}>{deleted && <DeletedAlert />}</Col>
-            </Row>
+            {deleted && (
+              <Row>
+                <Col span={24}>
+                  <DeletedAlert />
+                </Col>
+              </Row>
+            )}
             <Row>
               <Col>
                 <h2>{legacyIcn}</h2>
