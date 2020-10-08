@@ -39,6 +39,7 @@ import withRouteActionsDispatcher from '../../../common/withRouteActionsDispatch
 import AuthorBAI from '../../components/AuthorBAI';
 import Advisors from '../../components/Advisors';
 import AffiliationList from '../../../common/components/AffiliationList';
+import RecordUpdateInfo from '../../../common/components/RecordUpdateInfo';
 import AuthorSeminars from '../../components/AuthorSeminars';
 
 function DetailPage({
@@ -53,7 +54,7 @@ function DetailPage({
 }) {
   const authorFacetName = publicationsQuery.getIn(['author', 0]);
   const metadata = record.get('metadata');
-
+  const updateTime = record.get('updated');
   useEffect(
     () => {
       // check if author is fetched and author facet name is added to query of AUTHOR_PUBLICATIONS_NS
@@ -117,6 +118,11 @@ function DetailPage({
                     {urls && <AuthorWebsitesAction websites={urls} />}
                     <EditRecordAction pidType="authors" pidValue={recordId} />
                     {orcid && orcid === userOrcid && <UserSettingsAction />}
+                  </>
+                }
+                rightActions={
+                  <>
+                    <RecordUpdateInfo updateDate={updateTime} />
                   </>
                 }
               >
