@@ -1,7 +1,7 @@
 import { addMatchImageSnapshotCommand } from 'cypress-image-snapshot/command';
 
 addMatchImageSnapshotCommand({
-  failureThreshold: 0.05,
+  failureThreshold: 0.005,
   failureThresholdType: 'percent',
   capture: 'fullPage',
   customSnapshotsDir: 'cypress/__snapshots__',
