@@ -10,7 +10,7 @@ import {
   LITERATURE_AUTHORS_REQUEST,
   LITERATURE_AUTHORS_SUCCESS,
 } from './actionTypes';
-import { isCancelError } from '../common/http';
+import { isCancelError } from '../common/http.ts';
 import { httpErrorToActionPayload } from '../common/utils';
 import generateRecordFetchAction from './recordsFactory';
 import { LITERATURE_PID_TYPE } from '../common/constants';

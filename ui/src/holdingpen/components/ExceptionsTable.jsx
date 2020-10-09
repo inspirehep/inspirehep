@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import FilterDropdown from './FilterDropdown';
 import './ExceptionsTable.scss';
 import { LEGACY_URL } from '../../common/constants';
-import ExternalLink from '../../common/components/ExternalLink';
+import ExternalLink from '../../common/components/ExternalLink.tsx';
 
 class ExceptionsTable extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {

@@ -5,7 +5,7 @@ import { Menu } from 'antd';
 import { LinkOutlined } from '@ant-design/icons';
 
 import IconText from '../../common/components/IconText';
-import ExternalLink from '../../common/components/ExternalLink';
+import ExternalLink from '../../common/components/ExternalLink.tsx';
 import { removeProtocolAndWwwFromUrl } from '../../common/utils';
 import ActionsDropdownOrAction from '../../common/components/ActionsDropdownOrAction';
 import EventTracker from '../../common/components/EventTracker';

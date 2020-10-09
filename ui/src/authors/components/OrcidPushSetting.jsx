@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Popconfirm } from 'antd';
 import OrcidPushSettingMessageContainer from '../containers/OrcidPushSettingMessageContainer';
-import ExternalLink from '../../common/components/ExternalLink';
+import ExternalLink from '../../common/components/ExternalLink.tsx';
 
 function renderPopConfirmTitle(isCurrentlyEnabled, authorBAI) {
   return (

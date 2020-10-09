@@ -4,7 +4,7 @@ import { LinkedinOutlined } from '@ant-design/icons';
 import { Tooltip } from 'antd';
 
 import ListItemAction from '../../common/components/ListItemAction';
-import ExternalLink from '../../common/components/ExternalLink';
+import ExternalLink from '../../common/components/ExternalLink.tsx';
 
 class AuthorLinkedinAction extends Component {
   render() {

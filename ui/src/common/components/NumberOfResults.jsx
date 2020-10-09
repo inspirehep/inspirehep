@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import pluralizeUnlessSingle from '../utils';
-import FormattedNumber from './FormattedNumber';
+import FormattedNumber from './FormattedNumber.tsx';
 
 class NumberOfResults extends Component {
   render() {

@@ -1,26 +1,36 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, ReactNode } from 'react';
 import { Button, Drawer } from 'antd';
 
-class DrawerHandle extends Component {
-  constructor(props) {
-    super(props);
+type DrawerHandleProps = typeof DrawerHandle.defaultProps & {
+  children: ReactNode;
+  drawerTitle: ReactNode;
+};
 
-    this.onDrawerHandleClick = this.onDrawerHandleClick.bind(this);
-    this.onDrawerClose = this.onDrawerClose.bind(this);
+interface DrawerHandleState {
+  isDrawerVisible: boolean;
+}
 
-    this.state = {
-      isDrawerVisible: false,
-    };
-  }
+export default class DrawerHandle extends Component<
+  DrawerHandleProps,
+  DrawerHandleState
+> {
+  static defaultProps = {
+    width: 304,
+    handleText: 'Open',
+    className: '',
+  };
 
-  onDrawerHandleClick() {
+  state = {
+    isDrawerVisible: false,
+  };
+
+  onDrawerHandleClick = () => {
     this.setState({ isDrawerVisible: true });
-  }
+  };
 
-  onDrawerClose() {
+  onDrawerClose = () => {
     this.setState({ isDrawerVisible: false });
-  }
+  };
 
   render() {
     const { children, drawerTitle, width, handleText, className } = this.props;
@@ -47,19 +57,3 @@ class DrawerHandle extends Component {
     );
   }
 }
-
-DrawerHandle.propTypes = {
-  className: PropTypes.string,
-  children: PropTypes.node.isRequired,
-  drawerTitle: PropTypes.string.isRequired,
-  handleText: PropTypes.string,
-  width: PropTypes.number,
-};
-
-DrawerHandle.defaultProps = {
-  width: 304,
-  handleText: 'Open',
-  className: '',
-};
-
-export default DrawerHandle;

@@ -24,7 +24,7 @@ import InstitutionAddressList from '../components/InstitutionAddressList';
 import AuthorizedContainer from '../../common/containers/AuthorizedContainer';
 import { SUPERUSER_OR_CATALOGER } from '../../common/authorization';
 import { INSTITUTIONS_PID_TYPE } from '../../common/constants';
-import EditRecordAction from '../../common/components/EditRecordAction';
+import EditRecordAction from '../../common/components/EditRecordAction.tsx';
 import RelatedRecordsList from '../../common/components/RelatedRecordsList';
 import UrlsAction from '../../literature/components/UrlsAction';
 import DeletedAlert from '../../common/components/DeletedAlert';

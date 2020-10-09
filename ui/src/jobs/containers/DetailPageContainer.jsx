@@ -10,7 +10,7 @@ import RichDescription from '../../common/components/RichDescription';
 import DateFromNow from '../components/DateFromNow';
 import ArxivCategoryList from '../../common/components/ArxivCategoryList';
 import ExperimentList from '../../common/components/ExperimentList';
-import EditRecordAction from '../../common/components/EditRecordAction';
+import EditRecordAction from '../../common/components/EditRecordAction.tsx';
 import RegionsList from '../components/RegionsList';
 import InstitutionsList from '../components/InstitutionsList';
 import RanksList from '../components/RanksList';

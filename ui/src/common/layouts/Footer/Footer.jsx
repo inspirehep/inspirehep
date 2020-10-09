@@ -19,7 +19,7 @@ import {
   AUTHORLIST_TOOL_URL,
   INVENIO_URL,
 } from '../../constants';
-import ExternalLink from '../../components/ExternalLink';
+import ExternalLink from '../../components/ExternalLink.tsx';
 import { BIBLIOGRAPHY_GENERATOR } from '../../routes';
 
 const COLUMNS = [

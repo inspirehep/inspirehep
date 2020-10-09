@@ -1,6 +1,6 @@
 import MockAdapter from 'axios-mock-adapter';
 
-import http from '../../common/http';
+import http from '../../common/http.ts';
 import citeArticle from '../citeArticle';
 
 const mockHttp = new MockAdapter(http.httpClient);

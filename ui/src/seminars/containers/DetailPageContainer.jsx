@@ -8,7 +8,7 @@ import { VideoCameraAddOutlined, FileOutlined } from '@ant-design/icons';
 import DocumentHead from '../../common/components/DocumentHead';
 import fetchSeminar from '../../actions/seminars';
 import ContentBox from '../../common/components/ContentBox';
-import EditRecordAction from '../../common/components/EditRecordAction';
+import EditRecordAction from '../../common/components/EditRecordAction.tsx';
 import DeletedAlert from '../../common/components/DeletedAlert';
 import withRouteActionsDispatcher from '../../common/withRouteActionsDispatcher';
 import AuthorList from '../../common/components/AuthorList';

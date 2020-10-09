@@ -4,7 +4,7 @@ import { fromJS } from 'immutable';
 import { Menu } from 'antd';
 
 import ActionsDropdownOrAction from '../ActionsDropdownOrAction';
-import ExternalLink from '../ExternalLink';
+import ExternalLink from '../ExternalLink.tsx';
 
 describe('ActionsDropdownOrAction', () => {
   it('renders with multiple values', () => {

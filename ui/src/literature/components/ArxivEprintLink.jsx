@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import ExternalLink from '../../common/components/ExternalLink';
+import ExternalLink from '../../common/components/ExternalLink.tsx';
 import EventTracker from '../../common/components/EventTracker';
 
 class ArxivEprintLink extends Component {

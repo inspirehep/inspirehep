@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 import { Input, Button, Alert, Row, Col, Tooltip, Form } from 'antd';
-import ExternalLink from '../../../common/components/ExternalLink';
+import ExternalLink from '../../../common/components/ExternalLink.tsx';
 
 import LinkLikeButton from '../../../common/components/LinkLikeButton';
 import { LABEL_COL, WRAPPER_COL } from '../../common/withFormItem';

@@ -14,7 +14,7 @@ import {
 } from '../../../actions/literature';
 import Abstract from '../../components/Abstract';
 import ArxivEprintList from '../../components/ArxivEprintList';
-import EditRecordAction from '../../../common/components/EditRecordAction';
+import EditRecordAction from '../../../common/components/EditRecordAction.tsx';
 import DOIList from '../../components/DOIList';
 import AuthorsAndCollaborations from '../../../common/components/AuthorsAndCollaborations';
 import ExternalSystemIdentifierList from '../../components/ExternalSystemIdentifierList';

@@ -2,7 +2,7 @@ import { string } from 'yup';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import http from '../../../common/http';
+import http from '../../../common/http.ts';
 import { SUBMISSIONS_AUTHOR } from '../../../common/routes';
 
 const ONLY_CONTROL_NUMBER_SERIALIZER_REQUEST_OPTIONS = {

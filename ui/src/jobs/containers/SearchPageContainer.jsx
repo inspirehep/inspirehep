@@ -10,7 +10,7 @@ import ResultsContainer from '../../common/containers/ResultsContainer';
 import NumberOfResultsContainer from '../../common/containers/NumberOfResultsContainer';
 import LoadingOrChildren from '../../common/components/LoadingOrChildren';
 import ResponsiveView from '../../common/components/ResponsiveView';
-import DrawerHandle from '../../common/components/DrawerHandle';
+import DrawerHandle from '../../common/components/DrawerHandle.tsx';
 import JobItem from '../components/JobItem';
 import SubscribeJobsModalButton from '../components/SubscribeJobsModalButton';
 import DocumentHead from '../../common/components/DocumentHead';

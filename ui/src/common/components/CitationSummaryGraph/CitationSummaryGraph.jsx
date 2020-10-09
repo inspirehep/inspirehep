@@ -20,7 +20,7 @@ import ErrorAlertOrChildren from '../ErrorAlertOrChildren';
 import { CITEABLE_BAR_TYPE, PUBLISHED_BAR_TYPE } from '../../constants';
 import styleVariables from '../../../styleVariables';
 import { shallowEqual, abbreviateNumber } from '../../utils';
-import { browser } from '../../browser';
+import { browser } from '../../browser.ts';
 
 const BAR_WIDTH = 0.75;
 const GRAPH_MARGIN = { left: 42, right: 10, top: 30, bottom: 40 };

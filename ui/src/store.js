@@ -8,7 +8,7 @@ import { createLogger } from 'redux-logger';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import createRootReducer from './reducers';
-import http from './common/http';
+import http from './common/http.ts';
 import queryParamsParserMiddleware from './middlewares/queryParamsParser';
 import keepPreviousUrlMiddleware from './middlewares/keepPreviousUrl';
 import {

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ExternalLink from '../../common/components/ExternalLink';
+import ExternalLink from '../../common/components/ExternalLink.tsx';
 import OrcidProfileLink from '../../common/components/OrcidProfileLink';
 
 function OrcidPushSettingMessage({ orcid, enabled, authorBAI }) {

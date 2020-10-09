@@ -4,7 +4,7 @@ import { LoginOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
 import IconText from './IconText';
-import FormattedNumber from './FormattedNumber';
+import FormattedNumber from './FormattedNumber.tsx';
 import pluralizeUnlessSingle from '../utils';
 import { LITERATURE } from '../routes';
 import ListItemAction from './ListItemAction';

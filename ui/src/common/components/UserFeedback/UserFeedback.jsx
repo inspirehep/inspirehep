@@ -4,7 +4,7 @@ import { Modal, Button, Rate, Input, Alert } from 'antd';
 
 import './UserFeedback.scss';
 import { trackEvent, checkIsTrackerBlocked } from '../../../tracker';
-import ExternalLink from '../ExternalLink';
+import ExternalLink from '../ExternalLink.tsx';
 import ResponsiveView from '../ResponsiveView';
 import ModalSuccessResult from '../ModalSuccessResult';
 import { SURVEY_LINK, FEEDBACK_EMAIL } from '../../constants';

@@ -13,7 +13,7 @@ import EventSeries from '../../common/components/EventSeries';
 import ContactList from '../../common/components/ContactList';
 import PublicNotesList from '../../common/components/PublicNotesList';
 import KeywordList from '../../common/components/KeywordList';
-import EditRecordAction from '../../common/components/EditRecordAction';
+import EditRecordAction from '../../common/components/EditRecordAction.tsx';
 import ProceedingsAction from '../components/ProceedingsAction';
 import AddressList from '../../common/components/AddressList';
 import ConferenceContributions from '../components/ConferenceContributions';

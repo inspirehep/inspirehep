@@ -4,7 +4,7 @@ import React from 'react';
 import { AUTHORS } from '../common/routes';
 // TODO: rename ExternalLink
 // becuase it's used also for internal links that we want to open in a new tab
-import ExternalLink from '../common/components/ExternalLink';
+import ExternalLink from '../common/components/ExternalLink.tsx';
 
 // to render notification over the drawer, if one is open.
 const ASSIGNING_NOTIFICATION_KEY = 'assigning-notification';

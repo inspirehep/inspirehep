@@ -6,7 +6,7 @@ import { object } from 'yup';
 
 import { submit } from '../../../actions/submissions';
 import AuthorSubmission from '../components/AuthorSubmission';
-import ExternalLink from '../../../common/components/ExternalLink';
+import ExternalLink from '../../../common/components/ExternalLink.tsx';
 import uniqueOrcid from '../schemas/uniqueOrcid';
 import { AUTHORS_PID_TYPE } from '../../../common/constants';
 import SubmissionPage from '../../common/components/SubmissionPage';

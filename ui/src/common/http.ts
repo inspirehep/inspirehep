@@ -1,36 +1,33 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig, CancelTokenSource } from 'axios';
 
 // `Proxy` could be used instead of wrapper class, depending on the browser support
 class HttpClientWrapper {
-  constructor() {
-    this.httpClient = axios.create({
-      baseURL: '/api',
-    });
-
-    this.activeCancelManagersById = new Map();
-  }
+  httpClient = axios.create({
+    baseURL: '/api',
+  });
+  private activeCancelManagersById = new Map<string, CancelTokenSource>();
 
   /**
    * Allows requests to be tracked by id
    * and there can't be multiple active requests with the same id
    * current one is cancelled when a newer one comes
    */
-  async get(url, config, id) {
+  async get(url: string, config: AxiosRequestConfig, id?: string) {
     if (!id) {
       return this.httpClient.get(url, config);
     }
 
-    if (this.activeCancelManagersById.has(id)) {
-      const cancelManager = this.activeCancelManagersById.get(id);
-      cancelManager.cancel();
+    const activeCancelManager = this.activeCancelManagersById.get(id);
+    if (activeCancelManager) {
+      activeCancelManager.cancel();
     }
 
-    const cancelManager = axios.CancelToken.source();
-    this.activeCancelManagersById.set(id, cancelManager);
+    const newCancelManager = axios.CancelToken.source();
+    this.activeCancelManagersById.set(id, newCancelManager);
     try {
       const response = await this.httpClient.get(url, {
         ...config,
-        cancelToken: cancelManager.token,
+        cancelToken: newCancelManager.token,
       });
 
       this.activeCancelManagersById.delete(id);
@@ -43,11 +40,11 @@ class HttpClientWrapper {
     }
   }
 
-  post(...args) {
+  post(...args: Parameters<typeof axios.post>) {
     return this.httpClient.post(...args);
   }
 
-  put(...args) {
+  put(...args: Parameters<typeof axios.put>) {
     return this.httpClient.put(...args);
   }
 }
@@ -55,7 +52,7 @@ class HttpClientWrapper {
 const http = new HttpClientWrapper();
 export default http;
 
-export function isCancelError(error) {
+export function isCancelError(error: Error) {
   return axios.isCancel(error);
 }
 

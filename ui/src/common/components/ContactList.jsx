@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
-import ExternalLink from './ExternalLink';
+import ExternalLink from './ExternalLink.tsx';
 import InlineList, { SEPARATOR_SEMICOLON } from './InlineList';
 import { getRecordIdFromRef } from '../utils';
 import { AUTHORS } from '../routes';

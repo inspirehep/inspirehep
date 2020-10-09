@@ -2,7 +2,7 @@ import MockAdapter from 'axios-mock-adapter';
 import { fromJS } from 'immutable';
 
 import { getStore } from '../../fixtures/store';
-import http from '../../common/http';
+import http from '../../common/http.ts';
 import * as types from '../actionTypes';
 import { fetchCitationSummary, fetchCitationsByYear } from '../citations';
 import { AUTHOR_PUBLICATIONS_NS } from '../../search/constants';

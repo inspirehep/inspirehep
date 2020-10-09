@@ -32,7 +32,7 @@ import {
   AUTHOR_SEMINARS_NS,
 } from '../../../search/constants';
 import { newSearch, searchBaseQueriesUpdate } from '../../../actions/search';
-import EditRecordAction from '../../../common/components/EditRecordAction';
+import EditRecordAction from '../../../common/components/EditRecordAction.tsx';
 import DeletedAlert from '../../../common/components/DeletedAlert';
 import UserSettingsAction from '../../components/UserSettingsAction';
 import withRouteActionsDispatcher from '../../../common/withRouteActionsDispatcher';

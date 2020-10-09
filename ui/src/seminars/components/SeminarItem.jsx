@@ -5,7 +5,7 @@ import { Map } from 'immutable';
 
 import { VideoCameraAddOutlined, FileOutlined } from '@ant-design/icons';
 import { Row, Col } from 'antd';
-import EditRecordAction from '../../common/components/EditRecordAction';
+import EditRecordAction from '../../common/components/EditRecordAction.tsx';
 import ResultItem from '../../common/components/ResultItem';
 import { SEMINARS } from '../../common/routes';
 import AuthorList from '../../common/components/AuthorList';

@@ -4,7 +4,7 @@ import { List } from 'immutable';
 import { LinkOutlined } from '@ant-design/icons';
 import { Menu, Tooltip } from 'antd';
 
-import ExternalLink from '../../common/components/ExternalLink';
+import ExternalLink from '../../common/components/ExternalLink.tsx';
 import { removeProtocolAndWwwFromUrl } from '../../common/utils';
 import ActionsDropdownOrAction from '../../common/components/ActionsDropdownOrAction';
 

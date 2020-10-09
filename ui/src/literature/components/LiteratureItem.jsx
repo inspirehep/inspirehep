@@ -11,7 +11,7 @@ import AuthorsAndCollaborations from '../../common/components/AuthorsAndCollabor
 import PublicationInfoList from '../../common/components/PublicationInfoList';
 import UrlsAction from './UrlsAction';
 import DOILinkAction from './DOILinkAction';
-import EditRecordAction from '../../common/components/EditRecordAction';
+import EditRecordAction from '../../common/components/EditRecordAction.tsx';
 import ResultItem from '../../common/components/ResultItem';
 import { LITERATURE } from '../../common/routes';
 import LiteratureTitle from '../../common/components/LiteratureTitle';
