@@ -96,6 +96,27 @@ def test_bibtex_document_type_recognizes_phd_theses():
     assert expected == result
 
 
+def test_bibtex_document_type_recognizes_thesis_as_article():
+    record = {
+        "document_type": ["thesis"],
+        "thesis_info": {"degree_type": "phd"},
+        "publication_info": {"journal_title": "JHEP"},
+    }
+    expected = "article"
+    result = BibTexCommonSchema.get_bibtex_document_type(record)
+    assert expected == result
+
+
+def test_bibtex_document_type_reckognize_book_chapter_as_article():
+    record = {
+        "document_type": ["book chapter"],
+        "publication_info": {"journal_title": "JHEP"},
+    }
+    expected = "article"
+    result = BibTexCommonSchema.get_bibtex_document_type(record)
+    assert expected == result
+
+
 def test_bibtex_document_type_handles_missing_thesis_info():
     schema = load_schema("hep")
     subschema = schema["properties"]["document_type"]
