@@ -10,7 +10,7 @@ import { INSTITUTIONS } from '../../common/routes';
 import ListItemAction from '../../common/components/ListItemAction';
 import InstitutionHierarchyList from './InstitutionHierarchyList';
 import InstitutionAddressList from './InstitutionAddressList';
-import EditRecordAction from '../../common/components/EditRecordAction';
+import EditRecordAction from '../../common/components/EditRecordAction.tsx';
 import AuthorizedContainer from '../../common/containers/AuthorizedContainer';
 import { SUPERUSER_OR_CATALOGER } from '../../common/authorization';
 import { INSTITUTIONS_PID_TYPE } from '../../common/constants';

@@ -3,7 +3,7 @@ import { fromJS, Set } from 'immutable';
 import { advanceTo, clear } from 'jest-date-mock';
 
 import { getStore, mockActionCreator } from '../../fixtures/store';
-import http from '../../common/http';
+import http from '../../common/http.ts';
 import {
   AUTHOR_ERROR,
   AUTHOR_REQUEST,

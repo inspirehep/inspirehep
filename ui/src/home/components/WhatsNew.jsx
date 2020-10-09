@@ -2,7 +2,7 @@ import React from 'react';
 import { Row, Col } from 'antd';
 import useAxios from 'axios-hooks';
 
-import ExternalLink from '../../common/components/ExternalLink';
+import ExternalLink from '../../common/components/ExternalLink.tsx';
 import ContentBox from '../../common/components/ContentBox';
 import { BLOG_URL } from '../../common/constants';
 

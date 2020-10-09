@@ -11,7 +11,10 @@ import {
   SEARCH_BASE_QUERIES_UPDATE,
   SEARCH_QUERY_RESET,
 } from './actionTypes';
-import { UI_SERIALIZER_REQUEST_OPTIONS, isCancelError } from '../common/http';
+import {
+  UI_SERIALIZER_REQUEST_OPTIONS,
+  isCancelError,
+} from '../common/http.ts';
 import { httpErrorToActionPayload } from '../common/utils';
 import SearchHelper from '../search/helper';
 import searchConfig from '../search/config';

@@ -5,7 +5,7 @@ import { Row, Card, Button } from 'antd';
 
 import orcidLogo from '../../../common/orcid.svg';
 import './LoginPage.scss';
-import ExternalLink from '../../../common/components/ExternalLink';
+import ExternalLink from '../../../common/components/ExternalLink.tsx';
 import DocumentHead from '../../../common/components/DocumentHead';
 import { WHAT_IS_ORCID_URL } from '../../../common/constants';
 

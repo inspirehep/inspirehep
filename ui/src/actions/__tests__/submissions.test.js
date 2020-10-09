@@ -2,7 +2,7 @@ import { CALL_HISTORY_METHOD } from 'connected-react-router';
 import MockAdapter from 'axios-mock-adapter';
 
 import { getStore } from '../../fixtures/store';
-import http from '../../common/http';
+import http from '../../common/http.ts';
 import {
   SUBMIT_ERROR,
   SUBMIT_SUCCESS,

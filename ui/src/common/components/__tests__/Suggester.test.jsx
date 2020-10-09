@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import MockAdapter from 'axios-mock-adapter';
 import { AutoComplete } from 'antd';
 
-import http from '../../http';
+import http from '../../http.ts';
 import Suggester, { REQUEST_DEBOUNCE_MS } from '../Suggester';
 
 const mockHttp = new MockAdapter(http.httpClient);

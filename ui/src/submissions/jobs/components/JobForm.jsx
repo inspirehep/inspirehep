@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import { Field, Form } from 'formik';
 import { Row } from 'antd';
 
-
-import ExternalLink from '../../../common/components/ExternalLink';
+import ExternalLink from '../../../common/components/ExternalLink.tsx';
 import TextField from '../../common/components/TextField';
 import SelectField from '../../common/components/SelectField';
 import ArrayOf from '../../common/components/ArrayOf';
@@ -20,33 +19,27 @@ import FieldInfoAlert from '../../common/components/FieldInfoAlert';
 import { POST_DOC_RANK_VALUE } from '../../../common/constants';
 import ContactsField from '../../common/components/ContactsField';
 
-
 class JobForm extends Component {
   static isInvalidDeadlineDate(date) {
     return !isValidDeadlineDate(date);
   }
-
 
   // TODO: move them somewhere common to share with `AuthorForm`
   static getSuggestionSourceLegacyICN(suggestion) {
     return suggestion._source.legacy_ICN;
   }
 
-
   static getSuggestionSourceLegacyName(suggestion) {
     return suggestion._source.legacy_name;
   }
 
-
   isPostDocSubmission() {
     const { values } = this.props;
-
 
     return (
       values.ranks && values.ranks.some(rank => rank === POST_DOC_RANK_VALUE)
     );
   }
-
 
   render() {
     const { values } = this.props;
@@ -163,7 +156,6 @@ class JobForm extends Component {
           )}
         />
 
-
         <Field
           name="description"
           label="* Description"
@@ -177,10 +169,8 @@ class JobForm extends Component {
   }
 }
 
-
 JobForm.propTypes = {
   values: PropTypes.objectOf(PropTypes.any).isRequired, // current form data
 };
-
 
 export default JobForm;

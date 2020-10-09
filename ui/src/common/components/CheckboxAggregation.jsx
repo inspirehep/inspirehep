@@ -8,8 +8,8 @@ import AggregationBox from './AggregationBox';
 import SecondaryButton from './SecondaryButton';
 import { forceArray } from '../utils';
 import HelpIconTooltip from './HelpIconTooltip';
-import ExternalLink from './ExternalLink';
-import FormattedNumber from './FormattedNumber';
+import ExternalLink from './ExternalLink.tsx';
+import FormattedNumber from './FormattedNumber.tsx';
 
 const BUCKET_CHUNK_SIZE = 10;
 export const BUCKET_NAME_SPLITTER = '_';

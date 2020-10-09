@@ -3,7 +3,7 @@ import { Radio, Button } from 'antd';
 
 import SpiresExamples from './SpiresExamples';
 import FreetextExamples from './FreetextExamples';
-import ExternalLink from '../../common/components/ExternalLink';
+import ExternalLink from '../../common/components/ExternalLink.tsx';
 import { PAPER_SEARCH_URL } from '../../common/constants';
 
 const SPIRES_RADIO = 'spires';

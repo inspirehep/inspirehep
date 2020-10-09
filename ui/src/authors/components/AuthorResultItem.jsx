@@ -8,7 +8,7 @@ import AuthorName from './AuthorName';
 import { getCurrentAffiliationsFromPositions } from '../utils';
 import ArxivCategoryList from '../../common/components/ArxivCategoryList';
 import ExperimentList from '../../common/components/ExperimentList';
-import EditRecordAction from '../../common/components/EditRecordAction';
+import EditRecordAction from '../../common/components/EditRecordAction.tsx';
 import AffiliationList from '../../common/components/AffiliationList';
 
 class AuthorResultItem extends Component {

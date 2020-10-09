@@ -1,7 +1,7 @@
 import MockAdapter from 'axios-mock-adapter';
 
 import uniqueOrcid from '../uniqueOrcid';
-import http from '../../../../common/http';
+import http from '../../../../common/http.ts';
 
 const mockHttp = new MockAdapter(http.httpClient);
 

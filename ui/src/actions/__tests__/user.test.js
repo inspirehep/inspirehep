@@ -17,7 +17,7 @@ import {
   updateOrcidPushSetting,
   setPreference,
 } from '../user';
-import http from '../../common/http';
+import http from '../../common/http.ts';
 import { HOME } from '../../common/routes';
 import { CITATION_SUMMARY_ENABLING_PREFERENCE } from '../../reducers/user';
 

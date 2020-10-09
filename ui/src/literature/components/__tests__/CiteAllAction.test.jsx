@@ -5,7 +5,7 @@ import { shallow } from 'enzyme';
 import CiteAllAction from '../CiteAllAction';
 import DropdownMenu from '../../../common/components/DropdownMenu';
 import { MAX_CITEABLE_RECORDS } from '../../constants';
-import http from '../../../common/http';
+import http from '../../../common/http.ts';
 import { downloadTextAsFile } from '../../../common/utils';
 
 jest.mock('../../../common/utils');

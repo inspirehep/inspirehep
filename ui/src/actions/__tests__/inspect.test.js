@@ -1,7 +1,7 @@
 import MockAdapter from 'axios-mock-adapter';
 
 import { getStore } from '../../fixtures/store';
-import http from '../../common/http';
+import http from '../../common/http.ts';
 import * as types from '../actionTypes';
 import fetch from '../inspect';
 

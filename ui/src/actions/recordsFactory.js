@@ -1,4 +1,7 @@
-import { isCancelError, UI_SERIALIZER_REQUEST_OPTIONS } from '../common/http';
+import {
+  isCancelError,
+  UI_SERIALIZER_REQUEST_OPTIONS,
+} from '../common/http.ts';
 import { httpErrorToActionPayload } from '../common/utils';
 
 export default function generateRecordFetchAction({

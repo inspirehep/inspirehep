@@ -11,7 +11,7 @@ import {
   SUBMISSIONS_CONFERENCE,
   SUBMISSIONS_SEMINAR,
 } from '../../routes';
-import ExternalLink from '../../components/ExternalLink';
+import ExternalLink from '../../components/ExternalLink.tsx';
 import LinkLikeButton from '../../components/LinkLikeButton';
 
 import './HeaderMenu.scss';

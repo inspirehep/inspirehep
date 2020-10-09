@@ -2,7 +2,7 @@ import MockAdapter from 'axios-mock-adapter';
 import { fromJS } from 'immutable';
 
 import { getStore, getStoreWithState } from '../../fixtures/store';
-import http from '../../common/http';
+import http from '../../common/http.ts';
 import {
   LITERATURE_ERROR,
   LITERATURE_REQUEST,

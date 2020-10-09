@@ -8,7 +8,7 @@ import {
   submitUpdate,
 } from '../../../actions/submissions';
 import AuthorSubmission from '../components/AuthorSubmission';
-import ExternalLink from '../../../common/components/ExternalLink';
+import ExternalLink from '../../../common/components/ExternalLink.tsx';
 import { AUTHORS_PID_TYPE } from '../../../common/constants';
 import LoadingOrChildren from '../../../common/components/LoadingOrChildren';
 import SubmissionPage from '../../common/components/SubmissionPage';

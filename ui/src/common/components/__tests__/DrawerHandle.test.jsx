@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { Drawer } from 'antd';
 
-import DrawerHandle from '../DrawerHandle';
+import DrawerHandle from '../DrawerHandle.tsx';
 
 describe('DrawerHandle', () => {
   it('renders DrawerHandle with all props', () => {

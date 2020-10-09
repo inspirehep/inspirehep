@@ -1,0 +1,18 @@
+import {
+  LITERATURE_PID_TYPE,
+  JOBS_PID_TYPE,
+  CONFERENCES_PID_TYPE,
+  AUTHORS_PID_TYPE,
+  INSTITUTIONS_PID_TYPE,
+  SEMINARS_PID_TYPE,
+} from '../constants';
+
+type PidType =
+  | typeof LITERATURE_PID_TYPE
+  | typeof JOBS_PID_TYPE
+  | typeof CONFERENCES_PID_TYPE
+  | typeof AUTHORS_PID_TYPE
+  | typeof INSTITUTIONS_PID_TYPE
+  | typeof SEMINARS_PID_TYPE;
+
+export default PidType;

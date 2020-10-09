@@ -8,7 +8,7 @@ import {
   CITATIONS_BY_YEAR_ERROR,
 } from './actionTypes';
 import { httpErrorToActionPayload } from '../common/utils';
-import { isCancelError } from '../common/http';
+import { isCancelError } from '../common/http.ts';
 import { shouldExcludeSelfCitations } from '../literature/containers/ExcludeSelfCitationsContainer';
 
 function fetchingCitationSummary(namespace) {

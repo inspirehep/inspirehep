@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
 import InlineList from './InlineList';
-import ExternalLink from './ExternalLink';
+import ExternalLink from './ExternalLink.tsx';
 
 class URLList extends Component {
   static renderURLItem(url) {
