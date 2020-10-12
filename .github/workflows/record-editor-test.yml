@@ -8,6 +8,9 @@ on:
       - '.github/workflows/record-editor-test.yml'
   pull_request:
     branches: [master]
+    paths:
+      - 'record-editor/**'
+      - '.github/workflows/record-editor-test.yml'
   release:
     types: [published]
 
