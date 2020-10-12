@@ -468,7 +468,8 @@ SEMINARS.update(
         },
         "suggesters": {
             "series_name": {
-                "completion": {"field": "series_autocomplete", "skip_duplicates": True}
+                "_source": ["control_number"],
+                "completion": {"field": "series_autocomplete", "skip_duplicates": True},
             }
         },
     }

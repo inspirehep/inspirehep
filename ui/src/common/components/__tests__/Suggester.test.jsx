@@ -248,6 +248,41 @@ describe('Suggester', () => {
     expect(onChange).toHaveBeenCalledWith('Result');
   });
 
+  it('calls only onChange if extractItemCompletionValue prop is present and onSelect is not when an option is selected', async () => {
+    const suggesterQueryUrl = '/literature/_suggest?abstract_source=test';
+    const responseData = {
+      abstract_source: [
+        {
+          options: [
+            {
+              id: '1',
+              name: 'Result',
+            },
+          ],
+        },
+      ],
+    };
+    mockHttp.onGet(suggesterQueryUrl).replyOnce(200, responseData);
+    const onChange = jest.fn();
+    const wrapper = shallow(
+      <Suggester
+        onChange={onChange}
+        pidType="literature"
+        extractItemCompletionValue={suggestion => suggestion.name}
+        extractUniqueItemValue={suggestion => suggestion.id}
+        suggesterName="abstract_source"
+      />
+    );
+    await wrapper.instance().onSearch('test');
+    await wait();
+    wrapper.update();
+    const suggestionWrapper = wrapper.find(AutoComplete.Option);
+    wrapper
+      .find(AutoComplete)
+      .simulate('select', null, suggestionWrapper.props());
+    expect(onChange).toHaveBeenCalledWith('Result');
+  });
+
   it('renders empty if request fails', async () => {
     const suggesterQueryUrl = '/literature/_suggest?abstract_source=test';
     mockHttp.onGet(suggesterQueryUrl).replyOnce(404);

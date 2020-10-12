@@ -47,7 +47,10 @@ class Suggester extends Component {
     if (uniqueItemValue !== completionValue) {
       onChange(completionValue);
     }
-    onSelect(uniqueItemValue, suggestion);
+
+    if (onSelect) {
+      onSelect(uniqueItemValue, suggestion);
+    }
   }
 
   responseDataToResults(responseData) {
@@ -103,15 +106,15 @@ class Suggester extends Component {
 }
 
 Suggester.propTypes = {
+  // also accepts other antd.AutoComplete props
   pidType: PropTypes.string.isRequired,
   suggesterName: PropTypes.string.isRequired,
-  renderResultItem: PropTypes.func, // defaults to extractItemCompletionValue
-  extractItemCompletionValue: PropTypes.func, // defaults to extractUniqueItemValue
   extractUniqueItemValue: PropTypes.func,
+  extractItemCompletionValue: PropTypes.func, // defaults to extractUniqueItemValue
+  renderResultItem: PropTypes.func, // defaults to extractItemCompletionValue
 };
 
 Suggester.defaultProps = {
   extractUniqueItemValue: resultItem => resultItem.text,
 };
-
 export default Suggester;

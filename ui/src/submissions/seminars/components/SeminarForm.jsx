@@ -156,7 +156,7 @@ function SeminarForm({ values }) {
         )}
       />
       <Field name="captioned" label="Has captions" component={BooleanField} />
-      <AntForm.Item
+      <AntForm.Item // TODO: create `ObjectOf` component
         label="Address"
         labelCol={LABEL_COL}
         wrapperCol={WRAPPER_COL}
