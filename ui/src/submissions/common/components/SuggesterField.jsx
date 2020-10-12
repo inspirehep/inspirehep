@@ -48,10 +48,14 @@ class SuggesterField extends Component {
         extractUniqueItemValue={getSuggestionControlNumber}
         onBlur={this.onBlur}
         onChange={this.onChange}
-        onSelect={this.onSelect}
+        onSelect={recordFieldPath ? this.onSelect : null}
       />
     );
   }
 }
+
+SuggesterField.defaultProps = {
+  extractItemCompletionValue: resultItem => resultItem.text,
+};
 
 export default withFormItem(SuggesterField);
