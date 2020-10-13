@@ -1,4 +1,4 @@
-FROM node:lts-jessie
+FROM node:10.14.0
 
 WORKDIR /usr/src/app
 ARG VERSION
