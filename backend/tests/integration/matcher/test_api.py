@@ -313,7 +313,7 @@ def test_match_pubnote_info_when_journal_is_missing_a_letter(inspire_app):
                 "journal_title": "Phys. Rev.",
                 "journal_volume": "100",
                 "page_start": "100",
-            },
+            }
         }
     }
     reference = match_reference(reference)
@@ -351,7 +351,7 @@ def test_match_pubnote_info_doesnt_match_when_only_journal_title_match(inspire_a
                 "journal_title": "Phys. Rev.",
                 "journal_volume": "100",
                 "page_start": "100",
-            },
+            }
         }
     }
     reference = match_reference(reference)
@@ -478,7 +478,7 @@ def test_match_references_returns_five_references(inspire_app):
                 "journal_title": "Phys. Rev.",
                 "journal_volume": "100",
                 "page_start": "100",
-            },
+            }
         }
     }
     reference = match_reference_control_numbers(reference)
@@ -708,3 +708,50 @@ def test_match_references_finds_match_when_repeated_record_with_different_scores
     assert match_result["any_link_modified"] == True
     assert match_result["added_recids"] == [1]
     assert match_result["removed_recids"] == []
+
+
+def test_match_reference_finds_proper_ref_when_wrong_provided(inspire_app):
+    cited_record_json = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "control_number": 1,
+        "document_type": ["article"],
+        "texkeys": ["Giudice:2007fh"],
+        "titles": [{"title": "The Strongly-Interacting Light Higgs"}],
+    }
+    create_record("lit", cited_record_json)
+
+    reference = {
+        "reference": {"texkey": "Giudice:2007fh"},
+        "record": {"$ref": "http://localhost:5000/api/literature/9999"},
+    }
+
+    schema = load_schema("hep")
+    subschema = schema["properties"]["references"]
+
+    assert validate([reference], subschema) is None
+    reference = match_reference(reference)
+
+    assert reference["record"]["$ref"] == "http://localhost:5000/api/literature/1"
+    assert validate([reference], subschema) is None
+
+    expected_control_number = [1]
+    result_coontrol_number = match_reference_control_numbers(reference)
+
+    assert expected_control_number == result_coontrol_number
+
+
+def test_match_reference_not_returning_ref_key_when_no_reference_found(inspire_app):
+    reference = {
+        "reference": {"texkey": "Giudice:2007fh"},
+        "record": {"$ref": "http://localhost:5000/api/literature/9999"},
+    }
+
+    schema = load_schema("hep")
+    subschema = schema["properties"]["references"]
+
+    assert validate([reference], subschema) is None
+    reference = match_reference(reference)
+
+    assert "record" not in reference
+    assert validate([reference], subschema) is None
