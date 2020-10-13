@@ -110,6 +110,7 @@ describe('Literature Submission', () => {
       volume: 'Vol.1',
       issue: '20',
       year: '2014',
+      comments: 'very private thing',
     };
     const expectedMetadata = {
       acquisition_source: {
@@ -147,6 +148,7 @@ describe('Literature Submission', () => {
         },
       ],
       accelerator_experiments: [{ legacy_name: 'CERN-LEP-L3' }],
+      _private_notes: [{ value: 'very private thing' }],
     };
     const expectedWorkflow = {
       _workflow: { data_type: 'hep' },
@@ -158,6 +160,7 @@ describe('Literature Submission', () => {
     };
     cy.visit('/submissions/literature');
     cy.selectLiteratureDocType('article');
+    cy.contains('Comments').click();
     cy
       .testSubmission({
         collection: 'literature',

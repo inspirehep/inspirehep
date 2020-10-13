@@ -65,11 +65,11 @@ class Literature(Schema):
     supervisors = fields.Raw()
 
     conference_record = fields.Raw()
+    comments = fields.Raw()
 
     # FIXME: below fields aren't used
     conference_info = fields.Raw()
     proceedings_info = fields.Raw()
-    comments = fields.Raw()
 
     @pre_dump
     def before_dump(self, data):
@@ -240,4 +240,7 @@ class Literature(Schema):
                 roles=["supervisor"],
             )
             literature.add_author(record_supervisor)
+
+        literature.add_private_note(data.get("comments"))
+
         return literature.record
