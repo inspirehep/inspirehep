@@ -130,7 +130,8 @@ def match_reference(reference, previous_matched_recid=None):
         return reference
 
     configs = match_reference_config(reference)
-
+    if "record" in reference:
+        del reference["record"]
     matches = (
         match_reference_with_config(reference, config, previous_matched_recid)
         for config in configs
