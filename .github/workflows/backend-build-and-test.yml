@@ -120,6 +120,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Pull, tag and push
+        id: push
         env:
           IMAGE: inspirehep/hep
           TAG: ${{ github.sha }}
@@ -128,3 +129,16 @@ jobs:
           docker pull $IMAGE:TAG
           docker tag $IMAGE:TAG $IMAGE:$GIT_DESC
           docker push $IMAGE:$GIT_DESC
+          echo "::set-output name=git_desc::$GIT_DESC"
+
+      - name: QA
+        uses: peter-evans/repository-dispatch@v1
+        if: ${{ success() }}
+        with:
+          repository: inspirehep/kubernetes
+          token: ${{ secrets.INSPIRE_BOT_TOKEN }}
+          event-type: deploy
+          client-payload: >
+            {"environment": "qa",
+             "image": "inspirehep/hep",
+             "tag": "${{ steps.push.outputs.git_desc }}"}

@@ -1,4 +1,4 @@
-name: UI test
+name: UI build and test
 
 on:
   push:
@@ -13,7 +13,7 @@ on:
       - '.github/workflows/ui-test.yml'
 
 jobs:
-  test:
+  Test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
