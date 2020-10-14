@@ -20,35 +20,8 @@ describe('LiteratureDocumentHead', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('renders with partial date (month and year)', () => {
-    const wrapper = shallow(
-      <LiteratureDocumentHead
-        metadata={fromJS({
-          titles: [{ title: 'The title' }],
-          date: 'Jun, 1993',
-        })}
-        created="2019-01-16T00:00:00+00:00"
-      />
-    );
-    expect(wrapper).toMatchSnapshot();
-  });
-
-  it('renders with partial date (only year)', () => {
-    const wrapper = shallow(
-      <LiteratureDocumentHead
-        metadata={fromJS({
-          titles: [{ title: 'The title' }],
-          date: '1993',
-        })}
-        created="2019-01-16T00:00:00+00:00"
-      />
-    );
-    expect(wrapper).toMatchSnapshot();
-  });
-
   it('renders full literature', () => {
     const metadata = fromJS({
-      date: 'Jun 7, 1993',
       abstracts: [
         { value: 'First abstract is important' },
         { value: 'Second, not so much' },
@@ -71,6 +44,7 @@ describe('LiteratureDocumentHead', () => {
           journal_volume: '3',
           page_start: '12',
           page_end: '22',
+          year: '1983',
         },
         { journal_title: 'Test Jornal 2 (which will not be used)' },
       ],
