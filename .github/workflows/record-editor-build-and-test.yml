@@ -5,12 +5,12 @@ on:
     branches: [master]
     paths:
       - 'record-editor/**'
-      - '.github/workflows/record-editor-test.yml'
+      - '.github/workflows/record-editor-build-and-test.yml'
   pull_request:
     branches: [master]
     paths:
       - 'record-editor/**'
-      - '.github/workflows/record-editor-test.yml'
+      - '.github/workflows/record-editor-build-and-test.yml'
   release:
     types: [published]
 
