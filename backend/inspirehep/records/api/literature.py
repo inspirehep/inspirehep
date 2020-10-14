@@ -19,10 +19,12 @@ from hepcrawl.parsers import ArxivParser
 from hepcrawl.parsers.crossref import CrossrefParser
 from idutils import is_doi, normalize_doi
 from inspire_json_merger.api import merge
+from inspire_schemas.api import validate
 from inspire_schemas.builders import LiteratureBuilder
 from inspire_schemas.utils import is_arxiv, normalize_arxiv
 from inspire_utils.record import get_value
 from invenio_db import db
+from jsonschema import ValidationError
 from redis import StrictRedis
 
 from inspirehep.files.api import current_s3_instance
@@ -541,10 +543,21 @@ def merge_article_with_crossref_data(article):
         return article
 
     merged, conflicts = merge(root={}, head=article, update=crossref_data)
-    article = merged
+
+    try:
+        validate(merged, "hep")
+    except ValidationError:
+        LOGGER.exception(
+            "Merger returned invalid data while merging imported arxiv with crossref",
+            doi=doi,
+            arxiv=get_value(article, "arxiv_eprints[0].value"),
+        )
+        return article
+
     if conflicts:
         LOGGER.debug("Ignoring conflicts while enhancing submission.\n%r", conflicts)
-    return article
+
+    return merged
 
 
 def import_arxiv(arxiv_id):
