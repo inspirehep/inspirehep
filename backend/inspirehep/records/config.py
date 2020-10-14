@@ -15,7 +15,6 @@ You overwrite and set instance-specific configuration by either:
 
 from copy import deepcopy
 
-from invenio_indexer.api import RecordIndexer
 from invenio_records_rest.facets import range_filter, terms_filter
 from invenio_records_rest.utils import allow_all, deny_all
 
@@ -71,7 +70,7 @@ RECORD = {
     "default_endpoint_prefix": True,
     # XXX decide about the links
     "links_factory_imp": "inspirehep.records.links:inspire_detail_links_factory",
-    "indexer_class": RecordIndexer,
+    "indexer_class": None,
     "search_type": None,
     "search_factory_imp": "inspirehep.search.factories.search:search_factory_without_aggs",
     "default_media_type": "application/json",
@@ -94,7 +93,6 @@ RECORD = {
 LITERATURE = deepcopy(RECORD)
 LITERATURE.update(
     {
-        "indexer_class": None,
         "record_class": "inspirehep.records.api:LiteratureRecord",
         "pid_type": "lit",
         "pid_minter": "literature_minter",
