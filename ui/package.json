@@ -12,8 +12,8 @@
     "start": "craco start",
     "build": "craco build",
     "test:unit": "craco test",
-    "test": "yarn lint && yarn test:unit && yarn test:size",
     "test:size": "yarn build && bundlesize",
+    "test": "yarn lint && yarn test:unit --no-watch && yarn test:size",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "eject": "react-scripts eject",
     "lint":

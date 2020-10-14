@@ -5,12 +5,16 @@ on:
     branches: [master]
     paths: 
       - 'ui/**'
-      - '.github/workflows/ui-test.yml'
-  pull_request:
+      - '.github/workflows/ui-build-and-test.yml'
+  pull_request_target:
     branches: [master]
     paths:
       - 'ui/**'
-      - '.github/workflows/ui-test.yml'
+      - '.github/workflows/ui-build-and-test.yml'
+
+env:
+  IMAGE: inspirehep/ui
+  BUILD_TAG: build-stage
 
 jobs:
   Test:
@@ -19,15 +23,53 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Setup node
-        uses: actions/setup-node@v2-beta
-        with:
-          node-version: '10'
-
-      - name: Build
-        working-directory: ./ui
-        run: yarn
+      - name: Build first stage
+        run: >
+          docker build
+          -t $IMAGE:$BUILD_TAG
+          --target build-stage
+          ui/
 
       - name: Test
-        working-directory: ./ui
-        run: yarn test
+        run: >
+          docker run
+          --network="host"
+          $IMAGE:$BUILD_TAG
+          yarn test
+
+      - name: Login
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build second stage
+        if: ${{ success() }}
+        env:
+          TAG: ${{ github.sha }}
+        run: |
+          docker build --cache-from $IMAGE:$BUILD_TAG -t $IMAGE:$TAG ui/
+          docker push $IMAGE:$TAG
+
+      - name: Tag and push
+        if: ${{ github.event_name == 'push' }}
+        id: push
+        env:
+          TAG: ${{ github.sha }}
+        run: |
+          export GIT_DESC=$(git describe --always --tags)
+          docker tag $IMAGE:$TAG $IMAGE:$GIT_DESC
+          docker push $IMAGE:$GIT_DESC
+          echo "::set-output name=git_desc::$GIT_DESC"
+
+      - name: QA
+        uses: peter-evans/repository-dispatch@v1
+        if: ${{ github.event_name == 'push' }}
+        with:
+          repository: inspirehep/kubernetes
+          token: ${{ secrets.INSPIRE_BOT_TOKEN }}
+          event-type: deploy
+          client-payload: >
+            {"environment": "qa",
+             "image": "$IMAGE",
+             "tag": "${{ steps.push.outputs.git_desc }}"}

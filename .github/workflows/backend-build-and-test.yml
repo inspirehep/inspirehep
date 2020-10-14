@@ -13,7 +13,7 @@ on:
       - '.github/workflows/backend-build-and-test.yml'
 
 env:
-  IMAGE_FILE: inspirehep-hep.tar
+  IMAGE: inspirehep/hep
 
 jobs:
   Build:
@@ -30,7 +30,6 @@ jobs:
 
       - name: Build
         env:
-          IMAGE: inspirehep/hep
           TAG: ${{ github.sha }}
           DEPS_TAG: deps-${{ hashFiles('backend/poetry.lock') }}
         run: |
@@ -38,7 +37,6 @@ jobs:
           docker build -t $IMAGE:$TAG -t $IMAGE:$DEPS_TAG --cache-from $IMAGE:$DEPS_TAG backend/
       - name: Push
         env:
-          IMAGE: inspirehep/hep
           TAG: ${{ github.sha }}
           DEPS_TAG: deps-${{ hashFiles('backend/poetry.lock') }}
         run: |
@@ -79,7 +77,6 @@ jobs:
     steps:
       - name: test
         env:
-          IMAGE: inspirehep/hep
           TAG: ${{ github.sha }}
         run: >
           docker run
@@ -93,7 +90,6 @@ jobs:
     steps:
       - name: test
         env:
-          IMAGE: inspirehep/hep
           TAG: ${{ github.sha }}
         run: >
           docker run
@@ -106,7 +102,7 @@ jobs:
     needs:
       - Unit
       - Integration
-    if: ${{ github.event == 'push' }}
+    if: ${{ github.event_name == 'push' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -122,7 +118,6 @@ jobs:
       - name: Pull, tag and push
         id: push
         env:
-          IMAGE: inspirehep/hep
           TAG: ${{ github.sha }}
         run: |
           export GIT_DESC=$(git describe --always --tags)
@@ -140,5 +135,5 @@ jobs:
           event-type: deploy
           client-payload: >
             {"environment": "qa",
-             "image": "inspirehep/hep",
+             "image": "$IMAGE",
              "tag": "${{ steps.push.outputs.git_desc }}"}
