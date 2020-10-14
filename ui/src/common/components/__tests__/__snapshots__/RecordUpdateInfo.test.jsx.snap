@@ -2,7 +2,7 @@
 
 exports[`RecordUpdateInfo renders RecordUpdateInfo with correct update time 1`] = `
 <span
-  className="secondary-color"
+  className="light-silver"
 >
   Updated on 
   Oct 5, 2020
