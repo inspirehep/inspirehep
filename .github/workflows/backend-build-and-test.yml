@@ -121,8 +121,8 @@ jobs:
           TAG: ${{ github.sha }}
         run: |
           export GIT_DESC=$(git describe --always --tags)
-          docker pull $IMAGE:TAG
-          docker tag $IMAGE:TAG $IMAGE:$GIT_DESC
+          docker pull $IMAGE:$TAG
+          docker tag $IMAGE:$TAG $IMAGE:$GIT_DESC
           docker push $IMAGE:$GIT_DESC
           echo "::set-output name=git_desc::$GIT_DESC"
 
