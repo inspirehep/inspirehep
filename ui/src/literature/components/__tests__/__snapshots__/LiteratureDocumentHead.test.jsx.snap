@@ -18,7 +18,7 @@ exports[`LiteratureDocumentHead renders full literature 1`] = `
     name="citation_abstract"
   />
   <meta
-    content="1993/06/07"
+    content="1983"
     name="citation_publication_date"
   />
   <meta
@@ -84,46 +84,6 @@ exports[`LiteratureDocumentHead renders with only title 1`] = `
   <meta
     content="2019/01/16"
     name="citation_online_date"
-  />
-</DocumentHead>
-`;
-
-exports[`LiteratureDocumentHead renders with partial date (month and year) 1`] = `
-<DocumentHead
-  description=""
-  title="The title"
->
-  <meta
-    content="The title"
-    name="citation_title"
-  />
-  <meta
-    content="2019/01/16"
-    name="citation_online_date"
-  />
-  <meta
-    content="1993/06"
-    name="citation_publication_date"
-  />
-</DocumentHead>
-`;
-
-exports[`LiteratureDocumentHead renders with partial date (only year) 1`] = `
-<DocumentHead
-  description=""
-  title="The title"
->
-  <meta
-    content="The title"
-    name="citation_title"
-  />
-  <meta
-    content="2019/01/16"
-    name="citation_online_date"
-  />
-  <meta
-    content="1993"
-    name="citation_publication_date"
   />
 </DocumentHead>
 `;

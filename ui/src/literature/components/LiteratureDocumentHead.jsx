@@ -8,37 +8,9 @@ import { makeCompliantMetaDescription } from '../../common/utils';
 
 const FULL_DATE_FORMAT = 'YYYY/MM/DD';
 
-function hasMonthAndYear(date) {
-  return date.length >= 9;
-}
-
-function hasDayMonthAndYear(date) {
-  return date.length >= 11;
-}
-
-function getPartialDateFormat(date) {
-  if (date == null) {
-    return null;
-  }
-
-  if (hasDayMonthAndYear(date)) {
-    return FULL_DATE_FORMAT;
-  }
-
-  if (hasMonthAndYear(date)) {
-    return 'YYYY/MM';
-  }
-
-  return 'YYYY';
-}
-
 function LiteratureDocumentHead({ metadata, created }) {
   const title = metadata.getIn(['titles', 0, 'title']);
   const abstract = metadata.getIn(['abstracts', 0, 'value']);
-
-  const date = metadata.get('date');
-  const publicationDateFormat = getPartialDateFormat(date);
-  const publicationDate = date && moment(date).format(publicationDateFormat);
 
   const onlineDate = moment(created).format(FULL_DATE_FORMAT);
 
@@ -48,6 +20,7 @@ function LiteratureDocumentHead({ metadata, created }) {
   const authors = metadata.get('authors');
 
   const publicationInfo = metadata.getIn(['publication_info', 0], Map());
+  const publicationDate = publicationInfo.get('year');
   const journalTitle = publicationInfo.get('journal_title');
   const journalVolume = publicationInfo.get('journal_volume');
   const journalIssue = publicationInfo.get('journal_issue');
@@ -65,7 +38,7 @@ function LiteratureDocumentHead({ metadata, created }) {
 
       {abstract && <meta name="citation_abstract" content={abstract} />}
 
-      {date && (
+      {publicationDate && (
         <meta name="citation_publication_date" content={publicationDate} />
       )}
       {arxiv && (
