@@ -12,7 +12,7 @@ ENV PATH="/root/.poetry/bin:${PATH}" \
     POETRY_VIRTUALENVS_CREATE=false
 
 ARG POETRY_VERSION
-ENV POETRY_VERSION="${POETRY_VERSION:-1.0.10}"
+ENV POETRY_VERSION="${POETRY_VERSION:-1.1.3}"
 RUN curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python - --version "${POETRY_VERSION}" \
  && poetry --version
 
