@@ -7,7 +7,11 @@
 from marshmallow import fields
 
 from inspirehep.records.marshmallow.base import RecordBaseSchema
-from inspirehep.records.marshmallow.utils import set_country_for_address
+from inspirehep.records.marshmallow.common import ContactDetailsItemWithoutEmail
+from inspirehep.records.marshmallow.utils import (
+    get_acquisition_source_without_email,
+    set_country_for_address,
+)
 
 
 class SeminarsRawSchema(RecordBaseSchema):
@@ -26,3 +30,15 @@ class SeminarsAdminSchema(SeminarsRawSchema):
 class SeminarsPublicSchema(SeminarsRawSchema):
     class Meta:
         exclude = ["_private_notes", "_collections"]
+
+
+class SeminarsPublicListSchema(SeminarsRawSchema):
+    class Meta:
+        exclude = ["_private_notes", "_collections"]
+
+    acquisition_source = fields.Method("get_acquisition_source")
+    contact_details = fields.List(fields.Nested(ContactDetailsItemWithoutEmail))
+
+    @staticmethod
+    def get_acquisition_source(data):
+        return get_acquisition_source_without_email(data)

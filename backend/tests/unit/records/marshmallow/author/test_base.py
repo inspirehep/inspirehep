@@ -12,6 +12,7 @@ from helpers.providers.faker import faker
 from inspirehep.records.marshmallow.authors import (
     AuthorsAdminSchema,
     AuthorsOnlyControlNumberSchema,
+    AuthorsPublicListSchema,
     AuthorsPublicSchema,
 )
 
@@ -77,3 +78,38 @@ def test_only_control_number_schema_ignores_other_fields():
     result_data = json.loads(result)
 
     assert result_data == expected_result
+
+
+def test_authors_api_schema_doesnt_return_acquisition_source_email():
+    schema = AuthorsPublicListSchema()
+    data = {
+        "acquisition_source": {
+            "orcid": "0000-0000-0000-0000",
+            "email": "test@test.ch",
+            "submission_number": "12312341",
+        }
+    }
+    author = faker.record("aut", data=data, with_control_number=True)
+    expected_result = {"orcid": "0000-0000-0000-0000", "submission_number": "12312341"}
+
+    result = schema.dumps(author).data
+    result_data = json.loads(result)
+
+    assert result_data["acquisition_source"] == expected_result
+
+
+def test_authors_api_schema_doesnt_return_emails_adresses():
+    schema = AuthorsPublicListSchema()
+    data = {
+        "email_addresses": [
+            {"value": "test@test.edu", "current": True},
+            {"value": "test1@test1.edu", "hidden": True, "current": False},
+            {"value": "test2@test2.edu", "hidden": True, "current": False},
+        ]
+    }
+    author = faker.record("aut", data=data, with_control_number=True)
+
+    result = schema.dumps(author).data
+    result_data = json.loads(result)
+
+    assert "email_adresses" not in result_data

@@ -11,6 +11,7 @@ from inspirehep.accounts.api import is_superuser_or_cataloger_logged_in
 from inspirehep.records.marshmallow.base import wrap_schema_class_with_metadata
 from inspirehep.records.marshmallow.seminars.base import (
     SeminarsAdminSchema,
+    SeminarsPublicListSchema,
     SeminarsPublicSchema,
 )
 from inspirehep.records.marshmallow.seminars.ui import (
@@ -19,6 +20,16 @@ from inspirehep.records.marshmallow.seminars.ui import (
 )
 from inspirehep.records.serializers.response import record_responsify
 from inspirehep.serializers import ConditionalMultiSchemaJSONSerializer, JSONSerializer
+
+seminars_json_search = ConditionalMultiSchemaJSONSerializer(
+    [
+        (
+            lambda _: is_superuser_or_cataloger_logged_in(),
+            wrap_schema_class_with_metadata(SeminarsAdminSchema),
+        ),
+        (None, wrap_schema_class_with_metadata(SeminarsPublicListSchema)),
+    ]
+)
 
 seminars_json = ConditionalMultiSchemaJSONSerializer(
     [
@@ -29,8 +40,11 @@ seminars_json = ConditionalMultiSchemaJSONSerializer(
         (None, wrap_schema_class_with_metadata(SeminarsPublicSchema)),
     ]
 )
+
 seminars_json_response = record_responsify(seminars_json, "application/json")
-seminars_json_response_search = search_responsify(seminars_json, "application/json")
+seminars_json_response_search = search_responsify(
+    seminars_json_search, "application/json"
+)
 
 seminars_json_detail = JSONSerializer(
     wrap_schema_class_with_metadata(SeminarsDetailSchema)

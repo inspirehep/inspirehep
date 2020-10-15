@@ -158,7 +158,6 @@ def test_conferences_search_json(inspire_app, datadir):
         "$schema": "https://labs.inspirehep.net/schemas/records/conferences.json",
         "closing_date": "2012-05-25",
         "cnum": "C12-05-21.5",
-        "contact_details": [{"email": "fs4loc@konan-u.ac.jp"}],
         "control_number": 1_185_692,
         "deleted": False,
         "inspire_categories": [{"term": "Astrophysics"}],
@@ -250,3 +249,19 @@ def test_conferences_detail_json_format(inspire_app):
         response = client.get(f"/conferences/{record['control_number']}?format=json")
     assert response.status_code == expected_status_code
     assert response.content_type == expected_content_type
+
+
+def test_conferences_json_search_doesnt_return_emails(inspire_app, datadir):
+    headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+
+    data = {"contact_details": [{"name": "Test Name", "email": "test@test.com"}]}
+
+    record = create_record("con", data=data)
+
+    with inspire_app.test_client() as client:
+        response = client.get("/conferences", headers=headers)
+
+    response_data_hit = json.loads(response.data)["hits"]["hits"][0]
+    response_metadata = response_data_hit["metadata"]
+
+    assert "email" not in response_metadata["contact_details"][0]

@@ -4,8 +4,13 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+import json
+
+from helpers.providers.faker import faker
+
 from inspirehep.records.marshmallow.conferences.base import (
     ConferencesAdminSchema,
+    ConferencesPublicListSchema,
     ConferencesPublicSchema,
     ConferencesRawSchema,
 )
@@ -107,3 +112,13 @@ def test_admin_schema():
 
     result = ConferencesAdminSchema().dump(data).data
     assert expected_result == result
+
+
+def test_api_schema_doesnt_include_email_in_contact_details():
+    data = [{"email": "test.test.test@cern.ch", "name": "Test, Contact",}]
+
+    job = faker.record("con", data={"contact_details": data})
+    result = ConferencesPublicListSchema().dumps(job).data
+    result_data = json.loads(result)
+
+    assert "emails" not in result_data["contact_details"]

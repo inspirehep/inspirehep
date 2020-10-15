@@ -6,5 +6,5 @@
 # the terms of the MIT License; see LICENSE file for more details.
 # flake8: noqa
 
-from .base import JobsAdminSchema, JobsPublicSchema
+from .base import JobsAdminSchema, JobsPublicListSchema, JobsPublicSchema
 from .es import JobsElasticSearchSchema

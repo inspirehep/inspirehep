@@ -9,6 +9,7 @@
 from .base import (
     AuthorsAdminSchema,
     AuthorsOnlyControlNumberSchema,
+    AuthorsPublicListSchema,
     AuthorsPublicSchema,
 )
 from .es import AuthorsElasticSearchSchema

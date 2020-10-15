@@ -5,7 +5,10 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 from inspirehep.records.marshmallow.common.mixins import CatalogerCanEditMixin
-from inspirehep.records.marshmallow.conferences import ConferencesPublicSchema
+from inspirehep.records.marshmallow.conferences import (
+    ConferencesPublicListSchema,
+    ConferencesPublicSchema,
+)
 
 
 class ConferencesBaseSchema(CatalogerCanEditMixin, ConferencesPublicSchema):
@@ -16,5 +19,5 @@ class ConferencesDetailSchema(ConferencesBaseSchema):
     pass
 
 
-class ConferencesListSchema(ConferencesBaseSchema):
+class ConferencesListSchema(ConferencesPublicListSchema):
     pass

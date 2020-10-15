@@ -9,7 +9,10 @@ import json
 
 from helpers.providers.faker import faker
 
-from inspirehep.records.marshmallow.authors import AuthorsDetailSchema
+from inspirehep.records.marshmallow.authors import (
+    AuthorsDetailSchema,
+    AuthorsListSchema,
+)
 
 
 def test_should_display_positions_without_positions():
@@ -271,3 +274,37 @@ def test_author_advisors_has_first_and_last_names():
     result_advisors = result_data.get("advisors")
 
     assert expected_advisors == result_advisors
+
+
+def test_authors_search_schema_doesnt_return_acquisition_source_email():
+    schema = AuthorsListSchema()
+    data = {
+        "acquisition_source": {
+            "orcid": "0000-0000-0000-0000",
+            "email": "test@test.ch",
+            "submission_number": "12312341",
+        }
+    }
+    author = faker.record("aut", data=data, with_control_number=True)
+    expected_result = {"orcid": "0000-0000-0000-0000", "submission_number": "12312341"}
+
+    result = schema.dumps(author).data
+    result_data = json.loads(result)
+
+    assert result_data["acquisition_source"] == expected_result
+
+
+def test_authors_api_schema_doesnt_return_email_adresses():
+    schema = AuthorsListSchema()
+    data = {
+        "email_addresses": [
+            {"value": "test@test.edu", "current": True},
+            {"value": "test1@test1.edu", "hidden": True, "current": False},
+            {"value": "test2@test2.edu", "hidden": True, "current": False},
+        ]
+    }
+    author = faker.record("aut", data=data, with_control_number=True)
+    result = schema.dumps(author).data
+    result_data = json.loads(result)
+
+    assert "email_adresses" not in result_data

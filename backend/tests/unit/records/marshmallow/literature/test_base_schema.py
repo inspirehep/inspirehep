@@ -10,7 +10,10 @@ import json
 from helpers.providers.faker import faker
 
 from inspirehep.records.marshmallow.literature import LiteratureListWrappedSchema
-from inspirehep.records.marshmallow.literature.base import LiteratureRawSchema
+from inspirehep.records.marshmallow.literature.base import (
+    LiteraturePublicListSchema,
+    LiteratureRawSchema,
+)
 
 
 def test_literature_related_records():
@@ -48,9 +51,64 @@ def test_literature_ui_schema_missing_ui_display_field():
     assert expected_result == result
 
 
-def test_literature_ui_schema_with_invalid_ui_display():
-    data = {"metadata": {"_ui_display": "foo"}}
-    expected_result = {"metadata": {}}
+def test_literature_api_schema_hides_emails_from_author_list():
+    authors = [
+        {"full_name": "Frank Castle", "emails": ["test@test.ch"]},
+        {"full_name": "Smith, John"},
+    ]
+
+    expected = [
+        {"full_name": "Frank Castle"},
+        {"full_name": "Smith, John"},
+    ]
+
+    data = {"authors": authors}
+    data_record = faker.record("lit", data=data)
+    result = LiteraturePublicListSchema().dump(data_record).data
+    assert expected == result["authors"]
+
+
+def test_literature_api_schema_hides_email_from_acquisition_source():
+    acquisition_source = {"email": "test@me.pl", "method": "oai", "source": "arxiv"}
+
+    expected = {"method": "oai", "source": "arxiv"}
+
+    data = {"acquisition_source": acquisition_source}
+    data_record = faker.record("lit", data=data)
+    result = LiteraturePublicListSchema().dump(data_record).data
+
+    assert expected == result["acquisition_source"]
+
+
+def test_literature_ui_schema_hides_emails_from_author_list():
+    authors = [
+        {"full_name": "Frank Castle", "emails": ["test@test.ch"]},
+        {"full_name": "Smith, John"},
+    ]
+
+    expected = [
+        {"full_name": "Frank Castle"},
+        {"full_name": "Smith, John"},
+    ]
+
+    data = {"authors": authors}
+    data_record = faker.record("lit", data=data)
+    data_record_json = json.dumps(data_record)
+    data = {"metadata": {"_ui_display": data_record_json}}
     result = LiteratureListWrappedSchema().dump(data).data
 
-    assert expected_result == result
+    assert expected == result["metadata"]["authors"]
+
+
+def test_literature_ui_schema_hides_email_from_acquisition_source():
+    acquisition_source = {"email": "test@me.pl", "method": "oai", "source": "arxiv"}
+
+    expected = {"method": "oai", "source": "arxiv"}
+
+    data = {"acquisition_source": acquisition_source}
+    data_record = faker.record("lit", data=data)
+    data_record_json = json.dumps(data_record)
+    data = {"metadata": {"_ui_display": data_record_json}}
+    result = LiteratureListWrappedSchema().dump(data).data
+
+    assert expected == result["metadata"]["acquisition_source"]

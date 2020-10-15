@@ -9,6 +9,7 @@ import structlog
 from marshmallow import fields
 
 from inspirehep.records.marshmallow.base import RecordBaseSchema
+from inspirehep.records.marshmallow.common import ContactDetailsItemWithoutEmail
 from inspirehep.records.marshmallow.conferences.common.proceeding_info_item import (
     ProceedingInfoItemSchemaV1,
 )
@@ -36,3 +37,7 @@ class ConferencesAdminSchema(ConferencesRawSchema):
 class ConferencesPublicSchema(ConferencesRawSchema):
     class Meta:
         exclude = ["_private_notes", "_collections"]
+
+
+class ConferencesPublicListSchema(ConferencesPublicSchema):
+    contact_details = fields.List(fields.Nested(ContactDetailsItemWithoutEmail))

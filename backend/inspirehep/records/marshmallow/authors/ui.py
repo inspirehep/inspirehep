@@ -7,7 +7,11 @@
 
 from marshmallow import fields
 
-from ..utils import get_facet_author_name_for_author, get_first_value_for_schema
+from ..utils import (
+    get_acquisition_source_without_email,
+    get_facet_author_name_for_author,
+    get_first_value_for_schema,
+)
 from .base import AuthorsPublicSchema
 from .common import PositionSchemaV1
 from .common.advisor import AdvisorSchemaV1
@@ -82,4 +86,11 @@ class AuthorsDetailSchema(AuthorsBaseSchema):
 
 
 class AuthorsListSchema(AuthorsBaseSchema):
-    pass
+    class Meta:
+        exclude = AuthorsPublicSchema.Meta.exclude + ["email_addresses"]
+
+    acquisition_source = fields.Method("get_acquisition_source")
+
+    @staticmethod
+    def get_acquisition_source(data):
+        return get_acquisition_source_without_email(data)

@@ -15,6 +15,7 @@ from invenio_oauthclient import current_oauthclient
 from marshmallow import utils
 
 from inspirehep.accounts.roles import Roles
+from inspirehep.records.marshmallow.jobs.base import JobsPublicListSchema
 
 
 def test_jobs_json(inspire_app, datadir):
@@ -178,6 +179,7 @@ def test_jobs_search_json(inspire_app, datadir):
     expected_result = deepcopy(record)
     expected_created = utils.isoformat(record.created)
     expected_updated = utils.isoformat(record.updated)
+    del expected_result.get("acquisition_source")["email"]
 
     with inspire_app.test_client() as client:
         response = client.get("/jobs", headers=headers)
@@ -285,3 +287,26 @@ def test_jobs_detail_serialize_experiment_with_referenced_record(inspire_app):
         response.json["metadata"]["accelerator_experiments"]
         == expected_accelerator_experiments
     )
+
+
+def test_jobs_search_json_doesnt_return_emails(inspire_app):
+    headers = {"Accept": "application/json"}
+
+    data = {
+        "reference_letters": {
+            "urls": [{"value": "https://jobs.itp.phys.ethz.ch/phd/"}],
+            "emails": ["test@test.com"],
+        },
+        "acquisition_source": {"orcid": "0000-0000-0000-0000", "email": "test@me.com",},
+        "contact_details": [{"name": "Test Name", "email": "test@test.com"}],
+    }
+    record = create_record("job", data=data)
+    expected_result = JobsPublicListSchema().dump(record).data
+
+    with inspire_app.test_client() as client:
+        response = client.get("/jobs/", headers=headers)
+
+    response_data_hit = response.json["hits"]["hits"][0]
+    response_metadata = response_data_hit["metadata"]
+
+    assert expected_result == response_metadata

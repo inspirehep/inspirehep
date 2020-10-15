@@ -15,6 +15,7 @@ from inspirehep.records.marshmallow.literature import (
     LiteratureAuthorsSchema,
     LiteratureDetailSchema,
     LiteratureListWrappedSchema,
+    LiteraturePublicListSchema,
     LiteraturePublicSchema,
 )
 from inspirehep.records.serializers.response import record_responsify
@@ -30,6 +31,16 @@ facets_json = JSONSerializerFacets(Schema)
 facets_json_response_search = search_responsify(facets_json, "application/json")
 
 # Literature
+literature_json_search = ConditionalMultiSchemaJSONSerializer(
+    [
+        (
+            lambda _: is_superuser_or_cataloger_logged_in(),
+            wrap_schema_class_with_metadata(LiteratureAdminSchema),
+        ),
+        (None, wrap_schema_class_with_metadata(LiteraturePublicListSchema)),
+    ]
+)
+
 literature_json = ConditionalMultiSchemaJSONSerializer(
     [
         (
@@ -41,7 +52,9 @@ literature_json = ConditionalMultiSchemaJSONSerializer(
 )
 
 literature_json_response = record_responsify(literature_json, "application/json")
-literature_json_response_search = search_responsify(literature_json, "application/json")
+literature_json_response_search = search_responsify(
+    literature_json_search, "application/json"
+)
 
 literature_detail = JSONSerializer(
     wrap_schema_class_with_metadata(LiteratureDetailSchema)

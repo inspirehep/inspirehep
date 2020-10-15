@@ -6,6 +6,6 @@
 # the terms of the MIT License; see LICENSE file for more details.
 # flake8: noqa
 
-from .base import SeminarsAdminSchema, SeminarsPublicSchema
+from .base import SeminarsAdminSchema, SeminarsPublicListSchema, SeminarsPublicSchema
 from .es import SeminarsElasticSearchSchema
 from .ui import SeminarsDetailSchema, SeminarsListSchema
