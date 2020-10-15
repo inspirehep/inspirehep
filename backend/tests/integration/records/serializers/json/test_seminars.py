@@ -15,9 +15,11 @@ from inspirehep.accounts.roles import Roles
 from inspirehep.records.marshmallow.seminars import (
     SeminarsDetailSchema,
     SeminarsElasticSearchSchema,
+    SeminarsListSchema,
 )
 from inspirehep.records.marshmallow.seminars.base import (
     SeminarsAdminSchema,
+    SeminarsPublicListSchema,
     SeminarsPublicSchema,
 )
 
@@ -79,7 +81,8 @@ def test_seminars_search_json(inspire_app, datadir):
 
     record = create_record("sem", data=data)
 
-    expected_result = SeminarsPublicSchema().dump(record).data
+    expected_result = SeminarsPublicListSchema().dump(record).data
+
     expected_created = utils.isoformat(record.created)
     expected_updated = utils.isoformat(record.updated)
     with inspire_app.test_client() as client:
@@ -158,7 +161,7 @@ def test_seminars_search(inspire_app, datadir):
 
         record = create_record("sem", data=data)
 
-        expected_metadata = SeminarsDetailSchema().dump(record).data
+        expected_metadata = SeminarsListSchema().dump(record).data
 
         expected_created = utils.isoformat(record.created)
         expected_updated = utils.isoformat(record.updated)
@@ -208,12 +211,12 @@ def test_seminars_detail_submitter_can_edit(inspire_app):
         own_job_metadata = next(
             hit["metadata"]
             for hit in hits
-            if hit["metadata"]["acquisition_source"]["email"] == user.email
+            if hit["metadata"]["acquisition_source"]["orcid"] == "0000-0002-6665-4934"
         )
         another_job_metadata = next(
             hit["metadata"]
             for hit in hits
-            if hit["metadata"]["acquisition_source"]["email"] != user.email
+            if hit["metadata"]["acquisition_source"]["orcid"] != "0000-0002-6665-4934"
         )
 
         assert not another_job_metadata["can_edit"]
@@ -288,3 +291,65 @@ def test_seminars_detail_literature_records(inspire_app):
             }
         ]
         assert response_metadata["literature_records"] == expected_literature_records
+
+
+def test_seminars_list_search_doesnt_return_email_adress(inspire_app):
+    with inspire_app.test_client() as client:
+        headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+
+        data = {
+            "acquisition_source": {
+                "orcid": "0000-0000-0000-0000",
+                "email": "test@me.com",
+            },
+            "contact_details": [{"name": "Test Name", "email": "test@test.com"}],
+        }
+
+        record = create_record("sem", data=data)
+
+        expected_metadata = SeminarsListSchema().dump(record).data
+
+        expected_created = utils.isoformat(record.created)
+        expected_updated = utils.isoformat(record.updated)
+
+        response = client.get(f"/seminars", headers=headers)
+
+        response_data = json.loads(response.data)
+        response_data_metadata = response_data["hits"]["hits"][0]["metadata"]
+        response_created = response_data["hits"]["hits"][0]["created"]
+        response_updated = response_data["hits"]["hits"][0]["updated"]
+
+        assert expected_metadata == response_data_metadata
+        assert expected_created == response_created
+        assert expected_updated == response_updated
+
+
+def test_seminars_search_doesnt_return_email_adress(inspire_app):
+    with inspire_app.test_client() as client:
+        headers = {"Accept": "application/json"}
+
+        data = {
+            "acquisition_source": {
+                "orcid": "0000-0000-0000-0000",
+                "email": "test@me.com",
+            },
+            "contact_details": [{"name": "Test Name", "email": "test@test.com"}],
+        }
+
+        record = create_record("sem", data=data)
+
+        expected_metadata = SeminarsPublicListSchema().dump(record).data
+
+        expected_created = utils.isoformat(record.created)
+        expected_updated = utils.isoformat(record.updated)
+
+        response = client.get("/seminars", headers=headers)
+
+        response_data = json.loads(response.data)
+        response_data_metadata = response_data["hits"]["hits"][0]["metadata"]
+        response_created = response_data["hits"]["hits"][0]["created"]
+        response_updated = response_data["hits"]["hits"][0]["updated"]
+
+        assert expected_metadata == response_data_metadata
+        assert expected_created == response_created
+        assert expected_updated == response_updated

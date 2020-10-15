@@ -7,7 +7,11 @@
 # flake8: noqa
 
 from .authors import LiteratureAuthorsSchema
-from .base import LiteratureAdminSchema, LiteraturePublicSchema
+from .base import (
+    LiteratureAdminSchema,
+    LiteraturePublicListSchema,
+    LiteraturePublicSchema,
+)
 from .es import LiteratureElasticSearchSchema
 from .references import LiteratureReferencesSchema
 from .ui import LiteratureDetailSchema, LiteratureListWrappedSchema

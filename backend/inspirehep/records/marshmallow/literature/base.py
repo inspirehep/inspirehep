@@ -9,6 +9,8 @@ from marshmallow import fields
 
 from ..base import RecordBaseSchema
 from ..fields import NonHiddenRaw
+from ..utils import get_acquisition_source_without_email
+from .utils import get_authors_without_emails
 
 
 class LiteratureRawSchema(RecordBaseSchema):
@@ -47,6 +49,19 @@ class LiteraturePublicSchema(LiteratureRawSchema):
     documents = NonHiddenRaw(dump_only=True)
     publication_info = NonHiddenRaw(dump_only=True)
     report_numbers = NonHiddenRaw(dump_only=True)
+
+
+class LiteraturePublicListSchema(LiteraturePublicSchema):
+    authors = fields.Method("get_authors")
+    acquisition_source = fields.Method("get_acquisition_source")
+
+    @staticmethod
+    def get_acquisition_source(data):
+        return get_acquisition_source_without_email(data)
+
+    @staticmethod
+    def get_authors(data):
+        return get_authors_without_emails(data)
 
 
 class LiteratureAdminSchema(LiteratureRawSchema):

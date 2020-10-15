@@ -204,6 +204,7 @@ def test_literature_search_json_without_login(inspire_app):
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Literature"],
         "_private_notes": [{"value": "A private note"}],
+        "acquisition_source": {"method": "oai", "email": "test@test.com"},
         "document_type": ["article"],
         "control_number": 12345,
         "titles": [{"title": "A Title"}],
@@ -231,6 +232,7 @@ def test_literature_search_json_without_login(inspire_app):
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "document_type": ["article"],
         "control_number": 12345,
+        "acquisition_source": {"method": "oai"},
         "titles": [{"title": "A Title"}],
         "publication_info": [{"pubinfo_freetext": "A public publication info"}],
         "report_numbers": [{"value": "PUBLIC", "hidden": False}],
@@ -375,12 +377,19 @@ def test_literature_detail(inspire_app):
 
 def test_literature_list(inspire_app):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
-    record = create_record("lit", data={"preprint_date": "2001-01-01"})
+    record = create_record(
+        "lit",
+        data={
+            "preprint_date": "2001-01-01",
+            "acquisition_source": {"method": "oai", "email": "test@test.com"},
+        },
+    )
 
     expected_id = str(record["control_number"])
     expected_status_code = 200
     expected_title = record["titles"][0]["title"]
     expected_date = "Jan 1, 2001"
+    expected_acquisition_source = {"method": "oai"}
     with inspire_app.test_client() as client:
         response = client.get("/literature", headers=headers)
     response_status_code = response.status_code
@@ -398,6 +407,7 @@ def test_literature_list(inspire_app):
     assert expected_title == response_data_metadata["titles"][0]["title"]
     assert expected_date == response_data_metadata["date"]
     assert "can_edit" not in response_data_metadata
+    assert expected_acquisition_source == response_data_metadata["acquisition_source"]
     assert expected_id == response_data_hits_id
     assert response_data_hits_created is not None
     assert response_data_hits_updated is not None
@@ -1319,9 +1329,7 @@ def test_literature_json_with_fields_filtering_ignores_wrong_fields(inspire_app)
 
 def test_regression_serializers_mutation(inspire_app):
     data = {
-        "dois": [
-            {"source": "World Scientific", "value": "10.1142/9789814618113_0024"},
-        ]
+        "dois": [{"source": "World Scientific", "value": "10.1142/9789814618113_0024"},]
     }
     record = create_record("lit", data=data)
     excepted_doi = "10.1142/9789814618113_0024"

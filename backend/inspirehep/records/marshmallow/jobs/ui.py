@@ -11,8 +11,12 @@ from inspirehep.accounts.api import (
     get_current_user_orcid,
     is_superuser_or_cataloger_logged_in,
 )
+from inspirehep.records.marshmallow.common import ContactDetailsItemWithoutEmail
 from inspirehep.records.marshmallow.jobs.base import JobsPublicSchema
 from inspirehep.submissions.utils import has_30_days_passed_after_deadline
+
+from ..utils import get_acquisition_source_without_email
+from .utils import get_reference_letters_without_email
 
 
 class JobsBaseSchema(JobsPublicSchema):
@@ -54,4 +58,14 @@ class JobsDetailSchema(JobsBaseSchema):
 
 
 class JobsListSchema(JobsBaseSchema):
-    pass
+    contact_details = fields.List(fields.Nested(ContactDetailsItemWithoutEmail))
+    reference_letters = fields.Method("get_reference_letters")
+    acquisition_source = fields.Method("get_acquisition_source")
+
+    @staticmethod
+    def get_acquisition_source(data):
+        return get_acquisition_source_without_email(data)
+
+    @staticmethod
+    def get_reference_letters(data):
+        return get_reference_letters_without_email(data)

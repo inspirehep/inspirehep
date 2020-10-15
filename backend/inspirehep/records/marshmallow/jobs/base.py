@@ -9,7 +9,13 @@
 from marshmallow import fields
 
 from inspirehep.records.marshmallow.base import RecordBaseSchema
-from inspirehep.records.marshmallow.common import AcceleratorExperimentSchemaV1
+from inspirehep.records.marshmallow.common import (
+    AcceleratorExperimentSchemaV1,
+    ContactDetailsItemWithoutEmail,
+)
+
+from ..utils import get_acquisition_source_without_email
+from .utils import get_reference_letters_without_email
 
 
 class JobsRawSchema(RecordBaseSchema):
@@ -19,6 +25,20 @@ class JobsRawSchema(RecordBaseSchema):
     accelerator_experiments = fields.Nested(
         AcceleratorExperimentSchemaV1, dump_only=True, many=True
     )
+
+
+class JobsPublicListSchema(JobsRawSchema):
+    contact_details = fields.List(fields.Nested(ContactDetailsItemWithoutEmail))
+    reference_letters = fields.Method("get_reference_letters")
+    acquisition_source = fields.Method("get_acquisition_source")
+
+    @staticmethod
+    def get_acquisition_source(data):
+        return get_acquisition_source_without_email(data)
+
+    @staticmethod
+    def get_reference_letters(data):
+        return get_reference_letters_without_email(data)
 
 
 class JobsAdminSchema(JobsRawSchema):

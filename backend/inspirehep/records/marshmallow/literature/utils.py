@@ -54,3 +54,13 @@ def latex_encode(text, contains_math=False):
     )
 
     return encoded_text
+
+
+def get_authors_without_emails(data):
+    updated_authors = []
+    authors = data.get("authors", [])
+    for author in authors:
+        if "emails" in author:
+            del author["emails"]
+        updated_authors.append(author)
+    return updated_authors

@@ -35,6 +35,7 @@ from .common import (
     PublicationInfoItemSchemaV1,
     ThesisInfoSchemaV1,
 )
+from .utils import get_authors_without_emails
 
 
 class LiteratureDetailSchema(CatalogerCanEditMixin, LiteraturePublicSchema):
@@ -228,6 +229,12 @@ class LiteratureListWrappedSchema(EnvelopeSchema):
                 ui_display["curated_relation"] = get_value(
                     data, "metadata.curated_relation", False
                 )
+            if ui_display.get("authors"):
+                ui_display.update({"authors": get_authors_without_emails(ui_display)})
+            acquisition_source = ui_display.get("acquisition_source")
+            if acquisition_source and "email" in acquisition_source:
+                del acquisition_source["email"]
+                ui_display.update({"acquisition_source": acquisition_source})
             return ui_display
         except json.JSONDecodeError:
             return {}

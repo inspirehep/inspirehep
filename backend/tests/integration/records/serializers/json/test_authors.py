@@ -220,12 +220,9 @@ def test_authors_search_json(inspire_app):
         "$schema": "https://inspire/schemas/records/authors.json",
         "_collections": ["Authors"],
         "_private_notes": [{"value": "A private note"}],
+        "acquisition_source": {"orcid": "0000-0000-0000-0000", "email": "test@me.com"},
         "name": {"value": "Urhan, Harun"},
         "deleted": False,
-        "email_addresses": [
-            {"value": "public@urhan.ch"},
-            {"value": "private@urhan.ch", "hidden": True},
-        ],
     }
 
     record = create_record("aut", data=data)
@@ -235,9 +232,9 @@ def test_authors_search_json(inspire_app):
     expected_metadata = {
         "$schema": "https://inspire/schemas/records/authors.json",
         "control_number": record_control_number,
+        "acquisition_source": {"orcid": "0000-0000-0000-0000"},
         "name": {"value": "Urhan, Harun"},
         "deleted": False,
-        "email_addresses": [{"value": "public@urhan.ch"}],
     }
     expected_id = str(record_control_number)
     with inspire_app.test_client() as client:
@@ -256,6 +253,37 @@ def test_authors_search_json(inspire_app):
     assert expected_id == response_data_hits_id
     assert response_data_hits_created is not None
     assert response_data_hits_updated is not None
+
+
+def test_authors_search_list(inspire_app):
+    headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+
+    data = {
+        "$schema": "https://inspire/schemas/records/authors.json",
+        "acquisition_source": {"orcid": "0000-0000-0000-0000", "email": "test@me.com"},
+        "name": {"value": "Test, Name"},
+    }
+
+    record = create_record("aut", data=data)
+
+    expected_status_code = 200
+    expected_metadata = {
+        "$schema": "https://inspire/schemas/records/authors.json",
+        "acquisition_source": {"orcid": "0000-0000-0000-0000"},
+        "name": {"value": "Test, Name"},
+        "control_number": record["control_number"],
+    }
+
+    with inspire_app.test_client() as client:
+        response = client.get("/authors", headers=headers)
+
+    response_status_code = response.status_code
+    response_data = json.loads(response.data)
+    response_data_hits = response_data["hits"]["hits"]
+    response_data_hits_metadata = response_data_hits[0]["metadata"]
+
+    assert expected_status_code == response_status_code
+    assert expected_metadata == response_data_hits_metadata
 
 
 def test_authors_search_json_does_not_have_sort_options(inspire_app):

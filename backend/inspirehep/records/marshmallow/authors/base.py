@@ -9,6 +9,7 @@ from marshmallow import Schema, fields
 
 from ..base import RecordBaseSchema
 from ..fields import NonHiddenRaw
+from ..utils import get_acquisition_source_without_email
 
 
 class AuthorsRawSchema(RecordBaseSchema):
@@ -24,6 +25,17 @@ class AuthorsPublicSchema(AuthorsRawSchema):
         exclude = FIELDS_TO_EXCLUDE + ["_private_notes", "_collections"]
 
     email_addresses = NonHiddenRaw(dump_only=True)
+
+
+class AuthorsPublicListSchema(AuthorsRawSchema):
+    class Meta:
+        exclude = AuthorsPublicSchema.Meta.exclude + ["email_addresses"]
+
+    acquisition_source = fields.Method("get_acquisition_source")
+
+    @staticmethod
+    def get_acquisition_source(data):
+        return get_acquisition_source_without_email(data)
 
 
 class AuthorsAdminSchema(AuthorsRawSchema):

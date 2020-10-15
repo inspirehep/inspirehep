@@ -13,6 +13,7 @@ from inspirehep.records.marshmallow.authors import (
     AuthorsDetailSchema,
     AuthorsListSchema,
     AuthorsOnlyControlNumberSchema,
+    AuthorsPublicListSchema,
     AuthorsPublicSchema,
 )
 from inspirehep.records.marshmallow.base import wrap_schema_class_with_metadata
@@ -28,8 +29,19 @@ authors_json = ConditionalMultiSchemaJSONSerializer(
         (None, wrap_schema_class_with_metadata(AuthorsPublicSchema)),
     ]
 )
+authors_json_search = ConditionalMultiSchemaJSONSerializer(
+    [
+        (
+            lambda _: is_superuser_or_cataloger_logged_in(),
+            wrap_schema_class_with_metadata(AuthorsAdminSchema),
+        ),
+        (None, wrap_schema_class_with_metadata(AuthorsPublicListSchema)),
+    ]
+)
 authors_json_response = record_responsify(authors_json, "application/json")
-authors_json_response_search = search_responsify(authors_json, "application/json")
+authors_json_response_search = search_responsify(
+    authors_json_search, "application/json"
+)
 
 authors_json_detail = JSONSerializer(
     wrap_schema_class_with_metadata(AuthorsDetailSchema)

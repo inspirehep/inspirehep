@@ -7,3 +7,4 @@
 # flake8: noqa
 
 from .accelerator_experiment import AcceleratorExperimentSchemaV1
+from .contact_details_items import ContactDetailsItemWithoutEmail
