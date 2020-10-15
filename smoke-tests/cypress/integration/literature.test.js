@@ -111,6 +111,8 @@ describe('Literature Submission', () => {
       issue: '20',
       year: '2014',
       comments: 'very private thing',
+      proceedings_info: 'very private proceeding',
+      conference_info: 'very private conference',
     };
     const expectedMetadata = {
       acquisition_source: {
@@ -148,7 +150,14 @@ describe('Literature Submission', () => {
         },
       ],
       accelerator_experiments: [{ legacy_name: 'CERN-LEP-L3' }],
-      _private_notes: [{ value: 'very private thing' }],
+      _private_notes: [
+        { value: 'very private thing', source: 'submitter' },
+        { value: 'very private proceeding', source: 'submitter' },
+        {
+          value: 'very private conference',
+          source: 'submitter',
+        },
+      ],
     };
     const expectedWorkflow = {
       _workflow: { data_type: 'hep' },
@@ -160,6 +169,8 @@ describe('Literature Submission', () => {
     };
     cy.visit('/submissions/literature');
     cy.selectLiteratureDocType('article');
+    cy.contains('Conference Info').click();
+    cy.contains('Proceedings Info').click();
     cy.contains('Comments').click();
     cy
       .testSubmission({
