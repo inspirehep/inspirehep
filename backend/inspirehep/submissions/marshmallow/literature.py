@@ -65,9 +65,8 @@ class Literature(Schema):
     supervisors = fields.Raw()
 
     conference_record = fields.Raw()
-    comments = fields.Raw()
 
-    # FIXME: below fields aren't used
+    comments = fields.Raw()
     conference_info = fields.Raw()
     proceedings_info = fields.Raw()
 
@@ -241,6 +240,10 @@ class Literature(Schema):
             )
             literature.add_author(record_supervisor)
 
-        literature.add_private_note(data.get("comments"))
+        literature.add_private_note(data.get("comments"), source="submitter")
+        literature.add_private_note(data.get("proceedings_info"), source="submitter")
+
+        if data.get("conference_record") is None:
+            literature.add_private_note(data.get("conference_info"), source="submitter")
 
         return literature.record

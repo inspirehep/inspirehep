@@ -522,6 +522,117 @@ def test_new_literature_submit_with_workflows_api_error(inspire_app, requests_mo
     assert response.status_code == 503
 
 
+def test_new_literature_submit_with_private_notes(inspire_app, requests_mock):
+    requests_mock.post(
+        f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature",
+        json={"workflow_object_id": 30},
+    )
+    user = create_user()
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/submissions/literature",
+            content_type="application/json",
+            data=json.dumps(
+                {
+                    "data": {
+                        "arxiv_id": "1701.00006",
+                        "arxiv_categories": ["hep-th"],
+                        "preprint_date": "2019-10-15",
+                        "document_type": "article",
+                        "authors": [{"full_name": "Urhan, Harun"}],
+                        "title": "Discovery of cool stuff",
+                        "subjects": ["Other"],
+                        "pdf_link": "https://arxiv.org/coolstuff.pdf",
+                        "references": "[1] Dude",
+                        "additional_link": "https://arxiv.org/other_stuff.pdf",
+                        "comments": "comment will be here",
+                        "proceedings_info": "Proceeding info will be here",
+                        "conference_info": "conference info in very important topic",
+                    }
+                }
+            ),
+        )
+    assert response.status_code == 200
+
+    history = requests_mock.request_history[0]
+    post_data = history.json()
+    assert (
+        "Authorization" in history.headers
+        and f"Bearer {current_app.config['AUTHENTICATION_TOKEN']}"
+        == history.headers["Authorization"]
+    )
+    assert (
+        history.url == f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature"
+    )
+
+    expected_data = [
+        {"value": "comment will be here", "source": "submitter"},
+        {"value": "Proceeding info will be here", "source": "submitter"},
+        {
+            "value": "conference info in very important topic",
+            "source": "submitter",
+        },
+    ]
+
+    assert post_data["data"]["_private_notes"] == expected_data
+
+
+def test_new_literature_submit_with_private_notes_and_conference_record(
+    inspire_app, requests_mock
+):
+    requests_mock.post(
+        f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature",
+        json={"workflow_object_id": 30},
+    )
+    user = create_user()
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/submissions/literature",
+            content_type="application/json",
+            data=json.dumps(
+                {
+                    "data": {
+                        "arxiv_id": "1701.00006",
+                        "arxiv_categories": ["hep-th"],
+                        "preprint_date": "2019-10-15",
+                        "document_type": "article",
+                        "authors": [{"full_name": "Urhan, Harun"}],
+                        "title": "Discovery of cool stuff",
+                        "subjects": ["Other"],
+                        "pdf_link": "https://arxiv.org/coolstuff.pdf",
+                        "references": "[1] Dude",
+                        "additional_link": "https://arxiv.org/other_stuff.pdf",
+                        "conference_record": "a conference record",
+                        "comments": "comment will be here",
+                        "proceedings_info": "Proceeding info will be here",
+                        "conference_info": "conference info in very important topic",
+                    }
+                }
+            ),
+        )
+    assert response.status_code == 200
+
+    history = requests_mock.request_history[0]
+    post_data = history.json()
+    assert (
+        "Authorization" in history.headers
+        and f"Bearer {current_app.config['AUTHENTICATION_TOKEN']}"
+        == history.headers["Authorization"]
+    )
+    assert (
+        history.url == f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature"
+    )
+
+    expected_data = [
+        {"value": "comment will be here", "source": "submitter"},
+        {"value": "Proceeding info will be here", "source": "submitter"},
+    ]
+
+    assert post_data["data"]["_private_notes"] == expected_data
+
+
 DEFAULT_EXAMPLE_JOB_DATA = {
     "deadline_date": "2030-01-01",
     "description": "description",
