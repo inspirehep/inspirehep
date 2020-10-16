@@ -12,6 +12,8 @@ from inspire_matcher import match
 from inspire_utils.dedupers import dedupe_list
 from inspire_utils.record import get_value
 
+from inspirehep.utils import get_prefixed_index
+
 from .parsers import GrobidReferenceParser
 
 
@@ -25,9 +27,9 @@ def get_reference_from_grobid(query):
 
 def _add_match_to_reference(reference, matched_recid, es_index):
     """Modifies a reference to include its record id."""
-    if es_index == "records-data":
+    if "records-data" in es_index:
         reference["record"] = get_record_ref(matched_recid, "data")
-    elif es_index == "records-hep":
+    elif "records-hep" in es_index:
         reference["record"] = get_record_ref(matched_recid, "literature")
 
 
@@ -112,6 +114,9 @@ def match_reference_config(reference):
         config_texkey,
         config_data,
     ]
+
+    for config in configs:
+        config.update({"index": get_prefixed_index(config.get("index"))})
 
     return configs
 

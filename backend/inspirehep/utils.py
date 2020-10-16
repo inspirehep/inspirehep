@@ -45,3 +45,10 @@ def hash_data(data):
     if data:
         return hashlib.md5(data).hexdigest()
     raise ValueError("Data for hashing cannot be empty")
+
+
+def get_prefixed_index(index_name, index_prefix=None):
+    prefix = index_prefix or current_app.config.get("SEARCH_INDEX_PREFIX")
+    if prefix and prefix not in index_name:
+        return prefix + index_name
+    return index_name
