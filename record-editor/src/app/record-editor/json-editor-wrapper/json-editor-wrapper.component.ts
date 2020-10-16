@@ -162,16 +162,11 @@ export class JsonEditorWrapperComponent extends SubscriberComponent
     this.apiService
       .fetchRecord(recordType, recordId)
       .then(json => {
-        const record = json['metadata'];
+        this.schema = json.schema;
+        const record = json.record.metadata;
         this.globalAppStateService.jsonBeingEdited$.next(record);
         this.globalAppStateService.isJsonUpdated$.next(false);
         this.config = this.appConfigService.getConfigForRecord(record);
-        return this.apiService.fetchUrl(record['$schema']);
-      })
-      .then(schema => {
-        this.toastrService.clear(loadingToastId);
-        this.schema = schema;
-        this.changeDetectorRef.markForCheck();
       })
       .catch(error => {
         this.toastrService.clear(loadingToastId);

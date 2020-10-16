@@ -26,7 +26,7 @@ describe('Conference Search', () => {
   });
 });
 
-describe('Conference Editor', () => {
+describe.only('Conference Editor', () => {
   beforeEach(() => {
     cy.login('cataloger');
   });
@@ -36,16 +36,20 @@ describe('Conference Editor', () => {
   });
 
   it('edits a conference', () => {
-    const RECORD_API = '/api/conferences/1217045';
-    const SCHEMAS = '/schemas/**';
+    const RECORD_URL = '/conferences/1217045';
+    const RECORD_API = `/api${RECORD_URL}`;
+    const API = '/api/**';
 
-    cy.registerRoute(RECORD_API);
-    cy.registerRoute(SCHEMAS);
+    cy.registerRoute(API);
 
-    cy.visit('/editor/record/conferences/1217045');
+    cy.visit(`/editor/record${RECORD_URL}`);
 
-    cy.waitForRoute(RECORD_API);
-    cy.waitForRoute(SCHEMAS);
+    cy.waitForRoute(API);
+
+    cy.registerRoute({
+      url: RECORD_API,
+      method: 'PUT',
+    });
 
     cy
       .get('[data-path="/titles/0/title"]')
@@ -53,6 +57,7 @@ describe('Conference Editor', () => {
     cy.contains('button', 'Save').click();
 
     cy.waitForRoute(RECORD_API);
+    cy.waitForRoute(API);
 
     cy.get('h2').should('contain.text', 'Updated by Cypress');
   });
