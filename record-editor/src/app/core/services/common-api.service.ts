@@ -37,7 +37,7 @@ import {
 export class CommonApiService {
   constructor(protected http: Http) {}
 
-  fetchUrl(url: string, options?: Object): Promise<Object> {
+  fetchUrl<Data = object>(url: string, options?: Object): Promise<Data> {
     return this.http
       .get(url, options)
       .map(res => res.json())

@@ -77,21 +77,15 @@ export class HoldingpenEditorComponent extends SubscriberComponent
     this.route.params.takeUntil(this.isDestroyed).subscribe(params => {
       this.apiService
         .fetchWorkflowObject(params['objectid'])
-        .then(workflowObject => {
-          this.workflowObject = workflowObject;
+        .then(workflowResource => {
+          this.workflowObject = workflowResource.workflow;
+          this.schema = workflowResource.schema;
           this.setWorkflowProblems();
-          this.globalAppStateService.jsonBeingEdited$.next(workflowObject);
+          this.globalAppStateService.jsonBeingEdited$.next(this.workflowObject);
           this.globalAppStateService.isJsonUpdated$.next(false);
           this.config = this.appConfigService.getConfigForRecord(
             this.workflowObject.metadata
           );
-          return this.apiService.fetchUrl(
-            this.workflowObject.metadata['$schema']
-          );
-        })
-        .then(schema => {
-          this.schema = schema;
-          this.changeDetectorRef.markForCheck();
         })
         .catch(() => {
           this.toastrService.error(

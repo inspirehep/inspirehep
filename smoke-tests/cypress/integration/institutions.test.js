@@ -25,15 +25,12 @@ describe('Institutions Editor', () => {
     const RECORD_URL = '/institutions/902858';
     const RECORD_API = `/api${RECORD_URL}`;
     const API = '/api/**';
-    const SCHEMAS = '/schemas/**';
 
     cy.registerRoute(API);
-    cy.registerRoute(SCHEMAS);
 
     cy.visit(`/editor/record${RECORD_URL}`);
 
     cy.waitForRoute(API);
-    cy.waitForRoute(SCHEMAS);
 
     cy.registerRoute({
       url: RECORD_API,

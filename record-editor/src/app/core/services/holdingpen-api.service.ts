@@ -28,7 +28,7 @@ import { Observable } from 'rxjs/Observable';
 import { CommonApiService } from './common-api.service';
 import { holdingpenApiUrl } from '../../shared/config';
 import { ApiError } from '../../shared/classes';
-import { WorkflowObject } from '../../shared/interfaces';
+import { WorkflowObject, WorkflowResource } from '../../shared/interfaces';
 
 @Injectable()
 export class HoldingpenApiService extends CommonApiService {
@@ -38,11 +38,11 @@ export class HoldingpenApiService extends CommonApiService {
     super(http);
   }
 
-  fetchWorkflowObject(objectId: string): Promise<WorkflowObject> {
+  fetchWorkflowObject(objectId: string): Promise<WorkflowResource> {
     this.currentWorkflowObjectApiUrl = `${holdingpenApiUrl}/${objectId}`;
-    return this.fetchUrl(this.currentWorkflowObjectApiUrl) as Promise<
-      WorkflowObject
-    >;
+    return this.fetchUrl<WorkflowResource>(
+      `/api/editor/holdingpen/${objectId}`
+    );
   }
 
   saveWorkflowObject(object: WorkflowObject): Observable<void> {

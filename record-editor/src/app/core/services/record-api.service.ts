@@ -30,6 +30,7 @@ import { environment } from '../../../environments/environment';
 import { CommonApiService } from './common-api.service';
 import { ApiError } from '../../shared/classes';
 import { editorApiUrl, apiUrl } from '../../shared/config';
+import { RecordResource } from '../../shared/interfaces';
 
 @Injectable()
 export class RecordApiService extends CommonApiService {
@@ -40,9 +41,6 @@ export class RecordApiService extends CommonApiService {
   private readonly returnOnlyIdsHeaders = new Headers({
     Accept: 'application/vnd+inspire.ids+json',
   });
-  private readonly rawJsonDataHeaders = new Headers({
-    Accept: 'application/vnd+inspire.record.raw+json',
-  });
 
   readonly newRecordFetched$ = new ReplaySubject<void>(1);
 
@@ -50,14 +48,12 @@ export class RecordApiService extends CommonApiService {
     super(http);
   }
 
-  fetchRecord(pidType: string, pidValue: string): Promise<Object> {
+  fetchRecord(pidType: string, pidValue: string): Promise<RecordResource> {
     this.currentRecordId = pidValue;
     this.currentRecordApiUrl = `${apiUrl}/${pidType}/${pidValue}`;
     this.currentRecordEditorApiUrl = `${editorApiUrl}/${pidType}/${pidValue}`;
     this.newRecordFetched$.next(null);
-    return this.fetchUrl(this.currentRecordApiUrl, {
-      headers: this.rawJsonDataHeaders,
-    });
+    return this.fetchUrl<RecordResource>(this.currentRecordEditorApiUrl);
   }
 
   saveRecord(record: object): Observable<void> {

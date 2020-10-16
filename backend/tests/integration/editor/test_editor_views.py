@@ -12,7 +12,7 @@ import os
 import pkg_resources
 import requests_mock
 from flask import current_app
-from helpers.utils import create_user
+from helpers.utils import create_record, create_user
 from inspire_schemas.api import load_schema, validate
 from inspire_utils.record import get_value
 from invenio_accounts.testutils import login_user_via_session
@@ -22,6 +22,35 @@ from werkzeug.datastructures import FileStorage
 
 from inspirehep.accounts.roles import Roles
 from inspirehep.files import current_s3_instance
+
+
+def test_get_record_and_schema(inspire_app):
+    cataloger = create_user(role=Roles.cataloger.value)
+    conference = create_record("con")
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=cataloger.email)
+        response = client.get(f"api/editor/conferences/{conference['control_number']}")
+
+    assert response.status_code == 200
+
+    response_data = json.loads(response.data)
+    record_metadata = response_data["record"]["metadata"]
+    schema = response_data["schema"]
+
+    assert record_metadata == dict(conference)
+    assert schema == load_schema("conferences")
+
+
+def test_get_record_and_schema_requires_cataloger_logged_in(inspire_app):
+    user = create_user()
+    conference = create_record("con")
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(f"api/editor/conferences/{conference['control_number']}")
+
+    assert response.status_code == 403
 
 
 @patch("inspirehep.editor.views.tickets")

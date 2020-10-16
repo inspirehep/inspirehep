@@ -10,3 +10,5 @@ export { WorkflowValidationError } from './workflow-validation-error';
 export { DefaultApiErrorBody } from './default-api-error-body';
 export { WorkflowSaveErrorBody } from './workflow-save-error-body';
 export { JsonPatch } from './json-patch';
+export { RecordResource } from './record-resource';
+export { WorkflowResource } from './workflow-resource';
