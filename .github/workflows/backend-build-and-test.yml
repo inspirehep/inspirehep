@@ -14,6 +14,7 @@ on:
 
 env:
   IMAGE: inspirehep/hep
+  TAG: ${{ github.event.pull_request.head.sha || github.sha }}
 
 jobs:
   Build:
@@ -21,6 +22,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          ref: ${{ env.TAG }}
 
       - name: Login
         uses: docker/login-action@v1
@@ -30,18 +33,18 @@ jobs:
 
       - name: Build
         env:
-          TAG: ${{ github.sha }}
           DEPS_TAG: deps-${{ hashFiles('backend/poetry.lock') }}
         run: |
           docker pull $IMAGE:$DEPS_TAG || :
           docker build -t $IMAGE:$TAG -t $IMAGE:$DEPS_TAG --cache-from $IMAGE:$DEPS_TAG backend/
+
       - name: Push
         env:
-          TAG: ${{ github.sha }}
           DEPS_TAG: deps-${{ hashFiles('backend/poetry.lock') }}
         run: |
           docker push $IMAGE:$TAG
           docker push $IMAGE:$DEPS_TAG
+
   Integration:
     runs-on: ubuntu-latest
     needs: Build
@@ -76,27 +79,25 @@ jobs:
           - 9200:9200
     steps:
       - name: test
-        env:
-          TAG: ${{ github.sha }}
         run: >
           docker run
           --entrypoint poetry
           --network="host"
           $IMAGE:$TAG
           run py.test tests/${{ matrix.suite }}
+
   Unit:
     runs-on: ubuntu-latest
     needs: Build
     steps:
       - name: test
-        env:
-          TAG: ${{ github.sha }}
         run: >
           docker run
           --entrypoint poetry
           --network="host"
           $IMAGE:$TAG
           run py.test tests/unit
+
   Push:
     runs-on: ubuntu-latest
     needs:
@@ -117,8 +118,6 @@ jobs:
 
       - name: Pull, tag and push
         id: push
-        env:
-          TAG: ${{ github.sha }}
         run: |
           export GIT_DESC=$(git describe --always --tags)
           docker pull $IMAGE:$TAG

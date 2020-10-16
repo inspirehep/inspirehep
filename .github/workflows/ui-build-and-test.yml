@@ -14,6 +14,7 @@ on:
 
 env:
   IMAGE: inspirehep/ui
+  TAG: ${{ github.event.pull_request.head.sha || github.sha }}
   BUILD_TAG: build-stage
 
 jobs:
@@ -23,6 +24,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
+          ref: ${{ env.TAG }}
           fetch-depth: 0
 
       - name: Build first stage
@@ -47,8 +49,6 @@ jobs:
 
       - name: Build second stage
         if: ${{ success() }}
-        env:
-          TAG: ${{ github.sha }}
         run: |
           docker build --cache-from $IMAGE:$BUILD_TAG -t $IMAGE:$TAG ui/
           docker push $IMAGE:$TAG
@@ -56,8 +56,6 @@ jobs:
       - name: Tag and push
         if: ${{ github.event_name == 'push' }}
         id: push
-        env:
-          TAG: ${{ github.sha }}
         run: |
           export GIT_DESC=$(git describe --always --tags)
           docker tag $IMAGE:$TAG $IMAGE:$GIT_DESC
