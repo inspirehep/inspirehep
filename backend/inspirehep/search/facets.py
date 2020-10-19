@@ -305,6 +305,7 @@ def hep_institution_papers(order=None):
         "filters": hep_filters(),
         "aggs": {
             **hep_earliest_date_aggregation(order=next(order)),
+            **hep_author_count_aggregation(order=next(order)),
             **hep_doc_type_aggregation(order=next(order)),
             **hep_collaboration_aggregation(order=next(order)),
             **hep_subject_aggregation(order=next(order)),
