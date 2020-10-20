@@ -5,11 +5,11 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import time
 import zlib
 
 import pytest
 from celery import shared_task
+from helpers.utils import retry_until_pass
 from invenio_pidstore.errors import PIDDoesNotExistError
 
 from inspirehep.migrator.api import continuous_migration
@@ -68,33 +68,37 @@ def test_continuous_migration(
 
     continuous_migration()
 
-    # I don't like timeouts, it's the only way to wait for this chain
-    time.sleep(5)
+    def assert_continuous_migration():
+        record_citer = InspireRecord.get_record_by_pid_value(
+            citer_control_number, "lit"
+        )
+        record_cited = InspireRecord.get_record_by_pid_value(
+            cited_control_number, "lit"
+        )
 
-    record_citer = InspireRecord.get_record_by_pid_value(citer_control_number, "lit")
-    record_cited = InspireRecord.get_record_by_pid_value(cited_control_number, "lit")
+        assert record_cited.citation_count == 1
 
-    assert record_cited.citation_count == 1
+        record_citer_es = InspireSearch.get_record_data_from_es(record_citer)
+        result_citer_control_number = record_citer_es["control_number"]
 
-    record_citer_es = InspireSearch.get_record_data_from_es(record_citer)
-    result_citer_control_number = record_citer_es["control_number"]
+        assert citer_control_number == result_citer_control_number
 
-    assert citer_control_number == result_citer_control_number
+        record_cited_es = InspireSearch.get_record_data_from_es(record_cited)
+        result_cited_control_number = record_cited_es["control_number"]
 
-    record_cited_es = InspireSearch.get_record_data_from_es(record_cited)
-    result_cited_control_number = record_cited_es["control_number"]
+        assert cited_control_number == result_cited_control_number
 
-    assert cited_control_number == result_cited_control_number
+        with inspire_app.test_client() as client:
+            result = client.get(
+                f"/api/literature/{result_cited_control_number}/citations"
+            ).json
+            result_citation_count = result["metadata"]["citation_count"]
 
-    with inspire_app.test_client() as client:
-        result = client.get(
-            f"/api/literature/{result_cited_control_number}/citations"
-        ).json
-        result_citation_count = result["metadata"]["citation_count"]
+            assert 1 == result_citation_count
 
-        assert 1 == result_citation_count
+        assert redis.llen("legacy_records") == 0
 
-    assert redis.llen("legacy_records") == 0
+    retry_until_pass(assert_continuous_migration)
 
 
 def test_continuous_migration_with_an_invalid_record(
@@ -162,36 +166,40 @@ def test_continuous_migration_with_an_invalid_record(
 
     continuous_migration()
 
-    # I don't like timeouts, it's the only way to wait for this chain
-    time.sleep(10)
+    def assert_continuous_migration():
+        record_citer = InspireRecord.get_record_by_pid_value(
+            citer_control_number, "lit"
+        )
+        record_cited = InspireRecord.get_record_by_pid_value(
+            cited_control_number, "lit"
+        )
 
-    record_citer = InspireRecord.get_record_by_pid_value(citer_control_number, "lit")
-    record_cited = InspireRecord.get_record_by_pid_value(cited_control_number, "lit")
+        with pytest.raises(PIDDoesNotExistError):
+            InspireRecord.get_record_by_pid_value(invalid_control_number, "lit")
 
-    with pytest.raises(PIDDoesNotExistError):
-        InspireRecord.get_record_by_pid_value(invalid_control_number, "lit")
+        assert record_cited.citation_count == 1
 
-    assert record_cited.citation_count == 1
+        record_citer_es = InspireSearch.get_record_data_from_es(record_citer)
+        result_citer_control_number = record_citer_es["control_number"]
 
-    record_citer_es = InspireSearch.get_record_data_from_es(record_citer)
-    result_citer_control_number = record_citer_es["control_number"]
+        assert citer_control_number == result_citer_control_number
 
-    assert citer_control_number == result_citer_control_number
+        record_cited_es = InspireSearch.get_record_data_from_es(record_cited)
+        result_cited_control_number = record_cited_es["control_number"]
 
-    record_cited_es = InspireSearch.get_record_data_from_es(record_cited)
-    result_cited_control_number = record_cited_es["control_number"]
+        assert cited_control_number == result_cited_control_number
 
-    assert cited_control_number == result_cited_control_number
+        with inspire_app.test_client() as client:
+            result = client.get(
+                f"/api/literature/{result_cited_control_number}/citations"
+            ).json
+            result_citation_count = result["metadata"]["citation_count"]
 
-    with inspire_app.test_client() as client:
-        result = client.get(
-            f"/api/literature/{result_cited_control_number}/citations"
-        ).json
-        result_citation_count = result["metadata"]["citation_count"]
+            assert 1 == result_citation_count
 
-        assert 1 == result_citation_count
+        assert redis.llen("legacy_records") == 0
 
-    assert redis.llen("legacy_records") == 0
+    retry_until_pass(assert_continuous_migration)
 
 
 def test_continuous_migration_with_different_type_of_records(
@@ -260,39 +268,45 @@ def test_continuous_migration_with_different_type_of_records(
 
     continuous_migration()
 
-    # I don't like timeouts, it's the only way to wait for this chain
-    time.sleep(5)
+    def assert_continuous_migration():
+        record_citer = InspireRecord.get_record_by_pid_value(
+            citer_control_number, "lit"
+        )
+        record_cited = InspireRecord.get_record_by_pid_value(
+            cited_control_number, "lit"
+        )
+        record_author = InspireRecord.get_record_by_pid_value(
+            author_control_number, "aut"
+        )
 
-    record_citer = InspireRecord.get_record_by_pid_value(citer_control_number, "lit")
-    record_cited = InspireRecord.get_record_by_pid_value(cited_control_number, "lit")
-    record_author = InspireRecord.get_record_by_pid_value(author_control_number, "aut")
+        assert record_cited.citation_count == 1
 
-    assert record_cited.citation_count == 1
+        record_citer_es = InspireSearch.get_record_data_from_es(record_citer)
+        result_citer_control_number = record_citer_es["control_number"]
 
-    record_citer_es = InspireSearch.get_record_data_from_es(record_citer)
-    result_citer_control_number = record_citer_es["control_number"]
+        assert citer_control_number == result_citer_control_number
 
-    assert citer_control_number == result_citer_control_number
+        record_cited_es = InspireSearch.get_record_data_from_es(record_cited)
+        result_cited_control_number = record_cited_es["control_number"]
 
-    record_cited_es = InspireSearch.get_record_data_from_es(record_cited)
-    result_cited_control_number = record_cited_es["control_number"]
+        assert cited_control_number == result_cited_control_number
 
-    assert cited_control_number == result_cited_control_number
+        record_author_es = InspireSearch.get_record_data_from_es(record_author)
+        result_author_control_number = record_author_es["control_number"]
 
-    record_author_es = InspireSearch.get_record_data_from_es(record_author)
-    result_author_control_number = record_author_es["control_number"]
+        assert author_control_number == result_author_control_number
 
-    assert author_control_number == result_author_control_number
+        with inspire_app.test_client() as client:
+            result = client.get(
+                f"/api/literature/{result_cited_control_number}/citations"
+            ).json
+            result_citation_count = result["metadata"]["citation_count"]
 
-    with inspire_app.test_client() as client:
-        result = client.get(
-            f"/api/literature/{result_cited_control_number}/citations"
-        ).json
-        result_citation_count = result["metadata"]["citation_count"]
+            assert 1 == result_citation_count
 
-        assert 1 == result_citation_count
+        assert redis.llen("legacy_records") == 0
 
-    assert redis.llen("legacy_records") == 0
+    retry_until_pass(assert_continuous_migration)
 
 
 def test_continuous_migration_with_invalid_control_number(
@@ -346,7 +360,7 @@ def test_continuous_migration_with_invalid_control_number(
     with pytest.raises(ValueError):
         continuous_migration()
 
-    # I don't like timeouts, it's the only way to wait for this chain
-    time.sleep(5)
+    def assert_continuous_migration():
+        assert redis.llen("legacy_records") == 2
 
-    assert redis.llen("legacy_records") == 2
+    retry_until_pass(assert_continuous_migration)

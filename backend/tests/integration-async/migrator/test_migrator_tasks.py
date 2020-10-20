@@ -6,13 +6,11 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
-import time
-
 import pytest
 from elasticsearch import TransportError
 from flask_sqlalchemy import models_committed
 from helpers.providers.faker import faker
-from helpers.utils import create_record_async
+from helpers.utils import create_record_async, retry_until_pass
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
 
@@ -460,23 +458,27 @@ def test_migrate_recids_from_mirror_all_only_with_literature(
 
     migrate_from_mirror(also_migrate="all")
 
-    # I don't like timeouts, it's the only way to wait for this chain
-    time.sleep(5)
+    def assert_migrator_task():
+        record_citer = InspireRecord.get_record_by_pid_value(
+            citer_control_number, "lit"
+        )
+        record_citing = InspireRecord.get_record_by_pid_value(
+            citing_control_number, "lit"
+        )
 
-    record_citer = InspireRecord.get_record_by_pid_value(citer_control_number, "lit")
-    record_citing = InspireRecord.get_record_by_pid_value(citing_control_number, "lit")
+        assert record_citing.citation_count == 1
 
-    assert record_citing.citation_count == 1
+        record_citer_es = InspireSearch.get_record_data_from_es(record_citer)
+        result_citer_control_number = record_citer_es["control_number"]
 
-    record_citer_es = InspireSearch.get_record_data_from_es(record_citer)
-    result_citer_control_number = record_citer_es["control_number"]
+        assert citer_control_number == result_citer_control_number
 
-    assert citer_control_number == result_citer_control_number
+        record_citing_es = InspireSearch.get_record_data_from_es(record_citing)
+        result_citing_control_number = record_citing_es["control_number"]
 
-    record_citing_es = InspireSearch.get_record_data_from_es(record_citing)
-    result_citing_control_number = record_citing_es["control_number"]
+        assert citing_control_number == result_citing_control_number
 
-    assert citing_control_number == result_citing_control_number
+    retry_until_pass(assert_migrator_task)
 
 
 def test_migrate_recids_from_mirror_all_only_with_literature_author_and_invalid(
@@ -563,33 +565,40 @@ def test_migrate_recids_from_mirror_all_only_with_literature_author_and_invalid(
     db.session.commit()
 
     migrate_from_mirror(also_migrate="all")
-    # I don't like timeouts, it's the only way to wait for this chain
-    time.sleep(5)
 
-    record_citer = InspireRecord.get_record_by_pid_value(citer_control_number, "lit")
-    record_citing = InspireRecord.get_record_by_pid_value(citing_control_number, "lit")
+    def assert_migrator_task():
+        record_citer = InspireRecord.get_record_by_pid_value(
+            citer_control_number, "lit"
+        )
+        record_citing = InspireRecord.get_record_by_pid_value(
+            citing_control_number, "lit"
+        )
 
-    record_author = InspireRecord.get_record_by_pid_value(author_control_number, "aut")
+        record_author = InspireRecord.get_record_by_pid_value(
+            author_control_number, "aut"
+        )
 
-    assert record_citing.citation_count == 1
+        assert record_citing.citation_count == 1
 
-    record_citer_es = InspireSearch.get_record_data_from_es(record_citer)
-    result_citer_control_number = record_citer_es["control_number"]
+        record_citer_es = InspireSearch.get_record_data_from_es(record_citer)
+        result_citer_control_number = record_citer_es["control_number"]
 
-    assert citer_control_number == result_citer_control_number
+        assert citer_control_number == result_citer_control_number
 
-    record_citing_es = InspireSearch.get_record_data_from_es(record_citing)
-    result_citing_control_number = record_citing_es["control_number"]
+        record_citing_es = InspireSearch.get_record_data_from_es(record_citing)
+        result_citing_control_number = record_citing_es["control_number"]
 
-    assert citing_control_number == result_citing_control_number
+        assert citing_control_number == result_citing_control_number
 
-    record_author_es = InspireSearch.get_record_data_from_es(record_author)
-    result_author_control_number = record_author_es["control_number"]
+        record_author_es = InspireSearch.get_record_data_from_es(record_author)
+        result_author_control_number = record_author_es["control_number"]
 
-    assert author_control_number == result_author_control_number
+        assert author_control_number == result_author_control_number
 
-    with pytest.raises(PIDDoesNotExistError):
-        InspireRecord.get_record_by_pid_value(invalid_control_number, "lit")
+        with pytest.raises(PIDDoesNotExistError):
+            InspireRecord.get_record_by_pid_value(invalid_control_number, "lit")
+
+    retry_until_pass(assert_migrator_task)
 
 
 def test_process_references_in_records_reindexes_experiments_when_linked_experiments_change(

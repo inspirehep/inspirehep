@@ -12,6 +12,7 @@ from inspect import signature
 
 import mock
 from click.testing import CliRunner
+from elasticsearch import NotFoundError
 from flask import current_app
 from flask.cli import ScriptInfo
 from helpers.factories.models.pidstore import PersistentIdentifierFactory
@@ -20,6 +21,7 @@ from helpers.factories.models.user_access_token import AccessTokenFactory, UserF
 from helpers.providers.faker import faker
 from inspire_utils.record import get_value
 from invenio_db import db
+from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_search import current_search
 from invenio_search.utils import build_alias_name
 
@@ -168,7 +170,8 @@ def retry_until_pass(assert_function, timeout=30, retry_interval=0.3):
             )
         try:
             return assert_function()
-        except AssertionError as error:
+        # retry on assertion and not found errors
+        except (AssertionError, PIDDoesNotExistError, NotFoundError) as error:
             last_raised_assertion_error = error
             time.sleep(retry_interval)
 
