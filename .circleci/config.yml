@@ -11,9 +11,8 @@ jobs:
           path: smoke-tests/cypress/__screenshots__
       - store_artifacts:
           path: smoke-tests/cypress/__snapshots__
-      - run: docker-compose -f docker-compose.yml -f ./smoke-tests/docker-compose.cypress.yml logs --no-color > logs.txt
       - store_artifacts:
-          path: logs.txt
+          path: cypress-container-logs.txt
 workflows:
   version: 2
   e2e:
