@@ -12,7 +12,7 @@ import AffiliationList from '../../common/components/AffiliationList';
 import { SEPARATOR_MIDDLEDOT } from '../../common/components/InlineList';
 import RelatedRecordsList from '../../common/components/RelatedRecordsList';
 import RequireOneOf from '../../common/components/RequireOneOf';
-import RichDescription from '../../common/components/RichDescription';
+import Latex from '../../common/components/Latex';
 import DeletedAlert from '../../common/components/DeletedAlert';
 import UrlsAction from '../../literature/components/UrlsAction';
 import ExperimentDates from '../components/ExperimentDates';
@@ -155,7 +155,7 @@ function DetailPage({ record }) {
             {description && (
               <Row className="mt3">
                 <Col>
-                  <RichDescription>{description}</RichDescription>
+                  <Latex>{description}</Latex>
                 </Col>
               </Row>
             )}
