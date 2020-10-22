@@ -31,6 +31,9 @@ def app():
     app_config["CELERY_TASK_ALWAYS_EAGER"] = False
     app_config["CELERY_TASK_EAGER_PROPAGATES"] = False
     app_config["TESTING"] = True
+    app_config[
+        "SQLALCHEMY_DATABASE_URI"
+    ] = "postgresql+psycopg2://inspirehep:inspirehep@localhost/test-inspirehep-async"
     app.config.update(app_config)
 
     with app.app_context():
