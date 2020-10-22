@@ -41,20 +41,10 @@ def app_config(instance_path, app_config):
     app_config["DEBUG"] = False
     app_config["JSONSCHEMAS_HOST"] = "localhost:5000"
     app_config["SERVER_NAME"] = "localhost:5000"
+    app_config[
+        "SQLALCHEMY_DATABASE_URI"
+    ] = "postgresql+psycopg2://inspirehep:inspirehep@localhost/test-inspirehep"
     return app_config
-
-
-@pytest.fixture(scope="module")
-def db_uri(instance_path):
-    """Database URI (defaults to an SQLite datbase in the instance path).
-    Scope: module
-    The database can be overwritten by setting the ``SQLALCHEMY_DATABASE_URI``
-    environment variable to a SQLAlchemy database URI.
-    """
-    if "SQLALCHEMY_DATABASE_URI" in os.environ:
-        yield os.environ["SQLALCHEMY_DATABASE_URI"]
-    else:
-        yield "postgresql+psycopg2://inspirehep:inspirehep@localhost/inspirehep"
 
 
 @pytest.fixture(scope="function")
