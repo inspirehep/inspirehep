@@ -11,10 +11,12 @@ import jinja2
 from flask import current_app
 from invenio_records_rest.serializers.base import PreprocessorMixin
 from invenio_records_rest.serializers.marshmallow import MarshmallowMixin
-from invenio_records_rest.serializers.response import search_responsify
+from invenio_records_rest.serializers.response import (
+    record_responsify,
+    search_responsify,
+)
 
 from inspirehep.records.marshmallow.literature.cv import CVSchema
-from inspirehep.records.serializers.response import record_responsify
 
 
 class CVHTMLSerializer(MarshmallowMixin, PreprocessorMixin):

@@ -37,6 +37,7 @@ export class RecordApiService extends CommonApiService {
   private currentRecordApiUrl: string;
   private currentRecordEditorApiUrl: string;
   private currentRecordId: string;
+  private currentRecordETag: string;
 
   private readonly returnOnlyIdsHeaders = new Headers({
     Accept: 'application/vnd+inspire.ids+json',
@@ -53,12 +54,20 @@ export class RecordApiService extends CommonApiService {
     this.currentRecordApiUrl = `${apiUrl}/${pidType}/${pidValue}`;
     this.currentRecordEditorApiUrl = `${editorApiUrl}/${pidType}/${pidValue}`;
     this.newRecordFetched$.next(null);
-    return this.fetchUrl<RecordResource>(this.currentRecordEditorApiUrl);
+    return this.http
+      .get(this.currentRecordEditorApiUrl)
+      .do(res => {
+        this.currentRecordETag = res.headers.get('ETag');
+      })
+      .map(res => res.json())
+      .toPromise();
   }
 
   saveRecord(record: object): Observable<void> {
     return this.http
-      .put(this.currentRecordApiUrl, record)
+      .put(this.currentRecordApiUrl, record, {
+        headers: new Headers({ 'If-Match': this.currentRecordETag }),
+      })
       .catch(error => Observable.throw(new ApiError(error)));
   }
 
