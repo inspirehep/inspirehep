@@ -1933,7 +1933,7 @@ description = "REST API for invenio-records."
 name = "invenio-records-rest"
 optional = false
 python-versions = "*"
-version = "1.6.4"
+version = "1.6.4+working"
 
 [package.dependencies]
 Flask = ">=0.11.1"
@@ -1950,7 +1950,7 @@ python-dateutil = ">=2.4.2"
 six = ">=1.12"
 
 [package.extras]
-all = ["datacite (>=1.0.1)", "Sphinx (>=1.6.7)", "dcxml (>=0.1.0)", "citeproc-py (>=0.3.0)", "citeproc-py-styles (>=0.1.0)", "check-manifest (>=0.25)", "coverage (>=4.0)", "Flask-Login (>=0.3.2)", "invenio-db (>=1.0.2)", "invenio-indexer (>=1.0.0)", "isort (>=4.3.1)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.0.0,<5.0.0)", "invenio-config (>=1.0.2)", "pyld (>=0.7.1)"]
+all = ["citeproc-py (>=0.3.0)", "citeproc-py-styles (>=0.1.0)", "datacite (>=1.0.1)", "Sphinx (>=1.6.7)", "dcxml (>=0.1.0)", "pyld (>=0.7.1)", "check-manifest (>=0.25)", "coverage (>=4.0)", "Flask-Login (>=0.3.2)", "invenio-db (>=1.0.2)", "invenio-indexer (>=1.0.0)", "isort (>=4.3.1)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.0.0,<5.0.0)", "invenio-config (>=1.0.2)", "citeproc-py (>=0.3.0)", "citeproc-py-styles (>=0.1.0)", "datacite (>=1.0.1)", "Sphinx (>=1.6.7)", "dcxml (>=0.1.0)", "pyld (>=0.7.1)", "check-manifest (>=0.25)", "coverage (>=4.0)", "Flask-Login (>=0.3.2)", "invenio-db (>=1.0.2)", "invenio-indexer (>=1.0.0)", "isort (>=4.3.1)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.0.0,<5.0.0)", "invenio-config (>=1.0.2)"]
 citeproc = ["citeproc-py (>=0.3.0)", "citeproc-py-styles (>=0.1.0)"]
 datacite = ["datacite (>=1.0.1)"]
 docs = ["Sphinx (>=1.6.7)"]
@@ -1962,6 +1962,10 @@ elasticsearch7 = ["invenio-search (>=1.2.0)"]
 jsonld = ["pyld (>=0.7.1)"]
 tests = ["check-manifest (>=0.25)", "coverage (>=4.0)", "Flask-Login (>=0.3.2)", "invenio-db (>=1.0.2)", "invenio-indexer (>=1.0.0)", "isort (>=4.3.1)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.0.0,<5.0.0)", "invenio-config (>=1.0.2)"]
 
+[package.source]
+reference = "cb1d8be510a2f14df5f45bdac9b88a0216119638"
+type = "git"
+url = "https://github.com/inspirehep/invenio-records-rest.git"
 [[package]]
 category = "main"
 description = "REST API module for Invenio."
@@ -4115,8 +4119,7 @@ test = ["zope.event"]
 testing = ["coverage", "nose", "zope.event"]
 
 [metadata]
-content-hash = "51d2e87a5ddbc2aa5dcbe179af31ef25f0e8056f6192d15d083027a6bdffbc0f"
-lock-version = "1.0"
+content-hash = "7da37ebcab724e9c37a9df0f0c5286ac476ccb2454b9a1f02d6685b0042e837c"
 python-versions = ">=3.6,<3.8"
 
 [metadata.files]
@@ -4198,7 +4201,9 @@ base32-lib = [
     {file = "base32_lib-1.0.1-py2.py3-none-any.whl", hash = "sha256:ebbf80687ef9791580135f372db1c0a09a1a5d02089d57a8a49bf5ef3330221f"},
 ]
 beard = [
+    {file = "beard-0.2.1-py2.7.egg", hash = "sha256:481220480742f7d9317c3682fb27c3e442fb0406b92d82425433cd93f236dec8"},
     {file = "beard-0.2.1-py3-none-any.whl", hash = "sha256:56ca82003b15fc4cedd3c913e6ce6afeaa10bd27c2b5bbc4c467627c63722227"},
+    {file = "beard-0.2.1-py3.6.egg", hash = "sha256:fba7c6c3c56d29906e14cdab29085f186ca1c23ff3a27ed0260c6ef4334893b3"},
     {file = "beard-0.2.1.tar.gz", hash = "sha256:589ca864cd4125fa7382d8e484e969b4512ff8d0e7f9a760e8f55110ff8ef8da"},
 ]
 beautifulsoup4 = [
@@ -4693,10 +4698,7 @@ invenio-records = [
     {file = "invenio-records-1.3.2.tar.gz", hash = "sha256:9cc95def65fdb46db21d935c0e29bb9296c749f17ac97c0962653ffa736b6414"},
     {file = "invenio_records-1.3.2-py2.py3-none-any.whl", hash = "sha256:8bc6a64446d23ea9e4b64fbf2069d0218d75a7313946ca1055a142ba0076b103"},
 ]
-invenio-records-rest = [
-    {file = "invenio-records-rest-1.6.4.tar.gz", hash = "sha256:3b88511d14182ef385123f04e8f3680600a4035dd80586ff46aeab2edf8f57d7"},
-    {file = "invenio_records_rest-1.6.4-py2.py3-none-any.whl", hash = "sha256:f549b5c71e8f224c7f09b892484bef3d108ee8cbff740aced2fd4dafc16db32e"},
-]
+invenio-records-rest = []
 invenio-rest = [
     {file = "invenio-rest-1.1.3.tar.gz", hash = "sha256:3a76fc42cd1265e2a589a6bd8b0fa06d62e651e67a33b547d991b72b251600c9"},
     {file = "invenio_rest-1.1.3-py2.py3-none-any.whl", hash = "sha256:3f44ef712d8d0c2956ec841aaa3fb6434d3c8cf1dddad05d7a4cc98a50afc671"},
@@ -4964,6 +4966,7 @@ node-semver = [
 ]
 nodeenv = [
     {file = "nodeenv-1.3.4-py2.py3-none-any.whl", hash = "sha256:561057acd4ae3809e665a9aaaf214afff110bbb6a6d5c8a96121aea6878408b3"},
+    {file = "nodeenv-1.3.4.tar.gz", hash = "sha256:ff860d311cb9cee1a74e7056b6526436eceb2d5177f584b128eca3530849c1ec"},
 ]
 numpy = [
     {file = "numpy-1.18.1-cp35-cp35m-macosx_10_6_intel.whl", hash = "sha256:20b26aaa5b3da029942cdcce719b363dbe58696ad182aff0e5dcb1687ec946dc"},

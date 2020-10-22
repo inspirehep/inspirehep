@@ -18,7 +18,6 @@ def test_latex_eu(inspire_app):
     record_control_number = record.json["control_number"]
 
     expected_status_code = 200
-    expected_etag = '"application/vnd+inspire.latex.eu+x-latex@v0"'
     expected_result = (
         "%\\cite{637275237}\n"
         "\\bibitem{637275237}\n"
@@ -29,13 +28,9 @@ def test_latex_eu(inspire_app):
         response = client.get(f"/literature/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
-    etag = response.headers.get("Etag")
-    last_modified = response.last_modified
     response_data = response.get_data(as_text=True)
 
     assert expected_status_code == response_status_code
-    assert etag == expected_etag
-    assert last_modified is None
     assert expected_result == response_data
 
 
@@ -48,7 +43,6 @@ def test_latex_us(inspire_app):
     record_control_number = record.json["control_number"]
 
     expected_status_code = 200
-    expected_etag = '"application/vnd+inspire.latex.us+x-latex@v0"'
     expected_result = (
         "%\\cite{637275237}\n"
         "\\bibitem{637275237}\n"
@@ -59,13 +53,9 @@ def test_latex_us(inspire_app):
         response = client.get(f"/literature/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
-    etag = response.headers.get("Etag")
-    last_modified = response.last_modified
     response_data = response.get_data(as_text=True)
 
     assert expected_status_code == response_status_code
-    assert etag == expected_etag
-    assert last_modified is None
     assert expected_result == response_data
 
 

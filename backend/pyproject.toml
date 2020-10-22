@@ -37,7 +37,7 @@ invenio-oauth2server= "==1.0.4"
 invenio-oauthclient= {git = "https://github.com/inspirehep/invenio-oauthclient.git", branch="rest-api"}
 invenio-pidstore= "==1.2.0"
 invenio-records = "==1.3.2"
-invenio-records-rest= "==1.6.4"
+invenio-records-rest = {git = "https://github.com/inspirehep/invenio-records-rest.git"}
 invenio-rest= "==1.1.3"
 invenio-search = {version = "==1.2.3", extras = [ "elasticsearch7",]}
 timeexecution = "<4.0"

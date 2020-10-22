@@ -7,11 +7,12 @@
 
 from os.path import splitext
 
-from flask import Blueprint, current_app, jsonify, request
+from flask import Blueprint, current_app, jsonify, make_response, request
 from flask_login import current_user
 from inspire_schemas.api import load_schema
 from invenio_db import db
 from invenio_records.models import RecordMetadata
+from invenio_records_rest.utils import set_headers_for_record_caching_and_concurrency
 from refextract import extract_references_from_string, extract_references_from_url
 from sqlalchemy_continuum import transaction_class, version_class
 
@@ -50,9 +51,12 @@ def revert_to_revision(endpoint, pid_value):
 def get_record_and_schema(endpoint, pid_value):
     pid_type = PidStoreBase.get_pid_type_from_endpoint(endpoint)
     record = InspireRecord.get_record_by_pid_value(pid_value, pid_type)
-    return jsonify(
-        {"record": {"metadata": record}, "schema": load_schema(record["$schema"])}
-    )
+    json = {"record": {"metadata": record}, "schema": load_schema(record["$schema"])}
+
+    response = make_response(json)
+    set_headers_for_record_caching_and_concurrency(response, record)
+
+    return response
 
 
 @blueprint.route("/<endpoint>/<int:pid_value>/revisions", methods=["GET"])

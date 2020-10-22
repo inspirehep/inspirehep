@@ -7,10 +7,10 @@
 
 
 from invenio_records_rest.serializers import RecordSchemaJSONV1
+from invenio_records_rest.serializers.response import record_responsify
 
 from inspirehep.accounts.api import is_superuser_or_cataloger_logged_in
 from inspirehep.records.marshmallow.base import ForbiddenSchema
-from inspirehep.records.serializers.response import record_responsify
 from inspirehep.serializers import ConditionalMultiSchemaJSONSerializer
 
 records_raw_json = ConditionalMultiSchemaJSONSerializer(

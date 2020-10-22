@@ -5,7 +5,10 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from invenio_records_rest.serializers.response import search_responsify
+from invenio_records_rest.serializers.response import (
+    record_responsify,
+    search_responsify,
+)
 
 from inspirehep.accounts.api import is_superuser_or_cataloger_logged_in
 from inspirehep.records.marshmallow.base import wrap_schema_class_with_metadata
@@ -17,7 +20,6 @@ from inspirehep.records.marshmallow.experiments.ui import (
     ExperimentsDetailSchema,
     ExperimentsListSchema,
 )
-from inspirehep.records.serializers.response import record_responsify
 from inspirehep.serializers import ConditionalMultiSchemaJSONSerializer, JSONSerializer
 
 experiments_json = ConditionalMultiSchemaJSONSerializer(
