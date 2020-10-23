@@ -293,11 +293,12 @@ def test_jobs_search_json_doesnt_return_emails(inspire_app):
     headers = {"Accept": "application/json"}
 
     data = {
+        "status": "open",
         "reference_letters": {
             "urls": [{"value": "https://jobs.itp.phys.ethz.ch/phd/"}],
             "emails": ["test@test.com"],
         },
-        "acquisition_source": {"orcid": "0000-0000-0000-0000", "email": "test@me.com",},
+        "acquisition_source": {"orcid": "0000-0000-0000-0000", "email": "test@me.com"},
         "contact_details": [{"name": "Test Name", "email": "test@test.com"}],
     }
     record = create_record("job", data=data)
