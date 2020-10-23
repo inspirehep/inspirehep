@@ -1,5 +1,7 @@
 import structlog
 from celery import shared_task
+from flask import current_app
+from inspire_matcher.api import match
 from invenio_db import db
 from prometheus_client import Counter
 
@@ -8,6 +10,8 @@ from inspirehep.disambiguation.utils import (
     link_signatures_to_author,
     update_author_names,
 )
+from inspirehep.records.api import InspireRecord
+from inspirehep.records.utils import get_ref_from_pid
 
 LOGGER = structlog.getLogger()
 
@@ -63,4 +67,37 @@ def disambiguate_signatures(self, clusters):
         else:
             disambiguation_assigned_clusters.labels("2+").inc()
             LOGGER.debug("Received cluster with more than 1 author.")
+    db.session.commit()
+
+
+@shared_task(ignore_result=False, bind=True)
+def disambiguate_authors(self, record_uuid):
+    record = InspireRecord.get_record(record_uuid)
+    if "Literature" not in record["_collections"]:
+        return
+    authors = record.get_modified_authors()
+    updated_authors = []
+    for author in authors:
+        if author.get("curated_relation"):
+            continue
+        matched_authors = [
+            matched_record["_source"]["control_number"]
+            for matched_record in match(
+                author, current_app.config["AUTHOR_MATCHER_EXACT_CONFIG"]
+            )
+        ]
+        if len(set(matched_authors)) == 1:
+            author_control_number = matched_authors[0]
+            author["record"] = get_ref_from_pid("aut", author_control_number)
+            updated_authors.append(str(author_control_number))
+    if updated_authors:
+        LOGGER.info(
+            f"Updated references for authors",
+            {
+                "uuid": str(record.id),
+                "recid": record["control_number"],
+                "authors_control_numbers": updated_authors,
+            },
+        )
+        record.update(dict(record))
     db.session.commit()

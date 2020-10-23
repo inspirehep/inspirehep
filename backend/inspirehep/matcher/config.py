@@ -271,3 +271,21 @@ REFERENCE_MATCHER_DATA_CONFIG = {
     "index": "records-data",
     "source": ["control_number"],
 }
+
+AUTHOR_MATCHER_EXACT_CONFIG = {
+    "algorithm": [
+        {
+            "queries": [
+                {"path": "ids.value", "search_path": "ids.value", "type": "exact"},
+                {
+                    "path": "emails",
+                    "search_path": "email_addresses.value",
+                    "type": "exact",
+                },
+            ]
+        }
+    ],
+    "index": "records-authors",
+    "source": ["control_number"],
+    "validator": "inspirehep.matcher.validators:authors_validator",
+}

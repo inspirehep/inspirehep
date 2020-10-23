@@ -171,6 +171,22 @@ class LiteratureRecord(
                 push_to_orcid(self)
             self.push_authors_phonetic_blocks_to_redis()
 
+    def get_modified_authors(self):
+        previous_authors = self._previous_version.get("authors", [])
+        previous_authors_by_uuid = {
+            author["uuid"]: author for author in previous_authors
+        }
+
+        current_authors = self.get("authors", [])
+
+        for author in current_authors:
+            author_uuid = author["uuid"]
+            if author_uuid not in previous_authors_by_uuid:
+                yield author
+                continue
+            if author != previous_authors_by_uuid[author_uuid]:
+                yield author
+
     def get_modified_references(self):
         """Return the ids of the references diff between the latest and the
         previous version.
