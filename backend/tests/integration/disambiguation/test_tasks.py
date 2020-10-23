@@ -85,7 +85,7 @@ def test_disambiguate_signatures_cluster_with_0_authors(inspire_app):
 
 
 def test_disambiguate_signatures_cluster_creates_author_with_facet_author_name(
-    inspire_app
+    inspire_app,
 ):
     data = {
         "authors": [
@@ -147,7 +147,7 @@ def test_disambiguate_signatures_cluster_with_more_than_1_authors(inspire_app):
 
 
 def test_disambiguate_signatures_cluster_with_no_authors_and_invalid_signature_uuid(
-    inspire_app
+    inspire_app,
 ):
     data = {
         "authors": [

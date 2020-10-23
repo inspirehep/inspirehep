@@ -6,9 +6,11 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import structlog
+from flask import current_app
 from flask_sqlalchemy import models_committed
 from invenio_records.models import RecordMetadata
 
+from inspirehep.disambiguation.tasks import disambiguate_authors
 from inspirehep.records.api import InspireRecord
 
 LOGGER = structlog.getLogger()
@@ -34,3 +36,8 @@ def index_after_commit(sender, changes):
                 InspireRecord(model_instance.json, model=model_instance).index(
                     force_delete=force_delete
                 )
+                if (
+                    change != "delete"
+                    and current_app.config["FEATURE_FLAG_ENABLE_AUTHOR_DISAMBIGUATION"]
+                ):
+                    disambiguate_authors.delay(str(model_instance.id))

@@ -39,7 +39,7 @@ def test_literature_get_records_by_pids_returns_correct_record(inspire_app):
 
 @pytest.mark.vcr()
 def test_return_record_for_publication_info_search_with_journal_title_without_dots(
-    inspire_app
+    inspire_app,
 ):
 
     query = "Phys. Lett. B 704 (2011) 223"
@@ -162,7 +162,7 @@ def test_return_record_for_publication_info_search_example_1(inspire_app):
 
 @pytest.mark.vcr()
 def test_return_record_for_publication_info_search_with_multiple_records_with_the_same_journal_title(
-    inspire_app
+    inspire_app,
 ):
 
     query = "Phys. Lett. B 704 (2011) 223"
@@ -339,7 +339,7 @@ def test_return_record_for_publication_info_search_example_3(inspire_app):
 
 @pytest.mark.vcr()
 def test_return_record_for_publication_info_search_with_leading_zeros_in_page_artid(
-    inspire_app
+    inspire_app,
 ):
     query = "Phys. Rev. D 82 0074024 (2010)"
 
@@ -462,7 +462,7 @@ def test_reference_search_without_journal_title(inspire_app):
 
 
 def test_reference_convert_old_publication_info_to_new_with_empty_reference(
-    inspire_app
+    inspire_app,
 ):
     reference = {"reference": {"publication_info": {}}}
     result = LiteratureSearch().convert_old_publication_info_to_new(reference)
@@ -901,7 +901,7 @@ def test_journal_title_normalization_without_match(inspire_app):
 
 
 def test_public_api_generates_correct_links_in_literature_search_with_fields(
-    inspire_app
+    inspire_app,
 ):
     expected_search_links = {
         "self": "http://localhost:5000/api/literature/?q=&size=1&page=2&fields=ids,authors",

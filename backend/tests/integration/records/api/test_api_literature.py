@@ -657,7 +657,7 @@ def test_literature_citation_count_property(inspire_app):
 
 
 def test_literature_without_literature_collection_cannot_cite_record_which_can_be_cited(
-    inspire_app
+    inspire_app,
 ):
     data1 = faker.record("lit")
     record1 = InspireRecord.create(data1)
@@ -1556,7 +1556,7 @@ def test_literature_updates_refs_to_known_and_unknown_conference(inspire_app):
 
 
 def test_literature_updates_refs_to_known_and_unknown_conference_when_ref_already_exists(
-    inspire_app
+    inspire_app,
 ):
     con = create_record("con", {"opening_date": "2013-01-01"})
 
@@ -1861,7 +1861,7 @@ def test_updating_record_updates_entries_in_authors_records_table(inspire_app):
 
 
 def test_not_literature_collection_do_not_create_entries_in_authors_records_table(
-    inspire_app
+    inspire_app,
 ):
     data = {
         "_collections": ["ZEUS Internal Notes"],
@@ -2263,3 +2263,90 @@ def test_arxiv_url_also_supports_format_alias(inspire_app):
 
     assert response_bibtex.status_code == 200
     assert response_bibtex.content_type == expected_bibtex_type
+
+
+def test_literature_get_modified_authors_after_create(inspire_app):
+    data = {
+        "authors": [
+            {
+                "full_name": "Brian Gross",
+                "ids": [
+                    {"schema": "INSPIRE ID", "value": "INSPIRE-00304313"},
+                    {"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"},
+                ],
+                "emails": ["test@test.com"],
+            },
+        ]
+    }
+    data = faker.record("lit", with_control_number=True, data=data)
+    record = LiteratureRecord.create(data)
+
+    assert len(list(record.get_modified_authors())) == 1
+
+
+def test_literature_get_modified_authors_after_uuid_update(inspire_app):
+    data = {
+        "authors": [
+            {
+                "full_name": "Brian Gross",
+                "ids": [
+                    {"schema": "INSPIRE ID", "value": "INSPIRE-00304313"},
+                    {"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"},
+                ],
+                "emails": ["test@test.com"],
+            },
+            {
+                "full_name": "Donald Matthews",
+                "ids": [{"schema": "INSPIRE BAI", "value": "H.Khalfoun.1"}],
+                "emails": ["test1@test.pl", "test1.1@test.pl"],
+            },
+        ]
+    }
+    data = faker.record("lit", with_control_number=True, data=data)
+
+    record = LiteratureRecord.create(data)
+
+    data.update(
+        {
+            "authors": [
+                {
+                    "full_name": "Brian Gross",
+                    "ids": [{"schema": "INSPIRE BAI", "value": "B.Gross.1"},],
+                    "emails": ["test@test.com"],
+                    "uuid": "ec485f53-0d75-403a-a11c-e2a6d45dd328",
+                },
+                {
+                    "full_name": "Donald Matthews",
+                    "ids": [{"schema": "INSPIRE BAI", "value": "D.Matthews.1"}],
+                    "emails": ["test1@test.pl", "test1.1@test.pl"],
+                    "uuid": "ec485f53-0d75-403a-a11c-e2a6d45dd327",
+                },
+            ]
+        }
+    )
+
+    record.update(data)
+    assert len(list(record.get_modified_authors())) == 2
+
+
+def test_literature_get_modified_authors_after_metadata_update(inspire_app):
+    data = {
+        "authors": [
+            {
+                "full_name": "Brian Gross",
+                "ids": [
+                    {"schema": "INSPIRE ID", "value": "INSPIRE-00304313"},
+                    {"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"},
+                ],
+                "emails": ["test@test.com"],
+            },
+        ]
+    }
+    data = faker.record("lit", with_control_number=True, data=data)
+    record = LiteratureRecord.create(data)
+
+    author = record.get("authors")[0]
+    author["emails"] = ["test@test.com", "test2@test.com"]
+    record.update(dict(record))
+
+    assert len(list(record.get_modified_authors())) == 1
