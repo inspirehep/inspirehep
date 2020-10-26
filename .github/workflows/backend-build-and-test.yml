@@ -134,5 +134,5 @@ jobs:
           event-type: deploy
           client-payload: >
             {"environment": "qa",
-             "image": "$IMAGE",
+             "image": "inspirehep/hep",
              "tag": "${{ steps.push.outputs.git_desc }}"}
