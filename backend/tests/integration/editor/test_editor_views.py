@@ -260,29 +260,28 @@ def test_refextract_text(inspire_app):
 
     user = create_user(role=Roles.cataloger.value)
 
+    data = {
+        "journal_title": {"title": "Journal of Testing"},
+        "short_title": "J.Testing",
+    }
+    create_record("jou", data=data)
+
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.post(
             "api/editor/refextract/text",
             content_type="application/json",
-            data=json.dumps(
-                {
-                    "text": (
-                        "J. M. Maldacena. “The Large N Limit of Superconformal Field "
-                        "Theories and Supergravity”. Adv. Theor. Math. Phys. 2 (1998), "
-                        "pp. 231–252."
-                    )
-                }
-            ),
+            data=json.dumps({"text": "John Smith, Journal of Testing 42 (2020) 1234"}),
         )
     references = json.loads(response.data)
-
-    assert response.status_code == 200
-    assert validate(references, subschema) is None
-    assert get_value(
+    title_list = get_value(
         {"references": references},
         "references.reference.publication_info.journal_title",
     )
+
+    assert response.status_code == 200
+    assert validate(references, subschema) is None
+    assert "J.Testing" in title_list
 
 
 def test_refextract_url(inspire_app):

@@ -1,4 +1,5 @@
 import io
+import re
 import tempfile
 from contextlib import contextmanager
 
@@ -8,15 +9,11 @@ from inspire_schemas.api import ReferenceBuilder
 from inspire_utils.dedupers import dedupe_list_of_dicts
 from inspire_utils.helpers import force_list
 from inspire_utils.record import get_value
+from invenio_records.models import RecordMetadata
+from sqlalchemy import cast, type_coerce
+from sqlalchemy.dialects.postgresql import JSONB
 
-
-@contextmanager
-def local_refextract_kbs_path():
-    """Get the path to the temporary refextract kbs from the application config.
-    """
-    journal_kb_path = current_app.config.get("REFEXTRACT_JOURNAL_KB_PATH")
-    with retrieve_uri(journal_kb_path) as temp_journal_kb_path:
-        yield {"journals": temp_journal_kb_path}
+RE_PUNCTUATION = re.compile(r"[\.,;'\(\)-]", re.UNICODE)
 
 
 def map_refextract_to_schema(extracted_references, source=None):
@@ -59,21 +56,63 @@ def map_refextract_to_schema(extracted_references, source=None):
     return result
 
 
-@contextmanager
-def retrieve_uri(uri, outdir=None):
-    """Retrieves the given uri and stores it in a temporary file."""
-    with tempfile.NamedTemporaryFile(
-        prefix="inspire", dir=outdir
-    ) as local_file, fsopen(uri, mode="rb") as remote_file:
-        copy_file(remote_file, local_file)
+def create_journal_dict():
+    """
+    Returns a dictionary that is populated with refextracts's journal KB from the database.
 
-        local_file.flush()
-        yield local_file.name
+        { SOURCE: DESTINATION }
+
+    which represents that ``SOURCE`` is translated to ``DESTINATION`` when found.
+
+    Note that refextract expects ``SOURCE`` to be normalized, which means removing
+    all non alphanumeric characters, collapsing all contiguous whitespace to one
+    space and uppercasing the resulting string.
+    """
+    only_journals = type_coerce(RecordMetadata.json, JSONB)["_collections"].contains(
+        ["Journals"]
+    )
+    entity_short_title = RecordMetadata.json["short_title"]
+    entity_journal_title = RecordMetadata.json["journal_title"]["title"]
+    entity_title_variants = RecordMetadata.json["title_variants"]
+
+    titles_query = RecordMetadata.query.with_entities(
+        entity_short_title, entity_journal_title
+    ).filter(only_journals)
+
+    title_variants_query = RecordMetadata.query.with_entities(
+        entity_short_title, entity_title_variants
+    ).filter(only_journals)
+
+    title_dict = {}
+
+    for (short_title, journal_title) in titles_query.all():
+        title_dict[normalize_title(short_title)] = short_title
+        title_dict[normalize_title(journal_title)] = short_title
+
+    for (short_title, title_variants) in title_variants_query.all():
+        if title_variants is None:
+            continue
+
+        sub_dict = {
+            normalize_title(title_variant): short_title
+            for title_variant in title_variants
+        }
+
+        title_dict.update(sub_dict)
+
+    return title_dict
 
 
-def copy_file(src_file, dst_file, buffer_size=io.DEFAULT_BUFFER_SIZE):
-    """Dummy buffered copy between open files."""
-    next_chunk = src_file.read(buffer_size)
-    while next_chunk:
-        dst_file.write(next_chunk)
-        next_chunk = src_file.read(buffer_size)
+def normalize_title(raw_title):
+    """
+    Returns the normalised raw_title. Normalising means removing all non alphanumeric characters,
+    collapsing all contiguous whitespace to one space and uppercasing the resulting string.
+    """
+    if not raw_title:
+        return
+
+    normalized_title = RE_PUNCTUATION.sub(" ", raw_title)
+    normalized_title = " ".join(normalized_title.split())
+    normalized_title = normalized_title.upper()
+
+    return normalized_title

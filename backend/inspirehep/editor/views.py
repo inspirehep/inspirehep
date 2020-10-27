@@ -20,7 +20,7 @@ from inspirehep.accounts.decorators import login_required_with_roles
 from inspirehep.accounts.roles import Roles
 from inspirehep.files.api import current_s3_instance
 from inspirehep.matcher.api import match_references
-from inspirehep.matcher.utils import local_refextract_kbs_path, map_refextract_to_schema
+from inspirehep.matcher.utils import create_journal_dict, map_refextract_to_schema
 from inspirehep.pidstore.api.base import PidStoreBase
 from inspirehep.records.api import InspireRecord
 from inspirehep.rt import tickets
@@ -189,12 +189,11 @@ def _simplify_ticket_response(ticket):
 @login_required_with_roles([Roles.cataloger.value])
 def refextract_text():
     """Run refextract on a piece of text."""
-    with local_refextract_kbs_path() as kbs_path:
-        extracted_references = extract_references_from_string(
-            request.json["text"],
-            override_kbs_files=kbs_path,
-            reference_format="{title},{volume},{page}",
-        )
+    extracted_references = extract_references_from_string(
+        request.json["text"],
+        override_kbs_files={"journals": create_journal_dict()},
+        reference_format="{title},{volume},{page}",
+    )
     references = map_refextract_to_schema(extracted_references)
     match_result = match_references(references)
     return jsonify(match_result.get("matched_references"))
@@ -204,12 +203,11 @@ def refextract_text():
 @login_required_with_roles([Roles.cataloger.value])
 def refextract_url():
     """Run refextract on a URL."""
-    with local_refextract_kbs_path() as kbs_path:
-        extracted_references = extract_references_from_url(
-            request.json["url"],
-            override_kbs_files=kbs_path,
-            reference_format="{title},{volume},{page}",
-        )
+    extracted_references = extract_references_from_url(
+        request.json["url"],
+        override_kbs_files={"journals": create_journal_dict()},
+        reference_format="{title},{volume},{page}",
+    )
     references = map_refextract_to_schema(extracted_references)
     match_result = match_references(references)
     return jsonify(match_result.get("matched_references"))
