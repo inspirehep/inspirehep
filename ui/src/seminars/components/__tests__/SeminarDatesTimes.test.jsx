@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { advanceTo, clear } from 'jest-date-mock';
 import SeminarDateTimes from '../SeminarDateTimes';
 
 describe('SeminarDateTimes', () => {
@@ -25,6 +26,7 @@ describe('SeminarDateTimes', () => {
     expect(wrapper).toMatchSnapshot();
   });
   it('renders with timezone abbreviation', () => {
+    advanceTo('2020-09-10');
     const wrapper = shallow(
       <SeminarDateTimes
         startDate="2020-05-15T11:45:00.000000"
@@ -34,5 +36,6 @@ describe('SeminarDateTimes', () => {
       />
     );
     expect(wrapper).toMatchSnapshot();
+    clear();
   });
 });
