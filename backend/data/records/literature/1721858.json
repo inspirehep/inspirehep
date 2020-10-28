@@ -272,8 +272,7 @@
       "hidden": true,
       "key": "S1384107618302379.xml",
       "source": "Elsevier",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g184/3699980/content.xml%3B1"
+      "url": "/api/files/g184/3699980/content.xml%3B1"
     }
   ],
   "dois": [{ "source": "Elsevier", "value": "10.1016/j.newast.2019.02.005" }],

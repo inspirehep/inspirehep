@@ -44,8 +44,7 @@
     {
       "fulltext": true,
       "key": "fulltext.pdf",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g169/3395207/content.pdf%3B1"
+      "url": "/api/files/g169/3395207/content.pdf%3B1"
     }
   ],
   "inspire_categories": [{ "source": "user", "term": "Phenomenology-HEP" }],

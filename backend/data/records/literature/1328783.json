@@ -122,20 +122,17 @@
       "hidden": true,
       "key": "S2405601415007932.xml",
       "source": "Elsevier",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g128/2579954/content.xml%3B1"
+      "url": "/api/files/g128/2579954/content.xml%3B1"
     },
     {
       "fulltext": true,
       "key": "10.1016_j.nuclphysbps.2015.09.304.pdf",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g139/2787828/content.pdf%3B1"
+      "url": "/api/files/g139/2787828/content.pdf%3B1"
     },
     {
       "key": "arXiv:1411.5230.pdf",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g100/2003070/content.pdf%3B2"
+      "url": "/api/files/g100/2003070/content.pdf%3B2"
     }
   ],
   "dois": [

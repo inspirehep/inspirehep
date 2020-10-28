@@ -199,8 +199,7 @@
       "fulltext": true,
       "key": "1811.12764.pdf",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g181/3621131/content.pdf%3B1"
+      "url": "/api/files/g181/3621131/content.pdf%3B1"
     }
   ],
   "external_system_identifiers": [
@@ -213,24 +212,21 @@
         "Relic density in the parameter plane of the initial scalar field density vs. the reheating temperature, for $\\eta_\\phi=0$ (upper left), $\\eta_\\phi=10^{-12}$ (upper right), $\\eta_\\phi=10^{-11}$ (lower left), $\\eta_\\phi=10^{-10}$ (lower right). In the dark regions, the relic density is compatible with Planck measurements.",
       "key": "fig4a.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g181/3621130/content.png%3B1"
+      "url": "/api/files/g181/3621130/content.png%3B1"
     },
     {
       "caption":
         "Relic density in the pMSSM as a function of the neutralino mass and type. The horizontal line shows the Planck dark matter density measurement (see Ref.~\\cite{Arbey:2017eos}).",
       "key": "Oh2MN1_v2.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g181/3621129/content.png%3B1"
+      "url": "/api/files/g181/3621129/content.png%3B1"
     },
     {
       "caption":
         "Relic density in the parameter plane of the initial scalar field density vs. the reheating temperature, for $\\eta_\\phi=0$ (upper left), $\\eta_\\phi=10^{-12}$ (upper right), $\\eta_\\phi=10^{-11}$ (lower left), $\\eta_\\phi=10^{-10}$ (lower right). In the dark regions, the relic density is compatible with Planck measurements.",
       "key": "fig4c.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g181/3621128/content.png%3B1"
+      "url": "/api/files/g181/3621128/content.png%3B1"
     }
   ],
   "inspire_categories": [

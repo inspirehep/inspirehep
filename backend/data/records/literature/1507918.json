@@ -78,13 +78,11 @@
   "documents": [
     {
       "key": "CERN-OPEN-2010-019.pdf",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g139/2794433/content.pdf%3B1"
+      "url": "/api/files/g139/2794433/content.pdf%3B1"
     },
     {
       "key": "DML2010.pdf",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g139/2794434/content.pdf%3B1"
+      "url": "/api/files/g139/2794434/content.pdf%3B1"
     }
   ],
   "external_system_identifiers": [{ "schema": "CDS", "value": "1276784" }],

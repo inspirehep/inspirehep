@@ -73,15 +73,13 @@
     {
       "fulltext": true,
       "key": "10.1016_j.nuclphysbps.2015.09.096.pdf",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g132/2654305/content.pdf%3B1"
+      "url": "/api/files/g132/2654305/content.pdf%3B1"
     },
     {
       "hidden": true,
       "key": "S2405601415005854.xml",
       "source": "Elsevier",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g128/2579813/content.xml%3B1"
+      "url": "/api/files/g128/2579813/content.xml%3B1"
     }
   ],
   "dois": [

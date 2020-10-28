@@ -76102,14 +76102,12 @@
     {
       "key": "arXiv:1710.05833.pdf",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g152/3049533/content.pdf%3B2"
+      "url": "/api/files/g152/3049533/content.pdf%3B2"
     },
     {
       "fulltext": true,
       "key": "fermilab-pub-17-478-a-ae-cd.pdf",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g153/3065135/content.pdf%3B1"
+      "url": "/api/files/g153/3065135/content.pdf%3B1"
     }
   ],
   "dois": [{ "value": "10.3847/2041-8213/aa91c9" }],

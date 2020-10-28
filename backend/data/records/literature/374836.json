@@ -123,15 +123,13 @@
       "hidden": true,
       "key": "arXiv:hep-th_9407087.pdf",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g41/825133/arXiv%3Ahep-th_9407087.pdf%3B1"
+      "url": "/api/files/g41/825133/arXiv%3Ahep-th_9407087.pdf%3B1"
     },
     {
       "hidden": true,
       "key": "0550321394901244.xml",
       "source": "Elsevier",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g126/2523854/content.xml%3B1"
+      "url": "/api/files/g126/2523854/content.xml%3B1"
     }
   ],
   "dois": [

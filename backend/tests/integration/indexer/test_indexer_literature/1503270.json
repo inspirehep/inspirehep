@@ -28,8 +28,7 @@
   "documents": [
     {
       "key": "ATLAS-CONF-2016-113.pdf",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g138/2776602/content.pdf%3B1"
+      "url": "/api/files/g138/2776602/content.pdf%3B1"
     }
   ],
   "energy_ranges": ["1-10 TeV"],

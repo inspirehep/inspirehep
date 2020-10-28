@@ -124,14 +124,12 @@
       "description": "Article from SCOAP3",
       "key": "scoap3-fulltext.pdf;pdfa",
       "source": "SCOAP3",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g164/3299419/content.pdf%3Bpdfa%3B2"
+      "url": "/api/files/g164/3299419/content.pdf%3Bpdfa%3B2"
     },
     {
       "key": "arXiv:1505.01106.pdf",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g106/2130883/content.pdf%3B3"
+      "url": "/api/files/g106/2130883/content.pdf%3B3"
     }
   ],
   "dois": [
@@ -147,32 +145,28 @@
         "The values of the string tension in lattice units obtained from our lattice simulations (red circles) are showed along with those reported in ref.~\\cite{Lucini:2003zr} (blue squares). The solid black curve and the dashed black lines show the interpolation to the functional form in eq.~(\\protect\\ref{betaform}), with the associated uncertainties.",
       "key": "a_interpolation.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g106/2130570/content.png%3B3"
+      "url": "/api/files/g106/2130570/content.png%3B3"
     },
     {
       "caption":
         "Comparison between our lattice results for the trace anomaly in $\\SU(2)$ Yang-Mills theory from simulations with $N_t=5$, $6$ and $8$ (brown symbols) and the behavior expected for a gas of free, massive glueballs. The dotted line corresponds to the contribution of the lightest state only, with quantum numbers $J^{PC}=0^{++}$. The dashed line includes all the low-lying glueballs, with masses below the threshold associated with the appearance of two $0^{++}$ glueballs  (taken from \\cite{Teper:1998kw}) while the solid line corresponds to the case in which we included also the contribution from high-lying states, described by a bosonic string model. The trace anomaly $\\Delta$ is displayed in units of the fourth power of the temperature, and is plotted as a function of $T/T_c$.",
       "key": "su2_trace.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g106/2130572/content.png%3B3"
+      "url": "/api/files/g106/2130572/content.png%3B3"
     },
     {
       "caption":
         "Same as in fig.~\\protect\\ref{fig:su2_trace}, but for the pressure $p$, in units of the fourth power of the temperature.",
       "key": "su2_pressure.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g106/2130569/content.png%3B3"
+      "url": "/api/files/g106/2130569/content.png%3B3"
     },
     {
       "caption":
         "Comparison between the predictions of a massive-glueball gas, supplemented by the contribution from states modelled by a closed Nambu-Got\\={o} string model, like in eq.~(\\protect\\ref{glueballgas}), and continuum-extrapolated data obtained in ref.~\\cite{Borsanyi:2012ve} for $\\SU(3)$ Yang-Mills theory and our data for the $\\SU(2)$ theory (from simulations at finite lattice spacings corresponding to $N_t=6$ and $8$), as a function of $T/\\THagedorn$.",
       "key": "su2_su3_T_over_TH.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g106/2130571/content.png%3B3"
+      "url": "/api/files/g106/2130571/content.png%3B3"
     }
   ],
   "imprints": [{ "date": "2015-07-27" }],

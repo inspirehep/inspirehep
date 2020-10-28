@@ -55194,15 +55194,13 @@
     {
       "key": "arXiv:1207.7214.pdf",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g56/1127310/arXiv%3A1207.7214.pdf%3B3"
+      "url": "/api/files/g56/1127310/arXiv%3A1207.7214.pdf%3B3"
     },
     {
       "hidden": true,
       "key": "S037026931200857X.xml",
       "source": "Elsevier",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g128/2567722/content.xml%3B1"
+      "url": "/api/files/g128/2567722/content.xml%3B1"
     }
   ],
   "dois": [{ "value": "10.1016/j.physletb.2012.08.020" }],
@@ -55220,79 +55218,69 @@
         "noimg: Event generators used to model the signal and background processes. ``PYTHIA'' indicates that PYTHIA6 and PYTHIA8 are used for simulations of $\\sqrt{s}=7$\\,TeV and $\\sqrt{s}=8$\\,TeV data, respectively.: Summary of the estimated numbers of $Z+{\\rm jets}$ and $t\\bar{t}$ background events, for the $\\sqrt{s}=7\\,\\tev$ and $\\sqrt{s}=8\\,\\tev$ data in the entire phase-space of the analysis after the kinematic selections described in the text. The backgrounds are combined for the $2\\mu2e$ and $4e$ channels, as discussed in the text. The first uncertainty is statistical, while the second is systematic.",
       "key": "fig00000.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g56/1127322/fig00000.png%3B1"
+      "url": "/api/files/g56/1127322/fig00000.png%3B1"
     },
     {
       "caption":
         "noimgThe numbers of expected signal ($\\mH=125\\,\\gev$) and background events, together with the numbers of observed events in the data, in a window of size $\\pm 5\\,\\gev$ around $125\\,\\gev$, for the combined $\\sqrt{s}=7\\,\\tev$ and $\\sqrt{s}=8\\,\\tev$ data.",
       "key": "fig00001.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g56/1127323/fig00001.png%3B1"
+      "url": "/api/files/g56/1127323/fig00001.png%3B1"
     },
     {
       "caption":
         "noimgNumber of events in the data~($N_\\mathrm{D}$) and expected number of signal events~($N_\\mathrm{S}$) for $m_H=126.5$~GeV from the \\hgg\\ analysis, for each category in the mass range $100{\\--}160$~GeV. The mass resolution FWHM (see text) is also given for the 8\\,\\TeV data. The Higgs boson production cross section multiplied by the branching ratio into two photons~($\\sigma\\times B(H\\to\\gamma\\gamma)$) is listed for $m_H=126.5$~GeV. The statistical uncertainties on $N_\\mathrm{S}$ and FWHM are less than 1\\,\\%.",
       "key": "fig00002.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g56/1127320/fig00002.png%3B1"
+      "url": "/api/files/g56/1127320/fig00002.png%3B1"
     },
     {
       "caption":
         "noimgThe expected numbers of signal ($m_{H}=125\\GeV$) and background events after all selections, including a cut on the transverse mass of $0.75\\,m_{H}&amp;lt;m_{\\rm T}&amp;lt;m_{H}$ for $m_{H}=125\\GeV$. The observed numbers of events in data are also displayed. The $e\\mu$ and $\\mu e$ channels are combined. The uncertainties shown are the combination of the statistical and all systematic uncertainties, taking into account the constraints from control samples. For the \\TwoJet\\ analysis, backgrounds with fewer than 0.01 expected events are marked with `-'.",
       "key": "fig00003.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g56/1127321/fig00003.png%3B1"
+      "url": "/api/files/g56/1127321/fig00003.png%3B1"
     },
     {
       "caption":
         "noimg: Summary of the individual channels entering the combination. The transition points between separately optimised \\mh\\ regions are indicated where applicable. In channels sensitive to associated production of the Higgs boson, $V$ indicates a $W$ or $Z$ boson. The symbols $\\otimes$ and $\\oplus$ represent direct products and sums over sets of selection requirements, respectively.: Characterisation of the excess in the \\htollllp, \\hgg\\ and \\hwwlnln\\ channels and the combination of all channels listed in Table~\\ref{tab:channels}. The mass value $m_{\\rm max}$ for which the local significance is maximum, the maximum observed local significance $Z_l$ and the expected local significance $E(Z_l)$ in the presence of a SM Higgs boson signal at $m_{max}$ are given. The best fit value of the signal strength parameter $\\hat\\mu$ at $\\mh=126$~\\GeV\\ is shown with the total uncertainty. The expected and observed mass ranges excluded at 95\\%\\ CL (99\\%\\ CL, indicated by a~*) are also given, for the combined $\\sqrt{s}=7$\\,TeV and $\\sqrt{s}=8$\\,TeV data.",
       "key": "fig00004.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g56/1127325/fig00004.png%3B1"
+      "url": "/api/files/g56/1127325/fig00004.png%3B1"
     },
     {
       "caption":
         "Invariant mass distribution of the sub-leading lepton pair ($m_{34}$) for a sample defined by the presence of a $Z$ boson candidate and an additional same-flavour electron or muon pair, for the combination of $\\sqrt{s}=7\\,\\tev$ and~$\\sqrt{s}=8\\,\\tev$~data in the entire phase-space of the analysis after the kinematic selections described in the text. Isolation and transverse impact parameter significance requirements are applied to the leading lepton pair only. The MC is normalised to the data-driven background estimations. The relatively small contribution of a SM Higgs with $m_{H}=125\\,\\gev$ in this sample is also shown.",
       "key": "CR4l_1_all_Z2mass_templ_check.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g56/1127313/CR4l_1_all_Z2mass_templ_check.png%3B1"
+      "url": "/api/files/g56/1127313/CR4l_1_all_Z2mass_templ_check.png%3B1"
     },
     {
       "caption":
         "The distribution of the four-lepton invariant mass, $m_{4\\ell}$, for the selected candidates, compared to the background expectation in the $80$--$250\\,\\gev$ mass range, for the combination of the $\\sqrt{s}=7\\,\\tev$ and $\\sqrt{s}=8\\,\\tev$ data. The signal expectation for a SM Higgs with $\\mH=125\\,\\gev$ is also shown.",
       "key": "signal125_comp_comb.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g56/1127326/signal125_comp_comb.png%3B1"
+      "url": "/api/files/g56/1127326/signal125_comp_comb.png%3B1"
     },
     {
       "caption":
         "Distribution of the $m_{34}$ versus the $m_{12}$ invariant mass, before the application of the $Z$-mass constrained kinematic fit, for the selected candidates in the $m_{4\\ell}$ range $120$--$130\\,\\gev$. The expected distributions for a SM Higgs with $\\mH=125\\,\\gev$ (the sizes of the boxes indicate the relative density) and for the total background (the intensity of the shading indicates the relative density) are also shown.",
       "key": "m12Vsm34_colz_box.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g56/1127317/m12Vsm34_colz_box.png%3B1"
+      "url": "/api/files/g56/1127317/m12Vsm34_colz_box.png%3B1"
     },
     {
       "caption":
         "The distributions of the invariant mass of diphoton candidates after all selections for the combined 7 TeV and 8 TeV data sample. The inclusive sample is shown in (a) and a weighted version of the same sample in (c); the weights are explained in the text. The result of a fit to the data of the sum of a signal component fixed to $m_H=126.5\\GeV$ and a background component described by a fourth-order Bernstein polynomial is superimposed. The residuals of the data and weighted data with respect to the respective fitted background component are displayed in (b) and (d).",
       "key": "mggweighted_panel_nonorm.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g56/1127324/mggweighted_panel_nonorm.png%3B1"
+      "url": "/api/files/g56/1127324/mggweighted_panel_nonorm.png%3B1"
     },
     {
       "caption": "Caption not extracted",
       "key": "emme_Cut_0jet_DPhill_mh125_SS_lin.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g56/1127311/emme_Cut_0jet_DPhill_mh125_SS_lin.png%3B1"
+      "url": "/api/files/g56/1127311/emme_Cut_0jet_DPhill_mh125_SS_lin.png%3B1"
     },
     {
       "caption":
@@ -55300,7 +55288,7 @@
       "key": "emme_CutWWControl_0jet_MT_wide_mh125_lin.png",
       "source": "arxiv",
       "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g56/1127309/emme_CutWWControl_0jet_MT_wide_mh125_lin.png%3B1"
+        "/api/files/g56/1127309/emme_CutWWControl_0jet_MT_wide_mh125_lin.png%3B1"
     },
     {
       "caption":
@@ -55308,55 +55296,49 @@
       "key": "emme_CutTopoDPhill_0jet_1jet_MT_mh125_lin.png",
       "source": "arxiv",
       "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g56/1127315/emme_CutTopoDPhill_0jet_1jet_MT_mh125_lin.png%3B1"
+        "/api/files/g56/1127315/emme_CutTopoDPhill_0jet_1jet_MT_mh125_lin.png%3B1"
     },
     {
       "caption":
         "Combined search results: (a) The observed (solid) 95\\%~CL limits on the signal strength as a function of \\mh\\ and the expectation (dashed) under the background-only hypothesis. The dark and light shaded bands show the $\\pm 1\\sigma$ and $\\pm 2\\sigma$ uncertainties on the background-only expectation. (b) The observed (solid) local $p_0$ as a function of \\mh\\ and the expectation (dashed) for a SM Higgs boson signal hypothesis ($\\mu=1$) at the given mass. (c) The best-fit signal strength $\\hat\\mu$ as a function of \\mh. The band indicates the approximate 68\\%\\ CL interval around the fitted value.",
       "key": "CombinedResults.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g56/1127318/CombinedResults.png%3B1"
+      "url": "/api/files/g56/1127318/CombinedResults.png%3B1"
     },
     {
       "caption":
         "The observed local $p_0$ as a function of the hypothesised Higgs boson mass for the (a) \\htollll, (b) \\hgg\\ and (c) \\hwwlnln\\ channels. The dashed curves show the expected local $p_0$ under the hypothesis of a SM Higgs boson signal at that mass. Results are shown separately for the $\\sqrt{s}=7$\\,TeV data (dark, blue), the $\\sqrt{s}=8$\\,TeV data (light, red), and their combination (black).",
       "key": "IndividualResults.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g56/1127308/IndividualResults.png%3B2"
+      "url": "/api/files/g56/1127308/IndividualResults.png%3B2"
     },
     {
       "caption":
         "The observed (solid) local $p_0$ as a function of \\mh\\ in the low mass range. The dashed curve shows the expected local $p_0$ under the hypothesis of a SM Higgs boson signal at that mass with its $\\pm 1\\sigma$ band. The horizontal dashed lines indicate the $p$-values corresponding to significances of 1 to 6~$\\sigma$.",
       "key": "disc3_0_sig_p0_zoom.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g56/1127319/disc3_0_sig_p0_zoom.png%3B1"
+      "url": "/api/files/g56/1127319/disc3_0_sig_p0_zoom.png%3B1"
     },
     {
       "caption":
         "Measurements of the signal strength parameter $\\mu$ for \\mh=126\\,GeV\\ for the individual channels and their combination.",
       "key": "muPlotSingle.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g56/1127314/muPlotSingle.png%3B2"
+      "url": "/api/files/g56/1127314/muPlotSingle.png%3B2"
     },
     {
       "caption":
         "Confidence intervals in the $(\\mu,\\mh)$ plane for the \\hZZllll, \\hgg, and \\hWWlnln\\ channels, including all systematic uncertainties. The markers indicate the maximum likelihood estimates $(\\hat\\mu,\\hat{m}_H)$ in the corresponding channels (the maximum likelihood estimates for \\hZZllll\\ and \\hWWlnln\\ coincide).",
       "key": "PL_comb_muMHContour_gglllllvlv_CL.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g56/1127312/PL_comb_muMHContour_gglllllvlv_CL.png%3B1"
+      "url": "/api/files/g56/1127312/PL_comb_muMHContour_gglllllvlv_CL.png%3B1"
     },
     {
       "caption":
         "Likelihood contours for the \\hgg\\ channel in the $(\\mu_{\\mathrm{ggF}+t\\bar{t}H}, \\mu_{\\mathrm{VBF}+VH})$ plane including the branching ratio factor $B/B_{\\rm {\\rm SM}}$. The quantity $\\mu_{\\mathrm{ggF}+t\\bar{t}H}$ ($\\mu_{\\mathrm{VBF}+VH}$) is a common scale factor for the ggF and $t\\bar{t}H$ (VBF and $VH$) production cross sections. The best fit to the data (+) and 68\\%\\ (full) and 95\\%\\ (dashed) CL contours are also indicated, as well as the SM expectation ($\\times$).",
       "key": "muSplitContourOff_profFine.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g56/1127316/muSplitContourOff_profFine.png%3B1"
+      "url": "/api/files/g56/1127316/muSplitContourOff_profFine.png%3B1"
     }
   ],
   "imprints": [{ "date": "2012-09-17" }],

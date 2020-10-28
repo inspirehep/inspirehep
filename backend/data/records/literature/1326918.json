@@ -66,21 +66,18 @@
     {
       "key": "arXiv:1411.2555.pdf",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g99/1996141/content.pdf%3B1"
+      "url": "/api/files/g99/1996141/content.pdf%3B1"
     },
     {
       "hidden": true,
       "key": "S2405601415005763.xml",
       "source": "Elsevier",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g128/2579913/content.xml%3B1"
+      "url": "/api/files/g128/2579913/content.xml%3B1"
     },
     {
       "fulltext": true,
       "key": "10.1016_j.nuclphysbps.2015.09.087.pdf",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g131/2637413/content.pdf%3B1"
+      "url": "/api/files/g131/2637413/content.pdf%3B1"
     }
   ],
   "dois": [
@@ -93,32 +90,28 @@
         "Standard model predictions of $a_\\mu$ by several groups compared to the measurement from BNL (taken from~\\cite{teubner}).",
       "key": "a_sm_history_20Apr2011_new.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g99/1995711/content.png%3B2"
+      "url": "/api/files/g99/1995711/content.png%3B2"
     },
     {
       "caption":
         "Distribution of electron counts versus time for 3.6 billion muon decays from the E821 experiment. The data are wrapped around modulo 100 $\\mu$s~\\cite{Bennett:2006fi}.",
       "key": "wiggle01.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g99/1995713/content.png%3B2"
+      "url": "/api/files/g99/1995713/content.png%3B2"
     },
     {
       "caption":
         "The new MC-1 building at Fermilab, where the muon g-2 storage ring is being reassembled in the larger part to the left. The part to the right houses the counting room, electronics, etc, with cryogenics services further right. (Image credit: Fermilab.)",
       "key": "mc1.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g99/1995712/content.png%3B2"
+      "url": "/api/files/g99/1995712/content.png%3B2"
     },
     {
       "caption":
         "Re-assembly of the g-2 storage-ring magnet at Fermilab, after the three superconducting coils were positioned gently on top of the newly assembled bottom ring of steel yoke segments. The coils and their complex interconnect system (top right in photo) were transported as a single unit from Brookhaven to Fermilab by land, sea and river, in 2013. (Image credit: Fermilab.)",
       "key": "ring.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g99/1995710/content.png%3B2"
+      "url": "/api/files/g99/1995710/content.png%3B2"
     }
   ],
   "imprints": [{ "date": "2016-06-02" }],

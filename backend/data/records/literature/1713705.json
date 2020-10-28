@@ -27729,8 +27729,7 @@
   "documents": [
     {
       "key": "CERN-ACC-2018-0057.pdf",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g183/3660602/content.pdf%3B1"
+      "url": "/api/files/g183/3660602/content.pdf%3B1"
     }
   ],
   "external_system_identifiers": [{ "schema": "CDS", "value": "2651299" }],
