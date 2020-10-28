@@ -585,7 +585,7 @@ def test_create_record_from_mirror_recids_retries_on_timeout_error(
         b'    <subfield code="a">HEP</subfield>'
         b"  </datafield>"
         b'  <datafield tag="FFT" ind1=" " ind2=" ">'
-        b'    <subfield code="a">/opt/cds-invenio/var/data/files/g97/1940001/content.pdf;2</subfield>'
+        b'    <subfield code="a">http://inspire-afs-web.cern.ch/opt/cds-invenio/var/data/files/g97/1940001/content.pdf;2</subfield>'
         b'    <subfield code="d"></subfield>'
         b'    <subfield code="f">.pdf</subfield>'
         b'    <subfield code="n">arXiv:1409.0794</subfield>'

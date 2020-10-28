@@ -53680,15 +53680,13 @@
     {
       "key": "arXiv:1701.07240.pdf",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2807488/content.pdf%3B2"
+      "url": "/api/files/g140/2807488/content.pdf%3B2"
     },
     {
       "description": "Article from SCOAP3",
       "key": "scoap3-fulltext.pdf;pdfa",
       "source": "SCOAP3",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g157/3155391/content.pdf%3Bpdfa%3B5"
+      "url": "/api/files/g157/3155391/content.pdf%3Bpdfa%3B5"
     }
   ],
   "dois": [
@@ -53709,338 +53707,286 @@
     {
       "key": "Plots_WModelling_wzpt_B.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806873/content.png%3B6"
+      "url": "/api/files/g140/2806873/content.png%3B6"
     },
     {
       "key": "Plots_WModelling_Wmunu_mtw_All_ratio.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806881/content.png%3B6"
+      "url": "/api/files/g140/2806881/content.png%3B6"
     },
     {
       "key": "Plots_WModelling_wplusminuseta_B.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806865/content.png%3B6"
+      "url": "/api/files/g140/2806865/content.png%3B6"
     },
     {
       "key": "Plots_WModelling_a2Var_B.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806887/content.png%3B6"
+      "url": "/api/files/g140/2806887/content.png%3B6"
     },
     {
       "key": "Plots_Recoil_recoil_Phi_B.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806910/content.png%3B6"
+      "url": "/api/files/g140/2806910/content.png%3B6"
     },
     {
       "key": "Plots_Recoil_recoilPARpPt_all_B.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806890/content.png%3B6"
+      "url": "/api/files/g140/2806890/content.png%3B6"
     },
     {
       "key": "Plots_Recoil_recoilPERP_all_B.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806871/content.png%3B6"
+      "url": "/api/files/g140/2806871/content.png%3B6"
     },
     {
       "caption": "Caption not extracted",
       "key": "Plots_Recoil_recoil_all_B.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806885/content.png%3B6"
+      "url": "/api/files/g140/2806885/content.png%3B6"
     },
     {
       "key": "Plots_Recoil_Wmunu_recoilPARlep_PythiaHerwig_PtRew.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806893/content.png%3B6"
+      "url": "/api/files/g140/2806893/content.png%3B6"
     },
     {
       "key": "Plots_ZControlPlots_Fig14a_ptzmm_B.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806884/content.png%3B6"
+      "url": "/api/files/g140/2806884/content.png%3B6"
     },
     {
       "key": "Plots_ZControlPlots_Fig14b_yee_B.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806874/content.png%3B6"
+      "url": "/api/files/g140/2806874/content.png%3B6"
     },
     {
       "caption": "Caption not extracted",
       "key": "Plots_ZControlPlots_Fig14b_ymm_B.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806882/content.png%3B6"
+      "url": "/api/files/g140/2806882/content.png%3B6"
     },
     {
       "key": "Plots_ZControlPlots_ptmu_B.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806876/content.png%3B6"
+      "url": "/api/files/g140/2806876/content.png%3B6"
     },
     {
       "key": "Plots_ZControlPlots_Electrons_mT_plus_B.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806894/content.png%3B6"
+      "url": "/api/files/g140/2806894/content.png%3B6"
     },
     {
       "key": "Plots_ZControlPlots_Muons_mT_plus_B.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806901/content.png%3B6"
+      "url": "/api/files/g140/2806901/content.png%3B6"
     },
     {
       "caption": "Caption not extracted",
       "key": "Plots_ZControlPlots_Electrons_mT_minus_B.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806860/content.png%3B6"
+      "url": "/api/files/g140/2806860/content.png%3B6"
     },
     {
       "caption": "Caption not extracted",
       "key": "Plots_ZControlPlots_Muons_mT_minus_B.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806864/content.png%3B6"
+      "url": "/api/files/g140/2806864/content.png%3B6"
     },
     {
       "caption":
         "Summary of the $m_Z$ determinations from the $\\pt^\\ell$ and $\\mt$ distributions in the muon and electron decay channels. The LEP combined value of $m_Z$, which is used as input for the detector calibration, is also indicated. The horizontal and vertical bands show the uncertainties of the $m_Z$ determinations and of the LEP combined value, respectively.",
       "key": "Plots_SummaryPlots_ZBosonOverview.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806904/content.png%3B6"
+      "url": "/api/files/g140/2806904/content.png%3B6"
     },
     {
       "key": "Plots_WBackground_Fig5a_QCDplot_Etmiss_hr_pl_cut_5__B.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806878/content.png%3B6"
+      "url": "/api/files/g140/2806878/content.png%3B6"
     },
     {
       "key": "Plots_WBackground_Fig4b_Wreco_transM_pl_cut_5__B.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806879/content.png%3B6"
+      "url": "/api/files/g140/2806879/content.png%3B6"
     },
     {
       "key": "Plots_WBackground_Fig5b_Wreco_transM_pl_cut_5__B.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806911/content.png%3B6"
+      "url": "/api/files/g140/2806911/content.png%3B6"
     },
     {
       "caption": "Caption not extracted",
       "key": "Plots_WBackground_QCDplot_selElec_a_pl_cut_5__B.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806902/content.png%3B6"
+      "url": "/api/files/g140/2806902/content.png%3B6"
     },
     {
       "caption": "Caption not extracted",
       "key": "Plots_WBackground_QCDplot_selMuon_a_pl_cut_5__B.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806898/content.png%3B6"
+      "url": "/api/files/g140/2806898/content.png%3B6"
     },
     {
       "key": "Plots_WBackground_Fig6b_B.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806906/content.png%3B6"
+      "url": "/api/files/g140/2806906/content.png%3B6"
     },
     {
       "key": "Plots_WControlPlots_selElec_Eta_min_cut_7__B.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806886/content.png%3B6"
+      "url": "/api/files/g140/2806886/content.png%3B6"
     },
     {
       "key": "Plots_WControlPlots_selElec_recoil_pl_cut_7__B.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806888/content.png%3B6"
+      "url": "/api/files/g140/2806888/content.png%3B6"
     },
     {
       "key": "Plots_WControlPlots_selElec_recoil_min_cut_7__B.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806909/content.png%3B6"
+      "url": "/api/files/g140/2806909/content.png%3B6"
     },
     {
       "caption": "Caption not extracted",
       "key": "Plots_WControlPlots_selElec_recoil_PAR_lep_pl_cut_7__B.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806895/content.png%3B6"
+      "url": "/api/files/g140/2806895/content.png%3B6"
     },
     {
       "caption": "Caption not extracted",
       "key": "Plots_WControlPlots_selElec_recoil_PAR_lep_min_cut_7__B.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806897/content.png%3B6"
+      "url": "/api/files/g140/2806897/content.png%3B6"
     },
     {
       "key": "Plots_WControlPlots_selMuon_Eta_min_cut_7__B.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806875/content.png%3B6"
+      "url": "/api/files/g140/2806875/content.png%3B6"
     },
     {
       "key": "Plots_WControlPlots_selMuon_recoil_pl_cut_7__B.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806905/content.png%3B6"
+      "url": "/api/files/g140/2806905/content.png%3B6"
     },
     {
       "key": "Plots_WControlPlots_selMuon_recoil_min_cut_7__B.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806872/content.png%3B6"
+      "url": "/api/files/g140/2806872/content.png%3B6"
     },
     {
       "caption": "Caption not extracted",
       "key": "Plots_WControlPlots_selMuon_recoil_PAR_lep_pl_cut_7__B.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806870/content.png%3B6"
+      "url": "/api/files/g140/2806870/content.png%3B6"
     },
     {
       "caption": "Caption not extracted",
       "key": "Plots_WControlPlots_selMuon_recoil_PAR_lep_min_cut_7__B.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806900/content.png%3B6"
+      "url": "/api/files/g140/2806900/content.png%3B6"
     },
     {
       "key": "Plots_WControlPlots_Wmunu_recoilPARlep_PythiaHerwig.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806899/content.png%3B6"
+      "url": "/api/files/g140/2806899/content.png%3B6"
     },
     {
       "key": "Plots_WControlPlots_Wmunu_uPar_PDM_ratioInvRebin.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806863/content.png%3B6"
+      "url": "/api/files/g140/2806863/content.png%3B6"
     },
     {
       "key": "Plots_SummaryPlots_WMuPtMtOverview.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806907/content.png%3B6"
+      "url": "/api/files/g140/2806907/content.png%3B6"
     },
     {
       "key": "Plots_WControlPlots_selElec_Pt_min_cut_7__B.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806866/content.png%3B6"
+      "url": "/api/files/g140/2806866/content.png%3B6"
     },
     {
       "key": "Plots_WControlPlots_selElec_transM_pl_cut_7__B.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806896/content.png%3B6"
+      "url": "/api/files/g140/2806896/content.png%3B6"
     },
     {
       "key": "Plots_WControlPlots_selElec_transM_min_cut_7__B.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806861/content.png%3B6"
+      "url": "/api/files/g140/2806861/content.png%3B6"
     },
     {
       "caption": "Caption not extracted",
       "key": "Plots_WControlPlots_selElec_etmiss_pl_cut_7__B.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806868/content.png%3B6"
+      "url": "/api/files/g140/2806868/content.png%3B6"
     },
     {
       "caption": "Caption not extracted",
       "key": "Plots_WControlPlots_selElec_etmiss_min_cut_7__B.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806903/content.png%3B6"
+      "url": "/api/files/g140/2806903/content.png%3B6"
     },
     {
       "key": "Plots_WControlPlots_selMuon_Pt_min_cut_7__B.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806869/content.png%3B6"
+      "url": "/api/files/g140/2806869/content.png%3B6"
     },
     {
       "key": "Plots_WControlPlots_selMuon_transM_pl_cut_7__B.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806889/content.png%3B6"
+      "url": "/api/files/g140/2806889/content.png%3B6"
     },
     {
       "key": "Plots_WControlPlots_selMuon_transM_min_cut_7__B.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806883/content.png%3B6"
+      "url": "/api/files/g140/2806883/content.png%3B6"
     },
     {
       "caption": "Caption not extracted",
       "key": "Plots_WControlPlots_selMuon_etmiss_pl_cut_7__B.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806877/content.png%3B6"
+      "url": "/api/files/g140/2806877/content.png%3B6"
     },
     {
       "caption": "Caption not extracted",
       "key": "Plots_WControlPlots_selMuon_etmiss_min_cut_7__B.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806891/content.png%3B6"
+      "url": "/api/files/g140/2806891/content.png%3B6"
     },
     {
       "caption":
         "Overview of the $m_W$ determinations from the $\\pt^\\ell$ and $\\mt$ distributions, and for the combination of the $\\pt^\\ell$ and $\\mt$ distributions, in the muon and electron decay channels and for $W^+$ and $W^-$ events. The horizontal lines and bands show the statistical and total uncertainties of the individual $m_W$ determinations. The combined result for $m_W$ and its statistical and total uncertainties are also indicated (vertical line and bands).",
       "key": "Plots_SummaryPlots_WBosonOverview.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806892/content.png%3B6"
+      "url": "/api/files/g140/2806892/content.png%3B6"
     },
     {
       "key": "Plots_SummaryPlots_WMTFittingRange.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806880/content.png%3B6"
+      "url": "/api/files/g140/2806880/content.png%3B6"
     },
     {
       "caption":
         "The measured value of $m_W$ is compared to other published results, including measurements from the LEP experiments ALEPH, DELPHI, L3 and OPAL~\\cite{Schael:2006mz,Abdallah:2008ad,Achard:2005qy,Abbiendi:2005eq}, and from the Tevatron collider experiments CDF and D0~\\cite{Aaltonen:2012bp,Abazov:2012bv}. The vertical bands show the statistical and total uncertainties of the ATLAS measurement, and the horizontal bands and lines show the statistical and total uncertainties of the other published results. Measured values of $m_W$ for positively and negatively charged $W$ bosons are also shown.",
       "key": "Plots_SummaryPlots_WWorldAverage.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806867/content.png%3B6"
+      "url": "/api/files/g140/2806867/content.png%3B6"
     },
     {
       "caption":
         "The present measurement of $m_W$ is compared to the SM prediction from the global electroweak fit~\\cite{Baak:2014ora} updated using recent measurements of the top-quark and Higgs-boson masses, $m_t=172.84 \\pm 0.70 \\GeV$~\\cite{Aaboud:2016igd} and $m_{H}=125.09 \\pm 0.24 \\GeV$~\\cite{HIGG-2014-14}, and to the combined values of $m_W$ measured at LEP~\\cite{Schael:2013ita} and at the Tevatron collider~\\cite{Aaltonen:2013iut}. \\vspace{0.44 cm}",
       "key": "Plots_SummaryPlots_WBosonOverviewEW_v2.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806908/content.png%3B6"
+      "url": "/api/files/g140/2806908/content.png%3B6"
     },
     {
       "caption":
         "The 68\\% and 95\\% confidence-level contours of the $m_W$ and $m_t$ indirect determination from the global electroweak fit~\\cite{Baak:2014ora} are compared to the 68\\% and 95\\% confidence-level contours of the ATLAS measurements of the top-quark and $W$-boson masses. The determination from the electroweak fit uses as input the LHC measurement of the Higgs-boson mass, $m_{H}=125.09 \\pm 0.24 \\GeV$~\\cite{HIGG-2014-14}.",
       "key": "Plots_SummaryPlots_EWFit_MWMTop.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g140/2806862/content.png%3B6"
+      "url": "/api/files/g140/2806862/content.png%3B6"
     }
   ],
   "imprints": [{ "date": "2018-02-06" }],

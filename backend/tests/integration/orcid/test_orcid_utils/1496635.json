@@ -14149,14 +14149,12 @@
       "description": "Article from SCOAP3",
       "key": "scoap3-fulltext.pdf;pdfa",
       "source": "SCOAP3",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g139/2783786/content.pdf%3Bpdfa%3B1"
+      "url": "/api/files/g139/2783786/content.pdf%3Bpdfa%3B1"
     },
     {
       "key": "arXiv:1611.03076.pdf",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740955/content.pdf%3B3"
+      "url": "/api/files/g137/2740955/content.pdf%3B3"
     }
   ],
   "dois": [{ "value": "10.1007/JHEP12(2016)087" }],
@@ -14171,456 +14169,399 @@
         "\\omcl curves for the \\DK combination obtained with the \\plugin method. The $1\\sigma$ and $2\\sigma$ levels are indicated by the horizontal dotted lines.",
       "key": "Fig1a.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740560/content.png%3B6"
+      "url": "/api/files/g137/2740560/content.png%3B6"
     },
     {
       "caption":
         "\\omcl curves for the \\DK combination obtained with the \\plugin method. The $1\\sigma$ and $2\\sigma$ levels are indicated by the horizontal dotted lines.",
       "key": "Fig1b.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740561/content.png%3B6"
+      "url": "/api/files/g137/2740561/content.png%3B6"
     },
     {
       "caption":
         "\\omcl curves for the \\DK combination obtained with the \\plugin method. The $1\\sigma$ and $2\\sigma$ levels are indicated by the horizontal dotted lines.",
       "key": "Fig1c.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740562/content.png%3B6"
+      "url": "/api/files/g137/2740562/content.png%3B6"
     },
     {
       "caption":
         "\\omcl curves for the \\DK combination obtained with the \\plugin method. The $1\\sigma$ and $2\\sigma$ levels are indicated by the horizontal dotted lines.",
       "key": "Fig1d.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740556/content.png%3B6"
+      "url": "/api/files/g137/2740556/content.png%3B6"
     },
     {
       "caption":
         "\\omcl curves for the \\DK combination obtained with the \\plugin method. The $1\\sigma$ and $2\\sigma$ levels are indicated by the horizontal dotted lines.",
       "key": "Fig1e.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740557/content.png%3B6"
+      "url": "/api/files/g137/2740557/content.png%3B6"
     },
     {
       "caption":
         "Profile likelihood contours from the \\DK combination. The contours show the two-dimensional $1\\sigma$ and $2\\sigma$ boundaries, corresponding to $68.3\\%$ and $95.5\\%$~CL, respectively.",
       "key": "Fig2a.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740527/content.png%3B6"
+      "url": "/api/files/g137/2740527/content.png%3B6"
     },
     {
       "caption":
         "Profile likelihood contours from the \\DK combination. The contours show the two-dimensional $1\\sigma$ and $2\\sigma$ boundaries, corresponding to $68.3\\%$ and $95.5\\%$~CL, respectively.",
       "key": "Fig2b.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740530/content.png%3B6"
+      "url": "/api/files/g137/2740530/content.png%3B6"
     },
     {
       "caption":
         "Profile likelihood contours from the \\DK combination. The contours show the two-dimensional $1\\sigma$ and $2\\sigma$ boundaries, corresponding to $68.3\\%$ and $95.5\\%$~CL, respectively.",
       "key": "Fig2c.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740529/content.png%3B6"
+      "url": "/api/files/g137/2740529/content.png%3B6"
     },
     {
       "caption":
         "Profile likelihood contours from the \\DK combination. The contours show the two-dimensional $1\\sigma$ and $2\\sigma$ boundaries, corresponding to $68.3\\%$ and $95.5\\%$~CL, respectively.",
       "key": "Fig2d.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740525/content.png%3B6"
+      "url": "/api/files/g137/2740525/content.png%3B6"
     },
     {
       "caption":
         "Profile likelihood contours from the \\DK combination. The contours show the two-dimensional $1\\sigma$ and $2\\sigma$ boundaries, corresponding to $68.3\\%$ and $95.5\\%$~CL, respectively.",
       "key": "Fig2e.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740524/content.png%3B6"
+      "url": "/api/files/g137/2740524/content.png%3B6"
     },
     {
       "caption":
         "Profile likelihood contours from the \\DK combination. The contours show the two-dimensional $1\\sigma$ and $2\\sigma$ boundaries, corresponding to $68.3\\%$ and $95.5\\%$~CL, respectively.",
       "key": "Fig2f.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740526/content.png%3B6"
+      "url": "/api/files/g137/2740526/content.png%3B6"
     },
     {
       "caption":
         "\\omcl curves for the \\Dh combination obtained with the \\plugin method. The $1\\sigma$ and $2\\sigma$ levels are indicated by the horizontal dotted lines. \\vspace{2cm}",
       "key": "Fig3a.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740555/content.png%3B6"
+      "url": "/api/files/g137/2740555/content.png%3B6"
     },
     {
       "caption":
         "\\omcl curves for the \\Dh combination obtained with the \\plugin method. The $1\\sigma$ and $2\\sigma$ levels are indicated by the horizontal dotted lines. \\vspace{2cm}",
       "key": "Fig3b.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740553/content.png%3B6"
+      "url": "/api/files/g137/2740553/content.png%3B6"
     },
     {
       "caption":
         "\\omcl curves for the \\Dh combination obtained with the \\plugin method. The $1\\sigma$ and $2\\sigma$ levels are indicated by the horizontal dotted lines. \\vspace{2cm}",
       "key": "Fig3c.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740554/content.png%3B6"
+      "url": "/api/files/g137/2740554/content.png%3B6"
     },
     {
       "caption":
         "\\omcl curves for the \\Dh combination obtained with the \\plugin method. The $1\\sigma$ and $2\\sigma$ levels are indicated by the horizontal dotted lines. \\vspace{2cm}",
       "key": "Fig3d.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740551/content.png%3B6"
+      "url": "/api/files/g137/2740551/content.png%3B6"
     },
     {
       "caption":
         "\\omcl curves for the \\Dh combination obtained with the \\plugin method. The $1\\sigma$ and $2\\sigma$ levels are indicated by the horizontal dotted lines. \\vspace{2cm}",
       "key": "Fig3e.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740552/content.png%3B6"
+      "url": "/api/files/g137/2740552/content.png%3B6"
     },
     {
       "caption":
         "\\omcl curves for the \\Dh combination obtained with the \\plugin method. The $1\\sigma$ and $2\\sigma$ levels are indicated by the horizontal dotted lines. \\vspace{2cm}",
       "key": "Fig3f.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740549/content.png%3B6"
+      "url": "/api/files/g137/2740549/content.png%3B6"
     },
     {
       "caption":
         "\\omcl curves for the \\Dh combination obtained with the \\plugin method. The $1\\sigma$ and $2\\sigma$ levels are indicated by the horizontal dotted lines. \\vspace{2cm}",
       "key": "Fig3g.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740550/content.png%3B6"
+      "url": "/api/files/g137/2740550/content.png%3B6"
     },
     {
       "caption":
         "Profile likelihood contours from the \\Dh combination. The contours show the two-dimensional $1\\sigma$ and $2\\sigma$ boundaries, corresponding to $68.3\\%$ and $95.5\\%$~CL, respectively.",
       "key": "Fig4a.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740505/content.png%3B6"
+      "url": "/api/files/g137/2740505/content.png%3B6"
     },
     {
       "caption":
         "Profile likelihood contours from the \\Dh combination. The contours show the two-dimensional $1\\sigma$ and $2\\sigma$ boundaries, corresponding to $68.3\\%$ and $95.5\\%$~CL, respectively.",
       "key": "Fig4b.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740504/content.png%3B6"
+      "url": "/api/files/g137/2740504/content.png%3B6"
     },
     {
       "caption":
         "Profile likelihood contours from the \\Dh combination. The contours show the two-dimensional $1\\sigma$ and $2\\sigma$ boundaries, corresponding to $68.3\\%$ and $95.5\\%$~CL, respectively.",
       "key": "Fig4c.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740503/content.png%3B6"
+      "url": "/api/files/g137/2740503/content.png%3B6"
     },
     {
       "caption":
         "Profile likelihood contours from the \\Dh combination. The contours show the two-dimensional $1\\sigma$ and $2\\sigma$ boundaries, corresponding to $68.3\\%$ and $95.5\\%$~CL, respectively.",
       "key": "Fig4d.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740502/content.png%3B6"
+      "url": "/api/files/g137/2740502/content.png%3B6"
     },
     {
       "caption":
         "Profile likelihood contours from the \\Dh combination. The contours show the two-dimensional $1\\sigma$ and $2\\sigma$ boundaries, corresponding to $68.3\\%$ and $95.5\\%$~CL, respectively.",
       "key": "Fig4e.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740501/content.png%3B6"
+      "url": "/api/files/g137/2740501/content.png%3B6"
     },
     {
       "caption":
         "Profile likelihood contours from the \\Dh combination. The contours show the two-dimensional $1\\sigma$ and $2\\sigma$ boundaries, corresponding to $68.3\\%$ and $95.5\\%$~CL, respectively.",
       "key": "Fig4f.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740500/content.png%3B6"
+      "url": "/api/files/g137/2740500/content.png%3B6"
     },
     {
       "caption":
         "Profile likelihood contours from the \\Dh combination. The contours show the two-dimensional $1\\sigma$ and $2\\sigma$ boundaries, corresponding to $68.3\\%$ and $95.5\\%$~CL, respectively.",
       "key": "Fig4g.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740499/content.png%3B6"
+      "url": "/api/files/g137/2740499/content.png%3B6"
     },
     {
       "caption":
         "Profile likelihood contours from the \\Dh combination. The contours show the two-dimensional $1\\sigma$ and $2\\sigma$ boundaries, corresponding to $68.3\\%$ and $95.5\\%$~CL, respectively.",
       "key": "Fig4h.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740513/content.png%3B6"
+      "url": "/api/files/g137/2740513/content.png%3B6"
     },
     {
       "caption":
         "Profile likelihood contours from the \\Dh combination. The contours show the two-dimensional $1\\sigma$ and $2\\sigma$ boundaries, corresponding to $68.3\\%$ and $95.5\\%$~CL, respectively.",
       "key": "Fig4i.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740512/content.png%3B6"
+      "url": "/api/files/g137/2740512/content.png%3B6"
     },
     {
       "caption":
         "Posterior probability density from the Bayesian interpretation for the \\DK combination.",
       "key": "Fig6a.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740531/content.png%3B2"
+      "url": "/api/files/g137/2740531/content.png%3B2"
     },
     {
       "caption":
         "Posterior probability density from the Bayesian interpretation for the \\DK combination.",
       "key": "Fig9b.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740541/content.png%3B6"
+      "url": "/api/files/g137/2740541/content.png%3B6"
     },
     {
       "caption":
         "Posterior probability density from the Bayesian interpretation for the \\DK combination.",
       "key": "Fig6c.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740532/content.png%3B2"
+      "url": "/api/files/g137/2740532/content.png%3B2"
     },
     {
       "caption":
         "Posterior probability density from the Bayesian interpretation for the \\DK combination.",
       "key": "Fig9d.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740536/content.png%3B6"
+      "url": "/api/files/g137/2740536/content.png%3B6"
     },
     {
       "caption":
         "Posterior probability density from the Bayesian interpretation for the \\DK combination.",
       "key": "Fig9e.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740547/content.png%3B6"
+      "url": "/api/files/g137/2740547/content.png%3B6"
     },
     {
       "caption":
         "Two-dimensional posterior probability regions from the Bayesian interpretation for the \\DK combination. Light and dark regions show the 68.3\\% and 95.5\\% credible intervals respectively.",
       "key": "Fig7a.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740558/content.png%3B2"
+      "url": "/api/files/g137/2740558/content.png%3B2"
     },
     {
       "caption":
         "Two-dimensional posterior probability regions from the Bayesian interpretation for the \\DK combination. Light and dark regions show the 68.3\\% and 95.5\\% credible intervals respectively.",
       "key": "Fig10b.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740546/content.png%3B6"
+      "url": "/api/files/g137/2740546/content.png%3B6"
     },
     {
       "caption":
         "Two-dimensional posterior probability regions from the Bayesian interpretation for the \\DK combination. Light and dark regions show the 68.3\\% and 95.5\\% credible intervals respectively.",
       "key": "Fig10c.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g138/2773854/content.png%3B4"
+      "url": "/api/files/g138/2773854/content.png%3B4"
     },
     {
       "caption":
         "Two-dimensional posterior probability regions from the Bayesian interpretation for the \\DK combination. Light and dark regions show the 68.3\\% and 95.5\\% credible intervals respectively.",
       "key": "Fig10d.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g138/2773852/content.png%3B4"
+      "url": "/api/files/g138/2773852/content.png%3B4"
     },
     {
       "caption":
         "Two-dimensional posterior probability regions from the Bayesian interpretation for the \\DK combination. Light and dark regions show the 68.3\\% and 95.5\\% credible intervals respectively.",
       "key": "Fig10e.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g138/2773851/content.png%3B4"
+      "url": "/api/files/g138/2773851/content.png%3B4"
     },
     {
       "caption":
         "Two-dimensional posterior probability regions from the Bayesian interpretation for the \\DK combination. Light and dark regions show the 68.3\\% and 95.5\\% credible intervals respectively.",
       "key": "Fig7f.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740559/content.png%3B2"
+      "url": "/api/files/g137/2740559/content.png%3B2"
     },
     {
       "caption":
         "Posterior probability density from the Bayesian interpretation for the \\Dh combination. The inset for \\rbpi shows the same distribution on a logarithmic scale.",
       "key": "Fig11a.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740519/content.png%3B6"
+      "url": "/api/files/g137/2740519/content.png%3B6"
     },
     {
       "caption":
         "Posterior probability density from the Bayesian interpretation for the \\Dh combination. The inset for \\rbpi shows the same distribution on a logarithmic scale.",
       "key": "Fig11b.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740518/content.png%3B6"
+      "url": "/api/files/g137/2740518/content.png%3B6"
     },
     {
       "caption":
         "Posterior probability density from the Bayesian interpretation for the \\Dh combination. The inset for \\rbpi shows the same distribution on a logarithmic scale.",
       "key": "Fig11c.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g138/2773844/content.png%3B4"
+      "url": "/api/files/g138/2773844/content.png%3B4"
     },
     {
       "caption":
         "Posterior probability density from the Bayesian interpretation for the \\Dh combination. The inset for \\rbpi shows the same distribution on a logarithmic scale.",
       "key": "Fig8d.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740543/content.png%3B2"
+      "url": "/api/files/g137/2740543/content.png%3B2"
     },
     {
       "caption":
         "Posterior probability density from the Bayesian interpretation for the \\Dh combination. The inset for \\rbpi shows the same distribution on a logarithmic scale.",
       "key": "Fig8e.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740540/content.png%3B2"
+      "url": "/api/files/g137/2740540/content.png%3B2"
     },
     {
       "caption":
         "Posterior probability density from the Bayesian interpretation for the \\Dh combination. The inset for \\rbpi shows the same distribution on a logarithmic scale.",
       "key": "Fig11f.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g138/2773840/content.png%3B4"
+      "url": "/api/files/g138/2773840/content.png%3B4"
     },
     {
       "caption":
         "Posterior probability density from the Bayesian interpretation for the \\Dh combination. The inset for \\rbpi shows the same distribution on a logarithmic scale.",
       "key": "Fig11g.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g138/2773841/content.png%3B4"
+      "url": "/api/files/g138/2773841/content.png%3B4"
     },
     {
       "caption":
         "Two-dimensional posterior probability regions from the Bayesian interpretation for the \\Dh combination. Light and dark regions show the 68.3\\% and 95.5\\% credible intervals respectively.",
       "key": "Fig12a.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740522/content.png%3B6"
+      "url": "/api/files/g137/2740522/content.png%3B6"
     },
     {
       "caption":
         "Two-dimensional posterior probability regions from the Bayesian interpretation for the \\Dh combination. Light and dark regions show the 68.3\\% and 95.5\\% credible intervals respectively.",
       "key": "Fig12b.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740521/content.png%3B6"
+      "url": "/api/files/g137/2740521/content.png%3B6"
     },
     {
       "caption":
         "Two-dimensional posterior probability regions from the Bayesian interpretation for the \\Dh combination. Light and dark regions show the 68.3\\% and 95.5\\% credible intervals respectively.",
       "key": "Fig12c.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740520/content.png%3B6"
+      "url": "/api/files/g137/2740520/content.png%3B6"
     },
     {
       "caption":
         "Two-dimensional posterior probability regions from the Bayesian interpretation for the \\Dh combination. Light and dark regions show the 68.3\\% and 95.5\\% credible intervals respectively.",
       "key": "Fig12d.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g138/2773848/content.png%3B4"
+      "url": "/api/files/g138/2773848/content.png%3B4"
     },
     {
       "caption":
         "Two-dimensional posterior probability regions from the Bayesian interpretation for the \\Dh combination. Light and dark regions show the 68.3\\% and 95.5\\% credible intervals respectively.",
       "key": "Fig12e.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g138/2773847/content.png%3B4"
+      "url": "/api/files/g138/2773847/content.png%3B4"
     },
     {
       "caption":
         "Two-dimensional posterior probability regions from the Bayesian interpretation for the \\Dh combination. Light and dark regions show the 68.3\\% and 95.5\\% credible intervals respectively.",
       "key": "Fig9f.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740548/content.png%3B2"
+      "url": "/api/files/g137/2740548/content.png%3B2"
     },
     {
       "caption":
         "Two-dimensional posterior probability regions from the Bayesian interpretation for the \\Dh combination. Light and dark regions show the 68.3\\% and 95.5\\% credible intervals respectively.",
       "key": "Fig12g.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g138/2773845/content.png%3B4"
+      "url": "/api/files/g138/2773845/content.png%3B4"
     },
     {
       "caption":
         "Two-dimensional posterior probability regions from the Bayesian interpretation for the \\Dh combination. Light and dark regions show the 68.3\\% and 95.5\\% credible intervals respectively.",
       "key": "Fig12h.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g138/2773850/content.png%3B4"
+      "url": "/api/files/g138/2773850/content.png%3B4"
     },
     {
       "caption":
         "Two-dimensional posterior probability regions from the Bayesian interpretation for the \\Dh combination. Light and dark regions show the 68.3\\% and 95.5\\% credible intervals respectively.",
       "key": "Fig9i.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740545/content.png%3B2"
+      "url": "/api/files/g137/2740545/content.png%3B2"
     },
     {
       "caption":
         "Profile likelihood contours of \\g \\vs \\dbDKstz (left) and \\g \\vs \\rbDKstz (right) for various \\DK sub-combinations: (brown) \\BdDKstz, $\\Dz\\to KK$/$K\\pi$/$\\pi\\pi$, (pink) \\BdDKstz, $\\Dz\\to\\KS \\pi\\pi$, (purple) all \\Bd modes and (green) the full combination. Dark and light regions show the intervals containing 68.3\\% and 95.5\\% respectively.",
       "key": "Fig13a.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740515/content.png%3B2"
+      "url": "/api/files/g137/2740515/content.png%3B2"
     },
     {
       "caption":
         "Profile likelihood contours of \\g \\vs \\dbDKstz (left) and \\g \\vs \\rbDKstz (right) for various \\DK sub-combinations: (brown) \\BdDKstz, $\\Dz\\to KK$/$K\\pi$/$\\pi\\pi$, (pink) \\BdDKstz, $\\Dz\\to\\KS \\pi\\pi$, (purple) all \\Bd modes and (green) the full combination. Dark and light regions show the intervals containing 68.3\\% and 95.5\\% respectively.",
       "key": "Fig13b.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740516/content.png%3B2"
+      "url": "/api/files/g137/2740516/content.png%3B2"
     },
     {
       "caption":
         "Profile likelihood contours of \\g \\vs \\dbDKstz (left) and \\g \\vs \\rbDKstz (right) for various \\DK sub-combinations: (brown) \\BdDKstz, $\\Dz\\to KK$/$K\\pi$/$\\pi\\pi$, (pink) \\BdDKstz, $\\Dz\\to\\KS \\pi\\pi$, (purple) all \\Bd modes and (green) the full combination. Dark and light regions show the intervals containing 68.3\\% and 95.5\\% respectively.",
       "key": "Fig13c.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g137/2740517/content.png%3B2"
+      "url": "/api/files/g137/2740517/content.png%3B2"
     }
   ],
   "imprints": [{ "date": "2016-12-19" }],

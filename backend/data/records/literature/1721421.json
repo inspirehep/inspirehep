@@ -40,8 +40,7 @@
       "fulltext": true,
       "key": "1902.07899.pdf",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g184/3697968/content.pdf%3B1"
+      "url": "/api/files/g184/3697968/content.pdf%3B1"
     }
   ],
   "inspire_categories": [

@@ -67,8 +67,7 @@
       "hidden": true,
       "key": "arXiv:hep-th_9607235.pdf",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g43/873286/arXiv%3Ahep-th_9607235.pdf%3B1"
+      "url": "/api/files/g43/873286/arXiv%3Ahep-th_9607235.pdf%3B1"
     }
   ],
   "external_system_identifiers": [

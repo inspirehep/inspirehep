@@ -49,8 +49,7 @@
     {
       "fulltext": true,
       "key": "0601012.pdf",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g136/2728563/content.pdf%3B1"
+      "url": "/api/files/g136/2728563/content.pdf%3B1"
     }
   ],
   "external_system_identifiers": [

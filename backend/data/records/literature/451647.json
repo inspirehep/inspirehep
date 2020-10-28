@@ -57,8 +57,7 @@
     {
       "key": "arXiv:hep-th_9711200.pdf",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g43/869640/arXiv%3Ahep-th_9711200.pdf%3B2"
+      "url": "/api/files/g43/869640/arXiv%3Ahep-th_9711200.pdf%3B2"
     }
   ],
   "dois": [

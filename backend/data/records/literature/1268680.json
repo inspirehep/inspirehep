@@ -50,8 +50,7 @@
     {
       "key": "arXiv:1312.2684.pdf",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g86/1722637/content.pdf%3B2"
+      "url": "/api/files/g86/1722637/content.pdf%3B2"
     }
   ],
   "dois": [{ "value": "10.1007/978-3-319-08822-8" }],
@@ -60,8 +59,7 @@
       "caption": "Stiegler's law",
       "key": "fubar.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g86/1722516/content.png%3B2"
+      "url": "/api/files/g86/1722516/content.png%3B2"
     }
   ],
   "inspire_categories": [{ "term": "Theory-HEP" }],

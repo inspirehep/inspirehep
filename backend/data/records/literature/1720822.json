@@ -103342,8 +103342,7 @@
       "fulltext": true,
       "key": "1902.07158.pdf",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g184/3693573/content.pdf%3B2"
+      "url": "/api/files/g184/3693573/content.pdf%3B2"
     }
   ],
   "energy_ranges": ["1-10 TeV"],
@@ -103357,16 +103356,14 @@
         "Correlation matrix of the overall \\vtbsq\\ combination. Each bin corresponds to a measurement in a given production mode, experiment, and at a given centre-of-mass energy.",
       "key": "overallCorrComb.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g184/3693574/content.png%3B1"
+      "url": "/api/files/g184/3693574/content.png%3B1"
     },
     {
       "caption":
         "The combined $\\absvtb$ value extracted from the \\tch\\ and \\mytW\\ cross-section measurements at \\cmenergyComb\\ from ATLAS and CMS, as well as the ATLAS \\sch measurement at \\cmenergyEight, is shown together with the combined $\\absvtb$ values for each production mode. The theoretical predictions for \\tch\\ and \\sch\\ production are computed at NLO accuracy, while the theoretical predictions for $\\mytW$ are calculated at NLO+NNLL accuracy. The $\\sigmatheo$ uncertainties used to compute $\\absvtb$ include scale, PDF+$\\alpha_{\\rm s}$, $m_{\\myt}$, and $E_{\\rm beam}$ variations.",
       "key": "vtb_summary.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g184/3693572/content.png%3B1"
+      "url": "/api/files/g184/3693572/content.png%3B1"
     }
   ],
   "inspire_categories": [

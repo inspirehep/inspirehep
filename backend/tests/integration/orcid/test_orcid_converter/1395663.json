@@ -49,8 +49,7 @@
     {
       "fulltext": true,
       "key": "NMankuzhiyil.pdf",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g111/2239642/content.pdf%3B1"
+      "url": "/api/files/g111/2239642/content.pdf%3B1"
     }
   ],
   "inspire_categories": [{ "term": "Astrophysics" }],

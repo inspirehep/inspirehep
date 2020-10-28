@@ -78,8 +78,7 @@
     {
       "key": "arXiv:hep-ph_9709356.pdf",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g43/861323/arXiv%3Ahep-ph_9709356.pdf%3B3"
+      "url": "/api/files/g43/861323/arXiv%3Ahep-ph_9709356.pdf%3B3"
     }
   ],
   "dois": [
@@ -95,317 +94,277 @@
         "noimgOne-loop quantum corrections to the Higgs squared mass parameter $m_H^2$, due to (a) a Dirac fermion $f$, and (b) a scalar $S$.",
       "key": "fig00000.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g46/920609/fig00000.png%3B1"
+      "url": "/api/files/g46/920609/fig00000.png%3B1"
     },
     {
       "caption": "The presumed schematic structure for supersymmetry breaking.",
       "key": "structure.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g46/920626/structure.png%3B2"
+      "url": "/api/files/g46/920626/structure.png%3B2"
     },
     {
       "caption":
         "noimg: Chiral supermultiplets in the Minimal Supersymmetric Standard Model. The spin-$0$ fields are complex scalars, and the spin-$1/2$ fields are left-handed two-component Weyl fermions.: Gauge supermultiplets in the Minimal Supersymmetric Standard Model.: Counting of real degrees of freedom in the Wess-Zumino model.: Counting of real degrees of freedom for each gauge supermultiplet.",
       "key": "fig00002.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g46/920607/fig00002.png%3B1"
+      "url": "/api/files/g46/920607/fig00002.png%3B1"
     },
     {
       "caption":
         "noimgThe dimensionless non-gauge interaction vertices in a supersymmetric theory: (a) scalar-fermion-fermion Yukawa interaction $y^{ijk}$, (b) the complex conjugate interaction $y_{ijk}$, and (c) quartic scalar interaction $y^{ijn}y^*_{kln}$.",
       "key": "fig00003.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g46/920608/fig00003.png%3B1"
+      "url": "/api/files/g46/920608/fig00003.png%3B1"
     },
     {
       "caption":
         "RG evolution of scalar and gaugino mass parameters in the MSSM with MSUGRA boundary conditions imposed at $Q_0 = 1.5\\times 10^{16}$ GeV. The parameter $\\mu^2 + m^2_{H_u}$ runs negative, provoking electroweak symmetry breaking.",
       "key": "MSSMrun.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g46/920627/MSSMrun.png%3B2"
+      "url": "/api/files/g46/920627/MSSMrun.png%3B2"
     },
     {
       "caption": "noimgSupersymmetric gauge interaction vertices.",
       "key": "fig00005.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g46/920614/fig00005.png%3B1"
+      "url": "/api/files/g46/920614/fig00005.png%3B1"
     },
     {
       "caption":
         "noimgSoft supersymmetry-breaking terms: (a) Gaugino mass $M_a$; (b) non-holomorphic scalar squared mass $(m^2)_j^i$; (c) holomorphic scalar squared mass $b^{ij}$; and (d) scalar cubic coupling $a^{ijk}$.",
       "key": "fig00006.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g46/920611/fig00006.png%3B1"
+      "url": "/api/files/g46/920611/fig00006.png%3B1"
     },
     {
       "caption":
         "noimgThe top-quark Yukawa coupling (a) and its ``supersymmetrizations\" (b), (c), all of strength~$y_t$.",
       "key": "fig00007.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g46/920612/fig00007.png%3B1"
+      "url": "/api/files/g46/920612/fig00007.png%3B1"
     },
     {
       "caption":
         "noimgSome of the (scalar)$^4$ interactions with strength proportional to $y_t^2$.",
       "key": "fig00008.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g46/920605/fig00008.png%3B1"
+      "url": "/api/files/g46/920605/fig00008.png%3B1"
     },
     {
       "caption":
         "noimgCouplings of the gluino, wino, and bino to MSSM (scalar, fermion) pairs.",
       "key": "fig00009.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g46/920606/fig00009.png%3B1"
+      "url": "/api/files/g46/920606/fig00009.png%3B1"
     },
     {
       "caption":
         "noimgSome of the supersymmetric (scalar)$^3$ couplings proportional to $\\mu^* y_t$, $\\mu^* y_b$, and $\\mu^* y_\\tau$. When $H_u^0$ and $H_d^0$ get VEVs, these contribute to (a) $\\stilde t_L,\\stilde t_R$ mixing, (b) $\\stilde b_L,\\stilde b_R$ mixing, and (c) $\\stilde \\tau_L,\\stilde \\tau_R$ mixing.",
       "key": "fig00010.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g46/920635/fig00010.png%3B1"
+      "url": "/api/files/g46/920635/fig00010.png%3B1"
     },
     {
       "caption":
         "noimgSquarks would mediate disastrously rapid proton decay if $R$-parity were violated by both $\\Delta {\\rm B} = 1$ and $\\Delta {\\rm L} = 1$ interactions. This example shows $p \\rightarrow e^+ \\pi^0$ mediated by a strange (or bottom) squark.",
       "key": "fig00011.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g46/920634/fig00011.png%3B1"
+      "url": "/api/files/g46/920634/fig00011.png%3B1"
     },
     {
       "caption":
         "noimgSome of the diagrams that contribute to the process $\\mu^- \\rightarrow e^- \\gamma$ in models with lepton flavor-violating soft supersymmetry breaking parameters (indicated by $\\times$). Diagrams (a), (b), and (c) contribute to constraints on the off-diagonal elements of ${\\bf m^2_{\\sbar e}}$, ${\\bf m^2_{L}}$, and ${\\bf a_e}$, respectively.",
       "key": "fig00012.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g46/920637/fig00012.png%3B1"
+      "url": "/api/files/g46/920637/fig00012.png%3B1"
     },
     {
       "caption":
         "noimgSome of the diagrams that contribute to $K^0\\leftrightarrow \\overline K^0$ mixing in models with strangeness-violating soft supersymmetry breaking parameters (indicated by $\\times$). These diagrams contribute to constraints on the off-diagonal elements of (a) ${\\bf m^2_{\\sbar d}}$, (b) the combination of ${\\bf m^2_{\\sbar d}}$ and ${\\bf m^2_{Q}}$, and (c) ${\\bf a_d}$.",
       "key": "fig00013.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g46/920636/fig00013.png%3B1"
+      "url": "/api/files/g46/920636/fig00013.png%3B1"
     },
     {
       "caption":
         "noimgScalar potentials for (a) unbroken supersymmetry, (b) spontaneously broken supersymmetry, and (c) metastable supersymmetry breaking, as a function of an order parameter $\\phi$.",
       "key": "fig00014.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g46/920631/fig00014.png%3B1"
+      "url": "/api/files/g46/920631/fig00014.png%3B1"
     },
     {
       "caption":
         "noimgGoldstino/gravitino $\\tilde G$ interactions with superpartner pairs $(\\phi,\\psi)$ and $(\\lambda,A)$.",
       "key": "fig00015.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g46/920630/fig00015.png%3B1"
+      "url": "/api/files/g46/920630/fig00015.png%3B1"
     },
     {
       "caption":
         "noimgContributions to the MSSM gaugino masses in gauge-mediated supersymmetry breaking models come from one-loop graphs involving virtual messenger particles.",
       "key": "fig00016.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g46/920633/fig00016.png%3B1"
+      "url": "/api/files/g46/920633/fig00016.png%3B1"
     },
     {
       "caption":
         "noimgThe separation of the supersymmetry-breaking sector from the MSSM sector could take place along a hidden spatial dimension, as in the simple example shown here. The branes are 4-dimensional parallel spacetime hypersurfaces in a 5-dimensional spacetime.",
       "key": "fig00017.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g46/920632/fig00017.png%3B1"
+      "url": "/api/files/g46/920632/fig00017.png%3B1"
     },
     {
       "caption":
         "noimgContributions to the MSSM lightest Higgs mass from top-quark and top-squark one-loop diagrams. Incomplete cancellation, due to soft supersymmetry breaking, leads to a large positive correction to $m_{h^0}^2$ in the limit of heavy top squarks.",
       "key": "fig00018.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g46/920629/fig00018.png%3B1"
+      "url": "/api/files/g46/920629/fig00018.png%3B1"
     },
     {
       "caption":
         "noimgIntegrating out the top quark and top squarks yields large positive contributions to the quartic Higgs coupling in the low-energy effective theory, especially from these one-loop diagrams.",
       "key": "fig00019.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g46/920628/fig00019.png%3B1"
+      "url": "/api/files/g46/920628/fig00019.png%3B1"
     },
     {
       "caption":
         "noimgThe undiscovered particles in the Minimal Supersymmetric Standard Model (with sfermion mixing for the first two families assumed to be negligible).",
       "key": "fig00020.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g46/920619/fig00020.png%3B1"
+      "url": "/api/files/g46/920619/fig00020.png%3B1"
     },
     {
       "caption":
         "noimgFour sample mass spectra for the undiscovered particles in the MSSM, for (a) MSUGRA with $m^2_0 \\ll m_{1/2}^2$, (b) MSUGRA with $m^2_0 \\gg m_{1/2}^2$, (c) GMSB with $N_5=1$, and (d) GMSB with $N_5=3$. Mass scales are not equal for the four cases, and are deliberately omitted. These spectra are presented for entertainment purposes only! No warranty, expressed or implied, guarantees that they look anything like the real world.",
       "key": "fig00021.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g46/920620/fig00021.png%3B1"
+      "url": "/api/files/g46/920620/fig00021.png%3B1"
     },
     {
       "caption":
         "noimgFeynman diagrams for neutralino and chargino decays with $\\tilde N_1$ in the final state. The intermediate scalar or vector boson in each case can be either on-shell (so that actually there is a sequence of two-body decays) or off-shell, depending on the sparticle mass spectrum.",
       "key": "fig00022.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g46/920621/fig00022.png%3B1"
+      "url": "/api/files/g46/920621/fig00022.png%3B1"
     },
     {
       "caption":
         "noimgSome of the many possible examples of gluino cascade decays ending with a neutralino LSP in the final state. The squarks appearing in these diagrams may be either on-shell or off-shell, depending on the mass spectrum of the theory.",
       "key": "fig00023.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g46/920622/fig00023.png%3B1"
+      "url": "/api/files/g46/920622/fig00023.png%3B1"
     },
     {
       "caption":
         "noimgFeynman diagrams for electroweak production of sparticles at hadron colliders from quark-antiquark annihilation. The charginos and neutralinos in the $t$-channel diagrams only couple because of their gaugino content, for massless initial-state quarks, and so are drawn as wavy lines superimposed on solid.",
       "key": "fig00024.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g46/920615/fig00024.png%3B1"
+      "url": "/api/files/g46/920615/fig00024.png%3B1"
     },
     {
       "caption":
         "noimgFeynman diagrams for gluino and squark production at hadron colliders from gluon-gluon and gluon-quark fusion.",
       "key": "fig00025.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g46/920616/fig00025.png%3B1"
+      "url": "/api/files/g46/920616/fig00025.png%3B1"
     },
     {
       "caption":
         "noimgFeynman diagrams for gluino and squark production at hadron colliders from strong quark-antiquark annihilation and quark-quark scattering.",
       "key": "fig00026.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g46/920617/fig00026.png%3B1"
+      "url": "/api/files/g46/920617/fig00026.png%3B1"
     },
     {
       "caption":
         "noimgA complete Feynman diagram for a clean (no high-$p_T$ hadronic jets) trilepton event at a hadron collider, from production of an on-shell neutralino and a chargino, with subsequent leptonic decays, leading in this case to $\\mu^+\\mu^-e^+ + \\Et$.",
       "key": "fig00027.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g46/920618/fig00027.png%3B1"
+      "url": "/api/files/g46/920618/fig00027.png%3B1"
     },
     {
       "caption":
         "noimgThe theoretical shape of the dilepton invariant mass distribution from events with $\\stilde N_2 \\rightarrow \\ell \\stilde \\ell \\rightarrow \\ell^+\\ell^-\\stilde N_1$. No cuts or detector effects are included. The endpoint is at $M_{\\ell\\ell}^{\\rm max} = m_{\\tilde N_2} (1 - m^2_{\\tilde \\ell}/m^2_{\\tilde N_2})^{1/2} (1 - m^2_{\\tilde N_1}/m^2_{\\tilde \\ell})^{1/2}.$",
       "key": "fig00028.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g46/920623/fig00028.png%3B1"
+      "url": "/api/files/g46/920623/fig00028.png%3B1"
     },
     {
       "caption":
         "noimgDiagrams for chargino pair production at $e^+e^-$ colliders.",
       "key": "fig00029.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g46/920624/fig00029.png%3B1"
+      "url": "/api/files/g46/920624/fig00029.png%3B1"
     },
     {
       "caption":
         "noimgDiagrams for neutralino pair production at $e^+e^-$ colliders.",
       "key": "fig00030.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g46/920600/fig00030.png%3B1"
+      "url": "/api/files/g46/920600/fig00030.png%3B1"
     },
     {
       "caption":
         "noimgDiagrams for charged slepton pair production at $e^+e^-$ colliders.",
       "key": "fig00031.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g46/920599/fig00031.png%3B1"
+      "url": "/api/files/g46/920599/fig00031.png%3B1"
     },
     {
       "caption":
         "noimgDiagrams for sneutrino pair production at $e^+e^-$ colliders.",
       "key": "fig00032.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g46/920598/fig00032.png%3B1"
+      "url": "/api/files/g46/920598/fig00032.png%3B1"
     },
     {
       "caption": "noimgDiagram for squark production at $e^+e^-$ colliders.",
       "key": "fig00033.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g46/920597/fig00033.png%3B1"
+      "url": "/api/files/g46/920597/fig00033.png%3B1"
     },
     {
       "caption":
         "noimgDiagrams for neutral Higgs scalar boson production at $e^+e^-$ colliders.",
       "key": "fig00034.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g46/920596/fig00034.png%3B1"
+      "url": "/api/files/g46/920596/fig00034.png%3B1"
     },
     {
       "caption":
         "noimgThe theoretical shape of the lepton energy distribution from events with $e^+e^- \\rightarrow \\stilde \\ell^+\\stilde \\ell^- \\rightarrow \\ell^+\\ell^-\\stilde N_1\\stilde N_1$ at a future linear collider. No cuts or initial state radiation or beamstrahlung or detector effects are included. The endpoints are $E_{{\\rm max,min}} = \\frac{\\sqrt{s}}{4} (1 - m^2_{\\tilde N_1}/m^2_{\\tilde \\ell})[1 \\pm (1 - 4 m^2_{\\tilde \\ell}/s)^{1/2}]$, allowing precision reconstruction of both $\\stilde \\ell$ and $\\stilde N_1$ masses.",
       "key": "fig00035.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g46/920595/fig00035.png%3B1"
+      "url": "/api/files/g46/920595/fig00035.png%3B1"
     },
     {
       "caption":
         "noimgContributions to the annihilation cross-section for neutralino dark matter LSPs from (a) $t$-channel slepton and squark exchange, (b) near-resonant annihilation through a Higgs boson ($s$-wave for $A^0$, and $p$-wave for $h^0$, $H^0$), and (c) $t$-channel chargino exchange.",
       "key": "fig00036.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g46/920594/fig00036.png%3B1"
+      "url": "/api/files/g46/920594/fig00036.png%3B1"
     },
     {
       "caption":
         "noimgSome contributions to the co-annihilation of dark matter $\\stilde N_1$ LSPs with slightly heavier $\\stilde N_2$ and $\\stilde C_1$. All three diagrams are particularly important if the LSP is higgsino-like, and the last two diagrams are important if the LSP is wino-like.",
       "key": "fig00037.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g46/920593/fig00037.png%3B1"
+      "url": "/api/files/g46/920593/fig00037.png%3B1"
     },
     {
       "caption":
         "noimgSome contributions to the co-annihilation of dark matter $\\stilde N_1$ LSPs with slightly heavier sfermions, which in popular models are most plausibly staus (or perhaps top squarks).",
       "key": "fig00038.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g46/920602/fig00038.png%3B1"
+      "url": "/api/files/g46/920602/fig00038.png%3B1"
     },
     {
       "caption":
         "noimgDecays of the $\\NI$ LSP in models with $R$-parity violation, with lepton number not conserved (a)-(e) [see eq.~(\\ref{WLviol})], and baryon number not conserved (f) [see eq.~(\\ref{WBviol})].",
       "key": "fig00039.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g46/920601/fig00039.png%3B1"
+      "url": "/api/files/g46/920601/fig00039.png%3B1"
     }
   ],
   "imprints": [{ "date": "2010" }],

@@ -95,8 +95,7 @@
     {
       "key": "arXiv:1506.03091.pdf",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g108/2161368/content.pdf%3B1"
+      "url": "/api/files/g108/2161368/content.pdf%3B1"
     }
   ],
   "dois": [{ "source": "Springer", "value": "10.1007/978-3-319-15001-7_10" }],
@@ -106,120 +105,105 @@
         "The cross sections expected for different production modes of SUSY particles as a function of their mass. At the same mass scale, gluino production dominates over the production of first-generation squarks. Third-generation squark production is suppressed, since these particles cannot be produced in $t$-channel processes. Particles not participating in the strong interaction, like gauginos and sleptons, have the smallest production cross section. \\textit{(Adapted from Ref.~\\cite{Kramer:2012bx}.)}",
       "key": "XSoverview1206_2892_b.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g108/2160958/content.png%3B1"
+      "url": "/api/files/g108/2160958/content.png%3B1"
     },
     {
       "caption":
         "Comparison of background prediction and data for various search regions defined in \\HT, \\HTmiss, and $N_{\\text{jets}}$. \\textit{(Adapted from Ref.~\\cite{Chatrchyan:2014lfa}.)}",
       "key": "CMS_JetsMHT_b.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g108/2160954/content.png%3B1"
+      "url": "/api/files/g108/2160954/content.png%3B1"
     },
     {
       "caption":
         "Interpretation of ATLAS searches in final states with jets+\\ETmiss or jets+same-sign leptons+\\ETmiss in the CMSSM. \\textit{(Adapted from Refs.~\\cite{Aad:2014wea, Aad:2014pda}.)}",
       "key": "ATLAS_LowNjets_CMSSM_8TeV_new_b.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g108/2160953/content.png%3B1"
+      "url": "/api/files/g108/2160953/content.png%3B1"
     },
     {
       "caption":
         "(a) CMSSM interpretation of the ATLAS search with at least one $\\tau$ lepton, \\ETmiss and jets. The search performs best for small $m_0$, i. e.\\ small $\\tilde{\\tau}$ masses. (b) Interpretation of the same analysis in the GMSB; the limits are shown in the plane defined by the parameter $\\tan\\beta$ and the effective SUSY breaking scale $\\Lambda$. \\textit{(Adapted from Ref.~\\cite{Aad:2014mra}.)}",
       "key": "ATLAS_tau_CMSSM_8TeV_new_b.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g108/2160956/content.png%3B1"
+      "url": "/api/files/g108/2160956/content.png%3B1"
     },
     {
       "caption":
         "Interpretation of the searches with photons, jets and \\ETmiss in the GGM. (a) Exclusion limit from a search with two photons in the plane spanned by the NLSP mass and the gluino mass for a bino-like NLSP. (b) Exclusion limit from a search with at least one photon in the plane spanned by the squark mass and the gluino mass for a fixed wino-like NLSP mass. \\textit{(Adapted from Refs.~\\cite{Aad:2012zza, Chatrchyan:2012bba}.)}",
       "key": "ATLAS_diPhoton_GGM_bino_new_b.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g108/2160960/content.png%3B1"
+      "url": "/api/files/g108/2160960/content.png%3B1"
     },
     {
       "caption":
         "Example diagrams for the production of gauginos or sleptons without the production of strongly interacting sparticles. These production processes involve electroweak interactions.",
       "key": "Fig1_TChiNuSlep_snu_new_b.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g108/2160952/content.png%3B1"
+      "url": "/api/files/g108/2160952/content.png%3B1"
     },
     {
       "caption":
         "Selected observables from the searches for the production of gauginos and sleptons via the electroweak interaction from ATLAS (a,b) and CMS (c,d). See the text for a discussion of the observables, signal properties and backgrounds. \\textit{(Adapted from Refs.~\\cite{Aad:2014vma,Khachatryan:2014qwa}).}",
       "key": "ATLAS_1403_5294_fig_03a_new_b.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g108/2160962/content.png%3B1"
+      "url": "/api/files/g108/2160962/content.png%3B1"
     },
     {
       "caption":
         "The resulting limits on selected SMS decay chains from ATLAS (a,b) and CMS (c,d). The excluded production cross section of the decay chain given in the figures is plotted against the masses of the physical SUSY particles appearing in the decay chain. The expected exclusion lines in the plots are given by the assumption of the full electroweak coupling at the production and of 100\\% branching fractions into the studied final state. Individual kinematical assumptions on the particles involved in the decay are also given in the plots. \\textit{(Adapted from Refs.~\\cite{Aad:2014vma,Khachatryan:2014qwa}.)}",
       "key": "ATLAS_1403_5294_figaux_19a_new_b.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g108/2160961/content.png%3B1"
+      "url": "/api/files/g108/2160961/content.png%3B1"
     },
     {
       "caption":
         "Interpretation of ATLAS searches in final states with three leptons ($e$, $\\mu$ or $\\tau$) for direct chargino and neutralino production. As expected, the limits on the sparticle masses for an assumed simplified model with $\\tilde{\\chi}^0_2 \\to \\Zb + \\tilde{\\chi}^0_1$ (a) are much stronger than those for the case of decay chains involving the SM-like Higgs boson $h$: $\\tilde{\\chi}^0_2 \\to h + \\tilde{\\chi}^0_1$ (b). \\textit{(Adapted from Ref.~\\cite{Aad:2014nua}.)}",
       "key": "ATLAS_NeuCha_WZ_new_b.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g108/2160963/content.png%3B1"
+      "url": "/api/files/g108/2160963/content.png%3B1"
     },
     {
       "caption":
         "Overview plot of a selection of published limits on gaugino production from the CMS collaboration. All limits are given in the form of SMS limits on individual production processes. Similar results are available from the ATLAS collaboration. \\textit{(Adapted from Ref.~\\cite{Khachatryan:2014qwa}.)}",
       "key": "CMS_neutcharg_Fig19_exclusion_Combined_b.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g108/2160966/content.png%3B1"
+      "url": "/api/files/g108/2160966/content.png%3B1"
     },
     {
       "caption":
         "Example diagrams for the production and decay of top quarks in conjunction with the production of the lighter or heavier stops or gluinos.",
       "key": "st2st2_hh_new_b.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g108/2160964/content.png%3B1"
+      "url": "/api/files/g108/2160964/content.png%3B1"
     },
     {
       "caption":
         "A schematic illustration of the different kinematical areas which determine the selection topology of stop searches. \\textit{(Adapted from Ref.~\\cite{Aad:2014kra}.)}",
       "key": "ATLAS_stops_1407_0583_fig_001_bw.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g108/2160959/content.png%3B1"
+      "url": "/api/files/g108/2160959/content.png%3B1"
     },
     {
       "caption":
         "Illustrations of typical selection variables for searches for $\\tilde{\\tq}_1$ decays. (a) The ATLAS search for heavy stops yielding fat jets shown in the form of the jet mass of the fat jet. (b) An example from CMS with a search for intermediate-mass stops shown in the form of the transverse-mass distribution. \\textit{(Adapted from Refs.~\\cite{Aad:2014kra,Chatrchyan:2013xna})}",
       "key": "ATLAS_stops_1407_0583_fig_013b_new_b.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g108/2160965/content.png%3B1"
+      "url": "/api/files/g108/2160965/content.png%3B1"
     },
     {
       "caption":
         "A selection of published limits on the production of third-generation squarks from the ATLAS experiment. All limits are given in the form of SMS limits on individual production processes (see references in the plot). Similar results are obtained from the CMS experiment (see e.g.\\ Ref.~\\cite{Chatrchyan:2013xna}). \\textit{(Adapted from Refs.~\\cite{Aad:2014bva,Aad:2014kra,Aad:2014qaa,Aad:2014nra,Aad:2012ywa,Aad:2012ywaa,Aad:2012uu}.)}",
       "key": "ATLAS_SUSY_Stop_tLSP_b.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g108/2160957/content.png%3B1"
+      "url": "/api/files/g108/2160957/content.png%3B1"
     },
     {
       "caption":
         "Representative diagrams of SUSY final states in models with $R$-parity-violating SUSY and leptonic $R$-parity-violating couplings. (a) chargino NLSP; (b) slepton NLSP.",
       "key": "ATLAS_4lRPV_fig_01a_new_bw.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g108/2160955/content.png%3B1"
+      "url": "/api/files/g108/2160955/content.png%3B1"
     }
   ],
   "inspire_categories": [

@@ -61,15 +61,13 @@
       "description": "Article from SCOAP3",
       "key": "scoap3-fulltext.pdf;pdfa",
       "source": "SCOAP3",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g184/3697251/content.pdf%3Bpdfa%3B1"
+      "url": "/api/files/g184/3697251/content.pdf%3Bpdfa%3B1"
     },
     {
       "fulltext": true,
       "key": "1901.00530.pdf",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g182/3651108/content.pdf%3B2"
+      "url": "/api/files/g182/3651108/content.pdf%3B2"
     }
   ],
   "dois": [{ "source": "bibmatch", "value": "10.1007/JHEP02(2019)135" }],
@@ -78,15 +76,13 @@
       "caption": "Images of a sphere and of a universal cover of $\\AdS$ space",
       "key": "FigS.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g182/3651109/content.png%3B4"
+      "url": "/api/files/g182/3651109/content.png%3B4"
     },
     {
       "caption": "Images of a sphere and of a universal cover of $\\AdS$ space",
       "key": "FigAdS.png",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g182/3651107/content.png%3B4"
+      "url": "/api/files/g182/3651107/content.png%3B4"
     }
   ],
   "imprints": [{ "date": "2019-02-20" }],

@@ -116,14 +116,12 @@
     {
       "key": "arXiv:0806.1218.pdf",
       "source": "arxiv",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g1/34510/arXiv%3A0806.1218.pdf%3B2"
+      "url": "/api/files/g1/34510/arXiv%3A0806.1218.pdf%3B2"
     },
     {
       "key": "JHEP10(2008)091.pdf",
       "source": "Springer",
-      "url":
-        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g27/541636/JHEP10%282008%29091.pdf%3B1"
+      "url": "/api/files/g27/541636/JHEP10%282008%29091.pdf%3B1"
     }
   ],
   "dois": [{ "value": "10.1088/1126-6708/2008/10/091" }],
