@@ -6,7 +6,16 @@ jobs:
     working_directory: ~/inspirehep
     steps:
       - checkout
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - yarn-cache-{{ checksum "ui/yarn.lock" }}-{{ checksum "record-editor/yarn.lock" }}
       - run: sh cypress-tests.sh
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: yarn-cache-{{ checksum "ui/yarn.lock" }}-{{ checksum "record-editor/yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
       - store_artifacts:
           path: e2e/cypress/__screenshots__
       - store_artifacts:
