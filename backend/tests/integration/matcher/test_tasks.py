@@ -24,15 +24,25 @@ def test_match_references_by_uuids(inspire_app):
     }
     citer_record = create_record("lit", data=citer_data)
     excluded_citer_record = create_record("lit", data=citer_data)  # won't be passed
-
+    deleted_record = create_record(
+        "lit", data={"deleted": True, **citer_data}, with_control_number=True
+    )
     record_without_references = create_record("lit")
 
-    match_references_by_uuids([str(citer_record.id), str(record_without_references.id)])
+    match_references_by_uuids(
+        [
+            str(citer_record.id),
+            str(record_without_references.id),
+            str(deleted_record.id),
+        ]
+    )
 
     updated_citer_record = LiteratureRecord.get_record(citer_record.id)
     excluded_citer_record = LiteratureRecord.get_record(excluded_citer_record.id)
+    deleted_record = LiteratureRecord.get_record(deleted_record.id)
 
     assert (
         get_value(updated_citer_record, "references[0].record") == cited_record["self"]
     )
     assert "record" not in get_value(excluded_citer_record, "references[0]")
+    assert "record" not in get_value(deleted_record, "references[0]")
