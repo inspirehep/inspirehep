@@ -4992,10 +4992,10 @@ next-tick@~1.0.0:
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
   integrity sha1-yobR/ogoFpsBICCOPchCS524NCw=
 
-ng2-json-editor@^0.25.19:
-  version "0.25.20"
-  resolved "https://registry.yarnpkg.com/ng2-json-editor/-/ng2-json-editor-0.25.20.tgz#455f06e95729fee97f548bf73df4cd1bffe59df4"
-  integrity sha512-aw64YftkjOyCL8+o2B6WGFTGafv4FuuXxLUz1agNDb/0yfOCUkM/eulhroynRq3Qvryi3w89/eNQ3RnVom23Gg==
+ng2-json-editor@^0.25.21:
+  version "0.25.21"
+  resolved "https://registry.yarnpkg.com/ng2-json-editor/-/ng2-json-editor-0.25.21.tgz#911b30cd0cf6afd3a6e05b6bb3a693845039011b"
+  integrity sha512-nN/+mBy+ZpTci5YfU6Gh2cZ5gEWiV3ae1gLzHMUAd4cwsmO8Comiz9tOipY3Zut6V2KNWk4odWVeivVdT0YOHA==
   dependencies:
     ajv "^5.0.0"
     ajv-errors "^1.0.0"
