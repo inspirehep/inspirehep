@@ -7,9 +7,11 @@
 
 """INSPIRE module that adds more fun to the platform."""
 import os
+from contextlib import contextmanager
 from functools import partial
 
 import boto3
+import mock
 import pytest
 from click.testing import CliRunner
 from flask.cli import ScriptInfo
@@ -18,7 +20,6 @@ from helpers.factories.models.base import BaseFactory
 from helpers.factories.models.migrator import LegacyRecordsMirrorFactory
 from helpers.factories.models.pidstore import PersistentIdentifierFactory
 from helpers.factories.models.records import RecordMetadataFactory
-from helpers.utils import override_config
 from moto import mock_s3
 from redis import StrictRedis
 
@@ -48,19 +49,19 @@ def app_config(instance_path, app_config):
 
 
 @pytest.fixture(scope="function")
-def enable_files(inspire_app):
+def enable_files(inspire_app, override_config):
     with override_config(FEATURE_FLAG_ENABLE_FILES=True):
         yield inspire_app
 
 
 @pytest.fixture(scope="function")
-def disable_files(inspire_app):
+def disable_files(inspire_app, override_config):
     with override_config(FEATURE_FLAG_ENABLE_FILES=False):
         yield inspire_app
 
 
 @pytest.fixture(scope="function")
-def enable_self_citations(inspire_app):
+def enable_self_citations(inspire_app, override_config):
     with override_config(FEATURE_FLAG_ENABLE_SELF_CITATIONS=True):
         yield inspire_app
 
@@ -157,6 +158,30 @@ def redis(inspire_app):
 @pytest.fixture(scope="function")
 def inspire_app(base_app, db, es_clear, vcr_config):
     yield base_app
+
+
+@pytest.fixture(scope="function")
+def override_config(inspire_app):
+    @contextmanager
+    def _override_config(**kwargs):
+        """Override Flask's current app configuration.
+
+        Note: it's a CONTEXT MANAGER.from
+
+        Example:
+
+            with override_config(
+                MY_FEATURE_FLAG_ACTIVE=True,
+                MY_USERNAME='username',
+            ):
+                ...
+        """
+        with mock.patch.dict(inspire_app.config, kwargs), mock.patch.dict(
+            inspire_app.wsgi_app.mounts["/api"].config, kwargs
+        ):
+            yield
+
+    return _override_config
 
 
 @pytest.fixture()

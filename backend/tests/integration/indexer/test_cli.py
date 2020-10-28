@@ -9,7 +9,7 @@ import random
 import re
 
 from celery import current_app
-from helpers.utils import create_record_factory, override_config
+from helpers.utils import create_record_factory
 from invenio_search import current_search
 from invenio_search.utils import build_index_name
 
@@ -110,7 +110,7 @@ def test_remap_index_with_wrong_name(inspire_app, cli):
     current_search._current_suffix = None
 
 
-def test_remap_index_which_is_missing_in_es(inspire_app, cli):
+def test_remap_index_which_is_missing_in_es(inspire_app, cli, override_config):
     config = {"SEARCH_INDEX_PREFIX": f"{random.getrandbits(64)}-"}
     with override_config(**config):
         indexes_before = set(current_search.client.indices.get("*").keys())
@@ -128,7 +128,9 @@ def test_remap_index_which_is_missing_in_es(inspire_app, cli):
     current_search._current_suffix = None
 
 
-def test_remap_index_which_is_missing_in_es_but_ignore_checks(inspire_app, cli):
+def test_remap_index_which_is_missing_in_es_but_ignore_checks(
+    inspire_app, cli, override_config
+):
     config = {"SEARCH_INDEX_PREFIX": f"{random.getrandbits(64)}-"}
     with override_config(**config):
         indexes_before = set(current_search.client.indices.get("*").keys())
@@ -203,7 +205,7 @@ def _test_alias_to_index(alias_name, expected_index_name):
     assert expected_index_name in indexes[0]
 
 
-def test_cli_create_aliases(inspire_app, cli):
+def test_cli_create_aliases(inspire_app, cli, override_config):
     prefix = "test-cli-create-aliases-prefix-"
     with override_config(SEARCH_INDEX_PREFIX=prefix):
         list(current_search.create(ignore_existing=True))
@@ -255,7 +257,7 @@ def test_cli_create_aliases(inspire_app, cli):
     current_search.client.indices.delete_alias(f"{prefix}*", "*")
 
 
-def test_cli_create_aliases_stops_if_prefix_not_set(inspire_app, cli):
+def test_cli_create_aliases_stops_if_prefix_not_set(inspire_app, cli, override_config):
     with override_config(SEARCH_INDEX_PREFIX=""):
         result = cli.invoke(["index", "create-aliases"])
     assert (
@@ -264,7 +266,7 @@ def test_cli_create_aliases_stops_if_prefix_not_set(inspire_app, cli):
     )
 
 
-def test_cli_create_prefixed_aliases(inspire_app, cli):
+def test_cli_create_prefixed_aliases(inspire_app, cli, override_config):
     prefix = "test-cli-create-aliases-prefix-"
     with override_config(SEARCH_INDEX_PREFIX=prefix):
         list(current_search.create(ignore_existing=True))
@@ -336,7 +338,7 @@ def test_cli_create_prefixed_aliases(inspire_app, cli):
     current_search.client.indices.delete_alias(f"{prefix}*", "*")
 
 
-def test_cli_delete_indexes_prefixed_aliases(inspire_app, cli):
+def test_cli_delete_indexes_prefixed_aliases(inspire_app, cli, override_config):
     prefix = "test-cli-delete-aliases-prefix-"
     prefix_regex = re.compile(f"""{prefix}.*""")
     with override_config(SEARCH_INDEX_PREFIX=prefix):
@@ -360,7 +362,7 @@ def test_cli_delete_indexes_prefixed_aliases(inspire_app, cli):
 
 
 def test_cli_delete_prefixed_indexes_not_delete_when_no_matching_indexes(
-    inspire_app, cli
+    inspire_app, cli, override_config
 ):
     prefix = "test-cli-delete-aliases-prefix-"
     with override_config(SEARCH_INDEX_PREFIX=prefix):

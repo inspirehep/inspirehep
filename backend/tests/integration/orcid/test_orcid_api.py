@@ -26,8 +26,6 @@ import os
 import mock
 import pkg_resources
 import pytest
-from flask import current_app
-from helpers.utils import override_config
 from invenio_db import db
 from invenio_oauthclient.models import RemoteAccount, RemoteToken, User, UserIdentity
 from invenio_oauthclient.utils import oauth_link_external_id
@@ -137,7 +135,7 @@ def record(raw_record):
 
 
 @pytest.fixture
-def enable_orcid_push_feature(inspire_app):
+def enable_orcid_push_feature(inspire_app, override_config):
     with override_config(**{"FEATURE_FLAG_ENABLE_ORCID_PUSH": True}):
         yield
 
@@ -324,7 +322,7 @@ class TestPushToOrcid(object):
         data = json.load(open(record_fixture_path))
         self.record = LiteratureRecord.create(data)
 
-    def test_existing_record(self):
+    def test_existing_record(self, override_config):
         recid = 736770
         inspire_record = LiteratureRecord.get_record_by_pid_value(recid)
         with override_config(
@@ -351,7 +349,7 @@ class TestPushToOrcid(object):
                 }
             )
 
-    def test_new_record(self):
+    def test_new_record(self, override_config):
         recid = 9999912587
         record_json = {
             "$schema": "http://localhost:5000/schemas/records/hep.json",

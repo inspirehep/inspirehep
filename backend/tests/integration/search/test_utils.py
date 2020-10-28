@@ -6,14 +6,15 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import pytest
 from flask import current_app
-from helpers.utils import override_config
 from mock import Mock, patch
 
 from inspirehep.search.utils import RecursionLimit, get_facet_configuration
 
 
 @patch("inspirehep.records.config.RECORDS_REST_ENDPOINTS")
-def test_facet_configuration_with_existing_facet_import_string(facet_mock, inspire_app):
+def test_facet_configuration_with_existing_facet_import_string(
+    facet_mock, inspire_app, override_config
+):
     facet_mock.return_value = {
         "aggs": {"jessica-jones": {"terms": {"field": "defenders", "size": 20}}}
     }
@@ -32,7 +33,7 @@ def test_facet_configuration_with_existing_facet_import_string(facet_mock, inspi
             assert expected == result
 
 
-def test_facet_configuration_with_existing_facet_callable(inspire_app):
+def test_facet_configuration_with_existing_facet_callable(inspire_app, override_config):
     facet_mock = Mock()
     facet_mock.return_value = {
         "aggs": {"jessica-jones": {"terms": {"field": "defenders", "size": 20}}}
@@ -48,7 +49,7 @@ def test_facet_configuration_with_existing_facet_callable(inspire_app):
             assert expected == result
 
 
-def test_facet_configuration_with_existing_facet_dict(inspire_app):
+def test_facet_configuration_with_existing_facet_dict(inspire_app, override_config):
     config = {
         "RECORDS_REST_FACETS": {
             "defenders": {
@@ -65,7 +66,7 @@ def test_facet_configuration_with_existing_facet_dict(inspire_app):
             assert expected == result
 
 
-def test_facet_configuration_without_request_facet_name(inspire_app):
+def test_facet_configuration_without_request_facet_name(inspire_app, override_config):
     config = {
         "RECORDS_REST_FACETS": {
             "records-hep": {
@@ -82,7 +83,9 @@ def test_facet_configuration_without_request_facet_name(inspire_app):
             assert expected == result
 
 
-def test_facet_configuration_with_fallback_to_default_facet(inspire_app):
+def test_facet_configuration_with_fallback_to_default_facet(
+    inspire_app, override_config
+):
     config = {
         "RECORDS_REST_FACETS": {
             "records-hep": {

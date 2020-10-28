@@ -1,6 +1,6 @@
 from flask import current_app
 from freezegun.api import freeze_time
-from helpers.utils import create_record, create_user, override_config
+from helpers.utils import create_record, create_user
 from invenio_accounts.testutils import login_user_via_session
 from mock import patch
 
@@ -33,7 +33,7 @@ from inspirehep.search.aggregations import (
 from inspirehep.search.facets import hep_filters
 
 
-def test_hep_rpp_aggregation_and_filter(inspire_app):
+def test_hep_rpp_aggregation_and_filter(inspire_app, override_config):
     config = {
         "RECORDS_REST_FACETS": {
             "records-hep": {"filters": hep_filters(), "aggs": {**hep_rpp(1)}}
@@ -69,7 +69,7 @@ def test_hep_rpp_aggregation_and_filter(inspire_app):
         )
 
 
-def test_hep_earliest_date_aggregation_and_filter(inspire_app):
+def test_hep_earliest_date_aggregation_and_filter(inspire_app, override_config):
     config = {
         "RECORDS_REST_FACETS": {
             "records-hep": {
@@ -105,7 +105,7 @@ def test_hep_earliest_date_aggregation_and_filter(inspire_app):
         )
 
 
-def test_hep_doc_type_aggregation_and_filter(inspire_app):
+def test_hep_doc_type_aggregation_and_filter(inspire_app, override_config):
     config = {
         "RECORDS_REST_FACETS": {
             "records-hep": {
@@ -151,7 +151,7 @@ def test_hep_doc_type_aggregation_and_filter(inspire_app):
         )
 
 
-def test_hep_author_count_aggregation_and_filter(inspire_app):
+def test_hep_author_count_aggregation_and_filter(inspire_app, override_config):
     config = {
         "RECORDS_REST_FACETS": {
             "records-hep": {
@@ -186,7 +186,7 @@ def test_hep_author_count_aggregation_and_filter(inspire_app):
         )
 
 
-def test_hep_collaboration_aggregation_and_filter(inspire_app):
+def test_hep_collaboration_aggregation_and_filter(inspire_app, override_config):
     config = {
         "RECORDS_REST_FACETS": {
             "records-hep": {
@@ -220,7 +220,7 @@ def test_hep_collaboration_aggregation_and_filter(inspire_app):
         )
 
 
-def test_hep_author_aggregation_and_filter(inspire_app):
+def test_hep_author_aggregation_and_filter(inspire_app, override_config):
     config = {
         "RECORDS_REST_FACETS": {
             "records-hep": {
@@ -257,7 +257,7 @@ def test_hep_author_aggregation_and_filter(inspire_app):
         )
 
 
-def test_hep_author_aggregation_with_exclude(inspire_app):
+def test_hep_author_aggregation_with_exclude(inspire_app, override_config):
     config = {
         "RECORDS_REST_FACETS": {
             "records-hep": {
@@ -283,7 +283,7 @@ def test_hep_author_aggregation_with_exclude(inspire_app):
         assert response["aggregations"]["author"] == expected_aggregation
 
 
-def test_hep_subject_aggregation_and_filter(inspire_app):
+def test_hep_subject_aggregation_and_filter(inspire_app, override_config):
     config = {
         "RECORDS_REST_FACETS": {
             "records-hep": {
@@ -320,7 +320,7 @@ def test_hep_subject_aggregation_and_filter(inspire_app):
         )
 
 
-def test_hep_arxiv_categories_aggregation_and_filter(inspire_app):
+def test_hep_arxiv_categories_aggregation_and_filter(inspire_app, override_config):
     config = {
         "RECORDS_REST_FACETS": {
             "records-hep": {
@@ -359,7 +359,7 @@ def test_hep_arxiv_categories_aggregation_and_filter(inspire_app):
         )
 
 
-def test_jobs_field_of_interest_aggregation_and_filter(inspire_app):
+def test_jobs_field_of_interest_aggregation_and_filter(inspire_app, override_config):
     config = {
         "RECORDS_REST_FACETS": {
             "records-jobs": {
@@ -396,7 +396,7 @@ def test_jobs_field_of_interest_aggregation_and_filter(inspire_app):
         )
 
 
-def test_jobs_rank_aggregation_and_filter(inspire_app):
+def test_jobs_rank_aggregation_and_filter(inspire_app, override_config):
     config = {
         "RECORDS_REST_FACETS": {
             "records-jobs": {
@@ -433,7 +433,7 @@ def test_jobs_rank_aggregation_and_filter(inspire_app):
         )
 
 
-def test_jobs_region_aggregation_and_filter(inspire_app):
+def test_jobs_region_aggregation_and_filter(inspire_app, override_config):
     config = {
         "RECORDS_REST_FACETS": {
             "records-jobs": {
@@ -469,7 +469,7 @@ def test_jobs_region_aggregation_and_filter(inspire_app):
         )
 
 
-def test_jobs_status_aggregation_and_filter(inspire_app):
+def test_jobs_status_aggregation_and_filter(inspire_app, override_config):
     user = create_user(role="cataloger")
     config = {
         "CATALOGER_RECORDS_REST_FACETS": {
@@ -509,7 +509,7 @@ def test_jobs_status_aggregation_and_filter(inspire_app):
         )
 
 
-def test_conf_series_aggregation_and_filter(inspire_app):
+def test_conf_series_aggregation_and_filter(inspire_app, override_config):
     config = {
         "RECORDS_REST_FACETS": {
             "records-conferences": {
@@ -546,7 +546,7 @@ def test_conf_series_aggregation_and_filter(inspire_app):
         )
 
 
-def test_conf_subject_aggregation_and_filter(inspire_app):
+def test_conf_subject_aggregation_and_filter(inspire_app, override_config):
     config = {
         "RECORDS_REST_FACETS": {
             "records-conferences": {
@@ -583,7 +583,9 @@ def test_conf_subject_aggregation_and_filter(inspire_app):
         )
 
 
-def test_hep_self_author_affiliations_aggregation_and_filter(inspire_app):
+def test_hep_self_author_affiliations_aggregation_and_filter(
+    inspire_app, override_config
+):
     def records_hep():
         return {
             "filters": hep_filters(),
@@ -641,7 +643,7 @@ def test_hep_self_author_affiliations_aggregation_and_filter(inspire_app):
         )
 
 
-def test_hep_author_affiliations_aggregation_and_filter(inspire_app):
+def test_hep_author_affiliations_aggregation_and_filter(inspire_app, override_config):
     def records_hep():
         return {
             "filters": hep_filters(),
@@ -700,7 +702,7 @@ def test_hep_author_affiliations_aggregation_and_filter(inspire_app):
         )
 
 
-def test_hep_self_author_names_aggregation_and_filter(inspire_app):
+def test_hep_self_author_names_aggregation_and_filter(inspire_app, override_config):
     def records_hep():
         return {
             "filters": hep_filters(),
@@ -756,7 +758,7 @@ def test_hep_self_author_names_aggregation_and_filter(inspire_app):
         )
 
 
-def test_hep_self_curated_relation_aggregation_and_filter(inspire_app):
+def test_hep_self_curated_relation_aggregation_and_filter(inspire_app, override_config):
     config = {
         "RECORDS_REST_FACETS": {
             "records-hep": {
@@ -804,7 +806,7 @@ def test_hep_self_curated_relation_aggregation_and_filter(inspire_app):
         assert response["aggregations"]["self_curated_relation"] == expected_aggregation
 
 
-def test_hep_collection_aggregation(inspire_app):
+def test_hep_collection_aggregation(inspire_app, override_config):
     config = {
         "RECORDS_REST_FACETS": {
             "filters": hep_filters(),
@@ -838,7 +840,7 @@ def test_hep_collection_aggregation(inspire_app):
         )
 
 
-def test_seminar_subject_aggregation_and_filter(inspire_app):
+def test_seminar_subject_aggregation_and_filter(inspire_app, override_config):
     config = {
         "RECORDS_REST_FACETS": {
             "records-seminars": {
@@ -875,7 +877,7 @@ def test_seminar_subject_aggregation_and_filter(inspire_app):
         )
 
 
-def test_seminar_series_aggregation_and_filter(inspire_app):
+def test_seminar_series_aggregation_and_filter(inspire_app, override_config):
     config = {
         "RECORDS_REST_FACETS": {
             "records-seminars": {
@@ -945,7 +947,7 @@ def test_seminars_start_date_filter_with_upcoming(inspire_app):
     )
 
 
-def test_seminar_accessibility_aggregation(inspire_app):
+def test_seminar_accessibility_aggregation(inspire_app, override_config):
     config = {
         "RECORDS_REST_FACETS": {
             "records-seminars": {
@@ -991,7 +993,7 @@ def test_seminar_accessibility_aggregation(inspire_app):
         )
 
 
-def test_experiment_inspire_classification_aggregation(inspire_app):
+def test_experiment_inspire_classification_aggregation(inspire_app, override_config):
     config = {
         "RECORDS_REST_FACETS": {
             "records-experiments": {
@@ -1036,7 +1038,7 @@ def test_experiment_inspire_classification_aggregation(inspire_app):
         )
 
 
-def test_experiment_institution_aggregation_and_filter(inspire_app):
+def test_experiment_institution_aggregation_and_filter(inspire_app, override_config):
     config = {
         "RECORDS_REST_FACETS": {
             "records-experiments": {

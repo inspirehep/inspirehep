@@ -14,12 +14,7 @@ import requests_mock
 from flask import current_app
 from freezegun import freeze_time
 from helpers.providers.faker import faker
-from helpers.utils import (
-    create_pidstore,
-    create_record,
-    create_s3_bucket,
-    override_config,
-)
+from helpers.utils import create_pidstore, create_record, create_s3_bucket
 from invenio_db import db
 from invenio_pidstore.errors import PIDAlreadyExists
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
@@ -1644,7 +1639,9 @@ def test_do_not_add_files_which_are_already_on_s3(inspire_app, s3):
     assert record["documents"] == expected_documents
 
 
-def test_files_metadata_is_replaced_when_replacing_metadata_is_enabled(inspire_app, s3):
+def test_files_metadata_is_replaced_when_replacing_metadata_is_enabled(
+    inspire_app, s3, override_config
+):
     expected_figure_key = "cb071d80d1a54f21c8867a038f6a6c66"
     expected_document_key = "fdc3bdefb79cec8eb8211d2499e04704"
     create_s3_bucket(expected_figure_key)

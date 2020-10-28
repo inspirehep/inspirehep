@@ -8,7 +8,6 @@
 import json
 
 import pytest
-from helpers.utils import override_config
 
 
 @pytest.mark.vcr()
@@ -74,7 +73,7 @@ def test_view_subscribe_to_list_with_missing_data(inspire_app):
     assert expected_errors == result_errors
 
 
-def test_get_weekly_jobs_rss(inspire_app, shared_datadir, redis):
+def test_get_weekly_jobs_rss(inspire_app, shared_datadir, redis, override_config):
     with override_config(WEEKLY_JOBS_EMAIL_REDIS_KEY="weekly_jobs_email"):
         entry = {
             "title": "New HEP positions opened last week",

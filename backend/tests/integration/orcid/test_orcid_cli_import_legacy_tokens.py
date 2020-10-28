@@ -8,7 +8,7 @@
 import pytest
 from flask import current_app
 from helpers.factories.db.invenio_records import TestRecordMetadata
-from helpers.utils import get_index_alias, orcid_app_cli_runner, override_config
+from helpers.utils import get_index_alias, orcid_app_cli_runner
 from invenio_db import db
 from invenio_oauthclient.models import RemoteAccount, RemoteToken, User, UserIdentity
 from mock import patch
@@ -129,14 +129,14 @@ def redis_setup(inspire_app):
 
 
 @fixture(scope="function")
-def app_with_config(inspire_app):
+def app_with_config(inspire_app, override_config):
     config = {"ORCID_APP_CREDENTIALS": {"consumer_key": "0000-0000-0000-0000"}}
     with override_config(**config):
         yield inspire_app
 
 
 @fixture(scope="function")
-def app_without_config(inspire_app):
+def app_without_config(inspire_app, override_config):
     config = {"ORCID_APP_CREDENTIALS": {"consumer_key": None}}
     with override_config(**config):
         yield inspire_app

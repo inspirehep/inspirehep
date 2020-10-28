@@ -7,13 +7,12 @@
 
 from elasticsearch_dsl import Search
 from flask import current_app
-from helpers.utils import override_config
 from mock import MagicMock, patch
 
 from inspirehep.search.factories.filter import inspire_filter_factory
 
 
-def test_inspire_filter_factory(inspire_app):
+def test_inspire_filter_factory(inspire_app, override_config):
     index_name = "test_facet_aggs"
     mock_filter = MagicMock()
     mock_filter_wrapper = MagicMock()

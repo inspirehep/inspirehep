@@ -7,11 +7,10 @@
 from datetime import datetime
 
 from freezegun import freeze_time
-from helpers.utils import override_config
 
 
 @freeze_time(datetime(2019, 9, 17, 6, 0, 0))
-def test_update_weekly_jobs(inspire_app, redis, cli, create_jobs):
+def test_update_weekly_jobs(inspire_app, redis, cli, create_jobs, override_config):
     config = {
         "WEEKLY_JOBS_EMAIL_REDIS_KEY": "MAILTRAIN_KEY",
         "WEEKLY_JOBS_EMAIL_TITLE": "Weekly jobs",
@@ -34,7 +33,9 @@ def test_update_weekly_jobs(inspire_app, redis, cli, create_jobs):
 
 
 @freeze_time(datetime(2019, 9, 17, 6, 0, 0))
-def test_update_weekly_jobs_populates_rss_feed(inspire_app, cli, create_jobs):
+def test_update_weekly_jobs_populates_rss_feed(
+    inspire_app, cli, create_jobs, override_config
+):
     config = {
         "WEEKLY_JOBS_EMAIL_REDIS_KEY": "MAILTRAIN_KEY",
         "WEEKLY_JOBS_EMAIL_TITLE": "Weekly jobs",
@@ -62,7 +63,9 @@ def test_update_weekly_jobs_with_no_jobs(inspire_app, cli):
     assert "No jobs found from last week skipping" in result.output
 
 
-def test_update_weekly_jobs_api_missing_config(inspire_app, cli, create_jobs):
+def test_update_weekly_jobs_api_missing_config(
+    inspire_app, cli, create_jobs, override_config
+):
     with override_config(**{"WEEKLY_JOBS_EMAIL_REDIS_KEY": None}):
         result = cli.invoke(["mailing", "update_weekly_jobs"])
         assert result.exit_code == -1

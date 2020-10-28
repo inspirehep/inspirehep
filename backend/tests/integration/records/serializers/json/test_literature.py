@@ -10,12 +10,7 @@ from uuid import UUID
 
 import mock
 from helpers.providers.faker import faker
-from helpers.utils import (
-    create_record,
-    create_record_factory,
-    create_user,
-    override_config,
-)
+from helpers.utils import create_record, create_record_factory, create_user
 from invenio_accounts.testutils import login_user_via_session
 
 from inspirehep.accounts.roles import Roles
@@ -644,7 +639,9 @@ def test_literature_references_with_invalid_size(inspire_app):
     assert expected_status_code == response_status_code
 
 
-def test_literature_references_with_size_bigger_than_maximum(inspire_app):
+def test_literature_references_with_size_bigger_than_maximum(
+    inspire_app, override_config
+):
     record = create_record("lit", data=faker.record("lit"))
     headers = {"Accept": "application/json"}
     config = {"MAX_API_RESULTS": 3}

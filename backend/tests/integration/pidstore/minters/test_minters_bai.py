@@ -8,7 +8,7 @@
 
 import pytest
 from helpers.providers.record_provider import RecordProvider
-from helpers.utils import create_record, override_config
+from helpers.utils import create_record
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
 from inspirehep.pidstore.errors import PIDAlreadyExists
@@ -16,7 +16,7 @@ from inspirehep.pidstore.providers.bai import InspireBAIProvider
 from inspirehep.utils import flatten_list
 
 
-def test_old_minter_bai(inspire_app):
+def test_old_minter_bai(inspire_app, override_config):
     data = {"ids": [{"schema": "JACOW", "value": "JACoW-12345678"}]}
     with override_config(FEATURE_FLAG_ENABLE_BAI_PROVIDER=False):
         record = create_record("aut", data=data, other_pids=["bai"])
@@ -39,7 +39,7 @@ def test_old_minter_bai(inspire_app):
     assert pid.pid_value in epxected_pids_values
 
 
-def test_old_minter_bai_empty(inspire_app):
+def test_old_minter_bai_empty(inspire_app, override_config):
     with override_config(FEATURE_FLAG_ENABLE_BAI_PROVIDER=False):
         rec = create_record("aut")
     expected_pids_len = 0
@@ -51,7 +51,7 @@ def test_old_minter_bai_empty(inspire_app):
     assert expected_pids_len == result_pids_len
 
 
-def test_old_minter_bai_already_existing(inspire_app):
+def test_old_minter_bai_already_existing(inspire_app, override_config):
     with override_config(FEATURE_FLAG_ENABLE_BAI_PROVIDER=False):
         record_1 = create_record("aut", other_pids=["bai"])
     data2 = {"ids": record_1["ids"]}
@@ -62,7 +62,9 @@ def test_old_minter_bai_already_existing(inspire_app):
         create_record("aut", data2)
 
 
-def test_if_old_bai_is_processed_on_authors_record_creation(inspire_app):
+def test_if_old_bai_is_processed_on_authors_record_creation(
+    inspire_app, override_config
+):
     with override_config(FEATURE_FLAG_ENABLE_BAI_PROVIDER=False):
         record = create_record("aut", other_pids=["bai"])
     bai = record["ids"][0]["value"]
@@ -74,7 +76,9 @@ def test_if_old_bai_is_processed_on_authors_record_creation(inspire_app):
     )
 
 
-def test_old_bai_minter_without_deleting_all_external_pids(inspire_app):
+def test_old_bai_minter_without_deleting_all_external_pids(
+    inspire_app, override_config
+):
     with override_config(FEATURE_FLAG_ENABLE_BAI_PROVIDER=False):
         rec = create_record("aut", other_pids=["bai"])
     rec_bai = rec["ids"][0]["value"]
@@ -97,7 +101,7 @@ def test_old_bai_minter_without_deleting_all_external_pids(inspire_app):
     assert bai_count == 0
 
 
-def test_minter_bai_provided(inspire_app):
+def test_minter_bai_provided(inspire_app, override_config):
     data = {
         "ids": [
             {"schema": "JACOW", "value": "JACoW-12345678"},
@@ -125,7 +129,7 @@ def test_minter_bai_provided(inspire_app):
     assert pid.pid_value in epxected_pids_values
 
 
-def test_minter_bai_new(inspire_app):
+def test_minter_bai_new(inspire_app, override_config):
     with override_config(FEATURE_FLAG_ENABLE_BAI_PROVIDER=True):
         record = create_record("aut")
 
@@ -140,7 +144,7 @@ def test_minter_bai_new(inspire_app):
     assert bai_entry["schema"] == "INSPIRE BAI"
 
 
-def test_minter_bai_already_existing(inspire_app):
+def test_minter_bai_already_existing(inspire_app, override_config):
     with override_config(FEATURE_FLAG_ENABLE_BAI_PROVIDER=True):
         data = create_record("aut")
         data2 = {"ids": data["ids"]}
@@ -148,7 +152,7 @@ def test_minter_bai_already_existing(inspire_app):
             create_record("aut", data2)
 
 
-def test_bai_minter_deletes_unused_pid(inspire_app):
+def test_bai_minter_deletes_unused_pid(inspire_app, override_config):
     with override_config(FEATURE_FLAG_ENABLE_BAI_PROVIDER=True):
         rec = create_record("aut")
     rec_bai = rec["ids"][0]["value"]
@@ -193,7 +197,7 @@ def test_bai_minter_many_pids(inspire_app):
     assert sorted(bais) == sorted(expected_bais)
 
 
-def test_bai_minter_removes_all_pids_on_record_delete(inspire_app):
+def test_bai_minter_removes_all_pids_on_record_delete(inspire_app, override_config):
     data = {
         "ids": [
             {"schema": "INSPIRE BAI", "value": "K.Janeway.1"},
@@ -210,7 +214,9 @@ def test_bai_minter_removes_all_pids_on_record_delete(inspire_app):
     assert bai_count == 0
 
 
-def test_bai_minter_generates_correct_bai_when_numbers_are_not_consistent(inspire_app):
+def test_bai_minter_generates_correct_bai_when_numbers_are_not_consistent(
+    inspire_app, override_config
+):
     rec_1_expected_ids = [
         {"schema": "INSPIRE BAI", "value": "K.Janeway.1"},
         {"schema": "INSPIRE BAI", "value": "K.Janeway.3"},
@@ -236,7 +242,7 @@ def test_bai_minter_generates_correct_bai_when_numbers_are_not_consistent(inspir
     assert rec_2["ids"] == rec_2_expected_ids
 
 
-def test_minter_bai_respects_feature_flag(inspire_app):
+def test_minter_bai_respects_feature_flag(inspire_app, override_config):
     with override_config(FEATURE_FLAG_ENABLE_BAI_PROVIDER=False):
         record = create_record("aut")
 
@@ -250,7 +256,7 @@ def test_minter_bai_respects_feature_flag(inspire_app):
 
 
 def test_minter_bai_minting_of_existing_bais_works_when_feature_flag_is_turned_off(
-    inspire_app
+    inspire_app, override_config
 ):
     data = {"ids": [{"schema": "INSPIRE BAI", "value": "K.Janeway.1"}]}
     expected_bai_value = "K.Janeway.1"
@@ -266,7 +272,7 @@ def test_minter_bai_minting_of_existing_bais_works_when_feature_flag_is_turned_o
     assert bai.status == PIDStatus.REGISTERED
 
 
-def test_double_minting_same_record_not_breaks(inspire_app):
+def test_double_minting_same_record_not_breaks(inspire_app, override_config):
     with override_config(FEATURE_FLAG_ENABLE_BAI_PROVIDER=True):
         data = {"ids": [{"schema": "INSPIRE BAI", "value": "K.Janeway.1"}]}
         record = create_record("aut", data=data)

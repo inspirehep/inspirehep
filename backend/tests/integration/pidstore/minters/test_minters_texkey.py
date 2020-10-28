@@ -5,13 +5,13 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 import pytest
-from helpers.utils import create_record, override_config
+from helpers.utils import create_record
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
 from inspirehep.pidstore.errors import PIDAlreadyExistsError
 
 
-def test_minter_mint_new_record_without_texkey(inspire_app):
+def test_minter_mint_new_record_without_texkey(inspire_app, override_config):
     RANDOM_PART_SIZE = 3
     data = {
         "authors": [{"full_name": "Janeway, K."}],
@@ -34,7 +34,7 @@ def test_minter_mint_new_record_without_texkey(inspire_app):
     assert len(pid.pid_value) == expected_pid_length
 
 
-def test_minter_mint_new_record_with_texkey(inspire_app):
+def test_minter_mint_new_record_with_texkey(inspire_app, override_config):
     data = {
         "authors": [{"full_name": "Janeway, K."}],
         "publication_info": [{"year": 2000}],
@@ -52,7 +52,9 @@ def test_minter_mint_new_record_with_texkey(inspire_app):
     assert pid.pid_value == expected_pid_value
 
 
-def test_minter_mint_new_record_with_texkey_when_texkey_already_in_use(inspire_app):
+def test_minter_mint_new_record_with_texkey_when_texkey_already_in_use(
+    inspire_app, override_config
+):
     data = {
         "authors": [{"full_name": "Janeway, K."}],
         "publication_info": [{"year": 2000}],
@@ -65,7 +67,7 @@ def test_minter_mint_new_record_with_texkey_when_texkey_already_in_use(inspire_a
             record = create_record("lit", data=data)
 
 
-def test_minter_mint_record_update_with_texkey_changed(inspire_app):
+def test_minter_mint_record_update_with_texkey_changed(inspire_app, override_config):
     data = {
         "authors": [{"full_name": "Janeway, K."}],
         "publication_info": [{"year": 2000}],
@@ -113,7 +115,7 @@ def test_minter_mint_record_update_with_texkey_changed(inspire_app):
     assert pid_old.status == PIDStatus.REGISTERED
 
 
-def test_minter_deletes_pids_when_record_is_deleted(inspire_app):
+def test_minter_deletes_pids_when_record_is_deleted(inspire_app, override_config):
     data = {
         "authors": [{"full_name": "Janeway, K."}],
         "publication_info": [{"year": 2000}],
@@ -139,7 +141,7 @@ def test_minter_deletes_pids_when_record_is_deleted(inspire_app):
     assert pids[1].status == PIDStatus.DELETED
 
 
-def test_minter_texkey_featureflag_test(inspire_app):
+def test_minter_texkey_featureflag_test(inspire_app, override_config):
     data = {
         "authors": [{"full_name": "Janeway, K."}],
         "publication_info": [{"year": 2000}],
@@ -155,7 +157,9 @@ def test_minter_texkey_featureflag_test(inspire_app):
     assert pid_count == 0
 
 
-def test_minter_ignores_texkey_pid_when_missing_data_to_create_it(inspire_app):
+def test_minter_ignores_texkey_pid_when_missing_data_to_create_it(
+    inspire_app, override_config
+):
     data = {"authors": [{"full_name": "Janeway, K."}]}
     with override_config(FEATURE_FLAG_ENABLE_TEXKEY_MINTER=True):
         record = create_record("lit", data=data)
@@ -182,7 +186,7 @@ def test_minter_ignores_texkey_pid_when_missing_data_to_create_it(inspire_app):
 
 
 def test_minter_creates_record_with_texkey_provided_and_new_one_when_metadata_requires_it(
-    inspire_app
+    inspire_app, override_config
 ):
     data = {
         "authors": [{"full_name": "Janeway, K."}],
@@ -216,7 +220,9 @@ def test_minter_creates_record_with_texkey_provided_and_new_one_when_metadata_re
     assert pids_from_pidstore[2].pid_value in all_expected_texkeys
 
 
-def test_minter_reuses_texkey_from_deleted_record_if_specified_in_metadata(inspire_app):
+def test_minter_reuses_texkey_from_deleted_record_if_specified_in_metadata(
+    inspire_app, override_config
+):
     with override_config(FEATURE_FLAG_ENABLE_TEXKEY_MINTER=True):
         expected_texkey = "Texkey:2000abcd"
         data = {"texkeys": [expected_texkey]}
@@ -230,7 +236,7 @@ def test_minter_reuses_texkey_from_deleted_record_if_specified_in_metadata(inspi
     assert texkey.status == PIDStatus.REGISTERED
 
 
-def test_minter_undeleting_record(inspire_app):
+def test_minter_undeleting_record(inspire_app, override_config):
     data = {
         "authors": [{"full_name": "Janeway, K."}],
         "publication_info": [{"year": 2000}],

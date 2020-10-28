@@ -24,7 +24,6 @@ import logging
 
 import mock
 import pytest
-from helpers.utils import override_config
 
 from inspirehep.orcid import exceptions
 from inspirehep.orcid.converter import ExternalIdentifier
@@ -54,7 +53,7 @@ class TestOrcidPutcodeGetter(object):
     def teardown(self):
         logging.getLogger("inspirehep.orcid.putcode_getter").disabled = 0
 
-    def test_get_all_inspire_putcodes_happy_flow(self):
+    def test_get_all_inspire_putcodes_happy_flow(self, override_config):
         with override_config(
             ORCID_APP_CREDENTIALS={"consumer_key": self.source_client_id_path}
         ):
@@ -66,7 +65,7 @@ class TestOrcidPutcodeGetter(object):
         for _, recid in putcodes_recids:
             assert int(recid)
 
-    def test_get_all_inspire_putcodes_with_recids(self):
+    def test_get_all_inspire_putcodes_with_recids(self, override_config):
         self.orcid = "0000-0002-5073-0816"
         with override_config(
             ORCID_APP_CREDENTIALS={"consumer_key": self.source_client_id_path}
@@ -86,7 +85,7 @@ class TestOrcidPutcodeGetter(object):
             list(putcode_getter.get_all_inspire_putcodes_and_recids_iter())
         mock_delete_access_token.assert_called_once_with(token, self.orcid)
 
-    def test_putcode_not_found(self):
+    def test_putcode_not_found(self, override_config):
         self.orcid = "0000-0002-0942-3697"
         with override_config(
             ORCID_APP_CREDENTIALS={"consumer_key": self.source_client_id_path}
@@ -95,7 +94,7 @@ class TestOrcidPutcodeGetter(object):
             with pytest.raises(exceptions.InputDataInvalidException):
                 list(putcode_getter.get_all_inspire_putcodes_and_recids_iter())
 
-    def test_get_putcodes_and_recids_by_identifiers_iter(self,):
+    def test_get_putcodes_and_recids_by_identifiers_iter(self, override_config):
         self.orcid = "0000-0002-0942-3697"
         id_doi1 = ExternalIdentifier("doi", "10.1000/test.orcid.push")
         id_doi2 = ExternalIdentifier("doi", "10.1000/orcid-test-andrea-rossoni")

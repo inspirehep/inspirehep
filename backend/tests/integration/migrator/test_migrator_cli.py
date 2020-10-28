@@ -10,7 +10,7 @@ import os
 
 import pkg_resources
 import pytest
-from helpers.utils import create_record, override_config
+from helpers.utils import create_record
 from invenio_db import db
 from invenio_search import current_search
 from mock import patch
@@ -22,7 +22,7 @@ from inspirehep.migrator.tasks import populate_mirror_from_file
 @pytest.mark.xfail(
     reason="Flaky test, the current_app configuration is not overwritten properly."
 )
-def test_migrate_file_halts_in_debug_mode(inspire_app, cli):
+def test_migrate_file_halts_in_debug_mode(inspire_app, cli, override_config):
     config = {"DEBUG": True}
     with override_config(**config):
         file_name = pkg_resources.resource_filename(
@@ -35,7 +35,9 @@ def test_migrate_file_halts_in_debug_mode(inspire_app, cli):
         assert "DEBUG" in result.output
 
 
-def test_migrate_file_doesnt_halt_in_debug_mode_when_forced(inspire_app, cli):
+def test_migrate_file_doesnt_halt_in_debug_mode_when_forced(
+    inspire_app, cli, override_config
+):
     config = {"DEBUG": True}
     with override_config(**config):
         file_name = pkg_resources.resource_filename(
@@ -78,7 +80,7 @@ def test_migrate_file_mirror_only(inspire_app, cli):
 
 
 @pytest.mark.xfail(reason="Flaky test, the configuration is not overwritten properly.")
-def test_migrate_mirror_halts_in_debug_mode(inspire_app, cli):
+def test_migrate_mirror_halts_in_debug_mode(inspire_app, cli, override_config):
     config = {"DEBUG": True}
     with override_config(**config):
         result = cli.invoke(["migrate", "mirror", "-a"])
@@ -87,7 +89,9 @@ def test_migrate_mirror_halts_in_debug_mode(inspire_app, cli):
         assert "DEBUG" in result.output
 
 
-def test_migrate_mirror_doesnt_halt_in_debug_mode_when_forced(inspire_app, cli):
+def test_migrate_mirror_doesnt_halt_in_debug_mode_when_forced(
+    inspire_app, cli, override_config
+):
     config = {"DEBUG": True}
     with override_config(**config):
         result = cli.invoke(["migrate", "mirror", "-f"])
@@ -211,7 +215,9 @@ def test_migrate_records_correctly_with_author_and_indexes_correctly(
     "inspirehep.migrator.cli.GracefulKiller.kill_now", side_effect=(False, False, True)
 )
 @patch("inspirehep.migrator.cli.continuous_migration")
-def test_migrate_continuously(mock_migration, mock_handler, inspire_app, cli):
+def test_migrate_continuously(
+    mock_migration, mock_handler, inspire_app, cli, override_config
+):
     no_sleep_config = {"MIGRATION_POLLING_SLEEP": 0}
 
     with override_config(**no_sleep_config):

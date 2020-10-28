@@ -7,7 +7,6 @@
 
 import pytest
 from flask import render_template
-from helpers.utils import override_config
 from invenio_accounts.models import User
 from invenio_db import db
 from invenio_oauthclient.models import UserIdentity

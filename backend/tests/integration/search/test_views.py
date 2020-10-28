@@ -5,8 +5,6 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from helpers.utils import override_config
-
 
 def test_query_parser(inspire_app):
     query = "title"
@@ -19,7 +17,9 @@ def test_query_parser(inspire_app):
     assert expected == response.json
 
 
-def test_query_parser_should_return_404_when_endpoint_is_disabled(inspire_app):
+def test_query_parser_should_return_404_when_endpoint_is_disabled(
+    inspire_app, override_config
+):
     with override_config(
         FEATURE_FLAG_ENABLE_QUERY_PARSER_ENDPOINT=False
     ), inspire_app.test_client() as client:

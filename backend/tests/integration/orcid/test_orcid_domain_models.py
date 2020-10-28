@@ -32,7 +32,6 @@ from celery.exceptions import Retry, TimeLimitExceeded
 from fqn_decorators.decorators import get_fqn
 from helpers.factories.db.invenio_oauthclient import TestRemoteToken
 from helpers.factories.db.invenio_records import TestRecordMetadata
-from helpers.utils import override_config
 from inspire_service_orcid import exceptions as orcid_client_exceptions
 from inspire_service_orcid.client import OrcidClient
 from lxml import etree
@@ -231,7 +230,7 @@ class TestOrcidPusherPostNewWork(TestOrcidPusherBase):
             ):
                 pusher.push()
 
-    def test_push_new_work_already_existing(self):
+    def test_push_new_work_already_existing(self, override_config):
         # ORCID_APP_CREDENTIALS is required because ORCID adds it as source_client_id_path.
         with override_config(
             ORCID_APP_CREDENTIALS={"consumer_key": "0000-0001-8607-8906"}
@@ -240,7 +239,7 @@ class TestOrcidPusherPostNewWork(TestOrcidPusherBase):
             pusher.push()
         assert not self.cache.has_work_content_changed(self.inspire_record)
 
-    def test_push_new_work_already_existing_with_recids(self):
+    def test_push_new_work_already_existing_with_recids(self, override_config):
         self.orcid = self.ORCID_2
         self.cache.delete_work_putcode()
         # ORCID_APP_CREDENTIALS is required because ORCID adds it as source_client_id_path.
@@ -252,7 +251,7 @@ class TestOrcidPusherPostNewWork(TestOrcidPusherBase):
         assert not self.cache.has_work_content_changed(self.inspire_record)
 
     def test_push_new_work_already_existing_duplicated_external_identifier_exception(
-        self,
+        self, override_config
     ):
         # ORCID_APP_CREDENTIALS is required because ORCID adds it as source_client_id_path.
         self.recid = self.conflicting_recid
@@ -266,7 +265,7 @@ class TestOrcidPusherPostNewWork(TestOrcidPusherBase):
         assert self.cache.has_work_content_changed(self.conflicting_inspire_record)
 
     def test_push_new_work_already_existing_and_delete_duplicated_records_different_putcodes(
-        self,
+        self, override_config
     ):
         with override_config(
             ORCID_APP_CREDENTIALS={"consumer_key": "0000-0001-8607-8906"}
@@ -302,7 +301,7 @@ class TestOrcidPusherPutUpdatedWork(TestOrcidPusherBase):
         assert int(result_putcode) == self.putcode
         assert not self.cache.has_work_content_changed(self.inspire_record)
 
-    def test_push_updated_work_invalid_data_putcode(self):
+    def test_push_updated_work_invalid_data_putcode(self, override_config):
         self.cache.write_work_putcode("00000")
         # ORCID_APP_CREDENTIALS is required because ORCID adds it as source_client_id_path.
         with override_config(
@@ -315,7 +314,7 @@ class TestOrcidPusherPutUpdatedWork(TestOrcidPusherBase):
         assert result_putcode
         assert not self.cache.has_work_content_changed(self.inspire_record)
 
-    def test_push_updated_work_no_cache(self):
+    def test_push_updated_work_no_cache(self, override_config):
         self.cache.delete_work_putcode()
         # ORCID_APP_CREDENTIALS is required because ORCID adds it as source_client_id_path.
         with override_config(
@@ -358,7 +357,7 @@ class TestOrcidPusherDeleteWork(TestOrcidPusherBase):
         logging.getLogger("inspirehep.orcid.domain_models").disabled = logging.CRITICAL
         self.cache.delete_work_putcode()
 
-    def test_delete_work_cache_miss(self):
+    def test_delete_work_cache_miss(self, override_config):
         pusher = domain_models.OrcidPusher(self.orcid, self.recid, self.oauth_token)
         # ORCID_APP_CREDENTIALS is required because ORCID adds it as source_client_id_path.
         with override_config(
@@ -394,7 +393,7 @@ class TestOrcidPusherDeleteWork(TestOrcidPusherBase):
         pusher = domain_models.OrcidPusher(self.orcid, self.recid, self.oauth_token)
         assert not pusher.push()
 
-    def test_delete_work_invalid_token(self):
+    def test_delete_work_invalid_token(self, override_config):
         access_token = "tokeninvalid"
         TestRemoteToken.create_for_orcid(self.orcid, access_token=access_token)
         pusher = domain_models.OrcidPusher(self.orcid, self.recid, access_token)
@@ -439,7 +438,7 @@ class TestOrcidPusherDuplicatedIdentifier(TestOrcidPusherBase):
         logging.getLogger("inspirehep.orcid.domain_models").disabled = 0
         cache_module.CACHE_PREFIX = None
 
-    def test_happy_flow_post(self):
+    def test_happy_flow_post(self, override_config):
         with override_config(
             FEATURE_FLAG_ENABLE_ORCID_PUSH=True,
             FEATURE_FLAG_ORCID_PUSH_WHITELIST_REGEX=".*",
@@ -454,7 +453,7 @@ class TestOrcidPusherDuplicatedIdentifier(TestOrcidPusherBase):
         assert self.clashing_putcode
         assert not self.cache_clashing.has_work_content_changed(self.clashing_record)
 
-    def test_happy_flow_put(self):
+    def test_happy_flow_put(self, override_config):
         with override_config(
             FEATURE_FLAG_ENABLE_ORCID_PUSH=True,
             FEATURE_FLAG_ORCID_PUSH_WHITELIST_REGEX=".*",
@@ -485,7 +484,9 @@ class TestOrcidPusherDuplicatedIdentifier(TestOrcidPusherBase):
             assert result_putcode == self.putcode
             assert not self.cache.has_work_content_changed(self.inspire_record)
 
-    def test_push_unhandled_duplicated_external_identifier_pusher_exception(self):
+    def test_push_unhandled_duplicated_external_identifier_pusher_exception(
+        self, override_config
+    ):
         with override_config(
             FEATURE_FLAG_ENABLE_ORCID_PUSH=True,
             FEATURE_FLAG_ORCID_PUSH_WHITELIST_REGEX=".*",

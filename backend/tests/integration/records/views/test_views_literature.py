@@ -17,7 +17,6 @@ from helpers.utils import (
     create_user,
     create_user_and_token,
     logout,
-    override_config,
 )
 from invenio_accounts.testutils import login_user_via_session
 from invenio_search import current_search
@@ -409,7 +408,9 @@ def test_literature_citations_missing_pids(inspire_app):
     assert expected_status_code == response_status_code
 
 
-def test_literature_citations_with_size_bigger_than_maximum(inspire_app):
+def test_literature_citations_with_size_bigger_than_maximum(
+    inspire_app, override_config
+):
     record = create_record("lit", data=faker.record("lit"))
     headers = {"Accept": "application/json"}
     config = {"MAX_API_RESULTS": 3}

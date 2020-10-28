@@ -6,6 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import random
 import time
+from contextlib import contextmanager
 from datetime import datetime, timedelta
 from functools import partial
 from inspect import signature
@@ -35,25 +36,6 @@ def es_search(index):
 
 def get_index_alias(index):
     return build_alias_name(index, app=current_app)
-
-
-def override_config(app=None, **kwargs):
-    """Override Flask's current app configuration.
-
-    Note: it's a CONTEXT MANAGER.
-
-    Example:
-        from utils import override_config
-
-        with override_config(
-            MY_FEATURE_FLAG_ACTIVE=True,
-            MY_USERNAME='username',
-        ):
-            ...
-    """
-    if app:
-        return mock.patch.dict(app.config, kwargs)
-    return mock.patch.dict(current_app.config, kwargs)
 
 
 def create_pidstore(object_uuid, pid_type, pid_value):
