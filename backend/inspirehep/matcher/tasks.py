@@ -10,7 +10,7 @@ from celery import shared_task
 from invenio_db import db
 from invenio_records.api import RecordMetadata
 from psycopg2._psycopg import OperationalError
-from sqlalchemy import type_coerce
+from sqlalchemy import cast, not_, or_, type_coerce
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.exc import InvalidRequestError, StatementError
 
@@ -36,7 +36,14 @@ def match_references_by_uuids(literature_uuids):
     record_json = type_coerce(RecordMetadata.json, JSONB)
     has_references = record_json.has_key("references")  # noqa: W601
     selected_uuids = RecordMetadata.id.in_(literature_uuids)
-    with_references_query = RecordMetadata.query.filter(selected_uuids, has_references)
+    not_deleted = or_(  # exclude deleted records incase some are deleted after uuids are fetched by the callee
+        not_(record_json.has_key("deleted")),  # noqa: W601
+        not_(record_json["deleted"] == cast(True, JSONB)),
+    )
+    with_references_query = RecordMetadata.query.filter(
+        selected_uuids, has_references, not_deleted
+    )
+
     for record_metadata in with_references_query.all():
         references = record_metadata.json.get("references")
         match_result = match_references(references)
@@ -46,7 +53,6 @@ def match_references_by_uuids(literature_uuids):
             literature.update(dict(literature))
 
             db.session.commit()
-            LOGGER.info("MATCHER-after-commit")
             added_recids = match_result["added_recids"]
             removed_recids = match_result["removed_recids"]
             LOGGER.info(
