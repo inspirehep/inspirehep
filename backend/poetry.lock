@@ -1797,7 +1797,7 @@ sqlite = ["invenio-db (>=1.0.0)"]
 tests = ["SQLAlchemy-Continuum (>=1.2.1)", "check-manifest (>=0.25)", "coverage (>=4.0)", "invenio-indexer (>=1.1.0)", "invenio-jsonschemas (>=1.0.0)", "invenio-marc21 (>=1.0.0a9)", "isort (>=4.2.2)", "mock (>=1.3.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.0.0,<5.0.0)"]
 
 [package.source]
-reference = "5d796cf354467773a7e00b75bc382ba2bf2efef7"
+reference = "f96fa977eb6c443a4dd1943895d864a0735c370b"
 type = "git"
 url = "https://github.com/inspirehep/invenio-oaiserver.git"
 
@@ -1966,6 +1966,7 @@ tests = ["check-manifest (>=0.25)", "coverage (>=4.0)", "Flask-Login (>=0.3.2)",
 reference = "cb1d8be510a2f14df5f45bdac9b88a0216119638"
 type = "git"
 url = "https://github.com/inspirehep/invenio-records-rest.git"
+
 [[package]]
 category = "main"
 description = "REST API module for Invenio."
@@ -4119,7 +4120,8 @@ test = ["zope.event"]
 testing = ["coverage", "nose", "zope.event"]
 
 [metadata]
-content-hash = "7da37ebcab724e9c37a9df0f0c5286ac476ccb2454b9a1f02d6685b0042e837c"
+content-hash = "cdcc6e6026c5a0620a9ed3f1727056b4e3824ad79c9a0b3b519a579fdc8e42a2"
+lock-version = "1.0"
 python-versions = ">=3.6,<3.8"
 
 [metadata.files]
@@ -4201,9 +4203,7 @@ base32-lib = [
     {file = "base32_lib-1.0.1-py2.py3-none-any.whl", hash = "sha256:ebbf80687ef9791580135f372db1c0a09a1a5d02089d57a8a49bf5ef3330221f"},
 ]
 beard = [
-    {file = "beard-0.2.1-py2.7.egg", hash = "sha256:481220480742f7d9317c3682fb27c3e442fb0406b92d82425433cd93f236dec8"},
     {file = "beard-0.2.1-py3-none-any.whl", hash = "sha256:56ca82003b15fc4cedd3c913e6ce6afeaa10bd27c2b5bbc4c467627c63722227"},
-    {file = "beard-0.2.1-py3.6.egg", hash = "sha256:fba7c6c3c56d29906e14cdab29085f186ca1c23ff3a27ed0260c6ef4334893b3"},
     {file = "beard-0.2.1.tar.gz", hash = "sha256:589ca864cd4125fa7382d8e484e969b4512ff8d0e7f9a760e8f55110ff8ef8da"},
 ]
 beautifulsoup4 = [
@@ -4966,7 +4966,6 @@ node-semver = [
 ]
 nodeenv = [
     {file = "nodeenv-1.3.4-py2.py3-none-any.whl", hash = "sha256:561057acd4ae3809e665a9aaaf214afff110bbb6a6d5c8a96121aea6878408b3"},
-    {file = "nodeenv-1.3.4.tar.gz", hash = "sha256:ff860d311cb9cee1a74e7056b6526436eceb2d5177f584b128eca3530849c1ec"},
 ]
 numpy = [
     {file = "numpy-1.18.1-cp35-cp35m-macosx_10_6_intel.whl", hash = "sha256:20b26aaa5b3da029942cdcce719b363dbe58696ad182aff0e5dcb1687ec946dc"},

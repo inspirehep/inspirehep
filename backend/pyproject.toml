@@ -81,7 +81,7 @@ pylatexenc = {git = "https://github.com/phfaist/pylatexenc.git", rev="0674048295
 pypdf2 = "^1.26.0"
 refextract = "^1.0.3"
 fs = "0.5.4"
-invenio-oaiserver = {git = "https://github.com/inspirehep/invenio-oaiserver.git", rev = "5d796cf354467773a7e00b75bc382ba2bf2efef7"}
+invenio-oaiserver = {git = "https://github.com/inspirehep/invenio-oaiserver.git", rev = "f96fa977eb6c443a4dd1943895d864a0735c370b"}
 
 
 [tool.poetry.dev-dependencies]
