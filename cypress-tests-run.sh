@@ -1,5 +1,5 @@
 rc=0
-files="-f docker-compose.yml -f ./smoke-tests/docker-compose.cypress.yml"
+files="-f docker-compose.yml -f ./e2e/docker-compose.cypress.yml"
 
 docker wait inspirehep_ui-build_1
 docker wait inspirehep_record-editor-build_1

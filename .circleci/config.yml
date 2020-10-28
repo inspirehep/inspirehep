@@ -8,9 +8,9 @@ jobs:
       - checkout
       - run: sh cypress-tests.sh
       - store_artifacts:
-          path: smoke-tests/cypress/__screenshots__
+          path: e2e/cypress/__screenshots__
       - store_artifacts:
-          path: smoke-tests/cypress/__snapshots__
+          path: e2e/cypress/__snapshots__
       - store_artifacts:
           path: cypress-container-logs.txt
 workflows:
