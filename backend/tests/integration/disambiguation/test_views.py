@@ -1,12 +1,12 @@
 import json
 
 from flask import current_app
-from helpers.utils import create_user_and_token, override_config
+from helpers.utils import create_user_and_token
 from mock import patch
 
 
 @patch("inspirehep.disambiguation.views.disambiguate_signatures")
-def test_view_disambiguate(disambiguate_signatures_mock, inspire_app):
+def test_view_disambiguate(disambiguate_signatures_mock, inspire_app, override_config):
     token = create_user_and_token()
     headers = {"Authorization": "BEARER " + token.access_token}
     clusters = [

@@ -7,7 +7,6 @@
 
 import pytest
 from flask import current_app
-from helpers.utils import override_config
 from mock import MagicMock
 
 from inspirehep.search.api import InspireSearch, LiteratureSearch
@@ -75,7 +74,7 @@ def test_get_search_with_source_with_fields_query_param(inspire_app):
 
 
 def test_get_search_with_source_with_fields_query_param_and_allow_all_header(
-    inspire_app
+    inspire_app,
 ):
     with current_app.test_request_context(
         "?fields=authors,ids", headers={"Accept": "*/*"}
@@ -90,7 +89,7 @@ def test_get_search_with_source_with_fields_query_param_and_allow_all_header(
 
 
 def test_get_search_with_source_with_LiteratureSearch_instance_with_defined_headers(
-    inspire_app
+    inspire_app, override_config
 ):
     config = {
         "LITERATURE_SOURCE_INCLUDES_BY_CONTENT_TYPE": {
@@ -119,7 +118,7 @@ def test_get_search_with_source_with_LiteratureSearch_instance_with_defined_head
 
 
 def test_get_search_with_source_with_LiteratureSearch_instance_with_not_defined_headers(
-    inspire_app
+    inspire_app, override_config
 ):
     config = {
         "LITERATURE_SOURCE_INCLUDES_BY_CONTENT_TYPE": {
@@ -139,7 +138,7 @@ def test_get_search_with_source_with_LiteratureSearch_instance_with_not_defined_
 
 
 def test_get_search_with_source_with_LiteratureSearch_instance_without_config(
-    inspire_app
+    inspire_app, override_config
 ):
     config = {
         "LITERATURE_SOURCE_INCLUDES_BY_CONTENT_TYPE": None,
@@ -195,7 +194,7 @@ def test_search_factory_without_query(inspire_app):
         assert expected_search_to_dict == search_to_dict
 
 
-def test_search_factory_with_aggs_with_query(inspire_app):
+def test_search_factory_with_aggs_with_query(inspire_app, override_config):
     mock_filter = MagicMock()
     mock_post_filter = MagicMock()
     facets = {
@@ -219,7 +218,7 @@ def test_search_factory_with_aggs_with_query(inspire_app):
         assert "post_filter" in search_to_dict
 
 
-def test_search_factory_with_aggs_without_query(inspire_app):
+def test_search_factory_with_aggs_without_query(inspire_app, override_config):
     mock_filter = MagicMock()
     mock_post_filter = MagicMock()
     facets = {
@@ -238,7 +237,7 @@ def test_search_factory_with_aggs_without_query(inspire_app):
         assert "post_filter" not in search_to_dict
 
 
-def test_search_factory_without_aggs_with_query(inspire_app):
+def test_search_factory_without_aggs_with_query(inspire_app, override_config):
     mock_filter = MagicMock()
     mock_post_filter = MagicMock()
     facets = {
@@ -262,7 +261,7 @@ def test_search_factory_without_aggs_with_query(inspire_app):
         assert "post_filter" in search_to_dict
 
 
-def test_search_factory_without_aggs_without_query(inspire_app):
+def test_search_factory_without_aggs_without_query(inspire_app, override_config):
     mock_filter = MagicMock()
     mock_post_filter = MagicMock()
     facets = {
@@ -281,7 +280,7 @@ def test_search_factory_without_aggs_without_query(inspire_app):
         assert "post_filter" not in search_to_dict
 
 
-def test_search_factory_only_with_aggs(inspire_app):
+def test_search_factory_only_with_aggs(inspire_app, override_config):
     mock_filter = MagicMock()
     mock_post_filter = MagicMock()
     facets = {
@@ -305,7 +304,7 @@ def test_search_factory_only_with_aggs(inspire_app):
         assert "post_filter" in search_to_dict
 
 
-def test_search_factory_only_with_aggs_without_query(inspire_app):
+def test_search_factory_only_with_aggs_without_query(inspire_app, override_config):
     mock_filter = MagicMock()
     mock_post_filter = MagicMock()
     facets = {

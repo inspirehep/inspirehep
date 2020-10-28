@@ -7,7 +7,7 @@
 from io import BytesIO
 
 from flask import render_template
-from helpers.utils import create_record, override_config
+from helpers.utils import create_record
 from invenio_search import current_search
 from lxml import etree
 from mock import mock_open, patch
@@ -21,7 +21,7 @@ def validate_xml_syntax(xml):
 
 @patch("inspirehep.sitemap.cli.open", new_callable=mock_open)
 def test_generate_multiple_sitemap_files_with_multiple_collection(
-    mocked_open, inspire_app, cli
+    mocked_open, inspire_app, cli, override_config
 ):
     create_record("lit")
     create_record("con")
@@ -53,7 +53,7 @@ def test_generate_multiple_sitemap_files_with_multiple_collection(
 
 
 @patch("inspirehep.sitemap.cli.open", new_callable=mock_open)
-def test_generate_sitemap_file(mocked_open, inspire_app, cli):
+def test_generate_sitemap_file(mocked_open, inspire_app, cli, override_config):
     literature = create_record("lit")
     literature_from_es = current_search.client.get("records-hep", literature.id)[
         "_source"

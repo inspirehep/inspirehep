@@ -28,7 +28,6 @@ import pytest
 from flask import current_app
 from fqn_decorators.decorators import get_fqn
 from helpers.factories.db.invenio_records import TestRecordMetadata
-from helpers.utils import override_config
 from requests.exceptions import RequestException
 
 from inspirehep.orcid import cache as cache_module
@@ -89,7 +88,7 @@ class TestOrcidPushFeatureFlag(object):
         self._patcher.stop()
         logging.getLogger("inspirehep.orcid.tasks").disabled = 0
 
-    def test_main_feature_flag(self):
+    def test_main_feature_flag(self, override_config):
         regex = ".*"
         with override_config(
             FEATURE_FLAG_ENABLE_ORCID_PUSH=False,
@@ -99,7 +98,7 @@ class TestOrcidPushFeatureFlag(object):
 
         self.mock_pusher.assert_not_called()
 
-    def test_whitelist_regex_any(self):
+    def test_whitelist_regex_any(self, override_config):
         regex = ".*"
         with override_config(
             FEATURE_FLAG_ENABLE_ORCID_PUSH=True,
@@ -111,7 +110,7 @@ class TestOrcidPushFeatureFlag(object):
             self.orcid, self.recid, self.oauth_token
         )
 
-    def test_whitelist_regex_none(self):
+    def test_whitelist_regex_none(self, override_config):
         regex = "^$"
         with override_config(
             FEATURE_FLAG_ENABLE_ORCID_PUSH=True,
@@ -121,7 +120,7 @@ class TestOrcidPushFeatureFlag(object):
 
         self.mock_pusher.assert_not_called()
 
-    def test_whitelist_regex_some(self):
+    def test_whitelist_regex_some(self, override_config):
         regex = "^(0000-0002-7638-5686|0000-0002-7638-5687)$"
         with override_config(
             FEATURE_FLAG_ENABLE_ORCID_PUSH=True,
@@ -151,7 +150,7 @@ class TestOrcidPushRetryTask(object):
         self._patcher.stop()
         logging.getLogger("inspirehep.orcid.tasks").disabled = 0
 
-    def test_happy_flow(self):
+    def test_happy_flow(self, override_config):
         with override_config(
             FEATURE_FLAG_ENABLE_ORCID_PUSH=True,
             FEATURE_FLAG_ORCID_PUSH_WHITELIST_REGEX=".*",
@@ -163,7 +162,7 @@ class TestOrcidPushRetryTask(object):
         )
         self.mock_pusher.return_value.push.assert_called_once()
 
-    def test_retry_triggered(self):
+    def test_retry_triggered(self, override_config):
         exc = RequestException()
         exc.response = mock.Mock()
         exc.request = mock.Mock()
@@ -185,7 +184,7 @@ class TestOrcidPushRetryTask(object):
         self.mock_pusher.return_value.push.assert_called_once()
         mock_orcid_push_task_retry.assert_called_once()
 
-    def test_retry_not_triggered(self):
+    def test_retry_not_triggered(self, override_config):
         self.mock_pusher.return_value.push.side_effect = IOError
 
         with override_config(
@@ -236,7 +235,7 @@ class TestOrcidPushTask(object):
         self.cache.delete_work_putcode()
         cache_module.CACHE_PREFIX = None
 
-    def test_push_new_work_happy_flow(self):
+    def test_push_new_work_happy_flow(self, override_config):
         with override_config(
             FEATURE_FLAG_ENABLE_ORCID_PUSH=True,
             FEATURE_FLAG_ORCID_PUSH_WHITELIST_REGEX=".*",
@@ -245,14 +244,14 @@ class TestOrcidPushTask(object):
 
         assert not self.cache.has_work_content_changed(self.inspire_record)
 
-    def test_push_new_work_invalid_data_orcid(self):
+    def test_push_new_work_invalid_data_orcid(self, override_config):
         with override_config(
             FEATURE_FLAG_ENABLE_ORCID_PUSH=True,
             FEATURE_FLAG_ORCID_PUSH_WHITELIST_REGEX=".*",
         ), pytest.raises(domain_exceptions.InputDataInvalidException):
             orcid_push("0000-0003-0000-XXXX", self.recid, self.oauth_token)
 
-    def test_push_new_work_already_existing(self):
+    def test_push_new_work_already_existing(self, override_config):
         self.cache.delete_work_putcode()
         with override_config(
             FEATURE_FLAG_ENABLE_ORCID_PUSH=True,
@@ -262,7 +261,7 @@ class TestOrcidPushTask(object):
             orcid_push(self.orcid, self.recid, self.oauth_token)
         assert not self.cache.has_work_content_changed(self.inspire_record)
 
-    def test_stale_record_db_version(self):
+    def test_stale_record_db_version(self, override_config):
         with override_config(
             FEATURE_FLAG_ENABLE_ORCID_PUSH=True,
             FEATURE_FLAG_ORCID_PUSH_WHITELIST_REGEX=".*",

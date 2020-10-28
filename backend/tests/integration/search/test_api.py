@@ -10,7 +10,7 @@ import urllib
 
 import mock
 import pytest
-from helpers.utils import create_record, override_config
+from helpers.utils import create_record
 from requests.exceptions import RequestException
 
 from inspirehep.search.api import AuthorsSearch, JournalsSearch, LiteratureSearch

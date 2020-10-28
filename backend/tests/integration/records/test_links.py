@@ -5,7 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 import mock
-from helpers.utils import create_record, override_config
+from helpers.utils import create_record
 from invenio_pidstore.models import PersistentIdentifier
 from werkzeug import MultiDict
 
@@ -53,7 +53,9 @@ def test_generate_inspire_search_links_no_self(inspire_app):
     assert links == expected_search_links
 
 
-def test_generate_inspire_search_links_gets_proper_formats(inspire_app):
+def test_generate_inspire_search_links_gets_proper_formats(
+    inspire_app, override_config
+):
     expected_links_test2 = {
         "self": "http://localhost:5000/api/test2/?q=&size=10&page=1",
         "format4": "http://localhost:5000/api/test2/?q=&size=10&page=1&format=format4",
@@ -90,7 +92,7 @@ def test_generate_inspire_search_links_gets_proper_formats(inspire_app):
     assert links_test2 == expected_links_test2
 
 
-def test_detail_links_factory_generates_proper_links(inspire_app):
+def test_detail_links_factory_generates_proper_links(inspire_app, override_config):
     expected_links = {
         "format1": "http://localhost:5000/jobs/1?format=format1",
         "format2": "http://localhost:5000/jobs/1?format=format2",
@@ -115,7 +117,9 @@ def test_detail_links_factory_generates_proper_links(inspire_app):
     assert links == expected_links
 
 
-def test_detail_links_factory_generates_proper_additional_links(inspire_app):
+def test_detail_links_factory_generates_proper_additional_links(
+    inspire_app, override_config
+):
     expected_links = {
         "format4": "http://localhost:5000/literature/1?format=format4",
         "format5": "http://localhost:5000/literature/1?format=format5",
@@ -143,7 +147,7 @@ def test_detail_links_factory_generates_proper_additional_links(inspire_app):
     assert links == expected_links
 
 
-def test_search_links_with_fields_filtering(inspire_app):
+def test_search_links_with_fields_filtering(inspire_app, override_config):
     expected_links_test = {
         "self": "http://localhost:5000/api/test/?q=&size=10&page=1&fields=ids,authors",
         "next": "http://localhost:5000/api/test/?q=&size=10&page=2&fields=ids,authors",

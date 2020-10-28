@@ -4,14 +4,15 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+from contextlib import contextmanager
 from functools import partial
 
+import mock
 import pytest
 import structlog
 from click.testing import CliRunner
 from flask.cli import ScriptInfo
 from helpers.cleanups import db_cleanup, es_cleanup
-from helpers.utils import override_config
 from invenio_search import current_search_client as es
 from redis import StrictRedis
 
@@ -35,7 +36,6 @@ def app():
         "SQLALCHEMY_DATABASE_URI"
     ] = "postgresql+psycopg2://inspirehep:inspirehep@localhost/test-inspirehep-async"
     app.config.update(app_config)
-
     with app.app_context():
         yield app
 
@@ -92,17 +92,41 @@ def redis(inspire_app):
 
 
 @pytest.fixture(scope="function")
+def override_config(inspire_app):
+    @contextmanager
+    def _override_config(**kwargs):
+        """Override Flask's current app configuration.
+
+        Note: it's a CONTEXT MANAGER.from
+
+        Example:
+
+            with override_config(
+                MY_FEATURE_FLAG_ACTIVE=True,
+                MY_USERNAME='username',
+            ):
+                ...
+        """
+        with mock.patch.dict(inspire_app.config, kwargs), mock.patch.dict(
+            inspire_app.wsgi_app.mounts["/api"].config, kwargs
+        ):
+            yield
+
+    return _override_config
+
+
+@pytest.fixture(scope="function")
 def inspire_app(app, cache, clear_environment):
     yield app
 
 
 @pytest.fixture(scope="function")
-def enable_self_citations(inspire_app):
+def enable_self_citations(inspire_app, override_config):
     with override_config(FEATURE_FLAG_ENABLE_SELF_CITATIONS=True):
         yield inspire_app
 
 
 @pytest.fixture(scope="function")
-def enable_disambiguation(inspire_app):
+def enable_disambiguation(inspire_app, override_config):
     with override_config(FEATURE_FLAG_ENABLE_AUTHOR_DISAMBIGUATION=True):
         yield inspire_app

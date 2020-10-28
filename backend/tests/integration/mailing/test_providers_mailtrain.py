@@ -8,7 +8,6 @@ from datetime import datetime
 
 import pytest
 from freezegun import freeze_time
-from helpers.utils import override_config
 
 from inspirehep.mailing.providers.mailtrain import (
     mailtrain_subscribe_user_to_list,
@@ -26,7 +25,7 @@ def test_mailtrain_subscribe_user_to_list(inspire_app):
 
 
 @freeze_time(datetime(2019, 9, 17, 6, 0, 0))
-def test_set_mailtrain_campaign_in_redis(inspire_app, redis):
+def test_set_mailtrain_campaign_in_redis(inspire_app, redis, override_config):
     config = {"WEEKLY_JOBS_EMAIL_REDIS_KEY": "MAILTRAIN_KEY"}
     with override_config(**config):
         html_content = "<html><a>Some HTML content</a> Blah</html>"

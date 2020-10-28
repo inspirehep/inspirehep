@@ -5,13 +5,11 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from helpers.utils import override_config
-
 from inspirehep.files import current_s3_instance
 from inspirehep.files.cli import BUCKETS
 
 
-def test_create_buckets(inspire_app, s3, cli):
+def test_create_buckets(inspire_app, s3, cli, override_config):
     config = {"S3_FILE_ACL": "public-read", "S3_BUCKET_PREFIX": "test-"}
     with override_config(**config):
         result = cli.invoke(["files", "create_buckets"])

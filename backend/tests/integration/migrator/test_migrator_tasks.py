@@ -13,7 +13,7 @@ import pytest
 import requests_mock
 from celery.exceptions import Retry
 from flask import current_app
-from helpers.utils import create_record, create_s3_bucket, override_config
+from helpers.utils import create_record, create_s3_bucket
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier
@@ -35,7 +35,7 @@ from inspirehep.search.api import LiteratureSearch
 
 
 @pytest.fixture
-def enable_orcid_push_feature(inspire_app):
+def enable_orcid_push_feature(inspire_app, override_config):
     with override_config(FEATURE_FLAG_ENABLE_ORCID_PUSH=True):
         yield
 
@@ -114,7 +114,7 @@ def test_migrate_and_insert_record_invalid_record(inspire_app):
     assert prod_record.marcxml == raw_record
 
 
-def test_migrate_and_insert_record_blacklisted_pid(inspire_app):
+def test_migrate_and_insert_record_blacklisted_pid(inspire_app, override_config):
     raw_record = (
         b"<record>"
         b'  <controlfield tag="001">12345</controlfield>'
