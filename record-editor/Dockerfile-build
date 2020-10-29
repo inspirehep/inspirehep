@@ -1,5 +1,0 @@
-FROM node:10.14.0
-
-WORKDIR /usr/src/app
-ARG VERSION
-ENV VERSION="${VERSION}"

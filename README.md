@@ -244,8 +244,7 @@ If required, tests can run against `localhost:3000` by simply modifying `--host`
 You may not always need to run tests exactly like on the CI environment.
 
 * To run specific suite, just change `test` script in `e2e/package.json` temporarily to `cypress run --spec cypress/integration/<spec.test.js>`
-* To avoid `ui-build` which destroys your local `node_modules` and builds the ui app, whenever you run `docker-compose up`; just use `e2e/docker-compose.cypress.dev.yml` and run the last command manually instead of running the `cypress-tests-run.sh`
-  * Always use `docker-compose` without `-f`. In this way you will be able to control yourself whenever you want to build the ui app, and backend code will be live in the container
+* To enable mounting `backend` code and live update, just use `e2e/docker-compose.cypress.dev.yml` instead.
 
 ## How to import records
 
