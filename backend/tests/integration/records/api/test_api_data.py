@@ -10,7 +10,7 @@ import uuid
 
 import pytest
 from helpers.providers.faker import faker
-from helpers.utils import create_pidstore
+from helpers.utils import create_pidstore, create_record
 from invenio_pidstore.errors import PIDAlreadyExists
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_records.models import RecordMetadata
@@ -183,3 +183,17 @@ def test_data_citation_count_property(inspire_app):
 
     assert record.citation_count == 1
     assert record2.citation_count == 0
+
+
+def test_cn_redirection_works_for_data(inspire_app):
+    redirected_record = create_record("dat")
+    record = create_record("dat", data={"deleted_records": [redirected_record["self"]]})
+
+    original_record = DataRecord.get_uuid_from_pid_value(
+        redirected_record["control_number"], original_record=True
+    )
+    new_record = DataRecord.get_uuid_from_pid_value(redirected_record["control_number"])
+
+    assert original_record != new_record
+    assert original_record == redirected_record.id
+    assert new_record == record.id

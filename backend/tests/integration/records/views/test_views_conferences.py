@@ -387,3 +387,14 @@ def test_conferences_start_date_range_filter_with_both_dates(inspire_app):
         ]
     )
     assert between_march_2019_and_february_2020_recids == [1, 3]
+
+
+def test_conference_returns_301_when_pid_is_redirected(inspire_app):
+    redirected_record = create_record("con")
+    record = create_record("con", data={"deleted_records": [redirected_record["self"]]})
+
+    with inspire_app.test_client() as client:
+        response = client.get(f"/conferences/{redirected_record.control_number}")
+    assert response.status_code == 301
+    assert response.location.split("/")[-1] == str(record.control_number)
+    assert response.location.split("/")[-2] == "conferences"

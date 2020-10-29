@@ -14,12 +14,12 @@ from itertools import chain
 import structlog
 from elasticsearch import NotFoundError
 from flask import current_app
-from inspire_dojson.utils import strip_empty_values
+from inspire_dojson.utils import get_recid_from_ref, strip_empty_values
 from inspire_schemas.api import validate as schema_validate
 from inspire_utils.record import get_value
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
-from invenio_pidstore.models import PersistentIdentifier, RecordIdentifier
+from invenio_pidstore.models import PersistentIdentifier, PIDStatus, RecordIdentifier
 from invenio_records.api import Record
 from invenio_records.errors import MissingModelError
 from invenio_records.models import RecordMetadata
@@ -30,7 +30,12 @@ from sqlalchemy.orm.exc import NoResultFound
 
 from inspirehep.indexer.base import InspireRecordIndexer
 from inspirehep.pidstore.api import PidStoreBase
-from inspirehep.records.errors import MissingSerializerError, WrongRecordSubclass
+from inspirehep.pidstore.models import InspireRedirect
+from inspirehep.records.errors import (
+    CannotUndeleteRedirectedRecord,
+    MissingSerializerError,
+    WrongRecordSubclass,
+)
 from inspirehep.records.utils import get_ref_from_pid
 from inspirehep.utils import flatten_list
 
@@ -60,17 +65,41 @@ class InspireRecord(Record):
         schema_validate(self)
 
     @classmethod
-    def get_uuid_from_pid_value(cls, pid_value, pid_type=None):
+    def get_uuid_from_pid_value(cls, pid_value, pid_type=None, original_record=False):
+        """Get uuid for provided PID value
+
+        Args:
+            pid_value(str): pid value to query
+            pid_type(str): pid_type to query
+            original_record(bool): if record was redirected this flag determines whether this method should return
+              redirected record uuid (if False) or original record uuid (if True)
+
+        Returns: requested record uuid
+
+        """
         if not pid_type:
             pid_type = cls.pid_type
         pid = PersistentIdentifier.get(pid_type, pid_value)
+        if pid.is_redirected() and not original_record:
+            pid = InspireRedirect.get_redirect(pid)
         return pid.object_uuid
 
     @classmethod
-    def get_record_by_pid_value(cls, pid_value, pid_type=None):
+    def get_record_by_pid_value(cls, pid_value, pid_type=None, original_record=False):
+        """Get record by provided PID value
+
+        Args:
+            pid_value(str): pid value to query
+            pid_type(str): pid_type to query
+            original_record(bool): if record was redirected this flag determines whether this method should return
+              redirected record (if False) or original record (if True)
+
+        Returns: requested record
+
+        """
         if not pid_type:
             pid_type = cls.pid_type
-        record_uuid = cls.get_uuid_from_pid_value(pid_value, pid_type)
+        record_uuid = cls.get_uuid_from_pid_value(pid_value, pid_type, original_record)
         return cls.get_record(record_uuid)
 
     @classmethod
@@ -159,6 +188,9 @@ class InspireRecord(Record):
             kwargs.pop("disable_relations_update", None)
             data["self"] = get_ref_from_pid(cls.pid_type, data["control_number"])
             record = super().create(data, id_=id_, **kwargs)
+
+            if not record.get("deleted") and record.get("deleted_records"):
+                record.redirect_pids(record["deleted_records"])
             record.update_model_created_with_legacy_creation_date()
         return record
 
@@ -173,16 +205,12 @@ class InspireRecord(Record):
             )
             record.update(data, **kwargs)
             LOGGER.info(
-                "Record updated",
-                recid=record.get("control_number"),
-                uuid=str(record.id),
+                "Record updated", recid=record.control_number, uuid=str(record.id)
             )
         except PIDDoesNotExistError:
             record = cls.create(data, **kwargs)
             LOGGER.info(
-                "Record created",
-                recid=record.get("control_number"),
-                uuid=str(record.id),
+                "Record created", recid=record.control_number, uuid=str(record.id)
             )
         return record
 
@@ -306,6 +334,33 @@ class InspireRecord(Record):
         This method does nothing, instead all the work is done in ``update``.
         """
 
+    def redirect_pid(self, pid_type, pid_value):
+        try:
+            old_pid = PersistentIdentifier.get(pid_type, pid_value)
+        except PIDDoesNotExistError:
+            LOGGER.warning(
+                "Cannot redirect non existent PID",
+                pid_to_redirect=pid_value,
+                redirecting_pid=self.control_number,
+                pid_type=self.pid_type,
+            )
+            return
+
+        old_pid_object_uuid = str(old_pid.object_uuid)
+        new_pid = self.control_number_pid
+        InspireRedirect.redirect(old_pid, new_pid)
+
+        old_record = self.get_record(old_pid_object_uuid)
+        if not old_record.get("deleted"):
+            old_record.delete()
+
+    def redirect_pids(self, pids):
+        if current_app.config.get("FEATURE_FLAG_ENABLE_REDIRECTION_OF_PIDS"):
+            for pid in pids:
+                pid_type, pid_value = PidStoreBase.get_pid_from_record_uri(pid["$ref"])
+                self.redirect_pid(pid_type, pid_value)
+            return pids
+
     def update(self, data, *args, **kwargs):
         if not self.get("deleted", False):
             if "control_number" not in data:
@@ -313,20 +368,26 @@ class InspireRecord(Record):
             # Currently Invenio is clearing record in put method in invenio_records_rest/views.py
             # this is called just before `record.update()` so here record is already empty
             # it means that it's not possible to verify if control_number is correct in here.
-            if (
-                "control_number" in self
-                and data["control_number"] != self["control_number"]
-            ):
+            if data["control_number"] != self.control_number:
                 data["self"] = get_ref_from_pid(self.pid_type, data["control_number"])
+        pid = PersistentIdentifier.query.filter_by(
+            pid_type=self.pid_type, pid_value=str(data["control_number"])
+        ).one_or_none()
+        if not data.get("deleted") and pid and pid.status == PIDStatus.REDIRECTED:
+            # To be sure that when someone edits redirected record by mistake tries to undelete record as this is not supported for now
+            raise CannotUndeleteRedirectedRecord(self.pid_type, data["control_number"])
         with db.session.begin_nested():
             self.clear()
             super().update(data)
+
             self.model.json = dict(self)
             self.validate()
             if data.get("deleted"):
                 self.pidstore_handler.delete(self.id, self)
             else:
                 self.pidstore_handler.update(self.id, self)
+                if self.get("deleted_records"):
+                    self.redirect_pids(self["deleted_records"])
             self.update_model_created_with_legacy_creation_date()
             flag_modified(self.model, "json")
             db.session.add(self.model)
@@ -345,19 +406,18 @@ class InspireRecord(Record):
         with db.session.begin_nested():
             self._mark_deleted()
             self.pidstore_handler.delete(self.id, self)
-        LOGGER.info(
-            "Record deleted", recid=self.get("control_number"), uuid=str(self.id)
-        )
+        LOGGER.info("Record deleted", recid=self.control_number, uuid=str(self.id))
 
     def _mark_deleted(self):
         self["deleted"] = True
         self.update(dict(self))
 
     def hard_delete(self):
-        recid = self["control_number"]
+        recid = self.control_number
         with db.session.begin_nested():
             pids = PersistentIdentifier.query.filter(
-                PersistentIdentifier.object_uuid == self.id
+                PersistentIdentifier.object_uuid == self.id,
+                PersistentIdentifier.status != PIDStatus.REDIRECTED,
             ).all()
             for pid in pids:
                 if pid.pid_provider == "recid":
@@ -407,7 +467,7 @@ class InspireRecord(Record):
         }
         LOGGER.info(
             "Record indexing",
-            recid=self.get("control_number"),
+            recid=self.control_number,
             uuid=str(self.id),
             arguments=arguments,
         )
@@ -477,3 +537,19 @@ class InspireRecord(Record):
 
         after_record_revert.send(current_app._get_current_object(), record=self)
         return self
+
+    @property
+    def control_number(self):
+        return self.get("control_number")
+
+    @property
+    def control_number_pid(self):
+        return PersistentIdentifier.get(self.pid_type, self.control_number)
+
+    @property
+    def redirected_record_ref(self):
+        """Returns redirected PID if PID was redirected, otherwise returns None"""
+        pid = self.control_number_pid
+        if self.get("deleted") and pid.status == PIDStatus.REDIRECTED:
+            redirection = InspireRedirect.get_redirect(pid)
+            return get_ref_from_pid(redirection.pid_type, redirection.pid_value)

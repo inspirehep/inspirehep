@@ -16,7 +16,7 @@ from inspire_utils.date import earliest_date
 from inspire_utils.helpers import force_list
 from inspire_utils.record import get_value
 from invenio_db import db
-from invenio_pidstore.models import PersistentIdentifier
+from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from sqlalchemy.orm import aliased
 
 from inspirehep.pidstore.api import PidStoreBase
@@ -116,6 +116,8 @@ def get_pid_for_pid(pid_type, pid_value, provider):
         ext_pid.pid_type == pid_type,
         ext_pid.pid_value == pid_value,
         pid.pid_provider == provider,
+        pid.status == PIDStatus.REGISTERED,
+        ext_pid.status == PIDStatus.REGISTERED,
     )
     return query.scalar()
 

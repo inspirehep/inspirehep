@@ -30,6 +30,7 @@ from lxml import etree
 
 from inspirehep.orcid.cache import _OrcidHasher
 from inspirehep.orcid.converter import ExternalIdentifier, OrcidConverter
+from inspirehep.pidstore.api import PidStoreBase
 
 
 def canonicalize_xml_element(element):
@@ -355,6 +356,7 @@ def test_format_book(inspire_app, datadir):
 
 def test_format_book_chapter(inspire_app, datadir):
     data = json.loads((datadir / "1375491.json").read_text())
+    del data["deleted_records"]
     record = create_record("lit", data=data)
     with inspire_app.test_client() as client:
         response = client.get("/literature/1375491")
@@ -489,6 +491,7 @@ def test_format_thesis_with_author_orcid(inspire_app, datadir):
 
 def test_external_identifiers(inspire_app, datadir):
     data = json.loads((datadir / "1375491.json").read_text())
+    del data["deleted_records"]
     record = create_record("lit", data=data)
     with inspire_app.test_client() as client:
         response = client.get("/literature/1375491")

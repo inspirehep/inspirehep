@@ -37,7 +37,6 @@
   "legacy_version": "20200423150117.0",
   "long_name": "CMS: The Compact Muon Solenoid",
   "name_variants": ["CMS", "CERN-CMS"],
-  "number_of_papers": 11692,
   "project_type": ["experiment"],
   "self": {
     "$ref": "https://inspirehep.net/api/experiments/1108642"

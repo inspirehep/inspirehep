@@ -60,3 +60,8 @@ class DownloadFileError(Exception):
 
 class MaxResultWindowRESTError(RESTException):
     code = 400
+
+
+class CannotUndeleteRedirectedRecord(RecordsError):
+    def __init__(self, pid_type, pid_value, **kwargs):
+        self.description = f"Cannot undelete redirected article ({pid_type}:{pid_value}). First remove redirection then try again."

@@ -14,6 +14,15 @@ from sqlalchemy.engine import reflection
 def test_downgrade(inspire_app):
     alembic = Alembic(current_app)
 
+    alembic.downgrade(target="c9f31d2a189d")
+    assert "ix_inspire_pidstore_redirect_new_pid_id" not in _get_indexes(
+        "inspire_pidstore_redirect"
+    )
+    assert "ix_inspire_pidstore_redirect_original_pid_id" not in _get_indexes(
+        "inspire_pidstore_redirect"
+    )
+    assert "inspire_pidstore_redirect" not in _get_table_names()
+
     alembic.downgrade(target="020b99d0beb7")
 
     assert "ix_experiment_literature_literature_uuid" not in _get_indexes(
@@ -203,6 +212,15 @@ def test_upgrade(inspire_app):
     )
     assert "ix_experiment_literature_experiment_uuid" in _get_indexes(
         "experiment_literature"
+    )
+
+    alembic.upgrade(target="49a436a179ac")
+    assert "inspire_pidstore_redirect" in _get_table_names()
+    assert "ix_inspire_pidstore_redirect_new_pid_id" in _get_indexes(
+        "inspire_pidstore_redirect"
+    )
+    assert "ix_inspire_pidstore_redirect_original_pid_id" in _get_indexes(
+        "inspire_pidstore_redirect"
     )
 
 

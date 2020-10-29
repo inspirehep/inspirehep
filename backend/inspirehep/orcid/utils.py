@@ -25,6 +25,7 @@ from redis_lock import Lock
 from sqlalchemy import cast, type_coerce
 from sqlalchemy.dialects.postgresql import JSONB
 
+from inspirehep.pidstore.models import InspireRedirect
 from inspirehep.records.api import AuthorsRecord
 from inspirehep.search.api import LiteratureSearch
 
@@ -160,15 +161,20 @@ def get_literature_recids_for_orcid(orcid):
         .id
     )
 
-    author_recid = (
-        db.session.query(PersistentIdentifier.pid_value)
+    author_record = (
+        db.session.query(PersistentIdentifier)
         .filter(
             PersistentIdentifier.object_type == "rec",
             PersistentIdentifier.object_uuid == author_rec_uuid,
             PersistentIdentifier.pid_type == "aut",
         )
         .one()
-        .pid_value
+    )
+
+    author_recid = (
+        author_record.pid_value
+        if not author_record.is_redirected()
+        else InspireRedirect.get_redirect(author_record).pid_value
     )
 
     query = Q("match", authors__curated_relation=True) & Q(

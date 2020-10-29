@@ -22,6 +22,7 @@ from invenio_accounts.testutils import login_user_via_session
 from invenio_search import current_search
 
 from inspirehep.accounts.roles import Roles
+from inspirehep.records.api import LiteratureRecord
 from inspirehep.records.errors import MaxResultWindowRESTError
 
 
@@ -793,3 +794,57 @@ def test_literature_hidden_collection_as_logged_in_user_not_cataloger(inspire_ap
         login_user_via_session(client, email=user.email)
         response = client.get(f"/literature/{rec['control_number']}")
     assert response.status_code == expected_status_code
+
+
+def test_literature_returns_301_when_pid_is_redirected(inspire_app):
+    redirected_record = create_record("lit")
+    record = create_record("lit", data={"deleted_records": [redirected_record["self"]]})
+
+    with inspire_app.test_client() as client:
+        response = client.get(f"/literature/{redirected_record.control_number}")
+    assert response.status_code == 301
+    assert response.location.split("/")[-1] == str(record.control_number)
+    assert response.location.split("/")[-2] == "literature"
+
+    with inspire_app.test_client() as client:
+        response = client.get(
+            f"/literature/{redirected_record.control_number}/references"
+        )
+
+        assert response.status_code == 301
+        assert response.location.split("/")[-1] == "references"
+        assert response.location.split("/")[-2] == str(record.control_number)
+        assert response.location.split("/")[-3] == "literature"
+
+    with inspire_app.test_client() as client:
+        response = client.get(f"/literature/{redirected_record.control_number}/authors")
+
+        assert response.status_code == 301
+        assert response.location.split("/")[-1] == "authors"
+        assert response.location.split("/")[-2] == str(record.control_number)
+        assert response.location.split("/")[-3] == "literature"
+
+
+def test_literature_json_put_redirected_record(inspire_app):
+    token = create_user_and_token()
+    headers = {"Authorization": "BEARER " + token.access_token}
+    record_redirected = create_record("lit")
+    record = create_record("lit", data={"deleted_records": [record_redirected["self"]]})
+
+    data = dict(record_redirected)
+    data["deleted"] = True
+
+    with inspire_app.test_client() as client:
+        response = client.put(
+            "/literature/{}".format(record_redirected.control_number),
+            headers=headers,
+            json=data,
+        )
+    assert response.status_code == 200
+    redirected_record_from_db = LiteratureRecord.get_record_by_pid_value(
+        record_redirected.control_number, original_record=True
+    )
+    record_from_db = LiteratureRecord.get_record_by_pid_value(record.control_number)
+
+    assert dict(redirected_record_from_db) == data
+    assert dict(record_from_db) == dict(record)

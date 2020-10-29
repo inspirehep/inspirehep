@@ -10,7 +10,7 @@ import uuid
 
 import pytest
 from helpers.providers.faker import faker
-from helpers.utils import create_pidstore
+from helpers.utils import create_pidstore, create_record
 from invenio_pidstore.errors import PIDAlreadyExists
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_records.models import RecordMetadata
@@ -163,3 +163,19 @@ def test_create_or_update_record_from_db_depending_on_its_pid_type(inspire_app):
     record = InspireRecord.create_or_update(data)
     assert type(record) == SeminarsRecord
     assert record.pid_type == "sem"
+
+
+def test_cn_redirection_works_for_seminars(inspire_app):
+    redirected_record = create_record("sem")
+    record = create_record("sem", data={"deleted_records": [redirected_record["self"]]})
+
+    original_record = SeminarsRecord.get_uuid_from_pid_value(
+        redirected_record["control_number"], original_record=True
+    )
+    new_record = SeminarsRecord.get_uuid_from_pid_value(
+        redirected_record["control_number"]
+    )
+
+    assert original_record != new_record
+    assert original_record == redirected_record.id
+    assert new_record == record.id

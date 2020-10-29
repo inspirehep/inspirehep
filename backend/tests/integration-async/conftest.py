@@ -35,6 +35,7 @@ def app():
     app_config[
         "SQLALCHEMY_DATABASE_URI"
     ] = "postgresql+psycopg2://inspirehep:inspirehep@localhost/test-inspirehep-async"
+    app_config["FEATURE_FLAG_ENABLE_REDIRECTION_OF_PIDS"] = True
     app.config.update(app_config)
     with app.app_context():
         yield app

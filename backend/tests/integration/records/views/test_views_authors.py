@@ -155,3 +155,14 @@ def test_authors_application_json_post_with_token(inspire_app):
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
+
+
+def test_author_returns_301_when_pid_is_redirected(inspire_app):
+    redirected_record = create_record("aut")
+    record = create_record("aut", data={"deleted_records": [redirected_record["self"]]})
+
+    with inspire_app.test_client() as client:
+        response = client.get(f"/authors/{redirected_record.control_number}")
+    assert response.status_code == 301
+    assert response.location.split("/")[-1] == str(record.control_number)
+    assert response.location.split("/")[-2] == "authors"
