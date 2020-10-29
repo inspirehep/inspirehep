@@ -11,6 +11,7 @@ services:
     entrypoint: [""]
     depends_on:
       - ui
+      - record-editor
   web:
     build:
       context: backend
@@ -19,18 +20,3 @@ services:
     build:
       context: backend
       dockerfile: Dockerfile-local
-  ui-build:
-    build:
-      context: ui
-      dockerfile: Dockerfile-build
-    volumes:
-      - ./ui:/usr/src/app
-    command: /usr/src/app/build.sh
-  record-editor-build:
-    build:
-      context: record-editor
-      dockerfile: Dockerfile-build
-    volumes:
-      - ./record-editor:/usr/src/app
-    working_dir: /usr/src/app
-    command: sh -c "yarn && yarn build --delete-output-path=false"

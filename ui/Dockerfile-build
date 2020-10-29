@@ -1,5 +1,0 @@
-FROM node:lts-jessie
-
-WORKDIR /usr/src/app
-ARG VERSION
-ENV VERSION="${VERSION}"

@@ -11,3 +11,4 @@ services:
     entrypoint: [""]
     depends_on:
       - ui
+      - record-editor
