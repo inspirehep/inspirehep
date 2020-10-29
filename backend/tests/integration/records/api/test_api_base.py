@@ -6,19 +6,27 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 """INSPIRE module that adds more fun to the platform."""
-
-
 import json
 from copy import copy, deepcopy
 
 import pytest
 from helpers.providers.faker import faker
 from helpers.utils import create_pidstore, create_record, create_record_factory
+from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus, RecordIdentifier
 from invenio_records.models import RecordMetadata
 
+from inspirehep.pidstore.errors import (
+    WrongPidTypeRedirection,
+    WrongRedirectionPidStatus,
+)
+from inspirehep.pidstore.models import InspireRedirect
 from inspirehep.records.api import InspireRecord, LiteratureRecord
-from inspirehep.records.errors import MissingSerializerError, WrongRecordSubclass
+from inspirehep.records.errors import (
+    CannotUndeleteRedirectedRecord,
+    MissingSerializerError,
+    WrongRecordSubclass,
+)
 from inspirehep.records.marshmallow.literature.bibtex import BibTexCommonSchema
 
 
@@ -279,7 +287,7 @@ def test_get_citation_annual_summary(inspire_app):
         "lit",
         faker.record(
             "lit",
-            literature_citations=[literature1["control_number"]],
+            literature_citations=[literature1.control_number],
             data={"preprint_date": "2010-01-01"},
         ),
     )
@@ -287,7 +295,7 @@ def test_get_citation_annual_summary(inspire_app):
         "lit",
         faker.record(
             "lit",
-            literature_citations=[literature1["control_number"]],
+            literature_citations=[literature1.control_number],
             data={"preprint_date": "2013-01-01"},
         ),
     )
@@ -296,7 +304,7 @@ def test_get_citation_annual_summary(inspire_app):
         "lit",
         faker.record(
             "lit",
-            literature_citations=[literature2["control_number"]],
+            literature_citations=[literature2.control_number],
             data={"preprint_date": "2012-01-01"},
         ),
     )
@@ -304,7 +312,7 @@ def test_get_citation_annual_summary(inspire_app):
         "lit",
         faker.record(
             "lit",
-            literature_citations=[literature2["control_number"]],
+            literature_citations=[literature2.control_number],
             data={"preprint_date": "2013-01-01"},
         ),
     )
@@ -330,7 +338,7 @@ def test_record_create_and_update_with_legacy_creation_date(inspire_app):
     assert result_record_model_created == "2000-01-01 00:00:00"
 
     data["legacy_creation_date"] = "2000-01-02"
-    data["control_number"] = record["control_number"]
+    data["control_number"] = record.control_number
     record.update(data)
 
     result_record_model_updated = RecordMetadata.query.filter_by(id=record.id).one()
@@ -427,3 +435,256 @@ def test_get_enhanced_es_data_do_not_change_original_record(inspire_app, datadir
     record.get_enhanced_es_data()
 
     assert sorted(record) == sorted(original_data)
+
+
+def test_redirect_and_delete_record_from_deleted_records_field(inspire_app):
+    record_to_delete = create_record("lit")
+    record = create_record("lit")
+    data = dict(record)
+    data["deleted_records"] = [record_to_delete["self"]]
+    record.update(data)
+
+    deleted_records = record["deleted_records"]
+
+    assert len(deleted_records) == 1
+
+    old_pid = record_to_delete.control_number_pid
+    assert old_pid.is_redirected()
+    record_redirected = LiteratureRecord.get_record_by_pid_value(
+        record_to_delete.control_number
+    )
+    assert record_redirected.id == record.id
+
+    original_record = LiteratureRecord.get_record(record_to_delete.id)
+    assert original_record["deleted"] == True
+
+
+def test_redirect_deleted_record_from_deleted_records_field(inspire_app):
+    record_deleted = create_record("lit")
+    record_deleted.delete()
+    record = create_record("lit")
+    data = dict(record)
+    data["deleted_records"] = [record_deleted["self"]]
+    record.update(data)
+
+    deleted_records = record["deleted_records"]
+
+    assert len(deleted_records) == 1
+
+    old_pid = record_deleted.control_number_pid
+    assert old_pid.is_redirected()
+    record_redirected = LiteratureRecord.get_record_by_pid_value(
+        record_deleted.control_number
+    )
+    assert record_redirected.id == record.id
+
+    original_record = LiteratureRecord.get_record(record_deleted.id)
+    assert original_record["deleted"] == True
+
+
+def test_redirect_and_delete_many_records_from_deleted_records_field(inspire_app):
+    records_to_delete = [create_record("lit") for _ in range(2)]
+    record = create_record("lit")
+    data = dict(record)
+
+    data["deleted_records"] = [record["self"] for record in records_to_delete]
+
+    record.update(data)
+
+    deleted_records = record["deleted_records"]
+
+    assert len(deleted_records) == 2
+
+    old_pid_1 = records_to_delete[0].control_number_pid
+    old_pid_2 = records_to_delete[1].control_number_pid
+
+    assert old_pid_1.is_redirected()
+    assert old_pid_2.is_redirected()
+
+    record_redirected_1 = LiteratureRecord.get_record_by_pid_value(
+        records_to_delete[0].control_number
+    )
+    record_redirected_2 = LiteratureRecord.get_record_by_pid_value(
+        records_to_delete[1].control_number
+    )
+
+    assert record_redirected_1.id == record.id
+    assert record_redirected_2.id == record.id
+
+
+def test_redirect_ignores_not_existing_pids(inspire_app):
+    record = create_record("lit")
+    data = dict(record)
+    data["deleted_records"] = [{"$ref": f"http://localhost:8080/literature/987654321"}]
+    record.update(data)
+    assert (
+        PersistentIdentifier.query.filter_by(
+            pid_type="lit", pid_value="987654321"
+        ).count()
+        == 0
+    )
+    assert InspireRedirect.query.count() == 0
+    with pytest.raises(PIDDoesNotExistError):
+        LiteratureRecord.get_record_by_pid_value("987654321")
+
+
+def test_get_record_by_pid_value_returns_original_record_when_requested(inspire_app):
+    redirected_record = create_record("lit")
+    record = create_record(
+        "lit", data={"deleted_records": [dict(redirected_record["self"])]}
+    )
+
+    original_record = LiteratureRecord.get_record_by_pid_value(
+        redirected_record.control_number, original_record=True
+    )
+    new_record = LiteratureRecord.get_record_by_pid_value(
+        redirected_record.control_number
+    )
+
+    assert original_record.id != new_record.id
+    assert original_record.id == redirected_record.id
+    assert new_record.id == record.id
+
+
+def test_get_uuid_from_pid_value_returns_original_record_when_requested(inspire_app):
+    redirected_record = create_record("lit")
+    record = create_record(
+        "lit", data={"deleted_records": [dict(redirected_record["self"])]}
+    )
+
+    original_record = LiteratureRecord.get_uuid_from_pid_value(
+        redirected_record.control_number, original_record=True
+    )
+    new_record = LiteratureRecord.get_uuid_from_pid_value(
+        redirected_record.control_number
+    )
+
+    assert original_record != new_record
+    assert original_record == redirected_record.id
+    assert new_record == record.id
+
+
+def test_delete_redirected_record_is_not_deleting_redirected_pid(inspire_app):
+    redirected_record = create_record("lit")
+    new_record = create_record("lit")
+
+    redirected_pid = redirected_record.control_number_pid
+    new_pid = new_record.control_number_pid
+
+    InspireRedirect.redirect(redirected_pid, new_pid)
+
+    redirected_record.delete()
+
+    record_from_redirection = LiteratureRecord.get_record_by_pid_value(
+        redirected_record.control_number
+    )
+
+    assert record_from_redirection.id == new_record.id
+
+
+def test_updating_redirected_record_with_no_delete_key_is_raising_exception(
+    inspire_app
+):
+    cited_record = create_record("lit")
+
+    redirected_record = create_record(
+        "lit", literature_citations=[cited_record.control_number]
+    )
+    data_from_redirected_record = dict(redirected_record)
+    if "deleted" in data_from_redirected_record:
+        del data_from_redirected_record["deleted"]
+
+    record_1 = create_record(
+        "lit", data={"deleted_records": [dict(redirected_record["self"])]}
+    )
+
+    with pytest.raises(CannotUndeleteRedirectedRecord):
+        redirected_record.update(data_from_redirected_record)
+
+
+def test_chain_of_redirection_properly_redirects(inspire_app):
+    redirected_1 = create_record("lit")
+    redirected_2 = create_record(
+        "lit", data={"deleted_records": [redirected_1["self"]]}
+    )
+    redirected_3 = create_record(
+        "lit", data={"deleted_records": [redirected_2["self"]]}
+    )
+    final_record = create_record(
+        "lit", data={"deleted_records": [redirected_3["self"]]}
+    )
+
+    final_record_from_db_through_redirection_chain = LiteratureRecord.get_record_by_pid_value(
+        redirected_1["control_number"]
+    )
+
+    assert final_record_from_db_through_redirection_chain.id == final_record.id
+
+
+def test_redirection_fails_on_redirecting_different_pid_types(inspire_app):
+    record_1 = create_record("lit")
+    with pytest.raises(WrongPidTypeRedirection):
+        create_record("aut", data={"deleted_records": [record_1["self"]]})
+
+
+def test_redirect_wrong_original_pid_status(inspire_app):
+    record_1 = create_record("lit")
+    record_1_pid = record_1.control_number_pid
+    record_1_pid.status = PIDStatus.RESERVED
+
+    with pytest.raises(WrongRedirectionPidStatus):
+        create_record("lit", data={"deleted_records": [record_1["self"]]})
+
+    record_1_from_db = LiteratureRecord.get_record_by_pid_value(
+        record_1["control_number"]
+    )
+
+    assert record_1_from_db.id == record_1.id
+
+
+def test_redirect_wrong_new_pid_status(inspire_app):
+    record_1 = create_record("lit")
+
+    record_2 = create_record("lit")
+    record_2_pid = record_2.control_number_pid
+    record_2_pid.status = PIDStatus.DELETED
+
+    record_2_data = dict(record_2)
+    record_2_data["deleted_records"] = [record_1["self"]]
+
+    with pytest.raises(WrongRedirectionPidStatus):
+        record_2.update(record_2_data)
+
+    record_1_from_db = LiteratureRecord.get_record_by_pid_value(
+        record_1["control_number"]
+    )
+    record_2_from_db = LiteratureRecord.get_record_by_pid_value(
+        record_2["control_number"]
+    )
+
+    assert record_1_from_db.id == record_1.id
+    assert record_2_from_db.id == record_2.id
+
+
+def test_after_redirection_old_record_is_aware_where_it_is_redirected(inspire_app):
+    record_1 = create_record("lit")
+    record_2 = create_record("lit", data={"deleted_records": [record_1["self"]]})
+    record_1_from_db = LiteratureRecord.get_record_by_pid_value(
+        record_1["control_number"], original_record=True
+    )
+
+    assert record_1_from_db.redirected_record_ref == record_2["self"]
+
+
+def test_feature_flag_for_redirection_disables_redirection_when_turned_off(
+    inspire_app, override_config
+):
+    with override_config(FEATURE_FLAG_ENABLE_REDIRECTION_OF_PIDS=False):
+        record_1 = create_record("lit")
+
+        create_record("lit", data={"deleted_records": [record_1["self"]]})
+        record_1_from_db = LiteratureRecord.get_record_by_pid_value(
+            record_1["control_number"]
+        )
+
+    assert record_1_from_db.id == record_1.id

@@ -311,3 +311,19 @@ def test_number_of_contributions_query_after_hard_delete(inspire_app):
 
     expected_contributions_number = 0
     assert expected_contributions_number == conference.number_of_contributions
+
+
+def test_cn_redirection_works_for_conferences(inspire_app):
+    redirected_record = create_record("con")
+    record = create_record("con", data={"deleted_records": [redirected_record["self"]]})
+
+    original_record = ConferencesRecord.get_uuid_from_pid_value(
+        redirected_record["control_number"], original_record=True
+    )
+    new_record = ConferencesRecord.get_uuid_from_pid_value(
+        redirected_record["control_number"]
+    )
+
+    assert original_record != new_record
+    assert original_record == redirected_record.id
+    assert new_record == record.id

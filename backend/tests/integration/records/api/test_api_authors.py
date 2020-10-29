@@ -207,3 +207,19 @@ def test_orcid_url_also_supports_format_alias(inspire_app):
     assert response.status_code == 200
     assert response.content_type == expected_content_type
     assert response.json["links"] == expected_links
+
+
+def test_redirection_works_for_authors(inspire_app):
+    redirected_record = create_record("aut")
+    record = create_record("aut", data={"deleted_records": [redirected_record["self"]]})
+
+    original_record = AuthorsRecord.get_uuid_from_pid_value(
+        redirected_record["control_number"], original_record=True
+    )
+    new_record = AuthorsRecord.get_uuid_from_pid_value(
+        redirected_record["control_number"]
+    )
+
+    assert original_record != new_record
+    assert original_record == redirected_record.id
+    assert new_record == record.id

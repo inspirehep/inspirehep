@@ -22,6 +22,7 @@ from werkzeug.datastructures import FileStorage
 
 from inspirehep.accounts.roles import Roles
 from inspirehep.files import current_s3_instance
+from inspirehep.records.api import LiteratureRecord
 
 
 def test_get_record_and_schema(inspire_app):
@@ -40,6 +41,31 @@ def test_get_record_and_schema(inspire_app):
 
     assert record_metadata == dict(conference)
     assert schema == load_schema("conferences")
+
+
+def test_get_record_and_schema_for_redirected_record(inspire_app):
+    cataloger = create_user(role=Roles.cataloger.value)
+    redirected_record = create_record("lit")
+    record = create_record(
+        "lit", data={"deleted_records": [dict(redirected_record["self"])]}
+    )
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=cataloger.email)
+        response = client.get(
+            f"api/editor/literature/{redirected_record['control_number']}"
+        )
+
+    assert response.status_code == 200
+
+    response_data = json.loads(response.data)
+    record_metadata = response_data["record"]["metadata"]
+    schema = response_data["schema"]
+
+    expected_record_metadata = dict(redirected_record)
+    expected_record_metadata["deleted"] = True
+    assert record_metadata == dict(expected_record_metadata)
+    assert schema == load_schema("hep")
 
 
 def test_get_record_and_schema_requires_cataloger_logged_in(inspire_app):

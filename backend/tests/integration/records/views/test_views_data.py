@@ -76,3 +76,14 @@ def test_data_record_search_results(inspire_app):
 
     assert result.json["hits"]["total"] == 1
     assert result.json["hits"]["hits"][0]["metadata"] == expected_metadata
+
+
+def test_data_returns_301_when_pid_is_redirected(inspire_app):
+    redirected_record = create_record("dat")
+    record = create_record("dat", data={"deleted_records": [redirected_record["self"]]})
+
+    with inspire_app.test_client() as client:
+        response = client.get(f"/data/{redirected_record.control_number}")
+    assert response.status_code == 301
+    assert response.location.split("/")[-1] == str(record.control_number)
+    assert response.location.split("/")[-2] == "data"

@@ -4,7 +4,8 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-
+import structlog
+from flask import request
 from invenio_pidstore.errors import (
     PIDDeletedError,
     PIDMissingObjectError,
@@ -16,6 +17,9 @@ from invenio_pidstore.resolver import Resolver
 from sqlalchemy.orm.exc import NoResultFound
 
 from inspirehep.accounts.api import is_superuser_or_cataloger_logged_in
+from inspirehep.pidstore.models import InspireRedirect
+
+LOGGER = structlog.getLogger()
 
 
 class InspireResolver(Resolver):
@@ -37,7 +41,8 @@ class InspireResolver(Resolver):
             raise PIDDeletedError(pid, obj)
 
         if pid.is_redirected():
-            raise PIDRedirectedError(pid, pid.get_redirect())
+            if request.method != "PUT":
+                raise PIDRedirectedError(pid, InspireRedirect.get_redirect(pid))
 
         obj_id = pid.get_assigned_object(object_type=self.object_type)
         if not obj_id:

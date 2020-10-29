@@ -37,7 +37,9 @@ def revert_to_revision(endpoint, pid_value):
     """Revert given record to given revision"""
     try:
         pid_type = PidStoreBase.get_pid_type_from_endpoint(endpoint)
-        record = InspireRecord.get_record_by_pid_value(pid_value, pid_type)
+        record = InspireRecord.get_record_by_pid_value(
+            pid_value, pid_type, original_record=True
+        )
         revision_id = request.json["revision_id"]
         record.revert(revision_id)
         db.session.commit()
@@ -50,7 +52,9 @@ def revert_to_revision(endpoint, pid_value):
 @login_required_with_roles([Roles.cataloger.value])
 def get_record_and_schema(endpoint, pid_value):
     pid_type = PidStoreBase.get_pid_type_from_endpoint(endpoint)
-    record = InspireRecord.get_record_by_pid_value(pid_value, pid_type)
+    record = InspireRecord.get_record_by_pid_value(
+        pid_value, pid_type, original_record=True
+    )
     json = {"record": {"metadata": record}, "schema": load_schema(record["$schema"])}
 
     response = make_response(json)
@@ -66,7 +70,9 @@ def get_revisions(endpoint, pid_value):
     try:
         Transaction = transaction_class(RecordMetadata)
         pid_type = PidStoreBase.get_pid_type_from_endpoint(endpoint)
-        record = InspireRecord.get_record_by_pid_value(pid_value, pid_type)
+        record = InspireRecord.get_record_by_pid_value(
+            pid_value, pid_type, original_record=True
+        )
 
         revisions = []
         for revision in reversed(record.revisions):

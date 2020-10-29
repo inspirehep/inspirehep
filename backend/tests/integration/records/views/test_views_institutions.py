@@ -131,3 +131,14 @@ def test_institutions_application_json_put_with_cataloger_logged_in(inspire_app)
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
+
+
+def test_institution_returns_301_when_pid_is_redirected(inspire_app):
+    redirected_record = create_record("ins")
+    record = create_record("ins", data={"deleted_records": [redirected_record["self"]]})
+
+    with inspire_app.test_client() as client:
+        response = client.get(f"/institutions/{redirected_record.control_number}")
+    assert response.status_code == 301
+    assert response.location.split("/")[-1] == str(record.control_number)
+    assert response.location.split("/")[-2] == "institutions"

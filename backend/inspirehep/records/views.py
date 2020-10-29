@@ -110,10 +110,10 @@ literature_references_view = LiteratureReferencesResource.as_view(
     LiteratureReferencesResource.view_name
 )
 blueprint.add_url_rule(
-    '/literature/<pid(lit,record_class="inspirehep.records.api:LiteratureRecord"):pid_value>/citations',
+    '/literature/<inspirepid(lit,record_class="inspirehep.records.api:LiteratureRecord"):pid_value>/citations',
     view_func=literature_citations_view,
 )
 blueprint.add_url_rule(
-    '/literature/<pid(lit,record_class="inspirehep.records.api:LiteratureRecord"):pid_value>/references',
+    '/literature/<inspirepid(lit,record_class="inspirehep.records.api:LiteratureRecord"):pid_value>/references',
     view_func=literature_references_view,
 )

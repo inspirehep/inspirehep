@@ -9,6 +9,7 @@
 from copy import deepcopy
 
 import mock
+import pytest
 from helpers.providers.faker import faker
 from helpers.utils import create_record
 
@@ -567,3 +568,52 @@ def test_experiment_literature_table_is_not_updated_when_feature_flag_is_disable
 
     LiteratureRecord.create(record_data, disable_relations_update=False)
     update_function_mock.assert_called()
+
+
+def test_redirected_records_are_not_counted_into_citations(inspire_app):
+    record_1 = create_record("lit")  # Cited record
+
+    record_redirected = create_record(
+        "lit", literature_citations=[record_1["control_number"]]
+    )  # This one cites and then will be redirected
+    record_2 = create_record(
+        "lit",
+        literature_citations=[record_1["control_number"]],
+        data={"deleted_records": [record_redirected["self"]]},
+    )  # This one redirects and also cites
+
+    record_redirected_2 = create_record(
+        "lit", literature_citations=[record_1["control_number"]]
+    )  # This one cites and will be redirected
+    record_3 = create_record(
+        "lit", data={"deleted_records": [record_redirected_2["self"]]}
+    )  # This one redirects but not cites.
+
+    # At the end we should have record_1 cited by record_2 only.
+
+    record_1_from_db = LiteratureRecord.get_record_by_pid_value(
+        record_1["control_number"]
+    )
+    assert record_1_from_db.citation_count == 1
+    assert record_1_from_db.model.citations[0].citer_id == record_2.id
+
+
+@pytest.mark.xfail(reason="For now this won't be supported.")
+def test_citation_of_redirected_record_is_counted_correctly(inspire_app):
+    record_redirected = create_record("lit")  # Cited record
+
+    record_1 = create_record(
+        "lit", literature_citations=[record_redirected["control_number"]]
+    )  # This one cites
+
+    record_2 = create_record(
+        "lit", data={"deleted_records": [record_redirected["self"]]}
+    )  # This one redirects cited record to itself
+
+    # At the end we should have record_2 cited by record_1 (indirectly as record_1  was citing redirected record)
+
+    record_2_from_db = LiteratureRecord.get_record_by_pid_value(
+        record_2["control_number"]
+    )
+    assert record_2_from_db.citation_count == 1
+    assert record_2_from_db.model.citations[0].citer_id == record_1.id

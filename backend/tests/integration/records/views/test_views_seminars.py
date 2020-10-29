@@ -102,3 +102,14 @@ def test_seminars_sort_options(inspire_app):
     assert expected_sort_options == sorted(
         response_data_sort_options, key=itemgetter("value")
     )
+
+
+def test_seminar_returns_301_when_pid_is_redirected(inspire_app):
+    redirected_record = create_record("sem")
+    record = create_record("sem", data={"deleted_records": [redirected_record["self"]]})
+
+    with inspire_app.test_client() as client:
+        response = client.get(f"/seminars/{redirected_record.control_number}")
+    assert response.status_code == 301
+    assert response.location.split("/")[-1] == str(record.control_number)
+    assert response.location.split("/")[-2] == "seminars"

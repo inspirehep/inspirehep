@@ -244,3 +244,19 @@ def test_number_of_papers_query(inspire_app):
 
     expected_number_of_papers = 1
     assert expected_number_of_papers == institution.number_of_papers
+
+
+def test_cn_redirection_works_for_institutions(inspire_app):
+    redirected_record = create_record("ins")
+    record = create_record("ins", data={"deleted_records": [redirected_record["self"]]})
+
+    original_record = InstitutionsRecord.get_uuid_from_pid_value(
+        redirected_record["control_number"], original_record=True
+    )
+    new_record = InstitutionsRecord.get_uuid_from_pid_value(
+        redirected_record["control_number"]
+    )
+
+    assert original_record != new_record
+    assert original_record == redirected_record.id
+    assert new_record == record.id

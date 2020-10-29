@@ -280,3 +280,14 @@ def test_jobs_sort_by_deadline(inspire_app, datadir):
     assert expected_status_code == response_status_code
     assert expected_first_control_number == response_first_control_number
     assert expected_second_control_number == response_second_control_nubmer
+
+
+def test_job_returns_301_when_pid_is_redirected(inspire_app):
+    redirected_record = create_record("job")
+    record = create_record("job", data={"deleted_records": [redirected_record["self"]]})
+
+    with inspire_app.test_client() as client:
+        response = client.get(f"/jobs/{redirected_record.control_number}")
+    assert response.status_code == 301
+    assert response.location.split("/")[-1] == str(record.control_number)
+    assert response.location.split("/")[-2] == "jobs"

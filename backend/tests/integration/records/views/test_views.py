@@ -116,3 +116,36 @@ def test_returns_304_if_not_modified(inspire_app):
         )
 
         assert second_get_response.status_code == 304
+
+
+def test_returns_301_with_proper_location_when_record_redirected(inspire_app):
+    record_redirected = create_record("lit")
+    record = create_record("lit", data={"deleted_records": [record_redirected["self"]]})
+
+    redirected_cn = record_redirected["control_number"]
+    new_cn = str(record["control_number"])
+
+    with inspire_app.test_client() as client:
+        response = client.get(f"/literature/{redirected_cn}")
+
+    assert response.status_code == 301
+    assert response.location.split("/")[-1] == new_cn
+
+
+def test_returns_301_with_proper_location_when_record_redirected_in_chain(inspire_app):
+    record_redirected_1 = create_record("lit")
+    record_redirected_2 = create_record(
+        "lit", data={"deleted_records": [record_redirected_1["self"]]}
+    )
+    record = create_record(
+        "lit", data={"deleted_records": [record_redirected_2["self"]]}
+    )
+
+    redirected_cn = record_redirected_1["control_number"]
+    new_cn = str(record["control_number"])
+
+    with inspire_app.test_client() as client:
+        response = client.get(f"/literature/{redirected_cn}")
+
+    assert response.status_code == 301
+    assert response.location.split("/")[-1] == new_cn
