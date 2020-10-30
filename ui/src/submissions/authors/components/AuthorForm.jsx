@@ -307,7 +307,7 @@ class AuthorForm extends Component {
           <CollapsableForm.Section header="Comments" key="comments">
             <Field
               name="comments"
-              label="Comments"
+              label="Comments to the INSPIRE team"
               placeholder="any comments you might have"
               rows={4}
               component={TextAreaField}

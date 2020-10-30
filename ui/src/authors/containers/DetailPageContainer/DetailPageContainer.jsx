@@ -89,6 +89,7 @@ function DetailPage({
   const deleted = metadata.get('deleted', false);
   const bai = metadata.get('bai');
   const advisors = metadata.get('advisors');
+  const canEdit = metadata.get('can_edit', false);
 
   const metaDescription = useMemo(() => getAuthorMetaDescription(metadata), [
     metadata,
@@ -118,6 +119,9 @@ function DetailPage({
                     {urls && <AuthorWebsitesAction websites={urls} />}
                     <EditRecordAction pidType="authors" pidValue={recordId} />
                     {orcid && orcid === userOrcid && <UserSettingsAction />}
+                    {canEdit && (
+                  <EditRecordAction pidType="seminars" pidValue={recordId} />
+                )}
                   </>
                 }
                 rightActions={

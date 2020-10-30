@@ -7,6 +7,7 @@
 
 from marshmallow import fields
 
+from backend.inspirehep.accounts.api import can_user_edit_record
 from ..utils import (
     get_acquisition_source_without_email,
     get_facet_author_name_for_author,
@@ -22,6 +23,13 @@ class AuthorsBaseSchema(AuthorsPublicSchema):
 
     class Meta:
         exclude = AuthorsPublicSchema.Meta.exclude + ["$schema"]
+
+    can_edit = fields.Method("get_can_edit", dump_only=True)
+
+    @staticmethod
+    def get_can_edit(data):
+        # check if we need to orcid from acquisition source or ids
+        return can_user_edit_record(data)
 
 
 class AuthorsDetailSchema(AuthorsBaseSchema):

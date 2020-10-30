@@ -105,7 +105,40 @@ class AuthorSubmissionsResource(BaseSubmissionsResource):
         return self.start_workflow_for_submission()
 
     def put(self, pid_value):
-        return self.start_workflow_for_submission(pid_value)
+        try:
+            record = AuthorsRecord.get_record_by_pid_value(pid_value)
+            # check if we need to check the orcid in the acquisition source or the one in ids
+            if not can_user_edit_record(record):
+                return (
+                    jsonify({"message": "You are not allowed to edit this author"}),
+                    403,
+                )
+        except PIDDoesNotExistError:
+            abort(404)
+        data = self.load_data_from_request()
+        updated_record_data = self.get_updated_record_data(data, record)
+        record.update(updated_record_data)
+        db.session.commit()
+
+        if not is_superuser_or_cataloger_logged_in():
+            self.create_ticket(record, "rt/update_author.html")
+
+        return jsonify({"pid_value": record["control_number"]})
+
+    def get_updated_record_data(self, update_data, record):
+        deletable_fields = [
+            "email_addresses",
+            "public_notes",
+            "urls",
+            "arxiv_categories",
+        ]
+
+        record_data = dict(record)
+        for field in deletable_fields:
+            if field not in update_data and field in record_data:
+                del record_data[field]
+        record_data.update(update_data)
+        return record_data
 
     def load_data_from_request(self):
         return author_loader_v1()
@@ -117,6 +150,32 @@ class AuthorSubmissionsResource(BaseSubmissionsResource):
             submission_data["control_number"] = int(control_number)
         payload = {"data": submission_data}
         return self.send_post_request_to_inspire_next("/workflows/authors", payload)
+
+    def create_ticket(self, record, rt_template):
+        control_number = record["control_number"]
+        author_name = record["name"]["value"]
+
+        hep_url = get_inspirehep_url()
+        author_url = f"{hep_url}/authors/{control_number}"
+        author_form_url = f"{hep_url}/submissions/authors/{control_number}"
+        # need to add author editor url?
+
+        rt_queue = "AUTHORS_cor_user"
+
+        requestor = current_user.email
+        rt_template_context = {
+            "author_url": author_url,
+            "author_form_url": author_form_url,
+            "hep_url": hep_url,
+        }
+        async_create_ticket_with_template.delay(
+            rt_queue,
+            requestor,
+            rt_template,
+            rt_template_context,
+            f"Your update to author {author_name} on INSPIRE",
+            control_number,
+        )
 
 
 class ConferenceSubmissionsResource(BaseSubmissionsResource):
