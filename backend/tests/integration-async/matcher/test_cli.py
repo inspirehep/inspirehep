@@ -5,9 +5,10 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from helpers.utils import create_record_async
+from helpers.utils import create_record_async, es_search, retry_until_pass
 from inspire_utils.record import get_value
 from invenio_db import db
+from invenio_search import current_search
 
 from inspirehep.records.api import DataRecord, LiteratureRecord
 
@@ -32,7 +33,22 @@ def test_match_references(
     citer_record_3 = create_record_async("lit", data=citer_data)
     citer_ids = [citer_record_1.id, citer_record_2.id, citer_record_3.id]
 
-    create_record_async("dat")
+    record_data = create_record_async("dat")
+    record_data_uuids = record_data.id
+
+    def assert_all_records_are_indexed():
+        current_search.flush_and_refresh("*")
+        result = es_search("records-hep")
+        uuids = get_value(result, "hits.hits._id")
+
+        for uuid in citer_ids:
+            assert str(uuid) in uuids
+
+        result = es_search("records-data")
+        uuids = get_value(result, "hits.hits._id")
+        assert str(record_data_uuids) in uuids
+
+    retry_until_pass(assert_all_records_are_indexed)
 
     result = cli.invoke(["match", "references", "-bs", 2])
 
