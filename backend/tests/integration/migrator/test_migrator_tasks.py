@@ -13,7 +13,7 @@ import pytest
 import requests_mock
 from celery.exceptions import Retry
 from flask import current_app
-from helpers.utils import create_record, create_s3_bucket
+from helpers.utils import create_record, create_s3_bucket, override_config
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier
@@ -36,7 +36,7 @@ from inspirehep.search.api import LiteratureSearch
 
 @pytest.fixture
 def enable_orcid_push_feature(inspire_app):
-    with patch.dict(current_app.config, {"FEATURE_FLAG_ENABLE_ORCID_PUSH": True}):
+    with override_config(FEATURE_FLAG_ENABLE_ORCID_PUSH=True):
         yield
 
 
@@ -124,8 +124,7 @@ def test_migrate_and_insert_record_blacklisted_pid(inspire_app):
         b"</record>"
     )
 
-    config = {"MIGRATION_PID_TYPE_BLACKLIST": ["lit"]}
-    with patch.dict(current_app.config, config):
+    with override_config(MIGRATION_PID_TYPE_BLACKLIST=["lit"]):
         migrate_and_insert_record(raw_record)
 
         with pytest.raises(PIDDoesNotExistError):

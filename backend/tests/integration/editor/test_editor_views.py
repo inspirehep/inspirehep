@@ -12,7 +12,7 @@ import os
 import pkg_resources
 import requests_mock
 from flask import current_app
-from helpers.utils import create_record, create_user
+from helpers.utils import create_record, create_user, override_config
 from inspire_schemas.api import load_schema, validate
 from inspire_utils.record import get_value
 from invenio_accounts.testutils import login_user_via_session
@@ -331,13 +331,14 @@ def test_file_upload(inspire_app, s3, datadir):
     user = create_user(role=Roles.cataloger.value)
     config = {"EDITOR_UPLOAD_ALLOWED_EXTENSIONS": {".pdf"}}
 
-    with patch.dict(current_app.config, config):
-        with inspire_app.test_client() as client:
-            login_user_via_session(client, email=user.email)
-            file_pdf = open(f"{datadir}/test.pdf", "rb")
-            bytes_file = FileStorage(file_pdf)
-            data = {"file": bytes_file}
-            response = client.post("/editor/upload", data=data)
+    with override_config(
+        EDITOR_UPLOAD_ALLOWED_EXTENSIONS=".pdf"
+    ), inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        file_pdf = open(f"{datadir}/test.pdf", "rb")
+        bytes_file = FileStorage(file_pdf)
+        data = {"file": bytes_file}
+        response = client.post("/editor/upload", data=data)
 
         expected_status_code = 200
         assert expected_status_code == response.status_code
@@ -360,15 +361,14 @@ def test_file_upload_with_wrong_mimetype(inspire_app, s3, datadir):
     current_s3_instance.client.create_bucket(Bucket="inspire-editor")
     user = create_user(role=Roles.cataloger.value)
 
-    config = {"EDITOR_UPLOAD_ALLOWED_EXTENSIONS": {".pdf"}}
-
-    with patch.dict(current_app.config, config):
-        with inspire_app.test_client() as client:
-            login_user_via_session(client, email=user.email)
-            file_txt = open(f"{datadir}/test.txt", "rb")
-            bytes_file = FileStorage(file_txt)
-            data = {"file": bytes_file}
-            response = client.post("/editor/upload", data=data)
+    with override_config(
+        EDITOR_UPLOAD_ALLOWED_EXTENSIONS=".pdf"
+    ), inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        file_txt = open(f"{datadir}/test.txt", "rb")
+        bytes_file = FileStorage(file_txt)
+        data = {"file": bytes_file}
+        response = client.post("/editor/upload", data=data)
 
     expected_status_code = 400
     assert expected_status_code == response.status_code
