@@ -5,12 +5,13 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from time import sleep
-
 from helpers.providers.faker import faker
+from helpers.utils import es_search, retry_until_pass
 from inspire_dojson.api import record2marcxml
+from inspire_utils.record import get_value
 from invenio_db import db
 from invenio_oaiserver.models import OAISet
+from invenio_search import current_search
 
 from inspirehep.records.api import LiteratureRecord
 
@@ -21,15 +22,22 @@ def test_oai_with_for_cds_set(
     data = {"_export_to": {"CDS": True}}
     record_data = faker.record("lit", data)
     record = LiteratureRecord.create(record_data)
+    record_uuid = record.id
     record_marcxml = record2marcxml(record)
     db.session.commit()
+
+    def assert_the_record_is_indexed():
+        current_search.flush_and_refresh("*")
+        result = es_search("records-hep")
+        uuids = get_value(result, "hits.hits._id")
+        assert str(record_uuid) in uuids
+
+    retry_until_pass(assert_the_record_is_indexed)
 
     set_name = inspire_app.config["OAI_SET_CDS"]
     oaiset = OAISet(spec=f"{set_name}", name="Test", description="Test")
     db.session.add(oaiset)
     db.session.commit()
-
-    sleep(2)
 
     with inspire_app.test_client() as client:
         response = client.get(
@@ -48,15 +56,22 @@ def test_oai_with_for_arxiv_set(
 
     record_data = faker.record("lit", data)
     record = LiteratureRecord.create(record_data)
+    record_uuid = record.id
     record_marcxml = record2marcxml(record)
     db.session.commit()
+
+    def assert_the_record_is_indexed():
+        current_search.flush_and_refresh("*")
+        result = es_search("records-hep")
+        uuids = get_value(result, "hits.hits._id")
+        assert str(record_uuid) in uuids
+
+    retry_until_pass(assert_the_record_is_indexed)
 
     set_name = inspire_app.config["OAI_SET_CERN_ARXIV"]
     oaiset = OAISet(spec=f"{set_name}", name="Test", description="Test")
     db.session.add(oaiset)
     db.session.commit()
-
-    sleep(2)
 
     with inspire_app.test_client() as client:
         response = client.get(
@@ -71,15 +86,22 @@ def test_oai_get_single_identifier_for_CDS_set(
     data = {"_export_to": {"CDS": True}}
     record_data = faker.record("lit", data)
     record = LiteratureRecord.create(record_data)
+    record_uuid = record.id
     record_marcxml = record2marcxml(record)
     db.session.commit()
+
+    def assert_the_record_is_indexed():
+        current_search.flush_and_refresh("*")
+        result = es_search("records-hep")
+        uuids = get_value(result, "hits.hits._id")
+        assert str(record_uuid) in uuids
+
+    retry_until_pass(assert_the_record_is_indexed)
 
     set_name = inspire_app.config["OAI_SET_CDS"]
     oaiset = OAISet(spec=f"{set_name}", name="Test", description="Test")
     db.session.add(oaiset)
     db.session.commit()
-
-    sleep(2)
 
     with inspire_app.test_client() as client:
         response = client.get(
@@ -98,15 +120,22 @@ def test_oai_get_single_identifier_for_arxiv_set(
 
     record_data = faker.record("lit", data)
     record = LiteratureRecord.create(record_data)
+    record_uuid = record.id
     record_marcxml = record2marcxml(record)
     db.session.commit()
+
+    def assert_the_record_is_indexed():
+        current_search.flush_and_refresh("*")
+        result = es_search("records-hep")
+        uuids = get_value(result, "hits.hits._id")
+        assert str(record_uuid) in uuids
+
+    retry_until_pass(assert_the_record_is_indexed)
 
     set_name = inspire_app.config["OAI_SET_CERN_ARXIV"]
     oaiset = OAISet(spec=f"{set_name}", name="Test", description="Test")
     db.session.add(oaiset)
     db.session.commit()
-
-    sleep(2)
 
     with inspire_app.test_client() as client:
         response = client.get(
