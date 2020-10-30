@@ -27,31 +27,13 @@ import mock
 import pkg_resources
 import pytest
 from flask import current_app
+from helpers.utils import override_config
 from invenio_db import db
 from invenio_oauthclient.models import RemoteAccount, RemoteToken, User, UserIdentity
 from invenio_oauthclient.utils import oauth_link_external_id
 
 from inspirehep.migrator.tasks import migrate_and_insert_record
 from inspirehep.records.api import InspireRecord, LiteratureRecord
-
-
-def override_config(**kwargs):
-    """
-    Override Flask's current app configuration.
-    Note: it's a CONTEXT MANAGER.
-
-    Example:
-        from utils import override_config
-
-        with override_config(
-            MY_FEATURE_FLAG_ACTIVE=True,
-            MY_USERNAME='username',
-        ):
-            ...
-    """
-    from flask import current_app
-
-    return mock.patch.dict(current_app.config, kwargs)
 
 
 @pytest.fixture(scope="function")
