@@ -1,0 +1,57 @@
+name: Deploy on prod
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Commit to deploy on prod'
+        required: true
+      tag:
+        description: 'Tag to release'
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.INSPIRE_BOT_TOKEN }}
+          fetch-depth: 0
+          ref: master
+
+      - name: Configure git
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+
+      - name: Is this reference on master?
+        run: >
+          git merge-base
+          --is-ancestor
+          ${{ github.event.inputs.ref }}
+          HEAD
+
+      - name: Create local branch
+        if: ${{ success() }}
+        run: |
+          git checkout ${{ github.event.inputs.ref }} -b prod
+
+      - name: Push
+        if: ${{ success() }}
+        run: |
+          git push --force origin prod
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        if: ${{ success() }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.event.inputs.tag }}
+          release_name: Release ${{ github.event.inputs.tag }}
+          commitish: prod
+          draft: false
+          prerelease: false
