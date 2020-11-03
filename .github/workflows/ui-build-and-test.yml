@@ -3,7 +3,7 @@ name: UI build and test
 on:
   push:
     branches: [master]
-    paths: 
+    paths:
       - 'ui/**'
       - '.github/workflows/ui-build-and-test.yml'
   pull_request_target:
@@ -11,6 +11,8 @@ on:
     paths:
       - 'ui/**'
       - '.github/workflows/ui-build-and-test.yml'
+  release:
+    types: [published]
 
 env:
   IMAGE: inspirehep/ui
@@ -54,7 +56,7 @@ jobs:
           docker push $IMAGE:$TAG
 
       - name: Tag and push
-        if: ${{ github.event_name == 'push' }}
+        if: ${{ github.event_name == 'push' || github.event_name == 'release' }}
         id: push
         run: |
           export GIT_DESC=$(git describe --always --tags)
@@ -64,12 +66,24 @@ jobs:
 
       - name: QA
         uses: peter-evans/repository-dispatch@v1
-        if: ${{ github.event_name == 'push' }}
+        if: ${{ success() && github.event_name == 'push' }}
         with:
           repository: inspirehep/kubernetes
           token: ${{ secrets.INSPIRE_BOT_TOKEN }}
           event-type: deploy
           client-payload: >
             {"environment": "qa",
+             "image": "inspirehep/ui",
+             "tag": "${{ steps.push.outputs.git_desc }}"}
+
+      - name: PROD
+        uses: peter-evans/repository-dispatch@v1
+        if: ${{ success() && github.event_name == 'release' }}
+        with:
+          repository: inspirehep/kubernetes
+          token: ${{ secrets.INSPIRE_BOT_TOKEN }}
+          event-type: deploy
+          client-payload: >
+            {"environment": "prod",
              "image": "inspirehep/ui",
              "tag": "${{ steps.push.outputs.git_desc }}"}
