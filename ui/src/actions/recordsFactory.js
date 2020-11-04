@@ -1,3 +1,4 @@
+import { replace } from 'connected-react-router';
 import {
   isCancelError,
   UI_SERIALIZER_REQUEST_OPTIONS,
@@ -35,7 +36,16 @@ export default function generateRecordFetchAction({
         requestOptions,
         fetchingActionActionType
       );
-      dispatch(fetchSuccess(response.data));
+
+      const { responseURL } = response.request;
+      if (responseURL.endsWith(recordId)) {
+        dispatch(fetchSuccess(response.data));
+      } else {
+        // REDIRECT
+        const parts = responseURL.split('/');
+        const redirectedId = parts[parts.length - 1];
+        dispatch(replace(`/${pidType}/${redirectedId}`));
+      }
     } catch (error) {
       if (!isCancelError(error)) {
         const payload = httpErrorToActionPayload(error);
