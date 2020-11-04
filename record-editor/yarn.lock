@@ -4993,9 +4993,9 @@ next-tick@~1.0.0:
   integrity sha1-yobR/ogoFpsBICCOPchCS524NCw=
 
 ng2-json-editor@^0.25.22:
-  version "0.25.22"
-  resolved "https://registry.yarnpkg.com/ng2-json-editor/-/ng2-json-editor-0.25.22.tgz#be8cde91e3ba93e560bf60418c305c1046566a56"
-  integrity sha512-etf8TGXN7NuTrEVTAT0NgZVHiX2hmv1RnFXZzwdAfMP/kyLC3vqmik+Q7u2N9BNutr2G10vN8cvp8bh9FetzJA==
+  version "0.25.23"
+  resolved "https://registry.yarnpkg.com/ng2-json-editor/-/ng2-json-editor-0.25.23.tgz#f1613b1ab722970e72736e9bb31402c841867251"
+  integrity sha512-UG+MWL4LvohFA2olBwQDRGrZutz+zTtCKF4t4oU2sEldXm5pX5lRDQFrXZ5SqSGt9MpRmYSF6IyLji6mus0fyg==
   dependencies:
     ajv "^5.0.0"
     ajv-errors "^1.0.0"
