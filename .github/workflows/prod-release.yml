@@ -17,7 +17,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          token: ${{ secrets.INSPIRE_BOT_TOKEN }}
           fetch-depth: 0
           ref: master
 
@@ -38,20 +37,12 @@ jobs:
         run: |
           git checkout ${{ github.event.inputs.ref }} -b prod
 
+      - name: Tag
+        if: ${{ success() }}
+        run: |
+          git tag -a ${{ github.event.inputs.tag }} -m "${MSG}"
+
       - name: Push
         if: ${{ success() }}
         run: |
-          git push --force origin prod
-
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        if: ${{ success() }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.event.inputs.tag }}
-          release_name: Release ${{ github.event.inputs.tag }}
-          commitish: prod
-          draft: false
-          prerelease: false
+          git push --force --follow-tags origin prod
