@@ -1423,7 +1423,7 @@ description = "Inspire JSON schemas and utilities to use them."
 name = "inspire-schemas"
 optional = false
 python-versions = "*"
-version = "61.3.10"
+version = "61.3.11"
 
 [package.dependencies]
 Unidecode = ">=1.0.22,<2.0"
@@ -1964,6 +1964,7 @@ tests = ["Flask-Login (>=0.3.2)", "invenio-db (>=1.0.2)", "invenio-indexer (>=1.
 reference = "f398bab4f4f96607045e753d25aa09bb404e9e42"
 type = "git"
 url = "https://github.com/inspirehep/invenio-records-rest.git"
+
 [[package]]
 category = "main"
 description = "REST API module for Invenio."
@@ -4118,7 +4119,6 @@ testing = ["coverage", "nose", "zope.event"]
 
 [metadata]
 content-hash = "9b23c5f42859adab2884c2933bb1a8cb95a1ff8195c6db97049997c718478b2f"
-lock-version = "1.0"
 python-versions = ">=3.6,<3.8"
 
 [metadata.files]
@@ -4630,7 +4630,7 @@ inspire-query-parser = [
     {file = "inspire-query-parser-6.0.29.tar.gz", hash = "sha256:1e15eeef4b7839ffabea6e797335df6b08d3543bf22f14ddbbf0df3dc27b2533"},
 ]
 inspire-schemas = [
-    {file = "inspire-schemas-61.3.10.tar.gz", hash = "sha256:c94a725fdbfad5c2766d7d6ab3a36e980e410d420342033f84a1224f552f05c2"},
+    {file = "inspire-schemas-61.3.11.tar.gz", hash = "sha256:f590e8bc4f140adc4d242f7810a86430a3ff581244e2d540a948733d242fc69a"},
 ]
 inspire-service-orcid = []
 inspire-utils = [
