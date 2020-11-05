@@ -232,7 +232,6 @@ def test_authors_search_json(inspire_app):
     expected_metadata = {
         "$schema": "https://inspire/schemas/records/authors.json",
         "control_number": record_control_number,
-        "acquisition_source": {"orcid": "0000-0000-0000-0000"},
         "name": {"value": "Urhan, Harun"},
         "deleted": False,
     }
@@ -269,7 +268,6 @@ def test_authors_search_list(inspire_app):
     expected_status_code = 200
     expected_metadata = {
         "$schema": "https://inspire/schemas/records/authors.json",
-        "acquisition_source": {"orcid": "0000-0000-0000-0000"},
         "name": {"value": "Test, Name"},
         "control_number": record["control_number"],
     }
@@ -288,10 +286,9 @@ def test_authors_search_list(inspire_app):
 
 def test_authors_search_json_does_not_have_sort_options(inspire_app):
     headers = {"Accept": "application/json"}
-    record = create_record("aut")
+    create_record("aut")
 
     expected_status_code = 200
-    expected_sort_options = None
     with inspire_app.test_client() as client:
         response = client.get("/authors", headers=headers)
 
@@ -368,3 +365,87 @@ def test_authors_detail_json_format(inspire_app):
         response = client.get(f"/authors/{record['control_number']}?format=json")
     assert response.status_code == expected_status_code
     assert response.content_type == expected_content_type
+
+
+def test_authors_search_do_not_contain_acquisition_source_for_non_curator(inspire_app):
+    headers = {"Accept": "application/json"}
+
+    data = {
+        "$schema": "https://inspire/schemas/records/authors.json",
+        "_collections": ["Authors"],
+        "_private_notes": [{"value": "A private note"}],
+        "acquisition_source": {"orcid": "0000-0000-0000-0000", "email": "test@me.com"},
+        "name": {"value": "Urhan, Harun"},
+        "deleted": False,
+    }
+
+    record = create_record("aut", data=data)
+    with inspire_app.test_client() as client:
+        response = client.get("/authors", headers=headers)
+    assert response.status_code == 200
+    assert "acquisition_source" not in response.json["hits"]["hits"][0]["metadata"]
+
+
+def test_author_detail_page_do_not_contain_acquisition_source_for_non_curator(
+    inspire_app
+):
+    headers = {"Accept": "application/json"}
+
+    data = {
+        "$schema": "https://inspire/schemas/records/authors.json",
+        "_collections": ["Authors"],
+        "_private_notes": [{"value": "A private note"}],
+        "acquisition_source": {"orcid": "0000-0000-0000-0000", "email": "test@me.com"},
+        "name": {"value": "Urhan, Harun"},
+        "deleted": False,
+    }
+
+    record = create_record("aut", data=data)
+    record_control_number = record["control_number"]
+    with inspire_app.test_client() as client:
+        response = client.get(f"/authors/{record_control_number}", headers=headers)
+    assert response.status_code == 200
+    assert "acquisition_source" not in response.json["metadata"]
+
+
+def test_authors_search_contains_acquisition_source_for_curator(inspire_app):
+    user = create_user(role=Roles.cataloger.value)
+    headers = {"Accept": "application/json"}
+
+    data = {
+        "$schema": "https://inspire/schemas/records/authors.json",
+        "_collections": ["Authors"],
+        "_private_notes": [{"value": "A private note"}],
+        "acquisition_source": {"orcid": "0000-0000-0000-0000", "email": "test@me.com"},
+        "name": {"value": "Urhan, Harun"},
+        "deleted": False,
+    }
+
+    record = create_record("aut", data=data)
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get("/authors", headers=headers)
+    assert response.status_code == 200
+    assert "acquisition_source" in response.json["hits"]["hits"][0]["metadata"]
+
+
+def test_author_detail_page_contains_acquisition_source_for_curator(inspire_app):
+    user = create_user(role=Roles.cataloger.value)
+    headers = {"Accept": "application/json"}
+
+    data = {
+        "$schema": "https://inspire/schemas/records/authors.json",
+        "_collections": ["Authors"],
+        "_private_notes": [{"value": "A private note"}],
+        "acquisition_source": {"orcid": "0000-0000-0000-0000", "email": "test@me.com"},
+        "name": {"value": "Urhan, Harun"},
+        "deleted": False,
+    }
+
+    record = create_record("aut", data=data)
+    record_control_number = record["control_number"]
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(f"/authors/{record_control_number}", headers=headers)
+    assert response.status_code == 200
+    assert "acquisition_source" in response.json["metadata"]

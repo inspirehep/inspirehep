@@ -18,4 +18,5 @@ class DataAdminSchema(DataRawSchema):
 
 
 class DataPublicSchema(DataRawSchema):
-    pass
+    class Meta:
+        exclude = ["acquisition_source"]

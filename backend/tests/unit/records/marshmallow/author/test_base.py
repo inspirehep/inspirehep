@@ -90,12 +90,11 @@ def test_authors_api_schema_doesnt_return_acquisition_source_email():
         }
     }
     author = faker.record("aut", data=data, with_control_number=True)
-    expected_result = {"orcid": "0000-0000-0000-0000", "submission_number": "12312341"}
 
     result = schema.dumps(author).data
     result_data = json.loads(result)
 
-    assert result_data["acquisition_source"] == expected_result
+    assert "acquisition_source" not in result_data
 
 
 def test_authors_api_schema_doesnt_return_emails_adresses():

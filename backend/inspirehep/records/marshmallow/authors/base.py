@@ -22,7 +22,11 @@ FIELDS_TO_EXCLUDE = ["author_suggest", "self"]
 
 class AuthorsPublicSchema(AuthorsRawSchema):
     class Meta:
-        exclude = FIELDS_TO_EXCLUDE + ["_private_notes", "_collections"]
+        exclude = FIELDS_TO_EXCLUDE + [
+            "_private_notes",
+            "_collections",
+            "acquisition_source",
+        ]
 
     email_addresses = NonHiddenRaw(dump_only=True)
 
@@ -30,12 +34,6 @@ class AuthorsPublicSchema(AuthorsRawSchema):
 class AuthorsPublicListSchema(AuthorsRawSchema):
     class Meta:
         exclude = AuthorsPublicSchema.Meta.exclude + ["email_addresses"]
-
-    acquisition_source = fields.Method("get_acquisition_source")
-
-    @staticmethod
-    def get_acquisition_source(data):
-        return get_acquisition_source_without_email(data)
 
 
 class AuthorsAdminSchema(AuthorsRawSchema):

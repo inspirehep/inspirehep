@@ -227,7 +227,6 @@ def test_literature_search_json_without_login(inspire_app):
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "document_type": ["article"],
         "control_number": 12345,
-        "acquisition_source": {"method": "oai"},
         "titles": [{"title": "A Title"}],
         "publication_info": [{"pubinfo_freetext": "A public publication info"}],
         "report_numbers": [{"value": "PUBLIC", "hidden": False}],
@@ -384,7 +383,6 @@ def test_literature_list(inspire_app):
     expected_status_code = 200
     expected_title = record["titles"][0]["title"]
     expected_date = "Jan 1, 2001"
-    expected_acquisition_source = {"method": "oai"}
     with inspire_app.test_client() as client:
         response = client.get("/literature", headers=headers)
     response_status_code = response.status_code
@@ -402,7 +400,6 @@ def test_literature_list(inspire_app):
     assert expected_title == response_data_metadata["titles"][0]["title"]
     assert expected_date == response_data_metadata["date"]
     assert "can_edit" not in response_data_metadata
-    assert expected_acquisition_source == response_data_metadata["acquisition_source"]
     assert expected_id == response_data_hits_id
     assert response_data_hits_created is not None
     assert response_data_hits_updated is not None
@@ -1250,7 +1247,7 @@ def test_literature_json_with_fields_filtering(inspire_app):
     user = create_user()
 
     headers = {"Accept": "application/json"}
-    aut = create_record("aut", data={"control_number": 637275238})
+    aut = create_record("aut", data={"control_number": 637_275_238})
     data = {
         "_collections": ["Literature"],
         "document_type": ["article"],
@@ -1292,7 +1289,7 @@ def test_literature_json_with_fields_filtering_ignores_wrong_fields(inspire_app)
     user = create_user()
 
     headers = {"Accept": "application/json"}
-    aut = create_record("aut", data={"control_number": 637275238})
+    aut = create_record("aut", data={"control_number": 637_275_238})
     data = {
         "_collections": ["Literature"],
         "document_type": ["article"],
@@ -1326,7 +1323,7 @@ def test_literature_json_with_fields_filtering_ignores_wrong_fields(inspire_app)
 
 def test_regression_serializers_mutation(inspire_app):
     data = {
-        "dois": [{"source": "World Scientific", "value": "10.1142/9789814618113_0024"},]
+        "dois": [{"source": "World Scientific", "value": "10.1142/9789814618113_0024"}]
     }
     record = create_record("lit", data=data)
     excepted_doi = "10.1142/9789814618113_0024"
@@ -1336,3 +1333,59 @@ def test_regression_serializers_mutation(inspire_app):
     assert (
         excepted_doi == response.json["hits"]["hits"][0]["metadata"]["dois"][0]["value"]
     )
+
+
+def test_literature_search_contains_acquisition_source_for_cataloger(inspire_app):
+    user = create_user(role=Roles.cataloger.value)
+
+    headers = {"Accept": "application/json"}
+
+    data = {"acquisition_source": {"method": "oai", "email": "test@test.com"}}
+    create_record("lit", data=data)
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get("/literature", headers=headers)
+    assert response.status_code == 200
+    assert "acquisition_source" in response.json["hits"]["hits"][0]["metadata"]
+
+
+def test_literature_search_do_not_have_acquisition_source_for_non_curator(inspire_app):
+
+    headers = {"Accept": "application/json"}
+
+    data = {"acquisition_source": {"method": "oai", "email": "test@test.com"}}
+    create_record("lit", data=data)
+    with inspire_app.test_client() as client:
+        response = client.get("/literature", headers=headers)
+    assert response.status_code == 200
+    assert "acquisition_source" not in response.json["hits"]["hits"][0]["metadata"]
+
+
+def test_literature_detail_page_contains_acquisition_source_for_cataloger(inspire_app):
+    user = create_user(role=Roles.cataloger.value)
+
+    headers = {"Accept": "application/json"}
+
+    data = {"acquisition_source": {"method": "oai", "email": "test@test.com"}}
+    record = create_record("lit", data=data)
+    control_number = record["control_number"]
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(f"/literature/{control_number}", headers=headers)
+    assert response.status_code == 200
+    assert "acquisition_source" in response.json["metadata"]
+
+
+def test_literature_detail_page_do_not_have_acquisition_source_for_non_curator(
+    inspire_app
+):
+
+    headers = {"Accept": "application/json"}
+
+    data = {"acquisition_source": {"method": "oai", "email": "test@test.com"}}
+    record = create_record("lit", data=data)
+    control_number = record["control_number"]
+    with inspire_app.test_client() as client:
+        response = client.get(f"/literature/{control_number}", headers=headers)
+    assert response.status_code == 200
+    assert "acquisition_source" not in response.json["metadata"]
