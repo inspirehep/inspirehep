@@ -44,6 +44,7 @@ class LiteraturePublicSchema(LiteratureRawSchema):
             "_files",
             "_private_notes",
             "self",
+            "acquisition_source",
         ]
 
     documents = NonHiddenRaw(dump_only=True)

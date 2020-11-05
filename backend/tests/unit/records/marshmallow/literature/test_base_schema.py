@@ -57,10 +57,7 @@ def test_literature_api_schema_hides_emails_from_author_list():
         {"full_name": "Smith, John"},
     ]
 
-    expected = [
-        {"full_name": "Frank Castle"},
-        {"full_name": "Smith, John"},
-    ]
+    expected = [{"full_name": "Frank Castle"}, {"full_name": "Smith, John"}]
 
     data = {"authors": authors}
     data_record = faker.record("lit", data=data)
@@ -68,16 +65,14 @@ def test_literature_api_schema_hides_emails_from_author_list():
     assert expected == result["authors"]
 
 
-def test_literature_api_schema_hides_email_from_acquisition_source():
+def test_literature_api_schema_hides_acquisition_source():
     acquisition_source = {"email": "test@me.pl", "method": "oai", "source": "arxiv"}
-
-    expected = {"method": "oai", "source": "arxiv"}
 
     data = {"acquisition_source": acquisition_source}
     data_record = faker.record("lit", data=data)
     result = LiteraturePublicListSchema().dump(data_record).data
 
-    assert expected == result["acquisition_source"]
+    assert "acquisition_source" not in result
 
 
 def test_literature_ui_schema_hides_emails_from_author_list():
@@ -86,10 +81,7 @@ def test_literature_ui_schema_hides_emails_from_author_list():
         {"full_name": "Smith, John"},
     ]
 
-    expected = [
-        {"full_name": "Frank Castle"},
-        {"full_name": "Smith, John"},
-    ]
+    expected = [{"full_name": "Frank Castle"}, {"full_name": "Smith, John"}]
 
     data = {"authors": authors}
     data_record = faker.record("lit", data=data)
@@ -100,10 +92,8 @@ def test_literature_ui_schema_hides_emails_from_author_list():
     assert expected == result["metadata"]["authors"]
 
 
-def test_literature_ui_schema_hides_email_from_acquisition_source():
+def test_literature_ui_schema_hides_acquisition_source():
     acquisition_source = {"email": "test@me.pl", "method": "oai", "source": "arxiv"}
-
-    expected = {"method": "oai", "source": "arxiv"}
 
     data = {"acquisition_source": acquisition_source}
     data_record = faker.record("lit", data=data)
@@ -111,7 +101,7 @@ def test_literature_ui_schema_hides_email_from_acquisition_source():
     data = {"metadata": {"_ui_display": data_record_json}}
     result = LiteratureListWrappedSchema().dump(data).data
 
-    assert expected == result["metadata"]["acquisition_source"]
+    assert "acquisition_source" not in result
 
 
 def literature_search_schema_doesnt_drop_comma_from_first_name():
