@@ -7,7 +7,9 @@ import Author from '..';
 describe('Author', () => {
   it('renders unlinkedAuthor with affiliations', () => {
     const author = fromJS({
-      full_name: 'Name, Full',
+      full_name: 'Name, Full, Jr.',
+      first_name: 'Full, Jr.',
+      last_name: 'Name',
       affiliations: [
         {
           value: 'Affiliation',
