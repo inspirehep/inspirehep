@@ -7,6 +7,7 @@
 import structlog
 from flask import current_app
 from inspire_utils.record import get_value
+from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
 from inspirehep.pidstore.errors import (
@@ -59,7 +60,23 @@ class TexKeyMinter(Minter):
             minter.add_texkey(pid_value)
         # Run it without pid provided to check if texkey should be re-generated
         minter.add_texkey(None)
+        # Delete from pidstore texkeys which are not in metadata
+        minter.purge_missing()
         return minter
+
+    def purge_missing(self):
+        texkeys = (
+            PersistentIdentifier.query.filter(
+                PersistentIdentifier.object_uuid == self.object_uuid,
+                PersistentIdentifier.object_type == self.object_type,
+            )
+            .filter(PersistentIdentifier.pid_type == self.pid_type)
+            .filter(PersistentIdentifier.status != PIDStatus.DELETED)
+            .filter(PersistentIdentifier.pid_value.notin_(self.data.get("texkeys", [])))
+        )
+        for pid in texkeys:
+            # force delete from pidstore as PersistentIdentifier.delete() will just set status as DELETED
+            db.session.delete(pid)
 
     @classmethod
     def mint(cls, object_uuid, data):

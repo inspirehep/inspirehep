@@ -252,3 +252,27 @@ def test_minter_undeleting_record(inspire_app, override_config):
         PersistentIdentifier.pid_type == "texkey",
     ).one()
     assert texkey.status == PIDStatus.REGISTERED
+
+
+def test_minter_deletes_texkey_missing_in_metadata(inspire_app, override_config):
+    data = {
+        "authors": [{"full_name": "Janeway, K."}],
+        "publication_info": [{"year": 2000}],
+    }
+    with override_config(FEATURE_FLAG_ENABLE_TEXKEY_MINTER=True):
+        record = create_record("lit", data=data)
+    generated_texkeys = record["texkeys"]
+
+    assert len(generated_texkeys) == 1
+
+    data = dict(record)
+    del data["texkeys"]
+    data["publication_info"][0]["year"] = 2001
+
+    with override_config(FEATURE_FLAG_ENABLE_TEXKEY_MINTER=True):
+        record.update(data)
+    assert record["texkeys"] != generated_texkeys
+    assert (
+        PersistentIdentifier.query.filter_by(pid_value=generated_texkeys[0]).count()
+        == 0
+    )
