@@ -108,7 +108,9 @@ exports[`Author renders unlinkedAuthor with affiliations 1`] = `
   <UnlinkedAuthor
     author={
       Immutable.Map {
-        "full_name": "Name, Full",
+        "full_name": "Name, Full, Jr.",
+        "first_name": "Full, Jr.",
+        "last_name": "Name",
         "affiliations": Immutable.List [
           Immutable.Map {
             "value": "Affiliation",

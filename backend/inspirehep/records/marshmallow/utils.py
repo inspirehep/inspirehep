@@ -53,7 +53,7 @@ def get_first_name(name):
     names = name.split(",", 1)
 
     if len(names) > 1:
-        return names[1].replace(",", "").strip()
+        return names[1].strip()
 
     return names[0] or missing
 

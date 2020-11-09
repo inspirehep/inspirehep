@@ -112,3 +112,12 @@ def test_literature_ui_schema_hides_email_from_acquisition_source():
     result = LiteratureListWrappedSchema().dump(data).data
 
     assert expected == result["metadata"]["acquisition_source"]
+
+
+def literature_search_schema_doesnt_drop_comma_from_first_name():
+    authors = [{"full_name": "Alves, A.A., Jr."}]
+    expected_first_name = "A.A., Jr."
+    data_record = faker.record("lit", data=authors)
+    result = LiteraturePublicListSchema().dump(data_record).data
+
+    assert result["authors"]["first_name"] == expected_first_name

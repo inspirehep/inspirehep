@@ -273,6 +273,12 @@ export function getAuthorName(author) {
   if (author.has('first_name')) {
     const firstName = author.get('first_name');
     const lastName = author.get('last_name', '');
+    if (firstName.includes(',')) {
+      const firstNameSuffixArray = firstName.split(',');
+      return `${firstNameSuffixArray[0]} ${lastName}, ${
+        firstNameSuffixArray[1]
+      }`;
+    }
     return `${firstName} ${lastName}`;
   }
   return author.get('name') || author.get('full_name');
