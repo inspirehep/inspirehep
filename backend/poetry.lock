@@ -163,10 +163,10 @@ description = "Tools to handle automatic semantic versioning in python"
 name = "autosemver"
 optional = false
 python-versions = "*"
-version = "0.5.3"
+version = "0.5.5"
 
 [package.dependencies]
-dulwich = "*"
+dulwich = ">=0.19.6,<0.20"
 
 [[package]]
 category = "dev"
@@ -1381,7 +1381,7 @@ description = "Find the records in INSPIRE most similar to a given record or ref
 name = "inspire-matcher"
 optional = false
 python-versions = "*"
-version = "9.0.6"
+version = "9.0.7"
 
 [package.dependencies]
 Flask = ">=0.12.2"
@@ -1404,7 +1404,7 @@ description = "A PEG-based query parser for INSPIRE."
 name = "inspire-query-parser"
 optional = false
 python-versions = "*"
-version = "6.0.30"
+version = "6.0.31"
 
 [package.dependencies]
 inspire-schemas = ">=61.0,<62.0"
@@ -1423,11 +1423,11 @@ description = "Inspire JSON schemas and utilities to use them."
 name = "inspire-schemas"
 optional = false
 python-versions = "*"
-version = "61.3.11"
+version = "61.3.13"
 
 [package.dependencies]
 Unidecode = ">=1.0.22,<2.0"
-autosemver = "*"
+autosemver = "0.5.5"
 bleach = ">=3.2.1,<4.0"
 idutils = "*"
 inspire-utils = ">=3.0.0,<4.0"
@@ -1466,7 +1466,7 @@ description = "INSPIRE-specific utils."
 name = "inspire-utils"
 optional = false
 python-versions = "*"
-version = "3.0.14"
+version = "3.0.15"
 
 [package.dependencies]
 Unidecode = ">=1.0.22,<2.0"
@@ -4179,7 +4179,7 @@ automat = [
     {file = "Automat-0.8.0.tar.gz", hash = "sha256:269a09dfb063a3b078983f4976d83f0a0d3e6e7aaf8e27d8df1095e09dc4a484"},
 ]
 autosemver = [
-    {file = "autosemver-0.5.3.tar.gz", hash = "sha256:4f4e5c30a51acabd454eddb28fb958a6cd8ba93ce18ab9484bdcb8009e5163a0"},
+    {file = "autosemver-0.5.5.tar.gz", hash = "sha256:0af1e8a9c3604545c067311f1c26403e8f0d60b5d9561c0217e14eee21c98b02"},
 ]
 aws-sam-translator = [
     {file = "aws-sam-translator-1.11.0.tar.gz", hash = "sha256:db872c43bdfbbae9fc8c9201e6a7aeb9a661cda116a94708ab0577b46a38b962"},
@@ -4623,17 +4623,17 @@ inspire-json-merger = [
     {file = "inspire-json-merger-11.0.8.tar.gz", hash = "sha256:115fba3f603388972056fc65ffcfa888c1e356b36a555d1508ff60aa6e00b522"},
 ]
 inspire-matcher = [
-    {file = "inspire-matcher-9.0.6.tar.gz", hash = "sha256:5b199dc31cf7e544ce7e5820e821534c21d7a543b2951558c807904603a71319"},
+    {file = "inspire-matcher-9.0.7.tar.gz", hash = "sha256:240a864e965896e1846f6936cf11a41dcddf4690163c98f40d8e60ca975e640e"},
 ]
 inspire-query-parser = [
-    {file = "inspire-query-parser-6.0.30.tar.gz", hash = "sha256:f15749630cdca76faecc35a06aa8a48aac28dbe900a56b04fa1267d97eb70fab"},
+    {file = "inspire-query-parser-6.0.31.tar.gz", hash = "sha256:b0556a950012f4432458823afbf3b6d7a1294ebf0449a1d1db22bcfaf6cb3857"},
 ]
 inspire-schemas = [
-    {file = "inspire-schemas-61.3.11.tar.gz", hash = "sha256:f590e8bc4f140adc4d242f7810a86430a3ff581244e2d540a948733d242fc69a"},
+    {file = "inspire-schemas-61.3.13.tar.gz", hash = "sha256:79b9ffee55552046ca18eb0cd64811a61480b2061b39c343f64c8eb341f82cf6"},
 ]
 inspire-service-orcid = []
 inspire-utils = [
-    {file = "inspire-utils-3.0.14.tar.gz", hash = "sha256:e05a80c9b811b8b128177ae94dc518a81cdcbf2c1fae36646c0f7b33cb96e598"},
+    {file = "inspire-utils-3.0.15.tar.gz", hash = "sha256:4702f4d7c8f64368c1d4d8f18bb0602c4a10ef48db9c5c11b204b6235d45416e"},
 ]
 intervals = [
     {file = "intervals-0.8.1.tar.gz", hash = "sha256:37921da1407a5e9384e8e1350cfb8500f8d0d69fc43d03d01a4fdc6e7a7c7166"},
@@ -4877,6 +4877,11 @@ markupsafe = [
     {file = "MarkupSafe-1.1.1-cp37-cp37m-manylinux1_x86_64.whl", hash = "sha256:ba59edeaa2fc6114428f1637ffff42da1e311e29382d81b339c1817d37ec93c6"},
     {file = "MarkupSafe-1.1.1-cp37-cp37m-win32.whl", hash = "sha256:b00c1de48212e4cc9603895652c5c410df699856a2853135b3967591e4beebc2"},
     {file = "MarkupSafe-1.1.1-cp37-cp37m-win_amd64.whl", hash = "sha256:9bf40443012702a1d2070043cb6291650a0841ece432556f784f004937f0f32c"},
+    {file = "MarkupSafe-1.1.1-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:6788b695d50a51edb699cb55e35487e430fa21f1ed838122d722e0ff0ac5ba15"},
+    {file = "MarkupSafe-1.1.1-cp38-cp38-manylinux1_i686.whl", hash = "sha256:cdb132fc825c38e1aeec2c8aa9338310d29d337bebbd7baa06889d09a60a1fa2"},
+    {file = "MarkupSafe-1.1.1-cp38-cp38-manylinux1_x86_64.whl", hash = "sha256:13d3144e1e340870b25e7b10b98d779608c02016d5184cfb9927a9f10c689f42"},
+    {file = "MarkupSafe-1.1.1-cp38-cp38-win32.whl", hash = "sha256:596510de112c685489095da617b5bcbbac7dd6384aeebeda4df6025d0256a81b"},
+    {file = "MarkupSafe-1.1.1-cp38-cp38-win_amd64.whl", hash = "sha256:e8313f01ba26fbbe36c7be1966a7b7424942f670f38e666995b88d012765b9be"},
     {file = "MarkupSafe-1.1.1.tar.gz", hash = "sha256:29872e92839765e546828bb7754a68c418d927cd064fd4708fab9fe9c8bb116b"},
 ]
 marshmallow = [

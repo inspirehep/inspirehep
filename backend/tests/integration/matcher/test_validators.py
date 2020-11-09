@@ -7,7 +7,11 @@
 
 from helpers.utils import create_record
 
-from inspirehep.matcher.validators import authors_validator
+from inspirehep.matcher.validators import (
+    affiliations_validator,
+    authors_validator,
+    collaboration_validator,
+)
 
 
 def test_authors_validator_match_when_one_identifier_is_duplicated(inspire_app):
@@ -75,3 +79,58 @@ def test_authors_validator_matches_when_id_is_from_correct_schema(inspire_app):
     }
     record_aut = create_record("aut", data=author)
     assert authors_validator(lit_author, record_aut)
+
+
+def test_collaboration_validator_validates_when_collaboration_match(inspire_app):
+    author_data = {"collaborations": ["CMS"], "full_name": "John Smith"}
+    result_data = {"_source": {"collaborations": [{"value": "CMS"}]}}
+    assert collaboration_validator(author_data, result_data)
+
+
+def test_collaboration_validator_doesnt_validate_when_collaboration_doesnt_match(
+    inspire_app,
+):
+    author_data = {"collaborations": ["CMS"], "full_name": "John Smith"}
+    result_data = {
+        "_source": {"collaborations": [{"value": "CMS"}, {"value": "ATLAS"}]}
+    }
+    assert not collaboration_validator(author_data, result_data)
+
+
+def test_affiliation_validator_doesnt_validate_when_affiliations_dont_match(
+    inspire_app,
+):
+    author_data = {"full_name": "John Smith"}
+    result_data = {
+        "inner_hits": {
+            "authors": {
+                "hits": {
+                    "hits": [
+                        {
+                            "_source": {
+                                "affiliations": [
+                                    {"value": "Warsaw U."},
+                                    {"value": "Wasrsaw U. of Technology"},
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    }
+    assert not affiliations_validator(author_data, result_data)
+
+
+def test_affiliation_validator_validate_when_affiliations_match(inspire_app):
+    author_data = {"affiliations": ["Warsaw U."], "full_name": "John Smith"}
+    result_data = {
+        "inner_hits": {
+            "authors": {
+                "hits": {
+                    "hits": [{"_source": {"affiliations": [{"value": "Warsaw U."}]}}]
+                }
+            }
+        }
+    }
+    assert affiliations_validator(author_data, result_data)
