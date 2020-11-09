@@ -4,6 +4,11 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+from .validators import (
+    affiliations_validator,
+    authors_validator,
+    collaboration_validator,
+)
 
 GROBID_URL = "https://grobid.inspirebeta.net"
 
@@ -277,15 +282,55 @@ AUTHOR_MATCHER_EXACT_CONFIG = {
         {
             "queries": [
                 {"path": "ids.value", "search_path": "ids.value", "type": "exact"},
+            ],
+            "validator": authors_validator,
+        },
+        {
+            "queries": [
                 {
                     "path": "emails",
                     "search_path": "email_addresses.value",
                     "type": "exact",
                 },
-            ]
-        }
+            ],
+        },
     ],
     "index": "records-authors",
-    "source": ["control_number"],
+    "source": ["self.$ref"],
     "validator": "inspirehep.matcher.validators:authors_validator",
+}
+
+AUTHOR_MATCHER_NAME_CONFIG = {
+    "algorithm": [
+        {
+            "queries": [
+                {
+                    "paths": ["first_name", "last_name"],
+                    "search_paths": ["authors.first_name", "authors.last_name"],
+                    "type": "nested",
+                    "inner_hits": {
+                        "_source": ["authors.record.$ref", "authors.affiliations.value"]
+                    },
+                },
+            ],
+        },
+    ],
+    "index": "records-hep",
+    "source": ["control_number", "collaborations.value"],
+}
+
+
+AUTHOR_MATCHER_NAME_INITIALS_CONFIG = {
+    "algorithm": [
+        {
+            "queries": [
+                {
+                    "type": "author-names",
+                    "inner_hits": {"_source": ["authors.record"]},
+                },
+            ]
+        },
+    ],
+    "index": "records-hep",
+    "source": ["control_number", "authors.full_name", "authors.record.$ref"],
 }
