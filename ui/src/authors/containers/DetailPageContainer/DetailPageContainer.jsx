@@ -32,7 +32,6 @@ import {
   AUTHOR_SEMINARS_NS,
 } from '../../../search/constants';
 import { newSearch, searchBaseQueriesUpdate } from '../../../actions/search';
-import EditRecordAction from '../../../common/components/EditRecordAction.tsx';
 import DeletedAlert from '../../../common/components/DeletedAlert';
 import UserSettingsAction from '../../components/UserSettingsAction';
 import withRouteActionsDispatcher from '../../../common/withRouteActionsDispatcher';
@@ -41,6 +40,7 @@ import Advisors from '../../components/Advisors';
 import AffiliationList from '../../../common/components/AffiliationList';
 import RecordUpdateInfo from '../../../common/components/RecordUpdateInfo';
 import AuthorSeminars from '../../components/AuthorSeminars';
+import EditAuthorRecordAction from '../../components/EditAuthorRecordAction.tsx';
 
 function DetailPage({
   record,
@@ -89,6 +89,7 @@ function DetailPage({
   const deleted = metadata.get('deleted', false);
   const bai = metadata.get('bai');
   const advisors = metadata.get('advisors');
+  const canEdit = metadata.get('can_edit', false);
 
   const metaDescription = useMemo(() => getAuthorMetaDescription(metadata), [
     metadata,
@@ -116,8 +117,11 @@ function DetailPage({
                     {twitter && <AuthorTwitterAction twitter={twitter} />}
                     {linkedin && <AuthorLinkedinAction linkedin={linkedin} />}
                     {urls && <AuthorWebsitesAction websites={urls} />}
-                    <EditRecordAction pidType="authors" pidValue={recordId} />
                     {orcid && orcid === userOrcid && <UserSettingsAction />}
+                    <EditAuthorRecordAction
+                      canEdit={canEdit}
+                      pidValue={recordId}
+                    />
                   </>
                 }
                 rightActions={

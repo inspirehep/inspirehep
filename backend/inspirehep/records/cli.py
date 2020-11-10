@@ -34,7 +34,7 @@ def _create_record(data, save_to_file=False):
     record = InspireRecord.create_or_update(data)
 
     db.session.commit()
-    record.index()
+    record.index(delay=False)
     message = (
         f"Record created uuid:{record.id} with "
         f"pid:{control_number} has been created."

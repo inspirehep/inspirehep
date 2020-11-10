@@ -25,27 +25,35 @@ describe('Author Search', () => {
 });
 
 describe('Author Submission', () => {
-  beforeEach(() => {
-    cy.login('cataloger');
-  });
-
   onlyOn('headless', () => {
     it('matches image snapshot', () => {
+      cy.login('cataloger');
       cy.visit('/submissions/authors');
       cy.get('form').should('be.visible');
       cy.matchSnapshots('AuthorSubmission', { skipMobile: true });
     });
 
-    it('matches image snapshot for author update', () => {
+    it('matches image snapshot for author update when cataloger is logged in', () => {
+      cy.login('cataloger');
       cy.registerRoute();
       cy.visit('/submissions/authors/1274753');
       cy.waitForRoute();
       cy.get('form').should('be.visible');
       cy.matchSnapshots('AuthorUpdateSubmission', { skipMobile: true });
     });
+
+    it('matches image snapshot for user own author profile update', () => {
+      cy.login('johnellis');
+      cy.registerRoute();
+      cy.visit('/submissions/authors/1010819');
+      cy.waitForRoute();
+      cy.get('form').should('be.visible');
+      cy.matchSnapshots('AuthorUpdateSubmissionByOwner', { skipMobile: true });
+    });
   });
 
   it('submits a new author', () => {
+    cy.login('cataloger');
     const formData = {
       given_name: 'Diego',
       family_name: 'Martínez Santos',
@@ -111,6 +119,7 @@ describe('Author Submission', () => {
   });
 
   it('does not submit a new author with existing orcid [authors/1078577]', () => {
+    cy.login('cataloger');
     cy.visit('/submissions/authors');
     cy.registerRoute();
     cy.fillForm({
@@ -127,6 +136,30 @@ describe('Author Submission', () => {
         return cy.get('a');
       })
       .should('have.attr', 'href', '/submissions/authors/1078577');
+  });
+
+  it('updates its own author profile', () => {
+    cy.login('johnellis');
+    const recordId = 1010819;
+    cy.visit(`/submissions/authors/${recordId}`);
+    cy.testUpdateSubmission({
+      collection: 'authors',
+      recordId,
+      formData: {
+        display_name: ': Updated',
+      },
+      expectedMetadata: {
+        name: { preferred_name: 'John Richard Ellis: Updated' },
+      },
+    });
+  });
+
+  it('does not show update form if user is not the owner of the author record', () => {
+    cy.login('johnellis');
+    cy.registerRoute();
+    cy.visit('/submissions/authors/1274753');
+    cy.waitForRoute();
+    cy.contains('You are not allowed to edit').should('be.visible');
   });
 
   afterEach(() => {

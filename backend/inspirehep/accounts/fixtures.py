@@ -13,6 +13,7 @@ from invenio_access.models import ActionRoles
 from invenio_accounts.models import Role
 from invenio_db import db
 from invenio_oauth2server.models import Client, Token
+from invenio_oauthclient.models import RemoteToken, UserIdentity
 
 from inspirehep.accounts.roles import Roles
 
@@ -108,6 +109,18 @@ def init_users():
             password=hash_password("123456"),
             active=True,
         )
+
+        ellis = ds.create_user(
+            id=9999,
+            email="johnellis@inspirehep.net",
+            password=hash_password("123456"),
+            active=True,
+        )
+        ellis_orcid_id = UserIdentity(
+            id="0000-0002-7399-0813", method="orcid", id_user=ellis.get_id()
+        )
+        db.session.add(ellis_orcid_id)
+
     db.session.commit()
 
 

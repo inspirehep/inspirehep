@@ -7,7 +7,7 @@
 
 from helpers.providers.faker import faker
 
-from inspirehep.submissions.marshmallow.author import Author, SameAuthor
+from inspirehep.submissions.marshmallow.author import Author
 
 DEFAULT_DATA_TO_DUMP = {"name": {"value": "John Doe"}}
 DEFAULT_DATA_DUMP = {"given_name": "John Doe"}
@@ -59,6 +59,7 @@ def test_load_author_advisors():
         "advisors": [
             {
                 "degree_type": "bachelor",
+                "hidden": False,
                 "ids": [
                     {"schema": "DESY", "value": "DESY-55924820881"},
                     {"schema": "SCOPUS", "value": "7039712595"},
@@ -78,6 +79,7 @@ def test_load_author_advisors():
         "advisors": [
             {
                 "curated_relation": False,
+                "hidden": False,
                 "degree_type": "bachelor",
                 "ids": [
                     {"schema": "DESY", "value": "DESY-55924820881"},
@@ -465,6 +467,7 @@ def test_load_author_positions():
                 "end_date": "1995-01-31",
                 "rank": "PHD",
                 "current": False,
+                "hidden": False,
             }
         ],
     }
@@ -478,6 +481,7 @@ def test_load_author_positions():
             {
                 "current": False,
                 "curated_relation": False,
+                "hidden": False,
                 "end_date": "1995-01-31",
                 "institution": "Colgate University",
                 "rank": "PHD",
@@ -530,6 +534,7 @@ def test_load_author_project_membership():
                 "end_date": "2001-12-31",
                 "record": {"$ref": "http://180"},
                 "current": True,
+                "hidden": False,
             }
         ],
     }
@@ -543,49 +548,12 @@ def test_load_author_project_membership():
             {
                 "curated_relation": False,
                 "current": True,
+                "hidden": False,
                 "end_date": "2001-12-31",
                 "name": "pariatur",
                 "record": {"$ref": "http://180"},
                 "start_date": "1997-05-01",
             }
-        ],
-    }
-
-    assert result == expected
-
-
-def test_dump_author_emails_returns_only_public_emails():
-    data = {
-        **DEFAULT_DATA_TO_DUMP,
-        "email_addresses": [
-            {"value": "private@email.com", "hidden": True},
-            {"value": "public@email.com"},
-        ],
-    }
-    record = faker.record("aut", data=data)
-
-    result = Author().dump(record).data
-    expected = {**DEFAULT_DATA_DUMP, "emails": [{"value": "public@email.com"}]}
-
-    assert result == expected
-
-
-def test_dump_same_author_emails_returns_all_emails():
-    data = {
-        **DEFAULT_DATA_TO_DUMP,
-        "email_addresses": [
-            {"value": "private@email.com", "hidden": True},
-            {"value": "public@email.com"},
-        ],
-    }
-    record = faker.record("aut", data=data)
-
-    result = SameAuthor().dump(record).data
-    expected = {
-        **DEFAULT_DATA_DUMP,
-        "emails": [
-            {"value": "private@email.com", "hidden": True},
-            {"value": "public@email.com"},
         ],
     }
 

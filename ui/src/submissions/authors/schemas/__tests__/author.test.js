@@ -250,6 +250,7 @@ describe('authorSchema', () => {
         {
           institution: 'Test 1',
           rank: rankValues[0],
+          hidden: true,
         },
       ],
     };
@@ -333,6 +334,7 @@ describe('authorSchema', () => {
         },
         {
           name: 'Test 2',
+          hidden: true,
         },
       ],
     };
@@ -392,7 +394,7 @@ describe('authorSchema', () => {
     done();
   });
 
-  it('invalidates when all project_membership do not have experment', async done => {
+  it('invalidates when all project_membership do not have experiment', async done => {
     const data = {
       ...dataWithRequiredFields,
       project_membership: [
@@ -418,6 +420,7 @@ describe('authorSchema', () => {
         },
         {
           name: 'Test 2',
+          hidden: true,
         },
       ],
     };

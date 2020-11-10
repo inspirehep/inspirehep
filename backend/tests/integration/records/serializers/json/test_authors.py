@@ -24,6 +24,7 @@ def test_authors_detail(inspire_app, datadir):
     expected_status_code = 200
     expected_id = str(record_control_number)
     expected_metadata = {
+        "can_edit": False,
         "advisors": [
             {
                 "degree_type": "other",
@@ -77,12 +78,6 @@ def test_authors_detail(inspire_app, datadir):
                 "rank": "PHD",
                 "record": {"$ref": "http://localhost:5000/api/institutions/903139"},
             },
-            {
-                "display_date": "1988-1991",
-                "institution": "Cuyo U.",
-                "rank": "UNDERGRADUATE",
-                "record": {"$ref": "http://localhost:5000/api/institutions/902758"},
-            },
         ],
         "legacy_creation_date": "1999-05-04",
         "legacy_version": "20160711200442.0",
@@ -107,6 +102,45 @@ def test_authors_detail(inspire_app, datadir):
     assert expected_id == response_data["id"]
     assert response_data["created"] is not None
     assert response_data["updated"] is not None
+
+
+def test_authors_detail_can_edit_true_if_users_own_profile(inspire_app):
+    headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+    orcid = "0000-0002-7399-0813"
+    user = create_user(orcid=orcid)
+
+    data = {"ids": [{"schema": "ORCID", "value": orcid}]}
+    record = create_record_factory("aut", data=data)
+    record_control_number = record.json["control_number"]
+
+    expected_status_code = 200
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(f"/authors/{record_control_number}", headers=headers)
+
+    response_data = json.loads(response.data)
+    response_data_metadata = response_data["metadata"]
+
+    assert response_data_metadata["can_edit"]
+
+
+def test_authors_detail_can_edit_false_if_not_users_own_profile(inspire_app):
+    headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+    user = create_user(orcid="0000-0002-7399-0813")
+
+    data = {"ids": [{"schema": "ORCID", "value": "0000-0001-8786-3172"}]}
+    record = create_record_factory("aut", data=data)
+    record_control_number = record.json["control_number"]
+
+    expected_status_code = 200
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(f"/authors/{record_control_number}", headers=headers)
+
+    response_data = json.loads(response.data)
+    response_data_metadata = response_data["metadata"]
+
+    assert not response_data_metadata["can_edit"]
 
 
 def test_authors_json_without_login(inspire_app):
@@ -163,6 +197,11 @@ def test_authors_json_with_logged_in_cataloger(inspire_app):
             {"value": "public@urhan.ch"},
             {"value": "private@urhan.ch", "hidden": True},
         ],
+        "advisors": [{"name": "Einstein", "hidden": True}],
+        "positions": [
+            {"institution": "Princeton, Inst. Advanced Study", "hidden": True}
+        ],
+        "project_membership": [{"hidden": True, "name": "CERN-LEP-ALEPH"}],
     }
     record = create_record_factory("aut", data=data)
     record_control_number = record.json["control_number"]
@@ -179,7 +218,13 @@ def test_authors_json_with_logged_in_cataloger(inspire_app):
             {"value": "public@urhan.ch"},
             {"value": "private@urhan.ch", "hidden": True},
         ],
+        "advisors": [{"name": "Einstein", "hidden": True}],
+        "positions": [
+            {"institution": "Princeton, Inst. Advanced Study", "hidden": True}
+        ],
+        "project_membership": [{"hidden": True, "name": "CERN-LEP-ALEPH"}],
     }
+
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.get(f"/authors/{record_control_number}", headers=headers)
@@ -223,6 +268,15 @@ def test_authors_search_json(inspire_app):
         "acquisition_source": {"orcid": "0000-0000-0000-0000", "email": "test@me.com"},
         "name": {"value": "Urhan, Harun"},
         "deleted": False,
+        "advisors": [{"name": "Einstein", "hidden": True}, {"name": "Urhan, Ahmet"}],
+        "positions": [
+            {"institution": "Princeton, Inst. Advanced Study"},
+            {"institution": "NSA", "hidden": True},
+        ],
+        "project_membership": [
+            {"name": "CERN-LEP-ALEPH"},
+            {"name": "Secret Covid19 Experiment", "hidden": True},
+        ],
     }
 
     record = create_record("aut", data=data)
@@ -234,6 +288,9 @@ def test_authors_search_json(inspire_app):
         "control_number": record_control_number,
         "acquisition_source": {"orcid": "0000-0000-0000-0000"},
         "name": {"value": "Urhan, Harun"},
+        "advisors": [{"name": "Urhan, Ahmet"}],
+        "project_membership": [{"name": "CERN-LEP-ALEPH"}],
+        "positions": [{"institution": "Princeton, Inst. Advanced Study"}],
         "deleted": False,
     }
     expected_id = str(record_control_number)
@@ -262,6 +319,15 @@ def test_authors_search_list(inspire_app):
         "$schema": "https://inspire/schemas/records/authors.json",
         "acquisition_source": {"orcid": "0000-0000-0000-0000", "email": "test@me.com"},
         "name": {"value": "Test, Name"},
+        "advisors": [{"name": "Einstein", "hidden": True}, {"name": "Urhan, Ahmet"}],
+        "positions": [
+            {"institution": "Princeton, Inst. Advanced Study"},
+            {"institution": "NSA", "hidden": True},
+        ],
+        "project_membership": [
+            {"name": "CERN-LEP-ALEPH"},
+            {"name": "Secret Covid19 Experiment", "hidden": True},
+        ],
     }
 
     record = create_record("aut", data=data)
@@ -272,6 +338,10 @@ def test_authors_search_list(inspire_app):
         "acquisition_source": {"orcid": "0000-0000-0000-0000"},
         "name": {"value": "Test, Name"},
         "control_number": record["control_number"],
+        "advisors": [{"name": "Urhan, Ahmet"}],
+        "project_membership": [{"name": "CERN-LEP-ALEPH"}],
+        "positions": [{"institution": "Princeton, Inst. Advanced Study"}],
+        "can_edit": False,
     }
 
     with inspire_app.test_client() as client:
@@ -317,6 +387,15 @@ def test_authors_search_json_with_logged_in_cataloger(inspire_app):
             {"value": "public@urhan.ch"},
             {"value": "private@urhan.ch", "hidden": True},
         ],
+        "advisors": [{"name": "Einstein", "hidden": True}, {"name": "Urhan, Ahmet"}],
+        "positions": [
+            {"institution": "Princeton, Inst. Advanced Study"},
+            {"institution": "NSA", "hidden": True},
+        ],
+        "project_membership": [
+            {"name": "CERN-LEP-ALEPH"},
+            {"name": "Secret Covid19 Experiment", "hidden": True},
+        ],
     }
 
     record = create_record_factory("aut", data=data, with_indexing=True)
@@ -333,6 +412,15 @@ def test_authors_search_json_with_logged_in_cataloger(inspire_app):
         "email_addresses": [
             {"value": "public@urhan.ch"},
             {"value": "private@urhan.ch", "hidden": True},
+        ],
+        "advisors": [{"name": "Einstein", "hidden": True}, {"name": "Urhan, Ahmet"}],
+        "positions": [
+            {"institution": "Princeton, Inst. Advanced Study"},
+            {"institution": "NSA", "hidden": True},
+        ],
+        "project_membership": [
+            {"name": "CERN-LEP-ALEPH"},
+            {"name": "Secret Covid19 Experiment", "hidden": True},
         ],
     }
     with inspire_app.test_client() as client:

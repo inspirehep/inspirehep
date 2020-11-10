@@ -19,6 +19,7 @@ import ConferenceSubmissionPageContainer from '../conferences/containers/Confere
 import SeminarSubmissionPageContainer from '../seminars/containers/SeminarSubmissionPageContainer';
 import SeminarUpdateSubmissionPageContainer from '../seminars/containers/SeminarUpdateSubmissionPageContainer';
 import SeminarSubmissionSuccessPageContainer from '../seminars/containers/SeminarSubmissionSuccessPageContainer';
+import AuthorUpdateSubmissionSuccessPage from '../authors/components/AuthorUpdateSubmissionSuccessPage';
 
 describe('Submissions', () => {
   let element;
@@ -317,6 +318,6 @@ describe('Submissions', () => {
     await Loadable.preloadAll();
     wrapper.update();
 
-    expect(wrapper.find(SubmissionSuccessPage)).toExist();
+    expect(wrapper.find(AuthorUpdateSubmissionSuccessPage)).toExist();
   });
 });
