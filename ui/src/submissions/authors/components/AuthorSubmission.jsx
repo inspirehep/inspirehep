@@ -16,6 +16,8 @@ function AuthorSubmission({
   error = null,
   initialFormData = {},
   extendSchema = object(),
+  isCatalogerLoggedIn,
+  isUpdate,
 }) {
   const initialValues = {
     ...DEFAULT_FORM_DATA,
@@ -38,8 +40,17 @@ function AuthorSubmission({
             validationSchema={authorSchema.concat(extendSchema)}
             onSubmit={onFormikSubmit}
             validateOnChange={false}
-            component={AuthorForm}
-          />
+            isCatalogerLoggedIn={isCatalogerLoggedIn}
+            isUpdate={isUpdate}
+          >
+            {({ values }) => (
+              <AuthorForm
+                values={values}
+                isUpdate={isUpdate}
+                isCatalogerLoggedIn={isCatalogerLoggedIn}
+              />
+            )}
+          </Formik>
         </Col>
       </Row>
     </div>
@@ -51,6 +62,8 @@ AuthorSubmission.propTypes = {
   initialFormData: PropTypes.objectOf(PropTypes.any),
   onSubmit: PropTypes.func.isRequired, // must be async
   extendSchema: PropTypes.instanceOf(object),
+  isCatalogerLoggedIn: PropTypes.bool,
+  isUpdate: PropTypes.bool,
 };
 
 export default convertAllImmutablePropsToJS(AuthorSubmission);

@@ -29,6 +29,7 @@ class ArrayOf extends Component {
       emptyItem,
       values,
       renderItem,
+      allowItemDelete,
     } = this.props;
     const items = values[name];
     return (
@@ -51,14 +52,16 @@ class ArrayOf extends Component {
                       data-test-id={`container-${name}.${index}`}
                     >
                       <Col span={22}>{renderItem(`${name}.${index}`)}</Col>
-                      {items.length > 1 && (
-                        <Col span={1} offset={1}>
-                          <MinusCircleOutlined
-                            className="remove-button"
-                            onClick={() => remove(index)}
-                          />
-                        </Col>
-                      )}
+                      {allowItemDelete &&
+                        items.length > 1 && (
+                          <Col span={1} offset={1}>
+                            <MinusCircleOutlined
+                              role="button"
+                              className="remove-button"
+                              onClick={() => remove(index)}
+                            />
+                          </Col>
+                        )}
                     </Row>
                   ))}
               </Form.Item>
@@ -86,10 +89,12 @@ ArrayOf.propTypes = {
   extractKey: PropTypes.func,
   renderItem: PropTypes.func.isRequired, // func(itemName)
   emptyItem: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  allowItemDelete: PropTypes.bool,
 };
 
 ArrayOf.defaultProps = {
   extractKey: (item, index) => index,
+  allowItemDelete: true,
   label: null,
   emptyItem: null,
   labelCol: LABEL_COL,

@@ -8,7 +8,7 @@
 
 import structlog
 from flask_login import current_user
-from inspire_utils.record import get_value
+from inspire_utils.record import get_value, get_values_for_schema
 from invenio_oauthclient.models import RemoteAccount, UserIdentity
 from sqlalchemy.exc import SQLAlchemyError
 
@@ -27,10 +27,19 @@ def is_superuser_or_cataloger_logged_in():
 
 def can_user_edit_record(record):
     submitter_orcid = get_value(record, "acquisition_source.orcid")
-    return (
-        is_superuser_or_cataloger_logged_in()
-        or submitter_orcid == get_current_user_orcid()
+    return is_superuser_or_cataloger_logged_in() or (
+        submitter_orcid and submitter_orcid == get_current_user_orcid()
     )
+
+
+def can_user_edit_author_record(author_record):
+    if is_superuser_or_cataloger_logged_in():
+        return True
+
+    ids = author_record.get("ids", [])
+    orcids = get_values_for_schema(ids, "ORCID")
+    user_orcid = get_current_user_orcid()
+    return user_orcid in orcids
 
 
 def is_loggedin_user_email(email):

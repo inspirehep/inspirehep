@@ -13,6 +13,7 @@ import { AUTHORS_PID_TYPE } from '../../../common/constants';
 import LoadingOrChildren from '../../../common/components/LoadingOrChildren';
 import SubmissionPage from '../../common/components/SubmissionPage';
 import ErrorAlertOrChildren from '../../../common/components/ErrorAlertOrChildren';
+import { isCataloger } from '../../../common/authorization';
 
 class AuthorUpdateSubmissionPage extends Component {
   static getRecordIdFromProps(props) {
@@ -58,6 +59,7 @@ class AuthorUpdateSubmissionPage extends Component {
       updateFormData,
       loadingUpdateFormData,
       updateFormDataError,
+      isCatalogerLoggedIn,
     } = this.props;
     return (
       <SubmissionPage
@@ -76,6 +78,10 @@ class AuthorUpdateSubmissionPage extends Component {
         <LoadingOrChildren loading={loadingUpdateFormData}>
           <ErrorAlertOrChildren error={updateFormDataError}>
             <AuthorSubmission
+              // TODO: use composition reduce or react-redux hook API to avoid prop-drilling
+              isCatalogerLoggedIn={isCatalogerLoggedIn}
+              // TODO: use composition instead
+              isUpdate
               error={error}
               onSubmit={this.onSubmit}
               initialFormData={updateFormData}
@@ -90,6 +96,7 @@ class AuthorUpdateSubmissionPage extends Component {
 AuthorUpdateSubmissionPage.propTypes = {
   match: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
+  isCatalogerLoggedIn: PropTypes.bool.isRequired,
   error: PropTypes.instanceOf(Map),
   updateFormData: PropTypes.instanceOf(Map),
   updateFormDataError: PropTypes.instanceOf(Map),
@@ -98,6 +105,7 @@ AuthorUpdateSubmissionPage.propTypes = {
 
 const stateToProps = state => ({
   error: state.submissions.get('submitError'),
+  isCatalogerLoggedIn: isCataloger(state.user.getIn(['data', 'roles'])),
   updateFormData: state.submissions.get('initialData'),
   updateFormDataError: state.submissions.get('initialDataError'),
   loadingUpdateFormData: state.submissions.get('loadingInitialData'),

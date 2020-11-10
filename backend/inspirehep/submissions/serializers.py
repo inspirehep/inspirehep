@@ -14,21 +14,10 @@ from inspirehep.accounts.api import get_current_user_orcid
 from inspirehep.serializers import ConditionalMultiSchemaJSONSerializer
 from inspirehep.submissions.marshmallow.job import Job
 
-from .marshmallow import Author, Conference, Literature, SameAuthor, Seminar
-
-
-def does_current_user_own_author_record(author):
-    author_orcids = get_values_for_schema(author.get("ids", []), "ORCID")
-    if author_orcids:
-        author_orcid = author_orcids.pop()
-        return get_current_user_orcid() == author_orcid
-    return False
-
+from .marshmallow import Author, Conference, Literature, Seminar
 
 literature_v1 = JSONSerializer(Literature)
-author_v1 = ConditionalMultiSchemaJSONSerializer(
-    [(does_current_user_own_author_record, SameAuthor), (None, Author)]
-)
+author_v1 = JSONSerializer(Author)
 job_v1 = JSONSerializer(Job)
 conference_v1 = JSONSerializer(Conference)
 seminar_v1 = JSONSerializer(Seminar)

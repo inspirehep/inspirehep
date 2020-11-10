@@ -7,6 +7,9 @@
 
 from marshmallow import fields
 
+from inspirehep.accounts.api import can_user_edit_author_record
+
+from ..fields import NonHiddenNested
 from ..utils import (
     get_acquisition_source_without_email,
     get_facet_author_name_for_author,
@@ -23,11 +26,18 @@ class AuthorsBaseSchema(AuthorsPublicSchema):
     class Meta:
         exclude = AuthorsPublicSchema.Meta.exclude + ["$schema"]
 
+    can_edit = fields.Method("get_can_edit", dump_only=True)
+
+    @staticmethod
+    def get_can_edit(data):
+        # check if we need to orcid from acquisition source or ids
+        return can_user_edit_author_record(data)
+
 
 class AuthorsDetailSchema(AuthorsBaseSchema):
     facet_author_name = fields.Method("get_facet_author_name", dump_only=True)
-    positions = fields.Nested(PositionSchemaV1, dump_only=True, many=True)
-    advisors = fields.Nested(AdvisorSchemaV1, dump_only=True, many=True)
+    positions = NonHiddenNested(PositionSchemaV1, dump_only=True, many=True)
+    advisors = NonHiddenNested(AdvisorSchemaV1, dump_only=True, many=True)
     should_display_positions = fields.Method(
         "get_should_display_positions", dump_only=True
     )

@@ -3,8 +3,8 @@
 exports[`AuthorResultItem renders full author result 1`] = `
 <ResultItem
   leftActions={
-    <EditRecordAction
-      pidType="authors"
+    <EditAuthorRecordAction
+      canEdit={true}
       pidValue={12345}
     />
   }
@@ -70,8 +70,8 @@ exports[`AuthorResultItem renders full author result 1`] = `
 exports[`AuthorResultItem renders with only name 1`] = `
 <ResultItem
   leftActions={
-    <EditRecordAction
-      pidType="authors"
+    <EditAuthorRecordAction
+      canEdit={false}
       pidValue={12345}
     />
   }
