@@ -56,13 +56,13 @@ exports[`Submissions renders initial state 1`] = `
       />
       <Redirect
         exact={true}
-        from="/submissions/authors/:id/success"
-        to="/submissions/success"
-      />
-      <Redirect
-        exact={true}
         from="/submissions/authors/new/success"
         to="/submissions/success"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/submissions/authors/:id/success"
       />
       <Redirect
         exact={true}

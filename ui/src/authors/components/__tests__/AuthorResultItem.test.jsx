@@ -7,6 +7,7 @@ import AuthorResultItem from '../AuthorResultItem';
 describe('AuthorResultItem', () => {
   it('renders with only name', () => {
     const metadata = fromJS({
+      can_edit: false,
       name: { value: 'Urhan, Harun' },
       control_number: 12345,
     });
@@ -16,6 +17,7 @@ describe('AuthorResultItem', () => {
 
   it('renders full author result', () => {
     const metadata = fromJS({
+      can_edit: true,
       name: { value: 'Urhan, Harun' },
       control_number: 12345,
       project_membership: [{ name: 'CERN-LHC-CMS' }],

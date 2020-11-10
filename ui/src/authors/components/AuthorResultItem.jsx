@@ -8,8 +8,8 @@ import AuthorName from './AuthorName';
 import { getCurrentAffiliationsFromPositions } from '../utils';
 import ArxivCategoryList from '../../common/components/ArxivCategoryList';
 import ExperimentList from '../../common/components/ExperimentList';
-import EditRecordAction from '../../common/components/EditRecordAction.tsx';
 import AffiliationList from '../../common/components/AffiliationList';
+import EditAuthorRecordAction from './EditAuthorRecordAction.tsx';
 
 class AuthorResultItem extends Component {
   render() {
@@ -24,10 +24,13 @@ class AuthorResultItem extends Component {
     );
     const arxivCategories = metadata.get('arxiv_categories');
     const experiments = metadata.get('project_membership');
+    const canEdit = metadata.get('can_edit');
 
     return (
       <ResultItem
-        leftActions={<EditRecordAction pidType="authors" pidValue={recordId} />}
+        leftActions={
+          <EditAuthorRecordAction pidValue={recordId} canEdit={canEdit} />
+        }
       >
         <Link
           className="result-item-title"

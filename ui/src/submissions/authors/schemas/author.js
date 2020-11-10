@@ -68,6 +68,7 @@ const authorSchema = object().shape({
         start_date: yearSchema,
         end_date: yearSchema,
         current: boolean(),
+        hidden: boolean(),
       })
     ),
   project_membership: array()
@@ -81,6 +82,7 @@ const authorSchema = object().shape({
         start_date: yearSchema,
         end_date: yearSchema,
         current: boolean(),
+        hidden: boolean(),
       })
     ),
   advisors: array()
@@ -92,6 +94,7 @@ const authorSchema = object().shape({
           .required()
           .label('Advisor name'),
         degree_type: string().oneOf(degreeTypeValues),
+        hidden: boolean(),
       })
     ),
   comments: string(),

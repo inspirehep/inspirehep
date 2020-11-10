@@ -16,6 +16,7 @@ import {
   EDIT_SEMINAR,
 } from '../routes';
 import PidType from '../types/PidType';
+import PidValue from '../types/PidValue';
 
 const pidTypeToEditRoutePrefix = {
   literature: EDIT_LITERATURE,
@@ -28,7 +29,7 @@ const pidTypeToEditRoutePrefix = {
 
 interface EditRecordActionProps {
   pidType: PidType;
-  pidValue: number;
+  pidValue: PidValue;
 }
 
 export default function EditRecordAction({

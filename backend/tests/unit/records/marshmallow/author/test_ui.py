@@ -7,6 +7,7 @@
 
 import json
 
+import mock
 from helpers.providers.faker import faker
 
 from inspirehep.records.marshmallow.authors import (
@@ -15,7 +16,10 @@ from inspirehep.records.marshmallow.authors import (
 )
 
 
-def test_should_display_positions_without_positions():
+@mock.patch("inspirehep.records.marshmallow.authors.ui.can_user_edit_author_record")
+def test_should_display_positions_without_positions(can_edit):
+    can_edit.return_value = False
+
     schema = AuthorsDetailSchema()
     data = {
         "name": {"value": "Doe, John", "preferred_name": "J Doe"},
@@ -32,7 +36,10 @@ def test_should_display_positions_without_positions():
     assert expected_result == result_should_display_positions
 
 
-def test_should_display_positions_with_multiple_positions():
+@mock.patch("inspirehep.records.marshmallow.authors.ui.can_user_edit_author_record")
+def test_should_display_positions_with_multiple_positions(can_edit):
+    can_edit.return_value = False
+
     schema = AuthorsDetailSchema()
     data = {
         "name": {"value": "Doe, John", "preferred_name": "J Doe"},
@@ -50,7 +57,10 @@ def test_should_display_positions_with_multiple_positions():
     assert expected_result == result_should_display_positions
 
 
-def test_should_display_positions_with_multiple_positions_with_rank():
+@mock.patch("inspirehep.records.marshmallow.authors.ui.can_user_edit_author_record")
+def test_should_display_positions_with_multiple_positions_with_rank(can_edit):
+    can_edit.return_value = False
+
     schema = AuthorsDetailSchema()
     data = {
         "name": {"value": "Doe, John", "preferred_name": "J Doe"},
@@ -68,7 +78,10 @@ def test_should_display_positions_with_multiple_positions_with_rank():
     assert expected_result == result_should_display_positions
 
 
-def test_should_display_positions_with_multiple_positions_with_start_date():
+@mock.patch("inspirehep.records.marshmallow.authors.ui.can_user_edit_author_record")
+def test_should_display_positions_with_multiple_positions_with_start_date(can_edit):
+    can_edit.return_value = False
+
     schema = AuthorsDetailSchema()
     data = {
         "name": {"value": "Doe, John", "preferred_name": "J Doe"},
@@ -86,7 +99,10 @@ def test_should_display_positions_with_multiple_positions_with_start_date():
     assert expected_result == result_should_display_positions
 
 
-def test_should_display_positions_with_multiple_positions_if_is_not_current():
+@mock.patch("inspirehep.records.marshmallow.authors.ui.can_user_edit_author_record")
+def test_should_display_positions_with_multiple_positions_if_is_not_current(can_edit):
+    can_edit.return_value = False
+
     schema = AuthorsDetailSchema()
     data = {
         "name": {"value": "Doe, John", "preferred_name": "J Doe"},
@@ -104,7 +120,10 @@ def test_should_display_positions_with_multiple_positions_if_is_not_current():
     assert expected_result == result_should_display_positions
 
 
-def test_returns_should_display_position_false_if_position_is_current():
+@mock.patch("inspirehep.records.marshmallow.authors.ui.can_user_edit_author_record")
+def test_returns_should_display_position_false_if_position_is_current(can_edit):
+    can_edit.return_value = False
+
     schema = AuthorsDetailSchema()
     data = {
         "name": {"value": "Doe, John", "preferred_name": "J Doe"},
@@ -122,7 +141,10 @@ def test_returns_should_display_position_false_if_position_is_current():
     assert expected_result == result_should_display_positions
 
 
-def test_facet_author_name_with_preferred_name_and_control_number():
+@mock.patch("inspirehep.records.marshmallow.authors.ui.can_user_edit_author_record")
+def test_facet_author_name_with_preferred_name_and_control_number(can_edit):
+    can_edit.return_value = False
+
     schema = AuthorsDetailSchema()
     data = {
         "name": {"value": "Doe, John", "preferred_name": "J Doe"},
@@ -139,7 +161,10 @@ def test_facet_author_name_with_preferred_name_and_control_number():
     assert expected_result == result_facet_author_name
 
 
-def test_facet_author_name_without_preferred_name():
+@mock.patch("inspirehep.records.marshmallow.authors.ui.can_user_edit_author_record")
+def test_facet_author_name_without_preferred_name(can_edit):
+    can_edit.return_value = False
+
     schema = AuthorsDetailSchema()
     data = {"name": {"value": "Doe, John"}, "control_number": 1}
     author = faker.record("aut", data=data)
@@ -153,7 +178,10 @@ def test_facet_author_name_without_preferred_name():
     assert expected_result == result_facet_author_name
 
 
-def test_author_twitter():
+@mock.patch("inspirehep.records.marshmallow.authors.ui.can_user_edit_author_record")
+def test_author_twitter(can_edit):
+    can_edit.return_value = False
+
     schema = AuthorsDetailSchema()
     data = {"ids": [{"value": "harunurhan", "schema": "TWITTER"}]}
     author = faker.record("aut", data=data, with_control_number=True)
@@ -166,7 +194,10 @@ def test_author_twitter():
     assert expected_twitter == result_twitter
 
 
-def test_author_linkedin():
+@mock.patch("inspirehep.records.marshmallow.authors.ui.can_user_edit_author_record")
+def test_author_linkedin(can_edit):
+    can_edit.return_value = False
+
     schema = AuthorsDetailSchema()
     data = {"ids": [{"value": "harunurhan", "schema": "LINKEDIN"}]}
     author = faker.record("aut", data=data, with_control_number=True)
@@ -179,7 +210,10 @@ def test_author_linkedin():
     assert expected_linkedin == result_linkedin
 
 
-def test_author_does_not_have_id_fields():
+@mock.patch("inspirehep.records.marshmallow.authors.ui.can_user_edit_author_record")
+def test_author_does_not_have_id_fields(can_edit):
+    can_edit.return_value = False
+
     schema = AuthorsDetailSchema()
     author = faker.record("aut", with_control_number=True)
 
@@ -192,7 +226,10 @@ def test_author_does_not_have_id_fields():
     assert "bai" not in result_data
 
 
-def test_author_bai():
+@mock.patch("inspirehep.records.marshmallow.authors.ui.can_user_edit_author_record")
+def test_author_bai(can_edit):
+    can_edit.return_value = False
+
     schema = AuthorsDetailSchema()
     data = {"ids": [{"schema": "INSPIRE BAI", "value": "John.Doe.1"}]}
     author = faker.record("aut", data=data, with_control_number=True)
@@ -205,7 +242,10 @@ def test_author_bai():
     assert expected_bai == result_bai
 
 
-def test_author_orcid():
+@mock.patch("inspirehep.records.marshmallow.authors.ui.can_user_edit_author_record")
+def test_author_orcid(can_edit):
+    can_edit.return_value = False
+
     schema = AuthorsDetailSchema()
     data = {"ids": [{"value": "0000-0001-8058-0014", "schema": "ORCID"}]}
     author = faker.record("aut", data=data, with_control_number=True)
@@ -218,7 +258,10 @@ def test_author_orcid():
     assert expected_orcid == result_orcid
 
 
-def test_only_public_and_current_emails():
+@mock.patch("inspirehep.records.marshmallow.authors.ui.can_user_edit_author_record")
+def test_only_public_and_current_emails(can_edit):
+    can_edit.return_value = False
+
     schema = AuthorsDetailSchema()
     data = {
         "email_addresses": [
@@ -240,7 +283,10 @@ def test_only_public_and_current_emails():
     assert expected_email_addresses == result_email_addresses
 
 
-def test_author_advisors_has_first_and_last_names():
+@mock.patch("inspirehep.records.marshmallow.authors.ui.can_user_edit_author_record")
+def test_author_advisors_has_first_and_last_names(can_edit):
+    can_edit.return_value = False
+
     schema = AuthorsDetailSchema()
     data = {
         "advisors": [
@@ -276,7 +322,10 @@ def test_author_advisors_has_first_and_last_names():
     assert expected_advisors == result_advisors
 
 
-def test_authors_search_schema_doesnt_return_acquisition_source_email():
+@mock.patch("inspirehep.records.marshmallow.authors.ui.can_user_edit_author_record")
+def test_authors_search_schema_doesnt_return_acquisition_source_email(can_edit):
+    can_edit.return_value = False
+
     schema = AuthorsListSchema()
     data = {
         "acquisition_source": {
@@ -293,7 +342,10 @@ def test_authors_search_schema_doesnt_return_acquisition_source_email():
     assert "acquisition_source" not in result_data
 
 
-def test_authors_api_schema_doesnt_return_email_adresses():
+@mock.patch("inspirehep.records.marshmallow.authors.ui.can_user_edit_author_record")
+def test_authors_api_schema_doesnt_return_email_adresses(can_edit):
+    can_edit.return_value = False
+
     schema = AuthorsListSchema()
     data = {
         "email_addresses": [

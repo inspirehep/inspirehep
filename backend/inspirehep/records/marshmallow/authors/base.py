@@ -13,7 +13,9 @@ from ..utils import get_acquisition_source_without_email
 
 
 class AuthorsRawSchema(RecordBaseSchema):
-    pass
+    positions = NonHiddenRaw(dump_only=True)
+    advisors = NonHiddenRaw(dump_only=True)
+    project_membership = NonHiddenRaw(dump_only=True)
 
 
 # Fields that are needed to be indexed but exluded from API responses
@@ -41,6 +43,9 @@ class AuthorsAdminSchema(AuthorsRawSchema):
         exclude = FIELDS_TO_EXCLUDE
 
     email_addresses = fields.Raw(dump_only=True)
+    positions = fields.Raw(dump_only=True)
+    advisors = fields.Raw(dump_only=True)
+    project_membership = fields.Raw(dump_only=True)
 
 
 class AuthorsOnlyControlNumberSchema(Schema):

@@ -9,8 +9,6 @@ from inspire_schemas.builders.authors import AuthorBuilder
 from inspire_utils.record import get_value, get_values_for_schema
 from marshmallow import Schema, fields, missing, post_load, pre_dump
 
-from inspirehep.records.marshmallow.fields import NonHiddenRaw
-
 
 class Author(Schema):
     alternate_name = fields.Raw()
@@ -18,7 +16,7 @@ class Author(Schema):
     family_name = fields.Raw()
     given_name = fields.Raw()
     native_name = fields.Raw()
-    emails = NonHiddenRaw()
+    emails = fields.Raw()
     orcid = fields.Raw()
 
     status = fields.Raw()
@@ -110,7 +108,8 @@ class Author(Schema):
         author = AuthorBuilder()
 
         for advisor in data.get("advisors", []):
-            author.add_advisor(**advisor)
+            curated = advisor.pop("curated_relation", False)
+            author.add_advisor(**advisor, curated=curated)
 
         for arxiv_category in data.get("arxiv_categories", []):
             author.add_arxiv_category(arxiv_category)
@@ -144,40 +143,13 @@ class Author(Schema):
         author.add_native_name(native_name)
 
         for position in data.get("positions", []):
-            institution = position.get("institution")
-            start_date = position.get("start_date")
-            end_date = position.get("end_date")
-            rank = position.get("rank")
-            record = position.get("record")
-            curated_relation = position.get("curated_relation", False)
-            current = position.get("current", False)
+            curated = position.pop("curated_relation", False)
 
-            author.add_institution(
-                institution,
-                start_date=start_date,
-                end_date=end_date,
-                rank=rank,
-                record=record,
-                curated=curated_relation,
-                current=current,
-            )
+            author.add_institution(**position, curated=curated)
 
         for project in data.get("project_membership", []):
-            name = project.get("name")
-            record = project.get("record")
-            start_date = project.get("start_date")
-            end_date = project.get("end_date")
-            curated_relation = project.get("curated_relation", False)
-            current = project.get("current", False)
-
-            author.add_project(
-                name,
-                record=record,
-                start_date=start_date,
-                end_date=end_date,
-                curated=curated_relation,
-                current=current,
-            )
+            curated = project.pop("curated_relation", False)
+            author.add_project(**project, curated=curated)
 
         for email in data.get("emails", []):
             author.add_email_address(email.get("value"), hidden=email.get("hidden"))
@@ -212,7 +184,3 @@ class Author(Schema):
             )
 
         return author.obj
-
-
-class SameAuthor(Author):
-    emails = fields.Raw()

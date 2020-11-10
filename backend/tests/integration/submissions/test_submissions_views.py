@@ -23,7 +23,12 @@ from invenio_accounts.testutils import login_user_via_session
 from mock import patch
 
 from inspirehep.accounts.roles import Roles
-from inspirehep.records.api import ConferencesRecord, JobsRecord, SeminarsRecord
+from inspirehep.records.api import (
+    AuthorsRecord,
+    ConferencesRecord,
+    JobsRecord,
+    SeminarsRecord,
+)
 from inspirehep.submissions.errors import LoaderDataError
 from inspirehep.submissions.views import AuthorSubmissionsResource
 
@@ -170,36 +175,18 @@ def test_new_author_submit_works_with_session_login(inspire_app, requests_mock):
     assert response.status_code == 200
 
 
-def test_get_author_update_data(inspire_app):
+def test_get_author_update_data_fails_if_user_does_not_own_author_profile(inspire_app):
     user = create_user()
 
-    author_data = {
-        "control_number": 123,
-        "name": {"value": "John", "preferred_name": "John Doe"},
-        "email_addresses": [
-            {"value": "public@john.ch"},
-            {"value": "private@john.ch", "hidden": True},
-        ],
-        "status": "active",
-    }
-    create_record_factory("aut", data=author_data)
+    create_record_factory("aut", data={"control_number": 123})
 
-    expected_data = {
-        "data": {
-            "given_name": "John",
-            "display_name": "John Doe",
-            "status": "active",
-            "emails": [{"value": "public@john.ch"}],
-        }
-    }
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.get(
             "/submissions/authors/123", headers={"Accept": "application/json"}
         )
-    response_data = json.loads(response.data)
 
-    assert response_data == expected_data
+    assert response.status_code == 403
 
 
 def test_get_author_update_data_of_same_author(inspire_app):
@@ -263,12 +250,18 @@ def test_get_author_update_data_requires_auth(inspire_app):
 
 
 @freeze_time("2019-06-17")
-def test_update_author(inspire_app, requests_mock):
-    requests_mock.post(
-        f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/authors",
-        json={"workflow_object_id": 30},
-    )
-    user = create_user()
+@patch("inspirehep.submissions.views.async_create_ticket_with_template")
+def test_update_author(create_ticket_mock, inspire_app):
+    orcid = "0000-0001-5109-3700"
+    user = create_user(orcid=orcid)
+    author_data = {
+        "control_number": 123,
+        "name": {"value": "John"},
+        "ids": [{"schema": "ORCID", "value": orcid}],
+        "status": "active",
+        "urls": [{"value": "https://wrong-url"}],
+    }
+    author_record = create_record("aut", data=author_data)
 
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
@@ -278,40 +271,31 @@ def test_update_author(inspire_app, requests_mock):
             data=json.dumps(
                 {
                     "data": {
-                        "given_name": "John",
-                        "display_name": "John Doe",
+                        "given_name": "John, Updated",
+                        "display_name": "Updated",
+                        "orcid": orcid,
                         "status": "active",
                     }
                 }
             ),
         )
     assert response.status_code == 200
-    assert requests_mock.call_count == 1
-    history = requests_mock.request_history[0]
-    post_data = history.json()
-    assert (
-        "Authorization" in history.headers
-        and f"Bearer {current_app.config['AUTHENTICATION_TOKEN']}"
-        == history.headers["Authorization"]
-    )
 
     expected_data = {
-        "data": {
-            "_collections": ["Authors"],
-            "name": {"preferred_name": "John Doe", "value": "John"},
-            "status": "active",
-            "acquisition_source": {
-                "email": user.email,
-                "datetime": "2019-06-17T00:00:00",
-                "method": "submitter",
-                "source": "submitter",
-                "internal_uid": user.id,
-            },
-            "control_number": 123,
-        }
+        "_collections": ["Authors"],
+        "self": {"$ref": "http://localhost:5000/api/authors/123"},
+        "$schema": "http://localhost:5000/schemas/records/authors.json",
+        "control_number": 123,
+        "name": {"preferred_name": "Updated", "value": "John, Updated"},
+        "status": "active",
+        "ids": [{"schema": "ORCID", "value": orcid}],
     }
-    assert history.url == f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/authors"
-    assert expected_data == post_data
+
+    updated_author = AuthorsRecord.get_record_by_pid_value(123)
+
+    assert expected_data == updated_author
+
+    create_ticket_mock.delay.assert_called_once()
 
 
 @freeze_time("2019-06-17")
@@ -569,10 +553,7 @@ def test_new_literature_submit_with_private_notes(inspire_app, requests_mock):
     expected_data = [
         {"value": "comment will be here", "source": "submitter"},
         {"value": "Proceeding info will be here", "source": "submitter"},
-        {
-            "value": "conference info in very important topic",
-            "source": "submitter",
-        },
+        {"value": "conference info in very important topic", "source": "submitter"},
     ]
 
     assert post_data["data"]["_private_notes"] == expected_data

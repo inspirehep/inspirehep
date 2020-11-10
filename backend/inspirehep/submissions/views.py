@@ -20,6 +20,7 @@ from invenio_pidstore.errors import PIDDoesNotExistError
 from jsonschema import SchemaError, ValidationError
 
 from inspirehep.accounts.api import (
+    can_user_edit_author_record,
     can_user_edit_record,
     get_current_user_orcid,
     is_superuser_or_cataloger_logged_in,
@@ -50,6 +51,19 @@ from .utils import has_30_days_passed_after_deadline
 blueprint = Blueprint("inspirehep_submissions", __name__, url_prefix="/submissions")
 
 LOGGER = structlog.getLogger()
+
+
+def get_updated_record_data(record, update_form_data, optional_field_names):
+    record_data = dict(record)
+
+    # delete optional fields if they are removed in the form data
+    for field in optional_field_names:
+        if field not in update_form_data and field in record_data:
+            del record_data[field]
+
+    # overwrite record data with form data
+    record_data.update(update_form_data)
+    return record_data
 
 
 class BaseSubmissionsResource(MethodView):
@@ -96,6 +110,12 @@ class AuthorSubmissionsResource(BaseSubmissionsResource):
     def get(self, pid_value):
         try:
             record = AuthorsRecord.get_record_by_pid_value(pid_value)
+
+            if not can_user_edit_author_record(record):
+                return (
+                    jsonify({"message": "You are not allowed to edit this author"}),
+                    403,
+                )
         except PIDDoesNotExistError:
             abort(404)
         serialized_record = author_v1.dump(record)
@@ -105,7 +125,38 @@ class AuthorSubmissionsResource(BaseSubmissionsResource):
         return self.start_workflow_for_submission()
 
     def put(self, pid_value):
-        return self.start_workflow_for_submission(pid_value)
+        try:
+            record = AuthorsRecord.get_record_by_pid_value(pid_value)
+            # check if we need to check the orcid in the acquisition source or the one in ids
+            if not can_user_edit_author_record(record):
+                return (
+                    jsonify({"message": "You are not allowed to edit this author"}),
+                    403,
+                )
+        except PIDDoesNotExistError:
+            abort(404)
+        data = self.load_data_from_request()
+        updated_record_data = self.get_updated_record_data(data, record)
+        record.update(updated_record_data)
+        db.session.commit()
+
+        if not is_superuser_or_cataloger_logged_in():
+            self.create_ticket(record, "rt/update_author.html")
+
+        return jsonify({"pid_value": record["control_number"]})
+
+    def get_updated_record_data(self, update_data, record):
+        optional_fields = [
+            "email_addresses",
+            "public_notes",
+            "urls",
+            "positions",
+            "project_membership",
+            "arxiv_categories",
+            "advisors",
+        ]
+
+        return get_updated_record_data(record, update_data, optional_fields)
 
     def load_data_from_request(self):
         return author_loader_v1()
@@ -117,6 +168,32 @@ class AuthorSubmissionsResource(BaseSubmissionsResource):
             submission_data["control_number"] = int(control_number)
         payload = {"data": submission_data}
         return self.send_post_request_to_inspire_next("/workflows/authors", payload)
+
+    def create_ticket(self, record, rt_template):
+        control_number = record["control_number"]
+        author_name = record["name"]["value"]
+
+        hep_url = get_inspirehep_url()
+        author_url = f"{hep_url}/authors/{control_number}"
+        author_form_url = f"{hep_url}/submissions/authors/{control_number}"
+        # need to add author editor url?
+
+        rt_queue = "AUTHORS_cor_user"
+
+        requestor = current_user.email
+        rt_template_context = {
+            "author_url": author_url,
+            "author_form_url": author_form_url,
+            "hep_url": hep_url,
+        }
+        async_create_ticket_with_template.delay(
+            rt_queue,
+            requestor,
+            rt_template,
+            rt_template_context,
+            f"Your update to author {author_name} on INSPIRE",
+            control_number,
+        )
 
 
 class ConferenceSubmissionsResource(BaseSubmissionsResource):
@@ -212,7 +289,7 @@ class SeminarSubmissionsResource(BaseSubmissionsResource):
         return jsonify({"pid_value": record["control_number"]})
 
     def get_updated_record_data(self, update_data, record):
-        deletable_fields = [
+        optional_fields = [
             "address",
             "series",
             "contact_details",
@@ -223,12 +300,7 @@ class SeminarSubmissionsResource(BaseSubmissionsResource):
             "public_notes",
         ]
 
-        record_data = dict(record)
-        for field in deletable_fields:
-            if field not in update_data and field in record_data:
-                del record_data[field]
-        record_data.update(update_data)
-        return record_data
+        return get_updated_record_data(record, update_data, optional_fields)
 
     def create_ticket(self, record, rt_template):
         control_number = record["control_number"]
@@ -389,11 +461,7 @@ class JobSubmissionsResource(BaseSubmissionsResource):
         return builder
 
     def get_builder_with_updated_record(self, data, record):
-        # This contains all fields which can be removed from record (they are optional)
-        # if new value sent from the form is None, or empty in any other way
-        # (after de-serialization if it's missing from input data)
-        # this fields will be removed from record
-        additional_fields = [
+        optional_fields = [
             "external_job_identifier",
             "accelerator_experiments",
             "urls",
@@ -401,11 +469,7 @@ class JobSubmissionsResource(BaseSubmissionsResource):
             "reference_letters",
         ]
 
-        record_data = dict(record)
-        for key in additional_fields:
-            if key not in data and key in record_data:
-                del record_data[key]
-        record_data.update(data)
+        record_data = get_updated_record_data(record, data, optional_fields)
         builder = JobBuilder(record=record_data)
         return builder
 
