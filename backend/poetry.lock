@@ -1381,7 +1381,7 @@ description = "Find the records in INSPIRE most similar to a given record or ref
 name = "inspire-matcher"
 optional = false
 python-versions = "*"
-version = "9.0.5"
+version = "9.0.6"
 
 [package.dependencies]
 Flask = ">=0.12.2"
@@ -4119,6 +4119,7 @@ testing = ["coverage", "nose", "zope.event"]
 
 [metadata]
 content-hash = "9b23c5f42859adab2884c2933bb1a8cb95a1ff8195c6db97049997c718478b2f"
+lock-version = "1.0"
 python-versions = ">=3.6,<3.8"
 
 [metadata.files]
@@ -4622,7 +4623,7 @@ inspire-json-merger = [
     {file = "inspire-json-merger-11.0.8.tar.gz", hash = "sha256:115fba3f603388972056fc65ffcfa888c1e356b36a555d1508ff60aa6e00b522"},
 ]
 inspire-matcher = [
-    {file = "inspire-matcher-9.0.5.tar.gz", hash = "sha256:cd475a78f37870d23ffc03b67a7469ccf27647e6168459c92eb2fde386eb2e1f"},
+    {file = "inspire-matcher-9.0.6.tar.gz", hash = "sha256:5b199dc31cf7e544ce7e5820e821534c21d7a543b2951558c807904603a71319"},
 ]
 inspire-query-parser = [
     {file = "inspire-query-parser-6.0.30.tar.gz", hash = "sha256:f15749630cdca76faecc35a06aa8a48aac28dbe900a56b04fa1267d97eb70fab"},
