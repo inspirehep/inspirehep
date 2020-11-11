@@ -1214,8 +1214,12 @@ def test_literature_raw_json_with_logged_in_cataloger(inspire_app):
         response = client.get(f"/literature/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
-
+    result_keys = response.json.keys()
     assert expected_status_code == response_status_code
+
+    expected_keys = ["created", "id", "links", "metadata", "updated", "uuid"]
+    for key in result_keys:
+        assert key in expected_keys
 
 
 def test_literature_raw_json_without_logged_in_cataloger(inspire_app):
@@ -1377,7 +1381,7 @@ def test_literature_detail_page_contains_acquisition_source_for_cataloger(inspir
 
 
 def test_literature_detail_page_do_not_have_acquisition_source_for_non_curator(
-    inspire_app
+    inspire_app,
 ):
 
     headers = {"Accept": "application/json"}

@@ -20,6 +20,7 @@ class EnvelopeSchema(RecordSchemaJSONV1):
 
     Examples:
         {
+            'uuid': '...',
             'id': '...',
             'metadata': {},
             'created': '...',
