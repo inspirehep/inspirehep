@@ -11,6 +11,7 @@ from invenio_db import db
 from invenio_pidstore.errors import PIDInvalidAction
 from invenio_pidstore.models import PIDStatus
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
+from sqlalchemy.orm import backref
 from sqlalchemy_utils.models import Timestamp
 
 from inspirehep.pidstore.errors import (
@@ -39,7 +40,7 @@ class InspireRedirect(db.Model, Timestamp):
 
     original_pid = db.relationship(
         "PersistentIdentifier",
-        backref="redirection",
+        backref=backref("redirection", uselist=False, innerjoin=True),
         foreign_keys=original_pid_id,
         innerjoin=True,
         uselist=False,
@@ -62,7 +63,7 @@ class InspireRedirect(db.Model, Timestamp):
     )
 
     @classmethod
-    def _fix_existing_redirection(cls, redirection, old_pid, new_pid):
+    def _change_existing_redirection(cls, redirection, old_pid, new_pid):
         if old_pid.status != PIDStatus.REDIRECTED:
             raise PidStatusBroken(old_pid)
 
@@ -74,8 +75,12 @@ class InspireRedirect(db.Model, Timestamp):
                 "Pid already redirected correctly.", old_pid=old_pid, new_pid=new_pid
             )
         else:
-            redirection.new_pid = new_pid
-            db.session.add(redirection)
+            with db.session.begin_nested():
+                previous_new_pid = redirection.new_pid
+                redirection.new_pid = new_pid
+                db.session.add(redirection)
+                db.session.expire(previous_new_pid)
+                db.session.expire(new_pid)
         return redirection
 
     @classmethod
@@ -84,6 +89,8 @@ class InspireRedirect(db.Model, Timestamp):
             with db.session.begin_nested():
                 redirection = cls(original_pid=old_pid, new_pid=new_pid)
                 db.session.add(redirection)
+                db.session.expire(old_pid)
+                db.session.expire(new_pid)
                 old_pid.status = PIDStatus.REDIRECTED
                 db.session.add(old_pid)
         except IntegrityError as e:
@@ -109,8 +116,10 @@ class InspireRedirect(db.Model, Timestamp):
             raise WrongRedirectionPidStatus(old_pid, new_pid)
 
         try:
-            redirection = cls.get(old_pid, reload=True)
-            redirection = cls._fix_existing_redirection(redirection, old_pid, new_pid)
+            redirection = cls.get(old_pid)
+            redirection = cls._change_existing_redirection(
+                redirection, old_pid, new_pid
+            )
         except PidRedirectionMissing:
             redirection = cls._create_new_redirection(old_pid, new_pid)
 
@@ -124,16 +133,16 @@ class InspireRedirect(db.Model, Timestamp):
         return pid
 
     @classmethod
-    def get(cls, original_pid, reload=False):
-        redirection = None
-        if reload:
-            redirection = cls.query.filter_by(original_pid=original_pid).one_or_none()
-        elif len(original_pid.redirection) == 1:
-            redirection = original_pid.redirection[0]
+    def get(cls, original_pid):
+        redirection = original_pid.redirection
         if not redirection:
             raise PidRedirectionMissing(original_pid)
         return redirection
 
     def delete(self):
-        self.original_pid.delete()
-        db.session.delete(self)
+        with db.session.begin_nested():
+            self.original_pid.delete()
+            db.session.delete(self)
+            db.session.expire(self)
+            db.session.expire(self.original_pid)
+            db.session.expire(self.new_pid)
