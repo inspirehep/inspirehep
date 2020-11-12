@@ -58,37 +58,11 @@ def test_deleting_redirection_object(inspire_app):
 
     redirection = InspireRedirect.get(pid_1)
     redirection.delete()
-    db.session.refresh(pid_1)
 
     assert pid_1.status == PIDStatus.DELETED
 
     with pytest.raises(PidRedirectionMissing):
         InspireRedirect.get(pid_1)
-
-
-def test_reload_on_get_redirection_works_correctly(inspire_app):
-    pid_1 = PersistentIdentifier.create(
-        pid_type="a", pid_value="1", status=PIDStatus.REGISTERED
-    )
-    pid_2 = PersistentIdentifier.create(
-        pid_type="a", pid_value="2", status=PIDStatus.REGISTERED
-    )
-
-    InspireRedirect.redirect(pid_1, pid_2)
-
-    assert pid_1.status == PIDStatus.REDIRECTED
-
-    redirection = InspireRedirect.get(pid_1)
-    redirection.delete()
-
-    assert pid_1.status == PIDStatus.DELETED
-
-    # In cache there should still be redirection
-    InspireRedirect.get(pid_1)
-
-    with pytest.raises(PidRedirectionMissing):
-        # But when reloaded from db it should be missing as it was deleted
-        InspireRedirect.get(pid_1, reload=True)
 
 
 def test_redirect_pid_to_many_pids_overwrites_previous_redirection(inspire_app):
