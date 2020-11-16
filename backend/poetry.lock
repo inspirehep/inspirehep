@@ -1337,7 +1337,7 @@ description = "INSPIRE-specific rules to transform from MARCXML to JSON and back
 name = "inspire-dojson"
 optional = false
 python-versions = "*"
-version = "63.0.14"
+version = "63.0.15"
 
 [package.dependencies]
 Flask = ">=0.12.3,<2.0.0"
@@ -4118,7 +4118,7 @@ test = ["zope.event"]
 testing = ["coverage", "nose", "zope.event"]
 
 [metadata]
-content-hash = "9b23c5f42859adab2884c2933bb1a8cb95a1ff8195c6db97049997c718478b2f"
+content-hash = "009f79c5c8cce210562af3e56d4a47c4684a3c445258ecbf52c8c031aa980357"
 lock-version = "1.0"
 python-versions = ">=3.6,<3.8"
 
@@ -4617,7 +4617,7 @@ influxdb = [
     {file = "influxdb-5.2.3.tar.gz", hash = "sha256:30276c7e04bf7659424c733b239ba2f0804d7a1f3c59ec5dd3f88c56176c8d36"},
 ]
 inspire-dojson = [
-    {file = "inspire-dojson-63.0.14.tar.gz", hash = "sha256:3498faef8fbe963f60a50e9c1a2c647a5d2250ca55bc98b357ac978c71a7fe0f"},
+    {file = "inspire-dojson-63.0.15.tar.gz", hash = "sha256:105e97db3f8bb8fd9ad6f6db59076c94553a4fd79665b17cab3e31d007501e0b"},
 ]
 inspire-json-merger = [
     {file = "inspire-json-merger-11.0.8.tar.gz", hash = "sha256:115fba3f603388972056fc65ffcfa888c1e356b36a555d1508ff60aa6e00b522"},
