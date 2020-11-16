@@ -47,7 +47,9 @@ def test_oai_with_for_cds_set(
 
 
 def test_oai_with_for_arxiv_set(
-    inspire_app, celery_app_with_context, celery_session_worker
+    inspire_app,
+    celery_app_with_context,
+    celery_session_worker,
 ):
     data = {
         "arxiv_eprints": [{"value": "2009.01484"}],
@@ -72,7 +74,6 @@ def test_oai_with_for_arxiv_set(
     oaiset = OAISet(spec=f"{set_name}", name="Test", description="Test")
     db.session.add(oaiset)
     db.session.commit()
-
     with inspire_app.test_client() as client:
         response = client.get(
             f"/api/oai2d?verb=ListRecords&metadataPrefix=marcxml&set={set_name}"

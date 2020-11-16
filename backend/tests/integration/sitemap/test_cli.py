@@ -7,7 +7,8 @@
 from io import BytesIO
 
 from flask import render_template
-from helpers.utils import create_record
+from helpers.utils import create_record, es_search
+from inspire_utils.record import get_value
 from invenio_search import current_search
 from lxml import etree
 from mock import mock_open, patch
@@ -55,9 +56,10 @@ def test_generate_multiple_sitemap_files_with_multiple_collection(
 @patch("inspirehep.sitemap.cli.open", new_callable=mock_open)
 def test_generate_sitemap_file(mocked_open, inspire_app, cli, override_config):
     literature = create_record("lit")
-    literature_from_es = current_search.client.get("records-hep", literature.id)[
-        "_source"
-    ]
+
+    result = es_search("records-hep")
+    literature_from_es = get_value(result, "hits.hits._source[0]")
+
     literature_recid = literature["control_number"]
     literature_updated = literature_from_es["_updated"]
 
