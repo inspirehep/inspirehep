@@ -138,7 +138,7 @@ $ yarn install
 First you need to start all the services (postgreSQL, Redis, ElasticSearch, RabbitMQ)
 
 ```bash
-$ docker-compose -f docker-compose.travis.yml up -d
+$ docker-compose -f docker-compose.services.yml up es mq db cache
 ```
 
 And initialize database and ES
