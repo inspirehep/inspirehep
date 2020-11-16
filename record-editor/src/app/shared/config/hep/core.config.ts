@@ -268,6 +268,7 @@ export const coreHep: JsonEditorConfig = {
             record: {
               refFieldConfig: {
                 anchorBuilder: anchorBuilder,
+                displayInputField: true,
               },
             },
           },
@@ -286,6 +287,7 @@ export const coreHep: JsonEditorConfig = {
             record: {
               refFieldConfig: {
                 anchorBuilder: anchorBuilder,
+                displayInputField: true,
               },
             },
           },
@@ -376,6 +378,7 @@ export const coreHep: JsonEditorConfig = {
             conference_record: {
               refFieldConfig: {
                 anchorBuilder: anchorBuilder,
+                displayInputField: true,
               },
             },
             journal_record: {
@@ -386,6 +389,7 @@ export const coreHep: JsonEditorConfig = {
             parent_record: {
               refFieldConfig: {
                 anchorBuilder: anchorBuilder,
+                displayInputField: true,
               },
             },
           },
@@ -423,6 +427,7 @@ export const coreHep: JsonEditorConfig = {
             record: {
               refFieldConfig: {
                 anchorBuilder: anchorBuilder,
+                displayInputField: true,
               },
             },
             reference: {
@@ -608,6 +613,7 @@ export const coreHep: JsonEditorConfig = {
       new_record: {
         refFieldConfig: {
           anchorBuilder: anchorBuilder,
+          displayInputField: true,
         },
       },
     },
