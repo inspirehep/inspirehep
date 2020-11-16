@@ -42,6 +42,7 @@ def app_config(instance_path, app_config):
     app_config["DEBUG"] = False
     app_config["JSONSCHEMAS_HOST"] = "localhost:5000"
     app_config["SERVER_NAME"] = "localhost:5000"
+    app_config["SEARCH_INDEX_PREFIX"] = "test-integration-"
     app_config[
         "SQLALCHEMY_DATABASE_URI"
     ] = "postgresql+psycopg2://inspirehep:inspirehep@localhost/test-inspirehep"
@@ -158,6 +159,8 @@ def redis(inspire_app):
 
 @pytest.fixture(scope="function")
 def inspire_app(base_app, db, es_clear, vcr_config):
+    # Make sure the API app has the same config
+    base_app.wsgi_app.mounts["/api"].config.update(base_app.config)
     yield base_app
 
 

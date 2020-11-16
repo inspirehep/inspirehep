@@ -1,7 +1,7 @@
 import json
 
 from helpers.factories.db.invenio_records import TestRecordMetadata
-from helpers.utils import create_user
+from helpers.utils import create_record, create_user
 from invenio_accounts.testutils import login_user_via_session
 
 
@@ -22,10 +22,7 @@ def test_get_linked_refs(inspire_app):
         ],
         "titles": [{"title": "The Strongly-Interacting Light Higgs"}],
     }
-
-    TestRecordMetadata.create_from_kwargs(
-        json=cited_record_json, index_name="records-hep"
-    )
+    create_record("lit", cited_record_json)
 
     references = {
         "references": [
@@ -93,5 +90,7 @@ def test_get_linked_refs_bad_request(inspire_app):
 
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
-        response = client.get("api/matcher/linked_references/",)
+        response = client.get(
+            "api/matcher/linked_references/",
+        )
     assert response.status_code == 405
