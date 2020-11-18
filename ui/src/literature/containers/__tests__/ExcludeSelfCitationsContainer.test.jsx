@@ -10,9 +10,7 @@ import {
 } from '../../../search/constants';
 
 import { fetchCitationSummary } from '../../../actions/citations';
-import ExcludeSelfCitationsContainer, {
-  UI_EXCLUDE_SELF_CITATIONS_PARAM,
-} from '../ExcludeSelfCitationsContainer';
+import ExcludeSelfCitationsContainer from '../ExcludeSelfCitationsContainer';
 import ExcludeSelfCitations from '../../components/ExcludeSelfCitations';
 import { EXCLUDE_SELF_CITATIONS_PREFERENCE } from '../../../reducers/user';
 import { appendQueryToLocationSearch } from '../../../actions/router';
@@ -21,6 +19,7 @@ import { searchQueryUpdate } from '../../../actions/search';
 import {
   CITATION_COUNT_PARAM,
   CITATION_COUNT_WITHOUT_SELF_CITATIONS_PARAM,
+  UI_EXCLUDE_SELF_CITATIONS_PARAM,
 } from '../../../common/constants';
 
 jest.mock('../../../actions/citations');
@@ -55,7 +54,7 @@ describe('ExcludeSelfCitationsContainer', () => {
     expect(store.getActions()).toEqual(expectedActions);
   });
 
-  it('also removes excluded self citations param when when not exluced', () => {
+  it('also removes excluded self citations param when when not excluded', () => {
     const namespace = AUTHOR_PUBLICATIONS_NS;
     const store = getStore();
     const wrapper = mount(

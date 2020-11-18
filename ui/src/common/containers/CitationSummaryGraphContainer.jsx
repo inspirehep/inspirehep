@@ -10,7 +10,7 @@ import {
 } from '../constants';
 import CitationSummaryGraph from '../components/CitationSummaryGraph';
 import { searchQueryUpdate } from '../../actions/search';
-import { shouldExcludeSelfCitations } from '../../literature/containers/ExcludeSelfCitationsContainer';
+import { shouldExcludeSelfCitations } from '../../reducers/citations';
 
 const CLEAR_QUERY = {
   citeable: undefined,

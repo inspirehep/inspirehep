@@ -66,6 +66,7 @@ export const DATE_DESC = 'datedesc';
 export const CITATION_COUNT_PARAM = 'citation_count';
 export const CITATION_COUNT_WITHOUT_SELF_CITATIONS_PARAM =
   'citation_count_without_self_citations';
+export const UI_EXCLUDE_SELF_CITATIONS_PARAM = 'ui-exclude-self-citations';
 
 export const SEARCH_PAGE_GUTTER = { xs: 0, lg: 32 };
 

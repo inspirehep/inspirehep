@@ -35,6 +35,8 @@ class CurrentBrowser {
     if (userAgent.indexOf('Safari') > -1) {
       return 'Safari';
     }
+
+    return undefined;
   }
 }
 

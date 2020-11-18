@@ -8,8 +8,8 @@ import SearchBoxContainer from '../SearchBoxContainer';
 import SearchBox from '../../components/SearchBox';
 import { searchQueryUpdate } from '../../../actions/search';
 import { appendQueryToLocationSearch } from '../../../actions/router';
-import { UI_EXCLUDE_SELF_CITATIONS_PARAM } from '../../../literature/containers/ExcludeSelfCitationsContainer';
 import { UI_CITATION_SUMMARY_PARAM } from '../../../literature/containers/CitationSummarySwitchContainer';
+import { UI_EXCLUDE_SELF_CITATIONS_PARAM } from '../../constants';
 
 jest.mock('../../../actions/search');
 mockActionCreator(searchQueryUpdate);

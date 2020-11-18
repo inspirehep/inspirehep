@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import { EditOutlined } from '@ant-design/icons';
 
 import ListItemAction from './ListItemAction';

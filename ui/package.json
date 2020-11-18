@@ -17,12 +17,12 @@
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "eject": "react-scripts eject",
     "lint":
-      "./node_modules/eslint/bin/eslint.js ./src --ext .js,.jsx --config .eslintrc"
+      "./node_modules/eslint/bin/eslint.js ./src --ext .js,.jsx,.ts,.tsx --config .eslintrc"
   },
   "dependencies": {
     "@ant-design/icons": "^4.0.0",
     "@babel/runtime": "7.0.0-beta.55",
-    "@craco/craco": "^3.1.0",
+    "@craco/craco": "^4.0.0",
     "@sentry/browser": "^5.0.0",
     "@types/jest": "^26.0.14",
     "@types/lodash.debounce": "^4.0.6",
@@ -69,7 +69,7 @@
     "react-redux": "^6.0.0",
     "react-router-dom": "^5.1.0",
     "react-sanitized-html": "^2.0.0",
-    "react-scripts": "^2.0.3",
+    "react-scripts": "^3.0.0",
     "react-vis": "^1.9.2",
     "redux": "^4.0.0",
     "redux-devtools-extension": "^2.13.2",
@@ -108,5 +108,12 @@
     "antd/rc-select": "10.1.0",
     "moment-timezone/moment": "2.24.0"
   },
-  "browserslist": [">0.2%", "not dead", "not ie <= 11", "not op_mini all"]
+  "browserslist": {
+    "production": [">0.2%", "not dead", "not ie <= 11", "not op_mini all"],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }

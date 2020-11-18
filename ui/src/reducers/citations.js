@@ -8,6 +8,26 @@ import {
   CITATIONS_BY_YEAR_SUCCESS,
   CITATIONS_BY_YEAR_ERROR,
 } from '../actions/actionTypes';
+import { UI_EXCLUDE_SELF_CITATIONS_PARAM } from '../common/constants';
+import { EXCLUDE_SELF_CITATIONS_PREFERENCE } from './user';
+
+export function selfCitationsExcludedOnLocation(state) {
+  return state.router.location.query[UI_EXCLUDE_SELF_CITATIONS_PARAM] != null;
+}
+
+export function selfCitationsExcludedOnUserPreferences(state) {
+  return state.user.getIn(
+    ['preferences', EXCLUDE_SELF_CITATIONS_PREFERENCE],
+    false
+  );
+}
+
+export function shouldExcludeSelfCitations(state) {
+  return (
+    selfCitationsExcludedOnLocation(state) ||
+    selfCitationsExcludedOnUserPreferences(state)
+  );
+}
 
 export const initialState = fromJS({
   loadingCitationSummary: false,

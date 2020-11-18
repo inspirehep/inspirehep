@@ -9,7 +9,7 @@ import {
 } from './actionTypes';
 import { httpErrorToActionPayload } from '../common/utils';
 import { isCancelError } from '../common/http.ts';
-import { shouldExcludeSelfCitations } from '../literature/containers/ExcludeSelfCitationsContainer';
+import { shouldExcludeSelfCitations } from '../reducers/citations';
 
 function fetchingCitationSummary(namespace) {
   return {

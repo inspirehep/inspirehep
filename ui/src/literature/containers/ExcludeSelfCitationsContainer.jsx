@@ -8,28 +8,13 @@ import { setPreference } from '../../actions/user';
 import {
   CITATION_COUNT_PARAM,
   CITATION_COUNT_WITHOUT_SELF_CITATIONS_PARAM,
+  UI_EXCLUDE_SELF_CITATIONS_PARAM,
 } from '../../common/constants';
 import { searchQueryUpdate } from '../../actions/search';
-
-export const UI_EXCLUDE_SELF_CITATIONS_PARAM = 'ui-exclude-self-citations';
-
-function selfCitationsExcludedOnLocation(state) {
-  return state.router.location.query[UI_EXCLUDE_SELF_CITATIONS_PARAM] != null;
-}
-
-function selfCitationsExcludedOnUserPreferences(state) {
-  return state.user.getIn(
-    ['preferences', EXCLUDE_SELF_CITATIONS_PREFERENCE],
-    false
-  );
-}
-
-export function shouldExcludeSelfCitations(state) {
-  return (
-    selfCitationsExcludedOnLocation(state) ||
-    selfCitationsExcludedOnUserPreferences(state)
-  );
-}
+import {
+  selfCitationsExcludedOnLocation,
+  selfCitationsExcludedOnUserPreferences,
+} from '../../reducers/citations';
 
 const stateToProps = state => ({
   excluded: selfCitationsExcludedOnLocation(state),

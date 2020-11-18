@@ -1,8 +1,9 @@
 {
-  "parser": "babel-eslint",
   "plugins": [
+    "import",
     "react-hooks"
   ],
+  "parser": "babel-eslint",
   "extends": [
     "airbnb",
     "prettier",
@@ -10,9 +11,23 @@
   ],
   "env": {
     "browser": true,
-    "jest": true
+    "commonjs": true,
+    "es6": true,
+    "jest": true,
+    "node": true
   },
   "rules": {
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".jsx",
+          ".tsx"
+        ]
+      }
+    ],
+    // TODO: enable and fix the errors
+    "import/no-cycle": "off",
     "react/prefer-stateless-function": "off",
     "no-param-reassign": [
       "error",
@@ -78,6 +93,82 @@
       "rules": {
         "arrow-body-style": "off"
       }
+    },
+    {
+      "files": ["**/*.ts?(x)"],
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "ecmaVersion": 2018,
+        "sourceType": "module",
+        "ecmaFeatures": {
+          "jsx": true
+        },
+        "warnOnUnsupportedTypeScriptVersion": true
+      },
+      "settings": {
+        "import/resolver": {
+          "node": {
+            "extensions": [".js", ".jsx", ".ts", ".tsx"]
+          }
+        }
+      },
+      // https://github.com/facebook/create-react-app/blob/8bf050aa7c16078fed5e51ac8388d6100c29e105/packages/eslint-config-react-app/index.js#L48
+      "rules": {
+        // TypeScript"s `noFallthroughCasesInSwitch` option is more robust (#6906)
+        "default-case": "off",
+        // "tsc" already handles this (https://github.com/typescript-eslint/typescript-eslint/issues/291)
+        "no-dupe-class-members": "off",
+        // "tsc" already handles this (https://github.com/typescript-eslint/typescript-eslint/issues/477)
+        "no-undef": "off",
+
+        // Add TypeScript specific rules (and turn off ESLint equivalents)
+        "@typescript-eslint/consistent-type-assertions": "warn",
+        "no-array-constructor": "off",
+        "@typescript-eslint/no-array-constructor": "error",
+        "no-redeclare": "off",
+        "no-use-before-define": "off",
+        "@typescript-eslint/no-use-before-define": [
+          "error",
+          {
+            "functions": false,
+            "classes": false,
+            "variables": false,
+            "typedefs": false
+          }
+        ],
+        "no-unused-expressions": "off",
+        "@typescript-eslint/no-unused-expressions": [
+          "error",
+          {
+            "allowShortCircuit": true,
+            "allowTernary": true,
+            "allowTaggedTemplates": true
+          }
+        ],
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": [
+          "error",
+          {
+            "args": "none",
+            "ignoreRestSiblings": true
+          }
+        ],
+        "no-useless-constructor": "off",
+        "@typescript-eslint/no-useless-constructor": "error",
+        "import/extensions": [
+          "error",
+          "ignorePackages",
+          {
+            "js": "never",
+            "jsx": "never",
+            "ts": "never",
+            "tsx": "never"
+          }
+       ]
+      },
+      "plugins": [
+        "@typescript-eslint"
+      ]
     }
   ]
 }

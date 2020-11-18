@@ -4,8 +4,8 @@ import SearchBox from '../components/SearchBox';
 import { searchQueryUpdate } from '../../actions/search';
 import { LITERATURE_NS } from '../../search/constants';
 import { appendQueryToLocationSearch } from '../../actions/router';
+import { UI_EXCLUDE_SELF_CITATIONS_PARAM } from '../constants';
 import { UI_CITATION_SUMMARY_PARAM } from '../../literature/containers/CitationSummarySwitchContainer';
-import { UI_EXCLUDE_SELF_CITATIONS_PARAM } from '../../literature/containers/ExcludeSelfCitationsContainer';
 
 const stateToProps = state => ({
   value: state.search.getIn([
