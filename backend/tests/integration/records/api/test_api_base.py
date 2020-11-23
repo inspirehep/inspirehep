@@ -515,7 +515,9 @@ def test_redirect_and_delete_many_records_from_deleted_records_field(inspire_app
 def test_redirect_ignores_not_existing_pids(inspire_app):
     record = create_record("lit")
     data = dict(record)
-    data["deleted_records"] = [{"$ref": f"http://localhost:8080/literature/987654321"}]
+    data["deleted_records"] = [
+        {"$ref": f"http://localhost:8080/api/literature/987654321"}
+    ]
     record.update(data)
     assert (
         PersistentIdentifier.query.filter_by(
@@ -583,7 +585,7 @@ def test_delete_redirected_record_is_not_deleting_redirected_pid(inspire_app):
 
 
 def test_updating_redirected_record_with_no_delete_key_is_raising_exception(
-    inspire_app
+    inspire_app,
 ):
     cited_record = create_record("lit")
 
@@ -619,12 +621,6 @@ def test_chain_of_redirection_properly_redirects(inspire_app):
     )
 
     assert final_record_from_db_through_redirection_chain.id == final_record.id
-
-
-def test_redirection_fails_on_redirecting_different_pid_types(inspire_app):
-    record_1 = create_record("lit")
-    with pytest.raises(WrongPidTypeRedirection):
-        create_record("aut", data={"deleted_records": [record_1["self"]]})
 
 
 def test_redirect_wrong_original_pid_status(inspire_app):

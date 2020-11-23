@@ -65,7 +65,7 @@ def test_get_parent_record(inspire_app):
         "publication_info": [
             {
                 "parent_record": {
-                    "$ref": f"http://localhost:5000/literature/{parent_record['control_number']}"
+                    "$ref": f"http://localhost:5000/api/literature/{parent_record['control_number']}"
                 }
             }
         ]
@@ -82,12 +82,12 @@ def test_get_parent_record_when_more_than_one(inspire_app):
         "publication_info": [
             {
                 "parent_record": {
-                    "$ref": f"http://localhost:5000/literature/{parent_record['control_number']}"
+                    "$ref": f"http://localhost:5000/api/literature/{parent_record['control_number']}"
                 }
             },
             {
                 "parent_record": {
-                    "$ref": f"http://localhost:5000/literature/{second_parent_record['control_number']}"
+                    "$ref": f"http://localhost:5000/api/literature/{second_parent_record['control_number']}"
                 }
             },
         ]
@@ -105,7 +105,7 @@ def test_get_parent_record_for_proceedings_from_es(inspire_app):
         "publication_info": [
             {
                 "conference_record": {
-                    "$ref": f"http://localhost:5000/literature/{parent_record['control_number']}"
+                    "$ref": f"http://localhost:5000/api/literature/{parent_record['control_number']}"
                 }
             }
         ],

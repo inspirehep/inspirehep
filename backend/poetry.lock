@@ -1381,7 +1381,7 @@ description = "Find the records in INSPIRE most similar to a given record or ref
 name = "inspire-matcher"
 optional = false
 python-versions = "*"
-version = "9.0.7"
+version = "9.0.8"
 
 [package.dependencies]
 Flask = ">=0.12.2"
@@ -1423,7 +1423,7 @@ description = "Inspire JSON schemas and utilities to use them."
 name = "inspire-schemas"
 optional = false
 python-versions = "*"
-version = "61.3.13"
+version = "61.3.30"
 
 [package.dependencies]
 Unidecode = ">=1.0.22,<2.0"
@@ -1466,7 +1466,7 @@ description = "INSPIRE-specific utils."
 name = "inspire-utils"
 optional = false
 python-versions = "*"
-version = "3.0.15"
+version = "3.0.17"
 
 [package.dependencies]
 Unidecode = ">=1.0.22,<2.0"
@@ -1477,7 +1477,7 @@ python-dateutil = ">=2.6.1,<3.0"
 six = ">=1.10.0,<2.0"
 
 [package.extras]
-all = ["flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pytest-cov (>=2.5.1,<3.0)", "pytest (>=4.6.0,<5.0)", "unicode-string-literal (>=1.1,<2.0)", "flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pytest-cov (>=2.5.1,<3.0)", "pytest (>=4.6.0,<5.0)", "unicode-string-literal (>=1.1,<2.0)"]
+all = ["flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pytest-cov (>=2.5.1,<3.0)", "pytest (>=4.6.0,<5.0)", "unicode-string-literal (>=1.1,<2.0)"]
 tests = ["flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pytest-cov (>=2.5.1,<3.0)", "pytest (>=4.6.0,<5.0)", "unicode-string-literal (>=1.1,<2.0)"]
 
 [[package]]
@@ -4623,17 +4623,18 @@ inspire-json-merger = [
     {file = "inspire-json-merger-11.0.8.tar.gz", hash = "sha256:115fba3f603388972056fc65ffcfa888c1e356b36a555d1508ff60aa6e00b522"},
 ]
 inspire-matcher = [
-    {file = "inspire-matcher-9.0.7.tar.gz", hash = "sha256:240a864e965896e1846f6936cf11a41dcddf4690163c98f40d8e60ca975e640e"},
+    {file = "inspire-matcher-9.0.8.tar.gz", hash = "sha256:2e10c71c3e576f0984adabe53f2c8292757a849927387aa8160bb62b92765285"},
 ]
 inspire-query-parser = [
     {file = "inspire-query-parser-6.0.31.tar.gz", hash = "sha256:b0556a950012f4432458823afbf3b6d7a1294ebf0449a1d1db22bcfaf6cb3857"},
 ]
 inspire-schemas = [
-    {file = "inspire-schemas-61.3.13.tar.gz", hash = "sha256:79b9ffee55552046ca18eb0cd64811a61480b2061b39c343f64c8eb341f82cf6"},
+    {file = "inspire_schemas-61.3.30-py2.py3-none-any.whl", hash = "sha256:0bdf1c5ed4beb7f0b610545179f1688bc0e5dc9f7d290a89af227bad04b5cf13"},
 ]
 inspire-service-orcid = []
 inspire-utils = [
-    {file = "inspire-utils-3.0.15.tar.gz", hash = "sha256:4702f4d7c8f64368c1d4d8f18bb0602c4a10ef48db9c5c11b204b6235d45416e"},
+    {file = "inspire-utils-3.0.17.tar.gz", hash = "sha256:39b54c3e25c5f80389e983c42c9680e5afb5906d1a1976f50339283bf43f9c42"},
+    {file = "inspire_utils-3.0.17-py2-none-any.whl", hash = "sha256:6a75b38975bacfcd7005f5e3d996e9444f150b91b7654360305f31eb99c296b5"},
 ]
 intervals = [
     {file = "intervals-0.8.1.tar.gz", hash = "sha256:37921da1407a5e9384e8e1350cfb8500f8d0d69fc43d03d01a4fdc6e7a7c7166"},
@@ -4877,6 +4878,11 @@ markupsafe = [
     {file = "MarkupSafe-1.1.1-cp37-cp37m-manylinux1_x86_64.whl", hash = "sha256:ba59edeaa2fc6114428f1637ffff42da1e311e29382d81b339c1817d37ec93c6"},
     {file = "MarkupSafe-1.1.1-cp37-cp37m-win32.whl", hash = "sha256:b00c1de48212e4cc9603895652c5c410df699856a2853135b3967591e4beebc2"},
     {file = "MarkupSafe-1.1.1-cp37-cp37m-win_amd64.whl", hash = "sha256:9bf40443012702a1d2070043cb6291650a0841ece432556f784f004937f0f32c"},
+    {file = "MarkupSafe-1.1.1-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:6788b695d50a51edb699cb55e35487e430fa21f1ed838122d722e0ff0ac5ba15"},
+    {file = "MarkupSafe-1.1.1-cp38-cp38-manylinux1_i686.whl", hash = "sha256:cdb132fc825c38e1aeec2c8aa9338310d29d337bebbd7baa06889d09a60a1fa2"},
+    {file = "MarkupSafe-1.1.1-cp38-cp38-manylinux1_x86_64.whl", hash = "sha256:13d3144e1e340870b25e7b10b98d779608c02016d5184cfb9927a9f10c689f42"},
+    {file = "MarkupSafe-1.1.1-cp38-cp38-win32.whl", hash = "sha256:596510de112c685489095da617b5bcbbac7dd6384aeebeda4df6025d0256a81b"},
+    {file = "MarkupSafe-1.1.1-cp38-cp38-win_amd64.whl", hash = "sha256:e8313f01ba26fbbe36c7be1966a7b7424942f670f38e666995b88d012765b9be"},
     {file = "MarkupSafe-1.1.1.tar.gz", hash = "sha256:29872e92839765e546828bb7754a68c418d927cd064fd4708fab9fe9c8bb116b"},
 ]
 marshmallow = [

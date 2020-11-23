@@ -82,6 +82,7 @@ class LiteratureRecord(
     es_serializer = LiteratureElasticSearchSchema
     pid_type = "lit"
     pidstore_handler = PidStoreLiterature
+    nested_record_fields = ["authors", "publication_info", "supervisors"]
 
     @property
     def earliest_date(self):
