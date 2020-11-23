@@ -26,7 +26,7 @@ def test_dump_author_advisors():
                     {"schema": "SCOPUS", "value": "8752067273"},
                 ],
                 "name": "Jane Doe",
-                "record": {"$ref": "http://1js40iZ"},
+                "record": {"$ref": "http://1js40iZ/api/authors/1212"},
             }
         ],
     }
@@ -45,7 +45,7 @@ def test_dump_author_advisors():
                     {"schema": "SCOPUS", "value": "8752067273"},
                 ],
                 "name": "Jane Doe",
-                "record": {"$ref": "http://1js40iZ"},
+                "record": {"$ref": "http://1js40iZ/api/authors/1212"},
             }
         ],
     }
@@ -66,7 +66,7 @@ def test_load_author_advisors():
                     {"schema": "SCOPUS", "value": "8752067273"},
                 ],
                 "name": "Jane Doe",
-                "record": {"$ref": "http://1js40iZ"},
+                "record": {"$ref": "http://1js40iZ/api/authors/1212"},
             }
         ],
     }
@@ -87,7 +87,7 @@ def test_load_author_advisors():
                     {"schema": "SCOPUS", "value": "8752067273"},
                 ],
                 "name": "Doe, Jane",
-                "record": {"$ref": "http://1js40iZ"},
+                "record": {"$ref": "http://1js40iZ/api/authors/1212"},
             }
         ],
     }
@@ -532,7 +532,7 @@ def test_load_author_project_membership():
                 "name": "pariatur",
                 "start_date": "1997-05-01",
                 "end_date": "2001-12-31",
-                "record": {"$ref": "http://180"},
+                "record": {"$ref": "http://180/api/experiments/12"},
                 "current": True,
                 "hidden": False,
             }
@@ -551,7 +551,7 @@ def test_load_author_project_membership():
                 "hidden": False,
                 "end_date": "2001-12-31",
                 "name": "pariatur",
-                "record": {"$ref": "http://180"},
+                "record": {"$ref": "http://180/api/experiments/12"},
                 "start_date": "1997-05-01",
             }
         ],

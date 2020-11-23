@@ -26,7 +26,7 @@ def record_with_two_revisions(
         "control_number": 111,
         "document_type": ["article"],
         "titles": [{"title": "record rev0"}],
-        "self": {"$ref": "http://localhost:5000/schemas/records/hep.json"},
+        "self": {"$ref": "http://localhost:5000/api/literature/1243"},
         "_collections": ["Literature"],
     }
 

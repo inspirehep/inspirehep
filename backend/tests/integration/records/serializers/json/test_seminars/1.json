@@ -46,7 +46,7 @@
       "email": "a@yahoo.com",
       "name": "John Doe",
       "record": {
-        "$ref": "http://localhost:5000/authors/123"
+        "$ref": "http://localhost:5000/api/authors/123"
       }
     },
     {
@@ -54,7 +54,7 @@
       "email": "jane@gmail.com",
       "name": "Jane Doe",
       "record": {
-        "$ref": "http://localhost:5000/authors/1234"
+        "$ref": "http://localhost:5000/api/authors/1234"
       }
     },
     {
@@ -62,7 +62,7 @@
       "email": "gaga@jad.com",
       "name": "Gaga Smith",
       "record": {
-        "$ref": "http://localhost:5000/authors/12345"
+        "$ref": "http://localhost:5000/api/authors/12345"
       }
     }
   ],
@@ -71,7 +71,7 @@
   "deleted": false,
   "deleted_records": [
     {
-      "$ref": "http://localhost:5000/seminars/12345"
+      "$ref": "http://localhost:5000/api/seminars/12345"
     }
   ],
   "end_datetime": "5034-08-24T02:46:02.429Z",
@@ -109,7 +109,7 @@
     }
   ],
   "new_record": {
-    "$ref": "http://localhost:5000/seminars/12345"
+    "$ref": "http://localhost:5000/api/seminars/12345"
   },
   "public_notes": [
     {
@@ -122,7 +122,7 @@
     }
   ],
   "self": {
-    "$ref": "http://localhost:5000/seminars/1"
+    "$ref": "http://localhost:5000/api/seminars/1"
   },
   "series": [
     {
@@ -140,14 +140,14 @@
         {
           "curated_relation": false,
           "record": {
-            "$ref": "http://localhost:5000/institutions/12345"
+            "$ref": "http://localhost:5000/api/institutions/12345"
           },
           "value": "University KA"
         },
         {
           "curated_relation": false,
           "record": {
-            "$ref": "http://localhost:5000/institutions/12346"
+            "$ref": "http://localhost:5000/api/institutions/12346"
           },
           "value": "University City"
         }
@@ -165,7 +165,7 @@
       ],
       "name": "Castle, Frank",
       "record": {
-        "$ref": "http://localhost:5000/authors/12345"
+        "$ref": "http://localhost:5000/api/authors/12345"
       }
     },
     {
@@ -173,7 +173,7 @@
         {
           "curated_relation": true,
           "record": {
-            "$ref": "http://localhost:5000/institutions/12348"
+            "$ref": "http://localhost:5000/api/institutions/12348"
           },
           "value": "UAIC"
         }
@@ -191,7 +191,7 @@
       ],
       "name": "Jane Smith",
       "record": {
-        "$ref": "http://localhost:5000/authors/12348"
+        "$ref": "http://localhost:5000/api/authors/12348"
       }
     }
   ],

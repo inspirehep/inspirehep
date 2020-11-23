@@ -1111,7 +1111,7 @@ def test_update_job_remove_not_compulsory_fields(ticket_mock, inspire_app):
             "experiments": [
                 {
                     "legacy_name": "some legacy_name",
-                    "record": {"$ref": "http://url_to_record/1234"},
+                    "record": {"$ref": "http://api/experiments/1234"},
                 }
             ],
             "url": "http://something.com",
@@ -1444,20 +1444,20 @@ SEMINAR_RECORD_DATA = {
             "curated_relation": False,
             "email": "contact1@example",
             "name": "Contact 1",
-            "record": {"$ref": "http://authors/1"},
+            "record": {"$ref": "http://api/authors/1"},
         },
         {"email": "contact2@example"},
     ],
     "inspire_categories": [{"term": "Accelerators"}, {"term": "Math and Math Physics"}],
     "address": {"cities": ["Geneva"], "country_code": "CH"},
     "speakers": [
-        {"name": "Urhan, Ahmet", "record": {"$ref": "http://authors/ahmet"}},
+        {"name": "Urhan, Ahmet", "record": {"$ref": "http://api/authors/12"}},
         {
             "name": "Urhan, Harun",
             "affiliations": [
-                {"value": "CERN", "record": {"$ref": "http://institutions/cern"}}
+                {"value": "CERN", "record": {"$ref": "http://api/institutions/12"}}
             ],
-            "record": {"$ref": "http://authors/harun"},
+            "record": {"$ref": "http://api/authors/2"},
         },
     ],
     "join_urls": [
@@ -1488,12 +1488,12 @@ SEMINAR_FORM_DATA = {
     "join_urls": SEMINAR_RECORD_DATA["join_urls"],
     "material_urls": SEMINAR_RECORD_DATA["material_urls"],
     "speakers": [
-        {"name": "Urhan, Ahmet", "record": {"$ref": "http://authors/ahmet"}},
+        {"name": "Urhan, Ahmet", "record": {"$ref": "http://api/authors/12"}},
         {
             "name": "Urhan, Harun",
             "affiliation": "CERN",
-            "affiliation_record": {"$ref": "http://institutions/cern"},
-            "record": {"$ref": "http://authors/harun"},
+            "affiliation_record": {"$ref": "http://api/institutions/12"},
+            "record": {"$ref": "http://api/authors/2"},
         },
     ],
     "address": {"city": "Geneva", "country": "Switzerland"},
@@ -1517,7 +1517,7 @@ def test_get_seminar_update_data(form_data, record_data, inspire_app):
 
     record_data = deepcopy(record_data)
     record_data["literature_records"] = [
-        {"record": {"$ref": "http://localhost:5000/api/123"}}
+        {"record": {"$ref": "http://localhost:5000/api/literature/123"}}
     ]
     seminar_data = {"control_number": 123, **record_data}
     create_record_factory("sem", data=seminar_data)

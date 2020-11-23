@@ -56,6 +56,7 @@ class InspireRecord(Record):
     ]
 
     experiment_field = "accelerator_experiments.record"
+    nested_record_fields = []
 
     @staticmethod
     def strip_empty_values(data):
@@ -351,6 +352,7 @@ class InspireRecord(Record):
         InspireRedirect.redirect(old_pid, new_pid)
 
         old_record = self.get_record(old_pid_object_uuid)
+        old_record["new_record"] = get_ref_from_pid(self.pid_type, self.control_number)
         if not old_record.get("deleted"):
             old_record.delete()
 

@@ -99,6 +99,18 @@ class PidStoreBase(object):
         return current_app.config["SCHEMA_TO_PID_TYPES"]
 
     @staticmethod
+    def get_schema_name_from_uri(schema):
+        try:
+            schema_name = (
+                six.moves.urllib.parse.urlsplit(schema)
+                .path.split("/")[-1]
+                .split(".")[0]
+            )
+        except (TypeError, IndexError):
+            schema_name = None
+        return schema_name
+
+    @staticmethod
     def get_pid_type_from_schema(schema):
         """Return the ``pid_type`` for a given ``schema``.
 
@@ -109,14 +121,7 @@ class PidStoreBase(object):
         Returns:
             None if not found, the ``pid_type``.
         """
-        try:
-            schema_name = (
-                six.moves.urllib.parse.urlsplit(schema)
-                .path.split("/")[-1]
-                .split(".")[0]
-            )
-        except (TypeError, IndexError):
-            schema_name = None
+        schema_name = PidStoreBase.get_schema_name_from_uri(schema)
         pids_to_schema = PidStoreBase._get_config_pid_types_to_schema()
         return pids_to_schema.get(schema_name)
 

@@ -64,6 +64,7 @@ def test_get_record_and_schema_for_redirected_record(inspire_app):
 
     expected_record_metadata = dict(redirected_record)
     expected_record_metadata["deleted"] = True
+    expected_record_metadata["new_record"] = {"$ref": record["self"]["$ref"]}
     assert record_metadata == dict(expected_record_metadata)
     assert schema == load_schema("hep")
 

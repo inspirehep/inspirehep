@@ -116,3 +116,25 @@ def normalize_title(raw_title):
     normalized_title = normalized_title.upper()
 
     return normalized_title
+
+
+def generate_matcher_config_for_reference_field(schema_name, path):
+    return {
+        "algorithm": [
+            {"queries": [{"path": "$ref", "search_path": path, "type": "exact",},]}
+        ],
+        "index": f"records-{schema_name}",
+    }
+
+
+def generate_matcher_config_for_nested_reference_field(schema_name, path):
+    return {
+        "algorithm": [
+            {
+                "queries": [
+                    {"paths": ["$ref"], "search_paths": [path], "type": "nested",},
+                ]
+            }
+        ],
+        "index": f"records-{schema_name}",
+    }

@@ -135,7 +135,7 @@ def test_orcids_for_push_orcid_in_author_with_claim(author_in_isolated_app):
             {
                 "full_name": "Smith, John",
                 "ids": [{"schema": "INSPIRE BAI", "value": "J.Smith.1"}],
-                "record": get_record_ref(author_in_isolated_app),
+                "record": get_record_ref(author_in_isolated_app, "authors"),
                 "curated_relation": True,
             },
         ],

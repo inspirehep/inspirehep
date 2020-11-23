@@ -46,7 +46,7 @@ def app():
 
 @pytest.fixture(scope="session")
 def celery_worker_parameters():
-    return {"queues": ["migrator", "celery", "matcher"]}
+    return {"queues": ["migrator", "celery", "matcher", "indexer_task"]}
 
 
 @pytest.fixture(scope="function", autouse=True)
