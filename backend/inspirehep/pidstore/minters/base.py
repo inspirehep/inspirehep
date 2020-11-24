@@ -8,7 +8,7 @@
 import structlog
 from inspire_utils.helpers import force_list
 from inspire_utils.record import get_value
-from invenio_pidstore.errors import PIDAlreadyExists
+from invenio_pidstore.errors import PIDAlreadyExists, PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
 from inspirehep.pidstore.errors import MissingSchema
@@ -145,7 +145,17 @@ class ControlNumberMinter(Minter):
     @classmethod
     def delete(cls, object_uuid, data):
         if "control_number" in data:
-            pid_provider = cls.provider.get(data["control_number"], cls.pid_type)
+            try:
+                pid_provider = cls.provider.get(data["control_number"], cls.pid_type)
+            except PIDDoesNotExistError:
+                if data.get("deleted", False) == True:
+                    cls.mint(object_uuid, data)
+                    pid_provider = cls.provider.get(
+                        data["control_number"], cls.pid_type
+                    )
+                else:
+                    raise
+
             if (
                 pid_provider.pid.object_uuid == object_uuid
                 and pid_provider.pid.status != PIDStatus.REDIRECTED
