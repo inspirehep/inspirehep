@@ -755,3 +755,49 @@ def test_match_reference_not_returning_ref_key_when_no_reference_found(inspire_a
 
     assert "record" not in reference
     assert validate([reference], subschema) is None
+
+
+def test_match_reference_not_returning_curated_relation_key_when_no_other_keys_exists(
+    inspire_app
+):
+    reference = {
+        "curated_relation": False,
+        "record": {"$ref": "http://localhost:5000/api/literature/9999"},
+    }
+
+    schema = load_schema("hep")
+    subschema = schema["properties"]["references"]
+
+    assert validate([reference], subschema) is None
+    reference = match_reference(reference)
+
+    assert reference == {}
+
+
+def test_match_references_do_not_return_duplicated_empty_references(inspire_app):
+    references = [
+        {
+            "curated_relation": False,
+            "record": {"$ref": "http://localhost:5000/api/literature/9999"},
+        },
+        {
+            "reference": {"texkey": "Giudice:2007fh"},
+            "record": {"$ref": "http://localhost:5000/api/literature/8888"},
+            "curated_relation": False,
+        },
+        {
+            "record": {"$ref": "http://localhost:5000/api/literature/7777"},
+            "curated_relation": False,
+        },
+    ]
+
+    schema = load_schema("hep")
+    subschema = schema["properties"]["references"]
+
+    assert validate(references, subschema) is None
+
+    match_result = match_references(references)
+    references = match_result["matched_references"]
+
+    assert len(references) == 1
+    assert validate(references, subschema) is None

@@ -140,6 +140,8 @@ def match_reference(reference, previous_matched_recid=None):
         matched_record for matched_record in matches if "record" in matched_record
     )
     reference = next(matches, reference)
+    if len(reference) == 1 and "curated_relation" in reference:
+        reference = {}
     return reference
 
 
@@ -193,8 +195,8 @@ def match_references(references):
                 removed_recids.append(get_recid_from_ref({"$ref": current_record_ref}))
             if new_record_ref:
                 added_recids.append(get_recid_from_ref({"$ref": new_record_ref}))
-
-        matched_references.append(reference)
+        if reference:
+            matched_references.append(reference)
         if "record" in reference:
             previous_matched_recid = get_recid_from_ref(reference["record"])
 
