@@ -688,3 +688,11 @@ def test_feature_flag_for_redirection_disables_redirection_when_turned_off(
         )
 
     assert record_1_from_db.id == record_1.id
+
+
+def test_creating_record_with_deleted_key_registers_control_number_with_deleted_status(
+    inspire_app
+):
+    record = create_record("lit", data={"deleted": True, "control_number": 12345})
+    pid = PersistentIdentifier.query.filter_by(pid_value="12345").one()
+    assert pid.status == PIDStatus.DELETED

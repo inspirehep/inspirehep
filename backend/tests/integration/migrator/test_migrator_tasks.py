@@ -16,7 +16,7 @@ from flask import current_app
 from helpers.utils import create_record, create_s3_bucket
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
-from invenio_pidstore.models import PersistentIdentifier
+from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_search import current_search
 from mock import patch
 
@@ -330,8 +330,6 @@ def test_migrate_from_mirror_doesnt_index_deleted_records(inspire_app):
     expected_record_lit_es_len = 1
 
     record_lit_uuid = LiteratureRecord.get_uuid_from_pid_value(12345)
-    with pytest.raises(PIDDoesNotExistError):
-        LiteratureRecord.get_uuid_from_pid_value(1234)
     record_lit_es = LiteratureSearch().get_record(str(record_lit_uuid)).execute().hits
     record_lit_es_len = len(record_lit_es)
 
@@ -609,3 +607,14 @@ def test_create_record_from_mirror_recids_retries_on_timeout_error(
         is_s3_url_mock.side_effect = sleep_2s
         with pytest.raises(Retry):
             create_records_from_mirror_recids([666])
+
+
+def test_migrating_deleted_record_registers_control_number_with_deleted_status(
+    inspire_app, datadir
+):
+    raw_record_xml = (datadir / "dummy_deleted.xml").read_text()
+    deleted_record = LegacyRecordsMirror.from_marcxml(raw_record_xml)
+    db.session.add(deleted_record)
+    create_records_from_mirror_recids([12345])
+    pid = PersistentIdentifier.query.filter_by(pid_value="12345").one()
+    assert pid.status == PIDStatus.DELETED

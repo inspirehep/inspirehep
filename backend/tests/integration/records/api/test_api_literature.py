@@ -45,22 +45,6 @@ def test_literature_create(inspire_app):
     assert control_number == record_pid.pid_value
 
 
-def test_literature_create_does_not_mint_if_record_is_deleted(inspire_app):
-    data = faker.record("lit", data={"deleted": True}, with_control_number=True)
-    record = LiteratureRecord.create(data)
-
-    control_number = str(record["control_number"])
-    record_db = RecordMetadata.query.filter_by(id=record.id).one()
-
-    assert record == record_db.json
-
-    record_pid = PersistentIdentifier.query.filter_by(
-        pid_type="lit", pid_value=str(control_number)
-    ).one_or_none()
-
-    assert record_pid == None
-
-
 def test_literature_create_with_mutliple_pids(inspire_app):
     doi_value = faker.doi()
     arxiv_value = faker.arxiv()
@@ -2272,7 +2256,7 @@ def test_literature_get_modified_authors_after_create(inspire_app):
                     {"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"},
                 ],
                 "emails": ["test@test.com"],
-            },
+            }
         ]
     }
     data = faker.record("lit", with_control_number=True, data=data)
@@ -2308,7 +2292,7 @@ def test_literature_get_modified_authors_after_uuid_update(inspire_app):
             "authors": [
                 {
                     "full_name": "Brian Gross",
-                    "ids": [{"schema": "INSPIRE BAI", "value": "B.Gross.1"},],
+                    "ids": [{"schema": "INSPIRE BAI", "value": "B.Gross.1"}],
                     "emails": ["test@test.com"],
                     "uuid": "ec485f53-0d75-403a-a11c-e2a6d45dd328",
                 },
@@ -2336,7 +2320,7 @@ def test_literature_get_modified_authors_after_metadata_update(inspire_app):
                     {"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"},
                 ],
                 "emails": ["test@test.com"],
-            },
+            }
         ]
     }
     data = faker.record("lit", with_control_number=True, data=data)
