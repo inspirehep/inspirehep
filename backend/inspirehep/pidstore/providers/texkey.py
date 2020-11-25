@@ -164,7 +164,7 @@ class InspireTexKeyProvider(InspireBaseProvider):
         raise NoAvailableTexKeyFound
 
     @classmethod
-    def query_pid(cls, pid_value, object_uuid=None):
+    def query_pid(cls, pid_value, object_uuid=None, object_type="rec"):
         query = (
             PersistentIdentifier.query.filter(
                 PersistentIdentifier.pid_type == cls.pid_type
@@ -173,7 +173,10 @@ class InspireTexKeyProvider(InspireBaseProvider):
             .filter(PersistentIdentifier.pid_provider == cls.pid_provider)
         )
         if object_uuid:
-            query = query.filter(PersistentIdentifier.object_uuid == object_uuid)
+            query = query.filter(
+                PersistentIdentifier.object_uuid == object_uuid,
+                PersistentIdentifier.object_type == object_type,
+            )
         return query
 
     @classmethod

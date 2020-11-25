@@ -70,7 +70,7 @@ class CNUMMinter(Minter):
         """
         cnum_pid = (
             PersistentIdentifier.query.filter_by(pid_type="cnum")
-            .filter_by(object_uuid=object_uuid)
+            .filter_by(object_uuid=object_uuid, object_type=cls.object_type)
             .one_or_none()
         )
 

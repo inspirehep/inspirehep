@@ -276,7 +276,7 @@ class InspireRecord(Record):
     def copy(self):
         """Copy the record metadata.
 
-            This is needed because the default ``dict.copy`` always returns a ``dict``.
+        This is needed because the default ``dict.copy`` always returns a ``dict``.
         """
         return type(self)(self)
 
@@ -417,6 +417,7 @@ class InspireRecord(Record):
         with db.session.begin_nested():
             pids = PersistentIdentifier.query.filter(
                 PersistentIdentifier.object_uuid == self.id,
+                PersistentIdentifier.object_type == "rec",
                 PersistentIdentifier.status != PIDStatus.REDIRECTED,
             ).all()
             for pid in pids:
