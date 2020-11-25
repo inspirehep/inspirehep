@@ -119,6 +119,7 @@ class TexKeyMinter(Minter):
                 PersistentIdentifier.pid_value
             )
             .filter(PersistentIdentifier.object_uuid == object_uuid)
+            .filter(PersistentIdentifier.object_type == cls.object_type)
             .filter(PersistentIdentifier.pid_type == cls.pid_type)
             .filter(PersistentIdentifier.status != PIDStatus.DELETED)
         ]

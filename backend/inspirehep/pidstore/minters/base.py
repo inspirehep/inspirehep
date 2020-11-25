@@ -113,7 +113,7 @@ class Minter:
                 PersistentIdentifier.pid_value
             )
             .filter_by(pid_type=self.pid_type or self.provider.pid_type)
-            .filter_by(object_uuid=self.object_uuid)
+            .filter_by(object_uuid=self.object_uuid, object_type=self.object_type)
             .filter_by(pid_provider=self.provider.pid_provider)
             .filter(PersistentIdentifier.status != PIDStatus.DELETED)
         }

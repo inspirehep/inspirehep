@@ -21,7 +21,7 @@ class InspireExternalIdProvider(InspireBaseProvider):
     def delete(self):
         try:
             PersistentIdentifier.query.filter_by(
-                id=self.pid.id, object_uuid=self.pid.object_uuid
+                id=self.pid.id, object_uuid=self.pid.object_uuid, object_type="rec"
             ).delete()
         except PIDDoesNotExistError:
             LOGGER.warning("Pids ``external`` not found", uuid=str(self.object_uuid))
