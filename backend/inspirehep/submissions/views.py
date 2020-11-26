@@ -137,11 +137,14 @@ class AuthorSubmissionsResource(BaseSubmissionsResource):
             abort(404)
         data = self.load_data_from_request()
         updated_record_data = self.get_updated_record_data(data, record)
-        record.update(updated_record_data)
+        record.update(updated_record_data, data)
         db.session.commit()
 
         if not is_superuser_or_cataloger_logged_in():
             self.create_ticket(record, "rt/update_author.html")
+
+        if current_app.config.get("FEATURE_FLAG_ENABLE_WORKFLOW_ON_AUTHOR_UPDATE"):
+            self.start_workflow_for_submission(pid_value)
 
         return jsonify({"pid_value": record["control_number"]})
 
@@ -161,8 +164,9 @@ class AuthorSubmissionsResource(BaseSubmissionsResource):
     def load_data_from_request(self):
         return author_loader_v1()
 
-    def start_workflow_for_submission(self, control_number=None):
-        submission_data = self.load_data_from_request()
+    def start_workflow_for_submission(self, control_number=None, submission_data=None):
+        if not submission_data:
+            submission_data = self.load_data_from_request()
         submission_data["acquisition_source"] = self.get_acquisition_source()
         if control_number:
             submission_data["control_number"] = int(control_number)
