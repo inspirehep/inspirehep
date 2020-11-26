@@ -73,6 +73,11 @@ exports[`Footer renders when cataloger 1`] = `
             "title": "INSPIRE Help",
             "url": "https://inspirehep.net/help",
           },
+          Object {
+            "openExternal": false,
+            "title": "Report metadata issues",
+            "url": "mailto:help@inspirehep.net?subject=[Metadata Issue]",
+          },
         ],
         "title": "Help",
       },
@@ -197,6 +202,11 @@ exports[`Footer renders when not cataloger 1`] = `
             "openExternal": true,
             "title": "INSPIRE Help",
             "url": "https://inspirehep.net/help",
+          },
+          Object {
+            "openExternal": false,
+            "title": "Report metadata issues",
+            "url": "mailto:help@inspirehep.net?subject=[Metadata Issue]",
           },
         ],
         "title": "Help",
