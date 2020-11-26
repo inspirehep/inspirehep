@@ -90,9 +90,26 @@ class LiteratureRecord(
     @classmethod
     def create(cls, data, disable_orcid_push=False, *args, **kwargs):
         with db.session.begin_nested():
+            LiteratureRecord.enchance_record(data)
+            data = LiteratureRecord.add_files(data)
             record = super().create(data, **kwargs)
-            record.update(dict(record), disable_orcid_push=disable_orcid_push, **kwargs)
+
+            # FIXME DUPLICATE
+            if disable_orcid_push:
+                LOGGER.info(
+                    "Record ORCID PUSH disabled",
+                    recid=record.get("control_number"),
+                    uuid=str(record.id),
+                )
+            else:
+                push_to_orcid(record)
+            record.push_authors_phonetic_blocks_to_redis()
             return record
+
+    @staticmethod
+    def enchance_record(data):
+        LiteratureRecord.update_authors_signature_blocks_and_uuids(data)
+        LiteratureRecord.update_refs_to_conferences(data)
 
     @classmethod
     def get_es_linked_references(cls, data):
@@ -155,10 +172,8 @@ class LiteratureRecord(
 
     def update(self, data, disable_orcid_push=False, *args, **kwargs):
         with db.session.begin_nested():
-            LiteratureRecord.update_authors_signature_blocks_and_uuids(data)
-            LiteratureRecord.update_refs_to_conferences(data)
-
-            data = self.add_files(data)
+            LiteratureRecord.enchance_record(data)
+            data = LiteratureRecord.add_files(data)
             super().update(data, *args, **kwargs)
 
             if disable_orcid_push:
@@ -284,56 +299,60 @@ class LiteratureRecord(
                     nx=True,
                 )
 
-    def add_files(self, data):
+    @staticmethod
+    def add_files(data):
         if not current_app.config.get("FEATURE_FLAG_ENABLE_FILES", False):
             LOGGER.info("Files are disabled")
             return data
 
         if "deleted" in data and data["deleted"]:
-            LOGGER.info("Record is deleted, skipping files.", uuid=self.id)
+            LOGGER.info("Record is deleted, skipping files.")
             return data
 
         documents = data.pop("documents", [])
         figures = data.pop("figures", [])
 
-        added_documents = self.add_documents(documents)
+        added_documents = LiteratureRecord.add_documents(documents)
         if added_documents:
             data["documents"] = added_documents
 
-        added_figures = self.add_figures(figures)
+        added_figures = LiteratureRecord.add_figures(figures)
         if added_figures:
             data["figures"] = added_figures
         return data
 
-    def _generate_and_submit_files_tasks(self, files, executor):
+    @staticmethod
+    def _generate_and_submit_files_tasks(files, executor):
         """Generates task for processing files and submits them to executor"""
         tasks = {}
         for idx, file_data in enumerate(files):
             tasks.update(
                 {
                     executor.submit(
-                        self.add_file,
+                        LiteratureRecord.add_file,
                         current_app.app_context(),
-                        control_number=self.get("control_number"),
-                        uuid=self.id,
+                        # control_number=self.get("control_number"),
+                        # uuid=self.id,
                         **file_data,
                     ): idx
                 }
             )
         return tasks
 
-    def _update_file_entry(self, file_data, add_file_func):
+    @staticmethod
+    def _update_file_entry(file_data, add_file_func):
         try:
             add_file_func(**file_data)
         except ValueError:
             LOGGER.warning(
                 "Duplicated file found",
-                recid=self.get("control_number"),
-                uuid=self.id,
+                # recid=self.get("control_number"),
+                # uuid=self.id,
                 file=file_data.get("key"),
             )
 
-    def _process_tasks_results(self, tasks, files):
+    @staticmethod
+    def _process_tasks_results(tasks, files):
         try:
             for future in as_completed(
                 tasks, timeout=current_app.config.get("FILES_UPLOAD_THREAD_TIMEOUT", 30)
@@ -344,13 +363,14 @@ class LiteratureRecord(
         except TimeoutError:
             LOGGER.exception(
                 "Threads didn't return results on time",
-                recid=self.get("control_number"),
-                uuid=self.id,
+                # recid=self.get("control_number"),
+                # uuid=self.id,
             )
             raise
         return files
 
-    def add_documents(self, documents):
+    @staticmethod
+    def add_documents(documents):
         builder = LiteratureBuilder()
         documents_hidden = list(filter(lambda x: x.get("hidden", False), documents))
         documents_to_process = list(
@@ -358,33 +378,34 @@ class LiteratureRecord(
         )
 
         for document in documents_hidden:
-            self._update_file_entry(document, builder.add_document)
+            LiteratureRecord._update_file_entry(document, builder.add_document)
 
         with ThreadPoolExecutor(
             max_workers=current_app.config.get("FILES_MAX_UPLOAD_THREADS", 5)
         ) as executor:
-            tasks = self._generate_and_submit_files_tasks(
+            tasks = LiteratureRecord._generate_and_submit_files_tasks(
                 documents_to_process, executor
             )
-            processed_documents = self._process_tasks_results(
+            processed_documents = LiteratureRecord._process_tasks_results(
                 tasks, documents_to_process
             )
         if processed_documents:
             for document in processed_documents:
-                self._update_file_entry(document, builder.add_document)
+                LiteratureRecord._update_file_entry(document, builder.add_document)
         return builder.record.get("documents")
 
-    def add_figures(self, figures):
+    @staticmethod
+    def add_figures(figures):
         builder = LiteratureBuilder()
 
         with ThreadPoolExecutor(
             max_workers=current_app.config.get("FILES_MAX_UPLOAD_THREADS", 5)
         ) as executor:
-            tasks = self._generate_and_submit_files_tasks(figures, executor)
-            processed_figures = self._process_tasks_results(tasks, figures)
+            tasks = LiteratureRecord._generate_and_submit_files_tasks(figures, executor)
+            processed_figures = LiteratureRecord._process_tasks_results(tasks, figures)
         if processed_figures:
             for document in processed_figures:
-                self._update_file_entry(document, builder.add_figure)
+                LiteratureRecord._update_file_entry(document, builder.add_figure)
         return builder.record.get("figures")
 
     @staticmethod
