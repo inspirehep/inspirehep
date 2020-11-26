@@ -10,6 +10,7 @@ from copy import deepcopy
 from datetime import datetime, timedelta
 
 import pytest
+import requests_mock
 from flask import current_app, url_for
 from freezegun import freeze_time
 from helpers.utils import (
@@ -296,6 +297,69 @@ def test_update_author(create_ticket_mock, inspire_app):
     assert expected_data == updated_author
 
     create_ticket_mock.delay.assert_called_once()
+
+
+@freeze_time("2019-06-17")
+@patch("inspirehep.submissions.views.async_create_ticket_with_template")
+def test_update_author_creates_new_workflow(
+    create_ticket_mock, inspire_app, override_config
+):
+    config = {"FEATURE_FLAG_ENABLE_WORKFLOW_ON_AUTHOR_UPDATE": True}
+    orcid = "0000-0001-5109-3700"
+    user = create_user(orcid=orcid)
+    author_data = {
+        "control_number": 123,
+        "name": {"value": "John"},
+        "ids": [{"schema": "ORCID", "value": orcid}],
+        "status": "active",
+        "urls": [{"value": "https://wrong-url"}],
+    }
+
+    create_record("aut", data=author_data)
+
+    with inspire_app.test_client() as client, requests_mock.Mocker() as request_mock, override_config(
+        **config
+    ):
+        login_user_via_session(client, email=user.email)
+
+        expected_next_request = {
+            "data": {
+                "_collections": ["Authors"],
+                "name": {"preferred_name": "Updated", "value": "John, Updated"},
+                "ids": [{"value": "0000-0001-5109-3700", "schema": "ORCID"}],
+                "status": "active",
+                "acquisition_source": {
+                    "email": user.email,
+                    "datetime": "2019-06-17T00:00:00",
+                    "method": "submitter",
+                    "source": "submitter",
+                    "internal_uid": user.id,
+                    "orcid": "0000-0001-5109-3700",
+                },
+                "control_number": 123,
+            }
+        }
+
+        request_mock.post(
+            f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/authors",
+            status_code=200,
+        )
+        response = client.put(
+            "/submissions/authors/123",
+            content_type="application/json",
+            data=json.dumps(
+                {
+                    "data": {
+                        "given_name": "John, Updated",
+                        "display_name": "Updated",
+                        "orcid": orcid,
+                        "status": "active",
+                    }
+                }
+            ),
+        )
+        assert request_mock.request_history[0].json() == expected_next_request
+    assert response.status_code == 200
 
 
 @freeze_time("2019-06-17")
