@@ -18,6 +18,7 @@ import {
   HOLDINGPEN_URL,
   AUTHORLIST_TOOL_URL,
   INVENIO_URL,
+  REPORT_METADATA_URL,
 } from '../../constants';
 import ExternalLink from '../../components/ExternalLink.tsx';
 import { BIBLIOGRAPHY_GENERATOR } from '../../routes';
@@ -60,6 +61,11 @@ const COLUMNS = [
         title: 'INSPIRE Help',
         url: HELP_BLOG_URL,
         openExternal: true,
+      },
+      {
+        title: 'Report metadata issues',
+        url: REPORT_METADATA_URL,
+        openExternal: false,
       },
     ],
   },

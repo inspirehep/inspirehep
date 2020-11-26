@@ -51,6 +51,8 @@ export const TERMS_OF_USE_URL = `${KNOWLEDGE_BASE_URL}/terms-of-use`;
 export const FAQ_URL = `${KNOWLEDGE_BASE_URL}/faq`;
 export const PUBLISHED_URL = `${FAQ_URL}/#faq-published`;
 export const PAPER_SEARCH_URL = `${KNOWLEDGE_BASE_URL}/inspire-paper-search`;
+export const REPORT_METADATA_URL =
+  'mailto:help@inspirehep.net?subject=[Metadata Issue]';
 
 export const DATE_RANGE_FORMAT = 'YYYY-MM-DD';
 export const TIME_FORMAT = 'hh:mm A';
