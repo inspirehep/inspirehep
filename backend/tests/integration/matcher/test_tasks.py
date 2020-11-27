@@ -46,3 +46,25 @@ def test_match_references_by_uuids(inspire_app):
     )
     assert "record" not in get_value(excluded_citer_record, "references[0]")
     assert "record" not in get_value(deleted_record, "references[0]")
+
+
+def test_match_references_by_uuids_dedupes_references_after_matching(inspire_app):
+    citer_data = {
+        "references": [
+            {
+                "reference": {"report_numbers": ["AMBIGUOUS-42"]},
+                "record": {"$ref": "https://inspirehep.net/api/literature/1234"},
+            },
+            {
+                "reference": {"report_numbers": ["AMBIGUOUS-42"]},
+                "record": {"$ref": "https://inspirehep.net/api/literature/5678"},
+            },
+        ]
+    }
+    citer_record = create_record("lit", data=citer_data)
+    match_references_by_uuids([str(citer_record.id)])
+
+    updated_citer_record = LiteratureRecord.get_record(citer_record.id)
+    expected_references = [{"reference": {"report_numbers": ["AMBIGUOUS-42"]}}]
+
+    assert updated_citer_record["references"] == expected_references
