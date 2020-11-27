@@ -7,6 +7,7 @@
 
 import structlog
 from celery import shared_task
+from inspire_utils.dedupers import dedupe_list
 from invenio_db import db
 from invenio_records.api import RecordMetadata
 from psycopg2._psycopg import OperationalError
@@ -45,22 +46,25 @@ def match_references_by_uuids(literature_uuids):
     )
 
     for record_metadata in with_references_query.all():
-        references = record_metadata.json.get("references")
+        references = record_metadata.json["references"]
         match_result = match_references(references)
-        if match_result["any_link_modified"]:
-            literature = LiteratureRecord(record_metadata.json, model=record_metadata)
-            literature["references"] = match_result["matched_references"]
-            literature.update(dict(literature))
 
-            db.session.commit()
-            added_recids = match_result["added_recids"]
-            removed_recids = match_result["removed_recids"]
-            LOGGER.info(
-                "References are matched",
-                uuid=record_metadata.id,
-                recid=record_metadata.json["control_number"],
-                added_recids=added_recids,
-                added_recid_count=len(added_recids),
-                removed_recids=removed_recids,
-                removed_recid_count=len(removed_recids),
-            )
+        if not match_result["any_link_modified"]:
+            continue
+
+        literature = LiteratureRecord(record_metadata.json, model=record_metadata)
+        literature["references"] = dedupe_list(match_result["matched_references"])
+        literature.update(dict(literature))
+
+        db.session.commit()
+        added_recids = match_result["added_recids"]
+        removed_recids = match_result["removed_recids"]
+        LOGGER.info(
+            "References are matched",
+            uuid=record_metadata.id,
+            recid=record_metadata.json["control_number"],
+            added_recids=added_recids,
+            added_recid_count=len(added_recids),
+            removed_recids=removed_recids,
+            removed_recid_count=len(removed_recids),
+        )
