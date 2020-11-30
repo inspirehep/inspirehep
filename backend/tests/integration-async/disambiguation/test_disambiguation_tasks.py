@@ -619,7 +619,14 @@ def test_disambiguate_authors_create_new_author(
     retry_until_pass(assert_lit_records_exist_in_es, retry_interval=3)
 
     def assert_disambiguation_task():
-        result = AuthorsSearch().query_from_iq("").execute()
-        assert result.hits[0].name["value"] == "Michal Kowal"
+        literature_record_from_es = InspireSearch.get_record_data_from_es(
+            literature_record
+        )
+        author_record_from_es = AuthorsSearch().query_from_iq("").execute()
+        assert author_record_from_es.hits[0].name["value"] == "Michal Kowal"
+        assert (
+            literature_record_from_es["authors"][0]["recid"]
+            == author_record_from_es.hits[0].control_number
+        )
 
     retry_until_pass(assert_disambiguation_task)
