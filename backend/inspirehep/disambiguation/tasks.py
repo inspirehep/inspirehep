@@ -176,6 +176,7 @@ def create_new_author(full_name, from_recid):
             "full_name": full_name,
         },
     )
+    return new_author
 
 
 @shared_task(ignore_result=False, bind=True)
@@ -203,7 +204,11 @@ def disambiguate_authors(self, record_uuid):
         if "record" not in author:
             match_literature_author(author, updated_authors, record)
         if "record" not in author:
-            create_new_author(author["full_name"], record["control_number"])
+            new_author_record = create_new_author(
+                author["full_name"], record["control_number"]
+            )
+            author["record"] = new_author_record["self"]
+            updated_authors.append(new_author_record["control_number"])
 
     if updated_authors:
         LOGGER.info(
