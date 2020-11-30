@@ -7,10 +7,11 @@
 
 import structlog
 from celery import shared_task
+from elasticsearch import TransportError
 from inspire_utils.dedupers import dedupe_list
 from invenio_db import db
 from invenio_records.api import RecordMetadata
-from psycopg2._psycopg import OperationalError
+from psycopg2 import OperationalError
 from sqlalchemy import cast, not_, or_, type_coerce
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.exc import InvalidRequestError, StatementError
@@ -31,7 +32,12 @@ MAX_RETRY_COUNT = 3
     acks_late=True,
     retry_backoff=RETRY_BACKOFF,
     retry_kwargs={"max_retries": MAX_RETRY_COUNT},
-    autoretry_for=(InvalidRequestError, StatementError, OperationalError),
+    autoretry_for=(
+        InvalidRequestError,
+        StatementError,
+        OperationalError,
+        TransportError,
+    ),
 )
 def match_references_by_uuids(literature_uuids):
     record_json = type_coerce(RecordMetadata.json, JSONB)

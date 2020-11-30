@@ -27,7 +27,7 @@ from invenio_db import db
 from invenio_pidstore.errors import PIDValueError
 from invenio_pidstore.models import PersistentIdentifier
 from jsonschema import ValidationError
-from psycopg2._psycopg import OperationalError
+from psycopg2 import OperationalError
 from redis import ResponseError
 from sqlalchemy.exc import InvalidRequestError, StatementError
 
