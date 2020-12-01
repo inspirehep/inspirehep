@@ -353,23 +353,12 @@ class LiteratureRecord(
 
     def add_documents(self, documents):
         builder = LiteratureBuilder()
-        documents_hidden = list(filter(lambda x: x.get("hidden", False), documents))
-        documents_to_process = list(
-            filter(lambda x: not x.get("hidden", False), documents)
-        )
-
-        for document in documents_hidden:
-            self._update_file_entry(document, builder.add_document)
 
         with ThreadPoolExecutor(
             max_workers=current_app.config.get("FILES_MAX_UPLOAD_THREADS", 5)
         ) as executor:
-            tasks = self._generate_and_submit_files_tasks(
-                documents_to_process, executor
-            )
-            processed_documents = self._process_tasks_results(
-                tasks, documents_to_process
-            )
+            tasks = self._generate_and_submit_files_tasks(documents, executor)
+            processed_documents = self._process_tasks_results(tasks, documents)
         if processed_documents:
             for document in processed_documents:
                 self._update_file_entry(document, builder.add_document)
