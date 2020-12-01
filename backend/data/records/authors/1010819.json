@@ -6,7 +6,7 @@
   "deleted": false,
   "email_addresses": [
     { "current": true, "value": "john.ellis@cern.ch" },
-    { "current": false, "value": "JOHNE@CERNVM.BITNET" },
+    { "current": false, "value": "JOHNE@CERNVM.BITNET", "hidden": true },
     { "current": false, "value": "johne@cernvm.cern.ch" }
   ],
   "ids": [
@@ -28,6 +28,7 @@
     {
       "curated_relation": true,
       "current": true,
+      "hidden": true,
       "institution": "King's Coll. London",
       "rank": "SENIOR",
       "record": {
