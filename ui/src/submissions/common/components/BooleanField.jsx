@@ -16,7 +16,10 @@ class BooleanField extends Component {
   }
 
   render() {
-    return <Checkbox {...this.props} onChange={this.onChange} />;
+    const { value } = this.props;
+    return (
+      <Checkbox {...this.props} checked={value} onChange={this.onChange} />
+    );
   }
 }
 
