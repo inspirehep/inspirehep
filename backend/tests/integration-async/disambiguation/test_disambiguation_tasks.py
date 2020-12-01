@@ -630,3 +630,28 @@ def test_disambiguate_authors_create_new_author(
         )
 
     retry_until_pass(assert_disambiguation_task)
+
+
+def test_disambiguate_authors_create_two_author_with_same_name(
+    inspire_app, celery_app_with_context, celery_session_worker, enable_disambiguation
+):
+    literature_data = faker.record("lit", with_control_number=True)
+    literature_data.update(
+        {"authors": [{"full_name": "Michal Kowal"}, {"full_name": "Michal Kowal"},]}
+    )
+    literature_record = LiteratureRecord.create(data=literature_data)
+
+    db.session.commit()
+
+    def assert_lit_records_exist_in_es():
+        lit_record_from_es = InspireSearch.get_record_data_from_es(literature_record)
+
+        assert lit_record_from_es
+
+    retry_until_pass(assert_lit_records_exist_in_es, retry_interval=3)
+
+    def assert_disambiguation_task():
+        author_records_from_es = AuthorsSearch().query_from_iq("").execute()
+        assert len(author_records_from_es.hits) == 2
+
+    retry_until_pass(assert_disambiguation_task)

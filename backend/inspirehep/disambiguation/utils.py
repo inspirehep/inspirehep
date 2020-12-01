@@ -72,7 +72,7 @@ def link_signatures_to_author(signatures_data, author_control_number):
     return linked_signatures
 
 
-def create_new_empty_author():
+def create_new_stub_author(**kwargs):
     """Create a stub author record."""
     author_data = {
         "name": {"value": "BEARD STUB"},
@@ -88,6 +88,7 @@ def create_new_empty_author():
             _external=True,
         ),
     }
+    author_data.update(kwargs)
     author = AuthorsRecord.create(author_data)
     return author
 

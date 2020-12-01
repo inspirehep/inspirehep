@@ -10,7 +10,7 @@ from freezegun import freeze_time
 from helpers.utils import create_record
 
 from inspirehep.disambiguation.utils import (
-    create_new_empty_author,
+    create_new_stub_author,
     link_signature_to_author,
     link_signatures_to_author,
 )
@@ -194,8 +194,8 @@ def test_link_signatures_to_author_missing_uuid(inspire_app):
 
 
 @freeze_time("2019-02-15")
-def test_create_new_empty_author(inspire_app):
-    author = create_new_empty_author()
+def test_create_new_stub_author(inspire_app):
+    author = create_new_stub_author()
     control_number = author["control_number"]
     expected_data = {
         "name": {"value": "BEARD STUB"},

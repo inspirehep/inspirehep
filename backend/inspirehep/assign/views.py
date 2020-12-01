@@ -11,7 +11,7 @@ from invenio_db import db
 
 from inspirehep.accounts.decorators import login_required_with_roles
 from inspirehep.accounts.roles import Roles
-from inspirehep.disambiguation.utils import create_new_empty_author, update_author_names
+from inspirehep.disambiguation.utils import create_new_stub_author, update_author_names
 from inspirehep.records.api import AuthorsRecord, LiteratureRecord
 
 blueprint = Blueprint("inspirehep_assign", __name__, url_prefix="/assign")
@@ -50,7 +50,7 @@ def assign_papers(from_author_recid, to_author_recid, literature_recids):
 
 def assign_to_new_stub_author(from_author_recid, literature_recids):
     # TODO: differentiate from BEARD created stub author
-    to_author = create_new_empty_author()
+    to_author = create_new_stub_author()
     author_signatures = assign_papers(
         from_author_recid, to_author["control_number"], literature_recids
     )
