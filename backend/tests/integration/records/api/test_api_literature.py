@@ -1054,50 +1054,33 @@ def test_add_record_with_documents_and_figures(inspire_app, s3):
 
 
 @pytest.mark.vcr()
-def test_adding_record_with_documents_skips_hidden(inspire_app, s3):
-    expected_document_key = "f276b50c9e6401b5e212785a496efa4e"
+def test_adding_record_with_documents_adds_hidden(inspire_app, s3):
     expected_hidden_document_key = "b88e6b880b32d8ed06b9b740cfb6eb2a"
-    create_s3_bucket(expected_document_key)
     create_s3_bucket(expected_hidden_document_key)
     data = {
         "documents": [
             {
                 "source": "arxiv",
                 "key": "arXiv:nucl-th_9310031.pdf",
-                "url": "http://inspirehep.net/record/212819/files/slac-pub-3557.pdf?version=1",
+                "url": "https://inspirehep.net/files/b88e6b880b32d8ed06b9b740cfb6eb2a",
                 "original_url": "http://original-url.com/2",
                 "filename": "myhiddenfile.pdf",
                 "hidden": True,
-            },
-            {
-                "source": "arxiv",
-                "key": "key",
-                "url": "http://inspirehep.net/record/863300/files/fermilab-pub-10-255-e.pdf",
-                "original_url": "http://original-url.com/2",
-                "filename": "fermilab.pdf",
-            },
+            }
         ]
     }
     record = create_record("lit", data=data)
     expected_hidden_document = {
         "source": "arxiv",
-        "key": "arXiv:nucl-th_9310031.pdf",
-        "url": "http://inspirehep.net/record/212819/files/slac-pub-3557.pdf?version=1",
+        "key": expected_hidden_document_key,
+        "url": current_s3_instance.get_public_url(expected_hidden_document_key),
         "original_url": "http://original-url.com/2",
         "filename": "myhiddenfile.pdf",
         "hidden": True,
     }
-    expected_document = {
-        "source": "arxiv",
-        "key": expected_document_key,
-        "url": current_s3_instance.get_public_url(expected_document_key),
-        "original_url": "http://original-url.com/2",
-        "filename": "fermilab.pdf",
-    }
-    assert expected_document in record["documents"]
+
     assert expected_hidden_document in record["documents"]
-    assert current_s3_instance.file_exists(expected_document_key) is True
-    assert current_s3_instance.file_exists(expected_hidden_document_key) is False
+    assert current_s3_instance.file_exists(expected_hidden_document_key) is True
 
 
 @pytest.mark.vcr()
