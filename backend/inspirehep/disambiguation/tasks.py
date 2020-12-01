@@ -8,7 +8,7 @@ from invenio_db import db
 from prometheus_client import Counter
 
 from inspirehep.disambiguation.utils import (
-    create_new_empty_author,
+    create_new_stub_author,
     link_signatures_to_author,
     update_author_names,
 )
@@ -59,7 +59,7 @@ def disambiguate_signatures(self, clusters):
                 LOGGER.debug(
                     "Received cluster with 0 authors.", signatures=cluster["signatures"]
                 )
-                author = create_new_empty_author()
+                author = create_new_stub_author()
                 linked_signatures = link_signatures_to_author(
                     cluster["signatures"], author["control_number"]
                 )
@@ -167,8 +167,7 @@ def create_new_author(full_name, from_recid):
         ],
     }
 
-    new_author = create_new_empty_author()
-    new_author.update({**new_author, **new_author_data})
+    new_author = create_new_stub_author(**new_author_data)
     LOGGER.info(
         "Created new author record",
         {
