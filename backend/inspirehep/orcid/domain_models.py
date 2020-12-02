@@ -296,6 +296,5 @@ class OrcidPusher(object):
                 self.oauth_token,
                 dict(
                     pushing_duplicated_identifier=True,
-                    record_db_version=self.record_db_version,
                 ),
             )
