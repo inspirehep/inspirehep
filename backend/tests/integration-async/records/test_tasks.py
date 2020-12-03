@@ -40,7 +40,7 @@ def test_recalculate_references_after_literature_record_merge(
         seminar_record_from_es = InspireSearch.get_record_data_from_es(seminar)
         assert all([literature_record_from_es, seminar_record_from_es])
 
-    retry_until_pass(assert_all_records_in_es)
+    retry_until_pass(assert_all_records_in_es, retry_interval=3)
 
     merged_literature_data = faker.record("lit", with_control_number=True)
     merged_literature_data.update(
@@ -121,7 +121,7 @@ def test_recalculate_references_after_author_record_merge(
             ]
         )
 
-    retry_until_pass(assert_all_records_in_es)
+    retry_until_pass(assert_all_records_in_es, retry_interval=3)
 
     merged_author_data = faker.record("aut", with_control_number=True)
     merged_author_data.update({"deleted_records": [{"$ref": author_record_reference}]})
@@ -223,7 +223,7 @@ def test_recalculate_references_after_institution_record_merge(
             ]
         )
 
-    retry_until_pass(assert_all_records_in_es)
+    retry_until_pass(assert_all_records_in_es, retry_interval=3)
 
     merged_institution_data = faker.record("ins", with_control_number=True)
     merged_institution_data.update(
@@ -310,7 +310,7 @@ def test_recalculate_references_after_experiment_record_merge(
             ]
         )
 
-    retry_until_pass(assert_all_records_in_es)
+    retry_until_pass(assert_all_records_in_es, retry_interval=3)
 
     merged_experiment_data = faker.record("exp", with_control_number=True)
     merged_experiment_data.update(
@@ -360,7 +360,7 @@ def test_recalculate_references_after_journal_record_merge(
         journal_record_from_es = InspireSearch.get_record_data_from_es(journal)
         assert literature_record_from_es and journal_record_from_es
 
-    retry_until_pass(assert_all_records_in_es)
+    retry_until_pass(assert_all_records_in_es, retry_interval=3)
 
     merged_journal_data = faker.record("jou", with_control_number=True)
     merged_journal_data.update(
@@ -403,7 +403,7 @@ def test_recalculate_references_after_conference_record_merge(
         conference_record_from_es = InspireSearch.get_record_data_from_es(conference)
         assert literature_record_from_es and conference_record_from_es
 
-    retry_until_pass(assert_all_records_in_es)
+    retry_until_pass(assert_all_records_in_es, retry_interval=3)
 
     merged_conference_data = faker.record("con", with_control_number=True)
     merged_conference_data.update(
