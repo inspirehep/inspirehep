@@ -86,8 +86,9 @@ def test_indexer_deletes_record_from_es(inspire_app, datadir):
 def test_indexer_creates_proper_fulltext_links_in_ui_display_files_enabled(
     inspire_app, s3
 ):
-    create_s3_bucket("1")
-    create_s3_bucket("f")
+    create_s3_bucket("8")
+    create_s3_bucket("b")
+
     expected_fulltext_links = ["arXiv", "KEK scanned document", "fulltext"]
 
     data = {
@@ -109,13 +110,12 @@ def test_indexer_creates_proper_fulltext_links_in_ui_display_files_enabled(
             {
                 "source": "arxiv",
                 "key": "arXiv:nucl-th_9310031.pdf",
-                "url": "http://inspirehep.net/record/863300/files/fermilab-pub-10-255-e.pdf",
+                "url": "https://arxiv.org/pdf/1906.00123.pdf",
             },
         ],
     }
     record = create_record("lit", data=data)
     response = es_search("records-hep")
-
     result = response["hits"]["hits"][0]["_source"]
     result_ui_display = json.loads(result.pop("_ui_display"))
     for link in result_ui_display["fulltext_links"]:
