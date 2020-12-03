@@ -83,11 +83,10 @@ def test_indexer_deletes_record_from_es(inspire_app, datadir):
 
 
 @pytest.mark.vcr()
-def test_indexer_creates_proper_fulltext_links_in_ui_display_files_enabled(
+def test_indexer_creates_proper_fulltext_links_for_hidden_documents_in_ui_display_files_enabled(
     inspire_app, s3
 ):
-    create_s3_bucket("1")
-    create_s3_bucket("f")
+    create_s3_bucket("8")
     expected_fulltext_links = ["arXiv", "KEK scanned document", "fulltext"]
 
     data = {
@@ -106,10 +105,39 @@ def test_indexer_creates_proper_fulltext_links_in_ui_display_files_enabled(
                 "key": "arXiv:nucl-th_9310030.pdf",
                 "url": "https://arxiv.org/pdf/1910.11662.pdf",
             },
+        ],
+    }
+    record = create_record("lit", data=data)
+    response = es_search("records-hep")
+
+    result = response["hits"]["hits"][0]["_source"]
+    result_ui_display = json.loads(result.pop("_ui_display"))
+    for link in result_ui_display["fulltext_links"]:
+        assert link["value"]
+        assert link["description"] in expected_fulltext_links
+
+
+@pytest.mark.vcr()
+def test_indexer_creates_proper_fulltext_links_in_ui_display_files_enabled(
+    inspire_app, s3
+):
+    create_s3_bucket("b")
+    expected_fulltext_links = ["arXiv", "KEK scanned document", "fulltext"]
+
+    data = {
+        "external_system_identifiers": [
+            {"schema": "OSTI", "value": "7224300"},
+            {"schema": "ADS", "value": "1994PhRvD..50.4491S"},
+            {"schema": "KEKSCAN", "value": "94-07-219"},
+            {"schema": "SPIRES", "value": "SPIRES-2926342"},
+        ],
+        "arxiv_eprints": [{"categories": ["hep-ph"], "value": "hep-ph/9404247"}],
+        "documents": [
             {
                 "source": "arxiv",
-                "key": "arXiv:nucl-th_9310031.pdf",
-                "url": "http://inspirehep.net/record/863300/files/fermilab-pub-10-255-e.pdf",
+                "fulltext": True,
+                "key": "arXiv:nucl-th_9310030.pdf",
+                "url": "https://arxiv.org/pdf/1906.00123.pdf",
             },
         ],
     }
