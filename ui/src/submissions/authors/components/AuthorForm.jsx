@@ -159,6 +159,11 @@ function AuthorForm({ values, isCatalogerLoggedIn, isUpdate }) {
           />
         </CollapsableForm.Section>
         <CollapsableForm.Section header="Career Info" key="career_info">
+          <p>
+            Career information cannot be deleted. If information is incorrect,
+            please mark it as ‘Hidden’ and give more details in the Comments
+            area.
+          </p>
           <Field
             name="arxiv_categories"
             label="Field of Research"
