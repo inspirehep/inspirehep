@@ -8,7 +8,6 @@ import {
   submitUpdate,
 } from '../../../actions/submissions';
 import AuthorSubmission from '../components/AuthorSubmission';
-import ExternalLink from '../../../common/components/ExternalLink.tsx';
 import { AUTHORS_PID_TYPE } from '../../../common/constants';
 import LoadingOrChildren from '../../../common/components/LoadingOrChildren';
 import SubmissionPage from '../../common/components/SubmissionPage';
@@ -67,11 +66,7 @@ class AuthorUpdateSubmissionPage extends Component {
         description={
           <span>
             This form allows you to update information of an existing author.
-            All modifications are transferred to{' '}
-            <ExternalLink href="//inspirehep.net/hepnames">
-              inspirehep.net/hepnames
-            </ExternalLink>{' '}
-            upon approval.
+            All modifications will appear immediately.
           </span>
         }
       >
