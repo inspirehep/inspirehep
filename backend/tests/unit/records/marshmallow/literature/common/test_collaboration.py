@@ -5,7 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
+import orjson
 
 from inspirehep.records.marshmallow.literature.common import (
     CollaborationSchemaV1,
@@ -20,7 +20,7 @@ def test_collaboration_with_suffix_returns_empty_if_value_has_no_suffix():
 
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 def test_collaboration_with_suffix_returns_value_if_value_has_suffix():
@@ -30,7 +30,7 @@ def test_collaboration_with_suffix_returns_value_if_value_has_suffix():
 
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 def test_collaboration_returns_empty_if_value_has_suffix():
@@ -40,7 +40,7 @@ def test_collaboration_returns_empty_if_value_has_suffix():
 
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 def test_collaboration_returns_value_if_value_has_no_suffix():
@@ -50,4 +50,4 @@ def test_collaboration_returns_value_if_value_has_no_suffix():
 
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)

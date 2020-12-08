@@ -6,9 +6,9 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
-import json
 import os
 
+import orjson
 import pkg_resources
 import requests_mock
 from flask import current_app
@@ -35,7 +35,7 @@ def test_get_record_and_schema(inspire_app):
 
     assert response.status_code == 200
 
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     record_metadata = response_data["record"]["metadata"]
     schema = response_data["schema"]
 
@@ -58,7 +58,7 @@ def test_get_record_and_schema_for_redirected_record(inspire_app):
 
     assert response.status_code == 200
 
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     record_metadata = response_data["record"]["metadata"]
     schema = response_data["schema"]
 
@@ -83,6 +83,7 @@ def test_get_record_and_schema_requires_cataloger_logged_in(inspire_app):
 @patch("inspirehep.editor.views.tickets")
 def test_create_rt_ticket(mock_tickets, inspire_app):
     mock_tickets.create_ticket.return_value = 1
+    mock_tickets.get_rt_link_for_ticket.return_value = "http://rt_address"
     user = create_user(role=Roles.cataloger.value)
 
     with inspire_app.test_client() as client:
@@ -90,7 +91,7 @@ def test_create_rt_ticket(mock_tickets, inspire_app):
         response = client.post(
             f""""api/editor/literature/1497201/rt/tickets/create""",
             content_type="application/json",
-            data=json.dumps(
+            data=orjson.dumps(
                 {
                     "description": "description",
                     "owner": "owner",
@@ -107,6 +108,7 @@ def test_create_rt_ticket(mock_tickets, inspire_app):
 @patch("inspirehep.editor.views.tickets")
 def test_create_rt_ticket_only_needs_queue_and_recid(mock_tickets, inspire_app):
     mock_tickets.create_ticket.return_value = 1
+    mock_tickets.get_rt_link_for_ticket.return_value = "http://rt_address"
     user = create_user(role=Roles.cataloger.value)
 
     with inspire_app.test_client() as client:
@@ -114,7 +116,7 @@ def test_create_rt_ticket_only_needs_queue_and_recid(mock_tickets, inspire_app):
         response = client.post(
             "api/editor/literature/1497201/rt/tickets/create",
             content_type="application/json",
-            data=json.dumps({"queue": "queue", "recid": "4328"}),
+            data=orjson.dumps({"queue": "queue", "recid": "4328"}),
         )
 
     assert response.status_code == 200
@@ -123,6 +125,7 @@ def test_create_rt_ticket_only_needs_queue_and_recid(mock_tickets, inspire_app):
 @patch("inspirehep.editor.views.tickets")
 def test_create_rt_ticket_returns_500_on_error(mock_tickets, inspire_app):
     mock_tickets.create_ticket.return_value = -1
+    mock_tickets.get_rt_link_for_ticket.return_value = "http://rt_address"
     user = create_user(role=Roles.cataloger.value)
 
     with inspire_app.test_client() as client:
@@ -130,7 +133,7 @@ def test_create_rt_ticket_returns_500_on_error(mock_tickets, inspire_app):
         response = client.post(
             "api/editor/literature/1497201/rt/tickets/create",
             content_type="application/json",
-            data=json.dumps(
+            data=orjson.dumps(
                 {
                     "description": "description",
                     "owner": "owner",
@@ -144,7 +147,7 @@ def test_create_rt_ticket_returns_500_on_error(mock_tickets, inspire_app):
     assert response.status_code == 500
 
     expected = {"success": False}
-    result = json.loads(response.data)
+    result = orjson.loads(response.data)
 
     assert expected == result
 
@@ -162,6 +165,7 @@ def test_create_rt_ticket_returns_403_on_authentication_error(inspire_app):
 @patch("inspirehep.editor.views.tickets")
 def test_resolve_rt_ticket(mock_tickets, inspire_app):
     mock_tickets.create_ticket.return_value = 1
+    mock_tickets.get_rt_link_for_ticket.return_value = "http://rt_address"
     user = create_user(role=Roles.cataloger.value)
 
     with inspire_app.test_client() as client:
@@ -171,7 +175,7 @@ def test_resolve_rt_ticket(mock_tickets, inspire_app):
     assert response.status_code == 200
 
     expected = {"success": True}
-    result = json.loads(response.data)
+    result = orjson.loads(response.data)
 
     assert expected == result
 
@@ -188,6 +192,7 @@ def test_resolve_rt_ticket_returns_403_on_authentication_error(inspire_app):
 
 @patch("inspirehep.editor.views.tickets")
 def test_get_tickets_for_record(mock_tickets, inspire_app):
+    mock_tickets.get_rt_link_for_ticket.return_value = "http://rt_address"
     user = create_user(role=Roles.cataloger.value)
 
     with inspire_app.test_client() as client:
@@ -209,6 +214,7 @@ def test_get_tickets_for_record_returns_403_on_authentication_error(inspire_app)
 
 @patch("inspirehep.editor.views.tickets")
 def test_get_rt_users(mock_tickets, inspire_app):
+    mock_tickets.get_users.return_value = [{}]
     user = create_user(role=Roles.cataloger.value)
 
     with inspire_app.test_client() as client:
@@ -231,7 +237,7 @@ def test_rt_users_are_cached(mock_get_all_of, inspire_app):
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.get("api/editor/rt/users")
-    assert current_cache.get("rt_users") == json.loads(response.data)
+    assert current_cache.get("rt_users") == orjson.loads(response.data)
 
 
 def test_get_rt_users_returns_403_on_authentication_error(inspire_app):
@@ -246,6 +252,7 @@ def test_get_rt_users_returns_403_on_authentication_error(inspire_app):
 
 @patch("inspirehep.editor.views.tickets")
 def test_get_rt_queues(mock_tickets, inspire_app):
+    mock_tickets.get_queues.return_value = [{}]
     user = create_user(role=Roles.cataloger.value)
 
     with inspire_app.test_client() as client:
@@ -268,7 +275,7 @@ def test_rt_queues_are_cached(mock_get_all_of, inspire_app):
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.get("api/editor/rt/queues")
-    assert current_cache.get("rt_queues") == json.loads(response.data)
+    assert current_cache.get("rt_queues") == orjson.loads(response.data)
 
 
 def test_get_rt_queues_returns_403_on_authentication_error(inspire_app):
@@ -298,9 +305,11 @@ def test_refextract_text(inspire_app):
         response = client.post(
             "api/editor/refextract/text",
             content_type="application/json",
-            data=json.dumps({"text": "John Smith, Journal of Testing 42 (2020) 1234"}),
+            data=orjson.dumps(
+                {"text": "John Smith, Journal of Testing 42 (2020) 1234"}
+            ),
         )
-    references = json.loads(response.data)
+    references = orjson.loads(response.data)
     title_list = get_value(
         {"references": references},
         "references.reference.publication_info.journal_title",
@@ -341,9 +350,9 @@ def test_refextract_url(inspire_app):
             response = client.post(
                 "api/editor/refextract/url",
                 content_type="application/json",
-                data=json.dumps({"url": "https://arxiv.org/pdf/1612.06414.pdf"}),
+                data=orjson.dumps({"url": "https://arxiv.org/pdf/1612.06414.pdf"}),
             )
-        references = json.loads(response.data)
+        references = orjson.loads(response.data)
 
     assert response.status_code == 200
     assert validate(references, subschema) is None

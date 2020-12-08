@@ -5,7 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, request
 from inspire_dojson.utils import get_recid_from_ref, get_record_ref
 from invenio_db import db
 
@@ -13,6 +13,7 @@ from inspirehep.accounts.decorators import login_required_with_roles
 from inspirehep.accounts.roles import Roles
 from inspirehep.disambiguation.utils import create_new_stub_author, update_author_names
 from inspirehep.records.api import AuthorsRecord, LiteratureRecord
+from inspirehep.serializers import jsonify
 
 blueprint = Blueprint("inspirehep_assign", __name__, url_prefix="/assign")
 

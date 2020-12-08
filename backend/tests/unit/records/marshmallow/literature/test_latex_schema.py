@@ -5,9 +5,9 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
 from copy import deepcopy
 
+import orjson
 from freezegun import freeze_time
 
 from inspirehep.records.marshmallow.literature.latex import LatexSchema
@@ -61,7 +61,7 @@ def test_full_schema():
         "today": TODAY,
         "notes": None,
     }
-    result = json.loads(schema.dumps(record).data)
+    result = orjson.loads(schema.dumps(record).data)
     assert expected == result
 
 
@@ -84,7 +84,7 @@ def test_authors_schema():
         "Jimmy",
         "A.~M.~E.~Dinkelbach",
     ]
-    result = json.loads(schema.dumps(record).data)
+    result = orjson.loads(schema.dumps(record).data)
     assert expected == result["authors"]
 
 
@@ -112,7 +112,7 @@ def test_publication_info_schema():
         "artid": "17920",
         "year": "2014",
     }
-    result = json.loads(schema.dumps(record).data)
+    result = orjson.loads(schema.dumps(record).data)
     assert expected == result["publication_info"]
 
 
@@ -137,7 +137,7 @@ def test_publication_info_does_not_generate_page_range_with_page_end():
         "artid": "17920",
         "year": "2014",
     }
-    result = json.loads(schema.dumps(record).data)
+    result = orjson.loads(schema.dumps(record).data)
     assert expected == result["publication_info"]
 
 
@@ -163,7 +163,7 @@ def test_publication_info_generates_page_range_with_page_start():
         "artid": "17920",
         "year": "2014",
     }
-    result = json.loads(schema.dumps(record).data)
+    result = orjson.loads(schema.dumps(record).data)
     assert expected == result["publication_info"]
 
 
@@ -189,7 +189,7 @@ def test_publication_info_without_journal_title_schema():
         "artid": "17920",
         "year": "2014",
     }
-    result = json.loads(schema.dumps(record).data)
+    result = orjson.loads(schema.dumps(record).data)
     assert expected == result["publication_info"]
 
 
@@ -197,7 +197,7 @@ def test_schema_takes_control_number_when_texkeys_not_present():
     schema = LatexSchema()
     record = {"control_number": "123456"}
     expected = "123456"
-    result = json.loads(schema.dumps(record).data)
+    result = orjson.loads(schema.dumps(record).data)
     assert expected == result["texkeys"]
 
 
@@ -235,7 +235,7 @@ def test_schema_gets_erratum():
     expected = deepcopy(record["publication_info"][1:])
     expected[0]["journal_title"] = "Phys. Rev. D"
     expected[1]["journal_title"] = "Phys. Rev. C"
-    result = json.loads(schema.dumps(record).data)
+    result = orjson.loads(schema.dumps(record).data)
 
     assert expected == result["notes"]
 
@@ -260,7 +260,7 @@ def test_schema_handles_missing_info_in_erratum():
 
     expected = deepcopy(record["publication_info"][1:])
     expected[1]["journal_title"] = "Phys. Rev. D"
-    result = json.loads(schema.dumps(record).data)
+    result = orjson.loads(schema.dumps(record).data)
 
     assert expected == result["notes"]
 
@@ -278,6 +278,6 @@ def test_schema_replaces_underscore_in_doi():
         {"value": "10.1142/9789811219313\\_0086"},
         {"source": "Springer", "value": "10.1007/978-981-15-6292-1\\_4"},
     ]
-    result = json.loads(schema.dumps(record).data)
+    result = orjson.loads(schema.dumps(record).data)
 
     assert expected == result["dois"]

@@ -4,10 +4,10 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-import json
 import os
 from time import sleep
 
+import orjson
 import pkg_resources
 import pytest
 import requests_mock
@@ -337,7 +337,7 @@ def test_migrate_from_mirror_doesnt_index_deleted_records(inspire_app):
 
 
 def test_migrate_from_mirror_removes_record_from_es(inspire_app, datadir):
-    data = json.loads((datadir / "dummy_record.json").read_text())
+    data = orjson.loads((datadir / "dummy_record.json").read_text())
     create_record("lit", data=data)
 
     expected_record_lit_es_len = 1

@@ -5,9 +5,9 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
 import time
 
+import orjson
 from helpers.providers.faker import faker
 from helpers.utils import es_search, retry_until_matched, retry_until_pass
 from inspire_utils.record import get_value
@@ -130,7 +130,7 @@ def test_indexer_updates_conference_papers_when_name_changes(
         assert total == 1
 
         literature = get_value(result, "hits.hits[0]._source")
-        ui_display = json.loads(literature["_ui_display"])
+        ui_display = orjson.loads(literature["_ui_display"])
         assert conference["titles"] == get_value(
             ui_display, "conference_info[0].titles"
         )

@@ -58,7 +58,12 @@ class RecordProvider(BaseProvider):
 
     @staticmethod
     def bai():
-        return f"{re.sub('[ .]+', '.', fake.name())}.{fake.random_number(digits=1)}"
+        bai_value = re.sub(
+            "\.+",
+            ".",
+            f"{re.sub(' +', '.', fake.name())}.{fake.random_number(digits=1)}",
+        )
+        return bai_value
 
     @staticmethod
     def hep_record():

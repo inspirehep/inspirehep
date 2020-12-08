@@ -5,8 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
-
+import orjson
 from helpers.providers.faker import faker
 from helpers.utils import create_record, create_user, create_user_and_token
 from invenio_accounts.testutils import login_user_via_session
@@ -21,7 +20,7 @@ def test_author_facets(inspire_app):
             f"/literature/facets?facet_name=hep-author-publication&author_recid=9999"
         )
 
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_status_code = response.status_code
     response_data_facet_keys = list(response_data.get("aggregations").keys())
 
@@ -51,7 +50,7 @@ def test_author_cataloger_facets(inspire_app):
             f"/literature/facets?facet_name=hep-author-publication&author_recid=9999"
         )
 
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_status_code = response.status_code
     response_data_facet_keys = list(response_data.get("aggregations").keys())
 

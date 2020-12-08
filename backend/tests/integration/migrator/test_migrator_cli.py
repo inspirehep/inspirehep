@@ -5,9 +5,9 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
 import os
 
+import orjson
 import pkg_resources
 import pytest
 from helpers.utils import create_record
@@ -61,7 +61,7 @@ def test_migrate_file(inspire_app, cli):
 
     assert result.exit_code == 0
     assert response.status_code == 200
-    assert json.loads(response.data)["metadata"]["control_number"] == 1663923
+    assert orjson.loads(response.data)["metadata"]["control_number"] == 1663923
 
 
 def test_migrate_file_mirror_only(inspire_app, cli):
@@ -111,7 +111,7 @@ def test_migrate_mirror_migrates_pending(inspire_app, cli):
 
     assert result.exit_code == 0
     assert response.status_code == 200
-    assert json.loads(response.data)["metadata"]["control_number"] == 1663924
+    assert orjson.loads(response.data)["metadata"]["control_number"] == 1663924
 
 
 def test_migrate_mirror_broken_migrates_invalid(inspire_app, cli):
@@ -141,7 +141,7 @@ def test_migrate_mirror_broken_migrates_invalid(inspire_app, cli):
 
     assert result.exit_code == 0
     assert response.status_code == 200
-    assert json.loads(response.data)["metadata"]["control_number"] == 1663927
+    assert orjson.loads(response.data)["metadata"]["control_number"] == 1663927
 
 
 @pytest.mark.xfail(
@@ -179,7 +179,8 @@ def test_migrate_mirror_all_migrates_all(inspire_app, cli):
     assert result.exit_code == 0
     assert response.status_code == 200
     assert (
-        "A funny joke" in json.loads(response.data)["metadata"]["abstracts"][0]["value"]
+        "A funny joke"
+        in orjson.loads(response.data)["metadata"]["abstracts"][0]["value"]
     )
 
 

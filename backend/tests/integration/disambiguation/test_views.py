@@ -1,5 +1,4 @@
-import json
-
+import orjson
 from flask import current_app
 from helpers.utils import create_user_and_token
 from mock import patch
@@ -25,7 +24,7 @@ def test_view_disambiguate(disambiguate_signatures_mock, inspire_app, override_c
         response = client.post(
             "/disambiguation",
             content_type="application/json",
-            data=json.dumps({"clusters": clusters}),
+            data=orjson.dumps({"clusters": clusters}),
             headers=headers,
         )
     expected_message = "Disambiguation started."
@@ -62,7 +61,7 @@ def test_view_disambiguate_with_disambiguation_disabled(
         response = client.post(
             "/disambiguation",
             content_type="application/json",
-            data=json.dumps({"clusters": clusters}),
+            data=orjson.dumps({"clusters": clusters}),
             headers=headers,
         )
     expected_message = "Disambiguation feature is disabled."
@@ -95,7 +94,7 @@ def test_view_disambiguate_requires_authentication(
         response = client.post(
             "/disambiguation",
             content_type="application/json",
-            data=json.dumps({"wrong key": clusters}),
+            data=orjson.dumps({"wrong key": clusters}),
         )
     expected_status_code = 401
     result_status_code = response.status_code
@@ -111,7 +110,7 @@ def test_view_disambiguate_with_missing_data(inspire_app):
         response = client.post(
             "/disambiguation",
             content_type="application/json",
-            data=json.dumps({"clusters": clusters}),
+            data=orjson.dumps({"clusters": clusters}),
             headers=headers,
         )
     expected_message = "Validation Error."

@@ -5,8 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
-
+import orjson
 from helpers.utils import create_record, create_user
 from invenio_accounts.testutils import login_user_via_session
 from marshmallow import utils
@@ -17,7 +16,7 @@ from inspirehep.accounts.roles import Roles
 def test_conferences_json_without_login(inspire_app, datadir):
     headers = {"Accept": "application/json"}
 
-    data = json.loads((datadir / "1185692.json").read_text())
+    data = orjson.loads((datadir / "1185692.json").read_text())
 
     record = create_record("con", data=data)
     record_control_number = record["control_number"]
@@ -52,7 +51,7 @@ def test_conferences_json_without_login(inspire_app, datadir):
     with inspire_app.test_client() as client:
         response = client.get(f"/conferences/{record_control_number}", headers=headers)
 
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_data_metadata = response_data["metadata"]
     response_created = response_data["created"]
     response_updated = response_data["updated"]
@@ -91,7 +90,7 @@ def test_conferences_json_with_logged_in_cataloger(inspire_app):
         login_user_via_session(client, email=user.email)
         response = client.get(f"/conferences/{record_control_number}", headers=headers)
 
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_data_metadata = response_data["metadata"]
 
     assert expected_metadata == response_data_metadata
@@ -100,7 +99,7 @@ def test_conferences_json_with_logged_in_cataloger(inspire_app):
 def test_conferences_detail(inspire_app, datadir):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
 
-    data = json.loads((datadir / "1185692.json").read_text())
+    data = orjson.loads((datadir / "1185692.json").read_text())
 
     record = create_record("con", data=data)
     record_control_number = record["control_number"]
@@ -135,7 +134,7 @@ def test_conferences_detail(inspire_app, datadir):
     with inspire_app.test_client() as client:
         response = client.get(f"/conferences/{record_control_number}", headers=headers)
 
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_data_metadata = response_data["metadata"]
     response_created = response_data["created"]
     response_updated = response_data["updated"]
@@ -148,7 +147,7 @@ def test_conferences_detail(inspire_app, datadir):
 def test_conferences_search_json(inspire_app, datadir):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
 
-    data = json.loads((datadir / "1185692.json").read_text())
+    data = orjson.loads((datadir / "1185692.json").read_text())
 
     record = create_record("con", data=data)
 
@@ -182,7 +181,7 @@ def test_conferences_search_json(inspire_app, datadir):
     with inspire_app.test_client() as client:
         response = client.get("/conferences", headers=headers)
 
-    response_data_hit = json.loads(response.data)["hits"]["hits"][0]
+    response_data_hit = orjson.loads(response.data)["hits"]["hits"][0]
 
     response_created = response_data_hit["created"]
     response_updated = response_data_hit["updated"]
@@ -261,7 +260,7 @@ def test_conferences_json_search_doesnt_return_emails(inspire_app, datadir):
     with inspire_app.test_client() as client:
         response = client.get("/conferences", headers=headers)
 
-    response_data_hit = json.loads(response.data)["hits"]["hits"][0]
+    response_data_hit = orjson.loads(response.data)["hits"]["hits"][0]
     response_metadata = response_data_hit["metadata"]
 
     assert "email" not in response_metadata["contact_details"][0]

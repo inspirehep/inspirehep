@@ -5,9 +5,9 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
 import os
 
+import orjson
 import pytest
 import requests_mock
 from helpers.providers.faker import faker
@@ -19,7 +19,7 @@ def test_import_article_view_400_bad_arxiv(inspire_app):
         resp = client.get("/literature/import/bad_arxiv:0000.0000")
 
     expected_msg = "bad_arxiv:0000.0000 is not a recognized identifier."
-    resp_msg = json.loads(resp.data)["message"]
+    resp_msg = orjson.loads(resp.data)["message"]
 
     assert expected_msg == resp_msg
     assert resp.status_code == 400
@@ -31,7 +31,7 @@ def test_import_article_view_404_non_existing_doi(inspire_app):
         resp = client.get("/literature/import/10.1016/j.physletb.2099.08.020")
 
     expected_msg = "No article found for 10.1016/j.physletb.2099.08.020"
-    result_msg = json.loads(resp.data)["message"]
+    result_msg = orjson.loads(resp.data)["message"]
 
     assert expected_msg == result_msg
     assert resp.status_code == 404
@@ -48,8 +48,8 @@ def test_import_article_view_409_because_article_already_exists(inspire_app):
 
     expected_msg = f"The article arXiv:{arxiv_value} already exists in Inspire"
     expected_recid = str(record["control_number"])
-    result_msg = json.loads(resp.data)["message"]
-    result_recid = json.loads(resp.data)["recid"]
+    result_msg = orjson.loads(resp.data)["message"]
+    result_recid = orjson.loads(resp.data)["recid"]
 
     assert expected_msg == result_msg
     assert expected_recid == result_recid

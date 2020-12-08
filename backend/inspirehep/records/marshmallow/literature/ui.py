@@ -5,8 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
-
+import orjson
 from flask import current_app, url_for
 from inspire_utils.date import format_date
 from inspire_utils.record import get_value, get_values_for_schema
@@ -222,7 +221,7 @@ class LiteratureListWrappedSchema(EnvelopeSchema):
 
     def get_ui_display(self, data):
         try:
-            ui_display = json.loads(get_value(data, "metadata._ui_display", ""))
+            ui_display = orjson.loads(get_value(data, "metadata._ui_display", ""))
             if is_superuser_or_cataloger_logged_in():
                 ui_display["can_edit"] = True
             if is_assign_view_enabled():
@@ -236,5 +235,5 @@ class LiteratureListWrappedSchema(EnvelopeSchema):
                 del acquisition_source["email"]
                 ui_display.update({"acquisition_source": acquisition_source})
             return ui_display
-        except json.JSONDecodeError:
+        except orjson.JSONDecodeError:
             return {}

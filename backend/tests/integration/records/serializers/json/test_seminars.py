@@ -5,8 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
-
+import orjson
 from helpers.utils import create_record, create_user
 from invenio_accounts.testutils import login_user_via_session
 from marshmallow import utils
@@ -27,7 +26,7 @@ from inspirehep.records.marshmallow.seminars.base import (
 def test_seminars_json_without_login(inspire_app, datadir):
     headers = {"Accept": "application/json"}
 
-    data = json.loads((datadir / "1.json").read_text())
+    data = orjson.loads((datadir / "1.json").read_text())
 
     record = create_record("sem", data=data)
     record_control_number = record["control_number"]
@@ -38,7 +37,7 @@ def test_seminars_json_without_login(inspire_app, datadir):
     with inspire_app.test_client() as client:
         response = client.get(f"/seminars/{record_control_number}", headers=headers)
 
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_data_metadata = response_data["metadata"]
     response_created = response_data["created"]
     response_updated = response_data["updated"]
@@ -53,7 +52,7 @@ def test_seminars_json_with_logged_in_cataloger(inspire_app, datadir):
 
     headers = {"Accept": "application/json"}
 
-    data = json.loads((datadir / "1.json").read_text())
+    data = orjson.loads((datadir / "1.json").read_text())
 
     record = create_record("sem", data=data)
     record_control_number = record["control_number"]
@@ -64,7 +63,7 @@ def test_seminars_json_with_logged_in_cataloger(inspire_app, datadir):
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.get(f"/seminars/{record_control_number}", headers=headers)
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_data_metadata = response_data["metadata"]
     response_created = response_data["created"]
     response_updated = response_data["updated"]
@@ -77,7 +76,7 @@ def test_seminars_json_with_logged_in_cataloger(inspire_app, datadir):
 def test_seminars_search_json(inspire_app, datadir):
     headers = {"Accept": "application/json"}
 
-    data = json.loads((datadir / "1.json").read_text())
+    data = orjson.loads((datadir / "1.json").read_text())
 
     record = create_record("sem", data=data)
 
@@ -106,7 +105,7 @@ def test_seminars_logged_in_search_json(inspire_app, datadir):
 
         headers = {"Accept": "application/json"}
 
-        data = json.loads((datadir / "1.json").read_text())
+        data = orjson.loads((datadir / "1.json").read_text())
 
         record = create_record("sem", data=data)
 
@@ -131,7 +130,7 @@ def test_seminars_detail(inspire_app, datadir):
     with inspire_app.test_client() as client:
         headers = {"Accept": "application/vnd+inspire.record.ui+json"}
 
-        data = json.loads((datadir / "1.json").read_text())
+        data = orjson.loads((datadir / "1.json").read_text())
 
         record = create_record("sem", data=data)
         record_control_number = record["control_number"]
@@ -143,7 +142,7 @@ def test_seminars_detail(inspire_app, datadir):
 
         response = client.get(f"/seminars/{record_control_number}", headers=headers)
 
-        response_data = json.loads(response.data)
+        response_data = orjson.loads(response.data)
         response_data_metadata = response_data["metadata"]
         response_created = response_data["created"]
         response_updated = response_data["updated"]
@@ -157,7 +156,7 @@ def test_seminars_search(inspire_app, datadir):
     with inspire_app.test_client() as client:
         headers = {"Accept": "application/vnd+inspire.record.ui+json"}
 
-        data = json.loads((datadir / "1.json").read_text())
+        data = orjson.loads((datadir / "1.json").read_text())
 
         record = create_record("sem", data=data)
 
@@ -168,7 +167,7 @@ def test_seminars_search(inspire_app, datadir):
 
         response = client.get(f"/seminars", headers=headers)
 
-        response_data = json.loads(response.data)
+        response_data = orjson.loads(response.data)
         response_data_metadata = response_data["hits"]["hits"][0]["metadata"]
         response_created = response_data["hits"]["hits"][0]["created"]
         response_updated = response_data["hits"]["hits"][0]["updated"]
@@ -314,7 +313,7 @@ def test_seminars_list_search_doesnt_return_email_adress(inspire_app):
 
         response = client.get(f"/seminars", headers=headers)
 
-        response_data = json.loads(response.data)
+        response_data = orjson.loads(response.data)
         response_data_metadata = response_data["hits"]["hits"][0]["metadata"]
         response_created = response_data["hits"]["hits"][0]["created"]
         response_updated = response_data["hits"]["hits"][0]["updated"]
@@ -345,7 +344,7 @@ def test_seminars_search_doesnt_return_email_adress(inspire_app):
 
         response = client.get("/seminars", headers=headers)
 
-        response_data = json.loads(response.data)
+        response_data = orjson.loads(response.data)
         response_data_metadata = response_data["hits"]["hits"][0]["metadata"]
         response_created = response_data["hits"]["hits"][0]["created"]
         response_updated = response_data["hits"]["hits"][0]["updated"]

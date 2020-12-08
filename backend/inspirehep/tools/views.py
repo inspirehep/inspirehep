@@ -8,9 +8,10 @@
 from io import BytesIO, TextIOWrapper
 from os.path import splitext
 
-from flask import Blueprint, current_app, jsonify, request
+from flask import Blueprint, current_app, request
 
 from inspirehep.files.api import current_s3_instance
+from inspirehep.serializers import jsonify
 from inspirehep.tools.utils import (
     find_references,
     get_filename,

@@ -5,7 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
+import orjson
 
 from inspirehep.records.marshmallow.literature.common import IsbnSchemaV1
 
@@ -17,7 +17,7 @@ def test_isbn_medium_online_becomes_eBook():
 
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 def test_isbn_medium_titleized_if_not_online():
@@ -27,7 +27,7 @@ def test_isbn_medium_titleized_if_not_online():
 
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 def test_none_fields():
@@ -37,4 +37,4 @@ def test_none_fields():
 
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)

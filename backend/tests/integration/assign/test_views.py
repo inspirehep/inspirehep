@@ -5,8 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
-
+import orjson
 from helpers.utils import create_record, create_user
 from inspire_dojson.utils import get_recid_from_ref
 from invenio_accounts.testutils import login_user_via_session
@@ -35,7 +34,7 @@ def test_assign_without_login(inspire_app):
     with inspire_app.test_client() as client:
         response = client.post(
             "/assign",
-            data=json.dumps(
+            data=orjson.dumps(
                 {
                     "literature_recids": [literature["control_number"]],
                     "from_author_recid": from_author["control_number"],
@@ -85,7 +84,7 @@ def test_assign_requires_cataloger_login(inspire_app):
         login_user_via_session(client, email=user.email)
         response = client.post(
             "/assign",
-            data=json.dumps(
+            data=orjson.dumps(
                 {
                     "literature_recids": [literature["control_number"]],
                     "from_author_recid": from_author["control_number"],
@@ -153,7 +152,7 @@ def test_assign_from_an_author_to_another(inspire_app):
         login_user_via_session(client, email=cataloger.email)
         response = client.post(
             "/assign",
-            data=json.dumps(
+            data=orjson.dumps(
                 {
                     "literature_recids": [
                         literature_1["control_number"],
@@ -209,7 +208,7 @@ def test_assign_from_an_author_to_another_that_is_not_stub(inspire_app):
         login_user_via_session(client, email=cataloger.email)
         response = client.post(
             "/assign",
-            data=json.dumps(
+            data=orjson.dumps(
                 {
                     "literature_recids": [literature["control_number"]],
                     "from_author_recid": from_author["control_number"],
@@ -272,7 +271,7 @@ def test_assign_without_to_author(inspire_app):
         login_user_via_session(client, email=cataloger.email)
         response = client.post(
             "/assign",
-            data=json.dumps(
+            data=orjson.dumps(
                 {
                     "literature_recids": [
                         literature1["control_number"],

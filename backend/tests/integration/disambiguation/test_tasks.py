@@ -5,9 +5,9 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
 import re
 
+import orjson
 import pytest
 from freezegun import freeze_time
 from helpers.utils import create_record
@@ -114,7 +114,7 @@ def test_disambiguate_signatures_cluster_creates_author_with_facet_author_name(
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
     with inspire_app.test_client() as client:
         response = client.get(f"/authors/{author_control_number}", headers=headers)
-    author_details_json = json.loads(response.data)
+    author_details_json = orjson.loads(response.data)
     assert (
         expected_facet_author_name
         == author_details_json["metadata"]["facet_author_name"]

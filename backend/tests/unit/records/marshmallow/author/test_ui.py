@@ -5,9 +5,8 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
-
 import mock
+import orjson
 from helpers.providers.faker import faker
 
 from inspirehep.records.marshmallow.authors import (
@@ -30,7 +29,7 @@ def test_should_display_positions_without_positions(can_edit):
     expected_result = False
 
     result = schema.dumps(author).data
-    result_data = json.loads(result)
+    result_data = orjson.loads(result)
     result_should_display_positions = result_data.get("should_display_positions")
 
     assert expected_result == result_should_display_positions
@@ -51,7 +50,7 @@ def test_should_display_positions_with_multiple_positions(can_edit):
     expected_result = True
 
     result = schema.dumps(author).data
-    result_data = json.loads(result)
+    result_data = orjson.loads(result)
     result_should_display_positions = result_data.get("should_display_positions")
 
     assert expected_result == result_should_display_positions
@@ -72,7 +71,7 @@ def test_should_display_positions_with_multiple_positions_with_rank(can_edit):
     expected_result = True
 
     result = schema.dumps(author).data
-    result_data = json.loads(result)
+    result_data = orjson.loads(result)
     result_should_display_positions = result_data.get("should_display_positions")
 
     assert expected_result == result_should_display_positions
@@ -93,7 +92,7 @@ def test_should_display_positions_with_multiple_positions_with_start_date(can_ed
     expected_result = True
 
     result = schema.dumps(author).data
-    result_data = json.loads(result)
+    result_data = orjson.loads(result)
     result_should_display_positions = result_data.get("should_display_positions")
 
     assert expected_result == result_should_display_positions
@@ -114,7 +113,7 @@ def test_should_display_positions_with_multiple_positions_if_is_not_current(can_
     expected_result = True
 
     result = schema.dumps(author).data
-    result_data = json.loads(result)
+    result_data = orjson.loads(result)
     result_should_display_positions = result_data.get("should_display_positions")
 
     assert expected_result == result_should_display_positions
@@ -135,7 +134,7 @@ def test_returns_should_display_position_false_if_position_is_current(can_edit):
     expected_result = False
 
     result = schema.dumps(author).data
-    result_data = json.loads(result)
+    result_data = orjson.loads(result)
     result_should_display_positions = result_data.get("should_display_positions")
 
     assert expected_result == result_should_display_positions
@@ -155,7 +154,7 @@ def test_facet_author_name_with_preferred_name_and_control_number(can_edit):
     expected_result = "1_J Doe"
 
     result = schema.dumps(author).data
-    result_data = json.loads(result)
+    result_data = orjson.loads(result)
     result_facet_author_name = result_data.get("facet_author_name")
 
     assert expected_result == result_facet_author_name
@@ -172,7 +171,7 @@ def test_facet_author_name_without_preferred_name(can_edit):
     expected_result = "1_John Doe"
 
     result = schema.dumps(author).data
-    result_data = json.loads(result)
+    result_data = orjson.loads(result)
     result_facet_author_name = result_data.get("facet_author_name")
 
     assert expected_result == result_facet_author_name
@@ -188,7 +187,7 @@ def test_author_twitter(can_edit):
     expected_twitter = "harunurhan"
 
     result = schema.dumps(author).data
-    result_data = json.loads(result)
+    result_data = orjson.loads(result)
     result_twitter = result_data.get("twitter")
 
     assert expected_twitter == result_twitter
@@ -204,7 +203,7 @@ def test_author_linkedin(can_edit):
     expected_linkedin = "harunurhan"
 
     result = schema.dumps(author).data
-    result_data = json.loads(result)
+    result_data = orjson.loads(result)
     result_linkedin = result_data.get("linkedin")
 
     assert expected_linkedin == result_linkedin
@@ -218,7 +217,7 @@ def test_author_does_not_have_id_fields(can_edit):
     author = faker.record("aut", with_control_number=True)
 
     result = schema.dumps(author).data
-    result_data = json.loads(result)
+    result_data = orjson.loads(result)
 
     assert "linkedin" not in result_data
     assert "twitter" not in result_data
@@ -236,7 +235,7 @@ def test_author_bai(can_edit):
     expected_bai = "John.Doe.1"
 
     result = schema.dumps(author).data
-    result_data = json.loads(result)
+    result_data = orjson.loads(result)
     result_bai = result_data.get("bai")
 
     assert expected_bai == result_bai
@@ -252,7 +251,7 @@ def test_author_orcid(can_edit):
     expected_orcid = "0000-0001-8058-0014"
 
     result = schema.dumps(author).data
-    result_data = json.loads(result)
+    result_data = orjson.loads(result)
     result_orcid = result_data.get("orcid")
 
     assert expected_orcid == result_orcid
@@ -277,7 +276,7 @@ def test_only_public_and_current_emails(can_edit):
     ]
 
     result = schema.dumps(author).data
-    result_data = json.loads(result)
+    result_data = orjson.loads(result)
     result_email_addresses = result_data.get("email_addresses")
 
     assert expected_email_addresses == result_email_addresses
@@ -316,7 +315,7 @@ def test_author_advisors_has_first_and_last_names(can_edit):
     ]
 
     result = schema.dumps(author).data
-    result_data = json.loads(result)
+    result_data = orjson.loads(result)
     result_advisors = result_data.get("advisors")
 
     assert expected_advisors == result_advisors
@@ -337,7 +336,7 @@ def test_authors_search_schema_doesnt_return_acquisition_source_email(can_edit):
     author = faker.record("aut", data=data, with_control_number=True)
 
     result = schema.dumps(author).data
-    result_data = json.loads(result)
+    result_data = orjson.loads(result)
 
     assert "acquisition_source" not in result_data
 
@@ -356,6 +355,6 @@ def test_authors_api_schema_doesnt_return_email_adresses(can_edit):
     }
     author = faker.record("aut", data=data, with_control_number=True)
     result = schema.dumps(author).data
-    result_data = json.loads(result)
+    result_data = orjson.loads(result)
 
     assert "email_adresses" not in result_data

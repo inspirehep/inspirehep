@@ -5,9 +5,8 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
-
 import mock
+import orjson
 
 from inspirehep.records.api import LiteratureRecord
 from inspirehep.records.marshmallow.common import AcceleratorExperimentSchemaV1
@@ -23,7 +22,7 @@ def test_returns_legacy_name_as_name(get_records_mock):
     expected = {"name": "Test"}
     result = schema.dumps(record).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 @mock.patch("inspirehep.records.api.base.InspireRecord.get_records_by_pids")
@@ -42,7 +41,7 @@ def test_returns_dashed_institution_accelerator_experiment_as_name_if_all_presen
     record = LiteratureRecord(dump)
     result = schema.dumps(record).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 @mock.patch("inspirehep.records.api.base.InspireRecord.get_records_by_pids")
@@ -58,7 +57,7 @@ def test_returns_legacy_name_as_name_if_accelerator_missing(get_records_mock):
     record = LiteratureRecord(dump)
     result = schema.dumps(record).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 @mock.patch("inspirehep.records.api.base.InspireRecord.get_records_by_pids")
@@ -74,7 +73,7 @@ def test_returns_legacy_name_as_name_if_institutions_missing(get_records_mock):
     record = LiteratureRecord(dump)
     result = schema.dumps(record).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 @mock.patch("inspirehep.records.api.base.InspireRecord.get_records_by_pids")
@@ -90,7 +89,7 @@ def test_returns_legacy_name_as_name_if_experiment_missing(get_records_mock):
     record = LiteratureRecord(dump)
     result = schema.dumps(record).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 @mock.patch("inspirehep.records.api.base.InspireRecord.get_records_by_pids")
@@ -102,7 +101,7 @@ def test_returns_none_as_name_if_empty_present(get_records_mock):
     record = LiteratureRecord(dump)
     result = schema.dumps(record).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 @mock.patch("inspirehep.records.api.base.InspireRecord.get_records_by_pids")
@@ -121,7 +120,7 @@ def test_returns_dashed_institution_accelerator_experiment_as_name_with_unicode(
     record = LiteratureRecord(dump)
     result = schema.dumps(record).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 @mock.patch("inspirehep.records.api.base.InspireRecord.get_records_by_pids")
@@ -143,4 +142,4 @@ def test_accelerator_experiment_many(get_records_mock):
 
     result = schema.dumps([dump1, dump2], many=True).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)

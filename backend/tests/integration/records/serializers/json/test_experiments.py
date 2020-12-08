@@ -5,9 +5,9 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
 from copy import deepcopy
 
+import orjson
 from helpers.utils import create_record, create_record_factory, create_user
 from invenio_accounts.testutils import login_user_via_session
 from marshmallow import utils
@@ -18,7 +18,7 @@ from inspirehep.accounts.roles import Roles
 def test_experiments_json_without_login(inspire_app, datadir):
     headers = {"Accept": "application/json"}
 
-    data = json.loads((datadir / "1108739.json").read_text())
+    data = orjson.loads((datadir / "1108739.json").read_text())
 
     record = create_record_factory("exp", data=data)
     record_control_number = record.json["control_number"]
@@ -32,7 +32,7 @@ def test_experiments_json_without_login(inspire_app, datadir):
     with inspire_app.test_client() as client:
         response = client.get(f"/experiments/{record_control_number}", headers=headers)
 
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_data_metadata = response_data["metadata"]
     response_created = response_data["created"]
     response_updated = response_data["updated"]
@@ -47,7 +47,7 @@ def test_experiments_json_with_loggedin_cataloger(inspire_app, datadir):
 
     headers = {"Accept": "application/json"}
 
-    data = json.loads((datadir / "1108739.json").read_text())
+    data = orjson.loads((datadir / "1108739.json").read_text())
 
     record = create_record_factory("exp", data=data)
     record_control_number = record.json["control_number"]
@@ -60,7 +60,7 @@ def test_experiments_json_with_loggedin_cataloger(inspire_app, datadir):
         login_user_via_session(client, email=user.email)
         response = client.get(f"/experiments/{record_control_number}", headers=headers)
 
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_data_metadata = response_data["metadata"]
     response_created = response_data["created"]
     response_updated = response_data["updated"]
@@ -73,7 +73,7 @@ def test_experiments_json_with_loggedin_cataloger(inspire_app, datadir):
 def test_experiments_json_search(inspire_app, datadir):
     headers = {"Accept": "application/json"}
 
-    data = json.loads((datadir / "1108739.json").read_text())
+    data = orjson.loads((datadir / "1108739.json").read_text())
 
     record = create_record("exp", data=data)
 
@@ -100,7 +100,7 @@ def test_experiments_json_search(inspire_app, datadir):
 def test_experiments_detail(inspire_app, datadir):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
 
-    data = json.loads((datadir / "1108739.json").read_text())
+    data = orjson.loads((datadir / "1108739.json").read_text())
 
     record = create_record_factory("exp", data=data)
     record_control_number = record.json["control_number"]
@@ -114,7 +114,7 @@ def test_experiments_detail(inspire_app, datadir):
     with inspire_app.test_client() as client:
         response = client.get(f"/experiments/{record_control_number}", headers=headers)
 
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_data_metadata = response_data["metadata"]
     response_created = response_data["created"]
     response_updated = response_data["updated"]
@@ -154,7 +154,7 @@ def test_parent_experiments_in_detail_page(inspire_app):
     record_control_number = record.json["control_number"]
     with inspire_app.test_client() as client:
         response = client.get(f"/experiments/{record_control_number}", headers=headers)
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_data_metadata = response_data["metadata"]
     assert (
         response_data_metadata["parent_experiments"]
@@ -188,7 +188,7 @@ def test_successor_experiments_in_detail_page(inspire_app):
     record_control_number = record.json["control_number"]
     with inspire_app.test_client() as client:
         response = client.get(f"/experiments/{record_control_number}", headers=headers)
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_data_metadata = response_data["metadata"]
     assert (
         response_data_metadata["successor_experiments"]
@@ -222,7 +222,7 @@ def test_predecessor_experiments_in_detail_page(inspire_app):
     record_control_number = record.json["control_number"]
     with inspire_app.test_client() as client:
         response = client.get(f"/experiments/{record_control_number}", headers=headers)
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_data_metadata = response_data["metadata"]
     assert (
         response_data_metadata["predecessor_experiments"]
@@ -276,7 +276,7 @@ def test_subsidiary_experiments_in_detail_page(inspire_app):
     ]
     with inspire_app.test_client() as client:
         response = client.get(f"/experiments/{record_control_number}", headers=headers)
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_data_metadata = response_data["metadata"]
     assert (
         response_data_metadata["subsidiary_experiments"] == expected_subsidiary_records

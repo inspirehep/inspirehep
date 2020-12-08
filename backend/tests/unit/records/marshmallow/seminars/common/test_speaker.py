@@ -5,7 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
+import orjson
 
 from inspirehep.records.marshmallow.seminars.common.speaker import SpeakerSchemaV1
 
@@ -17,7 +17,7 @@ def test_speaker_with_first_and_last_name():
     expected = {"name": "Castle, Frank", "first_name": "Frank", "last_name": "Castle"}
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 def test_speaker_without_last_name():
@@ -27,7 +27,7 @@ def test_speaker_without_last_name():
     expected = {"name": "Frank Castle", "first_name": "Frank Castle"}
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 def test_speaker():
@@ -79,4 +79,4 @@ def test_speaker():
     }
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)

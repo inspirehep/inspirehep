@@ -4,8 +4,7 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-import json
-
+import orjson
 from helpers.utils import create_record, create_record_factory, create_user
 from invenio_accounts.testutils import login_user_via_session
 
@@ -120,7 +119,7 @@ def test_institutions_application_json_put_with_cataloger_logged_in(inspire_app)
         response = client.put(
             "/institutions/{}".format(record_control_number),
             content_type="application/json",
-            data=json.dumps(
+            data=orjson.dumps(
                 {
                     "control_number": record_control_number,
                     "$schema": "http://localhost:5000/schemas/records/institutions.json",

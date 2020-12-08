@@ -7,11 +7,11 @@
 
 
 import copy
-import json
 import os
 import random
 import uuid
 
+import orjson
 import pkg_resources
 from invenio_records.models import RecordMetadata
 from invenio_search import current_search_client as es
@@ -134,6 +134,6 @@ class TestRecordMetadata(TestBaseModel):
         path = pkg_resources.resource_filename(
             module_name, os.path.join("fixtures", filename)
         )
-
-        data = json.load(open(path))
+        with open(path) as fp:
+            data = orjson.loads(fp.read())
         return cls.create_from_kwargs(json=data, **kwargs)

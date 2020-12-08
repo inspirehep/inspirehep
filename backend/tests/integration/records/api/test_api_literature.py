@@ -5,10 +5,10 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 import datetime
-import json
 from uuid import UUID, uuid4
 
 import mock
+import orjson
 import pytest
 import requests_mock
 from flask import current_app
@@ -375,7 +375,7 @@ def test_dump_for_es(inspire_app):
     assert record["control_number"] == dump["id"]
     assert expected_document_type == dump["document_type"]
 
-    ui_field = json.loads(dump["_ui_display"])
+    ui_field = orjson.loads(dump["_ui_display"])
     assert "titles" in ui_field
     assert "document_type" in ui_field
     assert record["titles"] == ui_field["titles"]

@@ -5,10 +5,10 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
 from copy import deepcopy
 
 import mock
+import orjson
 from helpers.providers.faker import faker
 
 from inspirehep.records.marshmallow.literature import LiteratureElasticSearchSchema
@@ -43,7 +43,7 @@ def test_abstract_source_full(
     expected_abstracts = deepcopy(data["abstracts"])
     expected_abstracts[0]["abstract_source_suggest"] = {"input": "submitter"}
     expected_abstracts[1]["abstract_source_suggest"] = {"input": "arXiv"}
-    result = json.loads(schema().dumps(record).data)
+    result = orjson.loads(schema().dumps(record).data)
     assert result["abstracts"] == expected_abstracts
 
 
@@ -74,7 +74,7 @@ def test_abstract_source_one_missing_source(
     record = faker.record("lit", data=data)
     expected_abstracts = deepcopy(data["abstracts"])
     expected_abstracts[1]["abstract_source_suggest"] = {"input": "arXiv"}
-    result = json.loads(schema().dumps(record).data)
+    result = orjson.loads(schema().dumps(record).data)
     assert result["abstracts"] == expected_abstracts
 
 
@@ -91,7 +91,7 @@ def test_abstract_source_missing(
     schema = LiteratureElasticSearchSchema
 
     record = faker.record("lit")
-    result = json.loads(schema().dumps(record).data)
+    result = orjson.loads(schema().dumps(record).data)
     assert result.get("abstracts") is None
 
 
@@ -118,5 +118,5 @@ def test_abstract_source_one_only(
     record = faker.record("lit", data=data)
     expected_abstracts = deepcopy(data["abstracts"])
     expected_abstracts[0]["abstract_source_suggest"] = {"input": "arXiv"}
-    result = json.loads(schema().dumps(record).data)
+    result = orjson.loads(schema().dumps(record).data)
     assert result["abstracts"] == expected_abstracts

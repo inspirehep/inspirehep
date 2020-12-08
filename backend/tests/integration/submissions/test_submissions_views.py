@@ -5,10 +5,10 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
 from copy import deepcopy
 from datetime import datetime, timedelta
 
+import orjson
 import pytest
 import requests_mock
 from flask import current_app, url_for
@@ -39,7 +39,7 @@ def test_author_submit_requires_authentication(inspire_app):
         response = client.post(
             "/submissions/authors",
             content_type="application/json",
-            data=json.dumps(
+            data=orjson.dumps(
                 {
                     "data": {
                         "given_name": "John",
@@ -57,7 +57,7 @@ def test_author_update_requires_authentication(inspire_app):
         response = client.put(
             "/submissions/authors/123",
             content_type="application/json",
-            data=json.dumps(
+            data=orjson.dumps(
                 {
                     "data": {
                         "given_name": "John",
@@ -90,7 +90,7 @@ def test_new_author_submit(inspire_app, requests_mock):
         response = client.post(
             "/submissions/authors",
             content_type="application/json",
-            data=json.dumps(
+            data=orjson.dumps(
                 {
                     "data": {
                         "given_name": "John",
@@ -138,7 +138,7 @@ def test_new_author_submit_with_workflows_error(inspire_app, requests_mock):
         response = client.post(
             "/submissions/authors",
             content_type="application/json",
-            data=json.dumps(
+            data=orjson.dumps(
                 {
                     "data": {
                         "given_name": "John",
@@ -163,7 +163,7 @@ def test_new_author_submit_works_with_session_login(inspire_app, requests_mock):
         response = client.post(
             "/submissions/authors",
             content_type="application/json",
-            data=json.dumps(
+            data=orjson.dumps(
                 {
                     "data": {
                         "given_name": "John",
@@ -224,7 +224,7 @@ def test_get_author_update_data_of_same_author(inspire_app):
         response = client.get(
             "/submissions/authors/123", headers={"Accept": "application/json"}
         )
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
 
     assert response_data == expected_data
 
@@ -269,7 +269,7 @@ def test_update_author(create_ticket_mock, inspire_app):
         response = client.put(
             "/submissions/authors/123",
             content_type="application/json",
-            data=json.dumps(
+            data=orjson.dumps(
                 {
                     "data": {
                         "given_name": "John, Updated",
@@ -347,7 +347,7 @@ def test_update_author_creates_new_workflow(
         response = client.put(
             "/submissions/authors/123",
             content_type="application/json",
-            data=json.dumps(
+            data=orjson.dumps(
                 {
                     "data": {
                         "given_name": "John, Updated",
@@ -374,7 +374,7 @@ def test_new_literature_submit_no_merge(inspire_app, requests_mock):
         response = client.post(
             "/submissions/literature",
             content_type="application/json",
-            data=json.dumps(
+            data=orjson.dumps(
                 {
                     "data": {
                         "arxiv_id": "1701.00006",
@@ -443,7 +443,7 @@ def test_new_literature_submit_arxiv_urls(inspire_app, requests_mock):
         response = client.post(
             "/submissions/literature",
             content_type="application/json",
-            data=json.dumps(
+            data=orjson.dumps(
                 {
                     "data": {
                         "arxiv_id": "1701.00006",
@@ -510,7 +510,7 @@ def test_new_literature_submit_works_with_session_login(inspire_app, requests_mo
         response = client.post(
             "/submissions/literature",
             content_type="application/json",
-            data=json.dumps(
+            data=orjson.dumps(
                 {
                     "data": {
                         "document_type": "article",
@@ -529,7 +529,7 @@ def test_new_literature_submit_requires_authentication(inspire_app):
         response = client.post(
             "/submissions/literature",
             content_type="application/json",
-            data=json.dumps(
+            data=orjson.dumps(
                 {
                     "data": {
                         "document_type": "article",
@@ -555,7 +555,7 @@ def test_new_literature_submit_with_workflows_api_error(inspire_app, requests_mo
         response = client.post(
             "/submissions/literature",
             content_type="application/json",
-            data=json.dumps(
+            data=orjson.dumps(
                 {
                     "data": {
                         "document_type": "article",
@@ -581,7 +581,7 @@ def test_new_literature_submit_with_private_notes(inspire_app, requests_mock):
         response = client.post(
             "/submissions/literature",
             content_type="application/json",
-            data=json.dumps(
+            data=orjson.dumps(
                 {
                     "data": {
                         "arxiv_id": "1701.00006",
@@ -636,7 +636,7 @@ def test_new_literature_submit_with_private_notes_and_conference_record(
         response = client.post(
             "/submissions/literature",
             content_type="application/json",
-            data=json.dumps(
+            data=orjson.dumps(
                 {
                     "data": {
                         "arxiv_id": "1701.00006",
@@ -696,7 +696,7 @@ def test_job_submit_requires_authentication(ticket_mock, inspire_app):
         response = client.post(
             "/submissions/jobs",
             content_type="application/json",
-            data=json.dumps(DEFAULT_EXAMPLE_JOB_DATA),
+            data=orjson.dumps(DEFAULT_EXAMPLE_JOB_DATA),
         )
     assert response.status_code == 401
 
@@ -707,7 +707,7 @@ def test_job_update_requires_authentication(ticket_mock, inspire_app):
         response = client.post(
             "/submissions/jobs/1234",
             content_type="application/json",
-            data=json.dumps(DEFAULT_EXAMPLE_JOB_DATA),
+            data=orjson.dumps(DEFAULT_EXAMPLE_JOB_DATA),
         )
 
     assert response.status_code == 401
@@ -728,11 +728,11 @@ def test_new_job_submit_by_user(create_ticket_mock, inspire_app):
         response = client.post(
             "/submissions/jobs",
             content_type="application/json",
-            data=json.dumps({"data": DEFAULT_EXAMPLE_JOB_DATA}),
+            data=orjson.dumps({"data": DEFAULT_EXAMPLE_JOB_DATA}),
         )
     assert response.status_code == 201
 
-    job_id = json.loads(response.data)["pid_value"]
+    job_id = orjson.loads(response.data)["pid_value"]
     job_data = JobsRecord.get_record_by_pid_value(job_id)
 
     assert job_data["status"] == "pending"
@@ -749,11 +749,11 @@ def test_new_job_submit_by_cataloger(ticket_mock, inspire_app):
         response = client.post(
             "/submissions/jobs",
             content_type="application/json",
-            data=json.dumps({"data": post_data}),
+            data=orjson.dumps({"data": post_data}),
         )
     assert response.status_code == 201
 
-    job_id = json.loads(response.data)["pid_value"]
+    job_id = orjson.loads(response.data)["pid_value"]
     job_data = JobsRecord.get_record_by_pid_value(job_id)
 
     assert job_data["status"] == "open"
@@ -768,7 +768,7 @@ def test_new_job_submit_with_wrong_field_value(ticket_mock, inspire_app):
         response = client.post(
             "/submissions/jobs",
             content_type="application/json",
-            data=json.dumps({"data": data}),
+            data=orjson.dumps({"data": data}),
         )
     assert response.status_code == 400
 
@@ -782,7 +782,7 @@ def test_new_job_submit_with_wrong_status_value(ticket_mock, inspire_app):
         response = client.post(
             "/submissions/jobs",
             content_type="application/json",
-            data=json.dumps({"data": data}),
+            data=orjson.dumps({"data": data}),
         )
         assert response.status_code == 201
         pid_value = response.json["pid_value"]
@@ -803,7 +803,7 @@ def test_update_job(create_ticket_mock, inspire_app):
         response = client.post(
             "/submissions/jobs",
             content_type="application/json",
-            data=json.dumps({"data": data}),
+            data=orjson.dumps({"data": data}),
         )
 
         assert response.status_code == 201
@@ -816,7 +816,9 @@ def test_update_job(create_ticket_mock, inspire_app):
         )
         data["title"] = "New test title"
         response2 = client.put(
-            record_url, content_type="application/json", data=json.dumps({"data": data})
+            record_url,
+            content_type="application/json",
+            data=orjson.dumps({"data": data}),
         )
 
         assert response2.status_code == 200
@@ -835,7 +837,7 @@ def test_update_job_status_from_pending_not_curator(ticket_mock, inspire_app):
         response = client.post(
             "/submissions/jobs",
             content_type="application/json",
-            data=json.dumps({"data": data}),
+            data=orjson.dumps({"data": data}),
         )
 
         assert response.status_code == 201
@@ -846,7 +848,9 @@ def test_update_job_status_from_pending_not_curator(ticket_mock, inspire_app):
         )
         data["status"] = "open"
         response2 = client.put(
-            record_url, content_type="application/json", data=json.dumps({"data": data})
+            record_url,
+            content_type="application/json",
+            data=orjson.dumps({"data": data}),
         )
 
         assert response2.status_code == 400
@@ -864,7 +868,7 @@ def test_update_job_status_from_pending_curator(create_ticket_mock, inspire_app)
         response = client.post(
             "/submissions/jobs",
             content_type="application/json",
-            data=json.dumps({"data": data}),
+            data=orjson.dumps({"data": data}),
         )
 
     assert response.status_code == 201
@@ -882,7 +886,9 @@ def test_update_job_status_from_pending_curator(create_ticket_mock, inspire_app)
 
         data["status"] = "open"
         response2 = client.put(
-            record_url, content_type="application/json", data=json.dumps({"data": data})
+            record_url,
+            content_type="application/json",
+            data=orjson.dumps({"data": data}),
         )
 
         assert response2.status_code == 200
@@ -901,7 +907,7 @@ def test_update_job_data_from_different_user(ticket_mock, inspire_app):
         response = client.post(
             "/submissions/jobs",
             content_type="application/json",
-            data=json.dumps({"data": data}),
+            data=orjson.dumps({"data": data}),
         )
     assert response.status_code == 201
     pid_value = response.json["pid_value"]
@@ -912,7 +918,9 @@ def test_update_job_data_from_different_user(ticket_mock, inspire_app):
         login_user_via_session(client, email=user2.email)
         data["title"] = "Title2"
         response2 = client.put(
-            record_url, content_type="application/json", data=json.dumps({"data": data})
+            record_url,
+            content_type="application/json",
+            data=orjson.dumps({"data": data}),
         )
     assert response2.status_code == 403
 
@@ -927,7 +935,7 @@ def test_update_job_status_from_open(ticket_mock, inspire_app):
         response = client.post(
             "/submissions/jobs",
             content_type="application/json",
-            data=json.dumps({"data": data}),
+            data=orjson.dumps({"data": data}),
         )
         assert response.status_code == 201
         pid_value = response.json["pid_value"]
@@ -939,14 +947,18 @@ def test_update_job_status_from_open(ticket_mock, inspire_app):
         login_user_via_session(client, email=curator.email)
         data["status"] = "open"
         response2 = client.put(
-            record_url, content_type="application/json", data=json.dumps({"data": data})
+            record_url,
+            content_type="application/json",
+            data=orjson.dumps({"data": data}),
         )
         assert response2.status_code == 200
         #  Login as user again to update job from open to closed
         login_user_via_session(client, email=user.email)
         data["status"] = "closed"
         response3 = client.put(
-            record_url, content_type="application/json", data=json.dumps({"data": data})
+            record_url,
+            content_type="application/json",
+            data=orjson.dumps({"data": data}),
         )
 
         assert response3.status_code == 200
@@ -964,7 +976,7 @@ def test_job_update_data_30_days_after_deadline(inspire_app):
         response = client.post(
             "/submissions/jobs",
             content_type="application/json",
-            data=json.dumps({"data": data}),
+            data=orjson.dumps({"data": data}),
         )
         assert response.status_code == 201
         pid_value = response.json["pid_value"]
@@ -986,7 +998,7 @@ def test_job_update_data_30_days_after_deadline_with_cataloger(inspire_app):
         response = client.post(
             "/submissions/jobs",
             content_type="application/json",
-            data=json.dumps({"data": data}),
+            data=orjson.dumps({"data": data}),
         )
         assert response.status_code == 201
         pid_value = response.json["pid_value"]
@@ -1008,7 +1020,7 @@ def test_job_update_data_less_than_30_days_after_deadline(inspire_app):
         response = client.post(
             "/submissions/jobs",
             content_type="application/json",
-            data=json.dumps({"data": data}),
+            data=orjson.dumps({"data": data}),
         )
         assert response.status_code == 201
         pid_value = response.json["pid_value"]
@@ -1032,7 +1044,7 @@ def test_update_job_from_closed_less_than_30_days_after_deadline_by_user(
         response = client.post(
             "/submissions/jobs",
             content_type="application/json",
-            data=json.dumps({"data": data}),
+            data=orjson.dumps({"data": data}),
         )
         assert response.status_code == 201
         pid_value = response.json["pid_value"]
@@ -1046,14 +1058,18 @@ def test_update_job_from_closed_less_than_30_days_after_deadline_by_user(
             "%Y-%m-%d"
         )  # yesterday
         response2 = client.put(
-            record_url, content_type="application/json", data=json.dumps({"data": data})
+            record_url,
+            content_type="application/json",
+            data=orjson.dumps({"data": data}),
         )
         assert response2.status_code == 200
         #  Login as user again to update job title
         login_user_via_session(client, email=user.email)
         data["title"] = "Another Title"
         response3 = client.put(
-            record_url, content_type="application/json", data=json.dumps({"data": data})
+            record_url,
+            content_type="application/json",
+            data=orjson.dumps({"data": data}),
         )
 
         assert response3.status_code == 200
@@ -1073,7 +1089,7 @@ def test_update_job_status_update_more_than_30_days_after_deadline_by_user(
         response = client.post(
             "/submissions/jobs",
             content_type="application/json",
-            data=json.dumps({"data": data}),
+            data=orjson.dumps({"data": data}),
         )
         assert response.status_code == 201
         pid_value = response.json["pid_value"]
@@ -1085,14 +1101,18 @@ def test_update_job_status_update_more_than_30_days_after_deadline_by_user(
         data["status"] = "closed"
         data["deadline_date"] = "2020-01-01"
         response2 = client.put(
-            record_url, content_type="application/json", data=json.dumps({"data": data})
+            record_url,
+            content_type="application/json",
+            data=orjson.dumps({"data": data}),
         )
         assert response2.status_code == 200
         #  Login as user again to update job title
         login_user_via_session(client, email=user.email)
         data["status"] = "open"
         response3 = client.put(
-            record_url, content_type="application/json", data=json.dumps({"data": data})
+            record_url,
+            content_type="application/json",
+            data=orjson.dumps({"data": data}),
         )
 
         assert response3.status_code == 400
@@ -1128,7 +1148,7 @@ def test_update_job_remove_not_compulsory_fields(ticket_mock, inspire_app):
         response = client.post(
             "/submissions/jobs",
             content_type="application/json",
-            data=json.dumps({"data": data}),
+            data=orjson.dumps({"data": data}),
         )
         pid_value = response.json["pid_value"]
         record_url = url_for(
@@ -1136,7 +1156,9 @@ def test_update_job_remove_not_compulsory_fields(ticket_mock, inspire_app):
         )
         data = {**DEFAULT_EXAMPLE_JOB_DATA}
         response2 = client.put(
-            record_url, content_type="application/json", data=json.dumps({"data": data})
+            record_url,
+            content_type="application/json",
+            data=orjson.dumps({"data": data}),
         )
 
         assert response2.status_code == 200
@@ -1177,7 +1199,9 @@ def test_regression_update_job_without_acquisition_source_doesnt_give_500(
         )
 
         response = client.put(
-            record_url, content_type="application/json", data=json.dumps({"data": data})
+            record_url,
+            content_type="application/json",
+            data=orjson.dumps({"data": data}),
         )
     assert response.status_code == 403
 
@@ -1212,11 +1236,11 @@ def test_new_user_conference_submission_full_form_is_in_db_and_es_and_has_all_fi
         response = client.post(
             "/submissions/conferences",
             content_type="application/json",
-            data=json.dumps({"data": CONFERENCE_FORM_DATA}),
+            data=orjson.dumps({"data": CONFERENCE_FORM_DATA}),
         )
     assert response.status_code == 201
 
-    payload = json.loads(response.data)
+    payload = orjson.loads(response.data)
     conference_id = payload["pid_value"]
     conference_cnum = payload["cnum"]
 
@@ -1292,10 +1316,10 @@ def test_new_user_conference_submission_missing_dates_has_no_cnum(
         response = client.post(
             "/submissions/conferences",
             content_type="application/json",
-            data=json.dumps({"data": form_data}),
+            data=orjson.dumps({"data": form_data}),
         )
 
-    payload = json.loads(response.data)
+    payload = orjson.loads(response.data)
     conference_id = payload["pid_value"]
     conference_cnum = payload["cnum"]
     conference_record = ConferencesRecord.get_record_by_pid_value(conference_id)
@@ -1314,7 +1338,7 @@ def test_non_logged_in_user_tries_to_submit(ticket_mock, inspire_app):
         response = client.post(
             "/submissions/conferences",
             content_type="application/json",
-            data=json.dumps({"data": form_data}),
+            data=orjson.dumps({"data": form_data}),
         )
 
     assert response.status_code == 401
@@ -1331,7 +1355,7 @@ def test_rt_ticket_when_cataloger_submits_conference(ticket_mock, inspire_app):
         response = client.post(
             "/submissions/conferences",
             content_type="application/json",
-            data=json.dumps({"data": form_data}),
+            data=orjson.dumps({"data": form_data}),
         )
 
     assert response.status_code == 201
@@ -1347,7 +1371,7 @@ def test_rt_ticket_when_superuser_submits_conference(ticket_mock, inspire_app):
         response = client.post(
             "/submissions/conferences",
             content_type="application/json",
-            data=json.dumps({"data": form_data}),
+            data=orjson.dumps({"data": form_data}),
         )
 
     assert response.status_code == 201
@@ -1365,7 +1389,7 @@ def test_confirmation_email_not_sent_when_user_is_superuser(
         response = client.post(
             "/submissions/conferences",
             content_type="application/json",
-            data=json.dumps({"data": form_data}),
+            data=orjson.dumps({"data": form_data}),
         )
 
     assert response.status_code == 201
@@ -1383,7 +1407,7 @@ def test_confirmation_email_not_sent_when_user_is_cataloger(
         response = client.post(
             "/submissions/conferences",
             content_type="application/json",
-            data=json.dumps({"data": form_data}),
+            data=orjson.dumps({"data": form_data}),
         )
 
     assert response.status_code == 201
@@ -1401,7 +1425,7 @@ def test_confirmation_email_sent_for_regular_user(
         response = client.post(
             "/submissions/conferences",
             content_type="application/json",
-            data=json.dumps({"data": form_data}),
+            data=orjson.dumps({"data": form_data}),
         )
 
     conference_rec = ConferencesRecord.get_record_by_pid_value(
@@ -1421,7 +1445,7 @@ def test_conference_raise_loader_error(ticket_mock, inspire_app):
         response = client.post(
             "/submissions/conferences",
             content_type="application/json",
-            data=json.dumps({"data": DATA}),
+            data=orjson.dumps({"data": DATA}),
         )
     assert response.status_code == 400
 
@@ -1529,7 +1553,7 @@ def test_get_seminar_update_data(form_data, record_data, inspire_app):
         response = client.get(
             "/submissions/seminars/123", headers={"Accept": "application/json"}
         )
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
 
     assert response_data == expected_data
 
@@ -1579,12 +1603,12 @@ def test_new_seminar_submission(
         response = client.post(
             "/submissions/seminars",
             content_type="application/json",
-            data=json.dumps({"data": form_data}),
+            data=orjson.dumps({"data": form_data}),
         )
 
     assert response.status_code == 201
 
-    payload = json.loads(response.data)
+    payload = orjson.loads(response.data)
     seminar_id = payload["pid_value"]
     seminar_record = SeminarsRecord.get_record_by_pid_value(seminar_id)
     seminar_record_data = {
@@ -1613,12 +1637,12 @@ def test_new_seminar_submission_with_cataloger_login(
         response = client.post(
             "/submissions/seminars",
             content_type="application/json",
-            data=json.dumps({"data": form_data}),
+            data=orjson.dumps({"data": form_data}),
         )
 
     assert response.status_code == 201
 
-    payload = json.loads(response.data)
+    payload = orjson.loads(response.data)
     seminar_id = payload["pid_value"]
     seminar_record = SeminarsRecord.get_record_by_pid_value(seminar_id)
     seminar_record_data = {
@@ -1667,11 +1691,11 @@ def test_seminar_update_submission(
         response = client.put(
             "/submissions/seminars/123",
             content_type="application/json",
-            data=json.dumps({"data": update_form_data}),
+            data=orjson.dumps({"data": update_form_data}),
         )
     assert response.status_code == 200
 
-    payload = json.loads(response.data)
+    payload = orjson.loads(response.data)
     seminar_id = payload["pid_value"]
     seminar_record = SeminarsRecord.get_record_by_pid_value(seminar_id)
     seminar_record_data = {
@@ -1706,11 +1730,11 @@ def test_seminar_update_submission_with_cataloger_login(
         response = client.put(
             "/submissions/seminars/123",
             content_type="application/json",
-            data=json.dumps({"data": form_data}),
+            data=orjson.dumps({"data": form_data}),
         )
     assert response.status_code == 200
 
-    payload = json.loads(response.data)
+    payload = orjson.loads(response.data)
     seminar_id = payload["pid_value"]
     seminar_record = SeminarsRecord.get_record_by_pid_value(seminar_id)
     seminar_record_data = {
@@ -1738,7 +1762,7 @@ def test_seminar_update_submission_without_login(inspire_app):
         response = client.put(
             "/submissions/seminars/123",
             content_type="application/json",
-            data=json.dumps({"data": form_data}),
+            data=orjson.dumps({"data": form_data}),
         )
     assert response.status_code == 401
 
@@ -1759,7 +1783,7 @@ def test_seminar_update_submission_with_different_user(inspire_app):
         response = client.put(
             "/submissions/seminars/123",
             content_type="application/json",
-            data=json.dumps({"data": form_data}),
+            data=orjson.dumps({"data": form_data}),
         )
     assert response.status_code == 403
 
@@ -1780,12 +1804,12 @@ def test_new_seminar_submission_with_valid_lit_record(
         response = client.post(
             "/submissions/seminars",
             content_type="application/json",
-            data=json.dumps({"data": data}),
+            data=orjson.dumps({"data": data}),
         )
 
     assert response.status_code == 201
 
-    payload = json.loads(response.data)
+    payload = orjson.loads(response.data)
     seminar_id = payload["pid_value"]
     seminar_record = SeminarsRecord.get_record_by_pid_value(seminar_id)
     assert seminar_record["literature_records"] == [
@@ -1812,7 +1836,7 @@ def test_new_seminar_submission_with_invalid_lit_record(
         response = client.post(
             "/submissions/seminars",
             content_type="application/json",
-            data=json.dumps({"data": data}),
+            data=orjson.dumps({"data": data}),
         )
         assert response.status_code == 400
         assert response.json["message"][0] == "3 is not a valid literature record."

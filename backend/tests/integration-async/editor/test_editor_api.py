@@ -6,8 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
-import json
-
+import orjson
 import pytest
 from helpers.utils import create_record_async, create_user
 from invenio_accounts.testutils import login_user_via_session
@@ -81,7 +80,7 @@ def test_get_revisions(
 
     assert response.status_code == 200
 
-    result = json.loads(response.data)
+    result = orjson.loads(response.data)
 
     assert result[0]["revision_id"] == 4
     assert result[1]["revision_id"] == 2
@@ -100,7 +99,7 @@ def test_revert_to_revision_requires_authentication(
         response = client.put(
             "/api/editor/literature/111/revisions/revert",
             content_type="application/json",
-            data=json.dumps({"revision_id": 2}),
+            data=orjson.dumps({"revision_id": 2}),
         )
 
     assert response.status_code == 401
@@ -115,7 +114,7 @@ def test_revert_to_revision_with_error(
         response = client.put(
             "/api/editor/literature/555/revisions/revert",
             content_type="application/json",
-            data=json.dumps({"revision_id": 0}),
+            data=orjson.dumps({"revision_id": 0}),
         )
 
     assert response.status_code == 400
@@ -136,7 +135,7 @@ def test_revert_to_revision(
         response = client.put(
             "/api/editor/literature/111/revisions/revert",
             content_type="application/json",
-            data=json.dumps({"revision_id": 2}),
+            data=orjson.dumps({"revision_id": 2}),
         )
 
     assert response.status_code == 200
@@ -212,6 +211,6 @@ def test_get_revision(
 
     assert response.status_code == 200
 
-    result = json.loads(response.data)
+    result = orjson.loads(response.data)
 
     assert result["titles"][0]["title"] == "record rev0"

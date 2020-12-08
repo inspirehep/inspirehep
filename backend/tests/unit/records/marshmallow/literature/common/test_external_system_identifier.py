@@ -5,8 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
-
+import orjson
 from marshmallow import Schema, fields
 
 from inspirehep.records.marshmallow.literature.common import (
@@ -67,7 +66,7 @@ def test_all_schema_types_except_kekscan():
 
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 def test_takes_first_id_foreach_url_name():
@@ -94,7 +93,7 @@ def test_takes_first_id_foreach_url_name():
 
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 def test_takes_ids_that_have_configured_url():
@@ -121,7 +120,7 @@ def test_takes_ids_that_have_configured_url():
 
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 def test_kekscan_with_9_chars_value():
@@ -145,7 +144,7 @@ def test_kekscan_with_9_chars_value():
 
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 def test_kekscan_with_dashes():
@@ -169,7 +168,7 @@ def test_kekscan_with_dashes():
 
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 def test_kekscan_with_7_chars_value_that_does_not_start_with_19_and_20():
@@ -191,7 +190,7 @@ def test_kekscan_with_7_chars_value_that_does_not_start_with_19_and_20():
 
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 def test_kekscan_with_not_9_or_7_chars_is_ignored():
@@ -208,7 +207,7 @@ def test_kekscan_with_not_9_or_7_chars_is_ignored():
 
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 def test_works_without_many_is_true():
@@ -229,7 +228,7 @@ def test_works_without_many_is_true():
 
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 def test_returns_empty_without_many_is_true_if_does_not_have_configured_url():
@@ -247,4 +246,4 @@ def test_returns_empty_without_many_is_true_if_does_not_have_configured_url():
 
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)

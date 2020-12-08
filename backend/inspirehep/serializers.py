@@ -4,9 +4,9 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+from builtins import TypeError
 
-import json
-
+import orjson
 import pytz
 from elasticsearch_dsl import Q
 from flask import current_app, request
@@ -20,7 +20,16 @@ from inspirehep.records.links import inspire_search_links
 from inspirehep.search.api import LiteratureSearch
 
 
-class JSONSerializer(InvenioJSONSerializer):
+class ORJSONSerializerMixin:
+    @staticmethod
+    def _format_args():
+        """Get JSON dump indentation and separates."""
+        if request and request.args.get("prettyprint"):
+            return dict(options=orjson.OPT_INDENT_2)
+        return dict()
+
+
+class JSONSerializer(ORJSONSerializerMixin, InvenioJSONSerializer):
     def __init__(self, schema_class=None, index_name=None, **kwargs):
         self.index_name = index_name
         super().__init__(schema_class, **kwargs)
@@ -61,7 +70,7 @@ class JSONSerializer(InvenioJSONSerializer):
                         pid_fetcher(hit["_id"], hit["_source"]),
                         hit,
                         links_factory=item_links_factory,
-                        **kwargs
+                        **kwargs,
                     )
                     for hit in search_result["hits"]["hits"]
                 ],
@@ -72,7 +81,18 @@ class JSONSerializer(InvenioJSONSerializer):
         sort_options = self._get_sort_options()
         if sort_options:
             data["sort_options"] = sort_options
-        return json.dumps(data, **self._format_args())
+        return orjson.dumps(data, **self._format_args())
+
+    def serialize(self, pid, record, links_factory=None, **kwargs):
+        """Serialize a single record and persistent identifier.
+        :param pid: Persistent identifier instance.
+        :param record: Record instance.
+        :param links_factory: Factory function for record links.
+        """
+        return orjson.dumps(
+            self.transform_record(pid, record, links_factory, **kwargs),
+            **self._format_args(),
+        )
 
     def _get_sort_options(self):
         alias_name = None
@@ -102,7 +122,7 @@ class ConditionalMultiSchemaJSONSerializer(JSONSerializer):
         return schema(context=context).dump(obj).data
 
 
-class JSONSerializerFacets(InvenioJSONSerializer):
+class JSONSerializerFacets(ORJSONSerializerMixin, InvenioJSONSerializer):
     def serialize_search(self, pid_fetcher, search_result, **kwargs):
         """Serialize facets results.
 
@@ -116,7 +136,7 @@ class JSONSerializerFacets(InvenioJSONSerializer):
             search_result.get("aggregations", {})
         )
 
-        return json.dumps(search_result)
+        return orjson.dumps(search_result)
 
     @staticmethod
     def flatten_aggregations(aggregations):
@@ -190,3 +210,80 @@ class JSONSerializerLiteratureSearch(JSONSerializer):
             if hit["_source"]["control_number"] in papers_with_author_curated_recids:
                 hit["_source"]["curated_relation"] = True
         return hits
+
+
+def serialize_json_for_sqlalchemy(data):
+    return orjson.dumps(data).decode("utf-8")
+
+
+def jsonify(*args, **kwargs):
+    """Serialize data to JSON and wrap it in a :class:`~flask.Response`
+    with the :mimetype:`application/json` mimetype.
+    Uses :func:`dumps` to serialize the data, but ``args`` and
+    ``kwargs`` are treated as data rather than arguments to
+    :func:`json.dumps`.
+    1.  Single argument: Treated as a single value.
+    2.  Multiple arguments: Treated as a list of values.
+        ``jsonify(1, 2, 3)`` is the same as ``jsonify([1, 2, 3])``.
+    3.  Keyword arguments: Treated as a dict of values.
+        ``jsonify(data=data, errors=errors)`` is the same as
+        ``jsonify({"data": data, "errors": errors})``.
+    4.  Passing both arguments and keyword arguments is not allowed as
+        it's not clear what should happen.
+    .. code-block:: python
+        from flask import jsonify
+        @app.route("/users/me")
+        def get_current_user():
+            return jsonify(
+                username=g.user.username,
+                email=g.user.email,
+                id=g.user.id,
+            )
+    Will return a JSON response like this:
+    .. code-block:: javascript
+        {
+          "username": "admin",
+          "email": "admin@localhost",
+          "id": 42
+        }
+    The default output omits indents and spaces after separators. In
+    debug mode or if :data:`JSONIFY_PRETTYPRINT_REGULAR` is ``True``,
+    the output will be formatted to be easier to read.
+    .. versionchanged:: 0.11
+        Added support for serializing top-level arrays. This introduces
+        a security risk in ancient browsers. See :ref:`security-json`.
+    .. versionadded:: 0.2
+    """
+    if args and kwargs:
+        raise TypeError("jsonify() behavior undefined when passed both args and kwargs")
+    elif len(args) == 1:  # single args are passed directly to dumps()
+        data = args[0]
+    else:
+        data = args or kwargs
+
+    return current_app.response_class(
+        f"{dumps(data)}\n", mimetype=current_app.config["JSONIFY_MIMETYPE"]
+    )
+
+
+def dumps(obj, app=None, **kwargs):
+    """Serialize an object to a string of JSON.
+    Takes the same arguments as the built-in :func:`json.dumps`, with
+    some defaults from application configuration.
+    :param obj: Object to serialize to JSON.
+    :param app: Use this app's config instead of the active app context
+        or defaults.
+    :param kwargs: Extra arguments passed to func:`json.dumps`.
+    .. versionchanged:: 2.0
+        ``encoding`` is deprecated and will be removed in 2.1.
+    .. versionchanged:: 1.0.3
+        ``app`` can be passed directly, rather than requiring an app
+        context for configuration.
+    """
+    encoding = kwargs.pop("encoding", None)
+    rv = orjson.dumps(obj, option=orjson.OPT_NON_STR_KEYS).decode("utf-8")
+    if encoding is not None:
+        if isinstance(rv, str):
+            return rv.encode(encoding)
+
+    return rv

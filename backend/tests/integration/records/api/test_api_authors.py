@@ -4,9 +4,9 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-import json
 import uuid
 
+import orjson
 import pytest
 from helpers.providers.faker import faker
 from helpers.utils import create_pidstore, create_record

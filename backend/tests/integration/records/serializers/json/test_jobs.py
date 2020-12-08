@@ -4,10 +4,10 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-import json
 from copy import deepcopy
 
 import mock
+import orjson
 from freezegun import freeze_time
 from helpers.utils import create_record, create_user, logout
 from invenio_accounts.testutils import login_user_via_session
@@ -21,7 +21,7 @@ from inspirehep.records.marshmallow.jobs.base import JobsPublicListSchema
 def test_jobs_json(inspire_app, datadir):
     headers = {"Accept": "application/json"}
 
-    data = json.loads((datadir / "955427.json").read_text())
+    data = orjson.loads((datadir / "955427.json").read_text())
 
     record = create_record("job", data=data)
     record_control_number = record["control_number"]
@@ -35,7 +35,7 @@ def test_jobs_json(inspire_app, datadir):
     with inspire_app.test_client() as client:
         response = client.get(f"/jobs/{record_control_number}", headers=headers)
 
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_data_metadata = response_data["metadata"]
     response_data_uuid = response_data["uuid"]
     response_created = response_data["created"]
@@ -49,7 +49,7 @@ def test_jobs_json(inspire_app, datadir):
 def test_jobs_json_cataloger_can_edit(inspire_app, datadir):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
 
-    data = json.loads((datadir / "955427.json").read_text())
+    data = orjson.loads((datadir / "955427.json").read_text())
 
     record = create_record("job", data=data)
     record_control_number = record["control_number"]
@@ -64,7 +64,7 @@ def test_jobs_json_cataloger_can_edit(inspire_app, datadir):
         response = client.get(f"/jobs/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_data_metadata = response_data["metadata"]
 
     assert expected_status_code == response_status_code
@@ -82,7 +82,7 @@ def test_jobs_json_author_can_edit_but_random_user_cant(
     jobs_author = create_user(role="user", orcid=user_orcid, allow_push=True)
     mock_current_user.return_value = jobs_author
 
-    data = json.loads((datadir / "955427.json").read_text())
+    data = orjson.loads((datadir / "955427.json").read_text())
 
     record = create_record("job", data=data)
     record_control_number = record["control_number"]
@@ -95,7 +95,7 @@ def test_jobs_json_author_can_edit_but_random_user_cant(
         response = client.get(f"/jobs/{record_control_number}", headers=headers)
 
         response_status_code = response.status_code
-        response_data_metadata = json.loads(response.data)["metadata"]
+        response_data_metadata = orjson.loads(response.data)["metadata"]
 
         assert expected_status_code == response_status_code
         assert expected_result == response_data_metadata
@@ -104,7 +104,7 @@ def test_jobs_json_author_can_edit_but_random_user_cant(
         mock_current_user.return_value = random_user
 
         response = client.get(f"/jobs/{record_control_number}", headers=headers)
-        response_data_metadata = json.loads(response.data)["metadata"]
+        response_data_metadata = orjson.loads(response.data)["metadata"]
 
     assert not response_data_metadata["can_edit"]
 
@@ -115,7 +115,7 @@ def test_jobs_json_author_can_edit_if_closed_and_less_than_30_days_after_deadlin
 ):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
 
-    data = json.loads((datadir / "955427.json").read_text())
+    data = orjson.loads((datadir / "955427.json").read_text())
     data["deadline_date"] = "2020-01-15"
     data["status"] = "closed"
 
@@ -132,7 +132,7 @@ def test_jobs_json_author_can_edit_if_closed_and_less_than_30_days_after_deadlin
         response = client.get(f"/jobs/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
-    response_data_metadata = json.loads(response.data)["metadata"]
+    response_data_metadata = orjson.loads(response.data)["metadata"]
 
     assert expected_status_code == response_status_code
     assert expected_result == response_data_metadata
@@ -145,7 +145,7 @@ def test_jobs_json_author_cannot_edit_if_is_closed_and_more_than_30_days_after_d
 ):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
 
-    data = json.loads((datadir / "955427.json").read_text())
+    data = orjson.loads((datadir / "955427.json").read_text())
     data["deadline_date"] = "2019-06-01"
     data["status"] = "closed"
     record = create_record("job", data=data)
@@ -163,7 +163,7 @@ def test_jobs_json_author_cannot_edit_if_is_closed_and_more_than_30_days_after_d
         response = client.get(f"/jobs/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
-    response_data_metadata = json.loads(response.data)["metadata"]
+    response_data_metadata = orjson.loads(response.data)["metadata"]
 
     assert expected_status_code == response_status_code
     assert expected_result == response_data_metadata
@@ -172,7 +172,7 @@ def test_jobs_json_author_cannot_edit_if_is_closed_and_more_than_30_days_after_d
 def test_jobs_search_json(inspire_app, datadir):
     headers = {"Accept": "application/json"}
 
-    data = json.loads((datadir / "955427.json").read_text())
+    data = orjson.loads((datadir / "955427.json").read_text())
 
     record = create_record("job", data=data)
 

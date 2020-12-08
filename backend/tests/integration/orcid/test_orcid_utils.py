@@ -21,9 +21,9 @@
 # or submit itself to any jurisdiction.
 
 
-import json
 import time
 
+import orjson
 import pytest
 from celery import shared_task
 from helpers.utils import create_record
@@ -148,9 +148,9 @@ def test_orcids_for_push_orcid_in_author_with_claim(author_in_isolated_app):
 
 
 def test_get_literature_recids_for_orcid(inspire_app, datadir):
-    data_author = json.loads((datadir / "1061000.json").read_text())
+    data_author = orjson.loads((datadir / "1061000.json").read_text())
     create_record("aut", data=data_author)
-    data_literature = json.loads((datadir / "1496635.json").read_text())
+    data_literature = orjson.loads((datadir / "1496635.json").read_text())
     create_record("lit", data=data_literature)
     expected = [1496635]
     result = get_literature_recids_for_orcid("0000-0003-4792-9178")
@@ -166,7 +166,7 @@ def test_get_literature_recids_for_orcid_raises_if_no_author_is_found(inspire_ap
 def test_get_literature_recids_for_orcid_raises_if_two_authors_are_found(
     inspire_app, datadir
 ):
-    data = json.loads((datadir / "1061000.json").read_text())
+    data = orjson.loads((datadir / "1061000.json").read_text())
     create_record("aut", data=data)
     record = InspireRecord.get_record_by_pid_value(1061000, pid_type="aut")
     record["control_number"] = 1061001
@@ -178,7 +178,7 @@ def test_get_literature_recids_for_orcid_raises_if_two_authors_are_found(
 def test_get_literature_recids_for_orcid_still_works_if_author_has_no_ids(
     inspire_app, datadir
 ):
-    data = json.loads((datadir / "1061000.json").read_text())
+    data = orjson.loads((datadir / "1061000.json").read_text())
     create_record("aut", data=data)
     record = InspireRecord.get_record_by_pid_value(1061000, pid_type="aut")
     del record["ids"]
@@ -191,7 +191,7 @@ def test_get_literature_recids_for_orcid_still_works_if_author_has_no_ids(
 def test_get_literature_recids_for_orcid_still_works_if_author_has_no_orcid_id(
     inspire_app, datadir
 ):
-    data = json.loads((datadir / "1061000.json").read_text())
+    data = orjson.loads((datadir / "1061000.json").read_text())
     create_record("aut", data=data)
     record = InspireRecord.get_record_by_pid_value(1061000, pid_type="aut")
     record["ids"] = [{"schema": "INSPIRE BAI", "value": "Maurizio.Martinelli.1"}]

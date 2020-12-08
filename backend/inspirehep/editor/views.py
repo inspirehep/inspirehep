@@ -7,7 +7,7 @@
 
 from os.path import splitext
 
-from flask import Blueprint, current_app, jsonify, make_response, request
+from flask import Blueprint, current_app, make_response, request
 from flask_login import current_user
 from inspire_schemas.api import load_schema
 from invenio_db import db
@@ -24,6 +24,7 @@ from inspirehep.matcher.utils import create_journal_dict, map_refextract_to_sche
 from inspirehep.pidstore.api.base import PidStoreBase
 from inspirehep.records.api import InspireRecord
 from inspirehep.rt import tickets
+from inspirehep.serializers import jsonify
 from inspirehep.utils import hash_data
 
 from .errors import EditorGetRevisionError, EditorRevertToRevisionError

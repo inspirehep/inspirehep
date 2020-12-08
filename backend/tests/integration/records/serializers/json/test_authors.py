@@ -5,8 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
-
+import orjson
 from helpers.utils import create_record, create_record_factory, create_user
 from invenio_accounts.testutils import login_user_via_session
 
@@ -16,7 +15,7 @@ from inspirehep.accounts.roles import Roles
 def test_authors_detail(inspire_app, datadir):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
 
-    data = json.loads((datadir / "999108.json").read_text())
+    data = orjson.loads((datadir / "999108.json").read_text())
 
     record = create_record_factory("aut", data=data)
     record_control_number = record.json["control_number"]
@@ -95,7 +94,7 @@ def test_authors_detail(inspire_app, datadir):
         response = client.get(f"/authors/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
 
     assert expected_status_code == response_status_code
     assert expected_metadata == response_data["metadata"]
@@ -118,7 +117,7 @@ def test_authors_detail_can_edit_true_if_users_own_profile(inspire_app):
         login_user_via_session(client, email=user.email)
         response = client.get(f"/authors/{record_control_number}", headers=headers)
 
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_data_metadata = response_data["metadata"]
 
     assert response_data_metadata["can_edit"]
@@ -137,7 +136,7 @@ def test_authors_detail_can_edit_false_if_not_users_own_profile(inspire_app):
         login_user_via_session(client, email=user.email)
         response = client.get(f"/authors/{record_control_number}", headers=headers)
 
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_data_metadata = response_data["metadata"]
 
     assert not response_data_metadata["can_edit"]
@@ -173,7 +172,7 @@ def test_authors_json_without_login(inspire_app):
         response = client.get(f"/authors/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_data_metadata = response_data["metadata"]
     response_uuid = response_data["uuid"]
 
@@ -230,7 +229,7 @@ def test_authors_json_with_logged_in_cataloger(inspire_app):
         response = client.get(f"/authors/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_data_metadata = response_data["metadata"]
 
     assert expected_status_code == response_status_code
@@ -240,7 +239,7 @@ def test_authors_json_with_logged_in_cataloger(inspire_app):
 def test_authors_only_control_number(inspire_app, datadir):
     headers = {"Accept": "application/vnd+inspire.record.control_number+json"}
 
-    data = json.loads((datadir / "999108.json").read_text())
+    data = orjson.loads((datadir / "999108.json").read_text())
 
     record = create_record_factory("aut", data=data)
     record_control_number = record.json["control_number"]
@@ -251,7 +250,7 @@ def test_authors_only_control_number(inspire_app, datadir):
         response = client.get(f"/authors/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_data_metadata = response_data["metadata"]
 
     assert expected_status_code == response_status_code
@@ -297,7 +296,7 @@ def test_authors_search_json(inspire_app):
         response = client.get("/authors", headers=headers)
 
     response_status_code = response.status_code
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_data_hits = response_data["hits"]["hits"]
     response_data_hits_metadata = response_data_hits[0]["metadata"]
     response_data_hits_id = response_data_hits[0]["id"]
@@ -346,7 +345,7 @@ def test_authors_search_list(inspire_app):
         response = client.get("/authors", headers=headers)
 
     response_status_code = response.status_code
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_data_hits = response_data["hits"]["hits"]
     response_data_hits_metadata = response_data_hits[0]["metadata"]
 
@@ -425,7 +424,7 @@ def test_authors_search_json_with_logged_in_cataloger(inspire_app):
         response = client.get("/authors".format(record_control_number), headers=headers)
 
     response_status_code = response.status_code
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_data_hits = response_data["hits"]["hits"]
     response_data_hits_metadata = response_data_hits[0]["metadata"]
 

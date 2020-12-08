@@ -6,9 +6,9 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 """INSPIRE module that adds more fun to the platform."""
-import json
 from copy import copy, deepcopy
 
+import orjson
 import pytest
 from helpers.providers.faker import faker
 from helpers.utils import create_pidstore, create_record, create_record_factory
@@ -275,7 +275,7 @@ def test_create_record_throws_exception_if_wrong_subclass_used(inspire_app):
 
 
 def test_earliest_date(inspire_app, datadir):
-    data = json.loads((datadir / "1366189.json").read_text())
+    data = orjson.loads((datadir / "1366189.json").read_text())
     record = LiteratureRecord.create(data=data)
 
     assert record.earliest_date == "2015-05-05"
@@ -427,7 +427,7 @@ def test_get_year_from_book_chapter_when_pubinfo_present(inspire_app):
 
 
 def test_get_enhanced_es_data_do_not_change_original_record(inspire_app, datadir):
-    data = json.loads((datadir / "788797.json").read_text())
+    data = orjson.loads((datadir / "788797.json").read_text())
 
     original_data = deepcopy(data)
 

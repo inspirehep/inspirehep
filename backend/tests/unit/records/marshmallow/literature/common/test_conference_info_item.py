@@ -5,8 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
-
+import orjson
 from invenio_pidstore.errors import PIDDoesNotExistError
 from mock import patch
 
@@ -20,7 +19,7 @@ def test_returns_empty_if_conference_record_is_missing():
 
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 @patch("inspirehep.records.api.base.InspireRecord.get_record_by_pid_value")
@@ -50,7 +49,7 @@ def test_returns_non_empty_fields_if_conference_record_found(
 
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 def side_effect_get_record_by_pid_value(pid_value, pid_type):
@@ -74,7 +73,7 @@ def test_returns_empty_if_conference_record_not_found(mock_get_record_by_pid_val
 
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 @patch("inspirehep.records.api.base.InspireRecord.get_record_by_pid_value")
@@ -93,4 +92,4 @@ def test_returns_empty_if_titles_is_missing(mock_get_record_by_pid_value):
 
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)

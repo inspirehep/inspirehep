@@ -5,8 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
-
+import orjson
 from helpers.providers.faker import faker
 
 from inspirehep.records.marshmallow.literature import LiteratureListWrappedSchema
@@ -33,7 +32,7 @@ def test_literature_related_records():
 
 def test_literature_ui_schema():
     data_record = faker.record("lit")
-    data_record_json = json.dumps(data_record)
+    data_record_json = orjson.dumps(data_record)
     data = {"metadata": {"_ui_display": data_record_json}}
     expected_result = {"metadata": data_record}
     result = LiteratureListWrappedSchema().dump(data).data
@@ -43,7 +42,7 @@ def test_literature_ui_schema():
 
 def test_literature_ui_schema_missing_ui_display_field():
     data_record = faker.record("lit")
-    data_record_json = json.dumps(data_record)
+    data_record_json = orjson.dumps(data_record)
     data = {"metadata": {"NOT_A_UI_DISPLAY_FIELD": data_record_json}}
     expected_result = {"metadata": {}}
     result = LiteratureListWrappedSchema().dump(data).data
@@ -85,7 +84,7 @@ def test_literature_ui_schema_hides_emails_from_author_list():
 
     data = {"authors": authors}
     data_record = faker.record("lit", data=data)
-    data_record_json = json.dumps(data_record)
+    data_record_json = orjson.dumps(data_record)
     data = {"metadata": {"_ui_display": data_record_json}}
     result = LiteratureListWrappedSchema().dump(data).data
 
@@ -97,7 +96,7 @@ def test_literature_ui_schema_hides_acquisition_source():
 
     data = {"acquisition_source": acquisition_source}
     data_record = faker.record("lit", data=data)
-    data_record_json = json.dumps(data_record)
+    data_record_json = orjson.dumps(data_record)
     data = {"metadata": {"_ui_display": data_record_json}}
     result = LiteratureListWrappedSchema().dump(data).data
 

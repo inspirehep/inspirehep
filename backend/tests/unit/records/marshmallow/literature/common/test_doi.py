@@ -6,8 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
-import json
-
+import orjson
 from marshmallow import Schema, fields
 
 from inspirehep.records.marshmallow.literature.common import DOISchemaV1
@@ -23,7 +22,7 @@ def test_returns_value_and_material_for_doi():
     expected = {"value": "10.1016/j.nuclphysb.2017.05.003", "material": "publication"}
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 def test_same_doi_value_from_different_source_is_ignored():
@@ -47,4 +46,4 @@ def test_same_doi_value_from_different_source_is_ignored():
 
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)

@@ -5,7 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
+import orjson
 
 from inspirehep.records.marshmallow.literature.common import (
     AuthorSchemaV1,
@@ -28,7 +28,7 @@ def test_author():
     }
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 def test_author_without_last_name():
@@ -38,7 +38,7 @@ def test_author_without_last_name():
     expected = {"full_name": "Frank Castle", "first_name": "Frank Castle"}
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 def test_author_with_bai():
@@ -56,7 +56,7 @@ def test_author_with_bai():
     }
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 def test_author_with_with_inspire_roles():
@@ -70,7 +70,7 @@ def test_author_with_with_inspire_roles():
     }
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 def test_author_es_enchancement():
@@ -91,7 +91,7 @@ def test_author_es_enchancement():
         ]
     )
 
-    result = json.loads(schema.dumps(dump).data)
+    result = orjson.loads(schema.dumps(dump).data)
 
     assert "input" in result["name_suggest"]
     assert sorted(result["name_suggest"]["input"]) == expected_name_suggest
@@ -115,7 +115,7 @@ def test_author_es_enchancement_without_last_name():
         ]
     )
 
-    result = json.loads(schema.dumps(dump).data)
+    result = orjson.loads(schema.dumps(dump).data)
 
     assert "input" in result["name_suggest"]
     assert sorted(result["name_suggest"]["input"]) == expected_name_suggest
@@ -126,7 +126,7 @@ def test_author_schema_returns_empty_for_supervisor():
     dump = {"full_name": "Smith, John", "inspire_roles": ["supervisor"]}
     result = schema.dumps(dump).data
 
-    assert json.loads(result) == {}
+    assert orjson.loads(result) == {}
 
 
 def test_supervisor_schema():
@@ -140,7 +140,7 @@ def test_supervisor_schema():
     }
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 def test_supervisor_schema_returns_empty_for_non_supervisor():
@@ -148,7 +148,7 @@ def test_supervisor_schema_returns_empty_for_non_supervisor():
     dump = {"full_name": "Smith, John", "inspire_roles": ["author"]}
     result = schema.dumps(dump).data
 
-    assert json.loads(result) == {}
+    assert orjson.loads(result) == {}
 
 
 def test_first_author():
@@ -184,4 +184,4 @@ def test_first_author():
     }
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)

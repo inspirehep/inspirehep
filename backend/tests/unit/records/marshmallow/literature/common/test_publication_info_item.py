@@ -5,8 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
-
+import orjson
 import pytest
 
 from inspirehep.records.marshmallow.literature.common import PublicationInfoItemSchemaV1
@@ -19,7 +18,7 @@ def test_returns_empty_if_display_fields_missing():
 
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 def test_returns_non_empty_fields_if_jonurnal_title_present():
@@ -29,7 +28,7 @@ def test_returns_non_empty_fields_if_jonurnal_title_present():
 
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 def test_returns_non_empty_fields_if_pubinfo_freetext_present():
@@ -39,4 +38,4 @@ def test_returns_non_empty_fields_if_pubinfo_freetext_present():
 
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
