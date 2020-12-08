@@ -5,9 +5,8 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
-
 import mock
+import orjson
 from flask import session
 from helpers.utils import create_user
 from invenio_accounts.testutils import login_user_via_session
@@ -102,7 +101,7 @@ def test_sign_up_user_success(mock_current_user, inspire_app):
     with inspire_app.test_client() as client:
         response = client.post(
             "/accounts/signup",
-            data=json.dumps({"email": user.email}),
+            data=orjson.dumps({"email": user.email}),
             content_type="application/json",
         )
     current_oauthclient.signup_handlers = previous_current_oauthclient_signup_handlers
@@ -131,7 +130,7 @@ def test_sign_up_user_error_on_duplicate_user(inspire_app):
     with inspire_app.test_client() as client:
         response = client.post(
             "/accounts/signup",
-            data=json.dumps({"email": user.email}),
+            data=orjson.dumps({"email": user.email}),
             content_type="application/json",
         )
 
@@ -155,7 +154,7 @@ def test_sign_up_user_error_on_unexpected_error(inspire_app):
     with inspire_app.test_client() as client:
         response = client.post(
             "/accounts/signup",
-            data=json.dumps({"email": user.email}),
+            data=orjson.dumps({"email": user.email}),
             content_type="application/json",
         )
 
@@ -175,7 +174,7 @@ def test_disable_orcid_push(mock_push_account_literature, inspire_app):
         login_user_via_session(client, email=user.email)
         response = client.put(
             "/accounts/settings/orcid-push",
-            data=json.dumps({"value": False}),
+            data=orjson.dumps({"value": False}),
             content_type="application/json",
         )
 
@@ -198,7 +197,7 @@ def test_enable_orcid_push(mock_push_account_literature, inspire_app):
         login_user_via_session(client, email=user.email)
         response = client.put(
             "/accounts/settings/orcid-push",
-            data=json.dumps({"value": True}),
+            data=orjson.dumps({"value": True}),
             content_type="application/json",
         )
 
@@ -218,7 +217,7 @@ def test_orcid_push_setting_without_user(inspire_app):
     with inspire_app.test_client() as client:
         response = client.put(
             "/accounts/settings/orcid-push",
-            data=json.dumps({"value": True}),
+            data=orjson.dumps({"value": True}),
             content_type="application/json",
         )
 

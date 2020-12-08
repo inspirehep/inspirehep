@@ -6,6 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 from copy import deepcopy
 
+import orjson
 from flask import abort
 from inspire_dojson.utils import strip_empty_values
 from invenio_records_rest.schemas.json import RecordSchemaJSONV1
@@ -49,6 +50,9 @@ class ElasticSearchBaseSchema:
 
 class BaseSchema(Schema):
     """Base schema."""
+
+    class Meta:
+        json_module = orjson
 
     def dump(self, obj, *args, **kwargs):
         obj_copy = deepcopy(obj)

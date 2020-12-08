@@ -6,11 +6,12 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
-from flask import Blueprint, jsonify
+from flask import Blueprint
 from flask.views import MethodView
 
 from inspirehep.accounts.decorators import login_required_with_roles
 from inspirehep.accounts.roles import Roles
+from inspirehep.serializers import jsonify
 
 from .marshmallow.error import ErrorList
 from .models import LegacyRecordsMirror

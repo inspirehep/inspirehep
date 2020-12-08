@@ -5,13 +5,13 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 import datetime
-import json
 import threading
 import uuid
 from concurrent.futures import ThreadPoolExecutor, TimeoutError, as_completed
 from io import BytesIO
 
 import magic
+import orjson
 import requests
 import structlog
 from flask import current_app
@@ -132,7 +132,7 @@ class LiteratureRecord(
             results = LiteratureSearch.get_records_by_pids(pids, source=["_ui_display"])
             for result in results:
                 try:
-                    rec_data = json.loads(result._ui_display)
+                    rec_data = orjson.loads(result._ui_display)
                 except AttributeError:
                     LOGGER.exception(
                         "Record does not have _ui_display field!", record=result.meta.id

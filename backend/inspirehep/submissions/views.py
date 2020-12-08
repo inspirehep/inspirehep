@@ -6,11 +6,11 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import datetime
-import json
 
+import orjson
 import requests
 import structlog
-from flask import Blueprint, abort, current_app, jsonify, request, url_for
+from flask import Blueprint, abort, current_app, request, url_for
 from flask.views import MethodView
 from flask_login import current_user
 from inspire_schemas.builders import JobBuilder
@@ -34,6 +34,7 @@ from inspirehep.records.api import (
     JobsRecord,
     SeminarsRecord,
 )
+from inspirehep.serializers import jsonify
 from inspirehep.submissions.errors import RESTDataError
 from inspirehep.utils import get_inspirehep_url
 
@@ -80,7 +81,7 @@ class BaseSubmissionsResource(MethodView):
         }
         response = requests.post(
             f"{current_app.config['INSPIRE_NEXT_URL']}{endpoint}",
-            data=json.dumps(data),
+            data=orjson.dumps(data),
             headers=headers,
         )
         if response.status_code == 200:

@@ -5,9 +5,9 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
 from itertools import chain
 
+import orjson
 import structlog
 from flask import current_app
 from inspire_utils.helpers import force_list
@@ -74,7 +74,7 @@ class LiteratureElasticSearchSchema(ElasticSearchBaseSchema, LiteratureRawSchema
         ]
 
     def get_ui_display(self, record):
-        return json.dumps(LiteratureDetailSchema().dump(record).data)
+        return orjson.dumps(LiteratureDetailSchema().dump(record).data).decode("utf-8")
 
     def get_latex_us_display(self, record):
         from inspirehep.records.serializers.latex import latex_US

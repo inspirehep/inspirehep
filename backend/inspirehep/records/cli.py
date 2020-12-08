@@ -6,10 +6,10 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import datetime
-import json
 import os
 
 import click
+import orjson
 import requests
 import structlog
 from flask import current_app
@@ -47,7 +47,7 @@ def _create_record(data, save_to_file=False):
         file_path = os.path.join(f"data/records/{endpoint}/{control_number}.json")
         click.echo(click.style(f"Writing to {file_path}", fg="green"))
         with open(file_path, "w+") as file:
-            file.write(json.dumps(data))
+            file.write(orjson.dumps(data))
 
 
 def _create_records_from_urls(urls, token, save_to_file):
@@ -83,8 +83,8 @@ def _create_records_from_urls(urls, token, save_to_file):
 
 
 def _create_records_from_list_files(files):
-    for path in files:
-        data = json.load(path)
+    for _file in files:
+        data = orjson.loads(_file.read())
         _create_record(data)
 
 
@@ -92,7 +92,7 @@ def _create_records_from_files_in_directory(directory):
     if directory:
         for path in os.listdir(directory):
             with open(os.path.join(directory, path)) as file_:
-                data = json.load(file_)
+                data = orjson.loads(file_.read())
                 _create_record(data)
 
 

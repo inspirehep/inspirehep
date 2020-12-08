@@ -4,8 +4,7 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-import json
-
+import orjson
 from helpers.utils import create_record, es_search
 from invenio_search import current_search
 from marshmallow import utils
@@ -15,7 +14,7 @@ from inspirehep.search.api import SeminarsSearch
 
 
 def test_index_seminars_record(inspire_app, datadir):
-    seminar_data = json.loads((datadir / "1.json").read_text())
+    seminar_data = orjson.loads((datadir / "1.json").read_text())
     record = create_record("sem", data=seminar_data)
 
     expected_count = 1

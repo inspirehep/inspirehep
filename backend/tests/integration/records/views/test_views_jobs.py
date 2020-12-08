@@ -5,8 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
-
+import orjson
 from helpers.utils import create_record, create_user, logout
 from invenio_accounts.testutils import login_user_via_session
 
@@ -70,10 +69,10 @@ def test_jobs_search_json_get(inspire_app):
 
 
 def test_jobs_facets(inspire_app, datadir):
-    data = json.loads((datadir / "1735925.json").read_text())
+    data = orjson.loads((datadir / "1735925.json").read_text())
     create_record("job", data=data)
 
-    expected_aggregations = json.loads(
+    expected_aggregations = orjson.loads(
         (datadir / "es_aggregations_for_1735925.json").read_text()
     )
     with inspire_app.test_client() as client:
@@ -93,10 +92,10 @@ def test_jobs_facets(inspire_app, datadir):
 def test_jobs_facets_cataloger(inspire_app, datadir):
     user = create_user(role=Roles.cataloger.value)
 
-    data = json.loads((datadir / "1735925.json").read_text())
+    data = orjson.loads((datadir / "1735925.json").read_text())
     create_record("job", data=data)
 
-    expected_aggregations = json.loads(
+    expected_aggregations = orjson.loads(
         (datadir / "es_aggregations_cataloger_for_1735925.json").read_text()
     )
     with inspire_app.test_client() as client:
@@ -114,7 +113,7 @@ def test_jobs_facets_cataloger(inspire_app, datadir):
 
 
 def test_jobs_sort_options(inspire_app, datadir):
-    data = json.loads((datadir / "1735925.json").read_text())
+    data = orjson.loads((datadir / "1735925.json").read_text())
     record = create_record("job", data=data)
 
     with inspire_app.test_client() as client:
@@ -132,7 +131,7 @@ def test_jobs_sort_options(inspire_app, datadir):
 
 
 def test_jobs_accelerator_experiments(inspire_app, datadir):
-    data = json.loads((datadir / "1735925.json").read_text())
+    data = orjson.loads((datadir / "1735925.json").read_text())
     create_record("job", data=data)
     exp1 = create_record(
         "exp", data={"control_number": 1_108_209, "legacy_name": "FNAL-E-0973"}
@@ -214,7 +213,7 @@ def test_jobs_search_permissions(inspire_app):
     create_record("job", data={"status": "open"})
     with inspire_app.test_client() as client:
         response = client.get("/jobs")
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     assert response_data["hits"]["total"] == 1
 
     user = create_user(role=Roles.cataloger.value)
@@ -222,19 +221,19 @@ def test_jobs_search_permissions(inspire_app):
         login_user_via_session(client, email=user.email)
 
         response = client.get("/jobs")
-        response_data = json.loads(response.data)
+        response_data = orjson.loads(response.data)
 
         assert response_data["hits"]["total"] == 2
 
         logout(client)
 
         response = client.get("/jobs")
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     assert response_data["hits"]["total"] == 1
 
 
 def test_jobs_sort_options(inspire_app, datadir):
-    data = json.loads((datadir / "1735925.json").read_text())
+    data = orjson.loads((datadir / "1735925.json").read_text())
     record = create_record("job", data=data)
 
     with inspire_app.test_client() as client:
@@ -254,7 +253,7 @@ def test_jobs_sort_options(inspire_app, datadir):
 
 
 def test_jobs_sort_by_deadline(inspire_app, datadir):
-    data = json.loads((datadir / "1735925.json").read_text())
+    data = orjson.loads((datadir / "1735925.json").read_text())
     create_record("job", data=data)
     data["deadline_date"] = "2020-12-31"
     data["control_number"] = 1_735_926

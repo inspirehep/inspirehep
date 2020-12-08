@@ -5,8 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
-
+import orjson
 from helpers.providers.faker import faker
 
 from inspirehep.records.marshmallow.literature import LiteratureAuthorsSchema
@@ -48,7 +47,7 @@ def test_authors_schema():
         ],
         "collaborations": [{"value": "LHCb"}],
     }
-    result = json.loads(schema.dumps(data).data)
+    result = orjson.loads(schema.dumps(data).data)
     assert expected == result
 
 
@@ -60,7 +59,7 @@ def test_authors_schema_without_authors():
     data = faker.record("lit", data=data)
 
     expected = {"collaborations": [{"value": "LHCb"}]}
-    result = json.loads(schema.dumps(data).data)
+    result = orjson.loads(schema.dumps(data).data)
     assert expected == result
 
 
@@ -68,5 +67,5 @@ def test_authors_schema_without_authors_and_collaborations():
     schema = LiteratureAuthorsSchema()
     data = faker.record("lit")
     expected = {"authors": [], "collaborations": [], "supervisors": []}
-    result = json.loads(schema.dumps(data).data)
+    result = orjson.loads(schema.dumps(data).data)
     assert expected == result

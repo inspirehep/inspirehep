@@ -5,10 +5,10 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
 import os
 
 import mock
+import orjson
 import pytest
 from freezegun import freeze_time
 from helpers.providers.faker import faker
@@ -94,8 +94,8 @@ def test_create_record_with_one_file(inspire_app, cli):
     control_number = data["control_number"]
 
     with cli.isolated_filesystem():
-        with open(f"{control_number}.json", "w") as f:
-            f.write(json.dumps(data))
+        with open(f"{control_number}.json", "wb") as f:
+            f.write(orjson.dumps(data))
 
         result = cli.invoke(["importer", "records", "-f", f"{control_number}.json"])
         result_record = LiteratureRecord.get_record_by_pid_value(control_number)
@@ -111,11 +111,10 @@ def test_create_record_with_multiple_files(inspire_app, cli):
     control_number_author = data_author["control_number"]
 
     with cli.isolated_filesystem():
-        with open(f"{control_number_literature}.json", "w") as f:
-            f.write(json.dumps(data_literature))
-        with open(f"{control_number_author}.json", "w") as f:
-            f.write(json.dumps(data_author))
-
+        with open(f"{control_number_literature}.json", "wb") as f:
+            f.write(orjson.dumps(data_literature))
+        with open(f"{control_number_author}.json", "wb") as f:
+            f.write(orjson.dumps(data_author))
         result = cli.invoke(
             [
                 "importer",
@@ -146,10 +145,10 @@ def test_create_record_with_directory(inspire_app, cli):
 
     with cli.isolated_filesystem():
         os.mkdir("test_directory/")
-        with open(f"test_directory/{control_number_literature}.json", "w") as f:
-            f.write(json.dumps(data_literature))
-        with open(f"test_directory/{control_number_author}.json", "w") as f:
-            f.write(json.dumps(data_author))
+        with open(f"test_directory/{control_number_literature}.json", "wb") as f:
+            f.write(orjson.dumps(data_literature))
+        with open(f"test_directory/{control_number_author}.json", "wb") as f:
+            f.write(orjson.dumps(data_author))
 
         result = cli.invoke(["importer", "records", "-d", "test_directory"])
         result_record_literature = LiteratureRecord.get_record_by_pid_value(

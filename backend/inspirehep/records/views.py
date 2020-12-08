@@ -5,7 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from flask import Blueprint, abort, current_app, jsonify, request
+from flask import Blueprint, abort, current_app, request
 from flask.views import MethodView
 from invenio_records_rest.views import pass_record
 
@@ -21,6 +21,7 @@ from inspirehep.records.errors import (
 from inspirehep.records.marshmallow.literature.references import (
     LiteratureReferencesSchema,
 )
+from inspirehep.serializers import jsonify
 from inspirehep.submissions.serializers import literature_v1
 
 from ..search.api import LiteratureSearch

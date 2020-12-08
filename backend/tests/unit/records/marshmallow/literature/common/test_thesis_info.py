@@ -5,9 +5,8 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
-
 import mock
+import orjson
 
 from inspirehep.records.marshmallow.literature.common import ThesisInfoSchemaV1
 
@@ -19,7 +18,7 @@ def test_degree_type_phd_becomes_PhD():
 
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 def test_degree_type_titleized_if_not_phd():
@@ -29,7 +28,7 @@ def test_degree_type_titleized_if_not_phd():
 
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 def test_none_fields():
@@ -39,7 +38,7 @@ def test_none_fields():
 
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 @mock.patch("inspirehep.records.marshmallow.literature.common.thesis_info.format_date")
@@ -51,7 +50,7 @@ def test_formatted_date(format_date):
 
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 @mock.patch("inspirehep.records.marshmallow.literature.common.thesis_info.format_date")
@@ -63,4 +62,4 @@ def test_formatted_defense_date(format_date):
 
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)

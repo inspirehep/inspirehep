@@ -5,8 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
-
+import orjson
 from helpers.utils import create_record_factory
 
 
@@ -106,7 +105,7 @@ def test_citation_summary_facet(inspire_app):
             }
         },
     }
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_status_code = response.status_code
     response_data_citation_summary = response_data["aggregations"]["citation_summary"]
     assert response_status_code == 200
@@ -212,7 +211,7 @@ def test_citation_summary_without_self_citations_facet(
             }
         },
     }
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_status_code = response.status_code
     response_data_citation_summary = response_data["aggregations"]["citation_summary"]
     assert response_status_code == 200
@@ -238,7 +237,7 @@ def test_h_index_with_more_papers_than_citations(inspire_app):
 
     expected_h_index = {"value": {"all": 2, "published": 2}}
 
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_status_code = response.status_code
     response_data_h_index = response_data["aggregations"]["citation_summary"]["h-index"]
     assert response_status_code == 200
@@ -263,7 +262,7 @@ def test_h_index_with_as_many_papers_as_citations(inspire_app):
 
     expected_h_index = {"value": {"all": 5, "published": 5}}
 
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_status_code = response.status_code
     response_data_h_index = response_data["aggregations"]["citation_summary"]["h-index"]
     assert response_status_code == 200
@@ -365,7 +364,7 @@ def test_citation_summary_facet_filters(inspire_app):
             }
         },
     }
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_status_code = response.status_code
     response_data_citation_summary = response_data["aggregations"]["citation_summary"]
     assert response_status_code == 200
@@ -395,7 +394,7 @@ def test_citation_summary_facet_excluded_filters(inspire_app):
         response = client.get(
             "/literature/facets?author=NOREC_N.%20Girard&facet_name=citation-summary&refereed=True&citeable=False&citation_count=500--505"
         )
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_status_code = response.status_code
     assert response_status_code == 200
     assert response_data["aggregations"]["citation_summary"]["doc_count"] == 8

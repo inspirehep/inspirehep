@@ -20,10 +20,10 @@
 # granted to it by virtue of its status as an Intergovernmental Organization
 # or submit itself to any jurisdiction.
 
-import json
 import os
 
 import mock
+import orjson
 import pkg_resources
 import pytest
 from invenio_db import db
@@ -319,7 +319,8 @@ class TestPushToOrcid(object):
         record_fixture_path = pkg_resources.resource_filename(
             __name__, os.path.join("fixtures", "736770.json")
         )
-        data = json.load(open(record_fixture_path))
+        with open(record_fixture_path) as fp:
+            data = orjson.loads(fp.read())
         self.record = LiteratureRecord.create(data)
 
     def test_existing_record(self, override_config):

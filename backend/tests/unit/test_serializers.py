@@ -1,5 +1,4 @@
-import json
-
+import orjson
 from invenio_pidstore.models import PersistentIdentifier
 from marshmallow import Schema, fields
 
@@ -34,7 +33,7 @@ def test_uses_first_schema_that_returns_true_for_condition_that_uses_data():
             (lambda data: 3 in data["metadata"]["types"], Schema3),
         ]
     )
-    serialized = json.loads(
+    serialized = orjson.loads(
         serializer.serialize(
             PersistentIdentifier(pid_type="recid", pid_value="1"), InspireRecord(data)
         )
@@ -59,7 +58,7 @@ def test_first_conditionless_schema_if_others_do_not_return_true():
     serializer = ConditionalMultiSchemaJSONSerializer(
         [(lambda _: False, Schema1), (None, Schema2)]
     )
-    serialized = json.loads(
+    serialized = orjson.loads(
         serializer.serialize(
             PersistentIdentifier(pid_type="recid", pid_value="1"), InspireRecord(data)
         )

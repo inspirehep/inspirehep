@@ -5,10 +5,10 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
 from uuid import UUID
 
 import mock
+import orjson
 from helpers.providers.faker import faker
 from helpers.utils import create_record, create_record_factory, create_user
 from invenio_accounts.testutils import login_user_via_session
@@ -48,7 +48,7 @@ def test_literature_authors_json(mock_uuid4, inspire_app):
         )
 
     response_status_code = response.status_code
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_data_metadata = response_data["metadata"]
 
     assert expected_status_code == response_status_code
@@ -105,7 +105,7 @@ def test_literature_json_without_login(inspire_app):
         response = client.get(f"/literature/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     assert expected_status_code == response_status_code
     assert expected_metadata == response_data["metadata"]
     assert expected_uuid == response_data["uuid"]
@@ -182,7 +182,7 @@ def test_literature_json_with_logged_in_cataloger(inspire_app):
         response = client.get(f"/literature/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
 
     assert expected_status_code == response_status_code
     assert expected_result == response_data["metadata"]
@@ -241,7 +241,7 @@ def test_literature_search_json_without_login(inspire_app):
         response = client.get("/literature", headers=headers)
 
     response_status_code = response.status_code
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_data_hits = response_data["hits"]["hits"]
     response_data_hits_len = len(response_data_hits)
     response_data_hits_metadata = response_data_hits[0]["metadata"]
@@ -322,7 +322,7 @@ def test_literature_search_json_with_cataloger_login(inspire_app):
         response = client.get("/literature", headers=headers)
 
     response_status_code = response.status_code
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_data_hits = response_data["hits"]["hits"]
     response_data_hits_len = len(response_data_hits)
     response_data_hits_metadata = response_data_hits[0]["metadata"]
@@ -354,7 +354,7 @@ def test_literature_detail(inspire_app):
         response = client.get(f"/literature/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_data_metadata = response_data["metadata"]
     response_data_uuid = response_data["uuid"]
     response_data_id = response_data["id"]
@@ -386,7 +386,7 @@ def test_literature_list(inspire_app):
     with inspire_app.test_client() as client:
         response = client.get("/literature", headers=headers)
     response_status_code = response.status_code
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
 
     assert response_data["hits"]["total"] == 1
 
@@ -417,7 +417,7 @@ def test_literature_list_with_cataloger_can_edit(inspire_app):
         login_user_via_session(client, email=user.email)
         response = client.get("/literature", headers=headers)
     response_status_code = response.status_code
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
 
     assert response_data["hits"]["total"] == 1
 
@@ -442,7 +442,7 @@ def test_literature_list_has_sort_options(inspire_app):
         response = client.get("/literature", headers=headers)
 
     response_status_code = response.status_code
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     sort_options = response_data["sort_options"]
 
     assert expected_status_code == response_status_code
@@ -510,7 +510,7 @@ def test_literature_references_json_with_empty_and_unlinked_and_duplicated_linke
             f"/literature/{record_control_number}/references", headers=headers
         )
     response_status_code = response.status_code
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_data_metadata = response_data["metadata"]
 
     assert expected_status_code == response_status_code
@@ -540,7 +540,7 @@ def test_literature_references_pagination(inspire_app):
             headers=headers,
         )
     response_status_code = response.status_code
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_data_metadata = response_data["metadata"]
     expected_result = {
         "references": [
@@ -577,7 +577,7 @@ def test_literature_references_pagination_with_size_more_than_results(inspire_ap
             headers=headers,
         )
     response_status_code = response.status_code
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_data_metadata = response_data["metadata"]
     expected_result = {
         "references": [
@@ -616,7 +616,7 @@ def test_literature_references_pagination_with_page_with_no_results(inspire_app)
             headers=headers,
         )
     response_status_code = response.status_code
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_data_metadata = response_data["metadata"]
     expected_result = {"references": [], "references_count": 4}
     expected_status_code = 200
@@ -647,7 +647,7 @@ def test_literature_references_with_size_bigger_than_maximum(
             f"/literature/{record['control_number']}/references?size=5", headers=headers
         )
     response_status_code = response.status_code
-    response_data = json.loads(response.get_data())
+    response_data = orjson.loads(response.get_data())
     expected_status_code = 400
     expected_response = MaxResultWindowRESTError().description
     assert expected_status_code == response_status_code
@@ -663,7 +663,7 @@ def test_literature_references_no_references(inspire_app):
             headers=headers,
         )
     response_status_code = response.status_code
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_data_metadata = response_data["metadata"]
     expected_result = {"references": [], "references_count": 0}
     expected_status_code = 200
@@ -674,7 +674,7 @@ def test_literature_references_no_references(inspire_app):
 def test_literature_detail_serialize_experiment_with_referenced_record(
     inspire_app, datadir
 ):
-    data = json.loads((datadir / "1630825.json").read_text())
+    data = orjson.loads((datadir / "1630825.json").read_text())
     record = create_record("lit", data=data)
     experiment_data = {
         "accelerator": {"value": "Accelerator"},
@@ -714,7 +714,7 @@ def test_literature_detail_serialize_experiment_with_referenced_record(
         )
 
     response_status_code = response.status_code
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_data_accelerator_experiments = response_data["metadata"][
         "accelerator_experiments"
     ]
@@ -782,7 +782,7 @@ def test_literature_detail_serializes_conference_info(inspire_app):
         )
 
     response_status_code = response.status_code
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_data_conference_info = response_data["metadata"]["conference_info"]
 
     assert response_status_code == expected_status_code
@@ -868,7 +868,7 @@ def test_literature_search_lowercased_doi_in_references(inspire_app):
         )
 
     response1_status_code = response1.status_code
-    response1_data = json.loads(response1.data)
+    response1_data = orjson.loads(response1.data)
     response1_data_hits = response1_data["hits"]["hits"]
     response1_data_hits_len = len(response1_data_hits)
     response1_data_hits_metadata = response1_data_hits[0]["metadata"]
@@ -877,7 +877,7 @@ def test_literature_search_lowercased_doi_in_references(inspire_app):
     ][0]
 
     response2_status_code = response2.status_code
-    response2_data = json.loads(response1.data)
+    response2_data = orjson.loads(response1.data)
     response2_data_hits = response2_data["hits"]["hits"]
     response2_data_hits_len = len(response2_data_hits)
     response2_data_hits_metadata = response2_data_hits[0]["metadata"]
@@ -1060,7 +1060,7 @@ def test_literature_list_with_cataloger_and_author_curated_relation(inspire_app)
             headers=headers,
         )
     response_status_code = response.status_code
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
 
     hits = response.json["hits"]["hits"]
     curated_hit = next(
@@ -1131,7 +1131,7 @@ def test_literature_list_with_normal_user_doesnt_have_curated_relation(inspire_a
             headers=headers,
         )
     response_status_code = response.status_code
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
 
     hits = response.json["hits"]["hits"]
     curated_hit = next(
@@ -1184,7 +1184,7 @@ def test_literature_list_for_non_author_publication_search_doesnt_have_curated_r
             f"/literature?author={author['control_number']}_John%20Doe", headers=headers
         )
     response_status_code = response.status_code
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
 
     hits = response.json["hits"]["hits"]
 

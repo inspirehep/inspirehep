@@ -13,8 +13,11 @@ You overwrite and set instance-specific configuration by either:
 - Environment variables: ``APP_<variable name>``
 """
 
+import orjson
 import pkg_resources
 
+from inspirehep.search.serializers import ORJSONSerializerES
+from inspirehep.serializers import serialize_json_for_sqlalchemy
 from inspirehep.utils import include_table_check
 
 # INSPIRE configuration
@@ -156,6 +159,11 @@ SQLALCHEMY_DATABASE_URI = (
     "postgresql+psycopg2://inspirehep:inspirehep@localhost:5432/inspirehep"
 )
 
+SQLALCHEMY_ENGINE_OPTIONS = {
+    "json_deserializer": orjson.loads,
+    "json_serializer": serialize_json_for_sqlalchemy,
+}
+
 # JSONSchemas
 # ===========
 #: Hostname used in URLs for local JSONSchemas.
@@ -201,6 +209,7 @@ INDEXER_DEFAULT_DOC_TYPE = "_doc"
 INDEXER_BULK_REQUEST_TIMEOUT = 900
 INDEXER_REPLACE_REFS = False
 SEARCH_INDEX_PREFIX = None
+SEARCH_CLIENT_CONFIG = {"serializer": ORJSONSerializerES()}
 
 # Alembic
 # =======

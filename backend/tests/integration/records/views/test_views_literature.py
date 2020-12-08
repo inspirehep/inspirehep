@@ -5,10 +5,10 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
 from urllib.parse import urlencode
 
 import mock
+import orjson
 from flask import current_app
 from helpers.providers.faker import faker
 from helpers.utils import (
@@ -50,7 +50,7 @@ def test_literature_search_application_json_get(inspire_app):
     with inspire_app.test_client() as client:
         response = client.get("/literature", headers=headers)
     response_status_code = response.status_code
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_data_metadata = response_data["hits"]["hits"][0]["metadata"]
 
     assert expected_status_code == response_status_code
@@ -79,7 +79,7 @@ def test_literature_search_application_json_ui_get(inspire_app):
     with inspire_app.test_client() as client:
         response = client.get("/literature", headers=headers)
     response_status_code = response.status_code
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_data_metadata = response_data["hits"]["hits"][0]["metadata"]
 
     assert expected_status_code == response_status_code
@@ -259,7 +259,7 @@ def test_literature_citations(inspire_app):
     with inspire_app.test_client() as client:
         response = client.get("/literature/{}/citations".format(record_control_number))
     response_status_code = response.status_code
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
 
     assert expected_status_code == response_status_code
     assert expected_data == response_data
@@ -323,7 +323,7 @@ def test_literature_citations_with_superseded_citing_records(inspire_app):
     with inspire_app.test_client() as client:
         response = client.get(f"/literature/{record_control_number}/citations")
     response_status_code = response.status_code
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_data_metadata = response_data["metadata"]
 
     assert expected_status_code == response_status_code
@@ -374,7 +374,7 @@ def test_literature_citations_with_non_citeable_collection(inspire_app):
     with inspire_app.test_client() as client:
         response = client.get(f"/literature/{record_control_number}/citations")
     response_status_code = response.status_code
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
 
     assert expected_status_code == response_status_code
     assert record_with_no_citable_collection["control_number"] not in [
@@ -389,7 +389,7 @@ def test_literature_citations_empty(inspire_app):
     with inspire_app.test_client() as client:
         response = client.get("/literature/{}/citations".format(record_control_number))
     response_status_code = response.status_code
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
 
     expected_status_code = 200
     expected_data = {"metadata": {"citation_count": 0, "citations": []}}
@@ -420,7 +420,7 @@ def test_literature_citations_with_size_bigger_than_maximum(
             f"/literature/{record['control_number']}/citations?size=5", headers=headers
         )
     response_status_code = response.status_code
-    response_data = json.loads(response.get_data())
+    response_data = orjson.loads(response.get_data())
     expected_status_code = 400
     expected_response = MaxResultWindowRESTError().description
     assert expected_status_code == response_status_code
@@ -432,7 +432,7 @@ def test_literature_facets(inspire_app):
 
     with inspire_app.test_client() as client:
         response = client.get("/literature/facets")
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_status_code = response.status_code
     response_data_facet_keys = list(response_data.get("aggregations").keys())
 
@@ -463,7 +463,7 @@ def test_literature_cataloger_facets(inspire_app):
         login_user_via_session(client, email=user.email)
         response = client.get("/literature/facets")
 
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_status_code = response.status_code
     response_data_facet_keys = list(response_data.get("aggregations").keys())
 
@@ -489,7 +489,7 @@ def test_literature_cataloger_facets(inspire_app):
 def test_literature_facets_author_count_does_not_have_empty_bucket(inspire_app):
     with inspire_app.test_client() as client:
         response = client.get("/literature/facets")
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     author_count_agg = response_data.get("aggregations")["author_count"]
     assert author_count_agg["buckets"] == []
 
@@ -501,7 +501,7 @@ def test_literature_facets_author_count_returns_non_empty_bucket(inspire_app):
     )
     with inspire_app.test_client() as client:
         response = client.get("/literature/facets")
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     author_count_agg = response_data.get("aggregations")["author_count"]
     buckets = author_count_agg["buckets"]
     assert len(buckets) == 1
@@ -511,7 +511,7 @@ def test_literature_facets_author_count_returns_non_empty_bucket(inspire_app):
 def test_literature_facets_doc_type_has_bucket_help(inspire_app):
     with inspire_app.test_client() as client:
         response = client.get("/literature/facets")
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_status_code = response.status_code
     response_data_facet_bucket_help = (
         response_data.get("aggregations").get("doc_type").get("meta").get("bucket_help")
@@ -541,7 +541,7 @@ def test_literature_search_citation_count_filter(inspire_app):
     with inspire_app.test_client() as client:
         response = client.get("/literature?citation_count=101--102")
 
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_status_code = response.status_code
     assert response_status_code == 200
     assert response_data["hits"]["total"] == 1
@@ -560,7 +560,7 @@ def test_literature_search_refereed_filter(inspire_app):
 
     with inspire_app.test_client() as client:
         response = client.get("/literature?refereed=true")
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_status_code = response.status_code
     assert response_status_code == 200
     assert response_data["hits"]["total"] == 1
@@ -579,7 +579,7 @@ def test_literature_search_citeable_filter(inspire_app):
 
     with inspire_app.test_client() as client:
         response = client.get("/literature?citeable=true")
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_status_code = response.status_code
     assert response_status_code == 200
     assert response_data["hits"]["total"] == 1
@@ -689,7 +689,7 @@ def test_literature_search_user_does_not_get_fermilab_collection(inspire_app):
     with inspire_app.test_client() as client:
         response = client.get("/literature")
     response_status_code = response.status_code
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
 
     assert response_data["hits"]["total"] == 0
     assert expected_status_code == response_status_code
@@ -724,7 +724,7 @@ def test_literature_search_cataloger_gets_fermilab_collection(inspire_app):
         login_user_via_session(client, email=user.email)
         response = client.get("/literature")
     response_status_code = response.status_code
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     assert response_data["hits"]["total"] == 1
 
     response_data_metadata = response_data["hits"]["hits"][0]["metadata"]
@@ -739,7 +739,7 @@ def test_literature_search_permissions(inspire_app):
 
     with inspire_app.test_client() as client:
         response = client.get("/literature")
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     assert response_data["hits"]["total"] == 1
     assert (
         response_data["hits"]["hits"][0]["metadata"]["control_number"]
@@ -750,13 +750,13 @@ def test_literature_search_permissions(inspire_app):
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.get("/literature")
-        response_data = json.loads(response.data)
+        response_data = orjson.loads(response.data)
         assert response_data["hits"]["total"] == 2
 
         logout(client)
 
         response = client.get("/literature")
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     assert response_data["hits"]["total"] == 1
     assert (
         response_data["hits"]["hits"][0]["metadata"]["control_number"]

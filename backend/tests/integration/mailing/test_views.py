@@ -5,8 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
-
+import orjson
 import pytest
 
 
@@ -16,7 +15,7 @@ def test_view_subscribe_to_list(inspire_app):
         response = client.post(
             "/mailing/subscribe/jobs/weekly",
             content_type="application/json",
-            data=json.dumps(
+            data=orjson.dumps(
                 {
                     "email": "frank@castle.com",
                     "first_name": "Frank",
@@ -33,7 +32,7 @@ def test_view_subscribe_to_list_with_invalid_email(inspire_app):
         response = client.post(
             "/mailing/subscribe/jobs/weekly",
             content_type="application/json",
-            data=json.dumps(
+            data=orjson.dumps(
                 {"email": "frank", "first_name": "Frank", "last_name": "Castle"}
             ),
         )
@@ -55,7 +54,7 @@ def test_view_subscribe_to_list_with_missing_data(inspire_app):
         response = client.post(
             "/mailing/subscribe/jobs/weekly",
             content_type="application/json",
-            data=json.dumps({"email": "frank@castle.com"}),
+            data=orjson.dumps({"email": "frank@castle.com"}),
         )
     expected_message = "Validation Error."
     expected_status_code = 400

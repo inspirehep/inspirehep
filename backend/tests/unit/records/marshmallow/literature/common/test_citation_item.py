@@ -5,7 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
+import orjson
 
 from inspirehep.records.marshmallow.literature.common import CitationItemSchemaV1
 
@@ -30,7 +30,7 @@ def test_returns_non_empty_fields():
 
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 def test_returns_max_10_authors():
@@ -69,7 +69,7 @@ def test_returns_max_10_authors():
 
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 def test_returns_non_empty_fields_if_some_fields_missing():
@@ -78,4 +78,4 @@ def test_returns_non_empty_fields_if_some_fields_missing():
     expected = {"control_number": 123}
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)

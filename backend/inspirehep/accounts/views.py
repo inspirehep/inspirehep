@@ -5,7 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from flask import Blueprint, jsonify, redirect, request, session
+from flask import Blueprint, redirect, request, session
 from flask_security.utils import login_user, logout_user, verify_password
 from invenio_accounts.models import User
 from invenio_db import db
@@ -13,6 +13,7 @@ from invenio_oauthclient import current_oauthclient
 from sqlalchemy.exc import IntegrityError
 
 from inspirehep.orcid.tasks import push_account_literature_to_orcid
+from inspirehep.serializers import jsonify
 
 from .api import get_current_user_remote_orcid_account
 from .decorators import login_required

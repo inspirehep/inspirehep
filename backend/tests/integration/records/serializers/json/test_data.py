@@ -5,9 +5,9 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
 from copy import deepcopy
 
+import orjson
 from helpers.utils import create_record, create_record_factory
 from marshmallow import utils
 
@@ -15,7 +15,7 @@ from marshmallow import utils
 def test_data_json(inspire_app, datadir):
     headers = {"Accept": "application/json"}
 
-    data = json.loads((datadir / "1.json").read_text())
+    data = orjson.loads((datadir / "1.json").read_text())
 
     record = create_record_factory("dat", data=data)
     record_control_number = record.json["control_number"]
@@ -26,7 +26,7 @@ def test_data_json(inspire_app, datadir):
     with inspire_app.test_client() as client:
         response = client.get(f"/data/{record_control_number}", headers=headers)
 
-    response_data = json.loads(response.data)
+    response_data = orjson.loads(response.data)
     response_data_metadata = response_data["metadata"]
     response_created = response_data["created"]
     response_updated = response_data["updated"]
@@ -39,7 +39,7 @@ def test_data_json(inspire_app, datadir):
 def test_data_search_json(inspire_app, datadir):
     headers = {"Accept": "application/json"}
 
-    data = json.loads((datadir / "1.json").read_text())
+    data = orjson.loads((datadir / "1.json").read_text())
 
     record = create_record("dat", data=data)
 

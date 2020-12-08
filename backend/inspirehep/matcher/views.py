@@ -1,6 +1,7 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, request
 
 from inspirehep.matcher.api import match_references
+from inspirehep.serializers import jsonify
 
 blueprint = Blueprint("inspirehep_matcher", __name__, url_prefix="/matcher")
 

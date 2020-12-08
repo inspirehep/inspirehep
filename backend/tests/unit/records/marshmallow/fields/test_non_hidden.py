@@ -5,8 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
-
+import orjson
 from marshmallow import Schema, fields
 
 from inspirehep.records.marshmallow.fields import NonHiddenNested, NonHiddenRaw
@@ -35,7 +34,7 @@ def test_nested_returns_only_not_hidden_items_with_many_true():
 
     result = schema.dumps(data).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 def test_raw_returns_only_not_hidden_items_with_list():
@@ -60,7 +59,7 @@ def test_raw_returns_only_not_hidden_items_with_list():
 
     result = schema.dumps(data).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 def test_raw_returns_empty_for_hidden_field():
@@ -78,4 +77,4 @@ def test_raw_returns_empty_for_hidden_field():
 
     result = schema.dumps(data).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)

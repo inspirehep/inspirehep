@@ -5,8 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
-
+import orjson
 from inspire_schemas.api import load_schema, validate
 
 from inspirehep.records.marshmallow.authors.common import PositionSchemaV1
@@ -32,7 +31,7 @@ def test_returns_display_date_if_start_and_end_date_present():
 
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 def test_returns_display_date_if_start_date_present_and_current_set():
@@ -46,7 +45,7 @@ def test_returns_display_date_if_start_date_present_and_current_set():
 
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 def test_returns_display_date_if_only_current_set():
@@ -60,7 +59,7 @@ def test_returns_display_date_if_only_current_set():
 
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 def test_returns_display_date_if_start_date_present():
@@ -74,7 +73,7 @@ def test_returns_display_date_if_start_date_present():
 
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 def test_returns_display_date_if_end_date_present():
@@ -88,7 +87,7 @@ def test_returns_display_date_if_end_date_present():
 
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 def test_returns_display_date_rank_institution_and_current():
@@ -107,4 +106,4 @@ def test_returns_display_date_rank_institution_and_current():
 
     result = schema.dumps(dump).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)

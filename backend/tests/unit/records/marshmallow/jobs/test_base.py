@@ -4,8 +4,7 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-import json
-
+import orjson
 from helpers.providers.faker import faker
 
 from inspirehep.records.api import JobsRecord
@@ -34,17 +33,17 @@ def test_jobs_api_serializer_doesent_return_reference_letters():
     data = {"emails": ["test.test.test@cern.ch", "test@cern.ch"]}
     job = faker.record("job", data={"reference_letters": data})
     result = JobsPublicListSchema().dumps(job).data
-    result_data = json.loads(result)
+    result_data = orjson.loads(result)
 
     assert "reference_letters" not in result_data
 
 
 def test_jobs_api_serializer_doesent_return_email_in_contact_details():
-    data = [{"email": "test.test.test@cern.ch", "name": "Test, Contact",}]
+    data = [{"email": "test.test.test@cern.ch", "name": "Test, Contact"}]
 
     job = faker.record("job", data={"contact_details": data})
     result = JobsPublicListSchema().dumps(job).data
-    result_data = json.loads(result)
+    result_data = orjson.loads(result)
 
     assert "emails" not in result_data["contact_details"]
 
@@ -61,6 +60,6 @@ def test_jobs_api_serializer_doesent_return_email_in_acquisition_source():
 
     job = faker.record("job", data={"acquisition_source": acquisition_source})
     result = JobsPublicListSchema().dumps(job).data
-    result_data = json.loads(result)
+    result_data = orjson.loads(result)
 
     assert "email" not in result_data["acquisition_source"]

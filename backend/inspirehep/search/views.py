@@ -5,8 +5,10 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from flask import Blueprint, abort, current_app, jsonify, request
+from flask import Blueprint, abort, current_app, request
 from inspire_query_parser import parse_query
+
+from inspirehep.serializers import jsonify
 
 blueprint = Blueprint("inspirehep_search", __name__, url_prefix="/search")
 

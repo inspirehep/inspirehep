@@ -5,8 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
-
+import orjson
 from marshmallow import Schema, fields
 
 from inspirehep.records.marshmallow.fields import ListWithLimit
@@ -32,7 +31,7 @@ def test_list_with_limit_five():
 
     result = schema.dumps(data).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 def test_list_with_limit_one():
@@ -43,7 +42,7 @@ def test_list_with_limit_one():
 
     result = schema.dumps(data).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 def test_list_with_no_limit():
@@ -54,4 +53,4 @@ def test_list_with_no_limit():
 
     result = schema.dumps(data).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)

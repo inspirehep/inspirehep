@@ -5,8 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
-
+import orjson
 import pytest
 from deepdiff import DeepDiff
 from freezegun import freeze_time
@@ -20,15 +19,15 @@ from inspirehep.search.api import LiteratureSearch
 
 @freeze_time("1994-12-19")
 def test_index_literature_record(inspire_app, datadir):
-    author_data = json.loads((datadir / "1032336.json").read_text())
+    author_data = orjson.loads((datadir / "1032336.json").read_text())
     author = create_record("aut", data=author_data)
 
-    data = json.loads((datadir / "1630825.json").read_text())
+    data = orjson.loads((datadir / "1630825.json").read_text())
     record = create_record("lit", data=data)
 
     expected_count = 1
-    expected_metadata = json.loads((datadir / "es_1630825.json").read_text())
-    expected_metadata_ui_display = json.loads(expected_metadata.pop("_ui_display"))
+    expected_metadata = orjson.loads((datadir / "es_1630825.json").read_text())
+    expected_metadata_ui_display = orjson.loads(expected_metadata.pop("_ui_display"))
     expected_metadata_latex_us_display = expected_metadata.pop("_latex_us_display")
     expected_metadata_latex_eu_display = expected_metadata.pop("_latex_eu_display")
     expected_metadata_bibtex_display = expected_metadata.pop("_bibtex_display")
@@ -38,7 +37,7 @@ def test_index_literature_record(inspire_app, datadir):
     response = es_search("records-hep")
 
     result = response["hits"]["hits"][0]["_source"]
-    result_ui_display = json.loads(result.pop("_ui_display"))
+    result_ui_display = orjson.loads(result.pop("_ui_display"))
     result_latex_us_display = result.pop("_latex_us_display")
     result_latex_eu_display = result.pop("_latex_eu_display")
     result_bibtex_display = result.pop("_bibtex_display")
@@ -57,7 +56,7 @@ def test_index_literature_record(inspire_app, datadir):
 
 
 def test_regression_index_literature_record_with_related_records(inspire_app, datadir):
-    data = json.loads((datadir / "1503270.json").read_text())
+    data = orjson.loads((datadir / "1503270.json").read_text())
     record = create_record("lit", data=data)
 
     response = es_search("records-hep")
@@ -68,7 +67,7 @@ def test_regression_index_literature_record_with_related_records(inspire_app, da
 
 
 def test_indexer_deletes_record_from_es(inspire_app, datadir):
-    data = json.loads((datadir / "1630825.json").read_text())
+    data = orjson.loads((datadir / "1630825.json").read_text())
     record = create_record("lit", data=data)
     record.delete()
     record.index(delay=False)
@@ -104,14 +103,14 @@ def test_indexer_creates_proper_fulltext_links_for_hidden_documents_in_ui_displa
                 "hidden": True,
                 "key": "arXiv:nucl-th_9310030.pdf",
                 "url": "https://arxiv.org/pdf/1910.11662.pdf",
-            },
+            }
         ],
     }
     record = create_record("lit", data=data)
     response = es_search("records-hep")
 
     result = response["hits"]["hits"][0]["_source"]
-    result_ui_display = json.loads(result.pop("_ui_display"))
+    result_ui_display = orjson.loads(result.pop("_ui_display"))
     for link in result_ui_display["fulltext_links"]:
         assert link["value"]
         assert link["description"] in expected_fulltext_links
@@ -138,14 +137,14 @@ def test_indexer_creates_proper_fulltext_links_in_ui_display_files_enabled(
                 "fulltext": True,
                 "key": "arXiv:nucl-th_9310030.pdf",
                 "url": "https://arxiv.org/pdf/1906.00123.pdf",
-            },
+            }
         ],
     }
     record = create_record("lit", data=data)
     response = es_search("records-hep")
 
     result = response["hits"]["hits"][0]["_source"]
-    result_ui_display = json.loads(result.pop("_ui_display"))
+    result_ui_display = orjson.loads(result.pop("_ui_display"))
     for link in result_ui_display["fulltext_links"]:
         assert link["value"]
         assert link["description"] in expected_fulltext_links
@@ -188,7 +187,7 @@ def test_indexer_creates_proper_fulltext_links_in_ui_display_files_disabled(
     response = es_search("records-hep")
 
     result = response["hits"]["hits"][0]["_source"]
-    result_ui_display = json.loads(result.pop("_ui_display"))
+    result_ui_display = orjson.loads(result.pop("_ui_display"))
 
     assert result_ui_display["fulltext_links"] == expected_fulltext_links
 
@@ -213,7 +212,7 @@ def test_indexer_not_fulltext_links_in_ui_display_when_no_fulltext_links(inspire
     response = es_search("records-hep")
 
     result = response["hits"]["hits"][0]["_source"]
-    result_ui_display = json.loads(result.pop("_ui_display"))
+    result_ui_display = orjson.loads(result.pop("_ui_display"))
 
     assert "fulltext_links" not in result_ui_display
 
@@ -229,7 +228,7 @@ def test_indexer_removes_supervisors_from_authors_for_ui_display_field(inspire_a
 
     expected_author_full_name = "Frank Castle"
     result = response["hits"]["hits"][0]["_source"]
-    result_ui_display = json.loads(result.pop("_ui_display"))
+    result_ui_display = orjson.loads(result.pop("_ui_display"))
     result_authors = result["authors"]
     assert len(result_ui_display["authors"]) == 1
     assert result_ui_display["authors"][0]["full_name"] == expected_author_full_name

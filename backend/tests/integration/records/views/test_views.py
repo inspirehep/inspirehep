@@ -5,8 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
-
+import orjson
 from helpers.providers.faker import faker
 from helpers.utils import (
     create_record,
@@ -27,7 +26,7 @@ def test_error_message_on_pid_already_exists(inspire_app):
             "/literature",
             headers=headers,
             content_type="application/json",
-            data=json.dumps(record),
+            data=orjson.dumps(record),
         )
 
     response_status_code = response.status_code
@@ -82,7 +81,7 @@ def test_does_not_update_stale(inspire_app):
         first_put_response = client.put(
             "/conferences/{}".format(record_control_number),
             content_type="application/json",
-            data=json.dumps(
+            data=orjson.dumps(
                 faker.record("con", data={"control_number": record_control_number})
             ),
             headers={"If-Match": etag},
@@ -93,7 +92,7 @@ def test_does_not_update_stale(inspire_app):
         stale_put_response = client.put(
             f"/conferences/{record_control_number}",
             content_type="application/json",
-            data=json.dumps(
+            data=orjson.dumps(
                 faker.record("con", data={"control_number": record_control_number})
             ),
             headers={"If-Match": etag},

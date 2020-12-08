@@ -5,8 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
-
+import orjson
 from marshmallow import Schema, fields
 
 from inspirehep.records.marshmallow.fields import NestedWithoutEmptyObjects
@@ -28,7 +27,7 @@ def test_nested_without_empty_objects():
 
     result = schema.dumps(data).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 def test_nested_without_empty_objects_with_one_empty():
@@ -39,7 +38,7 @@ def test_nested_without_empty_objects_with_one_empty():
 
     result = schema.dumps(data).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 def test_nested_without_empty_objects_with_all_empty():
@@ -50,4 +49,4 @@ def test_nested_without_empty_objects_with_all_empty():
 
     result = schema.dumps(data).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)

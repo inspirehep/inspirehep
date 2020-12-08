@@ -1,5 +1,4 @@
-import json
-
+import orjson
 from helpers.factories.db.invenio_records import TestRecordMetadata
 from helpers.utils import create_record, create_user
 from invenio_accounts.testutils import login_user_via_session
@@ -47,11 +46,11 @@ def test_get_linked_refs(inspire_app):
         response = client.post(
             "api/matcher/linked_references/",
             content_type="application/json",
-            data=json.dumps(references),
+            data=orjson.dumps(references),
         )
     assert response.status_code == 200
 
-    linked_refs = json.loads(response.data)
+    linked_refs = orjson.loads(response.data)
     assert (
         linked_refs["references"][0]["record"]["$ref"]
         == "http://localhost:5000/api/literature/1"
@@ -66,11 +65,11 @@ def test_get_linked_refs_empty_list(inspire_app):
         response = client.post(
             "api/matcher/linked_references/",
             content_type="application/json",
-            data=json.dumps({"references": []}),
+            data=orjson.dumps({"references": []}),
         )
     assert response.status_code == 200
 
-    linked_refs = json.loads(response.data)
+    linked_refs = orjson.loads(response.data)
     assert linked_refs["references"] == []
 
 
@@ -90,7 +89,5 @@ def test_get_linked_refs_bad_request(inspire_app):
 
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
-        response = client.get(
-            "api/matcher/linked_references/",
-        )
+        response = client.get("api/matcher/linked_references/")
     assert response.status_code == 405

@@ -5,9 +5,8 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
-
 import mock
+import orjson
 from inspire_schemas.api import load_schema, validate
 from marshmallow import Schema, fields
 
@@ -55,7 +54,7 @@ def test_returns_non_empty_fields(get_records_mock):
     }
     record = LiteratureRecord(dump)
     result = schema.dumps(record).data
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 @mock.patch("inspirehep.records.api.base.InspireRecord.get_records_by_pids")
@@ -66,7 +65,7 @@ def test_forces_collaborations_to_be_object_if_reference_not_linked(get_records_
 
     record = LiteratureRecord(dump)
     result = schema.dumps(record).data
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 @mock.patch("inspirehep.records.api.base.InspireRecord.get_records_by_pids")
@@ -85,7 +84,7 @@ def test_forces_collaborations_to_be_object_if_reference_not_linked_with_many_tr
     record = LiteratureRecord(dump)
     result = schema.dumps(record).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 @mock.patch("inspirehep.records.api.base.InspireRecord.get_records_by_pids")
@@ -97,7 +96,7 @@ def test_returns_empty_if_no_reference_or_record_field(get_records_mock):
     record = LiteratureRecord(dump)
     result = schema.dumps(record).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 @mock.patch("inspirehep.records.api.base.InspireRecord.get_records_by_pids")
@@ -109,7 +108,7 @@ def test_returns_empty_if_empty_reference_or_record_field(get_records_mock):
     record = LiteratureRecord(dump)
     result = schema.dumps(record).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 @mock.patch("inspirehep.records.api.base.InspireRecord.get_records_by_pids")
@@ -121,7 +120,7 @@ def test_returns_non_empty_fields_if_some_fields_missing(get_records_mock):
     record = LiteratureRecord(dump)
     result = schema.dumps(record).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 @mock.patch("inspirehep.records.api.base.InspireRecord.get_records_by_pids")
@@ -137,7 +136,7 @@ def test_returns_no_misc_if_title_persent(get_records_mock):
     record = LiteratureRecord(dump)
     result = schema.dumps(record).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 @mock.patch(
@@ -174,7 +173,7 @@ def test_returns_no_misc_if_titles_persent_in_the_resolved_record(
     assert validate([dump], subschema) is None
 
     result = schema.dumps(dump).data
-    assert "misc" not in json.loads(result)
+    assert "misc" not in orjson.loads(result)
 
 
 @mock.patch("inspirehep.records.api.base.InspireRecord.get_records_by_pids")
@@ -191,7 +190,7 @@ def test_returns_only_first_misc(get_records_mock):
     record = LiteratureRecord(dump)
     result = schema.dumps(record).data
 
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 @mock.patch(
@@ -215,7 +214,7 @@ def test_returns_dois_from_the_resolved_record(mock_get_linked_records_in_field)
         "dois": [{"value": "10.1103/PhysRevD.94.054021"}],
     }
     result = schema.dumps(dump).data
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)
 
 
 @mock.patch(
@@ -241,4 +240,4 @@ def test_returns_arxiv_eprints_from_the_resolved_record(
 
     expected = {"control_number": 123, "arxiv_eprint": [{"value": "1606.09129"}]}
     result = schema.dumps(dump).data
-    assert expected == json.loads(result)
+    assert expected == orjson.loads(result)

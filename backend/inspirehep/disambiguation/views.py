@@ -6,12 +6,13 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import structlog
-from flask import Blueprint, current_app, jsonify, request
+from flask import Blueprint, current_app, request
 
 from inspirehep.accounts.decorators import login_required_with_roles
 from inspirehep.accounts.roles import Roles
 from inspirehep.disambiguation.loaders import DisambiguateSignaturesSchema
 from inspirehep.disambiguation.tasks import disambiguate_signatures
+from inspirehep.serializers import jsonify
 
 LOGGER = structlog.getLogger()
 
