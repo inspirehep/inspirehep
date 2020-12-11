@@ -114,11 +114,22 @@ export class HoldingpenSaveButtonComponent extends SubscriberComponent
 
   private cleanupAndSave() {
     this.recordCleanupService.cleanup(this.workflowObject.metadata);
-    if (this.callbackUrl) {
-      this.saveWithCallbackUrl();
-    } else {
-      this.save();
-    }
+    this.apiService.validateWorkflowObject(this.workflowObject).subscribe(
+      data => {
+        delete this.workflowObject._extra_data['validation_errors'];
+      },
+      error => {
+        this.workflowObject._extra_data['validation_errors'] = error.body;
+        this.displayErrorToast(error);
+      },
+      () => {
+        if (this.callbackUrl) {
+          this.saveWithCallbackUrl();
+        } else {
+          this.save();
+        }
+      }
+    );
   }
 
   private get callbackUrl(): string | undefined {
