@@ -26,7 +26,7 @@ import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 import { CommonApiService } from './common-api.service';
-import { holdingpenApiUrl } from '../../shared/config';
+import { holdingpenApiUrl, editorApiUrl } from '../../shared/config';
 import { ApiError } from '../../shared/classes';
 import { WorkflowObject, WorkflowResource } from '../../shared/interfaces';
 
@@ -43,6 +43,17 @@ export class HoldingpenApiService extends CommonApiService {
     return this.fetchUrl<WorkflowResource>(
       `/api/editor/holdingpen/${objectId}`
     );
+  }
+
+  validateWorkflowObject(object: WorkflowObject): Observable<Object> {
+    let request_data = {
+      'id': object.id,
+      'record': object.metadata,
+    };
+    return this.http
+      .post(`${editorApiUrl}/validate_workflow`, request_data)
+      .catch(error => Observable.throw(new ApiError(error)))
+      .map(res => res.json());
   }
 
   saveWorkflowObject(object: WorkflowObject): Observable<void> {
