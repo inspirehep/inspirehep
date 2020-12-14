@@ -24,7 +24,6 @@ CMD ["shell"]
 COPY poetry.lock pyproject.toml ./
 RUN poetry install --no-root
 
-COPY setup.py ./
 COPY gunicorn_config.py ./
 COPY inspirehep inspirehep/
 COPY tests tests/

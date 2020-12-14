@@ -1,9 +1,19 @@
 [tool.poetry]
 name = "inspirehep"
 version = "0.1.19"
-description = "NSPIRE is the leading information platform for High Energy Physics (HEP) literature which provides users with high quality, curated content covering the entire corpus of HEP literature and the fulltext of all such articles that are Open Access."
+description = "INSPIRE is a trusted community hub that helps researchers to share and find accurate scholarly information in high energy physics."
 authors = ["CERN <admin@inspirehep.net>"]
 license = "MIT License"
+homepage = "https://inspirehep.net"
+repository = "https://github.com/inspirehep/inspirehep"
+classifiers=[
+    "Environment :: Web Environment",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+    "Development Status :: 5 - Production/Stable",
+]
 
 [tool.poetry.dependencies]
 celery = "==4.4.2"
@@ -86,12 +96,12 @@ invenio-records-rest = {git = "https://github.com/inspirehep/invenio-records-res
 
 [tool.poetry.dev-dependencies]
 freezegun = "*"
-coverage = ">=4.4.1"
-isort = ">=4.3"
+coverage = {version = "^5.0.3", extras = ["toml"]}
+isort = "^5.6.4"
 mock = ">=3.0.0,<4.0.0"
 pydocstyle = ">=2.0.0"
 pytest = ">=5.0.0,<6.0.0"
-pytest-cov = "==2.6.1"
+pytest-cov = "^2.10.1"
 pytest-invenio = ">=1.2.0,<1.3.0"
 pytest-mock = ">=1.6.0"
 pytest-random-order = ">=0.5.4"
@@ -112,6 +122,98 @@ vcrpy = "^2.1.0"
 web-pdb = "^1.5"
 moto = "^1.3.14"
 
+[tool.poetry.scripts]
+inspirehep = "inspirehep.cli:cli"
+
+[tool.poetry.plugins."invenio_db.alembic"]
+inspirehep = "inspirehep:alembic"
+
+[tool.poetry.plugins."invenio_pidstore.minters"]
+literature_minter = "inspirehep.pidstore.minters.control_number:LiteratureMinter.mint"
+authors_minter = "inspirehep.pidstore.minters.control_number:AuthorsMinter.mint"
+jobs_minter = "inspirehep.pidstore.minters.control_number:JobsMinter.mint"
+journals_minter = "inspirehep.pidstore.minters.control_number:JournalsMinter.mint"
+experiments_minter = "inspirehep.pidstore.minters.control_number:ExperimentsMinter.mint"
+conferences_minter = "inspirehep.pidstore.minters.control_number:ConferencesMinter.mint"
+data_minter = "inspirehep.pidstore.minters.control_number:DataMinter.mint"
+institutions_minter = "inspirehep.pidstore.minters.control_number:InstitutionsMinter.mint"
+seminars_minter = "inspirehep.pidstore.minters.control_number:SeminarsMinter.mint"
+
+[tool.poetry.plugins."invenio_base.api_blueprints"]
+inspirehep = "inspirehep.views:blueprint"
+inspirehep_mailing = "inspirehep.mailing.views:blueprint"
+inspirehep_migrator = "inspirehep.migrator.views:blueprint"
+inspirehep_records = "inspirehep.records.views:blueprint"
+inspirehep_search = "inspirehep.search.views:blueprint"
+inspirehep_sitemap = "inspirehep.sitemap.views:blueprint"
+inspirehep_rt = "inspirehep.rt.views:blueprint"
+inspirehep_submissions = "inspirehep.submissions.views:blueprint"
+inspirehep_disambiguation = "inspirehep.disambiguation.views:blueprint"
+inspirehep_accounts = "inspirehep.accounts.views:blueprint"
+inspirehep_legacy = "inspirehep.legacy.views:blueprint"
+inspirehep_editor = "inspirehep.editor.views:blueprint"
+inspirehep_tools = "inspirehep.tools.views:blueprint"
+inspirehep_assign = "inspirehep.assign.views:blueprint"
+inspirehep_matcher = "inspirehep.matcher.views:blueprint"
+invenio_oaiserver = "invenio_oaiserver.views.server:blueprint"
+
+[tool.poetry.plugins."invenio_config.module"]
+inspirehep = "inspirehep.config"
+inspirehep_accounts = "inspirehep.accounts.config"
+inspirehep_editor = "inspirehep.editor.config"
+inspirehep_files = "inspirehep.files.config"
+inspirehep_logger = "inspirehep.logger.config"
+inspirehep_mailing = "inspirehep.mailing.config"
+inspirehep_matcher = "inspirehep.matcher.config"
+inspirehep_migrator = "inspirehep.migrator.config"
+inspirehep_oai = "inspirehep.oai.config"
+inspirehep_orcid = "inspirehep.orcid.config"
+inspirehep_records = "inspirehep.records.config"
+inspirehep_rt = "inspirehep.rt.config"
+inspirehep_search = "inspirehep.search.config"
+inspirehep_sitemap = "inspirehep.sitemap.config"
+
+[tool.poetry.plugins."invenio_base.api_apps"]
+inspirehep_logger = "inspirehep.logger:InspireLogger"
+inspirehep_mailing = "inspirehep.mailing:InspireMailing"
+inspirehep_migrator = "inspirehep.migrator:InspireMigrator"
+inspirehep_orcid = "inspirehep.orcid:InspireOrcid"
+inspirehep_records = "inspirehep.records:InspireRecords"
+inspirehep_rt = "inspirehep.rt:InspireRtExt"
+inspirehep_s3 = "inspirehep.files:InspireS3"
+
+[tool.poetry.plugins."invenio_base.api_converters"]
+doipath = "inspirehep.pidstore.converters:DOIPathConverter"
+arxivpath = "inspirehep.pidstore.converters:ArXivPathConverter"
+inspirepid = "inspirehep.pidstore.converters:InspirePIDConverter"
+
+[tool.poetry.plugins."invenio_jsonschemas.schemas"]
+inspirehep_records_schemas = "inspire_schemas"
+
+[tool.poetry.plugins."invenio_search.mappings"]
+records = "inspirehep.search.mappings"
+
+[tool.poetry.plugins."invenio_db.models"]
+inspirehep_records = "inspirehep.records.models"
+inspirehep_migrator = "inspirehep.migrator.models"
+
+[tool.poetry.plugins."invenio_celery.tasks"]
+inspirehep_indexer = "inspirehep.indexer.tasks"
+inspirehep_migrator = "inspirehep.migrator.tasks"
+inspirehep_orcid = "inspirehep.orcid.tasks"
+inspirehep_submissions = "inspirehep.submissions.tasks"
+inspirehep_matcher = "inspirehep.matcher.tasks"
+inspirehep_disambiguation = "inspirehep.disambiguation.tasks"
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+atomic = true
+skip = "ui"
+
+[tool.coverage.run]
+omit = "inspirehep/accounts/handlers.py"
+
 [build-system]
-requires = ["poetry>=1.0.0"]
+requires = ["poetry_core>=1.0.0"]
 build-backend = "poetry.masonry.api"
