@@ -9,11 +9,19 @@ from elasticsearch import SerializationError
 from elasticsearch.compat import string_types
 from elasticsearch.serializer import JSONSerializer
 from flask import current_app
+from freezegun.api import FakeDatetime
 
 from inspirehep.search.utils import RecursionLimit
 
 
 class ORJSONSerializerES(JSONSerializer):
+    def orjson_default(self, data):
+        if isinstance(data, FakeDatetime):
+            # this is only way to somehow serialize date during tests as Freezegun is replacing datetime
+            # with itself and it's not possible to easily change type back to datetime
+            return data.isoformat()
+        raise TypeError("Unable to serialize %r (type: %s)" % (data, type(data)))
+
     def dumps(self, data):
         if isinstance(data, string_types):
             return data
@@ -21,7 +29,7 @@ class ORJSONSerializerES(JSONSerializer):
             with RecursionLimit(
                 current_app.config.get("SEARCH_MAX_RECURSION_LIMIT", 5000)
             ):
-                dump = orjson.dumps(data, default=self.default).decode("utf-8")
+                dump = orjson.dumps(data, default=self.orjson_default).decode("utf-8")
             return dump
         except (ValueError, TypeError) as ex:
             if isinstance(ex, TypeError) and ex.args == ("Recursion limit reached",):
