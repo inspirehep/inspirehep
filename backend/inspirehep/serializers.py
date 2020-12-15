@@ -136,7 +136,7 @@ class JSONSerializerFacets(ORJSONSerializerMixin, InvenioJSONSerializer):
             search_result.get("aggregations", {})
         )
 
-        return orjson.dumps(search_result)
+        return orjson.dumps(search_result, **self._format_args())
 
     @staticmethod
     def flatten_aggregations(aggregations):
