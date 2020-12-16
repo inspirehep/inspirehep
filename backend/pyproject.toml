@@ -213,7 +213,7 @@ atomic = true
 skip = "ui"
 
 [tool.coverage.run]
-omit = "inspirehep/accounts/handlers.py"
+omit = ["inspirehep/accounts/handlers.py",]
 
 [build-system]
 requires = ["poetry_core>=1.0.0"]
