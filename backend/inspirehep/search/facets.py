@@ -37,7 +37,7 @@ from inspirehep.search.aggregations import (
     seminar_series_aggregation,
     seminar_subject_aggregation,
 )
-from inspirehep.search.utils import minify_painless
+from inspirehep.search.utils import get_coordinates_from_request, minify_painless
 
 
 def range_author_count_filter(field):
@@ -83,6 +83,25 @@ def filter_from_filters_aggregation(agg):
         filters = [
             list(agg.values())[0]["filters"]["filters"][value] for value in values
         ]
+        return Q("bool", filter=filters)
+
+    return inner
+
+
+def bounding_box_filter(top_left_coordinates, bottom_right_coordinates):
+    filter_for_localisation = {
+        ";".join([top_left_coordinates, bottom_right_coordinates]): {
+            "geo_bounding_box": {
+                "addresses.coordinates": {
+                    "top_left": top_left_coordinates,
+                    "bottom_right": bottom_right_coordinates,
+                }
+            }
+        }
+    }
+
+    def inner(values):
+        filters = [filter_for_localisation[value] for value in values]
         return Q("bool", filter=filters)
 
     return inner
@@ -463,8 +482,12 @@ def citations_by_year():
 def records_jobs(order=None):
     if order is None:
         order = count(start=1)
+    top_left, bottom_right = get_coordinates_from_request(request)
     return {
-        "filters": {**current_app.config["JOBS_FILTERS"]},
+        "filters": {
+            **current_app.config["JOBS_FILTERS"],
+            "location": bounding_box_filter(top_left, bottom_right),
+        },
         "aggs": {
             **jobs_field_of_interest_aggregation(order=next(order)),
             **jobs_rank_aggregation(order=next(order)),
@@ -476,8 +499,12 @@ def records_jobs(order=None):
 def records_conferences(order=None):
     if order is None:
         order = count(start=1)
+    top_left, bottom_right = get_coordinates_from_request(request)
     return {
-        "filters": {**current_app.config["CONFERENCES_FILTERS"]},
+        "filters": {
+            **current_app.config["CONFERENCES_FILTERS"],
+            "location": bounding_box_filter(top_left, bottom_right),
+        },
         "aggs": {
             **conf_series_aggregation(order=next(order)),
             **conf_subject_aggregation(order=next(order)),

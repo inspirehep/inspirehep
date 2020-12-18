@@ -39,11 +39,8 @@
           "country_code": {
             "type": "keyword"
           },
-          "latitude": {
-            "type": "double"
-          },
-          "longitude": {
-            "type": "double"
+          "coordinates": {
+            "type": "geo_point"
           },
           "place_name": {
             "type": "text"

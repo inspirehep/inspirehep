@@ -14,8 +14,11 @@ from inspirehep.records.marshmallow.common import (
     ContactDetailsItemWithoutEmail,
 )
 
-from ..utils import get_acquisition_source_without_email
-from .utils import get_reference_letters_without_email
+from ..utils import get_acquisition_source_without_email, get_addresses_with_coordinates
+from .utils import (
+    get_addresses_from_linked_institutions,
+    get_reference_letters_without_email,
+)
 
 
 class JobsRawSchema(RecordBaseSchema):
@@ -25,6 +28,15 @@ class JobsRawSchema(RecordBaseSchema):
     accelerator_experiments = fields.Nested(
         AcceleratorExperimentSchemaV1, dump_only=True, many=True
     )
+    addresses = fields.Method("get_addresses_with_coordinates")
+
+    @staticmethod
+    def get_addresses_with_coordinates(data):
+        institutions = get_addresses_from_linked_institutions(data)
+        addresses = []
+        for institution in institutions:
+            addresses.extend(get_addresses_with_coordinates(institution))
+        return addresses if addresses else None
 
 
 class JobsPublicListSchema(JobsRawSchema):

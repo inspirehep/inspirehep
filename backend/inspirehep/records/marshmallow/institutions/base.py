@@ -9,7 +9,9 @@
 from marshmallow import fields
 
 from inspirehep.records.marshmallow.base import RecordBaseSchema
-from inspirehep.records.marshmallow.utils import get_adresses_with_country
+from inspirehep.records.marshmallow.utils import (
+    get_adresses_with_country_and_coordinates,
+)
 
 
 class InstitutionsRawSchema(RecordBaseSchema):
@@ -18,7 +20,7 @@ class InstitutionsRawSchema(RecordBaseSchema):
 
     @staticmethod
     def get_addresses(record):
-        return get_adresses_with_country(record)
+        return get_adresses_with_country_and_coordinates(record)
 
 
 # Fields that are needed to be indexed but excluded from API responses

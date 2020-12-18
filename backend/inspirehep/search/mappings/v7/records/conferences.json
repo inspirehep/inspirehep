@@ -56,6 +56,9 @@
           },
           "state": {
             "type": "text"
+          },
+          "coordinates": {
+            "type": "geo_point"
           }
         },
         "type": "object"

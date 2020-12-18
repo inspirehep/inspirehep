@@ -33,10 +33,11 @@ def get_first_value_for_schema(list, schema):
     return ids_for_schema[0] if ids_for_schema else None
 
 
-def get_adresses_with_country(record):
+def get_adresses_with_country_and_coordinates(record):
     addresses = record.get("addresses", [])
     for address in addresses:
         set_country_for_address(address)
+        set_coordinates_for_address(address)
     return addresses
 
 
@@ -72,3 +73,21 @@ def get_acquisition_source_without_email(data):
     if "email" in acquisition_source.keys():
         del acquisition_source["email"]
     return acquisition_source
+
+
+def get_addresses_with_coordinates(data):
+    addresses = data.get("addresses", [])
+    for address in addresses:
+        set_coordinates_for_address(address)
+    return addresses
+
+
+def set_coordinates_for_address(address):
+    if "longitude" in address and "latitude" in address:
+        address["coordinates"] = {
+            "lon": address["longitude"],
+            "lat": address["latitude"],
+        }
+        del address["longitude"]
+        del address["latitude"]
+    return address

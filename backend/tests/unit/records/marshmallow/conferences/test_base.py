@@ -13,6 +13,7 @@ from inspirehep.records.marshmallow.conferences.base import (
     ConferencesPublicSchema,
     ConferencesRawSchema,
 )
+from inspirehep.records.marshmallow.conferences.es import ConferencesElasticSearchSchema
 
 
 def test_base_schema_contribution_number():
@@ -116,8 +117,16 @@ def test_admin_schema():
 def test_api_schema_doesnt_include_email_in_contact_details():
     data = [{"email": "test.test.test@cern.ch", "name": "Test, Contact"}]
 
-    job = faker.record("con", data={"contact_details": data})
-    result = ConferencesPublicListSchema().dumps(job).data
+    conference = faker.record("con", data={"contact_details": data})
+    result = ConferencesPublicListSchema().dumps(conference).data
     result_data = orjson.loads(result)
 
     assert "emails" not in result_data["contact_details"]
+
+
+def test_es_schema_returns_formatted_coordinates():
+    data = [{"longitude": 29.0, "latitude": 12.2}]
+    conference = faker.record("con", data={"addresses": data})
+    result = ConferencesElasticSearchSchema().dumps(conference).data
+    result_data = orjson.loads(result)
+    assert "coordinates" in result_data["addresses"][0]

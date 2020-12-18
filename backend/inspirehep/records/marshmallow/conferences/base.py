@@ -13,7 +13,9 @@ from inspirehep.records.marshmallow.common import ContactDetailsItemWithoutEmail
 from inspirehep.records.marshmallow.conferences.common.proceeding_info_item import (
     ProceedingInfoItemSchemaV1,
 )
-from inspirehep.records.marshmallow.utils import get_adresses_with_country
+from inspirehep.records.marshmallow.utils import (
+    get_adresses_with_country_and_coordinates,
+)
 
 LOGGER = structlog.getLogger()
 
@@ -27,7 +29,7 @@ class ConferencesRawSchema(RecordBaseSchema):
 
     @staticmethod
     def get_addresses(record):
-        return get_adresses_with_country(record)
+        return get_adresses_with_country_and_coordinates(record)
 
 
 class ConferencesAdminSchema(ConferencesRawSchema):

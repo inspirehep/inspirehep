@@ -87,7 +87,7 @@
       "arxiv_categories": {
         "type": "keyword"
       },
-      "address": {
+      "addresses": {
         "properties": {
           "cities": {
             "type": "text"
@@ -106,6 +106,9 @@
           },
           "state": {
             "type": "text"
+          },
+          "coordinates": {
+            "type": "geo_point"
           }
         },
         "type": "object"

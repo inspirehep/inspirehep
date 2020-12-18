@@ -60,3 +60,11 @@ class RecursionLimit(AbstractContextManager):
 
     def __exit__(self, exc_type, exc_value, traceback):
         sys.setrecursionlimit(self.original_limit)
+
+
+def get_coordinates_from_request(request):
+    if not request:
+        return "90, -179", "-90, 180"
+    location = request.values.get("location", "90, -179;-90, 180", type=str)
+    location_tokenized = location.split(";")
+    return location_tokenized
