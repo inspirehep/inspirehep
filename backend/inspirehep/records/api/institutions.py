@@ -4,6 +4,7 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+from inspirehep.records.api.mixins import AddressMixin
 from inspirehep.records.marshmallow.institutions import InstitutionsElasticSearchSchema
 
 from ...pidstore.api import PidStoreInstitutions
@@ -11,7 +12,7 @@ from ..models import InstitutionLiterature
 from .base import InspireRecord
 
 
-class InstitutionsRecord(InspireRecord):
+class InstitutionsRecord(AddressMixin, InspireRecord):
     """Institutions Record."""
 
     es_serializer = InstitutionsElasticSearchSchema

@@ -4,11 +4,12 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-
+import geocoder
 import structlog
 from flask import current_app
+from inspire_schemas.utils import country_code_to_name
 from inspire_utils.date import fill_missing_date_parts
-from inspire_utils.record import get_values_for_schema
+from inspire_utils.record import get_value, get_values_for_schema
 from invenio_db import db
 from sqlalchemy import and_, func, not_, or_, text
 
@@ -469,8 +470,7 @@ class ConferencePaperAndProceedingsMixin:
             )
 
     def get_newest_linked_conferences_uuid(self):
-        """Returns referenced conferences for which perspective this record has changed
-        """
+        """Returns referenced conferences for which perspective this record has changed"""
         prev_version = self._previous_version
 
         changed_deleted_status = self.get("deleted", False) ^ prev_version.get(
@@ -637,3 +637,59 @@ class ExperimentPapersMixin:
         pids_changed = set.symmetric_difference(set(pids_latest), set(pids_previous))
 
         return list(self.get_records_ids_by_pids(list(pids_changed)))
+
+
+class AddressMixin:
+    @classmethod
+    def create(cls, data, *args, **kwargs):
+        data = cls.build_address(data)
+        return super().create(data, *args, **kwargs)
+
+    def update(self, data, *args, **kwargs):
+        data = self.build_address(data)
+        super().update(data, *args, **kwargs)
+
+    @staticmethod
+    def get_geolocation(address):
+        response = geocoder.osm(address)
+        LOGGER.info(f"geocoder.osm response: {response}")
+        if response.ok:
+            latitude = response.current_result.lat
+            longitude = response.current_result.lng
+
+        return latitude, longitude
+
+    @staticmethod
+    def country_code_to_name(country_code):
+        try:
+            return country_code_to_name(country_code)
+        except KeyError:
+            return None
+
+    @classmethod
+    def build_address(cls, data):
+        for address in data.get("addresses", []):
+            latitude = address.get("latitude")
+            longitude = address.get("longitude")
+            if latitude and longitude:
+                LOGGER.info("Using stored geolocation data.")
+                continue
+            postal_address = address.get("postal_address", [None])[0]
+            if not postal_address:
+                place_name = address.get("place_name")
+                postal_code = address.get("postal_code")
+                city = address.get("cities", [None])[0]
+                state = address.get("state")
+                country = cls.country_code_to_name(address.get("country_code"))
+
+                address_list = [place_name, postal_code, city, state, country]
+                postal_address = ", ".join(
+                    [addr_part for addr_part in address_list if addr_part]
+                )
+            LOGGER.info(f"Querying OSM for address: {postal_address}")
+            latitude, longitude = cls.get_geolocation(postal_address)
+            if latitude and longitude:
+                LOGGER.info("Geolocation data has been found.")
+                address["latitude"] = latitude
+                address["longitude"] = longitude
+        return data

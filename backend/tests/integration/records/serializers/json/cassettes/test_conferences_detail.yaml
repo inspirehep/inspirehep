@@ -1,0 +1,38 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://nominatim.openstreetmap.org/search?addressdetails=1&format=jsonv2&limit=1&q=Kyoto%2C+Japan
+  response:
+    body:
+      string: "[{\"place_id\":4490122,\"licence\":\"Data \xA9 OpenStreetMap contributors,
+        ODbL 1.0. https://osm.org/copyright\",\"osm_type\":\"node\",\"osm_id\":533681139,\"boundingbox\":[\"34.861041\",\"35.181041\",\"135.5956075\",\"135.9156075\"],\"lat\":\"35.021041\",\"lon\":\"135.7556075\",\"display_name\":\"\u4EAC\u90FD\u5E02,
+        \u4EAC\u90FD\u5E9C, 602-8570, \u65E5\u672C\",\"place_rank\":16,\"category\":\"place\",\"type\":\"city\",\"importance\":0.6531376117097762,\"icon\":\"https://nominatim.openstreetmap.org/ui/mapicons//poi_place_city.p.20.png\",\"address\":{\"city\":\"\u4EAC\u90FD\u5E02\",\"province\":\"\u4EAC\u90FD\u5E9C\",\"postcode\":\"602-8570\",\"country\":\"\u65E5\u672C\",\"country_code\":\"jp\"}}]"
+    headers:
+      Access-Control-Allow-Methods:
+      - OPTIONS,GET
+      Access-Control-Allow-Origin:
+      - '*'
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Fri, 18 Dec 2020 13:30:30 GMT
+      Keep-Alive:
+      - timeout=20
+      Server:
+      - nginx
+      Transfer-Encoding:
+      - chunked
+    status:
+      code: 200
+      message: OK
+version: 1

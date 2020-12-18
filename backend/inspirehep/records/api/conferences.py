@@ -4,9 +4,9 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-
 from inspirehep.pidstore.api.conferences import PidStoreConferences
 from inspirehep.records.api.base import InspireRecord
+from inspirehep.records.api.mixins import AddressMixin
 from inspirehep.records.marshmallow.conferences import ConferencesElasticSearchSchema
 from inspirehep.records.models import (
     ConferenceLiterature,
@@ -14,7 +14,7 @@ from inspirehep.records.models import (
 )
 
 
-class ConferencesRecord(InspireRecord):
+class ConferencesRecord(AddressMixin, InspireRecord):
     """Conferences Record."""
 
     es_serializer = ConferencesElasticSearchSchema

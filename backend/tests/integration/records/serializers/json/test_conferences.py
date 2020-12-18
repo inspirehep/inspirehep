@@ -6,6 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import orjson
+import pytest
 from helpers.utils import create_record, create_user
 from invenio_accounts.testutils import login_user_via_session
 from marshmallow import utils
@@ -13,6 +14,7 @@ from marshmallow import utils
 from inspirehep.accounts.roles import Roles
 
 
+@pytest.mark.vcr()
 def test_conferences_json_without_login(inspire_app, datadir):
     headers = {"Accept": "application/json"}
 
@@ -23,7 +25,15 @@ def test_conferences_json_without_login(inspire_app, datadir):
 
     expected_metadata = {
         "$schema": "https://labs.inspirehep.net/schemas/records/conferences.json",
-        "addresses": [{"cities": ["Kyoto"], "country": "Japan", "country_code": "JP"}],
+        "addresses": [
+            {
+                "cities": ["Kyoto"],
+                "country": "Japan",
+                "country_code": "JP",
+                "latitude": 35.021041,
+                "longitude": 135.7556075,
+            }
+        ],
         "closing_date": "2012-05-25",
         "cnum": "C12-05-21.5",
         "contact_details": [{"email": "fs4loc@konan-u.ac.jp"}],
@@ -61,6 +71,7 @@ def test_conferences_json_without_login(inspire_app, datadir):
     assert expected_updated == response_updated
 
 
+@pytest.mark.vcr()
 def test_conferences_json_with_logged_in_cataloger(inspire_app):
     user = create_user(role=Roles.cataloger.value)
 
@@ -96,6 +107,7 @@ def test_conferences_json_with_logged_in_cataloger(inspire_app):
     assert expected_metadata == response_data_metadata
 
 
+@pytest.mark.vcr()
 def test_conferences_detail(inspire_app, datadir):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
 
@@ -106,7 +118,15 @@ def test_conferences_detail(inspire_app, datadir):
 
     expected_metadata = {
         "$schema": "https://labs.inspirehep.net/schemas/records/conferences.json",
-        "addresses": [{"cities": ["Kyoto"], "country": "Japan", "country_code": "JP"}],
+        "addresses": [
+            {
+                "cities": ["Kyoto"],
+                "country": "Japan",
+                "country_code": "JP",
+                "latitude": 35.021041,
+                "longitude": 135.7556075,
+            }
+        ],
         "closing_date": "2012-05-25",
         "cnum": "C12-05-21.5",
         "contact_details": [{"email": "fs4loc@konan-u.ac.jp"}],
@@ -144,6 +164,7 @@ def test_conferences_detail(inspire_app, datadir):
     assert expected_updated == response_updated
 
 
+@pytest.mark.vcr()
 def test_conferences_search_json(inspire_app, datadir):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
 
@@ -152,7 +173,15 @@ def test_conferences_search_json(inspire_app, datadir):
     record = create_record("con", data=data)
 
     expected_result = {
-        "addresses": [{"cities": ["Kyoto"], "country_code": "JP", "country": "Japan"}],
+        "addresses": [
+            {
+                "cities": ["Kyoto"],
+                "country_code": "JP",
+                "country": "Japan",
+                "latitude": 35.021041,
+                "longitude": 135.7556075,
+            }
+        ],
         "number_of_contributions": 0,
         "$schema": "https://labs.inspirehep.net/schemas/records/conferences.json",
         "closing_date": "2012-05-25",
