@@ -14,7 +14,8 @@ from flask import Blueprint, abort, current_app, jsonify, request, url_for
 from flask.views import MethodView
 from flask_login import current_user
 from inspire_schemas.builders import JobBuilder
-from inspire_utils.record import get_value
+from inspire_utils.dedupers import dedupe_list_of_dicts
+from inspire_utils.record import get_value, get_values_for_schema
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
 from jsonschema import SchemaError, ValidationError
@@ -135,8 +136,10 @@ class AuthorSubmissionsResource(BaseSubmissionsResource):
                 )
         except PIDDoesNotExistError:
             abort(404)
+
         data = self.load_data_from_request()
         updated_record_data = self.get_updated_record_data(data, record)
+
         record.update(updated_record_data, data)
         db.session.commit()
 
@@ -158,6 +161,19 @@ class AuthorSubmissionsResource(BaseSubmissionsResource):
             "arxiv_categories",
             "advisors",
         ]
+        try:
+            updated_ids = update_data["ids"]
+            updated_schemas = get_value(updated_ids, "schema", default=[])
+            updated_orcid = get_values_for_schema(updated_ids, "ORCID")
+            record_ids = record.pop("ids", [])
+            for record_id in record_ids:
+                if (record_id["schema"] not in updated_schemas) or (
+                    record_id["schema"] == "ORCID"
+                    and record_id["value"] != updated_orcid[0]
+                ):
+                    update_data["ids"].append(record_id)
+        except KeyError:
+            pass
 
         return get_updated_record_data(record, update_data, optional_fields)
 
@@ -374,8 +390,9 @@ class JobSubmissionsResource(BaseSubmissionsResource):
         serialized_record = job_v1.dump(record)
         deadline = serialized_record.get("deadline_date")
 
-        can_modify_status = is_superuser_or_cataloger_logged_in() or not has_30_days_passed_after_deadline(
-            deadline
+        can_modify_status = (
+            is_superuser_or_cataloger_logged_in()
+            or not has_30_days_passed_after_deadline(deadline)
         )
         return jsonify(
             {

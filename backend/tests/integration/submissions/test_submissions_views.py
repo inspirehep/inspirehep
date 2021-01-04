@@ -258,7 +258,11 @@ def test_update_author(create_ticket_mock, inspire_app):
     author_data = {
         "control_number": 123,
         "name": {"value": "John"},
-        "ids": [{"schema": "ORCID", "value": orcid}],
+        "ids": [
+            {"schema": "ORCID", "value": orcid},
+            {"value": "M.T.Hansen.1", "schema": "INSPIRE BAI"},
+            {"value": "HEPNAMES-1114565", "schema": "SPIRES"},
+        ],
         "status": "active",
         "urls": [{"value": "https://wrong-url"}],
     }
@@ -289,11 +293,179 @@ def test_update_author(create_ticket_mock, inspire_app):
         "control_number": 123,
         "name": {"preferred_name": "Updated", "value": "John, Updated"},
         "status": "active",
-        "ids": [{"schema": "ORCID", "value": orcid}],
+        "ids": [
+            {"schema": "ORCID", "value": orcid},
+            {"schema": "INSPIRE BAI", "value": "M.T.Hansen.1"},
+            {"schema": "SPIRES", "value": "HEPNAMES-1114565"},
+        ],
     }
 
     updated_author = AuthorsRecord.get_record_by_pid_value(123)
 
+    assert expected_data == updated_author
+
+    create_ticket_mock.delay.assert_called_once()
+
+
+@freeze_time("2019-06-17")
+@patch("inspirehep.submissions.views.async_create_ticket_with_template")
+def test_update_author_with_new_orcid(create_ticket_mock, inspire_app):
+    orcid = "0000-0001-5109-3700"
+    user = create_user(orcid=orcid)
+    author_data = {
+        "control_number": 123,
+        "name": {"value": "John"},
+        "ids": [
+            {"schema": "ORCID", "value": orcid},
+            {"value": "HEPNAMES-1114565", "schema": "SPIRES"},
+        ],
+        "status": "active",
+        "urls": [{"value": "https://wrong-url"}],
+    }
+    author_record = create_record("aut", data=author_data)
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.put(
+            "/submissions/authors/123",
+            content_type="application/json",
+            data=orjson.dumps(
+                {
+                    "data": {
+                        "given_name": "John, Updated",
+                        "display_name": "Updated",
+                        "orcid": "0000-0001-8829-5461",
+                        "status": "active",
+                        "linkedin": "http://linkedin.com",
+                        "bai": "M.T.Hansen.1",
+                    }
+                }
+            ),
+        )
+    assert response.status_code == 200
+
+    expected_data = {
+        "_collections": ["Authors"],
+        "self": {"$ref": "http://localhost:5000/api/authors/123"},
+        "$schema": "http://localhost:5000/schemas/records/authors.json",
+        "control_number": 123,
+        "name": {"preferred_name": "Updated", "value": "John, Updated"},
+        "status": "active",
+        "ids": [
+            {"schema": "LINKEDIN", "value": "http://linkedin.com"},
+            {"schema": "ORCID", "value": "0000-0001-8829-5461"},
+            {"schema": "INSPIRE BAI", "value": "M.T.Hansen.1"},
+            {"schema": "ORCID", "value": orcid},
+            {"schema": "SPIRES", "value": "HEPNAMES-1114565"},
+        ],
+    }
+    updated_author = AuthorsRecord.get_record_by_pid_value(123)
+    assert expected_data == updated_author
+
+    create_ticket_mock.delay.assert_called_once()
+
+
+@freeze_time("2019-06-17")
+@patch("inspirehep.submissions.views.async_create_ticket_with_template")
+def test_update_author_with_extra_data(create_ticket_mock, inspire_app):
+    orcid = "0000-0001-5109-3700"
+    user = create_user(orcid=orcid)
+    author_data = {
+        "control_number": 123,
+        "name": {"value": "John"},
+        "ids": [{"schema": "ORCID", "value": orcid}],
+        "status": "active",
+        "urls": [{"value": "https://wrong-url"}],
+    }
+    author_record = create_record("aut", data=author_data)
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.put(
+            "/submissions/authors/123",
+            content_type="application/json",
+            data=orjson.dumps(
+                {
+                    "data": {
+                        "given_name": "John, Updated",
+                        "display_name": "Updated",
+                        "linkedin": "http://linkedin.com",
+                        "bai": "M.T.Hansen.1",
+                    }
+                }
+            ),
+        )
+    assert response.status_code == 200
+
+    expected_data = {
+        "_collections": ["Authors"],
+        "self": {"$ref": "http://localhost:5000/api/authors/123"},
+        "$schema": "http://localhost:5000/schemas/records/authors.json",
+        "control_number": 123,
+        "name": {"preferred_name": "Updated", "value": "John, Updated"},
+        "status": "active",
+        "ids": [
+            {"schema": "LINKEDIN", "value": "http://linkedin.com"},
+            {"schema": "INSPIRE BAI", "value": "M.T.Hansen.1"},
+            {"schema": "ORCID", "value": orcid},
+        ],
+    }
+    updated_author = AuthorsRecord.get_record_by_pid_value(123)
+    assert expected_data == updated_author
+
+    create_ticket_mock.delay.assert_called_once()
+
+
+@freeze_time("2019-06-17")
+@patch("inspirehep.submissions.views.async_create_ticket_with_template")
+def test_update_author_with_new_bai(create_ticket_mock, inspire_app):
+    orcid = "0000-0001-5109-3700"
+    user = create_user(orcid=orcid)
+    author_data = {
+        "control_number": 123,
+        "name": {"value": "John"},
+        "ids": [
+            {"schema": "ORCID", "value": orcid},
+            {"value": "M.T.Hansen.2", "schema": "INSPIRE BAI"},
+        ],
+        "status": "active",
+        "urls": [{"value": "https://wrong-url"}],
+    }
+    author_record = create_record("aut", data=author_data)
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.put(
+            "/submissions/authors/123",
+            content_type="application/json",
+            data=orjson.dumps(
+                {
+                    "data": {
+                        "given_name": "John, Updated",
+                        "display_name": "Updated",
+                        "linkedin": "http://linkedin.com",
+                        "orcid": orcid,
+                        "bai": "M.T.Hansen.1",
+                    }
+                }
+            ),
+        )
+    assert response.status_code == 200
+
+    expected_data = {
+        "_collections": ["Authors"],
+        "self": {"$ref": "http://localhost:5000/api/authors/123"},
+        "$schema": "http://localhost:5000/schemas/records/authors.json",
+        "control_number": 123,
+        "name": {"preferred_name": "Updated", "value": "John, Updated"},
+        "status": "active",
+        "ids": [
+            {"schema": "LINKEDIN", "value": "http://linkedin.com"},
+            {"schema": "ORCID", "value": orcid},
+            {"schema": "INSPIRE BAI", "value": "M.T.Hansen.1"},
+        ],
+    }
+    updated_author = AuthorsRecord.get_record_by_pid_value(123)
     assert expected_data == updated_author
 
     create_ticket_mock.delay.assert_called_once()
