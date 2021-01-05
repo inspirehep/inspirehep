@@ -163,7 +163,7 @@
     }
   ],
   "dois": [{ "value": "10.1103/PhysRevD.88.034505" }],
-  "external_system_identifiers": [{ "schema": "OSTI", "value": "1091780" }],
+  "external_system_identifiers": [{ "schema": "OSTI", "value": "1091780" }, {"value": "ins1821703", "schema": "HEPDATA"}],
   "figures": [
     {
       "caption":

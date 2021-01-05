@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Row, Col, Tabs } from 'antd';
 import { Map, List } from 'immutable';
 import classNames from 'classnames';
-import { FilePdfOutlined } from '@ant-design/icons';
+import { FilePdfOutlined, DatabaseOutlined } from '@ant-design/icons';
 
 import './DetailPage.scss';
 import {
@@ -88,6 +88,7 @@ function DetailPage({
   const canEdit = metadata.get('can_edit', false);
   const figures = metadata.get('figures');
   const deleted = metadata.get('deleted', false);
+  const datasetLinks = metadata.get("dataset_links")
 
   return (
     <>
@@ -130,6 +131,13 @@ function DetailPage({
                         pidValue={controlNumber}
                       />
                     )}
+                    {datasetLinks &&
+                    <UrlsAction
+                    urls={datasetLinks}
+                    icon={<DatabaseOutlined />}
+                    text="datasets"
+                        />
+                        }
                   </>
                 }
                 rightActions={

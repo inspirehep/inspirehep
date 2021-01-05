@@ -217,3 +217,18 @@ def test_arxiv_paper_with_ads_id_does_not_get_ads_link_with_arxiv():
     serializer = LiteratureDetailSchema()
     serialized = serializer.dump(entry_data).data
     assert serialized["external_system_identifiers"] == expected_data
+
+
+def test_dataset_links():
+    external_system_identifiers = {
+        "external_system_identifiers": [
+            {"schema": "HEPDATA", "value": "hep-123"},
+            {"schema": "ADS", "value": "ads-id-2"},
+        ]
+    }
+    expected_data = [
+        {"value": "https://www.hepdata.net/record/hep-123", "description": "HEPData"}
+    ]
+    serializer = LiteratureDetailSchema()
+    serialized = serializer.dump(external_system_identifiers).data
+    assert serialized["dataset_links"] == expected_data
