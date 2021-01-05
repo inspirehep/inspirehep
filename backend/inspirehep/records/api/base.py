@@ -27,6 +27,7 @@ from invenio_records.signals import after_record_revert, before_record_revert
 from sqlalchemy import tuple_
 from sqlalchemy.orm.attributes import flag_modified
 from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy_continuum import version_class
 
 from inspirehep.indexer.base import InspireRecordIndexer
 from inspirehep.pidstore.api import PidStoreBase
@@ -483,10 +484,14 @@ class InspireRecord(Record):
     def _previous_version(self):
         """Returns the previous version of the record"""
         data = {}
+        RecordMetadataVersion = version_class(RecordMetadata)
         try:
-            current = self.model.versions.filter_by(
-                version_id=self.model.version_id
-            ).one()
+            if isinstance(self.model, RecordMetadataVersion):
+                current = self.model
+            else:
+                current = self.model.versions.filter_by(
+                    version_id=self.model.version_id
+                ).one()
             if current.previous:
                 data = current.previous.json
         except NoResultFound:

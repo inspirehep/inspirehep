@@ -7,7 +7,13 @@
 
 import structlog
 from celery import shared_task
-from elasticsearch import NotFoundError
+from elasticsearch import (
+    ConflictError,
+    ConnectionError,
+    ConnectionTimeout,
+    NotFoundError,
+    RequestError,
+)
 from flask import current_app
 from sqlalchemy.exc import (
     DisconnectionError,
@@ -33,6 +39,9 @@ CELERY_INDEX_RECORD_RETRY_ON_EXCEPTIONS = (
     UnboundExecutionError,
     ResourceClosedError,
     OperationalError,
+    ConnectionError,
+    ConnectionTimeout,
+    RequestError,
 )
 
 
@@ -73,7 +82,6 @@ def index_record(self, uuid, record_version=None, force_delete=None):
     """
     LOGGER.debug("Indexing record", uuid=str(uuid), version=record_version)
     record = get_record(uuid, record_version)
-
     if not force_delete:
         deleted = record.get("deleted", False)
 
@@ -84,7 +92,16 @@ def index_record(self, uuid, record_version=None, force_delete=None):
         except NotFoundError:
             LOGGER.debug("Record to delete not found", uuid=str(uuid))
     else:
-        InspireRecordIndexer().index(record)
+        try:
+            InspireRecordIndexer().index(record)
+        except ConflictError as err:
+            LOGGER.warning(
+                "VersionConflict on record indexing.",
+                uuid=str(uuid),
+                record_version=record_version,
+                force_delete=force_delete,
+                error=err,
+            )
 
     uuids_to_reindex = set()
     if isinstance(record, LiteratureRecord):

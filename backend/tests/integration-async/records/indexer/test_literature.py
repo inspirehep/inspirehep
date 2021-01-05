@@ -5,15 +5,14 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import pytest
 from flask_sqlalchemy import models_committed
 from helpers.factories.models.user_access_token import AccessTokenFactory
 from helpers.providers.faker import faker
 from helpers.utils import es_search, retry_until_matched
 from invenio_db import db
 from invenio_search import current_search
-from invenio_search import current_search_client as es
 
+from inspirehep.indexer.tasks import index_record
 from inspirehep.records.api import LiteratureRecord
 from inspirehep.records.receivers import index_after_commit
 from inspirehep.search.api import LiteratureSearch
@@ -383,3 +382,46 @@ def test_literature_regression_changing_bai_in_record_reindex_records_which_are_
         },
     ]
     retry_until_matched(steps)
+
+
+def test_gracefully_handle_records_updating_in_wrong_order(inspire_app):
+    # We want to run indexing in weird order, so disable auto indexing
+    models_committed.disconnect(index_after_commit)
+
+    cited_record = LiteratureRecord.create(data=faker.record("lit"))
+    record_data = faker.record(
+        "lit", literature_citations=[cited_record.control_number]
+    )
+    record = LiteratureRecord.create(data=record_data)
+    db.session.commit()
+
+    index_record(record.id, record.model.versions[-1].version_id)
+    assert LiteratureSearch().get_source(cited_record.id)["citation_count"] == 1
+
+    db.session.commit()
+    data = dict(record)
+    del data["references"]
+
+    record.update(data)
+    db.session.commit()
+
+    data = dict(record)
+    data["titles"][0] = {"title": "New Title"}
+    record.update(data)
+    db.session.commit()
+
+    models_committed.connect(index_after_commit)
+
+    index_record(record.id, record.model.versions[-1].version_id)
+
+    assert LiteratureSearch().get_source(cited_record.id)["citation_count"] == 1
+    assert LiteratureSearch().get_source(record.id)["titles"] == [
+        {"title": "New Title"}
+    ]
+
+    index_record(record.id, record.model.versions[-2].version_id)
+
+    assert LiteratureSearch().get_source(cited_record.id)["citation_count"] == 0
+    assert LiteratureSearch().get_source(record.id)["titles"] == [
+        {"title": "New Title"}
+    ]
