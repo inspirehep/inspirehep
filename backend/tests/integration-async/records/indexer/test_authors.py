@@ -8,11 +8,12 @@ import time
 
 from helpers.factories.models.user_access_token import AccessTokenFactory
 from helpers.providers.faker import faker
-from helpers.utils import es_search, retry_until_matched
+from helpers.utils import es_search, retry_until_matched, retry_until_pass
 from invenio_db import db
 from invenio_search import current_search
 
 from inspirehep.records.api import AuthorsRecord, LiteratureRecord
+from inspirehep.search.api import AuthorsSearch
 
 
 def test_aut_record_appear_in_es_when_created(
@@ -231,3 +232,19 @@ def test_regression_get_linked_author_records_uuids_if_author_changed_name_does_
     db.session.commit()
     new_author = AuthorsRecord.get_record_by_pid_value(author["control_number"])
     assert set() == new_author.get_linked_author_records_uuids_if_author_changed_name()
+
+
+def test_indexer_deletes_record_from_es(inspire_app, datadir):
+    def assert_record_is_deleted_from_es():
+        current_search.flush_and_refresh("records-authors")
+        expected_records_count = 0
+        record_lit_es = AuthorsSearch().get_record(str(record.id)).execute().hits
+        assert expected_records_count == len(record_lit_es)
+
+    record = AuthorsRecord.create(faker.record("aut"))
+    db.session.commit()
+
+    record.delete()
+    db.session.commit()
+
+    retry_until_pass(assert_record_is_deleted_from_es)

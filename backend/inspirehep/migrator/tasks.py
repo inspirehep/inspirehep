@@ -380,7 +380,7 @@ def process_references_in_records(uuids):
     try:
         for uuid in uuids:
             try:
-                record = InspireRecord.get_record(uuid)
+                record = InspireRecord.get_record(uuid, with_deleted=True)
                 if isinstance(record, LiteratureRecord):
                     references = record.get_modified_references()
                     references.extend(record.get_newest_linked_conferences_uuid())

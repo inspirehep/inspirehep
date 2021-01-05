@@ -11,7 +11,6 @@ from deepdiff import DeepDiff
 from freezegun import freeze_time
 from helpers.providers.faker import faker
 from helpers.utils import create_record, create_s3_bucket, es_search
-from invenio_search import current_search
 
 from inspirehep.records.api import LiteratureRecord
 from inspirehep.search.api import LiteratureSearch
@@ -66,21 +65,6 @@ def test_regression_index_literature_record_with_related_records(inspire_app, da
     result = response["hits"]["hits"][0]["_source"]
 
     assert data["related_records"] == result["related_records"]
-
-
-def test_indexer_deletes_record_from_es(inspire_app, datadir):
-    data = orjson.loads((datadir / "1630825.json").read_text())
-    record = create_record("lit", data=data)
-    record.delete()
-    record.index(delay=False)
-    current_search.flush_and_refresh("records-hep")
-
-    expected_total = 0
-
-    response = es_search("records-hep")
-    hits_total = response["hits"]["total"]["value"]
-
-    assert hits_total == expected_total
 
 
 @pytest.mark.vcr()

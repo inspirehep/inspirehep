@@ -13,12 +13,12 @@ from helpers.utils import es_search, retry_until_matched, retry_until_pass
 from inspire_utils.record import get_value
 from invenio_db import db
 from invenio_search import current_search
-from invenio_search import current_search_client as es
 
 from inspirehep.records.api import ConferencesRecord, LiteratureRecord
 from inspirehep.records.marshmallow.conferences.common.proceeding_info_item import (
     ProceedingInfoItemSchemaV1,
 )
+from inspirehep.search.api import ConferencesSearch
 
 
 def test_conference_record_updates_in_es_when_lit_rec_reffers_to_it(
@@ -143,3 +143,19 @@ def test_indexer_updates_conference_papers_when_name_changes(
     db.session.commit()
 
     retry_until_pass(assert_literature_has_correct_conference_title, timeout=45)
+
+
+def test_indexer_deletes_record_from_es(inspire_app, datadir):
+    def assert_record_is_deleted_from_es():
+        current_search.flush_and_refresh("records-conferences")
+        expected_records_count = 0
+        record_lit_es = ConferencesSearch().get_record(str(record.id)).execute().hits
+        assert expected_records_count == len(record_lit_es)
+
+    record = ConferencesRecord.create(faker.record("con"))
+    db.session.commit()
+
+    record.delete()
+    db.session.commit()
+
+    retry_until_pass(assert_record_is_deleted_from_es)

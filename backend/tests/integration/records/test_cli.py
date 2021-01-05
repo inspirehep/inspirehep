@@ -229,7 +229,7 @@ def test_close_expired_jobs_ignores_deleted_records(inspire_app, cli):
     deleted_record.update(dict(deleted_record))
     result = cli.invoke(["jobs", "close_expired_jobs"])
     deleted_record = JobsRecord.get_record_by_pid_value(
-        deleted_record["control_number"]
+        deleted_record["control_number"], with_deleted=True
     )
 
     assert result.exit_code == 0

@@ -26,7 +26,8 @@ from invenio_records.models import RecordMetadata
 from invenio_records.signals import after_record_revert, before_record_revert
 from sqlalchemy import tuple_
 from sqlalchemy.orm.attributes import flag_modified
-from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy.orm.exc import NoResultFound, StaleDataError
+from sqlalchemy_continuum import version_class
 
 from inspirehep.indexer.base import InspireRecordIndexer
 from inspirehep.pidstore.api import PidStoreBase
@@ -85,7 +86,9 @@ class InspireRecord(Record):
         return pid.object_uuid
 
     @classmethod
-    def get_record_by_pid_value(cls, pid_value, pid_type=None, original_record=False):
+    def get_record_by_pid_value(
+        cls, pid_value, pid_type=None, original_record=False, with_deleted=True
+    ):
         """Get record by provided PID value.
 
         Args:
@@ -93,13 +96,18 @@ class InspireRecord(Record):
             pid_type(str): pid_type to query
             original_record(bool): if record was redirected this flag determines whether this method should return
               redirected record (if False) or original record (if True)
+            with_deleted(bool): when set to True returns also deleted records
 
         Returns: requested record
         """
         if not pid_type:
             pid_type = cls.pid_type
         record_uuid = cls.get_uuid_from_pid_value(pid_value, pid_type, original_record)
-        return cls.get_record(record_uuid)
+        with_deleted = original_record or with_deleted
+        try:
+            return cls.get_record(record_uuid, with_deleted=with_deleted)
+        except NoResultFound:
+            raise PIDDoesNotExistError(pid_type, pid_value)
 
     @classmethod
     def get_subclasses(cls):
@@ -111,11 +119,53 @@ class InspireRecord(Record):
         return records_map
 
     @classmethod
-    def get_record(cls, id_, with_deleted=False):
-        record = super().get_record(str(id_), with_deleted)
+    def _get_record_version(cls, record_uuid, record_version):
+        RecordMetadataVersion = version_class(RecordMetadata)
+        try:
+            record = RecordMetadataVersion.query.filter_by(
+                id=record_uuid, version_id=record_version
+            ).one()
+        except NoResultFound:
+            LOGGER.warning(
+                "Reading stale data",
+                uuid=str(record_uuid),
+                version=record_version,
+            )
+            raise StaleDataError()
+        record_class = InspireRecord.get_class_for_record(record.json)
+        if record_class != cls:
+            record = record_class(record.json, model=record)
+        return record
+
+    @classmethod
+    def _get_record(cls, record_uuid, with_deleted):
+        record = super().get_record(str(record_uuid), with_deleted)
         record_class = cls.get_class_for_record(record)
         if record_class != cls:
             record = record_class(record, model=record.model)
+        return record
+
+    @classmethod
+    def get_record(cls, record_uuid, with_deleted=False, record_version=None):
+        """Get record in requested version (default: latest)
+
+        Warning: When record version is not latest one then record.model
+            will be `RecordMetadataVersion` not `RecordMetadata`!
+
+        Args:
+            record_uuid(str): UUID of the record
+            with_deleted(bool): when set to False returns NoResultFound if record was deleted
+            record_version: Requested version. If this version is not available then raise StaleDataError
+
+        Returns: Record in requested version.
+
+        """
+        if not record_version:
+            record = cls._get_record(record_uuid, with_deleted)
+        else:
+            record = cls._get_record_version(record_uuid, record_version)
+        if with_deleted is False and record.get("deleted", False):
+            raise NoResultFound
         return record
 
     @classmethod
@@ -410,21 +460,22 @@ class InspireRecord(Record):
             raise CannotUndeleteRedirectedRecord(self.pid_type, data["control_number"])
 
         with db.session.begin_nested():
-            self.clear()
-            super().update(data)
+            with db.session.no_autoflush:
+                self.clear()
+                super().update(data)
+                self.validate()
+                self.model.json = dict(self)
 
-            self.model.json = dict(self)
-            self.validate()
-            if data.get("deleted"):
-                self.pidstore_handler.delete(self.id, self)
-            else:
-                self.delete_records_from_deleted_records(data)
-                self.pidstore_handler.update(self.id, self)
-                if self.get("deleted_records"):
-                    self.redirect_pids(self["deleted_records"])
-            self.update_model_created_with_legacy_creation_date()
-            flag_modified(self.model, "json")
-            db.session.add(self.model)
+                if data.get("deleted"):
+                    self.pidstore_handler.delete(self.id, self)
+                else:
+                    self.delete_records_from_deleted_records(data)
+                    self.pidstore_handler.update(self.id, self)
+                    if self.get("deleted_records"):
+                        self.redirect_pids(self["deleted_records"])
+                self.update_model_created_with_legacy_creation_date()
+                flag_modified(self.model, "json")
+                db.session.merge(self.model)
 
     def update_model_created_with_legacy_creation_date(self):
         """Update model with the creation date of legacy.
@@ -515,10 +566,14 @@ class InspireRecord(Record):
     def _previous_version(self):
         """Returns the previous version of the record"""
         data = {}
+        RecordMetadataVersion = version_class(RecordMetadata)
         try:
-            current = self.model.versions.filter_by(
-                version_id=self.model.version_id
-            ).one()
+            if isinstance(self.model, RecordMetadataVersion):
+                current = self.model
+            else:
+                current = self.model.versions.filter_by(
+                    version_id=self.model.version_id
+                ).one()
             if current.previous:
                 data = current.previous.json
         except NoResultFound:

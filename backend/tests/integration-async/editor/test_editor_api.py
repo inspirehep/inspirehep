@@ -81,7 +81,7 @@ def test_get_revisions(
 
     result = orjson.loads(response.data)
 
-    assert result[0]["revision_id"] == 2
+    assert result[0]["revision_id"] == 1
     assert result[1]["revision_id"] == 0
 
     assert result[0]["user_email"] == "system"
@@ -151,7 +151,7 @@ def test_get_revision_requires_authentication(
 ):
     record = LiteratureRecord.get_record_by_pid_value(111)
 
-    transaction_id_of_first_rev = record.revisions[2].model.transaction_id
+    transaction_id_of_first_rev = record.revisions[1].model.transaction_id
     rec_uuid = record.id
     with inspire_app.test_client() as client:
         response = client.get(

@@ -4,17 +4,18 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-
+import orjson
 import pytest
 from flask_sqlalchemy import models_committed
 from helpers.factories.models.user_access_token import AccessTokenFactory
 from helpers.providers.faker import faker
-from helpers.utils import es_search, retry_until_matched
+from helpers.utils import es_search, retry_until_matched, retry_until_pass
 from invenio_db import db
 from invenio_search import current_search
-from invenio_search import current_search_client as es
+from sqlalchemy.orm.exc import StaleDataError
 
-from inspirehep.records.api import LiteratureRecord
+from inspirehep.indexer.tasks import index_record
+from inspirehep.records.api import InspireRecord, LiteratureRecord
 from inspirehep.records.receivers import index_after_commit
 from inspirehep.search.api import LiteratureSearch
 
@@ -383,3 +384,102 @@ def test_literature_regression_changing_bai_in_record_reindex_records_which_are_
         },
     ]
     retry_until_matched(steps)
+
+
+def test_gracefully_handle_records_updating_in_wrong_order(inspire_app):
+    # We want to run indexing in weird order, so disable auto indexing
+    models_committed.disconnect(index_after_commit)
+
+    cited_record = LiteratureRecord.create(data=faker.record("lit"))
+    record_data = faker.record(
+        "lit", literature_citations=[cited_record.control_number]
+    )
+    record = LiteratureRecord.create(data=record_data)
+    db.session.commit()
+
+    index_record(record.id, record.model.versions[-1].version_id)
+    assert LiteratureSearch().get_source(cited_record.id)["citation_count"] == 1
+
+    data = dict(record)
+    del data["references"]
+
+    record.update(data)
+    db.session.commit()
+
+    data = dict(record)
+    data["titles"][0] = {"title": "New Title"}
+    record.update(data)
+    db.session.commit()
+
+    index_record(record.id, record.model.versions[-1].version_id)
+
+    assert LiteratureSearch().get_source(cited_record.id)["citation_count"] == 1
+    assert LiteratureSearch().get_source(record.id)["titles"] == [
+        {"title": "New Title"}
+    ]
+
+    index_record(record.id, record.model.versions[-2].version_id)
+
+    assert LiteratureSearch().get_source(cited_record.id)["citation_count"] == 0
+    assert LiteratureSearch().get_source(record.id)["titles"] == [
+        {"title": "New Title"}
+    ]
+    models_committed.connect(index_after_commit)
+
+
+def test_get_record_default_returns_latest(inspire_app):
+    expected_titles = [{"title": "Second Title"}]
+
+    record = LiteratureRecord.create(
+        data=faker.record("lit", data={"titles": [{"title": "First Title"}]})
+    )
+    db.session.commit()
+    data = dict(record)
+    data["titles"][0]["title"] = "Second Title"
+    record.update(data)
+    db.session.commit()
+    latest_record = InspireRecord.get_record(record.id)
+    assert latest_record["titles"] == expected_titles
+
+
+def test_get_record_raise_stale_data(inspire_app):
+    record = LiteratureRecord.create(data=faker.record("lit"))
+    db.session.commit()
+    non_existing_version = record.model.version_id + 10
+
+    with pytest.raises(StaleDataError):
+        InspireRecord.get_record(record.id, record_version=non_existing_version)
+
+
+def test_get_record_specific_version(inspire_app):
+    expected_titles = [{"title": "First Title"}]
+
+    record = LiteratureRecord.create(
+        data=faker.record("lit", data={"titles": [{"title": "First Title"}]})
+    )
+    db.session.commit()
+    old_version_id = record.model.version_id
+
+    data = dict(record)
+    data["titles"][0]["title"] = "Second Title"
+    record.update(data)
+    db.session.commit()
+    latest_record = InspireRecord.get_record(record.id, record_version=old_version_id)
+    assert latest_record["titles"] == expected_titles
+
+
+def test_indexer_deletes_record_from_es(inspire_app, datadir):
+    def assert_record_is_deleted_from_es():
+        current_search.flush_and_refresh("records-hep")
+        expected_records_count = 0
+        record_lit_es = LiteratureSearch().get_record(str(record.id)).execute().hits
+        assert expected_records_count == len(record_lit_es)
+
+    data = orjson.loads((datadir / "1630825.json").read_text())
+    record = LiteratureRecord.create(data)
+    db.session.commit()
+
+    record.delete()
+    db.session.commit()
+
+    retry_until_pass(assert_record_is_deleted_from_es)
