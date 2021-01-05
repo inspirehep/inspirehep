@@ -894,27 +894,6 @@ def test_literature_search_lowercased_doi_in_references(inspire_app):
     assert expected_doi == response2_hit_dois
 
 
-def test_record_link_to_hepdata_in_detail_view(inspire_app):
-    expected_response_metadata = [
-        {"url_link": "https://www.hepdata.net/record/ins123456", "url_name": "HEPData"}
-    ]
-
-    data = {
-        "external_system_identifiers": [{"schema": "HEPDATA", "value": "ins123456"}]
-    }
-
-    rec = create_record("lit", data=data)
-
-    headers = {"Accept": "application/vnd+inspire.record.ui+json"}
-    with inspire_app.test_client() as client:
-        response = client.get(f"/literature/{rec['control_number']}", headers=headers)
-    assert response.status_code == 200
-    assert (
-        response.json["metadata"]["external_system_identifiers"]
-        == expected_response_metadata
-    )
-
-
 def test_literature_detail_links(inspire_app):
     expected_status_code = 200
     record = create_record("lit")
