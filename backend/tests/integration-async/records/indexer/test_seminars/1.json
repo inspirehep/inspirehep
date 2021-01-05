@@ -1,0 +1,208 @@
+{
+  "$schema": "https://labs.inspirehep.net/schemas/records/seminars.json",
+  "_collections": ["Seminars"],
+  "_private_notes": [
+    {
+      "source": "SPIRES-HIDDEN",
+      "value": "Note1"
+    },
+    {
+      "source": "SPIRES-HIDDEN",
+      "value": "Note2"
+    }
+  ],
+  "abstract": {
+    "source": "arxiv",
+    "value": "This is a seminar about a subject regarding high energy physics"
+  },
+  "acquisition_source": {
+    "datetime": "4852-01-02T15:19:23.876Z",
+    "email": "bAK@oSaYosxmgsyKUiuwgBpDjO.iu",
+    "internal_uid": -71464718,
+    "method": "hepcrawl",
+    "orcid": "5544-5406-5372-448X",
+    "source": "esse quis"
+  },
+  "address": {
+    "cities": ["Geneva", "Lausanne"],
+    "country_code": "DK",
+    "latitude": 42002729,
+    "longitude": -69156711,
+    "place_name": "CERN",
+    "postal_address": ["195 rue de happy", "Ap 01 Building 12"],
+    "postal_code": "12321",
+    "state": "NY"
+  },
+  "contact_details": [
+    {
+      "curated_relation": false,
+      "email": "a@yahoo.com",
+      "name": "John Doe",
+      "record": {
+        "$ref": "http://localhost:5000/api/authors/123"
+      }
+    },
+    {
+      "curated_relation": false,
+      "email": "jane@gmail.com",
+      "name": "Jane Doe",
+      "record": {
+        "$ref": "http://localhost:5000/api/authors/1234"
+      }
+    },
+    {
+      "curated_relation": true,
+      "email": "gaga@jad.com",
+      "name": "Gaga Smith",
+      "record": {
+        "$ref": "http://localhost:5000/api/authors/12345"
+      }
+    }
+  ],
+  "control_number": 1,
+  "core": true,
+  "deleted": false,
+  "deleted_records": [
+    {
+      "$ref": "http://localhost:5000/api/seminars/12345"
+    }
+  ],
+  "end_datetime": "5034-08-24T02:46:02.429Z",
+  "inspire_categories": [
+    {
+      "source": "user",
+      "term": "Accelerators"
+    },
+    {
+      "source": "cds",
+      "term": "Math and Math Physics"
+    }
+  ],
+  "join_urls": [
+    {
+      "description": "Zoom url to join",
+      "value": "http://pMI5F2dP"
+    }
+  ],
+  "keywords": [
+    {
+      "schema": "INSPIRE",
+      "source": "voluptate dolor in",
+      "value": "magna laboris"
+    },
+    {
+      "schema": "INSPIRE",
+      "source": "quis aute",
+      "value": "culpa elit"
+    },
+    {
+      "schema": "INSPIRE",
+      "source": "labore dolor",
+      "value": "ex amet Excepteur magna"
+    }
+  ],
+  "new_record": {
+    "$ref": "http://localhost:5000/api/seminars/12345"
+  },
+  "public_notes": [
+    {
+      "source": "nulla",
+      "value": "laborum laboris quis"
+    },
+    {
+      "source": "labo",
+      "value": "cupidatat"
+    }
+  ],
+  "self": {
+    "$ref": "http://localhost:5000/api/seminars/1"
+  },
+  "series": [
+    {
+      "name": "ichep",
+      "number": 13
+    },
+    {
+      "name": "ICHEP",
+      "number": 15
+    }
+  ],
+  "speakers": [
+    {
+      "affiliations": [
+        {
+          "curated_relation": false,
+          "record": {
+            "$ref": "http://localhost:5000/api/institutions/12345"
+          },
+          "value": "University KA"
+        },
+        {
+          "curated_relation": false,
+          "record": {
+            "$ref": "http://localhost:5000/api/institutions/12346"
+          },
+          "value": "University City"
+        }
+      ],
+      "curated_relation": false,
+      "ids": [
+        {
+          "schema": "SPIRES",
+          "value": "HEPNAMES-73543"
+        },
+        {
+          "schema": "SPIRES",
+          "value": "HEPNAMES-368925"
+        }
+      ],
+      "name": "Castle, Frank",
+      "record": {
+        "$ref": "http://localhost:5000/api/authors/12345"
+      }
+    },
+    {
+      "affiliations": [
+        {
+          "curated_relation": true,
+          "record": {
+            "$ref": "http://localhost:5000/api/institutions/12348"
+          },
+          "value": "UAIC"
+        }
+      ],
+      "curated_relation": true,
+      "ids": [
+        {
+          "schema": "SPIRES",
+          "value": "HEPNAMES-6"
+        },
+        {
+          "schema": "SPIRES",
+          "value": "HEPNAMES-591413785"
+        }
+      ],
+      "name": "Jane Smith",
+      "record": {
+        "$ref": "http://localhost:5000/api/authors/12348"
+      }
+    }
+  ],
+  "start_datetime": "4254-10-11T22:18:22.063Z",
+  "timezone": "Europe/Zurich",
+  "title": {
+    "source": "arxiv",
+    "subtitle": "Interesting Hep subject",
+    "title": "Best seminar in HEP"
+  },
+  "urls": [
+    {
+      "description": "description of this url",
+      "value": "http://toKkay9"
+    },
+    {
+      "description": "Description of that url",
+      "value": "http://dokVS"
+    }
+  ]
+}

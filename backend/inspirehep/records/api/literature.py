@@ -267,16 +267,16 @@ class LiteratureRecord(
             self.earliest_date != LiteratureRecord(prev_version).earliest_date
         )
 
-        pids_latest = self.get_linked_pids_from_field("references.record")
-
-        if changed_deleted_status or changed_earliest_date or changed_superseded_status:
-            return list(self.get_records_ids_by_pids(pids_latest))
+        pids_latest = set(self.get_linked_pids_from_field("references.record"))
 
         pids_oldest = set(
             self._previous_version.get_linked_pids_from_field("references.record")
         )
 
-        pids_changed = set.symmetric_difference(set(pids_latest), pids_oldest)
+        pids_changed = set.symmetric_difference(pids_latest, pids_oldest)
+
+        if changed_deleted_status or changed_earliest_date or changed_superseded_status:
+            return list(self.get_records_ids_by_pids(list(pids_latest | pids_changed)))
 
         return list(self.get_records_ids_by_pids(list(pids_changed)))
 

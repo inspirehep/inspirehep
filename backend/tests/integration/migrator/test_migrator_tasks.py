@@ -350,7 +350,6 @@ def test_migrate_from_mirror_removes_record_from_es(inspire_app, datadir):
     record_deleted_fixture_path = pkg_resources.resource_filename(
         __name__, os.path.join("fixtures", "dummy_deleted.xml")
     )
-
     migrate_from_file(record_deleted_fixture_path)
     current_search.flush_and_refresh("records-hep")
 

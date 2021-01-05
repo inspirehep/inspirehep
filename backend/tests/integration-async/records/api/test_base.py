@@ -4,7 +4,10 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+from copy import deepcopy
 
+import pytest
+from helpers.providers.faker import faker
 from invenio_db import db
 
 from inspirehep.records.api import LiteratureRecord
@@ -28,7 +31,7 @@ def test_record_versioning(inspire_app, celery_app_with_context, celery_session_
     assert expected_count_created == record.model.versions.count()
     assert LiteratureRecord({}) == record._previous_version
 
-    expected_version_updated = 3
+    expected_version_updated = 2
     expected_count_updated = 2
     record_updated = LiteratureRecord.get_record_by_pid_value(record_control_number)
     record_updated.update(dict(record_updated))
@@ -179,7 +182,7 @@ def test_revert_revision_works_correctly_and_runs_update(inspire_app):
     citing_record = LiteratureRecord.get_record(citing_record.id)
     assert len(citing_record.model.references) == 0
     assert len(cited_record.model.citations) == 0
-    assert citing_record.revision_id == 2
+    assert citing_record.revision_id == 1
 
     citing_record.revert(0)
     db.session.commit()
@@ -189,6 +192,36 @@ def test_revert_revision_works_correctly_and_runs_update(inspire_app):
     assert len(cited_record.model.citations) == 1
 
     # Reverted to revision 0 but added as next revision
-    # so it will be revision 4
-    assert citing_record.revision_id == 4
-    assert dict(citing_record.revisions[4]) == dict(citing_record)
+    # so it will be revision 2
+    assert citing_record.revision_id == 2
+    assert dict(citing_record.revisions[2]) == dict(citing_record)
+
+
+def test_more_than_one_update_works_correctly(inspire_app):
+    rec_data = faker.record("lit")
+    rec = LiteratureRecord.create(rec_data)
+    db.session.commit()
+    expectet_rev_0 = deepcopy(dict(rec))
+    rec_data = dict(rec)
+    rec_data.update({"deleted_records": [{"$ref": "http://some/api/literature/1234"}]})
+    rec.update(rec_data)
+    expectet_rev_1 = deepcopy(dict(rec))
+    rec_data["titles"][0]["title"] = "New title"
+    rec.update(rec_data)
+    expectet_rev_2 = deepcopy(dict(rec))
+    db.session.commit()
+    assert dict(rec) == rec.model.versions[-1].json
+
+    rec.revert(2)
+    assert dict(rec) == expectet_rev_2
+    assert rec.revision_id == 3
+
+    with pytest.raises(IndexError):
+        # Revision 1 will be missing as there were 2 updates in one commit,
+        # so revision number increased but revision itself was not created in DB
+        rec.revert(1)
+        assert dict(rec) == expectet_rev_1
+
+    rec.revert(0)
+    assert dict(rec) == expectet_rev_0
+    assert rec.revision_id == 4

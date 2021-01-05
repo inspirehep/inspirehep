@@ -38,7 +38,7 @@ def update_records_relations(uuids):
     for uuid in uuids:
         try:
             with db.session.begin_nested():
-                record = InspireRecord.get_record(uuid)
+                record = InspireRecord.get_record(uuid, with_deleted=True)
                 if isinstance(record, LiteratureRecord):
                     record.update_refs_in_citation_table()
                     record.update_conference_paper_and_proccedings()
@@ -65,7 +65,7 @@ def update_records_relations(uuids):
     autoretry_for=(OperationalError, TransportError),
 )
 def redirect_references_to_merged_record(self, uuid):
-    record = InspireRecord.get_record(uuid)
+    record = InspireRecord.get_record(uuid, with_deleted=True)
     new_record_ref = record["new_record"]["$ref"]
     deleted_record_ref = record["self"]["$ref"]
     record_schema = PidStoreBase.get_schema_name_from_uri(record["$schema"])
@@ -82,7 +82,9 @@ def update_references_pointing_to_merged_record(
         config = get_config_for_given_path(index, path)
         matched_records = match({"$ref": merged_record_uri}, config)
         for matched_record in matched_records:
-            matched_inspire_record = InspireRecord.get_record(matched_record["_id"])
+            matched_inspire_record = InspireRecord.get_record(
+                matched_record["_id"], with_deleted=True
+            )
             referenced_records_in_path = flatten_list(
                 get_value(matched_inspire_record, path[: -len(".$ref")], [])
             )

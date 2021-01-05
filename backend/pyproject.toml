@@ -92,6 +92,7 @@ fs = "0.5.4"
 invenio-oaiserver = {git = "https://github.com/inspirehep/invenio-oaiserver.git", rev = "5d796cf354467773a7e00b75bc382ba2bf2efef7"}
 invenio-records-rest = {git = "https://github.com/inspirehep/invenio-records-rest.git", rev = "c7db3d3d615ccea56e59f921dff78321beee904a"}
 orjson = "^3.4.6"
+SQLAlchemy-Continuum = { git = "https://github.com/inspirehep/sqlalchemy-continuum.git", rev = "d94d431"}
 
 
 [tool.poetry.dev-dependencies]
