@@ -9,12 +9,10 @@ import structlog
 from elasticsearch import RequestError, TransportError
 from elasticsearch.helpers import bulk
 from flask import current_app
-from inspire_schemas.errors import SchemaKeyNotFound, SchemaNotFound
 from invenio_indexer.api import RecordIndexer
 from invenio_indexer.signals import before_record_index
 from invenio_indexer.utils import _es7_expand_action
 from invenio_search import current_search_client as es
-from jsonschema.exceptions import SchemaError, ValidationError
 from kombu.exceptions import EncodeError
 from sqlalchemy.orm.exc import NoResultFound
 
@@ -118,7 +116,6 @@ class InspireRecordIndexer(RecordIndexer):
             from inspirehep.records.api import InspireRecord
 
             record = InspireRecord.get_record(record_uuid)
-            record.validate()
             if record.get("deleted", False):
                 try:
                     # When record is not in es then dsl is throwing TransportError(404)
@@ -129,8 +126,6 @@ class InspireRecordIndexer(RecordIndexer):
             return self._process_bulk_record_for_index(record)
         except NoResultFound:
             LOGGER.exception("Record failed to load", uuid=str(record_uuid))
-        except (SchemaNotFound, SchemaKeyNotFound, SchemaError, ValidationError):
-            LOGGER.exception("Record validation error", uuid=str(record_uuid))
         except RequestError:
             LOGGER.exception("Cannot process request on ES", uuid=str(record_uuid))
         except EncodeError:
