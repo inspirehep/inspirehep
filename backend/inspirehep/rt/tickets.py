@@ -226,7 +226,7 @@ def _query_result_item_id_name_mapper(raw_item):
 
 
 def _strip_lines(multiline_string):
-    """ Removes space at the end of each line and puts space beginning of
+    """Removes space at the end of each line and puts space beginning of
     each line except the first."""
     return "\n ".join([line.strip() for line in multiline_string.strip().split("\n")])
 
@@ -269,7 +269,7 @@ def _get_ticket_text(ticket_id):
 
 
 def get_rt_link_for_ticket(ticket_id):
-    """ Returns rt system display link to given ticket.
+    """Returns rt system display link to given ticket.
 
     Args:
         ticket_id (int): The ticket id.

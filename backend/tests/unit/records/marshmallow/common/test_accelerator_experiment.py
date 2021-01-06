@@ -27,7 +27,7 @@ def test_returns_legacy_name_as_name(get_records_mock):
 
 @mock.patch("inspirehep.records.api.base.InspireRecord.get_records_by_pids")
 def test_returns_dashed_institution_accelerator_experiment_as_name_if_all_present(
-    get_records_mock
+    get_records_mock,
 ):
     schema = AcceleratorExperimentSchemaV1()
     dump = {
@@ -106,7 +106,7 @@ def test_returns_none_as_name_if_empty_present(get_records_mock):
 
 @mock.patch("inspirehep.records.api.base.InspireRecord.get_records_by_pids")
 def test_returns_dashed_institution_accelerator_experiment_as_name_with_unicode(
-    get_records_mock
+    get_records_mock,
 ):
     schema = AcceleratorExperimentSchemaV1()
     dump = {

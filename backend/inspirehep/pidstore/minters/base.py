@@ -148,7 +148,7 @@ class ControlNumberMinter(Minter):
             try:
                 pid_provider = cls.provider.get(data["control_number"], cls.pid_type)
             except PIDDoesNotExistError:
-                if data.get("deleted", False) == True:
+                if data.get("deleted", False):
                     cls.mint(object_uuid, data)
                     pid_provider = cls.provider.get(
                         data["control_number"], cls.pid_type

@@ -180,7 +180,7 @@ def test_get_does_not_return_blacklisted_records(inspire_app, datadir):
 
 
 def test_get_returns_empty_data_because_there_are_no_mirror_records_with_errors(
-    inspire_app
+    inspire_app,
 ):
     user = create_user(role=Roles.cataloger.value)
     with inspire_app.test_client() as client:

@@ -94,9 +94,9 @@ def test_disambiguation_runs_after_record_creation(
             "authors": [
                 {
                     "full_name": "Brian Gross",
-                    "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"},],
+                    "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
                     "emails": ["test@test.com"],
-                },
+                }
             ]
         }
     )
@@ -222,7 +222,7 @@ def test_disambiguate_authors_doesnt_match_when_author_is_ambiguous(
     author_record_2 = InspireRecord.create(author_2)
     db.session.commit()
 
-    authors = [{"full_name": "Brian Gross", "emails": ["test@test.com"],}]
+    authors = [{"full_name": "Brian Gross", "emails": ["test@test.com"]}]
 
     literature_data = faker.record("lit", with_control_number=True)
     literature_data.update({"authors": authors})
@@ -266,7 +266,7 @@ def test_disambiguation_doesnt_run_with_feature_flag_disabling_it(
                     "full_name": "Brian Gross",
                     "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
                     "emails": ["test@test.com"],
-                },
+                }
             ]
         }
     )
@@ -299,7 +299,7 @@ def test_disambiguation_runs_after_lit_record_update(
     author_data_2.update(
         {
             "name": {"value": "Test Author"},
-            "email_addresses": [{"current": True, "value": "test123@uw.edu.pl"},],
+            "email_addresses": [{"current": True, "value": "test123@uw.edu.pl"}],
         }
     )
     author_record_2 = InspireRecord.create(author_data_2)
@@ -332,10 +332,10 @@ def test_disambiguation_runs_after_lit_record_update(
             "authors": [
                 {
                     "full_name": "Brian Gross",
-                    "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"},],
+                    "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
                     "emails": ["test@uw.edu.pl"],
                     "uuid": "798d9afe-d3c2-479e-b384-f0aee2573076",
-                },
+                }
             ]
         }
     )
@@ -369,7 +369,7 @@ def test_disambiguate_authors_on_first_and_last_name(
                     "full_name": "'t Hooft, Gerardus",
                     "record": {"$ref": "http://localhost:5000/api/authors/999108"},
                     "curated_relation": True,
-                },
+                }
             ]
         }
     )
@@ -468,7 +468,7 @@ def test_disambiguate_authors_on_collaboration(
                     "full_name": "'t Hooft, Gerard",
                     "curated_relation": True,
                     "record": {"$ref": "http://localhost:5000/api/authors/999108"},
-                },
+                }
             ]
         }
     )
@@ -482,7 +482,7 @@ def test_disambiguate_authors_on_collaboration(
                     "full_name": "'t Hooft, Gerard",
                     "curated_relation": True,
                     "record": {"$ref": "http://localhost:5000/api/authors/999101"},
-                },
+                }
             ],
         }
     )
@@ -550,7 +550,7 @@ def test_disambiguate_authors_on_affiliation(
                         {"value": "Warsaw U."},
                     ],
                     "curated_relation": True,
-                },
+                }
             ]
         }
     )
@@ -577,7 +577,7 @@ def test_disambiguate_authors_on_affiliation(
                         {"value": "Warsaw U."},
                     ],
                 }
-            ],
+            ]
         }
     )
     literature_record_3 = LiteratureRecord.create(literature_data_3)
@@ -602,10 +602,7 @@ def test_disambiguate_authors_create_new_author(
     literature_data.update(
         {
             "authors": [
-                {
-                    "full_name": "Michal Kowal",
-                    "affiliations": [{"value": "Warsaw U."}],
-                },
+                {"full_name": "Michal Kowal", "affiliations": [{"value": "Warsaw U."}]}
             ]
         }
     )
@@ -637,7 +634,7 @@ def test_disambiguate_authors_create_two_author_with_same_name(
 ):
     literature_data = faker.record("lit", with_control_number=True)
     literature_data.update(
-        {"authors": [{"full_name": "Michal Kowal"}, {"full_name": "Michal Kowal"},]}
+        {"authors": [{"full_name": "Michal Kowal"}, {"full_name": "Michal Kowal"}]}
     )
     literature_record = LiteratureRecord.create(data=literature_data)
 

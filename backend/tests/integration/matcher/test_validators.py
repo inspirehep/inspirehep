@@ -49,7 +49,9 @@ def test_authors_validator_match_when_identifiers_are_duplicated(inspire_app):
     assert authors_validator(lit_author, record_aut)
 
 
-def test_authors_validator_doesnt_match_when_id_is_from_incorrect_schema(inspire_app,):
+def test_authors_validator_doesnt_match_when_id_is_from_incorrect_schema(
+    inspire_app,
+):
     lit_author = {
         "full_name": "Test Author",
         "ids": [

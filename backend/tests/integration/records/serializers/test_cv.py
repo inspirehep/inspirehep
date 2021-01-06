@@ -51,7 +51,7 @@ def test_cv_search(inspire_app, shared_datadir):
 
 def test_cv_with_linked_and_unlinked_authors(inspire_app, shared_datadir):
     headers = {"Accept": "text/vnd+inspire.html+html"}
-    aut = create_record("aut", data={"control_number": 637275238})
+    aut = create_record("aut", data={"control_number": 637_275_238})
     data = {
         "control_number": 637_275_237,
         "titles": [{"title": "This is a title.", "subtitle": "my subtitle"}],
@@ -193,7 +193,7 @@ def test_cv_with_collaboration_with_suffix_and_multiple_authors(
 
 def test_cv_with_author_with_affiliations(inspire_app, shared_datadir):
     headers = {"Accept": "text/vnd+inspire.html+html"}
-    institution = create_record("ins", data={"control_number": 637275238})
+    institution = create_record("ins", data={"control_number": 637_275_238})
     data = {
         "control_number": 637_275_237,
         "titles": [{"title": "This is a title."}],
@@ -231,7 +231,7 @@ def test_cv_with_author_with_affiliations(inspire_app, shared_datadir):
 
 def test_cv_with_author_with_multiple_affiliations(inspire_app, shared_datadir):
     headers = {"Accept": "text/vnd+inspire.html+html"}
-    institution = create_record("ins", data={"control_number": 637275238})
+    institution = create_record("ins", data={"control_number": 637_275_238})
     data = {
         "control_number": 637_275_237,
         "titles": [{"title": "This is a title."}],

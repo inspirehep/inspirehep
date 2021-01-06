@@ -34,8 +34,7 @@ from inspirehep.pidstore.api import PidStoreBase
 
 
 def canonicalize_xml_element(element):
-    """Return a string with a canonical representation of the element.
-    """
+    """Return a string with a canonical representation of the element."""
     element_tree = element.getroottree()
     output_stream = io.BytesIO()
     element_tree.write_c14n(output_stream, with_comments=False, exclusive=True)

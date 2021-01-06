@@ -14,7 +14,6 @@ from flask import Blueprint, abort, current_app, request, url_for
 from flask.views import MethodView
 from flask_login import current_user
 from inspire_schemas.builders import JobBuilder
-from inspire_utils.dedupers import dedupe_list_of_dicts
 from inspire_utils.record import get_value, get_values_for_schema
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
@@ -62,7 +61,6 @@ def get_updated_record_data(record, update_form_data, optional_field_names):
     for field in optional_field_names:
         if field not in update_form_data and field in record_data:
             del record_data[field]
-
     # overwrite record data with form data
     record_data.update(update_form_data)
     return record_data

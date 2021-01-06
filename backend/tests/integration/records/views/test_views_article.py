@@ -117,7 +117,7 @@ def test_import_article_view_500_arxiv_broken_record(inspire_app):
 
 @pytest.mark.vcr()
 def test_import_article_uses_only_arxiv_if_there_is_no_doi_during_arxiv_import(
-    inspire_app
+    inspire_app,
 ):
     arxiv_id = "1908.05196"
     with inspire_app.test_client() as client:

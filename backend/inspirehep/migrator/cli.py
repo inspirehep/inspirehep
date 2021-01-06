@@ -45,7 +45,7 @@ def touch_file(file):
     try:
         os.utime(file)
     except FileNotFoundError:
-        open(file, 'w').close()
+        open(file, "w").close()
 
 
 @click.group()

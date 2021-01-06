@@ -17,7 +17,7 @@ from sqlalchemy_utils import UUIDType
 
 class RecordCitations(db.Model):
     """Adds Citation table which holds all references
-       which are also eligible citations"""
+    which are also eligible citations"""
 
     __tablename__ = "records_citations"
 

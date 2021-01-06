@@ -30,9 +30,8 @@ class JobsRecord(InspireRecord):
             list: list of open jobs matching a deadline.
 
         """
-        query = (
-            Q("match", **{'deadline_date': date.isoformat()})
-            & Q("match", **{'status': 'open'})
+        query = Q("match", **{"deadline_date": date.isoformat()}) & Q(
+            "match", **{"status": "open"}
         )
         results = JobsSearch().query(query).execute().hits
         return results

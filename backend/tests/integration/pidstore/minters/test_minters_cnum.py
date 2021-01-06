@@ -154,7 +154,7 @@ def test_minter_mints_cnum_of_migrated_record_fails_if_pid_already_exists(inspir
 
 
 def test_minter_mints_cnum_from_partial_date_doesnt_happen_because_partial_date_is_not_valid(
-    inspire_app
+    inspire_app,
 ):
     partial_date = "05-09-16"
     data = {
@@ -196,7 +196,7 @@ def test_generate_cnum_when_holes_in_cnums_sequence(inspire_app):
 
 
 def test_generate_cnum_when_holes_in_cnums_sequence_and_weird_creation_order(
-    inspire_app
+    inspire_app,
 ):
     data = {"opening_date": "2020-01-01", "cnum": "C20-01-01.2"}
     rec1 = create_record("con", data)

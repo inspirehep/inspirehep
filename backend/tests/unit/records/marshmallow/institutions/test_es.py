@@ -28,7 +28,7 @@ def test_institutions_serializer_should_serialize_whole_basic_record():
 
 @mock.patch("inspirehep.records.api.institutions.InstitutionLiterature")
 def test_institutions_serializer_populates_affiliation_suggest(
-    mock_institution_literature_table
+    mock_institution_literature_table,
 ):
     schema = InstitutionsElasticSearchSchema()
     data = {
@@ -76,7 +76,7 @@ def test_populate_affiliation_suggest_from_icn(mock_institution_literature_table
 
 @mock.patch("inspirehep.records.api.institutions.InstitutionLiterature")
 def test_populate_affiliation_suggest_from_institution_hierarchy_acronym(
-    mock_institution_literature_table
+    mock_institution_literature_table,
 ):
     data = {
         "$schema": "http://localhost:5000/schemas/records/institutions.json",
@@ -95,7 +95,7 @@ def test_populate_affiliation_suggest_from_institution_hierarchy_acronym(
 
 @mock.patch("inspirehep.records.api.institutions.InstitutionLiterature")
 def test_populate_affiliation_suggest_from_institution_hierarchy_name(
-    mock_institution_literature_table
+    mock_institution_literature_table,
 ):
     data = {
         "$schema": "http://localhost:5000/schemas/records/institutions.json",
@@ -116,7 +116,7 @@ def test_populate_affiliation_suggest_from_institution_hierarchy_name(
 
 @mock.patch("inspirehep.records.api.institutions.InstitutionLiterature")
 def test_populate_affiliation_suggest_from_legacy_icn(
-    mock_institution_literature_table
+    mock_institution_literature_table,
 ):
     data = {
         "$schema": "http://localhost:5000/schemas/records/institutions.json",
@@ -134,7 +134,7 @@ def test_populate_affiliation_suggest_from_legacy_icn(
 
 @mock.patch("inspirehep.records.api.institutions.InstitutionLiterature")
 def test_populate_affiliation_suggest_from_name_variants(
-    mock_institution_literature_table
+    mock_institution_literature_table,
 ):
     data = {
         "$schema": "http://localhost:5000/schemas/records/institutions.json",
@@ -153,7 +153,7 @@ def test_populate_affiliation_suggest_from_name_variants(
 
 @mock.patch("inspirehep.records.api.institutions.InstitutionLiterature")
 def test_populate_affiliation_suggest_from_name_variants_with_umr(
-    mock_institution_literature_table
+    mock_institution_literature_table,
 ):
     data = {
         "$schema": "http://localhost:5000/schemas/records/institutions.json",
@@ -187,7 +187,7 @@ def test_populate_affiliation_suggest_from_name_variants_with_umr(
 
 @mock.patch("inspirehep.records.api.institutions.InstitutionLiterature")
 def test_populate_affiliation_suggest_from_postal_code(
-    mock_institution_literature_table
+    mock_institution_literature_table,
 ):
     data = {
         "$schema": "http://localhost:5000/schemas/records/institutions.json",
