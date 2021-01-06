@@ -14,6 +14,12 @@ from sqlalchemy.engine import reflection
 def test_downgrade(inspire_app):
     alembic = Alembic(current_app)
 
+    alembic.downgrade(target="49a436a179ac")
+    assert "idx_object" in _get_indexes("pidstore_pid")
+    assert "object_type, object_uuid" in _get_index_definition(
+        "pidstore_pid", "idx_object"
+    )
+
     alembic.downgrade(target="c9f31d2a189d")
     assert "ix_inspire_pidstore_redirect_new_pid_id" not in _get_indexes(
         "inspire_pidstore_redirect"
@@ -223,6 +229,12 @@ def test_upgrade(inspire_app):
         "inspire_pidstore_redirect"
     )
 
+    alembic.upgrade(target="318758a589d5")
+    assert "idx_object" in _get_indexes("pidstore_pid")
+    assert "object_uuid, object_type" in _get_index_definition(
+        "pidstore_pid", "idx_object"
+    )
+
 
 def _get_indexes(tablename):
     query = text(
@@ -234,6 +246,20 @@ def _get_indexes(tablename):
     ).bindparams(tablename=tablename)
 
     return [el.indexname for el in db.session.execute(query)]
+
+
+def _get_index_definition(tablename, indexname):
+    query = text(
+        """
+        SELECT indexdef, indexname
+        FROM pg_indexes
+        WHERE tablename=:tablename
+        AND indexname=:indexname
+    """
+    ).bindparams(tablename=tablename, indexname=indexname)
+
+    definition = [el.indexdef for el in db.session.execute(query)]
+    return definition[0] if definition else None
 
 
 def _get_sequences():
