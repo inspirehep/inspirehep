@@ -25,8 +25,12 @@ from sqlalchemy.exc import (
 from sqlalchemy.orm.exc import NoResultFound, StaleDataError
 
 from inspirehep.indexer.base import InspireRecordIndexer
-from inspirehep.indexer.utils import get_record
-from inspirehep.records.api import AuthorsRecord, ConferencesRecord, LiteratureRecord
+from inspirehep.records.api import (
+    AuthorsRecord,
+    ConferencesRecord,
+    InspireRecord,
+    LiteratureRecord,
+)
 
 LOGGER = structlog.getLogger()
 
@@ -81,7 +85,9 @@ def index_record(self, uuid, record_version=None, force_delete=None):
         list(dict): Statistics from processing references.
     """
     LOGGER.debug("Indexing record", uuid=str(uuid), version=record_version)
-    record = get_record(uuid, record_version)
+    record = InspireRecord.get_record(
+        uuid, with_deleted=True, record_version=record_version
+    )
     if not force_delete:
         deleted = record.get("deleted", False)
 

@@ -26,7 +26,7 @@ from invenio_records.models import RecordMetadata
 from invenio_records.signals import after_record_revert, before_record_revert
 from sqlalchemy import tuple_
 from sqlalchemy.orm.attributes import flag_modified
-from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy.orm.exc import NoResultFound, StaleDataError
 from sqlalchemy_continuum import version_class
 
 from inspirehep.indexer.base import InspireRecordIndexer
@@ -87,7 +87,9 @@ class InspireRecord(Record):
         return pid.object_uuid
 
     @classmethod
-    def get_record_by_pid_value(cls, pid_value, pid_type=None, original_record=False):
+    def get_record_by_pid_value(
+        cls, pid_value, pid_type=None, original_record=False, with_deleted=True
+    ):
         """Get record by provided PID value
 
         Args:
@@ -95,6 +97,7 @@ class InspireRecord(Record):
             pid_type(str): pid_type to query
             original_record(bool): if record was redirected this flag determines whether this method should return
               redirected record (if False) or original record (if True)
+            with_deleted(bool): when set to True returns also deleted records
 
         Returns: requested record
 
@@ -102,7 +105,11 @@ class InspireRecord(Record):
         if not pid_type:
             pid_type = cls.pid_type
         record_uuid = cls.get_uuid_from_pid_value(pid_value, pid_type, original_record)
-        return cls.get_record(record_uuid)
+        with_deleted = original_record or with_deleted
+        try:
+            return cls.get_record(record_uuid, with_deleted=with_deleted)
+        except NoResultFound:
+            raise PIDDoesNotExistError(pid_type, pid_value)
 
     @classmethod
     def get_subclasses(cls):
@@ -114,11 +121,67 @@ class InspireRecord(Record):
         return records_map
 
     @classmethod
-    def get_record(cls, id_, with_deleted=False):
-        record = super().get_record(str(id_), with_deleted)
+    def _get_record_version(cls, record_uuid, record_version):
+        RecordMetadataVersion = version_class(RecordMetadata)
+        try:
+            # Looks like there is a bug in sqlalchemy_continuum which sometimes causes that latest version json is not always correct. This can somehow fix the issue temporary.
+            latest_version = (
+                RecordMetadataVersion.query.with_entities(
+                    RecordMetadataVersion.version_id
+                )
+                .filter_by(id=record_uuid)
+                .order_by(RecordMetadataVersion.version_id.desc())
+                .first()[0]
+            )
+            if latest_version == record_version:
+                return cls._get_record(record_uuid, False)
+            elif latest_version < record_version:
+                raise NoResultFound
+            record = RecordMetadataVersion.query.filter_by(
+                id=record_uuid, version_id=record_version
+            ).one()
+        except NoResultFound:
+            LOGGER.warning(
+                "Reading stale data",
+                uuid=str(record_uuid),
+                version=record_version,
+                latest_version=latest_version,
+            )
+            raise StaleDataError()
+        record_class = InspireRecord.get_class_for_record(record.json)
+        if record_class != cls:
+            record = record_class(record.json, model=record)
+        return record
+
+    @classmethod
+    def _get_record(cls, record_uuid, with_deleted):
+        record = super().get_record(str(record_uuid), with_deleted)
         record_class = cls.get_class_for_record(record)
         if record_class != cls:
             record = record_class(record, model=record.model)
+        return record
+
+    @classmethod
+    def get_record(cls, record_uuid, with_deleted=False, record_version=None):
+        """Get record in requested version (default: latest)
+
+        Warning: When record version is not latest one then record.model
+            will be `RecordMetadataVersion` not `RecordMetadata`!
+
+        Args:
+            record_uuid(str): UUID of the record
+            with_deleted(bool): when set to False returns NoResultFound if record was deleted
+            record_version: Requested version. If this version is not available then raise StaleDataError
+
+        Returns: Record in requested version.
+
+        """
+        if not record_version:
+            record = cls._get_record(record_uuid, with_deleted)
+        else:
+            record = cls._get_record_version(record_uuid, record_version)
+        if with_deleted is False and record.get("deleted", False):
+            raise NoResultFound
         return record
 
     @classmethod
@@ -352,7 +415,7 @@ class InspireRecord(Record):
         new_pid = self.control_number_pid
         InspireRedirect.redirect(old_pid, new_pid)
 
-        old_record = self.get_record(old_pid_object_uuid)
+        old_record = self.get_record(old_pid_object_uuid, with_deleted=True)
         old_record["new_record"] = get_ref_from_pid(self.pid_type, self.control_number)
         if not old_record.get("deleted"):
             old_record.delete()

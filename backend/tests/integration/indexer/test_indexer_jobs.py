@@ -8,11 +8,7 @@
 from copy import deepcopy
 
 from helpers.utils import create_record, es_search
-from invenio_search import current_search
-from invenio_search import current_search_client as es
 from marshmallow import utils
-
-from inspirehep.search.api import JobsSearch
 
 
 def test_index_job_record(inspire_app):
@@ -31,16 +27,3 @@ def test_index_job_record(inspire_app):
 
     assert expected_total == response_total
     assert expected_source == response_source
-
-
-def test_indexer_deletes_record_from_es(inspire_app):
-    record = create_record("job")
-
-    record["deleted"] = True
-    record.index(delay=False)
-    current_search.flush_and_refresh("records-jobs")
-
-    expected_records_count = 0
-
-    record_lit_es = JobsSearch().get_record(str(record.id)).execute().hits
-    assert expected_records_count == len(record_lit_es)

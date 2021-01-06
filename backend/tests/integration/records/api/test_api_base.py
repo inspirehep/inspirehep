@@ -455,8 +455,10 @@ def test_redirect_and_delete_record_from_deleted_records_field(inspire_app):
     )
     assert record_redirected.id == record.id
 
-    original_record = LiteratureRecord.get_record(record_to_delete.id)
-    assert original_record["deleted"] == True
+    original_record = LiteratureRecord.get_record(
+        record_to_delete.id, with_deleted=True
+    )
+    assert original_record["deleted"] is True
 
 
 def test_redirect_deleted_record_from_deleted_records_field(inspire_app):
@@ -478,8 +480,8 @@ def test_redirect_deleted_record_from_deleted_records_field(inspire_app):
     )
     assert record_redirected.id == record.id
 
-    original_record = LiteratureRecord.get_record(record_deleted.id)
-    assert original_record["deleted"] == True
+    original_record = LiteratureRecord.get_record(record_deleted.id, with_deleted=True)
+    assert original_record["deleted"] is True
 
 
 def test_redirect_and_delete_many_records_from_deleted_records_field(inspire_app):

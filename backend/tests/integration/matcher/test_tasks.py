@@ -4,9 +4,10 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-
+import pytest
 from helpers.utils import create_record
 from inspire_utils.record import get_value
+from sqlalchemy.orm.exc import NoResultFound
 
 from inspirehep.matcher.tasks import match_references_by_uuids
 from inspirehep.records.api import LiteratureRecord
@@ -39,7 +40,9 @@ def test_match_references_by_uuids(inspire_app):
 
     updated_citer_record = LiteratureRecord.get_record(citer_record.id)
     excluded_citer_record = LiteratureRecord.get_record(excluded_citer_record.id)
-    deleted_record = LiteratureRecord.get_record(deleted_record.id)
+    with pytest.raises(NoResultFound):
+        LiteratureRecord.get_record(deleted_record.id)
+    deleted_record = LiteratureRecord.get_record(deleted_record.id, with_deleted=True)
 
     assert (
         get_value(updated_citer_record, "references[0].record") == cited_record["self"]

@@ -115,7 +115,7 @@ class InspireRecordIndexer(RecordIndexer):
         try:
             from inspirehep.records.api import InspireRecord
 
-            record = InspireRecord.get_record(record_uuid)
+            record = InspireRecord.get_record(record_uuid, with_deleted=True)
             if record.get("deleted", False):
                 try:
                     # When record is not in es then dsl is throwing TransportError(404)

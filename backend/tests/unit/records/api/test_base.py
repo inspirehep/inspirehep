@@ -112,7 +112,7 @@ def test_get_subclasses():
 def test_finding_proper_class_in_get_record_lit(
     get_record_mock, get_pid_mock, invenio_record_mock
 ):
-    created_record = InspireRecord.get_record(id_="something")
+    created_record = InspireRecord.get_record("something")
     expected_record_type = LiteratureRecord
 
     assert type(created_record) == expected_record_type
@@ -130,7 +130,7 @@ def test_finding_proper_class_in_get_record_lit(
 def test_finding_proper_class_in_get_record_aut(
     get_record_mock, get_pid_mock, invenio_record_mock
 ):
-    created_record = InspireRecord.get_record(id_="something")
+    created_record = InspireRecord.get_record("something")
     expected_record_type = AuthorsRecord
 
     assert type(created_record) == expected_record_type
