@@ -5,9 +5,6 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import os
-
-import jinja2
 from invenio_records_rest.serializers.json import MarshmallowMixin, PreprocessorMixin
 from invenio_records_rest.serializers.response import (
     record_responsify,
@@ -15,6 +12,7 @@ from invenio_records_rest.serializers.response import (
 )
 
 from ..marshmallow.literature.latex import LatexSchema
+from .jinja import jinja_latex_env
 
 
 class LatexSerializer(MarshmallowMixin, PreprocessorMixin):
@@ -41,15 +39,8 @@ class LatexSerializer(MarshmallowMixin, PreprocessorMixin):
         return record
 
     def latex_template(self):
-        latex_jinja_env = jinja2.Environment(
-            variable_start_string="\\VAR{",
-            variable_end_string="}",
-            loader=jinja2.FileSystemLoader(os.path.abspath("/")),
-        )  # noqa
-        current_abs_path = os.path.abspath(__file__)
-        directory_path = os.path.dirname(current_abs_path)
-        template_path = os.path.join(directory_path, "templates/latex_template.tex")
-        template = latex_jinja_env.get_template(template_path)
+        latex_jinja_env = jinja_latex_env
+        template = latex_jinja_env.get_template("latex_template.tex")
 
         return template
 
