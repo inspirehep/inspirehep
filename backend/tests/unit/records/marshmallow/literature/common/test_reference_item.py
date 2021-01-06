@@ -70,7 +70,7 @@ def test_forces_collaborations_to_be_object_if_reference_not_linked(get_records_
 
 @mock.patch("inspirehep.records.api.base.InspireRecord.get_records_by_pids")
 def test_forces_collaborations_to_be_object_if_reference_not_linked_with_many_true(
-    get_records_mock
+    get_records_mock,
 ):
     class TestSchema(Schema):
         references = fields.Nested(ReferenceItemSchemaV1, dump_only=True, many=True)
@@ -143,7 +143,7 @@ def test_returns_no_misc_if_title_persent(get_records_mock):
     ("inspirehep.records.api.literature.LiteratureRecord.get_es_linked_references")
 )
 def test_returns_no_misc_if_titles_persent_in_the_resolved_record(
-    mock_get_linked_records_in_field
+    mock_get_linked_records_in_field,
 ):
     mock_get_linked_records_in_field.return_value = [
         InspireRecord(
@@ -221,7 +221,7 @@ def test_returns_dois_from_the_resolved_record(mock_get_linked_records_in_field)
     ("inspirehep.records.api.literature.LiteratureRecord.get_es_linked_references")
 )
 def test_returns_arxiv_eprints_from_the_resolved_record(
-    mock_get_linked_records_in_field
+    mock_get_linked_records_in_field,
 ):
     mock_get_linked_records_in_field.return_value = [
         InspireRecord(

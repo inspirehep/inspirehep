@@ -28,7 +28,7 @@ def test_api_seminars_schema_doesnt_return_acquisition_source_email():
 
 def test_api_seminars_schema_doesnt_return_contact_details_with_email():
     contact_details = [{"name": "Test, Contact", "email": "test.test@test.de"}]
-    expected = [{"name": "Test, Contact",}]
+    expected = [{"name": "Test, Contact"}]
 
     data = {"contact_details": contact_details}
     data_record = faker.record("sem", data=data)

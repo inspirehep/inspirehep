@@ -4,11 +4,8 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-from .validators import (
-    affiliations_validator,
-    authors_validator,
-    collaboration_validator,
-)
+
+from .validators import authors_validator
 
 GROBID_URL = "https://grobid.inspirebeta.net"
 

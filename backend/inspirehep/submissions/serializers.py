@@ -7,11 +7,8 @@
 
 """Submissions serializers."""
 
-from inspire_utils.record import get_values_for_schema
 from invenio_records_rest.serializers.json import JSONSerializer
 
-from inspirehep.accounts.api import get_current_user_orcid
-from inspirehep.serializers import ConditionalMultiSchemaJSONSerializer
 from inspirehep.submissions.marshmallow.job import Job
 
 from .marshmallow import Author, Conference, Literature, Seminar

@@ -18,7 +18,7 @@ from inspirehep.tools.utils import find_references
 def literature_records(inspire_app):
     with freeze_time("2020-06-12"):
         data_ads = {
-            "control_number": 1721863,
+            "control_number": 1_721_863,
             "titles": [{"title": "Baryon Number Generation in Grand Unified Theories"}],
             "authors": [{"full_name": "Ellis, John R."}],
             "external_system_identifiers": [
@@ -29,7 +29,7 @@ def literature_records(inspire_app):
         create_record("lit", data=data_ads)
 
         data_texkey = {
-            "control_number": 1721864,
+            "control_number": 1_721_864,
             "titles": [{"title": "Neutrinoless universe"}],
             "authors": [{"full_name": "Beacom, John F."}],
             "texkeys": ["Beacom:2004yd"],
@@ -37,7 +37,7 @@ def literature_records(inspire_app):
         create_record("lit", data=data_texkey)
 
         data_eprint = {
-            "control_number": 1721865,
+            "control_number": 1_721_865,
             "titles": [
                 {"title": "On-shell recurrence relations for one-loop QCD amplitudes"}
             ],
@@ -47,7 +47,7 @@ def literature_records(inspire_app):
         create_record("lit", data=data_eprint)
 
         data_r = {
-            "control_number": 1721867,
+            "control_number": 1_721_867,
             "titles": [{"title": "GEANT Detector Description and Simulation Tool"}],
             "authors": [{"full_name": "run, René"}],
             "report_numbers": [{"value": "CERN-W5013"}],
@@ -56,7 +56,7 @@ def literature_records(inspire_app):
         create_record("lit", data=data_r)
 
         data_j = {
-            "control_number": 663871,
+            "control_number": 663_871,
             "titles": [{"title": "MHV rules for Higgs plus multi-gluon amplitudes"}],
             "authors": [{"full_name": "Dixon, Lance J."}],
             "publication_info": [
@@ -72,7 +72,7 @@ def literature_records(inspire_app):
         create_record("lit", data=data_j)
 
         data_r_ambiguous = {
-            "control_number": 1721868,
+            "control_number": 1_721_868,
             "titles": [{"title": "This is another record with the same report number"}],
             "authors": [{"full_name": "Garcia, Miguel"}],
             "report_numbers": [{"value": "CERN-W5013"}],

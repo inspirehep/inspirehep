@@ -169,7 +169,7 @@ def test_aut_citation_count_property_blows_up_on_wrong_pid_type(inspire_app):
 
 
 def test_deleted_institution_deletes_relations_in_institution_literature_table(
-    inspire_app
+    inspire_app,
 ):
     institution = create_record("ins")
     institution_control_number = institution["control_number"]
@@ -192,7 +192,7 @@ def test_deleted_institution_deletes_relations_in_institution_literature_table(
 
 
 def test_hard_delete_institution_deletes_relations_in_institution_literature_table(
-    inspire_app
+    inspire_app,
 ):
     institution = create_record("ins")
     institution_control_number = institution["control_number"]

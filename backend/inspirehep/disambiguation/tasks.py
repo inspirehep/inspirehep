@@ -136,8 +136,10 @@ def match_literature_author(author, updated_authors, record):
         matched_records = match_literature_author_with_config(
             author_matcher_data, config
         )
-        matched_reference = assign_reference_to_author_if_unambiguous_literature_author_match(
-            matched_records, author
+        matched_reference = (
+            assign_reference_to_author_if_unambiguous_literature_author_match(
+                matched_records, author
+            )
         )
         if not matched_reference and validator:
             for validator_function in validator:
@@ -146,8 +148,10 @@ def match_literature_author(author, updated_authors, record):
                     for match in matched_records
                     if validator_function(author_matcher_data, match)
                 )
-                matched_reference = assign_reference_to_author_if_unambiguous_literature_author_match(
-                    valid_matches, author
+                matched_reference = (
+                    assign_reference_to_author_if_unambiguous_literature_author_match(
+                        valid_matches, author
+                    )
                 )
                 if matched_reference:
                     break

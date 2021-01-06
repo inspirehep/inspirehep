@@ -14,7 +14,7 @@ from itertools import chain
 import structlog
 from elasticsearch import NotFoundError
 from flask import current_app
-from inspire_dojson.utils import get_recid_from_ref, strip_empty_values
+from inspire_dojson.utils import strip_empty_values
 from inspire_schemas.api import validate as schema_validate
 from inspire_utils.record import get_value
 from invenio_db import db

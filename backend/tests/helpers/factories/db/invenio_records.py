@@ -105,11 +105,13 @@ class TestRecordMetadata(TestBaseModel):
             )
             instance.es_refresh_result = es.indices.refresh(index_name)
         if not disable_persistent_identifier:
-            instance.persistent_identifier = TestPersistentIdentifier.create_from_kwargs(
-                object_uuid=instance.record_metadata.id,
-                pid_value=instance.record_metadata.json.get("control_number"),
-                **kwargs
-            ).persistent_identifier
+            instance.persistent_identifier = (
+                TestPersistentIdentifier.create_from_kwargs(
+                    object_uuid=instance.record_metadata.id,
+                    pid_value=instance.record_metadata.json.get("control_number"),
+                    **kwargs
+                ).persistent_identifier
+            )
 
         instance.inspire_record = InspireRecord(
             instance.record_metadata.json, model=RecordMetadata

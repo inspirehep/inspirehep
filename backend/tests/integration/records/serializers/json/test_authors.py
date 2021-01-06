@@ -474,7 +474,7 @@ def test_authors_search_do_not_contain_acquisition_source_for_non_curator(inspir
 
 
 def test_author_detail_page_do_not_contain_acquisition_source_for_non_curator(
-    inspire_app
+    inspire_app,
 ):
     headers = {"Accept": "application/json"}
 

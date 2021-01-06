@@ -24,7 +24,7 @@ def test_returns_empty_if_conference_record_is_missing():
 
 @patch("inspirehep.records.api.base.InspireRecord.get_record_by_pid_value")
 def test_returns_non_empty_fields_if_conference_record_found(
-    mock_get_record_by_pid_value
+    mock_get_record_by_pid_value,
 ):
     mock_get_record_by_pid_value.return_value = {
         "titles": [{"title": "Conference Title"}],

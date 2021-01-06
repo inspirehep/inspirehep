@@ -7,7 +7,6 @@
 
 
 def test_ping_view(inspire_app):
-
     expected_status_code = 200
     with inspire_app.test_client() as client:
         response = client.get("/ping")

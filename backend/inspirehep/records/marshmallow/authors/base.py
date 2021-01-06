@@ -9,7 +9,6 @@ from marshmallow import Schema, fields
 
 from ..base import RecordBaseSchema
 from ..fields import NonHiddenRaw
-from ..utils import get_acquisition_source_without_email
 
 
 class AuthorsRawSchema(RecordBaseSchema):

@@ -21,13 +21,13 @@ def send_email(sender, recipient, subject, body, cc=None):
         recipients=[recipient],
         html=body,
         body=strip_html_tags(body),
-        cc=cc
+        cc=cc,
     )
-    client = current_app.extensions['mail']
+    client = current_app.extensions["mail"]
     if client.suppress:
         LOGGER.warn(
-            'Skipping sending email due to config settings',
-            key='MAIL_SUPPRESS_SEND',
-            value=current_app.config.get('MAIL_SUPPRESS_SEND')
+            "Skipping sending email due to config settings",
+            key="MAIL_SUPPRESS_SEND",
+            value=current_app.config.get("MAIL_SUPPRESS_SEND"),
         )
     client.send(msg)

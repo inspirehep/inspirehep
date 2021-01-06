@@ -616,8 +616,8 @@ def test_chain_of_redirection_properly_redirects(inspire_app):
         "lit", data={"deleted_records": [redirected_3["self"]]}
     )
 
-    final_record_from_db_through_redirection_chain = LiteratureRecord.get_record_by_pid_value(
-        redirected_1["control_number"]
+    final_record_from_db_through_redirection_chain = (
+        LiteratureRecord.get_record_by_pid_value(redirected_1["control_number"])
     )
 
     assert final_record_from_db_through_redirection_chain.id == final_record.id
@@ -687,7 +687,7 @@ def test_feature_flag_for_redirection_disables_redirection_when_turned_off(
 
 
 def test_creating_record_with_deleted_key_registers_control_number_with_deleted_status(
-    inspire_app
+    inspire_app,
 ):
     record = create_record("lit", data={"deleted": True, "control_number": 12345})
     pid = PersistentIdentifier.query.filter_by(pid_value="12345").one()

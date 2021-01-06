@@ -35,7 +35,9 @@ def upgrade():
             name="fk_experiment_literature_literature_uuid",
         ),
         sa.PrimaryKeyConstraint(
-            "experiment_uuid", "literature_uuid", name=op.f("pk_experiment_literature"),
+            "experiment_uuid",
+            "literature_uuid",
+            name=op.f("pk_experiment_literature"),
         ),
     )
     op.create_index(
@@ -58,6 +60,7 @@ def downgrade():
         "ix_experiment_literature_literature_uuid", table_name="experiment_literature"
     )
     op.drop_index(
-        "ix_experiment_literature_experiment_uuid", table_name="experiment_literature",
+        "ix_experiment_literature_experiment_uuid",
+        table_name="experiment_literature",
     )
     op.drop_table("experiment_literature")

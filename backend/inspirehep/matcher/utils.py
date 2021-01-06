@@ -1,16 +1,18 @@
-import io
-import re
-import tempfile
-from contextlib import contextmanager
+# -*- coding: utf-8 -*-
+#
+# Copyright (C) 2020 CERN.
+#
+# inspirehep is free software; you can redistribute it and/or modify it under
+# the terms of the MIT License; see LICENSE file for more details.
 
-from flask import current_app
-from fs.opener import fsopen
+import re
+
 from inspire_schemas.api import ReferenceBuilder
 from inspire_utils.dedupers import dedupe_list_of_dicts
 from inspire_utils.helpers import force_list
 from inspire_utils.record import get_value
 from invenio_records.models import RecordMetadata
-from sqlalchemy import cast, type_coerce
+from sqlalchemy import type_coerce
 from sqlalchemy.dialects.postgresql import JSONB
 
 RE_PUNCTUATION = re.compile(r"[\.,;'\(\)-]", re.UNICODE)
@@ -121,7 +123,7 @@ def normalize_title(raw_title):
 def generate_matcher_config_for_reference_field(schema_name, path):
     return {
         "algorithm": [
-            {"queries": [{"path": "$ref", "search_path": path, "type": "exact",},]}
+            {"queries": [{"path": "$ref", "search_path": path, "type": "exact"}]}
         ],
         "index": f"records-{schema_name}",
     }
@@ -132,7 +134,7 @@ def generate_matcher_config_for_nested_reference_field(schema_name, path):
         "algorithm": [
             {
                 "queries": [
-                    {"paths": ["$ref"], "search_paths": [path], "type": "nested",},
+                    {"paths": ["$ref"], "search_paths": [path], "type": "nested"},
                 ]
             }
         ],

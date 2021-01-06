@@ -13,7 +13,7 @@ from invenio_access.models import ActionRoles
 from invenio_accounts.models import Role
 from invenio_db import db
 from invenio_oauth2server.models import Client, Token
-from invenio_oauthclient.models import RemoteToken, UserIdentity
+from invenio_oauthclient.models import UserIdentity
 
 from inspirehep.accounts.roles import Roles
 

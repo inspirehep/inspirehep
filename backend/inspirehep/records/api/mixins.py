@@ -469,8 +469,7 @@ class ConferencePaperAndProceedingsMixin:
             )
 
     def get_newest_linked_conferences_uuid(self):
-        """Returns referenced conferences for which perspective this record has changed
-        """
+        """Returns referenced conferences for which perspective this record has changed"""
         prev_version = self._previous_version
 
         changed_deleted_status = self.get("deleted", False) ^ prev_version.get(

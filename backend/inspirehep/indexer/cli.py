@@ -337,7 +337,8 @@ def create_aliases(ctx, yes_i_know, prefix_alias):
 
 
 @index.command(
-    "delete-indexes", help="Removes indexes with specified prefix",
+    "delete-indexes",
+    help="Removes indexes with specified prefix",
 )
 @click.option("--yes-i-know", is_flag=True)
 @click.option("--prefix", default="", type=str)

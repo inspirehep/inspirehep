@@ -184,7 +184,7 @@ def test_deleted_conference_clears_entries_in_conference_literature_table(inspir
 
 
 def test_hard_delete_conference_clears_entries_in_conference_literature_table(
-    inspire_app
+    inspire_app,
 ):
     conference = create_record("con")
     conference_control_number = conference["control_number"]

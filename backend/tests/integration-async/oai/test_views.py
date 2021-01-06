@@ -47,9 +47,7 @@ def test_oai_with_for_cds_set(
 
 
 def test_oai_with_for_arxiv_set(
-    inspire_app,
-    celery_app_with_context,
-    celery_session_worker,
+    inspire_app, celery_app_with_context, celery_session_worker
 ):
     data = {
         "arxiv_eprints": [{"value": "2009.01484"}],

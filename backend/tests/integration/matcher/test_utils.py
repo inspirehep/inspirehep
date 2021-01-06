@@ -12,9 +12,7 @@ from inspirehep.matcher.utils import create_journal_dict
 
 def test_create_journal_dict(inspire_app):
     data = {
-        "journal_title": {
-            "title": "Journal of Physical Science and Application",
-        },
+        "journal_title": {"title": "Journal of Physical Science and Application"},
         "short_title": "J.Phys.Sci.Appl.",
         "title_variants": ["PHYS SCI APPL"],
     }

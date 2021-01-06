@@ -4,7 +4,7 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-import datetime
+
 
 import structlog
 from invenio_db import db
@@ -95,7 +95,7 @@ class InspireRedirect(db.Model, Timestamp):
                 db.session.add(old_pid)
         except IntegrityError as e:
             raise PIDInvalidAction(e)
-        except SQLAlchemyError as e:
+        except SQLAlchemyError:
             LOGGER.exception(
                 "Failed to redirect record", old_pid=old_pid, new_pid=new_pid
             )
