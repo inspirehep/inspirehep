@@ -264,7 +264,7 @@ def _get_ticket_text(ticket_id):
     for attachment_id in attachments_ids:
         attachment = rt_instance.get_attachment(ticket_id, attachment_id)
         if attachment["ContentType"] == "text/plain":
-            return attachment["Content"]
+            return attachment["Content"].decode("utf-8")
     return ""
 
 

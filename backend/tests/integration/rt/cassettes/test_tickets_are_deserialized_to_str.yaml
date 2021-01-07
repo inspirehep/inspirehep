@@ -1,0 +1,217 @@
+interactions:
+- request:
+    body: user=CHANGE_ME&pass=CHANGE_ME
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '23'
+      Content-Type:
+      - application/x-www-form-urlencoded
+    method: POST
+    uri: https://rt.inspirehep.net/REST/1.0/
+  response:
+    body:
+      string: "RT/4.2.16 200 Ok\n\n# Invalid object specification: ''\n\nid: \n\n"
+    headers:
+      Connection:
+      - Keep-Alive
+      Content-Type:
+      - text/plain; charset=utf-8
+      Date:
+      - Thu, 07 Jan 2021 14:42:58 GMT
+      Keep-Alive:
+      - timeout=15, max=100
+      Server:
+      - Apache
+      Set-Cookie:
+      - RT_SID_INSPIRE-HEP.443=11111111111111111111111111111111; path=/; secure; HttpOnly
+      Transfer-Encoding:
+      - chunked
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - RT_SID_INSPIRE-HEP.443=11111111111111111111111111111111
+    method: GET
+    uri: https://rt.inspirehep.net/REST/1.0/search/ticket?format=l&query=%28%27CF.%7BRecordID%7D%27%3D%271839571%27%29+AND+%28Status%21%3D%27resolved%27%29
+  response:
+    body:
+      string: 'RT/4.2.16 200 Ok
+
+
+        id: ticket/1091768
+
+        Queue: HEP_curation
+
+        Owner: Nobody
+
+        Creator: cli
+
+        Subject: arXiv:2101.02197 (#1839571)
+
+        Status: new
+
+        Priority: 0
+
+        InitialPriority: 0
+
+        FinalPriority: 0
+
+        Requestors:
+
+        Cc:
+
+        AdminCc:
+
+        Created: Wed Jan 06 20:42:18 2021
+
+        Starts: Not set
+
+        Started: Not set
+
+        Due: Not set
+
+        Resolved: Not set
+
+        Told: Not set
+
+        LastUpdated: Wed Jan 06 20:42:18 2021
+
+        TimeEstimated: 0
+
+        TimeWorked: 0
+
+        TimeLeft: 0
+
+        CF.{RecordID}: 1839571
+
+
+
+        '
+    headers:
+      Connection:
+      - Keep-Alive
+      Content-Type:
+      - text/plain; charset=utf-8
+      Date:
+      - Thu, 07 Jan 2021 14:42:58 GMT
+      Keep-Alive:
+      - timeout=15, max=99
+      Server:
+      - Apache
+      Set-Cookie:
+      - RT_SID_INSPIRE-HEP.443=11111111111111111111111111111111; path=/; secure; HttpOnly
+      Transfer-Encoding:
+      - chunked
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - RT_SID_INSPIRE-HEP.443=11111111111111111111111111111111
+    method: GET
+    uri: https://rt.inspirehep.net/REST/1.0/ticket/1091768/attachments
+  response:
+    body:
+      string: 'RT/4.2.16 200 Ok
+
+
+        id: ticket/1091768/attachments
+
+        Attachments: 3161364: (Unnamed) (text/plain / 237b)
+
+
+        '
+    headers:
+      Connection:
+      - Keep-Alive
+      Content-Type:
+      - text/plain; charset=utf-8
+      Date:
+      - Thu, 07 Jan 2021 14:42:58 GMT
+      Keep-Alive:
+      - timeout=15, max=98
+      Server:
+      - Apache
+      Set-Cookie:
+      - RT_SID_INSPIRE-HEP.443=11111111111111111111111111111111; path=/; secure; HttpOnly
+      Transfer-Encoding:
+      - chunked
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - RT_SID_INSPIRE-HEP.443=11111111111111111111111111111111
+    method: GET
+    uri: https://rt.inspirehep.net/REST/1.0/ticket/1091768/attachments/3161364
+  response:
+    body:
+      string: "RT/4.2.16 200 Ok\n\nid: 3161364\nSubject: arXiv:2101.02197 (#1839571)\nCreator:
+        265407\nCreated: 2021-01-07 04:42:18\nTransaction: 10069646\nParent: 0\nMessageId:
+        \nFilename: \nContentType: text/plain\nContentEncoding: none\n\nHeaders: MIME-Version:
+        1.0\n         X-Mailer: MIME-tools 5.505 (Entity 5.505)\n         From: help@inspirehep.net\n
+        \        Subject: arXiv:2101.02197 (#1839571)\n         X-RT-Interface: REST\n
+        \        Content-Type: text/plain; charset=\"UTF-8\"\n         Content-Disposition:
+        inline\n         Content-Transfer-Encoding: binary\n         Content-Length:
+        237\n\nContent: New submission from\n         \n         Curate record here:\n
+        \        BibEdit: http://old.inspirehep.net/record/edit/#state=edit&recid=1839571.\n
+        \        New record editor: https://inspirehep.net/workflows/edit_article/1839571.\n
+        \        Record url: http://inspirehep.net/record/1839571\n\n\n"
+    headers:
+      Connection:
+      - Keep-Alive
+      Content-Type:
+      - text/plain; charset=utf-8
+      Date:
+      - Thu, 07 Jan 2021 14:42:58 GMT
+      Keep-Alive:
+      - timeout=15, max=97
+      Server:
+      - Apache
+      Set-Cookie:
+      - RT_SID_INSPIRE-HEP.443=11111111111111111111111111111111; path=/; secure; HttpOnly
+      Transfer-Encoding:
+      - chunked
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+version: 1

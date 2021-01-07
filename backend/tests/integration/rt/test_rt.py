@@ -6,8 +6,14 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import pytest
+from flask import jsonify
 
-from inspirehep.rt.tickets import create_ticket, create_ticket_with_template
+from inspirehep.editor.views import _simplify_ticket_response
+from inspirehep.rt.tickets import (
+    create_ticket,
+    create_ticket_with_template,
+    get_tickets_by_recid,
+)
 
 
 @pytest.mark.xfail(reason="RT cannot be initialized without valid creds.")
@@ -50,3 +56,11 @@ def test_create_ticket_with_template(inspire_app):
     )
 
     assert ticket_id != -1
+
+
+@pytest.mark.vcr()
+def test_tickets_are_deserialized_to_str(inspire_app):
+    tickets = get_tickets_by_recid("1839571")
+    simplified_tickets = [_simplify_ticket_response(ticket) for ticket in tickets]
+    # Check that this won't fail anymore
+    jsonify(simplified_tickets)
