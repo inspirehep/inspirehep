@@ -3,7 +3,11 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 import { Tooltip } from 'antd';
-import { FilePdfOutlined, FileExclamationTwoTone } from '@ant-design/icons';
+import {
+  FilePdfOutlined,
+  FileExclamationTwoTone,
+  DatabaseOutlined,
+} from '@ant-design/icons';
 
 import ArxivEprintList from './ArxivEprintList';
 import LiteratureDate from './LiteratureDate';
@@ -45,6 +49,7 @@ function LiteratureItem({ metadata, searchRank }) {
   const collaborations = metadata.get('collaborations');
   const collaborationsWithSuffix = metadata.get('collaborations_with_suffix');
   const canEdit = metadata.get('can_edit', false);
+  const datasetLinks = metadata.get('dataset_links');
 
   const curatedRelation = metadata.get('curated_relation', false);
 
@@ -71,6 +76,13 @@ function LiteratureItem({ metadata, searchRank }) {
           )}
           {dois && <DOILinkAction dois={dois} />}
           <CiteModalActionContainer recordId={recordId} />
+          {datasetLinks && (
+            <UrlsAction
+              urls={datasetLinks}
+              icon={<DatabaseOutlined />}
+              text="datasets"
+            />
+          )}
           {canEdit && (
             <EditRecordAction pidType="literature" pidValue={recordId} />
           )}

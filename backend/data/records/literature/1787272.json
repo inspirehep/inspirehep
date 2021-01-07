@@ -41,6 +41,7 @@
       "value": "10.7566/JPSCP.30.011007"
     }
   ],
+  "external_system_identifiers": [{"value": "ins1821702", "schema": "HEPDATA"}],
   "imprints": [{ "date": "2020" }],
   "inspire_categories": [{ "term": "General Physics" }],
   "legacy_creation_date": "2020-03-21",
