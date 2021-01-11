@@ -286,7 +286,7 @@ def test_literature_search_json_with_cataloger_login(inspire_app):
             {"key": "public", "url": "https://url.to/public/document"},
         ],
     }
-    record = create_record("lit", data=data)
+    create_record("lit", data=data)
     expected_status_code = 200
     expected_result = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
@@ -798,7 +798,7 @@ def test_regression_not_throw_on_collaboration_in_reference_without_record(inspi
     data = {
         "references": [
             {
-                "record": {"$ref": f"http://localhost:5000/api/literature/999"},
+                "record": {"$ref": "http://localhost:5000/api/literature/999"},
                 "reference": {"label": "1", "collaborations": ["CMS"]},
             }
         ]
@@ -852,7 +852,7 @@ def test_literature_search_lowercased_doi_in_references(inspire_app):
         "dois": [{"value": "10.1103/PhysRevLett.50.928"}],
         "references": [{"reference": {"dois": ["10.1103/PhysRevLett.50.928"]}}],
     }
-    record = create_record("lit", data=data)
+    create_record("lit", data=data)
 
     expected_status_code = 200
     expected_result_len = 1
@@ -991,7 +991,7 @@ def test_literature_list_with_cataloger_and_author_curated_relation(inspire_app)
                 },
                 {
                     "full_name": "Urhan, Ahmet",
-                    "record": {"$ref": f"http://localhost:5000/api/authors/17200"},
+                    "record": {"$ref": "http://localhost:5000/api/authors/17200"},
                 },
             ]
         },
@@ -1010,20 +1010,20 @@ def test_literature_list_with_cataloger_and_author_curated_relation(inspire_app)
                 {
                     "curated_relation": True,
                     "full_name": "Urhan, Ahmet",
-                    "record": {"$ref": f"http://localhost:5000/api/authors/17200"},
+                    "record": {"$ref": "http://localhost:5000/api/authors/17200"},
                 },
             ]
         },
     )
 
-    record_without_author = create_record(
+    create_record(
         "lit",
         data={
             "authors": [
                 {
                     "curated_relation": True,
                     "full_name": "Urhan, Ahmet",
-                    "record": {"$ref": f"http://localhost:5000/api/authors/17200"},
+                    "record": {"$ref": "http://localhost:5000/api/authors/17200"},
                 }
             ]
         },
@@ -1077,7 +1077,7 @@ def test_literature_list_with_normal_user_doesnt_have_curated_relation(inspire_a
                 },
                 {
                     "full_name": "Urhan, Ahmet",
-                    "record": {"$ref": f"http://localhost:5000/api/authors/17200"},
+                    "record": {"$ref": "http://localhost:5000/api/authors/17200"},
                 },
             ]
         },
@@ -1096,7 +1096,7 @@ def test_literature_list_with_normal_user_doesnt_have_curated_relation(inspire_a
                 {
                     "curated_relation": True,
                     "full_name": "Urhan, Ahmet",
-                    "record": {"$ref": f"http://localhost:5000/api/authors/17200"},
+                    "record": {"$ref": "http://localhost:5000/api/authors/17200"},
                 },
             ]
         },
@@ -1150,7 +1150,7 @@ def test_literature_list_for_non_author_publication_search_doesnt_have_curated_r
                 },
                 {
                     "full_name": "Urhan, Ahmet",
-                    "record": {"$ref": f"http://localhost:5000/api/authors/17200"},
+                    "record": {"$ref": "http://localhost:5000/api/authors/17200"},
                 },
             ]
         },
@@ -1257,7 +1257,7 @@ def test_literature_json_with_fields_filtering(inspire_app):
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.get(
-            f"/literature?fields=authors,document_type&format=json", headers=headers
+            "/literature?fields=authors,document_type&format=json", headers=headers
         )
 
     response_status_code = response.status_code
@@ -1295,7 +1295,7 @@ def test_literature_json_with_fields_filtering_ignores_wrong_fields(inspire_app)
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.get(
-            f"/literature?fields=wrongfield,titles&format=json", headers=headers
+            "/literature?fields=wrongfield,titles&format=json", headers=headers
         )
 
     response_status_code = response.status_code
@@ -1308,7 +1308,7 @@ def test_regression_serializers_mutation(inspire_app):
     data = {
         "dois": [{"source": "World Scientific", "value": "10.1142/9789814618113_0024"}]
     }
-    record = create_record("lit", data=data)
+    create_record("lit", data=data)
     excepted_doi = "10.1142/9789814618113_0024"
     with inspire_app.test_client() as client:
         response = client.get("/literature/")
@@ -1372,3 +1372,24 @@ def test_literature_detail_page_do_not_have_acquisition_source_for_non_curator(
         response = client.get(f"/literature/{control_number}", headers=headers)
     assert response.status_code == 200
     assert "acquisition_source" not in response.json["metadata"]
+
+
+def test_literature_search_has_dataset_links_field(inspire_app):
+    headers = {"Accept": "application/json"}
+
+    data = {
+        "external_system_identifiers": [
+            {"value": "hal-02981330", "schema": "HAL"},
+            {"value": "ins1821703", "schema": "HEPDATA"},
+            {"value": "2740507", "schema": "CDS"},
+        ]
+    }
+    expected = [
+        {"value": "https://www.hepdata.net/record/ins1821703", "description": "HEPData"}
+    ]
+    create_record("lit", data=data)
+    with inspire_app.test_client() as client:
+        response = client.get("/literature", headers=headers)
+
+    assert response.status_code == 200
+    assert expected == response.json["hits"]["hits"][0]["metadata"]["dataset_links"]

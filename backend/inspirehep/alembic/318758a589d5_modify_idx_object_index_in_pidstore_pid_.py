@@ -7,7 +7,6 @@
 
 """modify idx_object index in pidstore_pid table"""
 
-import sqlalchemy as sa
 from alembic import op
 
 # revision identifiers, used by Alembic.

@@ -36,11 +36,6 @@ from .common import (
 )
 from .utils import get_authors_without_emails
 
-DATASET_SCHEMA_TO_URL_PREFIX_MAP = {
-    "hepdata": "https://www.hepdata.net/record/",
-}
-DATASET_SCHEMA_TO_DESCRIPTION_MAP = {"hepdata": "HEPData"}
-
 
 class LiteratureDetailSchema(CatalogerCanEditMixin, LiteraturePublicSchema):
     """Schema for Literature records to displayed on UI"""
@@ -101,7 +96,6 @@ class LiteratureDetailSchema(CatalogerCanEditMixin, LiteraturePublicSchema):
         PublicationInfoItemSchemaV1, dump_only=True, many=True
     )
     thesis_info = fields.Nested(ThesisInfoSchemaV1, dump_only=True)
-    dataset_links = fields.Method("get_datasets")
 
     def get_formatted_earliest_date(self, data):
         earliest_date = get_literature_earliest_date(data)
@@ -215,21 +209,6 @@ class LiteratureDetailSchema(CatalogerCanEditMixin, LiteraturePublicSchema):
             ):
                 urls.append(url)
         return urls or missing
-
-    def get_datasets(self, data):
-        dataset_links = []
-        all_links = get_value(data, "external_system_identifiers", [])
-        for link in all_links:
-            link_schema = link["schema"].lower()
-            if link_schema in DATASET_SCHEMA_TO_URL_PREFIX_MAP:
-                dataset_url = (
-                    DATASET_SCHEMA_TO_URL_PREFIX_MAP[link_schema] + link["value"]
-                )
-                dataset_description = DATASET_SCHEMA_TO_DESCRIPTION_MAP[link_schema]
-                dataset_links.append(
-                    {"value": dataset_url, "description": dataset_description}
-                )
-        return dataset_links or missing
 
 
 class LiteratureListWrappedSchema(EnvelopeSchema):

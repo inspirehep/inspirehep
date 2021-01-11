@@ -5,12 +5,18 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from marshmallow import fields
+from inspire_utils.record import get_value
+from marshmallow import fields, missing
 
 from ..base import RecordBaseSchema
 from ..fields import NonHiddenRaw
 from ..utils import get_acquisition_source_without_email
 from .utils import get_authors_without_emails
+
+DATASET_SCHEMA_TO_URL_PREFIX_MAP = {
+    "hepdata": "https://www.hepdata.net/record/",
+}
+DATASET_SCHEMA_TO_DESCRIPTION_MAP = {"hepdata": "HEPData"}
 
 
 class LiteratureRawSchema(RecordBaseSchema):
@@ -50,6 +56,22 @@ class LiteraturePublicSchema(LiteratureRawSchema):
     documents = NonHiddenRaw(dump_only=True)
     publication_info = NonHiddenRaw(dump_only=True)
     report_numbers = NonHiddenRaw(dump_only=True)
+    dataset_links = fields.Method("get_datasets")
+
+    def get_datasets(self, data):
+        dataset_links = []
+        all_links = get_value(data, "external_system_identifiers", [])
+        for link in all_links:
+            link_schema = link["schema"].lower()
+            if link_schema in DATASET_SCHEMA_TO_URL_PREFIX_MAP:
+                dataset_url = (
+                    DATASET_SCHEMA_TO_URL_PREFIX_MAP[link_schema] + link["value"]
+                )
+                dataset_description = DATASET_SCHEMA_TO_DESCRIPTION_MAP[link_schema]
+                dataset_links.append(
+                    {"value": dataset_url, "description": dataset_description}
+                )
+        return dataset_links or missing
 
 
 class LiteraturePublicListSchema(LiteraturePublicSchema):

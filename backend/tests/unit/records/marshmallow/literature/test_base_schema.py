@@ -25,7 +25,7 @@ def test_literature_related_records():
             {"record": {"$ref": "https://link-to-any-other-record/2"}},
         ]
     }
-    data_record = faker.record("lit", data=data)
+    faker.record("lit", data=data)
     result = LiteratureRawSchema().dump(data).data
     assert data["related_records"] == result["related_records"]
 
@@ -110,3 +110,18 @@ def literature_search_schema_doesnt_drop_comma_from_first_name():
     result = LiteraturePublicListSchema().dump(data_record).data
 
     assert result["authors"]["first_name"] == expected_first_name
+
+
+def test_dataset_links():
+    external_system_identifiers = {
+        "external_system_identifiers": [
+            {"schema": "HEPDATA", "value": "hep-123"},
+            {"schema": "ADS", "value": "ads-id-2"},
+        ]
+    }
+    expected_data = [
+        {"value": "https://www.hepdata.net/record/hep-123", "description": "HEPData"}
+    ]
+    serializer = LiteraturePublicListSchema()
+    serialized = serializer.dump(external_system_identifiers).data
+    assert serialized["dataset_links"] == expected_data
