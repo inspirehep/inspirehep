@@ -42,6 +42,10 @@ class MissingSerializerError(ValidationError):
     pass
 
 
+class InvalidMimeTypeError(ValidationError):
+    pass
+
+
 class UnknownImportIdentifierError(ValueError):
     pass
 

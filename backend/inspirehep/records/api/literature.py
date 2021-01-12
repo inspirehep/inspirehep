@@ -9,6 +9,7 @@ import threading
 import uuid
 from concurrent.futures import ThreadPoolExecutor, TimeoutError, as_completed
 from io import BytesIO
+from mimetypes import guess_type
 
 import magic
 import orjson
@@ -41,6 +42,7 @@ from inspirehep.records.errors import (
     ImportArticleError,
     ImportConnectionError,
     ImportParsingError,
+    InvalidMimeTypeError,
     UnknownImportIdentifierError,
 )
 from inspirehep.records.marshmallow.literature import LiteratureElasticSearchSchema
@@ -421,7 +423,16 @@ class LiteratureRecord(
                 return result
             file_data = download_file_from_url(url)
             new_key = hash_data(file_data)
+
             mimetype = magic.from_buffer(file_data, mime=True)
+            mimetype_guess, _ = guess_type(url)
+
+            if mimetype_guess and mimetype_guess != mimetype:
+                raise InvalidMimeTypeError(
+                    f"recid:{control_number} with url:{url} "
+                    f"doesn't much extension {mimetype_guess} "
+                    f"with the file mimetype {mimetype}."
+                )
             file_data = BytesIO(file_data)
             filename = filename or key
             acl = current_app.config["S3_FILE_ACL"]
@@ -632,7 +643,7 @@ def import_doi(doi):
     try:
         resp = requests.get(url=url)
     except (ConnectionError, IOError) as exc:
-        raise ImportConnectionError(f"Cannot contact CrossRef.") from exc
+        raise ImportConnectionError("Cannot contact CrossRef.") from exc
 
     if resp.status_code == 404:
         return {}
