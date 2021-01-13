@@ -95,9 +95,17 @@ class BibTexCommonSchema(BaseSchema):
             return PartialDate.loads(str(date_choice))
 
     @staticmethod
-    def get_authors_with_role(authors, role):
+    def encode_author_name(name):
+        name = name.replace(".", ". ").replace("  ", " ")
+        parts = [p.strip() for p in name.split(", ")]
+        has_suffix = len(parts) > 2
+        if has_suffix:
+            parts = [parts[0], parts[-1]] + parts[1:-1]
+        return latex_encode(", ".join(parts))
+
+    def get_authors_with_role(self, authors, role):
         return [
-            latex_encode(author["full_name"])
+            self.encode_author_name(author["full_name"])
             for author in authors
             if role in author.get("inspire_roles", ["author"])
         ]
