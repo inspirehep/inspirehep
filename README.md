@@ -189,23 +189,9 @@ Both backend and UI are accessible http://localhost:8080
 
 ```bash
 $ cd backend
-$ ./run-tests.sh
-```
-
-Or you can run specific tests:
-
-```bash
 $ poetry run py.test tests/unit
 $ poetry run py.test tests/integration
 $ poetry run py.test tests/integration-async
-```
-
-#### Run Code Checks
-
-Run `isort` and `flake8` checks.
-
-```bash
-$ ./run-code-checks.sh
 ```
 
 ### UI
