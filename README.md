@@ -100,8 +100,8 @@ server {
 }
 ```
 
-* On macOS `/usr/local/etc/nginx/nginx.conf`
-* On Debian / Ubuntu `/etc/nginx/conf.d/default.conf`
+- On macOS `/usr/local/etc/nginx/nginx.conf`
+- On Debian / Ubuntu `/etc/nginx/conf.d/default.conf`
 
 And reload `nginx`
 
@@ -187,12 +187,33 @@ Both backend and UI are accessible http://localhost:8080
 
 ### Backend
 
+The backend tests locally use [`testmon`](https://github.com/tarpas/pytest-testmon) to only run tests that depend on code that has changed (after the first run) by default:
+
 ```bash
 $ cd backend
-$ poetry run py.test tests/unit
-$ poetry run py.test tests/integration
-$ poetry run py.test tests/integration-async
+$ poetry run ./run-tests.sh
 ```
+
+If you pass the `--all` flag to the `run-tests.sh` script, all tests will be run (this is equivalent to the `--testmon-noselect` flag). All other flags passed to the script are transferred to `py.test`, so you can do things like
+
+```bash
+$ poetry run ./run-tests.sh --pdb -k test_failing
+```
+
+You'll need to run all tests or force test selection (e.g. with `-k`) in a few cases:
+
+- an external dependency has changed, and you want to make sure that it doesn't break the tests (as `testmon` doesn't track external deps)
+- you manually change a test fixture in a non-python file (as `testmon` only tracks python imports, not external data)
+
+If you want to invoke `py.test` directly but still want to use `testmon`, you'll need to use the `--testmon --no-cov` flags:
+
+```bash
+$ poetry run py.test tests/integration/records --testmon --no-cov
+```
+
+If you want to disable `testmon` test selection but still perform collection (to update test dependencies), use `--testmon-noselect --no-cov` instead.
+
+Note that `testmon` is only used locally to speed up tests and not in the CI to be completely sure _all_ tests pass before merging a commit.
 
 ### UI
 
@@ -229,8 +250,8 @@ If required, tests can run against `localhost:3000` by simply modifying `--host`
 
 You may not always need to run tests exactly like on the CI environment.
 
-* To run specific suite, just change `test` script in `e2e/package.json` temporarily to `cypress run --spec cypress/integration/<spec.test.js>`
-* To enable mounting `backend` code and live update, just use `e2e/docker-compose.cypress.dev.yml` instead.
+- To run specific suite, just change `test` script in `e2e/package.json` temporarily to `cypress run --spec cypress/integration/<spec.test.js>`
+- To enable mounting `backend` code and live update, just use `e2e/docker-compose.cypress.dev.yml` instead.
 
 ## How to import records
 
