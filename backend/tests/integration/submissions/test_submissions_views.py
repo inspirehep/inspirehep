@@ -19,6 +19,7 @@ from helpers.utils import (
     create_user,
     create_user_and_token,
 )
+from inspire_utils.query import ordered
 from inspire_utils.record import get_value
 from invenio_accounts.testutils import login_user_via_session
 from mock import patch
@@ -30,8 +31,6 @@ from inspirehep.records.api import (
     JobsRecord,
     SeminarsRecord,
 )
-from inspirehep.submissions.errors import LoaderDataError
-from inspirehep.submissions.views import AuthorSubmissionsResource
 
 
 def test_author_submit_requires_authentication(inspire_app):
@@ -262,9 +261,11 @@ def test_update_author(create_ticket_mock, inspire_app):
             {"schema": "ORCID", "value": orcid},
             {"value": "M.T.Hansen.1", "schema": "INSPIRE BAI"},
             {"value": "HEPNAMES-1114565", "schema": "SPIRES"},
+            {"value": "http://linkedin.com", "schema": "LINKEDIN"},
         ],
         "status": "active",
         "urls": [{"value": "https://wrong-url"}],
+        "_private_notes": [{"value": "A private note"}],
     }
     author_record = create_record("aut", data=author_data)
 
@@ -279,7 +280,9 @@ def test_update_author(create_ticket_mock, inspire_app):
                         "given_name": "John, Updated",
                         "display_name": "Updated",
                         "orcid": orcid,
+                        "linkedin": "test",
                         "status": "active",
+                        "comments": "A new private note",
                     }
                 }
             ),
@@ -297,6 +300,11 @@ def test_update_author(create_ticket_mock, inspire_app):
             {"schema": "ORCID", "value": orcid},
             {"schema": "INSPIRE BAI", "value": "M.T.Hansen.1"},
             {"schema": "SPIRES", "value": "HEPNAMES-1114565"},
+            {"value": "test", "schema": "LINKEDIN"},
+        ],
+        "_private_notes": [
+            {"value": "A private note"},
+            {"value": "A new private note"},
         ],
     }
 
@@ -352,15 +360,15 @@ def test_update_author_with_new_orcid(create_ticket_mock, inspire_app):
         "name": {"preferred_name": "Updated", "value": "John, Updated"},
         "status": "active",
         "ids": [
-            {"schema": "LINKEDIN", "value": "http://linkedin.com"},
             {"schema": "ORCID", "value": "0000-0001-8829-5461"},
             {"schema": "INSPIRE BAI", "value": "M.T.Hansen.1"},
             {"schema": "ORCID", "value": orcid},
             {"schema": "SPIRES", "value": "HEPNAMES-1114565"},
+            {"schema": "LINKEDIN", "value": "http://linkedin.com"},
         ],
     }
     updated_author = AuthorsRecord.get_record_by_pid_value(123)
-    assert expected_data == updated_author
+    assert ordered(expected_data) == ordered(updated_author)
 
     create_ticket_mock.delay.assert_called_once()
 
@@ -405,13 +413,13 @@ def test_update_author_with_extra_data(create_ticket_mock, inspire_app):
         "name": {"preferred_name": "Updated", "value": "John, Updated"},
         "status": "active",
         "ids": [
-            {"schema": "LINKEDIN", "value": "http://linkedin.com"},
             {"schema": "INSPIRE BAI", "value": "M.T.Hansen.1"},
+            {"schema": "LINKEDIN", "value": "http://linkedin.com"},
             {"schema": "ORCID", "value": orcid},
         ],
     }
     updated_author = AuthorsRecord.get_record_by_pid_value(123)
-    assert expected_data == updated_author
+    assert ordered(expected_data) == ordered(updated_author)
 
     create_ticket_mock.delay.assert_called_once()
 
@@ -460,9 +468,9 @@ def test_update_author_with_new_bai(create_ticket_mock, inspire_app):
         "name": {"preferred_name": "Updated", "value": "John, Updated"},
         "status": "active",
         "ids": [
-            {"schema": "LINKEDIN", "value": "http://linkedin.com"},
             {"schema": "ORCID", "value": orcid},
             {"schema": "INSPIRE BAI", "value": "M.T.Hansen.1"},
+            {"schema": "LINKEDIN", "value": "http://linkedin.com"},
         ],
     }
     updated_author = AuthorsRecord.get_record_by_pid_value(123)

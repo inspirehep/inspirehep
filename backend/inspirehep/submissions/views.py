@@ -14,7 +14,7 @@ from flask import Blueprint, abort, current_app, request, url_for
 from flask.views import MethodView
 from flask_login import current_user
 from inspire_schemas.builders import JobBuilder
-from inspire_utils.record import get_value, get_values_for_schema
+from inspire_utils.record import get_value
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
 from jsonschema import SchemaError, ValidationError
@@ -135,11 +135,8 @@ class AuthorSubmissionsResource(BaseSubmissionsResource):
                 )
         except PIDDoesNotExistError:
             abort(404)
-
         data = self.load_data_from_request()
-        updated_record_data = self.get_updated_record_data(data, record)
-
-        record.update(updated_record_data, data)
+        self.update_author_record(data, record)
         db.session.commit()
 
         if not is_superuser_or_cataloger_logged_in():
@@ -150,7 +147,7 @@ class AuthorSubmissionsResource(BaseSubmissionsResource):
 
         return jsonify({"pid_value": record["control_number"]})
 
-    def get_updated_record_data(self, update_data, record):
+    def update_author_record(self, update_data, record):
         optional_fields = [
             "email_addresses",
             "public_notes",
@@ -160,21 +157,28 @@ class AuthorSubmissionsResource(BaseSubmissionsResource):
             "arxiv_categories",
             "advisors",
         ]
-        try:
-            updated_ids = update_data["ids"]
-            updated_schemas = get_value(updated_ids, "schema", default=[])
-            updated_orcid = get_values_for_schema(updated_ids, "ORCID")
-            record_ids = record.pop("ids", [])
-            for record_id in record_ids:
-                if (record_id["schema"] not in updated_schemas) or (
-                    record_id["schema"] == "ORCID"
-                    and record_id["value"] != updated_orcid[0]
-                ):
-                    update_data["ids"].append(record_id)
-        except KeyError:
-            pass
 
-        return get_updated_record_data(record, update_data, optional_fields)
+        if "_private_notes" in update_data and "_private_notes" in record:
+            record["_private_notes"].extend(update_data["_private_notes"])
+            del update_data["_private_notes"]
+
+        record_ids = record.get("ids", [])
+        record_ids_schemas = set(get_value(record, "ids.schema", []))
+        for id_dict in update_data.get("ids", []):
+            if (id_dict["schema"] not in record_ids_schemas) or (
+                id_dict["schema"] == "ORCID" and id_dict not in record_ids
+            ):
+                record["ids"].append(id_dict)
+            elif id_dict["schema"] != "ORCID":
+                for record_id in record_ids:
+                    if record_id["schema"] == id_dict["schema"]:
+                        record_id["value"] = id_dict["value"]
+            update_data.pop("ids", None)
+
+        updated_record_data = get_updated_record_data(
+            record, update_data, optional_fields
+        )
+        record.update(updated_record_data)
 
     def load_data_from_request(self):
         return author_loader_v1()
