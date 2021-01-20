@@ -1223,6 +1223,7 @@ def test_adding_record_with_documents_with_existing_file_updates_metadata(
     assert current_s3_instance.file_exists(expected_document_key) is True
     metadata_document = current_s3_instance.get_file_metadata(expected_document_key)
     assert metadata_document["ContentDisposition"] == f'inline; filename="file1.pdf"'
+
     data["documents"][0]["filename"] = "file2.pdf"
     create_record("lit", data=data)
     assert current_s3_instance.file_exists(expected_document_key) is True

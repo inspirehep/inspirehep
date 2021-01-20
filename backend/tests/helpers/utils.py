@@ -150,7 +150,13 @@ def retry_until_pass(assert_function, timeout=30, retry_interval=0.3):
         try:
             return assert_function()
         # retry on assertion and not found errors
-        except (AssertionError, PIDDoesNotExistError, NotFoundError) as error:
+        except (
+            AssertionError,
+            PIDDoesNotExistError,
+            NotFoundError,
+            KeyError,
+            ValueError,
+        ) as error:
             last_raised_assertion_error = error
             time.sleep(retry_interval)
 
