@@ -35,7 +35,6 @@ def get_literature_earliest_date(data):
         "thesis_info.date",
         "thesis_info.defense_date",
         "publication_info.year",
-        "legacy_creation_date",
         "imprints.date",
     ]
 

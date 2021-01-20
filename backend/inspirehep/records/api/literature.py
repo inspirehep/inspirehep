@@ -86,7 +86,10 @@ class LiteratureRecord(
 
     @property
     def earliest_date(self):
-        return get_literature_earliest_date(self)
+        date = get_literature_earliest_date(self)
+        if not date and self.created:
+            date = self.created.strftime("%Y-%m-%d")
+        return date
 
     @classmethod
     def create(cls, data, disable_orcid_push=False, *args, **kwargs):
@@ -632,7 +635,7 @@ def import_doi(doi):
     try:
         resp = requests.get(url=url)
     except (ConnectionError, IOError) as exc:
-        raise ImportConnectionError(f"Cannot contact CrossRef.") from exc
+        raise ImportConnectionError("Cannot contact CrossRef.") from exc
 
     if resp.status_code == 404:
         return {}

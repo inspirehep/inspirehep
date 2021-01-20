@@ -6,12 +6,9 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import random
 import time
-from contextlib import contextmanager
 from datetime import datetime, timedelta
 from functools import partial
-from inspect import signature
 
-import mock
 from click.testing import CliRunner
 from elasticsearch import NotFoundError
 from flask import current_app
