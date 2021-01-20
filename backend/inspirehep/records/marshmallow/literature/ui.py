@@ -104,7 +104,10 @@ class LiteratureDetailSchema(CatalogerCanEditMixin, LiteraturePublicSchema):
     dataset_links = fields.Method("get_datasets")
 
     def get_formatted_earliest_date(self, data):
-        earliest_date = get_literature_earliest_date(data)
+        if hasattr(data, "earliest_date"):
+            earliest_date = data.earliest_date
+        else:
+            earliest_date = get_literature_earliest_date(data)
         if earliest_date is None:
             return missing
         return format_date(earliest_date)

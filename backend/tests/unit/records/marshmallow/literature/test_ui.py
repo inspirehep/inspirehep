@@ -4,10 +4,12 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+from datetime import datetime
 
 import mock
 from marshmallow import missing
 
+from inspirehep.records.api import LiteratureRecord
 from inspirehep.records.marshmallow.literature import LiteratureDetailSchema
 
 
@@ -232,3 +234,11 @@ def test_dataset_links():
     serializer = LiteratureDetailSchema()
     serialized = serializer.dump(external_system_identifiers).data
     assert serialized["dataset_links"] == expected_data
+
+
+def test_literature_detail_serializes_date_from_dictionary():
+    data = {"preprint_date": "2020-09-15"}
+    expected_data = {"date": "Sep 15, 2020", "preprint_date": "2020-09-15"}
+    serializer = LiteratureDetailSchema()
+    serialized = serializer.dump(data).data
+    assert serialized == expected_data

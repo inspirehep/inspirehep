@@ -4,7 +4,7 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-
+from datetime import datetime
 from uuid import UUID
 
 import mock
@@ -16,6 +16,7 @@ from invenio_accounts.testutils import login_user_via_session
 from inspirehep.accounts.roles import Roles
 from inspirehep.files import current_s3_instance
 from inspirehep.records.errors import MaxResultWindowRESTError
+from inspirehep.records.marshmallow.literature import LiteratureDetailSchema
 
 
 @mock.patch("inspirehep.records.api.literature.uuid.uuid4")
@@ -227,6 +228,7 @@ def test_literature_search_json_without_login(inspire_app):
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "document_type": ["article"],
         "control_number": 12345,
+        "earliest_date": record.created.strftime("%Y-%m-%d"),
         "titles": [{"title": "A Title"}],
         "publication_info": [{"pubinfo_freetext": "A public publication info"}],
         "report_numbers": [{"value": "PUBLIC", "hidden": False}],
@@ -294,6 +296,7 @@ def test_literature_search_json_with_cataloger_login(inspire_app):
         "_private_notes": [{"value": "A private note"}],
         "document_type": ["article"],
         "control_number": 12345,
+        "earliest_date": record.created.strftime("%Y-%m-%d"),
         "titles": [{"title": "A Title"}],
         "publication_info": [
             {"pubinfo_freetext": "A public publication info"},
