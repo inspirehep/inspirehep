@@ -16,6 +16,8 @@ from invenio_search import current_search
 from inspirehep.records.api import LiteratureRecord
 from inspirehep.search.api import LiteratureSearch
 
+OAI_TIME_FORMAT = "%Y-%m-%dT%H:%M:%S.%f"
+
 
 @freeze_time("1994-12-19")
 def test_index_literature_record(inspire_app, datadir):
@@ -306,7 +308,6 @@ def test_indexer_populates_referenced_authors_bais(inspire_app):
     )
 
 
-@freeze_time("1994-12-19")
 def test_indexer_oai_set_CDS(inspire_app):
     extra_data = {"_export_to": {"CDS": True}}
 
@@ -316,7 +317,7 @@ def test_indexer_oai_set_CDS(inspire_app):
     result_record = LiteratureSearch.get_record_data_from_es(record)
 
     expected_id = f"oai:inspirehep.net:{record['control_number']}"
-    expected_updated = "1994-12-19T00:00:00"
+    expected_updated = record.updated.strftime(OAI_TIME_FORMAT)
     expected_sets = [inspire_app.config["OAI_SET_CDS"]]
 
     assert expected_id == result_record["_oai"]["id"]
@@ -324,7 +325,6 @@ def test_indexer_oai_set_CDS(inspire_app):
     assert expected_sets == result_record["_oai"]["sets"]
 
 
-@freeze_time("1994-12-19")
 def test_indexer_oai_set_CERN_arxiv(inspire_app):
     extra_data = {
         "report_numbers": [{"value": "CERN-2020-001"}],
@@ -337,7 +337,7 @@ def test_indexer_oai_set_CERN_arxiv(inspire_app):
     result_record = LiteratureSearch.get_record_data_from_es(record)
 
     expected_id = f"oai:inspirehep.net:{record['control_number']}"
-    expected_updated = "1994-12-19T00:00:00"
+    expected_updated = record.updated.strftime(OAI_TIME_FORMAT)
     expected_sets = [inspire_app.config["OAI_SET_CERN_ARXIV"]]
 
     assert expected_id == result_record["_oai"]["id"]
@@ -345,7 +345,6 @@ def test_indexer_oai_set_CERN_arxiv(inspire_app):
     assert expected_sets == result_record["_oai"]["sets"]
 
 
-@freeze_time("1994-12-19")
 def test_indexer_oai_set_CERN_arxiv_and_CDS(inspire_app):
     extra_data = {
         "report_numbers": [{"value": "CERN-2020-001"}],
@@ -359,7 +358,7 @@ def test_indexer_oai_set_CERN_arxiv_and_CDS(inspire_app):
     result_record = LiteratureSearch.get_record_data_from_es(record)
 
     expected_id = f"oai:inspirehep.net:{record['control_number']}"
-    expected_updated = "1994-12-19T00:00:00"
+    expected_updated = record.updated.strftime(OAI_TIME_FORMAT)
     expected_sets = [
         inspire_app.config["OAI_SET_CDS"],
         inspire_app.config["OAI_SET_CERN_ARXIV"],

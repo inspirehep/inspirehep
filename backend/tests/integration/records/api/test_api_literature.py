@@ -5,6 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 import datetime
+from copy import deepcopy
 from uuid import UUID, uuid4
 
 import mock
@@ -675,9 +676,7 @@ def test_record_create_not_skips_orcid_on_default(orcid_mock, inspire_app):
     assert orcid_mock.call_count == 1
 
 
-@mock.patch(
-    "inspirehep.records.api.literature.LiteratureRecord.update_refs_in_citation_table"
-)
+@mock.patch("inspirehep.records.api.mixins.CitationMixin.update_refs_in_citation_table")
 def test_record_create_skips_citation_recalculate_when_passed_parameter_to_skip(
     citation_recalculate_mock, inspire_app
 ):
@@ -686,9 +685,7 @@ def test_record_create_skips_citation_recalculate_when_passed_parameter_to_skip(
     assert citation_recalculate_mock.call_count == 0
 
 
-@mock.patch(
-    "inspirehep.records.api.literature.LiteratureRecord.update_refs_in_citation_table"
-)
+@mock.patch("inspirehep.records.api.mixins.CitationMixin.update_refs_in_citation_table")
 def test_record_create_runs_citation_recalculate_on_default(
     citation_recalculate_mock, inspire_app
 ):
@@ -1219,7 +1216,8 @@ def test_adding_record_with_documents_with_existing_file_updates_metadata(
             }
         ]
     }
-    create_record("lit", data=data)
+
+    create_record("lit", data=deepcopy(data))
     assert current_s3_instance.file_exists(expected_document_key) is True
     metadata_document = current_s3_instance.get_file_metadata(expected_document_key)
     assert metadata_document["ContentDisposition"] == f'inline; filename="file1.pdf"'

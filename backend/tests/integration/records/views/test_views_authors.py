@@ -146,13 +146,14 @@ def test_authors_application_json_delete_with_token(inspire_app):
 def test_authors_application_json_post_with_token(inspire_app):
     expected_status_code = 201
     token = create_user_and_token()
+
     headers = {"Authorization": "BEARER " + token.access_token}
     rec_data = faker.record("aut")
 
     with inspire_app.test_client() as client:
         response = client.post("/authors", headers=headers, json=rec_data)
-    response_status_code = response.status_code
 
+    response_status_code = response.status_code
     assert expected_status_code == response_status_code
 
 

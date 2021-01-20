@@ -17,3 +17,23 @@ class DataRecord(CitationMixin, InspireRecord):
     es_serializer = DataElasticSearchSchema
     pid_type = "dat"
     pidstore_handler = PidStoreData
+
+    @classmethod
+    def create(
+        cls,
+        data,
+        *args,
+        **kwargs,
+    ):
+        record = super().create(data, **kwargs)
+        record.update_refs_in_citation_table()
+        return record
+
+    def update(
+        self,
+        data,
+        *args,
+        **kwargs,
+    ):
+        super().update(data)
+        self.update_refs_in_citation_table()

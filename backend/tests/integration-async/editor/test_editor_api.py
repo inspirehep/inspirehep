@@ -30,7 +30,6 @@ def record_with_two_revisions(
     }
 
     record = create_record_async("lit", data=record_data)
-    db.session.commit()
 
     record_data["titles"][0]["title"] = "record rev1"
 
@@ -82,8 +81,8 @@ def test_get_revisions(
 
     result = orjson.loads(response.data)
 
-    assert result[0]["revision_id"] == 4
-    assert result[1]["revision_id"] == 2
+    assert result[0]["revision_id"] == 2
+    assert result[1]["revision_id"] == 0
 
     assert result[0]["user_email"] == "system"
     assert result[1]["user_email"] == "system"
@@ -135,9 +134,8 @@ def test_revert_to_revision(
         response = client.put(
             "/api/editor/literature/111/revisions/revert",
             content_type="application/json",
-            data=orjson.dumps({"revision_id": 2}),
+            data=orjson.dumps({"revision_id": 0}),
         )
-
     assert response.status_code == 200
 
     record = LiteratureRecord.get_record_by_pid_value(111)
@@ -197,7 +195,7 @@ def test_get_revision(
     user = create_user(role=Roles.cataloger.value)
     record = LiteratureRecord.get_record_by_pid_value(111)
 
-    transaction_id_of_first_rev = record.revisions[2].model.transaction_id
+    transaction_id_of_first_rev = record.revisions[0].model.transaction_id
     rec_uuid = record.id
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)

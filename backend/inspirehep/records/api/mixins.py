@@ -108,10 +108,6 @@ class PapersAuthorsExtensionMixin:
         self.delete_authors_records_table_entries()
         super().hard_delete()
 
-    def update(self, *args, **kwargs):
-        super().update(*args, **kwargs)
-        self.update_authors_records_table()
-
 
 class CitationMixin(PapersAuthorsExtensionMixin):
     def _citation_query(self, exclude_self_citations=False):
@@ -332,18 +328,6 @@ class CitationMixin(PapersAuthorsExtensionMixin):
             )
         ).update({RecordCitations.is_self_citation: False}, synchronize_session=False)
 
-    def update(self, data, disable_relations_update=False, *args, **kwargs):
-        super().update(data, disable_relations_update, *args, **kwargs)
-
-        if disable_relations_update:
-            LOGGER.info(
-                "Record citation update disabled",
-                recid=self.get("control_number"),
-                uuid=str(self.id),
-            )
-        else:
-            self.update_refs_in_citation_table()
-
     def get_all_connected_records_uuids_of_modified_authors(self):
         prev_version = self._previous_version
         current_authors = set(self.get_authors_bais())
@@ -457,17 +441,6 @@ class ConferencePaperAndProceedingsMixin:
         self.clean_conference_literature_relation()
         super().hard_delete()
 
-    def update(self, data, disable_relations_update=False, *args, **kwargs):
-        super().update(data, disable_relations_update, *args, **kwargs)
-        if not disable_relations_update:
-            self.update_conference_paper_and_proccedings()
-        else:
-            LOGGER.info(
-                "Record conference papers and proceedings update disabled",
-                recid=self.get("control_number"),
-                uuid=str(self.id),
-            )
-
     def get_newest_linked_conferences_uuid(self):
         """Returns referenced conferences for which perspective this record has changed"""
         prev_version = self._previous_version
@@ -542,17 +515,6 @@ class InstitutionPapersMixin:
         self.clean_institution_literature_relations()
         super().hard_delete()
 
-    def update(self, data, disable_relations_update=False, *args, **kwargs):
-        super().update(data, disable_relations_update, *args, **kwargs)
-        if not disable_relations_update:
-            self.update_institution_relations()
-        else:
-            LOGGER.info(
-                "Record institution papers update disabled",
-                recid=self.get("control_number"),
-                uuid=str(self.id),
-            )
-
     def get_modified_institutions_uuids(self):
         prev_version = self._previous_version
 
@@ -608,17 +570,6 @@ class ExperimentPapersMixin:
     def hard_delete(self):
         self.clean_experiment_literature_relations()
         super().hard_delete()
-
-    def update(self, data, disable_relations_update=False, *args, **kwargs):
-        super().update(data, disable_relations_update, *args, **kwargs)
-        if not disable_relations_update:
-            self.update_experiment_relations()
-        else:
-            LOGGER.info(
-                "Record experiment papers update disabled",
-                recid=self.get("control_number"),
-                uuid=str(self.id),
-            )
 
     def get_modified_experiment_uuids(self):
         prev_version = self._previous_version
