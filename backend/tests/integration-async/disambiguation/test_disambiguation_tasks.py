@@ -285,9 +285,10 @@ def test_disambiguation_doesnt_run_with_feature_flag_disabling_it(
 def test_disambiguation_runs_after_lit_record_update(
     inspire_app, celery_app_with_context, celery_session_worker, enable_disambiguation
 ):
-    author_data = faker.record("aut", with_control_number=True)
+    author_data = faker.record("aut")
     author_data.update(
         {
+            "control_number": 1,
             "name": {"value": "Brian Gross"},
             "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
             "email_addresses": [{"current": True, "value": "test@uw.edu.pl"}],
@@ -295,17 +296,19 @@ def test_disambiguation_runs_after_lit_record_update(
     )
     author_record = InspireRecord.create(author_data)
 
-    author_data_2 = faker.record("aut", with_control_number=True)
+    author_data_2 = faker.record("aut")
     author_data_2.update(
         {
+            "control_number": 2,
             "name": {"value": "Test Author"},
             "email_addresses": [{"current": True, "value": "test123@uw.edu.pl"}],
         }
     )
     author_record_2 = InspireRecord.create(author_data_2)
-    author_data_3 = faker.record("aut", with_control_number=True)
+    author_data_3 = faker.record("aut")
     author_data_3.update(
         {
+            "control_number": 3,
             "name": {"value": "Another Author"},
             "email_addresses": [
                 {"current": True, "value": "testxx@uw.edu.pl"},
@@ -326,9 +329,10 @@ def test_disambiguation_runs_after_lit_record_update(
 
     retry_until_pass(assert_authors_records_exist_in_es)
 
-    literature_data = faker.record("lit", with_control_number=True)
+    literature_data = faker.record("lit")
     literature_data.update(
         {
+            "control_number": 4,
             "authors": [
                 {
                     "full_name": "Brian Gross",
@@ -336,12 +340,26 @@ def test_disambiguation_runs_after_lit_record_update(
                     "emails": ["test@uw.edu.pl"],
                     "uuid": "798d9afe-d3c2-479e-b384-f0aee2573076",
                 }
-            ]
+            ],
         }
     )
+    literature_record_control_number = 4
     literature_record = LiteratureRecord.create(literature_data)
+    literature_record_uuid = literature_record.id
     db.session.commit()
 
+    def assert_disambiguation_on_update():
+        db.session.close()
+        literature_record = LiteratureRecord.get_record(literature_record_uuid)
+        literature_record_from_es = InspireSearch.get_record_data_from_es(
+            literature_record
+        )
+        assert literature_record["authors"][0]["record"]["$ref"]
+        assert literature_record_from_es["authors"][0]["record"]["$ref"]
+
+    retry_until_pass(assert_disambiguation_on_update, retry_interval=5)
+
+    literature_record = LiteratureRecord.get_record(literature_record_uuid)
     literature_record["authors"].append(
         {"full_name": "Test Author", "emails": ["test123@uw.edu.pl"]}
     )
@@ -349,13 +367,17 @@ def test_disambiguation_runs_after_lit_record_update(
     db.session.commit()
 
     def assert_disambiguation_on_update():
+        db.session.close()
+        literature_record = LiteratureRecord.get_record(literature_record_uuid)
         literature_record_from_es = InspireSearch.get_record_data_from_es(
             literature_record
         )
+        assert literature_record["authors"][0]["record"]["$ref"]
+        assert literature_record["authors"][1]["record"]["$ref"]
         assert literature_record_from_es["authors"][0]["record"]["$ref"]
         assert literature_record_from_es["authors"][1]["record"]["$ref"]
 
-    retry_until_pass(assert_disambiguation_on_update, retry_interval=2)
+    retry_until_pass(assert_disambiguation_on_update, retry_interval=5)
 
 
 def test_disambiguate_authors_on_first_and_last_name(

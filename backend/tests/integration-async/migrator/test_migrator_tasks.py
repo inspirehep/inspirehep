@@ -72,6 +72,7 @@ def test_process_references_in_records(
 
     result_cited_record_2 = InspireSearch.get_record_data_from_es(cited_record_2)
     expected_result_cited_record_2_citation_count = 1
+
     assert (
         expected_result_cited_record_2_citation_count
         == result_cited_record_2["citation_count"]
@@ -163,7 +164,6 @@ def test_process_references_in_records_reindexes_institutions_when_linked_instit
     task = process_references_in_records.delay(
         [record_authors_aff.id, record_thesis_info.id, record_affiliations.id]
     )
-
     task.get(timeout=5)
 
     institution_record_es = InspireSearch.get_record_data_from_es(institution)
@@ -173,7 +173,7 @@ def test_process_references_in_records_reindexes_institutions_when_linked_instit
 
 
 def test_process_references_in_records_with_different_type_of_records_doesnt_throw_an_exception(
-    inspire_app, celery_app_with_context, celery_session_worker
+    inspire_app, celery_app_with_context, celery_session_worker, enable_self_citations
 ):
     # disconnect this signal so records don't get indexed
     models_committed.disconnect(index_after_commit)
@@ -207,7 +207,7 @@ def test_process_references_in_records_with_different_type_of_records_doesnt_thr
     uuids = [record.id for record in records] + [citing_record_1.id, citing_record_2.id]
 
     task = process_references_in_records.delay(uuids)
-    results = task.get(timeout=5)
+    results = task.get(timeout=9999999999)
 
     uuids = [str(uuid) for uuid in uuids]
     assert results == uuids

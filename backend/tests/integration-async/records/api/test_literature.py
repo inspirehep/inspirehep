@@ -25,12 +25,20 @@ def test_authors_signature_blocks_and_uuids_added_after_create_and_update(
 
     record = LiteratureRecord.create(data)
     db.session.commit()
+
     record_control_number = record["control_number"]
-    db_record = LiteratureRecord.get_record_by_pid_value(record_control_number)
+    record = LiteratureRecord.get_record_by_pid_value(record_control_number)
     expected_signature_block = "Dj"
 
-    assert expected_signature_block == db_record["authors"][0]["signature_block"]
-    assert "uuid" in db_record["authors"][0]
+    assert expected_signature_block == record["authors"][0]["signature_block"]
+    assert "uuid" in record["authors"][0]
+
+    expected_versions_len = 1
+    results = record.model.versions.all()
+    result_latest_version = results[-1].json
+
+    assert expected_versions_len == len(results)
+    assert result_latest_version == record
 
     expected_signature_block = "ELj"
     data.update(
@@ -41,9 +49,17 @@ def test_authors_signature_blocks_and_uuids_added_after_create_and_update(
     )
     record.update(data)
     db.session.commit()
-    record_updated = LiteratureRecord.get_record_by_pid_value(record_control_number)
 
-    assert expected_signature_block == record_updated["authors"][0]["signature_block"]
+    record = LiteratureRecord.get_record_by_pid_value(record_control_number)
+
+    assert expected_signature_block == record["authors"][0]["signature_block"]
+
+    expected_versions_len = 2
+    results = record.model.versions.all()
+    result_latest_version = results[-1].json
+
+    assert expected_versions_len == len(results)
+    assert result_latest_version == record
 
 
 def test_conference_paper_get_updated_reference_when_adding_new_record(
@@ -61,8 +77,19 @@ def test_conference_paper_get_updated_reference_when_adding_new_record(
     }
 
     record = LiteratureRecord.create(faker.record("lit", data))
+    record_control_number = record["control_number"]
     db.session.commit()
+
+    record = LiteratureRecord.get_record_by_pid_value(record_control_number)
+
     assert expected_result == record.get_newest_linked_conferences_uuid()
+
+    expected_versions_len = 1
+    results = record.model.versions.all()
+    result_latest_version = results[-1].json
+
+    assert expected_versions_len == len(results)
+    assert result_latest_version == record
 
 
 def test_conference_paper_get_updated_reference_when_replacing_conference(
@@ -84,14 +111,31 @@ def test_conference_paper_get_updated_reference_when_replacing_conference(
     }
 
     record = LiteratureRecord.create(faker.record("lit", data))
+    record_control_number = record["control_number"]
     db.session.commit()
 
-    data = copy.deepcopy(dict(record))
+    record = LiteratureRecord.get_record_by_pid_value(record_control_number)
+    expected_versions_len = 1
+    results = record.model.versions.all()
+    result_latest_version = results[-1].json
 
+    assert expected_versions_len == len(results)
+    assert result_latest_version == record
+
+    data = copy.deepcopy(dict(record))
     data["publication_info"] = [{"conference_record": {"$ref": ref_2}}]
     record.update(data)
     db.session.commit()
+
+    record = LiteratureRecord.get_record_by_pid_value(record_control_number)
     assert expected_result == sorted(record.get_newest_linked_conferences_uuid())
+
+    expected_versions_len = 2
+    results = record.model.versions.all()
+    result_latest_version = results[-1].json
+
+    assert expected_versions_len == len(results)
+    assert result_latest_version == record
 
 
 def test_conference_paper_get_updated_reference_conference_when_updates_one_conference(
@@ -113,13 +157,32 @@ def test_conference_paper_get_updated_reference_conference_when_updates_one_conf
     }
 
     record = LiteratureRecord.create(faker.record("lit", data))
+    record_control_number = record["control_number"]
     db.session.commit()
+
+    record = LiteratureRecord.get_record_by_pid_value(record_control_number)
+    expected_versions_len = 1
+    results = record.model.versions.all()
+    result_latest_version = results[-1].json
+
+    assert expected_versions_len == len(results)
+    assert result_latest_version == record
 
     data = copy.deepcopy(dict(record))
     data["publication_info"].append({"conference_record": {"$ref": ref_2}})
     record.update(data)
     db.session.commit()
+
+    record = LiteratureRecord.get_record_by_pid_value(record_control_number)
+
     assert expected_result == sorted(record.get_newest_linked_conferences_uuid())
+
+    expected_versions_len = 2
+    results = record.model.versions.all()
+    result_latest_version = results[-1].json
+
+    assert expected_versions_len == len(results)
+    assert result_latest_version == record
 
 
 def test_conference_paper_get_updated_reference_conference_returns_nothing_when_not_updating_conference(
@@ -137,13 +200,32 @@ def test_conference_paper_get_updated_reference_conference_returns_nothing_when_
     }
 
     record = LiteratureRecord.create(faker.record("lit", data))
+    record_control_number = record["control_number"]
     db.session.commit()
+
+    record = LiteratureRecord.get_record_by_pid_value(record_control_number)
+
+    expected_versions_len = 1
+    results = record.model.versions.all()
+    result_latest_version = results[-1].json
+
+    assert expected_versions_len == len(results)
+    assert result_latest_version == record
 
     data = copy.deepcopy(dict(record))
     expected_result = []
     record.update(data)
     db.session.commit()
+
+    record = LiteratureRecord.get_record_by_pid_value(record_control_number)
     assert expected_result == record.get_newest_linked_conferences_uuid()
+
+    expected_versions_len = 2
+    results = record.model.versions.all()
+    result_latest_version = results[-1].json
+
+    assert expected_versions_len == len(results)
+    assert result_latest_version == record
 
 
 def test_conference_paper_get_updated_reference_conference_returns_all_when_deleting_lit_record(
@@ -161,11 +243,30 @@ def test_conference_paper_get_updated_reference_conference_returns_all_when_dele
     }
 
     record = LiteratureRecord.create(faker.record("lit", data))
+    record_control_number = record["control_number"]
     db.session.commit()
+
+    record = LiteratureRecord.get_record_by_pid_value(record_control_number)
+    expected_versions_len = 1
+    results = record.model.versions.all()
+    result_latest_version = results[-1].json
+
+    assert expected_versions_len == len(results)
+    assert result_latest_version == record
 
     record.delete()
     db.session.commit()
+
+    record = LiteratureRecord.get_record_by_pid_value(record_control_number)
+
     assert expected_result == sorted(record.get_newest_linked_conferences_uuid())
+
+    expected_versions_len = 2
+    results = record.model.versions.all()
+    result_latest_version = results[-1].json
+
+    assert expected_versions_len == len(results)
+    assert result_latest_version == record
 
 
 def test_conference_paper_get_updated_reference_conference_returns_nothing_when_conf_doc_type_stays_intact(
@@ -183,13 +284,33 @@ def test_conference_paper_get_updated_reference_conference_returns_nothing_when_
     }
 
     record = LiteratureRecord.create(faker.record("lit", data))
+    record_control_number = record["control_number"]
     db.session.commit()
+
+    record = LiteratureRecord.get_record_by_pid_value(record_control_number)
+
+    expected_versions_len = 1
+    results = record.model.versions.all()
+    result_latest_version = results[-1].json
+
+    assert expected_versions_len == len(results)
+    assert result_latest_version == record
 
     data = copy.deepcopy(dict(record))
     data["document_type"].append("article")
     record.update(data)
     db.session.commit()
+
+    record = LiteratureRecord.get_record_by_pid_value(record_control_number)
+
     assert expected_result == sorted(record.get_newest_linked_conferences_uuid())
+
+    expected_versions_len = 2
+    results = record.model.versions.all()
+    result_latest_version = results[-1].json
+
+    assert expected_versions_len == len(results)
+    assert result_latest_version == record
 
 
 def test_conference_paper_get_updated_reference_conference_when_document_type_changes_to_non_conf_related(
@@ -207,13 +328,31 @@ def test_conference_paper_get_updated_reference_conference_when_document_type_ch
     }
 
     record = LiteratureRecord.create(faker.record("lit", data))
+    record_control_number = record["control_number"]
     db.session.commit()
+
+    record = LiteratureRecord.get_record_by_pid_value(record_control_number)
+    expected_versions_len = 1
+    results = record.model.versions.all()
+    result_latest_version = results[-1].json
+
+    assert expected_versions_len == len(results)
+    assert result_latest_version == record
 
     data = copy.deepcopy(dict(record))
     data["document_type"] = ["article"]
     record.update(data)
     db.session.commit()
+
+    record = LiteratureRecord.get_record_by_pid_value(record_control_number)
     assert expected_result == sorted(record.get_newest_linked_conferences_uuid())
+
+    expected_versions_len = 2
+    results = record.model.versions.all()
+    result_latest_version = results[-1].json
+
+    assert expected_versions_len == len(results)
+    assert result_latest_version == record
 
 
 def test_conference_paper_get_updated_reference_conference_when_document_type_changes_to_other_conf_related(
@@ -231,10 +370,28 @@ def test_conference_paper_get_updated_reference_conference_when_document_type_ch
     }
 
     record = LiteratureRecord.create(faker.record("lit", data))
+    record_control_number = record["control_number"]
     db.session.commit()
+
+    expected_versions_len = 1
+    results = record.model.versions.all()
+    result_latest_version = results[-1].json
+
+    assert expected_versions_len == len(results)
+    assert result_latest_version == record
 
     data = copy.deepcopy(dict(record))
     data["document_type"] = ["proceedings"]
     record.update(data)
     db.session.commit()
+
+    record = LiteratureRecord.get_record_by_pid_value(record_control_number)
+
     assert expected_result == sorted(record.get_newest_linked_conferences_uuid())
+
+    expected_versions_len = 2
+    results = record.model.versions.all()
+    result_latest_version = results[-1].json
+
+    assert expected_versions_len == len(results)
+    assert result_latest_version == record

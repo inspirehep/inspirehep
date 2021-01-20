@@ -474,7 +474,6 @@ def test_create_records_from_mirror_recids_with_different_types_of_record(inspir
     db.session.add(valid_record_author)
 
     task_results = create_records_from_mirror_recids([666, 667, 668])
-
     record_literature = InspireRecord.get_record_by_pid_value(666, "lit")
     assert str(record_literature.id) in task_results
 

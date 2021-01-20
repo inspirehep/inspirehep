@@ -67,7 +67,7 @@ class InspireRecord(Record):
 
     @classmethod
     def get_uuid_from_pid_value(cls, pid_value, pid_type=None, original_record=False):
-        """Get uuid for provided PID value
+        """Get uuid for provided PID value.
 
         Args:
             pid_value(str): pid value to query
@@ -76,7 +76,6 @@ class InspireRecord(Record):
               redirected record uuid (if False) or original record uuid (if True)
 
         Returns: requested record uuid
-
         """
         if not pid_type:
             pid_type = cls.pid_type
@@ -87,7 +86,7 @@ class InspireRecord(Record):
 
     @classmethod
     def get_record_by_pid_value(cls, pid_value, pid_type=None, original_record=False):
-        """Get record by provided PID value
+        """Get record by provided PID value.
 
         Args:
             pid_value(str): pid value to query
@@ -96,7 +95,6 @@ class InspireRecord(Record):
               redirected record (if False) or original record (if True)
 
         Returns: requested record
-
         """
         if not pid_type:
             pid_type = cls.pid_type
@@ -176,24 +174,32 @@ class InspireRecord(Record):
         record_class = cls.get_class_for_record(data)
         if record_class != cls:
             return record_class.create(data, *args, **kwargs)
-
         data = cls.strip_empty_values(data)
 
+        deleted = data.get("deleted", False)
+
         with db.session.begin_nested():
-            if not id_:
+            if not id_ and not deleted:
                 id_ = uuid.uuid4()
-                deleted = data.get("deleted", False)
-                if not deleted:
-                    cls.delete_records_from_deleted_records(data)
-                    cls.pidstore_handler.mint(id_, data)
+                cls.delete_records_from_deleted_records(data)
+                cls.pidstore_handler.mint(id_, data)
+
+            if deleted:
+                cls.pidstore_handler.delete(id_, data)
+
             kwargs.pop("disable_orcid_push", None)
             kwargs.pop("disable_relations_update", None)
+
             data["self"] = get_ref_from_pid(cls.pid_type, data["control_number"])
-            record = super().create(data, id_=id_, **kwargs)
+
+            record = cls(data)
+            record.validate(**kwargs)
 
             if not record.get("deleted") and record.get("deleted_records"):
                 record.redirect_pids(record["deleted_records"])
+            record.model = cls.model_cls(id=id_, json=record)
             record.update_model_created_with_legacy_creation_date()
+            db.session.add(record.model)
         return record
 
     @classmethod
@@ -394,12 +400,15 @@ class InspireRecord(Record):
             # it means that it's not possible to verify if control_number is correct in here.
             if data["control_number"] != self.control_number:
                 data["self"] = get_ref_from_pid(self.pid_type, data["control_number"])
+
         pid = PersistentIdentifier.query.filter_by(
             pid_type=self.pid_type, pid_value=str(data["control_number"])
         ).one_or_none()
+
         if not data.get("deleted") and pid and pid.status == PIDStatus.REDIRECTED:
             # To be sure that when someone edits redirected record by mistake tries to undelete record as this is not supported for now
             raise CannotUndeleteRedirectedRecord(self.pid_type, data["control_number"])
+
         with db.session.begin_nested():
             self.clear()
             super().update(data)

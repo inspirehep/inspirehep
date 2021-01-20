@@ -189,7 +189,6 @@ def disambiguate_authors(self, record_uuid):
         return
     authors = record.get_modified_authors()
     updated_authors = []
-
     for author in authors:
         if author.get("curated_relation"):
             continue
@@ -215,7 +214,7 @@ def disambiguate_authors(self, record_uuid):
 
     if updated_authors:
         LOGGER.info(
-            f"Updated references for authors",
+            "Updated references for authors",
             {
                 "uuid": str(record.id),
                 "recid": record["control_number"],
@@ -223,4 +222,4 @@ def disambiguate_authors(self, record_uuid):
             },
         )
         record.update(dict(record))
-    db.session.commit()
+        db.session.commit()
