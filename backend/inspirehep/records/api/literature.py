@@ -94,7 +94,7 @@ class LiteratureRecord(
     @classmethod
     def create(cls, data, disable_orcid_push=False, *args, **kwargs):
         with db.session.begin_nested():
-            record = super().create(data, **kwargs)
+            record = super().create(data, _add_to_session=False, **kwargs)
             record.update(dict(record), disable_orcid_push=disable_orcid_push, **kwargs)
             return record
 
@@ -161,7 +161,6 @@ class LiteratureRecord(
         with db.session.begin_nested():
             LiteratureRecord.update_authors_signature_blocks_and_uuids(data)
             LiteratureRecord.update_refs_to_conferences(data)
-
             data = self.add_files(data)
             super().update(data, *args, **kwargs)
 

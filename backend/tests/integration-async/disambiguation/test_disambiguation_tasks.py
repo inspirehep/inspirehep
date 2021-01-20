@@ -294,6 +294,7 @@ def test_disambiguation_runs_after_lit_record_update(
         }
     )
     author_record = InspireRecord.create(author_data)
+    db.session.commit()
 
     author_data_2 = faker.record("aut", with_control_number=True)
     author_data_2.update(
@@ -303,6 +304,8 @@ def test_disambiguation_runs_after_lit_record_update(
         }
     )
     author_record_2 = InspireRecord.create(author_data_2)
+    db.session.commit()
+
     author_data_3 = faker.record("aut", with_control_number=True)
     author_data_3.update(
         {
@@ -355,7 +358,7 @@ def test_disambiguation_runs_after_lit_record_update(
         assert literature_record_from_es["authors"][0]["record"]["$ref"]
         assert literature_record_from_es["authors"][1]["record"]["$ref"]
 
-    retry_until_pass(assert_disambiguation_on_update, retry_interval=2)
+    retry_until_pass(assert_disambiguation_on_update, retry_interval=3)
 
 
 def test_disambiguate_authors_on_first_and_last_name(

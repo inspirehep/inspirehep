@@ -172,7 +172,7 @@ class InspireRecord(Record):
         return record_class
 
     @classmethod
-    def create(cls, data, id_=None, *args, **kwargs):
+    def create(cls, data, id_=None, _add_to_session=True, *args, **kwargs):
         record_class = cls.get_class_for_record(data)
         if record_class != cls:
             return record_class.create(data, *args, **kwargs)
@@ -185,11 +185,16 @@ class InspireRecord(Record):
                 deleted = data.get("deleted", False)
                 if not deleted:
                     cls.pidstore_handler.mint(id_, data)
+
             kwargs.pop("disable_orcid_push", None)
             kwargs.pop("disable_relations_update", None)
             data["self"] = get_ref_from_pid(cls.pid_type, data["control_number"])
-            record = super().create(data, id_=id_, **kwargs)
-
+            if not _add_to_session:
+                record = cls(data)
+                record.validate(**kwargs)
+                record.model = cls.model_cls(id=id_, json=record)
+            else:
+                record = super().create(data, id_=id_, **kwargs)
             if not record.get("deleted") and record.get("deleted_records"):
                 record.redirect_pids(record["deleted_records"])
             record.update_model_created_with_legacy_creation_date()
