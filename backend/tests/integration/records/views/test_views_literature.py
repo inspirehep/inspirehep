@@ -673,6 +673,29 @@ def test_literature_citation_annual_summary_for_many_records(inspire_app):
     assert response.json["aggregations"]["citations_by_year"] == expected_response
 
 
+def test_literature_rpp_facet(inspire_app):
+    rpp = create_record("lit", data={"rpp": True})
+
+    with inspire_app.test_client() as client:
+        response = client.get("/literature/facets")
+
+    assert response.json["aggregations"]["rpp"]["buckets"] == []
+
+    not_rpp = create_record("lit")
+
+    with inspire_app.test_client() as client:
+        response = client.get("/literature/facets")
+
+    expected = [
+        {
+            "doc_count": 1,
+            "key": "Exclude Review of Particle Physics",
+        }
+    ]
+
+    assert response.json["aggregations"]["rpp"]["buckets"] == expected
+
+
 def test_literature_search_user_does_not_get_fermilab_collection(inspire_app):
     data = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
