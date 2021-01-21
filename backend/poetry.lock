@@ -1350,13 +1350,13 @@ description = "INSPIRE-specific rules to transform from MARCXML to JSON and back
 name = "inspire-dojson"
 optional = false
 python-versions = "*"
-version = "63.0.20"
+version = "63.1.0"
 
 [package.dependencies]
 Flask = ">=0.12.3,<2.0.0"
 IDUtils = ">=1.0.1,<2.0"
 dojson = ">=1.3.1,<2.0"
-inspire-schemas = ">=61.0,<62.0"
+inspire-schemas = ">=61.4,<62.0"
 inspire-utils = ">=3.0.0,<4.0"
 isbnid-fork = ">=0.5.2,<1.0"
 langdetect = ">=1.0.7,<2.0"
@@ -1436,7 +1436,7 @@ description = "Inspire JSON schemas and utilities to use them."
 name = "inspire-schemas"
 optional = false
 python-versions = "*"
-version = "61.3.30"
+version = "61.4.0"
 
 [package.dependencies]
 Unidecode = ">=1.0.22,<2.0"
@@ -4142,7 +4142,7 @@ test = ["zope.event"]
 testing = ["coverage", "nose", "zope.event"]
 
 [metadata]
-content-hash = "c3cfc409493c7c356b9ee31fe5c8faf66935d4abaaee05ed9ecce9e801706589"
+content-hash = "429bcbd7c24fd22a3e33a1e159a60caf7b85327645cdc174832dea068a7f256f"
 lock-version = "1.0"
 python-versions = ">=3.6,<3.8"
 
@@ -4650,8 +4650,8 @@ iniconfig = [
     {file = "iniconfig-1.1.1.tar.gz", hash = "sha256:bc3af051d7d14b2ee5ef9969666def0cd1a000e121eaea580d4a313df4b37f32"},
 ]
 inspire-dojson = [
-    {file = "inspire-dojson-63.0.20.tar.gz", hash = "sha256:23f994a02f05ab2fa0c9af4f10cf1a4794806d77d390486c2c83c73a214cb9a7"},
-    {file = "inspire_dojson-63.0.20-py2-none-any.whl", hash = "sha256:d4938d354d77a6f3bf25623535848429da311ee0f4d8f92e2835a83616a70b4d"},
+    {file = "inspire-dojson-63.1.0.tar.gz", hash = "sha256:1a36eaaea293eb639cdf88be8d0135773ec99ae49da41c27594ecf5fdaf1be9a"},
+    {file = "inspire_dojson-63.1.0-py2-none-any.whl", hash = "sha256:bdf8b426fc657061d8f492f6df695ef6bcbc14e76d6618a573adcd9f6dc65769"},
 ]
 inspire-json-merger = [
     {file = "inspire-json-merger-11.0.8.tar.gz", hash = "sha256:115fba3f603388972056fc65ffcfa888c1e356b36a555d1508ff60aa6e00b522"},
@@ -4664,7 +4664,7 @@ inspire-query-parser = [
     {file = "inspire_query_parser-6.0.33-py2-none-any.whl", hash = "sha256:d7cb7c9cb67803a588ea50946dbe7330410ca6543fd27eb3817be0fdbe9d6342"},
 ]
 inspire-schemas = [
-    {file = "inspire_schemas-61.3.30-py2.py3-none-any.whl", hash = "sha256:0bdf1c5ed4beb7f0b610545179f1688bc0e5dc9f7d290a89af227bad04b5cf13"},
+    {file = "inspire_schemas-61.4.0-py2.py3-none-any.whl", hash = "sha256:21d7fed4309a110597b3e23ac595bacbca68e08af4ff3199ea9a03a23f51abd2"},
 ]
 inspire-service-orcid = []
 inspire-utils = [

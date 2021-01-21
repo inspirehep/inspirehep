@@ -238,6 +238,9 @@ def hep_rpp(order, title="Exclude RPP", agg_type="checkbox"):
                     "Exclude Review of Particle Physics": {
                         "bool": {
                             "must_not": [
+                                {"match": {"rpp": "true"}},
+                                # TODO Remove this clause after all RPP records have been converted,
+                                # feature flag can't be used as this gets imported in the config
                                 {
                                     "match": {
                                         "titles.full_title": {
@@ -245,7 +248,7 @@ def hep_rpp(order, title="Exclude RPP", agg_type="checkbox"):
                                             "operator": "and",
                                         }
                                     }
-                                }
+                                },
                             ]
                         }
                     }
