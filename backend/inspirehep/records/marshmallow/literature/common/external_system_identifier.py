@@ -32,7 +32,7 @@ class ExternalSystemIdentifierSchemaV1(Schema):
         "kekscan": "https://lib-extopc.kek.jp/preprints/PDF/",
         "msnet": "http://www.ams.org/mathscinet-getitem?mr=",
         "osti": "https://www.osti.gov/scitech/biblio/",
-        "zblatt": "http://www.zentralblatt-math.org/zmath/en/search/?an=",
+        "zblatt": "https://zbmath.org/?q=an%3A",
     }
 
     def get_url_name(self, data):
