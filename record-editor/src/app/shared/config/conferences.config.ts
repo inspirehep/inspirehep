@@ -22,7 +22,7 @@
 
 import { JsonEditorConfig } from 'ng2-json-editor';
 import { countryCodeToName } from 'inspire-schemas';
-import { customValidationForDateTypes } from './commons';
+import { customValidationForDateTypes, anchorBuilder } from './commons';
 import { environment } from '../../../environments/environment';
 
 export const conferences: JsonEditorConfig = {
@@ -88,9 +88,7 @@ export const conferences: JsonEditorConfig = {
           properties: {
             name: {
               autocompletionConfig: {
-                url: `${
-                  environment.baseUrl
-                }/api/conferences/_suggest?series_name=`,
+                url: `${environment.baseUrl}/api/conferences/_suggest?series_name=`,
                 path: '/series_name/0/options',
                 optionField: '/text',
                 size: 10,
@@ -135,6 +133,14 @@ export const conferences: JsonEditorConfig = {
       contact_details: {
         items: {
           order: ['email', 'name', 'curated_relation', 'hidden'],
+          properties: {
+            record: {
+              refFieldConfig: {
+                anchorBuilder: anchorBuilder,
+                displayInputField: true,
+              },
+            },
+          },
         },
       },
       short_description: {
