@@ -158,9 +158,7 @@ export const coreHep: JsonEditorConfig = {
             },
             source: {
               autocompletionConfig: {
-                url: `${
-                  environment.baseUrl
-                }/api/literature/_suggest?abstract_source=`,
+                url: `${environment.baseUrl}/api/literature/_suggest?abstract_source=`,
                 path: '/abstract_source/0/options',
                 size: 10,
               },
@@ -175,9 +173,7 @@ export const coreHep: JsonEditorConfig = {
           properties: {
             legacy_name: {
               autocompletionConfig: {
-                url: `${
-                  environment.baseUrl
-                }/api/experiments/_suggest?experiment=`,
+                url: `${environment.baseUrl}/api/experiments/_suggest?experiment=`,
                 path: '/experiment/0/options',
                 size: 10,
                 optionField: '/_source/legacy_name',
@@ -213,7 +209,7 @@ export const coreHep: JsonEditorConfig = {
         },
         viewTemplateConfig: {
           itemTemplateName: 'authorTemplate',
-          showEditForm: value => {
+          showEditForm: (value) => {
             return false;
           },
         },
@@ -244,6 +240,7 @@ export const coreHep: JsonEditorConfig = {
                   record: {
                     refFieldConfig: {
                       anchorBuilder: anchorBuilder,
+                      displayInputField: true,
                     },
                   },
                   value: {
@@ -398,6 +395,11 @@ export const coreHep: JsonEditorConfig = {
       record_affiliations: {
         items: {
           properties: {
+            record: {
+              refFieldConfig: {
+                anchorBuilder: anchorBuilder,
+              },
+            },
             value: {
               autocompletionConfig: affiliationAutocompletionConfig,
             },
@@ -417,7 +419,7 @@ export const coreHep: JsonEditorConfig = {
         },
         viewTemplateConfig: {
           itemTemplateName: 'referenceTemplate',
-          showEditForm: value => {
+          showEditForm: (value) => {
             return !value.hasIn(['record', '$ref']);
           },
         },
@@ -643,12 +645,12 @@ export const coreHep: JsonEditorConfig = {
     {
       name: 'pdf',
       type: 'html',
-      getUrl: record => {
+      getUrl: (record) => {
         let urls: Array<{ value: string }> = record['urls'];
         if (urls && urls.length > 0) {
           let url = urls
-            .map(_url => _url.value)
-            .find(value => value.endsWith('.pdf'));
+            .map((_url) => _url.value)
+            .find((value) => value.endsWith('.pdf'));
           if (url !== undefined) {
             return url.replace('http://', '//') + '#zoom=100';
           }
@@ -660,7 +662,7 @@ export const coreHep: JsonEditorConfig = {
     {
       name: 'arXiv',
       type: 'html',
-      getUrl: record => {
+      getUrl: (record) => {
         let ePrints: Array<{ value: string }> = record['arxiv_eprints'];
         if (ePrints && ePrints.length > 0) {
           return `//arxiv.org/pdf/${ePrints[0].value}.pdf#zoom=100`;
@@ -672,7 +674,7 @@ export const coreHep: JsonEditorConfig = {
     {
       name: 'doi',
       type: 'html',
-      getUrl: record => {
+      getUrl: (record) => {
         let dois: Array<{ value: string }> = record['dois'];
         if (dois && dois.length > 0) {
           return `//doi.org/${dois[0].value}`;
