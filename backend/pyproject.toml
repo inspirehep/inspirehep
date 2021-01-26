@@ -16,7 +16,7 @@ classifiers=[
 ]
 
 [tool.poetry.dependencies]
-celery = "==4.4.2"
+celery = "~=4.4.7"
 # Click in version 7 have broken progressbar in python 3
 # waiting for this PR to be merged https://github.com/pallets/click/pull/1163
 click = "<7.0.0"
