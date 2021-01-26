@@ -5,13 +5,14 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from functools import wraps
+from functools import partial, wraps
 from urllib.parse import urljoin, urlparse
 
 from flask import current_app, render_template
 from invenio_cache import current_cache
 from rt import ALL_QUEUES, AuthorizationError, Rt
 
+from .errors import EmptyResponseFromRT, NoUsersFound
 from .proxies import rt_instance
 
 
@@ -137,14 +138,18 @@ def create_ticket_with_template(
 
 
 @relogin_if_needed
-def resolve_ticket(ticket_id):
+def resolve_ticket(ticket_id, rt_username):
     """Resolves the given ticket.
 
     Args:
         ticket_id (int): The ticket id.
+        rt_username(str): Username on RT as which action should be performed
     """
+    edit_ticket_kwargs = {"ticket_id": ticket_id, "Status": "resolved"}
+    if rt_username:
+        edit_ticket_kwargs["Owner"] = rt_username
     try:
-        rt_instance.edit_ticket(ticket_id=ticket_id, Status="resolved")
+        rt_instance.edit_ticket(**edit_ticket_kwargs)
     except IndexError:
         # Raise exception only if ticket isn't already resolved
         ticket = rt_instance.get_ticket(ticket_id)
@@ -158,18 +163,7 @@ def get_queues():
     Returns:
         list (dict): list of all queues as {id, name}.
     """
-    queues = current_cache.get("rt_queues")
-    if queues:
-        return queues
-    else:
-        queues = _get_all_of("queue")
-        if queues:
-            current_cache.set(
-                "rt_queues",
-                queues,
-                timeout=current_app.config.get("RT_QUEUES_CACHE_TIMEOUT", 86400),
-            )
-        return queues
+    return _get_from_cache("rt_queues", partial(_get_all_of, "queue"))
 
 
 def get_users():
@@ -178,18 +172,80 @@ def get_users():
     Returns:
         list (dict): list of all users as {id, name} dict
     """
-    queues = current_cache.get("rt_users")
-    if queues:
-        return queues
-    else:
-        queues = _get_all_of("user")
-        if queues:
-            current_cache.set(
-                "rt_users",
-                queues,
-                timeout=current_app.config.get("RT_USERS_CACHE_TIMEOUT", 86400),
-            )
-        return queues
+    return _get_from_cache("rt_users", partial(_get_all_of, "user"))
+
+
+def get_rt_user_by_email(email, force_update=False):
+    """Find user info for specified e-mail in RT.
+
+    Args:
+        email(str): Email of user to look for.
+        force_update(bool): Forces to query users from RT
+          even if they are available in cache.
+
+    Returns:
+        dict: dictionary of the user {
+            "id":"user/<id>",
+            "Name":"<name>",
+            "EmailAddress": "<e-mail>"
+        }
+
+    """
+
+    def _parse_users_with_emails(lines):
+        data = zip(lines[0::3], lines[1::3], lines[2::3])
+        users = []
+        for user_data in data:
+            if user_data and all(user_data):
+                users.append(
+                    dict(
+                        [map(str.strip, element.split(":", 1)) for element in user_data]
+                    )
+                )
+        return users
+
+    def _get_rt_users():
+        lines = query_rt("user", fields=["Name", "EmailAddress"])
+        _users_data = _parse_users_with_emails(lines)
+        if not _users_data:
+            raise EmptyResponseFromRT
+        return _users_data
+
+    users_data = _get_from_cache("rt_users_with_emails", _get_rt_users, force_update)
+    result = [user for user in users_data if user["EmailAddress"] == email]
+
+    if not result and not force_update:
+        return get_rt_user_by_email(email, force_update=True)
+    elif not result:
+        raise NoUsersFound
+    return result[0]
+
+
+def _get_from_cache(cache_key, generator, force_update=False):
+    """Retrieve specified key from cache.
+    If key is missing or is empty or if `force_update` is set to `True`
+        update cache with generator and return cached data.
+
+    Args:
+        cache_key: name of the key where cache is stored
+        generator: partial to generate data for specified key if key is empty
+            or when `force_update` is `True`.
+        force_update: when `True` updates cache key then return cached data.
+
+    Returns:
+        Whatever was under `cache_key` key in cache.
+
+    """
+    data = current_cache.get(cache_key)
+    if not data or force_update:
+        new_data = generator()
+        current_cache.set(
+            cache_key,
+            new_data,
+            timeout=current_app.config.get("RT_USERS_CACHE_TIMEOUT", 86400),
+        )
+        return new_data
+    return data
 
 
 @relogin_if_needed
@@ -202,17 +258,33 @@ def _get_all_of(query_type):
     Args:
     query_type (dict): he type of quer, either ``'queue'`` or ``'user'``.
     """
-    search_query = "search/" + query_type + "?query="
-    url = urljoin(rt_instance.url, search_query)
+    lines = query_rt(query_type)
+    # create dict for each result item
+    return list(map(_query_result_item_id_name_mapper, lines))
+
+
+@relogin_if_needed
+def query_rt(query_type, query_body=None, fields=None):
+    """Queries RT with provided type and body
+
+    Args:
+        query_type(str): Allowed by RT query type ("user" or "ticket").
+        query_body(str): query to execute. If empty returns all data for requested type.
+        fields(list): List of fields to return form RT.
+
+    Returns(str): raw output from RT.
+
+    """
+    query_body = query_body or ""
+    query = f"search/{query_type}?query={query_body}"
+    if fields:
+        query = f"{query}&fields={','.join(fields)}"
+    url = urljoin(rt_instance.url, query)
     response = rt_instance.session.get(url)
     raw_result = response.content.decode(response.encoding.lower())
-    # parse raw result
-    lines = raw_result.split("\n")
-    # remove status and empty lines
-    del lines[:2]
-    del lines[-3:]
-    # create dict for each result item
-    return [_query_result_item_id_name_mapper(line) for line in lines]
+    # parse raw result lines
+    lines = raw_result.split("\n")[2:-3]
+    return lines
 
 
 def _query_result_item_id_name_mapper(raw_item):

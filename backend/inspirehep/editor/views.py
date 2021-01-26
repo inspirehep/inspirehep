@@ -7,6 +7,7 @@
 
 from os.path import splitext
 
+import structlog
 from flask import Blueprint, current_app, make_response, request
 from flask_login import current_user
 from inspire_schemas.api import load_schema
@@ -28,9 +29,11 @@ from inspirehep.serializers import jsonify
 from inspirehep.utils import hash_data
 
 from .authorlist_utils import authorlist
+from ..rt.errors import EmptyResponseFromRT, NoUsersFound
 from .errors import EditorGetRevisionError, EditorRevertToRevisionError
 
 blueprint = Blueprint("inspirehep_editor", __name__, url_prefix="/editor")
+LOGGER = structlog.getLogger()
 
 
 @blueprint.route("/<endpoint>/<int:pid_value>/revisions/revert", methods=["PUT"])
@@ -151,7 +154,26 @@ def create_rt_ticket(endpoint, pid_value):
 @login_required_with_roles([Roles.cataloger.value])
 def resolve_rt_ticket(endpoint, pid_value, ticket_id):
     """View to resolve an rt ticket"""
-    tickets.resolve_ticket(ticket_id)
+    rt_username = None
+    try:
+        rt_user = tickets.get_rt_user_by_email(current_user.email)
+        rt_username = rt_user["Name"]
+    except EmptyResponseFromRT:
+        LOGGER.warning(
+            "RT did not return users list. ",
+            ticket_id=ticket_id,
+            pid_value=pid_value,
+            email=current_user.email,
+        )
+    except NoUsersFound:
+        LOGGER.warning(
+            "Cannot find user in RT",
+            ticket_id=ticket_id,
+            pid_value=pid_value,
+            email=current_user.email,
+        )
+
+    tickets.resolve_ticket(ticket_id, rt_username)
     return jsonify(success=True)
 
 
