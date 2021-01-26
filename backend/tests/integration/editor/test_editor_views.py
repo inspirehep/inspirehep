@@ -11,6 +11,7 @@ import os
 import orjson
 import pkg_resources
 import requests_mock
+from flask import current_app
 from helpers.utils import create_record, create_user
 from inspire_schemas.api import load_schema, validate
 from inspire_utils.record import get_value
@@ -21,6 +22,8 @@ from werkzeug.datastructures import FileStorage
 
 from inspirehep.accounts.roles import Roles
 from inspirehep.files import current_s3_instance
+from inspirehep.records.api import LiteratureRecord
+from inspirehep.rt.errors import EmptyResponseFromRT, NoUsersFound
 
 
 def test_get_record_and_schema(inspire_app):
@@ -162,8 +165,8 @@ def test_create_rt_ticket_returns_403_on_authentication_error(inspire_app):
 
 @patch("inspirehep.editor.views.tickets")
 def test_resolve_rt_ticket(mock_tickets, inspire_app):
-    mock_tickets.create_ticket.return_value = 1
-    mock_tickets.get_rt_link_for_ticket.return_value = "http://rt_address"
+    mock_tickets.get_rt_user_by_email.side_effect = NoUsersFound
+    mock_tickets.resolve_ticket.return_value = 1
     user = create_user(role=Roles.cataloger.value)
 
     with inspire_app.test_client() as client:
@@ -171,6 +174,50 @@ def test_resolve_rt_ticket(mock_tickets, inspire_app):
         response = client.get("api/editor/literature/1497201/rt/tickets/4328/resolve")
 
     assert response.status_code == 200
+    mock_tickets.get_rt_user_by_email.assert_called_once_with(user.email)
+    mock_tickets.resolve_ticket.assert_called_once_with("4328", None)
+
+    expected = {"success": True}
+    result = orjson.loads(response.data)
+
+    assert expected == result
+
+
+@patch("inspirehep.editor.views.tickets")
+def test_resolve_rt_ticket_when_empty_response_on_get_users(mock_tickets, inspire_app):
+    mock_tickets.get_rt_user_by_email.side_effect = EmptyResponseFromRT
+    mock_tickets.resolve_ticket.return_value = 1
+
+    user = create_user(role=Roles.cataloger.value)
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get("api/editor/literature/1497201/rt/tickets/4328/resolve")
+
+    assert response.status_code == 200
+    mock_tickets.get_rt_user_by_email.assert_called_once_with(user.email)
+    mock_tickets.resolve_ticket.assert_called_once_with("4328", None)
+
+    expected = {"success": True}
+    result = orjson.loads(response.data)
+
+    assert expected == result
+
+
+@patch("inspirehep.editor.views.tickets")
+def test_resolve_rt_ticket_with_user(mock_tickets, inspire_app):
+    mock_tickets.get_rt_user_by_email.return_value = {"Name": "TEST_USER"}
+    mock_tickets.resolve_ticket.return_value = 1
+
+    user = create_user(role=Roles.cataloger.value)
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get("api/editor/literature/1497201/rt/tickets/4328/resolve")
+
+    assert response.status_code == 200
+    mock_tickets.get_rt_user_by_email.assert_called_once_with(user.email)
+    mock_tickets.resolve_ticket.assert_called_once_with("4328", "TEST_USER")
 
     expected = {"success": True}
     result = orjson.loads(response.data)
@@ -222,12 +269,12 @@ def test_get_rt_users(mock_tickets, inspire_app):
     assert response.status_code == 200
 
 
-@patch("inspirehep.rt.tickets._get_all_of")
-def test_rt_users_are_cached(mock_get_all_of, inspire_app):
-    mock_get_all_of.return_value = [
-        {"id": "10309", "name": "atkinson"},
-        {"id": "1125438", "name": "bhecker"},
-        {"id": "460354", "name": "Catherine"},
+@patch("inspirehep.rt.tickets.query_rt")
+def test_rt_users_are_cached(mock_query_rt, inspire_app):
+    mock_query_rt.return_value = [
+        "10309: atkinson",
+        "1125438: bhecker",
+        "460354: Catherine",
     ]
     current_cache.delete("rt_users")
     user = create_user(role=Roles.cataloger.value)
@@ -260,13 +307,9 @@ def test_get_rt_queues(mock_tickets, inspire_app):
     assert response.status_code == 200
 
 
-@patch("inspirehep.rt.tickets._get_all_of")
-def test_rt_queues_are_cached(mock_get_all_of, inspire_app):
-    mock_get_all_of.return_value = [
-        {"id": "35", "name": "Admin"},
-        {"id": "63", "name": "Admin-curator"},
-        {"id": "60", "name": "Admin-Dev"},
-    ]
+@patch("inspirehep.rt.tickets.query_rt")
+def test_rt_queues_are_cached(mock_query_rt, inspire_app):
+    mock_query_rt.return_value = ["35: Admin", "63: Admin-curator", "60: Admin-Dev"]
     current_cache.delete("rt_queues")
     user = create_user(role=Roles.cataloger.value)
 
