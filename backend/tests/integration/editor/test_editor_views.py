@@ -11,7 +11,6 @@ import os
 import orjson
 import pkg_resources
 import requests_mock
-from flask import current_app
 from helpers.utils import create_record, create_user
 from inspire_schemas.api import load_schema, validate
 from inspire_utils.record import get_value
@@ -22,7 +21,6 @@ from werkzeug.datastructures import FileStorage
 
 from inspirehep.accounts.roles import Roles
 from inspirehep.files import current_s3_instance
-from inspirehep.records.api import LiteratureRecord
 
 
 def test_get_record_and_schema(inspire_app):
@@ -421,3 +419,81 @@ def test_file_upload_without_permissions(inspire_app, s3, datadir):
 
     expected_status_code = 401
     assert expected_status_code == response.status_code
+
+
+def test_authorlist_text(inspire_app):
+    schema = load_schema("hep")
+    subschema = schema["properties"]["authors"]
+    user = create_user(role=Roles.cataloger.value)
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/editor/authorlist/text",
+            content_type="application/json",
+            data=orjson.dumps(
+                {
+                    "text": (
+                        "F. Lastname1, F.M. Otherlastname1,2\n"
+                        "\n"
+                        "1 CERN\n"
+                        "2 Otheraffiliation"
+                    )
+                }
+            ),
+        )
+
+    assert response.status_code == 200
+
+    expected = {
+        "authors": [
+            {
+                "full_name": "Lastname, F.",
+                "raw_affiliations": [
+                    {"value": "CERN"},
+                ],
+            },
+            {
+                "full_name": "Otherlastname, F.M.",
+                "raw_affiliations": [
+                    {"value": "CERN"},
+                    {"value": "Otheraffiliation"},
+                ],
+            },
+        ],
+    }
+    result = orjson.loads(response.data)
+
+    assert validate(result["authors"], subschema) is None
+    assert expected == result
+
+
+def test_authorlist_text_exception(inspire_app):
+    user = create_user(role=Roles.cataloger.value)
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/editor/authorlist/text",
+            content_type="application/json",
+            data=orjson.dumps(
+                {
+                    "text": (
+                        "F. Lastname1, F.M. Otherlastname1,2\n"
+                        "\n"
+                        "CERN\n"
+                        "2 Otheraffiliation"
+                    )
+                }
+            ),
+        )
+
+    assert response.status_code == 400
+
+    expected = {
+        "message": "Cannot identify type of affiliations, found IDs: ['C', '2']",
+        "status": 400,
+    }
+    result = orjson.loads(response.data)
+
+    assert expected == result
