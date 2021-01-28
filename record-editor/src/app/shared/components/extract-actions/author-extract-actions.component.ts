@@ -62,12 +62,10 @@ export class AuthorExtractActionsComponent {
       HOVER_TO_DISMISS_INDEFINITE_TOAST
     );
 
-    this.apiService
-      .authorExtract(this.source)
-      .subscribe(
-        authors => this.onExtract(authors),
-        error => this.onError(error)
-      );
+    this.apiService.authorExtract(this.source).subscribe(
+      (authors) => this.onExtract(authors),
+      (error) => this.onError(error)
+    );
   }
 
   private onExtract(result: AuthorExtractResult) {
@@ -75,7 +73,7 @@ export class AuthorExtractActionsComponent {
     if (this.replaceExisting) {
       this.jsonStoreService.setIn(['authors'], authors);
     } else {
-      authors.forEach(author => {
+      authors.forEach((author) => {
         this.jsonStoreService.addIn(['authors', 0], author);
       });
     }
@@ -83,7 +81,7 @@ export class AuthorExtractActionsComponent {
     this.toastrService.clear(this.extractingToast.toastId);
     const warnings = result.warnings;
     if (warnings && warnings.length > 0) {
-      warnings.forEach(warning => {
+      warnings.forEach((warning) => {
         this.toastrService.warning(
           warning,
           'Warning',
@@ -99,7 +97,7 @@ export class AuthorExtractActionsComponent {
 
   private onError(error: ApiError) {
     this.toastrService.clear(this.extractingToast.toastId);
-    if (error.status === 500 && error.message) {
+    if (error.status === 400 && error.message) {
       this.toastrService.error(
         error.message,
         'Error',

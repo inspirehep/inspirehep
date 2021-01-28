@@ -27,6 +27,7 @@ from inspirehep.rt import tickets
 from inspirehep.serializers import jsonify
 from inspirehep.utils import hash_data
 
+from .authorlist_utils import authorlist
 from .errors import EditorGetRevisionError, EditorRevertToRevisionError
 
 blueprint = Blueprint("inspirehep_editor", __name__, url_prefix="/editor")
@@ -250,3 +251,14 @@ def upload():
     )
     file_url = current_s3_instance.get_s3_url(key, bucket)
     return jsonify({"path": file_url}), 200
+
+
+@blueprint.route("/authorlist/text", methods=["POST"])
+@login_required_with_roles([Roles.cataloger.value])
+def authorlist_text():
+    """Run authorlist on a piece of text."""
+    try:
+        parsed_authors = authorlist(request.json["text"])
+        return jsonify(parsed_authors)
+    except Exception as err:
+        return jsonify(status=400, message=" / ".join(err.args)), 400
