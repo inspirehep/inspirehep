@@ -1,4 +1,4 @@
-FROM node:lts-jessie as build-stage
+FROM node:10.14.0-jessie as build-stage
 
 WORKDIR /usr/src/app
 
@@ -8,7 +8,7 @@ RUN yarn
 RUN yarn build
 
 FROM inspirehep/nginx:1.19-with-vts
-EXPOSE 8080
+EXPOSE 8081
 
 COPY docker/nginx/config/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build-stage /usr/src/app/dist /usr/share/nginx/html

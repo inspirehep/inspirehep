@@ -1,0 +1,21 @@
+name: Backend test
+description: Run a test suite on a specific backend docker image
+
+inputs:
+  suite:
+    description: The test suite to run
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Test
+      env:
+        IMAGE: inspirehep/hep
+      shell: bash
+      run: >
+        docker run
+        --entrypoint poetry
+        --network="host"
+        $IMAGE:$REF_TAG
+        run py.test tests/${{ inputs.suite }}

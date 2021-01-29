@@ -1,0 +1,15 @@
+name: Editor test
+description: Run the editor test suite on a specific image
+
+runs:
+  using: composite
+  steps:
+    - name: Test
+      env:
+        IMAGE: inspirehep/editor
+      shell: bash
+      run: >
+        docker run
+        --network="host"
+        $IMAGE:$BUILD_TAG
+        yarn lint

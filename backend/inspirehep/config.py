@@ -45,7 +45,7 @@ FEATURE_FLAG_ENABLE_WORKFLOW_ON_AUTHOR_UPDATE = False
 # Web services and APIs
 # =====================
 AUTHENTICATION_TOKEN = "CHANGE_ME"
-INSPIRE_NEXT_URL = "http://web-next:5000"
+INSPIRE_NEXT_URL = "http://localhost:5000"
 LEGACY_BASE_URL = "https://old.inspirehep.net"
 LEGACY_RECORD_URL_PATTERN = "http://inspirehep.net/record/{recid}"
 MAX_API_RESULTS = 10000

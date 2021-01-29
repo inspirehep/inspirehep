@@ -12,11 +12,11 @@ services:
     depends_on:
       - ui
       - record-editor
-  web:
+  hep-web:
     build:
       context: backend
       dockerfile: Dockerfile-local
-  worker:
+  hep-worker:
     build:
       context: backend
       dockerfile: Dockerfile-local

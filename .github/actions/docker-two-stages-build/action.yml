@@ -1,0 +1,50 @@
+name: Docker two stages build
+description: Build a two stages dockerfile and push both to Docker Hub
+
+inputs:
+  image:
+    description: The image name
+    required: true
+  context:
+    description: Docker context to build
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Pull cache
+      env:
+        IMAGE: ${{ inputs.image }}
+        LATEST_BUILD: build-latest
+      shell: bash
+      run: docker pull $IMAGE:$LATEST_BUILD || true
+
+    - name: Build first stage
+      env:
+        IMAGE: ${{ inputs.image }}
+        LATEST_BUILD: build-latest
+      shell: bash
+      run: >
+        docker build
+        -t $IMAGE:$BUILD_TAG
+        --target build-stage
+        --cache-from $IMAGE:$LATEST_BUILD
+        ${{ inputs.context }}
+
+    - name: Build second stage
+      env:
+        IMAGE: ${{ inputs.image }}
+      shell: bash
+      run: >
+        docker build
+        -t $IMAGE:$REF_TAG
+        --cache-from $IMAGE:$BUILD_TAG
+        ${{ inputs.context }}
+
+    - name: Push
+      env:
+        IMAGE: ${{ inputs.image }}
+      shell: bash
+      run: |
+        docker push $IMAGE:$REF_TAG
+        docker push $IMAGE:$BUILD_TAG
