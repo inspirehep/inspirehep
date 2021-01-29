@@ -27,7 +27,7 @@ def vcr_config():
             "postgres",
             "redis",
             "ui",
-            "web-next",
+            "next-web",
             "web-worker",
             "web",
             "worker",

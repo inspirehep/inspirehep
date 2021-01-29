@@ -1,0 +1,15 @@
+name: UI test
+description: Run the ui test on a specific image
+
+runs:
+  using: composite
+  steps:
+    - name: Test
+      env:
+        IMAGE: inspirehep/ui
+      shell: bash
+      run: >
+        docker run
+        --network="host"
+        $IMAGE:$BUILD_TAG
+        yarn test

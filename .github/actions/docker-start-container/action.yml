@@ -1,0 +1,57 @@
+name: Docker start container
+description: Start a detached container
+
+inputs:
+  image:
+    description: The image to use
+    required: true
+  name:
+    description: The container name
+    required: true
+  options:
+    description: Additional options to pass to docker run
+    required: false
+    default: ''
+  command:
+    description: The command to run
+    required: false
+    default: ''
+  env_pattern:
+    description: The environment variable pattern to pass to the container
+    required: false
+    default: ''
+
+outputs:
+  cid:
+    description: Container ID
+    value: ${{ steps.info.outputs.cid }}
+
+runs:
+  using: composite
+  steps:
+    - name: Pull
+      shell: bash
+      run: docker pull ${{ inputs.image }}
+
+    - name: Run
+      shell: bash
+      run: >
+        variables='';
+
+        for i in $(env | grep '${{ inputs.env_pattern }}' | awk -F '=' '{print $1}'); do
+          variables="--env ${i} ${variables}";
+        done;
+
+        docker run -d
+        --name ${{ inputs.name }}
+        --network host
+        --cidfile ${{ inputs.name }}.cid
+        ${variables}
+        ${{ inputs.options }}
+        ${{ inputs.image }}
+        ${{ inputs.command }}
+
+    - name: Info
+      id: info
+      shell: bash
+      run: echo "::set-output name=cid::$(cat ${{ inputs.name }}.cid)"

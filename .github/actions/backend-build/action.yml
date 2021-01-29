@@ -1,0 +1,47 @@
+name: Backend build
+description: Build the backend docker image and push it to Docker Hub
+
+inputs:
+  lock-hash:
+    description: Hash of the poetry lock file
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Pull cache
+      env:
+        IMAGE: inspirehep/hep
+        DEPS_TAG: lock-${{ inputs.lock-hash }}
+        LATEST: latest
+      shell: bash
+      run: >
+        docker pull $IMAGE:$PR_TAG ||
+        docker pull $IMAGE:$DEPS_TAG ||
+        docker pull $IMAGE:$LATEST ||
+        true
+
+
+    - name: Build
+      env:
+        IMAGE: inspirehep/hep
+        DEPS_TAG: lock-${{ inputs.lock-hash }}
+        LATEST: latest
+      shell: bash
+      run: >
+        docker build
+        -t $IMAGE:$REF_TAG
+        --cache-from $IMAGE:$PR_TAG
+        --cache-from $IMAGE:$DEPS_TAG
+        --cache-from $IMAGE:$LATEST$
+        backend/
+
+    - name: Tag and push
+      env:
+        IMAGE: inspirehep/hep
+        DEPS_TAG: lock-${{ inputs.lock-hash }}
+      shell: bash
+      run: |
+        docker push $IMAGE:$REF_TAG
+        docker tag $IMAGE:$REF_TAG $IMAGE:$DEPS_TAG && docker push $IMAGE:$DEPS_TAG
+        [[ ! -z "$PR" ]] && docker tag $IMAGE:$REF_TAG $IMAGE:$PR_TAG && docker push $IMAGE:$PR_TAG || true

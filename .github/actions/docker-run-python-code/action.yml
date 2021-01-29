@@ -1,0 +1,19 @@
+name: Docker run python code
+description: Run arbitrary python code in a specific container
+
+inputs:
+  name:
+    description: The container name
+    required: true
+  code:
+    description: The command to run
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Run
+      shell: bash
+      run: >
+        docker exec ${{ inputs.name }}
+        python -c "${{ inputs.code }}"
