@@ -101,7 +101,7 @@ def test_does_not_update_stale(inspire_app):
     assert stale_put_response.status_code == 412
 
 
-def test_returns_304_if_not_modified(inspire_app):
+def test_returns_200_if_not_modified(inspire_app):
     record = create_record("lit")
     record_control_number = record["control_number"]
 
@@ -114,7 +114,7 @@ def test_returns_304_if_not_modified(inspire_app):
             headers={"If-Modified-Since": last_modified},
         )
 
-        assert second_get_response.status_code == 304
+        assert second_get_response.status_code == 200
 
 
 def test_returns_301_with_proper_location_when_record_redirected(inspire_app):
