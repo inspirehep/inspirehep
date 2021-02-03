@@ -467,7 +467,4 @@ jobs:
           token: ${{ secrets.INSPIRE_BOT_TOKEN }}
           repository: inspirehep/kubernetes
           event-type: deploy
-          client-payload: >-
-            '{"environment":"qa",
-            "image":"'${{ matrix.image }}'",
-            "tag":"'${{ steps.generate_tag.outputs.tag }}'"}'
+          client-payload: '{"environment":"qa","image":"${{ matrix.image }}","tag":"${{ steps.generate_tag.outputs.tag }}"}'
