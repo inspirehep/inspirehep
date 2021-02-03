@@ -366,6 +366,7 @@ def test_recalculate_references_after_journal_record_merge(
     merged_journal_data.update(
         {"deleted_records": [{"$ref": journal_record_reference}]}
     )
+
     merged_journal_record = InspireRecord.create(merged_journal_data)
     db.session.commit()
 

@@ -184,6 +184,7 @@ class InspireRecord(Record):
                 id_ = uuid.uuid4()
                 deleted = data.get("deleted", False)
                 if not deleted:
+                    cls.delete_records_from_deleted_records(data)
                     cls.pidstore_handler.mint(id_, data)
             kwargs.pop("disable_orcid_push", None)
             kwargs.pop("disable_relations_update", None)
@@ -351,10 +352,12 @@ class InspireRecord(Record):
         new_pid = self.control_number_pid
         InspireRedirect.redirect(old_pid, new_pid)
 
-        old_record = self.get_record(old_pid_object_uuid)
+        old_record = self.get_record(old_pid_object_uuid, with_deleted=True)
         old_record["new_record"] = get_ref_from_pid(self.pid_type, self.control_number)
         if not old_record.get("deleted"):
             old_record.delete()
+        else:
+            old_record.update(dict(old_record))
 
     def redirect_pids(self, pids):
         if current_app.config.get("FEATURE_FLAG_ENABLE_REDIRECTION_OF_PIDS"):
@@ -362,6 +365,25 @@ class InspireRecord(Record):
                 pid_type, pid_value = PidStoreBase.get_pid_from_record_uri(pid["$ref"])
                 self.redirect_pid(pid_type, pid_value)
             return pids
+
+    @classmethod
+    def delete_records_from_deleted_records(cls, data):
+        # Hack for migrator in case new record takes pids from other records
+        # which should be deleted but they are not deleted yet.
+        for pid in data.get("deleted_records", []):
+            pid_type, pid_value = PidStoreBase.get_pid_from_record_uri(pid["$ref"])
+            try:
+                record_to_delete = cls.get_record_by_pid_value(
+                    pid_value, pid_type, original_record=True
+                )
+            except PIDDoesNotExistError:
+                LOGGER.warning(
+                    "This pid is missing while still is marked as deleted by another record.",
+                    marked_by=data.get("control_number"),
+                    marked_to_delete=(pid_type, pid_value),
+                )
+            else:
+                record_to_delete.delete()
 
     def update(self, data, *args, **kwargs):
         if not self.get("deleted", False):
@@ -387,6 +409,7 @@ class InspireRecord(Record):
             if data.get("deleted"):
                 self.pidstore_handler.delete(self.id, self)
             else:
+                self.delete_records_from_deleted_records(data)
                 self.pidstore_handler.update(self.id, self)
                 if self.get("deleted_records"):
                     self.redirect_pids(self["deleted_records"])

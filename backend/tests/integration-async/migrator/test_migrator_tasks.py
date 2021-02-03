@@ -12,10 +12,12 @@ from helpers.providers.faker import faker
 from helpers.utils import create_record_async, retry_until_pass
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
+from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
 from inspirehep.migrator.models import LegacyRecordsMirror
 from inspirehep.migrator.tasks import (
     index_records,
+    migrate_and_insert_record,
     migrate_from_mirror,
     process_references_in_records,
     update_relations,
@@ -661,3 +663,137 @@ def test_update_relations_with_modified_experiments(
     ).one()
 
     assert experiment_literature_relation.literature_uuid == record.id
+
+
+def test_migrate_record_from_miror_do_not_leaves_deleted_pids_when_migration_fails(
+    inspire_app, celery_app_with_context, celery_session_worker
+):
+    raw_record = (
+        b"<record>"
+        b'  <controlfield tag="001">98765</controlfield>'
+        b'  <datafield tag="024" ind1="7" ind2=" ">'
+        b'    <subfield code="9">DOI</subfield>'
+        b'    <subfield code="a">10.1000/a_doi</subfield>'
+        b"  </datafield>"
+        b'  <datafield tag="245" ind1=" " ind2=" ">'
+        b'    <subfield code="a">A record to be merged</subfield>'
+        b"  </datafield>"
+        b'  <datafield tag="980" ind1=" " ind2=" ">'
+        b'    <subfield code="a">HEP</subfield>'
+        b"  </datafield>"
+        b"</record>"
+    )
+    migrate_and_insert_record(raw_record)
+    db.session.commit()
+
+    record = LiteratureRecord.get_record_by_pid_value("98765")
+    assert PersistentIdentifier.get("doi", "10.1000/a_doi").object_uuid == record.id
+
+    raw_record = (
+        b"<record>"
+        b'  <controlfield tag="001">31415</controlfield>'
+        b'  <datafield tag="024" ind1="7" ind2=" ">'
+        b'    <subfield code="9">DOI</subfield>'
+        b'    <subfield code="a">101000/a_doi</subfield>'
+        b"  </datafield>"
+        b'  <datafield tag="245" ind1=" " ind2=" ">'
+        b'    <subfield code="a">A record that was merged</subfield>'
+        b"  </datafield>"
+        b'  <datafield tag="980" ind1=" " ind2=" ">'
+        b'    <subfield code="a">HEP</subfield>'
+        b"  </datafield>"
+        b"</record>"
+    )
+    migrate_and_insert_record(raw_record)
+    db.session.commit()
+
+    new_pid = PersistentIdentifier.query.filter_by(
+        pid_type="lit", pid_value="31415"
+    ).one_or_none()
+    assert new_pid
+
+    update_raw_record = (
+        b"<record>"
+        b'  <controlfield tag="001">31415</controlfield>'
+        b'  <datafield tag="024" ind1="7" ind2=" ">'
+        b'    <subfield code="9">DOI</subfield>'
+        b'    <subfield code="a">101000/a_doi</subfield>'
+        b"  </datafield>"
+        b'  <datafield tag="245" ind1=" " ind2=" ">'
+        b'    <subfield code="a">A record that was merged</subfield>'
+        b"  </datafield>"
+        b'  <datafield tag="980" ind1=" " ind2=" ">'
+        b'    <subfield code="a">HEPX</subfield>'
+        b"  </datafield>"
+        b'  <datafield tag="981" ind1=" " ind2=" ">'
+        b'    <subfield code="a">98765</subfield>'
+        b"  </datafield>"
+        b"</record>"
+    )
+    migrate_and_insert_record(update_raw_record)
+    db.session.commit()
+
+    old_pid = PersistentIdentifier.query.filter_by(
+        pid_type="lit", pid_value="98765"
+    ).one_or_none()
+    assert old_pid.status == PIDStatus.REGISTERED
+
+
+def test_migrator_deleted_deleted_records_correctly_when_pid_redirection_is_turned_off(
+    inspire_app, celery_app_with_context, celery_session_worker, override_config
+):
+    raw_record = (
+        b"<record>"
+        b'  <controlfield tag="001">98765</controlfield>'
+        b'  <datafield tag="024" ind1="7" ind2=" ">'
+        b'    <subfield code="9">DOI</subfield>'
+        b'    <subfield code="a">10.1000/a_doi</subfield>'
+        b"  </datafield>"
+        b'  <datafield tag="245" ind1=" " ind2=" ">'
+        b'    <subfield code="a">A record to be merged</subfield>'
+        b"  </datafield>"
+        b'  <datafield tag="980" ind1=" " ind2=" ">'
+        b'    <subfield code="a">HEP</subfield>'
+        b"  </datafield>"
+        b"</record>"
+    )
+    migrate_and_insert_record(raw_record)
+    db.session.commit()
+
+    record = LiteratureRecord.get_record_by_pid_value("98765")
+    assert PersistentIdentifier.get("doi", "10.1000/a_doi").object_uuid == record.id
+
+    raw_record = (
+        b"<record>"
+        b'  <controlfield tag="001">31415</controlfield>'
+        b'  <datafield tag="024" ind1="7" ind2=" ">'
+        b'    <subfield code="9">DOI</subfield>'
+        b'    <subfield code="a">101000/a_doi</subfield>'
+        b"  </datafield>"
+        b'  <datafield tag="245" ind1=" " ind2=" ">'
+        b'    <subfield code="a">A record that was merged</subfield>'
+        b"  </datafield>"
+        b'  <datafield tag="980" ind1=" " ind2=" ">'
+        b'    <subfield code="a">HEP</subfield>'
+        b"  </datafield>"
+        b'  <datafield tag="981" ind1=" " ind2=" ">'
+        b'    <subfield code="a">98765</subfield>'
+        b"  </datafield>"
+        b"</record>"
+    )
+    new_config = {"FEATURE_FLAG_ENABLE_REDIRECTION_OF_PIDS": False}
+    with override_config(**new_config):
+        migrate_and_insert_record(raw_record)
+        db.session.commit()
+
+    new_pid = PersistentIdentifier.query.filter_by(
+        pid_type="lit", pid_value="31415"
+    ).one_or_none()
+    assert new_pid
+    old_pid = PersistentIdentifier.query.filter_by(
+        pid_type="lit", pid_value="98765"
+    ).one_or_none()
+    old_record = LiteratureRecord.get_record_by_pid_value(98765)
+
+    assert old_pid.status == PIDStatus.DELETED
+    assert old_record["deleted"] is True
