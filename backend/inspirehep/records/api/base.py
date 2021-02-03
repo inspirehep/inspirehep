@@ -203,7 +203,7 @@ class InspireRecord(Record):
             # FIXME: This is all over the place should be centralized
             record_class = cls.get_class_for_record(data)
             record = cls.get_record_by_pid_value(
-                control_number, pid_type=record_class.pid_type
+                control_number, pid_type=record_class.pid_type, original_record=True
             )
             record.update(data, **kwargs)
             LOGGER.info(
