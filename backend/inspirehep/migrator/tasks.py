@@ -464,12 +464,6 @@ def migrate_record_from_mirror(
     try:
         with db.session.begin_nested():
             cls = InspireRecord.get_class_for_record(json_record)
-            for deleted_record in cls.get_linked_records_from_dict_field(
-                json_record, "deleted_records"
-            ):
-                deleted_record.pidstore_handler.delete(
-                    deleted_record.id, deleted_record
-                )
             original_urls = replace_afs_file_locations_with_local(json_record)
             record = cls.create_or_update(
                 json_record,
@@ -521,7 +515,7 @@ def wait_for_all_tasks(task, retry_count=0):
     if not task:
         return None
     LOGGER.info(
-        f"Waiting for task completion.", waiting_task_id=task, retry_count=retry_count
+        "Waiting for task completion.", waiting_task_id=task, retry_count=retry_count
     )
     try:
         next_task = AsyncResult(task).get()
