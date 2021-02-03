@@ -459,3 +459,15 @@ jobs:
           image: ${{ matrix.image }}
           pull-tag: ${{ env.REF_TAG }}
           push-tag: latest
+
+      - name: Deploy QA
+        uses: peter-evans/repository-dispatch@v1
+        if: ${{ github.event_name == 'push' }}
+        with:
+          token: ${{ secrets.INSPIRE_BOT_TOKEN }}
+          repository: inspirehep/kubernetes
+          event-type: deploy
+          client-payload: >-
+            '{"environment":"qa",
+            "image":"'${{ matrix.image }}'",
+            "tag":"'${{ steps.generate_tag.outputs.tag }}'"}'
