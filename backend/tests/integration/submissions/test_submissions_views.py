@@ -490,7 +490,10 @@ def test_update_author_creates_new_workflow(
     author_data = {
         "control_number": 123,
         "name": {"value": "John"},
-        "ids": [{"schema": "ORCID", "value": orcid}],
+        "ids": [
+            {"schema": "ORCID", "value": orcid},
+            {"schema": "LINKEDIN", "value": "test_account"},
+        ],
         "status": "active",
         "urls": [{"value": "https://wrong-url"}],
     }
@@ -504,19 +507,26 @@ def test_update_author_creates_new_workflow(
 
         expected_next_request = {
             "data": {
+                "$schema": "http://localhost:5000/schemas/records/authors.json",
                 "_collections": ["Authors"],
-                "name": {"preferred_name": "Updated", "value": "John, Updated"},
-                "ids": [{"value": "0000-0001-5109-3700", "schema": "ORCID"}],
-                "status": "active",
                 "acquisition_source": {
-                    "email": user.email,
                     "datetime": "2019-06-17T00:00:00",
-                    "method": "submitter",
-                    "source": "submitter",
+                    "email": user.email,
                     "internal_uid": user.id,
+                    "method": "submitter",
                     "orcid": "0000-0001-5109-3700",
+                    "source": "submitter",
                 },
                 "control_number": 123,
+                "ids": [
+                    {"schema": "ORCID", "value": "0000-0001-5109-3700"},
+                    {"schema": "LINKEDIN", "value": "test_account"},
+                    {"schema": "TWITTER", "value": "test_account"},
+                ],
+                "name": {"preferred_name": "Updated", "value": "John, Updated"},
+                "self": {"$ref": "http://localhost:5000/api/authors/123"},
+                "status": "active",
+                "urls": [{"value": "http://test1.com"}, {"value": "http://test2.com"}],
             }
         }
 
@@ -534,6 +544,9 @@ def test_update_author_creates_new_workflow(
                         "display_name": "Updated",
                         "orcid": orcid,
                         "status": "active",
+                        "linkedin": "test_account",
+                        "twitter": "test_account",
+                        "websites": ["http://test1.com", "http://test2.com"],
                     }
                 }
             ),
