@@ -122,7 +122,8 @@ class AuthorSubmissionsResource(BaseSubmissionsResource):
         return jsonify({"data": serialized_record})
 
     def post(self):
-        return self.start_workflow_for_submission()
+        data = self.load_data_from_request()
+        return self.start_workflow_for_submission(data)
 
     def put(self, pid_value):
         try:
@@ -143,7 +144,7 @@ class AuthorSubmissionsResource(BaseSubmissionsResource):
             self.create_ticket(record, "rt/update_author.html")
 
         if current_app.config.get("FEATURE_FLAG_ENABLE_WORKFLOW_ON_AUTHOR_UPDATE"):
-            self.start_workflow_for_submission(pid_value)
+            self.start_workflow_for_submission(record)
 
         return jsonify({"pid_value": record["control_number"]})
 
@@ -183,13 +184,9 @@ class AuthorSubmissionsResource(BaseSubmissionsResource):
     def load_data_from_request(self):
         return author_loader_v1()
 
-    def start_workflow_for_submission(self, control_number=None, submission_data=None):
-        if not submission_data:
-            submission_data = self.load_data_from_request()
-        submission_data["acquisition_source"] = self.get_acquisition_source()
-        if control_number:
-            submission_data["control_number"] = int(control_number)
-        payload = {"data": submission_data}
+    def start_workflow_for_submission(self, record):
+        record["acquisition_source"] = self.get_acquisition_source()
+        payload = {"data": record}
         return self.send_post_request_to_inspire_next("/workflows/authors", payload)
 
     def create_ticket(self, record, rt_template):
