@@ -463,9 +463,18 @@ jobs:
 
       - name: Deploy QA
         uses: peter-evans/repository-dispatch@v1
-        if: ${{ github.event_name == 'push' ||  github.event_name == 'release'}}
+        if: ${{ github.event_name == 'push'}}
         with:
           token: ${{ secrets.INSPIRE_BOT_TOKEN }}
           repository: inspirehep/kubernetes
           event-type: deploy
           client-payload: '{"environment":"qa","image":"${{ matrix.image }}","tag":"${{ steps.generate_tag.outputs.tag }}"}'
+
+      - name: Deploy Prod
+        uses: peter-evans/repository-dispatch@v1
+        if: ${{ github.event_name == 'release'}}
+        with:
+          token: ${{ secrets.INSPIRE_BOT_TOKEN }}
+          repository: inspirehep/kubernetes
+          event-type: deploy
+          client-payload: '{"environment":"prod","image":"${{ matrix.image }}","tag":"${{ steps.generate_tag.outputs.tag }}"}'
