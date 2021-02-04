@@ -5,6 +5,8 @@ on:
     branches: [master]
   pull_request_target:
     branches: [master]
+  release:
+    types: [published]
 
 env:
   REF: ${{ github.event.pull_request.head.sha || github.sha }}
@@ -87,8 +89,8 @@ jobs:
     services:
       redis:
         image: redis
-        ports: 
-         - 6379:6379
+        ports:
+          - 6379:6379
       postgres:
         image: postgres:9.6
         env:
@@ -396,8 +398,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: container-logs-${{ env.REF }}
-          path: "*.log"
-
+          path: '*.log'
 
   push:
     name: Push
@@ -440,13 +441,13 @@ jobs:
 
       - name: Generate tag
         id: generate_tag
-        if: ${{ github.event_name == 'push' }}
+        if: ${{ github.event_name == 'push' ||  github.event_name == 'release'}}
         run: |
           echo "::set-output name=tag::$(git describe --always --tags)"
 
       - name: Tag and push (git describe)
         uses: ./.github/actions/docker-tag-and-push
-        if: ${{ github.event_name == 'push' }}
+        if: ${{ github.event_name == 'push' ||  github.event_name == 'release'}}
         with:
           image: ${{ matrix.image }}
           pull-tag: ${{ env.REF_TAG }}
@@ -454,7 +455,7 @@ jobs:
 
       - name: Tag and push (latest)
         uses: ./.github/actions/docker-tag-and-push
-        if: ${{ github.event_name == 'push' }}
+        if: ${{ github.event_name == 'push' ||  github.event_name == 'release'}}
         with:
           image: ${{ matrix.image }}
           pull-tag: ${{ env.REF_TAG }}
@@ -462,7 +463,7 @@ jobs:
 
       - name: Deploy QA
         uses: peter-evans/repository-dispatch@v1
-        if: ${{ github.event_name == 'push' }}
+        if: ${{ github.event_name == 'push' ||  github.event_name == 'release'}}
         with:
           token: ${{ secrets.INSPIRE_BOT_TOKEN }}
           repository: inspirehep/kubernetes
