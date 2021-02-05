@@ -29,10 +29,6 @@ outputs:
 runs:
   using: composite
   steps:
-    - name: Pull
-      shell: bash
-      run: docker pull ${{ inputs.image }}
-
     - name: Run
       shell: bash
       run: >
