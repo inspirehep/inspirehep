@@ -7,7 +7,12 @@
     <i class="fa fa-exclamation-triangle warning"></i>
     {{author.get('full_name')}}
   </span>
-  <span *ngIf="author.has('affiliations')">
-    {{author.getIn(['affiliations', 0, 'value'])}}
-  </span>
+  <ng-container *ngIf="author.has('affiliations')">
+    <span>
+      <ng-container *ngFor="let affiliation of author.get('affiliations', []); let i = index">
+        <ng-container *ngIf="i > 0">and </ng-container>
+        {{affiliation.get('value') }}
+      </ng-container>
+    </span>
+  </ng-container>
 </div>
