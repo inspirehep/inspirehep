@@ -43,7 +43,7 @@ def test_hep_rpp_aggregation_and_filter(inspire_app, override_config):
     with override_config(**config):
         data = {"titles": [{"title": "This is my title"}]}
         expected_record = create_record("lit", data)
-        data = {"titles": [{"title": "RPP"}]}
+        data = {"rpp": True}
         create_record("lit", data)
         with inspire_app.test_client() as client:
             response = client.get("/literature/facets").json
