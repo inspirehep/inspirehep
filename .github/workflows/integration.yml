@@ -226,6 +226,15 @@ jobs:
         with:
           ref: ${{ env.REF }}
 
+      - name: Pull images
+        run: >
+          docker pull inspirehep/hep:${{ env.REF_TAG }} &
+          docker pull inspirehep/next:latest &
+          docker pull inspirehep/next-assets:latest &
+          docker pull inspirehep/editor:${{ env.REF_TAG }} &
+          docker pull inspirehep/ui:${{ env.REF_TAG }} &
+          wait
+
       - name: Start hep worker container
         uses: ./.github/actions/docker-start-container
         with:
@@ -295,7 +304,7 @@ jobs:
         with:
           image: inspirehep/ui:${{ env.REF_TAG }}
           name: ui
-          options: --mount type=bind,source=${{ github.workspace }}/ui/docker/nginx/config/local.conf,destination=/etc/nginx/conf.d/default.conf
+          options: --add-host=hep-web:127.0.0.1 --add-host=next-web:127.0.0.1 --add-host=record-editor:127.0.0.1 --mount type=bind,source=${{ github.workspace }}/ui/docker/nginx/config/local.conf,destination=/etc/nginx/conf.d/default.conf
 
       - name: Setup
         run: |
