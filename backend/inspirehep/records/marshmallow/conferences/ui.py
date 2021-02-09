@@ -19,5 +19,5 @@ class ConferencesDetailSchema(ConferencesBaseSchema):
     pass
 
 
-class ConferencesListSchema(ConferencesPublicListSchema):
+class ConferencesListSchema(CatalogerCanEditMixin, ConferencesPublicListSchema):
     pass

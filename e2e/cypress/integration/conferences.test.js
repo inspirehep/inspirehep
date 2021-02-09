@@ -23,10 +23,20 @@ describe('Conference Search', () => {
       cy.waitForSearchResults();
       cy.matchSnapshots('ConferenceSearch');
     });
+
+    it('matches image snapshot for author update when cataloger is logged in', () => {
+      cy.login('cataloger');
+      cy.registerRoute();
+      cy.visit('/conferences?start_date=all');
+      cy.waitForRoute();
+      cy.waitForSearchResults();
+      cy.matchSnapshots('ConferenceSearchByCataloger');
+      cy.logout();
+    });
   });
 });
 
-describe.only('Conference Editor', () => {
+describe('Conference Editor', () => {
   beforeEach(() => {
     cy.login('cataloger');
   });
@@ -51,9 +61,9 @@ describe.only('Conference Editor', () => {
       method: 'PUT',
     });
 
-    cy
-      .get('[data-path="/titles/0/title"]')
-      .type('Updated by Cypress Test{enter}');
+    cy.get('[data-path="/titles/0/title"]').type(
+      'Updated by Cypress Test{enter}'
+    );
     cy.contains('button', 'Save').click();
 
     cy.waitForRoute(RECORD_API);
@@ -161,9 +171,10 @@ describe('Conference Submission', () => {
       field_of_interest: ['Computing'],
     });
     cy.waitForRoute();
-    cy
-      .get('[data-test-id="conferences-exist-alert-number"]')
-      .should('contain.text', '1');
+    cy.get('[data-test-id="conferences-exist-alert-number"]').should(
+      'contain.text',
+      '1'
+    );
   });
 
   afterEach(() => {
