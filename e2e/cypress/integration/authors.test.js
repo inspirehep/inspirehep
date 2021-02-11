@@ -5,6 +5,7 @@ describe('Author Detail', () => {
     it('matches image snapshot', () => {
       cy.registerRoute();
       cy.visit('/authors/1274753?ui-citation-summary=true');
+      cy.waitForLoading();
       cy.waitForRoute();
       cy.waitForSearchResults();
       cy.matchSnapshots('AuthorDetail');
@@ -107,15 +108,13 @@ describe('Author Submission', () => {
       _workflow: { data_type: 'authors' },
     };
     cy.visit('/submissions/authors');
-    cy
-      .testSubmission({
-        collection: 'authors',
-        formData,
-        expectedMetadata,
-      })
-      .then(newWorkflow => {
-        cy.wrap(newWorkflow).should('like', expectedWorkflow);
-      });
+    cy.testSubmission({
+      collection: 'authors',
+      formData,
+      expectedMetadata,
+    }).then((newWorkflow) => {
+      cy.wrap(newWorkflow).should('like', expectedWorkflow);
+    });
   });
 
   it('does not submit a new author with existing orcid [authors/1078577]', () => {
@@ -130,8 +129,7 @@ describe('Author Submission', () => {
     });
     cy.getField('orcid').blur();
     cy.waitForRoute();
-    cy
-      .getFieldError('orcid')
+    cy.getFieldError('orcid')
       .within(() => {
         return cy.get('a');
       })
