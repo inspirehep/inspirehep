@@ -1,4 +1,4 @@
-Cypress.Commands.add('text', { prevSubject: true }, subject => {
+Cypress.Commands.add('text', { prevSubject: true }, (subject) => {
   return subject.text();
 });
 
@@ -27,17 +27,14 @@ Cypress.Commands.add('selectFromDropdown', (dropdownId, option) => {
   const optionSelector = `[data-test-id="${dropdownId}-option-${option}"]`;
   // TODO: instead `first` workaround for sort-by dropdown
   // give id such as `sort-by-{searchNamespace}` to make them unique
-  cy
-    .get(dropdownSelector)
-    .first()
-    .click();
+  cy.get(dropdownSelector).first().click();
   cy.get(optionSelector).click();
 });
 
 Cypress.Commands.add('selectFromSelectBox', (selectBoxId, options) => {
   const selectBoxSelector = `[data-test-id="${selectBoxId}"]`;
   const selectBoxInputSelector = `${selectBoxSelector} input`;
-  cy.get(selectBoxSelector).then($selectBox => {
+  cy.get(selectBoxSelector).then(($selectBox) => {
     const hasSearch = $selectBox.hasClass('ant-select-show-search');
     const isMultiSelect = Array.isArray(options);
     cy.wrap($selectBox).click('topLeft');
@@ -82,7 +79,11 @@ Cypress.Commands.add('requestWorkflow', ({ workflowId }) => {
 });
 
 Cypress.Commands.add('waitForSearchResults', () => {
-  cy
-    .get('[data-test-id="search-results"]', { timeout: 10000 })
-    .should('be.visible');
+  cy.get('[data-test-id="search-results"]', { timeout: 10000 }).should(
+    'be.visible'
+  );
+});
+
+Cypress.Commands.add('waitForLoading', () => {
+  cy.get('[data-test-id="loading"]', { timeout: 10000 }).should('not.exist');
 });
