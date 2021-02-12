@@ -105,6 +105,8 @@ export const coreHep: JsonEditorConfig = {
       'report_numbers',
       'withdrawn',
       '_export_to',
+      'imprints',
+      'keywords',
     ],
     alwaysShowRegExp: new RegExp('value'),
     properties: {
@@ -296,6 +298,9 @@ export const coreHep: JsonEditorConfig = {
         },
       },
       documents: {
+        items: {
+          alwaysShow: ['description', 'material'],
+        },
         titleDropdownItemTemplateNames: ['fileUploadButtonTemplate'],
       },
       dois: {
@@ -315,7 +320,7 @@ export const coreHep: JsonEditorConfig = {
       },
       imprints: {
         items: {
-          alwaysShow: ['date'],
+          alwaysShow: ['publisher', 'place', 'date'],
           order: ['publisher', 'place', 'date'],
         },
       },
@@ -326,7 +331,7 @@ export const coreHep: JsonEditorConfig = {
       },
       keywords: {
         items: {
-          alwaysShow: ['schema'],
+          alwaysShow: ['schema', 'value'],
           properties: {
             value: {
               priority: 1,
@@ -436,6 +441,7 @@ export const coreHep: JsonEditorConfig = {
               priority: 1,
               order: ['label', 'title', 'authors', 'arxiv_eprint'],
               alwaysShow: [
+                'label',
                 'dois',
                 'arxiv_eprint',
                 'publication_info',
@@ -553,6 +559,7 @@ export const coreHep: JsonEditorConfig = {
           },
           institutions: {
             items: {
+              alwaysShow: ['name'],
               properties: {
                 name: {
                   autocompletionConfig: affiliationAutocompletionConfig,
