@@ -1,0 +1,101 @@
+{
+  "$schema": "https://labs.inspirehep.net/schemas/records/institutions.json",
+  "ICN": [
+    "IRFU, Saclay"
+  ],
+  "_collections": [
+    "Institutions"
+  ],
+  "_private_notes": [
+    {
+      "value": "110__t simplified exceptionally (vu Annette)"
+    },
+    {
+      "value": "grid.457342.3 from Springer"
+    },
+    {
+      "value": "L'IRFU appartient à la Direction des Sciences de la Matière du CEA - IRFU belongs to DSM-CEA"
+    }
+  ],
+  "addresses": [
+    {
+      "cities": [
+        "Gif-sur-Yvette"
+      ],
+      "country_code": "FR",
+      "latitude": 48.7209831,
+      "longitude": 2.1221981,
+      "postal_address": [
+        "Bat 141",
+        "F-91191 Gif-sur-Yvette Cedex"
+      ],
+      "postal_code": "91191"
+    }
+  ],
+  "control_number": 912490,
+  "external_system_identifiers": [
+    {
+      "schema": "HAL",
+      "value": "53946"
+    },
+    {
+      "schema": "GRID",
+      "value": "grid.457342.3"
+    },
+    {
+      "schema": "SPIRES",
+      "value": "INST-115541"
+    }
+  ],
+  "historical_data": [
+    "Dapnia (Dept. of Astrophysics, Particle Physics, Nuclear Physics and Instrumentation Associated) changed name into IRFU on 1/1/2009. per angele.sena@cea.fr on 11/15/10"
+  ],
+  "institution_hierarchy": [
+    {
+      "acronym": "IRFU",
+      "name": "Institut de Recherche sur les Lois Fondamentales de l'Univers"
+    },
+    {
+      "acronym": "CEA",
+      "name": "Commissariat à l'Energie Atomique"
+    }
+  ],
+  "institution_type": [
+    "Research Center"
+  ],
+  "legacy_ICN": "IRFU, Saclay",
+  "legacy_creation_date": "2011-02-14",
+  "legacy_version": "20181213160325.0",
+  "name_variants": [
+    {
+      "value": "Institute of Research into the Fundamental Laws of the Universe"
+    },
+    {
+      "value": "DSM/IRFU"
+    }
+  ],
+  "related_records": [
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/institutions/903175"
+      },
+      "relation": "parent"
+    },
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/institutions/1290086"
+      },
+      "relation": "predecessor"
+    }
+  ],
+  "self": {
+    "$ref": "http://labs.inspirehep.net/api/institutions/912490"
+  },
+  "urls": [
+    {
+      "value": "http://irfu.cea.fr/"
+    }
+  ]
+}

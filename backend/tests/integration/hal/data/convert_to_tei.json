@@ -1,0 +1,816 @@
+{
+"$schema": "https://qa.inspirehep.net/schemas/records/hep.json",
+"_collections": [
+"Literature"
+],
+"_desy_bookkeeping": [
+{
+"identifier": "DA16-kp28i"
+},
+{
+"date": "2016-07-07",
+"expert": "U",
+"status": "abs"
+},
+{
+"date": "2016-07-11",
+"expert": "U",
+"status": "printed"
+},
+{
+"date": "2016-10-20",
+"expert": "U",
+"status": "final"
+}
+],
+"_private_notes": [
+{
+"source": "CERN",
+"value": "CDS-2195565"
+}
+],
+"abstracts": [
+{
+"source": "APS",
+"value": "The interference between Cabibbo-favored and Cabibbo-suppressed B→Dπ decay amplitudes provides sensitivity to the CKM angle γ. The relative size of the interfering amplitudes is an important ingredient in the determination of γ. Using branching fractions from various B→Dh decays, and the measured value for rBDK, the magnitude of the amplitude ratio of B+→D0π+ and B+→D¯0π+ decays is estimated to be rBDπ=0.0053±0.0007."
+},
+{
+"source": "arXiv",
+"value": "The interference between Cabibbo-favoured and Cabibbo-suppressed $B\\to D\\pi$ decay amplitudes provides sensitivity to the CKM angle $\\gamma$. The relative size of the interfering amplitudes is an important ingredient in the determination of $\\gamma$. Using branching fractions from various $B\\to Dh$ decays, and the measured value for $r_{B}^{DK}$, the magnitude of the amplitude ratio of $B^+\\to D^0\\pi^+$ and $B^+\\to \\bar{D}^0\\pi^+$ decays is estimated to be $r_{B}^{D\\pi} = 0.0053 \\pm 0.0007$."
+}
+],
+"acquisition_source": {
+"method": "oai",
+"source": "arxiv"
+},
+"arxiv_eprints": [
+{
+"categories": [
+"hep-ph"
+],
+"value": "1606.09129"
+}
+],
+"authors": [
+{
+"affiliations": [
+{
+"record": {
+"$ref": "http://qa.inspirehep.net/api/institutions/902725"
+},
+"value": "CERN"
+}
+],
+"curated_relation": true,
+"full_name": "Kenzie, Matthew",
+"ids": [
+{
+"schema": "INSPIRE BAI",
+"value": "M.Kenzie.1"
+}
+],
+"raw_affiliations": [
+{
+"value": "CERN , Geneva, Switzerland"
+}
+],
+"record": {
+"$ref": "http://qa.inspirehep.net/api/authors/1073117"
+},
+"signature_block": "CANSYm",
+"uuid": "9147d81e-eee5-4920-8148-4029dccdec32"
+},
+{
+"affiliations": [
+{
+"record": {
+"$ref": "http://qa.inspirehep.net/api/institutions/912522"
+},
+"value": "Ecole Polytechnique, Lausanne"
+}
+],
+"full_name": "Martinelli, Maurizio",
+"ids": [
+{
+"schema": "INSPIRE BAI",
+"value": "Maurizio.Martinelli.1"
+}
+],
+"raw_affiliations": [
+{
+"value": "Ecole Polytechnique Fédérale de Lausanne (EPFL) , Lausanne, Switzerland"
+}
+],
+"record": {
+"$ref": "http://qa.inspirehep.net/api/authors/1061000"
+},
+"signature_block": "MARTANALm",
+"uuid": "ad79c8aa-db83-4833-a7d1-5dc505335327"
+},
+{
+"affiliations": [
+{
+"record": {
+"$ref": "http://qa.inspirehep.net/api/institutions/903832"
+},
+"value": "NIKHEF, Amsterdam"
+}
+],
+"full_name": "Tuning, Niels",
+"ids": [
+{
+"schema": "INSPIRE BAI",
+"value": "N.Tuning.2"
+}
+],
+"raw_affiliations": [
+{
+"value": "National institute for subatomic physics (Nikhef) , Amsterdam, The Netherlands"
+}
+],
+"signature_block": "TANANGn",
+"uuid": "1335dad8-b6e9-4be6-9921-a4ec0f31b6c3"
+}
+],
+"citeable": true,
+"control_number": 1472986,
+"copyright": [
+{
+"holder": "authors",
+"material": "publication",
+"year": 2016
+}
+],
+"core": true,
+"curated": true,
+"document_type": [
+"article"
+],
+"documents": [
+{
+"hidden": true,
+"key": "fulltext.xml",
+"source": "APS",
+"url": "https://inspirebeta.net/files/586b6fe6b76425f3d1756c2d8d1afe39"
+},
+{
+"key": "arXiv:1606.09129.pdf",
+"source": "arxiv",
+"url": "https://inspirebeta.net/files/586b6fe6b76425f3d1756c2d8d1afe39"
+},
+{
+"fulltext": true,
+"key": "10.1103_PhysRevD.94.054021.pdf",
+"url": "https://inspirebeta.net/files/586b6fe6b76425f3d1756c2d8d1afe39"
+}
+],
+"dois": [
+{
+"value": "10.1103/PhysRevD.94.054021"
+}
+],
+"external_system_identifiers": [
+{
+"schema": "CDS",
+"value": "2195565"
+}
+],
+"figures": [
+{
+"caption": "\\em (a,b) The color-allowed (tree) ($T$) and color-suppressed ($C$) topologies contributing to $B^+\\to \\bar{D}^0\\pi^+$ amplitude proceeding through $V_{cb}$, and (c,d) the color-suppressed ($C^{ub}$) and annihilation topologies contributing to $B^+\\to D^0\\pi^+$ amplitude proceeding through $V_{ub}$.",
+"key": "fig1a.png",
+"source": "arxiv",
+"url": "https://inspirebeta.net/files/586b6fe6b76425f3d1756c2d8d1afe39"
+},
+{
+"caption": "\\em (a,b) The color-allowed (tree) ($T$) and color-suppressed ($C$) topologies contributing to $B^+\\to \\bar{D}^0\\pi^+$ amplitude proceeding through $V_{cb}$, and (c,d) the color-suppressed ($C^{ub}$) and annihilation topologies contributing to $B^+\\to D^0\\pi^+$ amplitude proceeding through $V_{ub}$.",
+"key": "fig1b.png",
+"source": "arxiv",
+"url": "https://inspirebeta.net/files/586b6fe6b76425f3d1756c2d8d1afe39"
+},
+{
+"caption": "\\em (a,b) The color-allowed (tree) ($T$) and color-suppressed ($C$) topologies contributing to $B^+\\to \\bar{D}^0\\pi^+$ amplitude proceeding through $V_{cb}$, and (c,d) the color-suppressed ($C^{ub}$) and annihilation topologies contributing to $B^+\\to D^0\\pi^+$ amplitude proceeding through $V_{ub}$.",
+"key": "fig1c.png",
+"source": "arxiv",
+"url": "https://inspirebeta.net/files/586b6fe6b76425f3d1756c2d8d1afe39"
+},
+{
+"caption": "\\em (a,b) The color-allowed (tree) ($T$) and color-suppressed ($C$) topologies contributing to $B^+\\to \\bar{D}^0\\pi^+$ amplitude proceeding through $V_{cb}$, and (c,d) the color-suppressed ($C^{ub}$) and annihilation topologies contributing to $B^+\\to D^0\\pi^+$ amplitude proceeding through $V_{ub}$.",
+"key": "fig1d.png",
+"source": "arxiv",
+"url": "https://inspirebeta.net/files/586b6fe6b76425f3d1756c2d8d1afe39"
+}
+],
+"imprints": [
+{
+"date": "2016-09-19"
+}
+],
+"inspire_categories": [
+{
+"term": "Phenomenology-HEP"
+}
+],
+"keywords": [
+{
+"schema": "INSPIRE",
+"value": "B: hadronic decay"
+},
+{
+"schema": "INSPIRE",
+"value": "B: branching ratio"
+},
+{
+"schema": "INSPIRE",
+"value": "CKM matrix"
+},
+{
+"schema": "INSPIRE",
+"value": "symmetry: flavor"
+},
+{
+"schema": "INSPIRE",
+"value": "flavor: SU(3)"
+},
+{
+"schema": "INSPIRE",
+"value": "interference"
+},
+{
+"schema": "INSPIRE",
+"value": "sensitivity"
+},
+{
+"schema": "INSPIRE",
+"value": "numerical calculations"
+},
+{
+"schema": "INSPIRE",
+"value": "LHC-B"
+},
+{
+"schema": "INSPIRE",
+"value": "B+ --> D0 pi+"
+}
+],
+"legacy_creation_date": "2016-06-30",
+"legacy_version": "20170307165937.0",
+"license": [
+{
+"imposing": "arXiv",
+"url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/"
+},
+{
+"license": "Creative Commons Attribution 3.0 License",
+"url": "http://creativecommons.org/licenses/by/3.0/"
+}
+],
+"number_of_pages": 5,
+"preprint_date": "2016-06-29",
+"public_notes": [
+{
+"source": "arXiv",
+"value": "4 pages, 4 figures"
+}
+],
+"publication_info": [
+{
+"artid": "054021",
+"journal_issue": "5",
+"journal_title": "Phys.Rev.D",
+"journal_volume": "94",
+"pubinfo_freetext": "Phys. Rev. D94 (2016) 054021",
+"year": 2016
+}
+],
+"refereed": true,
+"references": [
+{
+"curated_relation": false,
+"record": {
+"$ref": "http://qa.inspirehep.net/api/literature/1340462"
+},
+"reference": {
+"authors": [
+{
+"full_name": "Charles, J."
+}
+],
+"label": "1",
+"misc": [
+"(CKMfitter Collaboration), Current status of the Standard Model CKM fit and constraints on ΔF ¼ 2 New Physics"
+],
+"publication_info": {
+"artid": "073007",
+"journal_title": "Phys.Rev.D",
+"journal_volume": "91",
+"year": 2015
+}
+}
+},
+{
+"curated_relation": false,
+"record": {
+"$ref": "http://qa.inspirehep.net/api/literature/829385"
+},
+"reference": {
+"authors": [
+{
+"full_name": "Bona, M."
+}
+],
+"label": "2",
+"misc": [
+"(UTfit Collaboration), An improved Standard Model prediction of BRðB → τνÞ and its implications for New Physics"
+],
+"publication_info": {
+"artid": "61",
+"journal_title": "Phys.Lett.B",
+"journal_volume": "687",
+"page_start": "61",
+"year": 2010
+}
+}
+},
+{
+"curated_relation": false,
+"record": {
+"$ref": "http://qa.inspirehep.net/api/literature/859147"
+},
+"reference": {
+"authors": [
+{
+"full_name": "del Amo, P."
+}
+],
+"label": "3",
+"misc": [
+"Sanchez et al (BABAR Collaboration), Search for b → u transitions in B- → DK- and DK- decays"
+],
+"publication_info": {
+"artid": "072006",
+"journal_title": "Phys.Rev.D",
+"journal_volume": "82",
+"year": 2010
+}
+}
+},
+{
+"curated_relation": false,
+"record": {
+"$ref": "http://qa.inspirehep.net/api/literature/894464"
+},
+"reference": {
+"authors": [
+{
+"full_name": "Horii, Y."
+}
+],
+"collaborations": [
+"Belle Collaboration"
+],
+"label": "4",
+"misc": [
+"Evidence for the Suppressed Decay B- → DK-, D → Kþπ-"
+],
+"publication_info": {
+"artid": "231803",
+"journal_title": "Phys.Rev.Lett.",
+"journal_volume": "106",
+"year": 2011
+}
+}
+},
+{
+"curated_relation": false,
+"record": {
+"$ref": "http://qa.inspirehep.net/api/literature/1232503"
+},
+"reference": {
+"authors": [
+{
+"full_name": "Aaij, R."
+}
+],
+"label": "5",
+"misc": [
+"(LHCb Collaboration), A measurement of the CKM angle g from a combination of B - Dh analyses"
+],
+"publication_info": {
+"artid": "151",
+"journal_title": "Phys.Lett.B",
+"journal_volume": "726",
+"page_start": "151",
+"year": 2013
+}
+}
+},
+{
+"curated_relation": false,
+"legacy_curated": true,
+"record": {
+"$ref": "http://qa.inspirehep.net/api/literature/1388239"
+},
+"reference": {
+"authors": [
+{
+"full_name": "Aaij, R."
+}
+],
+"label": "6",
+"misc": [
+"(LHCb Collaboration), Report No."
+],
+"publication_info": {
+"year": 2014
+},
+"report_numbers": [
+"LHCb-CONF-2014-004"
+],
+"urls": [
+{
+"value": "https://inspirehep.net/record/1388239?ln=en"
+}
+]
+}
+},
+{
+"curated_relation": false,
+"legacy_curated": true,
+"record": {
+"$ref": "http://qa.inspirehep.net/api/literature/1496635"
+},
+"reference": {
+"authors": [
+{
+"full_name": "Aaij, R."
+}
+],
+"label": "7",
+"misc": [
+"(LHCb Collaboration), Report No."
+],
+"publication_info": {
+"year": 2016
+},
+"report_numbers": [
+"LHCb-PAPER-2016-032"
+]
+}
+},
+{
+"curated_relation": false,
+"record": {
+"$ref": "http://qa.inspirehep.net/api/literature/880979"
+},
+"reference": {
+"authors": [
+{
+"full_name": "Fleischer, R."
+},
+{
+"full_name": "Serra, N."
+},
+{
+"full_name": "Tuning, N."
+}
+],
+"label": "8",
+"misc": [
+"Tests of factorization and SUð3Þ relations in B decays into heavy-light final states"
+],
+"publication_info": {
+"artid": "014017",
+"journal_title": "Phys.Rev.D",
+"journal_volume": "83",
+"year": 2011
+}
+}
+},
+{
+"curated_relation": false,
+"record": {
+"$ref": "http://qa.inspirehep.net/api/literature/1184012"
+},
+"reference": {
+"authors": [
+{
+"full_name": "De Bruyn, K."
+},
+{
+"full_name": "Fleischer, R."
+},
+{
+"full_name": "Knegjens, R."
+},
+{
+"full_name": "Merk, M."
+},
+{
+"full_name": "Schiller, M."
+},
+{
+"full_name": "Tuning, N."
+}
+],
+"label": "9",
+"misc": [
+"Exploring Bs → DðÞ s K∓ decays in the presence of a sizable width difference ΔΓs"
+],
+"publication_info": {
+"artid": "351",
+"journal_title": "Nucl.Phys.B",
+"journal_volume": "868",
+"page_start": "351",
+"year": 2013
+}
+}
+},
+{
+"curated_relation": false,
+"record": {
+"$ref": "http://qa.inspirehep.net/api/literature/1315584"
+},
+"reference": {
+"authors": [
+{
+"full_name": "Olive, K.A."
+}
+],
+"label": "10",
+"misc": [
+"(Particle Data Group), Review of Particle Physics and 2015 update"
+],
+"publication_info": {
+"artid": "090001",
+"journal_title": "Chin.Phys.C",
+"journal_volume": "38",
+"year": 2014
+}
+}
+},
+{
+"curated_relation": false,
+"record": {
+"$ref": "http://qa.inspirehep.net/api/literature/528680"
+},
+"reference": {
+"authors": [
+{
+"full_name": "Beneke, M."
+},
+{
+"full_name": "Buchalla, G."
+},
+{
+"full_name": "Neubert, M."
+},
+{
+"full_name": "Sachrajda, C."
+}
+],
+"label": "11",
+"misc": [
+"QCD factorization for exclusive, non-leptonic B meson decays: General arguments and the case of heavy-light final states"
+],
+"publication_info": {
+"artid": "313",
+"journal_title": "Nucl.Phys.B",
+"journal_volume": "591",
+"page_start": "313",
+"year": 2000
+}
+}
+},
+{
+"curated_relation": false,
+"record": {
+"$ref": "http://qa.inspirehep.net/api/literature/1356283"
+},
+"reference": {
+"authors": [
+{
+"full_name": "Bailey, J.A."
+}
+],
+"imprint": {
+"publisher": "Fermilab"
+},
+"label": "12",
+"misc": [
+"Lattice and MILC Collaborations), jVubj from B → πlν decays and (2 þ 1)-flavor lattice QCD"
+],
+"publication_info": {
+"artid": "014024",
+"journal_title": "Phys.Rev.D",
+"journal_volume": "92",
+"year": 2015
+}
+}
+},
+{
+"curated_relation": false,
+"record": {
+"$ref": "http://qa.inspirehep.net/api/literature/714058"
+},
+"reference": {
+"authors": [
+{
+"full_name": "Aubert, B."
+}
+],
+"label": "13",
+"misc": [
+"(BABAR Collaboration), Measurement of B¯ 0 → DðÞ0K¯ ðÞ0 branching fractions"
+],
+"publication_info": {
+"artid": "031101",
+"journal_title": "Phys.Rev.D",
+"journal_volume": "74",
+"year": 2006
+}
+}
+},
+{
+"curated_relation": false,
+"record": {
+"$ref": "http://qa.inspirehep.net/api/literature/605636"
+},
+"reference": {
+"authors": [
+{
+"full_name": "Krokovny, P."
+}
+],
+"collaborations": [
+"Belle Collaboration"
+],
+"label": "14",
+"misc": [
+"Observation of B¯ 0 → D0K¯ 0 and B¯ 0 → D0K¯ 0 Decays"
+],
+"publication_info": {
+"artid": "141802",
+"journal_title": "Phys.Rev.Lett.",
+"journal_volume": "90",
+"year": 2003
+}
+}
+},
+{
+"curated_relation": false,
+"record": {
+"$ref": "http://qa.inspirehep.net/api/literature/1426694"
+},
+"reference": {
+"authors": [
+{
+"full_name": "Aaij, R."
+}
+],
+"label": "15",
+"misc": [
+"(LHCb Collaboration), Observation of B0 s → D¯ 0K0 S"
+],
+"publication_info": {
+"artid": "161802",
+"journal_title": "Phys.Rev.Lett.",
+"journal_volume": "116",
+"year": 2016
+}
+}
+},
+{
+"curated_relation": false,
+"record": {
+"$ref": "http://qa.inspirehep.net/api/literature/1335499"
+},
+"reference": {
+"authors": [
+{
+"full_name": "Aaij, R."
+}
+],
+"label": "16",
+"misc": [
+"(LHCb Collaboration), Determination of the branching fractions of B0 s → D∓ s K and B0 → D- s Kþ"
+],
+"publication_info": {
+"artid": "019",
+"journal_title": "JHEP",
+"journal_volume": "05",
+"page_start": "019",
+"year": 2015
+}
+}
+},
+{
+"curated_relation": false,
+"record": {
+"$ref": "http://qa.inspirehep.net/api/literature/1189187"
+},
+"reference": {
+"authors": [
+{
+"full_name": "Aaij, R."
+}
+],
+"label": "17",
+"misc": [
+"(LHCb Collaboration), First evidence for the annihilation decay mode Bþ → Dþ s ϕ"
+],
+"publication_info": {
+"artid": "043",
+"journal_title": "JHEP",
+"journal_volume": "02",
+"page_start": "043",
+"year": 2013
+}
+}
+},
+{
+"curated_relation": false,
+"record": {
+"$ref": "http://qa.inspirehep.net/api/literature/1367076"
+},
+"reference": {
+"authors": [
+{
+"full_name": "Bel, L."
+},
+{
+"full_name": "De Bruyn, K."
+},
+{
+"full_name": "Fleischer, R."
+},
+{
+"full_name": "Mulder, M."
+},
+{
+"full_name": "Tuning, N."
+}
+],
+"label": "18",
+"misc": [
+"Anatomy of B → DD¯ decays"
+],
+"publication_info": {
+"artid": "108",
+"journal_title": "JHEP",
+"journal_volume": "07",
+"page_start": "108",
+"year": 2015
+}
+}
+},
+{
+"curated_relation": false,
+"record": {
+"$ref": "http://qa.inspirehep.net/api/literature/1203844"
+},
+"reference": {
+"authors": [
+{
+"full_name": "Gronau, M."
+},
+{
+"full_name": "London, D."
+},
+{
+"full_name": "Rosner, J.L."
+}
+],
+"label": "19",
+"misc": [
+"Rescattering contributions to rare B-meson decays"
+],
+"publication_info": {
+"artid": "036008",
+"journal_title": "Phys.Rev.D",
+"journal_volume": "87",
+"year": 2013
+}
+}
+}
+],
+"self": {
+"$ref": "http://qa.inspirehep.net/api/literature/1472986"
+},
+"texkeys": [
+"Kenzie:2016yee"
+],
+"titles": [
+{
+"title": "Estimating $r_{B}^{D\\pi}$ as an input to the determination of the CKM angle $\\gamma$"
+},
+{
+"source": "arXiv",
+"title": "Estimating $r_{B}^{D\\pi}$ as input to the determination of CKM angle $\\gamma$"
+},
+{
+"source": "arXiv",
+"title": "Estimating $r_{B}^{D\\pi}$ as an input to the determination of the CKM angle $\\gamma$"
+}
+]
+}

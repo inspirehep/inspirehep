@@ -237,7 +237,7 @@ class InspireRecord(Record):
             if deleted:
                 cls.pidstore_handler.delete(id_, data)
 
-            kwargs.pop("disable_orcid_push", None)
+            kwargs.pop("disable_external_push", None)
             kwargs.pop("disable_relations_update", None)
 
             data["self"] = get_ref_from_pid(cls.pid_type, data["control_number"])

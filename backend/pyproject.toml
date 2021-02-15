@@ -92,7 +92,8 @@ fs = "0.5.4"
 invenio-oaiserver = {git = "https://github.com/inspirehep/invenio-oaiserver.git", rev = "5d796cf354467773a7e00b75bc382ba2bf2efef7"}
 invenio-records-rest = {git = "https://github.com/inspirehep/invenio-records-rest.git", rev = "c7db3d3d615ccea56e59f921dff78321beee904a"}
 orjson = "^3.4.6"
-SQLAlchemy-Continuum = { git = "https://github.com/inspirehep/sqlalchemy-continuum.git", rev = "d94d431"}
+sword2 = {git = "https://github.com/inspirehep/python-client-sword2.git", rev = "python3"}
+sqlalchemy-continuum = {git = "https://github.com/inspirehep/sqlalchemy-continuum.git", rev = "d94d431"}
 
 
 [tool.poetry.dev-dependencies]
@@ -158,6 +159,7 @@ inspirehep_assign = "inspirehep.assign.views:blueprint"
 inspirehep_matcher = "inspirehep.matcher.views:blueprint"
 invenio_oaiserver = "invenio_oaiserver.views.server:blueprint"
 inspirehep_curation = "inspirehep.curation.views:blueprint"
+inspirehep_hal = "inspirehep.hal.views:blueprint"
 
 [tool.poetry.plugins."invenio_config.module"]
 inspirehep = "inspirehep.config"
@@ -174,6 +176,7 @@ inspirehep_records = "inspirehep.records.config"
 inspirehep_rt = "inspirehep.rt.config"
 inspirehep_search = "inspirehep.search.config"
 inspirehep_sitemap = "inspirehep.sitemap.config"
+inspirehep_hal = "inspirehep.hal.config"
 
 [tool.poetry.plugins."invenio_base.api_apps"]
 inspirehep_logger = "inspirehep.logger:InspireLogger"
@@ -206,6 +209,7 @@ inspirehep_orcid = "inspirehep.orcid.tasks"
 inspirehep_submissions = "inspirehep.submissions.tasks"
 inspirehep_matcher = "inspirehep.matcher.tasks"
 inspirehep_disambiguation = "inspirehep.disambiguation.tasks"
+inspirehep_hal = "inspirehep.hal.tasks"
 
 [tool.isort]
 profile = "black"

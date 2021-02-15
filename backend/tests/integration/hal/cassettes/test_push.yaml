@@ -1,0 +1,428 @@
+interactions:
+- request:
+    body: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<TEI xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"
+      xsi:schemaLocation=\"http://www.tei-c.org/ns/1.0 http://api.archives-ouvertes.fr/documents/aofr-sword.xsd\"
+      xmlns=\"http://www.tei-c.org/ns/1.0\" xmlns:hal=\"http://hal.archives-ouvertes.fr/\">\n
+      \ <text>\n    <body>\n      <listBibl>\n        <biblFull>\n          \n<notesStmt>\n
+      \ <note type=\"audience\" n=\"2\"/>\n  <note type=\"popular\" n=\"0\"/>\n</notesStmt>\n\n
+      \         \n<sourceDesc>\n  <biblStruct>\n    <analytic>\n      <title>IDeF-X
+      HD: a CMOS ASIC for the readout of Cd(Zn)Te Detectors for space-borne applications</title>\n
+      \     \n      \n      <author role=\"aut\">\n        <persName>\n          <forename
+      type=\"first\">Olivier</forename>\n          <surname>Gevin</surname>\n        </persName>\n
+      \       \n        <affiliation ref=\"#struct-53946\"/>\n        \n      </author>\n
+      \     \n      <author role=\"aut\">\n        <persName>\n          <forename
+      type=\"first\">Francis</forename>\n          <surname>Lugiez</surname>\n        </persName>\n
+      \       \n        <affiliation ref=\"#struct-53946\"/>\n        \n      </author>\n
+      \     \n      <author role=\"aut\">\n        <persName>\n          <forename
+      type=\"first\">Alicja</forename>\n          <surname>Michalowska</surname>\n
+      \       </persName>\n        \n        <affiliation ref=\"#struct-53946\"/>\n
+      \       \n      </author>\n      \n      <author role=\"aut\">\n        <persName>\n
+      \         <forename type=\"first\">Aline</forename>\n          <surname>Meuris</surname>\n
+      \       </persName>\n        \n      </author>\n      \n      <author role=\"aut\">\n
+      \       <persName>\n          <forename type=\"first\">Olivier</forename>\n
+      \         <surname>Limousin</surname>\n        </persName>\n        \n      </author>\n
+      \     \n      <author role=\"aut\">\n        <persName>\n          <forename
+      type=\"first\">Eric</forename>\n          <surname>Delagnes</surname>\n        </persName>\n
+      \       \n        <affiliation ref=\"#struct-53946\"/>\n        \n      </author>\n
+      \     \n      <author role=\"aut\">\n        <persName>\n          <forename
+      type=\"first\">Olivier</forename>\n          <surname>Lemaire</surname>\n        </persName>\n
+      \       \n        <affiliation ref=\"#struct-53946\"/>\n        \n      </author>\n
+      \     \n      <author role=\"aut\">\n        <persName>\n          <forename
+      type=\"first\">Fr\xE9d\xE9ric</forename>\n          <surname>Pinsard</surname>\n
+      \       </persName>\n        \n      </author>\n      \n    </analytic>\n    \n
+      \   <idno type=\"arxiv\">2102.01992</idno>\n    \n    <idno type=\"inspire\">1844620</idno>\n
+      \ </biblStruct>\n</sourceDesc>\n\n          \n<profileDesc>\n  <langUsage>\n
+      \   <language ident=\"en\"/>\n  </langUsage>\n  <textClass>\n    \n    \n    <classCode
+      scheme=\"halDomain\" n=\"phys.phys.phys-ins-det\"></classCode>\n    \n    <classCode
+      scheme=\"halTypology\" n=\"UNDEFINED\"></classCode>\n  </textClass>\n  \n  <abstract
+      xml:lang=\"en\">IDeF-X HD is a 32-channel analog front-end with self-triggering
+      capability optimized for the readout of 16 x 16 pixels CdTe or CdZnTe pixelated
+      detectors to build low power micro gamma camera. IDeF-X HD has been designed
+      in the standard AMS CMOS 0.35 microns process technology. Its power consumption
+      is 800 micro watt per channel. The dynamic range of the ASIC can be extended
+      to 1.1 MeV thanks to the in-channel adjustable gain stage. When no detector
+      is connected to the chip and without input current, a 33 electrons rms ENC level
+      is achieved after shaping with 10.7 micro seconds peak time. Spectroscopy measurements
+      have been performed with CdTe Schottky detectors. We measured an energy resolution
+      of 4.2 keV FWHM at 667 keV (137-Cs) on a mono-pixel configuration. Meanwhile,
+      we also measured 562 eV and 666 eV FWHM at 14 keV and 60 keV respectively (241-Am)
+      with a 256 small pixel array and a low detection threshold of 1.2 keV. Since
+      IDeF-X HD is intended for space-borne applications in astrophysics, we evaluated
+      its radiation tolerance and its sensitivity to single event effects. We demonstrated
+      that the ASIC remained fully functional without significant degradation of its
+      performances after 200 krad and that no single event latch-up was detected putting
+      the Linear Energy Transfer threshold above 110 MeV/(mg/cm2). Good noise performance
+      and radiation tolerance make the chip well suited for X-rays energy discrimination
+      and high-energy resolution. The chip is space qualified and flies on board the
+      Solar Orbiter ESA mission launched in 2020.</abstract>\n  \n  \n</profileDesc>\n\n
+      \       </biblFull>\n      </listBibl>\n    </body>\n  </text>\n</TEI>"
+    headers:
+      accept-encoding:
+      - gzip, deflate
+      content-disposition:
+      - attachment; filename=meta.xml
+      content-length:
+      - '4457'
+      content-md5:
+      - ac83ae123b3d5345137f1d36bbbf4ef6
+      content-type:
+      - text/xml
+      in-progress:
+      - 'false'
+      packaging:
+      - http://purl.org/net/sword-types/AOfr
+    method: POST
+    uri: https://api-preprod.archives-ouvertes.fr/sword/hal
+  response:
+    body:
+      string: ''
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Content-Length:
+      - '0'
+      Content-Type:
+      - text/html; charset=UTF-8
+      Date:
+      - Wed, 03 Mar 2021 14:01:55 GMT
+      Server:
+      - Apache
+      Strict-Transport-Security:
+      - max-age=15768000
+      WWW-Authenticate:
+      - Basic realm="SWORD"
+      X-Content-Type-Options:
+      - nosniff
+    status:
+      code: 401
+      message: Unauthorized
+- request:
+    body: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<TEI xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"
+      xsi:schemaLocation=\"http://www.tei-c.org/ns/1.0 http://api.archives-ouvertes.fr/documents/aofr-sword.xsd\"
+      xmlns=\"http://www.tei-c.org/ns/1.0\" xmlns:hal=\"http://hal.archives-ouvertes.fr/\">\n
+      \ <text>\n    <body>\n      <listBibl>\n        <biblFull>\n          \n<notesStmt>\n
+      \ <note type=\"audience\" n=\"2\"/>\n  <note type=\"popular\" n=\"0\"/>\n</notesStmt>\n\n
+      \         \n<sourceDesc>\n  <biblStruct>\n    <analytic>\n      <title>IDeF-X
+      HD: a CMOS ASIC for the readout of Cd(Zn)Te Detectors for space-borne applications</title>\n
+      \     \n      \n      <author role=\"aut\">\n        <persName>\n          <forename
+      type=\"first\">Olivier</forename>\n          <surname>Gevin</surname>\n        </persName>\n
+      \       \n        <affiliation ref=\"#struct-53946\"/>\n        \n      </author>\n
+      \     \n      <author role=\"aut\">\n        <persName>\n          <forename
+      type=\"first\">Francis</forename>\n          <surname>Lugiez</surname>\n        </persName>\n
+      \       \n        <affiliation ref=\"#struct-53946\"/>\n        \n      </author>\n
+      \     \n      <author role=\"aut\">\n        <persName>\n          <forename
+      type=\"first\">Alicja</forename>\n          <surname>Michalowska</surname>\n
+      \       </persName>\n        \n        <affiliation ref=\"#struct-53946\"/>\n
+      \       \n      </author>\n      \n      <author role=\"aut\">\n        <persName>\n
+      \         <forename type=\"first\">Aline</forename>\n          <surname>Meuris</surname>\n
+      \       </persName>\n        \n      </author>\n      \n      <author role=\"aut\">\n
+      \       <persName>\n          <forename type=\"first\">Olivier</forename>\n
+      \         <surname>Limousin</surname>\n        </persName>\n        \n      </author>\n
+      \     \n      <author role=\"aut\">\n        <persName>\n          <forename
+      type=\"first\">Eric</forename>\n          <surname>Delagnes</surname>\n        </persName>\n
+      \       \n        <affiliation ref=\"#struct-53946\"/>\n        \n      </author>\n
+      \     \n      <author role=\"aut\">\n        <persName>\n          <forename
+      type=\"first\">Olivier</forename>\n          <surname>Lemaire</surname>\n        </persName>\n
+      \       \n        <affiliation ref=\"#struct-53946\"/>\n        \n      </author>\n
+      \     \n      <author role=\"aut\">\n        <persName>\n          <forename
+      type=\"first\">Fr\xE9d\xE9ric</forename>\n          <surname>Pinsard</surname>\n
+      \       </persName>\n        \n      </author>\n      \n    </analytic>\n    \n
+      \   <idno type=\"arxiv\">2102.01992</idno>\n    \n    <idno type=\"inspire\">1844620</idno>\n
+      \ </biblStruct>\n</sourceDesc>\n\n          \n<profileDesc>\n  <langUsage>\n
+      \   <language ident=\"en\"/>\n  </langUsage>\n  <textClass>\n    \n    \n    <classCode
+      scheme=\"halDomain\" n=\"phys.phys.phys-ins-det\"></classCode>\n    \n    <classCode
+      scheme=\"halTypology\" n=\"UNDEFINED\"></classCode>\n  </textClass>\n  \n  <abstract
+      xml:lang=\"en\">IDeF-X HD is a 32-channel analog front-end with self-triggering
+      capability optimized for the readout of 16 x 16 pixels CdTe or CdZnTe pixelated
+      detectors to build low power micro gamma camera. IDeF-X HD has been designed
+      in the standard AMS CMOS 0.35 microns process technology. Its power consumption
+      is 800 micro watt per channel. The dynamic range of the ASIC can be extended
+      to 1.1 MeV thanks to the in-channel adjustable gain stage. When no detector
+      is connected to the chip and without input current, a 33 electrons rms ENC level
+      is achieved after shaping with 10.7 micro seconds peak time. Spectroscopy measurements
+      have been performed with CdTe Schottky detectors. We measured an energy resolution
+      of 4.2 keV FWHM at 667 keV (137-Cs) on a mono-pixel configuration. Meanwhile,
+      we also measured 562 eV and 666 eV FWHM at 14 keV and 60 keV respectively (241-Am)
+      with a 256 small pixel array and a low detection threshold of 1.2 keV. Since
+      IDeF-X HD is intended for space-borne applications in astrophysics, we evaluated
+      its radiation tolerance and its sensitivity to single event effects. We demonstrated
+      that the ASIC remained fully functional without significant degradation of its
+      performances after 200 krad and that no single event latch-up was detected putting
+      the Linear Energy Transfer threshold above 110 MeV/(mg/cm2). Good noise performance
+      and radiation tolerance make the chip well suited for X-rays energy discrimination
+      and high-energy resolution. The chip is space qualified and flies on board the
+      Solar Orbiter ESA mission launched in 2020.</abstract>\n  \n  \n</profileDesc>\n\n
+      \       </biblFull>\n      </listBibl>\n    </body>\n  </text>\n</TEI>"
+    headers:
+      accept-encoding:
+      - gzip, deflate
+      content-disposition:
+      - attachment; filename=meta.xml
+      content-length:
+      - '4457'
+      content-md5:
+      - ac83ae123b3d5345137f1d36bbbf4ef6
+      content-type:
+      - text/xml
+      in-progress:
+      - 'false'
+      packaging:
+      - http://purl.org/net/sword-types/AOfr
+    method: POST
+    uri: https://api-preprod.archives-ouvertes.fr/sword/hal
+  response:
+    body:
+      string: "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<entry xmlns=\"http://www.w3.org/2005/Atom\"
+        xmlns:sword=\"http://purl.org/net/sword/terms/\" xmlns:dcterms=\"http://purl.org/dc/terms/\"
+        xmlns:hal=\"http://hal.archives-ouvertes.fr/\">\n  <title>Accepted media deposit
+        to HAL</title>\n  <id>hal-02522133</id>\n  <hal:password><![CDATA[bz76eg&]]></hal:password>\n
+        \ <hal:version>1</hal:version>\n  <updated>2021-03-03T15:01:56+01:00</updated>\n
+        \ <summary>A media deposit was stored in the HAL workspace</summary>\n  <sword:treatment>stored
+        in HAL workspace</sword:treatment>\n  <sword:userAgent>HAL SWORD API Server</sword:userAgent>\n
+        \ <source>\n    <generator uri=\"https://api-preprod.archives-ouvertes.fr/sword\"
+        version=\"1.0\">hal@ccsd.cnrs.fr</generator>\n  </source>\n  <link rel=\"alternate\"
+        href=\"https://hal.halpreprod.archives-ouvertes.fr/hal-02522133\"/>\n</entry>\n"
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-store, no-cache, must-revalidate
+      Content-Length:
+      - '838'
+      Content-Type:
+      - application/atom+xml
+      Date:
+      - Wed, 03 Mar 2021 14:01:55 GMT
+      Expires:
+      - Thu, 19 Nov 1981 08:52:00 GMT
+      Location:
+      - https://hal.halpreprod.archives-ouvertes.fr/hal-02522133
+      Pragma:
+      - no-cache
+      Server:
+      - Apache
+      Set-Cookie:
+      - PHPSESSID=hcvstoh9unle2qkg19cl54o54n; path=/
+      Strict-Transport-Security:
+      - max-age=15768000
+      X-Content-Type-Options:
+      - nosniff
+    status:
+      code: 202
+      message: Accepted
+- request:
+    body: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<TEI xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"
+      xsi:schemaLocation=\"http://www.tei-c.org/ns/1.0 http://api.archives-ouvertes.fr/documents/aofr-sword.xsd\"
+      xmlns=\"http://www.tei-c.org/ns/1.0\" xmlns:hal=\"http://hal.archives-ouvertes.fr/\">\n
+      \ <text>\n    <body>\n      <listBibl>\n        <biblFull>\n          \n<notesStmt>\n
+      \ <note type=\"audience\" n=\"2\"/>\n  <note type=\"popular\" n=\"0\"/>\n</notesStmt>\n\n
+      \         \n<sourceDesc>\n  <biblStruct>\n    <analytic>\n      <title>IDeF-X
+      HD: a CMOS ASIC for the readout of Cd(Zn)Te Detectors for space-borne applications</title>\n
+      \     \n      \n      <author role=\"aut\">\n        <persName>\n          <forename
+      type=\"first\">Olivier</forename>\n          <surname>Gevin</surname>\n        </persName>\n
+      \       \n        <affiliation ref=\"#struct-53946\"/>\n        \n      </author>\n
+      \     \n      <author role=\"aut\">\n        <persName>\n          <forename
+      type=\"first\">Francis</forename>\n          <surname>Lugiez</surname>\n        </persName>\n
+      \       \n        <affiliation ref=\"#struct-53946\"/>\n        \n      </author>\n
+      \     \n      <author role=\"aut\">\n        <persName>\n          <forename
+      type=\"first\">Alicja</forename>\n          <surname>Michalowska</surname>\n
+      \       </persName>\n        \n        <affiliation ref=\"#struct-53946\"/>\n
+      \       \n      </author>\n      \n      <author role=\"aut\">\n        <persName>\n
+      \         <forename type=\"first\">Aline</forename>\n          <surname>Meuris</surname>\n
+      \       </persName>\n        \n      </author>\n      \n      <author role=\"aut\">\n
+      \       <persName>\n          <forename type=\"first\">Olivier</forename>\n
+      \         <surname>Limousin</surname>\n        </persName>\n        \n      </author>\n
+      \     \n      <author role=\"aut\">\n        <persName>\n          <forename
+      type=\"first\">Eric</forename>\n          <surname>Delagnes</surname>\n        </persName>\n
+      \       \n        <affiliation ref=\"#struct-53946\"/>\n        \n      </author>\n
+      \     \n      <author role=\"aut\">\n        <persName>\n          <forename
+      type=\"first\">Olivier</forename>\n          <surname>Lemaire</surname>\n        </persName>\n
+      \       \n        <affiliation ref=\"#struct-53946\"/>\n        \n      </author>\n
+      \     \n      <author role=\"aut\">\n        <persName>\n          <forename
+      type=\"first\">Fr\xE9d\xE9ric</forename>\n          <surname>Pinsard</surname>\n
+      \       </persName>\n        \n      </author>\n      \n    </analytic>\n    \n
+      \   <idno type=\"arxiv\">2102.01992</idno>\n    \n    <idno type=\"inspire\">1844620</idno>\n
+      \ </biblStruct>\n</sourceDesc>\n\n          \n<profileDesc>\n  <langUsage>\n
+      \   <language ident=\"en\"/>\n  </langUsage>\n  <textClass>\n    \n    \n    <classCode
+      scheme=\"halDomain\" n=\"phys.phys.phys-ins-det\"></classCode>\n    \n    <classCode
+      scheme=\"halTypology\" n=\"UNDEFINED\"></classCode>\n  </textClass>\n  \n  <abstract
+      xml:lang=\"en\">IDeF-X HD is a 32-channel analog front-end with self-triggering
+      capability optimized for the readout of 16 x 16 pixels CdTe or CdZnTe pixelated
+      detectors to build low power micro gamma camera. IDeF-X HD has been designed
+      in the standard AMS CMOS 0.35 microns process technology. Its power consumption
+      is 800 micro watt per channel. The dynamic range of the ASIC can be extended
+      to 1.1 MeV thanks to the in-channel adjustable gain stage. When no detector
+      is connected to the chip and without input current, a 33 electrons rms ENC level
+      is achieved after shaping with 10.7 micro seconds peak time. Spectroscopy measurements
+      have been performed with CdTe Schottky detectors. We measured an energy resolution
+      of 4.2 keV FWHM at 667 keV (137-Cs) on a mono-pixel configuration. Meanwhile,
+      we also measured 562 eV and 666 eV FWHM at 14 keV and 60 keV respectively (241-Am)
+      with a 256 small pixel array and a low detection threshold of 1.2 keV. Since
+      IDeF-X HD is intended for space-borne applications in astrophysics, we evaluated
+      its radiation tolerance and its sensitivity to single event effects. We demonstrated
+      that the ASIC remained fully functional without significant degradation of its
+      performances after 200 krad and that no single event latch-up was detected putting
+      the Linear Energy Transfer threshold above 110 MeV/(mg/cm2). Good noise performance
+      and radiation tolerance make the chip well suited for X-rays energy discrimination
+      and high-energy resolution. The chip is space qualified and flies on board the
+      Solar Orbiter ESA mission launched in 2020.</abstract>\n  \n  \n</profileDesc>\n\n
+      \       </biblFull>\n      </listBibl>\n    </body>\n  </text>\n</TEI>"
+    headers:
+      accept-encoding:
+      - gzip, deflate
+      content-disposition:
+      - attachment; filename=meta.xml
+      content-length:
+      - '4457'
+      content-md5:
+      - ac83ae123b3d5345137f1d36bbbf4ef6
+      content-type:
+      - text/xml
+      in-progress:
+      - 'false'
+      metadata-relevant:
+      - 'false'
+      packaging:
+      - http://purl.org/net/sword-types/AOfr
+    method: PUT
+    uri: https://api-preprod.archives-ouvertes.fr/sword/hal-02522133
+  response:
+    body:
+      string: ''
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Content-Length:
+      - '0'
+      Content-Type:
+      - text/html; charset=UTF-8
+      Date:
+      - Wed, 03 Mar 2021 14:56:35 GMT
+      Server:
+      - Apache
+      Strict-Transport-Security:
+      - max-age=15768000
+      WWW-Authenticate:
+      - Basic realm="SWORD"
+      X-Content-Type-Options:
+      - nosniff
+    status:
+      code: 401
+      message: Unauthorized
+- request:
+    body: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<TEI xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"
+      xsi:schemaLocation=\"http://www.tei-c.org/ns/1.0 http://api.archives-ouvertes.fr/documents/aofr-sword.xsd\"
+      xmlns=\"http://www.tei-c.org/ns/1.0\" xmlns:hal=\"http://hal.archives-ouvertes.fr/\">\n
+      \ <text>\n    <body>\n      <listBibl>\n        <biblFull>\n          \n<notesStmt>\n
+      \ <note type=\"audience\" n=\"2\"/>\n  <note type=\"popular\" n=\"0\"/>\n</notesStmt>\n\n
+      \         \n<sourceDesc>\n  <biblStruct>\n    <analytic>\n      <title>IDeF-X
+      HD: a CMOS ASIC for the readout of Cd(Zn)Te Detectors for space-borne applications</title>\n
+      \     \n      \n      <author role=\"aut\">\n        <persName>\n          <forename
+      type=\"first\">Olivier</forename>\n          <surname>Gevin</surname>\n        </persName>\n
+      \       \n        <affiliation ref=\"#struct-53946\"/>\n        \n      </author>\n
+      \     \n      <author role=\"aut\">\n        <persName>\n          <forename
+      type=\"first\">Francis</forename>\n          <surname>Lugiez</surname>\n        </persName>\n
+      \       \n        <affiliation ref=\"#struct-53946\"/>\n        \n      </author>\n
+      \     \n      <author role=\"aut\">\n        <persName>\n          <forename
+      type=\"first\">Alicja</forename>\n          <surname>Michalowska</surname>\n
+      \       </persName>\n        \n        <affiliation ref=\"#struct-53946\"/>\n
+      \       \n      </author>\n      \n      <author role=\"aut\">\n        <persName>\n
+      \         <forename type=\"first\">Aline</forename>\n          <surname>Meuris</surname>\n
+      \       </persName>\n        \n      </author>\n      \n      <author role=\"aut\">\n
+      \       <persName>\n          <forename type=\"first\">Olivier</forename>\n
+      \         <surname>Limousin</surname>\n        </persName>\n        \n      </author>\n
+      \     \n      <author role=\"aut\">\n        <persName>\n          <forename
+      type=\"first\">Eric</forename>\n          <surname>Delagnes</surname>\n        </persName>\n
+      \       \n        <affiliation ref=\"#struct-53946\"/>\n        \n      </author>\n
+      \     \n      <author role=\"aut\">\n        <persName>\n          <forename
+      type=\"first\">Olivier</forename>\n          <surname>Lemaire</surname>\n        </persName>\n
+      \       \n        <affiliation ref=\"#struct-53946\"/>\n        \n      </author>\n
+      \     \n      <author role=\"aut\">\n        <persName>\n          <forename
+      type=\"first\">Fr\xE9d\xE9ric</forename>\n          <surname>Pinsard</surname>\n
+      \       </persName>\n        \n      </author>\n      \n    </analytic>\n    \n
+      \   <idno type=\"arxiv\">2102.01992</idno>\n    \n    <idno type=\"inspire\">1844620</idno>\n
+      \ </biblStruct>\n</sourceDesc>\n\n          \n<profileDesc>\n  <langUsage>\n
+      \   <language ident=\"en\"/>\n  </langUsage>\n  <textClass>\n    \n    \n    <classCode
+      scheme=\"halDomain\" n=\"phys.phys.phys-ins-det\"></classCode>\n    \n    <classCode
+      scheme=\"halTypology\" n=\"UNDEFINED\"></classCode>\n  </textClass>\n  \n  <abstract
+      xml:lang=\"en\">IDeF-X HD is a 32-channel analog front-end with self-triggering
+      capability optimized for the readout of 16 x 16 pixels CdTe or CdZnTe pixelated
+      detectors to build low power micro gamma camera. IDeF-X HD has been designed
+      in the standard AMS CMOS 0.35 microns process technology. Its power consumption
+      is 800 micro watt per channel. The dynamic range of the ASIC can be extended
+      to 1.1 MeV thanks to the in-channel adjustable gain stage. When no detector
+      is connected to the chip and without input current, a 33 electrons rms ENC level
+      is achieved after shaping with 10.7 micro seconds peak time. Spectroscopy measurements
+      have been performed with CdTe Schottky detectors. We measured an energy resolution
+      of 4.2 keV FWHM at 667 keV (137-Cs) on a mono-pixel configuration. Meanwhile,
+      we also measured 562 eV and 666 eV FWHM at 14 keV and 60 keV respectively (241-Am)
+      with a 256 small pixel array and a low detection threshold of 1.2 keV. Since
+      IDeF-X HD is intended for space-borne applications in astrophysics, we evaluated
+      its radiation tolerance and its sensitivity to single event effects. We demonstrated
+      that the ASIC remained fully functional without significant degradation of its
+      performances after 200 krad and that no single event latch-up was detected putting
+      the Linear Energy Transfer threshold above 110 MeV/(mg/cm2). Good noise performance
+      and radiation tolerance make the chip well suited for X-rays energy discrimination
+      and high-energy resolution. The chip is space qualified and flies on board the
+      Solar Orbiter ESA mission launched in 2020.</abstract>\n  \n  \n</profileDesc>\n\n
+      \       </biblFull>\n      </listBibl>\n    </body>\n  </text>\n</TEI>"
+    headers:
+      accept-encoding:
+      - gzip, deflate
+      content-disposition:
+      - attachment; filename=meta.xml
+      content-length:
+      - '4457'
+      content-md5:
+      - ac83ae123b3d5345137f1d36bbbf4ef6
+      content-type:
+      - text/xml
+      in-progress:
+      - 'false'
+      metadata-relevant:
+      - 'false'
+      packaging:
+      - http://purl.org/net/sword-types/AOfr
+    method: PUT
+    uri: https://api-preprod.archives-ouvertes.fr/sword/hal-02522133
+  response:
+    body:
+      string: "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<entry xmlns=\"http://www.w3.org/2005/Atom\"
+        xmlns:sword=\"http://purl.org/net/sword/terms/\" xmlns:dcterms=\"http://purl.org/dc/terms/\"
+        xmlns:hal=\"http://hal.archives-ouvertes.fr/\">\n  <title>Accepted media deposit
+        to HAL</title>\n  <id>hal-02522133</id>\n  <hal:password><![CDATA[bz76eg&]]></hal:password>\n
+        \ <hal:version>1</hal:version>\n  <updated>2021-03-03T16:03:13+01:00</updated>\n
+        \ <summary>A media deposit was stored in the HAL workspace</summary>\n  <sword:treatment>stored
+        in HAL workspace</sword:treatment>\n  <sword:userAgent>HAL SWORD API Server</sword:userAgent>\n
+        \ <source>\n    <generator uri=\"https://api-preprod.archives-ouvertes.fr/sword\"
+        version=\"1.0\">hal@ccsd.cnrs.fr</generator>\n  </source>\n  <link rel=\"alternate\"
+        href=\"https://hal.halpreprod.archives-ouvertes.fr/hal-02522133\"/>\n</entry>\n"
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-store, no-cache, must-revalidate
+      Content-Length:
+      - '838'
+      Content-Type:
+      - application/atom+xml
+      Date:
+      - Wed, 03 Mar 2021 15:03:13 GMT
+      Expires:
+      - Thu, 19 Nov 1981 08:52:00 GMT
+      Location:
+      - https://hal.halpreprod.archives-ouvertes.fr/hal-02522133
+      Pragma:
+      - no-cache
+      Server:
+      - Apache
+      Set-Cookie:
+      - PHPSESSID=8vi47g4e3r4fb10dfapaqp8qhr; path=/
+      Strict-Transport-Security:
+      - max-age=15768000
+      X-Content-Type-Options:
+      - nosniff
+    status:
+      code: 200
+      message: OK
+version: 1

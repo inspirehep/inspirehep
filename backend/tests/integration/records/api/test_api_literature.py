@@ -665,7 +665,7 @@ def test_record_create_not_run_orcid_when_passed_parameter_to_disable_orcid(
     orcid_mock, inspire_app
 ):
     data1 = faker.record("lit")
-    record1 = InspireRecord.create(data1, disable_orcid_push=True)
+    record1 = InspireRecord.create(data1, disable_external_push=True)
     assert orcid_mock.call_count == 0
 
 
@@ -700,9 +700,9 @@ def test_record_update_not_run_orcid_when_passed_parameter_to_disable_orcid(
 ):
     data1 = faker.record("lit")
     data2 = faker.record("lit")
-    record1 = InspireRecord.create(data1, disable_orcid_push=True)
+    record1 = InspireRecord.create(data1, disable_external_push=True)
     data2["control_number"] = record1["control_number"]
-    record1.update(data2, disable_orcid_push=True)
+    record1.update(data2, disable_external_push=True)
     assert orcid_mock.call_count == 0
 
 

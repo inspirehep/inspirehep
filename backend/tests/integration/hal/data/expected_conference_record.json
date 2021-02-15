@@ -1,0 +1,71 @@
+{
+   "$schema":"https://labs.inspirehep.net/schemas/records/conferences.json",
+   "_collections":[
+      "Conferences"
+   ],
+   "acronyms":[
+      "LEAP 2018"
+   ],
+   "alternative_titles":[
+      {
+         "title":"LEAP2018"
+      }
+   ],
+   "closing_date":"2018-03-16",
+   "cnum":"C18-03-12.1",
+   "contact_details":[
+      {
+         "email":"LEAP2018-adm@lkb.upmc.fr",
+         "name":"Paul Indelicato"
+      }
+   ],
+   "control_number":972464,
+   "deleted":false,
+   "inspire_categories":[
+      {
+         "term":"Accelerators"
+      },
+      {
+         "term":"Astrophysics"
+      },
+      {
+         "term":"Experiment-HEP"
+      },
+      {
+         "term":"Experiment-Nucl"
+      },
+      {
+         "term":"Gravitation and Cosmology"
+      },
+      {
+         "term":"Other"
+      }
+   ],
+   "legacy_creation_date":"2018-01-05",
+   "legacy_version":"20180523081820.0",
+   "opening_date":"2018-03-12",
+   "public_notes":[
+      {
+         "value":"Will be published in: Hyperfine Interactions"
+      }
+   ],
+   "series":[
+      {
+         "name":"LEAP",
+         "number":13
+      }
+   ],
+   "short_description":{
+      "value":"The 13th Low Energy Antiproton (LEAP) Conference will be held in Paris from Mars 12th to March 16th, 2018 at the University Pierre and Marie Curie in Paris The LEAP conference is held every two or three years since 1990 to discuss the latest findings and exchange information in the interdisciplinary fields with low energy antiprotons. Conference topics  Antihydrogen Probing the Standard Model and Fundamental Symmetries Gravity and Antimatter Matter-Antimatter interactions Hadron and Nuclear Physics with Antiprotons Exotic Atoms Antimatter in the Universe Strangeness in Meson and Baryon Systems New Techniques, Instrumentation and Facilities Applications of Antiprotons"
+   },
+   "titles":[
+      {
+         "title":"13th International Conference on Low Energy Antiproton Physics"
+      }
+   ],
+   "urls":[
+      {
+         "value":"http://leap2018.lkb.upmc.fr/"
+      }
+   ]
+}

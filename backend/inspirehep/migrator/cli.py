@@ -127,7 +127,7 @@ def mirror(also_migrate=None, force=False, wait=False):
     By default, only records that have not been migrated yet are migrated.
     """
     halt_if_debug_mode(force=force)
-    task = migrate_from_mirror(also_migrate=also_migrate, disable_orcid_push=True)
+    task = migrate_from_mirror(also_migrate=also_migrate, disable_external_push=True)
     if wait:
         wait_for_all_tasks(task)
 
