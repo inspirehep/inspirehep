@@ -1,0 +1,852 @@
+{
+    "self": {
+        "$ref": "https://inspirebeta.net/api/literature/1844620"
+    },
+    "urls": [
+        {
+            "value": "http://old.inspirehep.net/record/1844620/files/2102.01992.pdf",
+            "description": "Fulltext"
+        }
+    ],
+    "titles": [
+        {
+            "title": "IDeF-X HD: a CMOS ASIC for the readout of Cd(Zn)Te Detectors for space-borne applications",
+            "source": "arXiv"
+        }
+    ],
+    "$schema": "https://inspirebeta.net/schemas/records/hep.json",
+    "authors": [
+        {
+            "ids": [
+                {
+                    "value": "O.Gevin.2",
+                    "schema": "INSPIRE BAI"
+                }
+            ],
+            "uuid": "de77163f-4869-4259-bd8c-828eb9a3ce57",
+            "full_name": "Gevin, Olivier",
+            "affiliations": [
+                {
+                    "value": "IRFU, Saclay",
+                    "record": {
+                        "$ref": "https://inspirebeta.net/api/institutions/912490"
+                    }
+                }
+            ],
+            "signature_block": "GAFANo"
+        },
+        {
+            "ids": [
+                {
+                    "value": "F.Lugiez.1",
+                    "schema": "INSPIRE BAI"
+                }
+            ],
+            "uuid": "81f3fb9f-4fd2-417c-a8b6-834c0078b419",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/authors/999609"
+            },
+            "full_name": "Lugiez, Francis",
+            "affiliations": [
+                {
+                    "value": "IRFU, Saclay",
+                    "record": {
+                        "$ref": "https://inspirebeta.net/api/institutions/912490"
+                    }
+                }
+            ],
+            "signature_block": "LAGYf"
+        },
+        {
+            "ids": [
+                {
+                    "value": "A.Michalowska.2",
+                    "schema": "INSPIRE BAI"
+                }
+            ],
+            "uuid": "2736f4fb-0891-4709-82a0-c2bbaa847928",
+            "full_name": "Michalowska, Alicja",
+            "affiliations": [
+                {
+                    "value": "IRFU, Saclay",
+                    "record": {
+                        "$ref": "https://inspirebeta.net/api/institutions/912490"
+                    }
+                }
+            ],
+            "signature_block": "MACALASCa"
+        },
+        {
+            "ids": [
+                {
+                    "value": "A.Meuris.2",
+                    "schema": "INSPIRE BAI"
+                }
+            ],
+            "uuid": "1a0211f8-9ab1-4df0-9705-243a7270cbc1",
+            "full_name": "Meuris, Aline",
+            "affiliations": [
+                {
+                    "value": "AIM, Saclay",
+                    "record": {
+                        "$ref": "https://inspirebeta.net/api/institutions/912476"
+                    }
+                }
+            ],
+            "signature_block": "MARa"
+        },
+        {
+            "ids": [
+                {
+                    "value": "O.O.Limousin.1",
+                    "schema": "INSPIRE BAI"
+                }
+            ],
+            "uuid": "49f6bdad-018f-4a97-9f5a-85f07ad671d5",
+            "full_name": "Limousin, Olivier",
+            "affiliations": [
+                {
+                    "value": "AIM, Saclay",
+                    "record": {
+                        "$ref": "https://inspirebeta.net/api/institutions/912476"
+                    }
+                }
+            ],
+            "signature_block": "LANASANo"
+        },
+        {
+            "ids": [
+                {
+                    "value": "E.Delagnes.1",
+                    "schema": "INSPIRE BAI"
+                }
+            ],
+            "uuid": "4b2a68ed-e475-4bc9-9763-71ac16149025",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/authors/1012144"
+            },
+            "full_name": "Delagnes, Eric",
+            "affiliations": [
+                {
+                    "value": "IRFU, Saclay",
+                    "record": {
+                        "$ref": "https://inspirebeta.net/api/institutions/912490"
+                    }
+                }
+            ],
+            "signature_block": "DALAGNe"
+        },
+        {
+            "ids": [
+                {
+                    "value": "J.L.LeMaire.2",
+                    "schema": "INSPIRE BAI"
+                }
+            ],
+            "uuid": "50704a66-a05e-48f6-bbd7-65b5f34e3725",
+            "full_name": "Lemaire, Olivier",
+            "affiliations": [
+                {
+                    "value": "IRFU, Saclay",
+                    "record": {
+                        "$ref": "https://inspirebeta.net/api/institutions/912490"
+                    }
+                }
+            ],
+            "signature_block": "LANARo"
+        },
+        {
+            "ids": [
+                {
+                    "value": "F.Pinsard.2",
+                    "schema": "INSPIRE BAI"
+                }
+            ],
+            "uuid": "f846149f-96a2-4849-91ee-afe9ba19d0ac",
+            "full_name": "Pinsard, Frédéric",
+            "affiliations": [
+                {
+                    "value": "AIM, Saclay",
+                    "record": {
+                        "$ref": "https://inspirebeta.net/api/institutions/912476"
+                    }
+                }
+            ],
+            "signature_block": "PANSADf"
+        }
+    ],
+    "curated": true,
+    "license": [
+        {
+            "url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+            "license": "arXiv nonexclusive-distrib 1.0",
+            "material": "preprint"
+        }
+    ],
+    "texkeys": [
+        "Gevin:2021csn"
+    ],
+    "citeable": true,
+    "abstracts": [
+        {
+            "value": "IDeF-X HD is a 32-channel analog front-end with self-triggering capability optimized for the readout of 16 x 16 pixels CdTe or CdZnTe pixelated detectors to build low power micro gamma camera. IDeF-X HD has been designed in the standard AMS CMOS 0.35 microns process technology. Its power consumption is 800 micro watt per channel. The dynamic range of the ASIC can be extended to 1.1 MeV thanks to the in-channel adjustable gain stage. When no detector is connected to the chip and without input current, a 33 electrons rms ENC level is achieved after shaping with 10.7 micro seconds peak time. Spectroscopy measurements have been performed with CdTe Schottky detectors. We measured an energy resolution of 4.2 keV FWHM at 667 keV (137-Cs) on a mono-pixel configuration. Meanwhile, we also measured 562 eV and 666 eV FWHM at 14 keV and 60 keV respectively (241-Am) with a 256 small pixel array and a low detection threshold of 1.2 keV. Since IDeF-X HD is intended for space-borne applications in astrophysics, we evaluated its radiation tolerance and its sensitivity to single event effects. We demonstrated that the ASIC remained fully functional without significant degradation of its performances after 200 krad and that no single event latch-up was detected putting the Linear Energy Transfer threshold above 110 MeV/(mg/cm2). Good noise performance and radiation tolerance make the chip well suited for X-rays energy discrimination and high-energy resolution. The chip is space qualified and flies on board the Solar Orbiter ESA mission launched in 2020.",
+            "source": "arXiv"
+        }
+    ],
+    "documents": [
+        {
+            "key": "586b6fe6b76425f3d1756c2d8d1afe39",
+            "url": "https://inspirebeta.net/files/586b6fe6b76425f3d1756c2d8d1afe39",
+            "hidden": true,
+            "source": "arxiv",
+            "filename": "2102.01992.pdf",
+            "fulltext": true
+        }
+    ],
+    "_export_to": {
+        "HAL": true
+    },
+    "references": [
+        {
+            "raw_refs": [
+                {
+                    "value": "[1] M. Chmeissani et al., “First experimental tests with a CdTe photoncounting pixel detector hybridized with a Medipix2 readout chip”, IEEE Trans. Nucl. Sci., vol. 51, no. 5, pp. 2379–2385, Oct. 2004.",
+                    "schema": "text"
+                }
+            ],
+            "reference": {
+                "label": "1",
+                "title": {
+                    "title": "First experimental tests with a CdTe photoncounting pixel detector hybridized with a Medipix2 readout chip"
+                },
+                "authors": [
+                    {
+                        "full_name": "Chmeissani, M."
+                    }
+                ],
+                "publication_info": {
+                    "year": 2004,
+                    "page_end": "2385",
+                    "page_start": "2379",
+                    "journal_title": "IEEE Trans.Nucl.Sci.",
+                    "journal_volume": "51"
+                }
+            }
+        },
+        {
+            "raw_refs": [
+                {
+                    "value": "[2] C. Szeles et al., “Ultra High Flux 2-D CdZnTe Monolithic Detector Arrays for X-Ray Imaging Applications”, IEEE Trans Nucl Sci, vol. 54, no. 4, pp. 1350-1358, august 2007.",
+                    "schema": "text"
+                }
+            ],
+            "reference": {
+                "label": "2",
+                "title": {
+                    "title": "Ultra High Flux 2-D CdZnTe Monolithic Detector Arrays for X-Ray Imaging Applications"
+                },
+                "authors": [
+                    {
+                        "full_name": "Szeles, C."
+                    }
+                ],
+                "publication_info": {
+                    "year": 2007,
+                    "page_end": "1358",
+                    "page_start": "1350",
+                    "journal_title": "IEEE Trans.Nucl.Sci.",
+                    "journal_volume": "54"
+                }
+            }
+        },
+        {
+            "raw_refs": [
+                {
+                    "value": "[3] L.-J. Meng et al., “Preliminary Evaluation of A Novel Energy Resolved Photon-Counting Gamma Ray Detector”, Proc. IEEE NSS-MIC conf. rec., pp. 308-314, 2008.",
+                    "schema": "text"
+                }
+            ],
+            "reference": {
+                "misc": [
+                    "Proc. IEEE NSS-MIC conf. rec., pp. 308-314"
+                ],
+                "label": "3",
+                "title": {
+                    "title": "Preliminary Evaluation of A Novel Energy Resolved Photon-Counting Gamma Ray Detector"
+                },
+                "authors": [
+                    {
+                        "full_name": "Meng, L.-J."
+                    }
+                ],
+                "publication_info": {
+                    "year": 2008
+                }
+            }
+        },
+        {
+            "raw_refs": [
+                {
+                    "value": "[4] S. Mikkelsen et al., “An ASIC for Multi-Energy X-ray Counting”, Proc. IEEE NSS-MIC conf. rec., pp. 1996-2001, 2008.",
+                    "schema": "text"
+                }
+            ],
+            "reference": {
+                "misc": [
+                    "Proc. IEEE NSS-MIC conf. rec., pp.-2001, 2008"
+                ],
+                "label": "4",
+                "title": {
+                    "title": "An ASIC for Multi-Energy X-ray Counting"
+                },
+                "authors": [
+                    {
+                        "full_name": "Mikkelsen, S."
+                    }
+                ],
+                "publication_info": {
+                    "year": 1996
+                }
+            }
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/literature/876891"
+            },
+            "raw_refs": [
+                {
+                    "value": "[5] M. Kokubun et al., “Hard X-ray and gamma-ray detector for ASTRO-H based on Si and CdTe imaging sensors”, Nucl. Instr. and Meth. A, 623 (2010), p. 425.",
+                    "schema": "text"
+                }
+            ],
+            "reference": {
+                "label": "5",
+                "title": {
+                    "title": "Hard X-ray and gamma-ray detector for ASTRO-H based on Si and CdTe imaging sensors"
+                },
+                "authors": [
+                    {
+                        "full_name": "Kokubun, M."
+                    }
+                ],
+                "publication_info": {
+                    "year": 2010,
+                    "artid": "425",
+                    "page_start": "425",
+                    "journal_title": "Nucl.Instrum.Meth.A",
+                    "journal_volume": "623"
+                }
+            },
+            "curated_relation": false
+        },
+        {
+            "raw_refs": [
+                {
+                    "value": "[6] T. Kitaguchi et al., “Spectral calibration and modeling of the NuSTAR CdZnTe pixel detectors”, Conference on UV, X-Ray, and Gamma-Ray Space Instrumentation for Astronomy XVII, San Diego, AUG 21-24, 2011.",
+                    "schema": "text"
+                }
+            ],
+            "reference": {
+                "misc": [
+                    "Conference on UV, X-Ray / and Gamma-Ray Space Instrumentation for Astronomy XVII, San Diego, AUG 21-24"
+                ],
+                "label": "6",
+                "title": {
+                    "title": "Spectral calibration and modeling of the NuSTAR CdZnTe pixel detectors"
+                },
+                "authors": [
+                    {
+                        "full_name": "Kitaguchi, T."
+                    }
+                ],
+                "publication_info": {
+                    "year": 2011
+                }
+            }
+        },
+        {
+            "raw_refs": [
+                {
+                    "value": "[7] A. Meuris, et al., “Caliste-SO X-ray micro-camera for the STIX instrument on-board Solar Orbiter space mission”, Nucl. Instr. and Meth. A, 695 (2012), p. 288.",
+                    "schema": "text"
+                }
+            ],
+            "reference": {
+                "label": "7",
+                "title": {
+                    "title": "Caliste-SO X-ray micro-camera for the STIX instrument on-board Solar Orbiter space mission"
+                },
+                "authors": [
+                    {
+                        "full_name": "Meuris, A."
+                    }
+                ],
+                "publication_info": {
+                    "year": 2012,
+                    "artid": "288",
+                    "page_start": "288",
+                    "journal_title": "Nucl.Instrum.Meth.A",
+                    "journal_volume": "695"
+                }
+            }
+        },
+        {
+            "raw_refs": [
+                {
+                    "value": "[8] F. Lugiez et al., “IDeF-X V1.1: Performances of a New CMOS 16 Channels Analogue Readout ASIC for Cd(Zn)Te detectors”, Proc. IEEE NSS-MIC conf. rec., pp. 841-844, 2006.",
+                    "schema": "text"
+                }
+            ],
+            "reference": {
+                "misc": [
+                    "Proc. IEEE NSS-MIC conf. rec., pp. 841-844"
+                ],
+                "label": "8",
+                "title": {
+                    "title": "IDeF-X V1.1: Performances of a New CMOS 16 Channels Analogue Readout ASIC for Cd(Zn)Te detectors"
+                },
+                "authors": [
+                    {
+                        "full_name": "Lugiez, F."
+                    }
+                ],
+                "publication_info": {
+                    "year": 2006
+                }
+            }
+        },
+        {
+            "raw_refs": [
+                {
+                    "value": "[9] O. Gevin, et al., “IDeF-X V1.0: Performances of a New CMOS Multi Channel Analogue Readout ASIC for Cd(Zn)Te Detectors”, Proc. IEEE NSS-MIC conf. rec., pp. 433-437, 2005.",
+                    "schema": "text"
+                }
+            ],
+            "reference": {
+                "misc": [
+                    "Proc. IEEE NSS-MIC conf. rec., pp. 433-437"
+                ],
+                "label": "9",
+                "title": {
+                    "title": "IDeF-X V1.0: Performances of a New CMOS Multi Channel Analogue Readout ASIC for Cd(Zn)Te Detectors"
+                },
+                "authors": [
+                    {
+                        "full_name": "Gevin, O."
+                    }
+                ],
+                "publication_info": {
+                    "year": 2005
+                }
+            }
+        },
+        {
+            "raw_refs": [
+                {
+                    "value": "[10] O. Limousin, O. Gevin, F. Lugiez, R. Chipaux, E. Delagnes, B. Dirks and B. Horeau, \"IDeF-X ASIC for Cd(Zn)Te Spectro-Imaging Systems\", IEEE Trans. Nucl. Sci., vol. 52, no. 5, pp. 1595-1602, Oct. 2005.",
+                    "schema": "text"
+                }
+            ],
+            "reference": {
+                "label": "10",
+                "title": {
+                    "title": "IDeF-X ASIC for Cd(Zn)Te Spectro-Imaging Systems"
+                },
+                "authors": [
+                    {
+                        "full_name": "Limousin, O."
+                    },
+                    {
+                        "full_name": "Gevin, O."
+                    },
+                    {
+                        "full_name": "Lugiez, F."
+                    },
+                    {
+                        "full_name": "Chipaux, R."
+                    },
+                    {
+                        "full_name": "Delagnes, E."
+                    },
+                    {
+                        "full_name": "Dirks, B."
+                    },
+                    {
+                        "full_name": "Horeau, B."
+                    }
+                ],
+                "publication_info": {
+                    "year": 2005,
+                    "page_end": "1602",
+                    "page_start": "1595",
+                    "journal_title": "IEEE Trans.Nucl.Sci.",
+                    "journal_volume": "52"
+                }
+            }
+        },
+        {
+            "raw_refs": [
+                {
+                    "value": "[11] O. Gevin, et al., “IDeF-X ECLAIRs: A CMOS ASIC for the Readout of CdTe and CdZnTe Detectors for High Resolution Spectroscopy”, IEEE Trans. Nucl. Sci., vol. 56, no. 4, pp. 2351-2359, Aug. 2009.",
+                    "schema": "text"
+                }
+            ],
+            "reference": {
+                "label": "11",
+                "title": {
+                    "title": "IDeF-X ECLAIRs: A CMOS ASIC for the Readout of CdTe and CdZnTe Detectors for High Resolution Spectroscopy"
+                },
+                "authors": [
+                    {
+                        "full_name": "Gevin, O."
+                    }
+                ],
+                "publication_info": {
+                    "year": 2009,
+                    "page_end": "2359",
+                    "page_start": "2351",
+                    "journal_title": "IEEE Trans.Nucl.Sci.",
+                    "journal_volume": "56"
+                }
+            }
+        },
+        {
+            "raw_refs": [
+                {
+                    "value": "[12] O. Limousin et al., “Caliste 256: A CdTe imaging spectrometer for space science with a 580μm pixel pitch”. Nucl. Instr. and Meth. A, 657 (2011), p. 46.",
+                    "schema": "text"
+                }
+            ],
+            "reference": {
+                "label": "12",
+                "title": {
+                    "title": "Caliste 256: A CdTe imaging spectrometer for space science with a 580μm pixel pitch"
+                },
+                "authors": [
+                    {
+                        "full_name": "Limousin, O."
+                    }
+                ],
+                "publication_info": {
+                    "year": 2011,
+                    "artid": "46",
+                    "page_start": "46",
+                    "journal_title": "Nucl.Instrum.Meth.A",
+                    "journal_volume": "657"
+                }
+            }
+        },
+        {
+            "raw_refs": [
+                {
+                    "value": "[13] A. Meuris et al., “Caliste HD: A new fine pitch Cd(Zn)Te imaging spectrometer from 2 keV up to 1 MeV”, in Proc. IEEE NSS-MIC-RTSD Conf. Rec., 4485-4488, 2011.",
+                    "schema": "text"
+                }
+            ],
+            "reference": {
+                "misc": [
+                    "in Proc. IEEE NSS-MIC-RTSD Conf. Rec., 4485-4488"
+                ],
+                "label": "13",
+                "title": {
+                    "title": "Caliste HD: A new fine pitch Cd(Zn)Te imaging spectrometer from 2 keV up to 1 MeV"
+                },
+                "authors": [
+                    {
+                        "full_name": "Meuris, A."
+                    }
+                ],
+                "publication_info": {
+                    "year": 2011
+                }
+            }
+        },
+        {
+            "raw_refs": [
+                {
+                    "value": "[14] O. Limousin, A. Meuris, O. Gevin and S. Dubos, “CdTe Pixel Detectors for Hard X-Ray Astronomy,” in Solid-State Radiation Detectors Technology and Applications, S. Awadalla and K Iniewski, CRC Press, 2015, ch. 5, pp. 102–124.",
+                    "schema": "text"
+                }
+            ],
+            "reference": {
+                "misc": [
+                    "in Solid-State Radiation Detectors Technology and Applications, S. Awadalla and K Iniewski, CRC Press,, ch. 5, pp. 102-124"
+                ],
+                "label": "14",
+                "title": {
+                    "title": "CdTe Pixel Detectors for Hard X-Ray Astronomy"
+                },
+                "authors": [
+                    {
+                        "full_name": "Limousin, O."
+                    },
+                    {
+                        "full_name": "Meuris, A."
+                    },
+                    {
+                        "full_name": "Gevin, O."
+                    },
+                    {
+                        "full_name": "Dubos, S."
+                    }
+                ],
+                "publication_info": {
+                    "year": 2015
+                }
+            }
+        },
+        {
+            "raw_refs": [
+                {
+                    "value": "[15] A. O. Benz et al., “The Spectrometer Telescope for Imaging X-rays (STIX) on board the Solar Orbiter mission” in Proc. SPIE 8443, 8443-131, 2012.",
+                    "schema": "text"
+                }
+            ],
+            "reference": {
+                "misc": [
+                    "in"
+                ],
+                "label": "15",
+                "title": {
+                    "title": "The Spectrometer Telescope for Imaging X-rays (STIX) on board the Solar Orbiter mission"
+                },
+                "authors": [
+                    {
+                        "full_name": "Benz, A.O."
+                    }
+                ],
+                "publication_info": {
+                    "year": 2012,
+                    "page_end": "131",
+                    "page_start": "8443",
+                    "journal_title": "Proc.SPIE Int.Soc.Opt.Eng.",
+                    "journal_volume": "8443"
+                }
+            }
+        },
+        {
+            "raw_refs": [
+                {
+                    "value": "[16] O. Gevin et al., “IDeF-X SX0: A low power CMOS ASIC for the readout of Cd(Zn)Te detectors.” 2009 IEEE Nuclear Science Symposium Conference Record (NSS/MIC) (pp. 318–321)",
+                    "schema": "text"
+                }
+            ],
+            "reference": {
+                "misc": [
+                    "IEEE Nuclear Science Symposium Conference Record (NSS/MIC) (pp. 318-321)"
+                ],
+                "label": "16",
+                "title": {
+                    "title": "IDeF-X SX0: A low power CMOS ASIC for the readout of Cd(Zn)Te detectors."
+                },
+                "authors": [
+                    {
+                        "full_name": "Gevin, O."
+                    }
+                ],
+                "publication_info": {
+                    "year": 2009
+                }
+            }
+        },
+        {
+            "raw_refs": [
+                {
+                    "value": "[17] G. De Geronimo, P. O’Connor, “A CMOS Fully Compensated Continuous Reset System”, in Proc. IEEE NSS-MIC conf. Rec., 1999.",
+                    "schema": "text"
+                }
+            ],
+            "reference": {
+                "misc": [
+                    "in Proc. IEEE NSS-MIC conf. Rec"
+                ],
+                "label": "17",
+                "title": {
+                    "title": "A CMOS Fully Compensated Continuous Reset System"
+                },
+                "authors": [
+                    {
+                        "full_name": "De Geronimo, G."
+                    },
+                    {
+                        "full_name": "O'Connor, P."
+                    }
+                ],
+                "publication_info": {
+                    "year": 1999
+                }
+            }
+        },
+        {
+            "raw_refs": [
+                {
+                    "value": "[18] G. De Geronimo and P. O' Connor, “A CMOS detector leakage current self-adaptable continuous reset system: theoretical analysis”, Nucl. Instr. and Meth. A, 421 (1999), p. 322.",
+                    "schema": "text"
+                }
+            ],
+            "reference": {
+                "label": "18",
+                "title": {
+                    "title": "A CMOS detector leakage current self-adaptable continuous reset system: theoretical analysis"
+                },
+                "authors": [
+                    {
+                        "full_name": "De Geronimo, G."
+                    },
+                    {
+                        "full_name": "Connor, P.O"
+                    }
+                ],
+                "publication_info": {
+                    "year": 1999,
+                    "artid": "322",
+                    "page_start": "322",
+                    "journal_title": "Nucl.Instrum.Meth.A",
+                    "journal_volume": "421"
+                }
+            }
+        },
+        {
+            "raw_refs": [
+                {
+                    "value": "[19] Z. Y. Chang and W.M.C. Sansen, “Low noise wide-band amplifiers in bipolar and CMOS technologies”, Kluwer Academic Publishers, 1991.p160-163.",
+                    "schema": "text"
+                }
+            ],
+            "reference": {
+                "label": "19",
+                "title": {
+                    "title": "Low noise wide-band amplifiers in bipolar and CMOS technologies"
+                },
+                "authors": [
+                    {
+                        "full_name": "Chang, Z.Y."
+                    },
+                    {
+                        "full_name": "Sansen, W.M.C."
+                    }
+                ],
+                "imprint": {
+                    "publisher": "Kluwer Academic"
+                }
+            }
+        },
+        {
+            "raw_refs": [
+                {
+                    "value": "[19] Z. Y. Chang and W.M.C. Sansen, “Low noise wide-band amplifiers in bipolar and CMOS technologies”, Kluwer Academic Publishers, 1991.p160-163.",
+                    "schema": "text"
+                }
+            ],
+            "reference": {
+                "misc": [
+                    "Publishers,.p160-163"
+                ],
+                "label": "19",
+                "authors": [
+                    {
+                        "full_name": "Chang, Z.Y."
+                    },
+                    {
+                        "full_name": "Sansen, W.M.C."
+                    }
+                ],
+                "imprint": {
+                    "publisher": "Academic"
+                },
+                "publication_info": {
+                    "year": 1991
+                }
+            }
+        },
+        {
+            "raw_refs": [
+                {
+                    "value": "[20] G. C. Messenger and M. S. Ash, “The Effects of Radiation on Electronic Systems”, Van Nostrand Reinhold, 1986. p216-266.",
+                    "schema": "text"
+                }
+            ],
+            "reference": {
+                "misc": [
+                    "Reinhold,. p216-266"
+                ],
+                "label": "20",
+                "title": {
+                    "title": "The Effects of Radiation on Electronic Systems"
+                },
+                "authors": [
+                    {
+                        "full_name": "Messenger, G.C."
+                    },
+                    {
+                        "full_name": "Ash, M.S."
+                    }
+                ],
+                "imprint": {
+                    "publisher": "van Nostrand"
+                },
+                "publication_info": {
+                    "year": 1986
+                }
+            }
+        },
+        {
+            "raw_refs": [
+                {
+                    "value": "[21] S. Krucker et al., “The Spectrometer/Telescope for Imaging X-rays (STIX)”, A&A, 2020,642, A15.",
+                    "schema": "text"
+                }
+            ],
+            "reference": {
+                "label": "21",
+                "title": {
+                    "title": "The Spectrometer/Telescope for Imaging X-rays (STIX)"
+                },
+                "authors": [
+                    {
+                        "full_name": "Krucker, S."
+                    }
+                ],
+                "publication_info": {
+                    "year": 2020,
+                    "artid": "A15",
+                    "page_start": "A15",
+                    "journal_title": "Astron.Astrophys.",
+                    "journal_volume": "642"
+                }
+            }
+        }
+    ],
+    "_collections": [
+        "Literature"
+    ],
+    "arxiv_eprints": [
+        {
+            "value": "2102.01992",
+            "categories": [
+                "astro-ph.IM",
+                "physics.ins-det"
+            ]
+        }
+    ],
+    "document_type": [
+        "article"
+    ],
+    "preprint_date": "2021-02-03",
+    "control_number": 1844620,
+    "legacy_version": "20210218104005.0",
+    "number_of_pages": 20,
+    "acquisition_source": {
+        "method": "hepcrawl",
+        "source": "arXiv",
+        "datetime": "2021-02-05T09:38:39.644388",
+        "submission_number": "2797760"
+    },
+    "inspire_categories": [
+        {
+            "term": "Instrumentation",
+            "source": "arxiv"
+        }
+    ],
+    "legacy_creation_date": "2021-02-04"
+}

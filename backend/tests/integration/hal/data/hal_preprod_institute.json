@@ -1,0 +1,108 @@
+{
+    "addresses": [
+        {
+            "cities": [
+                "Gif-sur-Yvette"
+            ],
+            "latitude": 48.7209831,
+            "longitude": 2.1221981,
+            "postal_code": "91191",
+            "country_code": "FR",
+            "postal_address": [
+                "Bat 141",
+                "F-91191 Gif-sur-Yvette Cedex"
+            ]
+        }
+    ],
+    "ICN": [
+        "IRFU, Saclay"
+    ],
+    "self": {
+        "$ref": "https://inspirebeta.net/api/institutions/912490"
+    },
+    "urls": [
+        {
+            "value": "http://irfu.cea.fr/"
+        }
+    ],
+    "$schema": "https://inspirebeta.net/schemas/records/institutions.json",
+    "legacy_ICN": "IRFU, Saclay",
+    "_collections": [
+        "Institutions"
+    ],
+    "name_variants": [
+        {
+            "value": "Institute of Research into the Fundamental Laws of the Universe"
+        },
+        {
+            "value": "DSM/IRFU"
+        }
+    ],
+    "_private_notes": [
+        {
+            "value": "110__t simplified exceptionally (vu Annette)"
+        },
+        {
+            "value": "grid.457342.3 from Springer"
+        },
+        {
+            "value": "https://ror.org/05k705z76 from grid.457342.3"
+        },
+        {
+            "value": "L'IRFU appartient à la Direction des Sciences de la Matière du CEA - IRFU belongs to DSM-CEA"
+        }
+    ],
+    "control_number": 912490,
+    "legacy_version": "20191024182021.0",
+    "historical_data": [
+        "Dapnia (Dept. of Astrophysics, Particle Physics, Nuclear Physics and Instrumentation Associated) changed name into IRFU on 1/1/2009. per angele.sena@cea.fr on 11/15/10"
+    ],
+    "related_records": [
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/institutions/903175"
+            },
+            "relation": "parent",
+            "curated_relation": true
+        },
+        {
+            "record": {
+                "$ref": "https://inspirebeta.net/api/institutions/1290086"
+            },
+            "relation": "predecessor",
+            "curated_relation": true
+        }
+    ],
+    "institution_type": [
+        "Research Center"
+    ],
+    "legacy_creation_date": "2011-02-14",
+    "institution_hierarchy": [
+        {
+            "name": "Institut de Recherche sur les Lois Fondamentales de l'Univers",
+            "acronym": "IRFU"
+        },
+        {
+            "name": "Commissariat à l'Energie Atomique",
+            "acronym": "CEA"
+        }
+    ],
+    "external_system_identifiers": [
+        {
+            "value": "53946",
+            "schema": "HAL"
+        },
+        {
+            "value": "grid.457342.3",
+            "schema": "GRID"
+        },
+        {
+            "value": "https://ror.org/05k705z76",
+            "schema": "ROR"
+        },
+        {
+            "value": "INST-115541",
+            "schema": "SPIRES"
+        }
+    ]
+}

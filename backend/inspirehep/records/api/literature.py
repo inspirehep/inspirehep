@@ -28,6 +28,7 @@ from jsonschema import ValidationError
 from redis import StrictRedis
 
 from inspirehep.files.api import current_s3_instance
+from inspirehep.hal.api import push_to_hal
 from inspirehep.orcid.api import push_to_orcid
 from inspirehep.pidstore.api import PidStoreLiterature
 from inspirehep.records.api.mixins import (
@@ -102,7 +103,7 @@ class LiteratureRecord(
     def create(
         cls,
         data,
-        disable_orcid_push=False,
+        disable_external_push=False,
         disable_relations_update=False,
         *args,
         **kwargs,
@@ -117,14 +118,15 @@ class LiteratureRecord(
             if not disable_relations_update:
                 record.update_record_relationships()
 
-        if disable_orcid_push:
+        if disable_external_push:
             LOGGER.info(
-                "Record ORCID PUSH disabled",
+                "Record EXTERNAL PUSH disabled",
                 recid=record.get("control_number"),
                 uuid=str(record.id),
             )
         else:
             push_to_orcid(record)
+            push_to_hal(record)
         record.push_authors_phonetic_blocks_to_redis()
         return record
 
@@ -190,7 +192,7 @@ class LiteratureRecord(
     def update(
         self,
         data,
-        disable_orcid_push=False,
+        disable_external_push=False,
         disable_relations_update=False,
         *args,
         **kwargs,
@@ -204,14 +206,15 @@ class LiteratureRecord(
             if not disable_relations_update:
                 self.update_record_relationships()
 
-        if disable_orcid_push:
+        if disable_external_push:
             LOGGER.info(
-                "Record ORCID PUSH disabled",
+                "Record EXTERNAL PUSH disabled",
                 recid=self.get("control_number"),
                 uuid=str(self.id),
             )
         else:
             push_to_orcid(self)
+            push_to_hal(self)
         self.push_authors_phonetic_blocks_to_redis()
 
     def get_modified_authors(self):

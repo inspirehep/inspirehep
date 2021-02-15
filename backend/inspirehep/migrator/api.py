@@ -55,7 +55,7 @@ def continuous_migration():
         while message:
             if message == b"END":
                 r.lpop(QUEUE)
-                task = migrate_from_mirror(disable_orcid_push=False)
+                task = migrate_from_mirror(disable_external_push=False)
                 wait_for_all_tasks(task)
                 LOGGER.info("Migration finished.")
                 break

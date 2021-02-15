@@ -32,6 +32,7 @@ from psycopg2 import OperationalError
 from redis import ResponseError
 from sqlalchemy.exc import InvalidRequestError, StatementError
 
+from inspirehep.hal.api import push_to_hal
 from inspirehep.indexer.tasks import batch_index
 from inspirehep.migrator.models import LegacyRecordsMirror
 from inspirehep.migrator.utils import (
@@ -131,7 +132,7 @@ def migrate_record_from_legacy(recid):
 
 
 def migrate_from_mirror_run_step(
-    disable_orcid_push=True, disable_references_processing=True, step_no=1
+    disable_external_push=True, disable_references_processing=True, step_no=1
 ):
     """Allows to easily run step by step migration only for valid records """
     num_workers = count_consumers_for_queue("migrator")
@@ -161,7 +162,7 @@ def migrate_from_mirror_run_step(
 
     task = migrate_recids_from_mirror(
         list(recids_chunked),
-        disable_orcid_push=disable_orcid_push,
+        disable_external_push=disable_external_push,
         disable_references_processing=disable_references_processing,
         step_no=step_no,
         one_step=True,
@@ -170,7 +171,7 @@ def migrate_from_mirror_run_step(
     return task
 
 
-def migrate_from_mirror(also_migrate=None, disable_orcid_push=True):
+def migrate_from_mirror(also_migrate=None, disable_external_push=True):
     """Migrate legacy records from the local mirror.
     By default, only the records that have not been migrated yet are migrated.
 
@@ -178,9 +179,9 @@ def migrate_from_mirror(also_migrate=None, disable_orcid_push=True):
         also_migrate(Optional[string]): if set to ``'broken'``, also broken
             records will be migrated. If set to ``'all'``, all records will be
             migrated.
-        disable_orcid_push (bool): flag indicating whether the orcid_push
-            should be disabled (if True) or executed at the end of migrations
-            (if False).
+        disable_external_push (bool): flag indicating whether the orcid_push
+            and hal push should be disabled (if True) or executed at the end
+            of migrations (if False).
     """
     disable_references_processing = False
     query = LegacyRecordsMirror.query.with_entities(LegacyRecordsMirror.recid)
@@ -201,7 +202,7 @@ def migrate_from_mirror(also_migrate=None, disable_orcid_push=True):
 
     task = migrate_recids_from_mirror(
         list(recids_chunked),
-        disable_orcid_push=disable_orcid_push,
+        disable_external_push=disable_external_push,
         disable_references_processing=disable_references_processing,
     )
     LOGGER.info("All migration tasks have been scheduled.")
@@ -219,7 +220,7 @@ def migrate_from_mirror(also_migrate=None, disable_orcid_push=True):
 def migrate_recids_from_mirror(
     recids_chunks,
     step_no=0,
-    disable_orcid_push=True,
+    disable_external_push=True,
     disable_references_processing=False,
     one_step=False,
 ):
@@ -228,9 +229,9 @@ def migrate_recids_from_mirror(
     Args:
         recids_chunks (list): record ids chunked for workers to pick.
         step_no (int): Current step in `migration_steps`
-        disable_orcid_push (bool): flag indicating whether the orcid_push
-            should be disabled (if True) or executed at the end of migrations
-            (if False).
+        disable_external_push (bool): flag indicating whether the orcid_push
+            and hal_push should be disabled (if True) or executed at the end
+            of migrations (if False).
         disable_references_processing (bool): flag indicating whether cited
             papers should also get reindexed.
 
@@ -242,8 +243,9 @@ def migrate_recids_from_mirror(
         update_relations,
         index_records,
     ]
-    if not disable_orcid_push:
+    if not disable_external_push:
         migration_steps.append(run_orcid_push)
+        migration_steps.append(run_hal_push)
     if not disable_references_processing:
         migration_steps.append(process_references_in_records)
 
@@ -267,7 +269,7 @@ def migrate_recids_from_mirror(
     else:
         callback = migrate_recids_from_mirror.s(
             step_no=step_no + 1,
-            disable_orcid_push=disable_orcid_push,
+            disable_external_push=disable_external_push,
             disable_references_processing=disable_references_processing,
         )
     chord_task = chord(header)(callback.on_error(fail_info.s()))
@@ -431,6 +433,18 @@ def run_orcid_push(uuids):
     return uuids
 
 
+@shared_task(ignore_results=False, queue="migrator", acks_late=True)
+def run_hal_push(uuids):
+    for uuid in uuids:
+        try:
+            record = InspireRecord.get_record(uuid)
+            if isinstance(record, LiteratureRecord):
+                push_to_hal(record)
+        except Exception:
+            LOGGER.exception("Cannot push to hal", uuid=str(uuid))
+    return uuids
+
+
 def insert_into_mirror(raw_records):
     migrated_records = []
     for raw_record in raw_records:
@@ -443,18 +457,18 @@ def insert_into_mirror(raw_records):
 
 
 def migrate_and_insert_record(
-    raw_record, disable_orcid_push=False, disable_relations_update=False
+    raw_record, disable_external_push=False, disable_relations_update=False
 ):
     """Migrate a record and insert it if valid, or log otherwise."""
     prod_record = LegacyRecordsMirror.from_marcxml(raw_record)
     db.session.merge(prod_record)
     return migrate_record_from_mirror(
-        prod_record, disable_orcid_push, disable_relations_update
+        prod_record, disable_external_push, disable_relations_update
     )
 
 
 def migrate_record_from_mirror(
-    prod_record, disable_orcid_push=True, disable_relations_update=True
+    prod_record, disable_external_push=True, disable_relations_update=True
 ):
     """Migrate a mirrored legacy record into an Inspire record.
     Args:
@@ -493,7 +507,7 @@ def migrate_record_from_mirror(
             original_urls = replace_afs_file_locations_with_local(json_record)
             record = cls.create_or_update(
                 json_record,
-                disable_orcid_push=disable_orcid_push,
+                disable_external_push=disable_external_push,
                 disable_relations_update=disable_relations_update,
             )
             cache_afs_file_locations(record)
@@ -516,7 +530,7 @@ def migrate_record_from_mirror(
         else:
             return migrate_record_from_mirror(
                 prod_record=prod_record,
-                disable_orcid_push=disable_orcid_push,
+                disable_external_push=disable_external_push,
                 disable_relations_update=disable_relations_update,
             )
     except PIDValueError as exc:
