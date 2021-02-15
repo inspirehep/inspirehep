@@ -20,6 +20,7 @@ from celery import chord, shared_task
 from celery.result import AsyncResult
 from click import echo
 from flask import current_app
+from flask_celeryext.app import current_celery_app
 from flask_sqlalchemy import models_committed
 from inspire_dojson import marcxml2record
 from inspire_dojson.errors import NotSupportedError
@@ -49,7 +50,6 @@ from inspirehep.utils import chunker
 
 LOGGER = structlog.getLogger()
 CHUNK_SIZE = 100
-LARGE_CHUNK_SIZE = 2000
 MAX_RETRY_COUNT = 6
 RETRY_BACKOFF = 10
 
@@ -101,6 +101,26 @@ def read_file(source):
                 yield line
 
 
+def count_consumers_for_queue(queue_name):
+    """Get the number of workers consuming messages from the given queue.
+
+    Note:
+        This is using the slow worker-to-worker API (~1s), so don't call it too
+        often. We might need to improve it later.
+    """
+    try:
+        queues_per_worker = (
+            current_celery_app.control.inspect().active_queues().values()
+        )
+    except AttributeError:
+        #  integration tests run in eager mode and have no queues
+        return 0
+    return sum(
+        len([queue for queue in worker_queues if queue["name"] == queue_name])
+        for worker_queues in queues_per_worker
+    )
+
+
 def migrate_record_from_legacy(recid):
     response = requests.get(
         f"{current_app.config['LEGACY_BASE_URL']}/record/{recid}/export/xme"
@@ -114,12 +134,15 @@ def migrate_from_mirror_run_step(
     disable_orcid_push=True, disable_references_processing=True, step_no=1
 ):
     """Allows to easily run step by step migration only for valid records """
+    num_workers = count_consumers_for_queue("migrator")
     if step_no == 0:
         query = LegacyRecordsMirror.query.with_entities(
             LegacyRecordsMirror.recid
         ).filter(LegacyRecordsMirror.valid.is_(True))
         recids_chunked = chunker(
-            (str(res.recid) for res in query.yield_per(CHUNK_SIZE)), CHUNK_SIZE
+            [str(res.recid) for res in query.yield_per(CHUNK_SIZE)],
+            CHUNK_SIZE,
+            num_workers,
         )
     elif 0 < step_no < 3:
         query = (
@@ -128,7 +151,9 @@ def migrate_from_mirror_run_step(
             .distinct()
         )
         recids_chunked = chunker(
-            (str(res.object_uuid) for res in query.yield_per(CHUNK_SIZE)), CHUNK_SIZE
+            [str(res.object_uuid) for res in query.yield_per(CHUNK_SIZE)],
+            CHUNK_SIZE,
+            num_workers,
         )
     else:
         echo("Wrong step number!")
@@ -169,8 +194,9 @@ def migrate_from_mirror(also_migrate=None, disable_orcid_push=True):
     else:
         raise ValueError('"also_migrate" should be either None, "all" or "broken"')
 
+    num_workers = count_consumers_for_queue("migrator")
     recids_chunked = chunker(
-        (res.recid for res in query.yield_per(CHUNK_SIZE)), CHUNK_SIZE
+        [res.recid for res in query.yield_per(CHUNK_SIZE)], CHUNK_SIZE, num_workers
     )
 
     task = migrate_recids_from_mirror(

@@ -23,6 +23,7 @@ from mock import patch
 from inspirehep.files.api import current_s3_instance
 from inspirehep.migrator.models import LegacyRecordsMirror
 from inspirehep.migrator.tasks import (
+    count_consumers_for_queue,
     create_records_from_mirror_recids,
     migrate_and_insert_record,
     migrate_from_file,
@@ -618,3 +619,24 @@ def test_migrating_deleted_record_registers_control_number_with_deleted_status(
     create_records_from_mirror_recids([12345])
     pid = PersistentIdentifier.query.filter_by(pid_value="12345").one()
     assert pid.status == PIDStatus.DELETED
+
+
+@patch("inspirehep.migrator.tasks.current_celery_app.control.inspect")
+def test_count_consumers_for_queue(mock_inspect):
+    mock_inspect.return_value.active_queues.return_value = {
+        "worker-1": [
+            {"name": "some-queue"},
+            {"name": "other-queue"},
+        ],
+        "worker-2": [
+            {"name": "other-queue"},
+        ],
+        "worker-3": [
+            {"name": "other-queue"},
+        ],
+        "worker-4": [
+            {"name": "some-queue"},
+        ],
+    }
+
+    assert count_consumers_for_queue("some-queue") == 2
