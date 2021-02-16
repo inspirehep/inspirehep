@@ -85,8 +85,7 @@ inspire-query-parser = "^6.0.6"
 deepdiff = "^4.3.2"
 xmltodict = "^0.12.0"
 inspire-matcher = "^9.0.5"
-# Unpin when pylatexenc > 2.7 is released, including the fix for https://github.com/phfaist/pylatexenc/issues/44
-pylatexenc = {git = "https://github.com/phfaist/pylatexenc.git", rev="067404829591314b1d6743e9a8e73548e7931c5d"}
+pylatexenc = "^2.8"
 pypdf2 = "^1.26.0"
 refextract = "^1.0.3"
 fs = "0.5.4"

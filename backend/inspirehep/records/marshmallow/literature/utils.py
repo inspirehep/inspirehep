@@ -7,7 +7,11 @@
 
 import re
 
-from pylatexenc.latexencode import UnicodeToLatexEncoder
+from pylatexenc.latexencode import (
+    RULE_DICT,
+    UnicodeToLatexConversionRule,
+    UnicodeToLatexEncoder,
+)
 
 from inspirehep.records.api import InspireRecord
 
@@ -41,8 +45,14 @@ def latex_encode(text, contains_math=False):
     if text is None:
         return None
 
+    conversion_rules = [
+        UnicodeToLatexConversionRule(RULE_DICT, {ord("{"): "{", ord("}"): "}"}),
+        "defaults",
+    ]
+
     encode = UnicodeToLatexEncoder(
-        replacement_latex_protection="braces-after-macro"
+        replacement_latex_protection="braces-after-macro",
+        conversion_rules=conversion_rules,
     ).unicode_to_latex
 
     if not (contains_math and ("$" in text or r"\(" in text)):
