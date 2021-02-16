@@ -9,15 +9,19 @@ from inspirehep.records.marshmallow.literature.utils import latex_encode
 
 
 def test_latex_encode_returns_none_when_input_is_none():
-    assert None == latex_encode(None)
+    assert latex_encode(None) is None
 
 
 def test_latex_encode_escapes_special_chars():
-    text = r" # $ % & \ { } _ ~ ^"
-    expected = (
-        r" \# \$ \% \& \textbackslash{} \{ \} \_ \textasciitilde{} \textasciicircum{}"
-    )
+    text = r" # $ % & \ _ ~ ^"
+    expected = r" \# \$ \% \& \textbackslash{} \_ \textasciitilde{} \textasciicircum{}"
 
+    assert expected == latex_encode(text)
+
+
+def test_latex_encode_do_not_escape_curly_brakcets():
+    text = r"Search for Axion Like Particle Production in 400-{GeV} Proton - Copper Interactions"
+    expected = r"Search for Axion Like Particle Production in 400-{GeV} Proton - Copper Interactions"
     assert expected == latex_encode(text)
 
 

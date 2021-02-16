@@ -1976,6 +1976,7 @@ tests = ["Flask-Login (>=0.3.2)", "invenio-db (>=1.0.2)", "invenio-indexer (>=1.
 reference = "c7db3d3d615ccea56e59f921dff78321beee904a"
 type = "git"
 url = "https://github.com/inspirehep/invenio-records-rest.git"
+
 [[package]]
 category = "main"
 description = "REST API module for Invenio."
@@ -2930,12 +2931,7 @@ description = "Simple LaTeX parser providing latex-to-unicode and unicode-to-lat
 name = "pylatexenc"
 optional = false
 python-versions = "*"
-version = "2.7"
-
-[package.source]
-reference = "067404829591314b1d6743e9a8e73548e7931c5d"
-type = "git"
-url = "https://github.com/phfaist/pylatexenc.git"
+version = "2.8"
 
 [[package]]
 category = "dev"
@@ -4140,7 +4136,7 @@ test = ["zope.event"]
 testing = ["coverage", "nose", "zope.event"]
 
 [metadata]
-content-hash = "7036c34de4aeabb5931b11b17814c0fd179bd698876007d725d2c4d8fe41a914"
+content-hash = "99a94d35ede3ebd405295be7bbfb0749146ecd7516c26ff24c3b9e1ac163a46e"
 lock-version = "1.0"
 python-versions = ">=3.6,<3.8"
 
@@ -5206,7 +5202,9 @@ pyjwt = [
     {file = "PyJWT-1.7.1-py2.py3-none-any.whl", hash = "sha256:5c6eca3c2940464d106b99ba83b00c6add741c9becaec087fb7ccdefea71350e"},
     {file = "PyJWT-1.7.1.tar.gz", hash = "sha256:8d59a976fb773f3e6a39c85636357c4f0e242707394cadadd9814f5cbaa20e96"},
 ]
-pylatexenc = []
+pylatexenc = [
+    {file = "pylatexenc-2.8.tar.gz", hash = "sha256:962dfa355f0a99489e200966446cf396366b9825c63e5de2cf5ade289eb874d4"},
+]
 pylint = [
     {file = "pylint-2.6.0-py3-none-any.whl", hash = "sha256:bfe68f020f8a0fece830a22dd4d5dddb4ecc6137db04face4c3420a46a52239f"},
     {file = "pylint-2.6.0.tar.gz", hash = "sha256:bb4a908c9dadbc3aac18860550e870f58e1a02c9f2c204fdf5693d73be061210"},
