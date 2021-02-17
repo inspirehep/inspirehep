@@ -11,7 +11,7 @@ type EditAuthorRecordActionProps = {
 
 const CAN_NOT_EDIT_AUTHOR_MESSAGE = (
   <span>
-    For any changes in the profile, contact us at{' '}
+    Login to edit your profile. For any changes in other profiles, contact us at{' '}
     <ExternalLink href="mailto:authors@inspirehep.net">
       authors@inspirehep.net
     </ExternalLink>
