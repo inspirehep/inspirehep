@@ -48,7 +48,8 @@ import { HOVER_TO_DISMISS_INDEFINITE_TOAST } from '../../shared/constants';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HoldingpenSaveButtonComponent extends SubscriberComponent
+export class HoldingpenSaveButtonComponent
+  extends SubscriberComponent
   implements OnInit {
   private workflowObject: WorkflowObject;
 
@@ -74,14 +75,14 @@ export class HoldingpenSaveButtonComponent extends SubscriberComponent
   ngOnInit() {
     this.globalAppStateService.hasAnyValidationProblem$
       .takeUntil(this.isDestroyed)
-      .subscribe(hasAnyValidationProblem => {
+      .subscribe((hasAnyValidationProblem) => {
         this.hasAnyValidationProblem = hasAnyValidationProblem;
         this.changeDetectorRef.markForCheck();
       });
 
     this.jsonBeingEdited$
       .takeUntil(this.isDestroyed)
-      .subscribe(jsonBeingEdited => {
+      .subscribe((jsonBeingEdited) => {
         this.workflowObject = jsonBeingEdited as WorkflowObject;
         this.changeDetectorRef.markForCheck();
       });
@@ -100,7 +101,7 @@ export class HoldingpenSaveButtonComponent extends SubscriberComponent
     const references = this.workflowObject.metadata['references'];
     this.apiService
       .getLinkedReferences(references)
-      .then(linkedReferences => {
+      .then((linkedReferences) => {
         const metadata = Object.assign({}, this.workflowObject.metadata);
         metadata['references'] = linkedReferences;
         this.workflowObject.metadata = metadata;
@@ -115,11 +116,12 @@ export class HoldingpenSaveButtonComponent extends SubscriberComponent
   private cleanupAndSave() {
     this.recordCleanupService.cleanup(this.workflowObject.metadata);
     this.apiService.validateWorkflowObject(this.workflowObject).subscribe(
-      data => {
+      (data) => {
         delete this.workflowObject._extra_data['validation_errors'];
       },
-      error => {
+      (error) => {
         this.workflowObject._extra_data['validation_errors'] = error.body;
+        this.jsonBeingEdited$.next(this.workflowObject);
         this.displayErrorToast(error);
       },
       () => {
@@ -143,7 +145,7 @@ export class HoldingpenSaveButtonComponent extends SubscriberComponent
       .saveWorkflowObjectWithCallbackUrl(this.workflowObject, this.callbackUrl)
       .do(() => this.domUtilsService.unregisterBeforeUnloadPrompt())
       .subscribe(
-        body => {
+        (body) => {
           if (this.hasConflicts()) {
             this.toastrService.clear(this.savingInfoToast.toastId);
             this.toastrService.success(body.message, 'Success');
@@ -186,7 +188,7 @@ export class HoldingpenSaveButtonComponent extends SubscriberComponent
           this.toastrService.clear(this.savingInfoToast.toastId);
           this.toastrService.success(`Workflow object is saved`, 'Success');
         },
-        error => {
+        (error) => {
           this.displayErrorToast(error);
         }
       );
