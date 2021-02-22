@@ -147,6 +147,32 @@ def test_orcids_for_push_orcid_in_author_with_claim(author_in_isolated_app):
     assert list(get_orcids_for_push(record)) == ["0000-0002-1825-0097"]
 
 
+def test_orcid_for_push_orcid_in_author_with_claim_and_in_paper(author_in_isolated_app):
+    record = {
+        "_collections": ["Literature"],
+        "authors": [
+            {"full_name": "No Orcid, Jimmy"},
+            {
+                "full_name": "Smith, John",
+                "ids": [
+                    {"schema": "INSPIRE BAI", "value": "J.Smith.1"},
+                    {"schema": "ORCID", "value": "0000-0002-1825-0089"},
+                ],
+                "record": get_record_ref(author_in_isolated_app, "authors"),
+                "curated_relation": True,
+            },
+        ],
+        "document_type": ["article"],
+        "titles": [{"title": "An interesting paper"}],
+    }
+
+    assert validate(record, "hep") is None
+    assert list(get_orcids_for_push(record)) == [
+        "0000-0002-1825-0089",
+        "0000-0002-1825-0097",
+    ]
+
+
 def test_get_literature_recids_for_orcid(inspire_app, datadir):
     data_author = orjson.loads((datadir / "1061000.json").read_text())
     create_record("aut", data=data_author)
