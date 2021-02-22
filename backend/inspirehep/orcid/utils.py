@@ -118,9 +118,8 @@ def get_orcids_for_push(record):
         orcids_in_author = get_values_for_schema(author.get("ids", []), "ORCID")
         if orcids_in_author:
             orcids_on_record.extend(orcids_in_author)
-        elif author.get("curated_relation") is True and "record" in author:
+        if author.get("curated_relation") is True and "record" in author:
             author_recids_with_claims.append(get_recid_from_ref(author["record"]))
-
     author_records = AuthorsRecord.get_records_by_pids(
         ("aut", str(recid)) for recid in author_recids_with_claims
     )
