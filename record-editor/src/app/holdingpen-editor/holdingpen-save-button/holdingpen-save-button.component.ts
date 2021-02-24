@@ -118,6 +118,7 @@ export class HoldingpenSaveButtonComponent
     this.apiService.validateWorkflowObject(this.workflowObject).subscribe(
       (data) => {
         delete this.workflowObject._extra_data['validation_errors'];
+        this.jsonBeingEdited$.next(this.workflowObject);
       },
       (error) => {
         this.workflowObject._extra_data['validation_errors'] = error.body;
