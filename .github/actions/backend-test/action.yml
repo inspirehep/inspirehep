@@ -15,6 +15,7 @@ runs:
       shell: bash
       run: >
         docker run
+        --pull always
         --entrypoint poetry
         --network="host"
         $IMAGE:$REF_TAG

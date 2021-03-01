@@ -10,6 +10,7 @@ runs:
       shell: bash
       run: >
         docker run
+        --pull always
         --network="host"
         $IMAGE:$BUILD_TAG
         yarn test

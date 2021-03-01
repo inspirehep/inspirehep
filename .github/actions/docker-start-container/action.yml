@@ -42,6 +42,7 @@ runs:
         --name ${{ inputs.name }}
         --network host
         --cidfile ${{ inputs.name }}.cid
+        --pull always
         ${variables}
         ${{ inputs.options }}
         ${{ inputs.image }}
