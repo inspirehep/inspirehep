@@ -11,10 +11,12 @@
 from contextlib import contextmanager
 from itertools import chain
 
+import structlog
 from elasticsearch_dsl import Q
 from flask import current_app
 from inspire_dojson.utils import get_recid_from_ref
-from inspire_utils.record import get_values_for_schema
+from inspire_utils.record import get_value, get_values_for_schema
+from invenio_accounts.models import User
 from invenio_db import db
 from invenio_oauthclient.models import RemoteAccount, RemoteToken, UserIdentity
 from invenio_oauthclient.utils import oauth_link_external_id
@@ -25,9 +27,13 @@ from redis_lock import Lock
 from sqlalchemy import cast, type_coerce
 from sqlalchemy.dialects.postgresql import JSONB
 
+from inspirehep.mailing.api.authors import send_orcid_push_disabled_email
+from inspirehep.orcid.push_access_tokens import delete_access_token
 from inspirehep.pidstore.models import InspireRedirect
 from inspirehep.records.api import AuthorsRecord
 from inspirehep.search.api import LiteratureSearch
+
+LOGGER = structlog.getLogger()
 
 
 def _split_lists(sequence, chunk_size):
@@ -226,3 +232,32 @@ def distributed_lock(lock_name, expire=10, auto_renewal=True, blocking=False):
 
 class DistributedLockError(Exception):
     pass
+
+
+def update_moved_orcid(old_orcid, new_orcid):
+    author_record = AuthorsRecord.get_record_by_pid_value(old_orcid, "orcid")
+    if new_orcid not in get_value(author_record, "ids.value", []):
+        new_author_ids = [
+            {"schema": "ORCID", "value": new_orcid},
+            *author_record["ids"],
+        ]
+        author_record["ids"] = new_author_ids
+        author_record.update(dict(author_record))
+    remove_access_token_for_orcid_account(old_orcid, new_orcid)
+    db.session.commit()
+    LOGGER.info("ORCID updated", new_orcid=new_orcid, old_orcid=old_orcid)
+
+
+def remove_access_token_for_orcid_account(orcid, new_orcid):
+    user_orcid_account = RemoteAccount.query.filter(
+        RemoteAccount.user_id == UserIdentity.id_user, UserIdentity.id == orcid
+    ).one()
+    user_orcid_account.extra_data["orcid"] = new_orcid
+    user_orcid_account.extra_data["allow_push"] = False
+    UserIdentity.query.filter(
+        user_orcid_account.user_id == UserIdentity.id_user,
+    ).first().id = new_orcid
+    access_token = user_orcid_account.remote_tokens[0]
+    delete_access_token(access_token.access_token, new_orcid)
+    user_email = User.query.filter(User.id == user_orcid_account.user_id).first().email
+    send_orcid_push_disabled_email(user_email, orcid)

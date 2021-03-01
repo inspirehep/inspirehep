@@ -30,6 +30,7 @@ from . import domain_models, exceptions
 
 LOGGER = structlog.getLogger()
 USER_EMAIL_EMPTY_PATTERN = "{}@FAKEEMAILINSPIRE.FAKE"
+ORCID_REGEX = r"\d{4}-\d{4}-\d{4}-\d{3}[0-9X]"
 
 
 def legacy_orcid_arrays():

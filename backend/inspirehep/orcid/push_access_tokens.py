@@ -61,7 +61,6 @@ def delete_access_token(token_plain, orcid):
     ).one()
     assert remote_token.access_token == token_plain
     db.session.delete(remote_token)
-    db.session.commit()
 
 
 def is_access_token_invalid(token_plain):

@@ -25,6 +25,7 @@ import time
 import pytest
 from fqn_decorators.decorators import get_fqn
 from helpers.factories.db.invenio_oauthclient import TestRemoteToken
+from invenio_db import db
 from sqlalchemy.orm.exc import NoResultFound
 
 from inspirehep.orcid import push_access_tokens
@@ -126,6 +127,7 @@ class TestDeleteAccessToken(TestOrcidInvalidTokensCacheBase):
         push_access_tokens.delete_access_token(
             self.remote_token.access_token, self.orcid
         )
+        db.session.commit()
 
         assert not push_access_tokens.get_access_tokens([self.orcid])
         assert push_access_tokens.is_access_token_invalid(
@@ -138,8 +140,10 @@ class TestDeleteAccessToken(TestOrcidInvalidTokensCacheBase):
             push_access_tokens.delete_access_token(
                 self.remote_token.access_token, orcid
             )
+            db.session.commit()
 
     def test_token_plain_mismatch(self):
         token_plain = "nonexisting-token-plain"
         with pytest.raises(AssertionError):
             push_access_tokens.delete_access_token(token_plain, self.orcid)
+            db.session.commit()
