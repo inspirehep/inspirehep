@@ -28,6 +28,7 @@ import pytest
 from flask import current_app
 from fqn_decorators.decorators import get_fqn
 from helpers.factories.db.invenio_records import TestRecordMetadata
+from inspire_service_orcid.exceptions import MovedPermanentlyException
 from requests.exceptions import RequestException
 
 from inspirehep.orcid import cache as cache_module
@@ -272,3 +273,31 @@ class TestOrcidPushTask(object):
                 self.oauth_token,
                 kwargs_to_pusher=dict(record_db_version=100),
             )
+
+    def test_push_new_work_moved_permanently_orcid_account_exception(
+        self, override_config
+    ):
+        exc = MovedPermanentlyException()
+        exc.args = (
+            "{'response-code': 301, 'developer-message': '301 Moved Permanently: This account is deprecated. Please refer to account: https://qa.orcid.org/0000-0003-1134-6827. ORCID https://qa.orcid.org/0000-1111-0000-0000', 'user-message': 'The resource was not found.'",
+        )
+        self._patcher = mock.patch(
+            "inspirehep.orcid.domain_models.OrcidPusher._post_or_put_work"
+        )
+        self.mock_pusher = self._patcher.start()
+        self.mock_pusher.side_effect = exc
+        with override_config(
+            FEATURE_FLAG_ENABLE_ORCID_PUSH=True,
+            FEATURE_FLAG_ORCID_PUSH_WHITELIST_REGEX=".*",
+        ), mock.patch(
+            "inspirehep.orcid.domain_models.utils.update_moved_orcid"
+        ) as mock_update_orcid, pytest.raises(
+            MovedPermanentlyException
+        ):
+            orcid_push(self.orcid, self.recid, self.oauth_token)
+
+        assert mock_update_orcid.mock_calls[0][1] == (
+            "0000-0003-1134-6827",
+            "0000-1111-0000-0000",
+        )
+        self._patcher.stop()

@@ -17,6 +17,8 @@ CONFERENCES_CONFIRMATION_EMAIL_ADDRESS = "conf@inspirehep.net"
 
 SEMINARS_CONFIRMATION_EMAIL_ADDRESS = "seminars@inspirehep.net"
 
+AUTHORS_EMAIL_ADDRESS = "authors@inspirehep.net"
+
 INVENIO_MAIL_SERVER = "localhost"
 """SMTP server settings for the mail sending"""
 

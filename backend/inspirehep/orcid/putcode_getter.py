@@ -14,6 +14,7 @@ from flask import current_app
 from inspire_service_orcid import exceptions as orcid_client_exceptions
 from inspire_service_orcid import utils as inspire_service_orcid_utils
 from inspire_service_orcid.client import OrcidClient
+from invenio_db import db
 
 from inspirehep.orcid.converter import ExternalIdentifier
 from inspirehep.pidstore.api.base import PidStoreBase
@@ -83,6 +84,7 @@ class OrcidPutcodeGetter(object):
                 orcid=self.orcid,
             )
             push_access_tokens.delete_access_token(self.oauth_token, self.orcid)
+            db.session.commit()
             raise exceptions.TokenInvalidDeletedException
         except orcid_client_exceptions.BaseOrcidClientJsonException as exc:
             raise exceptions.InputDataInvalidException(from_exc=exc)

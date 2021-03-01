@@ -6,10 +6,13 @@
 # Invenio is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
+import re
+
 import structlog
 from flask import current_app
 from inspire_service_orcid import exceptions as orcid_client_exceptions
 from inspire_service_orcid.client import OrcidClient
+from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
 from time_execution import time_execution
 
@@ -21,6 +24,7 @@ from .converter import OrcidConverter
 from .putcode_getter import OrcidPutcodeGetter
 
 LOGGER = structlog.getLogger()
+ORCID_REGEX = r"\d{4}-\d{4}-\d{4}-\d{3}[0-9X]"
 
 
 class OrcidPusher(object):
@@ -180,7 +184,12 @@ class OrcidPusher(object):
                 "Deleting Orcid push access", token=self.oauth_token, orcid=self.orcid
             )
             push_access_tokens.delete_access_token(self.oauth_token, self.orcid)
+            db.session.commit()
             raise exceptions.TokenInvalidDeletedException
+        except orcid_client_exceptions.MovedPermanentlyException as exc:
+            old_orcid, new_orcid = re.findall(ORCID_REGEX, exc.args[0])
+            utils.update_moved_orcid(old_orcid, new_orcid)
+            raise
         except orcid_client_exceptions.BaseOrcidClientJsonException as exc:
             raise exceptions.InputDataInvalidException(from_exc=exc)
 
