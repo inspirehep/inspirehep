@@ -1,0 +1,86 @@
+name: Release on prod
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Commit to deploy on prod'
+        required: true
+      tag:
+        description: 'Tag to release'
+        required: true
+
+jobs:
+  merge:
+    name: Merge to Prod
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          ref: master
+
+      - name: Configure git
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+
+      - name: Is this reference on master?
+        run: >
+          git merge-base
+          --is-ancestor
+          ${{ github.event.inputs.ref }}
+          HEAD
+
+      - name: Create local branch
+        if: ${{ success() }}
+        run: |
+          git checkout ${{ github.event.inputs.ref }} -b prod
+
+      - name: Tag
+        if: ${{ success() }}
+        run: |
+          git tag -a ${{ github.event.inputs.tag }} -m "${MSG}"
+
+      - name: Push
+        if: ${{ success() }}
+        run: |
+          git push --force --follow-tags origin prod
+
+  push:
+    name: Push
+    needs: merge
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        images:
+          - inspirehep/hep
+          - inspirehep/ui
+          - inspirehep/editor
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: prod
+
+      - name: Login
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Tag and push
+        uses: ./.github/actions/docker-tag-and-push
+        with:
+          image: ${{ matrix.images }}
+          pull-tag: ref-${{ github.event.inputs.ref }}
+          push-tag: ${{ github.event.inputs.tag }}
+
+      - name: Deploy Prod
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.INSPIRE_BOT_TOKEN }}
+          repository: inspirehep/kubernetes
+          event-type: deploy
+          client-payload: '{"environment":"prod","image":"${{ matrix.images }}","tag":"${{ github.event.inputs.tag }}"}'
