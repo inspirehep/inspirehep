@@ -5,8 +5,6 @@ on:
     branches: [master]
   pull_request_target:
     branches: [master]
-  release:
-    types: [published]
 
 env:
   REF: ${{ github.event.pull_request.head.sha || github.sha }}
@@ -507,13 +505,13 @@ jobs:
 
       - name: Generate tag
         id: generate_tag
-        if: ${{ github.event_name == 'push' ||  github.event_name == 'release' }}
+        if: ${{ github.event_name == 'push'  }}
         run: |
           echo "::set-output name=tag::$(git describe --always --tags)"
 
       - name: Tag and push (git describe)
         uses: ./.github/actions/docker-tag-and-push
-        if: ${{ github.event_name == 'push' ||  github.event_name == 'release' }}
+        if: ${{ github.event_name == 'push'  }}
         with:
           image: ${{ matrix.images }}
           pull-tag: ${{ env.REF_TAG }}
@@ -521,7 +519,7 @@ jobs:
 
       - name: Tag and push (latest)
         uses: ./.github/actions/docker-tag-and-push
-        if: ${{ github.event_name == 'push' ||  github.event_name == 'release' }}
+        if: ${{ github.event_name == 'push'  }}
         with:
           image: ${{ matrix.images }}
           pull-tag: ${{ env.REF_TAG }}
@@ -543,12 +541,3 @@ jobs:
           repository: inspirehep/kubernetes
           event-type: deploy
           client-payload: '{"environment":"qa","image":"${{ matrix.images }}","tag":"${{ steps.generate_tag.outputs.tag }}"}'
-
-      - name: Deploy Prod
-        uses: peter-evans/repository-dispatch@v1
-        if: ${{ github.event_name == 'release'}}
-        with:
-          token: ${{ secrets.INSPIRE_BOT_TOKEN }}
-          repository: inspirehep/kubernetes
-          event-type: deploy
-          client-payload: '{"environment":"prod","image":"${{ matrix.images }}","tag":"${{ steps.generate_tag.outputs.tag }}"}'
