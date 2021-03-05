@@ -359,7 +359,11 @@ class JobsSearch(InspireSearch):
                 user_query = Q("term", status="open")
             else:
                 user_query = Q(
-                    Q("query_string", query=query_string) & Q("term", status="open")
+                    "bool",
+                    must=[
+                        Q("query_string", query=query_string, default_operator="AND"),
+                        Q("term", status="open"),
+                    ],
                 )
             return self.query(user_query)
         return super().query_from_iq(query_string)

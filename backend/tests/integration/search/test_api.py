@@ -10,10 +10,16 @@ import urllib
 import mock
 import orjson
 import pytest
-from helpers.utils import create_record
+from helpers.utils import create_record, create_user
+from invenio_accounts.testutils import login_user_via_session
 from requests.exceptions import RequestException
 
-from inspirehep.search.api import AuthorsSearch, JournalsSearch, LiteratureSearch
+from inspirehep.search.api import (
+    AuthorsSearch,
+    JobsSearch,
+    JournalsSearch,
+    LiteratureSearch,
+)
 
 
 def test_literature_get_records_by_pids_returns_correct_record(inspire_app):
@@ -576,6 +582,28 @@ def test_authors_query_for_query_with_colon(inspire_app):
     assert expected_query == query_to_dict
 
 
+def test_jobs_query_from_iq_regression(inspire_app):
+    query_to_dict = JobsSearch().query_from_iq("kek-bf-belle-ii").to_dict()
+
+    expected_query = {
+        "query": {
+            "bool": {
+                "must": [
+                    {
+                        "query_string": {
+                            "query": "kek-bf-belle-ii",
+                            "default_operator": "AND",
+                        }
+                    },
+                    {"term": {"status": "open"}},
+                ]
+            }
+        },
+        "track_total_hits": True,
+    }
+    assert expected_query == query_to_dict
+
+
 def test_empty_jobs_search(inspire_app):
     create_record("job", data={"status": "open"})
     create_record("job", data={"status": "open"})
@@ -601,6 +629,50 @@ def test_jobs_search_with_parameter(inspire_app):
         record1_control_number
         == response.json["hits"]["hits"][0]["metadata"]["control_number"]
     )
+
+
+def test_jobs_search_with_parameter_regression(inspire_app):
+    record1 = create_record("job", data={"status": "open"})
+    create_record(
+        "job",
+        data={
+            "status": "open",
+            "accelerator_experiments": [{"legacy_name": "KEK-BF-BELLE-II"}],
+        },
+    )
+    create_record(
+        "job",
+        data={
+            "status": "open",
+            "accelerator_experiments": [{"legacy_name": "KEK-BF-BELLE-II"}],
+        },
+    )
+    create_record(
+        "job",
+        data={
+            "status": "closed",
+            "accelerator_experiments": [{"legacy_name": "KEK-BF-BELLE-II"}],
+        },
+    )
+    create_record(
+        "job",
+        data={"status": "open", "accelerator_experiments": [{"legacy_name": "VIGO"}]},
+    )
+    create_record(
+        "job",
+        data={"status": "open", "accelerator_experiments": [{"legacy_name": "LHC"}]},
+    )
+    with inspire_app.test_client() as client:
+        response = client.get(f"api/jobs?q=kek-bf-belle-ii")
+
+    curator = create_user(role="cataloger")
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=curator.email)
+        response_curator = client.get(f"api/jobs?q=kek-bf-belle-ii&status=open")
+
+    expected_results_count = 2
+    assert expected_results_count == len(response.json["hits"]["hits"])
+    assert response.json["hits"]["hits"] == response_curator.json["hits"]["hits"]
 
 
 def test_empty_conferences_search(inspire_app):
