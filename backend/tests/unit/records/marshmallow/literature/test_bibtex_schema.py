@@ -158,7 +158,14 @@ def test_bibtex_document_type_prefers_article():
 def test_get_journal():
     record = {
         "document_type": ["article"],
-        "publication_info": [{"journal_title": "Rhys.Rev."}],
+        "publication_info": [
+            {
+                "journal_title": "Rhys.Rev.",
+                "journal_volume": "12",
+                "artid": "1",
+                "page_start": "10",
+            }
+        ],
     }
     expected_journal = "Rhys. Rev."
     schema = BibTexCommonSchema()
@@ -172,7 +179,14 @@ def test_get_journal():
 def test_get_volume():
     record = {
         "document_type": ["article"],
-        "publication_info": [{"journal_volume": "12"}],
+        "publication_info": [
+            {
+                "journal_title": "Rhys.Rev.",
+                "journal_volume": "12",
+                "artid": "1",
+                "page_start": "10",
+            }
+        ],
     }
     expected_volume = "12"
     schema = BibTexCommonSchema()
@@ -331,7 +345,15 @@ def test_archive_prefix_empty():
 def test_get_number():
     record = {
         "document_type": ["article"],
-        "publication_info": [{"journal_issue": "12"}],
+        "publication_info": [
+            {
+                "journal_title": "Rhys.Rev.",
+                "journal_volume": "12",
+                "artid": "1",
+                "page_start": "10",
+                "journal_issue": "12",
+            }
+        ],
     }
     expected_number = "12"
     schema = BibTexCommonSchema()
@@ -368,7 +390,17 @@ def test_get_number_with_different_publication_info_material():
 
 
 def test_get_page():
-    record = {"document_type": ["article"], "publication_info": [{"artid": "1"}]}
+    record = {
+        "document_type": ["article"],
+        "publication_info": [
+            {
+                "journal_title": "Rhys.Rev.",
+                "journal_volume": "12",
+                "artid": "1",
+                "page_start": "10",
+            }
+        ],
+    }
     expected_pages = "1"
     schema = BibTexCommonSchema()
 
@@ -575,3 +607,58 @@ def test_get_editor_from_proceedings_parent_record(
     result_editors = result["authors_with_role_editor"]
 
     assert expected_editors == result_editors
+
+
+def test_get_best_publication_info():
+    record = {
+        "document_type": ["conference paper"],
+        "publication_info": [
+            {
+                "year": 2021,
+                "artid": "0001",
+                "material": "publication",
+                "journal_title": "title-2021",
+                "journal_volume": "1",
+                "page_start": "1",
+            },
+            {
+                "year": 2019,
+                "artid": "0002",
+                "material": "publication",
+                "journal_title": "title-2019",
+                "journal_volume": "2",
+                "page_start": "1",
+            },
+            {
+                "year": 2020,
+                "artid": "0003",
+                "material": "publication",
+                "journal_title": "title-2020",
+                "journal_volume": "3",
+                "page_start": "1",
+            },
+            {
+                "year": 2018,
+                "material": "publication",
+                "journal_title": "title-2018",
+                "journal_volume": "2",
+            },
+            {
+                "artid": "0004",
+                "material": "publication",
+                "journal_title": "title-2020",
+                "journal_volume": "3",
+                "page_start": "1",
+            },
+        ],
+    }
+    expected = {
+        "year": 2019,
+        "artid": "0002",
+        "material": "publication",
+        "journal_title": "title-2019",
+        "journal_volume": "2",
+        "page_start": "1",
+    }
+    result = BibTexCommonSchema.get_best_publication_info(record)
+    assert expected == result
