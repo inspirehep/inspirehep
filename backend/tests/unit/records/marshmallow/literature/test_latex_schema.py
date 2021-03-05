@@ -181,16 +181,8 @@ def test_publication_info_without_journal_title_schema():
             }
         ],
     }
-    expected = {
-        "journal_volume": "58",
-        "page_start": "500",
-        "page_end": "593",
-        "page_range": "500-593",
-        "artid": "17920",
-        "year": "2014",
-    }
     result = orjson.loads(schema.dumps(record).data)
-    assert expected == result["publication_info"]
+    assert "publication_info" not in result.keys()
 
 
 def test_schema_takes_control_number_when_texkeys_not_present():

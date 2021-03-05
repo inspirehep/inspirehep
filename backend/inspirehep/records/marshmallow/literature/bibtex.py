@@ -135,11 +135,16 @@ class BibTexCommonSchema(BaseSchema):
             entry
             for entry in publication_info
             if entry.get("material", "publication") == "publication"
+            and entry.get("journal_title")
+            and entry.get("journal_volume")
+            and (entry.get("artid") or entry.get("page_start"))
         ]
         if not only_publications:
             return {}
 
-        return sorted(only_publications, key=len, reverse=True)[0]
+        return sorted(
+            only_publications, key=lambda item: item.get("year", float("inf"))
+        )[0]
 
     def get_authors_with_role_author(self, data):
         return self.get_authors_with_role(data.get("authors", []), "author")
