@@ -74,7 +74,7 @@ jobs:
         uses: ./.github/actions/docker-tag-and-push
         with:
           image: ${{ matrix.images }}
-          pull-tag: ref-${{ github.event.inputs.ref }}
+          pull-tag: master-${{ github.event.inputs.ref }}
           push-tag: ${{ github.event.inputs.tag }}
 
       - name: Deploy Prod
