@@ -221,7 +221,7 @@ skip = "ui"
 omit = ["inspirehep/accounts/handlers.py",]
 
 [tool.pytest.ini_options]
-addopts = "--random-order --cov=inspirehep --cov-report=term-missing -p no:warnings"
+addopts = "--cov=inspirehep --cov-report=term-missing -p no:warnings"
 testpaths = "tests"
 norecursedirs = "tests/integration/orcid/helpers"
 

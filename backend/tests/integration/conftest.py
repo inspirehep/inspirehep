@@ -34,17 +34,18 @@ def instance_path():
 
 
 @pytest.fixture(scope="module")
-def app_config(instance_path, app_config):
+def app_config(instance_path, app_config, worker_id):
     # add extra global config if you would like to customize the config
     # for a specific test you can change create fixture per-directory
     # using ``conftest.py`` or per-file.
+
     app_config["DEBUG"] = False
     app_config["JSONSCHEMAS_HOST"] = "localhost:5000"
     app_config["SERVER_NAME"] = "localhost:5000"
-    app_config["SEARCH_INDEX_PREFIX"] = "test-integration-"
+    app_config["SEARCH_INDEX_PREFIX"] = f"test-integration-{worker_id}-"
     app_config[
         "SQLALCHEMY_DATABASE_URI"
-    ] = "postgresql+psycopg2://inspirehep:inspirehep@localhost/test-inspirehep"
+    ] = f"postgresql+psycopg2://inspirehep:inspirehep@localhost/test-{worker_id}"
     app_config["FEATURE_FLAG_ENABLE_REDIRECTION_OF_PIDS"] = True
     return app_config
 

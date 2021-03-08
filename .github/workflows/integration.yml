@@ -147,6 +147,7 @@ jobs:
         uses: ./.github/actions/backend-test
         with:
           suite: ${{ matrix.suite }}
+          extra_arguments: '--numprocesses 4 --dist loadfile'
 
   backend_unit_test:
     name: Backend unit test
@@ -162,6 +163,7 @@ jobs:
         uses: ./.github/actions/backend-test
         with:
           suite: unit
+          extra_arguments: '--numprocesses 4 --dist each'
 
   ui_test:
     name: UI test

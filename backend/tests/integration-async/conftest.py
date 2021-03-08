@@ -24,7 +24,7 @@ LOGGER = structlog.getLogger()
 
 
 @pytest.fixture(scope="session")
-def app():
+def app(worker_id):
     app = inspire_create_app()
     app_config = {}
     app_config["DEBUG"] = False
@@ -32,10 +32,10 @@ def app():
     app_config["CELERY_TASK_ALWAYS_EAGER"] = False
     app_config["CELERY_TASK_EAGER_PROPAGATES"] = False
     app_config["TESTING"] = True
-    app_config["SEARCH_INDEX_PREFIX"] = "test-integration-async-"
+    app_config["SEARCH_INDEX_PREFIX"] = f"test-integration-async-{worker_id}-"
     app_config[
         "SQLALCHEMY_DATABASE_URI"
-    ] = "postgresql+psycopg2://inspirehep:inspirehep@localhost/test-inspirehep-async"
+    ] = f"postgresql+psycopg2://inspirehep:inspirehep@localhost/test-inspirehep-async-{worker_id}"
     app_config["FEATURE_FLAG_ENABLE_REDIRECTION_OF_PIDS"] = True
     app.wsgi_app.mounts["/api"].config.update(app_config)
     # We cannot have `api` app with the same SERVER_NAME
