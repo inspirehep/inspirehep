@@ -727,3 +727,34 @@ def test_create_record_which_redirects_non_existing_pid_when_redirection_is_turn
     )
     assert LiteratureRecord.get_record_by_pid_value(rec["control_number"])
 
+
+def test_deleted_record_from_legacy_is_created_with_obj_uuid_and_recid(inspire_app):
+    json_record = {
+        "self": {"$ref": "https://inspirebeta.net/api/experiments/1775082"},
+        "control_number": 1775082,
+        "legacy_version": "20200131230810.0",
+        "urls": [{"value": "https://gambit.hepforge.org/"}],
+        "legacy_creation_date": "2020-01-13",
+        "project_type": ["experiment"],
+        "deleted": True,
+        "core": True,
+        "collaboration": {"curated_relation": False, "value": "GAMBIT"},
+        "long_name": "GAMBIT : Global And Modular BSM Inference Tool",
+        "inspire_classification": ["Non-experimental|Simulation tools"],
+        "description": "GAMBIT is a global fitting code for generic Beyond the Standard Model theories, designed to allow fast and easy definition of new models, observables, likelihoods, scanners and backend physics codes.",
+        "legacy_name": "GAMBIT",
+        "experiment": {"value": "GAMBIT", "short_name": "GAMBIT"},
+        "$schema": "https://inspirebeta.net/schemas/records/experiments.json",
+        "_collections": ["Experiments"],
+    }
+
+    cls = InspireRecord.get_class_for_record(json_record)
+    record = cls.create_or_update(
+        json_record,
+        disable_orcid_push=True,
+        disable_relations_update=True,
+    )
+    pid = PersistentIdentifier.query.filter_by(pid_value="1775082").one()
+    assert record.id
+    assert InspireRecord.get_record_by_pid_value("1775082", "exp")
+    assert pid.status == PIDStatus.DELETED

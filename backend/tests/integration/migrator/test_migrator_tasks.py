@@ -638,3 +638,16 @@ def test_count_consumers_for_queue(mock_inspect):
     }
 
     assert count_consumers_for_queue("some-queue") == 2
+
+
+def test_migrating_deleted_record_registers_control_number_regression(inspire_app):
+    raw_deleted_record = b'<record>\n  <controlfield tag="001">1775082</controlfield>\n  <controlfield tag="005">20200131230810.0</controlfield>\n  <datafield tag="856" ind1="4" ind2=" ">\n    <subfield code="u">https://gambit.hepforge.org/</subfield>\n  </datafield>\n  <datafield tag="909" ind1="C" ind2="O">\n    <subfield code="o">oai:inspirehep.net:1775082</subfield>\n    <subfield code="q">INSPIRE:Experiments</subfield>\n  </datafield>\n  <datafield tag="961" ind1=" " ind2=" ">\n    <subfield code="x">2020-01-13</subfield>\n    <subfield code="c">2020-01-31</subfield>\n  </datafield>\n  <datafield tag="980" ind1=" " ind2=" ">\n    <subfield code="a">CORE</subfield>\n  </datafield>\n  <datafield tag="980" ind1=" " ind2=" ">\n    <subfield code="a">EXPERIMENT</subfield>\n  </datafield>\n  <datafield tag="980" ind1=" " ind2=" ">\n    <subfield code="c">DELETED</subfield>\n  </datafield>\n  <datafield tag="710" ind1=" " ind2=" ">\n    <subfield code="g">GAMBIT</subfield>\n  </datafield>\n  <datafield tag="245" ind1=" " ind2=" ">\n    <subfield code="a">GAMBIT : Global And Modular BSM Inference Tool</subfield>\n  </datafield>\n  <datafield tag="372" ind1=" " ind2=" ">\n    <subfield code="9">INSPIRE</subfield>\n    <subfield code="a">9.2</subfield>\n  </datafield>\n  <datafield tag="520" ind1=" " ind2=" ">\n    <subfield code="a">GAMBIT is a global fitting code for generic Beyond the Standard Model theories, designed to allow fast and easy definition of new models, observables, likelihoods, scanners and backend physics codes.</subfield>\n  </datafield>\n  <datafield tag="119" ind1=" " ind2=" ">\n    <subfield code="a">GAMBIT</subfield>\n    <subfield code="c">GAMBIT</subfield>\n    <subfield code="d">GAMBIT</subfield>\n  </datafield>\n</record>'
+
+    deleted_record = LegacyRecordsMirror.from_marcxml(raw_deleted_record)
+    db.session.add(deleted_record)
+
+    create_records_from_mirror_recids([1775082])
+    pid = PersistentIdentifier.query.filter_by(pid_value="1775082").one()
+
+    assert InspireRecord.get_record_by_pid_value("1775082", "exp")
+    assert pid.status == PIDStatus.DELETED

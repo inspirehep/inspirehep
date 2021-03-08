@@ -229,9 +229,10 @@ class InspireRecord(Record):
         deleted = data.get("deleted", False)
 
         with db.session.begin_nested():
-            if not id_ and not deleted:
+            if not id_:
                 id_ = uuid.uuid4()
-                cls.delete_records_from_deleted_records(data)
+                if not deleted:
+                    cls.delete_records_from_deleted_records(data)
                 cls.pidstore_handler.mint(id_, data)
 
             if deleted:
