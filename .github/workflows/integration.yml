@@ -197,6 +197,10 @@ jobs:
       - ui_build
       - editor_build
     if: ${{ always() && contains(needs.*.result, 'success') && !(contains(needs.*.result, 'failure')) }}
+    outputs:
+      backend_image: ${{env.BACKEND_IMAGE}}
+      ui_image: ${{env.UI_IMAGE}}
+      editor_image: ${{env.EDITOR_IMAGE}}
     services:
       redis:
         image: redis
@@ -247,11 +251,10 @@ jobs:
       APP_DANGEROUSLY_ENABLE_LOCAL_LOGIN: True
       APP_ENABLE_SECURE_HEADERS: False
       APP_SECRET_KEY: CHANGE_ME
+      BACKEND_IMAGE: ${{ needs.backend_build.result == 'skipped' && 'master' || env.REF_TAG }}
+      UI_IMAGE: ${{ needs.editor_build.result == 'skipped' && 'master' || env.REF_TAG }}
+      EDITOR_IMAGE: ${{ needs.editor_build.result == 'skipped' && 'master' || env.REF_TAG }}
     steps:
-      - env:
-          NEEDS: ${{ toJson(needs) }}
-        run: echo "$NEEDS"
-
       - name: Checkout
         uses: actions/checkout@v2
         with:
@@ -260,7 +263,7 @@ jobs:
       - name: Start hep worker container
         uses: ./.github/actions/docker-start-container
         with:
-          image: inspirehep/hep:${{ needs.backend_build.result == 'skipped' && 'master' || env.REF_TAG }}
+          image: inspirehep/hep:${{ env.BACKEND_IMAGE }}
           name: hep-worker
           env_pattern: 'INVENIO_'
           options: --entrypoint celery
@@ -271,11 +274,10 @@ jobs:
             -l INFO
             --purge
             --queues celery,migrator,indexer_task,matcher
-
       - name: Start hep web container
         uses: ./.github/actions/docker-start-container
         with:
-          image: inspirehep/hep:${{ needs.backend_build.result == 'skipped' && 'master' || env.REF_TAG }}
+          image: inspirehep/hep:${{ env.BACKEND_IMAGE }}
           name: hep-web
           env_pattern: 'INVENIO_'
           options: --entrypoint gunicorn
@@ -285,7 +287,6 @@ jobs:
             --access-logfile "-"
             --error-logfile "-"
             inspirehep.wsgi:application
-
       - name: Start next worker container
         uses: ./.github/actions/docker-start-container
         with:
@@ -300,7 +301,6 @@ jobs:
             --loglevel=INFO
             --purge
             --queues celery,orcid_push,indexer_task
-
       - name: Start next web container
         uses: ./.github/actions/docker-start-container
         with:
@@ -313,18 +313,17 @@ jobs:
             --access-logfile "-"
             --log-level debug
             inspirehep.wsgi
-
       - name: Start editor
         uses: ./.github/actions/docker-start-container
         with:
-          image: inspirehep/editor:${{ needs.editor_build.result == 'skipped' && 'master' || env.REF_TAG }}
+          image: inspirehep/editor:${{ env.EDITOR_IMAGE }}
           name: record-editor
 
       - name: Start UI
         id: start-ui
         uses: ./.github/actions/docker-start-container
         with:
-          image: inspirehep/ui:${{ needs.ui_build.result == 'skipped' && 'master' || env.REF_TAG }}
+          image: inspirehep/ui:${{ env.UI_IMAGE }}
           name: ui
           options: --add-host=hep-web:127.0.0.1 --add-host=next-web:127.0.0.1 --add-host=record-editor:127.0.0.1 --mount type=bind,source=${{ github.workspace }}/ui/docker/nginx/config/local.conf,destination=/etc/nginx/conf.d/default.conf
 
@@ -332,7 +331,6 @@ jobs:
         run: |
           docker exec hep-web ./scripts/setup
           docker exec next-web inspirehep db create
-
       - name: Import dataset
         run: >
           docker exec hep-web inspirehep importer records
@@ -402,7 +400,6 @@ jobs:
           -f data/records/literature/1306493.json
           -f data/records/literature/1383683.json
           -f data/records/literature/1238110.json
-
       - name: Run Cypress
         uses: cypress-io/github-action@v2
         env:
@@ -423,7 +420,6 @@ jobs:
             name=${name#/} # Remove any leading '/'
             docker logs $i >${name}.log
           done
-
       - name: Upload container logs
         if: ${{ always() }}
         uses: actions/upload-artifact@v2
@@ -453,26 +449,22 @@ jobs:
         id: generate_matrix
         run: |
           images=''
-
           if [ "$BACKEND_INTEGRATION_TEST" = 'true' ] \
           && [ "$BACKEND_UNIT_TEST" = 'true' ]; then
             images=($images 'inspirehep/hep')
           fi
-
           if [ "$UI_TEST" = 'true' ]; then
             images=($images 'inspirehep/ui')
           fi
-
           if [ "$EDITOR_TEST" = 'true' ]; then
             images=($images 'inspirehep/editor')
           fi
-
           json=$(printf '%s\n' "${images[@]}" | jq -R . | jq -sc .)
           echo "output: $json"
           echo '::set-output name=images::'$json
 
-  push:
-    name: Push
+  push_changed:
+    name: Push images that changed
     runs-on: ubuntu-latest
     needs: to_push
     strategy:
@@ -508,7 +500,6 @@ jobs:
         if: ${{ github.event_name == 'push'  }}
         run: |
           echo "::set-output name=tag::$(git describe --always --tags)"
-
       - name: Tag and push (git describe)
         uses: ./.github/actions/docker-tag-and-push
         if: ${{ github.event_name == 'push'  }}
@@ -541,3 +532,44 @@ jobs:
           repository: inspirehep/kubernetes
           event-type: deploy
           client-payload: '{"environment":"qa","image":"${{ matrix.images }}","tag":"${{ steps.generate_tag.outputs.tag }}"}'
+
+  push:
+    name: Push commit SHA to all images
+    runs-on: ubuntu-latest
+    needs: end_to_end_test
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ env.REF }}
+          fetch-depth: 0
+
+      - name: Login
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Tag and push latest for hep
+        uses: ./.github/actions/docker-tag-and-push
+        if: ${{ github.event_name == 'push' }}
+        with:
+          image: inspirehep/hep
+          pull-tag: ${{ needs.end_to_end_test.outputs.backend_image }}
+          push-tag: master-${{ env.REF }}
+
+      - name: Tag and push latest for ui
+        uses: ./.github/actions/docker-tag-and-push
+        if: ${{ github.event_name == 'push' }}
+        with:
+          image: inspirehep/ui
+          pull-tag: ${{ needs.end_to_end_test.outputs.ui_image }}
+          push-tag: master-${{ env.REF }}
+
+      - name: Tag and push latest for hep
+        uses: ./.github/actions/docker-tag-and-push
+        if: ${{ github.event_name == 'push' }}
+        with:
+          image: inspirehep/editor
+          pull-tag: ${{ needs.end_to_end_test.outputs.editor_image }}
+          push-tag: master-${{ env.REF }}
