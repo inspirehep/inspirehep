@@ -751,7 +751,7 @@ def test_deleted_record_from_legacy_is_created_with_obj_uuid_and_recid(inspire_a
     cls = InspireRecord.get_class_for_record(json_record)
     record = cls.create_or_update(
         json_record,
-        disable_orcid_push=True,
+        disable_external_push=True,
         disable_relations_update=True,
     )
     pid = PersistentIdentifier.query.filter_by(pid_value="1775082").one()
