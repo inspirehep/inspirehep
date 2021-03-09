@@ -88,7 +88,7 @@ def test_lit_record_update_when_changed(
     assert_es_hits_count(1, additional_steps=additional_step)
 
 
-def test_lit_record_removed_form_es_when_deleted(
+def test_lit_record_removed_from_es_when_deleted(
     inspire_app, celery_app_with_context, celery_session_worker
 ):
     data = faker.record("lit")
@@ -100,10 +100,16 @@ def test_lit_record_removed_form_es_when_deleted(
     rec.delete()
     db.session.commit()
 
-    assert_es_hits_count(0)
+    def assert_record_is_deleted_from_es():
+        current_search.flush_and_refresh("records-hep")
+        expected_records_count = 0
+        record_lit_es = LiteratureSearch().get_record(str(rec.id)).execute().hits
+        assert expected_records_count == len(record_lit_es)
+
+    retry_until_pass(assert_record_is_deleted_from_es)
 
 
-def test_lit_record_removed_form_es_when_hard_deleted(
+def test_lit_record_removed_from_es_when_hard_deleted(
     inspire_app, celery_app_with_context, celery_session_worker
 ):
     data = faker.record("lit")
