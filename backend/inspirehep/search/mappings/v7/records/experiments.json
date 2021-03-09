@@ -205,6 +205,14 @@
       "name_variants": {
         "type": "text"
       },
+      "normalized_name_variants": {
+        "type": "keyword",
+        "normalizer": "name_variants_normalizer"
+      },
+      "normalized_subgroups": {
+        "type": "keyword",
+        "normalizer": "name_variants_normalizer"
+      },
       "new_recid": {
         "type": "integer"
       },
@@ -295,10 +303,22 @@
           "tokenizer": "inspire_classification_tokenizer"
         }
       },
+      "char_filter": {
+        "specialCharactersFilter": {
+          "pattern": "[^\\p{L}\\p{Nd}]",
+           "type": "pattern_replace",
+           "replacement": " "
+        }
+      },
       "normalizer": {
         "lowercase_normalizer": {
           "type": "custom",
           "char_filter": [],
+          "filter": ["lowercase"]
+        },
+        "name_variants_normalizer": {
+          "type": "custom",
+          "char_filter": ["specialCharactersFilter"],
           "filter": ["lowercase"]
         }
       },
