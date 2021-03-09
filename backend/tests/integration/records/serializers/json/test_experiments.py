@@ -83,6 +83,7 @@ def test_experiments_json_search(inspire_app, datadir):
     del expected_result["_collections"]
     del expected_result["_private_notes"]
     expected_result["number_of_papers"] = 0
+    expected_result["normalized_name_variants"] = ["CERN-EMU11", "EMU11"]
     with inspire_app.test_client() as client:
         response = client.get("/experiments", headers=headers)
 
@@ -141,7 +142,7 @@ def test_parent_experiments_in_detail_page(inspire_app):
                 "curated_relation": True,
             },
             {
-                "record": {"$ref": f"https://inspirebeta.net/api/experiments/123"},
+                "record": {"$ref": "https://inspirebeta.net/api/experiments/123"},
                 "reation": "successor",
             },
         ]
