@@ -36,8 +36,8 @@ export class RecordCleanupService {
         }
       }
     } else {
-      Object.keys(value).forEach(key => {
-        if (typeof value[key] === 'object') {
+      Object.keys(value).forEach((key) => {
+        if (typeof value[key] === 'object' && value[key] !== null) {
           this.cleanup(value[key]);
         }
         if (this.isEmpty(value[key])) {
