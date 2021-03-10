@@ -83,7 +83,7 @@ export const conferences: JsonEditorConfig = {
       },
       series: {
         items: {
-          alwaysShow: ['name', 'number'],
+          alwaysShow: ['name'],
           order: ['name', 'number'],
           properties: {
             name: {
