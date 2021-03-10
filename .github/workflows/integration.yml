@@ -251,9 +251,9 @@ jobs:
       APP_DANGEROUSLY_ENABLE_LOCAL_LOGIN: True
       APP_ENABLE_SECURE_HEADERS: False
       APP_SECRET_KEY: CHANGE_ME
-      BACKEND_IMAGE: ${{ needs.backend_build.result == 'skipped' && 'master' || env.REF_TAG }}
-      UI_IMAGE: ${{ needs.editor_build.result == 'skipped' && 'master' || env.REF_TAG }}
-      EDITOR_IMAGE: ${{ needs.editor_build.result == 'skipped' && 'master' || env.REF_TAG }}
+      BACKEND_IMAGE: ${{ needs.backend_build.result == 'skipped' && 'master' || $REF_TAG }}
+      UI_IMAGE: ${{ needs.editor_build.result == 'skipped' && 'master' || $REF_TAG }}
+      EDITOR_IMAGE: ${{ needs.editor_build.result == 'skipped' && 'master' || $REF_TAG }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
