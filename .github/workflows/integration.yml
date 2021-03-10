@@ -260,19 +260,19 @@ jobs:
       - name: set-backend-image
         run: |
           image = ${{ needs.backend_build.result == 'skipped' && 'master' || env.REF_TAG }}
-          echo "BACKEND_IMAGE="$image >> $GITHUB_ENV
+          echo "BACKEND_IMAGE=$image" >> $GITHUB_ENV
           echo '::set-output name=image::'$image
 
       - name: set-ui-image
         run: |
           image = ${{ needs.ui_build.result == 'skipped' && 'master' || env.REF_TAG }}
-          echo "UI_IMAGE="$image >> $GITHUB_ENV
+          echo "UI_IMAGE=$image" >> $GITHUB_ENV
           echo '::set-output name=image::'$image
 
       - name: set-editor-image
         run: |
           image = ${{ needs.editor_build.result == 'skipped' && 'master' || env.REF_TAG }}
-          echo "EDITOR_IMAGE="$image >> $GITHUB_ENV
+          echo "EDITOR_IMAGE=$image" >> $GITHUB_ENV
           echo '::set-output name=image::'$image
 
       - name: Start hep worker container
