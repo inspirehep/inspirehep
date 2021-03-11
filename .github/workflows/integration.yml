@@ -198,9 +198,9 @@ jobs:
       - editor_build
     if: ${{ always() && contains(needs.*.result, 'success') && !(contains(needs.*.result, 'failure')) }}
     outputs:
-      backend_image: ${{ steps.set-backend-image.outputs.image }}
-      ui_image: ${{ steps.set-ui-image.outputs.image }}
-      editor_image: ${{ steps.set-editor-image.outputs.image }}
+      backend_image: ${{ steps.set-backend-image.outputs.backend_image }}
+      ui_image: ${{ steps.set-ui-image.outputs.ui_image }}
+      editor_image: ${{ steps.set-editor-image.outputs.editor_image }}
     services:
       redis:
         image: redis
@@ -261,19 +261,19 @@ jobs:
         run: |
           image=${{ needs.backend_build.result == 'skipped' && 'master' || env.REF_TAG }}
           echo "BACKEND_IMAGE=${image}" >> $GITHUB_ENV
-          echo '::set-output name=image::'${image}
+          echo '::set-output name=backend_image::'${image}
 
       - name: set-ui-image
         run: |
           image=${{ needs.ui_build.result == 'skipped' && 'master' || env.REF_TAG }}
           echo "UI_IMAGE=${image}" >> $GITHUB_ENV
-          echo '::set-output name=image::'${image}
+          echo '::set-output name=ui_image::'${image}
 
       - name: set-editor-image
         run: |
           image=${{ needs.editor_build.result == 'skipped' && 'master' || env.REF_TAG }}
           echo "EDITOR_IMAGE=${image}" >> $GITHUB_ENV
-          echo '::set-output name=image::'${image}
+          echo '::set-output name=editor_image::'${image}
 
       - name: Start hep worker container
         uses: ./.github/actions/docker-start-container
@@ -464,16 +464,20 @@ jobs:
         id: generate_matrix
         run: |
           images=''
+
           if [ "$BACKEND_INTEGRATION_TEST" = 'true' ] \
           && [ "$BACKEND_UNIT_TEST" = 'true' ]; then
             images=($images 'inspirehep/hep')
           fi
+
           if [ "$UI_TEST" = 'true' ]; then
             images=($images 'inspirehep/ui')
           fi
+
           if [ "$EDITOR_TEST" = 'true' ]; then
             images=($images 'inspirehep/editor')
           fi
+
           json=$(printf '%s\n' "${images[@]}" | jq -R . | jq -sc .)
           echo "output: $json"
           echo '::set-output name=images::'$json
@@ -515,6 +519,7 @@ jobs:
         if: ${{ github.event_name == 'push'  }}
         run: |
           echo "::set-output name=tag::$(git describe --always --tags)"
+
       - name: Tag and push (git describe)
         uses: ./.github/actions/docker-tag-and-push
         if: ${{ github.event_name == 'push'  }}
@@ -552,6 +557,7 @@ jobs:
     name: Push commit SHA to all images
     runs-on: ubuntu-latest
     needs: end_to_end_test
+    if: ${{ !failure() && needs.end_to_end_test.result == 'success' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
