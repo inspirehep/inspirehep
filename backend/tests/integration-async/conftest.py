@@ -16,6 +16,7 @@ from helpers.cleanups import db_cleanup, es_cleanup
 from invenio_search import current_search_client as es
 from redis import StrictRedis
 
+from inspirehep.celery import CeleryTask
 from inspirehep.cli import cli as inspire_cli
 from inspirehep.factory import create_app as inspire_create_app
 
@@ -46,7 +47,10 @@ def app():
 
 @pytest.fixture(scope="session")
 def celery_worker_parameters():
-    return {"queues": ["migrator", "celery", "matcher", "indexer_task"]}
+    return {
+        "queues": ["migrator", "celery", "matcher", "indexer_task"],
+        "perform_ping_check": False,
+    }
 
 
 @pytest.fixture(scope="function", autouse=True)
@@ -59,20 +63,26 @@ def clear_environment(app):
 
 
 @pytest.fixture(scope="session")
-def celery_app_with_context(app, celery_session_app):
+def celery_session_app(app, celery_session_app):
     """
     This fixtures monkey-patches the Task class in the celery_session_app to
     properly run tasks in a Flask application context.
     Note:
-        Using `celery_app` and `celery_worker` in the tests will work only
-        for the first test, from the second one the worker hangs.
-        See: https://github.com/celery/celery/issues/5105
+        https://github.com/celery/celery/pull/5652
+        https://github.com/celery/celery/blob/master/docs/userguide/application.rst#abstract-tasks
     """
-    from flask_celeryext.app import AppContextTask
 
-    celery_session_app.Task = AppContextTask
+    celery_session_app.Task = CeleryTask
     celery_session_app.flask_app = app
-    return celery_session_app
+
+    yield celery_session_app
+
+
+@pytest.fixture(scope="function")
+def clean_celery_session(celery_session_app, celery_session_worker):
+    celery_session_app.control.purge()
+    yield celery_session_worker
+    celery_session_app.control.purge()
 
 
 @pytest.fixture(scope="function")

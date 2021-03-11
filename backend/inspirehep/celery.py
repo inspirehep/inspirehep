@@ -10,6 +10,7 @@
 import os
 import signal
 
+import flask
 import structlog
 from celery.signals import worker_process_init
 from flask_celeryext import AppContextTask, create_celery_app
@@ -33,6 +34,16 @@ class CeleryTask(AppContextTask):
                     term_log.write(str(exc))
             finally:
                 os.kill(os.getppid(), signal.SIGTERM)
+
+    def __call__(self, *args, **kwargs):
+        """Fix for flask-celeryext __call__ override fail.
+        https://github.com/celery/celery/pull/5652
+        https://github.com/celery/celery/blob/master/docs/userguide/application.rst#abstract-tasks
+        """
+        if flask._app_ctx_stack.top is not None:
+            return self.run(*args, **kwargs)
+        with self.app.flask_app.app_context():
+            return self.run(*args, **kwargs)
 
 
 celery = create_celery_app(create_app(LOGGING_SENTRY_CELERY=True))

@@ -15,7 +15,7 @@ from inspirehep.records.api import ConferencesRecord
 
 
 def test_minter_update_conference_record_with_different_cnum_raises_error(
-    inspire_app, celery_app_with_context, celery_session_worker
+    inspire_app, clean_celery_session
 ):
     data = {"opening_date": "1994-12-10"}
     rec = ConferencesRecord.create(faker.record("con", data=data))
@@ -27,7 +27,7 @@ def test_minter_update_conference_record_with_different_cnum_raises_error(
 
 
 def test_minter_undelete_conference_record_registers_deleted_pid(
-    inspire_app, celery_app_with_context, celery_session_worker
+    inspire_app, clean_celery_session
 ):
     data = {"opening_date": "1994-12-10"}
     rec = ConferencesRecord.create(faker.record("con", data=data))
@@ -65,7 +65,7 @@ def test_minter_undelete_conference_record_registers_deleted_pid(
 
 
 def test_minter_undelete_conference_record_without_cnum(
-    inspire_app, celery_app_with_context, celery_session_worker
+    inspire_app, clean_celery_session
 ):
     rec = ConferencesRecord.create(faker.record("con"))
     db.session.commit()

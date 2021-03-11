@@ -17,9 +17,7 @@ from inspirehep.records.api import InspireRecord
 from inspirehep.search.api import InspireSearch
 
 
-def test_continuous_migration(
-    inspire_app, celery_app_with_context, celery_session_worker, redis
-):
+def test_continuous_migration(inspire_app, clean_celery_session, redis):
     raw_record_citer = (
         b"<record>"
         b'  <controlfield tag="001">666</controlfield>'
@@ -102,7 +100,7 @@ def test_continuous_migration(
 
 
 def test_continuous_migration_with_an_invalid_record(
-    inspire_app, celery_app_with_context, celery_session_worker, redis
+    inspire_app, clean_celery_session, redis
 ):
     raw_record_citer = (
         b"<record>"
@@ -203,7 +201,7 @@ def test_continuous_migration_with_an_invalid_record(
 
 
 def test_continuous_migration_with_different_type_of_records(
-    inspire_app, celery_app_with_context, celery_session_worker, redis
+    inspire_app, clean_celery_session, redis
 ):
     raw_record_citer = (
         b"<record>"
@@ -310,7 +308,7 @@ def test_continuous_migration_with_different_type_of_records(
 
 
 def test_continuous_migration_with_invalid_control_number(
-    inspire_app, celery_app_with_context, celery_session_worker, redis
+    inspire_app, clean_celery_session, redis
 ):
     raw_record_citer = (
         b"<record>"

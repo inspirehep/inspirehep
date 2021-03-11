@@ -16,9 +16,7 @@ from invenio_search import current_search
 from inspirehep.records.api import LiteratureRecord
 
 
-def test_oai_with_for_cds_set(
-    inspire_app, celery_app_with_context, celery_session_worker
-):
+def test_oai_with_for_cds_set(inspire_app, clean_celery_session):
     data = {"_export_to": {"CDS": True}}
     record_data = faker.record("lit", data)
     record = LiteratureRecord.create(record_data)
@@ -46,9 +44,7 @@ def test_oai_with_for_cds_set(
         assert record_marcxml in response.data
 
 
-def test_oai_with_for_arxiv_set(
-    inspire_app, celery_app_with_context, celery_session_worker
-):
+def test_oai_with_for_arxiv_set(inspire_app, clean_celery_session):
     data = {
         "arxiv_eprints": [{"value": "2009.01484"}],
         "report_numbers": [{"value": "CERN-TH-2020-136"}],
@@ -79,9 +75,7 @@ def test_oai_with_for_arxiv_set(
         assert record_marcxml in response.data
 
 
-def test_oai_get_single_identifier_for_CDS_set(
-    inspire_app, celery_app_with_context, celery_session_worker
-):
+def test_oai_get_single_identifier_for_CDS_set(inspire_app, clean_celery_session):
     data = {"_export_to": {"CDS": True}}
     record_data = faker.record("lit", data)
     record = LiteratureRecord.create(record_data)
@@ -109,9 +103,7 @@ def test_oai_get_single_identifier_for_CDS_set(
         assert record_marcxml in response.data
 
 
-def test_oai_get_single_identifier_for_arxiv_set(
-    inspire_app, celery_app_with_context, celery_session_worker
-):
+def test_oai_get_single_identifier_for_arxiv_set(inspire_app, clean_celery_session):
     data = {
         "arxiv_eprints": [{"value": "2009.01484"}],
         "report_numbers": [{"value": "CERN-TH-2020-136"}],

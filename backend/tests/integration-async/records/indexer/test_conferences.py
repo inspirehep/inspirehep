@@ -22,7 +22,7 @@ from inspirehep.search.api import ConferencesSearch
 
 
 def test_conference_record_updates_in_es_when_lit_rec_reffers_to_it(
-    inspire_app, celery_app_with_context, celery_session_worker
+    inspire_app, clean_celery_session
 ):
     conference_1 = ConferencesRecord.create(faker.record("con"))
     conference_1_control_number = conference_1["control_number"]
@@ -97,7 +97,7 @@ def test_conference_record_updates_in_es_when_lit_rec_reffers_to_it(
 
 
 def test_indexer_updates_conference_papers_when_name_changes(
-    inspire_app, celery_app_with_context, celery_session_worker
+    inspire_app, clean_celery_session
 ):
     conference_data = faker.record("con", data={"titles": [{"title": "Initial Title"}]})
     conference = ConferencesRecord.create(conference_data)

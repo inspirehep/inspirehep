@@ -16,7 +16,7 @@ from inspirehep.search.api import ExperimentsSearch
 
 
 def test_experiment_record_updates_in_es_when_lit_rec_refers_to_it(
-    inspire_app, celery_app_with_context, celery_session_worker
+    inspire_app, clean_celery_session
 ):
     experiment_1 = ExperimentsRecord.create(faker.record("exp"))
     experiment_1_control_number = experiment_1["control_number"]

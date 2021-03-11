@@ -17,9 +17,7 @@ from inspirehep.records.api import LiteratureRecord
 
 
 @pytest.fixture(scope="function")
-def record_with_two_revisions(
-    inspire_app, celery_app_with_context, celery_session_worker
-):
+def record_with_two_revisions(inspire_app, clean_celery_session):
     record_data = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "control_number": 111,
@@ -39,8 +37,7 @@ def record_with_two_revisions(
 
 def test_get_revisions_requires_authentication(
     inspire_app,
-    celery_app_with_context,
-    celery_session_worker,
+    clean_celery_session,
     record_with_two_revisions,
 ):
     with inspire_app.test_client() as client:
@@ -51,9 +48,7 @@ def test_get_revisions_requires_authentication(
     assert response.status_code == 401
 
 
-def test_get_revisions_with_error(
-    inspire_app, celery_app_with_context, celery_session_worker
-):
+def test_get_revisions_with_error(inspire_app, clean_celery_session):
     user = create_user(role=Roles.cataloger.value)
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
@@ -66,8 +61,7 @@ def test_get_revisions_with_error(
 
 def test_get_revisions(
     inspire_app,
-    celery_app_with_context,
-    celery_session_worker,
+    clean_celery_session,
     record_with_two_revisions,
 ):
     user = create_user(role=Roles.cataloger.value)
@@ -90,8 +84,7 @@ def test_get_revisions(
 
 def test_revert_to_revision_requires_authentication(
     inspire_app,
-    celery_app_with_context,
-    celery_session_worker,
+    clean_celery_session,
     record_with_two_revisions,
 ):
     with inspire_app.test_client() as client:
@@ -104,9 +97,7 @@ def test_revert_to_revision_requires_authentication(
     assert response.status_code == 401
 
 
-def test_revert_to_revision_with_error(
-    inspire_app, celery_app_with_context, celery_session_worker
-):
+def test_revert_to_revision_with_error(inspire_app, clean_celery_session):
     user = create_user(role=Roles.cataloger.value)
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
@@ -121,8 +112,7 @@ def test_revert_to_revision_with_error(
 
 def test_revert_to_revision(
     inspire_app,
-    celery_app_with_context,
-    celery_session_worker,
+    clean_celery_session,
     record_with_two_revisions,
 ):
     user = create_user(role=Roles.cataloger.value)
@@ -145,8 +135,7 @@ def test_revert_to_revision(
 
 def test_get_revision_requires_authentication(
     inspire_app,
-    celery_app_with_context,
-    celery_session_worker,
+    clean_celery_session,
     record_with_two_revisions,
 ):
     record = LiteratureRecord.get_record_by_pid_value(111)
@@ -167,8 +156,7 @@ def test_get_revision_requires_authentication(
 
 def test_get_revision_with_error(
     inspire_app,
-    celery_app_with_context,
-    celery_session_worker,
+    clean_celery_session,
     record_with_two_revisions,
 ):
     user = create_user(role=Roles.cataloger.value)
@@ -188,8 +176,7 @@ def test_get_revision_with_error(
 
 def test_get_revision(
     inspire_app,
-    celery_app_with_context,
-    celery_session_worker,
+    clean_celery_session,
     record_with_two_revisions,
 ):
     user = create_user(role=Roles.cataloger.value)

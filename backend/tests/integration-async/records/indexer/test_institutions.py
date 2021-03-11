@@ -16,7 +16,7 @@ from inspirehep.search.api import InstitutionsSearch
 
 
 def test_institutions_record_updates_in_es_when_lit_rec_refers_to_it(
-    inspire_app, celery_app_with_context, celery_session_worker
+    inspire_app, clean_celery_session
 ):
     institution_1 = InstitutionsRecord.create(faker.record("ins"))
     institution_1_control_number = institution_1["control_number"]

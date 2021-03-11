@@ -33,9 +33,7 @@ from inspirehep.records.receivers import index_after_commit
 from inspirehep.search.api import InspireSearch
 
 
-def test_process_references_in_records(
-    inspire_app, celery_app_with_context, celery_session_worker
-):
+def test_process_references_in_records(inspire_app, clean_celery_session):
     # disconnect this signal so records don't get indexed
     models_committed.disconnect(index_after_commit)
 
@@ -80,7 +78,7 @@ def test_process_references_in_records(
 
 
 def test_process_references_in_records_reindexes_conferences_when_pub_info_changes(
-    inspire_app, celery_app_with_context, celery_session_worker
+    inspire_app, clean_celery_session
 ):
     # disconnect this signal so records don't get indexed
     models_committed.disconnect(index_after_commit)
@@ -113,7 +111,7 @@ def test_process_references_in_records_reindexes_conferences_when_pub_info_chang
 
 
 def test_process_references_in_records_reindexes_institutions_when_linked_institutions_change(
-    inspire_app, celery_app_with_context, celery_session_worker
+    inspire_app, clean_celery_session
 ):
     # disconnect this signal so records don't get indexed
     models_committed.disconnect(index_after_commit)
@@ -173,7 +171,7 @@ def test_process_references_in_records_reindexes_institutions_when_linked_instit
 
 
 def test_process_references_in_records_with_different_type_of_records_doesnt_throw_an_exception(
-    inspire_app, celery_app_with_context, celery_session_worker, enable_self_citations
+    inspire_app, clean_celery_session, enable_self_citations
 ):
     # disconnect this signal so records don't get indexed
     models_committed.disconnect(index_after_commit)
@@ -228,7 +226,7 @@ def test_process_references_in_records_with_different_type_of_records_doesnt_thr
     )
 
 
-def test_update_relations(inspire_app, celery_app_with_context, celery_session_worker):
+def test_update_relations(inspire_app, clean_celery_session):
     conference_data = faker.record("con", with_control_number=True)
     conference_record = InspireRecord.create(conference_data)
 
@@ -276,9 +274,7 @@ def test_update_relations(inspire_app, celery_app_with_context, celery_session_w
     assert conf_paper.literature_uuid == record.id
 
 
-def test_update_relations_with_modified_institutions(
-    inspire_app, celery_app_with_context, celery_session_worker
-):
+def test_update_relations_with_modified_institutions(inspire_app, clean_celery_session):
     institution_data = faker.record("ins", with_control_number=True)
     institution = InspireRecord.create(institution_data)
     db.session.commit()
@@ -310,7 +306,7 @@ def test_update_relations_with_modified_institutions(
 
 
 def test_update_relations_recalculate_citations_with_different_type_of_records_doesnt_throw_an_exception(
-    inspire_app, celery_app_with_context, celery_session_worker
+    inspire_app, clean_celery_session
 ):
     data_cited = faker.record("lit", with_control_number=True)
     record_cited = InspireRecord.create(data_cited, disable_relations_update=True)
@@ -356,7 +352,7 @@ def test_update_relations_recalculate_citations_with_different_type_of_records_d
     assert record_cited_citation_count == record_cited.citation_count
 
 
-def test_index_record(inspire_app, celery_app_with_context, celery_session_worker):
+def test_index_record(inspire_app, clean_celery_session):
     models_committed.disconnect(index_after_commit)
 
     records = [
@@ -384,9 +380,7 @@ def test_index_record(inspire_app, celery_app_with_context, celery_session_worke
     models_committed.connect(index_after_commit)
 
 
-def test_index_record_deletes_a_deleted_record(
-    inspire_app, celery_app_with_context, celery_session_worker
-):
+def test_index_record_deletes_a_deleted_record(inspire_app, clean_celery_session):
     record_to_delete = create_record_async("lit")
     record_to_delete_control_number = record_to_delete["control_number"]
     record_to_delete = InspireRecord.get_record_by_pid_value(
@@ -408,7 +402,7 @@ def test_index_record_deletes_a_deleted_record(
 
 
 def test_migrate_recids_from_mirror_all_only_with_literature(
-    inspire_app, celery_app_with_context, celery_session_worker
+    inspire_app, clean_celery_session
 ):
     raw_record_citer = (
         b"<record>"
@@ -483,7 +477,7 @@ def test_migrate_recids_from_mirror_all_only_with_literature(
 
 
 def test_migrate_recids_from_mirror_all_only_with_literature_author_and_invalid(
-    inspire_app, celery_app_with_context, celery_session_worker
+    inspire_app, clean_celery_session
 ):
     raw_record_citer = (
         b"<record>"
@@ -603,7 +597,7 @@ def test_migrate_recids_from_mirror_all_only_with_literature_author_and_invalid(
 
 
 def test_process_references_in_records_reindexes_experiments_when_linked_experiments_change(
-    app, celery_app_with_context, celery_session_worker
+    app, clean_celery_session
 ):
     # disconnect this signal so records don't get indexed
     models_committed.disconnect(index_after_commit)
@@ -635,9 +629,7 @@ def test_process_references_in_records_reindexes_experiments_when_linked_experim
     assert expected_number_of_paper == experiment_record_es["number_of_papers"]
 
 
-def test_update_relations_with_modified_experiments(
-    app, celery_app_with_context, celery_session_worker
-):
+def test_update_relations_with_modified_experiments(app, clean_celery_session):
     experiment_data = faker.record("exp", with_control_number=True)
     experiment = InspireRecord.create(experiment_data)
     db.session.commit()
@@ -666,7 +658,7 @@ def test_update_relations_with_modified_experiments(
 
 
 def test_migrate_record_from_miror_do_not_leaves_deleted_pids_when_migration_fails(
-    inspire_app, celery_app_with_context, celery_session_worker
+    inspire_app, clean_celery_session
 ):
     raw_record = (
         b"<record>"
@@ -740,7 +732,7 @@ def test_migrate_record_from_miror_do_not_leaves_deleted_pids_when_migration_fai
 
 
 def test_migrator_deleted_deleted_records_correctly_when_pid_redirection_is_turned_off(
-    inspire_app, celery_app_with_context, celery_session_worker, override_config
+    inspire_app, clean_celery_session, override_config
 ):
     raw_record = (
         b"<record>"

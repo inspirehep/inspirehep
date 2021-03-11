@@ -13,9 +13,7 @@ from invenio_search import current_search
 from inspirehep.records.api import DataRecord, LiteratureRecord
 
 
-def test_match_references(
-    inspire_app, cli, celery_app_with_context, celery_session_worker
-):
+def test_match_references(inspire_app, cli, clean_celery_session):
     cited_data = {
         "document_type": ["article"],
         "dois": [{"value": "10.1371/journal.pone.0188398"}],
