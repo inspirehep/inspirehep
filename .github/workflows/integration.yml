@@ -263,7 +263,7 @@ jobs:
           image=${{ needs.backend_build.result == 'skipped' && 'master' || env.REF_TAG }}
           echo "output: $image"
           echo "BACKEND_IMAGE=${image}" >> $GITHUB_ENV
-          echo "::set-output name=image::${{ image }}"
+          echo "::set-output name=image::${image}"
 
       - name: Set ui image
         id: set-ui-image
@@ -271,7 +271,7 @@ jobs:
           image=${{ needs.ui_build.result == 'skipped' && 'master' || env.REF_TAG }}
           echo "output: $image"
           echo "UI_IMAGE=${image}" >> $GITHUB_ENV
-          echo "::set-output name=image::${{ image }}"
+          echo "::set-output name=image::${image}"
 
       - name: Set editor image
         id: set-editor-image
@@ -279,7 +279,7 @@ jobs:
           image=${{ needs.editor_build.result == 'skipped' && 'master' || env.REF_TAG }}
           echo "output: $image"
           echo "EDITOR_IMAGE=${image}" >> $GITHUB_ENV
-          echo "::set-output name=image::${{ image }}"
+          echo "::set-output name=image::${image}"
 
       - name: Check outputs
         run: |
