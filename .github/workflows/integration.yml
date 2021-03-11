@@ -257,21 +257,24 @@ jobs:
         with:
           ref: ${{ env.REF }}
 
-      - name: set-backend-image
+      - name: Set backend image
+        id: set-backend-image
         run: |
           image=${{ needs.backend_build.result == 'skipped' && 'master' || env.REF_TAG }}
           echo "output: $image"
           echo "BACKEND_IMAGE=${image}" >> $GITHUB_ENV
           echo "::set-output name=image::${{ image }}"
 
-      - name: set-ui-image
+      - name: Set ui image
+        id: set-ui-image
         run: |
           image=${{ needs.ui_build.result == 'skipped' && 'master' || env.REF_TAG }}
           echo "output: $image"
           echo "UI_IMAGE=${image}" >> $GITHUB_ENV
           echo "::set-output name=image::${{ image }}"
 
-      - name: set-editor-image
+      - name: Set editor image
+        id: set-editor-image
         run: |
           image=${{ needs.editor_build.result == 'skipped' && 'master' || env.REF_TAG }}
           echo "output: $image"
