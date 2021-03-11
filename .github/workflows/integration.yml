@@ -198,9 +198,9 @@ jobs:
       - editor_build
     if: ${{ always() && contains(needs.*.result, 'success') && !(contains(needs.*.result, 'failure')) }}
     outputs:
-      backend_image: ${{ steps.set-backend-image.outputs.backend_image }}
-      ui_image: ${{ steps.set-ui-image.outputs.ui_image }}
-      editor_image: ${{ steps.set-editor-image.outputs.editor_image }}
+      backend_image: ${{ steps.set-backend-image.outputs.image }}
+      ui_image: ${{ steps.set-ui-image.outputs.image }}
+      editor_image: ${{ steps.set-editor-image.outputs.image }}
     services:
       redis:
         image: redis
@@ -260,32 +260,38 @@ jobs:
       - name: set-backend-image
         run: |
           image=${{ needs.backend_build.result == 'skipped' && 'master' || env.REF_TAG }}
-          echo '::set-output name=backend_image::'$image
+          echo "output: $image"
+          echo "::set-output name=image::$image"
 
       - name: set-backend-image-environment
         run: |
           image=${{ needs.backend_build.result == 'skipped' && 'master' || env.REF_TAG }}
           echo "BACKEND_IMAGE=${image}" >> $GITHUB_ENV
+          echo ${{ steps.set-backend-image.outputs.image }}
 
       - name: set-ui-image
         run: |
           image=${{ needs.ui_build.result == 'skipped' && 'master' || env.REF_TAG }}
-          echo '::set-output name=ui_image::'$image
+          echo "output: $image"
+          echo "::set-output name=image::$image"
 
       - name: set-ui-image-environment
         run: |
           image=${{ needs.ui_build.result == 'skipped' && 'master' || env.REF_TAG }}
           echo "UI_IMAGE=${image}" >> $GITHUB_ENV
+          echo ${{ steps.set-ui-image.outputs.image }}
 
       - name: set-editor-image
         run: |
           image=${{ needs.editor_build.result == 'skipped' && 'master' || env.REF_TAG }}
-          echo '::set-output name=editor_image::'$image
+          echo "output: $image"
+          echo "::set-output name=image::$image"
 
       - name: set-editor-image-environment
         run: |
           image=${{ needs.editor_build.result == 'skipped' && 'master' || env.REF_TAG }}
           echo "EDITOR_IMAGE=${image}" >> $GITHUB_ENV
+          echo ${{ steps.set-editor-image.outputs.image }}
 
       - name: Start hep worker container
         uses: ./.github/actions/docker-start-container
@@ -579,9 +585,9 @@ jobs:
 
       - name: Push check
         run: |
-          echo "${{ needs.end_to_end_test.outputs.backend_image }}"
-          echo "${{ needs.end_to_end_test.outputs.ui_image }}"
-          echo "${{ needs.end_to_end_test.outputs.editor_image }}"
+          echo ${{ needs.end_to_end_test.outputs.backend_image }}
+          echo ${{ needs.end_to_end_test.outputs.ui_image }}
+          echo ${{ needs.end_to_end_test.outputs.editor_image }}
 
       - name: Login
         uses: docker/login-action@v1
