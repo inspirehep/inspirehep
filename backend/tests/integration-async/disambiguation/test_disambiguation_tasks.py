@@ -18,7 +18,7 @@ from inspirehep.search.api import AuthorsSearch, InspireSearch
 
 
 def test_signature_linked_by_disambiguation_has_correct_facet_author_name(
-    inspire_app, celery_app_with_context, celery_session_worker
+    inspire_app, clean_celery_session
 ):
     data = faker.record("lit")
     data["authors"] = [
@@ -69,7 +69,7 @@ def test_signature_linked_by_disambiguation_has_correct_facet_author_name(
 
 
 def test_disambiguation_runs_after_record_creation(
-    inspire_app, celery_app_with_context, celery_session_worker, enable_disambiguation
+    inspire_app, clean_celery_session, enable_disambiguation
 ):
     author_data = faker.record("aut", with_control_number=True)
     author_data.update(
@@ -116,7 +116,7 @@ def test_disambiguation_runs_after_record_creation(
 
 
 def test_disambiguate_many_authors_runs_after_record_creation(
-    inspire_app, celery_app_with_context, celery_session_worker, enable_disambiguation
+    inspire_app, clean_celery_session, enable_disambiguation
 ):
     author_1 = faker.record("aut", with_control_number=True)
     author_1.update(
@@ -193,7 +193,7 @@ def test_disambiguate_many_authors_runs_after_record_creation(
 
 
 def test_disambiguate_authors_doesnt_match_when_author_is_ambiguous(
-    inspire_app, celery_app_with_context, celery_session_worker, enable_disambiguation
+    inspire_app, clean_celery_session, enable_disambiguation
 ):
     author_1 = faker.record("aut", with_control_number=True)
     author_1.update(
@@ -257,7 +257,7 @@ def test_disambiguate_authors_doesnt_match_when_author_is_ambiguous(
 
 
 def test_disambiguation_doesnt_run_with_feature_flag_disabling_it(
-    inspire_app, celery_app_with_context, celery_session_worker
+    inspire_app, clean_celery_session
 ):
     author_data = faker.record("aut", with_control_number=True)
     author_data.update(
@@ -301,7 +301,7 @@ def test_disambiguation_doesnt_run_with_feature_flag_disabling_it(
 
 
 def test_disambiguation_runs_after_lit_record_update(
-    inspire_app, celery_app_with_context, celery_session_worker, enable_disambiguation
+    inspire_app, clean_celery_session, enable_disambiguation
 ):
     author_data = faker.record("aut")
     author_data.update(
@@ -399,7 +399,7 @@ def test_disambiguation_runs_after_lit_record_update(
 
 
 def test_disambiguate_authors_on_first_and_last_name(
-    inspire_app, celery_app_with_context, celery_session_worker, enable_disambiguation
+    inspire_app, clean_celery_session, enable_disambiguation
 ):
     literature_data = faker.record("lit", with_control_number=True)
     literature_data.update(
@@ -440,7 +440,7 @@ def test_disambiguate_authors_on_first_and_last_name(
 
 
 def test_disambiguate_authors_on_first_last_name_and_initials(
-    inspire_app, celery_app_with_context, celery_session_worker, enable_disambiguation
+    inspire_app, clean_celery_session, enable_disambiguation
 ):
     literature_data = faker.record("lit", with_control_number=True)
     literature_data.update(
@@ -498,7 +498,7 @@ def test_disambiguate_authors_on_first_last_name_and_initials(
 
 
 def test_disambiguate_authors_on_collaboration(
-    inspire_app, celery_app_with_context, celery_session_worker, enable_disambiguation
+    inspire_app, clean_celery_session, enable_disambiguation
 ):
     literature_data = faker.record("lit", with_control_number=True)
     literature_data.update(
@@ -561,7 +561,7 @@ def test_disambiguate_authors_on_collaboration(
 
 
 def test_disambiguate_authors_on_affiliation(
-    inspire_app, celery_app_with_context, celery_session_worker, enable_disambiguation
+    inspire_app, clean_celery_session, enable_disambiguation
 ):
     literature_data = faker.record("lit", with_control_number=True)
     literature_data.update(
@@ -636,7 +636,7 @@ def test_disambiguate_authors_on_affiliation(
 
 
 def test_disambiguate_authors_create_new_author(
-    inspire_app, celery_app_with_context, celery_session_worker, enable_disambiguation
+    inspire_app, clean_celery_session, enable_disambiguation
 ):
     literature_data = faker.record("lit", with_control_number=True)
     literature_data.update(
@@ -670,7 +670,7 @@ def test_disambiguate_authors_create_new_author(
 
 
 def test_disambiguate_authors_create_two_author_with_same_name(
-    inspire_app, celery_app_with_context, celery_session_worker, enable_disambiguation
+    inspire_app, clean_celery_session, enable_disambiguation
 ):
     literature_data = faker.record("lit", with_control_number=True)
     literature_data.update(

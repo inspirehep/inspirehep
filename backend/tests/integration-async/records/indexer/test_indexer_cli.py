@@ -26,7 +26,7 @@ from inspirehep.records.api import (
 def check_n_records_reindex_for_pidtype(
     app, cli, pid, n_success=0, n_fail=0, n_batches_error=0
 ):
-    # NOTE: for testing purposes, we need to specify the empty queue name because celery_session_worker
+    # NOTE: for testing purposes, we need to specify the empty queue name because clean_celery_session
     # is not listening on other queues
     result = cli.invoke(["index", "reindex", "-p", pid, "-q", ""])
     assert result.exit_code == 0
@@ -36,13 +36,13 @@ def check_n_records_reindex_for_pidtype(
 
 
 def test_reindex_records_lit_no_records_to_index(
-    inspire_app, celery_app_with_context, celery_session_worker, cli
+    inspire_app, clean_celery_session, cli
 ):
     check_n_records_reindex_for_pidtype(inspire_app, cli, "lit", n_success=0)
 
 
 def test_reindex_records_lit_does_not_index_deleted_record(
-    inspire_app, celery_app_with_context, celery_session_worker, cli
+    inspire_app, clean_celery_session, cli
 ):
     generate_records(count=5)
     generate_records(data={"deleted": True})
@@ -53,7 +53,7 @@ def test_reindex_records_lit_does_not_index_deleted_record(
 
 
 def test_reindex_record_lit_fails_with_invalid_record(
-    inspire_app, celery_app_with_context, celery_session_worker, cli
+    inspire_app, clean_celery_session, cli
 ):
     broken_field = {"_desy_bookkeeping": {"date": '"2013-01-14_final'}}
     with patch("inspirehep.indexer.base.InspireRecordIndexer"):
@@ -64,7 +64,7 @@ def test_reindex_record_lit_fails_with_invalid_record(
 
 
 def test_reindex_record_lit_fails_with_invalid_field_content(
-    inspire_app, celery_app_with_context, celery_session_worker, cli
+    inspire_app, clean_celery_session, cli
 ):
     invalid_field = {"titles": ["i am not an object"]}
 
@@ -76,7 +76,7 @@ def test_reindex_record_lit_fails_with_invalid_field_content(
 
 
 def test_reindex_records_lit_one_fails_and_two_ok(
-    inspire_app, celery_app_with_context, celery_session_worker, cli
+    inspire_app, clean_celery_session, cli
 ):
     invalid_field = {"titles": ["i am not an object"]}
 
@@ -88,9 +88,7 @@ def test_reindex_records_lit_one_fails_and_two_ok(
     check_n_records_reindex_for_pidtype(inspire_app, cli, "lit", n_success=2, n_fail=1)
 
 
-def test_reindex_records_different_pid_types(
-    inspire_app, celery_app_with_context, celery_session_worker, cli
-):
+def test_reindex_records_different_pid_types(inspire_app, clean_celery_session, cli):
     generate_records(count=1, record_type=LiteratureRecord)
     generate_records(count=2, record_type=AuthorsRecord)
     generate_records(count=3, record_type=ConferencesRecord)
@@ -117,7 +115,7 @@ def test_reindex_records_different_pid_types(
 
 
 def test_reindex_records_lit_using_multiple_batches(
-    inspire_app, celery_app_with_context, celery_session_worker, cli
+    inspire_app, clean_celery_session, cli
 ):
     generate_records(count=5)
     generate_records(data={"deleted": True})
@@ -127,9 +125,7 @@ def test_reindex_records_lit_using_multiple_batches(
     assert "0 failed" in result.output
 
 
-def test_reindex_only_one_record(
-    inspire_app, celery_app_with_context, celery_session_worker, cli
-):
+def test_reindex_only_one_record(inspire_app, clean_celery_session, cli):
     rec = generate_records(count=1, data={"control_number": 3})
     result = cli.invoke(["index", "reindex", "-id", "lit", "3", "-q", ""])
 
@@ -138,18 +134,14 @@ def test_reindex_only_one_record(
     assert expected_message in result.output
 
 
-def test_reindex_only_one_record_wring_input(
-    inspire_app, celery_app_with_context, celery_session_worker, cli
-):
+def test_reindex_only_one_record_wring_input(inspire_app, clean_celery_session, cli):
     result = cli.invoke(["index", "reindex", "-id", "3"])
 
     expected_message = "Error: -id option requires 2 arguments"
     assert expected_message in result.output
 
 
-def test_reindex_records_data_records(
-    inspire_app, celery_app_with_context, celery_session_worker, cli
-):
+def test_reindex_records_data_records(inspire_app, clean_celery_session, cli):
     generate_records(count=3, record_type=DataRecord)
     check_n_records_reindex_for_pidtype(inspire_app, cli, "dat", n_success=3)
 
@@ -160,7 +152,7 @@ def _get_deleted_records_by_uuids(uuids):
 
 
 def test_get_query_records_to_index_ok_different_pids(
-    inspire_app, celery_app_with_context, celery_session_worker
+    inspire_app, clean_celery_session
 ):
     generate_records(count=2)
     generate_records(count=2, record_type=AuthorsRecord)
@@ -177,9 +169,7 @@ def test_get_query_records_to_index_ok_different_pids(
     assert deleted_records == []
 
 
-def test_get_query_records_to_index_only_lit(
-    inspire_app, celery_app_with_context, celery_session_worker
-):
+def test_get_query_records_to_index_only_lit(inspire_app, clean_celery_session):
     generate_records(count=2)
     generate_records(count=2, record_type=AuthorsRecord)
 
@@ -197,7 +187,7 @@ def test_get_query_records_to_index_only_lit(
 
 @pytest.mark.xfail(reason="We don't mint ``deleted`` records anymore.")
 def test_get_query_records_to_index_only_lit_adding_record(
-    inspire_app, celery_app_with_context, celery_session_worker
+    inspire_app, clean_celery_session
 ):
     generate_records(count=1, data={"deleted": True})
 
@@ -210,7 +200,7 @@ def test_get_query_records_to_index_only_lit_adding_record(
 
 
 def test_get_query_records_to_index_only_lit_indexes_deleted_record_too(
-    inspire_app, celery_app_with_context, celery_session_worker
+    inspire_app, clean_celery_session
 ):
     generate_records(count=1)
     generate_records(count=1, data={"deleted": True})

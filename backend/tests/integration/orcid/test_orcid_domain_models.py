@@ -467,7 +467,11 @@ class TestOrcidPusherDuplicatedIdentifier(TestOrcidPusherBase):
             self.factory.record_metadata.json["dois"] = dois
             self.factory_clashing.record_metadata.json["deleted"] = True
 
-            with pytest.raises(exceptions.DuplicatedExternalIdentifierPusherException):
+            with pytest.raises(Retry):
+                # As orcid_push is retrying on DuplicatedExternalIdentifierPusherException
+                # Before it was throwing original exception because of `request.called_directly`
+                # was True before celery task __call__ was fixed in
+                # celery/app/task.py(719)retry()
                 tasks.orcid_push.apply(
                     queue="orcid_push_legacy_tokens",
                     kwargs={

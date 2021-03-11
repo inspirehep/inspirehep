@@ -16,9 +16,7 @@ from inspirehep.records.api import AuthorsRecord, LiteratureRecord
 from inspirehep.search.api import AuthorsSearch
 
 
-def test_aut_record_appear_in_es_when_created(
-    inspire_app, celery_app_with_context, celery_session_worker
-):
+def test_aut_record_appear_in_es_when_created(inspire_app, clean_celery_session):
     data = faker.record("aut")
     rec = AuthorsRecord.create(data)
     db.session.commit()
@@ -45,9 +43,7 @@ def test_aut_record_appear_in_es_when_created(
     retry_until_matched(steps)
 
 
-def test_aut_record_update_when_changed(
-    inspire_app, celery_app_with_context, celery_session_worker
-):
+def test_aut_record_update_when_changed(inspire_app, clean_celery_session):
     data = faker.record("aut")
     rec = AuthorsRecord.create(data)
     db.session.commit()
@@ -79,9 +75,7 @@ def test_aut_record_update_when_changed(
     retry_until_matched(steps)["hits"]["hits"]
 
 
-def test_aut_record_removed_form_es_when_deleted(
-    inspire_app, celery_app_with_context, celery_session_worker
-):
+def test_aut_record_removed_form_es_when_deleted(inspire_app, clean_celery_session):
     data = faker.record("aut")
     rec = AuthorsRecord.create(data)
     db.session.commit()
@@ -113,9 +107,7 @@ def test_aut_record_removed_form_es_when_deleted(
     retry_until_matched(steps)
 
 
-def test_record_created_through_api_is_indexed(
-    inspire_app, celery_app_with_context, celery_session_worker
-):
+def test_record_created_through_api_is_indexed(inspire_app, clean_celery_session):
     data = faker.record("aut")
     token = AccessTokenFactory()
     db.session.commit()
@@ -142,7 +134,7 @@ def test_record_created_through_api_is_indexed(
 
 
 def test_indexer_updates_authors_papers_when_name_changes(
-    inspire_app, celery_app_with_context, celery_session_worker
+    inspire_app, clean_celery_session
 ):
     author_data = faker.record("aut")
     author = AuthorsRecord.create(author_data)
@@ -221,7 +213,7 @@ def test_indexer_updates_authors_papers_when_name_changes(
 
 
 def test_regression_get_linked_author_records_uuids_if_author_changed_name_does_not_return_none_for_author_which_name_didnt_change(
-    app, celery_app_with_context, celery_session_worker
+    app, clean_celery_session
 ):
     author_data = faker.record("aut")
     author = AuthorsRecord.create(author_data)

@@ -4,6 +4,8 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+import time
+
 import orjson
 import pytest
 from flask_sqlalchemy import models_committed
@@ -52,9 +54,7 @@ def assert_es_hits_count(expected_hits_count, additional_steps=None):
     return retry_until_matched(steps)
 
 
-def test_lit_record_appear_in_es_when_created(
-    inspire_app, celery_app_with_context, celery_session_worker
-):
+def test_lit_record_appear_in_es_when_created(inspire_app, clean_celery_session):
     data = faker.record("lit")
     rec = LiteratureRecord.create(data)
     db.session.commit()
@@ -67,9 +67,7 @@ def test_lit_record_appear_in_es_when_created(
     assert response["hits"]["hits"][0]["_source"]["_ui_display"] is not None
 
 
-def test_lit_record_update_when_changed(
-    inspire_app, celery_app_with_context, celery_session_worker
-):
+def test_lit_record_update_when_changed(inspire_app, clean_celery_session):
     data = faker.record("lit")
     data["titles"] = [{"title": "Original title"}]
     rec = LiteratureRecord.create(data)
@@ -88,9 +86,7 @@ def test_lit_record_update_when_changed(
     assert_es_hits_count(1, additional_steps=additional_step)
 
 
-def test_lit_record_removed_from_es_when_deleted(
-    inspire_app, celery_app_with_context, celery_session_worker
-):
+def test_lit_record_removed_from_es_when_deleted(inspire_app, clean_celery_session):
     data = faker.record("lit")
     rec = LiteratureRecord.create(data)
     db.session.commit()
@@ -110,7 +106,7 @@ def test_lit_record_removed_from_es_when_deleted(
 
 
 def test_lit_record_removed_from_es_when_hard_deleted(
-    inspire_app, celery_app_with_context, celery_session_worker
+    inspire_app, clean_celery_session
 ):
     data = faker.record("lit")
     rec = LiteratureRecord.create(data)
@@ -124,9 +120,7 @@ def test_lit_record_removed_from_es_when_hard_deleted(
     assert_es_hits_count(0)
 
 
-def test_index_record_manually(
-    inspire_app, celery_app_with_context, celery_session_worker
-):
+def test_index_record_manually(inspire_app, clean_celery_session):
     data = faker.record("lit")
     rec = LiteratureRecord.create(data)
     models_committed.disconnect(index_after_commit)
@@ -140,9 +134,7 @@ def test_index_record_manually(
     assert_es_hits_count(1)
 
 
-def test_lit_records_with_citations_updates(
-    inspire_app, celery_app_with_context, celery_session_worker
-):
+def test_lit_records_with_citations_updates(inspire_app, clean_celery_session):
     data = faker.record("lit")
     rec = LiteratureRecord.create(data)
     db.session.commit()
@@ -158,7 +150,7 @@ def test_lit_records_with_citations_updates(
 
 
 def test_lit_record_updates_references_when_record_is_deleted(
-    inspire_app, celery_app_with_context, celery_session_worker
+    inspire_app, clean_celery_session
 ):
     data_cited_record = faker.record("lit")
     cited_record = LiteratureRecord.create(data_cited_record)
@@ -181,7 +173,7 @@ def test_lit_record_updates_references_when_record_is_deleted(
 
 
 def test_lit_record_updates_references_when_reference_is_deleted(
-    inspire_app, celery_app_with_context, celery_session_worker
+    inspire_app, clean_celery_session
 ):
     data_cited_record = faker.record("lit")
     cited_record = LiteratureRecord.create(data_cited_record)
@@ -206,7 +198,7 @@ def test_lit_record_updates_references_when_reference_is_deleted(
 
 
 def test_lit_record_updates_references_when_reference_is_added(
-    inspire_app, celery_app_with_context, celery_session_worker
+    inspire_app, clean_celery_session
 ):
     data_cited_record = faker.record("lit")
     cited_record = LiteratureRecord.create(data_cited_record)
@@ -233,7 +225,7 @@ def test_lit_record_updates_references_when_reference_is_added(
 
 
 def test_lit_record_reindexes_references_when_earliest_date_changed(
-    inspire_app, celery_app_with_context, celery_session_worker
+    inspire_app, clean_celery_session
 ):
     data_cited_record = faker.record("lit")
     cited_record = LiteratureRecord.create(data_cited_record)
@@ -280,9 +272,7 @@ def test_lit_record_reindexes_references_when_earliest_date_changed(
     retry_until_matched(steps)
 
 
-def test_many_records_in_one_commit(
-    inspire_app, celery_app_with_context, celery_session_worker
-):
+def test_many_records_in_one_commit(inspire_app, clean_celery_session):
     for x in range(10):
         data = faker.record("lit")
         LiteratureRecord.create(data)
@@ -292,9 +282,7 @@ def test_many_records_in_one_commit(
     assert_es_hits_count(10)
 
 
-def test_record_created_through_api_is_indexed(
-    inspire_app, celery_app_with_context, celery_session_worker
-):
+def test_record_created_through_api_is_indexed(inspire_app, clean_celery_session):
     data = faker.record("lit")
     token = AccessTokenFactory()
     db.session.commit()
@@ -308,7 +296,7 @@ def test_record_created_through_api_is_indexed(
 
 
 def test_literature_citations_superseded_status_change_and_cited_records_are_reindexed(
-    inspire_app, celery_app_with_context, celery_session_worker
+    inspire_app, clean_celery_session
 ):
     data = faker.record("lit")
     record_1 = LiteratureRecord.create(data)
@@ -347,7 +335,7 @@ def test_literature_citations_superseded_status_change_and_cited_records_are_rei
 
 
 def test_literature_regression_changing_bai_in_record_reindex_records_which_are_citing_changed_one(
-    inspire_app, celery_app_with_context, celery_session_worker, enable_self_citations
+    inspire_app, clean_celery_session, enable_self_citations
 ):
     data = {
         "authors": [
@@ -403,6 +391,8 @@ def test_gracefully_handle_records_updating_in_wrong_order(inspire_app):
     record = LiteratureRecord.create(data=record_data)
     db.session.commit()
 
+    record = LiteratureRecord.get_record_by_pid_value(record.control_number)
+
     index_record(record.id, record.model.versions[-1].version_id)
     assert LiteratureSearch().get_source(cited_record.id)["citation_count"] == 1
 
@@ -411,13 +401,17 @@ def test_gracefully_handle_records_updating_in_wrong_order(inspire_app):
 
     record.update(data)
     db.session.commit()
-
+    record = LiteratureRecord.get_record_by_pid_value(record.control_number)
     data = dict(record)
     data["titles"][0] = {"title": "New Title"}
     record.update(data)
     db.session.commit()
 
+    record = LiteratureRecord.get_record_by_pid_value(record.control_number)
+
     index_record(record.id, record.model.versions[-1].version_id)
+
+    record = LiteratureRecord.get_record_by_pid_value(record.control_number)
 
     assert LiteratureSearch().get_source(cited_record.id)["citation_count"] == 1
     assert LiteratureSearch().get_source(record.id)["titles"] == [

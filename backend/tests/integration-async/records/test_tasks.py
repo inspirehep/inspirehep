@@ -14,7 +14,7 @@ from inspirehep.search.api import InspireSearch
 
 
 def test_recalculate_references_after_literature_record_merge(
-    inspire_app, celery_app_with_context, celery_session_worker
+    inspire_app, clean_celery_session
 ):
     literature_data = faker.record("lit", with_control_number=True)
     literature = InspireRecord.create(literature_data)
@@ -67,7 +67,7 @@ def test_recalculate_references_after_literature_record_merge(
 
 
 def test_recalculate_references_after_author_record_merge(
-    inspire_app, celery_app_with_context, celery_session_worker
+    inspire_app, clean_celery_session
 ):
     author_data = faker.record("aut", with_control_number=True)
     author = InspireRecord.create(author_data)
@@ -154,7 +154,7 @@ def test_recalculate_references_after_author_record_merge(
 
 
 def test_recalculate_references_after_institution_record_merge(
-    inspire_app, celery_app_with_context, celery_session_worker
+    inspire_app, clean_celery_session
 ):
     institution_data = faker.record("ins", with_control_number=True)
     institution = InspireRecord.create(institution_data)
@@ -260,7 +260,7 @@ def test_recalculate_references_after_institution_record_merge(
 
 
 def test_recalculate_references_after_experiment_record_merge(
-    inspire_app, celery_app_with_context, celery_session_worker
+    inspire_app, clean_celery_session
 ):
     experiment_data = faker.record("exp", with_control_number=True)
     experiment = InspireRecord.create(experiment_data)
@@ -341,7 +341,7 @@ def test_recalculate_references_after_experiment_record_merge(
 
 
 def test_recalculate_references_after_journal_record_merge(
-    inspire_app, celery_app_with_context, celery_session_worker
+    inspire_app, clean_celery_session
 ):
     journal_data = faker.record("jou", with_control_number=True)
     journal = InspireRecord.create(journal_data)
@@ -381,7 +381,7 @@ def test_recalculate_references_after_journal_record_merge(
 
 
 def test_recalculate_references_after_conference_record_merge(
-    inspire_app, celery_app_with_context, celery_session_worker
+    inspire_app, clean_celery_session
 ):
     conference_data = faker.record("con", with_control_number=True)
     conference = InspireRecord.create(conference_data)
