@@ -198,7 +198,7 @@ jobs:
       - editor_build
     if: ${{ always() && contains(needs.*.result, 'success') && !(contains(needs.*.result, 'failure')) }}
     outputs:
-      backend_image: ${{ steps.set-backend-image.outputs.image }}
+      backend_image: ${{ steps.set_backend_image.outputs.image }}
       ui_image: ${{ steps.set-ui-image.outputs.image }}
       editor_image: ${{ steps.set-editor-image.outputs.image }}
     services:
@@ -257,23 +257,23 @@ jobs:
         with:
           ref: ${{ env.REF }}
 
-      - name: set-backend-image
+      - name: set_backend_image
         run: |
           image=${{ needs.backend_build.result == 'skipped' && 'master' || env.REF_TAG }}
           echo "output: $image"
-          echo "::set-output name=image::$image"
+          echo "::set-output name=image::${image}"
 
-      - name: set-backend-image-environment
+      - name: set_backend_image-environment
         run: |
           image=${{ needs.backend_build.result == 'skipped' && 'master' || env.REF_TAG }}
           echo "BACKEND_IMAGE=${image}" >> $GITHUB_ENV
-          echo ${{ steps.set-backend-image.outputs.image }}
+          echo ${{ steps.set_backend_image.outputs.image }}
 
       - name: set-ui-image
         run: |
           image=${{ needs.ui_build.result == 'skipped' && 'master' || env.REF_TAG }}
           echo "output: $image"
-          echo "::set-output name=image::$image"
+          echo "::set-output name=image::${image}"
 
       - name: set-ui-image-environment
         run: |
@@ -285,7 +285,7 @@ jobs:
         run: |
           image=${{ needs.editor_build.result == 'skipped' && 'master' || env.REF_TAG }}
           echo "output: $image"
-          echo "::set-output name=image::$image"
+          echo "::set-output name=image::${image}"
 
       - name: set-editor-image-environment
         run: |
