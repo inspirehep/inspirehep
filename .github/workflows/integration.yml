@@ -519,6 +519,13 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
+      - name: ECHO TAG
+        uses: ./.github/actions/docker-tag-and-push
+        if: ${{ github.event_name == 'push' }}
+        run: |
+          echo ${{ env.REF_TAG }}
+          echo $REF_TAG
+
       - name: Tag and push (pr)
         uses: ./.github/actions/docker-tag-and-push
         if: ${{ github.event_name == 'pull_request_target' }}
