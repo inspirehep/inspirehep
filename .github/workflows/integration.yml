@@ -498,6 +498,7 @@ jobs:
     name: Push images that changed
     runs-on: ubuntu-latest
     needs: to_push
+    if: ${{ !failure() && needs.to_push.result == 'success' }}
     strategy:
       matrix:
         images: ${{ fromJson(needs.to_push.outputs.images) }}
