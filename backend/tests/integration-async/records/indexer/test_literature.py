@@ -11,7 +11,8 @@ import pytest
 from flask_sqlalchemy import models_committed
 from helpers.factories.models.user_access_token import AccessTokenFactory
 from helpers.providers.faker import faker
-from helpers.utils import es_search, retry_until_matched, retry_until_pass
+from helpers.utils import es_search, retry_until_pass
+from inspire_utils.record import get_value
 from invenio_db import db
 from invenio_search import current_search
 from sqlalchemy.orm.exc import StaleDataError
@@ -23,48 +24,35 @@ from inspirehep.search.api import LiteratureSearch
 
 
 def assert_citation_count(cited_record, expected_count):
-    steps = [
-        {"step": current_search.flush_and_refresh, "args": ["records-hep"]},
-        {
-            "step": LiteratureSearch.get_record_data_from_es,
-            "args": [cited_record],
-            "expected_result": {
-                "expected_key": "citation_count",
-                "expected_result": expected_count,
-            },
-        },
-    ]
-    retry_until_matched(steps)
+    def assert_record():
+        current_search.flush_and_refresh("records-hep")
+        record_from_es = LiteratureSearch().get_record_data_from_es(cited_record)
+        assert expected_count == record_from_es["citation_count"]
+
+    retry_until_pass(assert_record)
 
 
-def assert_es_hits_count(expected_hits_count, additional_steps=None):
-    steps = [
-        {"step": current_search.flush_and_refresh, "args": ["records-hep"]},
-        {
-            "step": es_search,
-            "args": ["records-hep"],
-            "expected_result": {
-                "expected_key": "hits.total.value",
-                "expected_result": expected_hits_count,
-            },
-        },
-    ]
-    if additional_steps:
-        steps.extend(additional_steps)
-    return retry_until_matched(steps)
+def assert_es_hits_count(expected_hits_count):
+    def assert_hits():
+        current_search.flush_and_refresh("records-hep")
+        result = es_search("records-hep")
+        result_total = get_value(result, "hits.total.value")
+        assert expected_hits_count == result_total
+
+    retry_until_pass(assert_hits)
 
 
 def test_lit_record_appear_in_es_when_created(inspire_app, clean_celery_session):
     data = faker.record("lit")
-    rec = LiteratureRecord.create(data)
+    record = LiteratureRecord.create(data)
     db.session.commit()
 
-    additional_step = [
-        {"expected_key": "hits.hits[0]._id", "expected_result": str(rec.id)}
-    ]
-    response = assert_es_hits_count(1, additional_steps=additional_step)
+    def assert_record():
+        current_search.flush_and_refresh("records-hep")
+        record_from_es = LiteratureSearch().get_record_data_from_es(record)
+        assert record_from_es["_ui_display"]
 
-    assert response["hits"]["hits"][0]["_source"]["_ui_display"] is not None
+    retry_until_pass(assert_record)
 
 
 def test_lit_record_update_when_changed(inspire_app, clean_celery_session):
@@ -77,13 +65,13 @@ def test_lit_record_update_when_changed(inspire_app, clean_celery_session):
     data["control_number"] = rec["control_number"]
     rec.update(data)
     db.session.commit()
-    additional_step = [
-        {
-            "expected_key": "hits.hits[0]._source.titles[0].title",
-            "expected_result": expected_title,
-        }
-    ]
-    assert_es_hits_count(1, additional_steps=additional_step)
+
+    def assert_record():
+        current_search.flush_and_refresh("records-hep")
+        record_from_es = LiteratureSearch().get_record_data_from_es(rec)
+        assert expected_title == record_from_es["titles"][0]["title"]
+
+    retry_until_pass(assert_record)
 
 
 def test_lit_record_removed_from_es_when_deleted(inspire_app, clean_celery_session):
@@ -113,6 +101,11 @@ def test_lit_record_removed_from_es_when_hard_deleted(
     db.session.commit()
 
     assert_es_hits_count(1)
+
+    def assert_record():
+        current_search.flush_and_refresh("records-hep")
+        record_from_es = LiteratureSearch().get_record_data_from_es(record)
+        assert expected_count == record_from_es["citation_count"]
 
     rec.hard_delete()
     db.session.commit()
@@ -238,38 +231,26 @@ def test_lit_record_reindexes_references_when_earliest_date_changed(
     citing_record = LiteratureRecord.create(data_citing_record)
     db.session.commit()
 
-    steps = [
-        {"step": current_search.flush_and_refresh, "args": ["records-hep"]},
-        {
-            "step": LiteratureSearch.get_record_data_from_es,
-            "args": [cited_record],
-            "expected_result": {
-                "expected_key": "citations_by_year",
-                "expected_result": [{"count": 1, "year": 2018}],
-            },
-        },
-    ]
-    retry_until_matched(steps)
+    expected_citation_year = [{"count": 1, "year": 2018}]
+
+    def assert_record():
+        current_search.flush_and_refresh("records-hep")
+        record_from_es = LiteratureSearch().get_record_data_from_es(cited_record)
+        assert expected_citation_year == record_from_es["citations_by_year"]
+
+    retry_until_pass(assert_record)
 
     data_citing_record["preprint_date"] = "2019-06-28"
     data_citing_record["control_number"] = citing_record["control_number"]
     citing_record.update(data_citing_record)
     db.session.commit()
 
-    current_search.flush_and_refresh("records-hep")
+    def assert_record():
+        current_search.flush_and_refresh("records-hep")
+        record_from_es = LiteratureSearch().get_record_data_from_es(cited_record)
+        assert expected_citation_year == record_from_es["citations_by_year"]
 
-    steps = [
-        {"step": current_search.flush_and_refresh, "args": ["records-hep"]},
-        {
-            "step": LiteratureSearch.get_record_data_from_es,
-            "args": [cited_record],
-            "expected_result": {
-                "expected_key": "citations_by_year",
-                "expected_result": [{"count": 1, "year": 2019}],
-            },
-        },
-    ]
-    retry_until_matched(steps)
+    retry_until_pass(assert_record)
 
 
 def test_many_records_in_one_commit(inspire_app, clean_celery_session):
@@ -352,32 +333,27 @@ def test_literature_regression_changing_bai_in_record_reindex_records_which_are_
     )
     citer = LiteratureRecord.create(citer_data)
     db.session.commit()
+    expected_ids = ["Jean.L.Picard.1"]
 
-    steps = [
-        {"step": current_search.flush_and_refresh, "args": ["records-hep"]},
-        {
-            "step": LiteratureSearch.get_record_data_from_es,
-            "args": [citer],
-            "expected_key": "referenced_authors_bais",
-            "expected_result": ["Jean.L.Picard.1"],
-        },
-    ]
-    retry_until_matched(steps)
+    def assert_record():
+        current_search.flush_and_refresh("records-hep")
+        record_from_es = LiteratureSearch().get_record_data_from_es(citer)
+        assert expected_ids == record_from_es["referenced_authors_bais"]
+
+    retry_until_pass(assert_record)
 
     data = dict(base_record)
     data["authors"][0]["ids"][0]["value"] = "Jean.L.Picard.2"
     base_record.update(data)
     db.session.commit()
-    steps = [
-        {"step": current_search.flush_and_refresh, "args": ["records-hep"]},
-        {
-            "step": LiteratureSearch.get_record_data_from_es,
-            "args": [citer],
-            "expected_key": "referenced_authors_bais",
-            "expected_result": ["Jean.L.Picard.2"],
-        },
-    ]
-    retry_until_matched(steps)
+    expected_ids = ["Jean.L.Picard.2"]
+
+    def assert_record():
+        current_search.flush_and_refresh("records-hep")
+        record_from_es = LiteratureSearch().get_record_data_from_es(citer)
+        assert expected_ids == record_from_es["referenced_authors_bais"]
+
+    retry_until_pass(assert_record)
 
 
 def test_gracefully_handle_records_updating_in_wrong_order(inspire_app):

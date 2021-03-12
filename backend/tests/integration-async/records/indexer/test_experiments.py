@@ -6,7 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from helpers.providers.faker import faker
-from helpers.utils import es_search, retry_until_matched, retry_until_pass
+from helpers.utils import es_search, retry_until_pass
 from invenio_db import db
 from invenio_search import current_search
 
@@ -23,26 +23,13 @@ def test_experiment_record_updates_in_es_when_lit_rec_refers_to_it(
     ref_1 = f"http://localhost:8000/api/experiments/{experiment_1_control_number}"
     db.session.commit()
     expected_number_of_papers = 0
-    steps = [
-        {"step": current_search.flush_and_refresh, "args": ["records-experiments"]},
-        {
-            "step": es_search,
-            "args": ["records-experiments"],
-            "expected_result": {
-                "expected_key": "hits.total.value",
-                "expected_result": 1,
-            },
-        },
-        {
-            "step": es_search,
-            "args": ["records-experiments"],
-            "expected_result": {
-                "expected_key": "hits.hits[0]._source.number_of_papers",
-                "expected_result": expected_number_of_papers,
-            },
-        },
-    ]
-    retry_until_matched(steps)
+
+    def assert_record():
+        current_search.flush_and_refresh("records-experiments")
+        record_from_es = ExperimentsSearch().get_record_data_from_es(experiment_1)
+        assert expected_number_of_papers == record_from_es["number_of_papers"]
+
+    retry_until_pass(assert_record)
 
     data = {
         "accelerator_experiments": [{"legacy_name": "LIGO", "record": {"$ref": ref_1}}]
@@ -51,19 +38,13 @@ def test_experiment_record_updates_in_es_when_lit_rec_refers_to_it(
     LiteratureRecord.create(faker.record("lit", data))
     db.session.commit()
     expected_number_of_papers = 1
-    steps = [
-        {"step": current_search.flush_and_refresh, "args": ["records-experiments"]},
-        {
-            "step": es_search,
-            "args": ["records-experiments"],
-            "expected_result": {
-                "expected_key": "hits.hits[0]._source.number_of_papers",
-                "expected_result": expected_number_of_papers,
-            },
-        },
-    ]
 
-    retry_until_matched(steps)
+    def assert_record():
+        current_search.flush_and_refresh("records-experiments")
+        record_from_es = ExperimentsSearch().get_record_data_from_es(experiment_1)
+        assert expected_number_of_papers == record_from_es["number_of_papers"]
+
+    retry_until_pass(assert_record)
 
 
 def test_indexer_deletes_record_from_es(inspire_app, datadir):
