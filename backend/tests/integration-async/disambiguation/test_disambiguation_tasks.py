@@ -6,7 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from helpers.providers.faker import faker
-from helpers.utils import es_search, retry_until_matched, retry_until_pass
+from helpers.utils import es_search, retry_until_pass
 from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_search import current_search
@@ -40,32 +40,21 @@ def test_signature_linked_by_disambiguation_has_correct_facet_author_name(
     disambiguate_signatures(clusters)
     author_pids = PersistentIdentifier.query.filter_by(pid_type="aut").all()
     assert len(author_pids) == 1
+
     pid_value = author_pids[0].pid_value
     author = AuthorsRecord.get_record_by_pid_value(pid_value)
     author_control_number = author.pop("control_number")
 
     expected_facet_author_name = [f"{author_control_number}_John Doe"]
     expected_record_ref = f"http://localhost:5000/api/authors/{pid_value}"
-    steps = [
-        {"step": current_search.flush_and_refresh, "args": ["records-hep"]},
-        {
-            "step": es_search,
-            "args": ["records-hep"],
-            "expected_result": {
-                "expected_key": "hits.total.value",
-                "expected_result": 1,
-            },
-        },
-        {
-            "expected_key": "hits.hits[0]._source.facet_author_name",
-            "expected_result": expected_facet_author_name,
-        },
-        {
-            "expected_key": "hits.hits[0]._source.authors[0].record.$ref",
-            "expected_result": expected_record_ref,
-        },
-    ]
-    retry_until_matched(steps)
+
+    def assert_references():
+        current_search.flush_and_refresh("records-hep")
+        record_from_es = InspireSearch.get_record_data_from_es(record)
+        assert expected_facet_author_name == record_from_es["facet_author_name"]
+        assert expected_record_ref == record_from_es["authors"][0]["record"]["$ref"]
+
+    retry_until_pass(assert_references, retry_interval=2)
 
 
 def test_disambiguation_runs_after_record_creation(

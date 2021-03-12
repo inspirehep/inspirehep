@@ -9,7 +9,7 @@ import time
 
 import orjson
 from helpers.providers.faker import faker
-from helpers.utils import es_search, retry_until_matched, retry_until_pass
+from helpers.utils import es_search, retry_until_pass
 from inspire_utils.record import get_value
 from invenio_db import db
 from invenio_search import current_search
@@ -21,7 +21,7 @@ from inspirehep.records.marshmallow.conferences.common.proceeding_info_item impo
 from inspirehep.search.api import ConferencesSearch
 
 
-def test_conference_record_updates_in_es_when_lit_rec_reffers_to_it(
+def test_conference_record_updates_in_es_when_lit_rec_refers_to_it(
     inspire_app, clean_celery_session
 ):
     conference_1 = ConferencesRecord.create(faker.record("con"))
@@ -29,26 +29,13 @@ def test_conference_record_updates_in_es_when_lit_rec_reffers_to_it(
     ref_1 = f"http://localhost:8000/api/conferences/{conference_1_control_number}"
     db.session.commit()
     expected_contributions_count = 0
-    steps = [
-        {"step": current_search.flush_and_refresh, "args": ["records-conferences"]},
-        {
-            "step": es_search,
-            "args": ["records-conferences"],
-            "expected_result": {
-                "expected_key": "hits.total.value",
-                "expected_result": 1,
-            },
-        },
-        {
-            "step": es_search,
-            "args": ["records-conferences"],
-            "expected_result": {
-                "expected_key": "hits.hits[0]._source.number_of_contributions",
-                "expected_result": expected_contributions_count,
-            },
-        },
-    ]
-    retry_until_matched(steps)
+
+    def assert_record():
+        current_search.flush_and_refresh("records-conferences")
+        record_from_es = ConferencesSearch().get_record_data_from_es(conference_1)
+        assert expected_contributions_count == record_from_es["number_of_contributions"]
+
+    retry_until_pass(assert_record)
 
     data = {
         "publication_info": [{"conference_record": {"$ref": ref_1}}],
@@ -64,36 +51,22 @@ def test_conference_record_updates_in_es_when_lit_rec_reffers_to_it(
     }
     record2 = LiteratureRecord.create(faker.record("lit", data))
     db.session.commit()
-    expected_contributions_count = 1
-    steps = [
-        {"step": current_search.flush_and_refresh, "args": ["records-conferences"]},
-        {
-            "step": es_search,
-            "args": ["records-conferences"],
-            "expected_result": {
-                "expected_key": "hits.hits[0]._source.number_of_contributions",
-                "expected_result": expected_contributions_count,
-            },
-        },
-    ]
 
-    retry_until_matched(steps)
+    def assert_record():
+        current_search.flush_and_refresh("records-conferences")
+        record_from_es = ConferencesSearch().get_record_data_from_es(conference_1)
+        assert expected_contributions_count == record_from_es["number_of_contributions"]
+
+    retry_until_pass(assert_record)
 
     expected_proceedings = [ProceedingInfoItemSchemaV1().dump(record2).data]
 
-    steps = [
-        {"step": current_search.flush_and_refresh, "args": ["records-conferences"]},
-        {
-            "step": es_search,
-            "args": ["records-conferences"],
-            "expected_result": {
-                "expected_key": "hits.hits[0]._source.proceedings",
-                "expected_result": expected_proceedings,
-            },
-        },
-    ]
+    def assert_record():
+        current_search.flush_and_refresh("records-conferences")
+        record_from_es = ConferencesSearch().get_record_data_from_es(conference_1)
+        assert expected_proceedings == record_from_es["proceedings"]
 
-    retry_until_matched(steps)
+    retry_until_pass(assert_record)
 
 
 def test_indexer_updates_conference_papers_when_name_changes(
