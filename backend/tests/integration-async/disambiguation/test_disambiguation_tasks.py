@@ -204,7 +204,7 @@ def test_disambiguate_authors_doesnt_match_when_author_is_ambiguous(
                 {"schema": "INSPIRE BAI", "value": "J.M.Maldacena.2"},
             ],
             "email_addresses": [{"current": True, "value": "test@test.com"}],
-            "control_number": 90676330,
+            "control_number": 90_676_330,
         }
     )
     author_2 = faker.record("aut", with_control_number=True)
@@ -216,7 +216,7 @@ def test_disambiguate_authors_doesnt_match_when_author_is_ambiguous(
                 {"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"},
             ],
             "email_addresses": [{"current": True, "value": "test@test.com"}],
-            "control_number": 90676331,
+            "control_number": 90_676_331,
         }
     )
 
@@ -361,7 +361,6 @@ def test_disambiguation_runs_after_lit_record_update(
             ],
         }
     )
-    literature_record_control_number = 4
     literature_record = LiteratureRecord.create(literature_data)
     literature_record_uuid = literature_record.id
     db.session.commit()

@@ -622,19 +622,10 @@ def test_migrating_deleted_record_registers_control_number_with_deleted_status(
 @patch("inspirehep.migrator.tasks.current_celery_app.control.inspect")
 def test_count_consumers_for_queue(mock_inspect):
     mock_inspect.return_value.active_queues.return_value = {
-        "worker-1": [
-            {"name": "some-queue"},
-            {"name": "other-queue"},
-        ],
-        "worker-2": [
-            {"name": "other-queue"},
-        ],
-        "worker-3": [
-            {"name": "other-queue"},
-        ],
-        "worker-4": [
-            {"name": "some-queue"},
-        ],
+        "worker-1": [{"name": "some-queue"}, {"name": "other-queue"}],
+        "worker-2": [{"name": "other-queue"}],
+        "worker-3": [{"name": "other-queue"}],
+        "worker-4": [{"name": "some-queue"}],
     }
 
     assert count_consumers_for_queue("some-queue") == 2

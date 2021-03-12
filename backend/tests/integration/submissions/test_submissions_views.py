@@ -267,7 +267,7 @@ def test_update_author(create_ticket_mock, inspire_app):
         "urls": [{"value": "https://wrong-url"}],
         "_private_notes": [{"value": "A private note"}],
     }
-    author_record = create_record("aut", data=author_data)
+    create_record("aut", data=author_data)
 
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
@@ -330,7 +330,7 @@ def test_update_author_with_new_orcid(create_ticket_mock, inspire_app):
         "status": "active",
         "urls": [{"value": "https://wrong-url"}],
     }
-    author_record = create_record("aut", data=author_data)
+    create_record("aut", data=author_data)
 
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
@@ -385,7 +385,7 @@ def test_update_author_with_extra_data(create_ticket_mock, inspire_app):
         "status": "active",
         "urls": [{"value": "https://wrong-url"}],
     }
-    author_record = create_record("aut", data=author_data)
+    create_record("aut", data=author_data)
 
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
@@ -439,7 +439,7 @@ def test_update_author_with_new_bai(create_ticket_mock, inspire_app):
         "status": "active",
         "urls": [{"value": "https://wrong-url"}],
     }
-    author_record = create_record("aut", data=author_data)
+    create_record("aut", data=author_data)
 
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
@@ -1178,7 +1178,7 @@ def test_job_update_data_30_days_after_deadline(inspire_app):
         )
 
         response = client.get(record_url).json
-        assert response["meta"]["can_modify_status"] == False
+        assert not response["meta"]["can_modify_status"]
 
 
 @freeze_time("2019-01-31")
@@ -1200,7 +1200,7 @@ def test_job_update_data_30_days_after_deadline_with_cataloger(inspire_app):
         )
 
         response = client.get(record_url).json
-        assert response["meta"]["can_modify_status"] == True
+        assert response["meta"]["can_modify_status"]
 
 
 @freeze_time("2019-01-31")
@@ -1222,7 +1222,7 @@ def test_job_update_data_less_than_30_days_after_deadline(inspire_app):
         )
 
         response = client.get(record_url).json
-        assert response["meta"]["can_modify_status"] == True
+        assert response["meta"]["can_modify_status"]
 
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")

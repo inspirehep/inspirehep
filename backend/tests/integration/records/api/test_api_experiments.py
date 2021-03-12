@@ -133,30 +133,30 @@ def test_get_record_from_db_depending_on_its_pid_type(inspire_app):
     data = faker.record("exp")
     record = InspireRecord.create(data)
     record_from_db = InspireRecord.get_record(record.id)
-    assert type(record_from_db) == ExperimentsRecord
+    assert isinstance(record_from_db, ExperimentsRecord)
 
 
 def test_create_record_from_db_depending_on_its_pid_type(inspire_app):
     data = faker.record("exp")
     record = InspireRecord.create(data)
-    assert type(record) == ExperimentsRecord
+    assert isinstance(record, ExperimentsRecord)
     assert record.pid_type == "exp"
 
     record = ExperimentsRecord.create(data)
-    assert type(record) == ExperimentsRecord
+    assert isinstance(record, ExperimentsRecord)
     assert record.pid_type == "exp"
 
 
 def test_create_or_update_record_from_db_depending_on_its_pid_type(inspire_app):
     data = faker.record("exp", with_control_number=True)
     record = InspireRecord.create_or_update(data)
-    assert type(record) == ExperimentsRecord
+    assert isinstance(record, ExperimentsRecord)
     assert record.pid_type == "exp"
 
     data_update = {"deleted": True}
     data.update(data_update)
     record = InspireRecord.create_or_update(data)
-    assert type(record) == ExperimentsRecord
+    assert isinstance(record, ExperimentsRecord)
     assert record.pid_type == "exp"
 
 
@@ -221,7 +221,7 @@ def test_number_of_papers_query(inspire_app):
     expected_number_of_papers = 1
     assert expected_number_of_papers == experiment.number_of_papers
 
-    rec2 = create_record("lit", rec_data)
+    create_record("lit", rec_data)
 
     expected_number_of_papers = 2
     assert expected_number_of_papers == experiment.number_of_papers

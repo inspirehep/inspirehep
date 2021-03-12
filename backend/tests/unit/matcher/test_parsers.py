@@ -5,8 +5,6 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import pytest
-from bs4 import BeautifulSoup
 from inspire_schemas.api import load_schema, validate
 
 from inspirehep.matcher.parsers import GrobidReferenceParser

@@ -58,7 +58,7 @@ def test_process_references_in_records(inspire_app, clean_celery_session):
 
     task = process_references_in_records.delay(uuids)
 
-    result = task.get(timeout=5)
+    task.get(timeout=5)
 
     result_cited_record_1 = InspireSearch.get_record_data_from_es(cited_record_1)
     expected_result_cited_record_1_citation_count = 1
@@ -99,7 +99,7 @@ def test_process_references_in_records_reindexes_conferences_when_pub_info_chang
 
     task = process_references_in_records.delay(uuids)
 
-    result = task.get(timeout=5)
+    task.get(timeout=5)
 
     conference_record_es = InspireSearch.get_record_data_from_es(conference_record)
     expected_number_of_contributions = 1
@@ -205,7 +205,7 @@ def test_process_references_in_records_with_different_type_of_records_doesnt_thr
     uuids = [record.id for record in records] + [citing_record_1.id, citing_record_2.id]
 
     task = process_references_in_records.delay(uuids)
-    results = task.get(timeout=9999999999)
+    results = task.get(timeout=9_999_999_999)
 
     uuids = [str(uuid) for uuid in uuids]
     assert results == uuids

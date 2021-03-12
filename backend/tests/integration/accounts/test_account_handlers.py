@@ -6,11 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import mock
-import pytest
-from flask import render_template
-from flask_login import login_user
 from helpers.utils import create_user
-from invenio_accounts.testutils import login_user_via_session
 
 from inspirehep.accounts.handlers import get_current_user_data
 

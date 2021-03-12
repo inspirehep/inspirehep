@@ -5,10 +5,8 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import re
 
 import orjson
-import pytest
 from freezegun import freeze_time
 from helpers.utils import create_record
 from invenio_pidstore.models import PersistentIdentifier

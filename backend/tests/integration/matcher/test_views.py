@@ -1,5 +1,4 @@
 import orjson
-from helpers.factories.db.invenio_records import TestRecordMetadata
 from helpers.utils import create_record, create_user
 from invenio_accounts.testutils import login_user_via_session
 

@@ -8,7 +8,6 @@
 import random
 import re
 
-from celery import current_app
 from helpers.utils import create_record_factory
 from invenio_search import current_search
 from invenio_search.utils import build_index_name
@@ -27,7 +26,7 @@ def test_reindex_all_types_records(inspire_app, cli):
     record_job = create_record_factory("job")
     record_con = create_record_factory("con")
 
-    result = cli.invoke(["index", "reindex", "--all"])
+    cli.invoke(["index", "reindex", "--all"])
     current_search.flush_and_refresh("*")
     results_lit_uuid = LiteratureSearch().execute().hits.hits[0]["_id"]
     results_aut_uuid = AuthorsSearch().execute().hits.hits[0]["_id"]
@@ -42,9 +41,9 @@ def test_reindex_all_types_records(inspire_app, cli):
 
 def test_reindex_one_type_of_record(inspire_app, cli):
     record_lit = create_record_factory("lit")
-    record_aut = create_record_factory("aut")
+    create_record_factory("aut")
 
-    result = cli.invoke(["index", "reindex", "-p", "lit"])
+    cli.invoke(["index", "reindex", "-p", "lit"])
     current_search.flush_and_refresh("*")
     expected_aut_len = 0
     results_lit_uuid = LiteratureSearch().execute().hits.hits[0]["_id"]

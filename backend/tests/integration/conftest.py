@@ -6,7 +6,6 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 """INSPIRE module that adds more fun to the platform."""
-import os
 from contextlib import contextmanager
 from functools import partial
 
@@ -110,6 +109,7 @@ def db_(database):
     # `session` is actually a scoped_session. For the `after_transaction_end`
     # event, we need a session instance to listen for, hence the `session()`
     # call.
+
     @sa.event.listens_for(session(), "after_transaction_end")
     def restart_savepoint(sess, trans):
         if trans.nested and not trans._parent.nested:

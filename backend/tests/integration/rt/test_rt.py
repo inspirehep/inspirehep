@@ -146,11 +146,7 @@ def test_get_user_by_email_forces_to_refresh_cache_when_nothing_found_first_time
     mock_query_rt, inspire_app
 ):
     mock_query_rt.side_effect = [
-        [
-            "id: user/1",
-            "Name: user1",
-            "EmailAddress: user1@cern.ch",
-        ],
+        ["id: user/1", "Name: user1", "EmailAddress: user1@cern.ch"],
         [
             "id: user/1",
             "Name: user1",

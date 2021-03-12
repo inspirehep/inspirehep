@@ -26,10 +26,7 @@ from inspirehep.search.aggregations import (
     seminar_series_aggregation,
     seminar_subject_aggregation,
 )
-from inspirehep.search.facets import (
-    hep_author_publications,
-    self_author_claimed_papers_filter,
-)
+from inspirehep.search.facets import hep_author_publications
 
 
 def test_hep_author_publications_facets_without_exclude(inspire_app):

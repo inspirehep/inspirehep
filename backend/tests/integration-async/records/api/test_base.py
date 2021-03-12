@@ -52,10 +52,8 @@ def test_record_previous_version_doesnt_fail_if_previous_version_missing(
         "_collections": ["Literature"],
     }
 
-    expected_version_created = 1
-    expected_count_created = 1
     record = LiteratureRecord.create(data)
-    record_control_number = record["control_number"]
+    record["control_number"]
     assert LiteratureRecord({}) == record._previous_version
 
 

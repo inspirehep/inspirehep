@@ -44,7 +44,7 @@ def es_cleanup(es):
                 # Retry as there might be some delay on ES side
                 current_search.flush_and_refresh("*")
                 es.delete_by_query(index, '{"query" : {"match_all" : {} }}')
-    except (RequestError, NotFoundError, IndexAlreadyExistsError) as e:
+    except (RequestError, NotFoundError, IndexAlreadyExistsError):
         es.indices.delete(index="*", allow_no_indices=True, expand_wildcards="all")
         current_search.flush_and_refresh("*")
         _es_create_indexes(current_search, es)

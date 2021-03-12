@@ -2,7 +2,6 @@ from flask import current_app
 from freezegun.api import freeze_time
 from helpers.utils import create_record, create_user
 from invenio_accounts.testutils import login_user_via_session
-from mock import patch
 
 from inspirehep.search.aggregations import (
     conf_series_aggregation,
@@ -778,7 +777,7 @@ def test_hep_self_curated_relation_aggregation_and_filter(inspire_app, override_
                 }
             ]
         }
-        record = create_record("lit", data)
+        create_record("lit", data)
         data = {
             "authors": [
                 {

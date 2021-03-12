@@ -7,7 +7,6 @@
 
 from elasticsearch_dsl import Search
 from flask import current_app
-from mock import patch
 
 from inspirehep.search.factories.facet import inspire_facets_factory
 

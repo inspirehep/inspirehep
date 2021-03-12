@@ -17,7 +17,7 @@ def test_author_facets(inspire_app):
     create_record("lit")
     with inspire_app.test_client() as client:
         response = client.get(
-            f"/literature/facets?facet_name=hep-author-publication&author_recid=9999"
+            "/literature/facets?facet_name=hep-author-publication&author_recid=9999"
         )
 
     response_data = orjson.loads(response.data)
@@ -25,16 +25,17 @@ def test_author_facets(inspire_app):
     response_data_facet_keys = list(response_data.get("aggregations").keys())
 
     expected_status_code = 200
-    expected_facet_keys = [
-        "author",
-        "author_count",
-        "doc_type",
-        "earliest_date",
-        "collaboration",
-        "rpp",
-        "self_affiliations",
-    ]
-    expected_facet_keys.sort()
+    expected_facet_keys = sorted(
+        [
+            "author",
+            "author_count",
+            "doc_type",
+            "earliest_date",
+            "collaboration",
+            "rpp",
+            "self_affiliations",
+        ]
+    )
     response_data_facet_keys.sort()
     assert expected_status_code == response_status_code
     assert expected_facet_keys == response_data_facet_keys
@@ -47,7 +48,7 @@ def test_author_cataloger_facets(inspire_app):
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.get(
-            f"/literature/facets?facet_name=hep-author-publication&author_recid=9999"
+            "/literature/facets?facet_name=hep-author-publication&author_recid=9999"
         )
 
     response_data = orjson.loads(response.data)
@@ -55,21 +56,22 @@ def test_author_cataloger_facets(inspire_app):
     response_data_facet_keys = list(response_data.get("aggregations").keys())
 
     expected_status_code = 200
-    expected_facet_keys = [
-        "author",
-        "author_count",
-        "doc_type",
-        "earliest_date",
-        "collaboration",
-        "subject",
-        "arxiv_categories",
-        "self_affiliations",
-        "self_author_names",
-        "self_curated_relation",
-        "collection",
-        "rpp",
-    ]
-    expected_facet_keys.sort()
+    expected_facet_keys = sorted(
+        [
+            "author",
+            "author_count",
+            "doc_type",
+            "earliest_date",
+            "collaboration",
+            "subject",
+            "arxiv_categories",
+            "self_affiliations",
+            "self_author_names",
+            "self_curated_relation",
+            "collection",
+            "rpp",
+        ]
+    )
     response_data_facet_keys.sort()
     assert expected_status_code == response_status_code
     assert expected_facet_keys == response_data_facet_keys

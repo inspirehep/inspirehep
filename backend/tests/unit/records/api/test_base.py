@@ -115,7 +115,7 @@ def test_finding_proper_class_in_get_record_lit(
     created_record = InspireRecord.get_record("something")
     expected_record_type = LiteratureRecord
 
-    assert type(created_record) == expected_record_type
+    assert isinstance(created_record, expected_record_type)
 
 
 @mock.patch("invenio_records.api.Record.get_record")
@@ -133,7 +133,7 @@ def test_finding_proper_class_in_get_record_aut(
     created_record = InspireRecord.get_record("something")
     expected_record_type = AuthorsRecord
 
-    assert type(created_record) == expected_record_type
+    assert isinstance(created_record, expected_record_type)
 
 
 @mock.patch("inspirehep.records.api.base.InspireRecord._get_records_ids_by_pids")

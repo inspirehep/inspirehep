@@ -10,7 +10,7 @@ from helpers.utils import es_search, retry_until_matched, retry_until_pass
 from invenio_db import db
 from invenio_search import current_search
 
-from inspirehep.records.api import ConferencesRecord, LiteratureRecord
+from inspirehep.records.api import LiteratureRecord
 from inspirehep.records.api.experiments import ExperimentsRecord
 from inspirehep.search.api import ExperimentsSearch
 

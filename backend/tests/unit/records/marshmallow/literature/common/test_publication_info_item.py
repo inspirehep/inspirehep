@@ -6,7 +6,6 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import orjson
-import pytest
 
 from inspirehep.records.marshmallow.literature.common import PublicationInfoItemSchemaV1
 

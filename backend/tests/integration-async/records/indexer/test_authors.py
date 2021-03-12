@@ -4,7 +4,6 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-import time
 
 from helpers.factories.models.user_access_token import AccessTokenFactory
 from helpers.providers.faker import faker
@@ -154,7 +153,7 @@ def test_indexer_updates_authors_papers_when_name_changes(
     }
     lit_data = faker.record("lit", data=lit_data)
 
-    lit_1 = LiteratureRecord.create(lit_data)
+    LiteratureRecord.create(lit_data)
     db.session.commit()
 
     expected_hits = 1

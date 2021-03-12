@@ -28,14 +28,12 @@ import os
 import mock
 import pkg_resources
 import pytest
-from celery.exceptions import Retry, TimeLimitExceeded
+from celery.exceptions import Retry
 from fqn_decorators.decorators import get_fqn
 from helpers.factories.db.invenio_oauthclient import TestRemoteToken
 from helpers.factories.db.invenio_records import TestRecordMetadata
-from inspire_service_orcid import exceptions as orcid_client_exceptions
 from inspire_service_orcid.client import OrcidClient
 from lxml import etree
-from pytest import raises
 
 from inspirehep.orcid import cache as cache_module
 from inspirehep.orcid import domain_models, exceptions, push_access_tokens, tasks
@@ -196,7 +194,7 @@ class TestOrcidPusherPostNewWork(TestOrcidPusherBase):
     def test_push_new_work_happy_flow(self):
         self.delete_all_work()
         pusher = domain_models.OrcidPusher(self.orcid, self.recid, self.oauth_token)
-        result_putcode = pusher.push()
+        pusher.push()
         assert not self.cache.has_work_content_changed(self.inspire_record)
 
     def test_push_new_work_invalid_data_orcid(self):

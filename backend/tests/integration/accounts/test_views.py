@@ -183,7 +183,7 @@ def test_disable_orcid_push(mock_push_account_literature, inspire_app):
 
     orcid_account = RemoteAccount.query.filter_by(user_id=user.get_id()).one_or_none()
 
-    assert orcid_account.extra_data["allow_push"] == False
+    assert not orcid_account.extra_data["allow_push"]
 
     mock_push_account_literature.apply_async.assert_not_called()
 
@@ -206,7 +206,7 @@ def test_enable_orcid_push(mock_push_account_literature, inspire_app):
 
     orcid_account = RemoteAccount.query.filter_by(user_id=user.get_id()).one_or_none()
 
-    assert orcid_account.extra_data["allow_push"] == True
+    assert orcid_account.extra_data["allow_push"]
 
     mock_push_account_literature.apply_async.assert_called_with(
         kwargs={"orcid": orcid, "token": token}

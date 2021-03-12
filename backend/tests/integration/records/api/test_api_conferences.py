@@ -132,30 +132,30 @@ def test_get_record_from_db_depending_on_its_pid_type(inspire_app):
     data = faker.record("con")
     record = InspireRecord.create(data)
     record_from_db = InspireRecord.get_record(record.id)
-    assert type(record_from_db) == ConferencesRecord
+    assert isinstance(record_from_db, ConferencesRecord)
 
 
 def test_create_record_from_db_depending_on_its_pid_type(inspire_app):
     data = faker.record("con")
     record = InspireRecord.create(data)
-    assert type(record) == ConferencesRecord
+    assert isinstance(record, ConferencesRecord)
     assert record.pid_type == "con"
 
     record = ConferencesRecord.create(data)
-    assert type(record) == ConferencesRecord
+    assert isinstance(record, ConferencesRecord)
     assert record.pid_type == "con"
 
 
 def test_create_or_update_record_from_db_depending_on_its_pid_type(inspire_app):
     data = faker.record("con")
     record = InspireRecord.create_or_update(data)
-    assert type(record) == ConferencesRecord
+    assert isinstance(record, ConferencesRecord)
     assert record.pid_type == "con"
 
     data_update = {"titles": [{"title": "UPDATED"}]}
     data.update(data_update)
     record = InspireRecord.create_or_update(data)
-    assert type(record) == ConferencesRecord
+    assert isinstance(record, ConferencesRecord)
     assert record.pid_type == "con"
 
 
@@ -218,7 +218,7 @@ def test_number_of_contributions_query(inspire_app):
     expected_contributions_number = 1
     assert expected_contributions_number == conference.number_of_contributions
 
-    rec2 = create_record("lit", rec_data)
+    create_record("lit", rec_data)
 
     expected_contributions_number = 2
     assert expected_contributions_number == conference.number_of_contributions

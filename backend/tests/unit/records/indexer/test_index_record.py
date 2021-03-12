@@ -8,13 +8,6 @@
 import mock
 import pytest
 from celery.exceptions import Retry
-from elasticsearch import (
-    ConflictError,
-    ConnectionError,
-    ConnectionTimeout,
-    NotFoundError,
-    RequestError,
-)
 from sqlalchemy.exc import (
     DisconnectionError,
     InvalidatePoolError,

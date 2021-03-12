@@ -4,7 +4,6 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-from datetime import datetime
 from operator import itemgetter
 
 import orjson
@@ -85,8 +84,7 @@ def test_conferences_contribution_facets(inspire_app):
     response_data_facet_keys = list(response_data.get("aggregations").keys())
 
     expected_status_code = 200
-    expected_facet_keys = ["subject", "collaboration"]
-    expected_facet_keys.sort()
+    expected_facet_keys = sorted(["subject", "collaboration"])
     response_data_facet_keys.sort()
     assert expected_status_code == response_status_code
     assert expected_facet_keys == response_data_facet_keys
@@ -296,7 +294,7 @@ def test_conferences_start_date_range_filter_all(inspire_app):
     create_record("con", data=conference_in_february_2019)
 
     with inspire_app.test_client() as client:
-        all_response = client.get(f"/conferences?start_date=all")
+        all_response = client.get("/conferences?start_date=all")
     all_data = all_response.json
     assert all_data["hits"]["total"] == 4
     all_recids = sorted(
@@ -320,7 +318,7 @@ def test_conferences_start_date_range_filter_upcoming(inspire_app):
     create_record("con", data=conference_in_february_2019)
 
     with inspire_app.test_client() as client:
-        upcoming_response = client.get(f"/conferences?start_date=upcoming")
+        upcoming_response = client.get("/conferences?start_date=upcoming")
     upcoming_data = upcoming_response.json
     assert upcoming_data["hits"]["total"] == 2
     upcoming_recids = sorted(
@@ -347,7 +345,7 @@ def test_conferences_start_date_range_filter_with_only_single_date(inspire_app):
     create_record("con", data=conference_in_february_2019)
 
     with inspire_app.test_client() as client:
-        after_march_2019_data = client.get(f"/conferences?start_date=2019-03-01--").json
+        after_march_2019_data = client.get("/conferences?start_date=2019-03-01--").json
     assert after_march_2019_data["hits"]["total"] == 3
     after_march_2019_recids = sorted(
         [
@@ -374,7 +372,7 @@ def test_conferences_start_date_range_filter_with_both_dates(inspire_app):
 
     with inspire_app.test_client() as client:
         between_march_2019_and_february_2020_response = client.get(
-            f"/conferences?start_date=2019-03-01--2020-02-01"
+            "/conferences?start_date=2019-03-01--2020-02-01"
         )
     between_march_2019_and_february_2020_data = (
         between_march_2019_and_february_2020_response.json

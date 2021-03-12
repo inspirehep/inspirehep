@@ -6,7 +6,6 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import uuid
 
-import orjson
 import pytest
 from helpers.providers.faker import faker
 from helpers.utils import create_pidstore, create_record
@@ -143,30 +142,30 @@ def test_get_record_from_db_depending_on_its_pid_type(inspire_app):
     data = faker.record("aut")
     record = InspireRecord.create(data)
     record_from_db = InspireRecord.get_record(record.id)
-    assert type(record_from_db) == AuthorsRecord
+    assert isinstance(record_from_db, AuthorsRecord)
 
 
 def test_create_record_from_db_depending_on_its_pid_type(inspire_app):
     data = faker.record("aut")
     record = InspireRecord.create(data)
-    assert type(record) == AuthorsRecord
+    assert isinstance(record, AuthorsRecord)
     assert record.pid_type == "aut"
 
     record = AuthorsRecord.create(data)
-    assert type(record) == AuthorsRecord
+    assert isinstance(record, AuthorsRecord)
     assert record.pid_type == "aut"
 
 
 def test_create_or_update_record_from_db_depending_on_its_pid_type(inspire_app):
     data = faker.record("aut")
     record = InspireRecord.create_or_update(data)
-    assert type(record) == AuthorsRecord
+    assert isinstance(record, AuthorsRecord)
     assert record.pid_type == "aut"
 
     data_update = {"name": {"value": "UPDATED"}}
     data.update(data_update)
     record = InspireRecord.create_or_update(data)
-    assert type(record) == AuthorsRecord
+    assert isinstance(record, AuthorsRecord)
     assert record.pid_type == "aut"
 
 
@@ -198,7 +197,7 @@ def test_orcid_url_also_supports_format_alias(inspire_app):
         "json": "http://localhost:5000/api/orcid/0000-0002-9127-1687?format=json"
     }
     data = {"ids": [{"schema": "ORCID", "value": "0000-0002-9127-1687"}]}
-    record = create_record("aut", data)
+    create_record("aut", data)
 
     with inspire_app.test_client() as client:
         url = "/api/orcid/0000-0002-9127-1687"

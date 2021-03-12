@@ -7,10 +7,9 @@
 
 from helpers.utils import create_record_async, es_search, retry_until_pass
 from inspire_utils.record import get_value
-from invenio_db import db
 from invenio_search import current_search
 
-from inspirehep.records.api import DataRecord, LiteratureRecord
+from inspirehep.records.api import LiteratureRecord
 
 
 def test_match_references(inspire_app, cli, clean_celery_session):

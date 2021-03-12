@@ -519,7 +519,7 @@ def test_empty_email_w_existing_user_w_empty_email(
     name = "myname"
     mock_legacy_orcid_arrays.return_value = ((orcid, token, email, name),)
 
-    result = orcid_app_cli_runner().invoke(import_legacy_orcid_tokens)
+    orcid_app_cli_runner().invoke(import_legacy_orcid_tokens)
 
     assert_user_and_token_models(
         orcid, token, USER_EMAIL_EMPTY_PATTERN.format(orcid), name

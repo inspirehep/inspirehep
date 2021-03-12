@@ -7,9 +7,7 @@
 
 from urllib.parse import urlencode
 
-import mock
 import orjson
-from flask import current_app
 from helpers.providers.faker import faker
 from helpers.utils import (
     create_record,
@@ -64,7 +62,7 @@ def test_literature_search_application_json_ui_get(inspire_app):
         "titles": [{"title": "Partner walk again seek job."}],
         "preprint_date": "2019-07-02",
     }
-    record = create_record("lit", data=data)
+    create_record("lit", data=data)
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
     expected_status_code = 200
     expected_data = {
@@ -308,8 +306,8 @@ def test_literature_citations_with_superseded_citing_records(inspire_app):
         "publication_info": [{"year": 2019}],
     }
     record_superseded = create_record("lit", data=superseded_record_data)
-    record_superseded_control_number = record_superseded["control_number"]
-    record_superseded_titles = record_superseded["titles"]
+    record_superseded["control_number"]
+    record_superseded["titles"]
 
     expected_status_code = 200
 
@@ -429,7 +427,7 @@ def test_literature_citations_with_size_bigger_than_maximum(
 
 
 def test_literature_facets(inspire_app):
-    record = create_record("lit")
+    create_record("lit")
 
     with inspire_app.test_client() as client:
         response = client.get("/literature/facets")
@@ -438,17 +436,18 @@ def test_literature_facets(inspire_app):
     response_data_facet_keys = list(response_data.get("aggregations").keys())
 
     expected_status_code = 200
-    expected_facet_keys = [
-        "arxiv_categories",
-        "author",
-        "author_count",
-        "doc_type",
-        "earliest_date",
-        "subject",
-        "collaboration",
-        "rpp",
-    ]
-    expected_facet_keys.sort()
+    expected_facet_keys = sorted(
+        [
+            "arxiv_categories",
+            "author",
+            "author_count",
+            "doc_type",
+            "earliest_date",
+            "subject",
+            "collaboration",
+            "rpp",
+        ]
+    )
     response_data_facet_keys.sort()
     assert expected_status_code == response_status_code
     assert expected_facet_keys == response_data_facet_keys
@@ -469,18 +468,19 @@ def test_literature_cataloger_facets(inspire_app):
     response_data_facet_keys = list(response_data.get("aggregations").keys())
 
     expected_status_code = 200
-    expected_facet_keys = [
-        "arxiv_categories",
-        "author",
-        "author_count",
-        "doc_type",
-        "earliest_date",
-        "subject",
-        "collaboration",
-        "collection",
-        "rpp",
-    ]
-    expected_facet_keys.sort()
+    expected_facet_keys = sorted(
+        [
+            "arxiv_categories",
+            "author",
+            "author_count",
+            "doc_type",
+            "earliest_date",
+            "subject",
+            "collaboration",
+            "collection",
+            "rpp",
+        ]
+    )
     response_data_facet_keys.sort()
     assert expected_status_code == response_status_code
     assert expected_facet_keys == response_data_facet_keys

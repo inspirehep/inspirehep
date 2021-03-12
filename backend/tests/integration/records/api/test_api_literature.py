@@ -12,7 +12,6 @@ import mock
 import orjson
 import pytest
 import requests_mock
-from flask import current_app
 from freezegun import freeze_time
 from helpers.providers.faker import faker
 from helpers.utils import create_pidstore, create_record, create_s3_bucket
@@ -145,8 +144,8 @@ def test_literature_on_delete(inspire_app):
     ).one_or_none()
     record_doi_pid = PersistentIdentifier.query.filter_by(pid_type="doi").one_or_none()
 
-    assert None == record_arxiv_pid
-    assert None == record_doi_pid
+    assert None is record_arxiv_pid
+    assert None is record_doi_pid
     assert PIDStatus.DELETED == record_lit_pid.status
 
 
@@ -178,8 +177,8 @@ def test_literature_on_delete_through_metadata_update(inspire_app):
     ).one_or_none()
     record_doi_pid = PersistentIdentifier.query.filter_by(pid_type="doi").one_or_none()
 
-    assert None == record_arxiv_pid
-    assert None == record_doi_pid
+    assert None is record_arxiv_pid
+    assert None is record_doi_pid
     assert PIDStatus.DELETED == record_lit_pid.status
 
 
@@ -353,7 +352,7 @@ def test_get_record_from_db_depending_on_its_pid_type(inspire_app):
     data = faker.record("lit")
     record = InspireRecord.create(data)
     record_from_db = InspireRecord.get_record(record.id)
-    assert type(record_from_db) == LiteratureRecord
+    assert isinstance(record_from_db, LiteratureRecord)
 
 
 def test_dump_for_es(inspire_app):
@@ -437,24 +436,24 @@ def test_dump_for_es_catches_bibtex_exception(mock_bibtex, inspire_app):
 def test_create_record_from_db_depending_on_its_pid_type(inspire_app):
     data = faker.record("lit")
     record = InspireRecord.create(data)
-    assert type(record) == LiteratureRecord
+    assert isinstance(record, LiteratureRecord)
     assert record.pid_type == "lit"
 
     record = LiteratureRecord.create(data)
-    assert type(record) == LiteratureRecord
+    assert isinstance(record, LiteratureRecord)
     assert record.pid_type == "lit"
 
 
 def test_create_or_update_record_from_db_depending_on_its_pid_type(inspire_app):
     data = faker.record("lit")
     record = InspireRecord.create_or_update(data)
-    assert type(record) == LiteratureRecord
+    assert isinstance(record, LiteratureRecord)
     assert record.pid_type == "lit"
 
     data_update = {"titles": [{"title": "UPDATED"}]}
     data.update(data_update)
     record = InspireRecord.create_or_update(data)
-    assert type(record) == LiteratureRecord
+    assert isinstance(record, LiteratureRecord)
     assert record.pid_type == "lit"
 
 
@@ -665,14 +664,14 @@ def test_record_create_not_run_orcid_when_passed_parameter_to_disable_orcid(
     orcid_mock, inspire_app
 ):
     data1 = faker.record("lit")
-    record1 = InspireRecord.create(data1, disable_external_push=True)
+    InspireRecord.create(data1, disable_external_push=True)
     assert orcid_mock.call_count == 0
 
 
 @mock.patch("inspirehep.records.api.literature.push_to_orcid")
 def test_record_create_not_skips_orcid_on_default(orcid_mock, inspire_app):
     data1 = faker.record("lit")
-    record1 = InspireRecord.create(data1)
+    InspireRecord.create(data1)
     assert orcid_mock.call_count == 1
 
 
@@ -681,7 +680,7 @@ def test_record_create_skips_citation_recalculate_when_passed_parameter_to_skip(
     citation_recalculate_mock, inspire_app
 ):
     data1 = faker.record("lit")
-    record1 = InspireRecord.create(data1, disable_relations_update=True)
+    InspireRecord.create(data1, disable_relations_update=True)
     assert citation_recalculate_mock.call_count == 0
 
 
@@ -690,7 +689,7 @@ def test_record_create_runs_citation_recalculate_on_default(
     citation_recalculate_mock, inspire_app
 ):
     data1 = faker.record("lit")
-    record1 = InspireRecord.create(data1)
+    InspireRecord.create(data1)
     assert citation_recalculate_mock.call_count == 1
 
 
@@ -1043,10 +1042,10 @@ def test_add_record_with_documents_and_figures(inspire_app, s3):
     assert current_s3_instance.file_exists(expected_figure_key) is True
     assert current_s3_instance.file_exists(expected_document_key) is True
     metadata_document = current_s3_instance.get_file_metadata(expected_document_key)
-    assert metadata_document["ContentDisposition"] == f'inline; filename="fermilab.pdf"'
+    assert metadata_document["ContentDisposition"] == 'inline; filename="fermilab.pdf"'
     assert metadata_document["ContentType"] == "application/pdf"
     metadata_figure = current_s3_instance.get_file_metadata(expected_figure_key)
-    assert metadata_figure["ContentDisposition"] == f'inline; filename="channel.png"'
+    assert metadata_figure["ContentDisposition"] == 'inline; filename="channel.png"'
     assert metadata_figure["ContentType"] == "image/png"
 
 
@@ -1196,7 +1195,7 @@ def test_adding_record_with_document_without_filename(inspire_app, s3):
     assert expected_documents == record["documents"]
     assert current_s3_instance.file_exists(expected_document_key) is True
     metadata_document = current_s3_instance.get_file_metadata(expected_document_key)
-    assert metadata_document["ContentDisposition"] == f'inline; filename="key"'
+    assert metadata_document["ContentDisposition"] == 'inline; filename="key"'
 
 
 @pytest.mark.vcr()
@@ -1220,12 +1219,12 @@ def test_adding_record_with_documents_with_existing_file_updates_metadata(
     create_record("lit", data=deepcopy(data))
     assert current_s3_instance.file_exists(expected_document_key) is True
     metadata_document = current_s3_instance.get_file_metadata(expected_document_key)
-    assert metadata_document["ContentDisposition"] == f'inline; filename="file1.pdf"'
+    assert metadata_document["ContentDisposition"] == 'inline; filename="file1.pdf"'
     data["documents"][0]["filename"] = "file2.pdf"
     create_record("lit", data=data)
     assert current_s3_instance.file_exists(expected_document_key) is True
     metadata_document = current_s3_instance.get_file_metadata(expected_document_key)
-    assert metadata_document["ContentDisposition"] == f'inline; filename="file2.pdf"'
+    assert metadata_document["ContentDisposition"] == 'inline; filename="file2.pdf"'
 
 
 @pytest.mark.vcr()
@@ -1365,10 +1364,10 @@ def test_update_record_with_documents_and_figures(inspire_app, s3):
     assert current_s3_instance.file_exists(expected_figure_key) is True
     assert current_s3_instance.file_exists(expected_document_key) is True
     metadata_document = current_s3_instance.get_file_metadata(expected_document_key)
-    assert metadata_document["ContentDisposition"] == f'inline; filename="fermilab.pdf"'
+    assert metadata_document["ContentDisposition"] == 'inline; filename="fermilab.pdf"'
     assert metadata_document["ContentType"] == "application/pdf"
     metadata_figure = current_s3_instance.get_file_metadata(expected_figure_key)
-    assert metadata_figure["ContentDisposition"] == f'inline; filename="channel.png"'
+    assert metadata_figure["ContentDisposition"] == 'inline; filename="channel.png"'
     assert metadata_figure["ContentType"] == "image/png"
 
 
@@ -1467,7 +1466,7 @@ def test_update_record_add_more_documents(inspire_app, s3):
     metadata_document = current_s3_instance.get_file_metadata(
         expected_updated_document_key
     )
-    assert metadata_document["ContentDisposition"] == f'inline; filename="fermilab.pdf"'
+    assert metadata_document["ContentDisposition"] == 'inline; filename="fermilab.pdf"'
     assert metadata_document["ContentType"] == "application/pdf"
 
 
@@ -1525,13 +1524,13 @@ def test_literature_updates_refs_to_known_and_unknown_conference_when_ref_alread
             {
                 "cnum": con["cnum"],
                 "conference_record": {
-                    "$ref": f"http://localhost:5000/api/conferences/123"
+                    "$ref": "http://localhost:5000/api/conferences/123"
                 },
             },
             {
                 "cnum": "C99-11-11.111",
                 "conference_record": {
-                    "$ref": f"http://localhost:5000/api/conferences/123"
+                    "$ref": "http://localhost:5000/api/conferences/123"
                 },
             },
         ]
@@ -2204,7 +2203,7 @@ def test_arxiv_url_also_supports_format_alias(inspire_app):
             {"categories": ["hep-ph"], "value": "hep-ph/9709356"},
         ]
     }
-    record = create_record("lit", data)
+    create_record("lit", data)
 
     with inspire_app.test_client() as client:
         url = "/api/arxiv/hep-ph/9709356"

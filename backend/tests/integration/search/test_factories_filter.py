@@ -7,7 +7,7 @@
 
 from elasticsearch_dsl import Search
 from flask import current_app
-from mock import MagicMock, patch
+from mock import MagicMock
 
 from inspirehep.search.factories.filter import inspire_filter_factory
 

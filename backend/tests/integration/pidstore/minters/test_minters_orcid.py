@@ -93,8 +93,8 @@ def test_minter_orcid_missing_schema(inspire_app):
 
 def test_orcid_number_generator(inspire_app):
     orcid = RecordProvider.orcid()
-    assert is_isni(orcid) == True
-    assert is_orcid(orcid) == True
+    assert is_isni(orcid)
+    assert is_orcid(orcid)
 
 
 def test_orcid_minter_without_deleting_all_external_pids(inspire_app):

@@ -9,7 +9,7 @@ from copy import deepcopy
 import mock
 import orjson
 from freezegun import freeze_time
-from helpers.utils import create_record, create_user, logout
+from helpers.utils import create_record, create_user
 from invenio_accounts.testutils import login_user_via_session
 from invenio_oauthclient import current_oauthclient
 from marshmallow import utils
@@ -26,8 +26,7 @@ def test_jobs_json(inspire_app, datadir):
     record = create_record("job", data=data)
     record_control_number = record["control_number"]
 
-    expected_status_code = 200
-    expected_uuid = str(record.id)
+    str(record.id)
     expected_result = deepcopy(record)
     expected_created = utils.isoformat(record.created)
     expected_updated = utils.isoformat(record.updated)
@@ -37,7 +36,7 @@ def test_jobs_json(inspire_app, datadir):
 
     response_data = orjson.loads(response.data)
     response_data_metadata = response_data["metadata"]
-    response_data_uuid = response_data["uuid"]
+    response_data["uuid"]
     response_created = response_data["created"]
     response_updated = response_data["updated"]
 

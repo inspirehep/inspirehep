@@ -112,7 +112,6 @@ def test_authors_detail_can_edit_true_if_users_own_profile(inspire_app):
     record = create_record_factory("aut", data=data)
     record_control_number = record.json["control_number"]
 
-    expected_status_code = 200
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.get(f"/authors/{record_control_number}", headers=headers)
@@ -131,7 +130,6 @@ def test_authors_detail_can_edit_false_if_not_users_own_profile(inspire_app):
     record = create_record_factory("aut", data=data)
     record_control_number = record.json["control_number"]
 
-    expected_status_code = 200
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.get(f"/authors/{record_control_number}", headers=headers)

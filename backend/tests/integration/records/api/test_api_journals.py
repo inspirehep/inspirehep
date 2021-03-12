@@ -132,30 +132,30 @@ def test_get_record_from_db_depending_on_its_pid_type(inspire_app):
     data = faker.record("jou")
     record = InspireRecord.create(data)
     record_from_db = InspireRecord.get_record(record.id)
-    assert type(record_from_db) == JournalsRecord
+    assert isinstance(record_from_db, JournalsRecord)
 
 
 def test_create_record_from_db_depending_on_its_pid_type(inspire_app):
     data = faker.record("jou")
     record = InspireRecord.create(data)
-    assert type(record) == JournalsRecord
+    assert isinstance(record, JournalsRecord)
     assert record.pid_type == "jou"
 
     record = JournalsRecord.create(data)
-    assert type(record) == JournalsRecord
+    assert isinstance(record, JournalsRecord)
     assert record.pid_type == "jou"
 
 
 def test_create_or_update_record_from_db_depending_on_its_pid_type(inspire_app):
     data = faker.record("jou")
     record = InspireRecord.create_or_update(data)
-    assert type(record) == JournalsRecord
+    assert isinstance(record, JournalsRecord)
     assert record.pid_type == "jou"
 
     data_update = {"short_title": "Updated"}
     data.update(data_update)
     record = InspireRecord.create_or_update(data)
-    assert type(record) == JournalsRecord
+    assert isinstance(record, JournalsRecord)
     assert record.pid_type == "jou"
 
 
