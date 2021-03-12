@@ -8,7 +8,6 @@
 import zlib
 
 import pytest
-from celery import shared_task
 from helpers.utils import retry_until_pass
 from invenio_pidstore.errors import PIDDoesNotExistError
 
@@ -335,7 +334,6 @@ def test_continuous_migration_with_invalid_control_number(
         b"    </datafield>"
         b"</record>"
     )
-    citer_control_number = 666
 
     raw_record_cited = (
         b"<record>"

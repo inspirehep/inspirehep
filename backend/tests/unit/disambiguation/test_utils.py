@@ -6,8 +6,6 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
-import pytest
-
 from inspirehep.disambiguation.utils import update_author_names
 
 

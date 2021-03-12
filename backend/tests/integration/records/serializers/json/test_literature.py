@@ -4,7 +4,6 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-from datetime import datetime
 from uuid import UUID
 
 import mock
@@ -16,7 +15,6 @@ from invenio_accounts.testutils import login_user_via_session
 from inspirehep.accounts.roles import Roles
 from inspirehep.files import current_s3_instance
 from inspirehep.records.errors import MaxResultWindowRESTError
-from inspirehep.records.marshmallow.literature import LiteratureDetailSchema
 
 
 @mock.patch("inspirehep.records.api.literature.uuid.uuid4")

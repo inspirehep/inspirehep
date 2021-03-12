@@ -9,7 +9,6 @@ from io import BytesIO
 from flask import render_template
 from helpers.utils import create_record, es_search
 from inspire_utils.record import get_value
-from invenio_search import current_search
 from lxml import etree
 from mock import mock_open, patch
 

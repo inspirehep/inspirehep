@@ -1,4 +1,3 @@
-import pytest
 from flask import current_app, render_template
 from mock import patch
 

@@ -24,17 +24,13 @@ import orjson
 import pytest
 from flask import current_app
 from helpers.providers.faker import faker
-from invenio_db import db
 from mock import patch
 
 from inspirehep.hal.core.sword import (
     Connection,
     HttpLib2LayerIgnoreCert,
     _new_connection,
-    create,
-    update,
 )
-from inspirehep.hal.core.tei import convert_to_tei
 from inspirehep.hal.tasks import _hal_push
 from inspirehep.records.api import InspireRecord
 
@@ -69,7 +65,7 @@ def test_service_document(app):
         sd_iri, user_name=user_name, user_pass=user_pass, http_impl=http_impl
     )
     conn.get_service_document()
-    workspaces = conn.workspaces
+    conn.workspaces
     hrefs = sum([[sdcol.href for sdcol in v] for k, v in conn.workspaces], [])
     assert app.config["HAL_COL_IRI"] in hrefs
 

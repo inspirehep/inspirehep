@@ -6,7 +6,6 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import pytest
-import vcr
 
 
 @pytest.fixture(scope="session")
@@ -39,6 +38,6 @@ def vcr_config():
 @pytest.fixture(scope="module")
 def es(appctx):
     """Setup all registered Elasticsearch indices."""
-    from invenio_search import current_search, current_search_client
+    from invenio_search import current_search_client
 
     yield current_search_client

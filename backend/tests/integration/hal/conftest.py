@@ -21,7 +21,6 @@
 # or submit itself to any jurisdiction.
 
 
-import json
 import os
 
 import pkg_resources

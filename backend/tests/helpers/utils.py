@@ -171,7 +171,7 @@ def generate_records(
             skip_validation=skip_validation,
             with_control_number=True,
         )
-        rec = record_type.create(record_data)
+        record_type.create(record_data)
     db.session.commit()
 
 

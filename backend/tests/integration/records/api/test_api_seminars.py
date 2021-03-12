@@ -138,30 +138,30 @@ def test_get_record_from_db_depending_on_its_pid_type(inspire_app):
     data = faker.record("sem")
     record = InspireRecord.create(data)
     record_from_db = InspireRecord.get_record(record.id)
-    assert type(record_from_db) == SeminarsRecord
+    assert isinstance(record_from_db, SeminarsRecord)
 
 
 def test_create_record_from_db_depending_on_its_pid_type(inspire_app):
     data = faker.record("sem")
     record = InspireRecord.create(data)
-    assert type(record) == SeminarsRecord
+    assert isinstance(record, SeminarsRecord)
     assert record.pid_type == "sem"
 
     record = SeminarsRecord.create(data)
-    assert type(record) == SeminarsRecord
+    assert isinstance(record, SeminarsRecord)
     assert record.pid_type == "sem"
 
 
 def test_create_or_update_record_from_db_depending_on_its_pid_type(inspire_app):
     data = faker.record("sem", with_control_number=True)
     record = InspireRecord.create_or_update(data)
-    assert type(record) == SeminarsRecord
+    assert isinstance(record, SeminarsRecord)
     assert record.pid_type == "sem"
 
     data_update = {"deleted": True}
     data.update(data_update)
     record = InspireRecord.create_or_update(data)
-    assert type(record) == SeminarsRecord
+    assert isinstance(record, SeminarsRecord)
     assert record.pid_type == "sem"
 
 

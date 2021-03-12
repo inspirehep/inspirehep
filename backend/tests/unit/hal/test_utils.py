@@ -20,9 +20,7 @@
 # granted to it by virtue of its status as an Intergovernmental Organization
 # or submit itself to any jurisdiction.
 
-import mock
 from helpers.providers.faker import faker
-from inspire_schemas.api import load_schema, validate
 
 from inspirehep.hal.api import is_hal_set
 

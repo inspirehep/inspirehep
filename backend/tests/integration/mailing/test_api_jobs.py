@@ -31,7 +31,7 @@ def test_jobs_from_last_week(create_jobs):
 def test_jobs_from_last_week_empty(inspire_app):
     expected_control_numbers = []
 
-    results = get_jobs_from_last_week()
+    get_jobs_from_last_week()
     assert expected_control_numbers == []
 
 

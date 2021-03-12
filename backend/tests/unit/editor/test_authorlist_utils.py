@@ -76,14 +76,8 @@ def test_create_authors_with_affiliations():
     )
 
     expected = [
-        (
-            u"F. Dur\xe3es",
-            [u"CERN"],
-        ),
-        (
-            u"A.V. Giannini",
-            [u"Fermilab"],
-        ),
+        (u"F. Dur\xe3es", [u"CERN"]),
+        (u"A.V. Giannini", [u"Fermilab"]),
         (
             u"V.P. Gon\xe7alves",
             [
@@ -91,10 +85,7 @@ def test_create_authors_with_affiliations():
                 u"Instituto de F\xedsica, Universidade de S\xe3o Paulo",
             ],
         ),
-        (
-            u"F.S. Navarra",
-            [u"Fermilab"],
-        ),
+        (u"F.S. Navarra", [u"Fermilab"]),
     ]
     result = create_authors(text)
 
@@ -114,10 +105,7 @@ def test_create_authors_with_no_text():
 def test_create_authors_with_no_firstnames():
     text = "Einstein, Bohr"
 
-    expected = [
-        (u"Einstein", []),
-        (u"Bohr", []),
-    ]
+    expected = [(u"Einstein", []), (u"Bohr", [])]
     result = create_authors(text)
 
     assert expected == result["authors"]
@@ -134,10 +122,7 @@ def test_create_authors_with_missing_affid():
 
     result = create_authors(text)
 
-    expected = [
-        (u"A. Einstein", []),
-        (u"N. Bohr", []),
-    ]
+    expected = [(u"A. Einstein", []), (u"N. Bohr", [])]
     warning = "Unresolved aff-ID or stray footnote symbol. Problematic author and aff-id: N. Bohr 2"
 
     assert expected == result["authors"]
@@ -150,10 +135,7 @@ def test_create_authors_with_affid_but_missing_affiliation():
 
     result = create_authors(text)
 
-    expected = [
-        (u"A. Einstein", []),
-        (u"N. Bohr", [u"K\xf8benhavns Universitet"]),
-    ]
+    expected = [(u"A. Einstein", []), (u"N. Bohr", [u"K\xf8benhavns Universitet"])]
     warning = "Unresolved aff-ID or stray footnote symbol. Problematic author and aff-id: A. Einstein 1"
 
     assert expected == result["authors"]
@@ -416,10 +398,7 @@ def test_create_authors_multiple_affiliations_on_single_line():
 def test_create_authors_space_between_affids():
     text = "Y.X. Ali1, 20, E I Andronov20\n" "\n" "1 CERN\n" "20 DESY"
 
-    expected = [
-        (u"Y.X. Ali", [u"CERN", u"DESY"]),
-        (u"E I Andronov", [u"DESY"]),
-    ]
+    expected = [(u"Y.X. Ali", [u"CERN", u"DESY"]), (u"E I Andronov", [u"DESY"])]
     result = create_authors(text)
 
     assert expected == result["authors"]
@@ -461,10 +440,7 @@ def test_create_authors_note_footnotes():
     """Test authors which have some footnote symbols like † and ∗"""
     text = "Y.X. Ali†1, 20, E I Andronov20∗\n" "\n" "1 CERN\n" "20 DESY"
 
-    expected = [
-        (u"Y.X. Ali", [u"CERN", u"DESY"]),
-        (u"E I Andronov", [u"DESY"]),
-    ]
+    expected = [(u"Y.X. Ali", [u"CERN", u"DESY"]), (u"E I Andronov", [u"DESY"])]
     warning = u"Unresolved aff-ID or stray footnote symbol. Problematic author and aff-id: Y.X. Ali †"
     result = create_authors(text)
 
@@ -476,10 +452,7 @@ def test_create_authors_note_symbols():
     """Test authors which have symbols like † and ∗"""
     text = "Y.X. Aduszkiewicž†1, 20, E I Andronov20∗\n" "\n" "† CERN\n" "∗ DESY"
 
-    expected = [
-        (u"Y.X. Aduszkiewic\u017e", [u"CERN"]),
-        (u"E I Andronov", [u"DESY"]),
-    ]
+    expected = [(u"Y.X. Aduszkiewic\u017e", [u"CERN"]), (u"E I Andronov", [u"DESY"])]
     warning = "CAUTION! Using symbols (# and stuff) as aff-IDs."
     result = create_authors(text)
 
@@ -573,7 +546,7 @@ def test_create_authors_with_many_affiliations():
                 u"Lund University",
                 u"Instituto de F\xedsica, Universidade de S\xe3o Paulo",
             ],
-        ),
+        )
     ]
     result = create_authors(text)
 
@@ -583,9 +556,7 @@ def test_create_authors_with_many_affiliations():
 def test_create_authors_handles_spaces_at_the_end_of_an_author_or_affiliation():
     text = "J. Smith1 \n" "\n" "1 University of somewhere "
 
-    expected = [
-        (u"J. Smith", [u"University of somewhere"]),
-    ]
+    expected = [(u"J. Smith", [u"University of somewhere"])]
     result = create_authors(text)
 
     assert expected == result["authors"]
@@ -613,10 +584,7 @@ def test_create_authors_with_letters():
 def test_create_authors_unused_affiliation():
     text = "K. Sachs 1, F. Schwennsen 1\n" "\n" "1 DESY\n" "2 CERN\n"
 
-    expected = [
-        (u"K. Sachs", ["DESY"]),
-        (u"F. Schwennsen", ["DESY"]),
-    ]
+    expected = [(u"K. Sachs", ["DESY"]), (u"F. Schwennsen", ["DESY"])]
     result = create_authors(text)
 
     assert expected == result["authors"]

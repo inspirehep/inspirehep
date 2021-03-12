@@ -59,7 +59,7 @@ class RecordProvider(BaseProvider):
     @staticmethod
     def bai():
         bai_value = re.sub(
-            "\.+",
+            "\\.+",
             ".",
             f"{re.sub(' +', '.', fake.name())}.{fake.random_number(digits=1)}",
         )
@@ -203,6 +203,7 @@ class RecordProvider(BaseProvider):
     def add_dois(cls, dois):
         return cls.generate_special_pids("dois", cls.doi, dois)
 
+    # flake8: noqa: C901
     def record(
         self,
         record_type,
@@ -235,6 +236,7 @@ class RecordProvider(BaseProvider):
             record = self.seminars_record()
         if with_control_number:
             record["control_number"] = self.control_number()
+
         if data:
             record.update(data)
         if literature_citations:

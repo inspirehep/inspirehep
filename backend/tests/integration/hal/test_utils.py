@@ -49,10 +49,10 @@ def test_get_conference_record(app, get_fixture):
         "publication_info": [
             {
                 "conference_record": {
-                    "$ref": "http://localhost:5000/api/conferences/972464",
-                },
-            },
-        ],
+                    "$ref": "http://localhost:5000/api/conferences/972464"
+                }
+            }
+        ]
     }
     assert validate(data["publication_info"], publication_info_schema) is None
 
@@ -87,11 +87,7 @@ def test_get_divulgation(app):
     schema = load_schema("hep")
     subschema = schema["properties"]["publication_type"]
 
-    data = {
-        "publication_type": [
-            "introductory",
-        ],
-    }
+    data = {"publication_type": ["introductory"]}
     assert validate(data["publication_type"], subschema) is None
 
     record_data = faker.record("lit", data)
@@ -127,11 +123,7 @@ def test_get_domains(app):
     schema = load_schema("hep")
     subschema = schema["properties"]["inspire_categories"]
 
-    data = {
-        "inspire_categories": [
-            {"term": "Experiment-HEP"},
-        ],
-    }
+    data = {"inspire_categories": [{"term": "Experiment-HEP"}]}
     assert validate(data["inspire_categories"], subschema) is None
 
     record_data = faker.record("lit", data)

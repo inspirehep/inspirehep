@@ -1,5 +1,3 @@
-import os
-
 from inspirehep.matcher.utils import map_refextract_to_schema
 
 

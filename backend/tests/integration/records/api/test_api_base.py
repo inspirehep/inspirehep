@@ -16,10 +16,7 @@ from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus, RecordIdentifier
 from invenio_records.models import RecordMetadata
 
-from inspirehep.pidstore.errors import (
-    WrongPidTypeRedirection,
-    WrongRedirectionPidStatus,
-)
+from inspirehep.pidstore.errors import WrongRedirectionPidStatus
 from inspirehep.pidstore.models import InspireRedirect
 from inspirehep.records.api import InspireRecord, LiteratureRecord
 from inspirehep.records.errors import (
@@ -341,7 +338,7 @@ def test_record_create_and_update_with_legacy_creation_date(inspire_app):
     data["control_number"] = record.control_number
     record.update(data)
 
-    result_record_model_updated = RecordMetadata.query.filter_by(id=record.id).one()
+    RecordMetadata.query.filter_by(id=record.id).one()
     result_record_model_updated_created = str(result_record_model.created)
     assert result_record_model_updated_created == "2000-01-02 00:00:00"
 
@@ -518,7 +515,7 @@ def test_redirect_ignores_not_existing_pids(inspire_app):
     record = create_record("lit")
     data = dict(record)
     data["deleted_records"] = [
-        {"$ref": f"http://localhost:8080/api/literature/987654321"}
+        {"$ref": "http://localhost:8080/api/literature/987654321"}
     ]
     record.update(data)
     assert (
@@ -598,9 +595,7 @@ def test_updating_redirected_record_with_no_delete_key_is_raising_exception(
     if "deleted" in data_from_redirected_record:
         del data_from_redirected_record["deleted"]
 
-    record_1 = create_record(
-        "lit", data={"deleted_records": [dict(redirected_record["self"])]}
-    )
+    create_record("lit", data={"deleted_records": [dict(redirected_record["self"])]})
 
     with pytest.raises(CannotUndeleteRedirectedRecord):
         redirected_record.update(data_from_redirected_record)
@@ -676,7 +671,7 @@ def test_feature_flag_for_redirection_disables_redirection_when_turned_off(
 def test_creating_record_with_deleted_key_registers_control_number_with_deleted_status(
     inspire_app,
 ):
-    record = create_record("lit", data={"deleted": True, "control_number": 12345})
+    create_record("lit", data={"deleted": True, "control_number": 12345})
     pid = PersistentIdentifier.query.filter_by(pid_value="12345").one()
     assert pid.status == PIDStatus.DELETED
 
@@ -731,7 +726,7 @@ def test_create_record_which_redirects_non_existing_pid_when_redirection_is_turn
 def test_deleted_record_from_legacy_is_created_with_obj_uuid_and_recid(inspire_app):
     json_record = {
         "self": {"$ref": "https://inspirebeta.net/api/experiments/1775082"},
-        "control_number": 1775082,
+        "control_number": 1_775_082,
         "legacy_version": "20200131230810.0",
         "urls": [{"value": "https://gambit.hepforge.org/"}],
         "legacy_creation_date": "2020-01-13",
@@ -750,9 +745,7 @@ def test_deleted_record_from_legacy_is_created_with_obj_uuid_and_recid(inspire_a
 
     cls = InspireRecord.get_class_for_record(json_record)
     record = cls.create_or_update(
-        json_record,
-        disable_external_push=True,
-        disable_relations_update=True,
+        json_record, disable_external_push=True, disable_relations_update=True
     )
     pid = PersistentIdentifier.query.filter_by(pid_value="1775082").one()
     assert record.id

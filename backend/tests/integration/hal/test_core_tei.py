@@ -24,12 +24,8 @@ import os
 
 import orjson
 import pkg_resources
-import pytest
 from helpers.providers.faker import faker
-from invenio_db import db
-from invenio_records.api import RecordMetadata
 from lxml import etree
-from sqlalchemy import update
 
 from inspirehep.hal.core.tei import convert_to_tei
 from inspirehep.records.api import InspireRecord

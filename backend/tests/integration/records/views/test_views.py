@@ -48,7 +48,7 @@ def test_does_not_return_deleted_pid_error_if_cataloger(inspire_app):
         response = client.get(f"/conferences/{record['control_number']}")
 
     response_status_code = response.status_code
-    response_json = response.json
+    response.json
 
     assert response_status_code == 200
 
@@ -63,7 +63,7 @@ def test_returns_deleted_pid_error_if_not_cataloger(inspire_app):
         response = client.get(f"/conferences/{record['control_number']}")
 
     response_status_code = response.status_code
-    response_json = response.json
+    response.json
 
     assert response_status_code == 410
 

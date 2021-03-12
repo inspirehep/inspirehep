@@ -13,7 +13,6 @@ from marshmallow import utils
 from inspirehep.accounts.roles import Roles
 from inspirehep.records.marshmallow.seminars import (
     SeminarsDetailSchema,
-    SeminarsElasticSearchSchema,
     SeminarsListSchema,
 )
 from inspirehep.records.marshmallow.seminars.base import (

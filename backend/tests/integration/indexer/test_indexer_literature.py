@@ -42,7 +42,7 @@ def test_index_literature_record(inspire_app, datadir):
     result_latex_us_display = result.pop("_latex_us_display")
     result_latex_eu_display = result.pop("_latex_eu_display")
     result_bibtex_display = result.pop("_bibtex_display")
-    result_authors = result.pop("authors")
+    result.pop("authors")
     result_facet_author_name = result.pop("facet_author_name")
     del result["_created"]
     del result["_updated"]

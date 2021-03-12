@@ -1,5 +1,4 @@
 import orjson
-from flask import current_app
 from helpers.utils import create_user_and_token
 from mock import patch
 

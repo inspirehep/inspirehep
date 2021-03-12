@@ -32,10 +32,7 @@ def test_get_authors_with_role_author():
 def test_get_authors_with_role_encodes_names_properly():
     record = {
         "document_type": ["article"],
-        "authors": [
-            {"full_name": "Pimenta, L.S."},
-            {"full_name": "Smith, John, Jr."},
-        ],
+        "authors": [{"full_name": "Pimenta, L.S."}, {"full_name": "Smith, John, Jr."}],
     }
     expected = ["Pimenta, L. S.", "Smith, Jr., John"]
     schema = BibTexCommonSchema()

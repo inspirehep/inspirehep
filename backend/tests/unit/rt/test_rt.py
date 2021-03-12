@@ -64,10 +64,7 @@ def test_query_rt_response(mock_rt_instance):
 
 @patch("inspirehep.rt.tickets.query_rt")
 def test_get_all_of(mock_query_rt):
-    mock_query_rt.return_value = [
-        "1: user1",
-        "2: user2",
-    ]
+    mock_query_rt.return_value = ["1: user1", "2: user2"]
 
     expected = [{"id": "1", "name": "user1"}, {"id": "2", "name": "user2"}]
 

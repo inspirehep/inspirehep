@@ -31,16 +31,14 @@ def test_is_art():
     publication_info_schema = schema["properties"]["publication_info"]
 
     record = {
-        "document_type": [
-            "article",
-        ],
+        "document_type": ["article"],
         "publication_info": [
             {
                 "journal_issue": "2",
                 "journal_title": "Phys.Part.Nucl.Lett.",
                 "journal_volume": "14",
                 "page_start": "336",
-            },
+            }
         ],
     }
     assert validate(record["document_type"], document_type_schema) is None
@@ -55,16 +53,14 @@ def test_is_art_accepts_reports():
     publication_info_schema = schema["properties"]["publication_info"]
 
     record = {
-        "document_type": [
-            "report",
-        ],
+        "document_type": ["report"],
         "publication_info": [
             {
                 "journal_issue": "2",
                 "journal_title": "Phys.Part.Nucl.Lett.",
                 "journal_volume": "14",
                 "page_start": "336",
-            },
+            }
         ],
     }
     assert validate(record["document_type"], document_type_schema) is None
@@ -77,11 +73,7 @@ def test_is_comm():
     schema = load_schema("hep")
     subschema = schema["properties"]["document_type"]
 
-    record = {
-        "document_type": [
-            "conference paper",
-        ],
-    }
+    record = {"document_type": ["conference paper"]}
     assert validate(record["document_type"], subschema) is None
 
     assert _is_comm(record)
@@ -91,11 +83,7 @@ def test_is_preprint():
     schema = load_schema("hep")
     document_type_schema = schema["properties"]["document_type"]
 
-    record = {
-        "document_type": [
-            "article",
-        ],
-    }
+    record = {"document_type": ["article"]}
     assert validate(record["document_type"], document_type_schema) is None
 
     assert _is_preprint(record)

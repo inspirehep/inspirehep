@@ -55,10 +55,10 @@ def test_assign_without_login(inspire_app):
     assert literature_author["record"] == {
         "$ref": f"http://localhost:5000/api/authors/{from_author['control_number']}"
     }
-    assert literature_author["curated_relation"] == False
+    assert not literature_author["curated_relation"]
 
     to_author_after = AuthorsRecord.get_record_by_pid_value(to_author["control_number"])
-    assert to_author_after["stub"] == True
+    assert to_author_after["stub"]
 
 
 def test_assign_requires_cataloger_login(inspire_app):
@@ -105,10 +105,10 @@ def test_assign_requires_cataloger_login(inspire_app):
     assert literature_author["record"] == {
         "$ref": f"http://localhost:5000/api/authors/{from_author['control_number']}"
     }
-    assert literature_author["curated_relation"] == False
+    assert not literature_author["curated_relation"]
 
     to_author_after = AuthorsRecord.get_record_by_pid_value(to_author["control_number"])
-    assert to_author_after["stub"] == True
+    assert to_author_after["stub"]
 
 
 def test_assign_from_an_author_to_another(inspire_app):
@@ -128,7 +128,7 @@ def test_assign_from_an_author_to_another(inspire_app):
                 },
                 {
                     "full_name": "Urhan, Ahmet",
-                    "record": {"$ref": f"http://localhost:5000/api/authors/17200"},
+                    "record": {"$ref": "http://localhost:5000/api/authors/17200"},
                 },
             ]
         },
@@ -176,10 +176,10 @@ def test_assign_from_an_author_to_another(inspire_app):
         assert literature_author["record"] == {
             "$ref": f"http://localhost:5000/api/authors/{to_author['control_number']}"
         }
-        assert literature_author["curated_relation"] == True
+        assert literature_author["curated_relation"]
 
     to_author_after = AuthorsRecord.get_record_by_pid_value(to_author["control_number"])
-    assert to_author_after["stub"] == False
+    assert not to_author_after["stub"]
 
 
 def test_assign_from_an_author_to_another_that_is_not_stub(inspire_app):
@@ -192,7 +192,7 @@ def test_assign_from_an_author_to_another_that_is_not_stub(inspire_app):
             "authors": [
                 {
                     "full_name": "Urhan, Ahmet",
-                    "record": {"$ref": f"http://localhost:5000/api/authors/17200"},
+                    "record": {"$ref": "http://localhost:5000/api/authors/17200"},
                 },
                 {
                     "full_name": "Urhan, Harun",
@@ -228,10 +228,10 @@ def test_assign_from_an_author_to_another_that_is_not_stub(inspire_app):
     assert literature_author["record"] == {
         "$ref": f"http://localhost:5000/api/authors/{to_author['control_number']}"
     }
-    assert literature_author["curated_relation"] == True
+    assert literature_author["curated_relation"]
 
     to_author_after = AuthorsRecord.get_record_by_pid_value(to_author["control_number"])
-    assert to_author_after["stub"] == False
+    assert not to_author_after["stub"]
 
 
 def test_assign_without_to_author(inspire_app):

@@ -11,7 +11,6 @@ import os
 import orjson
 import pkg_resources
 import requests_mock
-from flask import current_app
 from helpers.utils import create_record, create_user
 from inspire_schemas.api import load_schema, validate
 from inspire_utils.record import get_value
@@ -22,7 +21,6 @@ from werkzeug.datastructures import FileStorage
 
 from inspirehep.accounts.roles import Roles
 from inspirehep.files import current_s3_instance
-from inspirehep.records.api import LiteratureRecord
 from inspirehep.rt.errors import EmptyResponseFromRT, NoUsersFound
 
 
@@ -90,7 +88,7 @@ def test_create_rt_ticket(mock_tickets, inspire_app):
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.post(
-            f""""api/editor/literature/1497201/rt/tickets/create""",
+            "api/editor/literature/1497201/rt/tickets/create",
             content_type="application/json",
             data=orjson.dumps(
                 {
@@ -406,7 +404,6 @@ def test_refextract_url(inspire_app):
 def test_file_upload(inspire_app, s3, datadir, override_config):
     current_s3_instance.client.create_bucket(Bucket="inspire-editor")
     user = create_user(role=Roles.cataloger.value)
-    config = {"EDITOR_UPLOAD_ALLOWED_EXTENSIONS": {".pdf"}}
 
     with override_config(
         EDITOR_UPLOAD_ALLOWED_EXTENSIONS=".pdf"
@@ -490,20 +487,12 @@ def test_authorlist_text(inspire_app):
 
     expected = {
         "authors": [
-            {
-                "full_name": "Lastname, F.",
-                "raw_affiliations": [
-                    {"value": "CERN"},
-                ],
-            },
+            {"full_name": "Lastname, F.", "raw_affiliations": [{"value": "CERN"}]},
             {
                 "full_name": "Otherlastname, F.M.",
-                "raw_affiliations": [
-                    {"value": "CERN"},
-                    {"value": "Otheraffiliation"},
-                ],
+                "raw_affiliations": [{"value": "CERN"}, {"value": "Otheraffiliation"}],
             },
-        ],
+        ]
     }
     result = orjson.loads(response.data)
 
