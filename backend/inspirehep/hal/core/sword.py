@@ -92,4 +92,4 @@ def _create_payload(tei, doc_file):
 
         return temp_file, "application/zip", "meta.xml"
 
-    return tei, "text/xml", "meta.xml"
+    return tei.encode("utf-8"), "text/xml", "meta.xml"
