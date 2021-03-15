@@ -118,7 +118,7 @@ def test_indexer_updates_authors_papers_when_name_changes(
     }
     lit_data = faker.record("lit", data=lit_data)
 
-    LiteratureRecord.create(lit_data)
+    lit_1 = LiteratureRecord.create(lit_data)
     db.session.commit()
 
     expected_facet_author_name = f"{author['control_number']}_{author['name']['value']}"
