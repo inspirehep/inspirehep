@@ -101,11 +101,6 @@ def test_lit_record_removed_from_es_when_hard_deleted(
 
     assert_es_hits_count(1)
 
-    def assert_record():
-        current_search.flush_and_refresh("records-hep")
-        record_from_es = LiteratureSearch().get_record_data_from_es(record)
-        assert expected_count == record_from_es["citation_count"]
-
     rec.hard_delete()
     db.session.commit()
 
