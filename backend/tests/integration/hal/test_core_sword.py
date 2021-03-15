@@ -100,3 +100,22 @@ def test_push(app, get_fixture):
 
     institute_record.delete()
     record.delete()
+
+
+@pytest.mark.vcr()
+def test_unicode_data(app, get_fixture):
+    record_json = orjson.loads(get_fixture("hal_preprod_unicode_record.json"))
+    record_data = faker.record("lit", data=record_json)
+    record = InspireRecord.create(record_data)
+
+    institute_json = orjson.loads(get_fixture("hal_preprod_unicode_institute.json"))
+    institute_data = faker.record("ins", data=institute_json)
+    institute_record = InspireRecord.create(institute_data)
+
+    receipt = _hal_push(record)
+
+    assert receipt
+    assert receipt.parsed
+
+    institute_record.delete()
+    record.delete()
