@@ -26,7 +26,9 @@ def get_sitemap_page_filename(page):
 
 
 def get_sitemap_page_absolute_url(page):
-    base_url = get_inspirehep_url()
+    base_url = current_app.config.get("SITEMAP_BASE_PAGE_ABSOLUTE_URL")
+    if not base_url:
+        base_url = get_inspirehep_url()
     return f"{base_url}/{get_sitemap_page_filename(page)}"
 
 
