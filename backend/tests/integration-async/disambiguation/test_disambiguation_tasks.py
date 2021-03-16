@@ -6,7 +6,8 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from helpers.providers.faker import faker
-from helpers.utils import es_search, retry_until_pass
+from helpers.utils import retry_until_pass
+from inspire_schemas.api import load_schema, validate
 from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_search import current_search
@@ -680,3 +681,93 @@ def test_disambiguate_authors_create_two_author_with_same_name(
         assert len(author_records_from_es.hits) == 2
 
     retry_until_pass(assert_disambiguation_task)
+
+
+def test_disambiguation_assigns_bai_when_author_match_based_on_ids(
+    inspire_app, clean_celery_session, enable_disambiguation
+):
+    author_data = faker.record("aut", with_control_number=True)
+    author_data.update(
+        {
+            "name": {"value": "Brian Gross"},
+            "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
+            "email_addresses": [{"current": True, "value": "test@test.com"}],
+        }
+    )
+    author_record = InspireRecord.create(author_data)
+    db.session.commit()
+
+    def assert_authors_records_exist_in_es():
+        author_record_from_es = InspireSearch.get_record_data_from_es(author_record)
+        assert author_record_from_es
+
+    retry_until_pass(assert_authors_records_exist_in_es)
+
+    literature_data = faker.record("lit", with_control_number=True)
+    literature_data.update(
+        {
+            "authors": [
+                {
+                    "full_name": "Brian Gross",
+                    "emails": ["test@test.com"],
+                }
+            ]
+        }
+    )
+    literature_record = LiteratureRecord.create(literature_data)
+    db.session.commit()
+
+    def assert_disambiguation_task():
+        literature_record_from_es = InspireSearch.get_record_data_from_es(
+            literature_record
+        )
+        assert {
+            "schema": "INSPIRE BAI",
+            "value": "J.M.Maldacena.1",
+        } in literature_record_from_es["authors"][0]["ids"]
+
+    retry_until_pass(assert_disambiguation_task, retry_interval=2)
+
+
+def test_disambiguation_doesnt_assign_bai_when_already_in_author(
+    inspire_app, clean_celery_session, enable_disambiguation
+):
+    author_data = faker.record("aut", with_control_number=True)
+    author_data.update(
+        {
+            "name": {"value": "Brian Gross"},
+            "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
+            "email_addresses": [{"current": True, "value": "test@test.com"}],
+        }
+    )
+    author_record = InspireRecord.create(author_data)
+    db.session.commit()
+
+    def assert_authors_records_exist_in_es():
+        author_record_from_es = InspireSearch.get_record_data_from_es(author_record)
+        assert author_record_from_es
+
+    retry_until_pass(assert_authors_records_exist_in_es)
+
+    literature_data = faker.record("lit", with_control_number=True)
+    literature_data.update(
+        {
+            "authors": [
+                {
+                    "full_name": "Brian Gross",
+                    "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
+                    "emails": ["test@test.com"],
+                }
+            ]
+        }
+    )
+    literature_record = LiteratureRecord.create(literature_data)
+    db.session.commit()
+
+    def assert_disambiguation_task():
+        schema = load_schema("hep")
+        subschema = schema["properties"]["authors"]
+        lit_record_from_db = InspireRecord.get_record(literature_record.id)
+        assert validate(lit_record_from_db["authors"], subschema) is None
+
+    retry_until_pass(assert_disambiguation_task, retry_interval=2)
