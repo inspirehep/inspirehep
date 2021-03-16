@@ -3,7 +3,7 @@ from celery import shared_task
 from flask import current_app
 from inspire_matcher.api import match
 from inspire_utils.name import ParsedName
-from inspire_utils.record import get_value
+from inspire_utils.record import get_value, get_values_for_schema
 from invenio_db import db
 from prometheus_client import Counter
 
@@ -105,14 +105,28 @@ def assign_reference_to_author_if_unambiguous_match(matched_authors_refs, author
 def assign_reference_to_author_if_unambiguous_literature_author_match(
     matched_records, author
 ):
+    matched_record_list = list(matched_records)
     matched_authors_refs = get_record_refs_for_matched_literature_authors(
-        matched_records
+        matched_record_list
     )
     matched_ref = assign_reference_to_author_if_unambiguous_match(
         matched_authors_refs, author
     )
     if matched_ref:
+        author_ids = get_value(
+            matched_record_list[0], "inner_hits.authors.hits.hits._source.ids", []
+        )
+        assign_bai_to_author(author_ids, author)
         return matched_ref
+
+
+def assign_bai_to_author(author_ids, author):
+    author_bai_list = get_values_for_schema(author_ids, "INSPIRE BAI")
+    if author_bai_list and "INSPIRE BAI" not in get_value(author, "ids.schema", []):
+        author["ids"] = [
+            *author.get("ids", []),
+            {"schema": "INSPIRE BAI", "value": author_bai_list[0]},
+        ]
 
 
 def match_literature_author(author, updated_authors, record):
@@ -192,16 +206,22 @@ def disambiguate_authors(self, record_uuid):
     for author in authors:
         if author.get("curated_relation"):
             continue
-        matched_authors = {
-            matched_record["_source"]["self"]["$ref"]
-            for matched_record in match(
-                author, current_app.config["AUTHOR_MATCHER_EXACT_CONFIG"]
-            )
+        matched_authors = list(
+            match(author, current_app.config["AUTHOR_MATCHER_EXACT_CONFIG"])
+        )
+        matched_authors_refs = {
+            matched_author["_source"]["self"]["$ref"]
+            for matched_author in matched_authors
         }
-        if len(matched_authors) == 1:
+        if len(matched_authors_refs) == 1:
             updated_author_recid = assign_reference_to_author_if_unambiguous_match(
-                matched_authors, author
+                matched_authors_refs, author
             )
+            matched_author_ids = [
+                get_value(matched_author, "_source.ids", [])
+                for matched_author in matched_authors
+            ]
+            assign_bai_to_author(matched_author_ids[0], author)
             updated_authors.append(updated_author_recid)
         if "record" not in author:
             match_literature_author(author, updated_authors, record)

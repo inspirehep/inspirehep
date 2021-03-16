@@ -10,7 +10,7 @@ from inspire_utils.record import get_value
 
 def authors_validator(author, result):
     record_author_identifiers = author.get("ids", [])
-    result_author_identifiers = get_value(result, "ids", [])
+    result_author_identifiers = get_value(result, "_source.ids", [])
     record_author_id_schema_value_pairs = {
         (record_author_id["schema"], record_author_id["value"])
         for record_author_id in record_author_identifiers

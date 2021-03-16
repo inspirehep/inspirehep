@@ -293,8 +293,7 @@ AUTHOR_MATCHER_EXACT_CONFIG = {
         },
     ],
     "index": "records-authors",
-    "source": ["self.$ref"],
-    "validator": "inspirehep.matcher.validators:authors_validator",
+    "source": ["self.$ref", "ids"],
 }
 
 AUTHOR_MATCHER_NAME_CONFIG = {
@@ -306,7 +305,11 @@ AUTHOR_MATCHER_NAME_CONFIG = {
                     "search_paths": ["authors.first_name", "authors.last_name"],
                     "type": "nested",
                     "inner_hits": {
-                        "_source": ["authors.record.$ref", "authors.affiliations.value"]
+                        "_source": [
+                            "authors.record.$ref",
+                            "authors.affiliations.value",
+                            "authors.ids",
+                        ]
                     },
                 },
             ],
@@ -323,7 +326,7 @@ AUTHOR_MATCHER_NAME_INITIALS_CONFIG = {
             "queries": [
                 {
                     "type": "author-names",
-                    "inner_hits": {"_source": ["authors.record"]},
+                    "inner_hits": {"_source": ["authors.record", "authors.ids"]},
                 },
             ]
         },
