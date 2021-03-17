@@ -1479,7 +1479,7 @@ orcid = ">=1.0.3,<2"
 pkgsettings = ">=0.12.0,<1.0.0"
 
 [package.source]
-reference = "c856461eb4698a62db3da2ee31f2d35d660a05c0"
+reference = "362425d6f77a4770794615d3b98c233fca08e537"
 type = "git"
 url = "https://github.com/inspirehep/inspire-service-orcid.git"
 

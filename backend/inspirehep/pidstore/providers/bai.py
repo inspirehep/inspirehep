@@ -37,7 +37,7 @@ class InspireBAIProvider(InspireBaseProvider):
         bai = ".".join(format_name(name, initials_only=True).split())
         bai = unidecode(bai)
         bai = "".join(filter(lambda x: x in set(string.ascii_letters + "."), bai))
-        bai = re.sub(r"\.+", ".", bai)
+        bai = re.sub(r"\.+", ".", bai).lstrip(".")
         if not bai.endswith("."):
             bai = f"{bai}."
         next_bai_number = cls.next_bai_number(bai)
