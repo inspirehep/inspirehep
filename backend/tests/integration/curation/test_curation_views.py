@@ -21,7 +21,7 @@ def test_add_keywords_replace_old_keywords_with_new(inspire_app):
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.put(
-            f""""/curation/literature/{record["control_number"]}/keywords""",
+            f"/curation/literature/{record['control_number']}/keywords",
             content_type="application/json",
             data=orjson.dumps({"keywords": ["Deep Learning"]}),
         )
@@ -31,6 +31,22 @@ def test_add_keywords_replace_old_keywords_with_new(inspire_app):
     assert updated_record["keywords"] == [
         {"value": "Deep Learning", "schema": "INSPIRE"}
     ]
+
+
+def test_add_keywords_adds_energy_ranges(inspire_app):
+    user = create_user(role=Roles.cataloger.value)
+    record = create_record("lit")
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.put(
+            f"/curation/literature/{record['control_number']}/keywords",
+            content_type="application/json",
+            data=orjson.dumps({"energy_ranges": ["> 10 TeV"]}),
+        )
+    updated_record = LiteratureRecord.get_record_by_pid_value(record["control_number"])
+
+    assert response.status_code == 200
+    assert updated_record["energy_ranges"] == ["> 10 TeV"]
 
 
 def test_add_keywords_updated_desy_bookkeeping(inspire_app):
@@ -50,7 +66,7 @@ def test_add_keywords_updated_desy_bookkeeping(inspire_app):
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.put(
-            f""""/curation/literature/{record["control_number"]}/keywords""",
+            f"/curation/literature/{record['control_number']}/keywords",
             content_type="application/json",
             data=orjson.dumps({"_desy_bookkeeping": {"identifier": "DA17-kp43aa"}}),
         )
@@ -60,7 +76,9 @@ def test_add_keywords_updated_desy_bookkeeping(inspire_app):
     assert updated_record["_desy_bookkeeping"] == expected_desy_bookkeeping_value
 
 
-def test_add_keywords_adds_keywords_and_update_desy_bookkeeping(inspire_app):
+def test_add_keywords_adds_keywords_update_desy_bookkeeping_and_energy_ranges(
+    inspire_app,
+):
     user = create_user(role=Roles.cataloger.value)
     record = create_record(
         "lit",
@@ -69,6 +87,7 @@ def test_add_keywords_adds_keywords_and_update_desy_bookkeeping(inspire_app):
                 {"date": "2017-10-16", "expert": "3", "status": "printed"}
             ],
             "keywords": [{"value": "Machine learning", "source": "author"}],
+            "energy_ranges": ["> 10 TeV"],
         },
     )
     expected_desy_bookkeeping_value = [
@@ -79,15 +98,19 @@ def test_add_keywords_adds_keywords_and_update_desy_bookkeeping(inspire_app):
         {"value": "Machine learning", "source": "author"},
         {"value": "Deep Learning", "schema": "INSPIRE"},
     ]
+
+    expected_energy_ranges = ["0-3 GeV", "3-10 GeV"]
+
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.put(
-            f"""/curation/literature/{record["control_number"]}/keywords""",
+            f"/curation/literature/{record['control_number']}/keywords",
             content_type="application/json",
             data=orjson.dumps(
                 {
                     "_desy_bookkeeping": {"identifier": "DA17-kp43aa"},
                     "keywords": ["Deep Learning"],
+                    "energy_ranges": ["0-3 GeV", "3-10 GeV"],
                 }
             ),
         )
@@ -96,15 +119,18 @@ def test_add_keywords_adds_keywords_and_update_desy_bookkeeping(inspire_app):
     assert response.status_code == 200
     assert updated_record["_desy_bookkeeping"] == expected_desy_bookkeeping_value
     assert updated_record["keywords"] == expected_keywords_value
+    assert updated_record["energy_ranges"] == expected_energy_ranges
 
 
-def test_add_keywords_raise_error_when_no_keywords_or_desy_info_provided(inspire_app):
+def test_add_keywords_raise_error_when_no_keywords_or_desy_info_or_energy_ranges_provided(
+    inspire_app,
+):
     user = create_user(role=Roles.cataloger.value)
     record = create_record("lit")
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.put(
-            f""""/curation/literature/{record["control_number"]}/keywords""",
+            f"/curation/literature/{record['control_number']}/keywords",
             content_type="application/json",
             data=orjson.dumps({"other_key": ["test"]}),
         )
@@ -119,7 +145,7 @@ def test_add_keywords_raise_error_when_keywords_in_wrong_format(inspire_app):
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.put(
-            f""""/curation/literature/{record["control_number"]}/keywords""",
+            f"/curation/literature/{record['control_number']}/keywords",
             content_type="application/json",
             data=orjson.dumps({"keywords": {"value": "Test", "source": "curation"}}),
         )
@@ -134,7 +160,7 @@ def test_add_keywords_raise_error_when_desy_bookkeeping_in_wrong_format(inspire_
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.put(
-            f""""/curation/literature/{record["control_number"]}/keywords""",
+            f"/curation/literature/{record['control_number']}/keywords",
             content_type="application/json",
             data=orjson.dumps(
                 {"_desy_bookkeeping": [{"value": "Test", "source": "curation"}]}
@@ -145,6 +171,24 @@ def test_add_keywords_raise_error_when_desy_bookkeeping_in_wrong_format(inspire_
     assert (
         response.json["message"] == "Incorrect input type for fields: _desy_bookkeeping"
     )
+
+    def test_add_keywords_raise_error_when_energy_ranges_in_wrong_format(inspire_app):
+        user = create_user(role=Roles.cataloger.value)
+        record = create_record("lit")
+        with inspire_app.test_client() as client:
+            login_user_via_session(client, email=user.email)
+            response = client.put(
+                f"/curation/literature/{record['control_number']}/keywords",
+                content_type="application/json",
+                data=orjson.dumps(
+                    {"energy_ranges": [{"value": "Test", "source": "curation"}]}
+                ),
+            )
+
+        assert response.status_code == 400
+        assert (
+            response.json["message"] == "Incorrect input type for fields: energy_ranges"
+        )
 
 
 def test_add_keyword_returns_validation_error(inspire_app):
@@ -160,7 +204,7 @@ def test_add_keyword_returns_validation_error(inspire_app):
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.put(
-            f""""/curation/literature/{record["control_number"]}/keywords""",
+            f"/curation/literature/{record['control_number']}/keywords",
             content_type="application/json",
             data=orjson.dumps(
                 {

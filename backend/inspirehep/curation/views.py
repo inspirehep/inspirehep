@@ -32,13 +32,15 @@ def handle_error(error, req, schema, error_status_code, error_headers):
     {
         "_desy_bookkeeping": fields.Dict(required=False),
         "keywords": fields.List(fields.String, required=False),
+        "energy_ranges": fields.List(fields.String, required=False),
     },
     locations=("json",),
 )
 def add_keywords(args, pid_value):
     keywords = args.get("keywords")
     desy_bookkeeping = args.get("_desy_bookkeeping")
-    if not keywords and not desy_bookkeeping:
+    energy_ranges = args.get("energy_ranges")
+    if not any([keywords, desy_bookkeeping, energy_ranges]):
         return (
             jsonify(
                 success=False,
@@ -62,6 +64,10 @@ def add_keywords(args, pid_value):
         for keyword in keywords:
             other_keywords.append({"value": keyword, "schema": "INSPIRE"})
         record["keywords"] = other_keywords
+
+    if energy_ranges:
+        record["energy_ranges"] = energy_ranges
+
     try:
         record.update(dict(record))
         db.session.commit()
