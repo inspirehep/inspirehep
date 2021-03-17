@@ -28,7 +28,7 @@ import {
   InlineUL,
   SEPARATOR_MIDDLEDOT,
 } from '../../common/components/InlineList';
-import AssignViewContext from '../../authors/AssignViewContext';
+import AssignAuthorViewContext from '../../authors/AssignViewContext';
 import AssignOneActionContainer from '../../authors/containers/AssignOneActionContainer';
 
 function LiteratureItem({ metadata, searchRank }) {
@@ -53,7 +53,7 @@ function LiteratureItem({ metadata, searchRank }) {
 
   const curatedRelation = metadata.get('curated_relation', false);
 
-  const assignView = useContext(AssignViewContext);
+  const assignAuthorView = useContext(AssignAuthorViewContext);
 
   return (
     <ResultItem
@@ -86,7 +86,7 @@ function LiteratureItem({ metadata, searchRank }) {
           {canEdit && (
             <EditRecordAction pidType="literature" pidValue={recordId} />
           )}
-          {assignView && <AssignOneActionContainer recordId={recordId} />}
+          {assignAuthorView && <AssignOneActionContainer recordId={recordId} />}
         </Fragment>
       }
       rightActions={
@@ -111,12 +111,11 @@ function LiteratureItem({ metadata, searchRank }) {
               to={`${LITERATURE}/${recordId}`}
             >
               <LiteratureTitle title={title} />
-              {assignView &&
-                !curatedRelation && (
-                  <Tooltip title="Unclaimed paper. Click on the Claim button to claim or remove it from the profile">
-                    <FileExclamationTwoTone className="ml1" />
-                  </Tooltip>
-                )}
+              {assignAuthorView && !curatedRelation && (
+                <Tooltip title="Unclaimed paper. Click on the Claim button to claim or remove it from the profile">
+                  <FileExclamationTwoTone className="ml1" />
+                </Tooltip>
+              )}
             </Link>
           </div>
           <ResponsiveView

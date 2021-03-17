@@ -4,15 +4,15 @@ import { Provider } from 'react-redux';
 import { fromJS, Set } from 'immutable';
 
 import { getStore, mockActionCreator } from '../../../fixtures/store';
-import PublicationsSelectAllContainer from '../PublicationsSelectAllContainer';
-import { setPublicationSelection } from '../../../actions/authors';
-import PublicationsSelectAll from '../../components/PublicationsSelectAll';
-import { AUTHOR_PUBLICATIONS_NS } from '../../../search/constants';
+import LiteratureSelectAllContainer from '../LiteratureSelectAllContainer';
+import { setLiteratureSelection } from '../../../actions/literature';
+import LiteratureSelectAll from '../../components/LiteratureSelectAll';
+import { LITERATURE_NS } from '../../../search/constants';
 
-jest.mock('../../../actions/authors');
-mockActionCreator(setPublicationSelection);
+jest.mock('../../../actions/literature');
+mockActionCreator(setLiteratureSelection);
 
-describe('PublicationsSelectAllContainer', () => {
+describe('LiteratureSelectAllContainer', () => {
   it('passes state to props', () => {
     const publications = fromJS([
       {
@@ -28,12 +28,12 @@ describe('PublicationsSelectAllContainer', () => {
     ]);
     const selection = Set([1]);
     const store = getStore({
-      authors: fromJS({
-        publicationSelection: selection,
+      literature: fromJS({
+        literatureSelection: selection,
       }),
       search: fromJS({
         namespaces: {
-          [AUTHOR_PUBLICATIONS_NS]: {
+          [LITERATURE_NS]: {
             results: publications,
           },
         },
@@ -41,10 +41,10 @@ describe('PublicationsSelectAllContainer', () => {
     });
     const wrapper = mount(
       <Provider store={store}>
-        <PublicationsSelectAllContainer />
+        <LiteratureSelectAllContainer />
       </Provider>
     );
-    expect(wrapper.find(PublicationsSelectAll)).toHaveProp({
+    expect(wrapper.find(LiteratureSelectAll)).toHaveProp({
       publications,
       selection,
     });
@@ -54,11 +54,11 @@ describe('PublicationsSelectAllContainer', () => {
     const store = getStore();
     const wrapper = mount(
       <Provider store={store}>
-        <PublicationsSelectAllContainer />
+        <LiteratureSelectAllContainer />
       </Provider>
     );
-    wrapper.find(PublicationsSelectAll).prop('onChange')([1, 2, 3], true);
-    const expectedActions = [setPublicationSelection([1, 2, 3], true)];
+    wrapper.find(LiteratureSelectAll).prop('onChange')([1, 2, 3], true);
+    const expectedActions = [setLiteratureSelection([1, 2, 3], true)];
     expect(store.getActions()).toEqual(expectedActions);
   });
 });

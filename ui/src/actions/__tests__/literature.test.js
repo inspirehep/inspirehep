@@ -1,6 +1,6 @@
 import MockAdapter from 'axios-mock-adapter';
-import { fromJS } from 'immutable';
-
+import { fromJS, Set } from 'immutable';
+import { advanceTo, clear } from 'jest-date-mock';
 import { getStore, getStoreWithState } from '../../fixtures/store';
 import http from '../../common/http.ts';
 import {
@@ -13,21 +13,33 @@ import {
   LITERATURE_REFERENCES_ERROR,
   LITERATURE_REFERENCES_REQUEST,
   LITERATURE_REFERENCES_SUCCESS,
+  LITERATURE_SELECTION_SET,
+  LITERATURE_SELECTION_CLEAR,
 } from '../actionTypes';
 import {
   fetchLiterature,
   fetchLiteratureAuthors,
   fetchLiteratureReferences,
+  setLiteratureSelection,
+  clearLiteratureSelection,
+  setAssignDrawerVisibility,
+  assignPapers,
 } from '../literature';
+import {
+  assignError,
+  assignSuccess,
+  assigning,
+} from '../../literature/assignNotification';
 
 const mockHttp = new MockAdapter(http.httpClient);
+jest.mock('../../literature/assignNotification');
 
 describe('literature - async action creators', () => {
   afterEach(() => {
     mockHttp.reset();
   });
 
-  it('happy - creates LITERATURE_SUCCESS', async done => {
+  it('happy - creates LITERATURE_SUCCESS', async (done) => {
     mockHttp.onGet('/literature/123').replyOnce(200, {});
 
     const expectedActions = [
@@ -41,7 +53,7 @@ describe('literature - async action creators', () => {
     done();
   });
 
-  it('unhappy - creates LITERATURE_ERROR', async done => {
+  it('unhappy - creates LITERATURE_ERROR', async (done) => {
     mockHttp.onGet('/literature/123').replyOnce(500);
 
     const expectedActions = [
@@ -60,7 +72,7 @@ describe('literature - async action creators', () => {
   });
 
   describe('literature references', () => {
-    it('happy - creates LITERATURE_REFERENCES_SUCCESS', async done => {
+    it('happy - creates LITERATURE_REFERENCES_SUCCESS', async (done) => {
       mockHttp
         .onGet('/literature/123/references?page=1&size=10')
         .replyOnce(200, {});
@@ -78,7 +90,7 @@ describe('literature - async action creators', () => {
       done();
     });
 
-    it('fetches references with merging the given query into the existing one ', async done => {
+    it('fetches references with merging the given query into the existing one ', async (done) => {
       mockHttp
         .onGet(
           '/literature/123/references?size=10&page=10&q=dude&sort=mostrecent'
@@ -103,7 +115,7 @@ describe('literature - async action creators', () => {
       done();
     });
 
-    it('unhappy - creates LITERATURE_REFERENCES_ERROR', async done => {
+    it('unhappy - creates LITERATURE_REFERENCES_ERROR', async (done) => {
       mockHttp
         .onGet('/literature/123/references?page=1&size=10')
         .replyOnce(404, { message: 'Not found' });
@@ -126,7 +138,7 @@ describe('literature - async action creators', () => {
   });
 
   describe('literature authors', () => {
-    it('happy - creates LITERATURE_AUTHORS_SUCCESS', async done => {
+    it('happy - creates LITERATURE_AUTHORS_SUCCESS', async (done) => {
       mockHttp.onGet('/literature/123/authors').replyOnce(200, {});
 
       const expectedActions = [
@@ -140,7 +152,7 @@ describe('literature - async action creators', () => {
       done();
     });
 
-    it('unhappy - creates LITERATURE_AUTHORS_ERROR', async done => {
+    it('unhappy - creates LITERATURE_AUTHORS_ERROR', async (done) => {
       mockHttp.onGet('/literature/123/authors').replyOnce(500);
 
       const expectedActions = [
@@ -157,6 +169,104 @@ describe('literature - async action creators', () => {
       await store.dispatch(fetchLiteratureAuthors(123));
       expect(store.getActions()).toEqual(expectedActions);
       done();
+    });
+  });
+
+  describe('select literature', () => {
+    it('setLiteratureSelection', () => {
+      const expectedActions = [
+        {
+          type: LITERATURE_SELECTION_SET,
+          payload: { literatureIds: [1, 2], selected: true },
+        },
+      ];
+
+      const store = getStore();
+      store.dispatch(setLiteratureSelection([1, 2], true));
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+
+    it('clearLiteratureSelection', () => {
+      const expectedActions = [
+        {
+          type: LITERATURE_SELECTION_CLEAR,
+        },
+      ];
+
+      const store = getStore();
+      store.dispatch(clearLiteratureSelection());
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
+  describe('assignPapers', () => {
+    afterEach(() => {
+      clear();
+    });
+
+    it('successfully assign papers to conference', async () => {
+      const conferenceId = 123;
+      const literatureSelection = [1, 2, 3];
+      const fakeNow = 1597314028798;
+
+      advanceTo(fakeNow);
+
+      const store = getStore({
+        literature: fromJS({
+          literatureSelection: Set(literatureSelection),
+        }),
+      });
+
+      mockHttp
+        .onPost('/assign/conference', {
+          conference_recid: conferenceId,
+          literature_recids: literatureSelection,
+        })
+        .replyOnce(200, { message: 'Success' });
+
+      const expectedActions = [
+        clearLiteratureSelection(),
+        setAssignDrawerVisibility(false),
+      ];
+
+      const dispatchPromise = store.dispatch(assignPapers(conferenceId));
+      expect(assigning).toHaveBeenCalled();
+
+      await dispatchPromise;
+      expect(store.getActions()).toEqual(expectedActions);
+
+      expect(assignSuccess).toHaveBeenCalledWith({
+        conferenceId,
+        papers: Set(literatureSelection),
+      });
+    });
+
+    it('error', async () => {
+      const conferenceId = 123;
+      const literatureSelection = [1, 2, 3];
+
+      const store = getStore({
+        literature: fromJS({
+          literatureSelection: Set(literatureSelection),
+        }),
+      });
+
+      mockHttp
+        .onPost('/assign/conference', {
+          conference_recid: conferenceId,
+          literature_recids: literatureSelection,
+        })
+        .replyOnce(500, {});
+
+      const expectedActions = [];
+
+      const dispatchPromise = store.dispatch(assignPapers(conferenceId));
+      expect(assigning).toHaveBeenCalled();
+
+      await dispatchPromise;
+      expect(store.getActions()).toEqual(expectedActions);
+
+      expect(assignError).toHaveBeenCalled();
     });
   });
 });

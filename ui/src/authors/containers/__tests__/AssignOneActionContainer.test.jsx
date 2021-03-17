@@ -8,7 +8,7 @@ import AssignOneActionContainer from '../AssignOneActionContainer';
 import {
   setAssignDrawerVisibility,
   assignPapers,
-  setPulicationSelection,
+  setPublicationSelection,
   clearPulicationSelection,
 } from '../../../actions/authors';
 import AssignAction from '../../components/AssignAction';
@@ -22,7 +22,7 @@ jest.mock('react-router-dom', () => ({
 jest.mock('../../../actions/authors');
 mockActionCreator(setAssignDrawerVisibility);
 mockActionCreator(assignPapers);
-mockActionCreator(setPulicationSelection);
+mockActionCreator(setPublicationSelection);
 mockActionCreator(clearPulicationSelection);
 
 describe('AssignOneActionContainer', () => {
@@ -40,7 +40,7 @@ describe('AssignOneActionContainer', () => {
     onAssignToAnotherAuthor();
     const expectedActions = [
       clearPulicationSelection(),
-      setPulicationSelection([paperRecordId], true),
+      setPublicationSelection([paperRecordId], true),
       setAssignDrawerVisibility(true),
     ];
     expect(store.getActions()).toEqual(expectedActions);

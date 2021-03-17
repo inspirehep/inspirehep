@@ -6,7 +6,7 @@
     FIGURES_FEATURE_FLAG: true,
     BANNERS: null,
     DISPLAY_GUIDE_ON_START: false,
-    ASSIGN_UI_FEATURE_FLAG: true,
+    ASSIGN_CONFERENCE_UI_FEATURE_FLAG: true,
     /* Example:
     BANNERS: [
       {

@@ -25,7 +25,7 @@ const fetchAuthor = generateRecordFetchAction({
 
 export default fetchAuthor;
 
-export function setPulicationSelection(publicationIds, selected) {
+export function setPublicationSelection(publicationIds, selected) {
   return {
     type: AUTHOR_PUBLICATION_SELECTION_SET,
     payload: { publicationIds, selected },

@@ -1,4 +1,4 @@
-import { Map, fromJS } from 'immutable';
+import { Map, fromJS, Set } from 'immutable';
 import reducer, { initialState } from '../literature';
 import {
   LITERATURE_ERROR,
@@ -10,6 +10,9 @@ import {
   LITERATURE_REFERENCES_ERROR,
   LITERATURE_REFERENCES_REQUEST,
   LITERATURE_REFERENCES_SUCCESS,
+  LITERATURE_SELECTION_SET,
+  LITERATURE_SET_ASSIGN_DRAWER_VISIBILITY,
+  LITERATURE_SELECTION_CLEAR,
   CLEAR_STATE,
 } from '../../actions/actionTypes';
 
@@ -169,6 +172,61 @@ describe('literature reducer', () => {
       loadingAuthors: false,
       errorAuthors: { message: 'error' },
       authors: initialState.get('authors'),
+    });
+    expect(state).toEqual(expected);
+  });
+
+  it('LITERATURE_SELECTION_SET when selected', () => {
+    const payload = {
+      literatureIds: [2, 3],
+      selected: true,
+    };
+    const currentState = Map({ literatureSelection: Set([1, 2]) });
+    const state = reducer(currentState, {
+      type: LITERATURE_SELECTION_SET,
+      payload,
+    });
+    const expected = fromJS({
+      literatureSelection: Set([1, 2, 3]),
+    });
+    expect(state).toEqual(expected);
+  });
+
+  it('LITERATURE_SELECTION_SET when deselected', () => {
+    const payload = {
+      literatureIds: [2, 3],
+      selected: false,
+    };
+    const currentState = Map({ literatureSelection: Set([1, 2]) });
+    const state = reducer(currentState, {
+      type: LITERATURE_SELECTION_SET,
+      payload,
+    });
+    const expected = fromJS({
+      literatureSelection: Set([1]),
+    });
+    expect(state).toEqual(expected);
+  });
+
+  it('LITERATURE_SELECTION_CLEAR', () => {
+    const currentState = Map({ literatureSelection: Set([1, 2]) });
+    const state = reducer(currentState, {
+      type: LITERATURE_SELECTION_CLEAR,
+    });
+    const expected = fromJS({
+      literatureSelection: Set(),
+    });
+    expect(state).toEqual(expected);
+  });
+
+  it('LITERATURE_SET_ASSIGN_DRAWER_VISIBILITY', () => {
+    const currentState = Map({ isAssignDrawerVisible: false });
+    const state = reducer(currentState, {
+      type: LITERATURE_SET_ASSIGN_DRAWER_VISIBILITY,
+      payload: { visible: true },
+    });
+    const expected = fromJS({
+      isAssignDrawerVisible: true,
     });
     expect(state).toEqual(expected);
   });

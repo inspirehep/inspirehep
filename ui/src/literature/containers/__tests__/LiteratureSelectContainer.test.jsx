@@ -4,22 +4,22 @@ import { Provider } from 'react-redux';
 import { Checkbox } from 'antd';
 
 import { getStore, mockActionCreator } from '../../../fixtures/store';
-import PublicationSelectContainer from '../PublicationSelectContainer';
-import { setPublicationSelection } from '../../../actions/authors';
+import LiteratureSelectContainer from '../LiteratureSelectContainer';
+import { setLiteratureSelection } from '../../../actions/literature';
 
-jest.mock('../../../actions/authors');
-mockActionCreator(setPublicationSelection);
+jest.mock('../../../actions/literature');
+mockActionCreator(setLiteratureSelection);
 
-describe('PublicationSelectContainer', () => {
-  it('dispatches setPublicationSelection on change', () => {
+describe('LiteratureSelectContainer', () => {
+  it('dispatches setLiteratureSelection on change', () => {
     const store = getStore();
     const wrapper = mount(
       <Provider store={store}>
-        <PublicationSelectContainer recordId={1} />
+        <LiteratureSelectContainer recordId={1} />
       </Provider>
     );
     wrapper.find(Checkbox).prop('onChange')({ target: { checked: true } });
-    const expectedActions = [setPublicationSelection([1], true)];
+    const expectedActions = [setLiteratureSelection([1], true)];
     expect(store.getActions()).toEqual(expectedActions);
   });
 });

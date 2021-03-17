@@ -18,7 +18,9 @@ export const CITE_FILE_FORMAT = {
 };
 
 export const CITE_FORMAT_VALUES = CITE_FORMAT_OPTIONS.map(
-  option => option.value
+  (option) => option.value
 );
 
 export const MAX_CITEABLE_RECORDS = 1000;
+
+export const MAX_ASSIGN_RECORDS_TO_CONFERENCE = 250;

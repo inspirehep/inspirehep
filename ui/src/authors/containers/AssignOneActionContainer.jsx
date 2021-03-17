@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import {
-  setPulicationSelection,
+  setPublicationSelection,
   clearPulicationSelection,
   setAssignDrawerVisibility,
   assignPapers,
@@ -11,7 +11,7 @@ import AssignAction from '../components/AssignAction';
 export const dispatchToProps = (dispatch, { recordId }) => ({
   onAssignToAnotherAuthor() {
     dispatch(clearPulicationSelection());
-    dispatch(setPulicationSelection([recordId], true));
+    dispatch(setPublicationSelection([recordId], true));
     dispatch(setAssignDrawerVisibility(true));
   },
 

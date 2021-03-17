@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LiteratureSelectAll render unchecked if all publications are not part of the selection 1`] = `
+<Checkbox
+  checked={false}
+  indeterminate={false}
+  onChange={[Function]}
+/>
+`;
+
+exports[`LiteratureSelectAll renders checked if all publications are part of the selection 1`] = `
+<Checkbox
+  checked={true}
+  indeterminate={false}
+  onChange={[Function]}
+/>
+`;

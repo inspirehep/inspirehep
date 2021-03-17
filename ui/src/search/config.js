@@ -15,6 +15,7 @@ import {
   AUTHOR_SEMINARS_NS,
   LITERATURE_SEMINARS_NS,
   ASSIGN_AUTHOR_NS,
+  ASSIGN_CONFERENCE_NS,
 } from './constants';
 import {
   onLiteratureQueryChange,
@@ -65,6 +66,10 @@ const searchConfig = {
   [CONFERENCES_NS]: {
     persistedQueryParamsDuringNewSearch: persistedQueryParamsDuringNewSearchForEvents,
     onQueryChange: onCollectionQueryChange,
+  },
+  [ASSIGN_CONFERENCE_NS]: {
+    persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
+    onQueryChange: onEmbeddedSearchWithoutAggregationsQueryChange,
   },
   [EXISTING_CONFERENCES_NS]: {
     persistedQueryParamsDuringNewSearch: persistedQueryParamsDuringNewSearchForEvents,

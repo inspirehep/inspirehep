@@ -9,11 +9,19 @@ import {
   LITERATURE_AUTHORS_ERROR,
   LITERATURE_AUTHORS_REQUEST,
   LITERATURE_AUTHORS_SUCCESS,
+  LITERATURE_SELECTION_SET,
+  LITERATURE_SET_ASSIGN_DRAWER_VISIBILITY,
+  LITERATURE_SELECTION_CLEAR,
 } from './actionTypes';
 import { isCancelError } from '../common/http.ts';
 import { httpErrorToActionPayload } from '../common/utils';
 import generateRecordFetchAction from './recordsFactory';
 import { LITERATURE_PID_TYPE } from '../common/constants';
+import {
+  assignSuccess,
+  assignError,
+  assigning,
+} from '../literature/assignNotification';
 
 function fetchingLiteratureReferences(query) {
   return {
@@ -103,6 +111,44 @@ export function fetchLiteratureAuthors(recordId) {
         const errorPayload = httpErrorToActionPayload(error);
         dispatch(fetchLiteratureAuthorsError(errorPayload));
       }
+    }
+  };
+}
+
+export function setLiteratureSelection(literatureIds, selected) {
+  return {
+    type: LITERATURE_SELECTION_SET,
+    payload: { literatureIds, selected },
+  };
+}
+
+export function clearLiteratureSelection() {
+  return {
+    type: LITERATURE_SELECTION_CLEAR,
+  };
+}
+
+export function setAssignDrawerVisibility(visible) {
+  return {
+    type: LITERATURE_SET_ASSIGN_DRAWER_VISIBILITY,
+    payload: { visible },
+  };
+}
+
+export function assignPapers(conferenceId) {
+  return async (dispatch, getState, http) => {
+    try {
+      const papers = getState().literature.get('literatureSelection');
+      assigning();
+      await http.post('/assign/conference', {
+        conference_recid: conferenceId,
+        literature_recids: papers,
+      });
+      assignSuccess({ conferenceId, papers });
+      dispatch(clearLiteratureSelection());
+      dispatch(setAssignDrawerVisibility(false));
+    } catch (error) {
+      assignError();
     }
   };
 }
