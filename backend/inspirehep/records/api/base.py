@@ -631,7 +631,7 @@ class InspireRecord(Record):
 
     @property
     def control_number(self):
-        return self.get("control_number")
+        return str(self.get("control_number"))
 
     @property
     def control_number_pid(self):
