@@ -50,7 +50,7 @@ export function assignPapers({ from, to }) {
     try {
       const papers = getState().authors.get('publicationSelection');
       assigning();
-      const { data } = await http.post('/assign', {
+      const { data } = await http.post('/assign/author', {
         from_author_recid: from,
         to_author_recid: to,
         literature_recids: papers,

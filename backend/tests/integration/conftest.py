@@ -46,6 +46,7 @@ def app_config(instance_path, app_config):
         "SQLALCHEMY_DATABASE_URI"
     ] = "postgresql+psycopg2://inspirehep:inspirehep@localhost/test-inspirehep"
     app_config["FEATURE_FLAG_ENABLE_REDIRECTION_OF_PIDS"] = True
+    app_config["FILES_MAX_UPLOAD_THREADS"] = 1
     return app_config
 
 

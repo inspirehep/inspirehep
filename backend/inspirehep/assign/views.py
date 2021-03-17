@@ -4,18 +4,23 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-
+import structlog
 from flask import Blueprint, request
 from inspire_dojson.utils import get_recid_from_ref, get_record_ref
 from invenio_db import db
+from webargs import fields
+from webargs.flaskparser import FlaskParser
 
 from inspirehep.accounts.decorators import login_required_with_roles
 from inspirehep.accounts.roles import Roles
+from inspirehep.assign.tasks import assign_paper_to_conference
 from inspirehep.disambiguation.utils import create_new_stub_author, update_author_names
 from inspirehep.records.api import AuthorsRecord, LiteratureRecord
 from inspirehep.serializers import jsonify
 
 blueprint = Blueprint("inspirehep_assign", __name__, url_prefix="/assign")
+parser = FlaskParser()
+LOGGER = structlog.getLogger()
 
 
 def get_literature_records_by_recid(recids):
@@ -64,9 +69,9 @@ def assign_to_author(from_author_recid, to_author_recid, literature_recids):
     unstub_author_by_recid(to_author_recid)
 
 
-@blueprint.route("", methods=["POST"])
+@blueprint.route("author", methods=["POST"])
 @login_required_with_roles([Roles.cataloger.value])
-def assign_view():
+def author_assign_view():
     body = request.get_json()
     to_author_recid = body.get("to_author_recid")
     from_author_recid = body["from_author_recid"]
@@ -81,4 +86,26 @@ def assign_view():
     db.session.commit()
     if to_author_recid is None:
         return jsonify({"stub_author_id": stub_author_id}), 200
+    return jsonify({"message": "Success"}), 200
+
+
+@blueprint.route("conference", methods=["POST"])
+@login_required_with_roles([Roles.cataloger.value])
+@parser.use_args(
+    {
+        "conference_recid": fields.String(required=True),
+        "literature_recids": fields.List(fields.String, required=True),
+    },
+    locations=("json",),
+)
+def literature_assign_conferences_view(args):
+    conference_recid = args["conference_recid"]
+    literature_recids = args["literature_recids"]
+
+    try:
+        assign_paper_to_conference.delay(literature_recids, conference_recid)
+    except Exception as err:
+        LOGGER.exception("Cannot start 'assign_paper_to_conference' task.", err=err)
+        return jsonify({"message": "Internal Error"}), 500
+
     return jsonify({"message": "Success"}), 200

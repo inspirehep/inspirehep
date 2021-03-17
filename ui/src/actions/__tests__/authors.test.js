@@ -38,7 +38,7 @@ describe('AUTHOR - async action creators', () => {
       mockHttp.reset();
     });
 
-    it('creates AUTHOR_SUCCESS', async done => {
+    it('creates AUTHOR_SUCCESS', async (done) => {
       mockHttp.onGet('/authors/123').replyOnce(200, { foo: 'bar' });
 
       const expectedActions = [
@@ -52,7 +52,7 @@ describe('AUTHOR - async action creators', () => {
       done();
     });
 
-    it('creates AUTHOR_ERROR', async done => {
+    it('creates AUTHOR_ERROR', async (done) => {
       mockHttp.onGet('/authors/123').replyOnce(500, { message: 'Error' });
 
       const expectedActions = [
@@ -123,7 +123,7 @@ describe('AUTHOR - async action creators', () => {
       });
 
       mockHttp
-        .onPost('/assign', {
+        .onPost('/assign/author', {
           from_author_recid: fromAuthorId,
           literature_recids: publicationSelection,
         })
@@ -165,7 +165,7 @@ describe('AUTHOR - async action creators', () => {
       });
 
       mockHttp
-        .onPost('/assign', {
+        .onPost('/assign/author', {
           from_author_recid: fromAuthorId,
           to_author_recid: toAuthorId,
           literature_recids: publicationSelection,
@@ -205,7 +205,7 @@ describe('AUTHOR - async action creators', () => {
       });
 
       mockHttp
-        .onPost('/assign', {
+        .onPost('/assign/author', {
           from_author_recid: fromAuthorId,
           to_author_recid: toAuthorId,
           literature_recids: publicationSelection,

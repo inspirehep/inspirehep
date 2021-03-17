@@ -10,6 +10,7 @@ from helpers.utils import create_record, create_user
 from inspire_dojson.utils import get_recid_from_ref
 from invenio_accounts.testutils import login_user_via_session
 
+from inspirehep.accounts.roles import Roles
 from inspirehep.records.api import AuthorsRecord, LiteratureRecord
 
 
@@ -33,7 +34,7 @@ def test_assign_without_login(inspire_app):
 
     with inspire_app.test_client() as client:
         response = client.post(
-            "/assign",
+            "/assign/author",
             data=orjson.dumps(
                 {
                     "literature_recids": [literature["control_number"]],
@@ -83,7 +84,7 @@ def test_assign_requires_cataloger_login(inspire_app):
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.post(
-            "/assign",
+            "/assign/author",
             data=orjson.dumps(
                 {
                     "literature_recids": [literature["control_number"]],
@@ -151,7 +152,7 @@ def test_assign_from_an_author_to_another(inspire_app):
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=cataloger.email)
         response = client.post(
-            "/assign",
+            "/assign/author",
             data=orjson.dumps(
                 {
                     "literature_recids": [
@@ -207,7 +208,7 @@ def test_assign_from_an_author_to_another_that_is_not_stub(inspire_app):
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=cataloger.email)
         response = client.post(
-            "/assign",
+            "/assign/author",
             data=orjson.dumps(
                 {
                     "literature_recids": [literature["control_number"]],
@@ -270,7 +271,7 @@ def test_assign_without_to_author(inspire_app):
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=cataloger.email)
         response = client.post(
-            "/assign",
+            "/assign/author",
             data=orjson.dumps(
                 {
                     "literature_recids": [
@@ -308,3 +309,75 @@ def test_assign_without_to_author(inspire_app):
     author = AuthorsRecord.get_record_by_pid_value(stub_author_id)
     assert author["stub"] is True
     assert author["name"] == {"value": "Urhan, Harun", "name_variants": ["Urhan, H"]}
+
+
+def test_assign_conference_view(inspire_app):
+    cataloger = create_user(role=Roles.cataloger.value)
+    literature1 = create_record("lit")
+    literature2 = create_record("lit")
+    conference = create_record("con", data={"cnum": "C20-03-01"})
+
+    expected_status_code = 200
+    expected_publication_info = [
+        {"cnum": conference["cnum"], "conference_record": conference["self"]}
+    ]
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=cataloger.email)
+        response = client.post(
+            "/assign/conference",
+            data=orjson.dumps(
+                {
+                    "literature_recids": [
+                        literature1.control_number,
+                        literature2.control_number,
+                    ],
+                    "conference_recid": conference.control_number,
+                }
+            ),
+            content_type="application/json",
+        )
+        response_status_code = response.status_code
+
+    assert response_status_code == expected_status_code
+
+    literature1 = LiteratureRecord.get_record_by_pid_value(literature1.control_number)
+    literature2 = LiteratureRecord.get_record_by_pid_value(literature2.control_number)
+
+    assert literature1["publication_info"] == expected_publication_info
+    assert literature2["publication_info"] == expected_publication_info
+
+
+def test_assign_conference_view_missing_parameters(inspire_app):
+    cataloger = create_user(role=Roles.cataloger.value)
+    literature1 = create_record("lit")
+    literature2 = create_record("lit")
+    conference = create_record("con", data={"cnum": "C20-03-01"})
+
+    expected_status_code = 422
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=cataloger.email)
+        response = client.post(
+            "/assign/conference",
+            data=orjson.dumps(
+                {
+                    "literature_recids": [
+                        literature1.control_number,
+                        literature2.control_number,
+                    ],
+                }
+            ),
+            content_type="application/json",
+        )
+        assert response.status_code == expected_status_code
+
+        response = client.post(
+            "/assign/conference",
+            data=orjson.dumps(
+                {
+                    "conference_recid": conference.control_number,
+                }
+            ),
+            content_type="application/json",
+        )
+        assert response.status_code == expected_status_code
