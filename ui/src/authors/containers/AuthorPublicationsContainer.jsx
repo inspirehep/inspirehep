@@ -7,7 +7,6 @@ import { AUTHOR_PUBLICATIONS_NS } from '../../search/constants';
 import { isCataloger, isSuperUser } from '../../common/authorization';
 import AssignViewContext from '../AssignViewContext';
 import AssignDrawerContainer from './AssignDrawerContainer';
-import { getConfigFor } from '../../common/config';
 
 export function AuthorPublications({ authorFacetName, assignView }) {
   const baseQuery = useMemo(
@@ -42,7 +41,7 @@ AuthorPublications.propTypes = {
   assignView: PropTypes.bool,
 };
 
-const stateToProps = state => ({
+const stateToProps = (state) => ({
   authorFacetName: state.authors.getIn([
     'data',
     'metadata',
@@ -50,8 +49,7 @@ const stateToProps = state => ({
   ]),
   assignView:
     isSuperUser(state.user.getIn(['data', 'roles'])) ||
-    (getConfigFor('ASSIGN_UI_FEATURE_FLAG') &&
-      isCataloger(state.user.getIn(['data', 'roles']))),
+    isCataloger(state.user.getIn(['data', 'roles'])),
 });
 
 export default connect(stateToProps)(AuthorPublications);

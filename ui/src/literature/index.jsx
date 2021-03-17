@@ -3,14 +3,14 @@ import { Route } from 'react-router-dom';
 
 import './index.scss';
 import { LITERATURE } from '../common/routes';
-import SearchPage from './containers/SearchPage';
+import SearchPageContainer from './containers/SearchPageContainer';
 import DetailPageContainer from './containers/DetailPageContainer';
 
 class Literature extends Component {
   render() {
     return (
       <div className="__Literature__">
-        <Route exact path={LITERATURE} component={SearchPage} />
+        <Route exact path={LITERATURE} component={SearchPageContainer} />
         <Route
           exact
           path={`${LITERATURE}/:id`}

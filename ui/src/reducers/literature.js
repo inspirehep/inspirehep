@@ -1,4 +1,5 @@
-import { fromJS } from 'immutable';
+/* eslint-disable no-case-declarations */
+import { fromJS, Set } from 'immutable';
 
 import {
   LITERATURE_ERROR,
@@ -11,6 +12,9 @@ import {
   LITERATURE_AUTHORS_REQUEST,
   LITERATURE_AUTHORS_SUCCESS,
   CLEAR_STATE,
+  LITERATURE_SELECTION_SET,
+  LITERATURE_SET_ASSIGN_DRAWER_VISIBILITY,
+  LITERATURE_SELECTION_CLEAR,
 } from '../actions/actionTypes';
 import {
   onRequest,
@@ -32,6 +36,8 @@ export const initialState = fromJS({
   errorAuthors: null,
   authors: [],
   supervisors: [],
+  literatureSelection: Set(),
+  isAssignDrawerVisible: false,
 }).merge(initialRecordState);
 
 const literatureReducer = (state = initialState, action) => {
@@ -73,6 +79,18 @@ const literatureReducer = (state = initialState, action) => {
         .set('loadingAuthors', false)
         .set('errorAuthors', fromJS(action.payload.error))
         .set('authors', initialState.get('authors'));
+    case LITERATURE_SELECTION_CLEAR:
+      return state.set('literatureSelection', Set());
+    case LITERATURE_SET_ASSIGN_DRAWER_VISIBILITY:
+      return state.set('isAssignDrawerVisible', action.payload.visible);
+    case LITERATURE_SELECTION_SET:
+      const { literatureIds, selected } = action.payload;
+      const selectionUpdate = Set(literatureIds);
+      const currentSelection = state.get('literatureSelection');
+      const nextSelection = selected
+        ? currentSelection.union(selectionUpdate)
+        : currentSelection.subtract(selectionUpdate);
+      return state.set('literatureSelection', nextSelection);
     default:
       return state;
   }

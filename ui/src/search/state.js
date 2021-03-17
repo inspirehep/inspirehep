@@ -15,6 +15,7 @@ import {
   AUTHOR_SEMINARS_NS,
   LITERATURE_SEMINARS_NS,
   ASSIGN_AUTHOR_NS,
+  ASSIGN_CONFERENCE_NS,
 } from './constants';
 import {
   START_DATE_UPCOMING,
@@ -107,6 +108,9 @@ const namespacesState = {
       start_date: START_DATE_UPCOMING,
       sort: 'dateasc',
     },
+  },
+  [ASSIGN_CONFERENCE_NS]: {
+    ...initialNamespaceState,
   },
   [EXISTING_CONFERENCES_NS]: {
     ...initialNamespaceState,

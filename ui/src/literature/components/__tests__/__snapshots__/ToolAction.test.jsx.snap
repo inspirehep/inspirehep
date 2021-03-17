@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ToolAction renders 1`] = `
+<ListItemAction>
+  <DropdownMenu
+    disabled={false}
+    title={
+      <Button
+        block={false}
+        ghost={false}
+        htmlType="button"
+        loading={false}
+      >
+        <IconText
+          icon={<ForwardRef(ToolOutlined) />}
+          text="tools"
+        />
+      </Button>
+    }
+  >
+    <MenuItem
+      data-test-id="assign-conference"
+      key="assign-conference"
+      onClick={[Function]}
+      title={null}
+    >
+      Assign conference
+    </MenuItem>
+  </DropdownMenu>
+</ListItemAction>
+`;
+
+exports[`ToolAction renders disabled 1`] = `
+<ListItemAction>
+  <DropdownMenu
+    disabled={false}
+    title={
+      <Button
+        block={false}
+        ghost={false}
+        htmlType="button"
+        loading={false}
+      >
+        <IconText
+          icon={<ForwardRef(ToolOutlined) />}
+          text="tools"
+        />
+      </Button>
+    }
+  >
+    <MenuItem
+      data-test-id="assign-conference"
+      disabled={true}
+      key="assign-conference"
+      onClick={[Function]}
+      title="Please select up to 250 papers that you want to assign to a conference."
+    >
+      Assign conference
+    </MenuItem>
+  </DropdownMenu>
+</ListItemAction>
+`;

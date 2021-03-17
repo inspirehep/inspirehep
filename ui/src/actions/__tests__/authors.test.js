@@ -12,7 +12,7 @@ import {
   AUTHOR_PUBLICATION_SELECTION_CLEAR,
 } from '../actionTypes';
 import fetchAuthor, {
-  setPulicationSelection,
+  setPublicationSelection,
   clearPulicationSelection,
   setAssignDrawerVisibility,
   assignPapers,
@@ -77,7 +77,7 @@ describe('AUTHOR - async action creators', () => {
   });
 
   describe('select publication', () => {
-    it('setPulicationSelection', () => {
+    it('setPublicationSelection', () => {
       const expectedActions = [
         {
           type: AUTHOR_PUBLICATION_SELECTION_SET,
@@ -86,7 +86,7 @@ describe('AUTHOR - async action creators', () => {
       ];
 
       const store = getStore();
-      store.dispatch(setPulicationSelection([1, 2], true));
+      store.dispatch(setPublicationSelection([1, 2], true));
       expect(store.getActions()).toEqual(expectedActions);
     });
 

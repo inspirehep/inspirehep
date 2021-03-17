@@ -1,15 +1,15 @@
 import { connect } from 'react-redux';
 import { Checkbox } from 'antd';
 
-import { setPublicationSelection } from '../../actions/authors';
+import { setLiteratureSelection } from '../../actions/literature';
 
 const stateToProps = (state, { recordId }) => ({
-  checked: state.authors.get('publicationSelection').has(recordId),
+  checked: state.literature.get('literatureSelection').has(recordId),
 });
 
 const dispatchToProps = (dispatch, { recordId }) => ({
   onChange(event) {
-    dispatch(setPublicationSelection([recordId], event.target.checked));
+    dispatch(setLiteratureSelection([recordId], event.target.checked));
   },
 });
 

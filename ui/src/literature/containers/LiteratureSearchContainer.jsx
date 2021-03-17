@@ -24,8 +24,12 @@ import { SEARCH_PAGE_GUTTER } from '../../common/constants';
 import CitationSummaryBox from '../components/CitationSummaryBox';
 import PublicationSelectContainer from '../../authors/containers/PublicationSelectContainer';
 import PublicationsSelectAllContainer from '../../authors/containers/PublicationsSelectAllContainer';
-import AssignViewContext from '../../authors/AssignViewContext';
+import AssignAuthorViewContext from '../../authors/AssignViewContext';
+import AssignConferenceViewContext from '../AssignViewContext';
 import AssignAllActionContainer from '../../authors/containers/AssignAllActionContainer';
+import ToolActionContainer from './ToolActionContainer';
+import LiteratureSelectAllContainer from './LiteratureSelectAllContainer';
+import LiteratureSelectContainer from './LiteratureSelectContainer';
 
 function LiteratureSearch({
   loading,
@@ -53,20 +57,18 @@ function LiteratureSearch({
     [loadingAggregations, namespace, embedded]
   );
 
-  useEffect(
-    () => {
-      // FIXME: this should be the responsibility of the parent component
-      if (baseQuery || baseAggregationsQuery) {
-        onBaseQueriesChange(namespace, {
-          baseQuery,
-          baseAggregationsQuery,
-        });
-      }
-    },
-    [namespace, baseQuery, baseAggregationsQuery, onBaseQueriesChange]
-  );
+  useEffect(() => {
+    // FIXME: this should be the responsibility of the parent component
+    if (baseQuery || baseAggregationsQuery) {
+      onBaseQueriesChange(namespace, {
+        baseQuery,
+        baseAggregationsQuery,
+      });
+    }
+  }, [namespace, baseQuery, baseAggregationsQuery, onBaseQueriesChange]);
 
-  const assignView = useContext(AssignViewContext);
+  const assignAuthorView = useContext(AssignAuthorViewContext);
+  const assignConferenceView = useContext(AssignConferenceViewContext);
 
   return (
     <Row
@@ -87,15 +89,21 @@ function LiteratureSearch({
           <LoadingOrChildren loading={loading}>
             <Row type="flex" align="middle" justify="end">
               <Col xs={24} lg={12}>
-                {assignView && (
+                {assignAuthorView && (
                   <span className="mr1">
                     <PublicationsSelectAllContainer />
+                  </span>
+                )}
+                {assignConferenceView && (
+                  <span className="mr1">
+                    <LiteratureSelectAllContainer />
                   </span>
                 )}
                 <NumberOfResultsContainer namespace={namespace} />
                 <VerticalDivider />
                 <CiteAllActionContainer namespace={namespace} />
-                {assignView && <AssignAllActionContainer />}
+                {assignAuthorView && <AssignAllActionContainer />}
+                {assignConferenceView && <ToolActionContainer />}
               </Col>
               <Col xs={8} lg={0}>
                 <ResponsiveView
@@ -116,24 +124,32 @@ function LiteratureSearch({
                 <SortByContainer namespace={namespace} />
               </Col>
             </Row>
-            {enableCitationSummary &&
-              isCitationSummaryVisible && (
-                <Row className="mt2">
-                  <Col span={24}>
-                    <CitationSummaryBox namespace={namespace} />
-                  </Col>
-                </Row>
-              )}
-
+            {enableCitationSummary && isCitationSummaryVisible && (
+              <Row className="mt2">
+                <Col span={24}>
+                  <CitationSummaryBox namespace={namespace} />
+                </Col>
+              </Row>
+            )}
             <Row>
               <Col span={24}>
                 <ResultsContainer
                   namespace={namespace}
                   renderItem={(result, rank) => (
                     <Row>
-                      {assignView && (
+                      {assignAuthorView && (
                         <Col className="mr1" flex="0 1 1px">
                           <PublicationSelectContainer
+                            recordId={result.getIn([
+                              'metadata',
+                              'control_number',
+                            ])}
+                          />
+                        </Col>
+                      )}
+                      {assignConferenceView && (
+                        <Col className="mr1" flex="0 1 1px">
+                          <LiteratureSelectContainer
                             recordId={result.getIn([
                               'metadata',
                               'control_number',
@@ -190,7 +206,7 @@ const stateToProps = (state, { namespace }) => ({
   isCitationSummaryVisible: isCitationSummaryEnabled(state),
 });
 
-const dispatchToProps = dispatch => ({
+const dispatchToProps = (dispatch) => ({
   onBaseQueriesChange(namespace, baseQueries) {
     dispatch(searchBaseQueriesUpdate(namespace, baseQueries));
   },
