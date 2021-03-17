@@ -144,6 +144,19 @@ def test_minter_bai_new(inspire_app, override_config):
     assert bai_entry["schema"] == "INSPIRE BAI"
 
 
+def test_minter_bai_creates_correct_bai(inspire_app, override_config):
+    with override_config(FEATURE_FLAG_ENABLE_BAI_PROVIDER=True):
+        record = create_record("aut", data={"name": {"value": "Wang, ‡.R."}})
+
+    result_pid = PersistentIdentifier.query.filter_by(
+        object_uuid=record.id, status=PIDStatus.REGISTERED, pid_type="bai"
+    ).first()
+
+    assert "R.Wang.1" == result_pid.pid_value
+    bai_entry = record["ids"][0]
+    assert bai_entry["schema"] == "INSPIRE BAI"
+
+
 def test_minter_bai_already_existing(inspire_app, override_config):
     with override_config(FEATURE_FLAG_ENABLE_BAI_PROVIDER=True):
         data = create_record("aut")
