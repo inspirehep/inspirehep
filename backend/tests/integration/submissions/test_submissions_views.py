@@ -871,6 +871,140 @@ def test_new_literature_submit_with_private_notes_and_conference_record(
     assert post_data["data"]["_private_notes"] == expected_data
 
 
+def test_new_literature_submit_with_conference_cnum(inspire_app, requests_mock):
+    requests_mock.post(
+        f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature",
+        json={"workflow_object_id": 30},
+    )
+    user = create_user()
+    conference = create_record("con", data={"cnum": "C21-03-18.1"})
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/submissions/literature",
+            content_type="application/json",
+            data=orjson.dumps(
+                {
+                    "data": {
+                        "arxiv_id": "1701.00006",
+                        "arxiv_categories": ["hep-th"],
+                        "preprint_date": "2019-10-15",
+                        "document_type": "article",
+                        "authors": [{"full_name": "Urhan, Harun"}],
+                        "title": "Discovery of cool stuff",
+                        "subjects": ["Other"],
+                        "pdf_link": "https://arxiv.org/coolstuff.pdf",
+                        "references": "[1] Dude",
+                        "additional_link": "https://arxiv.org/other_stuff.pdf",
+                        "comments": "comment will be here",
+                        "proceedings_info": "Proceeding info will be here",
+                        "conference_info": "conference info in very important topic",
+                        "conference_record": conference["self"],
+                    }
+                }
+            ),
+        )
+    assert response.status_code == 200
+
+    history = requests_mock.request_history[0]
+    post_data = history.json()
+
+    expected_publication_info = [
+        {"cnum": conference["cnum"], "conference_record": conference["self"]}
+    ]
+
+    assert post_data["data"]["publication_info"] == expected_publication_info
+
+
+def test_new_literature_submit_with_wrong_conference(inspire_app, requests_mock):
+    requests_mock.post(
+        f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature",
+        json={"workflow_object_id": 30},
+    )
+    user = create_user()
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/submissions/literature",
+            content_type="application/json",
+            data=orjson.dumps(
+                {
+                    "data": {
+                        "arxiv_id": "1701.00006",
+                        "arxiv_categories": ["hep-th"],
+                        "preprint_date": "2019-10-15",
+                        "document_type": "article",
+                        "authors": [{"full_name": "Urhan, Harun"}],
+                        "title": "Discovery of cool stuff",
+                        "subjects": ["Other"],
+                        "pdf_link": "https://arxiv.org/coolstuff.pdf",
+                        "references": "[1] Dude",
+                        "additional_link": "https://arxiv.org/other_stuff.pdf",
+                        "comments": "comment will be here",
+                        "proceedings_info": "Proceeding info will be here",
+                        "conference_info": "conference info in very important topic",
+                        "conference_record": {
+                            "$ref": "http://localhost:5000/api/conferences/12345"
+                        },
+                    }
+                }
+            ),
+        )
+    assert response.status_code == 200
+
+    history = requests_mock.request_history[0]
+    post_data = history.json()
+
+    expected_publication_info = [
+        {"conference_record": {"$ref": "http://localhost:5000/api/conferences/12345"}}
+    ]
+
+    assert post_data["data"]["publication_info"] == expected_publication_info
+
+
+def test_new_literature_submit_with_conference_without_cnum(inspire_app, requests_mock):
+    requests_mock.post(
+        f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature",
+        json={"workflow_object_id": 30},
+    )
+    user = create_user()
+    conference = create_record("con")
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/submissions/literature",
+            content_type="application/json",
+            data=orjson.dumps(
+                {
+                    "data": {
+                        "arxiv_id": "1701.00006",
+                        "arxiv_categories": ["hep-th"],
+                        "preprint_date": "2019-10-15",
+                        "document_type": "article",
+                        "authors": [{"full_name": "Urhan, Harun"}],
+                        "title": "Discovery of cool stuff",
+                        "subjects": ["Other"],
+                        "pdf_link": "https://arxiv.org/coolstuff.pdf",
+                        "references": "[1] Dude",
+                        "additional_link": "https://arxiv.org/other_stuff.pdf",
+                        "comments": "comment will be here",
+                        "proceedings_info": "Proceeding info will be here",
+                        "conference_info": "conference info in very important topic",
+                        "conference_record": conference["self"],
+                    }
+                }
+            ),
+        )
+    assert response.status_code == 200
+
+    history = requests_mock.request_history[0]
+    post_data = history.json()
+
+    expected_publication_info = [{"conference_record": conference["self"]}]
+
+    assert post_data["data"]["publication_info"] == expected_publication_info
+
+
 DEFAULT_EXAMPLE_JOB_DATA = {
     "deadline_date": "2030-01-01",
     "description": "description",
