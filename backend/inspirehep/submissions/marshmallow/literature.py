@@ -6,10 +6,11 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 """JSON Schemas."""
-
+from inspire_dojson.utils import get_recid_from_ref
 from inspire_schemas.builders.literature import LiteratureBuilder
 from inspire_schemas.utils import split_page_artid
 from inspire_utils.record import get_value
+from invenio_pidstore.models import PersistentIdentifier
 from marshmallow import Schema, fields, missing, post_load, pre_dump
 
 PAGE_RANGE_SEPARATOR = "-"
@@ -100,6 +101,7 @@ class Literature(Schema):
             "journal_title": publication_info.get("journal_title", missing),
             "journal_record": publication_info.get("journal_record", missing),
             "conference_record": publication_info.get("conference_record", missing),
+            "cnum": publication_info.get("cnum", missing),
             "volume": publication_info.get("journal_volume", missing),
             "issue": publication_info.get("journal_issue", missing),
             "year": publication_info.get("year", missing),
@@ -204,12 +206,29 @@ class Literature(Schema):
 
         page_start, page_end, artid = split_page_artid(data.get("page_range"))
 
+        conference_ref = data.get("conference_record")
+
+        # Get cnum if conference_ref provided
+        cnum = None
+        if conference_ref:
+            recid = str(get_recid_from_ref(conference_ref))
+            if recid:
+                conference_pid = PersistentIdentifier.query.filter_by(
+                    pid_type="con", pid_value=recid
+                ).first()
+                conference_uuid = conference_pid.object_uuid if conference_pid else None
+                cnum_pid = PersistentIdentifier.query.filter_by(
+                    pid_type="cnum", object_uuid=conference_uuid
+                ).first()
+                cnum = cnum_pid.pid_value if cnum_pid else None
+
         literature.add_publication_info(
             journal_title=data.get("journal_title"),
             journal_volume=data.get("volume"),
             journal_issue=data.get("issue"),
             journal_record=data.get("journal_record"),
-            conference_record=data.get("conference_record"),
+            conference_record=conference_ref,
+            cnum=cnum,
             artid=artid,
             page_start=data.get("start_page") or page_start,
             page_end=data.get("end_page") or page_end,
