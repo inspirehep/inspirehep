@@ -14,10 +14,12 @@ def authors_validator(author, result):
     record_author_id_schema_value_pairs = {
         (record_author_id["schema"], record_author_id["value"])
         for record_author_id in record_author_identifiers
+        if record_author_id["schema"] != "INSPIRE BAI"
     }
     result_author_id_schema_value_pairs = {
         (result_author_id["schema"], result_author_id["value"])
         for result_author_id in result_author_identifiers
+        if result_author_id["schema"] != "INSPIRE BAI"
     }
     return bool(
         record_author_id_schema_value_pairs & result_author_id_schema_value_pairs

@@ -85,7 +85,7 @@ def test_authors_validator_doesnt_match_when_id_is_from_incorrect_schema(
 def test_authors_validator_matches_when_id_is_from_correct_schema(inspire_app):
     lit_author = {
         "full_name": "Test Author",
-        "ids": [{"schema": "INSPIRE BAI", "value": "T.Author.1"}],
+        "ids": [{"schema": "LINKEDIN", "value": "T.Author.1"}],
     }
 
     matcher_result = {
@@ -95,7 +95,7 @@ def test_authors_validator_matches_when_id_is_from_correct_schema(inspire_app):
         "_score": 0.2876821,
         "_source": {
             "ids": [
-                {"schema": "INSPIRE BAI", "value": "T.Author.1"},
+                {"schema": "LINKEDIN", "value": "T.Author.1"},
                 {"schema": "SPIRES", "value": "HEPNAMES-400111"},
             ],
             "self": {"$ref": "http://localhost:5000/api/authors/123456813"},
