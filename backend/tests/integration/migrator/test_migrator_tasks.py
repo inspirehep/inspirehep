@@ -4,6 +4,7 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+import datetime
 import os
 from time import sleep
 
@@ -642,3 +643,94 @@ def test_migrating_deleted_record_registers_control_number_regression(inspire_ap
 
     assert InspireRecord.get_record_by_pid_value("1775082", "exp")
     assert pid.status == PIDStatus.DELETED
+
+
+def test_migrate_record_from_specified_date_only(inspire_app):
+    raw_record_1 = (
+        b"<record>"
+        b'  <controlfield tag="001">666</controlfield>'
+        b'  <datafield tag="245" ind1=" " ind2=" ">'
+        b'    <subfield code="a">On the validity of INSPIRE records</subfield>'
+        b"  </datafield>"
+        b'  <datafield tag="980" ind1=" " ind2=" ">'
+        b'    <subfield code="a">HEP</subfield>'
+        b"  </datafield>"
+        b"</record>"
+    )
+
+    raw_record_2 = (
+        b"<record>"
+        b'  <controlfield tag="001">667</controlfield>'
+        b'  <datafield tag="245" ind1=" " ind2=" ">'
+        b'    <subfield code="a">On the validity of INSPIRE records</subfield>'
+        b"  </datafield>"
+        b'  <datafield tag="980" ind1=" " ind2=" ">'
+        b'    <subfield code="a">HEP</subfield>'
+        b"  </datafield>"
+        b"</record>"
+    )
+
+    prod_record_1 = LegacyRecordsMirror.from_marcxml(raw_record_1)
+    prod_record_1.last_updated = datetime.datetime(2010, 1, 1)
+    db.session.merge(prod_record_1)
+
+    prod_record_2 = LegacyRecordsMirror.from_marcxml(raw_record_2)
+    prod_record_1.last_updated = datetime.datetime(2020, 1, 1)
+    db.session.merge(prod_record_2)
+
+    migrate_from_mirror(date_from="2015-01-01")
+
+    rec_1 = LegacyRecordsMirror.query.filter_by(recid=666).one()
+    rec_2 = LegacyRecordsMirror.query.filter_by(recid=667).one()
+    # Only record 2 should be valid as rec_1 migration should not run.
+    assert rec_1.valid is None
+    assert rec_2.valid is True
+
+    with pytest.raises(PIDDoesNotExistError):
+        LiteratureRecord.get_record_by_pid_value("666")
+    assert LiteratureRecord.get_record_by_pid_value("667")
+
+
+def test_migrate_record_migrates_all_when_no_from_date_provided(inspire_app):
+    raw_record_1 = (
+        b"<record>"
+        b'  <controlfield tag="001">666</controlfield>'
+        b'  <datafield tag="245" ind1=" " ind2=" ">'
+        b'    <subfield code="a">On the validity of INSPIRE records</subfield>'
+        b"  </datafield>"
+        b'  <datafield tag="980" ind1=" " ind2=" ">'
+        b'    <subfield code="a">HEP</subfield>'
+        b"  </datafield>"
+        b"</record>"
+    )
+
+    raw_record_2 = (
+        b"<record>"
+        b'  <controlfield tag="001">667</controlfield>'
+        b'  <datafield tag="245" ind1=" " ind2=" ">'
+        b'    <subfield code="a">On the validity of INSPIRE records</subfield>'
+        b"  </datafield>"
+        b'  <datafield tag="980" ind1=" " ind2=" ">'
+        b'    <subfield code="a">HEP</subfield>'
+        b"  </datafield>"
+        b"</record>"
+    )
+
+    prod_record_1 = LegacyRecordsMirror.from_marcxml(raw_record_1)
+    prod_record_1.last_updated = datetime.datetime(2010, 1, 1)
+    db.session.merge(prod_record_1)
+
+    prod_record_2 = LegacyRecordsMirror.from_marcxml(raw_record_2)
+    prod_record_1.last_updated = datetime.datetime(2020, 1, 1)
+    db.session.merge(prod_record_2)
+
+    migrate_from_mirror()
+
+    rec_1 = LegacyRecordsMirror.query.filter_by(recid=666).one()
+    rec_2 = LegacyRecordsMirror.query.filter_by(recid=667).one()
+    # Only record 2 should be valid as rec_1 migration should not run.
+    assert rec_1.valid is True
+    assert rec_2.valid is True
+
+    assert LiteratureRecord.get_record_by_pid_value("666")
+    assert LiteratureRecord.get_record_by_pid_value("667")

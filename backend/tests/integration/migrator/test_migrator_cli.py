@@ -7,6 +7,7 @@
 
 import os
 
+import mock
 import orjson
 import pkg_resources
 import pytest
@@ -235,3 +236,14 @@ def test_regression_migration_step_exits_without_error_when_steps_ends(
     create_record("lit")
     result = cli.invoke(["migrate", "mirror_step", "-s", "2"])
     assert 0 == result.exit_code
+
+
+@mock.patch("inspirehep.migrator.cli.migrate_from_mirror")
+def test_migration_accepts_from_date_correctly(
+    mocked_migrate_from_mirror, inspire_app, cli
+):
+    result = cli.invoke(["migrate", "mirror", "--all", "-d", "2020-01-01"])
+    assert result.exit_code == 0
+    mocked_migrate_from_mirror.assert_called_once_with(
+        date_from="2020-01-01", disable_external_push=True, also_migrate="all"
+    )

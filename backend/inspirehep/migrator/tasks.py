@@ -19,6 +19,7 @@ from billiard.exceptions import SoftTimeLimitExceeded
 from celery import chord, shared_task
 from celery.result import AsyncResult
 from click import echo
+from dateutil.parser import parse
 from flask import current_app
 from flask_celeryext.app import current_celery_app
 from flask_sqlalchemy import models_committed
@@ -171,7 +172,7 @@ def migrate_from_mirror_run_step(
     return task
 
 
-def migrate_from_mirror(also_migrate=None, disable_external_push=True):
+def migrate_from_mirror(also_migrate=None, disable_external_push=True, date_from=None):
     """Migrate legacy records from the local mirror.
     By default, only the records that have not been migrated yet are migrated.
 
@@ -194,6 +195,9 @@ def migrate_from_mirror(also_migrate=None, disable_external_push=True):
         disable_references_processing = True
     else:
         raise ValueError('"also_migrate" should be either None, "all" or "broken"')
+    if date_from:
+        date = parse(date_from, ignoretz=True)
+        query = query.filter(LegacyRecordsMirror.last_updated >= date)
 
     num_workers = count_consumers_for_queue("migrator")
     recids_chunked = chunker(
