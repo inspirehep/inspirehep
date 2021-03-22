@@ -600,11 +600,16 @@ RECORDS_REST_SORT_OPTIONS = {
         "bestmatch": {"fields": ["-_score", "name.value.raw", "-_updated"], "order": 1}
     },
     "records-conferences": {
-        "dateasc": {"title": "Date ascending", "fields": ["opening_date"], "order": 1},
+        "bestmatch": {
+            "title": "Best match",
+            "fields": ["-_score"],
+            "order": 1,
+        },
+        "dateasc": {"title": "Date ascending", "fields": ["opening_date"], "order": 2},
         "datedesc": {
             "title": "Date descending",
             "fields": ["-opening_date"],
-            "order": 2,
+            "order": 3,
         },
     },
     "records-seminars": {
