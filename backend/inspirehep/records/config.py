@@ -606,6 +606,11 @@ RECORDS_REST_SORT_OPTIONS = {
             "fields": ["-opening_date"],
             "order": 2,
         },
+        "bestmatch": {
+            "title": "Best match",
+            "fields": ["-_score"],
+            "order": 3,
+        },
     },
     "records-seminars": {
         "dateasc": {

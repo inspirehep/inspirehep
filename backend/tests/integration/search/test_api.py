@@ -6,6 +6,8 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
+import os
+
 import mock
 import orjson
 import pytest
@@ -631,7 +633,7 @@ def test_jobs_search_with_parameter(inspire_app):
 
 
 def test_jobs_search_with_parameter_regression(inspire_app):
-    record1 = create_record("job", data={"status": "open"})
+    create_record("job", data={"status": "open"})
     create_record(
         "job",
         data={
@@ -662,12 +664,12 @@ def test_jobs_search_with_parameter_regression(inspire_app):
         data={"status": "open", "accelerator_experiments": [{"legacy_name": "LHC"}]},
     )
     with inspire_app.test_client() as client:
-        response = client.get(f"api/jobs?q=kek-bf-belle-ii")
+        response = client.get("api/jobs?q=kek-bf-belle-ii")
 
     curator = create_user(role="cataloger")
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=curator.email)
-        response_curator = client.get(f"api/jobs?q=kek-bf-belle-ii&status=open")
+        response_curator = client.get("api/jobs?q=kek-bf-belle-ii&status=open")
 
     expected_results_count = 2
     assert expected_results_count == len(response.json["hits"]["hits"])
@@ -699,10 +701,67 @@ def test_conferences_search_with_parameter(inspire_app):
     )
 
 
+def test_conferences_search_queries(inspire_app, datadir):
+    with os.scandir((datadir / "conferences")) as it:
+        for entry in it:
+            if entry.is_file():
+                with open(entry.path, "r") as j:
+                    data = orjson.loads(j.read())
+                    create_record("con", data=data)
+
+    def check_response_by_control_number(response, control_number):
+        assert len(response.json["hits"]["hits"]) > 0
+        assert (
+            control_number
+            == response.json["hits"]["hits"][0]["metadata"]["control_number"]
+        )
+
+    with inspire_app.test_client() as client:
+        response = client.get("api/conferences?q=C22-07-27")
+        check_response_by_control_number(response, 1830349)
+
+        response = client.get("api/conferences?q=CHEP%202019")
+        check_response_by_control_number(response, 1732179)
+
+        response = client.get("api/conferences?q=HYP%202022")
+        check_response_by_control_number(response, 1830349)
+
+        response = client.get("api/conferences?q=ICRC%201947")
+        check_response_by_control_number(response, 978213)
+
+        response = client.get("api/conferences?q=ICHEP%202014")
+        check_response_by_control_number(response, 1203206)
+
+        response = client.get(
+            "api/conferences?q=International%20Workshop%20on%20High%20Energy%20Physics%202017"
+        )
+        check_response_by_control_number(response, 1505770)
+
+        response = client.get(
+            "api/conferences?q=International%20conference%20on%20string%20theory%202014"
+        )
+        check_response_by_control_number(response, 1305234)
+
+        response = client.get("api/conferences?q=C14-06-23.6")
+        check_response_by_control_number(response, 1305234)
+
+        response = client.get("api/conferences?q=1638643")
+        check_response_by_control_number(response, 1638643)
+
+        response = client.get("api/conferences?q=France")
+        hits = response.json["hits"]["hits"]
+        assert len(hits) > 0
+        for hit in hits:
+            addresses = hit["metadata"]["addresses"]
+            assert len(addresses) > 0
+            countries = [address["country"] for address in addresses]
+            assert "France" in countries
+
+
 def test_citations_query_result(inspire_app):
     record_control_number = 12345
     # create self_citation
-    record_cited = create_record(
+    create_record(
         "lit",
         data={"control_number": record_control_number},
         literature_citations=[record_control_number],

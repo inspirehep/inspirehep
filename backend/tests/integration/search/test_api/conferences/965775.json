@@ -1,0 +1,50 @@
+{
+    "addresses": [
+        {
+            "cities": [
+                "Amsterdam"
+            ],
+            "latitude": 52.3702157,
+            "longitude": 4.8951679,
+            "country_code": "NL"
+        }
+    ],
+    "cnum": "C85-06-25",
+    "self": {
+        "$ref": "https://labs.inspirehep.net/api/conferences/965775"
+    },
+    "series": [
+        {
+            "name": "CHEP",
+            "number": 1
+        }
+    ],
+    "titles": [
+        {
+            "title": "1st International Conference on Computing in High-Energy and Nuclear Physics"
+        }
+    ],
+    "$schema": "https://inspirehep.net/schemas/records/conferences.json",
+    "acronyms": [
+        "CHEP 1985"
+    ],
+    "keywords": [
+        {
+            "value": "COMPUTING IN HEP, AMSTERDAM 1985"
+        }
+    ],
+    "_collections": [
+        "Conferences"
+    ],
+    "closing_date": "1985-06-28",
+    "opening_date": "1985-06-25",
+    "control_number": 965775,
+    "legacy_version": "20161023165836.0",
+    "legacy_creation_date": "2011-11-30",
+    "external_system_identifiers": [
+        {
+            "value": "CONF-23540",
+            "schema": "SPIRES"
+        }
+    ]
+}

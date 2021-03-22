@@ -1,0 +1,58 @@
+{
+    "addresses": [
+        {
+            "state": "NY",
+            "cities": [
+                "Rochester"
+            ],
+            "latitude": 43.16103,
+            "longitude": -77.6109219,
+            "country_code": "US"
+        }
+    ],
+    "cnum": "C50-12-16",
+    "core": true,
+    "self": {
+        "$ref": "https://labs.inspirehep.net/api/conferences/1388546"
+    },
+    "urls": [
+        {
+            "value": "https://vtspecialcollections.files.wordpress.com/2015/08/programoriginalandannotatedopt.pdf",
+            "description": "program at Virginia Tech Special Collections"
+        }
+    ],
+    "series": [
+        {
+            "name": "Rochester",
+            "number": 1
+        },
+        {
+            "name": "ICHEP",
+            "number": 1
+        }
+    ],
+    "titles": [
+        {
+            "title": "1st Annual Rochester Conference on High-Energy and Nuclear Physics"
+        }
+    ],
+    "$schema": "https://inspirehep.net/schemas/records/conferences.json",
+    "_collections": [
+        "Conferences"
+    ],
+    "closing_date": "1950-12-16",
+    "opening_date": "1950-12-16",
+    "control_number": 1388546,
+    "legacy_version": "20161027143129.0",
+    "alternative_titles": [
+        {
+            "title": "1st Rochester Conference on Meson Physics"
+        }
+    ],
+    "inspire_categories": [
+        {
+            "term": "Experiment-HEP"
+        }
+    ],
+    "legacy_creation_date": "2015-08-20"
+}

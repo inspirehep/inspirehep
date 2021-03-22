@@ -1,0 +1,74 @@
+{
+    "addresses": [
+        {
+            "cities": [
+                "Bonn"
+            ],
+            "place_name": "Conference center Gustav Stresemann Institut",
+            "country_code": "DE"
+        }
+    ],
+    "cnum": "C22-09-05",
+    "core": true,
+    "self": {
+        "$ref": "https://inspirehep.net/api/conferences/1848328"
+    },
+    "urls": [
+        {
+            "value": "https://indico.jlab.org/event/344/"
+        }
+    ],
+    "series": [
+        {
+            "name": "QNP",
+            "number": 9
+        }
+    ],
+    "titles": [
+        {
+            "title": "9th International Conference on Quarks and Nuclear Physics"
+        }
+    ],
+    "$schema": "https://inspirehep.net/api/schemas/records/conferences.json",
+    "acronyms": [
+        "QNP2022"
+    ],
+    "_collections": [
+        "Conferences"
+    ],
+    "closing_date": "2022-09-09",
+    "opening_date": "2022-09-05",
+    "control_number": 1848328,
+    "contact_details": [
+        {
+            "name": "Schadmand, Susan",
+            "email": "2022QNP@gmail.com",
+            "record": {
+                "$ref": "https://inspirehep.net/api/authors/1023522"
+            }
+        }
+    ],
+    "short_description": {
+        "value": "<div>The 9th International Conference on Quarks and Nuclear Physics will be held in Bonn, Germany on 5-9 September, 2022. This conference follows the series of meetings previously held in Adelaide, Julich, Bloomington, Madrid, Beijing, Palaiseau, Valparaiso, and Tsukuba. Experimentalists and theorists will discuss recent developments in the field of hadron and nuclear physics</div>"
+    },
+    "inspire_categories": [
+        {
+            "term": "Experiment-HEP"
+        },
+        {
+            "term": "Experiment-Nucl"
+        },
+        {
+            "term": "Lattice"
+        },
+        {
+            "term": "Phenomenology-HEP"
+        },
+        {
+            "term": "Theory-HEP"
+        },
+        {
+            "term": "Theory-Nucl"
+        }
+    ]
+}

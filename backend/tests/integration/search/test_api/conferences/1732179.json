@@ -1,0 +1,63 @@
+{
+    "addresses": [
+        {
+            "cities": [
+                "Adelaide"
+            ],
+            "latitude": -34.9284989,
+            "longitude": 138.6007456,
+            "country_code": "AU"
+        }
+    ],
+    "cnum": "C19-11-04",
+    "self": {
+        "$ref": "https://labs.inspirehep.net/api/conferences/1732179"
+    },
+    "urls": [
+        {
+            "value": "http://chep2019.org/index.html",
+            "description": "website"
+        },
+        {
+            "value": "https://twitter.com/Computing4HEP",
+            "description": "TWITTER"
+        },
+        {
+            "value": "https://zenodo.org/communities/chep-2019",
+            "description": "Zenodo"
+        }
+    ],
+    "series": [
+        {
+            "name": "CHEP",
+            "number": 24
+        }
+    ],
+    "titles": [
+        {
+            "title": "24th International Conference on Computing in High Energy and Nuclear Physics"
+        }
+    ],
+    "$schema": "https://inspirehep.net/schemas/records/conferences.json",
+    "acronyms": [
+        "CHEP 2019"
+    ],
+    "_collections": [
+        "Conferences"
+    ],
+    "closing_date": "2019-11-08",
+    "opening_date": "2019-11-04",
+    "control_number": 1732179,
+    "legacy_version": "20200107153047.0",
+    "alternative_titles": [
+        {
+            "title": "CHEP2019"
+        }
+    ],
+    "inspire_categories": [
+        {
+            "term": "Computing"
+        }
+    ],
+    "legacy_creation_date": "2019-04-30"
+}

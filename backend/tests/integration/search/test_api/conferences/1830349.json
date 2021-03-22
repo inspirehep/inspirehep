@@ -1,0 +1,58 @@
+{
+    "addresses": [
+        {
+            "cities": [
+                "Prague"
+            ],
+            "country_code": "CZ"
+        }
+    ],
+    "cnum": "C22-07-27",
+    "core": true,
+    "self": {
+        "$ref": "https://inspirehep.net/api/conferences/1830349"
+    },
+    "urls": [
+        {
+            "value": "http://rafael.ujf.cas.cz/hyp2022"
+        }
+    ],
+    "series": [
+        {
+            "name": "HYP",
+            "number": 14
+        }
+    ],
+    "titles": [
+        {
+            "title": "14th International Conference on Hypernuclear and Strange Particle Physics"
+        }
+    ],
+    "$schema": "https://inspirehep.net/api/schemas/records/conferences.json",
+    "acronyms": [
+        "HYP 2022"
+    ],
+    "_collections": [
+        "Conferences"
+    ],
+    "closing_date": "2022-08-01",
+    "opening_date": "2022-07-27",
+    "control_number": 1830349,
+    "contact_details": [
+        {
+            "name": "Jiri Mares",
+            "email": "mares@ujf.cas.cz"
+        }
+    ],
+    "short_description": {
+        "value": "<div>The 14th conference in a series that started in Heidelberg (1982), followed then by conferences at Brookhaven (1985), Padova (1988), Shimoda (1991), Vancouver (1994), Brookhaven (1997), Torino (2000), JLab (2003), Mainz (2006), Tokai (2009), Barcelona (2012), Sendai (2015), and Norfolk/Portsmouth (2018).</div>"
+    },
+    "inspire_categories": [
+        {
+            "term": "Experiment-Nucl"
+        },
+        {
+            "term": "Theory-Nucl"
+        }
+    ]
+}
