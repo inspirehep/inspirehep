@@ -120,14 +120,23 @@ def migrate_file(file_name, mirror_only=False, force=False, wait=False):
 @click.option(
     "-w", "--wait", is_flag=True, default=False, help="Wait for all subtasks to finish."
 )
+@click.option(
+    "-d",
+    "--date-from",
+    "date_from",
+    default=None,
+    help="Date from which records should be migrated. (YYYY-MM-DD)",
+)
 @with_appcontext
-def mirror(also_migrate=None, force=False, wait=False):
+def mirror(also_migrate=None, force=False, wait=False, date_from=None):
     """Migrate records from the mirror.
 
     By default, only records that have not been migrated yet are migrated.
     """
     halt_if_debug_mode(force=force)
-    task = migrate_from_mirror(also_migrate=also_migrate, disable_external_push=True)
+    task = migrate_from_mirror(
+        also_migrate=also_migrate, disable_external_push=True, date_from=date_from
+    )
     if wait:
         wait_for_all_tasks(task)
 
