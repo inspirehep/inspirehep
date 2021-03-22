@@ -1,0 +1,57 @@
+{
+    "addresses": [
+        {
+            "state": "NY",
+            "cities": [
+                "New York"
+            ],
+            "latitude": 40.7127753,
+            "longitude": -74.0059728,
+            "country_code": "US"
+        }
+    ],
+    "cnum": "C28-12-27",
+    "self": {
+        "$ref": "https://labs.inspirehep.net/api/conferences/1638643"
+    },
+    "series": [
+        {
+            "name": "Annual APS",
+            "number": 30
+        },
+        {
+            "name": "Regular APS",
+            "number": 155
+        }
+    ],
+    "titles": [
+        {
+            "title": "30th Annual Meeting of the American Physical Society"
+        }
+    ],
+    "$schema": "https://inspirehep.net/schemas/records/conferences.json",
+    "_collections": [
+        "Conferences"
+    ],
+    "closing_date": "1928-12-31",
+    "opening_date": "1928-12-27",
+    "public_notes": [
+        {
+            "value": "Published in: Proceedings of the American Physical Society, Minutes of the New York Meeting, December 27, 28, 29 and 31, 1928. Physical Review 33:2(1929)275-296 (DOI: 10.1103/PhysRev.33.275)."
+        }
+    ],
+    "control_number": 1638643,
+    "legacy_version": "20171214164757.0",
+    "inspire_categories": [
+        {
+            "term": "Astrophysics"
+        },
+        {
+            "term": "Other"
+        },
+        {
+            "term": "Theory-HEP"
+        }
+    ],
+    "legacy_creation_date": "2017-11-27"
+}

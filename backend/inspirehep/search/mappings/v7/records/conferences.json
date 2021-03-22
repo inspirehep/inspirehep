@@ -28,34 +28,44 @@
         },
         "type": "object"
       },
+      "_all": {
+        "type": "text"
+      },
       "acronyms": {
-        "copy_to": "conferenceautocomplete",
+        "copy_to": ["conferenceautocomplete", "_all"],
         "normalizer": "lowercase_normalizer",
         "type": "keyword"
       },
       "addresses": {
         "properties": {
           "cities": {
-            "copy_to": "conferenceautocomplete",
+            "copy_to": ["conferenceautocomplete", "_all"],
             "normalizer": "lowercase_normalizer",
             "type": "keyword"
           },
           "country_code": {
             "normalizer": "lowercase_normalizer",
-            "type": "keyword"
+            "type": "keyword",
+            "copy_to": "_all"
           },
           "place_name": {
-            "type": "text"
+            "type": "text",
+            "copy_to": "_all"
           },
           "postal_address": {
-            "copy_to": "conferenceautocomplete",
+            "copy_to": ["conferenceautocomplete", "_all"],
             "type": "text"
           },
           "postal_code": {
             "type": "text"
           },
           "state": {
-            "type": "text"
+            "type": "text",
+            "copy_to": "_all"
+          },
+          "country": {
+            "type": "text",
+            "copy_to": "_all"
           }
         },
         "type": "object"
@@ -67,20 +77,23 @@
             "type": "keyword"
           },
           "subtitle": {
-            "type": "text"
+            "type": "text",
+            "copy_to": "_all"
           },
           "title": {
-            "type": "text"
+            "type": "text",
+            "copy_to": "_all"
           }
         },
         "type": "object"
       },
       "closing_date": {
         "format": "yyyy-MM-dd||yyyy-MM||yyyy",
-        "type": "date"
+        "type": "date",
+        "copy_to": "_all"
       },
       "cnum": {
-        "copy_to": "conferenceautocomplete",
+        "copy_to": ["conferenceautocomplete", "_all"],
         "normalizer": "lowercase_normalizer",
         "type": "keyword"
       },
@@ -90,16 +103,19 @@
       "contact_details": {
         "properties": {
           "email": {
-            "type": "text"
+            "type": "text",
+            "copy_to": "_all"
           },
           "name": {
-            "type": "text"
+            "type": "text",
+            "copy_to": "_all"
           }
         },
         "type": "object"
       },
       "control_number": {
-        "type": "integer"
+        "type": "integer",
+        "copy_to": "_all"
       },
       "deleted": {
         "type": "boolean"
@@ -137,7 +153,8 @@
           },
           "term": {
             "normalizer": "lowercase_normalizer",
-            "type": "keyword"
+            "type": "keyword",
+            "copy_to": "_all"
           }
         },
         "type": "object"
@@ -159,7 +176,7 @@
         "type": "object"
       },
       "opening_date": {
-        "copy_to": "conferenceautocomplete",
+        "copy_to": ["conferenceautocomplete", "_all"],
         "format": "yyyy-MM-dd||yyyy-MM||yyyy",
         "type": "date"
       },
@@ -170,7 +187,8 @@
             "type": "keyword"
           },
           "value": {
-            "type": "text"
+            "type": "text",
+            "copy_to": "_all"
           }
         },
         "type": "object"
@@ -190,7 +208,7 @@
       "series": {
         "properties": {
           "name": {
-            "copy_to": "seriesautocomplete",
+            "copy_to": ["seriesautocomplete", "_all"],
             "fields": {
               "raw": {
                 "type": "keyword"
@@ -227,10 +245,11 @@
             "type": "keyword"
           },
           "subtitle": {
-            "type": "text"
+            "type": "text",
+            "copy_to": "_all"
           },
           "title": {
-            "copy_to": "conferenceautocomplete",
+            "copy_to": ["conferenceautocomplete", "_all"],
             "type": "text"
           }
         },

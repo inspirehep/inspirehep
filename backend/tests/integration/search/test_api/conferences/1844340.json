@@ -1,0 +1,61 @@
+{
+    "addresses": [
+        {
+            "cities": [
+                "Online"
+            ],
+            "country_code": "FR"
+        }
+    ],
+    "cnum": "C21-05-17.1",
+    "core": true,
+    "self": {
+        "$ref": "https://inspirehep.net/api/conferences/1844340"
+    },
+    "urls": [
+        {
+            "value": "https://indico.cern.ch/event/948465/overview"
+        }
+    ],
+    "series": [
+        {
+            "name": "CHEP",
+            "number": 25
+        }
+    ],
+    "titles": [
+        {
+            "title": "25th International Conference on Computing in High-Energy and Nuclear Physics"
+        }
+    ],
+    "$schema": "https://inspirehep.net/api/schemas/records/conferences.json",
+    "acronyms": [
+        "vCHEP2021"
+    ],
+    "_collections": [
+        "Conferences"
+    ],
+    "closing_date": "2021-05-21",
+    "opening_date": "2021-05-17",
+    "control_number": 1844340,
+    "contact_details": [
+        {
+            "name": "CHEP2021 Secretariat",
+            "email": "chep2021-secretariat@cern.ch"
+        }
+    ],
+    "short_description": {
+        "value": "<div>The CHEP conference series addresses the computing, networking and software issues for the world’s leading data‐intensive science experiments that currently analyse hundreds of petabytes of data using worldwide computing resources.</div>"
+    },
+    "inspire_categories": [
+        {
+            "term": "Theory-HEP"
+        },
+        {
+            "term": "Computing"
+        },
+        {
+            "term": "Theory-Nucl"
+        }
+    ]
+}

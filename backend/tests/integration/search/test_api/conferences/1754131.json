@@ -1,0 +1,49 @@
+{
+    "addresses": [
+        {
+            "cities": [
+                "Washington D.C."
+            ],
+            "latitude": 38.9071923,
+            "longitude": -77.0368707,
+            "country_code": "US"
+        }
+    ],
+    "cnum": "C34-04-26",
+    "self": {
+        "$ref": "https://labs.inspirehep.net/api/conferences/1754131"
+    },
+    "series": [
+        {
+            "name": "Regular APS",
+            "number": 191
+        }
+    ],
+    "titles": [
+        {
+            "title": "191st Regular Meeting of the American Physical Society"
+        }
+    ],
+    "$schema": "https://inspirehep.net/schemas/records/conferences.json",
+    "_collections": [
+        "Conferences"
+    ],
+    "closing_date": "1934-04-28",
+    "opening_date": "1934-04-26",
+    "public_notes": [
+        {
+            "value": "Published in: Program of the Washington Meeting at the Bureau of Standards and the National Academy of Sciences, April 26-28, 1934. Bulletin of the American Physical Society 9:2(1934)1-36, Proceedings of the American Physical Society, Minutes of the Washington Meeting, April 26-28, 1934. Physical Review 45:10(1934)739-771 (DOI: 10.1103/PhysRev.45.739)."
+        }
+    ],
+    "control_number": 1754131,
+    "legacy_version": "20191104144128.0",
+    "inspire_categories": [
+        {
+            "term": "Experiment-Nucl"
+        },
+        {
+            "term": "General Physics"
+        }
+    ],
+    "legacy_creation_date": "2019-09-16"
+}

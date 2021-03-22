@@ -179,6 +179,7 @@ def test_conferences_sort_options(inspire_app):
 
     expected_status_code = 200
     expected_sort_options = [
+        {"display": "Best match", "value": "bestmatch"},
         {"display": "Date ascending", "value": "dateasc"},
         {"display": "Date descending", "value": "datedesc"},
     ]

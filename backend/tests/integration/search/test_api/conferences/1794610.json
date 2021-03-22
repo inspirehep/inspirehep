@@ -1,0 +1,32 @@
+{
+  "$schema": "https://inspirehep.net/api/schemas/records/conferences.json",
+  "_collections": ["Conferences"],
+  "acronyms": ["PANIC 2021"],
+  "addresses": [{ "cities": ["Lisboa"], "country_code": "PT" }],
+  "closing_date": "2021-09-03",
+  "cnum": "C21-08-30.2",
+  "contact_details": [{ "email": "helena@lip.pt", "name": "Santos, Helena" }],
+  "control_number": 1794610,
+  "core": true,
+  "inspire_categories": [
+    { "term": "Accelerators" },
+    { "term": "Astrophysics" },
+    { "term": "Experiment-HEP" },
+    { "term": "Experiment-Nucl" },
+    { "term": "Instrumentation" },
+    { "term": "Lattice" },
+    { "term": "Phenomenology-HEP" },
+    { "term": "Theory-HEP" },
+    { "term": "Theory-Nucl" }
+  ],
+  "opening_date": "2021-08-30",
+  "series": [{ "name": "PANIC", "number": 22 }],
+  "short_description": {
+    "value":
+      "<div>This conference is the 22nd in the series of triennial conferences which bring together the Particle and Nuclear Physics communities.</div><div>PANIC2020&nbsp;consists of plenary talks,&nbsp;a number of parallel sessions and a poster session. The scientific programme addresses a broad range of topics at the interface between particle, nuclear and astrophysics. Special emphasis will be devoted to recent discoveries and results.&nbsp;</div><div>The conference is hosted by&nbsp;LIP, Laboratory for&nbsp;Instrumentation and Experimental Particle Physics, and&nbsp;FCUL,&nbsp;Faculty of Sciences of the University of Lisbon.</div><div><br></div>"
+  },
+  "titles": [
+    { "title": "Particles and Nuclei International Conference\u00a0" }
+  ],
+  "urls": [{ "value": "https://indico.lip.pt/event/592/" }]
+}

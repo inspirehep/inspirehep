@@ -1,0 +1,58 @@
+{
+    "addresses": [
+        {
+            "cities": [
+                "Cracow"
+            ],
+            "latitude": 50.0646501,
+            "longitude": 19.9449799,
+            "country_code": "PL"
+        }
+    ],
+    "cnum": "C47-01-01",
+    "self": {
+        "$ref": "https://labs.inspirehep.net/api/conferences/978213"
+    },
+    "series": [
+        {
+            "name": "ICRC",
+            "number": 1
+        }
+    ],
+    "titles": [
+        {
+            "title": "1st International Cosmic Ray Conference"
+        }
+    ],
+    "$schema": "https://inspirehep.net/schemas/records/conferences.json",
+    "acronyms": [
+        "ICRC 1947"
+    ],
+    "keywords": [
+        {
+            "value": "COSMIC RAY CONF. 1947 1ST"
+        },
+        {
+            "value": "SERIES-ICRC"
+        }
+    ],
+    "_collections": [
+        "Conferences"
+    ],
+    "closing_date": "1947-01-01",
+    "opening_date": "1947-01-01",
+    "control_number": 978213,
+    "legacy_version": "20161031102130.0",
+    "alternative_titles": [
+        {
+            "title": "ICRC1947"
+        }
+    ],
+    "legacy_creation_date": "2011-11-30",
+    "external_system_identifiers": [
+        {
+            "value": "CONF-520713",
+            "schema": "SPIRES"
+        }
+    ]
+}

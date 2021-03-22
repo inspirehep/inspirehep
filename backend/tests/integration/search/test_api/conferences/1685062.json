@@ -1,0 +1,57 @@
+{
+    "addresses": [
+        {
+            "cities": [
+                "Sofia"
+            ],
+            "latitude": 42.6977082,
+            "longitude": 23.3218675,
+            "country_code": "BG"
+        }
+    ],
+    "cnum": "C18-07-09.6",
+    "self": {
+        "$ref": "https://labs.inspirehep.net/api/conferences/1685062"
+    },
+    "urls": [
+        {
+            "value": "http://chep2018.org/"
+        }
+    ],
+    "series": [
+        {
+            "name": "CHEP",
+            "number": 23
+        }
+    ],
+    "titles": [
+        {
+            "title": "23rd International Conference on Computing in High Energy and Nuclear Physics"
+        }
+    ],
+    "$schema": "https://inspirehep.net/schemas/records/conferences.json",
+    "acronyms": [
+        "CHEP 2018"
+    ],
+    "_collections": [
+        "Conferences"
+    ],
+    "closing_date": "2018-07-13",
+    "opening_date": "2018-07-09",
+    "control_number": 1685062,
+    "legacy_version": "20191206114814.0",
+    "short_description": {
+        "value": "CHEP 2018 will take place on 9-13 July 2018 at the National Palace of Culture, Sofia, Bulgaria. The conference is organized by the Institute for Advanced Physical Studies, Sofia University, Plovdiv University, New Bulgarian University, Bourgas Free University, INRNE‐BAS, IICT-BAS and Sofia Municipality. Approximately 600 computing experts and scientists are expected to attend CHEP 2018.  CHEP 2018 will address challenges in data‐intensive experimental and computational science to stress the increasing importance of the computing‐related connections between high‐energy and nuclear physics and data‐intensive astronomy, X‐ray science and computational science."
+    },
+    "alternative_titles": [
+        {
+            "title": "CHEP2018"
+        }
+    ],
+    "inspire_categories": [
+        {
+            "term": "Computing"
+        }
+    ],
+    "legacy_creation_date": "2018-08-06"
+}

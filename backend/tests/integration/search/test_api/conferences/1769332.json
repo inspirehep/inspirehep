@@ -1,0 +1,40 @@
+{
+  "$schema": "https://inspirehep.net/schemas/records/conferences.json",
+  "_collections": ["Conferences"],
+  "acronyms": ["HP2022"],
+  "addresses": [
+    {
+      "cities": ["Aschaffenburg"],
+      "country_code": "DE",
+      "latitude": 49.9806625,
+      "longitude": 9.1355554
+    }
+  ],
+  "alternative_titles": [{ "title": "HP2022" }, { "title": "HP 2022" }],
+  "closing_date": "2022-09-30",
+  "cnum": "C22-09-25",
+  "control_number": 1769332,
+  "core": true,
+  "inspire_categories": [
+    { "term": "Theory-Nucl" },
+    { "term": "Phenomenology-HEP" },
+    { "term": "Experiment-HEP" },
+    { "term": "Experiment-Nucl" }
+  ],
+  "legacy_creation_date": "2019-12-10",
+  "legacy_version": "20191216150953.0",
+  "opening_date": "2022-09-25",
+  "self": { "$ref": "https://labs.inspirehep.net/api/conferences/1769332" },
+  "series": [{ "name": "Hard Probes", "number": 11 }],
+  "short_description": {
+    "value":
+      "The International Conference on Hard and Electromagnetic Probes of High-Energy Nuclear Collisions (HARD PROBES 2022) will be held at Aschaffenburg (Germany) from September 25th to 30th, 2022. This is the 11th of the Hard-Probes conference series. The conference is focused on experimental and theoretical developments on perturbative probes of hot and dense QCD matter as studied in high-energy nucleus-nucleus, proton-nucleus and proton-proton collisions."
+  },
+  "titles": [
+    {
+      "subtitle": "Hard Probes 2022",
+      "title":
+        "11th International Conference on Hard and Electromagnetic Probes of High-Energy Nuclear Collisions"
+    }
+  ]
+}
