@@ -15,7 +15,6 @@ import pluralizeUnlessSingle from '../../common/utils';
 function renderConferenceItem(result) {
   return (
     <Row>
-      a
       <Col flex="0 1 1px">
         <Radio value={result.getIn(['metadata', 'control_number'])} />
       </Col>
