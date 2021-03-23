@@ -93,8 +93,8 @@ def author_assign_view():
 @login_required_with_roles([Roles.cataloger.value])
 @parser.use_args(
     {
-        "conference_recid": fields.String(required=True),
-        "literature_recids": fields.List(fields.String, required=True),
+        "conference_recid": fields.Integer(required=True),
+        "literature_recids": fields.List(fields.Integer, required=True),
     },
     locations=("json",),
 )
