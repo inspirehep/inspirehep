@@ -10,10 +10,12 @@ import { searchQueryUpdate } from '../../../actions/search';
 import { appendQueryToLocationSearch } from '../../../actions/router';
 import { UI_EXCLUDE_SELF_CITATIONS_PARAM } from '../../../literature/containers/ExcludeSelfCitationsContainer';
 import { UI_CITATION_SUMMARY_PARAM } from '../../../literature/containers/CitationSummarySwitchContainer';
+import { clearLiteratureSelection } from '../../../actions/literature';
 
 jest.mock('../../../actions/search');
 mockActionCreator(searchQueryUpdate);
-
+jest.mock('../../../actions/literature');
+mockActionCreator(clearLiteratureSelection);
 jest.mock('../../../actions/router');
 mockActionCreator(appendQueryToLocationSearch);
 
@@ -41,7 +43,7 @@ describe('SearchBoxContainer', () => {
     });
   });
 
-  it('calls SEARCH_QUERY_UPDATE on search', async () => {
+  it('calls SEARCH_QUERY_UPDATE and LITERATURE_SELECTION_CLEAR on search', async () => {
     const searchBoxNamespace = 'literature';
     const store = getStoreWithState({
       search: fromJS({
@@ -57,6 +59,7 @@ describe('SearchBoxContainer', () => {
     onSearch(searchBoxNamespace, 'test');
 
     const expectedActions = [
+      clearLiteratureSelection(),
       searchQueryUpdate(searchBoxNamespace, { q: 'test' }),
     ];
     expect(store.getActions()).toEqual(expectedActions);
