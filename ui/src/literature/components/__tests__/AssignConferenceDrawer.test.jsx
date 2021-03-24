@@ -49,9 +49,10 @@ describe('AssignConferencesDrawer', () => {
       disabled: true,
     });
 
+    const value = { controlNumber: 123, title: 'Jessica Jones' };
     wrapper
       .find('[data-test-id="conference-radio-group"]')
-      .simulate('change', { target: { value: 321 } });
+      .simulate('change', { target: { value } });
     wrapper.update();
     expect(
       wrapper.find('[data-test-id="assign-conference-button"]')
@@ -60,6 +61,6 @@ describe('AssignConferencesDrawer', () => {
     });
 
     wrapper.find('[data-test-id="assign-conference-button"]').simulate('click');
-    expect(onAssign).toHaveBeenCalledWith(321);
+    expect(onAssign).toHaveBeenCalledWith(value.controlNumber, value.title);
   });
 });
