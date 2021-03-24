@@ -13,10 +13,12 @@ import EmbeddedSearchBoxContainer from '../../common/containers/EmbeddedSearchBo
 import pluralizeUnlessSingle from '../../common/utils';
 
 function renderConferenceItem(result) {
+  const controlNumber = result.getIn(['metadata', 'control_number']);
+  const title = result.getIn(['metadata', 'titles', 0, 'title']);
   return (
     <Row>
       <Col flex="0 1 1px">
-        <Radio value={result.getIn(['metadata', 'control_number'])} />
+        <Radio value={{ controlNumber, title }} />
       </Col>
       <Col flex="1 1 1px">
         <ConferenceItem metadata={result.get('metadata')} openDetailInNewTab />
@@ -27,13 +29,17 @@ function renderConferenceItem(result) {
 
 function AssignDrawer({ visible, onDrawerClose, onAssign, selectedPapers }) {
   const [selectedConferenceId, setSelectedConferenceId] = useState();
+  const [selectedConferenceTitle, setSelectedConferenceTitle] = useState();
+
   const onSelectedConferenceChange = useCallback((event) => {
-    setSelectedConferenceId(event.target.value);
+    const { controlNumber, title } = event.target.value;
+    setSelectedConferenceId(controlNumber);
+    setSelectedConferenceTitle(title);
   }, []);
 
   const onAssignClick = useCallback(() => {
-    onAssign(selectedConferenceId);
-  }, [selectedConferenceId, onAssign]);
+    onAssign(selectedConferenceId, selectedConferenceTitle);
+  }, [selectedConferenceId, selectedConferenceTitle, onAssign]);
 
   return (
     <Drawer

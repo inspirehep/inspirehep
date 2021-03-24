@@ -135,7 +135,7 @@ export function setAssignDrawerVisibility(visible) {
   };
 }
 
-export function assignPapers(conferenceId) {
+export function assignPapers(conferenceId, conferenceTitle) {
   return async (dispatch, getState, http) => {
     try {
       const papers = getState().literature.get('literatureSelection');
@@ -144,7 +144,7 @@ export function assignPapers(conferenceId) {
         conference_recid: conferenceId,
         literature_recids: papers,
       });
-      assignSuccess({ conferenceId, papers });
+      assignSuccess({ conferenceId, conferenceTitle, papers });
       dispatch(clearLiteratureSelection());
       dispatch(setAssignDrawerVisibility(false));
     } catch (error) {

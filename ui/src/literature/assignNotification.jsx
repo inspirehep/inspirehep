@@ -18,16 +18,16 @@ export function assigning() {
   });
 }
 
-export function assignSuccess({ conferenceId, papers }) {
+export function assignSuccess({ conferenceId, conferenceTitle, papers }) {
   notification.close(ASSIGNING_NOTIFICATION_KEY);
   notification.success({
     message: 'Assignment Successful!',
     duration: null,
     description: (
       <span>
-        Selected papers ({papers}) moved to{' '}
+        {papers.size} selected papers assigned to{' '}
         <ExternalLink target="_blank" href={`${CONFERENCES}/${conferenceId}`}>
-          {conferenceId}
+          {conferenceTitle}
         </ExternalLink>
       </span>
     ),

@@ -16,8 +16,8 @@ const dispatchToProps = (dispatch) => ({
     dispatch(setAssignDrawerVisibility(false));
   },
 
-  onAssign(conferenceId) {
-    dispatch(assignPapers(conferenceId));
+  onAssign(conferenceId, conferenceTitle) {
+    dispatch(assignPapers(conferenceId, conferenceTitle));
   },
 });
 
