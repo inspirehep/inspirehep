@@ -16,7 +16,6 @@ from marshmallow import fields, missing, pre_dump
 
 from inspirehep.oai.utils import is_cds_set, is_cern_arxiv_set
 from inspirehep.pidstore.api import PidStoreBase
-from inspirehep.records.api import InspireRecord
 from inspirehep.records.marshmallow.literature.common.abstract import AbstractSource
 from inspirehep.records.marshmallow.literature.common.author import (
     AuthorsInfoSchemaForES,
@@ -120,6 +119,8 @@ class LiteratureElasticSearchSchema(ElasticSearchBaseSchema, LiteratureRawSchema
 
     def get_facet_author_name(self, record):
         """Prepare record for ``facet_author_name`` field."""
+        from inspirehep.records.api import InspireRecord
+
         authors_with_record = list(
             InspireRecord.get_linked_records_from_dict_field(record, "authors.record")
         )

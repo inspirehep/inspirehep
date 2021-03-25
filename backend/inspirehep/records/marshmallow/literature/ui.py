@@ -15,9 +15,20 @@ from inspirehep.accounts.api import is_superuser_or_cataloger_logged_in
 from inspirehep.assign.utils import is_assign_view_enabled
 from inspirehep.files.api import current_s3_instance
 from inspirehep.pidstore.api import PidStoreBase
+from inspirehep.records.date_utils import get_literature_earliest_date
 from inspirehep.records.marshmallow.common.mixins import CatalogerCanEditMixin
+from inspirehep.records.marshmallow.literature.common.conference_info_item import (
+    ConferenceInfoItemSchemaV1,
+)
+from inspirehep.records.marshmallow.literature.common.doi import DOISchemaV1
+from inspirehep.records.marshmallow.literature.common.external_system_identifier import (
+    ExternalSystemIdentifierSchemaV1,
+)
+from inspirehep.records.marshmallow.literature.common.isbn import IsbnSchemaV1
+from inspirehep.records.marshmallow.literature.common.thesis_info import (
+    ThesisInfoSchemaV1,
+)
 from inspirehep.records.marshmallow.literature.utils import get_parent_record
-from inspirehep.records.utils import get_literature_earliest_date
 
 from ..base import EnvelopeSchema
 from ..common import AcceleratorExperimentSchemaV1
@@ -27,13 +38,8 @@ from .common import (
     AuthorSchemaV1,
     CollaborationSchemaV1,
     CollaborationWithSuffixSchemaV1,
-    ConferenceInfoItemSchemaV1,
-    DOISchemaV1,
-    ExternalSystemIdentifierSchemaV1,
-    IsbnSchemaV1,
-    PublicationInfoItemSchemaV1,
-    ThesisInfoSchemaV1,
 )
+from .common.publication_info_item import PublicationInfoItemSchemaV1
 from .utils import get_authors_without_emails
 
 DATASET_SCHEMA_TO_URL_PREFIX_MAP = {

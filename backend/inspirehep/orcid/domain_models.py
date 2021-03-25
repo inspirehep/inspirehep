@@ -10,15 +10,17 @@ import re
 
 import structlog
 from flask import current_app
+from flask_celeryext.app import current_celery_app
 from inspire_service_orcid import exceptions as orcid_client_exceptions
 from inspire_service_orcid.client import OrcidClient
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
 from time_execution import time_execution
 
+from inspirehep.orcid.push_access_tokens import delete_access_token
 from inspirehep.records.api import LiteratureRecord
 
-from . import exceptions, push_access_tokens, utils
+from . import exceptions, utils
 from .cache import OrcidCache
 from .converter import OrcidConverter
 from .putcode_getter import OrcidPutcodeGetter
@@ -183,7 +185,7 @@ class OrcidPusher(object):
             LOGGER.info(
                 "Deleting Orcid push access", token=self.oauth_token, orcid=self.orcid
             )
-            push_access_tokens.delete_access_token(self.oauth_token, self.orcid)
+            delete_access_token(self.oauth_token, self.orcid)
             db.session.commit()
             raise exceptions.TokenInvalidDeletedException
         except orcid_client_exceptions.MovedPermanentlyException as exc:
@@ -296,14 +298,14 @@ class OrcidPusher(object):
                 continue
             if recid == self.recid:
                 continue
-            # Local import to avoid import error.
-            from inspirehep.orcid import tasks
-
-            tasks.orcid_push(
-                self.orcid,
-                recid,
-                self.oauth_token,
-                dict(
-                    pushing_duplicated_identifier=True,
-                ),
+            current_celery_app.send_task(
+                "inspirehep.orcid.tasks.orcid_push",
+                args=[
+                    self.orcid,
+                    recid,
+                    self.oauth_token,
+                    dict(
+                        pushing_duplicated_identifier=True,
+                    ),
+                ],
             )

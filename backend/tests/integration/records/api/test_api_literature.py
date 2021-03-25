@@ -659,7 +659,7 @@ def test_literature_without_literature_collection_cannot_cite_record_which_can_b
     assert len(record3.model.references) == 1
 
 
-@mock.patch("inspirehep.records.api.literature.push_to_orcid")
+@mock.patch("inspirehep.records.api.literature.LiteratureRecord.push_to_orcid")
 def test_record_create_not_run_orcid_when_passed_parameter_to_disable_orcid(
     orcid_mock, inspire_app
 ):
@@ -668,7 +668,7 @@ def test_record_create_not_run_orcid_when_passed_parameter_to_disable_orcid(
     assert orcid_mock.call_count == 0
 
 
-@mock.patch("inspirehep.records.api.literature.push_to_orcid")
+@mock.patch("inspirehep.records.api.literature.LiteratureRecord.push_to_orcid")
 def test_record_create_not_skips_orcid_on_default(orcid_mock, inspire_app):
     data1 = faker.record("lit")
     InspireRecord.create(data1)
@@ -693,7 +693,7 @@ def test_record_create_runs_citation_recalculate_on_default(
     assert citation_recalculate_mock.call_count == 1
 
 
-@mock.patch("inspirehep.records.api.literature.push_to_orcid")
+@mock.patch("inspirehep.records.api.literature.LiteratureRecord.push_to_orcid")
 def test_record_update_not_run_orcid_when_passed_parameter_to_disable_orcid(
     orcid_mock, inspire_app
 ):
@@ -705,7 +705,7 @@ def test_record_update_not_run_orcid_when_passed_parameter_to_disable_orcid(
     assert orcid_mock.call_count == 0
 
 
-@mock.patch("inspirehep.records.api.literature.push_to_orcid")
+@mock.patch("inspirehep.records.api.literature.LiteratureRecord.push_to_orcid")
 def test_record_update_not_skips_orcid_on_default(orcid_mock, inspire_app):
     data1 = faker.record("lit")
     data2 = faker.record("lit")

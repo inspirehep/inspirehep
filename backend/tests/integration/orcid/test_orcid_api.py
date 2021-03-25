@@ -331,13 +331,11 @@ class TestPushToOrcid(object):
             FEATURE_FLAG_ORCID_PUSH_WHITELIST_REGEX=".*",
             ORCID_APP_CREDENTIALS={"consumer_key": "0000-0001-8607-8906"},
         ), mock.patch(
-            "inspirehep.orcid.api.push_access_tokens"
-        ) as mock_push_access_tokens, mock.patch(
+            "inspirehep.orcid.api.get_access_tokens"
+        ) as mock_get_access_tokens, mock.patch(
             "inspirehep.orcid.api._send_push_task"
         ) as mock_send_push_task:
-            mock_push_access_tokens.get_access_tokens.return_value = [
-                ("myorcid", "mytoken")
-            ]
+            mock_get_access_tokens.return_value = [("myorcid", "mytoken")]
             inspire_record.update(dict(inspire_record))
             mock_send_push_task.assert_called_once_with(
                 kwargs={
@@ -368,13 +366,11 @@ class TestPushToOrcid(object):
             FEATURE_FLAG_ORCID_PUSH_WHITELIST_REGEX=".*",
             ORCID_APP_CREDENTIALS={"consumer_key": "0000-0001-8607-8906"},
         ), mock.patch(
-            "inspirehep.orcid.api.push_access_tokens"
-        ) as mock_push_access_tokens, mock.patch(
+            "inspirehep.orcid.api.get_access_tokens"
+        ) as mock_get_access_tokens, mock.patch(
             "inspirehep.orcid.api._send_push_task"
         ) as mock_send_push_task:
-            mock_push_access_tokens.get_access_tokens.return_value = [
-                ("myorcid", "mytoken")
-            ]
+            mock_get_access_tokens.return_value = [("myorcid", "mytoken")]
             inspire_record.update(dict(inspire_record))
             mock_send_push_task.assert_called_once_with(
                 kwargs={

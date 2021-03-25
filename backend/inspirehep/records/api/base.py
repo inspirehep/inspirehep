@@ -6,14 +6,15 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 """INSPIRE module that adds more fun to the platform."""
-
 import uuid
 from datetime import datetime
+from importlib import import_module
 from itertools import chain
 
 import structlog
 from elasticsearch import NotFoundError
 from flask import current_app
+from flask_celeryext.app import current_celery_app
 from inspire_dojson.utils import strip_empty_values
 from inspire_schemas.api import validate as schema_validate
 from inspire_utils.record import get_value
@@ -533,6 +534,10 @@ class InspireRecord(Record):
                 f"{self.__class__.__name__} is missing data serializer!"
             )
         if not serializer:
+            if isinstance(self.es_serializer, str):
+                # IF serializer is provided as string, then assume it's full module path with class name at the end.
+                module, _class = self.es_serializer.rsplit(".", maxsplit=1)
+                self.__class__.es_serializer = getattr(import_module(module), _class)
             serializer = self.es_serializer
 
         return serializer().dump(self).data
@@ -545,7 +550,6 @@ class InspireRecord(Record):
                 If not set, tries to determine automatically if record should be deleted
             delay: if True will start the index task async otherwise async.
         """
-        from inspirehep.indexer.tasks import index_record
 
         arguments = {
             "uuid": str(self.id),
@@ -559,8 +563,12 @@ class InspireRecord(Record):
             arguments=arguments,
         )
         if delay:
-            index_record.delay(**arguments)
+            current_celery_app.send_task(
+                "inspirehep.indexer.tasks.index_record", kwargs=arguments
+            )
             return
+        from inspirehep.indexer.tasks import index_record
+
         index_record(**arguments)
 
     @property

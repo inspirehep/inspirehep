@@ -17,9 +17,10 @@ from inspire_service_orcid.client import OrcidClient
 from invenio_db import db
 
 from inspirehep.orcid.converter import ExternalIdentifier
+from inspirehep.orcid.push_access_tokens import delete_access_token
 from inspirehep.pidstore.api.base import PidStoreBase
 
-from . import exceptions, push_access_tokens
+from . import exceptions
 
 INSPIRE_WORK_URL_REGEX = re.compile(
     r"https?://(?:labs\.)?inspirehep\.net/(?:record|literature)/(\d+)", re.IGNORECASE
@@ -83,7 +84,7 @@ class OrcidPutcodeGetter(object):
                 token=self.oauth_token,
                 orcid=self.orcid,
             )
-            push_access_tokens.delete_access_token(self.oauth_token, self.orcid)
+            delete_access_token(self.oauth_token, self.orcid)
             db.session.commit()
             raise exceptions.TokenInvalidDeletedException
         except orcid_client_exceptions.BaseOrcidClientJsonException as exc:

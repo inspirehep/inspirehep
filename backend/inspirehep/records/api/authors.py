@@ -6,7 +6,6 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import structlog
 
-from inspirehep.records.marshmallow.authors import AuthorsElasticSearchSchema
 from inspirehep.search.api import AuthorsSearch
 
 from ...pidstore.api import PidStoreAuthors
@@ -18,7 +17,7 @@ LOGGER = structlog.getLogger()
 class AuthorsRecord(InspireRecord):
     """Authors Record."""
 
-    es_serializer = AuthorsElasticSearchSchema
+    es_serializer = "inspirehep.records.marshmallow.authors.AuthorsElasticSearchSchema"
     pid_type = "aut"
     pidstore_handler = PidStoreAuthors
 

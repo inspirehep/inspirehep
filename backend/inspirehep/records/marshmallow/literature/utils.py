@@ -13,14 +13,14 @@ from pylatexenc.latexencode import (
     UnicodeToLatexEncoder,
 )
 
-from inspirehep.records.api import InspireRecord
-
 # The regex selects math delimited by ``$...$`` or ``\(...\)``
 # where the delimiters are not escaped
 MATH_EXPRESSION_REGEX = re.compile(r"((?<!\\)\$.*?(?<!\\)\$|(?<!\\)\\\(.*?(?<!\\)\\\))")
 
 
 def get_parent_record(data):
+    from inspirehep.records.api import InspireRecord
+
     if data.get("doc_type") == "inproceedings":
         conference_records = InspireRecord.get_linked_records_from_dict_field(
             data, "publication_info.conference_record"

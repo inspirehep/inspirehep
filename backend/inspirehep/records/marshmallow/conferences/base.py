@@ -9,7 +9,9 @@ import structlog
 from marshmallow import fields
 
 from inspirehep.records.marshmallow.base import RecordBaseSchema
-from inspirehep.records.marshmallow.common import ContactDetailsItemWithoutEmail
+from inspirehep.records.marshmallow.common.contact_details_items import (
+    ContactDetailsItemWithoutEmail,
+)
 from inspirehep.records.marshmallow.conferences.common.proceeding_info_item import (
     ProceedingInfoItemSchemaV1,
 )

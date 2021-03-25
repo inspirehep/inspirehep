@@ -9,7 +9,7 @@ import structlog
 from flask import current_app
 from flask_celeryext.app import current_celery_app
 
-from inspirehep.orcid import push_access_tokens
+from inspirehep.orcid.push_access_tokens import get_access_tokens
 from inspirehep.orcid.utils import get_orcids_for_push
 
 LOGGER = structlog.getLogger()
@@ -32,7 +32,7 @@ def push_to_orcid(record):
         return
 
     orcids = get_orcids_for_push(record)
-    orcids_and_tokens = push_access_tokens.get_access_tokens(orcids)
+    orcids_and_tokens = get_access_tokens(orcids)
 
     kwargs_to_pusher = dict(record_db_version=record.model.version_id)
 

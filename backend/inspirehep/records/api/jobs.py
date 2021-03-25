@@ -8,14 +8,13 @@ from elasticsearch_dsl import Q
 
 from inspirehep.pidstore.api import PidStoreJobs
 from inspirehep.records.api.base import InspireRecord
-from inspirehep.records.marshmallow.jobs import JobsElasticSearchSchema
 from inspirehep.search.api import JobsSearch
 
 
 class JobsRecord(InspireRecord):
     """Jobs Record."""
 
-    es_serializer = JobsElasticSearchSchema
+    es_serializer = "inspirehep.records.marshmallow.jobs.JobsElasticSearchSchema"
     pid_type = "job"
     pidstore_handler = PidStoreJobs
 

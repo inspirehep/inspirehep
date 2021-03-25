@@ -13,8 +13,8 @@ from inspire_utils.record import get_value
 from invenio_db import db
 from sqlalchemy.exc import SQLAlchemyError
 
-from inspirehep.orcid import push_access_tokens
 from inspirehep.orcid.api import push_to_orcid
+from inspirehep.orcid.push_access_tokens import is_access_token_invalid
 from inspirehep.orcid.tasks import _register_user, legacy_orcid_arrays, orcid_push
 from inspirehep.orcid.utils import get_literature_recids_for_orcid
 from inspirehep.records.api import LiteratureRecord
@@ -43,7 +43,7 @@ def _import_legacy_orcid_tokens():
         secho(f"Processing {user_data}")
         try:
             orcid, token, email, name = user_data
-            if push_access_tokens.is_access_token_invalid(token):
+            if is_access_token_invalid(token):
                 secho(f"Token {token} is invalid. Skipping push.", fg="yellow")
                 continue
             orcid_to_push = _register_user(name, email, orcid, token)

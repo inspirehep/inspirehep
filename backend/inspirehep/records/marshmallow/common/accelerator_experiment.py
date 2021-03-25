@@ -9,8 +9,6 @@ from inspire_dojson.utils import get_recid_from_ref
 from inspire_utils.record import get_value
 from marshmallow import Schema, fields, pre_dump
 
-from inspirehep.records.api import InspireRecord
-
 
 class AcceleratorExperimentSchemaV1(Schema):
 
@@ -31,6 +29,8 @@ class AcceleratorExperimentSchemaV1(Schema):
         ]
 
     def get_control_numbers_to_resolved_experiments_map(self, record):
+        from inspirehep.records.api import InspireRecord
+
         resolved_records = InspireRecord.get_linked_records_from_dict_field(
             record, "record"
         )

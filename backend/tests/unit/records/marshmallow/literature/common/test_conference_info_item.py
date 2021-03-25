@@ -9,7 +9,9 @@ import orjson
 from invenio_pidstore.errors import PIDDoesNotExistError
 from mock import patch
 
-from inspirehep.records.marshmallow.literature.common import ConferenceInfoItemSchemaV1
+from inspirehep.records.marshmallow.literature.common.conference_info_item import (
+    ConferenceInfoItemSchemaV1,
+)
 
 
 def test_returns_empty_if_conference_record_is_missing():

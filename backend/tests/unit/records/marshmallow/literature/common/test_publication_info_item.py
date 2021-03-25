@@ -7,7 +7,9 @@
 
 import orjson
 
-from inspirehep.records.marshmallow.literature.common import PublicationInfoItemSchemaV1
+from inspirehep.records.marshmallow.literature.common.publication_info_item import (
+    PublicationInfoItemSchemaV1,
+)
 
 
 def test_returns_empty_if_display_fields_missing():

@@ -80,7 +80,7 @@ class TestOrcidPutcodeGetter(object):
         token = "invalid"
         putcode_getter = OrcidPutcodeGetter(self.orcid, token)
         with pytest.raises(exceptions.TokenInvalidDeletedException), mock.patch(
-            "inspirehep.orcid.push_access_tokens.delete_access_token"
+            "inspirehep.orcid.putcode_getter.delete_access_token"
         ) as mock_delete_access_token:
             list(putcode_getter.get_all_inspire_putcodes_and_recids_iter())
         mock_delete_access_token.assert_called_once_with(token, self.orcid)

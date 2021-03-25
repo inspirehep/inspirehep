@@ -24,7 +24,7 @@ from inspirehep.pidstore.errors import (
     TexkeyCannotGenerateSecondPart,
 )
 from inspirehep.pidstore.providers.base import InspireBaseProvider
-from inspirehep.records.utils import get_literature_earliest_date
+from inspirehep.records.date_utils import get_literature_earliest_date
 
 LOGGER = structlog.getLogger()
 

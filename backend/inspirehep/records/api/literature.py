@@ -8,6 +8,7 @@ import datetime
 import threading
 import uuid
 from concurrent.futures import ThreadPoolExecutor, TimeoutError, as_completed
+from importlib import import_module
 from io import BytesIO
 
 import magic
@@ -29,7 +30,6 @@ from redis import StrictRedis
 
 from inspirehep.files.api import current_s3_instance
 from inspirehep.hal.api import push_to_hal
-from inspirehep.orcid.api import push_to_orcid
 from inspirehep.pidstore.api import PidStoreLiterature
 from inspirehep.records.api.mixins import (
     CitationMixin,
@@ -37,6 +37,7 @@ from inspirehep.records.api.mixins import (
     ExperimentPapersMixin,
     InstitutionPapersMixin,
 )
+from inspirehep.records.date_utils import get_literature_earliest_date
 from inspirehep.records.errors import (
     ExistingArticleError,
     ImportArticleError,
@@ -44,11 +45,9 @@ from inspirehep.records.errors import (
     ImportParsingError,
     UnknownImportIdentifierError,
 )
-from inspirehep.records.marshmallow.literature import LiteratureElasticSearchSchema
 from inspirehep.records.utils import (
     download_file_from_url,
     get_authors_phonetic_blocks,
-    get_literature_earliest_date,
     get_pid_for_pid,
     get_ref_from_pid,
 )
@@ -80,10 +79,13 @@ class LiteratureRecord(
 ):
     """Literature Record."""
 
-    es_serializer = LiteratureElasticSearchSchema
+    es_serializer = (
+        "inspirehep.records.marshmallow.literature.LiteratureElasticSearchSchema"
+    )
     pid_type = "lit"
     pidstore_handler = PidStoreLiterature
     nested_record_fields = ["authors", "publication_info", "supervisors"]
+    orcid_module = None
 
     @property
     def earliest_date(self):
@@ -125,7 +127,7 @@ class LiteratureRecord(
                 uuid=str(record.id),
             )
         else:
-            push_to_orcid(record)
+            cls.push_to_orcid(record)
             push_to_hal(record)
         record.push_authors_phonetic_blocks_to_redis()
         return record
@@ -213,9 +215,16 @@ class LiteratureRecord(
                 uuid=str(self.id),
             )
         else:
-            push_to_orcid(self)
+            self.push_to_orcid(self)
             push_to_hal(self)
         self.push_authors_phonetic_blocks_to_redis()
+
+    @classmethod
+    def push_to_orcid(cls, record):
+        """Small wrapper which imports orcid module only when it's needed (similar to lazy_load from python3.7"""
+        if not cls.orcid_module:
+            cls.orcid_module = import_module("inspirehep.orcid.api")
+        cls.orcid_module.push_to_orcid(record)
 
     def get_modified_authors(self):
         previous_authors = self._previous_version.get("authors", [])

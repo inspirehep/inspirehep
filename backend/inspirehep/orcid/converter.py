@@ -19,7 +19,6 @@ from inspire_utils.urls import record_url_by_pattern
 from time_execution import time_execution
 
 from inspirehep.records.api import ConferencesRecord
-from inspirehep.records.serializers.bibtex import literature_bibtex
 
 from .builder import OrcidBuilder
 
@@ -270,6 +269,8 @@ class OrcidConverter(object):
     @time_execution
     def bibtex_citation(self):
         if self._bibtex_citation is None:
+            from inspirehep.records.serializers.bibtex import literature_bibtex
+
             try:
                 self._bibtex_citation = literature_bibtex.serialize(
                     self.recid, self.record

@@ -7,7 +7,6 @@
 
 from inspirehep.pidstore.api.conferences import PidStoreConferences
 from inspirehep.records.api.base import InspireRecord
-from inspirehep.records.marshmallow.conferences import ConferencesElasticSearchSchema
 from inspirehep.records.models import (
     ConferenceLiterature,
     ConferenceToLiteratureRelationshipType,
@@ -17,7 +16,9 @@ from inspirehep.records.models import (
 class ConferencesRecord(InspireRecord):
     """Conferences Record."""
 
-    es_serializer = ConferencesElasticSearchSchema
+    es_serializer = (
+        "inspirehep.records.marshmallow.conferences.ConferencesElasticSearchSchema"
+    )
     pid_type = "con"
     pidstore_handler = PidStoreConferences
 

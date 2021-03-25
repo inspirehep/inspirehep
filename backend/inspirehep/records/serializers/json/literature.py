@@ -13,13 +13,15 @@ from marshmallow import Schema
 
 from inspirehep.accounts.api import is_superuser_or_cataloger_logged_in
 from inspirehep.records.marshmallow.base import wrap_schema_class_with_metadata
-from inspirehep.records.marshmallow.literature import (
+from inspirehep.records.marshmallow.literature.authors import LiteratureAuthorsSchema
+from inspirehep.records.marshmallow.literature.base import (
     LiteratureAdminSchema,
-    LiteratureAuthorsSchema,
-    LiteratureDetailSchema,
-    LiteratureListWrappedSchema,
     LiteraturePublicListSchema,
     LiteraturePublicSchema,
+)
+from inspirehep.records.marshmallow.literature.ui import (
+    LiteratureDetailSchema,
+    LiteratureListWrappedSchema,
 )
 from inspirehep.serializers import (
     ConditionalMultiSchemaJSONSerializer,
