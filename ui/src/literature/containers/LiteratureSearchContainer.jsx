@@ -8,7 +8,7 @@ import AggregationFiltersContainer from '../../common/containers/AggregationFilt
 import PaginationContainer from '../../common/containers/PaginationContainer';
 import SortByContainer from '../../common/containers/SortByContainer';
 import ResultsContainer from '../../common/containers/ResultsContainer';
-import NumberOfResultsContainer from '../../common/containers/NumberOfResultsContainer';
+import NumberOfResultsWithSelectedItemsNumberContainer from './NumberOfResultsWithSelectedItemsNumberContainer';
 import LoadingOrChildren from '../../common/components/LoadingOrChildren';
 import ResponsiveView from '../../common/components/ResponsiveView';
 import DrawerHandle from '../../common/components/DrawerHandle.tsx';
@@ -99,7 +99,9 @@ function LiteratureSearch({
                     <LiteratureSelectAllContainer />
                   </span>
                 )}
-                <NumberOfResultsContainer namespace={namespace} />
+                <NumberOfResultsWithSelectedItemsNumberContainer
+                  namespace={namespace}
+                />
                 <VerticalDivider />
                 <CiteAllActionContainer namespace={namespace} />
                 {assignAuthorView && <AssignAllActionContainer />}
