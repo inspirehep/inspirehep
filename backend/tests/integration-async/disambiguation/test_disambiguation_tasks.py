@@ -962,3 +962,53 @@ def test_disambiguation_on_record_update_ambiguous_match(
         )
 
     retry_until_pass(assert_disambiguation_on_record_update, retry_interval=2)
+
+
+def test_disambiguation_on_record_update_unambiguous_match(
+    inspire_app, clean_celery_session, enable_disambiguation
+):
+    literature_data = faker.record("lit", with_control_number=True)
+    literature_data.update(
+        {
+            "authors": [
+                {
+                    "full_name": "Kowalczyk, Elisabeth",
+                    "ids": [{"schema": "INSPIRE BAI", "value": "E.Kowalczyk.1"}],
+                }
+            ]
+        }
+    )
+    literature_record = LiteratureRecord.create(data=literature_data)
+    db.session.commit()
+
+    def assert_first_disambiguation_no_match():
+        literature_record_from_es = InspireSearch.get_record_data_from_es(
+            literature_record
+        )
+
+        assert get_values_for_schema(
+            literature_record_from_es["authors"][0]["ids"], "INSPIRE BAI"
+        )
+
+    retry_until_pass(assert_first_disambiguation_no_match, retry_interval=2)
+    old_bai = get_values_for_schema(
+        literature_record["authors"][0]["ids"], "INSPIRE BAI"
+    )[0]
+    db.session.expire_all()
+    lit_record = InspireRecord.get_record(literature_record.id)
+    lit_record["authors"][0]["emails"] = ["test.test@com"]
+    lit_record.update(dict(lit_record))
+    db.session.commit()
+
+    def assert_disambiguation_on_record_update():
+        literature_record_from_es = InspireSearch.get_record_data_from_es(
+            literature_record
+        )
+        assert (
+            get_values_for_schema(
+                literature_record_from_es["authors"][0]["ids"], "INSPIRE BAI"
+            )[0]
+            == old_bai
+        )
+
+    retry_until_pass(assert_disambiguation_on_record_update, retry_interval=2)
