@@ -223,7 +223,10 @@ def disambiguate_authors(self, record_uuid):
                 author["full_name"], record["control_number"]
             )
             author["record"] = new_author_record["self"]
-            author["ids"] = [*author.get("ids", []), *new_author_record["ids"]]
+            new_author_bai = get_values_for_schema(
+                new_author_record["ids"], "INSPIRE BAI"
+            )[0]
+            assign_bai_to_literature_author(author, new_author_bai)
             updated_authors.append(new_author_record["control_number"])
     if updated_authors:
         LOGGER.info(
