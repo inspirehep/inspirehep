@@ -29,11 +29,13 @@ from inspirehep.migrator.tasks import (
     migrate_and_insert_record,
     migrate_from_file,
     migrate_from_mirror,
+    migrate_recids_from_mirror,
     populate_mirror_from_file,
     process_references_in_records,
 )
 from inspirehep.records.api import InspireRecord, LiteratureRecord
 from inspirehep.search.api import LiteratureSearch
+from inspirehep.utils import chunker
 
 
 @pytest.fixture
@@ -734,3 +736,27 @@ def test_migrate_record_migrates_all_when_no_from_date_provided(inspire_app):
 
     assert LiteratureRecord.get_record_by_pid_value("666")
     assert LiteratureRecord.get_record_by_pid_value("667")
+
+
+def test_migrate_recids_from_mirror_external_push_enabled(inspire_app, enable_hal_push):
+    with patch("inspirehep.migrator.tasks.run_hal_push.run") as mock_run_hal_push:
+        migrate_recids_from_mirror(
+            list(chunker([123], 1, 1)),
+            disable_external_push=False,
+            step_no=4,
+            one_step=True,
+        )
+        mock_run_hal_push.assert_called_once()
+
+
+def test_migrate_recids_from_mirror_external_push_disabled(
+    inspire_app, disable_hal_push
+):
+    with patch("inspirehep.migrator.tasks.run_hal_push.run") as mock_run_hal_push:
+        migrate_recids_from_mirror(
+            list(chunker([123], 1, 1)),
+            disable_external_push=False,
+            step_no=4,
+            one_step=True,
+        )
+        mock_run_hal_push.assert_not_called()
