@@ -155,21 +155,25 @@ class S3:
 
         return f"{filename}.{ext_without_subformat}"
 
-    def replace_file_metadata(self, key, filename, mimetype, acl):
+    def replace_file_metadata(self, key, filename, mimetype, acl, bucket=None):
         """Updates the metadata of the given file.
 
         :param key: the file key.
         :param filename: the new filename.
         :param mimetype: the new mimetype.
         :param acl: the new access control list for the file.
+        :param bucket: the bucket of the file, if `None` will get it from
+            file key.
         :return: dict
         """
+        if not bucket:
+            bucket = self.get_bucket_for_file_key(key)
         try:
             response = self.client.copy_object(
                 ACL=acl,
-                Bucket=self.get_bucket_for_file_key(key),
+                Bucket=bucket,
                 Key=key,
-                CopySource={"Bucket": self.get_bucket_for_file_key(key), "Key": key},
+                CopySource={"Bucket": bucket, "Key": key},
                 ContentDisposition=self.get_content_disposition(filename),
                 ContentType=mimetype,
                 MetadataDirective="REPLACE",
@@ -179,29 +183,35 @@ class S3:
             LOGGER.warning(exc=e, key=key)
             raise
 
-    def get_file_metadata(self, key):
+    def get_file_metadata(self, key, bucket=None):
         """Returns the metadata of the file.
 
         :param key: the key of the file.
+        :param bucket: the bucket of the file, if `None` will get it from
+            file key.
         :return: the metadata of the file.
         """
+        if not bucket:
+            bucket = self.get_bucket_for_file_key(key)
         try:
-            object_head = self.client.head_object(
-                Bucket=self.get_bucket_for_file_key(key), Key=key
-            )
+            object_head = self.client.head_object(Bucket=bucket, Key=key)
             return object_head
         except ClientError as e:
             LOGGER.warning(exc=e, key=key)
             raise
 
-    def file_exists(self, key):
+    def file_exists(self, key, bucket=None):
         """Checks if the file is already in S3.
 
         :param key: the key of the file.
+        :param bucket: the bucket of the file, if `None` will get it from
+            file key.
         :return: boolean
         """
+        if not bucket:
+            bucket = self.get_bucket_for_file_key(key)
         try:
-            self.client.head_object(Bucket=self.get_bucket_for_file_key(key), Key=key)
+            self.client.head_object(Bucket=bucket, Key=key)
             return True
         except ClientError as e:
             if e.response["Error"]["Code"] == "404":

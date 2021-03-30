@@ -4,14 +4,15 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+
 from io import BytesIO
 
 from flask import render_template
 from helpers.utils import create_record, es_search
 from inspire_utils.record import get_value
 from lxml import etree
-from mock import mock_open, patch
 
+from inspirehep.files import current_s3_instance
 from inspirehep.utils import get_inspirehep_url
 
 
@@ -19,10 +20,12 @@ def validate_xml_syntax(xml):
     etree.parse(BytesIO(xml.encode()))
 
 
-@patch("inspirehep.sitemap.cli.open", new_callable=mock_open)
 def test_generate_multiple_sitemap_files_with_multiple_collection(
-    mocked_open, inspire_app, cli, override_config
+    s3, inspire_app, cli, override_config
 ):
+    current_s3_instance.client.create_bucket(
+        Bucket=inspire_app.config["S3_SITEMAP_BUCKET"]
+    )
     create_record("lit")
     create_record("con")
     create_record("job", data={"status": "open"})
@@ -33,27 +36,57 @@ def test_generate_multiple_sitemap_files_with_multiple_collection(
     create_record("exp")
     create_record("ins")
 
-    config = {"SITEMAP_FILES_PATH": "/tmp", "SITEMAP_PAGE_SIZE": 1}
+    config = {"SITEMAP_PAGE_SIZE": 1}
     with override_config(**config):
+        # create_sitemap()
         result = cli.invoke(["sitemap", "generate"])
+    assert result.exit_code == 0
 
-        assert result.exit_code == 0
+    obj = BytesIO()
+    current_s3_instance.client.download_fileobj("sitemap", "sitemap.xml", obj)
+    obj.seek(0)
+    validate_xml_syntax(obj.read().decode("utf8"))
 
-        mocked_open.assert_any_call("/tmp/sitemap1.xml", "w+")
-        mocked_open.assert_any_call("/tmp/sitemap2.xml", "w+")
-        mocked_open.assert_any_call("/tmp/sitemap3.xml", "w+")
-        mocked_open.assert_any_call("/tmp/sitemap4.xml", "w+")
-        mocked_open.assert_any_call("/tmp/sitemap5.xml", "w+")
-        mocked_open.assert_any_call("/tmp/sitemap6.xml", "w+")
-        mocked_open.assert_any_call("/tmp/sitemap7.xml", "w+")
-        mocked_open.assert_any_call("/tmp/sitemap.xml", "w+")
+    obj = BytesIO()
+    current_s3_instance.client.download_fileobj("sitemap", "sitemap1.xml", obj)
+    obj.seek(0)
+    validate_xml_syntax(obj.read().decode("utf8"))
 
-        # make sure no more file is added for not open jobs
-        assert mocked_open.call_count == 8
+    obj = BytesIO()
+    current_s3_instance.client.download_fileobj("sitemap", "sitemap2.xml", obj)
+    obj.seek(0)
+    validate_xml_syntax(obj.read().decode("utf8"))
+
+    obj = BytesIO()
+    current_s3_instance.client.download_fileobj("sitemap", "sitemap3.xml", obj)
+    obj.seek(0)
+    validate_xml_syntax(obj.read().decode("utf8"))
+
+    obj = BytesIO()
+    current_s3_instance.client.download_fileobj("sitemap", "sitemap4.xml", obj)
+    obj.seek(0)
+    validate_xml_syntax(obj.read().decode("utf8"))
+
+    obj = BytesIO()
+    current_s3_instance.client.download_fileobj("sitemap", "sitemap5.xml", obj)
+    obj.seek(0)
+    validate_xml_syntax(obj.read().decode("utf8"))
+
+    obj = BytesIO()
+    current_s3_instance.client.download_fileobj("sitemap", "sitemap6.xml", obj)
+    obj.seek(0)
+    validate_xml_syntax(obj.read().decode("utf8"))
+
+    obj = BytesIO()
+    current_s3_instance.client.download_fileobj("sitemap", "sitemap7.xml", obj)
+    obj.seek(0)
+    validate_xml_syntax(obj.read().decode("utf8"))
 
 
-@patch("inspirehep.sitemap.cli.open", new_callable=mock_open)
-def test_generate_sitemap_file(mocked_open, inspire_app, cli, override_config):
+def test_generate_sitemap_file(inspire_app, s3, cli, override_config):
+    current_s3_instance.client.create_bucket(
+        Bucket=inspire_app.config["S3_SITEMAP_BUCKET"]
+    )
     literature = create_record("lit")
 
     result = es_search("records-hep")
@@ -62,32 +95,37 @@ def test_generate_sitemap_file(mocked_open, inspire_app, cli, override_config):
     literature_recid = literature["control_number"]
     literature_updated = literature_from_es["_updated"]
 
-    config = {"SITEMAP_FILES_PATH": "/tmp", "SITEMAP_PAGE_SIZE": 1}
+    config = {"SITEMAP_PAGE_SIZE": 1}
     with override_config(**config):
         result = cli.invoke(["sitemap", "generate"])
-
         assert result.exit_code == 0
 
-        mocked_open.assert_any_call("/tmp/sitemap1.xml", "w+")
-        mocked_open.assert_any_call("/tmp/sitemap.xml", "w+")
+    base_url = get_inspirehep_url()
 
-        mock_file = mocked_open()
-        base_url = get_inspirehep_url()
+    index_content = render_template(
+        "sitemap/index.xml", urlset=[{"loc": f"{base_url}/sitemap1.xml"}]
+    )
+    validate_xml_syntax(index_content)
 
-        index_content = render_template(
-            "sitemap/index.xml", urlset=[{"loc": f"{base_url}/sitemap1.xml"}]
-        )
-        validate_xml_syntax(index_content)
-        mock_file.write.assert_any_call(index_content)
+    obj = BytesIO()
+    current_s3_instance.client.download_fileobj("sitemap", "sitemap.xml", obj)
+    obj.seek(0)
 
-        page_content = render_template(
-            "sitemap/page.xml",
-            urlset=[
-                {
-                    "loc": f"{base_url}/literature/{literature_recid}",
-                    "lastmod": literature_updated,
-                }
-            ],
-        )
-        validate_xml_syntax(page_content)
-        mock_file.write.assert_any_call(page_content)
+    assert index_content == obj.read().decode("utf8")
+
+    page_content = render_template(
+        "sitemap/page.xml",
+        urlset=[
+            {
+                "loc": f"{base_url}/literature/{literature_recid}",
+                "lastmod": literature_updated,
+            }
+        ],
+    )
+    validate_xml_syntax(page_content)
+
+    obj = BytesIO()
+    current_s3_instance.client.download_fileobj("sitemap", "sitemap1.xml", obj)
+    obj.seek(0)
+
+    assert page_content == obj.read().decode("utf8")
