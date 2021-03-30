@@ -17,7 +17,7 @@ from inspirehep.mailing.cli import mailing
 from inspirehep.matcher.cli import match
 from inspirehep.orcid.cli import orcid
 from inspirehep.records.cli import citations, importer, jobs
-from inspirehep.sitemap.cli import sitemap
+from inspirehep.search_engines.cli import render, sitemap
 
 cli = create_cli(create_app=create_app)
 
@@ -29,5 +29,6 @@ cli.add_command(orcid)
 cli.add_command(mailing)
 cli.add_command(files)
 cli.add_command(sitemap)
+cli.add_command(render)
 cli.add_command(index)
 cli.add_command(match)

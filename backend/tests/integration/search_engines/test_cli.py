@@ -7,12 +7,14 @@
 
 from io import BytesIO
 
+import pytest
 from flask import render_template
 from helpers.utils import create_record, es_search
 from inspire_utils.record import get_value
 from lxml import etree
 
 from inspirehep.files import current_s3_instance
+from inspirehep.search_engines.cli import BUCKETS
 from inspirehep.utils import get_inspirehep_url
 
 
@@ -38,7 +40,6 @@ def test_generate_multiple_sitemap_files_with_multiple_collection(
 
     config = {"SITEMAP_PAGE_SIZE": 1}
     with override_config(**config):
-        # create_sitemap()
         result = cli.invoke(["sitemap", "generate"])
     assert result.exit_code == 0
 
@@ -129,3 +130,51 @@ def test_generate_sitemap_file(inspire_app, s3, cli, override_config):
     obj.seek(0)
 
     assert page_content == obj.read().decode("utf8")
+
+
+@pytest.mark.vcr()
+def test_rendertron(inspire_app, s3, cli, override_config):
+    bucket_literature_1 = f'{inspire_app.config["S3_RENDERTRON_BUCKET"]}2'
+    bucket_literature_2 = f'{inspire_app.config["S3_RENDERTRON_BUCKET"]}1'
+
+    current_s3_instance.client.create_bucket(Bucket=bucket_literature_1)
+    current_s3_instance.client.create_bucket(Bucket=bucket_literature_2)
+
+    literature_1 = create_record("lit", data={"control_number": 20})
+    literature_2 = create_record("lit", data={"control_number": 1})
+
+    es_search("records-hep")
+
+    config = {"PREFERRED_URL_SCHEME": "https", "SERVER_NAME": "inspirehep.net"}
+    with override_config(**config):
+        result = cli.invoke(["render", "generate"])
+        assert result.exit_code == 0
+
+    obj = BytesIO()
+    current_s3_instance.client.download_fileobj(
+        bucket_literature_1, f"{literature_1.control_number}.html", obj
+    )
+    obj.seek(0)
+    expected_title = '<span class="__Latex__">IRRADIATION OF A CERIUM - CONTAINING SILICATE GLASS</span>'
+    assert expected_title in obj.read().decode("utf8")
+
+    obj = BytesIO()
+    current_s3_instance.client.download_fileobj(
+        bucket_literature_2, f"{literature_2.control_number}.html", obj
+    )
+    obj.seek(0)
+
+    expected_title = '<span class="__Latex__">Isoclinic N planes in Euclidean 2N space, Clifford parallels in elliptic (2N-1) space, and the Hurwitz matrix equations</span>'
+    assert expected_title in obj.read().decode("utf8")
+
+
+def test_create_buckets(inspire_app, s3, cli, override_config):
+    config = {"S3_FILE_ACL": "public-read", "S3_RENDERTRON_BUCKET": "test-"}
+    with override_config(**config):
+        result = cli.invoke(["render", "create_buckets"])
+
+        assert result.exit_code == 0
+        for bucket in BUCKETS:
+            # asserts if bucket is created
+            # throws NoSuchBucket, therefore fails the tests
+            current_s3_instance.client.get_bucket_acl(Bucket=f"test-{bucket}")

@@ -15,11 +15,16 @@ from elasticsearch import (
     RequestError,
 )
 from flask import current_app, render_template
+from requests.exceptions import HTTPError
 
 from inspirehep.utils import chunker
 
-from .sitemap import generate_sitemap_items
-from .utils import get_sitemap_page_absolute_url, write_sitemap_page_content
+from .render import get_rendered_records, upload_rendered_content
+from .sitemap import (
+    generate_sitemap_items,
+    get_sitemap_page_absolute_url,
+    upload_sitemap_content,
+)
 
 LOGGER = structlog.getLogger()
 
@@ -45,7 +50,7 @@ def create_sitemap():
     pages = chunker(sitemap_items, page_size)
     for page_items in pages:
         page_content = render_template("sitemap/page.xml", urlset=page_items)
-        write_sitemap_page_content(page, page_content)
+        upload_sitemap_content(page, page_content)
         page += 1
 
     page_range = range(1, page)
@@ -54,4 +59,28 @@ def create_sitemap():
         for page_number in page_range
     ]
     index_content = render_template("sitemap/index.xml", urlset=index_items)
-    write_sitemap_page_content("", index_content)
+    upload_sitemap_content("", index_content)
+
+
+@shared_task(
+    ignore_results=False,
+    queue="rendertron",
+    acks_late=True,
+    retry_backoff=2,
+    retry_kwargs={"max_retries": 6},
+    autoretry_for=(
+        ConflictError,
+        ConnectionError,
+        ConnectionTimeout,
+        NotFoundError,
+        RequestError,
+        HTTPError,
+    ),
+)
+def render_records():
+    collections = get_rendered_records()
+    for collection in collections:
+        records = chunker(collection, 1000)
+        for idx, records in enumerate(records):
+            for control_number, record_html in records:
+                upload_rendered_content(record_html, control_number)
