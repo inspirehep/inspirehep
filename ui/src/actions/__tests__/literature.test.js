@@ -24,6 +24,7 @@ import {
   clearLiteratureSelection,
   setAssignDrawerVisibility,
   assignPapers,
+  exportToCds,
 } from '../literature';
 import {
   assignError,
@@ -267,6 +268,36 @@ describe('literature - async action creators', () => {
       expect(store.getActions()).toEqual(expectedActions);
 
       expect(assignError).toHaveBeenCalled();
+    });
+  });
+  describe('exportToCds', () => {
+    afterEach(() => {
+      clear();
+    });
+
+    it('successfully export to cds', async () => {
+      const literatureSelection = [1, 2, 3];
+      const fakeNow = 1597314028798;
+
+      advanceTo(fakeNow);
+
+      const store = getStore({
+        literature: fromJS({
+          literatureSelection: Set(literatureSelection),
+        }),
+      });
+
+      mockHttp
+        .onPost('/assign/export-to-cds', {
+          literature_recids: literatureSelection,
+        })
+        .replyOnce(200, { message: 'Success' });
+
+      const expectedActions = [clearLiteratureSelection()];
+      const dispatchPromise = store.dispatch(exportToCds());
+
+      await dispatchPromise;
+      expect(store.getActions()).toEqual(expectedActions);
     });
   });
 });

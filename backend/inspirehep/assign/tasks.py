@@ -7,6 +7,7 @@
 import structlog
 from celery import shared_task
 from inspire_schemas.builders import LiteratureBuilder
+from inspire_utils.record import get_value
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
 from jsonschema import ValidationError
@@ -65,13 +66,12 @@ def assign_paper_to_conference(literature_recids, conference_recid):
             try:
                 updated_data = assign_conference(record, conference_ref, cnum)
                 record.update(updated_data)
-            except ValidationError as err:
+            except ValidationError:
                 LOGGER.exception(
                     "Cannot assign conference to paper.",
                     recid=recid,
                     cnum=cnum,
                     conference_recid=conference_recid,
-                    err=err,
                 )
             except MissingArgumentError:
                 LOGGER.error(
@@ -139,3 +139,38 @@ def assign_conference(record, conference_ref, cnum):
                 )
 
     return dict(builder.record)
+
+
+@shared_task(
+    ignore_results=False,
+    queue="assign",
+    acks_late=True,
+    retry_backoff=2,
+    retry_kwargs={"max_retries": 6},
+    autoretry_for=(
+        NoResultFound,
+        StaleDataError,
+        DisconnectionError,
+        TimeoutError,
+        UnboundExecutionError,
+        ResourceClosedError,
+        OperationalError,
+    ),
+)
+def export_papers_to_cds(literature_recids):
+    for recid in literature_recids:
+        try:
+            record = LiteratureRecord.get_record_by_pid_value(recid)
+        except PIDDoesNotExistError:
+            LOGGER.error(
+                "Cannot export to CDS. Record does not exist.", literature_recid=recid
+            )
+            continue
+        current_exports = get_value(record, "_export_to", {})
+        current_exports["CDS"] = True
+        record["_export_to"] = current_exports
+        try:
+            record.update(dict(record))
+        except ValidationError:
+            LOGGER.exception("Cannot assign export to CDS.", recid=recid)
+    db.session.commit()

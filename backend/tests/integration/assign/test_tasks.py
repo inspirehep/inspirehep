@@ -6,7 +6,11 @@
 # the terms of the MIT License; see LICENSE file for more details.
 from helpers.utils import create_record
 
-from inspirehep.assign.tasks import assign_conference, assign_paper_to_conference
+from inspirehep.assign.tasks import (
+    assign_conference,
+    assign_paper_to_conference,
+    export_papers_to_cds,
+)
 from inspirehep.records.api import LiteratureRecord
 
 
@@ -73,3 +77,48 @@ def test_assign_to_already_existing_publication_info_entry(inspire_app):
     assert literature1["publication_info"] == expected_publication_info
     assert literature2["publication_info"] == expected_publication_info
     assert literature3["publication_info"] == expected_publication_info
+
+
+def test_export_to_cds_happy_flow(inspire_app):
+    literature1 = create_record("lit")
+
+    export_papers_to_cds([literature1["control_number"]])
+    record_1 = LiteratureRecord.get_record_by_pid_value(literature1.control_number)
+    assert record_1["_export_to"] == {"CDS": True}
+
+
+def test_export_to_cds_many_records_happy_flow(inspire_app):
+    literature1 = create_record("lit")
+    literature2 = create_record("lit")
+    literature3 = create_record("lit")
+
+    export_papers_to_cds(
+        [
+            literature1["control_number"],
+            literature2["control_number"],
+            literature3["control_number"],
+        ]
+    )
+    record_1 = LiteratureRecord.get_record_by_pid_value(literature1.control_number)
+    record_2 = LiteratureRecord.get_record_by_pid_value(literature2.control_number)
+    record_3 = LiteratureRecord.get_record_by_pid_value(literature3.control_number)
+
+    assert record_1["_export_to"] == {"CDS": True}
+    assert record_2["_export_to"] == {"CDS": True}
+    assert record_3["_export_to"] == {"CDS": True}
+
+
+def test_export_to_cds_when_other_flag_present(inspire_app):
+    literature1 = create_record("lit", data={"_export_to": {"HAL": True}})
+
+    export_papers_to_cds([literature1["control_number"]])
+    record_1 = LiteratureRecord.get_record_by_pid_value(literature1.control_number)
+    assert record_1["_export_to"] == {"CDS": True, "HAL": True}
+
+
+def test_export_to_cds_when_override_old_flag_value(inspire_app):
+    literature1 = create_record("lit", data={"_export_to": {"CDS": False}})
+
+    export_papers_to_cds([literature1["control_number"]])
+    record_1 = LiteratureRecord.get_record_by_pid_value(literature1.control_number)
+    assert record_1["_export_to"] == {"CDS": True}
