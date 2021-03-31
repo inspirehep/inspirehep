@@ -381,3 +381,51 @@ def test_assign_conference_view_missing_parameters(inspire_app):
             content_type="application/json",
         )
         assert response.status_code == expected_status_code
+
+
+def test_literature_export_to_cds_view(inspire_app):
+    cataloger = create_user(role=Roles.cataloger.value)
+    literature1 = create_record("lit")
+    literature2 = create_record(
+        "lit", data={"_export_to": {"CDS": False, "HAL": False}}
+    )
+
+    expected_status_code = 200
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=cataloger.email)
+        response = client.post(
+            "/assign/export-to-cds",
+            data=orjson.dumps(
+                {
+                    "literature_recids": [
+                        literature1.control_number,
+                        literature2.control_number,
+                    ]
+                }
+            ),
+            content_type="application/json",
+        )
+        response_status_code = response.status_code
+
+    assert response_status_code == expected_status_code
+
+    literature1 = LiteratureRecord.get_record_by_pid_value(literature1.control_number)
+    literature2 = LiteratureRecord.get_record_by_pid_value(literature2.control_number)
+
+    assert literature1["_export_to"] == {"CDS": True}
+    assert literature2["_export_to"] == {"CDS": True, "HAL": False}
+
+
+def test_literature_export_to_cds_view_missing_parameters(inspire_app):
+    cataloger = create_user(role=Roles.cataloger.value)
+    expected_status_code = 422
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=cataloger.email)
+        response = client.post(
+            "/assign/export-to-cds",
+            data=orjson.dumps({}),
+            content_type="application/json",
+        )
+        assert response.status_code == expected_status_code

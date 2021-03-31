@@ -26,6 +26,20 @@ exports[`ToolAction renders 1`] = `
     >
       Assign conference
     </MenuItem>
+    <MenuItem
+      data-test-id="export-to-CDS"
+      key="export-to-CDS"
+      onClick={[Function]}
+      title={null}
+    >
+      Export to CDS
+    </MenuItem>
+    <ExportToCdsModal
+      onCancel={[Function]}
+      onOk={[Function]}
+      selectionSize={3}
+      visible={false}
+    />
   </DropdownMenu>
 </ListItemAction>
 `;
@@ -57,6 +71,21 @@ exports[`ToolAction renders disabled 1`] = `
     >
       Assign conference
     </MenuItem>
+    <MenuItem
+      data-test-id="export-to-CDS"
+      disabled={true}
+      key="export-to-CDS"
+      onClick={[Function]}
+      title="Please select up to 250 papers that you want to export to CDS."
+    >
+      Export to CDS
+    </MenuItem>
+    <ExportToCdsModal
+      onCancel={[Function]}
+      onOk={[Function]}
+      selectionSize={3}
+      visible={false}
+    />
   </DropdownMenu>
 </ListItemAction>
 `;

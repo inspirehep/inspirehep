@@ -152,3 +152,13 @@ export function assignPapers(conferenceId, conferenceTitle) {
     }
   };
 }
+
+export function exportToCds() {
+  return (dispatch, getState, http) => {
+    const papers = getState().literature.get('literatureSelection');
+    http.post('/assign/export-to-cds', {
+      literature_recids: papers,
+    });
+    dispatch(clearLiteratureSelection());
+  };
+}

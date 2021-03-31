@@ -13,7 +13,7 @@ from webargs.flaskparser import FlaskParser
 
 from inspirehep.accounts.decorators import login_required_with_roles
 from inspirehep.accounts.roles import Roles
-from inspirehep.assign.tasks import assign_paper_to_conference
+from inspirehep.assign.tasks import assign_paper_to_conference, export_papers_to_cds
 from inspirehep.disambiguation.utils import create_new_stub_author, update_author_names
 from inspirehep.records.api import AuthorsRecord, LiteratureRecord
 from inspirehep.serializers import jsonify
@@ -104,8 +104,26 @@ def literature_assign_conferences_view(args):
 
     try:
         assign_paper_to_conference.delay(literature_recids, conference_recid)
-    except Exception as err:
-        LOGGER.exception("Cannot start 'assign_paper_to_conference' task.", err=err)
+    except Exception:
+        LOGGER.exception("Cannot start 'assign_paper_to_conference' task.")
         return jsonify({"message": "Internal Error"}), 500
 
+    return jsonify({"message": "Success"}), 200
+
+
+@blueprint.route("export-to-cds", methods=["POST"])
+@login_required_with_roles([Roles.cataloger.value])
+@parser.use_args(
+    {
+        "literature_recids": fields.List(fields.Integer, required=True),
+    },
+    locations=("json",),
+)
+def literature_export_to_cds(args):
+    literature_recids = args["literature_recids"]
+    try:
+        export_papers_to_cds(literature_recids)
+    except Exception:
+        LOGGER.exception("Cannot start 'export_to_cds' task.")
+        return jsonify({"message": "Internal Error"}), 500
     return jsonify({"message": "Success"}), 200

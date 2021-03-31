@@ -1,23 +1,30 @@
 import { connect } from 'react-redux';
 
 import ToolAction from '../components/ToolAction';
-import { setAssignDrawerVisibility } from '../../actions/literature';
+import {
+  setAssignDrawerVisibility,
+  exportToCds,
+} from '../../actions/literature';
 
-import { MAX_ASSIGN_RECORDS_TO_CONFERENCE } from '../constants';
+import { MAX_BULK_ASSIGN } from '../constants';
 
 const stateToProps = (state) => {
   const literatureSelectionSize = state.literature.get('literatureSelection')
     .size;
   return {
-    disabledAssignConference:
+    selectionSize: literatureSelectionSize,
+    disabledBulkAssign:
       literatureSelectionSize === 0 ||
-      literatureSelectionSize > MAX_ASSIGN_RECORDS_TO_CONFERENCE,
+      literatureSelectionSize > MAX_BULK_ASSIGN,
   };
 };
 
 const dispatchToProps = (dispatch) => ({
   onAssignToConference() {
     dispatch(setAssignDrawerVisibility(true));
+  },
+  onExportToCds() {
+    dispatch(exportToCds());
   },
 });
 

@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExportToCdsModal renders modal for one paper 1`] = `
+<Modal
+  confirmLoading={false}
+  footer={
+    Array [
+      <Button
+        block={false}
+        ghost={false}
+        htmlType="button"
+        loading={false}
+        onClick={[MockFunction]}
+        type="primary"
+      >
+        Confirm
+      </Button>,
+    ]
+  }
+  maskTransitionName="fade"
+  okType="primary"
+  onCancel={[MockFunction]}
+  transitionName="zoom"
+  visible={true}
+  width={520}
+>
+  <p>
+    You have selected 
+    1
+     
+    paper
+    .
+    <br />
+    Are you sure you want to export it to CDS?
+  </p>
+</Modal>
+`;
+
+exports[`ExportToCdsModal renders not visible 1`] = `
+<Modal
+  confirmLoading={false}
+  footer={
+    Array [
+      <Button
+        block={false}
+        ghost={false}
+        htmlType="button"
+        loading={false}
+        onClick={[MockFunction]}
+        type="primary"
+      >
+        Confirm
+      </Button>,
+    ]
+  }
+  maskTransitionName="fade"
+  okType="primary"
+  onCancel={[MockFunction]}
+  transitionName="zoom"
+  visible={false}
+  width={520}
+>
+  <p>
+    You have selected 
+    1
+     
+    paper
+    .
+    <br />
+    Are you sure you want to export it to CDS?
+  </p>
+</Modal>
+`;
