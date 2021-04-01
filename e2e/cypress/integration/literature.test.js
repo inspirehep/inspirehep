@@ -9,6 +9,16 @@ describe('Literature Search', () => {
       cy.waitForSearchResults();
       cy.matchSnapshots('LiteratureSearch');
     });
+
+    it('matches image snapshot for cataloger', () => {
+      cy.login('cataloger');
+      cy.registerRoute();
+      cy.visit('/literature?ui-citation-summary=true');
+      cy.waitForRoute();
+      cy.waitForSearchResults();
+      cy.matchSnapshots('LiteratureSearchCataloger');
+      cy.logout();
+    });
   });
 });
 
@@ -52,9 +62,9 @@ describe.skip('Literature Editor', () => {
       method: 'POST',
     });
 
-    cy
-      .get('[data-path="/publication_info/0/journal_title"]')
-      .type('Updated by Cypress Test{enter}');
+    cy.get('[data-path="/publication_info/0/journal_title"]').type(
+      'Updated by Cypress Test{enter}'
+    );
     cy.contains('button', 'Save').click();
 
     cy.waitForRoute(SAVE_CALLBACK);
@@ -172,15 +182,13 @@ describe('Literature Submission', () => {
     cy.contains('Conference Info').click();
     cy.contains('Proceedings Info').click();
     cy.contains('Comments').click();
-    cy
-      .testSubmission({
-        collection: 'literature',
-        formData,
-        expectedMetadata,
-      })
-      .then(newWorkflow => {
-        cy.wrap(newWorkflow).should('like', expectedWorkflow);
-      });
+    cy.testSubmission({
+      collection: 'literature',
+      formData,
+      expectedMetadata,
+    }).then((newWorkflow) => {
+      cy.wrap(newWorkflow).should('like', expectedWorkflow);
+    });
   });
 
   it('submits a new thesis', () => {
@@ -244,15 +252,13 @@ describe('Literature Submission', () => {
     };
     cy.visit('/submissions/literature');
     cy.selectLiteratureDocType('thesis');
-    cy
-      .testSubmission({
-        collection: 'literature',
-        formData,
-        expectedMetadata,
-      })
-      .then(newWorkflow => {
-        cy.wrap(newWorkflow).should('like', expectedWorkflow);
-      });
+    cy.testSubmission({
+      collection: 'literature',
+      formData,
+      expectedMetadata,
+    }).then((newWorkflow) => {
+      cy.wrap(newWorkflow).should('like', expectedWorkflow);
+    });
   });
 
   it('submits a new book', () => {
@@ -292,15 +298,13 @@ describe('Literature Submission', () => {
     };
     cy.visit('/submissions/literature');
     cy.selectLiteratureDocType('book');
-    cy
-      .testSubmission({
-        collection: 'literature',
-        formData,
-        expectedMetadata,
-      })
-      .then(newWorkflow => {
-        cy.wrap(newWorkflow).should('like', expectedWorkflow);
-      });
+    cy.testSubmission({
+      collection: 'literature',
+      formData,
+      expectedMetadata,
+    }).then((newWorkflow) => {
+      cy.wrap(newWorkflow).should('like', expectedWorkflow);
+    });
   });
 
   it('submits a new book chapter', () => {
@@ -335,15 +339,13 @@ describe('Literature Submission', () => {
     };
     cy.visit('/submissions/literature');
     cy.selectLiteratureDocType('bookChapter');
-    cy
-      .testSubmission({
-        collection: 'literature',
-        formData,
-        expectedMetadata,
-      })
-      .then(newWorkflow => {
-        cy.wrap(newWorkflow).should('like', expectedWorkflow);
-      });
+    cy.testSubmission({
+      collection: 'literature',
+      formData,
+      expectedMetadata,
+    }).then((newWorkflow) => {
+      cy.wrap(newWorkflow).should('like', expectedWorkflow);
+    });
   });
 
   afterEach(() => {

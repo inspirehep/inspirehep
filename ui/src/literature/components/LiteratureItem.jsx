@@ -11,6 +11,7 @@ import {
 
 import ArxivEprintList from './ArxivEprintList';
 import LiteratureDate from './LiteratureDate';
+import PublicNotes from './PublicNotes';
 import AuthorsAndCollaborations from '../../common/components/AuthorsAndCollaborations';
 import PublicationInfoList from '../../common/components/PublicationInfoList';
 import UrlsAction from './UrlsAction';
@@ -31,7 +32,7 @@ import {
 import AssignAuthorViewContext from '../../authors/AssignViewContext';
 import AssignOneActionContainer from '../../authors/containers/AssignOneActionContainer';
 
-function LiteratureItem({ metadata, searchRank }) {
+function LiteratureItem({ metadata, searchRank, isCatalogerLoggedIn }) {
   const title = metadata.getIn(['titles', 0]);
   const authors = metadata.get('authors');
 
@@ -42,6 +43,7 @@ function LiteratureItem({ metadata, searchRank }) {
   const citationCount = metadata.get('citation_count', 0);
   const authorCount = metadata.get('number_of_authors');
   const conferenceInfo = metadata.get('conference_info');
+  const publicNotes = metadata.get('public_notes');
 
   const date = metadata.get('date');
   const publicationInfo = metadata.get('publication_info');
@@ -148,6 +150,13 @@ function LiteratureItem({ metadata, searchRank }) {
             {eprints && <ArxivEprintList eprints={eprints} />}
           </InlineUL>
         </div>
+        {isCatalogerLoggedIn && (
+          <div className="mt1">
+            <InlineUL separator={SEPARATOR_MIDDLEDOT}>
+              <PublicNotes publicNotes={publicNotes} />
+            </InlineUL>
+          </div>
+        )}
       </div>
     </ResultItem>
   );
@@ -156,6 +165,7 @@ function LiteratureItem({ metadata, searchRank }) {
 LiteratureItem.propTypes = {
   metadata: PropTypes.instanceOf(Map).isRequired,
   searchRank: PropTypes.number.isRequired,
+  isCatalogerLoggedIn: PropTypes.bool,
 };
 
 export default LiteratureItem;

@@ -21,6 +21,7 @@ import CitationSummarySwitchContainer, {
   isCitationSummaryEnabled,
 } from './CitationSummarySwitchContainer';
 import { SEARCH_PAGE_GUTTER } from '../../common/constants';
+import { isCataloger } from '../../common/authorization';
 import CitationSummaryBox from '../components/CitationSummaryBox';
 import PublicationSelectContainer from '../../authors/containers/PublicationSelectContainer';
 import PublicationsSelectAllContainer from '../../authors/containers/PublicationsSelectAllContainer';
@@ -44,6 +45,7 @@ function LiteratureSearch({
   isCitationSummaryVisible,
   embedded,
   enableCitationSummary,
+  isCatalogerLoggedIn,
 }) {
   const renderAggregations = useCallback(
     () => (
@@ -163,6 +165,7 @@ function LiteratureSearch({
                         <LiteratureItem
                           metadata={result.get('metadata')}
                           searchRank={rank}
+                          isCatalogerLoggedIn={isCatalogerLoggedIn}
                         />
                       </Col>
                     </Row>
@@ -191,6 +194,7 @@ LiteratureSearch.propTypes = {
   isCitationSummaryVisible: PropTypes.bool.isRequired,
   embedded: PropTypes.bool,
   enableCitationSummary: PropTypes.bool,
+  isCatalogerLoggedIn: PropTypes.bool,
 };
 
 LiteratureSearch.defaultProps = {
@@ -206,6 +210,7 @@ const stateToProps = (state, { namespace }) => ({
   ]),
   results: state.search.getIn(['namespaces', namespace, 'results']),
   isCitationSummaryVisible: isCitationSummaryEnabled(state),
+  isCatalogerLoggedIn: isCataloger(state.user.getIn(['data', 'roles'])),
 });
 
 const dispatchToProps = (dispatch) => ({
