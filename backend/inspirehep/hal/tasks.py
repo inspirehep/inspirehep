@@ -9,6 +9,7 @@
 import structlog
 from celery import shared_task
 from inspire_utils.record import get_values_for_schema
+from lxml import etree
 from sword2.exceptions import RequestTimeOut
 
 from inspirehep.hal.core.sword import create, update
@@ -16,6 +17,19 @@ from inspirehep.hal.core.tei import convert_to_tei
 from inspirehep.records.api import LiteratureRecord
 
 LOGGER = structlog.getLogger()
+
+
+def _get_error_message_from_hal_exception(exception):
+    try:
+        if exception.content:
+            root = etree.fromstring(exception.content)
+            error = root.findall(
+                ".//{http://purl.org/net/sword/error/}verboseDescription"
+            )[0].text
+            return error
+        return f"Error {exception.response['status']}"
+    except Exception:
+        return exception
 
 
 @shared_task(
@@ -38,8 +52,9 @@ def hal_push(self, recid):
         record = LiteratureRecord.get_record_by_pid_value(recid)
         _hal_push(record)
         LOGGER.info("hal_push task successfully completed.", recid=recid)
-    except Exception:
-        LOGGER.warning("hal_push task failed", recid=recid)
+    except Exception as exc:
+        error_message = _get_error_message_from_hal_exception(exc)
+        LOGGER.error("hal_push task failed", recid=recid, message=error_message)
         raise
 
 
