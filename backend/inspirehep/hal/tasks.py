@@ -6,9 +6,12 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
+import re
+
 import structlog
 from celery import shared_task
-from inspire_utils.record import get_values_for_schema
+from inspire_utils.record import get_value, get_values_for_schema
+from invenio_db import db
 from lxml import etree
 from sword2.exceptions import RequestTimeOut
 
@@ -65,12 +68,44 @@ def _hal_push(record):
         ids = record.get("external_system_identifiers", [])
         hal_value = get_values_for_schema(ids, "HAL")
         hal_id = hal_value[0] if hal_value else ""
-
-        receipt = None
         if hal_id:
-            receipt = update(tei, hal_id)
-            LOGGER.info("HAL updated.", recid=record["control_number"], hal_id=hal_id)
+            receipt = _hal_update(tei, hal_id, record)
         else:
-            receipt = create(tei)
-            LOGGER.info("HAL created.", recid=record["control_number"], receipt=receipt)
+            receipt = _hal_create(tei, record)
+        if receipt and receipt.id != hal_id:
+            _write_hal_id_to_record(record, receipt.id)
         return receipt
+
+
+def _hal_update(tei, hal_id, record):
+    receipt = update(tei, hal_id)
+    LOGGER.info("HAL updated.", recid=record["control_number"], hal_id=hal_id)
+    return receipt
+
+
+def _hal_create(tei, record):
+    receipt = None
+    try:
+        receipt = create(tei)
+        LOGGER.info("HAL created.", recid=record["control_number"], receipt=receipt)
+    except Exception as e:
+        message = _get_error_message_from_hal_exception(e)
+        if "duplicate-entry" in message:
+            hal_id = re.findall("hal-[0-9]{8}", message)[0]
+            receipt = _hal_update(tei, hal_id, record)
+    return receipt
+
+
+def _write_hal_id_to_record(record, new_hal_id):
+    record_external_identifiers = get_value(record, "external_system_identifiers", [])
+    record_external_identifiers_without_hal_id = [
+        identifier
+        for identifier in record_external_identifiers
+        if identifier.get("schema") != "HAL"
+    ]
+    record_external_identifiers_without_hal_id.append(
+        {"schema": "HAL", "value": new_hal_id}
+    )
+    record["external_system_identifiers"] = record_external_identifiers_without_hal_id
+    record.update(dict(record), disable_external_push=True)
+    db.session.commit()

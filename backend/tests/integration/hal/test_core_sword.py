@@ -24,6 +24,7 @@ import orjson
 import pytest
 from flask import current_app
 from helpers.providers.faker import faker
+from inspire_utils.record import get_value, get_values_for_schema
 from mock import patch
 
 from inspirehep.hal.core.sword import (
@@ -35,13 +36,13 @@ from inspirehep.hal.tasks import _hal_push
 from inspirehep.records.api import InspireRecord
 
 
-def test_new_connection_is_secure_by_default(app):
+def test_new_connection_is_secure_by_default(inspire_app):
     connection = _new_connection()
 
     assert not connection.h.h.disable_ssl_certificate_validation
 
 
-def test_new_connection_can_be_configured_to_be_insecure(app):
+def test_new_connection_can_be_configured_to_be_insecure(inspire_app):
     config = {"HAL_IGNORE_CERTIFICATES": True}
 
     with patch.dict(current_app.config, config):
@@ -51,12 +52,12 @@ def test_new_connection_can_be_configured_to_be_insecure(app):
 
 
 @pytest.mark.vcr()
-def test_service_document(app):
-    user_name = app.config["HAL_USER_NAME"]
-    user_pass = app.config["HAL_USER_PASS"]
-    sd_iri = app.config["HAL_SERVICE_DOCUMENT_IRI"]
-    timeout = app.config["HAL_CONNECTION_TIMEOUT"]
-    ignore_cert = app.config.get("HAL_IGNORE_CERTIFICATES", False)
+def test_service_document(inspire_app):
+    user_name = inspire_app.config["HAL_USER_NAME"]
+    user_pass = inspire_app.config["HAL_USER_PASS"]
+    sd_iri = inspire_app.config["HAL_SERVICE_DOCUMENT_IRI"]
+    timeout = inspire_app.config["HAL_CONNECTION_TIMEOUT"]
+    ignore_cert = inspire_app.config.get("HAL_IGNORE_CERTIFICATES", False)
     http_impl = HttpLib2LayerIgnoreCert(
         ".cache", timeout=timeout, disable_ssl_certificate_validation=ignore_cert
     )
@@ -67,18 +68,18 @@ def test_service_document(app):
     conn.get_service_document()
     conn.workspaces
     hrefs = sum([[sdcol.href for sdcol in v] for k, v in conn.workspaces], [])
-    assert app.config["HAL_COL_IRI"] in hrefs
+    assert inspire_app.config["HAL_COL_IRI"] in hrefs
 
 
 @pytest.mark.vcr()
-def test_push(app, get_fixture):
+def test_push_happy_flow(inspire_app, get_fixture):
     record_json = orjson.loads(get_fixture("hal_preprod_record.json"))
     record_data = faker.record("lit", data=record_json)
     record = InspireRecord.create(record_data)
 
     institute_json = orjson.loads(get_fixture("hal_preprod_institute.json"))
     institute_data = faker.record("ins", data=institute_json)
-    institute_record = InspireRecord.create(institute_data)
+    InspireRecord.create(institute_data)
 
     # hal create
     receipt = _hal_push(record)
@@ -88,34 +89,71 @@ def test_push(app, get_fixture):
 
     hal_id = receipt.id
     assert hal_id
-
-    data = dict(record)
-    data["external_system_identifiers"] = [{"value": hal_id, "schema": "HAL"}]
-    record.update(data)
+    updated_record = InspireRecord.get_record_by_pid_value(
+        record["control_number"], "lit"
+    )
+    assert (
+        get_values_for_schema(
+            get_value(updated_record, "external_system_identifiers", []), "HAL"
+        )[0]
+        == hal_id
+    )
 
     # hal update
     receipt = _hal_push(record)
     assert receipt
     assert receipt.parsed
 
-    institute_record.delete()
-    record.delete()
+
+@pytest.mark.vcr()
+def test_push_again_on_already_existing_exception(inspire_app, get_fixture):
+    record_json = orjson.loads(get_fixture("hal_preprod_record.json"))
+    record_data = faker.record("lit", data=record_json)
+    record = InspireRecord.create(record_data)
+
+    institute_json = orjson.loads(get_fixture("hal_preprod_institute.json"))
+    institute_data = faker.record("ins", data=institute_json)
+    InspireRecord.create(institute_data)
+
+    # hal create
+    receipt = _hal_push(record)
+
+    assert receipt
+    assert receipt.parsed
+
+    hal_id = receipt.id
+    assert hal_id
+    updated_record = InspireRecord.get_record_by_pid_value(
+        record["control_number"], "lit"
+    )
+    assert (
+        get_values_for_schema(
+            get_value(updated_record, "external_system_identifiers", []), "HAL"
+        )[0]
+        == hal_id
+    )
 
 
 @pytest.mark.vcr()
-def test_unicode_data(app, get_fixture):
+def test_unicode_data(inspire_app, get_fixture):
     record_json = orjson.loads(get_fixture("hal_preprod_unicode_record.json"))
     record_data = faker.record("lit", data=record_json)
     record = InspireRecord.create(record_data)
 
     institute_json = orjson.loads(get_fixture("hal_preprod_unicode_institute.json"))
     institute_data = faker.record("ins", data=institute_json)
-    institute_record = InspireRecord.create(institute_data)
+    InspireRecord.create(institute_data)
 
     receipt = _hal_push(record)
 
     assert receipt
     assert receipt.parsed
-
-    institute_record.delete()
-    record.delete()
+    updated_record = InspireRecord.get_record_by_pid_value(
+        record["control_number"], "lit"
+    )
+    assert (
+        get_values_for_schema(
+            get_value(updated_record, "external_system_identifiers", []), "HAL"
+        )[0]
+        == receipt.id
+    )
