@@ -89,5 +89,5 @@ HAL_IGNORE_CERTIFICATES = False
 """Whether to check certificates when connecting to HAL."""
 
 
-HAL_CONNECTION_TIMEOUT = 30
+HAL_CONNECTION_TIMEOUT = 2 * 60
 """Timeout for HAL connection"""
