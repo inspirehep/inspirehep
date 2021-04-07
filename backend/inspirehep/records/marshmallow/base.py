@@ -4,6 +4,7 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+import warnings
 from copy import deepcopy
 
 import orjson
@@ -11,7 +12,11 @@ from flask import abort
 from inspire_dojson.utils import strip_empty_values
 from invenio_records_rest.schemas.json import RecordSchemaJSONV1
 from marshmallow import fields, post_dump, pre_dump
-from marshmallow.schema import Schema
+from marshmallow.schema import ChangedInMarshmallow3Warning, Schema
+
+warnings.filterwarnings(
+    "ignore", message=".*json_module.*", category=ChangedInMarshmallow3Warning
+)
 
 
 class EnvelopeSchema(RecordSchemaJSONV1):
