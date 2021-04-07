@@ -209,6 +209,9 @@
         },
         "type": "object"
       },
+      "primary_arxiv_category": {
+        "type": "keyword"
+      },
       "author_count": {
         "type": "integer"
       },
