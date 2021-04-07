@@ -1427,7 +1427,7 @@ description = "A PEG-based query parser for INSPIRE."
 name = "inspire-query-parser"
 optional = false
 python-versions = "*"
-version = "6.0.34"
+version = "6.0.35"
 
 [package.dependencies]
 inspire-schemas = ">=61.0,<62.0"
@@ -4689,8 +4689,8 @@ inspire-matcher = [
     {file = "inspire-matcher-9.0.8.tar.gz", hash = "sha256:2e10c71c3e576f0984adabe53f2c8292757a849927387aa8160bb62b92765285"},
 ]
 inspire-query-parser = [
-    {file = "inspire-query-parser-6.0.34.tar.gz", hash = "sha256:e428832c14fd2d66f5709a76c2038ab75e890e9d2c5500a88957dfbd21dbdb73"},
-    {file = "inspire_query_parser-6.0.34-py2-none-any.whl", hash = "sha256:5da25435ada87ee167d96cc2212aeb2e24de6d46413f9ff0989c4a5d6f670039"},
+    {file = "inspire-query-parser-6.0.35.tar.gz", hash = "sha256:b033eebad7f41d068eaaec7e6bafbf99f3e6d0854ea64dc97da00ba8a9226eb5"},
+    {file = "inspire_query_parser-6.0.35-py2-none-any.whl", hash = "sha256:d76ab43cfb9c640c47cd23e7f3904c4789c410ac043369725e6a114ab1bf2902"},
 ]
 inspire-schemas = [
     {file = "inspire_schemas-61.4.1-py2.py3-none-any.whl", hash = "sha256:120b31b48e6b70fb85aa17b778da49965c1da9ba9206b51bbc5163a987697a3e"},
