@@ -11,6 +11,7 @@ import orjson
 import structlog
 from flask import current_app
 from inspire_utils.helpers import force_list
+from inspire_utils.record import get_value
 from invenio_db import db
 from marshmallow import fields, missing, pre_dump
 
@@ -58,6 +59,7 @@ class LiteratureElasticSearchSchema(ElasticSearchBaseSchema, LiteratureRawSchema
     referenced_authors_bais = fields.Method(
         "get_referenced_authors_bais", dump_only=True
     )
+    primary_arxiv_category = fields.Method("get_primary_arxiv_category", dump_only=True)
 
     @staticmethod
     def get_referenced_authors_bais(record):
@@ -183,6 +185,14 @@ class LiteratureElasticSearchSchema(ElasticSearchBaseSchema, LiteratureRawSchema
                 "updated": record.updated,
             }
         return missing
+
+    @staticmethod
+    def get_primary_arxiv_category(record):
+        arxiv_categories = get_value(record, "arxiv_eprints.categories")
+        if not arxiv_categories:
+            return missing
+        arxiv_primary_categories = {categories[0] for categories in arxiv_categories}
+        return list(arxiv_primary_categories)
 
     @pre_dump
     def separate_authors_and_supervisors_and_populate_first_author(self, data):
