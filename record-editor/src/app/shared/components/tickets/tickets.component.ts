@@ -66,8 +66,8 @@ export class TicketsComponent extends SubscriberComponent implements OnInit {
       .filter(({ pidValue }) => Boolean(pidValue))
       .subscribe(({ pidType, pidValue }) => {
         this.recordId = pidValue;
-        if (pidType === 'literature') {
-          this.fetchTickets();
+        if (pidType === 'literature' || pidType === 'conferences') {
+          this.fetchTickets(pidType);
         }
       });
   }
@@ -80,14 +80,14 @@ export class TicketsComponent extends SubscriberComponent implements OnInit {
     this.tickets.push(ticket);
   }
 
-  private fetchTickets() {
+  private fetchTickets(pidType: string) {
     this.apiService
-      .fetchRecordTickets(this.recordId)
-      .then(tickets => {
+      .fetchRecordTickets(pidType, this.recordId)
+      .then((tickets) => {
         this.tickets = tickets;
         this.changeDetectorRef.markForCheck();
       })
-      .catch(error => {
+      .catch((error) => {
         if (error.status === 403) {
           this.toastrService.error(
             'Logged in user can not access to tickets',

@@ -40,7 +40,7 @@ export class CommonApiService {
   fetchUrl<Data = object>(url: string, options?: Object): Promise<Data> {
     return this.http
       .get(url, options)
-      .map(res => res.json())
+      .map((res) => res.json())
       .toPromise();
   }
 
@@ -48,15 +48,15 @@ export class CommonApiService {
     let body = { [sourceType]: source };
     return this.http
       .post(`${editorApiUrl}/refextract/${sourceType}`, body)
-      .map(res => res.json())
+      .map((res) => res.json())
       .toPromise();
   }
 
   authorExtract(source: string): Observable<AuthorExtractResult> {
     return this.http
       .post(`${editorApiUrl}/authorlist/text`, { text: source })
-      .catch(error => Observable.throw(new ApiError(error)))
-      .map(res => res.json());
+      .catch((error) => Observable.throw(new ApiError(error)))
+      .map((res) => res.json());
   }
 
   uploadFile(file: File): Observable<{ url: string }> {
@@ -64,15 +64,18 @@ export class CommonApiService {
     fileData.append('file', file, file.name);
     return this.http
       .post(`${editorApiUrl}/upload`, fileData)
-      .map(res => res.json())
-      .map(uploaded => uploaded.path);
+      .map((res) => res.json())
+      .map((uploaded) => uploaded.path);
   }
 
   // TODO: remove `literature` placeholders after backend refactor (tickets and revisions)
 
-  fetchRecordTickets(recordId: string | number): Promise<Array<Ticket>> {
+  fetchRecordTickets(
+    endpoint: string,
+    recordId: string | number
+  ): Promise<Array<Ticket>> {
     return this.fetchUrl(
-      `${editorApiUrl}/literature/${recordId}/rt/tickets`
+      `${editorApiUrl}/${endpoint}/${recordId}/rt/tickets`
     ) as Promise<Array<Ticket>>;
   }
 
@@ -82,7 +85,7 @@ export class CommonApiService {
   ): Promise<{ id: string; link: string }> {
     return this.http
       .post(`${editorApiUrl}/literature/${recordId}/rt/tickets/create`, ticket)
-      .map(res => res.json().data)
+      .map((res) => res.json().data)
       .toPromise();
   }
 
@@ -98,16 +101,16 @@ export class CommonApiService {
   fetchRTUsers(): Observable<Array<string>> {
     return this.http
       .get(`${editorApiUrl}/rt/users`)
-      .map(res => res.json())
-      .map((users: Array<{ name: string }>) => users.map(user => user.name));
+      .map((res) => res.json())
+      .map((users: Array<{ name: string }>) => users.map((user) => user.name));
   }
 
   fetchRTQueues(): Observable<Array<string>> {
     return this.http
       .get(`${editorApiUrl}/rt/queues`)
-      .map(res => res.json())
+      .map((res) => res.json())
       .map((queues: Array<{ name: string }>) =>
-        queues.map(queue => queue.name)
+        queues.map((queue) => queue.name)
       );
   }
 
@@ -120,9 +123,9 @@ export class CommonApiService {
 
     return this.http
       .post(`${matcherApiUrl}/linked_references`, { references })
-      .catch(error => Observable.throw(new ApiError(error)))
-      .map(res => res.json())
-      .map(json => json.references)
+      .catch((error) => Observable.throw(new ApiError(error)))
+      .map((res) => res.json())
+      .map((json) => json.references)
       .toPromise();
   }
 
@@ -132,14 +135,14 @@ export class CommonApiService {
   ): Promise<Array<RecordRevision>> {
     return this.http
       .get(`${editorApiUrl}/${pidType}/${pidValue}/revisions`)
-      .map(res => res.json())
+      .map((res) => res.json())
       .toPromise();
   }
 
   fetchRevisionData(transactionId: number, recUUID: string): Promise<Object> {
     return this.http
       .get(`${editorApiUrl}/revisions/${recUUID}/${transactionId}`)
-      .map(res => res.json())
+      .map((res) => res.json())
       .toPromise();
   }
 
@@ -152,7 +155,7 @@ export class CommonApiService {
       .put(`${editorApiUrl}/${pidType}/${pidValue}/revisions/revert`, {
         revision_id: revisionId,
       })
-      .map(res => res.json())
+      .map((res) => res.json())
       .toPromise();
   }
 }
