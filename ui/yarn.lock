@@ -3287,6 +3287,11 @@ commander@^2.19.0, commander@^2.20.0:
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
   integrity sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==
 
+commander@^6.0.0:
+  version "6.2.1"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-6.2.1.tgz#0792eb682dfbc325999bb2b84fddddba110ac73c"
+  integrity sha512-U7VdrJFnJgo4xjrHpTzu0yrHPGImdsmD95ZlgYSEajAn2JKzDhDTPG9kBTefmObL2w/ngeZnilk+OV9CG3d7UA==
+
 common-tags@^1.4.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/common-tags/-/common-tags-1.8.0.tgz#8e3153e542d4a39e9b10554434afaaf98956a937"
@@ -7258,12 +7263,12 @@ jsx-ast-utils@^2.0.1:
   dependencies:
     array-includes "^3.0.3"
 
-katex@^0.10.0-beta:
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/katex/-/katex-0.10.2.tgz#39973edbb65eda5b6f9e7f41648781e557dd4932"
-  integrity sha512-cQOmyIRoMloCoSIOZ1+gEwsksdJZ1EW4SWm3QzxSza/QsnZr6D4U1V9S4q+B/OLm2OQ8TCBecQ8MaIfnScI7cw==
+katex@^0.13.0:
+  version "0.13.2"
+  resolved "https://registry.yarnpkg.com/katex/-/katex-0.13.2.tgz#4075b9144e6af992ec9a4b772fa3754763be5f26"
+  integrity sha512-u/KhjFDhyPr+70aiBn9SL/9w/QlLagIXBi2NZSbNnBUp2tR8dCjQplyEMkEzniem5gOeSCBjlBUg4VaiWs1JJg==
   dependencies:
-    commander "^2.19.0"
+    commander "^6.0.0"
 
 killable@^1.0.0:
   version "1.0.1"
@@ -10354,12 +10359,12 @@ react-is@^16.8.1, react-is@^16.8.2:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
-react-latex-next@^1.1.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/react-latex-next/-/react-latex-next-1.2.0.tgz#6187fa1750fac532b7f90a804730ca8b17f5a592"
-  integrity sha512-pPL00P244G8NQgnj6eWX7zy0V7QawDlPnY5KJdMDQAvtpJOuAq+g/IH1hGV1r/e+OEz3lQBdGDTRC+NaKWUamA==
+react-latex-next@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/react-latex-next/-/react-latex-next-1.5.0.tgz#ab55c7d8662fd54ca777ab8222f55ac2aa22f092"
+  integrity sha512-H0hbI3WdKFBp+Rj5RllT2r5T0Ke6QaFgGoAp55qsjeAk90ImLDIeEVOu+e+y3oje+sDaJTA96ZlhlCc446kbkQ==
   dependencies:
-    katex "^0.10.0-beta"
+    katex "^0.13.0"
 
 react-lifecycles-compat@^3.0.0, react-lifecycles-compat@^3.0.2, react-lifecycles-compat@^3.0.4:
   version "3.0.4"

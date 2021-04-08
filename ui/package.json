@@ -16,8 +16,7 @@
     "test": "yarn lint && yarn test:unit --no-watch && yarn test:size",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "eject": "react-scripts eject",
-    "lint":
-      "./node_modules/eslint/bin/eslint.js ./src --ext .js,.jsx --config .eslintrc"
+    "lint": "./node_modules/eslint/bin/eslint.js ./src --ext .js,.jsx --config .eslintrc"
   },
   "dependencies": {
     "@ant-design/icons": "^4.0.0",
@@ -62,7 +61,7 @@
     "react-dom": "^16.8.3",
     "react-helmet": "^5.2.1",
     "react-image": "^2.2.1",
-    "react-latex-next": "^1.1.0",
+    "react-latex-next": "^1.5.0",
     "react-loadable": "^5.4.0",
     "react-modal": "^3.11.2",
     "react-piwik": "^1.6.0",
@@ -109,5 +108,10 @@
     "antd/rc-select": "10.1.0",
     "moment-timezone/moment": "2.24.0"
   },
-  "browserslist": [">0.2%", "not dead", "not ie <= 11", "not op_mini all"]
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
