@@ -42,3 +42,28 @@ export function assignError() {
     description: 'Something went wrong.',
   });
 }
+
+export function exportToCdsSuccess({ papers }) {
+  notification.success({
+    message: 'Export successful!',
+    duration: null,
+    description: <span>{papers.size} selected papers exported to CDS.</span>,
+  });
+}
+
+export function exportToCdsError() {
+  notification.close(ASSIGNING_NOTIFICATION_KEY);
+  notification.error({
+    className: 'super-zindex',
+    message: 'Export to CDS Error!',
+    description: 'Something went wrong.',
+  });
+}
+
+export function exporting() {
+  notification.info({
+    message: 'Exporting to CDS...',
+    description: 'We are processing your request',
+    duration: null,
+  });
+}
