@@ -30,6 +30,9 @@ import {
   assignError,
   assignSuccess,
   assigning,
+  exportToCdsSuccess,
+  exportToCdsError,
+  exporting,
 } from '../../literature/assignNotification';
 
 const mockHttp = new MockAdapter(http.httpClient);
@@ -295,9 +298,36 @@ describe('literature - async action creators', () => {
 
       const expectedActions = [clearLiteratureSelection()];
       const dispatchPromise = store.dispatch(exportToCds());
+      expect(exporting).toHaveBeenCalled();
 
       await dispatchPromise;
       expect(store.getActions()).toEqual(expectedActions);
+      expect(exportToCdsSuccess).toHaveBeenCalled();
     });
+  });
+  it('error', async () => {
+    const literatureSelection = [1, 2, 3];
+
+    const store = getStore({
+      literature: fromJS({
+        literatureSelection: Set(literatureSelection),
+      }),
+    });
+
+    mockHttp
+      .onPost('/assign/export-to-cds', {
+        literature_recids: literatureSelection,
+      })
+      .replyOnce(400, {});
+
+    const expectedActions = [];
+
+    const dispatchPromise = store.dispatch(exportToCds());
+    expect(exporting).toHaveBeenCalled();
+
+    await dispatchPromise;
+    expect(store.getActions()).toEqual(expectedActions);
+
+    expect(exportToCdsError).toHaveBeenCalled();
   });
 });
