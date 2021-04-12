@@ -66,9 +66,7 @@ export class TicketsComponent extends SubscriberComponent implements OnInit {
       .filter(({ pidValue }) => Boolean(pidValue))
       .subscribe(({ pidType, pidValue }) => {
         this.recordId = pidValue;
-        if (pidType === 'literature' || pidType === 'conferences') {
-          this.fetchTickets(pidType);
-        }
+        this.fetchTickets(pidType);
       });
   }
 
@@ -84,7 +82,9 @@ export class TicketsComponent extends SubscriberComponent implements OnInit {
     this.apiService
       .fetchRecordTickets(pidType, this.recordId)
       .then((tickets) => {
-        this.tickets = tickets;
+        this.tickets = tickets.filter(
+          (ticket) => ticket.queue !== 'HEP_conflicts'
+        );
         this.changeDetectorRef.markForCheck();
       })
       .catch((error) => {
