@@ -61,7 +61,7 @@
     "react-dom": "^16.8.3",
     "react-helmet": "^5.2.1",
     "react-image": "^2.2.1",
-    "react-latex-next": "^1.5.0",
+    "react-latex-next": "^2.0.0",
     "react-loadable": "^5.4.0",
     "react-modal": "^3.11.2",
     "react-piwik": "^1.6.0",

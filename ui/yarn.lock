@@ -10359,10 +10359,10 @@ react-is@^16.8.1, react-is@^16.8.2:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
-react-latex-next@^1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/react-latex-next/-/react-latex-next-1.5.0.tgz#ab55c7d8662fd54ca777ab8222f55ac2aa22f092"
-  integrity sha512-H0hbI3WdKFBp+Rj5RllT2r5T0Ke6QaFgGoAp55qsjeAk90ImLDIeEVOu+e+y3oje+sDaJTA96ZlhlCc446kbkQ==
+react-latex-next@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-latex-next/-/react-latex-next-2.0.0.tgz#c33b26b7ec18006207c544a0183dbf3cb68e3cf4"
+  integrity sha512-FbabI8S5k6sUodeo1Bu3mobF77c7l8HQLptfha9IEbam7iEUwycgdS6GexlBtKy6Cg9kyr8ZFHdozEaRly514w==
   dependencies:
     katex "^0.13.0"
 
