@@ -5,7 +5,13 @@ import { Link } from 'react-router-dom';
 import { getRecordIdFromRef } from '../../common/utils';
 import { LITERATURE } from '../../common/routes';
 
-function ParentRecordLink({ parentRecord }) {
+function ParentRecordInfo({ parentRecord, publicationInfo }) {
+  const pageStart = publicationInfo
+    ? publicationInfo.get(0, {}).get('page_start')
+    : null;
+  const pageEnd = publicationInfo
+    ? publicationInfo.get(0, {}).get('page_end')
+    : null;
   return (
     <div>
       <span>Part of </span>
@@ -15,13 +21,21 @@ function ParentRecordLink({ parentRecord }) {
         )}`}
       >
         {parentRecord.get('title')}
+        {parentRecord.has('subtitle') && (
+          <span> : {parentRecord.get('subtitle')}</span>
+        )}
       </Link>
+      {pageStart && pageEnd && (
+        <span>
+          , {pageStart}-{pageEnd}
+        </span>
+      )}
     </div>
   );
 }
 
-ParentRecordLink.propTypes = {
+ParentRecordInfo.propTypes = {
   parentRecord: PropTypes.instanceOf(Map).isRequired,
 };
 
-export default ParentRecordLink;
+export default ParentRecordInfo;
