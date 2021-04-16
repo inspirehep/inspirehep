@@ -11,7 +11,7 @@ import {
 
 import ArxivEprintList from './ArxivEprintList';
 import LiteratureDate from './LiteratureDate';
-import PublicNotes from './PublicNotes';
+import PublicNotesList from '../../common/components/PublicNotesList/PublicNotesList';
 import AuthorsAndCollaborations from '../../common/components/AuthorsAndCollaborations';
 import PublicationInfoList from '../../common/components/PublicationInfoList';
 import UrlsAction from './UrlsAction';
@@ -153,7 +153,7 @@ function LiteratureItem({ metadata, searchRank, isCatalogerLoggedIn }) {
         {isCatalogerLoggedIn && (
           <div className="mt1">
             <InlineUL separator={SEPARATOR_MIDDLEDOT}>
-              <PublicNotes publicNotes={publicNotes} />
+              <PublicNotesList publicNotes={publicNotes} />
             </InlineUL>
           </div>
         )}

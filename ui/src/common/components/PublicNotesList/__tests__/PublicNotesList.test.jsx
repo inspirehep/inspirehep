@@ -14,6 +14,9 @@ describe('PublicNotesList', () => {
       {
         value: 'note2',
       },
+      {
+        value: 'note3 here https://pos.sissa.it/390/977/pdf',
+      },
     ]);
     const wrapper = shallow(<PublicNotesList publicNotes={publicNotes} />);
     expect(wrapper.dive()).toMatchSnapshot();
