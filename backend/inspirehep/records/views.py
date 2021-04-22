@@ -4,7 +4,7 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-
+import structlog
 from flask import Blueprint, abort, current_app, request
 from flask.views import MethodView
 from invenio_records_rest.views import pass_record
@@ -26,6 +26,7 @@ from inspirehep.submissions.serializers import literature_v1
 
 from ..search.api import LiteratureSearch
 
+LOGGER = structlog.getLogger()
 blueprint = Blueprint("inspirehep_records", __name__, url_prefix="")
 
 
@@ -92,12 +93,15 @@ def import_article_view(identifier):
         return jsonify(message=str(message), recid=str(recid)), 409
 
     except ImportArticleError as e:
+        LOGGER.exception("Exception in import_article_view", exception=e)
         return jsonify(message=str(e)), 404
 
     except ImportConnectionError as e:
+        LOGGER.exception("Exception in import_article_view", exception=e)
         return jsonify(message=str(e)), 502
 
     except ImportParsingError as e:
+        LOGGER.exception("Exception in import_article_view", exception=e)
         return jsonify(message=f"The article has an invalid format.\n{e}"), 500
 
     except UnknownImportIdentifierError:
