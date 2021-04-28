@@ -21,9 +21,6 @@ import {
   assignSuccess,
   assignError,
   assigning,
-  exportToCdsSuccess,
-  exportToCdsError,
-  exporting,
 } from '../literature/assignNotification';
 
 function fetchingLiteratureReferences(query) {
@@ -157,17 +154,11 @@ export function assignPapers(conferenceId, conferenceTitle) {
 }
 
 export function exportToCds() {
-  return async (dispatch, getState, http) => {
-    try {
-      const papers = getState().literature.get('literatureSelection');
-      exporting();
-      await http.post('/assign/export-to-cds', {
-        literature_recids: papers,
-      });
-      exportToCdsSuccess({ papers });
-      dispatch(clearLiteratureSelection());
-    } catch (error) {
-      exportToCdsError();
-    }
+  return (dispatch, getState, http) => {
+    const papers = getState().literature.get('literatureSelection');
+    http.post('/assign/export-to-cds', {
+      literature_recids: papers,
+    });
+    dispatch(clearLiteratureSelection());
   };
 }
