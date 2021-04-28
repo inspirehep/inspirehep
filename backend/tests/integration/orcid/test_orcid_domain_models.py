@@ -32,9 +32,6 @@ from celery.exceptions import Retry
 from fqn_decorators.decorators import get_fqn
 from helpers.factories.db.invenio_oauthclient import TestRemoteToken
 from helpers.factories.db.invenio_records import TestRecordMetadata
-
-# The tests are written in a specific order, disable random
-from helpers.utils import create_record
 from inspire_service_orcid.client import OrcidClient
 from lxml import etree
 
@@ -42,6 +39,7 @@ from inspirehep.orcid import cache as cache_module
 from inspirehep.orcid import domain_models, exceptions, push_access_tokens, tasks
 from inspirehep.orcid.cache import OrcidCache
 
+# The tests are written in a specific order, disable random
 pytestmark = pytest.mark.random_order(disabled=True)
 
 
@@ -541,20 +539,3 @@ class TestOrcidPusherRecordDBVersion(TestOrcidPusherBase):
             domain_models.OrcidPusher(
                 self.orcid, self.recid, self.oauth_token, record_db_version=10
             )
-
-
-@pytest.mark.usefixtures("inspire_app")
-class TestOrcidPusherRecordRedirected(TestOrcidPusherBase):
-    def setup(self):
-        redirected_record = create_record("lit")
-        self.recid = redirected_record["control_number"]
-        self.orcid = self.ORCID_1
-        # Disable logging.
-        logging.getLogger("inspirehep.orcid.domain_models").disabled = logging.CRITICAL
-        create_record("lit", data={"deleted_records": [redirected_record["self"]]})
-
-    def test_happy_flow(self):
-        pusher = domain_models.OrcidPusher(self.orcid, self.recid, self.oauth_token)
-        # Do not care about pushing, just check if recid is correct.
-
-        assert str(pusher.inspire_record["control_number"]) == pusher.recid

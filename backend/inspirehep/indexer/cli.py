@@ -59,9 +59,7 @@ def get_query_records_to_index(pid_types):
     query = db.session.query(PersistentIdentifier.object_uuid).filter(
         PersistentIdentifier.pid_type.in_(pid_types),
         PersistentIdentifier.object_type == "rec",
-        PersistentIdentifier.status.in_(
-            (PIDStatus.REGISTERED, PIDStatus.REDIRECTED, PIDStatus.DELETED)
-        ),
+        PersistentIdentifier.status == PIDStatus.REGISTERED,
     )  # noqa
     return query
 
@@ -160,9 +158,7 @@ def reindex_records(
         if pid_type not in allowed_pids:
             raise ValueError(f"PID {pidtype} not allowed. Use one of {allowed_pids}.")
         pid_value = pid[1]
-        record = InspireRecord.get_record_by_pid_value(
-            pid_value, pid_type, original_record=True
-        )
+        record = InspireRecord.get_record_by_pid_value(pid_value, pid_type)
         record.index()
         click.secho(f"Successfully reindexed record {pid}", fg="green")
         ctx.exit(0)

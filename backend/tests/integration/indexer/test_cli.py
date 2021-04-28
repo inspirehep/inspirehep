@@ -8,12 +8,10 @@
 import random
 import re
 
-from flask_sqlalchemy import models_committed
-from helpers.utils import create_record, create_record_factory
+from helpers.utils import create_record_factory
 from invenio_search import current_search
 from invenio_search.utils import build_index_name
 
-from inspirehep.records.receivers import index_after_commit
 from inspirehep.search.api import (
     AuthorsSearch,
     ConferencesSearch,
@@ -379,41 +377,3 @@ def test_cli_delete_prefixed_indexes_not_delete_when_no_matching_indexes(
         current_search.flush_and_refresh("*")
     assert "No indices matching given prefix found." in result.output
     assert "index and all linked aliases." not in result.output
-
-
-def test_cli_reindex_deleted_and_redirected_records(inspire_app, cli):
-    redirected = create_record("lit")
-    new_record = create_record("lit")
-    deleted = create_record("lit")
-
-    # disable signals so re-indexing won't run automatically after record update
-    models_committed.disconnect(index_after_commit)
-    # redirect one record
-    new_record_data = dict(new_record)
-    new_record_data["deleted_records"] = [redirected["self"]]
-    new_record.update(new_record_data)
-
-    # delete one record
-    deleted.delete()
-
-    # re-enable signals
-    models_committed.connect(index_after_commit)
-    # check if deleted and redirected were left in ES
-    current_search.flush_and_refresh("*")
-
-    expected_control_numbers = [
-        redirected.control_number,
-        new_record.control_number,
-        deleted.control_number,
-    ]
-    results = LiteratureSearch().query_from_iq("").execute()
-    control_numbers_from_es = [x.control_number for x in results.hits]
-    assert set(control_numbers_from_es) == set(expected_control_numbers)
-
-    cli.invoke(["index", "reindex", "-p", "lit"])
-    current_search.flush_and_refresh("*")
-
-    expected_control_numbers = [new_record.control_number]
-    results = LiteratureSearch().query_from_iq("").execute()
-    control_numbers_from_es = [x.control_number for x in results.hits]
-    assert set(control_numbers_from_es) == set(expected_control_numbers)

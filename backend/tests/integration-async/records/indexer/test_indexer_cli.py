@@ -126,10 +126,10 @@ def test_reindex_records_lit_using_multiple_batches(
 
 
 def test_reindex_only_one_record(inspire_app, clean_celery_session, cli):
-    generate_records(count=1, data={"control_number": 3})
+    rec = generate_records(count=1, data={"control_number": 3})
     result = cli.invoke(["index", "reindex", "-id", "lit", "3", "-q", ""])
 
-    expected_message = "Successfully reindexed record ('lit', '3')"
+    expected_message = f"Successfully reindexed record ('lit', '3')"
     assert result.exit_code == 0
     assert expected_message in result.output
 
@@ -199,7 +199,7 @@ def test_get_query_records_to_index_only_lit_adding_record(
     assert result_count == expected_count
 
 
-def test_get_query_records_to_index_indexes_deleted_record_too(
+def test_get_query_records_to_index_only_lit_indexes_deleted_record_too(
     inspire_app, clean_celery_session
 ):
     generate_records(count=1)
@@ -208,6 +208,6 @@ def test_get_query_records_to_index_indexes_deleted_record_too(
     pids = ["lit"]
     query = get_query_records_to_index(pids)
 
-    expected_count = 2
+    expected_count = 1
     result_count = query.count()
     assert result_count == expected_count

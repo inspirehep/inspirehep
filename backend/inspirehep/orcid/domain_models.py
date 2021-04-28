@@ -51,9 +51,7 @@ class OrcidPusher(object):
     @time_execution
     def _get_inspire_record(self):
         try:
-            inspire_record = LiteratureRecord.get_record_by_pid_value(
-                self.recid, original_record=True
-            )
+            inspire_record = LiteratureRecord.get_record_by_pid_value(self.recid)
         except PIDDoesNotExistError as exc:
             raise exceptions.RecordNotFoundException(
                 "recid={} not found for pid_type=lit".format(self.recid), from_exc=exc
