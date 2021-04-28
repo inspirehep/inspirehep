@@ -521,6 +521,7 @@ HEP_FILTERS = {
     "collection": must_match_all_filter("_collections"),
     "subject": must_match_all_filter("facet_inspire_categories"),
     "arxiv_categories": must_match_all_filter("facet_arxiv_categories"),
+    "experiments": must_match_all_filter("facet_experiment"),
     "rpp": filter_from_filters_aggregation(hep_rpp(order=1)),
 }
 

@@ -103,6 +103,15 @@ def hep_arxiv_categories_aggregation(
     }
 
 
+def hep_experiments_aggregation(order, title="Experiments", agg_type="checkbox"):
+    return {
+        "experiments": {
+            "terms": {"field": "facet_experiment", "size": 20},
+            "meta": {"title": title, "order": order, "type": agg_type},
+        }
+    }
+
+
 def jobs_field_of_interest_aggregation(
     order, title="Field of Interest", agg_type="multiselect"
 ):
