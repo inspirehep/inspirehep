@@ -44,7 +44,7 @@ import withRouteActionsDispatcher from '../../../common/withRouteActionsDispatch
 import LiteratureDocumentHead from '../../components/LiteratureDocumentHead';
 import IncomingLiteratureReferencesLinkAction from '../../../common/components/IncomingLiteratureReferencesLinkAction';
 import { getPapersQueryString } from '../../utils';
-import ParentRecordInfo from '../../components/ParentRecordInfo';
+import ParentRecordLink from '../../components/ParentRecordLink';
 import BookSeriesInfoList from '../../components/BookSeriesInfoList';
 import { LITERATURE_SEMINARS_NS } from '../../../search/constants';
 import LiteratureSeminars from '../../components/LiteratureSeminars';
@@ -88,11 +88,7 @@ function DetailPage({
   const canEdit = metadata.get('can_edit', false);
   const figures = metadata.get('figures');
   const deleted = metadata.get('deleted', false);
-  const datasetLinks = metadata.get('dataset_links');
-
-  const publicationInfoWithTitle = publicationInfo
-    ? publicationInfo.filter((pub) => pub.get('journal_title'))
-    : null;
+  const datasetLinks = metadata.get("dataset_links")
 
   return (
     <>
@@ -135,13 +131,13 @@ function DetailPage({
                         pidValue={controlNumber}
                       />
                     )}
-                    {datasetLinks && (
-                      <UrlsAction
-                        urls={datasetLinks}
-                        icon={<DatabaseOutlined />}
-                        text="datasets"
-                      />
-                    )}
+                    {datasetLinks &&
+                    <UrlsAction
+                    urls={datasetLinks}
+                    icon={<DatabaseOutlined />}
+                    text="datasets"
+                        />
+                        }
                   </>
                 }
                 rightActions={
@@ -177,18 +173,9 @@ function DetailPage({
                   <NumberOfPages numberOfPages={numberOfPages} />
                   <SupervisorList supervisors={supervisors} />
                   <ThesisInfo thesisInfo={thesisInfo} />
-                  {linkedBook && (
-                    <ParentRecordInfo
-                      parentRecord={linkedBook}
-                      publicationInfo={publicationInfo}
-                    />
-                  )}
+                  {linkedBook && <ParentRecordLink parentRecord={linkedBook} />}
                   {bookSeries && <BookSeriesInfoList bookSeries={bookSeries} />}
-                  {publicationInfoWithTitle && (
-                    <PublicationInfoList
-                      publicationInfo={publicationInfoWithTitle}
-                    />
-                  )}
+                  <PublicationInfoList publicationInfo={publicationInfo} />
                   <ConferenceInfoList conferenceInfo={conferenceInfo} />
                   <IsbnList isbns={isbns} />
                   <ArxivEprintList eprints={eprints} />
@@ -284,7 +271,7 @@ DetailPage.propTypes = {
   supervisors: PropTypes.instanceOf(List),
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   record: state.literature.get('data'),
   authors: state.literature.get('authors'),
   supervisors: state.literature.get('supervisors'),
@@ -305,7 +292,7 @@ const DetailPageContainer = connect(mapStateToProps)(DetailPage);
 
 export default withRouteActionsDispatcher(DetailPageContainer, {
   routeParamSelector: ({ id }) => id,
-  routeActions: (id) => [
+  routeActions: id => [
     fetchLiterature(id),
     fetchLiteratureReferences(id),
     fetchLiteratureAuthors(id),
@@ -315,6 +302,5 @@ export default withRouteActionsDispatcher(DetailPageContainer, {
       baseQuery: { q: `literature_records.record.$ref:${id}` },
     }),
   ],
-  loadingStateSelector: (state) =>
-    !state.literature.hasIn(['data', 'metadata']),
+  loadingStateSelector: state => !state.literature.hasIn(['data', 'metadata']),
 });
