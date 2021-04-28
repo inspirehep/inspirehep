@@ -68,18 +68,6 @@ def enable_self_citations(inspire_app, override_config):
         yield inspire_app
 
 
-@pytest.fixture(scope="function")
-def enable_hal_push(inspire_app, override_config):
-    with override_config(FEATURE_FLAG_ENABLE_HAL_PUSH=True):
-        yield inspire_app
-
-
-@pytest.fixture(scope="function")
-def disable_hal_push(inspire_app, override_config):
-    with override_config(FEATURE_FLAG_ENABLE_HAL_PUSH=False):
-        yield inspire_app
-
-
 @pytest.fixture(scope="module")
 def create_app():
     return inspire_create_app

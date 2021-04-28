@@ -249,9 +249,7 @@ def migrate_recids_from_mirror(
     ]
     if not disable_external_push:
         migration_steps.append(run_orcid_push)
-        if current_app.config["FEATURE_FLAG_ENABLE_HAL_PUSH"]:
-            migration_steps.append(run_hal_push)
-
+        migration_steps.append(run_hal_push)
     if not disable_references_processing:
         migration_steps.append(process_references_in_records)
 
