@@ -24,7 +24,6 @@ from invenio_records.api import Record
 from invenio_records.errors import MissingModelError
 from invenio_records.models import RecordMetadata
 from invenio_records.signals import after_record_revert, before_record_revert
-from jsonschema import ValidationError
 from sqlalchemy import tuple_
 from sqlalchemy.orm.attributes import flag_modified
 from sqlalchemy.orm.exc import NoResultFound, StaleDataError
@@ -443,7 +442,7 @@ class InspireRecord(Record):
             else:
                 record_to_delete.delete()
 
-    def update(self, data, force_undelete=False, *args, **kwargs):
+    def update(self, data, *args, **kwargs):
         if not self.get("deleted", False):
             if "control_number" not in data:
                 raise ValueError("Missing control number in record update.")
@@ -460,13 +459,6 @@ class InspireRecord(Record):
         if not data.get("deleted") and pid and pid.status == PIDStatus.REDIRECTED:
             # To be sure that when someone edits redirected record by mistake tries to undelete record as this is not supported for now
             raise CannotUndeleteRedirectedRecord(self.pid_type, data["control_number"])
-
-        if (
-            not force_undelete
-            and self._previous_version.get("deleted")
-            and not self.get("deleted")
-        ):
-            raise ValidationError("Deleted record can't be undeleted!")
 
         with db.session.begin_nested():
             with db.session.no_autoflush:
