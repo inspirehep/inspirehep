@@ -24,6 +24,7 @@ from inspirehep.search.aggregations import (
     hep_collection_aggregation,
     hep_doc_type_aggregation,
     hep_earliest_date_aggregation,
+    hep_experiments_aggregation,
     hep_rpp,
     hep_self_author_affiliations_aggregation,
     hep_self_author_claimed_papers_aggregation,
@@ -522,6 +523,7 @@ def hep_author_publications_cataloger(order=None):
             **hep_self_author_claimed_papers_aggregation(
                 order=next(order), author_recid=author_recid
             ),
+            **hep_experiments_aggregation(order=next(order)),
         }
     )
     return records
