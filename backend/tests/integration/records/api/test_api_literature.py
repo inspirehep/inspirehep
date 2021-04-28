@@ -2311,11 +2311,3 @@ def test_literature_get_modified_authors_after_metadata_update(inspire_app):
     record.update(dict(record))
 
     assert len(list(record.get_modified_authors())) == 1
-
-
-@pytest.mark.vcr()
-def test_import_article_with_unknown_type_should_import_as_article(inspire_app):
-    doi = "10.31234/osf.io/4ms5a"
-    record = import_article(doi)
-
-    assert record["document_type"] == ["article"]
