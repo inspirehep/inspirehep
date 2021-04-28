@@ -70,6 +70,7 @@ def test_author_cataloger_facets(inspire_app):
             "self_curated_relation",
             "collection",
             "rpp",
+            "experiments",
         ]
     )
     response_data_facet_keys.sort()

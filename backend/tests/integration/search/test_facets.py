@@ -13,6 +13,7 @@ from inspirehep.search.aggregations import (
     hep_collection_aggregation,
     hep_doc_type_aggregation,
     hep_earliest_date_aggregation,
+    hep_experiments_aggregation,
     hep_rpp,
     hep_self_author_affiliations_aggregation,
     hep_self_author_claimed_papers_aggregation,
@@ -70,6 +71,7 @@ def test_hep_author_publications_facets(inspire_app):
             "self_author_names",
             "rpp",
             "self_curated_relation",
+            "experiments",
         }
         expected_aggregations = {
             **hep_earliest_date_aggregation(order=1, title="Date of paper"),
@@ -112,6 +114,7 @@ def test_hep_author_citations_facets(inspire_app):
             "self_author_names",
             "rpp",
             "self_curated_relation",
+            "experiments",
         }
         expected_aggregations = {
             **hep_earliest_date_aggregation(order=1, title="Date of citing paper"),
@@ -152,6 +155,7 @@ def test_records_hep_facets(inspire_app):
             "self_author_names",
             "rpp",
             "self_curated_relation",
+            "experiments",
         }
         expected_aggregations = {
             **hep_earliest_date_aggregation(order=1, title="Date of paper"),
@@ -193,6 +197,7 @@ def test_hep_conference_contributions_facets(inspire_app):
             "self_author_names",
             "rpp",
             "self_curated_relation",
+            "experiments",
         }
         expected_aggregations = {
             **hep_subject_aggregation(order=1),
@@ -229,6 +234,7 @@ def test_hep_institution_papers_facets(inspire_app):
             "self_author_names",
             "rpp",
             "self_curated_relation",
+            "experiments",
         }
         expected_aggregations = {
             **hep_earliest_date_aggregation(order=1),
@@ -264,6 +270,7 @@ def test_citation_summary_facets(inspire_app):
             "self_author_names",
             "rpp",
             "self_curated_relation",
+            "experiments",
         }
         expected_aggregations = {"citation_summary"}
 
@@ -290,6 +297,7 @@ def test_citations_by_year_facets(inspire_app):
             "self_author_names",
             "rpp",
             "self_curated_relation",
+            "experiments",
         }
         expected_aggregations = {"citations_by_year"}
 
@@ -362,6 +370,7 @@ def test_hep_author_publications_cataloger_facets(inspire_app):
             "self_author_names",
             "self_curated_relation",
             "rpp",
+            "experiments",
         }
         expected_aggregations = {
             **hep_earliest_date_aggregation(order=1, title="Date of paper"),
@@ -380,6 +389,7 @@ def test_hep_author_publications_cataloger_facets(inspire_app):
             **hep_self_author_claimed_papers_aggregation(
                 order=12, author_recid=author_recid
             ),
+            **hep_experiments_aggregation(order=13),
         }
 
         filters = set(
@@ -414,6 +424,7 @@ def test_hep_author_citations_cataloger_facets(inspire_app):
             "self_author_names",
             "rpp",
             "self_curated_relation",
+            "experiments",
         }
         expected_aggregations = {
             **hep_earliest_date_aggregation(order=1, title="Date of citing paper"),
@@ -458,6 +469,7 @@ def test_records_hep_cataloger_facets(inspire_app):
             "self_author_names",
             "rpp",
             "self_curated_relation",
+            "experiments",
         }
         expected_aggregations = {
             **hep_earliest_date_aggregation(order=1, title="Date of paper"),
@@ -577,6 +589,7 @@ def test_hep_experiment_papers_facets(inspire_app):
             "rpp",
             "affiliations",
             "self_curated_relation",
+            "experiments",
         }
 
         expected_aggregations = {
@@ -615,6 +628,7 @@ def test_hep_experiment_papers_cataloger_facets(inspire_app):
             "rpp",
             "affiliations",
             "self_curated_relation",
+            "experiments",
         }
         expected_aggregations = {
             **hep_earliest_date_aggregation(order=1),

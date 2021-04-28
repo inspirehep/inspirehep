@@ -16,6 +16,7 @@ from inspirehep.search.aggregations import (
     hep_collection_aggregation,
     hep_doc_type_aggregation,
     hep_earliest_date_aggregation,
+    hep_experiments_aggregation,
     hep_rpp,
     hep_self_author_affiliations_aggregation,
     hep_self_author_claimed_papers_aggregation,
@@ -1072,4 +1073,59 @@ def test_experiment_institution_aggregation_and_filter(inspire_app, override_con
         assert (
             response["hits"]["hits"][0]["metadata"]["control_number"]
             == desy_record["control_number"]
+        )
+
+
+def test_hep_experiments_aggregation_and_filter(inspire_app, override_config):
+    config = {
+        "RECORDS_REST_FACETS": {
+            "records-hep": {
+                "filters": hep_filters(),
+                "aggs": {**hep_experiments_aggregation(1)},
+            }
+        }
+    }
+
+    with override_config(**config):
+        data = {
+            "accelerator_experiments": [
+                {
+                    "record": {
+                        "$ref": "https://inspirebeta.net/api/experiments/1108541"
+                    },
+                    "legacy_name": "CERN-LHC-ATLAS",
+                }
+            ]
+        }
+        expected_record = create_record("lit", data)
+        data = {
+            "accelerator_experiments": [
+                {
+                    "record": {
+                        "$ref": "https://inspirebeta.net/api/experiments/1108642"
+                    },
+                    "legacy_name": "CERN-LHC-CMS",
+                }
+            ]
+        }
+        create_record("lit", data)
+        with inspire_app.test_client() as client:
+            response = client.get("/literature/facets").json
+        expected_aggregation = {
+            "meta": {"title": "Experiments", "type": "checkbox", "order": 1},
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+                {"key": "CERN-LHC-ATLAS", "doc_count": 1},
+                {"key": "CERN-LHC-CMS", "doc_count": 1},
+            ],
+        }
+        assert response["aggregations"]["experiments"] == expected_aggregation
+
+        with inspire_app.test_client() as client:
+            response = client.get("/literature?experiments=CERN-LHC-ATLAS").json
+        assert len(response["hits"]["hits"]) == 1
+        assert (
+            response["hits"]["hits"][0]["metadata"]["control_number"]
+            == expected_record["control_number"]
         )
