@@ -112,7 +112,9 @@ def test_minter_bai_provided(inspire_app, override_config):
     epxected_pids_values = [data["ids"][1]["value"]]
     expected_pids_provider = "bai"
     expected_pids_status = PIDStatus.REGISTERED
-    with override_config(FEATURE_FLAG_ENABLE_BAI_PROVIDER=True):
+    with override_config(
+        FEATURE_FLAG_ENABLE_BAI_PROVIDER=True, FEATURE_FLAG_ENABLE_BAI_CREATION=True
+    ):
         record = create_record("aut", data=data)
     result_pids = (
         PersistentIdentifier.query.filter_by(object_uuid=record.id)
@@ -130,7 +132,9 @@ def test_minter_bai_provided(inspire_app, override_config):
 
 
 def test_minter_bai_new(inspire_app, override_config):
-    with override_config(FEATURE_FLAG_ENABLE_BAI_PROVIDER=True):
+    with override_config(
+        FEATURE_FLAG_ENABLE_BAI_PROVIDER=True, FEATURE_FLAG_ENABLE_BAI_CREATION=True
+    ):
         record = create_record("aut")
 
     expected_pids_len = 1
@@ -145,7 +149,9 @@ def test_minter_bai_new(inspire_app, override_config):
 
 
 def test_minter_bai_creates_correct_bai(inspire_app, override_config):
-    with override_config(FEATURE_FLAG_ENABLE_BAI_PROVIDER=True):
+    with override_config(
+        FEATURE_FLAG_ENABLE_BAI_PROVIDER=True, FEATURE_FLAG_ENABLE_BAI_CREATION=True
+    ):
         record = create_record("aut", data={"name": {"value": "Wang, ‡.R."}})
 
     result_pid = PersistentIdentifier.query.filter_by(
@@ -158,7 +164,9 @@ def test_minter_bai_creates_correct_bai(inspire_app, override_config):
 
 
 def test_minter_bai_already_existing(inspire_app, override_config):
-    with override_config(FEATURE_FLAG_ENABLE_BAI_PROVIDER=True):
+    with override_config(
+        FEATURE_FLAG_ENABLE_BAI_PROVIDER=True, FEATURE_FLAG_ENABLE_BAI_CREATION=True
+    ):
         data = create_record("aut")
         data2 = {"ids": data["ids"]}
         with pytest.raises(PIDAlreadyExists):
@@ -166,7 +174,9 @@ def test_minter_bai_already_existing(inspire_app, override_config):
 
 
 def test_bai_minter_deletes_unused_pid(inspire_app, override_config):
-    with override_config(FEATURE_FLAG_ENABLE_BAI_PROVIDER=True):
+    with override_config(
+        FEATURE_FLAG_ENABLE_BAI_PROVIDER=True, FEATURE_FLAG_ENABLE_BAI_CREATION=True
+    ):
         rec = create_record("aut")
     rec_bai = rec["ids"][0]["value"]
     bai_pid = PersistentIdentifier.query.filter_by(pid_type="bai").one()
@@ -217,7 +227,9 @@ def test_bai_minter_removes_all_pids_on_record_delete(inspire_app, override_conf
             {"schema": "INSPIRE BAI", "value": "K.Janeway.2"},
         ]
     }
-    with override_config(FEATURE_FLAG_ENABLE_BAI_PROVIDER=True):
+    with override_config(
+        FEATURE_FLAG_ENABLE_BAI_PROVIDER=True, FEATURE_FLAG_ENABLE_BAI_CREATION=True
+    ):
         rec = create_record("aut", data=data)
         rec.delete()
     bai_count = PersistentIdentifier.query.filter_by(
@@ -247,7 +259,9 @@ def test_bai_minter_generates_correct_bai_when_numbers_are_not_consistent(
 
     data_2 = {"name": {"value": "Janeway, Kathryn"}}
 
-    with override_config(FEATURE_FLAG_ENABLE_BAI_PROVIDER=True):
+    with override_config(
+        FEATURE_FLAG_ENABLE_BAI_PROVIDER=True, FEATURE_FLAG_ENABLE_BAI_CREATION=True
+    ):
         rec_1 = create_record("aut", data=data_1)
         rec_2 = create_record("aut", data=data_2)
 
@@ -286,7 +300,9 @@ def test_minter_bai_minting_of_existing_bais_works_when_feature_flag_is_turned_o
 
 
 def test_double_minting_same_record_not_breaks(inspire_app, override_config):
-    with override_config(FEATURE_FLAG_ENABLE_BAI_PROVIDER=True):
+    with override_config(
+        FEATURE_FLAG_ENABLE_BAI_PROVIDER=True, FEATURE_FLAG_ENABLE_BAI_CREATION=True
+    ):
         data = {"ids": [{"schema": "INSPIRE BAI", "value": "K.Janeway.1"}]}
         record = create_record("aut", data=data)
         data = dict(record)
@@ -294,3 +310,25 @@ def test_double_minting_same_record_not_breaks(inspire_app, override_config):
             pid_value=data["ids"][0]["value"], object_uuid=record.id
         )
         assert bai_provider.pid.object_uuid == record.id
+
+
+def test_mint_only_existing_bais_when_create_flag_is_disabled(
+    inspire_app, override_config
+):
+    with override_config(
+        FEATURE_FLAG_ENABLE_BAI_PROVIDER=True, FEATURE_FLAG_ENABLE_BAI_CREATION=False
+    ):
+        expected_pid_value = "K.Janeway.1"
+        data = {"ids": [{"schema": "INSPIRE BAI", "value": expected_pid_value}]}
+        record = create_record("aut", data=data)
+        record2 = create_record("aut", data={"name": {"value": "Janeway, K."}})
+        assert (
+            PersistentIdentifier.query.filter_by(
+                pid_type="bai", object_uuid=record2.id
+            ).count()
+            == 0
+        )
+        bai = PersistentIdentifier.query.filter_by(
+            pid_type="bai", object_uuid=record.id
+        ).one()
+        assert bai.pid_value == expected_pid_value

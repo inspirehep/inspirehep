@@ -10,7 +10,9 @@ def test_session_still_works_after_integrity_error_on_bai_provider(
     inspire_app, override_config
 ):
     data = faker.record("aut")
-    with override_config(FEATURE_FLAG_ENABLE_BAI_PROVIDER=True):
+    with override_config(
+        FEATURE_FLAG_ENABLE_BAI_PROVIDER=True, FEATURE_FLAG_ENABLE_BAI_CREATION=True
+    ):
         AuthorsRecord.create(data=data)
         db.session.commit()
         with mock.patch(

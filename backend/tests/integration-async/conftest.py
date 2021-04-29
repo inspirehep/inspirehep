@@ -145,5 +145,6 @@ def enable_disambiguation(inspire_app, override_config):
     with override_config(
         FEATURE_FLAG_ENABLE_AUTHOR_DISAMBIGUATION=True,
         FEATURE_FLAG_ENABLE_BAI_PROVIDER=True,
+        FEATURE_FLAG_ENABLE_BAI_CREATION=True,
     ):
         yield inspire_app

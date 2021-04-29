@@ -23,7 +23,10 @@ def test_bai_create_fails_after_retrying_when_bai_changes():
     ) as query_pid_value_mock, mock.patch(
         "inspirehep.pidstore.providers.bai.super"
     ) as super_mock:
-        mocked_app.config = {"PIDSTORE_BAI_RETRY_DELAY": 0}
+        mocked_app.config = {
+            "PIDSTORE_BAI_RETRY_DELAY": 0,
+            "FEATURE_FLAG_ENABLE_BAI_CREATION": True,
+        }
         next_bai_mock.return_value = 123
         super_mock.return_value.create.side_effect = IntegrityError(None, None, None)
         query_pid_value_mock.return_value = []
@@ -65,7 +68,10 @@ def test_bai_create_retries_on_bais_in_db_change():
     ) as query_pid_value_mock, mock.patch(
         "inspirehep.pidstore.providers.bai.super"
     ) as super_mock:
-        mocked_app.config = {"PIDSTORE_BAI_RETRY_DELAY": 0}
+        mocked_app.config = {
+            "PIDSTORE_BAI_RETRY_DELAY": 0,
+            "FEATURE_FLAG_ENABLE_BAI_CREATION": True,
+        }
         next_bai_mock.side_effect = [123, 124]
         expected_pid_value = "Test.124"
         super_mock.return_value.create.side_effect = [
