@@ -16,6 +16,7 @@ from inspirehep.indexer.cli import index
 from inspirehep.mailing.cli import mailing
 from inspirehep.matcher.cli import match
 from inspirehep.orcid.cli import orcid
+from inspirehep.pidstore.cli import inspire_pidstore
 from inspirehep.records.cli import citations, importer, jobs
 from inspirehep.sitemap.cli import sitemap
 
@@ -31,3 +32,4 @@ cli.add_command(files)
 cli.add_command(sitemap)
 cli.add_command(index)
 cli.add_command(match)
+cli.add_command(inspire_pidstore)

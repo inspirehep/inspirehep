@@ -81,6 +81,10 @@ class InspireBAIProvider(InspireBaseProvider):
     def create(
         cls, pid_value=None, object_uuid=None, data=None, object_type=None, **kwargs
     ):
+        if not pid_value and not current_app.config.get(
+            "FEATURE_FLAG_ENABLE_BAI_CREATION", False
+        ):
+            return
         pid_value = pid_value or get_first_value_for_schema(
             get_value(data, "ids", []), "INSPIRE BAI"
         )
