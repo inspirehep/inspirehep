@@ -5,6 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+import mock
 import pytest
 from elasticsearch import TransportError
 from flask_sqlalchemy import models_committed
@@ -22,7 +23,12 @@ from inspirehep.migrator.tasks import (
     process_references_in_records,
     update_relations,
 )
-from inspirehep.records.api import InspireRecord, LiteratureRecord
+from inspirehep.records.api import (
+    AuthorsRecord,
+    ConferencesRecord,
+    InspireRecord,
+    LiteratureRecord,
+)
 from inspirehep.records.models import (
     ConferenceLiterature,
     ExperimentLiterature,
@@ -74,6 +80,205 @@ def test_process_references_in_records(inspire_app, clean_celery_session):
     assert (
         expected_result_cited_record_2_citation_count
         == result_cited_record_2["citation_count"]
+    )
+
+
+@mock.patch("inspirehep.migrator.tasks.batch_index")
+def test_process_references_in_records_process_self_citations(
+    mock_batch_index, inspire_app, clean_celery_session, enable_self_citations
+):
+    author_record = AuthorsRecord.create(
+        faker.record(
+            "aut",
+            data={
+                "name": {
+                    "value": "'t Hooft, Gerardus",
+                    "name_variants": ["'t Hooft, Gerard", "Hooft, Gerard T."],
+                    "preferred_name": "Gerardus 't Hooft",
+                },
+                "ids": [
+                    {"value": "INSPIRE-00060582", "schema": "INSPIRE ID"},
+                    {"value": "G.tHooft.1", "schema": "INSPIRE BAI"},
+                ],
+            },
+        )
+    )
+    author_record_2 = AuthorsRecord.create(
+        faker.record(
+            "aut",
+            data={
+                "name": {
+                    "value": "'t Hooft, Gerardus Marcus",
+                    "preferred_name": "Gerardus Marcus 't Hooft",
+                },
+                "ids": [
+                    {"value": "INSPIRE-00060583", "schema": "INSPIRE ID"},
+                    {"value": "G.tHooft.2", "schema": "INSPIRE BAI"},
+                ],
+            },
+        )
+    )
+    lit_record = LiteratureRecord.create(
+        faker.record(
+            "lit",
+            data={
+                "authors": [
+                    {
+                        "ids": [
+                            {"value": "INSPIRE-00060582", "schema": "INSPIRE ID"},
+                            {"value": "G.tHooft.1", "schema": "INSPIRE BAI"},
+                        ],
+                        "full_name": author_record["name"]["value"],
+                        "record": author_record["self"],
+                    }
+                ]
+            },
+        )
+    )
+    lit_record_2 = LiteratureRecord.create(
+        faker.record(
+            "lit",
+            literature_citations=[lit_record["control_number"]],
+            data={
+                "authors": [
+                    {
+                        "ids": [
+                            {"value": "INSPIRE-00060583", "schema": "INSPIRE ID"},
+                            {"value": "G.tHooft.2", "schema": "INSPIRE BAI"},
+                        ],
+                        "full_name": author_record_2["name"]["value"],
+                        "record": author_record_2["self"],
+                    }
+                ]
+            },
+        )
+    )
+    db.session.commit()
+
+    def assert_records_in_es():
+        lit_record_from_es = InspireSearch.get_record_data_from_es(lit_record)
+        lit_record_from_es_2 = InspireSearch.get_record_data_from_es(lit_record_2)
+        aut_record_from_es = InspireSearch.get_record_data_from_es(author_record)
+        assert lit_record_from_es and aut_record_from_es and lit_record_from_es_2
+
+    retry_until_pass(assert_records_in_es, retry_interval=5)
+
+    models_committed.disconnect(index_after_commit)
+    lit_record["authors"].append(
+        {
+            "ids": [
+                {"value": "INSPIRE-00060583", "schema": "INSPIRE ID"},
+                {"value": "G.tHooft.2", "schema": "INSPIRE BAI"},
+            ],
+            "full_name": author_record_2["name"]["value"],
+            "record": author_record_2["self"],
+        }
+    )
+    lit_record.update(dict(lit_record))
+    db.session.commit()
+    # reconnect signal before we call process_references_in_records
+    models_committed.connect(index_after_commit)
+    task = process_references_in_records.delay([lit_record.id])
+
+    task.get(timeout=5)
+
+    assert sorted(mock_batch_index.mock_calls[0][1][0]) == sorted([lit_record_2.id])
+
+
+@mock.patch("inspirehep.migrator.tasks.batch_index")
+def test_process_references_in_records_process_author_records(
+    mock_batch_index, inspire_app, clean_celery_session
+):
+    author_record = AuthorsRecord.create(faker.record("aut"))
+    lit_record = LiteratureRecord.create(
+        faker.record(
+            "lit",
+            data={
+                "authors": [
+                    {
+                        "full_name": author_record["name"]["value"],
+                        "record": author_record["self"],
+                    }
+                ]
+            },
+        )
+    )
+    lit_record_2 = LiteratureRecord.create(
+        faker.record(
+            "lit",
+            data={
+                "authors": [
+                    {
+                        "full_name": author_record["name"]["value"],
+                        "record": author_record["self"],
+                    }
+                ]
+            },
+        )
+    )
+
+    db.session.commit()
+
+    def assert_records_in_es():
+        lit_record_from_es = InspireSearch.get_record_data_from_es(lit_record)
+        lit_record_from_es_2 = InspireSearch.get_record_data_from_es(lit_record_2)
+        aut_record_from_es = InspireSearch.get_record_data_from_es(author_record)
+        assert lit_record_from_es and aut_record_from_es and lit_record_from_es_2
+
+    retry_until_pass(assert_records_in_es, retry_interval=5)
+
+    models_committed.disconnect(index_after_commit)
+    author_record["name"]["value"] = "Another Name"
+    author_record.update(dict(author_record))
+    db.session.commit()
+    # reconnect signal before we call process_references_in_records
+    models_committed.connect(index_after_commit)
+    task = process_references_in_records.delay([author_record.id])
+
+    task.get(timeout=5)
+
+    assert sorted(mock_batch_index.mock_calls[0][1][0]) == sorted(
+        [str(lit_record.id), str(lit_record_2.id)]
+    )
+
+
+@mock.patch("inspirehep.migrator.tasks.batch_index")
+def test_process_references_in_records_process_conference_records(
+    mock_batch_index, inspire_app, clean_celery_session
+):
+    conf_record = ConferencesRecord.create(
+        faker.record("con", data={"titles": [{"title": "Test conference"}]})
+    )
+    lit_data = {
+        "publication_info": [
+            {"conference_record": {"$ref": conf_record["self"]["$ref"]}}
+        ],
+        "document_type": ["conference paper"],
+    }
+    lit_record = LiteratureRecord.create(faker.record("lit", data=lit_data))
+    lit_record_2 = LiteratureRecord.create(faker.record("lit", data=lit_data))
+
+    db.session.commit()
+
+    def assert_records_in_es():
+        lit_record_from_es = InspireSearch.get_record_data_from_es(lit_record)
+        lit_record_from_es_2 = InspireSearch.get_record_data_from_es(lit_record_2)
+        aut_record_from_es = InspireSearch.get_record_data_from_es(conf_record)
+        assert lit_record_from_es and aut_record_from_es and lit_record_from_es_2
+
+    retry_until_pass(assert_records_in_es, retry_interval=5)
+
+    models_committed.disconnect(index_after_commit)
+    conf_record["titles"] = [{"title": "Southern California Strings Seminar "}]
+    conf_record.update(dict(conf_record))
+    db.session.commit()
+    # reconnect signal before we call process_references_in_records
+    models_committed.connect(index_after_commit)
+    task = process_references_in_records.delay([conf_record.id])
+
+    task.get(timeout=5)
+    assert sorted(mock_batch_index.mock_calls[0][1][0]) == sorted(
+        [lit_record.id, lit_record_2.id]
     )
 
 
