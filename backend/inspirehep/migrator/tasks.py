@@ -34,6 +34,7 @@ from redis import ResponseError
 from sqlalchemy.exc import InvalidRequestError, StatementError
 
 from inspirehep.hal.api import push_to_hal
+from inspirehep.indexer.api import get_references_to_update
 from inspirehep.indexer.tasks import batch_index
 from inspirehep.migrator.models import LegacyRecordsMirror
 from inspirehep.migrator.utils import (
@@ -382,28 +383,20 @@ def update_relations(uuids):
 
 @shared_task(ignore_results=False, queue="migrator", acks_late=True)
 def process_references_in_records(uuids):
-    references_to_reindex = []
+    references_to_reindex = set()
     try:
         for uuid in uuids:
             try:
                 record = InspireRecord.get_record(uuid, with_deleted=True)
-                if isinstance(record, LiteratureRecord):
-                    references = record.get_modified_references()
-                    references.extend(record.get_newest_linked_conferences_uuid())
-                    references.extend(record.get_modified_institutions_uuids())
-                    references.extend(record.get_modified_experiment_uuids())
-                    LOGGER.info(
-                        f"Reindexing {len(references)} references",
-                        recid=record["control_number"],
-                        uuid=uuid,
-                    )
-                    references_to_reindex.extend(references)
+                references = get_references_to_update(record)
+                references_to_reindex.update(references)
             except Exception:
                 LOGGER.exception(
                     "Cannot process references on index_records task.", uuid=uuid
                 )
         if references_to_reindex:
-            batch_index(references_to_reindex)
+            batch_index(list(references_to_reindex))
+            LOGGER.info("processing uuids", uuids=references_to_reindex)
     except Exception:
         LOGGER.exception("Cannot reindex references")
     return uuids
