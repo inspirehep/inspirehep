@@ -1,6 +1,6 @@
 interactions:
 - request:
-    body: <work:work xmlns:common="http://www.orcid.org/ns/common" xmlns:work="http:/www.orcid.orgsens/work"/>
+    body: <work:work xmlns:common="http://www.orcid.org/ns/common" xmlns:work="http://www.orcid.orgsens/work"/>
     headers:
       Accept:
       - application/orcid+json
