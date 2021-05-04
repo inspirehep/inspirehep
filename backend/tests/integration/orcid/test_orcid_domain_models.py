@@ -217,10 +217,10 @@ class TestOrcidPusherPostNewWork(TestOrcidPusherBase):
     def test_push_new_work_invalid_data_xml(self):
         # Note: the recorded cassette returns (magically) a proper error.
         pusher = domain_models.OrcidPusher(self.orcid, self.recid, self.oauth_token)
+        data = b'<work:work xmlns:common="http://www.orcid.org/ns/common" xmlns:work="http://www.orcid.orgsens/work"></work:work>'
         invalid_xml = etree.fromstringlist(
             [
-                '<work:work xmlns:common="http://www.orcid.org/ns/common" xmlns:work="http:/www.orcid.orgsens/work">',
-                "</work:work>",
+               data
             ]
         )
         with pytest.raises(exceptions.InputDataInvalidException):

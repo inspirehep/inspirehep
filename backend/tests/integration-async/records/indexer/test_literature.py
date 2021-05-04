@@ -38,7 +38,7 @@ def assert_es_hits_count(expected_hits_count):
         result_total = get_value(result, "hits.total.value")
         assert expected_hits_count == result_total
 
-    retry_until_pass(assert_hits, retry_interval=3)
+    retry_until_pass(assert_hits, retry_interval=5)
 
 
 def test_lit_record_appear_in_es_when_created(inspire_app, clean_celery_session):

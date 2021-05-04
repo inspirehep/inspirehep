@@ -25,7 +25,7 @@ Flask = ">=1.0.2"
 werkzeug  = ">=0.16.1,<1.0.0"
 msgpack = "==0.6.2"
 
-python = ">=3.6,<3.8"
+python = ">=3.8,<3.9"
 inspire-schemas = "~=61.3"
 inspire-utils = "^3.0.12"
 inspire-service-orcid = {git = "https://github.com/inspirehep/inspire-service-orcid.git", rev = "362425d6f77a4770794615d3b98c233fca08e537"}
