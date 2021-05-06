@@ -28,7 +28,7 @@ def assert_citation_count(cited_record, expected_count):
         record_from_es = LiteratureSearch().get_record_data_from_es(cited_record)
         assert expected_count == record_from_es["citation_count"]
 
-    retry_until_pass(assert_record)
+    retry_until_pass(assert_record, retry_interval=3)
 
 
 def assert_es_hits_count(expected_hits_count):
@@ -38,7 +38,7 @@ def assert_es_hits_count(expected_hits_count):
         result_total = get_value(result, "hits.total.value")
         assert expected_hits_count == result_total
 
-    retry_until_pass(assert_hits)
+    retry_until_pass(assert_hits, retry_interval=3)
 
 
 def test_lit_record_appear_in_es_when_created(inspire_app, clean_celery_session):
