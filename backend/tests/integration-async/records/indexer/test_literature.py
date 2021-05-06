@@ -239,12 +239,14 @@ def test_lit_record_reindexes_references_when_earliest_date_changed(
     citing_record.update(data_citing_record)
     db.session.commit()
 
+    expected_citation_year = [{"count": 1, "year": 2019}]
+
     def assert_record():
         current_search.flush_and_refresh("records-hep")
         record_from_es = LiteratureSearch().get_record_data_from_es(cited_record)
         assert expected_citation_year == record_from_es["citations_by_year"]
 
-    retry_until_pass(assert_record)
+    retry_until_pass(assert_record, retry_interval=3)
 
 
 def test_many_records_in_one_commit(inspire_app, clean_celery_session):
