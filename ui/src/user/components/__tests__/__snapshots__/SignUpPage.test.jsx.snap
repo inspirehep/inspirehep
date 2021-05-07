@@ -14,7 +14,7 @@ exports[`SignUpPage renders page 1`] = `
   >
     <Card>
       <p>
-        Please let us know your e-mail address so that we can contact you about your suggestions. You only need to do this once.
+        Please let us know your e-mail address to complete your account registration.
       </p>
       <SingUpForm
         loading={false}
@@ -39,7 +39,7 @@ exports[`SignUpPage renders page with errors 1`] = `
   >
     <Card>
       <p>
-        Please let us know your e-mail address so that we can contact you about your suggestions. You only need to do this once.
+        Please let us know your e-mail address to complete your account registration.
       </p>
       <SingUpForm
         loading={false}
@@ -64,7 +64,7 @@ exports[`SignUpPage renders page with loading 1`] = `
   >
     <Card>
       <p>
-        Please let us know your e-mail address so that we can contact you about your suggestions. You only need to do this once.
+        Please let us know your e-mail address to complete your account registration.
       </p>
       <SingUpForm
         loading={true}
