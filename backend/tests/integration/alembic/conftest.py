@@ -7,6 +7,7 @@
 
 import pytest
 from flask_alembic import Alembic
+from sqlalchemy_utils import create_database, database_exists
 
 
 @pytest.fixture(scope="module")
@@ -24,6 +25,8 @@ def database(appctx):
 
 
 def clean_db(db):
+    if not database_exists(str(db.engine.url)):
+        create_database(str(db.engine.url))
     db.session.close()
     db.reflect()
     db.drop_all()
