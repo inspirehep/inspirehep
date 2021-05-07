@@ -1,0 +1,13 @@
+{
+  "hits": [
+    {
+      "id": "123123",
+      "metadata": {
+        "other_ids": [
+          "321321"
+        ],
+        "control_number": "123123"
+      }
+    }
+  ]
+}

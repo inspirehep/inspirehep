@@ -178,6 +178,7 @@ inspirehep_rt = "inspirehep.rt.config"
 inspirehep_search = "inspirehep.search.config"
 inspirehep_sitemap = "inspirehep.sitemap.config"
 inspirehep_hal = "inspirehep.hal.config"
+inspirehep_cds = "inspirehep.cds.config"
 
 [tool.poetry.plugins."invenio_base.api_apps"]
 inspirehep_logger = "inspirehep.logger:InspireLogger"
@@ -202,6 +203,7 @@ records = "inspirehep.search.mappings"
 [tool.poetry.plugins."invenio_db.models"]
 inspirehep_records = "inspirehep.records.models"
 inspirehep_migrator = "inspirehep.migrator.models"
+inspirehep_cds = "inspirehep.cds.models"
 
 [tool.poetry.plugins."invenio_celery.tasks"]
 inspirehep_indexer = "inspirehep.indexer.tasks"
@@ -211,6 +213,7 @@ inspirehep_submissions = "inspirehep.submissions.tasks"
 inspirehep_matcher = "inspirehep.matcher.tasks"
 inspirehep_disambiguation = "inspirehep.disambiguation.tasks"
 inspirehep_hal = "inspirehep.hal.tasks"
+inspirehep_cds = "inspirehep.cds.tasks"
 
 [tool.isort]
 profile = "black"
