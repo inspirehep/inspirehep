@@ -7,7 +7,6 @@
 
 """modify idx_object index in pidstore_pid table"""
 
-import sqlalchemy as sa
 from alembic import op
 
 # revision identifiers, used by Alembic.
@@ -19,11 +18,25 @@ depends_on = None
 
 def upgrade():
     """Upgrade database."""
-    op.drop_index("idx_object", "pidstore_pid")
-    op.create_index("idx_object", "pidstore_pid", ["object_uuid", "object_type"])
+    with op.get_context().autocommit_block():
+        op.create_index(
+            "idx_object_tmp",
+            "pidstore_pid",
+            ["object_uuid", "object_type"],
+            postgresql_concurrently=True,
+        )
+        op.drop_index("idx_object", "pidstore_pid", postgresql_concurrently=True)
+        op.execute("ALTER INDEX idx_object_tmp RENAME TO idx_object")
 
 
 def downgrade():
     """Downgrade database."""
-    op.drop_index("idx_object", "pidstore_pid")
-    op.create_index("idx_object", "pidstore_pid", ["object_type", "object_uuid"])
+    with op.get_context().autocommit_block():
+        op.create_index(
+            "idx_object_tmp",
+            "pidstore_pid",
+            ["object_type", "object_uuid"],
+            postgresql_concurrently=True,
+        )
+        op.drop_index("idx_object", "pidstore_pid", postgresql_concurrently=True)
+        op.execute("ALTER INDEX idx_object_tmp RENAME TO idx_object")
