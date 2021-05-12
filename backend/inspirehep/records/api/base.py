@@ -463,7 +463,7 @@ class InspireRecord(Record):
 
         if (
             not force_undelete
-            and self._previous_version.get("deleted")
+            and data.get("deleted")
             and not self.get("deleted")
         ):
             raise ValidationError("Deleted record can't be undeleted!")
