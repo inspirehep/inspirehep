@@ -1052,3 +1052,79 @@ def test_public_api_generates_correct_links_in_literature_search_with_fields(
     assert response.status_code == 200
     response_links = response.json["links"]
     assert response_links == expected_search_links
+
+
+def test_default_search_returns_only_literature_collection(inspire_app):
+    create_record(
+        "lit",
+        data={
+            "_collections": ["Fermilab"],
+            "titles": [{"title": "A literature record from fermilab collection"}],
+        },
+    )
+    create_record(
+        "lit",
+        data={
+            "_collections": ["Literature"],
+            "titles": [{"title": "A literature record"}],
+        },
+    )
+    with inspire_app.test_client() as client:
+        url = "/api/literature"
+        response = client.get(url)
+
+    assert response.status_code == 200
+    assert len(response.json["hits"]["hits"]) == 1
+    assert (
+        response.json["hits"]["hits"][0]["metadata"]["titles"][0]["title"]
+        == "A literature record"
+    )
+
+
+def test_collection_search_returns_records_from_non_private_collections(inspire_app):
+    create_record(
+        "lit",
+        data={
+            "_collections": ["Fermilab"],
+            "titles": [{"title": "A literature record from fermilab collection"}],
+        },
+    )
+    create_record(
+        "lit",
+        data={
+            "_collections": ["HAL Hidden"],
+            "titles": [{"title": "A hal record"}],
+        },
+    )
+
+    create_record(
+        "lit",
+        data={
+            "_collections": ["Literature"],
+            "titles": [{"title": "A literature record"}],
+        },
+    )
+
+    with inspire_app.test_client() as client:
+        url = "/api/literature?q=_collections%3A%20fermilab%20or%20_collections%3A%20HAL%20hidden%20or%20_collections%3A%20Literature"
+        response = client.get(url)
+
+    assert response.status_code == 200
+    assert len(response.json["hits"]["hits"]) == 3
+
+
+def test_collection_search_doesnt_return_records_from_private_collections(inspire_app):
+    create_record(
+        "lit",
+        data={
+            "_collections": ["D0 Internal Notes"],
+            "titles": [{"title": "A hidden record"}],
+        },
+    )
+
+    with inspire_app.test_client() as client:
+        url = "/api/literature?q=_collections%3A%20D0%20Internal%20Notes"
+        response = client.get(url)
+
+    assert response.status_code == 200
+    assert len(response.json["hits"]["hits"]) == 0

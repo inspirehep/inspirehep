@@ -1,0 +1,31 @@
+interactions:
+- request:
+    body: citations=_collections%3A+D0+Internal+Notes
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '43'
+      Content-Type:
+      - application/x-www-form-urlencoded
+    method: POST
+    uri: https://grobid.inspirebeta.net/api/processCitation
+  response:
+    body:
+      string: "<biblStruct >\n\t<monogr>\n\t\t<title/>\n\t\t<idno>_collections: D0
+        Internal Notes</idno>\n\t\t<imprint/>\n\t</monogr>\n</biblStruct>\n"
+    headers:
+      content-length:
+      - '120'
+      content-type:
+      - application/xml; charset=UTF-8
+      date:
+      - Wed, 02 Jun 2021 08:25:21 GMT
+    status:
+      code: 200
+      message: OK
+version: 1
