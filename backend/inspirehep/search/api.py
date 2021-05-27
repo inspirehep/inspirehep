@@ -75,7 +75,7 @@ class SearchMixin(object):
                 index=self.alias,
                 doc_type=self.Meta.doc_types,
                 body={"ids": uuids},
-                **kwargs
+                **kwargs,
             )
             results = [document["_source"] for document in documents["docs"]]
         except RequestError:
@@ -187,10 +187,19 @@ class LiteratureSearch(InspireSearch):
 
     def query_for_superuser_or_users(self, query_string):
         if not is_superuser_or_cataloger_logged_in():
-            user_query = Q(
-                IQ(query_string, self) & Q("term", _collections="Literature")
-            )
-            return self.query(user_query)
+            if "_collections" in query_string:
+                user_query = Q(IQ(query_string, self))
+                return self.query(user_query).filter(
+                    "terms",
+                    _collections=current_app.config[
+                        "NON_PRIVATE_LITERATURE_COLLECTIONS"
+                    ],
+                )
+            else:
+                user_query = Q(
+                    IQ(query_string, self) & Q("term", _collections="Literature")
+                )
+                return self.query(user_query)
         return self.query(IQ(query_string, self))
 
     def query_from_iq(self, query_string):

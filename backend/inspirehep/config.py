@@ -96,6 +96,18 @@ COLLECTION_EQUIVALENCE = {
     "Jobs": "jobs",
 }
 
+NON_PRIVATE_LITERATURE_COLLECTIONS = [
+    "Literature",
+    "CDF Notes",
+    "CDS Hidden",
+    "D0 Preliminary Notes",
+    "Fermilab",
+    "HAL Hidden",
+    "LArSoft Notes",
+    "SLAC",
+    "ZEUS Preliminary Notes",
+]
+
 # Invenio and 3rd party
 # =====================
 
