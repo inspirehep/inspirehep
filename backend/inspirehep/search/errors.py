@@ -17,7 +17,7 @@ class MaximumSearchPageSizeExceeded(BaseRestError):
                 f"Maximum search page size of `{max_size}` results exceeded."
             )
         else:
-            self.description = f"Maximum search page size exceeded."
+            self.description = "Maximum search page size exceeded."
 
 
 class FieldsParamForbidden(BaseRestError):
