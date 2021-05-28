@@ -132,9 +132,14 @@ class ControlNumberMinter(Minter):
         pid_value = None
         if "control_number" in data:
             pid_value = data["control_number"]
-
-        record_id_provider = minter.create(str(pid_value) if pid_value else None)
-        data["control_number"] = int(record_id_provider.pid.pid_value)
+        pid = PersistentIdentifier.query.filter_by(
+            object_uuid=object_uuid,
+            pid_type=str(minter.pid_type),
+            pid_value=str(pid_value),
+        ).one_or_none()
+        if not pid:
+            record_id_provider = minter.create(str(pid_value) if pid_value else None)
+            data["control_number"] = int(record_id_provider.pid.pid_value)
 
         return minter
 
