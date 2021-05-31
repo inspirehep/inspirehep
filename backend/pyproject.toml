@@ -27,7 +27,7 @@ msgpack = "==0.6.2"
 
 python = ">=3.8,<3.9"
 inspire-schemas = "~=61.3"
-inspire-utils = "^3.0.12"
+inspire-utils = "~=3.0.19"
 inspire-service-orcid = {git = "https://github.com/inspirehep/inspire-service-orcid.git", rev = "362425d6f77a4770794615d3b98c233fca08e537"}
 inspire-json-merger = "^11.0"
 
@@ -94,6 +94,7 @@ invenio-records-rest = {git = "https://github.com/inspirehep/invenio-records-res
 orjson = "^3.4.6"
 sword2 = {git = "https://github.com/inspirehep/python-client-sword2.git", rev = "python3"}
 sqlalchemy-continuum = {git = "https://github.com/inspirehep/sqlalchemy-continuum.git", rev = "d94d431"}
+"zope.interface" = "~=5.4.0"
 
 
 [tool.poetry.dev-dependencies]
