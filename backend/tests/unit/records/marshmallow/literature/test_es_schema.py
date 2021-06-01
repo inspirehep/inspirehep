@@ -16,7 +16,13 @@ from inspirehep.records.marshmallow.literature import LiteratureElasticSearchSch
     "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_referenced_authors_bais",
     return_value=[],
 )
-def test_es_schema_removes_supervisors_from_authors(mock_referenced_authors):
+@patch(
+    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_cv_format",
+    return_value=[],
+)
+def test_es_schema_removes_supervisors_from_authors(
+    mock_referenced_authors, mock_cv_format
+):
     schema = LiteratureElasticSearchSchema()
     authors = [
         {"full_name": "Frank Castle"},
@@ -34,7 +40,13 @@ def test_es_schema_removes_supervisors_from_authors(mock_referenced_authors):
     "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_referenced_authors_bais",
     return_value=[],
 )
-def test_es_schema_removes_supervisors_from_facet_author_name(mock_referenced_authors):
+@patch(
+    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_cv_format",
+    return_value=[],
+)
+def test_es_schema_removes_supervisors_from_facet_author_name(
+    mock_referenced_authors, mock_cv_format
+):
     schema = LiteratureElasticSearchSchema()
     authors = [
         {"full_name": "Frank Castle"},

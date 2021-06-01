@@ -45,6 +45,7 @@ class LiteratureElasticSearchSchema(ElasticSearchBaseSchema, LiteratureRawSchema
     _latex_us_display = fields.Method("get_latex_us_display", dump_only=True)
     _latex_eu_display = fields.Method("get_latex_eu_display", dump_only=True)
     _bibtex_display = fields.Method("get_bibtex_display", dump_only=True)
+    _cv_format = fields.Method("get_cv_format", dump_only=True)
     abstracts = fields.Nested(AbstractSource, dump_only=True, many=True)
     author_count = fields.Method("get_author_count")
     authors = fields.Nested(AuthorsInfoSchemaForES, dump_only=True, many=True)
@@ -104,6 +105,15 @@ class LiteratureElasticSearchSchema(ElasticSearchBaseSchema, LiteratureRawSchema
         from inspirehep.records.serializers.bibtex import literature_bibtex
 
         return literature_bibtex.serialize(None, record)
+
+    def get_cv_format(self, record):
+        from inspirehep.records.serializers.cv import literature_cv_html
+
+        try:
+            return literature_cv_html.serialize(None, record)
+        except Exception:
+            LOGGER.exception("Cannot get cv format", record=record)
+            return " "
 
     def get_author_count(self, record):
         """Prepares record for ``author_count`` field."""
