@@ -4,7 +4,10 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+from flask_sqlalchemy import models_committed
 from helpers.utils import create_record
+
+from inspirehep.records.receivers import index_after_commit
 
 
 def test_cv_with_subtitle(inspire_app, shared_datadir):
@@ -589,3 +592,31 @@ def test_cv_search_with_more_complex_records(inspire_app, shared_datadir):
     response_data = response.get_data(as_text=True).replace("\n", "")
     assert expected_status_code == response_status_code
     assert expected_result == response_data
+
+
+def test_cv_search_cached(inspire_app):
+    headers = {"Accept": "text/vnd+inspire.html+html"}
+    data = {
+        "control_number": 637275232,
+        "titles": [{"title": "Yet another title"}],
+    }
+    record = create_record("lit", data=data)
+
+    models_committed.disconnect(index_after_commit)
+
+    data = dict(record)
+    data["titles"] = [{"title": "Modified title"}]
+
+    record.update(data)
+
+    expected_status_code = 200
+    expected_result = '<!DOCTYPE html><html><body>  <p><b>    <a href="https://localhost:5000/literature/637275232">      Yet another title    </a>  </b></p>          <br></body></html>'
+    with inspire_app.test_client() as client:
+        response = client.get("/literature", headers=headers)
+
+    response_status_code = response.status_code
+    response_data = response.get_data(as_text=True).replace("\n", "")
+    assert expected_status_code == response_status_code
+    assert expected_result == response_data
+
+    models_committed.connect(index_after_commit)

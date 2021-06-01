@@ -642,6 +642,7 @@ LITERATURE_SOURCE_INCLUDES_BY_CONTENT_TYPE = {
     "application/vnd+inspire.latex.eu+x-latex": ["_latex_eu_display"],
     "application/x-bibtex": ["_bibtex_display"],
     "text/vnd+inspire.html+html": [
+        "_cv_format",
         "titles",
         "control_number",
         "collaborations",
@@ -657,7 +658,10 @@ LITERATURE_SOURCE_EXCLUDES_BY_CONTENT_TYPE = {
         "_latex_us_display",
         "_latex_eu_display",
         "_bibtex_display",
-    ]
+    ],
+    "text/html": [
+        "_cv_format",
+    ],
 }
 
 
