@@ -24,6 +24,9 @@ from inspirehep.records.api import LiteratureRecord
 @mock.patch(
     "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_latex_us_display"
 )
+@mock.patch(
+    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_cv_format"
+)
 @mock.patch("flask_sqlalchemy._QueryProperty.__get__")
 @mock.patch("inspirehep.indexer.base.before_record_index")
 @mock.patch("inspirehep.indexer.base.current_app")
@@ -39,6 +42,7 @@ def test_indexer_prepare_record(
     mock_latex_eu_display,
     mock_bibtex_display,
     mock_referenced_authors,
+    mock_cv_format,
 ):
     query_mock.return_value.filter_by.return_value.count.return_value = 1
     query_mock.return_value.filter_by.return_value.filter.return_value.count.return_value = (

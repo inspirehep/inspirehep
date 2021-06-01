@@ -32,6 +32,7 @@ FIELDS_TO_EXCLUDE = [
     "_latex_us_display",
     "_latex_eu_display",
     "_bibtex_display",
+    "_cv_format",
 ]
 
 

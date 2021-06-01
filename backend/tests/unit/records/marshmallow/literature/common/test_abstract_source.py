@@ -21,8 +21,12 @@ from inspirehep.records.marshmallow.literature import LiteratureElasticSearchSch
 @mock.patch(
     ("inspirehep.records.api.literature.LiteratureRecord.get_es_linked_references")
 )
+@mock.patch(
+    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_cv_format",
+    return_value=[],
+)
 def test_abstract_source_full(
-    mockget_linked_records_from_dict_field, mock_referenced_authors
+    mockget_linked_records_from_dict_field, mock_referenced_authors, mock_cv_format
 ):
     schema = LiteratureElasticSearchSchema
     data = {
@@ -54,8 +58,12 @@ def test_abstract_source_full(
 @mock.patch(
     ("inspirehep.records.api.literature.LiteratureRecord.get_es_linked_references")
 )
+@mock.patch(
+    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_cv_format",
+    return_value=[],
+)
 def test_abstract_source_one_missing_source(
-    mockget_linked_records_from_dict_field, mock_referenced_authors
+    mockget_linked_records_from_dict_field, mock_referenced_authors, mock_cv_format
 ):
     schema = LiteratureElasticSearchSchema
     data = {
@@ -85,8 +93,12 @@ def test_abstract_source_one_missing_source(
 @mock.patch(
     ("inspirehep.records.api.literature.LiteratureRecord.get_es_linked_references")
 )
+@mock.patch(
+    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_cv_format",
+    return_value=[],
+)
 def test_abstract_source_missing(
-    mockget_linked_records_from_dict_field, mock_referenced_authors
+    mockget_linked_records_from_dict_field, mock_referenced_authors, mock_cv_format
 ):
     schema = LiteratureElasticSearchSchema
 
@@ -102,8 +114,12 @@ def test_abstract_source_missing(
 @mock.patch(
     ("inspirehep.records.api.literature.LiteratureRecord.get_es_linked_references")
 )
+@mock.patch(
+    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_cv_format",
+    return_value=[],
+)
 def test_abstract_source_one_only(
-    mockget_linked_records_from_dict_field, mock_referenced_authors
+    mockget_linked_records_from_dict_field, mock_referenced_authors, mock_cv_format
 ):
     schema = LiteratureElasticSearchSchema
     data = {

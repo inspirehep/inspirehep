@@ -66,7 +66,7 @@ def test_reindex_record_lit_fails_with_invalid_record(
 def test_reindex_record_lit_fails_with_invalid_field_content(
     inspire_app, clean_celery_session, cli
 ):
-    invalid_field = {"titles": ["i am not an object"]}
+    invalid_field = {"keywords": ["17B05"]}
 
     with patch("inspirehep.indexer.base.InspireRecordIndexer"):
         with patch("inspirehep.records.api.base.schema_validate"):
@@ -78,7 +78,7 @@ def test_reindex_record_lit_fails_with_invalid_field_content(
 def test_reindex_records_lit_one_fails_and_two_ok(
     inspire_app, clean_celery_session, cli
 ):
-    invalid_field = {"titles": ["i am not an object"]}
+    invalid_field = {"keywords": ["17B05"]}
 
     generate_records(count=2)
     with patch("inspirehep.indexer.base.InspireRecordIndexer"):
