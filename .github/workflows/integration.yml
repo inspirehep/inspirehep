@@ -56,7 +56,7 @@ jobs:
       - name: Build and push
         uses: ./.github/actions/backend-build
         with:
-          lock-hash: ${{ hashFiles('backend/poetry.lock') }}
+          lock-hash: ${{ hashFiles('backend/poetry.lock', 'backend/pyproject.yaml', 'backend/Dockerfile') }}
 
   ui_build:
     name: UI build
