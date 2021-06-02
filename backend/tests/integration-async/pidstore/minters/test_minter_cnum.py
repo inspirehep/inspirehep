@@ -52,7 +52,7 @@ def test_minter_undelete_conference_record_registers_deleted_pid(
     assert pid.status == PIDStatus.DELETED
 
     rec["deleted"] = False
-    rec.update(dict(rec))
+    rec.update(dict(rec), force_undelete=True)
     db.session.commit()
 
     pid = (
@@ -88,7 +88,7 @@ def test_minter_undelete_conference_record_without_cnum(
     assert not pid
 
     rec["deleted"] = False
-    rec.update(dict(rec))
+    rec.update(dict(rec), force_undelete=True)
     db.session.commit()
     pid = (
         PersistentIdentifier.query.filter(PersistentIdentifier.object_uuid == rec.id)

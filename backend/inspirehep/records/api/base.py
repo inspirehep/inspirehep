@@ -462,8 +462,9 @@ class InspireRecord(Record):
 
         if (
             not force_undelete
-            and self._previous_version.get("deleted")
-            and not self.get("deleted")
+            # Check deleted status of current version ad new version
+            and self.model.json.get("deleted")
+            and not data.get("deleted")
         ):
             raise ValidationError("Deleted record can't be undeleted!")
 

@@ -246,7 +246,7 @@ def test_literature_update_force_undelete_flag(inspire_app):
 
     record_1["deleted"] = False
     with pytest.raises(ValidationError):
-        record.update(dict(record_1))
+        record_1.update(dict(record_1))
 
 
 def test_seminar_update_force_undelete_flag(inspire_app):
@@ -269,7 +269,7 @@ def test_seminar_update_force_undelete_flag(inspire_app):
 
     record_1["deleted"] = False
     with pytest.raises(ValidationError):
-        record.update(dict(record_1))
+        record_1.update(dict(record_1))
 
 
 def test_conference_update_force_undelete_flag(inspire_app):
@@ -292,7 +292,7 @@ def test_conference_update_force_undelete_flag(inspire_app):
 
     record_1["deleted"] = False
     with pytest.raises(ValidationError):
-        record.update(dict(record_1))
+        record_1.update(dict(record_1))
 
 
 def test_author_update_force_undelete_flag(inspire_app):
@@ -315,7 +315,7 @@ def test_author_update_force_undelete_flag(inspire_app):
 
     record_1["deleted"] = False
     with pytest.raises(ValidationError):
-        record.update(dict(record_1))
+        record_1.update(dict(record_1))
 
 
 def test_institution_update_force_undelete_flag(inspire_app):
@@ -338,7 +338,7 @@ def test_institution_update_force_undelete_flag(inspire_app):
 
     record_1["deleted"] = False
     with pytest.raises(ValidationError):
-        record.update(dict(record_1))
+        record_1.update(dict(record_1))
 
 
 def test_job_update_force_undelete_flag(inspire_app):
@@ -361,4 +361,4 @@ def test_job_update_force_undelete_flag(inspire_app):
 
     record_1["deleted"] = False
     with pytest.raises(ValidationError):
-        record.update(dict(record_1))
+        record_1.update(dict(record_1))
