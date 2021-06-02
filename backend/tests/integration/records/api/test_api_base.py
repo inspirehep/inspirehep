@@ -16,6 +16,7 @@ from helpers.utils import create_pidstore, create_record, create_record_factory
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus, RecordIdentifier
 from invenio_records.models import RecordMetadata
+from jsonschema import ValidationError
 
 from inspirehep.pidstore.errors import WrongRedirectionPidStatus
 from inspirehep.pidstore.models import InspireRedirect
@@ -805,3 +806,24 @@ def test_creating_record_with_id_provided_but_without_control_number_properly_mi
         pid_type="lit", object_uuid=id_
     ).one()
     assert cn_minted.pid_value == str(rec["control_number"])
+
+
+def test_undeleting_record_is_correctly_blocked(inspire_app):
+    record = create_record("lit")
+    record.delete()
+    data = dict(record)
+    del data["deleted"]
+    with pytest.raises(ValidationError):
+        record.update(data)
+    rec = LiteratureRecord.get_record_by_pid_value(data["control_number"])
+    assert rec["deleted"] is True
+
+
+def test_forced_undeleting_record_is_not_blocked(inspire_app):
+    record = create_record("lit")
+    record.delete()
+    data = dict(record)
+    del data["deleted"]
+    record.update(data, force_undelete=True)
+    rec = LiteratureRecord.get_record_by_pid_value(data["control_number"])
+    assert "deleted" not in rec
