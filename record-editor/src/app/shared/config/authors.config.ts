@@ -21,7 +21,8 @@
  */
 
 import { JsonEditorConfig } from 'ng2-json-editor';
-import { customValidationForDateTypes } from './commons';
+import { customValidationForDateTypes, anchorBuilder,  setRecordRefAndCuratedOnCompletionSelect, } from './commons';
+import { environment } from './../../../environments/environment';
 
 export const authors: JsonEditorConfig = {
   schemaOptions: {
@@ -66,8 +67,25 @@ export const authors: JsonEditorConfig = {
             'record',
             'hidden',
             'curated_relation'
-          ]
-        }
+          ],
+          properties: {
+            legacy_name: {
+              autocompletionConfig: {
+                url: `${environment.baseUrl}/institutions/_suggest?affiliation=`,
+                path: '/affiliation/0/options',
+                optionField: '/_source/legacy_ICN',
+                size: 10,
+                itemTemplateName: 'affiliationAutocompleteTemplate',
+                onCompletionSelect: setRecordRefAndCuratedOnCompletionSelect,
+              },
+            },
+            record: {
+              refFieldConfig: {
+                anchorBuilder: anchorBuilder,
+              },
+            },
+          },
+        },
       },
       project_membership: {
         items: {
