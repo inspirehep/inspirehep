@@ -21,29 +21,43 @@
  */
 
 import { JsonEditorConfig } from 'ng2-json-editor';
-import { customValidationForDateTypes, anchorBuilder,  setRecordRefAndCuratedOnCompletionSelect, } from './commons';
-import { environment } from './../../../environments/environment';
+import { customValidationForDateTypes, anchorBuilder } from './commons';
 
 export const authors: JsonEditorConfig = {
   schemaOptions: {
     order: [
-      "ids",
-      "name",
-      "positions",
-      "_private_notes",
-      "email",
-      "status",
-      "project_membership"
+      'ids',
+      'name',
+      'positions',
+      '_private_notes',
+      'email',
+      'status',
+      'project_membership'
     ],
     properties: {
+      ids: {
+        properties: {
+          schema: {
+            items: {
+              order: [
+                'INSPIRE ID',
+                'ORCID',
+                'BAI',
+                'CERN',
+                'WIKIPEDIA'
+              ]
+            }
+          }
+        }
+      },
       name: {
         order: [
-          "preferred_name",
-          "value",
-          "title",
-          "numeration",
-          "name_variants",
-          "native_name"
+          'preferred_name',
+          'value',
+          'title',
+          'numeration',
+          'name_variants',
+          'native_name'
         ]
       },
       positions: {
@@ -69,16 +83,6 @@ export const authors: JsonEditorConfig = {
             'curated_relation'
           ],
           properties: {
-            legacy_name: {
-              autocompletionConfig: {
-                url: `${environment.baseUrl}/institutions/_suggest?affiliation=`,
-                path: '/affiliation/0/options',
-                optionField: '/_source/legacy_ICN',
-                size: 10,
-                itemTemplateName: 'affiliationAutocompleteTemplate',
-                onCompletionSelect: setRecordRefAndCuratedOnCompletionSelect,
-              },
-            },
             record: {
               refFieldConfig: {
                 anchorBuilder: anchorBuilder,
@@ -90,13 +94,13 @@ export const authors: JsonEditorConfig = {
       project_membership: {
         items: {
           order: [
-            "current",
-            "name",
-            "start_date",
-            "end_date",
-            "record",
-            "hidden",
-            "curated_relation"
+            'current',
+            'name',
+            'start_date',
+            'end_date',
+            'record',
+            'hidden',
+            'curated_relation'
           ]
         }
       },
