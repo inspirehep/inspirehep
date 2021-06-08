@@ -44,6 +44,8 @@ FEATURE_FLAG_ENABLE_AUTHOR_DISAMBIGUATION = False
 FEATURE_FLAG_ENABLE_WORKFLOW_ON_AUTHOR_UPDATE = False
 FEATURE_FLAG_ENABLE_HAL_PUSH = False
 FEATURE_FLAG_ENABLE_CDS_SYNC = False
+FEATURE_FLAG_ENABLE_LEGACY_VIEW_REDIRECTS = True
+
 # Web services and APIs
 # =====================
 AUTHENTICATION_TOKEN = "CHANGE_ME"
@@ -94,6 +96,8 @@ COLLECTION_EQUIVALENCE = {
     "HepNames": "authors",
     "Conferences": "conferences",
     "Jobs": "jobs",
+    "Institutions": "institutions",
+    "Experiments": "experiments",
 }
 
 NON_PRIVATE_LITERATURE_COLLECTIONS = [
