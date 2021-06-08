@@ -263,3 +263,5 @@ SEARCH_MAX_RECURSION_LIMIT = 5000
 REFEXTRACT_JOURNAL_KB_PATH = pkg_resources.resource_filename(
     "refextract", "references/kbs/journal-titles.kb"
 )
+
+BATCHUPLOADER_WEB_ROBOT_TOKEN = 'CHANGE_ME'
