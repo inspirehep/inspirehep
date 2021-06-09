@@ -22,6 +22,7 @@ from inspirehep.search.aggregations import (
     hep_author_count_aggregation,
     hep_collaboration_aggregation,
     hep_collection_aggregation,
+    hep_curation_collection_aggregation,
     hep_doc_type_aggregation,
     hep_earliest_date_aggregation,
     hep_experiments_aggregation,
@@ -81,10 +82,13 @@ def must_match_all_filter(field):
 
 def filter_from_filters_aggregation(agg):
     def inner(values):
-        filters = [
-            list(agg.values())[0]["filters"]["filters"][value] for value in values
-        ]
-        return Q("bool", filter=filters)
+        try:
+            filters = [
+                list(agg.values())[0]["filters"]["filters"][value] for value in values
+            ]
+            return Q("bool", filter=filters)
+        except KeyError:
+            return Q("match_none")
 
     return inner
 
@@ -503,7 +507,12 @@ def records_hep_cataloger(order=None):
     if order is None:
         order = count(start=1)
     records = records_hep(order=order)
-    records["aggs"].update({**hep_collection_aggregation(order=next(order))})
+    records["aggs"].update(
+        {
+            **hep_collection_aggregation(order=next(order)),
+            **hep_curation_collection_aggregation(order=next(order)),
+        }
+    )
     return records
 
 

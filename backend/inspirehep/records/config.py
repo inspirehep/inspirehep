@@ -24,7 +24,7 @@ from inspirehep.access_control import (
     SessionSuperuserPermission,
 )
 from inspirehep.records.links import build_citation_search_link
-from inspirehep.search.aggregations import hep_rpp
+from inspirehep.search.aggregations import hep_curation_collection_aggregation, hep_rpp
 from inspirehep.search.api import (
     AuthorsSearch,
     ConferencesSearch,
@@ -519,6 +519,9 @@ HEP_FILTERS = {
     "refereed": must_match_all_filter("refereed"),
     "citeable": must_match_all_filter("citeable"),
     "collection": must_match_all_filter("_collections"),
+    "curation_collection": filter_from_filters_aggregation(
+        hep_curation_collection_aggregation(order=1)
+    ),
     "subject": must_match_all_filter("facet_inspire_categories"),
     "arxiv_categories": must_match_all_filter("facet_arxiv_categories"),
     "experiments": must_match_all_filter("facet_experiment"),
