@@ -478,6 +478,7 @@ def test_literature_cataloger_facets(inspire_app):
             "subject",
             "collaboration",
             "collection",
+            "curation_collection",
             "rpp",
         ]
     )
