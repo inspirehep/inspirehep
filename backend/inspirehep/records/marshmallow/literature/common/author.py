@@ -73,7 +73,7 @@ class CVAuthorSchemaV1(AuthorSchemaV1):
 
     @staticmethod
     def get_affiliations(data):
-        affiliations = data.get("affiliations", [])
+        affiliations = data.get("affiliations", []).copy()
         for affiliation in affiliations:
             if "record" in affiliation:
                 _, affiliation["control_number"] = PidStoreBase.get_pid_from_record_uri(
