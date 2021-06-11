@@ -402,6 +402,7 @@ def hep_curation_collection_aggregation(
                                 {"match_phrase": {"_private_notes.value": "Not CERN"}},
                             ],
                             "must": {"match": {"_collections": "Literature"}},
+                            "minimum_should_match": 1,
                         }
                     }
                 }
