@@ -20,6 +20,10 @@ fake = Faker()
 
 class RecordProvider(BaseProvider):
     @staticmethod
+    def fake_full_name():
+        return fake.first_name() + " " + fake.last_name()
+
+    @staticmethod
     def control_number():
         return fake.random_number(digits=8, fix_len=True)
 
@@ -61,7 +65,7 @@ class RecordProvider(BaseProvider):
         bai_value = re.sub(
             "\\.+",
             ".",
-            f"{re.sub(' +', '.', fake.name())}.{fake.random_number(digits=1)}",
+            f"{re.sub(' +', '.', RecordProvider.fake_full_name())}.{fake.random_number(digits=1)}",
         )
         return bai_value
 
@@ -78,7 +82,7 @@ class RecordProvider(BaseProvider):
     def author_record(cls):
         return {
             "$schema": "http://localhost:5000/schemas/records/authors.json",
-            "name": {"value": fake.name()},
+            "name": {"value": RecordProvider.fake_full_name()},
             "_collections": ["Authors"],
         }
 
@@ -111,7 +115,7 @@ class RecordProvider(BaseProvider):
                     )
                 }
             ],
-            "speakers": [{"name": fake.name()}],
+            "speakers": [{"name": RecordProvider.fake_full_name()}],
             "timezone": fake.timezone(),
         }
 
