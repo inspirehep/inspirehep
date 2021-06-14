@@ -125,6 +125,7 @@ web-pdb = "^1.5"
 moto = "^1.3.14"
 pytest-testmon = "^1.0.3"
 pytest-github-actions-annotate-failures = {git = "https://github.com/michamos/pytest-github-actions-annotate-failures.git"}
+pytest-split = "^0.2.1"
 
 [tool.poetry.scripts]
 inspirehep = "inspirehep.cli:cli"
