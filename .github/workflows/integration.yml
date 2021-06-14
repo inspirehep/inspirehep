@@ -111,7 +111,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        suite: [integration-async, integration]
+        suite:
+          [
+            integration-async,
+            'integration --splits 5 --group 1',
+            'integration --splits 5 --group 2',
+            'integration --splits 5 --group 3',
+            'integration --splits 5 --group 4',
+            'integration --splits 5 --group 5',
+          ]
     services:
       redis:
         image: redis
