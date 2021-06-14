@@ -71,5 +71,10 @@ class AccessTokenFactory(BaseFactory):
         else:
             user = UserFactory()
         user = User.query.filter(User.email == user.email).one_or_none()
-        token = Token.create_personal(fake.name(), user.id, scopes={}, is_internal=True)
+        token = Token.create_personal(
+            fake.first_name() + " " + fake.last_name(),
+            user.id,
+            scopes={},
+            is_internal=True,
+        )
         return token
