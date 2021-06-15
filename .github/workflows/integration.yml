@@ -114,11 +114,12 @@ jobs:
         suite:
           [
             integration-async,
-            'integration --splits 5 --group 1',
-            'integration --splits 5 --group 2',
-            'integration --splits 5 --group 3',
-            'integration --splits 5 --group 4',
-            'integration --splits 5 --group 5',
+            'integration --splits 6 --group 1',
+            'integration --splits 6 --group 2',
+            'integration --splits 6 --group 3',
+            'integration --splits 6 --group 4',
+            'integration --splits 6 --group 5',
+            'integration --splits 6 --group 6',
           ]
     services:
       redis:
