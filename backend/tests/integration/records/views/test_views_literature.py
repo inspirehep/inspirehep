@@ -478,6 +478,7 @@ def test_literature_cataloger_facets(inspire_app):
             "subject",
             "collaboration",
             "collection",
+            "curation_collection",
             "rpp",
         ]
     )
@@ -768,7 +769,7 @@ def test_literature_search_permissions(inspire_app):
 
 def test_literature_hidden_collection_as_anonymous_user(inspire_app):
     expected_status_code = 401
-    rec = create_record("lit", data={"_collections": ["Fermilab"]})
+    rec = create_record("lit", data={"_collections": ["D0 Internal Notes"]})
     with inspire_app.test_client() as client:
         response = client.get(f"/literature/{rec['control_number']}")
     assert response.status_code == expected_status_code
@@ -788,7 +789,7 @@ def test_literature_hidden_collection_as_cataloger(inspire_app):
 
 def test_literature_hidden_collection_as_logged_in_user_not_cataloger(inspire_app):
     expected_status_code = 403
-    rec = create_record("lit", data={"_collections": ["Fermilab"]})
+    rec = create_record("lit", data={"_collections": ["D0 Internal Notes"]})
 
     user = create_user()
 
@@ -850,3 +851,16 @@ def test_literature_json_put_redirected_record(inspire_app):
 
     assert dict(redirected_record_from_db) == data
     assert dict(record_from_db) == dict(record)
+
+
+def test_users_can_access_records_from_hidden_collections(inspire_app):
+    record = create_record(
+        "lit",
+        data={
+            "_collections": ["Fermilab"],
+            "titles": [{"title": "A literature record from fermilab collection"}],
+        },
+    )
+    with inspire_app.test_client() as client:
+        response = client.get(f"/literature/{record.control_number}")
+    assert response.status_code == 200

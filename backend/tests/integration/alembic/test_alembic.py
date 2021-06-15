@@ -13,6 +13,10 @@ from sqlalchemy.engine import reflection
 
 def test_downgrade(inspire_app):
     alembic = Alembic(current_app)
+    alembic.downgrade(target="318758a589d5")
+    assert "cds_runs" not in _get_table_names()
+    assert "enum_cds_run_status" not in _get_custom_enums()
+    assert "ix_cds_runs_status_date" not in _get_indexes("cds_runs")
 
     alembic.downgrade(target="49a436a179ac")
     assert "idx_object" in _get_indexes("pidstore_pid")
@@ -234,6 +238,11 @@ def test_upgrade(inspire_app):
     assert "object_uuid, object_type" in _get_index_definition(
         "pidstore_pid", "idx_object"
     )
+
+    alembic.upgrade(target="412aeb064d68")
+    assert "cds_runs" in _get_table_names()
+    assert "enum_cds_run_status" in _get_custom_enums()
+    assert "ix_cds_runs_status_date" in _get_indexes("cds_runs")
 
 
 def _get_indexes(tablename):

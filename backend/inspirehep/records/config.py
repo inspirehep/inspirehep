@@ -24,7 +24,7 @@ from inspirehep.access_control import (
     SessionSuperuserPermission,
 )
 from inspirehep.records.links import build_citation_search_link
-from inspirehep.search.aggregations import hep_rpp
+from inspirehep.search.aggregations import hep_curation_collection_aggregation, hep_rpp
 from inspirehep.search.api import (
     AuthorsSearch,
     ConferencesSearch,
@@ -519,6 +519,9 @@ HEP_FILTERS = {
     "refereed": must_match_all_filter("refereed"),
     "citeable": must_match_all_filter("citeable"),
     "collection": must_match_all_filter("_collections"),
+    "curation_collection": filter_from_filters_aggregation(
+        hep_curation_collection_aggregation(order=1)
+    ),
     "subject": must_match_all_filter("facet_inspire_categories"),
     "arxiv_categories": must_match_all_filter("facet_arxiv_categories"),
     "experiments": must_match_all_filter("facet_experiment"),
@@ -642,6 +645,7 @@ LITERATURE_SOURCE_INCLUDES_BY_CONTENT_TYPE = {
     "application/vnd+inspire.latex.eu+x-latex": ["_latex_eu_display"],
     "application/x-bibtex": ["_bibtex_display"],
     "text/vnd+inspire.html+html": [
+        "_cv_format",
         "titles",
         "control_number",
         "collaborations",
@@ -657,7 +661,10 @@ LITERATURE_SOURCE_EXCLUDES_BY_CONTENT_TYPE = {
         "_latex_us_display",
         "_latex_eu_display",
         "_bibtex_display",
-    ]
+    ],
+    "text/html": [
+        "_cv_format",
+    ],
 }
 
 

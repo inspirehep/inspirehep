@@ -6,6 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 """INSPIRE module that adds more fun to the platform."""
+import uuid
 from copy import copy, deepcopy
 
 import orjson
@@ -15,6 +16,7 @@ from helpers.utils import create_pidstore, create_record, create_record_factory
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus, RecordIdentifier
 from invenio_records.models import RecordMetadata
+from jsonschema import ValidationError
 
 from inspirehep.pidstore.errors import WrongRedirectionPidStatus
 from inspirehep.pidstore.models import InspireRedirect
@@ -751,3 +753,77 @@ def test_deleted_record_from_legacy_is_created_with_obj_uuid_and_recid(inspire_a
     assert record.id
     assert InspireRecord.get_record_by_pid_value("1775082", "exp")
     assert pid.status == PIDStatus.DELETED
+
+
+def test_creating_record_with_id_provided_properly_mints_identifiers(inspire_app):
+    record_data = {
+        "$schema": "https://inspirebeta.net/schemas/records/hep.json",
+        "control_number": 1_234_567,
+        "arxiv_eprints": [{"value": "2105.06728", "categories": ["astro-ph.IM"]}],
+        "_collections": ["Literature"],
+        "document_type": ["article"],
+        "titles": [{"title": "Some title"}],
+    }
+
+    id_ = uuid.uuid4()
+    InspireRecord.create(data=record_data, id_=id_)
+
+    assert PersistentIdentifier.query.filter_by(object_uuid=id_).count() == 2
+    assert (
+        PersistentIdentifier.query.filter_by(
+            pid_type="arxiv", pid_value="2105.06728", object_uuid=id_
+        ).count()
+        == 1
+    )
+    cn_minted = PersistentIdentifier.query.filter_by(
+        pid_type="lit", object_uuid=id_
+    ).one()
+    assert cn_minted.pid_value == str(record_data["control_number"])
+
+
+def test_creating_record_with_id_provided_but_without_control_number_properly_mints_identifiers(
+    inspire_app,
+):
+    record_data = {
+        "$schema": "https://inspirebeta.net/schemas/records/hep.json",
+        "arxiv_eprints": [{"value": "2105.06728", "categories": ["astro-ph.IM"]}],
+        "_collections": ["Literature"],
+        "document_type": ["article"],
+        "titles": [{"title": "Some title"}],
+    }
+
+    id_ = uuid.uuid4()
+    rec = InspireRecord.create(data=record_data, id_=id_)
+
+    assert PersistentIdentifier.query.filter_by(object_uuid=id_).count() == 2
+    assert (
+        PersistentIdentifier.query.filter_by(
+            pid_type="arxiv", pid_value="2105.06728", object_uuid=id_
+        ).count()
+        == 1
+    )
+    cn_minted = PersistentIdentifier.query.filter_by(
+        pid_type="lit", object_uuid=id_
+    ).one()
+    assert cn_minted.pid_value == str(rec["control_number"])
+
+
+def test_undeleting_record_is_correctly_blocked(inspire_app):
+    record = create_record("lit")
+    record.delete()
+    data = dict(record)
+    del data["deleted"]
+    with pytest.raises(ValidationError):
+        record.update(data)
+    rec = LiteratureRecord.get_record_by_pid_value(data["control_number"])
+    assert rec["deleted"] is True
+
+
+def test_forced_undeleting_record_is_not_blocked(inspire_app):
+    record = create_record("lit")
+    record.delete()
+    data = dict(record)
+    del data["deleted"]
+    record.update(data, force_undelete=True)
+    rec = LiteratureRecord.get_record_by_pid_value(data["control_number"])
+    assert "deleted" not in rec

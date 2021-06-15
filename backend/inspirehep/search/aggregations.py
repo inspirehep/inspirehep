@@ -239,6 +239,184 @@ def hep_collection_aggregation(order, title="Collection", agg_type="checkbox"):
     }
 
 
+def hep_curation_collection_aggregation(
+    order, title="Curation Collection", agg_type="checkbox"
+):
+    cern_experiments = [
+        "AMS",
+        "CALICE",
+        "CHIC",
+        "CLEAR",
+        "CLIC",
+        "CLICdp",
+        "CLOUD",
+        "CROWS",
+        "EEE",
+        "EXPLORER",
+        "FASER",
+        "IAXO",
+        "LAGUNA-LBNO",
+        "LARP",
+        "MATHUSLA",
+        "MERIT",
+        "OPAL",
+        "ProtoDUNE-DP",
+        "ProtoDUNE-SP",
+        "XSEN",
+    ]
+    cern_collaborations = [
+        "ALICE",
+        "AMS",
+        "ATLAS",
+        "CLEAR",
+        "CLIC",
+        "CLICdp",
+        "CLOUD",
+        "CMS",
+        "COMPASS",
+        "FASER",
+        "FCC",
+        "ISOLDE",
+        "LAGUNA-LBNO",
+        "LHCb",
+        "LHCf",
+        "MATHUSLA",
+        "MEDICIS",
+        "MERIT",
+        "SHINE",
+        "SHiP",
+        "TOTEM",
+        "n_TOF",
+    ]
+    non_cern_collaborations = [
+        "CDF",
+        "D0",
+        "nanograv",
+        "PLANCK",
+    ]
+
+    return {
+        "curation_collection": {
+            "filters": {
+                "filters": {
+                    "CDS candidates": {
+                        "bool": {
+                            "should": [
+                                {
+                                    "query_string": {
+                                        "query": "CERN*",
+                                        "fields": [
+                                            "accelerator_experiments.legacy_name"
+                                        ],
+                                        "analyze_wildcard": True,
+                                    }
+                                },
+                                {
+                                    "query_string": {
+                                        "query": "CERN*",
+                                        "fields": [
+                                            "accelerator_experiments.accelerator"
+                                        ],
+                                        "analyze_wildcard": True,
+                                    }
+                                },
+                                {
+                                    "terms": {
+                                        "accelerator_experiments.legacy_name": cern_experiments
+                                    }
+                                },
+                                {
+                                    "terms": {
+                                        "collaborations.value": cern_collaborations
+                                    }
+                                },
+                                {
+                                    "nested": {
+                                        "path": "authors",
+                                        "query": {
+                                            "match": {
+                                                "authors.affiliations.value": {
+                                                    "query": "CERN",
+                                                    "operator": "and",
+                                                }
+                                            }
+                                        },
+                                    }
+                                },
+                                {
+                                    "nested": {
+                                        "path": "authors",
+                                        "query": {
+                                            "match": {
+                                                "authors.raw_affiliations.value": {
+                                                    "query": "CERN",
+                                                    "operator": "and",
+                                                }
+                                            }
+                                        },
+                                    }
+                                },
+                                {
+                                    "query_string": {
+                                        "query": "cern\\-*",
+                                        "fields": ["report_numbers.value.fuzzy"],
+                                        "analyze_wildcard": True,
+                                    }
+                                },
+                                {
+                                    "query_string": {
+                                        "query": "NA*",
+                                        "fields": ["collaborations.value"],
+                                        "analyze_wildcard": True,
+                                    }
+                                },
+                                {
+                                    "query_string": {
+                                        "query": "RD*",
+                                        "fields": ["collaborations.value"],
+                                        "analyze_wildcard": True,
+                                    }
+                                },
+                                {
+                                    "query_string": {
+                                        "query": "CERN*",
+                                        "fields": ["collaborations.value"],
+                                        "analyze_wildcard": True,
+                                    }
+                                },
+                            ],
+                            "must_not": [
+                                {
+                                    "match": {
+                                        "external_system_identifiers.schema": {
+                                            "query": "CDS",
+                                            "operator": "and",
+                                        }
+                                    }
+                                },
+                                {
+                                    "terms": {
+                                        "collaborations.value": non_cern_collaborations
+                                    }
+                                },
+                                {"match_phrase": {"_private_notes.value": "Not CERN"}},
+                            ],
+                            "must": {"match": {"_collections": "Literature"}},
+                            "minimum_should_match": 1,
+                        }
+                    }
+                }
+            },
+            "meta": {
+                "title": title,
+                "order": order,
+                "type": agg_type,
+                "is_filter_aggregation": True,
+            },
+        }
+    }
+
+
 def hep_rpp(order, title="Exclude RPP", agg_type="checkbox"):
     return {
         "rpp": {

@@ -369,6 +369,7 @@ def test_dump_for_es(inspire_app):
     assert "_latex_us_display" in dump
     assert "_latex_eu_display" in dump
     assert "_bibtex_display" in dump
+    assert "_cv_format" in dump
     assert "control_number" in dump
     assert record["control_number"] == dump["control_number"]
     assert "id" in dump

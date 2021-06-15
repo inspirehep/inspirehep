@@ -14,6 +14,7 @@ import {
 } from './actionTypes';
 import { HOME } from '../common/routes';
 import { httpErrorToActionPayload } from '../common/utils';
+import notifySessionExpired from '../user/sessionExpireNotification';
 
 export function userLoginSuccess(user) {
   return {
@@ -110,6 +111,19 @@ export function userLogout() {
       dispatch(goBack());
     } catch (error) {
       // TODO: dispatch logout error?
+    }
+  };
+}
+
+export function userInactive() {
+  return async (dispatch, getState, http) => {
+    if (getState().user.get('loggedIn')) {
+      try {
+        await http.get('/accounts/me');
+      } catch (error) {
+        notifySessionExpired();
+        dispatch(userLogoutSuccess());
+      }
     }
   };
 }

@@ -43,6 +43,8 @@ FEATURE_FLAG_ENABLE_SELF_CITATIONS = False
 FEATURE_FLAG_ENABLE_AUTHOR_DISAMBIGUATION = False
 FEATURE_FLAG_ENABLE_WORKFLOW_ON_AUTHOR_UPDATE = False
 FEATURE_FLAG_ENABLE_HAL_PUSH = False
+FEATURE_FLAG_ENABLE_CDS_SYNC = False
+FEATURE_FLAG_ENABLE_LEGACY_VIEW_REDIRECTS = True
 
 # Web services and APIs
 # =====================
@@ -94,7 +96,21 @@ COLLECTION_EQUIVALENCE = {
     "HepNames": "authors",
     "Conferences": "conferences",
     "Jobs": "jobs",
+    "Institutions": "institutions",
+    "Experiments": "experiments",
 }
+
+NON_PRIVATE_LITERATURE_COLLECTIONS = [
+    "Literature",
+    "CDF Notes",
+    "CDS Hidden",
+    "D0 Preliminary Notes",
+    "Fermilab",
+    "HAL Hidden",
+    "LArSoft Notes",
+    "SLAC",
+    "ZEUS Preliminary Notes",
+]
 
 # Invenio and 3rd party
 # =====================
@@ -251,3 +267,5 @@ SEARCH_MAX_RECURSION_LIMIT = 5000
 REFEXTRACT_JOURNAL_KB_PATH = pkg_resources.resource_filename(
     "refextract", "references/kbs/journal-titles.kb"
 )
+
+BATCHUPLOADER_WEB_ROBOT_TOKEN = 'CHANGE_ME'

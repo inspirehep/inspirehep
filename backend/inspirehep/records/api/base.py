@@ -224,17 +224,16 @@ class InspireRecord(Record):
     def create(cls, data, id_=None, *args, **kwargs):
         record_class = cls.get_class_for_record(data)
         if record_class != cls:
-            return record_class.create(data, *args, **kwargs)
+            return record_class.create(data, id_=id_, *args, **kwargs)
         data = cls.strip_empty_values(data)
 
         deleted = data.get("deleted", False)
-
         with db.session.begin_nested():
             if not id_:
                 id_ = uuid.uuid4()
-                if not deleted:
-                    cls.delete_records_from_deleted_records(data)
-                cls.pidstore_handler.mint(id_, data)
+            if not deleted:
+                cls.delete_records_from_deleted_records(data)
+            cls.pidstore_handler.mint(id_, data)
 
             if deleted:
                 cls.pidstore_handler.delete(id_, data)
@@ -463,8 +462,9 @@ class InspireRecord(Record):
 
         if (
             not force_undelete
-            and self._previous_version.get("deleted")
-            and not self.get("deleted")
+            # Check deleted status of current version ad new version
+            and self.model.json.get("deleted")
+            and not data.get("deleted")
         ):
             raise ValidationError("Deleted record can't be undeleted!")
 

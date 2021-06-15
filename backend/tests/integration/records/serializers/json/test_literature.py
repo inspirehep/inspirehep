@@ -1393,3 +1393,42 @@ def test_primary_arxiv_category_is_added_when_arxiv_eprints_present(inspire_app)
         response.json["hits"]["hits"][0]["metadata"]["primary_arxiv_category"]
     )
     assert "primary_arxiv_category" not in response.json["hits"]["hits"][1]["metadata"]
+
+
+def test_cv_format_doesnt_mutate_record(inspire_app):
+    headers = {"Accept": "text/vnd+inspire.html+html"}
+    headers_json = {"Accept": "application/json"}
+    institution_rec = create_record("ins")
+    data_lit = {
+        "control_number": 637_275_238,
+        "titles": [{"title": "This is a title."}],
+        "collaborations": [{"value": "Particle Data Group"}],
+        "authors": [
+            {
+                "full_name": "Doe, John6",
+                "affiliations": [
+                    {
+                        "value": "South China Normal U.",
+                        "record": institution_rec["self"],
+                    }
+                ],
+            },
+            {"full_name": "Didi, Jane"},
+        ],
+    }
+    create_record("lit", data=data_lit)
+
+    with inspire_app.test_client() as client:
+        client.get("/literature", headers=headers)
+
+    with inspire_app.test_client() as client:
+        response = client.get("/literature", headers=headers_json)
+
+    response_data = orjson.loads(response.data)
+    response_data_hits = response_data["hits"]["hits"]
+    author_affiliations = response_data_hits[0]["metadata"]["authors"][0][
+        "affiliations"
+    ]
+
+    assert response.status_code == 200
+    assert "control_number" not in author_affiliations

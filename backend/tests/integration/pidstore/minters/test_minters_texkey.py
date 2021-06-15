@@ -61,10 +61,10 @@ def test_minter_mint_new_record_with_texkey_when_texkey_already_in_use(
         "texkeys": ["Janeway:2000abc"],
     }
     with override_config(FEATURE_FLAG_ENABLE_TEXKEY_MINTER=True):
-        record = create_record("lit", data=data)
+        create_record("lit", data=data)
 
         with pytest.raises(PIDAlreadyExistsError):
-            record = create_record("lit", data=data)
+            create_record("lit", data=data)
 
 
 def test_minter_mint_record_update_with_texkey_changed(inspire_app, override_config):
@@ -246,7 +246,7 @@ def test_minter_undeleting_record(inspire_app, override_config):
         record.delete()
         data = dict(record)
         del data["deleted"]
-        record.update(data)
+        record.update(data, force_undelete=True)
     texkey = PersistentIdentifier.query.filter(
         PersistentIdentifier.object_uuid == record.id,
         PersistentIdentifier.pid_type == "texkey",

@@ -56,7 +56,7 @@ jobs:
       - name: Build and push
         uses: ./.github/actions/backend-build
         with:
-          lock-hash: ${{ hashFiles('backend/poetry.lock') }}
+          lock-hash: ${{ hashFiles('backend/poetry.lock', 'backend/pyproject.yaml', 'backend/Dockerfile') }}
 
   ui_build:
     name: UI build
@@ -111,7 +111,16 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        suite: [integration-async, integration]
+        suite:
+          [
+            integration-async,
+            'integration --splits 6 --group 1',
+            'integration --splits 6 --group 2',
+            'integration --splits 6 --group 3',
+            'integration --splits 6 --group 4',
+            'integration --splits 6 --group 5',
+            'integration --splits 6 --group 6',
+          ]
     services:
       redis:
         image: redis

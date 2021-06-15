@@ -68,6 +68,11 @@ def test_hep_rpp_aggregation_and_filter(inspire_app, override_config):
             == expected_record["control_number"]
         )
 
+        # filter_from_filter_agggregation doesn't blow up for incorrect value
+        with inspire_app.test_client() as client:
+            response = client.get("/literature?rpp=Wrong%20value").json
+        assert len(response["hits"]["hits"]) == 0
+
 
 def test_hep_earliest_date_aggregation_and_filter(inspire_app, override_config):
     config = {

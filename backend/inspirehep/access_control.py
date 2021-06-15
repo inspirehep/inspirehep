@@ -5,6 +5,8 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+from flask import current_app
+
 from inspirehep.accounts.decorators import login_required_with_roles
 from inspirehep.accounts.roles import Roles
 
@@ -37,6 +39,8 @@ class SessionSuperuserPermission(InspireBasePermissionCheck):
 
 class LiteraturePermissionCheck(SessionCatalogerPermission):
     def can(self):
-        if "Literature" not in self.record.get("_collections", []):
+        if not set(current_app.config["NON_PRIVATE_LITERATURE_COLLECTIONS"]) & set(
+            self.record.get("_collections", [])
+        ):
             return self.cataloger_check()
         return True

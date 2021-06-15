@@ -8,6 +8,7 @@ import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 import 'tachyons';
 import * as Sentry from '@sentry/browser';
+import { Idle } from 'idlejs';
 
 import { unregister as unregisterServiceWorker } from './registerServiceWorker';
 import createStore, { history } from './store';
@@ -16,6 +17,7 @@ import ErrorAppCrash from './errors/components/ErrorAppCrash';
 import ErrorBoundary from './common/components/ErrorBoundary';
 import { injectTrackerToHistory, getClientId } from './tracker';
 import { getConfigFor } from './common/config';
+import { userInactive } from './actions/user';
 
 Sentry.init({
   dsn: getConfigFor('REACT_APP_SENTRY_DSN'),
@@ -42,3 +44,9 @@ ReactDOM.render(
 // TODO: change to CRA 2.0 service worker script and register instead of unregistering.
 // registerServiceWorker();
 unregisterServiceWorker();
+
+new Idle()
+  .whenNotInteractive()
+  .within(30)
+  .do(() => store.dispatch(userInactive()))
+  .start();

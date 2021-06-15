@@ -46,29 +46,38 @@ def _redirect_author(bai):
 
 @blueprint.route("/author/claim/<bai>", methods=("GET",))
 def redirect_claim(bai):
-    return redirect(f"{current_app.config['LEGACY_BASE_URL']}/author/claim/{bai}", 302)
+    if current_app.config["FEATURE_FLAG_ENABLE_LEGACY_VIEW_REDIRECTS"]:
+        return redirect(
+            f"{current_app.config['LEGACY_BASE_URL']}/author/claim/{bai}", 302
+        )
+
+    recid = get_pid_for_pid("bai", bai, "recid")
+    return redirect(f"/authors/{recid}", 302)
 
 
 @blueprint.route("/author/merge_profiles", methods=("GET",))
 def redirect_merge_profiles():
-    return redirect(
-        f"{current_app.config['LEGACY_BASE_URL']}/author/merge_profiles?{request.query_string.decode('utf-8')}",
-        302,
-    )
+    if current_app.config["FEATURE_FLAG_ENABLE_LEGACY_VIEW_REDIRECTS"]:
+        return redirect(
+            f"{current_app.config['LEGACY_BASE_URL']}/author/merge_profiles?{request.query_string.decode('utf-8')}",
+            302,
+        )
+
+    return redirect(f"/authors", 302)
 
 
 @blueprint.route("/author/manage_profile/<bai>", methods=("GET",))
 def redirect_manage_profile(bai):
-    return redirect(
-        f"{current_app.config['LEGACY_BASE_URL']}/author/manage_profile/{bai}", 302
-    )
+    if current_app.config["FEATURE_FLAG_ENABLE_LEGACY_VIEW_REDIRECTS"]:
+        return redirect(
+            f"{current_app.config['LEGACY_BASE_URL']}/author/manage_profile/{bai}", 302
+        )
+    recid = get_pid_for_pid("bai", bai, "recid")
+    return redirect(f"/authors/{recid}", 302)
 
 
 @blueprint.route("/search", methods=("GET",))
 def redirect_query():
-    # TODO: Delete redirection to legacy when Institutions and Experiments are
-    # on labs and legacy UI is completely shut down
-
     legacy_collection = request.args.get("cc", "HEP")
     query = request.args.get("p", "")
 
@@ -76,24 +85,31 @@ def redirect_query():
     if collection:
         return redirect(f"/{collection}?q={query}", 301)
 
-    return redirect(
-        f"{current_app.config['LEGACY_BASE_URL']}/search?{request.query_string.decode('utf-8')}",
-        302,
-    )
+    if current_app.config["FEATURE_FLAG_ENABLE_LEGACY_VIEW_REDIRECTS"]:
+        return redirect(
+            f"{current_app.config['LEGACY_BASE_URL']}/search?{request.query_string.decode('utf-8')}",
+            302,
+        )
+
+    collection = f'_collections:"{legacy_collection}"' if legacy_collection else ''
+    query = f" and {query}" if query else ""
+    query = f'{collection}{query}'
+    return redirect(f"/literature?q={query}", 301)
 
 
 @blueprint.route("/collection/<legacy_collection>", methods=("GET",))
 def redirect_collection(legacy_collection):
-    # TODO: Delete redirection to legacy when Institutions and Experiments are
-    # on labs and legacy UI is completely shut down
-
     collection = current_app.config["COLLECTION_EQUIVALENCE"].get(legacy_collection)
     if collection:
         return redirect(f"/{collection}", 301)
 
-    return redirect(
-        f"{current_app.config['LEGACY_BASE_URL']}/collection/{legacy_collection}", 302
-    )
+    if current_app.config["FEATURE_FLAG_ENABLE_LEGACY_VIEW_REDIRECTS"]:
+        return redirect(
+            f"{current_app.config['LEGACY_BASE_URL']}/collection/{legacy_collection}",
+            302,
+        )
+    query = f'_collections:"{legacy_collection}"'
+    return redirect(f"/literature?q={query}", 301)
 
 
 @blueprint.route("/info/<path:info_path>", methods=("GET",))

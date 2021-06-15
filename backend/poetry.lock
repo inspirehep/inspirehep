@@ -851,7 +851,7 @@ Six = "*"
 
 [[package]]
 category = "main"
-description = "Transparent server-side session support for flask"
+description = ""
 name = "Flask-KVSession"
 optional = false
 python-versions = "*"
@@ -865,7 +865,7 @@ six = "*"
 werkzeug = "*"
 
 [package.source]
-reference = "84c2633a4af55092650cb6972b126039500b39f9"
+reference = "master"
 type = "git"
 url = "https://github.com/inspirehep/flask-kvsession.git"
 
@@ -997,7 +997,7 @@ Flask = ">=0.10"
 SQLAlchemy = ">=0.8.0"
 
 [package.source]
-reference = "71abd94a1e2317a1365a25a31e719dbd9aafceea"
+reference = "master"
 type = "git"
 url = "https://github.com/inspirehep/flask-sqlalchemy.git"
 
@@ -1550,15 +1550,15 @@ werkzeug = ">=0.15"
 
 [package.extras]
 admin = ["Flask-Admin (>=1.3.0)"]
-all = ["Flask-Admin (>=1.3.0)", "Sphinx (>=1.4.2,<1.6)", "check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.3.0)", "mock (>=2.0.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-flask (>=0.10.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.0.0,<5.0.0)", "selenium (>=3.0.1)", "Flask-Admin (>=1.3.0)", "Sphinx (>=1.4.2,<1.6)", "check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.3.0)", "mock (>=2.0.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-flask (>=0.10.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.0.0,<5.0.0)", "selenium (>=3.0.1)"]
+all = ["Flask-Admin (>=1.3.0)", "Sphinx (>=1.4.2,<1.6)", "check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.3.0)", "mock (>=2.0.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-flask (>=0.10.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.0.0,<5.0.0)", "selenium (>=3.0.1)"]
 docs = ["Sphinx (>=1.4.2,<1.6)"]
-mysql = ["invenio-db (>=1.0.0)"]
-postgresql = ["invenio-db (>=1.0.0)"]
-sqlite = ["invenio-db (>=1.0.0)"]
+mysql = ["invenio-db[mysql,versioning] (>=1.0.0)"]
+postgresql = ["invenio-db[postgresql,versioning] (>=1.0.0)"]
+sqlite = ["invenio-db[versioning] (>=1.0.0)"]
 tests = ["check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.3.0)", "mock (>=2.0.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-flask (>=0.10.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.0.0,<5.0.0)", "selenium (>=3.0.1)"]
 
 [package.source]
-reference = "f4e8192f12883eb6065c9866c443a9e86b7181f4"
+reference = "rest-api"
 type = "git"
 url = "https://github.com/inspirehep/invenio-accounts.git"
 
@@ -1863,16 +1863,16 @@ uritools = ">=1.0.1"
 
 [package.extras]
 admin = ["invenio-admin (>=1.0.0)"]
-all = ["invenio-admin (>=1.0.0)", "Sphinx (>=1.5.1)", "github3.py (>=1.0.0a4)", "uritemplate.py (>=0.2.0,<2.0)", "SQLAlchemy-Continuum (>=1.2.1)", "check-manifest (>=0.25)", "coverage (>=4.0)", "httpretty (>=0.8.14)", "invenio-accounts (>=1.0.0)", "invenio-userprofiles (>=1.0.0)", "isort (>=4.3.0)", "mock (>=1.3.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=2.8.3)", "simplejson (>=3.8)", "invenio-admin (>=1.0.0)", "Sphinx (>=1.5.1)", "github3.py (>=1.0.0a4)", "uritemplate.py (>=0.2.0,<2.0)", "SQLAlchemy-Continuum (>=1.2.1)", "check-manifest (>=0.25)", "coverage (>=4.0)", "httpretty (>=0.8.14)", "invenio-accounts (>=1.0.0)", "invenio-userprofiles (>=1.0.0)", "isort (>=4.3.0)", "mock (>=1.3.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=2.8.3)", "simplejson (>=3.8)"]
+all = ["invenio-admin (>=1.0.0)", "Sphinx (>=1.5.1)", "github3.py (>=1.0.0a4)", "uritemplate.py (>=0.2.0,<2.0)", "SQLAlchemy-Continuum (>=1.2.1)", "check-manifest (>=0.25)", "coverage (>=4.0)", "httpretty (>=0.8.14)", "invenio-accounts (>=1.0.0)", "invenio-userprofiles (>=1.0.0)", "isort (>=4.3.0)", "mock (>=1.3.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=2.8.3)", "simplejson (>=3.8)"]
 docs = ["Sphinx (>=1.5.1)"]
 github = ["github3.py (>=1.0.0a4)", "uritemplate.py (>=0.2.0,<2.0)"]
-mysql = ["invenio-db (>=1.0.0)"]
-postgresql = ["invenio-db (>=1.0.0)"]
+mysql = ["invenio-db[mysql] (>=1.0.0)"]
+postgresql = ["invenio-db[postgresql] (>=1.0.0)"]
 sqlite = ["invenio-db (>=1.0.0)"]
 tests = ["SQLAlchemy-Continuum (>=1.2.1)", "check-manifest (>=0.25)", "coverage (>=4.0)", "httpretty (>=0.8.14)", "invenio-accounts (>=1.0.0)", "invenio-userprofiles (>=1.0.0)", "isort (>=4.3.0)", "mock (>=1.3.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=2.8.3)", "simplejson (>=3.8)"]
 
 [package.source]
-reference = "a3a6535cddf5265e39ec32a3932cc2b4f73d325e"
+reference = "rest-api"
 type = "git"
 url = "https://github.com/inspirehep/invenio-oauthclient.git"
 
@@ -2175,7 +2175,7 @@ description = "Python module that is able to merge json record objects."
 name = "json-merger"
 optional = false
 python-versions = "*"
-version = "0.7.3"
+version = "0.7.5"
 
 [package.dependencies]
 dictdiffer = ">=0.6.0"
@@ -2195,10 +2195,10 @@ optional = true
 version = "<=1.0.12"
 
 [package.extras]
-all = ["editdistance (>=0.3.1)", "munkres (<=1.0.12)", "Unidecode (>=0.4.19)", "Sphinx (>=1.4.2)", "check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.2.2)", "pydocstyle (>=1.0.0)", "pytest-cache (>=1.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=2.8.0)"]
+all = ["editdistance (>=0.3.1)", "munkres (<=1.0.12)", "Unidecode (>=0.4.19)", "Sphinx (>=1.4.2)", "check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.2.2)", "pydocstyle (>=1.0.0)", "pytest-cache (>=1.0)", "pytest-cov (>=1.8.0)", "pytest (>=4.6.11)", "flake8 (>=3.9.0)"]
 contrib = ["editdistance (>=0.3.1)", "munkres (<=1.0.12)", "Unidecode (>=0.4.19)"]
 docs = ["Sphinx (>=1.4.2)"]
-tests = ["check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.2.2)", "pydocstyle (>=1.0.0)", "pytest-cache (>=1.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=2.8.0)", "editdistance (>=0.3.1)", "munkres (<=1.0.12)", "Unidecode (>=0.4.19)"]
+tests = ["check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.2.2)", "pydocstyle (>=1.0.0)", "pytest-cache (>=1.0)", "pytest-cov (>=1.8.0)", "pytest (>=4.6.11)", "flake8 (>=3.9.0)", "editdistance (>=0.3.1)", "munkres (<=1.0.12)", "Unidecode (>=0.4.19)"]
 
 [[package]]
 category = "dev"
@@ -2762,7 +2762,7 @@ version = "2.8.4"
 [[package]]
 category = "main"
 description = "Run a subprocess in a pseudo terminal"
-marker = "python_version >= \"3.4\" and sys_platform != \"win32\" or sys_platform != \"win32\" or python_version >= \"3.4\" and sys_platform != \"win32\" and (python_version >= \"3.4\" and sys_platform != \"win32\" or sys_platform != \"win32\")"
+marker = "python_version >= \"3.4\" and sys_platform != \"win32\" or sys_platform != \"win32\""
 name = "ptyprocess"
 optional = false
 python-versions = "*"
@@ -3048,6 +3048,22 @@ docs = ["sphinx", "sphinx-rtd-theme"]
 
 [[package]]
 category = "dev"
+description = ""
+name = "pytest-github-actions-annotate-failures"
+optional = false
+python-versions = "*"
+version = "0.1.2"
+
+[package.dependencies]
+pytest = ">=4.0.0"
+
+[package.source]
+reference = "master"
+type = "git"
+url = "https://github.com/michamos/pytest-github-actions-annotate-failures.git"
+
+[[package]]
+category = "dev"
 description = "Pytest fixtures for Invenio."
 name = "pytest-invenio"
 optional = false
@@ -3089,6 +3105,17 @@ version = "1.0.4"
 
 [package.dependencies]
 pytest = ">=3.0.0"
+
+[[package]]
+category = "dev"
+description = "Pytest plugin for splitting test suite based on test execution time"
+name = "pytest-split"
+optional = false
+python-versions = ">=3.6,<4.0"
+version = "0.2.1"
+
+[package.dependencies]
+pytest = ">=5,<7"
 
 [[package]]
 category = "dev"
@@ -3247,7 +3274,7 @@ description = "Small library for extracting references used in scholarly communi
 name = "refextract"
 optional = false
 python-versions = "*"
-version = "1.1.0"
+version = "1.1.2"
 
 [package.dependencies]
 PyPDF2 = ">=1.26.0,<2.0"
@@ -3631,7 +3658,7 @@ flask-login = ["Flask-Login (>=0.2.9)"]
 flask-sqlalchemy = ["Flask-SQLAlchemy (>=1.0)"]
 flexmock = ["flexmock (>=0.9.7)"]
 i18n = ["SQLAlchemy-i18n (>=0.8.4)"]
-test = ["pytest (>=2.3.5)", "flexmock (>=0.9.7)", "psycopg2 (>=2.4.6)", "PyMySQL (0.6.1)", "six (>=1.4.0)", "anyjson (>=0.3.3)", "Flask (>=0.9)", "Flask-Login (>=0.2.9)", "Flask-SQLAlchemy (>=1.0)", "flexmock (>=0.9.7)", "SQLAlchemy-i18n (>=0.8.4)"]
+test = ["pytest (>=2.3.5)", "flexmock (>=0.9.7)", "psycopg2 (>=2.4.6)", "PyMySQL (==0.6.1)", "six (>=1.4.0)", "anyjson (>=0.3.3)", "Flask (>=0.9)", "Flask-Login (>=0.2.9)", "Flask-SQLAlchemy (>=1.0)", "flexmock (>=0.9.7)", "SQLAlchemy-i18n (>=0.8.4)"]
 
 [package.source]
 reference = "d94d43117b68f91cd4ad5d4a451fe6e7714f2316"
@@ -3719,7 +3746,7 @@ sentry-sdk = "*"
 
 [[package]]
 category = "main"
-description = "SWORD v2 python client"
+description = ""
 name = "sword2"
 optional = false
 python-versions = "*"
@@ -3729,7 +3756,7 @@ version = "0.1"
 httplib2 = "*"
 
 [package.source]
-reference = "15aa2cdc1e943164d1cab1a0b1665ff66b88a02b"
+reference = "python3"
 type = "git"
 url = "https://github.com/inspirehep/python-client-sword2.git"
 
@@ -4095,7 +4122,7 @@ test = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 
 [metadata]
-content-hash = "0127df63e9a68a5d80db8d6db01f9270b6c85c337740f8334347111a83011a78"
+content-hash = "9845a23778f7bc1f0ceedb0772ad2f823ad8a6a62f3f39f77425d319ad25ab50"
 lock-version = "1.0"
 python-versions = ">=3.8,<3.9"
 
@@ -4741,8 +4768,8 @@ joblib = [
     {file = "joblib-0.14.1.tar.gz", hash = "sha256:0630eea4f5664c463f23fbf5dcfc54a2bc6168902719fa8e19daf033022786c8"},
 ]
 json-merger = [
-    {file = "json-merger-0.7.3.tar.gz", hash = "sha256:730cee06760a969d62882b74be54fa06c9e4ba3dbb4e26698f14d06320697c74"},
-    {file = "json_merger-0.7.3-py2.py3-none-any.whl", hash = "sha256:d4d85ece53b1802f2ba88c4811f5064801c4a97b94c608c1e3df096f5aee2712"},
+    {file = "json-merger-0.7.5.tar.gz", hash = "sha256:a614735bb7e61f8f521bfca83e4bb9b0211b26eba16ddd094b6627acdc12ca27"},
+    {file = "json_merger-0.7.5-py2.py3-none-any.whl", hash = "sha256:60cad4102f637d0ff24bc6cfdc76c83b2d5371386184014e06eb439c5e74e1fd"},
 ]
 jsondiff = [
     {file = "jsondiff-1.1.2.tar.gz", hash = "sha256:7e18138aecaa4a8f3b7ac7525b8466234e6378dd6cae702b982c9ed851d2ae21"},
@@ -5232,6 +5259,7 @@ pytest-flask = [
     {file = "pytest-flask-0.15.0.tar.gz", hash = "sha256:d874781b622210d8c5d8061cdb091cb059fcb12203125110bd8e6f9256ccbf49"},
     {file = "pytest_flask-0.15.0-py2.py3-none-any.whl", hash = "sha256:283730b469604ecb94caac28df99a40b7c785b828dd8d3323596718b51dfaeb2"},
 ]
+pytest-github-actions-annotate-failures = []
 pytest-invenio = [
     {file = "pytest-invenio-1.2.1.tar.gz", hash = "sha256:8f2625312714a61a0ab18b96efa2002253acfa38d1577270d3d120b7b7acb078"},
     {file = "pytest_invenio-1.2.1-py2.py3-none-any.whl", hash = "sha256:9a7e12c21a7cca0bccadc88e03016283fd7aeac5d58c2ade30aeefc9eb686f3b"},
@@ -5243,6 +5271,10 @@ pytest-mock = [
 pytest-random-order = [
     {file = "pytest-random-order-1.0.4.tar.gz", hash = "sha256:6b2159342a4c8c10855bc4fc6d65ee890fc614cb2b4ff688979b008a82a0ff52"},
     {file = "pytest_random_order-1.0.4-py3-none-any.whl", hash = "sha256:72279a7f823969e18b10e438950f58330d17e0fcffb57cbd7929770cd687ecb2"},
+]
+pytest-split = [
+    {file = "pytest-split-0.2.1.tar.gz", hash = "sha256:67a8a7a56891202390808e3642a242cd146cfbf0fe42f205ea9bfc0f748e7c98"},
+    {file = "pytest_split-0.2.1-py3-none-any.whl", hash = "sha256:4c9df1596f74ae184fa0147b681add08523c61264e7b801a1e6927eb3b00c021"},
 ]
 pytest-testmon = [
     {file = "pytest-testmon-1.0.3.tar.gz", hash = "sha256:927a73dd510b90a2e4a48ea4d37e82c4490b56caa745663262024ea0cd278169"},
@@ -5322,7 +5354,8 @@ redis = [
     {file = "redis-3.3.11.tar.gz", hash = "sha256:8d0fc278d3f5e1249967cba2eb4a5632d19e45ce5c09442b8422d15ee2c22cc2"},
 ]
 refextract = [
-    {file = "refextract-1.1.0.tar.gz", hash = "sha256:fb91d9701816a352a4d9143e63e01980125b6703a1d3df0e05e5ac0360fb2b32"},
+    {file = "refextract-1.1.2-py3-none-any.whl", hash = "sha256:1f9027941501e6ca03e5cefd9502b359065fc383f7ebedd9fa86a159e5e0e0ad"},
+    {file = "refextract-1.1.2.tar.gz", hash = "sha256:0ec07939259f08468be600037bf60ae15477d67ecda0f54f3f429af9c78b6863"},
 ]
 remote-pdb = [
     {file = "remote-pdb-2.0.0.tar.gz", hash = "sha256:ad38f36f539b22be820f94062618366d5d3461115c1605b11679dba75f94ee62"},
