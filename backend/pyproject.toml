@@ -22,7 +22,7 @@ celery = "~=4.4.7"
 click = "<7.0.0"
 elasticsearch = "<7.2.0"
 Flask = ">=1.0.2"
-werkzeug  = ">=0.16.1,<1.0.0"
+werkzeug = "<2.0.0"
 msgpack = "==0.6.2"
 
 python = ">=3.8,<3.9"
@@ -90,7 +90,7 @@ pypdf2 = "^1.26.0"
 refextract = "^1.0.3"
 fs = "0.5.4"
 invenio-oaiserver = {git = "https://github.com/inspirehep/invenio-oaiserver.git", rev = "5d796cf354467773a7e00b75bc382ba2bf2efef7"}
-invenio-records-rest = {git = "https://github.com/inspirehep/invenio-records-rest.git", rev = "c7db3d3d615ccea56e59f921dff78321beee904a"}
+invenio-records-rest = {git = "https://github.com/inspirehep/invenio-records-rest", rev = "6afe0a0889b80f462ef5a93a5ecfd8a9557e6d92"}
 orjson = "^3.4.6"
 sword2 = {git = "https://github.com/inspirehep/python-client-sword2.git", rev = "python3"}
 sqlalchemy-continuum = {git = "https://github.com/inspirehep/sqlalchemy-continuum.git", rev = "d94d431"}

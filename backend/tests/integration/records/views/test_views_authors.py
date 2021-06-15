@@ -119,7 +119,7 @@ def test_authors_application_json_put_with_token(inspire_app):
 
     expected_status_code = 200
 
-    headers = {"Authorization": "BEARER " + token.access_token}
+    headers = {"Authorization": "BEARER " + token.access_token, "If-Match": '"0"'}
     with inspire_app.test_client() as client:
         response = client.put(
             "/authors/{}".format(record_control_number), headers=headers, json=record

@@ -119,6 +119,7 @@ def test_institutions_application_json_put_with_cataloger_logged_in(inspire_app)
         response = client.put(
             "/institutions/{}".format(record_control_number),
             content_type="application/json",
+            headers={"If-Match": '"0"'},
             data=orjson.dumps(
                 {
                     "control_number": record_control_number,
