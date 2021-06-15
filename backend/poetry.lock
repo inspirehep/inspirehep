@@ -1947,11 +1947,10 @@ invenio-pidstore = ">=1.2.0"
 invenio-records = "1.3.2"
 invenio-rest = "1.1.3"
 python-dateutil = ">=2.4.2"
-werkzeug = "<2.0.0"
 
 [package.extras]
-all = ["citeproc-py (0.3.0)", "citeproc-py-styles (0.1.0)", "datacite (>=1.0.1)", "Sphinx (>=3)", "dcxml (>=0.1.0)", "pyld (>=0.7.1,<2)", "Flask-Login (>=0.3.2)", "invenio-db (>=1.0.2)", "invenio-indexer (>=1.0.0)", "invenio-config (>=1.0.2)", "pytest-invenio (>=1.2.1)", "citeproc-py (0.3.0)", "citeproc-py-styles (0.1.0)", "datacite (>=1.0.1)", "Sphinx (>=3)", "dcxml (>=0.1.0)", "pyld (>=0.7.1,<2)", "Flask-Login (>=0.3.2)", "invenio-db (>=1.0.2)", "invenio-indexer (>=1.0.0)", "invenio-config (>=1.0.2)", "pytest-invenio (>=1.2.1)"]
-citeproc = ["citeproc-py (0.3.0)", "citeproc-py-styles (0.1.0)"]
+all = ["citeproc-py (>=0.3.0)", "citeproc-py-styles (>=0.1.0)", "datacite (>=1.0.1)", "Sphinx (>=3)", "dcxml (>=0.1.0)", "pyld (>=0.7.1,<2)", "Flask-Login (>=0.3.2)", "invenio-db (>=1.0.2)", "invenio-indexer (>=1.0.0)", "invenio-config (>=1.0.2)", "pytest-invenio (>=1.2.1)", "citeproc-py (>=0.3.0)", "citeproc-py-styles (>=0.1.0)", "datacite (>=1.0.1)", "Sphinx (>=3)", "dcxml (>=0.1.0)", "pyld (>=0.7.1,<2)", "Flask-Login (>=0.3.2)", "invenio-db (>=1.0.2)", "invenio-indexer (>=1.0.0)", "invenio-config (>=1.0.2)", "pytest-invenio (>=1.2.1)"]
+citeproc = ["citeproc-py (>=0.3.0)", "citeproc-py-styles (>=0.1.0)"]
 datacite = ["datacite (>=1.0.1)"]
 docs = ["Sphinx (>=3)"]
 dublincore = ["dcxml (>=0.1.0)"]
@@ -1963,9 +1962,10 @@ jsonld = ["pyld (>=0.7.1,<2)"]
 tests = ["Flask-Login (>=0.3.2)", "invenio-db (>=1.0.2)", "invenio-indexer (>=1.0.0)", "invenio-config (>=1.0.2)", "pytest-invenio (>=1.2.1)"]
 
 [package.source]
-reference = "6afe0a0889b80f462ef5a93a5ecfd8a9557e6d92"
+reference = "c7db3d3d615ccea56e59f921dff78321beee904a"
 type = "git"
-url = "https://github.com/inspirehep/invenio-records-rest"
+url = "https://github.com/inspirehep/invenio-records-rest.git"
+
 [[package]]
 category = "main"
 description = "REST API module for Invenio."
@@ -2762,7 +2762,7 @@ version = "2.8.4"
 [[package]]
 category = "main"
 description = "Run a subprocess in a pseudo terminal"
-marker = "python_version >= \"3.4\" and sys_platform != \"win32\" or sys_platform != \"win32\" or python_version >= \"3.4\" and sys_platform != \"win32\" and (python_version >= \"3.4\" and sys_platform != \"win32\" or sys_platform != \"win32\")"
+marker = "python_version >= \"3.4\" and sys_platform != \"win32\" or sys_platform != \"win32\""
 name = "ptyprocess"
 optional = false
 python-versions = "*"
@@ -4122,7 +4122,7 @@ test = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 
 [metadata]
-content-hash = "c7aff4e149b71a3cb6c098037e80896e4b015b14efde77daafb898ec0f80a2cf"
+content-hash = "9845a23778f7bc1f0ceedb0772ad2f823ad8a6a62f3f39f77425d319ad25ab50"
 lock-version = "1.0"
 python-versions = ">=3.8,<3.9"
 
