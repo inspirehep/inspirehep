@@ -64,6 +64,9 @@ describe('Institutions Editor', () => {
           url: `${Cypress.env('inspirehep_url')}/api${RECORD_URL}`,
           method: 'PUT',
           body: xhr.response.body.record.metadata,
+          headers: {
+            "If-Match": '"0"'
+          }
         })
         .its('status')
         .should('equal', 200);
