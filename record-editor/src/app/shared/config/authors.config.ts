@@ -26,23 +26,23 @@ import { customValidationForDateTypes } from './commons';
 export const authors: JsonEditorConfig = {
   schemaOptions: {
     order: [
-      "ids",
-      "name",
-      "positions",
-      "_private_notes",
-      "email",
-      "status",
-      "project_membership"
+      'ids',
+      'name',
+      'positions',
+      '_private_notes',
+      'email',
+      'status',
+      'project_membership'
     ],
     properties: {
       name: {
         order: [
-          "preferred_name",
-          "value",
-          "title",
-          "numeration",
-          "name_variants",
-          "native_name"
+          'preferred_name',
+          'value',
+          'title',
+          'numeration',
+          'name_variants',
+          'native_name'
         ]
       },
       positions: {
@@ -72,13 +72,13 @@ export const authors: JsonEditorConfig = {
       project_membership: {
         items: {
           order: [
-            "current",
-            "name",
-            "start_date",
-            "end_date",
-            "record",
-            "hidden",
-            "curated_relation"
+            'current',
+            'name',
+            'start_date',
+            'end_date',
+            'record',
+            'hidden',
+            'curated_relation'
           ]
         }
       },
