@@ -21,8 +21,92 @@
  */
 
 import { JsonEditorConfig } from 'ng2-json-editor';
-import { customValidationForDateTypes } from './commons';
+import { customValidationForDateTypes, anchorBuilder } from './commons';
 
 export const authors: JsonEditorConfig = {
+  schemaOptions: {
+    order: [
+      'ids',
+      'name',
+      'positions',
+      '_private_notes',
+      'email_addresses',
+      'status',
+      'project_membership'
+    ],
+    properties: {
+      name: {
+        order: [
+          'preferred_name',
+          'value',
+          'title',
+          'numeration',
+          'name_variants',
+          'native_names'
+        ]
+      },
+      positions: {
+        items: {
+          alwaysShow: [
+            'current',
+            'institution',
+            'start_date',
+            'end_date',
+            'rank',
+            'record',
+            'hidden',
+            'curated_relation'
+          ],
+          order: [
+            'current',
+            'institution',
+            'start_date',
+            'end_date',
+            'rank',
+            'record',
+            'hidden',
+            'curated_relation'
+          ],
+          properties: {
+            record: {
+              refFieldConfig: {
+                anchorBuilder: anchorBuilder,
+              },
+            },
+          },
+        },
+      },
+      project_membership: {
+        items: {
+          order: [
+            'current',
+            'name',
+            'start_date',
+            'end_date',
+            'record',
+            'hidden',
+            'curated_relation'
+          ]
+        }
+      },
+      advisors: {
+        items: {
+          alwaysShow: [
+            'ids',
+            'name',
+            'degree_type'
+          ],
+          order: [
+            'ids',
+            'name',
+            'degree_type'
+          ]
+        }
+      },
+      $schema: {
+        hidden: true,
+      },
+    }
+  },
   customFormatValidation: customValidationForDateTypes,
 };
