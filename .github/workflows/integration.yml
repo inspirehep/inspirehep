@@ -32,9 +32,9 @@ jobs:
         id: filter
         with:
           filters: |
-            backend: ['backend/**/*']
-            ui: ['ui/**/*']
-            editor: ['record-editor/**/*']
+            backend: ['backend/**/*', '.github/**/*']
+            ui: ['ui/**/*', '.github/**/*']
+            editor: ['record-editor/**/*', '.github/**/*']
 
   backend_build:
     name: Backend build
@@ -152,7 +152,7 @@ jobs:
       - name: Test
         uses: ./.github/actions/backend-test
         with:
-          suite: 'integration --splits 6 --group ${{ matrix.group }} --durations-path test_durations/durations.json'
+          suite: 'integration --splits 6 --group ${{ matrix.group }} --durations-path test_durations/durations.json --store-durations'
       - name: Upload partial durations
         uses: actions/upload-artifact@v2
         with:
