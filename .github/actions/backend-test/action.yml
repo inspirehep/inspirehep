@@ -20,5 +20,6 @@ runs:
         --network="host"
         --env GITHUB_ACTIONS=true
         --env PYTEST_RUN_PATH=backend
+        --volume test_durations:/opt/inspire/test_durations
         $IMAGE:$REF_TAG
         run py.test tests/${{ inputs.suite }}
