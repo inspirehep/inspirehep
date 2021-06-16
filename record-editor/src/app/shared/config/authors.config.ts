@@ -30,11 +30,16 @@ export const authors: JsonEditorConfig = {
       'name',
       'positions',
       '_private_notes',
+<<<<<<< HEAD
       'email',
+=======
+      'email_addresses',
+>>>>>>> 38370b1b (record-editor: addition of authors config)
       'status',
       'project_membership'
     ],
     properties: {
+<<<<<<< HEAD
       ids: {
         properties: {
           schema: {
@@ -50,6 +55,8 @@ export const authors: JsonEditorConfig = {
           }
         }
       },
+=======
+>>>>>>> 38370b1b (record-editor: addition of authors config)
       name: {
         order: [
           'preferred_name',
@@ -57,7 +64,11 @@ export const authors: JsonEditorConfig = {
           'title',
           'numeration',
           'name_variants',
+<<<<<<< HEAD
           'native_name'
+=======
+          'native_names'
+>>>>>>> 38370b1b (record-editor: addition of authors config)
         ]
       },
       positions: {
@@ -117,7 +128,14 @@ export const authors: JsonEditorConfig = {
             'degree_type'
           ]
         }
+<<<<<<< HEAD
       }
+=======
+      },
+      $schema: {
+        hidden: true,
+      },
+>>>>>>> 38370b1b (record-editor: addition of authors config)
     }
   },
   customFormatValidation: customValidationForDateTypes,
