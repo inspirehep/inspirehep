@@ -21,7 +21,7 @@
  */
 
 import { JsonEditorConfig } from 'ng2-json-editor';
-import { customValidationForDateTypes } from './commons';
+import { customValidationForDateTypes, anchorBuilder } from './commons';
 
 export const authors: JsonEditorConfig = {
   schemaOptions: {
@@ -35,6 +35,21 @@ export const authors: JsonEditorConfig = {
       'project_membership'
     ],
     properties: {
+      ids: {
+        properties: {
+          schema: {
+            items: {
+              order: [
+                'INSPIRE ID',
+                'ORCID',
+                'BAI',
+                'CERN',
+                'WIKIPEDIA'
+              ]
+            }
+          }
+        }
+      },
       name: {
         order: [
           'preferred_name',
@@ -66,8 +81,15 @@ export const authors: JsonEditorConfig = {
             'record',
             'hidden',
             'curated_relation'
-          ]
-        }
+          ],
+          properties: {
+            record: {
+              refFieldConfig: {
+                anchorBuilder: anchorBuilder,
+              },
+            },
+          },
+        },
       },
       project_membership: {
         items: {
