@@ -17,4 +17,4 @@ runs:
         IMAGE: inspirehep/hep
       shell: bash
       run: >
-        python3 .github/actions/combine-durations/combine_durations.py ${{ inputs.split-prefix }} ${{ inputs.durations-path }}
+        python3 $GITHUB_ACTION_PATH/combine_durations.py ${{ inputs.split-prefix }} ${{ inputs.durations-path }}
