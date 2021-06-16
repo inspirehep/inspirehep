@@ -1,0 +1,26 @@
+# This is a combination of 2 commits.
+# This is the 1st commit message:
+
+order fields
+
+# This is the commit message #2:
+
+order fields
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# Date:      Thu Jun 3 18:35:02 2021 +0200
+#
+# interactive rebase in progress; onto 98640509
+# Last commands done (4 commands done):
+#    pick 0bca2567 order fields
+#    squash 9a1e6c61 order fields
+# Next commands to do (5 remaining commands):
+#    pick 9370fec3 order
+#    pick 3bb4b355 ui: order fields in author editor
+# You are currently rebasing branch 'order-fields-author-editor' on '98640509'.
+#
+# Changes to be committed:
+#	modified:   record-editor/src/app/shared/config/authors.config.ts
+#	modified:   ui/src/literature/containers/DetailPageContainer/DetailPageContainer.jsx

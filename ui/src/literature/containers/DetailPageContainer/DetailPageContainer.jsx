@@ -161,7 +161,6 @@ function DetailPage({
                   <Col span={24}>{deleted && <DeletedAlert />}</Col>
                 </Row>
                 <h2>
-                  anything
                   <LiteratureTitle title={title} />
                 </h2>
                 <div>
