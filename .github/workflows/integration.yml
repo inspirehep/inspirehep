@@ -161,6 +161,7 @@ jobs:
 
   update_integration_durations:
     name: Combine and update integration test durations
+    runs-on: ubuntu-latest
     needs: backend_integration_test
     steps:
       - name: Checkout
