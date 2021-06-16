@@ -152,7 +152,7 @@ jobs:
       - name: Test
         uses: ./.github/actions/backend-test
         with:
-          suite: 'integration --split --group ${{ matrix.group }} --durations-path test_durations/durations.json'
+          suite: 'integration --splits 6 --group ${{ matrix.group }} --durations-path test_durations/durations.json'
       - name: Upload partial durations
         uses: actions/upload-artifact@v2
         with:
