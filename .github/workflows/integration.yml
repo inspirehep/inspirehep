@@ -147,7 +147,10 @@ jobs:
         uses: actions/cache@v2
         with:
           path: test_durations
-          key: integration-test-durations
+          key: integration-test-durations-split-{{ env.REF }}-{{ matrix.group }}
+          restore-keys: |
+            integration-test-durations-combined-{{ env.REF }}
+            integration-test-durations-combined
 
       - name: Test
         uses: ./.github/actions/backend-test
@@ -173,7 +176,8 @@ jobs:
         uses: actions/cache@v2
         with:
           path: test_durations
-          key: integration-test-durations
+          key: integration-test-durations-combined-{{ env.REF }}
+          restore-keys: integration-test-durations-combined
 
       - name: Download artifacts
         uses: actions/download-artifact@v2
