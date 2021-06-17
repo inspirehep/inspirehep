@@ -39,6 +39,8 @@ jobs:
   backend_build:
     name: Backend build
     runs-on: ubuntu-latest
+    outputs:
+      random-seed: ${{ steps.random.outputs.random-number }}
     needs: changed
     if: ${{ needs.changed.outputs.backend == 'true' }}
     steps:
@@ -57,6 +59,10 @@ jobs:
         uses: ./.github/actions/backend-build
         with:
           lock-hash: ${{ hashFiles('backend/poetry.lock', 'backend/pyproject.yaml', 'backend/Dockerfile') }}
+
+      - name: Generate random seed
+        uses: ./.github/actions/random-number
+        id: random
 
   ui_build:
     name: UI build
@@ -155,7 +161,7 @@ jobs:
       - name: Test
         uses: ./.github/actions/backend-test
         with:
-          suite: 'integration --splits 6 --group ${{ matrix.group }} --durations-path test_durations/durations.json --store-durations'
+          suite: 'integration --splits 6 --group ${{ matrix.group }} --durations-path test_durations/durations.json --store-durations --random-order-seed ${{ needs.backend_build.outputs.random-seed }}'
       - name: Upload partial durations
         uses: actions/upload-artifact@v2
         with:
