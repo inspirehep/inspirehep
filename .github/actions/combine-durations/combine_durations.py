@@ -23,4 +23,5 @@ for path in split_paths:
         }
     )
 
-durations_path.write_text(json.dumps(new_durations))
+with open(durations_path, "w") as f:
+    json.dump(new_durations, f)
