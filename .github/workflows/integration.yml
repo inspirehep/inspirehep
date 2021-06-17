@@ -153,7 +153,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: test_durations
-          key: integration-test-durations-split-${{ env.REF }}-${{ matrix.group }}
+          key: integration-test-durations-split-${{ github.run_id }}-${{ github.run_number }}-${{ matrix.group }}
           restore-keys: |
             integration-test-durations-combined-${{ env.REF }}
             integration-test-durations-combined
