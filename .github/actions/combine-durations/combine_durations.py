@@ -24,4 +24,4 @@ for path in split_paths:
     )
 
 durations_path.parent.mkdir(parents=True, exist_ok=True)
-durations_path.write_text(json.dump(new_durations))
+durations_path.write_text(json.dumps(new_durations))
