@@ -23,5 +23,5 @@ for path in split_paths:
         }
     )
 
-with open(durations_path, "w") as f:
-    json.dump(new_durations, f)
+durations_path.parent.mkdir(parents=True, exist_ok=True)
+durations_path.write_text(json.dump(new_durations))
