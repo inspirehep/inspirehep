@@ -5,6 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+from copy import deepcopy
 from unicodedata import normalize
 
 from inspire_dojson.utils import get_recid_from_ref
@@ -73,7 +74,7 @@ class CVAuthorSchemaV1(AuthorSchemaV1):
 
     @staticmethod
     def get_affiliations(data):
-        affiliations = data.get("affiliations", []).copy()
+        affiliations = deepcopy(data.get("affiliations", []))
         for affiliation in affiliations:
             if "record" in affiliation:
                 _, affiliation["control_number"] = PidStoreBase.get_pid_from_record_uri(
