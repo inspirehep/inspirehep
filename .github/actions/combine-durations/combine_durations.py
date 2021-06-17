@@ -6,7 +6,11 @@ split_prefix = sys.argv[1]
 durations_path = Path(sys.argv[2])
 
 split_paths = Path(".").glob(f"{split_prefix}*/{durations_path}")
-previous_durations = json.loads(durations_path.read_text())
+try:
+    previous_durations = json.loads(durations_path.read_text())
+except FileNotFoundError:
+    previous_durations = {}
+
 new_durations = previous_durations.copy()
 
 for path in split_paths:
@@ -19,5 +23,4 @@ for path in split_paths:
         }
     )
 
-with open(durations_path, "w") as f:
-    json.dump(new_durations, f)
+durations_path.write_text(json.dumps(new_durations))

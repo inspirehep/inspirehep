@@ -13,8 +13,6 @@ runs:
   using: composite
   steps:
     - name: Combine durations
-      env:
-        IMAGE: inspirehep/hep
       shell: bash
       run: >
         python3 $GITHUB_ACTION_PATH/combine_durations.py ${{ inputs.split-prefix }} ${{ inputs.durations-path }}

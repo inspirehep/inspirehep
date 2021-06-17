@@ -144,11 +144,6 @@ jobs:
         ports:
           - 9200:9200
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          ref: ${{ env.REF }}
-
       - name: Get durations from cache
         uses: actions/cache@v2
         with:
