@@ -9,7 +9,7 @@ current_path = Path(".").resolve()
 print(
     f"Combining durations with split-prefix={split_prefix} and durations-path={durations_path} in {current_path}."
 )
-split_paths = Path(".").glob(f"{split_prefix}*/{durations_path}")
+split_paths = Path(".").glob(f"{split_prefix}*/{durations_path.name}")
 try:
     previous_durations = json.loads(durations_path.read_text())
     print(
