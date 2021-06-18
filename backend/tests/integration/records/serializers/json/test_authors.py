@@ -419,7 +419,7 @@ def test_authors_search_json_with_logged_in_cataloger(inspire_app):
     }
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
-        response = client.get("/authors".format(record_control_number), headers=headers)
+        response = client.get("/authors", headers=headers)
 
     response_status_code = response.status_code
     response_data = orjson.loads(response.data)
@@ -464,7 +464,7 @@ def test_authors_search_do_not_contain_acquisition_source_for_non_curator(inspir
         "deleted": False,
     }
 
-    record = create_record("aut", data=data)
+    create_record("aut", data=data)
     with inspire_app.test_client() as client:
         response = client.get("/authors", headers=headers)
     assert response.status_code == 200
@@ -506,7 +506,7 @@ def test_authors_search_contains_acquisition_source_for_curator(inspire_app):
         "deleted": False,
     }
 
-    record = create_record("aut", data=data)
+    create_record("aut", data=data)
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.get("/authors", headers=headers)
@@ -534,3 +534,18 @@ def test_author_detail_page_contains_acquisition_source_for_curator(inspire_app)
         response = client.get(f"/authors/{record_control_number}", headers=headers)
     assert response.status_code == 200
     assert "acquisition_source" in response.json["metadata"]
+
+
+def test_revision_id_in_envelope(inspire_app):
+    user = create_user(role=Roles.superuser.value)
+    headers = {"Accept": "application/vnd+inspire.record.raw+json"}
+    record = create_record("aut")
+    record_control_number = record["control_number"]
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(f"/authors/{record_control_number}", headers=headers)
+    assert response.status_code == 200
+    assert "revision_id" in response.json
+    assert response.json["revision_id"] == int(
+        response.headers["ETag"].split("/")[-1].strip('"')
+    )
