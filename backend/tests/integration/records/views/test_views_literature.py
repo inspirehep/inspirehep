@@ -207,8 +207,8 @@ def test_literature_application_json_post_with_token_not_authenticated(inspire_a
     assert expected_status_code == response_status_code
 
 
-def test_literature_application_json_put_with_token_not_authenticated(inspire_app):
-    expected_status_code = 403
+def test_literature_application_json_put_with_token(inspire_app):
+    expected_status_code = 200
     token = create_user_and_token("cataloger")
     headers = {"Authorization": "BEARER " + token.access_token, "If-Match": '"0"'}
     record = create_record("lit")
