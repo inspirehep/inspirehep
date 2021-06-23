@@ -295,116 +295,173 @@ def hep_curation_collection_aggregation(
         "PLANCK",
     ]
 
+    cern_experiment_matches = [
+        {"match": {"accelerator_experiments.legacy_name": experiment}}
+        for experiment in cern_experiments
+    ]
+    cern_collaboration_matches = [
+        {"match": {"collaborations.value": collaboration}}
+        for collaboration in cern_collaborations
+    ]
+    non_cern_collaboration_matches = [
+        {"match": {"collaborations.value": collaboration}}
+        for collaboration in non_cern_collaborations
+    ]
+
+    cds_candidates_filter = {
+        "bool": {
+            "should": [
+                {
+                    "query_string": {
+                        "query": "CERN*",
+                        "fields": ["accelerator_experiments.legacy_name"],
+                        "analyze_wildcard": True,
+                    }
+                },
+                {
+                    "query_string": {
+                        "query": "CERN*",
+                        "fields": ["accelerator_experiments.accelerator"],
+                        "analyze_wildcard": True,
+                    }
+                },
+                {"match": {"corporate_author": "CERN"}},
+                {
+                    "nested": {
+                        "path": "authors",
+                        "query": {
+                            "match": {
+                                "authors.affiliations.value": {
+                                    "query": "CERN",
+                                    "operator": "and",
+                                }
+                            }
+                        },
+                    }
+                },
+                {
+                    "nested": {
+                        "path": "authors",
+                        "query": {
+                            "match": {
+                                "authors.raw_affiliations.value": {
+                                    "query": "CERN",
+                                    "operator": "and",
+                                }
+                            }
+                        },
+                    }
+                },
+                {
+                    "query_string": {
+                        "query": "cern\\-*",
+                        "fields": ["report_numbers.value.fuzzy"],
+                        "analyze_wildcard": True,
+                    }
+                },
+                {
+                    "query_string": {
+                        "query": "NA*",
+                        "fields": ["collaborations.value"],
+                        "analyze_wildcard": True,
+                    }
+                },
+                {
+                    "query_string": {
+                        "query": "RD*",
+                        "fields": ["collaborations.value"],
+                        "analyze_wildcard": True,
+                    }
+                },
+                {
+                    "query_string": {
+                        "query": "CERN*",
+                        "fields": ["collaborations.value"],
+                        "analyze_wildcard": True,
+                    }
+                },
+                *cern_experiment_matches,
+                *cern_collaboration_matches,
+            ],
+            "must_not": [
+                {
+                    "match": {
+                        "external_system_identifiers.schema": {
+                            "query": "CDS",
+                            "operator": "and",
+                        }
+                    }
+                },
+                {"match_phrase": {"_private_notes.value": "Not CERN"}},
+                *non_cern_collaboration_matches,
+            ],
+            "must": {"match": {"_collections": "Literature"}},
+            "minimum_should_match": 1,
+        }
+    }
+
+    fermilab_candidates_filter = {
+        "bool": {
+            "should": [
+                {
+                    "query_string": {
+                        "query": "FNAL*",
+                        "fields": ["accelerator_experiments.legacy_name"],
+                        "analyze_wildcard": True,
+                    }
+                },
+                {"match": {"corporate_author": "Fermilab"}},
+                {
+                    "nested": {
+                        "path": "authors",
+                        "query": {
+                            "match": {
+                                "authors.affiliations.value": "Fermilab",
+                            }
+                        },
+                    }
+                },
+            ],
+            "must_not": [
+                {
+                    "match": {
+                        "report_numbers.value.fuzzy": "Fermilab",
+                    }
+                },
+            ],
+            "must": {"match": {"_collections": "Literature"}},
+            "minimum_should_match": 1,
+        }
+    }
+
+    ihep_curation_filter = {
+        "bool": {
+            "should": [
+                {"match": {"primary_arxiv_category": "gr-qc"}},
+                {"match": {"primary_arxiv_category": "hep-lat"}},
+            ],
+            "must_not": [
+                {
+                    "match": {
+                        "curated": True,
+                    }
+                },
+            ],
+            "must": [
+                {"match": {"_collections": "Literature"}},
+                {"range": {"_created": {"lte": "now-14d/d"}}},
+            ],
+            "minimum_should_match": 1,
+        }
+    }
+
     return {
         "curation_collection": {
             "filters": {
                 "filters": {
-                    "CDS candidates": {
-                        "bool": {
-                            "should": [
-                                {
-                                    "query_string": {
-                                        "query": "CERN*",
-                                        "fields": [
-                                            "accelerator_experiments.legacy_name"
-                                        ],
-                                        "analyze_wildcard": True,
-                                    }
-                                },
-                                {
-                                    "query_string": {
-                                        "query": "CERN*",
-                                        "fields": [
-                                            "accelerator_experiments.accelerator"
-                                        ],
-                                        "analyze_wildcard": True,
-                                    }
-                                },
-                                {
-                                    "terms": {
-                                        "accelerator_experiments.legacy_name": cern_experiments
-                                    }
-                                },
-                                {
-                                    "terms": {
-                                        "collaborations.value": cern_collaborations
-                                    }
-                                },
-                                {
-                                    "nested": {
-                                        "path": "authors",
-                                        "query": {
-                                            "match": {
-                                                "authors.affiliations.value": {
-                                                    "query": "CERN",
-                                                    "operator": "and",
-                                                }
-                                            }
-                                        },
-                                    }
-                                },
-                                {
-                                    "nested": {
-                                        "path": "authors",
-                                        "query": {
-                                            "match": {
-                                                "authors.raw_affiliations.value": {
-                                                    "query": "CERN",
-                                                    "operator": "and",
-                                                }
-                                            }
-                                        },
-                                    }
-                                },
-                                {
-                                    "query_string": {
-                                        "query": "cern\\-*",
-                                        "fields": ["report_numbers.value.fuzzy"],
-                                        "analyze_wildcard": True,
-                                    }
-                                },
-                                {
-                                    "query_string": {
-                                        "query": "NA*",
-                                        "fields": ["collaborations.value"],
-                                        "analyze_wildcard": True,
-                                    }
-                                },
-                                {
-                                    "query_string": {
-                                        "query": "RD*",
-                                        "fields": ["collaborations.value"],
-                                        "analyze_wildcard": True,
-                                    }
-                                },
-                                {
-                                    "query_string": {
-                                        "query": "CERN*",
-                                        "fields": ["collaborations.value"],
-                                        "analyze_wildcard": True,
-                                    }
-                                },
-                            ],
-                            "must_not": [
-                                {
-                                    "match": {
-                                        "external_system_identifiers.schema": {
-                                            "query": "CDS",
-                                            "operator": "and",
-                                        }
-                                    }
-                                },
-                                {
-                                    "terms": {
-                                        "collaborations.value": non_cern_collaborations
-                                    }
-                                },
-                                {"match_phrase": {"_private_notes.value": "Not CERN"}},
-                            ],
-                            "must": {"match": {"_collections": "Literature"}},
-                            "minimum_should_match": 1,
-                        }
-                    }
+                    "CDS candidates": cds_candidates_filter,
+                    "Fermilab candidates": fermilab_candidates_filter,
+                    "IHEP curation": ihep_curation_filter,
                 }
             },
             "meta": {
