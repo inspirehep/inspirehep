@@ -119,7 +119,7 @@ LITERATURE.update(
         "item_route": '/literature/<inspirepid(lit,record_class="inspirehep.records.api.LiteratureRecord"):pid_value>',
         "read_permission_factory_imp": LiteraturePermissionCheck,
         "create_permission_factory_imp": SessionSuperuserPermission,
-        "update_permission_factory_imp": SessionSuperuserPermission,
+        "update_permission_factory_imp": SessionCatalogerPermission,
         "suggesters": {
             "abstract_source": {
                 "completion": {"field": "abstracts.abstract_source_suggest"}
@@ -219,7 +219,7 @@ AUTHORS.update(
         "record_class": "inspirehep.records.api:AuthorsRecord",
         "search_factory_imp": "inspirehep.search.factories.search:search_factory_with_aggs",
         "create_permission_factory_imp": SessionSuperuserPermission,
-        "update_permission_factory_imp": SessionSuperuserPermission,
+        "update_permission_factory_imp": SessionCatalogerPermission,
     }
 )
 

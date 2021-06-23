@@ -1197,7 +1197,15 @@ def test_literature_raw_json_with_logged_in_cataloger(inspire_app):
     result_keys = response.json.keys()
     assert expected_status_code == response_status_code
 
-    expected_keys = ["created", "id", "links", "metadata", "updated", "uuid"]
+    expected_keys = [
+        "created",
+        "id",
+        "links",
+        "metadata",
+        "updated",
+        "uuid",
+        "revision_id",
+    ]
     for key in result_keys:
         assert key in expected_keys
 
@@ -1432,3 +1440,18 @@ def test_cv_format_doesnt_mutate_record(inspire_app):
 
     assert response.status_code == 200
     assert "control_number" not in author_affiliations
+
+
+def test_revision_id_in_envelope(inspire_app):
+    user = create_user(role=Roles.superuser.value)
+    headers = {"Accept": "application/vnd+inspire.record.raw+json"}
+    record = create_record("lit")
+    record_control_number = record["control_number"]
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(f"/literature/{record_control_number}", headers=headers)
+    assert response.status_code == 200
+    assert "revision_id" in response.json
+    assert response.json["revision_id"] == int(
+        response.headers["ETag"].split("/")[-1].strip('"')
+    )

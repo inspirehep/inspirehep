@@ -22,8 +22,6 @@ warnings.filterwarnings(
 class EnvelopeSchema(RecordSchemaJSONV1):
     """This schema is the envelope of the API.
 
-    Invenio API returns the following structure:
-
     Examples:
         {
             'uuid': '...',
@@ -31,13 +29,13 @@ class EnvelopeSchema(RecordSchemaJSONV1):
             'metadata': {},
             'created': '...',
             'updated': '...',
+            'revision_id': '...',
         }
 
-    Note:
-        In our case we need to enchance this with extra data.
     """
 
     uuid = fields.String(dump_only=True, attribute="pid.object_uuid")
+    revision_id = fields.Integer(dump_only=True, attribute="metadata.revision_id")
 
 
 class ForbiddenSchema(Schema):
