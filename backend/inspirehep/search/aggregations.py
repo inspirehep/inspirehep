@@ -424,8 +424,10 @@ def hep_curation_collection_aggregation(
             ],
             "must_not": [
                 {
-                    "match": {
-                        "report_numbers.value.fuzzy": "Fermilab",
+                    "query_string": {
+                        "query": "Fermilab*",
+                        "fields": ["report_numbers.value.fuzzy"],
+                        "analyze_wildcard": True,
                     }
                 },
             ],
@@ -450,6 +452,7 @@ def hep_curation_collection_aggregation(
             "must": [
                 {"match": {"_collections": "Literature"}},
                 {"range": {"_created": {"lte": "now-14d/d"}}},
+                {"match": {"core": True}},
             ],
             "minimum_should_match": 1,
         }
