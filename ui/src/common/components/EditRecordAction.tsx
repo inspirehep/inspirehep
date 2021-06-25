@@ -12,6 +12,7 @@ import {
   EDIT_JOB,
   EDIT_CONFERENCE,
   EDIT_AUTHOR,
+  EDIT_AUTHOR_CATALOGER,
   EDIT_INSTITUTION,
   EDIT_SEMINAR,
 } from '../routes';
@@ -30,16 +31,23 @@ const pidTypeToEditRoutePrefix = {
 interface EditRecordActionProps {
   pidType: PidType;
   pidValue: PidValue;
+  isCatalogerLoggedIn: boolean;
 }
 
 export default function EditRecordAction({
   pidType,
   pidValue,
+  isCatalogerLoggedIn,
 }: EditRecordActionProps) {
+  const pidTypeRoute =
+    pidType === 'authors' && isCatalogerLoggedIn
+      ? EDIT_AUTHOR_CATALOGER
+      : pidTypeToEditRoutePrefix[pidType];
+
   return (
     <ListItemAction>
       <EventTracker eventId="Edit">
-        <ExternalLink href={`${pidTypeToEditRoutePrefix[pidType]}/${pidValue}`}>
+        <ExternalLink href={`${pidTypeRoute}/${pidValue}`}>
           <IconText text="edit" icon={<EditOutlined />} />
         </ExternalLink>
       </EventTracker>

@@ -42,6 +42,7 @@ export const SUBMISSION_SUCCESS = `${SUBMISSIONS}/success`;
 
 export const EDIT_LITERATURE = '/editor/record/literature';
 export const EDIT_AUTHOR = SUBMISSIONS_AUTHOR;
+export const EDIT_AUTHOR_CATALOGER = '/editor/record/authors';
 export const EDIT_JOB = SUBMISSIONS_JOB;
 export const EDIT_CONFERENCE = '/editor/record/conferences';
 export const EDIT_INSTITUTION = '/editor/record/institutions';

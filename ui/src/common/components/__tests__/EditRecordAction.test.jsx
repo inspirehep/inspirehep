@@ -25,6 +25,17 @@ describe('EditRecordAction', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it('renders edit button with pidType authors and pidValue for catalogers', () => {
+    const wrapper = shallow(
+      <EditRecordAction
+        pidType={AUTHORS_PID_TYPE}
+        pidValue={1}
+        isCatalogerLoggedIn={1}
+      />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
   it('renders edit button with pidType conferences and pidValue', () => {
     const wrapper = shallow(
       <EditRecordAction pidType={CONFERENCES_PID_TYPE} pidValue={1} />

@@ -15,7 +15,7 @@ class AuthorResultItem extends Component {
   render() {
     // TODO: add a Context for `openDetailInNewTab` and use it to make all internal links `target=_blank`
     // for example: right now author profile opens on a new tab, but the detail page of author's affiliation.
-    const { metadata, openDetailInNewTab } = this.props;
+    const { metadata, openDetailInNewTab, isCatalogerLoggedIn } = this.props;
 
     const name = metadata.get('name');
     const recordId = metadata.get('control_number');
@@ -29,7 +29,11 @@ class AuthorResultItem extends Component {
     return (
       <ResultItem
         leftActions={
-          <EditAuthorRecordAction pidValue={recordId} canEdit={canEdit} />
+          <EditAuthorRecordAction
+            pidValue={recordId}
+            canEdit={canEdit}
+            isCatalogerLoggedIn={isCatalogerLoggedIn}
+          />
         }
       >
         <Link
@@ -57,6 +61,7 @@ class AuthorResultItem extends Component {
 AuthorResultItem.propTypes = {
   metadata: PropTypes.instanceOf(Map).isRequired,
   openDetailInNewTab: PropTypes.bool,
+  isCatalogerLoggedIn: PropTypes.bool,
 };
 
 AuthorResultItem.defaultProps = {

@@ -20,6 +20,26 @@ exports[`EditRecordAction renders edit button with pidType authors and pidValue 
 </ListItemAction>
 `;
 
+exports[`EditRecordAction renders edit button with pidType authors and pidValue for catalogers 1`] = `
+<ListItemAction>
+  <EventTracker
+    eventId="Edit"
+    eventPropName="onClick"
+    extractEventArgsToForward={null}
+  >
+    <ExternalLink
+      as="a"
+      href="/editor/record/authors/1"
+    >
+      <IconText
+        icon={<ForwardRef(EditOutlined) />}
+        text="edit"
+      />
+    </ExternalLink>
+  </EventTracker>
+</ListItemAction>
+`;
+
 exports[`EditRecordAction renders edit button with pidType conferences and pidValue 1`] = `
 <ListItemAction>
   <EventTracker
