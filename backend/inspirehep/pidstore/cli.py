@@ -5,9 +5,8 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import logging
-
 import click
+import structlog
 from flask import current_app
 from flask.cli import with_appcontext
 from invenio_db import db
@@ -17,7 +16,7 @@ from inspirehep.pidstore.errors import MissingSchema
 from inspirehep.pidstore.minters.bai import BAIMinter
 from inspirehep.records.api import AuthorsRecord
 
-LOGGER = logging.getLogger(__name__)
+LOGGER = structlog.getLogger()
 
 
 @click.group()
@@ -138,3 +137,56 @@ def mint_bais(yes_i_know, create):
             "There are still external BAIs left in DB. Probably they are not properly assigned to authors."
             " Please fix them and re-run command!"
         )
+
+
+@inspire_pidstore.command("fast-mint-new-bais")
+@click.option("--yes-i-know", is_flag=True)
+@with_appcontext
+def fast_mint_bais(yes_i_know):
+    """Mint BAIs"""
+    if not current_app.config.get("FEATURE_FLAG_ENABLE_BAI_PROVIDER"):
+        click.echo(
+            "Cannot mint BAIs without FEATURE_FLAG_ENABLE_BAI_PROVIDER set!", err=True
+        )
+        return
+    if current_app.config.get("FEATURE_FLAG_ENABLE_AUTHOR_DISAMBIGUATION"):
+        click.echo(
+            "Cannot mint BAIs with FEATURE_FLAG_ENABLE_AUTHOR_DISAMBIGUATION set!",
+            err=True,
+        )
+    if not yes_i_know:
+        click.confirm(
+            "Do you want to create new BAIs for authors records which are missing one?",
+            abort=True,
+        )
+    current_app.config["FEATURE_FLAG_ENABLE_BAI_CREATION"] = True
+    all_authors = PersistentIdentifier.query.filter_by(
+        pid_type="aut", status="R"
+    ).with_entities("object_uuid")
+    bai_authors = PersistentIdentifier.query.filter_by(
+        pid_type="bai", status="R"
+    ).with_entities("object_uuid")
+    all_authors = {author[0] for author in all_authors}
+    bai_authors = {author[0] for author in bai_authors}
+    missing_bais = all_authors - bai_authors
+    length = len(missing_bais)
+    with click.progressbar(all_authors, length=length) as authors_bar:
+        for author_uuid in authors_bar:
+            author_record = AuthorsRecord.get_record(str(author_uuid))
+            author_data = dict(author_record)
+            BAIMinter.mint(author_uuid, author_data)
+            if author_data.get("ids") != author_record.get("ids"):
+                author_record.update(author_data)
+            else:
+                LOGGER.info(
+                    "BAI was not created.",
+                    author_uuid=author_uuid,
+                    control_number=author_record.get("control_number"),
+                )
+    if not yes_i_know:
+        if not click.confirm(
+            f"There are {length} Author records without BAI for which BAI will be created. Do you want to continue?"
+        ):
+            db.session.rollback()
+            return
+    db.session.commit()
