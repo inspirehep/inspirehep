@@ -11,13 +11,19 @@ import LoadingOrChildren from '../../common/components/LoadingOrChildren';
 import DocumentHead from '../../common/components/DocumentHead';
 import { AUTHORS_NS } from '../../search/constants';
 import { SEARCH_PAGE_GUTTER } from '../../common/constants';
+import { isCataloger } from '../../common/authorization';
 
 const META_DESCRIPTION = 'Find authors in High Energy Physics';
 const TITLE = 'Authors Search';
 
 class SearchPage extends Component {
-  static renderAuthorItem(result) {
-    return <AuthorResultItem metadata={result.get('metadata')} />;
+  static renderAuthorItem(result, isCatalogerLoggedIn) {
+    return (
+      <AuthorResultItem
+        metadata={result.get('metadata')}
+        isCatalogerLoggedIn={isCatalogerLoggedIn}
+      />
+    );
   }
 
   render() {
@@ -57,10 +63,12 @@ class SearchPage extends Component {
 
 SearchPage.propTypes = {
   loading: PropTypes.bool.isRequired,
+  isCatalogerLoggedIn: PropTypes.bool,
 };
 
-const stateToProps = state => ({
+const stateToProps = (state) => ({
   loading: state.search.getIn(['namespaces', AUTHORS_NS, 'loading']),
+  isCatalogerLoggedIn: isCataloger(state.user.getIn(['data', 'roles'])),
 });
 
 export default connect(stateToProps)(SearchPage);

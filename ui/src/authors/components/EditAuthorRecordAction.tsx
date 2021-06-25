@@ -5,6 +5,7 @@ import ExternalLink from '../../common/components/ExternalLink';
 import PidValue from '../../common/types/PidValue';
 
 type EditAuthorRecordActionProps = {
+  isCatalogerLoggedIn: boolean;
   canEdit: boolean;
   pidValue: PidValue;
 };
@@ -19,11 +20,16 @@ const CAN_NOT_EDIT_AUTHOR_MESSAGE = (
 );
 
 export default function EditAuthorRecordAction({
+  isCatalogerLoggedIn,
   canEdit,
   pidValue,
 }: EditAuthorRecordActionProps) {
   return canEdit ? (
-    <EditRecordAction pidType="authors" pidValue={pidValue} />
+    <EditRecordAction
+      pidType="authors"
+      pidValue={pidValue}
+      isCatalogerLoggedIn={isCatalogerLoggedIn}
+    />
   ) : (
     <DisabledEditRecordAction message={CAN_NOT_EDIT_AUTHOR_MESSAGE} />
   );
