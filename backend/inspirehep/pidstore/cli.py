@@ -170,7 +170,7 @@ def fast_mint_bais(yes_i_know):
     bai_authors = {author[0] for author in bai_authors}
     missing_bais = all_authors - bai_authors
     length = len(missing_bais)
-    with click.progressbar(all_authors, length=length) as authors_bar:
+    with click.progressbar(missing_bais, length=length) as authors_bar:
         for author_uuid in authors_bar:
             author_record = AuthorsRecord.get_record(str(author_uuid))
             author_data = dict(author_record)
