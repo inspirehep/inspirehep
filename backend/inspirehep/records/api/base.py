@@ -473,7 +473,6 @@ class InspireRecord(Record):
                 self.clear()
                 super().update(data)
                 self.validate()
-                self.model.json = dict(self)
 
                 if data.get("deleted"):
                     self.pidstore_handler.delete(self.id, self)
@@ -483,6 +482,7 @@ class InspireRecord(Record):
                     if self.get("deleted_records"):
                         self.redirect_pids(self["deleted_records"])
                 self.update_model_created_with_legacy_creation_date()
+                self.model.json = dict(self)
                 flag_modified(self.model, "json")
                 db.session.merge(self.model)
 
