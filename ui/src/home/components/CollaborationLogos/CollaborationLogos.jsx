@@ -32,7 +32,7 @@ function CollaborationLogos() {
       <Col className="ma3">
         <CollaborationLogo
           name="IHEP"
-          href="http://ihep.ac.cn"
+          href="http://english.ihep.cas.cn/"
           src={ihepLogo}
         />
       </Col>
