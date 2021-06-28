@@ -45,7 +45,14 @@ export const authors: JsonEditorConfig = {
           'native_names'
         ]
       },
+      advisors: {
+        items: {
+          alwaysShow: ['ids', 'name', 'degree_type'],
+          order: ['ids', 'name', 'degree_type'],
+        },
+      },
       positions: {
+        isDeleteDisabled: true,
         items: {
           alwaysShow: [
             'current',
@@ -76,6 +83,9 @@ export const authors: JsonEditorConfig = {
           },
         },
       },
+      email_addresses: {
+        isDeleteDisabled: true,
+      },
       project_membership: {
         items: {
           order: [
@@ -86,20 +96,6 @@ export const authors: JsonEditorConfig = {
             'record',
             'hidden',
             'curated_relation'
-          ]
-        }
-      },
-      advisors: {
-        items: {
-          alwaysShow: [
-            'ids',
-            'name',
-            'degree_type'
-          ],
-          order: [
-            'ids',
-            'name',
-            'degree_type'
           ]
         }
       },

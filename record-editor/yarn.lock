@@ -238,6 +238,11 @@
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.57.tgz#f0095fb15ec1004455613f3ad73766583e62f830"
   integrity sha1-8AlfsV7BAERVYT861zdmWD5i+DA=
 
+"@types/mousetrap@1.6.3":
+  version "1.6.3"
+  resolved "https://registry.yarnpkg.com/@types/mousetrap/-/mousetrap-1.6.3.tgz#3159a01a2b21c9155a3d8f85588885d725dc987d"
+  integrity sha512-13gmo3M2qVvjQrWNseqM3+cR6S2Ss3grbR2NZltgMq94wOwqJYQdgn8qzwDshzgXqMlSUtyPZjysImmktu22ew==
+
 "@types/node@6.14.10", "@types/node@^6.0.46":
   version "6.14.10"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-6.14.10.tgz#d9ce598127eb0cc02821476862d11389cb01f6a4"
@@ -4992,10 +4997,9 @@ next-tick@~1.0.0:
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
   integrity sha1-yobR/ogoFpsBICCOPchCS524NCw=
 
-ng2-json-editor@^0.25.22:
-  version "0.25.26"
-  resolved "https://registry.yarnpkg.com/ng2-json-editor/-/ng2-json-editor-0.25.26.tgz#4b2143835312318b179d455d001c52647dc8f888"
-  integrity sha512-LX5ueNw4u0oJZkp6lqdavQuskvY1/msji6jRgQfApt1lhlqhwoOu5b17l1lgRtnoXadVzFEgJHDIp67ZqyRCPQ==
+"ng2-json-editor@https://github.com/inveniosoftware-contrib/ng2-json-editor.git#master":
+  version "0.25.30"
+  resolved "https://github.com/inveniosoftware-contrib/ng2-json-editor.git#b1812048d4dc787c7ee587183880a83563af30d0"
   dependencies:
     ajv "^5.0.0"
     ajv-errors "^1.0.0"
