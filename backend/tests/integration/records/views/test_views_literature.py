@@ -5,7 +5,6 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from operator import ipow
 from urllib.parse import urlencode
 
 import orjson
@@ -101,10 +100,12 @@ def test_literature_application_json_get(inspire_app):
 def test_literature_application_json_put_without_token(inspire_app):
     record = create_record("lit")
     record_control_number = record["control_number"]
-    headers = { "If-Match": '"0"'}
+    headers = {"If-Match": '"0"'}
     expected_status_code = 401
     with inspire_app.test_client() as client:
-        response = client.put("/literature/{}".format(record_control_number))
+        response = client.put(
+            "/literature/{}".format(record_control_number), headers=headers
+        )
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
@@ -207,7 +208,7 @@ def test_literature_application_json_post_with_token_not_authenticated(inspire_a
     assert expected_status_code == response_status_code
 
 
-def test_literature_application_json_put_with_token(inspire_app):
+def test_literature_application_json_put_with_token_(inspire_app):
     expected_status_code = 200
     token = create_user_and_token("cataloger")
     headers = {"Authorization": "BEARER " + token.access_token, "If-Match": '"0"'}
@@ -831,7 +832,7 @@ def test_literature_returns_301_when_pid_is_redirected(inspire_app):
 
 def test_literature_json_put_redirected_record(inspire_app):
     token = create_user_and_token()
-    headers = {"Authorization": "BEARER " + token.access_token, "If-Match": '"3"' }
+    headers = {"Authorization": "BEARER " + token.access_token, "If-Match": '"2"'}
     record_redirected = create_record("lit")
     record = create_record("lit", data={"deleted_records": [record_redirected["self"]]})
 
