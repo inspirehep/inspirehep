@@ -89,7 +89,7 @@ exports[`EditRecordAction renders edit button with pidType literature and pidVal
   >
     <ExternalLink
       as="a"
-      href="/workflows/edit_article/1"
+      href="/editor/record/literature/1"
     >
       <IconText
         icon={<ForwardRef(EditOutlined) />}
