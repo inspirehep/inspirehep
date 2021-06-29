@@ -63,6 +63,7 @@ def batch_index(self, records_uuids, request_timeout=None):
 @shared_task(
     ignore_result=True,
     bind=True,
+    queue="indexer_task",
     retry_backoff=2,
     retry_kwargs={"max_retries": 6},
     autoretry_for=CELERY_INDEX_RECORD_RETRY_ON_EXCEPTIONS,
