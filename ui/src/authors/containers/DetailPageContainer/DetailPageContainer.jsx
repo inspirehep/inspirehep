@@ -41,6 +41,7 @@ import AffiliationList from '../../../common/components/AffiliationList';
 import RecordUpdateInfo from '../../../common/components/RecordUpdateInfo';
 import AuthorSeminars from '../../components/AuthorSeminars';
 import EditAuthorRecordAction from '../../components/EditAuthorRecordAction.tsx';
+import { isCataloger } from '../../../common/authorization';
 
 function DetailPage({
   record,
@@ -51,6 +52,7 @@ function DetailPage({
   citingPapersCount,
   loadingPublications,
   seminarsCount,
+  isCatalogerLoggedIn,
 }) {
   const authorFacetName = publicationsQuery.getIn(['author', 0]);
   const metadata = record.get('metadata');
@@ -121,6 +123,7 @@ function DetailPage({
                     <EditAuthorRecordAction
                       canEdit={canEdit}
                       pidValue={recordId}
+                      isCatalogerLoggedIn={isCatalogerLoggedIn}
                     />
                   </>
                 }
@@ -235,9 +238,10 @@ DetailPage.propTypes = {
   userOrcid: PropTypes.string,
   publicationsCount: PropTypes.number,
   citingPapersCount: PropTypes.number,
+  isCatalogerLoggedIn: PropTypes.bool,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   record: state.authors.get('data'),
   publicationsQuery: state.search.getIn([
     'namespaces',
@@ -270,15 +274,17 @@ const mapStateToProps = state => ({
     AUTHOR_SEMINARS_NS,
     'initialTotal',
   ]),
+  isCatalogerLoggedIn: isCataloger(state.user.getIn(['data', 'roles'])),
 });
-const dispatchToProps = dispatch => ({ dispatch });
-const DetailPageContainer = connect(mapStateToProps, dispatchToProps)(
-  DetailPage
-);
+const dispatchToProps = (dispatch) => ({ dispatch });
+const DetailPageContainer = connect(
+  mapStateToProps,
+  dispatchToProps
+)(DetailPage);
 
 export default withRouteActionsDispatcher(DetailPageContainer, {
   routeParamSelector: ({ id }) => id,
-  routeActions: id => [
+  routeActions: (id) => [
     fetchAuthor(id),
     newSearch(AUTHOR_PUBLICATIONS_NS),
     newSearch(AUTHOR_CITATIONS_NS),
@@ -287,5 +293,5 @@ export default withRouteActionsDispatcher(DetailPageContainer, {
       baseQuery: { q: `speakers.record.$ref:${id}` },
     }),
   ],
-  loadingStateSelector: state => !state.authors.hasIn(['data', 'metadata']),
+  loadingStateSelector: (state) => !state.authors.hasIn(['data', 'metadata']),
 });
