@@ -32,7 +32,7 @@ export function setPublicationSelection(publicationIds, selected) {
   };
 }
 
-export function clearPulicationSelection() {
+export function clearPublicationSelection() {
   return {
     type: AUTHOR_PUBLICATION_SELECTION_CLEAR,
   };
@@ -61,7 +61,7 @@ export function assignPapers({ from, to }) {
       dispatch(
         searchQueryUpdate(AUTHOR_PUBLICATIONS_NS, { assigned: Date.now() })
       );
-      dispatch(clearPulicationSelection());
+      dispatch(clearPublicationSelection());
       dispatch(setAssignDrawerVisibility(false));
     } catch (error) {
       assignError();
