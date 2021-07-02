@@ -9,7 +9,7 @@ import {
   setAssignDrawerVisibility,
   assignPapers,
   setPublicationSelection,
-  clearPulicationSelection,
+  clearPublicationSelection,
 } from '../../../actions/authors';
 import AssignAction from '../../components/AssignAction';
 
@@ -23,7 +23,7 @@ jest.mock('../../../actions/authors');
 mockActionCreator(setAssignDrawerVisibility);
 mockActionCreator(assignPapers);
 mockActionCreator(setPublicationSelection);
-mockActionCreator(clearPulicationSelection);
+mockActionCreator(clearPublicationSelection);
 
 describe('AssignOneActionContainer', () => {
   it('selects the one paper and dispatches setAssignDrawerVisibility with true on assign to another author', () => {
@@ -39,25 +39,31 @@ describe('AssignOneActionContainer', () => {
       .prop('onAssignToAnotherAuthor');
     onAssignToAnotherAuthor();
     const expectedActions = [
-      clearPulicationSelection(),
+      clearPublicationSelection(),
       setPublicationSelection([paperRecordId], true),
       setAssignDrawerVisibility(true),
     ];
     expect(store.getActions()).toEqual(expectedActions);
   });
 
-  it('dispatches assignPapers with on assign', () => {
+  it('selects the one paper and dispatches assignPapers', () => {
     const store = getStore();
-    const wrapper = mount(
-      <Provider store={store}>
-        <AssignOneActionContainer />
-      </Provider>
-    );
+    const paperRecordId = 12345;
     const from = 123;
     const to = 321;
+    const wrapper = mount(
+      <Provider store={store}>
+        <AssignOneActionContainer recordId={paperRecordId} />
+      </Provider>
+    );
     const onAssign = wrapper.find(AssignAction).prop('onAssign');
     onAssign({ from, to });
-    const expectedActions = [assignPapers({ from, to })];
+
+    const expectedActions = [
+      clearPublicationSelection(),
+      setPublicationSelection([paperRecordId], true),
+      assignPapers({ from, to }),
+    ];
     expect(store.getActions()).toEqual(expectedActions);
   });
 });

@@ -13,7 +13,7 @@ import {
 } from '../actionTypes';
 import fetchAuthor, {
   setPublicationSelection,
-  clearPulicationSelection,
+  clearPublicationSelection,
   setAssignDrawerVisibility,
   assignPapers,
 } from '../authors';
@@ -90,7 +90,7 @@ describe('AUTHOR - async action creators', () => {
       expect(store.getActions()).toEqual(expectedActions);
     });
 
-    it('clearPulicationSelection', () => {
+    it('clearPublicationSelection', () => {
       const expectedActions = [
         {
           type: AUTHOR_PUBLICATION_SELECTION_CLEAR,
@@ -98,7 +98,7 @@ describe('AUTHOR - async action creators', () => {
       ];
 
       const store = getStore();
-      store.dispatch(clearPulicationSelection());
+      store.dispatch(clearPublicationSelection());
       expect(store.getActions()).toEqual(expectedActions);
     });
   });
@@ -131,7 +131,7 @@ describe('AUTHOR - async action creators', () => {
 
       const expectedActions = [
         searchQueryUpdate(AUTHOR_PUBLICATIONS_NS, { assigned: fakeNow }),
-        clearPulicationSelection(),
+        clearPublicationSelection(),
         setAssignDrawerVisibility(false),
       ];
 
@@ -174,7 +174,7 @@ describe('AUTHOR - async action creators', () => {
 
       const expectedActions = [
         searchQueryUpdate(AUTHOR_PUBLICATIONS_NS, { assigned: fakeNow }),
-        clearPulicationSelection(),
+        clearPublicationSelection(),
         setAssignDrawerVisibility(false),
       ];
 
