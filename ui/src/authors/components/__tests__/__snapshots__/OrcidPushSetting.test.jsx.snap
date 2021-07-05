@@ -19,16 +19,7 @@ exports[`OrcidPushSetting renders when disabled 1`] = `
       title={
         <React.Fragment>
           <p>
-            Your INSPIRE
-             
-            <ExternalLink
-              as="a"
-              href="//inspirehep.net/author/claim/Author.E.1"
-            >
-              claimed
-            </ExternalLink>
-             
-            works will be exported to your ORCID account.
+            Your INSPIRE claimed works will be exported to your ORCID account.
           </p>
           <span>
             Are you sure?

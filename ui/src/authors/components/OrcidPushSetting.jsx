@@ -2,9 +2,8 @@ import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Popconfirm } from 'antd';
 import OrcidPushSettingMessageContainer from '../containers/OrcidPushSettingMessageContainer';
-import ExternalLink from '../../common/components/ExternalLink.tsx';
 
-function renderPopConfirmTitle(isCurrentlyEnabled, authorBAI) {
+function renderPopConfirmTitle(isCurrentlyEnabled) {
   return (
     <>
       {isCurrentlyEnabled ? (
@@ -13,11 +12,7 @@ function renderPopConfirmTitle(isCurrentlyEnabled, authorBAI) {
         </p>
       ) : (
         <p>
-          Your INSPIRE{' '}
-          <ExternalLink href={`//inspirehep.net/author/claim/${authorBAI}`}>
-            claimed
-          </ExternalLink>{' '}
-          works will be exported to your ORCID account.
+          Your INSPIRE claimed works will be exported to your ORCID account.
         </p>
       )}
       <span>Are you sure?</span>
@@ -25,19 +20,16 @@ function renderPopConfirmTitle(isCurrentlyEnabled, authorBAI) {
   );
 }
 
-function OrcidPushSetting({ isUpdating, onChange, enabled, authorBAI }) {
-  const onSettingToggleConfirm = useCallback(
-    () => {
-      onChange(!enabled);
-    },
-    [enabled, onChange]
-  );
+function OrcidPushSetting({ isUpdating, onChange, enabled }) {
+  const onSettingToggleConfirm = useCallback(() => {
+    onChange(!enabled);
+  }, [enabled, onChange]);
   return (
     <>
       <div className="mb3">
         <span className="mr2">Export your INSPIRE works to ORCID</span>
         <Popconfirm
-          title={renderPopConfirmTitle(enabled, authorBAI)}
+          title={renderPopConfirmTitle(enabled)}
           onConfirm={onSettingToggleConfirm}
         >
           <Switch loading={isUpdating} checked={enabled} />
@@ -54,7 +46,6 @@ OrcidPushSetting.propTypes = {
   onChange: PropTypes.func.isRequired,
   isUpdating: PropTypes.bool.isRequired,
   enabled: PropTypes.bool.isRequired,
-  authorBAI: PropTypes.string.isRequired,
 };
 
 export default OrcidPushSetting;

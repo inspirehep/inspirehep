@@ -35,7 +35,6 @@ describe('OrcidPushSettingContainer', () => {
     expect(wrapper.find(OrcidPushSetting)).toHaveProp({
       isUpdating: false,
       enabled: true,
-      authorBAI: 'Author.1.E',
     });
   });
 
