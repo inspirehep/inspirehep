@@ -7,12 +7,7 @@ import OrcidPushSetting from '../OrcidPushSetting';
 describe('OrcidPushSetting', () => {
   it('renders when enabled', () => {
     const wrapper = shallow(
-      <OrcidPushSetting
-        onChange={jest.fn()}
-        isUpdating={false}
-        enabled
-        authorBAI="Author.E.1"
-      />
+      <OrcidPushSetting onChange={jest.fn()} isUpdating={false} enabled />
     );
     expect(wrapper).toMatchSnapshot();
   });
@@ -23,7 +18,6 @@ describe('OrcidPushSetting', () => {
         onChange={jest.fn()}
         isUpdating={false}
         enabled={false}
-        authorBAI="Author.E.1"
       />
     );
     expect(wrapper).toMatchSnapshot();
@@ -37,7 +31,6 @@ describe('OrcidPushSetting', () => {
         onChange={onChange}
         isUpdating={false}
         enabled={currentEnabled}
-        authorBAI="Author.E.1"
       />
     );
     const onConfirm = wrapper.find(Popconfirm).prop('onConfirm');

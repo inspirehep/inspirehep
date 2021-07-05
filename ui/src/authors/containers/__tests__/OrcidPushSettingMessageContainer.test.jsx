@@ -33,7 +33,6 @@ describe('OrcidPushSettingMessageContainer', () => {
     expect(wrapper.find(OrcidPushSettingMessage)).toHaveProp({
       orcid: '0000-0001-8058-0014',
       enabled: false,
-      authorBAI: 'Author.1.E',
     });
   });
 });
