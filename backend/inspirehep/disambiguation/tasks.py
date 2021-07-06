@@ -6,6 +6,7 @@ from inspire_utils.name import ParsedName
 from inspire_utils.record import get_value, get_values_for_schema
 from invenio_db import db
 from prometheus_client import Counter
+from sqlalchemy.orm.exc import NoResultFound
 
 from inspirehep.disambiguation.utils import (
     create_new_stub_author,
@@ -199,7 +200,11 @@ def assign_bai_to_literature_author(author, bai):
 
 @shared_task(ignore_result=False, bind=True)
 def disambiguate_authors(self, record_uuid):
-    record = InspireRecord.get_record(record_uuid)
+    # handle case when we try to get a record which is deleted
+    try:
+        record = InspireRecord.get_record(record_uuid)
+    except NoResultFound:
+        return
     if "Literature" not in record["_collections"]:
         return
     authors = record.get_modified_authors()

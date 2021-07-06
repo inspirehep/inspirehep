@@ -1012,3 +1012,31 @@ def test_disambiguation_on_record_update_unambiguous_match(
         )
 
     retry_until_pass(assert_disambiguation_on_record_update, retry_interval=2)
+
+
+def test_disambiguation_handle_deleted_records(
+    inspire_app, clean_celery_session, enable_disambiguation
+):
+    literature_data = faker.record("lit", with_control_number=True)
+    literature_data.update(
+        {
+            "authors": [
+                {
+                    "full_name": "Kowalczyk, Elisabeth",
+                    "ids": [{"schema": "INSPIRE BAI", "value": "E.Kowalczyk.1"}],
+                }
+            ],
+            "deleted": True,
+        }
+    )
+
+    literature_record = LiteratureRecord.create(data=literature_data)
+    db.session.commit()
+
+    literature_record["authors"][0]["affiliations"] = [{"value": "test"}]
+    literature_record.update(dict(literature_record))
+
+    try:
+        db.session.commit()
+    except Exception:
+        assert False
