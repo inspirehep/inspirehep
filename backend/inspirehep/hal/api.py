@@ -25,7 +25,11 @@ def push_to_hal(record):
 
     if is_hal_set(record):
         current_celery_app.send_task(
-            "inspirehep.hal.tasks.hal_push", kwargs={"recid": record["control_number"]}
+            "inspirehep.hal.tasks.hal_push",
+            kwargs={
+                "recid": record["control_number"],
+                "record_version_id": record.model.version_id,
+            },
         )
 
 
