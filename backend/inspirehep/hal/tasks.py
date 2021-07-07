@@ -13,6 +13,7 @@ from celery import shared_task
 from inspire_utils.record import get_value, get_values_for_schema
 from invenio_db import db
 from lxml import etree
+from sqlalchemy.orm.exc import StaleDataError
 from sword2.exceptions import RequestTimeOut
 
 from inspirehep.hal.core.sword import create, update
@@ -40,19 +41,22 @@ def _get_error_message_from_hal_exception(exception):
     queue="hal_push",
     retry_backoff=2,
     retry_kwargs={"max_retries": 6},
-    autoretry_for=(RequestTimeOut,),
+    autoretry_for=(RequestTimeOut, StaleDataError),
 )
-def hal_push(self, recid):
+def hal_push(self, recid, record_version_id):
     """Celery task to push a record to HAL.
 
     Args:
         self (celery.Task): the task
-        rec_id (Int): inspire record to push to HAL.
+        recid (Int): inspire record to push to HAL.
+        record_version_id (Int): db version for record that we're trying to push
     """
     LOGGER.info("New hal_push task", recid=recid)
 
     try:
         record = LiteratureRecord.get_record_by_pid_value(recid)
+        if record.model.version_id < record_version_id:
+            raise StaleDataError
         _hal_push(record)
         LOGGER.info("hal_push task successfully completed.", recid=recid)
     except Exception as exc:
