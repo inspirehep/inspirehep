@@ -169,10 +169,6 @@
 {%- endmacro -%}
 
 
-<!DOCTYPE html>
-<html>
-<body>
-{% for record in records %}
   <p><b>
     <a href="https://{{ host }}/literature/{{ record.control_number }}">
       {{ record.title_display }}
@@ -183,6 +179,3 @@
   {{ format_dois(record.dois) }}
   {{ format_pub_info_list(record.publication_info) }}
   <br>
-{% endfor -%}
-</body>
-</html>

@@ -5,6 +5,8 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+from textwrap import dedent
+
 from flask import current_app
 from invenio_records_rest.serializers.base import PreprocessorMixin
 from invenio_records_rest.serializers.marshmallow import MarshmallowMixin
@@ -19,6 +21,17 @@ from .jinja import jinja_cv_env
 
 
 class CVHTMLSerializer(MarshmallowMixin, PreprocessorMixin):
+    wrapping_html = dedent(
+        """\
+    <!DOCTYPE html>
+    <html>
+    <body>
+      {body}
+    </body>
+    </html>
+    """
+    )
+
     def __init__(self, **kwargs):
         super(CVHTMLSerializer, self).__init__(**kwargs)
 
@@ -29,11 +42,15 @@ class CVHTMLSerializer(MarshmallowMixin, PreprocessorMixin):
 
         return template
 
-    def serialize(self, pid, record, links_factory=None, **kwargs):
+    def serialize_inner(self, pid, record, links_factory=None, **kwargs):
         data = self.transform_record(pid, record, links_factory, **kwargs)
         return self.cv_template().render(
-            records=[data], host=current_app.config["SERVER_NAME"]
+            record=data, host=current_app.config["SERVER_NAME"]
         )
+
+    def serialize(self, pid, record, links_factory=None, **kwargs):
+        body = self.serialize_inner(pid, record, links_factory=links_factory, **kwargs)
+        return self.wrapping_html.format(body=body)
 
     def preprocess_record(self, pid, record, links_factory=None, **kwargs):
         return record
@@ -41,10 +58,12 @@ class CVHTMLSerializer(MarshmallowMixin, PreprocessorMixin):
     def serialize_search(
         self, pid_fetcher, search_result, links=None, item_links_factory=None
     ):
-        records = (self.dump(hit["_source"]) for hit in search_result["hits"]["hits"])
-        return self.cv_template().render(
-            records=records, host=current_app.config["SERVER_NAME"]
+        records = (
+            hit["_source"].get("_cv_format", "")
+            for hit in search_result["hits"]["hits"]
         )
+        body = "\n  ".join(records)
+        return self.wrapping_html.format(body=body)
 
 
 literature_cv_html = CVHTMLSerializer(schema_class=CVSchema)

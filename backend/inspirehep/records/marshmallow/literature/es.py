@@ -110,7 +110,7 @@ class LiteratureElasticSearchSchema(ElasticSearchBaseSchema, LiteratureRawSchema
         from inspirehep.records.serializers.cv import literature_cv_html
 
         try:
-            return literature_cv_html.serialize(None, record)
+            return literature_cv_html.serialize_inner(None, record)
         except Exception:
             LOGGER.exception("Cannot get cv format", record=record)
             return " "
