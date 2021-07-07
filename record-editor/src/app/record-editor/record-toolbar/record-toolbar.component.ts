@@ -48,8 +48,7 @@ import { HOVER_TO_DISMISS_INDEFINITE_TOAST } from '../../shared/constants';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RecordToolbarComponent
-  extends SubscriberComponent
+export class RecordToolbarComponent extends SubscriberComponent
   implements OnInit {
   // `undefined` if there is no record being edited
   record: object;
@@ -76,21 +75,21 @@ export class RecordToolbarComponent
   ngOnInit() {
     this.globalAppStateService.hasAnyValidationProblem$
       .takeUntil(this.isDestroyed)
-      .subscribe((hasAnyValidationProblem) => {
+      .subscribe(hasAnyValidationProblem => {
         this.hasAnyValidationProblem = hasAnyValidationProblem;
         this.changeDetectorRef.markForCheck();
       });
 
     this.globalAppStateService.jsonBeingEdited$
       .takeUntil(this.isDestroyed)
-      .subscribe((jsonBeingEdited) => {
+      .subscribe(jsonBeingEdited => {
         this.record = jsonBeingEdited;
         this.changeDetectorRef.markForCheck();
       });
 
     this.globalAppStateService.pidTypeBeingEdited$
       .takeUntil(this.isDestroyed)
-      .subscribe((pidTypeBeingEdited) => {
+      .subscribe(pidTypeBeingEdited => {
         this.pidType = pidTypeBeingEdited;
       });
   }
@@ -119,7 +118,7 @@ export class RecordToolbarComponent
     const references = this.record['references'];
     this.apiService
       .getLinkedReferences(references)
-      .then((linkedReferences) => {
+      .then(linkedReferences => {
         this.record['references'] = linkedReferences;
         const recordWithLinkedReferences = Object.assign({}, this.record);
         this.globalAppStateService.jsonBeingEdited$.next(
@@ -134,10 +133,9 @@ export class RecordToolbarComponent
 
   private cleanupAndSaveRecord(record) {
     this.recordCleanupService.cleanup(record);
-    this.apiService.saveRecord(record).subscribe(
-      () => this.onSaveSuccess(),
-      (error) => this.onSaveError(error)
-    );
+    this.apiService
+      .saveRecord(record)
+      .subscribe(() => this.onSaveSuccess(), error => this.onSaveError(error));
   }
 
   private onSaveSuccess() {
@@ -160,9 +158,6 @@ export class RecordToolbarComponent
       );
     } else {
       this.toastrService.error('Could not save the record', 'Error');
-    }
-    if (error.status === 412) {
-      setTimeout(() => window.location.reload(), 2000);
     }
   }
 
