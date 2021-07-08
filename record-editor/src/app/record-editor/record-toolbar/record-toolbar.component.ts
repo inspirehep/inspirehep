@@ -48,7 +48,8 @@ import { HOVER_TO_DISMISS_INDEFINITE_TOAST } from '../../shared/constants';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RecordToolbarComponent extends SubscriberComponent
+export class RecordToolbarComponent
+  extends SubscriberComponent
   implements OnInit {
   // `undefined` if there is no record being edited
   record: object;
@@ -75,21 +76,21 @@ export class RecordToolbarComponent extends SubscriberComponent
   ngOnInit() {
     this.globalAppStateService.hasAnyValidationProblem$
       .takeUntil(this.isDestroyed)
-      .subscribe(hasAnyValidationProblem => {
+      .subscribe((hasAnyValidationProblem) => {
         this.hasAnyValidationProblem = hasAnyValidationProblem;
         this.changeDetectorRef.markForCheck();
       });
 
     this.globalAppStateService.jsonBeingEdited$
       .takeUntil(this.isDestroyed)
-      .subscribe(jsonBeingEdited => {
+      .subscribe((jsonBeingEdited) => {
         this.record = jsonBeingEdited;
         this.changeDetectorRef.markForCheck();
       });
 
     this.globalAppStateService.pidTypeBeingEdited$
       .takeUntil(this.isDestroyed)
-      .subscribe(pidTypeBeingEdited => {
+      .subscribe((pidTypeBeingEdited) => {
         this.pidType = pidTypeBeingEdited;
       });
   }
@@ -118,7 +119,7 @@ export class RecordToolbarComponent extends SubscriberComponent
     const references = this.record['references'];
     this.apiService
       .getLinkedReferences(references)
-      .then(linkedReferences => {
+      .then((linkedReferences) => {
         this.record['references'] = linkedReferences;
         const recordWithLinkedReferences = Object.assign({}, this.record);
         this.globalAppStateService.jsonBeingEdited$.next(
@@ -133,20 +134,17 @@ export class RecordToolbarComponent extends SubscriberComponent
 
   private cleanupAndSaveRecord(record) {
     this.recordCleanupService.cleanup(record);
-    this.apiService
-      .saveRecord(record)
-      .subscribe(() => this.onSaveSuccess(), error => this.onSaveError(error));
+    this.apiService.saveRecord(record).subscribe(
+      () => this.onSaveSuccess(),
+      (error) => this.onSaveError(error)
+    );
   }
 
   private onSaveSuccess() {
     this.domUtilsService.unregisterBeforeUnloadPrompt();
-
-    if (this.pidType === 'conferences') {
-      // direct assignment to window.location  doesn't compile with this version of TS
-      window.location.href = `/conferences/${this.record['control_number']}`;
-    } else {
-      this.toastrService.success('Changes are saved', 'Success');
-    }
+    this.toastrService.success('Changes are saved', 'Success');
+    // direct assignment to window.location  doesn't compile with this version of TS
+    window.location.href = `/${this.pidType}/${this.record['control_number']}`;
   }
 
   private onSaveError(error: ApiError) {
