@@ -6,8 +6,8 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import re
 import string
-import time
 
+import backoff
 import structlog
 from flask import current_app
 from inspire_utils.name import format_name
@@ -78,6 +78,12 @@ class InspireBAIProvider(InspireBaseProvider):
         return int(last_number) + 1
 
     @classmethod
+    @backoff.on_exception(
+        backoff.constant,
+        (IntegrityError, PIDAlreadyExistsError),
+        max_tries=5,
+        interval=5,
+    )
     def create(
         cls, pid_value=None, object_uuid=None, data=None, object_type=None, **kwargs
     ):
@@ -88,39 +94,21 @@ class InspireBAIProvider(InspireBaseProvider):
         pid_value = pid_value or get_first_value_for_schema(
             get_value(data, "ids", []), "INSPIRE BAI"
         )
-        retry_count = (
-            current_app.config.get("PIDSTORE_BAI_MAX_RETRY_COUNT", 5)
-            if not pid_value
-            else 1
-        )
-        for _ in range(retry_count):
-            last_exception = None
-            new_pid = pid_value or cls.generate_bai(data)
-            pid_from_db = cls.query_pid_value(new_pid)
-            if not pid_from_db:
-                try:
-                    provider_object = super().create(
-                        pid_value=new_pid,
-                        object_type=object_type,
-                        object_uuid=object_uuid,
-                        status=PIDStatus.REGISTERED,
-                        **kwargs,
-                    )
-                    # Pid created successfully.
-                    break
-                except IntegrityError as e:
-                    last_exception = e
-            elif pid_from_db.object_uuid != object_uuid:
-                last_exception = PIDAlreadyExistsError(
-                    pid_value=pid_value, pid_type="bai"
-                )
-            else:
-                provider_object = super().get(pid_value=pid_value)
-                break
-                # Correct pid already assigned to this record
-            time.sleep(current_app.config.get("PIDSTORE_BAI_RETRY_DELAY", 5))
-        if last_exception:
-            raise last_exception
+        new_pid = pid_value or cls.generate_bai(data)
+        pid_from_db = cls.query_pid_value(new_pid)
+        if not pid_from_db:
+            provider_object = super().create(
+                pid_value=new_pid,
+                object_type=object_type,
+                object_uuid=object_uuid,
+                status=PIDStatus.REGISTERED,
+                **kwargs,
+            )
+        elif pid_from_db.object_uuid != object_uuid:
+            raise PIDAlreadyExistsError(pid_value=pid_value, pid_type="bai")
+        else:
+            # Correct pid already assigned to this record
+            provider_object = super().get(pid_value=pid_value)
 
         return provider_object
 
