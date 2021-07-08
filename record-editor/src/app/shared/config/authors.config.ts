@@ -21,7 +21,7 @@
  */
 
 import { JsonEditorConfig } from 'ng2-json-editor';
-import { customValidationForDateTypes, anchorBuilder } from './commons';
+import { affiliationAutocompletionConfig, customValidationForDateTypes, anchorBuilder } from './commons';
 
 export const authors: JsonEditorConfig = {
   schemaOptions: {
@@ -80,6 +80,9 @@ export const authors: JsonEditorConfig = {
                 anchorBuilder: anchorBuilder,
               },
             },
+            institution: {
+              autocompletionConfig: affiliationAutocompletionConfig,
+            }
           },
         },
       },
