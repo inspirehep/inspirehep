@@ -469,22 +469,21 @@ class InspireRecord(Record):
             raise ValidationError("Deleted record can't be undeleted!")
 
         with db.session.begin_nested():
-            with db.session.no_autoflush:
-                self.clear()
-                super().update(data)
-                self.validate()
+            self.clear()
+            super().update(data)
+            self.validate()
 
-                if data.get("deleted"):
-                    self.pidstore_handler.delete(self.id, self)
-                else:
-                    self.delete_records_from_deleted_records(data)
-                    self.pidstore_handler.update(self.id, self)
-                    if self.get("deleted_records"):
-                        self.redirect_pids(self["deleted_records"])
-                self.update_model_created_with_legacy_creation_date()
-                self.model.json = dict(self)
-                flag_modified(self.model, "json")
-                db.session.merge(self.model)
+            if data.get("deleted"):
+                self.pidstore_handler.delete(self.id, self)
+            else:
+                self.delete_records_from_deleted_records(data)
+                self.pidstore_handler.update(self.id, self)
+                if self.get("deleted_records"):
+                    self.redirect_pids(self["deleted_records"])
+            self.update_model_created_with_legacy_creation_date()
+            self.model.json = dict(self)
+            flag_modified(self.model, "json")
+            db.session.add(self.model)
 
     def update_model_created_with_legacy_creation_date(self):
         """Update model with the creation date of legacy.
