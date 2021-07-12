@@ -64,7 +64,6 @@ export const authors: JsonEditorConfig = {
             'start_date',
             'end_date',
             'rank',
-            'record',
             'hidden',
             'curated_relation',
           ],
