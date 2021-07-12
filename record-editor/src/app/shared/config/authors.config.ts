@@ -21,7 +21,11 @@
  */
 
 import { JsonEditorConfig } from 'ng2-json-editor';
-import { customValidationForDateTypes, anchorBuilder } from './commons';
+import {
+  affiliationAutocompletionConfig,
+  customValidationForDateTypes,
+  anchorBuilder,
+} from './commons';
 
 export const authors: JsonEditorConfig = {
   schemaOptions: {
@@ -32,7 +36,7 @@ export const authors: JsonEditorConfig = {
       '_private_notes',
       'email_addresses',
       'status',
-      'project_membership'
+      'project_membership',
     ],
     properties: {
       name: {
@@ -42,8 +46,8 @@ export const authors: JsonEditorConfig = {
           'title',
           'numeration',
           'name_variants',
-          'native_names'
-        ]
+          'native_names',
+        ],
       },
       advisors: {
         items: {
@@ -62,7 +66,7 @@ export const authors: JsonEditorConfig = {
             'rank',
             'record',
             'hidden',
-            'curated_relation'
+            'curated_relation',
           ],
           order: [
             'current',
@@ -72,13 +76,16 @@ export const authors: JsonEditorConfig = {
             'rank',
             'record',
             'hidden',
-            'curated_relation'
+            'curated_relation',
           ],
           properties: {
             record: {
               refFieldConfig: {
                 anchorBuilder: anchorBuilder,
               },
+            },
+            institution: {
+              autocompletionConfig: affiliationAutocompletionConfig,
             },
           },
         },
@@ -95,14 +102,14 @@ export const authors: JsonEditorConfig = {
             'end_date',
             'record',
             'hidden',
-            'curated_relation'
-          ]
-        }
+            'curated_relation',
+          ],
+        },
       },
       $schema: {
         hidden: true,
       },
-    }
+    },
   },
   customFormatValidation: customValidationForDateTypes,
 };
