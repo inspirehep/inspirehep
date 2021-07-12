@@ -17,6 +17,7 @@ from inspirehep.matcher.validators import (
     affiliations_validator,
     collaboration_validator,
 )
+from inspirehep.pidstore.errors import PIDAlreadyExistsError
 from inspirehep.records.api import InspireRecord
 
 LOGGER = structlog.getLogger()
@@ -198,7 +199,13 @@ def assign_bai_to_literature_author(author, bai):
     author["ids"] = [*author_ids_without_bai, {"schema": "INSPIRE BAI", "value": bai}]
 
 
-@shared_task(ignore_result=False, bind=True)
+@shared_task(
+    ignore_result=False,
+    bind=True,
+    retry_backoff=2,
+    retry_kwargs={"max_retries": 6},
+    autoretry_for=(PIDAlreadyExistsError,),
+)
 def disambiguate_authors(self, record_uuid):
     # handle case when we try to get a record which is deleted
     try:

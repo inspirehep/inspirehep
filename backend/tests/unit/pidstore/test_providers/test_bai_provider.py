@@ -55,7 +55,7 @@ def test_bai_create_fails_on_existing_bai_when_bai_provided():
                 pid_value="Test.123", object_uuid="cc0ae708-7876-4f73-808c-c2a5377e8f9d"
             )
         assert super_mock.return_value.create.call_count == 0
-        assert query_pid_value_mock.call_count == 1
+        assert query_pid_value_mock.call_count == 5
 
 
 def test_bai_create_retries_on_bais_in_db_change():

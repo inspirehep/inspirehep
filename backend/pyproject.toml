@@ -95,7 +95,7 @@ orjson = "^3.4.6"
 sword2 = {git = "https://github.com/inspirehep/python-client-sword2.git", rev = "python3"}
 sqlalchemy-continuum = {git = "https://github.com/inspirehep/sqlalchemy-continuum.git", rev = "d94d431"}
 "zope.interface" = "~=5.4.0"
-
+backoff = "^1.10.0"
 
 [tool.poetry.dev-dependencies]
 freezegun = "*"
