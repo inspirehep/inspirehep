@@ -23,6 +23,15 @@ describe('Author Search', () => {
       cy.matchSnapshots('AuthorSearch');
     });
   });
+  it('link to update own profile leads to submissions', () => {
+    cy.login('johnellis');
+    const recordId = 1010819;
+    const expectedUrl = `/submissions/authors/${recordId}`;
+    cy.registerRoute();
+    cy.visit(`/authors?q=control_number:${recordId}`);
+    cy.waitForRoute();
+    cy.contains('a', 'edit').should('have.attr', 'href', expectedUrl);
+  });
 });
 
 describe('Author Submission', () => {

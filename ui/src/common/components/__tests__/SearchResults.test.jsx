@@ -19,7 +19,8 @@ describe('SearchResults', () => {
     const wrapper = shallow(
       <SearchResults
         results={results}
-        renderItem={result => <span>{result.get('value')}</span>}
+        renderItem={(result) => <span>{result.get('value')}</span>}
+        isCatalogerLoggedIn={false}
         page={2}
         pageSize={10}
       />
@@ -30,7 +31,7 @@ describe('SearchResults', () => {
   it('renders with required props', () => {
     const wrapper = shallow(
       <SearchResults
-        renderItem={result => <span>{result.get('value')}</span>}
+        renderItem={(result) => <span>{result.get('value')}</span>}
         page={1}
         pageSize={15}
       />
