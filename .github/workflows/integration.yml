@@ -388,7 +388,7 @@ jobs:
             -A inspirehep.celery
             -l INFO
             --purge
-            --queues celery,migrator,indexer_task,matcher
+            --queues celery,migrator,indexer_task,matcher,assign
       - name: Start hep web container
         uses: ./.github/actions/docker-start-container
         with:
