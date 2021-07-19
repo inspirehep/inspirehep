@@ -57,7 +57,7 @@ orcid = "==1.0.3"
 
 node-semver = "<0.2.0,>=0.1.1"
 pybtex = "*"
-cryptography = "<2.6"
+cryptography = "<3.4"
 flask-kvsession = {git = "https://github.com/inspirehep/flask-kvsession.git"}
 python-redis-lock = "^3.3"
 lxml = "~=4.4"
