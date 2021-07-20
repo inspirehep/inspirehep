@@ -28,6 +28,18 @@ REFERENCE_MATCHER_UNIQUE_IDENTIFIERS_CONFIG = {
                     "search_path": "isbns.value.raw",
                     "type": "exact",
                 },
+            ]
+        }
+    ],
+    "index": "records-hep",
+    "collections": ["Literature"],
+    "source": ["control_number"],
+}
+
+REFERENCE_MATCHER_REPORT_NUMBERS = {
+    "algorithm": [
+        {
+            "queries": [
                 {
                     "path": "reference.report_numbers",
                     "search_path": "report_numbers.value.fuzzy",

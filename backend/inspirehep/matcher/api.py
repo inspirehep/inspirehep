@@ -85,6 +85,7 @@ def match_reference_config(reference):
     config_unique_identifiers = current_app.config[
         "REFERENCE_MATCHER_UNIQUE_IDENTIFIERS_CONFIG"
     ]
+    config_report_numbers = current_app.config["REFERENCE_MATCHER_REPORT_NUMBERS"]
     config_texkey = current_app.config["REFERENCE_MATCHER_TEXKEY_CONFIG"]
     config_default_publication_info = current_app.config[
         "REFERENCE_MATCHER_DEFAULT_PUBLICATION_INFO_CONFIG"
@@ -108,6 +109,7 @@ def match_reference_config(reference):
     )
     configs = [
         config_unique_identifiers,
+        config_report_numbers,
         *config_publication_info,
         config_texkey,
         config_data,
