@@ -179,6 +179,7 @@ class RecordsAuthors(db.Model):
             "id_type",
             "record_id",
         ),
+        db.Index("ix_records_authors_id_type_authors_id", "id_type", "author_id"),
     )
     id = db.Column(db.Integer, primary_key=True)
     author_id = db.Column(Text, nullable=False)
