@@ -13,6 +13,10 @@ from sqlalchemy.engine import reflection
 
 def test_downgrade(inspire_app):
     alembic = Alembic(current_app)
+    alembic.downgrade(target="412aeb064d68")
+    assert "ix_records_authors_id_type_authors_id" not in _get_indexes(
+        "records_authors"
+    )
     alembic.downgrade(target="318758a589d5")
     assert "cds_runs" not in _get_table_names()
     assert "enum_cds_run_status" not in _get_custom_enums()
@@ -243,6 +247,9 @@ def test_upgrade(inspire_app):
     assert "cds_runs" in _get_table_names()
     assert "enum_cds_run_status" in _get_custom_enums()
     assert "ix_cds_runs_status_date" in _get_indexes("cds_runs")
+
+    alembic.upgrade(target="2d7ea622feda")
+    assert "ix_records_authors_id_type_authors_id" in _get_indexes("records_authors")
 
 
 def _get_indexes(tablename):
