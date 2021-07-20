@@ -212,6 +212,51 @@ def test_match_reference_on_texkey_has_lower_priority_than_pub_info(inspire_app)
     assert len(expected_control_number) == len(result_coontrol_number)
 
 
+def test_match_reference_on_reportnumber_has_lower_priority_than_dois(inspire_app):
+    cited_record_with_report_number_json = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "control_number": 1,
+        "document_type": ["article"],
+        "report_numbers": [{"value": "CERN-100"}],
+        "titles": [{"title": "The Strongly-Interacting Light Higgs"}],
+    }
+
+    create_record("lit", cited_record_with_report_number_json)
+
+    cited_record_with_dois_json = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "control_number": 2,
+        "document_type": ["article"],
+        "dois": [{"value": "10.5281/zenodo.11020"}],
+    }
+
+    create_record("lit", cited_record_with_dois_json)
+
+    reference = {
+        "reference": {
+            "report_numbers": ["CERN-100"],
+            "dois": ["10.5281/zenodo.11020"],
+        }
+    }
+
+    schema = load_schema("hep")
+    subschema = schema["properties"]["references"]
+
+    assert validate([reference], subschema) is None
+    reference = match_reference(reference)
+
+    assert reference["record"]["$ref"] == "http://localhost:5000/api/literature/2"
+    assert validate([reference], subschema) is None
+
+    expected_control_number = [2, 1]
+    result_control_number = match_reference_control_numbers(reference)
+
+    assert set(expected_control_number) == set(result_control_number)
+    assert len(expected_control_number) == len(result_control_number)
+
+
 def test_match_reference_ignores_hidden_collections(inspire_app):
     cited_record_json = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
