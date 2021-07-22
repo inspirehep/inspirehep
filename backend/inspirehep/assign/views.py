@@ -43,29 +43,42 @@ def unstub_author_by_recid(author_recid):
         author.update(dict(author))
 
 
-def assign_papers(from_author_recid, to_author_recid, literature_recids):
-    author_signatures = []
-    for record in get_literature_records_by_recid(literature_recids):
-        from_author = get_author_by_recid(record, from_author_recid)
-        from_author["record"] = get_record_ref(to_author_recid, endpoint="authors")
-        from_author["curated_relation"] = True
-        author_signatures.append(from_author)
+def assign_papers(
+    to_author_recid, author_papers, author_signatures, is_stub_author=False
+):
+    for author, record in zip(author_signatures, author_papers):
+        author["record"] = get_record_ref(to_author_recid, endpoint="authors")
+        if not is_stub_author:
+            author["curated_relation"] = True
         record.update(dict(record))
-    return author_signatures
+
+
+def get_author_signatures(from_author_recid, author_papers):
+    signatures = [
+        get_author_by_recid(record, from_author_recid) for record in author_papers
+    ]
+    return signatures
 
 
 def assign_to_new_stub_author(from_author_recid, literature_recids):
     # TODO: differentiate from BEARD created stub author
-    to_author = create_new_stub_author()
-    author_signatures = assign_papers(
-        from_author_recid, to_author["control_number"], literature_recids
+    author_papers = list(get_literature_records_by_recid(literature_recids))
+    author_signatures = get_author_signatures(from_author_recid, author_papers)
+    stub_author_data = update_author_names({"name": {}}, author_signatures)
+    to_author = create_new_stub_author(**stub_author_data)
+    assign_papers(
+        to_author["control_number"],
+        author_papers,
+        author_signatures,
+        is_stub_author=True,
     )
-    update_author_names(to_author, author_signatures)
     return to_author["control_number"]
 
 
 def assign_to_author(from_author_recid, to_author_recid, literature_recids):
-    assign_papers(from_author_recid, to_author_recid, literature_recids)
+    author_papers = list(get_literature_records_by_recid(literature_recids))
+    author_signatures = get_author_signatures(from_author_recid, author_papers)
+    assign_papers(to_author_recid, author_papers, author_signatures)
     unstub_author_by_recid(to_author_recid)
 
 
