@@ -6,6 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import click
 from elasticsearch_dsl import Q
+from flask.cli import with_appcontext
 from inspire_utils.record import get_values_for_schema
 from invenio_db import db
 
@@ -20,6 +21,7 @@ def disambiguation():
 
 
 @disambiguation.command()
+@with_appcontext
 def clean_stub_authors():
     """Removes all the authors created by disambiguation and having no linked papers."""
     # We get all the stub authors (created by disambiguation) from ES and we verify
@@ -46,12 +48,15 @@ def clean_stub_authors():
         query_authors_with_linked_papers_by_bai(stub_authors_bais.keys())
     )
     # For every author who has not linked papers we delete record
-    for author_bai in set(stub_authors_bais.keys()).difference(
+    authors_to_remove = set(stub_authors_bais.keys()).difference(
         stub_authors_with_papers
-    ):
+    )
+    click.echo(f"Removing {len(authors_to_remove)} stub authors with no linked papers")
+    for author_bai in authors_to_remove:
         author = stub_authors_bais[author_bai]
         author.delete()
     db.session.commit()
+    click.echo("Successfully removed stub authors")
 
 
 def query_authors_with_linked_papers_by_bai(authors_bais):
