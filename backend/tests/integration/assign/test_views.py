@@ -8,6 +8,7 @@
 import orjson
 from helpers.utils import create_record, create_user
 from inspire_dojson.utils import get_recid_from_ref
+from inspire_utils.record import get_values_for_schema
 from invenio_accounts.testutils import login_user_via_session
 
 from inspirehep.accounts.roles import Roles
@@ -235,55 +236,58 @@ def test_assign_from_an_author_to_another_that_is_not_stub(inspire_app):
     assert not to_author_after["stub"]
 
 
-def test_assign_without_to_author(inspire_app):
-    cataloger = create_user(role="cataloger")
-    from_author = create_record("aut")
-    literature1 = create_record(
-        "lit",
-        data={
-            "authors": [
-                {
-                    "curated_relation": False,
-                    "full_name": "Urhan, Harun",
-                    "record": {
-                        "$ref": f"http://localhost:5000/api/authors/{from_author['control_number']}"
-                    },
-                }
-            ]
-        },
-    )
-
-    literature2 = create_record(
-        "lit",
-        data={
-            "authors": [
-                {
-                    "curated_relation": False,
-                    "full_name": "Urhan, H",
-                    "record": {
-                        "$ref": f"http://localhost:5000/api/authors/{from_author['control_number']}"
-                    },
-                }
-            ]
-        },
-    )
-
-    with inspire_app.test_client() as client:
-        login_user_via_session(client, email=cataloger.email)
-        response = client.post(
-            "/assign/author",
-            data=orjson.dumps(
-                {
-                    "literature_recids": [
-                        literature1["control_number"],
-                        literature2["control_number"],
-                    ],
-                    "from_author_recid": from_author["control_number"],
-                }
-            ),
-            content_type="application/json",
+def test_assign_without_to_author(inspire_app, override_config):
+    with override_config(
+        FEATURE_FLAG_ENABLE_BAI_PROVIDER=True, FEATURE_FLAG_ENABLE_BAI_CREATION=True
+    ):
+        cataloger = create_user(role="cataloger")
+        from_author = create_record("aut", data={"name": {"value": "Urhan, Harun"}})
+        literature1 = create_record(
+            "lit",
+            data={
+                "authors": [
+                    {
+                        "curated_relation": False,
+                        "full_name": "Urhan, Harun",
+                        "record": {
+                            "$ref": f"http://localhost:5000/api/authors/{from_author['control_number']}"
+                        },
+                    }
+                ]
+            },
         )
-    response_status_code = response.status_code
+
+        literature2 = create_record(
+            "lit",
+            data={
+                "authors": [
+                    {
+                        "curated_relation": False,
+                        "full_name": "Urhan, H",
+                        "record": {
+                            "$ref": f"http://localhost:5000/api/authors/{from_author['control_number']}"
+                        },
+                    }
+                ]
+            },
+        )
+
+        with inspire_app.test_client() as client:
+            login_user_via_session(client, email=cataloger.email)
+            response = client.post(
+                "/assign/author",
+                data=orjson.dumps(
+                    {
+                        "literature_recids": [
+                            literature1["control_number"],
+                            literature2["control_number"],
+                        ],
+                        "from_author_recid": from_author["control_number"],
+                    }
+                ),
+                content_type="application/json",
+            )
+        response_status_code = response.status_code
 
     assert response_status_code == 200
     stub_author_id = response.json["stub_author_id"]
@@ -295,7 +299,7 @@ def test_assign_without_to_author(inspire_app):
     literature1_author_recid = get_recid_from_ref(literature1_author["record"])
     assert literature1_author_recid != from_author["control_number"]
     assert literature1_author_recid == stub_author_id
-    assert literature1_author["curated_relation"] is True
+    assert not literature1_author.get("curated_relation")
 
     literature2_after = LiteratureRecord.get_record_by_pid_value(
         literature1["control_number"]
@@ -304,11 +308,16 @@ def test_assign_without_to_author(inspire_app):
     literature2_author_recid = get_recid_from_ref(literature2_author["record"])
     assert literature2_author_recid != from_author["control_number"]
     assert literature2_author_recid == stub_author_id
-    assert literature2_author["curated_relation"] is True
+    assert not literature2_author.get("curated_relation")
 
     author = AuthorsRecord.get_record_by_pid_value(stub_author_id)
     assert author["stub"] is True
     assert author["name"] == {"value": "Urhan, Harun", "name_variants": ["Urhan, H"]}
+    assert get_values_for_schema(author["ids"], "INSPIRE BAI")[0] == "H.Urhan.2"
+    assert (
+        get_values_for_schema(author["ids"], "INSPIRE BAI")[0]
+        != get_values_for_schema(from_author["ids"], "INSPIRE BAI")[0]
+    )
 
 
 def test_assign_conference_view(inspire_app):
