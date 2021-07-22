@@ -31,8 +31,8 @@ def test_clean_stub_authors_removes_stub_authors(inspire_app, cli):
     create_record("lit", lit_record_data)
     cli.invoke(["disambiguation", "clean_stub_authors"])
 
-    stub_record = InspireRecord.get_record(
-        record_uuid=stub_author.id, with_deleted=True
+    stub_record = InspireRecord.get_record_by_pid_value(
+        stub_author["control_number"], "aut", with_deleted=True
     )
     assert stub_record["deleted"]
     assert not non_stub_author_record.get("deleted")
@@ -54,7 +54,7 @@ def test_clean_stub_authors_doesnt_remove_stub_authors_with_linked_papers(
     create_record("lit", lit_record_data)
     cli.invoke(["disambiguation", "clean_stub_authors"])
 
-    stub_record = InspireRecord.get_record(
-        record_uuid=stub_author.id, with_deleted=True
+    stub_record = InspireRecord.get_record_by_pid_value(
+        stub_author["control_number"], "aut", with_deleted=True
     )
     assert not stub_record.get("deleted")
