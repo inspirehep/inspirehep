@@ -1020,7 +1020,8 @@
           },
           "journal_volume": {
             "copy_to": "_all",
-            "type": "text"
+            "normalizer": "lowercase_normalizer",
+            "type": "keyword"
           },
           "material": {
             "type": "keyword"

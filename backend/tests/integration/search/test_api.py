@@ -7,6 +7,7 @@
 
 
 import os
+import urllib
 
 import mock
 import orjson
@@ -1128,3 +1129,60 @@ def test_collection_search_doesnt_return_records_from_private_collections(inspir
 
     assert response.status_code == 200
     assert len(response.json["hits"]["hits"]) == 0
+
+
+def test_regression_journal_volume_search(inspire_app):
+    record_1_data = {
+        "publication_info": [
+            {
+                "cnum": "C17-07-05",
+                "year": 2017,
+                "artid": "390",
+                "page_start": "390",
+                "journal_title": "PoS",
+                "parent_record": {
+                    "$ref": "https://inspirehep.net/api/literature/1664112"
+                },
+                "journal_record": {
+                    "$ref": "https://inspirehep.net/api/journals/1213080"
+                },
+                "journal_volume": "EPS-HEP2017",
+                "conference_record": {
+                    "$ref": "https://inspirehep.net/api/conferences/1499122"
+                },
+            }
+        ],
+    }
+    record_2_data = {
+        "publication_info": [
+            {
+                "cnum": "C19-07-10.1",
+                "year": 2020,
+                "artid": "390",
+                "page_start": "390",
+                "journal_title": "PoS",
+                "parent_record": {
+                    "$ref": "https://inspirehep.net/api/literature/1830715"
+                },
+                "journal_record": {
+                    "$ref": "https://inspirehep.net/api/journals/1213080"
+                },
+                "journal_volume": "EPS-HEP2019",
+                "conference_record": {
+                    "$ref": "https://inspirehep.net/api/conferences/1716510"
+                },
+            }
+        ],
+    }
+    create_record("lit", record_1_data)
+    record_2 = create_record("lit", record_2_data)
+    with inspire_app.test_client() as client:
+        query_string = urllib.parse.quote("j PoS,EPS-HEP2019,390")
+        url = f"/api/literature?q={query_string}"
+        response = client.get(url)
+
+    assert len(response.json["hits"]["hits"]) == 1
+    assert (
+        response.json["hits"]["hits"][0]["metadata"]["control_number"]
+        == record_2["control_number"]
+    )
