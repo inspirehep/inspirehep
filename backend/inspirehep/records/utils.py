@@ -14,7 +14,7 @@ from flask import current_app
 from inspire_dojson.utils import get_record_ref
 from inspire_utils.date import earliest_date
 from inspire_utils.helpers import force_list
-from inspire_utils.record import get_value
+from inspire_utils.record import get_value, get_values_for_schema
 from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from sqlalchemy.orm import aliased
@@ -124,3 +124,11 @@ def get_pid_for_pid(pid_type, pid_value, provider):
 def get_ref_from_pid(pid_type, pid_value):
     """Return full $ref for record with pid_type and pid_value"""
     return get_record_ref(pid_value, PidStoreBase.get_endpoint_from_pid_type(pid_type))
+
+
+def get_author_by_bai(literature_record, author_bai):
+    return next(
+        author
+        for author in literature_record.get("authors")
+        if get_values_for_schema(author.get("ids", []), "INSPIRE BAI") == [author_bai]
+    )
