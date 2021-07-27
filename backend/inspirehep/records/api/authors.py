@@ -5,11 +5,15 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 import structlog
+from inspire_utils.record import get_values_for_schema
+from invenio_db import db
 
 from inspirehep.records.marshmallow.authors import AuthorsElasticSearchSchema
+from inspirehep.records.models import RecordsAuthors
 from inspirehep.search.api import AuthorsSearch
 
 from ...pidstore.api import PidStoreAuthors
+from ..utils import get_author_by_bai
 from .base import InspireRecord
 
 LOGGER = structlog.getLogger()
@@ -59,3 +63,37 @@ class AuthorsRecord(InspireRecord):
             )
             return uuids
         return set()
+
+    @classmethod
+    def create(cls, data, id_=None, *args, **kwargs):
+        record = super().create(data, id_, **kwargs)
+        record.assign_author_to_papers()
+        return record
+
+    def assign_author_to_papers(self):
+        from .literature import LiteratureRecord
+
+        bai_list = get_values_for_schema(self.get("ids", []), "INSPIRE BAI")
+        if not bai_list:
+            return
+        bai = bai_list[0]
+        author_papers_ids = [
+            str(record_control_number)
+            for record_control_number in self.query_author_papers(bai)
+        ]
+        author_papers = LiteratureRecord.get_records(author_papers_ids)
+        for paper in author_papers:
+            author = get_author_by_bai(paper, bai)
+            author["record"] = self.get("self")
+            paper.update(dict(paper))
+            db.session.commit()
+
+    @staticmethod
+    def query_author_papers(bai):
+        query = RecordsAuthors.query.filter(
+            RecordsAuthors.id_type == "INSPIRE BAI",
+            RecordsAuthors.author_id == bai,
+        )
+
+        for data in query.yield_per(100).with_entities(RecordsAuthors.record_id):
+            yield data.record_id
