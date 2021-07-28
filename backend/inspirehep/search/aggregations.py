@@ -393,9 +393,9 @@ def hep_curation_collection_aggregation(
                     }
                 },
                 {"match_phrase": {"_private_notes.value": "Not CERN"}},
+                {"match": {"_collections": "CDS Hidden"}},
                 *non_cern_collaboration_matches,
             ],
-            "must": {"match": {"_collections": "Literature"}},
             "minimum_should_match": 1,
         }
     }
