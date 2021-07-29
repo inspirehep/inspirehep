@@ -14,6 +14,7 @@ from inspire_schemas.utils import get_refs_to_schemas
 from inspire_utils.record import get_value
 from invenio_db import db
 from sqlalchemy.exc import OperationalError
+from sqlalchemy.orm.exc import StaleDataError
 
 from inspirehep.matcher.utils import (
     generate_matcher_config_for_nested_reference_field,
@@ -62,7 +63,7 @@ def update_records_relations(uuids):
     acks_late=True,
     retry_backoff=True,
     retry_kwargs={"max_retries": 3},
-    autoretry_for=(OperationalError, TransportError),
+    autoretry_for=(StaleDataError, OperationalError, TransportError),
 )
 def redirect_references_to_merged_record(self, uuid):
     record = InspireRecord.get_record(uuid, with_deleted=True)
@@ -94,7 +95,7 @@ def update_references_pointing_to_merged_record(
                 )
             matched_inspire_record.update(dict(matched_inspire_record))
             LOGGER.info(
-                f"Updated reference for record", uuid=str(matched_inspire_record.id)
+                "Updated reference for record", uuid=str(matched_inspire_record.id)
             )
     db.session.commit()
 
