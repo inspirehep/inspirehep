@@ -36,9 +36,9 @@ function withFilterWarningsPluginForCssImportOrderConflict({ webpackConfig }) {
 
 // to workaround https://github.com/DocSpring/craco-less/issues/34
 function appendLoaderOptionsIntoUseForSassRule({ webpackConfig }) {
-  const oneOfRule = webpackConfig.module.rules.find(rule => rule.oneOf);
+  const oneOfRule = webpackConfig.module.rules.find((rule) => rule.oneOf);
   const sassRule = oneOfRule.oneOf.find(
-    rule => rule.test && rule.test.toString().includes('scss|sass')
+    (rule) => rule.test && rule.test.toString().includes('scss|sass')
   );
   sassRule.use = [...(sassRule.use || []), ...(sassRule.loader || [])];
   delete sassRule.loader;

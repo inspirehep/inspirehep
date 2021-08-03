@@ -1,0 +1,18 @@
+[[package]]
+category = "main"
+description = "A simple wrapper around optparse for powerful command line utilities."
+name = "click"
+optional = false
+python-versions = "*"
+version = "6.7"
+
+[metadata]
+content-hash = "dd982d735a46523576ecf063000f8eab74c1d793f5cff22a5f01bb344c51507a"
+lock-version = "1.0"
+python-versions = "^3.8"
+
+[metadata.files]
+click = [
+    {file = "click-6.7-py2.py3-none-any.whl", hash = "sha256:29f99fc6125fbc931b758dc053b3114e55c77a6e4c6c3a2674a2dc986016381d"},
+    {file = "click-6.7.tar.gz", hash = "sha256:f15516df478d5a56180fbf80e68f206010e6d160fc39fa508b65e035fd75130b"},
+]
