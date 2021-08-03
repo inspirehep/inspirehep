@@ -4,7 +4,9 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-from helpers.utils import create_record, create_record_factory
+from helpers.utils import create_record, create_record_factory, create_user_and_token
+
+from inspirehep.accounts.roles import Roles
 
 
 def test_journals_application_json_get(inspire_app):
@@ -87,3 +89,15 @@ def test_journal_returns_301_when_pid_is_redirected(inspire_app):
     assert response.status_code == 301
     assert response.location.split("/")[-1] == str(record.control_number)
     assert response.location.split("/")[-2] == "journals"
+
+
+def test_journal_update_permission(inspire_app):
+    record = create_record("jou")
+    control_number = record["control_number"]
+    token = create_user_and_token(user_role=Roles.cataloger.value)
+    headers = {"Authorization": "BEARER " + token.access_token, "If-Match": '"0"'}
+    with inspire_app.test_client() as client:
+        response = client.put(
+            f"/journals/{control_number}", headers=headers, json=record
+        )
+        assert response.status_code == 200
