@@ -276,6 +276,8 @@ JOURNALS.update(
         "search_index": "records-journals",
         "list_route": "/journals/",
         "item_route": '/journals/<inspirepid(jou,record_class="inspirehep.records.api:JournalsRecord"):pid_value>',
+        "create_permission_factory_imp": SessionSuperuserPermission,
+        "update_permission_factory_imp": SessionCatalogerPermission,
         "record_class": "inspirehep.records.api:JournalsRecord",
         "search_factory_imp": "inspirehep.search.factories.search:search_factory_with_aggs",
         "suggesters": {
@@ -303,6 +305,8 @@ EXPERIMENTS.update(
         "search_index": "records-experiments",
         "list_route": "/experiments/",
         "item_route": '/experiments/<inspirepid(exp,record_class="inspirehep.records.api:ExperimentsRecord"):pid_value>',
+        "create_permission_factory_imp": SessionSuperuserPermission,
+        "update_permission_factory_imp": SessionCatalogerPermission,
         "record_class": "inspirehep.records.api:ExperimentsRecord",
         "search_factory_imp": "inspirehep.search.factories.search:search_factory_with_aggs",
         "suggesters": {
