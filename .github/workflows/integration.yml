@@ -280,7 +280,9 @@ jobs:
   end_to_end_test:
     name: End to end test
     runs-on: ubuntu-latest
-    container: cypress/browsers:node13.6.0-chrome-80-ff72
+    container:
+      image: cypress/browsers:node12.16.1-chrome80-ff73
+      options: --user 1001
     needs:
       - backend_build
       - ui_build
