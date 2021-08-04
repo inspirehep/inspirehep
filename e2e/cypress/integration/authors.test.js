@@ -139,9 +139,7 @@ describe('Author Submission', () => {
     cy.getField('orcid').blur();
     cy.waitForRoute();
     cy.getFieldError('orcid')
-      .within(() => {
-        return cy.get('a');
-      })
+      .find('a')
       .should('have.attr', 'href', '/submissions/authors/1078577');
   });
 
