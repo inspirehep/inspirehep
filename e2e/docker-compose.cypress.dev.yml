@@ -2,13 +2,13 @@ version: '2.1'
 
 services:
   cypress:
-    image: cypress/browsers:node13.6.0-chrome-80-ff72
+    image: cypress/included:4.0.2
     volumes:
       - ./e2e:/tests
     environment:
       - NODE_ENV=test
       - CI=${CI}
-    entrypoint: ['']
+    entrypoint: [""]
     depends_on:
       - ui
       - record-editor
