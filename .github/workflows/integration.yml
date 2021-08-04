@@ -266,7 +266,7 @@ jobs:
 
   editor_test:
     name: Editor test
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     needs: editor_build
     steps:
       - name: Checkout
@@ -279,7 +279,7 @@ jobs:
 
   end_to_end_test:
     name: End to end test
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     needs:
       - backend_build
       - ui_build
