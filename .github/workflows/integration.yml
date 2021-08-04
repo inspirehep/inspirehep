@@ -517,9 +517,6 @@ jobs:
           -f data/records/literature/1238110.json
       - name: Run Cypress
         uses: cypress-io/github-action@v2
-        container:
-          image: cypress/browsers:node13.6.0-chrome-80-ff72
-          options: --user 1001
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
         with:
