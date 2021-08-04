@@ -55,6 +55,15 @@ export const affiliationAutocompletionConfig: AutocompletionConfig = {
   onCompletionSelect: setRecordRefAndCuratedOnCompletionSelect,
 };
 
+export const projectMembershipAutocompletionConfig: AutocompletionConfig = {
+  url: `${environment.baseUrl}/api/experiments/_suggest?experiment=`,
+  path: '/experiment/0/options',
+  size: 10,
+  optionField: '/_source/legacy_name',
+  itemTemplateName: 'projectMembershipAutocompleteTemplate',
+  onCompletionSelect: setRecordRefAndCuratedOnCompletionSelect,
+};
+
 export const journalTitleAutocompletionConfigWithoutPopulatingRef: AutocompletionConfig = {
   url: `${environment.baseUrl}/api/journals/_suggest?journal_title=`,
   path: '/journal_title/0/options',
@@ -75,9 +84,9 @@ export const journalTitleAutocompletionConfig: AutocompletionConfig = {
 
 export const customValidationForDateTypes: CustomFormatValidation = {
   date: {
-    formatChecker: value => {
+    formatChecker: (value) => {
       let formats = [/^\d{4}$/, /^\d{4}-\d{2}$/, /^\d{4}-\d{2}-\d{2}$/];
-      return formats.some(format => {
+      return formats.some((format) => {
         if (value.match(format)) {
           return Date.parse(value) !== NaN;
         }
@@ -86,7 +95,7 @@ export const customValidationForDateTypes: CustomFormatValidation = {
     },
   },
   'date-time': {
-    formatChecker: value => {
+    formatChecker: (value) => {
       let regex = /^\d\d\d\d-[0-1]\d-[0-3]\d[t\s][0-2]\d:[0-5]\d:[0-5]\d(?:\.\d+)?(?:z|[+-]\d\d:\d\d)?$/i;
       if (value.match(regex)) {
         return true;
@@ -117,10 +126,10 @@ export function splitPrimitiveReferenceField(
   let splitResult = splitReferenceField(value);
   // parent path, ['references', N, 'reference']
   let referencePath = path.slice(0, -2);
-  splitResult.splits.forEach(split => {
+  splitResult.splits.forEach((split) => {
     // handle array insert
     let relativePath = split.path;
-    let insertLast = relativePath.findIndex(el => el === '-');
+    let insertLast = relativePath.findIndex((el) => el === '-');
     if (insertLast > -1) {
       let valueToInsert;
       let sliceIndex = insertLast + 1;
