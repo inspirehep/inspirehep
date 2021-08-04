@@ -266,7 +266,7 @@ jobs:
 
   editor_test:
     name: Editor test
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     needs: editor_build
     steps:
       - name: Checkout
