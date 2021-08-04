@@ -67,12 +67,12 @@ $ pre-commit install
 
 Follow the guide https://docs.docker.com/compose/install/
 
-
 ---
 
 ## Run with docker
 
 ### Step 1: In a terminal run
+
 ```bash
 $ docker-compose -f docker-compose.yml -f docker-compose.override.yml up
 ```
@@ -80,17 +80,16 @@ $ docker-compose -f docker-compose.yml -f docker-compose.override.yml up
 ### Step 2: On another browser run
 
 ```bash
-docker-compose -f docker-compose.yml -f ./e2e/docker-compose.cypress.yml exec web ./scripts/setup
+docker-compose -f docker-compose.yml -f ./e2e/docker-compose.cypress.yml exec hep-web ./scripts/setup
 docker-compose -f docker-compose.yml -f ./e2e/docker-compose.cypress.yml exec next-web inspirehep db create
 ```
 
 ### Step 3: Import records
 
 ```bash
-$ docker-compose -f docker-compose.yml -f ./e2e/docker-compose.cypress.yml exec web inspirehep importer records -f data/records/authors/1010819.json -f data/records/conferences/1769332.json -f data/records/conferences/1794610.json -f data/records/conferences/1809034.json -f data/records/conferences/1776122.json -f data/records/conferences/1622944.json -f data/records/seminars/1811573.json -f data/records/seminars/1811750.json -f data/records/seminars/1811657.json -f data/records/seminars/1807692.json -f data/records/seminars/1807690.json -f data/records/jobs/1811684.json -f data/records/jobs/1812904.json -f data/records/jobs/1813119.json -f data/records/jobs/1811836.json -f data/records/jobs/1812529.json -f data/records/authors/1004662.json -f data/records/authors/1060898.json -f data/records/authors/1013725.json -f data/records/authors/1078577.json -f data/records/authors/1064002.json -f data/records/authors/1306569.json -f data/records/conferences/1787117.json -f data/records/literature/1787272.json -f data/records/seminars/1799778.json -f data/records/conferences/1217045.json -f data/records/jobs/1812440.json -f data/records/authors/1274753.json -f data/records/institutions/902858.json -f data/records/experiments/1513946.json -f data/records/literature/1331798.json -f data/records/literature/1325985.json -f data/records/literature/1306493.json -f data/records/literature/1264675.json -f data/records/literature/1263659.json -f data/records/literature/1263207.json -f data/records/literature/1249881.json -f data/records/literature/1235543.json -f data/records/literature/1198168.json -f data/records/literature/1113908.json -f data/records/literature/873915.json -f data/records/literature/1688995.json -f data/records/literature/1290484.json -f data/records/literature/1264013.json -f data/records/literature/1257993.json -f data/records/literature/1310649.json -f data/records/literature/1473056.json -f data/records/literature/1358394.json -f data/records/literature/1374620.json -f data/records/literature/1452707.json -f data/records/literature/1649231.json -f data/records/literature/1297062.json -f data/records/literature/1313615.json -f data/records/literature/1597429.json -f data/records/literature/1184194.json -f data/records/literature/1322719.json -f data/records/literature/1515024.json -f data/records/literature/1510263.json -f data/records/literature/1415120.json -f data/records/literature/1400808.json -f data/records/literature/1420712.json -f data/records/literature/1492108.json -f data/records/literature/1598135.json -f data/records/literature/1306493.json -f data/records/literature/1383683.json -f data/records/literature/1238110.json
+$ docker-compose -f docker-compose.yml -f ./e2e/docker-compose.cypress.yml exec hep-web inspirehep importer records -f data/records/authors/1010819.json -f data/records/conferences/1769332.json -f data/records/conferences/1794610.json -f data/records/conferences/1809034.json -f data/records/conferences/1776122.json -f data/records/conferences/1622944.json -f data/records/seminars/1811573.json -f data/records/seminars/1811750.json -f data/records/seminars/1811657.json -f data/records/seminars/1807692.json -f data/records/seminars/1807690.json -f data/records/jobs/1811684.json -f data/records/jobs/1812904.json -f data/records/jobs/1813119.json -f data/records/jobs/1811836.json -f data/records/jobs/1812529.json -f data/records/authors/1004662.json -f data/records/authors/1060898.json -f data/records/authors/1013725.json -f data/records/authors/1078577.json -f data/records/authors/1064002.json -f data/records/authors/1306569.json -f data/records/conferences/1787117.json -f data/records/literature/1787272.json -f data/records/seminars/1799778.json -f data/records/conferences/1217045.json -f data/records/jobs/1812440.json -f data/records/authors/1274753.json -f data/records/institutions/902858.json -f data/records/experiments/1513946.json -f data/records/literature/1331798.json -f data/records/literature/1325985.json -f data/records/literature/1306493.json -f data/records/literature/1264675.json -f data/records/literature/1263659.json -f data/records/literature/1263207.json -f data/records/literature/1249881.json -f data/records/literature/1235543.json -f data/records/literature/1198168.json -f data/records/literature/1113908.json -f data/records/literature/873915.json -f data/records/literature/1688995.json -f data/records/literature/1290484.json -f data/records/literature/1264013.json -f data/records/literature/1257993.json -f data/records/literature/1310649.json -f data/records/literature/1473056.json -f data/records/literature/1358394.json -f data/records/literature/1374620.json -f data/records/literature/1452707.json -f data/records/literature/1649231.json -f data/records/literature/1297062.json -f data/records/literature/1313615.json -f data/records/literature/1597429.json -f data/records/literature/1184194.json -f data/records/literature/1322719.json -f data/records/literature/1515024.json -f data/records/literature/1510263.json -f data/records/literature/1415120.json -f data/records/literature/1400808.json -f data/records/literature/1420712.json -f data/records/literature/1492108.json -f data/records/literature/1598135.json -f data/records/literature/1306493.json -f data/records/literature/1383683.json -f data/records/literature/1238110.json
 
 ```
-
 
 ---
 
@@ -262,7 +261,7 @@ A selection of demo records can be found in `data` directory and they are struct
 # Local
 $ poetry run inspirehep importer records -u https://labs.inspirehep.net/api/literature/20 -u https://labs.inspirehep.net/api/literature/1726642
 # Docker
-$ .docker-compose run --rm web poetry run inspirehep importer records -u https://labs.inspirehep.net/api/literature/20 -u https://labs.inspirehep.net/api/literature/1726642
+$ .docker-compose run --rm hep-web poetry run inspirehep importer records -u https://labs.inspirehep.net/api/literature/20 -u https://labs.inspirehep.net/api/literature/1726642
 
 # `--save` will save the imported record also to the data folder
 $ <...> inspirehep importer records -u https://labs.inspirehep.net/api/literature/20 --save
@@ -276,7 +275,7 @@ Valid `--token` or `backend/inspirehep/config.py:AUTHENTICATION_TOKEN` is requir
 # Local
 $ poetry run inspirehep importer records -d data/records/literature
 # Docker
-$ .docker-compose run --rm web poetry run inspirehep importer records -d data/records/literature
+$ .docker-compose run --rm hep-web poetry run inspirehep importer records -d data/records/literature
 ```
 
 #### With files
@@ -285,5 +284,5 @@ $ .docker-compose run --rm web poetry run inspirehep importer records -d data/re
 # Local
 $ poetry run inspirehep importer records -f data/records/literature/374836.json -f data/records/authors/999108.json
 # Docker
-$ docker-compose run --rm web poetry run inspirehep importer records -f data/records/literature/374836.json -f data/records/authors/999108.json
+$ docker-compose run --rm hep-web poetry run inspirehep importer records -f data/records/literature/374836.json -f data/records/authors/999108.json
 ```
