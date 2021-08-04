@@ -280,6 +280,9 @@ jobs:
   end_to_end_test:
     name: End to end test
     runs-on: ubuntu-latest
+    container:
+      image: cypress/browsers:node13.6.0-chrome-80-ff72
+      options: --user 1001
     needs:
       - backend_build
       - ui_build
@@ -518,7 +521,7 @@ jobs:
       - name: Run Cypress
         uses: cypress-io/github-action@v2
         env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}-v2
         with:
           working-directory: ./e2e
           record: true
