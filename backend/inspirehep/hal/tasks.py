@@ -19,6 +19,7 @@ from sword2.exceptions import RequestTimeOut
 from inspirehep.hal.core.sword import create, update
 from inspirehep.hal.core.tei import convert_to_tei
 from inspirehep.records.api import LiteratureRecord
+from inspirehep.utils import distributed_lock
 
 LOGGER = structlog.getLogger()
 
@@ -72,13 +73,15 @@ def _hal_push(record):
         ids = record.get("external_system_identifiers", [])
         hal_value = get_values_for_schema(ids, "HAL")
         hal_id = hal_value[0] if hal_value else ""
-        if hal_id:
-            receipt = _hal_update(tei, hal_id, record)
-        else:
-            receipt = _hal_create(tei, record)
-        if receipt and receipt.id != hal_id:
-            _write_hal_id_to_record(record, receipt.id)
-        return receipt
+        lock_name = f"hal:{record['control_number']}"
+        with distributed_lock(lock_name, blocking=True):
+            if hal_id:
+                receipt = _hal_update(tei, hal_id, record)
+            else:
+                receipt = _hal_create(tei, record)
+            if receipt and receipt.id != hal_id:
+                _write_hal_id_to_record(record, receipt.id)
+            return receipt
 
 
 def _hal_update(tei, hal_id, record):
@@ -110,6 +113,14 @@ def _write_hal_id_to_record(record, new_hal_id):
     record_external_identifiers_without_hal_id.append(
         {"schema": "HAL", "value": new_hal_id}
     )
-    record["external_system_identifiers"] = record_external_identifiers_without_hal_id
+    try:
+        update_record_with_new_ids(record, record_external_identifiers_without_hal_id)
+    except StaleDataError:
+        record = LiteratureRecord.get_record_by_pid_value(record["control_number"])
+        update_record_with_new_ids(record, record_external_identifiers_without_hal_id)
+
+
+def update_record_with_new_ids(record, new_ids):
+    record["external_system_identifiers"] = new_ids
     record.update(dict(record), disable_external_push=True)
     db.session.commit()

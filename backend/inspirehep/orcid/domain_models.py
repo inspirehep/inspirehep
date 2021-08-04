@@ -17,6 +17,7 @@ from invenio_pidstore.errors import PIDDoesNotExistError
 from time_execution import time_execution
 
 from inspirehep.records.api import LiteratureRecord
+from inspirehep.utils import distributed_lock
 
 from . import exceptions, push_access_tokens, utils
 from .cache import OrcidCache
@@ -208,7 +209,7 @@ class OrcidPusher(object):
         # ORCID API allows 1 non-idempotent call only for the same orcid at
         # the same time. Using `distributed_lock` to achieve this.
 
-        with utils.distributed_lock(self.lock_name, blocking=True):
+        with distributed_lock(self.lock_name, blocking=True):
             if putcode:
                 response = self.client.put_updated_work(xml_element, putcode)
             else:
@@ -268,7 +269,7 @@ class OrcidPusher(object):
 
         # ORCID API allows 1 non-idempotent call only for the same orcid at
         # the same time. Using `distributed_lock` to achieve this.
-        with utils.distributed_lock(self.lock_name, blocking=True):
+        with distributed_lock(self.lock_name, blocking=True):
             response = self.client.delete_work(putcode)
         try:
             response.raise_for_result()
