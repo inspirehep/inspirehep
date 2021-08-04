@@ -6,9 +6,12 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import hashlib
+from contextlib import contextmanager
 from math import ceil
 
 from flask import current_app
+from redis import StrictRedis
+from redis_lock import Lock
 
 
 def include_table_check(object, name, type_, *args, **kwargs):
@@ -69,3 +72,43 @@ def hash_data(data):
     if data:
         return hashlib.md5(data).hexdigest()
     raise ValueError("Data for hashing cannot be empty")
+
+
+@contextmanager
+def distributed_lock(lock_name, expire=10, auto_renewal=True, blocking=False):
+    """Context manager to acquire a lock visible by all processes.
+    This lock is implemented through Redis in order to be globally visible.
+    Args:
+        lock_name (str): name of the lock to be acquired.
+        expire (int): duration in seconds after which the lock is released if
+            not renewed in the meantime.
+        auto_renewal (bool): if ``True``, the lock is automatically renewed as long
+            as the context manager is still active.
+        blocking (bool): if ``True``, wait for the lock to be released. If ``False``,
+            return immediately, raising :class:`DistributedLockError`.
+    It is recommended to set ``expire`` to a small value and
+    ``auto_renewal=True``, which ensures the lock gets released quickly in case
+    the process is killed without limiting the time that can be spent holding
+    the lock.
+    Raises:
+        DistributedLockError: when ``blocking`` is set to ``False`` and the lock is already acquired.
+    """
+    if not lock_name:
+        raise ValueError("Lock name not specified.")
+
+    redis_url = current_app.config.get("CACHE_REDIS_URL")
+
+    redis = StrictRedis.from_url(redis_url)
+    lock = Lock(redis, lock_name, expire=expire, auto_renewal=auto_renewal)
+
+    if lock.acquire(blocking=blocking):
+        try:
+            yield
+        finally:
+            lock.release()
+    else:
+        raise DistributedLockError("Cannot acquire lock for %s", lock_name)
+
+
+class DistributedLockError(Exception):
+    pass
