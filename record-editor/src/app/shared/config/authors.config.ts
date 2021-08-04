@@ -24,6 +24,7 @@ import { JsonEditorConfig } from 'ng2-json-editor';
 import {
   affiliationAutocompletionConfig,
   customValidationForDateTypes,
+  projectMembershipAutocompletionConfig,
   anchorBuilder,
 } from './commons';
 
@@ -103,6 +104,11 @@ export const authors: JsonEditorConfig = {
             'hidden',
             'curated_relation',
           ],
+          properties: {
+            name: {
+              autocompletionConfig: projectMembershipAutocompletionConfig,
+            },
+          },
         },
       },
       $schema: {

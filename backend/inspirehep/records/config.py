@@ -212,7 +212,7 @@ AUTHORS.update(
             "author": {
                 "_source": ["name", "positions", "control_number", "self"],
                 "completion": {"field": "author_suggest"},
-            }
+            },
         },
         "list_route": "/authors/",
         "item_route": '/authors/<inspirepid(aut,record_class="inspirehep.records.api:AuthorsRecord"):pid_value>',
