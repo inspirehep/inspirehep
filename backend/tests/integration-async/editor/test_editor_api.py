@@ -149,7 +149,7 @@ def test_get_revision_with_error(
     record = LiteratureRecord.get_record_by_pid_value(111)
     rec_uuid = record.id
 
-    wrong_transaction_id = 88
+    wrong_transaction_id = 88888
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.get(
