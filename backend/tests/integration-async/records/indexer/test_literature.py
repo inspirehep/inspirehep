@@ -353,7 +353,9 @@ def test_literature_regression_changing_bai_in_record_reindex_records_which_are_
     retry_until_pass(assert_record)
 
 
-def test_gracefully_handle_records_updating_in_wrong_order(inspire_app):
+def test_gracefully_handle_records_updating_in_wrong_order(
+    inspire_app, clean_celery_session
+):
     # We want to run indexing in weird order, so disable auto indexing
     models_committed.disconnect(index_after_commit)
 
@@ -400,7 +402,7 @@ def test_gracefully_handle_records_updating_in_wrong_order(inspire_app):
     models_committed.connect(index_after_commit)
 
 
-def test_get_record_default_returns_latest(inspire_app):
+def test_get_record_default_returns_latest(inspire_app, clean_celery_session):
     expected_titles = [{"title": "Second Title"}]
 
     record = LiteratureRecord.create(
@@ -415,7 +417,7 @@ def test_get_record_default_returns_latest(inspire_app):
     assert latest_record["titles"] == expected_titles
 
 
-def test_get_record_raise_stale_data(inspire_app):
+def test_get_record_raise_stale_data(inspire_app, clean_celery_session):
     record = LiteratureRecord.create(data=faker.record("lit"))
     db.session.commit()
     non_existing_version = record.model.version_id + 10
@@ -424,7 +426,7 @@ def test_get_record_raise_stale_data(inspire_app):
         InspireRecord.get_record(record.id, record_version=non_existing_version)
 
 
-def test_get_record_specific_version(inspire_app):
+def test_get_record_specific_version(inspire_app, clean_celery_session):
     expected_titles = [{"title": "First Title"}]
 
     record = LiteratureRecord.create(
@@ -441,7 +443,7 @@ def test_get_record_specific_version(inspire_app):
     assert latest_record["titles"] == expected_titles
 
 
-def test_indexer_deletes_record_from_es(inspire_app, datadir):
+def test_indexer_deletes_record_from_es(inspire_app, datadir, clean_celery_session):
     def assert_record_is_deleted_from_es():
         current_search.flush_and_refresh("records-hep")
         expected_records_count = 0
