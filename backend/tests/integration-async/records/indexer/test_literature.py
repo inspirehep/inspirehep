@@ -78,6 +78,7 @@ def test_lit_record_removed_from_es_when_deleted(inspire_app, clean_celery_sessi
     rec = LiteratureRecord.create(data)
     db.session.commit()
 
+    current_search.flush_and_refresh("records-hep")
     assert_es_hits_count(1)
 
     rec.delete()
