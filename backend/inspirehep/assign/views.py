@@ -7,6 +7,7 @@
 import structlog
 from flask import Blueprint, request
 from inspire_dojson.utils import get_recid_from_ref, get_record_ref
+from inspire_utils.record import get_values_for_schema
 from invenio_db import db
 from webargs import fields
 from webargs.flaskparser import FlaskParser
@@ -44,13 +45,27 @@ def unstub_author_by_recid(author_recid):
 
 
 def assign_papers(
-    to_author_recid, author_papers, author_signatures, is_stub_author=False
+    from_author_recid, to_author_record, author_papers, is_stub_author=False
 ):
-    for author, record in zip(author_signatures, author_papers):
-        author["record"] = get_record_ref(to_author_recid, endpoint="authors")
+    author_bai = get_values_for_schema(to_author_record["ids"], "INSPIRE BAI")[0]
+    for record in author_papers:
+        lit_author = get_author_by_recid(record, from_author_recid)
+        lit_author["record"] = get_record_ref(
+            to_author_record["control_number"], endpoint="authors"
+        )
         if not is_stub_author:
-            author["curated_relation"] = True
+            lit_author["curated_relation"] = True
+        lit_author["ids"] = update_author_bai(author_bai, lit_author)
         record.update(dict(record))
+
+
+def update_author_bai(to_author_bai, lit_author):
+    author_ids = lit_author.get("ids", [])
+    lit_author_bai_list = get_values_for_schema(author_ids, "INSPIRE BAI")
+    if lit_author_bai_list:
+        author_ids.remove(lit_author_bai_list[0])
+    author_ids.append({"value": to_author_bai, "schema": "INSPIRE BAI"})
+    return author_ids
 
 
 def get_author_signatures(from_author_recid, author_papers):
@@ -67,18 +82,18 @@ def assign_to_new_stub_author(from_author_recid, literature_recids):
     stub_author_data = update_author_names({"name": {}}, author_signatures)
     to_author = create_new_stub_author(**stub_author_data)
     assign_papers(
-        to_author["control_number"],
+        from_author_recid,
+        to_author,
         author_papers,
-        author_signatures,
         is_stub_author=True,
     )
     return to_author["control_number"]
 
 
 def assign_to_author(from_author_recid, to_author_recid, literature_recids):
+    author_record = AuthorsRecord.get_record_by_pid_value(to_author_recid)
     author_papers = list(get_literature_records_by_recid(literature_recids))
-    author_signatures = get_author_signatures(from_author_recid, author_papers)
-    assign_papers(to_author_recid, author_papers, author_signatures)
+    assign_papers(from_author_recid, author_record, author_papers)
     unstub_author_by_recid(to_author_recid)
 
 
