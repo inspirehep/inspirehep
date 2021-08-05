@@ -115,8 +115,13 @@ def test_assign_requires_cataloger_login(inspire_app):
 
 def test_assign_from_an_author_to_another(inspire_app):
     cataloger = create_user(role="cataloger")
+    author_data = {
+        "name": {"value": "Aad, Georges", "preferred_name": "Georges Aad"},
+        "ids": [{"value": "G.Aad.1", "schema": "INSPIRE BAI"}],
+        "stub": True,
+    }
     from_author = create_record("aut")
-    to_author = create_record("aut", data={"stub": True})
+    to_author = create_record("aut", data=author_data)
     literature_1 = create_record(
         "lit",
         data={
@@ -179,6 +184,7 @@ def test_assign_from_an_author_to_another(inspire_app):
             "$ref": f"http://localhost:5000/api/authors/{to_author['control_number']}"
         }
         assert literature_author["curated_relation"]
+        assert literature_author["ids"] == to_author["ids"]
 
     to_author_after = AuthorsRecord.get_record_by_pid_value(to_author["control_number"])
     assert not to_author_after["stub"]
@@ -186,8 +192,13 @@ def test_assign_from_an_author_to_another(inspire_app):
 
 def test_assign_from_an_author_to_another_that_is_not_stub(inspire_app):
     cataloger = create_user(role="cataloger")
+    author_data = {
+        "name": {"value": "Aad, Georges", "preferred_name": "Georges Aad"},
+        "ids": [{"value": "G.Aad.1", "schema": "INSPIRE BAI"}],
+        "stub": False,
+    }
     from_author = create_record("aut")
-    to_author = create_record("aut", data={"stub": False})
+    to_author = create_record("aut", data=author_data)
     literature = create_record(
         "lit",
         data={
@@ -231,6 +242,7 @@ def test_assign_from_an_author_to_another_that_is_not_stub(inspire_app):
         "$ref": f"http://localhost:5000/api/authors/{to_author['control_number']}"
     }
     assert literature_author["curated_relation"]
+    assert literature_author["ids"] == to_author["ids"]
 
     to_author_after = AuthorsRecord.get_record_by_pid_value(to_author["control_number"])
     assert not to_author_after["stub"]
