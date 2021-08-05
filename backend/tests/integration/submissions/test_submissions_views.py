@@ -2157,7 +2157,7 @@ def test_new_seminar_submission_with_invalid_lit_record(
     user = create_user(orcid=orcid)
     data = deepcopy(REQUIRED_SEMINAR_FORM_DATA)
     lit_record = create_record("lit")
-    data["literature_records"] = [lit_record["control_number"], 3]
+    data["literature_records"] = [lit_record["control_number"], 666]
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.post(
@@ -2166,4 +2166,4 @@ def test_new_seminar_submission_with_invalid_lit_record(
             data=orjson.dumps({"data": data}),
         )
         assert response.status_code == 400
-        assert response.json["message"][0] == "3 is not a valid literature record."
+        assert response.json["message"][0] == "666 is not a valid literature record."
