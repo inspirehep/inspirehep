@@ -277,8 +277,8 @@ jobs:
       - name: Test
         uses: ./.github/actions/editor-test
 
-  end_to_end_test:
-    name: End to end test
+  end_to_end_test_chrome:
+    name: End to end test - Chrome
     runs-on: ubuntu-20.04
     needs:
       - backend_build
@@ -292,7 +292,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        group: [1, 2, 3, 4, 5, 6]
+        group: [1, 2, 3]
     services:
       redis:
         image: redis
@@ -529,6 +529,277 @@ jobs:
           parallel: true
           group: 'Chrome'
           browser: chrome
+          headless: true
+          env: inspirehep_url=http://localhost:8080
+
+      - name: Write container logs
+        if: ${{ always() }}
+        run: |
+          for i in $( docker ps -aq ); do
+            name="$( docker inspect --format='{{ .Name }}' $i)"
+            name=${name:-$i} # Default to the id if no name is found
+            name=${name#/} # Remove any leading '/'
+            docker logs $i >${name}.log
+          done
+      - name: Upload container logs
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: container-logs-${{ env.REF }}
+          path: '*.log'
+
+  end_to_end_test_firefox:
+    name: End to end test - Firefox
+    runs-on: ubuntu-20.04
+    needs:
+      - backend_build
+      - ui_build
+      - editor_build
+    if: ${{ always() && contains(needs.*.result, 'success') && !(contains(needs.*.result, 'failure')) }}
+    outputs:
+      backend_image: ${{ steps.set-backend-image.outputs.image }}
+      ui_image: ${{ steps.set-ui-image.outputs.image }}
+      editor_image: ${{ steps.set-editor-image.outputs.image }}
+    strategy:
+      fail-fast: false
+      matrix:
+        group: [1, 2, 3]
+    services:
+      redis:
+        image: redis
+        ports:
+          - 6379:6379
+      postgresql:
+        image: postgres:9.6
+        env:
+          POSTGRES_USER: inspirehep
+          POSTGRES_PASSWORD: inspirehep
+          POSTGRES_DB: inspirehep
+        ports:
+          - 5432:5432
+      rabbitmq:
+        image: rabbitmq:3-management
+        ports:
+          - 5672:5672
+      elasticsearch:
+        image: inspirehep/elasticsearch:7.1.1
+        env:
+          bootstrap.memory_lock: true
+          ES_JAVA_OPTS: -Xms1024m -Xmx1024m
+          discovery.type: single-node
+        ports:
+          - 9200:9200
+    env:
+      INVENIO_DEBUG: True
+      INVENIO_MAIL_DEBUG: 1
+      INVENIO_ACCOUNTS_SESSION_REDIS_URL: redis://localhost:6379/2
+      INVENIO_BROKER_URL: amqp://guest:guest@localhost:5672/
+      INVENIO_CACHE_REDIS_URL: redis://localhost:6379/0
+      INVENIO_CACHE_TYPE: redis
+      INVENIO_CELERY_BROKER_URL: amqp://guest:guest@localhost:5672/
+      INVENIO_CELERY_RESULT_BACKEND: redis://localhost:6379/1
+      INVENIO_SEARCH_ELASTIC_HOSTS: "['localhost:9200']"
+      INVENIO_SECRET_KEY: CHANGE_ME
+      INVENIO_SQLALCHEMY_DATABASE_URI: postgresql+psycopg2://inspirehep:inspirehep@localhost:5432/inspirehep
+      INVENIO_INSPIRE_NEXT_URL: http://localhost:5000
+      APP_DEBUG: True
+      APP_MAIL_DEBUG: 1
+      APP_SQLALCHEMY_DATABASE_URI: postgresql+psycopg2://inspirehep:inspirehep@localhost:5432/inspirehep
+      APP_CELERY_BROKER_URL: amqp://guest:guest@localhost:5672/
+      APP_CELERY_RESULT_BACKEND: redis://localhost:6379/1
+      APP_CACHE_REDIS_URL: redis://localhost:6379/0
+      APP_ACCOUNTS_SESSION_REDIS_URL: redis://localhost:6379/2
+      APP_SEARCH_ELASTIC_HOSTS: "['localhost:9200']"
+      APP_ES_BULK_TIMEOUT: 240
+      APP_DANGEROUSLY_ENABLE_LOCAL_LOGIN: True
+      APP_ENABLE_SECURE_HEADERS: False
+      APP_SECRET_KEY: CHANGE_ME
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ env.REF }}
+
+      - name: Set backend image
+        id: set-backend-image
+        run: |
+          image=${{ needs.backend_build.result == 'skipped' && 'master' || env.REF_TAG }}
+          echo "output: $image"
+          echo "BACKEND_IMAGE=${image}" >> $GITHUB_ENV
+          echo "::set-output name=image::${image}"
+
+      - name: Set ui image
+        id: set-ui-image
+        run: |
+          image=${{ needs.ui_build.result == 'skipped' && 'master' || env.REF_TAG }}
+          echo "output: $image"
+          echo "UI_IMAGE=${image}" >> $GITHUB_ENV
+          echo "::set-output name=image::${image}"
+
+      - name: Set editor image
+        id: set-editor-image
+        run: |
+          image=${{ needs.editor_build.result == 'skipped' && 'master' || env.REF_TAG }}
+          echo "output: $image"
+          echo "EDITOR_IMAGE=${image}" >> $GITHUB_ENV
+          echo "::set-output name=image::${image}"
+
+      - name: Check outputs
+        run: |
+          echo "${{ steps.set-editor-image.outputs.image }}"
+          echo "${{ steps.set-ui-image.outputs.image }}"
+          echo "${{ steps.set-backend-image.outputs.image }}"
+
+      - name: Start hep worker container
+        uses: ./.github/actions/docker-start-container
+        with:
+          image: inspirehep/hep:${{ env.BACKEND_IMAGE }}
+          name: hep-worker
+          env_pattern: 'INVENIO_'
+          options: --entrypoint celery
+          command: >
+            worker
+            -E
+            -A inspirehep.celery
+            -l INFO
+            --purge
+            --queues celery,migrator,indexer_task,matcher,assign
+      - name: Start hep web container
+        uses: ./.github/actions/docker-start-container
+        with:
+          image: inspirehep/hep:${{ env.BACKEND_IMAGE }}
+          name: hep-web
+          env_pattern: 'INVENIO_'
+          options: --entrypoint gunicorn
+          command: >
+            -t 99999
+            -b 0.0.0.0:8000
+            --access-logfile "-"
+            --error-logfile "-"
+            inspirehep.wsgi:application
+      - name: Start next worker container
+        uses: ./.github/actions/docker-start-container
+        with:
+          image: inspirehep/next:latest
+          name: next-worker
+          env_pattern: 'APP_'
+          options: --entrypoint celery
+          command: >
+            worker
+            -E
+            -A inspirehep.celery
+            --loglevel=INFO
+            --purge
+            --queues celery,orcid_push,indexer_task
+      - name: Start next web container
+        uses: ./.github/actions/docker-start-container
+        with:
+          image: inspirehep/next-assets:latest
+          name: next-web
+          env_pattern: 'APP_'
+          options: --entrypoint gunicorn
+          command: >
+            -b 0.0.0.0:5000
+            --access-logfile "-"
+            --log-level debug
+            inspirehep.wsgi
+      - name: Start editor
+        uses: ./.github/actions/docker-start-container
+        with:
+          image: inspirehep/editor:${{ env.EDITOR_IMAGE }}
+          name: record-editor
+
+      - name: Start UI
+        id: start-ui
+        uses: ./.github/actions/docker-start-container
+        with:
+          image: inspirehep/ui:${{ env.UI_IMAGE }}
+          name: ui
+          options: --add-host=hep-web:127.0.0.1 --add-host=next-web:127.0.0.1 --add-host=record-editor:127.0.0.1 --mount type=bind,source=${{ github.workspace }}/ui/docker/nginx/config/local.conf,destination=/etc/nginx/conf.d/default.conf
+
+      - name: Setup
+        run: |
+          docker exec hep-web ./scripts/setup
+          docker exec next-web inspirehep db create
+      - name: Import dataset
+        run: >
+          docker exec hep-web inspirehep importer records
+          -f data/records/authors/1010819.json
+          -f data/records/conferences/1769332.json
+          -f data/records/conferences/1794610.json
+          -f data/records/conferences/1809034.json
+          -f data/records/conferences/1776122.json
+          -f data/records/conferences/1622944.json
+          -f data/records/seminars/1811573.json
+          -f data/records/seminars/1811750.json
+          -f data/records/seminars/1811657.json
+          -f data/records/seminars/1807692.json
+          -f data/records/seminars/1807690.json
+          -f data/records/jobs/1811684.json
+          -f data/records/jobs/1812904.json
+          -f data/records/jobs/1813119.json
+          -f data/records/jobs/1811836.json
+          -f data/records/jobs/1812529.json
+          -f data/records/authors/1004662.json
+          -f data/records/authors/1060898.json
+          -f data/records/authors/1013725.json
+          -f data/records/authors/1078577.json
+          -f data/records/authors/1064002.json
+          -f data/records/authors/1306569.json
+          -f data/records/conferences/1787117.json
+          -f data/records/literature/1787272.json
+          -f data/records/seminars/1799778.json
+          -f data/records/conferences/1217045.json
+          -f data/records/jobs/1812440.json
+          -f data/records/authors/1274753.json
+          -f data/records/institutions/902858.json
+          -f data/records/experiments/1513946.json
+          -f data/records/literature/1331798.json
+          -f data/records/literature/1325985.json
+          -f data/records/literature/1306493.json
+          -f data/records/literature/1264675.json
+          -f data/records/literature/1263659.json
+          -f data/records/literature/1263207.json
+          -f data/records/literature/1249881.json
+          -f data/records/literature/1235543.json
+          -f data/records/literature/1198168.json
+          -f data/records/literature/1113908.json
+          -f data/records/literature/873915.json
+          -f data/records/literature/1688995.json
+          -f data/records/literature/1290484.json
+          -f data/records/literature/1264013.json
+          -f data/records/literature/1257993.json
+          -f data/records/literature/1310649.json
+          -f data/records/literature/1473056.json
+          -f data/records/literature/1358394.json
+          -f data/records/literature/1374620.json
+          -f data/records/literature/1452707.json
+          -f data/records/literature/1649231.json
+          -f data/records/literature/1297062.json
+          -f data/records/literature/1313615.json
+          -f data/records/literature/1597429.json
+          -f data/records/literature/1184194.json
+          -f data/records/literature/1322719.json
+          -f data/records/literature/1515024.json
+          -f data/records/literature/1510263.json
+          -f data/records/literature/1415120.json
+          -f data/records/literature/1400808.json
+          -f data/records/literature/1420712.json
+          -f data/records/literature/1492108.json
+          -f data/records/literature/1598135.json
+          -f data/records/literature/1306493.json
+          -f data/records/literature/1383683.json
+          -f data/records/literature/1238110.json
+      - name: Run Cypress
+        uses: cypress-io/github-action@v2
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+        with:
+          working-directory: ./e2e
+          record: true
+          parallel: true
+          group: 'Firefox'
+          browser: firefox
           headless: true
           env: inspirehep_url=http://localhost:8080
 
