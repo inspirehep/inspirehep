@@ -290,7 +290,7 @@ jobs:
       ui_image: ${{ steps.set-ui-image.outputs.image }}
       editor_image: ${{ steps.set-editor-image.outputs.image }}
     strategy:
-      fail-fast: false
+      fail-fast: falsegit
       matrix:
         group: [1, 2, 3]
     services:
@@ -822,14 +822,15 @@ jobs:
   to_push:
     name: To Push
     runs-on: ubuntu-latest
-    if: ${{ !failure() && needs.end_to_end_test.result == 'success' }}
+    if: ${{ !failure() && needs.end_to_end_test_chrome.result == 'success' && needs.end_to_end_test_firefox.result == 'success'}}
     needs:
       - backend_integration_test
       - backend_integration_async_test
       - backend_unit_test
       - ui_test
       - editor_test
-      - end_to_end_test
+      - end_to_end_test_chrome
+      - end_to_end_test_firefox
     outputs:
       images: ${{ steps.generate_matrix.outputs.images }}
     env:
@@ -943,8 +944,10 @@ jobs:
   push:
     name: Push commit SHA to all images
     runs-on: ubuntu-latest
-    needs: end_to_end_test
-    if: ${{ !failure() && needs.end_to_end_test.result == 'success' }}
+    needs:
+      - end_to_end_test_chrome
+      - end_to_end_test_firefox
+    if: ${{ !failure() && needs.end_to_end_test_chrome.result == 'success' && && needs.end_to_end_test_firefox.result == 'success' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -954,9 +957,9 @@ jobs:
 
       - name: Push check
         run: |
-          echo ${{ needs.end_to_end_test.outputs.backend_image }}
-          echo ${{ needs.end_to_end_test.outputs.ui_image }}
-          echo ${{ needs.end_to_end_test.outputs.editor_image }}
+          echo ${{ needs.end_to_end_test_chrome.outputs.backend_image }}
+          echo ${{ needs.end_to_end_test_chrome.outputs.ui_image }}
+          echo ${{ needs.end_to_end_test_chrome.outputs.editor_image }}
 
       - name: Login
         uses: docker/login-action@v1
@@ -969,7 +972,7 @@ jobs:
         if: ${{ github.event_name == 'push' }}
         with:
           image: inspirehep/hep
-          pull-tag: ${{ needs.end_to_end_test.outputs.backend_image }}
+          pull-tag: ${{ needs.end_to_end_test_chrome.outputs.backend_image }}
           push-tag: master-${{ env.REF }}
 
       - name: Tag and push latest for ui
@@ -977,7 +980,7 @@ jobs:
         if: ${{ github.event_name == 'push' }}
         with:
           image: inspirehep/ui
-          pull-tag: ${{ needs.end_to_end_test.outputs.ui_image }}
+          pull-tag: ${{ needs.end_to_end_test_chrome.outputs.ui_image }}
           push-tag: master-${{ env.REF }}
 
       - name: Tag and push latest for hep
@@ -985,5 +988,5 @@ jobs:
         if: ${{ github.event_name == 'push' }}
         with:
           image: inspirehep/editor
-          pull-tag: ${{ needs.end_to_end_test.outputs.editor_image }}
+          pull-tag: ${{ needs.end_to_end_test_chrome.outputs.editor_image }}
           push-tag: master-${{ env.REF }}
