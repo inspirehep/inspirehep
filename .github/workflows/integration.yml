@@ -290,7 +290,7 @@ jobs:
       ui_image: ${{ steps.set-ui-image.outputs.image }}
       editor_image: ${{ steps.set-editor-image.outputs.image }}
     strategy:
-      fail-fast: falsegit
+      fail-fast: false
       matrix:
         group: [1, 2, 3]
     services:
