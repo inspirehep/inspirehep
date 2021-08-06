@@ -61,11 +61,13 @@ def assign_papers(
 
 def update_author_bai(to_author_bai, lit_author):
     author_ids = lit_author.get("ids", [])
-    lit_author_bai_list = get_values_for_schema(author_ids, "INSPIRE BAI")
-    if lit_author_bai_list:
-        author_ids.remove(lit_author_bai_list[0])
-    author_ids.append({"value": to_author_bai, "schema": "INSPIRE BAI"})
-    return author_ids
+    lit_author_ids_list_updated = [
+        author_id for author_id in author_ids if author_id["schema"] != "INSPIRE BAI"
+    ]
+    lit_author_ids_list_updated.append(
+        {"value": to_author_bai, "schema": "INSPIRE BAI"}
+    )
+    return lit_author_ids_list_updated
 
 
 def get_author_signatures(from_author_recid, author_papers):
