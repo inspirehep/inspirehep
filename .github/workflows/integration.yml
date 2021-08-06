@@ -290,7 +290,7 @@ jobs:
       ui_image: ${{ steps.set-ui-image.outputs.image }}
       editor_image: ${{ steps.set-editor-image.outputs.image }}
     strategy:
-      fail-fast: falsegit
+      fail-fast: false
       matrix:
         group: [1, 2, 3]
     services:
@@ -947,7 +947,7 @@ jobs:
     needs:
       - end_to_end_test_chrome
       - end_to_end_test_firefox
-    if: ${{ !failure() && needs.end_to_end_test_chrome.result == 'success' && && needs.end_to_end_test_firefox.result == 'success' }}
+    if: ${{ !failure() && needs.end_to_end_test_chrome.result == 'success' && needs.end_to_end_test_firefox.result == 'success' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
