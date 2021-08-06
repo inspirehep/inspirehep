@@ -37,18 +37,19 @@ Cypress.Commands.add('selectFromSelectBox', (selectBoxId, options) => {
   cy.get(selectBoxSelector).then(($selectBox) => {
     const hasSearch = $selectBox.hasClass('ant-select-show-search');
     const isMultiSelect = Array.isArray(options);
-    cy.wrap($selectBox).click('topLeft');
+    cy.wrap($selectBox).click();
+    cy.get('.ant-select-dropdown').should('be.visible');
     const optionsArray = isMultiSelect ? options : [options];
     for (const option of optionsArray) {
       if (hasSearch) {
         cy.get(selectBoxInputSelector).type(`${option}`, { force: true });
       }
-      const optionSelector = `.ant-select-item [data-test-id="${selectBoxId}-option-${option}"]`;
+      const optionSelector = `[data-test-id="${selectBoxId}-option-${option}"]`;
       cy.get(optionSelector).click();
     }
 
     if (isMultiSelect) {
-      cy.wrap($selectBox).click('topLeft');
+      cy.wrap($selectBox).click();
     }
 
     cy.get('.ant-select-dropdown').should('not.be.visible');

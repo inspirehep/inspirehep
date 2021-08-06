@@ -135,18 +135,17 @@ Cypress.Commands.add('fillArrayField', (path, array) => {
 });
 
 Cypress.Commands.add('fillDateRangeField', (path, [startDate, endDate]) => {
-  const rangeInputsSelector = `[data-test-id="${path}"] input`;
-
   cy.getField(path).then(($dateRangeSelect) => {
     const dateFormat =
       $dateRangeSelect.attr('data-test-format') || 'YYYY-MM-DD';
     const startDateValue = moment(startDate).format(dateFormat);
     const endDateValue = moment(endDate).format(dateFormat);
-
-    cy.get(rangeInputsSelector)
+    cy.wrap($dateRangeSelect)
+      .find('input')
       .first()
       .type(`${startDateValue}{enter}`, { force: true });
-    cy.get(rangeInputsSelector)
+    cy.wrap($dateRangeSelect)
+      .find('input')
       .last()
       .type(`${endDateValue}{enter}`, { force: true });
   });

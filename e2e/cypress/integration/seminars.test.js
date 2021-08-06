@@ -1,4 +1,5 @@
 import { onlyOn } from '@cypress/skip-test';
+import moment from 'moment';
 
 describe('Seminar Detail', () => {
   onlyOn('headless', () => {
@@ -45,10 +46,12 @@ describe('Seminar Submission', () => {
   });
 
   it('submits and updates new seminar', () => {
+    const startDateMoment = moment('2020-05-06 08:30');
+    const endDateMoment = moment('2020-05-06 14:30');
     const formData = {
       name: 'The Cool Seminar',
       timezone: 'Europe/Zurich',
-      dates: ['2020-05-06 08:30 AM', '2020-05-06 02:30 PM'],
+      dates: [startDateMoment, endDateMoment],
       abstract: 'This is cool',
       material_urls: [
         {
@@ -170,27 +173,25 @@ describe('Seminar Submission', () => {
     };
 
     cy.visit('/submissions/seminars');
-    cy
-      .testSubmission({
+    cy.testSubmission({
+      collection: 'seminars',
+      formData,
+      expectedMetadata,
+    }).then((newRecord) => {
+      const recordId = newRecord.metadata.control_number;
+      cy.visit(`/submissions/seminars/${recordId}`);
+      cy.testUpdateSubmission({
         collection: 'seminars',
-        formData,
-        expectedMetadata,
-      })
-      .then(newRecord => {
-        const recordId = newRecord.metadata.control_number;
-        cy.visit(`/submissions/seminars/${recordId}`);
-        cy.testUpdateSubmission({
-          collection: 'seminars',
-          recordId,
-          formData: {
-            name: ': Updated',
-          },
-          expectedMetadata: {
-            ...expectedMetadata,
-            title: { title: 'The Cool Seminar: Updated' },
-          },
-        });
+        recordId,
+        formData: {
+          name: ': Updated',
+        },
+        expectedMetadata: {
+          ...expectedMetadata,
+          title: { title: 'The Cool Seminar: Updated' },
+        },
       });
+    });
   });
 
   afterEach(() => {
