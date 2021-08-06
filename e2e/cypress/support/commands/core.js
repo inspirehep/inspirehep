@@ -41,7 +41,7 @@ Cypress.Commands.add('selectFromSelectBox', (selectBoxId, options) => {
     const optionsArray = isMultiSelect ? options : [options];
     for (const option of optionsArray) {
       if (hasSearch) {
-        cy.get(selectBoxInputSelector).type(`${option}`);
+        cy.get(selectBoxInputSelector).type(`${option}`, { force: true });
       }
       const optionSelector = `.ant-select-item [data-test-id="${selectBoxId}-option-${option}"]`;
       cy.get(optionSelector).click();

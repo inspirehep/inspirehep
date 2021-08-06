@@ -19,7 +19,7 @@ const addLogsPrinterPlugin = require('cypress-terminal-report/src/installLogsPri
 
 module.exports = (on, config) => {
   on('before:browser:launch', (browser = {}, options) => {
-    if (browser.name === 'chrome') {
+    if (browser.name === 'chrome' || browser.name === 'firefox') {
       options.args.push('--window-size=1920,1080');
       return options;
     }
