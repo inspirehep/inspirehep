@@ -10,8 +10,7 @@ import pytest
 from flask_sqlalchemy import models_committed
 from helpers.factories.models.user_access_token import AccessTokenFactory
 from helpers.providers.faker import faker
-from helpers.utils import es_search, retry_until_pass
-from inspire_utils.record import get_value
+from helpers.utils import retry_until_pass
 from invenio_db import db
 from invenio_search import current_search
 from sqlalchemy.orm.exc import StaleDataError
@@ -31,12 +30,20 @@ def assert_citation_count(cited_record, expected_count):
     retry_until_pass(assert_record, retry_interval=3)
 
 
-def assert_es_hits_count(expected_hits_count):
+def assert_record_in_es(recid):
     def assert_hits():
         current_search.flush_and_refresh("records-hep")
-        result = es_search("records-hep")
-        result_total = get_value(result, "hits.total.value")
-        assert expected_hits_count == result_total
+        hits = LiteratureSearch().query_from_iq(f"recid:{recid}").execute().hits
+        assert hits
+
+    retry_until_pass(assert_hits, retry_interval=5)
+
+
+def assert_record_not_in_es(recid):
+    def assert_hits():
+        current_search.flush_and_refresh("records-hep")
+        hits = LiteratureSearch().query_from_iq(f"recid:{recid}").execute().hits
+        assert not hits
 
     retry_until_pass(assert_hits, retry_interval=5)
 
@@ -78,19 +85,12 @@ def test_lit_record_removed_from_es_when_deleted(inspire_app, clean_celery_sessi
     rec = LiteratureRecord.create(data)
     db.session.commit()
 
-    current_search.flush_and_refresh("records-hep")
-    assert_es_hits_count(1)
+    assert_record_in_es(rec["control_number"])
 
     rec.delete()
     db.session.commit()
 
-    def assert_record_is_deleted_from_es():
-        current_search.flush_and_refresh("records-hep")
-        expected_records_count = 0
-        record_lit_es = LiteratureSearch().get_record(str(rec.id)).execute().hits
-        assert expected_records_count == len(record_lit_es)
-
-    retry_until_pass(assert_record_is_deleted_from_es)
+    assert_record_not_in_es(rec["control_number"])
 
 
 def test_lit_record_removed_from_es_when_hard_deleted(
@@ -100,12 +100,12 @@ def test_lit_record_removed_from_es_when_hard_deleted(
     rec = LiteratureRecord.create(data)
     db.session.commit()
 
-    assert_es_hits_count(1)
+    assert_record_in_es(rec["control_number"])
 
     rec.hard_delete()
     db.session.commit()
 
-    assert_es_hits_count(0)
+    assert_record_not_in_es(rec["control_number"])
 
 
 def test_index_record_manually(inspire_app, clean_celery_session):
@@ -115,11 +115,11 @@ def test_index_record_manually(inspire_app, clean_celery_session):
     db.session.commit()
     models_committed.connect(index_after_commit)
 
-    assert_es_hits_count(0)
+    assert_record_not_in_es(rec["control_number"])
 
     rec.index()
 
-    assert_es_hits_count(1)
+    assert_record_in_es(rec["control_number"])
 
 
 def test_lit_records_with_citations_updates(inspire_app, clean_celery_session):
@@ -251,17 +251,24 @@ def test_lit_record_reindexes_references_when_earliest_date_changed(
 
 
 def test_many_records_in_one_commit(inspire_app, clean_celery_session):
+    record_recids = set()
     for x in range(10):
         data = faker.record("lit")
-        LiteratureRecord.create(data)
+        record = LiteratureRecord.create(data)
+        record_recids.add(record["control_number"])
     db.session.commit()
     current_search.flush_and_refresh("records-hep")
 
-    assert_es_hits_count(10)
+    def assert_all_records_in_es():
+        result = LiteratureSearch().query_from_iq("").execute().hits
+        result_recids = {hit.control_number for hit in result}
+        assert len(result_recids & record_recids) == 10
+
+    retry_until_pass(assert_all_records_in_es, retry_interval=3)
 
 
 def test_record_created_through_api_is_indexed(inspire_app, clean_celery_session):
-    data = faker.record("lit")
+    data = faker.record("lit", with_control_number=True)
     token = AccessTokenFactory()
     db.session.commit()
     headers = {"Authorization": f"Bearer {token.access_token}"}
@@ -270,7 +277,8 @@ def test_record_created_through_api_is_indexed(inspire_app, clean_celery_session
         "/api/literature", json=data, headers=headers, content_type=content_type
     )
     assert response.status_code == 201
-    assert_es_hits_count(1)
+
+    assert_record_in_es(data["control_number"])
 
 
 def test_literature_citations_superseded_status_change_and_cited_records_are_reindexed(
