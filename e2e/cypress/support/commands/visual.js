@@ -18,17 +18,26 @@ Cypress.Commands.add('matchSnapshots', (name, { skipMobile } = {}) => {
   // and sticky elements appears in the final ss, multiple times.
   // therefore we need to disable them
   cy.get('[data-test-id="sticky"]').invoke('css', 'position', 'absolute');
-
+  // a guard to prevent flaky tests
+  cy.get('.__Header__ [data-test-id="sticky"]').should(($el) =>
+    expect($el.width()).to.be.above(Cypress.env('mobile_viewport_width'))
+  );
   cy.matchImageSnapshot(`${name}Desktop`);
 
   if (skipMobile) {
     return;
   }
 
-  // header is not sticky on mobile therefore we need to restore its style
-  cy
-    .get('.__Header__ [data-test-id="sticky"]')
-    .invoke('css', 'position', 'static');
   cy.useMobile();
+  // header is not sticky on mobile therefore we need to restore its style
+  cy.get('.__Header__ [data-test-id="sticky"]').invoke(
+    'css',
+    'position',
+    'static'
+  );
+  // a guard to prevent flaky tests
+  cy.get('.__Header__ [data-test-id="sticky"]').should(($el) =>
+    expect($el.width()).to.be.at.most(Cypress.env('mobile_viewport_width'))
+  );
   cy.matchImageSnapshot(`${name}Mobile`);
 });
