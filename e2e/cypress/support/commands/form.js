@@ -1,8 +1,7 @@
 import moment from 'moment';
 
-Cypress.Commands.add('selectLiteratureDocType', docType => {
-  cy
-    .get('[data-test-id=skip-import-button]')
+Cypress.Commands.add('selectLiteratureDocType', (docType) => {
+  cy.get('[data-test-id=skip-import-button]')
     .click()
     .get('[data-test-id=document-type-select]')
     .click()
@@ -26,26 +25,20 @@ Cypress.Commands.add(
     cy.submitForm(formData);
     return cy
       .waitForRoute(apiRoute)
-      .then(xhr => {
+      .then((xhr) => {
         const recordId = xhr.response.body.pid_value;
 
         if (recordId) {
-          cy
-            .wrap(xhr)
-            .its('status')
-            .should('equal', 201);
+          cy.wrap(xhr).its('status').should('equal', 201);
           return cy.requestRecord({ collection, recordId });
         } else {
           // workflow based submissions
-          cy
-            .wrap(xhr)
-            .its('status')
-            .should('equal', 200);
+          cy.wrap(xhr).its('status').should('equal', 200);
           const workflowId = xhr.response.body.workflow_object_id;
           return cy.requestWorkflow({ workflowId });
         }
       })
-      .then(recordOrWorkflow => {
+      .then((recordOrWorkflow) => {
         expect(recordOrWorkflow.metadata).like(expectedMetadata);
         return recordOrWorkflow;
       });
@@ -66,24 +59,20 @@ Cypress.Commands.add(
     });
     cy.submitForm(formData);
 
-    cy
-      .waitForRoute(apiRoute)
-      .its('status')
-      .should('equal', 200);
+    cy.waitForRoute(apiRoute).its('status').should('equal', 200);
 
-    cy
-      .requestRecord({ collection, recordId })
+    cy.requestRecord({ collection, recordId })
       .its('metadata')
       .should('like', expectedMetadata);
   }
 );
 
-Cypress.Commands.add('submitForm', data => {
+Cypress.Commands.add('submitForm', (data) => {
   cy.fillForm(data);
   cy.get('button[type=submit]').click();
 });
 
-Cypress.Commands.add('fillForm', data => {
+Cypress.Commands.add('fillForm', (data) => {
   // disable sticky elements, such as header which sometimes cover form fields
   // and prevents them from being filled
   cy.get('[data-test-id="sticky"]').invoke('css', 'position', 'absolute');
@@ -91,11 +80,11 @@ Cypress.Commands.add('fillForm', data => {
 });
 
 function joinPaths(...paths) {
-  return paths.filter(path => path != null).join('.');
+  return paths.filter((path) => path != null).join('.');
 }
 
 Cypress.Commands.add('fillField', (path, value) => {
-  cy.getFieldType(path, value).then(fieldType => {
+  cy.getFieldType(path, value).then((fieldType) => {
     switch (fieldType) {
       case 'array':
         return cy.fillArrayField(path, value);
@@ -136,8 +125,7 @@ Cypress.Commands.add('fillArrayField', (path, array) => {
     const itemPath = joinPaths(path, i);
     if (i !== 0) {
       // click (+) to add an empty item first
-      cy
-        .get(`[data-test-id="${path}-add-item"]`)
+      cy.get(`[data-test-id="${path}-add-item"]`)
         .click()
         .get(`[data-test-id="container-${itemPath}"]`)
         .should('be.visible');
@@ -149,25 +137,23 @@ Cypress.Commands.add('fillArrayField', (path, array) => {
 Cypress.Commands.add('fillDateRangeField', (path, [startDate, endDate]) => {
   const rangeInputsSelector = `[data-test-id="${path}"] input`;
 
-  cy.getField(path).then($dateRangeSelect => {
+  cy.getField(path).then(($dateRangeSelect) => {
     const dateFormat =
       $dateRangeSelect.attr('data-test-format') || 'YYYY-MM-DD';
     const startDateValue = moment(startDate).format(dateFormat);
     const endDateValue = moment(endDate).format(dateFormat);
 
-    cy
-      .get(rangeInputsSelector)
+    cy.get(rangeInputsSelector)
       .first()
       .type(`${startDateValue}{enter}`, { force: true });
-    cy
-      .get(rangeInputsSelector)
+    cy.get(rangeInputsSelector)
       .last()
       .type(`${endDateValue}{enter}`, { force: true });
   });
 });
 
 Cypress.Commands.add('fillDateField', (path, value) => {
-  cy.getField(path).then($dateSelect => {
+  cy.getField(path).then(($dateSelect) => {
     const dateFormat = $dateSelect.attr('data-test-format') || 'YYYY-MM-DD';
     const dateValue = moment(value).format(dateFormat);
     cy.wrap($dateSelect).type(`${dateValue}{enter}`, { force: true });
@@ -175,12 +161,12 @@ Cypress.Commands.add('fillDateField', (path, value) => {
 });
 
 Cypress.Commands.add('fillNumberOrTextField', (path, value) => {
-  cy.getField(path).type(value);
+  cy.getField(path).type(value, { force: true });
 });
 
 Cypress.Commands.add('fillSuggesterField', (path, value) => {
   cy.getField(path).within(() => {
-    cy.get('input').type(value);
+    cy.get('input').type(value, { force: true });
   });
 });
 
@@ -190,12 +176,12 @@ Cypress.Commands.add('fillSelectField', (path, values) => {
 
 Cypress.Commands.add('fillRichTextField', (path, value) => {
   cy.getField(path).within(() => {
-    cy.get('.ql-editor[contenteditable=true]').type(value);
+    cy.get('.ql-editor[contenteditable=true]').type(value, { force: true });
   });
 });
 
 Cypress.Commands.add('fillBooleanField', (path, value) => {
-  cy.getField(path).then($checkbox => {
+  cy.getField(path).then(($checkbox) => {
     if ($checkbox.checked !== value) {
       $checkbox.click();
     }
@@ -203,12 +189,12 @@ Cypress.Commands.add('fillBooleanField', (path, value) => {
   // TODO: use `.check(), uncheck()`
 });
 
-Cypress.Commands.add('getField', fieldPath => {
+Cypress.Commands.add('getField', (fieldPath) => {
   return cy.get(`[data-test-id="${fieldPath}"]`);
 });
 
 Cypress.Commands.add('getFieldType', (fieldPath, value) => {
-  return cy.get('body').then($body => {
+  return cy.get('body').then(($body) => {
     const $field = $body.find(`[data-test-id="${fieldPath}"]`);
     let fieldType = $field.attr('data-test-type');
     if (!fieldType) {
@@ -219,7 +205,7 @@ Cypress.Commands.add('getFieldType', (fieldPath, value) => {
   });
 });
 
-Cypress.Commands.add('getFieldError', fieldPath => {
+Cypress.Commands.add('getFieldError', (fieldPath) => {
   const errorSelector = `[data-test-id="${fieldPath}-error"]`;
   return cy.get(errorSelector);
 });
