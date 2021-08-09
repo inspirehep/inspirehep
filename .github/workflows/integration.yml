@@ -523,6 +523,7 @@ jobs:
           working-directory: ./e2e
           record: true
           browser: chrome
+          tag: 'Chrome'
           headless: true
           env: inspirehep_url=http://localhost:8080
 
@@ -788,6 +789,7 @@ jobs:
           working-directory: ./e2e
           record: true
           browser: firefox
+          tag: 'Firefox'
           headless: true
           env: inspirehep_url=http://localhost:8080
 
