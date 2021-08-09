@@ -289,10 +289,6 @@ jobs:
       backend_image: ${{ steps.set-backend-image.outputs.image }}
       ui_image: ${{ steps.set-ui-image.outputs.image }}
       editor_image: ${{ steps.set-editor-image.outputs.image }}
-    strategy:
-      fail-fast: false
-      matrix:
-        group: [1, 2, 3]
     services:
       redis:
         image: redis
@@ -519,15 +515,13 @@ jobs:
           -f data/records/literature/1306493.json
           -f data/records/literature/1383683.json
           -f data/records/literature/1238110.json
-      - name: Run Cypress
+      - name: 'End to end test - Chrome'
         uses: cypress-io/github-action@v2
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
         with:
           working-directory: ./e2e
           record: true
-          parallel: true
-          group: 'Chrome'
           browser: chrome
           headless: true
           env: inspirehep_url=http://localhost:8080
@@ -560,10 +554,6 @@ jobs:
       backend_image: ${{ steps.set-backend-image.outputs.image }}
       ui_image: ${{ steps.set-ui-image.outputs.image }}
       editor_image: ${{ steps.set-editor-image.outputs.image }}
-    strategy:
-      fail-fast: false
-      matrix:
-        group: [1, 2, 3]
     services:
       redis:
         image: redis
@@ -790,15 +780,13 @@ jobs:
           -f data/records/literature/1306493.json
           -f data/records/literature/1383683.json
           -f data/records/literature/1238110.json
-      - name: Run Cypress
+      - name: 'End to end test - Firefox'
         uses: cypress-io/github-action@v2
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
         with:
           working-directory: ./e2e
           record: true
-          parallel: true
-          group: 'Firefox'
           browser: firefox
           headless: true
           env: inspirehep_url=http://localhost:8080
