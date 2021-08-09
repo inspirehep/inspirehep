@@ -100,6 +100,10 @@ def create_ticket(queue, requestors, body, subject=None, recid=None, **kwargs):
 
     queue = current_app.config.get("RT_OVERRIDE_QUEUE") or queue
 
+    # omit empty values for owner
+    if "Owner" in kwargs and not kwargs["Owner"]:
+        del kwargs["Owner"]
+
     payload = dict(Queue=queue, Subject=subject, Text=body, **kwargs)
 
     if recid:

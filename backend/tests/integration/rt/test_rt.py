@@ -181,3 +181,19 @@ def test_get_user_by_email_forces_to_refresh_only_once_per_call(
         get_rt_user_by_email("user2@cern.ch")
 
     assert mock_query_rt.call_count == 2
+
+
+@pytest.mark.vcr()
+def test_create_ticket_with_empty_owner(inspire_app):
+    control_number = 1885350
+    rt_queue = "TEST"
+    ticket_id = create_ticket(
+        rt_queue,
+        "jessica@jones.com",
+        "This is a test description by Jessica Jones.",
+        "This is a test subject by Jessica Jones.",
+        control_number,
+        Owner=None,
+    )
+
+    assert ticket_id

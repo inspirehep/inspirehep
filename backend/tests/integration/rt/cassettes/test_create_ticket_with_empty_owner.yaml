@@ -1,0 +1,88 @@
+interactions:
+- request:
+    body: user=cli&pass=rt_cli_pw
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '23'
+      Content-Type:
+      - application/x-www-form-urlencoded
+    method: POST
+    uri: https://rt.inspirehep.net/REST/1.0/
+  response:
+    body:
+      string: "RT/4.2.16 200 Ok\n\n# Invalid object specification: ''\n\nid: \n\n"
+    headers:
+      Connection:
+      - Keep-Alive
+      Content-Type:
+      - text/plain; charset=utf-8
+      Date:
+      - Mon, 09 Aug 2021 11:11:01 GMT
+      Keep-Alive:
+      - timeout=15, max=100
+      Server:
+      - Apache
+      Set-Cookie:
+      - RT_SID_INSPIRE-HEP.443=bf9f2f3eb7cc628b92c42aad43c73ba5; path=/; secure; HttpOnly
+      Transfer-Encoding:
+      - chunked
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+- request:
+    body: content=Subject%3A+This+is+a+test+subject+by+Jessica+Jones.%0AText%3A+This+is+a+test+description+by+Jessica+Jones.%0ACF.%7BRecordID%7D%3A+1885350%0Arequestors%3A+jessica%40jones.com%0Aid%3A+ticket%2Fnew%0AQueue%3A+Test
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '218'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Cookie:
+      - RT_SID_INSPIRE-HEP.443=bf9f2f3eb7cc628b92c42aad43c73ba5
+    method: POST
+    uri: https://rt.inspirehep.net/REST/1.0/ticket/new
+  response:
+    body:
+      string: 'RT/4.2.16 200 Ok
+
+
+        # Ticket 1158811 created.
+
+        # Ticket 1158811 updated.
+
+
+        '
+    headers:
+      Connection:
+      - Keep-Alive
+      Content-Type:
+      - text/plain; charset=utf-8
+      Date:
+      - Mon, 09 Aug 2021 11:11:01 GMT
+      Keep-Alive:
+      - timeout=15, max=99
+      Server:
+      - Apache
+      Set-Cookie:
+      - RT_SID_INSPIRE-HEP.443=bf9f2f3eb7cc628b92c42aad43c73ba5; path=/; secure; HttpOnly
+      Transfer-Encoding:
+      - chunked
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+version: 1
