@@ -395,3 +395,31 @@ def test_conference_paper_get_updated_reference_conference_when_document_type_ch
 
     assert expected_versions_len == len(results)
     assert result_latest_version == record
+
+
+def test_literature_get_modified_authors_after_ref_update(inspire_app):
+    data = {
+        "authors": [
+            {
+                "full_name": "Brian Gross",
+                "ids": [
+                    {"schema": "INSPIRE ID", "value": "INSPIRE-00304313"},
+                    {"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"},
+                ],
+                "emails": ["test@test.com"],
+                "record": {"$ref": "https://inspirehep.net/api/authors/1028900"},
+            }
+        ]
+    }
+    data = faker.record("lit", with_control_number=True, data=data)
+
+    record = LiteratureRecord.create(data)
+    db.session.commit()
+
+    assert len(list(record.get_modified_authors())) == 1
+
+    data["authors"][0]["record"]["$ref"] = "https://inspirehep.net/api/authors/9999999"
+    record.update(data)
+    db.session.commit()
+
+    assert len(list(record.get_modified_authors())) == 0

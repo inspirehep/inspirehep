@@ -230,7 +230,19 @@ class LiteratureRecord(
             if author_uuid not in previous_authors_by_uuid:
                 yield author
                 continue
-            if author != previous_authors_by_uuid[author_uuid]:
+            # we exclude reference because we don't want to run
+            # disambiguation when only reference has changed.
+            previous_author_with_excluded_ref = previous_authors_by_uuid[
+                author_uuid
+            ].copy()
+            if "record" in previous_author_with_excluded_ref:
+                del previous_author_with_excluded_ref["record"]
+
+            author_with_excluded_ref = author.copy()
+            if "record" in author_with_excluded_ref:
+                del author_with_excluded_ref["record"]
+
+            if author_with_excluded_ref != previous_author_with_excluded_ref:
                 yield author
 
     def get_modified_references(self):
