@@ -58,3 +58,19 @@ def test_clean_stub_authors_doesnt_remove_stub_authors_with_linked_papers(
         stub_author["control_number"], "aut", with_deleted=True
     )
     assert not stub_record.get("deleted")
+
+
+def test_clean_stub_authors_query_all_stub_authors(override_config, inspire_app, cli):
+    with override_config(
+        FEATURE_FLAG_ENABLE_BAI_PROVIDER=True, FEATURE_FLAG_ENABLE_BAI_CREATION=True
+    ):
+        control_numbers = []
+        for _ in range(30):
+            rec = create_record("aut", data={"stub": True}, with_control_number=True)
+            control_numbers.append(("aut", str(rec["control_number"])))
+
+        cli.invoke(["disambiguation", "clean_stub_authors"])
+
+        results = InspireRecord.get_records_by_pids(control_numbers)
+        for result in results:
+            assert result["deleted"]

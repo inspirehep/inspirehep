@@ -27,11 +27,11 @@ def clean_stub_authors():
     # We get all the stub authors (created by disambiguation) from ES and we verify
     # in db if the returned records are stub (ES data might be outdated)
     stub_authors_query = Q("term", stub=True)
-    stub_authors = (
-        AuthorsSearch().query(stub_authors_query).source(["control_number"]).execute()
+    stub_authors_search = (
+        AuthorsSearch().query(stub_authors_query).source(["control_number"])
     )
     stub_authors_control_numbers = [
-        ("aut", str(author["control_number"])) for author in stub_authors
+        ("aut", str(author["control_number"])) for author in stub_authors_search.scan()
     ]
     # We change isolation level in db to the higher one (serializable) to avoid
     # issues with race condition
