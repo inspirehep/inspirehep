@@ -51,6 +51,7 @@ from inspirehep.records.utils import (
     get_literature_earliest_date,
     get_pid_for_pid,
     get_ref_from_pid,
+    remove_author_bai_from_id_list,
 )
 from inspirehep.search.api import LiteratureSearch
 from inspirehep.utils import hash_data
@@ -230,17 +231,19 @@ class LiteratureRecord(
             if author_uuid not in previous_authors_by_uuid:
                 yield author
                 continue
-            # we exclude reference because we don't want to run
-            # disambiguation when only reference has changed.
+            # we exclude reference and BAI because we don't want to run
+            # disambiguation in that case.
             previous_author_with_excluded_ref = previous_authors_by_uuid[
                 author_uuid
             ].copy()
             if "record" in previous_author_with_excluded_ref:
                 del previous_author_with_excluded_ref["record"]
+            remove_author_bai_from_id_list(previous_author_with_excluded_ref)
 
             author_with_excluded_ref = author.copy()
             if "record" in author_with_excluded_ref:
                 del author_with_excluded_ref["record"]
+            remove_author_bai_from_id_list(author_with_excluded_ref)
 
             if author_with_excluded_ref != previous_author_with_excluded_ref:
                 yield author
