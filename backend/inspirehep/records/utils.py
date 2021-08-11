@@ -132,3 +132,11 @@ def get_author_by_bai(literature_record, author_bai):
         for author in literature_record.get("authors")
         if get_values_for_schema(author.get("ids", []), "INSPIRE BAI") == [author_bai]
     )
+
+
+def remove_author_bai_from_id_list(author):
+    if not author.get("ids"):
+        return
+    author["ids"] = [
+        author_id for author_id in author["ids"] if author_id["schema"] != "INSPIRE BAI"
+    ]

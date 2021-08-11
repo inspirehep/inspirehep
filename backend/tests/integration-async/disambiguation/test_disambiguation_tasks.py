@@ -5,9 +5,11 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+import orjson
 from helpers.providers.faker import faker
-from helpers.utils import retry_until_pass
+from helpers.utils import create_user, retry_until_pass
 from inspire_utils.record import get_values_for_schema
+from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_search import current_search
@@ -807,7 +809,7 @@ def test_disambiguation_on_author_record_update(
         {
             "authors": [
                 {
-                    "full_name": "Kowal, Michal",
+                    "full_name": "Kowal, Michal Jacek",
                     "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.2"}],
                     "record": {"$ref": "http://localhost:5000/api/authors/999102"},
                     "curated_relation": True,
@@ -1040,3 +1042,64 @@ def test_disambiguation_handle_deleted_records(
         db.session.commit()
     except Exception:
         assert False
+
+
+def test_disambiguation_races_assign(
+    override_config, inspire_app, clean_celery_session, enable_disambiguation
+):
+    cataloger = create_user(role="cataloger")
+    with override_config(
+        FEATURE_FLAG_ENABLE_BAI_PROVIDER=True, FEATURE_FLAG_ENABLE_BAI_CREATION=True
+    ):
+        author_record_data = faker.record("aut")
+        author_record_data.update(
+            {
+                "name": {"value": "Michael F. A'Hearn"},
+                "ids": [{"schema": "INSPIRE BAI", "value": "M.F.A.Hearn.1"}],
+            }
+        )
+        author_record = AuthorsRecord.create(author_record_data)
+        lit_data = faker.record("lit")
+        lit_data.update(
+            {
+                "authors": [
+                    {
+                        "ids": [{"value": "M.F.A.Hearn.1", "schema": "INSPIRE BAI"}],
+                        "uuid": "ce061c1e-866a-422d-9982-652183bae814",
+                        "full_name": "A'Hearn, M.F.",
+                        "signature_block": "HARNm",
+                        "curated_relation": True,
+                        "record": author_record["self"],
+                    }
+                ]
+            }
+        )
+        lit_record = LiteratureRecord.create(lit_data)
+        db.session.commit()
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=cataloger.email)
+        client.post(
+            "/api/assign/author",
+            data=orjson.dumps(
+                {
+                    "literature_recids": [lit_record["control_number"]],
+                    "from_author_recid": author_record["control_number"],
+                }
+            ),
+            content_type="application/json",
+        )
+
+        def assert_disambiguation_on_record_update():
+            literature_record_from_es = InspireSearch.get_record_data_from_es(
+                lit_record
+            )
+
+            assert (
+                get_values_for_schema(
+                    literature_record_from_es["authors"][0]["ids"], "INSPIRE BAI"
+                )[0]
+                != "M.F.A.Hearn.1"
+            )
+
+        retry_until_pass(assert_disambiguation_on_record_update, retry_interval=2)
