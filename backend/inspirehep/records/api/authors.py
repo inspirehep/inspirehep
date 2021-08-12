@@ -7,7 +7,10 @@
 import structlog
 from inspire_utils.record import get_values_for_schema
 from invenio_db import db
+from invenio_pidstore.models import PersistentIdentifier
 
+from inspirehep.pidstore.api.base import PidStoreBase
+from inspirehep.records.api.mixins import StudentsAdvisorMixin
 from inspirehep.records.marshmallow.authors import AuthorsElasticSearchSchema
 from inspirehep.records.models import RecordsAuthors
 from inspirehep.search.api import AuthorsSearch
@@ -19,7 +22,7 @@ from .base import InspireRecord
 LOGGER = structlog.getLogger()
 
 
-class AuthorsRecord(InspireRecord):
+class AuthorsRecord(InspireRecord, StudentsAdvisorMixin):
     """Authors Record."""
 
     es_serializer = AuthorsElasticSearchSchema
@@ -68,6 +71,7 @@ class AuthorsRecord(InspireRecord):
     def create(cls, data, id_=None, *args, **kwargs):
         record = super().create(data, id_, **kwargs)
         record.assign_author_to_papers()
+        record.update_students_advisors_table()
         return record
 
     def assign_author_to_papers(self):
@@ -97,3 +101,44 @@ class AuthorsRecord(InspireRecord):
 
         for data in query.yield_per(100).with_entities(RecordsAuthors.record_id):
             yield data.record_id
+
+    def update(self, data, *args, **kwargs):
+        with db.session.begin_nested():
+            super().update(data, *args, **kwargs)
+            self.update_students_advisors_table()
+
+    def get_linked_advisors_when_name_changes(self):
+        if not self.get("advisors"):
+            return set()
+        if (
+            self.get_value("name.preferred_name")
+            != self._previous_version.get_value("name.preferred_name")
+        ) or (
+            not self.get_value("name.preferred_name")
+            and (
+                self.get_value("name.value")
+                != self._previous_version.get_value("name.value")
+            )
+        ):
+            advisors_references = self.get_value("advisors.record.$ref")
+            advisors_pids = [
+                PidStoreBase.get_pid_from_record_uri(uri)[1]
+                for uri in advisors_references
+            ]
+            advisor_uuids = (
+                PersistentIdentifier.query.with_entities(
+                    PersistentIdentifier.object_uuid
+                )
+                .filter(
+                    PersistentIdentifier.pid_type == "aut",
+                    PersistentIdentifier.pid_value.in_(advisors_pids),
+                )
+                .all()
+            )
+            return set(str(uuid_list[0]) for uuid_list in advisor_uuids)
+
+        return set()
+
+    def hard_delete(self):
+        self.delete_students_advisors_table_entries()
+        super().hard_delete()

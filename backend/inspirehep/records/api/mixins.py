@@ -7,9 +7,11 @@
 
 import structlog
 from flask import current_app
+from inspire_dojson.utils import get_recid_from_ref
 from inspire_utils.date import fill_missing_date_parts
 from inspire_utils.record import get_values_for_schema
 from invenio_db import db
+from invenio_pidstore.models import PersistentIdentifier
 from sqlalchemy import and_, func, not_, or_, text
 
 from inspirehep.records.models import (
@@ -20,6 +22,7 @@ from inspirehep.records.models import (
     InstitutionLiterature,
     RecordCitations,
     RecordsAuthors,
+    StudentsAdvisors,
 )
 from inspirehep.utils import flatten_list
 
@@ -587,3 +590,75 @@ class ExperimentPapersMixin:
         pids_changed = set.symmetric_difference(set(pids_latest), set(pids_previous))
 
         return list(self.get_records_ids_by_pids(list(pids_changed)))
+
+
+class StudentsAdvisorMixin:
+    def generate_entries_for_table(self):
+        table_entries_buffer = []
+        student_record_uuid = self.id
+        for advisor in self.get_value("advisors", []):
+            if "record" not in advisor:
+                LOGGER.info(
+                    f"Skipping creating entries in "
+                    f"{StudentsAdvisors.__tablename__} table. Advisor record is missing",
+                    recid=self.get("control_number"),
+                    uuid=str(self.id),
+                )
+                continue
+            advisor_recid = get_recid_from_ref(advisor["record"])
+            advisor_record_uuid = (
+                PersistentIdentifier.query.with_entities(
+                    PersistentIdentifier.object_uuid
+                )
+                .filter_by(pid_value=str(advisor_recid), pid_type="aut")
+                .scalar()
+            )
+            degree_type = advisor.get("degree_type")
+            table_entries_buffer.append(
+                StudentsAdvisors(
+                    advisor_id=advisor_record_uuid,
+                    student_id=student_record_uuid,
+                    degree_type=degree_type,
+                )
+            )
+        return table_entries_buffer
+
+    def update_students_advisors_table(self):
+        """Puts all advisors and student ids in students_advisors table"""
+        deleted_count = self.delete_students_advisors_table_entries()
+
+        if self.get("deleted", False):
+            LOGGER.info(
+                f"Skipping creating entries in "
+                f"{StudentsAdvisors.__tablename__} table. Record is deleted",
+                recid=self.get("control_number"),
+                uuid=str(self.id),
+            )
+            return
+        table_entries_buffer = self.generate_entries_for_table()
+
+        db.session.bulk_save_objects(table_entries_buffer)
+        LOGGER.info(
+            "students_advisors table updated for record",
+            recid=self.get("control_number"),
+            uuid=str(self.id),
+            added_rows=len(table_entries_buffer),
+            deleted_rows=deleted_count,
+        )
+
+    def delete_students_advisors_table_entries(self):
+        """Clean entries for this record"""
+        return StudentsAdvisors.query.filter(
+            or_(
+                StudentsAdvisors.advisor_id == self.id,
+                StudentsAdvisors.student_id == self.id,
+            )
+        ).delete()
+
+    def delete(self):
+        self.delete_students_advisors_table_entries()
+        super().delete()
+
+    def hard_delete(self):
+        self.delete_students_advisors_table_entries()
+        super().hard_delete()

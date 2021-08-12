@@ -4,7 +4,8 @@
     {
       "degree_type": "other",
       "ids": [{ "schema": "INSPIRE ID", "value": "INSPIRE-00114021" }],
-      "name": "Palano, Antimo"
+      "name": "Palano, Antimo",
+      "record": {"$ref": "https://inspirehep.net/api/authors/994473"}
     }
   ],
   "arxiv_categories": ["hep-ex"],

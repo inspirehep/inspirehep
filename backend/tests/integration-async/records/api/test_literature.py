@@ -419,10 +419,6 @@ def test_literature_get_modified_authors_after_ref_update(inspire_app):
     assert len(list(record.get_modified_authors())) == 1
 
     data["authors"][0]["record"]["$ref"] = "https://inspirehep.net/api/authors/9999999"
-    data["authors"][0]["ids"] = [
-        {"schema": "INSPIRE ID", "value": "INSPIRE-00304313"},
-        {"schema": "INSPIRE BAI", "value": "J.M.Maldacena.2"},
-    ]
     record.update(data)
     db.session.commit()
 

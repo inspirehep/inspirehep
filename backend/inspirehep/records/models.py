@@ -227,3 +227,38 @@ class ExperimentLiterature(db.Model):
     experiment_paper = db.relationship(
         RecordMetadata, backref="experiments", foreign_keys=[literature_uuid]
     )
+
+
+class DegreeType(enum.Enum):
+    other = "other"
+    diploma = "diploma"
+    bachelor = "bachelor"
+    laurea = "laurea"
+    master = "master"
+    phd = "phd"
+    habilitation = "habilitation"
+
+
+class StudentsAdvisors(db.Model):
+    """Links students with their thesis advisors"""
+
+    __tablename__ = "students_advisors"
+    __table_args__ = (db.Index("ix_students_advisors_student_id", "student_id"),)
+
+    advisor_id = db.Column(
+        UUIDType,
+        db.ForeignKey("records_metadata.id", name="fk_students_advisors_advisor_id"),
+        nullable=False,
+        primary_key=True,
+    )
+
+    student_id = db.Column(
+        UUIDType,
+        db.ForeignKey("records_metadata.id", name="fk_students_advisors_student_id"),
+        nullable=False,
+        primary_key=True,
+    )
+
+    degree_type = db.Column(
+        ENUM(*[key.value for key in DegreeType], name="enum_degree_type")
+    )

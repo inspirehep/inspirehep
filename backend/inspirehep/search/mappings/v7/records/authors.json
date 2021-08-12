@@ -124,6 +124,26 @@
         },
         "type": "object"
       },
+      "students": {
+        "properties": {
+          "degree_type": {
+            "type": "keyword"
+          },
+          "name": {
+            "type": "text"
+          },
+          "record": {
+            "properties": {
+              "$ref": {
+                "type": "text",
+                "analyzer": "recid_analyzer"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
       "arxiv_categories": {
         "copy_to": "facet_arxiv_categories",
         "type": "keyword"

@@ -173,3 +173,46 @@ def test_indexer_deletes_record_from_es(inspire_app, datadir):
     db.session.commit()
 
     retry_until_pass(assert_record_is_deleted_from_es)
+
+
+def test_indexer_updates_advisor_when_student_name_changes(
+    inspire_app, clean_celery_session
+):
+    advisor_data = faker.record("aut")
+    advisor = AuthorsRecord.create(advisor_data)
+    db.session.commit()
+    current_search.flush_and_refresh("records-authors")
+    student_data = faker.record(
+        "aut",
+        data={
+            "advisors": [
+                {
+                    "name": advisor["name"]["value"],
+                    "record": advisor["self"],
+                    "degree_type": "phd",
+                }
+            ]
+        },
+    )
+    student = AuthorsRecord.create(student_data)
+    db.session.commit()
+
+    def assert_record():
+        current_search.flush_and_refresh("records-authors")
+        records_from_es = AuthorsSearch().query_from_iq("").execute()
+        assert len(records_from_es.hits) == 2
+
+    retry_until_pass(assert_record, 3)
+
+    student["name"]["preferred_name"] = "Test Student"
+    student.update(dict(student))
+    db.session.commit()
+
+    expected_student_name = "Test Student"
+
+    def assert_record():
+        current_search.flush_and_refresh("records-authors")
+        record_from_es = AuthorsSearch().get_record_data_from_es(advisor)
+        assert record_from_es["students"][0]["name"] == expected_student_name
+
+    retry_until_pass(assert_record, retry_interval=3)

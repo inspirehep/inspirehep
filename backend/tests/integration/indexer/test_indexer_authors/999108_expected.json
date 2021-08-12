@@ -16,7 +16,8 @@
           "value": "INSPIRE-00070625"
         }
       ],
-      "name": "Callan, Curtis G."
+      "name": "Callan, Curtis G.",
+      "record": {"$ref": "http://labs.inspirehep.net/api/authors/1014725"}
     }
   ],
   "$schema": "https://labs.inspirehep.net/schemas/records/authors.json",
