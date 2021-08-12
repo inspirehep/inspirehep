@@ -5,7 +5,8 @@
     {
       "degree_type": "other",
       "ids": [{ "schema": "INSPIRE ID", "value": "INSPIRE-00070625" }],
-      "name": "Callan, Curtis G."
+      "name": "Callan, Curtis G.",
+      "record": {"$ref": "http://labs.inspirehep.net/api/authors/1014725"}
     }
   ],
   "arxiv_categories": ["hep-th", "gr-qc"],

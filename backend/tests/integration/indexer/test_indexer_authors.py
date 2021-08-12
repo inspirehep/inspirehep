@@ -12,10 +12,11 @@ from marshmallow import utils
 
 @freeze_time("2010-12-19")
 def test_index_author_record(inspire_app, datadir):
+    create_record("aut", data={"control_number": 1014725})
     data = orjson.loads((datadir / "999108.json").read_text())
     record = create_record("aut", data=data)
 
-    expected_count = 1
+    expected_count = 2
     expected_metadata = data = orjson.loads(
         (datadir / "999108_expected.json").read_text()
     )
@@ -23,6 +24,5 @@ def test_index_author_record(inspire_app, datadir):
     expected_metadata["_updated"] = utils.isoformat(record.updated)
 
     response = es_search("records-authors")
-
     assert response["hits"]["total"]["value"] == expected_count
     assert response["hits"]["hits"][0]["_source"] == expected_metadata

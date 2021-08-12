@@ -14,7 +14,11 @@ from helpers.providers.faker import faker
 from helpers.utils import create_record
 
 from inspirehep.records.api import LiteratureRecord
-from inspirehep.records.models import ExperimentLiterature, InstitutionLiterature
+from inspirehep.records.models import (
+    ExperimentLiterature,
+    InstitutionLiterature,
+    StudentsAdvisors,
+)
 
 
 def test_records_links_correctly_with_conference(inspire_app):
@@ -419,7 +423,7 @@ def test_self_citations_in_detail_view_not_logged_user(
     rec2 = create_record(
         "lit", data=data_authors_2, literature_citations=[rec1["control_number"]]
     )
-    rec3 = create_record(
+    create_record(
         "lit",
         data=data_authors_3,
         literature_citations=[rec1["control_number"], rec2["control_number"]],
@@ -585,7 +589,7 @@ def test_redirected_records_are_not_counted_into_citations(inspire_app):
     record_redirected_2 = create_record(
         "lit", literature_citations=[record_1["control_number"]]
     )  # This one cites and will be redirected
-    record_3 = create_record(
+    create_record(
         "lit", data={"deleted_records": [record_redirected_2["self"]]}
     )  # This one redirects but not cites.
 
@@ -617,3 +621,161 @@ def test_citation_of_redirected_record_is_counted_correctly(inspire_app):
     )
     assert record_2_from_db.citation_count == 1
     assert record_2_from_db.model.citations[0].citer_id == record_1.id
+
+
+def test_create_author_with_advisors_updates_students_advisors_table(inspire_app):
+    advisor = create_record("aut")
+    advisor_2 = create_record("aut")
+    student = create_record(
+        "aut",
+        data={
+            "advisors": [
+                {
+                    "name": advisor["name"]["value"],
+                    "record": advisor["self"],
+                    "degree_type": "phd",
+                },
+                {
+                    "name": advisor_2["name"]["value"],
+                    "record": advisor_2["self"],
+                    "degree_type": "other",
+                },
+            ]
+        },
+    )
+
+    all_advisors = StudentsAdvisors.query.filter_by(student_id=student.id).all()
+    assert len(all_advisors) == 2
+    assert all_advisors[0].advisor_id == advisor.id
+    assert all_advisors[0].degree_type == "phd"
+
+    assert all_advisors[1].advisor_id == advisor_2.id
+    assert all_advisors[1].degree_type == "other"
+
+
+def test_update_author_with_advisors_updates_students_advisors_table(inspire_app):
+    advisor = create_record("aut")
+    advisor_2 = create_record("aut")
+    student = create_record(
+        "aut",
+        data={
+            "advisors": [
+                {
+                    "name": advisor["name"]["value"],
+                    "record": advisor["self"],
+                    "degree_type": "phd",
+                }
+            ]
+        },
+    )
+
+    all_advisors = StudentsAdvisors.query.filter_by(student_id=student.id).all()
+    assert len(all_advisors) == 1
+    assert all_advisors[0].advisor_id == advisor.id
+    assert all_advisors[0].degree_type == "phd"
+
+    student["advisors"].append(
+        {
+            "name": advisor_2["name"]["value"],
+            "record": advisor_2["self"],
+            "degree_type": "other",
+        }
+    )
+    student.update(dict(student))
+
+    all_advisors = StudentsAdvisors.query.filter_by(student_id=student.id).all()
+    assert len(all_advisors) == 2
+    assert all_advisors[1].advisor_id == advisor_2.id
+    assert all_advisors[1].degree_type == "other"
+
+
+def test_delete_advisor_clears_entries_in_students_advisors_table(inspire_app):
+    advisor = create_record("aut")
+    student = create_record(
+        "aut",
+        data={
+            "advisors": [
+                {
+                    "name": advisor["name"]["value"],
+                    "record": advisor["self"],
+                    "degree_type": "phd",
+                }
+            ]
+        },
+    )
+
+    assert StudentsAdvisors.query.filter_by(student_id=student.id).count() == 1
+
+    advisor.delete()
+
+    assert StudentsAdvisors.query.filter_by(student_id=student.id).count() == 0
+
+
+def test_delete_student_clears_entries_in_students_advisors_table(inspire_app):
+    advisor = create_record("aut")
+    student = create_record(
+        "aut",
+        data={
+            "advisors": [
+                {
+                    "name": advisor["name"]["value"],
+                    "record": advisor["self"],
+                    "degree_type": "phd",
+                }
+            ]
+        },
+    )
+
+    assert StudentsAdvisors.query.filter_by(student_id=student.id).count() == 1
+
+    student.delete()
+
+    assert StudentsAdvisors.query.filter_by(student_id=student.id).count() == 0
+
+
+def test_hard_delete_student_clears_entries_in_students_advisors_table(
+    inspire_app,
+):
+    advisor = create_record("aut")
+    student = create_record(
+        "aut",
+        data={
+            "advisors": [
+                {
+                    "name": advisor["name"]["value"],
+                    "record": advisor["self"],
+                    "degree_type": "phd",
+                }
+            ]
+        },
+    )
+
+    assert StudentsAdvisors.query.filter_by(student_id=student.id).count() == 1
+
+    student.hard_delete()
+
+    assert StudentsAdvisors.query.filter_by(student_id=student.id).count() == 0
+
+
+def test_hard_delete_advisor_clears_entries_in_students_advisors_table(
+    inspire_app,
+):
+    advisor = create_record("aut")
+    student = create_record(
+        "aut",
+        data={
+            "advisors": [
+                {
+                    "name": advisor["name"]["value"],
+                    "record": advisor["self"],
+                    "degree_type": "phd",
+                }
+            ]
+        },
+    )
+
+    assert StudentsAdvisors.query.filter_by(student_id=student.id).count() == 1
+
+    advisor.hard_delete()
+
+    assert StudentsAdvisors.query.filter_by(student_id=student.id).count() == 0

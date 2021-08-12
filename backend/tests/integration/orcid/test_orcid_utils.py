@@ -79,7 +79,7 @@ def user_remote_account(inspire_app):
     test_user_remote_account = TestRemoteAccount.create_from_kwargs(
         user_id=test_user.user.id, extra_data={"orcid": orcid, "allow_push": True}
     )
-    remote_token = TestRemoteToken.create_from_kwargs(
+    TestRemoteToken.create_from_kwargs(
         remote_account=test_user_remote_account.remote_account
     ).remote_token
     yield test_user_remote_account
@@ -201,6 +201,7 @@ def test_orcid_for_push_orcid_in_author_with_claim_and_in_paper(author_in_isolat
 
 
 def test_get_literature_recids_for_orcid(inspire_app, datadir):
+    create_record("aut", data={"control_number": 994473})
     data_author = orjson.loads((datadir / "1061000.json").read_text())
     create_record("aut", data=data_author)
     data_literature = orjson.loads((datadir / "1496635.json").read_text())
@@ -219,6 +220,7 @@ def test_get_literature_recids_for_orcid_raises_if_no_author_is_found(inspire_ap
 def test_get_literature_recids_for_orcid_raises_if_two_authors_are_found(
     inspire_app, datadir
 ):
+    create_record("aut", data={"control_number": 994473})
     data = orjson.loads((datadir / "1061000.json").read_text())
     create_record("aut", data=data)
     record = InspireRecord.get_record_by_pid_value(1061000, pid_type="aut")
@@ -231,6 +233,7 @@ def test_get_literature_recids_for_orcid_raises_if_two_authors_are_found(
 def test_get_literature_recids_for_orcid_still_works_if_author_has_no_ids(
     inspire_app, datadir
 ):
+    create_record("aut", data={"control_number": 994473})
     data = orjson.loads((datadir / "1061000.json").read_text())
     create_record("aut", data=data)
     record = InspireRecord.get_record_by_pid_value(1061000, pid_type="aut")
@@ -244,6 +247,7 @@ def test_get_literature_recids_for_orcid_still_works_if_author_has_no_ids(
 def test_get_literature_recids_for_orcid_still_works_if_author_has_no_orcid_id(
     inspire_app, datadir
 ):
+    create_record("aut", data={"control_number": 994473})
     data = orjson.loads((datadir / "1061000.json").read_text())
     create_record("aut", data=data)
     record = InspireRecord.get_record_by_pid_value(1061000, pid_type="aut")

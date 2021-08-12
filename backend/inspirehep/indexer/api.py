@@ -25,6 +25,7 @@ def get_references_to_update(record):
         uuids_to_reindex |= (
             record.get_linked_author_records_uuids_if_author_changed_name()
         )
+        uuids_to_reindex |= record.get_linked_advisors_when_name_changes()
 
     if isinstance(record, ConferencesRecord):
         uuids_to_reindex |= (
