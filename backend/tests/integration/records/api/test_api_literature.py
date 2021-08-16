@@ -1200,6 +1200,38 @@ def test_adding_record_with_document_without_filename(inspire_app, s3):
 
 
 @pytest.mark.vcr()
+def test_adding_record_with_document_without_filename_or_key(inspire_app, s3):
+    expected_document_key = "2604ee85348bddb0f02bee24657a31f9"
+    create_s3_bucket(expected_document_key)
+    data = {
+        "documents": [
+            {
+                "source": "arxiv",
+                "url": "https://arxiv.org/pdf/1007.5048.pdf",
+                "original_url": "http://original-url.com/2",
+            }
+        ]
+    }
+    record = create_record("lit", data=data, skip_validation=True)
+    expected_documents = [
+        {
+            "source": "arxiv",
+            "key": expected_document_key,
+            "url": current_s3_instance.get_public_url(expected_document_key),
+            "original_url": "http://original-url.com/2",
+            "filename": expected_document_key,
+        }
+    ]
+    assert expected_documents == record["documents"]
+    assert current_s3_instance.file_exists(expected_document_key) is True
+    metadata_document = current_s3_instance.get_file_metadata(expected_document_key)
+    assert (
+        metadata_document["ContentDisposition"]
+        == f'inline; filename="{expected_document_key}"'
+    )
+
+
+@pytest.mark.vcr()
 def test_adding_record_with_documents_with_existing_file_updates_metadata(
     inspire_app, s3
 ):

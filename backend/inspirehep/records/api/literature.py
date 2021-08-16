@@ -482,6 +482,8 @@ class LiteratureRecord(
             mimetype = magic.from_buffer(file_data, mime=True)
             file_data = BytesIO(file_data)
             filename = filename or key
+            if not filename:
+                filename = new_key
             acl = current_app.config["S3_FILE_ACL"]
             if current_s3_instance.file_exists(new_key):
                 LOGGER.info(
