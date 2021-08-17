@@ -1,0 +1,54 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://www.hepdata.net/search/ids?inspire_ids=True&last_updated=2021-08-11&sort_by=latest
+  response:
+    body:
+      string: '[1882568,1866118,1833997]
+
+        '
+    headers:
+      access-control-allow-origin:
+      - '*'
+      content-length:
+      - '26'
+      content-type:
+      - application/json
+      date:
+      - Tue, 17 Aug 2021 12:17:52 GMT
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      retry-after:
+      - '60'
+      server:
+      - gunicorn/19.5.0
+      set-cookie:
+      - csrftoken=eyJhbGciOiJIUzUxMiIsImlhdCI6MTYyOTIwMjY3MiwiZXhwIjoxNjI5MjA2MjcyfQ.ImFTcFNYdnhpaDZrY0ZVcVFlWWR3cUt4NDZSWDlwc0xTIg.lVWVIt0JqYD2UTWAyYrvf3Jm1CdCvkuZGKvOMT6xXKOGUh91GIts0LXxINQlEzIZN4m8EZLbiCtvBxLOld-qLQ;
+        Domain=.www.hepdata.net; Expires=Tue, 16-Aug-2022 12:17:52 GMT; Max-Age=31449600;
+        Path=/; SameSite=Lax
+      - session=b133b5cb6a28f8da_611ba8f0.F83s8wzmYvSoDzqvx22e9yEv_1I; Domain=.www.hepdata.net;
+        Expires=Wed, 18-Aug-2021 12:17:52 GMT; HttpOnly; Path=/
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - sameorigin
+      x-ratelimit-limit:
+      - '60'
+      x-ratelimit-remaining:
+      - '59'
+      x-ratelimit-reset:
+      - '1629202733'
+      x-xss-protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+version: 1
