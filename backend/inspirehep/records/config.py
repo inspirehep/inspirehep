@@ -665,3 +665,5 @@ LITERATURE_SOURCE_EXCLUDES_BY_CONTENT_TYPE = {
 
 
 ADDITIONAL_LINKS = {"LITERATURE": {"citations": build_citation_search_link}}
+
+FILES_RESTRICTED_MIMETYPES = ("text/html", "text/javascript")

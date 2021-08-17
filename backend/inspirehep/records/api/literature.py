@@ -43,6 +43,7 @@ from inspirehep.records.errors import (
     ImportConnectionError,
     ImportParsingError,
     UnknownImportIdentifierError,
+    UnsupportedFileError,
 )
 from inspirehep.records.marshmallow.literature import LiteratureElasticSearchSchema
 from inspirehep.records.utils import (
@@ -484,6 +485,14 @@ class LiteratureRecord(
             filename = filename or key
             if not filename:
                 filename = new_key
+            if mimetype in current_app.config.get("FILES_RESTRICTED_MIMETYPES"):
+                LOGGER.error(
+                    "Unsupported file type - Aborting",
+                    key=key,
+                    mimetype=mimetype,
+                    thread=threading.get_ident(),
+                )
+                raise UnsupportedFileError(mimetype)
             acl = current_app.config["S3_FILE_ACL"]
             if current_s3_instance.file_exists(new_key):
                 LOGGER.info(
