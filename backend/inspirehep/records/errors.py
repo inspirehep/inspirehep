@@ -58,6 +58,14 @@ class DownloadFileError(Exception):
     pass
 
 
+class UnsupportedFileError(RESTException):
+    def __init__(self, mimetype="", **kwargs):
+        super().__init__(**kwargs)
+        self.description = f"Attached file format is not supported ({mimetype}), please attach a valid file."
+
+    code = 415
+
+
 class MaxResultWindowRESTError(RESTException):
     code = 400
 

@@ -866,3 +866,36 @@ def test_users_can_access_records_from_hidden_collections(inspire_app):
     with inspire_app.test_client() as client:
         response = client.get(f"/literature/{record.control_number}")
     assert response.status_code == 200
+
+
+def test_restricted_file_attach(inspire_app, override_config):
+    record = create_record(
+        "lit",
+        data={
+            "documents": [
+                {
+                    "source": "arxiv",
+                    "key": "arXiv:nucl-th_9310031.pdf",
+                    "url": "https://inspirehep.net/literature/863300",
+                    "original_url": "http://original-url.com/1",
+                    "filename": "fermilab.pdf",
+                }
+            ],
+        },
+    )
+    token = create_user_and_token()
+
+    expected_status_code = 415
+    expected_message = (
+        "Attached file format is not supported (text/html), please attach a valid file."
+    )
+    headers = {"Authorization": "BEARER " + token.access_token, "If-Match": '"0"'}
+    config = {"FEATURE_FLAG_ENABLE_FILES": True}
+
+    with override_config(**config), inspire_app.test_client() as client:
+        response = client.put(
+            f"/literature/{record['control_number']}", headers=headers, json=record
+        )
+
+    assert expected_status_code == response.status_code
+    assert expected_message == response.json["message"]

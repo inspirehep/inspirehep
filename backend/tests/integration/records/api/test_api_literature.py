@@ -24,7 +24,11 @@ from jsonschema import ValidationError
 from inspirehep.files.api import current_s3_instance
 from inspirehep.records.api import InspireRecord, LiteratureRecord
 from inspirehep.records.api.literature import import_article
-from inspirehep.records.errors import ExistingArticleError, UnknownImportIdentifierError
+from inspirehep.records.errors import (
+    ExistingArticleError,
+    UnknownImportIdentifierError,
+    UnsupportedFileError,
+)
 from inspirehep.records.models import RecordCitations, RecordsAuthors
 
 
@@ -1501,6 +1505,60 @@ def test_update_record_add_more_documents(inspire_app, s3):
     )
     assert metadata_document["ContentDisposition"] == 'inline; filename="fermilab.pdf"'
     assert metadata_document["ContentType"] == "application/pdf"
+
+
+@pytest.mark.vcr()
+def test_not_adding_unsupported_files(inspire_app, s3):
+    expected_document_key = "b98fd32e5ba4fa4e1c4bb547c66734a8"
+    create_s3_bucket(expected_document_key)
+    data_html = {
+        "documents": [
+            {
+                "source": "arxiv",
+                "key": "arXiv:nucl-th_9310031.pdf",
+                "url": "https://inspirehep.net/literature/863300",
+                "original_url": "http://original-url.com/1",
+                "filename": "fermilab.pdf",
+            }
+        ],
+    }
+    data_js = {
+        "documents": [
+            {
+                "source": "arxiv",
+                "key": "arXiv:nucl-th_9310031.pdf",
+                "url": "https://inspirehep.net/config.js",
+                "original_url": "http://original-url.com/2",
+                "filename": "fermilab.pdf",
+            }
+        ],
+    }
+    data_pdf = {
+        "documents": [
+            {
+                "source": "PoS",
+                "key": "PoS:ICHEP2020_903.pdf",
+                "url": "https://inspirehep.net/files/b98fd32e5ba4fa4e1c4bb547c66734a8",
+                "original_url": "http://original-url.com/4",
+                "filename": "PoS(ICHEP2020)903.pdf",
+            }
+        ],
+    }
+    expected_documents = [
+        {
+            "source": "PoS",
+            "key": expected_document_key,
+            "url": current_s3_instance.get_public_url(expected_document_key),
+            "original_url": "http://original-url.com/4",
+            "filename": "PoS(ICHEP2020)903.pdf",
+        },
+    ]
+    with pytest.raises(UnsupportedFileError):
+        create_record("lit", data_html)
+    with pytest.raises(UnsupportedFileError):
+        create_record("lit", data_js)
+    record = create_record("lit", data_pdf)
+    assert expected_documents == record["documents"]
 
 
 def test_literature_updates_refs_to_known_conferences(inspire_app):
