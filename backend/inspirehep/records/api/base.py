@@ -39,7 +39,7 @@ from inspirehep.records.errors import (
     WrongRecordSubclass,
 )
 from inspirehep.records.utils import get_ref_from_pid
-from inspirehep.utils import flatten_list
+from inspirehep.utils import chunker, flatten_list
 
 LOGGER = structlog.getLogger()
 
@@ -170,21 +170,19 @@ class InspireRecord(Record):
         return record
 
     @classmethod
-    def get_records_by_pids(cls, pids):
-        query = cls.get_record_metadata_by_pids(pids)
-
-        for data in query.yield_per(100):
-            yield cls(data.json, model=data)
+    def get_records_by_pids(cls, pids, max_batch=100):
+        for batch in chunker(pids, max_chunk_size=max_batch):
+            query = cls.get_record_metadata_by_pids(batch)
+            for data in query.yield_per(100):
+                yield cls(data.json, model=data)
 
     @classmethod
     def get_records_ids_by_pids(cls, pids, max_batch=100):
         """If query is too big (~5000 pids) SQL refuses to run it,
         so it has to be split"""
 
-        for batch_no in range((len(pids) // max_batch) + 1):
-            query = cls._get_records_ids_by_pids(
-                pids[max_batch * batch_no : max_batch * (batch_no + 1)]  # noqa
-            )
+        for batch in chunker(pids, max_chunk_size=max_batch):
+            query = cls._get_records_ids_by_pids(batch)
             for data in query.yield_per(100):
                 yield data.object_uuid
 
