@@ -4997,9 +4997,10 @@ next-tick@~1.0.0:
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
   integrity sha1-yobR/ogoFpsBICCOPchCS524NCw=
 
-"ng2-json-editor@https://github.com/inveniosoftware-contrib/ng2-json-editor.git#master":
-  version "0.25.30"
-  resolved "https://github.com/inveniosoftware-contrib/ng2-json-editor.git#b1812048d4dc787c7ee587183880a83563af30d0"
+ng2-json-editor@^0.25.33:
+  version "0.25.40"
+  resolved "https://registry.yarnpkg.com/ng2-json-editor/-/ng2-json-editor-0.25.40.tgz#8a4cf7de97b4801ec2cd3750475eb17c5fb5eb49"
+  integrity sha512-RW/hgjMgN4UmVp2wToWs6T4pbi9ZIrAtNES05LrRA0wvPd2ducba0JgRLg7iTcLWTJQP8mUpBXxs/Xro2/MZnQ==
   dependencies:
     ajv "^5.0.0"
     ajv-errors "^1.0.0"
@@ -7788,9 +7789,9 @@ url-loader@^0.6.2:
     schema-utils "^0.3.0"
 
 url-parse@^1.1.8, url-parse@^1.4.3:
-  version "1.4.7"
-  resolved "https://registry.yarnpkg.com/url-parse/-/url-parse-1.4.7.tgz#a8a83535e8c00a316e403a5db4ac1b9b853ae278"
-  integrity sha512-d3uaVyzDB9tQoSXFvuSUNFibTd9zxd2bkVrDRvF5TmvWWQwqE4lgYJ5m+x1DbecWkw+LK4RNl2CU1hHuOKPVlg==
+  version "1.5.3"
+  resolved "https://registry.yarnpkg.com/url-parse/-/url-parse-1.5.3.tgz#71c1303d38fb6639ade183c2992c8cc0686df862"
+  integrity sha512-IIORyIQD9rvj0A4CLWsHkBBJuNqWpFQe224b6j9t/ABmquIS0qDU2pY6kl6AuOrL5OkCXHMCFNe1jBcuAggjvQ==
   dependencies:
     querystringify "^2.1.1"
     requires-port "^1.0.0"
