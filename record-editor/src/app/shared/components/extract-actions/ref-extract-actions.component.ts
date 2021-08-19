@@ -58,12 +58,12 @@ export class RefExtractActionsComponent {
 
     this.apiService
       .refExtract(this.source, this.sourceType)
-      .then(references => {
+      .then((references) => {
         if (this.replaceExisting) {
           this.jsonStoreService.setIn(['references'], references);
         } else {
-          references.forEach(reference => {
-            this.jsonStoreService.addIn(['references', 0], reference);
+          references.forEach((reference) => {
+            this.jsonStoreService.addIn(['references', '-'], reference);
           });
         }
 
@@ -73,7 +73,7 @@ export class RefExtractActionsComponent {
           'Success'
         );
       })
-      .catch(error => {
+      .catch((error) => {
         this.toastrService.clear(infoToast.toastId);
         this.toastrService.error('Could not extract references', 'Error');
       });
