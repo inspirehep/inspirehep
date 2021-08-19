@@ -74,7 +74,7 @@ export class AuthorExtractActionsComponent {
       this.jsonStoreService.setIn(['authors'], authors);
     } else {
       authors.forEach((author) => {
-        this.jsonStoreService.addIn(['authors', 0], author);
+        this.jsonStoreService.addIn(['authors', '-'], author);
       });
     }
 
