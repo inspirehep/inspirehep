@@ -17,7 +17,11 @@ from invenio_records_rest.utils import set_headers_for_record_caching_and_concur
 from refextract import extract_references_from_string, extract_references_from_url
 from sqlalchemy_continuum import transaction_class, version_class
 
-from inspirehep.accounts.decorators import login_required_with_roles
+from inspirehep.accounts.api import (
+    check_permissions_for_private_collection_read,
+    check_permissions_for_private_collection_read_write,
+)
+from inspirehep.accounts.decorators import login_required, login_required_with_roles
 from inspirehep.accounts.roles import Roles
 from inspirehep.files.api import current_s3_instance
 from inspirehep.matcher.api import match_references
@@ -28,8 +32,8 @@ from inspirehep.rt import tickets
 from inspirehep.serializers import jsonify
 from inspirehep.utils import hash_data
 
-from .authorlist_utils import authorlist
 from ..rt.errors import EmptyResponseFromRT, NoUsersFound
+from .authorlist_utils import authorlist
 from .errors import EditorGetRevisionError, EditorRevertToRevisionError
 
 blueprint = Blueprint("inspirehep_editor", __name__, url_prefix="/editor")
@@ -37,7 +41,7 @@ LOGGER = structlog.getLogger()
 
 
 @blueprint.route("/<endpoint>/<int:pid_value>/revisions/revert", methods=["PUT"])
-@login_required_with_roles([Roles.cataloger.value])
+@login_required
 def revert_to_revision(endpoint, pid_value):
     """Revert given record to given revision"""
     try:
@@ -45,6 +49,12 @@ def revert_to_revision(endpoint, pid_value):
         record = InspireRecord.get_record_by_pid_value(
             pid_value, pid_type, original_record=True
         )
+
+        if not check_permissions_for_private_collection_read_write(
+            record.get("_collections", [])
+        ):
+            return jsonify(message="Unauthorized", code=403), 403
+
         revision_id = request.json["revision_id"]
         record.revert(revision_id)
         db.session.commit()
@@ -54,13 +64,22 @@ def revert_to_revision(endpoint, pid_value):
 
 
 @blueprint.route("/<endpoint>/<int:pid_value>", methods=["GET"])
-@login_required_with_roles([Roles.cataloger.value])
+@login_required
 def get_record_and_schema(endpoint, pid_value):
     pid_type = PidStoreBase.get_pid_type_from_endpoint(endpoint)
     record = InspireRecord.get_record_by_pid_value(
         pid_value, pid_type, original_record=True
     )
-    json = {"record": {"metadata": record}, "schema": load_schema(record["$schema"])}
+
+    if not check_permissions_for_private_collection_read(
+        record.get("_collections", [])
+    ):
+        return jsonify(message="Unauthorized", code=403), 403
+
+    json = {
+        "record": {"metadata": record},
+        "schema": load_schema(record["$schema"]),
+    }
 
     response = make_response(json)
     set_headers_for_record_caching_and_concurrency(response, record)
@@ -69,7 +88,7 @@ def get_record_and_schema(endpoint, pid_value):
 
 
 @blueprint.route("/<endpoint>/<int:pid_value>/revisions", methods=["GET"])
-@login_required_with_roles([Roles.cataloger.value])
+@login_required
 def get_revisions(endpoint, pid_value):
     """Get revisions of given record"""
     try:
@@ -78,6 +97,11 @@ def get_revisions(endpoint, pid_value):
         record = InspireRecord.get_record_by_pid_value(
             pid_value, pid_type, original_record=True
         )
+
+        if not check_permissions_for_private_collection_read(
+            record.get("_collections", [])
+        ):
+            return jsonify(message="Unauthorized", code=403), 403
 
         revisions = []
         for revision in reversed(record.revisions):

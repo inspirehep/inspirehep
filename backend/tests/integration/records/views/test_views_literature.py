@@ -5,7 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from urllib.parse import urlencode
+from urllib.parse import quote, urlencode
 
 import orjson
 from helpers.providers.faker import faker
@@ -767,6 +767,148 @@ def test_literature_search_permissions(inspire_app):
         response_data["hits"]["hits"][0]["metadata"]["control_number"]
         == rec_literature["control_number"]
     )
+
+
+def test_literature_search_permissions_private_collections_read(inspire_app):
+    hidden_collection = "HEP Hidden"
+    hidden_collection_role_prefix = hidden_collection.lower().replace(" ", "-")
+    record = create_record("lit", data={"_collections": [hidden_collection]})
+    user = create_user(role="user")
+    user_read = create_user(role=f"{hidden_collection_role_prefix}-read")
+    user_readwrite = create_user(role=f"{hidden_collection_role_prefix}-read-write")
+    cataloger = create_user(role=Roles.cataloger.value)
+
+    with inspire_app.test_client() as client:
+        # without login
+        response = client.get("/literature")
+        response_data = orjson.loads(response.data)
+        assert response_data["hits"]["total"] == 0
+
+        response = client.get(f"/literature?q=_collections:{quote(hidden_collection)}")
+        response_data = orjson.loads(response.data)
+        assert response_data["hits"]["total"] == 0
+
+        response = client.get(f"/literature/{record['control_number']}")
+        assert response.status_code == 401
+
+        # user login
+        login_user_via_session(client, email=user.email)
+        response = client.get(f"/literature?q=_collections:{quote(hidden_collection)}")
+        response_data = orjson.loads(response.data)
+        assert response_data["hits"]["total"] == 0
+
+        response = client.get(f"/literature/{record['control_number']}")
+        assert response.status_code == 403
+        logout(client)
+
+        # user with read permission
+        login_user_via_session(client, email=user_read.email)
+        response = client.get(f"/literature?q=_collections:{quote(hidden_collection)}")
+        response_data = orjson.loads(response.data)
+        assert response_data["hits"]["total"] == 1
+
+        response = client.get(f"/literature/{record['control_number']}")
+        assert response.status_code == 200
+        logout(client)
+
+        # user with read-write permission
+        login_user_via_session(client, email=user_readwrite.email)
+        response = client.get(f"/literature?q=_collections:{quote(hidden_collection)}")
+        response_data = orjson.loads(response.data)
+        assert response_data["hits"]["total"] == 1
+
+        response = client.get(f"/literature/{record['control_number']}")
+        assert response.status_code == 200
+        logout(client)
+
+        # cataloger
+        login_user_via_session(client, email=cataloger.email)
+        response = client.get(f"/literature?q=_collections:{quote(hidden_collection)}")
+        response_data = orjson.loads(response.data)
+        assert response_data["hits"]["total"] == 1
+
+        response = client.get(f"/literature/{record['control_number']}")
+        assert response.status_code == 200
+        logout(client)
+
+
+def test_literature_search_permissions_private_collections_put(inspire_app):
+    hidden_collection = "HEP Hidden"
+    record = create_record("lit", data={"_collections": [hidden_collection]})
+    token = create_user_and_token(user_role="user")
+    headers = {"Authorization": "BEARER " + token.access_token, "If-Match": '"0"'}
+
+    with inspire_app.test_client() as client:
+        response = client.put(
+            "/literature/{}".format(record["control_number"]),
+            headers=headers,
+            json=record,
+        )
+        assert response.status_code == 403
+
+
+def test_literature_search_permissions_private_collections_put_user_read(inspire_app):
+    hidden_collection = "HEP Hidden"
+    hidden_collection_role_prefix = hidden_collection.lower().replace(" ", "-")
+    record = create_record("lit", data={"_collections": [hidden_collection]})
+    token_read = create_user_and_token(
+        user_role=f"{hidden_collection_role_prefix}-read"
+    )
+    headers_read = {
+        "Authorization": "BEARER " + token_read.access_token,
+        "If-Match": '"0"',
+    }
+
+    with inspire_app.test_client() as client:
+        response = client.put(
+            "/literature/{}".format(record["control_number"]),
+            headers=headers_read,
+            json=record,
+        )
+        assert response.status_code == 403
+
+
+def test_literature_search_permissions_private_collections_put_user_read_write(
+    inspire_app,
+):
+    hidden_collection = "HEP Hidden"
+    hidden_collection_role_prefix = hidden_collection.lower().replace(" ", "-")
+    record = create_record("lit", data={"_collections": [hidden_collection]})
+    token_readwrite = create_user_and_token(
+        user_role=f"{hidden_collection_role_prefix}-read-write"
+    )
+    headers_readwrite = {
+        "Authorization": "BEARER " + token_readwrite.access_token,
+        "If-Match": '"0"',
+    }
+
+    with inspire_app.test_client() as client:
+        response = client.put(
+            "/literature/{}".format(record["control_number"]),
+            headers=headers_readwrite,
+            json=record,
+        )
+        assert response.status_code == 200
+
+
+def test_literature_search_permissions_private_collections_put_cataloger(
+    inspire_app,
+):
+    hidden_collection = "HEP Hidden"
+    record = create_record("lit", data={"_collections": [hidden_collection]})
+    token_readwrite = create_user_and_token(user_role=Roles.cataloger.value)
+    headers_cataloger = {
+        "Authorization": "BEARER " + token_readwrite.access_token,
+        "If-Match": '"0"',
+    }
+
+    with inspire_app.test_client() as client:
+        response = client.put(
+            "/literature/{}".format(record["control_number"]),
+            headers=headers_cataloger,
+            json=record,
+        )
+        assert response.status_code == 200
 
 
 def test_literature_hidden_collection_as_anonymous_user(inspire_app):

@@ -4,12 +4,13 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+from urllib.parse import quote
 from uuid import UUID
 
 import mock
 import orjson
 from helpers.providers.faker import faker
-from helpers.utils import create_record, create_record_factory, create_user
+from helpers.utils import create_record, create_record_factory, create_user, logout
 from invenio_accounts.testutils import login_user_via_session
 
 from inspirehep.accounts.roles import Roles
@@ -428,6 +429,68 @@ def test_literature_list_with_cataloger_can_edit(inspire_app):
     assert expected_title == expected_data_hits["titles"][0]["title"]
     assert "can_edit" in expected_data_hits
     assert expected_data_hits["can_edit"] is True
+
+
+def test_literature_list_with_cataloger_can_edit_hidden_collection(inspire_app):
+    headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+    hidden_collection = "HEP Hidden"
+    hidden_collection_role_prefix = hidden_collection.lower().replace(" ", "-")
+    create_record("lit", data={"_collections": [hidden_collection]})
+
+    expected_status_code = 200
+
+    user = create_user(role="user")
+    user_read = create_user(role=f"{hidden_collection_role_prefix}-read")
+    user_readwrite = create_user(role=f"{hidden_collection_role_prefix}-read-write")
+    cataloger = create_user(role=Roles.cataloger.value)
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(
+            f"/literature?q=_collections:{quote(hidden_collection)}", headers=headers
+        )
+        response_status_code = response.status_code
+        response_data = orjson.loads(response.data)
+        assert response_data["hits"]["total"] == 0
+        logout(client)
+
+        login_user_via_session(client, email=user_read.email)
+        response = client.get(
+            f"/literature?q=_collections:{quote(hidden_collection)}", headers=headers
+        )
+        response_status_code = response.status_code
+        response_data = orjson.loads(response.data)
+        assert response_data["hits"]["total"] == 1
+        expected_data_hits = response_data["hits"]["hits"][0]["metadata"]
+        assert expected_status_code == response_status_code
+        assert "can_edit" not in expected_data_hits
+        logout(client)
+
+        login_user_via_session(client, email=user_readwrite.email)
+        response = client.get(
+            f"/literature?q=_collections:{quote(hidden_collection)}", headers=headers
+        )
+        response_status_code = response.status_code
+        response_data = orjson.loads(response.data)
+        assert response_data["hits"]["total"] == 1
+        expected_data_hits = response_data["hits"]["hits"][0]["metadata"]
+        assert expected_status_code == response_status_code
+        assert "can_edit" in expected_data_hits
+        assert expected_data_hits["can_edit"] is True
+        logout(client)
+
+        login_user_via_session(client, email=cataloger.email)
+        response = client.get(
+            f"/literature?q=_collections:{quote(hidden_collection)}", headers=headers
+        )
+        response_status_code = response.status_code
+        response_data = orjson.loads(response.data)
+        assert response_data["hits"]["total"] == 1
+        expected_data_hits = response_data["hits"]["hits"][0]["metadata"]
+        assert expected_status_code == response_status_code
+        assert "can_edit" in expected_data_hits
+        assert expected_data_hits["can_edit"] is True
+        logout(client)
 
 
 def test_literature_list_has_sort_options(inspire_app):

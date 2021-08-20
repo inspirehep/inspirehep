@@ -7,6 +7,7 @@
 
 
 import structlog
+from flask import current_app
 from flask_login import current_user
 from inspire_utils.record import get_value, get_values_for_schema
 from invenio_oauthclient.models import RemoteAccount, UserIdentity
@@ -19,10 +20,23 @@ LOGGER = structlog.getLogger()
 
 def is_superuser_or_cataloger_logged_in():
     """Check if current authenticated user is cataloger/superuser."""
-    if current_user and current_user.is_authenticated:
+    if is_user_logged_in():
         user_roles = {role.name for role in current_user.roles}
         return bool(user_roles & {Roles.cataloger.value, Roles.superuser.value})
     return False
+
+
+def is_superuser_logged_in():
+    """Check if current authenticated user is superuser."""
+    if is_user_logged_in():
+        user_roles = {role.name for role in current_user.roles}
+        return bool(user_roles & {Roles.superuser.value})
+    return False
+
+
+def is_user_logged_in():
+    """Check if current authenticated user exists"""
+    return current_user and current_user.is_authenticated
 
 
 def can_user_edit_record(record):
@@ -66,3 +80,49 @@ def get_current_user_orcid():
 
 def get_current_user_remote_orcid_account():
     return RemoteAccount.query.filter_by(user_id=current_user.get_id()).one_or_none()
+
+
+def get_allowed_roles_for_collections(collections, read_only=True):
+    private_collections = set(collections) - set(
+        current_app.config["NON_PRIVATE_LITERATURE_COLLECTIONS"]
+    )
+    roles = []
+    for col in private_collections:
+        collection_role_prefix = col.lower().replace(" ", "-")
+        roles.append(collection_role_prefix + "-read-write")
+        if read_only:
+            roles.append(collection_role_prefix + "-read")
+    return roles
+
+
+def _check_permissions_for_private_collections(collections, read_only=True):
+    """
+    Check if the user has read or write access.
+
+    Parameters:
+        collections (list): list of collections
+        read_only (bool): True, read permission check. False, read/write permission check.
+
+    Returns:
+        set: allowed roles. Access granted if not empty.
+    """
+    # superuser and cataloger always have access
+    allowed_roles = [Roles.superuser.value, Roles.cataloger.value]
+    if collections:
+        allowed_collection_roles = get_allowed_roles_for_collections(
+            collections, read_only
+        )
+        allowed_roles.extend(allowed_collection_roles)
+
+    user_roles = {role.name for role in current_user.roles}
+    has_access = user_roles & set(allowed_roles)
+
+    return has_access
+
+
+def check_permissions_for_private_collection_read(collections):
+    return _check_permissions_for_private_collections(collections, read_only=True)
+
+
+def check_permissions_for_private_collection_read_write(collections):
+    return _check_permissions_for_private_collections(collections, read_only=False)

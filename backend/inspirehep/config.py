@@ -112,6 +112,11 @@ NON_PRIVATE_LITERATURE_COLLECTIONS = [
     "ZEUS Preliminary Notes",
 ]
 
+COLLECTION_ROLES_TO_COLLECTION_NAMES = {
+    "hep-hidden-read": "HEP Hidden",
+    "hep-hidden-read-write": "HEP Hidden",
+}
+
 # Invenio and 3rd party
 # =====================
 
@@ -268,4 +273,4 @@ REFEXTRACT_JOURNAL_KB_PATH = pkg_resources.resource_filename(
     "refextract", "references/kbs/journal-titles.kb"
 )
 
-BATCHUPLOADER_WEB_ROBOT_TOKEN = 'CHANGE_ME'
+BATCHUPLOADER_WEB_ROBOT_TOKEN = "CHANGE_ME"
