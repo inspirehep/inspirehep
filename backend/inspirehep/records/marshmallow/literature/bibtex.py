@@ -135,9 +135,11 @@ class BibTexCommonSchema(BaseSchema):
             entry
             for entry in publication_info
             if entry.get("material", "publication") == "publication"
-            and entry.get("journal_title")
-            and entry.get("journal_volume")
             and (entry.get("artid") or entry.get("page_start"))
+            and (
+                entry.get("parent_record")
+                or (entry.get("journal_title") and entry.get("journal_volume"))
+            )
         ]
         if not only_publications:
             return {}
