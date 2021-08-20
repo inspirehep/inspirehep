@@ -407,6 +407,50 @@ def test_get_page():
     assert expected_pages == result_pages
 
 
+def test_get_page_without_journal_title_volume():
+    record = {
+        "document_type": ["book chapter"],
+        "publication_info": [
+            {
+                "artid": "67567",
+                "page_start": "123",
+                "parent_record": {
+                    "ref": "http://labs.inspirehep.net/api/literature/1642228"
+                },
+            }
+        ],
+    }
+    expected_pages = "67567"
+    schema = BibTexCommonSchema()
+
+    result = schema.dump(record).data
+    result_pages = result["pages"]
+
+    assert expected_pages == result_pages
+
+
+def test_get_page_range_without_journal_title_volume():
+    record = {
+        "document_type": ["book chapter"],
+        "publication_info": [
+            {
+                "page_start": "123",
+                "page_end": "151",
+                "parent_record": {
+                    "ref": "http://labs.inspirehep.net/api/literature/1642228"
+                },
+            }
+        ],
+    }
+    expected_pages = "123--151"
+    schema = BibTexCommonSchema()
+
+    result = schema.dump(record).data
+    result_pages = result["pages"]
+
+    assert expected_pages == result_pages
+
+
 @mock.patch(
     "inspirehep.records.marshmallow.literature.bibtex.get_parent_record",
     return_value={"titles": [{"title": "Parent title"}]},

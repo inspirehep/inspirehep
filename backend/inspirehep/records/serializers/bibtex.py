@@ -67,7 +67,15 @@ class BibTexSerializer:
             "number",
             {"inproceedings", "proceedings", "article", "techreport", "inbook", "book"},
         ),
-        ("pages", {"article", "inproceedings", "inbook", "proceedings"}),
+        (
+            "pages",
+            {
+                "article",
+                "inproceedings",
+                "inbook",
+                "proceedings",
+            },
+        ),
         ("month", True),
         ("year", True),
         ("note", True),
