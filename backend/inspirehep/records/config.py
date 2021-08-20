@@ -19,7 +19,8 @@ from invenio_records_rest.facets import range_filter, terms_filter
 from invenio_records_rest.utils import allow_all, deny_all
 
 from inspirehep.access_control import (
-    LiteraturePermissionCheck,
+    LiteratureCollectionReadPermissionCheck,
+    LiteratureCollectionReadWritePermissionCheck,
     SessionCatalogerPermission,
     SessionSuperuserPermission,
 )
@@ -117,9 +118,9 @@ LITERATURE.update(
         },
         "list_route": "/literature/",
         "item_route": '/literature/<inspirepid(lit,record_class="inspirehep.records.api.LiteratureRecord"):pid_value>',
-        "read_permission_factory_imp": LiteraturePermissionCheck,
+        "read_permission_factory_imp": LiteratureCollectionReadPermissionCheck,
         "create_permission_factory_imp": SessionSuperuserPermission,
-        "update_permission_factory_imp": SessionCatalogerPermission,
+        "update_permission_factory_imp": LiteratureCollectionReadWritePermissionCheck,
         "suggesters": {
             "abstract_source": {
                 "completion": {"field": "abstracts.abstract_source_suggest"}
@@ -644,6 +645,7 @@ LITERATURE_SOURCE_INCLUDES_BY_CONTENT_TYPE = {
         "control_number",
         "_created",
         "_updated",
+        "_collections",
     ],
     "application/vnd+inspire.latex.us+x-latex": ["_latex_us_display"],
     "application/vnd+inspire.latex.eu+x-latex": ["_latex_eu_display"],

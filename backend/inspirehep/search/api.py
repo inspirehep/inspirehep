@@ -6,17 +6,23 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
+import copy
+
 import structlog
 from elasticsearch import RequestError
 from elasticsearch_dsl.query import Match, Q
 from flask import current_app, request
+from flask_login import current_user
 from inspire_schemas.utils import convert_old_publication_info_to_new
 from inspire_utils.record import get_value
 from invenio_search import current_search_client as es
 from invenio_search.api import DefaultFilter, RecordsSearch
 from requests.exceptions import RequestException
 
-from inspirehep.accounts.api import is_superuser_or_cataloger_logged_in
+from inspirehep.accounts.api import (
+    is_superuser_or_cataloger_logged_in,
+    is_user_logged_in,
+)
 from inspirehep.matcher.api import (
     get_reference_from_grobid,
     match_reference_control_numbers_with_relaxed_journal_titles,
@@ -185,16 +191,29 @@ class LiteratureSearch(InspireSearch):
                 LOGGER.exception("Match reference error.", query_string=query_string)
         return results
 
-    def query_for_superuser_or_users(self, query_string):
+    def query_by_user_role(self, query_string):
+        def get_collections_for_user_roles(roles):
+            roles_to_names = current_app.config["COLLECTION_ROLES_TO_COLLECTION_NAMES"]
+            return [
+                roles_to_names[role] for role in roles if role in roles_to_names.keys()
+            ]
+
+        def query_by_collections_for_users():
+            non_private_collections = copy.deepcopy(
+                current_app.config["NON_PRIVATE_LITERATURE_COLLECTIONS"]
+            )
+            if is_user_logged_in():
+                collections = get_collections_for_user_roles(current_user.roles)
+                non_private_collections.extend(collections)
+
+            user_query = Q(IQ(query_string, self))
+            return self.query(user_query).filter(
+                "terms", _collections=non_private_collections
+            )
+
         if not is_superuser_or_cataloger_logged_in():
             if "_collections" in query_string:
-                user_query = Q(IQ(query_string, self))
-                return self.query(user_query).filter(
-                    "terms",
-                    _collections=current_app.config[
-                        "NON_PRIVATE_LITERATURE_COLLECTIONS"
-                    ],
-                )
+                return query_by_collections_for_users()
             else:
                 user_query = Q(
                     IQ(query_string, self) & Q("term", _collections="Literature")
@@ -209,7 +228,7 @@ class LiteratureSearch(InspireSearch):
         :type query_string: string
         :returns: Elasticsearch DSL search class
         """
-        return self.query_for_superuser_or_users(query_string)
+        return self.query_by_user_role(query_string)
 
     def match_reference(self, query_string):
         if not query_string:

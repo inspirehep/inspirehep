@@ -7,13 +7,21 @@
 
 from flask import current_app
 
-from inspirehep.accounts.decorators import login_required_with_roles
+from inspirehep.accounts.api import (
+    check_permissions_for_private_collection_read,
+    check_permissions_for_private_collection_read_write,
+)
+from inspirehep.accounts.decorators import login_required, login_required_with_roles
 from inspirehep.accounts.roles import Roles
 
 
 class InspireBasePermissionCheck:
     def __init__(self, record, *args, **kwargs):
         self.record = record
+
+    @login_required
+    def is_logged_in(self):
+        return True
 
     def can(self):
         raise NotImplementedError
@@ -37,10 +45,25 @@ class SessionSuperuserPermission(InspireBasePermissionCheck):
         return self.superuser_check()
 
 
-class LiteraturePermissionCheck(SessionCatalogerPermission):
+class LiteratureCollectionReadPermissionCheck(InspireBasePermissionCheck):
     def can(self):
         if not set(current_app.config["NON_PRIVATE_LITERATURE_COLLECTIONS"]) & set(
             self.record.get("_collections", [])
         ):
-            return self.cataloger_check()
+            return (
+                self.is_logged_in()
+                and check_permissions_for_private_collection_read(
+                    self.record.get("_collections", [])
+                )
+            )
         return True
+
+
+class LiteratureCollectionReadWritePermissionCheck(InspireBasePermissionCheck):
+    def can(self):
+        return (
+            self.is_logged_in()
+            and check_permissions_for_private_collection_read_write(
+                self.record.get("_collections", [])
+            )
+        )

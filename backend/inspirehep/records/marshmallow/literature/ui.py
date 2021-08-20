@@ -11,11 +11,16 @@ from inspire_utils.date import format_date
 from inspire_utils.record import get_value, get_values_for_schema
 from marshmallow import fields, missing, pre_dump
 
-from inspirehep.accounts.api import is_superuser_or_cataloger_logged_in
+from inspirehep.accounts.api import (
+    check_permissions_for_private_collection_read_write,
+    is_user_logged_in,
+)
 from inspirehep.assign.utils import is_assign_view_enabled
 from inspirehep.files.api import current_s3_instance
 from inspirehep.pidstore.api import PidStoreBase
-from inspirehep.records.marshmallow.common.mixins import CatalogerCanEditMixin
+from inspirehep.records.marshmallow.common.mixins import (
+    CanEditByCollectionPermissionMixin,
+)
 from inspirehep.records.marshmallow.literature.utils import get_parent_record
 from inspirehep.records.utils import get_literature_earliest_date
 
@@ -42,7 +47,9 @@ DATASET_SCHEMA_TO_URL_PREFIX_MAP = {
 DATASET_SCHEMA_TO_DESCRIPTION_MAP = {"hepdata": "HEPData"}
 
 
-class LiteratureDetailSchema(CatalogerCanEditMixin, LiteraturePublicSchema):
+class LiteratureDetailSchema(
+    CanEditByCollectionPermissionMixin, LiteraturePublicSchema
+):
     """Schema for Literature records to displayed on UI"""
 
     class Meta:
@@ -246,8 +253,13 @@ class LiteratureListWrappedSchema(EnvelopeSchema):
     def get_ui_display(self, data):
         try:
             ui_display = orjson.loads(get_value(data, "metadata._ui_display", ""))
-            if is_superuser_or_cataloger_logged_in():
+            collections = get_value(data, "metadata._collections", "")
+            if (
+                is_user_logged_in()
+                and check_permissions_for_private_collection_read_write(collections)
+            ):
                 ui_display["can_edit"] = True
+
             if is_assign_view_enabled():
                 ui_display["curated_relation"] = get_value(
                     data, "metadata.curated_relation", False
