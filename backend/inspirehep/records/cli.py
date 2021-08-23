@@ -137,7 +137,6 @@ def importer():
     "-t",
     "--token",
     help="Auth token to be used while importing from urls, instead of app.config['AUTHENTICATION_TOKEN']}",
-    is_flag=True,
     default=None,
 )
 @with_appcontext

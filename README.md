@@ -259,12 +259,12 @@ A selection of demo records can be found in `data` directory and they are struct
 
 ```bash
 # Local
-$ poetry run inspirehep importer records -u https://labs.inspirehep.net/api/literature/20 -u https://labs.inspirehep.net/api/literature/1726642
+$ poetry run inspirehep importer records -u https://inspirehep.net/api/literature/20 -u https://inspirehep.net/api/literature/1726642
 # Docker
-$ .docker-compose run --rm hep-web poetry run inspirehep importer records -u https://labs.inspirehep.net/api/literature/20 -u https://labs.inspirehep.net/api/literature/1726642
+$ .docker-compose run --rm hep-web poetry run inspirehep importer records -u https://inspirehep.net/api/literature/20 -u https://inspirehep.net/api/literature/1726642
 
 # `--save` will save the imported record also to the data folder
-$ <...> inspirehep importer records -u https://labs.inspirehep.net/api/literature/20 --save
+$ <...> inspirehep importer records -u https://inspirehep.net/api/literature/20 --save
 ```
 
 Valid `--token` or `backend/inspirehep/config.py:AUTHENTICATION_TOKEN` is required.
