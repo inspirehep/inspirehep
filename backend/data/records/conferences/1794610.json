@@ -3,7 +3,7 @@
   "_collections": ["Conferences"],
   "acronyms": ["PANIC 2021"],
   "addresses": [{ "cities": ["Lisboa"], "country_code": "PT" }],
-  "closing_date": "2021-09-03",
+  "closing_date": "2030-09-03",
   "cnum": "C21-08-30.2",
   "contact_details": [{ "email": "helena@lip.pt", "name": "Santos, Helena" }],
   "control_number": 1794610,
@@ -19,7 +19,7 @@
     { "term": "Theory-HEP" },
     { "term": "Theory-Nucl" }
   ],
-  "opening_date": "2021-08-30",
+  "opening_date": "2030-08-30",
   "series": [{ "name": "PANIC", "number": 22 }],
   "short_description": {
     "value":
