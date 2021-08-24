@@ -161,7 +161,7 @@ describe('Conference Submission', () => {
     cy.registerRoute();
     cy.fillForm({
       name: 'Please come to my conference',
-      dates: ['2021-08-30', '2021-09-01'],
+      dates: ['2030-08-30', '2030-09-01'],
       addresses: [
         {
           city: 'Bern',
