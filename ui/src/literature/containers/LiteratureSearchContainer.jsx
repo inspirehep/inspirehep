@@ -45,7 +45,6 @@ function LiteratureSearch({
   isCitationSummaryVisible,
   embedded,
   enableCitationSummary,
-  isCatalogerLoggedIn,
 }) {
   const renderAggregations = useCallback(
     () => (
@@ -139,7 +138,7 @@ function LiteratureSearch({
               <Col span={24}>
                 <ResultsContainer
                   namespace={namespace}
-                  renderItem={(result, rank) => (
+                  renderItem={(result, isCatalogerLoggedIn, rank) => (
                     <Row>
                       {assignAuthorView && (
                         <Col className="mr1" flex="0 1 1px">

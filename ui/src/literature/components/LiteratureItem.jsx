@@ -122,7 +122,14 @@ function LiteratureItem({ metadata, searchRank, isCatalogerLoggedIn }) {
           </div>
           <ResponsiveView
             min="sm"
-            render={() => <div className="light-silver pl2">#{searchRank}</div>}
+            render={() => (
+              <div
+                data-test-id="literature-result-rank"
+                className="light-silver pl2"
+              >
+                #{searchRank}
+              </div>
+            )}
           />
         </div>
         <div className="mt1">

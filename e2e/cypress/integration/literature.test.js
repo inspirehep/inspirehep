@@ -19,6 +19,15 @@ describe('Literature Search', () => {
       cy.matchSnapshots('LiteratureSearchCataloger');
       cy.logout();
     });
+    it('matches image snapshot for searchRank', () => {
+      cy.registerRoute();
+      cy.visit('/literature?ui-citation-summary=true');
+      cy.waitForRoute();
+      cy.waitForSearchResults();
+      cy.get('[data-test-id="literature-result-rank"]')
+        .first()
+        .should('have.text', '#1');
+    });
   });
 });
 
