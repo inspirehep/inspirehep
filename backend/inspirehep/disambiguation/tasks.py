@@ -5,6 +5,7 @@ from inspire_matcher.api import match
 from inspire_utils.name import ParsedName
 from inspire_utils.record import get_value, get_values_for_schema
 from invenio_db import db
+from invenio_pidstore.errors import PIDAlreadyExists
 from prometheus_client import Counter
 from sqlalchemy.exc import OperationalError
 from sqlalchemy.orm.exc import NoResultFound, StaleDataError
@@ -18,7 +19,6 @@ from inspirehep.matcher.validators import (
     affiliations_validator,
     collaboration_validator,
 )
-from inspirehep.pidstore.errors import PIDAlreadyExistsError
 from inspirehep.records.api import InspireRecord
 
 LOGGER = structlog.getLogger()
@@ -205,7 +205,7 @@ def assign_bai_to_literature_author(author, bai):
     bind=True,
     retry_backoff=2,
     retry_kwargs={"max_retries": 6},
-    autoretry_for=(PIDAlreadyExistsError, OperationalError, StaleDataError),
+    autoretry_for=(PIDAlreadyExists, OperationalError, StaleDataError),
 )
 def disambiguate_authors(self, record_uuid):
     # handle case when we try to get a record which is deleted
