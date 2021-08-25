@@ -9,6 +9,7 @@ from datetime import datetime, timedelta
 import click
 import requests
 import structlog
+from flask.cli import with_appcontext
 from inspire_utils.record import get_values_for_schema
 from invenio_db import db
 
@@ -31,6 +32,7 @@ def hepdata():
     default=None,
     help="Date from when hepdata should be harvested. If not provided the date from a day before would be used.",
 )
+@with_appcontext
 def harvest(since):
     if since:
         try:
