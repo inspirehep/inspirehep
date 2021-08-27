@@ -101,6 +101,7 @@ class AuthorsListSchema(AuthorsBaseSchema):
         exclude = AuthorsPublicSchema.Meta.exclude + ["email_addresses"]
 
     acquisition_source = fields.Method("get_acquisition_source")
+    students = fields.Raw()
 
     @staticmethod
     def get_acquisition_source(data):

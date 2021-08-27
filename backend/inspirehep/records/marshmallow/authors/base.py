@@ -65,9 +65,7 @@ class AuthorsPublicSchema(AuthorsRawSchema):
 
 class AuthorsPublicListSchema(AuthorsRawSchema):
     class Meta:
-        exclude = AuthorsPublicSchema.Meta.exclude + ["email_addresses"]
-
-    students = fields.Raw(dump_only=True)
+        exclude = AuthorsPublicSchema.Meta.exclude + ["email_addresses", "students"]
 
 
 class AuthorsAdminSchema(AuthorsRawSchema):
@@ -78,7 +76,6 @@ class AuthorsAdminSchema(AuthorsRawSchema):
     positions = fields.Raw(dump_only=True)
     advisors = fields.Raw(dump_only=True)
     project_membership = fields.Raw(dump_only=True)
-    students = fields.Raw(dump_only=True)
 
 
 class AuthorsOnlyControlNumberSchema(Schema):
