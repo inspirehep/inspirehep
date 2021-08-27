@@ -551,7 +551,7 @@ def test_revision_id_in_envelope(inspire_app):
     )
 
 
-def test_students_are_populated_correctly(inspire_app, datadir):
+def test_students_are_populated_correctly_if_ui_serializer(inspire_app):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
 
     advisor = create_record("aut")
@@ -624,11 +624,77 @@ def test_students_are_populated_correctly(inspire_app, datadir):
     assert expected_metadata == response_data_1["metadata"]["students"]
     assert expected_metadata == response_data_2["metadata"]["students"]
 
-    headers = {"Accept": "application/json"}
-
     with inspire_app.test_client() as client:
         response_3 = client.get("/authors", headers=headers)
 
     for record in response_3.json["hits"]["hits"]:
         if record["metadata"]["control_number"] in advisor_control_numbers:
             assert record["metadata"]["students"] == expected_metadata
+
+
+def test_students_are_not_populated_if_application_json_serializer(inspire_app):
+    headers = {"Accept": "application/json"}
+
+    advisor = create_record("aut")
+    advisor2 = create_record("aut")
+    create_record(
+        "aut",
+        data={
+            "advisors": [
+                {
+                    "name": advisor["name"]["value"],
+                    "record": advisor["self"],
+                    "degree_type": "phd",
+                },
+                {
+                    "name": advisor2["name"]["value"],
+                    "record": advisor2["self"],
+                    "degree_type": "phd",
+                },
+            ]
+        },
+    )
+    create_record(
+        "aut",
+        data={
+            "name": {"value": "Test Student", "preferred_name": "T.Student"},
+            "advisors": [
+                {
+                    "name": advisor["name"]["value"],
+                    "record": advisor["self"],
+                    "degree_type": "phd",
+                },
+                {
+                    "name": advisor2["name"]["value"],
+                    "record": advisor2["self"],
+                    "degree_type": "phd",
+                },
+            ],
+        },
+    )
+    with inspire_app.test_client() as client:
+        response_1 = client.get(
+            f"/authors/{advisor['control_number']}", headers=headers
+        )
+        response_2 = client.get(
+            f"/authors/{advisor['control_number']}", headers=headers
+        )
+
+    advisor_control_numbers = [advisor["control_number"], advisor2["control_number"]]
+
+    expected_status_code = 200
+    response_status_code = response_1.status_code
+    response_status_code = response_2.status_code
+    response_data_1 = orjson.loads(response_1.data)
+    response_data_2 = orjson.loads(response_2.data)
+
+    assert expected_status_code == response_status_code
+    assert "students" not in response_data_1["metadata"]
+    assert "students" not in response_data_2["metadata"]
+
+    with inspire_app.test_client() as client:
+        response_3 = client.get("/authors", headers=headers)
+
+    for record in response_3.json["hits"]["hits"]:
+        if record["metadata"]["control_number"] in advisor_control_numbers:
+            assert "students" not in record["metadata"]
