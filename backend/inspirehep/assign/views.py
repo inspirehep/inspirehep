@@ -106,13 +106,10 @@ def author_assign_view():
     to_author_recid = body.get("to_author_recid")
     from_author_recid = body["from_author_recid"]
     literature_recids = body["literature_recids"]
-    with db.session.begin_nested():
-        if to_author_recid is None:
-            stub_author_id = assign_to_new_stub_author(
-                from_author_recid, literature_recids
-            )
-        else:
-            assign_to_author(from_author_recid, to_author_recid, literature_recids)
+    if to_author_recid is None:
+        stub_author_id = assign_to_new_stub_author(from_author_recid, literature_recids)
+    else:
+        assign_to_author(from_author_recid, to_author_recid, literature_recids)
     db.session.commit()
     if to_author_recid is None:
         return jsonify({"stub_author_id": stub_author_id}), 200
