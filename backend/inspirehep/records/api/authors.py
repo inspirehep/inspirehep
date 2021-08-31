@@ -90,7 +90,6 @@ class AuthorsRecord(InspireRecord, StudentsAdvisorMixin):
             author = get_author_by_bai(paper, bai)
             author["record"] = self.get("self")
             paper.update(dict(paper))
-            db.session.commit()
 
     @staticmethod
     def query_author_papers(bai):

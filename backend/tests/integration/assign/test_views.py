@@ -10,6 +10,7 @@ from helpers.utils import create_record, create_user
 from inspire_dojson.utils import get_recid_from_ref
 from inspire_utils.record import get_values_for_schema
 from invenio_accounts.testutils import login_user_via_session
+from sqlalchemy.exc import ResourceClosedError
 
 from inspirehep.accounts.roles import Roles
 from inspirehep.records.api import AuthorsRecord, LiteratureRecord
@@ -450,3 +451,51 @@ def test_literature_export_to_cds_view_missing_parameters(inspire_app):
             content_type="application/json",
         )
         assert response.status_code == expected_status_code
+
+
+def test_assign_doesnt_raise_resource_closed_error(inspire_app, override_config):
+    with override_config(
+        FEATURE_FLAG_ENABLE_BAI_PROVIDER=True, FEATURE_FLAG_ENABLE_BAI_CREATION=True
+    ):
+        author_record = create_record("aut", data={"name": {"value": "Test, Author"}})
+        paper = create_record(
+            "lit",
+            data={
+                "authors": [
+                    {
+                        "full_name": author_record["name"]["value"],
+                        "record": author_record["self"],
+                    }
+                ]
+            },
+        )
+
+        create_record(
+            "lit",
+            {
+                "authors": [
+                    {
+                        "full_name": author_record["name"]["value"],
+                        "ids": [{"schema": "INSPIRE BAI", "value": "A.Test.2"}],
+                    }
+                ]
+            },
+        )
+        cataloger = create_user(role="cataloger")
+        try:
+            with inspire_app.test_client() as client:
+                login_user_via_session(client, email=cataloger.email)
+                client.post(
+                    "/assign/author",
+                    data=orjson.dumps(
+                        {
+                            "literature_recids": [
+                                paper["control_number"],
+                            ],
+                            "from_author_recid": author_record["control_number"],
+                        }
+                    ),
+                    content_type="application/json",
+                )
+        except ResourceClosedError:
+            assert False
