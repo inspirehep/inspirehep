@@ -118,3 +118,12 @@ def update_reference_if_reference_uri_matches(
 ):
     if reference_record["$ref"] == merged_record_uri:
         reference_record.update({"$ref": new_record_uri})
+
+
+@shared_task
+def regenerate_author_records_table_entries(uuids_to_regenerate):
+    records = LiteratureRecord.get_records(uuids_to_regenerate)
+    for record in records:
+        record.update_authors_records_table()
+        record.update_self_citations()
+        db.session.commit()

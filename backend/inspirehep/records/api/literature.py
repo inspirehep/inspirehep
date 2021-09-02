@@ -55,7 +55,7 @@ from inspirehep.records.utils import (
     remove_author_bai_from_id_list,
 )
 from inspirehep.search.api import LiteratureSearch
-from inspirehep.utils import hash_data
+from inspirehep.utils import chunker, hash_data
 
 from .base import InspireRecord
 
@@ -547,6 +547,16 @@ class LiteratureRecord(
             return uuids
         LOGGER.info("No references changed", uuid=str(self.id))
         return set()
+
+    @classmethod
+    def fix_entries_by_update_date(cls, before=None, after=None, max_chunk=100):
+        from inspirehep.records.tasks import regenerate_author_records_table_entries
+
+        uuids_to_regenerate = LiteratureRecord.get_recids_by_updated_datetime(
+            before, after
+        )
+        for batch in chunker(uuids_to_regenerate, max_chunk):
+            regenerate_author_records_table_entries.delay(batch)
 
 
 def import_article(identifier):

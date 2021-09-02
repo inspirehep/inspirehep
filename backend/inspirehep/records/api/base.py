@@ -649,3 +649,17 @@ class InspireRecord(Record):
         if self.get("deleted") and pid.status == PIDStatus.REDIRECTED:
             redirection = InspireRedirect.get_redirect(pid)
             return get_ref_from_pid(redirection.pid_type, redirection.pid_value)
+
+    @classmethod
+    def get_recids_by_updated_datetime(cls, before=None, after=None):
+        """Get all records ids updated before given date"""
+        uuids_query = db.session.query(PersistentIdentifier.object_uuid).filter(
+            PersistentIdentifier.pid_type == cls.pid_type,
+            RecordMetadata.id == PersistentIdentifier.object_uuid,
+        )
+        if before:
+            uuids_query = uuids_query.filter(RecordMetadata.updated < before)
+        if after:
+            uuids_query = uuids_query.filter(RecordMetadata.updated > after)
+        for record_uuid in uuids_query.yield_per(100):
+            yield str(record_uuid[0])
