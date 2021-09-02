@@ -42,6 +42,7 @@ def clean_stub_authors():
     stub_authors_bais = {
         get_values_for_schema(author["ids"], "INSPIRE BAI")[0]: author
         for author in stub_authors_verified
+        if author.get("stub")
     }
     # We verify which authors have linked papers
     stub_authors_with_papers = set(
