@@ -220,6 +220,17 @@
           "suggest": {
             "type": "completion"
           },
+          "affiliations_identifiers": {
+            "properties": {
+              "schema": {
+                "type": "keyword"
+              },
+              "value": {
+                "type": "keyword"
+              }
+            },
+            "type": "object"
+          },
           "affiliations": {
             "properties": {
               "curated_relation": {
