@@ -689,7 +689,7 @@ def test_update_author_with_advisors_updates_students_advisors_table(inspire_app
     assert all_advisors[1].degree_type == "other"
 
 
-def test_delete_advisor_clears_entries_in_students_advisors_table(inspire_app):
+def test_delete_advisor_doesnt_clear_entries_in_students_advisors_table(inspire_app):
     advisor = create_record("aut")
     student = create_record(
         "aut",
@@ -708,7 +708,7 @@ def test_delete_advisor_clears_entries_in_students_advisors_table(inspire_app):
 
     advisor.delete()
 
-    assert StudentsAdvisors.query.filter_by(student_id=student.id).count() == 0
+    assert StudentsAdvisors.query.filter_by(student_id=student.id).count() == 1
 
 
 def test_delete_student_clears_entries_in_students_advisors_table(inspire_app):

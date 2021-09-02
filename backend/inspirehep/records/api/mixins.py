@@ -649,10 +649,7 @@ class StudentsAdvisorMixin:
     def delete_students_advisors_table_entries(self):
         """Clean entries for this record"""
         return StudentsAdvisors.query.filter(
-            or_(
-                StudentsAdvisors.advisor_id == self.id,
-                StudentsAdvisors.student_id == self.id,
-            )
+            StudentsAdvisors.student_id == self.id
         ).delete()
 
     def delete(self):
@@ -660,5 +657,10 @@ class StudentsAdvisorMixin:
         super().delete()
 
     def hard_delete(self):
-        self.delete_students_advisors_table_entries()
+        StudentsAdvisors.query.filter(
+            or_(
+                StudentsAdvisors.advisor_id == self.id,
+                StudentsAdvisors.student_id == self.id,
+            )
+        ).delete()
         super().hard_delete()
