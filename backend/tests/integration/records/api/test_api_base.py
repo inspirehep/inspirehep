@@ -8,6 +8,7 @@
 """INSPIRE module that adds more fun to the platform."""
 import uuid
 from copy import copy, deepcopy
+from datetime import datetime
 
 import orjson
 import pytest
@@ -827,3 +828,23 @@ def test_forced_undeleting_record_is_not_blocked(inspire_app):
     record.update(data, force_undelete=True)
     rec = LiteratureRecord.get_record_by_pid_value(data["control_number"])
     assert "deleted" not in rec
+
+
+def test_get_all_ids_by_update_date(inspire_app):
+    record = create_record("lit")
+    record2 = create_record("lit")
+    uuids = list(LiteratureRecord.get_recids_by_updated_datetime())
+
+    assert len(uuids) == 2
+    assert str(record.id) in uuids
+    assert str(record2.id) in uuids
+
+    uuids = list(InspireRecord.get_recids_by_updated_datetime())
+    assert len(uuids) == 0
+
+    new_date = datetime.strptime("2021-07-01", "%Y-%m-%d")
+    uuids = list(LiteratureRecord.get_recids_by_updated_datetime(before=new_date))
+    assert len(uuids) == 0
+
+    uuids = list(LiteratureRecord.get_recids_by_updated_datetime(after=new_date))
+    assert len(uuids) == 2

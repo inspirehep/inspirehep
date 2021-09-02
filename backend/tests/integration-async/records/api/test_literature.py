@@ -7,9 +7,12 @@
 import copy
 
 from helpers.providers.faker import faker
+from helpers.utils import retry_until_pass
 from invenio_db import db
 
 from inspirehep.records.api import ConferencesRecord, LiteratureRecord
+from inspirehep.records.api.base import InspireRecord
+from inspirehep.records.models import RecordsAuthors
 
 
 def test_authors_signature_blocks_and_uuids_added_after_create_and_update(
@@ -423,3 +426,57 @@ def test_literature_get_modified_authors_after_ref_update(inspire_app):
     db.session.commit()
 
     assert len(list(record.get_modified_authors())) == 0
+
+
+def test_fix_entries_by_update_date(inspire_app, clean_celery_session):
+    literature_data = faker.record("lit", with_control_number=True)
+    literature_data.update(
+        {
+            "authors": [
+                {
+                    "full_name": "George, Smith",
+                    "ids": [{"value": "Smith.G.1", "schema": "INSPIRE BAI"}],
+                }
+            ]
+        }
+    )
+    record_1 = InspireRecord.create(literature_data)
+    literature_data_2 = faker.record("lit", with_control_number=True)
+    literature_data_2.update(
+        {
+            "authors": [
+                {
+                    "full_name": "Xiu, Li",
+                    "ids": [{"value": "X.Liu.1", "schema": "INSPIRE BAI"}],
+                }
+            ]
+        }
+    )
+    record_2 = InspireRecord.create(literature_data_2)
+    db.session.add(
+        RecordsAuthors(
+            author_id="A.Test.1",
+            id_type="INSPIRE BAI",
+            record_id=record_1.id,
+        )
+    )
+    db.session.add(
+        RecordsAuthors(
+            author_id="A.Test.2",
+            id_type="INSPIRE BAI",
+            record_id=record_2.id,
+        )
+    )
+    db.session.commit()
+
+    def assert_all_entries_in_db():
+        assert len(RecordsAuthors.query.all()) == 4
+
+    retry_until_pass(assert_all_entries_in_db)
+
+    LiteratureRecord.fix_entries_by_update_date()
+
+    def assert_all_entries_in_db():
+        assert len(RecordsAuthors.query.all()) == 2
+
+    retry_until_pass(assert_all_entries_in_db, retry_interval=3)
