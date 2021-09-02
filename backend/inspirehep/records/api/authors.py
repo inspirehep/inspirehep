@@ -22,7 +22,7 @@ from .base import InspireRecord
 LOGGER = structlog.getLogger()
 
 
-class AuthorsRecord(InspireRecord, StudentsAdvisorMixin):
+class AuthorsRecord(StudentsAdvisorMixin, InspireRecord):
     """Authors Record."""
 
     es_serializer = AuthorsElasticSearchSchema
