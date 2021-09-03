@@ -19,7 +19,7 @@ from requests.exceptions import RequestException
 from inspirehep.accounts.api import is_superuser_or_cataloger_logged_in
 from inspirehep.matcher.api import (
     get_reference_from_grobid,
-    match_reference_control_numbers,
+    match_reference_control_numbers_with_relaxed_journal_titles,
 )
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.search.errors import MaximumSearchPageSizeExceeded
@@ -222,7 +222,9 @@ class LiteratureSearch(InspireSearch):
         reference = self.normalize_journal_title(reference)
         reference = self.convert_old_publication_info_to_new(reference)
 
-        reference_match_control_numbers = match_reference_control_numbers(reference)
+        reference_match_control_numbers = (
+            match_reference_control_numbers_with_relaxed_journal_titles(reference)
+        )
         if not reference_match_control_numbers:
             LOGGER.info(
                 "Reference didn't match.",

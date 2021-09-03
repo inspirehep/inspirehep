@@ -74,11 +74,34 @@ def match_reference_with_config(reference, config, previous_matched_recid=None):
     return reference
 
 
-def match_reference_config(reference):
+def match_journal_title_config(reference, use_relaxed_titles_matching):
+    journal_title = get_value(reference, "reference.publication_info.journal_title")
+    config_default_publication_info_with_prefix = current_app.config[
+        "REFERENCE_MATCHER_DEFAULT_PUBLICATION_INFO_WITH_PREFIX_CONFIG"
+    ]
+    config_default_publication_info = current_app.config[
+        "REFERENCE_MATCHER_DEFAULT_PUBLICATION_INFO_CONFIG"
+    ]
+    config_jcap_and_jhep_publication_info = current_app.config[
+        "REFERENCE_MATCHER_JHEP_AND_JCAP_PUBLICATION_INFO_CONFIG"
+    ]
+    config_publication_info = (
+        [config_jcap_and_jhep_publication_info]
+        if journal_title in ["JCAP", "JHEP"]
+        else [config_default_publication_info]
+    )
+    if use_relaxed_titles_matching:
+        config_publication_info.append(config_default_publication_info_with_prefix)
+
+    return config_publication_info
+
+
+def match_reference_config(reference, use_relaxed_titles_matching=False):
     """Returns the configs which will be used for matching reference.
 
     Args:
         reference (dict): the metadata of a reference.
+        use_relaxed_titles_matching (bool): should relaxed title matching be used (only for user search)
     Returns:
         list: configs for given reference.
     """
@@ -87,25 +110,10 @@ def match_reference_config(reference):
     ]
     config_report_numbers = current_app.config["REFERENCE_MATCHER_REPORT_NUMBERS"]
     config_texkey = current_app.config["REFERENCE_MATCHER_TEXKEY_CONFIG"]
-    config_default_publication_info = current_app.config[
-        "REFERENCE_MATCHER_DEFAULT_PUBLICATION_INFO_CONFIG"
-    ]
-    config_default_publication_info_with_prefix = current_app.config[
-        "REFERENCE_MATCHER_DEFAULT_PUBLICATION_INFO_WITH_PREFIX_CONFIG"
-    ]
-    config_jcap_and_jhep_publication_info = current_app.config[
-        "REFERENCE_MATCHER_JHEP_AND_JCAP_PUBLICATION_INFO_CONFIG"
-    ]
     config_data = current_app.config["REFERENCE_MATCHER_DATA_CONFIG"]
 
-    journal_title = get_value(reference, "reference.publication_info.journal_title")
-    config_publication_info = (
-        [config_jcap_and_jhep_publication_info]
-        if journal_title in ["JCAP", "JHEP"]
-        else [
-            config_default_publication_info,
-            config_default_publication_info_with_prefix,
-        ]
+    config_publication_info = match_journal_title_config(
+        reference, use_relaxed_titles_matching
     )
     configs = [
         config_unique_identifiers,
@@ -145,7 +153,7 @@ def match_reference(reference, previous_matched_recid=None):
     return reference
 
 
-def match_reference_control_numbers(reference):
+def match_reference_control_numbers_with_relaxed_journal_titles(reference):
     """Match reference and return the `control_number`.
 
     Args:
@@ -159,7 +167,7 @@ def match_reference_control_numbers(reference):
         except KeyError:
             return None
 
-    configs = match_reference_config(reference)
+    configs = match_reference_config(reference, use_relaxed_titles_matching=True)
 
     matches = set()
     for config in configs:

@@ -14,7 +14,7 @@ from mock import patch
 from inspirehep.matcher.api import (
     get_reference_from_grobid,
     match_reference,
-    match_reference_control_numbers,
+    match_reference_control_numbers_with_relaxed_journal_titles,
     match_references,
 )
 
@@ -90,9 +90,11 @@ def test_match_reference_for_jcap_and_jhep_config(inspire_app):
     assert validate([reference], subschema) is None
 
     expected_control_number = [1]
-    result_coontrol_number = match_reference_control_numbers(reference)
+    result_control_number = match_reference_control_numbers_with_relaxed_journal_titles(
+        reference
+    )
 
-    assert expected_control_number == result_coontrol_number
+    assert expected_control_number == result_control_number
 
 
 def test_match_reference_for_data_config(inspire_app):
@@ -119,9 +121,11 @@ def test_match_reference_for_data_config(inspire_app):
     assert reference["record"]["$ref"] == "http://localhost:5000/api/data/1"
 
     expected_control_number = [1]
-    result_coontrol_number = match_reference_control_numbers(reference)
+    result_control_number = match_reference_control_numbers_with_relaxed_journal_titles(
+        reference
+    )
 
-    assert expected_control_number == result_coontrol_number
+    assert expected_control_number == result_control_number
 
 
 def test_match_reference_on_texkey(inspire_app):
@@ -147,9 +151,11 @@ def test_match_reference_on_texkey(inspire_app):
     assert validate([reference], subschema) is None
 
     expected_control_number = [1]
-    result_coontrol_number = match_reference_control_numbers(reference)
+    result_control_number = match_reference_control_numbers_with_relaxed_journal_titles(
+        reference
+    )
 
-    assert expected_control_number == result_coontrol_number
+    assert expected_control_number == result_control_number
 
 
 def test_match_reference_on_texkey_has_lower_priority_than_pub_info(inspire_app):
@@ -206,10 +212,12 @@ def test_match_reference_on_texkey_has_lower_priority_than_pub_info(inspire_app)
     assert validate([reference], subschema) is None
 
     expected_control_number = [2, 1]
-    result_coontrol_number = match_reference_control_numbers(reference)
+    result_control_number = match_reference_control_numbers_with_relaxed_journal_titles(
+        reference
+    )
 
-    assert set(expected_control_number) == set(result_coontrol_number)
-    assert len(expected_control_number) == len(result_coontrol_number)
+    assert set(expected_control_number) == set(result_control_number)
+    assert len(expected_control_number) == len(result_control_number)
 
 
 def test_match_reference_on_reportnumber_has_lower_priority_than_dois(inspire_app):
@@ -251,7 +259,9 @@ def test_match_reference_on_reportnumber_has_lower_priority_than_dois(inspire_ap
     assert validate([reference], subschema) is None
 
     expected_control_number = [2, 1]
-    result_control_number = match_reference_control_numbers(reference)
+    result_control_number = match_reference_control_numbers_with_relaxed_journal_titles(
+        reference
+    )
 
     assert set(expected_control_number) == set(result_control_number)
     assert len(expected_control_number) == len(result_control_number)
@@ -327,9 +337,11 @@ def test_match_reference_doesnt_touch_curated(inspire_app):
     assert reference["record"]["$ref"] == "http://localhost:5000/api/literature/42"
 
     expected_control_number = [42]
-    result_coontrol_number = match_reference_control_numbers(reference)
+    result_control_number = match_reference_control_numbers_with_relaxed_journal_titles(
+        reference
+    )
 
-    assert expected_control_number == result_coontrol_number
+    assert expected_control_number == result_control_number
 
 
 def test_match_pubnote_info_when_journal_is_missing_a_letter(inspire_app):
@@ -361,11 +373,11 @@ def test_match_pubnote_info_when_journal_is_missing_a_letter(inspire_app):
             }
         }
     }
-    reference = match_reference(reference)
-    assert reference["record"]["$ref"] == "http://localhost:5000/api/literature/1"
 
     expected_control_number = [1]
-    result_control_number = match_reference_control_numbers(reference)
+    result_control_number = match_reference_control_numbers_with_relaxed_journal_titles(
+        reference
+    )
 
     assert expected_control_number == result_control_number
 
@@ -526,7 +538,7 @@ def test_match_references_returns_five_references(inspire_app):
             }
         }
     }
-    reference = match_reference_control_numbers(reference)
+    reference = match_reference_control_numbers_with_relaxed_journal_titles(reference)
     assert len(reference) == 5
 
 
@@ -781,9 +793,11 @@ def test_match_reference_finds_proper_ref_when_wrong_provided(inspire_app):
     assert validate([reference], subschema) is None
 
     expected_control_number = [1]
-    result_coontrol_number = match_reference_control_numbers(reference)
+    result_control_number = match_reference_control_numbers_with_relaxed_journal_titles(
+        reference
+    )
 
-    assert expected_control_number == result_coontrol_number
+    assert expected_control_number == result_control_number
 
 
 def test_match_reference_not_returning_ref_key_when_no_reference_found(inspire_app):
@@ -800,3 +814,52 @@ def test_match_reference_not_returning_ref_key_when_no_reference_found(inspire_a
 
     assert "record" not in reference
     assert validate([reference], subschema) is None
+
+
+def test_match_references_doesnt_use_relaxed_title_matching(inspire_app):
+    non_cited_record_with_pub_info_json = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "control_number": 1,
+        "document_type": ["article"],
+        "publication_info": [
+            {
+                "artid": "101",
+                "journal_title": "Phys. Rev. B.",
+                "journal_volume": "100",
+                "page_start": "100",
+                "year": 2020,
+            }
+        ],
+        "titles": [{"title": "The Strongly-Interacting Light Higgs"}],
+    }
+    create_record("lit", non_cited_record_with_pub_info_json)
+
+    cited_record_with_pub_info_json = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "control_number": 2,
+        "document_type": ["article"],
+        "texkeys": ["Shaikh:2022ynt"],
+        "titles": [{"title": "The Strongly-Interacting Light Higgs"}],
+    }
+
+    create_record("lit", cited_record_with_pub_info_json)
+
+    references = [
+        {
+            "reference": {
+                "publication_info": {
+                    "journal_title": "Phys. Rev.",
+                    "journal_volume": "100",
+                    "page_start": "100",
+                },
+                "texkey": "Shaikh:2022ynt",
+            }
+        }
+    ]
+
+    expected_ref = {"$ref": "http://localhost:5000/api/literature/2"}
+    result = match_references(references)
+
+    assert expected_ref == result["matched_references"][0]["record"]
