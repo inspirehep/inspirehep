@@ -28,6 +28,7 @@ class FirstAuthorSchemaV1(Schema):
     ids = fields.Raw()
     first_name = fields.Method("get_first_name", default=missing)
     last_name = fields.Method("get_last_name", default=missing)
+    affiliations_identifiers = fields.Raw()
 
     @staticmethod
     def get_first_name(data):
