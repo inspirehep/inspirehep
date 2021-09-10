@@ -7,8 +7,16 @@
 import structlog
 from flask import Blueprint, abort, current_app, request
 from flask.views import MethodView
+from invenio_db import db
+from invenio_pidstore.errors import PIDDoesNotExistError
+from invenio_records.api import RecordMetadata
 from invenio_records_rest.views import pass_record
+from webargs import fields
+from webargs.flaskparser import FlaskParser
 
+from inspirehep.accounts.decorators import login_required
+from inspirehep.records.api import LiteratureRecord
+from inspirehep.records.api.authors import AuthorsRecord
 from inspirehep.records.api.literature import import_article
 from inspirehep.records.errors import (
     ExistingArticleError,
@@ -21,6 +29,7 @@ from inspirehep.records.errors import (
 from inspirehep.records.marshmallow.literature.references import (
     LiteratureReferencesSchema,
 )
+from inspirehep.records.models import AuthorHighlights
 from inspirehep.serializers import jsonify
 from inspirehep.submissions.serializers import literature_v1
 
@@ -28,6 +37,7 @@ from ..search.api import LiteratureSearch
 
 LOGGER = structlog.getLogger()
 blueprint = Blueprint("inspirehep_records", __name__, url_prefix="")
+parser = FlaskParser()
 
 
 class LiteratureCitationsResource(MethodView):
@@ -106,6 +116,80 @@ def import_article_view(identifier):
 
     except UnknownImportIdentifierError:
         return jsonify(message=f"{identifier} is not a recognized identifier."), 400
+
+
+@blueprint.route("/authors/highlights", methods=["POST"])
+@login_required
+@parser.use_args(
+    {
+        "author_recid": fields.Integer(required=True),
+        "literature_recids": fields.List(fields.Integer, required=True),
+    },
+    locations=("json",),
+)
+def set_author_highlights(args):
+    author_recid = args["author_recid"]
+    literature_recids = args["literature_recids"]
+
+    try:
+        author = AuthorsRecord.get_record_by_pid_value(author_recid)
+    except PIDDoesNotExistError:
+        LOGGER.error(
+            "Cannot highlight. Author record does not exist.",
+            literature_recid=author_recid,
+        )
+        return jsonify({"message": "Internal Error"}), 500
+
+    author_highlights = []
+    for recid in literature_recids:
+        try:
+            record = LiteratureRecord.get_record_by_pid_value(recid)
+        except PIDDoesNotExistError:
+            LOGGER.warning(
+                "Cannot highlight. Literature record does not exist.",
+                literature_recid=recid,
+            )
+            continue
+
+        author_highlights.append(
+            AuthorHighlights(author_id=author.id, literature_id=record.id)
+        )
+    try:
+        db.session.bulk_save_objects(author_highlights)
+        db.session.commit()
+    except Exception as e:
+        LOGGER.error(
+            "Cannot highlight. DB error.",
+            error=e,
+        )
+        return jsonify({"message": "Internal Error"}), 500
+
+    return jsonify("success"), 200
+
+
+@blueprint.route("/authors/highlights/<path:author_recid>", methods=("GET",))
+def get_author_highlights(author_recid):
+    try:
+        author = AuthorsRecord.get_record_by_pid_value(author_recid)
+    except PIDDoesNotExistError:
+        LOGGER.error(
+            "Cannot highlight. Author record does not exist.",
+            literature_recid=author_recid,
+        )
+        return jsonify({"message": "Internal Error"}), 500
+
+    highlight_results = (
+        db.session.query(RecordMetadata, AuthorHighlights)
+        .filter(
+            AuthorHighlights.literature_id == RecordMetadata.id,
+            AuthorHighlights.author_id == author.id,
+        )
+        .all()
+    )
+
+    highlight_records = [rec[0].json for rec in highlight_results]
+
+    return jsonify({"highlighted_records": highlight_records}), 200
 
 
 literature_citations_view = LiteratureCitationsResource.as_view(

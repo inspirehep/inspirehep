@@ -262,3 +262,22 @@ class StudentsAdvisors(db.Model):
     degree_type = db.Column(
         ENUM(*[key.value for key in DegreeType], name="enum_degree_type")
     )
+
+
+class AuthorHighlights(db.Model):
+    __tablename__ = "author_highlights"
+    __table_args__ = (db.Index("ix_author_highlights_author_id", "author_id"),)
+
+    author_id = db.Column(
+        UUIDType,
+        db.ForeignKey("records_metadata.id", name="fk_author_highlights_author_id"),
+        nullable=False,
+        primary_key=True,
+    )
+
+    literature_id = db.Column(
+        UUIDType,
+        db.ForeignKey("records_metadata.id", name="fk_author_highlights_literature_id"),
+        nullable=False,
+        primary_key=True,
+    )
