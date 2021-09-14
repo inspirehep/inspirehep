@@ -16,6 +16,7 @@ import {
   LITERATURE_SEMINARS_NS,
   ASSIGN_AUTHOR_NS,
   ASSIGN_CONFERENCE_NS,
+  LITERATURE_REFERENCES_NS,
 } from './constants';
 import {
   START_DATE_UPCOMING,
@@ -25,6 +26,11 @@ import {
 
 const initialBaseQuery = {
   sort: 'mostrecent',
+  size: '25',
+  page: '1',
+};
+
+const initialLiteratureReferencesBaseQuery = {
   size: '25',
   page: '1',
 };
@@ -184,6 +190,11 @@ const namespacesState = {
       start_date: START_DATE_ALL,
       sort: DATE_DESC,
     },
+  },
+  [LITERATURE_REFERENCES_NS]: {
+    ...initialNamespaceState,
+    baseQuery: initialLiteratureReferencesBaseQuery,
+    query: initialLiteratureReferencesBaseQuery,
   },
 };
 

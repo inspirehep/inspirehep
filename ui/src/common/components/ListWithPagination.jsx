@@ -73,6 +73,7 @@ class ListWithPagination extends Component {
         grid={grid ? GRID_CONFIG : undefined}
         dataSource={pageItems}
         renderItem={this.renderItem}
+        data-test-id="pagination-list"
       />
     );
   }
