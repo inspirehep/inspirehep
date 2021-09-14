@@ -7,6 +7,7 @@ import { getStoreWithState } from '../../../fixtures/store';
 import { fetchLiteratureReferences } from '../../../actions/literature';
 import ReferenceList from '../../../literature/components/ReferenceList';
 import ReferenceListContainer from '../ReferenceListContainer';
+import { LITERATURE_REFERENCES_NS } from '../../../search/constants';
 
 jest.mock('../../../actions/literature');
 fetchLiteratureReferences.mockReturnValue(async () => {});
@@ -19,11 +20,18 @@ describe('ReferenceListContainer', () => {
   it('passes required props from state', () => {
     const store = getStoreWithState({
       literature: fromJS({
-        queryReferences: { size: 10, page: 2, q: 'dude', sort: 'mostrecent' },
         references: [{ control_number: 1 }, { control_number: 2 }],
         loadingReferences: true,
         totalReferences: 50,
         errorReferences: { message: 'Error' },
+      }),
+      search: fromJS({
+        namespaces: {
+          [LITERATURE_REFERENCES_NS]: {
+            query: { size: 10, page: 2, q: 'dude', sort: 'mostrecent' },
+            baseQuery: { size: 25, page: 1 },
+          },
+        },
       }),
     });
     const wrapper = mount(
@@ -43,11 +51,18 @@ describe('ReferenceListContainer', () => {
   it('calls fetchLiteratureReferences onQueryChange', () => {
     const store = getStoreWithState({
       literature: fromJS({
-        queryReferences: { size: 10, page: 2, q: 'dude', sort: 'mostrecent' },
         references: [{ control_number: 1 }, { control_number: 2 }],
         loadingReferences: true,
         totalReferences: 50,
         errorReferences: { message: 'Error' },
+      }),
+      search: fromJS({
+        namespaces: {
+          [LITERATURE_REFERENCES_NS]: {
+            query: { size: 10, page: 2, q: 'dude', sort: 'mostrecent' },
+            baseQuery: { size: 25, page: 1 },
+          },
+        },
       }),
     });
     const wrapper = mount(

@@ -3,6 +3,7 @@
 exports[`ListWithPagination renders in grid mode 1`] = `
 <List
   bordered={false}
+  data-test-id="pagination-list"
   dataSource={
     Immutable.List [
       1,
@@ -73,6 +74,7 @@ exports[`ListWithPagination renders in grid mode 1`] = `
 exports[`ListWithPagination renders with all props 1`] = `
 <List
   bordered={false}
+  data-test-id="pagination-list"
   dataSource={
     Immutable.List [
       1,
@@ -134,6 +136,7 @@ exports[`ListWithPagination renders with all props 1`] = `
 exports[`ListWithPagination renders with required props 1`] = `
 <List
   bordered={false}
+  data-test-id="pagination-list"
   dataSource={
     Immutable.List [
       0,

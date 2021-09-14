@@ -15,6 +15,7 @@ import {
   LITERATURE_REFERENCES_SUCCESS,
   LITERATURE_SELECTION_SET,
   LITERATURE_SELECTION_CLEAR,
+  SEARCH_QUERY_UPDATE,
 } from '../actionTypes';
 import {
   fetchLiterature,
@@ -34,6 +35,7 @@ import {
   exportToCdsError,
   exporting,
 } from '../../literature/assignNotification';
+import { LITERATURE_REFERENCES_NS } from '../../search/constants';
 
 const mockHttp = new MockAdapter(http.httpClient);
 jest.mock('../../literature/assignNotification');
@@ -78,12 +80,19 @@ describe('literature - async action creators', () => {
   describe('literature references', () => {
     it('happy - creates LITERATURE_REFERENCES_SUCCESS', async (done) => {
       mockHttp
-        .onGet('/literature/123/references?page=1&size=10')
+        .onGet('/literature/123/references?size=10&page=1')
         .replyOnce(200, {});
 
       const expectedActions = [
         { type: LITERATURE_REFERENCES_REQUEST, payload: { page: 1, size: 10 } },
         { type: LITERATURE_REFERENCES_SUCCESS, payload: {} },
+        {
+          type: SEARCH_QUERY_UPDATE,
+          payload: {
+            query: { page: 1, size: 10 },
+            namespace: LITERATURE_REFERENCES_NS,
+          },
+        },
       ];
 
       const store = getStore();
@@ -107,11 +116,23 @@ describe('literature - async action creators', () => {
           payload: { size: 10, page: 10, q: 'dude', sort: 'mostrecent' },
         },
         { type: LITERATURE_REFERENCES_SUCCESS, payload: {} },
+        {
+          type: SEARCH_QUERY_UPDATE,
+          payload: {
+            query: { size: 10, page: 10, q: 'dude', sort: 'mostrecent' },
+            namespace: LITERATURE_REFERENCES_NS,
+          },
+        },
       ];
 
       const store = getStoreWithState({
-        literature: fromJS({
-          queryReferences: { size: 10, page: 2, q: 'dude', sort: 'mostrecent' },
+        search: fromJS({
+          namespaces: {
+            [LITERATURE_REFERENCES_NS]: {
+              query: { size: 10, page: 2, q: 'dude', sort: 'mostrecent' },
+              baseQuery: { size: 25, page: 1 },
+            },
+          },
         }),
       });
       await store.dispatch(fetchLiteratureReferences(123, { page: 10 }));
@@ -121,7 +142,7 @@ describe('literature - async action creators', () => {
 
     it('unhappy - creates LITERATURE_REFERENCES_ERROR', async (done) => {
       mockHttp
-        .onGet('/literature/123/references?page=1&size=10')
+        .onGet('/literature/123/references?size=10&page=1')
         .replyOnce(404, { message: 'Not found' });
 
       const expectedActions = [

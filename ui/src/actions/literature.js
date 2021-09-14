@@ -26,6 +26,9 @@ import {
   exporting,
 } from '../literature/assignNotification';
 
+import { LITERATURE_REFERENCES_NS } from '../search/constants';
+import { searchQueryUpdate } from './search';
+
 function fetchingLiteratureReferences(query) {
   return {
     type: LITERATURE_REFERENCES_REQUEST,
@@ -76,9 +79,10 @@ export const fetchLiterature = generateRecordFetchAction({
 
 export function fetchLiteratureReferences(recordId, newQuery = {}) {
   return async (dispatch, getState, http) => {
-    const { literature } = getState();
     const query = {
-      ...literature.get('queryReferences').toJS(),
+      ...getState()
+        .search.getIn(['namespaces', LITERATURE_REFERENCES_NS, 'query'])
+        .toJS(),
       ...newQuery,
     };
     dispatch(fetchingLiteratureReferences(query));
@@ -90,6 +94,7 @@ export function fetchLiteratureReferences(recordId, newQuery = {}) {
         'literature-references-detail'
       );
       dispatch(fetchLiteratureReferencesSuccess(response.data));
+      dispatch(searchQueryUpdate(LITERATURE_REFERENCES_NS, query));
     } catch (error) {
       if (!isCancelError(error)) {
         const payload = httpErrorToActionPayload(error);

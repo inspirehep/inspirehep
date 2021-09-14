@@ -10,6 +10,7 @@ import {
 
 export const AUTHORS_NS = 'authors';
 export const LITERATURE_NS = 'literature';
+export const LITERATURE_REFERENCES_NS = 'literatureReferences';
 export const JOBS_NS = 'jobs';
 export const AUTHOR_PUBLICATIONS_NS = 'authorPublications';
 export const AUTHOR_CITATIONS_NS = 'authorCitations';
@@ -48,6 +49,7 @@ export const SEARCHABLE_COLLECTION_PATHNAMES = [
 
 export const NAMESPACE_TO_PATHNAME = {
   [LITERATURE_NS]: LITERATURE,
+  [LITERATURE_REFERENCES_NS]: LITERATURE,
 
   [AUTHOR_PUBLICATIONS_NS]: LITERATURE,
   [AUTHOR_CITATIONS_NS]: LITERATURE,

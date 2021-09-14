@@ -39,6 +39,41 @@ describe('Literature Detail', () => {
       cy.waitForRoute();
       cy.matchSnapshots('LiteratureDetail');
     });
+
+    it('number of references per page', () => {
+      cy.on('uncaught:exception', (err, runnable) => {
+        return false;
+      });
+      cy.registerRoute();
+      cy.visit('/literature/1374620');
+      cy.waitForRoute();
+
+      cy.get('[data-test-id="pagination-list"]').as('paginationList');
+      cy.get('@paginationList')
+        .find('.ant-list-items')
+        .children()
+        .as('referenceListItems');
+      cy.get('@paginationList')
+        .find('span[class="ant-select-selection-item"]')
+        .as('selectionItem');
+
+      cy.get('@referenceListItems').should('have.length', 25);
+      cy.get('@selectionItem').should('be.visible');
+      cy.get('@paginationList')
+        .find('.ant-select-selection-search-input')
+        .click();
+      cy.get('@paginationList').find('div').contains('50 / page').click();
+      cy.waitForRoute();
+
+      cy.get('@referenceListItems').should('have.length', 50);
+      cy.get('@selectionItem').should('be.visible');
+      cy.get('a[href="/literature"]').click();
+      cy.waitForRoute();
+
+      cy.get('a[href="/literature/1598135"]').click();
+      cy.waitForRoute();
+      cy.get('@referenceListItems').should('have.length', 50);
+    });
   });
 });
 
