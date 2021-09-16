@@ -929,7 +929,7 @@ jobs:
           token: ${{ secrets.INSPIRE_BOT_TOKEN }}
           repository: inspirehep/kubernetes
           event-type: deploy
-          client-payload: '{"environment":"qa","image":"${{ matrix.images }}","tag":"${{ steps.generate_tag.outputs.tag }}"}'
+          client-payload: '{"environment":"inspire-qa","image":"${{ matrix.images }}","tag":"${{ steps.generate_tag.outputs.tag }}"}'
 
   push:
     name: Push commit SHA to all images
