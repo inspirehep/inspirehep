@@ -1,0 +1,155 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ImprintInfo renders imprints with date 1`] = `
+<div
+  className="__InlineList__"
+>
+  <ul>
+    <li>
+      <div>
+        <span>
+          Published
+           2004
+        </span>
+      </div>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`ImprintInfo renders imprints with date and place 1`] = `
+<div
+  className="__InlineList__"
+>
+  <ul>
+    <li>
+      <div>
+        <span>
+          Published
+           2004
+           in Cambridge, UK 
+        </span>
+      </div>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`ImprintInfo renders imprints with date and publisher 1`] = `
+<div
+  className="__InlineList__"
+>
+  <ul>
+    <li>
+      <div>
+        <span>
+          Published
+           2004
+           by Univ. Pr. 
+        </span>
+      </div>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`ImprintInfo renders imprints with date, publisher, and place 1`] = `
+<div
+  className="__InlineList__"
+>
+  <ul>
+    <li>
+      <div>
+        <span>
+          Published
+           2004
+           in Cambridge, UK 
+           by Univ. Pr. 
+        </span>
+      </div>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`ImprintInfo renders imprints with place 1`] = `
+<div
+  className="__InlineList__"
+>
+  <ul>
+    <li>
+      <div>
+        <span>
+          Published
+           in Cambridge, UK 
+        </span>
+      </div>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`ImprintInfo renders imprints with publisher 1`] = `
+<div
+  className="__InlineList__"
+>
+  <ul>
+    <li>
+      <div>
+        <span>
+          Published
+           by Univ. Pr. 
+        </span>
+      </div>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`ImprintInfo renders imprints with publisher and place 1`] = `
+<div
+  className="__InlineList__"
+>
+  <ul>
+    <li>
+      <div>
+        <span>
+          Published
+           in Cambridge, UK 
+           by Univ. Pr. 
+        </span>
+      </div>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`ImprintInfo renders multiple imprints 1`] = `
+<div
+  className="__InlineList__"
+>
+  <ul>
+    <li>
+      <div>
+        <span>
+          Published
+           2004
+           in Cambridge, UK 
+           by Univ. Pr. 
+        </span>
+      </div>
+       and 
+    </li>
+    <li>
+      <div>
+        <span>
+          Published
+           2010
+           in Cambridge, UK 
+           by Univ. Pr. 
+        </span>
+      </div>
+    </li>
+  </ul>
+</div>
+`;
