@@ -49,6 +49,7 @@ import BookSeriesInfoList from '../../components/BookSeriesInfoList';
 import { LITERATURE_SEMINARS_NS } from '../../../search/constants';
 import LiteratureSeminars from '../../components/LiteratureSeminars';
 import { newSearch, searchBaseQueriesUpdate } from '../../../actions/search';
+import ImprintInfo from '../../components/ImprintInfo';
 
 function DetailPage({
   authors,
@@ -64,6 +65,7 @@ function DetailPage({
   const controlNumber = metadata.get('control_number');
   const thesisInfo = metadata.get('thesis_info');
   const isbns = metadata.get('isbns');
+  const imprint = metadata.get('imprints');
   const publicationInfo = metadata.get('publication_info');
   const conferenceInfo = metadata.get('conference_info');
   const eprints = metadata.get('arxiv_eprints');
@@ -191,6 +193,7 @@ function DetailPage({
                   )}
                   <ConferenceInfoList conferenceInfo={conferenceInfo} />
                   <IsbnList isbns={isbns} />
+                  <ImprintInfo imprint={imprint} date={date} />
                   <ArxivEprintList eprints={eprints} />
                   <DOIList dois={dois} />
                   <ReportNumberList reportNumbers={reportNumbers} />
