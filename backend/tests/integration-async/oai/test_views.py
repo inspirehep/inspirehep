@@ -5,6 +5,8 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+from textwrap import indent
+
 from helpers.providers.faker import faker
 from helpers.utils import es_search, retry_until_pass
 from inspire_dojson.api import record2marcxml
@@ -15,13 +17,15 @@ from invenio_search import current_search
 
 from inspirehep.records.api import LiteratureRecord
 
+RECORD_INDENT = "        "
+
 
 def test_oai_with_for_cds_set(inspire_app, clean_celery_session):
     data = {"_export_to": {"CDS": True}}
     record_data = faker.record("lit", data)
     record = LiteratureRecord.create(record_data)
     record_uuid = record.id
-    record_marcxml = record2marcxml(record)
+    record_marcxml = indent(record2marcxml(record).decode(), RECORD_INDENT).encode()
     db.session.commit()
 
     def assert_the_record_is_indexed():
@@ -53,7 +57,7 @@ def test_oai_with_for_arxiv_set(inspire_app, clean_celery_session):
     record_data = faker.record("lit", data)
     record = LiteratureRecord.create(record_data)
     record_uuid = record.id
-    record_marcxml = record2marcxml(record)
+    record_marcxml = indent(record2marcxml(record).decode(), RECORD_INDENT).encode()
     db.session.commit()
 
     def assert_the_record_is_indexed():
@@ -80,7 +84,7 @@ def test_oai_get_single_identifier_for_CDS_set(inspire_app, clean_celery_session
     record_data = faker.record("lit", data)
     record = LiteratureRecord.create(record_data)
     record_uuid = record.id
-    record_marcxml = record2marcxml(record)
+    record_marcxml = indent(record2marcxml(record).decode(), RECORD_INDENT).encode()
     db.session.commit()
 
     def assert_the_record_is_indexed():
@@ -112,7 +116,7 @@ def test_oai_get_single_identifier_for_arxiv_set(inspire_app, clean_celery_sessi
     record_data = faker.record("lit", data)
     record = LiteratureRecord.create(record_data)
     record_uuid = record.id
-    record_marcxml = record2marcxml(record)
+    record_marcxml = indent(record2marcxml(record).decode(), RECORD_INDENT).encode()
     db.session.commit()
 
     def assert_the_record_is_indexed():
