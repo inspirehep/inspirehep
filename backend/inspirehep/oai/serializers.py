@@ -5,10 +5,9 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from inspire_dojson.api import record2marcxml
-from lxml import etree as ET
+from inspire_dojson.api import record2marcxml_etree
 
 
 def record_json_to_marcxml(pid, record, **kwargs):
     """Converts record to marcxml for OAI."""
-    return ET.fromstring(record2marcxml(record["_source"]))
+    return record2marcxml_etree(record["_source"])
