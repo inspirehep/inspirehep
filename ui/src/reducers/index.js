@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
 
-import search, { initialState as searchInitialState } from './search';
+import search from './search';
 import literature from './literature';
 import exceptions from './exceptions';
 import inspect from './inspect';
@@ -41,5 +41,4 @@ export default function createRootReducer(history) {
 export const REDUCERS_TO_PERSISTS = [
   { name: 'ui', initialState: uiInitialState },
   { name: 'user', initialState: userInitialState },
-  { name: 'search', initialState: searchInitialState },
 ];
