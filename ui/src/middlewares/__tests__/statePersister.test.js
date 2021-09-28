@@ -21,11 +21,15 @@ describe('statePersister', () => {
     it('persists state to local storage for given reducer names', async () => {
       reducersModule.REDUCERS_TO_PERSISTS = [
         { name: 'a', initialState: fromJS({}) },
-        { name: 'b', initialState: fromJS({}) },
+        {
+          name: 'b',
+          initialState: fromJS({}),
+          statePath: ['subState1', 'subState2'],
+        },
       ];
       const getState = () => ({
         a: fromJS({ foo: 'A' }),
-        b: fromJS({ bar: 'B' }),
+        b: fromJS({ subState1: { subState2: { bar: 'B' } } }),
         c: fromJS({ whatever: 'thing' }),
       });
       const middleware = createPersistToStorageMiddleware();
@@ -39,9 +43,12 @@ describe('statePersister', () => {
       expect(storage.set).toHaveBeenCalledWith(getStorageKeyForReducer('a'), {
         foo: 'A',
       });
-      expect(storage.set).toHaveBeenCalledWith(getStorageKeyForReducer('b'), {
-        bar: 'B',
-      });
+      expect(storage.set).toHaveBeenCalledWith(
+        getStorageKeyForReducer('b', ['subState1', 'subState2']),
+        {
+          bar: 'B',
+        }
+      );
       expect(storage.set).toHaveBeenCalledTimes(2);
     });
   });
@@ -53,7 +60,7 @@ describe('statePersister', () => {
         { name: 'b', initialState: fromJS({}) },
       ];
 
-      storage.getSync = jest.fn().mockImplementation(key => {
+      storage.getSync = jest.fn().mockImplementation((key) => {
         const store = {
           [getStorageKeyForReducer('a')]: { foo: 'A' },
           [getStorageKeyForReducer('b')]: { bar: 'B' },
@@ -74,7 +81,7 @@ describe('statePersister', () => {
         { name: 'b', initialState: fromJS({}) },
       ];
 
-      storage.getSync = jest.fn().mockImplementation(key => {
+      storage.getSync = jest.fn().mockImplementation((key) => {
         const store = {
           [getStorageKeyForReducer('a')]: { foo: 'A' },
         };
@@ -100,7 +107,7 @@ describe('statePersister', () => {
           }),
         },
       ];
-      storage.getSync = jest.fn().mockImplementation(key => {
+      storage.getSync = jest.fn().mockImplementation((key) => {
         const store = {
           [getStorageKeyForReducer('a')]: {
             foo: 'A',

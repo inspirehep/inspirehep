@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
 
-import search from './search';
+import search, { initialState as searchInitialState } from './search';
 import literature from './literature';
 import exceptions from './exceptions';
 import inspect from './inspect';
@@ -16,6 +16,7 @@ import seminars from './seminars';
 import experiments from './experiments';
 import bibliographyGenerator from './bibliographyGenerator';
 import ui, { initialState as uiInitialState } from './ui';
+import { LITERATURE_REFERENCES_NS } from '../search/constants';
 
 export default function createRootReducer(history) {
   return combineReducers({
@@ -41,4 +42,9 @@ export default function createRootReducer(history) {
 export const REDUCERS_TO_PERSISTS = [
   { name: 'ui', initialState: uiInitialState },
   { name: 'user', initialState: userInitialState },
+  {
+    name: 'search',
+    initialState: searchInitialState,
+    statePath: ['namespaces', LITERATURE_REFERENCES_NS, 'query'],
+  },
 ];
