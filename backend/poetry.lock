@@ -1401,7 +1401,7 @@ description = "A PEG-based query parser for INSPIRE."
 name = "inspire-query-parser"
 optional = false
 python-versions = "*"
-version = "6.0.36"
+version = "6.0.37"
 
 [package.dependencies]
 inspire-schemas = ">=61.0,<62.0"
@@ -1962,6 +1962,7 @@ tests = ["Flask-Login (>=0.3.2)", "invenio-db (>=1.0.2)", "invenio-indexer (>=1.
 reference = "089267b14ee4e9df9d00d8e65720c7bf2bddeea4"
 type = "git"
 url = "https://github.com/inspirehep/invenio-records-rest"
+
 [[package]]
 category = "main"
 description = "REST API module for Invenio."
@@ -4638,8 +4639,8 @@ inspire-matcher = [
     {file = "inspire-matcher-9.0.8.tar.gz", hash = "sha256:2e10c71c3e576f0984adabe53f2c8292757a849927387aa8160bb62b92765285"},
 ]
 inspire-query-parser = [
-    {file = "inspire-query-parser-6.0.36.tar.gz", hash = "sha256:53c22ca7f78caa398cec2a899b243ddf7c2ae9da1bd5e66e0be26a1ce1766756"},
-    {file = "inspire_query_parser-6.0.36-py2-none-any.whl", hash = "sha256:2df4a4fef3af1019b4e7def85dc1a145e9561f867067ce17f41335ca89cf11b9"},
+    {file = "inspire-query-parser-6.0.37.tar.gz", hash = "sha256:7b5e9d30e15952270fefd770824f6a6ebc531e55b8c1cbf2f971cbcfbb245c25"},
+    {file = "inspire_query_parser-6.0.37-py2-none-any.whl", hash = "sha256:94124b8e2c1b5a837e73aa35f4311350090eadb357f9faf279342fa822c2725b"},
 ]
 inspire-schemas = [
     {file = "inspire_schemas-61.4.3-py2.py3-none-any.whl", hash = "sha256:976be1b39a93c586af2a1173902114d9a8bf67e799105f5429101cec988089f8"},
