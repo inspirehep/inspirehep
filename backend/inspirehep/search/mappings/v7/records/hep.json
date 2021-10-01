@@ -1023,7 +1023,8 @@
           "journal_title": {
             "fields": {
               "raw": {
-                "type": "keyword"
+                "type": "keyword",
+                "normalizer": "lowercase_normalizer"
               }
             },
             "copy_to": "_all",
