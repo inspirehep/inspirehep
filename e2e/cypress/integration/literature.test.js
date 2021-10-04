@@ -151,7 +151,8 @@ describe('Literature Submission', () => {
 
   it('submits a new article', () => {
     const formData = {
-      pdf_link: 'https://journal.eu/papers/cool.pdf',
+      pdf_link:
+        'http://caod.oriprobe.com/articles/61619219/Some_characterizations_for_the_exponential_φ_expan.html',
       title: 'Cool Article',
       subjects: ['Accelerators', 'Experiment-Nucl'],
       abstract: 'This explains some cool stuff about a thing',
