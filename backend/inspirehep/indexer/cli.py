@@ -335,7 +335,7 @@ def create_aliases(ctx, yes_i_know, prefix_alias):
                 click.echo(f"Skipping alias {alias_name}")
                 continue
             click.echo(f"Removing old alias ({alias_name})")
-            current_search.client.indices.delete_alias("*", alias_name)
+            current_search.client.indices.delete_alias("inspire*", alias_name)
         click.echo(f"Creating alias '{alias_name}' -> '{index_name}'")
         current_search.client.indices.put_alias(index=index_name, name=alias_name)
 
