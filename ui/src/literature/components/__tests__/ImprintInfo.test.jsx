@@ -89,4 +89,14 @@ describe('ImprintInfo', () => {
     const wrapper = shallow(<ImprintInfo imprint={imprint} />);
     expect(wrapper.dive()).toMatchSnapshot();
   });
+
+  it('renders date with month and day', () => {
+    const imprint = fromJS([
+      {
+        date: '2018-06-17',
+      },
+    ]);
+    const wrapper = shallow(<ImprintInfo imprint={imprint} />);
+    expect(wrapper.dive()).toMatchSnapshot();
+  });
 });
