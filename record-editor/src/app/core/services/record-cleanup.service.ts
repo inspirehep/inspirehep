@@ -34,11 +34,17 @@ export class RecordCleanupService {
         if (this.isEmpty(value[i])) {
           value.splice(i, 1);
         }
+        if (this.isURL(value[i]) && this.isNotEncodedURL(value[i])) {
+          value[i] = encodeURI(value[i]);
+        }
       }
     } else {
       Object.keys(value).forEach((key) => {
         if (typeof value[key] === 'object' && value[key] !== null) {
           this.cleanup(value[key]);
+        }
+        if (this.isURL(value[key]) && this.isNotEncodedURL(value[key])) {
+          value[key] = encodeURI(value[key]);
         }
         if (this.isEmpty(value[key])) {
           delete value[key];
@@ -60,5 +66,21 @@ export class RecordCleanupService {
 
     // boolean, number
     return false;
+  }
+
+  public isURL(value: any): boolean {
+    if (typeof value !== 'string') {
+      return false;
+    }
+    try {
+      const url = new URL(value);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  public isNotEncodedURL(value: string): boolean {
+    return decodeURI(value) === value;
   }
 }
