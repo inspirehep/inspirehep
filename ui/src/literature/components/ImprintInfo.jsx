@@ -24,7 +24,7 @@ class ImprintInfo extends Component {
     const place = imprint.get('place');
     const publisher = imprint.get('publisher');
 
-    const datePart = date ? moment(`  ${date} `).format(formatDate(date)) : '';
+    const datePart = date ? moment(date).format(formatDate(date)) : '';
     const placePart = place ? ` in ${place} ` : '';
     const publisherPart = publisher ? ` by ${publisher} ` : '';
 

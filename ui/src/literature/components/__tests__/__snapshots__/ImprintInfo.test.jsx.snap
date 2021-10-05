@@ -1,5 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`ImprintInfo renders date with month and day 1`] = `
+<div
+  className="__InlineList__"
+>
+  <ul>
+    <li>
+      <div>
+        <span>
+          Published
+           Jun 17, 2018
+        </span>
+      </div>
+    </li>
+  </ul>
+</div>
+`;
+
 exports[`ImprintInfo renders imprints with date 1`] = `
 <div
   className="__InlineList__"

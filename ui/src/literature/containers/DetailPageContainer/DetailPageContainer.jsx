@@ -193,7 +193,7 @@ function DetailPage({
                   )}
                   <ConferenceInfoList conferenceInfo={conferenceInfo} />
                   <IsbnList isbns={isbns} />
-                  <ImprintInfo imprint={imprint} date={date} />
+                  <ImprintInfo imprint={imprint} />
                   <ArxivEprintList eprints={eprints} />
                   <DOIList dois={dois} />
                   <ReportNumberList reportNumbers={reportNumbers} />
