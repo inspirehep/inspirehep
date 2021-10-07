@@ -31,7 +31,7 @@ class ImprintInfo extends Component {
     return (
       <div>
         <span>
-          Published{datePart}
+          Published:{datePart}
           {placePart}
           {publisherPart}
         </span>
