@@ -558,6 +558,13 @@ class LiteratureRecord(
         for batch in chunker(uuids_to_regenerate, max_chunk):
             regenerate_author_records_table_entries.delay(batch)
 
+    def remove_authors_references(self):
+        for author in self.get("authors"):
+            if "record" in author:
+                del author["record"]
+            if "curated_relation" in author:
+                del author["curated_relation"]
+
 
 def import_article(identifier):
     """Import a new article from arXiv or Crossref based on the identifier.

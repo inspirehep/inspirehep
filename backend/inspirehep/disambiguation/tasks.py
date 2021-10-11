@@ -213,9 +213,19 @@ def disambiguate_authors(self, record_uuid):
         record = InspireRecord.get_record(record_uuid)
     except NoResultFound:
         return
+    literature_in_previous_version = "Literature" in record._previous_version.get(
+        "_collections", []
+    )
     if "Literature" not in record["_collections"]:
+        if literature_in_previous_version:
+            record.remove_authors_references()
+            record.update(dict(record))
+            db.session.commit()
         return
-    authors = record.get_modified_authors()
+    if not literature_in_previous_version:
+        authors = record["authors"]
+    else:
+        authors = record.get_modified_authors()
     updated_authors = []
     for author in authors:
         if author.get("curated_relation"):
