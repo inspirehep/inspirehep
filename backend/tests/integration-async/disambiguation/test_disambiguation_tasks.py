@@ -1103,3 +1103,153 @@ def test_disambiguation_races_assign(
             )
 
         retry_until_pass(assert_disambiguation_on_record_update, retry_interval=2)
+
+
+def test_disambiguation_removes_links_to_authors_records_if_record_moved_to_hidden_collection(
+    inspire_app, clean_celery_session, enable_disambiguation
+):
+    author_data = faker.record("aut", with_control_number=True)
+    author_data.update(
+        {
+            "name": {"value": "Brian Gross"},
+            "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
+            "email_addresses": [{"current": True, "value": "test@test.com"}],
+        }
+    )
+    author_record = InspireRecord.create(author_data)
+    author_data_2 = faker.record("aut", with_control_number=True)
+    author_data_2.update(
+        {
+            "name": {"value": "Test Author"},
+            "ids": [{"schema": "INSPIRE BAI", "value": "T.Author.1"}],
+            "email_addresses": [{"current": True, "value": "author@author.com"}],
+        }
+    )
+    author_record_2 = InspireRecord.create(author_data_2)
+    db.session.commit()
+
+    def assert_authors_records_exist_in_es():
+        author_record_from_es = InspireSearch.get_record_data_from_es(author_record)
+        assert author_record_from_es
+
+    retry_until_pass(assert_authors_records_exist_in_es)
+
+    literature_data = faker.record("lit", with_control_number=True)
+    literature_data.update(
+        {
+            "authors": [
+                {
+                    "full_name": "Brian Gross",
+                    "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
+                    "emails": ["test@test.com"],
+                    "curated_relation": True,
+                    "record": author_record["self"],
+                },
+                {
+                    "full_name": "Test Author",
+                    "ids": [{"schema": "INSPIRE BAI", "value": "T.Author.1"}],
+                    "emails": ["test@test.com"],
+                    "curated_relation": True,
+                    "record": author_record_2["self"],
+                },
+            ]
+        }
+    )
+    literature_record = LiteratureRecord.create(literature_data)
+    db.session.commit()
+
+    def assert_authors_records_exist_in_es():
+        lit_record_from_es = InspireSearch.get_record_data_from_es(literature_record)
+        assert lit_record_from_es
+
+    retry_until_pass(assert_authors_records_exist_in_es, retry_interval=3)
+
+    literature_record["_collections"] = ["HAL Hidden"]
+    literature_record.update(dict(literature_record))
+    db.session.commit()
+
+    def assert_disambiguation_task():
+        literature_record_from_es = InspireSearch.get_record_data_from_es(
+            literature_record
+        )
+        assert not literature_record_from_es["authors"][0].get("record")
+        assert not literature_record_from_es["authors"][1].get("curated_relation")
+        assert not literature_record_from_es["authors"][1].get("record")
+
+    retry_until_pass(assert_disambiguation_task, retry_interval=3)
+
+
+def test_disambiguation_run_for_every_author_when_record_moved_from_private_collection_to_literature(
+    inspire_app, clean_celery_session, enable_disambiguation
+):
+    author_data = faker.record("aut", with_control_number=True)
+    author_data.update(
+        {
+            "name": {"value": "Brian Gross"},
+            "ids": [{"schema": "INSPIRE BAI", "value": "B.Gross.1"}],
+            "email_addresses": [{"current": True, "value": "b.gross@cern.ch"}],
+        }
+    )
+    author_record = InspireRecord.create(author_data)
+    author_data_2 = faker.record("aut", with_control_number=True)
+    author_data_2.update(
+        {
+            "name": {"value": "Test Author"},
+            "ids": [{"schema": "INSPIRE BAI", "value": "T.Author.1"}],
+            "email_addresses": [{"current": True, "value": "author@author.com"}],
+        }
+    )
+    author_record_2 = InspireRecord.create(author_data_2)
+    db.session.commit()
+
+    def assert_authors_records_exist_in_es():
+        author_record_from_es = InspireSearch.get_record_data_from_es(author_record)
+        assert author_record_from_es
+
+    retry_until_pass(assert_authors_records_exist_in_es)
+
+    literature_data = faker.record("lit", with_control_number=True)
+    literature_data.update(
+        {
+            "_collections": ["HAL Hidden"],
+            "authors": [
+                {
+                    "full_name": "Gross, Brian",
+                    "ids": [{"schema": "INSPIRE BAI", "value": "B.Gross.1"}],
+                    "emails": ["b.gross@cern.ch"],
+                },
+                {
+                    "full_name": "Author, Test",
+                    "ids": [{"schema": "INSPIRE BAI", "value": "T.Author.1"}],
+                    "emails": ["author@author.com"],
+                },
+            ],
+        }
+    )
+    literature_record = LiteratureRecord.create(literature_data)
+    db.session.commit()
+
+    def assert_authors_records_exist_in_es():
+        lit_record_from_es = InspireSearch.get_record_data_from_es(literature_record)
+        assert lit_record_from_es
+
+    retry_until_pass(assert_authors_records_exist_in_es, retry_interval=3)
+
+    literature_record["_collections"] = ["Literature"]
+    literature_record.update(dict(literature_record))
+    db.session.commit()
+
+    def assert_disambiguation_task():
+        literature_record_from_es = InspireSearch.get_record_data_from_es(
+            literature_record
+        )
+        assert (
+            literature_record_from_es["authors"][0].get("record")
+            == author_record["self"]
+        )
+        assert (
+            literature_record_from_es["authors"][1].get("record")
+            == author_record_2["self"]
+        )
+
+    retry_until_pass(assert_disambiguation_task, retry_interval=5)
