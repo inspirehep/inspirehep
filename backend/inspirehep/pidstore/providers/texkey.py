@@ -9,7 +9,6 @@ import string
 
 import structlog
 from flask import current_app
-from inspire_utils.name import ParsedName
 from inspire_utils.record import get_value
 from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
@@ -46,23 +45,20 @@ class InspireTexKeyProvider(InspireBaseProvider):
     def build_texkey_first_part(cls, data):
         full_name = get_value(data, "authors[0].full_name")
         if full_name:
-            parsed_name = ParsedName.loads(full_name)
-            parsed_name = (
-                parsed_name.last if len(parsed_name) > 1 else full_name.split(",")[0]
-            )
+            last_name = full_name.split(",")[0]
         else:
-            parsed_name = None
+            last_name = None
 
-        if parsed_name and len(data["authors"]) < 10:
-            return cls.sanitize(parsed_name)
+        if last_name and len(data["authors"]) < 10:
+            return cls.sanitize(last_name)
         elif "collaborations" in data:
             return cls.sanitize(data["collaborations"][0]["value"])
         elif "corporate_author" in data:
             return cls.sanitize(data["corporate_author"][0])
         elif "proceedings" in data["document_type"]:
             return cls.sanitize("Proceedings")
-        elif parsed_name:
-            return cls.sanitize(parsed_name)
+        elif last_name:
+            return cls.sanitize(last_name)
         return None
 
     @classmethod
