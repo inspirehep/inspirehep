@@ -480,3 +480,15 @@ def test_fix_entries_by_update_date(inspire_app, clean_celery_session):
         assert len(RecordsAuthors.query.all()) == 2
 
     retry_until_pass(assert_all_entries_in_db, retry_interval=3)
+
+
+def test_failing_with_null_character(inspire_app, clean_celery_session):
+    data = {"titles": [{"title": "This is \u0000a test title that fails."}]}
+    expected_title = "This is a test title that fails."
+    data = faker.record("lit", with_control_number=True, data=data)
+
+    record = LiteratureRecord.create(data)
+    db.session.commit()
+
+    record = LiteratureRecord.get_record_by_pid_value(record["control_number"])
+    assert expected_title == record["titles"][0]["title"]
