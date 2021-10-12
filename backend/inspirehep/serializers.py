@@ -213,7 +213,7 @@ class JSONSerializerLiteratureSearch(JSONSerializer):
 
 
 def serialize_json_for_sqlalchemy(data):
-    return orjson.dumps(data).decode("utf-8")
+    return orjson.dumps(data).decode("utf-8").replace("\\u0000", "")
 
 
 def jsonify(*args, **kwargs):
