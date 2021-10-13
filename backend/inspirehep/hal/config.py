@@ -28,6 +28,7 @@ HAL_DOMAIN_MAPPING = {
     "Accelerators": "phys.phys.phys-acc-ph",
     "Astrophysics": "phys.astr",
     "Computing": "info",
+    "Condensed Matter": "phys.cond",
     "Data Analysis and Statistics": "phys.phys.phys-data-an",
     "Experiment-HEP": "phys.hexp",
     "Experiment-Nucl": "phys.nexp",
@@ -38,6 +39,7 @@ HAL_DOMAIN_MAPPING = {
     "Math and Math Physics": "phys.mphy",
     "Other": "phys",
     "Phenomenology-HEP": "phys.hphe",
+    "Quantum Physics": "phys.qphy",
     "Theory-HEP": "phys.hthe",
     "Theory-Nucl": "phys.nucl",
 }
