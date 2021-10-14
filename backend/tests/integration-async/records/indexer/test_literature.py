@@ -252,7 +252,7 @@ def test_lit_record_reindexes_references_when_earliest_date_changed(
 
 def test_many_records_in_one_commit(inspire_app, clean_celery_session):
     record_recids = set()
-    for x in range(10):
+    for x in range(4):
         data = faker.record("lit")
         record = LiteratureRecord.create(data)
         record_recids.add(record["control_number"])
@@ -262,9 +262,9 @@ def test_many_records_in_one_commit(inspire_app, clean_celery_session):
     def assert_all_records_in_es():
         result = LiteratureSearch().query_from_iq("").execute().hits
         result_recids = {hit.control_number for hit in result}
-        assert len(result_recids & record_recids) == 10
+        assert len(result_recids & record_recids) == 4
 
-    retry_until_pass(assert_all_records_in_es, retry_interval=3)
+    retry_until_pass(assert_all_records_in_es, retry_interval=5)
 
 
 def test_record_created_through_api_is_indexed(inspire_app, clean_celery_session):
