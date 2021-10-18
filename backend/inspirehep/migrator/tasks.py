@@ -21,7 +21,6 @@ from celery.result import AsyncResult
 from click import echo
 from dateutil.parser import parse
 from flask import current_app
-from flask_celeryext.app import current_celery_app
 from flask_sqlalchemy import models_committed
 from inspire_dojson import marcxml2record
 from inspire_dojson.errors import NotSupportedError
@@ -49,7 +48,7 @@ from inspirehep.records.api import InspireRecord, LiteratureRecord
 from inspirehep.records.errors import DownloadFileError
 from inspirehep.records.receivers import index_after_commit
 from inspirehep.records.tasks import update_records_relations
-from inspirehep.utils import chunker
+from inspirehep.utils import chunker, count_consumers_for_queue
 
 LOGGER = structlog.getLogger()
 CHUNK_SIZE = 100
@@ -102,26 +101,6 @@ def read_file(source):
         with open(source, "rb") as fd:
             for line in fd:
                 yield line
-
-
-def count_consumers_for_queue(queue_name):
-    """Get the number of workers consuming messages from the given queue.
-
-    Note:
-        This is using the slow worker-to-worker API (~1s), so don't call it too
-        often. We might need to improve it later.
-    """
-    try:
-        queues_per_worker = (
-            current_celery_app.control.inspect().active_queues().values()
-        )
-    except AttributeError:
-        #  integration tests run in eager mode and have no queues
-        return 0
-    return sum(
-        len([queue for queue in worker_queues if queue["name"] == queue_name])
-        for worker_queues in queues_per_worker
-    )
 
 
 def migrate_record_from_legacy(recid):

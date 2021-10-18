@@ -5,7 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from inspirehep.assign.views import update_author_bai
+from inspirehep.assign.utils import update_author_bai
 
 
 def test_author_bai_is_updated_correctly_in_ids_list():

@@ -10,6 +10,7 @@ from contextlib import contextmanager
 from math import ceil
 
 from flask import current_app
+from flask_celeryext.app import current_celery_app
 from redis import StrictRedis
 from redis_lock import Lock
 
@@ -112,3 +113,22 @@ def distributed_lock(lock_name, expire=10, auto_renewal=True, blocking=False):
 
 class DistributedLockError(Exception):
     pass
+
+
+def count_consumers_for_queue(queue_name):
+    """Get the number of workers consuming messages from the given queue.
+    Note:
+        This is using the slow worker-to-worker API (~1s), so don't call it too
+        often. We might need to improve it later.
+    """
+    try:
+        queues_per_worker = (
+            current_celery_app.control.inspect().active_queues().values()
+        )
+    except AttributeError:
+        #  integration tests run in eager mode and have no queues
+        return 0
+    return sum(
+        len([queue for queue in worker_queues if queue["name"] == queue_name])
+        for worker_queues in queues_per_worker
+    )

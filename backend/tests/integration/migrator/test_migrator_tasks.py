@@ -24,7 +24,6 @@ from mock import patch
 from inspirehep.files.api import current_s3_instance
 from inspirehep.migrator.models import LegacyRecordsMirror
 from inspirehep.migrator.tasks import (
-    count_consumers_for_queue,
     create_records_from_mirror_recids,
     migrate_and_insert_record,
     migrate_from_file,
@@ -35,7 +34,7 @@ from inspirehep.migrator.tasks import (
 )
 from inspirehep.records.api import InspireRecord, LiteratureRecord
 from inspirehep.search.api import LiteratureSearch
-from inspirehep.utils import chunker
+from inspirehep.utils import chunker, count_consumers_for_queue
 
 
 @pytest.fixture
@@ -622,7 +621,7 @@ def test_migrating_deleted_record_registers_control_number_with_deleted_status(
     assert pid.status == PIDStatus.DELETED
 
 
-@patch("inspirehep.migrator.tasks.current_celery_app.control.inspect")
+@patch("inspirehep.utils.current_celery_app.control.inspect")
 def test_count_consumers_for_queue(mock_inspect):
     mock_inspect.return_value.active_queues.return_value = {
         "worker-1": [{"name": "some-queue"}, {"name": "other-queue"}],

@@ -6,8 +6,9 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import structlog
 from celery import shared_task
+from inspire_dojson.utils import get_record_ref
 from inspire_schemas.builders import LiteratureBuilder
-from inspire_utils.record import get_value
+from inspire_utils.record import get_value, get_values_for_schema
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
 from jsonschema import ValidationError
@@ -22,6 +23,8 @@ from sqlalchemy.orm.exc import NoResultFound, StaleDataError
 
 from inspirehep.records.api import ConferencesRecord, LiteratureRecord
 from inspirehep.records.errors import MissingArgumentError
+
+from .utils import get_author_by_recid, update_author_bai
 
 LOGGER = structlog.getLogger()
 
@@ -173,4 +176,36 @@ def export_papers_to_cds(literature_recids):
             record.update(dict(record))
         except ValidationError:
             LOGGER.exception("Cannot assign export to CDS.", recid=recid)
+    db.session.commit()
+
+
+@shared_task(
+    ignore_results=False,
+    queue="assign",
+    acks_late=True,
+    retry_backoff=2,
+    retry_kwargs={"max_retries": 6},
+    autoretry_for=(
+        NoResultFound,
+        StaleDataError,
+        DisconnectionError,
+        TimeoutError,
+        UnboundExecutionError,
+        ResourceClosedError,
+        OperationalError,
+    ),
+)
+def assign_papers(
+    from_author_recid, to_author_record, author_papers, is_stub_author=False
+):
+    author_bai = get_values_for_schema(to_author_record["ids"], "INSPIRE BAI")[0]
+    for record in author_papers:
+        lit_author = get_author_by_recid(record, from_author_recid)
+        lit_author["record"] = get_record_ref(
+            to_author_record["control_number"], endpoint="authors"
+        )
+        if not is_stub_author:
+            lit_author["curated_relation"] = True
+        lit_author["ids"] = update_author_bai(author_bai, lit_author)
+        record.update(dict(record))
     db.session.commit()

@@ -21,18 +21,19 @@ export function assigning() {
 export function assignSuccess({ from, to, papers }) {
   notification.close(ASSIGNING_NOTIFICATION_KEY);
   notification.success({
-    message: 'Claim Successful!',
+    message: 'Processing request...',
     duration: null,
     description: (
       <span>
-        Selected papers ({papers}) moved from{' '}
+        Selected papers ({papers}) will be moved from{' '}
         <ExternalLink target="_blank" href={`${AUTHORS}/${from}`}>
           {from}
         </ExternalLink>{' '}
         to{' '}
         <ExternalLink target="_blank" href={`${AUTHORS}/${to}`}>
           {to}
-        </ExternalLink>.
+        </ExternalLink>
+        .
       </span>
     ),
   });

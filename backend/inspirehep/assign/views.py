@@ -6,8 +6,6 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import structlog
 from flask import Blueprint, request
-from inspire_dojson.utils import get_recid_from_ref, get_record_ref
-from inspire_utils.record import get_values_for_schema
 from invenio_db import db
 from webargs import fields
 from webargs.flaskparser import FlaskParser
@@ -18,6 +16,10 @@ from inspirehep.assign.tasks import assign_paper_to_conference, export_papers_to
 from inspirehep.disambiguation.utils import create_new_stub_author, update_author_names
 from inspirehep.records.api import AuthorsRecord, LiteratureRecord
 from inspirehep.serializers import jsonify
+from inspirehep.utils import chunker, count_consumers_for_queue
+
+from .tasks import assign_papers
+from .utils import get_author_by_recid
 
 blueprint = Blueprint("inspirehep_assign", __name__, url_prefix="/assign")
 parser = FlaskParser()
@@ -29,45 +31,11 @@ def get_literature_records_by_recid(recids):
     return LiteratureRecord.get_records_by_pids(pids)
 
 
-def get_author_by_recid(literature_record, author_recid):
-    return next(
-        author
-        for author in literature_record.get("authors")
-        if get_recid_from_ref(author.get("record")) == author_recid
-    )
-
-
 def unstub_author_by_recid(author_recid):
     author = AuthorsRecord.get_record_by_pid_value(author_recid)
     if author.get("stub") is True:
         author["stub"] = False
         author.update(dict(author))
-
-
-def assign_papers(
-    from_author_recid, to_author_record, author_papers, is_stub_author=False
-):
-    author_bai = get_values_for_schema(to_author_record["ids"], "INSPIRE BAI")[0]
-    for record in author_papers:
-        lit_author = get_author_by_recid(record, from_author_recid)
-        lit_author["record"] = get_record_ref(
-            to_author_record["control_number"], endpoint="authors"
-        )
-        if not is_stub_author:
-            lit_author["curated_relation"] = True
-        lit_author["ids"] = update_author_bai(author_bai, lit_author)
-        record.update(dict(record))
-
-
-def update_author_bai(to_author_bai, lit_author):
-    author_ids = lit_author.get("ids", [])
-    lit_author_ids_list_updated = [
-        author_id for author_id in author_ids if author_id["schema"] != "INSPIRE BAI"
-    ]
-    lit_author_ids_list_updated.append(
-        {"value": to_author_bai, "schema": "INSPIRE BAI"}
-    )
-    return lit_author_ids_list_updated
 
 
 def get_author_signatures(from_author_recid, author_papers):
@@ -83,12 +51,14 @@ def assign_to_new_stub_author(from_author_recid, literature_recids):
     author_signatures = get_author_signatures(from_author_recid, author_papers)
     stub_author_data = update_author_names({"name": {}}, author_signatures)
     to_author = create_new_stub_author(**stub_author_data)
-    assign_papers(
-        from_author_recid,
-        to_author,
-        author_papers,
-        is_stub_author=True,
-    )
+    num_workers = count_consumers_for_queue("assign")
+    for batch in chunker(author_papers, 10, num_workers):
+        assign_papers(
+            from_author_recid,
+            to_author,
+            batch,
+            is_stub_author=True,
+        )
     return to_author["control_number"]
 
 
