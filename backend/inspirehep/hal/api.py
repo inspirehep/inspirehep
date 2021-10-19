@@ -12,6 +12,8 @@ from inspire_utils.record import get_value
 
 LOGGER = structlog.getLogger()
 
+HAL_PUSH_DELAY_TIME = 5 * 60
+
 
 def push_to_hal(record):
     """If needed, queue the push of the new changes to HAL."""
@@ -30,6 +32,7 @@ def push_to_hal(record):
                 "recid": record["control_number"],
                 "record_version_id": record.model.version_id,
             },
+            countdown=HAL_PUSH_DELAY_TIME,
         )
 
 

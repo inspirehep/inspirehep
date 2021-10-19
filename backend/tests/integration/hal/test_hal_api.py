@@ -8,6 +8,7 @@
 import mock
 from helpers.providers.faker import faker
 
+from inspirehep.hal.api import HAL_PUSH_DELAY_TIME
 from inspirehep.records.api import LiteratureRecord
 
 
@@ -22,8 +23,10 @@ def test_push_to_hal_pass_version_id(mock_push_to_hal, inspire_app, override_con
 
         assert len(mock_push_to_hal.mock_calls) == 2
         assert mock_push_to_hal.mock_calls[0][2] == {
-            "kwargs": {"recid": record["control_number"], "record_version_id": 1}
+            "kwargs": {"recid": record["control_number"], "record_version_id": 1},
+            "countdown": HAL_PUSH_DELAY_TIME,
         }
         assert mock_push_to_hal.mock_calls[1][2] == {
-            "kwargs": {"recid": record["control_number"], "record_version_id": 2}
+            "kwargs": {"recid": record["control_number"], "record_version_id": 2},
+            "countdown": HAL_PUSH_DELAY_TIME,
         }
