@@ -28,10 +28,7 @@ export const initialState = fromJS({
   errorReferences: null,
   references: [],
   totalReferences: 0,
-  queryReferences: {
-    page: 1,
-    size: 25,
-  },
+  pageReferences: 1,
   loadingAuthors: false,
   errorAuthors: null,
   authors: [],
@@ -53,7 +50,7 @@ const literatureReducer = (state = initialState, action) => {
     case LITERATURE_REFERENCES_REQUEST:
       return state
         .set('loadingReferences', true)
-        .set('queryReferences', fromJS(action.payload));
+        .set('pageReferences', fromJS(action.payload));
     case LITERATURE_REFERENCES_SUCCESS:
       return state
         .set('loadingReferences', false)

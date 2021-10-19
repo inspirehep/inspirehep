@@ -32,7 +32,7 @@ import { searchQueryUpdate } from './search';
 function fetchingLiteratureReferences(query) {
   return {
     type: LITERATURE_REFERENCES_REQUEST,
-    payload: query,
+    payload: query.page,
   };
 }
 
@@ -80,9 +80,14 @@ export const fetchLiterature = generateRecordFetchAction({
 export function fetchLiteratureReferences(recordId, newQuery = {}) {
   return async (dispatch, getState, http) => {
     const query = {
-      ...getState()
-        .search.getIn(['namespaces', LITERATURE_REFERENCES_NS, 'query'])
-        .toJS(),
+      ...{
+        size: getState().search.getIn([
+          'namespaces',
+          LITERATURE_REFERENCES_NS,
+          'query',
+          'size',
+        ]),
+      },
       ...newQuery,
     };
     dispatch(fetchingLiteratureReferences(query));

@@ -1,9 +1,9 @@
 import React from 'react';
-import { Iterable } from 'immutable';
+import { Iterable, isImmutable } from 'immutable';
 import { getWrapperComponentDisplayName } from './utils';
 
-export const convertAllImmutablePropsToJS = WrappedComponent => {
-  const Wrapper = wrappedComponentProps => {
+export const convertAllImmutablePropsToJS = (WrappedComponent) => {
+  const Wrapper = (wrappedComponentProps) => {
     const propsAsJS = Object.keys(wrappedComponentProps).reduce(
       (newProps, key) => {
         const value = wrappedComponentProps[key];
@@ -26,11 +26,15 @@ export const convertSomeImmutablePropsToJS = (
   WrappedComponent,
   propsToConvert
 ) => {
-  const Wrapper = wrappedComponentProps => {
+  const Wrapper = (wrappedComponentProps) => {
     const convertedProps = propsToConvert
-      .filter(prop => wrappedComponentProps[prop])
+      .filter((prop) => wrappedComponentProps[prop])
       .reduce((propsAsJS, prop) => {
-        propsAsJS[prop] = wrappedComponentProps[prop].toJS();
+        let props = wrappedComponentProps[prop];
+        if (isImmutable(props)) {
+          props = props.toJS();
+        }
+        propsAsJS[prop] = props;
         return propsAsJS;
       }, {});
 
