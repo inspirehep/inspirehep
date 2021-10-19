@@ -100,7 +100,7 @@ COLLECTION_EQUIVALENCE = {
     "Experiments": "experiments",
 }
 
-NON_PRIVATE_LITERATURE_COLLECTIONS = [
+NON_PRIVATE_LITERATURE_COLLECTIONS = {
     "Literature",
     "CDF Notes",
     "CDS Hidden",
@@ -110,7 +110,7 @@ NON_PRIVATE_LITERATURE_COLLECTIONS = [
     "LArSoft Notes",
     "SLAC",
     "ZEUS Preliminary Notes",
-]
+}
 
 COLLECTION_ROLES_TO_COLLECTION_NAMES = {
     "hep-hidden-read": "HEP Hidden",

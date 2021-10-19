@@ -47,7 +47,7 @@ class SessionSuperuserPermission(InspireBasePermissionCheck):
 
 class LiteratureCollectionReadPermissionCheck(InspireBasePermissionCheck):
     def can(self):
-        if not set(current_app.config["NON_PRIVATE_LITERATURE_COLLECTIONS"]) & set(
+        if not current_app.config["NON_PRIVATE_LITERATURE_COLLECTIONS"] & set(
             self.record.get("_collections", [])
         ):
             return (
