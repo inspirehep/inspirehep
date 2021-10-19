@@ -1402,7 +1402,7 @@ tests = ["flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pytest-c
 
 [[package]]
 name = "inspire-query-parser"
-version = "6.0.39"
+version = "6.0.40"
 description = "A PEG-based query parser for INSPIRE."
 category = "main"
 optional = false
@@ -1919,7 +1919,7 @@ werkzeug = ">=0.14.1"
 admin = ["Flask-Admin (>=1.3.0)"]
 all = ["Sphinx (>=1.7.2)", "Flask-Admin (>=1.3.0)", "check-manifest (>=0.25)", "coverage (>=4.5.3)", "Flask-Menu (>=0.5.0)", "invenio-admin (>=1.0.0)", "isort (>=4.3.0)", "mock (>=1.3.0)", "pydocstyle (>=3.0.0)", "pytest-cov (>=2.7.1)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.6.4,<5.0.0)"]
 docs = ["Sphinx (>=1.7.2)"]
-mysql = ["invenio-db[mysql,versioning] (>=1.0.0)"]
+mysql = ["invenio-db[versioning,mysql] (>=1.0.0)"]
 postgresql = ["invenio-db[postgresql,versioning] (>=1.0.0)"]
 sqlite = ["invenio-db[versioning] (>=1.0.0)"]
 tests = ["check-manifest (>=0.25)", "coverage (>=4.5.3)", "Flask-Menu (>=0.5.0)", "invenio-admin (>=1.0.0)", "isort (>=4.3.0)", "mock (>=1.3.0)", "pydocstyle (>=3.0.0)", "pytest-cov (>=2.7.1)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.6.4,<5.0.0)"]
@@ -4092,7 +4092,7 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<3.9"
-content-hash = "75026648de43482baf1c5409d091baba7b7323ba37852b864c2318e629eeef9d"
+content-hash = "e88f7eb2aed9fd2bf5036496ed7ec4ab769e1975d84c29c182815c5bdbfba5d6"
 
 [metadata.files]
 alembic = [
@@ -4611,8 +4611,8 @@ inspire-matcher = [
     {file = "inspire-matcher-9.0.8.tar.gz", hash = "sha256:2e10c71c3e576f0984adabe53f2c8292757a849927387aa8160bb62b92765285"},
 ]
 inspire-query-parser = [
-    {file = "inspire-query-parser-6.0.39.tar.gz", hash = "sha256:baf89a84af20e18af7c90ce05ebdb986b8db1cc3af49c845961da5f911295653"},
-    {file = "inspire_query_parser-6.0.39-py2-none-any.whl", hash = "sha256:ba16b323c8a2806937b429c25d58dd9e088e559d1b6d6c1b9e7c15bee1b87302"},
+    {file = "inspire-query-parser-6.0.40.tar.gz", hash = "sha256:dc990fc09e3707fec656c97f7e42676e2a60a8b0658d488ecaa1067d945058bf"},
+    {file = "inspire_query_parser-6.0.40-py2-none-any.whl", hash = "sha256:a809eae25d65ca60f0c33c60e2ded7e871728004f8b48a79aa33d66793e2a6a0"},
 ]
 inspire-schemas = [
     {file = "inspire_schemas-61.4.6-py2.py3-none-any.whl", hash = "sha256:30250e265e76ab7eba1234fa37878cfafedefd789eb7096ac76fd3dedb17b41c"},
