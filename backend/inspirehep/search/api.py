@@ -6,13 +6,10 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
-import copy
-
 import structlog
 from elasticsearch import RequestError
 from elasticsearch_dsl.query import Match, Q
 from flask import current_app, request
-from flask_login import current_user
 from inspire_schemas.utils import convert_old_publication_info_to_new
 from inspire_utils.record import get_value
 from invenio_search import current_search_client as es
@@ -20,8 +17,8 @@ from invenio_search.api import DefaultFilter, RecordsSearch
 from requests.exceptions import RequestException
 
 from inspirehep.accounts.api import (
+    get_allowed_collections_for_user,
     is_superuser_or_cataloger_logged_in,
-    is_user_logged_in,
 )
 from inspirehep.matcher.api import (
     get_reference_from_grobid,
@@ -192,34 +189,14 @@ class LiteratureSearch(InspireSearch):
         return results
 
     def query_by_user_role(self, query_string):
-        def get_collections_for_user_roles(roles):
-            roles_to_names = current_app.config["COLLECTION_ROLES_TO_COLLECTION_NAMES"]
-            return [
-                roles_to_names[role] for role in roles if role in roles_to_names.keys()
-            ]
+        if is_superuser_or_cataloger_logged_in():
+            return self.query(IQ(query_string, self))
 
-        def query_by_collections_for_users():
-            non_private_collections = copy.deepcopy(
-                current_app.config["NON_PRIVATE_LITERATURE_COLLECTIONS"]
-            )
-            if is_user_logged_in():
-                collections = get_collections_for_user_roles(current_user.roles)
-                non_private_collections.extend(collections)
-
-            user_query = Q(IQ(query_string, self))
-            return self.query(user_query).filter(
-                "terms", _collections=non_private_collections
-            )
-
-        if not is_superuser_or_cataloger_logged_in():
-            if "_collections" in query_string:
-                return query_by_collections_for_users()
-            else:
-                user_query = Q(
-                    IQ(query_string, self) & Q("term", _collections="Literature")
-                )
-                return self.query(user_query)
-        return self.query(IQ(query_string, self))
+        searched_collections = ["Literature"]
+        if "_collections" in query_string:
+            searched_collections = list(get_allowed_collections_for_user())
+        user_query = Q(IQ(query_string, self))
+        return self.query(user_query).filter("terms", _collections=searched_collections)
 
     def query_from_iq(self, query_string):
         """Initialize ES DSL object using INSPIRE query parser.
