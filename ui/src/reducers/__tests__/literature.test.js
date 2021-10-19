@@ -75,11 +75,11 @@ describe('literature reducer', () => {
   it('LITERATURE_REFERENCES_REQUEST', () => {
     const state = reducer(Map(), {
       type: LITERATURE_REFERENCES_REQUEST,
-      payload: { page: 1, size: 25 },
+      payload: 1,
     });
     const expected = fromJS({
       loadingReferences: true,
-      queryReferences: { page: 1, size: 25 },
+      pageReferences: 1,
     });
     expect(state).toEqual(expected);
   });

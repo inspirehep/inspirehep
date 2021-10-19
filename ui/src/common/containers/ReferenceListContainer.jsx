@@ -4,13 +4,24 @@ import { fetchLiteratureReferences } from '../../actions/literature';
 import ReferenceList from '../../literature/components/ReferenceList';
 import { LITERATURE_REFERENCES_NS } from '../../search/constants';
 import { convertSomeImmutablePropsToJS } from '../immutableToJS';
+import { castPropToNumber } from '../utils';
 
 const stateToProps = (state) => ({
   loading: state.literature.get('loadingReferences'),
   references: state.literature.get('references'),
   error: state.literature.get('errorReferences'),
   total: state.literature.get('totalReferences'),
-  query: state.search.getIn(['namespaces', LITERATURE_REFERENCES_NS, 'query']),
+  query: {
+    size: castPropToNumber(
+      state.search.getIn([
+        'namespaces',
+        LITERATURE_REFERENCES_NS,
+        'query',
+        'size',
+      ])
+    ),
+    page: castPropToNumber(state.literature.get('pageReferences')),
+  },
   baseQuery: state.search.getIn([
     'namespaces',
     LITERATURE_REFERENCES_NS,

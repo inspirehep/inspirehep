@@ -24,11 +24,12 @@ describe('ReferenceListContainer', () => {
         loadingReferences: true,
         totalReferences: 50,
         errorReferences: { message: 'Error' },
+        pageReferences: 2,
       }),
       search: fromJS({
         namespaces: {
           [LITERATURE_REFERENCES_NS]: {
-            query: { size: 10, page: 2, q: 'dude', sort: 'mostrecent' },
+            query: { size: 10 },
             baseQuery: { size: 25, page: 1 },
           },
         },
@@ -40,7 +41,7 @@ describe('ReferenceListContainer', () => {
       </Provider>
     );
     expect(wrapper.find(ReferenceList)).toHaveProp({
-      query: { size: 10, page: 2, q: 'dude', sort: 'mostrecent' },
+      query: { size: 10, page: 2 },
       references: fromJS([{ control_number: 1 }, { control_number: 2 }]),
       loading: true,
       total: 50,

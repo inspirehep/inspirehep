@@ -84,7 +84,7 @@ describe('literature - async action creators', () => {
         .replyOnce(200, {});
 
       const expectedActions = [
-        { type: LITERATURE_REFERENCES_REQUEST, payload: { page: 1, size: 10 } },
+        { type: LITERATURE_REFERENCES_REQUEST, payload: 1 },
         { type: LITERATURE_REFERENCES_SUCCESS, payload: {} },
         {
           type: SEARCH_QUERY_UPDATE,
@@ -105,21 +105,19 @@ describe('literature - async action creators', () => {
 
     it('fetches references with merging the given query into the existing one ', async (done) => {
       mockHttp
-        .onGet(
-          '/literature/123/references?size=10&page=10&q=dude&sort=mostrecent'
-        )
+        .onGet('/literature/123/references?size=10&page=10')
         .replyOnce(200, {});
 
       const expectedActions = [
         {
           type: LITERATURE_REFERENCES_REQUEST,
-          payload: { size: 10, page: 10, q: 'dude', sort: 'mostrecent' },
+          payload: 10,
         },
         { type: LITERATURE_REFERENCES_SUCCESS, payload: {} },
         {
           type: SEARCH_QUERY_UPDATE,
           payload: {
-            query: { size: 10, page: 10, q: 'dude', sort: 'mostrecent' },
+            query: { size: 10, page: 10 },
             namespace: LITERATURE_REFERENCES_NS,
           },
         },
@@ -129,10 +127,13 @@ describe('literature - async action creators', () => {
         search: fromJS({
           namespaces: {
             [LITERATURE_REFERENCES_NS]: {
-              query: { size: 10, page: 2, q: 'dude', sort: 'mostrecent' },
+              query: { size: 10 },
               baseQuery: { size: 25, page: 1 },
             },
           },
+        }),
+        literature: fromJS({
+          queryReferencesPage: 10,
         }),
       });
       await store.dispatch(fetchLiteratureReferences(123, { page: 10 }));
@@ -146,7 +147,7 @@ describe('literature - async action creators', () => {
         .replyOnce(404, { message: 'Not found' });
 
       const expectedActions = [
-        { type: LITERATURE_REFERENCES_REQUEST, payload: { page: 1, size: 10 } },
+        { type: LITERATURE_REFERENCES_REQUEST, payload: 1 },
         {
           type: LITERATURE_REFERENCES_ERROR,
           payload: { error: { status: 404, message: 'Not found' } },
