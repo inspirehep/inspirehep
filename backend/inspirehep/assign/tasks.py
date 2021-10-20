@@ -180,9 +180,7 @@ def export_papers_to_cds(literature_recids):
 
 
 @shared_task(
-    ignore_results=False,
     queue="assign",
-    acks_late=True,
     retry_backoff=2,
     retry_kwargs={"max_retries": 6},
     autoretry_for=(
