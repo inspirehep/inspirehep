@@ -65,7 +65,14 @@ def assign_to_new_stub_author(from_author_recid, literature_recids):
 def assign_to_author(from_author_recid, to_author_recid, literature_recids):
     author_record = AuthorsRecord.get_record_by_pid_value(to_author_recid)
     author_papers = list(get_literature_records_by_recid(literature_recids))
-    assign_papers(from_author_recid, author_record, author_papers)
+    num_workers = count_consumers_for_queue("assign")
+    for batch in chunker(author_papers, 10, num_workers):
+        assign_papers(
+            from_author_recid,
+            author_record,
+            batch,
+            is_stub_author=True,
+        )
     unstub_author_by_recid(to_author_recid)
 
 

@@ -4,7 +4,7 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-
+import mock
 import orjson
 from helpers.utils import create_record, create_user
 from inspire_dojson.utils import get_recid_from_ref
@@ -114,7 +114,8 @@ def test_assign_requires_cataloger_login(inspire_app):
     assert to_author_after["stub"]
 
 
-def test_assign_from_an_author_to_another(inspire_app):
+@mock.patch("inspirehep.assign.views.assign_papers")
+def test_assign_from_an_author_to_another(mock_assign, inspire_app):
     cataloger = create_user(role="cataloger")
     author_data = {
         "name": {"value": "Aad, Georges", "preferred_name": "Georges Aad"},
@@ -175,23 +176,11 @@ def test_assign_from_an_author_to_another(inspire_app):
     response_status_code = response.status_code
 
     assert response_status_code == 200
-
-    for literature in [literature_1, literature_2]:
-        literature_after = LiteratureRecord.get_record_by_pid_value(
-            literature["control_number"]
-        )
-        literature_author = literature_after["authors"][0]
-        assert literature_author["record"] == {
-            "$ref": f"http://localhost:5000/api/authors/{to_author['control_number']}"
-        }
-        assert literature_author["curated_relation"]
-        assert literature_author["ids"] == to_author["ids"]
-
-    to_author_after = AuthorsRecord.get_record_by_pid_value(to_author["control_number"])
-    assert not to_author_after["stub"]
+    mock_assign.assert_called_once()
 
 
-def test_assign_from_an_author_to_another_that_is_not_stub(inspire_app):
+@mock.patch("inspirehep.assign.views.assign_papers")
+def test_assign_from_an_author_to_another_that_is_not_stub(mock_assign, inspire_app):
     cataloger = create_user(role="cataloger")
     author_data = {
         "name": {"value": "Aad, Georges", "preferred_name": "Georges Aad"},
@@ -234,19 +223,7 @@ def test_assign_from_an_author_to_another_that_is_not_stub(inspire_app):
     response_status_code = response.status_code
 
     assert response_status_code == 200
-
-    literature_after = LiteratureRecord.get_record_by_pid_value(
-        literature["control_number"]
-    )
-    literature_author = literature_after["authors"][1]
-    assert literature_author["record"] == {
-        "$ref": f"http://localhost:5000/api/authors/{to_author['control_number']}"
-    }
-    assert literature_author["curated_relation"]
-    assert literature_author["ids"] == to_author["ids"]
-
-    to_author_after = AuthorsRecord.get_record_by_pid_value(to_author["control_number"])
-    assert not to_author_after["stub"]
+    mock_assign.assert_called_once()
 
 
 def test_assign_without_to_author(inspire_app, override_config):
