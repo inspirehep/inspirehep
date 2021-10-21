@@ -181,6 +181,7 @@ def export_papers_to_cds(literature_recids):
 
 @shared_task(
     queue="assign",
+    bind=True,
     retry_backoff=2,
     retry_kwargs={"max_retries": 6},
     autoretry_for=(
@@ -194,10 +195,15 @@ def export_papers_to_cds(literature_recids):
     ),
 )
 def assign_papers(
-    from_author_recid, to_author_record, author_papers, is_stub_author=False
+    self,
+    from_author_recid,
+    to_author_record,
+    author_papers_recids,
+    is_stub_author=False,
 ):
     author_bai = get_values_for_schema(to_author_record["ids"], "INSPIRE BAI")[0]
-    for record in author_papers:
+    for recid in author_papers_recids:
+        record = LiteratureRecord.get_record_by_pid_value(recid)
         lit_author = get_author_by_recid(record, from_author_recid)
         lit_author["record"] = get_record_ref(
             to_author_record["control_number"], endpoint="authors"

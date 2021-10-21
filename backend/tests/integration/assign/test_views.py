@@ -7,8 +7,6 @@
 import mock
 import orjson
 from helpers.utils import create_record, create_user
-from inspire_dojson.utils import get_recid_from_ref
-from inspire_utils.record import get_values_for_schema
 from invenio_accounts.testutils import login_user_via_session
 from sqlalchemy.exc import ResourceClosedError
 
@@ -114,7 +112,7 @@ def test_assign_requires_cataloger_login(inspire_app):
     assert to_author_after["stub"]
 
 
-@mock.patch("inspirehep.assign.views.assign_papers")
+@mock.patch("inspirehep.assign.views.current_celery_app.send_task")
 def test_assign_from_an_author_to_another(mock_assign, inspire_app):
     cataloger = create_user(role="cataloger")
     author_data = {
@@ -179,7 +177,7 @@ def test_assign_from_an_author_to_another(mock_assign, inspire_app):
     mock_assign.assert_called_once()
 
 
-@mock.patch("inspirehep.assign.views.assign_papers")
+@mock.patch("inspirehep.assign.views.current_celery_app.send_task")
 def test_assign_from_an_author_to_another_that_is_not_stub(mock_assign, inspire_app):
     cataloger = create_user(role="cataloger")
     author_data = {
@@ -226,7 +224,8 @@ def test_assign_from_an_author_to_another_that_is_not_stub(mock_assign, inspire_
     mock_assign.assert_called_once()
 
 
-def test_assign_without_to_author(inspire_app, override_config):
+@mock.patch("inspirehep.assign.views.current_celery_app.send_task")
+def test_assign_without_to_author(mock_assign, inspire_app, override_config):
     with override_config(
         FEATURE_FLAG_ENABLE_BAI_PROVIDER=True, FEATURE_FLAG_ENABLE_BAI_CREATION=True
     ):
@@ -280,34 +279,7 @@ def test_assign_without_to_author(inspire_app, override_config):
         response_status_code = response.status_code
 
     assert response_status_code == 200
-    stub_author_id = response.json["stub_author_id"]
-
-    literature1_after = LiteratureRecord.get_record_by_pid_value(
-        literature1["control_number"]
-    )
-    literature1_author = literature1_after["authors"][0]
-    literature1_author_recid = get_recid_from_ref(literature1_author["record"])
-    assert literature1_author_recid != from_author["control_number"]
-    assert literature1_author_recid == stub_author_id
-    assert not literature1_author.get("curated_relation")
-
-    literature2_after = LiteratureRecord.get_record_by_pid_value(
-        literature1["control_number"]
-    )
-    literature2_author = literature2_after["authors"][0]
-    literature2_author_recid = get_recid_from_ref(literature2_author["record"])
-    assert literature2_author_recid != from_author["control_number"]
-    assert literature2_author_recid == stub_author_id
-    assert not literature2_author.get("curated_relation")
-
-    author = AuthorsRecord.get_record_by_pid_value(stub_author_id)
-    assert author["stub"] is True
-    assert author["name"] == {"value": "Urhan, Harun", "name_variants": ["Urhan, H"]}
-    assert get_values_for_schema(author["ids"], "INSPIRE BAI")[0] == "H.Urhan.2"
-    assert (
-        get_values_for_schema(author["ids"], "INSPIRE BAI")[0]
-        != get_values_for_schema(from_author["ids"], "INSPIRE BAI")[0]
-    )
+    mock_assign.assert_called_once()
 
 
 def test_assign_conference_view(inspire_app):

@@ -6,6 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import structlog
 from flask import Blueprint, request
+from flask_celeryext.app import current_celery_app
 from invenio_db import db
 from webargs import fields
 from webargs.flaskparser import FlaskParser
@@ -18,7 +19,6 @@ from inspirehep.records.api import AuthorsRecord, LiteratureRecord
 from inspirehep.serializers import jsonify
 from inspirehep.utils import chunker, count_consumers_for_queue
 
-from .tasks import assign_papers
 from .utils import get_author_by_recid
 
 blueprint = Blueprint("inspirehep_assign", __name__, url_prefix="/assign")
@@ -47,31 +47,35 @@ def get_author_signatures(from_author_recid, author_papers):
 
 def assign_to_new_stub_author(from_author_recid, literature_recids):
     # TODO: differentiate from BEARD created stub author
-    author_papers = list(get_literature_records_by_recid(literature_recids))
+    author_papers = get_literature_records_by_recid(literature_recids)
     author_signatures = get_author_signatures(from_author_recid, author_papers)
     stub_author_data = update_author_names({"name": {}}, author_signatures)
     to_author = create_new_stub_author(**stub_author_data)
     num_workers = count_consumers_for_queue("assign")
-    for batch in chunker(author_papers, 10, num_workers):
-        assign_papers(
-            from_author_recid,
-            to_author,
-            batch,
-            is_stub_author=True,
+    for batch in chunker(literature_recids, 10, num_workers):
+        current_celery_app.send_task(
+            "inspirehep.assign.tasks.assign_papers",
+            kwargs={
+                "from_author_recid": from_author_recid,
+                "to_author_record": to_author,
+                "author_papers_recids": batch,
+                "is_stub_author": True,
+            },
         )
     return to_author["control_number"]
 
 
 def assign_to_author(from_author_recid, to_author_recid, literature_recids):
     author_record = AuthorsRecord.get_record_by_pid_value(to_author_recid)
-    author_papers = list(get_literature_records_by_recid(literature_recids))
     num_workers = count_consumers_for_queue("assign")
-    for batch in chunker(author_papers, 10, num_workers):
-        assign_papers(
-            from_author_recid,
-            author_record,
-            batch,
-            is_stub_author=True,
+    for batch in chunker(literature_recids, 10, num_workers):
+        current_celery_app.send_task(
+            "inspirehep.assign.tasks.assign_papers",
+            kwargs={
+                "from_author_recid": from_author_recid,
+                "to_author_record": author_record,
+                "author_papers_recids": batch,
+            },
         )
     unstub_author_by_recid(to_author_recid)
 
