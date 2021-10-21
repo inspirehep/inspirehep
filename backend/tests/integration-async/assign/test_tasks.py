@@ -1,8 +1,10 @@
 from helpers.utils import create_record, retry_until_pass
 from invenio_db import db
+from invenio_search import current_search
 
 from inspirehep.assign.tasks import assign_papers
-from inspirehep.records.api import AuthorsRecord, LiteratureRecord
+from inspirehep.records.api import AuthorsRecord
+from inspirehep.search.api import LiteratureSearch
 
 
 def test_assign_from_an_author_to_another(inspire_app, clean_celery_session):
@@ -46,17 +48,19 @@ def test_assign_from_an_author_to_another(inspire_app, clean_celery_session):
     )
     db.session.commit()
 
-    assign_papers(
+    assign_papers.delay(
         from_author_recid=from_author["control_number"],
         to_author_record=to_author,
-        author_papers=[literature_1, literature_2],
+        author_papers_recids=[
+            literature_1["control_number"],
+            literature_2["control_number"],
+        ],
     )
 
     def assert_assign():
         for literature in [literature_1, literature_2]:
-            literature_after = LiteratureRecord.get_record_by_pid_value(
-                literature["control_number"]
-            )
+            current_search.flush_and_refresh("*")
+            literature_after = LiteratureSearch.get_record_data_from_es(literature)
             literature_author = literature_after["authors"][0]
             assert literature_author["record"] == {
                 "$ref": f"http://localhost:5000/api/authors/{to_author['control_number']}"
@@ -96,16 +100,15 @@ def test_assign_from_an_author_to_another_that_is_not_stub(
     )
     db.session.commit()
 
-    assign_papers(
+    assign_papers.delay(
         from_author_recid=from_author["control_number"],
         to_author_record=to_author,
-        author_papers=[literature],
+        author_papers_recids=[literature["control_number"]],
     )
 
     def assert_assign():
-        literature_after = LiteratureRecord.get_record_by_pid_value(
-            literature["control_number"]
-        )
+        current_search.flush_and_refresh("*")
+        literature_after = LiteratureSearch.get_record_data_from_es(literature)
         literature_author = literature_after["authors"][1]
         to_author_after = AuthorsRecord.get_record_by_pid_value(
             to_author["control_number"]
