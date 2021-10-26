@@ -3,4 +3,6 @@ export interface RecordResource {
     metadata: object;
   };
   schema: object;
+  user_locks: string;
+  task_locks: string;
 }

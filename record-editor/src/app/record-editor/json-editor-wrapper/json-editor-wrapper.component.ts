@@ -38,8 +38,10 @@ import {
   AppConfigService,
   DomUtilsService,
   GlobalAppStateService,
+  ReleaseLockService,
 } from '../../core/services';
 import { SubscriberComponent } from '../../shared/classes';
+import { HOVER_TO_DISMISS_INDEFINITE_TOAST } from '../../shared/constants';
 
 @Component({
   selector: 're-json-editor-wrapper',
@@ -47,7 +49,8 @@ import { SubscriberComponent } from '../../shared/classes';
   styleUrls: ['./json-editor-wrapper.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class JsonEditorWrapperComponent extends SubscriberComponent
+export class JsonEditorWrapperComponent
+  extends SubscriberComponent
   implements OnInit, OnChanges {
   @Input() recordId?: string;
   @Input() recordType?: string;
@@ -65,7 +68,8 @@ export class JsonEditorWrapperComponent extends SubscriberComponent
     private appConfigService: AppConfigService,
     private toastrService: ToastrService,
     private domUtilsService: DomUtilsService,
-    private globalAppStateService: GlobalAppStateService
+    private globalAppStateService: GlobalAppStateService,
+    private releaseLockService: ReleaseLockService
   ) {
     super();
   }
@@ -90,23 +94,24 @@ export class JsonEditorWrapperComponent extends SubscriberComponent
     if (!this.recordId || !this.recordType) {
       // component loaded via router, @Input() aren't passed
       this.route.params
-        .filter(params => params['recid'])
+        .filter((params) => params['recid'])
         .takeUntil(this.isDestroyed)
-        .subscribe(params => {
+        .subscribe((params) => {
           this.fetch(params['type'], params['recid']);
         });
     }
+    this.releaseLockService.registerUnloadPrompt();
 
     this.globalAppStateService.jsonBeingEdited$
       .takeUntil(this.isDestroyed)
-      .subscribe(jsonBeingEdited => {
+      .subscribe((jsonBeingEdited) => {
         this.record = jsonBeingEdited;
         this.changeDetectorRef.markForCheck();
       });
 
     this.appConfigService.onConfigChange
       .takeUntil(this.isDestroyed)
-      .subscribe(config => {
+      .subscribe((config) => {
         this.config = Object.assign({}, config);
         this.changeDetectorRef.markForCheck();
       });
@@ -161,14 +166,31 @@ export class JsonEditorWrapperComponent extends SubscriberComponent
     });
     this.apiService
       .fetchRecord(recordType, recordId)
-      .then(json => {
+      .then((json) => {
         this.schema = json.schema;
         const record = json.record.metadata;
+        const user_locks = json.user_locks;
+        const task_locks = json.task_locks;
         this.globalAppStateService.jsonBeingEdited$.next(record);
         this.globalAppStateService.isJsonUpdated$.next(false);
         this.config = this.appConfigService.getConfigForRecord(record);
+        this.releaseLockService.setCurrentRecord(record);
+        if (user_locks) {
+          this.toastrService.warning(
+            user_locks,
+            'Warning',
+            HOVER_TO_DISMISS_INDEFINITE_TOAST
+          );
+        }
+        if (task_locks) {
+          this.toastrService.warning(
+            task_locks,
+            'Warning',
+            HOVER_TO_DISMISS_INDEFINITE_TOAST
+          );
+        }
       })
-      .catch(error => {
+      .catch((error) => {
         this.toastrService.clear(loadingToastId);
         if (error.status === 403) {
           this.toastrService.error(

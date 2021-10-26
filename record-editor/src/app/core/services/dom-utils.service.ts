@@ -27,7 +27,7 @@ import { environment } from '../../../environments/environment';
 @Injectable()
 export class DomUtilsService {
   // Event handler that makes browser to show prompt before closing the application
-  private beforeUnloadHandler = function(event) {
+  private beforeUnloadHandler = function (event) {
     event.returnValue = true; // Gecko, Trident, Chrome 34+
     return true; // Gecko, WebKit, Chrome <34
   };

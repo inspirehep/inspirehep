@@ -56,10 +56,10 @@ export class RecordApiService extends CommonApiService {
     this.newRecordFetched$.next(null);
     return this.http
       .get(this.currentRecordEditorApiUrl)
-      .do(res => {
+      .do((res) => {
         this.currentRecordETag = res.headers.get('ETag');
       })
-      .map(res => res.json())
+      .map((res) => res.json())
       .toPromise();
   }
 
@@ -68,7 +68,7 @@ export class RecordApiService extends CommonApiService {
       .put(this.currentRecordApiUrl, record, {
         headers: new Headers({ 'If-Match': this.currentRecordETag }),
       })
-      .catch(error => Observable.throw(new ApiError(error)));
+      .catch((error) => Observable.throw(new ApiError(error)));
   }
 
   searchRecord(recordType: string, query: string): Observable<Array<number>> {
@@ -76,14 +76,14 @@ export class RecordApiService extends CommonApiService {
       .get(`${apiUrl}/${recordType}/?q=${query}&size=200`, {
         headers: this.returnOnlyIdsHeaders,
       })
-      .map(res => res.json())
-      .map(json => json.hits.recids);
+      .map((res) => res.json())
+      .map((json) => json.hits.recids);
   }
 
   preview(record: object): Promise<string> {
     return this.http
       .post(`${environment.baseUrl}/editor/preview`, record)
-      .map(response => response.text())
+      .map((response) => response.text())
       .toPromise();
   }
 
@@ -94,7 +94,16 @@ export class RecordApiService extends CommonApiService {
     };
     return this.http
       .post(`${editorApiUrl}/manual_merge`, body)
-      .map(res => res.json())
-      .map(json => json.workflow_object_id);
+      .map((res) => res.json())
+      .map((json) => json.workflow_object_id);
+  }
+
+  releaseLock(record: object): Promise<any> {
+    const requestOptions = new Headers({ ETag: this.currentRecordETag });
+    return this.http
+      .post(`${this.currentRecordEditorApiUrl}/lock/release`, record, {
+        headers: requestOptions,
+      })
+      .toPromise();
   }
 }
