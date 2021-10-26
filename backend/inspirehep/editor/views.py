@@ -4,7 +4,7 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-
+import re
 from os.path import splitext
 
 import structlog
@@ -34,6 +34,7 @@ from inspirehep.utils import hash_data
 
 from ..rt.errors import EmptyResponseFromRT, NoUsersFound
 from .authorlist_utils import authorlist
+from .editor_soft_lock import EditorSoftLock
 from .errors import EditorGetRevisionError, EditorRevertToRevisionError
 
 blueprint = Blueprint("inspirehep_editor", __name__, url_prefix="/editor")
@@ -70,17 +71,22 @@ def get_record_and_schema(endpoint, pid_value):
     record = InspireRecord.get_record_by_pid_value(
         pid_value, pid_type, original_record=True
     )
-
     if not check_permissions_for_private_collection_read(
         record.get("_collections", [])
     ):
         return jsonify(message="Unauthorized", code=403), 403
-
+    editor_soft_lock_service = EditorSoftLock(
+        recid=record["control_number"],
+        record_version=record.model.version_id,
+        user_email=current_user.email,
+    )
+    editor_lock_payload = editor_soft_lock_service.prepare_editor_lock_api_payload()
+    editor_soft_lock_service.add_lock()
     json = {
         "record": {"metadata": record},
         "schema": load_schema(record["$schema"]),
     }
-
+    json.update(editor_lock_payload)
     response = make_response(json)
     set_headers_for_record_caching_and_concurrency(response, record)
 
@@ -308,3 +314,23 @@ def authorlist_text():
         return jsonify(parsed_authors)
     except Exception as err:
         return jsonify(status=400, message=" / ".join(err.args)), 400
+
+
+@blueprint.route("/<endpoint>/<pid_value>/lock/release", methods=["POST"])
+@login_required
+def remove_editor_lock(endpoint, pid_value):
+    version_id = request.headers["ETag"]
+    record = request.json
+    if not check_permissions_for_private_collection_read_write(
+        record.get("_collections", [])
+    ):
+        return jsonify(message="Unauthorized", code=403), 403
+    version_from_etag = re.findall(r"\d+", version_id)
+    if not version_from_etag:
+        return jsonify(message="Incorrect Etag passed", code=400), 400
+    version_id = int(version_from_etag[0]) + 1
+    editor_soft_lock = EditorSoftLock(
+        recid=pid_value, record_version=version_id, user_email=current_user.email
+    )
+    editor_soft_lock.remove_lock()
+    return jsonify(success=True)

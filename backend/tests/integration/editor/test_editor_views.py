@@ -11,12 +11,14 @@ import os
 import orjson
 import pkg_resources
 import requests_mock
+from flask.globals import current_app
 from helpers.utils import create_record, create_user
 from inspire_schemas.api import load_schema, validate
 from inspire_utils.record import get_value
 from invenio_accounts.testutils import login_user_via_session
 from invenio_cache import current_cache
 from mock import patch
+from redis import StrictRedis
 from werkzeug.datastructures import FileStorage
 
 from inspirehep.accounts.roles import Roles
@@ -529,3 +531,73 @@ def test_authorlist_text_exception(inspire_app):
     result = orjson.loads(response.data)
 
     assert expected == result
+
+
+def test_editor_lock_is_created_on_editor_open(inspire_app):
+    user = create_user(role=Roles.cataloger.value)
+    record = create_record("lit")
+    redis_url = current_app.config.get("CACHE_REDIS_URL")
+    redis = StrictRedis.from_url(redis_url)
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(
+            f'/api/editor/literature/{record["control_number"]}',
+            content_type="application/json",
+        )
+
+    expected_editor_lock_name = (
+        f"editor-lock:{record['control_number']}@{record.model.version_id}"
+    )
+
+    assert response.status_code == 200
+    assert redis.hgetall(expected_editor_lock_name)
+
+
+def test_editor_locks_are_passed_in_payload_when_another_user_editing(inspire_app):
+    user = create_user(role=Roles.cataloger.value)
+    user_2 = create_user(role=Roles.cataloger.value)
+
+    record = create_record("lit")
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        client.get(
+            f'/api/editor/literature/{record["control_number"]}',
+            content_type="application/json",
+        )
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user_2.email)
+        response_2 = client.get(
+            f'/api/editor/literature/{record["control_number"]}',
+            content_type="application/json",
+        )
+    assert "user_locks" in response_2.json
+    assert response_2.json["user_locks"].startswith("Record opened by ")
+
+
+def test_editor_locks_resolve(inspire_app):
+    user = create_user(role=Roles.cataloger.value)
+    record = create_record("lit")
+    expected_editor_lock_name = (
+        f"editor-lock:{record['control_number']}@{record.model.version_id}"
+    )
+    redis_url = current_app.config.get("CACHE_REDIS_URL")
+    redis = StrictRedis.from_url(redis_url)
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        client.get(
+            f'/api/editor/literature/{record["control_number"]}',
+            content_type="application/json",
+        )
+        assert redis.hget(expected_editor_lock_name, user.email)
+        client.post(
+            f"""api/editor/literature/{record['control_number']}/lock/release""",
+            content_type="application/json",
+            data=orjson.dumps(record),
+            headers={"ETag": '"W/"0"'},
+        )
+
+    assert not redis.hget(expected_editor_lock_name, user.email)

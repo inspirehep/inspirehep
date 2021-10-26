@@ -6,6 +6,8 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import orjson
+from celery.app.annotations import MapAnnotation, resolve_all
+from flask import current_app
 from helpers.providers.faker import faker
 from helpers.utils import create_user, retry_until_pass
 from inspire_utils.record import get_values_for_schema
@@ -13,6 +15,7 @@ from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_search import current_search
+from redis import StrictRedis
 
 from inspirehep.disambiguation.tasks import disambiguate_signatures
 from inspirehep.records.api import AuthorsRecord, InspireRecord
@@ -1253,3 +1256,55 @@ def test_disambiguation_run_for_every_author_when_record_moved_from_private_coll
         )
 
     retry_until_pass(assert_disambiguation_task, retry_interval=5)
+
+
+def test_editor_lock_is_created_when_disambiguation_runs(
+    inspire_app, clean_celery_session, enable_disambiguation
+):
+    from inspirehep.disambiguation.tasks import disambiguate_authors
+
+    celery_task_annotation = MapAnnotation({"countdown": 10})
+    celery_task_annotation.annotate(disambiguate_authors)
+    redis_url = current_app.config.get("CACHE_REDIS_URL")
+    redis = StrictRedis.from_url(redis_url)
+    author_data = faker.record("aut", with_control_number=True)
+    author_data.update(
+        {
+            "name": {"value": "Brian Gross"},
+            "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
+            "email_addresses": [{"current": True, "value": "test@test.com"}],
+        }
+    )
+    author_record = InspireRecord.create(author_data)
+    db.session.commit()
+
+    def assert_authors_records_exist_in_es():
+        author_record_from_es = InspireSearch.get_record_data_from_es(author_record)
+        assert author_record_from_es
+
+    retry_until_pass(assert_authors_records_exist_in_es)
+
+    literature_data = faker.record("lit", with_control_number=True)
+    literature_data.update(
+        {
+            "authors": [
+                {
+                    "full_name": "Brian Gross",
+                    "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
+                    "emails": ["test@test.com"],
+                }
+            ]
+        }
+    )
+    literature_record = LiteratureRecord.create(literature_data)
+    db.session.commit()
+    version_id = literature_record.model.version_id
+
+    def assert_lock_in_redis():
+        expected_hash_name = (
+            f"editor-task-lock:{literature_record['control_number']}@{version_id}"
+        )
+        assert redis.hgetall(expected_hash_name)
+
+    retry_until_pass(assert_lock_in_redis, retry_interval=1)
+    resolve_all(celery_task_annotation, disambiguate_authors)

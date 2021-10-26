@@ -324,3 +324,27 @@ def test_get_revision(inspire_app, clean_celery_session, record_with_two_revisio
     result = orjson.loads(response.data)
 
     assert result["titles"][0]["title"] == "record rev0"
+
+
+def test_editor_locks_are_passed_in_payload_when_another_user_editing(
+    inspire_app,
+    clean_celery_session,
+    enable_disambiguation,
+    record_with_two_revisions,
+):
+    user = create_user(role=Roles.cataloger.value)
+
+    record = LiteratureRecord.get_record_by_pid_value(111)
+    record["authors"] = [{"full_name": "An Author"}]
+    record.update(dict(record))
+    db.session.commit()
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(
+            f'/api/editor/literature/{record["control_number"]}',
+            content_type="application/json",
+        )
+
+    assert "task_locks" in response.json
+    assert response.json["task_locks"].startswith("Scheduled tasks:")

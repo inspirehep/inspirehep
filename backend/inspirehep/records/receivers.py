@@ -10,7 +10,7 @@ from flask import current_app
 from flask_sqlalchemy import models_committed
 from invenio_records.models import RecordMetadata
 
-from inspirehep.disambiguation.tasks import disambiguate_authors
+from inspirehep.disambiguation.api import author_disambiguation
 from inspirehep.records.api import InspireRecord
 from inspirehep.records.tasks import redirect_references_to_merged_record
 
@@ -29,7 +29,7 @@ def index_after_commit(sender, changes):
         if isinstance(model_instance, RecordMetadata):
             if change in ("insert", "update", "delete"):
                 LOGGER.debug(
-                    f"Record commited, indexing.",
+                    "Record commited, indexing.",
                     change=change,
                     uuid=str(model_instance.id),
                 )
@@ -41,6 +41,6 @@ def index_after_commit(sender, changes):
                     change != "delete"
                     and current_app.config["FEATURE_FLAG_ENABLE_AUTHOR_DISAMBIGUATION"]
                 ):
-                    disambiguate_authors.delay(str(model_instance.id))
+                    author_disambiguation(model_instance)
                 if "new_record" in model_instance.json:
                     redirect_references_to_merged_record.delay(str(model_instance.id))

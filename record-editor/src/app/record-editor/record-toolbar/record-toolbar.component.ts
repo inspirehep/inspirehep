@@ -34,6 +34,7 @@ import {
   RecordApiService,
   RecordCleanupService,
   DomUtilsService,
+  ReleaseLockService,
 } from '../../core/services';
 import { SubscriberComponent, ApiError } from '../../shared/classes';
 import { ToastrService } from 'ngx-toastr';
@@ -68,7 +69,8 @@ export class RecordToolbarComponent
     private recordCleanupService: RecordCleanupService,
     private globalAppStateService: GlobalAppStateService,
     private domUtilsService: DomUtilsService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private releaseLockService: ReleaseLockService
   ) {
     super();
   }
@@ -142,6 +144,7 @@ export class RecordToolbarComponent
 
   private onSaveSuccess() {
     this.domUtilsService.unregisterBeforeUnloadPrompt();
+    this.releaseLockService.unregisterUnloadPrompt();
     this.toastrService.success('Changes are saved', 'Success');
     // direct assignment to window.location  doesn't compile with this version of TS
     window.location.href = `/${this.pidType}/${this.record['control_number']}`;

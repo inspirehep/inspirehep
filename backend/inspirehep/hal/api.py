@@ -10,6 +10,8 @@ from flask import current_app
 from flask_celeryext.app import current_celery_app
 from inspire_utils.record import get_value
 
+from inspirehep.editor.editor_soft_lock import EditorSoftLock
+
 LOGGER = structlog.getLogger()
 
 
@@ -31,6 +33,12 @@ def push_to_hal(record):
                 "record_version_id": record.model.version_id,
             },
         )
+        editor_soft_lock = EditorSoftLock(
+            recid=record["control_number"],
+            record_version=record.model.version_id,
+            task_name="inspirehep.hal.tasks.hal_push",
+        )
+        editor_soft_lock.add_lock()
 
 
 def is_hal_set(record):

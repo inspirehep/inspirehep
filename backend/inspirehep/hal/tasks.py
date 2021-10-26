@@ -16,6 +16,7 @@ from lxml import etree
 from sqlalchemy.orm.exc import StaleDataError
 from sword2.exceptions import RequestTimeOut
 
+from inspirehep.editor.editor_soft_lock import EditorSoftLock
 from inspirehep.hal.core.sword import create, update
 from inspirehep.hal.core.tei import convert_to_tei
 from inspirehep.records.api import LiteratureRecord
@@ -60,6 +61,12 @@ def hal_push(self, recid, record_version_id):
             raise StaleDataError
         _hal_push(record)
         LOGGER.info("hal_push task successfully completed.", recid=recid)
+        editor_soft_lock = EditorSoftLock(
+            recid=record["control_number"],
+            record_version=record.model.version_id,
+            task_name=self.name,
+        )
+        editor_soft_lock.remove_lock()
     except Exception as exc:
         error_message = _get_error_message_from_hal_exception(exc)
         LOGGER.error("hal_push task failed", recid=recid, message=error_message)

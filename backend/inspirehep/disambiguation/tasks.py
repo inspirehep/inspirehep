@@ -15,6 +15,7 @@ from inspirehep.disambiguation.utils import (
     link_signatures_to_author,
     update_author_names,
 )
+from inspirehep.editor.editor_soft_lock import EditorSoftLock
 from inspirehep.matcher.validators import (
     affiliations_validator,
     collaboration_validator,
@@ -207,7 +208,7 @@ def assign_bai_to_literature_author(author, bai):
     retry_kwargs={"max_retries": 6},
     autoretry_for=(PIDAlreadyExists, OperationalError, StaleDataError),
 )
-def disambiguate_authors(self, record_uuid):
+def disambiguate_authors(self, record_uuid, record_version_id):
     # handle case when we try to get a record which is deleted
     try:
         record = InspireRecord.get_record(record_uuid)
@@ -262,3 +263,9 @@ def disambiguate_authors(self, record_uuid):
         )
         record.update(dict(record))
         db.session.commit()
+        editor_soft_lock = EditorSoftLock(
+            recid=record["control_number"],
+            record_version=record.model.version_id,
+            task_name=self.name,
+        )
+        editor_soft_lock.remove_lock()
