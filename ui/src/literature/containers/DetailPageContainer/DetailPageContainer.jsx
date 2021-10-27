@@ -93,7 +93,7 @@ function DetailPage({
   const datasetLinks = metadata.get('dataset_links');
 
   const publicationInfoWithTitle = publicationInfo
-    ? publicationInfo.filter((pub) => pub.get('journal_title'))
+    ? publicationInfo.filter((pub) => pub.has('journal_title'))
     : null;
 
   return (
@@ -186,11 +186,12 @@ function DetailPage({
                     />
                   )}
                   {bookSeries && <BookSeriesInfoList bookSeries={bookSeries} />}
-                  {publicationInfoWithTitle && (
-                    <PublicationInfoList
-                      publicationInfo={publicationInfoWithTitle}
-                    />
-                  )}
+                  {publicationInfoWithTitle &&
+                    publicationInfoWithTitle.size > 0 && (
+                      <PublicationInfoList
+                        publicationInfo={publicationInfoWithTitle}
+                      />
+                    )}
                   <ConferenceInfoList conferenceInfo={conferenceInfo} />
                   <IsbnList isbns={isbns} />
                   <ImprintInfo imprint={imprint} />
