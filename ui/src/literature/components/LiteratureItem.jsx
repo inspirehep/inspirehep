@@ -14,6 +14,7 @@ import LiteratureDate from './LiteratureDate';
 import PublicNotesList from '../../common/components/PublicNotesList/PublicNotesList';
 import AuthorsAndCollaborations from '../../common/components/AuthorsAndCollaborations';
 import PublicationInfoList from '../../common/components/PublicationInfoList';
+import BookSeriesInfoList from './BookSeriesInfoList';
 import UrlsAction from './UrlsAction';
 import DOILinkAction from './DOILinkAction';
 import EditRecordAction from '../../common/components/EditRecordAction.tsx';
@@ -47,6 +48,7 @@ function LiteratureItem({ metadata, searchRank, isCatalogerLoggedIn }) {
 
   const date = metadata.get('date');
   const publicationInfo = metadata.get('publication_info');
+  const bookSeries = metadata.get('book_series');
   const eprints = metadata.get('arxiv_eprints');
   const collaborations = metadata.get('collaborations');
   const collaborationsWithSuffix = metadata.get('collaborations_with_suffix');
@@ -56,6 +58,10 @@ function LiteratureItem({ metadata, searchRank, isCatalogerLoggedIn }) {
   const curatedRelation = metadata.get('curated_relation', false);
 
   const assignAuthorView = useContext(AssignAuthorViewContext);
+
+  const publicationInfoWithTitle = publicationInfo
+    ? publicationInfo.filter((pub) => pub.has('journal_title'))
+    : null;
 
   return (
     <ResultItem
@@ -148,8 +154,9 @@ function LiteratureItem({ metadata, searchRank, isCatalogerLoggedIn }) {
         </div>
         <div className="mt1">
           <InlineUL separator={SEPARATOR_MIDDLEDOT}>
-            {publicationInfo && (
-              <PublicationInfoList publicationInfo={publicationInfo} />
+            {bookSeries && <BookSeriesInfoList bookSeries={bookSeries} />}
+            {publicationInfoWithTitle && publicationInfoWithTitle.size > 0 && (
+              <PublicationInfoList publicationInfo={publicationInfoWithTitle} />
             )}
             {conferenceInfo && (
               <ConferenceInfoList conferenceInfo={conferenceInfo} />

@@ -57,4 +57,27 @@ describe('LiteratureItem', () => {
     );
     expect(wrapper).toMatchSnapshot();
   });
+
+  it('renders publication info when book exists but publication title not', () => {
+    const metadata = fromJS({
+      control_number: 12345,
+      titles: [{ title: 'test' }],
+      publication_info: [
+        {
+          year: 2021,
+          journal_volume: '9783030795993',
+        },
+      ],
+      document_type: ['book'],
+      book_series: [
+        {
+          title: 'SpringerBriefs in Physics',
+        },
+      ],
+    });
+    const wrapper = shallow(
+      <LiteratureItem metadata={metadata} searchRank={3} />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
 });
