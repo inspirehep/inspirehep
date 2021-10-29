@@ -207,7 +207,7 @@ def _test_alias_to_index(alias_name, expected_index_name):
 
 
 def test_cli_create_aliases(inspire_app, cli, override_config):
-    prefix = "test-cli-create-aliases-prefix-"
+    prefix = "inspire-tests-integration-cli-create-aliases-prefix-"
     with override_config(SEARCH_INDEX_PREFIX=prefix):
         list(current_search.create(ignore_existing=True))
         result = cli.invoke(["index", "create-aliases", "--yes-i-know"])
@@ -232,26 +232,40 @@ def test_cli_create_aliases(inspire_app, cli, override_config):
     assert "records-experiments" in aliases
     assert "records-conferences" in aliases
 
-    _test_alias_to_index("records-hep", "test-cli-create-aliases-prefix-records-hep")
     _test_alias_to_index(
-        "records-authors", "test-cli-create-aliases-prefix-records-authors"
+        "records-hep", "inspire-tests-integration-cli-create-aliases-prefix-records-hep"
     )
     _test_alias_to_index(
-        "records-seminars", "test-cli-create-aliases-prefix-records-seminars"
-    )
-    _test_alias_to_index("records-jobs", "test-cli-create-aliases-prefix-records-jobs")
-    _test_alias_to_index(
-        "records-institutions", "test-cli-create-aliases-prefix-records-institutions"
+        "records-authors",
+        "inspire-tests-integration-cli-create-aliases-prefix-records-authors",
     )
     _test_alias_to_index(
-        "records-journals", "test-cli-create-aliases-prefix-records-journals"
-    )
-    _test_alias_to_index("records-data", "test-cli-create-aliases-prefix-records-data")
-    _test_alias_to_index(
-        "records-experiments", "test-cli-create-aliases-prefix-records-experiments"
+        "records-seminars",
+        "inspire-tests-integration-cli-create-aliases-prefix-records-seminars",
     )
     _test_alias_to_index(
-        "records-conferences", "test-cli-create-aliases-prefix-records-conferences"
+        "records-jobs",
+        "inspire-tests-integration-cli-create-aliases-prefix-records-jobs",
+    )
+    _test_alias_to_index(
+        "records-institutions",
+        "inspire-tests-integration-cli-create-aliases-prefix-records-institutions",
+    )
+    _test_alias_to_index(
+        "records-journals",
+        "inspire-tests-integration-cli-create-aliases-prefix-records-journals",
+    )
+    _test_alias_to_index(
+        "records-data",
+        "inspire-tests-integration-cli-create-aliases-prefix-records-data",
+    )
+    _test_alias_to_index(
+        "records-experiments",
+        "inspire-tests-integration-cli-create-aliases-prefix-records-experiments",
+    )
+    _test_alias_to_index(
+        "records-conferences",
+        "inspire-tests-integration-cli-create-aliases-prefix-records-conferences",
     )
 
     current_search.flush_and_refresh("*")
