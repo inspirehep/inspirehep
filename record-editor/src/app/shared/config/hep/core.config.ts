@@ -175,7 +175,7 @@ export const coreHep: JsonEditorConfig = {
           properties: {
             legacy_name: {
               autocompletionConfig: {
-                url: `${environment.baseUrl}/api/experiments/_suggest?experiment=`,
+                url: `${environment.baseUrl}/api/experiments/_search_as_you_type?experiment=`,
                 path: '/experiment/0/options',
                 size: 10,
                 optionField: '/_source/legacy_name',

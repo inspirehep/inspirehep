@@ -19,17 +19,16 @@ def test_index_institutions_record(inspire_app, datadir):
 
     expected_count = 1
     expected_metadata = InstitutionsElasticSearchSchema().dump(record).data
-    expected_metadata["affiliation_suggest"] = {
-        "input": [
-            "CERN, Geneva",
-            "CERN",
-            "European Organization for Nuclear Research",
-            "CERN",
-            "Centre Européen de Recherches Nucléaires",
-            "01631",
-            "1211",
-        ]
-    }
+    expected_metadata["affiliation_search_as_you_type"] = [
+        "CERN, Geneva",
+        "CERN",
+        "European Organization for Nuclear Research",
+        "CERN",
+        "Centre Européen de Recherches Nucléaires",
+        "01631",
+        "1211",
+    ]
+
     expected_metadata["number_of_papers"] = 0
     expected_metadata["_created"] = utils.isoformat(record.created)
     expected_metadata["_updated"] = utils.isoformat(record.updated)

@@ -7,7 +7,6 @@
         "type": "keyword"
       },
       "ICN": {
-        "copy_to": "affautocomplete",
         "type": "text"
       },
       "_created": {
@@ -60,11 +59,8 @@
         },
         "type": "object"
       },
-      "affautocomplete": {
-        "type": "text"
-      },
-      "affiliation_suggest": {
-        "type": "completion"
+      "affiliation_search_as_you_type": {
+        "type": "search_as_you_type"
       },
       "control_number": {
         "type": "integer"
@@ -121,11 +117,9 @@
       "institution_hierarchy": {
         "properties": {
           "acronym": {
-            "copy_to": "affautocomplete",
             "type": "text"
           },
           "name": {
-            "copy_to": "affautocomplete",
             "type": "text"
           }
         },
@@ -135,7 +129,6 @@
         "type": "keyword"
       },
       "legacy_ICN": {
-        "copy_to": "affautocomplete",
         "type": "keyword"
       },
       "legacy_creation_date": {
@@ -148,7 +141,6 @@
             "type": "keyword"
           },
           "value": {
-            "copy_to": "affautocomplete",
             "type": "text"
           }
         },

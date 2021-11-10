@@ -47,7 +47,7 @@ export const setRecordRefAndCuratedOnCompletionSelect = (
 };
 
 export const affiliationAutocompletionConfig: AutocompletionConfig = {
-  url: `${environment.baseUrl}/api/institutions/_suggest?affiliation=`,
+  url: `${environment.baseUrl}/api/institutions/_search_as_you_type?affiliation=`,
   path: '/affiliation/0/options',
   optionField: '/_source/legacy_ICN',
   size: 20,
@@ -56,7 +56,7 @@ export const affiliationAutocompletionConfig: AutocompletionConfig = {
 };
 
 export const projectMembershipAutocompletionConfig: AutocompletionConfig = {
-  url: `${environment.baseUrl}/api/experiments/_suggest?experiment=`,
+  url: `${environment.baseUrl}/api/experiments/_search_as_you_type?experiment=`,
   path: '/experiment/0/options',
   size: 10,
   optionField: '/_source/legacy_name',

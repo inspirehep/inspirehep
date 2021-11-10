@@ -1931,7 +1931,7 @@ description = "REST API for invenio-records."
 category = "main"
 optional = false
 python-versions = "*"
-develop = true
+develop = false
 
 [package.dependencies]
 arrow = ">=0.12.1"
@@ -1944,26 +1944,28 @@ invenio-indexer = ">=1.1.0"
 invenio-pidstore = ">=1.2.0"
 invenio-records = "1.3.2"
 invenio-rest = "1.1.3"
+jsonschema = ">=2.6.0,<3.0"
 python-dateutil = ">=2.4.2"
 werkzeug = ">=0.14.1,<2.0.0"
 
 [package.extras]
-all = ["citeproc-py (==0.3.0)", "citeproc-py-styles (==0.1.0)", "datacite (>=1.0.1)", "Sphinx (>=3)", "dcxml (>=0.1.0)", "pyld (>=0.7.1,<2)", "Flask-Login (>=0.3.2)", "invenio-db (>=1.0.2)", "invenio-indexer (>=1.0.0)", "invenio-config (>=1.0.2)", "pytest-invenio (>=1.2.1)", "citeproc-py (==0.3.0)", "citeproc-py-styles (==0.1.0)", "datacite (>=1.0.1)", "Sphinx (>=3)", "dcxml (>=0.1.0)", "pyld (>=0.7.1,<2)", "Flask-Login (>=0.3.2)", "invenio-db (>=1.0.2)", "invenio-indexer (>=1.0.0)", "invenio-config (>=1.0.2)", "pytest-invenio (>=1.2.1)"]
+all = ["citeproc-py (==0.3.0)", "citeproc-py-styles (==0.1.0)", "datacite (>=1.0.1)", "Sphinx (>=3)", "dcxml (>=0.1.0)", "pyld (>=0.7.1,<2)", "Flask-Login (>=0.3.2)", "invenio-db[all] (>=1.0.2)", "invenio-indexer (>=1.0.0)", "invenio-config (>=1.0.2)", "pytest-invenio (>=1.2.1)"]
 citeproc = ["citeproc-py (==0.3.0)", "citeproc-py-styles (==0.1.0)"]
 datacite = ["datacite (>=1.0.1)"]
 docs = ["Sphinx (>=3)"]
 dublincore = ["dcxml (>=0.1.0)"]
-elasticsearch2 = ["invenio-search (>=1.2.3,<1.3.0)"]
-elasticsearch5 = ["invenio-search (>=1.2.3,<1.3.0)"]
-elasticsearch6 = ["invenio-search (>=1.2.3,<1.3.0)"]
-elasticsearch7 = ["invenio-search (>=1.2.3,<1.3.0)"]
+elasticsearch2 = ["invenio-search[elasticsearch2] (>=1.2.3,<1.3.0)"]
+elasticsearch5 = ["invenio-search[elasticsearch5] (>=1.2.3,<1.3.0)"]
+elasticsearch6 = ["invenio-search[elasticsearch6] (>=1.2.3,<1.3.0)"]
+elasticsearch7 = ["invenio-search[elasticsearch7] (>=1.2.3,<1.3.0)"]
 jsonld = ["pyld (>=0.7.1,<2)"]
-tests = ["Flask-Login (>=0.3.2)", "invenio-db (>=1.0.2)", "invenio-indexer (>=1.0.0)", "invenio-config (>=1.0.2)", "pytest-invenio (>=1.2.1)"]
+tests = ["Flask-Login (>=0.3.2)", "invenio-db[all] (>=1.0.2)", "invenio-indexer (>=1.0.0)", "invenio-config (>=1.0.2)", "pytest-invenio (>=1.2.1)"]
 
 [package.source]
 type = "git"
 url = "https://github.com/inspirehep/invenio-records-rest"
-reference = "089267b14ee4e9df9d00d8e65720c7bf2bddeea4"
+reference = "164e35abdc8f4245f836e721d508404165bc66a6"
+resolved_reference = "164e35abdc8f4245f836e721d508404165bc66a6"
 
 [[package]]
 name = "invenio-rest"
@@ -4092,7 +4094,7 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<3.9"
-content-hash = "e88f7eb2aed9fd2bf5036496ed7ec4ab769e1975d84c29c182815c5bdbfba5d6"
+content-hash = "3b78587aca199ab636474bdf257be5f9289f9b04963fa33fe221ac5bb1051b32"
 
 [metadata.files]
 alembic = [
