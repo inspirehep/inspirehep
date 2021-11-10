@@ -310,10 +310,10 @@ EXPERIMENTS.update(
         "update_permission_factory_imp": SessionCatalogerPermission,
         "record_class": "inspirehep.records.api:ExperimentsRecord",
         "search_factory_imp": "inspirehep.search.factories.search:search_factory_with_aggs",
-        "suggesters": {
+        "search_as_you_type": {
             "experiment": {
                 "_source": ["legacy_name", "control_number", "self"],
-                "completion": {"field": "experiment_suggest", "size": 10},
+                "field": "experiment_search_as_you_type",
             }
         },
         "search_serializers": {
@@ -425,10 +425,10 @@ INSTITUTIONS.update(
         "item_route": '/institutions/<inspirepid(ins,record_class="inspirehep.records.api:InstitutionsRecord"):pid_value>',
         "record_class": "inspirehep.records.api:InstitutionsRecord",
         "search_factory_imp": "inspirehep.search.factories.search:search_factory_with_aggs",
-        "suggesters": {
+        "search_as_you_type": {
             "affiliation": {
                 "_source": ["legacy_ICN", "control_number", "self"],
-                "completion": {"field": "affiliation_suggest"},
+                "field": "affiliation_search_as_you_type",
             }
         },
         "update_permission_factory_imp": SessionCatalogerPermission,

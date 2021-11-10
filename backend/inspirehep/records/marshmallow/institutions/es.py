@@ -15,9 +15,11 @@ from .base import InstitutionsRawSchema
 
 
 class InstitutionsElasticSearchSchema(ElasticSearchBaseSchema, InstitutionsRawSchema):
-    affiliation_suggest = fields.Method("populate_affiliation_suggest", dump_only=True)
+    affiliation_search_as_you_type = fields.Method(
+        "populate_affiliation_search_as_you_type", dump_only=True
+    )
 
-    def populate_affiliation_suggest(self, original_object):
+    def populate_affiliation_search_as_you_type(self, original_object):
         ICN = original_object.get("ICN", [])
         legacy_ICN = original_object.get("legacy_ICN", "")
 
@@ -53,5 +55,4 @@ class InstitutionsElasticSearchSchema(ElasticSearchBaseSchema, InstitutionsRawSc
         input_values.extend(extract_numbers_from_umr)
 
         input_values = [el for el in input_values if el]
-
-        return {"input": input_values}
+        return input_values

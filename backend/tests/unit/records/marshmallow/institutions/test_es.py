@@ -27,7 +27,7 @@ def test_institutions_serializer_should_serialize_whole_basic_record():
 
 
 @mock.patch("inspirehep.records.api.institutions.InstitutionLiterature")
-def test_institutions_serializer_populates_affiliation_suggest(
+def test_institutions_serializer_populates_affiliation_search_as_you_type(
     mock_institution_literature_table,
 ):
     schema = InstitutionsElasticSearchSchema()
@@ -39,26 +39,26 @@ def test_institutions_serializer_populates_affiliation_suggest(
         "addresses": [{"postal_code": "12345"}, {"postal_code": "65432"}],
     }
 
-    expected_result = {
-        "input": [
-            "ICN_VALUE",
-            "ACR1",
-            "Name1",
-            "Legacy icn value",
-            "name1",
-            "name2",
-            "12345",
-            "65432",
-        ]
-    }
+    expected_result = [
+        "ICN_VALUE",
+        "ACR1",
+        "Name1",
+        "Legacy icn value",
+        "name1",
+        "name2",
+        "12345",
+        "65432",
+    ]
     institution = InstitutionsRecord(faker.record("ins", data))
-    result = schema.dump(institution).data["affiliation_suggest"]
+    result = schema.dump(institution).data["affiliation_search_as_you_type"]
 
     assert result == expected_result
 
 
 @mock.patch("inspirehep.records.api.institutions.InstitutionLiterature")
-def test_populate_affiliation_suggest_from_icn(mock_institution_literature_table):
+def test_populate_affiliation_search_as_you_type_from_icn(
+    mock_institution_literature_table,
+):
     data = {
         "$schema": "http://localhost:5000/schemas/records/institutions.json",
         "ICN": ["CERN, Geneva"],
@@ -67,15 +67,15 @@ def test_populate_affiliation_suggest_from_icn(mock_institution_literature_table
     record = InstitutionsRecord(faker.record("ins", data))
 
     schema = InstitutionsElasticSearchSchema()
-    result = schema.dump(record).data["affiliation_suggest"]
+    result = schema.dump(record).data["affiliation_search_as_you_type"]
 
-    expected = {"input": ["CERN, Geneva", "CERN"]}
+    expected = ["CERN, Geneva", "CERN"]
 
     assert expected == result
 
 
 @mock.patch("inspirehep.records.api.institutions.InstitutionLiterature")
-def test_populate_affiliation_suggest_from_institution_hierarchy_acronym(
+def test_populate_affiliation_search_as_you_type_from_institution_hierarchy_acronym(
     mock_institution_literature_table,
 ):
     data = {
@@ -86,15 +86,15 @@ def test_populate_affiliation_suggest_from_institution_hierarchy_acronym(
     record = InstitutionsRecord(faker.record("ins", data))
 
     schema = InstitutionsElasticSearchSchema()
-    result = schema.dump(record).data["affiliation_suggest"]
+    result = schema.dump(record).data["affiliation_search_as_you_type"]
 
-    expected = {"input": ["CERN", "CERN"]}
+    expected = ["CERN", "CERN"]
 
     assert expected == result
 
 
 @mock.patch("inspirehep.records.api.institutions.InstitutionLiterature")
-def test_populate_affiliation_suggest_from_institution_hierarchy_name(
+def test_populate_affiliation_search_as_you_type_from_institution_hierarchy_name(
     mock_institution_literature_table,
 ):
     data = {
@@ -107,15 +107,15 @@ def test_populate_affiliation_suggest_from_institution_hierarchy_name(
     record = InstitutionsRecord(faker.record("ins", data))
 
     schema = InstitutionsElasticSearchSchema()
-    result = schema.dump(record).data["affiliation_suggest"]
+    result = schema.dump(record).data["affiliation_search_as_you_type"]
 
-    expected = {"input": ["European Organization for Nuclear Research", "CERN"]}
+    expected = ["European Organization for Nuclear Research", "CERN"]
 
     assert expected == result
 
 
 @mock.patch("inspirehep.records.api.institutions.InstitutionLiterature")
-def test_populate_affiliation_suggest_from_legacy_icn(
+def test_populate_affiliation_search_as_you_type_from_legacy_icn(
     mock_institution_literature_table,
 ):
     data = {
@@ -125,15 +125,15 @@ def test_populate_affiliation_suggest_from_legacy_icn(
     record = InstitutionsRecord(faker.record("ins", data))
 
     schema = InstitutionsElasticSearchSchema()
-    result = schema.dump(record).data["affiliation_suggest"]
+    result = schema.dump(record).data["affiliation_search_as_you_type"]
 
-    expected = {"input": ["CERN"]}
+    expected = ["CERN"]
 
     assert expected == result
 
 
 @mock.patch("inspirehep.records.api.institutions.InstitutionLiterature")
-def test_populate_affiliation_suggest_from_name_variants(
+def test_populate_affiliation_search_as_you_type_from_name_variants(
     mock_institution_literature_table,
 ):
     data = {
@@ -144,15 +144,15 @@ def test_populate_affiliation_suggest_from_name_variants(
     record = InstitutionsRecord(faker.record("ins", data))
 
     schema = InstitutionsElasticSearchSchema()
-    result = schema.dump(record).data["affiliation_suggest"]
+    result = schema.dump(record).data["affiliation_search_as_you_type"]
 
-    expected = {"input": ["CERN", "Centre Européen de Recherches Nucléaires"]}
+    expected = ["CERN", "Centre Européen de Recherches Nucléaires"]
 
     assert expected == result
 
 
 @mock.patch("inspirehep.records.api.institutions.InstitutionLiterature")
-def test_populate_affiliation_suggest_from_name_variants_with_umr(
+def test_populate_affiliation_search_as_you_type_from_name_variants_with_umr(
     mock_institution_literature_table,
 ):
     data = {
@@ -168,25 +168,23 @@ def test_populate_affiliation_suggest_from_name_variants_with_umr(
     record = InstitutionsRecord(faker.record("ins", data))
 
     schema = InstitutionsElasticSearchSchema()
-    result = schema.dump(record).data["affiliation_suggest"]
+    result = schema.dump(record).data["affiliation_search_as_you_type"]
 
-    expected = {
-        "input": [
-            "CERN",
-            "Centre Européen de Recherches Nucléaires",
-            "UMR 2454",
-            "umr 1234",
-            "umr",
-            "2454",
-            "1234",
-        ]
-    }
+    expected = [
+        "CERN",
+        "Centre Européen de Recherches Nucléaires",
+        "UMR 2454",
+        "umr 1234",
+        "umr",
+        "2454",
+        "1234",
+    ]
 
     assert expected == result
 
 
 @mock.patch("inspirehep.records.api.institutions.InstitutionLiterature")
-def test_populate_affiliation_suggest_from_postal_code(
+def test_populate_affiliation_search_as_you_type_from_postal_code(
     mock_institution_literature_table,
 ):
     data = {
@@ -197,15 +195,17 @@ def test_populate_affiliation_suggest_from_postal_code(
     record = InstitutionsRecord(faker.record("ins", data))
 
     schema = InstitutionsElasticSearchSchema()
-    result = schema.dump(record).data["affiliation_suggest"]
+    result = schema.dump(record).data["affiliation_search_as_you_type"]
 
-    expected = {"input": ["CERN", "1211"]}
+    expected = ["CERN", "1211"]
 
     assert expected == result
 
 
 @mock.patch("inspirehep.records.api.institutions.InstitutionLiterature")
-def test_populate_affiliation_suggest_to_ref(mock_institution_literature_table):
+def test_populate_affiliation_search_as_you_type_to_ref(
+    mock_institution_literature_table,
+):
     data = {
         "$schema": "http://localhost:5000/schemas/records/institutions.json",
         "legacy_ICN": "CERN",
@@ -214,8 +214,8 @@ def test_populate_affiliation_suggest_to_ref(mock_institution_literature_table):
     record = InstitutionsRecord(faker.record("ins", data))
 
     schema = InstitutionsElasticSearchSchema()
-    result = schema.dump(record).data["affiliation_suggest"]
+    result = schema.dump(record).data["affiliation_search_as_you_type"]
 
-    expected = {"input": ["CERN"]}
+    expected = ["CERN"]
 
     assert expected == result

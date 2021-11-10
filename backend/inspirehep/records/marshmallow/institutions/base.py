@@ -22,7 +22,7 @@ class InstitutionsRawSchema(RecordBaseSchema):
 
 
 # Fields that are needed to be indexed but excluded from API responses
-FIELDS_TO_EXCLUDE = ["affiliation_suggest"]
+FIELDS_TO_EXCLUDE = ["affiliation_search_as_you_type"]
 
 
 class InstitutionsAdminSchema(InstitutionsRawSchema):

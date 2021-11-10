@@ -134,11 +134,8 @@
         },
         "type": "object"
       },
-      "experimentautocomplete": {
-        "type": "text"
-      },
-      "experiment_suggest": {
-        "type": "completion"
+      "experiment_search_as_you_type": {
+        "type": "search_as_you_type"
       },
       "external_system_identifiers": {
         "properties": {
@@ -196,7 +193,6 @@
         "type": "date"
       },
       "legacy_name": {
-        "copy_to": ["experimentautocomplete", "experiment_suggest"],
         "type": "keyword"
       },
       "long_name": {
