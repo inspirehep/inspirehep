@@ -136,7 +136,7 @@ jobs:
         ports:
           - 5672:5672
       elasticsearch:
-        image: inspirehep/elasticsearch:7.1.1
+        image: inspirehep/elasticsearch:7.10.1
         env:
           bootstrap.memory_lock: true
           ES_JAVA_OPTS: -Xms1024m -Xmx1024m
@@ -218,7 +218,7 @@ jobs:
         ports:
           - 5672:5672
       elasticsearch:
-        image: inspirehep/elasticsearch:7.1.1
+        image: inspirehep/elasticsearch:7.10.1
         env:
           bootstrap.memory_lock: true
           ES_JAVA_OPTS: -Xms1024m -Xmx1024m
@@ -307,7 +307,7 @@ jobs:
         ports:
           - 5672:5672
       elasticsearch:
-        image: inspirehep/elasticsearch:7.1.1
+        image: inspirehep/elasticsearch:7.10.1
         env:
           bootstrap.memory_lock: true
           ES_JAVA_OPTS: -Xms1024m -Xmx1024m
@@ -573,7 +573,7 @@ jobs:
         ports:
           - 5672:5672
       elasticsearch:
-        image: inspirehep/elasticsearch:7.1.1
+        image: inspirehep/elasticsearch:7.10.1
         env:
           bootstrap.memory_lock: true
           ES_JAVA_OPTS: -Xms1024m -Xmx1024m
