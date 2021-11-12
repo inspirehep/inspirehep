@@ -183,6 +183,7 @@ export const inspireCategoryOptions = [
   { value: 'Accelerators' },
   { value: 'Astrophysics' },
   { value: 'Computing' },
+  { value: 'Condensed Matter' },
   { value: 'Data Analysis and Statistics' },
   { value: 'Experiment-HEP' },
   { value: 'Experiment-Nucl' },
@@ -193,19 +194,20 @@ export const inspireCategoryOptions = [
   { value: 'Math and Math Physics' },
   { value: 'Other' },
   { value: 'Phenomenology-HEP' },
+  { value: 'Quantum Physics' },
   { value: 'Theory-HEP' },
   { value: 'Theory-Nucl' },
 ];
 export const inspireCategoryValues = inspireCategoryOptions.map(getValue);
 
-export const rankOptions = Object.keys(RANK_VALUE_TO_DISPLAY).map(key => ({
+export const rankOptions = Object.keys(RANK_VALUE_TO_DISPLAY).map((key) => ({
   value: key,
   display: RANK_VALUE_TO_DISPLAY[key],
 }));
 export const rankValues = rankOptions.map(getValue);
 
 export const degreeTypeOptions = Object.keys(DEGREE_TYPE_TO_DISPLAY).map(
-  key => ({
+  (key) => ({
     value: key,
     display: DEGREE_TYPE_TO_DISPLAY[key],
   })
@@ -214,6 +216,6 @@ export const degreeTypeValues = degreeTypeOptions.map(getValue);
 
 export const countryValues = Object.values(countryCodeToName);
 
-export const countryOptions = countryValues.map(value => ({
+export const countryOptions = countryValues.map((value) => ({
   value,
 }));
