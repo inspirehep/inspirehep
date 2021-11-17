@@ -16,30 +16,8 @@ from .base import ExperimentsRawSchema
 
 
 class ExperimentsElasticSearchSchema(ElasticSearchBaseSchema, ExperimentsRawSchema):
-    experiment_search_as_you_type = fields.Method(
-        "populate_experiment_search_as_you_type", dump_only=True
-    )
     normalized_name_variants = fields.Method("normalize_name_variants", dump_only=True)
     normalized_subgroups = fields.Method("normalize_subgroups", dump_only=True)
-
-    def populate_experiment_search_as_you_type(self, original_object):
-        experiment_paths = [
-            "accelerator.value",
-            "collaboration.value",
-            "experiment.short_name",
-            "experiment.value",
-            "institutions.value",
-            "long_name",
-            "name_variants",
-            "legacy_name",
-        ]
-        return [
-            input_value
-            for input_value in chain.from_iterable(
-                force_list(original_object.get_value(path)) for path in experiment_paths
-            )
-            if input_value
-        ]
 
     def build_normalized_names(self, original_object, paths):
         normalized_names = []

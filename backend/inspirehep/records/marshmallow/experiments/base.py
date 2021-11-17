@@ -16,7 +16,7 @@ class ExperimentsRawSchema(RecordBaseSchema):
 
 
 # Fields that are needed to be indexed but excluded from API responses
-FIELDS_TO_EXCLUDE = ["experiment_search_as_you_type"]
+FIELDS_TO_EXCLUDE = ["experiments_search_as_you_type"]
 
 
 class ExperimentsAdminSchema(ExperimentsRawSchema):

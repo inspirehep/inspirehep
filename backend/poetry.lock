@@ -1062,14 +1062,17 @@ python-dateutil = ">=2.7"
 
 [[package]]
 name = "ftfy"
-version = "5.8"
+version = "6.0.3"
 description = "Fixes some problems with Unicode text after the fact"
 category = "main"
 optional = false
-python-versions = ">=3.5"
+python-versions = ">=3.6"
 
 [package.dependencies]
 wcwidth = "*"
+
+[package.extras]
+docs = ["furo", "sphinx"]
 
 [[package]]
 name = "ftputil"
@@ -1556,7 +1559,7 @@ werkzeug = ">=0.15"
 admin = ["Flask-Admin (>=1.3.0)"]
 all = ["Flask-Admin (>=1.3.0)", "Sphinx (>=1.4.2,<1.6)", "check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.3.0)", "mock (>=2.0.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-flask (>=0.10.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.0.0,<5.0.0)", "selenium (>=3.0.1)"]
 docs = ["Sphinx (>=1.4.2,<1.6)"]
-mysql = ["invenio-db[mysql,versioning] (>=1.0.0)"]
+mysql = ["invenio-db[versioning,mysql] (>=1.0.0)"]
 postgresql = ["invenio-db[postgresql,versioning] (>=1.0.0)"]
 sqlite = ["invenio-db[versioning] (>=1.0.0)"]
 tests = ["check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.3.0)", "mock (>=2.0.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-flask (>=0.10.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.0.0,<5.0.0)", "selenium (>=3.0.1)"]
@@ -1919,7 +1922,7 @@ werkzeug = ">=0.14.1"
 admin = ["Flask-Admin (>=1.3.0)"]
 all = ["Sphinx (>=1.7.2)", "Flask-Admin (>=1.3.0)", "check-manifest (>=0.25)", "coverage (>=4.5.3)", "Flask-Menu (>=0.5.0)", "invenio-admin (>=1.0.0)", "isort (>=4.3.0)", "mock (>=1.3.0)", "pydocstyle (>=3.0.0)", "pytest-cov (>=2.7.1)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.6.4,<5.0.0)"]
 docs = ["Sphinx (>=1.7.2)"]
-mysql = ["invenio-db[mysql,versioning] (>=1.0.0)"]
+mysql = ["invenio-db[versioning,mysql] (>=1.0.0)"]
 postgresql = ["invenio-db[postgresql,versioning] (>=1.0.0)"]
 sqlite = ["invenio-db[versioning] (>=1.0.0)"]
 tests = ["check-manifest (>=0.25)", "coverage (>=4.5.3)", "Flask-Menu (>=0.5.0)", "invenio-admin (>=1.0.0)", "isort (>=4.3.0)", "mock (>=1.3.0)", "pydocstyle (>=3.0.0)", "pytest-cov (>=2.7.1)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.6.4,<5.0.0)"]
@@ -1964,8 +1967,8 @@ tests = ["Flask-Login (>=0.3.2)", "invenio-db[all] (>=1.0.2)", "invenio-indexer 
 [package.source]
 type = "git"
 url = "https://github.com/inspirehep/invenio-records-rest"
-reference = "164e35abdc8f4245f836e721d508404165bc66a6"
-resolved_reference = "164e35abdc8f4245f836e721d508404165bc66a6"
+reference = "005729721bb326af7c0208c8d87fd73003177c4c"
+resolved_reference = "005729721bb326af7c0208c8d87fd73003177c4c"
 
 [[package]]
 name = "invenio-rest"
@@ -4094,7 +4097,7 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<3.9"
-content-hash = "3b78587aca199ab636474bdf257be5f9289f9b04963fa33fe221ac5bb1051b32"
+content-hash = "65a0bd7f1cc972023d7869e37fdaf6cd464eda2b7040b886e3b9785277ae39c9"
 
 [metadata.files]
 alembic = [
@@ -4529,7 +4532,7 @@ freezegun = [
     {file = "freezegun-1.1.0.tar.gz", hash = "sha256:177f9dd59861d871e27a484c3332f35a6e3f5d14626f2bf91be37891f18927f3"},
 ]
 ftfy = [
-    {file = "ftfy-5.8.tar.gz", hash = "sha256:51c7767f8c4b47d291fcef30b9625fb5341c06a31e6a3b627039c706c42f3720"},
+    {file = "ftfy-6.0.3.tar.gz", hash = "sha256:ba71121a9c8d7790d3e833c6c1021143f3e5c4118293ec3afb5d43ed9ca8e72b"},
 ]
 ftputil = [
     {file = "ftputil-3.4.tar.gz", hash = "sha256:374b01e174079e91babe2a462fbd6f6c00dbfbfa299dec04239ca4229fbf8762"},

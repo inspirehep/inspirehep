@@ -18,15 +18,7 @@ def test_index_experiment_record(inspire_app, datadir):
 
     expected_count = 1
     expected_metadata = deepcopy(record)
-    expected_metadata["experiment_search_as_you_type"] = [
-        "LHC",
-        "ATLAS",
-        "CERN",
-        "{ATLAS}",
-        "ATLAS",
-        "CERN-ATLAS",
-        "CERN-LHC-ATLAS",
-    ]
+
     expected_metadata["_created"] = utils.isoformat(record.created)
     expected_metadata["_updated"] = utils.isoformat(record.updated)
     expected_metadata["number_of_papers"] = 0

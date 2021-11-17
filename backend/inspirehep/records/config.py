@@ -213,7 +213,7 @@ AUTHORS.update(
             "author": {
                 "_source": ["name", "positions", "control_number", "self"],
                 "completion": {"field": "author_suggest"},
-            },
+            }
         },
         "list_route": "/authors/",
         "item_route": '/authors/<inspirepid(aut,record_class="inspirehep.records.api:AuthorsRecord"):pid_value>',
@@ -313,7 +313,22 @@ EXPERIMENTS.update(
         "search_as_you_type": {
             "experiment": {
                 "_source": ["legacy_name", "control_number", "self"],
-                "field": "experiment_search_as_you_type",
+                "fields": [
+                    {"field": "experiments_search_as_you_type.accelerator", "boost": 1},
+                    {
+                        "field": "experiments_search_as_you_type.collaboration",
+                        "boost": 1,
+                    },
+                    {"field": "experiments_search_as_you_type.experiment", "boost": 1},
+                    {"field": "experiments_search_as_you_type.institution", "boost": 1},
+                    {"field": "experiments_search_as_you_type.long_name", "boost": 1},
+                    {"field": "experiments_search_as_you_type.short_name", "boost": 1},
+                    {
+                        "field": "experiments_search_as_you_type.name_variants",
+                        "boost": 1,
+                    },
+                    {"field": "experiments_search_as_you_type.legacy_name", "boost": 2},
+                ],
             }
         },
         "search_serializers": {
@@ -428,7 +443,7 @@ INSTITUTIONS.update(
         "search_as_you_type": {
             "affiliation": {
                 "_source": ["legacy_ICN", "control_number", "self"],
-                "field": "affiliation_search_as_you_type",
+                "fields": [{"field": "affiliation_search_as_you_type", "boost": 1}],
             }
         },
         "update_permission_factory_imp": SessionCatalogerPermission,
@@ -615,11 +630,7 @@ RECORDS_REST_SORT_OPTIONS = {
             "fields": ["-opening_date"],
             "order": 2,
         },
-        "bestmatch": {
-            "title": "Best match",
-            "fields": ["-_score"],
-            "order": 3,
-        },
+        "bestmatch": {"title": "Best match", "fields": ["-_score"], "order": 3},
     },
     "records-seminars": {
         "dateasc": {
@@ -660,9 +671,7 @@ LITERATURE_SOURCE_EXCLUDES_BY_CONTENT_TYPE = {
         "_bibtex_display",
         "_cv_format",
     ],
-    "text/html": [
-        "_cv_format",
-    ],
+    "text/html": ["_cv_format"],
 }
 
 
