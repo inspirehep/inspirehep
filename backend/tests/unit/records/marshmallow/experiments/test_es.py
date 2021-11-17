@@ -30,47 +30,6 @@ def test_experiment_serializer_should_serialize_whole_basic_record(
 
 
 @mock.patch("inspirehep.records.api.experiments.ExperimentLiterature")
-def test_experiment_serializer_populates_experiment_search_as_you_type(
-    mock_experiment_literature_table,
-):
-    schema = ExperimentsElasticSearchSchema()
-    data = {
-        "accelerator": {"value": "ACC"},
-        "collaboration": {"curated_relation": False, "value": "COLLABORATION"},
-        "experiment": {"short_name": "EXP SHORT NAME", "value": "Experiment value"},
-        "institutions": [
-            {
-                "record": {
-                    "$ref": "http://labs.inspirehep.net/api/institutions/902725"
-                },
-                "value": "INST_VALUE",
-                "curated_relation": True,
-            }
-        ],
-        "legacy_name": "LEGACY-NAME",
-        "long_name": "{Long Name}",
-        "name_variants": ["NAME_V1", "NAME_V2", "NAME_V3"],
-    }
-
-    expected_experiment_search_as_you_type = [
-        "ACC",
-        "COLLABORATION",
-        "EXP SHORT NAME",
-        "Experiment value",
-        "INST_VALUE",
-        "{Long Name}",
-        "NAME_V1",
-        "NAME_V2",
-        "NAME_V3",
-        "LEGACY-NAME",
-    ]
-    experiment = ExperimentsRecord(faker.record("exp", data))
-    result = schema.dump(experiment).data["experiment_search_as_you_type"]
-
-    assert result == expected_experiment_search_as_you_type
-
-
-@mock.patch("inspirehep.records.api.experiments.ExperimentLiterature")
 def test_experiment_serializer_populates_normalized_names_and_subgroups(
     mock_experiment_literature_table,
 ):

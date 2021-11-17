@@ -19,6 +19,35 @@
       "_full_ingestion": {
         "type": "boolean"
       },
+      "experiments_search_as_you_type": {
+        "type": "object",
+        "properties": {
+          "accelerator": {
+            "type": "search_as_you_type"
+          },
+          "collaboration": {
+            "type": "search_as_you_type"
+          },
+          "short_name": {
+            "type": "search_as_you_type"
+          },
+          "experiment": {
+            "type": "search_as_you_type"
+          },
+          "institution": {
+            "type": "search_as_you_type"
+          },
+          "long_name": {
+            "type": "search_as_you_type"
+          },
+          "name_variants": {
+            "type": "search_as_you_type"
+          },
+          "legacy_name": {
+            "type": "search_as_you_type"
+          }
+        }
+      },
       "_private_notes": {
         "properties": {
           "source": {
@@ -48,7 +77,8 @@
             "type": "object"
           },
           "value": {
-            "type": "text"
+            "type": "text",
+            "copy_to": ["experiments_search_as_you_type.accelerator"]
           }
         },
         "type": "object"
@@ -74,7 +104,8 @@
             "type": "keyword"
           },
           "value": {
-            "type": "text"
+            "type": "text",
+            "copy_to": ["experiments_search_as_you_type.collaboration"]
           }
         },
         "type": "object"
@@ -126,16 +157,15 @@
       "experiment": {
         "properties": {
           "short_name": {
-            "type": "keyword"
+            "type": "keyword",
+            "copy_to": ["experiments_search_as_you_type.short_name"]
           },
           "value": {
-            "type": "text"
+            "type": "text",
+            "copy_to": ["experiments_search_as_you_type.experiment"]
           }
         },
         "type": "object"
-      },
-      "experiment_search_as_you_type": {
-        "type": "search_as_you_type"
       },
       "external_system_identifiers": {
         "properties": {
@@ -183,7 +213,8 @@
             "type": "object"
           },
           "value": {
-            "type": "keyword"
+            "type": "keyword",
+            "copy_to": ["experiments_search_as_you_type.institution"]
           }
         },
         "type": "object"
@@ -193,13 +224,16 @@
         "type": "date"
       },
       "legacy_name": {
-        "type": "keyword"
+        "type": "keyword",
+        "copy_to": ["experiments_search_as_you_type.legacy_name"]
       },
       "long_name": {
-        "type": "text"
+        "type": "text",
+        "copy_to": ["experiments_search_as_you_type.long_name"]
       },
       "name_variants": {
-        "type": "text"
+        "type": "text",
+        "copy_to": ["experiments_search_as_you_type.name_variants"]
       },
       "normalized_name_variants": {
         "type": "keyword",
