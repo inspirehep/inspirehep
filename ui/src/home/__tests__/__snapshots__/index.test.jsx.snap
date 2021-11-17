@@ -18,7 +18,7 @@ exports[`Home renders home page 1`] = `
     >
       <HomePageSection
         description="INSPIRE is a trusted community hub that helps researchers to share and find accurate scholarly information in high energy physics."
-        title="Discover High-Energy Physics content"
+        title="Discover High-Energy Physics Content"
       >
         <Connect(SearchBox) />
       </HomePageSection>

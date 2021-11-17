@@ -22,7 +22,7 @@ function Home() {
       <Row className="__Home__" type="flex" justify="center" align="middle">
         <Col span={24}>
           <HomePageSection
-            title="Discover High-Energy Physics content"
+            title="Discover High-Energy Physics Content"
             description={INSPIRE_DESCRIPTION}
           >
             <SearchBoxContainer />
