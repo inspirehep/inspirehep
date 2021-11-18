@@ -19,34 +19,29 @@
       "_full_ingestion": {
         "type": "boolean"
       },
-      "experiments_search_as_you_type": {
-        "type": "object",
-        "properties": {
-          "accelerator": {
-            "type": "search_as_you_type"
-          },
-          "collaboration": {
-            "type": "search_as_you_type"
-          },
-          "short_name": {
-            "type": "search_as_you_type"
-          },
-          "experiment": {
-            "type": "search_as_you_type"
-          },
-          "institution": {
-            "type": "search_as_you_type"
-          },
-          "long_name": {
-            "type": "search_as_you_type"
-          },
-          "name_variants": {
-            "type": "search_as_you_type"
-          },
-          "legacy_name": {
-            "type": "search_as_you_type"
-          }
-        }
+      "accelerator_search_as_you_type": {
+        "type": "search_as_you_type"
+      },
+      "collaboration_search_as_you_type": {
+        "type": "search_as_you_type"
+      },
+      "short_name_search_as_you_type": {
+        "type": "search_as_you_type"
+      },
+      "experiment_search_as_you_type": {
+        "type": "search_as_you_type"
+      },
+      "institution_search_as_you_type": {
+        "type": "search_as_you_type"
+      },
+      "long_name_search_as_you_type": {
+        "type": "search_as_you_type"
+      },
+      "name_variants_search_as_you_type": {
+      "type": "search_as_you_type"
+      },
+      "legacy_name_search_as_you_type": {
+        "type": "search_as_you_type"
       },
       "_private_notes": {
         "properties": {
@@ -78,7 +73,7 @@
           },
           "value": {
             "type": "text",
-            "copy_to": ["experiments_search_as_you_type.accelerator"]
+            "copy_to": ["accelerator_search_as_you_type"]
           }
         },
         "type": "object"
@@ -105,7 +100,7 @@
           },
           "value": {
             "type": "text",
-            "copy_to": ["experiments_search_as_you_type.collaboration"]
+            "copy_to": ["collaboration_search_as_you_type"]
           }
         },
         "type": "object"
@@ -158,11 +153,11 @@
         "properties": {
           "short_name": {
             "type": "keyword",
-            "copy_to": ["experiments_search_as_you_type.short_name"]
+            "copy_to": ["short_name_search_as_you_type"]
           },
           "value": {
             "type": "text",
-            "copy_to": ["experiments_search_as_you_type.experiment"]
+            "copy_to": ["experiment_search_as_you_type"]
           }
         },
         "type": "object"
@@ -214,7 +209,7 @@
           },
           "value": {
             "type": "keyword",
-            "copy_to": ["experiments_search_as_you_type.institution"]
+            "copy_to": ["institution_search_as_you_type"]
           }
         },
         "type": "object"
@@ -225,15 +220,15 @@
       },
       "legacy_name": {
         "type": "keyword",
-        "copy_to": ["experiments_search_as_you_type.legacy_name"]
+        "copy_to": ["legacy_name_search_as_you_type"]
       },
       "long_name": {
         "type": "text",
-        "copy_to": ["experiments_search_as_you_type.long_name"]
+        "copy_to": ["long_name_search_as_you_type"]
       },
       "name_variants": {
         "type": "text",
-        "copy_to": ["experiments_search_as_you_type.name_variants"]
+        "copy_to": ["name_variants_search_as_you_type"]
       },
       "normalized_name_variants": {
         "type": "keyword",
