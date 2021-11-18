@@ -314,20 +314,20 @@ EXPERIMENTS.update(
             "experiment": {
                 "_source": ["legacy_name", "control_number", "self"],
                 "fields": [
-                    {"field": "experiments_search_as_you_type.accelerator", "boost": 1},
+                    {"field": "accelerator_search_as_you_type", "boost": 1},
                     {
-                        "field": "experiments_search_as_you_type.collaboration",
+                        "field": "collaboration_search_as_you_type",
                         "boost": 1,
                     },
-                    {"field": "experiments_search_as_you_type.experiment", "boost": 1},
-                    {"field": "experiments_search_as_you_type.institution", "boost": 1},
-                    {"field": "experiments_search_as_you_type.long_name", "boost": 1},
-                    {"field": "experiments_search_as_you_type.short_name", "boost": 1},
+                    {"field": "experiment_search_as_you_type", "boost": 1},
+                    {"field": "institution_search_as_you_type", "boost": 1},
+                    {"field": "long_name_search_as_you_type", "boost": 1},
+                    {"field": "short_name_search_as_you_type", "boost": 1},
                     {
-                        "field": "experiments_search_as_you_type.name_variants",
+                        "field": "name_variants_search_as_you_type",
                         "boost": 1,
                     },
-                    {"field": "experiments_search_as_you_type.legacy_name", "boost": 2},
+                    {"field": "legacy_name_search_as_you_type", "boost": 2},
                 ],
             }
         },
