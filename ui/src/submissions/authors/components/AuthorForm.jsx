@@ -82,7 +82,7 @@ function AuthorForm({ values, isCatalogerLoggedIn, isUpdate }) {
             name="emails"
             label="Emails"
             emptyItem={{}}
-            renderItem={itemName => (
+            renderItem={(itemName) => (
               <Row type="flex" justify="space-between">
                 <Col span={11}>
                   <Field
@@ -140,7 +140,7 @@ function AuthorForm({ values, isCatalogerLoggedIn, isUpdate }) {
             name="websites"
             label="Websites"
             emptyItem=""
-            renderItem={itemName => (
+            renderItem={(itemName) => (
               <Field onlyChild name={itemName} component={TextField} />
             )}
           />
@@ -177,7 +177,7 @@ function AuthorForm({ values, isCatalogerLoggedIn, isUpdate }) {
             name="positions"
             emptyItem={{}}
             allowItemDelete={isCatalogerLoggedIn || !isUpdate}
-            renderItem={itemName => (
+            renderItem={(itemName) => (
               <Row type="flex" justify="space-between">
                 <Col span={11}>
                   <Field
@@ -187,6 +187,7 @@ function AuthorForm({ values, isCatalogerLoggedIn, isUpdate }) {
                     placeholder="Institution, type for suggestions"
                     pidType="institutions"
                     suggesterName="affiliation"
+                    searchAsYouType
                     extractItemCompletionValue={getSuggestionSourceLegacyICN}
                     component={SuggesterField}
                   />
@@ -249,7 +250,7 @@ function AuthorForm({ values, isCatalogerLoggedIn, isUpdate }) {
             name="project_membership"
             allowItemDelete={isCatalogerLoggedIn || !isUpdate}
             emptyItem={{}}
-            renderItem={itemName => (
+            renderItem={(itemName) => (
               <Row type="flex" justify="space-between">
                 <Col span={11}>
                   <Field
@@ -312,7 +313,7 @@ function AuthorForm({ values, isCatalogerLoggedIn, isUpdate }) {
             name="advisors"
             allowItemDelete={isCatalogerLoggedIn || !isUpdate}
             emptyItem={{}}
-            renderItem={itemName => (
+            renderItem={(itemName) => (
               <Row type="flex" justify="space-between">
                 <Col span={11}>
                   <AuthorSuggesterField

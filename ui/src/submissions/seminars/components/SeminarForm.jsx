@@ -56,7 +56,7 @@ function SeminarForm({ values }) {
         name="speakers"
         label="* Speaker(s)"
         emptyItem={{}}
-        renderItem={itemName => (
+        renderItem={(itemName) => (
           <Row type="flex" justify="space-between">
             <Col span={11}>
               <AuthorSuggesterField
@@ -74,6 +74,7 @@ function SeminarForm({ values }) {
                 placeholder="Affiliation, type for suggestions"
                 pidType="institutions"
                 suggesterName="affiliation"
+                searchAsYouType
                 extractItemCompletionValue={getSuggestionSourceLegacyICN}
                 component={SuggesterField}
               />
@@ -99,7 +100,7 @@ function SeminarForm({ values }) {
         name="websites"
         label="Seminar Website(s)"
         emptyItem=""
-        renderItem={itemName => (
+        renderItem={(itemName) => (
           <Field onlyChild name={itemName} component={TextField} />
         )}
       />
@@ -108,7 +109,7 @@ function SeminarForm({ values }) {
         name="material_urls"
         label="Material(s)"
         emptyItem={{}}
-        renderItem={itemName => (
+        renderItem={(itemName) => (
           <Row type="flex" justify="space-between">
             <Col span={11}>
               <Field
@@ -134,7 +135,7 @@ function SeminarForm({ values }) {
         name="join_urls"
         label="Join URL(s)"
         emptyItem={{}}
-        renderItem={itemName => (
+        renderItem={(itemName) => (
           <Row type="flex" justify="space-between">
             <Col span={11}>
               <Field
@@ -216,7 +217,7 @@ function SeminarForm({ values }) {
           />
         }
         emptyItem=""
-        renderItem={itemName => (
+        renderItem={(itemName) => (
           <Field
             onlyChild
             addonBefore="inspirehep.net/literature/"
@@ -236,7 +237,7 @@ function SeminarForm({ values }) {
         name="keywords"
         label="Keywords"
         emptyItem=""
-        renderItem={itemName => (
+        renderItem={(itemName) => (
           <Field onlyChild name={itemName} component={TextField} />
         )}
       />
