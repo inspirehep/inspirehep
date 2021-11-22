@@ -4,6 +4,7 @@ exports[`Suggester does not render results onSearch without waiting for debounce
 <ForwardRef(AutoComplete)
   onSearch={[Function]}
   onSelect={[Function]}
+  searchAsYouType={false}
 />
 `;
 
@@ -11,6 +12,7 @@ exports[`Suggester renders empty if request fails 1`] = `
 <ForwardRef(AutoComplete)
   onSearch={[Function]}
   onSelect={[Function]}
+  searchAsYouType={false}
 />
 `;
 
@@ -18,6 +20,7 @@ exports[`Suggester renders results onSearch 1`] = `
 <ForwardRef(AutoComplete)
   onSearch={[Function]}
   onSelect={[Function]}
+  searchAsYouType={false}
 >
   <Option
     completionValue="Result 1"
@@ -50,6 +53,7 @@ exports[`Suggester renders results with custom extractItemCompletionValue 1`] = 
 <ForwardRef(AutoComplete)
   onSearch={[Function]}
   onSelect={[Function]}
+  searchAsYouType={false}
 >
   <Option
     completionValue="Result"
@@ -71,6 +75,7 @@ exports[`Suggester renders results with custom extractUniqueItemValue 1`] = `
 <ForwardRef(AutoComplete)
   onSearch={[Function]}
   onSelect={[Function]}
+  searchAsYouType={false}
 >
   <Option
     completionValue="Result 1 - Extra 1"
@@ -105,6 +110,7 @@ exports[`Suggester renders results with custom result template 1`] = `
 <ForwardRef(AutoComplete)
   onSearch={[Function]}
   onSelect={[Function]}
+  searchAsYouType={false}
 >
   <Option
     completionValue="Result 1"

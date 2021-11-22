@@ -54,6 +54,7 @@ class BasicInfoFields extends Component {
           placeholder="Experiment, type for suggestions"
           pidType="experiments"
           suggesterName="experiment"
+          searchAsYouType
           extractItemCompletionValue={
             BasicInfoFields.getSuggestionSourceLegacyName
           }
@@ -70,7 +71,7 @@ class BasicInfoFields extends Component {
           name="report_numbers"
           label="Report Numbers"
           emptyItem=""
-          renderItem={itemName => (
+          renderItem={(itemName) => (
             <Field onlyChild name={itemName} component={TextField} />
           )}
         />

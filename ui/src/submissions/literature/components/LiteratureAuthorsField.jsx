@@ -3,21 +3,17 @@ import { Field } from 'formik';
 import { Row, Col } from 'antd';
 import PropTypes from 'prop-types';
 
-
 import ArrayOf from '../../common/components/ArrayOf';
 import SuggesterField from '../../common/components/SuggesterField';
 import AuthorSuggesterField from '../../common/components/AuthorSuggesterField';
-
 
 class LiteratureAuthorsField extends Component {
   static getSuggestionSourceLegacyICN(suggestion) {
     return suggestion._source.legacy_ICN;
   }
 
-
   render() {
     const { values, name, label } = this.props;
-
 
     return (
       <ArrayOf
@@ -25,7 +21,7 @@ class LiteratureAuthorsField extends Component {
         name={name}
         label={label}
         emptyItem={{}}
-        renderItem={itemName => (
+        renderItem={(itemName) => (
           <Row type="flex" justify="space-between">
             <Col span={11}>
               <AuthorSuggesterField
@@ -43,6 +39,7 @@ class LiteratureAuthorsField extends Component {
                 placeholder="Affiliation, type for suggestions"
                 pidType="institutions"
                 suggesterName="affiliation"
+                searchAsYouType
                 extractItemCompletionValue={
                   LiteratureAuthorsField.getSuggestionSourceLegacyICN
                 }
@@ -56,12 +53,10 @@ class LiteratureAuthorsField extends Component {
   }
 }
 
-
 LiteratureAuthorsField.propTypes = {
   values: PropTypes.objectOf(PropTypes.any).isRequired, // current form data
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
 };
-
 
 export default LiteratureAuthorsField;

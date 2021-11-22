@@ -37,7 +37,7 @@ class JobForm extends Component {
     const { values } = this.props;
 
     return (
-      values.ranks && values.ranks.some(rank => rank === POST_DOC_RANK_VALUE)
+      values.ranks && values.ranks.some((rank) => rank === POST_DOC_RANK_VALUE)
     );
   }
 
@@ -62,7 +62,7 @@ class JobForm extends Component {
           name="institutions"
           label="* Institutions"
           emptyItem={{}}
-          renderItem={itemName => (
+          renderItem={(itemName) => (
             <Field
               onlyChild
               name={`${itemName}.value`}
@@ -70,6 +70,7 @@ class JobForm extends Component {
               placeholder="Institution, type for suggestions"
               pidType="institutions"
               suggesterName="affiliation"
+              searchAsYouType
               extractItemCompletionValue={JobForm.getSuggestionSourceLegacyICN}
               component={SuggesterField}
             />
@@ -101,7 +102,7 @@ class JobForm extends Component {
           name="experiments"
           label="Experiment"
           emptyItem={{}}
-          renderItem={itemName => (
+          renderItem={(itemName) => (
             <Field
               onlyChild
               name={`${itemName}.legacy_name`}
@@ -109,6 +110,7 @@ class JobForm extends Component {
               placeholder="Experiment, type for suggestions"
               pidType="experiments"
               suggesterName="experiment"
+              searchAsYouType
               extractItemCompletionValue={JobForm.getSuggestionSourceLegacyName}
               component={SuggesterField}
             />
@@ -146,7 +148,7 @@ class JobForm extends Component {
           name="reference_letters"
           label="Reference Letters"
           emptyItem=""
-          renderItem={itemName => (
+          renderItem={(itemName) => (
             <Field
               onlyChild
               name={itemName}
