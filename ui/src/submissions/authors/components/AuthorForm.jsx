@@ -260,6 +260,7 @@ function AuthorForm({ values, isCatalogerLoggedIn, isUpdate }) {
                     placeholder="Experiment, type for suggestions"
                     pidType="experiments"
                     suggesterName="experiment"
+                    searchAsYouType
                     extractItemCompletionValue={getSuggestionSourceLegacyName}
                     component={SuggesterField}
                   />
