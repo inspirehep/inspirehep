@@ -30,6 +30,7 @@ from redis import StrictRedis
 from inspirehep.files.api import current_s3_instance
 from inspirehep.hal.api import push_to_hal
 from inspirehep.orcid.api import push_to_orcid
+from inspirehep.osti.api import push_to_osti
 from inspirehep.pidstore.api import PidStoreLiterature
 from inspirehep.records.api.mixins import (
     CitationMixin,
@@ -129,6 +130,7 @@ class LiteratureRecord(
         else:
             push_to_orcid(record)
             push_to_hal(record)
+            push_to_osti(record)
         record.push_authors_phonetic_blocks_to_redis()
         return record
 
@@ -217,6 +219,7 @@ class LiteratureRecord(
         else:
             push_to_orcid(self)
             push_to_hal(self)
+            push_to_osti(self)
         self.push_authors_phonetic_blocks_to_redis()
 
     def get_modified_authors(self):

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<records>
+   <record>
+      <new />
+      <site_input_code>FNAL</site_input_code>
+      <product_type product_subtype="R">CO</product_type>
+      <access_limitation>
+         <unl />
+      </access_limitation>
+      <site_url>https://lss.fnal.gov/archive/2021/slides/fermilab-slides-21-053-td.pdf</site_url>
+      <title>Cryogenic infrastructure for quantum computing</title>
+      <authors>
+         <authors_detail>
+            <first_name>Matthew</first_name>
+            <middle_name>I.</middle_name>
+            <last_name>Hollister</last_name>
+            <affiliation>Fermilab</affiliation>
+            <private_email />
+            <orcid_id />
+         </authors_detail>
+      </authors>
+      <contributor_organizations />
+      <report_nos>FERMILAB-SLIDES-21-053-TD; M1Or1B-04</report_nos>
+      <doe_contract_nos>AC02-07CH11359</doe_contract_nos>
+      <site_input_code>FNAL</site_input_code>
+      <country_publication_code>US</country_publication_code>
+      <sponsor_org>USDOE Office of Science (SC), High Energy Physics (HEP) (SC-25)</sponsor_org>
+      <released_by>Heath O'Connell</released_by>
+      <released_by_email>hoc@fnal.gov</released_by_email>
+      <released_by_phone>630-840-6017</released_by_phone>
+      <medium_code>ED</medium_code>
+      <file_format>PDF/A</file_format>
+      <description />
+      <originating_research_org>Fermi National Accelerator Laboratory (FNAL), Batavia, IL (United States)</originating_research_org>
+      <journal_name />
+      <journal_volume />
+      <journal_issue />
+      <product_size />
+      <doi />
+      <conference_information />
+      <other_identifying_nos>oai:inspirehep.net:1941988</other_identifying_nos>
+      <publication_date>1900</publication_date>
+      <language>English</language>
+      <subject_category_code />
+      <released_date>10/28/2021</released_date>
+   </record>
+</records>

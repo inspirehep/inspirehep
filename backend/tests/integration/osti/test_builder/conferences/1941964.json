@@ -1,0 +1,50 @@
+{
+    "addresses":[
+       {
+          "place_name":"Online Conference",
+          "country_code":"DE"
+       }
+    ],
+    "cnum":"C21-07-06.2",
+    "core":true,
+    "self":{
+       "$ref":"https://inspirehep.net/api/conferences/1941964"
+    },
+    "urls":[
+       {
+          "value":"https://indico.cern.ch/event/980214/"
+       }
+    ],
+    "series":[
+       {
+          "name":"ML4Jets",
+          "number":3
+       }
+    ],
+    "titles":[
+       {
+          "title":"Machine Learning for Jet Physics 2021"
+       }
+    ],
+    "$schema":"https://inspirehep.net/api/schemas/records/conferences.json",
+    "acronyms":[
+       "ML4Jets 2021"
+    ],
+    "_collections":[
+       "Conferences"
+    ],
+    "closing_date":"2021-07-08",
+    "opening_date":"2021-07-06",
+    "control_number":1941964,
+    "short_description":{
+       "value":"<div>﻿Machine learning has become a hot topic in particle physics over the past several years. In particular, there has been a lot of progress in the area of particle and event identification, reconstruction, fast simulation and others. One significant area of research and development has focused on jet physics. In this workshop, we will discuss current progress in this area, focusing on new breakthrough ideas and existing challenges. The ML4Jets workshop will be open to the full community and will include LHC experiments as well as theorists and phenomenologists interested in this topic.&nbsp;This year's workshop is hosted at the University of Heidelberg. It&nbsp;follows&nbsp;workshops in&nbsp;<a href=\"https://indico.physics.lbl.gov/indico/event/546/\">2017</a>,&nbsp;<a href=\"https://indico.cern.ch/event/745718/\">2018</a>&nbsp;and&nbsp;<a href=\"https://indico.cern.ch/event/809820/\">2020</a>.</div>"
+    },
+    "inspire_categories":[
+       {
+          "term":"Instrumentation"
+       },
+       {
+          "term":"Experiment-HEP"
+       }
+    ]
+ }

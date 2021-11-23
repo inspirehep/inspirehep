@@ -1,0 +1,52 @@
+{
+    "addresses": [
+    {
+    "place_name": "Online Conference",
+    "country_code": "US"
+    }
+    ],
+    "cnum": "C21-03-15.6",
+    "core": true,
+    "self": {
+    "$ref": "https://inspirehep.net/api/conferences/1941930"
+    },
+    "urls": [
+    {
+    "value": "https://indico.phys.vt.edu/event/44/"
+    }
+    ],
+    "series": [
+    {
+    "name": "NuSTEC School on Neutrino Nucleus Scattering"
+    }
+    ],
+    "titles": [
+    {
+    "title": "NUSTEC Workshop New directions in Neutrino-Nucleus Scattering "
+    }
+    ],
+    "$schema": "https://inspirehep.net/api/schemas/records/conferences.json",
+    "acronyms": [
+    "NDNN 2021"
+    ],
+    "closing_date": "2021-03-18",
+    "opening_date": "2021-03-15",
+    "control_number": 1941930,
+    "short_description": {
+    "value": "<div><strong>New Directions in Neutrino-Nucleus Scattering</strong>&nbsp;is the first fully online&nbsp;<a href=\"https://nustec.fnal.gov/\">NuSTEC</a>&nbsp;workshop devoted to the discussion of&nbsp;neutrino-nucleus interactions at sub-GeV and GeV energies.&nbsp;The aim of this workshop is to highlight new ideas, new developments, and upcoming work&nbsp;in the broad kinematical regime relevant to astrophysical applications and accelerator-based searches of neutrino oscillations.&nbsp;This workshop is in anticipation of the NuINT20 conference that has been delayed due to COVID19.</div><div>The Workshop is intended to address a diverse audience---including nuclear theorists, neutrino experimentalists and developers of event generators---with the aim of fostering synergies and collaborative efforts.</div><div><br></div>"
+    },
+    "inspire_categories": [
+    {
+    "term": "Experiment-HEP"
+    },
+    {
+    "term": "Experiment-Nucl"
+    },
+    {
+    "term": "Phenomenology-HEP"
+    },
+    {
+    "term": "Theory-Nucl"
+    }
+    ]
+    }

@@ -1,0 +1,47 @@
+{
+    "addresses": [
+    {
+    "cities": [
+    "Online Conference"
+    ],
+    "country_code": "US"
+    }
+    ],
+    "cnum": "C21-07-19.3",
+    "self": {
+    "$ref": "https://inspirehep.net/api/conferences/1919279"
+    },
+    "urls": [
+    {
+    "value": "https://www.cec-icmc.org/"
+    }
+    ],
+    "series": [
+    {
+    "name": "CEC"
+    }
+    ],
+    "titles": [
+    {
+    "title": "Cryogenic Engineering Conference and International Cryogenic Materials Conference"
+    }
+    ],
+    "$schema": "https://inspirehep.net/api/schemas/records/conferences.json",
+    "acronyms": [
+    "CEC/ICMC 2021"
+    ],
+    "_collections": [
+    "Conferences"
+    ],
+    "closing_date": "2021-07-23",
+    "opening_date": "2021-07-19",
+    "control_number": 1919279,
+    "inspire_categories": [
+    {
+    "term": "Accelerators"
+    },
+    {
+    "term": "Instrumentation"
+    }
+    ]
+    }
