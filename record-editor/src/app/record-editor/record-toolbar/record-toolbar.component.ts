@@ -35,10 +35,12 @@ import {
   RecordCleanupService,
   DomUtilsService,
   ReleaseLockService,
+  EditorErrorConverterService,
 } from '../../core/services';
 import { SubscriberComponent, ApiError } from '../../shared/classes';
 import { ToastrService } from 'ngx-toastr';
 import { HOVER_TO_DISMISS_INDEFINITE_TOAST } from '../../shared/constants';
+import { SchemaValidationProblems } from 'ng2-json-editor';
 
 @Component({
   selector: 're-record-toolbar',
@@ -55,6 +57,7 @@ export class RecordToolbarComponent
   // `undefined` if there is no record being edited
   record: object;
   pidType: string;
+  recordProblems: SchemaValidationProblems;
 
   displayingRevision = false;
 
@@ -70,7 +73,8 @@ export class RecordToolbarComponent
     private globalAppStateService: GlobalAppStateService,
     private domUtilsService: DomUtilsService,
     private toastrService: ToastrService,
-    private releaseLockService: ReleaseLockService
+    private releaseLockService: ReleaseLockService,
+    private editorErrorConverterService: EditorErrorConverterService
   ) {
     super();
   }
@@ -95,6 +99,7 @@ export class RecordToolbarComponent
       .subscribe((pidTypeBeingEdited) => {
         this.pidType = pidTypeBeingEdited;
       });
+    this.recordProblems = this.editorErrorConverterService.errorProblems;
   }
 
   onRevisionChange(revision?: object) {
@@ -151,9 +156,10 @@ export class RecordToolbarComponent
   }
 
   private onSaveError(error: ApiError) {
+    this.editorErrorConverterService.setValidationProblems(error);
     if (error.message) {
       this.toastrService.error(
-        error.message,
+        'Could not save record!',
         'Error',
         HOVER_TO_DISMISS_INDEFINITE_TOAST
       );

@@ -39,6 +39,7 @@ import {
   DomUtilsService,
   GlobalAppStateService,
   ReleaseLockService,
+  EditorErrorConverterService,
 } from '../../core/services';
 import { SubscriberComponent } from '../../shared/classes';
 import { HOVER_TO_DISMISS_INDEFINITE_TOAST } from '../../shared/constants';
@@ -60,6 +61,7 @@ export class JsonEditorWrapperComponent
   config: object;
   // `undefined` on current revision
   revision: object | undefined;
+  recordProblems: SchemaValidationProblems;
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
@@ -69,7 +71,8 @@ export class JsonEditorWrapperComponent
     private toastrService: ToastrService,
     private domUtilsService: DomUtilsService,
     private globalAppStateService: GlobalAppStateService,
-    private releaseLockService: ReleaseLockService
+    private releaseLockService: ReleaseLockService,
+    private editorErrorConverterService: EditorErrorConverterService
   ) {
     super();
   }
@@ -115,6 +118,10 @@ export class JsonEditorWrapperComponent
         this.config = Object.assign({}, config);
         this.changeDetectorRef.markForCheck();
       });
+    this.recordProblems = {};
+    this.editorErrorConverterService.errorProblemChange.subscribe((value) => {
+      this.recordProblems = value;
+    });
   }
 
   onRecordChange(record: object) {

@@ -32,7 +32,7 @@
 <re-record-toolbar (revisionChange)="onRevisionChange($event)" (revisionRevert)="onRevisionRevert()"></re-record-toolbar>
 <div id="editor-container">
   <json-editor *ngIf="record && schema" [record]="revision || record" (recordChange)="onRecordChange($event)" [schema]="schema"
-    [config]="config" (validationProblems)="onValidationProblems($event)" [templates]="{
+    [config]="config" [problemMap]="recordProblems" (validationProblems)="onValidationProblems($event)" [templates]="{
       referenceTemplate: referenceTemplate,
       authorTemplate: authorTemplate,
       affiliationAutocompleteTemplate: affiliationAutocompleteTemplate,

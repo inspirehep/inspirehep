@@ -1041,3 +1041,26 @@ def test_restricted_file_attach(inspire_app, override_config):
 
     assert expected_status_code == response.status_code
     assert expected_message == response.json["message"]
+
+
+def test_put_record_returns_validation_errors(inspire_app):
+    cataloger = create_user(role=Roles.cataloger.value)
+    record = create_record("lit")
+    record["inspire_categories"] = [{"term": "Lattice"}, {"term": "Lattice"}]
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=cataloger.email)
+        headers = {"If-Match": '"0"'}
+        response = client.put(
+            f"api/literature/{record['control_number']}",
+            headers=headers,
+            content_type="application/json",
+            json=record,
+        )
+
+    assert response.status_code == 400
+    assert response.json["errors"][0]["path"] == ["inspire_categories"]
+    assert (
+        response.json["errors"][0]["message"]
+        == "[{'term': 'Lattice'}, {'term': 'Lattice'}] has non-unique elements"
+    )

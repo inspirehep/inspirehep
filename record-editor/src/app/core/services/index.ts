@@ -9,6 +9,7 @@ import { SavePreviewModalService } from './save-preview-modal.service';
 import { GlobalAppStateService } from './global-app-state.service';
 import { WorkflowErrorConverterService } from './workflow-error-converter.service';
 import { ReleaseLockService } from './release-lock-service';
+import { EditorErrorConverterService } from './editor-error-converter.service';
 
 export {
   CommonApiService,
@@ -22,6 +23,7 @@ export {
   GlobalAppStateService,
   WorkflowErrorConverterService,
   ReleaseLockService,
+  EditorErrorConverterService,
 };
 
 export const CORE_SERVICES = [
@@ -36,4 +38,5 @@ export const CORE_SERVICES = [
   GlobalAppStateService,
   WorkflowErrorConverterService,
   ReleaseLockService,
+  EditorErrorConverterService,
 ];

@@ -94,7 +94,7 @@ sword2 = {git = "https://github.com/inspirehep/python-client-sword2.git", rev = 
 sqlalchemy-continuum = {git = "https://github.com/inspirehep/sqlalchemy-continuum.git", rev = "d94d431"}
 "zope.interface" = "~=5.4.0"
 backoff = "^1.10.0"
-invenio-records-rest = {git = "https://github.com/inspirehep/invenio-records-rest", rev = "005729721bb326af7c0208c8d87fd73003177c4c"}
+invenio-records-rest = {git = "https://github.com/inspirehep/invenio-records-rest", rev = "bfa7cf024ca5b22b010d1a1d379275f790de47b9"}
 
 [tool.poetry.dev-dependencies]
 freezegun = "*"

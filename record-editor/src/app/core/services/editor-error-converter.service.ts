@@ -28,10 +28,28 @@ import {
 } from 'ng2-json-editor';
 
 import { ValidationError } from '../../shared/interfaces';
+import { ApiError } from '../../shared/classes';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
-export class WorkflowErrorConverterService {
-  constructor(private pathUtilsService: PathUtilService) {}
+export class EditorErrorConverterService {
+  errorProblems: SchemaValidationProblems = {};
+  errorProblemChange: Subject<SchemaValidationProblems> = new Subject<SchemaValidationProblems>();
+  constructor(private pathUtilsService: PathUtilService) {
+    this.errorProblemChange.subscribe((value) => {
+      this.errorProblems = value;
+    });
+  }
+
+  setValidationProblems(error: ApiError) {
+    const errors = error.body['errors'];
+    if (errors && errors.length > 0) {
+      this.errorProblems = this.toValidationProblems(errors);
+    } else {
+      this.errorProblems = {};
+    }
+    this.errorProblemChange.next(this.errorProblems);
+  }
 
   toValidationProblems(
     errors: Array<ValidationError>
