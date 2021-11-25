@@ -848,3 +848,11 @@ def test_get_all_ids_by_update_date(inspire_app):
 
     uuids = list(LiteratureRecord.get_recids_by_updated_datetime(after=new_date))
     assert len(uuids) == 2
+
+
+def test_validate_record(inspire_app):
+    rec = create_record("lit")
+    with pytest.raises(ValidationError):
+        rec["inspire_categories"] = ["Astrophysics", "Astrophysics", "Astrophysics"]
+        rec.update(dict(rec))
+    assert rec.get_validation_errors()

@@ -15,7 +15,7 @@ import structlog
 from elasticsearch import NotFoundError
 from flask import current_app
 from inspire_dojson.utils import strip_empty_values
-from inspire_schemas.api import validate as schema_validate
+from inspire_schemas.utils import get_validation_errors
 from inspire_utils.record import get_value
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
@@ -65,7 +65,14 @@ class InspireRecord(Record):
         return strip_empty_values(data)
 
     def validate(self):
-        schema_validate(self)
+        self._validation_errors = list(get_validation_errors(self))
+        if self._validation_errors:
+            raise self._validation_errors[0]
+
+    def get_validation_errors(self):
+        if not hasattr(self, "_validation_errors"):
+            self._validation_errors = list(get_validation_errors(self))
+        return self._validation_errors
 
     @classmethod
     def get_uuid_from_pid_value(cls, pid_value, pid_type=None, original_record=False):
