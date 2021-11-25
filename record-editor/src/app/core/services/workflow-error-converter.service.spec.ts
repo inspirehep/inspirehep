@@ -18,12 +18,12 @@
  * In applying this license, CERN does not
  * waive the privileges and immunities granted to it by virtue of its status
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
-*/
+ */
 
 import { PathUtilService, SchemaValidationProblems } from 'ng2-json-editor';
 
 import { WorkflowErrorConverterService } from './workflow-error-converter.service';
-import { WorkflowValidationError } from '../../shared/interfaces';
+import { ValidationError } from '../../shared/interfaces';
 
 describe('WorkflowErrorConverterService', () => {
   let service: WorkflowErrorConverterService;
@@ -34,7 +34,7 @@ describe('WorkflowErrorConverterService', () => {
   });
 
   it('should convert errors to validation problems', () => {
-    const errors: Array<WorkflowValidationError> = [
+    const errors: Array<ValidationError> = [
       {
         message: 'message1',
         path: ['path', 'to', 1],
