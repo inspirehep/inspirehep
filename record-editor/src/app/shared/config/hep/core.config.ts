@@ -295,11 +295,21 @@ export const coreHep: JsonEditorConfig = {
       copyright: {
         items: {
           alwaysShow: ['statement', 'holder', 'material', 'year'],
+          properties: {
+            url: {
+              stripWhitespace: true,
+            },
+          },
         },
       },
       documents: {
         items: {
           alwaysShow: ['description', 'material'],
+          properties: {
+            url: {
+              stripWhitespace: true,
+            },
+          },
         },
         titleDropdownItemTemplateNames: ['fileUploadButtonTemplate'],
       },
@@ -342,6 +352,11 @@ export const coreHep: JsonEditorConfig = {
       license: {
         items: {
           alwaysShow: ['material', 'license', 'url'],
+          properties: {
+            url: {
+              stripWhitespace: true,
+            },
+          },
         },
       },
       languages: {
@@ -617,6 +632,11 @@ export const coreHep: JsonEditorConfig = {
       urls: {
         items: {
           alwaysShow: ['description'],
+          properties: {
+            value: {
+              stripWhitespace: true,
+            },
+          },
         },
       },
       new_record: {

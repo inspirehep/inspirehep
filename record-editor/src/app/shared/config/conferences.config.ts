@@ -128,6 +128,11 @@ export const conferences: JsonEditorConfig = {
       urls: {
         items: {
           order: ['value', 'description'],
+          properties: {
+            value: {
+              stripWhitespace: true,
+            },
+          },
         },
       },
       contact_details: {

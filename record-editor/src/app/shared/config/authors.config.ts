@@ -111,6 +111,20 @@ export const authors: JsonEditorConfig = {
           },
         },
       },
+      awards: {
+        properties: {
+          url: {
+            stripWhitespace: true,
+          },
+        },
+      },
+      urls: {
+        properties: {
+          value: {
+            stripWhitespace: true,
+          },
+        },
+      },
       $schema: {
         hidden: true,
       },
