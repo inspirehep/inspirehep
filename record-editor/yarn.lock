@@ -4997,9 +4997,10 @@ next-tick@~1.0.0:
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
   integrity sha1-yobR/ogoFpsBICCOPchCS524NCw=
 
-"ng2-json-editor@https://github.com/inveniosoftware-contrib/ng2-json-editor.git#master":
-  version "0.25.30"
-  resolved "https://github.com/inveniosoftware-contrib/ng2-json-editor.git#b1812048d4dc787c7ee587183880a83563af30d0"
+ng2-json-editor@^0.25.47:
+  version "0.25.47"
+  resolved "https://registry.yarnpkg.com/ng2-json-editor/-/ng2-json-editor-0.25.47.tgz#685c00d6531305f8530e4c84e10c66b146f41e30"
+  integrity sha512-BJKIL3vRtMrAwlsUSVdYEknmCtKrI/AV+AgOen206dtRbNZKNtTPpHe2Y9B1ZCyjQYPpNHqv1gaT6W581naVKg==
   dependencies:
     ajv "^5.0.0"
     ajv-errors "^1.0.0"
