@@ -7,6 +7,7 @@
 
 from inspirehep.matcher.validators import (
     affiliations_validator,
+    author_names_validator,
     authors_validator,
     collaboration_validator,
 )
@@ -158,3 +159,40 @@ def test_affiliation_validator_validate_when_affiliations_match(inspire_app):
         }
     }
     assert affiliations_validator(author_data, result_data)
+
+
+def test_author_names_validator_doesnt_validate_when_names_dont_match(inspire_app):
+    author_data = {"first_name": "Evgeny V.", "last_name": "Anikin"}
+    result_data = {
+        "inner_hits": {
+            "authors": {
+                "hits": {
+                    "hits": [
+                        {"_source": {"first_name": "Igor V.", "last_name": "Anikin"}}
+                    ]
+                }
+            }
+        }
+    }
+    assert not author_names_validator(author_data, result_data)
+
+
+def test_author_names_validator_doesnt_validate_when_last_names_dont_match(inspire_app):
+    author_data = {"first_name": "Evgeny V.", "last_name": "Anikin"}
+    result_data = {
+        "inner_hits": {
+            "authors": {
+                "hits": {
+                    "hits": [
+                        {
+                            "_source": {
+                                "first_name": "Evgeny V.",
+                                "last_name": "Odintsov",
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    }
+    assert not author_names_validator(author_data, result_data)

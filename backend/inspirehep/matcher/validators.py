@@ -5,6 +5,8 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+import re
+
 from inspire_utils.record import get_value
 
 
@@ -41,3 +43,24 @@ def affiliations_validator(author, result):
         if set(affiliation_list) & authors_affiliations:
             return True
     return False
+
+
+def author_names_validator(author, result):
+    author_last_name = author.get("last_name")
+    result_author_last_name = get_value(
+        result, "inner_hits.authors.hits.hits._source[0].last_name"
+    )
+    if not author_last_name == result_author_last_name:
+        return False
+    author_first_name = author.get("first_name")
+    result_author_last_name_splitted = re.split(
+        ", ",
+        get_value(result, "inner_hits.authors.hits.hits._source[0].first_name", ""),
+    )
+    if all(
+        [
+            result_author_name in author_first_name
+            for result_author_name in result_author_last_name_splitted
+        ]
+    ):
+        return True

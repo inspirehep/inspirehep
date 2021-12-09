@@ -5,7 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from .validators import authors_validator
+from .validators import author_names_validator, authors_validator
 
 GROBID_URL = "https://grobid.inspirebeta.net"
 
@@ -318,6 +318,8 @@ AUTHOR_MATCHER_NAME_CONFIG = {
                     "type": "nested",
                     "inner_hits": {
                         "_source": [
+                            "authors.first_name",
+                            "authors.last_name",
                             "authors.record.$ref",
                             "authors.affiliations.value",
                             "authors.ids",
@@ -325,6 +327,7 @@ AUTHOR_MATCHER_NAME_CONFIG = {
                     },
                 },
             ],
+            "validator": author_names_validator,
         },
     ],
     "index": "records-hep",
@@ -340,7 +343,7 @@ AUTHOR_MATCHER_NAME_INITIALS_CONFIG = {
                     "type": "author-names",
                     "inner_hits": {"_source": ["authors.record", "authors.ids"]},
                 },
-            ]
+            ],
         },
     ],
     "index": "records-hep",

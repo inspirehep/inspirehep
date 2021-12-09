@@ -812,7 +812,7 @@ def test_disambiguation_on_author_record_update(
         {
             "authors": [
                 {
-                    "full_name": "Kowal, Michal Jacek",
+                    "full_name": "Kowal, Michal",
                     "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.2"}],
                     "record": {"$ref": "http://localhost:5000/api/authors/999102"},
                     "curated_relation": True,
@@ -1308,3 +1308,39 @@ def test_editor_lock_is_created_when_disambiguation_runs(
 
     retry_until_pass(assert_lock_in_redis, retry_interval=1)
     resolve_all(celery_task_annotation, disambiguate_authors)
+
+
+def test_disambiguation_for_not_matching_names(
+    inspire_app, clean_celery_session, enable_disambiguation
+):
+    author_data = faker.record("aut", with_control_number=True)
+    author_data.update(
+        {
+            "name": {"value": "Anikin, Igogr V."},
+            "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
+        }
+    )
+    author_record = InspireRecord.create(author_data)
+    db.session.commit()
+
+    def assert_authors_records_exist_in_es():
+        author_record_from_es = InspireSearch.get_record_data_from_es(author_record)
+        assert author_record_from_es
+
+    retry_until_pass(assert_authors_records_exist_in_es)
+
+    literature_data = faker.record("lit", with_control_number=True)
+    literature_data.update({"authors": [{"full_name": "Anikin, Evgeny V."}]})
+    literature_record = LiteratureRecord.create(literature_data)
+    db.session.commit()
+
+    def assert_disambiguation_task():
+        literature_record_from_es = InspireSearch.get_record_data_from_es(
+            literature_record
+        )
+        assert (
+            literature_record_from_es["authors"][0].get("record")
+            != author_record["self"]
+        )
+
+    retry_until_pass(assert_disambiguation_task, retry_interval=2)
