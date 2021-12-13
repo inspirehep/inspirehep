@@ -26,8 +26,10 @@ from invenio_records.models import RecordMetadata
 from invenio_records.signals import after_record_revert, before_record_revert
 from jsonschema import ValidationError
 from sqlalchemy import tuple_
+from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm.attributes import flag_modified
 from sqlalchemy.orm.exc import NoResultFound, StaleDataError
+from sqlalchemy.sql.expression import cast
 from sqlalchemy_continuum import version_class
 
 from inspirehep.indexer.base import InspireRecordIndexer
@@ -175,6 +177,18 @@ class InspireRecord(Record):
         if with_deleted is False and record.get("deleted", False):
             raise NoResultFound
         return record
+
+    @classmethod
+    def get_records_batched(cls, ids, with_deleted=False, max_batch=100):
+        for batch in chunker(ids, max_chunk_size=max_batch):
+            query = cls.model_cls.query.filter(cls.model_cls.id.in_(batch))
+            if not with_deleted:
+                query = query.filter(
+                    (cls.model_cls.json.op("->")("deleted") == None)  # noqa
+                    | (cls.model_cls.json["deleted"] != cast("True", JSONB))
+                )
+            for data in query.yield_per(100):
+                yield cls(data.json, model=data)
 
     @classmethod
     def get_records_by_pids(cls, pids, max_batch=100):

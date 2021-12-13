@@ -856,3 +856,37 @@ def test_validate_record(inspire_app):
         rec["inspire_categories"] = ["Astrophysics", "Astrophysics", "Astrophysics"]
         rec.update(dict(rec))
     assert rec.get_validation_errors()
+
+
+def test_get_records_batched(inspire_app):
+    ids = []
+    for i in range(5):
+        rec = create_record("lit")
+        ids.append(rec.id)
+
+    deleted_record = create_record("lit", data={"deleted": True})
+
+    not_deleted_record = create_record("lit", data={"deleted": False})
+    ids.append(not_deleted_record.id)
+
+    records = list(LiteratureRecord.get_records_batched(ids, max_batch=2))
+
+    assert len(records) == 6
+    assert [rec.id != deleted_record.id for rec in records]
+
+
+def test_get_records_batched_with_deleted(inspire_app):
+    ids = []
+    for i in range(5):
+        rec = create_record("lit")
+        ids.append(rec.id)
+
+    deleted_record = create_record("lit", data={"deleted": True})
+    ids.append(deleted_record.id)
+
+    records = list(
+        LiteratureRecord.get_records_batched(ids, with_deleted=True, max_batch=2)
+    )
+
+    assert len(records) == 6
+    assert [rec.id in ids for rec in records]

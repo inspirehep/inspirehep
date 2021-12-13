@@ -85,7 +85,7 @@ class AuthorsRecord(StudentsAdvisorMixin, InspireRecord):
             str(record_control_number)
             for record_control_number in self.query_author_papers(bai)
         ]
-        author_papers = LiteratureRecord.get_records(author_papers_ids)
+        author_papers = LiteratureRecord.get_records_batched(author_papers_ids)
         for paper in author_papers:
             author = get_author_by_bai(paper, bai)
             author["record"] = self.get("self")
