@@ -111,6 +111,14 @@ def get_reference_and_bai_if_unambiguous_literature_author_match(matched_records
     return matched_author_data
 
 
+def _filter_out_initials(name):
+    name_splitted = name.split(" ")
+    names_without_initals = [
+        token for token in name_splitted if len(token) > 1 and not token.endswith(".")
+    ]
+    return " ".join(names_without_initals)
+
+
 def match_literature_author(author, record):
     configs = [
         current_app.config["AUTHOR_MATCHER_NAME_CONFIG"],
@@ -121,7 +129,8 @@ def match_literature_author(author, record):
 
     parsed_name = ParsedName.loads(author.get("full_name"))
     author_matcher_data = {
-        "first_name": parsed_name.first,
+        "first_name": _filter_out_initials(parsed_name.first),
+        "first_name_with_initials": parsed_name.first,
         "last_name": parsed_name.last,
         "full_name": author.get("full_name"),
         "collaborations": get_value(record, "collaborations.value", []),

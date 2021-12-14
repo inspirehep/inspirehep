@@ -313,7 +313,7 @@ AUTHOR_MATCHER_NAME_CONFIG = {
         {
             "queries": [
                 {
-                    "paths": ["first_name", "last_name"],
+                    "paths": ["first_name_with_initials", "last_name"],
                     "search_paths": ["authors.first_name", "authors.last_name"],
                     "type": "nested",
                     "inner_hits": {
@@ -323,6 +323,7 @@ AUTHOR_MATCHER_NAME_CONFIG = {
                             "authors.ids",
                         ]
                     },
+                    "operator": "AND",
                 },
             ],
         },
