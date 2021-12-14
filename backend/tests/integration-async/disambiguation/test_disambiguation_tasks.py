@@ -812,7 +812,7 @@ def test_disambiguation_on_author_record_update(
         {
             "authors": [
                 {
-                    "full_name": "Kowal, Michal Jacek",
+                    "full_name": "Kowal, Michal",
                     "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.2"}],
                     "record": {"$ref": "http://localhost:5000/api/authors/999102"},
                     "curated_relation": True,
@@ -1308,3 +1308,45 @@ def test_editor_lock_is_created_when_disambiguation_runs(
 
     retry_until_pass(assert_lock_in_redis, retry_interval=1)
     resolve_all(celery_task_annotation, disambiguate_authors)
+
+
+def test_disambiguation_match_when_initials_not_present_in_matched_author(
+    inspire_app, clean_celery_session, enable_disambiguation
+):
+    literature_data_1 = faker.record("lit", with_control_number=True)
+    literature_data_1.update(
+        {
+            "authors": [
+                {
+                    "full_name": "Brian Gross",
+                    "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
+                }
+            ]
+        }
+    )
+    literature_record_1 = LiteratureRecord.create(literature_data_1)
+    db.session.commit()
+
+    def assert_authors_records_exist_in_es():
+        author_record_from_es = InspireSearch.get_record_data_from_es(
+            literature_record_1
+        )
+        assert author_record_from_es
+
+    retry_until_pass(assert_authors_records_exist_in_es)
+
+    literature_data_2 = faker.record("lit", with_control_number=True)
+    literature_data_2.update({"authors": [{"full_name": "Brian V. Gross"}]})
+    literature_record_2 = LiteratureRecord.create(literature_data_2)
+    db.session.commit()
+
+    def assert_disambiguation_task():
+        literature_record_from_es = InspireSearch.get_record_data_from_es(
+            literature_record_2
+        )
+        assert (
+            literature_record_from_es["authors"][0]["record"]
+            == literature_record_from_es["authors"][0]["record"]
+        )
+
+    retry_until_pass(assert_disambiguation_task, retry_interval=2)
