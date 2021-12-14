@@ -581,6 +581,27 @@ def test_load_author_public_emails():
     assert result == expected
 
 
+def test_load_author_current_emails():
+    data = {
+        **DEFAULT_DATA_TO_DUMP,
+        "emails": [
+            {"value": "private@email.com", "current": True},
+            {"value": "public@email.com"},
+        ],
+    }
+
+    result = Author().load(data).data
+    expected = {
+        **DEFAULT_DATA_LOAD,
+        "email_addresses": [
+            {"value": "private@email.com", "current": True},
+            {"value": "public@email.com"},
+        ],
+    }
+
+    assert result == expected
+
+
 def test_dump_author_status():
     data = {**DEFAULT_DATA_TO_DUMP, "status": "active"}
 

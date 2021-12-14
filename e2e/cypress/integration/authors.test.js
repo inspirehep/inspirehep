@@ -71,7 +71,10 @@ describe('Author Submission', () => {
       alternate_name: 'Santos, Diego Martinez',
       status: 'retired',
       arxiv_categories: ['hep-ex', 'hep-ph'],
-      emails: [{ value: 'private@martinez.ch', hidden: true }],
+      emails: [
+        { value: 'diego@martinez.ch', current: true },
+        { value: 'private@martinez.ch', hidden: true },
+      ],
       positions: [
         {
           institution: 'CERN',
@@ -96,7 +99,10 @@ describe('Author Submission', () => {
         method: 'submitter',
       },
       arxiv_categories: ['hep-ex', 'hep-ph'],
-      email_addresses: [{ value: 'private@martinez.ch', hidden: true }],
+      email_addresses: [
+        { value: 'diego@martinez.ch', current: true },
+        { value: 'private@martinez.ch', hidden: true },
+      ],
       status: 'retired',
       positions: [
         {

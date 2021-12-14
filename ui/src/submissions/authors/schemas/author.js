@@ -13,28 +13,17 @@ import year from '../../common/schemas/year';
 const yearSchema = year().label('Year');
 
 const authorSchema = object().shape({
-  given_name: string()
-    .trim()
-    .required()
-    .label('Given Names'),
-  family_name: string()
-    .trim()
-    .required()
-    .label('Family Name'),
-  display_name: string()
-    .trim()
-    .required()
-    .label('Display Name'),
+  given_name: string().trim().required().label('Given Names'),
+  family_name: string().trim().required().label('Family Name'),
+  display_name: string().trim().required().label('Display Name'),
   alternate_name: string(),
   native_name: string(),
   emails: array()
     .default([{}])
     .of(
       emptyObjectOrShapeOf({
-        value: string()
-          .email()
-          .required()
-          .label('Email'),
+        value: string().email().required().label('Email'),
+        current: boolean(),
         hidden: boolean(),
       })
     ),
@@ -45,13 +34,7 @@ const authorSchema = object().shape({
   orcid: orcid(),
   websites: array()
     .default([''])
-    .of(
-      string()
-        .trim()
-        .nullable()
-        .url()
-        .label('Website')
-    ),
+    .of(string().trim().nullable().url().label('Website')),
   blog: string().url(),
   linkedin: string(),
   twitter: string(),
@@ -60,10 +43,7 @@ const authorSchema = object().shape({
     .default([{}])
     .of(
       emptyObjectOrShapeOf({
-        institution: string()
-          .trim()
-          .required()
-          .label('Institution name'),
+        institution: string().trim().required().label('Institution name'),
         rank: string().oneOf(rankValues),
         start_date: yearSchema,
         end_date: yearSchema,
@@ -75,10 +55,7 @@ const authorSchema = object().shape({
     .default([{}])
     .of(
       emptyObjectOrShapeOf({
-        name: string()
-          .trim()
-          .required()
-          .label('Experiment name'),
+        name: string().trim().required().label('Experiment name'),
         start_date: yearSchema,
         end_date: yearSchema,
         current: boolean(),
@@ -89,10 +66,7 @@ const authorSchema = object().shape({
     .default([{}])
     .of(
       emptyObjectOrShapeOf({
-        name: string()
-          .trim()
-          .required()
-          .label('Advisor name'),
+        name: string().trim().required().label('Advisor name'),
         degree_type: string().oneOf(degreeTypeValues),
         hidden: boolean(),
       })
