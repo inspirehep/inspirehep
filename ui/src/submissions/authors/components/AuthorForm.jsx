@@ -47,6 +47,11 @@ function AuthorForm({ values, isCatalogerLoggedIn, isUpdate }) {
     <Form>
       <CollapsableForm openSections={OPEN_SECTIONS}>
         <CollapsableForm.Section header="Personal Info" key="personal_info">
+          <p>
+            Email addresses cannot be deleted. If information is incorrect,
+            please mark it as `Hidden` and give more details in the Comments
+            area.
+          </p>
           <Field
             name="given_name"
             label="* Given Names"
@@ -82,6 +87,7 @@ function AuthorForm({ values, isCatalogerLoggedIn, isUpdate }) {
             name="emails"
             label="Emails"
             emptyItem={{}}
+            allowItemDelete={isCatalogerLoggedIn || !isUpdate}
             renderItem={(itemName) => (
               <Row type="flex" justify="space-between">
                 <Col span={11}>
@@ -93,17 +99,29 @@ function AuthorForm({ values, isCatalogerLoggedIn, isUpdate }) {
                   />
                 </Col>
                 <Col span={11}>
-                  <Field
-                    onlyChild
-                    name={`${itemName}.hidden`}
-                    suffixText={
-                      <LabelWithHelp
-                        label="Hidden"
-                        help="Hidden emails will not be displayed, but will only be used by INSPIRE staff for contact and identification purposes."
+                  <Row gutter={16}>
+                    <Col>
+                      <Field
+                        onlyChild
+                        name={`${itemName}.current`}
+                        suffixText="Current"
+                        component={BooleanField}
                       />
-                    }
-                    component={BooleanField}
-                  />
+                    </Col>
+                    <Col>
+                      <Field
+                        onlyChild
+                        name={`${itemName}.hidden`}
+                        suffixText={
+                          <LabelWithHelp
+                            label="Hidden"
+                            help="Hidden emails will not be displayed, but will only be used by INSPIRE staff for contact and identification purposes."
+                          />
+                        }
+                        component={BooleanField}
+                      />
+                    </Col>
+                  </Row>
                 </Col>
               </Row>
             )}

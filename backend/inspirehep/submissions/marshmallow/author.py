@@ -152,7 +152,11 @@ class Author(Schema):
             author.add_project(**project, curated=curated)
 
         for email in data.get("emails", []):
-            author.add_email_address(email.get("value"), hidden=email.get("hidden"))
+            author.add_email_address(
+                email.get("value"),
+                current=email.get("current"),
+                hidden=email.get("hidden"),
+            )
 
         status = data.get("status")
         author.set_status(status)
