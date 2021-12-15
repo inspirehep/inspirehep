@@ -249,16 +249,6 @@ exports[`ReferenceItem renders with full reference 1`] = `
                   ]
                 }
               />
-              <URLList
-                urls={
-                  Immutable.List [
-                    Immutable.Map {
-                      "value": "https://dude.guy",
-                    },
-                  ]
-                }
-                wrapperClassName={null}
-              />
             </InlineUL>
           </React.Fragment>
         }
