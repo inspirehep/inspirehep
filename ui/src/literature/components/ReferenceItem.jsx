@@ -56,6 +56,7 @@ class ReferenceItem extends Component {
     const arxivEprint = reference.get('arxiv_eprint');
     const dois = reference.get('dois');
     const urls = reference.get('urls');
+    const recordId = reference.get('control_number');
 
     const authors = reference.get('authors');
     const collaborations = reference.get('collaborations');
@@ -98,7 +99,7 @@ class ReferenceItem extends Component {
                     )}
                     {arxivEprint && <ArxivEprintList eprints={arxivEprint} />}
                     {dois && <DOIList dois={dois} />}
-                    {urls && <URLList urls={urls} />}
+                    {urls && !recordId && <URLList urls={urls} />}
                   </InlineUL>
                 </Fragment>
               }
