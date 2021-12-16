@@ -16,7 +16,7 @@ import seminars from './seminars';
 import experiments from './experiments';
 import bibliographyGenerator from './bibliographyGenerator';
 import ui, { initialState as uiInitialState } from './ui';
-import { LITERATURE_REFERENCES_NS } from '../search/constants';
+import { LITERATURE_NS, LITERATURE_REFERENCES_NS } from '../search/constants';
 
 export default function createRootReducer(history) {
   return combineReducers({
@@ -46,5 +46,10 @@ export const REDUCERS_TO_PERSISTS = [
     name: 'search',
     initialState: searchInitialState,
     statePath: ['namespaces', LITERATURE_REFERENCES_NS, 'query', 'size'],
+  },
+  {
+    name: 'search',
+    initialState: searchInitialState,
+    statePath: ['namespaces', LITERATURE_NS, 'query', 'size'],
   },
 ];
