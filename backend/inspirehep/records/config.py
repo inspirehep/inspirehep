@@ -611,6 +611,12 @@ RECORDS_REST_SORT_OPTIONS = {
             "default_order": "asc",
             "order": 2,
         },
+        "leastrecent": {
+            "title": "Least Recent",
+            "fields": ["earliest_date", "control_number"],
+            "default_order": "asc",
+            "order": 3,
+        },
     },
     "records-jobs": {
         "mostrecent": {"title": "Most Recent", "fields": ["-_created"], "order": 1},
