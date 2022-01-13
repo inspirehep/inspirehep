@@ -605,15 +605,15 @@ RECORDS_REST_SORT_OPTIONS = {
             "default_order": "asc",
             "order": 1,
         },
-        "mostcited": {
-            "title": "Most Cited",
-            "fields": ["-citation_count"],
-            "default_order": "asc",
-            "order": 2,
-        },
         "leastrecent": {
             "title": "Least Recent",
             "fields": ["earliest_date", "control_number"],
+            "default_order": "asc",
+            "order": 2,
+        },
+        "mostcited": {
+            "title": "Most Cited",
+            "fields": ["-citation_count"],
             "default_order": "asc",
             "order": 3,
         },

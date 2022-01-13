@@ -500,8 +500,8 @@ def test_literature_list_has_sort_options(inspire_app):
     expected_status_code = 200
     expected_sort_options = [
         {"value": "mostrecent", "display": "Most Recent"},
-        {"value": "mostcited", "display": "Most Cited"},
         {"value": "leastrecent", "display": "Least Recent"},
+        {"value": "mostcited", "display": "Most Cited"},
     ]
     with inspire_app.test_client() as client:
         response = client.get("/literature", headers=headers)
