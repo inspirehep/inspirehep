@@ -11,6 +11,7 @@ import structlog
 from flask import Blueprint, current_app, make_response, request
 from flask_login import current_user
 from inspire_schemas.api import load_schema
+from inspire_utils.dedupers import dedupe_list
 from invenio_db import db
 from invenio_records.models import RecordMetadata
 from invenio_records_rest.utils import set_headers_for_record_caching_and_concurrency
@@ -254,7 +255,8 @@ def refextract_text():
         override_kbs_files={"journals": create_journal_dict()},
         reference_format="{title},{volume},{page}",
     )
-    references = map_refextract_to_schema(extracted_references)
+    deduplicated_extracted_references = dedupe_list(extracted_references)
+    references = map_refextract_to_schema(deduplicated_extracted_references)
     match_result = match_references(references)
     return jsonify(match_result.get("matched_references"))
 
@@ -268,7 +270,8 @@ def refextract_url():
         override_kbs_files={"journals": create_journal_dict()},
         reference_format="{title},{volume},{page}",
     )
-    references = map_refextract_to_schema(extracted_references)
+    deduplicated_extracted_references = dedupe_list(extracted_references)
+    references = map_refextract_to_schema(deduplicated_extracted_references)
     match_result = match_references(references)
     return jsonify(match_result.get("matched_references"))
 

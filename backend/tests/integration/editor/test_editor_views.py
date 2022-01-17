@@ -601,3 +601,56 @@ def test_editor_locks_resolve(inspire_app):
         )
 
     assert not redis.hget(expected_editor_lock_name, user.email)
+
+
+@patch(
+    "inspirehep.editor.views.extract_references_from_string",
+    return_value=[
+        {
+            "raw_ref": ["John Smith, Journal of Testing 42 (2020) 1234"],
+            "misc": ["John Smith"],
+            "journal_title": ["J.Testing"],
+            "journal_volume": ["42"],
+            "journal_year": ["2020"],
+            "journal_page": ["1234"],
+            "journal_reference": ["J.Testing,42,1234"],
+            "year": ["2020"],
+        },
+        {
+            "raw_ref": ["John Smith, Journal of Testing 42 (2020) 1234"],
+            "misc": ["John Smith"],
+            "journal_title": ["J.Testing"],
+            "journal_volume": ["42"],
+            "journal_year": ["2020"],
+            "journal_page": ["1234"],
+            "journal_reference": ["J.Testing,42,1234"],
+            "year": ["2020"],
+        },
+    ],
+)
+def test_refextract_text_dedupe_references(mock_refs, inspire_app):
+    schema = load_schema("hep")
+    subschema = schema["properties"]["references"]
+
+    user = create_user(role=Roles.cataloger.value)
+
+    data = {
+        "journal_title": {"title": "Journal of Testing"},
+        "short_title": "J.Testing",
+    }
+    create_record("jou", data=data)
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "api/editor/refextract/text",
+            content_type="application/json",
+            data=orjson.dumps(
+                {"text": "John Smith, Journal of Testing 42 (2020) 1234"}
+            ),
+        )
+
+    references = orjson.loads(response.data)
+    assert response.status_code == 200
+    assert validate(references, subschema) is None
+    assert len(references) == 1
