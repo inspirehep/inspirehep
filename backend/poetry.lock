@@ -1470,7 +1470,7 @@ reference = "362425d6f77a4770794615d3b98c233fca08e537"
 
 [[package]]
 name = "inspire-utils"
-version = "3.0.23"
+version = "3.0.24"
 description = "INSPIRE-specific utils."
 category = "main"
 optional = false
@@ -1561,7 +1561,7 @@ admin = ["Flask-Admin (>=1.3.0)"]
 all = ["Flask-Admin (>=1.3.0)", "Sphinx (>=1.4.2,<1.6)", "check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.3.0)", "mock (>=2.0.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-flask (>=0.10.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.0.0,<5.0.0)", "selenium (>=3.0.1)"]
 docs = ["Sphinx (>=1.4.2,<1.6)"]
 mysql = ["invenio-db[versioning,mysql] (>=1.0.0)"]
-postgresql = ["invenio-db[postgresql,versioning] (>=1.0.0)"]
+postgresql = ["invenio-db[versioning,postgresql] (>=1.0.0)"]
 sqlite = ["invenio-db[versioning] (>=1.0.0)"]
 tests = ["check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.3.0)", "mock (>=2.0.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-flask (>=0.10.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.0.0,<5.0.0)", "selenium (>=3.0.1)"]
 
@@ -1924,7 +1924,7 @@ admin = ["Flask-Admin (>=1.3.0)"]
 all = ["Sphinx (>=1.7.2)", "Flask-Admin (>=1.3.0)", "check-manifest (>=0.25)", "coverage (>=4.5.3)", "Flask-Menu (>=0.5.0)", "invenio-admin (>=1.0.0)", "isort (>=4.3.0)", "mock (>=1.3.0)", "pydocstyle (>=3.0.0)", "pytest-cov (>=2.7.1)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.6.4,<5.0.0)"]
 docs = ["Sphinx (>=1.7.2)"]
 mysql = ["invenio-db[versioning,mysql] (>=1.0.0)"]
-postgresql = ["invenio-db[postgresql,versioning] (>=1.0.0)"]
+postgresql = ["invenio-db[versioning,postgresql] (>=1.0.0)"]
 sqlite = ["invenio-db[versioning] (>=1.0.0)"]
 tests = ["check-manifest (>=0.25)", "coverage (>=4.5.3)", "Flask-Menu (>=0.5.0)", "invenio-admin (>=1.0.0)", "isort (>=4.3.0)", "mock (>=1.3.0)", "pydocstyle (>=3.0.0)", "pytest-cov (>=2.7.1)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.6.4,<5.0.0)"]
 
@@ -4626,8 +4626,8 @@ inspire-schemas = [
 ]
 inspire-service-orcid = []
 inspire-utils = [
-    {file = "inspire-utils-3.0.23.tar.gz", hash = "sha256:77a7e365ad099c0649bc7278e79379f900d9ce6da8a4d5744273d25ed44347c9"},
-    {file = "inspire_utils-3.0.23-py2-none-any.whl", hash = "sha256:ef23724ab44ad79cc80904a77560fe6f84ff52b480026df68e854baa9b83b4a7"},
+    {file = "inspire-utils-3.0.24.tar.gz", hash = "sha256:b4d294842438d66e037d0510af79b19c8224f17e1ff274c6203a4a262b6d7269"},
+    {file = "inspire_utils-3.0.24-py2-none-any.whl", hash = "sha256:3205afdb77c41dd3935f41c0ec1d73de967a0b0f83215de4d077654be769e5b3"},
 ]
 intervals = [
     {file = "intervals-0.8.1.tar.gz", hash = "sha256:37921da1407a5e9384e8e1350cfb8500f8d0d69fc43d03d01a4fdc6e7a7c7166"},
