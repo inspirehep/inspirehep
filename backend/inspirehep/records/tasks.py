@@ -8,20 +8,17 @@
 import structlog
 from celery import shared_task
 from elasticsearch import TransportError
+from elasticsearch_dsl import Q
 from flask import current_app
-from inspire_matcher.api import match
 from inspire_schemas.utils import get_refs_to_schemas
 from inspire_utils.record import get_value
 from invenio_db import db
 from sqlalchemy.exc import OperationalError
 from sqlalchemy.orm.exc import StaleDataError
 
-from inspirehep.matcher.utils import (
-    generate_matcher_config_for_nested_reference_field,
-    generate_matcher_config_for_reference_field,
-)
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.api import InspireRecord, LiteratureRecord
+from inspirehep.search.api import InspireSearch
 from inspirehep.utils import flatten_list
 
 LOGGER = structlog.getLogger()
@@ -80,11 +77,13 @@ def update_references_pointing_to_merged_record(
     refs_to_schema, merged_record_uri, new_record_uri
 ):
     for index, path in refs_to_schema:
-        config = get_config_for_given_path(index, path)
-        matched_records = match({"$ref": merged_record_uri}, config)
+        query = get_query_for_given_path(index, path, merged_record_uri)
+        es_index_name = f"records-{index}"
+        matched_records = InspireSearch(index=es_index_name).query(query).scan()
         for matched_record in matched_records:
             matched_inspire_record = InspireRecord.get_record(
-                matched_record["_id"], with_deleted=True
+                matched_record.meta.id,
+                with_deleted=True,
             )
             referenced_records_in_path = flatten_list(
                 get_value(matched_inspire_record, path[: -len(".$ref")], [])
@@ -100,17 +99,18 @@ def update_references_pointing_to_merged_record(
     db.session.commit()
 
 
-def get_config_for_given_path(index, path):
+def get_query_for_given_path(index, path, record_ref):
     record_with_reference_pid = current_app.config["SCHEMA_TO_PID_TYPES"][index]
     nested_fields = InspireRecord.get_subclasses()[
         record_with_reference_pid
     ].nested_record_fields
-    config = (
-        generate_matcher_config_for_nested_reference_field(index, path)
-        if path.split(".")[0] in nested_fields
-        else generate_matcher_config_for_reference_field(index, path)
-    )
-    return config
+    if path.split(".")[0] in nested_fields:
+        query = Q(
+            "nested", path=path.split(".")[0], query=Q("match", **{path: record_ref})
+        )
+    else:
+        query = Q("match", **{path: record_ref})
+    return query
 
 
 def update_reference_if_reference_uri_matches(

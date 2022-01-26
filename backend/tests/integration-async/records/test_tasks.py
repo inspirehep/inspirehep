@@ -10,7 +10,7 @@ from helpers.utils import retry_until_pass
 from invenio_db import db
 
 from inspirehep.records.api import InspireRecord
-from inspirehep.search.api import InspireSearch
+from inspirehep.search.api import InspireSearch, LiteratureSearch
 
 
 def test_recalculate_references_after_literature_record_merge(
@@ -422,5 +422,56 @@ def test_recalculate_references_after_conference_record_merge(
             ]
             == merged_conference_record["self"]["$ref"]
         )
+
+    retry_until_pass(assert_recalculate_references_task, retry_interval=3)
+
+
+def test_recalculate_references_recalculates_more_than_10_references(
+    inspire_app, clean_celery_session
+):
+    journal_data = faker.record("jou", with_control_number=True)
+    journal = InspireRecord.create(journal_data)
+    journal_record_reference = journal["self"]["$ref"]
+
+    literature_data = faker.record("lit")
+    literature_data.update(
+        {"publication_info": [{"journal_record": {"$ref": journal_record_reference}}]}
+    )
+    for i in range(11):
+        InspireRecord.create(literature_data)
+
+    db.session.commit()
+
+    def assert_all_records_in_es():
+        literature_records_from_es = list(
+            LiteratureSearch()
+            .query_from_iq(
+                query_string=f"publication_info.journal_record.$ref: {journal_record_reference}"
+            )
+            .scan()
+        )
+        journal_record_from_es = InspireSearch.get_record_data_from_es(journal)
+
+        assert len(literature_records_from_es) == 11 and journal_record_from_es
+
+    retry_until_pass(assert_all_records_in_es, retry_interval=5)
+
+    merged_journal_data = faker.record("jou", with_control_number=True)
+    merged_journal_data.update(
+        {"deleted_records": [{"$ref": journal_record_reference}]}
+    )
+
+    merged_journal_record = InspireRecord.create(merged_journal_data)
+    db.session.commit()
+
+    def assert_recalculate_references_task():
+        literature_records_from_es = list(
+            LiteratureSearch()
+            .query_from_iq(
+                query_string=f'publication_info.journal_record.$ref: {merged_journal_record["self"]["$ref"]}'
+            )
+            .scan()
+        )
+        assert len(literature_records_from_es) == 11
 
     retry_until_pass(assert_recalculate_references_task, retry_interval=3)
