@@ -1382,7 +1382,7 @@ tests = ["decorator (>=4.1.2,<5.0)", "flake8-future-import (>=0.4.3,<1.0)", "moc
 
 [[package]]
 name = "inspire-matcher"
-version = "9.0.11"
+version = "9.0.14"
 description = "Find the records in INSPIRE most similar to a given record or reference."
 category = "main"
 optional = false
@@ -4614,8 +4614,8 @@ inspire-json-merger = [
     {file = "inspire_json_merger-11.0.16-py2-none-any.whl", hash = "sha256:27b05b32d142eddeb84d009e3e1403668a2a45e2556e4ababeadffeb7b9a7701"},
 ]
 inspire-matcher = [
-    {file = "inspire-matcher-9.0.11.tar.gz", hash = "sha256:ec237fede1db2eb07c382fd48690090858f52682c97d72a9fd618ee1e56a6726"},
-    {file = "inspire_matcher-9.0.11-py2-none-any.whl", hash = "sha256:17c4902739f1164696740fab94377af738b1ecf45febcc7777497b30a6c3db24"},
+    {file = "inspire-matcher-9.0.14.tar.gz", hash = "sha256:fb11edd28e76cff17bc339ff92e69e02ea6ca67dee84f029be28128530f3ebde"},
+    {file = "inspire_matcher-9.0.14-py2-none-any.whl", hash = "sha256:d72a6b996ac8d24e630e0b898073fec214b74ad6778564a1e2d872ac5ccab110"},
 ]
 inspire-query-parser = [
     {file = "inspire-query-parser-6.0.40.tar.gz", hash = "sha256:dc990fc09e3707fec656c97f7e42676e2a60a8b0658d488ecaa1067d945058bf"},
