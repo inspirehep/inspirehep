@@ -51,8 +51,12 @@ def test_arxiv_path_converter_works_for_all_arxiv_pid_values(inspire_app):
     expected_control_number = record["control_number"]
     expected_status_code = 200
     with inspire_app.test_client() as client:
-        short_arxiv_number_respons = client.get("api/arxiv/1607.06746")
-        long_arxiv_number_response = client.get("api/arxiv/hep-ph/9709356")
+        short_arxiv_number_respons = client.get(
+            "api/arxiv/1607.06746", follow_redirects=True
+        )
+        long_arxiv_number_response = client.get(
+            "api/arxiv/hep-ph/9709356", follow_redirects=True
+        )
 
     assert expected_status_code == short_arxiv_number_respons.status_code
     assert (

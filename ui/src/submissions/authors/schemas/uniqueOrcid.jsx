@@ -45,7 +45,5 @@ async function isUniqueOrcid(orcid) {
 }
 
 export default function uniqueOrcid() {
-  return string()
-    .trim()
-    .test('unique-orcid', null, isUniqueOrcid);
+  return string().trim().test('unique-orcid', null, isUniqueOrcid);
 }

@@ -5,7 +5,8 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from helpers.utils import create_record
+from helpers.utils import create_record, create_user
+from invenio_accounts.testutils import login_user_via_session
 
 
 def test_redirects_records_from_legacy_url(inspire_app):
@@ -286,7 +287,9 @@ def test_redirects_collections_from_legacy_url_to_hep_search(
         response_location_header = response.headers.get("Location")
 
         expected_status_code = 301
-        expected_redirect_url = 'http://localhost:5000/literature?q=_collections:"halhidden"'
+        expected_redirect_url = (
+            'http://localhost:5000/literature?q=_collections:"halhidden"'
+        )
         assert expected_status_code == response_status_code
         assert response_location_header == expected_redirect_url
 
@@ -315,3 +318,35 @@ def test_redirects_info_from_legacy_url(inspire_app):
     expected_redirect_url = "https://old.inspirehep.net/info/hep/api"
     assert expected_status_code == response_status_code
     assert response_location_header == expected_redirect_url
+
+
+def test_redirect_by_orcid(inspire_app):
+    record = create_record(
+        "aut",
+        data={
+            "ids": [
+                {"value": "0000-0002-5405-5504", "schema": "ORCID"},
+            ]
+        },
+    )
+    user = create_user()
+    headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get("/legacy/orcid/0000-0002-5405-5504", headers=headers)
+    assert response.status_code == 302
+    assert response.location.split("/")[-1] == str(record["control_number"])
+
+
+def test_redirect_by_arxiv(inspire_app):
+    record = create_record(
+        "lit",
+        data={
+            "arxiv_eprints": [{"value": "2201.07310", "categories": ["quant-ph"]}],
+        },
+    )
+    with inspire_app.test_client() as client:
+        response = client.get("/legacy/arxiv/2201.07310")
+
+    assert response.status_code == 302
+    assert response.location.split("/")[-1] == str(record["control_number"])
