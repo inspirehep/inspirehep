@@ -63,7 +63,7 @@ def redirect_merge_profiles():
             302,
         )
 
-    return redirect(f"/authors", 302)
+    return redirect("/authors", 302)
 
 
 @blueprint.route("/author/manage_profile/<bai>", methods=("GET",))
@@ -91,9 +91,9 @@ def redirect_query():
             302,
         )
 
-    collection = f'_collections:"{legacy_collection}"' if legacy_collection else ''
+    collection = f'_collections:"{legacy_collection}"' if legacy_collection else ""
     query = f" and {query}" if query else ""
-    query = f'{collection}{query}'
+    query = f"{collection}{query}"
     return redirect(f"/literature?q={query}", 301)
 
 
@@ -115,3 +115,19 @@ def redirect_collection(legacy_collection):
 @blueprint.route("/info/<path:info_path>", methods=("GET",))
 def redirect_info(info_path):
     return redirect(f"{current_app.config['LEGACY_BASE_URL']}/info/{info_path}", 302)
+
+
+@blueprint.route("/legacy/arxiv/<arxiv>", methods=("GET",))
+def redirect_to_lit_record_by_arxiv(arxiv):
+    recid = get_pid_for_pid("arxiv", arxiv, "recid")
+    if not recid:
+        abort(404)
+    return redirect(f"/literature/{recid}")
+
+
+@blueprint.route("/legacy/orcid/<orcid>", methods=("GET",))
+def redirect_tp_aut_record_by_orcid(orcid):
+    recid = get_pid_for_pid("orcid", orcid, "recid")
+    if not recid:
+        abort(404)
+    return redirect(f"/authors/{recid}")
