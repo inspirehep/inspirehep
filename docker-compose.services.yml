@@ -32,7 +32,7 @@ services:
     ports:
       - '6379:6379'
   db:
-    image: postgres:14.5
+    image: postgres:14.1
     restart: 'always'
     command: postgres -c 'max_connections=200'
     environment:
