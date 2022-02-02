@@ -13,6 +13,7 @@ from flask import current_app
 from inspire_schemas.utils import get_refs_to_schemas
 from inspire_utils.record import get_value
 from invenio_db import db
+from invenio_records.models import RecordMetadata
 from sqlalchemy.exc import OperationalError
 from sqlalchemy.orm.exc import StaleDataError
 
@@ -81,9 +82,16 @@ def update_references_pointing_to_merged_record(
         es_index_name = f"records-{index}"
         matched_records = InspireSearch(index=es_index_name).query(query).scan()
         for matched_record in matched_records:
-            matched_inspire_record = InspireRecord.get_record(
-                matched_record.meta.id,
-                with_deleted=True,
+            pid_type = current_app.config["SCHEMA_TO_PID_TYPES"][index]
+            record_class = InspireRecord.get_subclasses()[pid_type]
+            matched_inspire_record_data = (
+                db.session.query(RecordMetadata)
+                .with_for_update()
+                .filter_by(id=matched_record.meta.id)
+                .first()
+            )
+            matched_inspire_record = record_class(
+                matched_inspire_record_data.json, model=matched_inspire_record_data
             )
             referenced_records_in_path = flatten_list(
                 get_value(matched_inspire_record, path[: -len(".$ref")], [])
