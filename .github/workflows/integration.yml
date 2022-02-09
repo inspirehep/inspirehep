@@ -117,7 +117,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        group: [1, 2, 3, 4, 5, 6]
+        group: [1, 2, 3, 4, 5, 6, 7, 8]
     services:
       redis:
         image: redis
@@ -140,7 +140,6 @@ jobs:
         env:
           bootstrap.memory_lock: true
           ES_JAVA_OPTS: -Xms1024m -Xmx1024m
-          ELASTICSEARCH_REQUESTTIMEOUT: 6000
           discovery.type: single-node
         ports:
           - 9200:9200
@@ -162,7 +161,7 @@ jobs:
       - name: Test
         uses: ./.github/actions/backend-test
         with:
-          suite: 'integration --splits 6 --group ${{ matrix.group }} --durations-path test_durations/durations.json --store-durations --random-order-seed ${{ needs.backend_build.outputs.random-seed }}'
+          suite: 'integration --splits 8 --group ${{ matrix.group }} --durations-path test_durations/durations.json --store-durations --random-order-seed ${{ needs.backend_build.outputs.random-seed }}'
       - name: Upload partial durations
         uses: actions/upload-artifact@v2
         with:
@@ -223,7 +222,6 @@ jobs:
         env:
           bootstrap.memory_lock: true
           ES_JAVA_OPTS: -Xms1024m -Xmx1024m
-          ELASTICSEARCH_REQUESTTIMEOUT: 6000
           discovery.type: single-node
         ports:
           - 9200:9200
@@ -313,7 +311,6 @@ jobs:
         env:
           bootstrap.memory_lock: true
           ES_JAVA_OPTS: -Xms1024m -Xmx1024m
-          ELASTICSEARCH_REQUESTTIMEOUT: 6000
           discovery.type: single-node
         ports:
           - 9200:9200
@@ -580,7 +577,6 @@ jobs:
         env:
           bootstrap.memory_lock: true
           ES_JAVA_OPTS: -Xms1024m -Xmx1024m
-          ELASTICSEARCH_REQUESTTIMEOUT: 6000
           discovery.type: single-node
         ports:
           - 9200:9200
