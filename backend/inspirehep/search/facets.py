@@ -318,6 +318,14 @@ def hep_institution_papers(order=None):
     }
 
 
+def hep_institution_papers_cataloger(order=None):
+    if order is None:
+        order = count(start=1)
+    records = hep_institution_papers(order=order)
+    records["aggs"].update({**hep_collection_aggregation(order=next(order))})
+    return records
+
+
 def records_hep(order=None):
     if order is None:
         order = count(start=1)

@@ -260,6 +260,48 @@ def test_hep_institution_papers_facets(inspire_app):
         assert aggregations == expected_aggregations
 
 
+def test_hep_institution_papers_cataloger_facets(inspire_app):
+    with current_app.test_request_context():
+        expected_filters = {
+            "author",
+            "author_count",
+            "doc_type",
+            "earliest_date",
+            "citation_count",
+            "citation_count_without_self_citations",
+            "collaboration",
+            "refereed",
+            "citeable",
+            "collection",
+            "curation_collection",
+            "subject",
+            "arxiv_categories",
+            "self_affiliations",
+            "affiliations",
+            "self_author_names",
+            "rpp",
+            "self_curated_relation",
+            "experiments",
+        }
+        expected_aggregations = {
+            **hep_earliest_date_aggregation(order=1),
+            **hep_author_count_aggregation(order=2),
+            **hep_doc_type_aggregation(order=3),
+            **hep_collaboration_aggregation(order=4),
+            **hep_subject_aggregation(order=5),
+            **hep_collection_aggregation(order=6),
+        }
+
+        filters = current_app.config["CATALOGER_RECORDS_REST_FACETS"]["hep-institution-papers"]()[
+            "filters"
+        ].keys()
+        aggregations = current_app.config["CATALOGER_RECORDS_REST_FACETS"][
+            "hep-institution-papers"
+        ]()["aggs"]
+        assert filters == expected_filters
+        assert aggregations == expected_aggregations
+
+
 def test_citation_summary_facets(inspire_app):
     with current_app.test_request_context():
         expected_filters = {
