@@ -53,6 +53,7 @@ from inspirehep.search.facets import (
     hep_experiment_papers,
     hep_experiment_papers_cataloger,
     hep_institution_papers,
+    hep_institution_papers_cataloger,
     must_match_all_filter,
     range_author_count_filter,
     records_conferences,
@@ -595,6 +596,7 @@ CATALOGER_RECORDS_REST_FACETS.update(
         "records-hep": records_hep_cataloger,
         "records-jobs": records_jobs_cataloger,
         "hep-experiment-papers": hep_experiment_papers_cataloger,
+        "hep-institution-papers": hep_institution_papers_cataloger,
     }
 )
 RECORDS_REST_SORT_OPTIONS = {
