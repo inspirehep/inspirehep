@@ -223,6 +223,7 @@ jobs:
         env:
           bootstrap.memory_lock: true
           ES_JAVA_OPTS: -Xms1024m -Xmx1024m
+          ELASTICSEARCH_REQUESTTIMEOUT: 6000
           discovery.type: single-node
         ports:
           - 9200:9200
@@ -312,6 +313,7 @@ jobs:
         env:
           bootstrap.memory_lock: true
           ES_JAVA_OPTS: -Xms1024m -Xmx1024m
+          ELASTICSEARCH_REQUESTTIMEOUT: 6000
           discovery.type: single-node
         ports:
           - 9200:9200
@@ -578,6 +580,7 @@ jobs:
         env:
           bootstrap.memory_lock: true
           ES_JAVA_OPTS: -Xms1024m -Xmx1024m
+          ELASTICSEARCH_REQUESTTIMEOUT: 6000
           discovery.type: single-node
         ports:
           - 9200:9200
