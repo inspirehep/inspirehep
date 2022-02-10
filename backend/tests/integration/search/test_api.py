@@ -783,7 +783,7 @@ def test_big_query_execute_without_recursion_depth_exception(inspire_app):
     with inspire_app.test_client() as client:
 
         response = client.get(
-            "api/literature", query_string={"q": "find a name" + " or a name" * 300}
+            "api/literature", query_string={"q": "find a name" + " or a name" * 100}
         )
     assert response.status_code == 200
 

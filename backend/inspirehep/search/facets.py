@@ -80,6 +80,28 @@ def must_match_all_filter(field):
     return inner
 
 
+def hep_subject_must_match_all_or_missing_filter(field):
+    """Bool filter containing a list of must matches."""
+
+    def inner(values):
+
+        if current_app.config.get("SUBJECT_MISSING_VALUE", "Unknown") in values:
+            filters = {
+                "bool": {
+                    "must_not": [
+                        {"exists": {"field": field}},
+                    ]
+                }
+            }
+
+        else:
+            filters = [Q("match", **{field: value}) for value in values]
+
+        return Q("bool", filter=filters)
+
+    return inner
+
+
 def filter_from_filters_aggregation(agg):
     def inner(values):
         try:

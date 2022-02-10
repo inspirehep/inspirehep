@@ -6,6 +6,9 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
+from flask import current_app
+
+
 def hep_earliest_date_aggregation(order, title="Papers per year", agg_type="range"):
     return {
         "earliest_date": {
@@ -86,7 +89,11 @@ def hep_author_aggregation(order, author=None, title="Author", agg_type="checkbo
 def hep_subject_aggregation(order, title="Subject", agg_type="checkbox"):
     return {
         "subject": {
-            "terms": {"field": "facet_inspire_categories", "size": 20},
+            "terms": {
+                "field": "facet_inspire_categories",
+                "missing": current_app.config.get("SUBJECT_MISSING_VALUE", "Unknown"),
+                "size": 20,
+            },
             "meta": {"title": title, "order": order, "type": agg_type},
         }
     }
