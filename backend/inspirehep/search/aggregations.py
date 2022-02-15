@@ -268,6 +268,7 @@ def hep_curation_collection_aggregation(
         "OPAL",
         "ProtoDUNE-DP",
         "ProtoDUNE-SP",
+        "SND@LHC",
         "XSEN",
     ]
     cern_collaborations = [
@@ -291,6 +292,7 @@ def hep_curation_collection_aggregation(
         "MERIT",
         "SHINE",
         "SHiP",
+        "SND@LHC",
         "TOTEM",
         "n_TOF",
     ]
