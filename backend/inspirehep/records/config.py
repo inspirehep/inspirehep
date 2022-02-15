@@ -54,6 +54,7 @@ from inspirehep.search.facets import (
     hep_experiment_papers_cataloger,
     hep_institution_papers,
     hep_institution_papers_cataloger,
+    hep_subject_must_match_all_or_missing_filter,
     must_match_all_filter,
     range_author_count_filter,
     records_conferences,
@@ -543,7 +544,7 @@ HEP_FILTERS = {
     "curation_collection": filter_from_filters_aggregation(
         hep_curation_collection_aggregation(order=1)
     ),
-    "subject": must_match_all_filter("facet_inspire_categories"),
+    "subject": hep_subject_must_match_all_or_missing_filter("facet_inspire_categories"),
     "arxiv_categories": must_match_all_filter("facet_arxiv_categories"),
     "experiments": must_match_all_filter("facet_experiment"),
     "rpp": filter_from_filters_aggregation(hep_rpp(order=1)),

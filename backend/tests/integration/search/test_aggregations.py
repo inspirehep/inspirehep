@@ -325,6 +325,40 @@ def test_hep_subject_aggregation_and_filter(inspire_app, override_config):
         )
 
 
+def test_hep_subject_aggregation_and_filter_unkown(inspire_app, override_config):
+    config = {
+        "RECORDS_REST_FACETS": {
+            "records-hep": {
+                "filters": hep_filters(),
+                "aggs": {**hep_subject_aggregation(1)},
+            }
+        }
+    }
+
+    with override_config(**config):
+        expected_record = create_record("lit")
+        create_record("lit")
+        with inspire_app.test_client() as client:
+            response = client.get("/literature/facets").json
+        expected_aggregation = {
+            "meta": {"title": "Subject", "type": "checkbox", "order": 1},
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+                {"key": "Unknown", "doc_count": 2},
+            ],
+        }
+        assert response["aggregations"]["subject"] == expected_aggregation
+
+        with inspire_app.test_client() as client:
+            response = client.get("/literature?subject=Unknown").json
+        assert len(response["hits"]["hits"]) == 2
+        assert (
+            response["hits"]["hits"][0]["metadata"]["control_number"]
+            == expected_record["control_number"]
+        )
+
+
 def test_hep_arxiv_categories_aggregation_and_filter(inspire_app, override_config):
     config = {
         "RECORDS_REST_FACETS": {
