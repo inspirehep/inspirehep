@@ -1406,7 +1406,7 @@ tests = ["flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pytest-c
 
 [[package]]
 name = "inspire-query-parser"
-version = "6.0.40"
+version = "6.0.41"
 description = "A PEG-based query parser for INSPIRE."
 category = "main"
 optional = false
@@ -4098,7 +4098,7 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<3.9"
-content-hash = "485c7d800fa311a88a3e5e4110ec24adc860d774d1b8114749c157bf7c431dfe"
+content-hash = "9f8b4a0464310444c13401c1eba9d947b65fae1ac0e73f0d8e839283e4e9f588"
 
 [metadata.files]
 alembic = [
@@ -4618,8 +4618,8 @@ inspire-matcher = [
     {file = "inspire_matcher-9.0.14-py2-none-any.whl", hash = "sha256:d72a6b996ac8d24e630e0b898073fec214b74ad6778564a1e2d872ac5ccab110"},
 ]
 inspire-query-parser = [
-    {file = "inspire-query-parser-6.0.40.tar.gz", hash = "sha256:dc990fc09e3707fec656c97f7e42676e2a60a8b0658d488ecaa1067d945058bf"},
-    {file = "inspire_query_parser-6.0.40-py2-none-any.whl", hash = "sha256:a809eae25d65ca60f0c33c60e2ded7e871728004f8b48a79aa33d66793e2a6a0"},
+    {file = "inspire-query-parser-6.0.41.tar.gz", hash = "sha256:c711efb7ebc4087d17b327dd36ccbb16af7a84ab7ba6afe325321f2c1c0ca4eb"},
+    {file = "inspire_query_parser-6.0.41-py3-none-any.whl", hash = "sha256:2527f01111b5397beefaad29cb08ab3edd71b523aef72e0f03f3fcdf748b4cd7"},
 ]
 inspire-schemas = [
     {file = "inspire_schemas-61.4.8-py2.py3-none-any.whl", hash = "sha256:899779038e53a70ead2f1d8b0d680fe34367d803dd8b26dd8ed7bc48209474ed"},
