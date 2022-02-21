@@ -117,17 +117,13 @@ def redirect_info(info_path):
     return redirect(f"{current_app.config['LEGACY_BASE_URL']}/info/{info_path}", 302)
 
 
-@blueprint.route("/legacy/arxiv/<arxiv>", methods=("GET",))
+@blueprint.route("/legacy/arxiv/<path:arxiv>", methods=("GET",))
 def redirect_to_lit_record_by_arxiv(arxiv):
     recid = get_pid_for_pid("arxiv", arxiv, "recid")
-    if not recid:
-        abort(404)
     return redirect(f"/literature/{recid}")
 
 
 @blueprint.route("/legacy/orcid/<orcid>", methods=("GET",))
 def redirect_tp_aut_record_by_orcid(orcid):
     recid = get_pid_for_pid("orcid", orcid, "recid")
-    if not recid:
-        abort(404)
     return redirect(f"/authors/{recid}")
