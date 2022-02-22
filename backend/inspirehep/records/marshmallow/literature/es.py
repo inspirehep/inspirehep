@@ -55,6 +55,7 @@ class LiteratureElasticSearchSchema(ElasticSearchBaseSchema, LiteratureRawSchema
     earliest_date = fields.Raw(dump_only=True, default=missing)
     facet_inspire_doc_type = fields.Method("get_inspire_document_type")
     facet_author_name = fields.Method("get_facet_author_name")
+    journal_title_variants = fields.Method("get_journal_title_variants")
     id_field = fields.Integer(dump_only=True, dump_to="id", attribute="control_number")
     thesis_info = fields.Nested(ThesisInfoSchemaForESV1, dump_only=True)
     referenced_authors_bais = fields.Method(
@@ -220,3 +221,14 @@ class LiteratureElasticSearchSchema(ElasticSearchBaseSchema, LiteratureRawSchema
             if data["authors"]:
                 data["first_author"] = data["authors"][0]
         return data
+
+    def get_journal_title_variants(self, record):
+        publication_infos = record.get("publication_info", [])
+        result = set()
+        for publication_info in publication_infos:
+            journal_title = publication_info.get("journal_title")
+            if journal_title:
+                result.add(journal_title)
+                journal_title_split = journal_title.replace(".", ". ").strip()
+                result.add(journal_title_split)
+        return list(result)

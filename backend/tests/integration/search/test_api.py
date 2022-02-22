@@ -46,7 +46,6 @@ def test_literature_get_records_by_pids_returns_correct_record(inspire_app):
         assert rec.to_dict()["control_number"] in expected_control_numbers
 
 
-@pytest.mark.vcr()
 def test_return_record_for_publication_info_search_with_journal_title_without_dots(
     inspire_app,
 ):
@@ -90,6 +89,47 @@ def test_return_record_for_publication_info_search_with_journal_title_without_do
     assert 200 == response.status_code
 
 
+def test_return_record_for_journal_info_search_with_journal_title_with_dots_and_spaces(
+    inspire_app,
+):
+
+    queries = ["Phys.Lett.B", "Phys. Lett. B"]
+
+    cited_record_json = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "control_number": 1,
+        "document_type": ["article"],
+        "publication_info": [
+            {
+                "journal_title": "Phys.Lett.B",
+                "journal_volume": "704",
+                "page_start": "223",
+                "year": 2011,
+            }
+        ],
+        "titles": [{"title": "The Strongly-Interacting Light Higgs"}],
+    }
+
+    create_record(
+        "jou",
+        data={"short_title": "Phys.Lett.B", "journal_title": {"title": "Phys Lett B"}},
+    )
+    create_record("lit", cited_record_json)
+
+    expected_control_number = 1
+
+    for query in queries:
+
+        response = LiteratureSearch().query_from_iq(query).execute()
+
+        response_record_control_number = response["hits"]["hits"][0]["_source"][
+            "control_number"
+        ]
+
+        assert expected_control_number == response_record_control_number
+
+
 def test_facets_for_publication_info_search(inspire_app):
 
     query = "Phys. Lett. B 704 (2011) 223"
@@ -124,7 +164,6 @@ def test_facets_for_publication_info_search(inspire_app):
     assert len(response_record["aggregations"]) > 0
 
 
-@pytest.mark.vcr()
 def test_return_record_for_publication_info_search_example_1(inspire_app):
 
     query = "Phys. Lett. B 704 (2011) 223"
@@ -169,7 +208,6 @@ def test_return_record_for_publication_info_search_example_1(inspire_app):
     assert 200 == response.status_code
 
 
-@pytest.mark.vcr()
 def test_return_record_for_publication_info_search_with_multiple_records_with_the_same_journal_title(
     inspire_app,
 ):
@@ -283,7 +321,6 @@ def test_return_record_for_publication_info_search_example_2(inspire_app):
     assert 200 == response.status_code
 
 
-@pytest.mark.vcr()
 def test_return_record_for_publication_info_search_example_3(inspire_app):
     query = "Phys. Rev. Lett., 65:21–24, 1990"
 
