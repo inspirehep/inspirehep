@@ -763,6 +763,10 @@
         },
         "type": "object"
       },
+      "journal_title_variants": {
+        "type": "keyword",
+        "copy_to": "_all"
+      },
       "facet_arxiv_categories": {
         "type": "keyword"
       },
