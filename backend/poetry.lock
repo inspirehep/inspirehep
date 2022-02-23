@@ -1363,7 +1363,7 @@ tests = ["flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pytest (
 
 [[package]]
 name = "inspire-json-merger"
-version = "11.0.16"
+version = "11.0.29"
 description = "INSPIRE-specific configuration of the JSON Merger."
 category = "main"
 optional = false
@@ -1372,7 +1372,7 @@ python-versions = "*"
 [package.dependencies]
 inspire-schemas = ">=61.0,<62.0"
 inspire-utils = ">=3.0.0,<4.0"
-json-merger = {version = ">=0.6.0,<1.0", extras = ["contrib"]}
+json-merger = {version = "0.7.11", extras = ["contrib"]}
 munkres = "1.0.12"
 pyrsistent = ">=0.14.0,<1.0"
 
@@ -1923,7 +1923,7 @@ werkzeug = ">=0.14.1"
 admin = ["Flask-Admin (>=1.3.0)"]
 all = ["Sphinx (>=1.7.2)", "Flask-Admin (>=1.3.0)", "check-manifest (>=0.25)", "coverage (>=4.5.3)", "Flask-Menu (>=0.5.0)", "invenio-admin (>=1.0.0)", "isort (>=4.3.0)", "mock (>=1.3.0)", "pydocstyle (>=3.0.0)", "pytest-cov (>=2.7.1)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.6.4,<5.0.0)"]
 docs = ["Sphinx (>=1.7.2)"]
-mysql = ["invenio-db[versioning,mysql] (>=1.0.0)"]
+mysql = ["invenio-db[mysql,versioning] (>=1.0.0)"]
 postgresql = ["invenio-db[versioning,postgresql] (>=1.0.0)"]
 sqlite = ["invenio-db[versioning] (>=1.0.0)"]
 tests = ["check-manifest (>=0.25)", "coverage (>=4.5.3)", "Flask-Menu (>=0.5.0)", "invenio-admin (>=1.0.0)", "isort (>=4.3.0)", "mock (>=1.3.0)", "pydocstyle (>=3.0.0)", "pytest-cov (>=2.7.1)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.6.4,<5.0.0)"]
@@ -4610,8 +4610,8 @@ inspire-dojson = [
     {file = "inspire_dojson-63.1.5-py2-none-any.whl", hash = "sha256:21c25249e233e9b4d0461f6b5a55ef9f1a2504de6809e97ad5fac0f1980c3ec8"},
 ]
 inspire-json-merger = [
-    {file = "inspire-json-merger-11.0.16.tar.gz", hash = "sha256:da6840fe10e0e6d2a6cee38f31653eb9c2ba5b78baeb7c984cb28ec86c35406f"},
-    {file = "inspire_json_merger-11.0.16-py2-none-any.whl", hash = "sha256:27b05b32d142eddeb84d009e3e1403668a2a45e2556e4ababeadffeb7b9a7701"},
+    {file = "inspire-json-merger-11.0.29.tar.gz", hash = "sha256:72bb26d2adf68f318c2f4b1e2381d623950a4b7577306ef6879aad13bd174541"},
+    {file = "inspire_json_merger-11.0.29-py2-none-any.whl", hash = "sha256:c070312d4190ae5156b0132a878f6dd4f31aa9b2663752b5c2af2af037d26c1f"},
 ]
 inspire-matcher = [
     {file = "inspire-matcher-9.0.14.tar.gz", hash = "sha256:fb11edd28e76cff17bc339ff92e69e02ea6ca67dee84f029be28128530f3ebde"},
