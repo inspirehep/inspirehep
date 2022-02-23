@@ -140,9 +140,6 @@ class AuthorSubmissionsResource(BaseSubmissionsResource):
         self.update_author_record(data, record)
         db.session.commit()
 
-        if not is_superuser_or_cataloger_logged_in():
-            self.create_ticket(record, "rt/update_author.html")
-
         if current_app.config.get("FEATURE_FLAG_ENABLE_WORKFLOW_ON_AUTHOR_UPDATE"):
             self.start_workflow_for_submission(record)
 
