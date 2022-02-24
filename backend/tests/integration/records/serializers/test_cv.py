@@ -8,6 +8,7 @@ from flask_sqlalchemy import models_committed
 from helpers.utils import create_record
 
 from inspirehep.records.receivers import index_after_commit
+from inspirehep.search.api import LiteratureSearch
 
 
 def test_cv_with_subtitle(inspire_app, shared_datadir):
@@ -553,31 +554,11 @@ def test_cv_search_with_more_complex_records(inspire_app, shared_datadir):
             }
         ],
     }
-    data_3 = {
-        "control_number": 637_275_231,
-        "titles": [{"title": "Yet another title 3"}],
-        "publication_info": [
-            {
-                "journal_title": "Test Journal",
-                "journal_volume": "TV",
-                "year": 2016,
-                "page_start": "1",
-                "page_end": "2",
-                "artid": "012345",
-                "pubinfo_freetext": "Test. Pub. Info. Freetext",
-            }
-        ],
-    }
-    data_4 = {
-        "control_number": 637_275_238,
-        "titles": [{"title": "This is a title."}],
-        "collaborations": [{"value": "Particle Data Group"}],
-        "authors": [{"full_name": "Doe, John6"}, {"full_name": "Didi, Jane"}],
-    }
-    create_record("lit", data=data_1)
-    create_record("lit", data=data_2)
-    create_record("lit", data=data_3)
-    create_record("lit", data=data_4)
+    rec_1 = create_record("lit", data=data_1)
+    rec_2 = create_record("lit", data=data_2)
+
+    assert LiteratureSearch().get_record(str(rec_1.id)).execute().hits
+    assert LiteratureSearch().get_record(str(rec_2.id)).execute().hits
 
     expected_status_code = 200
     expected_result = (
