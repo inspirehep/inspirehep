@@ -338,9 +338,6 @@
           "inspire_roles": {
             "type": "keyword"
           },
-          "name_suggest": {
-            "type": "completion"
-          },
           "raw_affiliations": {
             "properties": {
               "source": {
@@ -480,9 +477,6 @@
           },
           "inspire_roles": {
             "type": "keyword"
-          },
-          "name_suggest": {
-            "type": "completion"
           },
           "raw_affiliations": {
             "properties": {

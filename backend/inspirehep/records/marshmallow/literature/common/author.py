@@ -9,7 +9,6 @@ from copy import deepcopy
 from unicodedata import normalize
 
 from inspire_dojson.utils import get_recid_from_ref
-from inspire_utils.name import generate_name_variations
 from marshmallow import Schema, fields, missing, pre_dump
 
 from inspirehep.pidstore.api.base import PidStoreBase
@@ -99,21 +98,10 @@ class CVAuthorSchemaV1(AuthorSchemaV1):
         return data["full_name"]
 
 
-class AuthorAutocompleteSchema(Schema):
-    input_field = fields.Method(
-        "generate_name_variations", dump_to="input", dump_only=True
-    )
-
-    def generate_name_variations(self, full_name):
-        name_variations = generate_name_variations(full_name)
-        return [variation for variation in name_variations if variation]
-
-
 class AuthorsInfoSchemaForES(AuthorSchemaV1):
     full_name_unicode_normalized = fields.Method(
         "get_author_full_name_unicode_normalized", default=missing, dump_only=True
     )
-    name_suggest = fields.Nested(AuthorAutocompleteSchema, attribute="full_name")
 
     def get_author_full_name_unicode_normalized(self, author):
         full_name = author.get("full_name")
