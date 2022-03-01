@@ -46,7 +46,7 @@ export const KNOWLEDGE_BASE_URL = `${HELP_BLOG_URL}/knowledge-base`;
 export const ABOUT_INSPIRE_URL = `${KNOWLEDGE_BASE_URL}/about-inspire`;
 export const WHAT_IS_ORCID_URL = `${KNOWLEDGE_BASE_URL}/what-is-orcid`;
 export const CONTENT_POLICY_URL = `${KNOWLEDGE_BASE_URL}/content-policy`;
-export const PRIVACY_POLICY_URL = `${KNOWLEDGE_BASE_URL}/privacy-policy`;
+export const PRIVACY_NOTICE_URL = `https://cern.service-now.com/service-portal?id=privacy_policy&se=INSPIRE-Online&notice=main`;
 export const TERMS_OF_USE_URL = `${KNOWLEDGE_BASE_URL}/terms-of-use`;
 export const FAQ_URL = `${KNOWLEDGE_BASE_URL}/faq`;
 export const PUBLISHED_URL = `${FAQ_URL}/#faq-published`;
@@ -61,7 +61,6 @@ export const RANGE_AGGREGATION_SELECTION_SEPARATOR = '--';
 
 export const START_DATE_ALL = 'all';
 export const START_DATE_UPCOMING = 'upcoming';
-
 export const START_DATE = 'start_date';
 export const DATE_ASC = 'dateasc';
 export const DATE_DESC = 'datedesc';

@@ -10,7 +10,7 @@ import {
   INSPIRE_TWITTER_ACCOUNT,
   ABOUT_INSPIRE_URL,
   CONTENT_POLICY_URL,
-  PRIVACY_POLICY_URL,
+  PRIVACY_NOTICE_URL,
   TERMS_OF_USE_URL,
   FAQ_URL,
   HELP_BLOG_URL,
@@ -38,8 +38,8 @@ const COLUMNS = [
         openExternal: true,
       },
       {
-        title: 'Privacy Policy',
-        url: PRIVACY_POLICY_URL,
+        title: 'Privacy Notice',
+        url: PRIVACY_NOTICE_URL,
         openExternal: true,
       },
       {
@@ -129,9 +129,9 @@ function Footer({ isCatalogerLoggedIn }) {
     () =>
       isCatalogerLoggedIn
         ? COLUMNS
-        : COLUMNS.map(col => ({
+        : COLUMNS.map((col) => ({
             ...col,
-            items: col.items.filter(item => !item.onlyCatalogers),
+            items: col.items.filter((item) => !item.onlyCatalogers),
           })),
     [isCatalogerLoggedIn]
   );
