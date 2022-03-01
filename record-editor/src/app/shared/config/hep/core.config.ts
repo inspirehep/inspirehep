@@ -106,6 +106,7 @@ export const coreHep: JsonEditorConfig = {
       'withdrawn',
       '_export_to',
       'imprints',
+      'preprint_date',
       'keywords',
     ],
     alwaysShowRegExp: new RegExp('value'),
