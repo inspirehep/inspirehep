@@ -7,10 +7,7 @@
 
 import orjson
 
-from inspirehep.records.marshmallow.literature.common import (
-    AuthorSchemaV1,
-    AuthorsInfoSchemaForES,
-)
+from inspirehep.records.marshmallow.literature.common import AuthorSchemaV1
 from inspirehep.records.marshmallow.literature.common.author import (
     FirstAuthorSchemaV1,
     SupervisorSchema,
@@ -71,54 +68,6 @@ def test_author_with_with_inspire_roles():
     result = schema.dumps(dump).data
 
     assert expected == orjson.loads(result)
-
-
-def test_author_es_enchancement():
-    schema = AuthorsInfoSchemaForES()
-
-    dump = {"full_name": "Castle, Frank"}
-    expected_name_suggest = sorted(
-        [
-            "frank castle",
-            "f, castle",
-            "frank, castle",
-            "f castle",
-            "castle frank",
-            "castle, f",
-            "castle f",
-            "castle",
-            "castle, frank",
-        ]
-    )
-
-    result = orjson.loads(schema.dumps(dump).data)
-
-    assert "input" in result["name_suggest"]
-    assert sorted(result["name_suggest"]["input"]) == expected_name_suggest
-
-
-def test_author_es_enchancement_without_last_name():
-    schema = AuthorsInfoSchemaForES()
-
-    dump = {"full_name": "Frank Castle"}
-    expected_name_suggest = sorted(
-        [
-            "frank castle",
-            "f, castle",
-            "frank, castle",
-            "f castle",
-            "castle frank",
-            "castle, f",
-            "castle f",
-            "castle",
-            "castle, frank",
-        ]
-    )
-
-    result = orjson.loads(schema.dumps(dump).data)
-
-    assert "input" in result["name_suggest"]
-    assert sorted(result["name_suggest"]["input"]) == expected_name_suggest
 
 
 def test_author_schema_returns_empty_for_supervisor():
