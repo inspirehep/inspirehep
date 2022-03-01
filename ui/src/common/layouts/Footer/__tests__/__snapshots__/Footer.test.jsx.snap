@@ -50,8 +50,8 @@ exports[`Footer renders when cataloger 1`] = `
           },
           Object {
             "openExternal": true,
-            "title": "Privacy Policy",
-            "url": "https://inspirehep.net/help/knowledge-base/privacy-policy",
+            "title": "Privacy Notice",
+            "url": "https://cern.service-now.com/service-portal?id=privacy_policy&se=INSPIRE-Online&notice=main",
           },
           Object {
             "openExternal": true,
@@ -180,8 +180,8 @@ exports[`Footer renders when not cataloger 1`] = `
           },
           Object {
             "openExternal": true,
-            "title": "Privacy Policy",
-            "url": "https://inspirehep.net/help/knowledge-base/privacy-policy",
+            "title": "Privacy Notice",
+            "url": "https://cern.service-now.com/service-portal?id=privacy_policy&se=INSPIRE-Online&notice=main",
           },
           Object {
             "openExternal": true,
