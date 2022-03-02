@@ -443,7 +443,7 @@ class LiteratureRecord(
     @staticmethod
     def add_file(
         app_context,
-        url,
+        url=None,
         original_url=None,
         key=None,
         filename=None,
@@ -455,6 +455,9 @@ class LiteratureRecord(
         Args:
             app_context: Original app context should be passed here if running in separate thread
         """
+        if url is None:
+            raise ValidationError("'url' is a required property")
+
         with app_context.app.app_context():
             is_s3_or_public_url = current_s3_instance.is_s3_url_with_bucket_prefix(
                 url
