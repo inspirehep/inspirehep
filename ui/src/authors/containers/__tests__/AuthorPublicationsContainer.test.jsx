@@ -85,4 +85,31 @@ describe('AuthorPublicationsContainer', () => {
       assignView: true,
     });
   });
+
+  it('set assignView when user can_edit', () => {
+    global.CONFIG = { ASSIGN_OWN_PROFILE_UI_FEATURE_FLAG: true };
+    const store = getStoreWithState({
+      authors: fromJS({
+        ...initialState,
+        publicationSelection: {},
+        publicationSelectionClaimed: [],
+        publicationSelectionUnclaimed: [],
+        data: {
+          metadata: {
+            can_edit: true,
+          },
+        },
+      }),
+    });
+    const wrapper = mount(
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/authors/123']} initialIndex={0}>
+          <AuthorPublicationsContainer />
+        </MemoryRouter>
+      </Provider>
+    );
+    expect(wrapper.find(AuthorPublications)).toHaveProp({
+      assignViewOwnProfile: true,
+    });
+  });
 });

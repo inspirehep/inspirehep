@@ -5,6 +5,10 @@ import {
   AUTHOR_PUBLICATION_SELECTION_CLEAR,
   AUTHOR_PUBLICATION_SELECTION_SET,
   AUTHOR_SET_ASSIGN_DRAWER_VISIBILITY,
+  AUTHOR_PUBLICATION_CLAIM_SELECTION,
+  AUTHOR_PUBLICATIONS_CLAIM_CLEAR,
+  AUTHOR_PUBLICATION_UNCLAIM_SELECTION,
+  AUTHOR_PUBLICATIONS_UNCLAIM_CLEAR,
 } from './actionTypes';
 import generateRecordFetchAction from './recordsFactory';
 import { AUTHORS_PID_TYPE } from '../common/constants';
@@ -12,6 +16,8 @@ import {
   assignSuccess,
   assignError,
   assigning,
+  assignSuccessOwnProfile,
+  unassignSuccessOwnProfile,
 } from '../authors/assignNotification';
 import { searchQueryUpdate } from './search';
 import { AUTHOR_PUBLICATIONS_NS } from '../search/constants';
@@ -35,6 +41,32 @@ export function setPublicationSelection(publicationIds, selected) {
 export function clearPublicationSelection() {
   return {
     type: AUTHOR_PUBLICATION_SELECTION_CLEAR,
+  };
+}
+
+export function setPublicationsClaimedSelection(papersIds, selected) {
+  return {
+    type: AUTHOR_PUBLICATION_CLAIM_SELECTION,
+    payload: { papersIds, selected },
+  };
+}
+
+export function setPublicationsUnclaimedSelection(papersIds, selected) {
+  return {
+    type: AUTHOR_PUBLICATION_UNCLAIM_SELECTION,
+    payload: { papersIds, selected },
+  };
+}
+
+export function clearPublicationsClaimedSelection() {
+  return {
+    type: AUTHOR_PUBLICATIONS_CLAIM_CLEAR,
+  };
+}
+
+export function clearPublicationsUnclaimedSelection() {
+  return {
+    type: AUTHOR_PUBLICATIONS_UNCLAIM_CLEAR,
   };
 }
 
@@ -63,6 +95,50 @@ export function assignPapers({ from, to }) {
       );
       dispatch(clearPublicationSelection());
       dispatch(setAssignDrawerVisibility(false));
+    } catch (error) {
+      assignError();
+    }
+  };
+}
+
+export function assignOwnPapers({ from, to, isUnassignAction }) {
+  return async (dispatch, getState, http) => {
+    try {
+      const claimedPapers = getState().authors.get(
+        'publicationSelectionClaimed'
+      );
+      const unclaimedPapers = getState().authors.get(
+        'publicationSelectionUnclaimed'
+      );
+      const numberOfUnclaimedPapers = unclaimedPapers.size;
+      const numberOfClaimedPapers = claimedPapers.size;
+
+      assigning();
+      await http.post('/assign/author', {
+        from_author_recid: from,
+        to_author_recid: to,
+        literature_recids: unclaimedPapers,
+      });
+
+      if (isUnassignAction) {
+        unassignSuccessOwnProfile({
+          numberOfClaimedPapers,
+          numberOfUnclaimedPapers,
+        });
+      } else {
+        assignSuccessOwnProfile({
+          numberOfClaimedPapers,
+          numberOfUnclaimedPapers,
+        });
+      }
+
+      // add timestamp based query to in order to trigger search again
+      dispatch(
+        searchQueryUpdate(AUTHOR_PUBLICATIONS_NS, { assigned: Date.now() })
+      );
+      dispatch(clearPublicationSelection());
+      dispatch(clearPublicationsClaimedSelection());
+      dispatch(clearPublicationsUnclaimedSelection());
     } catch (error) {
       assignError();
     }

@@ -1,6 +1,10 @@
 import { connect } from 'react-redux';
 
-import { setPublicationSelection } from '../../actions/authors';
+import {
+  setPublicationSelection,
+  setPublicationsClaimedSelection,
+  setPublicationsUnclaimedSelection,
+} from '../../actions/authors';
 import PublicationsSelectAll from '../components/PublicationsSelectAll';
 import { AUTHOR_PUBLICATIONS_NS } from '../../search/constants';
 
@@ -14,8 +18,12 @@ const stateToProps = (state) => ({
 });
 
 const dispatchToProps = (dispatch) => ({
-  onChange(publicationIds, selected) {
+  onChange(publicationIds, claimed, selected) {
+    const claimedPaperIds = publicationIds.filter((item, i) => claimed[i]);
+    const unclaimedPaperIds = publicationIds.filter((item, i) => !claimed[i]);
     dispatch(setPublicationSelection(publicationIds, selected));
+    dispatch(setPublicationsUnclaimedSelection(unclaimedPaperIds, selected));
+    dispatch(setPublicationsClaimedSelection(claimedPaperIds, selected));
   },
 });
 

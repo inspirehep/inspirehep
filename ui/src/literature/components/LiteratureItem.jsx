@@ -31,7 +31,9 @@ import {
   SEPARATOR_MIDDLEDOT,
 } from '../../common/components/InlineList';
 import AssignAuthorViewContext from '../../authors/AssignViewContext';
+import AssignViewOwnProfileContext from '../../authors/assignViewOwnProfileContext';
 import AssignOneActionContainer from '../../authors/containers/AssignOneActionContainer';
+import AssignOneOwnProfileContainer from '../../authors/containers/AssignOneOwnProfileContainer';
 
 function LiteratureItem({ metadata, searchRank, isCatalogerLoggedIn }) {
   const title = metadata.getIn(['titles', 0]);
@@ -58,6 +60,7 @@ function LiteratureItem({ metadata, searchRank, isCatalogerLoggedIn }) {
   const curatedRelation = metadata.get('curated_relation', false);
 
   const assignAuthorView = useContext(AssignAuthorViewContext);
+  const assignOwnProfileView = useContext(AssignViewOwnProfileContext);
 
   const publicationInfoWithTitle = publicationInfo
     ? publicationInfo.filter((pub) => pub.has('journal_title'))
@@ -95,6 +98,12 @@ function LiteratureItem({ metadata, searchRank, isCatalogerLoggedIn }) {
             <EditRecordAction pidType="literature" pidValue={recordId} />
           )}
           {assignAuthorView && <AssignOneActionContainer recordId={recordId} />}
+          {assignOwnProfileView && !assignAuthorView && (
+            <AssignOneOwnProfileContainer
+              recordId={recordId}
+              disabledAssignAction={curatedRelation}
+            />
+          )}
         </Fragment>
       }
       rightActions={
@@ -119,7 +128,7 @@ function LiteratureItem({ metadata, searchRank, isCatalogerLoggedIn }) {
               to={`${LITERATURE}/${recordId}`}
             >
               <LiteratureTitle title={title} />
-              {assignAuthorView && !curatedRelation && (
+              {(assignAuthorView || assignOwnProfileView) && !curatedRelation && (
                 <Tooltip title="Unclaimed paper. Click on the Claim button to claim or remove it from the profile">
                   <FileExclamationTwoTone className="ml1" />
                 </Tooltip>

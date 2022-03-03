@@ -9,6 +9,10 @@ import {
   AUTHOR_PUBLICATION_SELECTION_SET,
   AUTHOR_PUBLICATION_SELECTION_CLEAR,
   AUTHOR_SET_ASSIGN_DRAWER_VISIBILITY,
+  AUTHOR_PUBLICATION_CLAIM_SELECTION,
+  AUTHOR_PUBLICATIONS_CLAIM_CLEAR,
+  AUTHOR_PUBLICATION_UNCLAIM_SELECTION,
+  AUTHOR_PUBLICATIONS_UNCLAIM_CLEAR,
 } from '../../actions/actionTypes';
 
 describe('authors reducer', () => {
@@ -111,6 +115,98 @@ describe('authors reducer', () => {
       publicationSelection: Set(),
     });
     expect(state).toEqual(expected);
+  });
+
+  it('AUTHOR_PUBLICATION_CLAIM_SELECTION when selected', () => {
+    const payload = {
+      papersIds: [1, 2],
+      selected: true,
+    };
+    const currentState = Map({
+      publicationSelection: Set([2, 3]),
+      publicationSelectionClaimed: Set([2, 3]),
+    });
+    const state = reducer(currentState, {
+      type: AUTHOR_PUBLICATION_CLAIM_SELECTION,
+      payload,
+    });
+    const expected = Set([2, 3, 1]);
+    expect(state.get('publicationSelectionClaimed')).toEqual(expected);
+  });
+
+  it('AUTHOR_PUBLICATION_CLAIM_SELECTION when deselected', () => {
+    const payload = {
+      papersIds: [2],
+      selected: false,
+    };
+    const currentState = Map({
+      publicationSelection: Set([1, 2]),
+      publicationSelectionClaimed: Set([1, 2]),
+    });
+    const state = reducer(currentState, {
+      type: AUTHOR_PUBLICATION_CLAIM_SELECTION,
+      payload,
+    });
+    const expected = Set([1]);
+    expect(state.get('publicationSelectionClaimed')).toEqual(expected);
+  });
+
+  it('AUTHOR_PUBLICATIONS_CLAIM_CLEAR', () => {
+    const currentState = Map({
+      publicationSelection: Set([1, 2]),
+      publicationSelectionClaimed: [1, 2],
+    });
+    const state = reducer(currentState, {
+      type: AUTHOR_PUBLICATIONS_CLAIM_CLEAR,
+    });
+    const expected = Set([]);
+    expect(state.get('publicationSelectionClaimed')).toEqual(expected);
+  });
+
+  it('AUTHOR_PUBLICATION_UNCLAIM_SELECTION when selected', () => {
+    const payload = {
+      papersIds: [1, 2],
+      selected: true,
+    };
+    const currentState = Map({
+      publicationSelection: Set([2, 3]),
+      publicationSelectionUnclaimed: Set([2, 3]),
+    });
+    const state = reducer(currentState, {
+      type: AUTHOR_PUBLICATION_UNCLAIM_SELECTION,
+      payload,
+    });
+    const expected = Set([2, 3, 1]);
+    expect(state.get('publicationSelectionUnclaimed')).toEqual(expected);
+  });
+
+  it('AUTHOR_PUBLICATION_UNCLAIM_SELECTION when deselected', () => {
+    const payload = {
+      papersIds: [2],
+      selected: false,
+    };
+    const currentState = Map({
+      publicationSelection: Set([1, 2]),
+      publicationSelectionUnclaimed: Set([1, 2]),
+    });
+    const state = reducer(currentState, {
+      type: AUTHOR_PUBLICATION_UNCLAIM_SELECTION,
+      payload,
+    });
+    const expected = Set([1]);
+    expect(state.get('publicationSelectionUnclaimed')).toEqual(expected);
+  });
+
+  it('AUTHOR_PUBLICATIONS_UNCLAIM_CLEAR', () => {
+    const currentState = Map({
+      publicationSelection: Set([1, 2]),
+      publicationSelectionUnclaimed: [1, 2],
+    });
+    const state = reducer(currentState, {
+      type: AUTHOR_PUBLICATIONS_UNCLAIM_CLEAR,
+    });
+    const expected = Set([]);
+    expect(state.get('publicationSelectionUnclaimed')).toEqual(expected);
   });
 
   it('AUTHOR_SET_ASSIGN_DRAWER_VISIBILITY', () => {

@@ -7,11 +7,15 @@ function getRecordId(result) {
   return result.getIn(['metadata', 'control_number']);
 }
 
+function getClaimed(result) {
+  return result.getIn(['metadata', 'curated_relation'], false);
+}
+
 function PublicationsSelectAll({ publications, selection, onChange }) {
   const checked = useMemo(
     () =>
       publications &&
-      publications.every(publication =>
+      publications.every((publication) =>
         selection.has(getRecordId(publication))
       ),
     [publications, selection]
@@ -19,8 +23,12 @@ function PublicationsSelectAll({ publications, selection, onChange }) {
   return (
     <Checkbox
       checked={checked}
-      onChange={event => {
-        onChange(publications.map(getRecordId), event.target.checked);
+      onChange={(event) => {
+        onChange(
+          publications.map(getRecordId),
+          publications.map(getClaimed),
+          event.target.checked
+        );
       }}
     />
   );

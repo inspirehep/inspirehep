@@ -81,7 +81,7 @@ def assign_to_author(from_author_recid, to_author_recid, literature_recids):
 
 
 @blueprint.route("author", methods=["POST"])
-@login_required_with_roles([Roles.cataloger.value])
+@login_required_with_roles()
 def author_assign_view():
     body = request.get_json()
     to_author_recid = body.get("to_author_recid")

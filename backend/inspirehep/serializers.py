@@ -15,7 +15,7 @@ from invenio_records_rest.serializers.json import (
 )
 from invenio_search.utils import build_alias_name
 
-from inspirehep.assign.utils import is_assign_view_enabled
+from inspirehep.accounts.api import is_user_logged_in
 from inspirehep.records.links import inspire_search_links
 from inspirehep.search.api import LiteratureSearch
 
@@ -183,7 +183,7 @@ class JSONSerializerLiteratureSearch(JSONSerializer):
         self, pid_fetcher, search_result, links=None, item_links_factory=None, **kwargs
     ):
         hits = search_result["hits"]["hits"]
-        if is_assign_view_enabled() and hits:
+        if hits and is_user_logged_in():
             self.populate_curated_relation(hits)
         return super().serialize_search(
             pid_fetcher, search_result, links, item_links_factory, **kwargs
