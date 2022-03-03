@@ -10,18 +10,25 @@ import {
   AUTHOR_SUCCESS,
   AUTHOR_PUBLICATION_SELECTION_SET,
   AUTHOR_PUBLICATION_SELECTION_CLEAR,
+  AUTHOR_PUBLICATION_CLAIM_SELECTION,
+  AUTHOR_PUBLICATIONS_CLAIM_CLEAR,
 } from '../actionTypes';
 import fetchAuthor, {
   setPublicationSelection,
   clearPublicationSelection,
   setAssignDrawerVisibility,
   assignPapers,
+  assignOwnPapers,
+  setPublicationsClaimedSelection,
+  clearPublicationsClaimedSelection,
+  clearPublicationsUnclaimedSelection,
 } from '../authors';
 import { searchQueryUpdate } from '../search';
 import {
   assignError,
   assignSuccess,
   assigning,
+  unassignSuccessOwnProfile,
 } from '../../authors/assignNotification';
 
 import { AUTHOR_PUBLICATIONS_NS } from '../../search/constants';
@@ -90,6 +97,22 @@ describe('AUTHOR - async action creators', () => {
       expect(store.getActions()).toEqual(expectedActions);
     });
 
+    it('setPublicationClaimedSelection', () => {
+      const expectedActions = [
+        {
+          type: AUTHOR_PUBLICATION_CLAIM_SELECTION,
+          payload: {
+            papersIds: [1, 2],
+            selected: true,
+          },
+        },
+      ];
+
+      const store = getStore();
+      store.dispatch(setPublicationsClaimedSelection([1, 2], true));
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+
     it('clearPublicationSelection', () => {
       const expectedActions = [
         {
@@ -99,6 +122,18 @@ describe('AUTHOR - async action creators', () => {
 
       const store = getStore();
       store.dispatch(clearPublicationSelection());
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+
+    it('clearPublicationsClaimedSelection', () => {
+      const expectedActions = [
+        {
+          type: AUTHOR_PUBLICATIONS_CLAIM_CLEAR,
+        },
+      ];
+
+      const store = getStore();
+      store.dispatch(clearPublicationsClaimedSelection());
       expect(store.getActions()).toEqual(expectedActions);
     });
   });
@@ -223,6 +258,57 @@ describe('AUTHOR - async action creators', () => {
       expect(store.getActions()).toEqual(expectedActions);
 
       expect(assignError).toHaveBeenCalled();
+    });
+  });
+  describe('assignOwnPapers', () => {
+    afterEach(() => {
+      clear();
+    });
+
+    it('successful', async () => {
+      const stubAuthorId = 5555;
+      const fromAuthorId = 123;
+      const publicationSelection = [1, 2, 3];
+      const publicationSelectionClaimed = [1, 2];
+      const publicationSelectionUnclaimed = [3];
+      const fakeNow = 1597314028798;
+
+      advanceTo(fakeNow);
+
+      const store = getStore({
+        authors: fromJS({
+          publicationSelection: Set(publicationSelection),
+          publicationSelectionClaimed: Set(publicationSelectionClaimed),
+          publicationSelectionUnclaimed: Set(publicationSelectionUnclaimed),
+        }),
+      });
+
+      mockHttp
+        .onPost('/assign/author', {
+          from_author_recid: fromAuthorId,
+          literature_recids: publicationSelectionUnclaimed,
+        })
+        .replyOnce(200, { stub_author_id: stubAuthorId });
+
+      const expectedActions = [
+        searchQueryUpdate(AUTHOR_PUBLICATIONS_NS, { assigned: fakeNow }),
+        clearPublicationSelection(),
+        clearPublicationsClaimedSelection(),
+        clearPublicationsUnclaimedSelection(),
+      ];
+
+      const dispatchPromise = store.dispatch(
+        assignOwnPapers({ from: fromAuthorId, isUnassignAction: true })
+      );
+      expect(assigning).toHaveBeenCalled();
+
+      await dispatchPromise;
+      expect(store.getActions()).toEqual(expectedActions);
+
+      expect(unassignSuccessOwnProfile).toHaveBeenCalledWith({
+        numberOfClaimedPapers: 2,
+        numberOfUnclaimedPapers: 1,
+      });
     });
   });
 });

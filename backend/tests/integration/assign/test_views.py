@@ -62,56 +62,6 @@ def test_assign_without_login(inspire_app):
     assert to_author_after["stub"]
 
 
-def test_assign_requires_cataloger_login(inspire_app):
-    user = create_user(role="user")
-    from_author = create_record("aut")
-    to_author = create_record("aut", data={"stub": True})
-    literature = create_record(
-        "lit",
-        data={
-            "authors": [
-                {
-                    "full_name": "Urhan, Harun",
-                    "curated_relation": False,
-                    "record": {
-                        "$ref": f"http://localhost:5000/api/authors/{from_author['control_number']}"
-                    },
-                }
-            ]
-        },
-    )
-
-    with inspire_app.test_client() as client:
-        login_user_via_session(client, email=user.email)
-        response = client.post(
-            "/assign/author",
-            data=orjson.dumps(
-                {
-                    "literature_recids": [literature["control_number"]],
-                    "from_author_recid": from_author["control_number"],
-                    "to_author_recid": to_author["control_number"],
-                }
-            ),
-            content_type="application/json",
-        )
-    response_status_code = response.status_code
-
-    assert response_status_code == 403
-
-    # assert nothing changes
-    literature_after = LiteratureRecord.get_record_by_pid_value(
-        literature["control_number"]
-    )
-    literature_author = literature_after["authors"][0]
-    assert literature_author["record"] == {
-        "$ref": f"http://localhost:5000/api/authors/{from_author['control_number']}"
-    }
-    assert not literature_author["curated_relation"]
-
-    to_author_after = AuthorsRecord.get_record_by_pid_value(to_author["control_number"])
-    assert to_author_after["stub"]
-
-
 @mock.patch("inspirehep.assign.views.current_celery_app.send_task")
 def test_assign_from_an_author_to_another(mock_assign, inspire_app):
     cataloger = create_user(role="cataloger")

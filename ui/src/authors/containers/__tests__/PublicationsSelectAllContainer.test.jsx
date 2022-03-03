@@ -5,12 +5,18 @@ import { fromJS, Set } from 'immutable';
 
 import { getStore, mockActionCreator } from '../../../fixtures/store';
 import PublicationsSelectAllContainer from '../PublicationsSelectAllContainer';
-import { setPublicationSelection } from '../../../actions/authors';
+import {
+  setPublicationSelection,
+  setPublicationsClaimedSelection,
+  setPublicationsUnclaimedSelection,
+} from '../../../actions/authors';
 import PublicationsSelectAll from '../../components/PublicationsSelectAll';
 import { AUTHOR_PUBLICATIONS_NS } from '../../../search/constants';
 
 jest.mock('../../../actions/authors');
 mockActionCreator(setPublicationSelection);
+mockActionCreator(setPublicationsClaimedSelection);
+mockActionCreator(setPublicationsUnclaimedSelection);
 
 describe('PublicationsSelectAllContainer', () => {
   it('passes state to props', () => {
@@ -18,11 +24,13 @@ describe('PublicationsSelectAllContainer', () => {
       {
         metadata: {
           control_number: 1,
+          curated_relation: true,
         },
       },
       {
         metadata: {
           control_number: 2,
+          curated_relation: false,
         },
       },
     ]);
@@ -30,6 +38,8 @@ describe('PublicationsSelectAllContainer', () => {
     const store = getStore({
       authors: fromJS({
         publicationSelection: selection,
+        publicationsClaimedSelection: [1],
+        publicationSelectionUnclaimed: [2],
       }),
       search: fromJS({
         namespaces: {
@@ -57,8 +67,16 @@ describe('PublicationsSelectAllContainer', () => {
         <PublicationsSelectAllContainer />
       </Provider>
     );
-    wrapper.find(PublicationsSelectAll).prop('onChange')([1, 2, 3], true);
-    const expectedActions = [setPublicationSelection([1, 2, 3], true)];
+    wrapper.find(PublicationsSelectAll).prop('onChange')(
+      [1, 2, 3],
+      [true, false, true],
+      true
+    );
+    const expectedActions = [
+      setPublicationSelection([1, 2, 3], true),
+      setPublicationsUnclaimedSelection([2], true),
+      setPublicationsClaimedSelection([1, 3], true),
+    ];
     expect(store.getActions()).toEqual(expectedActions);
   });
 });

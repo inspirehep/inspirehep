@@ -28,6 +28,8 @@ import PublicationsSelectAllContainer from '../../authors/containers/Publication
 import AssignAuthorViewContext from '../../authors/AssignViewContext';
 import AssignConferenceViewContext from '../AssignViewContext';
 import AssignAllActionContainer from '../../authors/containers/AssignAllActionContainer';
+import AssignAllOwnProfileActionContainer from '../../authors/containers/AssignAllOwnProfileActionContainer';
+import AssignViewOwnProfileContext from '../../authors/assignViewOwnProfileContext';
 import ToolActionContainer from './ToolActionContainer';
 import LiteratureSelectAllContainer from './LiteratureSelectAllContainer';
 import LiteratureSelectContainer from './LiteratureSelectContainer';
@@ -69,6 +71,7 @@ function LiteratureSearch({
   }, [namespace, baseQuery, baseAggregationsQuery, onBaseQueriesChange]);
 
   const assignAuthorView = useContext(AssignAuthorViewContext);
+  const assignAuthorOwnProfileView = useContext(AssignViewOwnProfileContext);
   const assignConferenceView = useContext(AssignConferenceViewContext);
 
   return (
@@ -90,7 +93,7 @@ function LiteratureSearch({
           <LoadingOrChildren loading={loading}>
             <Row type="flex" align="middle" justify="end">
               <Col xs={24} lg={12}>
-                {assignAuthorView && (
+                {(assignAuthorView || assignAuthorOwnProfileView) && (
                   <span className="mr1">
                     <PublicationsSelectAllContainer />
                   </span>
@@ -106,6 +109,9 @@ function LiteratureSearch({
                 <VerticalDivider />
                 <CiteAllActionContainer namespace={namespace} />
                 {assignAuthorView && <AssignAllActionContainer />}
+                {assignAuthorOwnProfileView && !assignAuthorView && (
+                  <AssignAllOwnProfileActionContainer />
+                )}
                 {assignConferenceView && <ToolActionContainer />}
               </Col>
               <Col xs={8} lg={0}>
@@ -140,13 +146,17 @@ function LiteratureSearch({
                   namespace={namespace}
                   renderItem={(result, isCatalogerLoggedIn, rank) => (
                     <Row>
-                      {assignAuthorView && (
+                      {(assignAuthorView || assignAuthorOwnProfileView) && (
                         <Col className="mr1" flex="0 1 1px">
                           <PublicationSelectContainer
                             recordId={result.getIn([
                               'metadata',
                               'control_number',
                             ])}
+                            claimed={result.getIn(
+                              ['metadata', 'curated_relation'],
+                              false
+                            )}
                           />
                         </Col>
                       )}

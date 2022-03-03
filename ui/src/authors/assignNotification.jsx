@@ -5,6 +5,7 @@ import { AUTHORS } from '../common/routes';
 // TODO: rename ExternalLink
 // becuase it's used also for internal links that we want to open in a new tab
 import ExternalLink from '../common/components/ExternalLink.tsx';
+import pluralizeUnlessSingle from '../common/utils';
 
 // to render notification over the drawer, if one is open.
 const ASSIGNING_NOTIFICATION_KEY = 'assigning-notification';
@@ -36,6 +37,48 @@ export function assignSuccess({ from, to, papers }) {
         .
       </span>
     ),
+  });
+}
+
+export function assignSuccessOwnProfile({
+  numberOfClaimedPapers,
+  numberOfUnclaimedPapers,
+}) {
+  const message =
+    numberOfClaimedPapers === 0
+      ? 'All selected papers will be removed from your profile.'
+      : `${numberOfClaimedPapers} ${pluralizeUnlessSingle(
+          'paper',
+          numberOfUnclaimedPapers
+        )} will be claimed to your profile. ${pluralizeUnlessSingle(
+          'paper',
+          numberOfClaimedPapers
+        )} can not be claimed. `;
+  notification.close(ASSIGNING_NOTIFICATION_KEY);
+  notification.success({
+    message,
+    duration: null,
+  });
+}
+
+export function unassignSuccessOwnProfile({
+  numberOfClaimedPapers,
+  numberOfUnclaimedPapers,
+}) {
+  const message =
+    numberOfClaimedPapers === 0
+      ? 'All selected papers will be removed from your profile.'
+      : `${numberOfUnclaimedPapers} ${pluralizeUnlessSingle(
+          'paper',
+          numberOfUnclaimedPapers
+        )} will be  claimed to your profile. ${pluralizeUnlessSingle(
+          'paper',
+          numberOfClaimedPapers
+        )} can not be claimed.`;
+  notification.close(ASSIGNING_NOTIFICATION_KEY);
+  notification.success({
+    message,
+    duration: null,
   });
 }
 

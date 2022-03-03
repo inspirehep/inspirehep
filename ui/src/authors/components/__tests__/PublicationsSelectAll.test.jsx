@@ -59,11 +59,13 @@ describe('PublicationsSelectAll', () => {
       {
         metadata: {
           control_number: 1,
+          curated_relation: false,
         },
       },
       {
         metadata: {
           control_number: 2,
+          curated_relation: false,
         },
       },
     ]);
@@ -78,6 +80,10 @@ describe('PublicationsSelectAll', () => {
     );
     const onCheckboxChange = wrapper.find(Checkbox).prop('onChange');
     onCheckboxChange({ target: { checked: true } });
-    expect(onChange).toHaveBeenCalledWith(List([1, 2]), true);
+    expect(onChange).toHaveBeenCalledWith(
+      List([1, 2]),
+      List([false, false]),
+      true
+    );
   });
 });

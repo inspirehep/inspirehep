@@ -8,6 +8,10 @@ import {
   AUTHOR_PUBLICATION_SELECTION_SET,
   AUTHOR_PUBLICATION_SELECTION_CLEAR,
   AUTHOR_SET_ASSIGN_DRAWER_VISIBILITY,
+  AUTHOR_PUBLICATION_CLAIM_SELECTION,
+  AUTHOR_PUBLICATIONS_CLAIM_CLEAR,
+  AUTHOR_PUBLICATION_UNCLAIM_SELECTION,
+  AUTHOR_PUBLICATIONS_UNCLAIM_CLEAR,
 } from '../actions/actionTypes';
 import {
   onRequest,
@@ -19,6 +23,8 @@ import {
 export const initialState = Map({
   publicationSelection: Set(),
   isAssignDrawerVisible: false,
+  publicationSelectionClaimed: Set(),
+  publicationSelectionUnclaimed: Set(),
 }).merge(initialRecordState);
 
 const authorsReducer = (state = initialState, action) => {
@@ -43,6 +49,26 @@ const authorsReducer = (state = initialState, action) => {
       return state.set('publicationSelection', Set());
     case AUTHOR_SET_ASSIGN_DRAWER_VISIBILITY:
       return state.set('isAssignDrawerVisible', action.payload.visible);
+    case AUTHOR_PUBLICATION_CLAIM_SELECTION:
+      const claimedSelectionUpdate = Set(action.payload.papersIds);
+      const currentClaimedSelection = state.get('publicationSelectionClaimed');
+      const nextClaimedSelection = action.payload.selected
+        ? currentClaimedSelection.union(claimedSelectionUpdate)
+        : currentClaimedSelection.subtract(claimedSelectionUpdate);
+      return state.set('publicationSelectionClaimed', nextClaimedSelection);
+    case AUTHOR_PUBLICATIONS_CLAIM_CLEAR:
+      return state.set('publicationSelectionClaimed', Set());
+    case AUTHOR_PUBLICATION_UNCLAIM_SELECTION:
+      const unclaimedSelectionUpdate = Set(action.payload.papersIds);
+      const currentUnclaimedSelection = state.get(
+        'publicationSelectionUnclaimed'
+      );
+      const nextUnclaimedSelection = action.payload.selected
+        ? currentUnclaimedSelection.union(unclaimedSelectionUpdate)
+        : currentUnclaimedSelection.subtract(unclaimedSelectionUpdate);
+      return state.set('publicationSelectionUnclaimed', nextUnclaimedSelection);
+    case AUTHOR_PUBLICATIONS_UNCLAIM_CLEAR:
+      return state.set('publicationSelectionUnclaimed', Set());
     default:
       return state;
   }
