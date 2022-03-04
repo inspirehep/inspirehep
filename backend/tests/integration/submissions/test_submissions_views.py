@@ -250,8 +250,7 @@ def test_get_author_update_data_requires_auth(inspire_app):
 
 
 @freeze_time("2019-06-17")
-@patch("inspirehep.submissions.views.async_create_ticket_with_template")
-def test_update_author(create_ticket_mock, inspire_app):
+def test_update_author(inspire_app):
     orcid = "0000-0001-5109-3700"
     user = create_user(orcid=orcid)
     author_data = {
@@ -312,12 +311,9 @@ def test_update_author(create_ticket_mock, inspire_app):
 
     assert expected_data == updated_author
 
-    create_ticket_mock.delay.assert_called_once()
-
 
 @freeze_time("2019-06-17")
-@patch("inspirehep.submissions.views.async_create_ticket_with_template")
-def test_update_author_with_new_orcid(create_ticket_mock, inspire_app):
+def test_update_author_with_new_orcid(inspire_app):
     orcid = "0000-0001-5109-3700"
     user = create_user(orcid=orcid)
     author_data = {
@@ -370,12 +366,9 @@ def test_update_author_with_new_orcid(create_ticket_mock, inspire_app):
     updated_author = AuthorsRecord.get_record_by_pid_value(123)
     assert ordered(expected_data) == ordered(updated_author)
 
-    create_ticket_mock.delay.assert_called_once()
-
 
 @freeze_time("2019-06-17")
-@patch("inspirehep.submissions.views.async_create_ticket_with_template")
-def test_update_author_with_extra_data(create_ticket_mock, inspire_app):
+def test_update_author_with_extra_data(inspire_app):
     orcid = "0000-0001-5109-3700"
     user = create_user(orcid=orcid)
     author_data = {
@@ -421,12 +414,9 @@ def test_update_author_with_extra_data(create_ticket_mock, inspire_app):
     updated_author = AuthorsRecord.get_record_by_pid_value(123)
     assert ordered(expected_data) == ordered(updated_author)
 
-    create_ticket_mock.delay.assert_called_once()
-
 
 @freeze_time("2019-06-17")
-@patch("inspirehep.submissions.views.async_create_ticket_with_template")
-def test_update_author_with_new_bai(create_ticket_mock, inspire_app):
+def test_update_author_with_new_bai(inspire_app):
     orcid = "0000-0001-5109-3700"
     user = create_user(orcid=orcid)
     author_data = {
@@ -476,14 +466,9 @@ def test_update_author_with_new_bai(create_ticket_mock, inspire_app):
     updated_author = AuthorsRecord.get_record_by_pid_value(123)
     assert expected_data == updated_author
 
-    create_ticket_mock.delay.assert_called_once()
-
 
 @freeze_time("2019-06-17")
-@patch("inspirehep.submissions.views.async_create_ticket_with_template")
-def test_update_author_creates_new_workflow(
-    create_ticket_mock, inspire_app, override_config
-):
+def test_update_author_creates_new_workflow(inspire_app, override_config):
     config = {"FEATURE_FLAG_ENABLE_WORKFLOW_ON_AUTHOR_UPDATE": True}
     orcid = "0000-0001-5109-3700"
     user = create_user(orcid=orcid)

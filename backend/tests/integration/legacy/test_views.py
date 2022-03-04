@@ -342,11 +342,11 @@ def test_redirect_by_arxiv(inspire_app):
     record = create_record(
         "lit",
         data={
-            "arxiv_eprints": [{"value": "2201.07310", "categories": ["quant-ph"]}],
+            "arxiv_eprints": [{"value": "hep-th/9711200", "categories": ["hep-th"]}],
         },
     )
     with inspire_app.test_client() as client:
-        response = client.get("/legacy/arxiv/2201.07310")
+        response = client.get("/legacy/arxiv/hep-th/9711200")
 
     assert response.status_code == 302
     assert response.location.split("/")[-1] == str(record["control_number"])
