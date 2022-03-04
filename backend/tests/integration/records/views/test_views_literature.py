@@ -149,6 +149,30 @@ def test_literature_application_json_put_with_token(inspire_app):
     assert expected_status_code == response_status_code
 
 
+def test_literature_application_json_put_with_missing_url(inspire_app):
+
+    record = create_record("lit")
+    record_control_number = record["control_number"]
+    token = create_user_and_token()
+
+    data = {
+        "description": "Article from SCOAP3",
+        "key": "scoap3-fulltext.pdf;pdfa",
+        "source": "SCOAP3",
+    }
+    record["documents"] = [data]
+    expected_status_code = 500
+
+    headers = {"Authorization": "BEARER " + token.access_token, "If-Match": '"0"'}
+    with inspire_app.test_client() as client:
+        response = client.put(
+            "/literature/{}".format(record_control_number), headers=headers, json=record
+        )
+    response_status_code = response.status_code
+
+    assert expected_status_code == response_status_code
+
+
 def test_literature_application_json_delete_with_token(inspire_app):
     record = create_record("lit")
     record_control_number = record["control_number"]
