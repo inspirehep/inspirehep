@@ -69,6 +69,24 @@ export function unassignSuccessOwnProfile() {
   });
 }
 
+export function assignSuccessDifferentProfileUnclaimedPapers() {
+  const message = 'All selected papers will be moved to your profile.';
+  notification.close(ASSIGNING_NOTIFICATION_KEY);
+  notification.success({
+    message,
+    duration: null,
+  });
+}
+
+export function assignSuccessDifferentProfileClaimedPapers() {
+  const message = 'Some claims will be reviewed by our staff for approval.';
+  notification.close(ASSIGNING_NOTIFICATION_KEY);
+  notification.success({
+    message,
+    duration: null,
+  });
+}
+
 export function assignError() {
   notification.close(ASSIGNING_NOTIFICATION_KEY);
   notification.error({

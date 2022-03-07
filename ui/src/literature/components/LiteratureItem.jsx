@@ -32,8 +32,10 @@ import {
 } from '../../common/components/InlineList';
 import AssignAuthorViewContext from '../../authors/AssignViewContext';
 import AssignViewOwnProfileContext from '../../authors/assignViewOwnProfileContext';
+import assignViewDifferentProfileContext from '../../authors/assignViewDifferentProfileContext';
 import AssignOneActionContainer from '../../authors/containers/AssignOneActionContainer';
 import AssignOneOwnProfileContainer from '../../authors/containers/AssignOneOwnProfileContainer';
+import AssignOneDifferentProfileContainer from '../../authors/containers/AssignOneDifferentProfileContainer';
 
 function LiteratureItem({ metadata, searchRank, isCatalogerLoggedIn }) {
   const title = metadata.getIn(['titles', 0]);
@@ -58,9 +60,13 @@ function LiteratureItem({ metadata, searchRank, isCatalogerLoggedIn }) {
   const datasetLinks = metadata.get('dataset_links');
 
   const curatedRelation = metadata.get('curated_relation', false);
+  const canClaimDifferentProfile = metadata.get('can_claim', false);
 
   const assignAuthorView = useContext(AssignAuthorViewContext);
   const assignOwnProfileView = useContext(AssignViewOwnProfileContext);
+  const assignDifferentProfileView = useContext(
+    assignViewDifferentProfileContext
+  );
 
   const publicationInfoWithTitle = publicationInfo
     ? publicationInfo.filter((pub) => pub.has('journal_title'))
@@ -102,6 +108,13 @@ function LiteratureItem({ metadata, searchRank, isCatalogerLoggedIn }) {
             <AssignOneOwnProfileContainer
               recordId={recordId}
               disabledAssignAction={curatedRelation}
+            />
+          )}
+          {assignDifferentProfileView && !assignOwnProfileView && (
+            <AssignOneDifferentProfileContainer
+              recordId={recordId}
+              disabledAssignAction={curatedRelation}
+              canClaim={canClaimDifferentProfile}
             />
           )}
         </Fragment>

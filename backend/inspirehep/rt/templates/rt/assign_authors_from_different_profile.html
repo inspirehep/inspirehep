@@ -1,0 +1,20 @@
+The following claims performed by <a href="{{ to_author_url }}">author</a> were not handled automatically and require manual intervention.
+
+Names in profile:
+{% for name in to_author_names %}
+* {{name}}
+{% endfor %}
+
+{% if already_claimed_papers %}
+Already claimed:
+{% for paper_recid in already_claimed_papers %}
+* <a href="{{ paper_recid }}">paper</a> is already claimed to <a href="{{ from_author_url }}">another author</a>.
+{% endfor %}
+{% endif %}
+
+{% if incompatibile_names_papers %}
+Incompatible names:
+{% for paper_url, signature_full_name in incompatibile_names_papers.items() %}
+* <a href="{{ paper_url }}">paper</a> is in <a href="{{ from_author_url }}">profile</a> and has signature "{{signature_full_name}}"
+{% endfor %}
+{% endif %}

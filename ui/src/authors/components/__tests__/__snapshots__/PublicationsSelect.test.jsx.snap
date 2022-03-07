@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PublicationsSelect sets publication selection on checkbox change 1`] = `
+<Checkbox
+  indeterminate={false}
+  onChange={[Function]}
+/>
+`;

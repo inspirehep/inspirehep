@@ -4,6 +4,7 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+
 import mock
 import orjson
 from helpers.utils import create_record, create_user
@@ -398,3 +399,91 @@ def test_assign_doesnt_raise_resource_closed_error(inspire_app, override_config)
                 )
         except ResourceClosedError:
             assert False
+
+
+@mock.patch("inspirehep.assign.tasks.async_create_ticket_with_template")
+def test_author_assign_view_claimed(mock_create_ticket, inspire_app):
+    cataloger = create_user(role="cataloger")
+    author_data = {
+        "name": {"value": "Aad, Georges", "preferred_name": "Georges Aad"},
+        "ids": [{"value": "G.Aad.1", "schema": "INSPIRE BAI"}],
+        "control_number": 1,
+    }
+    author_data_2 = {
+        "name": {"value": "Matczak, Michal", "preferred_name": "Michal Mata"},
+        "ids": [{"value": "M.Matczak.1", "schema": "INSPIRE BAI"}],
+        "control_number": 2,
+    }
+    from_author = create_record("aut", data=author_data)
+    to_author = create_record("aut", data=author_data_2)
+    literature_1 = create_record(
+        "lit",
+        data={
+            "control_number": 3,
+            "authors": [
+                {
+                    "curated_relation": False,
+                    "full_name": "Aad, Georges",
+                    "record": {
+                        "$ref": f"http://localhost:5000/api/authors/{from_author['control_number']}"
+                    },
+                },
+                {
+                    "full_name": "Urhan, Ahmet",
+                    "record": {"$ref": "http://localhost:5000/api/authors/17200"},
+                },
+            ],
+        },
+    )
+    literature_2 = create_record(
+        "lit",
+        data={
+            "control_number": 4,
+            "authors": [
+                {
+                    "curated_relation": False,
+                    "full_name": "Aad, Georges",
+                    "record": {
+                        "$ref": f"http://localhost:5000/api/authors/{from_author['control_number']}"
+                    },
+                }
+            ],
+        },
+    )
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=cataloger.email)
+        response = client.post(
+            "/assign/author",
+            data=orjson.dumps(
+                {
+                    "papers_ids_already_claimed": [
+                        literature_2["control_number"],
+                    ],
+                    "papers_ids_not_matching_name": [
+                        literature_1["control_number"],
+                    ],
+                    "from_author_recid": from_author["control_number"],
+                    "to_author_recid": to_author["control_number"],
+                }
+            ),
+            content_type="application/json",
+        )
+    response_status_code = response.status_code
+
+    assert mock_create_ticket.mock_calls[0][1] == (
+        "AUTHORS_claim_manual",
+        None,
+        "rt/assign_authors_from_different_profile.html",
+        "Claims by user Michal Mata require curator action",
+        {
+            "to_author_names": ["Matczak, Michal"],
+            "from_author_url": "http://localhost:5000/authors/1",
+            "to_author_url": "http://localhost:5000/authors/2",
+            "incompatibile_names_papers": {
+                "http://localhost:5000/literature/3": "Aad, Georges"
+            },
+            "already_claimed_papers": ["http://localhost:5000/literature/4"],
+        },
+    )
+    assert response_status_code == 200

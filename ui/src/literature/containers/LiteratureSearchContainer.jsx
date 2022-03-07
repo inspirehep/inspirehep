@@ -30,9 +30,11 @@ import AssignConferenceViewContext from '../AssignViewContext';
 import AssignAllActionContainer from '../../authors/containers/AssignAllActionContainer';
 import AssignAllOwnProfileActionContainer from '../../authors/containers/AssignAllOwnProfileActionContainer';
 import AssignViewOwnProfileContext from '../../authors/assignViewOwnProfileContext';
+import assignViewDifferentProfileContext from '../../authors/assignViewDifferentProfileContext';
 import ToolActionContainer from './ToolActionContainer';
 import LiteratureSelectAllContainer from './LiteratureSelectAllContainer';
 import LiteratureSelectContainer from './LiteratureSelectContainer';
+import AssignAllDifferentProfileActionContainer from '../../authors/containers/AssignAllDifferentProfileActionContainer';
 
 function LiteratureSearch({
   loading,
@@ -72,6 +74,9 @@ function LiteratureSearch({
 
   const assignAuthorView = useContext(AssignAuthorViewContext);
   const assignAuthorOwnProfileView = useContext(AssignViewOwnProfileContext);
+  const assignAuthorDifferentProfileView = useContext(
+    assignViewDifferentProfileContext
+  );
   const assignConferenceView = useContext(AssignConferenceViewContext);
 
   return (
@@ -93,7 +98,9 @@ function LiteratureSearch({
           <LoadingOrChildren loading={loading}>
             <Row type="flex" align="middle" justify="end">
               <Col xs={24} lg={12}>
-                {(assignAuthorView || assignAuthorOwnProfileView) && (
+                {(assignAuthorView ||
+                  assignAuthorOwnProfileView ||
+                  assignAuthorDifferentProfileView) && (
                   <span className="mr1">
                     <PublicationsSelectAllContainer />
                   </span>
@@ -112,6 +119,10 @@ function LiteratureSearch({
                 {assignAuthorOwnProfileView && !assignAuthorView && (
                   <AssignAllOwnProfileActionContainer />
                 )}
+                {assignAuthorDifferentProfileView &&
+                  !assignAuthorOwnProfileView && (
+                    <AssignAllDifferentProfileActionContainer />
+                  )}
                 {assignConferenceView && <ToolActionContainer />}
               </Col>
               <Col xs={8} lg={0}>
@@ -160,6 +171,24 @@ function LiteratureSearch({
                           />
                         </Col>
                       )}
+                      {assignAuthorDifferentProfileView &&
+                        !assignAuthorOwnProfileView && (
+                          <Col className="mr1" flex="0 1 1px">
+                            <PublicationSelectContainer
+                              recordId={result.getIn([
+                                'metadata',
+                                'control_number',
+                              ])}
+                              claimed={
+                                result.getIn(
+                                  ['metadata', 'curated_relation'],
+                                  false
+                                ) &&
+                                !result.getIn(['metadata', 'can_claim'], false)
+                              }
+                            />
+                          </Col>
+                        )}
                       {assignConferenceView && (
                         <Col className="mr1" flex="0 1 1px">
                           <LiteratureSelectContainer

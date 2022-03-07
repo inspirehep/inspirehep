@@ -1,0 +1,177 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AssignOwnProfileAction renders 1`] = `
+<ListItemAction>
+  <DropdownMenu
+    disabled={false}
+    title={
+      <Tooltip
+        arrowPointAtCenter={false}
+        autoAdjustOverflow={true}
+        mouseEnterDelay={0.1}
+        mouseLeaveDelay={0.1}
+        placement="top"
+        title={null}
+        transitionName="zoom-big-fast"
+      >
+        <Button
+          block={false}
+          ghost={false}
+          htmlType="button"
+          loading={false}
+        >
+          <IconText
+            icon={<ForwardRef(FileDoneOutlined) />}
+            text="claim"
+          />
+        </Button>
+      </Tooltip>
+    }
+  >
+    <MenuItem
+      data-test-id="assign-self"
+      key="assign-self"
+      onClick={[Function]}
+    >
+      <Tooltip
+        arrowPointAtCenter={false}
+        autoAdjustOverflow={true}
+        mouseEnterDelay={0.1}
+        mouseLeaveDelay={0.1}
+        placement="top"
+        title={null}
+        transitionName="zoom-big-fast"
+      >
+        <p>
+          This is my paper
+        </p>
+      </Tooltip>
+    </MenuItem>
+    <MenuItem
+      data-test-id="unassign"
+      key="unassign"
+      onClick={[Function]}
+    >
+      This is not my paper
+    </MenuItem>
+  </DropdownMenu>
+</ListItemAction>
+`;
+
+exports[`AssignOwnProfileAction renders disabled 1`] = `
+<ListItemAction>
+  <DropdownMenu
+    disabled={true}
+    title={
+      <Tooltip
+        arrowPointAtCenter={false}
+        autoAdjustOverflow={true}
+        mouseEnterDelay={0.1}
+        mouseLeaveDelay={0.1}
+        placement="top"
+        title="Please select the papers you want to claim or remove from the profile."
+        transitionName="zoom-big-fast"
+      >
+        <Button
+          block={false}
+          ghost={false}
+          htmlType="button"
+          loading={false}
+        >
+          <IconText
+            icon={<ForwardRef(FileDoneOutlined) />}
+            text="claim"
+          />
+        </Button>
+      </Tooltip>
+    }
+  >
+    <MenuItem
+      data-test-id="assign-self"
+      disabled={true}
+      key="assign-self"
+      onClick={[Function]}
+    >
+      <Tooltip
+        arrowPointAtCenter={false}
+        autoAdjustOverflow={true}
+        mouseEnterDelay={0.1}
+        mouseLeaveDelay={0.1}
+        placement="top"
+        title="All selected papers are already claimed!"
+        transitionName="zoom-big-fast"
+      >
+        <p>
+          This is my paper
+        </p>
+      </Tooltip>
+    </MenuItem>
+    <MenuItem
+      data-test-id="unassign"
+      key="unassign"
+      onClick={[Function]}
+    >
+      This is not my paper
+    </MenuItem>
+  </DropdownMenu>
+</ListItemAction>
+`;
+
+exports[`AssignOwnProfileAction renders with disabled assign action 1`] = `
+<ListItemAction>
+  <DropdownMenu
+    disabled={false}
+    title={
+      <Tooltip
+        arrowPointAtCenter={false}
+        autoAdjustOverflow={true}
+        mouseEnterDelay={0.1}
+        mouseLeaveDelay={0.1}
+        placement="top"
+        title={null}
+        transitionName="zoom-big-fast"
+      >
+        <Button
+          block={false}
+          ghost={false}
+          htmlType="button"
+          loading={false}
+        >
+          <IconText
+            icon={<ForwardRef(FileDoneOutlined) />}
+            text="claim"
+          />
+        </Button>
+      </Tooltip>
+    }
+  >
+    <MenuItem
+      data-test-id="assign-self"
+      disabled={true}
+      key="assign-self"
+      onClick={[Function]}
+    >
+      <Tooltip
+        arrowPointAtCenter={false}
+        autoAdjustOverflow={true}
+        mouseEnterDelay={0.1}
+        mouseLeaveDelay={0.1}
+        placement="top"
+        title="All selected papers are already claimed!"
+        transitionName="zoom-big-fast"
+      >
+        <p>
+          This is my paper
+        </p>
+      </Tooltip>
+    </MenuItem>
+    <MenuItem
+      data-test-id="unassign"
+      key="unassign"
+      onClick={[Function]}
+    >
+      This is not my paper
+    </MenuItem>
+  </DropdownMenu>
+</ListItemAction>
+`;

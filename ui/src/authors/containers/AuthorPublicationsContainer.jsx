@@ -7,6 +7,7 @@ import { AUTHOR_PUBLICATIONS_NS } from '../../search/constants';
 import { isCataloger, isSuperUser } from '../../common/authorization';
 import AssignViewContext from '../AssignViewContext';
 import AssignViewOwnProfileContext from '../assignViewOwnProfileContext';
+import assignViewDifferentProfileContext from '../assignViewDifferentProfileContext';
 import AssignDrawerContainer from './AssignDrawerContainer';
 import { getConfigFor } from '../../common/config';
 
@@ -14,6 +15,7 @@ export function AuthorPublications({
   authorFacetName,
   assignView,
   assignViewOwnProfile,
+  assignViewDifferentProfile,
 }) {
   const baseQuery = useMemo(
     () => ({
@@ -29,19 +31,30 @@ export function AuthorPublications({
   );
 
   return (
-    <AssignViewOwnProfileContext.Provider value={assignViewOwnProfile}>
-      <AssignViewContext.Provider value={assignView}>
-        <LiteratureSearchContainer
-          namespace={AUTHOR_PUBLICATIONS_NS}
-          baseQuery={baseQuery}
-          baseAggregationsQuery={baseAggregationsQuery}
-          noResultsTitle="0 Research works"
-          embedded
-        />
-        {assignView && <AssignDrawerContainer />}
-      </AssignViewContext.Provider>
-    </AssignViewOwnProfileContext.Provider>
+    <assignViewDifferentProfileContext.Provider
+      value={assignViewDifferentProfile}
+    >
+      <AssignViewOwnProfileContext.Provider value={assignViewOwnProfile}>
+        <AssignViewContext.Provider value={assignView}>
+          <LiteratureSearchContainer
+            namespace={AUTHOR_PUBLICATIONS_NS}
+            baseQuery={baseQuery}
+            baseAggregationsQuery={baseAggregationsQuery}
+            noResultsTitle="0 Research works"
+            embedded
+          />
+          {assignView && <AssignDrawerContainer />}
+        </AssignViewContext.Provider>
+      </AssignViewOwnProfileContext.Provider>
+    </assignViewDifferentProfileContext.Provider>
   );
+}
+
+function enableDifferentProfileView(state) {
+  if (state.user.getIn(['data', 'recid'])) {
+    return true;
+  }
+  return false;
 }
 
 AuthorPublications.propTypes = {
@@ -62,6 +75,9 @@ const stateToProps = (state) => ({
   assignViewOwnProfile:
     state.authors.getIn(['data', 'metadata', 'can_edit']) &&
     getConfigFor('ASSIGN_OWN_PROFILE_UI_FEATURE_FLAG'),
+  assignViewDifferentProfile:
+    enableDifferentProfileView(state) &&
+    getConfigFor('ASSIGN_DIFFERENT_PROFILE_UI_FEATURE_FLAG'),
 });
 
 export default connect(stateToProps)(AuthorPublications);

@@ -13,13 +13,16 @@ from webargs.flaskparser import FlaskParser
 
 from inspirehep.accounts.decorators import login_required_with_roles
 from inspirehep.accounts.roles import Roles
-from inspirehep.assign.tasks import assign_paper_to_conference, export_papers_to_cds
+from inspirehep.assign.tasks import (
+    assign_paper_to_conference,
+    create_rt_ticket_for_claiming_action,
+    export_papers_to_cds,
+)
+from inspirehep.assign.utils import get_author_by_recid
 from inspirehep.disambiguation.utils import create_new_stub_author, update_author_names
 from inspirehep.records.api import AuthorsRecord, LiteratureRecord
 from inspirehep.serializers import jsonify
 from inspirehep.utils import chunker, count_consumers_for_queue
-
-from .utils import get_author_by_recid
 
 blueprint = Blueprint("inspirehep_assign", __name__, url_prefix="/assign")
 parser = FlaskParser()
@@ -86,7 +89,21 @@ def author_assign_view():
     body = request.get_json()
     to_author_recid = body.get("to_author_recid")
     from_author_recid = body["from_author_recid"]
-    literature_recids = body["literature_recids"]
+    literature_recids = body.get("literature_recids")
+    claimed_literature_recids = body.get("papers_ids_already_claimed")
+    not_allowed_to_be_claimed_literature_recids = body.get(
+        "papers_ids_not_matching_name"
+    )
+
+    if claimed_literature_recids or not_allowed_to_be_claimed_literature_recids:
+        create_rt_ticket_for_claiming_action.delay(
+            from_author_recid,
+            to_author_recid,
+            claimed_literature_recids,
+            not_allowed_to_be_claimed_literature_recids,
+        )
+        return jsonify({"message": "Success"}), 200
+
     if to_author_recid is None:
         stub_author_id = assign_to_new_stub_author(from_author_recid, literature_recids)
     else:
