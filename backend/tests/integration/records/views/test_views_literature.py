@@ -161,7 +161,7 @@ def test_literature_application_json_put_with_missing_url(inspire_app):
         "source": "SCOAP3",
     }
     record["documents"] = [data]
-    expected_status_code = 500
+    expected_status_code = 400
 
     headers = {"Authorization": "BEARER " + token.access_token, "If-Match": '"0"'}
     with inspire_app.test_client() as client:
