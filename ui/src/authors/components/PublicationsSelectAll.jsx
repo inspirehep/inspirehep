@@ -11,6 +11,10 @@ function getClaimed(result) {
   return result.getIn(['metadata', 'curated_relation'], false);
 }
 
+function getCanClaim(result) {
+  return result.getIn(['metadata', 'can_claim'], false);
+}
+
 function PublicationsSelectAll({ publications, selection, onChange }) {
   const checked = useMemo(
     () =>
@@ -27,6 +31,7 @@ function PublicationsSelectAll({ publications, selection, onChange }) {
         onChange(
           publications.map(getRecordId),
           publications.map(getClaimed),
+          publications.map(getCanClaim),
           event.target.checked
         );
       }}

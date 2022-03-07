@@ -5,6 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+import mock
 import orjson
 from helpers.providers.faker import faker
 
@@ -25,12 +26,15 @@ def test_literature_related_records():
             {"record": {"$ref": "https://link-to-any-other-record/2"}},
         ]
     }
-    data_record = faker.record("lit", data=data)
+    faker.record("lit", data=data)
     result = LiteratureRawSchema().dump(data).data
     assert data["related_records"] == result["related_records"]
 
 
-def test_literature_ui_schema():
+@mock.patch(
+    "inspirehep.records.marshmallow.literature.ui.can_claim", return_value=False
+)
+def test_literature_ui_schema(mock_can_claim):
     data_record = faker.record("lit")
     data_record_json = orjson.dumps(data_record)
     data = {"metadata": {"_ui_display": data_record_json}}
@@ -64,7 +68,10 @@ def test_literature_api_schema_hides_emails_from_author_list():
     assert expected == result["authors"]
 
 
-def test_literature_api_schema_hides_acquisition_source():
+@mock.patch(
+    "inspirehep.records.marshmallow.literature.ui.can_claim", return_value=False
+)
+def test_literature_api_schema_hides_acquisition_source(mock_can_claim):
     acquisition_source = {"email": "test@me.pl", "method": "oai", "source": "arxiv"}
 
     data = {"acquisition_source": acquisition_source}
@@ -74,7 +81,10 @@ def test_literature_api_schema_hides_acquisition_source():
     assert "acquisition_source" not in result
 
 
-def test_literature_ui_schema_hides_emails_from_author_list():
+@mock.patch(
+    "inspirehep.records.marshmallow.literature.ui.can_claim", return_value=False
+)
+def test_literature_ui_schema_hides_emails_from_author_list(mock_can_claim):
     authors = [
         {"full_name": "Frank Castle", "emails": ["test@test.ch"]},
         {"full_name": "Smith, John"},
@@ -91,7 +101,10 @@ def test_literature_ui_schema_hides_emails_from_author_list():
     assert expected == result["metadata"]["authors"]
 
 
-def test_literature_ui_schema_hides_acquisition_source():
+@mock.patch(
+    "inspirehep.records.marshmallow.literature.ui.can_claim", return_value=False
+)
+def test_literature_ui_schema_hides_acquisition_source(mock_can_claim):
     acquisition_source = {"email": "test@me.pl", "method": "oai", "source": "arxiv"}
 
     data = {"acquisition_source": acquisition_source}

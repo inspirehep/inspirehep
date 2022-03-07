@@ -6,7 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import mock
-from helpers.utils import create_user
+from helpers.utils import create_record, create_user
 
 from inspirehep.accounts.handlers import get_current_user_data
 
@@ -43,6 +43,37 @@ def test_get_current_user_data_without_orcid(mock_current_user, inspire_app):
             "roles": ["avengers"],
             "orcid": None,
             "allow_orcid_push": None,
+        }
+    }
+
+    result_data = get_current_user_data()
+    assert expected_data == result_data
+
+
+@mock.patch("flask_login.utils._get_user")
+def test_get_current_user_data_for_user_with_profile(mock_current_user, inspire_app):
+    orcid = "0000-0001-8829-5461"
+    user = create_user(
+        email="jessica@jones.com",
+        role="avengers",
+        orcid=orcid,
+        allow_push=True,
+    )
+    author_profile = create_record(
+        "aut",
+        data={
+            "name": {"value": "Jessica Jones"},
+            "ids": [{"schema": "ORCID", "value": orcid}],
+        },
+    )
+    mock_current_user.return_value = user
+    expected_data = {
+        "data": {
+            "email": "jessica@jones.com",
+            "roles": ["avengers"],
+            "orcid": "0000-0001-8829-5461",
+            "allow_orcid_push": True,
+            "recid": str(author_profile["control_number"]),
         }
     }
 

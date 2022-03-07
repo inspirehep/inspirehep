@@ -10,6 +10,7 @@ from flask import current_app
 from flask_login import current_user
 from invenio_db import db
 from invenio_oauthclient.utils import oauth_link_external_id
+from invenio_pidstore.models import PersistentIdentifier
 
 from .api import get_current_user_remote_orcid_account
 
@@ -19,14 +20,30 @@ def get_current_user_data():
     orcid_account_extra_data = (
         remote_orcid_account.extra_data if remote_orcid_account else dict()
     )
-    return {
+    orcid = orcid_account_extra_data.get("orcid")
+    payload = {
         "data": {
             "email": current_user.email,
             "roles": [role.name for role in current_user.roles],
-            "orcid": orcid_account_extra_data.get("orcid"),
+            "orcid": orcid,
             "allow_orcid_push": orcid_account_extra_data.get("allow_push"),
         }
     }
+
+    subquery = (
+        PersistentIdentifier.query.with_entities(PersistentIdentifier.object_uuid)
+        .filter_by(pid_type="orcid", pid_value=orcid)
+        .subquery()
+    )
+
+    user_profile_recid = PersistentIdentifier.query.filter(
+        PersistentIdentifier.object_uuid.in_(subquery),
+        PersistentIdentifier.pid_type == "aut",
+    ).one_or_none()
+    if user_profile_recid:
+        payload["data"]["recid"] = user_profile_recid.pid_value
+
+    return payload
 
 
 def account_setup_handler(remote, token, resp):

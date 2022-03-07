@@ -60,12 +60,14 @@ describe('PublicationsSelectAll', () => {
         metadata: {
           control_number: 1,
           curated_relation: false,
+          can_claim: true,
         },
       },
       {
         metadata: {
           control_number: 2,
           curated_relation: false,
+          can_claim: false,
         },
       },
     ]);
@@ -83,6 +85,7 @@ describe('PublicationsSelectAll', () => {
     expect(onChange).toHaveBeenCalledWith(
       List([1, 2]),
       List([false, false]),
+      List([true, false]),
       true
     );
   });

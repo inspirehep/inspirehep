@@ -15,6 +15,7 @@ from inspirehep.accounts.api import (
     check_permissions_for_private_collection_read_write,
     is_user_logged_in,
 )
+from inspirehep.assign.utils import can_claim
 from inspirehep.files.api import current_s3_instance
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.marshmallow.common.mixins import (
@@ -257,6 +258,8 @@ class LiteratureListWrappedSchema(EnvelopeSchema):
                 ui_display["curated_relation"] = get_value(
                     data, "metadata.curated_relation", False
                 )
+            if can_claim(ui_display):
+                ui_display["can_claim"] = True
             if (
                 is_user_logged_in()
                 and check_permissions_for_private_collection_read_write(collections)

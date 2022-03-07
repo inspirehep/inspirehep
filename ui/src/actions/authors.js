@@ -9,6 +9,8 @@ import {
   AUTHOR_PUBLICATIONS_CLAIM_CLEAR,
   AUTHOR_PUBLICATION_UNCLAIM_SELECTION,
   AUTHOR_PUBLICATIONS_UNCLAIM_CLEAR,
+  AUTHOR_PUBLICATION_CAN_NOT_CLAIM_SELECTION,
+  AUTHOR_PUBLICATION_CAN_NOT_CLAIM_CLEAR,
 } from './actionTypes';
 import generateRecordFetchAction from './recordsFactory';
 import { AUTHORS_PID_TYPE } from '../common/constants';
@@ -18,6 +20,8 @@ import {
   assigning,
   assignSuccessOwnProfile,
   unassignSuccessOwnProfile,
+  assignSuccessDifferentProfileClaimedPapers,
+  assignSuccessDifferentProfileUnclaimedPapers,
 } from '../authors/assignNotification';
 import { searchQueryUpdate } from './search';
 import { AUTHOR_PUBLICATIONS_NS } from '../search/constants';
@@ -58,6 +62,13 @@ export function setPublicationsUnclaimedSelection(papersIds, selected) {
   };
 }
 
+export function setPublicationsCanNotClaimSelection(papersIds, selected) {
+  return {
+    type: AUTHOR_PUBLICATION_CAN_NOT_CLAIM_SELECTION,
+    payload: { papersIds, selected },
+  };
+}
+
 export function clearPublicationsClaimedSelection() {
   return {
     type: AUTHOR_PUBLICATIONS_CLAIM_CLEAR,
@@ -67,6 +78,12 @@ export function clearPublicationsClaimedSelection() {
 export function clearPublicationsUnclaimedSelection() {
   return {
     type: AUTHOR_PUBLICATIONS_UNCLAIM_CLEAR,
+  };
+}
+
+export function clearPublicationsCanNotClaimSelection() {
+  return {
+    type: AUTHOR_PUBLICATION_CAN_NOT_CLAIM_CLEAR,
   };
 }
 
@@ -138,6 +155,66 @@ export function assignOwnPapers({ from, to, isUnassignAction }) {
       );
       dispatch(clearPublicationSelection());
       dispatch(clearPublicationsClaimedSelection());
+      dispatch(clearPublicationsUnclaimedSelection());
+    } catch (error) {
+      assignError();
+    }
+  };
+}
+
+export function assignDifferentProfileClaimedPapers({ from, to }) {
+  return async (dispatch, getState, http) => {
+    try {
+      const claimedPapers = getState().authors.get(
+        'publicationSelectionClaimed'
+      );
+      const unclaimablePapers = getState().authors.get(
+        'publicationSelectionCanNotClaim'
+      );
+      assigning();
+      await http.post('/assign/author', {
+        from_author_recid: from,
+        to_author_recid: to,
+        papers_ids_already_claimed: claimedPapers,
+        papers_ids_not_matching_name: unclaimablePapers,
+      });
+      assignSuccessDifferentProfileClaimedPapers();
+      // add timestamp based query to in order to trigger search again
+      dispatch(
+        searchQueryUpdate(AUTHOR_PUBLICATIONS_NS, { assigned: Date.now() })
+      );
+      dispatch(clearPublicationSelection());
+      dispatch(clearPublicationsClaimedSelection());
+      dispatch(clearPublicationsCanNotClaimSelection());
+    } catch (error) {
+      assignError();
+    }
+  };
+}
+
+export function assignDifferentProfileUnclaimedPapers({ from, to }) {
+  return async (dispatch, getState, http) => {
+    try {
+      const unclaimedPapers = getState().authors.get(
+        'publicationSelectionUnclaimed'
+      );
+      const claimedPapers = getState().authors.get(
+        'publicationSelectionClaimed'
+      );
+      assigning();
+      await http.post('/assign/author', {
+        from_author_recid: from,
+        to_author_recid: to,
+        literature_recids: unclaimedPapers,
+      });
+      if (claimedPapers.size === 0) {
+        assignSuccessDifferentProfileUnclaimedPapers();
+      }
+      // add timestamp based query to in order to trigger search again
+      dispatch(
+        searchQueryUpdate(AUTHOR_PUBLICATIONS_NS, { assigned: Date.now() })
+      );
+      dispatch(clearPublicationSelection());
       dispatch(clearPublicationsUnclaimedSelection());
     } catch (error) {
       assignError();

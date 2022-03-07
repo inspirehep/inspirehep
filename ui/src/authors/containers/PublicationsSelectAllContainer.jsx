@@ -4,6 +4,7 @@ import {
   setPublicationSelection,
   setPublicationsClaimedSelection,
   setPublicationsUnclaimedSelection,
+  setPublicationsCanNotClaimSelection,
 } from '../../actions/authors';
 import PublicationsSelectAll from '../components/PublicationsSelectAll';
 import { AUTHOR_PUBLICATIONS_NS } from '../../search/constants';
@@ -18,12 +19,20 @@ const stateToProps = (state) => ({
 });
 
 const dispatchToProps = (dispatch) => ({
-  onChange(publicationIds, claimed, selected) {
-    const claimedPaperIds = publicationIds.filter((item, i) => claimed[i]);
-    const unclaimedPaperIds = publicationIds.filter((item, i) => !claimed[i]);
+  onChange(publicationIds, claimed, canClaim, selected) {
+    const claimedPaperIds = publicationIds.filter((item, i) => claimed.get(i));
+    const unclaimedPaperIds = publicationIds.filter(
+      (item, i) => !claimed.get(i)
+    );
+    const canNotClaimPaperIds = publicationIds.filter(
+      (item, i) => !canClaim.get(i)
+    );
     dispatch(setPublicationSelection(publicationIds, selected));
     dispatch(setPublicationsUnclaimedSelection(unclaimedPaperIds, selected));
     dispatch(setPublicationsClaimedSelection(claimedPaperIds, selected));
+    dispatch(
+      setPublicationsCanNotClaimSelection(canNotClaimPaperIds, selected)
+    );
   },
 });
 

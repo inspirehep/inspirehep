@@ -1,0 +1,118 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AssignDifferentProfileAction renders 1`] = `
+<ListItemAction>
+  <DropdownMenu
+    disabled={false}
+    title={
+      <Tooltip
+        arrowPointAtCenter={false}
+        autoAdjustOverflow={true}
+        mouseEnterDelay={0.1}
+        mouseLeaveDelay={0.1}
+        placement="top"
+        title={null}
+        transitionName="zoom-big-fast"
+      >
+        <Button
+          block={false}
+          ghost={false}
+          htmlType="button"
+          loading={false}
+        >
+          <IconText
+            icon={<ForwardRef(FileDoneOutlined) />}
+            text="claim"
+          />
+        </Button>
+      </Tooltip>
+    }
+  >
+    <MenuItem
+      data-test-id="assign-self"
+      key="assign-self"
+      onClick={[Function]}
+    >
+      Move to my profile
+    </MenuItem>
+  </DropdownMenu>
+</ListItemAction>
+`;
+
+exports[`AssignDifferentProfileAction renders disabled 1`] = `
+<ListItemAction>
+  <DropdownMenu
+    disabled={true}
+    title={
+      <Tooltip
+        arrowPointAtCenter={false}
+        autoAdjustOverflow={true}
+        mouseEnterDelay={0.1}
+        mouseLeaveDelay={0.1}
+        placement="top"
+        title="Please select the papers you want to claim or remove from the profile."
+        transitionName="zoom-big-fast"
+      >
+        <Button
+          block={false}
+          ghost={false}
+          htmlType="button"
+          loading={false}
+        >
+          <IconText
+            icon={<ForwardRef(FileDoneOutlined) />}
+            text="claim"
+          />
+        </Button>
+      </Tooltip>
+    }
+  >
+    <MenuItem
+      data-test-id="assign-self"
+      key="assign-self"
+      onClick={[Function]}
+    >
+      Move to my profile
+    </MenuItem>
+  </DropdownMenu>
+</ListItemAction>
+`;
+
+exports[`AssignDifferentProfileAction renders with claimingUnclaimedPapersDisabled 1`] = `
+<ListItemAction>
+  <DropdownMenu
+    disabled={true}
+    title={
+      <Tooltip
+        arrowPointAtCenter={false}
+        autoAdjustOverflow={true}
+        mouseEnterDelay={0.1}
+        mouseLeaveDelay={0.1}
+        placement="top"
+        title="Please select the papers you want to claim or remove from the profile."
+        transitionName="zoom-big-fast"
+      >
+        <Button
+          block={false}
+          ghost={false}
+          htmlType="button"
+          loading={false}
+        >
+          <IconText
+            icon={<ForwardRef(FileDoneOutlined) />}
+            text="claim"
+          />
+        </Button>
+      </Tooltip>
+    }
+  >
+    <MenuItem
+      data-test-id="assign-self"
+      key="assign-self"
+      onClick={[Function]}
+    >
+      Move to my profile
+    </MenuItem>
+  </DropdownMenu>
+</ListItemAction>
+`;

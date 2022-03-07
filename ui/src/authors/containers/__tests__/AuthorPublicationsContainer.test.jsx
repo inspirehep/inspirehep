@@ -17,6 +17,9 @@ describe('AuthorPublicationsContainer', () => {
     const store = getStoreWithState({
       authors: fromJS({
         ...initialState,
+        publicationSelection: {},
+        publicationSelectionUnclaimed: [],
+        publicationSelectionClaimed: [],
         data: {
           metadata: {
             facet_author_name: '1234_ThatDude',
@@ -86,14 +89,17 @@ describe('AuthorPublicationsContainer', () => {
     });
   });
 
-  it('set assignView when user can_edit', () => {
-    global.CONFIG = { ASSIGN_OWN_PROFILE_UI_FEATURE_FLAG: true };
+  it('set assignDifferentProfileView when user has a profile', () => {
+    global.CONFIG = { ASSIGN_DIFFERENT_PROFILE_UI_FEATURE_FLAG: true };
     const store = getStoreWithState({
+      user: fromJS({
+        data: { recid: 3 },
+      }),
       authors: fromJS({
         ...initialState,
         publicationSelection: {},
-        publicationSelectionClaimed: [],
         publicationSelectionUnclaimed: [],
+        publicationSelectionClaimed: [],
         data: {
           metadata: {
             can_edit: true,
@@ -109,7 +115,7 @@ describe('AuthorPublicationsContainer', () => {
       </Provider>
     );
     expect(wrapper.find(AuthorPublications)).toHaveProp({
-      assignViewOwnProfile: true,
+      assignViewDifferentProfile: true,
     });
   });
 });
