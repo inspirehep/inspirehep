@@ -83,4 +83,4 @@ jobs:
           token: ${{ secrets.INSPIRE_BOT_TOKEN }}
           repository: inspirehep/kubernetes
           event-type: deploy
-          client-payload: '{"project": "inspire", "application": "hep", "namespace": "inspire-qa", "image":"${{ matrix.images }}","new_tag":"${{ github.event.inputs.tag }}"}'
+          client-payload: '{"project": "inspire", "application": "hep", "namespace": "inspire-prod", "image":"${{ matrix.images }}","new_tag":"${{ github.event.inputs.tag }}"}'
