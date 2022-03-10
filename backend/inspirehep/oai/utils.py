@@ -37,11 +37,15 @@ def has_cern_affiliation(record):
     """Check if the record should be part of `CERN:arXiv` set."""
     affiliations_values = get_value(record, "authors.affiliations.value", default=[])
     affiliations = chain.from_iterable(affiliations_values)
-    return any(
+
+    if any(
         affiliation
         for affiliation in affiliations
         if affiliation.lower().startswith("cern")
-    )
+    ) and record.get("curated"):
+        return True
+
+    return False
 
 
 def has_cern_collaboration(record):
