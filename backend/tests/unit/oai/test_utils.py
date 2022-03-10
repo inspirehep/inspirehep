@@ -56,13 +56,22 @@ def test_has_cern_accelerator_experiment_without_field():
 
 @pytest.mark.parametrize(
     "affiliation,expected",
-    [("cern", True), ("CERN", True), ("CERNOIS", True), ("JESSICAJONES", False)],
+    [
+        ("cern", True),
+        ("CERN", True),
+        ("CERNOIS", True),
+        ("JESSICAJONES", False),
+    ],
 )
 def test_has_cern_affiliation(affiliation, expected):
     data = {
+        "curated": True,
         "authors": [
-            {"full_name": affiliation, "affiliations": [{"value": affiliation}]}
-        ]
+            {
+                "full_name": affiliation,
+                "affiliations": [{"value": affiliation}],
+            }
+        ],
     }
     record = faker.record("lit", data)
     assert expected == has_cern_affiliation(record)
@@ -70,16 +79,69 @@ def test_has_cern_affiliation(affiliation, expected):
 
 def test_has_cern_affiliation_with_multiple_authors():
     data = {
+        "curated": True,
         "authors": [
             {
                 "full_name": "J. Jones",
                 "affiliations": [{"value": "CERN"}, {"value": "SLAC"}],
             },
-            {"full_name": "F. Castle", "affiliations": [{"value": "Whatever"}]},
-        ]
+            {
+                "full_name": "F. Castle",
+                "affiliations": [{"value": "Whatever"}],
+            },
+        ],
     }
     record = faker.record("lit", data)
-    assert True == has_cern_affiliation(record)
+    assert has_cern_affiliation(record)
+
+
+def test_has_cern_affiliation_with_currated():
+    data_not_currated = {
+        "curated": False,
+        "authors": [
+            {
+                "full_name": "J. Jones",
+                "affiliations": [{"value": "CERN"}, {"value": "SLAC"}],
+            },
+            {
+                "full_name": "F. Castle",
+                "affiliations": [{"value": "Whatever"}],
+            },
+        ],
+    }
+    data_currated = {
+        "curated": True,
+        "authors": [
+            {
+                "full_name": "J. Jones",
+                "affiliations": [{"value": "CERN"}, {"value": "SLAC"}],
+            },
+            {
+                "full_name": "F. Castle",
+                "affiliations": [{"value": "Whatever"}],
+            },
+        ],
+    }
+
+    data_currated_none = {
+        "authors": [
+            {
+                "full_name": "J. Jones",
+                "affiliations": [{"value": "CERN"}, {"value": "SLAC"}],
+            },
+            {
+                "full_name": "F. Castle",
+                "affiliations": [{"value": "Whatever"}],
+            },
+        ],
+    }
+
+    record_false = faker.record("lit", data_not_currated)
+    record_true = faker.record("lit", data_currated)
+    record_none = faker.record("lit", data_currated_none)
+    assert has_cern_affiliation(record_true)
+    assert not has_cern_affiliation(record_false)
+    assert not has_cern_affiliation(record_none)
 
 
 def test_has_cern_affiliation_without_field():
@@ -176,7 +238,13 @@ def test_is_cern_arxiv_eprint_without_field():
 def test_is_arxiv_set_with_affiliations_field():
     data = {
         "arxiv_eprints": [{"value": "2009.01484"}],
-        "authors": [{"full_name": "cern", "affiliations": [{"value": "CERN"}]}],
+        "curated": True,
+        "authors": [
+            {
+                "full_name": "cern",
+                "affiliations": [{"value": "CERN"}],
+            }
+        ],
     }
     record = faker.record("lit", data)
     assert True is is_cern_arxiv_set(record)
