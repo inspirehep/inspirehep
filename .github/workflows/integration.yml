@@ -822,7 +822,7 @@ jobs:
       - end_to_end_test_chrome
       - end_to_end_test_firefox
     outputs:
-      images: ${{ steps.generate_matrix.outputs.images }}
+      applications: ${{ steps.generate_matrix.outputs.applications }}
     env:
       BACKEND_INTEGRATION_TEST: ${{ needs.backend_integration_test.result == 'success' }}
       BACKEND_INTEGRATION_ASYNC_TEST: ${{ needs.backend_integration_async_test.result == 'success' }}
@@ -833,25 +833,25 @@ jobs:
       - name: Generate matrix
         id: generate_matrix
         run: |
-          images=''
+          applications=''
 
           if [ "$BACKEND_INTEGRATION_TEST" = 'true' ] \
           && [ "$BACKEND_INTEGRATION_ASYNC_TEST" = 'true' ] \
           && [ "$BACKEND_UNIT_TEST" = 'true' ]; then
-            images=($images 'inspirehep/hep')
+            applications=($applications 'hep')
           fi
 
           if [ "$UI_TEST" = 'true' ]; then
-            images=($images 'inspirehep/ui')
+            applications=($applications 'ui')
           fi
 
           if [ "$EDITOR_TEST" = 'true' ]; then
-            images=($images 'inspirehep/editor')
+            applications=($applications 'editor')
           fi
 
-          json=$(printf '%s\n' "${images[@]}" | jq -R . | jq -sc .)
+          json=$(printf '%s\n' "${applications[@]}" | jq -R . | jq -sc .)
           echo "output: $json"
-          echo '::set-output name=images::'$json
+          echo '::set-output name=applications::'$json
 
   push_changed:
     name: Push images that changed
@@ -860,10 +860,10 @@ jobs:
     if: ${{ !failure() && needs.to_push.result == 'success' }}
     strategy:
       matrix:
-        images: ${{ fromJson(needs.to_push.outputs.images) }}
+        applications: ${{ fromJson(needs.to_push.outputs.applications) }}
         tags: [latest, build-latest]
         exclude:
-          - images: inspirehep/hep
+          - applications: hep
             tags: build-latest
     steps:
       - name: Checkout
@@ -888,7 +888,7 @@ jobs:
         uses: ./.github/actions/docker-tag-and-push
         if: ${{ github.event_name == 'pull_request_target' }}
         with:
-          image: ${{ matrix.images }}
+          image: inspirehep/${{ matrix.applications }}
           pull-tag: ${{ env.REF_TAG }}
           push-tag: ${{ env.PR_TAG }}
 
@@ -902,7 +902,7 @@ jobs:
         uses: ./.github/actions/docker-tag-and-push
         if: ${{ github.event_name == 'push'  }}
         with:
-          image: ${{ matrix.images }}
+          image: inspirehep/${{ matrix.applications }}
           pull-tag: ${{ env.REF_TAG }}
           push-tag: ${{ steps.generate_tag.outputs.tag }}
 
@@ -910,7 +910,7 @@ jobs:
         uses: ./.github/actions/docker-tag-and-push
         if: ${{ github.event_name == 'push'  }}
         with:
-          image: ${{ matrix.images }}
+          image: inspirehep/${{ matrix.applications }}
           pull-tag: ${{ env.REF_TAG }}
           push-tag: latest
 
@@ -918,7 +918,7 @@ jobs:
         uses: ./.github/actions/docker-tag-and-push
         if: ${{ github.event_name == 'push' }}
         with:
-          image: ${{ matrix.images }}
+          image: inspirehep/${{ matrix.applications }}
           pull-tag: ${{ env.REF_TAG }}
           push-tag: master
 
@@ -929,7 +929,7 @@ jobs:
           token: ${{ secrets.INSPIRE_BOT_TOKEN }}
           repository: inspirehep/kubernetes
           event-type: deploy
-          client-payload: '{"application": "hep", "project": "inspire", "namespace":"inspire-qa", "image":"${{ matrix.images }}","new_tag":"${{ steps.generate_tag.outputs.tag }}"}'
+          client-payload: '{"application": "${{matrix.applications}}", "project": "inspire", "namespace":"inspire-qa", "image":"inspirehep/${{ matrix.applications }}","new_tag":"${{ steps.generate_tag.outputs.tag }}"}'
 
   push:
     name: Push commit SHA to all images

@@ -54,10 +54,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        images:
-          - inspirehep/hep
-          - inspirehep/ui
-          - inspirehep/editor
+        applications:
+          - hep
+          - ui
+          - editor
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -73,7 +73,7 @@ jobs:
       - name: Tag and push
         uses: ./.github/actions/docker-tag-and-push
         with:
-          image: ${{ matrix.images }}
+          image: inspirehep/${{ matrix.applications }}
           pull-tag: master-${{ github.event.inputs.ref }}
           push-tag: ${{ github.event.inputs.tag }}
 
@@ -83,4 +83,4 @@ jobs:
           token: ${{ secrets.INSPIRE_BOT_TOKEN }}
           repository: inspirehep/kubernetes
           event-type: deploy
-          client-payload: '{"project": "inspire", "application": "hep", "namespace": "inspire-prod", "image":"${{ matrix.images }}","new_tag":"${{ github.event.inputs.tag }}"}'
+          client-payload: '{"project": "inspire", "application": "${{ matrix.applications }}", "namespace": "inspire-prod", "image":"inspirehep/${{ matrix.applications }}","new_tag":"${{ github.event.inputs.tag }}"}'
