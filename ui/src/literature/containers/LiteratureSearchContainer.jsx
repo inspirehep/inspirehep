@@ -31,10 +31,12 @@ import AssignAllActionContainer from '../../authors/containers/AssignAllActionCo
 import AssignAllOwnProfileActionContainer from '../../authors/containers/AssignAllOwnProfileActionContainer';
 import AssignViewOwnProfileContext from '../../authors/assignViewOwnProfileContext';
 import assignViewDifferentProfileContext from '../../authors/assignViewDifferentProfileContext';
+import AssignViewNoProfileContext from '../../authors/assignViewNoProfileContext';
 import ToolActionContainer from './ToolActionContainer';
 import LiteratureSelectAllContainer from './LiteratureSelectAllContainer';
 import LiteratureSelectContainer from './LiteratureSelectContainer';
 import AssignAllDifferentProfileActionContainer from '../../authors/containers/AssignAllDifferentProfileActionContainer';
+import AssignNoProfileAction from '../../authors/components/AssignNoProfileAction';
 
 function LiteratureSearch({
   loading,
@@ -77,7 +79,13 @@ function LiteratureSearch({
   const assignAuthorDifferentProfileView = useContext(
     assignViewDifferentProfileContext
   );
+  const assignAuthorNoProfileView = useContext(AssignViewNoProfileContext);
   const assignConferenceView = useContext(AssignConferenceViewContext);
+  const assignNoProfileViewCondition =
+    assignAuthorNoProfileView &&
+    !assignAuthorOwnProfileView &&
+    !assignAuthorView &&
+    !assignAuthorDifferentProfileView;
 
   return (
     <Row
@@ -105,6 +113,11 @@ function LiteratureSearch({
                     <PublicationsSelectAllContainer />
                   </span>
                 )}
+                {assignAuthorNoProfileView && (
+                  <span className="mr1">
+                    <PublicationsSelectAllContainer disabled />
+                  </span>
+                )}
                 {assignConferenceView && (
                   <span className="mr1">
                     <LiteratureSelectAllContainer />
@@ -123,6 +136,7 @@ function LiteratureSearch({
                   !assignAuthorOwnProfileView && (
                     <AssignAllDifferentProfileActionContainer />
                   )}
+                {assignNoProfileViewCondition && <AssignNoProfileAction />}
                 {assignConferenceView && <ToolActionContainer />}
               </Col>
               <Col xs={8} lg={0}>
@@ -189,6 +203,11 @@ function LiteratureSearch({
                             />
                           </Col>
                         )}
+                      {assignNoProfileViewCondition && (
+                        <Col className="mr1" flex="0 1 1px">
+                          <PublicationSelectContainer disabled />
+                        </Col>
+                      )}
                       {assignConferenceView && (
                         <Col className="mr1" flex="0 1 1px">
                           <LiteratureSelectContainer

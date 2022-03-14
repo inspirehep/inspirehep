@@ -15,7 +15,12 @@ function getCanClaim(result) {
   return result.getIn(['metadata', 'can_claim'], false);
 }
 
-function PublicationsSelectAll({ publications, selection, onChange }) {
+function PublicationsSelectAll({
+  publications,
+  selection,
+  onChange,
+  disabled,
+}) {
   const checked = useMemo(
     () =>
       publications &&
@@ -26,6 +31,7 @@ function PublicationsSelectAll({ publications, selection, onChange }) {
   );
   return (
     <Checkbox
+      disabled={disabled}
       checked={checked}
       onChange={(event) => {
         onChange(
@@ -43,6 +49,7 @@ PublicationsSelectAll.propTypes = {
   publications: PropTypes.instanceOf(List),
   selection: PropTypes.instanceOf(Set).isRequired,
   onChange: PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
 };
 
 export default PublicationsSelectAll;
