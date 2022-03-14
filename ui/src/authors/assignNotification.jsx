@@ -46,11 +46,11 @@ export function assignSuccessOwnProfile({
 }) {
   const message =
     numberOfClaimedPapers === 0
-      ? 'All selected papers will be removed from your profile.'
-      : `${numberOfClaimedPapers} ${pluralizeUnlessSingle(
+      ? 'All selected papers will be claimed to your profile.'
+      : `${numberOfUnclaimedPapers} ${pluralizeUnlessSingle(
           'paper',
           numberOfUnclaimedPapers
-        )} will be claimed to your profile. ${pluralizeUnlessSingle(
+        )} will be claimed to your profile. ${numberOfClaimedPapers} ${pluralizeUnlessSingle(
           'paper',
           numberOfClaimedPapers
         )} can not be claimed. `;
