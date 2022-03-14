@@ -110,6 +110,9 @@ export function assignOwnPapers({ from, to, isUnassignAction }) {
       const unclaimedPapers = getState().authors.get(
         'publicationSelectionUnclaimed'
       );
+
+      const paperIds = getState().authors.get('publicationSelection');
+
       const numberOfUnclaimedPapers = unclaimedPapers.size;
       const numberOfClaimedPapers = claimedPapers.size;
 
@@ -117,14 +120,11 @@ export function assignOwnPapers({ from, to, isUnassignAction }) {
       await http.post('/assign/author', {
         from_author_recid: from,
         to_author_recid: to,
-        literature_recids: unclaimedPapers,
+        literature_recids: paperIds,
       });
 
       if (isUnassignAction) {
-        unassignSuccessOwnProfile({
-          numberOfClaimedPapers,
-          numberOfUnclaimedPapers,
-        });
+        unassignSuccessOwnProfile();
       } else {
         assignSuccessOwnProfile({
           numberOfClaimedPapers,

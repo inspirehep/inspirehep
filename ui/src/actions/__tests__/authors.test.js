@@ -29,6 +29,7 @@ import {
   assignSuccess,
   assigning,
   unassignSuccessOwnProfile,
+  assignSuccessOwnProfile,
 } from '../../authors/assignNotification';
 
 import { AUTHOR_PUBLICATIONS_NS } from '../../search/constants';
@@ -260,7 +261,7 @@ describe('AUTHOR - async action creators', () => {
       expect(assignError).toHaveBeenCalled();
     });
   });
-  describe('assignOwnPapers', () => {
+  describe('assignOwnPapers when assigning to own profile', () => {
     afterEach(() => {
       clear();
     });
@@ -286,7 +287,59 @@ describe('AUTHOR - async action creators', () => {
       mockHttp
         .onPost('/assign/author', {
           from_author_recid: fromAuthorId,
-          literature_recids: publicationSelectionUnclaimed,
+          literature_recids: publicationSelection,
+        })
+        .replyOnce(200, { stub_author_id: stubAuthorId });
+
+      const expectedActions = [
+        searchQueryUpdate(AUTHOR_PUBLICATIONS_NS, { assigned: fakeNow }),
+        clearPublicationSelection(),
+        clearPublicationsClaimedSelection(),
+        clearPublicationsUnclaimedSelection(),
+      ];
+
+      const dispatchPromise = store.dispatch(
+        assignOwnPapers({ from: fromAuthorId, isUnassignAction: false })
+      );
+      expect(assigning).toHaveBeenCalled();
+
+      await dispatchPromise;
+      expect(store.getActions()).toEqual(expectedActions);
+
+      expect(assignSuccessOwnProfile).toHaveBeenCalledWith({
+        numberOfClaimedPapers: 2,
+        numberOfUnclaimedPapers: 1,
+      });
+    });
+  });
+
+  describe('assignOwnPapers when unassigning own profile', () => {
+    afterEach(() => {
+      clear();
+    });
+
+    it('successful', async () => {
+      const stubAuthorId = 5555;
+      const fromAuthorId = 123;
+      const publicationSelection = [1, 2, 3];
+      const publicationSelectionClaimed = [];
+      const publicationSelectionUnclaimed = [1, 2, 3];
+      const fakeNow = 1597314028798;
+
+      advanceTo(fakeNow);
+
+      const store = getStore({
+        authors: fromJS({
+          publicationSelection: Set(publicationSelection),
+          publicationSelectionClaimed: Set(publicationSelectionClaimed),
+          publicationSelectionUnclaimed: Set(publicationSelectionUnclaimed),
+        }),
+      });
+
+      mockHttp
+        .onPost('/assign/author', {
+          from_author_recid: fromAuthorId,
+          literature_recids: publicationSelection,
         })
         .replyOnce(200, { stub_author_id: stubAuthorId });
 
@@ -305,10 +358,7 @@ describe('AUTHOR - async action creators', () => {
       await dispatchPromise;
       expect(store.getActions()).toEqual(expectedActions);
 
-      expect(unassignSuccessOwnProfile).toHaveBeenCalledWith({
-        numberOfClaimedPapers: 2,
-        numberOfUnclaimedPapers: 1,
-      });
+      expect(unassignSuccessOwnProfile).toHaveBeenCalled();
     });
   });
 });

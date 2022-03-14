@@ -61,21 +61,8 @@ export function assignSuccessOwnProfile({
   });
 }
 
-export function unassignSuccessOwnProfile({
-  numberOfClaimedPapers,
-  numberOfUnclaimedPapers,
-}) {
-  const message =
-    numberOfClaimedPapers === 0
-      ? 'All selected papers will be removed from your profile.'
-      : `${numberOfUnclaimedPapers} ${pluralizeUnlessSingle(
-          'paper',
-          numberOfUnclaimedPapers
-        )} will be  claimed to your profile. ${pluralizeUnlessSingle(
-          'paper',
-          numberOfClaimedPapers
-        )} can not be claimed.`;
-  notification.close(ASSIGNING_NOTIFICATION_KEY);
+export function unassignSuccessOwnProfile() {
+  const message = 'All selected papers will be removed from your profile.';
   notification.success({
     message,
     duration: null,
