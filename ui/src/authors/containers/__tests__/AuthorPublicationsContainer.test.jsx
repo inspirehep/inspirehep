@@ -118,4 +118,27 @@ describe('AuthorPublicationsContainer', () => {
       assignViewDifferentProfile: true,
     });
   });
+
+  it('set assignViewNoProfile when user logged_in', () => {
+    global.CONFIG = { ASSIGN_NO_PROFILE_UI_FEATURE_FLAG: true };
+    const store = getStoreWithState({
+      authors: fromJS({
+        ...initialState,
+        publicationSelection: {},
+        publicationSelectionClaimed: [],
+        publicationSelectionUnclaimed: [],
+      }),
+      user: fromJS({ loggedIn: true }),
+    });
+    const wrapper = mount(
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/authors/123']} initialIndex={0}>
+          <AuthorPublicationsContainer />
+        </MemoryRouter>
+      </Provider>
+    );
+    expect(wrapper.find(AuthorPublications)).toHaveProp({
+      assignViewNoProfile: true,
+    });
+  });
 });

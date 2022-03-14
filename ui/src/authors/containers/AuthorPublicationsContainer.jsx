@@ -8,6 +8,8 @@ import { isCataloger, isSuperUser } from '../../common/authorization';
 import AssignViewContext from '../AssignViewContext';
 import AssignViewOwnProfileContext from '../assignViewOwnProfileContext';
 import assignViewDifferentProfileContext from '../assignViewDifferentProfileContext';
+import AssignViewNoProfileContext from '../assignViewNoProfileContext';
+
 import AssignDrawerContainer from './AssignDrawerContainer';
 import { getConfigFor } from '../../common/config';
 
@@ -16,6 +18,7 @@ export function AuthorPublications({
   assignView,
   assignViewOwnProfile,
   assignViewDifferentProfile,
+  assignViewNoProfile,
 }) {
   const baseQuery = useMemo(
     () => ({
@@ -31,22 +34,24 @@ export function AuthorPublications({
   );
 
   return (
-    <assignViewDifferentProfileContext.Provider
-      value={assignViewDifferentProfile}
-    >
-      <AssignViewOwnProfileContext.Provider value={assignViewOwnProfile}>
-        <AssignViewContext.Provider value={assignView}>
-          <LiteratureSearchContainer
-            namespace={AUTHOR_PUBLICATIONS_NS}
-            baseQuery={baseQuery}
-            baseAggregationsQuery={baseAggregationsQuery}
-            noResultsTitle="0 Research works"
-            embedded
-          />
-          {assignView && <AssignDrawerContainer />}
-        </AssignViewContext.Provider>
-      </AssignViewOwnProfileContext.Provider>
-    </assignViewDifferentProfileContext.Provider>
+    <AssignViewNoProfileContext.Provider value={assignViewNoProfile}>
+      <assignViewDifferentProfileContext.Provider
+        value={assignViewDifferentProfile}
+      >
+        <AssignViewOwnProfileContext.Provider value={assignViewOwnProfile}>
+          <AssignViewContext.Provider value={assignView}>
+            <LiteratureSearchContainer
+              namespace={AUTHOR_PUBLICATIONS_NS}
+              baseQuery={baseQuery}
+              baseAggregationsQuery={baseAggregationsQuery}
+              noResultsTitle="0 Research works"
+              embedded
+            />
+            {assignView && <AssignDrawerContainer />}
+          </AssignViewContext.Provider>
+        </AssignViewOwnProfileContext.Provider>
+      </assignViewDifferentProfileContext.Provider>
+    </AssignViewNoProfileContext.Provider>
   );
 }
 
@@ -78,6 +83,9 @@ const stateToProps = (state) => ({
   assignViewDifferentProfile:
     enableDifferentProfileView(state) &&
     getConfigFor('ASSIGN_DIFFERENT_PROFILE_UI_FEATURE_FLAG'),
+  assignViewNoProfile:
+    state.user.get('loggedIn') &&
+    getConfigFor('ASSIGN_NO_PROFILE_UI_FEATURE_FLAG'),
 });
 
 export default connect(stateToProps)(AuthorPublications);

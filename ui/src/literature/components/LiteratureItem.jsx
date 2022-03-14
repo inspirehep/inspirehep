@@ -36,6 +36,8 @@ import assignViewDifferentProfileContext from '../../authors/assignViewDifferent
 import AssignOneActionContainer from '../../authors/containers/AssignOneActionContainer';
 import AssignOneOwnProfileContainer from '../../authors/containers/AssignOneOwnProfileContainer';
 import AssignOneDifferentProfileContainer from '../../authors/containers/AssignOneDifferentProfileContainer';
+import AssignNoProfileAction from '../../authors/components/AssignNoProfileAction';
+import AssignViewNoProfileContext from '../../authors/assignViewNoProfileContext';
 
 function LiteratureItem({ metadata, searchRank, isCatalogerLoggedIn }) {
   const title = metadata.getIn(['titles', 0]);
@@ -67,6 +69,12 @@ function LiteratureItem({ metadata, searchRank, isCatalogerLoggedIn }) {
   const assignDifferentProfileView = useContext(
     assignViewDifferentProfileContext
   );
+  const assignNoProfileView = useContext(AssignViewNoProfileContext);
+  const assignNoProfileViewCondition =
+    assignNoProfileView &&
+    !assignOwnProfileView &&
+    !assignAuthorView &&
+    !assignDifferentProfileView;
 
   const publicationInfoWithTitle = publicationInfo
     ? publicationInfo.filter((pub) => pub.has('journal_title'))
@@ -117,6 +125,7 @@ function LiteratureItem({ metadata, searchRank, isCatalogerLoggedIn }) {
               canClaim={canClaimDifferentProfile}
             />
           )}
+          {assignNoProfileViewCondition && <AssignNoProfileAction />}
         </Fragment>
       }
       rightActions={

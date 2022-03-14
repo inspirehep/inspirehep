@@ -30,6 +30,11 @@ describe('PublicationsSelectAll', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it('renders disabled', () => {
+    const wrapper = shallow(<PublicationsSelectAll disabled />);
+    expect(wrapper).toMatchSnapshot();
+  });
+
   it('render unchecked if all publications are not part of the selection', () => {
     const publications = fromJS([
       {

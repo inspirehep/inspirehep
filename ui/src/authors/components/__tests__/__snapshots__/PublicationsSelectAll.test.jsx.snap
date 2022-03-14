@@ -15,3 +15,11 @@ exports[`PublicationsSelectAll renders checked if all publications are part of t
   onChange={[Function]}
 />
 `;
+
+exports[`PublicationsSelectAll renders disabled 1`] = `
+<Checkbox
+  disabled={true}
+  indeterminate={false}
+  onChange={[Function]}
+/>
+`;
