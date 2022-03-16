@@ -32,7 +32,7 @@ import {
 } from '../../common/components/InlineList';
 import AssignAuthorViewContext from '../../authors/AssignViewContext';
 import AssignViewOwnProfileContext from '../../authors/assignViewOwnProfileContext';
-import assignViewDifferentProfileContext from '../../authors/assignViewDifferentProfileContext';
+import AssignViewDifferentProfileContext from '../../authors/assignViewDifferentProfileContext';
 import AssignOneActionContainer from '../../authors/containers/AssignOneActionContainer';
 import AssignOneOwnProfileContainer from '../../authors/containers/AssignOneOwnProfileContainer';
 import AssignOneDifferentProfileContainer from '../../authors/containers/AssignOneDifferentProfileContainer';
@@ -67,7 +67,7 @@ function LiteratureItem({ metadata, searchRank, isCatalogerLoggedIn }) {
   const assignAuthorView = useContext(AssignAuthorViewContext);
   const assignOwnProfileView = useContext(AssignViewOwnProfileContext);
   const assignDifferentProfileView = useContext(
-    assignViewDifferentProfileContext
+    AssignViewDifferentProfileContext
   );
   const assignNoProfileView = useContext(AssignViewNoProfileContext);
   const assignNoProfileViewCondition =
@@ -121,8 +121,9 @@ function LiteratureItem({ metadata, searchRank, isCatalogerLoggedIn }) {
           {assignDifferentProfileView && !assignOwnProfileView && (
             <AssignOneDifferentProfileContainer
               recordId={recordId}
-              disabledAssignAction={curatedRelation}
-              canClaim={canClaimDifferentProfile}
+              claimingClaimedPapersDisabled={curatedRelation}
+              claimingUnclaimedPapersDisabled={!curatedRelation}
+              userCanNotClaimProfile={!canClaimDifferentProfile}
             />
           )}
           {assignNoProfileViewCondition && <AssignNoProfileAction />}

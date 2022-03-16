@@ -2,7 +2,6 @@ import { connect } from 'react-redux';
 
 import {
   setPublicationSelection,
-  setPublicationsClaimedSelection,
   setPublicationsUnclaimedSelection,
   clearPublicationSelection,
   clearPublicationsClaimedSelection,
@@ -11,37 +10,52 @@ import {
   clearPublicationsUnclaimedSelection,
   clearPublicationsCanNotClaimSelection,
   setPublicationsCanNotClaimSelection,
+  setPublicationsClaimedSelection,
 } from '../../actions/authors';
-import AssignDiffetentProfileAction from '../components/AssignDifferentProfileAction';
+import AssignOneDifferentProfileAction from '../components/AssignOneDifferentProfileAction';
 
 export const stateToProps = (state) => ({
   currentUserId: state.user.getIn(['data', 'recid']),
 });
 
-export const dispatchToProps = (
-  dispatch,
-  { recordId, disabledAssignAction, canClaimDifferentProfile }
-) => ({
-  onAssign({ from, to }) {
+export const dispatchToProps = (dispatch, { recordId }) => ({
+  onAssignWithoutUnclaimed({ from, to, userCanNotClaimProfile }) {
     dispatch(clearPublicationSelection());
     dispatch(clearPublicationsClaimedSelection());
     dispatch(clearPublicationsUnclaimedSelection());
     dispatch(clearPublicationsCanNotClaimSelection());
-    dispatch(setPublicationSelection([recordId], true));
-    if (!canClaimDifferentProfile) {
+    if (userCanNotClaimProfile) {
       dispatch(setPublicationsCanNotClaimSelection([recordId], true));
     }
-    if (!disabledAssignAction && canClaimDifferentProfile) {
-      dispatch(setPublicationsUnclaimedSelection([recordId], true));
-      dispatch(assignDifferentProfileUnclaimedPapers({ from, to }));
-    } else {
-      dispatch(setPublicationsClaimedSelection([recordId], true));
-      dispatch(assignDifferentProfileClaimedPapers({ from, to }));
-    }
+    dispatch(setPublicationSelection([recordId], true));
+    dispatch(setPublicationsClaimedSelection([recordId], true));
+    dispatch(assignDifferentProfileClaimedPapers({ from, to }));
+  },
+  onAssignUserCanNotClaim({ from, to }) {
+    dispatch(clearPublicationSelection());
+    dispatch(clearPublicationsClaimedSelection());
+    dispatch(clearPublicationsUnclaimedSelection());
+    dispatch(clearPublicationsCanNotClaimSelection());
+
+    dispatch(setPublicationSelection([recordId], true));
+    dispatch(setPublicationsCanNotClaimSelection([recordId], true));
+
+    dispatch(assignDifferentProfileClaimedPapers({ from, to }));
+  },
+  onAssignWithoutClaimed({ from, to }) {
+    dispatch(clearPublicationSelection());
+    dispatch(clearPublicationsClaimedSelection());
+    dispatch(clearPublicationsUnclaimedSelection());
+    dispatch(clearPublicationsCanNotClaimSelection());
+
+    dispatch(setPublicationSelection([recordId], true));
+    dispatch(setPublicationsUnclaimedSelection([recordId], true));
+
+    dispatch(assignDifferentProfileUnclaimedPapers({ from, to }));
   },
 });
 
 export default connect(
   stateToProps,
   dispatchToProps
-)(AssignDiffetentProfileAction);
+)(AssignOneDifferentProfileAction);

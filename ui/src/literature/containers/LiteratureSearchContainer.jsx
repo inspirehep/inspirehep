@@ -30,7 +30,7 @@ import AssignConferenceViewContext from '../AssignViewContext';
 import AssignAllActionContainer from '../../authors/containers/AssignAllActionContainer';
 import AssignAllOwnProfileActionContainer from '../../authors/containers/AssignAllOwnProfileActionContainer';
 import AssignViewOwnProfileContext from '../../authors/assignViewOwnProfileContext';
-import assignViewDifferentProfileContext from '../../authors/assignViewDifferentProfileContext';
+import AssignViewDifferentProfileContext from '../../authors/assignViewDifferentProfileContext';
 import AssignViewNoProfileContext from '../../authors/assignViewNoProfileContext';
 import ToolActionContainer from './ToolActionContainer';
 import LiteratureSelectAllContainer from './LiteratureSelectAllContainer';
@@ -77,7 +77,7 @@ function LiteratureSearch({
   const assignAuthorView = useContext(AssignAuthorViewContext);
   const assignAuthorOwnProfileView = useContext(AssignViewOwnProfileContext);
   const assignAuthorDifferentProfileView = useContext(
-    assignViewDifferentProfileContext
+    AssignViewDifferentProfileContext
   );
   const assignAuthorNoProfileView = useContext(AssignViewNoProfileContext);
   const assignConferenceView = useContext(AssignConferenceViewContext);
@@ -113,7 +113,7 @@ function LiteratureSearch({
                     <PublicationsSelectAllContainer />
                   </span>
                 )}
-                {assignAuthorNoProfileView && (
+                {assignNoProfileViewCondition && (
                   <span className="mr1">
                     <PublicationsSelectAllContainer disabled />
                   </span>

@@ -7,7 +7,7 @@ import { AUTHOR_PUBLICATIONS_NS } from '../../search/constants';
 import { isCataloger, isSuperUser } from '../../common/authorization';
 import AssignViewContext from '../AssignViewContext';
 import AssignViewOwnProfileContext from '../assignViewOwnProfileContext';
-import assignViewDifferentProfileContext from '../assignViewDifferentProfileContext';
+import AssignViewDifferentProfileContext from '../assignViewDifferentProfileContext';
 import AssignViewNoProfileContext from '../assignViewNoProfileContext';
 
 import AssignDrawerContainer from './AssignDrawerContainer';
@@ -35,7 +35,7 @@ export function AuthorPublications({
 
   return (
     <AssignViewNoProfileContext.Provider value={assignViewNoProfile}>
-      <assignViewDifferentProfileContext.Provider
+      <AssignViewDifferentProfileContext.Provider
         value={assignViewDifferentProfile}
       >
         <AssignViewOwnProfileContext.Provider value={assignViewOwnProfile}>
@@ -50,7 +50,7 @@ export function AuthorPublications({
             {assignView && <AssignDrawerContainer />}
           </AssignViewContext.Provider>
         </AssignViewOwnProfileContext.Provider>
-      </assignViewDifferentProfileContext.Provider>
+      </AssignViewDifferentProfileContext.Provider>
     </AssignViewNoProfileContext.Provider>
   );
 }

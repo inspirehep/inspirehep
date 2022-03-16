@@ -1,5 +1,5 @@
 import React from 'react';
 
-const assignViewDifferentProfileContext = React.createContext(false);
+const AssignViewDifferentProfileContext = React.createContext(false);
 
-export default assignViewDifferentProfileContext;
+export default AssignViewDifferentProfileContext;
