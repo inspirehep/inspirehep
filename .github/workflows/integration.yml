@@ -927,7 +927,7 @@ jobs:
         if: ${{ github.event_name == 'push'}}
         with:
           token: ${{ secrets.INSPIRE_BOT_TOKEN }}
-          repository: inspirehep/kubernetes
+          repository: cern-sis/kubernetes
           event-type: deploy
           client-payload: '{"application": "${{matrix.applications}}", "project": "inspire", "namespace":"inspire-qa", "image":"inspirehep/${{ matrix.applications }}","new_tag":"${{ steps.generate_tag.outputs.tag }}"}'
 
