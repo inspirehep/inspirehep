@@ -81,6 +81,6 @@ jobs:
         uses: peter-evans/repository-dispatch@v1
         with:
           token: ${{ secrets.INSPIRE_BOT_TOKEN }}
-          repository: inspirehep/kubernetes
+          repository: cern-sis/kubernetes
           event-type: deploy
           client-payload: '{"project": "inspire", "application": "${{ matrix.applications }}", "namespace": "inspire-prod", "image":"inspirehep/${{ matrix.applications }}","new_tag":"${{ github.event.inputs.tag }}"}'
