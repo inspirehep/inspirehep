@@ -17,7 +17,7 @@ import {
   assignDifferentProfileClaimedPapers,
 } from '../../../actions/authors';
 import AssignOneDifferentProfileContainer from '../AssignOneDifferentProfileContainer';
-import AssignDifferentProfileAction from '../../components/AssignDifferentProfileAction';
+import AssignOneDifferentProfileAction from '../../components/AssignOneDifferentProfileAction';
 
 jest.mock('react-router-dom', () => ({
   useParams: jest.fn().mockImplementation(() => ({
@@ -38,25 +38,83 @@ mockActionCreator(setPublicationsCanNotClaimSelection);
 mockActionCreator(clearPublicationsCanNotClaimSelection);
 
 describe('AssignOneDifferentProfileActionContainer', () => {
-  it('selects the one paper and dispatches assignPapers when paper unclaimed', () => {
+  it('selects the one paper and dispatches assignPapers for claiming papers that user cant claim', () => {
     const store = getStore();
     const paperRecordId = 12345;
     const from = 123;
     const to = 321;
-    const disabledAssignAction = false;
-    const canClaimDifferentProfile = true;
+    const userCanNotClaimProfile = true;
     const wrapper = mount(
       <Provider store={store}>
         <AssignOneDifferentProfileContainer
           recordId={paperRecordId}
-          disabledAssignAction={disabledAssignAction}
-          canClaimDifferentProfile={canClaimDifferentProfile}
+          userCanNotClaimProfile={userCanNotClaimProfile}
         />
       </Provider>
     );
     const onAssign = wrapper
-      .find(AssignDifferentProfileAction)
-      .prop('onAssign');
+      .find(AssignOneDifferentProfileAction)
+      .prop('onAssignUserCanNotClaim');
+    onAssign({ from, to });
+
+    const expectedActions = [
+      clearPublicationSelection(),
+      clearPublicationsClaimedSelection(),
+      clearPublicationsUnclaimedSelection(),
+      clearPublicationsCanNotClaimSelection(),
+      setPublicationSelection([paperRecordId], true),
+      setPublicationsCanNotClaimSelection([paperRecordId], true),
+      assignDifferentProfileClaimedPapers({ from, to }),
+    ];
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+  it('selects one paper and dispatches assignPapers when paper claimed', () => {
+    const store = getStore();
+    const paperRecordId = 12345;
+    const from = 123;
+    const to = 321;
+    const userCanNotClaimProfile = false;
+    const wrapper = mount(
+      <Provider store={store}>
+        <AssignOneDifferentProfileContainer
+          recordId={paperRecordId}
+          userCanNotClaimProfile={userCanNotClaimProfile}
+        />
+      </Provider>
+    );
+    const onAssign = wrapper
+      .find(AssignOneDifferentProfileAction)
+      .prop('onAssignWithoutUnclaimed');
+    onAssign({ from, to, userCanNotClaimProfile });
+
+    const expectedActions = [
+      clearPublicationSelection(),
+      clearPublicationsClaimedSelection(),
+      clearPublicationsUnclaimedSelection(),
+      clearPublicationsCanNotClaimSelection(),
+      setPublicationSelection([paperRecordId], true),
+      setPublicationsClaimedSelection([paperRecordId], true),
+      assignDifferentProfileClaimedPapers({ from, to }),
+    ];
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+  it('selects one paper and dispatches assignPapers when paper unclaimed', () => {
+    const store = getStore();
+    const paperRecordId = 12345;
+    const from = 123;
+    const to = 321;
+    const userCanNotClaimProfile = false;
+    const wrapper = mount(
+      <Provider store={store}>
+        <AssignOneDifferentProfileContainer
+          recordId={paperRecordId}
+          userCanNotClaimProfile={userCanNotClaimProfile}
+        />
+      </Provider>
+    );
+    const onAssign = wrapper
+      .find(AssignOneDifferentProfileAction)
+      .prop('onAssignWithoutClaimed');
     onAssign({ from, to });
 
     const expectedActions = [
@@ -67,39 +125,6 @@ describe('AssignOneDifferentProfileActionContainer', () => {
       setPublicationSelection([paperRecordId], true),
       setPublicationsUnclaimedSelection([paperRecordId], true),
       assignDifferentProfileUnclaimedPapers({ from, to }),
-    ];
-    expect(store.getActions()).toEqual(expectedActions);
-  });
-  it('selects the one paper and dispatches assignPapers when paper claimed', () => {
-    const store = getStore();
-    const paperRecordId = 12345;
-    const from = 123;
-    const to = 321;
-    const disabledAssignAction = true;
-    const canClaimDifferentProfile = false;
-    const wrapper = mount(
-      <Provider store={store}>
-        <AssignOneDifferentProfileContainer
-          recordId={paperRecordId}
-          disabledAssignAction={disabledAssignAction}
-          canClaimDifferentProfile={canClaimDifferentProfile}
-        />
-      </Provider>
-    );
-    const onAssign = wrapper
-      .find(AssignDifferentProfileAction)
-      .prop('onAssign');
-    onAssign({ from, to });
-
-    const expectedActions = [
-      clearPublicationSelection(),
-      clearPublicationsClaimedSelection(),
-      clearPublicationsUnclaimedSelection(),
-      clearPublicationsCanNotClaimSelection(),
-      setPublicationSelection([paperRecordId], true),
-      setPublicationsCanNotClaimSelection([paperRecordId], true),
-      setPublicationsClaimedSelection([paperRecordId], true),
-      assignDifferentProfileClaimedPapers({ from, to }),
     ];
     expect(store.getActions()).toEqual(expectedActions);
   });
