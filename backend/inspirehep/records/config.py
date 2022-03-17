@@ -571,7 +571,7 @@ SEMINARS_FILTERS = {
 }
 
 EXPERIMENTS_FILTERS = {
-    "classification": must_match_all_filter("inspire_classification"),
+    "experiments": must_match_all_filter("facet_inspire_classification"),
     "institution": must_match_all_filter("institutions.value"),
 }
 

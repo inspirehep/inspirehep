@@ -190,6 +190,12 @@
         "analyzer": "inspire_classification_analyzer",
         "search_analyzer": "keyword"
       },
+      "facet_inspire_classification": {
+        "type": "text",
+        "fielddata": true,
+        "analyzer": "inspire_classification_analyzer",
+        "search_analyzer": "keyword"
+      },
       "institutions": {
         "properties": {
           "curated_relation": {

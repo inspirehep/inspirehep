@@ -84,6 +84,7 @@ def test_experiments_json_search(inspire_app, datadir):
     del expected_result["_private_notes"]
     expected_result["number_of_papers"] = 0
     expected_result["normalized_name_variants"] = ["CERN-EMU11", "EMU11"]
+    expected_result["facet_inspire_classification"] = ["Fixed Target"]
     with inspire_app.test_client() as client:
         response = client.get("/experiments", headers=headers)
 

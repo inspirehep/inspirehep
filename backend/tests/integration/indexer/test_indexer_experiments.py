@@ -23,6 +23,7 @@ def test_index_experiment_record(inspire_app, datadir):
     expected_metadata["_updated"] = utils.isoformat(record.updated)
     expected_metadata["number_of_papers"] = 0
     expected_metadata["normalized_name_variants"] = ["ATLAS", "ATLAS", "CERN-ATLAS"]
+    expected_metadata["facet_inspire_classification"] = ["Collider|Hadrons|p p"]
 
     response = es_search("records-experiments")
 

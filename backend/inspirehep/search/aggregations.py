@@ -596,11 +596,12 @@ def seminar_accessibility_aggregation(
 
 
 def experiment_inspire_classification_aggregation(
-    order, title="Classification", agg_type="tree"
+    order, title="Experiments", agg_type="tree"
 ):
+
     return {
-        "classification": {
-            "terms": {"field": "inspire_classification", "size": 500},
+        "experiments": {
+            "terms": {"field": "facet_inspire_classification", "size": 500},
             "meta": {
                 "title": title,
                 "order": order,
