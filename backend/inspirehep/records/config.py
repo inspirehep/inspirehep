@@ -604,7 +604,7 @@ RECORDS_REST_SORT_OPTIONS = {
     "records-hep": {
         "mostrecent": {
             "title": "Most Recent",
-            "fields": ["-earliest_date"],
+            "fields": ["-earliest_date", "control_number"],
             "default_order": "asc",
             "order": 1,
         },
