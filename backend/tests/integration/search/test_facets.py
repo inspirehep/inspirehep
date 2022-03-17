@@ -292,9 +292,9 @@ def test_hep_institution_papers_cataloger_facets(inspire_app):
             **hep_collection_aggregation(order=6),
         }
 
-        filters = current_app.config["CATALOGER_RECORDS_REST_FACETS"]["hep-institution-papers"]()[
-            "filters"
-        ].keys()
+        filters = current_app.config["CATALOGER_RECORDS_REST_FACETS"][
+            "hep-institution-papers"
+        ]()["filters"].keys()
         aggregations = current_app.config["CATALOGER_RECORDS_REST_FACETS"][
             "hep-institution-papers"
         ]()["aggs"]
@@ -607,7 +607,7 @@ def test_records_seminars_facets(inspire_app):
 
 def test_records_experiments_facets(inspire_app):
     with current_app.test_request_context():
-        expected_filters = {"classification", "institution"}
+        expected_filters = {"experiments", "institution"}
         expected_aggregations = {
             **experiment_inspire_classification_aggregation(order=1),
             **experiment_institution_aggregation(order=2),

@@ -1047,11 +1047,11 @@ def test_experiment_inspire_classification_aggregation(inspire_app, override_con
         expected_record = create_record("exp", data)
         data = {"inspire_classification": ["Collider Experiments|Hadrons"]}
         create_record("exp", data)
-        with inspire_app.test_client() as client:
-            response = client.get("/experiments/facets").json
+        data = {"inspire_classification": ["Neutrino (flavor) experiments"]}
+        create_record("exp", data)
         expected_aggregation = {
             "meta": {
-                "title": "Classification",
+                "title": "Experiments",
                 "type": "tree",
                 "order": 1,
                 "split_tree_by": "|",
@@ -1059,16 +1059,22 @@ def test_experiment_inspire_classification_aggregation(inspire_app, override_con
             "doc_count_error_upper_bound": 0,
             "sum_other_doc_count": 0,
             "buckets": [
-                {"key": "Collider Experiments", "doc_count": 2},
-                {"key": "Collider Experiments|Hadrons", "doc_count": 2},
-                {"key": "Collider Experiments|Hadrons|p p", "doc_count": 1},
+                {"key": "Collider", "doc_count": 2},
+                {"key": "Collider|Hadrons", "doc_count": 2},
+                {"key": "Collider|Hadrons|p p", "doc_count": 1},
+                {"key": "Neutrino (flavor)", "doc_count": 1},
             ],
         }
-        assert response["aggregations"]["classification"] == expected_aggregation
 
+        # aggregation
+        with inspire_app.test_client() as client:
+            response = client.get("/experiments/facets").json
+        assert response["aggregations"]["experiments"] == expected_aggregation
+
+        # filter
         with inspire_app.test_client() as client:
             response = client.get(
-                "/experiments?classification=Collider%20Experiments%7CHadrons%7Cp%20p"
+                "/experiments?experiments=Collider%7CHadrons%7Cp%20p"
             ).json
         assert len(response["hits"]["hits"]) == 1
         assert (
