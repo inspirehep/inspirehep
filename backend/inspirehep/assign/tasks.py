@@ -285,6 +285,6 @@ def create_rt_ticket_for_claiming_action(
         rt_queue,
         requestor,
         "rt/assign_authors_from_different_profile.html",
-        f"Claims by user {to_author_preffered_name} require curator action",
         template_payload,
+        f"Claims by user {to_author_preffered_name} require curator action",
     )

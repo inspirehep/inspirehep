@@ -475,7 +475,6 @@ def test_author_assign_view_claimed(mock_create_ticket, inspire_app):
         "AUTHORS_claim_manual",
         None,
         "rt/assign_authors_from_different_profile.html",
-        "Claims by user Michal Mata require curator action",
         {
             "to_author_names": ["Matczak, Michal"],
             "from_author_url": "http://localhost:5000/authors/1",
@@ -485,5 +484,6 @@ def test_author_assign_view_claimed(mock_create_ticket, inspire_app):
             },
             "already_claimed_papers": ["http://localhost:5000/literature/4"],
         },
+        "Claims by user Michal Mata require curator action",
     )
     assert response_status_code == 200
