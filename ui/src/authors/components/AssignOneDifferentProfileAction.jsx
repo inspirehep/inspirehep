@@ -22,20 +22,20 @@ function AssignOneDifferentProfileAction({
     onAssignWithoutClaimed({
       from: currentAuthorId,
       to: currentUserId,
+    });
+  }, [currentAuthorId, currentUserId, onAssignWithoutClaimed]);
+  const onAssignClaimed = useCallback(() => {
+    onAssignWithoutUnclaimed({
+      from: currentAuthorId,
+      to: currentUserId,
       userCanNotClaimProfile,
     });
   }, [
     currentAuthorId,
     currentUserId,
     userCanNotClaimProfile,
-    onAssignWithoutClaimed,
+    onAssignWithoutUnclaimed,
   ]);
-  const onAssignClaimed = useCallback(() => {
-    onAssignWithoutUnclaimed({
-      from: currentAuthorId,
-      to: currentUserId,
-    });
-  }, [currentAuthorId, currentUserId, onAssignWithoutUnclaimed]);
 
   const onAssignUserCantClaim = useCallback(() => {
     onAssignUserCanNotClaim({
@@ -51,15 +51,15 @@ function AssignOneDifferentProfileAction({
       !claimingUnclaimedPapersDisabled &&
       !userCanNotClaimProfile &&
       claimingClaimedPapersDisabled;
-    const onlyClaimClaimedAndNotMatchingName =
-      !claimingClaimedPapersDisabled && claimingUnclaimedPapersDisabled;
+    const onlyClaimClaimedAndMaybeNotMatchingName = !claimingClaimedPapersDisabled;
+
     if (onlyCanNotClaim) {
       onAssignUserCantClaim();
     }
     if (onlyClaimUnclaimed) {
       onAssignUnclaimed();
     }
-    if (onlyClaimClaimedAndNotMatchingName) {
+    if (onlyClaimClaimedAndMaybeNotMatchingName) {
       onAssignClaimed();
     }
   };

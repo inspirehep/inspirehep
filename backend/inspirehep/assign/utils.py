@@ -9,19 +9,14 @@ from inspire_dojson.utils import get_recid_from_ref
 from inspire_utils.record import get_value
 from invenio_pidstore.errors import PIDDoesNotExistError
 
-from inspirehep.accounts.api import (
-    get_current_user_orcid,
-    is_superuser_or_cataloger_logged_in,
-)
+from inspirehep.accounts.api import get_current_user_orcid
 from inspirehep.records.api import AuthorsRecord
 
 
 def is_assign_view_enabled():
-    return (
-        is_superuser_or_cataloger_logged_in()
-        and request.values.get("search_type", "", type=str) == "hep-author-publication"
-        and request.values.get("author", "", type=str)
-    )
+    return request.values.get(
+        "search_type", "", type=str
+    ) == "hep-author-publication" and request.values.get("author", "", type=str)
 
 
 def get_author_by_recid(literature_record, author_recid):
@@ -43,15 +38,23 @@ def update_author_bai(to_author_bai, lit_author):
     return lit_author_ids_list_updated
 
 
-def can_claim(data):
+def can_claim(data, author_profile_recid):
     current_user_orcid = get_current_user_orcid()
     try:
-        author_profile = AuthorsRecord.get_record_by_pid_value(
+        current_author_profile = AuthorsRecord.get_record_by_pid_value(
             current_user_orcid, "orcid"
         )
     except PIDDoesNotExistError:
         return False
 
-    author_names = {author_profile.get_value("name.value").split(",")[0]}
-    authors_names_from_record = {name for name in get_value(data, "authors.last_name")}
-    return author_names & authors_names_from_record
+    author_names = {current_author_profile.get_value("name.value").split(",")[0]}
+    author_names.update(
+        [
+            author_name.lsplit(",")[0]
+            for author_name in current_author_profile.get("name_variants", [])
+        ]
+    )
+    for lit_author in data.get("authors", []):
+        lit_author_ref = get_value(lit_author, "record.$ref", "")
+        if lit_author_ref and lit_author_ref.endswith(author_profile_recid):
+            return author_names & set([lit_author.get("last_name")])

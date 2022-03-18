@@ -6,7 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import orjson
-from flask import current_app, url_for
+from flask import current_app, request, url_for
 from inspire_utils.date import format_date
 from inspire_utils.record import get_value, get_values_for_schema
 from marshmallow import fields, missing, pre_dump
@@ -15,7 +15,7 @@ from inspirehep.accounts.api import (
     check_permissions_for_private_collection_read_write,
     is_user_logged_in,
 )
-from inspirehep.assign.utils import can_claim
+from inspirehep.assign.utils import can_claim, is_assign_view_enabled
 from inspirehep.files.api import current_s3_instance
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.marshmallow.common.mixins import (
@@ -258,8 +258,10 @@ class LiteratureListWrappedSchema(EnvelopeSchema):
                 ui_display["curated_relation"] = get_value(
                     data, "metadata.curated_relation", False
                 )
-            if can_claim(ui_display):
-                ui_display["can_claim"] = True
+            if is_assign_view_enabled():
+                author_recid = request.values.get("author", type=str).split("_")[0]
+                if can_claim(ui_display, author_recid):
+                    ui_display["can_claim"] = True
             if (
                 is_user_logged_in()
                 and check_permissions_for_private_collection_read_write(collections)
