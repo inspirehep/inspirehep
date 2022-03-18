@@ -32,9 +32,10 @@ def test_literature_related_records():
 
 
 @mock.patch(
-    "inspirehep.records.marshmallow.literature.ui.can_claim", return_value=False
+    "inspirehep.records.marshmallow.literature.ui.is_assign_view_enabled",
+    return_value=False,
 )
-def test_literature_ui_schema(mock_can_claim):
+def test_literature_ui_schema(mock_is_assign_request):
     data_record = faker.record("lit")
     data_record_json = orjson.dumps(data_record)
     data = {"metadata": {"_ui_display": data_record_json}}
@@ -69,9 +70,10 @@ def test_literature_api_schema_hides_emails_from_author_list():
 
 
 @mock.patch(
-    "inspirehep.records.marshmallow.literature.ui.can_claim", return_value=False
+    "inspirehep.records.marshmallow.literature.ui.is_assign_view_enabled",
+    return_value=False,
 )
-def test_literature_api_schema_hides_acquisition_source(mock_can_claim):
+def test_literature_api_schema_hides_acquisition_source(mock_is_assing_request):
     acquisition_source = {"email": "test@me.pl", "method": "oai", "source": "arxiv"}
 
     data = {"acquisition_source": acquisition_source}
@@ -82,9 +84,10 @@ def test_literature_api_schema_hides_acquisition_source(mock_can_claim):
 
 
 @mock.patch(
-    "inspirehep.records.marshmallow.literature.ui.can_claim", return_value=False
+    "inspirehep.records.marshmallow.literature.ui.is_assign_view_enabled",
+    return_value=False,
 )
-def test_literature_ui_schema_hides_emails_from_author_list(mock_can_claim):
+def test_literature_ui_schema_hides_emails_from_author_list(mock_is_assign_request):
     authors = [
         {"full_name": "Frank Castle", "emails": ["test@test.ch"]},
         {"full_name": "Smith, John"},
@@ -102,9 +105,10 @@ def test_literature_ui_schema_hides_emails_from_author_list(mock_can_claim):
 
 
 @mock.patch(
-    "inspirehep.records.marshmallow.literature.ui.can_claim", return_value=False
+    "inspirehep.records.marshmallow.literature.ui.is_assign_view_enabled",
+    return_value=False,
 )
-def test_literature_ui_schema_hides_acquisition_source(mock_can_claim):
+def test_literature_ui_schema_hides_acquisition_source(mock_is_assign_request):
     acquisition_source = {"email": "test@me.pl", "method": "oai", "source": "arxiv"}
 
     data = {"acquisition_source": acquisition_source}

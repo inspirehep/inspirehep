@@ -121,8 +121,8 @@ function LiteratureItem({ metadata, searchRank, isCatalogerLoggedIn }) {
           {assignDifferentProfileView && !assignOwnProfileView && (
             <AssignOneDifferentProfileContainer
               recordId={recordId}
-              claimingClaimedPapersDisabled={curatedRelation}
-              claimingUnclaimedPapersDisabled={!curatedRelation}
+              claimingClaimedPapersDisabled={!curatedRelation}
+              claimingUnclaimedPapersDisabled={curatedRelation}
               userCanNotClaimProfile={!canClaimDifferentProfile}
             />
           )}

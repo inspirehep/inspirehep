@@ -1532,10 +1532,24 @@ def test_authors_detail_can_claim_is_true(inspire_app):
             "ids": [{"value": user_orcid, "schema": "ORCID"}],
         },
     )
-    create_record("lit", data={"authors": [{"full_name": "Skute, Bobo"}]})
+    author_from_lit = create_record(
+        "aut",
+        data={
+            "name": {"value": "Skute, Bob"},
+        },
+    )
+    create_record(
+        "lit",
+        data={
+            "authors": [{"full_name": "Skute, Bobo", "record": author_from_lit["self"]}]
+        },
+    )
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
-        response = client.get("/literature", headers=headers)
+        response = client.get(
+            f"/literature?search_type=hep-author-publication&author={author_from_lit['control_number']}_Bob%20Skute",
+            headers=headers,
+        )
     response_data = orjson.loads(response.data)
 
     assert response_data["hits"]["total"] == 1
@@ -1557,10 +1571,24 @@ def test_authors_detail_can_claim_is_false_when_name_not_matching(inspire_app):
             "ids": [{"value": user_orcid, "schema": "ORCID"}],
         },
     )
-    create_record("lit", data={"authors": [{"full_name": "Skute, Bobo"}]})
+    author_from_lit = create_record(
+        "aut",
+        data={
+            "name": {"value": "Skute, Bob"},
+        },
+    )
+    create_record(
+        "lit",
+        data={
+            "authors": [{"full_name": "Skute, Bobo", "record": author_from_lit["self"]}]
+        },
+    )
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
-        response = client.get("/literature", headers=headers)
+        response = client.get(
+            f"/literature?author={author_from_lit['control_number']}_Bob%20Skute&search_type=hep-author-publication",
+            headers=headers,
+        )
     response_data = orjson.loads(response.data)
 
     assert response_data["hits"]["total"] == 1

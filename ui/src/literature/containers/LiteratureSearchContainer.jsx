@@ -193,13 +193,14 @@ function LiteratureSearch({
                                 'metadata',
                                 'control_number',
                               ])}
-                              claimed={
-                                result.getIn(
-                                  ['metadata', 'curated_relation'],
-                                  false
-                                ) &&
-                                !result.getIn(['metadata', 'can_claim'], false)
-                              }
+                              claimed={result.getIn(
+                                ['metadata', 'curated_relation'],
+                                false
+                              )}
+                              canClaim={result.getIn(
+                                ['metadata', 'can_claim'],
+                                false
+                              )}
                             />
                           </Col>
                         )}
