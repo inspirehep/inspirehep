@@ -50,11 +50,14 @@ def can_claim(data, author_profile_recid):
     author_names = {current_author_profile.get_value("name.value").split(",")[0]}
     author_names.update(
         [
-            author_name.lsplit(",")[0]
-            for author_name in current_author_profile.get("name_variants", [])
+            author_name.split(",")[0]
+            for author_name in current_author_profile.get("name.name_variants", [])
         ]
     )
     for lit_author in data.get("authors", []):
         lit_author_ref = get_value(lit_author, "record.$ref", "")
         if lit_author_ref and lit_author_ref.endswith(author_profile_recid):
-            return author_names & set([lit_author.get("last_name")])
+            author_last_name_to_check_compatibility = (
+                lit_author.get("last_name") or lit_author.get("full_name").split(",")[0]
+            )
+            return author_names & set([author_last_name_to_check_compatibility])
