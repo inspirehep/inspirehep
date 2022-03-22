@@ -220,7 +220,7 @@ def assign_papers(
 def _get_claimed_author_name_for_paper(from_author_recid, paper_authors):
     for author in paper_authors:
         author_recid = get_recid_from_ref(get_value(author, "record", ""))
-        if author_recid == from_author_recid:
+        if author_recid == int(from_author_recid):
             return author["full_name"]
 
 

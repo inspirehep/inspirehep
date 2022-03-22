@@ -258,10 +258,6 @@ class LiteratureListWrappedSchema(EnvelopeSchema):
                 ui_display["curated_relation"] = get_value(
                     data, "metadata.curated_relation", False
                 )
-            if is_assign_view_enabled():
-                author_recid = request.values.get("author", type=str).split("_")[0]
-                if can_claim(ui_display, author_recid):
-                    ui_display["can_claim"] = True
             if (
                 is_user_logged_in()
                 and check_permissions_for_private_collection_read_write(collections)
@@ -269,6 +265,10 @@ class LiteratureListWrappedSchema(EnvelopeSchema):
                 ui_display["can_edit"] = True
             if ui_display.get("authors"):
                 ui_display.update({"authors": get_authors_without_emails(ui_display)})
+            if is_assign_view_enabled():
+                author_recid = request.values.get("author", type=str).split("_")[0]
+                if can_claim(ui_display, author_recid):
+                    ui_display["can_claim"] = True
             acquisition_source = ui_display.get("acquisition_source")
             if acquisition_source and "email" in acquisition_source:
                 del acquisition_source["email"]

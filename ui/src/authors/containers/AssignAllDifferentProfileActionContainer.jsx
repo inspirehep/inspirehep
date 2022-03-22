@@ -12,7 +12,8 @@ const stateToProps = (state) => ({
   claimingUnclaimedPapersDisabled:
     state.authors.get('publicationSelectionUnclaimed').size === 0,
   claimingClaimedPapersDisabled:
-    state.authors.get('publicationSelectionClaimed').size === 0,
+    state.authors.get('publicationSelectionClaimed').size === 0 &&
+    state.authors.get('publicationSelectionCanNotClaim').size === 0,
 });
 
 const dispatchToProps = (dispatch) => ({

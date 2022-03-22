@@ -6,8 +6,11 @@
 # the terms of the MIT License; see LICENSE file for more details.
 from flask import request
 from inspire_dojson.utils import get_recid_from_ref
-from inspire_utils.record import get_value
+from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
+from invenio_pidstore.models import PersistentIdentifier
+from invenio_records.models import RecordMetadata
+from sqlalchemy.orm.exc import NoResultFound
 
 from inspirehep.accounts.api import get_current_user_orcid
 from inspirehep.records.api import AuthorsRecord
@@ -47,6 +50,20 @@ def can_claim(data, author_profile_recid):
     except PIDDoesNotExistError:
         return False
 
+    try:
+        lit_record = (
+            db.session.query(RecordMetadata, PersistentIdentifier)
+            .with_entities(RecordMetadata.json)
+            .filter(
+                PersistentIdentifier.pid_value == str(data["control_number"]),
+                PersistentIdentifier.pid_type == "lit",
+                RecordMetadata.id == PersistentIdentifier.object_uuid,
+            )
+            .one()
+        )
+    except NoResultFound:
+        return False
+
     author_names = {current_author_profile.get_value("name.value").split(",")[0]}
     author_names.update(
         [
@@ -54,10 +71,5 @@ def can_claim(data, author_profile_recid):
             for author_name in current_author_profile.get("name.name_variants", [])
         ]
     )
-    for lit_author in data.get("authors", []):
-        lit_author_ref = get_value(lit_author, "record.$ref", "")
-        if lit_author_ref and lit_author_ref.endswith(author_profile_recid):
-            author_last_name_to_check_compatibility = (
-                lit_author.get("last_name") or lit_author.get("full_name").split(",")[0]
-            )
-            return author_names & set([author_last_name_to_check_compatibility])
+    lit_author = get_author_by_recid(lit_record[0], int(author_profile_recid))
+    return author_names & set([lit_author.get("full_name").split(",")[0]])

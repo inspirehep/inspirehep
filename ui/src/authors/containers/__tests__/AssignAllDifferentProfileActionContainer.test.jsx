@@ -75,12 +75,13 @@ describe('AssignOwnProfileActionContainer', () => {
     });
   });
 
-  it('sets claimingClaimedPapersDisabled if no unclaimed papers selected', () => {
+  it('sets claimingClaimedPapersDisabled if unclaimed papers selected', () => {
     const store = getStore({
       authors: fromJS({
         publicationSelection: [1, 2],
         publicationSelectionClaimed: [],
         publicationSelectionUnclaimed: [1, 2],
+        publicationSelectionCanNotClaim: [],
       }),
       user: fromJS({
         data: {
@@ -107,6 +108,7 @@ describe('AssignOwnProfileActionContainer', () => {
         publicationSelection: Set(),
         publicationSelectionClaimed: [],
         publicationSelectionUnclaimed: [],
+        publicationSelectionCanNotClaim: [],
       }),
       user: fromJS({
         data: {

@@ -22,7 +22,7 @@ const dispatchToProps = (dispatch) => ({
   onChange(publicationIds, claimed, canClaim, selected) {
     const claimedPaperIds = publicationIds.filter((item, i) => claimed.get(i));
     const unclaimedPaperIds = publicationIds.filter(
-      (item, i) => !claimed.get(i)
+      (item, i) => !claimed.get(i) && canClaim.get(i)
     );
     const canNotClaimPaperIds = publicationIds.filter(
       (item, i) => !canClaim.get(i)
