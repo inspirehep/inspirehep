@@ -48,7 +48,7 @@ function renderWebsiteAction(website, title) {
 }
 
 const ACTION_TITLE = (
-  <Tooltip title="Personal website">
+  <Tooltip title="Author websites">
     <LinkOutlined />
   </Tooltip>
 );

@@ -304,6 +304,35 @@ def test_author_bai(can_edit, populate_students_field):
 @mock.patch(
     "inspirehep.records.marshmallow.authors.ui.AuthorsDetailSchema.populate_students_field"
 )
+def test_author_urls(can_edit, populate_students_field):
+    can_edit.return_value = False
+    populate_students_field.return_value = []
+
+    schema = AuthorsDetailSchema()
+    data = {
+        "ids": [{"schema": "WIKIPEDIA", "value": "John_Ellis_(physicist)"}],
+        "urls": [
+            {
+                "value": "https://www.kcl.ac.uk/nms/depts/physics/people/academicstaff/ellis.aspx"
+            }
+        ],
+    }
+    author = faker.record("aut", data=data, with_control_number=True)
+    expected_wikipedia_url = "https://en.wikipedia.org/wiki/John_Ellis_(physicist)"
+    expected_wikipedia = "Wikipedia"
+
+    result = schema.dumps(author).data
+    result_data = orjson.loads(result)
+    result_urls = result_data.get("urls")
+
+    assert expected_wikipedia_url in result_urls[1].get("value")
+    assert expected_wikipedia in result_urls[1].get("description")
+
+
+@mock.patch("inspirehep.records.marshmallow.authors.ui.can_user_edit_author_record")
+@mock.patch(
+    "inspirehep.records.marshmallow.authors.ui.AuthorsDetailSchema.populate_students_field"
+)
 def test_author_orcid(can_edit, populate_students_field):
     can_edit.return_value = False
     populate_students_field.return_value = []
