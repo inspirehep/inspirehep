@@ -47,6 +47,7 @@ class AuthorsDetailSchema(AuthorsBaseSchema):
     bai = fields.Method("get_bai", dump_only=True)
     email_addresses = fields.Method("get_current_public_emails", dump_only=True)
     students = fields.Method("populate_students_field", dump_only=True)
+    urls = fields.Method("get_all_urls_field", dump_only=True)
 
     def get_facet_author_name(self, data):
         facet_author_name = data.get("facet_author_name")
@@ -57,6 +58,37 @@ class AuthorsDetailSchema(AuthorsBaseSchema):
     @staticmethod
     def get_twitter(data):
         return get_first_value_for_schema(data.get("ids", []), "TWITTER")
+
+    @staticmethod
+    def get_all_urls_field(data):
+
+        urls = data.get("urls", [])
+        external_author_profiles = [
+            {
+                "schema": "WIKIPEDIA",
+                "name": "Wikipedia",
+                "source": "https://en.wikipedia.org/wiki/",
+            },
+            {
+                "schema": "GOOGLESCHOLAR",
+                "name": "Google Scholar",
+                "source": "https://scholar.google.com/citations?user=",
+            },
+        ]
+
+        for external_profile in external_author_profiles:
+            value = get_first_value_for_schema(
+                data.get("ids", []), external_profile["schema"]
+            )
+            if value:
+                urls.append(
+                    {
+                        "description": external_profile["name"],
+                        "value": external_profile["source"] + value,
+                    }
+                )
+
+        return urls
 
     @staticmethod
     def get_linkedin(data):

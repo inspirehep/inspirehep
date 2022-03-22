@@ -150,7 +150,7 @@ function AuthorForm({ values, isCatalogerLoggedIn, isUpdate }) {
           />
         </CollapsableForm.Section>
         <CollapsableForm.Section
-          header="Personal Websites"
+          header="Author websites"
           key="personal_websites"
         >
           <ArrayOf

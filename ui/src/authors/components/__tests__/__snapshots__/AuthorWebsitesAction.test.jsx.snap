@@ -12,7 +12,7 @@ exports[`AuthorWebsitesAction renders only a url 1`] = `
       mouseEnterDelay={0.1}
       mouseLeaveDelay={0.1}
       placement="top"
-      title="Personal website"
+      title="Author websites"
       transitionName="zoom-big-fast"
     >
       <ForwardRef(LinkOutlined) />
@@ -33,7 +33,7 @@ exports[`AuthorWebsitesAction renders only blog 1`] = `
       mouseEnterDelay={0.1}
       mouseLeaveDelay={0.1}
       placement="top"
-      title="Personal website"
+      title="Author websites"
       transitionName="zoom-big-fast"
     >
       <ForwardRef(LinkOutlined) />
@@ -59,7 +59,7 @@ exports[`AuthorWebsitesAction renders with a blog and urls in a dropdown 1`] = `
           mouseEnterDelay={0.1}
           mouseLeaveDelay={0.1}
           placement="top"
-          title="Personal website"
+          title="Author websites"
           transitionName="zoom-big-fast"
         >
           <ForwardRef(LinkOutlined) />
