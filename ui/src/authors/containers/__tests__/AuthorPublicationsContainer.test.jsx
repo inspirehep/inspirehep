@@ -100,6 +100,7 @@ describe('AuthorPublicationsContainer', () => {
         publicationSelection: {},
         publicationSelectionUnclaimed: [],
         publicationSelectionClaimed: [],
+        publicationSelectionCanNotClaim: [],
         data: {
           metadata: {
             can_edit: true,

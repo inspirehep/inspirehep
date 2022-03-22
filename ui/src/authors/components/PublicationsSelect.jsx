@@ -18,7 +18,7 @@ function PublicationsSelect({
     }
     if (claimed) {
       onSelectClaimedPapers(event);
-    } else {
+    } else if (!claimed && canClaim) {
       onSelectUnclaimedPapers(event);
     }
   };
