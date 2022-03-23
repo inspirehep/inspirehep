@@ -8,7 +8,7 @@ import {
 
 const stateToProps = (state) => ({
   disabled: state.authors.get('publicationSelection').size === 0,
-  currentUserId: state.user.getIn(['data', 'recid']),
+  currentUserId: Number(state.user.getIn(['data', 'recid'])),
   claimingUnclaimedPapersDisabled:
     state.authors.get('publicationSelectionUnclaimed').size === 0,
   claimingClaimedPapersDisabled:

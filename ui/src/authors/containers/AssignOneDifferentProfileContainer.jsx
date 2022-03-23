@@ -15,7 +15,7 @@ import {
 import AssignOneDifferentProfileAction from '../components/AssignOneDifferentProfileAction';
 
 export const stateToProps = (state) => ({
-  currentUserId: state.user.getIn(['data', 'recid']),
+  currentUserId: Number(state.user.getIn(['data', 'recid'])),
 });
 
 export const dispatchToProps = (dispatch, { recordId }) => ({
