@@ -5,7 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 import structlog
-from flask import Blueprint, request
+from flask import Blueprint
 from flask_celeryext.app import current_celery_app
 from invenio_db import db
 from webargs import fields
@@ -85,15 +85,39 @@ def assign_to_author(from_author_recid, to_author_recid, literature_recids):
 
 @blueprint.route("author", methods=["POST"])
 @login_required_with_roles()
-def author_assign_view():
-    body = request.get_json()
-    to_author_recid = body.get("to_author_recid")
-    from_author_recid = body["from_author_recid"]
-    literature_recids = body.get("literature_recids")
-    claimed_literature_recids = body.get("papers_ids_already_claimed")
-    not_allowed_to_be_claimed_literature_recids = body.get(
+@parser.use_args(
+    {
+        "from_author_recid": fields.Integer(required=True),
+        "to_author_recid": fields.Integer(required=False),
+        "literature_recids": fields.List(fields.Integer, required=False),
+        "papers_ids_already_claimed": fields.List(fields.Integer, required=False),
+        "papers_ids_not_matching_name": fields.List(fields.Integer, required=False),
+    },
+    locations=("json",),
+)
+def author_assign_view(args):
+    to_author_recid = args.get("to_author_recid")
+    from_author_recid = args["from_author_recid"]
+    literature_recids = args.get("literature_recids")
+    claimed_literature_recids = args.get("papers_ids_already_claimed")
+    not_allowed_to_be_claimed_literature_recids = args.get(
         "papers_ids_not_matching_name"
     )
+
+    if not any(
+        [
+            literature_recids,
+            claimed_literature_recids,
+            not_allowed_to_be_claimed_literature_recids,
+        ]
+    ):
+        return (
+            jsonify(
+                success=False,
+                message="None of required fields was passed",
+            ),
+            400,
+        )
 
     if claimed_literature_recids or not_allowed_to_be_claimed_literature_recids:
         create_rt_ticket_for_claiming_action.delay(

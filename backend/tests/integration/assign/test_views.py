@@ -487,3 +487,89 @@ def test_author_assign_view_claimed(mock_create_ticket, inspire_app):
         "Claims by user Michal Mata require curator action",
     )
     assert response_status_code == 200
+
+
+def test_author_assign_validates_input_when_no_papers_passed(inspire_app):
+    cataloger = create_user(role="cataloger")
+    author_data = {
+        "name": {"value": "Aad, Georges", "preferred_name": "Georges Aad"},
+        "ids": [{"value": "G.Aad.1", "schema": "INSPIRE BAI"}],
+        "control_number": 1,
+    }
+    author_data_2 = {
+        "name": {"value": "Matczak, Michal", "preferred_name": "Michal Mata"},
+        "ids": [{"value": "M.Matczak.1", "schema": "INSPIRE BAI"}],
+        "control_number": 2,
+    }
+    from_author = create_record("aut", data=author_data)
+    to_author = create_record("aut", data=author_data_2)
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=cataloger.email)
+        response = client.post(
+            "/assign/author",
+            data=orjson.dumps(
+                {
+                    "from_author_recid": from_author["control_number"],
+                    "to_author_recid": to_author["control_number"],
+                }
+            ),
+            content_type="application/json",
+        )
+    response_status_code = response.status_code
+    assert response_status_code == 400
+
+
+@mock.patch("inspirehep.assign.views.assign_to_author")
+def test_author_assign_uses_parser_args(mock_assign, inspire_app):
+    cataloger = create_user(role="cataloger")
+    author_data = {
+        "name": {"value": "Aad, Georges", "preferred_name": "Georges Aad"},
+        "ids": [{"value": "G.Aad.1", "schema": "INSPIRE BAI"}],
+        "control_number": 1,
+    }
+    author_data_2 = {
+        "name": {"value": "Matczak, Michal", "preferred_name": "Michal Mata"},
+        "ids": [{"value": "M.Matczak.1", "schema": "INSPIRE BAI"}],
+        "control_number": 2,
+    }
+    from_author = create_record("aut", data=author_data)
+    to_author = create_record("aut", data=author_data_2)
+    literature_1 = create_record(
+        "lit",
+        data={
+            "control_number": 3,
+            "authors": [
+                {
+                    "curated_relation": False,
+                    "full_name": "Aad, Georges",
+                    "record": {
+                        "$ref": f"http://localhost:5000/api/authors/{from_author['control_number']}"
+                    },
+                },
+                {
+                    "full_name": "Urhan, Ahmet",
+                    "record": {"$ref": "http://localhost:5000/api/authors/17200"},
+                },
+            ],
+        },
+    )
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=cataloger.email)
+        client.post(
+            "/assign/author",
+            data=orjson.dumps(
+                {
+                    "from_author_recid": str(from_author["control_number"]),
+                    "to_author_recid": str(to_author["control_number"]),
+                    "literature_recids": [str(literature_1["control_number"])],
+                }
+            ),
+            content_type="application/json",
+        )
+    assert mock_assign.mock_calls[0][1] == (
+        from_author["control_number"],
+        to_author["control_number"],
+        [literature_1["control_number"]],
+    )

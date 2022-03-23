@@ -16,7 +16,7 @@ function AssignDifferentProfileAction({
   claimingUnclaimedPapersDisabled,
   claimingClaimedPapersDisabled,
 }) {
-  const currentAuthorId = useParams().id;
+  const currentAuthorId = Number(useParams().id);
   const onAssignUnclaimed = useCallback(() => {
     onAssignWithoutClaimed({
       from: currentAuthorId,
