@@ -1406,7 +1406,7 @@ tests = ["flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pytest-c
 
 [[package]]
 name = "inspire-query-parser"
-version = "6.0.44"
+version = "6.0.45"
 description = "A PEG-based query parser for INSPIRE."
 category = "main"
 optional = false
@@ -1560,7 +1560,7 @@ werkzeug = ">=0.15"
 admin = ["Flask-Admin (>=1.3.0)"]
 all = ["Flask-Admin (>=1.3.0)", "Sphinx (>=1.4.2,<1.6)", "check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.3.0)", "mock (>=2.0.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-flask (>=0.10.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.0.0,<5.0.0)", "selenium (>=3.0.1)"]
 docs = ["Sphinx (>=1.4.2,<1.6)"]
-mysql = ["invenio-db[mysql,versioning] (>=1.0.0)"]
+mysql = ["invenio-db[versioning,mysql] (>=1.0.0)"]
 postgresql = ["invenio-db[versioning,postgresql] (>=1.0.0)"]
 sqlite = ["invenio-db[versioning] (>=1.0.0)"]
 tests = ["check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.3.0)", "mock (>=2.0.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-flask (>=0.10.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.0.0,<5.0.0)", "selenium (>=3.0.1)"]
@@ -1923,7 +1923,7 @@ werkzeug = ">=0.14.1"
 admin = ["Flask-Admin (>=1.3.0)"]
 all = ["Sphinx (>=1.7.2)", "Flask-Admin (>=1.3.0)", "check-manifest (>=0.25)", "coverage (>=4.5.3)", "Flask-Menu (>=0.5.0)", "invenio-admin (>=1.0.0)", "isort (>=4.3.0)", "mock (>=1.3.0)", "pydocstyle (>=3.0.0)", "pytest-cov (>=2.7.1)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.6.4,<5.0.0)"]
 docs = ["Sphinx (>=1.7.2)"]
-mysql = ["invenio-db[mysql,versioning] (>=1.0.0)"]
+mysql = ["invenio-db[versioning,mysql] (>=1.0.0)"]
 postgresql = ["invenio-db[versioning,postgresql] (>=1.0.0)"]
 sqlite = ["invenio-db[versioning] (>=1.0.0)"]
 tests = ["check-manifest (>=0.25)", "coverage (>=4.5.3)", "Flask-Menu (>=0.5.0)", "invenio-admin (>=1.0.0)", "isort (>=4.3.0)", "mock (>=1.3.0)", "pydocstyle (>=3.0.0)", "pytest-cov (>=2.7.1)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.6.4,<5.0.0)"]
@@ -4620,8 +4620,8 @@ inspire-matcher = [
     {file = "inspire_matcher-9.0.14-py2-none-any.whl", hash = "sha256:d72a6b996ac8d24e630e0b898073fec214b74ad6778564a1e2d872ac5ccab110"},
 ]
 inspire-query-parser = [
-    {file = "inspire-query-parser-6.0.44.tar.gz", hash = "sha256:dd83f3caa5883dede974dc44a5a38b55d4516e1de44bb2c3e25a26d63b131837"},
-    {file = "inspire_query_parser-6.0.44-py3-none-any.whl", hash = "sha256:2b5e4e60ee834528557ac983542b3ba466f0c66546364438b68414c6c7bcc06d"},
+    {file = "inspire-query-parser-6.0.45.tar.gz", hash = "sha256:2e7d2053c77150e8c1ae7ccd7b04bbb8f32911ea0f10865a58a836840512bc77"},
+    {file = "inspire_query_parser-6.0.45-py3-none-any.whl", hash = "sha256:bfa07c37ef6708c46654b6d17d09b970779dbdfca264f39a0148d853a58e610d"},
 ]
 inspire-schemas = [
     {file = "inspire_schemas-61.4.8-py2.py3-none-any.whl", hash = "sha256:899779038e53a70ead2f1d8b0d680fe34367d803dd8b26dd8ed7bc48209474ed"},
