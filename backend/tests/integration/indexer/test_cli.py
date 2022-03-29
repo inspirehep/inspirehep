@@ -8,6 +8,9 @@
 import random
 import re
 
+import pytest
+from elasticsearch import NotFoundError
+from elasticsearch.client.ingest import IngestClient
 from flask_sqlalchemy import models_committed
 from helpers.utils import create_record, create_record_factory
 from invenio_search import current_search
@@ -53,6 +56,16 @@ def test_reindex_one_type_of_record(inspire_app, cli):
 
     assert str(record_lit.id) == results_lit_uuid
     assert expected_aut_len == results_aut_len
+
+
+def test_reindex_one_type_of_record_with_fulltext(inspire_app, cli):
+    record_lit = create_record_factory("lit")
+
+    cli.invoke(["index", "reindex", "-ft", "-p", "lit"])
+    current_search.flush_and_refresh("*")
+    results_lit_uuid = LiteratureSearch().execute().hits.hits[0]["_id"]
+
+    assert str(record_lit.id) == results_lit_uuid
 
 
 def test_remap_one_index(inspire_app, cli):
@@ -431,3 +444,50 @@ def test_cli_reindex_deleted_and_redirected_records(inspire_app, cli):
     results = LiteratureSearch().query_from_iq("").execute()
     control_numbers_from_es = [x.control_number for x in results.hits]
     assert set(control_numbers_from_es) == set(expected_control_numbers)
+
+
+def test_cli_put_files_pipeline(inspire_app, cli):
+    cli.invoke(["index", "put_files_pipeline"])
+    IngestClient(current_search.client)
+    expected_result = {
+        "file_content": {
+            "description": "Extract information from documents array",
+            "processors": [
+                {
+                    "foreach": {
+                        "field": "documents",
+                        "processor": {
+                            "attachment": {
+                                "field": "_ingest._value.text",
+                                "target_field": "_ingest._value.attachment",
+                                "indexed_chars": -1,
+                                "ignore_missing": True,
+                            }
+                        },
+                    }
+                },
+                {
+                    "foreach": {
+                        "field": "documents",
+                        "processor": {
+                            "remove": {
+                                "field": "_ingest._value.text",
+                                "ignore_missing": True,
+                            }
+                        },
+                    }
+                },
+            ],
+        }
+    }
+    assert (
+        IngestClient(current_search.client).get_pipeline("file_content")
+        == expected_result
+    )
+
+
+def test_cli_removes_files_pipeline(inspire_app, cli):
+    cli.invoke(["index", "delete-files-pipeline"])
+    ingest_client = IngestClient(current_search.client)
+    with pytest.raises(NotFoundError):
+        ingest_client.get_pipeline(inspire_app.config["ES_FULLTEXT_PIPELINE_NAME"])

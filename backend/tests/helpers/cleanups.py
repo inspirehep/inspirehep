@@ -7,10 +7,14 @@
 from itertools import chain
 
 from elasticsearch import ConflictError, NotFoundError, RequestError
+from elasticsearch.client.ingest import IngestClient
+from flask import current_app
 from helpers.utils import get_index_alias
 from invenio_search.errors import IndexAlreadyExistsError
 from pytest_invenio.fixtures import _es_create_indexes
 from sqlalchemy_utils import create_database, database_exists
+
+from inspirehep.indexer.cli import _put_files_pipeline
 
 
 def es_cleanup(es):
@@ -25,6 +29,7 @@ def es_cleanup(es):
     """
     from invenio_search import current_search
 
+    ingestion_pipeline_client = IngestClient(current_search.client)
     current_search.flush_and_refresh("*")
     existing_mappings_nested = (
         x["aliases"].keys() for x in es.indices.get_alias("*").values()
@@ -48,6 +53,13 @@ def es_cleanup(es):
         es.indices.delete(index="*", allow_no_indices=True, expand_wildcards="all")
         current_search.flush_and_refresh("*")
         _es_create_indexes(current_search, es)
+    try:
+        ingestion_pipeline_client.get_pipeline(
+            current_app.config["ES_FULLTEXT_PIPELINE_NAME"]
+        )
+    except (RequestError, NotFoundError):
+        _put_files_pipeline()
+
     current_search.flush_and_refresh("*")
 
 

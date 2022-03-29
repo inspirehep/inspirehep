@@ -6,7 +6,6 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import random
 import time
-from datetime import datetime, timedelta
 from functools import partial
 
 from click.testing import CliRunner
@@ -17,7 +16,6 @@ from helpers.factories.models.pidstore import PersistentIdentifierFactory
 from helpers.factories.models.records import RecordMetadataFactory
 from helpers.factories.models.user_access_token import AccessTokenFactory, UserFactory
 from helpers.providers.faker import faker
-from inspire_utils.record import get_value
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_search import current_search
@@ -156,6 +154,7 @@ def retry_until_pass(assert_function, timeout=30, retry_interval=0.3):
             NotFoundError,
             KeyError,
             ValueError,
+            IndexError,
         ) as error:
             last_raised_assertion_error = error
             time.sleep(retry_interval)
