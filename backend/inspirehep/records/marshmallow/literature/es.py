@@ -5,6 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+import base64
 from itertools import chain
 
 import orjson
@@ -28,6 +29,7 @@ from inspirehep.records.marshmallow.literature.common.thesis_info import (
     ThesisInfoSchemaForESV1,
 )
 from inspirehep.records.models import RecordCitations, RecordsAuthors
+from inspirehep.records.utils import download_file_from_url
 
 from ..base import ElasticSearchBaseSchema
 from ..utils import get_display_name_for_author_name, get_facet_author_name_for_author
@@ -232,3 +234,22 @@ class LiteratureElasticSearchSchema(ElasticSearchBaseSchema, LiteratureRawSchema
                 journal_title_split = journal_title.replace(".", ". ").strip()
                 result.add(journal_title_split)
         return list(result)
+
+
+class LiteratureFulltextElasticSearchSchema(LiteratureElasticSearchSchema):
+    """Elasticsearch fulltext serialzier"""
+
+    documents = fields.Method("get_documents_with_fulltext")
+
+    def get_documents_with_fulltext(self, record_data):
+        documents = record_data.get("documents")
+        for document in documents:
+            if (
+                not document.get("hidden")
+                and document["key"].endswith("pdf")
+                and document["fulltext"]
+            ):
+                file_data = download_file_from_url(document["url"])
+                encoded_file = base64.b64encode(file_data).decode("ascii")
+                document["text"] = encoded_file
+        return documents

@@ -45,7 +45,10 @@ from inspirehep.records.errors import (
     UnknownImportIdentifierError,
     UnsupportedFileError,
 )
-from inspirehep.records.marshmallow.literature import LiteratureElasticSearchSchema
+from inspirehep.records.marshmallow.literature import (
+    LiteratureElasticSearchSchema,
+    LiteratureFulltextElasticSearchSchema,
+)
 from inspirehep.records.utils import (
     download_file_from_url,
     get_authors_phonetic_blocks,
@@ -83,6 +86,7 @@ class LiteratureRecord(
     """Literature Record."""
 
     es_serializer = LiteratureElasticSearchSchema
+    es_fulltext_serializer = LiteratureFulltextElasticSearchSchema
     pid_type = "lit"
     pidstore_handler = PidStoreLiterature
     nested_record_fields = ["authors", "publication_info", "supervisors"]
@@ -548,6 +552,26 @@ class LiteratureRecord(
         LOGGER.info("No references changed", uuid=str(self.id))
         return set()
 
+    def index_fulltext(self, delay=True):
+        """Index record in ES.
+
+        Args:
+            force_delete: set to True if record has to be deleted,
+                If not set, tries to determine automatically if record should be deleted
+            delay: if True will start the index task async otherwise async.
+        """
+        from inspirehep.indexer.tasks import index_fulltext
+
+        LOGGER.info(
+            "Record indexing with fulltext",
+            recid=self.control_number,
+            uuid=str(self.id),
+        )
+        if delay:
+            index_fulltext.delay(str(self.id))
+            return
+        index_fulltext(str(self.id))
+
     @classmethod
     def fix_entries_by_update_date(cls, before=None, after=None, max_chunk=100):
         from inspirehep.records.tasks import regenerate_author_records_table_entries
@@ -564,6 +588,14 @@ class LiteratureRecord(
                 del author["record"]
             if "curated_relation" in author:
                 del author["curated_relation"]
+
+    def serialize_for_es_with_fulltext(self):
+        """Prepares proper json data for es fulltext serializer
+
+        Returns:
+            dict: Properly serialized and prepared record with full
+        """
+        return self.get_enhanced_es_data(serializer=self.es_fulltext_serializer)
 
 
 def import_article(identifier):

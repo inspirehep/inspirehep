@@ -2410,3 +2410,23 @@ def test_import_article_with_unknown_type_should_import_as_article(inspire_app):
     record = import_article(doi)
 
     assert record["document_type"] == ["article"]
+
+
+@pytest.mark.vcr()
+def test_index_fulltext_document(inspire_app):
+    doi = "10.31234/osf.io/4ms5a"
+    record = import_article(doi)
+    data = {
+        "documents": [
+            {
+                "source": "arxiv",
+                "fulltext": True,
+                "key": "2105.15193.pdf",
+                "url": "https://arxiv.org/pdf/2105.15193.pdf",
+            }
+        ]
+    }
+    record_data = faker.record("lit", with_control_number=True, data=data)
+    record = LiteratureRecord.create(record_data)
+    serialized_data = record.serialize_for_es_with_fulltext()
+    assert "text" in serialized_data["documents"][0]

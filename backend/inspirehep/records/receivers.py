@@ -11,6 +11,8 @@ from flask_sqlalchemy import models_committed
 from invenio_records.models import RecordMetadata
 
 from inspirehep.disambiguation.api import author_disambiguation
+from inspirehep.indexer.tasks import index_fulltext
+from inspirehep.pidstore.api.base import PidStoreBase
 from inspirehep.records.api import InspireRecord
 from inspirehep.records.tasks import redirect_references_to_merged_record
 
@@ -44,3 +46,12 @@ def index_after_commit(sender, changes):
                     author_disambiguation(model_instance)
                 if "new_record" in model_instance.json:
                     redirect_references_to_merged_record.delay(str(model_instance.id))
+                if (
+                    PidStoreBase.get_pid_type_from_schema(
+                        model_instance.json["$schema"]
+                    )
+                    == "lit"
+                    and "documents" in model_instance.json
+                    and current_app.config["FEATURE_FLAG_ENABLE_FULLTEXT"]
+                ):
+                    index_fulltext.delay(str(model_instance.id))

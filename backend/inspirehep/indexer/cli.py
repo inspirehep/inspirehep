@@ -13,6 +13,7 @@ from time import sleep
 import click
 import structlog
 from click import UsageError
+from elasticsearch.client.ingest import IngestClient
 from flask import current_app
 from flask.cli import with_appcontext
 from invenio_db import db
@@ -20,7 +21,7 @@ from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_search import current_search
 from invenio_search.cli import index
 
-from inspirehep.indexer.tasks import batch_index
+from inspirehep.indexer.tasks import batch_index, batch_index_literature_fulltext
 from inspirehep.records.api import InspireRecord
 
 LOGGER = structlog.getLogger()
@@ -71,7 +72,7 @@ def _prepare_logdir(log_path):
         makedirs(path.dirname(log_path))
 
 
-@index.command("reindex")
+@index.command("reindex")  # noqa
 @click.option("--all", is_flag=True, help="Reindex all the records.", show_default=True)
 @click.option(
     "-p",
@@ -88,6 +89,7 @@ def _prepare_logdir(log_path):
     "Example `reindex -id lit 1234.`",
     show_default=True,
 )
+@click.option("-ft", "--fulltext", is_flag=True, help="Index with fulltext")
 @click.option(
     "-q",
     "--queue-name",
@@ -119,7 +121,7 @@ def _prepare_logdir(log_path):
 @with_appcontext
 @click.pass_context
 def reindex_records(
-    ctx, all, pidtype, pid, queue_name, batch_size, db_batch_size, log_path
+    ctx, all, pidtype, pid, fulltext, queue_name, batch_size, db_batch_size, log_path
 ):
     """(Inspire) Reindex records in ElasticSearch.
 
@@ -163,7 +165,10 @@ def reindex_records(
         record = InspireRecord.get_record_by_pid_value(
             pid_value, pid_type, original_record=True
         )
-        record.index()
+        if pid_type == "lit" and fulltext:
+            record.index_fulltext()
+        else:
+            record.index()
         click.secho(f"Successfully reindexed record {pid}", fg="green")
         ctx.exit(0)
 
@@ -198,10 +203,16 @@ def reindex_records(
 
         while batch:
             uuids = [str(item[0]) for item in batch]
-            indexer_task = batch_index.apply_async(
-                kwargs={"records_uuids": uuids, "request_timeout": request_timeout},
-                queue=queue_name,
-            )
+            if pidtype == "lit" and fulltext:
+                indexer_task = batch_index_literature_fulltext.apply_async(
+                    kwargs={"records_uuids": uuids, "request_timeout": request_timeout},
+                    queue=queue_name,
+                )
+            else:
+                indexer_task = batch_index.apply_async(
+                    kwargs={"records_uuids": uuids, "request_timeout": request_timeout},
+                    queue=queue_name,
+                )
 
             uuid_records_per_tasks[indexer_task.id] = uuids
             all_tasks.append(indexer_task)
@@ -368,3 +379,62 @@ def delete_aliases(ctx, yes_i_know, prefix):
         current_search.client.indices.delete_alias(index=index_to_delete, name="*")
         current_search.client.indices.delete(index_to_delete)
         click.echo(f"Deleted '{index_to_delete}' index and all linked aliases.")
+
+
+def _put_files_pipeline():
+    ingestion_pipeline_client = IngestClient(current_search.client)
+    ingestion_pipeline_client.put_pipeline(
+        id=current_app.config["ES_FULLTEXT_PIPELINE_NAME"],
+        body={
+            "description": "Extract information from documents array",
+            "processors": [
+                {
+                    "foreach": {
+                        "field": "documents",
+                        "processor": {
+                            "attachment": {
+                                "field": "_ingest._value.text",
+                                "target_field": "_ingest._value.attachment",
+                                "indexed_chars": -1,
+                                "ignore_missing": True,
+                            },
+                        },
+                    },
+                },
+                {
+                    "foreach": {
+                        "field": "documents",
+                        "processor": {
+                            "remove": {
+                                "field": "_ingest._value.text",
+                                "ignore_missing": True,
+                            }
+                        },
+                    }
+                },
+            ],
+        },
+    )
+
+
+@index.command(
+    "put-files-pipeline",
+    help="Put pipeline to ingest file content to hep index",
+)
+@with_appcontext
+@click.pass_context
+def put_files_pipeline(ctx):
+    _put_files_pipeline()
+
+
+@index.command(
+    "delete-files-pipeline",
+    help="Delete file index pipeline",
+)
+@with_appcontext
+@click.pass_context
+def delete_files_pipeline(ctx):
+    ingestion_pipeline_client = IngestClient(current_search.client)
+    ingestion_pipeline_client.delete_pipeline(
+        current_app.config["ES_FULLTEXT_PIPELINE_NAME"]
+    )

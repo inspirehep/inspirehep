@@ -12,6 +12,6 @@ from .base import (
     LiteraturePublicListSchema,
     LiteraturePublicSchema,
 )
-from .es import LiteratureElasticSearchSchema
+from .es import LiteratureElasticSearchSchema, LiteratureFulltextElasticSearchSchema
 from .references import LiteratureReferencesSchema
 from .ui import LiteratureDetailSchema, LiteratureListWrappedSchema

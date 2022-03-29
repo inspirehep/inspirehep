@@ -710,7 +710,17 @@
           },
           "url": {
             "type": "keyword"
-          }
+          },
+          "attachment" : {
+            "properties" : {
+                "content" : { 
+                    "type" : "text",
+                    "store": true,
+                    "term_vector": "with_positions_offsets"
+                 },
+                "content_length" : { "type" : "long" }
+            }
+        }
         },
         "type": "object"
       },

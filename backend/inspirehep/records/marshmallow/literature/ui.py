@@ -95,6 +95,7 @@ class LiteratureDetailSchema(
     date = fields.Method("get_formatted_earliest_date")
     is_collection_hidden = fields.Method("get_is_collection_hidden")
     dois = fields.Nested(DOISchemaV1, dump_only=True, many=True)
+    documents = fields.Method("get_documents_without_fulltext")
     external_system_identifiers = fields.Nested(
         ExternalSystemIdentifierSchemaV1, dump_only=True, many=True
     )
@@ -249,6 +250,15 @@ class LiteratureDetailSchema(
                     {"value": dataset_url, "description": dataset_description}
                 )
         return dataset_links or missing
+
+    def get_documents_without_fulltext(self, data):
+        documents = data.get("documents", [])
+        for document in documents:
+            if "attachment" in document:
+                del document["attachment"]
+            if "text" in document:
+                del document["text"]
+        return documents
 
 
 class LiteratureListWrappedSchema(EnvelopeSchema):
