@@ -1277,7 +1277,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [[package]]
 name = "idutils"
-version = "1.1.4"
+version = "1.1.11"
 description = "Small library for persistent identifiers used in scholarly communication."
 category = "main"
 optional = false
@@ -1288,9 +1288,9 @@ isbnid-fork = ">=0.4.4"
 six = ">=1.10"
 
 [package.extras]
-all = ["Sphinx (>=1.4.2)", "check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.2.2)", "pydocstyle (>=1.0)", "pytest-cache (>=1.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)", "pytest-runner (>=2.6.2)", "pytest (>=3.6.0)"]
-docs = ["Sphinx (>=1.4.2)"]
-tests = ["check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.2.2)", "pydocstyle (>=1.0)", "pytest-cache (>=1.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)", "pytest-runner (>=2.6.2)", "pytest (>=3.6.0)"]
+all = ["Sphinx (>=3)", "pytest-cache (>=1.0)", "pytest-runner (>=2.6.2)", "pytest-invenio (>=1.4.0)"]
+docs = ["Sphinx (>=3)"]
+tests = ["pytest-cache (>=1.0)", "pytest-runner (>=2.6.2)", "pytest-invenio (>=1.4.0)"]
 
 [[package]]
 name = "incremental"
@@ -1426,7 +1426,7 @@ tests = ["flake8 (>=3.5.0,<4.0)", "mock (>=2.0.0,<3.0)", "pytest-cov (>=2.0,<=2.
 
 [[package]]
 name = "inspire-schemas"
-version = "61.4.8"
+version = "61.4.11"
 description = "Inspire JSON schemas and utilities to use them."
 category = "main"
 optional = false
@@ -1435,7 +1435,7 @@ python-versions = "*"
 [package.dependencies]
 autosemver = "0.5.5"
 bleach = ">=3.2.1,<4.0"
-idutils = "*"
+idutils = "1.1.11"
 inspire-utils = ">=3.0.0,<4.0"
 isodate = "*"
 jsonschema = ">=2.6.0,<3.0"
@@ -1560,7 +1560,7 @@ werkzeug = ">=0.15"
 admin = ["Flask-Admin (>=1.3.0)"]
 all = ["Flask-Admin (>=1.3.0)", "Sphinx (>=1.4.2,<1.6)", "check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.3.0)", "mock (>=2.0.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-flask (>=0.10.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.0.0,<5.0.0)", "selenium (>=3.0.1)"]
 docs = ["Sphinx (>=1.4.2,<1.6)"]
-mysql = ["invenio-db[mysql,versioning] (>=1.0.0)"]
+mysql = ["invenio-db[versioning,mysql] (>=1.0.0)"]
 postgresql = ["invenio-db[versioning,postgresql] (>=1.0.0)"]
 sqlite = ["invenio-db[versioning] (>=1.0.0)"]
 tests = ["check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.3.0)", "mock (>=2.0.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-flask (>=0.10.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.0.0,<5.0.0)", "selenium (>=3.0.1)"]
@@ -1923,7 +1923,7 @@ werkzeug = ">=0.14.1"
 admin = ["Flask-Admin (>=1.3.0)"]
 all = ["Sphinx (>=1.7.2)", "Flask-Admin (>=1.3.0)", "check-manifest (>=0.25)", "coverage (>=4.5.3)", "Flask-Menu (>=0.5.0)", "invenio-admin (>=1.0.0)", "isort (>=4.3.0)", "mock (>=1.3.0)", "pydocstyle (>=3.0.0)", "pytest-cov (>=2.7.1)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.6.4,<5.0.0)"]
 docs = ["Sphinx (>=1.7.2)"]
-mysql = ["invenio-db[mysql,versioning] (>=1.0.0)"]
+mysql = ["invenio-db[versioning,mysql] (>=1.0.0)"]
 postgresql = ["invenio-db[versioning,postgresql] (>=1.0.0)"]
 sqlite = ["invenio-db[versioning] (>=1.0.0)"]
 tests = ["check-manifest (>=0.25)", "coverage (>=4.5.3)", "Flask-Menu (>=0.5.0)", "invenio-admin (>=1.0.0)", "isort (>=4.3.0)", "mock (>=1.3.0)", "pydocstyle (>=3.0.0)", "pytest-cov (>=2.7.1)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.6.4,<5.0.0)"]
@@ -4589,8 +4589,8 @@ idna = [
     {file = "idna-2.8.tar.gz", hash = "sha256:c357b3f628cf53ae2c4c05627ecc484553142ca23264e593d327bcde5e9c3407"},
 ]
 idutils = [
-    {file = "IDUtils-1.1.4-py2.py3-none-any.whl", hash = "sha256:dac173875ad77ae61d58d77b82bfbddfa411eb3fc26a1a7994d0195a7beb2d16"},
-    {file = "IDUtils-1.1.4.tar.gz", hash = "sha256:2bb23a159d58572b7c5061201acc1efb0e04b18f04e7b957b6529444a854b60f"},
+    {file = "IDUtils-1.1.11-py2.py3-none-any.whl", hash = "sha256:23ac47a026b0c709ffc79efd9fb54e4102913fb1f29a5bae56cd8f8f6cae124a"},
+    {file = "IDUtils-1.1.11.tar.gz", hash = "sha256:e9fb8eb0ce933d09fa347e01dc47ff28006b77bea434f4beb8d78bc693b2d01d"},
 ]
 incremental = [
     {file = "incremental-17.5.0-py2.py3-none-any.whl", hash = "sha256:717e12246dddf231a349175f48d74d93e2897244939173b01974ab6661406b9f"},
@@ -4624,7 +4624,7 @@ inspire-query-parser = [
     {file = "inspire_query_parser-6.0.46-py3-none-any.whl", hash = "sha256:6cbe1f36e98cbe82add2ac17e0b819d1661ae600622bceafafd1b71d79d61eb8"},
 ]
 inspire-schemas = [
-    {file = "inspire_schemas-61.4.8-py2.py3-none-any.whl", hash = "sha256:899779038e53a70ead2f1d8b0d680fe34367d803dd8b26dd8ed7bc48209474ed"},
+    {file = "inspire_schemas-61.4.11-py2.py3-none-any.whl", hash = "sha256:5a11a5d08d523ae170b04423ea8ba7bb482b12abcec23270278e03a6e3d6f67e"},
 ]
 inspire-service-orcid = []
 inspire-utils = [
