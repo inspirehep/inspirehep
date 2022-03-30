@@ -261,6 +261,22 @@ def test_literature_create_with_invalid_data(inspire_app):
     assert record_pid is None
 
 
+def test_not_adding_url_to_documents(inspire_app):
+
+    data = {
+        "documents": [
+            {
+                "source": "arxiv",
+                "key": "arXiv:nucl-th_9310031.pdf",
+                "filename": "fermilab.pdf",
+            }
+        ],
+    }
+
+    with pytest.raises(ValidationError):
+        create_record("lit", data)
+
+
 def test_literature_create_with_invalid_data_and_mutliple_pids(inspire_app):
     doi_value = faker.doi()
     arxiv_value = faker.arxiv()
