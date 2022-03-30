@@ -93,6 +93,7 @@ class LiteratureDetailSchema(
         many=True,
     )
     date = fields.Method("get_formatted_earliest_date")
+    is_collection_hidden = fields.Method("get_is_collection_hidden")
     dois = fields.Nested(DOISchemaV1, dump_only=True, many=True)
     external_system_identifiers = fields.Nested(
         ExternalSystemIdentifierSchemaV1, dump_only=True, many=True
@@ -109,6 +110,14 @@ class LiteratureDetailSchema(
     )
     thesis_info = fields.Nested(ThesisInfoSchemaV1, dump_only=True)
     dataset_links = fields.Method("get_datasets")
+
+    def get_is_collection_hidden(self, data):
+        collections = data.get("_collections")
+        if collections is None:
+            return missing
+        if "Literature" in collections and len(collections) == 1:
+            return False
+        return True
 
     def get_formatted_earliest_date(self, data):
         if hasattr(data, "earliest_date"):

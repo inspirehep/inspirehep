@@ -73,6 +73,7 @@ def test_literature_search_application_json_ui_get(inspire_app):
         "titles": [{"title": "Partner walk again seek job."}],
         "preprint_date": "2019-07-02",
         "date": "Jul 2, 2019",
+        "is_collection_hidden": False,
     }
 
     with inspire_app.test_client() as client:

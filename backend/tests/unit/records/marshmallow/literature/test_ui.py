@@ -239,3 +239,20 @@ def test_literature_detail_serializes_date_from_dictionary():
     serializer = LiteratureDetailSchema()
     serialized = serializer.dump(data).data
     assert serialized == expected_data
+
+
+def test_literature_is_collection_hidden():
+    data_hiden_1 = {"_collections": ["Literature", "FermiLab"]}
+    data_not_hiden = {"_collections": ["Literature"]}
+    data_hiden_2 = {"_collections": ["FermiLab"]}
+    expected_data_hidden = {"is_collection_hidden": True}
+    expected_data_not_hidden = {"is_collection_hidden": False}
+
+    serializer = LiteratureDetailSchema()
+    serialized_hidden_1 = serializer.dump(data_hiden_1).data
+    serialized_not_hidden = serializer.dump(data_not_hiden).data
+    serialized_hidden_2 = serializer.dump(data_hiden_2).data
+
+    assert serialized_hidden_1 == expected_data_hidden
+    assert serialized_not_hidden == expected_data_not_hidden
+    assert serialized_hidden_2 == expected_data_hidden
