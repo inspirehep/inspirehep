@@ -351,6 +351,7 @@ def test_literature_detail(inspire_app):
         "date": "Jan 1, 2001",
         "citation_count": 0,
         "citation_count_without_self_citations": 0,
+        "is_collection_hidden": False,
     }
     with inspire_app.test_client() as client:
         response = client.get(f"/literature/{record_control_number}", headers=headers)
