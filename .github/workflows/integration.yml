@@ -149,6 +149,11 @@ jobs:
         with:
           ref: ${{ env.REF }}
 
+      - name: Install ingest-attachment plugin
+        id: install-ingest-attachment-plugin
+        run: |
+          docker exec ${{ job.services.elasticsearch.id }} /bin/sh -c "./bin/elasticsearch-plugin list | grep -q ingest-attachment || yes | ./bin/elasticsearch-plugin install ingest-attachment; /usr/local/bin/docker-entrypoint.sh"
+
       - name: Get durations from cache
         uses: actions/cache@v2
         with:
@@ -230,6 +235,11 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: ${{ env.REF }}
+
+      - name: Install ingest-attachment plugin
+        id: install-ingest-attachment-plugin
+        run: |
+          docker exec ${{ job.services.elasticsearch.id }} /bin/sh -c "./bin/elasticsearch-plugin list | grep -q ingest-attachment || yes | ./bin/elasticsearch-plugin install ingest-attachment; /usr/local/bin/docker-entrypoint.sh"
 
       - name: Test
         uses: ./.github/actions/backend-test
@@ -344,6 +354,11 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: ${{ env.REF }}
+
+      - name: Install ingest-attachment plugin
+        id: install-ingest-attachment-plugin
+        run: |
+          docker exec ${{ job.services.elasticsearch.id }} /bin/sh -c "./bin/elasticsearch-plugin list | grep -q ingest-attachment || yes | ./bin/elasticsearch-plugin install ingest-attachment; /usr/local/bin/docker-entrypoint.sh"
 
       - name: Set backend image
         id: set-backend-image
@@ -610,6 +625,11 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: ${{ env.REF }}
+
+      - name: Install ingest-attachment plugin
+        id: install-ingest-attachment-plugin
+        run: |
+          docker exec ${{ job.services.elasticsearch.id }} /bin/sh -c "./bin/elasticsearch-plugin list | grep -q ingest-attachment || yes | ./bin/elasticsearch-plugin install ingest-attachment; /usr/local/bin/docker-entrypoint.sh"
 
       - name: Set backend image
         id: set-backend-image
