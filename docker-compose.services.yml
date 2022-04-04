@@ -62,6 +62,8 @@ services:
     ports:
       - '9200:9200'
       - '9300:9300'
+    command: >
+      /bin/sh -c "./bin/elasticsearch-plugin list | grep -q ingest-attachment || yes | ./bin/elasticsearch-plugin install ingest-attachment; /usr/local/bin/docker-entrypoint.sh"
   kibana:
     image: kibana:7.10.1
     environment:
