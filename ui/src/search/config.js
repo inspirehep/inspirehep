@@ -39,74 +39,92 @@ const searchConfig = {
   [LITERATURE_NS]: {
     persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
     onQueryChange: onLiteratureQueryChange,
+    redirectableError: true,
   },
   [AUTHORS_NS]: {
     persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
     onQueryChange: onAggregationlessCollectionQueryChange,
+    redirectableError: true,
   },
   [JOBS_NS]: {
     persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
     onQueryChange: onJobsQueryChange,
+    redirectableError: true,
   },
   [AUTHOR_PUBLICATIONS_NS]: {
     persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
     onQueryChange: onEmbeddedLiteratureQueryChange,
+    redirectableError: false,
   },
   [CONFERENCE_CONTRIBUTIONS_NS]: {
     persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
     onQueryChange: onEmbeddedLiteratureQueryChange,
+    redirectableError: false,
   },
   [INSTITUTIONS_NS]: {
     persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
     onQueryChange: onAggregationlessCollectionQueryChange,
+    redirectableError: true,
   },
   [INSTITUTION_PAPERS_NS]: {
     persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
     onQueryChange: onEmbeddedLiteratureQueryChange,
+    redirectableError: false,
   },
   [CONFERENCES_NS]: {
     persistedQueryParamsDuringNewSearch: persistedQueryParamsDuringNewSearchForEvents,
     onQueryChange: onCollectionQueryChange,
+    redirectableError: true,
   },
   [ASSIGN_CONFERENCE_NS]: {
     persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
     onQueryChange: onEmbeddedSearchWithoutAggregationsQueryChange,
+    redirectableError: false,
   },
   [EXISTING_CONFERENCES_NS]: {
     persistedQueryParamsDuringNewSearch: persistedQueryParamsDuringNewSearchForEvents,
     onQueryChange: onEmbeddedSearchWithoutAggregationsQueryChange,
+    redirectableError: false,
   },
   [ASSIGN_AUTHOR_NS]: {
     persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
     onQueryChange: onEmbeddedSearchWithoutAggregationsQueryChange,
+    redirectableError: false,
   },
   [SEMINARS_NS]: {
     persistedQueryParamsDuringNewSearch: persistedQueryParamsDuringNewSearchForEvents,
     onQueryChange: onCollectionQueryChange,
+    redirectableError: true,
   },
   [AUTHOR_CITATIONS_NS]: {
     persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
     onQueryChange: onEmbeddedSearchWithAggregationsQueryChange,
+    redirectableError: false,
   },
   [EXPERIMENTS_NS]: {
     persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
     onQueryChange: onCollectionQueryChange,
+    redirectableError: true,
   },
   [EXPERIMENT_PAPERS_NS]: {
     persistedQueryParamsDuringNewSearch: persistedQueryParamsDuringNewSearchForEvents,
     onQueryChange: onEmbeddedLiteratureQueryChange,
+    redirectableError: false,
   },
   [AUTHOR_SEMINARS_NS]: {
     persistedQueryParamsDuringNewSearch: persistedQueryParamsDuringNewSearchForEvents,
     onQueryChange: onEmbeddedSearchWithAggregationsQueryChange,
+    redirectableError: false,
   },
   [LITERATURE_SEMINARS_NS]: {
     persistedQueryParamsDuringNewSearch: persistedQueryParamsDuringNewSearchForEvents,
     onQueryChange: onEmbeddedSearchWithoutAggregationsQueryChange,
+    redirectableError: false,
   },
   [LITERATURE_REFERENCES_NS]: {
     persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
     onQueryChange: () => {},
+    redirectableError: false,
   },
 };
 
