@@ -32,9 +32,9 @@ jobs:
         id: filter
         with:
           filters: |
-            backend: ['backend/**/*', '.github/**/*', 'docker-compose.*'., '**/*.Dockerfile']
-            ui: ['ui/**/*', '.github/**/*', 'docker-compose.*'., '**/*.Dockerfile']
-            editor: ['record-editor/**/*', '.github/**/*', 'docker-compose.*'., '**/*.Dockerfile']
+            backend: ['backend/**/*', '.github/**/*', 'docker-compose.*', '**/*.Dockerfile']
+            ui: ['ui/**/*', '.github/**/*', 'docker-compose.*', '**/*.Dockerfile']
+            editor: ['record-editor/**/*', '.github/**/*', 'docker-compose.*', '**/*.Dockerfile']
 
   backend_build:
     name: Backend build
