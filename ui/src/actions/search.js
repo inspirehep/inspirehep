@@ -34,10 +34,11 @@ function searchSuccess(namespace, data) {
 }
 
 function searchError(namespace, errorPayload) {
+  const { redirectableError } = searchConfig[namespace];
   return {
     type: SEARCH_ERROR,
     payload: { ...errorPayload, namespace },
-    meta: { redirectableError: true },
+    meta: { redirectableError },
   };
 }
 
