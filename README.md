@@ -67,6 +67,20 @@ $ pre-commit install
 
 Follow the guide https://docs.docker.com/compose/install/
 
+### For MacOS M1 users
+
+install `Homebrew-file` https://homebrew-file.readthedocs.io/en/latest/installation.html
+
+```bash
+$ brew install rcmdnk/file/brew-file
+```
+
+And run
+
+```bash
+$ brew file install
+```
+
 ---
 
 ## Run with docker
