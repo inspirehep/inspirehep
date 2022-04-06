@@ -50,6 +50,7 @@ import { LITERATURE_SEMINARS_NS } from '../../../search/constants';
 import LiteratureSeminars from '../../components/LiteratureSeminars';
 import { newSearch, searchBaseQueriesUpdate } from '../../../actions/search';
 import ImprintInfo from '../../components/ImprintInfo';
+import HiddenCollectionAlert from '../../components/LiteratureCollectionBanner';
 
 function DetailPage({
   authors,
@@ -82,7 +83,7 @@ function DetailPage({
   const collaborationsWithSuffix = metadata.get('collaborations_with_suffix');
   const linkedBook = metadata.get('linked_book');
   const bookSeries = metadata.get('book_series');
-
+  const hiddenCollection = metadata.get('is_collection_hidden');
   const keywords = metadata.get('keywords');
   const authorCount = metadata.get('author_count');
   const citationCount = metadata.get('citation_count');
@@ -104,6 +105,9 @@ function DetailPage({
       />
       <Row className="__DetailPage__" type="flex" justify="center">
         <Col xs={24} md={22} lg={21} xxl={18}>
+          <Row className="mv3" type="flex" justify="center">
+            <Col span={24}>{hiddenCollection && <HiddenCollectionAlert />}</Col>
+          </Row>
           <Row
             className="mv3"
             type="flex"
