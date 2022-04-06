@@ -28,7 +28,7 @@ import {
   onEmbeddedSearchWithoutAggregationsQueryChange,
 } from './queryChange';
 
-const defaultPersistedQueryParamsDuringNewSearch = ['size'];
+const defaultPersistedQueryParamsDuringNewSearch = ['size', 'collection'];
 
 const persistedQueryParamsDuringNewSearchForEvents = [
   ...defaultPersistedQueryParamsDuringNewSearch,
