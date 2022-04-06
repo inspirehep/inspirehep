@@ -37,7 +37,10 @@ const persistedQueryParamsDuringNewSearchForEvents = [
 
 const searchConfig = {
   [LITERATURE_NS]: {
-    persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
+    persistedQueryParamsDuringNewSearch: [
+      ...defaultPersistedQueryParamsDuringNewSearch,
+      'collection',
+    ],
     onQueryChange: onLiteratureQueryChange,
     redirectableError: true,
   },
