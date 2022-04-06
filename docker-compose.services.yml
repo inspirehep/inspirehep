@@ -48,7 +48,8 @@ services:
     image: rabbitmq:3-management
     restart: 'always'
   es:
-    image: registry.cern.ch/cern-sis/inspirehep/elasticsearch
+    build:
+      context: docker/opensearch
     restart: 'always'
     environment:
       - cluster.name=opensearch-cluster
