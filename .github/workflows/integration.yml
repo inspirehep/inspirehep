@@ -63,6 +63,7 @@ jobs:
           context: ./docker/opensearch/
           registry: registry.cern.ch
           push: true
+          platforms: linux/amd64,linux/arm/v8
           tags: registry.cern.ch/cern-sis/inspirehep/opensearch:latest,registry.cern.ch/cern-sis/inspirehep/opensearch:${{ github.sha }}
 
   backend_build:
