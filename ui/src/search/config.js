@@ -39,7 +39,7 @@ const searchConfig = {
   [LITERATURE_NS]: {
     persistedQueryParamsDuringNewSearch: [
       ...defaultPersistedQueryParamsDuringNewSearch,
-      'collection',
+      'curation_collection',
     ],
     onQueryChange: onLiteratureQueryChange,
     redirectableError: true,
