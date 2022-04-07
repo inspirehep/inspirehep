@@ -57,7 +57,7 @@ jobs:
           password: ${{ secrets.HARBOR_PASSWORD }}
 
       - name: Build and push
-        id: docker_build
+        id: docker_build_amd
         uses: docker/build-push-action@v2
         with:
           context: ./docker/opensearch/
@@ -67,7 +67,7 @@ jobs:
           tags: registry.cern.ch/cern-sis/inspirehep/opensearch:latest,registry.cern.ch/cern-sis/inspirehep/opensearch:${{ github.sha }}
 
       - name: Build and push
-        id: docker_build
+        id: docker_build_arm
         uses: docker/build-push-action@v2
         with:
           context: ./docker/opensearch/
