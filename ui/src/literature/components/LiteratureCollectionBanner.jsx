@@ -9,7 +9,7 @@ function HiddenCollectionAlert() {
         type="warning"
         message={
           <span>
-            This record is not part of the INSPIRE Literature collection.
+            This record is not part of the INSPIRE Literature collection.{' '}
             <ExternalLink
               as="a"
               href="https://inspirehep.net/help/knowledge-base/faq/#faq-published"

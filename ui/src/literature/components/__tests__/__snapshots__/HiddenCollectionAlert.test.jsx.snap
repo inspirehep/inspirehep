@@ -8,6 +8,7 @@ exports[`HiddenCollectionAlert renders alert 1`] = `
     message={
       <span>
         This record is not part of the INSPIRE Literature collection.
+         
         <ExternalLink
           as="a"
           href="https://inspirehep.net/help/knowledge-base/faq/#faq-published"
