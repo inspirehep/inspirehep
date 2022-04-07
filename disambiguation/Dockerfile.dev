@@ -1,5 +1,0 @@
-ARG FROM_TAG
-
-FROM inspirehep/disambiguation:$FROM_TAG
-
-RUN poetry install
