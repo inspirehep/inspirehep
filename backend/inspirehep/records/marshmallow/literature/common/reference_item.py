@@ -10,10 +10,7 @@ from inspire_utils.helpers import force_list
 from inspire_utils.record import get_value
 from marshmallow import Schema, fields, missing, post_dump, pre_dump
 
-from inspirehep.records.marshmallow.fields import (
-    ListWithLimit,
-    NestedWithoutEmptyObjects,
-)
+from inspirehep.records.marshmallow.fields import ListWithLimit, NestedField
 
 from .author import AuthorSchemaV1
 from .collaboration import CollaborationSchemaV1
@@ -23,7 +20,7 @@ from .publication_info_item import PublicationInfoItemSchemaV1
 
 class ReferenceItemSchemaV1(Schema):
     authors = ListWithLimit(
-        NestedWithoutEmptyObjects(AuthorSchemaV1, dump_only=True, default=[]), limit=10
+        NestedField(AuthorSchemaV1, dump_only=True, default=[]), limit=10
     )
     collaborations = fields.List(
         fields.Nested(CollaborationSchemaV1, dump_only=True), attribute="collaborations"
@@ -36,7 +33,7 @@ class ReferenceItemSchemaV1(Schema):
     label = fields.Raw()
     urls = fields.Raw()
     publication_info = fields.List(
-        NestedWithoutEmptyObjects(PublicationInfoItemSchemaV1, dump_only=True)
+        NestedField(PublicationInfoItemSchemaV1, dump_only=True)
     )
     titles = fields.Method("get_titles")
     misc = fields.Method("get_misc")

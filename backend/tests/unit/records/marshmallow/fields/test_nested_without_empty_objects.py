@@ -8,7 +8,7 @@
 import orjson
 from marshmallow import Schema, fields
 
-from inspirehep.records.marshmallow.fields import NestedWithoutEmptyObjects
+from inspirehep.records.marshmallow.fields import NestedField
 
 
 class TestNestedSchema(Schema):
@@ -16,7 +16,7 @@ class TestNestedSchema(Schema):
 
 
 class TestSchema(Schema):
-    list_of_items = NestedWithoutEmptyObjects(TestNestedSchema, many=True)
+    list_of_items = NestedField(TestNestedSchema, many=True)
 
 
 def test_nested_without_empty_objects():
@@ -24,28 +24,6 @@ def test_nested_without_empty_objects():
 
     data = {"list_of_items": [{"title": "first"}, {"title": "second"}]}
     expected = {"list_of_items": [{"title": "first"}, {"title": "second"}]}
-
-    result = schema.dumps(data).data
-
-    assert expected == orjson.loads(result)
-
-
-def test_nested_without_empty_objects_with_one_empty():
-    schema = TestSchema()
-
-    data = {"list_of_items": [{"name": "first"}, {"title": "second"}]}
-    expected = {"list_of_items": [{"title": "second"}]}
-
-    result = schema.dumps(data).data
-
-    assert expected == orjson.loads(result)
-
-
-def test_nested_without_empty_objects_with_all_empty():
-    schema = TestSchema()
-
-    data = {"list_of_items": [{"name": "first"}, {"name": "second"}]}
-    expected = {"list_of_items": None}
 
     result = schema.dumps(data).data
 

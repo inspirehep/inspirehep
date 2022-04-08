@@ -13,7 +13,7 @@ from inspirehep.records.marshmallow.experiments.common.related_records import (
     SuccessorExperimentSchemaV1,
 )
 from inspirehep.records.marshmallow.fields.nested_without_empty_objects import (
-    NestedWithoutEmptyObjects,
+    NestedField,
 )
 from inspirehep.search.api import ExperimentsSearch
 
@@ -24,21 +24,21 @@ class ExperimentsBaseSchema(ExperimentsPublicSchema):
 
 class ExperimentsDetailSchema(ExperimentsBaseSchema):
     subsidiary_experiments = fields.Method("get_subsidiary_experiments", dump_only=True)
-    parent_experiments = NestedWithoutEmptyObjects(
+    parent_experiments = NestedField(
         ParentExperimentSchemaV1,
         default=[],
         dump_only=True,
         many=True,
         attribute="related_records",
     )
-    successor_experiments = NestedWithoutEmptyObjects(
+    successor_experiments = NestedField(
         SuccessorExperimentSchemaV1,
         default=[],
         dump_only=True,
         many=True,
         attribute="related_records",
     )
-    predecessor_experiments = NestedWithoutEmptyObjects(
+    predecessor_experiments = NestedField(
         PredecessorExperimentSchemaV1,
         default=[],
         dump_only=True,

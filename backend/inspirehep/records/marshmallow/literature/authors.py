@@ -8,16 +8,16 @@
 from inspire_dojson.utils import strip_empty_values
 from marshmallow import Schema, fields, post_dump
 
-from ..fields import NestedWithoutEmptyObjects
+from ..fields import NestedField
 from .common import AuthorSchemaV1
 from .common.author import SupervisorSchema
 
 
 class LiteratureAuthorsSchema(Schema):
-    authors = NestedWithoutEmptyObjects(
+    authors = NestedField(
         AuthorSchemaV1, default=[], dump_only=True, many=True, attribute="authors"
     )
-    supervisors = NestedWithoutEmptyObjects(
+    supervisors = NestedField(
         SupervisorSchema, default=[], dump_only=True, many=True, attribute="authors"
     )
     collaborations = fields.Raw(default=[], dump_only=True)

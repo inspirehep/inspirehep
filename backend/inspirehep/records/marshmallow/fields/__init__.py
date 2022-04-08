@@ -7,5 +7,5 @@
 # flake8: noqa
 
 from .list_with_limit import ListWithLimit
-from .nested_without_empty_objects import NestedWithoutEmptyObjects
+from .nested_without_empty_objects import NestedField
 from .non_hidden import NonHiddenNested, NonHiddenRaw
