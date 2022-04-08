@@ -9,7 +9,7 @@ from marshmallow import Schema, fields, missing
 
 from inspirehep.records.marshmallow.fields.list_with_limit import ListWithLimit
 from inspirehep.records.marshmallow.fields.nested_without_empty_objects import (
-    NestedWithoutEmptyObjects,
+    NestedField,
 )
 from inspirehep.records.marshmallow.literature.common.author import CVAuthorSchemaV1
 from inspirehep.records.marshmallow.literature.common.collaboration import (
@@ -37,7 +37,7 @@ class CVSchema(Schema):
     authors = ListWithLimit(fields.Nested(CVAuthorSchemaV1, dump_only=True), limit=10)
     dois = fields.Nested(DOISchemaV1, dump_only=True, many=True)
     arxiv_eprints = fields.Raw()
-    publication_info = NestedWithoutEmptyObjects(
+    publication_info = NestedField(
         PublicationInfoItemSchemaV1, default=[], dump_only=True, many=True
     )
 

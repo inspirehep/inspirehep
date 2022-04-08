@@ -8,12 +8,12 @@
 from inspire_dojson.utils import strip_empty_values
 from marshmallow import Schema, post_dump
 
-from ..fields import NestedWithoutEmptyObjects
+from ..fields import NestedField
 from .common import ReferenceItemSchemaV1
 
 
 class LiteratureReferencesSchema(Schema):
-    references = NestedWithoutEmptyObjects(
+    references = NestedField(
         ReferenceItemSchemaV1, default=[], many=True, dump_only=True
     )
 

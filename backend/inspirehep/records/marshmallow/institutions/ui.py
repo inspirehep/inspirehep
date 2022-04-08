@@ -7,7 +7,7 @@
 from marshmallow import fields
 
 from inspirehep.records.marshmallow.fields.nested_without_empty_objects import (
-    NestedWithoutEmptyObjects,
+    NestedField,
 )
 from inspirehep.records.marshmallow.institutions.base import InstitutionsPublicSchema
 from inspirehep.records.marshmallow.institutions.common.related_records import (
@@ -29,21 +29,21 @@ class InstitutionsDetailSchema(InstitutionsBaseSchema):
     subsidiary_institutions = fields.Method(
         "get_subsidiary_institutions", dump_only=True
     )
-    parent_institutions = NestedWithoutEmptyObjects(
+    parent_institutions = NestedField(
         ParentInstitutionSchemaV1,
         default=[],
         dump_only=True,
         many=True,
         attribute="related_records",
     )
-    successor_institutions = NestedWithoutEmptyObjects(
+    successor_institutions = NestedField(
         SuccessorInstitutionSchemaV1,
         default=[],
         dump_only=True,
         many=True,
         attribute="related_records",
     )
-    predecessor_institutions = NestedWithoutEmptyObjects(
+    predecessor_institutions = NestedField(
         PredecessorInstitutionSchemaV1,
         default=[],
         dump_only=True,

@@ -8,7 +8,7 @@
 from inspire_dojson.utils import strip_empty_values
 from marshmallow import Schema, fields, post_dump
 
-from ...fields import ListWithLimit, NestedWithoutEmptyObjects
+from ...fields import ListWithLimit, NestedField
 from .author import AuthorSchemaV1
 from .collaboration import CollaborationSchemaV1
 from .collaboration_with_suffix import CollaborationWithSuffixSchemaV1
@@ -16,9 +16,7 @@ from .publication_info_item import PublicationInfoItemSchemaV1
 
 
 class CitationItemSchemaV1(Schema):
-    authors = ListWithLimit(
-        NestedWithoutEmptyObjects(AuthorSchemaV1, dump_only=True), limit=10
-    )
+    authors = ListWithLimit(NestedField(AuthorSchemaV1, dump_only=True), limit=10)
     collaborations = fields.List(
         fields.Nested(CollaborationSchemaV1, dump_only=True), attribute="collaborations"
     )
@@ -28,7 +26,7 @@ class CitationItemSchemaV1(Schema):
     )
     control_number = fields.Raw()
     publication_info = fields.List(
-        NestedWithoutEmptyObjects(PublicationInfoItemSchemaV1, dump_only=True)
+        NestedField(PublicationInfoItemSchemaV1, dump_only=True)
     )
     titles = fields.Raw()
     earliest_date = fields.Raw()
