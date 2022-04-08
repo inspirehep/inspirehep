@@ -113,11 +113,9 @@ class LiteratureDetailSchema(
 
     def get_is_collection_hidden(self, data):
         collections = data.get("_collections")
-        if collections is None:
+        if not collections:
             return missing
-        if "Literature" in collections and len(collections) == 1:
-            return False
-        return True
+        return "Literature" not in collections
 
     def get_formatted_earliest_date(self, data):
         if hasattr(data, "earliest_date"):
