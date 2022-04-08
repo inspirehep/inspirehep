@@ -6,6 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import mock
+import pytest
 
 from inspirehep.records.marshmallow.literature import LiteratureDetailSchema
 
@@ -241,18 +242,16 @@ def test_literature_detail_serializes_date_from_dictionary():
     assert serialized == expected_data
 
 
-def test_literature_is_collection_hidden():
-    data_hiden_1 = {"_collections": ["Literature", "FermiLab"]}
-    data_not_hiden = {"_collections": ["Literature"]}
-    data_hiden_2 = {"_collections": ["FermiLab"]}
-    expected_data_hidden = {"is_collection_hidden": True}
-    expected_data_not_hidden = {"is_collection_hidden": False}
-
+@pytest.mark.parametrize(
+    "collections,expected_is_collection_hidden",
+    [
+        (["Literature", "FermiLab"], False),
+        (["Literature"], False),
+        (["FermiLab"], True),
+    ],
+)
+def test_literature_is_collection_hidden(collections, expected_is_collection_hidden):
     serializer = LiteratureDetailSchema()
-    serialized_hidden_1 = serializer.dump(data_hiden_1).data
-    serialized_not_hidden = serializer.dump(data_not_hiden).data
-    serialized_hidden_2 = serializer.dump(data_hiden_2).data
+    serialized = serializer.dump({"_collections": collections}).data
 
-    assert serialized_hidden_1 == expected_data_hidden
-    assert serialized_not_hidden == expected_data_not_hidden
-    assert serialized_hidden_2 == expected_data_hidden
+    assert serialized["is_collection_hidden"] == expected_is_collection_hidden
