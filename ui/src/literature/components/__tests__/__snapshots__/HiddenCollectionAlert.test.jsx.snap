@@ -11,7 +11,7 @@ exports[`HiddenCollectionAlert renders alert 1`] = `
          
         <ExternalLink
           as="a"
-          href="https://inspirehep.net/help/knowledge-base/faq/#faq-published"
+          href="https://inspirehep.net/help/knowledge-base/faq/#not-part"
         >
           Learn More
         </ExternalLink>
