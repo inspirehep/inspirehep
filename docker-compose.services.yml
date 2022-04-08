@@ -42,10 +42,10 @@ services:
     ports:
       - '5432:5432'
   mq-next:
-    image: rabbitmq:3-management
+    image: rabbitmq:3.8-management-alpine
     restart: 'always'
   mq:
-    image: rabbitmq:3-management
+    image: rabbitmq:3.8-management-alpine
     restart: 'always'
   es:
     build:
