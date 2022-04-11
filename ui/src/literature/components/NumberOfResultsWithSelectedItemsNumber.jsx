@@ -14,10 +14,10 @@ function getFormattedNumberOfSelectedOrNull(numberOfSelected) {
   );
 }
 
-function NumberOfResults({ namespace, numberOfSelected }) {
+function NumberOfResults({ namespace, numberOfSelected}) {
   return (
     <span>
-      {getFormattedNumberOfSelectedOrNull(numberOfSelected)}
+      {!!numberOfSelected && getFormattedNumberOfSelectedOrNull(numberOfSelected)}
       <NumberOfResultsContainer namespace={namespace} />
     </span>
   );
@@ -25,7 +25,7 @@ function NumberOfResults({ namespace, numberOfSelected }) {
 
 NumberOfResults.propTypes = {
   namespace: PropTypes.string.isRequired,
-  numberOfSelected: PropTypes.number.isRequired,
+  numberOfSelected: PropTypes.number,
 };
 
 export default NumberOfResults;

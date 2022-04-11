@@ -41,6 +41,7 @@ describe('AuthorPublicationsContainer', () => {
       baseAggregationsQuery: {
         author_recid: '1234_ThatDude',
       },
+      numberOfSelected: 0,
     });
   });
 
@@ -140,6 +141,27 @@ describe('AuthorPublicationsContainer', () => {
     );
     expect(wrapper.find(AuthorPublications)).toHaveProp({
       assignViewNoProfile: true,
+    });
+  });
+  it('set correct numberOfSelected when publications are selected', () => {
+    const store = getStoreWithState({
+      authors: fromJS({
+        ...initialState,
+        publicationSelection: {
+          papersIds: [1234, 12345],
+          selected: true
+        },
+      }),
+    });
+    const wrapper = mount(
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/authors/123']} initialIndex={0}>
+          <AuthorPublicationsContainer />
+        </MemoryRouter>
+      </Provider>
+    );
+    expect(wrapper.find(AuthorPublications)).toHaveProp({
+      numberOfSelected: 2,
     });
   });
 });
