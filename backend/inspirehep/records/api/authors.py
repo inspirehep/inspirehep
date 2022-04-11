@@ -5,6 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 import structlog
+from flask import current_app
 from inspire_utils.record import get_values_for_schema
 from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier
@@ -70,7 +71,8 @@ class AuthorsRecord(StudentsAdvisorMixin, InspireRecord):
     @classmethod
     def create(cls, data, id_=None, *args, **kwargs):
         record = super().create(data, id_, **kwargs)
-        record.assign_author_to_papers()
+        if current_app.config.get("FEATURE_FLAG_ENABLE_ASSIGN_AUTHOR_PAPERS"):
+            record.assign_author_to_papers()
         record.update_students_advisors_table()
         return record
 

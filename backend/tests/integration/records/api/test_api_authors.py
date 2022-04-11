@@ -224,32 +224,36 @@ def test_redirection_works_for_authors(inspire_app):
     assert new_record == record.id
 
 
-def test_assign_author_to_papers(inspire_app):
-    lit_record = create_record(
-        "lit",
-        data={
-            "authors": [
-                {
-                    "full_name": "Test Author",
-                    "ids": [{"schema": "INSPIRE BAI", "value": "T.Author.1"}],
-                }
-            ]
-        },
-    )
-    lit_record_1 = create_record(
-        "lit",
-        data={
-            "authors": [
-                {
-                    "full_name": "Test Author",
-                    "ids": [{"schema": "INSPIRE BAI", "value": "T.Author.1"}],
-                }
-            ]
-        },
-    )
-    record = create_record(
-        "aut", data={"ids": [{"schema": "INSPIRE BAI", "value": "T.Author.1"}]}
-    )
+def test_assign_author_to_papers(inspire_app, override_config):
+
+    with override_config(
+        FEATURE_FLAG_ENABLE_ASSIGN_AUTHOR_PAPERS=True,
+    ):
+        lit_record = create_record(
+            "lit",
+            data={
+                "authors": [
+                    {
+                        "full_name": "Test Author",
+                        "ids": [{"schema": "INSPIRE BAI", "value": "T.Author.1"}],
+                    }
+                ]
+            },
+        )
+        lit_record_1 = create_record(
+            "lit",
+            data={
+                "authors": [
+                    {
+                        "full_name": "Test Author",
+                        "ids": [{"schema": "INSPIRE BAI", "value": "T.Author.1"}],
+                    }
+                ]
+            },
+        )
+        record = create_record(
+            "aut", data={"ids": [{"schema": "INSPIRE BAI", "value": "T.Author.1"}]}
+        )
 
     lit_record_db = InspireRecord.get_record_by_pid_value(
         lit_record["control_number"], "lit"
