@@ -14,6 +14,22 @@ env:
   BUILD_TAG: build-${{ github.event.pull_request.head.sha || github.sha }}
 
 jobs:
+  linter:
+    name: Lint new files in code base
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Lint Code Base
+        uses: github/super-linter@v4
+        env:
+          FILTER_REGEX_INCLUDE: .github/.*.yml
+          VALIDATE_ALL_CODEBASE: false # validates only new files
+          DEFAULT_BRANCH: master
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   changed:
     name: Group changes by app
     runs-on: ubuntu-latest
@@ -61,7 +77,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./docker/opensearch/
-          registry: registry.cern.ch
           push: true
           tags: registry.cern.ch/cern-sis/inspirehep/opensearch:latest,registry.cern.ch/cern-sis/inspirehep/opensearch:${{ github.sha }}
 
@@ -379,7 +394,7 @@ jobs:
         run: |
           image=${{ needs.backend_build.result == 'skipped' && 'master' || env.REF_TAG }}
           echo "output: $image"
-          echo "BACKEND_IMAGE=${image}" >> $GITHUB_ENV
+          echo "BACKEND_IMAGE=${image}" >> "$GITHUB_ENV"
           echo "::set-output name=image::${image}"
 
       - name: Set ui image
@@ -387,7 +402,7 @@ jobs:
         run: |
           image=${{ needs.ui_build.result == 'skipped' && 'master' || env.REF_TAG }}
           echo "output: $image"
-          echo "UI_IMAGE=${image}" >> $GITHUB_ENV
+          echo "UI_IMAGE=${image}" >> "$GITHUB_ENV"
           echo "::set-output name=image::${image}"
 
       - name: Set editor image
@@ -395,7 +410,7 @@ jobs:
         run: |
           image=${{ needs.editor_build.result == 'skipped' && 'master' || env.REF_TAG }}
           echo "output: $image"
-          echo "EDITOR_IMAGE=${image}" >> $GITHUB_ENV
+          echo "EDITOR_IMAGE=${image}" >> "$GITHUB_ENV"
           echo "::set-output name=image::${image}"
 
       - name: Check outputs
@@ -560,10 +575,10 @@ jobs:
         if: ${{ always() }}
         run: |
           for i in $( docker ps -aq ); do
-            name="$( docker inspect --format='{{ .Name }}' $i)"
+            name="$( docker inspect --format='{{ .Name }}' "$i")"
             name=${name:-$i} # Default to the id if no name is found
             name=${name#/} # Remove any leading '/'
-            docker logs $i >${name}.log
+            docker logs "$i" >"${name}".log
           done
       - name: Upload container logs
         if: ${{ always() }}
@@ -645,7 +660,7 @@ jobs:
         run: |
           image=${{ needs.backend_build.result == 'skipped' && 'master' || env.REF_TAG }}
           echo "output: $image"
-          echo "BACKEND_IMAGE=${image}" >> $GITHUB_ENV
+          echo "BACKEND_IMAGE=${image}" >> "$GITHUB_ENV"
           echo "::set-output name=image::${image}"
 
       - name: Set ui image
@@ -653,7 +668,7 @@ jobs:
         run: |
           image=${{ needs.ui_build.result == 'skipped' && 'master' || env.REF_TAG }}
           echo "output: $image"
-          echo "UI_IMAGE=${image}" >> $GITHUB_ENV
+          echo "UI_IMAGE=${image}" >> "$GITHUB_ENV"
           echo "::set-output name=image::${image}"
 
       - name: Set editor image
@@ -661,7 +676,7 @@ jobs:
         run: |
           image=${{ needs.editor_build.result == 'skipped' && 'master' || env.REF_TAG }}
           echo "output: $image"
-          echo "EDITOR_IMAGE=${image}" >> $GITHUB_ENV
+          echo "EDITOR_IMAGE=${image}" >> "$GITHUB_ENV"
           echo "::set-output name=image::${image}"
 
       - name: Check outputs
@@ -826,10 +841,10 @@ jobs:
         if: ${{ always() }}
         run: |
           for i in $( docker ps -aq ); do
-            name="$( docker inspect --format='{{ .Name }}' $i)"
+            name="$( docker inspect --format='{{ .Name }}' "$i")"
             name=${name:-$i} # Default to the id if no name is found
             name=${name#/} # Remove any leading '/'
-            docker logs $i >${name}.log
+            docker logs "$i" >"${name}".log
           done
       - name: Upload container logs
         if: ${{ always() }}
@@ -851,7 +866,7 @@ jobs:
       - end_to_end_test_chrome
       - end_to_end_test_firefox
     outputs:
-      applications: ${{ steps.generate_matrix.outputs.applications }}
+      matrix: ${{ steps.generate_matrix.outputs.matrix }}
     env:
       BACKEND_INTEGRATION_TEST: ${{ needs.backend_integration_test.result == 'success' }}
       BACKEND_INTEGRATION_ASYNC_TEST: ${{ needs.backend_integration_async_test.result == 'success' }}
@@ -862,25 +877,21 @@ jobs:
       - name: Generate matrix
         id: generate_matrix
         run: |
-          applications=''
-
+          applications=()
           if [ "$BACKEND_INTEGRATION_TEST" = 'true' ] \
           && [ "$BACKEND_INTEGRATION_ASYNC_TEST" = 'true' ] \
           && [ "$BACKEND_UNIT_TEST" = 'true' ]; then
-            applications=($applications 'hep')
+            applications+=('hep')
           fi
-
           if [ "$UI_TEST" = 'true' ]; then
-            applications=($applications 'ui')
+            applications+=('ui')
           fi
-
           if [ "$EDITOR_TEST" = 'true' ]; then
-            applications=($applications 'editor')
+            applications+=('editor')
           fi
-
           json=$(printf '%s\n' "${applications[@]}" | jq -R . | jq -sc .)
           echo "output: $json"
-          echo '::set-output name=applications::'$json
+          echo "::set-output name=matrix::{\"applications\": ${json}, \"tags\": [\"latest\", \"build-latest\"], \"exclude\":[{\"applications\":\"hep\",\"tags\":\"build-latest\"}]}"
 
   push_changed:
     name: Push images that changed
@@ -888,12 +899,7 @@ jobs:
     needs: to_push
     if: ${{ !failure() && needs.to_push.result == 'success' }}
     strategy:
-      matrix:
-        applications: ${{ fromJson(needs.to_push.outputs.applications) }}
-        tags: [latest, build-latest]
-        exclude:
-          - applications: hep
-            tags: build-latest
+      matrix: ${{ fromJSON(needs.to_push.outputs.matrix) }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -911,7 +917,7 @@ jobs:
         if: ${{ github.event_name == 'push' }}
         run: |
           echo ${{ env.REF_TAG }}
-          echo $REF_TAG
+          echo "$REF_TAG"
 
       - name: Tag and push (pr)
         uses: ./.github/actions/docker-tag-and-push
