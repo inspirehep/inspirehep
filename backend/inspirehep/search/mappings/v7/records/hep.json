@@ -765,7 +765,8 @@
       },
       "journal_title_variants": {
         "type": "keyword",
-        "copy_to": "_all"
+        "copy_to": "_all",
+        "normalizer": "lowercase_normalizer"
       },
       "facet_arxiv_categories": {
         "type": "keyword"
