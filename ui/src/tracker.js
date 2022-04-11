@@ -1,5 +1,6 @@
 import Piwik from 'react-piwik';
 import { v4 as generateUUIDv4 } from 'uuid';
+import localforage from 'localforage';
 
 import { isSuperUser, isCataloger } from './common/authorization';
 import { getConfigFor } from './common/config';
@@ -54,10 +55,10 @@ export function checkIsTrackerBlocked() {
 }
 
 export function getClientId() {
-  let clientId = localStorage.getItem('clientId');
+  let clientId = localforage.getItem('clientId');
   if (!clientId) {
     clientId = generateUUIDv4();
-    localStorage.setItem('clientId', clientId);
+    localforage.setItem('clientId', clientId);
   }
   return clientId;
 }

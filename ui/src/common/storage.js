@@ -1,12 +1,24 @@
+import localforage from 'localforage';
+
+localforage.config({
+  name: 'inspirehep',
+  driver: [localforage.INDEXEDDB, localforage.LOCALSTORAGE],
+  version: 1.0,
+});
+
+const rewriteUserSettingsFromLocalStorage = async () => 
+  Promise.all(Object.entries(localStorage).map(async ([key, value]) => localforage.setItem(key, value)));
+
 // adapted from https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API#Testing_for_availability
-function isStorageAvailable() {
+async function isStorageAvailable() {
   let storage;
   try {
     // eslint-disable-next-line dot-notation
-    storage = window['localStorage'];
+    storage = localforage;
     const test = '__test__';
-    storage.setItem(test, test);
-    storage.removeItem(test);
+    await storage.setItem(test, test);
+    await storage.removeItem(test);
+    await rewriteUserSettingsFromLocalStorage();
     return true;
   } catch (e) {
     return (
@@ -23,10 +35,10 @@ function isStorageAvailable() {
 const storage = {
   isAvailable: isStorageAvailable(),
 
-  getSync(key) {
+  async getSync(key) {
     // eslint-disable-next-line react/no-this-in-sfc
     if (this.isAvailable) {
-      const rawValue = localStorage.getItem(key);
+      const rawValue = await localforage.getItem(key);
       return JSON.parse(rawValue);
     }
     return null;
@@ -38,13 +50,13 @@ const storage = {
 
   async set(key, value) {
     if (this.isAvailable) {
-      localStorage.setItem(key, JSON.stringify(value));
+      await localforage.setItem(key, JSON.stringify(value));
     }
   },
 
   async remove(key) {
     if (this.isAvailable) {
-      localStorage.removeItem(key);
+      await localforage.removeItem(key);
     }
   },
 };
