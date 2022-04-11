@@ -29,6 +29,7 @@ def assert_record_not_in_es(recid):
             "source": "arxiv",
             "fulltext": True,
             "key": "arXiv:nucl-th_9310030.pdf",
+            "filename": "arXiv:nucl-th_9310030.pdf",
             "url": "https://arxiv.org/pdf/1910.11662.pdf",
             "text": "e1xydGYxXGFuc2kNCkxvcmVtIGlwc3VtIGRvbG9yIHNpdCBhbWV0DQpccGFyIH0=",
         }
@@ -42,6 +43,7 @@ def test_fulltext_indexer(inspire_app, clean_celery_session, override_config):
                 "documents": [
                     {
                         "key": "arXiv:hep-ph_9709356.pdf",
+                        "filename": "arXiv:hep-ph_9709356.pdf",
                         "source": "arxiv",
                         "fulltext": True,
                         "url": "http://www.africau.edu/images/default/sample.pdf",
@@ -71,6 +73,7 @@ def test_fulltext_indexer(inspire_app, clean_celery_session, override_config):
                 "source": "arxiv",
                 "fulltext": True,
                 "key": "arXiv:nucl-th_9310030.pdf",
+                "filename": "arXiv:nucl-th_9310030.pdf",
                 "url": "https://arxiv.org/pdf/1910.11662.pdf",
                 "text": "e1xydGYxXGFuc2kNCkxvcmVtIGlwc3VtIGRvbG9yIHNpdCBhbWV0DQpccGFyIH0=",
             }
@@ -80,6 +83,7 @@ def test_fulltext_indexer(inspire_app, clean_celery_session, override_config):
                 "source": "arxiv",
                 "fulltext": True,
                 "key": "new_doc.pdf",
+                "filename": "new_doc.pdf",
                 "url": "http://www.africau.edu/images/default/sample.pdf",
                 "text": "SSBsb3ZlIHRlbGV3b3JraW5nLCBpdCBzaG91bGQgYmUgYSBzdGFuZGFyZCBpbiB0ZWNoIGNvbXBhbmllcw==",
             }
@@ -100,6 +104,7 @@ def test_fulltext_indexer_updates_documents_when_record_changed(
                     {
                         "source": "arxiv",
                         "fulltext": True,
+                        "filename": "arXiv:nucl-th_9310030.pdf",
                         "key": "arXiv:nucl-th_9310030.pdf",
                         "url": "https://arxiv.org/pdf/1910.11662.pdf",
                     }
@@ -130,6 +135,7 @@ def test_fulltext_indexer_updates_documents_when_record_changed(
             {
                 "source": "arxiv",
                 "fulltext": True,
+                "filename": "new_doc.pdf",
                 "key": "new_doc.pdf",
                 "url": "http://www.africau.edu/images/default/sample.pdf",
             }
@@ -163,6 +169,7 @@ def test_index_record_fulltext_manually(
                     {
                         "source": "arxiv",
                         "fulltext": True,
+                        "filename": "new_doc.pdf",
                         "key": "new_doc.pdf",
                         "url": "http://www.africau.edu/images/default/sample.pdf",
                     }
@@ -203,6 +210,7 @@ def test_index_records_batch_fulltext_manually(
                         {
                             "source": "arxiv",
                             "fulltext": True,
+                            "filename": "new_doc.pdf",
                             "key": "new_doc.pdf",
                             "url": "http://www.africau.edu/images/default/sample.pdf",
                         }
@@ -219,6 +227,7 @@ def test_index_records_batch_fulltext_manually(
                         {
                             "source": "arxiv",
                             "fulltext": True,
+                            "filename": "new_doc.pdf",
                             "key": "new_doc.pdf",
                             "url": "http://www.africau.edu/images/default/sample.pdf",
                         }
@@ -242,6 +251,7 @@ def test_index_records_batch_fulltext_manually(
             {
                 "source": "arxiv",
                 "fulltext": True,
+                "filename": "another_doc.pdf",
                 "key": "another_doc.pdf",
                 "url": "http://www.africau.edu/images/default/sample.pdf",
             },

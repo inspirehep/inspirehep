@@ -80,6 +80,7 @@ def test_es_schema_removes_fulltext_fields_from_ui_display(
                 "source": "arxiv",
                 "fulltext": True,
                 "key": "new_doc.pdf",
+                "filename": "new_doc.pdf",
                 "url": "http://www.africau.edu/images/default/sample.pdf",
                 "text": "asdfsdfbajabjbasdasdasd=",
                 "attachment": {"content": "this is a text"},

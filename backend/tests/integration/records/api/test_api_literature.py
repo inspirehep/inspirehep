@@ -2422,6 +2422,7 @@ def test_index_fulltext_document(inspire_app):
                 "source": "arxiv",
                 "fulltext": True,
                 "key": "2105.15193.pdf",
+                "filename": "2105.15193.pdf",
                 "url": "https://arxiv.org/pdf/2105.15193.pdf",
             }
         ]
