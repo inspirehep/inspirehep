@@ -246,8 +246,8 @@ class LiteratureFulltextElasticSearchSchema(LiteratureElasticSearchSchema):
         for document in documents:
             if (
                 not document.get("hidden")
-                and document["key"].endswith("pdf")
-                and document["fulltext"]
+                and document.get("filename", "").endswith("pdf")
+                and document.get("fulltext")
             ):
                 file_data = download_file_from_url(document["url"])
                 encoded_file = base64.b64encode(file_data).decode("ascii")
