@@ -1223,3 +1223,56 @@ def test_regression_journal_volume_search(inspire_app):
         response.json["hits"]["hits"][0]["metadata"]["control_number"]
         == record_2["control_number"]
     )
+
+
+def test_literature_journal_title_search_is_case_insensitive(inspire_app):
+    record1 = create_record(
+        "lit",
+        data={
+            "publication_info": [
+                {
+                    "year": 2017,
+                    "artid": "020",
+                    "page_start": "020",
+                    "journal_title": "JHEP",
+                    "journal_record": {
+                        "$ref": "https://inspirebeta.net/api/journals/1213103"
+                    },
+                    "journal_volume": "10",
+                }
+            ],
+        },
+    )
+    record2 = create_record(
+        "lit",
+        data={
+            "publication_info": [
+                {
+                    "year": 2017,
+                    "artid": "021",
+                    "page_start": "021",
+                    "journal_title": "JHEP",
+                    "journal_volume": "10",
+                }
+            ],
+        },
+    )
+    result_lowercase = LiteratureSearch().query_from_iq("j jhep").execute()
+    result_uppercase = LiteratureSearch().query_from_iq("j JHEP").execute()
+
+    assert result_lowercase
+    assert result_uppercase
+
+    hits_lowercase = result_lowercase["hits"]["hits"]
+    hits_uppercase = result_uppercase["hits"]["hits"]
+    result_lowercase_found_record_ids = [hit._id for hit in hits_lowercase]
+    result_uppercase_found_record_ids = [hit._id for hit in hits_uppercase]
+
+    assert len(result_lowercase_found_record_ids) == 2
+    assert len(result_uppercase_found_record_ids) == 2
+
+    assert str(record1.id) in result_lowercase_found_record_ids
+    assert str(record2.id) in result_lowercase_found_record_ids
+
+    assert str(record1.id) in result_uppercase_found_record_ids
+    assert str(record2.id) in result_uppercase_found_record_ids
