@@ -19,6 +19,7 @@ export function AuthorPublications({
   assignViewOwnProfile,
   assignViewDifferentProfile,
   assignViewNoProfile,
+  numberOfSelected,
 }) {
   const baseQuery = useMemo(
     () => ({
@@ -46,6 +47,7 @@ export function AuthorPublications({
               baseAggregationsQuery={baseAggregationsQuery}
               noResultsTitle="0 Research works"
               embedded
+              numberOfSelected={numberOfSelected}
             />
             {assignView && <AssignDrawerContainer />}
           </AssignViewContext.Provider>
@@ -66,6 +68,7 @@ AuthorPublications.propTypes = {
   authorFacetName: PropTypes.string.isRequired,
   assignView: PropTypes.bool,
   assignViewOwnProfile: PropTypes.bool,
+  numberOfSelected: PropTypes.number.isRequired,
 };
 
 const stateToProps = (state) => ({
@@ -86,6 +89,7 @@ const stateToProps = (state) => ({
   assignViewNoProfile:
     state.user.get('loggedIn') &&
     getConfigFor('ASSIGN_NO_PROFILE_UI_FEATURE_FLAG'),
+  numberOfSelected: state.authors.get('publicationSelection').size,
 });
 
 export default connect(stateToProps)(AuthorPublications);

@@ -8,7 +8,7 @@ import AggregationFiltersContainer from '../../common/containers/AggregationFilt
 import PaginationContainer from '../../common/containers/PaginationContainer';
 import SortByContainer from '../../common/containers/SortByContainer';
 import ResultsContainer from '../../common/containers/ResultsContainer';
-import NumberOfResultsWithSelectedItemsNumberContainer from './NumberOfResultsWithSelectedItemsNumberContainer';
+import NumberOfResultsWithSelectedItemsNumber from '../components/NumberOfResultsWithSelectedItemsNumber';
 import LoadingOrChildren from '../../common/components/LoadingOrChildren';
 import ResponsiveView from '../../common/components/ResponsiveView';
 import DrawerHandle from '../../common/components/DrawerHandle.tsx';
@@ -51,6 +51,7 @@ function LiteratureSearch({
   isCitationSummaryVisible,
   embedded,
   enableCitationSummary,
+  numberOfSelected,
 }) {
   const renderAggregations = useCallback(
     () => (
@@ -123,7 +124,8 @@ function LiteratureSearch({
                     <LiteratureSelectAllContainer />
                   </span>
                 )}
-                <NumberOfResultsWithSelectedItemsNumberContainer
+                <NumberOfResultsWithSelectedItemsNumber
+                  numberOfSelected={numberOfSelected}
                   namespace={namespace}
                 />
                 <VerticalDivider />
@@ -243,6 +245,7 @@ LiteratureSearch.propTypes = {
   loading: PropTypes.bool.isRequired,
   loadingAggregations: PropTypes.bool.isRequired,
   namespace: PropTypes.string.isRequired,
+  numberOfSelected: PropTypes.number,
   onBaseQueriesChange: PropTypes.func,
   baseQuery: PropTypes.object,
   baseAggregationsQuery: PropTypes.object,

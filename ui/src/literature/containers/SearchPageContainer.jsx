@@ -17,7 +17,7 @@ const META_DESCRIPTION =
   'Find articles, conference papers, proceedings, books, theses, reviews, lectures and reports in High Energy Physics';
 const TITLE = 'Literature Search';
 
-export function SearchPage({ assignView }) {
+export function SearchPage({ assignView, numberOfSelected }) {
   return (
     <>
       <DocumentHead title={TITLE} description={META_DESCRIPTION} />
@@ -36,6 +36,7 @@ export function SearchPage({ assignView }) {
                   .
                 </em>
               }
+              numberOfSelected={numberOfSelected}
             />
             {assignView && <AssignConferencesDrawerContainer />}
           </AssignViewContext.Provider>
@@ -47,6 +48,7 @@ export function SearchPage({ assignView }) {
 
 SearchPage.propTypes = {
   assignView: PropTypes.bool.isRequired,
+  numberOfSelected: PropTypes.number.isRequired,
 };
 
 const stateToProps = (state) => ({
@@ -54,6 +56,7 @@ const stateToProps = (state) => ({
     isSuperUser(state.user.getIn(['data', 'roles'])) ||
     (getConfigFor('ASSIGN_CONFERENCE_UI_FEATURE_FLAG') &&
       isCataloger(state.user.getIn(['data', 'roles']))),
+  numberOfSelected: state.literature.get('literatureSelection').size,
 });
 
 const SearchPageContainer = connect(stateToProps)(SearchPage);
