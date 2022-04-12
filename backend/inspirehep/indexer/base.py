@@ -12,9 +12,7 @@ from flask import current_app
 from invenio_indexer.api import RecordIndexer
 from invenio_indexer.signals import before_record_index
 from invenio_indexer.utils import _es7_expand_action
-from invenio_search import current_search
 from invenio_search import current_search_client as es
-from invenio_search.utils import prefix_index
 from kombu.exceptions import EncodeError
 from sqlalchemy.orm.exc import NoResultFound
 
@@ -149,22 +147,6 @@ class LiteratureRecordFulltextIndexer(InspireRecordIndexer):
             **kwargs,
         )
         return data
-
-    def index_fulltext(self, record):
-        ingestion_pipeline_name = current_app.config["ES_FULLTEXT_PIPELINE_NAME"]
-        index = prefix_index(current_app.config["PID_TYPE_TO_INDEX"][record.pid_type])
-        data_to_update = self._prepare_record(record, index)
-        put_url = f"/{index}/_doc/{record.id}"
-        current_search.client.transport.perform_request(
-            "PUT",
-            put_url,
-            body=data_to_update,
-            params=dict(
-                pipeline=ingestion_pipeline_name,
-                version=record.revision_id,
-                version_type="external_gte",
-            ),
-        )
 
     def _process_bulk_record_for_index(
         self, record, version_type="external", index=None, doc_type=None
