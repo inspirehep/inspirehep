@@ -19,6 +19,7 @@ from marshmallow import fields, missing, pre_dump
 from inspirehep.oai.utils import is_cds_set, is_cern_arxiv_set
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.api import InspireRecord
+from inspirehep.records.errors import DownloadFileError
 from inspirehep.records.marshmallow.literature.common.abstract import AbstractSource
 from inspirehep.records.marshmallow.literature.common.author import (
     AuthorsInfoSchemaForES,
@@ -249,7 +250,15 @@ class LiteratureFulltextElasticSearchSchema(LiteratureElasticSearchSchema):
                 and document.get("filename", "").endswith("pdf")
                 and document.get("fulltext")
             ):
-                file_data = download_file_from_url(document["url"])
-                encoded_file = base64.b64encode(file_data).decode("ascii")
-                document["text"] = encoded_file
+                try:
+                    file_data = download_file_from_url(document["url"])
+                    encoded_file = base64.b64encode(file_data).decode("ascii")
+                    document["text"] = encoded_file
+                except DownloadFileError:
+                    LOGGER.error(
+                        "File was not found for the given url",
+                        document_url=document["url"],
+                        record_control_number=record_data["control_number"],
+                    )
+                    continue
         return documents
