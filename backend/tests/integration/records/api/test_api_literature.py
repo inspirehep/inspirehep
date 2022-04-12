@@ -25,6 +25,7 @@ from inspirehep.files.api import current_s3_instance
 from inspirehep.records.api import InspireRecord, LiteratureRecord
 from inspirehep.records.api.literature import import_article
 from inspirehep.records.errors import (
+    DownloadFileError,
     ExistingArticleError,
     UnknownImportIdentifierError,
     UnsupportedFileError,
@@ -2431,3 +2432,35 @@ def test_index_fulltext_document(inspire_app):
     record = LiteratureRecord.create(record_data)
     serialized_data = record.serialize_for_es_with_fulltext()
     assert "text" in serialized_data["documents"][0]
+
+
+@mock.patch(
+    "inspirehep.records.marshmallow.literature.es.download_file_from_url",
+    side_effect=[DownloadFileError, str.encode("this is a test", "utf-8")],
+)
+def test_index_fulltext_with_not_existing_doc_handle_exception(
+    mock_download_file, inspire_app
+):
+    data = {
+        "documents": [
+            {
+                "source": "arxiv",
+                "fulltext": True,
+                "key": "2105.15191.pdf",
+                "filename": "2105.15191.pdf",
+                "url": "https://this-url-doesnt-exist.pdf",
+            },
+            {
+                "source": "arxiv",
+                "fulltext": True,
+                "key": "2105.15193.pdf",
+                "filename": "2105.15193.pdf",
+                "url": "http://www.africau.edu/images/default/sample.pdf",
+            },
+        ]
+    }
+    record_data = faker.record("lit", with_control_number=True, data=data)
+    record = LiteratureRecord.create(record_data)
+    serialized_data = record.serialize_for_es_with_fulltext()
+    assert "text" in serialized_data["documents"][1]
+    assert "text" not in serialized_data["documents"][0]
