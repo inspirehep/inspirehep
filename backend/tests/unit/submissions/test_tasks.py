@@ -1,4 +1,5 @@
 import pytest
+from celery.exceptions import Retry
 from mock import patch
 
 from inspirehep.rt.tickets import CreateTicketException
@@ -30,4 +31,24 @@ def test_async_create_ticket_with_template_logs_on_error(mock_create_ticket):
         12345,
     ]
     with pytest.raises(CreateTicketException):
+        async_create_ticket_with_template(*args)
+
+
+@patch("inspirehep.submissions.tasks.create_ticket_with_template", return_value=-1)
+def test_async_create_ticket_reque(mock_create_ticket):
+    args = [
+        "test",
+        "test@guy.com",
+        "/path/to/template",
+        {"foo": "bar"},
+        "Test Ticket",
+        12345,
+    ]
+
+    mock_create_ticket.side_effect = Exception
+    with pytest.raises(Exception):
+        async_create_ticket_with_template(*args)
+
+    mock_create_ticket.side_effect = Retry()
+    with pytest.raises(Retry):
         async_create_ticket_with_template(*args)

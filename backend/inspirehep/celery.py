@@ -34,6 +34,8 @@ class CeleryTask(AppContextTask):
                     term_log.write(str(exc))
             finally:
                 os.kill(os.getppid(), signal.SIGTERM)
+        else:
+            raise self.retry(exc=exc, max_retries=3)
 
     def __call__(self, *args, **kwargs):
         """Fix for flask-celeryext __call__ override fail.

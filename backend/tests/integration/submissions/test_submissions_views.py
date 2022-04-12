@@ -33,7 +33,8 @@ from inspirehep.records.api import (
 )
 
 
-def test_author_submit_requires_authentication(inspire_app):
+@patch("inspirehep.submissions.views.async_create_ticket_with_template")
+def test_author_submit_requires_authentication(ticket_mock, inspire_app):
     with inspire_app.test_client() as client:
         response = client.post(
             "/submissions/authors",
@@ -1279,7 +1280,8 @@ def test_update_job_status_from_open(ticket_mock, inspire_app):
 
 
 @freeze_time("2019-01-31")
-def test_job_update_data_30_days_after_deadline(inspire_app):
+@patch("inspirehep.submissions.views.async_create_ticket_with_template")
+def test_job_update_data_30_days_after_deadline(ticket_mock, inspire_app):
     user = create_user()
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
@@ -1301,7 +1303,10 @@ def test_job_update_data_30_days_after_deadline(inspire_app):
 
 
 @freeze_time("2019-01-31")
-def test_job_update_data_30_days_after_deadline_with_cataloger(inspire_app):
+@patch("inspirehep.submissions.views.async_create_ticket_with_template")
+def test_job_update_data_30_days_after_deadline_with_cataloger(
+    ticket_mocker, inspire_app
+):
     cataloger = create_user(role="cataloger")
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=cataloger.email)
@@ -1323,7 +1328,8 @@ def test_job_update_data_30_days_after_deadline_with_cataloger(inspire_app):
 
 
 @freeze_time("2019-01-31")
-def test_job_update_data_less_than_30_days_after_deadline(inspire_app):
+@patch("inspirehep.submissions.views.async_create_ticket_with_template")
+def test_job_update_data_less_than_30_days_after_deadline(ticket_mock, inspire_app):
     user = create_user()
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
@@ -1727,8 +1733,9 @@ def test_confirmation_email_not_sent_when_user_is_cataloger(
 
 
 @patch("inspirehep.submissions.views.send_conference_confirmation_email")
+@patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_confirmation_email_sent_for_regular_user(
-    mock_send_confirmation_email, inspire_app
+    mock_async_create_ticket_with_template, mock_send_confirmation_email, inspire_app
 ):
     user = create_user()
     with inspire_app.test_client() as client:
