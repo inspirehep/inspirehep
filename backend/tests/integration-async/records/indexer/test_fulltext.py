@@ -21,7 +21,6 @@ def assert_record_not_in_es(recid):
     retry_until_pass(assert_hits, retry_interval=5)
 
 
-@pytest.mark.xfail(reason="it takes to long to put attachment in es")
 @mock.patch(
     "inspirehep.records.marshmallow.literature.LiteratureFulltextElasticSearchSchema.get_documents_with_fulltext",
     return_value=[
@@ -30,32 +29,36 @@ def assert_record_not_in_es(recid):
             "fulltext": True,
             "key": "arXiv:nucl-th_9310030.pdf",
             "filename": "arXiv:nucl-th_9310030.pdf",
-            "url": "https://arxiv.org/pdf/1910.11662.pdf",
+            "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+            "text": "e1xydGYxXGFuc2kNCkxvcmVtIGlwc3VtIGRvbG9yIHNpdCBhbWV0DQpccGFyIH0=",
             "text": "e1xydGYxXGFuc2kNCkxvcmVtIGlwc3VtIGRvbG9yIHNpdCBhbWV0DQpccGFyIH0=",
         }
     ],
 )
 def test_fulltext_indexer(inspire_app, clean_celery_session, override_config):
     with override_config(FEATURE_FLAG_ENABLE_FULLTEXT=True):
-        record_data = faker.record("lit")
-        record_data.update(
+        data = faker.record("lit")
+        data.update(
             {
+                "arxiv_eprints": [
+                    {"categories": ["hep-ph"], "value": "hep-ph/9404247"}
+                ],
                 "documents": [
                     {
-                        "key": "arXiv:hep-ph_9709356.pdf",
-                        "filename": "arXiv:hep-ph_9709356.pdf",
                         "source": "arxiv",
                         "fulltext": True,
-                        "url": "http://www.africau.edu/images/default/sample.pdf",
+                        "filename": "arXiv:nucl-th_9310030.pdf",
+                        "key": "arXiv:nucl-th_9310030.pdf",
+                        "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
                     }
                 ],
             }
         )
-        record = LiteratureRecord.create(record_data)
+        record = LiteratureRecord.create(data)
         db.session.commit()
 
         def assert_record_in_es():
-            current_search.flush_and_refresh("records-hep")
+            current_search.flush_and_refresh("*")
             record_lit_es = (
                 LiteratureSearch().get_record(str(record.id)).execute().hits.hits[0]
             )
@@ -64,7 +67,6 @@ def test_fulltext_indexer(inspire_app, clean_celery_session, override_config):
         retry_until_pass(assert_record_in_es, timeout=90, retry_interval=20)
 
 
-@pytest.mark.xfail(reason="it takes to long to put attachment in es")
 @mock.patch(
     "inspirehep.records.marshmallow.literature.LiteratureFulltextElasticSearchSchema.get_documents_with_fulltext",
     side_effect=[
@@ -74,7 +76,7 @@ def test_fulltext_indexer(inspire_app, clean_celery_session, override_config):
                 "fulltext": True,
                 "key": "arXiv:nucl-th_9310030.pdf",
                 "filename": "arXiv:nucl-th_9310030.pdf",
-                "url": "https://arxiv.org/pdf/1910.11662.pdf",
+                "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
                 "text": "e1xydGYxXGFuc2kNCkxvcmVtIGlwc3VtIGRvbG9yIHNpdCBhbWV0DQpccGFyIH0=",
             }
         ],
@@ -106,7 +108,7 @@ def test_fulltext_indexer_updates_documents_when_record_changed(
                         "fulltext": True,
                         "filename": "arXiv:nucl-th_9310030.pdf",
                         "key": "arXiv:nucl-th_9310030.pdf",
-                        "url": "https://arxiv.org/pdf/1910.11662.pdf",
+                        "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
                     }
                 ],
             }

@@ -14,6 +14,7 @@ from elasticsearch import (
     NotFoundError,
     RequestError,
 )
+from flask import current_app
 from sqlalchemy.exc import (
     DisconnectionError,
     OperationalError,
@@ -125,7 +126,10 @@ def index_fulltext(self, record_id):
     record = InspireRecord.get_record(record_id)
     LOGGER.info("Indexing record including fulltext", uuid=record.id)
     if record.pid_type == "lit":
-        LiteratureRecordFulltextIndexer().index_fulltext(record)
+        LiteratureRecordFulltextIndexer().index(
+            record,
+            arguments={"pipeline": current_app.config["ES_FULLTEXT_PIPELINE_NAME"]},
+        )
 
 
 @shared_task(ignore_result=False, bind=True)
