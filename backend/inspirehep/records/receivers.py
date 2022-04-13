@@ -54,4 +54,6 @@ def index_after_commit(sender, changes):
                     and "documents" in model_instance.json
                     and current_app.config["FEATURE_FLAG_ENABLE_FULLTEXT"]
                 ):
-                    index_fulltext.delay(str(model_instance.id))
+                    index_fulltext.delay(
+                        str(model_instance.id), model_instance.version_id
+                    )
