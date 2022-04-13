@@ -122,8 +122,8 @@ def index_record(self, uuid, record_version=None, force_delete=None):
     retry_kwargs={"max_retries": 3},
     autoretry_for=CELERY_INDEX_RECORD_RETRY_ON_EXCEPTIONS,
 )
-def index_fulltext(self, record_id):
-    record = InspireRecord.get_record(record_id)
+def index_fulltext(self, record_id, record_version):
+    record = InspireRecord.get_record(record_id, record_version)
     LOGGER.info("Indexing record including fulltext", uuid=record.id)
     if record.pid_type == "lit":
         LiteratureRecordFulltextIndexer().index(

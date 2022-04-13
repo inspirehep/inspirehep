@@ -568,9 +568,9 @@ class LiteratureRecord(
             uuid=str(self.id),
         )
         if delay:
-            index_fulltext.delay(str(self.id))
+            index_fulltext.delay(str(self.id), self.model.version_id)
             return
-        index_fulltext(str(self.id))
+        index_fulltext(str(self.id), self.model.version_id)
 
     @classmethod
     def fix_entries_by_update_date(cls, before=None, after=None, max_chunk=100):
