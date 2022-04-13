@@ -166,6 +166,8 @@ CELERY_BEAT_SCHEDULE = {
     #    'schedule': timedelta(minutes=60),
     # },
 }
+CELERY_WORKER_SEND_TASK_EVENTS = True
+CELERY_TASK_SEND_SENT_EVENT = True
 
 
 class Annotator:
