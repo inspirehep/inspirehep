@@ -8,6 +8,7 @@
 import random
 import re
 
+import mock
 import pytest
 from elasticsearch import NotFoundError
 from elasticsearch.client.ingest import IngestClient
@@ -58,14 +59,18 @@ def test_reindex_one_type_of_record(inspire_app, cli):
     assert expected_aut_len == results_aut_len
 
 
-def test_reindex_one_type_of_record_with_fulltext(inspire_app, cli):
-    record_lit = create_record_factory("lit")
-
+@mock.patch("inspirehep.indexer.cli.batch_index_literature_fulltext")
+def test_reindex_one_type_of_record_with_fulltext(
+    mock_index_fulltext, inspire_app, cli
+):
+    record_lit = create_record("lit")
     cli.invoke(["index", "reindex", "-ft", "-p", "lit"])
-    current_search.flush_and_refresh("*")
-    results_lit_uuid = LiteratureSearch().execute().hits.hits[0]["_id"]
 
-    assert str(record_lit.id) == results_lit_uuid
+    assert mock_index_fulltext.called_once()
+    assert mock_index_fulltext.mock_calls[0][2] == {
+        "kwargs": {"records_uuids": [str(record_lit.id)], "request_timeout": 900},
+        "queue": "indexer_task",
+    }
 
 
 def test_remap_one_index(inspire_app, cli):
