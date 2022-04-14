@@ -128,7 +128,10 @@ def index_fulltext(self, record_id, record_version):
     if record.pid_type == "lit":
         LiteratureRecordFulltextIndexer().index(
             record,
-            arguments={"pipeline": current_app.config["ES_FULLTEXT_PIPELINE_NAME"]},
+            arguments={
+                "pipeline": current_app.config["ES_FULLTEXT_PIPELINE_NAME"],
+                "timeout": current_app.config["FULLLTEXT_INDEXER_REQUEST_TIMEOUT"],
+            },
         )
 
 

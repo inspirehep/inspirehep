@@ -78,7 +78,7 @@ class InspireRecordIndexer(RecordIndexer):
         Args:
             records_uuids(list[str): List of strings which are UUID's of records
                 to reindex
-            request_timeout(int): Maximum time after which   es will throw an exception
+            request_timeout(int): Maximum time after which es will throw an exception
 
         Returns:
             dict: dict with success count and failure list

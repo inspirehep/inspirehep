@@ -243,7 +243,7 @@ class LiteratureFulltextElasticSearchSchema(LiteratureElasticSearchSchema):
     documents = fields.Method("get_documents_with_fulltext")
 
     def get_documents_with_fulltext(self, record_data):
-        documents = record_data.get("documents")
+        documents = record_data.get("documents", [])
         for document in documents:
             if (
                 not document.get("hidden")
