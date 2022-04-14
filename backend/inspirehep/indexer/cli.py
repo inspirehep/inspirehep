@@ -203,7 +203,7 @@ def reindex_records(
 
         while batch:
             uuids = [str(item[0]) for item in batch]
-            if pidtype == "lit" and fulltext:
+            if len(pidtype) == 1 and "lit" in pidtype and fulltext:
                 indexer_task = batch_index_literature_fulltext.apply_async(
                     kwargs={"records_uuids": uuids, "request_timeout": request_timeout},
                     queue=queue_name,
