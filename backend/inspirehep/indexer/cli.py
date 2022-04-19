@@ -25,6 +25,37 @@ from inspirehep.indexer.tasks import batch_index, batch_index_literature_fulltex
 from inspirehep.records.api import InspireRecord
 
 LOGGER = structlog.getLogger()
+FULLTEXT_PIPELINE_SETUP = {
+    "description": "Extract information from documents array",
+    "processors": [
+        {
+            "foreach": {
+                "field": "documents",
+                "ignore_missing": True,
+                "processor": {
+                    "attachment": {
+                        "field": "_ingest._value.text",
+                        "target_field": "_ingest._value.attachment",
+                        "indexed_chars": -1,
+                        "ignore_missing": True,
+                    },
+                },
+            },
+        },
+        {
+            "foreach": {
+                "field": "documents",
+                "ignore_missing": True,
+                "processor": {
+                    "remove": {
+                        "field": "_ingest._value.text",
+                        "ignore_missing": True,
+                    }
+                },
+            }
+        },
+    ],
+}
 
 
 def next_batch(iterator, batch_size):
@@ -384,36 +415,7 @@ def delete_aliases(ctx, yes_i_know, prefix):
 def _put_files_pipeline():
     ingestion_pipeline_client = IngestClient(current_search.client)
     ingestion_pipeline_client.put_pipeline(
-        id=current_app.config["ES_FULLTEXT_PIPELINE_NAME"],
-        body={
-            "description": "Extract information from documents array",
-            "processors": [
-                {
-                    "foreach": {
-                        "field": "documents",
-                        "processor": {
-                            "attachment": {
-                                "field": "_ingest._value.text",
-                                "target_field": "_ingest._value.attachment",
-                                "indexed_chars": -1,
-                                "ignore_missing": True,
-                            },
-                        },
-                    },
-                },
-                {
-                    "foreach": {
-                        "field": "documents",
-                        "processor": {
-                            "remove": {
-                                "field": "_ingest._value.text",
-                                "ignore_missing": True,
-                            }
-                        },
-                    }
-                },
-            ],
-        },
+        id=current_app.config["ES_FULLTEXT_PIPELINE_NAME"], body=FULLTEXT_PIPELINE_SETUP
     )
 
 
