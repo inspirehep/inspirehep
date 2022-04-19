@@ -5,8 +5,12 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+import pytest
 
-from inspirehep.disambiguation.utils import update_author_names
+from inspirehep.disambiguation.utils import (
+    reorder_lit_author_names,
+    update_author_names,
+)
 
 
 def test_update_author_names():
@@ -48,3 +52,18 @@ def test_update_author_names_doesnt_put_duplicate_name_variants():
         "$schema": "http://localhost:5000/schemas/record/authors.json",
     }
     assert expected_author == result_author
+
+
+@pytest.mark.parametrize(
+    "lit_author_name,author_name,expected_normalized_name",
+    [
+        ("Smith, John Davis", "Smith Davis, John", "Smith Davis, John"),
+        ("Smith, John Davis Aaron", "Smith Davis, John", "Smith Davis, John Aaron"),
+    ],
+)
+def test_reorder_lit_author_names(
+    lit_author_name, author_name, expected_normalized_name
+):
+    assert expected_normalized_name == reorder_lit_author_names(
+        lit_author_name, author_name
+    )

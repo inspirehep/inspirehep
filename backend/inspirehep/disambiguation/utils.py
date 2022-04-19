@@ -1,9 +1,11 @@
 import datetime
+import re
 
 import structlog
 from flask import url_for
 from inspire_dojson.utils import get_record_ref
 from prometheus_client import Counter
+from unidecode import unidecode
 
 from inspirehep.records.api.authors import AuthorsRecord
 from inspirehep.records.api.literature import LiteratureRecord
@@ -109,3 +111,39 @@ def update_author_names(author, signatures):
         author["name"]["name_variants"] = name_variants
     author.update(dict(author))
     return author
+
+
+def reorder_lit_author_names(lit_author_name, author_name):
+    lit_author_name_tokens = re.split(", | ", lit_author_name)
+    lit_author_last_names = lit_author_name.split(",")[0].split(" ")
+    lit_author_first_names_reordered = []
+    lit_author_last_names_reordered = []
+
+    author_last_names = author_name.split(",")[0].split(" ")
+    author_last_names_normalized = {unidecode(name) for name in author_last_names}
+    author_first_names = (
+        author_name.split(",")[1].split(" ") if "," in author_name else []
+    )
+    author_first_names_normalized = {unidecode(name) for name in author_first_names}
+
+    for name_idx, name in enumerate(lit_author_name_tokens):
+        normalized_name = unidecode(name)
+        if normalized_name in author_last_names_normalized:
+            lit_author_last_names_reordered.append(name)
+            continue
+        if normalized_name in author_first_names_normalized:
+            lit_author_first_names_reordered.append(name)
+            continue
+        # case when lit author names are not in author names
+        # - we leave name parts as they were
+        if name_idx + 1 > len(lit_author_last_names):
+            lit_author_first_names_reordered.append(name)
+        else:
+            lit_author_last_names_reordered.append(name)
+
+    lit_author_first_name_reordered = " ".join(lit_author_first_names_reordered)
+    lit_author_last_name_reordered = " ".join(lit_author_last_names_reordered)
+    lit_author_name_reordered = (
+        f"{lit_author_last_name_reordered}, {lit_author_first_name_reordered}"
+    )
+    return lit_author_name_reordered.strip()

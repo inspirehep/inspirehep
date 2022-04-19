@@ -69,7 +69,7 @@ def test_disambiguation_runs_after_record_creation(
     author_data = faker.record("aut", with_control_number=True)
     author_data.update(
         {
-            "name": {"value": "Brian Gross"},
+            "name": {"value": "Gross, Brian"},
             "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
             "email_addresses": [{"current": True, "value": "test@test.com"}],
         }
@@ -88,7 +88,7 @@ def test_disambiguation_runs_after_record_creation(
         {
             "authors": [
                 {
-                    "full_name": "Brian Gross",
+                    "full_name": "Gross, Brian",
                     "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
                     "emails": ["test@test.com"],
                 }
@@ -116,7 +116,7 @@ def test_disambiguate_many_authors_runs_after_record_creation(
     author_1 = faker.record("aut", with_control_number=True)
     author_1.update(
         {
-            "name": {"value": "Brian Gross"},
+            "name": {"value": "Gross, Brian"},
             "ids": [
                 {"schema": "INSPIRE ID", "value": "INSPIRE-00304313"},
                 {"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"},
@@ -127,7 +127,7 @@ def test_disambiguate_many_authors_runs_after_record_creation(
     author_2 = faker.record("aut", with_control_number=True)
     author_2.update(
         {
-            "name": {"value": "Donald Matthews"},
+            "name": {"value": "Matthews, Donald"},
             "ids": [{"schema": "INSPIRE BAI", "value": "H.Khalfoun.1"}],
             "email_addresses": [
                 {"current": True, "value": "test1@test.pl"},
@@ -152,7 +152,7 @@ def test_disambiguate_many_authors_runs_after_record_creation(
         {
             "authors": [
                 {
-                    "full_name": "Brian Gross",
+                    "full_name": "Gross, Brian",
                     "ids": [
                         {"schema": "INSPIRE ID", "value": "INSPIRE-00304313"},
                         {"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"},
@@ -160,7 +160,7 @@ def test_disambiguate_many_authors_runs_after_record_creation(
                     "emails": ["test@test.com"],
                 },
                 {
-                    "full_name": "Donald Matthews",
+                    "full_name": "Matthews, Donald",
                     "ids": [{"schema": "INSPIRE BAI", "value": "H.Khalfoun.1"}],
                     "emails": ["test1@test.pl", "test1.1@test.pl"],
                 },
@@ -193,7 +193,7 @@ def test_disambiguate_authors_doesnt_match_when_author_is_ambiguous(
     author_1 = faker.record("aut", with_control_number=True)
     author_1.update(
         {
-            "name": {"value": "Brian Gross"},
+            "name": {"value": "Gross, Brian"},
             "ids": [
                 {"schema": "INSPIRE ID", "value": "INSPIRE-00304313"},
                 {"schema": "INSPIRE BAI", "value": "J.M.Maldacena.2"},
@@ -205,7 +205,7 @@ def test_disambiguate_authors_doesnt_match_when_author_is_ambiguous(
     author_2 = faker.record("aut", with_control_number=True)
     author_2.update(
         {
-            "name": {"value": "Brian Gross"},
+            "name": {"value": "Gross, Brian"},
             "ids": [
                 {"schema": "INSPIRE ID", "value": "INSPIRE-00300003"},
                 {"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"},
@@ -227,7 +227,7 @@ def test_disambiguate_authors_doesnt_match_when_author_is_ambiguous(
 
     retry_until_pass(assert_authors_records_exist_in_es, retry_interval=2)
 
-    authors = [{"full_name": "Brian Gross", "emails": ["test@test.com"]}]
+    authors = [{"full_name": "Gross, Brian", "emails": ["test@test.com"]}]
 
     literature_data = faker.record("lit", with_control_number=True)
     literature_data.update({"authors": authors})
@@ -257,7 +257,7 @@ def test_disambiguation_doesnt_run_with_feature_flag_disabling_it(
     author_data = faker.record("aut", with_control_number=True)
     author_data.update(
         {
-            "name": {"value": "Brian Gross"},
+            "name": {"value": "Gross, Brian"},
             "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
             "email_addresses": [{"current": True, "value": "test@test.com"}],
         }
@@ -276,7 +276,7 @@ def test_disambiguation_doesnt_run_with_feature_flag_disabling_it(
         {
             "authors": [
                 {
-                    "full_name": "Brian Gross",
+                    "full_name": "Gross, Brian",
                     "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
                     "emails": ["test@test.com"],
                 }
@@ -302,7 +302,7 @@ def test_disambiguation_runs_after_lit_record_update(
     author_data.update(
         {
             "control_number": 1,
-            "name": {"value": "Brian Gross"},
+            "name": {"value": "Gross, Brian"},
             "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
             "email_addresses": [{"current": True, "value": "test@uw.edu.pl"}],
         }
@@ -348,7 +348,7 @@ def test_disambiguation_runs_after_lit_record_update(
             "control_number": 4,
             "authors": [
                 {
-                    "full_name": "Brian Gross",
+                    "full_name": "Gross, Brian",
                     "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
                     "emails": ["test@uw.edu.pl"],
                     "uuid": "798d9afe-d3c2-479e-b384-f0aee2573076",
@@ -701,7 +701,7 @@ def test_disambiguation_assigns_bai_when_author_match_based_on_ids(
     author_data = faker.record("aut", with_control_number=True)
     author_data.update(
         {
-            "name": {"value": "Brian Gross"},
+            "name": {"value": "Gross, Brian"},
             "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
             "email_addresses": [{"current": True, "value": "test@test.com"}],
         }
@@ -720,7 +720,7 @@ def test_disambiguation_assigns_bai_when_author_match_based_on_ids(
         {
             "authors": [
                 {
-                    "full_name": "Brian Gross",
+                    "full_name": "Gross, Brian",
                     "emails": ["test@test.com"],
                 }
             ]
@@ -747,7 +747,7 @@ def test_disambiguation_doesnt_assign_bai_when_already_in_author(
     author_data = faker.record("aut", with_control_number=True)
     author_data.update(
         {
-            "name": {"value": "Brian Gross"},
+            "name": {"value": "Gross, Brian"},
             "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
             "email_addresses": [{"current": True, "value": "test@test.com"}],
         }
@@ -766,7 +766,7 @@ def test_disambiguation_doesnt_assign_bai_when_already_in_author(
         {
             "authors": [
                 {
-                    "full_name": "Brian Gross",
+                    "full_name": "Gross, Brian",
                     "ids": [{"schema": "INSPIRE BAI", "value": "A.Test.1"}],
                     "emails": ["test@test.com"],
                 }
@@ -791,6 +791,17 @@ def test_disambiguation_doesnt_assign_bai_when_already_in_author(
 def test_disambiguation_on_author_record_update(
     inspire_app, clean_celery_session, enable_disambiguation
 ):
+    author_data = faker.record("aut", with_control_number=True)
+    author_data.update({"name": {"value": "Kowal, Michal"}})
+    aut_record = AuthorsRecord.create(author_data)
+    db.session.commit()
+
+    def assert_author_record_exist_in_es():
+        aut_record_from_es = InspireSearch.get_record_data_from_es(aut_record)
+        assert aut_record_from_es
+
+    retry_until_pass(assert_author_record_exist_in_es)
+
     literature_data = faker.record("lit", with_control_number=True)
     literature_data.update(
         {
@@ -799,7 +810,7 @@ def test_disambiguation_on_author_record_update(
                     "full_name": "Kowal, Michal",
                     "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
                     "affiliations": [{"value": "Warsaw U."}],
-                    "record": {"$ref": "http://localhost:5000/api/authors/999101"},
+                    "record": aut_record["self"],
                     "curated_relation": True,
                 }
             ]
@@ -1057,7 +1068,7 @@ def test_disambiguation_races_assign(
         author_record_data = faker.record("aut")
         author_record_data.update(
             {
-                "name": {"value": "Michael F. A'Hearn"},
+                "name": {"value": "A'Hearn, Michael F."},
                 "ids": [{"schema": "INSPIRE BAI", "value": "M.F.A.Hearn.1"}],
             }
         )
@@ -1114,7 +1125,7 @@ def test_disambiguation_removes_links_to_authors_records_if_record_moved_to_hidd
     author_data = faker.record("aut", with_control_number=True)
     author_data.update(
         {
-            "name": {"value": "Brian Gross"},
+            "name": {"value": "Gross, Brian"},
             "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
             "email_addresses": [{"current": True, "value": "test@test.com"}],
         }
@@ -1123,7 +1134,7 @@ def test_disambiguation_removes_links_to_authors_records_if_record_moved_to_hidd
     author_data_2 = faker.record("aut", with_control_number=True)
     author_data_2.update(
         {
-            "name": {"value": "Test Author"},
+            "name": {"value": "Author, Test"},
             "ids": [{"schema": "INSPIRE BAI", "value": "T.Author.1"}],
             "email_addresses": [{"current": True, "value": "author@author.com"}],
         }
@@ -1142,14 +1153,14 @@ def test_disambiguation_removes_links_to_authors_records_if_record_moved_to_hidd
         {
             "authors": [
                 {
-                    "full_name": "Brian Gross",
+                    "full_name": "Gross, Brian",
                     "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
                     "emails": ["test@test.com"],
                     "curated_relation": True,
                     "record": author_record["self"],
                 },
                 {
-                    "full_name": "Test Author",
+                    "full_name": "Author, Test",
                     "ids": [{"schema": "INSPIRE BAI", "value": "T.Author.1"}],
                     "emails": ["test@test.com"],
                     "curated_relation": True,
@@ -1188,7 +1199,7 @@ def test_disambiguation_run_for_every_author_when_record_moved_from_private_coll
     author_data = faker.record("aut", with_control_number=True)
     author_data.update(
         {
-            "name": {"value": "Brian Gross"},
+            "name": {"value": "Gross, Brian"},
             "ids": [{"schema": "INSPIRE BAI", "value": "B.Gross.1"}],
             "email_addresses": [{"current": True, "value": "b.gross@cern.ch"}],
         }
@@ -1197,7 +1208,7 @@ def test_disambiguation_run_for_every_author_when_record_moved_from_private_coll
     author_data_2 = faker.record("aut", with_control_number=True)
     author_data_2.update(
         {
-            "name": {"value": "Test Author"},
+            "name": {"value": "Author, Test"},
             "ids": [{"schema": "INSPIRE BAI", "value": "T.Author.1"}],
             "email_addresses": [{"current": True, "value": "author@author.com"}],
         }
@@ -1270,7 +1281,7 @@ def test_editor_lock_is_created_when_disambiguation_runs(
     author_data = faker.record("aut", with_control_number=True)
     author_data.update(
         {
-            "name": {"value": "Brian Gross"},
+            "name": {"value": "Gross, Brian"},
             "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
             "email_addresses": [{"current": True, "value": "test@test.com"}],
         }
@@ -1289,7 +1300,7 @@ def test_editor_lock_is_created_when_disambiguation_runs(
         {
             "authors": [
                 {
-                    "full_name": "Brian Gross",
+                    "full_name": "Gross, Brian",
                     "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
                     "emails": ["test@test.com"],
                 }
@@ -1318,7 +1329,7 @@ def test_disambiguation_match_when_initials_not_present_in_matched_author(
         {
             "authors": [
                 {
-                    "full_name": "Brian Gross",
+                    "full_name": "Gross, Brian",
                     "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
                 }
             ]
@@ -1347,6 +1358,66 @@ def test_disambiguation_match_when_initials_not_present_in_matched_author(
         assert (
             literature_record_from_es["authors"][0]["record"]
             == literature_record_from_es["authors"][0]["record"]
+        )
+
+    retry_until_pass(assert_disambiguation_task, retry_interval=2)
+
+
+def test_disambiguation_reorders_name_after_succesfull_disambiguation(
+    inspire_app, clean_celery_session, enable_disambiguation
+):
+    author_1 = faker.record("aut", with_control_number=True)
+    author_1.update(
+        {
+            "name": {"value": "Gross Davis, Brian"},
+            "ids": [
+                {"schema": "INSPIRE ID", "value": "INSPIRE-00304313"},
+                {"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"},
+            ],
+            "email_addresses": [{"current": True, "value": "test@test.com"}],
+        }
+    )
+
+    author_record_1 = InspireRecord.create(author_1)
+    db.session.commit()
+
+    def assert_authors_records_exist_in_es():
+        author_record_1_from_es = InspireSearch.get_record_data_from_es(author_record_1)
+        assert author_record_1_from_es
+
+    retry_until_pass(assert_authors_records_exist_in_es)
+
+    literature_data = faker.record("lit", with_control_number=True)
+    literature_data.update(
+        {
+            "authors": [
+                {
+                    "full_name": "Gross, Brian Davis",
+                    "ids": [
+                        {"schema": "INSPIRE ID", "value": "INSPIRE-00304313"},
+                        {"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"},
+                    ],
+                    "emails": ["test@test.com"],
+                }
+            ]
+        }
+    )
+    literature_record = LiteratureRecord.create(literature_data)
+    db.session.commit()
+
+    def assert_disambiguation_task():
+        literature_record_from_es = InspireSearch.get_record_data_from_es(
+            literature_record
+        )
+        literature_record_from_es_authors = literature_record_from_es.get("authors")
+        assert (
+            str(author_1["control_number"])
+            in literature_record_from_es_authors[0]["record"]["$ref"]
+        )
+
+        assert (
+            author_1["name"]["value"]
+            == literature_record_from_es_authors[0]["full_name"]
         )
 
     retry_until_pass(assert_disambiguation_task, retry_interval=2)
