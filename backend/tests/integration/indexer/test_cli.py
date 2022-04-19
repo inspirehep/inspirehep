@@ -17,6 +17,7 @@ from helpers.utils import create_record, create_record_factory
 from invenio_search import current_search
 from invenio_search.utils import build_index_name
 
+from inspirehep.indexer.cli import FULLTEXT_PIPELINE_SETUP
 from inspirehep.records.receivers import index_after_commit
 from inspirehep.search.api import (
     AuthorsSearch,
@@ -454,40 +455,9 @@ def test_cli_reindex_deleted_and_redirected_records(inspire_app, cli):
 def test_cli_put_files_pipeline(inspire_app, cli):
     cli.invoke(["index", "put_files_pipeline"])
     IngestClient(current_search.client)
-    expected_result = {
-        "file_content": {
-            "description": "Extract information from documents array",
-            "processors": [
-                {
-                    "foreach": {
-                        "field": "documents",
-                        "processor": {
-                            "attachment": {
-                                "field": "_ingest._value.text",
-                                "target_field": "_ingest._value.attachment",
-                                "indexed_chars": -1,
-                                "ignore_missing": True,
-                            }
-                        },
-                    }
-                },
-                {
-                    "foreach": {
-                        "field": "documents",
-                        "processor": {
-                            "remove": {
-                                "field": "_ingest._value.text",
-                                "ignore_missing": True,
-                            }
-                        },
-                    }
-                },
-            ],
-        }
-    }
     assert (
-        IngestClient(current_search.client).get_pipeline("file_content")
-        == expected_result
+        IngestClient(current_search.client).get_pipeline("file_content")["file_content"]
+        == FULLTEXT_PIPELINE_SETUP
     )
 
 
