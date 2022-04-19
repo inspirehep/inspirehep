@@ -10,6 +10,7 @@ function PublicationsSelect({
   claimed,
   canClaim,
   disabled,
+  checked,
 }) {
   const onChange = (event) => {
     onSelectPapers(event);
@@ -28,6 +29,7 @@ function PublicationsSelect({
         onChange(event);
       }}
       disabled={disabled}
+      checked={checked}
     />
   );
 }
@@ -40,6 +42,7 @@ PublicationsSelect.propTypes = {
   onSelectUnclaimedPapers: PropTypes.func.isRequired,
   onSelectPapers: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
+  checked: PropTypes.bool,
 };
 
 export default PublicationsSelect;

@@ -27,7 +27,6 @@ const dispatchToProps = (dispatch, { recordId }) => ({
       setPublicationsUnclaimedSelection([recordId], event.target.checked)
     );
   },
-
   onSelectPapers(event) {
     dispatch(setPublicationSelection([recordId], event.target.checked));
   },
