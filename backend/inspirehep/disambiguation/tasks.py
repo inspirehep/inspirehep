@@ -13,6 +13,7 @@ from sqlalchemy.orm.exc import NoResultFound, StaleDataError
 from inspirehep.disambiguation.utils import (
     create_new_stub_author,
     link_signatures_to_author,
+    reorder_lit_author_names,
     update_author_names,
 )
 from inspirehep.editor.editor_soft_lock import EditorSoftLock
@@ -21,6 +22,7 @@ from inspirehep.matcher.validators import (
     collaboration_validator,
 )
 from inspirehep.records.api import InspireRecord
+from inspirehep.records.api.authors import AuthorsRecord
 
 LOGGER = structlog.getLogger()
 
@@ -248,19 +250,29 @@ def disambiguate_authors(self, record_uuid, record_version_id):
             assign_bai_to_literature_author(
                 author, matched_author_data.get("author_bai")
             )
+
             updated_authors.append(
                 matched_author_data["author_reference"].split("/")[-1]
             )
         elif "record" not in author:
-            new_author_record = create_new_author(
+            linked_author_record = create_new_author(
                 author["full_name"], record["control_number"]
             )
-            author["record"] = new_author_record["self"]
+            author["record"] = linked_author_record["self"]
             new_author_bai = get_values_for_schema(
-                new_author_record["ids"], "INSPIRE BAI"
+                linked_author_record["ids"], "INSPIRE BAI"
             )[0]
             assign_bai_to_literature_author(author, new_author_bai)
-            updated_authors.append(new_author_record["control_number"])
+            updated_authors.append(linked_author_record["control_number"])
+        if len(author["full_name"].split(",")[0].split(" ")) == 1:
+            if matched_author_data:
+                linked_author_record = AuthorsRecord.get_record_by_pid_value(
+                    matched_author_data["author_reference"].split("/")[-1]
+                )
+            author["full_name"] = reorder_lit_author_names(
+                author["full_name"], linked_author_record["name"]["value"]
+            )
+
     if updated_authors:
         LOGGER.info(
             "Updated references for authors",
