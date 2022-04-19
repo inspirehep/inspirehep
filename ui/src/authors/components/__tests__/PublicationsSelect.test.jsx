@@ -27,4 +27,40 @@ describe('PublicationsSelect', () => {
     expect(onSelectClaimedPapers).toHaveBeenCalled();
     expect(onSelectPapers).toHaveBeenCalled();
   });
+  it('renders checked when selected', () => {
+    const onSelectPapersUserCanNotClaim = jest.fn();
+    const onSelectClaimedPapers = jest.fn();
+    const onSelectUnclaimedPapers = jest.fn();
+    const onSelectPapers = jest.fn();
+    const wrapper = shallow(
+      <PublicationsSelect
+        claimed
+        checked
+        canClaim={false}
+        onSelectPapersUserCanNotClaim={onSelectPapersUserCanNotClaim}
+        onSelectClaimedPapers={onSelectClaimedPapers}
+        onSelectUnclaimedPapers={onSelectUnclaimedPapers}
+        onSelectPapers={onSelectPapers}
+      />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+  it('renders unchecked when not selected', () => {
+    const onSelectPapersUserCanNotClaim = jest.fn();
+    const onSelectClaimedPapers = jest.fn();
+    const onSelectUnclaimedPapers = jest.fn();
+    const onSelectPapers = jest.fn();
+    const wrapper = shallow(
+      <PublicationsSelect
+        claimed
+        checked={false}
+        canClaim={false}
+        onSelectPapersUserCanNotClaim={onSelectPapersUserCanNotClaim}
+        onSelectClaimedPapers={onSelectClaimedPapers}
+        onSelectUnclaimedPapers={onSelectUnclaimedPapers}
+        onSelectPapers={onSelectPapers}
+      />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
 });

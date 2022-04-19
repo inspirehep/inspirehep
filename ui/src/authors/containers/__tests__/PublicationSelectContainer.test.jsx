@@ -2,9 +2,13 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import { Checkbox } from 'antd';
+import { fromJS } from 'immutable';
 
-import { getStore, mockActionCreator } from '../../../fixtures/store';
+import { initialState } from '../../../reducers/authors';
+import PublicationsSelect from '../../components/PublicationsSelect';
+import { getStore, mockActionCreator, getStoreWithState } from '../../../fixtures/store';
 import PublicationSelectContainer from '../PublicationSelectContainer';
+
 import {
   setPublicationSelection,
   setPublicationsClaimedSelection,
@@ -33,7 +37,7 @@ describe('PublicationSelectContainer', () => {
     ];
     expect(store.getActions()).toEqual(expectedActions);
   });
-  it('dispatches setPublicationsCanNotClaimSelection on change wneh user can not claim', () => {
+  it('dispatches setPublicationsCanNotClaimSelection on change when user can not claim', () => {
     const store = getStore();
     const wrapper = mount(
       <Provider store={store}>
@@ -61,5 +65,35 @@ describe('PublicationSelectContainer', () => {
       setPublicationsUnclaimedSelection([1], true),
     ];
     expect(store.getActions()).toEqual(expectedActions);
+  });
+  it('passes correct checked value if publication is selected', () => {
+    const store = getStoreWithState({
+      authors: fromJS({
+        ...initialState,
+        publicationSelection: [1, 2, 3],
+      }),
+    });
+    const wrapper = mount(
+      <Provider store={store}>
+        <PublicationSelectContainer recordId={1} claimed canClaim />
+      </Provider>
+    );
+    
+    expect(wrapper.find(PublicationsSelect).prop('checked')).toBe(true);
+  });
+  it('renders checkbox checked when select all is checked', () => {
+    const store = getStoreWithState({
+      authors: fromJS({
+        ...initialState,
+        publicationSelection: [1, 2, 3],
+      }),
+    });
+    const wrapper = mount(
+      <Provider store={store}>
+        <PublicationSelectContainer recordId={1} claimed canClaim />
+      </Provider>
+    );
+
+    expect(wrapper).toMatchSnapshot();
   });
 });
