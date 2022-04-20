@@ -249,7 +249,7 @@ class LiteratureFulltextElasticSearchSchema(LiteratureElasticSearchSchema):
                 not document.get("hidden")
                 and document.get("filename", "").endswith("pdf")
                 and document.get("fulltext")
-            ):
+            ) or document.get("source") == "arxiv":
                 try:
                     file_data = download_file_from_url(document["url"])
                     encoded_file = base64.b64encode(file_data).decode("ascii")

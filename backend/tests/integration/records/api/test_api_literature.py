@@ -2464,3 +2464,22 @@ def test_index_fulltext_with_not_existing_doc_handle_exception(
     serialized_data = record.serialize_for_es_with_fulltext()
     assert "text" in serialized_data["documents"][1]
     assert "text" not in serialized_data["documents"][0]
+
+
+@pytest.mark.vcr()
+def test_get_documents_for_fulltext_works_for_arxiv(inspire_app):
+    data = {
+        "documents": [
+            {
+                "source": "arxiv",
+                "hidden": True,
+                "key": "1704.06612.pdf",
+                "filename": "1704.06612.pdf",
+                "url": "https://arxiv.org/pdf/1704.06612.pdf",
+            },
+        ]
+    }
+    record_data = faker.record("lit", with_control_number=True, data=data)
+    record = LiteratureRecord.create(record_data)
+    serialized_data = record.serialize_for_es_with_fulltext()
+    assert "text" in serialized_data["documents"][0]
