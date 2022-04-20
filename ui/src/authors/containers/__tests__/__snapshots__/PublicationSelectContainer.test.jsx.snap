@@ -1,28 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PublicationSelectContainer checks all checkboxes when select all is checked 1`] = `
-<label
-  className="ant-checkbox-wrapper ant-checkbox-wrapper-checked"
->
-  <span
-    className="ant-checkbox ant-checkbox-checked"
-    style={Object {}}
-  >
-    <input
-      checked={true}
-      className="ant-checkbox-input"
-      onBlur={[Function]}
-      onChange={[Function]}
-      onFocus={[Function]}
-      type="checkbox"
-    />
-    <span
-      className="ant-checkbox-inner"
-    />
-  </span>
-</label>
-`;
-
 exports[`PublicationSelectContainer renders checkbox checked when select all is checked 1`] = `
 <label
   className="ant-checkbox-wrapper ant-checkbox-wrapper-checked"

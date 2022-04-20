@@ -8,14 +8,6 @@ exports[`PublicationsSelect renders checked when selected 1`] = `
 />
 `;
 
-exports[`PublicationsSelect renders checked when selected 2`] = `
-<Checkbox
-  checked={true}
-  indeterminate={false}
-  onChange={[Function]}
-/>
-`;
-
 exports[`PublicationsSelect renders unchecked when not selected 1`] = `
 <Checkbox
   checked={false}
