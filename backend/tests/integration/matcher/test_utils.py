@@ -25,6 +25,14 @@ def test_create_journal_dict(inspire_app):
     }
     create_record("jou", data=data)
 
+    data = {
+        "journal_title": {"title": "Deleted journal title"},
+        "short_title": "Deleted journal title",
+        "title_variants": ["Deleted journal title", "Del. jou. title"],
+        "deleted": True,
+    }
+    create_record("jou", data=data)
+
     expected = {
         "J PHYS SCI APPL": "J.Phys.Sci.Appl.",
         "JOURNAL OF PHYSICAL SCIENCE AND APPLICATION": "J.Phys.Sci.Appl.",

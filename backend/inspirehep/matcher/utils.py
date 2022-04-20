@@ -12,7 +12,7 @@ from inspire_utils.dedupers import dedupe_list_of_dicts
 from inspire_utils.helpers import force_list
 from inspire_utils.record import get_value
 from invenio_records.models import RecordMetadata
-from sqlalchemy import type_coerce
+from sqlalchemy import cast, not_, type_coerce
 from sqlalchemy.dialects.postgresql import JSONB
 
 RE_PUNCTUATION = re.compile(r"[\.,;'\(\)-]", re.UNICODE)
@@ -73,17 +73,22 @@ def create_journal_dict():
     only_journals = type_coerce(RecordMetadata.json, JSONB)["_collections"].contains(
         ["Journals"]
     )
+    only_not_deleted = not_(
+        type_coerce(RecordMetadata.json, JSONB).has_key("deleted")  # noqa
+    ) | not_(  # noqa
+        type_coerce(RecordMetadata.json, JSONB)["deleted"] == cast(True, JSONB)
+    )
     entity_short_title = RecordMetadata.json["short_title"]
     entity_journal_title = RecordMetadata.json["journal_title"]["title"]
     entity_title_variants = RecordMetadata.json["title_variants"]
 
     titles_query = RecordMetadata.query.with_entities(
         entity_short_title, entity_journal_title
-    ).filter(only_journals)
+    ).filter(only_journals, only_not_deleted)
 
     title_variants_query = RecordMetadata.query.with_entities(
         entity_short_title, entity_title_variants
-    ).filter(only_journals)
+    ).filter(only_journals, only_not_deleted)
 
     title_dict = {}
 
