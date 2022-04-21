@@ -59,6 +59,9 @@ def test_update_author_names_doesnt_put_duplicate_name_variants():
     [
         ("Smith, John Davis", "Smith Davis, John", "Smith Davis, John"),
         ("Smith, John Davis Aaron", "Smith Davis, John", "Smith Davis, John Aaron"),
+        ("Qin, Qin", "Qin, Qin", "Qin, Qin"),
+        ("Deiana, Allison Mccarn", "Deiana, Allison McCarn", "Deiana, Allison Mccarn"),
+        ("Fayyazuddin", "Fayyazuddin", "Fayyazuddin"),
     ],
 )
 def test_reorder_lit_author_names(

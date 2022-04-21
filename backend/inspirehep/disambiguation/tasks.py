@@ -242,6 +242,7 @@ def disambiguate_authors(self, record_uuid, record_version_id):
     for author in authors:
         if author.get("curated_relation"):
             continue
+        assigned_author_recid = None
         matched_author_data = match_author(author)
         if not matched_author_data:
             matched_author_data = match_literature_author(author, record)
@@ -250,10 +251,9 @@ def disambiguate_authors(self, record_uuid, record_version_id):
             assign_bai_to_literature_author(
                 author, matched_author_data.get("author_bai")
             )
-
-            updated_authors.append(
-                matched_author_data["author_reference"].split("/")[-1]
-            )
+            assigned_author_recid = matched_author_data["author_reference"].split("/")[
+                -1
+            ]
         elif "record" not in author:
             linked_author_record = create_new_author(
                 author["full_name"], record["control_number"]
@@ -263,16 +263,17 @@ def disambiguate_authors(self, record_uuid, record_version_id):
                 linked_author_record["ids"], "INSPIRE BAI"
             )[0]
             assign_bai_to_literature_author(author, new_author_bai)
-            updated_authors.append(linked_author_record["control_number"])
-        if len(author["full_name"].split(",")[0].split(" ")) == 1:
-            if matched_author_data:
-                linked_author_record = AuthorsRecord.get_record_by_pid_value(
-                    matched_author_data["author_reference"].split("/")[-1]
+            assigned_author_recid = linked_author_record["control_number"]
+        if assigned_author_recid:
+            if len(author["full_name"].split(",")[0].split(" ")) == 1:
+                if matched_author_data:
+                    linked_author_record = AuthorsRecord.get_record_by_pid_value(
+                        assigned_author_recid
+                    )
+                author["full_name"] = reorder_lit_author_names(
+                    author["full_name"], linked_author_record["name"]["value"]
                 )
-            author["full_name"] = reorder_lit_author_names(
-                author["full_name"], linked_author_record["name"]["value"]
-            )
-
+            updated_authors.append(assigned_author_recid)
     if updated_authors:
         LOGGER.info(
             "Updated references for authors",
