@@ -10,8 +10,8 @@ import {
   SUBMISSION_SUCCESS,
   SUBMISSIONS_SEMINAR,
   SUBMISSIONS_INSTITUTION,
+  SUBMISSIONS_EXPERIMENT,
 } from '../common/routes';
-
 import { SUPERUSER_OR_CATALOGER } from '../common/authorization';
 import PrivateRoute from '../common/PrivateRoute';
 import SafeSwitch from '../common/components/SafeSwitch';
@@ -31,6 +31,8 @@ import SeminarSubmissionSuccessPageContainer from './seminars/containers/Seminar
 import AuthorUpdateSubmissionSuccessPage from './authors/components/AuthorUpdateSubmissionSuccessPage';
 import InstitutionSubmissionPageContainer from './institutions/containers/InstitutionSubmissionPageContainer';
 import InstitutionSubmissionSuccessPageContainer from './institutions/containers/InstitutionSubmissionSuccessPageContainer';
+import ExperimentSubmissionPageContainer from './experiments/containers/ExperimentSubmissionPageContainer';
+import ExperimentSubmissionSuccessPageContainer from './experiments/containers/ExperimentSubmissionSuccessPageContainer';
 
 class Submissions extends Component {
   render() {
@@ -86,6 +88,12 @@ class Submissions extends Component {
               path={SUBMISSIONS_INSTITUTION}
               component={InstitutionSubmissionPageContainer} 
             />
+            <PrivateRoute
+              exact
+              authorizedRoles={SUPERUSER_OR_CATALOGER}
+              path={SUBMISSIONS_EXPERIMENT}
+              component={ExperimentSubmissionPageContainer}
+            />
             <Redirect
               exact
               from={`${SUBMISSIONS_AUTHOR}/new/success`}
@@ -131,6 +139,12 @@ class Submissions extends Component {
               exact
               path={`${SUBMISSIONS_INSTITUTION}/new/success`}
               component={InstitutionSubmissionSuccessPageContainer} 
+            />
+            <PrivateRoute
+              exact
+              authorizedRoles={SUPERUSER_OR_CATALOGER}
+              path={`${SUBMISSIONS_EXPERIMENT}/new/success`}
+              component={ExperimentSubmissionSuccessPageContainer}
             />
             <Route
               exact
