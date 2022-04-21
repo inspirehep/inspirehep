@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExperimentSubmissionSuccessPageContainer ExperimentSubmissionSucessPage renders 1`] = `
+<SubmissionPage
+  description={
+    <span>
+      This form allows you to create a new experiment record. It will appear in the 
+      <ForwardRef
+        to="/experiments"
+      >
+        Experiments List
+      </ForwardRef>
+       immediately.
+    </span>
+  }
+  title="Suggest experiment"
+>
+  <toAllJS(ExperimentSubmission)
+    error={null}
+    onSubmit={[Function]}
+  />
+</SubmissionPage>
+`;

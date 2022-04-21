@@ -11,6 +11,7 @@ import {
   SUBMISSIONS_CONFERENCE,
   SUBMISSIONS_SEMINAR,
   SUBMISSIONS_INSTITUTION,
+  SUBMISSIONS_EXPERIMENT,
 } from '../../routes';
 import ExternalLink from '../../components/ExternalLink.tsx';
 import LinkLikeButton from '../../components/LinkLikeButton';
@@ -68,9 +69,14 @@ class HeaderMenu extends Component {
             <Link to={SUBMISSIONS_CONFERENCE}>Conference</Link>
           </Menu.Item>
           { isCatalogerLoggedIn && (
-            <Menu.Item key="submit.institution">
-              <Link to={SUBMISSIONS_INSTITUTION}>Institution</Link>
-            </Menu.Item>)
+            <>
+              <Menu.Item key="submit.institution">
+                <Link to={SUBMISSIONS_INSTITUTION}>Institution</Link>
+              </Menu.Item>)
+              <Menu.Item key="submit.experiment">
+                <Link to={SUBMISSIONS_EXPERIMENT}>Experiment</Link>
+              </Menu.Item>
+            </>)
           }
         </Menu.SubMenu>
         <Menu.Item key="login-logout">
