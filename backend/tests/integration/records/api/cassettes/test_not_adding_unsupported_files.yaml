@@ -2,326 +2,6 @@ interactions:
 - request:
     body: null
     headers:
-      connection:
-      - keep-alive
-      content-type:
-      - application/json
-    method: POST
-    uri: http://es:9200/test-integration-*/_flush?wait_if_ongoing=true
-  response:
-    body:
-      string: '{"_shards":{"total":18,"successful":9,"failed":0}}'
-    headers:
-      content-length:
-      - '50'
-      content-type:
-      - application/json; charset=UTF-8
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      connection:
-      - keep-alive
-      content-type:
-      - application/json
-    method: POST
-    uri: http://es:9200/test-integration-*/_refresh
-  response:
-    body:
-      string: '{"_shards":{"total":18,"successful":9,"failed":0}}'
-    headers:
-      content-length:
-      - '50'
-      content-type:
-      - application/json; charset=UTF-8
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      connection:
-      - keep-alive
-      content-type:
-      - application/json
-    method: GET
-    uri: http://es:9200/_cluster/health?wait_for_status=yellow
-  response:
-    body:
-      string: '{"cluster_name":"docker-cluster","status":"yellow","timed_out":false,"number_of_nodes":1,"number_of_data_nodes":1,"active_primary_shards":20,"active_shards":20,"relocating_shards":0,"initializing_shards":0,"unassigned_shards":20,"delayed_unassigned_shards":0,"number_of_pending_tasks":0,"number_of_in_flight_fetch":0,"task_max_waiting_in_queue_millis":0,"active_shards_percent_as_number":50.0}'
-    headers:
-      content-length:
-      - '393'
-      content-type:
-      - application/json; charset=UTF-8
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      connection:
-      - keep-alive
-      content-type:
-      - application/json
-    method: GET
-    uri: http://es:9200/*/_alias
-  response:
-    body:
-      string: '{"records-experiments-1628501486":{"aliases":{"records":{},"records-experiments":{}}},"records-jobs-1628501486":{"aliases":{"records":{},"records-jobs":{}}},"test-integration-records-conferences-1629119614":{"aliases":{"test-integration-records":{},"test-integration-records-conferences":{}}},"test-integration-records-data-1629119614":{"aliases":{"test-integration-records":{},"test-integration-records-data":{}}},"records-data-1628501486":{"aliases":{"records":{},"records-data":{}}},"records-institutions-1628501486":{"aliases":{"records":{},"records-institutions":{}}},"holdingpen-authors":{"aliases":{}},"test-integration-records-experiments-1629119614":{"aliases":{"test-integration-records":{},"test-integration-records-experiments":{}}},"records-hep-1628501486":{"aliases":{"records":{},"records-hep":{}}},"records-seminars-1628501486":{"aliases":{"records":{},"records-seminars":{}}},"test-integration-records-hep-1629119614":{"aliases":{"test-integration-records":{},"test-integration-records-hep":{}}},"records-conferences-1628501486":{"aliases":{"records":{},"records-conferences":{}}},"test-integration-records-seminars-1629119614":{"aliases":{"test-integration-records":{},"test-integration-records-seminars":{}}},"test-integration-records-authors-1629119614":{"aliases":{"test-integration-records":{},"test-integration-records-authors":{}}},"holdingpen-hep":{"aliases":{}},"records-authors-1628501486":{"aliases":{"records":{},"records-authors":{}}},"test-integration-records-jobs-1629119614":{"aliases":{"test-integration-records":{},"test-integration-records-jobs":{}}},"test-integration-records-journals-1629119614":{"aliases":{"test-integration-records":{},"test-integration-records-journals":{}}},"records-journals-1628501486":{"aliases":{"records":{},"records-journals":{}}},"test-integration-records-institutions-1629119614":{"aliases":{"test-integration-records":{},"test-integration-records-institutions":{}}}}'
-    headers:
-      content-length:
-      - '1934'
-      content-type:
-      - application/json; charset=UTF-8
-    status:
-      code: 200
-      message: OK
-- request:
-    body: '{"query" : {"match_all" : {} }}'
-    headers:
-      connection:
-      - keep-alive
-      content-type:
-      - application/json
-    method: POST
-    uri: http://es:9200/test-integration-records-journals/_delete_by_query
-  response:
-    body:
-      string: '{"took":2,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
-    headers:
-      content-length:
-      - '215'
-      content-type:
-      - application/json; charset=UTF-8
-    status:
-      code: 200
-      message: OK
-- request:
-    body: '{"query" : {"match_all" : {} }}'
-    headers:
-      connection:
-      - keep-alive
-      content-type:
-      - application/json
-    method: POST
-    uri: http://es:9200/test-integration-records-conferences/_delete_by_query
-  response:
-    body:
-      string: '{"took":1,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
-    headers:
-      content-length:
-      - '215'
-      content-type:
-      - application/json; charset=UTF-8
-    status:
-      code: 200
-      message: OK
-- request:
-    body: '{"query" : {"match_all" : {} }}'
-    headers:
-      connection:
-      - keep-alive
-      content-type:
-      - application/json
-    method: POST
-    uri: http://es:9200/test-integration-records-experiments/_delete_by_query
-  response:
-    body:
-      string: '{"took":1,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
-    headers:
-      content-length:
-      - '215'
-      content-type:
-      - application/json; charset=UTF-8
-    status:
-      code: 200
-      message: OK
-- request:
-    body: '{"query" : {"match_all" : {} }}'
-    headers:
-      connection:
-      - keep-alive
-      content-type:
-      - application/json
-    method: POST
-    uri: http://es:9200/test-integration-records-institutions/_delete_by_query
-  response:
-    body:
-      string: '{"took":2,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
-    headers:
-      content-length:
-      - '215'
-      content-type:
-      - application/json; charset=UTF-8
-    status:
-      code: 200
-      message: OK
-- request:
-    body: '{"query" : {"match_all" : {} }}'
-    headers:
-      connection:
-      - keep-alive
-      content-type:
-      - application/json
-    method: POST
-    uri: http://es:9200/test-integration-records-authors/_delete_by_query
-  response:
-    body:
-      string: '{"took":1,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
-    headers:
-      content-length:
-      - '215'
-      content-type:
-      - application/json; charset=UTF-8
-    status:
-      code: 200
-      message: OK
-- request:
-    body: '{"query" : {"match_all" : {} }}'
-    headers:
-      connection:
-      - keep-alive
-      content-type:
-      - application/json
-    method: POST
-    uri: http://es:9200/test-integration-records-jobs/_delete_by_query
-  response:
-    body:
-      string: '{"took":1,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
-    headers:
-      content-length:
-      - '215'
-      content-type:
-      - application/json; charset=UTF-8
-    status:
-      code: 200
-      message: OK
-- request:
-    body: '{"query" : {"match_all" : {} }}'
-    headers:
-      connection:
-      - keep-alive
-      content-type:
-      - application/json
-    method: POST
-    uri: http://es:9200/test-integration-records-seminars/_delete_by_query
-  response:
-    body:
-      string: '{"took":1,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
-    headers:
-      content-length:
-      - '215'
-      content-type:
-      - application/json; charset=UTF-8
-    status:
-      code: 200
-      message: OK
-- request:
-    body: '{"query" : {"match_all" : {} }}'
-    headers:
-      connection:
-      - keep-alive
-      content-type:
-      - application/json
-    method: POST
-    uri: http://es:9200/test-integration-records-data/_delete_by_query
-  response:
-    body:
-      string: '{"took":1,"timed_out":false,"total":0,"deleted":0,"batches":0,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
-    headers:
-      content-length:
-      - '215'
-      content-type:
-      - application/json; charset=UTF-8
-    status:
-      code: 200
-      message: OK
-- request:
-    body: '{"query" : {"match_all" : {} }}'
-    headers:
-      connection:
-      - keep-alive
-      content-type:
-      - application/json
-    method: POST
-    uri: http://es:9200/test-integration-records-hep/_delete_by_query
-  response:
-    body:
-      string: '{"took":14,"timed_out":false,"total":1,"deleted":1,"batches":1,"version_conflicts":0,"noops":0,"retries":{"bulk":0,"search":0},"throttled_millis":0,"requests_per_second":-1.0,"throttled_until_millis":0,"failures":[]}'
-    headers:
-      content-length:
-      - '216'
-      content-type:
-      - application/json; charset=UTF-8
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      connection:
-      - keep-alive
-      content-type:
-      - application/json
-    method: POST
-    uri: http://es:9200/test-integration-*/_flush?wait_if_ongoing=true
-  response:
-    body:
-      string: '{"_shards":{"total":18,"successful":9,"failed":0}}'
-    headers:
-      content-length:
-      - '50'
-      content-type:
-      - application/json; charset=UTF-8
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      connection:
-      - keep-alive
-      content-type:
-      - application/json
-    method: POST
-    uri: http://es:9200/test-integration-*/_refresh
-  response:
-    body:
-      string: '{"_shards":{"total":18,"successful":9,"failed":0}}'
-    headers:
-      content-length:
-      - '50'
-      content-type:
-      - application/json; charset=UTF-8
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      connection:
-      - keep-alive
-      content-type:
-      - application/json
-    method: GET
-    uri: http://es:9200/_cluster/health?wait_for_status=yellow
-  response:
-    body:
-      string: '{"cluster_name":"docker-cluster","status":"yellow","timed_out":false,"number_of_nodes":1,"number_of_data_nodes":1,"active_primary_shards":20,"active_shards":20,"relocating_shards":0,"initializing_shards":0,"unassigned_shards":20,"delayed_unassigned_shards":0,"number_of_pending_tasks":0,"number_of_in_flight_fetch":0,"task_max_waiting_in_queue_millis":0,"active_shards_percent_as_number":50.0}'
-    headers:
-      content-length:
-      - '393'
-      content-type:
-      - application/json; charset=UTF-8
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
       Accept:
       - '*/*'
       Accept-Encoding:
@@ -335,9 +15,10 @@ interactions:
       string: '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport"
         content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name="theme-color"
         content="#000000"><link rel="manifest" href="/manifest.json"><link rel="shortcut
-        icon" href="/favicon.ico"><link rel="preconnect" href="https://piwik.web.cern.ch"><script
-        type="text/javascript" src="/config.js"></script><title>INSPIRE</title><link
-        href="/static/css/2.95c34594.chunk.css" rel="stylesheet"><link href="/static/css/main.8e9b59fa.chunk.css"
+        icon" href="/favicon.ico"><link rel="preconnect" href="https://piwik.web.cern.ch"><link
+        rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml"
+        title="INSPIRE"><script type="text/javascript" src="/config.js"></script><title>INSPIRE</title><link
+        href="/static/css/2.4fde88a8.chunk.css" rel="stylesheet"><link href="/static/css/main.88fad558.chunk.css"
         rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run
         this app.</noscript><div id="root"></div><script>!function(c){function e(e){for(var
         t,r,n=e[0],o=e[1],a=e[2],u=0,i=[];u<n.length;u++)r=n[u],d[r]&&i.push(d[r][0]),d[r]=0;for(t
@@ -354,7 +35,7 @@ interactions:
         t=e&&e.target&&e.target.src||o,r=new Error("Loading CSS chunk "+f+" failed.\n("+t+")");r.request=t,delete
         s[f],l.parentNode.removeChild(l),n(r)},l.href=o,document.getElementsByTagName("head")[0].appendChild(l)}).then(function(){s[f]=0}));var
         r=d[f];if(0!==r)if(r)e.push(r[2]);else{var t=new Promise(function(e,t){r=d[f]=[e,t]});e.push(r[2]=t);var
-        n,a=document.createElement("script");a.charset="utf-8",a.timeout=120,p.nc&&a.setAttribute("nonce",p.nc),a.src=p.p+"static/js/"+({}[f]||f)+"."+{3:"018bc3f5",4:"41fe2a76",5:"b0b56ea2",6:"9a22f732"}[f]+".chunk.js",n=function(e){a.onerror=a.onload=null,clearTimeout(u);var
+        n,a=document.createElement("script");a.charset="utf-8",a.timeout=120,p.nc&&a.setAttribute("nonce",p.nc),a.src=p.p+"static/js/"+({}[f]||f)+"."+{3:"82f03e32",4:"d7e75929",5:"3e985c78",6:"9a22f732"}[f]+".chunk.js",n=function(e){a.onerror=a.onload=null,clearTimeout(u);var
         t=d[f];if(0!==t){if(t){var r=e&&("load"===e.type?"missing":e.type),n=e&&e.target&&e.target.src,o=new
         Error("Loading chunk "+f+" failed.\n("+r+": "+n+")");o.type=r,o.request=n,t[1](o)}d[f]=void
         0}};var u=setTimeout(function(){n({type:"timeout",target:a})},12e4);a.onerror=a.onload=n,document.head.appendChild(a)}return
@@ -365,23 +46,23 @@ interactions:
         t=e&&e.__esModule?function(){return e.default}:function(){return e};return
         p.d(t,"a",t),t},p.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},p.p="/",p.oe=function(e){throw
         console.error(e),e};var t=window.webpackJsonp=window.webpackJsonp||[],n=t.push.bind(t);t.push=e,t=t.slice();for(var
-        o=0;o<t.length;o++)e(t[o]);var h=n;l()}([])</script><script src="/static/js/2.b10327ce.chunk.js"></script><script
-        src="/static/js/main.111a86d9.chunk.js"></script></body></html>'
+        o=0;o<t.length;o++)e(t[o]);var h=n;l()}([])</script><script src="/static/js/2.b6ce6c2f.chunk.js"></script><script
+        src="/static/js/main.6b2df37d.chunk.js"></script></body></html>'
     headers:
       cache-control:
       - no-store
       content-length:
-      - '3888'
+      - '3991'
       content-security-policy:
       - frame-ancestors self;
       content-type:
       - text/html
       date:
-      - Tue, 17 Aug 2021 12:45:23 GMT
+      - Fri, 22 Apr 2022 12:13:21 GMT
       etag:
-      - W/"610d1606-f30"
+      - W/"623c1f18-f97"
       last-modified:
-      - Fri, 06 Aug 2021 10:59:18 GMT
+      - Thu, 24 Mar 2022 07:34:48 GMT
       server:
       - nginx/1.19.1
       transfer-encoding:
@@ -406,40 +87,43 @@ interactions:
     uri: https://inspirehep.net/config.js
   response:
     body:
-      string: "(() => {\n  const CONFIG = {\n    REACT_APP_PIWIK_URL: '//piwik.web.cern.ch',\n
-        \   REACT_APP_PIWIK_SITE_ID: 5664,\n    REACT_APP_SENTRY_DSN:\n      'https://429f8591d74d40d5865b123c90973410@sentry.inspirehep.net/4',\n
+      string: "(() => {\n  const CONFIG = {\n    REACT_APP_PIWIK_URL: '//webanalytics.web.cern.ch',\n
+        \   REACT_APP_PIWIK_SITE_ID: 25,\n    REACT_APP_SENTRY_DSN:\n      'https://429f8591d74d40d5865b123c90973410@sentry.inspirehep.net/4',\n
         \   FIGURES_FEATURE_FLAG: true,\n    DISPLAY_GUIDE_ON_START: false,\n    ASSIGN_CONFERENCE_UI_FEATURE_FLAG:
-        true,\n    BANNERS: [\n      {\n        id: 'welcome-banner-april30',\n        message:\n
-        \         '<strong>Welcome to the new INSPIRE! <a href=\"https://blog.inspirehep.net/2020/03/the-next-inspire-generation-is-here\"
+        true,\n    ASSIGN_OWN_PROFILE_UI_FEATURE_FLAG: false,\n    ASSIGN_DIFFERENT_PROFILE_UI_FEATURE_FLAG:
+        false,\n    ASSIGN_NO_PROFILE_UI_FEATURE_FLAG: false,\n    BANNERS: [\n      {\n
+        \       id: 'welcome-banner-april30',\n        message:\n          '<strong>Welcome
+        to the new INSPIRE! <a href=\"https://blog.inspirehep.net/2020/03/the-next-inspire-generation-is-here\"
         target=\"_blank\">Learn more</a>.</strong>',\n        action: {\n          name:
         'Take the survey',\n          href: 'https://forms.gle/ZQi31GvXXHcsgXgM6'\n
-        \       }\n      },\n      /*{\n        id: 'maintenance',\n        message:\n
-        \         'Due to planned maintenance, INSPIRE will be unavailable today between
-        12pm and 12:30pm CET.',\n        closable: false,\n        center: true,\n
-        \       type: 'warning'\n      },\n      {\n        id: 'remapping-collection-26-11-2020',\n
-        \       message:\n          'We are improving Authors collection and search
-        will be unavailable until 14:00 CET. Thank you for your patience.',\n        closable:
-        false,\n        center: true,\n        pathnameRegexp: /^\\/authors/,\n        type:
-        'warning'\n      },\n      {\n        id: 'incident',\n        message:\n
-        \         'We are currently experiencing technical difficulties. Thank you
-        for your patience while this is being fixed.',\n        closable: false,\n
-        \       center: true,\n        type: 'warning'\n      }*/\n    ]\n  };\n\n
-        \ Object.defineProperty(window, 'CONFIG', { value: Object.freeze(CONFIG) });\n})();\n"
+        \       }\n      }\n      /*{\n        id: 'maintenance',\n        message:\n
+        \         'Due to a planned maintenance, INSPIRE might be unavailable on Tuesday
+        April 5th and 6th between 09:00 and 12:30 UTC.',\n        closable: false,\n
+        \       center: true,\n        type: 'warning'\n      },\n      {\n        id:
+        'remapping-collection-26-11-2020',\n        message:\n          'We are improving
+        Authors collection and search will be unavailable until 14:00 CET. Thank you
+        for your patience.',\n        closable: false,\n        center: true,\n        pathnameRegexp:
+        /^\\/authors/,\n        type: 'warning'\n      },\n      {\n        id: 'incident',\n
+        \       message:\n          'We are currently experiencing technical difficulties.
+        Thank you for your patience while this is being fixed.',\n        closable:
+        false,\n        center: true,\n        type: 'warning'\n      }*/\n    ]\n
+        \ };\n\n  Object.defineProperty(window, 'CONFIG', { value: Object.freeze(CONFIG)
+        });\n})();\n"
     headers:
       cache-control:
       - no-store
       content-length:
-      - '1601'
+      - '1776'
       content-security-policy:
       - frame-ancestors self;
       content-type:
       - application/javascript
       date:
-      - Tue, 17 Aug 2021 12:45:24 GMT
+      - Fri, 22 Apr 2022 12:13:22 GMT
       etag:
-      - W/"6114cc60-641"
+      - W/"624dacb4-6f0"
       last-modified:
-      - Thu, 12 Aug 2021 07:23:12 GMT
+      - Wed, 06 Apr 2022 15:07:32 GMT
       server:
       - nginx/1.19.1
       transfer-encoding:
@@ -26577,7 +26261,7 @@ interactions:
       content-type:
       - application/pdf
       date:
-      - Tue, 17 Aug 2021 12:45:24 GMT
+      - Fri, 22 Apr 2022 12:13:22 GMT
       etag:
       - '"b98fd32e5ba4fa4e1c4bb547c66734a8"'
       last-modified:
@@ -26585,99 +26269,9 @@ interactions:
       server:
       - nginx/1.19.1
       x-amz-request-id:
-      - tx000000000000005d6adea-00611baf64-1e8ac45f-default
+      - tx000000000000003075aad-0062629be2-28e3e1b8-default
       x-rgw-object-type:
       - Normal
-    status:
-      code: 200
-      message: OK
-- request:
-    body: '{"author_count":0,"citation_count":0,"bookautocomplete":{"input":["Spend
-      man citizen miss."]},"_cv_format":"<p><b>\n    <a href=\"https://localhost:5000/literature/1813162\">\n      Spend
-      man citizen miss.\n    </a>\n  </b></p>\n  \n  \n  \n  \n  <br>","_updated":"2021-08-17T12:45:25.372936+00:00","_latex_eu_display":"%\\cite{1813162}\n\\bibitem{1813162}\n%``Spend
-      man citizen miss.,''''\n%0 citations counted in INSPIRE as of 17 Aug 2021","earliest_date":"2021-08-17","_bibtex_display":"@article{1813162,\n    title
-      = \"{Spend man citizen miss.}\"\n}\n","id":1813162,"citation_count_without_self_citations":0,"facet_inspire_doc_type":["article"],"_ui_display":"{\"citation_count\":0,\"citation_pdf_urls\":[\"http://localhost:5000/files/b98fd32e5ba4fa4e1c4bb547c66734a8\"],\"date\":\"Aug
-      17, 2021\",\"fulltext_links\":[{\"description\":\"fulltext\",\"value\":\"http://localhost:5000/files/b98fd32e5ba4fa4e1c4bb547c66734a8\"}],\"citation_count_without_self_citations\":0,\"documents\":[{\"key\":\"b98fd32e5ba4fa4e1c4bb547c66734a8\",\"url\":\"http://localhost:5000/files/b98fd32e5ba4fa4e1c4bb547c66734a8\",\"source\":\"PoS\",\"filename\":\"PoS(ICHEP2020)903.pdf\",\"original_url\":\"http://original-url.com/4\"}],\"titles\":[{\"title\":\"Spend
-      man citizen miss.\"}],\"document_type\":[\"article\"],\"control_number\":1813162}","_latex_us_display":"%\\cite{1813162}\n\\bibitem{1813162}\n%``Spend
-      man citizen miss.,''''\n%0 citations counted in INSPIRE as of 17 Aug 2021","_created":"2021-08-17T12:45:25.372916+00:00","self":{"$ref":"http://localhost:5000/api/literature/1813162"},"titles":[{"title":"Spend
-      man citizen miss."}],"$schema":"http://localhost:5000/schemas/records/hep.json","documents":[{"key":"b98fd32e5ba4fa4e1c4bb547c66734a8","url":"http://localhost:5000/files/b98fd32e5ba4fa4e1c4bb547c66734a8","source":"PoS","filename":"PoS(ICHEP2020)903.pdf","original_url":"http://original-url.com/4"}],"_collections":["Literature"],"document_type":["article"],"control_number":1813162}'
-    headers:
-      connection:
-      - keep-alive
-      content-type:
-      - application/json
-    method: POST
-    uri: http://es:9200/test-integration-records-hep/_doc/14f7183b-f9f6-46fb-87be-b37c088ec96b?version=0&version_type=external_gte
-  response:
-    body:
-      string: '{"_index":"test-integration-records-hep-1629119614","_type":"_doc","_id":"14f7183b-f9f6-46fb-87be-b37c088ec96b","_version":0,"result":"created","_shards":{"total":2,"successful":1,"failed":0},"_seq_no":10,"_primary_term":1}'
-    headers:
-      Location:
-      - /test-integration-records-hep-1629119614/_doc/14f7183b-f9f6-46fb-87be-b37c088ec96b
-      content-length:
-      - '223'
-      content-type:
-      - application/json; charset=UTF-8
-    status:
-      code: 201
-      message: Created
-- request:
-    body: null
-    headers:
-      connection:
-      - keep-alive
-      content-type:
-      - application/json
-    method: POST
-    uri: http://es:9200/test-integration-records-hep/_flush?wait_if_ongoing=true
-  response:
-    body:
-      string: '{"_shards":{"total":2,"successful":1,"failed":0}}'
-    headers:
-      content-length:
-      - '49'
-      content-type:
-      - application/json; charset=UTF-8
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      connection:
-      - keep-alive
-      content-type:
-      - application/json
-    method: POST
-    uri: http://es:9200/test-integration-records-hep/_refresh
-  response:
-    body:
-      string: '{"_shards":{"total":2,"successful":1,"failed":0}}'
-    headers:
-      content-length:
-      - '49'
-      content-type:
-      - application/json; charset=UTF-8
-    status:
-      code: 200
-      message: OK
-- request:
-    body: null
-    headers:
-      connection:
-      - keep-alive
-      content-type:
-      - application/json
-    method: GET
-    uri: http://es:9200/_cluster/health?wait_for_status=yellow
-  response:
-    body:
-      string: '{"cluster_name":"docker-cluster","status":"yellow","timed_out":false,"number_of_nodes":1,"number_of_data_nodes":1,"active_primary_shards":20,"active_shards":20,"relocating_shards":0,"initializing_shards":0,"unassigned_shards":20,"delayed_unassigned_shards":0,"number_of_pending_tasks":0,"number_of_in_flight_fetch":0,"task_max_waiting_in_queue_millis":0,"active_shards_percent_as_number":50.0}'
-    headers:
-      content-length:
-      - '393'
-      content-type:
-      - application/json; charset=UTF-8
     status:
       code: 200
       message: OK

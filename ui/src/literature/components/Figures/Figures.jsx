@@ -6,7 +6,6 @@ import ClientPaginatedList from '../../../common/components/ClientPaginatedList'
 import FiguresCarousel from './FiguresCarousel';
 import FigureListItem from './FigureListItem';
 import EmptyOrChildren from '../../../common/components/EmptyOrChildren';
-import RequireFeatureFlag from '../../../common/components/RequireFeatureFlag';
 
 function Figures({ figures }) {
   const [isCarouselVisible, setCarouselVisible] = useState(false);
@@ -33,25 +32,20 @@ function Figures({ figures }) {
   );
 
   return (
-    <RequireFeatureFlag
-      flag="FIGURES_FEATURE_FLAG"
-      whenDisabled="This feature is currently under development."
-    >
-      <EmptyOrChildren data={figures} title="0 Figures">
-        <ClientPaginatedList
-          items={figures}
-          renderItem={renderListItem}
-          pageSize={12}
-          grid
-        />
-        <FiguresCarousel
-          ref={carouselRef}
-          figures={figures}
-          visible={isCarouselVisible}
-          onCancel={onCarouselCancel}
-        />
-      </EmptyOrChildren>
-    </RequireFeatureFlag>
+    <EmptyOrChildren data={figures} title="0 Figures">
+      <ClientPaginatedList
+        items={figures}
+        renderItem={renderListItem}
+        pageSize={12}
+        grid
+      />
+      <FiguresCarousel
+        ref={carouselRef}
+        figures={figures}
+        visible={isCarouselVisible}
+        onCancel={onCarouselCancel}
+      />
+    </EmptyOrChildren>
   );
 }
 

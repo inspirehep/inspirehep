@@ -46,32 +46,17 @@ def _redirect_author(bai):
 
 @blueprint.route("/author/claim/<bai>", methods=("GET",))
 def redirect_claim(bai):
-    if current_app.config["FEATURE_FLAG_ENABLE_LEGACY_VIEW_REDIRECTS"]:
-        return redirect(
-            f"{current_app.config['LEGACY_BASE_URL']}/author/claim/{bai}", 302
-        )
-
     recid = get_pid_for_pid("bai", bai, "recid")
     return redirect(f"/authors/{recid}", 302)
 
 
 @blueprint.route("/author/merge_profiles", methods=("GET",))
 def redirect_merge_profiles():
-    if current_app.config["FEATURE_FLAG_ENABLE_LEGACY_VIEW_REDIRECTS"]:
-        return redirect(
-            f"{current_app.config['LEGACY_BASE_URL']}/author/merge_profiles?{request.query_string.decode('utf-8')}",
-            302,
-        )
-
     return redirect("/authors", 302)
 
 
 @blueprint.route("/author/manage_profile/<bai>", methods=("GET",))
 def redirect_manage_profile(bai):
-    if current_app.config["FEATURE_FLAG_ENABLE_LEGACY_VIEW_REDIRECTS"]:
-        return redirect(
-            f"{current_app.config['LEGACY_BASE_URL']}/author/manage_profile/{bai}", 302
-        )
     recid = get_pid_for_pid("bai", bai, "recid")
     return redirect(f"/authors/{recid}", 302)
 
@@ -84,13 +69,6 @@ def redirect_query():
     collection = current_app.config["COLLECTION_EQUIVALENCE"].get(legacy_collection)
     if collection:
         return redirect(f"/{collection}?q={query}", 301)
-
-    if current_app.config["FEATURE_FLAG_ENABLE_LEGACY_VIEW_REDIRECTS"]:
-        return redirect(
-            f"{current_app.config['LEGACY_BASE_URL']}/search?{request.query_string.decode('utf-8')}",
-            302,
-        )
-
     collection = f'_collections:"{legacy_collection}"' if legacy_collection else ""
     query = f" and {query}" if query else ""
     query = f"{collection}{query}"
@@ -103,11 +81,6 @@ def redirect_collection(legacy_collection):
     if collection:
         return redirect(f"/{collection}", 301)
 
-    if current_app.config["FEATURE_FLAG_ENABLE_LEGACY_VIEW_REDIRECTS"]:
-        return redirect(
-            f"{current_app.config['LEGACY_BASE_URL']}/collection/{legacy_collection}",
-            302,
-        )
     query = f'_collections:"{legacy_collection}"'
     return redirect(f"/literature?q={query}", 301)
 

@@ -5,7 +5,6 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-FEATURE_FLAG_ENABLE_QUERY_PARSER_ENDPOINT = True
 SEARCH_MAX_SEARCH_PAGE_SIZE = 1000
 FORBIDDEN_MIMETYPES_FOR_API_FILTERING = [
     "application/vnd+inspire.record.ui+json",
