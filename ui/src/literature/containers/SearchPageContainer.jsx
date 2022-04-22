@@ -11,7 +11,6 @@ import { PAPER_SEARCH_URL } from '../../common/constants';
 import AssignViewContext from '../AssignViewContext';
 import AssignConferencesDrawerContainer from './AssignConferencesDrawerContainer';
 import { isCataloger, isSuperUser } from '../../common/authorization';
-import { getConfigFor } from '../../common/config';
 
 const META_DESCRIPTION =
   'Find articles, conference papers, proceedings, books, theses, reviews, lectures and reports in High Energy Physics';
@@ -54,8 +53,7 @@ SearchPage.propTypes = {
 const stateToProps = (state) => ({
   assignView:
     isSuperUser(state.user.getIn(['data', 'roles'])) ||
-    (getConfigFor('ASSIGN_CONFERENCE_UI_FEATURE_FLAG') &&
-      isCataloger(state.user.getIn(['data', 'roles']))),
+    isCataloger(state.user.getIn(['data', 'roles'])),
   numberOfSelected: state.literature.get('literatureSelection').size,
 });
 
