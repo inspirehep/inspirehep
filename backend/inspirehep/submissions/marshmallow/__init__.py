@@ -10,6 +10,7 @@
 
 from .author import Author
 from .conferences import Conference
+from .experiments import Experiment
 from .job import Job
 from .literature import Literature
 from .seminars import Seminar
