@@ -9,8 +9,11 @@ import {
   SUBMISSIONS_CONFERENCE,
   SUBMISSION_SUCCESS,
   SUBMISSIONS_SEMINAR,
+  SUBMISSIONS_INSTITUTION,
 } from '../common/routes';
 
+import { SUPERUSER_OR_CATALOGER } from '../common/authorization';
+import PrivateRoute from '../common/PrivateRoute';
 import SafeSwitch from '../common/components/SafeSwitch';
 import DocumentHead from '../common/components/DocumentHead';
 import AuthorSubmissionPageContainer from './authors/containers/AuthorSubmissionPageContainer';
@@ -26,6 +29,8 @@ import SeminarSubmissionPageContainer from './seminars/containers/SeminarSubmiss
 import SeminarUpdateSubmissionPageContainer from './seminars/containers/SeminarUpdateSubmissionPageContainer';
 import SeminarSubmissionSuccessPageContainer from './seminars/containers/SeminarSubmissionSuccessPageContainer';
 import AuthorUpdateSubmissionSuccessPage from './authors/components/AuthorUpdateSubmissionSuccessPage';
+import InstitutionSubmissionPageContainer from './institutions/containers/InstitutionSubmissionPageContainer';
+import InstitutionSubmissionSuccessPageContainer from './institutions/containers/InstitutionSubmissionSuccessPageContainer';
 
 class Submissions extends Component {
   render() {
@@ -75,6 +80,12 @@ class Submissions extends Component {
               path={`${SUBMISSIONS_SEMINAR}/:id`}
               component={SeminarUpdateSubmissionPageContainer}
             />
+            <PrivateRoute
+              exact
+              authorizedRoles={SUPERUSER_OR_CATALOGER}
+              path={SUBMISSIONS_INSTITUTION}
+              component={InstitutionSubmissionPageContainer} 
+            />
             <Redirect
               exact
               from={`${SUBMISSIONS_AUTHOR}/new/success`}
@@ -114,6 +125,12 @@ class Submissions extends Component {
               exact
               path={`${SUBMISSIONS_SEMINAR}/new/success`}
               component={SeminarSubmissionSuccessPageContainer}
+            />
+            <PrivateRoute
+              authorizedRoles={SUPERUSER_OR_CATALOGER}
+              exact
+              path={`${SUBMISSIONS_INSTITUTION}/new/success`}
+              component={InstitutionSubmissionSuccessPageContainer} 
             />
             <Route
               exact
