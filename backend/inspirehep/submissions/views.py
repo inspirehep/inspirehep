@@ -31,6 +31,7 @@ from inspirehep.mailing.api.seminars import send_seminar_confirmation_email
 from inspirehep.records.api import (
     AuthorsRecord,
     ConferencesRecord,
+    ExperimentsRecord,
     JobsRecord,
     SeminarsRecord,
 )
@@ -41,6 +42,7 @@ from inspirehep.utils import get_inspirehep_url
 from .errors import WorkflowStartError
 from .loaders import author_v1 as author_loader_v1
 from .loaders import conference_v1 as conference_loader_v1
+from .loaders import experiment_v1 as experiment_loader_v1
 from .loaders import job_v1 as job_loader_v1
 from .loaders import literature_v1 as literature_loader_v1
 from .loaders import seminar_v1 as seminar_loader_v1
@@ -259,12 +261,24 @@ class ConferenceSubmissionsResource(BaseSubmissionsResource):
         )
 
 
+class ExperimentSubmissionsResource(BaseSubmissionsResource):
+    def load_data_from_request(self):
+        return experiment_loader_v1()
+
+    def post(self):
+        """Adds new experiment record"""
+
+        data = self.load_data_from_request()
+        record = ExperimentsRecord(data=data).create(data)
+        db.session.commit()
+        return (jsonify({"control_number": record["control_number"]}), 201)
+
+
 class SeminarSubmissionsResource(BaseSubmissionsResource):
     def post(self):
         """Adds new conference record"""
 
         data = self.load_data_from_request()
-
         data["acquisition_source"] = self.get_acquisition_source()
         record = SeminarsRecord.create(data)
         db.session.commit()
@@ -555,6 +569,11 @@ blueprint.add_url_rule(
 seminar_submission_view = SeminarSubmissionsResource.as_view("seminar_submission_view")
 blueprint.add_url_rule("/seminars", view_func=seminar_submission_view)
 blueprint.add_url_rule("/seminars/<int:pid_value>", view_func=seminar_submission_view)
+
+experiment_submission_view = ExperimentSubmissionsResource.as_view(
+    "experiment_submission_view"
+)
+blueprint.add_url_rule("/experiments", view_func=experiment_submission_view)
 
 conference_submission_view = ConferenceSubmissionsResource.as_view(
     "conference_submissions_view"
