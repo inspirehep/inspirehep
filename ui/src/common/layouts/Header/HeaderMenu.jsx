@@ -10,6 +10,7 @@ import {
   SUBMISSIONS_LITERATURE,
   SUBMISSIONS_CONFERENCE,
   SUBMISSIONS_SEMINAR,
+  SUBMISSIONS_INSTITUTION,
 } from '../../routes';
 import ExternalLink from '../../components/ExternalLink.tsx';
 import LinkLikeButton from '../../components/LinkLikeButton';
@@ -20,7 +21,7 @@ import DisplayGuideButtonContainer from '../../containers/DisplayGuideButtonCont
 
 class HeaderMenu extends Component {
   render() {
-    const { loggedIn, onLogoutClick } = this.props;
+    const { loggedIn, onLogoutClick, isCatalogerLoggedIn } = this.props;
     return (
       <Menu
         className="__HeaderMenu__"
@@ -66,6 +67,11 @@ class HeaderMenu extends Component {
           <Menu.Item key="submit.conference">
             <Link to={SUBMISSIONS_CONFERENCE}>Conference</Link>
           </Menu.Item>
+          { isCatalogerLoggedIn && (
+            <Menu.Item key="submit.institution">
+              <Link to={SUBMISSIONS_INSTITUTION}>Institution</Link>
+            </Menu.Item>)
+          }
         </Menu.SubMenu>
         <Menu.Item key="login-logout">
           {loggedIn ? (
@@ -79,12 +85,13 @@ class HeaderMenu extends Component {
         </Menu.Item>
       </Menu>
     );
-  }
-}
+  };
+};
 
 HeaderMenu.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
   onLogoutClick: PropTypes.func.isRequired,
+  isCatalogerLoggedIn: PropTypes.bool.isRequired,
 };
 
 export default HeaderMenu;
