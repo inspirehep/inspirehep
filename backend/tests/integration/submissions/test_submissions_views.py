@@ -28,6 +28,7 @@ from inspirehep.accounts.roles import Roles
 from inspirehep.records.api import (
     AuthorsRecord,
     ConferencesRecord,
+    InstitutionsRecord,
     JobsRecord,
     SeminarsRecord,
 )
@@ -2152,3 +2153,65 @@ def test_new_seminar_submission_with_invalid_lit_record(
         )
         assert response.status_code == 400
         assert response.json["message"][0] == "666 is not a valid literature record."
+
+
+REQUIRED_INSTITUTION_RECORD_DATA = {
+    "$schema": "http://localhost:5000/schemas/records/institutions.json",
+    "_collections": ["Institutions"],
+    "legacy_ICN": "Humboldt U., Berlin",
+    "ICN": ["Humboldt U., Berlin, Inst. Phys."],
+}
+INSTITUTION_FORM_DATA = {
+    "legacy_ICN": "Humboldt U., Berlin",
+    "ICN": ["Humboldt U., Berlin, Inst. Phys."],
+}
+
+
+@pytest.mark.parametrize(
+    "form_data,expected_record_data",
+    [
+        (deepcopy(INSTITUTION_FORM_DATA), REQUIRED_INSTITUTION_RECORD_DATA),
+    ],
+)
+def test_new_institution_submission(
+    form_data,
+    expected_record_data,
+    inspire_app,
+):
+    user = create_user()
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/submissions/institutions",
+            content_type="application/json",
+            data=orjson.dumps({"data": form_data}),
+        )
+    assert response.status_code == 201
+
+    payload = orjson.loads(response.data)
+    institution_id = payload["control_number"]
+
+    institution_record = InstitutionsRecord.get_record_by_pid_value(institution_id)
+    institution_record = {
+        key: value
+        for (key, value) in institution_record.items()
+        if key in expected_record_data
+    }
+
+    assert institution_record == expected_record_data
+
+
+def test_new_institution_submission_with_empty_data(
+    inspire_app,
+):
+    form_data = {}
+    user = create_user()
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/submissions/institutions",
+            content_type="application/json",
+            data=orjson.dumps({"data": form_data}),
+        )
+    assert response.status_code == 400
+    assert response.json["message"][0] == "Institution is missing a value or values."
