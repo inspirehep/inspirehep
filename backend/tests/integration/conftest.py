@@ -218,3 +218,10 @@ def s3(inspire_app, enable_files):
     yield s3
     mock.stop()
     inspire_app.extensions["inspirehep-s3"] = real_inspirehep_s3
+
+
+@pytest.fixture()
+def clean_redis_journal_dict(inspire_app):
+    redis_url = inspire_app.config.get("CACHE_REDIS_URL")
+    redis = StrictRedis.from_url(redis_url, decode_responses=True)
+    redis.delete("refextract_journal_kb")

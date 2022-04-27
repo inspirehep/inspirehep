@@ -26,9 +26,10 @@ from inspirehep.accounts.decorators import login_required, login_required_with_r
 from inspirehep.accounts.roles import Roles
 from inspirehep.files.api import current_s3_instance
 from inspirehep.matcher.api import match_references
-from inspirehep.matcher.utils import create_journal_dict, map_refextract_to_schema
+from inspirehep.matcher.utils import map_refextract_to_schema
 from inspirehep.pidstore.api.base import PidStoreBase
 from inspirehep.records.api import InspireRecord
+from inspirehep.refextract.utils import create_journal_dict
 from inspirehep.rt import tickets
 from inspirehep.serializers import jsonify
 from inspirehep.utils import hash_data

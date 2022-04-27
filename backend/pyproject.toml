@@ -162,6 +162,7 @@ inspirehep_matcher = "inspirehep.matcher.views:blueprint"
 invenio_oaiserver = "invenio_oaiserver.views.server:blueprint"
 inspirehep_curation = "inspirehep.curation.views:blueprint"
 inspirehep_hal = "inspirehep.hal.views:blueprint"
+inspirehep_refextract = "inspirehep.refextract.views:blueprint"
 
 [tool.poetry.plugins."invenio_config.module"]
 inspirehep = "inspirehep.config"
