@@ -32,6 +32,7 @@ from inspirehep.records.api import (
     AuthorsRecord,
     ConferencesRecord,
     ExperimentsRecord,
+    InstitutionsRecord,
     JobsRecord,
     SeminarsRecord,
 )
@@ -43,6 +44,7 @@ from .errors import WorkflowStartError
 from .loaders import author_v1 as author_loader_v1
 from .loaders import conference_v1 as conference_loader_v1
 from .loaders import experiment_v1 as experiment_loader_v1
+from .loaders import institution_v1 as institution_loader_v1
 from .loaders import job_v1 as job_loader_v1
 from .loaders import literature_v1 as literature_loader_v1
 from .loaders import seminar_v1 as seminar_loader_v1
@@ -550,6 +552,20 @@ class JobSubmissionsResource(BaseSubmissionsResource):
         )
 
 
+class InstitutionSubmissionsResource(BaseSubmissionsResource):
+    def load_data_from_request(self):
+        return institution_loader_v1()
+
+    def post(self):
+        """Adds new Institution"""
+
+        data = self.load_data_from_request()
+        record = InstitutionsRecord(data=data).create(data)
+        db.session.commit()
+
+        return jsonify({"control_number": record["control_number"]}), 201
+
+
 author_submissions_view = AuthorSubmissionsResource.as_view("author_submissions_view")
 blueprint.add_url_rule("/authors", view_func=author_submissions_view)
 blueprint.add_url_rule("/authors/<int:pid_value>", view_func=author_submissions_view)
@@ -579,3 +595,8 @@ conference_submission_view = ConferenceSubmissionsResource.as_view(
     "conference_submissions_view"
 )
 blueprint.add_url_rule("/conferences", view_func=conference_submission_view)
+
+institution_submission_view = InstitutionSubmissionsResource.as_view(
+    "institution_submission_view"
+)
+blueprint.add_url_rule("/institutions", view_func=institution_submission_view)
