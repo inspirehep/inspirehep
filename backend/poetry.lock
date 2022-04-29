@@ -1461,7 +1461,7 @@ reference = "362425d6f77a4770794615d3b98c233fca08e537"
 
 [[package]]
 name = "inspire-utils"
-version = "3.0.24"
+version = "3.0.25"
 description = "INSPIRE-specific utils."
 category = "main"
 optional = false
@@ -1551,8 +1551,8 @@ werkzeug = ">=0.15"
 admin = ["Flask-Admin (>=1.3.0)"]
 all = ["Flask-Admin (>=1.3.0)", "Sphinx (>=1.4.2,<1.6)", "check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.3.0)", "mock (>=2.0.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-flask (>=0.10.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.0.0,<5.0.0)", "selenium (>=3.0.1)"]
 docs = ["Sphinx (>=1.4.2,<1.6)"]
-mysql = ["invenio-db[mysql,versioning] (>=1.0.0)"]
-postgresql = ["invenio-db[postgresql,versioning] (>=1.0.0)"]
+mysql = ["invenio-db[versioning,mysql] (>=1.0.0)"]
+postgresql = ["invenio-db[versioning,postgresql] (>=1.0.0)"]
 sqlite = ["invenio-db[versioning] (>=1.0.0)"]
 tests = ["check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.3.0)", "mock (>=2.0.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-flask (>=0.10.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.0.0,<5.0.0)", "selenium (>=3.0.1)"]
 
@@ -1914,8 +1914,8 @@ werkzeug = ">=0.14.1"
 admin = ["Flask-Admin (>=1.3.0)"]
 all = ["Sphinx (>=1.7.2)", "Flask-Admin (>=1.3.0)", "check-manifest (>=0.25)", "coverage (>=4.5.3)", "Flask-Menu (>=0.5.0)", "invenio-admin (>=1.0.0)", "isort (>=4.3.0)", "mock (>=1.3.0)", "pydocstyle (>=3.0.0)", "pytest-cov (>=2.7.1)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.6.4,<5.0.0)"]
 docs = ["Sphinx (>=1.7.2)"]
-mysql = ["invenio-db[mysql,versioning] (>=1.0.0)"]
-postgresql = ["invenio-db[postgresql,versioning] (>=1.0.0)"]
+mysql = ["invenio-db[versioning,mysql] (>=1.0.0)"]
+postgresql = ["invenio-db[versioning,postgresql] (>=1.0.0)"]
 sqlite = ["invenio-db[versioning] (>=1.0.0)"]
 tests = ["check-manifest (>=0.25)", "coverage (>=4.5.3)", "Flask-Menu (>=0.5.0)", "invenio-admin (>=1.0.0)", "isort (>=4.3.0)", "mock (>=1.3.0)", "pydocstyle (>=3.0.0)", "pytest-cov (>=2.7.1)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.6.4,<5.0.0)"]
 
@@ -4089,7 +4089,7 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<3.9"
-content-hash = "b12f8bcec2abcaf2240be7b991462427ce7243e5b97689d01998b5467fc8f7de"
+content-hash = "91946f78a8146646762a6558439b0ae1e3fe543a7a3ab5a8dbef8474e34e705c"
 
 [metadata.files]
 alembic = [
@@ -4616,8 +4616,8 @@ inspire-schemas = [
 ]
 inspire-service-orcid = []
 inspire-utils = [
-    {file = "inspire-utils-3.0.24.tar.gz", hash = "sha256:b4d294842438d66e037d0510af79b19c8224f17e1ff274c6203a4a262b6d7269"},
-    {file = "inspire_utils-3.0.24-py2-none-any.whl", hash = "sha256:3205afdb77c41dd3935f41c0ec1d73de967a0b0f83215de4d077654be769e5b3"},
+    {file = "inspire-utils-3.0.25.tar.gz", hash = "sha256:55042ac7e3669e9710d218f8163b96f6f771fe670bf00fdb156ef774e1a7a5eb"},
+    {file = "inspire_utils-3.0.25-py2-none-any.whl", hash = "sha256:043827c41182413c82809656487025a5ab76a483046a59b2e946a5d9a9d2fbfe"},
 ]
 intervals = [
     {file = "intervals-0.8.1.tar.gz", hash = "sha256:37921da1407a5e9384e8e1350cfb8500f8d0d69fc43d03d01a4fdc6e7a7c7166"},

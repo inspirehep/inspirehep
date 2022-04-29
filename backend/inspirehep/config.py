@@ -284,3 +284,7 @@ SUBJECT_MISSING_VALUE = "Unknown"
 
 # fulltext
 ES_FULLTEXT_PIPELINE_NAME = "file_content"
+
+# refextract
+REFEXTRACT_SERVICE_URL = "https://example:5000"
+FEATURE_FLAG_ENABLE_REFEXTRACT_SERVICE = False

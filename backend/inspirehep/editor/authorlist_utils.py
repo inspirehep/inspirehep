@@ -1,7 +1,7 @@
 import re
 
 from inspire_schemas.api import LiteratureBuilder
-from refextract.documents.pdf import replace_undesirable_characters
+from inspire_utils.record import replace_undesirable_characters
 
 re_emptyline = re.compile(r"\n\s*\n", re.UNICODE)
 re_hyphens = re.compile(
