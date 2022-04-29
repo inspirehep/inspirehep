@@ -7,6 +7,8 @@
 import re
 from os.path import splitext
 
+import orjson
+import requests
 import structlog
 from flask import Blueprint, current_app, make_response, request
 from flask_login import current_user
@@ -250,11 +252,23 @@ def _simplify_ticket_response(ticket):
 @login_required_with_roles([Roles.cataloger.value])
 def refextract_text():
     """Run refextract on a piece of text."""
-    extracted_references = extract_references_from_string(
-        request.json["text"],
-        override_kbs_files={"journals": create_journal_dict()},
-        reference_format="{title},{volume},{page}",
-    )
+    if current_app.config.get("FEATURE_FLAG_ENABLE_REFEXTRACT_SERVICE"):
+        headers = {"Content-Type": "application/json", "Accept": "application/json"}
+        data = {"journal_kb_data": create_journal_dict(), "text": request.json["text"]}
+        response = requests.post(
+            f"{current_app.config['REFEXTRACT_SERVICE_URL']}/extract_references_from_text",
+            headers=headers,
+            data=orjson.dumps(data),
+        )
+        if response.status_code != 200:
+            return jsonify({"message": "Can not extract references"}, 500)
+        extracted_references = response.json()["extracted_references"]
+    else:
+        extracted_references = extract_references_from_string(
+            request.json["text"],
+            override_kbs_files={"journals": create_journal_dict()},
+            reference_format="{title},{volume},{page}",
+        )
     deduplicated_extracted_references = dedupe_list(extracted_references)
     references = map_refextract_to_schema(deduplicated_extracted_references)
     match_result = match_references(references)
@@ -265,11 +279,23 @@ def refextract_text():
 @login_required_with_roles([Roles.cataloger.value])
 def refextract_url():
     """Run refextract on a URL."""
-    extracted_references = extract_references_from_url(
-        request.json["url"],
-        override_kbs_files={"journals": create_journal_dict()},
-        reference_format="{title},{volume},{page}",
-    )
+    if current_app.config.get("FEATURE_FLAG_ENABLE_REFEXTRACT_SERVICE"):
+        headers = {"Content-Type": "application/json", "Accept": "application/json"}
+        data = {"journal_kb_data": create_journal_dict(), "url": request.json["url"]}
+        response = requests.post(
+            f"{current_app.config['REFEXTRACT_SERVICE_URL']}/extract_references_from_url",
+            headers=headers,
+            data=orjson.dumps(data),
+        )
+        if response.status_code != 200:
+            return jsonify({"message": "Can not extract references"}, 500)
+        extracted_references = response.json()["extracted_references"]
+    else:
+        extracted_references = extract_references_from_url(
+            request.json["url"],
+            override_kbs_files={"journals": create_journal_dict()},
+            reference_format="{title},{volume},{page}",
+        )
     deduplicated_extracted_references = dedupe_list(extracted_references)
     references = map_refextract_to_schema(deduplicated_extracted_references)
     match_result = match_references(references)
