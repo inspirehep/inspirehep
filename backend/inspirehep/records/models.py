@@ -7,11 +7,12 @@
 
 """Additional models used by InspireRecords."""
 import enum
+from datetime import datetime
 
 from invenio_db import db
 from invenio_records.models import RecordMetadata
 from sqlalchemy import Boolean, Date, Enum, Text
-from sqlalchemy.dialects.postgresql import ENUM
+from sqlalchemy.dialects.postgresql import ENUM, JSONB
 from sqlalchemy_utils import UUIDType
 
 
@@ -261,4 +262,50 @@ class StudentsAdvisors(db.Model):
 
     degree_type = db.Column(
         ENUM(*[key.value for key in DegreeType], name="enum_degree_type")
+    )
+
+
+class Timestamp(object):
+    """Timestamp model mix-in with fractional seconds support.
+    SQLAlchemy-Utils timestamp model does not have support for fractional
+    seconds.
+    """
+
+    created = db.Column(
+        db.DateTime(),
+        default=datetime.utcnow,
+        nullable=True,
+    )
+    updated = db.Column(
+        db.DateTime(),
+        default=datetime.utcnow,
+        nullable=True,
+    )
+
+
+@db.event.listens_for(Timestamp, "before_update", propagate=True)
+def timestamp_before_update(mapper, connection, target):
+    """Update `updated` property with current time on `before_update` event."""
+    target.updated = datetime.utcnow()
+
+
+class WorkflowsRecordSources(db.Model, Timestamp):
+
+    __tablename__ = "workflows_record_sources"
+    __table_args__ = (db.PrimaryKeyConstraint("record_uuid", "source"),)
+
+    record_uuid = db.Column(
+        UUIDType,
+        db.ForeignKey("records_metadata.id", ondelete="CASCADE"),
+        nullable=False,
+    )
+
+    source = db.Column(
+        ENUM("arxiv", "submitter", "publisher", name="source_enum"),
+        nullable=False,
+    )
+
+    json = db.Column(
+        JSONB(),
+        default=lambda: dict(),
     )

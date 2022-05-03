@@ -262,7 +262,6 @@ ALEMBIC_SKIP_TABLES = [
     "workflows_buckets",
     "workflows_object",
     "workflows_pending_record",
-    "workflows_record_sources",
     "workflows_workflow",
 ]
 

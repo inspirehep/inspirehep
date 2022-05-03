@@ -14,6 +14,9 @@ from helpers.utils import (
     create_user_and_token,
 )
 from invenio_accounts.testutils import login_user_via_session
+from invenio_db import db
+
+from inspirehep.records.models import WorkflowsRecordSources
 
 
 def test_error_message_on_pid_already_exists(inspire_app):
@@ -148,3 +151,199 @@ def test_returns_301_with_proper_location_when_record_redirected_in_chain(inspir
 
     assert response.status_code == 301
     assert response.location.split("/")[-1] == new_cn
+
+
+def test_literature_workflows_record_source(inspire_app):
+    superuser = create_user(role="superuser")
+    record = create_record("lit")
+    source = "arxiv"
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=superuser.email)
+        data = {"record_uuid": str(record.id), "source": source, "json": dict(record)}
+        response = client.post(
+            "/literature/workflows_record_sources",
+            content_type="application/json",
+            data=orjson.dumps(data),
+        )
+        assert response.status_code == 200
+        assert len(WorkflowsRecordSources.query.all()) == 1
+
+        # delete record
+        response = client.delete(
+            "/literature/workflows_record_sources",
+            content_type="application/json",
+            data=orjson.dumps(data),
+        )
+        assert response.status_code == 200
+        assert len(WorkflowsRecordSources.query.all()) == 0
+
+
+def test_literature_workflows_record_source_get_record_happy_flow(inspire_app):
+    superuser = create_user(role="superuser")
+    record = create_record("lit")
+    source = "arxiv"
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=superuser.email)
+        data = {"record_uuid": str(record.id), "source": source, "json": dict(record)}
+        response = client.post(
+            "/literature/workflows_record_sources",
+            content_type="application/json",
+            data=orjson.dumps(data),
+        )
+        assert response.status_code == 200
+        assert len(WorkflowsRecordSources.query.all()) == 1
+        # get record
+        response = client.get(
+            "/literature/workflows_record_sources",
+            content_type="application/json",
+            data=orjson.dumps(
+                {
+                    "record_uuid": str(record.id),
+                    "source": source,
+                }
+            ),
+        )
+        assert response.status_code == 200
+        assert "workflow_sources" in response.json
+        assert len(response.json["workflow_sources"]) == 1
+        assert "created" in response.json["workflow_sources"][0]
+        assert "updated" in response.json["workflow_sources"][0]
+
+
+def test_literature_workflows_record_source_get_not_found(inspire_app):
+    superuser = create_user(role="superuser")
+    record = create_record("lit")
+    source = "arxiv"
+
+    # get record which is not in the table
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=superuser.email)
+        response = client.get(
+            "/literature/workflows_record_sources",
+            content_type="application/json",
+            data=orjson.dumps(
+                {
+                    "record_uuid": str(record.id),
+                    "source": source,
+                }
+            ),
+        )
+        assert response.status_code == 404
+        assert "Workflow source not found" == response.json["message"]
+
+
+def test_literature_workflows_record_source_post_with_wrong_data(inspire_app):
+    superuser = create_user(role="superuser")
+    record = create_record("lit")
+    source = "arxiv"
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=superuser.email)
+        data = {
+            "record_uuid": str(record.id),
+            "source": source,
+        }
+        response = client.post(
+            "/literature/workflows_record_sources",
+            content_type="application/json",
+            data=orjson.dumps(data),
+        )
+        assert response.status_code == 400
+        assert "Incorrect input for fields:" in response.json["message"]
+        assert len(WorkflowsRecordSources.query.all()) == 0
+
+
+def test_literature_workflows_record_source_post_source(inspire_app):
+    superuser = create_user(role="superuser")
+    record = create_record("lit")
+    source = "arxiv"
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=superuser.email)
+        data = {"record_uuid": str(record.id), "source": source, "json": dict(record)}
+        response = client.post(
+            "/literature/workflows_record_sources",
+            content_type="application/json",
+            data=orjson.dumps(data),
+        )
+        assert response.status_code == 200
+        assert len(WorkflowsRecordSources.query.all()) == 1
+
+
+def test_literature_workflows_record_source_post_update(inspire_app):
+    superuser = create_user(role="superuser")
+    record = create_record("lit")
+    source = "arxiv"
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=superuser.email)
+        data = {"record_uuid": str(record.id), "source": source, "json": dict(record)}
+        response = client.post(
+            "/literature/workflows_record_sources",
+            content_type="application/json",
+            data=orjson.dumps(data),
+        )
+        assert response.status_code == 200
+        assert len(WorkflowsRecordSources.query.all()) == 1
+
+        # update record
+        record["publication_info"] = [{"journal_title": "JHEP"}]
+        record.update(dict(record))
+        db.session.commit()
+
+        data = {
+            "record_uuid": str(record.id),
+            "source": source,
+            "json": dict(record),
+        }
+        response = client.post(
+            "/literature/workflows_record_sources",
+            content_type="application/json",
+            data=orjson.dumps(data),
+        )
+        assert response.status_code == 200
+        assert len(WorkflowsRecordSources.query.all()) == 1
+
+
+def test_literature_workflows_record_source_post_with_another_source(inspire_app):
+    superuser = create_user(role="superuser")
+    record = create_record("lit")
+    source = "arxiv"
+    source2 = "submitter"
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=superuser.email)
+        data = {"record_uuid": str(record.id), "source": source, "json": dict(record)}
+        response = client.post(
+            "/literature/workflows_record_sources",
+            content_type="application/json",
+            data=orjson.dumps(data),
+        )
+        assert response.status_code == 200
+        assert len(WorkflowsRecordSources.query.all()) == 1
+
+        # post with another source
+        data["source"] = source2
+        response = client.post(
+            "/literature/workflows_record_sources",
+            content_type="application/json",
+            data=orjson.dumps(data),
+        )
+        assert response.status_code == 200
+        assert len(WorkflowsRecordSources.query.all()) == 2
+
+        # get records for both sources
+        response = client.get(
+            "/literature/workflows_record_sources",
+            content_type="application/json",
+            data=orjson.dumps(
+                {
+                    "record_uuid": str(record.id),
+                }
+            ),
+        )
+        assert response.status_code == 200
+        assert "workflow_sources" in response.json
+        assert len(response.json["workflow_sources"]) == 2
