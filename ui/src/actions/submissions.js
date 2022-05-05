@@ -1,4 +1,5 @@
 import { push } from 'connected-react-router';
+import { List } from 'immutable';
 
 import {
   SUBMIT_SUCCESS,
@@ -10,6 +11,8 @@ import {
 } from './actionTypes';
 import { SUBMISSIONS } from '../common/routes';
 import { httpErrorToActionPayload } from '../common/utils';
+
+export const REDIRECT_TO_EDITOR = List(['experiments', 'institutions']);
 
 function submitSuccess(payload) {
   return {
@@ -59,6 +62,9 @@ export function submit(pidType, data) {
       const response = await http.post(`${SUBMISSIONS}/${pidType}`, { data });
       dispatch(submitSuccess(response.data));
       dispatch(push(`/submissions/${pidType}/new/success`));
+      if (REDIRECT_TO_EDITOR.includes(pidType)) {
+        window.open(`/editor/record/${pidType}/${response.data.control_number}`, '_self');
+      }
     } catch (error) {
       const errorPayload = httpErrorToActionPayload(error)
       dispatch(submitError(errorPayload));
