@@ -61,9 +61,10 @@ export function submit(pidType, data) {
     try {
       const response = await http.post(`${SUBMISSIONS}/${pidType}`, { data });
       dispatch(submitSuccess(response.data));
-      dispatch(push(`/submissions/${pidType}/new/success`));
       if (REDIRECT_TO_EDITOR.includes(pidType)) {
         window.open(`/editor/record/${pidType}/${response.data.control_number}`, '_self');
+      } else {
+        dispatch(push(`/submissions/${pidType}/new/success`));
       }
     } catch (error) {
       const errorPayload = httpErrorToActionPayload(error)

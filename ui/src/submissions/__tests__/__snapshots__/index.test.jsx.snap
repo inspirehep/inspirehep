@@ -116,28 +116,6 @@ exports[`Submissions renders initial state 1`] = `
         exact={true}
         path="/submissions/seminars/new/success"
       />
-      <Connect(PrivateRoute)
-        authorizedRoles={
-          Immutable.List [
-            "superuser",
-            "cataloger",
-          ]
-        }
-        component={[Function]}
-        exact={true}
-        path="/submissions/institutions/new/success"
-      />
-      <Connect(PrivateRoute)
-        authorizedRoles={
-          Immutable.List [
-            "superuser",
-            "cataloger",
-          ]
-        }
-        component={[Function]}
-        exact={true}
-        path="/submissions/experiments/new/success"
-      />
       <Route
         component={[Function]}
         exact={true}

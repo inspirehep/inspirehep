@@ -30,9 +30,7 @@ import SeminarUpdateSubmissionPageContainer from './seminars/containers/SeminarU
 import SeminarSubmissionSuccessPageContainer from './seminars/containers/SeminarSubmissionSuccessPageContainer';
 import AuthorUpdateSubmissionSuccessPage from './authors/components/AuthorUpdateSubmissionSuccessPage';
 import InstitutionSubmissionPageContainer from './institutions/containers/InstitutionSubmissionPageContainer';
-import InstitutionSubmissionSuccessPageContainer from './institutions/containers/InstitutionSubmissionSuccessPageContainer';
 import ExperimentSubmissionPageContainer from './experiments/containers/ExperimentSubmissionPageContainer';
-import ExperimentSubmissionSuccessPageContainer from './experiments/containers/ExperimentSubmissionSuccessPageContainer';
 
 class Submissions extends Component {
   render() {
@@ -133,18 +131,6 @@ class Submissions extends Component {
               exact
               path={`${SUBMISSIONS_SEMINAR}/new/success`}
               component={SeminarSubmissionSuccessPageContainer}
-            />
-            <PrivateRoute
-              authorizedRoles={SUPERUSER_OR_CATALOGER}
-              exact
-              path={`${SUBMISSIONS_INSTITUTION}/new/success`}
-              component={InstitutionSubmissionSuccessPageContainer} 
-            />
-            <PrivateRoute
-              exact
-              authorizedRoles={SUPERUSER_OR_CATALOGER}
-              path={`${SUBMISSIONS_EXPERIMENT}/new/success`}
-              component={ExperimentSubmissionSuccessPageContainer}
             />
             <Route
               exact
