@@ -8,6 +8,7 @@
 import base64
 from itertools import chain
 
+import magic
 import orjson
 import structlog
 from flask import current_app
@@ -252,6 +253,9 @@ class LiteratureFulltextElasticSearchSchema(LiteratureElasticSearchSchema):
             ) or document.get("source") == "arxiv":
                 try:
                     file_data = download_file_from_url(document["url"])
+                    mimetype = magic.from_buffer(file_data, mime=True)
+                    if mimetype != "application/pdf":
+                        continue
                     encoded_file = base64.b64encode(file_data).decode("ascii")
                     document["text"] = encoded_file
                 except DownloadFileError:
