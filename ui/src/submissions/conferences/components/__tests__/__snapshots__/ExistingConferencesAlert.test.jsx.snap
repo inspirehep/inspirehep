@@ -15,17 +15,13 @@ exports[`ExistingConferencesAlert renders alert and drawer 1`] = `
         conferences
          
         found in these dates.
-        <Button
-          block={false}
-          ghost={false}
-          htmlType="button"
-          loading={false}
+        <ForwardRef(InternalButton)
           onClick={[Function]}
           size="small"
           type="link"
         >
           Show more
-        </Button>
+        </ForwardRef(InternalButton)>
       </span>
     }
   />

@@ -5,22 +5,16 @@ exports[`ExportToCdsModal renders modal for one paper 1`] = `
   confirmLoading={false}
   footer={
     Array [
-      <Button
-        block={false}
-        ghost={false}
-        htmlType="button"
-        loading={false}
+      <ForwardRef(InternalButton)
         onClick={[MockFunction]}
         type="primary"
       >
         Confirm
-      </Button>,
+      </ForwardRef(InternalButton)>,
     ]
   }
-  maskTransitionName="fade"
   okType="primary"
   onCancel={[MockFunction]}
-  transitionName="zoom"
   visible={true}
   width={520}
 >
@@ -41,22 +35,16 @@ exports[`ExportToCdsModal renders not visible 1`] = `
   confirmLoading={false}
   footer={
     Array [
-      <Button
-        block={false}
-        ghost={false}
-        htmlType="button"
-        loading={false}
+      <ForwardRef(InternalButton)
         onClick={[MockFunction]}
         type="primary"
       >
         Confirm
-      </Button>,
+      </ForwardRef(InternalButton)>,
     ]
   }
-  maskTransitionName="fade"
   okType="primary"
   onCancel={[MockFunction]}
-  transitionName="zoom"
   visible={false}
   width={520}
 >

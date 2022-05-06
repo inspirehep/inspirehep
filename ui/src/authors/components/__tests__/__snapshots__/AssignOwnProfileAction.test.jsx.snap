@@ -5,27 +5,21 @@ exports[`AssignOwnProfileAction renders 1`] = `
   <DropdownMenu
     disabled={false}
     title={
-      <Tooltip
+      <ForwardRef(Tooltip)
         arrowPointAtCenter={false}
         autoAdjustOverflow={true}
         mouseEnterDelay={0.1}
         mouseLeaveDelay={0.1}
         placement="top"
         title={null}
-        transitionName="zoom-big-fast"
       >
-        <Button
-          block={false}
-          ghost={false}
-          htmlType="button"
-          loading={false}
-        >
+        <ForwardRef(InternalButton)>
           <IconText
             icon={<ForwardRef(FileDoneOutlined) />}
             text="claim"
           />
-        </Button>
-      </Tooltip>
+        </ForwardRef(InternalButton)>
+      </ForwardRef(Tooltip)>
     }
   >
     <MenuItem
@@ -40,7 +34,6 @@ exports[`AssignOwnProfileAction renders 1`] = `
         mouseLeaveDelay={0.1}
         placement="top"
         title={null}
-        transitionName="zoom-big-fast"
       >
         <p>
           This is my paper
@@ -63,27 +56,21 @@ exports[`AssignOwnProfileAction renders disabled 1`] = `
   <DropdownMenu
     disabled={true}
     title={
-      <Tooltip
+      <ForwardRef(Tooltip)
         arrowPointAtCenter={false}
         autoAdjustOverflow={true}
         mouseEnterDelay={0.1}
         mouseLeaveDelay={0.1}
         placement="top"
         title="Please select the papers you want to claim or remove from the profile."
-        transitionName="zoom-big-fast"
       >
-        <Button
-          block={false}
-          ghost={false}
-          htmlType="button"
-          loading={false}
-        >
+        <ForwardRef(InternalButton)>
           <IconText
             icon={<ForwardRef(FileDoneOutlined) />}
             text="claim"
           />
-        </Button>
-      </Tooltip>
+        </ForwardRef(InternalButton)>
+      </ForwardRef(Tooltip)>
     }
   >
     <MenuItem
@@ -99,7 +86,6 @@ exports[`AssignOwnProfileAction renders disabled 1`] = `
         mouseLeaveDelay={0.1}
         placement="top"
         title="All selected papers are already claimed!"
-        transitionName="zoom-big-fast"
       >
         <p>
           This is my paper
@@ -122,27 +108,21 @@ exports[`AssignOwnProfileAction renders with disabled assign action 1`] = `
   <DropdownMenu
     disabled={false}
     title={
-      <Tooltip
+      <ForwardRef(Tooltip)
         arrowPointAtCenter={false}
         autoAdjustOverflow={true}
         mouseEnterDelay={0.1}
         mouseLeaveDelay={0.1}
         placement="top"
         title={null}
-        transitionName="zoom-big-fast"
       >
-        <Button
-          block={false}
-          ghost={false}
-          htmlType="button"
-          loading={false}
-        >
+        <ForwardRef(InternalButton)>
           <IconText
             icon={<ForwardRef(FileDoneOutlined) />}
             text="claim"
           />
-        </Button>
-      </Tooltip>
+        </ForwardRef(InternalButton)>
+      </ForwardRef(Tooltip)>
     }
   >
     <MenuItem
@@ -158,7 +138,6 @@ exports[`AssignOwnProfileAction renders with disabled assign action 1`] = `
         mouseLeaveDelay={0.1}
         placement="top"
         title="All selected papers are already claimed!"
-        transitionName="zoom-big-fast"
       >
         <p>
           This is my paper

@@ -8,11 +8,11 @@ exports[`ConferenceSubmissionSuccessPageContainer ConferenceSubmissionSucessPage
       C19-02-01
       )
        
-      <ForwardRef
+      <ForwardRef(Link)
         to="/conferences/12345"
       >
         here
-      </ForwardRef>
+      </ForwardRef(Link)>
       .
     </span>
   }

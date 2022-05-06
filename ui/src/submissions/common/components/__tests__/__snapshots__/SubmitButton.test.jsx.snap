@@ -2,8 +2,6 @@
 
 exports[`SubmitButton renders with all props set 1`] = `
 <Button
-  block={false}
-  ghost={false}
   htmlType="submit"
   loading={false}
   type="primary"
@@ -14,8 +12,6 @@ exports[`SubmitButton renders with all props set 1`] = `
 
 exports[`SubmitButton renders with loading 1`] = `
 <Button
-  block={false}
-  ghost={false}
   htmlType="submit"
   loading={true}
   type="primary"

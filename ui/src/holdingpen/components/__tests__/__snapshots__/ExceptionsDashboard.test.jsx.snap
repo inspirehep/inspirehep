@@ -34,7 +34,6 @@ exports[`ExceptionsDashboard renders with all props set 1`] = `
     />
   </div>
   <Row
-    gutter={0}
     justify="space-around"
     type="flex"
   >
@@ -92,7 +91,6 @@ exports[`ExceptionsDashboard renders with all props set and loading set to true 
     />
   </div>
   <Row
-    gutter={0}
     justify="space-around"
     type="flex"
   >

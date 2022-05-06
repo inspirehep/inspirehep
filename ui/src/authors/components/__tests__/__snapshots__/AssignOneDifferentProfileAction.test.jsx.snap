@@ -5,17 +5,12 @@ exports[`AssignDifferentProfileAction renders for claimed paper 1`] = `
   <DropdownMenu
     disabled={false}
     title={
-      <Button
-        block={false}
-        ghost={false}
-        htmlType="button"
-        loading={false}
-      >
+      <ForwardRef(InternalButton)>
         <IconText
           icon={<ForwardRef(FileDoneOutlined) />}
           text="claim"
         />
-      </Button>
+      </ForwardRef(InternalButton)>
     }
   >
     <MenuItem
@@ -34,17 +29,12 @@ exports[`AssignDifferentProfileAction renders for unclaimed paper 1`] = `
   <DropdownMenu
     disabled={false}
     title={
-      <Button
-        block={false}
-        ghost={false}
-        htmlType="button"
-        loading={false}
-      >
+      <ForwardRef(InternalButton)>
         <IconText
           icon={<ForwardRef(FileDoneOutlined) />}
           text="claim"
         />
-      </Button>
+      </ForwardRef(InternalButton)>
     }
   >
     <MenuItem
@@ -63,17 +53,12 @@ exports[`AssignDifferentProfileAction renders for unclaimed paper with userCanNo
   <DropdownMenu
     disabled={false}
     title={
-      <Button
-        block={false}
-        ghost={false}
-        htmlType="button"
-        loading={false}
-      >
+      <ForwardRef(InternalButton)>
         <IconText
           icon={<ForwardRef(FileDoneOutlined) />}
           text="claim"
         />
-      </Button>
+      </ForwardRef(InternalButton)>
     }
   >
     <MenuItem

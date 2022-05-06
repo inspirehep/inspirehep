@@ -25,7 +25,7 @@ describe('Figures', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('sets carousel visible on list item click', () => {
+  it('sets carousel visible on list item click', async () => {
     const figures = fromJS([
       {
         url: 'https://picsum.photos/200/300',
@@ -41,7 +41,7 @@ describe('Figures', () => {
     expect(isCarouselVisibleBefore).toBe(false);
 
     const onListItemClick = wrapper.find(FigureListItem).prop('onClick');
-    act(() => {
+    await act(() => {
       onListItemClick();
     });
     wrapper.update();

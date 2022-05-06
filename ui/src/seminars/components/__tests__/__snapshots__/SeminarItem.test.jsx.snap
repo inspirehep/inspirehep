@@ -87,7 +87,6 @@ exports[`SeminarItem renders with all props set 1`] = `
   }
 >
   <Row
-    gutter={0}
     type="flex"
   >
     <Col>
@@ -105,9 +104,7 @@ exports[`SeminarItem renders with all props set 1`] = `
       </Link>
     </Col>
   </Row>
-  <Row
-    gutter={0}
-  >
+  <Row>
     <Col>
       <AuthorList
         authors={
@@ -129,9 +126,7 @@ exports[`SeminarItem renders with all props set 1`] = `
       />
     </Col>
   </Row>
-  <Row
-    gutter={0}
-  >
+  <Row>
     <Col>
       <SeminarDateTimes
         displayTimezone={false}
@@ -179,7 +174,6 @@ exports[`SeminarItem renders with only needed props 1`] = `
   }
 >
   <Row
-    gutter={0}
     type="flex"
   >
     <Col>
@@ -197,9 +191,7 @@ exports[`SeminarItem renders with only needed props 1`] = `
       </Link>
     </Col>
   </Row>
-  <Row
-    gutter={0}
-  >
+  <Row>
     <Col>
       <AuthorList
         authors={
@@ -221,9 +213,7 @@ exports[`SeminarItem renders with only needed props 1`] = `
       />
     </Col>
   </Row>
-  <Row
-    gutter={0}
-  >
+  <Row>
     <Col>
       <SeminarDateTimes
         displayTimezone={false}
@@ -271,7 +261,6 @@ exports[`SeminarItem renders with selected timezone with a different time than l
   }
 >
   <Row
-    gutter={0}
     type="flex"
   >
     <Col>
@@ -289,9 +278,7 @@ exports[`SeminarItem renders with selected timezone with a different time than l
       </Link>
     </Col>
   </Row>
-  <Row
-    gutter={0}
-  >
+  <Row>
     <Col>
       <AuthorList
         authors={
@@ -313,9 +300,7 @@ exports[`SeminarItem renders with selected timezone with a different time than l
       />
     </Col>
   </Row>
-  <Row
-    gutter={0}
-  >
+  <Row>
     <Col>
       <SeminarDateTimes
         className="red"
@@ -373,7 +358,6 @@ exports[`SeminarItem renders with selected timezone with a same time as local ti
   }
 >
   <Row
-    gutter={0}
     type="flex"
   >
     <Col>
@@ -391,9 +375,7 @@ exports[`SeminarItem renders with selected timezone with a same time as local ti
       </Link>
     </Col>
   </Row>
-  <Row
-    gutter={0}
-  >
+  <Row>
     <Col>
       <AuthorList
         authors={
@@ -415,9 +397,7 @@ exports[`SeminarItem renders with selected timezone with a same time as local ti
       />
     </Col>
   </Row>
-  <Row
-    gutter={0}
-  >
+  <Row>
     <Col>
       <SeminarDateTimes
         displayTimezone={false}

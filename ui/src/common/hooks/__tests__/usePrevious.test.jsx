@@ -14,9 +14,9 @@ function TestPrevious({ value }) {
 }
 
 describe('usePrevious', () => {
-  it('renders previous and current value', () => {
+  it('renders previous and current value', async () => {
     const wrapper = mount(<TestPrevious value={1} />);
-    act(() => {
+    await act(() => {
       wrapper.setProps({ value: 2 });
       wrapper.update();
     });

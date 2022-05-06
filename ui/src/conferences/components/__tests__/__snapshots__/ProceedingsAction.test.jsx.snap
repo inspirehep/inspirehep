@@ -5,17 +5,12 @@ exports[`ProceedingsAction renders proceedings 1`] = `
   <DropdownMenu
     disabled={false}
     title={
-      <Button
-        block={false}
-        ghost={false}
-        htmlType="button"
-        loading={false}
-      >
+      <ForwardRef(InternalButton)>
         <IconText
           icon={<ForwardRef(BookOutlined) />}
           text="proceedings"
         />
-      </Button>
+      </ForwardRef(InternalButton)>
     }
   >
     <MenuItem

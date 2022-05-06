@@ -12,7 +12,7 @@ import SubmitButton from '../SubmitButton';
  * mocking only `useFormikContext` does not work, I guess because it also imports `FormikContext` internally
  */
 describe('SubmitButton: click', () => {
-  it('calls scrollTo when form is submitted and is not valid', () => {
+  it('calls scrollTo when form is submitted and is not valid', async () => {
     const contextValue = {
       isValid: false,
       isSubmitting: true,
@@ -24,7 +24,7 @@ describe('SubmitButton: click', () => {
       </FormikContext.Provider>
     );
     global.scrollTo = jest.fn();
-    act(() => {
+    await act(() => {
       wrapper.setProps({ value: { ...contextValue, isSubmitting: false } });
       wrapper.update();
     });

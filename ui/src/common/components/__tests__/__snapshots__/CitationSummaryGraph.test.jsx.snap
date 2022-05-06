@@ -12,7 +12,6 @@ exports[`CitationSummaryGraph renders graph with selectedBar 1`] = `
     >
       <Row
         align="middle"
-        gutter={0}
         type="flex"
       >
         <Col
@@ -25,7 +24,6 @@ exports[`CitationSummaryGraph renders graph with selectedBar 1`] = `
             mouseLeaveDelay={0.1}
             placement="bottom"
             title="Click a bar to select papers. Click the bar again to reset your selection."
-            transitionName="zoom-big-fast"
           >
             <FlexibleXYPlot
               height={250}
@@ -318,7 +316,6 @@ exports[`CitationSummaryGraph renders graph without SelectedBar 1`] = `
     >
       <Row
         align="middle"
-        gutter={0}
         type="flex"
       >
         <Col
@@ -331,7 +328,6 @@ exports[`CitationSummaryGraph renders graph without SelectedBar 1`] = `
             mouseLeaveDelay={0.1}
             placement="bottom"
             title="Click a bar to select papers. Click the bar again to reset your selection."
-            transitionName="zoom-big-fast"
           >
             <FlexibleXYPlot
               height={250}
@@ -624,7 +620,6 @@ exports[`CitationSummaryGraph renders with hovered bar 1`] = `
     >
       <Row
         align="middle"
-        gutter={0}
         type="flex"
       >
         <Col
@@ -637,7 +632,6 @@ exports[`CitationSummaryGraph renders with hovered bar 1`] = `
             mouseLeaveDelay={0.1}
             placement="bottom"
             title="Click a bar to select papers. Click the bar again to reset your selection."
-            transitionName="zoom-big-fast"
           >
             <FlexibleXYPlot
               height={250}

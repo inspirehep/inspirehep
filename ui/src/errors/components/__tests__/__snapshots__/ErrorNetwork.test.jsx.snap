@@ -6,9 +6,9 @@ exports[`ErrorNetwork renders ErrorNetwork 1`] = `
     <span>
       Please check your internet connection and
        
-      <Connect(GoBackLink)>
+      <UNDEFINED>
         try again
-      </Connect(GoBackLink)>
+      </UNDEFINED>
     </span>
   }
   imageSrc="500.svg"

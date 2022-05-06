@@ -5,13 +5,9 @@ exports[`UserFeedback calls trackEvent with feedback on modal Ok and renders tha
   className="__UserFeedback__"
 >
   <Button
-    block={false}
     className="feedback-button"
     data-test-id="sticky"
-    ghost={false}
-    htmlType="button"
     icon={<ForwardRef(MessageOutlined) />}
-    loading={false}
     onClick={[Function]}
     size="large"
     type="primary"
@@ -25,7 +21,6 @@ exports[`UserFeedback calls trackEvent with feedback on modal Ok and renders tha
     afterClose={[Function]}
     confirmLoading={false}
     footer={null}
-    maskTransitionName="fade"
     okButtonProps={
       Object {
         "disabled": true,
@@ -36,7 +31,6 @@ exports[`UserFeedback calls trackEvent with feedback on modal Ok and renders tha
     onCancel={[Function]}
     onOk={[Function]}
     title="Your Feedback"
-    transitionName="zoom"
     visible={false}
     width={520}
   >
@@ -68,13 +62,9 @@ exports[`UserFeedback renders 1`] = `
   className="__UserFeedback__"
 >
   <Button
-    block={false}
     className="feedback-button"
     data-test-id="sticky"
-    ghost={false}
-    htmlType="button"
     icon={<ForwardRef(MessageOutlined) />}
-    loading={false}
     onClick={[Function]}
     size="large"
     type="primary"
@@ -87,7 +77,6 @@ exports[`UserFeedback renders 1`] = `
   <Modal
     afterClose={[Function]}
     confirmLoading={false}
-    maskTransitionName="fade"
     okButtonProps={
       Object {
         "disabled": undefined,
@@ -98,7 +87,6 @@ exports[`UserFeedback renders 1`] = `
     onCancel={[Function]}
     onOk={[Function]}
     title="Your Feedback"
-    transitionName="zoom"
     visible={false}
     width={520}
   >
@@ -128,7 +116,7 @@ exports[`UserFeedback renders 1`] = `
         Would you like to add a comment?
       </div>
       <div>
-        <TextArea
+        <ForwardRef
           onChange={[Function]}
           placeholder="Please give your feedback here"
           rows={5}
@@ -144,13 +132,9 @@ exports[`UserFeedback renders when tracker is blocked 1`] = `
   className="__UserFeedback__"
 >
   <Button
-    block={false}
     className="feedback-button"
     data-test-id="sticky"
-    ghost={false}
-    htmlType="button"
     icon={<ForwardRef(MessageOutlined) />}
-    loading={false}
     onClick={[Function]}
     size="large"
     type="primary"
@@ -163,7 +147,6 @@ exports[`UserFeedback renders when tracker is blocked 1`] = `
   <Modal
     afterClose={[Function]}
     confirmLoading={false}
-    maskTransitionName="fade"
     okButtonProps={
       Object {
         "disabled": true,
@@ -174,7 +157,6 @@ exports[`UserFeedback renders when tracker is blocked 1`] = `
     onCancel={[Function]}
     onOk={[Function]}
     title="Your Feedback"
-    transitionName="zoom"
     visible={false}
     width={520}
   >
@@ -241,7 +223,7 @@ exports[`UserFeedback renders when tracker is blocked 1`] = `
         Would you like to add a comment?
       </div>
       <div>
-        <TextArea
+        <ForwardRef
           disabled={true}
           onChange={[Function]}
           placeholder="Please give your feedback here"

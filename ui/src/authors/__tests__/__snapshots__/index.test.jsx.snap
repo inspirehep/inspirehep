@@ -5,7 +5,15 @@ exports[`Authors renders initial state 1`] = `
   className="__Authors__"
 >
   <Route
-    component={[Function]}
+    component={
+      Object {
+        "$$typeof": Symbol(react.memo),
+        "WrappedComponent": [Function],
+        "compare": null,
+        "type": [Function],
+        Symbol(Symbol.hasInstance): [Function],
+      }
+    }
     exact={true}
     path="/authors"
   />

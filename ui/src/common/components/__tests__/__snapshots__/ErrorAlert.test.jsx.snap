@@ -5,7 +5,7 @@ exports[`ErrorAlert renders with custom message 1`] = `
   description={
     <span>
       Please try again later or 
-      <Connect(GoBackLink) />
+      <UNDEFINED />
     </span>
   }
   message="Terrible thing is happening!"
@@ -19,7 +19,7 @@ exports[`ErrorAlert renders with default message 1`] = `
   description={
     <span>
       Please try again later or 
-      <Connect(GoBackLink) />
+      <UNDEFINED />
     </span>
   }
   message="Something went wrong"

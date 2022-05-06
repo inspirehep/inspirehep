@@ -108,7 +108,6 @@ exports[`ArticleForm renders all props 1`] = `
     </CollapsableFormSection>
   </CollapsableForm>
   <Row
-    gutter={0}
     justify="end"
     type="flex"
   >

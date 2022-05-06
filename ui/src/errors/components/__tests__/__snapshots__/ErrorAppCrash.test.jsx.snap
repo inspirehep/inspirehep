@@ -2,7 +2,6 @@
 
 exports[`ErrorAppCrash renders ErrorAppCrash 1`] = `
 <Row
-  gutter={0}
   justify="center"
   type="flex"
 >

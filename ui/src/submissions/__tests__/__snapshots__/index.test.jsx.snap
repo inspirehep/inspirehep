@@ -15,42 +15,106 @@ exports[`Submissions renders initial state 1`] = `
         to="/submissions/authors"
       />
       <Route
-        component={[Function]}
+        component={
+          Object {
+            "$$typeof": Symbol(react.memo),
+            "WrappedComponent": [Function],
+            "compare": null,
+            "type": [Function],
+            Symbol(Symbol.hasInstance): [Function],
+          }
+        }
         exact={true}
         path="/submissions/authors"
       />
       <Route
-        component={[Function]}
+        component={
+          Object {
+            "$$typeof": Symbol(react.memo),
+            "WrappedComponent": [Function],
+            "compare": null,
+            "type": [Function],
+            Symbol(Symbol.hasInstance): [Function],
+          }
+        }
         exact={true}
         path="/submissions/authors/:id"
       />
       <Route
-        component={[Function]}
+        component={
+          Object {
+            "$$typeof": Symbol(react.memo),
+            "WrappedComponent": [Function],
+            "compare": null,
+            "type": [Function],
+            Symbol(Symbol.hasInstance): [Function],
+          }
+        }
         exact={true}
         path="/submissions/literature"
       />
       <Route
-        component={[Function]}
+        component={
+          Object {
+            "$$typeof": Symbol(react.memo),
+            "WrappedComponent": [Function],
+            "compare": null,
+            "type": [Function],
+            Symbol(Symbol.hasInstance): [Function],
+          }
+        }
         exact={true}
         path="/submissions/jobs"
       />
       <Route
-        component={[Function]}
+        component={
+          Object {
+            "$$typeof": Symbol(react.memo),
+            "WrappedComponent": [Function],
+            "compare": null,
+            "type": [Function],
+            Symbol(Symbol.hasInstance): [Function],
+          }
+        }
         exact={true}
         path="/submissions/jobs/:id"
       />
       <Route
-        component={[Function]}
+        component={
+          Object {
+            "$$typeof": Symbol(react.memo),
+            "WrappedComponent": [Function],
+            "compare": null,
+            "type": [Function],
+            Symbol(Symbol.hasInstance): [Function],
+          }
+        }
         exact={true}
         path="/submissions/conferences"
       />
       <Route
-        component={[Function]}
+        component={
+          Object {
+            "$$typeof": Symbol(react.memo),
+            "WrappedComponent": [Function],
+            "compare": null,
+            "type": [Function],
+            Symbol(Symbol.hasInstance): [Function],
+          }
+        }
         exact={true}
         path="/submissions/seminars"
       />
       <Route
-        component={[Function]}
+        component={
+          Object {
+            "$$typeof": Symbol(react.memo),
+            "WrappedComponent": [Function],
+            "compare": null,
+            "type": [Function],
+            Symbol(Symbol.hasInstance): [Function],
+          }
+        }
         exact={true}
         path="/submissions/seminars/:id"
       />
@@ -61,7 +125,15 @@ exports[`Submissions renders initial state 1`] = `
             "cataloger",
           ]
         }
-        component={[Function]}
+        component={
+          Object {
+            "$$typeof": Symbol(react.memo),
+            "WrappedComponent": [Function],
+            "compare": null,
+            "type": [Function],
+            Symbol(Symbol.hasInstance): [Function],
+          }
+        }
         exact={true}
         path="/submissions/institutions"
       />
@@ -72,7 +144,15 @@ exports[`Submissions renders initial state 1`] = `
             "cataloger",
           ]
         }
-        component={[Function]}
+        component={
+          Object {
+            "$$typeof": Symbol(react.memo),
+            "WrappedComponent": [Function],
+            "compare": null,
+            "type": [Function],
+            Symbol(Symbol.hasInstance): [Function],
+          }
+        }
         exact={true}
         path="/submissions/experiments"
       />
@@ -102,17 +182,41 @@ exports[`Submissions renders initial state 1`] = `
         path="/submissions/jobs/:id/success"
       />
       <Route
-        component={[Function]}
+        component={
+          Object {
+            "$$typeof": Symbol(react.memo),
+            "WrappedComponent": [Function],
+            "compare": null,
+            "type": [Function],
+            Symbol(Symbol.hasInstance): [Function],
+          }
+        }
         exact={true}
         path="/submissions/conferences/new/success"
       />
       <Route
-        component={[Function]}
+        component={
+          Object {
+            "$$typeof": Symbol(react.memo),
+            "WrappedComponent": [Function],
+            "compare": null,
+            "type": [Function],
+            Symbol(Symbol.hasInstance): [Function],
+          }
+        }
         exact={true}
         path="/submissions/seminars/:id/success"
       />
       <Route
-        component={[Function]}
+        component={
+          Object {
+            "$$typeof": Symbol(react.memo),
+            "WrappedComponent": [Function],
+            "compare": null,
+            "type": [Function],
+            Symbol(Symbol.hasInstance): [Function],
+          }
+        }
         exact={true}
         path="/submissions/seminars/new/success"
       />

@@ -2,7 +2,6 @@
 
 exports[`SubmissionSuccess renders with custom message 1`] = `
 <Row
-  gutter={0}
   justify="center"
   type="flex"
 >
@@ -25,7 +24,6 @@ exports[`SubmissionSuccess renders with custom message 1`] = `
 
 exports[`SubmissionSuccess renders with default message 1`] = `
 <Row
-  gutter={0}
   justify="center"
   type="flex"
 >
