@@ -14,6 +14,26 @@ describe('AssignOwnProfileAction', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it('renders singular form if numberOfSelected is 1', () => {
+    const wrapper = shallow(
+      <AssignOwnProfileAction
+        onAssign={jest.fn()}
+        numberOfSelected={1}
+      />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('renders plural form if numberOfSelected is more than 1', () => {
+    const wrapper = shallow(
+      <AssignOwnProfileAction
+        onAssign={jest.fn()}
+        numberOfSelected={123}
+      />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
   it('renders disabled', () => {
     const wrapper = shallow(
       <AssignOwnProfileAction

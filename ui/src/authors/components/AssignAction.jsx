@@ -8,28 +8,24 @@ import DropdownMenu from '../../common/components/DropdownMenu';
 import IconText from '../../common/components/IconText';
 import ListItemAction from '../../common/components/ListItemAction';
 
-function AssignAction({ onAssignToAnotherAuthor, onAssign, disabled }) {
+function AssignAction({
+  onAssignToAnotherAuthor,
+  onAssign,
+  disabled,
+  numberOfSelected,
+}) {
   const currentAuthorId = Number(useParams().id);
-  const onSelfAssign = useCallback(
-    () => {
-      onAssign({ from: currentAuthorId, to: currentAuthorId });
-    },
-    [currentAuthorId, onAssign]
-  );
+  const onSelfAssign = useCallback(() => {
+    onAssign({ from: currentAuthorId, to: currentAuthorId });
+  }, [currentAuthorId, onAssign]);
 
-  const onUnassign = useCallback(
-    () => {
-      onAssign({ from: currentAuthorId });
-    },
-    [currentAuthorId, onAssign]
-  );
+  const onUnassign = useCallback(() => {
+    onAssign({ from: currentAuthorId });
+  }, [currentAuthorId, onAssign]);
 
-  const onAssignToAnother = useCallback(
-    () => {
-      onAssignToAnotherAuthor();
-    },
-    [onAssignToAnotherAuthor]
-  );
+  const onAssignToAnother = useCallback(() => {
+    onAssignToAnotherAuthor();
+  }, [onAssignToAnotherAuthor]);
   return (
     // TODO: rename `ListItemAction` because it's not only used for list item actions, such as (assign all and cite all)
     <ListItemAction>
@@ -54,10 +50,12 @@ function AssignAction({ onAssignToAnotherAuthor, onAssign, disabled }) {
           key="assign-self"
           onClick={onSelfAssign}
         >
-          This is my paper
+          {numberOfSelected === 1 ? 'This is my paper' : 'These are my papers'}
         </Menu.Item>
         <Menu.Item data-test-id="unassign" key="unassign" onClick={onUnassign}>
-          This is not my paper
+          {numberOfSelected === 1
+            ? 'This is not my paper'
+            : 'These are not my papers'}
         </Menu.Item>
         <Menu.Item
           data-test-id="assign-another"
@@ -75,6 +73,7 @@ AssignAction.propTypes = {
   onAssignToAnotherAuthor: PropTypes.func.isRequired,
   onAssign: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
+  numberOfSelected: PropTypes.number,
 };
 
 export default AssignAction;
