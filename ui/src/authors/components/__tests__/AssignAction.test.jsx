@@ -27,6 +27,28 @@ describe('AssignAction', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it('renders singular form if numberOfSelected is 1', () => {
+    const wrapper = shallow(
+      <AssignAction
+        onAssignToAnotherAuthor={jest.fn()}
+        onAssign={jest.fn()}
+        numberOfSelected={1}
+      />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('renders plural form if numberOfSelected is more than 1', () => {
+    const wrapper = shallow(
+      <AssignAction
+        onAssignToAnotherAuthor={jest.fn()}
+        onAssign={jest.fn()}
+        numberOfSelected={123}
+      />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
   it('calls onAssign on assign-self click ', () => {
     const onAssign = jest.fn();
     const wrapper = shallow(

@@ -76,6 +76,25 @@ describe('AssignOwnProfileActionContainer', () => {
     });
   });
 
+  it('sets correct numberOfSelected when publications are selected', () => {
+    const store = getStore({
+      authors: fromJS({
+        publicationSelectionClaimed: [1, 2],
+        publicationSelectionUnclaimed: [],
+        publicationSelection: Set([1, 2]),
+      }),
+    });
+    const wrapper = mount(
+      <Provider store={store}>
+        <AssignAllOwnProfileActionContainer />
+      </Provider>
+    );
+    expect(wrapper.find(AssignOwnProfileAction)).toHaveProp({
+      numberOfSelected: 2,
+    });
+  });
+
+
   it('dispatches assignPapers with on assign', () => {
     const store = getStore();
     const wrapper = mount(

@@ -8,7 +8,12 @@ import DropdownMenu from '../../common/components/DropdownMenu';
 import IconText from '../../common/components/IconText';
 import ListItemAction from '../../common/components/ListItemAction';
 
-function AssignOwnProfileAction({ onAssign, disabled, disabledAssignAction }) {
+function AssignOwnProfileAction({
+  onAssign,
+  disabled,
+  disabledAssignAction,
+  numberOfSelected,
+}) {
   const currentAuthorId = Number(useParams().id);
   const onSelfAssign = useCallback(() => {
     onAssign({
@@ -54,11 +59,17 @@ function AssignOwnProfileAction({ onAssign, disabled, disabledAssignAction }) {
                 : null
             }
           >
-            <p>This is my paper</p>
+            <p>
+              {numberOfSelected === 1
+                ? 'This is my paper'
+                : 'These are my papers'}
+            </p>
           </Tooltip>
         </Menu.Item>
         <Menu.Item data-test-id="unassign" key="unassign" onClick={onUnassign}>
-          This is not my paper
+          {numberOfSelected === 1
+            ? 'This is not my paper'
+            : 'These are not my papers'}
         </Menu.Item>
       </DropdownMenu>
     </ListItemAction>
@@ -69,6 +80,7 @@ AssignOwnProfileAction.propTypes = {
   onAssign: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
   disabledAssignAction: PropTypes.bool,
+  numberOfSelected: PropTypes.number,
 };
 
 export default AssignOwnProfileAction;

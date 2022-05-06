@@ -55,6 +55,22 @@ describe('AssignAllActionContainer', () => {
     });
   });
 
+  it('sets correct numberOfSelected when publications are selected', () => {
+    const store = getStore({
+      authors: fromJS({
+        publicationSelection: Set([1, 2]),
+      }),
+    });
+    const wrapper = mount(
+      <Provider store={store}>
+        <AssignAllActionContainer />
+      </Provider>
+    );
+    expect(wrapper.find(AssignAction)).toHaveProp({
+      numberOfSelected: 2,
+    });
+  });
+
   it('dispatches setAssignDrawerVisibility with true on assign to another author', () => {
     const store = getStore();
     const wrapper = mount(
