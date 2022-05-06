@@ -2438,8 +2438,12 @@ def test_index_fulltext_document(inspire_app):
     "inspirehep.records.marshmallow.literature.es.download_file_from_url",
     side_effect=[DownloadFileError, str.encode("this is a test", "utf-8")],
 )
+@mock.patch(
+    "inspirehep.records.marshmallow.literature.es.magic.from_buffer",
+    side_effect=["application/pdf"],
+)
 def test_index_fulltext_with_not_existing_doc_handle_exception(
-    mock_download_file, inspire_app
+    mock_mimetype, mock_download_file, inspire_app
 ):
     data = {
         "documents": [
