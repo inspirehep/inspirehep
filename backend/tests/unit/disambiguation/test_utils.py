@@ -57,11 +57,25 @@ def test_update_author_names_doesnt_put_duplicate_name_variants():
 @pytest.mark.parametrize(
     "lit_author_name,author_name,expected_normalized_name",
     [
-        ("Smith, John Davis", "Smith Davis, John", "Smith Davis, John"),
-        ("Smith, John Davis Aaron", "Smith Davis, John", "Smith Davis, John Aaron"),
+        ("Smith, John Davis", "Smith, John", "Smith, John Davis"),
+        ("Davis, John Smith", "Smith, John", "Smith Davis, John"),
+        ("Smith, John Aaron Davis", "Smith Davis, John", "Davis Smith, John Aaron"),
         ("Qin, Qin", "Qin, Qin", "Qin, Qin"),
         ("Deiana, Allison Mccarn", "Deiana, Allison McCarn", "Deiana, Allison Mccarn"),
         ("Fayyazuddin", "Fayyazuddin", "Fayyazuddin"),
+        ("Garcia, Garcia Miguel", "Garcia Garcia, Miguel", "Garcia, Garcia Miguel"),
+        ("Garcia, Garcia Miguel", "Garcia, Miguel Garcia", "Garcia, Garcia Miguel"),
+        ("Garcia, Gabriel", "Garcia Marquez, Gabriel", "Garcia, Gabriel"),
+        ("Marquez, Gabriel", "Garcia Marquez, Gabriel", "Marquez, Gabriel"),
+        ("Davis, John", "Davis John, John", "Davis, John"),
+        ("Nascimento, J.-D do", "do Nascimento, José Dias", "do Nascimento, J.-D"),
+        ("Axelsen Viktor", "Axelsen, Viktor", "Axelsen, Viktor"),
+        ("Canton, Tito Dal", "Dal Canton, Tito", "Dal Canton, Tito"),
+        (
+            "Etangs, Alain Lecavelier des",
+            "Lecavelier des Etangs, Alain",
+            "Lecavelier des Etangs, Alain",
+        ),
     ],
 )
 def test_reorder_lit_author_names(
