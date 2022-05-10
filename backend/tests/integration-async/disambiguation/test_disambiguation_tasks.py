@@ -1415,9 +1415,6 @@ def test_disambiguation_reorders_name_after_succesfull_disambiguation(
             in literature_record_from_es_authors[0]["record"]["$ref"]
         )
 
-        assert (
-            author_1["name"]["value"]
-            == literature_record_from_es_authors[0]["full_name"]
-        )
+        assert "Davis Gross, Brian" == literature_record_from_es_authors[0]["full_name"]
 
     retry_until_pass(assert_disambiguation_task, retry_interval=2)
