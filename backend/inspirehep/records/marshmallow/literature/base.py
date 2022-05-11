@@ -48,9 +48,20 @@ class LiteraturePublicSchema(LiteratureRawSchema):
             "acquisition_source",
         ]
 
-    documents = NonHiddenRaw(dump_only=True)
     publication_info = NonHiddenRaw(dump_only=True)
     report_numbers = NonHiddenRaw(dump_only=True)
+    documents = fields.Method("get_documents_without_error_field", dump_only=True)
+
+    def get_documents_without_error_field(self, data):
+        documents = data.get("documents", [])
+        non_hidden_documents = []
+        for document in documents:
+            if "hidden" in document:
+                continue
+            if "_error" in document:
+                del document["_error"]
+            non_hidden_documents.append(document)
+        return non_hidden_documents
 
 
 class LiteraturePublicListSchema(LiteraturePublicSchema):

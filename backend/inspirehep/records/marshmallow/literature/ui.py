@@ -256,6 +256,8 @@ class LiteratureDetailSchema(
                 del document["attachment"]
             if "text" in document:
                 del document["text"]
+            if "_error" in document:
+                del document["_error"]
         return documents
 
 
