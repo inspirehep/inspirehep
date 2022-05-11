@@ -711,6 +711,12 @@
           "url": {
             "type": "keyword"
           },
+          "_error": {
+            "properties": {
+              "message": {"type": "text"}
+            },
+            "type": "object"
+          },
           "attachment" : {
             "properties" : {
                 "content" : { 

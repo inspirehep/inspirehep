@@ -255,3 +255,27 @@ def test_literature_is_collection_hidden(collections, expected_is_collection_hid
     serialized = serializer.dump({"_collections": collections}).data
 
     assert serialized["is_collection_hidden"] == expected_is_collection_hidden
+
+
+@mock.patch("inspirehep.records.marshmallow.literature.ui.current_app")
+@mock.patch("inspirehep.records.marshmallow.literature.ui.current_s3_instance")
+def test_documents_doesnt_contain_error_from_fulltext(
+    current_s3_mock, current_app_mock
+):
+    current_app_mock.config = {"FEATURE_FLAG_ENABLE_FILES": True}
+
+    entry_data = {
+        "documents": [
+            {
+                "fulltext": False,
+                "url": "http://localhost:8080/api/files/url_to_file",
+                "error": {
+                    "message": "Fulltext indexing failed with message expected='>' actual='À' at offset 102005"
+                },
+            }
+        ],
+        "control_number": 1,
+    }
+    serializer = LiteratureDetailSchema()
+    serialized = serializer.dump(entry_data).data
+    assert "_error" not in serialized

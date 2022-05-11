@@ -91,3 +91,39 @@ def test_es_schema_removes_fulltext_fields_from_ui_display(
     result = orjson.loads(schema.dumps(serialized).data)["_ui_display"]
     assert '"attachment":' not in result
     assert '"text": ' not in result
+
+
+@patch(
+    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_referenced_authors_bais",
+    return_value=[],
+)
+@patch(
+    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_cv_format",
+    return_value=[],
+)
+@patch("inspirehep.records.marshmallow.literature.ui.current_app")
+@patch("inspirehep.records.marshmallow.literature.ui.current_s3_instance")
+def test_es_schema_removes_fulltext_indexing_errors(
+    mock_referenced_authors, mock_cv_format, current_s3_mock, current_app_mock
+):
+    current_app_mock.config = {"FEATURE_FLAG_ENABLE_FILES": True}
+    schema = LiteratureElasticSearchSchema()
+    entry_data = {
+        "documents": [
+            {
+                "source": "arxiv",
+                "fulltext": True,
+                "key": "new_doc.pdf",
+                "filename": "new_doc.pdf",
+                "url": "http://www.africau.edu/images/default/sample.pdf",
+                "text": "asdfsdfbajabjbasdasdasd=",
+                "attachment": {"content": "this is a text"},
+                "error": {
+                    "message": "Fulltext indexing failed with message expected='>' actual='À' at offset 102005"
+                },
+            }
+        ]
+    }
+    serialized = schema.dump(entry_data).data
+    result = orjson.loads(schema.dumps(serialized).data)["_ui_display"]
+    assert "_error" not in result

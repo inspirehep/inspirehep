@@ -38,6 +38,16 @@ FULLTEXT_PIPELINE_SETUP = {
                         "target_field": "_ingest._value.attachment",
                         "indexed_chars": -1,
                         "ignore_missing": True,
+                        "on_failure": [
+                            {
+                                "set": {
+                                    "description": "Set '_error.message'",
+                                    "field": "_ingest._value._error.message",
+                                    "value": "Fulltext indexing failed with message {{ _ingest.on_failure_message }}",
+                                    "override": True,
+                                }
+                            }
+                        ],
                     },
                 },
             },

@@ -127,3 +127,25 @@ def literature_search_schema_doesnt_drop_comma_from_first_name():
     result = LiteraturePublicListSchema().dump(data_record).data
 
     assert result["authors"]["first_name"] == expected_first_name
+
+
+def test_fulltext_indexing_error_is_excluded_from_documents():
+    data = {
+        "documents": [
+            {
+                "source": "arxiv",
+                "fulltext": True,
+                "key": "new_doc.pdf",
+                "filename": "new_doc.pdf",
+                "url": "http://www.africau.edu/images/default/sample.pdf",
+                "text": "asdfsdfbajabjbasdasdasd=",
+                "attachment": {"content": "this is a text"},
+                "_error": {
+                    "message": "Fulltext indexing failed with message expected='>' actual='À' at offset 102005"
+                },
+            }
+        ]
+    }
+
+    result = LiteraturePublicListSchema().dump(data).data
+    assert "_error" not in result["documents"][0]
