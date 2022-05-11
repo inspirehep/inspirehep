@@ -11,10 +11,7 @@ import createRootReducer from './reducers';
 import http from './common/http.ts';
 import queryParamsParserMiddleware from './middlewares/queryParamsParser';
 import keepPreviousUrlMiddleware from './middlewares/keepPreviousUrl';
-import {
-  reHydrateRootStateFromStorage,
-  createPersistToStorageMiddleware,
-} from './middlewares/statePersister';
+import { createPersistToStorageMiddleware } from './middlewares/statePersister';
 import clearStateDispatcher from './middlewares/clearStateDispatcher';
 import redirectToErrorPageMiddleware from './middlewares/redirectToErrorPage';
 import actionTrackerMiddleware from './middlewares/actionTracker';
@@ -26,13 +23,13 @@ export const thunkMiddleware = thunk.withExtraArgument(http);
 export const history = createHistory();
 const connectedRouterMiddleware = routerMiddleware(history);
 
-const reducersToPersist = ['ui', 'user'];
+export const REDUCERS_TO_PERSIST = ['ui', 'user'];
 
 const PROD_MIDDLEWARES = [
   connectedRouterMiddleware,
   queryParamsParserMiddleware,
   keepPreviousUrlMiddleware,
-  createPersistToStorageMiddleware(reducersToPersist),
+  createPersistToStorageMiddleware(REDUCERS_TO_PERSIST),
   clearStateDispatcher,
   redirectToErrorPageMiddleware,
   actionTrackerMiddleware,
@@ -50,10 +47,10 @@ const withMiddlewares = () => {
   return applyMiddleware(...DEV_MIDDLEWARES);
 };
 
-export default function createStore() {
+export default function createStore(rehydratedData) {
   return createReduxStore(
     createRootReducer(history),
-    reHydrateRootStateFromStorage(reducersToPersist),
+    rehydratedData,
     composeWithDevTools(withMiddlewares())
   );
 }

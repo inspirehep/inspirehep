@@ -27,12 +27,12 @@ export function persistHistory(history) {
 
 export function readHistory(callback) {
   return runWhenIdle(async () => {
-    const historyFromStorage = (await storage.get(STORAGE_KEY)) || {};
+    const historyFromStorage = (await storage.get(STORAGE_KEY));
 
     const history = {};
     SEARCH_BOX_NAMESPACES.forEach(namespace => {
       history[namespace] = new LRASet(
-        historyFromStorage[namespace],
+        historyFromStorage ? historyFromStorage[namespace].values : [],
         HISTORY_LIMIT
       );
     });

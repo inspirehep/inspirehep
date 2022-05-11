@@ -54,18 +54,18 @@ export function checkIsTrackerBlocked() {
   return Array.isArray(window._paq) || navigator.doNotTrack === '1'; // eslint-disable-line no-underscore-dangle
 }
 
-export function getClientId() {
-  let clientId = localforage.getItem('clientId');
+export async function getClientId() {
+  let clientId = await localforage.getItem('clientId');
   if (!clientId) {
     clientId = generateUUIDv4();
-    localforage.setItem('clientId', clientId);
+    await localforage.setItem('clientId', clientId);
   }
   return clientId;
 }
 
-export function setClientId() {
+export async function setClientId() {
   if (isTrackerConfigured()) {
-    const clientId = getClientId();
+    const clientId = await getClientId();
     Piwik.push(['setUserId', clientId]);
   }
 }

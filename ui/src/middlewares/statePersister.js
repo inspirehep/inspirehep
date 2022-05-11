@@ -10,10 +10,9 @@ export function getStorageKeyForReducer(reducerName, statePath) {
   return `state.${reducerName}${pathString}`;
 }
 
-export function reHydrateRootStateFromStorage() {
-  return REDUCERS_TO_PERSISTS.map(({ name, initialState, statePath }) => {
-    // TODO: set up async rehydration, and remove `getSync`
-    const subState = storage.getSync(getStorageKeyForReducer(name, statePath));
+export async function reHydrateRootStateFromStorage() {
+  const stage = await Promise.all(REDUCERS_TO_PERSISTS.map(async ({ name, initialState, statePath }) => {
+    const subState = await storage.get(getStorageKeyForReducer(name, statePath));
 
     if (subState == null) {
       // set undefined in order to skip reHydrating
@@ -30,21 +29,23 @@ export function reHydrateRootStateFromStorage() {
     }
 
     return { [name]: initialState.mergeDeep(state) };
-  }).reduce((state, partialState) => Object.assign(state, partialState));
+  }))
+  
+  return stage.reduce((state, partialState) => Object.assign(state, partialState));
 }
 
 export function createPersistToStorageMiddleware() {
   const writeStateToStorage = async (state) => {
-    REDUCERS_TO_PERSISTS.forEach(({ name, statePath }) => {
+    REDUCERS_TO_PERSISTS.forEach(async ({ name, statePath }) => {
       const key = getStorageKeyForReducer(name, statePath);
       if (statePath == null) {
-        storage.set(key, state[name].toJS());
+        await storage.set(key, state[name].toJS());
       } else {
         let partialState = state[name].getIn(statePath);
         if (isImmutable(partialState)) {
           partialState = partialState.toJS();
         }
-        storage.set(key, partialState);
+        await storage.set(key, partialState);
       }
     });
   };

@@ -5,6 +5,7 @@ import { Layout } from 'antd';
 import Loadable from 'react-loadable';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
+import { Idle } from 'idlejs';
 
 import './App.scss';
 import Header from './common/layouts/Header';
@@ -30,7 +31,7 @@ import {
 } from './common/routes';
 import UserFeedback from './common/components/UserFeedback';
 import { setUserCategoryFromRoles, setClientId } from './tracker';
-import { fetchLoggedInUser } from './actions/user';
+import { fetchLoggedInUser, userInactive } from './actions/user';
 import Home from './home';
 import Literature from './literature';
 import Conferences from './conferences';
@@ -45,6 +46,7 @@ import Institutions from './institutions';
 import Seminars from './seminars';
 import Experiments from './experiments';
 import BibliographyGeneratorPageContainer from './bibliographyGenerator/BibliographyGeneratorPageContainer';
+import { rewriteLocalStorage } from './common/storage'
 
 const Holdingpen$ = Loadable({
   loader: () => import('./holdingpen'),
@@ -83,7 +85,14 @@ function App({ userRoles, dispatch, guideModalVisibility }) {
     [userRoles]
   );
 
+  new Idle()
+   .whenNotInteractive()
+   .within(30)
+   .do(() => dispatch(userInactive()))
+   .start();
+
   useEffect(() => {
+    rewriteLocalStorage()
     setClientId();
   }, []);
 

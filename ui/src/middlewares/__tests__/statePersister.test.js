@@ -18,7 +18,7 @@ describe('statePersister', () => {
   });
 
   describe('createPersistToStorageMiddleware', () => {
-    it('persists state to local storage for given reducer names', async () => {
+    it('persists state to indexedDB for given reducer names', async () => {
       reducersModule.REDUCERS_TO_PERSISTS = [
         { name: 'a', initialState: fromJS({}) },
         {
@@ -54,37 +54,42 @@ describe('statePersister', () => {
   });
 
   describe('reHydrateRootStateFromStorage', () => {
-    it('returns root state with data from local storage', () => {
+    it('returns root state with data from indexedDB', async () => {
       reducersModule.REDUCERS_TO_PERSISTS = [
         { name: 'a', initialState: fromJS({}) },
         { name: 'b', initialState: fromJS({}) },
       ];
 
-      storage.getSync = jest.fn().mockImplementation((key) => {
+      storage.get = jest.fn().mockImplementation(async (key) => {
         const store = {
           [getStorageKeyForReducer('a')]: { foo: 'A' },
           [getStorageKeyForReducer('b')]: { bar: 'B' },
         };
+
         return store[key];
       });
+      
       const expected = {
         a: fromJS({ foo: 'A' }),
         b: fromJS({ bar: 'B' }),
       };
-      const state = reHydrateRootStateFromStorage();
+
+      const state = await reHydrateRootStateFromStorage();
+
       expect(state).toEqual(expected);
     });
 
-    it('returns undefined if there is no state for a reducer', () => {
+    it('returns undefined if there is no state for a reducer', async () => {
       reducersModule.REDUCERS_TO_PERSISTS = [
         { name: 'a', initialState: fromJS({}) },
         { name: 'b', initialState: fromJS({}) },
       ];
 
-      storage.getSync = jest.fn().mockImplementation((key) => {
+      storage.get = jest.fn().mockImplementation(async (key) => {
         const store = {
           [getStorageKeyForReducer('a')]: { foo: 'A' },
         };
+        
         return store[key];
       });
 
@@ -92,11 +97,12 @@ describe('statePersister', () => {
         a: fromJS({ foo: 'A' }),
         b: undefined,
       };
-      const state = reHydrateRootStateFromStorage();
+
+      const state = await reHydrateRootStateFromStorage();
       expect(state).toEqual(expected);
     });
 
-    it('merges localStore state on top of initialState while reHydrate', () => {
+    it('merges indexedDB state on top of initialState while reHydrate', async () => {
       reducersModule.REDUCERS_TO_PERSISTS = [
         {
           name: 'a',
@@ -107,13 +113,15 @@ describe('statePersister', () => {
           }),
         },
       ];
-      storage.getSync = jest.fn().mockImplementation((key) => {
+
+      storage.get = jest.fn().mockImplementation(async (key) => {
         const store = {
           [getStorageKeyForReducer('a')]: {
             foo: 'A',
             deep: { child: 'child2' },
           },
         };
+
         return store[key];
       });
 
@@ -124,7 +132,8 @@ describe('statePersister', () => {
           deep: { child: 'child2', another: 'value' },
         }),
       };
-      const state = reHydrateRootStateFromStorage();
+
+      const state = await reHydrateRootStateFromStorage();
       expect(state).toEqual(expected);
     });
   });
