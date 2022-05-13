@@ -284,6 +284,7 @@ SUBJECT_MISSING_VALUE = "Unknown"
 
 # fulltext
 ES_FULLTEXT_PIPELINE_NAME = "file_content"
+ES_FULLTEXT_MAX_BULK_CHUNK_SIZE = 500 * 1014 * 1024  # 500 MiB
 
 # refextract
 REFEXTRACT_SERVICE_URL = "https://example:5000"

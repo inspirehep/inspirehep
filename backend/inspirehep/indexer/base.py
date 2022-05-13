@@ -72,7 +72,7 @@ class InspireRecordIndexer(RecordIndexer):
             "_source": self._prepare_record(record, index, doc_type),
         }
 
-    def bulk_index(self, records_uuids, request_timeout=None):
+    def bulk_index(self, records_uuids, request_timeout=None, max_chunk_bytes=None):
         """Starts bulk indexing for specified records
 
         Args:
@@ -87,6 +87,7 @@ class InspireRecordIndexer(RecordIndexer):
         """
         if not request_timeout:
             request_timeout = current_app.config["INDEXER_BULK_REQUEST_TIMEOUT"]
+        max_chunk_bytes = max_chunk_bytes or 100 * 1014 * 1024  # default ES setting
         success, failures = bulk(
             es,
             self.bulk_iterator(records_uuids),
@@ -95,7 +96,8 @@ class InspireRecordIndexer(RecordIndexer):
             raise_on_exception=False,
             expand_action_callback=(_es7_expand_action),
             max_retries=5,  # Retires on Error 429
-            initial_backoff=10,  # wait for initial_backoff * 2^retry_number
+            initial_backoff=10,  # wait for initial_backoff * 2^retry_number,
+            max_chunk_bytes=max_chunk_bytes,
         )
 
         return {

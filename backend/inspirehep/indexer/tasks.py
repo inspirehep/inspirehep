@@ -150,4 +150,7 @@ def batch_index_literature_fulltext(self, records_uuids, request_timeout=None):
     LOGGER.info(
         f"Starting task `batch_index_literature_fulltext` for {len(records_uuids)} records"
     )
-    return LiteratureRecordFulltextIndexer().bulk_index(records_uuids, request_timeout)
+    return LiteratureRecordFulltextIndexer().bulk_index(
+        records_uuids,
+        max_chunk_bytes=current_app.config.get("ES_FULLTEXT_MAX_BULK_CHUNK_SIZE"),
+    )
