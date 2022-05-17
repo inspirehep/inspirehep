@@ -12,7 +12,6 @@ exports[`AuthorOrcid renders with orcid 1`] = `
     mouseLeaveDelay={0.1}
     placement="top"
     title="ORCID"
-    transitionName="zoom-big-fast"
   >
     <img
       alt="ORCID"

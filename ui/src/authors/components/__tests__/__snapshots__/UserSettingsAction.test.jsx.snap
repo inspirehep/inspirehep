@@ -4,10 +4,6 @@ exports[`UserSettingsAction renders 1`] = `
 <Fragment>
   <ListItemAction>
     <Button
-      block={false}
-      ghost={false}
-      htmlType="button"
-      loading={false}
       onClick={[Function]}
     >
       <IconText

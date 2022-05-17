@@ -3,7 +3,6 @@
 exports[`NewFeatureTag renders 1`] = `
 <Tag
   className="__NewFeatureTag__"
-  closable={false}
   color="#52c41a"
 >
   New
@@ -13,7 +12,6 @@ exports[`NewFeatureTag renders 1`] = `
 exports[`NewFeatureTag renders with class name 1`] = `
 <Tag
   className="__NewFeatureTag__ test"
-  closable={false}
   color="#52c41a"
 >
   New

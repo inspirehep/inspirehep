@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col, Card } from 'antd';
 
-import './ContentBox.scss';
+import './ContentBox.less';
 
 class ContentBox extends Component {
   render() {

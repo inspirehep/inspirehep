@@ -9,7 +9,6 @@ exports[`AuthorLinkedinAction renders with linkedin 1`] = `
     mouseLeaveDelay={0.1}
     placement="top"
     title="LinkedIn"
-    transitionName="zoom-big-fast"
   >
     <ExternalLink
       as="a"

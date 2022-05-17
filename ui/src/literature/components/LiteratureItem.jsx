@@ -17,7 +17,7 @@ import PublicationInfoList from '../../common/components/PublicationInfoList';
 import BookSeriesInfoList from './BookSeriesInfoList';
 import UrlsAction from './UrlsAction';
 import DOILinkAction from './DOILinkAction';
-import EditRecordAction from '../../common/components/EditRecordAction.tsx';
+import EditRecordAction from '../../common/components/EditRecordAction';
 import ResultItem from '../../common/components/ResultItem';
 import { LITERATURE_NS } from '../../search/constants';
 import { LITERATURE } from '../../common/routes';

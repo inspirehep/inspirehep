@@ -16,7 +16,7 @@ jest.mock('../../../actions/literature');
 mockActionCreator(setAssignDrawerVisibility);
 mockActionCreator(exportToCds);
 
-describe('LiteratureSelectAllContainer', () => {
+describe('ToolActionContainer', () => {
   it('passes state to props', () => {
     const selection = Set([1]);
     const store = getStore({

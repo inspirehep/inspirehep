@@ -5,22 +5,21 @@ exports[`HowToSearch renders freetext examples after freetext radio option is se
   <div
     className="mb3 tc"
   >
-    <RadioGroup
-      buttonStyle="outline"
+    <Memo(ForwardRef)
       onChange={[Function]}
       value="freetext"
     >
-      <RadioButton
+      <ForwardRef(RadioButton)
         value="spires"
       >
         SPIRES
-      </RadioButton>
-      <RadioButton
+      </ForwardRef(RadioButton)>
+      <ForwardRef(RadioButton)
         value="freetext"
       >
         free text
-      </RadioButton>
-    </RadioGroup>
+      </ForwardRef(RadioButton)>
+    </Memo(ForwardRef)>
   </div>
   <div>
     <FreetextExamples />
@@ -29,7 +28,15 @@ exports[`HowToSearch renders freetext examples after freetext radio option is se
     className="tc"
   >
     <ExternalLink
-      as={[Function]}
+      as={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "Group": [Function],
+          "__ANT_BUTTON": true,
+          "displayName": "Button",
+          "render": [Function],
+        }
+      }
       className="mt3"
       href="https://help.inspirehep.net/knowledge-base/inspire-paper-search"
       type="primary"
@@ -45,22 +52,21 @@ exports[`HowToSearch renders with spires examples by default 1`] = `
   <div
     className="mb3 tc"
   >
-    <RadioGroup
-      buttonStyle="outline"
+    <Memo(ForwardRef)
       onChange={[Function]}
       value="spires"
     >
-      <RadioButton
+      <ForwardRef(RadioButton)
         value="spires"
       >
         SPIRES
-      </RadioButton>
-      <RadioButton
+      </ForwardRef(RadioButton)>
+      <ForwardRef(RadioButton)
         value="freetext"
       >
         free text
-      </RadioButton>
-    </RadioGroup>
+      </ForwardRef(RadioButton)>
+    </Memo(ForwardRef)>
   </div>
   <div>
     <SpiresExamples />
@@ -69,7 +75,15 @@ exports[`HowToSearch renders with spires examples by default 1`] = `
     className="tc"
   >
     <ExternalLink
-      as={[Function]}
+      as={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "Group": [Function],
+          "__ANT_BUTTON": true,
+          "displayName": "Button",
+          "render": [Function],
+        }
+      }
       className="mt3"
       href="https://help.inspirehep.net/knowledge-base/inspire-paper-search"
       type="primary"

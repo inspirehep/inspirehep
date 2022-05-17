@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Tooltip } from 'antd';
 
-import './AuthorOrcid.scss';
+import './AuthorOrcid.less';
 import orcidLogo from '../../../common/orcid.svg';
 import OrcidProfileLink from '../../../common/components/OrcidProfileLink';
 

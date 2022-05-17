@@ -6,7 +6,7 @@ exports[`ContentBox renders ContentBox with actions 1`] = `
 <div
   className="__ContentBox__ h-100 "
 >
-  <Card
+  <ForwardRef
     className="h-100"
     loading={false}
     title={null}
@@ -22,14 +22,13 @@ exports[`ContentBox renders ContentBox with actions 1`] = `
     </div>
     <Row
       className="actions ph2"
-      gutter={0}
       justify="space-between"
       type="flex"
     >
       <Col />
       <Col />
     </Row>
-  </Card>
+  </ForwardRef>
 </div>
 `;
 
@@ -37,7 +36,7 @@ exports[`ContentBox renders ContentBox with actions and title with loading 1`] =
 <div
   className="__ContentBox__ h-100 "
 >
-  <Card
+  <ForwardRef
     className="h-100"
     loading={true}
     title="Jessica Jones"
@@ -53,14 +52,13 @@ exports[`ContentBox renders ContentBox with actions and title with loading 1`] =
     </div>
     <Row
       className="actions ph2"
-      gutter={0}
       justify="space-between"
       type="flex"
     >
       <Col />
       <Col />
     </Row>
-  </Card>
+  </ForwardRef>
 </div>
 `;
 
@@ -68,7 +66,7 @@ exports[`ContentBox renders ContentBox with actions and title without loading 1`
 <div
   className="__ContentBox__ h-100 "
 >
-  <Card
+  <ForwardRef
     className="h-100"
     loading={false}
     title="Jessica Jones"
@@ -84,14 +82,13 @@ exports[`ContentBox renders ContentBox with actions and title without loading 1`
     </div>
     <Row
       className="actions ph2"
-      gutter={0}
       justify="space-between"
       type="flex"
     >
       <Col />
       <Col />
     </Row>
-  </Card>
+  </ForwardRef>
 </div>
 `;
 
@@ -99,7 +96,7 @@ exports[`ContentBox renders ContentBox with subTitle and className 1`] = `
 <div
   className="__ContentBox__ h-100 pa3"
 >
-  <Card
+  <ForwardRef
     className="h-100"
     loading={false}
     title={null}
@@ -120,14 +117,13 @@ exports[`ContentBox renders ContentBox with subTitle and className 1`] = `
     </div>
     <Row
       className="actions ph2"
-      gutter={0}
       justify="space-between"
       type="flex"
     >
       <Col />
       <Col />
     </Row>
-  </Card>
+  </ForwardRef>
 </div>
 `;
 
@@ -135,7 +131,7 @@ exports[`ContentBox renders ContentBox without actions 1`] = `
 <div
   className="__ContentBox__ h-100 "
 >
-  <Card
+  <ForwardRef
     className="h-100"
     loading={false}
     title={null}
@@ -151,13 +147,12 @@ exports[`ContentBox renders ContentBox without actions 1`] = `
     </div>
     <Row
       className="actions ph2"
-      gutter={0}
       justify="space-between"
       type="flex"
     >
       <Col />
       <Col />
     </Row>
-  </Card>
+  </ForwardRef>
 </div>
 `;

@@ -3,17 +3,13 @@
 exports[`DrawerHandle renders DrawerHandle with all props 1`] = `
 <Fragment>
   <Button
-    block={false}
     className="mt3"
     data-test-id="handle-button"
-    ghost={false}
-    htmlType="button"
-    loading={false}
     onClick={[Function]}
   >
     Handle
   </Button>
-  <withConfigConsumer(Drawer)
+  <Drawer
     onClose={[Function]}
     placement="left"
     title="Title"
@@ -23,24 +19,20 @@ exports[`DrawerHandle renders DrawerHandle with all props 1`] = `
     <div>
       Content
     </div>
-  </withConfigConsumer(Drawer)>
+  </Drawer>
 </Fragment>
 `;
 
 exports[`DrawerHandle renders DrawerHandle with default props 1`] = `
 <Fragment>
   <Button
-    block={false}
     className=""
     data-test-id="handle-button"
-    ghost={false}
-    htmlType="button"
-    loading={false}
     onClick={[Function]}
   >
     Open
   </Button>
-  <withConfigConsumer(Drawer)
+  <Drawer
     onClose={[Function]}
     placement="left"
     title="Title"
@@ -50,6 +42,6 @@ exports[`DrawerHandle renders DrawerHandle with default props 1`] = `
     <div>
       Content
     </div>
-  </withConfigConsumer(Drawer)>
+  </Drawer>
 </Fragment>
 `;

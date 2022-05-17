@@ -3,10 +3,8 @@
 exports[`Footer renders when cataloger 1`] = `
 <Footer
   bottom={
-    <Row
-      gutter={0}
-    >
-      <Col
+    <ForwardRef>
+      <ForwardRef
         className="tl sm-tc"
         md={12}
         xs={24}
@@ -17,8 +15,8 @@ exports[`Footer renders when cataloger 1`] = `
         >
           Powered by Invenio
         </ExternalLink>
-      </Col>
-      <Col
+      </ForwardRef>
+      <ForwardRef
         className="tr sm-tc"
         md={12}
         xs={24}
@@ -30,8 +28,8 @@ exports[`Footer renders when cataloger 1`] = `
           ❤
         </span>
          by the INSPIRE Team
-      </Col>
-    </Row>
+      </ForwardRef>
+    </ForwardRef>
   }
   className="__Footer__"
   columns={
@@ -133,10 +131,8 @@ exports[`Footer renders when cataloger 1`] = `
 exports[`Footer renders when not cataloger 1`] = `
 <Footer
   bottom={
-    <Row
-      gutter={0}
-    >
-      <Col
+    <ForwardRef>
+      <ForwardRef
         className="tl sm-tc"
         md={12}
         xs={24}
@@ -147,8 +143,8 @@ exports[`Footer renders when not cataloger 1`] = `
         >
           Powered by Invenio
         </ExternalLink>
-      </Col>
-      <Col
+      </ForwardRef>
+      <ForwardRef
         className="tr sm-tc"
         md={12}
         xs={24}
@@ -160,8 +156,8 @@ exports[`Footer renders when not cataloger 1`] = `
           ❤
         </span>
          by the INSPIRE Team
-      </Col>
-    </Row>
+      </ForwardRef>
+    </ForwardRef>
   }
   className="__Footer__"
   columns={

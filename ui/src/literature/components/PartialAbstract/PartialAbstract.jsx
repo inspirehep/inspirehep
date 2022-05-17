@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Latex from '../../../common/components/Latex';
-import './PartialAbstract.scss';
+import './PartialAbstract.less';
 
 const PARTIAL_ABSTRACT_LENGTH = 250;
 

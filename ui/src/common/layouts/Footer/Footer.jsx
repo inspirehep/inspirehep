@@ -4,7 +4,7 @@ import 'rc-footer/assets/index.css';
 import { Row, Col } from 'antd';
 import PropTypes from 'prop-types';
 
-import './Footer.scss';
+import './Footer.less';
 import {
   FEEDBACK_EMAIL,
   INSPIRE_TWITTER_ACCOUNT,

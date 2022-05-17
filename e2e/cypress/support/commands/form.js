@@ -84,7 +84,7 @@ Cypress.Commands.add(
 
 Cypress.Commands.add('submitForm', (data) => {
   cy.fillForm(data);
-  cy.get('button[type=submit]').click();
+  cy.get('[data-test-id="submit-button"]').focus().click();
 });
 
 Cypress.Commands.add('fillForm', (data) => {
@@ -175,6 +175,8 @@ Cypress.Commands.add('fillDateField', (path, value) => {
 });
 
 Cypress.Commands.add('fillNumberOrTextField', (path, value) => {
+  cy.getField(path).focus();
+  cy.wait(500);
   cy.getField(path).type(value, { force: true });
 });
 

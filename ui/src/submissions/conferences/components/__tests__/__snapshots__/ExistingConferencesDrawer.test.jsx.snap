@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ExistingConferencesDrawer renders drawer with number of conferences 1`] = `
-<withConfigConsumer(Drawer)
+<Drawer
   className="search-drawer"
   closable={false}
   onClose={[MockFunction]}
@@ -23,5 +23,5 @@ exports[`ExistingConferencesDrawer renders drawer with number of conferences 1`]
   <Connect(SearchPagination)
     namespace="existingConferences"
   />
-</withConfigConsumer(Drawer)>
+</Drawer>
 `;

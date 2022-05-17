@@ -8,7 +8,6 @@ exports[`BibliographyGenerator renders 1`] = `
   />
   <Row
     className="overflow-x-auto"
-    gutter={0}
     justify="center"
     type="flex"
   >
@@ -22,7 +21,6 @@ exports[`BibliographyGenerator renders 1`] = `
     >
       <Row
         className="mb3 pa3 bg-white"
-        gutter={0}
       >
         <Col>
           <h2>
@@ -42,9 +40,7 @@ exports[`BibliographyGenerator renders 1`] = `
         name="bibliography-generator-form"
         onFinish={[MockFunction]}
       >
-        <Row
-          gutter={0}
-        >
+        <Row>
           <Col>
             <CollapsableForm
               openSections={Array []}
@@ -232,12 +228,10 @@ doi:10.1103/PhysRevLett.83.3370
             </CollapsableForm>
             <Row
               className="pa3 bg-white"
-              gutter={0}
             >
               <Col>
                 <Row
                   className="mb3"
-                  gutter={0}
                 >
                   <Col>
                     <h3>
@@ -324,13 +318,11 @@ doi:10.1103/PhysRevLett.83.3370
                     </ul>
                   </Col>
                 </Row>
-                <Row
-                  gutter={0}
-                >
+                <Row>
                   <Col
                     span={24}
                   >
-                    <FormItem
+                    <InternalFormItem
                       name="fileupload"
                       rules={
                         Array [
@@ -363,8 +355,8 @@ doi:10.1103/PhysRevLett.83.3370
                           Click or drag file to this area to upload
                         </p>
                       </Dragger>
-                    </FormItem>
-                    <FormItem
+                    </InternalFormItem>
+                    <InternalFormItem
                       label="Output format"
                       name="format"
                     >
@@ -386,28 +378,24 @@ doi:10.1103/PhysRevLett.83.3370
                           ]
                         }
                       />
-                    </FormItem>
+                    </InternalFormItem>
                   </Col>
                 </Row>
                 <Row
-                  gutter={0}
                   justify="end"
                   type="flex"
                 >
-                  <FormItem
+                  <InternalFormItem
                     className="no-margin-bottom"
                   >
                     <Button
-                      block={false}
                       disabled={true}
-                      ghost={false}
                       htmlType="submit"
-                      loading={false}
                       type="primary"
                     >
                       Submit
                     </Button>
-                  </FormItem>
+                  </InternalFormItem>
                 </Row>
               </Col>
             </Row>

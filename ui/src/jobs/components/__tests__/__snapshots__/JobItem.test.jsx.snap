@@ -6,7 +6,6 @@ exports[`JobItem renders full job search result item 1`] = `
 >
   <Row
     align="middle"
-    gutter={0}
     type="flex"
   >
     <Col>
@@ -47,7 +46,6 @@ exports[`JobItem renders full job search result item 1`] = `
   </Row>
   <Row
     className="mt2"
-    gutter={0}
   >
     <Col>
       <ArxivCategoryList
@@ -83,7 +81,6 @@ exports[`JobItem renders full job search result item 1`] = `
   </Row>
   <Row
     className="mt3"
-    gutter={0}
     justify="space-between"
     type="flex"
   >

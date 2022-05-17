@@ -95,7 +95,7 @@ describe('Assign Conference', () => {
       );
       cy.get('[data-test-id="assign-conference"]').click();
       cy.get('.ant-drawer-content', { timeout: 5000 }).should('be.visible');
-      cy.get('.ant-drawer-content').find('[type="button"]').first().click();
+      cy.get('.ant-drawer-content').find('[type="button"]').eq(1).click();
       cy.get('.ant-drawer-content')
         .get('[data-test-id="search-results"]', { timeout: 10000 })
         .should('be.visible');

@@ -49,14 +49,10 @@ function AssignDrawer({ visible, onDrawerClose, selectedPapers, onAssign }) {
       placement="right"
       onClose={onDrawerClose}
       visible={visible}
-    >
-      <p>
-        <strong>
-          You have selected {selectedPapers.size}{' '}
-          {pluralizeUnlessSingle('paper', selectedPapers.size)}. Select the
-          author to assign the selected papers:
-        </strong>
-      </p>
+      title={`You have selected ${selectedPapers.size} 
+            ${pluralizeUnlessSingle('paper', selectedPapers.size)}. Select the
+            author to assign the selected papers:`}
+      >
       <EmbeddedSearchBoxContainer namespace={ASSIGN_AUTHOR_NS} />
       <NumberOfResultsContainer namespace={ASSIGN_AUTHOR_NS} />
       <Radio.Group

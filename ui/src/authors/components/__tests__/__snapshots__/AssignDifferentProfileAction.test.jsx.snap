@@ -5,27 +5,21 @@ exports[`AssignDifferentProfileAction renders 1`] = `
   <DropdownMenu
     disabled={false}
     title={
-      <Tooltip
+      <ForwardRef
         arrowPointAtCenter={false}
         autoAdjustOverflow={true}
         mouseEnterDelay={0.1}
         mouseLeaveDelay={0.1}
         placement="top"
         title={null}
-        transitionName="zoom-big-fast"
       >
-        <Button
-          block={false}
-          ghost={false}
-          htmlType="button"
-          loading={false}
-        >
+        <ForwardRef(InternalButton)>
           <IconText
             icon={<ForwardRef(FileDoneOutlined) />}
             text="claim"
           />
-        </Button>
-      </Tooltip>
+        </ForwardRef(InternalButton)>
+      </ForwardRef>
     }
   >
     <MenuItem
@@ -44,27 +38,21 @@ exports[`AssignDifferentProfileAction renders disabled 1`] = `
   <DropdownMenu
     disabled={true}
     title={
-      <Tooltip
+      <ForwardRef
         arrowPointAtCenter={false}
         autoAdjustOverflow={true}
         mouseEnterDelay={0.1}
         mouseLeaveDelay={0.1}
         placement="top"
         title="Please select the papers you want to claim or remove from the profile."
-        transitionName="zoom-big-fast"
       >
-        <Button
-          block={false}
-          ghost={false}
-          htmlType="button"
-          loading={false}
-        >
+        <ForwardRef(InternalButton)>
           <IconText
             icon={<ForwardRef(FileDoneOutlined) />}
             text="claim"
           />
-        </Button>
-      </Tooltip>
+        </ForwardRef(InternalButton)>
+      </ForwardRef>
     }
   >
     <MenuItem
@@ -83,27 +71,21 @@ exports[`AssignDifferentProfileAction renders with claimingUnclaimedPapersDisabl
   <DropdownMenu
     disabled={true}
     title={
-      <Tooltip
+      <ForwardRef
         arrowPointAtCenter={false}
         autoAdjustOverflow={true}
         mouseEnterDelay={0.1}
         mouseLeaveDelay={0.1}
         placement="top"
         title="Please select the papers you want to claim or remove from the profile."
-        transitionName="zoom-big-fast"
       >
-        <Button
-          block={false}
-          ghost={false}
-          htmlType="button"
-          loading={false}
-        >
+        <ForwardRef(InternalButton)>
           <IconText
             icon={<ForwardRef(FileDoneOutlined) />}
             text="claim"
           />
-        </Button>
-      </Tooltip>
+        </ForwardRef(InternalButton)>
+      </ForwardRef>
     }
   >
     <MenuItem

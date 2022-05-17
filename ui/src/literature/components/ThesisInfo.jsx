@@ -11,10 +11,8 @@ class ThesisInfo extends Component {
       <InlineList
         wrapperClassName="di"
         items={thesisInfo.get('institutions')}
-        extractKey={institution => institution.get('name')}
-        renderItem={institution => (
-          <Institution institution={institution} />
-        )}
+        extractKey={(institution) => institution.get('name')}
+        renderItem={(institution) => <Institution institution={institution} />}
       />
     );
   }

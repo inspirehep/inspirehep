@@ -10,12 +10,8 @@ exports[`OrcidPushSetting renders when disabled 1`] = `
     >
       Export your INSPIRE works to ORCID
     </span>
-    <Popconfirm
-      disabled={false}
-      icon={<ForwardRef(ExclamationCircleFilled) />}
-      okType="primary"
+    <ForwardRef
       onConfirm={[Function]}
-      placement="top"
       title={
         <React.Fragment>
           <p>
@@ -26,14 +22,12 @@ exports[`OrcidPushSetting renders when disabled 1`] = `
           </span>
         </React.Fragment>
       }
-      transitionName="zoom-big"
-      trigger="click"
     >
       <Switch
         checked={false}
         loading={false}
       />
-    </Popconfirm>
+    </ForwardRef>
   </div>
   <div>
     <Connect(OrcidPushSettingMessage) />
@@ -51,12 +45,8 @@ exports[`OrcidPushSetting renders when enabled 1`] = `
     >
       Export your INSPIRE works to ORCID
     </span>
-    <Popconfirm
-      disabled={false}
-      icon={<ForwardRef(ExclamationCircleFilled) />}
-      okType="primary"
+    <ForwardRef
       onConfirm={[Function]}
-      placement="top"
       title={
         <React.Fragment>
           <p>
@@ -67,14 +57,12 @@ exports[`OrcidPushSetting renders when enabled 1`] = `
           </span>
         </React.Fragment>
       }
-      transitionName="zoom-big"
-      trigger="click"
     >
       <Switch
         checked={true}
         loading={false}
       />
-    </Popconfirm>
+    </ForwardRef>
   </div>
   <div>
     <Connect(OrcidPushSettingMessage) />

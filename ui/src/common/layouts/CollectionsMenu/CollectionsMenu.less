@@ -2,13 +2,13 @@
   width: 100%;
   padding-bottom: 0.3em;
 
-  @media (max-width: $screen-sm-max) {
+  @media (max-width: @screen-sm-max) {
     display: none;
   }
   .button-no-background {
     top: -15%;
     padding: 0;
-    background-color: $layout-header-background;
+    background-color: @layout-header-background;
     border-style: none;
     border-width: 0;
     vertical-align: top;
@@ -17,20 +17,19 @@
   .button-no-background:hover,
   .button-no-background:active,
   .button-no-background:focus {
-    color: $layout-header-background;
-    background: $layout-header-background;
+    color: @layout-header-background;
+    background: @layout-header-background;
   }
 
   .button-title:hover,
   .button-title:active {
-    text-decoration: underline;
     border-bottom: solid 0.15em white;
   }
 }
 
 .more-collections-menu {
   .ant-dropdown-menu {
-    background-color: $layout-header-background !important;
+    background-color: @layout-header-background !important;
     min-width: 160px;
   }
 
@@ -39,7 +38,7 @@
     margin-top: 0.25rem;
     padding: 0 1rem;
     &:hover {
-      background-color: $layout-header-background !important;
+      background-color: @layout-header-background !important;
     }
   }
 
@@ -54,7 +53,7 @@
     text-align: left;
     color: white;
     &:hover {
-      background-color: $layout-header-background;
+      background-color: @layout-header-background;
       border-bottom: solid 0.15em white;
       color: white;
     }

@@ -2,7 +2,6 @@
 
 exports[`HowToSubmit renders 1`] = `
 <Row
-  gutter={0}
   justify="center"
 >
   <Col

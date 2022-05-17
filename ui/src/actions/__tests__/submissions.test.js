@@ -176,7 +176,7 @@ describe('submissions - async action creator', () => {
     it('creates INITIAL_FORM_DATA_SUCCESS', async done => {
       const data = { field: 'value' };
       const id = '1234.5678';
-      mockHttp.onGet(`/literature/import/${id}`, { data }).replyOnce(200, data);
+      mockHttp.onGet(`/literature/import/${id}`, data).replyOnce(200, data);
 
       const expectedActions = [
         {

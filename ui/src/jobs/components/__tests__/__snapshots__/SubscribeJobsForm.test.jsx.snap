@@ -6,6 +6,7 @@ exports[`SubscribeJobsForm renders 1`] = `
     Object {
       "dirty": false,
       "errors": Object {},
+      "getFieldHelpers": [Function],
       "getFieldMeta": [Function],
       "getFieldProps": [Function],
       "handleBlur": [Function],
@@ -77,17 +78,13 @@ exports[`SubscribeJobsForm renders 1`] = `
       }
     />
     <Row
-      gutter={0}
       justify="end"
       type="flex"
     >
       <Col>
         <Button
-          block={false}
           disabled={false}
-          ghost={false}
           htmlType="submit"
-          loading={false}
           type="primary"
         >
           Subscribe

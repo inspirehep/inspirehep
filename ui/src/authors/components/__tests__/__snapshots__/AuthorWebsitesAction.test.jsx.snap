@@ -13,7 +13,6 @@ exports[`AuthorWebsitesAction renders only a url 1`] = `
       mouseLeaveDelay={0.1}
       placement="top"
       title="Author websites"
-      transitionName="zoom-big-fast"
     >
       <ForwardRef(LinkOutlined) />
     </Tooltip>
@@ -34,7 +33,6 @@ exports[`AuthorWebsitesAction renders only blog 1`] = `
       mouseLeaveDelay={0.1}
       placement="top"
       title="Author websites"
-      transitionName="zoom-big-fast"
     >
       <ForwardRef(LinkOutlined) />
     </Tooltip>
@@ -47,24 +45,18 @@ exports[`AuthorWebsitesAction renders with a blog and urls in a dropdown 1`] = `
   <DropdownMenu
     disabled={false}
     title={
-      <Button
-        block={false}
-        ghost={false}
-        htmlType="button"
-        loading={false}
-      >
-        <Tooltip
+      <ForwardRef(InternalButton)>
+        <ForwardRef
           arrowPointAtCenter={false}
           autoAdjustOverflow={true}
           mouseEnterDelay={0.1}
           mouseLeaveDelay={0.1}
           placement="top"
           title="Author websites"
-          transitionName="zoom-big-fast"
         >
           <ForwardRef(LinkOutlined) />
-        </Tooltip>
-      </Button>
+        </ForwardRef>
+      </ForwardRef(InternalButton)>
     }
   >
     <MenuItem

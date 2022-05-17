@@ -3,7 +3,7 @@
 
   .action {
     position: fixed;
-    z-index: $zindex-carousel + 1;
+    z-index: @zindex-carousel + 1;
     margin: 0.5rem;
 
     &.close {
@@ -40,14 +40,14 @@
     }
 
     .slick-dots li.slick-active button {
-      background: $primary-color;
+      background: @primary-color;
     }
   }
 }
 
 .__CarouselModal__overlay {
-  z-index: $zindex-carousel;
-  background-color: $modal-mask-bg;
+  z-index: @zindex-carousel;
+  background-color: @modal-mask-bg;
   position: fixed;
   top: 0;
   left: 0;

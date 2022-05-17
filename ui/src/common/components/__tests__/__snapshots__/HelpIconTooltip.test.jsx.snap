@@ -8,7 +8,6 @@ exports[`HelpIconTooltip renders with help 1`] = `
   mouseLeaveDelay={0.1}
   placement="top"
   title="This is the help"
-  transitionName="zoom-big-fast"
 >
   <ForwardRef(QuestionCircleOutlined) />
 </Tooltip>

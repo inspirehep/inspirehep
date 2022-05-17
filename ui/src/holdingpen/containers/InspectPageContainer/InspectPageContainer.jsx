@@ -8,7 +8,7 @@ import JsonDiff from '../../components/JsonDiff';
 import fetchInspect from '../../../actions/inspect';
 import { convertAllImmutablePropsToJS } from '../../../common/immutableToJS';
 
-import './InspectPage.scss';
+import './InspectPage.less';
 
 class InspectPage extends Component {
   componentDidMount() {

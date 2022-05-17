@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ReferenceItem does not render misc if title present 1`] = `
-<Item>
+<ForwardRef(InternalItem)>
   <Row
     align="middle"
     className="w-100 sm-plus-flex-nowrap"
@@ -12,7 +12,13 @@ exports[`ReferenceItem does not render misc if title present 1`] = `
     <Col
       className="xs-sm-col-24"
     />
-    <Col>
+    <Col
+      style={
+        Object {
+          "width": "100%",
+        }
+      }
+    >
       <Meta
         description={
           <React.Fragment>
@@ -44,11 +50,11 @@ exports[`ReferenceItem does not render misc if title present 1`] = `
       />
     </Col>
   </Row>
-</Item>
+</ForwardRef(InternalItem)>
 `;
 
 exports[`ReferenceItem renders misc if present 1`] = `
-<Item>
+<ForwardRef(InternalItem)>
   <Row
     align="middle"
     className="w-100 sm-plus-flex-nowrap"
@@ -59,7 +65,13 @@ exports[`ReferenceItem renders misc if present 1`] = `
     <Col
       className="xs-sm-col-24"
     />
-    <Col>
+    <Col
+      style={
+        Object {
+          "width": "100%",
+        }
+      }
+    >
       <Meta
         description={
           <React.Fragment>
@@ -82,11 +94,11 @@ exports[`ReferenceItem renders misc if present 1`] = `
       />
     </Col>
   </Row>
-</Item>
+</ForwardRef(InternalItem)>
 `;
 
 exports[`ReferenceItem renders unlinked reference (no control_number) 1`] = `
-<Item>
+<ForwardRef(InternalItem)>
   <Row
     align="middle"
     className="w-100 sm-plus-flex-nowrap"
@@ -97,7 +109,13 @@ exports[`ReferenceItem renders unlinked reference (no control_number) 1`] = `
     <Col
       className="xs-sm-col-24"
     />
-    <Col>
+    <Col
+      style={
+        Object {
+          "width": "100%",
+        }
+      }
+    >
       <Meta
         description={
           <React.Fragment>
@@ -177,11 +195,11 @@ exports[`ReferenceItem renders unlinked reference (no control_number) 1`] = `
       />
     </Col>
   </Row>
-</Item>
+</ForwardRef(InternalItem)>
 `;
 
 exports[`ReferenceItem renders with full reference 1`] = `
-<Item>
+<ForwardRef(InternalItem)>
   <Row
     align="middle"
     className="w-100 sm-plus-flex-nowrap"
@@ -198,7 +216,13 @@ exports[`ReferenceItem renders with full reference 1`] = `
         ]
       </span>
     </Col>
-    <Col>
+    <Col
+      style={
+        Object {
+          "width": "100%",
+        }
+      }
+    >
       <Meta
         description={
           <React.Fragment>
@@ -269,5 +293,5 @@ exports[`ReferenceItem renders with full reference 1`] = `
       />
     </Col>
   </Row>
-</Item>
+</ForwardRef(InternalItem)>
 `;

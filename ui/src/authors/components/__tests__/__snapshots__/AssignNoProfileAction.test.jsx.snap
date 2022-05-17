@@ -5,7 +5,7 @@ exports[`AssignNoProfileAction renders 1`] = `
   <DropdownMenu
     disabled={true}
     title={
-      <Tooltip
+      <ForwardRef
         arrowPointAtCenter={false}
         autoAdjustOverflow={true}
         mouseEnterDelay={0.1}
@@ -22,21 +22,16 @@ exports[`AssignNoProfileAction renders 1`] = `
             </a>
           </p>
         }
-        transitionName="zoom-big-fast"
       >
-        <Button
-          block={false}
+        <ForwardRef(InternalButton)
           disabled={true}
-          ghost={false}
-          htmlType="button"
-          loading={false}
         >
           <IconText
             icon={<ForwardRef(FileDoneOutlined) />}
             text="claim"
           />
-        </Button>
-      </Tooltip>
+        </ForwardRef(InternalButton)>
+      </ForwardRef>
     }
   />
 </ListItemAction>

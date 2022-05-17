@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { MessageOutlined } from '@ant-design/icons';
 import { Modal, Button, Rate, Input, Alert } from 'antd';
 
-import './UserFeedback.scss';
+import './UserFeedback.less';
 import { trackEvent, checkIsTrackerBlocked } from '../../../tracker';
 import ExternalLink from '../ExternalLink.tsx';
 import ResponsiveView from '../ResponsiveView';

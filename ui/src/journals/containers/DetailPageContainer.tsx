@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './DetailPage.scss';
+import './DetailPage.less';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Row, Col, PageHeader, Button } from 'antd';
@@ -55,6 +55,7 @@ export const DetailPage = ({ result, isCatalogerLoggedIn }: { result: Journal, i
             leftActions={
               <>
                 {urls && <UrlsAction urls={urls} text="links" />}
+                {/* @ts-ignore */}
                 <AuthorizedContainer authorizedRoles={SUPERUSER_OR_CATALOGER}>
                   <EditRecordAction
                     isCatalogerLoggedIn={isCatalogerLoggedIn}

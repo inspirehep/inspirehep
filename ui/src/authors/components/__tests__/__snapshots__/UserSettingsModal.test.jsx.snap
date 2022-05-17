@@ -4,11 +4,10 @@ exports[`UserSettingsModal renders with props 1`] = `
 <Modal
   confirmLoading={false}
   footer={null}
-  maskTransitionName="fade"
   okType="primary"
   onCancel={[MockFunction]}
+  open={false}
   title="Settings"
-  transitionName="zoom"
   visible={true}
   width={520}
 >

@@ -30,9 +30,14 @@ const stateToProps = (state) => ({
 });
 
 const dispatchToProps = (dispatch, ownProps) => ({
-  onQueryChange(query) {
+  onPageChange(page, size) {
     const { recordId } = ownProps;
-    dispatch(fetchLiteratureReferences(recordId, query));
+    dispatch(fetchLiteratureReferences(recordId, { size, page: String(page) }));
+  },
+
+  onSizeChange(page, size) {
+    const { recordId } = ownProps;
+    dispatch(fetchLiteratureReferences(recordId, { size, page: '1' }));
   },
 });
 

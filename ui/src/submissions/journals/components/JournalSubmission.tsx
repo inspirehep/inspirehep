@@ -5,7 +5,7 @@ import { Formik, FormikValues } from 'formik';
 import { JournalForm } from './JournalForm';
 import useSubmitCallback from '../../common/hooks/useSubmitCallback';
 import { journalSchema, DEFAULT_FORM_DATA } from '../schemas/journal';
-import { JournalFormData,  } from '../containers/JournalSubmissionPageContainer';
+import { JournalFormData } from '../containers/JournalSubmissionPageContainer';
 
 export const JournalSubmission = ({
   error,

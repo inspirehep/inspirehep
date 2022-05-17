@@ -11,7 +11,7 @@ import {
 import PropTypes from 'prop-types';
 import { Row, Col, Tooltip } from 'antd';
 
-import './CitationSummaryGraph.scss';
+import './CitationSummaryGraph.less';
 import 'react-vis/dist/style.css';
 import maxBy from 'lodash.maxby';
 import { ErrorPropType } from '../../propTypes';
@@ -27,11 +27,11 @@ const GRAPH_MARGIN = { left: 42, right: 10, top: 30, bottom: 40 };
 const GRAPH_HEIGHT = 250;
 const LABEL_ANCHOR_AT_Y = browser.isSafari() ? 'text-top' : 'text-after-edge';
 
-export const ORANGE = styleVariables['orange-6'];
-export const HOVERED_ORANGE = styleVariables['orange-7'];
-export const BLUE = styleVariables['primary-color'];
-export const HOVERED_BLUE = styleVariables['blue-7'];
-export const GRAY = styleVariables['gray-6'];
+export const ORANGE = styleVariables['@orange-6'];
+export const HOVERED_ORANGE = styleVariables['@orange-7'];
+export const BLUE = styleVariables['@primary-color'];
+export const HOVERED_BLUE = styleVariables['@blue-7'];
+export const GRAY = styleVariables['@gray-6'];
 
 const LEGENDS = [
   { title: 'Citeable', color: BLUE },

@@ -1,34 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AssignLiteratureItemDrawer renders authors list 1`] = `
-<withConfigConsumer(Drawer)
+<Drawer
   className="search-drawer"
   onClose={[MockFunction]}
   placement="right"
+  title="Select the author to claim:"
   visible={true}
 >
-  <p>
-    <strong>
-      Select the author to claim:
-    </strong>
-  </p>
   <Search
     className="pb3"
     enterButton={true}
     onSearch={[Function]}
     placeholder="Search for an author"
   />
-  <RadioGroup
-    buttonStyle="outline"
+  <Memo(ForwardRef)
     className="w-100"
     data-test-id="literature-drawer-radio-group"
     onChange={[Function]}
   >
     <List
-      bordered={false}
       dataSource={Array []}
       itemLayout="horizontal"
-      loading={false}
       pagination={
         Object {
           "hideOnSinglePage": true,
@@ -37,23 +30,17 @@ exports[`AssignLiteratureItemDrawer renders authors list 1`] = `
         }
       }
       renderItem={[Function]}
-      split={true}
     />
-  </RadioGroup>
+  </Memo(ForwardRef)>
   <Row
     className="mt2"
-    gutter={0}
     justify="end"
   >
     <Col>
       <Button
-        block={false}
         data-test-id="assign-literature-item-button"
         disabled={true}
-        ghost={false}
-        htmlType="button"
         icon={<ForwardRef(SelectOutlined) />}
-        loading={false}
         onClick={[Function]}
         type="primary"
       >
@@ -61,5 +48,5 @@ exports[`AssignLiteratureItemDrawer renders authors list 1`] = `
       </Button>
     </Col>
   </Row>
-</withConfigConsumer(Drawer)>
+</Drawer>
 `;
