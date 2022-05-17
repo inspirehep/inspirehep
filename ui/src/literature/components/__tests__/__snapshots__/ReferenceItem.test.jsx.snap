@@ -253,7 +253,7 @@ exports[`ReferenceItem renders with full reference 1`] = `
           </React.Fragment>
         }
         title={
-          <ForwardRef
+          <ForwardRef(Link)
             className="f5"
             to="/literature/12345"
           >
@@ -264,7 +264,7 @@ exports[`ReferenceItem renders with full reference 1`] = `
                 }
               }
             />
-          </ForwardRef>
+          </ForwardRef(Link)>
         }
       />
     </Col>

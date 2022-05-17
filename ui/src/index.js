@@ -1,7 +1,7 @@
 import 'core-js/modules/es7.object.entries';
 import 'core-js/modules/es7.array.includes';
 
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
@@ -27,7 +27,9 @@ Sentry.setUser({ id: getClientId() });
 
 const store = createStore();
 
-ReactDOM.render(
+const root = ReactDOM.createRoot(document.getElementById("root"));
+
+root.render(
   // eslint-disable-next-line react/jsx-filename-extension
   <ErrorBoundary renderError={() => <ErrorAppCrash />}>
     <Provider store={store}>
@@ -37,8 +39,7 @@ ReactDOM.render(
         </Switch>
       </ConnectedRouter>
     </Provider>
-  </ErrorBoundary>,
-  document.getElementById('root')
+  </ErrorBoundary>
 );
 
 // TODO: change to CRA 2.0 service worker script and register instead of unregistering.
