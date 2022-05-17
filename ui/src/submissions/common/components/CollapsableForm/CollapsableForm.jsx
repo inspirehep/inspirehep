@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Collapse } from 'antd';
 import PropTypes from 'prop-types';
 
-import './CollapsableForm.scss';
+import './CollapsableForm.less';
 
 class CollapsableForm extends Component {
   render() {

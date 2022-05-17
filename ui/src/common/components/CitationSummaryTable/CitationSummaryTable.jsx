@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 import { Link } from 'react-router-dom';
 
-import './CitationSummaryTable.scss';
+import './CitationSummaryTable.less';
 import ExternalLink from '../ExternalLink.tsx';
 import LabelWithHelp from '../LabelWithHelp';
 import LoadingOrChildren from '../LoadingOrChildren';

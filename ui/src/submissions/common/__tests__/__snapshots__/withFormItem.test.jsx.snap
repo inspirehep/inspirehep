@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`withFormItem passes all props correctly to Form.Item and wrapped Input component (with error) 1`] = `
-<FormItem
+<InternalFormItem
   className=""
   hasFeedback={true}
   help={
@@ -12,17 +12,16 @@ exports[`withFormItem passes all props correctly to Form.Item and wrapped Input 
     </span>
   }
   label={
-    <Tooltip
+    <ForwardRef
       arrowPointAtCenter={false}
       autoAdjustOverflow={true}
       mouseEnterDelay={0.1}
       mouseLeaveDelay={0.1}
       placement="top"
       title="Test Label"
-      transitionName="zoom-big-fast"
     >
       Test Label
-    </Tooltip>
+    </ForwardRef>
   }
   labelCol={
     Object {
@@ -69,25 +68,24 @@ exports[`withFormItem passes all props correctly to Form.Item and wrapped Input 
   >
     Test Suffix
   </span>
-</FormItem>
+</InternalFormItem>
 `;
 
 exports[`withFormItem passes all props correctly to Form.Item and wrapped Input component (without error) 1`] = `
-<FormItem
+<InternalFormItem
   className=""
   hasFeedback={false}
   label={
-    <Tooltip
+    <ForwardRef
       arrowPointAtCenter={false}
       autoAdjustOverflow={true}
       mouseEnterDelay={0.1}
       mouseLeaveDelay={0.1}
       placement="top"
       title="Test Label"
-      transitionName="zoom-big-fast"
     >
       Test Label
-    </Tooltip>
+    </ForwardRef>
   }
   labelCol={
     Object {
@@ -132,25 +130,24 @@ exports[`withFormItem passes all props correctly to Form.Item and wrapped Input 
   >
     Test Suffix
   </span>
-</FormItem>
+</InternalFormItem>
 `;
 
 exports[`withFormItem passes props correctly to Form.Item and wrapped Input component (without error and custom layout) 1`] = `
-<FormItem
+<InternalFormItem
   className=""
   hasFeedback={false}
   label={
-    <Tooltip
+    <ForwardRef
       arrowPointAtCenter={false}
       autoAdjustOverflow={true}
       mouseEnterDelay={0.1}
       mouseLeaveDelay={0.1}
       placement="top"
       title="Test Label"
-      transitionName="zoom-big-fast"
     >
       Test Label
-    </Tooltip>
+    </ForwardRef>
   }
   labelCol={
     Object {
@@ -181,11 +178,11 @@ exports[`withFormItem passes props correctly to Form.Item and wrapped Input comp
     normalProp1="np1"
     normalProp2="np2"
   />
-</FormItem>
+</InternalFormItem>
 `;
 
 exports[`withFormItem passes props correctly to Form.Item and wrapped Input component (without error and only child) 1`] = `
-<FormItem
+<InternalFormItem
   className="mb2-important"
   hasFeedback={false}
   labelCol={null}
@@ -212,5 +209,5 @@ exports[`withFormItem passes props correctly to Form.Item and wrapped Input comp
     normalProp1="np1"
     normalProp2="np2"
   />
-</FormItem>
+</InternalFormItem>
 `;

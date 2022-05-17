@@ -76,7 +76,7 @@ class ReferenceItem extends Component {
           <Col className="xs-sm-col-24">
             {ReferenceItem.renderLabel(reference)}
           </Col>
-          <Col>
+          <Col style={{width: '100%'}}>
             <List.Item.Meta
               title={ReferenceItem.renderTitle(reference)}
               description={

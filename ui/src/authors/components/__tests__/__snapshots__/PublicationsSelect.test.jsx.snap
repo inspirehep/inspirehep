@@ -3,7 +3,6 @@
 exports[`PublicationsSelect renders checked when selected 1`] = `
 <Checkbox
   checked={true}
-  indeterminate={false}
   onChange={[Function]}
 />
 `;
@@ -11,14 +10,12 @@ exports[`PublicationsSelect renders checked when selected 1`] = `
 exports[`PublicationsSelect renders unchecked when not selected 1`] = `
 <Checkbox
   checked={false}
-  indeterminate={false}
   onChange={[Function]}
 />
 `;
 
 exports[`PublicationsSelect sets publication selection on checkbox change 1`] = `
 <Checkbox
-  indeterminate={false}
   onChange={[Function]}
 />
 `;

@@ -9,7 +9,6 @@ exports[`AuthorTwitterAction renders with twitter 1`] = `
     mouseLeaveDelay={0.1}
     placement="top"
     title="Twitter"
-    transitionName="zoom-big-fast"
   >
     <ExternalLink
       as="a"

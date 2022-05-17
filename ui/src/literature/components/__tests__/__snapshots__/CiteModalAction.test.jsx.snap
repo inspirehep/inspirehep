@@ -9,10 +9,6 @@ exports[`CiteModalAction renders with all props 1`] = `
       extractEventArgsToForward={null}
     >
       <Button
-        block={false}
-        ghost={false}
-        htmlType="button"
-        loading={false}
         onClick={[Function]}
       >
         <IconText
@@ -25,11 +21,10 @@ exports[`CiteModalAction renders with all props 1`] = `
   <Modal
     confirmLoading={false}
     footer={null}
-    maskTransitionName="fade"
     okType="primary"
     onCancel={[Function]}
+    open={false}
     title="Cite Article"
-    transitionName="zoom"
     visible={false}
     width={520}
   >
@@ -37,13 +32,10 @@ exports[`CiteModalAction renders with all props 1`] = `
       loading={false}
     >
       <div>
-        <Row
-          gutter={0}
-        >
+        <Row>
           <pre />
         </Row>
         <Row
-          gutter={0}
           justify="space-between"
           type="flex"
         >
@@ -52,10 +44,6 @@ exports[`CiteModalAction renders with all props 1`] = `
               onCopy={[Function]}
             >
               <Button
-                block={false}
-                ghost={false}
-                htmlType="button"
-                loading={false}
                 style={
                   Object {
                     "marginRight": 12,
@@ -67,10 +55,6 @@ exports[`CiteModalAction renders with all props 1`] = `
               </Button>
             </CopyToClipboard>
             <Button
-              block={false}
-              ghost={false}
-              htmlType="button"
-              loading={false}
               onClick={[Function]}
             >
               <ForwardRef(DownloadOutlined) />
@@ -128,10 +112,6 @@ exports[`CiteModalAction renders with loading 1`] = `
       extractEventArgsToForward={null}
     >
       <Button
-        block={false}
-        ghost={false}
-        htmlType="button"
-        loading={false}
         onClick={[Function]}
       >
         <IconText
@@ -144,11 +124,10 @@ exports[`CiteModalAction renders with loading 1`] = `
   <Modal
     confirmLoading={false}
     footer={null}
-    maskTransitionName="fade"
     okType="primary"
     onCancel={[Function]}
+    open={false}
     title="Cite Article"
-    transitionName="zoom"
     visible={false}
     width={520}
   >
@@ -156,13 +135,10 @@ exports[`CiteModalAction renders with loading 1`] = `
       loading={true}
     >
       <div>
-        <Row
-          gutter={0}
-        >
+        <Row>
           <pre />
         </Row>
         <Row
-          gutter={0}
           justify="space-between"
           type="flex"
         >
@@ -171,10 +147,6 @@ exports[`CiteModalAction renders with loading 1`] = `
               onCopy={[Function]}
             >
               <Button
-                block={false}
-                ghost={false}
-                htmlType="button"
-                loading={false}
                 style={
                   Object {
                     "marginRight": 12,
@@ -186,10 +158,6 @@ exports[`CiteModalAction renders with loading 1`] = `
               </Button>
             </CopyToClipboard>
             <Button
-              block={false}
-              ghost={false}
-              htmlType="button"
-              loading={false}
               onClick={[Function]}
             >
               <ForwardRef(DownloadOutlined) />
@@ -247,10 +215,6 @@ exports[`CiteModalAction shows an alert with the error message when there is an 
       extractEventArgsToForward={null}
     >
       <Button
-        block={false}
-        ghost={false}
-        htmlType="button"
-        loading={false}
         onClick={[Function]}
       >
         <IconText
@@ -263,11 +227,10 @@ exports[`CiteModalAction shows an alert with the error message when there is an 
   <Modal
     confirmLoading={false}
     footer={null}
-    maskTransitionName="fade"
     okType="primary"
     onCancel={[Function]}
+    open={false}
     title="Cite Article"
-    transitionName="zoom"
     visible={false}
     width={520}
   >
@@ -284,13 +247,10 @@ exports[`CiteModalAction shows an alert with the error message when there is an 
             type="error"
           />
         </div>
-        <Row
-          gutter={0}
-        >
+        <Row>
           <pre />
         </Row>
         <Row
-          gutter={0}
           justify="space-between"
           type="flex"
         >
@@ -299,10 +259,6 @@ exports[`CiteModalAction shows an alert with the error message when there is an 
               onCopy={[Function]}
             >
               <Button
-                block={false}
-                ghost={false}
-                htmlType="button"
-                loading={false}
                 style={
                   Object {
                     "marginRight": 12,
@@ -314,10 +270,6 @@ exports[`CiteModalAction shows an alert with the error message when there is an 
               </Button>
             </CopyToClipboard>
             <Button
-              block={false}
-              ghost={false}
-              htmlType="button"
-              loading={false}
               onClick={[Function]}
             >
               <ForwardRef(DownloadOutlined) />

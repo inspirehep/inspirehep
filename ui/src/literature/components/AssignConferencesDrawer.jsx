@@ -47,14 +47,10 @@ function AssignDrawer({ visible, onDrawerClose, onAssign, selectedPapers }) {
       placement="right"
       onClose={onDrawerClose}
       visible={visible}
+      title={`You have selected ${selectedPapers.size} 
+      ${pluralizeUnlessSingle('paper', selectedPapers.size)}. Select the
+      conference to assign the selected papers:`}
     >
-      <p>
-        <strong>
-          You have selected {selectedPapers.size}{' '}
-          {pluralizeUnlessSingle('paper', selectedPapers.size)}. Select the
-          conference to assign the selected papers:
-        </strong>
-      </p>
       <EmbeddedSearchBoxContainer namespace={ASSIGN_CONFERENCE_NS} />
       <NumberOfResultsContainer namespace={ASSIGN_CONFERENCE_NS} />
       <Radio.Group

@@ -9,14 +9,9 @@ exports[`DisabledEditRecordAction renders with message 1`] = `
     mouseLeaveDelay={0.1}
     placement="top"
     title="Can not be edited"
-    transitionName="zoom-big-fast"
   >
     <Button
-      block={false}
       disabled={true}
-      ghost={false}
-      htmlType="button"
-      loading={false}
     >
       <IconText
         icon={<ForwardRef(EditOutlined) />}

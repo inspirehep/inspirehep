@@ -3,8 +3,6 @@
 exports[`DropdownMenu renders 1`] = `
 <Dropdown
   disabled={false}
-  mouseEnterDelay={0.15}
-  mouseLeaveDelay={0.1}
   overlay={
     <Menu>
       <MenuItem>
@@ -27,8 +25,6 @@ exports[`DropdownMenu renders 1`] = `
 exports[`DropdownMenu renders with all props set 1`] = `
 <Dropdown
   disabled={true}
-  mouseEnterDelay={0.15}
-  mouseLeaveDelay={0.1}
   overlay={
     <Menu
       onClick={[MockFunction]}

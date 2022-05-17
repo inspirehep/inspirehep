@@ -117,14 +117,10 @@ exports[`HeaderMenu renders when logged in 1`] = `
             </a>
           </p>
         }
-        transitionName="zoom-big-fast"
       >
         <Button
-          block={false}
           disabled={true}
           ghost={true}
-          htmlType="button"
-          loading={false}
         >
           My profile
         </Button>

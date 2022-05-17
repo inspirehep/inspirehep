@@ -82,10 +82,8 @@ function AssignLiteratureItemDrawer({
       placement="right"
       onClose={onDrawerClose}
       visible={itemLiteratureId === literatureId}
+      title="Select the author to claim:"
     >
-      <p>
-        <strong>Select the author to claim:</strong>
-      </p>
       <Input.Search
         onSearch={onAuthorSearch}
         enterButton

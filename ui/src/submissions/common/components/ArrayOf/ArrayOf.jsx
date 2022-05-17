@@ -5,7 +5,7 @@ import { FieldArray } from 'formik';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Col, Row, Tooltip, Form } from 'antd';
 
-import './ArrayOf.scss';
+import './ArrayOf.less';
 import { LABEL_COL, WRAPPER_COL } from '../../withFormItem';
 
 class ArrayOf extends Component {

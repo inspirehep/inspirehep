@@ -27,9 +27,7 @@ exports[`ExperimentItem renders with all props set 1`] = `
     />
   }
 >
-  <Row
-    gutter={0}
-  >
+  <Row>
     <Col>
       <Link
         className="result-item-title"
@@ -62,16 +60,12 @@ exports[`ExperimentItem renders with all props set 1`] = `
       </span>
     </Col>
   </Row>
-  <Row
-    gutter={0}
-  >
+  <Row>
     <Col>
       This is a long name describing the experiment
     </Col>
   </Row>
-  <Row
-    gutter={0}
-  >
+  <Row>
     <Col>
       <ExperimentCollaboration
         collaboration={
@@ -97,9 +91,7 @@ exports[`ExperimentItem renders with only needed props 1`] = `
     />
   }
 >
-  <Row
-    gutter={0}
-  >
+  <Row>
     <Col>
       <Link
         className="result-item-title"

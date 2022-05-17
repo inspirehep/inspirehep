@@ -8,7 +8,7 @@ import { MathInterval } from 'math-interval-2';
 import { pluckMinMaxPair, toNumbers, addCommasToNumber } from '../../utils';
 import AggregationBox from '../AggregationBox';
 import styleVariables from '../../../styleVariables';
-import './RangeAggregation.scss';
+import './RangeAggregation.less';
 import { RANGE_AGGREGATION_SELECTION_SEPARATOR } from '../../constants';
 
 export const HALF_BAR_WIDTH = 0.4;
@@ -21,7 +21,7 @@ const NO_MARGIN = {
 const KEY_PROP_NAME = 'key_as_string';
 const COUNT_PROP_NAME = 'doc_count';
 const SELECTED_COLOR = '#91d5ff';
-const DESELECTED_COLOR = styleVariables['gray-6'];
+const DESELECTED_COLOR = styleVariables['@gray-6'];
 const MIN_DISPLAY_RANGE_SIZE = 30;
 const HEIGHT = 100;
 

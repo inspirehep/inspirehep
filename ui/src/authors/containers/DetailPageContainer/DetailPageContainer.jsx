@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Row, Col, Tabs, Tooltip } from 'antd';
 import { Map, List } from 'immutable';
 
-import './DetailPage.scss';
+import './DetailPage.less';
 import ContentBox from '../../../common/components/ContentBox';
 import AuthorName from '../../components/AuthorName';
 import ExperimentList from '../../../common/components/ExperimentList';

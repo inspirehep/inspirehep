@@ -7,15 +7,15 @@
     border-bottom-right-radius: 0;
     top: 50%;
     right: -0.2rem;
-    z-index: $zindex-header + 2;
+    z-index: @zindex-header + 2;
 
-    @media (max-width: $screen-sm-max) {
+    @media (max-width: @screen-sm-max) {
       top: 75%;
     }
 
     &:hover {
       right: 0;
-      box-shadow: 0 0 0.5rem $primary-color;
+      box-shadow: 0 0 0.5rem @primary-color;
     }
   }
 }

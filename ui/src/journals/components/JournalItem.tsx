@@ -30,6 +30,7 @@ export const JournalItem = ({
       leftActions={
         <>
           {urls && <UrlsAction urls={urls} text="links" />}
+          {/* @ts-ignore */}
           <AuthorizedContainer authorizedRoles={SUPERUSER_OR_CATALOGER}>
             <EditRecordAction
               pidType={JOURNALS_PID_TYPE}

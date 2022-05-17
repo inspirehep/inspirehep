@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import QuillEditor, { Quill } from 'react-quill';
 
 import 'react-quill/dist/quill.snow.css';
-import './RichTextEditor.scss';
+import './RichTextEditor.less';
 import EditorToolbar from './EditorToolbar';
 
 // change default text default (`P`)

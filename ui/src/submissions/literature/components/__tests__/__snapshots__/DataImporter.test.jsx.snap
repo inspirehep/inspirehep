@@ -4,7 +4,6 @@ exports[`DataImporter renders with error with a message 1`] = `
 <div>
   <Row
     className="mb3"
-    gutter={0}
   >
     <Col
       span={24}
@@ -17,7 +16,6 @@ exports[`DataImporter renders with error with a message 1`] = `
   </Row>
   <Row
     className="mb3"
-    gutter={0}
   >
     <Col>
       <Alert
@@ -32,19 +30,18 @@ exports[`DataImporter renders with error with a message 1`] = `
       />
     </Col>
   </Row>
-  <FormItem
+  <InternalFormItem
     label={
-      <Tooltip
+      <ForwardRef
         arrowPointAtCenter={false}
         autoAdjustOverflow={true}
         mouseEnterDelay={0.1}
         mouseLeaveDelay={0.1}
         placement="top"
         title="From arXiv or DOI"
-        transitionName="zoom-big-fast"
       >
         From arXiv or DOI
-      </Tooltip>
+      </ForwardRef>
     }
     labelCol={
       Object {
@@ -67,17 +64,15 @@ exports[`DataImporter renders with error with a message 1`] = `
       }
     }
   >
-    <Input
+    <ForwardRef
       data-test-id="import-input"
       onChange={[Function]}
       onPressEnter={[Function]}
       placeholder="hep-th/9711200 or 1207.7235 or arXiv:1001.4538 or 10.1086/305772 or doi:10.1086/305772"
-      type="text"
     />
-  </FormItem>
+  </InternalFormItem>
   <Row
     align="middle"
-    gutter={0}
     justify="space-between"
     type="flex"
   >
@@ -91,10 +86,7 @@ exports[`DataImporter renders with error with a message 1`] = `
     </Col>
     <Col>
       <Button
-        block={false}
         data-test-id="import-button"
-        ghost={false}
-        htmlType="button"
         loading={false}
         onClick={[Function]}
         type="primary"
@@ -110,7 +102,6 @@ exports[`DataImporter renders with error with message and recid 1`] = `
 <div>
   <Row
     className="mb3"
-    gutter={0}
   >
     <Col
       span={24}
@@ -123,7 +114,6 @@ exports[`DataImporter renders with error with message and recid 1`] = `
   </Row>
   <Row
     className="mb3"
-    gutter={0}
   >
     <Col>
       <Alert
@@ -148,19 +138,18 @@ exports[`DataImporter renders with error with message and recid 1`] = `
       />
     </Col>
   </Row>
-  <FormItem
+  <InternalFormItem
     label={
-      <Tooltip
+      <ForwardRef
         arrowPointAtCenter={false}
         autoAdjustOverflow={true}
         mouseEnterDelay={0.1}
         mouseLeaveDelay={0.1}
         placement="top"
         title="From arXiv or DOI"
-        transitionName="zoom-big-fast"
       >
         From arXiv or DOI
-      </Tooltip>
+      </ForwardRef>
     }
     labelCol={
       Object {
@@ -183,17 +172,15 @@ exports[`DataImporter renders with error with message and recid 1`] = `
       }
     }
   >
-    <Input
+    <ForwardRef
       data-test-id="import-input"
       onChange={[Function]}
       onPressEnter={[Function]}
       placeholder="hep-th/9711200 or 1207.7235 or arXiv:1001.4538 or 10.1086/305772 or doi:10.1086/305772"
-      type="text"
     />
-  </FormItem>
+  </InternalFormItem>
   <Row
     align="middle"
-    gutter={0}
     justify="space-between"
     type="flex"
   >
@@ -207,10 +194,7 @@ exports[`DataImporter renders with error with message and recid 1`] = `
     </Col>
     <Col>
       <Button
-        block={false}
         data-test-id="import-button"
-        ghost={false}
-        htmlType="button"
         loading={false}
         onClick={[Function]}
         type="primary"
@@ -226,7 +210,6 @@ exports[`DataImporter renders with error without a message 1`] = `
 <div>
   <Row
     className="mb3"
-    gutter={0}
   >
     <Col
       span={24}
@@ -239,7 +222,6 @@ exports[`DataImporter renders with error without a message 1`] = `
   </Row>
   <Row
     className="mb3"
-    gutter={0}
   >
     <Col>
       <Alert
@@ -254,19 +236,18 @@ exports[`DataImporter renders with error without a message 1`] = `
       />
     </Col>
   </Row>
-  <FormItem
+  <InternalFormItem
     label={
-      <Tooltip
+      <ForwardRef
         arrowPointAtCenter={false}
         autoAdjustOverflow={true}
         mouseEnterDelay={0.1}
         mouseLeaveDelay={0.1}
         placement="top"
         title="From arXiv or DOI"
-        transitionName="zoom-big-fast"
       >
         From arXiv or DOI
-      </Tooltip>
+      </ForwardRef>
     }
     labelCol={
       Object {
@@ -289,17 +270,15 @@ exports[`DataImporter renders with error without a message 1`] = `
       }
     }
   >
-    <Input
+    <ForwardRef
       data-test-id="import-input"
       onChange={[Function]}
       onPressEnter={[Function]}
       placeholder="hep-th/9711200 or 1207.7235 or arXiv:1001.4538 or 10.1086/305772 or doi:10.1086/305772"
-      type="text"
     />
-  </FormItem>
+  </InternalFormItem>
   <Row
     align="middle"
-    gutter={0}
     justify="space-between"
     type="flex"
   >
@@ -313,10 +292,7 @@ exports[`DataImporter renders with error without a message 1`] = `
     </Col>
     <Col>
       <Button
-        block={false}
         data-test-id="import-button"
-        ghost={false}
-        htmlType="button"
         loading={false}
         onClick={[Function]}
         type="primary"
@@ -332,7 +308,6 @@ exports[`DataImporter renders without error while importing 1`] = `
 <div>
   <Row
     className="mb3"
-    gutter={0}
   >
     <Col
       span={24}
@@ -343,19 +318,18 @@ exports[`DataImporter renders without error while importing 1`] = `
       />
     </Col>
   </Row>
-  <FormItem
+  <InternalFormItem
     label={
-      <Tooltip
+      <ForwardRef
         arrowPointAtCenter={false}
         autoAdjustOverflow={true}
         mouseEnterDelay={0.1}
         mouseLeaveDelay={0.1}
         placement="top"
         title="From arXiv or DOI"
-        transitionName="zoom-big-fast"
       >
         From arXiv or DOI
-      </Tooltip>
+      </ForwardRef>
     }
     labelCol={
       Object {
@@ -378,17 +352,15 @@ exports[`DataImporter renders without error while importing 1`] = `
       }
     }
   >
-    <Input
+    <ForwardRef
       data-test-id="import-input"
       onChange={[Function]}
       onPressEnter={[Function]}
       placeholder="hep-th/9711200 or 1207.7235 or arXiv:1001.4538 or 10.1086/305772 or doi:10.1086/305772"
-      type="text"
     />
-  </FormItem>
+  </InternalFormItem>
   <Row
     align="middle"
-    gutter={0}
     justify="space-between"
     type="flex"
   >
@@ -402,10 +374,7 @@ exports[`DataImporter renders without error while importing 1`] = `
     </Col>
     <Col>
       <Button
-        block={false}
         data-test-id="import-button"
-        ghost={false}
-        htmlType="button"
         loading={true}
         onClick={[Function]}
         type="primary"

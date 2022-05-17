@@ -22,7 +22,6 @@ exports[`AuthorWithBAI renders 1`] = `
       </div>
     </React.Fragment>
   }
-  transitionName="zoom-big-fast"
 >
   <Link
     style={

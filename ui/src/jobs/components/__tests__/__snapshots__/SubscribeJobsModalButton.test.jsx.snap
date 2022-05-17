@@ -15,21 +15,20 @@ exports[`SubscribeJobsModalButton renders confirmation if subscription is submit
     afterClose={[Function]}
     confirmLoading={false}
     footer={null}
-    maskTransitionName="fade"
     okType="primary"
     onCancel={[Function]}
+    open={false}
     title="Subscribe to the INSPIRE job mailing list"
-    transitionName="zoom"
     visible={false}
     width={520}
   >
     <ModalSuccessResult>
-      <Paragraph>
+      <ForwardRef(Paragraph)>
         You have successfully subscribed!
-      </Paragraph>
-      <Paragraph>
+      </ForwardRef(Paragraph)>
+      <ForwardRef(Paragraph)>
         You will receive a weekly update on new INSPIRE job listings every Monday.
-      </Paragraph>
+      </ForwardRef(Paragraph)>
     </ModalSuccessResult>
   </Modal>
 </Fragment>
@@ -50,11 +49,10 @@ exports[`SubscribeJobsModalButton renders with error alert if hasError 1`] = `
     afterClose={[Function]}
     confirmLoading={false}
     footer={null}
-    maskTransitionName="fade"
     okType="primary"
     onCancel={[Function]}
+    open={false}
     title="Subscribe to the INSPIRE job mailing list"
-    transitionName="zoom"
     visible={false}
     width={520}
   >
@@ -96,11 +94,10 @@ exports[`SubscribeJobsModalButton renders with initial state 1`] = `
     afterClose={[Function]}
     confirmLoading={false}
     footer={null}
-    maskTransitionName="fade"
     okType="primary"
     onCancel={[Function]}
+    open={false}
     title="Subscribe to the INSPIRE job mailing list"
-    transitionName="zoom"
     visible={false}
     width={520}
   >

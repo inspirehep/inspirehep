@@ -71,9 +71,10 @@ describe('ReferenceListContainer', () => {
         <ReferenceListContainer recordId={1} />
       </Provider>
     );
-    const onQueryChange = wrapper.find(ReferenceList).prop('onQueryChange');
-    const query = { page: 3 };
-    onQueryChange(query);
-    expect(fetchLiteratureReferences).toHaveBeenCalledWith(1, query);
+    const onQueryChange = wrapper.find(ReferenceList).prop('onPageChange');
+    const page = '3';
+    const size = 25;
+    onQueryChange(page, size);
+    expect(fetchLiteratureReferences).toHaveBeenCalledWith(1, { size, page });
   });
 });

@@ -1,12 +1,12 @@
 .__ListItemAction__ {
-  $action-padding: $padding-md - 1px;
+  @action-padding: @padding-md - 1px;
 
   &:not(:first-child) {
-    padding-left: $action-padding;
+    padding-left: @action-padding;
   }
 
   &:not(:last-child) {
-    padding-right: $action-padding;
+    padding-right: @action-padding;
   }
 
   button,
@@ -22,10 +22,10 @@
 
   a {
     &:hover {
-      background-color: $btn-default-bg;
+      background-color: @btn-default-bg;
     }
     text-decoration: none;
-    color: $text-color;
-    line-height: $btn-height-base;
+    color: @text-color;
+    line-height: @btn-height-base;
   }
 }

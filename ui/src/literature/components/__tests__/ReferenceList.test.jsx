@@ -21,7 +21,8 @@ describe('ReferenceList', () => {
         error={null}
         references={references}
         total={1}
-        onQueryChange={jest.fn()}
+        onPageChange={() => {}}
+        onSizeChange={() => {}}
         query={{ size: 25, page: 1 }}
       />
     );
@@ -43,7 +44,8 @@ describe('ReferenceList', () => {
         error={null}
         references={references}
         total={1}
-        onQueryChange={jest.fn()}
+        onPageChange={() => {}}
+        onSizeChange={() => {}}
         query={{ size: 25, page: 1 }}
       />
     );
@@ -51,25 +53,24 @@ describe('ReferenceList', () => {
   });
 
   it('calls onQueryChange and sets the correct page', () => {
-    const onQueryChange = jest.fn();
+    const onPageChange = jest.fn();
     const wrapper = shallow(
       <ReferenceList
         loading={false}
         error={null}
         references={fromJS([{ titles: [{ title: 'Reference 1' }] }])}
         total={50}
-        onQueryChange={onQueryChange}
+        onPageChange={onPageChange}
         query={{ size: 25, page: 1 }}
-      />
+        />
     );
     const page = 2;
+    const size = 25;
     const onListPageChange = wrapper
       .find(ListWithPagination)
       .prop('onPageChange');
-    onListPageChange(page);
-    expect(onQueryChange).toHaveBeenCalledWith({
-      page,
-    });
+    onListPageChange(page, size);
+    expect(onPageChange).toHaveBeenCalledWith(page, size);
   });
 
   it('does not render the list if total 0', () => {
@@ -79,7 +80,6 @@ describe('ReferenceList', () => {
         error={null}
         references={fromJS([{ titles: [{ title: 'Reference 1' }] }])}
         total={0}
-        onQueryChange={jest.fn()}
         query={{ size: 25, page: 1 }}
       />
     );
@@ -93,7 +93,6 @@ describe('ReferenceList', () => {
         error={fromJS({ message: 'error' })}
         references={fromJS([])}
         total={0}
-        onQueryChange={jest.fn()}
         query={{ size: 25, page: 1 }}
       />
     );
@@ -102,14 +101,14 @@ describe('ReferenceList', () => {
 });
 
 it('calls onQueryChange and sets display to 50 references/page', () => {
-  const onQueryChange = jest.fn();
+  const onSizeChange = jest.fn();
   const wrapper = shallow(
     <ReferenceList
       loading={false}
       error={null}
       references={fromJS([{ titles: [{ title: 'Reference 1' }] }])}
       total={50}
-      onQueryChange={onQueryChange}
+      onSizeChange={onSizeChange}
       query={{ size: 50 }}
     />
   );
@@ -119,8 +118,5 @@ it('calls onQueryChange and sets display to 50 references/page', () => {
     .find(ListWithPagination)
     .prop('onSizeChange');
   onListPageSizeChange(page, size);
-  expect(onQueryChange).toHaveBeenCalledWith({
-    page,
-    size,
-  });
+  expect(onSizeChange).toHaveBeenCalledWith(page, size);
 });

@@ -6,7 +6,6 @@ exports[`InstitutionForm renders 1`] = `
 >
   <Row
     className="mb3 pt2 bg-white"
-    gutter={0}
   >
     <Col
       span={24}
@@ -24,7 +23,6 @@ exports[`InstitutionForm renders 1`] = `
     </Col>
   </Row>
   <Row
-    gutter={0}
     justify="end"
     type="flex"
   >

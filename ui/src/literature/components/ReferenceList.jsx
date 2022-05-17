@@ -14,8 +14,9 @@ function ReferenceList({
   references,
   error,
   loading,
-  onQueryChange,
   query,
+  onPageChange,
+  onSizeChange,
 }) {
   const renderReferenceItem = useCallback(
     (reference, index) => (
@@ -27,15 +28,6 @@ function ReferenceList({
       />
     ),
     []
-  );
-
-  const onPageChange = useCallback(page => onQueryChange({ page }), [
-    onQueryChange,
-  ]);
-
-  const onSizeChange = useCallback(
-    (page, size) => onQueryChange({ size, page: '1' }),
-    [onQueryChange]
   );
 
   const renderList = useCallback(

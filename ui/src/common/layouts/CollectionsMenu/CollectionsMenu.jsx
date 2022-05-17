@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Row, Col, Menu, Button } from 'antd';
 import PropTypes from 'prop-types';
 
-import './CollectionsMenu.scss';
+import './CollectionsMenu.less';
 import {
   LITERATURE,
   AUTHORS,

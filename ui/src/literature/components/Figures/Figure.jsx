@@ -5,7 +5,7 @@ import Image from 'react-image';
 import { Spin } from 'antd';
 import { FileImageOutlined } from '@ant-design/icons';
 
-import './Figure.scss';
+import './Figure.less';
 import Latex from '../../../common/components/Latex';
 
 const ICON_STYLE = { margin: 'auto', display: 'block', padding: '2rem 0' };

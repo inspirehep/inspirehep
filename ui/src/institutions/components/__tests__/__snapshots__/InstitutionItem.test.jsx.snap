@@ -41,9 +41,7 @@ exports[`InstitutionItem renders with all props set 1`] = `
     </ListItemAction>
   }
 >
-  <Row
-    gutter={0}
-  >
+  <Row>
     <Col>
       <Link
         className="result-item-title"
@@ -51,9 +49,7 @@ exports[`InstitutionItem renders with all props set 1`] = `
       />
     </Col>
   </Row>
-  <Row
-    gutter={0}
-  >
+  <Row>
     <Col>
       <InstitutionHierarchyList
         hierarchies={
@@ -66,9 +62,7 @@ exports[`InstitutionItem renders with all props set 1`] = `
       />
     </Col>
   </Row>
-  <Row
-    gutter={0}
-  >
+  <Row>
     <Col>
       <InstitutionAddressList
         addresses={
@@ -118,9 +112,7 @@ exports[`InstitutionItem renders with only needed props 1`] = `
     </ListItemAction>
   }
 >
-  <Row
-    gutter={0}
-  >
+  <Row>
     <Col>
       <Link
         className="result-item-title"
@@ -128,16 +120,12 @@ exports[`InstitutionItem renders with only needed props 1`] = `
       />
     </Col>
   </Row>
-  <Row
-    gutter={0}
-  >
+  <Row>
     <Col>
       <InstitutionHierarchyList />
     </Col>
   </Row>
-  <Row
-    gutter={0}
-  >
+  <Row>
     <Col>
       <InstitutionAddressList
         addresses={null}

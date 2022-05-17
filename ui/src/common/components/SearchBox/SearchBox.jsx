@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Input, AutoComplete } from 'antd';
 import { HistoryOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
-import './SearchBox.scss';
+import './SearchBox.less';
 import SearchScopeSelectContainer from '../../containers/SearchScopeSelectContainer';
 import { readHistory, persistHistory } from './searchHistory';
 import IconText from '../IconText';

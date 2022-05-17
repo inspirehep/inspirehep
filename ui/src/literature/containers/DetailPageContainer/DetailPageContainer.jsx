@@ -6,7 +6,7 @@ import { Map, List } from 'immutable';
 import classNames from 'classnames';
 import { FilePdfOutlined, DatabaseOutlined } from '@ant-design/icons';
 
-import './DetailPage.scss';
+import './DetailPage.less';
 import {
   fetchLiterature,
   fetchLiteratureAuthors,

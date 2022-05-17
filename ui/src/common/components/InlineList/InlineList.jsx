@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { List } from 'immutable';
 
 import { getSizeOfArrayOrImmutableList } from '../../utils';
-import './InlineList.scss';
+import './InlineList.less';
 import { SEPARATOR_TYPES, DEFAULT_SEPARATOR_TYPE } from './constants';
 
 // TODO: rename to `InlineDataList` then rename `InlineUL` to `InlineList`

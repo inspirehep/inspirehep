@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { HOME } from '../../routes';
 
-import './Logo.scss';
+import './Logo.less';
 import { ReactComponent as LogoSvg } from './logo.svg';
 
 class Logo extends Component {

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Row, Card, Button } from 'antd';
 
 import orcidLogo from '../../../common/orcid.svg';
-import './LoginPage.scss';
+import './LoginPage.less';
 import ExternalLink from '../../../common/components/ExternalLink.tsx';
 import DocumentHead from '../../../common/components/DocumentHead';
 import { WHAT_IS_ORCID_URL } from '../../../common/constants';

@@ -15,7 +15,7 @@ import pluralizeUnlessSingle, {
 } from '../../utils';
 import EmptyOrChildren from '../EmptyOrChildren';
 
-const BLUE = styleVariables['primary-color'];
+const BLUE = styleVariables['@primary-color'];
 const GRAPH_MARGIN = { left: 40, right: 20, top: 10, bottom: 40 };
 const GRAPH_HEIGHT = 250;
 

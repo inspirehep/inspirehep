@@ -6,7 +6,7 @@ import { InboxOutlined } from '@ant-design/icons';
 import CollapsableForm from '../submissions/common/components/CollapsableForm';
 import SelectBox from '../common/components/SelectBox';
 
-import './BibliographyGenerator.scss';
+import './BibliographyGenerator.less';
 import ErrorAlert from '../common/components/ErrorAlert';
 import DocumentHead from '../common/components/DocumentHead';
 

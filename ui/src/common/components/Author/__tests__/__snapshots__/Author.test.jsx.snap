@@ -44,7 +44,6 @@ exports[`Author renders editor 1`] = `
     mouseLeaveDelay={0.1}
     placement="top"
     title="editor"
-    transitionName="zoom-big-fast"
   >
     (ed.)
   </Tooltip>

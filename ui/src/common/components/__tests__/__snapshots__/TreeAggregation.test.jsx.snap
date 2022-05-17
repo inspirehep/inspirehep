@@ -5,7 +5,7 @@ exports[`TreeAggregation render initial state with all props set 1`] = `
   headerAction={null}
   name="Test"
 >
-  <Tree
+  <ForwardRef
     blockNode={true}
     checkStrictly={true}
     checkable={true}
@@ -22,12 +22,16 @@ exports[`TreeAggregation render initial state with all props set 1`] = `
     motion={
       Object {
         "motionAppear": false,
+        "motionDeadline": 500,
         "motionName": "ant-motion-collapse",
         "onAppearActive": [Function],
+        "onAppearEnd": [Function],
         "onAppearStart": [Function],
         "onEnterActive": [Function],
+        "onEnterEnd": [Function],
         "onEnterStart": [Function],
         "onLeaveActive": [Function],
+        "onLeaveEnd": [Function],
         "onLeaveStart": [Function],
       }
     }
@@ -42,98 +46,93 @@ exports[`TreeAggregation render initial state with all props set 1`] = `
               "children": Array [
                 Object {
                   "key": "a|b|c",
-                  "title": <Row
+                  "title": <ForwardRef
                     className="mv1"
-                    gutter={0}
                     justify="space-between"
                   >
-                    <Col>
+                    <ForwardRef>
                       c
-                    </Col>
-                    <Col>
+                    </ForwardRef>
+                    <ForwardRef>
                       <UnclickableTag>
                         <FormattedNumber>
                           1
                         </FormattedNumber>
                       </UnclickableTag>
-                    </Col>
-                  </Row>,
+                    </ForwardRef>
+                  </ForwardRef>,
                 },
                 Object {
                   "key": "a|b|d",
-                  "title": <Row
+                  "title": <ForwardRef
                     className="mv1"
-                    gutter={0}
                     justify="space-between"
                   >
-                    <Col>
+                    <ForwardRef>
                       d
-                    </Col>
-                    <Col>
+                    </ForwardRef>
+                    <ForwardRef>
                       <UnclickableTag>
                         <FormattedNumber>
                           1
                         </FormattedNumber>
                       </UnclickableTag>
-                    </Col>
-                  </Row>,
+                    </ForwardRef>
+                  </ForwardRef>,
                 },
               ],
               "key": "a|b",
-              "title": <Row
+              "title": <ForwardRef
                 className="mv1"
-                gutter={0}
                 justify="space-between"
               >
-                <Col>
+                <ForwardRef>
                   b
-                </Col>
-                <Col>
+                </ForwardRef>
+                <ForwardRef>
                   <UnclickableTag>
                     <FormattedNumber>
                       2
                     </FormattedNumber>
                   </UnclickableTag>
-                </Col>
-              </Row>,
+                </ForwardRef>
+              </ForwardRef>,
             },
           ],
           "key": "a",
-          "title": <Row
+          "title": <ForwardRef
             className="mv1"
-            gutter={0}
             justify="space-between"
           >
-            <Col>
+            <ForwardRef>
               a
-            </Col>
-            <Col>
+            </ForwardRef>
+            <ForwardRef>
               <UnclickableTag>
                 <FormattedNumber>
                   3
                 </FormattedNumber>
               </UnclickableTag>
-            </Col>
-          </Row>,
+            </ForwardRef>
+          </ForwardRef>,
         },
         Object {
           "key": "j",
-          "title": <Row
+          "title": <ForwardRef
             className="mv1"
-            gutter={0}
             justify="space-between"
           >
-            <Col>
+            <ForwardRef>
               j
-            </Col>
-            <Col>
+            </ForwardRef>
+            <ForwardRef>
               <UnclickableTag>
                 <FormattedNumber>
                   2
                 </FormattedNumber>
               </UnclickableTag>
-            </Col>
-          </Row>,
+            </ForwardRef>
+          </ForwardRef>,
         },
       ]
     }

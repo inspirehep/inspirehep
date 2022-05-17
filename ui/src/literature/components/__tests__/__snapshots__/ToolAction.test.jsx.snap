@@ -5,17 +5,12 @@ exports[`ToolAction renders 1`] = `
   <DropdownMenu
     disabled={false}
     title={
-      <Button
-        block={false}
-        ghost={false}
-        htmlType="button"
-        loading={false}
-      >
+      <ForwardRef(InternalButton)>
         <IconText
           icon={<ForwardRef(ToolOutlined) />}
           text="tools"
         />
-      </Button>
+      </ForwardRef(InternalButton)>
     }
   >
     <MenuItem
@@ -49,17 +44,12 @@ exports[`ToolAction renders disabled 1`] = `
   <DropdownMenu
     disabled={false}
     title={
-      <Button
-        block={false}
-        ghost={false}
-        htmlType="button"
-        loading={false}
-      >
+      <ForwardRef(InternalButton)>
         <IconText
           icon={<ForwardRef(ToolOutlined) />}
           text="tools"
         />
-      </Button>
+      </ForwardRef(InternalButton)>
     }
   >
     <MenuItem

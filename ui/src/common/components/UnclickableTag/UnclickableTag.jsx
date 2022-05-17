@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Tag } from 'antd';
 import classnames from 'classnames';
 
-import './UnclickableTag.scss';
+import './UnclickableTag.less';
 
 class UnclickableTag extends Component {
   render() {

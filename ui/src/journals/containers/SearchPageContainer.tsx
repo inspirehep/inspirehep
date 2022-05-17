@@ -49,17 +49,21 @@ export const JournalSearchPage = ({
           <LoadingOrChildren loading={loading}>
             <Row>
               <Col>
+              {/* @ts-ignore */}
                 <NumberOfResultsContainer namespace={JOURNALS_NS} />
               </Col>
             </Row>
             <Row>
               <Col span={24}>
                 <ResultsContainer
+                  // @ts-ignore
                   namespace={JOURNALS_NS}
+                  // @ts-ignore
                   renderItem={(item) =>
                     renderJournalItem(item, isCatalogerLoggedIn)
                   }
                 />
+                {/* @ts-ignore */}
                 <PaginationContainer namespace={JOURNALS_NS} />
               </Col>
             </Row>
