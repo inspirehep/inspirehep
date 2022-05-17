@@ -3,7 +3,7 @@ import { fromJS, Set } from 'immutable';
 import { advanceTo, clear } from 'jest-date-mock';
 
 import { getStore, mockActionCreator } from '../../fixtures/store';
-import http from '../../common/http.ts';
+import http from '../../common/http';
 import {
   AUTHOR_ERROR,
   AUTHOR_REQUEST,
@@ -45,13 +45,19 @@ mockActionCreator(searchQueryUpdate);
 
 const mockHttp = new MockAdapter(http.httpClient);
 
+function wait() {
+  return new Promise(resolve => {
+    setTimeout(() => resolve(), 4025);
+  });
+}
+
 describe('AUTHOR - async action creators', () => {
   describe('fetch author', () => {
     afterEach(() => {
       mockHttp.reset();
     });
 
-    it('creates AUTHOR_SUCCESS', async (done) => {
+    it('creates AUTHOR_SUCCESS', async () => {
       mockHttp.onGet('/authors/123').replyOnce(200, { foo: 'bar' });
 
       const expectedActions = [
@@ -62,10 +68,9 @@ describe('AUTHOR - async action creators', () => {
       const store = getStore();
       await store.dispatch(fetchAuthor(123));
       expect(store.getActions()).toEqual(expectedActions);
-      done();
     });
 
-    it('creates AUTHOR_ERROR', async (done) => {
+    it('creates AUTHOR_ERROR', async () => {
       mockHttp.onGet('/authors/123').replyOnce(500, { message: 'Error' });
 
       const expectedActions = [
@@ -85,7 +90,6 @@ describe('AUTHOR - async action creators', () => {
       const store = getStore();
       await store.dispatch(fetchAuthor(123));
       expect(store.getActions()).toEqual(expectedActions);
-      done();
     });
   });
 
@@ -179,15 +183,15 @@ describe('AUTHOR - async action creators', () => {
       const dispatchPromise = store.dispatch(
         unassignPapers({ from: fromAuthorId })
       );
-      expect(assigning).toHaveBeenCalled();
-
       await dispatchPromise;
-      expect(store.getActions()).toEqual(expectedActions);
-
-      expect(assignSuccess).toHaveBeenCalledWith({
-        from: fromAuthorId,
-        to: stubAuthorId,
-        literatureIds: Set(publicationSelection),
+      wait().then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+  
+        expect(assignSuccess).toHaveBeenCalledWith({
+          from: fromAuthorId,
+          to: stubAuthorId,
+          literatureIds: Set(publicationSelection),
+        });
       });
     });
 
@@ -225,12 +229,15 @@ describe('AUTHOR - async action creators', () => {
       expect(assigning).toHaveBeenCalled();
 
       await dispatchPromise;
-      expect(store.getActions()).toEqual(expectedActions);
-
+      
       expect(assignSuccess).toHaveBeenCalledWith({
         from: fromAuthorId,
         to: toAuthorId,
         literatureIds: Set(publicationSelection),
+      });
+      
+      wait().then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
       });
     });
 
@@ -310,11 +317,12 @@ describe('AUTHOR - async action creators', () => {
       expect(assigning).toHaveBeenCalled();
 
       await dispatchPromise;
-      expect(store.getActions()).toEqual(expectedActions);
-
       expect(assignSuccessOwnProfile).toHaveBeenCalledWith({
         numberOfClaimedPapers: 2,
         numberOfUnclaimedPapers: 1,
+      });
+      wait().then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
       });
     });
   });
@@ -362,9 +370,10 @@ describe('AUTHOR - async action creators', () => {
       expect(assigning).toHaveBeenCalled();
 
       await dispatchPromise;
-      expect(store.getActions()).toEqual(expectedActions);
-
       expect(unassignSuccessOwnProfile).toHaveBeenCalled();
+      wait().then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      });
     });
   });
   describe('assignDifferentProfile', () => {
@@ -408,8 +417,10 @@ describe('AUTHOR - async action creators', () => {
       expect(assigning).toHaveBeenCalled();
 
       await dispatchPromise;
-      expect(store.getActions()).toEqual(expectedActions);
       expect(assignSuccessDifferentProfileClaimedPapers).toHaveBeenCalled();
+      wait().then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      });
     });
 
     it('assignDifferentProfileUnclaimedPapers successful for unclaimed papers', async () => {
@@ -448,8 +459,10 @@ describe('AUTHOR - async action creators', () => {
       expect(assigning).toHaveBeenCalled();
 
       await dispatchPromise;
-      expect(store.getActions()).toEqual(expectedActions);
       expect(assignSuccessDifferentProfileUnclaimedPapers).toHaveBeenCalled();
+      wait().then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      });
     });
   });
 });

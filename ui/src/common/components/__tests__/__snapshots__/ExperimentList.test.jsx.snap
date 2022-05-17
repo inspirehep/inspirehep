@@ -8,7 +8,8 @@ exports[`ExperimentList renders arxiv categories 1`] = `
     className=""
   >
     Experiments
-    : 
+    :
+     
   </span>
   <ul>
     <li

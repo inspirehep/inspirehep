@@ -13,7 +13,7 @@ import RegionsList from './RegionsList';
 import ArxivCategoryList from '../../common/components/ArxivCategoryList';
 import RanksList from './RanksList';
 import ExperimentList from '../../common/components/ExperimentList';
-import EditRecordAction from '../../common/components/EditRecordAction.tsx';
+import EditRecordAction from '../../common/components/EditRecordAction';
 import JobTitle from './JobTitle';
 import {
   InlineUL,
@@ -47,10 +47,12 @@ class JobItem extends Component {
             </Link>
           </Col>
           <Col>
-            (<InlineUL wrapperClassName="di" separator={SEPARATOR_MIDDLEDOT}>
+            (
+            <InlineUL wrapperClassName="di" separator={SEPARATOR_MIDDLEDOT}>
               {institutions && <InstitutionsList institutions={institutions} />}
               <RegionsList regions={regions} />
-            </InlineUL>)
+            </InlineUL>
+)
           </Col>
         </Row>
         <Row className="mt2">
@@ -70,7 +72,9 @@ class JobItem extends Component {
             <DeadlineDate deadlineDate={deadlineDate} />
           </Col>
           <Col>
-            Posted <DateFromNow date={created} />
+            Posted 
+            {' '}
+            <DateFromNow date={created} />
           </Col>
         </Row>
       </ResultItem>

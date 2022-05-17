@@ -137,7 +137,8 @@ exports[`PublicationInfo renders with material 1`] = `
     }
   />
   <span>
-     (
+     
+    (
     erratum
     )
   </span>

@@ -32,7 +32,7 @@ import SeminarSubmissionSuccessPageContainer from './seminars/containers/Seminar
 import AuthorUpdateSubmissionSuccessPage from './authors/components/AuthorUpdateSubmissionSuccessPage';
 import InstitutionSubmissionPageContainer from './institutions/containers/InstitutionSubmissionPageContainer';
 import ExperimentSubmissionPageContainer from './experiments/containers/ExperimentSubmissionPageContainer';
-import JournalSubmissionPageContainer from './journals/containers/JournalSubmissionPageContainer.tsx';
+import JournalSubmissionPageContainer from './journals/containers/JournalSubmissionPageContainer';
 
 class Submissions extends Component {
   render() {

@@ -11,7 +11,7 @@ import ResultsContainer from '../../common/containers/ResultsContainer';
 import NumberOfResultsWithSelectedItemsNumber from '../components/NumberOfResultsWithSelectedItemsNumber';
 import LoadingOrChildren from '../../common/components/LoadingOrChildren';
 import ResponsiveView from '../../common/components/ResponsiveView';
-import DrawerHandle from '../../common/components/DrawerHandle.tsx';
+import DrawerHandle from '../../common/components/DrawerHandle';
 import LiteratureItem from '../components/LiteratureItem';
 import CiteAllActionContainer from './CiteAllActionContainer';
 import VerticalDivider from '../../common/VerticalDivider';

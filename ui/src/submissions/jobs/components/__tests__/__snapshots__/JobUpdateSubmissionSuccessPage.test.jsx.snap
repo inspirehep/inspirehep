@@ -4,12 +4,12 @@ exports[`JobUpdateSubmissionSuccessPage renders 1`] = `
 <SubmissionSuccess
   message={
     <span>
-      Successfully submitted, thank you for the submission! See the updates 
-      <ForwardRef
+      Successfully submitted, thank you for the submission! See the updates
+      <Link
         to="/jobs/1"
       >
         here
-      </ForwardRef>
+      </Link>
       .
     </span>
   }

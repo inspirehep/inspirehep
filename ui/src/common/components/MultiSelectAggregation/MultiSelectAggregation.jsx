@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
-import './MultiSelectAggregation.scss';
+import './MultiSelectAggregation.less';
 import SelectBox from '../SelectBox';
 import { SELECT_VALUE_TO_DISPLAY_MAPS_FOREACH_AGG } from './constants';
 

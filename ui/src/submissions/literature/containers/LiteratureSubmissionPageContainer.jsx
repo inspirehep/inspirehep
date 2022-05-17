@@ -7,7 +7,7 @@ import { Row, Col, Tooltip, Form } from 'antd';
 import { submit } from '../../../actions/submissions';
 import { LABEL_COL, WRAPPER_COL } from '../../common/withFormItem';
 import LiteratureSubmission from '../components/LiteratureSubmission';
-import ExternalLink from '../../../common/components/ExternalLink.tsx';
+import ExternalLink from '../../../common/components/ExternalLink';
 import SelectBox from '../../../common/components/SelectBox';
 import DataImporterContainer from './DataImporterContainer';
 import {
@@ -59,17 +59,19 @@ function LiteratureSubmissionPage({ error, importedFormData, onSubmit }) {
   return (
     <SubmissionPage
       title="Suggest content"
-      description={
+      description={(
         <span>
           This form allows you to suggest a preprint, an article, a book, a
           conference proceeding or a thesis you would like to see added to
-          INSPIRE. We will check your suggestion with our{' '}
+          INSPIRE. We will check your suggestion with our
+          {' '}
           <ExternalLink href={CONTENT_POLICY_URL}>
             selection policy
-          </ExternalLink>{' '}
+          </ExternalLink>
+          {' '}
           and transfer it to INSPIRE.
         </span>
-      }
+)}
     >
       <Row className="mb3 pa3 bg-white">
         <Col span={24}>
@@ -81,11 +83,11 @@ function LiteratureSubmissionPage({ error, importedFormData, onSubmit }) {
           <Row className="mb3 ph3 pt3 bg-white">
             <Col span={24}>
               <Form.Item
-                label={
+                label={(
                   <Tooltip title="Type of the document">
                     Type of the document
                   </Tooltip>
-                }
+)}
                 labelCol={LABEL_COL}
                 wrapperCol={WRAPPER_COL}
               >

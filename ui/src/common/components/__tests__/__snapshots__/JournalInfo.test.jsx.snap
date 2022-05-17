@@ -10,7 +10,8 @@ exports[`JournalInfo renders with journal_title and all other fields 1`] = `
     TV
   </span>
   <span>
-     (
+     
+    (
     2015
     )
   </span>

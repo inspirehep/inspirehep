@@ -5,12 +5,7 @@ exports[`ProceedingsAction renders proceedings 1`] = `
   <DropdownMenu
     disabled={false}
     title={
-      <Button
-        block={false}
-        ghost={false}
-        htmlType="button"
-        loading={false}
-      >
+      <Button>
         <IconText
           icon={<ForwardRef(BookOutlined) />}
           text="proceedings"
@@ -26,7 +21,7 @@ exports[`ProceedingsAction renders proceedings 1`] = `
         href="/literature/12345"
       >
         <span>
-          Proceedings 
+          Proceedings
           1
         </span>
       </ExternalLink>

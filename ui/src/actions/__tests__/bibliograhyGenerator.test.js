@@ -1,7 +1,7 @@
 import MockAdapter from 'axios-mock-adapter';
 
 import { getStore } from '../../fixtures/store';
-import http from '../../common/http.ts';
+import http from '../../common/http';
 import {
   BIBLIOGRAPHY_GENERATOR_REQUEST,
   BIBLIOGRAPHY_GENERATOR_SUCCESS,
@@ -16,7 +16,7 @@ describe('bibliographyGenerator - async action creators', () => {
     mockHttp.reset();
   });
 
-  it('creates BIBLIOGRAPHY_GENERATOR_SUCCESS if successful', async done => {
+  it('creates BIBLIOGRAPHY_GENERATOR_SUCCESS if successful', async () => {
     const data = { file: 'this is a file' };
     mockHttp
       .onPost('/bibliography-generator?format=bibtex', data)
@@ -33,10 +33,9 @@ describe('bibliographyGenerator - async action creators', () => {
     const store = getStore();
     await store.dispatch(submitBibliographyGenerator('bibtex', data));
     expect(store.getActions()).toEqual(expectedActions);
-    done();
   });
 
-  it('creates BIBLIOGRAPHY_GENERATOR_ERROR if not successful', async done => {
+  it('creates BIBLIOGRAPHY_GENERATOR_ERROR if not successful', async () => {
     mockHttp
       .onPost('/bibliography-generator?format=bibtex')
       .replyOnce(400, { message: 'Error' });
@@ -54,6 +53,5 @@ describe('bibliographyGenerator - async action creators', () => {
     const store = getStore();
     await store.dispatch(submitBibliographyGenerator('bibtex', {}));
     expect(store.getActions()).toEqual(expectedActions);
-    done();
   });
 });

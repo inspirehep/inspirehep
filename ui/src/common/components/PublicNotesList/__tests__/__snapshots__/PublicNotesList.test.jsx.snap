@@ -8,7 +8,8 @@ exports[`PublicNotesList renders public notes 1`] = `
     className=""
   >
     Note
-    : 
+    :
+     
   </span>
   <ul>
     <li

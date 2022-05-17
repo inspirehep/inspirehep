@@ -15,8 +15,13 @@ function ExportToCdsModal({ visible, onCancel, onOk, selectionSize }) {
       ]}
     >
       <p>
-        You have selected {selectionSize}{' '}
-        {pluralizeUnlessSingle('paper', selectionSize)}.<br />
+        You have selected 
+        {' '}
+        {selectionSize}
+        {' '}
+        {pluralizeUnlessSingle('paper', selectionSize)}
+.
+        <br />
         Are you sure you want to export it to CDS?
       </p>
     </Modal>

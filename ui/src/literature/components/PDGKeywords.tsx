@@ -3,7 +3,7 @@ import { Modal, List } from 'antd';
 
 import SecondaryButton from '../../common/components/SecondaryButton';
 // @ts-ignore
-import ExternalLink from '../../common/components/ExternalLink.tsx';
+import ExternalLink from '../../common/components/ExternalLink';
 
 interface IKeyword {
   get: (arg: string) => string;

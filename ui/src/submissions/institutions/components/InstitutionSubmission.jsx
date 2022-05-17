@@ -10,10 +10,10 @@ import useSubmitCallback from '../../common/hooks/useSubmitCallback';
 
 const DEFAULT_FORM_DATA = institutionSchema.cast();
 
-const InstitutionSubmission = ({
+function InstitutionSubmission({
   onSubmit,
   error = null,
-}) => {
+}) {
   const onFormikSubmit = useSubmitCallback(onSubmit);
   const modifyFormData = (formData) => ({...formData, ICN: [formData.identifier], legacy_ICN: formData.identifier});
 
@@ -39,7 +39,7 @@ const InstitutionSubmission = ({
       </Row>
     </div>
   );
-};
+}
 
 InstitutionSubmission.propTypes = {
   error: PropTypes.objectOf(PropTypes.any),

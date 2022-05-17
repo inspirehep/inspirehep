@@ -1,8 +1,19 @@
 import MockAdapter from 'axios-mock-adapter';
 
 import { getStore } from '../../fixtures/store';
-import http from '../../common/http.ts';
-import * as types from '../actionTypes';
+import http from '../../common/http';
+import {
+  SEARCH_REQUEST,
+  SEARCH_SUCCESS,
+  SEARCH_ERROR,
+  SEARCH_AGGREGATIONS_REQUEST,
+  SEARCH_AGGREGATIONS_SUCCESS,
+  SEARCH_AGGREGATIONS_ERROR,
+  CHANGE_SEARCH_BOX_NAMESPACE,
+  SEARCH_BASE_QUERIES_UPDATE,
+  SEARCH_QUERY_UPDATE,
+  NEW_SEARCH_REQUEST,
+} from '../actionTypes';
 import {
   fetchSearchResults,
   fetchSearchAggregations,
@@ -32,8 +43,8 @@ describe('search - action creators', () => {
       await store.dispatch(fetchSearchResults(namespace, url));
 
       const expectedActions = [
-        { type: types.SEARCH_REQUEST, payload: { namespace } },
-        { type: types.SEARCH_SUCCESS, payload: { namespace, data } },
+        { type: SEARCH_REQUEST, payload: { namespace } },
+        { type: SEARCH_SUCCESS, payload: { namespace, data } },
       ];
       expect(store.getActions()).toEqual(expectedActions);
     });
@@ -48,9 +59,9 @@ describe('search - action creators', () => {
       await store.dispatch(fetchSearchResults(namespace, url));
 
       const expectedActions = [
-        { type: types.SEARCH_REQUEST, payload: { namespace } },
+        { type: SEARCH_REQUEST, payload: { namespace } },
         {
-          type: types.SEARCH_ERROR,
+          type: SEARCH_ERROR,
           payload: { namespace, error: { status: 'network' } },
           meta: { redirectableError: true },
         },
@@ -68,9 +79,9 @@ describe('search - action creators', () => {
       await store.dispatch(fetchSearchResults(namespace, url));
 
       const expectedActions = [
-        { type: types.SEARCH_REQUEST, payload: { namespace } },
+        { type: SEARCH_REQUEST, payload: { namespace } },
         {
-          type: types.SEARCH_ERROR,
+          type: SEARCH_ERROR,
           payload: { namespace, error: { status: 'network' } },
           meta: { redirectableError: false },
         },
@@ -90,9 +101,9 @@ describe('search - action creators', () => {
         await store.dispatch(fetchSearchAggregations(namespace, url));
 
         const expectedActions = [
-          { type: types.SEARCH_AGGREGATIONS_REQUEST, payload: { namespace } },
+          { type: SEARCH_AGGREGATIONS_REQUEST, payload: { namespace } },
           {
-            type: types.SEARCH_AGGREGATIONS_SUCCESS,
+            type: SEARCH_AGGREGATIONS_SUCCESS,
             payload: { namespace, data },
           },
         ];
@@ -110,9 +121,9 @@ describe('search - action creators', () => {
       await store.dispatch(fetchSearchAggregations(namespace, url));
 
       const expectedActions = [
-        { type: types.SEARCH_AGGREGATIONS_REQUEST, payload: { namespace } },
+        { type: SEARCH_AGGREGATIONS_REQUEST, payload: { namespace } },
         {
-          type: types.SEARCH_AGGREGATIONS_ERROR,
+          type: SEARCH_AGGREGATIONS_ERROR,
           payload: { error: { message: 'error', status: 400 }, namespace },
         },
       ];
@@ -128,7 +139,7 @@ describe('search - action creators', () => {
 
       const expectedActions = [
         {
-          type: types.CHANGE_SEARCH_BOX_NAMESPACE,
+          type: CHANGE_SEARCH_BOX_NAMESPACE,
           payload: { searchBoxNamespace: 'test' },
         },
       ];
@@ -149,7 +160,7 @@ describe('search - action creators', () => {
 
       const expectedActions = [
         {
-          type: types.SEARCH_BASE_QUERIES_UPDATE,
+          type: SEARCH_BASE_QUERIES_UPDATE,
           payload: { namespace, baseQuery, baseAggregationsQuery },
         },
       ];
@@ -169,7 +180,7 @@ describe('search - action creators', () => {
 
       const expectedActions = [
         {
-          type: types.SEARCH_QUERY_UPDATE,
+          type: SEARCH_QUERY_UPDATE,
           payload: { namespace, query },
         },
       ];
@@ -189,7 +200,7 @@ describe('search - action creators', () => {
 
       const expectedActions = [
         {
-          type: types.NEW_SEARCH_REQUEST,
+          type: NEW_SEARCH_REQUEST,
           payload: { namespace },
         },
       ];

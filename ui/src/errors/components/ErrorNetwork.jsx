@@ -10,12 +10,13 @@ class ErrorNetwork extends Component {
       <ErrorPage
         message="Connection error!"
         imageSrc={error500Image}
-        detail={
+        detail={(
           <span>
-            Please check your internet connection and{' '}
+            Please check your internet connection and
+            {' '}
             <GoBackLinkContainer>try again</GoBackLinkContainer>
           </span>
-        }
+)}
       />
     );
   }

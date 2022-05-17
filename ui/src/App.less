@@ -3,19 +3,19 @@
 
   // The following should be moved in different place
   .ant-card {
-    color: $text-color;
+    color: @text-color;
   }
 
   .ant-list {
-    color: $text-color;
+    color: @text-color;
 
     .ant-list-item-meta-description {
-      color: $text-color;
+      color: @text-color;
     }
   }
 
   .ant-checkbox-wrapper {
-    color: $text-color;
+    color: @text-color;
   }
 
   .content {
@@ -23,7 +23,7 @@
 
     // :fist-child to avoid setting padding for `UserFeedback`
     & > *:first-child:not(.__Jobs__) {
-      @media (min-width: $screen-xs-max) {
+      @media (min-width: @screen-xs-max) {
         padding: 0 2.85rem;
       }
     }
@@ -31,8 +31,8 @@
     & > *:first-child:not(.__Home__) {
       margin-bottom: 1rem;
 
-      @media (max-width: $screen-lg-max) {
-        padding: $header-padding;
+      @media (max-width: @screen-lg-max) {
+        padding: @header-padding;
       }
     }
 
@@ -42,19 +42,19 @@
   }
 
   .ant-list-item-meta-title > a {
-    color: $link-color;
+    color: @link-color;
 
     :hover {
-      color: $link-hover-color;
+      color: @link-hover-color;
     }
   }
 
   .secondary-color {
-    color: $secondary-color;
+    color: @secondary-color;
   }
 
   .secondary-link {
-    color: $secondary-color;
+    color: @secondary-color;
     text-decoration: underline;
     font-style: italic;
   }
@@ -63,17 +63,19 @@
     font-style: italic;
 
     a {
-      @extend .secondary-link;
+      color: @secondary-color;
+      text-decoration: underline;
+      font-style: italic;
     }
   }
 
   .result-item-title {
     font-weight: 500;
-    color: $heading-color;
+    color: @heading-color;
     font-size: 1.1rem;
 
     &:hover {
-      color: $link-hover-color;
+      color: @link-hover-color;
     }
   }
 
@@ -82,37 +84,37 @@
   }
 
   .sm-f3 {
-    @media (max-width: $screen-sm-max) {
+    @media (max-width: @screen-sm-max) {
       font-size: 1.5rem;
     }
   }
 
   .sm-f4 {
-    @media (max-width: $screen-sm-max) {
+    @media (max-width: @screen-sm-max) {
       font-size: 1.25rem;
     }
   }
 
   .sm-f5 {
-    @media (max-width: $screen-sm-max) {
+    @media (max-width: @screen-sm-max) {
       font-size: 1rem;
     }
   }
 
   .sm-pb3 {
-    @media (max-width: $screen-sm-max) {
+    @media (max-width: @screen-sm-max) {
       padding-bottom: 1rem;
     }
   }
 
   .md-pb3 {
-    @media (max-width: $screen-md-max) {
+    @media (max-width: @screen-md-max) {
       padding-bottom: 1rem;
     }
   }
 
   .sm-mh2 {
-    @media (max-width: $screen-sm-max) {
+    @media (max-width: @screen-sm-max) {
       margin-left: 0.5rem;
       margin-right: 0.5rem;
     }
@@ -123,20 +125,20 @@
   }
 
   .sm-plus-flex-nowrap {
-    @media (min-width: $screen-sm-max) {
+    @media (min-width: @screen-sm-max) {
       flex-wrap: nowrap;
     }
   }
 
   .xs-sm-col-24 {
-    @media (max-width: $screen-sm-max) {
+    @media (max-width: @screen-sm-max) {
       width: 100%;
     }
   }
 }
 
 .sm-tc {
-  @media (max-width: $screen-sm-max) {
+  @media (max-width: @screen-sm-max) {
     text-align: center;
   }
 }
@@ -146,8 +148,8 @@
 }
 
 .ant-drawer-body {
-  @media (max-width: $screen-xs-max) {
-    padding: $drawer-body-padding / 2 !important;
+  @media (max-width: @screen-xs-max) {
+    padding: @drawer-body-padding / 2 !important;
   }
 }
 
@@ -162,7 +164,7 @@
 }
 
 .header-dropdown {
-  z-index: $zindex-header + 1 !important;
+  z-index: @zindex-header + 1 !important;
 }
 
 body {
@@ -170,16 +172,16 @@ body {
 }
 
 .ant-modal-wrap {
-  padding: $layout-header-height 0;
-  z-index: $zindex-modal !important;
+  padding: @layout-header-height 0;
+  z-index: @zindex-modal !important;
 }
 
 .ant-popover {
-  z-index: $zindex-modal !important;
+  z-index: @zindex-modal !important;
 }
 
 .ant-drawer {
-  z-index: $zindex-drawer !important;
+  z-index: @zindex-drawer !important;
 }
 
 .ant-form-item-label {
@@ -193,25 +195,25 @@ body {
 }
 
 .search-drawer {
-  z-index: $zindex-header + 1 !important;
+  z-index: @zindex-header + 1 !important;
 
   .ant-drawer-content-wrapper {
     width: 25% !important;
 
-    @media (max-width: $screen-sm-max) {
+    @media (max-width: @screen-sm-max) {
       width: 80% !important;
       padding-top: 0px;
     }
 
     .ant-drawer-content {
-      background-color: $layout-body-background;
+      background-color: @layout-body-background;
     }
   }
 }
 
 // forces topRight notifications over the header and drawers
 .ant-notification-topRight {
-  z-index: $zindex-header + 5 !important;
+  z-index: @zindex-header + 5 !important;
 }
 
 // page header with smaller inline subtitle (like in JournalItem)

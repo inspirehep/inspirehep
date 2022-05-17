@@ -6,7 +6,7 @@ import { Map, List } from 'immutable';
 import classNames from 'classnames';
 import { FilePdfOutlined, DatabaseOutlined } from '@ant-design/icons';
 
-import './DetailPage.scss';
+import './DetailPage.less';
 import {
   fetchLiterature,
   fetchLiteratureAuthors,
@@ -14,9 +14,9 @@ import {
 } from '../../../actions/literature';
 import Abstract from '../../components/Abstract';
 import ArxivEprintList from '../../components/ArxivEprintList';
-import EditRecordAction from '../../../common/components/EditRecordAction.tsx';
+import EditRecordAction from '../../../common/components/EditRecordAction';
 import DOIList from '../../components/DOIList';
-import { PDGKeywords } from '../../components/PDGKeywords.tsx';
+import { PDGKeywords } from '../../components/PDGKeywords';
 import KeywordList from '../../../common/components/KeywordList';
 import AuthorsAndCollaborations from '../../../common/components/AuthorsAndCollaborations';
 import ExternalSystemIdentifierList from '../../components/ExternalSystemIdentifierList';
@@ -54,7 +54,7 @@ import ImprintInfo from '../../components/ImprintInfo';
 import HiddenCollectionAlert from '../../components/LiteratureCollectionBanner';
 import ClaimingDisabledButton from '../../../authors/components/ClaimingDisabledButton';
 import AssignNoProfileAction from '../../../authors/components/AssignNoProfileAction';
-import AssignLiteratureItemContainer from '../AssignLiteratureItemContainer.tsx';
+import AssignLiteratureItemContainer from '../AssignLiteratureItemContainer';
 import AssignLiteratureItemDrawerContainer from '../AssignLiteratureItemDrawerContainer';
 import NoAuthorsClaimingButton from '../../components/NoAuthorsClaimingButton';
 
@@ -139,15 +139,15 @@ function DetailPage({
             <Col xs={24} lg={16}>
               <ContentBox
                 className="md-pb3"
-                leftActions={
+                leftActions={(
                   <>
                     {fullTextLinks && (
-                      <UrlsAction
-                        urls={fullTextLinks}
-                        text="pdf"
-                        icon={<FilePdfOutlined />}
-                        trackerEventId="PdfDownload"
-                      />
+                    <UrlsAction
+                      urls={fullTextLinks}
+                      text="pdf"
+                      icon={<FilePdfOutlined />}
+                      trackerEventId="PdfDownload"
+                    />
                     )}
                     {urls && (
                       <UrlsAction
@@ -159,31 +159,29 @@ function DetailPage({
                     <CiteModalActionContainer recordId={controlNumber} />
                     {displayClaimingButton()}
                     {canEdit && (
-                      <EditRecordAction
-                        pidType="literature"
-                        pidValue={controlNumber}
-                      />
+                    <EditRecordAction
+                      pidType="literature"
+                      pidValue={controlNumber}
+                    />
                     )}
                     {datasetLinks && (
-                      <UrlsAction
-                        urls={datasetLinks}
-                        icon={<DatabaseOutlined />}
-                        text="datasets"
-                      />
+                    <UrlsAction
+                      urls={datasetLinks}
+                      icon={<DatabaseOutlined />}
+                      text="datasets"
+                    />
                     )}
                   </>
-                }
+)}
                 rightActions={
-                  <>
-                    {citationCount != null && (
-                      <IncomingLiteratureReferencesLinkAction
-                        linkQuery={getPapersQueryString(controlNumber)}
-                        referenceType="citation"
-                        itemCount={citationCount}
-                        trackerEventId="Citations:Detail"
-                      />
-                    )}
-                  </>
+                  citationCount != null && (
+                    <IncomingLiteratureReferencesLinkAction
+                      linkQuery={getPapersQueryString(controlNumber)}
+                      referenceType="citation"
+                      itemCount={citationCount}
+                      trackerEventId="Citations:Detail"
+                    />
+                  )
                 }
               >
                 <Row>
@@ -271,23 +269,23 @@ function DetailPage({
                 className="remove-top-border-of-card-children"
               >
                 <Tabs.TabPane
-                  tab={
+                  tab={(
                     <TabNameWithCount
                       name="References"
                       count={referencesCount}
                     />
-                  }
+)}
                   key="1"
                 >
                   <ReferenceListContainer recordId={controlNumber} />
                 </Tabs.TabPane>
                 <Tabs.TabPane
-                  tab={
+                  tab={(
                     <TabNameWithCount
                       name="Figures"
                       count={figures ? figures.size : 0}
                     />
-                  }
+)}
                   key="2"
                 >
                   <ContentBox>

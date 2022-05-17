@@ -8,11 +8,10 @@ exports[`SignUpPage renders page 1`] = `
   <Row
     align="middle"
     className="h-100"
-    gutter={0}
     justify="center"
     type="flex"
   >
-    <Card>
+    <ForwardRef>
       <p>
         Please let us know your e-mail address to complete your account registration.
       </p>
@@ -20,7 +19,7 @@ exports[`SignUpPage renders page 1`] = `
         loading={false}
         onSubmit={[MockFunction]}
       />
-    </Card>
+    </ForwardRef>
   </Row>
 </Fragment>
 `;
@@ -33,11 +32,10 @@ exports[`SignUpPage renders page with errors 1`] = `
   <Row
     align="middle"
     className="h-100"
-    gutter={0}
     justify="center"
     type="flex"
   >
-    <Card>
+    <ForwardRef>
       <p>
         Please let us know your e-mail address to complete your account registration.
       </p>
@@ -45,7 +43,7 @@ exports[`SignUpPage renders page with errors 1`] = `
         loading={false}
         onSubmit={[MockFunction]}
       />
-    </Card>
+    </ForwardRef>
   </Row>
 </Fragment>
 `;
@@ -58,11 +56,10 @@ exports[`SignUpPage renders page with loading 1`] = `
   <Row
     align="middle"
     className="h-100"
-    gutter={0}
     justify="center"
     type="flex"
   >
-    <Card>
+    <ForwardRef>
       <p>
         Please let us know your e-mail address to complete your account registration.
       </p>
@@ -70,7 +67,7 @@ exports[`SignUpPage renders page with loading 1`] = `
         loading={true}
         onSubmit={[MockFunction]}
       />
-    </Card>
+    </ForwardRef>
   </Row>
 </Fragment>
 `;

@@ -12,11 +12,13 @@ class ErrorAlert extends Component {
         type="warning"
         showIcon
         message={message}
-        description={
+        description={(
           <span>
-            Please try again later or <GoBackLinkContainer />
+            Please try again later or 
+            {' '}
+            <GoBackLinkContainer />
           </span>
-        }
+)}
       />
     );
   }

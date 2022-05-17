@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
@@ -14,15 +14,13 @@ class AuthorsAndCollaborations extends Component {
   renderAuthorList(wrapperClassName, limit) {
     const { authors, authorCount, enableAuthorsShowAll } = this.props;
     return (
-      <Fragment>
-        <AuthorList
-          wrapperClassName={wrapperClassName}
-          limit={limit}
-          total={authorCount}
-          authors={authors}
-          enableShowAll={enableAuthorsShowAll}
-        />
-      </Fragment>
+      <AuthorList
+        wrapperClassName={wrapperClassName}
+        limit={limit}
+        total={authorCount}
+        authors={authors}
+        enableShowAll={enableAuthorsShowAll}
+      />
     );
   }
 
@@ -47,23 +45,23 @@ class AuthorsAndCollaborations extends Component {
 
     if (authors.size === 1) {
       return (
-        <Fragment>
+        <>
           {this.renderCollaborationList()}
           {this.renderBulletIfAuthorsNotEmpty()}
           {this.renderAuthorList('di')}
           <span> for the collaboration</span>
           {collaborationsSize > 1 && <span>s</span>}
           <span>.</span>
-        </Fragment>
+        </>
       );
     }
 
     return (
-      <Fragment>
+      <>
         {this.renderCollaborationList()}
         {this.renderBulletIfAuthorsNotEmpty()}
         {this.renderAuthorList('di', 1)}
-      </Fragment>
+      </>
     );
   }
 }

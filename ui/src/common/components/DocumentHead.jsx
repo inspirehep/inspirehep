@@ -7,7 +7,11 @@ class DocumentHead extends Component {
     const { title, description, children } = this.props;
     return (
       <Helmet>
-        <title>{title} - INSPIRE</title>
+        <title>
+          {title}
+          {' '}
+          - INSPIRE
+        </title>
         {description && <meta name="description" content={description} />}
         {children}
       </Helmet>

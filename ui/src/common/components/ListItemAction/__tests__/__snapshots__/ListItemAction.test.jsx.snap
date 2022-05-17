@@ -4,12 +4,7 @@ exports[`ListItemAction renders 1`] = `
 <span
   className="__ListItemAction__"
 >
-  <Button
-    block={false}
-    ghost={false}
-    htmlType="button"
-    loading={false}
-  >
+  <Button>
     <IconText
       icon={<ForwardRef(ExpandOutlined) />}
       text="cite"

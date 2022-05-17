@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Row, Col, Menu, Button } from 'antd';
 import PropTypes from 'prop-types';
 
-import './CollectionsMenu.scss';
+import './CollectionsMenu.less';
 import {
   LITERATURE,
   AUTHORS,
@@ -75,14 +75,18 @@ function CollectionsMenu({ currentPathname }) {
         <DropdownMenu
           overlayClassName="more-collections-menu"
           className="dropdown mh4 m-mh2"
-          title={
+          title={(
             <Button
               className="button-no-background ml4"
               onClick={e => e.preventDefault()}
             >
-              <span className="button-title f5 white"> {dropdownTitle} </span>
+              <span className="button-title f5 white"> 
+                {' '}
+                {dropdownTitle}
+                {' '}
+              </span>
             </Button>
-          }
+)}
         >
           <Menu.Item className="dropdown-menu-item" key="more.institutions">
             <Link className="dropdown-link" to={INSTITUTIONS}>

@@ -7,7 +7,8 @@ exports[`SeminarCountWarning renders 1`] = `
       <strong>
         Disclaimer: 
       </strong>
-       Please note that the list of seminars is managed by users and INSPIRE makes no claims as to its completeness and accuracy.
+       
+      Please note that the list of seminars is managed by users and INSPIRE makes no claims as to its completeness and accuracy.
     </span>
   }
   showIcon={true}

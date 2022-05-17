@@ -4,7 +4,6 @@ exports[`Loading render loading component 1`] = `
 <Row
   align="middle"
   className="w-100"
-  gutter={0}
   justify="center"
   type="flex"
 >
@@ -14,10 +13,7 @@ exports[`Loading render loading component 1`] = `
       data-test-id="loading"
     >
       <Spin
-        size="default"
-        spinning={true}
         tip="Loading ..."
-        wrapperClassName=""
       />
     </div>
   </Col>

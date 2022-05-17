@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ExceptionsTable renders all exceptions on clear error search 1`] = `
-<Table
+<ForwardRef(InternalTable)
   bordered={true}
   className="__ExceptionsTable__"
   columns={
@@ -82,7 +82,7 @@ exports[`ExceptionsTable renders all exceptions on clear error search 1`] = `
 `;
 
 exports[`ExceptionsTable renders all exceptions on clear recid search 1`] = `
-<Table
+<ForwardRef(InternalTable)
   bordered={true}
   className="__ExceptionsTable__"
   columns={
@@ -163,7 +163,7 @@ exports[`ExceptionsTable renders all exceptions on clear recid search 1`] = `
 `;
 
 exports[`ExceptionsTable renders filtered results on error search 1`] = `
-<Table
+<ForwardRef(InternalTable)
   bordered={true}
   className="__ExceptionsTable__"
   columns={
@@ -239,7 +239,7 @@ exports[`ExceptionsTable renders filtered results on error search 1`] = `
 `;
 
 exports[`ExceptionsTable renders no results on error search if nothing matches 1`] = `
-<Table
+<ForwardRef(InternalTable)
   bordered={true}
   className="__ExceptionsTable__"
   columns={
@@ -302,7 +302,7 @@ exports[`ExceptionsTable renders no results on error search if nothing matches 1
 `;
 
 exports[`ExceptionsTable renders no results on recid search if there is no exact match 1`] = `
-<Table
+<ForwardRef(InternalTable)
   bordered={true}
   className="__ExceptionsTable__"
   columns={
@@ -365,7 +365,7 @@ exports[`ExceptionsTable renders no results on recid search if there is no exact
 `;
 
 exports[`ExceptionsTable renders single exception on recid search if there is exact match 1`] = `
-<Table
+<ForwardRef(InternalTable)
   bordered={true}
   className="__ExceptionsTable__"
   columns={
@@ -436,7 +436,7 @@ exports[`ExceptionsTable renders single exception on recid search if there is ex
 `;
 
 exports[`ExceptionsTable renders when loading is true 1`] = `
-<Table
+<ForwardRef(InternalTable)
   bordered={true}
   className="__ExceptionsTable__"
   columns={
@@ -490,7 +490,7 @@ exports[`ExceptionsTable renders when loading is true 1`] = `
 `;
 
 exports[`ExceptionsTable renders with exceptions 1`] = `
-<Table
+<ForwardRef(InternalTable)
   bordered={true}
   className="__ExceptionsTable__"
   columns={

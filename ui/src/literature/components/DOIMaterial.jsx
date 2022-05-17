@@ -4,7 +4,14 @@ import PropTypes from 'prop-types';
 class DOIMaterial extends Component {
   render() {
     const { material } = this.props;
-    return material && <span> ({material})</span>;
+    return material && (
+    <span>
+      {' '}
+(
+      {material}
+)
+    </span>
+);
   }
 }
 

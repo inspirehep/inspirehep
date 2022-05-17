@@ -9,7 +9,9 @@ class NumberOfPages extends Component {
     return (
       numberOfPages && (
         <div>
-          {numberOfPages} {pluralizeUnlessSingle('page', numberOfPages)}
+          {numberOfPages} 
+          {' '}
+          {pluralizeUnlessSingle('page', numberOfPages)}
         </div>
       )
     );

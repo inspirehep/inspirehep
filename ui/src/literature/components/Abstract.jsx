@@ -8,7 +8,14 @@ class Abstract extends Component {
   renderSource() {
     const { abstract } = this.props;
     const source = abstract.get('source');
-    return source && <span> ({source})</span>;
+    return source && (
+    <span>
+      {' '}
+(
+      {source}
+)
+    </span>
+);
   }
 
   render() {
@@ -16,7 +23,10 @@ class Abstract extends Component {
     return (
       abstract && (
         <div>
-          <div>Abstract:{this.renderSource()}</div>
+          <div>
+Abstract:
+            {this.renderSource()}
+          </div>
           <Latex>{abstract.get('value')}</Latex>
         </div>
       )

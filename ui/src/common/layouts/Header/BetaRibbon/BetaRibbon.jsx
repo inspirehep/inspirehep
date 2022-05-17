@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import './BetaRibbon.scss';
+import './BetaRibbon.less';
 
 class BetaRibbon extends Component {
   render() {

@@ -8,7 +8,8 @@ exports[`DOIList renders with dois 1`] = `
     className=""
   >
     DOI
-    : 
+    :
+     
   </span>
   <ul>
     <li

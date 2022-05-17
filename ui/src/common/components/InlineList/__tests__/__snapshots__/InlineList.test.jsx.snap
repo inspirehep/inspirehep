@@ -84,7 +84,8 @@ exports[`InlineList renders with all props set (array) 1`] = `
     className=""
   >
     Test
-    : 
+    :
+     
   </span>
   <ul>
     <li
@@ -116,7 +117,8 @@ exports[`InlineList renders with all props set 1`] = `
     className=""
   >
     Test
-    : 
+    :
+     
   </span>
   <ul>
     <li

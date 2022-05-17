@@ -33,7 +33,7 @@ function AssignOwnProfileAction({
     <ListItemAction>
       <DropdownMenu
         disabled={disabled}
-        title={
+        title={(
           <Tooltip
             title={
               disabled
@@ -45,7 +45,7 @@ function AssignOwnProfileAction({
               <IconText text="claim" icon={<FileDoneOutlined />} />
             </Button>
           </Tooltip>
-        }
+)}
       >
         <Menu.Item
           data-test-id="assign-self"

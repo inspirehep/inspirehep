@@ -3,7 +3,9 @@ import { Alert } from 'antd';
 
 const WARNING_MESSAGE = (
   <span>
-    <strong>Disclaimer: </strong> Please note that the list of seminars is
+    <strong>Disclaimer: </strong>
+    {' '}
+Please note that the list of seminars is
     managed by users and INSPIRE makes no claims as to its completeness and
     accuracy.
   </span>

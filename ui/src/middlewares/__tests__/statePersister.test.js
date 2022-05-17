@@ -6,7 +6,6 @@ import {
   reHydrateRootStateFromStorage,
 } from '../statePersister';
 
-import * as reducersModule from '../../reducers';
 import storage from '../../common/storage';
 
 jest.mock('../../reducers');
@@ -19,7 +18,7 @@ describe('statePersister', () => {
 
   describe('createPersistToStorageMiddleware', () => {
     it('persists state to local storage for given reducer names', async () => {
-      reducersModule.REDUCERS_TO_PERSISTS = [
+      const REDUCERS_TO_PERSISTS = [
         { name: 'a', initialState: fromJS({}) },
         {
           name: 'b',
@@ -32,7 +31,7 @@ describe('statePersister', () => {
         b: fromJS({ subState1: { subState2: { bar: 'B' } } }),
         c: fromJS({ whatever: 'thing' }),
       });
-      const middleware = createPersistToStorageMiddleware();
+      const middleware = createPersistToStorageMiddleware(REDUCERS_TO_PERSISTS);
       const next = jest.fn();
       const dispatch = middleware({ getState })(next);
 
@@ -55,7 +54,7 @@ describe('statePersister', () => {
 
   describe('reHydrateRootStateFromStorage', () => {
     it('returns root state with data from local storage', () => {
-      reducersModule.REDUCERS_TO_PERSISTS = [
+      const REDUCERS_TO_PERSISTS = [
         { name: 'a', initialState: fromJS({}) },
         { name: 'b', initialState: fromJS({}) },
       ];
@@ -71,12 +70,12 @@ describe('statePersister', () => {
         a: fromJS({ foo: 'A' }),
         b: fromJS({ bar: 'B' }),
       };
-      const state = reHydrateRootStateFromStorage();
+      const state = reHydrateRootStateFromStorage(REDUCERS_TO_PERSISTS);
       expect(state).toEqual(expected);
     });
 
     it('returns undefined if there is no state for a reducer', () => {
-      reducersModule.REDUCERS_TO_PERSISTS = [
+      const REDUCERS_TO_PERSISTS = [
         { name: 'a', initialState: fromJS({}) },
         { name: 'b', initialState: fromJS({}) },
       ];
@@ -92,12 +91,12 @@ describe('statePersister', () => {
         a: fromJS({ foo: 'A' }),
         b: undefined,
       };
-      const state = reHydrateRootStateFromStorage();
+      const state = reHydrateRootStateFromStorage(REDUCERS_TO_PERSISTS);
       expect(state).toEqual(expected);
     });
 
     it('merges localStore state on top of initialState while reHydrate', () => {
-      reducersModule.REDUCERS_TO_PERSISTS = [
+      const REDUCERS_TO_PERSISTS = [
         {
           name: 'a',
           initialState: fromJS({
@@ -124,7 +123,7 @@ describe('statePersister', () => {
           deep: { child: 'child2', another: 'value' },
         }),
       };
-      const state = reHydrateRootStateFromStorage();
+      const state = reHydrateRootStateFromStorage(REDUCERS_TO_PERSISTS);
       expect(state).toEqual(expected);
     });
   });

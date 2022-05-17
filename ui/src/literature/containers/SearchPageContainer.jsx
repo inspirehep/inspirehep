@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import LiteratureSearchContainer from './LiteratureSearchContainer';
 import { LITERATURE_NS } from '../../search/constants';
 import DocumentHead from '../../common/components/DocumentHead';
-import ExternalLink from '../../common/components/ExternalLink.tsx';
+import ExternalLink from '../../common/components/ExternalLink';
 import { PAPER_SEARCH_URL } from '../../common/constants';
 import AssignViewContext from '../AssignViewContext';
 import AssignConferencesDrawerContainer from './AssignConferencesDrawerContainer';
@@ -26,15 +26,16 @@ export function SearchPage({ assignView, numberOfSelected }) {
             <LiteratureSearchContainer
               namespace={LITERATURE_NS}
               noResultsTitle="0 Results"
-              noResultsDescription={
+              noResultsDescription={(
                 <em>
-                  Oops! You might want to check out our{' '}
+                  Oops! You might want to check out our
+                  {' '}
                   <ExternalLink href={PAPER_SEARCH_URL}>
                     search tips
                   </ExternalLink>
                   .
                 </em>
-              }
+)}
               numberOfSelected={numberOfSelected}
             />
             {assignView && <AssignConferencesDrawerContainer />}

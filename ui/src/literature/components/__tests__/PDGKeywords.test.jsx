@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
 
-import { PDGKeywords } from '../PDGKeywords.tsx';
+import { PDGKeywords } from '../PDGKeywords';
 
 describe('PDGKeywords', () => {
   it('renders with keywords', () => {

@@ -9,7 +9,7 @@ import { getCurrentAffiliationsFromPositions } from '../utils';
 import ArxivCategoryList from '../../common/components/ArxivCategoryList';
 import ExperimentList from '../../common/components/ExperimentList';
 import AffiliationList from '../../common/components/AffiliationList';
-import EditAuthorRecordAction from './EditAuthorRecordAction.tsx';
+import EditAuthorRecordAction from './EditAuthorRecordAction';
 
 class AuthorResultItem extends Component {
   render() {
@@ -28,13 +28,13 @@ class AuthorResultItem extends Component {
 
     return (
       <ResultItem
-        leftActions={
+        leftActions={(
           <EditAuthorRecordAction
             pidValue={recordId}
             canEdit={canEdit}
             isCatalogerLoggedIn={isCatalogerLoggedIn}
           />
-        }
+)}
       >
         <Link
           className="result-item-title"
@@ -46,7 +46,8 @@ class AuthorResultItem extends Component {
         {currentPositions.size > 0 && (
           <span className="pl1">
             (
-            <AffiliationList affiliations={currentPositions} />)
+            <AffiliationList affiliations={currentPositions} />
+)
           </span>
         )}
         <div className="mt1">

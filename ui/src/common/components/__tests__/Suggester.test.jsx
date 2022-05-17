@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import MockAdapter from 'axios-mock-adapter';
 import { AutoComplete } from 'antd';
 
-import http from '../../http.ts';
+import http from '../../http';
 import Suggester, { REQUEST_DEBOUNCE_MS } from '../Suggester';
 
 const mockHttp = new MockAdapter(http.httpClient);
@@ -156,7 +156,9 @@ describe('Suggester', () => {
         suggesterName="abstract_source"
         renderResultItem={result => (
           <span>
-            {result.text} <em>{result.extra}</em>
+            {result.text} 
+            {' '}
+            <em>{result.extra}</em>
           </span>
         )}
       />

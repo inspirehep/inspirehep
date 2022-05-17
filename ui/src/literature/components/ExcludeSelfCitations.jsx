@@ -7,7 +7,8 @@ import LabelWithHelp from '../../common/components/LabelWithHelp';
 const EXCLUDE_SELF_CITATIONS_HELP = (
   <p>
     Self-citations are citations from the same collaboration or any of the
-    authors of the paper being cited.{' '}
+    authors of the paper being cited.
+    {' '}
     <a href="https://help.inspirehep.net/knowledge-base/citation-metrics/">
       Learn More
     </a>

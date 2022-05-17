@@ -4,8 +4,9 @@ exports[`Error500 renders Error500 1`] = `
 <ErrorPage
   detail={
     <span>
-      Please try again later or 
-      <Connect(GoBackLink) />
+      Please try again later or
+       
+      <Memo(Connect(GoBackLink)) />
     </span>
   }
   imageSrc="500.svg"

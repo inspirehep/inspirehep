@@ -8,7 +8,8 @@ exports[`RelatedRecordsList renders with multiple records 1`] = `
     className=""
   >
     Subsidiary Institutions
-    : 
+    :
+     
   </span>
   <ul>
     <li
@@ -42,7 +43,8 @@ exports[`RelatedRecordsList renders with one record 1`] = `
     className=""
   >
     Subsidiary Experiment
-    : 
+    :
+     
   </span>
   <ul>
     <li

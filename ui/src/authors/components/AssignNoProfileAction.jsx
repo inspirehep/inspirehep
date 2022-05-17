@@ -8,7 +8,8 @@ import ListItemAction from '../../common/components/ListItemAction';
 
 export const CLAIMING_DISABLED_INFO = (
   <p>
-    There is no profile associated to your account. Please contact us at{' '}
+    There is no profile associated to your account. Please contact us at
+    {' '}
     <a href="mailto:authors@inspirehep.net">authors@inspirehep.net</a>
   </p>
 );
@@ -19,13 +20,13 @@ function AssignNoProfileAction() {
     <ListItemAction>
       <DropdownMenu
         disabled
-        title={
+        title={(
           <Tooltip title={CLAIMING_DISABLED_INFO}>
             <Button disabled>
               <IconText text="claim" icon={<FileDoneOutlined />} />
             </Button>
           </Tooltip>
-        }
+)}
       />
     </ListItemAction>
   );

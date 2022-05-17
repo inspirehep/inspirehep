@@ -12,7 +12,8 @@ function SignUpPage({ onSubmit, loading, error }) {
       <Row className="h-100" type="flex" justify="center" align="middle">
         <Card>
           <p>
-          Please let us know your e-mail address to complete your account registration.
+            Please let us know your e-mail address to complete your account
+            registration.
           </p>
           {error && (
             <Row className="mb3">

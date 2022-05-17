@@ -8,7 +8,7 @@ import { VideoCameraAddOutlined, FileOutlined } from '@ant-design/icons';
 import DocumentHead from '../../common/components/DocumentHead';
 import fetchSeminar from '../../actions/seminars';
 import ContentBox from '../../common/components/ContentBox';
-import EditRecordAction from '../../common/components/EditRecordAction.tsx';
+import EditRecordAction from '../../common/components/EditRecordAction';
 import DeletedAlert from '../../common/components/DeletedAlert';
 import withRouteActionsDispatcher from '../../common/withRouteActionsDispatcher';
 import AuthorList from '../../common/components/AuthorList';
@@ -65,29 +65,29 @@ function DetailPage({ record }) {
         <Col className="mv3" xs={24} md={22} lg={21} xxl={18}>
           <ContentBox
             className="sm-pb3"
-            leftActions={
+            leftActions={(
               <>
                 {urls && <UrlsAction urls={urls} />}
                 {joinUrls && (
-                  <UrlsAction
-                    urls={joinUrls}
-                    icon={<VideoCameraAddOutlined />}
-                    text="join"
-                  />
+                <UrlsAction
+                  urls={joinUrls}
+                  icon={<VideoCameraAddOutlined />}
+                  text="join"
+                />
                 )}
                 {materialUrls && (
-                  <UrlsAction
-                    urls={materialUrls}
-                    icon={<FileOutlined />}
-                    text="material"
-                  />
+                <UrlsAction
+                  urls={materialUrls}
+                  icon={<FileOutlined />}
+                  text="material"
+                />
                 )}
                 <ExportToCalendarAction seminar={metadata} />
                 {canEdit && (
-                  <EditRecordAction pidType="seminars" pidValue={recordId} />
+                <EditRecordAction pidType="seminars" pidValue={recordId} />
                 )}
               </>
-            }
+)}
           >
             <Row>
               <Col span={24}>{deleted && <DeletedAlert />}</Col>

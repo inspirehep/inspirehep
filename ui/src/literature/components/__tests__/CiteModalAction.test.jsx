@@ -10,6 +10,12 @@ import { CITE_FORMAT_VALUES } from '../../constants';
 
 jest.mock('../../citeArticle');
 
+function wait() {
+  return new Promise(resolve => {
+    setTimeout(() => resolve(), 4025);
+  });
+}
+
 describe('CiteModalAction', () => {
   beforeAll(() => {
     citeArticle.mockImplementation(
@@ -107,9 +113,12 @@ describe('CiteModalAction', () => {
     );
     const setCiteContentFor = wrapper.find(SelectBox).prop('onChange');
     await setCiteContentFor('application/vnd+inspire.latex.us+x-latex');
-    expect(wrapper.state('citeContent')).toEqual(
-      'Cite 12345 in application/vnd+inspire.latex.us+x-latex'
-    );
+
+    wait().then(() => {
+      expect(wrapper.state('citeContent')).toEqual(
+        'Cite 12345 in application/vnd+inspire.latex.us+x-latex'
+      );
+    });
   });
 
   it('sets modalVisible false onModalCancel', () => {

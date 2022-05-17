@@ -5,12 +5,7 @@ exports[`AssignDifferentProfileAction renders 1`] = `
   <DropdownMenu
     disabled={false}
     title={
-      <Button
-        block={false}
-        ghost={false}
-        htmlType="button"
-        loading={false}
-      >
+      <Button>
         <IconText
           icon={<ForwardRef(FileDoneOutlined) />}
           text="claim"
@@ -34,12 +29,7 @@ exports[`AssignDifferentProfileAction renders disabled 1`] = `
   <DropdownMenu
     disabled={false}
     title={
-      <Button
-        block={false}
-        ghost={false}
-        htmlType="button"
-        loading={false}
-      >
+      <Button>
         <IconText
           icon={<ForwardRef(FileDoneOutlined) />}
           text="claim"

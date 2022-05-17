@@ -22,14 +22,9 @@ exports[`AssignNoProfileAction renders 1`] = `
             </a>
           </p>
         }
-        transitionName="zoom-big-fast"
       >
         <Button
-          block={false}
           disabled={true}
-          ghost={false}
-          htmlType="button"
-          loading={false}
         >
           <IconText
             icon={<ForwardRef(FileDoneOutlined) />}

@@ -65,12 +65,13 @@ exports[`CitationSummaryTable renders table with null numbers 1`] = `
               <LabelWithHelp
                 help={
                   <span>
-                    The h-index is defined as the number of papers with citation number higher or equal to h. 
-                    <ForwardRef
+                    The h-index is defined as the number of papers with citation number higher or equal to h.
+                     
+                    <Link
                       to="/literature/690567"
                     >
                       Learn more
-                    </ForwardRef>
+                    </Link>
                   </span>
                 }
                 label="h-index"
@@ -180,12 +181,13 @@ exports[`CitationSummaryTable renders table with only required props 1`] = `
               <LabelWithHelp
                 help={
                   <span>
-                    The h-index is defined as the number of papers with citation number higher or equal to h. 
-                    <ForwardRef
+                    The h-index is defined as the number of papers with citation number higher or equal to h.
+                     
+                    <Link
                       to="/literature/690567"
                     >
                       Learn more
-                    </ForwardRef>
+                    </Link>
                   </span>
                 }
                 label="h-index"
@@ -297,12 +299,13 @@ exports[`CitationSummaryTable renders table without render props 1`] = `
               <LabelWithHelp
                 help={
                   <span>
-                    The h-index is defined as the number of papers with citation number higher or equal to h. 
-                    <ForwardRef
+                    The h-index is defined as the number of papers with citation number higher or equal to h.
+                     
+                    <Link
                       to="/literature/690567"
                     >
                       Learn more
-                    </ForwardRef>
+                    </Link>
                   </span>
                 }
                 label="h-index"

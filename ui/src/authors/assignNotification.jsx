@@ -4,7 +4,7 @@ import React from 'react';
 import { AUTHORS } from '../common/routes';
 // TODO: rename ExternalLink
 // becuase it's used also for internal links that we want to open in a new tab
-import ExternalLink from '../common/components/ExternalLink.tsx';
+import ExternalLink from '../common/components/ExternalLink';
 import pluralizeUnlessSingle from '../common/utils';
 
 // to render notification over the drawer, if one is open.
@@ -43,11 +43,16 @@ export function assignSuccess({ from, to, papers }) {
     duration: null,
     description: (
       <span>
-        Selected papers ({papers}) will be moved from{' '}
+        Selected papers (
+        {papers}
+) will be moved from
+        {' '}
         <ExternalLink target="_blank" href={`${AUTHORS}/${from}`}>
           {from}
-        </ExternalLink>{' '}
-        to{' '}
+        </ExternalLink>
+        {' '}
+        to
+        {' '}
         <ExternalLink target="_blank" href={`${AUTHORS}/${to}`}>
           {to}
         </ExternalLink>

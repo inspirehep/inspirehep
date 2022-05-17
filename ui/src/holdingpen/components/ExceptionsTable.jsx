@@ -3,9 +3,9 @@ import { SearchOutlined } from '@ant-design/icons';
 import { Table } from 'antd';
 import PropTypes from 'prop-types';
 import FilterDropdown from './FilterDropdown';
-import './ExceptionsTable.scss';
+import './ExceptionsTable.less';
 import { LEGACY_URL } from '../../common/constants';
-import ExternalLink from '../../common/components/ExternalLink.tsx';
+import ExternalLink from '../../common/components/ExternalLink';
 
 class ExceptionsTable extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {

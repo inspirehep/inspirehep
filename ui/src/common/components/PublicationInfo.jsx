@@ -28,8 +28,20 @@ class PublicationInfo extends Component {
         <span>
           <JournalInfo info={info} />
           {pageOrArtidDisplay && journalIssue && <span>,</span>}
-          {pageOrArtidDisplay && <span> {pageOrArtidDisplay}</span>}
-          {material && material !== 'publication' && <span> ({material})</span>}
+          {pageOrArtidDisplay && (
+          <span> 
+            {' '}
+            {pageOrArtidDisplay}
+          </span>
+)}
+          {material && material !== 'publication' && (
+          <span>
+            {' '}
+(
+            {material}
+)
+          </span>
+)}
         </span>
       );
     }

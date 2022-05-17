@@ -9,11 +9,13 @@ class Error500 extends Component {
     return (
       <ErrorPage
         message="Something went wrong"
-        detail={
+        detail={(
           <span>
-            Please try again later or <GoBackLinkContainer />
+            Please try again later or 
+            {' '}
+            <GoBackLinkContainer />
           </span>
-        }
+)}
         imageSrc={error500Image}
       />
     );

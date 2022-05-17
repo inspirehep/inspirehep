@@ -5,12 +5,7 @@ exports[`AuthorEmailsAction renders multiple current emails in a dropdown 1`] = 
   <DropdownMenu
     disabled={false}
     title={
-      <Button
-        block={false}
-        ghost={false}
-        htmlType="button"
-        loading={false}
-      >
+      <Button>
         <Tooltip
           arrowPointAtCenter={false}
           autoAdjustOverflow={true}
@@ -18,7 +13,6 @@ exports[`AuthorEmailsAction renders multiple current emails in a dropdown 1`] = 
           mouseLeaveDelay={0.1}
           placement="top"
           title="Contact author"
-          transitionName="zoom-big-fast"
         >
           <ForwardRef(MailOutlined) />
         </Tooltip>
@@ -62,7 +56,6 @@ exports[`AuthorEmailsAction renders single email 1`] = `
       mouseLeaveDelay={0.1}
       placement="top"
       title="Contact author"
-      transitionName="zoom-big-fast"
     >
       <ForwardRef(MailOutlined) />
     </Tooltip>

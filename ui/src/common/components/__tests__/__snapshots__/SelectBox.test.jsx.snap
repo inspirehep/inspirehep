@@ -1,14 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SelectBox render initial state with all props set 1`] = `
-<Select
-  bordered={true}
-  choiceTransitionName="zoom"
+<ForwardRef(InternalSelect)
   defaultValue="value1"
   dropdownMatchSelectWidth={false}
   onChange={[MockFunction]}
   showArrow={true}
-  transitionName="slide-up"
 >
   <Option
     key="value1"
@@ -26,19 +23,16 @@ exports[`SelectBox render initial state with all props set 1`] = `
       Value 2
     </span>
   </Option>
-</Select>
+</ForwardRef(InternalSelect)>
 `;
 
 exports[`SelectBox render initial state with data-test-id 1`] = `
-<Select
-  bordered={true}
-  choiceTransitionName="zoom"
+<ForwardRef(InternalSelect)
   data-test-id="test-select"
   defaultValue="value1"
   dropdownMatchSelectWidth={false}
   onChange={[MockFunction]}
   showArrow={true}
-  transitionName="slide-up"
 >
   <Option
     key="value1"
@@ -60,5 +54,5 @@ exports[`SelectBox render initial state with data-test-id 1`] = `
       Value 2
     </span>
   </Option>
-</Select>
+</ForwardRef(InternalSelect)>
 `;

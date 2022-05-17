@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
@@ -17,7 +17,7 @@ import PublicationInfoList from '../../common/components/PublicationInfoList';
 import BookSeriesInfoList from './BookSeriesInfoList';
 import UrlsAction from './UrlsAction';
 import DOILinkAction from './DOILinkAction';
-import EditRecordAction from '../../common/components/EditRecordAction.tsx';
+import EditRecordAction from '../../common/components/EditRecordAction';
 import ResultItem from '../../common/components/ResultItem';
 import { LITERATURE } from '../../common/routes';
 import LiteratureTitle from '../../common/components/LiteratureTitle';
@@ -88,65 +88,63 @@ function LiteratureItem({ metadata, searchRank, isCatalogerLoggedIn }) {
 
   return (
     <ResultItem
-      leftActions={
-        <Fragment>
+      leftActions={(
+        <>
           {fullTextLinks && (
-            <UrlsAction
-              urls={fullTextLinks}
-              icon={<FilePdfOutlined />}
-              text="pdf"
-              trackerEventId="PdfDownload"
-            />
+          <UrlsAction
+            urls={fullTextLinks}
+            icon={<FilePdfOutlined />}
+            text="pdf"
+            trackerEventId="PdfDownload"
+          />
           )}
           {urls && (
-            <UrlsAction
-              urls={urls}
-              text="links"
-              trackerEventId="LiteratureFileLink"
-            />
+          <UrlsAction
+            urls={urls}
+            text="links"
+            trackerEventId="LiteratureFileLink"
+          />
           )}
           {dois && <DOILinkAction dois={dois} />}
           <CiteModalActionContainer recordId={recordId} />
           {datasetLinks && (
-            <UrlsAction
-              urls={datasetLinks}
-              icon={<DatabaseOutlined />}
-              text="datasets"
-            />
+          <UrlsAction
+            urls={datasetLinks}
+            icon={<DatabaseOutlined />}
+            text="datasets"
+          />
           )}
           {canEdit && (
-            <EditRecordAction pidType="literature" pidValue={recordId} />
+          <EditRecordAction pidType="literature" pidValue={recordId} />
           )}
           {assignAuthorView && <AssignOneActionContainer recordId={recordId} />}
           {assignOwnProfileView && !assignAuthorView && (
-            <AssignOneOwnProfileContainer
-              recordId={recordId}
-              disabledAssignAction={curatedRelation}
-            />
+          <AssignOneOwnProfileContainer
+            recordId={recordId}
+            disabledAssignAction={curatedRelation}
+          />
           )}
           {assignDifferentProfileView && !assignOwnProfileView && (
-            <AssignOneDifferentProfileContainer
-              recordId={recordId}
-              claimingClaimedPapersDisabled={!curatedRelation}
-              claimingUnclaimedPapersDisabled={curatedRelation}
-              userCanNotClaimProfile={!canClaimDifferentProfile}
-            />
+          <AssignOneDifferentProfileContainer
+            recordId={recordId}
+            claimingClaimedPapersDisabled={!curatedRelation}
+            claimingUnclaimedPapersDisabled={curatedRelation}
+            userCanNotClaimProfile={!canClaimDifferentProfile}
+          />
           )}
           {assignNoProfileViewCondition && <AssignNoProfileAction />}
           {assignNotLoggedInViewCondition && <ClaimingDisabledButton />}
-        </Fragment>
-      }
+        </>
+)}
       rightActions={
-        <Fragment>
-          {citationCount != null && (
-            <IncomingLiteratureReferencesLinkAction
-              linkQuery={getPapersQueryString(recordId)}
-              referenceType="citation"
-              itemCount={citationCount}
-              trackerEventId="Citations:Search"
-            />
-          )}
-        </Fragment>
+        citationCount != null && (
+          <IncomingLiteratureReferencesLinkAction
+            linkQuery={getPapersQueryString(recordId)}
+            referenceType="citation"
+            itemCount={citationCount}
+            trackerEventId="Citations:Search"
+          />
+        )
       }
     >
       <div data-test-id="literature-result-item">
@@ -172,7 +170,8 @@ function LiteratureItem({ metadata, searchRank, isCatalogerLoggedIn }) {
                 data-test-id="literature-result-rank"
                 className="light-silver pl2"
               >
-                #{searchRank}
+                #
+                {searchRank}
               </div>
             )}
           />
@@ -187,7 +186,8 @@ function LiteratureItem({ metadata, searchRank, isCatalogerLoggedIn }) {
           {date && (
             <>
               {' ('}
-              <LiteratureDate date={date} />)
+              <LiteratureDate date={date} />
+              )
             </>
           )}
         </div>

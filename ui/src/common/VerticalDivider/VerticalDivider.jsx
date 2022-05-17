@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Divider } from 'antd';
 
-import './VerticalDivider.scss';
+import './VerticalDivider.less';
 
 class VerticalDivider extends Component {
   render() {

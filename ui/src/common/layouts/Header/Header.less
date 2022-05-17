@@ -1,25 +1,25 @@
 .__Header__ {
   .search-box {
-    @media (max-width: $screen-sm-max) {
+    @media (max-width: @screen-sm-max) {
       padding-bottom: 0.5rem;
     }
   }
 
   .sticky {
-    z-index: $zindex-header;
+    z-index: @zindex-header;
     position: fixed;
     width: 100%;
 
     // Non sticky/fixed header for mobile
-    @media (max-width: $screen-xs-max) {
+    @media (max-width: @screen-xs-max) {
       position: initial;
       z-index: initial;
     }
 
     .header {
-      padding: $header-padding;
+      padding: @header-padding;
 
-      @media (max-width: $screen-xs-max) {
+      @media (max-width: @screen-xs-max) {
         line-height: 56px;
         height: auto; // unset height for mobile
       }
@@ -31,11 +31,11 @@
   }
 
   .non-sticky {
-    background-color: $layout-header-background;
+    background-color: @layout-header-background;
 
     // remove the margin top for mobile
     // because .sticky is not stick anymore
-    @media (max-width: $screen-xs-max) {
+    @media (max-width: @screen-xs-max) {
       margin-top: -1px !important;
       padding-top: 1px;
     }

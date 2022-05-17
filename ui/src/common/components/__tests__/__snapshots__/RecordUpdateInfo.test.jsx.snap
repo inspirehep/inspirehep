@@ -4,7 +4,7 @@ exports[`RecordUpdateInfo renders RecordUpdateInfo with correct update time 1`] 
 <span
   className="light-silver"
 >
-  Updated on 
+  Updated on
   Oct 5, 2020
 </span>
 `;

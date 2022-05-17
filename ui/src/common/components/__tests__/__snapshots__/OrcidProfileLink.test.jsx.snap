@@ -6,7 +6,8 @@ exports[`OrcidProfileLink renders with all props set 1`] = `
   className="test"
   href="//orcid.org/0000-0001-8058-0014"
 >
-  Orcid: 
+  Orcid:
+   
   <strong>
     0000-0001-8058-0014
   </strong>

@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { Row, Card, Button } from 'antd';
 
 import orcidLogo from '../../../common/orcid.svg';
-import './LoginPage.scss';
-import ExternalLink from '../../../common/components/ExternalLink.tsx';
+import './LoginPage.less';
+import ExternalLink from '../../../common/components/ExternalLink';
 import DocumentHead from '../../../common/components/DocumentHead';
 import { WHAT_IS_ORCID_URL } from '../../../common/constants';
 
@@ -29,7 +29,8 @@ class LoginPage extends Component {
             <p className="f4">Please sign in to INSPIRE</p>
             <p className="pb2">
               To suggest content to INSPIRE, an ORCID is required. Registration
-              is free, quick, and open to all! Sign up at{' '}
+              is free, quick, and open to all! Sign up at
+              {' '}
               <ExternalLink href="https://orcid.org/register!">
                 https://orcid.org/register
               </ExternalLink>

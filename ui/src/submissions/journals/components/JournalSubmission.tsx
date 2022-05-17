@@ -5,13 +5,14 @@ import { Formik, FormikValues } from 'formik';
 import { JournalForm } from './JournalForm';
 import useSubmitCallback from '../../common/hooks/useSubmitCallback';
 import { journalSchema, DEFAULT_FORM_DATA } from '../schemas/journal';
-import { JournalFormData,  } from '../containers/JournalSubmissionPageContainer';
+import { JournalFormData, } from '../containers/JournalSubmissionPageContainer';
 
 export const JournalSubmission = ({
   error,
   onSubmit,
-}: { error: string } & {
-  onSubmit(formData: JournalFormData): Promise<void>;
+}: {
+  error: string,
+  onSubmit(formData: JournalFormData): Promise<void>,
 }) => {
   const onFormikSubmit = useSubmitCallback(onSubmit);
   const modifyFormData = (data: FormikValues) => ({

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 
 import { JOBS } from '../common/routes';
-import './index.scss';
+import './index.less';
 import SearchPageContainer from './containers/SearchPageContainer';
 import DetailPageContainer from './containers/DetailPageContainer';
 

@@ -11,7 +11,12 @@ class JobTitle extends Component {
         {position}
         {externalJobId && (
           <AuthorizedContainer authorizedRoles={SUPERUSER_OR_CATALOGER}>
-            <span> ({externalJobId})</span>
+            <span>
+              {' '}
+(
+              {externalJobId}
+)
+            </span>
           </AuthorizedContainer>
         )}
       </>

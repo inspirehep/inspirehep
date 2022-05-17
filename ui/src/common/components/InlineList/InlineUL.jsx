@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import './InlineList.scss';
+import './InlineList.less';
 import { SEPARATOR_TYPES, DEFAULT_SEPARATOR_TYPE } from './constants';
 
 class InlineUL extends Component {

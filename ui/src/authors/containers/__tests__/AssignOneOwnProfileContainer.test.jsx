@@ -18,9 +18,10 @@ import {
 import AssignOwnProfileAction from '../../components/AssignOwnProfileAction';
 
 jest.mock('react-router-dom', () => ({
-  useParams: jest.fn().mockImplementation(() => ({
+  ...jest.requireActual('react-router-dom'),
+  useParams: () => ({
     id: 123,
-  })),
+  }),
 }));
 
 jest.mock('../../../actions/authors');

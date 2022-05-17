@@ -18,7 +18,7 @@ function AssignDifferentProfileAction({ disabled, currentUserId, onAssign }) {
     <ListItemAction>
       <DropdownMenu
         disabled={disabled}
-        title={
+        title={(
           <Tooltip
             title={
               disabled
@@ -30,7 +30,7 @@ function AssignDifferentProfileAction({ disabled, currentUserId, onAssign }) {
               <IconText text="claim" icon={<FileDoneOutlined />} />
             </Button>
           </Tooltip>
-        }
+)}
       >
         <Menu.Item
           data-test-id="assign-self"

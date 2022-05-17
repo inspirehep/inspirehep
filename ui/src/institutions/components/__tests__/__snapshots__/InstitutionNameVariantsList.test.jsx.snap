@@ -8,7 +8,8 @@ exports[`InstitutionNameVariantsList renders 1`] = `
     className=""
   >
     Name Variants
-    : 
+    :
+     
   </span>
   <ul>
     <li

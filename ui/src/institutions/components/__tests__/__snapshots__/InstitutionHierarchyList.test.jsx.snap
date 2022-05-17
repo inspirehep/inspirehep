@@ -11,7 +11,8 @@ exports[`InstitutionHierarchyList renders 1`] = `
       <span>
         Name1
         <span>
-           (
+           
+          (
           NA
           )
         </span>

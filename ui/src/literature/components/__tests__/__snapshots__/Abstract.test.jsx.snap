@@ -18,7 +18,8 @@ exports[`Abstract renders with abstract 1`] = `
   <div>
     Abstract:
     <span>
-       (
+       
+      (
       arXiv
       )
     </span>

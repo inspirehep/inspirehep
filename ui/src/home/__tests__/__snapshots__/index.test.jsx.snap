@@ -9,7 +9,6 @@ exports[`Home renders home page 1`] = `
   <Row
     align="middle"
     className="__Home__"
-    gutter={0}
     justify="center"
     type="flex"
   >

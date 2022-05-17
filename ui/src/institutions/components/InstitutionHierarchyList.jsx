@@ -11,7 +11,14 @@ function renderHierarchy(hierarchy) {
   return (
     <span>
       {name}
-      {acronym && <span> ({acronym})</span>}
+      {acronym && (
+      <span>
+        {' '}
+(
+        {acronym}
+)
+      </span>
+)}
     </span>
   );
 }

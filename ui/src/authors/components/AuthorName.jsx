@@ -12,7 +12,14 @@ class AuthorName extends Component {
     return (
       <span>
         {displayName}
-        {nativeName && <span> ({nativeName})</span>}
+        {nativeName && (
+        <span>
+          {' '}
+(
+          {nativeName}
+)
+        </span>
+)}
       </span>
     );
   }

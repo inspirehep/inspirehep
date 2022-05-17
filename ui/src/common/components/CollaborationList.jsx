@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
@@ -14,7 +14,7 @@ class CollaborationList extends Component {
     const { collaborations, collaborationsWithSuffix } = this.props;
 
     return (
-      <Fragment>
+      <>
         <InlineList
           wrapperClassName="di"
           separator={SEPARATOR_AND}
@@ -38,7 +38,7 @@ class CollaborationList extends Component {
           extractKey={collaboration => collaboration.get('value')}
           renderItem={CollaborationList.renderCollaboration}
         />
-      </Fragment>
+      </>
     );
   }
 }

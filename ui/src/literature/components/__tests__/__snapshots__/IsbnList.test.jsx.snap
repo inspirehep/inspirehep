@@ -8,7 +8,8 @@ exports[`IsbnList renders isbns with medium and without medium 1`] = `
     className=""
   >
     ISBN
-    : 
+    :
+     
   </span>
   <ul>
     <li
@@ -19,7 +20,8 @@ exports[`IsbnList renders isbns with medium and without medium 1`] = `
           9781139632478
         </span>
         <span>
-           (
+           
+          (
           print
           )
         </span>

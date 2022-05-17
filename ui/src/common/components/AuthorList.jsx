@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 import { Modal } from 'antd';
@@ -33,7 +33,9 @@ class AuthorList extends Component {
       return (
         <div className="di pl1">
           <SecondaryButton onClick={this.onModalOpen}>
-            Show All({authors.size})
+            Show All(
+            {authors.size}
+            )
           </SecondaryButton>
         </div>
       );
@@ -63,7 +65,7 @@ class AuthorList extends Component {
     const { authors, limit, total } = this.props;
     const showTotal = total === -1 ? authors.size : total;
     return (
-      <Fragment>
+      <>
         {this.renderAuthorList(authors.take(limit))}
         <Modal
           title={`${showTotal} authors`}
@@ -74,7 +76,7 @@ class AuthorList extends Component {
         >
           {this.renderAuthorList(authors, false)}
         </Modal>
-      </Fragment>
+      </>
     );
   }
 }

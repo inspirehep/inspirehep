@@ -6,7 +6,8 @@ import { getLiteratureSearchUrlForAuthorBAI } from '../../common/utils';
 function AuthorBAI({ bai }) {
   return (
     <span>
-      Author Identifier:{' '}
+      Author Identifier:
+      {' '}
       <Link to={getLiteratureSearchUrlForAuthorBAI(bai)}>{bai}</Link>
     </span>
   );

@@ -10,10 +10,10 @@ import useSubmitCallback from '../../common/hooks/useSubmitCallback';
 
 const DEFAULT_FORM_DATA = experimentSchema.cast();
 
-const ExperimentSubmission = ({
+function ExperimentSubmission({
   onSubmit,
   error = null,
-}) => {
+}) {
   const onFormikSubmit = useSubmitCallback(onSubmit);
   return (
     <div>

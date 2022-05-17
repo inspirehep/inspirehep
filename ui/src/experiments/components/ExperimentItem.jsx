@@ -25,24 +25,22 @@ function ExperimentItem({ metadata }) {
   return (
     <ResultItem
       leftActions={
-        <>
-          {urls && (
-            <UrlsAction
-              urls={urls}
-              text="links"
-              trackerEventId="Experiments:Url"
-            />
-          )}
-        </>
+        urls && (
+          <UrlsAction
+            urls={urls}
+            text="links"
+            trackerEventId="Experiments:Url"
+          />
+        )
       }
-      rightActions={
+      rightActions={(
         <IncomingLiteratureReferencesLinkAction
           itemCount={papersCount}
           referenceType="paper"
           linkQuery={getPapersQueryString(recordId)}
           trackerEventId="Experiments:PapersLink"
         />
-      }
+)}
     >
       <Row>
         <Col>

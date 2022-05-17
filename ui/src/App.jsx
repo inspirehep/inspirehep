@@ -6,7 +6,7 @@ import Loadable from 'react-loadable';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
-import './App.scss';
+import './App.less';
 import Header from './common/layouts/Header';
 import Footer from './common/layouts/Footer';
 import Loading from './common/components/Loading';

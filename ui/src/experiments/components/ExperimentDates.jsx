@@ -30,14 +30,35 @@ function ExperimentDates({
 }) {
   return (
     <InlineUL wrapperClassName={wrapperClassName}>
-      {dateProposed && <span>Proposed: {getFormattedDate(dateProposed)}</span>}
-      {dateApproved && <span>Approved: {getFormattedDate(dateApproved)}</span>}
-      {dateStarted && <span>Started: {getFormattedDate(dateStarted)}</span>}
+      {dateProposed && (
+      <span>
+Proposed:
+        {getFormattedDate(dateProposed)}
+      </span>
+)}
+      {dateApproved && (
+      <span>
+Approved:
+        {getFormattedDate(dateApproved)}
+      </span>
+)}
+      {dateStarted && (
+      <span>
+Started:
+        {getFormattedDate(dateStarted)}
+      </span>
+)}
       {dateCancelled && (
-        <span>Cancelled: {getFormattedDate(dateCancelled)}</span>
+        <span>
+Cancelled:
+          {getFormattedDate(dateCancelled)}
+        </span>
       )}
       {dateCompleted && (
-        <span>Completed: {getFormattedDate(dateCompleted)}</span>
+        <span>
+Completed:
+          {getFormattedDate(dateCompleted)}
+        </span>
       )}
       {!dateCancelled && !dateCompleted && <span>Still Running</span>}
     </InlineUL>

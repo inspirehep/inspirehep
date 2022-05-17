@@ -3,7 +3,7 @@ import { Iterable, isImmutable } from 'immutable';
 import { getWrapperComponentDisplayName } from './utils';
 
 export const convertAllImmutablePropsToJS = (WrappedComponent) => {
-  const Wrapper = (wrappedComponentProps) => {
+  function Wrapper(wrappedComponentProps) {
     const propsAsJS = Object.keys(wrappedComponentProps).reduce(
       (newProps, key) => {
         const value = wrappedComponentProps[key];
@@ -14,7 +14,7 @@ export const convertAllImmutablePropsToJS = (WrappedComponent) => {
     );
 
     return <WrappedComponent {...propsAsJS} />;
-  };
+  }
   Wrapper.displayName = getWrapperComponentDisplayName(
     'toAllJS',
     WrappedComponent
@@ -26,7 +26,7 @@ export const convertSomeImmutablePropsToJS = (
   WrappedComponent,
   propsToConvert
 ) => {
-  const Wrapper = (wrappedComponentProps) => {
+  function Wrapper(wrappedComponentProps) {
     const convertedProps = propsToConvert
       .filter((prop) => wrappedComponentProps[prop])
       .reduce((propsAsJS, prop) => {
@@ -39,7 +39,7 @@ export const convertSomeImmutablePropsToJS = (
       }, {});
 
     return <WrappedComponent {...wrappedComponentProps} {...convertedProps} />;
-  };
+  }
 
   Wrapper.displayName = getWrapperComponentDisplayName(
     'toSomeJS',

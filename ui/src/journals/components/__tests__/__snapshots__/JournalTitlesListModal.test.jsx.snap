@@ -4,15 +4,13 @@ exports[`JournalTitlesListModal renders with props 1`] = `
 <Modal
   confirmLoading={false}
   footer={null}
-  maskTransitionName="fade"
   okType="primary"
   onCancel={[MockFunction]}
-  transitionName="zoom"
+  open={false}
   visible={false}
   width={520}
 >
   <List
-    bordered={false}
     dataSource={
       Array [
         "Test1",
@@ -24,7 +22,6 @@ exports[`JournalTitlesListModal renders with props 1`] = `
         Title variants
       </h3>
     }
-    loading={false}
     pagination={
       Object {
         "hideOnSinglePage": true,
@@ -34,7 +31,6 @@ exports[`JournalTitlesListModal renders with props 1`] = `
     }
     renderItem={[Function]}
     size="small"
-    split={true}
   />
 </Modal>
 `;

@@ -4,7 +4,7 @@ import 'rc-footer/assets/index.css';
 import { Row, Col } from 'antd';
 import PropTypes from 'prop-types';
 
-import './Footer.scss';
+import './Footer.less';
 import {
   FEEDBACK_EMAIL,
   INSPIRE_TWITTER_ACCOUNT,
@@ -20,7 +20,7 @@ import {
   INVENIO_URL,
   REPORT_METADATA_URL,
 } from '../../constants';
-import ExternalLink from '../../components/ExternalLink.tsx';
+import ExternalLink from '../../components/ExternalLink';
 import { BIBLIOGRAPHY_GENERATOR } from '../../routes';
 
 const COLUMNS = [
@@ -119,7 +119,11 @@ const BOTTOM = (
       <ExternalLink href={INVENIO_URL}>Powered by Invenio</ExternalLink>
     </Col>
     <Col className="tr sm-tc" xs={24} md={12}>
-      Made with <span className="red">❤</span> by the INSPIRE Team
+      Made with 
+      {' '}
+      <span className="red">❤</span>
+      {' '}
+by the INSPIRE Team
     </Col>
   </Row>
 );

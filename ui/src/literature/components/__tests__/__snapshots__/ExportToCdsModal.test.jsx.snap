@@ -6,10 +6,6 @@ exports[`ExportToCdsModal renders modal for one paper 1`] = `
   footer={
     Array [
       <Button
-        block={false}
-        ghost={false}
-        htmlType="button"
-        loading={false}
         onClick={[MockFunction]}
         type="primary"
       >
@@ -17,15 +13,15 @@ exports[`ExportToCdsModal renders modal for one paper 1`] = `
       </Button>,
     ]
   }
-  maskTransitionName="fade"
   okType="primary"
   onCancel={[MockFunction]}
-  transitionName="zoom"
+  open={false}
   visible={true}
   width={520}
 >
   <p>
-    You have selected 
+    You have selected
+     
     1
      
     paper
@@ -42,10 +38,6 @@ exports[`ExportToCdsModal renders not visible 1`] = `
   footer={
     Array [
       <Button
-        block={false}
-        ghost={false}
-        htmlType="button"
-        loading={false}
         onClick={[MockFunction]}
         type="primary"
       >
@@ -53,15 +45,14 @@ exports[`ExportToCdsModal renders not visible 1`] = `
       </Button>,
     ]
   }
-  maskTransitionName="fade"
   okType="primary"
   onCancel={[MockFunction]}
-  transitionName="zoom"
-  visible={false}
+  open={false}
   width={520}
 >
   <p>
-    You have selected 
+    You have selected
+     
     1
      
     paper

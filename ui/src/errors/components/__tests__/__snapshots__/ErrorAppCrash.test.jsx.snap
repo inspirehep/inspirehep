@@ -2,20 +2,21 @@
 
 exports[`ErrorAppCrash renders ErrorAppCrash 1`] = `
 <Row
-  gutter={0}
   justify="center"
   type="flex"
 >
   <ErrorPage
     detail={
       <span>
-        Please try again later, you can 
+        Please try again later, you can
+         
         <a
           href="/"
         >
           go back home
         </a>
-         now.
+         
+        now.
       </span>
     }
     imageSrc="500.svg"

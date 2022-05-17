@@ -29,16 +29,14 @@ exports[`PDGKeywords renders with keywords 1`] = `
     }
     confirmLoading={false}
     footer={null}
-    maskTransitionName="fade"
     okType="primary"
     onCancel={[Function]}
+    open={false}
     title="PDG keywords"
-    transitionName="zoom"
     visible={false}
     width="50%"
   >
     <List
-      bordered={false}
       dataSource={
         Immutable.List [
           Immutable.Map {
@@ -51,7 +49,6 @@ exports[`PDGKeywords renders with keywords 1`] = `
           },
         ]
       }
-      loading={false}
       pagination={
         Object {
           "hideOnSinglePage": true,
@@ -61,7 +58,6 @@ exports[`PDGKeywords renders with keywords 1`] = `
       }
       renderItem={[Function]}
       size="small"
-      split={true}
     />
   </Modal>
 </div>

@@ -17,11 +17,30 @@ class ConferenceSuggestion extends Component {
           <strong>{title}</strong>
         </div>
         <div className="f7">
-          <div>{firstAcronym && <span>({firstAcronym})</span>}</div>
           <div>
-            <span>{openingDate} </span>
+            {firstAcronym && (
+              <span>
+                (
+                {firstAcronym}
+                )
+              </span>
+            )}
+          </div>
+          <div>
             <span>
-              {city && <span>{city}, </span>} {countryCode}
+              {openingDate}
+              {' '}
+            </span>
+            <span>
+              {city && (
+                <span>
+                  {city}
+                  ,
+                  {' '}
+                </span>
+              )}
+              {' '}
+              {countryCode}
             </span>
           </div>
           <div>

@@ -5,12 +5,7 @@ exports[`ExportToCalendarAction renders with seminar 1`] = `
   <DropdownMenu
     disabled={false}
     title={
-      <Button
-        block={false}
-        ghost={false}
-        htmlType="button"
-        loading={false}
-      >
+      <Button>
         <IconText
           icon={<ForwardRef(CalendarOutlined) />}
           text="export"

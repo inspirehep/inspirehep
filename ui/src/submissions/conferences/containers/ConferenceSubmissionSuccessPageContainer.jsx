@@ -8,13 +8,17 @@ import { CONFERENCES } from '../../../common/routes';
 export function ConferenceSubmissionSucessPage({ cnum, recordId }) {
   return (
     <SubmissionSuccess
-      message={
+      message={(
         <span>
           Successfully submitted, thank you for the submission! See the
-          conference ({cnum}){' '}
-          <Link to={`${CONFERENCES}/${recordId}`}>here</Link>.
+          conference (
+          {cnum}
+          )
+          {' '}
+          <Link to={`${CONFERENCES}/${recordId}`}>here</Link>
+          .
         </span>
-      }
+      )}
     />
   );
 }

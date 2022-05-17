@@ -61,7 +61,7 @@ describe('Literature Detail', () => {
       cy.get('@selectionItem').should('be.visible');
       cy.get('@paginationList')
         .find('.ant-select-selection-search-input')
-        .click();
+        .click({force: true});
       cy.get('@paginationList').find('div').contains('50 / page').click();
       cy.waitForRoute();
 

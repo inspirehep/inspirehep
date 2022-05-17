@@ -7,7 +7,8 @@ import { AUTHORS } from '../../common/routes';
 function InstitutionPeople({ recordId }) {
   return (
     <span>
-      List of{' '}
+      List of
+      {' '}
       <Link to={`${AUTHORS}?q=positions.record.$ref:${recordId}`}>People</Link>
     </span>
   );

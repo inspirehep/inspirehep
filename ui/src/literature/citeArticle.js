@@ -1,4 +1,4 @@
-import http from '../common/http.ts';
+import http from '../common/http';
 
 export default async function(format, recordId) {
   const response = await http.get(`/literature/${recordId}`, {

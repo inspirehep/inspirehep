@@ -3,18 +3,19 @@ import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 import { Link } from 'react-router-dom';
 
-import './CitationSummaryTable.scss';
-import ExternalLink from '../ExternalLink.tsx';
+import './CitationSummaryTable.less';
+import ExternalLink from '../ExternalLink';
 import LabelWithHelp from '../LabelWithHelp';
 import LoadingOrChildren from '../LoadingOrChildren';
 import ErrorAlertOrChildren from '../ErrorAlertOrChildren';
 import { ErrorPropType } from '../../propTypes';
-import FormattedNumber from '../FormattedNumber.tsx';
+import FormattedNumber from '../FormattedNumber';
 import { PUBLISHED_URL } from '../../constants';
 
 const PUBLISHED_HELP_MESSAGE = (
   <span>
-    Published papers are believed to have undergone rigorous peer review.{' '}
+    Published papers are believed to have undergone rigorous peer review.
+    {' '}
     <ExternalLink href={PUBLISHED_URL}>Learn More</ExternalLink>
   </span>
 );
@@ -22,7 +23,9 @@ const PUBLISHED_HELP_MESSAGE = (
 const H_INDEX_HELP_MESSAGE = (
   <span>
     The h-index is defined as the number of papers with citation number higher
-    or equal to h. <Link to="/literature/690567">Learn more</Link>
+    or equal to h. 
+    {' '}
+    <Link to="/literature/690567">Learn more</Link>
   </span>
 );
 

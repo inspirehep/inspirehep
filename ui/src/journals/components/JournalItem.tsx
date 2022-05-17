@@ -11,13 +11,13 @@ import UrlsAction from '../../literature/components/UrlsAction';
 import { JOURNALS } from '../../common/routes';
 import { Journal } from '../containers/SearchPageContainer';
 
-export const JournalItem = ({
+export function JournalItem({
   result,
   isCatalogerLoggedIn,
 }: {
   result: Journal;
   isCatalogerLoggedIn: boolean;
-}) => {
+}) {
   const metadata = result.get('metadata');
   const shortTitle = metadata.get('short_title');
   const journalTitle = metadata.get('journal_title');
@@ -27,9 +27,10 @@ export const JournalItem = ({
 
   return (
     <ResultItem
-      leftActions={
+      leftActions={(
         <>
           {urls && <UrlsAction urls={urls} text="links" />}
+          {/* @ts-ignore */}
           <AuthorizedContainer authorizedRoles={SUPERUSER_OR_CATALOGER}>
             <EditRecordAction
               pidType={JOURNALS_PID_TYPE}
@@ -38,7 +39,7 @@ export const JournalItem = ({
             />
           </AuthorizedContainer>
         </>
-      }
+      )}
     >
       <Row>
         <Col>
@@ -59,4 +60,4 @@ export const JournalItem = ({
       </Row>
     </ResultItem>
   );
-};
+}

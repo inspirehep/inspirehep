@@ -5,7 +5,7 @@ import { Map } from 'immutable';
 import { LoginOutlined } from '@ant-design/icons';
 
 import { Row, Col } from 'antd';
-import EditRecordAction from '../../common/components/EditRecordAction.tsx';
+import EditRecordAction from '../../common/components/EditRecordAction';
 import ResultItem from '../../common/components/ResultItem';
 import { CONFERENCES, LITERATURE } from '../../common/routes';
 import ConferenceDates from './ConferenceDates';
@@ -38,15 +38,15 @@ class ConferenceItem extends Component {
 
     return (
       <ResultItem
-        leftActions={
+        leftActions={(
           <>
             {urls && <UrlsAction urls={urls} />}
             {proceedings && <ProceedingsAction proceedings={proceedings} />}
             {canEdit && (
-              <EditRecordAction pidType="conferences" pidValue={recordId} />
+            <EditRecordAction pidType="conferences" pidValue={recordId} />
             )}
           </>
-        }
+)}
         rightActions={
           contributionsCount !== 0 && (
             <ListItemAction>

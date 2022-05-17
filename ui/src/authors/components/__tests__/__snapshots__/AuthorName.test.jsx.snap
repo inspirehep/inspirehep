@@ -10,7 +10,8 @@ exports[`AuthorName renders with native_name 1`] = `
 <span>
   Harun Urhan
   <span>
-     (
+     
+    (
     赵新丽
     )
   </span>

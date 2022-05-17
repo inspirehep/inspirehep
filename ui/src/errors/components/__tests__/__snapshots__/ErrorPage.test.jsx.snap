@@ -7,9 +7,7 @@ exports[`ErrorPage renders with all props 1`] = `
   justify="center"
   span={14}
 >
-  <Row
-    gutter={0}
-  >
+  <Row>
     <Col
       span={24}
     >
@@ -20,9 +18,7 @@ exports[`ErrorPage renders with all props 1`] = `
       </h3>
     </Col>
   </Row>
-  <Row
-    gutter={0}
-  >
+  <Row>
     <Col
       span={24}
     >
@@ -35,9 +31,7 @@ exports[`ErrorPage renders with all props 1`] = `
       </h3>
     </Col>
   </Row>
-  <Row
-    gutter={0}
-  >
+  <Row>
     <Col
       span={24}
     >
@@ -57,9 +51,7 @@ exports[`ErrorPage renders with default detail 1`] = `
   justify="center"
   span={14}
 >
-  <Row
-    gutter={0}
-  >
+  <Row>
     <Col
       span={24}
     >
@@ -70,9 +62,7 @@ exports[`ErrorPage renders with default detail 1`] = `
       </h3>
     </Col>
   </Row>
-  <Row
-    gutter={0}
-  >
+  <Row>
     <Col
       span={24}
     >

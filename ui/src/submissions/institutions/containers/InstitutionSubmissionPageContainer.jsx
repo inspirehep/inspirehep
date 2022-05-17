@@ -10,22 +10,28 @@ import InstitutionSubmission from '../components/InstitutionSubmission';
 import { INSTITUTIONS_PID_TYPE } from '../../../common/constants';
 import { INSTITUTIONS } from '../../../common/routes';
 
-export const InstitutionSubmissionPage = ({ error, onSubmit }) => (
+export function InstitutionSubmissionPage({ error, onSubmit }) {
+  return (
     <SubmissionPage
       title="Suggest institution"
-      description={
+      description={(
         <span>
           This form allows you to create a new institution record. It will
-          appear in the <Link to={INSTITUTIONS}>Institutions List</Link> immediately.
+          appear in the
+          {' '}
+          <Link to={INSTITUTIONS}>Institutions List</Link>
+          {' '}
+          immediately.
         </span>
-      }
+      )}
     >
-    <InstitutionSubmission
-      error={error}
-      onSubmit={onSubmit}
-    />
-  </SubmissionPage>
-);
+      <InstitutionSubmission
+        error={error}
+        onSubmit={onSubmit}
+      />
+    </SubmissionPage>
+  )
+}
 
 InstitutionSubmissionPage.propTypes = {
   onSubmit: PropTypes.func.isRequired,

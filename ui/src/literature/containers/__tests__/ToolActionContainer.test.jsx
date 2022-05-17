@@ -9,7 +9,6 @@ import {
   setAssignDrawerVisibility,
   exportToCds,
 } from '../../../actions/literature';
-import * as constants from '../../constants';
 
 jest.mock('../../../actions/literature');
 
@@ -47,9 +46,7 @@ describe('LiteratureSelectAllContainer', () => {
   });
 
   it('passes disabledBulkAssign true', () => {
-    const selection = Set([1, 2, 3]);
-
-    constants.MAX_BULK_ASSIGN = 2;
+    const selection = Set([]);
 
     const store = getStore({
       literature: fromJS({

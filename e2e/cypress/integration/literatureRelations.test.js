@@ -100,7 +100,7 @@ describe('Assign Conference', () => {
         .get('[data-test-id="search-results"]', { timeout: 10000 })
         .should('be.visible');
       cy.get('.ant-drawer-content')
-        .find('[data-test-id="search-results"]')
+        .find('[data-test-id="search-results"]', { timeout: 100000 })
         .children()
         .contains('HP2022')
         .parentsUntil('[data-test-id="search-results"]')

@@ -106,11 +106,7 @@ exports[`Banner renders with custom style 1`] = `
         html="We have problem with our storage."
       />
       <Button
-        block={false}
-        ghost={false}
         href="https://status.inspirehep.net"
-        htmlType="button"
-        loading={false}
         target="_blank"
         type="primary"
       >

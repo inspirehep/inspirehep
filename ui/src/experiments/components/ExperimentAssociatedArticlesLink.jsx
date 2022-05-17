@@ -9,7 +9,9 @@ function ExperimentAssociatedArticlesLink({ recordId, legacyName }) {
   return (
     <Link
       to={`${LITERATURE}?q=${getPapersQueryString(recordId)}`}
-    >{`Articles associated with ${legacyName}`}</Link>
+    >
+      {`Articles associated with ${legacyName}`}
+    </Link>
   );
 }
 

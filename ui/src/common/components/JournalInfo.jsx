@@ -10,9 +10,26 @@ function JournalInfo({ info }) {
   return (
     <span>
       <i>{journalTitle}</i>
-      {journalVolume && <span> {journalVolume}</span>}
-      {year && <span> ({year})</span>}
-      {journalIssue && <span> {journalIssue}</span>}
+      {journalVolume && (
+      <span> 
+        {' '}
+        {journalVolume}
+      </span>
+)}
+      {year && (
+      <span>
+        {' '}
+(
+        {year}
+)
+      </span>
+)}
+      {journalIssue && (
+      <span> 
+        {' '}
+        {journalIssue}
+      </span>
+)}
     </span>
   );
 }

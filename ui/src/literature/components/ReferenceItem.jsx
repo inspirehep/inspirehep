@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 import { List, Row, Col } from 'antd';
@@ -26,6 +26,7 @@ class ReferenceItem extends Component {
   static renderTitle(reference) {
     const recordId = reference.get('control_number');
     const title = reference.getIn(['titles', 0]);
+    console.log(recordId && title)
     if (recordId && title) {
       return (
         <Link className="f5" to={`${LITERATURE}/${recordId}`}>
@@ -80,7 +81,7 @@ class ReferenceItem extends Component {
             <List.Item.Meta
               title={ReferenceItem.renderTitle(reference)}
               description={
-                <Fragment>
+                <>
                   {ReferenceItem.renderMisc(reference)}
                   <AuthorsAndCollaborations
                     authors={authors}
@@ -101,7 +102,7 @@ class ReferenceItem extends Component {
                     {dois && <DOIList dois={dois} />}
                     {urls && !recordId && <URLList urls={urls} />}
                   </InlineUL>
-                </Fragment>
+                </>
               }
             />
           </Col>

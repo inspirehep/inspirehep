@@ -15,7 +15,16 @@ function renderAuthorSuggestion(suggestion) {
 
   return (
     <span>
-      {name} {currentPosition && <span> ({currentPosition.institution})</span>}
+      {name} 
+      {' '}
+      {currentPosition && (
+      <span>
+        {' '}
+(
+        {currentPosition.institution}
+)
+      </span>
+)}
     </span>
   );
 }

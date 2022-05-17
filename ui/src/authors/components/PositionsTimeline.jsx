@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 import { Timeline } from 'antd';
@@ -17,7 +17,13 @@ class PositionsTimeline extends Component {
       <Timeline.Item key={`#${displayDate}@${institution}`}>
         <div>{displayDate}</div>
         <div>
-          {rank && <strong>{rank}, </strong>}
+          {rank && (
+          <strong>
+            {rank}
+            ,
+            {' '}
+          </strong>
+)}
           <Affiliation affiliation={position} />
         </div>
       </Timeline.Item>
@@ -45,7 +51,7 @@ class PositionsTimeline extends Component {
       : positions.take(DISPLAY_LIMIT);
 
     return (
-      <Fragment>
+      <>
         <Timeline>
           {positionsToDisplay.map(PositionsTimeline.renderPositionTimelineItem)}
         </Timeline>
@@ -56,7 +62,7 @@ class PositionsTimeline extends Component {
           onToggle={this.onExpandToggle}
           expandLabel="Show all positions"
         />
-      </Fragment>
+      </>
     );
   }
 }

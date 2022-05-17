@@ -11,7 +11,8 @@ exports[`NumberOfResultsWithSelectedItemsNumber renders selected when selected i
   <FormattedNumber>
     1
   </FormattedNumber>
-   of
+   
+  of
    
   <Connect(NumberOfResults) />
 </span>
@@ -22,7 +23,8 @@ exports[`NumberOfResultsWithSelectedItemsNumber renders selected when selected i
   <FormattedNumber>
     25
   </FormattedNumber>
-   of
+   
+  of
    
   <Connect(NumberOfResults) />
 </span>

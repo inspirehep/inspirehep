@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 
-import './CollectionLink.scss';
+import './CollectionLink.less';
 import NewFeatureTag from '../../components/NewFeatureTag';
 
 function CollectionLink({ to, active, children, newCollection }) {

@@ -1,8 +1,8 @@
 import MockAdapter from 'axios-mock-adapter';
 
 import { getStore } from '../../fixtures/store';
-import http from '../../common/http.ts';
-import * as types from '../actionTypes';
+import http from '../../common/http';
+import { INSPECT_REQUEST, INSPECT_SUCCESS, INSPECT_ERROR } from '../actionTypes';
 import fetch from '../inspect';
 
 const mockHttp = new MockAdapter(http.httpClient);
@@ -12,27 +12,26 @@ describe('inspect dashboard - async action creator', () => {
     mockHttp.reset();
   });
 
-  it('successful - creates INSPECT_SUCCESS', async done => {
+  it('successful - creates INSPECT_SUCCESS', async () => {
     mockHttp.onGet('/workflows/inspect_merge/123').replyOnce(200, {});
 
     const expectedActions = [
-      { type: types.INSPECT_REQUEST, payload: { id: 123 } },
-      { type: types.INSPECT_SUCCESS, payload: {} },
+      { type: INSPECT_REQUEST, payload: { id: 123 } },
+      { type: INSPECT_SUCCESS, payload: {} },
     ];
 
     const store = getStore();
     await store.dispatch(fetch(123));
     expect(store.getActions()).toEqual(expectedActions);
-    done();
   });
 
-  it('unsuccessful - creates INSPECT_ERROR', async done => {
+  it('unsuccessful - creates INSPECT_ERROR', async () => {
     mockHttp.onGet('/workflows/inspect_merge/123').replyOnce(404, {});
 
     const expectedActions = [
-      { type: types.INSPECT_REQUEST, payload: { id: 123 } },
+      { type: INSPECT_REQUEST, payload: { id: 123 } },
       {
-        type: types.INSPECT_ERROR,
+        type: INSPECT_ERROR,
         payload: {
           error: { status: 404 },
         },
@@ -43,6 +42,5 @@ describe('inspect dashboard - async action creator', () => {
     const store = getStore();
     await store.dispatch(fetch(123));
     expect(store.getActions()).toEqual(expectedActions);
-    done();
   });
 });
