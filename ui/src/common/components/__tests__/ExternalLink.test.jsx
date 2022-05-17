@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { Button } from 'antd';
 
-import ExternalLink from '../ExternalLink.tsx';
+import ExternalLink from '../ExternalLink';
 
 describe('ExternalLink', () => {
   it('renders with only href and children', () => {

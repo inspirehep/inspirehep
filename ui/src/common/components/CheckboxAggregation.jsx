@@ -8,8 +8,8 @@ import AggregationBox from './AggregationBox';
 import SecondaryButton from './SecondaryButton';
 import { forceArray } from '../utils';
 import HelpIconTooltip from './HelpIconTooltip';
-import ExternalLink from './ExternalLink.tsx';
-import FormattedNumber from './FormattedNumber.tsx';
+import ExternalLink from './ExternalLink';
+import FormattedNumber from './FormattedNumber';
 
 const BUCKET_CHUNK_SIZE = 10;
 export const BUCKET_NAME_SPLITTER = '_';
@@ -83,14 +83,15 @@ class CheckboxAggregation extends Component {
       <>
         {' '}
         <HelpIconTooltip
-          help={
+          help={(
             <>
-              {bucketText}{' '}
+              {bucketText}
+              {' '}
               {bucketLink && (
-                <ExternalLink href={bucketLink}>Learn More</ExternalLink>
+              <ExternalLink href={bucketLink}>Learn More</ExternalLink>
               )}
             </>
-          }
+)}
         />
       </>
     );
@@ -108,7 +109,11 @@ class CheckboxAggregation extends Component {
 
     return (
       <SecondaryButton onClick={this.onShowMoreClick}>
-        Show {hiddenBucketCount} more
+        Show 
+        {' '}
+        {hiddenBucketCount}
+        {' '}
+more
       </SecondaryButton>
     );
   }

@@ -20,9 +20,10 @@ import AssignOneDifferentProfileContainer from '../AssignOneDifferentProfileCont
 import AssignOneDifferentProfileAction from '../../components/AssignOneDifferentProfileAction';
 
 jest.mock('react-router-dom', () => ({
-  useParams: jest.fn().mockImplementation(() => ({
+  ...jest.requireActual('react-router-dom'),
+  useParams: () => ({
     id: 123,
-  })),
+  }),
 }));
 
 jest.mock('../../../actions/authors');

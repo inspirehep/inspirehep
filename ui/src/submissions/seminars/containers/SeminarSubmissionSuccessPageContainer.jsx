@@ -8,12 +8,14 @@ import { SEMINARS } from '../../../common/routes';
 export function SeminarSubmissionSuccessPage({ recordId }) {
   return (
     <SubmissionSuccess
-      message={
+      message={(
         <span>
-          Successfully submitted, thank you for the submission! See the seminar{' '}
-          <Link to={`${SEMINARS}/${recordId}`}>here</Link>.
+          Successfully submitted, thank you for the submission! See the seminar
+          {' '}
+          <Link to={`${SEMINARS}/${recordId}`}>here</Link>
+          .
         </span>
-      }
+      )}
     />
   );
 }
@@ -22,7 +24,7 @@ SeminarSubmissionSuccessPage.propTypes = {
   recordId: PropTypes.number.isRequired,
 };
 
-const stateToProps = state => ({
+const stateToProps = (state) => ({
   recordId: state.submissions.getIn(['successData', 'pid_value']),
 });
 

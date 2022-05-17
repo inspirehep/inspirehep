@@ -4,7 +4,7 @@ import { List } from 'immutable';
 
 import InlineList, { SEPARATOR_MIDDLEDOT } from '../InlineList';
 
-import './PublicNotesList.scss';
+import './PublicNotesList.less';
 
 const LINK_REGEX = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/g;
 

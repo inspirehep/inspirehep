@@ -11,7 +11,12 @@ class ArxivEprint extends Component {
       <span>
         <ArxivEprintLink>{eprint.get('value')}</ArxivEprintLink>
         {eprint.has('categories') && (
-          <span> [{eprint.getIn(['categories', 0])}]</span>
+          <span>
+            {' '}
+[
+            {eprint.getIn(['categories', 0])}
+]
+          </span>
         )}
       </span>
     );

@@ -2,7 +2,7 @@ import { replace } from 'connected-react-router';
 import {
   isCancelError,
   UI_SERIALIZER_REQUEST_OPTIONS,
-} from '../common/http.ts';
+} from '../common/http';
 import { httpErrorToActionPayload } from '../common/utils';
 
 export default function generateRecordFetchAction({

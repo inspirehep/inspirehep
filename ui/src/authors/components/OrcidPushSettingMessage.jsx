@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ExternalLink from '../../common/components/ExternalLink.tsx';
+import ExternalLink from '../../common/components/ExternalLink';
 import OrcidProfileLink from '../../common/components/OrcidProfileLink';
 
 function OrcidPushSettingMessage({ orcid, enabled }) {
@@ -27,7 +27,8 @@ function OrcidPushSettingMessage({ orcid, enabled }) {
       <div>
         A new interface that will allow you to claim your papers is coming up
         soon. In the meantime, if you wish to claim a paper as yours, you can
-        send your request at{' '}
+        send your request at
+        {' '}
         <ExternalLink href="mailto:authors@inspirehep.net">
           authors@inspirehep.net
         </ExternalLink>

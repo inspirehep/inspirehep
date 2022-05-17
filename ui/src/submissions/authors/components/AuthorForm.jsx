@@ -112,12 +112,12 @@ function AuthorForm({ values, isCatalogerLoggedIn, isUpdate }) {
                       <Field
                         onlyChild
                         name={`${itemName}.hidden`}
-                        suffixText={
+                        suffixText={(
                           <LabelWithHelp
                             label="Hidden"
                             help="Hidden emails will not be displayed, but will only be used by INSPIRE staff for contact and identification purposes."
                           />
-                        }
+)}
                         component={BooleanField}
                       />
                     </Col>
@@ -135,16 +135,16 @@ function AuthorForm({ values, isCatalogerLoggedIn, isUpdate }) {
           <Field
             name="orcid"
             addonBefore="orcid.org/"
-            label={
+            label={(
               <LabelWithHelp
-                label={
+                label={(
                   <Tooltip title="ORCID provides a persistent digital identifier that distinguishes you from other researchers">
                     ORCID
                   </Tooltip>
-                }
+)}
                 help="ORCID provides a persistent digital identifier that distinguishes you from other researchers"
               />
-            }
+)}
             placeholder="0000-0000-0000-0000"
             component={TextField}
           />

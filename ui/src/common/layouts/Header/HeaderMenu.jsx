@@ -14,10 +14,10 @@ import {
   SUBMISSIONS_EXPERIMENT,
   SUBMISSIONS_JOURNAL,
 } from '../../routes';
-import ExternalLink from '../../components/ExternalLink.tsx';
+import ExternalLink from '../../components/ExternalLink';
 import LinkLikeButton from '../../components/LinkLikeButton';
 
-import './HeaderMenu.scss';
+import './HeaderMenu.less';
 import { PAPER_SEARCH_URL, HELP_BLOG_URL } from '../../constants';
 import DisplayGuideButtonContainer from '../../containers/DisplayGuideButtonContainer';
 import { CLAIMING_DISABLED_INFO } from '../../../authors/components/AssignNoProfileAction';

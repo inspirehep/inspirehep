@@ -16,7 +16,14 @@ function EventTitle({ title, acronym }) {
           <Latex>{subTitle}</Latex>
         </span>
       )}
-      {acronym && <span> ({acronym})</span>}
+      {acronym && (
+      <span>
+        {' '}
+(
+        {acronym}
+)
+      </span>
+)}
     </span>
   );
 }

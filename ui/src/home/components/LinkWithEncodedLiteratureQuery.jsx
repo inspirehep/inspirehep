@@ -10,7 +10,7 @@ export default class LinkWithEncodedLiteratureQuery extends Component {
     render() {
         const { query } = this.props;
         return (
-            <Link to={`${LITERATURE}?q=${encodeURIComponent(query)}`}>{query}</Link>
+          <Link to={`${LITERATURE}?q=${encodeURIComponent(query)}`}>{query}</Link>
         );
     }
 }

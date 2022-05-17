@@ -1,5 +1,4 @@
 import { fromJS, setIn, isImmutable } from 'immutable';
-import { REDUCERS_TO_PERSISTS } from '../reducers';
 import storage from '../common/storage';
 
 export function getStorageKeyForReducer(reducerName, statePath) {
@@ -10,8 +9,8 @@ export function getStorageKeyForReducer(reducerName, statePath) {
   return `state.${reducerName}${pathString}`;
 }
 
-export function reHydrateRootStateFromStorage() {
-  return REDUCERS_TO_PERSISTS.map(({ name, initialState, statePath }) => {
+export function reHydrateRootStateFromStorage(reducers) {
+  return reducers.map(({ name, initialState, statePath }) => {
     // TODO: set up async rehydration, and remove `getSync`
     const subState = storage.getSync(getStorageKeyForReducer(name, statePath));
 
@@ -33,9 +32,9 @@ export function reHydrateRootStateFromStorage() {
   }).reduce((state, partialState) => Object.assign(state, partialState));
 }
 
-export function createPersistToStorageMiddleware() {
+export function createPersistToStorageMiddleware(reducers) {
   const writeStateToStorage = async (state) => {
-    REDUCERS_TO_PERSISTS.forEach(({ name, statePath }) => {
+    reducers.forEach(({ name, statePath }) => {
       const key = getStorageKeyForReducer(name, statePath);
       if (statePath == null) {
         storage.set(key, state[name].toJS());

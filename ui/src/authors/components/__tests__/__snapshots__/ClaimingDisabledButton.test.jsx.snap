@@ -12,14 +12,9 @@ exports[`ClaimingDisabledButton renders 1`] = `
         mouseLeaveDelay={0.1}
         placement="top"
         title="Login to claim your papers"
-        transitionName="zoom-big-fast"
       >
         <Button
-          block={false}
           disabled={true}
-          ghost={false}
-          htmlType="button"
-          loading={false}
         >
           <IconText
             icon={<ForwardRef(FileDoneOutlined) />}

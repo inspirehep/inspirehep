@@ -46,20 +46,25 @@ export const JournalSearchPage = ({
       <DocumentHead title={TITLE} description={META_DESCRIPTION} />
       <Row className="mt3" gutter={SEARCH_PAGE_GUTTER} justify="center">
         <Col xs={24} lg={16} xl={16} xxl={14}>
+          {/* @ts-ignore */}
           <LoadingOrChildren loading={loading}>
             <Row>
               <Col>
+                {/* @ts-ignore */}
                 <NumberOfResultsContainer namespace={JOURNALS_NS} />
               </Col>
             </Row>
             <Row>
               <Col span={24}>
                 <ResultsContainer
+                 // @ts-ignore
                   namespace={JOURNALS_NS}
-                  renderItem={(item) =>
+                  // @ts-ignore
+                  renderItem={(item: never) =>
                     renderJournalItem(item, isCatalogerLoggedIn)
                   }
                 />
+                {/* @ts-ignore */}
                 <PaginationContainer namespace={JOURNALS_NS} />
               </Col>
             </Row>

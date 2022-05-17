@@ -67,11 +67,11 @@ function AssignOneDifferentProfileAction({
   return (
     <ListItemAction>
       <DropdownMenu
-        title={
+        title={(
           <Button>
             <IconText text="claim" icon={<FileDoneOutlined />} />
           </Button>
-        }
+)}
       >
         <Menu.Item
           data-test-id="assign-self"

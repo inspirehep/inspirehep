@@ -188,6 +188,7 @@ export function pickEvenlyDistributedElements(array, numberOfElements) {
   return someElements;
 }
 
+// eslint-disable-next-line prefer-regex-literals
 const protocolAndWwwRegexp = new RegExp('^(?:(https?:)?//)?(?:www.)?', 'i');
 export function removeProtocolAndWwwFromUrl(url) {
   return url.replace(protocolAndWwwRegexp, '');

@@ -12,7 +12,7 @@ import {
   MAX_CITEABLE_RECORDS,
   CITE_FILE_FORMAT,
 } from '../constants';
-import http from '../../common/http.ts';
+import http from '../../common/http';
 import { downloadTextAsFile } from '../../common/utils';
 
 class CiteAllAction extends Component {

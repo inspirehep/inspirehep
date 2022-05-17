@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 import { List, Row, Col } from 'antd';
@@ -19,7 +19,13 @@ import {
 class ReferenceItem extends Component {
   static renderLabel(reference) {
     const label = reference.get('label');
-    const labelDisplay = label ? <span>[{label}]</span> : null;
+    const labelDisplay = label ? (
+      <span>
+[
+        {label}
+]
+      </span>
+) : null;
     return labelDisplay;
   }
 
@@ -79,8 +85,8 @@ class ReferenceItem extends Component {
           <Col>
             <List.Item.Meta
               title={ReferenceItem.renderTitle(reference)}
-              description={
-                <Fragment>
+              description={(
+                <>
                   {ReferenceItem.renderMisc(reference)}
                   <AuthorsAndCollaborations
                     authors={authors}
@@ -92,17 +98,17 @@ class ReferenceItem extends Component {
                     wrapperClassName="secondary-container"
                   >
                     {publicationInfo && (
-                      <PublicationInfoList
-                        publicationInfo={publicationInfo}
-                        labeled={false}
-                      />
+                    <PublicationInfoList
+                      publicationInfo={publicationInfo}
+                      labeled={false}
+                    />
                     )}
                     {arxivEprint && <ArxivEprintList eprints={arxivEprint} />}
                     {dois && <DOIList dois={dois} />}
                     {urls && !recordId && <URLList urls={urls} />}
                   </InlineUL>
-                </Fragment>
-              }
+                </>
+)}
             />
           </Col>
         </Row>

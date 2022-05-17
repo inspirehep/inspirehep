@@ -45,8 +45,16 @@ class ThesisInfo extends Component {
     return (
       <span>
         <span>Thesis: </span>
-        {degreeType && <span>{degreeType} </span>}
-        <span>{this.renderInstutions()} </span>
+        {degreeType && (
+        <span>
+          {degreeType}
+          {' '}
+        </span>
+)}
+        <span>
+          {this.renderInstutions()}
+          {' '}
+        </span>
         <span>{this.renderDateOrDefenseDate()}</span>
       </span>
     );

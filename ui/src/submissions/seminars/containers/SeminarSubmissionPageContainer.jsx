@@ -14,13 +14,16 @@ function SeminarSubmissionPage({ error, onSubmit }) {
   return (
     <SubmissionPage
       title="Submit a new seminar"
-      description={
+      description={(
         <span>
           This form allows you to submit a new seminar to INSPIRE. It will
-          appear in the <Link to={`${SEMINARS}?q=`}> Seminar List</Link>{' '}
+          appear in the 
+          {' '}
+          <Link to={`${SEMINARS}?q=`}> Seminar List</Link>
+          {' '}
           immediately.
         </span>
-      }
+)}
     >
       <SeminarSubmission error={error} onSubmit={onSubmit} />
     </SubmissionPage>

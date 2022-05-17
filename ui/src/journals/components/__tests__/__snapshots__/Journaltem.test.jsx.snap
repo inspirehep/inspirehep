@@ -31,9 +31,7 @@ exports[`JournalItem renders with props 1`] = `
     </React.Fragment>
   }
 >
-  <Row
-    gutter={0}
-  >
+  <Row>
     <Col>
       <Link
         className="result-item-title"
@@ -47,9 +45,7 @@ exports[`JournalItem renders with props 1`] = `
       </Link>
     </Col>
   </Row>
-  <Row
-    gutter={0}
-  >
+  <Row>
     <Col>
       title
       Department of Physics
@@ -78,9 +74,7 @@ exports[`JournalItem renders with some props undefined 1`] = `
     </React.Fragment>
   }
 >
-  <Row
-    gutter={0}
-  >
+  <Row>
     <Col>
       <Link
         className="result-item-title"
@@ -94,9 +88,7 @@ exports[`JournalItem renders with some props undefined 1`] = `
       </Link>
     </Col>
   </Row>
-  <Row
-    gutter={0}
-  >
+  <Row>
     <Col>
       Department of Physics
     </Col>

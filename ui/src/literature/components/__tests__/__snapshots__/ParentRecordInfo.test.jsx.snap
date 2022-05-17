@@ -23,7 +23,8 @@ exports[`ParentRecordInfo renders with parent record 2`] = `
   >
     A title of book
     <span>
-       : 
+       
+      :
       A subtitle
     </span>
   </Link>

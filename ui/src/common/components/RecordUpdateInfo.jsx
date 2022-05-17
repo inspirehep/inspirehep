@@ -10,7 +10,12 @@ function RecordUpdateInfo({ updateDate }) {
     .utc(updateDate)
     .tz(LOCAL_TIMEZONE)
     .format(DATE_AND_TIME_DISPLAY_FORMAT);
-  return <span className="light-silver">Updated on {formattedDate}</span>;
+  return (
+    <span className="light-silver">
+Updated on
+      {formattedDate}
+    </span>
+);
 }
 
 RecordUpdateInfo.propTypes = { updateDate: PropTypes.string.isRequired };

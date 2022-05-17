@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { LoadingOutlined } from '@ant-design/icons';
 
 import EventTracker from '../EventTracker';
-import FormattedNumber from '../FormattedNumber.tsx';
+import FormattedNumber from '../FormattedNumber';
 
 class TabNameWithCount extends Component {
   render() {
@@ -20,7 +20,9 @@ class TabNameWithCount extends Component {
             ) : (
               count != null && (
                 <span>
-                  (<FormattedNumber>{count}</FormattedNumber>)
+                  (
+                  <FormattedNumber>{count}</FormattedNumber>
+)
                 </span>
               )
             )}

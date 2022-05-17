@@ -8,7 +8,8 @@ exports[`AdvisorsOfDegree renders other advisors 1`] = `
     className=""
   >
     Advisors
-    : 
+    :
+     
   </span>
   <ul>
     <li
@@ -47,7 +48,8 @@ exports[`AdvisorsOfDegree renders phd advisors 1`] = `
     className=""
   >
     PhD Advisors
-    : 
+    :
+     
   </span>
   <ul>
     <li
@@ -87,7 +89,8 @@ exports[`AdvisorsOfDegree renders the master advisor 1`] = `
     className=""
   >
     Master Advisor
-    : 
+    :
+     
   </span>
   <ul>
     <li

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import './ListItemAction.scss';
+import './ListItemAction.less';
 
 class ListItemAction extends Component {
   render() {

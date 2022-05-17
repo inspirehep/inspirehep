@@ -1,7 +1,7 @@
 import MockAdapter from 'axios-mock-adapter';
 
 import uniqueOrcid from '../uniqueOrcid';
-import http from '../../../../common/http.ts';
+import http from '../../../../common/http';
 
 const mockHttp = new MockAdapter(http.httpClient);
 
@@ -12,37 +12,33 @@ describe('uniqueOrcid', () => {
     mockHttp.reset();
   });
 
-  it('validates when null', async done => {
+  it('validates when null', async () => {
     const isValid = await schema.isValid(undefined);
     expect(isValid).toBe(true);
-    done();
   });
 
-  it('validates when empty', async done => {
+  it('validates when empty', async () => {
     const isValid = await schema.isValid('');
     expect(isValid).toBe(true);
-    done();
   });
 
-  it('validates when orcid does not exist', async done => {
+  it('validates when orcid does not exist', async () => {
     const orcid = '0000-0002-9127-1687';
     mockHttp.onGet(`/orcid/${orcid}`).replyOnce(404);
 
     const isValid = await schema.isValid(orcid);
     expect(isValid).toBe(true);
-    done();
   });
 
-  it('validates when orcid does not exist after trimming', async done => {
+  it('validates when orcid does not exist after trimming', async () => {
     const orcid = '0000-0002-9127-1687';
     mockHttp.onGet(`/orcid/${orcid}`).replyOnce(404);
 
     const isValid = await schema.isValid(`  ${orcid} `);
     expect(isValid).toBe(true);
-    done();
   });
 
-  it('invalidates when orcid exists after trimming', async done => {
+  it('invalidates when orcid exists after trimming', async () => {
     const orcid = '0000-0002-9127-1687';
     mockHttp.onGet(`/orcid/${orcid}`).replyOnce(200, {
       metadata: { control_number: 999108 },
@@ -50,19 +46,17 @@ describe('uniqueOrcid', () => {
 
     const isValid = await schema.isValid(`  ${orcid} `);
     expect(isValid).toBe(false);
-    done();
   });
 
-  it('validates when request fails', async done => {
+  it('validates when request fails', async () => {
     const orcid = '0000-0002-9127-1687';
     mockHttp.onGet(`/orcid/${orcid}`).replyOnce(500);
 
     const isValid = await schema.isValid(orcid);
     expect(isValid).toBe(true);
-    done();
   });
 
-  it('invalidates if orcid exists with message that includes link to update form', async done => {
+  it('invalidates if orcid exists with message that includes link to update form', async () => {
     const orcid = '0000-0002-9127-1687';
     mockHttp.onGet(`/orcid/${orcid}`).replyOnce(200, {
       metadata: { control_number: 999108 },
@@ -77,6 +71,5 @@ describe('uniqueOrcid', () => {
 
     expect(validationError).toBeDefined();
     expect(validationError.message).toMatchSnapshot();
-    done();
   });
 });

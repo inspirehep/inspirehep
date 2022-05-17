@@ -30,18 +30,22 @@ function ExistingConferencesAlert({
     numberOfConferences > 0 && (
       <>
         <FieldInfoAlert
-          description={
+          description={(
             <span>
               <strong data-test-id="conferences-exist-alert-number">
                 {numberOfConferences}
-              </strong>{' '}
-              other {pluralizeUnlessSingle('conference', numberOfConferences)}{' '}
+              </strong>
+              {' '}
+              other 
+              {' '}
+              {pluralizeUnlessSingle('conference', numberOfConferences)}
+              {' '}
               found in these dates.
               <Button type="link" size="small" onClick={onShowMoreClick}>
                 Show more
               </Button>
             </span>
-          }
+)}
         />
         <ExistingConferencesDrawer
           visible={isDrawerVisible}

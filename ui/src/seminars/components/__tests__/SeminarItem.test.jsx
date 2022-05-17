@@ -2,11 +2,8 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
 import SeminarItem from '../SeminarItem';
-import * as constants from '../../../common/constants';
 
 describe('SeminarItem', () => {
-  constants.LOCAL_TIMEZONE = 'Europe/Zurich';
-
   it('renders with all props set', () => {
     const metadata = fromJS({
       title: { title: 'test' },

@@ -138,11 +138,15 @@ class CiteModalAction extends Component {
                     onCopy={this.onModalCancel}
                   >
                     <Button style={{ marginRight: 12 }}>
-                      <CopyOutlined /> Copy to Clipboard
+                      <CopyOutlined />
+                      {' '}
+Copy to Clipboard
                     </Button>
                   </CopyToClipboard>
                   <Button onClick={this.onDownloadClick}>
-                    <DownloadOutlined /> Download
+                    <DownloadOutlined />
+                    {' '}
+Download
                   </Button>
                 </div>
                 <EventTracker

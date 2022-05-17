@@ -10,7 +10,7 @@ export default function withRouteActionsDispatcher(
   DetailPage,
   { routeParamSelector, routeActions, loadingStateSelector }
 ) {
-  const Wrapper = ({ match, dispatch, loading, ...props }) => {
+  function Wrapper({ match, dispatch, loading, ...props }) {
     const selectedParam = routeParamSelector(match.params);
     useEffect(
       () => {
@@ -24,7 +24,7 @@ export default function withRouteActionsDispatcher(
         <DetailPage {...props} />
       </LoadingOrChildren>
     );
-  };
+  }
 
   const ConnectedWrapper = connect(
     state => ({ loading: loadingStateSelector(state) }),

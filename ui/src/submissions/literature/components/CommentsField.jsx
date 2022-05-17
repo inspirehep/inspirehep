@@ -10,16 +10,16 @@ class CommentsField extends Component {
     return (
       <Field
         name="comments"
-        label={
+        label={(
           <LabelWithHelp
-            label={
+            label={(
               <Tooltip title="Why is this content relevant to INSPIRE?">
                 Comments
               </Tooltip>
-            }
+)}
             help="Why is this content relevant to INSPIRE?"
           />
-        }
+)}
         placeholder="Any extra comments related to your submission"
         rows={6}
         component={TextAreaField}

@@ -19,7 +19,10 @@ function SeminarDateTimes({
     : endMoment.format(DATE_AND_TIME_DISPLAY_FORMAT);
   return (
     <span className={className}>
-      {startDateDisplay} - {endDateDisplay}
+      {startDateDisplay}
+      {' '}
+-
+      {endDateDisplay}
       {displayTimezone ? ` ${moment.tz(timezone).format('z')}` : ''}
     </span>
   );

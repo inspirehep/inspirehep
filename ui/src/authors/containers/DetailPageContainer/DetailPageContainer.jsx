@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Row, Col, Tabs, Tooltip } from 'antd';
 import { Map, List } from 'immutable';
 
-import './DetailPage.scss';
+import './DetailPage.less';
 import ContentBox from '../../../common/components/ContentBox';
 import AuthorName from '../../components/AuthorName';
 import ExperimentList from '../../../common/components/ExperimentList';
@@ -40,7 +40,7 @@ import Advisors from '../../components/Advisors';
 import AffiliationList from '../../../common/components/AffiliationList';
 import RecordUpdateInfo from '../../../common/components/RecordUpdateInfo';
 import AuthorSeminars from '../../components/AuthorSeminars';
-import EditAuthorRecordAction from '../../components/EditAuthorRecordAction.tsx';
+import EditAuthorRecordAction from '../../components/EditAuthorRecordAction';
 import { isCataloger } from '../../../common/authorization';
 
 function DetailPage({
@@ -113,7 +113,7 @@ function DetailPage({
             <Col span={24}>
               <ContentBox
                 className="sm-pb3"
-                leftActions={
+                leftActions={(
                   <>
                     {emails && <AuthorEmailsAction emails={emails} />}
                     {twitter && <AuthorTwitterAction twitter={twitter} />}
@@ -126,11 +126,9 @@ function DetailPage({
                       isCatalogerLoggedIn={isCatalogerLoggedIn}
                     />
                   </>
-                }
+)}
                 rightActions={
-                  <>
-                    <RecordUpdateInfo updateDate={updateTime} />
-                  </>
+                  <RecordUpdateInfo updateDate={updateTime} />
                 }
               >
                 <Row>
@@ -140,7 +138,9 @@ function DetailPage({
                   <AuthorName name={name} />
                   {currentPositions.size > 0 && (
                     <span className="pl1 f6">
-                      (<AffiliationList affiliations={currentPositions} />)
+                      (
+                      <AffiliationList affiliations={currentPositions} />
+)
                     </span>
                   )}
                   {orcid && (
@@ -173,7 +173,7 @@ function DetailPage({
             <Col span={24}>
               <Tabs type="card" tabBarStyle={{ marginBottom: 0 }}>
                 <Tabs.TabPane
-                  tab={
+                  tab={(
                     <Tooltip title="Research from the author">
                       <span>
                         <TabNameWithCount
@@ -185,7 +185,7 @@ function DetailPage({
                         />
                       </span>
                     </Tooltip>
-                  }
+)}
                   key="1"
                 >
                   <ContentBox className="remove-top-border-of-card">
@@ -193,13 +193,15 @@ function DetailPage({
                   </ContentBox>
                 </Tabs.TabPane>
                 <Tabs.TabPane
-                  tab={
+                  tab={(
                     <Tooltip title="Research citing the author">
                       <span>
-                        Cited By {citingPapersCount === 0 && <span> (0)</span>}
+                        Cited By 
+                        {' '}
+                        {citingPapersCount === 0 && <span> (0)</span>}
                       </span>
                     </Tooltip>
-                  }
+)}
                   key="2"
                   forceRender
                 >
@@ -209,11 +211,11 @@ function DetailPage({
                 </Tabs.TabPane>
                 {seminarsCount > 0 && (
                   <Tabs.TabPane
-                    tab={
+                    tab={(
                       <Tooltip title="Seminars from the author">
                         <span>Seminars</span>
                       </Tooltip>
-                    }
+)}
                     key="3"
                   >
                     <ContentBox className="remove-top-border-of-card">

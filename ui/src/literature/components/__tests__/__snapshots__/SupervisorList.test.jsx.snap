@@ -8,7 +8,8 @@ exports[`SupervisorList renders with multiple supervisors 1`] = `
     className=""
   >
     Supervisors
-    : 
+    :
+     
   </span>
   <ul>
     <li
@@ -48,7 +49,8 @@ exports[`SupervisorList renders with one supervisor 1`] = `
     className=""
   >
     Supervisor
-    : 
+    :
+     
   </span>
   <ul>
     <li

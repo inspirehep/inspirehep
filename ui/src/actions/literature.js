@@ -14,7 +14,7 @@ import {
   LITERATURE_SELECTION_CLEAR,
   LITERATURE_SET_ASSIGN_DETAIL_VIEW_DRAWER_VISIBILITY,
 } from './actionTypes';
-import { isCancelError } from '../common/http.ts';
+import { isCancelError } from '../common/http';
 import { httpErrorToActionPayload } from '../common/utils';
 import generateRecordFetchAction from './recordsFactory';
 import { LITERATURE_PID_TYPE } from '../common/constants';

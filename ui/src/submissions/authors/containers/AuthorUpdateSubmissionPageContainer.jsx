@@ -63,12 +63,12 @@ class AuthorUpdateSubmissionPage extends Component {
     return (
       <SubmissionPage
         title="Update author"
-        description={
+        description={(
           <span>
             This form allows you to update information of an existing author.
             All modifications will appear immediately.
           </span>
-        }
+)}
       >
         <LoadingOrChildren loading={loadingUpdateFormData}>
           <ErrorAlertOrChildren error={updateFormDataError}>

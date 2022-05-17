@@ -8,7 +8,8 @@ exports[`ExternalSystemIdentifierList renders with external system identifiers 1
     className=""
   >
     View in
-    : 
+    :
+     
   </span>
   <ul>
     <li

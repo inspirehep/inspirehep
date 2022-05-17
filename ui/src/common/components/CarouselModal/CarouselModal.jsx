@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import { Carousel, Row, Col, Button } from 'antd';
 
-import './CarouselModal.scss';
+import './CarouselModal.less';
 import { LeftOutlined, RightOutlined, CloseOutlined } from '@ant-design/icons';
 import useRefOrThis from '../../hooks/useRefOrThis';
 import { useGlobalEvent } from '../../hooks/useGlobalEvent';

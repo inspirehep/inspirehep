@@ -3,7 +3,7 @@ import { Row, Col } from 'antd';
 
 import SearchBoxContainer from '../common/containers/SearchBoxContainer';
 import HowToSearch from './components/HowToSearch';
-import './index.scss';
+import './index.less';
 import DocumentHead from '../common/components/DocumentHead';
 import HomePageSection from './components/HomePageSection';
 import HowToSubmit from './components/HowToSubmit';

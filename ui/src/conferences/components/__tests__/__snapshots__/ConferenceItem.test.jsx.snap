@@ -37,19 +37,18 @@ exports[`ConferenceItem renders with all props set 1`] = `
   }
   rightActions={
     <ListItemAction>
-      <ForwardRef
+      <Link
         to="/literature?q=publication_info.conference_record.$ref:12345&doc_type=conference%20paper"
       >
         <IconText
           icon={<ForwardRef(LoginOutlined) />}
           text="3 contributions"
         />
-      </ForwardRef>
+      </Link>
     </ListItemAction>
   }
 >
   <Row
-    gutter={0}
     type="flex"
   >
     <Col>
@@ -69,9 +68,7 @@ exports[`ConferenceItem renders with all props set 1`] = `
       </Link>
     </Col>
   </Row>
-  <Row
-    gutter={0}
-  >
+  <Row>
     <Col>
       <ConferenceDates
         closingDate="2019-11-28"
@@ -96,7 +93,6 @@ exports[`ConferenceItem renders with all props set 1`] = `
   </Row>
   <Row
     className="mt2"
-    gutter={0}
   >
     <Col>
       <InspireCategoryList
@@ -120,7 +116,6 @@ exports[`ConferenceItem renders with only needed props 1`] = `
   rightActions={false}
 >
   <Row
-    gutter={0}
     type="flex"
   >
     <Col>
@@ -139,9 +134,7 @@ exports[`ConferenceItem renders with only needed props 1`] = `
       </Link>
     </Col>
   </Row>
-  <Row
-    gutter={0}
-  >
+  <Row>
     <Col>
       <ConferenceDates
         openingDate="2019-11-21"
@@ -150,7 +143,6 @@ exports[`ConferenceItem renders with only needed props 1`] = `
   </Row>
   <Row
     className="mt2"
-    gutter={0}
   >
     <Col>
       <InspireCategoryList

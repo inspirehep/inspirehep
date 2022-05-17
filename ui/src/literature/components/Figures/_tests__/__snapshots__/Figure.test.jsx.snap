@@ -14,8 +14,6 @@ exports[`Figure renders figure with all props 1`] = `
       decode={true}
       loader={
         <Spin
-          size="default"
-          spinning={true}
           style={
             Object {
               "display": "block",
@@ -23,7 +21,6 @@ exports[`Figure renders figure with all props 1`] = `
               "padding": "2rem 0",
             }
           }
-          wrapperClassName=""
         />
       }
       onClick={[MockFunction]}
@@ -59,8 +56,6 @@ exports[`Figure renders figure with only url 1`] = `
       decode={true}
       loader={
         <Spin
-          size="default"
-          spinning={true}
           style={
             Object {
               "display": "block",
@@ -68,7 +63,6 @@ exports[`Figure renders figure with only url 1`] = `
               "padding": "2rem 0",
             }
           }
-          wrapperClassName=""
         />
       }
       src="https://picsum.photos/200/300"

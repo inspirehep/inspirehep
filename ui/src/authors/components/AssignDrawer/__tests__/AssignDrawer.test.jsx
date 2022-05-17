@@ -5,9 +5,10 @@ import { Set } from 'immutable';
 import AssignDrawer from '../AssignDrawer';
 
 jest.mock('react-router-dom', () => ({
-  useParams: jest.fn().mockImplementation(() => ({
+  ...jest.requireActual('react-router-dom'),
+  useParams: () => ({
     id: 123,
-  })),
+  }),
 }));
 
 describe('AssignDrawer', () => {

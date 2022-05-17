@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Field, Form } from 'formik';
 import { Row } from 'antd';
 
-import ExternalLink from '../../../common/components/ExternalLink.tsx';
+import ExternalLink from '../../../common/components/ExternalLink';
 import TextField from '../../common/components/TextField';
 import SelectField from '../../common/components/SelectField';
 import ArrayOf from '../../common/components/ArrayOf';
@@ -124,16 +124,17 @@ class JobForm extends Component {
         />
         {this.isPostDocSubmission() && (
           <FieldInfoAlert
-            description={
+            description={(
               <span>
                 Many institutions have agreed to set January 7 as the earliest
                 deadline which can be imposed for accepting offers of
-                postdoctoral positions.{' '}
+                postdoctoral positions.
+                {' '}
                 <ExternalLink href="http://insti.physics.sunysb.edu/itp/postdoc-agreement.html">
                   Learn More
                 </ExternalLink>
               </span>
-            }
+)}
           />
         )}
         <Field

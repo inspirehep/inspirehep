@@ -8,7 +8,8 @@ exports[`ArxivEprintList renders with arXiv id 1`] = `
     className=""
   >
     e-Print
-    : 
+    :
+     
   </span>
   <ul>
     <li

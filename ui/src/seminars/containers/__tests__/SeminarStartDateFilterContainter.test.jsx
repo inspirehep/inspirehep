@@ -9,7 +9,7 @@ import {
   mockActionCreator,
 } from '../../../fixtures/store';
 import { SEMINARS_NS, AUTHOR_SEMINARS_NS } from '../../../search/constants';
-import * as constants from '../../../common/constants';
+import { START_DATE_ALL, START_DATE_UPCOMING } from '../../../common/constants';
 import SeminarStartDateFilterContainer from '../SeminarStartDateFilterContainer';
 import EventStartDateFilter from '../../../common/components/EventStartDateFilter';
 import { searchQueryUpdate } from '../../../actions/search';
@@ -18,8 +18,6 @@ jest.mock('../../../actions/search');
 mockActionCreator(searchQueryUpdate);
 
 describe('SeminarStartDateFilterContainer', () => {
-  constants.LOCAL_TIMEZONE = 'Europe/Zurich';
-
   it('passes seminar search query start_date', () => {
     const namespace = SEMINARS_NS;
     const store = getStoreWithState({
@@ -27,7 +25,7 @@ describe('SeminarStartDateFilterContainer', () => {
         namespaces: {
           [namespace]: {
             query: {
-              start_date: constants.START_DATE_ALL,
+              start_date: START_DATE_ALL,
             },
           },
         },
@@ -43,7 +41,7 @@ describe('SeminarStartDateFilterContainer', () => {
     );
 
     expect(wrapper.find(EventStartDateFilter)).toHaveProp({
-      selection: constants.START_DATE_ALL,
+      selection: START_DATE_ALL,
     });
   });
 
@@ -59,10 +57,10 @@ describe('SeminarStartDateFilterContainer', () => {
       </Provider>
     );
     const onChange = wrapper.find(EventStartDateFilter).prop('onChange');
-    onChange(constants.START_DATE_ALL);
+    onChange(START_DATE_ALL);
 
     const query = {
-      start_date: constants.START_DATE_ALL,
+      start_date: START_DATE_ALL,
       page: '1',
       sort: 'datedesc',
       timezone: undefined,
@@ -83,10 +81,10 @@ describe('SeminarStartDateFilterContainer', () => {
       </Provider>
     );
     const onChange = wrapper.find(EventStartDateFilter).prop('onChange');
-    onChange(constants.START_DATE_UPCOMING);
+    onChange(START_DATE_UPCOMING);
 
     const query = {
-      start_date: constants.START_DATE_UPCOMING,
+      start_date: START_DATE_UPCOMING,
       page: '1',
       sort: 'dateasc',
       timezone: undefined,

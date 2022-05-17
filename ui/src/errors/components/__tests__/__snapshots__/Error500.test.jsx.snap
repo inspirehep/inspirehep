@@ -4,7 +4,8 @@ exports[`Error500 renders Error500 1`] = `
 <ErrorPage
   detail={
     <span>
-      Please try again later or 
+      Please try again later or
+       
       <Connect(GoBackLink) />
     </span>
   }

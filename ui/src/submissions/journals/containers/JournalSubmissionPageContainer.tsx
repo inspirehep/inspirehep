@@ -8,7 +8,7 @@ import { JournalSubmission } from '../components/JournalSubmission';
 import { JOURNALS } from '../../../common/routes';
 import { JOURNALS_PID_TYPE } from '../../../common/constants';
 
-interface RootState {
+export interface RootState {
   submissions: {
     getIn: (values: string[]) => string;
   };

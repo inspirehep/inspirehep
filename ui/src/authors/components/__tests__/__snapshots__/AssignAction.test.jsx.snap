@@ -12,14 +12,8 @@ exports[`AssignAction renders 1`] = `
         mouseLeaveDelay={0.1}
         placement="top"
         title={null}
-        transitionName="zoom-big-fast"
       >
-        <Button
-          block={false}
-          ghost={false}
-          htmlType="button"
-          loading={false}
-        >
+        <Button>
           <IconText
             icon={<ForwardRef(FileDoneOutlined) />}
             text="claim"
@@ -65,14 +59,8 @@ exports[`AssignAction renders disabled 1`] = `
         mouseLeaveDelay={0.1}
         placement="top"
         title="Please select the papers you want to claim or remove from the profile."
-        transitionName="zoom-big-fast"
       >
-        <Button
-          block={false}
-          ghost={false}
-          htmlType="button"
-          loading={false}
-        >
+        <Button>
           <IconText
             icon={<ForwardRef(FileDoneOutlined) />}
             text="claim"
@@ -118,14 +106,8 @@ exports[`AssignAction renders plural form if numberOfSelected is more than 1 1`]
         mouseLeaveDelay={0.1}
         placement="top"
         title={null}
-        transitionName="zoom-big-fast"
       >
-        <Button
-          block={false}
-          ghost={false}
-          htmlType="button"
-          loading={false}
-        >
+        <Button>
           <IconText
             icon={<ForwardRef(FileDoneOutlined) />}
             text="claim"
@@ -171,14 +153,8 @@ exports[`AssignAction renders singular form if numberOfSelected is 1 1`] = `
         mouseLeaveDelay={0.1}
         placement="top"
         title={null}
-        transitionName="zoom-big-fast"
       >
-        <Button
-          block={false}
-          ghost={false}
-          htmlType="button"
-          loading={false}
-        >
+        <Button>
           <IconText
             icon={<ForwardRef(FileDoneOutlined) />}
             text="claim"

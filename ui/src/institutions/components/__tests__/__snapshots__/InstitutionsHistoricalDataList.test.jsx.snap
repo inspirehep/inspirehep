@@ -8,7 +8,8 @@ exports[`InstitutionsHistoricalDataList renders 1`] = `
     className=""
   >
     Note
-    : 
+    :
+     
   </span>
   <ul>
     <li

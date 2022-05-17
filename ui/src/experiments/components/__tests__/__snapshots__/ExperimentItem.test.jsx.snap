@@ -3,20 +3,18 @@
 exports[`ExperimentItem renders with all props set 1`] = `
 <ResultItem
   leftActions={
-    <React.Fragment>
-      <UrlsAction
-        icon={<ForwardRef(LinkOutlined) />}
-        text="links"
-        trackerEventId="Experiments:Url"
-        urls={
-          Immutable.List [
-            Immutable.Map {
-              "value": "http://url.com",
-            },
-          ]
-        }
-      />
-    </React.Fragment>
+    <UrlsAction
+      icon={<ForwardRef(LinkOutlined) />}
+      text="links"
+      trackerEventId="Experiments:Url"
+      urls={
+        Immutable.List [
+          Immutable.Map {
+            "value": "http://url.com",
+          },
+        ]
+      }
+    />
   }
   rightActions={
     <IncomingLiteratureReferencesLinkAction
@@ -27,9 +25,7 @@ exports[`ExperimentItem renders with all props set 1`] = `
     />
   }
 >
-  <Row
-    gutter={0}
-  >
+  <Row>
     <Col>
       <Link
         className="result-item-title"
@@ -62,16 +58,12 @@ exports[`ExperimentItem renders with all props set 1`] = `
       </span>
     </Col>
   </Row>
-  <Row
-    gutter={0}
-  >
+  <Row>
     <Col>
       This is a long name describing the experiment
     </Col>
   </Row>
-  <Row
-    gutter={0}
-  >
+  <Row>
     <Col>
       <ExperimentCollaboration
         collaboration={
@@ -87,7 +79,6 @@ exports[`ExperimentItem renders with all props set 1`] = `
 
 exports[`ExperimentItem renders with only needed props 1`] = `
 <ResultItem
-  leftActions={<React.Fragment />}
   rightActions={
     <IncomingLiteratureReferencesLinkAction
       itemCount={0}
@@ -97,9 +88,7 @@ exports[`ExperimentItem renders with only needed props 1`] = `
     />
   }
 >
-  <Row
-    gutter={0}
-  >
+  <Row>
     <Col>
       <Link
         className="result-item-title"

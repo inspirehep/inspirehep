@@ -6,7 +6,7 @@ import { Col, Row, Tree } from 'antd';
 import UnclickableTag from './UnclickableTag';
 import AggregationBox from './AggregationBox';
 import { forceArray } from '../utils';
-import FormattedNumber from './FormattedNumber.tsx';
+import FormattedNumber from './FormattedNumber';
 
 function renderTitle(name, docCount) {
   return (

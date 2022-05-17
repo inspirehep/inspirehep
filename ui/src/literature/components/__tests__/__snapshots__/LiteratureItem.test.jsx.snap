@@ -10,14 +10,12 @@ exports[`LiteratureItem does not arxiv pdf download action if there is no eprint
     </React.Fragment>
   }
   rightActions={
-    <React.Fragment>
-      <IncomingLiteratureReferencesLinkAction
-        itemCount={0}
-        linkQuery="refersto:recid:12345"
-        referenceType="citation"
-        trackerEventId="Citations:Search"
-      />
-    </React.Fragment>
+    <IncomingLiteratureReferencesLinkAction
+      itemCount={0}
+      linkQuery="refersto:recid:12345"
+      referenceType="citation"
+      trackerEventId="Citations:Search"
+    />
   }
 >
   <div
@@ -80,14 +78,12 @@ exports[`LiteratureItem renders 0 citations if it does not exist 1`] = `
     </React.Fragment>
   }
   rightActions={
-    <React.Fragment>
-      <IncomingLiteratureReferencesLinkAction
-        itemCount={0}
-        linkQuery="refersto:recid:12345"
-        referenceType="citation"
-        trackerEventId="Citations:Search"
-      />
-    </React.Fragment>
+    <IncomingLiteratureReferencesLinkAction
+      itemCount={0}
+      linkQuery="refersto:recid:12345"
+      referenceType="citation"
+      trackerEventId="Citations:Search"
+    />
   }
 >
   <div
@@ -150,14 +146,12 @@ exports[`LiteratureItem renders publication info when book exists but publicatio
     </React.Fragment>
   }
   rightActions={
-    <React.Fragment>
-      <IncomingLiteratureReferencesLinkAction
-        itemCount={0}
-        linkQuery="refersto:recid:12345"
-        referenceType="citation"
-        trackerEventId="Citations:Search"
-      />
-    </React.Fragment>
+    <IncomingLiteratureReferencesLinkAction
+      itemCount={0}
+      linkQuery="refersto:recid:12345"
+      referenceType="citation"
+      trackerEventId="Citations:Search"
+    />
   }
 >
   <div
@@ -254,14 +248,12 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
     </React.Fragment>
   }
   rightActions={
-    <React.Fragment>
-      <IncomingLiteratureReferencesLinkAction
-        itemCount={12435}
-        linkQuery="refersto:recid:12345"
-        referenceType="citation"
-        trackerEventId="Citations:Search"
-      />
-    </React.Fragment>
+    <IncomingLiteratureReferencesLinkAction
+      itemCount={12435}
+      linkQuery="refersto:recid:12345"
+      referenceType="citation"
+      trackerEventId="Citations:Search"
+    />
   }
 >
   <div

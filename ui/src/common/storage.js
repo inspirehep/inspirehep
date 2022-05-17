@@ -3,7 +3,7 @@ function isStorageAvailable() {
   let storage;
   try {
     // eslint-disable-next-line dot-notation
-    storage = window['localStorage'];
+    storage = window.localStorage;
     const test = '__test__';
     storage.setItem(test, test);
     storage.removeItem(test);

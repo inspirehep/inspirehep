@@ -50,8 +50,12 @@ function AssignDrawer({ visible, onDrawerClose, onAssign, selectedPapers }) {
     >
       <p>
         <strong>
-          You have selected {selectedPapers.size}{' '}
-          {pluralizeUnlessSingle('paper', selectedPapers.size)}. Select the
+          You have selected 
+          {' '}
+          {selectedPapers.size}
+          {' '}
+          {pluralizeUnlessSingle('paper', selectedPapers.size)}
+. Select the
           conference to assign the selected papers:
         </strong>
       </p>

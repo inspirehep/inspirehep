@@ -10,7 +10,19 @@ import {
   AUTHOR_PUBLICATIONS_NS,
 } from '../../search/constants';
 import searchConfig from '../../search/config';
-import * as types from '../../actions/actionTypes';
+import {
+  SEARCH_REQUEST,
+  SEARCH_SUCCESS,
+  SEARCH_ERROR,
+  SEARCH_AGGREGATIONS_REQUEST,
+  SEARCH_AGGREGATIONS_SUCCESS,
+  SEARCH_AGGREGATIONS_ERROR,
+  CHANGE_SEARCH_BOX_NAMESPACE,
+  SEARCH_BASE_QUERIES_UPDATE,
+  SEARCH_QUERY_UPDATE,
+  NEW_SEARCH_REQUEST,
+  SEARCH_QUERY_RESET
+} from '../../actions/actionTypes';
 
 describe('search reducer', () => {
   it('default', () => {
@@ -51,7 +63,7 @@ describe('search reducer', () => {
   it('CHANGE_SEARCH_BOX_NAMESPACE', () => {
     const aNamespace = SEARCH_BOX_NAMESPACES[0];
     const state = reducer(Map(), {
-      type: types.CHANGE_SEARCH_BOX_NAMESPACE,
+      type: CHANGE_SEARCH_BOX_NAMESPACE,
       payload: { searchBoxNamespace: aNamespace },
     });
     expect(state.get('searchBoxNamespace')).toEqual(aNamespace);
@@ -74,7 +86,7 @@ describe('search reducer', () => {
       },
     });
     const state = reducer(initialReducerState, {
-      type: types.NEW_SEARCH_REQUEST,
+      type: NEW_SEARCH_REQUEST,
       payload: { namespace },
     });
     const expected = fromJS({
@@ -113,7 +125,7 @@ describe('search reducer', () => {
     const query = { page: 1, size: 99 };
 
     const state = reducer(initialReducerState, {
-      type: types.SEARCH_QUERY_UPDATE,
+      type: SEARCH_QUERY_UPDATE,
       payload: { namespace, query },
     });
 
@@ -144,7 +156,7 @@ describe('search reducer', () => {
     });
 
     const state = reducer(initialReducerState, {
-      type: types.SEARCH_QUERY_RESET,
+      type: SEARCH_QUERY_RESET,
       payload: { namespace },
     });
 
@@ -173,7 +185,7 @@ describe('search reducer', () => {
     const baseAggregationsQuery = { facet_name: 'second' };
 
     const state = reducer(initialReducerState, {
-      type: types.SEARCH_BASE_QUERIES_UPDATE,
+      type: SEARCH_BASE_QUERIES_UPDATE,
       payload: { namespace, baseQuery, baseAggregationsQuery },
     });
 
@@ -206,7 +218,7 @@ describe('search reducer', () => {
     const baseQuery = { sort: 'mostcited' };
 
     const state = reducer(initialReducerState, {
-      type: types.SEARCH_BASE_QUERIES_UPDATE,
+      type: SEARCH_BASE_QUERIES_UPDATE,
       payload: { namespace, baseQuery },
     });
 
@@ -228,7 +240,7 @@ describe('search reducer', () => {
   it('SEARCH_REQUEST', () => {
     const namespace = JOBS_NS;
     const state = reducer(Map(), {
-      type: types.SEARCH_REQUEST,
+      type: SEARCH_REQUEST,
       payload: { namespace },
     });
     const expected = fromJS({
@@ -258,7 +270,7 @@ describe('search reducer', () => {
       sort_options: [{ value: 'mostrecent', display: 'Most Recent' }],
     };
     const state = reducer(initialReducerState, {
-      type: types.SEARCH_SUCCESS,
+      type: SEARCH_SUCCESS,
       payload: { namespace, data },
     });
     const expected = fromJS({
@@ -293,7 +305,7 @@ describe('search reducer', () => {
       sort_options: [{ value: 'mostrecent', display: 'Most Recent' }],
     };
     const state = reducer(initialReducerState, {
-      type: types.SEARCH_SUCCESS,
+      type: SEARCH_SUCCESS,
       payload: { namespace, data },
     });
     const expected = fromJS({
@@ -315,7 +327,7 @@ describe('search reducer', () => {
     const namespace = AUTHORS_NS;
     const error = { message: 'error' };
     const state = reducer(Map(), {
-      type: types.SEARCH_ERROR,
+      type: SEARCH_ERROR,
       payload: { error, namespace },
     });
     const expected = fromJS({
@@ -333,7 +345,7 @@ describe('search reducer', () => {
     const namespace = AUTHORS_NS;
     const error = { message: 'error' };
     const state = reducer(Map(), {
-      type: types.SEARCH_AGGREGATIONS_ERROR,
+      type: SEARCH_AGGREGATIONS_ERROR,
       payload: { error, namespace },
     });
     const expected = fromJS({
@@ -355,7 +367,7 @@ describe('search reducer', () => {
   it('SEARCH_AGGREGATIONS_REQUEST', () => {
     const namespace = LITERATURE_NS;
     const state = reducer(Map(), {
-      type: types.SEARCH_AGGREGATIONS_REQUEST,
+      type: SEARCH_AGGREGATIONS_REQUEST,
       payload: { namespace },
     });
     const expected = fromJS({
@@ -383,7 +395,7 @@ describe('search reducer', () => {
       },
     });
     const state = reducer(initialReducerState, {
-      type: types.SEARCH_AGGREGATIONS_SUCCESS,
+      type: SEARCH_AGGREGATIONS_SUCCESS,
       payload: { data, namespace },
     });
     const expected = fromJS({
@@ -418,7 +430,7 @@ describe('search reducer', () => {
       },
     });
     const state = reducer(initialReducerState, {
-      type: types.SEARCH_AGGREGATIONS_SUCCESS,
+      type: SEARCH_AGGREGATIONS_SUCCESS,
       payload: { data, namespace },
     });
     const expected = fromJS({

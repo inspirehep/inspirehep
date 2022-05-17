@@ -2,8 +2,15 @@ import MockAdapter from 'axios-mock-adapter';
 import { fromJS } from 'immutable';
 
 import { getStore } from '../../fixtures/store';
-import http from '../../common/http.ts';
-import * as types from '../actionTypes';
+import http from '../../common/http';
+import {
+  CITATIONS_SUMMARY_REQUEST,
+  CITATIONS_SUMMARY_SUCCESS,
+  CITATIONS_SUMMARY_ERROR,
+  CITATIONS_BY_YEAR_SUCCESS,
+  CITATIONS_BY_YEAR_REQUEST,
+  CITATIONS_BY_YEAR_ERROR,
+} from '../actionTypes';
 import { fetchCitationSummary, fetchCitationsByYear } from '../citations';
 import { AUTHOR_PUBLICATIONS_NS } from '../../search/constants';
 import { LITERATURE } from '../../common/routes';
@@ -16,7 +23,7 @@ describe('citations - async action creator', () => {
     mockHttp.reset();
   });
 
-  it('creates CITATIONS_SUMMARY_SUCCESS if successful', async done => {
+  it('creates CITATIONS_SUMMARY_SUCCESS if successful', async () => {
     const query = { author: ['12345_Jared'] };
     const excludeSelfCitations = false;
     const namespace = AUTHOR_PUBLICATIONS_NS;
@@ -41,18 +48,17 @@ describe('citations - async action creator', () => {
 
     const expectedActions = [
       {
-        type: types.CITATIONS_SUMMARY_REQUEST,
+        type: CITATIONS_SUMMARY_REQUEST,
         payload: { namespace },
       },
-      { type: types.CITATIONS_SUMMARY_SUCCESS, payload: { foo: 'bar' } },
+      { type: CITATIONS_SUMMARY_SUCCESS, payload: { foo: 'bar' } },
     ];
 
     await store.dispatch(fetchCitationSummary(namespace));
     expect(store.getActions()).toEqual(expectedActions);
-    done();
   });
 
-  it('creates CITATIONS_SUMMARY_ERROR if unsuccessful', async done => {
+  it('creates CITATIONS_SUMMARY_ERROR if unsuccessful', async () => {
     const query = { q: 'stuff' };
     const namespace = LITERATURE;
 
@@ -79,11 +85,11 @@ describe('citations - async action creator', () => {
 
     const expectedActions = [
       {
-        type: types.CITATIONS_SUMMARY_REQUEST,
+        type: CITATIONS_SUMMARY_REQUEST,
         payload: { namespace },
       },
       {
-        type: types.CITATIONS_SUMMARY_ERROR,
+        type: CITATIONS_SUMMARY_ERROR,
         payload: {
           error: { status: 404, message: 'Error' },
         },
@@ -92,10 +98,9 @@ describe('citations - async action creator', () => {
 
     await store.dispatch(fetchCitationSummary(namespace));
     expect(store.getActions()).toEqual(expectedActions);
-    done();
   });
 
-  it('creates CITATIONS_BY_YEAR_SUCCESS if successful', async done => {
+  it('creates CITATIONS_BY_YEAR_SUCCESS if successful', async () => {
     mockHttp
       .onGet(
         '/literature/facets?author=12345_Jared&facet_name=citations-by-year'
@@ -103,8 +108,8 @@ describe('citations - async action creator', () => {
       .replyOnce(200, { foo: 'bar' });
 
     const expectedActions = [
-      { type: types.CITATIONS_BY_YEAR_REQUEST },
-      { type: types.CITATIONS_BY_YEAR_SUCCESS, payload: { foo: 'bar' } },
+      { type: CITATIONS_BY_YEAR_REQUEST },
+      { type: CITATIONS_BY_YEAR_SUCCESS, payload: { foo: 'bar' } },
     ];
 
     const store = getStore();
@@ -114,18 +119,17 @@ describe('citations - async action creator', () => {
       })
     );
     expect(store.getActions()).toEqual(expectedActions);
-    done();
   });
 
-  it('creates CITATIONS_BY_YEAR_ERROR if unsuccessful', async done => {
+  it('creates CITATIONS_BY_YEAR_ERROR if unsuccessful', async () => {
     mockHttp
       .onGet('/literature/facets?q=stuff&facet_name=citations-by-year')
       .replyOnce(404, { message: 'Error' });
 
     const expectedActions = [
-      { type: types.CITATIONS_BY_YEAR_REQUEST },
+      { type: CITATIONS_BY_YEAR_REQUEST },
       {
-        type: types.CITATIONS_BY_YEAR_ERROR,
+        type: CITATIONS_BY_YEAR_ERROR,
         payload: {
           error: { status: 404, message: 'Error' },
         },
@@ -139,6 +143,5 @@ describe('citations - async action creator', () => {
       })
     );
     expect(store.getActions()).toEqual(expectedActions);
-    done();
   });
 });

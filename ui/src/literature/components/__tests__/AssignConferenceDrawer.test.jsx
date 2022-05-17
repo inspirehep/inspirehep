@@ -5,9 +5,10 @@ import { Set } from 'immutable';
 import AssignConferencesDrawer from '../AssignConferencesDrawer';
 
 jest.mock('react-router-dom', () => ({
-  useParams: jest.fn().mockImplementation(() => ({
+  ...jest.requireActual('react-router-dom'),
+  useParams: () => ({
     id: 123,
-  })),
+  }),
 }));
 
 describe('AssignConferencesDrawer', () => {

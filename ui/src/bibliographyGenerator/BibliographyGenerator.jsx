@@ -6,7 +6,7 @@ import { InboxOutlined } from '@ant-design/icons';
 import CollapsableForm from '../submissions/common/components/CollapsableForm';
 import SelectBox from '../common/components/SelectBox';
 
-import './BibliographyGenerator.scss';
+import './BibliographyGenerator.less';
 import ErrorAlert from '../common/components/ErrorAlert';
 import DocumentHead from '../common/components/DocumentHead';
 
@@ -22,7 +22,12 @@ const META_DESCRIPTION =
 const TITLE = 'Bibliography Generator';
 
 function Cite({ children }) {
-  return <code>\cite{`{${children}}`}</code>;
+  return (
+    <code>
+\cite
+      {`{${children}}`}
+    </code>
+);
 }
 
 Cite.propTypes = {
@@ -147,8 +152,11 @@ Finally, let me make a mistake citing this paper \\cite{hep-scifi/0101001}.
 
                     <p>
                       <strong>
-                        This will warn about the unknown reference to{' '}
-                        <code>hep-scifi/0101001</code> and generate a file
+                        This will warn about the unknown reference to
+                        {' '}
+                        <code>hep-scifi/0101001</code>
+                        {' '}
+and generate a file
                         containing:
                       </strong>
                     </p>
@@ -263,7 +271,11 @@ doi:10.1103/PhysRevLett.83.3370
                         <h3>Instructions</h3>
                         <p>
                           Write your paper in LaTeX as usual. Cite papers in
-                          your LaTeX file using the <Cite>...</Cite> macro. The
+                          your LaTeX file using the 
+                          {' '}
+                          <Cite>...</Cite>
+                          {' '}
+macro. The
                           citation keys will be used to retrieve the
                           bibliographic information for the referenced papers
                           from the INSPIRE database. The following types of
@@ -271,24 +283,35 @@ doi:10.1103/PhysRevLett.83.3370
                         </p>
                         <ol>
                           <li>
-                            INSPIRE Texkeys, e.g. <Cite>Beacom:2010kk</Cite>
+                            INSPIRE Texkeys, e.g. 
+                            {' '}
+                            <Cite>Beacom:2010kk</Cite>
                           </li>
                           <li>
-                            arXiv eprint numbers, e.g. <Cite>1004.3311</Cite> or{' '}
+                            arXiv eprint numbers, e.g. 
+                            {' '}
+                            <Cite>1004.3311</Cite>
+                            {' '}
+or
+                            {' '}
                             <Cite>hep-th/9711200</Cite>
                           </li>
                           <li>
                             Journal references as present on INSPIRE, with the
                             spaces and dots removed from the title, and dots
                             used as separator between title, volume and
-                            page-number/article ID, e.g.{' '}
+                            page-number/article ID, e.g.
+                            {' '}
                             <Cite>PhysRev.D66.010001</Cite>
                           </li>
                           <li>
-                            ADS bibcodes, e.g. <Cite>1999IJTP...38.1113M</Cite>
+                            ADS bibcodes, e.g. 
+                            {' '}
+                            <Cite>1999IJTP...38.1113M</Cite>
                           </li>
                           <li>
-                            Report numbers, e.g.{' '}
+                            Report numbers, e.g.
+                            {' '}
                             <Cite>CERN-PH-EP-2012-218</Cite>
                           </li>
                         </ol>
@@ -307,8 +330,10 @@ doi:10.1103/PhysRevLett.83.3370
                         <ul>
                           <li>
                             You can cite multiple papers at once by separating
-                            the keys with commas, such as{' '}
-                            <Cite>Beacom:2010kk, hep-th/9711200</Cite>. Each of
+                            the keys with commas, such as
+                            {' '}
+                            <Cite>Beacom:2010kk, hep-th/9711200</Cite>
+. Each of
                             them will appear as a separate entry in the
                             bibliography.
                           </li>
@@ -325,7 +350,10 @@ doi:10.1103/PhysRevLett.83.3370
                             when you cited the references in the paper.
                           </li>
                           <li>
-                            The only allowed characters in <Cite>...</Cite>{' '}
+                            The only allowed characters in 
+                            {' '}
+                            <Cite>...</Cite>
+                            {' '}
                             commands are letters, numbers and the following
                             punctuation characters: &ldquo;-&rdquo;,
                             &ldquo;/&rdquo;, &ldquo;:&rdquo;, &ldquo;,&rdquo;

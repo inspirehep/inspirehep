@@ -7,7 +7,8 @@ exports[`DocumentHead renders with only title 1`] = `
 >
   <title>
     Jessica Jones
-     - INSPIRE
+     
+    - INSPIRE
   </title>
 </HelmetWrapper>
 `;
@@ -19,7 +20,8 @@ exports[`DocumentHead renders with title, description and children 1`] = `
 >
   <title>
     Page Title
-     - INSPIRE
+     
+    - INSPIRE
   </title>
   <meta
     content="This is a test page"

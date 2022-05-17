@@ -6,23 +6,23 @@ exports[`ExperimentDates renders with all props set 1`] = `
   wrapperClassName="di"
 >
   <span>
-    Proposed: 
+    Proposed:
     Feb 1, 1984
   </span>
   <span>
-    Approved: 
+    Approved:
     Feb 2, 1984
   </span>
   <span>
-    Started: 
+    Started:
     Feb 3, 1984
   </span>
   <span>
-    Cancelled: 
+    Cancelled:
     Feb 4, 1984
   </span>
   <span>
-    Completed: 
+    Completed:
     Feb 5, 1984
   </span>
 </InlineUL>
@@ -34,15 +34,15 @@ exports[`ExperimentDates renders with partial dates 1`] = `
   wrapperClassName={null}
 >
   <span>
-    Proposed: 
+    Proposed:
     1984
   </span>
   <span>
-    Approved: 
+    Approved:
     Feb, 1984
   </span>
   <span>
-    Started: 
+    Started:
     Feb 3, 1984
   </span>
   <span>
@@ -57,15 +57,15 @@ exports[`ExperimentDates renders without dateCancelled or dateCompleted 1`] = `
   wrapperClassName={null}
 >
   <span>
-    Proposed: 
+    Proposed:
     Feb 1, 1984
   </span>
   <span>
-    Approved: 
+    Approved:
     Feb 2, 1984
   </span>
   <span>
-    Started: 
+    Started:
     Feb 3, 1984
   </span>
   <span>

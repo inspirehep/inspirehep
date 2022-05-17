@@ -1,7 +1,7 @@
 import { Map, fromJS } from 'immutable';
 
 import reducer from '../exceptions';
-import * as types from '../../actions/actionTypes';
+import { EXCEPTIONS_REQUEST, EXCEPTIONS_SUCCESS, EXCEPTIONS_ERROR } from '../../actions/actionTypes';
 
 describe('exceptions reducer', () => {
   it('default', () => {
@@ -15,7 +15,7 @@ describe('exceptions reducer', () => {
   });
 
   it('EXCEPTIONS_REQUEST', () => {
-    const state = reducer(Map(), { type: types.EXCEPTIONS_REQUEST });
+    const state = reducer(Map(), { type: EXCEPTIONS_REQUEST });
     const expected = Map({ loading: true });
     expect(state).toEqual(expected);
   });
@@ -30,7 +30,7 @@ describe('exceptions reducer', () => {
         },
       ],
     };
-    const state = reducer(Map(), { type: types.EXCEPTIONS_SUCCESS, payload });
+    const state = reducer(Map(), { type: EXCEPTIONS_SUCCESS, payload });
     const expected = fromJS({
       loading: false,
       data: payload.data,
@@ -41,7 +41,7 @@ describe('exceptions reducer', () => {
 
   it('EXCEPTIONS_ERROR', () => {
     const state = reducer(Map(), {
-      type: types.EXCEPTIONS_ERROR,
+      type: EXCEPTIONS_ERROR,
       payload: {
         error: { message: 'error' }
       },

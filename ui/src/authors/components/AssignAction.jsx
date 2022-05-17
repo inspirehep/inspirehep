@@ -31,7 +31,7 @@ function AssignAction({
     <ListItemAction>
       <DropdownMenu
         disabled={disabled}
-        title={
+        title={(
           <Tooltip
             title={
               disabled
@@ -43,7 +43,7 @@ function AssignAction({
               <IconText text="claim" icon={<FileDoneOutlined />} />
             </Button>
           </Tooltip>
-        }
+)}
       >
         <Menu.Item
           data-test-id="assign-self"

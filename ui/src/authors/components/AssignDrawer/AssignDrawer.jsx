@@ -52,8 +52,12 @@ function AssignDrawer({ visible, onDrawerClose, selectedPapers, onAssign }) {
     >
       <p>
         <strong>
-          You have selected {selectedPapers.size}{' '}
-          {pluralizeUnlessSingle('paper', selectedPapers.size)}. Select the
+          You have selected 
+          {' '}
+          {selectedPapers.size}
+          {' '}
+          {pluralizeUnlessSingle('paper', selectedPapers.size)}
+. Select the
           author to assign the selected papers:
         </strong>
       </p>

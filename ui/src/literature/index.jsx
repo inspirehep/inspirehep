@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 
-import './index.scss';
+import './index.less';
 import { LITERATURE } from '../common/routes';
 import SearchPageContainer from './containers/SearchPageContainer';
 import DetailPageContainer from './containers/DetailPageContainer';

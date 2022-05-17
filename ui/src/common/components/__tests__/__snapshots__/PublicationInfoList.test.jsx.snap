@@ -8,7 +8,8 @@ exports[`PublicationInfoList renders with publicationInfo 1`] = `
     className=""
   >
     Published in
-    : 
+    :
+     
   </span>
   <ul>
     <li

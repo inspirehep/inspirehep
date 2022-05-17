@@ -2,7 +2,7 @@ import MockAdapter from 'axios-mock-adapter';
 import { fromJS, Set } from 'immutable';
 import { advanceTo, clear } from 'jest-date-mock';
 import { getStore, getStoreWithState } from '../../fixtures/store';
-import http from '../../common/http.ts';
+import http from '../../common/http';
 import {
   LITERATURE_ERROR,
   LITERATURE_REQUEST,
@@ -52,7 +52,7 @@ describe('literature - async action creators', () => {
     mockHttp.reset();
   });
 
-  it('happy - creates LITERATURE_SUCCESS', async (done) => {
+  it('happy - creates LITERATURE_SUCCESS', async () => {
     mockHttp.onGet('/literature/123').replyOnce(200, {});
 
     const expectedActions = [
@@ -63,10 +63,9 @@ describe('literature - async action creators', () => {
     const store = getStore();
     await store.dispatch(fetchLiterature(123));
     expect(store.getActions()).toEqual(expectedActions);
-    done();
   });
 
-  it('unhappy - creates LITERATURE_ERROR', async (done) => {
+  it('unhappy - creates LITERATURE_ERROR', async () => {
     mockHttp.onGet('/literature/123').replyOnce(500);
 
     const expectedActions = [
@@ -81,11 +80,10 @@ describe('literature - async action creators', () => {
     const store = getStore();
     await store.dispatch(fetchLiterature(123));
     expect(store.getActions()).toEqual(expectedActions);
-    done();
   });
 
   describe('literature references', () => {
-    it('happy - creates LITERATURE_REFERENCES_SUCCESS', async (done) => {
+    it('happy - creates LITERATURE_REFERENCES_SUCCESS', async () => {
       mockHttp
         .onGet('/literature/123/references?size=10&page=1')
         .replyOnce(200, {});
@@ -107,10 +105,10 @@ describe('literature - async action creators', () => {
         fetchLiteratureReferences(123, { page: 1, size: 10 })
       );
       expect(store.getActions()).toEqual(expectedActions);
-      done();
+
     });
 
-    it('fetches references with merging the given query into the existing one ', async (done) => {
+    it('fetches references with merging the given query into the existing one ', async () => {
       mockHttp
         .onGet('/literature/123/references?size=10&page=10')
         .replyOnce(200, {});
@@ -145,10 +143,10 @@ describe('literature - async action creators', () => {
       });
       await store.dispatch(fetchLiteratureReferences(123, { page: 10 }));
       expect(store.getActions()).toEqual(expectedActions);
-      done();
+
     });
 
-    it('unhappy - creates LITERATURE_REFERENCES_ERROR', async (done) => {
+    it('unhappy - creates LITERATURE_REFERENCES_ERROR', async () => {
       mockHttp
         .onGet('/literature/123/references?size=10&page=1')
         .replyOnce(404, { message: 'Not found' });
@@ -166,12 +164,12 @@ describe('literature - async action creators', () => {
         fetchLiteratureReferences(123, { page: 1, size: 10 })
       );
       expect(store.getActions()).toEqual(expectedActions);
-      done();
+
     });
   });
 
   describe('literature authors', () => {
-    it('happy - creates LITERATURE_AUTHORS_SUCCESS', async (done) => {
+    it('happy - creates LITERATURE_AUTHORS_SUCCESS', async () => {
       mockHttp.onGet('/literature/123/authors').replyOnce(200, {});
 
       const expectedActions = [
@@ -182,10 +180,10 @@ describe('literature - async action creators', () => {
       const store = getStore();
       await store.dispatch(fetchLiteratureAuthors(123));
       expect(store.getActions()).toEqual(expectedActions);
-      done();
+
     });
 
-    it('unhappy - creates LITERATURE_AUTHORS_ERROR', async (done) => {
+    it('unhappy - creates LITERATURE_AUTHORS_ERROR', async () => {
       mockHttp.onGet('/literature/123/authors').replyOnce(500);
 
       const expectedActions = [
@@ -201,7 +199,7 @@ describe('literature - async action creators', () => {
       const store = getStore();
       await store.dispatch(fetchLiteratureAuthors(123));
       expect(store.getActions()).toEqual(expectedActions);
-      done();
+
     });
   });
 

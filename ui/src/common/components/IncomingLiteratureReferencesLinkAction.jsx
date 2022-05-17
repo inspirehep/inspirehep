@@ -4,7 +4,7 @@ import { LoginOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
 import IconText from './IconText';
-import FormattedNumber from './FormattedNumber.tsx';
+import FormattedNumber from './FormattedNumber';
 import pluralizeUnlessSingle from '../utils';
 import { LITERATURE } from '../routes';
 import ListItemAction from './ListItemAction';
@@ -20,12 +20,13 @@ const IncomingLiteratureReferencesLinkAction = ({
     <EventTracker eventId={trackerEventId}>
       <Link to={`${LITERATURE}?q=${linkQuery}`}>
         <IconText
-          text={
+          text={(
             <>
-              <FormattedNumber>{itemCount}</FormattedNumber>{' '}
+              <FormattedNumber>{itemCount}</FormattedNumber>
+              {' '}
               {pluralizeUnlessSingle(referenceType, itemCount)}
             </>
-          }
+)}
           icon={<LoginOutlined />}
         />
       </Link>

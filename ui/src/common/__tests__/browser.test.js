@@ -1,4 +1,4 @@
-import { browser } from '../browser.ts';
+import { browser } from '../browser';
 
 describe('browser', () => {
   const userAgentGetter = jest.spyOn(navigator, 'userAgent', 'get');

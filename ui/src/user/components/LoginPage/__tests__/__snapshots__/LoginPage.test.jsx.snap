@@ -9,11 +9,10 @@ exports[`LoginPage renders page 1`] = `
   <Row
     align="middle"
     className="__LoginPage__ h-100"
-    gutter={0}
     justify="center"
     type="flex"
   >
-    <Card
+    <ForwardRef
       align="middle"
     >
       <p
@@ -34,12 +33,8 @@ exports[`LoginPage renders page 1`] = `
         </ExternalLink>
       </p>
       <Button
-        block={false}
         className="login-button h3"
-        ghost={false}
         href="/api/accounts/login?next=/"
-        htmlType="button"
-        loading={false}
       >
         <img
           alt="ORCID"
@@ -57,7 +52,7 @@ exports[`LoginPage renders page 1`] = `
       >
         What is ORCID?
       </ExternalLink>
-    </Card>
+    </ForwardRef>
   </Row>
 </Fragment>
 `;

@@ -26,12 +26,16 @@ class JobSubmissionPage extends Component {
     return (
       <SubmissionPage
         title="Submit a new job opening"
-        description={
+        description={(
           <span>
             This form allows you to advertise a new job opening. It will appear
-            in the <Link to={`${JOBS}?q=`}>Jobs List</Link> upon approval.
+            in the
+            {' '}
+            <Link to={`${JOBS}?q=`}>Jobs List</Link>
+            {' '}
+            upon approval.
           </span>
-        }
+        )}
       >
         <JobSubmission error={error} onSubmit={this.onSubmit} />
       </SubmissionPage>

@@ -37,13 +37,15 @@ describe('DetailPageContainer', () => {
       },
     ]);
 
-    const component = shallow(<DetailPageContainer authors={authors}
+    const component = shallow(<DetailPageContainer
+      authors={authors}
       record={record}
       referencesCount={2}
       supervisors={supervisors}
       seminarsCount={2}
       loggedIn={false}
-      hasAuthorProfile={false} />);
+      hasAuthorProfile={false}
+    />);
     expect(component).toMatchSnapshot();
   });
 })

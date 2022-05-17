@@ -2,7 +2,6 @@
 
 exports[`ListWithPagination renders in grid mode 1`] = `
 <List
-  bordered={false}
   data-test-id="pagination-list"
   dataSource={
     Immutable.List [
@@ -64,16 +63,12 @@ exports[`ListWithPagination renders in grid mode 1`] = `
     }
   }
   header={null}
-  loading={false}
-  pagination={false}
   renderItem={[Function]}
-  split={true}
 />
 `;
 
 exports[`ListWithPagination renders with all props 1`] = `
 <List
-  bordered={false}
   data-test-id="pagination-list"
   dataSource={
     Immutable.List [
@@ -126,16 +121,12 @@ exports[`ListWithPagination renders with all props 1`] = `
     />
   }
   header="Test"
-  loading={false}
-  pagination={false}
   renderItem={[Function]}
-  split={true}
 />
 `;
 
 exports[`ListWithPagination renders with required props 1`] = `
 <List
-  bordered={false}
   data-test-id="pagination-list"
   dataSource={
     Immutable.List [
@@ -189,9 +180,6 @@ exports[`ListWithPagination renders with required props 1`] = `
     />
   }
   header={null}
-  loading={false}
-  pagination={false}
   renderItem={[Function]}
-  split={true}
 />
 `;

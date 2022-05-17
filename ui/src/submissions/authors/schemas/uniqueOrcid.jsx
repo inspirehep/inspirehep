@@ -2,7 +2,7 @@ import { string } from 'yup';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import http from '../../../common/http.ts';
+import http from '../../../common/http';
 import { SUBMISSIONS_AUTHOR } from '../../../common/routes';
 
 const ONLY_CONTROL_NUMBER_SERIALIZER_REQUEST_OPTIONS = {
@@ -22,7 +22,8 @@ function renderAuthorExistsMessageWithUpdateLink(authorId) {
   const authorUpdateLink = `${SUBMISSIONS_AUTHOR}/${authorId}`;
   return (
     <span>
-      Author with this ORCID already exist, please submit an{' '}
+      Author with this ORCID already exist, please submit an
+      {' '}
       <Link to={authorUpdateLink}>update</Link>
     </span>
   );

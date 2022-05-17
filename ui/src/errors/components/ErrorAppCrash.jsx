@@ -10,11 +10,15 @@ class ErrorAppCrash extends Component {
       <Row type="flex" justify="center">
         <ErrorPage
           message="Something went wrong"
-          detail={
+          detail={(
             <span>
-              Please try again later, you can <a href="/">go back home</a> now.
+              Please try again later, you can 
+              {' '}
+              <a href="/">go back home</a>
+              {' '}
+now.
             </span>
-          }
+)}
           imageSrc={error500Image}
         />
       </Row>

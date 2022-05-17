@@ -14,13 +14,16 @@ function ConferenceSubmissionPage({ error, onSubmit }) {
   return (
     <SubmissionPage
       title="Submit a new conference"
-      description={
+      description={(
         <span>
           This form allows you to submit a new conference to INSPIRE. It will
-          appear in the <Link to={`${CONFERENCES}?q=`}> Conference List</Link>{' '}
+          appear in the 
+          {' '}
+          <Link to={`${CONFERENCES}?q=`}> Conference List</Link>
+          {' '}
           immediately.
         </span>
-      }
+)}
     >
       <ConferenceSubmission error={error} onSubmit={onSubmit} />
     </SubmissionPage>

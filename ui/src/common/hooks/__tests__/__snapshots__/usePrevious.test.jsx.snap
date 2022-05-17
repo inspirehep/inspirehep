@@ -2,9 +2,11 @@
 
 exports[`usePrevious renders previous and current value 1`] = `
 <span>
-  Previous: 
+  Previous:
+   
   1
-  , Current: 
+  , Current:
+   
   2
 </span>
 `;

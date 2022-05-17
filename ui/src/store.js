@@ -1,14 +1,14 @@
-import { applyMiddleware, createStore as createReduxStore } from 'redux';
+import { applyMiddleware, legacy_createStore as createStore } from 'redux';
 import thunk from 'redux-thunk';
-import createHistory from 'history/createBrowserHistory';
+import { createBrowserHistory } from 'history'
 import { routerMiddleware } from 'connected-react-router';
 /* eslint-disable import/no-extraneous-dependencies */
 import { createLogger } from 'redux-logger';
 /* eslint-disable import/no-extraneous-dependencies */
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import createRootReducer from './reducers';
-import http from './common/http.ts';
+import createRootReducer, { REDUCERS_TO_PERSISTS } from './reducers';
+import http from './common/http';
 import queryParamsParserMiddleware from './middlewares/queryParamsParser';
 import keepPreviousUrlMiddleware from './middlewares/keepPreviousUrl';
 import {
@@ -23,16 +23,16 @@ import logoutUserOn401 from './middlewares/logoutUserOn401';
 
 export const thunkMiddleware = thunk.withExtraArgument(http);
 
-export const history = createHistory();
+export const history = createBrowserHistory();
 const connectedRouterMiddleware = routerMiddleware(history);
 
-const reducersToPersist = ['ui', 'user'];
+// const reducersToPersist = ['ui', 'user'];
 
 const PROD_MIDDLEWARES = [
   connectedRouterMiddleware,
   queryParamsParserMiddleware,
   keepPreviousUrlMiddleware,
-  createPersistToStorageMiddleware(reducersToPersist),
+  createPersistToStorageMiddleware(REDUCERS_TO_PERSISTS),
   clearStateDispatcher,
   redirectToErrorPageMiddleware,
   actionTrackerMiddleware,
@@ -50,10 +50,10 @@ const withMiddlewares = () => {
   return applyMiddleware(...DEV_MIDDLEWARES);
 };
 
-export default function createStore() {
-  return createReduxStore(
+export default function createReduxStore() {
+  return createStore(
     createRootReducer(history),
-    reHydrateRootStateFromStorage(reducersToPersist),
+    reHydrateRootStateFromStorage(REDUCERS_TO_PERSISTS),
     composeWithDevTools(withMiddlewares())
   );
 }

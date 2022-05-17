@@ -4,7 +4,8 @@ exports[`ErrorAlert renders with custom message 1`] = `
 <Alert
   description={
     <span>
-      Please try again later or 
+      Please try again later or
+       
       <Connect(GoBackLink) />
     </span>
   }
@@ -18,7 +19,8 @@ exports[`ErrorAlert renders with default message 1`] = `
 <Alert
   description={
     <span>
-      Please try again later or 
+      Please try again later or
+       
       <Connect(GoBackLink) />
     </span>
   }

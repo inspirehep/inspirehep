@@ -5,7 +5,7 @@ import { Row, Col } from 'antd';
 import SubmitButton from '../../common/components/SubmitButton';
 import SuggesterField from '../../common/components/SuggesterField';
 
-const InstitutionsForm = () => {
+function InstitutionsForm() {
   const getSuggestionSourceLegacyICN = (suggestion) => suggestion._source.legacy_ICN;
 
   return (
@@ -30,6 +30,6 @@ const InstitutionsForm = () => {
       </Row>
     </Form>
   );
-};
+}
 
 export default InstitutionsForm;

@@ -1,8 +1,8 @@
 import MockAdapter from 'axios-mock-adapter';
 
 import { getStore } from '../../fixtures/store';
-import http from '../../common/http.ts';
-import * as types from '../actionTypes';
+import http from '../../common/http';
+import { EXCEPTIONS_SUCCESS, EXCEPTIONS_REQUEST, EXCEPTIONS_ERROR } from '../actionTypes';
 import fetch from '../exceptions';
 
 const mockHttp = new MockAdapter(http.httpClient);
@@ -12,27 +12,26 @@ describe('exceptions dashboard - async action creator', () => {
     mockHttp.reset();
   });
 
-  it('successful - creates EXCEPTIONS_SUCCESS', async done => {
+  it('successful - creates EXCEPTIONS_SUCCESS', async () => {
     mockHttp.onGet('/migrator/errors').replyOnce(200, {});
 
     const expectedActions = [
-      { type: types.EXCEPTIONS_REQUEST },
-      { type: types.EXCEPTIONS_SUCCESS, payload: {} },
+      { type: EXCEPTIONS_REQUEST },
+      { type: EXCEPTIONS_SUCCESS, payload: {} },
     ];
 
     const store = getStore();
     await store.dispatch(fetch());
     expect(store.getActions()).toEqual(expectedActions);
-    done();
   });
 
-  it('unsuccessful - creates EXCEPTIONS_ERROR', async done => {
+  it('unsuccessful - creates EXCEPTIONS_ERROR', async () => {
     mockHttp.onGet('/migrator/errors').replyOnce(500, {});
 
     const expectedActions = [
-      { type: types.EXCEPTIONS_REQUEST },
+      { type: EXCEPTIONS_REQUEST },
       {
-        type: types.EXCEPTIONS_ERROR,
+        type: EXCEPTIONS_ERROR,
         payload: {
           error: { status: 500 },
         },
@@ -43,6 +42,5 @@ describe('exceptions dashboard - async action creator', () => {
     const store = getStore();
     await store.dispatch(fetch());
     expect(store.getActions()).toEqual(expectedActions);
-    done();
   });
 });

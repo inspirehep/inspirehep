@@ -97,14 +97,16 @@ function DetailPage({ record }) {
             >
               <Row>
                 <Col>
-                  (<ExperimentDates
+                  (
+                  <ExperimentDates
                     dateApproved={dateApproved}
                     dateProposed={dateProposed}
                     dateStarted={dateStarted}
                     dateCancelled={dateCancelled}
                     dateCompleted={dateCompleted}
                     wrapperClassName="di"
-                  />)
+                  />
+                  )
                 </Col>
               </Row>
             </RequireOneOf>

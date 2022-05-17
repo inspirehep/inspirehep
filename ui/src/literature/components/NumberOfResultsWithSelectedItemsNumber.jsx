@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import FormattedNumber from '../../common/components/FormattedNumber.tsx';
+import FormattedNumber from '../../common/components/FormattedNumber';
 import NumberOfResultsContainer from '../../common/containers/NumberOfResultsContainer';
 
 function getFormattedNumberOfSelectedOrNull(numberOfSelected) {
@@ -9,7 +9,10 @@ function getFormattedNumberOfSelectedOrNull(numberOfSelected) {
   }
   return (
     <>
-      <FormattedNumber>{numberOfSelected}</FormattedNumber> of{' '}
+      <FormattedNumber>{numberOfSelected}</FormattedNumber>
+      {' '}
+of
+      {' '}
     </>
   );
 }

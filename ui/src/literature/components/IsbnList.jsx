@@ -10,7 +10,14 @@ class IsbnList extends Component {
     return (
       <span>
         <span>{isbn.get('value')}</span>
-        {medium && <span> ({medium})</span>}
+        {medium && (
+        <span>
+          {' '}
+(
+          {medium}
+)
+        </span>
+)}
       </span>
     );
   }

@@ -2,11 +2,7 @@
 
 exports[`ExternalLink renders as custom component 1`] = `
 <Button
-  block={false}
-  ghost={false}
   href="//example.com"
-  htmlType="button"
-  loading={false}
   rel="noopener"
   target="_blank"
 >

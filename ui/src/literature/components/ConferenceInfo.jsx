@@ -33,7 +33,10 @@ class ConferenceInfo extends Component {
           {acronyms.size > 0 ? this.renderAcronyms() : title}
         </Link>
         {getPageDisplay(conferenceInfo) && (
-          <span>, {getPageDisplay(conferenceInfo)}</span>
+          <span>
+,
+            {getPageDisplay(conferenceInfo)}
+          </span>
         )}
       </span>
     );

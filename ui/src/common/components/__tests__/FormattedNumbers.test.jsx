@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import FormattedNumber from '../FormattedNumber.tsx';
+import FormattedNumber from '../FormattedNumber';
 
 describe('FormattedNumber', () => {
   it('renders with children', () => {

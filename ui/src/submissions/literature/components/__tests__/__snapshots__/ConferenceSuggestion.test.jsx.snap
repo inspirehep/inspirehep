@@ -25,7 +25,8 @@ exports[`ConferenceSuggestion renders with full conference 1`] = `
       <span>
         <span>
           Istanbul
-          , 
+          ,
+           
         </span>
          
         TR

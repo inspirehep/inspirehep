@@ -40,7 +40,7 @@ function Banner({
         closable={closable}
         afterClose={afterClose}
         showIcon={false}
-        message={
+        message={(
           <span>
             <SanitizedHTML
               className={classNames('di', { mr3: Boolean(action) })}
@@ -49,12 +49,12 @@ function Banner({
               html={message}
             />
             {action && (
-              <Button type="primary" target="_blank" href={action.href}>
-                {action.name}
-              </Button>
+            <Button type="primary" target="_blank" href={action.href}>
+              {action.name}
+            </Button>
             )}
           </span>
-        }
+)}
       />
     )
   );

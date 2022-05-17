@@ -180,6 +180,10 @@ describe('Seminar Submission', () => {
     }).then((newRecord) => {
       const recordId = newRecord.metadata.control_number;
       cy.visit(`/submissions/seminars/${recordId}`);
+      // After updating React, it happens that Cypress starts typing to change [data-test-id="name"]
+      // before the field is prefilled and it makes the test flaky. Added this statement 
+      // to wait for the field to have value before proceeding with changing it.
+      cy.get('[data-test-id="name"]').should('not.have.value', '');
       cy.testUpdateSubmission({
         collection: 'seminars',
         recordId,

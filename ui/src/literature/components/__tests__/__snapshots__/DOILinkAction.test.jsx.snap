@@ -18,12 +18,7 @@ exports[`DOILinkAction renders with multiple doi ids 1`] = `
   <DropdownMenu
     disabled={false}
     title={
-      <Button
-        block={false}
-        ghost={false}
-        htmlType="button"
-        loading={false}
-      >
+      <Button>
         <IconText
           icon={<ForwardRef(LinkOutlined) />}
           text="DOI"
@@ -64,12 +59,7 @@ exports[`DOILinkAction renders with multiple doi ids and material 1`] = `
   <DropdownMenu
     disabled={false}
     title={
-      <Button
-        block={false}
-        ghost={false}
-        htmlType="button"
-        loading={false}
-      >
+      <Button>
         <IconText
           icon={<ForwardRef(LinkOutlined) />}
           text="DOI"

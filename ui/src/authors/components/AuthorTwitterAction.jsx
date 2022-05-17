@@ -4,7 +4,7 @@ import { TwitterOutlined } from '@ant-design/icons';
 import { Tooltip } from 'antd';
 
 import ListItemAction from '../../common/components/ListItemAction';
-import ExternalLink from '../../common/components/ExternalLink.tsx';
+import ExternalLink from '../../common/components/ExternalLink';
 
 class AuthorTwitterAction extends Component {
   render() {

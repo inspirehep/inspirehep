@@ -11,9 +11,13 @@ exports[`PublicationSelectContainer renders checkbox checked when select all is 
     <input
       checked={true}
       className="ant-checkbox-input"
+      disabled={false}
       onBlur={[Function]}
       onChange={[Function]}
       onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyPress={[Function]}
+      onKeyUp={[Function]}
       type="checkbox"
     />
     <span

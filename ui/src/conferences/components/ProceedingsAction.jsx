@@ -4,7 +4,7 @@ import { List, Map } from 'immutable';
 import { Menu } from 'antd';
 import { BookOutlined } from '@ant-design/icons';
 
-import ExternalLink from '../../common/components/ExternalLink.tsx';
+import ExternalLink from '../../common/components/ExternalLink';
 import ActionsDropdownOrAction from '../../common/components/ActionsDropdownOrAction';
 import IconText from '../../common/components/IconText';
 import JournalInfo from '../../common/components/JournalInfo';
@@ -23,7 +23,10 @@ function renderProceedingsDropdownAction(proceeding, index) {
         {publicationInfo.has('journal_title') ? (
           <JournalInfo info={publicationInfo} />
         ) : (
-          <span>Proceedings {index + 1}</span>
+          <span>
+Proceedings
+            {index + 1}
+          </span>
         )}
       </ExternalLink>
     </Menu.Item>

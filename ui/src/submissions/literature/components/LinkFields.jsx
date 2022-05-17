@@ -11,31 +11,31 @@ class LinkFields extends Component {
       <>
         <Field
           name="pdf_link"
-          label={
+          label={(
             <LabelWithHelp
-              label={
+              label={(
                 <Tooltip title="Where can we find a PDF to check the references?">
                   Link to PDF
                 </Tooltip>
-              }
+)}
               help="Where can we find a PDF to check the references?"
             />
-          }
+)}
           placeholder="https://example.com/document.pdf"
           component={TextField}
         />
         <Field
           name="additional_link"
-          label={
+          label={(
             <LabelWithHelp
-              label={
+              label={(
                 <Tooltip title="Link to additional information (eg. abstract): Which page should we link from INSPIRE?">
                   Link to additional info
                 </Tooltip>
-              }
+)}
               help="Link to additional information (eg. abstract): Which page should we link from INSPIRE?"
             />
-          }
+)}
           placeholder="https://example.com/page.html"
           component={TextField}
         />

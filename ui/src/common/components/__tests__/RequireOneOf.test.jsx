@@ -10,7 +10,13 @@ describe('RequireOneOf', () => {
     const wrapper = shallow(
       <RequireOneOf dependencies={[dep1, dep2]}>
         <div>
-          I depend on {dep1} and {dep2}
+          I depend on 
+          {' '}
+          {dep1}
+          {' '}
+and 
+          {' '}
+          {dep2}
         </div>
       </RequireOneOf>
     );
@@ -23,7 +29,13 @@ describe('RequireOneOf', () => {
     const wrapper = shallow(
       <RequireOneOf dependencies={[dep1, dep2]}>
         <div>
-          I depend on {dep1} and {dep2}
+          I depend on 
+          {' '}
+          {dep1}
+          {' '}
+and 
+          {' '}
+          {dep2}
         </div>
       </RequireOneOf>
     );
@@ -36,7 +48,13 @@ describe('RequireOneOf', () => {
     const wrapper = shallow(
       <RequireOneOf dependencies={[dep1, dep2]}>
         <div>
-          I depend on {dep1} and {dep2}
+          I depend on 
+          {' '}
+          {dep1}
+          {' '}
+and 
+          {' '}
+          {dep2}
         </div>
       </RequireOneOf>
     );
@@ -47,7 +65,10 @@ describe('RequireOneOf', () => {
     const dep = false;
     const wrapper = shallow(
       <RequireOneOf dependencies={[dep]}>
-        <div>I depend on {dep}</div>
+        <div>
+I depend on
+          {dep}
+        </div>
       </RequireOneOf>
     );
     expect(wrapper).toMatchSnapshot();
@@ -57,7 +78,10 @@ describe('RequireOneOf', () => {
     const dep = 0;
     const wrapper = shallow(
       <RequireOneOf dependencies={[dep]}>
-        <div>I depend on {dep}</div>
+        <div>
+I depend on
+          {dep}
+        </div>
       </RequireOneOf>
     );
     expect(wrapper).toMatchSnapshot();

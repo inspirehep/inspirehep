@@ -22,12 +22,20 @@ function ParentRecordInfo({ parentRecord, publicationInfo }) {
       >
         {parentRecord.get('title')}
         {parentRecord.has('subtitle') && (
-          <span> : {parentRecord.get('subtitle')}</span>
+          <span>
+            {' '}
+:
+            {parentRecord.get('subtitle')}
+          </span>
         )}
       </Link>
       {pageStart && pageEnd && (
         <span>
-          , {pageStart}-{pageEnd}
+          , 
+          {' '}
+          {pageStart}
+-
+          {pageEnd}
         </span>
       )}
     </div>

@@ -2,22 +2,25 @@
 
 exports[`RequireOneOf renders children if dependency is 0 1`] = `
 <div>
-  I depend on 
+  I depend on
   0
 </div>
 `;
 
 exports[`RequireOneOf renders children if dependency is false 1`] = `
 <div>
-  I depend on 
+  I depend on
 </div>
 `;
 
 exports[`RequireOneOf renders children if one dependency is there 1`] = `
 <div>
-  I depend on 
+  I depend on
+   
   dep1
-   and 
+   
+  and
+   
 </div>
 `;
 

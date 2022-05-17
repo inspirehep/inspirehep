@@ -31,11 +31,11 @@ function ToolAction({
   return (
     <ListItemAction>
       <DropdownMenu
-        title={
+        title={(
           <Button>
             <IconText text="tools" icon={<ToolOutlined />} />
           </Button>
-        }
+)}
       >
         <Menu.Item
           title={

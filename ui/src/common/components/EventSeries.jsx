@@ -21,10 +21,19 @@ function EventSeries({ series, pidType }) {
         <span>
           {number ? (
             <span>
-              {addOrdinalSuffix(number)} {eventType} in the{' '}
+              {addOrdinalSuffix(number)} 
+              {' '}
+              {eventType}
+              {' '}
+in the
+              {' '}
             </span>
           ) : (
-            <span>{index === 0 ? 'P' : 'p'}art of the </span>
+            <span>
+              {index === 0 ? 'P' : 'p'}
+art of the
+              {' '}
+            </span>
           )}
           <Link to={`/${pidType}?q=series.name:"${name}"&start_date=all`}>
             {name}

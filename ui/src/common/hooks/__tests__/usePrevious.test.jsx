@@ -8,7 +8,12 @@ function TestPrevious({ value }) {
   const previousValue = usePrevious(value);
   return (
     <span>
-      Previous: {previousValue}, Current: {value}
+      Previous: 
+      {' '}
+      {previousValue}
+, Current: 
+      {' '}
+      {value}
     </span>
   );
 }

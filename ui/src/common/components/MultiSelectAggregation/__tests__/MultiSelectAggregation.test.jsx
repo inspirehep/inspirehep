@@ -5,8 +5,6 @@ import { shallow } from 'enzyme';
 import MultiSelectAggregation from '../MultiSelectAggregation';
 import SelectBox from '../../SelectBox';
 
-import * as constants from '../constants';
-
 jest.mock('../constants');
 
 describe('MultiSelectAggregation', () => {
@@ -43,11 +41,6 @@ describe('MultiSelectAggregation', () => {
         doc_count: 2,
       },
     ]);
-    constants.SELECT_VALUE_TO_DISPLAY_MAPS_FOREACH_AGG = {
-      Test: {
-        bucket: 'Bucket (Cool)',
-      },
-    };
     const wrapper = shallow(
       <MultiSelectAggregation
         name="Test"

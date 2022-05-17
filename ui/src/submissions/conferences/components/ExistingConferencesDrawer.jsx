@@ -27,8 +27,11 @@ function ExistingConferencesDrawer({
       visible={visible}
     >
       <p>
-        <strong>{numberOfConferences}</strong>{' '}
-        {pluralizeUnlessSingle('conference', numberOfConferences)} found in
+        <strong>{numberOfConferences}</strong>
+        {' '}
+        {pluralizeUnlessSingle('conference', numberOfConferences)}
+        {' '}
+found in
         these dates:
       </p>
       <ResultsContainer

@@ -11,12 +11,14 @@ class JobUpdateSubmissionSuccessPage extends Component {
     const { id } = match.params;
     return (
       <SubmissionSuccess
-        message={
+        message={(
           <span>
             Successfully submitted, thank you for the submission! See the
-            updates <Link to={`${JOBS}/${id}`}>here</Link>.
+            updates 
+            <Link to={`${JOBS}/${id}`}>here</Link>
+            .
           </span>
-        }
+        )}
       />
     );
   }

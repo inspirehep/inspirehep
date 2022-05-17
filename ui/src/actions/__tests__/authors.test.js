@@ -3,7 +3,7 @@ import { fromJS, Set } from 'immutable';
 import { advanceTo, clear } from 'jest-date-mock';
 
 import { getStore, mockActionCreator } from '../../fixtures/store';
-import http from '../../common/http.ts';
+import http from '../../common/http';
 import {
   AUTHOR_ERROR,
   AUTHOR_REQUEST,
@@ -54,7 +54,7 @@ describe('AUTHOR - async action creators', () => {
       mockHttp.reset();
     });
 
-    it('creates AUTHOR_SUCCESS', async (done) => {
+    it('creates AUTHOR_SUCCESS', async () => {
       mockHttp.onGet('/authors/123').replyOnce(200, { foo: 'bar' });
 
       const expectedActions = [
@@ -65,10 +65,9 @@ describe('AUTHOR - async action creators', () => {
       const store = getStore();
       await store.dispatch(fetchAuthor(123));
       expect(store.getActions()).toEqual(expectedActions);
-      done();
     });
 
-    it('creates AUTHOR_ERROR', async (done) => {
+    it('creates AUTHOR_ERROR', async () => {
       mockHttp.onGet('/authors/123').replyOnce(500, { message: 'Error' });
 
       const expectedActions = [
@@ -88,7 +87,6 @@ describe('AUTHOR - async action creators', () => {
       const store = getStore();
       await store.dispatch(fetchAuthor(123));
       expect(store.getActions()).toEqual(expectedActions);
-      done();
     });
   });
 

@@ -13,7 +13,7 @@ import EventSeries from '../../common/components/EventSeries';
 import ContactList from '../../common/components/ContactList';
 import PublicNotesList from '../../common/components/PublicNotesList';
 import KeywordList from '../../common/components/KeywordList';
-import EditRecordAction from '../../common/components/EditRecordAction.tsx';
+import EditRecordAction from '../../common/components/EditRecordAction';
 import ProceedingsAction from '../components/ProceedingsAction';
 import AddressList from '../../common/components/AddressList';
 import ConferenceContributions from '../components/ConferenceContributions';
@@ -55,18 +55,18 @@ function DetailPage({ record }) {
         <Col className="mv3" xs={24} md={22} lg={21} xxl={18}>
           <ContentBox
             className="sm-pb3"
-            leftActions={
+            leftActions={(
               <>
                 {urls && <UrlsAction urls={urls} />}
                 {proceedings && <ProceedingsAction proceedings={proceedings} />}
                 {canEdit && (
-                  <EditRecordAction
-                    pidType="conferences"
-                    pidValue={controlNumber}
-                  />
+                <EditRecordAction
+                  pidType="conferences"
+                  pidValue={controlNumber}
+                />
                 )}
               </>
-            }
+)}
           >
             <Row>
               <Col span={24}>{deleted && <DeletedAlert />}</Col>

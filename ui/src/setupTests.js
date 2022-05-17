@@ -1,5 +1,5 @@
 import { configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import { createSerializer } from 'enzyme-to-json';
 import 'jest-localstorage-mock';
 import 'jest-enzyme';
@@ -23,8 +23,7 @@ global.document.getSelection = function() {};
 global.CONFIG = {};
 global.scrollTo = () => {};
 
-// fix react-media
-global.window.matchMedia = jest.fn().mockImplementation(query => ({
+window.matchMedia = (query) => ({
   matches: false,
   media: query,
   onchange: null,
@@ -33,7 +32,7 @@ global.window.matchMedia = jest.fn().mockImplementation(query => ({
   addEventListener: jest.fn(),
   removeEventListener: jest.fn(),
   dispatchEvent: jest.fn(),
-}));
+})
 
 global.window.location = {
   origin: 'http://localhost:3000',

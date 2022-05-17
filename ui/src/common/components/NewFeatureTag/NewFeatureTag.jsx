@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import styleVariables from '../../../styleVariables';
 
-import './NewFeatureTag.scss';
+import './NewFeatureTag.less';
 
-const GREEN = styleVariables['success-color'];
+const GREEN = styleVariables['@success-color'];
 
 function NewFeatureTag({ className }) {
   return (

@@ -8,7 +8,6 @@ exports[`CitationSummarySwitch renders checked 1`] = `
   mouseLeaveDelay={0.1}
   placement="top"
   title="Hide Citation Summary"
-  transitionName="zoom-big-fast"
 >
   <Switch
     checked={true}
@@ -27,7 +26,6 @@ exports[`CitationSummarySwitch renders unchecked 1`] = `
   mouseLeaveDelay={0.1}
   placement="top"
   title="Show Citation Summary"
-  transitionName="zoom-big-fast"
 >
   <Switch
     checked={false}

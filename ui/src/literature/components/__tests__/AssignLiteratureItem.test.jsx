@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import AssignLiteratureItem from '../AssignLiteratureItem.tsx';
+import AssignLiteratureItem from '../AssignLiteratureItem';
 
 jest.mock('react-router-dom', () => ({
   useParams: jest.fn().mockImplementation(() => ({

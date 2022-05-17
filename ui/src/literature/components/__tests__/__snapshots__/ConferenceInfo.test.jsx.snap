@@ -47,7 +47,7 @@ exports[`ConferenceInfo renders with acronyms and start and end page 1`] = `
     />
   </Link>
   <span>
-    , 
+    ,
     1-20
   </span>
 </span>
@@ -99,7 +99,7 @@ exports[`ConferenceInfo renders with only page start 1`] = `
     />
   </Link>
   <span>
-    , 
+    ,
     1
   </span>
 </span>

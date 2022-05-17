@@ -3,9 +3,7 @@
 exports[`Footer renders when cataloger 1`] = `
 <Footer
   bottom={
-    <Row
-      gutter={0}
-    >
+    <Row>
       <Col
         className="tl sm-tc"
         md={12}
@@ -23,13 +21,15 @@ exports[`Footer renders when cataloger 1`] = `
         md={12}
         xs={24}
       >
-        Made with 
+        Made with
+         
         <span
           className="red"
         >
           ❤
         </span>
-         by the INSPIRE Team
+         
+        by the INSPIRE Team
       </Col>
     </Row>
   }
@@ -133,9 +133,7 @@ exports[`Footer renders when cataloger 1`] = `
 exports[`Footer renders when not cataloger 1`] = `
 <Footer
   bottom={
-    <Row
-      gutter={0}
-    >
+    <Row>
       <Col
         className="tl sm-tc"
         md={12}
@@ -153,13 +151,15 @@ exports[`Footer renders when not cataloger 1`] = `
         md={12}
         xs={24}
       >
-        Made with 
+        Made with
+         
         <span
           className="red"
         >
           ❤
         </span>
-         by the INSPIRE Team
+         
+        by the INSPIRE Team
       </Col>
     </Row>
   }

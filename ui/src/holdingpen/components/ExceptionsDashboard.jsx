@@ -5,7 +5,7 @@ import ExceptionsTable from './ExceptionsTable';
 import InlineList from '../../common/components/InlineList';
 
 import UnclickableTag from '../../common/components/UnclickableTag';
-import './ExceptionsDashboard.scss';
+import './ExceptionsDashboard.less';
 
 class ExceptionsDashboard extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -55,7 +55,9 @@ class ExceptionsDashboard extends Component {
             label="Collections"
             renderItem={([collectionName, collectionCount]) => (
               <UnclickableTag className="space-around">
-                {collectionCount} {collectionName}
+                {collectionCount} 
+                {' '}
+                {collectionName}
               </UnclickableTag>
             )}
           />

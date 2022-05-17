@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { MessageOutlined } from '@ant-design/icons';
 import { Modal, Button, Rate, Input, Alert } from 'antd';
 
-import './UserFeedback.scss';
+import './UserFeedback.less';
 import { trackEvent, checkIsTrackerBlocked } from '../../../tracker';
-import ExternalLink from '../ExternalLink.tsx';
+import ExternalLink from '../ExternalLink';
 import ResponsiveView from '../ResponsiveView';
 import ModalSuccessResult from '../ModalSuccessResult';
 import { SURVEY_LINK, FEEDBACK_EMAIL } from '../../constants';
@@ -23,8 +23,10 @@ class UserFeedback extends Component {
       <ModalSuccessResult>
         <div>Thank you for your response.</div>
         <div>
-          For further feedback, please{' '}
-          <ExternalLink href={SURVEY_LINK}>take our survey</ExternalLink>.
+          For further feedback, please
+          {' '}
+          <ExternalLink href={SURVEY_LINK}>take our survey</ExternalLink>
+.
         </div>
         <div>It takes around 5 minutes to complete.</div>
       </ModalSuccessResult>
@@ -99,25 +101,28 @@ class UserFeedback extends Component {
               type="warning"
               showIcon
               message="AdBlock detected"
-              description={
+              description={(
                 <>
                   <p>
                     To send us your feedback, please disable your adblocker or
                     DoNotTrack and refresh the page.
                   </p>
                   <p>
-                    Alternatively, you could send us your feedback using the{' '}
+                    Alternatively, you could send us your feedback using the
+                    {' '}
                     <ExternalLink href={SURVEY_LINK}>
                       feedback form
-                    </ExternalLink>{' '}
-                    or by email at{' '}
+                    </ExternalLink>
+                    {' '}
+                    or by email at
+                    {' '}
                     <ExternalLink href={`mailto:${FEEDBACK_EMAIL}`}>
                       {FEEDBACK_EMAIL}
                     </ExternalLink>
                     .
                   </p>
                 </>
-              }
+)}
             />
           </div>
         )}

@@ -10,7 +10,7 @@ import { INSTITUTIONS } from '../../common/routes';
 import ListItemAction from '../../common/components/ListItemAction';
 import InstitutionHierarchyList from './InstitutionHierarchyList';
 import InstitutionAddressList from './InstitutionAddressList';
-import EditRecordAction from '../../common/components/EditRecordAction.tsx';
+import EditRecordAction from '../../common/components/EditRecordAction';
 import AuthorizedContainer from '../../common/containers/AuthorizedContainer';
 import { SUPERUSER_OR_CATALOGER } from '../../common/authorization';
 import { INSTITUTIONS_PID_TYPE } from '../../common/constants';
@@ -27,7 +27,7 @@ function InstitutionItem({ metadata }) {
 
   return (
     <ResultItem
-      leftActions={
+      leftActions={(
         <>
           {urls && <UrlsAction urls={urls} />}
           <AuthorizedContainer authorizedRoles={SUPERUSER_OR_CATALOGER}>
@@ -37,8 +37,8 @@ function InstitutionItem({ metadata }) {
             />
           </AuthorizedContainer>
         </>
-      }
-      rightActions={
+)}
+      rightActions={(
         <ListItemAction>
           <IncomingLiteratureReferencesLinkAction
             itemCount={papersCount}
@@ -47,7 +47,7 @@ function InstitutionItem({ metadata }) {
             trackerEventId="Institutions:PaperLink"
           />
         </ListItemAction>
-      }
+)}
     >
       <Row>
         <Col>

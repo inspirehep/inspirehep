@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { AutoComplete } from 'antd';
 import debounce from 'lodash.debounce';
 
-import http, { isCancelError } from '../http.ts';
+import http, { isCancelError } from '../http';
 
 export const REQUEST_DEBOUNCE_MS = 250;
 

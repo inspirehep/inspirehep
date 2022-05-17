@@ -1,7 +1,14 @@
 import { Map, fromJS } from 'immutable';
 
 import reducer, { initialState } from '../citations';
-import * as types from '../../actions/actionTypes';
+import {
+  CITATIONS_SUMMARY_REQUEST,
+  CITATIONS_SUMMARY_SUCCESS,
+  CITATIONS_SUMMARY_ERROR,
+  CITATIONS_BY_YEAR_REQUEST,
+  CITATIONS_BY_YEAR_SUCCESS,
+  CITATIONS_BY_YEAR_ERROR,
+} from '../../actions/actionTypes';
 
 describe('citations reducer', () => {
   it('default', () => {
@@ -10,7 +17,7 @@ describe('citations reducer', () => {
   });
 
   it('CITATIONS_SUMMARY_REQUEST', () => {
-    const state = reducer(Map(), { type: types.CITATIONS_SUMMARY_REQUEST });
+    const state = reducer(Map(), { type: CITATIONS_SUMMARY_REQUEST });
     expect(state.get('loadingCitationSummary')).toEqual(true);
   });
 
@@ -23,7 +30,7 @@ describe('citations reducer', () => {
       },
     };
     const state = reducer(Map(), {
-      type: types.CITATIONS_SUMMARY_SUCCESS,
+      type: CITATIONS_SUMMARY_SUCCESS,
       payload,
     });
     const expected = fromJS({
@@ -39,7 +46,7 @@ describe('citations reducer', () => {
       error: { message: 'error' },
     };
     const state = reducer(Map(), {
-      type: types.CITATIONS_SUMMARY_ERROR,
+      type: CITATIONS_SUMMARY_ERROR,
       payload,
     });
     const expected = fromJS({
@@ -51,7 +58,7 @@ describe('citations reducer', () => {
   });
 
   it('CITATIONS_BY_YEAR_REQUEST', () => {
-    const state = reducer(Map(), { type: types.CITATIONS_BY_YEAR_REQUEST });
+    const state = reducer(Map(), { type: CITATIONS_BY_YEAR_REQUEST });
     const expected = fromJS({
       loadingCitationsByYear: true,
     });
@@ -63,14 +70,14 @@ describe('citations reducer', () => {
       aggregations: {
         citations_by_year: {
           value: {
-            '1993': 21,
-            '2000': 12,
+            1993: 21,
+            2000: 12,
           },
         },
       },
     };
     const state = reducer(Map(), {
-      type: types.CITATIONS_BY_YEAR_SUCCESS,
+      type: CITATIONS_BY_YEAR_SUCCESS,
       payload,
     });
     const expected = fromJS({
@@ -84,7 +91,7 @@ describe('citations reducer', () => {
   it('CITATIONS_BY_YEAR_ERROR', () => {
     const payload = { error: { message: 'error' } };
     const state = reducer(Map(), {
-      type: types.CITATIONS_BY_YEAR_ERROR,
+      type: CITATIONS_BY_YEAR_ERROR,
       payload,
     });
     const expected = fromJS({

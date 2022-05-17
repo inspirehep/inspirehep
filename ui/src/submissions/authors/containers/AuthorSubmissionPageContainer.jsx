@@ -32,13 +32,17 @@ class AuthorSubmissionPage extends Component {
     return (
       <SubmissionPage
         title="Suggest author"
-        description={
+        description={(
           <span>
             This form allows you to create the profile of a new author. It will
-            be added to the <Link to={AUTHORS}>authors collection</Link> upon
+            be added to the 
+            {' '}
+            <Link to={AUTHORS}>authors collection</Link>
+            {' '}
+upon
             approval.
           </span>
-        }
+)}
       >
         <AuthorSubmission
           error={error}

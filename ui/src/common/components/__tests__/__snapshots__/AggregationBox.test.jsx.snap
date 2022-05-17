@@ -5,7 +5,6 @@ exports[`AggregationBox renders AggreagationBox with action 1`] = `
   className="w-100 br1"
 >
   <Row
-    gutter={0}
     justify="space-between"
     type="flex"
   >
@@ -26,7 +25,6 @@ exports[`AggregationBox renders AggreagationBox with action 1`] = `
   </Row>
   <Row
     className="w-100"
-    gutter={0}
   >
     <Col
       flex="auto"
@@ -44,7 +42,6 @@ exports[`AggregationBox renders AggreagationBox with empty string name 1`] = `
   className="w-100 br1"
 >
   <Row
-    gutter={0}
     justify="space-between"
     type="flex"
   >
@@ -63,7 +60,6 @@ exports[`AggregationBox renders AggreagationBox with empty string name 1`] = `
   </Row>
   <Row
     className="w-100"
-    gutter={0}
   >
     <Col
       flex="auto"
@@ -81,7 +77,6 @@ exports[`AggregationBox renders AggreagationBox without action 1`] = `
   className="w-100 br1"
 >
   <Row
-    gutter={0}
     justify="space-between"
     type="flex"
   >
@@ -98,7 +93,6 @@ exports[`AggregationBox renders AggreagationBox without action 1`] = `
   </Row>
   <Row
     className="w-100"
-    gutter={0}
   >
     <Col
       flex="auto"
@@ -116,7 +110,6 @@ exports[`AggregationBox renders AggreagationBox without children and with action
   className="w-100 br1"
 >
   <Row
-    gutter={0}
     justify="space-between"
     type="flex"
   >
@@ -137,7 +130,6 @@ exports[`AggregationBox renders AggreagationBox without children and with action
   </Row>
   <Row
     className="w-100"
-    gutter={0}
   >
     <Col
       flex="auto"
@@ -151,7 +143,6 @@ exports[`AggregationBox renders AggreagationBox without children and without act
   className="w-100 br1"
 >
   <Row
-    gutter={0}
     justify="space-between"
     type="flex"
   >
@@ -168,7 +159,6 @@ exports[`AggregationBox renders AggreagationBox without children and without act
   </Row>
   <Row
     className="w-100"
-    gutter={0}
   >
     <Col
       flex="auto"

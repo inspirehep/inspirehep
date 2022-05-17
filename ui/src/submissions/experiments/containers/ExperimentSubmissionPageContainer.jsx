@@ -10,22 +10,28 @@ import ExperimentSubmission from '../components/ExperimentSubmission';
 import { EXPERIMENTS_PID_TYPE } from '../../../common/constants';
 import { EXPERIMENTS } from '../../../common/routes';
 
-export const ExperimentSubmissionPage = ({ error, onSubmit }) => (
-  <SubmissionPage
-    title="Suggest experiment"
-    description={
-      <span>
-        This form allows you to create a new experiment record. It will
-        appear in the <Link to={EXPERIMENTS}>Experiments List</Link> immediately.
-      </span>
-    }
-  >
-    <ExperimentSubmission
-      error={error}
-      onSubmit={onSubmit}
-    />
-  </SubmissionPage>
-);
+export function ExperimentSubmissionPage({ error, onSubmit }) {
+  return (
+    <SubmissionPage
+      title="Suggest experiment"
+      description={(
+        <span>
+          This form allows you to create a new experiment record. It will
+          appear in the
+          {' '}
+          <Link to={EXPERIMENTS}>Experiments List</Link>
+          {' '}
+          immediately.
+        </span>
+      )}
+    >
+      <ExperimentSubmission
+        error={error}
+        onSubmit={onSubmit}
+      />
+    </SubmissionPage>
+  )
+}
 
 ExperimentSubmissionPage.propTypes = {
   onSubmit: PropTypes.func.isRequired,

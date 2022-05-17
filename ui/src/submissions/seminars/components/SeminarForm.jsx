@@ -210,12 +210,12 @@ function SeminarForm({ values }) {
       <ArrayOf
         values={values}
         name="literature_records"
-        label={
+        label={(
           <LabelWithHelp
             label="Related paper(s)"
             help="If the seminar refers to an INSPIRE paper, please fill in the link."
           />
-        }
+)}
         emptyItem=""
         renderItem={(itemName) => (
           <Field

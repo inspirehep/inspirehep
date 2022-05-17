@@ -4,7 +4,7 @@ import { List } from 'immutable';
 import { MailOutlined } from '@ant-design/icons';
 import { Menu, Tooltip } from 'antd';
 
-import ExternalLink from '../../common/components/ExternalLink.tsx';
+import ExternalLink from '../../common/components/ExternalLink';
 import ActionsDropdownOrAction from '../../common/components/ActionsDropdownOrAction';
 
 function getHrefForEmail(email) {

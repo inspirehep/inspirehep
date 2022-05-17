@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import useResizeObserver from 'use-resize-observer';
 
 import SearchBoxContainer from '../../containers/SearchBoxContainer';
-import './Header.scss';
+import './Header.less';
 import Logo from '../../components/Logo';
 import HeaderMenuContainer from './HeaderMenuContainer';
 import BetaRibbon from './BetaRibbon';

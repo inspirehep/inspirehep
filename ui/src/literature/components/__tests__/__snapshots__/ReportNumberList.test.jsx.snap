@@ -8,7 +8,8 @@ exports[`ReportNumberList renders with report numbers 1`] = `
     className=""
   >
     Report number
-    : 
+    :
+     
   </span>
   <ul>
     <li

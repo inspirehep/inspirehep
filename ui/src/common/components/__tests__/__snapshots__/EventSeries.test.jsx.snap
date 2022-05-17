@@ -13,7 +13,8 @@ exports[`EventSeries renders conference series with name and number 1`] = `
           10th
            
           conference
-           in the
+           
+          in the
            
         </span>
         <Link
@@ -41,7 +42,8 @@ exports[`EventSeries renders seminar series with name and number 1`] = `
           10th
            
           seminar
-           in the
+           
+          in the
            
         </span>
         <Link
@@ -67,7 +69,8 @@ exports[`EventSeries renders several series 1`] = `
       <span>
         <span>
           P
-          art of the 
+          art of the
+           
         </span>
         <Link
           to="/conferences?q=series.name:\\"Conference 1\\"&start_date=all"
@@ -86,7 +89,8 @@ exports[`EventSeries renders several series 1`] = `
           10th
            
           conference
-           in the
+           
+          in the
            
         </span>
         <Link
@@ -104,7 +108,8 @@ exports[`EventSeries renders several series 1`] = `
       <span>
         <span>
           p
-          art of the 
+          art of the
+           
         </span>
         <Link
           to="/conferences?q=series.name:\\"Conference 3\\"&start_date=all"
@@ -129,7 +134,8 @@ exports[`EventSeries renders with only name 1`] = `
       <span>
         <span>
           P
-          art of the 
+          art of the
+           
         </span>
         <Link
           to="/conferences?q=series.name:\\"Conference Name\\"&start_date=all"

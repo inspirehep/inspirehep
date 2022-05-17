@@ -5,7 +5,7 @@ exports[`TreeAggregation render initial state with all props set 1`] = `
   headerAction={null}
   name="Test"
 >
-  <Tree
+  <ForwardRef
     blockNode={true}
     checkStrictly={true}
     checkable={true}
@@ -22,12 +22,16 @@ exports[`TreeAggregation render initial state with all props set 1`] = `
     motion={
       Object {
         "motionAppear": false,
+        "motionDeadline": 500,
         "motionName": "ant-motion-collapse",
         "onAppearActive": [Function],
+        "onAppearEnd": [Function],
         "onAppearStart": [Function],
         "onEnterActive": [Function],
+        "onEnterEnd": [Function],
         "onEnterStart": [Function],
         "onLeaveActive": [Function],
+        "onLeaveEnd": [Function],
         "onLeaveStart": [Function],
       }
     }
@@ -44,7 +48,6 @@ exports[`TreeAggregation render initial state with all props set 1`] = `
                   "key": "a|b|c",
                   "title": <Row
                     className="mv1"
-                    gutter={0}
                     justify="space-between"
                   >
                     <Col>
@@ -63,7 +66,6 @@ exports[`TreeAggregation render initial state with all props set 1`] = `
                   "key": "a|b|d",
                   "title": <Row
                     className="mv1"
-                    gutter={0}
                     justify="space-between"
                   >
                     <Col>
@@ -82,7 +84,6 @@ exports[`TreeAggregation render initial state with all props set 1`] = `
               "key": "a|b",
               "title": <Row
                 className="mv1"
-                gutter={0}
                 justify="space-between"
               >
                 <Col>
@@ -101,7 +102,6 @@ exports[`TreeAggregation render initial state with all props set 1`] = `
           "key": "a",
           "title": <Row
             className="mv1"
-            gutter={0}
             justify="space-between"
           >
             <Col>
@@ -120,7 +120,6 @@ exports[`TreeAggregation render initial state with all props set 1`] = `
           "key": "j",
           "title": <Row
             className="mv1"
-            gutter={0}
             justify="space-between"
           >
             <Col>
