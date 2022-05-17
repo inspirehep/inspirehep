@@ -16,12 +16,13 @@ from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_search import current_search
 from redis import StrictRedis
-
+from flask_sqlalchemy import models_committed
 from inspirehep.disambiguation.tasks import disambiguate_signatures
 from inspirehep.records.api import AuthorsRecord, InspireRecord
 from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.search.api import AuthorsSearch, InspireSearch
-
+from inspirehep.disambiguation.api import author_disambiguation
+from inspirehep.records.receivers import index_after_commit
 
 def test_signature_linked_by_disambiguation_has_correct_facet_author_name(
     inspire_app, clean_celery_session
@@ -1416,5 +1417,34 @@ def test_disambiguation_reorders_name_after_succesfull_disambiguation(
         )
 
         assert "Davis Gross, Brian" == literature_record_from_es_authors[0]["full_name"]
+
+    retry_until_pass(assert_disambiguation_task, retry_interval=2)
+
+
+def test_disambiguation_when_empty_authors(inspire_app, clean_celery_session, enable_disambiguation):
+
+    literature_data = faker.record("lit", with_control_number=True)
+    literature_record = LiteratureRecord.create(literature_data)
+    db.session.commit()
+
+    def assert_disambiguation_task():
+        assert InspireSearch.get_record_data_from_es(literature_record)
+
+    retry_until_pass(assert_disambiguation_task, retry_interval=2)
+
+
+def test_author_disambiguation_manually_when_empty_authors(
+    inspire_app, clean_celery_session, enable_disambiguation
+):
+
+    data = faker.record("lit", with_control_number=True)
+    record = LiteratureRecord.create(data)
+
+    models_committed.disconnect(index_after_commit)
+    db.session.commit()
+    models_committed.connect(index_after_commit)
+
+    def assert_disambiguation_task():
+        assert author_disambiguation(record.model) is None
 
     retry_until_pass(assert_disambiguation_task, retry_interval=2)

@@ -10,7 +10,6 @@ import orjson
 from freezegun import freeze_time
 from helpers.utils import create_record
 from invenio_pidstore.models import PersistentIdentifier
-
 from inspirehep.disambiguation.tasks import disambiguate_signatures
 from inspirehep.records.api.authors import AuthorsRecord
 
