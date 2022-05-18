@@ -1417,7 +1417,7 @@ tests = ["flake8 (>=3.5.0,<4.0)", "mock (>=2.0.0,<3.0)", "pytest-cov (>=2.0,<=2.
 
 [[package]]
 name = "inspire-schemas"
-version = "61.4.11"
+version = "61.4.12"
 description = "Inspire JSON schemas and utilities to use them."
 category = "main"
 optional = false
@@ -4612,7 +4612,7 @@ inspire-query-parser = [
     {file = "inspire_query_parser-6.0.47-py3-none-any.whl", hash = "sha256:7575bd567876cafd75dea6b6284c67969f70ff36d66b621c268462fc07390c03"},
 ]
 inspire-schemas = [
-    {file = "inspire_schemas-61.4.11-py2.py3-none-any.whl", hash = "sha256:5a11a5d08d523ae170b04423ea8ba7bb482b12abcec23270278e03a6e3d6f67e"},
+    {file = "inspire_schemas-61.4.12-py2.py3-none-any.whl", hash = "sha256:a5f29b7fe4fa1a49f5cc21b7c66f4df05112fc8ecc5d4a0ebd564962be55b57e"},
 ]
 inspire-service-orcid = []
 inspire-utils = [
