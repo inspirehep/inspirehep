@@ -5,7 +5,6 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import logging
 import re
 from os import makedirs, path
 from time import sleep
@@ -223,13 +222,6 @@ def reindex_records(
     if not log_path:
         raise ValueError("Specified empty log path.")
 
-    log_path = path.join(log_path, "records_index_failures.log")
-    _prepare_logdir(log_path)
-    file_log = logging.FileHandler(log_path)
-    file_log.setLevel(logging.ERROR)
-    LOGGER.addHandler(file_log)
-    LOGGER.info("Saving errors to %r", log_path)
-
     request_timeout = current_app.config.get("INDEXER_BULK_REQUEST_TIMEOUT")
     all_tasks = []
     uuid_records_per_tasks = {}
@@ -283,22 +275,32 @@ def reindex_records(
         result = task.result
         if task.failed():
             batch_errors.append({"task_id": task.id, "error": result})
+            LOGGER.error(
+                "Reindexing of the batch failed", task_id=task.id, error=result
+            )
         else:
             successes += result["success"]
             failures += result["failures"]
             failures_count += result["failures_count"]
+            if result["failures"]:
+                LOGGER.error(
+                    "Reindexing batch failed",
+                    task_id=task.id,
+                    nb_of_failures=result["failures_count"],
+                    failures=result["failures"],
+                )
 
     color = "red" if failures or batch_errors else "green"
+    LOGGER.info(
+        "Reindexing completed!",
+        number_of_batch_errors=len(batch_errors),
+        number_of_batch_success=successes,
+        number_of_failures=failures_count,
+    )
     click.secho(
         f"Reindex completed!\n{successes} succeeded\n{failures_count} failed\n{len(batch_errors)} entire batches failed",
         fg=color,
     )
-    if failures:
-        LOGGER.warning(
-            "Got '%s' failures during the reindexing process:", len(failures)
-        )
-        for failure in failures:
-            LOGGER.warning(failure)
 
 
 @index.command(
