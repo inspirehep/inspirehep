@@ -9,7 +9,7 @@ import threading
 import uuid
 from concurrent.futures import ThreadPoolExecutor, TimeoutError, as_completed
 from io import BytesIO
-
+import backoff
 import magic
 import orjson
 import requests
@@ -26,7 +26,7 @@ from inspire_utils.record import get_value
 from invenio_db import db
 from jsonschema import ValidationError
 from redis import StrictRedis
-
+from requests.exceptions import Timeout
 from inspirehep.files.api import current_s3_instance
 from inspirehep.hal.api import push_to_hal
 from inspirehep.orcid.api import push_to_orcid
@@ -44,6 +44,7 @@ from inspirehep.records.errors import (
     ImportParsingError,
     UnknownImportIdentifierError,
     UnsupportedFileError,
+    ImportTimeoutError
 )
 from inspirehep.records.marshmallow.literature import (
     LiteratureElasticSearchSchema,
@@ -720,7 +721,12 @@ def import_arxiv(arxiv_id):
             f"An error occurred while parsing article oai:arXiv.org:{arxiv_id}."
         ) from exc
 
-
+@backoff.on_exception(
+    backoff.constant,
+    ImportTimeoutError,
+    max_tries=2,
+    max_time=10,
+)
 def import_doi(doi):
     """View for retrieving an article from CrossRef.
 
@@ -745,6 +751,8 @@ def import_doi(doi):
     LOGGER.debug("Importing article from CrossRef", doi=doi)
     try:
         resp = requests.get(url=url)
+    except Timeout as exc:
+        raise ImportTimeoutError("Importing the metadata timed out. Please try again later.") from exc
     except (ConnectionError, IOError) as exc:
         raise ImportConnectionError("Cannot contact CrossRef.") from exc
 
@@ -754,6 +762,5 @@ def import_doi(doi):
     try:
         parser = CrossrefParser(resp.json())
         return parser.parse()
-
     except Exception as exc:
         raise ImportParsingError("An error occurred while parsing %r", url) from exc
