@@ -22,6 +22,7 @@ from inspirehep.records.errors import (
     ImportParsingError,
     MaxResultWindowRESTError,
     UnknownImportIdentifierError,
+    ImportTimeoutError
 )
 from inspirehep.records.marshmallow.literature.references import (
     LiteratureReferencesSchema,
@@ -205,6 +206,10 @@ def import_article_view(identifier):
 
     except UnknownImportIdentifierError:
         return jsonify(message=f"{identifier} is not a recognized identifier."), 400
+
+    except ImportTimeoutError as e:
+        LOGGER.exception("Exception in import_article_view", exception=e)
+        return jsonify(message=str(e)), 504
 
 
 literature_citations_view = LiteratureCitationsResource.as_view(

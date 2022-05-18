@@ -22,6 +22,10 @@ class ImportConnectionError(Exception):
     pass
 
 
+class ImportTimeoutError(Exception):
+    pass
+
+
 class ImportParsingError(Exception):
     pass
 
