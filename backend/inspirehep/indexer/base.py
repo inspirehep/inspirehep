@@ -7,7 +7,7 @@
 
 import structlog
 from elasticsearch import RequestError, TransportError
-from elasticsearch.helpers import bulk
+from elasticsearch.helpers import streaming_bulk
 from flask import current_app
 from invenio_indexer.api import RecordIndexer
 from invenio_indexer.signals import before_record_index
@@ -88,7 +88,7 @@ class InspireRecordIndexer(RecordIndexer):
         if not request_timeout:
             request_timeout = current_app.config["INDEXER_BULK_REQUEST_TIMEOUT"]
         max_chunk_bytes = max_chunk_bytes or 100 * 1014 * 1024  # default ES setting
-        success, failures = bulk(
+        result = streaming_bulk(
             es,
             self.bulk_iterator(records_uuids),
             request_timeout=request_timeout,
@@ -100,10 +100,17 @@ class InspireRecordIndexer(RecordIndexer):
             max_chunk_bytes=max_chunk_bytes,
         )
 
+        failures = []
+        for action_success, action_data in result:
+            if not action_success:
+                failures.append(action_data["index"])
+
+        number_of_failures = len(failures)
+
         return {
-            "success": success,
+            "success_count": len(records_uuids) - number_of_failures,
+            "failures_count": number_of_failures,
             "failures": failures,
-            "failures_count": len(records_uuids) - success,
         }
 
     def bulk_iterator(self, records_uuids):
