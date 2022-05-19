@@ -267,4 +267,4 @@ def test_index_records_batch_fulltext_manually(
         task = batch_index_literature_fulltext.delay([lit_record.id, lit_record_2.id])
         task.get(timeout=5)
 
-        assert task.result == {"success": 2, "failures": [], "failures_count": 0}
+        assert task.result == {"success_count": 2, "failures": [], "failures_count": 0}

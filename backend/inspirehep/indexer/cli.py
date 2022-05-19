@@ -266,9 +266,8 @@ def reindex_records(
             progressbar.pos = _finished_tasks_count() or 1
             progressbar.update(0)
 
-    failures = []
     failures_count = 0
-    successes = 0
+    successes_count = 0
     batch_errors = []
 
     for task in all_tasks:
@@ -279,26 +278,27 @@ def reindex_records(
                 "Reindexing of the batch failed", task_id=task.id, error=result
             )
         else:
-            successes += result["success"]
-            failures += result["failures"]
+            successes_count += result["success_count"]
             failures_count += result["failures_count"]
             if result["failures"]:
                 LOGGER.error(
-                    "Reindexing batch failed",
+                    "Some records in a batch failed during reindexing",
                     task_id=task.id,
-                    nb_of_failures=result["failures_count"],
+                    number_of_failures=result["failures_count"],
+                    number_of_success=result["success_count"],
                     failures=result["failures"],
                 )
 
-    color = "red" if failures or batch_errors else "green"
+    color = "red" if failures_count > 0 or batch_errors else "green"
     LOGGER.info(
         "Reindexing completed!",
         number_of_batch_errors=len(batch_errors),
-        number_of_batch_success=successes,
+        number_of_batch_success=len(all_tasks) - len(batch_errors),
+        number_of_success=successes_count,
         number_of_failures=failures_count,
     )
     click.secho(
-        f"Reindex completed!\n{successes} succeeded\n{failures_count} failed\n{len(batch_errors)} entire batches failed",
+        f"Reindex completed!\n{successes_count} succeeded\n{failures_count} failed\n{len(batch_errors)} entire batches failed",
         fg=color,
     )
 
