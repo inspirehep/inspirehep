@@ -35,6 +35,7 @@ FULLTEXT_PIPELINE_SETUP = {
                     "attachment": {
                         "field": "_ingest._value.text",
                         "target_field": "_ingest._value.attachment",
+                        "properties": ["content"],
                         "indexed_chars": -1,
                         "ignore_missing": True,
                         "on_failure": [
