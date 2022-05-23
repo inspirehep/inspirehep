@@ -98,7 +98,7 @@ def assign_to_author(from_author_recid, to_author_recid, literature_recids):
 def author_assign_view(args):
     to_author_recid = args.get("to_author_recid")
     from_author_recid = args["from_author_recid"]
-    literature_recids = args.get("literature_recids")
+    literature_recids = args.get("literature_recids", [])
     claimed_literature_recids = args.get("papers_ids_already_claimed")
     not_allowed_to_be_claimed_literature_recids = args.get(
         "papers_ids_not_matching_name"
@@ -119,6 +119,12 @@ def author_assign_view(args):
             400,
         )
 
+    if claimed_literature_recids:
+        from_author_record = AuthorsRecord.get_record_by_pid_value(from_author_recid)
+        if from_author_record.get("stub"):
+            literature_recids = literature_recids + claimed_literature_recids
+            claimed_literature_recids = []
+
     if claimed_literature_recids or not_allowed_to_be_claimed_literature_recids:
         create_rt_ticket_for_claiming_action.delay(
             from_author_recid,
@@ -126,7 +132,7 @@ def author_assign_view(args):
             claimed_literature_recids,
             not_allowed_to_be_claimed_literature_recids,
         )
-        return jsonify({"message": "Success"}), 200
+        return jsonify({"message": "Success", "created_rt_ticket": True}), 200
 
     if to_author_recid is None:
         stub_author_id = assign_to_new_stub_author(from_author_recid, literature_recids)

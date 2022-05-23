@@ -425,7 +425,7 @@ describe('AUTHOR - async action creators', () => {
           papers_ids_already_claimed: publicationSelectionClaimed,
           papers_ids_not_matching_name: publicationSelectionCanNotClaim,
         })
-        .replyOnce(200);
+        .replyOnce(200, { created_rt_ticket: true });
 
       const expectedActions = [
         searchQueryUpdate(AUTHOR_PUBLICATIONS_NS, { assigned: fakeNow }),
@@ -446,7 +446,53 @@ describe('AUTHOR - async action creators', () => {
       expect(store.getActions()).toEqual(expectedActions);
       expect(assignSuccessDifferentProfileClaimedPapers).toHaveBeenCalled();
     });
+
+    it('successful for stub from author', async () => {
+      const toAuthorId = 5555;
+      const fromAuthorId = 123;
+      const publicationSelectionClaimed = [1, 2];
+      const publicationSelectionCanNotClaim = [3];
+      const fakeNow = 1597314028798;
+
+      advanceTo(fakeNow);
+
+      const store = getStore({
+        authors: fromJS({
+          publicationSelectionClaimed: Set(publicationSelectionClaimed),
+          publicationSelectionCanNotClaim: Set(publicationSelectionCanNotClaim),
+        }),
+      });
+
+      mockHttp
+        .onPost('/assign/author', {
+          from_author_recid: fromAuthorId,
+          to_author_recid: toAuthorId,
+          papers_ids_already_claimed: publicationSelectionClaimed,
+          papers_ids_not_matching_name: publicationSelectionCanNotClaim,
+        })
+        .replyOnce(200, {});
+
+      const expectedActions = [
+        searchQueryUpdate(AUTHOR_PUBLICATIONS_NS, { assigned: fakeNow }),
+        clearPublicationSelection(),
+        clearPublicationsClaimedSelection(),
+        clearPublicationsCanNotClaimSelection(),
+      ];
+
+      const dispatchPromise = store.dispatch(
+        assignDifferentProfileClaimedPapers({
+          from: fromAuthorId,
+          to: toAuthorId,
+        })
+      );
+      expect(assigning).toHaveBeenCalled();
+
+      await dispatchPromise;
+      expect(store.getActions()).toEqual(expectedActions);
+      expect(assignSuccessDifferentProfileUnclaimedPapers).toHaveBeenCalled();
+    });
   });
+
   describe('assignDifferentProfileUnclaimedPapers', () => {
     afterEach(() => {
       clear();
