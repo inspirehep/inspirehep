@@ -188,7 +188,7 @@ def test_literature_workflows_record_source_get_record_happy_flow(inspire_app):
         login_user_via_session(client, email=superuser.email)
         data = {"record_uuid": str(record.id), "source": source, "json": dict(record)}
         response = client.post(
-            "/literature/workflows_record_sources",
+            "/api/literature/workflows_record_sources",
             content_type="application/json",
             data=orjson.dumps(data),
         )
@@ -196,7 +196,7 @@ def test_literature_workflows_record_source_get_record_happy_flow(inspire_app):
         assert len(WorkflowsRecordSources.query.all()) == 1
         # get record
         response = client.get(
-            "/literature/workflows_record_sources",
+            "/api/literature/workflows_record_sources",
             content_type="application/json",
             data=orjson.dumps(
                 {

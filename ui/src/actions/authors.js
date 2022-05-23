@@ -172,13 +172,18 @@ export function assignDifferentProfileClaimedPapers({ from, to }) {
         'publicationSelectionCanNotClaim'
       );
       assigning();
-      await http.post('/assign/author', {
+      const { data } = await http.post('/assign/author', {
         from_author_recid: from,
         to_author_recid: to,
         papers_ids_already_claimed: claimedPapers,
         papers_ids_not_matching_name: unclaimablePapers,
       });
-      assignSuccessDifferentProfileClaimedPapers();
+      if (Object.prototype.hasOwnProperty.call(data, 'created_rt_ticket')) {
+        assignSuccessDifferentProfileClaimedPapers();
+      } else {
+        assignSuccessDifferentProfileUnclaimedPapers();
+      }
+
       // add timestamp based query to in order to trigger search again
       dispatch(
         searchQueryUpdate(AUTHOR_PUBLICATIONS_NS, { assigned: Date.now() })
