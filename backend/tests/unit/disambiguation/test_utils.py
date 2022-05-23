@@ -76,6 +76,7 @@ def test_update_author_names_doesnt_put_duplicate_name_variants():
             "Lecavelier des Etangs, Alain",
             "Lecavelier des Etangs, Alain",
         ),
+        ("Campbell, George, Jr.", "Campbell, George, Jr.", "Campbell, George, Jr."),
     ],
 )
 def test_reorder_lit_author_names(

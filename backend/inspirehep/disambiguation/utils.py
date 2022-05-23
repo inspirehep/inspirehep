@@ -118,7 +118,7 @@ def reorder_lit_author_names(lit_author_name, author_name):
         lit_author_first_names = ""
         lit_author_first_last_name_tokens = lit_author_name.split(" ")[::-1]
     else:
-        lit_author_last_names, lit_author_first_names = lit_author_name.split(",")
+        lit_author_last_names, lit_author_first_names = lit_author_name.split(",", 1)
         lit_author_first_names = lit_author_first_names.lstrip()
         lit_author_first_last_name_tokens = (
             f"{lit_author_first_names} {lit_author_last_names}".split(" ")
