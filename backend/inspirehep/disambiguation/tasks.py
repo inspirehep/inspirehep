@@ -235,7 +235,7 @@ def disambiguate_authors(self, record_uuid, record_version_id):
             db.session.commit()
         return
     if not literature_in_previous_version:
-        authors = record["authors"]
+        authors = record.get("authors", [])
     else:
         authors = record.get_modified_authors()
     updated_authors = []
