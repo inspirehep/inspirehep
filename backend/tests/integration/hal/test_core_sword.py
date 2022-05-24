@@ -162,8 +162,11 @@ def test_unicode_data(inspire_app, get_fixture):
     )
 
 
+@mock.patch("inspirehep.hal.tasks._hal_create", return_value=None)
 @mock.patch("inspirehep.hal.tasks.distributed_lock")
-def test_lock_is_created_for_hal_push_task(mocked_lock, inspire_app, get_fixture):
+def test_lock_is_created_for_hal_push_task(
+    mocked_lock, mock_hal_create, inspire_app, get_fixture
+):
     record_json = orjson.loads(get_fixture("hal_preprod_record.json"))
     record_data = faker.record("lit", data=record_json)
     record = InspireRecord.create(record_data)
