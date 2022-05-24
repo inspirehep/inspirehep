@@ -4,7 +4,7 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-
+from flask_sqlalchemy import models_committed
 import orjson
 from celery.app.annotations import MapAnnotation, resolve_all
 from flask import current_app
@@ -16,7 +16,8 @@ from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_search import current_search
 from redis import StrictRedis
-
+from inspirehep.disambiguation.api import author_disambiguation
+from inspirehep.records.receivers import index_after_commit
 from inspirehep.disambiguation.tasks import disambiguate_signatures
 from inspirehep.records.api import AuthorsRecord, InspireRecord
 from inspirehep.records.api.literature import LiteratureRecord
@@ -1416,5 +1417,22 @@ def test_disambiguation_reorders_name_after_succesfull_disambiguation(
         )
 
         assert "Davis Gross, Brian" == literature_record_from_es_authors[0]["full_name"]
+
+    retry_until_pass(assert_disambiguation_task, retry_interval=2)
+
+
+def test_author_disambiguation_manually_when_empty_authors(
+    inspire_app, clean_celery_session, enable_disambiguation
+):
+
+    data = faker.record("lit", with_control_number=True)
+    record = LiteratureRecord.create(data)
+
+    models_committed.disconnect(index_after_commit)
+    db.session.commit()
+    models_committed.connect(index_after_commit)
+
+    def assert_disambiguation_task():
+        assert author_disambiguation(record.model) is None
 
     retry_until_pass(assert_disambiguation_task, retry_interval=2)
