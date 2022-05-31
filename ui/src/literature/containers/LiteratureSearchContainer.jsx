@@ -32,11 +32,13 @@ import AssignAllOwnProfileActionContainer from '../../authors/containers/AssignA
 import AssignViewOwnProfileContext from '../../authors/assignViewOwnProfileContext';
 import AssignViewDifferentProfileContext from '../../authors/assignViewDifferentProfileContext';
 import AssignViewNoProfileContext from '../../authors/assignViewNoProfileContext';
+import AssignViewNotLoggedInContext from '../../authors/assignViewNotLoggedInContext';
 import ToolActionContainer from './ToolActionContainer';
 import LiteratureSelectAllContainer from './LiteratureSelectAllContainer';
 import LiteratureSelectContainer from './LiteratureSelectContainer';
 import AssignAllDifferentProfileActionContainer from '../../authors/containers/AssignAllDifferentProfileActionContainer';
 import AssignNoProfileAction from '../../authors/components/AssignNoProfileAction';
+import ClaimingDisabledButton from '../../authors/components/ClaimingDisabledButton';
 
 function LiteratureSearch({
   loading,
@@ -81,12 +83,16 @@ function LiteratureSearch({
     AssignViewDifferentProfileContext
   );
   const assignAuthorNoProfileView = useContext(AssignViewNoProfileContext);
+  const assignNotLoggedInView = useContext(AssignViewNotLoggedInContext);
+
   const assignConferenceView = useContext(AssignConferenceViewContext);
   const assignNoProfileViewCondition =
     assignAuthorNoProfileView &&
     !assignAuthorOwnProfileView &&
     !assignAuthorView &&
     !assignAuthorDifferentProfileView;
+
+  const assignNotLoggedInViewCondition = assignNotLoggedInView && !assignNoProfileViewCondition;
 
   return (
     <Row
@@ -139,6 +145,7 @@ function LiteratureSearch({
                     <AssignAllDifferentProfileActionContainer />
                   )}
                 {assignNoProfileViewCondition && <AssignNoProfileAction />}
+                {assignNotLoggedInViewCondition && <ClaimingDisabledButton />}
                 {assignConferenceView && <ToolActionContainer />}
               </Col>
               <Col xs={8} lg={0}>

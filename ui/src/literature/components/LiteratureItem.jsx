@@ -33,11 +33,13 @@ import {
 import AssignAuthorViewContext from '../../authors/AssignViewContext';
 import AssignViewOwnProfileContext from '../../authors/assignViewOwnProfileContext';
 import AssignViewDifferentProfileContext from '../../authors/assignViewDifferentProfileContext';
+import AssignViewNotLoggedInContext from '../../authors/assignViewNotLoggedInContext';
 import AssignOneActionContainer from '../../authors/containers/AssignOneActionContainer';
 import AssignOneOwnProfileContainer from '../../authors/containers/AssignOneOwnProfileContainer';
 import AssignOneDifferentProfileContainer from '../../authors/containers/AssignOneDifferentProfileContainer';
 import AssignNoProfileAction from '../../authors/components/AssignNoProfileAction';
 import AssignViewNoProfileContext from '../../authors/assignViewNoProfileContext';
+import ClaimingDisabledButton from '../../authors/components/ClaimingDisabledButton';
 
 function LiteratureItem({ metadata, searchRank, isCatalogerLoggedIn }) {
   const title = metadata.getIn(['titles', 0]);
@@ -75,7 +77,9 @@ function LiteratureItem({ metadata, searchRank, isCatalogerLoggedIn }) {
     !assignOwnProfileView &&
     !assignAuthorView &&
     !assignDifferentProfileView;
-
+  
+  const assignNotLoggedInView = useContext(AssignViewNotLoggedInContext);
+  const assignNotLoggedInViewCondition = assignNotLoggedInView && !assignNoProfileViewCondition;
   const publicationInfoWithTitle = publicationInfo
     ? publicationInfo.filter((pub) => pub.has('journal_title'))
     : null;
@@ -127,6 +131,7 @@ function LiteratureItem({ metadata, searchRank, isCatalogerLoggedIn }) {
             />
           )}
           {assignNoProfileViewCondition && <AssignNoProfileAction />}
+          {assignNotLoggedInViewCondition && <ClaimingDisabledButton />}
         </Fragment>
       }
       rightActions={
