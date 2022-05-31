@@ -143,6 +143,30 @@ describe('AuthorPublicationsContainer', () => {
       assignViewNoProfile: true,
     });
   });
+
+  it('set assignViewNoProfile when user logged_in', () => {
+    global.CONFIG = { ASSIGN_NOT_LOGGED_IN_FEATURE_FLAG: true };
+    const store = getStoreWithState({
+      authors: fromJS({
+        ...initialState,
+        publicationSelection: {},
+        publicationSelectionClaimed: [],
+        publicationSelectionUnclaimed: [],
+      }),
+      user: fromJS({ loggedIn: false }),
+    });
+    const wrapper = mount(
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/authors/123']} initialIndex={0}>
+          <AuthorPublicationsContainer />
+        </MemoryRouter>
+      </Provider>
+    );
+    expect(wrapper.find(AuthorPublications)).toHaveProp({
+      assignViewNotLoggedIn: true,
+    });
+  });
+
   it('set correct numberOfSelected when publications are selected', () => {
     const store = getStoreWithState({
       authors: fromJS({

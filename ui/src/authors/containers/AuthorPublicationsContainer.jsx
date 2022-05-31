@@ -9,6 +9,7 @@ import AssignViewContext from '../AssignViewContext';
 import AssignViewOwnProfileContext from '../assignViewOwnProfileContext';
 import AssignViewDifferentProfileContext from '../assignViewDifferentProfileContext';
 import AssignViewNoProfileContext from '../assignViewNoProfileContext';
+import AssignViewNotLoggedInContext from '../assignViewNotLoggedInContext';
 
 import AssignDrawerContainer from './AssignDrawerContainer';
 import { getConfigFor } from '../../common/config';
@@ -20,6 +21,7 @@ export function AuthorPublications({
   assignViewDifferentProfile,
   assignViewNoProfile,
   numberOfSelected,
+  assignViewNotLoggedIn,
 }) {
   const baseQuery = useMemo(
     () => ({
@@ -35,25 +37,27 @@ export function AuthorPublications({
   );
 
   return (
-    <AssignViewNoProfileContext.Provider value={assignViewNoProfile}>
-      <AssignViewDifferentProfileContext.Provider
-        value={assignViewDifferentProfile}
-      >
-        <AssignViewOwnProfileContext.Provider value={assignViewOwnProfile}>
-          <AssignViewContext.Provider value={assignView}>
-            <LiteratureSearchContainer
-              namespace={AUTHOR_PUBLICATIONS_NS}
-              baseQuery={baseQuery}
-              baseAggregationsQuery={baseAggregationsQuery}
-              noResultsTitle="0 Research works"
-              embedded
-              numberOfSelected={numberOfSelected}
-            />
-            {assignView && <AssignDrawerContainer />}
-          </AssignViewContext.Provider>
-        </AssignViewOwnProfileContext.Provider>
-      </AssignViewDifferentProfileContext.Provider>
-    </AssignViewNoProfileContext.Provider>
+    <AssignViewNotLoggedInContext.Provider value={assignViewNotLoggedIn}>
+      <AssignViewNoProfileContext.Provider value={assignViewNoProfile}>
+        <AssignViewDifferentProfileContext.Provider
+          value={assignViewDifferentProfile}
+        >
+          <AssignViewOwnProfileContext.Provider value={assignViewOwnProfile}>
+            <AssignViewContext.Provider value={assignView}>
+              <LiteratureSearchContainer
+                namespace={AUTHOR_PUBLICATIONS_NS}
+                baseQuery={baseQuery}
+                baseAggregationsQuery={baseAggregationsQuery}
+                noResultsTitle="0 Research works"
+                embedded
+                numberOfSelected={numberOfSelected}
+              />
+              {assignView && <AssignDrawerContainer />}
+            </AssignViewContext.Provider>
+          </AssignViewOwnProfileContext.Provider>
+        </AssignViewDifferentProfileContext.Provider>
+      </AssignViewNoProfileContext.Provider>
+    </AssignViewNotLoggedInContext.Provider>
   );
 }
 
@@ -89,6 +93,9 @@ const stateToProps = (state) => ({
   assignViewNoProfile:
     state.user.get('loggedIn') &&
     getConfigFor('ASSIGN_NO_PROFILE_UI_FEATURE_FLAG'),
+  assignViewNotLoggedIn:
+    !state.user.get('loggedIn') &&
+    getConfigFor('ASSIGN_NOT_LOGGED_IN_FEATURE_FLAG'),
   numberOfSelected: state.authors.get('publicationSelection').size,
 });
 
