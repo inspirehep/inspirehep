@@ -212,34 +212,15 @@ def assign_bai_to_literature_author(author, bai):
     author["ids"] = [*author_ids_without_bai, {"schema": "INSPIRE BAI", "value": bai}]
 
 
-@shared_task(
-    ignore_result=False,
-    bind=True,
-    retry_backoff=2,
-    retry_kwargs={"max_retries": 6},
-    autoretry_for=(PIDAlreadyExists, OperationalError, StaleDataError),
-)
-def disambiguate_authors(self, record_uuid, record_version_id):
-    # handle case when we try to get a record which is deleted
-    try:
-        record = InspireRecord.get_record(record_uuid)
-    except NoResultFound:
-        return
-    literature_in_previous_version = "Literature" in record._previous_version.get(
-        "_collections", []
-    )
-    if "Literature" not in record["_collections"]:
-        if literature_in_previous_version:
-            record.remove_authors_references()
-            record.update(dict(record))
-            db.session.commit()
-        return
-    if not literature_in_previous_version:
-        authors = record.get("authors", [])
-    else:
-        authors = record.get_modified_authors()
-    updated_authors = []
+def _get_not_disambiguated_authors(authors):
     for author in authors:
+        if "record" not in author:
+            yield author
+
+
+def _disambiguate_authors(authors_to_disambiguate, record):
+    updated_authors = []
+    for author in authors_to_disambiguate:
         if author.get("curated_relation"):
             continue
         assigned_author_recid = None
@@ -274,6 +255,45 @@ def disambiguate_authors(self, record_uuid, record_version_id):
                     author["full_name"], linked_author_record["name"]["value"]
                 )
             updated_authors.append(assigned_author_recid)
+    return updated_authors
+
+
+@shared_task(
+    ignore_result=False,
+    bind=True,
+    retry_backoff=2,
+    retry_kwargs={"max_retries": 6},
+    autoretry_for=(PIDAlreadyExists, OperationalError, StaleDataError),
+)
+def disambiguate_authors(self, record_uuid, disambiguate_all_not_disambiguated=False):
+    # handle case when we try to get a record which is deleted
+    try:
+        record = InspireRecord.get_record(record_uuid)
+    except NoResultFound:
+        return
+    editor_soft_lock = EditorSoftLock(
+        recid=record["control_number"],
+        record_version=record.model.version_id,
+        task_name=self.name,
+    )
+    editor_soft_lock.add_lock()
+    literature_in_previous_version = "Literature" in record._previous_version.get(
+        "_collections", []
+    )
+    if "Literature" not in record["_collections"]:
+        if literature_in_previous_version:
+            record.remove_authors_references()
+            record.update(dict(record))
+            db.session.commit()
+        editor_soft_lock.remove_lock()
+        return
+    if not literature_in_previous_version:
+        authors = record.get("authors", [])
+    elif disambiguate_all_not_disambiguated:
+        authors = _get_not_disambiguated_authors(record.get("authors", []))
+    else:
+        authors = record.get_modified_authors()
+    updated_authors = _disambiguate_authors(authors, record)
     if updated_authors:
         LOGGER.info(
             "Updated references for authors",
@@ -285,9 +305,4 @@ def disambiguate_authors(self, record_uuid, record_version_id):
         )
         record.update(dict(record))
         db.session.commit()
-        editor_soft_lock = EditorSoftLock(
-            recid=record["control_number"],
-            record_version=record.model.version_id,
-            task_name=self.name,
-        )
-        editor_soft_lock.remove_lock()
+    editor_soft_lock.remove_lock()

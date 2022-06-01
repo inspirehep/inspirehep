@@ -4,15 +4,21 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+
 import click
 from elasticsearch_dsl import Q
 from flask.cli import with_appcontext
 from inspire_utils.record import get_values_for_schema
 from invenio_db import db
+from invenio_records.models import RecordMetadata
+from sqlalchemy import String, cast, not_, type_coerce
+from sqlalchemy.dialects.postgresql import JSONB
 
+from inspirehep.disambiguation.tasks import disambiguate_authors
 from inspirehep.records.api import AuthorsRecord
 from inspirehep.records.models import RecordsAuthors
 from inspirehep.search.api import AuthorsSearch
+from inspirehep.utils import next_batch
 
 
 @click.group()
@@ -68,3 +74,39 @@ def query_authors_with_linked_papers_by_bai(authors_bais):
 
     for data in query.yield_per(100).with_entities(RecordsAuthors.author_id):
         yield data.author_id
+
+
+@disambiguation.command(name="not-disambiguated")
+@with_appcontext
+def disambiguate_all_not_disambiguated():
+    """Trigger disambiguation task for all the records that are not disambiguated"""
+    not_disambiguiated_records_condition = (
+        not_(
+            type_coerce(RecordMetadata.json, JSONB)["authors"].has_key("record")  # noqa
+        )
+    ) & (
+        type_coerce(RecordMetadata.json, JSONB)["_collections"].contains(["Literature"])
+    )
+    query = RecordMetadata.query.with_entities(cast(RecordMetadata.id, String)).filter(
+        not_disambiguiated_records_condition
+    )
+    with click.progressbar(
+        query.yield_per(1000),
+        length=query.count(),
+        label="Scheduling disambiguation tasks",
+    ) as items:
+        batch = next_batch(items, 1000)
+        while batch:
+            uuids = [str(item[0]) for item in batch]
+            disambiguate_authors.chunks(
+                zip(uuids, [True for i in uuids]), 10
+            ).apply_async()
+            batch = next_batch(items, 1000)
+
+
+@disambiguation.command(name="record")
+@with_appcontext
+@click.option("-id", "--uuid", type=str, required=True)
+def disambiguate_record_by_uuid(uuid):
+    """Trigger disambiguation task for one record and disambiguate all the authors without reference"""
+    disambiguate_authors.delay(uuid, disambiguate_all_not_disambiguated=True)

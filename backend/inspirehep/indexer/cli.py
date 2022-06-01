@@ -22,6 +22,7 @@ from invenio_search.cli import index
 
 from inspirehep.indexer.tasks import batch_index, batch_index_literature_fulltext
 from inspirehep.records.api import InspireRecord
+from inspirehep.utils import next_batch
 
 LOGGER = structlog.getLogger()
 FULLTEXT_PIPELINE_SETUP = {
@@ -66,27 +67,6 @@ FULLTEXT_PIPELINE_SETUP = {
         },
     ],
 }
-
-
-def next_batch(iterator, batch_size):
-    """Get first batch_size elements from the iterable, or remaining if less.
-
-    Args:
-        iterator(Iterator): the iterator to batch.
-        batch_size(int): the size of the batch.
-
-    Returns:
-        list: the next batch from the given iterator object.
-    """
-    batch = []
-
-    try:
-        for idx in range(batch_size):
-            batch.append(next(iterator))
-    except StopIteration:
-        pass
-
-    return batch
 
 
 def get_query_records_to_index(pid_types):
