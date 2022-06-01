@@ -12,6 +12,9 @@ describe('HeaderMenuContainer', () => {
     const store = getStoreWithState({
       user: fromJS({
         loggedIn: true,
+        data: {
+          profile_control_number: '1010819',
+        }
       }),
     });
     const wrapper = mount(
@@ -21,6 +24,7 @@ describe('HeaderMenuContainer', () => {
     );
     expect(wrapper.find(HeaderMenu)).toHaveProp({
       loggedIn: true,
+      profileControlNumber: '1010819',
     });
   });
 });

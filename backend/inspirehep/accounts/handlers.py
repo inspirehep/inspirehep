@@ -13,7 +13,7 @@ from invenio_oauthclient.utils import oauth_link_external_id
 from invenio_pidstore.models import PersistentIdentifier
 
 from .api import get_current_user_remote_orcid_account
-
+from inspirehep.records.utils import get_pid_for_pid
 
 def get_current_user_data():
     remote_orcid_account = get_current_user_remote_orcid_account()
@@ -26,6 +26,7 @@ def get_current_user_data():
             "email": current_user.email,
             "roles": [role.name for role in current_user.roles],
             "orcid": orcid,
+            "profile_control_number": get_pid_for_pid('orcid', orcid, 'recid'),
             "allow_orcid_push": orcid_account_extra_data.get("allow_push"),
         }
     }

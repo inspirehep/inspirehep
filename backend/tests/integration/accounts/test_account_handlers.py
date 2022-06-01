@@ -25,6 +25,7 @@ def test_get_current_user_data(mock_current_user, inspire_app):
             "email": "jessica@jones.com",
             "roles": ["avengers"],
             "orcid": "0000-0001-8829-5461",
+            "profile_control_number": None,
             "allow_orcid_push": True,
         }
     }
@@ -42,6 +43,7 @@ def test_get_current_user_data_without_orcid(mock_current_user, inspire_app):
             "email": "jessica@jones.com",
             "roles": ["avengers"],
             "orcid": None,
+            "profile_control_number": None,
             "allow_orcid_push": None,
         }
     }
@@ -72,6 +74,7 @@ def test_get_current_user_data_for_user_with_profile(mock_current_user, inspire_
             "email": "jessica@jones.com",
             "roles": ["avengers"],
             "orcid": "0000-0001-8829-5461",
+            "profile_control_number": str(author_profile["control_number"]),
             "allow_orcid_push": True,
             "recid": str(author_profile["control_number"]),
         }
