@@ -9,6 +9,7 @@ import threading
 import uuid
 from concurrent.futures import ThreadPoolExecutor, TimeoutError, as_completed
 from io import BytesIO
+
 import backoff
 import magic
 import orjson
@@ -26,7 +27,7 @@ from inspire_utils.record import get_value
 from invenio_db import db
 from jsonschema import ValidationError
 from redis import StrictRedis
-from requests.exceptions import Timeout
+
 from inspirehep.files.api import current_s3_instance
 from inspirehep.hal.api import push_to_hal
 from inspirehep.orcid.api import push_to_orcid
@@ -39,12 +40,10 @@ from inspirehep.records.api.mixins import (
 )
 from inspirehep.records.errors import (
     ExistingArticleError,
-    ImportArticleError,
-    ImportConnectionError,
+    ImportArticleNotFoundError,
     ImportParsingError,
     UnknownImportIdentifierError,
     UnsupportedFileError,
-    ImportTimeoutError
 )
 from inspirehep.records.marshmallow.literature import (
     LiteratureElasticSearchSchema,
@@ -615,8 +614,7 @@ def import_article(identifier):
 
     Raises:
         ExistingArticleError: if the record is already in Inspire.
-        ImportArticleError: if no article is found.
-        ImportConnectionError: if the importing request fails.
+        ImportArticleNotFoundError: if no article is found.
         ImportParsingError: if an error occurs while parsing the result.
         UnknownIdentifierError: if the identifier is neither "arxiv" or "doi".
     """
@@ -643,7 +641,7 @@ def import_article(identifier):
     article = importer(pid_value)
 
     if not article:
-        raise ImportArticleError(f"No article found for {identifier}")
+        raise ImportArticleNotFoundError(f"No article found for {identifier}")
 
     if pid_type == "arxiv":
         article = merge_article_with_crossref_data(article)
@@ -659,7 +657,7 @@ def merge_article_with_crossref_data(article):
 
     try:
         crossref_data = import_doi(doi)
-    except (ImportConnectionError, ImportParsingError):
+    except (requests.exceptions.RequestException, ImportParsingError):
         LOGGER.exception("Cannot merge submission with %r,", doi)
         return article
 
@@ -681,6 +679,12 @@ def merge_article_with_crossref_data(article):
     return merged
 
 
+@backoff.on_exception(
+    backoff.expo,
+    requests.exceptions.RequestException,
+    max_tries=2,
+    max_time=15,
+)
 def import_arxiv(arxiv_id):
     """View for retrieving an article from arXiv.
 
@@ -695,37 +699,33 @@ def import_arxiv(arxiv_id):
         dict: a json object with either the parsed article
 
     Raises:
-        ImportConnectionError: if the request doesn't succeed.
+        requests.exceptions.RequestException: if the request doesn't succeed.
         ImportParsingError: if any error occurs during the response parsing.
     """
     url = ARXIV_URL.replace(PLACEHOLDER, arxiv_id)
     LOGGER.debug("Importing article from arxiv", arxiv=arxiv_id)
 
-    try:
-        resp = requests.get(url=url)
-    except (ConnectionError, IOError) as exc:
-        raise ImportConnectionError("Cannot contact arXiv") from exc
+    response = requests.get(url)
+    response.raise_for_status()
 
-    if resp.status_code >= 400:
-        raise ImportConnectionError(f"Cannot contact arXiv. Got response {resp}.")
-
-    if "Malformed identifier" in str(resp.text):
+    if "Malformed identifier" in str(response.text):
         # arXiv will reply 200 for a non existing arXiv ID with a message error
         return {}
 
     try:
-        parser = ArxivParser(resp.text)
+        parser = ArxivParser(response.text)
         return parser.parse()
     except Exception as exc:
         raise ImportParsingError(
             f"An error occurred while parsing article oai:arXiv.org:{arxiv_id}."
         ) from exc
 
+
 @backoff.on_exception(
-    backoff.constant,
-    ImportTimeoutError,
+    backoff.expo,
+    requests.exceptions.RequestException,
     max_tries=2,
-    max_time=10,
+    max_time=15,
 )
 def import_doi(doi):
     """View for retrieving an article from CrossRef.
@@ -742,25 +742,22 @@ def import_doi(doi):
         error.
 
     Raises:
-        ImportConnectionError: if the request doesn't succeed.
+        requests.exceptions.RequestException: if the request doesn't succeed.
         ImportParsingError: if any error occurs during the response parsing.
     """
     doi = requests.utils.quote(doi, safe="")
     url = CROSSREF_URL.replace(PLACEHOLDER, doi)
 
     LOGGER.debug("Importing article from CrossRef", doi=doi)
-    try:
-        resp = requests.get(url=url)
-    except Timeout as exc:
-        raise ImportTimeoutError("Importing the metadata timed out. Please try again later.") from exc
-    except (ConnectionError, IOError) as exc:
-        raise ImportConnectionError("Cannot contact CrossRef.") from exc
+    response = requests.get(url)
 
-    if resp.status_code == 404:
+    if response.status_code == 404:
         return {}
 
+    response.raise_for_status()
+
     try:
-        parser = CrossrefParser(resp.json())
+        parser = CrossrefParser(response.json())
         return parser.parse()
     except Exception as exc:
-        raise ImportParsingError("An error occurred while parsing %r", url) from exc
+        raise ImportParsingError(f"An error occurred while parsing {url}") from exc

@@ -11,7 +11,8 @@ import pytest
 import requests_mock
 from helpers.providers.faker import faker
 from helpers.utils import create_record
-from requests.exceptions import Timeout
+from requests.exceptions import RequestException
+
 
 def test_import_article_view_400_bad_arxiv(inspire_app):
     with inspire_app.test_client() as client:
@@ -158,11 +159,16 @@ def test_import_article_view_200_crossref(inspire_app):
     assert result["doi"] == doi
 
 
-@mock.patch("inspirehep.records.api.literature.requests.get", side_effect=Timeout())
-def test_import_doi_timeout_error(mock_response, inspire_app):
+@mock.patch(
+    "inspirehep.records.api.literature.requests.get", side_effect=RequestException
+)
+def test_import_doi_request_error(mock_response, inspire_app):
     doi = "10.1093/imrn/rnab300"
     with inspire_app.test_client() as client:
         resp = client.get(f"/literature/import/{doi}")
 
-    assert resp.json['message'] == "Importing the metadata timed out. Please try again later."
-    assert resp.status_code == 504
+    assert resp.json["message"] == (
+        "There was an error when importing metadata. "
+        "Please try again later or fill the form manually."
+    )
+    assert resp.status_code == 502
