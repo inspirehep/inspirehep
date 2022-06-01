@@ -14,4 +14,9 @@
       text-decoration: underline;
     }
   }
+  .ant-btn.ant-btn-background-ghost {
+    padding: 0;
+    color: rgba(255, 255, 255, 0.5);
+    border-color: transparent;
+  }
 }

@@ -6,13 +6,14 @@ import DropdownMenu from '../../common/components/DropdownMenu';
 import IconText from '../../common/components/IconText';
 import ListItemAction from '../../common/components/ListItemAction';
 
+export const CLAIMING_DISABLED_INFO = (
+  <p>
+    There is no profile associated to your account. Please contact us at{' '}
+    <a href="mailto:authors@inspirehep.net">authors@inspirehep.net</a>
+  </p>
+);
+
 function AssignNoProfileAction() {
-  const CLAIMING_DISABLED_INFO = (
-    <p>
-      There is no profile associated to your account. Please contact us at{' '}
-      <a href="mailto:authors@inspirehep.net">authors@inspirehep.net</a>
-    </p>
-  );
   return (
     // TODO: rename `ListItemAction` because it's not only used for list item actions, such as (assign all and cite all)
     <ListItemAction>

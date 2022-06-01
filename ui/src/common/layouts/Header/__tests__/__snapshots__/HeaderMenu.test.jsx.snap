@@ -91,16 +91,56 @@ exports[`HeaderMenu renders when logged in 1`] = `
       </Link>
     </MenuItem>
   </SubMenu>
-  <MenuItem
-    key="login-logout"
+  <SubMenu
+    data-test-id="account"
+    key="account"
+    popupClassName="header-submenu ant-menu-dark"
+    title="Account"
   >
-    <LinkLikeButton
-      dataTestId="logout"
-      onClick={[MockFunction]}
+    <MenuItem
+      key="my-profile"
     >
-      Logout
-    </LinkLikeButton>
-  </MenuItem>
+      <Tooltip
+        arrowPointAtCenter={false}
+        autoAdjustOverflow={true}
+        mouseEnterDelay={0.1}
+        mouseLeaveDelay={0.1}
+        placement="top"
+        title={
+          <p>
+            There is no profile associated to your account. Please contact us at
+             
+            <a
+              href="mailto:authors@inspirehep.net"
+            >
+              authors@inspirehep.net
+            </a>
+          </p>
+        }
+        transitionName="zoom-big-fast"
+      >
+        <Button
+          block={false}
+          disabled={true}
+          ghost={true}
+          htmlType="button"
+          loading={false}
+        >
+          My profile
+        </Button>
+      </Tooltip>
+    </MenuItem>
+    <MenuItem
+      key="logout"
+    >
+      <LinkLikeButton
+        dataTestId="logout"
+        onClick={[MockFunction]}
+      >
+        Logout
+      </LinkLikeButton>
+    </MenuItem>
+  </SubMenu>
 </Menu>
 `;
 
@@ -196,7 +236,7 @@ exports[`HeaderMenu renders when not logged in 1`] = `
     </MenuItem>
   </SubMenu>
   <MenuItem
-    key="login-logout"
+    key="login"
   >
     <Link
       to="/user/login"

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Menu } from 'antd';
+import { Menu, Tooltip, Button } from 'antd';
 
 import {
   SUBMISSIONS_AUTHOR,
@@ -19,10 +19,13 @@ import LinkLikeButton from '../../components/LinkLikeButton';
 import './HeaderMenu.scss';
 import { PAPER_SEARCH_URL, HELP_BLOG_URL } from '../../constants';
 import DisplayGuideButtonContainer from '../../containers/DisplayGuideButtonContainer';
+import { CLAIMING_DISABLED_INFO } from '../../../authors/components/AssignNoProfileAction';
 
 class HeaderMenu extends Component {
   render() {
-    const { loggedIn, onLogoutClick, isCatalogerLoggedIn } = this.props;
+    const { loggedIn, onLogoutClick, isCatalogerLoggedIn, profileControlNumber } = this.props;
+    const USER_PROFILE_URL = `/authors/${profileControlNumber}`;
+
     return (
       <Menu
         className="__HeaderMenu__"
@@ -68,36 +71,54 @@ class HeaderMenu extends Component {
           <Menu.Item key="submit.conference">
             <Link to={SUBMISSIONS_CONFERENCE}>Conference</Link>
           </Menu.Item>
-          { isCatalogerLoggedIn && (
+          {isCatalogerLoggedIn && (
             <Menu.Item key="submit.institution">
               <Link to={SUBMISSIONS_INSTITUTION}>Institution</Link>
-            </Menu.Item>)
-          }
-          { isCatalogerLoggedIn && (
+            </Menu.Item>
+          )}
+          {isCatalogerLoggedIn && (
             <Menu.Item key="submit.experiment">
               <Link to={SUBMISSIONS_EXPERIMENT}>Experiment</Link>
-            </Menu.Item>)
-          }
-        </Menu.SubMenu>
-        <Menu.Item key="login-logout">
-          {loggedIn ? (
-            // TODO: create LoginLinkOrLogoutButtonContainer
-            <LinkLikeButton onClick={onLogoutClick} dataTestId="logout">
-              Logout
-            </LinkLikeButton>
-          ) : (
-            <Link to={USER_LOGIN}>Login</Link>
+            </Menu.Item>
           )}
-        </Menu.Item>
+        </Menu.SubMenu>
+        {loggedIn ? (
+          <Menu.SubMenu
+            key="account"
+            title="Account"
+            popupClassName="header-submenu ant-menu-dark"
+            data-test-id="account"
+          >
+            <Menu.Item key="my-profile">
+              {profileControlNumber ? (
+                <Link to={USER_PROFILE_URL}>My profile</Link>
+              ) : (
+                <Tooltip title={CLAIMING_DISABLED_INFO}>
+                  <Button ghost disabled>My profile</Button>
+                </Tooltip>
+              )}
+            </Menu.Item>
+            <Menu.Item key="logout">
+              <LinkLikeButton onClick={onLogoutClick} dataTestId="logout">
+                Logout
+              </LinkLikeButton>
+            </Menu.Item>
+          </Menu.SubMenu>
+        ) : (
+          <Menu.Item key="login">
+            <Link to={USER_LOGIN}>Login</Link>
+          </Menu.Item>
+        )}
       </Menu>
     );
-  };
-};
+  }
+}
 
 HeaderMenu.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
   onLogoutClick: PropTypes.func.isRequired,
   isCatalogerLoggedIn: PropTypes.bool.isRequired,
+  profileControlNumber: PropTypes.string,
 };
 
 export default HeaderMenu;

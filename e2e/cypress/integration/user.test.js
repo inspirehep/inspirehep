@@ -22,6 +22,7 @@ describe('user', () => {
 
     cy.registerRoute('/api/accounts/logout');
 
+    cy.get('[data-test-id=account]').trigger('mouseover')
     cy.get('[data-test-id=logout]').click();
 
     cy.waitForRoute('/api/accounts/logout').its('status').should('equal', 200);

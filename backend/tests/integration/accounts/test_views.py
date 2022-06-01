@@ -28,6 +28,7 @@ def test_me_returns_user_data_if_logged_in(inspire_app):
             "email": user.email,
             "roles": ["user"],
             "orcid": "0000-0001-8829-5461",
+            "profile_control_number": None,
             "allow_orcid_push": True,
         }
     }
@@ -111,6 +112,7 @@ def test_sign_up_user_success(mock_current_user, inspire_app):
             "email": user.email,
             "roles": ["user"],
             "orcid": "0000-0001-8829-5461",
+            "profile_control_number": None,
             "allow_orcid_push": True,
         }
     }
