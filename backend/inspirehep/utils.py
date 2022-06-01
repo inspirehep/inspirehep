@@ -132,3 +132,24 @@ def count_consumers_for_queue(queue_name):
         len([queue for queue in worker_queues if queue["name"] == queue_name])
         for worker_queues in queues_per_worker
     )
+
+
+def next_batch(iterator, batch_size):
+    """Get first batch_size elements from the iterable, or remaining if less.
+
+    Args:
+        iterator(Iterator): the iterator to batch.
+        batch_size(int): the size of the batch.
+
+    Returns:
+        list: the next batch from the given iterator object.
+    """
+    batch = []
+
+    try:
+        for idx in range(batch_size):
+            batch.append(next(iterator))
+    except StopIteration:
+        pass
+
+    return batch

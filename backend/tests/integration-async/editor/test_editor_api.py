@@ -8,7 +8,8 @@
 
 import orjson
 import pytest
-from helpers.utils import create_record_async, create_user, logout
+from celery.app.annotations import MapAnnotation, resolve_all
+from helpers.utils import create_record_async, create_user, logout, retry_until_pass
 from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db
 
@@ -331,20 +332,35 @@ def test_editor_locks_are_passed_in_payload_when_another_user_editing(
     clean_celery_session,
     enable_disambiguation,
     record_with_two_revisions,
+    override_config,
 ):
-    user = create_user(role=Roles.cataloger.value)
+    from inspirehep.disambiguation.tasks import disambiguate_authors
 
-    record = LiteratureRecord.get_record_by_pid_value(111)
-    record["authors"] = [{"full_name": "An Author"}]
-    record.update(dict(record))
-    db.session.commit()
+    with override_config(FEATURE_FLAG_ENABLE_HAL_PUSH=True):
 
-    with inspire_app.test_client() as client:
-        login_user_via_session(client, email=user.email)
-        response = client.get(
-            f'/api/editor/literature/{record["control_number"]}',
-            content_type="application/json",
-        )
+        celery_task_annotation = MapAnnotation({"countdown": 1.5})
 
-    assert "task_locks" in response.json
-    assert response.json["task_locks"].startswith("Scheduled tasks:")
+        user = create_user(role=Roles.cataloger.value)
+
+        record = LiteratureRecord.get_record_by_pid_value(111)
+        record["authors"] = [{"full_name": "An Author"}]
+        record["_export_to"] = {"HAL": True}
+        record["external_system_identifiers"] = [
+            {"schema": "HAL", "value": "HAL-12345678"}
+        ]
+        record.update(dict(record))
+        db.session.commit()
+
+        def assert_locks():
+            with inspire_app.test_client() as client:
+                login_user_via_session(client, email=user.email)
+                response = client.get(
+                    f'/api/editor/literature/{record["control_number"]}',
+                    content_type="application/json",
+                )
+
+            assert "task_locks" in response.json
+            assert response.json["task_locks"].startswith("Scheduled tasks:")
+
+        retry_until_pass(assert_locks, 0.05)
+        resolve_all(celery_task_annotation, disambiguate_authors)

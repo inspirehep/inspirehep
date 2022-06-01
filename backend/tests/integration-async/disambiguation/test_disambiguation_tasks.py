@@ -4,10 +4,10 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-from flask_sqlalchemy import models_committed
+import mock
 import orjson
-from celery.app.annotations import MapAnnotation, resolve_all
 from flask import current_app
+from flask_sqlalchemy import models_committed
 from helpers.providers.faker import faker
 from helpers.utils import create_user, retry_until_pass
 from inspire_utils.record import get_values_for_schema
@@ -16,11 +16,15 @@ from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_search import current_search
 from redis import StrictRedis
-from inspirehep.disambiguation.api import author_disambiguation
-from inspirehep.records.receivers import index_after_commit
-from inspirehep.disambiguation.tasks import disambiguate_signatures
+
+from inspirehep.disambiguation.tasks import (
+    disambiguate_authors,
+    disambiguate_signatures,
+)
+from inspirehep.editor.editor_soft_lock import EditorSoftLock
 from inspirehep.records.api import AuthorsRecord, InspireRecord
 from inspirehep.records.api.literature import LiteratureRecord
+from inspirehep.records.receivers import index_after_commit
 from inspirehep.search.api import AuthorsSearch, InspireSearch
 
 
@@ -1270,58 +1274,6 @@ def test_disambiguation_run_for_every_author_when_record_moved_from_private_coll
     retry_until_pass(assert_disambiguation_task, retry_interval=5)
 
 
-def test_editor_lock_is_created_when_disambiguation_runs(
-    inspire_app, clean_celery_session, enable_disambiguation
-):
-    from inspirehep.disambiguation.tasks import disambiguate_authors
-
-    celery_task_annotation = MapAnnotation({"countdown": 10})
-    celery_task_annotation.annotate(disambiguate_authors)
-    redis_url = current_app.config.get("CACHE_REDIS_URL")
-    redis = StrictRedis.from_url(redis_url)
-    author_data = faker.record("aut", with_control_number=True)
-    author_data.update(
-        {
-            "name": {"value": "Gross, Brian"},
-            "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
-            "email_addresses": [{"current": True, "value": "test@test.com"}],
-        }
-    )
-    author_record = InspireRecord.create(author_data)
-    db.session.commit()
-
-    def assert_authors_records_exist_in_es():
-        author_record_from_es = InspireSearch.get_record_data_from_es(author_record)
-        assert author_record_from_es
-
-    retry_until_pass(assert_authors_records_exist_in_es)
-
-    literature_data = faker.record("lit", with_control_number=True)
-    literature_data.update(
-        {
-            "authors": [
-                {
-                    "full_name": "Gross, Brian",
-                    "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
-                    "emails": ["test@test.com"],
-                }
-            ]
-        }
-    )
-    literature_record = LiteratureRecord.create(literature_data)
-    db.session.commit()
-    version_id = literature_record.model.version_id
-
-    def assert_lock_in_redis():
-        expected_hash_name = (
-            f"editor-task-lock:{literature_record['control_number']}@{version_id}"
-        )
-        assert redis.hgetall(expected_hash_name)
-
-    retry_until_pass(assert_lock_in_redis, retry_interval=1)
-    resolve_all(celery_task_annotation, disambiguate_authors)
-
-
 def test_disambiguation_match_when_initials_not_present_in_matched_author(
     inspire_app, clean_celery_session, enable_disambiguation
 ):
@@ -1427,12 +1379,87 @@ def test_author_disambiguation_manually_when_empty_authors(
 
     data = faker.record("lit", with_control_number=True)
     record = LiteratureRecord.create(data)
+    record_version = record.model.version_id
 
     models_committed.disconnect(index_after_commit)
     db.session.commit()
     models_committed.connect(index_after_commit)
+    task = disambiguate_authors.delay(record.id)
 
     def assert_disambiguation_task():
-        assert author_disambiguation(record.model) is None
+        assert task.status == "SUCCESS"
+        record_after_disambiguation = InspireRecord.get_record(record.id)
+        assert record_after_disambiguation.model.version_id == record_version
 
     retry_until_pass(assert_disambiguation_task, retry_interval=2)
+
+
+@mock.patch.object(EditorSoftLock, "remove_lock")
+def test_editor_lock_is_created_when_disambiguation_runs(
+    mocked_remove_lock, inspire_app, clean_celery_session
+):
+
+    redis_url = current_app.config.get("CACHE_REDIS_URL")
+    redis = StrictRedis.from_url(redis_url)
+    author_data = faker.record("aut", with_control_number=True)
+    author_data.update(
+        {
+            "name": {"value": "Gross, Brian"},
+            "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
+            "email_addresses": [{"current": True, "value": "test@test.com"}],
+        }
+    )
+    author_record = InspireRecord.create(author_data)
+    db.session.commit()
+
+    def assert_authors_records_exist_in_es():
+        author_record_from_es = InspireSearch.get_record_data_from_es(author_record)
+        assert author_record_from_es
+
+    retry_until_pass(assert_authors_records_exist_in_es)
+
+    literature_data = faker.record("lit", data={"control_number": 12345})
+    literature_data.update(
+        {
+            "authors": [
+                {
+                    "full_name": "Gross, Brian",
+                    "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
+                    "emails": ["test@test.com"],
+                }
+            ]
+        }
+    )
+    literature_record = LiteratureRecord.create(literature_data)
+    db.session.commit()
+
+    lock = EditorSoftLock(
+        recid=literature_record["control_number"],
+        record_version=literature_record.model.version_id,
+        task_name="inspirehep.disambiguation.tasks.disambiguate_authors",
+    )
+
+    def remove_lock_side_effect(*args, **kwargs):
+        if remove_lock_side_effect.counter < 1:
+            remove_lock_side_effect.counter += 1
+            return None
+        else:
+            return redis.hdel(lock.hash_name, lock.key)
+
+    remove_lock_side_effect.counter = 0
+    mocked_remove_lock.side_effect = remove_lock_side_effect
+
+    disambiguate_authors.delay(literature_record.id)
+
+    def assert_lock_created():
+        lock_found = redis.hget(lock.hash_name, lock.key)
+        assert lock_found
+
+    retry_until_pass(assert_lock_created)
+
+    def assert_remove_lock():
+        lock.remove_lock()
+        lock_found = redis.hget(lock.hash_name, lock.key)
+        assert not lock_found
+
+    retry_until_pass(assert_remove_lock)
