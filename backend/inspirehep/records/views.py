@@ -9,6 +9,7 @@ from flask import Blueprint, abort, current_app, request
 from flask.views import MethodView
 from invenio_db import db
 from invenio_records_rest.views import pass_record
+from requests.exceptions import RequestException
 from webargs import fields
 from webargs.flaskparser import FlaskParser
 
@@ -17,12 +18,10 @@ from inspirehep.accounts.roles import Roles
 from inspirehep.records.api.literature import import_article
 from inspirehep.records.errors import (
     ExistingArticleError,
-    ImportArticleError,
-    ImportConnectionError,
+    ImportArticleNotFoundError,
     ImportParsingError,
     MaxResultWindowRESTError,
     UnknownImportIdentifierError,
-    ImportTimeoutError
 )
 from inspirehep.records.marshmallow.literature.references import (
     LiteratureReferencesSchema,
@@ -141,9 +140,7 @@ class WorkflowsRecordSourcesResource(MethodView):
         source = args["source"]
         root_json = args["json"]
         root = WorkflowsRecordSources(
-            source=source,
-            record_uuid=record_uuid,
-            json=root_json,
+            source=source, record_uuid=record_uuid, json=root_json
         )
         db.session.merge(root)
         db.session.commit()
@@ -167,8 +164,7 @@ class WorkflowsRecordSourcesResource(MethodView):
         record_uuid = args.get("record_uuid")
         source = args.get("source")
         result = WorkflowsRecordSources.query.filter_by(
-            record_uuid=str(record_uuid),
-            source=source.lower(),
+            record_uuid=str(record_uuid), source=source.lower()
         ).one_or_none()
         if not result:
             return (
@@ -192,24 +188,25 @@ def import_article_view(identifier):
         message, recid = e.args
         return jsonify(message=str(message), recid=str(recid)), 409
 
-    except ImportArticleError as e:
+    except ImportArticleNotFoundError as e:
         LOGGER.exception("Exception in import_article_view", exception=e)
         return jsonify(message=str(e)), 404
 
-    except ImportConnectionError as e:
-        LOGGER.exception("Exception in import_article_view", exception=e)
-        return jsonify(message=str(e)), 502
-
     except ImportParsingError as e:
         LOGGER.exception("Exception in import_article_view", exception=e)
-        return jsonify(message=f"The article has an invalid format.\n{e}"), 500
+        return jsonify(message="The article has an invalid format."), 500
 
     except UnknownImportIdentifierError:
         return jsonify(message=f"{identifier} is not a recognized identifier."), 400
 
-    except ImportTimeoutError as e:
+    except RequestException as e:
         LOGGER.exception("Exception in import_article_view", exception=e)
-        return jsonify(message=str(e)), 504
+        return (
+            jsonify(
+                message="There was an error when importing metadata. Please try again later or fill the form manually."
+            ),
+            502,
+        )
 
 
 literature_citations_view = LiteratureCitationsResource.as_view(
@@ -230,6 +227,5 @@ blueprint.add_url_rule(
     view_func=literature_references_view,
 )
 blueprint.add_url_rule(
-    "/literature/workflows_record_sources",
-    view_func=workflows_record_sources_view,
+    "/literature/workflows_record_sources", view_func=workflows_record_sources_view
 )

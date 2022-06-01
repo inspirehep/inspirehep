@@ -14,15 +14,7 @@ class ExistingArticleError(Exception):
     pass
 
 
-class ImportArticleError(Exception):
-    pass
-
-
-class ImportConnectionError(Exception):
-    pass
-
-
-class ImportTimeoutError(Exception):
+class ImportArticleNotFoundError(Exception):
     pass
 
 
