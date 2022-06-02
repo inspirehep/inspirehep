@@ -43,7 +43,7 @@ exports[`AssignOwnProfileAction renders 1`] = `
         transitionName="zoom-big-fast"
       >
         <p>
-          These are my papers
+          This is my paper
         </p>
       </Tooltip>
     </MenuItem>
@@ -52,7 +52,7 @@ exports[`AssignOwnProfileAction renders 1`] = `
       key="unassign"
       onClick={[Function]}
     >
-      These are not my papers
+      This is not my paper
     </MenuItem>
   </DropdownMenu>
 </ListItemAction>
@@ -98,11 +98,11 @@ exports[`AssignOwnProfileAction renders disabled 1`] = `
         mouseEnterDelay={0.1}
         mouseLeaveDelay={0.1}
         placement="top"
-        title="All selected papers are already claimed!"
+        title="This paper is already claimed"
         transitionName="zoom-big-fast"
       >
         <p>
-          These are my papers
+          This is my paper
         </p>
       </Tooltip>
     </MenuItem>
@@ -111,7 +111,7 @@ exports[`AssignOwnProfileAction renders disabled 1`] = `
       key="unassign"
       onClick={[Function]}
     >
-      These are not my papers
+      This is not my paper
     </MenuItem>
   </DropdownMenu>
 </ListItemAction>
@@ -273,11 +273,11 @@ exports[`AssignOwnProfileAction renders with disabled assign action 1`] = `
         mouseEnterDelay={0.1}
         mouseLeaveDelay={0.1}
         placement="top"
-        title="All selected papers are already claimed!"
+        title="This paper is already claimed"
         transitionName="zoom-big-fast"
       >
         <p>
-          These are my papers
+          This is my paper
         </p>
       </Tooltip>
     </MenuItem>
@@ -286,7 +286,7 @@ exports[`AssignOwnProfileAction renders with disabled assign action 1`] = `
       key="unassign"
       onClick={[Function]}
     >
-      These are not my papers
+      This is not my paper
     </MenuItem>
   </DropdownMenu>
 </ListItemAction>
