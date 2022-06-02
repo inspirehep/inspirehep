@@ -6,6 +6,7 @@ import { setAssignDrawerVisibility, assignPapers } from '../../actions/authors';
 const stateToProps = state => ({
   disabled: state.authors.get('publicationSelection').size === 0,
   numberOfSelected: state.authors.get('publicationSelection').size,
+  claimingTooltip: 'All selected papers are already claimed',
 });
 
 const dispatchToProps = dispatch => ({

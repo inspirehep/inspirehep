@@ -33,14 +33,14 @@ exports[`AssignAction renders 1`] = `
       key="assign-self"
       onClick={[Function]}
     >
-      These are my papers
+      This is my paper
     </MenuItem>
     <MenuItem
       data-test-id="unassign"
       key="unassign"
       onClick={[Function]}
     >
-      These are not my papers
+      This is not my paper
     </MenuItem>
     <MenuItem
       data-test-id="assign-another"
@@ -86,14 +86,14 @@ exports[`AssignAction renders disabled 1`] = `
       key="assign-self"
       onClick={[Function]}
     >
-      These are my papers
+      This is my paper
     </MenuItem>
     <MenuItem
       data-test-id="unassign"
       key="unassign"
       onClick={[Function]}
     >
-      These are not my papers
+      This is not my paper
     </MenuItem>
     <MenuItem
       data-test-id="assign-another"

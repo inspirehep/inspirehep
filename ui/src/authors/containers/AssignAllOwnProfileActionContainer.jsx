@@ -9,6 +9,7 @@ const stateToProps = (state) => ({
     state.authors.get('publicationSelectionClaimed').size > 0 &&
     state.authors.get('publicationSelectionUnclaimed').size === 0,
   numberOfSelected: state.authors.get('publicationSelection').size,
+  claimingTooltip: 'All selected papers are already claimed',
 });
 
 const dispatchToProps = (dispatch) => ({

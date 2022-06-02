@@ -13,6 +13,7 @@ function AssignOwnProfileAction({
   disabled,
   disabledAssignAction,
   numberOfSelected,
+  claimingTooltip,
 }) {
   const currentAuthorId = Number(useParams().id);
   const onSelfAssign = useCallback(() => {
@@ -55,7 +56,7 @@ function AssignOwnProfileAction({
           <Tooltip
             title={
               disabledAssignAction
-                ? 'All selected papers are already claimed!'
+                ? claimingTooltip
                 : null
             }
           >
@@ -81,6 +82,12 @@ AssignOwnProfileAction.propTypes = {
   disabled: PropTypes.bool,
   disabledAssignAction: PropTypes.bool,
   numberOfSelected: PropTypes.number,
+  claimingTooltip: PropTypes.string,
+};
+
+AssignOwnProfileAction.defaultProps = {
+  claimingTooltip: 'This paper is already claimed',
+  numberOfSelected: 1,
 };
 
 export default AssignOwnProfileAction;

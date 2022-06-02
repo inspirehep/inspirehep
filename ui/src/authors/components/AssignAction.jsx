@@ -76,4 +76,8 @@ AssignAction.propTypes = {
   numberOfSelected: PropTypes.number,
 };
 
+AssignAction.defaultProps = {
+  numberOfSelected: 1,
+};
+
 export default AssignAction;
