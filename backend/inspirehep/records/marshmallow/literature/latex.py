@@ -11,11 +11,9 @@ import datetime
 from inspire_utils.name import format_name
 from inspire_utils.record import get_value
 from marshmallow import fields, missing
-
 from ..base import BaseSchema
 from .bibtex import BibTexCommonSchema
 from .utils import latex_encode
-
 
 class LatexSchema(BaseSchema):
     arxiv_eprints = fields.Raw()
@@ -50,17 +48,19 @@ class LatexSchema(BaseSchema):
         return publication_info
 
     def get_author_names(self, data):
+
         authors = data.get("authors")
 
         if not authors:
             return missing
 
         author_names = (
-            latex_encode(format_name(author["full_name"], initials_only=True))
+            latex_encode(format_name(author["full_name"], initials_only=True, without_titles=True))
             for author in authors
             if "supervisor" not in author.get("inspire_roles", [])
         )
         return [name.replace(". ", ".~") for name in author_names]
+
 
     def get_publication_info(self, data):
         publication_info = BibTexCommonSchema.get_best_publication_info(data)

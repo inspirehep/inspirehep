@@ -7,7 +7,7 @@
 
 from freezegun import freeze_time
 from helpers.utils import create_record, create_record_factory
-
+import pytest
 
 @freeze_time("1994-12-19")
 def test_latex_eu(inspire_app):
@@ -535,6 +535,40 @@ def test_latex_encodes_non_latex_chars(inspire_app):
     }
     record = create_record("lit", data)
     expected = "%\\cite{Gerard2020:abc}\n\\bibitem{Gerard2020:abc}\nP.~G\\'erard [DA\\ensuremath{\\Phi}NE],\n%``About \\ensuremath{\\gamma}-ray bursts,''\nAnnales H. Poincar\\'e \\textbf{42}, 314\ndoi:10.1234/567\\_89\n%0 citations counted in INSPIRE as of 16 Sep 2020"
+
+    with inspire_app.test_client() as client:
+        response = client.get(f"/literature/{record['control_number']}?format=latex-us")
+    response_data = response.get_data(as_text=True)
+
+    assert response.status_code == 200
+    assert response_data == expected
+
+
+@freeze_time("2020-09-11")
+@pytest.mark.parametrize(
+    "input_author,expected_name",
+    [("Lieber, Ed", "E.~Lieber,"),
+     ('Lieber, Ed Viktor', "E.~V.~Lieber,"),
+     ('Lieber, Ed Jr.', "E.~Lieber, Jr.,"),
+     ('Lieber, Ed Victor Jr.', "E.~V.~Lieber, Jr.,"),
+     ],
+)
+def test_latex_returns_names_correctly(input_author, expected_name, inspire_app):
+    data = {
+        "control_number": 637_275_237,
+        "titles": [{"title": "This is a title."}],
+        "authors": [
+            {
+                "uuid": "815f4c25-73ea-4169-8ea1-4f025abdd62b",
+                "full_name": input_author,
+            },
+        ],
+    }
+    record = create_record("lit", data)
+    expected = (
+        f"%\\cite{{637275237}}\n\\bibitem{{637275237}}\n{expected_name}\n"
+        "%``This is a title.,''\n%0 citations counted in INSPIRE as of 11 Sep 2020"
+    )
 
     with inspire_app.test_client() as client:
         response = client.get(f"/literature/{record['control_number']}?format=latex-us")
