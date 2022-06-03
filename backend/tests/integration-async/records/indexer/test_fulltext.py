@@ -267,4 +267,45 @@ def test_index_records_batch_fulltext_manually(
         task = batch_index_literature_fulltext.delay([lit_record.id, lit_record_2.id])
         task.get(timeout=5)
 
-        assert task.result == {"success_count": 2, "failures": [], "failures_count": 0}
+        assert task.result == {
+            "uuids": [str(lit_record.id), str(lit_record_2.id)],
+            "success_count": 2,
+            "failures_count": 0,
+            "failures": [],
+        }
+
+
+@pytest.mark.vcr()
+def test_fulltext_indexer_removes_deleted_from_es(
+    inspire_app, override_config, clean_celery_session
+):
+    with override_config(FEATURE_FLAG_ENABLE_FULLTEXT=True):
+        lit_record = LiteratureRecord.create(
+            faker.record(
+                "lit",
+                data={
+                    "documents": [
+                        {
+                            "source": "arxiv",
+                            "fulltext": True,
+                            "filename": "new_doc.pdf",
+                            "key": "new_doc.pdf",
+                            "url": "http://www.africau.edu/images/default/sample.pdf",
+                        }
+                    ]
+                },
+            )
+        )
+        db.session.commit()
+
+        def assert_records_in_es():
+            lit_record_from_es = LiteratureSearch.get_record_data_from_es(lit_record)
+
+            assert lit_record_from_es
+
+        retry_until_pass(assert_records_in_es, retry_interval=5)
+
+        lit_record.delete()
+        db.session.commit()
+
+        assert_record_not_in_es(lit_record["control_number"])

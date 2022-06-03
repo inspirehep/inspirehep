@@ -7,13 +7,7 @@
 
 import structlog
 from celery import shared_task
-from elasticsearch import (
-    ConflictError,
-    ConnectionError,
-    ConnectionTimeout,
-    NotFoundError,
-    RequestError,
-)
+from elasticsearch import ConnectionError, ConnectionTimeout, RequestError
 from flask import current_app
 from sqlalchemy.exc import (
     DisconnectionError,
@@ -87,27 +81,10 @@ def index_record(self, uuid, record_version=None, force_delete=None):
     record = InspireRecord.get_record(
         uuid, with_deleted=True, record_version=record_version
     )
-    if not force_delete:
-        deleted = record.get("deleted", False)
 
-    if force_delete or deleted:
-        try:
-            InspireRecordIndexer().delete(record)
-            LOGGER.debug("Record removed from ES", uuid=str(uuid))
-        except NotFoundError:
-            LOGGER.debug("Record to delete not found", uuid=str(uuid))
-    else:
-        try:
-            InspireRecordIndexer().index(record)
-        except ConflictError as err:
-            LOGGER.warning(
-                "VersionConflict on record indexing.",
-                uuid=str(uuid),
-                record_version=record_version,
-                force_delete=force_delete,
-                error=err,
-            )
-
+    InspireRecordIndexer().index(
+        record, record_version=record_version, force_delete=force_delete
+    )
     uuids_to_reindex = get_references_to_update(record)
 
     if uuids_to_reindex:
@@ -123,16 +100,11 @@ def index_record(self, uuid, record_version=None, force_delete=None):
     autoretry_for=CELERY_INDEX_RECORD_RETRY_ON_EXCEPTIONS,
 )
 def index_fulltext(self, record_id, record_version):
+    LOGGER.info("Indexing record including fulltext", uuid=record_id)
     record = InspireRecord.get_record(record_id, record_version)
-    LOGGER.info("Indexing record including fulltext", uuid=record.id)
-    if record.pid_type == "lit":
-        LiteratureRecordFulltextIndexer().index(
-            record,
-            arguments={
-                "pipeline": current_app.config["ES_FULLTEXT_PIPELINE_NAME"],
-                "timeout": current_app.config["FULLLTEXT_INDEXER_REQUEST_TIMEOUT"],
-            },
-        )
+    if record.pid_type != "lit":
+        return
+    LiteratureRecordFulltextIndexer().index(record, record_version=record_version)
 
 
 @shared_task(ignore_result=False, bind=True)
