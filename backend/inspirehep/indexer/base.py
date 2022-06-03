@@ -6,7 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import structlog
-from elasticsearch import RequestError, TransportError
+from elasticsearch import ConflictError, NotFoundError, RequestError, TransportError
 from elasticsearch.helpers import streaming_bulk
 from flask import current_app
 from invenio_indexer.api import RecordIndexer
@@ -108,6 +108,7 @@ class InspireRecordIndexer(RecordIndexer):
         number_of_failures = len(failures)
 
         return {
+            "uuids": records_uuids,
             "success_count": len(records_uuids) - number_of_failures,
             "failures_count": number_of_failures,
             "failures": failures,
@@ -141,6 +142,32 @@ class InspireRecordIndexer(RecordIndexer):
             LOGGER.exception(
                 "Kombu is not able to process response!", uuid=str(record_uuid)
             )
+
+    def _get_indexing_arguments(self):
+        """Returns custom arguments for record indexing"""
+        pass
+
+    def index(self, record, force_delete=None, record_version=None):
+        if not force_delete:
+            deleted = record.get("deleted", False)
+
+        if force_delete or deleted:
+            try:
+                self.delete(record)
+                LOGGER.debug("Record removed from ES", uuid=str(record.id))
+            except NotFoundError:
+                LOGGER.debug("Record to delete not found", uuid=str(record.id))
+        else:
+            try:
+                super().index(record, arguments=self._get_indexing_arguments())
+            except ConflictError as err:
+                LOGGER.warning(
+                    "VersionConflict on record indexing.",
+                    uuid=str(record.id),
+                    record_version=record_version,
+                    force_delete=force_delete,
+                    error=err,
+                )
 
 
 class LiteratureRecordFulltextIndexer(InspireRecordIndexer):
@@ -184,3 +211,10 @@ class LiteratureRecordFulltextIndexer(InspireRecordIndexer):
         )
         payload["pipeline"] = ingestion_pipeline_name
         return payload
+
+    def _get_indexing_arguments(self):
+        arguments = {
+            "pipeline": current_app.config["ES_FULLTEXT_PIPELINE_NAME"],
+            "timeout": current_app.config["FULLLTEXT_INDEXER_REQUEST_TIMEOUT"],
+        }
+        return arguments
