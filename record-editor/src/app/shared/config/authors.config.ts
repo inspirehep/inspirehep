@@ -111,6 +111,33 @@ export const authors: JsonEditorConfig = {
           },
         },
       },
+      deleted_records: {
+        items: {
+          refFieldConfig: {
+            anchorBuilder: anchorBuilder,
+            displayInputField: true,
+          },
+        },
+      },
+      related_records: {
+        items: {
+          order: [
+            'record',
+            'curated_relation',
+            'relation',
+            'relation_freetext',
+          ],
+          alwaysShow: ['record', 'relation'],
+          properties: {
+            record: {
+              refFieldConfig: {
+                anchorBuilder: anchorBuilder,
+                displayInputField: true,
+              },
+            },
+          },
+        },
+      },
       $schema: {
         hidden: true,
       },

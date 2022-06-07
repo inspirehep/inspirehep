@@ -525,7 +525,8 @@ export const coreHep: JsonEditorConfig = {
                   properties: {
                     journal_title: {
                       onValueChange: splitPrimitiveReferenceField,
-                      autocompletionConfig: journalTitleAutocompletionConfigWithoutPopulatingRef,
+                      autocompletionConfig:
+                        journalTitleAutocompletionConfigWithoutPopulatingRef,
                     },
                     journal_volume: {
                       onValueChange: splitPrimitiveReferenceField,
@@ -620,10 +621,31 @@ export const coreHep: JsonEditorConfig = {
           alwaysShow: ['description'],
         },
       },
-      new_record: {
-        refFieldConfig: {
-          anchorBuilder: anchorBuilder,
-          displayInputField: true,
+      deleted_records: {
+        items: {
+          refFieldConfig: {
+            anchorBuilder: anchorBuilder,
+            displayInputField: true,
+          },
+        },
+      },
+      related_records: {
+        items: {
+          order: [
+            'record',
+            'curated_relation',
+            'relation',
+            'relation_freetext',
+          ],
+          alwaysShow: ['record', 'relation'],
+          properties: {
+            record: {
+              refFieldConfig: {
+                anchorBuilder: anchorBuilder,
+                displayInputField: true,
+              },
+            },
+          },
         },
       },
     },
