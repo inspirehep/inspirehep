@@ -22,49 +22,70 @@
 
 import { JsonEditorConfig } from 'ng2-json-editor';
 import { countryCodeToName } from 'inspire-schemas';
-import { customValidationForDateTypes, anchorBuilder } from './commons';
+import {
+  affiliationAutocompletionConfig,
+  customValidationForDateTypes,
+  anchorBuilder,
+} from './commons';
 import { environment } from '../../../environments/environment';
 
-export const conferences: JsonEditorConfig = {
+export const experiments: JsonEditorConfig = {
   customFormatValidation: customValidationForDateTypes,
   menuMaxDepth: 1,
   enableAdminModeSwitch: true,
   schemaOptions: {
     alwaysShowRegExp: new RegExp('value'),
     alwaysShow: [
-      'titles',
-      'acronyms',
-      'addresses',
-      'cnum',
-      'opening_date',
-      'closing_date',
-      'series',
-      'urls',
-      'contact_details',
-      'short_description',
+      'project_type',
+      'long_name',
+      'legacy_name',
+      'accelerator',
+      'experiment',
+      'collaboration',
+      'institutions',
+      'name_variants',
+      'date_proposed',
+      'date_approved',
+      'date_cancelled',
+      'date_started',
+      'date_completed',
+      'inspire_categories',
+      'inspire_classification',
+      'description',
       'public_notes',
       '_private_notes',
-      'alternative_titles',
-      'inspire_categories',
-      'keywords',
+      'urls',
+      '_full_ingestion',
+      'related_records',
+      'new_record',
+      'deleted_records',
+      'core',
       'deleted',
     ],
     order: [
-      'titles',
-      'acronyms',
-      'addresses',
-      'cnum',
-      'opening_date',
-      'closing_date',
-      'series',
-      'urls',
-      'contact_details',
-      'short_description',
+      'project_type',
+      'long_name',
+      'legacy_name',
+      'accelerator',
+      'experiment',
+      'collaboration',
+      'institutions',
+      'name_variants',
+      'date_proposed',
+      'date_approved',
+      'date_cancelled',
+      'date_started',
+      'date_completed',
+      'inspire_categories',
+      'inspire_classification',
+      'description',
       'public_notes',
       '_private_notes',
-      'alternative_titles',
-      'inspire_categories',
-      'keywords',
+      'urls',
+      '_full_ingestion',
+      'related_records',
+      'new_record',
+      'deleted_records',
       'core',
       'deleted',
     ],
@@ -75,64 +96,9 @@ export const conferences: JsonEditorConfig = {
       deleted: {
         toggleColor: '#e74c3c',
       },
-      titles: {
+      accelerator: {
         items: {
-          alwaysShow: ['title'],
-          order: ['title', 'subtitle', 'source'],
-        },
-      },
-      series: {
-        items: {
-          alwaysShow: ['name'],
-          order: ['name', 'number'],
-          properties: {
-            name: {
-              autocompletionConfig: {
-                url: `${environment.baseUrl}/api/conferences/_suggest?series_name=`,
-                path: '/series_name/0/options',
-                optionField: '/text',
-                size: 10,
-              },
-            },
-          },
-        },
-      },
-      inspire_categories: {
-        items: {
-          alwaysShow: ['term'],
-          order: ['term'],
-        },
-      },
-      addresses: {
-        items: {
-          order: ['cities', 'state', 'country_code', 'place_name'],
-          properties: {
-            country_code: {
-              enumDisplayValueMap: countryCodeToName,
-            },
-            postal_code: {
-              hidden: true,
-            },
-            postal_address: {
-              hidden: true,
-            },
-            longitude: {
-              hidden: true,
-            },
-            latitude: {
-              hidden: true,
-            },
-          },
-        },
-      },
-      urls: {
-        items: {
-          order: ['value', 'description'],
-        },
-      },
-      contact_details: {
-        items: {
-          order: ['email', 'name', 'curated_relation', 'hidden'],
+          order: ['value', 'record'],
           properties: {
             record: {
               refFieldConfig: {
@@ -143,28 +109,47 @@ export const conferences: JsonEditorConfig = {
           },
         },
       },
-      short_description: {
-        order: ['value'],
-      },
-      public_notes: {
-        items: {
-          order: ['value'],
+      collaboration: {
+        order: ['value', 'record', 'subgroup_names'],
+        alwaysShow: ['value', 'record', 'subgroup_names'],
+        properties: {
+          record: {
+            refFieldConfig: {
+              anchorBuilder: anchorBuilder,
+              displayInputField: true,
+            },
+          },
         },
       },
-      _private_notes: {
+      institutions: {
         items: {
-          order: ['value'],
+          order: ['value', 'record'],
+          properties: {
+            record: {
+              refFieldConfig: {
+                anchorBuilder: anchorBuilder,
+                displayInputField: true,
+              },
+            },
+            value: {
+              autocompletionConfig: affiliationAutocompletionConfig,
+            },
+          },
         },
       },
-      alternative_titles: {
+      experiment: {
+        order: ['value', 'short_name'],
+        alwaysShow: ['value', 'short_name'],
+      },
+      inspire_categories: {
         items: {
-          alwaysShow: ['title'],
-          order: ['title', 'subtitle', 'source'],
+          order: ['term', 'source'],
+          alwaysShow: ['term', 'source'],
         },
       },
-      keywords: {
+      urls: {
         items: {
-          order: ['value', 'schema'],
+          order: ['value', 'description'],
         },
       },
       deleted_records: {
@@ -193,9 +178,6 @@ export const conferences: JsonEditorConfig = {
             },
           },
         },
-      },
-      cnum: {
-        disabled: true,
       },
       new_record: {
         disabled: true,

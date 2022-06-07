@@ -21,134 +21,93 @@
  */
 
 import { JsonEditorConfig } from 'ng2-json-editor';
-import { countryCodeToName } from 'inspire-schemas';
 import { customValidationForDateTypes, anchorBuilder } from './commons';
 import { environment } from '../../../environments/environment';
 
-export const conferences: JsonEditorConfig = {
+export const journals: JsonEditorConfig = {
   customFormatValidation: customValidationForDateTypes,
   menuMaxDepth: 1,
   enableAdminModeSwitch: true,
   schemaOptions: {
     alwaysShowRegExp: new RegExp('value'),
     alwaysShow: [
-      'titles',
-      'acronyms',
-      'addresses',
-      'cnum',
-      'opening_date',
-      'closing_date',
-      'series',
-      'urls',
-      'contact_details',
-      'short_description',
-      'public_notes',
       '_private_notes',
-      'alternative_titles',
+      'date_ended',
+      'date_started',
+      'deleted_records',
+      'doi_prefixes',
       'inspire_categories',
-      'keywords',
-      'deleted',
+      'issns',
+      'journal_title',
+      'legacy_creation_date',
+      'license',
+      'new_record',
+      'public_notes',
+      'publisher',
+      'related_records',
+      'short_title',
+      'title_variants',
+      'urls',
     ],
     order: [
-      'titles',
-      'acronyms',
-      'addresses',
-      'cnum',
-      'opening_date',
-      'closing_date',
-      'series',
-      'urls',
-      'contact_details',
-      'short_description',
+      'short_title',
+      'journal_title',
+      'title_variants',
+      'issns',
+      'doi_prefixes',
+      'publisher',
       'public_notes',
+      'date_started',
+      'date_ended',
       '_private_notes',
-      'alternative_titles',
       'inspire_categories',
-      'keywords',
-      'core',
+      'legacy_creation_date',
+      'license',
+      'urls',
+      'new_record',
+      'deleted_records',
+      'related_records',
+      'refereed',
+      'proceedings',
+      'book_series',
       'deleted',
     ],
     properties: {
-      core: {
-        toggleColor: '#27ae60',
+      refereed: {
+        toggleColor: '#34495e',
+      },
+      proceedings: {
+        toggleColor: '#f1c40f',
+      },
+      book_series: {
+        toggleColor: '#8e44ad',
       },
       deleted: {
         toggleColor: '#e74c3c',
       },
-      titles: {
+      journal_title: {
         items: {
           alwaysShow: ['title'],
-          order: ['title', 'subtitle', 'source'],
-        },
-      },
-      series: {
-        items: {
-          alwaysShow: ['name'],
-          order: ['name', 'number'],
-          properties: {
-            name: {
-              autocompletionConfig: {
-                url: `${environment.baseUrl}/api/conferences/_suggest?series_name=`,
-                path: '/series_name/0/options',
-                optionField: '/text',
-                size: 10,
-              },
-            },
-          },
         },
       },
       inspire_categories: {
         items: {
-          alwaysShow: ['term'],
-          order: ['term'],
-        },
-      },
-      addresses: {
-        items: {
-          order: ['cities', 'state', 'country_code', 'place_name'],
           properties: {
-            country_code: {
-              enumDisplayValueMap: countryCodeToName,
-            },
-            postal_code: {
-              hidden: true,
-            },
-            postal_address: {
-              hidden: true,
-            },
-            longitude: {
-              hidden: true,
-            },
-            latitude: {
-              hidden: true,
+            term: {
+              priority: 1,
             },
           },
         },
       },
-      urls: {
+      issns: {
         items: {
-          order: ['value', 'description'],
+          alwaysShow: ['medium'],
+          order: ['value', 'medium'],
         },
       },
-      contact_details: {
+      license: {
         items: {
-          order: ['email', 'name', 'curated_relation', 'hidden'],
-          properties: {
-            record: {
-              refFieldConfig: {
-                anchorBuilder: anchorBuilder,
-                displayInputField: true,
-              },
-            },
-          },
-        },
-      },
-      short_description: {
-        order: ['value'],
-      },
-      public_notes: {
-        items: {
-          order: ['value'],
+          alwaysShow: ['license', 'url'],
         },
       },
       _private_notes: {
@@ -156,15 +115,14 @@ export const conferences: JsonEditorConfig = {
           order: ['value'],
         },
       },
-      alternative_titles: {
+      public_notes: {
         items: {
-          alwaysShow: ['title'],
-          order: ['title', 'subtitle', 'source'],
+          order: ['value'],
         },
       },
-      keywords: {
+      urls: {
         items: {
-          order: ['value', 'schema'],
+          alwaysShow: ['description'],
         },
       },
       deleted_records: {
@@ -194,16 +152,7 @@ export const conferences: JsonEditorConfig = {
           },
         },
       },
-      cnum: {
-        disabled: true,
-      },
-      new_record: {
-        disabled: true,
-      },
       $schema: {
-        hidden: true,
-      },
-      _collections: {
         hidden: true,
       },
       self: {
