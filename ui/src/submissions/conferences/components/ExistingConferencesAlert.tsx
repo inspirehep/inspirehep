@@ -9,8 +9,8 @@ import ExistingConferencesDrawer from './ExistingConferencesDrawer';
 function ExistingConferencesAlert({
   onDatesChange,
   dates,
-  numberOfConferences,
-}) {
+  numberOfConferences
+}: any) {
   const [openingDate, closingDate] = dates;
   const [isDrawerVisible, setDrawerVisible] = useState(false);
 
@@ -30,6 +30,7 @@ function ExistingConferencesAlert({
     numberOfConferences > 0 && (
       <>
         <FieldInfoAlert
+          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
           description={
             <span>
               <strong data-test-id="conferences-exist-alert-number">

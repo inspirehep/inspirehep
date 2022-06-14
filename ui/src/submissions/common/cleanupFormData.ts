@@ -1,5 +1,8 @@
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'loda... Remove this comment to see the full error message
 import isEmpty from 'lodash.isempty';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'loda... Remove this comment to see the full error message
 import isPlainObject from 'lodash.isplainobject';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'loda... Remove this comment to see the full error message
 import transform from 'lodash.transform';
 
 /**
@@ -7,8 +10,8 @@ import transform from 'lodash.transform';
  * - Remove null, undefined values
  * - Trims strings
  */
-export default function cleanupFormData(data) {
-  return transform(data, (result, originalValue, key) => {
+export default function cleanupFormData(data: any) {
+  return transform(data, (result: any, originalValue: any, key: any) => {
     let value = originalValue;
 
     if (Array.isArray(value) || isPlainObject(value)) {

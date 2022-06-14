@@ -4,9 +4,12 @@ import { fromJS } from 'immutable';
 import SeminarItem from '../SeminarItem';
 import * as constants from '../../../common/constants';
 
+// @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
 describe('SeminarItem', () => {
+  // @ts-expect-error ts-migrate(2540) FIXME: Cannot assign to 'LOCAL_TIMEZONE' because it is a ... Remove this comment to see the full error message
   constants.LOCAL_TIMEZONE = 'Europe/Zurich';
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('renders with all props set', () => {
     const metadata = fromJS({
       title: { title: 'test' },
@@ -23,9 +26,11 @@ describe('SeminarItem', () => {
     });
 
     const wrapper = shallow(<SeminarItem metadata={metadata} />);
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(wrapper).toMatchSnapshot();
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('renders with only needed props', () => {
     const metadata = fromJS({
       title: { title: 'test' },
@@ -37,9 +42,11 @@ describe('SeminarItem', () => {
     });
 
     const wrapper = shallow(<SeminarItem metadata={metadata} />);
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(wrapper).toMatchSnapshot();
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('renders with selected timezone with a different time than local timezone', () => {
     const metadata = fromJS({
       title: { title: 'test' },
@@ -53,9 +60,11 @@ describe('SeminarItem', () => {
     const wrapper = shallow(
       <SeminarItem metadata={metadata} selectedTimezone="America/Chicago" />
     );
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(wrapper).toMatchSnapshot();
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('renders with selected timezone with a same time as local timezone', () => {
     const metadata = fromJS({
       title: { title: 'test' },
@@ -69,6 +78,7 @@ describe('SeminarItem', () => {
     const wrapper = shallow(
       <SeminarItem metadata={metadata} selectedTimezone="Europe/Zurich" />
     );
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(wrapper).toMatchSnapshot();
   });
 });

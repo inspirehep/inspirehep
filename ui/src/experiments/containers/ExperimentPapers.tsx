@@ -5,7 +5,9 @@ import LiteratureSearchContainer from '../../literature/containers/LiteratureSea
 import { getPapersQueryString } from '../utils';
 import { EXPERIMENT_PAPERS_NS } from '../../search/constants';
 
-function ExperimentPapers({ recordId }) {
+function ExperimentPapers({
+  recordId
+}: any) {
   const baseQuery = useMemo(
     () => ({
       q: getPapersQueryString(recordId),

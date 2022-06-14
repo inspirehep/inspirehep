@@ -24,7 +24,7 @@ export default class SubscribeJobsModalButton extends Component {
     );
   }
 
-  constructor(props) {
+  constructor(props: any) {
     super(props);
 
     this.state = {
@@ -47,7 +47,7 @@ export default class SubscribeJobsModalButton extends Component {
     this.setState({ isModalVisible: true });
   }
 
-  async onFormSubmit(data) {
+  async onFormSubmit(data: any) {
     try {
       await subscribeJobMailingList(data);
       this.setState({ hasError: false, isSubscriptionSubmitted: true });
@@ -67,11 +67,13 @@ export default class SubscribeJobsModalButton extends Component {
   }
 
   renderSubscribeForm() {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'hasError' does not exist on type 'Readon... Remove this comment to see the full error message
     const { hasError } = this.state;
     return (
       <div>
         {hasError && (
           <div className="mb3">
+            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
             <Alert
               type="error"
               showIcon
@@ -89,9 +91,11 @@ export default class SubscribeJobsModalButton extends Component {
   }
 
   render() {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'isModalVisible' does not exist on type '... Remove this comment to see the full error message
     const { isModalVisible, isSubscriptionSubmitted } = this.state;
     return (
       <>
+        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
         <LinkLikeButton onClick={this.onClick}>
           <MailOutlined />
           <ResponsiveView

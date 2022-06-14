@@ -1,21 +1,21 @@
 import { INSPECT_REQUEST, INSPECT_SUCCESS, INSPECT_ERROR } from './actionTypes';
 import { httpErrorToActionPayload } from '../common/utils';
 
-function fetching(id) {
+function fetching(id: any) {
   return {
     type: INSPECT_REQUEST,
     payload: { id },
   };
 }
 
-function fetchSuccess(result) {
+function fetchSuccess(result: any) {
   return {
     type: INSPECT_SUCCESS,
     payload: result,
   };
 }
 
-function fetchError(error) {
+function fetchError(error: any) {
   return {
     type: INSPECT_ERROR,
     payload: error,
@@ -23,8 +23,8 @@ function fetchError(error) {
   };
 }
 
-export default function fetch(id) {
-  return async (dispatch, getState, http) => {
+export default function fetch(id: any) {
+  return async (dispatch: any, getState: any, http: any) => {
     dispatch(fetching(id));
     try {
       const response = await http.get(`/workflows/inspect_merge/${id}`);

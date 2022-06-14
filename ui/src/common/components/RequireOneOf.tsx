@@ -1,11 +1,14 @@
 import { useMemo } from 'react';
 import PropTypes from 'prop-types';
 
-function isPresent(value) {
+function isPresent(value: any) {
   return value != null && value !== '';
 }
 
-function RequireOneOf({ dependencies, children }) {
+function RequireOneOf({
+  dependencies,
+  children
+}: any) {
   const isAtLeastOnePresent = useMemo(() => dependencies.some(isPresent), [
     dependencies,
   ]);

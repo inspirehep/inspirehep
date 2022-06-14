@@ -8,6 +8,7 @@ class ErrorNetwork extends Component {
   render() {
     return (
       <ErrorPage
+        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
         message="Connection error!"
         imageSrc={error500Image}
         detail={

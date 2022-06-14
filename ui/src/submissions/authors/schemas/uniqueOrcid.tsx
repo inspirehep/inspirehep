@@ -1,7 +1,10 @@
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'yup'... Remove this comment to see the full error message
 import { string } from 'yup';
 import React from 'react';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { Link } from 'react-router-dom';
 
+// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.ts' extension. ... Remove this comment to see the full error message
 import http from '../../../common/http.ts';
 import { SUBMISSIONS_AUTHOR } from '../../../common/routes';
 
@@ -11,14 +14,14 @@ const ONLY_CONTROL_NUMBER_SERIALIZER_REQUEST_OPTIONS = {
   },
 };
 
-function fetchAuthorFromOrcid(orcid) {
+function fetchAuthorFromOrcid(orcid: any) {
   return http.get(
     `/orcid/${orcid}`,
     ONLY_CONTROL_NUMBER_SERIALIZER_REQUEST_OPTIONS
   );
 }
 
-function renderAuthorExistsMessageWithUpdateLink(authorId) {
+function renderAuthorExistsMessageWithUpdateLink(authorId: any) {
   const authorUpdateLink = `${SUBMISSIONS_AUTHOR}/${authorId}`;
   return (
     <span>
@@ -28,7 +31,7 @@ function renderAuthorExistsMessageWithUpdateLink(authorId) {
   );
 }
 
-async function isUniqueOrcid(orcid) {
+async function isUniqueOrcid(this: any, orcid: any) {
   if (!orcid) {
     return true;
   }

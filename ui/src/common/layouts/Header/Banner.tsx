@@ -1,6 +1,8 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import SanitizedHTML from 'react-sanitized-html';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'clas... Remove this comment to see the full error message
 import classNames from 'classnames';
 import { Alert, Button } from 'antd';
 import { Map } from 'immutable';
@@ -18,8 +20,8 @@ function Banner({
   center,
   closedBannersById,
   currentPathname,
-  pathnameRegexp,
-}) {
+  pathnameRegexp
+}: any) {
   const afterClose = useCallback(
     () => {
       onClose(id);
@@ -75,6 +77,7 @@ Banner.propTypes = {
 
   // from container props
   onClose: PropTypes.func,
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof Map' is not assignable to... Remove this comment to see the full error message
   closedBannersById: PropTypes.instanceOf(Map).isRequired,
   currentPathname: PropTypes.string.isRequired,
 };

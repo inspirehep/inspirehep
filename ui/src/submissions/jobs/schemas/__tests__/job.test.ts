@@ -23,201 +23,243 @@ const dataWithRequiredFields = {
   description: '<b>Director</b> at CERN',
 };
 
+// @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
 describe('jobSchema', () => {
-  it('invalidates when all top-level required fields without default are absent', async done => {
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  it('invalidates when all top-level required fields without default are absent', async (done: any) => {
     const isValid = await jobSchema.isValid({});
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(isValid).toBe(false);
     done();
   });
 
-  it('validates when all top-level required fields without default are present', async done => {
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  it('validates when all top-level required fields without default are present', async (done: any) => {
     const isValid = await jobSchema.isValid(dataWithRequiredFields);
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(isValid).toBe(true);
     done();
   });
 
-  it('invalidates when title has just spaces', async done => {
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  it('invalidates when title has just spaces', async (done: any) => {
     const data = {
       ...dataWithRequiredFields,
       title: '     ',
     };
     const isValid = await jobSchema.isValid(data);
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(isValid).toBe(false);
     done();
   });
 
-  it('invalidates when contact has only name', async done => {
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  it('invalidates when contact has only name', async (done: any) => {
     const data = {
       ...dataWithRequiredFields,
       contacts: { name: 'Harun Urhan' },
     };
     const isValid = await jobSchema.isValid(data);
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(isValid).toBe(false);
     done();
   });
 
-  it('invalidates when contact has only email', async done => {
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  it('invalidates when contact has only email', async (done: any) => {
     const data = {
       ...dataWithRequiredFields,
       contacts: { email: 'harun.urhan@cern.ch' },
     };
     const isValid = await jobSchema.isValid(data);
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(isValid).toBe(false);
     done();
   });
 
-  it('invalidates when contact does not have a valid email', async done => {
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  it('invalidates when contact does not have a valid email', async (done: any) => {
     const data = {
       ...dataWithRequiredFields,
       contacts: { name: 'Harun Urhan', email: 'not an email' },
     };
     const isValid = await jobSchema.isValid(data);
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(isValid).toBe(false);
     done();
   });
 
-  it('invalidates when contac name has just spaces', async done => {
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  it('invalidates when contac name has just spaces', async (done: any) => {
     const data = {
       ...dataWithRequiredFields,
       contacts: { name: '  ', email: 'harun.urhan@cern.ch' },
     };
     const isValid = await jobSchema.isValid(data);
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(isValid).toBe(false);
     done();
   });
 
-  it('validates when status is one of job status values', async done => {
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  it('validates when status is one of job status values', async (done: any) => {
     const data = {
       ...dataWithRequiredFields,
       status: statusValues[1],
     };
     const isValid = await jobSchema.isValid(data);
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(isValid).toBe(true);
     done();
   });
 
-  it('invalidates when status is not one of job status values', async done => {
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  it('invalidates when status is not one of job status values', async (done: any) => {
     const data = {
       ...dataWithRequiredFields,
       status: 'not a status value',
     };
     const isValid = await jobSchema.isValid(data);
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(isValid).toBe(false);
     done();
   });
 
-  it('validates when url is a valid url', async done => {
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  it('validates when url is a valid url', async (done: any) => {
     const data = {
       ...dataWithRequiredFields,
       url: 'https://careers.cern/dg',
     };
     const isValid = await jobSchema.isValid(data);
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(isValid).toBe(true);
     done();
   });
 
-  it('validates with experiments', async done => {
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  it('validates with experiments', async (done: any) => {
     const data = {
       ...dataWithRequiredFields,
       experiments: [{ legacy_name: 'CERN-LHC-CMS' }],
     };
     const isValid = await jobSchema.isValid(data);
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(isValid).toBe(true);
     done();
   });
 
-  it('invalidates when url is an invalid url', async done => {
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  it('invalidates when url is an invalid url', async (done: any) => {
     const data = {
       ...dataWithRequiredFields,
       url: 'not a url',
     };
     const isValid = await jobSchema.isValid(data);
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(isValid).toBe(false);
     done();
   });
 
-  it('invalidates when field of interest are not all one of selectable values', async done => {
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  it('invalidates when field of interest are not all one of selectable values', async (done: any) => {
     const data = {
       ...dataWithRequiredFields,
       field_of_interest: ['not a field of interest', fieldOfInterestValues[1]],
     };
     const isValid = await jobSchema.isValid(data);
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(isValid).toBe(false);
     done();
   });
 
-  it('invalidates when ranks are not all one of selectable values', async done => {
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  it('invalidates when ranks are not all one of selectable values', async (done: any) => {
     const data = {
       ...dataWithRequiredFields,
       ranks: ['not a rank', rankValues[1]],
     };
     const isValid = await jobSchema.isValid(data);
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(isValid).toBe(false);
     done();
   });
 
-  it('invalidates when regions are not all one of selectable values', async done => {
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  it('invalidates when regions are not all one of selectable values', async (done: any) => {
     const data = {
       ...dataWithRequiredFields,
       regions: ['not a region', regionValues[1]],
     };
     const isValid = await jobSchema.isValid(data);
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(isValid).toBe(false);
     done();
   });
 
-  it('invalidates when deadline_date is in the past', async done => {
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  it('invalidates when deadline_date is in the past', async (done: any) => {
     const data = {
       ...dataWithRequiredFields,
       deadline_date: '1900-10-10',
     };
     const isValid = await jobSchema.isValid(data);
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(isValid).toBe(false);
     done();
   });
 
-  it('invalidates when deadline_date is later than next year', async done => {
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  it('invalidates when deadline_date is later than next year', async (done: any) => {
     const data = {
       ...dataWithRequiredFields,
       deadline_date: moment().add({ years: 1, months: 4 }),
     };
     const isValid = await jobSchema.isValid(data);
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(isValid).toBe(false);
     done();
   });
 
-  it('invalidates when deadline_date is an invalid date', async done => {
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  it('invalidates when deadline_date is an invalid date', async (done: any) => {
     const data = {
       ...dataWithRequiredFields,
       deadline_date: 'not a date',
     };
     const isValid = await jobSchema.isValid(data);
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(isValid).toBe(false);
     done();
   });
 
-  it('validates when deadline_date is in the past but job status is closed', async done => {
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  it('validates when deadline_date is in the past but job status is closed', async (done: any) => {
     const data = {
       ...dataWithRequiredFields,
       status: 'closed',
       deadline_date: '1900-10-10',
     };
     const isValid = await jobSchema.isValid(data);
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(isValid).toBe(true);
     done();
   });
 
-  it('invalidates when a referece_letter is not an email nor url', async done => {
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  it('invalidates when a referece_letter is not an email nor url', async (done: any) => {
     const data = {
       ...dataWithRequiredFields,
       reference_letters: ['dude'],
     };
     const isValid = await jobSchema.isValid(data);
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(isValid).toBe(false);
     done();
   });
 
-  it('validates when a referece_letter is an email or url', async done => {
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  it('validates when a referece_letter is an email or url', async (done: any) => {
     const data = {
       ...dataWithRequiredFields,
       reference_letters: [
@@ -226,6 +268,7 @@ describe('jobSchema', () => {
       ],
     };
     const isValid = await jobSchema.isValid(data);
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(isValid).toBe(true);
     done();
   });

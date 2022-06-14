@@ -1,13 +1,7 @@
 {
   "parser": "babel-eslint",
-  "plugins": [
-    "react-hooks"
-  ],
-  "extends": [
-    "airbnb",
-    "prettier",
-    "prettier/react"
-  ],
+  "plugins": ["react-hooks"],
+  "extends": ["airbnb", "prettier", "prettier/react"],
   "env": {
     "browser": true,
     "jest": true
@@ -23,36 +17,21 @@
     "no-underscore-dangle": [
       "error",
       {
-        "allow": [
-          "_source",
-          "_id"
-        ]
+        "allow": ["_source", "_id"]
       }
     ],
     "jsx-a11y/anchor-is-valid": [
       "error",
       {
-        "components": [
-          "Link"
-        ],
-        "specialLink": [
-          "to",
-          "hrefLeft",
-          "hrefRight"
-        ],
-        "aspects": [
-          "noHref",
-          "invalidHref",
-          "preferButton"
-        ]
+        "components": ["Link"],
+        "specialLink": ["to", "hrefLeft", "hrefRight"],
+        "aspects": ["noHref", "invalidHref", "preferButton"]
       }
     ],
     "import/no-extraneous-dependencies": [
       "off",
       {
-        "devDependencies": [
-          "**/*.test.jsx?"
-        ]
+        "devDependencies": ["**/*.test.jsx?"]
       }
     ],
     "import/prefer-default-export": "off",
@@ -62,22 +41,30 @@
     "react/forbid-prop-types": [
       "error",
       {
-        "forbid": [
-          "any"
-        ]
+        "forbid": ["any"]
       }
     ],
     "react-hooks/exhaustive-deps": "warn",
-    "react-hooks/rules-of-hooks": "error"
+    "react-hooks/rules-of-hooks": "error",
+    "react/jsx-filename-extension": [
+      2,
+      { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
+    ],
+    "react/jsx-no-comment-textnodes": "warn"
   },
   "overrides": [
     {
-      "files": [
-        "src/middlewares/*.js"
-      ],
+      "files": ["src/middlewares/*.js"],
       "rules": {
         "arrow-body-style": "off"
       }
     }
-  ]
+  ],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  }
 }

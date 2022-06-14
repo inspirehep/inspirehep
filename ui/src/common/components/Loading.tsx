@@ -4,6 +4,7 @@ import { Row, Col, Spin } from 'antd';
 class Loading extends Component {
   render() {
     return (
+      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
       <Row className="w-100" type="flex" justify="center" align="middle">
         <Col>
           <div data-test-id="loading" className="tc pa4">

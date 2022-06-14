@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { Link } from 'react-router-dom';
 import { Menu, Tooltip, Button } from 'antd';
 
@@ -13,6 +14,7 @@ import {
   SUBMISSIONS_INSTITUTION,
   SUBMISSIONS_EXPERIMENT,
 } from '../../routes';
+// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.tsx' extension.... Remove this comment to see the full error message
 import ExternalLink from '../../components/ExternalLink.tsx';
 import LinkLikeButton from '../../components/LinkLikeButton';
 
@@ -23,6 +25,7 @@ import { CLAIMING_DISABLED_INFO } from '../../../authors/components/AssignNoProf
 
 class HeaderMenu extends Component {
   render() {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'loggedIn' does not exist on type 'Readon... Remove this comment to see the full error message
     const { loggedIn, onLogoutClick, isCatalogerLoggedIn, profileControlNumber } = this.props;
     const USER_PROFILE_URL = `/authors/${profileControlNumber}`;
 
@@ -99,6 +102,7 @@ class HeaderMenu extends Component {
               )}
             </Menu.Item>
             <Menu.Item key="logout">
+              // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
               <LinkLikeButton onClick={onLogoutClick} dataTestId="logout">
                 Logout
               </LinkLikeButton>
@@ -114,6 +118,7 @@ class HeaderMenu extends Component {
   }
 }
 
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'propTypes' does not exist on type 'typeo... Remove this comment to see the full error message
 HeaderMenu.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
   onLogoutClick: PropTypes.func.isRequired,

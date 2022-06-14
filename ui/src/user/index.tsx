@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { Redirect } from 'react-router-dom';
 
 import RouteOrRedirect from '../common/components/RouteOrRedirect';
@@ -21,6 +23,7 @@ import SafeSwitch from '../common/components/SafeSwitch';
 
 class User extends Component {
   render() {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'loggedIn' does not exist on type 'Readon... Remove this comment to see the full error message
     const { loggedIn, previousUrl } = this.props;
     return (
       <div className="w-100">
@@ -54,14 +57,15 @@ class User extends Component {
   }
 }
 
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'propTypes' does not exist on type 'typeo... Remove this comment to see the full error message
 User.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
   previousUrl: PropTypes.string.isRequired,
 };
 
-const stateToProps = state => ({
+const stateToProps = (state: any) => ({
   loggedIn: state.user.get('loggedIn'),
-  previousUrl: state.router.location.previousUrl,
+  previousUrl: state.router.location.previousUrl
 });
 
 export default connect(stateToProps)(User);

@@ -4,6 +4,7 @@ import React from 'react';
 import { CONFERENCES } from '../common/routes';
 // TODO: rename ExternalLink
 // becuase it's used also for internal links that we want to open in a new tab
+// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.tsx' extension.... Remove this comment to see the full error message
 import ExternalLink from '../common/components/ExternalLink.tsx';
 
 // to render notification over the drawer, if one is open.
@@ -18,7 +19,11 @@ export function assigning() {
   });
 }
 
-export function assignSuccess({ conferenceId, conferenceTitle, papers }) {
+export function assignSuccess({
+  conferenceId,
+  conferenceTitle,
+  papers
+}: any) {
   notification.close(ASSIGNING_NOTIFICATION_KEY);
   notification.success({
     message: 'Assignment Successful!',
@@ -43,7 +48,9 @@ export function assignError() {
   });
 }
 
-export function exportToCdsSuccess({ papers }) {
+export function exportToCdsSuccess({
+  papers
+}: any) {
   notification.success({
     message: 'Export successful!',
     duration: null,

@@ -29,7 +29,7 @@ export const initialState = fromJS({
   namespaces: namespacesState,
 });
 
-function getNamespaceForLocationChangeAction(action) {
+function getNamespaceForLocationChangeAction(action: any) {
   const { location } = action.payload;
   const rootPathname =
     SEARCHABLE_COLLECTION_PATHNAMES.find(pathname =>
@@ -39,7 +39,7 @@ function getNamespaceForLocationChangeAction(action) {
 }
 
 // TODO: maybe implement selector functions that returns the path, ex: pathFor(namespace, 'loading')
-const searchReducer = (state = initialState, action) => {
+const searchReducer = (state = initialState, action: any) => {
   const { payload } = action;
   const {
     namespace,
@@ -60,9 +60,10 @@ const searchReducer = (state = initialState, action) => {
     case CHANGE_SEARCH_BOX_NAMESPACE:
       return state.set('searchBoxNamespace', searchBoxNamespace);
     case NEW_SEARCH_REQUEST:
+      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       const { persistedQueryParamsDuringNewSearch } = searchConfig[namespace];
       const persistedQuery = persistedQueryParamsDuringNewSearch.reduce(
-        (persistedMap, param) =>
+        (persistedMap: any, param: any) =>
           persistedMap.set(
             param,
             state.getIn(['namespaces', namespace, 'query', param])

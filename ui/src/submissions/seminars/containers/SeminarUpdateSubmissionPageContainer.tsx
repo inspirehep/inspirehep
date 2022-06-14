@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { connect } from 'react-redux';
 import { Map } from 'immutable';
 
@@ -19,8 +20,8 @@ function SeminarUpdateSubmissionPage({
   loadingUpdateFormData,
   updateFormDataError,
   dispatch,
-  match,
-}) {
+  match
+}: any) {
   const recordId = match.params.id;
   const onSubmit = useCallback(
     async formData => {
@@ -39,7 +40,9 @@ function SeminarUpdateSubmissionPage({
       title="Update a seminar"
       description="All modifications will appear immediately."
     >
+      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
       <LoadingOrChildren loading={loadingUpdateFormData}>
+        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
         <ErrorAlertOrChildren error={updateFormDataError}>
           <SeminarSubmission
             error={error}
@@ -55,20 +58,25 @@ function SeminarUpdateSubmissionPage({
 SeminarUpdateSubmissionPage.propTypes = {
   match: PropTypes.objectOf(PropTypes.any).isRequired,
   dispatch: PropTypes.func.isRequired,
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof Map' is not assignable to... Remove this comment to see the full error message
   error: PropTypes.instanceOf(Map),
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof Map' is not assignable to... Remove this comment to see the full error message
   updateFormData: PropTypes.instanceOf(Map),
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof Map' is not assignable to... Remove this comment to see the full error message
   updateFormDataError: PropTypes.instanceOf(Map),
   loadingUpdateFormData: PropTypes.bool.isRequired,
 };
 
-const stateToProps = state => ({
+const stateToProps = (state: any) => ({
   error: state.submissions.get('submitError'),
   updateFormData: state.submissions.get('initialData'),
   updateFormDataError: state.submissions.get('initialDataError'),
-  loadingUpdateFormData: state.submissions.get('loadingInitialData'),
+  loadingUpdateFormData: state.submissions.get('loadingInitialData')
 });
 
-const dispatchToProps = dispatch => ({ dispatch });
+const dispatchToProps = (dispatch: any) => ({
+  dispatch
+});
 
 export default connect(stateToProps, dispatchToProps)(
   SeminarUpdateSubmissionPage

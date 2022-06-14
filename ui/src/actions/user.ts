@@ -16,28 +16,28 @@ import { HOME } from '../common/routes';
 import { httpErrorToActionPayload } from '../common/utils';
 import notifySessionExpired from '../user/sessionExpireNotification';
 
-export function userLoginSuccess(user) {
+export function userLoginSuccess(user: any) {
   return {
     type: USER_LOGIN_SUCCESS,
     payload: user,
   };
 }
 
-export function userSignUpSuccess(user) {
+export function userSignUpSuccess(user: any) {
   return {
     type: USER_SIGN_UP_SUCCESS,
     payload: user,
   };
 }
 
-function userLoginError(error) {
+function userLoginError(error: any) {
   return {
     type: USER_LOGIN_ERROR,
     payload: error,
   };
 }
 
-function userSignUpError(error) {
+function userSignUpError(error: any) {
   return {
     type: USER_SIGN_UP_ERROR,
     payload: error,
@@ -62,8 +62,8 @@ function userSignUpRequest() {
   };
 }
 
-export function userSignUp(userEmail) {
-  return async (dispatch, getState, http) => {
+export function userSignUp(userEmail: any) {
+  return async (dispatch: any, getState: any, http: any) => {
     dispatch(userSignUpRequest());
     try {
       const response = await http.post('/accounts/signup', userEmail);
@@ -76,7 +76,7 @@ export function userSignUp(userEmail) {
 }
 
 export function fetchLoggedInUser() {
-  return async (dispatch, getState, http) => {
+  return async (dispatch: any, getState: any, http: any) => {
     dispatch(fetchingLoggedInUser());
     try {
       const response = await http.get('/accounts/me');
@@ -88,8 +88,8 @@ export function fetchLoggedInUser() {
   };
 }
 
-export function userLocalLogin(credentials) {
-  return async (dispatch, getState, http) => {
+export function userLocalLogin(credentials: any) {
+  return async (dispatch: any, getState: any, http: any) => {
     try {
       const response = await http.post('/accounts/login', credentials);
       dispatch(userLoginSuccess(response.data));
@@ -101,7 +101,7 @@ export function userLocalLogin(credentials) {
 }
 
 export function userLogout() {
-  return async (dispatch, getState, http) => {
+  return async (dispatch: any, getState: any, http: any) => {
     try {
       await http.get('/accounts/logout');
       dispatch(userLogoutSuccess());
@@ -116,7 +116,7 @@ export function userLogout() {
 }
 
 export function userInactive() {
-  return async (dispatch, getState, http) => {
+  return async (dispatch: any, getState: any, http: any) => {
     if (getState().user.get('loggedIn')) {
       try {
         await http.get('/accounts/me');
@@ -128,36 +128,36 @@ export function userInactive() {
   };
 }
 
-export function setPreference(name, value) {
+export function setPreference(name: any, value: any) {
   return {
     type: USER_SET_PREFERENCE,
     payload: { name, value },
   };
 }
 
-function updatingOrcidPushSetting(value) {
+function updatingOrcidPushSetting(value: any) {
   return {
     type: USER_SET_ORCID_PUSH_SETTING_REQUEST,
     payload: { value },
   };
 }
 
-function updateOrcidPushSettingSuccess(value) {
+function updateOrcidPushSettingSuccess(value: any) {
   return {
     type: USER_SET_ORCID_PUSH_SETTING_SUCCESS,
     payload: { value },
   };
 }
 
-function updateOrcidPushSettingError(errorPayload) {
+function updateOrcidPushSettingError(errorPayload: any) {
   return {
     type: USER_SET_ORCID_PUSH_SETTING_ERROR,
     payload: errorPayload,
   };
 }
 
-export function updateOrcidPushSetting(value) {
-  return async (dispatch, getState, http) => {
+export function updateOrcidPushSetting(value: any) {
+  return async (dispatch: any, getState: any, http: any) => {
     dispatch(updatingOrcidPushSetting(value));
     try {
       await http.put('/accounts/settings/orcid-push', { value });

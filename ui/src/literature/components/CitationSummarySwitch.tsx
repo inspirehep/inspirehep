@@ -9,8 +9,8 @@ function CitationSummarySwitch({
   checked,
   onCitationSummaryUserPreferenceChange,
   onChange,
-  citationSummaryEnablingPreference,
-}) {
+  citationSummaryEnablingPreference
+}: any) {
   useEffect(
     () => {
       onCitationSummaryUserPreferenceChange(citationSummaryEnablingPreference);

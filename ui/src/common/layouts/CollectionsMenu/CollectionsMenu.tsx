@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { Link } from 'react-router-dom';
 import { Row, Col, Menu, Button } from 'antd';
 import PropTypes from 'prop-types';
@@ -24,7 +25,9 @@ import {
 import CollectionLink from './CollectionLink';
 import DropdownMenu from '../../components/DropdownMenu';
 
-function CollectionsMenu({ currentPathname }) {
+function CollectionsMenu({
+  currentPathname
+}: any) {
   const activeCollection = useMemo(
     () => getRootOfLocationPathname(currentPathname),
     [currentPathname]
@@ -72,6 +75,7 @@ function CollectionsMenu({ currentPathname }) {
       </Col>
       <Col>
         <DropdownMenu
+          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
           overlayClassName="more-collections-menu"
           className="dropdown mh4 m-mh2"
           title={

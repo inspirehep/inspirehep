@@ -18,7 +18,7 @@ export const initialState = fromJS({
   initialMeta: null,
 });
 
-const submissionsReducer = (state = initialState, action) => {
+const submissionsReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case SUBMIT_REQUEST:
       return state

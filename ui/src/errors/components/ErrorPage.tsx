@@ -4,8 +4,10 @@ import { Row, Col } from 'antd';
 
 class ErrorPage extends Component {
   render() {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'detail' does not exist on type 'Readonly... Remove this comment to see the full error message
     const { detail, message, imageSrc } = this.props;
     return (
+      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
       <Col className="mt3 mb3" span={14} justify="center" align="middle">
         <Row>
           <Col span={24}>
@@ -29,12 +31,14 @@ class ErrorPage extends Component {
   }
 }
 
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'propTypes' does not exist on type 'typeo... Remove this comment to see the full error message
 ErrorPage.propTypes = {
   detail: PropTypes.node,
   message: PropTypes.string.isRequired,
   imageSrc: PropTypes.node.isRequired,
 };
 
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultProps' does not exist on type 'ty... Remove this comment to see the full error message
 ErrorPage.defaultProps = {
   detail: null,
 };

@@ -5,10 +5,16 @@ import PropTypes from 'prop-types';
 import SingUpForm from './SingUpForm';
 import DocumentHead from '../../common/components/DocumentHead';
 
-function SignUpPage({ onSubmit, loading, error }) {
+function SignUpPage({
+  onSubmit,
+  loading,
+  error
+}: any) {
   return (
     <>
+      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
       <DocumentHead title="Sign up" />
+      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
       <Row className="h-100" type="flex" justify="center" align="middle">
         <Card>
           <p>

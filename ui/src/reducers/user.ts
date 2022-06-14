@@ -36,7 +36,7 @@ export const initialState = fromJS({
   },
 });
 
-const userReducer = (state = initialState, action) => {
+const userReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case USER_SIGN_UP_REQUEST:
       return state

@@ -1,5 +1,6 @@
 import React, { useCallback, useState, useMemo, forwardRef } from 'react';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import Modal from 'react-modal';
 import { Carousel, Row, Col, Button } from 'antd';
 
@@ -10,6 +11,7 @@ import { useGlobalEvent } from '../../hooks/useGlobalEvent';
 import useResponsiveCheck from '../../hooks/useResponsiveCheck';
 
 const CarouselModal = forwardRef(
+  // @ts-expect-error ts-migrate(2339) FIXME: Property 'visible' does not exist on type '{ child... Remove this comment to see the full error message
   ({ children, visible = false, onCancel }, ref) => {
     // FIXME: better way to use `default` ref
     const carouselRef = useRefOrThis(ref);
@@ -58,7 +60,7 @@ const CarouselModal = forwardRef(
       },
       [onModalClose]
     );
-    useGlobalEvent('keydown', event => {
+    useGlobalEvent('keydown', (event: any) => {
       if (!visible) {
         return;
       }
@@ -141,6 +143,7 @@ const CarouselModal = forwardRef(
 );
 
 CarouselModal.propTypes = {
+  // @ts-expect-error ts-migrate(2322) FIXME: Type '{ children: PropTypes.Requireable<PropTypes.... Remove this comment to see the full error message
   children: PropTypes.node,
   visible: PropTypes.bool,
   onCancel: PropTypes.func,

@@ -20,6 +20,7 @@ import {
   INVENIO_URL,
   REPORT_METADATA_URL,
 } from '../../constants';
+// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.tsx' extension.... Remove this comment to see the full error message
 import ExternalLink from '../../components/ExternalLink.tsx';
 import { BIBLIOGRAPHY_GENERATOR } from '../../routes';
 
@@ -124,14 +125,17 @@ const BOTTOM = (
   </Row>
 );
 
-function Footer({ isCatalogerLoggedIn }) {
+function Footer({
+  isCatalogerLoggedIn
+}: any) {
   const columns = useMemo(
     () =>
       isCatalogerLoggedIn
         ? COLUMNS
         : COLUMNS.map((col) => ({
             ...col,
-            items: col.items.filter((item) => !item.onlyCatalogers),
+            // @ts-expect-error ts-migrate(2349) FIXME: This expression is not callable.
+            items: col.items.filter((item: any) => !item.onlyCatalogers),
           })),
     [isCatalogerLoggedIn]
   );

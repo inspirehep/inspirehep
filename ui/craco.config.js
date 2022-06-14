@@ -5,7 +5,7 @@ const CracoAntDesignPlugin = require('craco-antd');
 const FilterWarningsPlugin = require('webpack-filter-warnings-plugin');
 const MomentTimezoneDataPlugin = require('moment-timezone-data-webpack-plugin');
 
-const styleVariables = require('./src/styleVariables');
+const styleVariables = require('./src/styleVariables.ts');
 
 function withCustomScssLoader({ webpackConfig, context }) {
   return new SassRuleRewirer()

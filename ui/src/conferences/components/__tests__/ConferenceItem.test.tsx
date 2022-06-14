@@ -3,7 +3,9 @@ import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
 import ConferenceItem from '../ConferenceItem';
 
+// @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
 describe('ConferenceItem', () => {
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('renders with all props set', () => {
     const metadata = fromJS({
       titles: [{ title: 'test' }],
@@ -36,11 +38,14 @@ describe('ConferenceItem', () => {
     });
 
     const wrapper = shallow(
+      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
       <ConferenceItem metadata={metadata} openDetailInNewTab />
     );
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(wrapper).toMatchSnapshot();
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('renders with only needed props', () => {
     const metadata = fromJS({
       titles: [{ title: 'test' }],
@@ -48,7 +53,9 @@ describe('ConferenceItem', () => {
       opening_date: '2019-11-21',
     });
 
+    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
     const wrapper = shallow(<ConferenceItem metadata={metadata} />);
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(wrapper).toMatchSnapshot();
   });
 });

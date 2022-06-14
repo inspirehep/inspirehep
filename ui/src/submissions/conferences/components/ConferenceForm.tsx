@@ -18,19 +18,20 @@ import DateRangeField from '../../common/components/DateRangeField';
 import ExistingConferencesAlertContainer from '../containers/ExistingConferencesAlertContainer';
 import ContactsField from '../../common/components/ContactsField';
 
-function ConferenceForm({ values }) {
+function ConferenceForm({
+  values
+}: any) {
   return (
     <Form className="bg-white pa3">
       <Field name="name" label="* Conference Name" component={TextField} />
       <Field name="subtitle" label="Subtitle" component={TextField} />
       <ArrayOf
+        // @ts-expect-error ts-migrate(2322) FIXME: Type '{ values: any; name: string; label: string; ... Remove this comment to see the full error message
         values={values}
         name="acronyms"
         label="Acronym(s)"
         emptyItem=""
-        renderItem={itemName => (
-          <Field onlyChild name={itemName} component={TextField} />
-        )}
+        renderItem={(itemName: any) => <Field onlyChild name={itemName} component={TextField} />}
       />
       <Field
         name="series_name"
@@ -50,48 +51,48 @@ function ConferenceForm({ values }) {
       )}
       <Field name="dates" label="* Dates" component={DateRangeField} />
       <ArrayOf
+        // @ts-expect-error ts-migrate(2322) FIXME: Type '{ values: any; name: string; label: string; ... Remove this comment to see the full error message
         values={values}
         name="addresses"
         label="* Address(es)"
         emptyItem={{}}
-        renderItem={itemName => (
-          <Row type="flex" justify="space-between">
-            <Col span={11}>
-              <Field
-                onlyChild
-                name={`${itemName}.city`}
-                placeholder="* City"
-                component={TextField}
-              />
-            </Col>
-            <Col span={11}>
-              <Field
-                onlyChild
-                name={`${itemName}.country`}
-                placeholder="* Country/Region"
-                showSearch
-                options={countryOptions}
-                component={SelectField}
-              />
-            </Col>
-            <Col span={11}>
-              <Field
-                onlyChild
-                name={`${itemName}.state`}
-                placeholder="State"
-                component={TextField}
-              />
-            </Col>
-            <Col span={11}>
-              <Field
-                onlyChild
-                name={`${itemName}.venue`}
-                placeholder="Venue"
-                component={TextField}
-              />
-            </Col>
-          </Row>
-        )}
+        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+        renderItem={(itemName: any) => <Row type="flex" justify="space-between">
+          <Col span={11}>
+            <Field
+              onlyChild
+              name={`${itemName}.city`}
+              placeholder="* City"
+              component={TextField}
+            />
+          </Col>
+          <Col span={11}>
+            <Field
+              onlyChild
+              name={`${itemName}.country`}
+              placeholder="* Country/Region"
+              showSearch
+              options={countryOptions}
+              component={SelectField}
+            />
+          </Col>
+          <Col span={11}>
+            <Field
+              onlyChild
+              name={`${itemName}.state`}
+              placeholder="State"
+              component={TextField}
+            />
+          </Col>
+          <Col span={11}>
+            <Field
+              onlyChild
+              name={`${itemName}.venue`}
+              placeholder="Venue"
+              component={TextField}
+            />
+          </Col>
+        </Row>}
       />
       <Field
         name="field_of_interest"
@@ -101,13 +102,12 @@ function ConferenceForm({ values }) {
         component={SelectField}
       />
       <ArrayOf
+        // @ts-expect-error ts-migrate(2322) FIXME: Type '{ values: any; name: string; label: string; ... Remove this comment to see the full error message
         values={values}
         name="websites"
         label="Conference Website(s)"
         emptyItem=""
-        renderItem={itemName => (
-          <Field onlyChild name={itemName} component={TextField} />
-        )}
+        renderItem={(itemName: any) => <Field onlyChild name={itemName} component={TextField} />}
       />
       <ContactsField />
       <Field name="description" label="Description" component={RichTextField} />
@@ -117,14 +117,14 @@ function ConferenceForm({ values }) {
         component={TextField}
       />
       <ArrayOf
+        // @ts-expect-error ts-migrate(2322) FIXME: Type '{ values: any; name: string; label: string; ... Remove this comment to see the full error message
         values={values}
         name="keywords"
         label="Keywords"
         emptyItem=""
-        renderItem={itemName => (
-          <Field onlyChild name={itemName} component={TextField} />
-        )}
+        renderItem={(itemName: any) => <Field onlyChild name={itemName} component={TextField} />}
       />
+      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
       <Row type="flex" justify="end">
         <SubmitButton />
       </Row>

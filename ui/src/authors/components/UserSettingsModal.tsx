@@ -4,7 +4,10 @@ import PropTypes from 'prop-types';
 
 import OrcidPushSettingContainer from '../containers/OrcidPushSettingContainer';
 
-function UserSettingsModal({ onCancel, visible }) {
+function UserSettingsModal({
+  onCancel,
+  visible
+}: any) {
   return (
     <Modal title="Settings" visible={visible} footer={null} onCancel={onCancel}>
       <OrcidPushSettingContainer />

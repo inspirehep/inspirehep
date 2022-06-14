@@ -53,6 +53,6 @@ export const EDIT_SEMINAR = SUBMISSIONS_SEMINAR;
 export const BIBLIOGRAPHY_GENERATOR = '/bibliography-generator';
 
 // eslint-disable-next-line no-unused-vars
-export function isBetaRoute(locationPathname) {
+export function isBetaRoute(locationPathname: any) {
   return false;
 }

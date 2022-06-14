@@ -4,11 +4,11 @@ import { List } from 'immutable';
 
 import InlineList, { SEPARATOR_AND } from '../../common/components/InlineList';
 
-function extractSeries(bookSeries) {
+function extractSeries(bookSeries: any) {
   return bookSeries.get('title') + bookSeries.get('volume', '');
 }
 
-function renderSeriesInfo(bookSeries) {
+function renderSeriesInfo(bookSeries: any) {
   const volume = bookSeries.get('volume');
   return (
     <span>
@@ -18,9 +18,12 @@ function renderSeriesInfo(bookSeries) {
   );
 }
 
-function BookSeriesInfoList({ bookSeries }) {
+function BookSeriesInfoList({
+  bookSeries
+}: any) {
   return (
     <InlineList
+      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
       label="Published in"
       items={bookSeries}
       separator={SEPARATOR_AND}
@@ -31,6 +34,7 @@ function BookSeriesInfoList({ bookSeries }) {
 }
 
 BookSeriesInfoList.propTypes = {
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof List' is not assignable t... Remove this comment to see the full error message
   bookSeries: PropTypes.instanceOf(List).isRequired,
 };
 

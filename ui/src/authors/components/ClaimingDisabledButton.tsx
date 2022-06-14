@@ -8,10 +8,12 @@ import ListItemAction from '../../common/components/ListItemAction';
 
 const ClaimingDisabledButton = () => <ListItemAction>
   <DropdownMenu
+    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
     disabled
     title={
       <Tooltip title='Login to claim your papers'>
         <Button disabled>
+          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
           <IconText text="claim" icon={<FileDoneOutlined />} />
         </Button>
       </Tooltip>

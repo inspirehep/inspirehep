@@ -11,6 +11,7 @@ class ListItemAction extends Component {
   }
 }
 
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'propTypes' does not exist on type 'typeo... Remove this comment to see the full error message
 ListItemAction.propTypes = {
   children: PropTypes.node.isRequired,
 };

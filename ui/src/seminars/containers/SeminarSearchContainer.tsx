@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col, Alert } from 'antd';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { connect } from 'react-redux';
 
 import AggregationFiltersContainer from '../../common/containers/AggregationFiltersContainer';
@@ -10,6 +11,7 @@ import ResultsContainer from '../../common/containers/ResultsContainer';
 import NumberOfResultsContainer from '../../common/containers/NumberOfResultsContainer';
 import LoadingOrChildren from '../../common/components/LoadingOrChildren';
 import ResponsiveView from '../../common/components/ResponsiveView';
+// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.tsx' extension.... Remove this comment to see the full error message
 import DrawerHandle from '../../common/components/DrawerHandle.tsx';
 import { SEMINARS_NS, AUTHOR_SEMINARS_NS } from '../../search/constants';
 import { SEARCH_PAGE_GUTTER, LOCAL_TIMEZONE } from '../../common/constants';
@@ -25,8 +27,8 @@ function SeminarSearch({
   selectedTimezone,
   namespace,
   enableDateFilter,
-  embedded,
-}) {
+  embedded
+}: any) {
   const renderAggregations = useCallback(
     () => (
       <>
@@ -36,6 +38,7 @@ function SeminarSearch({
             switchTitle="Upcoming seminars"
           />
         )}
+        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
         <LoadingOrChildren loading={loadingAggregations}>
           <AggregationFiltersContainer
             namespace={namespace}
@@ -66,6 +69,7 @@ function SeminarSearch({
     <Row
       className="mt3"
       gutter={SEARCH_PAGE_GUTTER}
+      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
       type="flex"
       justify="start"
     >
@@ -73,7 +77,9 @@ function SeminarSearch({
         <ResponsiveView min="lg" render={renderAggregations} />
       </Col>
       <Col xs={24} lg={17}>
+        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
         <LoadingOrChildren loading={loading}>
+          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
           <Row type="flex" align="middle" justify="end">
             <Col xs={24} lg={12}>
               <NumberOfResultsContainer namespace={namespace} />
@@ -81,10 +87,12 @@ function SeminarSearch({
               {timezoneDifferentThanLocal ? (
                 <Alert
                   type="error"
+                  // @ts-expect-error ts-migrate(2786) FIXME: 'SeminarTimezone' cannot be used as a JSX componen... Remove this comment to see the full error message
                   message={<SeminarTimezone timezone={timezone} />}
                   className="di"
                 />
               ) : (
+                // @ts-expect-error ts-migrate(2786) FIXME: 'SeminarTimezone' cannot be used as a JSX componen... Remove this comment to see the full error message
                 <SeminarTimezone timezone={timezone} />
               )}
             </Col>
@@ -131,19 +139,27 @@ SeminarSearch.propTypes = {
   embedded: PropTypes.bool,
 };
 
-const stateToProps = (state, { namespace }) => ({
+const stateToProps = (
+  // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'state' implicitly has an 'any' type.
+  state,
+  {
+    namespace
+  }: any
+) => ({
   loading: state.search.getIn(['namespaces', namespace, 'loading']),
+
   loadingAggregations: state.search.getIn([
     'namespaces',
     namespace,
     'loadingAggregations',
   ]),
+
   selectedTimezone: state.search.getIn([
     'namespaces',
     namespace,
     'query',
     'timezone',
-  ]),
+  ])
 });
 
 export default connect(stateToProps)(SeminarSearch);

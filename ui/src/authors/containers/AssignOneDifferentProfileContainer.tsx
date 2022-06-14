@@ -1,3 +1,4 @@
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { connect } from 'react-redux';
 
 import {
@@ -14,12 +15,22 @@ import {
 } from '../../actions/authors';
 import AssignOneDifferentProfileAction from '../components/AssignOneDifferentProfileAction';
 
-export const stateToProps = (state) => ({
-  currentUserId: Number(state.user.getIn(['data', 'recid'])),
+export const stateToProps = (state: any) => ({
+  currentUserId: Number(state.user.getIn(['data', 'recid']))
 });
 
-export const dispatchToProps = (dispatch, { recordId }) => ({
-  onAssignWithoutUnclaimed({ from, to, userCanNotClaimProfile }) {
+export const dispatchToProps = (
+  // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'dispatch' implicitly has an 'any' type.
+  dispatch,
+  {
+    recordId
+  }: any
+) => ({
+  onAssignWithoutUnclaimed({
+    from,
+    to,
+    userCanNotClaimProfile
+  }: any) {
     dispatch(clearPublicationSelection());
     dispatch(clearPublicationsClaimedSelection());
     dispatch(clearPublicationsUnclaimedSelection());
@@ -31,7 +42,11 @@ export const dispatchToProps = (dispatch, { recordId }) => ({
     dispatch(setPublicationsClaimedSelection([recordId], true));
     dispatch(assignDifferentProfileClaimedPapers({ from, to }));
   },
-  onAssignUserCanNotClaim({ from, to }) {
+
+  onAssignUserCanNotClaim({
+    from,
+    to
+  }: any) {
     dispatch(clearPublicationSelection());
     dispatch(clearPublicationsClaimedSelection());
     dispatch(clearPublicationsUnclaimedSelection());
@@ -42,7 +57,11 @@ export const dispatchToProps = (dispatch, { recordId }) => ({
 
     dispatch(assignDifferentProfileClaimedPapers({ from, to }));
   },
-  onAssignWithoutClaimed({ from, to }) {
+
+  onAssignWithoutClaimed({
+    from,
+    to
+  }: any) {
     dispatch(clearPublicationSelection());
     dispatch(clearPublicationsClaimedSelection());
     dispatch(clearPublicationsUnclaimedSelection());
@@ -52,7 +71,7 @@ export const dispatchToProps = (dispatch, { recordId }) => ({
     dispatch(setPublicationsUnclaimedSelection([recordId], true));
 
     dispatch(assignDifferentProfileUnclaimedPapers({ from, to }));
-  },
+  }
 });
 
 export default connect(

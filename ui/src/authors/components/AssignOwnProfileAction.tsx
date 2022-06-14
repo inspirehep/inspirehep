@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { FileDoneOutlined } from '@ant-design/icons';
 import { Button, Menu, Tooltip } from 'antd';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { useParams } from 'react-router-dom';
 
 import DropdownMenu from '../../common/components/DropdownMenu';
@@ -13,8 +14,8 @@ function AssignOwnProfileAction({
   disabled,
   disabledAssignAction,
   numberOfSelected,
-  claimingTooltip,
-}) {
+  claimingTooltip
+}: any) {
   const currentAuthorId = Number(useParams().id);
   const onSelfAssign = useCallback(() => {
     onAssign({
@@ -32,6 +33,7 @@ function AssignOwnProfileAction({
     // TODO: rename `ListItemAction` because it's not only used for list item actions, such as (assign all and cite all)
     <ListItemAction>
       <DropdownMenu
+        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
         disabled={disabled}
         title={
           <Tooltip
@@ -42,6 +44,7 @@ function AssignOwnProfileAction({
             }
           >
             <Button>
+              // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
               <IconText text="claim" icon={<FileDoneOutlined />} />
             </Button>
           </Tooltip>

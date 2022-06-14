@@ -9,26 +9,36 @@ import './ArrayOf.scss';
 import { LABEL_COL, WRAPPER_COL } from '../../withFormItem';
 
 class ArrayOf extends Component {
-  constructor(props) {
+  constructor(props: any) {
     super(props);
     this.onItemRemoveClick = this.onItemRemoveClick.bind(this);
   }
 
-  onItemRemoveClick(value) {
+  onItemRemoveClick(value: any) {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'form' does not exist on type 'Readonly<{... Remove this comment to see the full error message
     const { form, name } = this.props;
     form.setFieldValue(name, value);
   }
 
   render() {
     const {
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'name' does not exist on type 'Readonly<{... Remove this comment to see the full error message
       name,
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'extractKey' does not exist on type 'Read... Remove this comment to see the full error message
       extractKey,
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'label' does not exist on type 'Readonly<... Remove this comment to see the full error message
       label,
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'labelCol' does not exist on type 'Readon... Remove this comment to see the full error message
       labelCol,
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'wrapperCol' does not exist on type 'Read... Remove this comment to see the full error message
       wrapperCol,
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'emptyItem' does not exist on type 'Reado... Remove this comment to see the full error message
       emptyItem,
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'values' does not exist on type 'Readonly... Remove this comment to see the full error message
       values,
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'renderItem' does not exist on type 'Read... Remove this comment to see the full error message
       renderItem,
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'allowItemDelete' does not exist on type ... Remove this comment to see the full error message
       allowItemDelete,
     } = this.props;
     const items = values[name];
@@ -42,10 +52,11 @@ class ArrayOf extends Component {
               labelCol={labelCol}
               wrapperCol={wrapperCol}
             >
+              // @ts-expect-error ts-migrate(2559) FIXME: Type 'number' has no properties in common with typ... Remove this comment to see the full error message
               <Form.Item wrapperCol={24} className="items-container">
                 {items &&
                   items.length > 0 &&
-                  items.map((item, index) => (
+                  items.map((item: any, index: any) => (
                     <Row
                       key={extractKey(item, index)}
                       className="item"
@@ -82,6 +93,7 @@ class ArrayOf extends Component {
   }
 }
 
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'propTypes' does not exist on type 'typeo... Remove this comment to see the full error message
 ArrayOf.propTypes = {
   label: PropTypes.string,
   labelCol: PropTypes.object,
@@ -92,8 +104,9 @@ ArrayOf.propTypes = {
   allowItemDelete: PropTypes.bool,
 };
 
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultProps' does not exist on type 'ty... Remove this comment to see the full error message
 ArrayOf.defaultProps = {
-  extractKey: (item, index) => index,
+  extractKey: (item: any, index: any) => index,
   allowItemDelete: true,
   label: null,
   emptyItem: null,

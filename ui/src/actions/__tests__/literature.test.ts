@@ -2,6 +2,7 @@ import MockAdapter from 'axios-mock-adapter';
 import { fromJS, Set } from 'immutable';
 import { advanceTo, clear } from 'jest-date-mock';
 import { getStore, getStoreWithState } from '../../fixtures/store';
+// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.ts' extension. ... Remove this comment to see the full error message
 import http from '../../common/http.ts';
 import {
   LITERATURE_ERROR,
@@ -38,14 +39,18 @@ import {
 import { LITERATURE_REFERENCES_NS } from '../../search/constants';
 
 const mockHttp = new MockAdapter(http.httpClient);
+// @ts-expect-error ts-migrate(2708) FIXME: Cannot use namespace 'jest' as a value.
 jest.mock('../../literature/assignNotification');
 
+// @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
 describe('literature - async action creators', () => {
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'afterEach'.
   afterEach(() => {
     mockHttp.reset();
   });
 
-  it('happy - creates LITERATURE_SUCCESS', async (done) => {
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  it('happy - creates LITERATURE_SUCCESS', async (done: any) => {
     mockHttp.onGet('/literature/123').replyOnce(200, {});
 
     const expectedActions = [
@@ -55,11 +60,13 @@ describe('literature - async action creators', () => {
 
     const store = getStore();
     await store.dispatch(fetchLiterature(123));
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(store.getActions()).toEqual(expectedActions);
     done();
   });
 
-  it('unhappy - creates LITERATURE_ERROR', async (done) => {
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  it('unhappy - creates LITERATURE_ERROR', async (done: any) => {
     mockHttp.onGet('/literature/123').replyOnce(500);
 
     const expectedActions = [
@@ -73,12 +80,15 @@ describe('literature - async action creators', () => {
 
     const store = getStore();
     await store.dispatch(fetchLiterature(123));
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(store.getActions()).toEqual(expectedActions);
     done();
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
   describe('literature references', () => {
-    it('happy - creates LITERATURE_REFERENCES_SUCCESS', async (done) => {
+    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+    it('happy - creates LITERATURE_REFERENCES_SUCCESS', async (done: any) => {
       mockHttp
         .onGet('/literature/123/references?size=10&page=1')
         .replyOnce(200, {});
@@ -99,11 +109,13 @@ describe('literature - async action creators', () => {
       await store.dispatch(
         fetchLiteratureReferences(123, { page: 1, size: 10 })
       );
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
       expect(store.getActions()).toEqual(expectedActions);
       done();
     });
 
-    it('fetches references with merging the given query into the existing one ', async (done) => {
+    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+    it('fetches references with merging the given query into the existing one ', async (done: any) => {
       mockHttp
         .onGet('/literature/123/references?size=10&page=10')
         .replyOnce(200, {});
@@ -137,11 +149,13 @@ describe('literature - async action creators', () => {
         }),
       });
       await store.dispatch(fetchLiteratureReferences(123, { page: 10 }));
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
       expect(store.getActions()).toEqual(expectedActions);
       done();
     });
 
-    it('unhappy - creates LITERATURE_REFERENCES_ERROR', async (done) => {
+    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+    it('unhappy - creates LITERATURE_REFERENCES_ERROR', async (done: any) => {
       mockHttp
         .onGet('/literature/123/references?size=10&page=1')
         .replyOnce(404, { message: 'Not found' });
@@ -158,13 +172,16 @@ describe('literature - async action creators', () => {
       await store.dispatch(
         fetchLiteratureReferences(123, { page: 1, size: 10 })
       );
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
       expect(store.getActions()).toEqual(expectedActions);
       done();
     });
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
   describe('literature authors', () => {
-    it('happy - creates LITERATURE_AUTHORS_SUCCESS', async (done) => {
+    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+    it('happy - creates LITERATURE_AUTHORS_SUCCESS', async (done: any) => {
       mockHttp.onGet('/literature/123/authors').replyOnce(200, {});
 
       const expectedActions = [
@@ -174,11 +191,13 @@ describe('literature - async action creators', () => {
 
       const store = getStore();
       await store.dispatch(fetchLiteratureAuthors(123));
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
       expect(store.getActions()).toEqual(expectedActions);
       done();
     });
 
-    it('unhappy - creates LITERATURE_AUTHORS_ERROR', async (done) => {
+    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+    it('unhappy - creates LITERATURE_AUTHORS_ERROR', async (done: any) => {
       mockHttp.onGet('/literature/123/authors').replyOnce(500);
 
       const expectedActions = [
@@ -193,12 +212,15 @@ describe('literature - async action creators', () => {
 
       const store = getStore();
       await store.dispatch(fetchLiteratureAuthors(123));
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
       expect(store.getActions()).toEqual(expectedActions);
       done();
     });
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
   describe('select literature', () => {
+    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
     it('setLiteratureSelection', () => {
       const expectedActions = [
         {
@@ -209,9 +231,11 @@ describe('literature - async action creators', () => {
 
       const store = getStore();
       store.dispatch(setLiteratureSelection([1, 2], true));
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
       expect(store.getActions()).toEqual(expectedActions);
     });
 
+    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
     it('clearLiteratureSelection', () => {
       const expectedActions = [
         {
@@ -221,15 +245,19 @@ describe('literature - async action creators', () => {
 
       const store = getStore();
       store.dispatch(clearLiteratureSelection());
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
       expect(store.getActions()).toEqual(expectedActions);
     });
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
   describe('assignPapers', () => {
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'afterEach'.
     afterEach(() => {
       clear();
     });
 
+    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
     it('successfully assign papers to conference', async () => {
       const conferenceId = 123;
       const literatureSelection = [1, 2, 3];
@@ -255,18 +283,23 @@ describe('literature - async action creators', () => {
         setAssignDrawerVisibility(false),
       ];
 
+      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       const dispatchPromise = store.dispatch(assignPapers(conferenceId));
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
       expect(assigning).toHaveBeenCalled();
 
       await dispatchPromise;
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
       expect(store.getActions()).toEqual(expectedActions);
 
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
       expect(assignSuccess).toHaveBeenCalledWith({
         conferenceId,
         papers: Set(literatureSelection),
       });
     });
 
+    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
     it('error', async () => {
       const conferenceId = 123;
       const literatureSelection = [1, 2, 3];
@@ -284,22 +317,29 @@ describe('literature - async action creators', () => {
         })
         .replyOnce(500, {});
 
-      const expectedActions = [];
+      const expectedActions: any = [];
 
+      // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
       const dispatchPromise = store.dispatch(assignPapers(conferenceId));
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
       expect(assigning).toHaveBeenCalled();
 
       await dispatchPromise;
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
       expect(store.getActions()).toEqual(expectedActions);
 
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
       expect(assignError).toHaveBeenCalled();
     });
   });
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
   describe('exportToCds', () => {
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'afterEach'.
     afterEach(() => {
       clear();
     });
 
+    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
     it('successfully export to cds', async () => {
       const literatureSelection = [1, 2, 3];
       const fakeNow = 1597314028798;
@@ -320,13 +360,17 @@ describe('literature - async action creators', () => {
 
       const expectedActions = [clearLiteratureSelection()];
       const dispatchPromise = store.dispatch(exportToCds());
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
       expect(exporting).toHaveBeenCalled();
 
       await dispatchPromise;
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
       expect(store.getActions()).toEqual(expectedActions);
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
       expect(exportToCdsSuccess).toHaveBeenCalled();
     });
   });
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('error', async () => {
     const literatureSelection = [1, 2, 3];
 
@@ -342,14 +386,17 @@ describe('literature - async action creators', () => {
       })
       .replyOnce(400, {});
 
-    const expectedActions = [];
+    const expectedActions: any = [];
 
     const dispatchPromise = store.dispatch(exportToCds());
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(exporting).toHaveBeenCalled();
 
     await dispatchPromise;
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(store.getActions()).toEqual(expectedActions);
 
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(exportToCdsError).toHaveBeenCalled();
   });
 });

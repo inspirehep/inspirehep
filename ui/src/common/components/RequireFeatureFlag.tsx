@@ -2,7 +2,11 @@ import PropTypes from 'prop-types';
 
 import { getConfigFor } from '../config';
 
-function RequireFeatureFlag({ flag, children, whenDisabled = null }) {
+function RequireFeatureFlag({
+  flag,
+  children,
+  whenDisabled = null
+}: any) {
   const isEnabled = getConfigFor(flag);
   return isEnabled ? children : whenDisabled;
 }

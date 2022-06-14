@@ -1,5 +1,11 @@
 export default class LRASet {
-  constructor(values, capacity) {
+  capacity: any;
+
+  valueToIndex: any;
+
+  values: any;
+
+  constructor(values: any, capacity: any) {
     this.capacity = capacity;
     this.values = [];
     this.valueToIndex = new Map();
@@ -9,11 +15,11 @@ export default class LRASet {
     }
   }
 
-  filter(filterFn) {
+  filter(filterFn: any) {
     return this.values.filter(filterFn);
   }
 
-  add(value) {
+  add(value: any) {
     if (this.valueToIndex.has(value)) {
       this.remove(value);
     } else if (this.values.length >= this.capacity) {
@@ -24,7 +30,7 @@ export default class LRASet {
     this.valueToIndex.set(value, this.values.length - 1);
   }
 
-  remove(value) {
+  remove(value: any) {
     const currentIndex = this.valueToIndex.get(value);
     this.values.splice(currentIndex, 1);
     this.valueToIndex.delete(value);

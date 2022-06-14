@@ -13,8 +13,8 @@ function ToolAction({
   onAssignToConference,
   onExportToCds,
   disabledBulkAssign,
-  selectionSize,
-}) {
+  selectionSize
+}: any) {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const onClickExportToCds = useCallback(() => {
     setIsModalVisible(true);
@@ -31,8 +31,10 @@ function ToolAction({
   return (
     <ListItemAction>
       <DropdownMenu
+        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
         title={
           <Button>
+            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
             <IconText text="tools" icon={<ToolOutlined />} />
           </Button>
         }

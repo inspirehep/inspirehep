@@ -1,6 +1,7 @@
 import React from 'react';
 import { Layout, Row, Col } from 'antd';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'use-... Remove this comment to see the full error message
 import useResizeObserver from 'use-resize-observer';
 
 import SearchBoxContainer from '../../containers/SearchBoxContainer';
@@ -11,7 +12,11 @@ import BetaRibbon from './BetaRibbon';
 import CollectionsMenu from '../CollectionsMenu';
 import Banners from './Banners';
 
-function Header({ isHomePage, isSubmissionsPage, isBetaPage }) {
+function Header({
+  isHomePage,
+  isSubmissionsPage,
+  isBetaPage
+}: any) {
   const [stickyContainerRef, , stickyContainerHeight] = useResizeObserver();
 
   return (
@@ -20,6 +25,7 @@ function Header({ isHomePage, isSubmissionsPage, isBetaPage }) {
         <Banners />
         {isBetaPage && <BetaRibbon />}
         <Layout.Header className="header">
+          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
           <Row type="flex" align="middle" gutter={{ xs: 8, sm: 16 }}>
             <Col xs={{ span: 13, order: 1 }} sm={{ span: 6, order: 1 }} lg={5}>
               <Logo />

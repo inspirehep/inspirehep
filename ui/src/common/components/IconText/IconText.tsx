@@ -5,6 +5,7 @@ import './IconText.scss';
 
 class IconText extends Component {
   render() {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'icon' does not exist on type 'Readonly<{... Remove this comment to see the full error message
     const { icon, text } = this.props;
     return (
       <span className="__IconText__">
@@ -15,6 +16,7 @@ class IconText extends Component {
   }
 }
 
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'propTypes' does not exist on type 'typeo... Remove this comment to see the full error message
 IconText.propTypes = {
   icon: PropTypes.node.isRequired,
   text: PropTypes.node.isRequired,

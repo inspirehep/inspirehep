@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { connect } from 'react-redux';
 import { Row, Col, Tabs, Tooltip } from 'antd';
 import { Map, List } from 'immutable';
@@ -40,6 +41,7 @@ import Advisors from '../../components/Advisors';
 import AffiliationList from '../../../common/components/AffiliationList';
 import RecordUpdateInfo from '../../../common/components/RecordUpdateInfo';
 import AuthorSeminars from '../../components/AuthorSeminars';
+// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.tsx' extension.... Remove this comment to see the full error message
 import EditAuthorRecordAction from '../../components/EditAuthorRecordAction.tsx';
 import { isCataloger } from '../../../common/authorization';
 
@@ -52,8 +54,8 @@ function DetailPage({
   citingPapersCount,
   loadingPublications,
   seminarsCount,
-  isCatalogerLoggedIn,
-}) {
+  isCatalogerLoggedIn
+}: any) {
   const authorFacetName = publicationsQuery.getIn(['author', 0]);
   const metadata = record.get('metadata');
   const updateTime = record.get('updated');
@@ -99,24 +101,30 @@ function DetailPage({
   return (
     <>
       <DocumentHead
+        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
         title={getAuthorDisplayName(name)}
         description={metaDescription}
       />
+      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
       <Row className="__DetailPage__" type="flex" justify="center">
         <Col xs={24} md={22} lg={21} xxl={18}>
           <Row
             className="mv3"
+            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
             type="flex"
             gutter={{ xs: 0, md: 16, xl: 32 }}
             justify="space-between"
           >
             <Col span={24}>
               <ContentBox
+                // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                 className="sm-pb3"
                 leftActions={
                   <>
                     {emails && <AuthorEmailsAction emails={emails} />}
+                    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                     {twitter && <AuthorTwitterAction twitter={twitter} />}
+                    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                     {linkedin && <AuthorLinkedinAction linkedin={linkedin} />}
                     {urls && <AuthorWebsitesAction websites={urls} />}
                     {orcid && orcid === userOrcid && <UserSettingsAction />}
@@ -137,31 +145,39 @@ function DetailPage({
                   <Col span={24}>{deleted && <DeletedAlert />}</Col>
                 </Row>
                 <h2>
+                  // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                   <AuthorName name={name} />
                   {currentPositions.size > 0 && (
                     <span className="pl1 f6">
+                      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                       (<AffiliationList affiliations={currentPositions} />)
                     </span>
                   )}
                   {orcid && (
                     <span className="pl1">
+                      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                       <AuthorOrcid orcid={orcid} />
                     </span>
                   )}
                 </h2>
+                // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                 <Row type="flex" justify="space-between">
                   <Col xs={24} lg={12} className="mb3">
+                    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                     <ArxivCategoryList arxivCategories={arxivCategories} />
+                    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                     <ExperimentList experiments={experiments} />
                     {bai && <AuthorBAI bai={bai} />}
                     {advisors && (
                       <div className="mt2">
+                        // @ts-expect-error ts-migrate(2786) FIXME: 'Advisors' cannot be used as a JSX component.
                         <Advisors advisors={advisors} />
                       </div>
                     )}
                   </Col>
                   <Col xs={24} lg={12}>
                     {shouldDisplayPositions && (
+                      // @ts-expect-error ts-migrate(2322) FIXME: Type '{ positions: any; }' is not assignable to ty... Remove this comment to see the full error message
                       <PositionsTimeline positions={positions} />
                     )}
                   </Col>
@@ -177,6 +193,7 @@ function DetailPage({
                     <Tooltip title="Research from the author">
                       <span>
                         <TabNameWithCount
+                          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                           loading={
                             publicationsCount === null && loadingPublications
                           }
@@ -188,6 +205,7 @@ function DetailPage({
                   }
                   key="1"
                 >
+                  // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                   <ContentBox className="remove-top-border-of-card">
                     <AuthorPublicationsContainer />
                   </ContentBox>
@@ -203,6 +221,7 @@ function DetailPage({
                   key="2"
                   forceRender
                 >
+                  // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                   <ContentBox className="remove-top-border-of-card">
                     <AuthorCitationsContainer />
                   </ContentBox>
@@ -216,6 +235,7 @@ function DetailPage({
                     }
                     key="3"
                   >
+                    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                     <ContentBox className="remove-top-border-of-card">
                       <AuthorSeminars />
                     </ContentBox>
@@ -232,8 +252,11 @@ function DetailPage({
 
 DetailPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof Map' is not assignable to... Remove this comment to see the full error message
   record: PropTypes.instanceOf(Map).isRequired,
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof Map' is not assignable to... Remove this comment to see the full error message
   publicationsQuery: PropTypes.instanceOf(Map).isRequired,
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof List' is not assignable t... Remove this comment to see the full error message
   publications: PropTypes.instanceOf(List),
   userOrcid: PropTypes.string,
   publicationsCount: PropTypes.number,
@@ -241,50 +264,62 @@ DetailPage.propTypes = {
   isCatalogerLoggedIn: PropTypes.bool,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   record: state.authors.get('data'),
+
   publicationsQuery: state.search.getIn([
     'namespaces',
     AUTHOR_PUBLICATIONS_NS,
     'query',
   ]),
+
   publications: state.search.getIn([
     'namespaces',
     AUTHOR_PUBLICATIONS_NS,
     'results',
   ]),
+
   userOrcid: state.user.getIn(['data', 'orcid']),
+
   loadingPublications: state.search.getIn([
     'namespaces',
     AUTHOR_PUBLICATIONS_NS,
     'loading',
   ]),
+
   publicationsCount: state.search.getIn([
     'namespaces',
     AUTHOR_PUBLICATIONS_NS,
     'initialTotal',
   ]),
+
   citingPapersCount: state.search.getIn([
     'namespaces',
     AUTHOR_CITATIONS_NS,
     'initialTotal',
   ]),
+
   seminarsCount: state.search.getIn([
     'namespaces',
     AUTHOR_SEMINARS_NS,
     'initialTotal',
   ]),
-  isCatalogerLoggedIn: isCataloger(state.user.getIn(['data', 'roles'])),
+
+  isCatalogerLoggedIn: isCataloger(state.user.getIn(['data', 'roles']))
 });
-const dispatchToProps = (dispatch) => ({ dispatch });
+const dispatchToProps = (dispatch: any) => ({
+  dispatch
+});
 const DetailPageContainer = connect(
   mapStateToProps,
   dispatchToProps
 )(DetailPage);
 
 export default withRouteActionsDispatcher(DetailPageContainer, {
-  routeParamSelector: ({ id }) => id,
-  routeActions: (id) => [
+  routeParamSelector: ({
+    id
+  }: any) => id,
+  routeActions: (id: any) => [
     fetchAuthor(id),
     newSearch(AUTHOR_PUBLICATIONS_NS),
     newSearch(AUTHOR_CITATIONS_NS),
@@ -293,5 +328,5 @@ export default withRouteActionsDispatcher(DetailPageContainer, {
       baseQuery: { q: `speakers.record.$ref:${id}` },
     }),
   ],
-  loadingStateSelector: (state) => !state.authors.hasIn(['data', 'metadata']),
+  loadingStateSelector: (state: any) => !state.authors.hasIn(['data', 'metadata']),
 });

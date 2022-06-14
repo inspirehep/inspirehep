@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col } from 'antd';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { connect } from 'react-redux';
 import { List } from 'immutable';
 
@@ -11,6 +12,7 @@ import ResultsContainer from '../../common/containers/ResultsContainer';
 import NumberOfResultsWithSelectedItemsNumber from '../components/NumberOfResultsWithSelectedItemsNumber';
 import LoadingOrChildren from '../../common/components/LoadingOrChildren';
 import ResponsiveView from '../../common/components/ResponsiveView';
+// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.tsx' extension.... Remove this comment to see the full error message
 import DrawerHandle from '../../common/components/DrawerHandle.tsx';
 import LiteratureItem from '../components/LiteratureItem';
 import CiteAllActionContainer from './CiteAllActionContainer';
@@ -53,10 +55,11 @@ function LiteratureSearch({
   isCitationSummaryVisible,
   embedded,
   enableCitationSummary,
-  numberOfSelected,
-}) {
+  numberOfSelected
+}: any) {
   const renderAggregations = useCallback(
     () => (
+      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
       <LoadingOrChildren loading={loadingAggregations}>
         <AggregationFiltersContainer
           namespace={namespace}
@@ -98,10 +101,12 @@ function LiteratureSearch({
     <Row
       className="mt3"
       gutter={SEARCH_PAGE_GUTTER}
+      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
       type="flex"
       justify="center"
     >
       <EmptyOrChildren
+        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
         data={results}
         title={noResultsTitle}
         description={noResultsDescription}
@@ -110,7 +115,9 @@ function LiteratureSearch({
           <ResponsiveView min="lg" render={renderAggregations} />
         </Col>
         <Col xs={24} lg={17}>
+          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
           <LoadingOrChildren loading={loading}>
+            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
             <Row type="flex" align="middle" justify="end">
               <Col xs={24} lg={12}>
                 {(assignAuthorView ||
@@ -178,7 +185,7 @@ function LiteratureSearch({
               <Col span={24}>
                 <ResultsContainer
                   namespace={namespace}
-                  renderItem={(result, isCatalogerLoggedIn, rank) => (
+                  renderItem={(result: any, isCatalogerLoggedIn: any, rank: any) => (
                     <Row>
                       {(assignAuthorView || assignAuthorOwnProfileView) && (
                         <Col className="mr1" flex="0 1 1px">
@@ -256,6 +263,7 @@ LiteratureSearch.propTypes = {
   onBaseQueriesChange: PropTypes.func,
   baseQuery: PropTypes.object,
   baseAggregationsQuery: PropTypes.object,
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof List' is not assignable t... Remove this comment to see the full error message
   results: PropTypes.instanceOf(List),
   noResultsTitle: PropTypes.string,
   noResultsDescription: PropTypes.node,
@@ -269,22 +277,30 @@ LiteratureSearch.defaultProps = {
   enableCitationSummary: true,
 };
 
-const stateToProps = (state, { namespace }) => ({
+const stateToProps = (
+  // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'state' implicitly has an 'any' type.
+  state,
+  {
+    namespace
+  }: any
+) => ({
   loading: state.search.getIn(['namespaces', namespace, 'loading']),
+
   loadingAggregations: state.search.getIn([
     'namespaces',
     namespace,
     'loadingAggregations',
   ]),
+
   results: state.search.getIn(['namespaces', namespace, 'results']),
   isCitationSummaryVisible: isCitationSummaryEnabled(state),
-  isCatalogerLoggedIn: isCataloger(state.user.getIn(['data', 'roles'])),
+  isCatalogerLoggedIn: isCataloger(state.user.getIn(['data', 'roles']))
 });
 
-const dispatchToProps = (dispatch) => ({
-  onBaseQueriesChange(namespace, baseQueries) {
+const dispatchToProps = (dispatch: any) => ({
+  onBaseQueriesChange(namespace: any, baseQueries: any) {
     dispatch(searchBaseQueriesUpdate(namespace, baseQueries));
-  },
+  }
 });
 
 export default connect(stateToProps, dispatchToProps)(LiteratureSearch);

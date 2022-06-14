@@ -1,3 +1,4 @@
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'insp... Remove this comment to see the full error message
 import { countryCodeToName } from 'inspire-schemas';
 import getValue from '../getValue';
 import {
@@ -202,6 +203,7 @@ export const inspireCategoryValues = inspireCategoryOptions.map(getValue);
 
 export const rankOptions = Object.keys(RANK_VALUE_TO_DISPLAY).map((key) => ({
   value: key,
+  // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   display: RANK_VALUE_TO_DISPLAY[key],
 }));
 export const rankValues = rankOptions.map(getValue);
@@ -209,6 +211,7 @@ export const rankValues = rankOptions.map(getValue);
 export const degreeTypeOptions = Object.keys(DEGREE_TYPE_TO_DISPLAY).map(
   (key) => ({
     value: key,
+    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     display: DEGREE_TYPE_TO_DISPLAY[key],
   })
 );

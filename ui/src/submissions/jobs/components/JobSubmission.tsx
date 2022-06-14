@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col, Alert } from 'antd';
 import { Formik } from 'formik';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'yup'... Remove this comment to see the full error message
 import { object } from 'yup';
 
 import JobForm from './JobForm';
@@ -15,8 +16,8 @@ function JobSubmission({
   onSubmit,
   initialFormData = {},
   extendSchema = object(),
-  error = null,
-}) {
+  error = null
+}: any) {
   const initialValues = {
     ...DEFAULT_FORM_DATA,
     ...initialFormData,

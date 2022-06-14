@@ -4,6 +4,7 @@ import { Modal, Button, Rate, Input, Alert } from 'antd';
 
 import './UserFeedback.scss';
 import { trackEvent, checkIsTrackerBlocked } from '../../../tracker';
+// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.tsx' extension.... Remove this comment to see the full error message
 import ExternalLink from '../ExternalLink.tsx';
 import ResponsiveView from '../ResponsiveView';
 import ModalSuccessResult from '../ModalSuccessResult';
@@ -31,7 +32,7 @@ class UserFeedback extends Component {
     );
   }
 
-  constructor(props) {
+  constructor(props: any) {
     super(props);
 
     this.onFeedbackClick = this.onFeedbackClick.bind(this);
@@ -64,6 +65,7 @@ class UserFeedback extends Component {
   }
 
   onFeedbackSubmit() {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'rateValue' does not exist on type 'Reado... Remove this comment to see the full error message
     const { rateValue, commentValue } = this.state;
     trackEvent('Feedback', 'Main', commentValue, rateValue);
     this.setState({
@@ -73,12 +75,12 @@ class UserFeedback extends Component {
     });
   }
 
-  onCommentChange(event) {
+  onCommentChange(event: any) {
     const { value } = event.target;
     this.setState({ commentValue: value });
   }
 
-  onRateChange(rateValue) {
+  onRateChange(rateValue: any) {
     this.setState({ rateValue });
   }
 
@@ -89,6 +91,7 @@ class UserFeedback extends Component {
   }
 
   renderFeedbackForm() {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'rateValue' does not exist on type 'Reado... Remove this comment to see the full error message
     const { rateValue, commentValue } = this.state;
     const isTrackerBlocked = checkIsTrackerBlocked();
     return (
@@ -152,8 +155,11 @@ class UserFeedback extends Component {
 
   render() {
     const {
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'isModalVisible' does not exist on type '... Remove this comment to see the full error message
       isModalVisible,
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'isFeedbackButtonVisible' does not exist ... Remove this comment to see the full error message
       isFeedbackButtonVisible,
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'feedbackSubmitted' does not exist on typ... Remove this comment to see the full error message
       feedbackSubmitted,
     } = this.state;
     const isTrackerBlocked = checkIsTrackerBlocked();

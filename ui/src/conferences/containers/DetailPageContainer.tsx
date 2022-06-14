@@ -1,4 +1,5 @@
 import React from 'react';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
@@ -13,6 +14,7 @@ import EventSeries from '../../common/components/EventSeries';
 import ContactList from '../../common/components/ContactList';
 import PublicNotesList from '../../common/components/PublicNotesList';
 import KeywordList from '../../common/components/KeywordList';
+// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.tsx' extension.... Remove this comment to see the full error message
 import EditRecordAction from '../../common/components/EditRecordAction.tsx';
 import ProceedingsAction from '../components/ProceedingsAction';
 import AddressList from '../../common/components/AddressList';
@@ -26,7 +28,9 @@ import EventTitle from '../../common/components/EventTitle';
 import { CONFERENCES_PID_TYPE } from '../../common/constants';
 import UrlsAction from '../../literature/components/UrlsAction';
 
-function DetailPage({ record }) {
+function DetailPage({
+  record
+}: any) {
   const metadata = record.get('metadata');
   const controlNumber = metadata.get('control_number');
   const title = metadata.getIn(['titles', 0]);
@@ -50,10 +54,13 @@ function DetailPage({ record }) {
 
   return (
     <>
+      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
       <DocumentHead title={title.get('title')} description={metaDescription} />
+      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
       <Row type="flex" justify="center">
         <Col className="mv3" xs={24} md={22} lg={21} xxl={18}>
           <ContentBox
+            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
             className="sm-pb3"
             leftActions={
               <>
@@ -80,6 +87,7 @@ function DetailPage({ record }) {
             </Row>
             <Row>
               <Col>
+                // @ts-expect-error ts-migrate(2786) FIXME: 'ConferenceDates' cannot be used as a JSX componen... Remove this comment to see the full error message
                 <ConferenceDates
                   openingDate={openingDate}
                   closingDate={closingDate}
@@ -98,6 +106,7 @@ function DetailPage({ record }) {
                 <Col>
                   <InspireCategoryList
                     categories={inspireCategories}
+                    // @ts-expect-error ts-migrate(2322) FIXME: Type '{ categories: any; wrapperClassName: string;... Remove this comment to see the full error message
                     wrapperClassName="di"
                   />
                 </Col>
@@ -120,6 +129,7 @@ function DetailPage({ record }) {
             {contacts && (
               <Row className="mt2">
                 <Col>
+                  // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                   <ContactList contacts={contacts} />
                 </Col>
               </Row>
@@ -127,6 +137,7 @@ function DetailPage({ record }) {
             {publicNotes && (
               <Row className="mt2">
                 <Col>
+                  // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                   <PublicNotesList publicNotes={publicNotes} />
                 </Col>
               </Row>
@@ -134,6 +145,7 @@ function DetailPage({ record }) {
             {keywords && (
               <Row className="mt2">
                 <Col>
+                  // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                   <KeywordList keywords={keywords} />
                 </Col>
               </Row>
@@ -141,6 +153,7 @@ function DetailPage({ record }) {
           </ContentBox>
         </Col>
       </Row>
+      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
       <Row type="flex" justify="center">
         <Col xs={24} md={22} lg={21} xxl={18}>
           <ContentBox>
@@ -153,19 +166,22 @@ function DetailPage({ record }) {
 }
 
 DetailPage.propTypes = {
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof Map' is not assignable to... Remove this comment to see the full error message
   record: PropTypes.instanceOf(Map).isRequired,
 };
 
-const mapStateToProps = state => ({
-  record: state.conferences.get('data'),
+const mapStateToProps = (state: any) => ({
+  record: state.conferences.get('data')
 });
 const DetailPageContainer = connect(mapStateToProps)(DetailPage);
 
 export default withRouteActionsDispatcher(DetailPageContainer, {
-  routeParamSelector: ({ id }) => id,
-  routeActions: id => [
+  routeParamSelector: ({
+    id
+  }: any) => id,
+  routeActions: (id: any) => [
     fetchConference(id),
     newSearch(CONFERENCE_CONTRIBUTIONS_NS),
   ],
-  loadingStateSelector: state => !state.conferences.hasIn(['data', 'metadata']),
+  loadingStateSelector: (state: any) => !state.conferences.hasIn(['data', 'metadata']),
 });

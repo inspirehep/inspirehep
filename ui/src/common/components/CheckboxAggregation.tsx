@@ -8,14 +8,16 @@ import AggregationBox from './AggregationBox';
 import SecondaryButton from './SecondaryButton';
 import { forceArray } from '../utils';
 import HelpIconTooltip from './HelpIconTooltip';
+// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.tsx' extension.... Remove this comment to see the full error message
 import ExternalLink from './ExternalLink.tsx';
+// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.tsx' extension.... Remove this comment to see the full error message
 import FormattedNumber from './FormattedNumber.tsx';
 
 const BUCKET_CHUNK_SIZE = 10;
 export const BUCKET_NAME_SPLITTER = '_';
 
 class CheckboxAggregation extends Component {
-  static getDerivedStateFromProps(nextProps, prevState) {
+  static getDerivedStateFromProps(nextProps: any, prevState: any) {
     const { selections } = nextProps;
     const { prevSelections } = prevState;
 
@@ -27,7 +29,7 @@ class CheckboxAggregation extends Component {
     if (selections) {
       const selectionsAsArray = forceArray(selections);
       selectionMap = selectionsAsArray.reduce(
-        (map, key) => map.set(key, true),
+        (map: any, key: any) => map.set(key, true),
         Immutable.Map()
       );
     } else {
@@ -41,7 +43,7 @@ class CheckboxAggregation extends Component {
     };
   }
 
-  constructor(props) {
+  constructor(props: any) {
     super(props);
     this.state = {
       selectionMap: Immutable.Map(),
@@ -52,26 +54,29 @@ class CheckboxAggregation extends Component {
     this.renderBucket = this.renderBucket.bind(this);
   }
 
-  onSelectionChange(key, selected) {
+  onSelectionChange(key: any, selected: any) {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'selectionMap' does not exist on type 'Re... Remove this comment to see the full error message
     let { selectionMap } = this.state;
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'onChange' does not exist on type 'Readon... Remove this comment to see the full error message
     const { onChange } = this.props;
     selectionMap = selectionMap.set(key, selected);
     this.setState({ selectionMap });
     const selections = selectionMap
       .keySeq()
-      .filter(bucketKey => selectionMap.get(bucketKey))
+      .filter((bucketKey: any) => selectionMap.get(bucketKey))
       .toArray();
     onChange(selections);
   }
 
   onShowMoreClick() {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'maxBucketCountToDisplay' does not exist ... Remove this comment to see the full error message
     const { maxBucketCountToDisplay } = this.state;
     this.setState({
       maxBucketCountToDisplay: maxBucketCountToDisplay + BUCKET_CHUNK_SIZE,
     });
   }
 
-  static renderBucketHelpTooltip(bucketHelpKey) {
+  static renderBucketHelpTooltip(bucketHelpKey: any) {
     if (!bucketHelpKey) {
       return null;
     }
@@ -83,6 +88,7 @@ class CheckboxAggregation extends Component {
       <>
         {' '}
         <HelpIconTooltip
+          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
           help={
             <>
               {bucketText}{' '}
@@ -97,7 +103,9 @@ class CheckboxAggregation extends Component {
   }
 
   renderShowMore() {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'buckets' does not exist on type 'Readonl... Remove this comment to see the full error message
     const { buckets } = this.props;
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'maxBucketCountToDisplay' does not exist ... Remove this comment to see the full error message
     const { maxBucketCountToDisplay } = this.state;
 
     if (maxBucketCountToDisplay >= buckets.size) {
@@ -107,14 +115,17 @@ class CheckboxAggregation extends Component {
     const hiddenBucketCount = buckets.size - maxBucketCountToDisplay;
 
     return (
+      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
       <SecondaryButton onClick={this.onShowMoreClick}>
         Show {hiddenBucketCount} more
       </SecondaryButton>
     );
   }
 
-  renderBucket(bucket) {
+  renderBucket(bucket: any) {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'selectionMap' does not exist on type 'Re... Remove this comment to see the full error message
     const { selectionMap } = this.state;
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'splitDisplayName' does not exist on type... Remove this comment to see the full error message
     const { splitDisplayName, bucketHelp } = this.props;
     const bucketKey = bucket.get('key');
     const bucketDisplay = splitDisplayName
@@ -122,6 +133,7 @@ class CheckboxAggregation extends Component {
       : bucketKey;
 
     return (
+      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
       <Row className="mb2" type="flex" justify="space-between" key={bucketKey}>
         <Col>
           <Checkbox
@@ -149,9 +161,12 @@ class CheckboxAggregation extends Component {
   }
 
   render() {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'maxBucketCountToDisplay' does not exist ... Remove this comment to see the full error message
     const { maxBucketCountToDisplay } = this.state;
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'name' does not exist on type 'Readonly<{... Remove this comment to see the full error message
     const { name, buckets } = this.props;
     return (
+      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
       <AggregationBox name={name}>
         {buckets.take(maxBucketCountToDisplay).map(this.renderBucket)}
         {this.renderShowMore()}
@@ -160,8 +175,10 @@ class CheckboxAggregation extends Component {
   }
 }
 
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'propTypes' does not exist on type 'typeo... Remove this comment to see the full error message
 CheckboxAggregation.propTypes = {
   onChange: PropTypes.func.isRequired,
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof List' is not assignable t... Remove this comment to see the full error message
   buckets: PropTypes.instanceOf(Immutable.List).isRequired,
   name: PropTypes.string.isRequired,
   splitDisplayName: PropTypes.bool,
@@ -172,6 +189,7 @@ CheckboxAggregation.propTypes = {
   ]),
 };
 
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultProps' does not exist on type 'ty... Remove this comment to see the full error message
 CheckboxAggregation.defaultProps = {
   selections: null,
   splitDisplayName: false,

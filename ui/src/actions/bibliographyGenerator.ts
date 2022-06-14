@@ -6,7 +6,7 @@ import {
 import { httpErrorToActionPayload } from '../common/utils';
 import { BIBLIOGRAPHY_GENERATOR } from '../common/routes';
 
-function submitBibliographyGeneratorSuccess(payload) {
+function submitBibliographyGeneratorSuccess(payload: any) {
   return {
     type: BIBLIOGRAPHY_GENERATOR_SUCCESS,
     payload,
@@ -19,15 +19,15 @@ function submitBibliographyGeneratorRequest() {
   };
 }
 
-function submitBibliographyGeneratorError(error) {
+function submitBibliographyGeneratorError(error: any) {
   return {
     type: BIBLIOGRAPHY_GENERATOR_ERROR,
     payload: error,
   };
 }
 
-export function submitBibliographyGenerator(format, data) {
-  return async (dispatch, getState, http) => {
+export function submitBibliographyGenerator(format: any, data: any) {
+  return async (dispatch: any, getState: any, http: any) => {
     dispatch(submitBibliographyGeneratorRequest());
     try {
       const response = await http.post(

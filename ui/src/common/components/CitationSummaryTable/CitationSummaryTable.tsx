@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { Link } from 'react-router-dom';
 
 import './CitationSummaryTable.scss';
+// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.tsx' extension.... Remove this comment to see the full error message
 import ExternalLink from '../ExternalLink.tsx';
 import LabelWithHelp from '../LabelWithHelp';
 import LoadingOrChildren from '../LoadingOrChildren';
 import ErrorAlertOrChildren from '../ErrorAlertOrChildren';
 import { ErrorPropType } from '../../propTypes';
+// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.tsx' extension.... Remove this comment to see the full error message
 import FormattedNumber from '../FormattedNumber.tsx';
 import { PUBLISHED_URL } from '../../constants';
 
@@ -26,24 +29,33 @@ const H_INDEX_HELP_MESSAGE = (
   </span>
 );
 
-function toFixedNumber(numberOrNull) {
+function toFixedNumber(numberOrNull: any) {
   return numberOrNull == null ? 0 : numberOrNull.toFixed(1);
 }
 
 class CitationSummaryTable extends Component {
   render() {
     const {
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'publishedBucket' does not exist on type ... Remove this comment to see the full error message
       publishedBucket,
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'citeableBucket' does not exist on type '... Remove this comment to see the full error message
       citeableBucket,
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'hIndex' does not exist on type 'Readonly... Remove this comment to see the full error message
       hIndex,
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'loading' does not exist on type 'Readonl... Remove this comment to see the full error message
       loading,
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'error' does not exist on type 'Readonly<... Remove this comment to see the full error message
       error,
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'renderNumberOfCiteablePapers' does not e... Remove this comment to see the full error message
       renderNumberOfCiteablePapers,
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'renderNumberOfPublishedPapers' does not ... Remove this comment to see the full error message
       renderNumberOfPublishedPapers,
     } = this.props;
 
     return (
+      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
       <LoadingOrChildren loading={loading}>
+        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
         <ErrorAlertOrChildren error={error}>
           <div className="__CitationTable__">
             <table>
@@ -52,12 +64,14 @@ class CitationSummaryTable extends Component {
                   <th />
                   <th>
                     <LabelWithHelp
+                      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                       label="Citeable"
                       help="Citeable papers have metadata that allow us to reliably track their citations."
                     />
                   </th>
                   <th>
                     <LabelWithHelp
+                      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                       label="Published"
                       help={PUBLISHED_HELP_MESSAGE}
                     />
@@ -92,6 +106,7 @@ class CitationSummaryTable extends Component {
                 <tr>
                   <th>
                     <LabelWithHelp
+                      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                       label="h-index"
                       help={H_INDEX_HELP_MESSAGE}
                     />
@@ -131,9 +146,13 @@ class CitationSummaryTable extends Component {
   }
 }
 
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'propTypes' does not exist on type 'typeo... Remove this comment to see the full error message
 CitationSummaryTable.propTypes = {
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof Map' is not assignable to... Remove this comment to see the full error message
   publishedBucket: PropTypes.instanceOf(Map),
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof Map' is not assignable to... Remove this comment to see the full error message
   citeableBucket: PropTypes.instanceOf(Map),
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof Map' is not assignable to... Remove this comment to see the full error message
   hIndex: PropTypes.instanceOf(Map),
   renderNumberOfCiteablePapers: PropTypes.func,
   renderNumberOfPublishedPapers: PropTypes.func,
@@ -141,16 +160,13 @@ CitationSummaryTable.propTypes = {
   error: ErrorPropType,
 };
 
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultProps' does not exist on type 'ty... Remove this comment to see the full error message
 CitationSummaryTable.defaultProps = {
   publishedBucket: Map(),
   citeableBucket: Map(),
   hIndex: Map(),
-  renderNumberOfCiteablePapers: value => (
-    <FormattedNumber>{value}</FormattedNumber>
-  ),
-  renderNumberOfPublishedPapers: value => (
-    <FormattedNumber>{value}</FormattedNumber>
-  ),
+  renderNumberOfCiteablePapers: (value: any) => <FormattedNumber>{value}</FormattedNumber>,
+  renderNumberOfPublishedPapers: (value: any) => <FormattedNumber>{value}</FormattedNumber>,
 };
 
 export default CitationSummaryTable;

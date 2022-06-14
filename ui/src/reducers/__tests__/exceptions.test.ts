@@ -3,7 +3,9 @@ import { Map, fromJS } from 'immutable';
 import reducer from '../exceptions';
 import * as types from '../../actions/actionTypes';
 
+// @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
 describe('exceptions reducer', () => {
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('default', () => {
     const state = reducer(undefined, {});
     const expected = fromJS({
@@ -11,15 +13,19 @@ describe('exceptions reducer', () => {
       data: [],
       error: {},
     });
+    // @ts-expect-error ts-migrate(2552) FIXME: Cannot find name 'expect'. Did you mean 'expected'... Remove this comment to see the full error message
     expect(state).toEqual(expected);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('EXCEPTIONS_REQUEST', () => {
     const state = reducer(Map(), { type: types.EXCEPTIONS_REQUEST });
     const expected = Map({ loading: true });
+    // @ts-expect-error ts-migrate(2552) FIXME: Cannot find name 'expect'. Did you mean 'expected'... Remove this comment to see the full error message
     expect(state).toEqual(expected);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('EXCEPTIONS_SUCCESS', () => {
     const payload = {
       data: [
@@ -36,9 +42,11 @@ describe('exceptions reducer', () => {
       data: payload.data,
       error: {},
     });
+    // @ts-expect-error ts-migrate(2552) FIXME: Cannot find name 'expect'. Did you mean 'expected'... Remove this comment to see the full error message
     expect(state.sort()).toEqual(expected.sort());
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('EXCEPTIONS_ERROR', () => {
     const state = reducer(Map(), {
       type: types.EXCEPTIONS_ERROR,
@@ -51,6 +59,7 @@ describe('exceptions reducer', () => {
       data: [],
       error: { message: 'error' },
     });
+    // @ts-expect-error ts-migrate(2552) FIXME: Cannot find name 'expect'. Did you mean 'expected'... Remove this comment to see the full error message
     expect(state).toEqual(expected);
   });
 });

@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col } from 'antd';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { connect } from 'react-redux';
 
 import PaginationContainer from '../../common/containers/PaginationContainer';
@@ -13,18 +14,23 @@ import ExperimentItem from '../components/ExperimentItem';
 import { EXPERIMENTS_NS } from '../../search/constants';
 import AggregationFiltersContainer from '../../common/containers/AggregationFiltersContainer';
 import ResponsiveView from '../../common/components/ResponsiveView';
+// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.tsx' extension.... Remove this comment to see the full error message
 import DrawerHandle from '../../common/components/DrawerHandle.tsx';
 
 const META_DESCRIPTION = 'Find experiments in High Energy Physics';
 const TITLE = 'Experiments Search';
 
-function renderExperimentItem(result) {
+function renderExperimentItem(result: any) {
   return <ExperimentItem metadata={result.get('metadata')} />;
 }
 
-function ExperimentSearchPage({ loading, loadingAggregations }) {
+function ExperimentSearchPage({
+  loading,
+  loadingAggregations
+}: any) {
   const renderAggregations = useCallback(
     () => (
+      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
       <LoadingOrChildren loading={loadingAggregations}>
         <AggregationFiltersContainer namespace={EXPERIMENTS_NS} />
       </LoadingOrChildren>
@@ -34,6 +40,7 @@ function ExperimentSearchPage({ loading, loadingAggregations }) {
 
   return (
     <>
+      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
       <DocumentHead title={TITLE} description={META_DESCRIPTION} />
       <Row>
         <Col xs={24} lg={22} xl={20} xxl={18}>
@@ -42,6 +49,7 @@ function ExperimentSearchPage({ loading, loadingAggregations }) {
               <ResponsiveView min="lg" render={renderAggregations} />
             </Col>
             <Col xs={24} lg={17}>
+              // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
               <LoadingOrChildren loading={loading}>
                 <Row>
                   <Col xs={24} lg={12}>
@@ -81,13 +89,14 @@ ExperimentSearchPage.propTypes = {
   loadingAggregations: PropTypes.bool.isRequired,
 };
 
-const stateToProps = state => ({
+const stateToProps = (state: any) => ({
   loading: state.search.getIn(['namespaces', EXPERIMENTS_NS, 'loading']),
+
   loadingAggregations: state.search.getIn([
     'namespaces',
     EXPERIMENTS_NS,
     'loadingAggregations',
-  ]),
+  ])
 });
 
 export default connect(stateToProps)(ExperimentSearchPage);

@@ -15,6 +15,7 @@ export default function DisabledEditRecordAction({
     <ListItemAction>
       <Tooltip title={message}>
         <Button disabled>
+          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
           <IconText text="edit" icon={<EditOutlined />} />
         </Button>
       </Tooltip>

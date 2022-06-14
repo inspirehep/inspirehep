@@ -6,6 +6,7 @@ import JournalInfo from './JournalInfo';
 
 class PublicationInfo extends Component {
   getPageOrArtidDisplay() {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'info' does not exist on type 'Readonly<{... Remove this comment to see the full error message
     const { info } = this.props;
 
     if (getPageDisplay(info)) {
@@ -19,6 +20,7 @@ class PublicationInfo extends Component {
   }
 
   render() {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'info' does not exist on type 'Readonly<{... Remove this comment to see the full error message
     const { info } = this.props;
     const material = info.get('material');
     const journalIssue = info.get('journal_issue');
@@ -42,7 +44,9 @@ class PublicationInfo extends Component {
   }
 }
 
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'propTypes' does not exist on type 'typeo... Remove this comment to see the full error message
 PublicationInfo.propTypes = {
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof Map' is not assignable to... Remove this comment to see the full error message
   info: PropTypes.instanceOf(Map).isRequired,
 };
 

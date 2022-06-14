@@ -8,7 +8,7 @@ import SuggesterField from '../../common/components/SuggesterField';
 import { EXPERIMENT_TYPE_OPTIONS } from '../schemas/constants';
 
 const ExperimentForm = () => {
-  const getSuggestionSourceLegacyName = (suggestion) => suggestion._source.legacy_name;
+  const getSuggestionSourceLegacyName = (suggestion: any) => suggestion._source.legacy_name;
 
   return (
     <Form className="bg-white pa3">
@@ -40,7 +40,7 @@ const ExperimentForm = () => {
         </Col>
       </Row>
 
-      <Row type="flex" justify="end">
+      <Row justify="end">
         <SubmitButton />
       </Row>
     </Form>

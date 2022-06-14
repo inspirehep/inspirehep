@@ -4,7 +4,9 @@ import { fromJS } from 'immutable';
 import RelatedRecordsList from '../RelatedRecordsList';
 import { INSTITUTIONS_PID_TYPE, EXPERIMENTS_PID_TYPE } from '../../constants';
 
+// @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
 describe('RelatedRecordsList', () => {
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('renders with multiple records', () => {
     const relatedRecords = fromJS([
       {
@@ -24,8 +26,10 @@ describe('RelatedRecordsList', () => {
         pidType={INSTITUTIONS_PID_TYPE}
       />
     );
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(wrapper.dive()).toMatchSnapshot();
   });
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('renders with one record', () => {
     const relatedRecords = fromJS([
       {
@@ -41,6 +45,7 @@ describe('RelatedRecordsList', () => {
         pidType={EXPERIMENTS_PID_TYPE}
       />
     );
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(wrapper.dive()).toMatchSnapshot();
   });
 });

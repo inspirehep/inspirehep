@@ -1,3 +1,4 @@
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'qs'.... Remove this comment to see the full error message
 import { stringify } from 'qs';
 import {
   LITERATURE_ERROR,
@@ -13,6 +14,7 @@ import {
   LITERATURE_SET_ASSIGN_DRAWER_VISIBILITY,
   LITERATURE_SELECTION_CLEAR,
 } from './actionTypes';
+// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.ts' extension. ... Remove this comment to see the full error message
 import { isCancelError } from '../common/http.ts';
 import { httpErrorToActionPayload } from '../common/utils';
 import generateRecordFetchAction from './recordsFactory';
@@ -29,21 +31,21 @@ import {
 import { LITERATURE_REFERENCES_NS } from '../search/constants';
 import { searchQueryUpdate } from './search';
 
-function fetchingLiteratureReferences(query) {
+function fetchingLiteratureReferences(query: any) {
   return {
     type: LITERATURE_REFERENCES_REQUEST,
     payload: query.page,
   };
 }
 
-function fetchLiteratureReferencesSuccess(result) {
+function fetchLiteratureReferencesSuccess(result: any) {
   return {
     type: LITERATURE_REFERENCES_SUCCESS,
     payload: result,
   };
 }
 
-function fetchLiteratureReferencesError(error) {
+function fetchLiteratureReferencesError(error: any) {
   return {
     type: LITERATURE_REFERENCES_ERROR,
     payload: error,
@@ -56,14 +58,14 @@ function fetchingLiteratureAuthors() {
   };
 }
 
-function fetchLiteratureAuthorsSuccess(result) {
+function fetchLiteratureAuthorsSuccess(result: any) {
   return {
     type: LITERATURE_AUTHORS_SUCCESS,
     payload: result,
   };
 }
 
-function fetchLiteratureAuthorsError(errorPayload) {
+function fetchLiteratureAuthorsError(errorPayload: any) {
   return {
     type: LITERATURE_AUTHORS_ERROR,
     payload: errorPayload,
@@ -77,8 +79,8 @@ export const fetchLiterature = generateRecordFetchAction({
   fetchErrorActionType: LITERATURE_ERROR,
 });
 
-export function fetchLiteratureReferences(recordId, newQuery = {}) {
-  return async (dispatch, getState, http) => {
+export function fetchLiteratureReferences(recordId: any, newQuery = {}) {
+  return async (dispatch: any, getState: any, http: any) => {
     const query = {
       ...{
         size: getState().search.getIn([
@@ -109,8 +111,8 @@ export function fetchLiteratureReferences(recordId, newQuery = {}) {
   };
 }
 
-export function fetchLiteratureAuthors(recordId) {
-  return async (dispatch, getState, http) => {
+export function fetchLiteratureAuthors(recordId: any) {
+  return async (dispatch: any, getState: any, http: any) => {
     dispatch(fetchingLiteratureAuthors());
     try {
       const response = await http.get(
@@ -128,7 +130,7 @@ export function fetchLiteratureAuthors(recordId) {
   };
 }
 
-export function setLiteratureSelection(literatureIds, selected) {
+export function setLiteratureSelection(literatureIds: any, selected: any) {
   return {
     type: LITERATURE_SELECTION_SET,
     payload: { literatureIds, selected },
@@ -141,15 +143,15 @@ export function clearLiteratureSelection() {
   };
 }
 
-export function setAssignDrawerVisibility(visible) {
+export function setAssignDrawerVisibility(visible: any) {
   return {
     type: LITERATURE_SET_ASSIGN_DRAWER_VISIBILITY,
     payload: { visible },
   };
 }
 
-export function assignPapers(conferenceId, conferenceTitle) {
-  return async (dispatch, getState, http) => {
+export function assignPapers(conferenceId: any, conferenceTitle: any) {
+  return async (dispatch: any, getState: any, http: any) => {
     try {
       const papers = getState().literature.get('literatureSelection');
       assigning();
@@ -167,7 +169,7 @@ export function assignPapers(conferenceId, conferenceTitle) {
 }
 
 export function exportToCds() {
-  return async (dispatch, getState, http) => {
+  return async (dispatch: any, getState: any, http: any) => {
     try {
       const papers = getState().literature.get('literatureSelection');
       exporting();

@@ -2,16 +2,16 @@ import React from 'react';
 import { Field } from 'formik';
 import SuggesterField from './SuggesterField';
 
-function getSourceNameValue(suggestion) {
+function getSourceNameValue(suggestion: any) {
   return suggestion._source.name.value;
 }
 
-function renderAuthorSuggestion(suggestion) {
+function renderAuthorSuggestion(suggestion: any) {
   const name = getSourceNameValue(suggestion);
 
   const { positions } = suggestion._source;
   const currentPosition =
-    positions && positions.find(position => position.current);
+    positions && positions.find((position: any) => position.current);
 
   return (
     <span>
@@ -20,7 +20,7 @@ function renderAuthorSuggestion(suggestion) {
   );
 }
 
-export default function AuthorSuggesterField(props) {
+export default function AuthorSuggesterField(props: any) {
   return (
     <Field
       {...props}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { Provider } from 'react-redux';
 import { fromJS } from 'immutable';
 
@@ -10,7 +11,9 @@ import { getStore, getStoreWithState } from '../../../../fixtures/store';
 import { RANGE_AGGREGATION_SELECTION_SEPARATOR } from '../../../../common/constants';
 import ExistingConferencesAlert from '../../components/ExistingConferencesAlert';
 
+// @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
 describe('ExistingConferencesAlertContainer', () => {
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('dispatches SEARCH_QUERY_UPDATE initially', () => {
     const startingDate = '2020-01-24';
     const closingDate = '2020-09-20';
@@ -34,9 +37,11 @@ describe('ExistingConferencesAlertContainer', () => {
         },
       },
     ];
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(store.getActions()).toEqual(expectedActions);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('dispatches SEARCH_QUERY_UPDATE onDatesChange', () => {
     const initialStartingDate = '2020-01-24';
     const initialClosingDate = '2020-09-20';
@@ -69,9 +74,11 @@ describe('ExistingConferencesAlertContainer', () => {
         },
       },
     ];
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(store.getActions()).toEqual(expectedActions);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('passes numberOfConferences', () => {
     const startingDate = '2020-01-24';
     const closingDate = '2020-09-20';
@@ -91,6 +98,7 @@ describe('ExistingConferencesAlertContainer', () => {
         />
       </Provider>
     );
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(wrapper.find(ExistingConferencesAlert)).toHaveProp({
       numberOfConferences: 5,
     });

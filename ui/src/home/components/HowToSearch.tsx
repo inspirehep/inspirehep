@@ -3,6 +3,7 @@ import { Radio, Button } from 'antd';
 
 import SpiresExamples from './SpiresExamples';
 import FreetextExamples from './FreetextExamples';
+// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.tsx' extension.... Remove this comment to see the full error message
 import ExternalLink from '../../common/components/ExternalLink.tsx';
 import { PAPER_SEARCH_URL } from '../../common/constants';
 

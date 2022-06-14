@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { fromJS } from 'immutable';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { Provider } from 'react-redux';
 
 import { getStore, mockActionCreator } from '../../../fixtures/store';
@@ -16,8 +17,10 @@ import { AUTHOR_PUBLICATIONS_NS } from '../../../search/constants';
 import { searchQueryUpdate } from '../../../actions/search';
 import { EXCLUDE_SELF_CITATIONS_PREFERENCE } from '../../../reducers/user';
 
+// @ts-expect-error ts-migrate(2708) FIXME: Cannot use namespace 'jest' as a value.
 jest.mock('../../../actions/citations');
 
+// @ts-expect-error ts-migrate(2708) FIXME: Cannot use namespace 'jest' as a value.
 jest.mock('../../../actions/search');
 mockActionCreator(searchQueryUpdate);
 
@@ -127,7 +130,9 @@ const mockCitationsState = fromJS({
   },
 });
 
+// @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
 describe('CitationSummaryGraphContainer', () => {
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('passes props from state', () => {
     const namespace = AUTHOR_PUBLICATIONS_NS;
     const store = getStore({
@@ -143,6 +148,7 @@ describe('CitationSummaryGraphContainer', () => {
         <CitationSummaryGraphContainer namespace={namespace} />
       </Provider>
     );
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(wrapper.find(CitationSummaryGraph)).toHaveProp({
       citeableData: mockCiteableData,
       publishedData: mockPublishedData,
@@ -153,6 +159,7 @@ describe('CitationSummaryGraphContainer', () => {
     });
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('dispatches SEARCH_QUERY_UPDATE for author publication namespace with clean query when onSelectBarChange called with null', () => {
     const namespace = AUTHOR_PUBLICATIONS_NS;
     const store = getStore();
@@ -164,6 +171,7 @@ describe('CitationSummaryGraphContainer', () => {
     const onSelectBarChange = wrapper
       .find(CitationSummaryGraph)
       .prop('onSelectBarChange');
+    // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
     onSelectBarChange(null);
 
     const query = {
@@ -174,9 +182,11 @@ describe('CitationSummaryGraphContainer', () => {
       page: '1',
     };
     const expectedActions = [searchQueryUpdate(namespace, query)];
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(store.getActions()).toEqual(expectedActions);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('dispatches SEARCH_QUERY_UPDATE for author publication namespace with citeable query when onSelectBarChange called with citeable bar with excluded self citations', () => {
     const namespace = AUTHOR_PUBLICATIONS_NS;
     const excludeSelfCitations = true;
@@ -186,6 +196,7 @@ describe('CitationSummaryGraphContainer', () => {
         <CitationSummaryGraphContainer namespace={namespace} />
       </Provider>
     );
+    // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
     wrapper.find(CitationSummaryGraph).prop('onSelectBarChange')(
       {
         xValue: '0--0',
@@ -200,9 +211,11 @@ describe('CitationSummaryGraphContainer', () => {
       page: '1',
     };
     const expectedActions = [searchQueryUpdate(namespace, query)];
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(store.getActions()).toEqual(expectedActions);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('dispatches SEARCH_QUERY_UPDATE for author publication namespace with published query when onSelectBarChange called with published bar', () => {
     const namespace = AUTHOR_PUBLICATIONS_NS;
     const excludeSelfCitations = false;
@@ -212,6 +225,7 @@ describe('CitationSummaryGraphContainer', () => {
         <CitationSummaryGraphContainer namespace={namespace} />
       </Provider>
     );
+    // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
     wrapper.find(CitationSummaryGraph).prop('onSelectBarChange')(
       {
         xValue: '0--0',
@@ -226,9 +240,11 @@ describe('CitationSummaryGraphContainer', () => {
       page: '1',
     };
     const expectedActions = [searchQueryUpdate(namespace, query)];
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(store.getActions()).toEqual(expectedActions);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('sets selectedBar prop from author publications namespace state for a citable bar', () => {
     const namespace = AUTHOR_PUBLICATIONS_NS;
     const store = getStore({
@@ -246,6 +262,7 @@ describe('CitationSummaryGraphContainer', () => {
         <CitationSummaryGraphContainer namespace={namespace} />
       </Provider>
     );
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(wrapper.find(CitationSummaryGraph)).toHaveProp({
       selectedBar: {
         type: 'citeable',
@@ -254,6 +271,7 @@ describe('CitationSummaryGraphContainer', () => {
     });
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('sets selectedBar prop from author publications namespace state for a published bar', () => {
     const namespace = AUTHOR_PUBLICATIONS_NS;
     const store = getStore({
@@ -271,6 +289,7 @@ describe('CitationSummaryGraphContainer', () => {
         <CitationSummaryGraphContainer namespace={namespace} />
       </Provider>
     );
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(wrapper.find(CitationSummaryGraph)).toHaveProp({
       selectedBar: {
         type: 'published',

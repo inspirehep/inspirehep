@@ -12,7 +12,7 @@ export const initialState = fromJS({
   error: {},
 });
 
-const exceptionsReducer = (state = initialState, action) => {
+const exceptionsReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case EXCEPTIONS_REQUEST:
       return state.set('loading', true);

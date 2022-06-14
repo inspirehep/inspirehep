@@ -31,21 +31,28 @@ const OPEN_SECTIONS = [
 const HIDDEN_FIELD_HELP =
   'This entry will be hidden from your author profile, but it will still be visible to INSPIRE staff. If this information is incorrect, please inform us using the Comments area in the bottom of the page';
 const HiddenFieldLabel = (
+  // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
   <LabelWithHelp label="Hidden" help={HIDDEN_FIELD_HELP} />
 );
 
-function getSuggestionSourceLegacyICN(suggestion) {
+function getSuggestionSourceLegacyICN(suggestion: any) {
   return suggestion._source.legacy_ICN;
 }
 
-function getSuggestionSourceLegacyName(suggestion) {
+function getSuggestionSourceLegacyName(suggestion: any) {
   return suggestion._source.legacy_name;
 }
 
-function AuthorForm({ values, isCatalogerLoggedIn, isUpdate }) {
+function AuthorForm({
+  values,
+  isCatalogerLoggedIn,
+  isUpdate
+}: any) {
   return (
     <Form>
+      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
       <CollapsableForm openSections={OPEN_SECTIONS}>
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'Section' does not exist on type 'typeof ... Remove this comment to see the full error message
         <CollapsableForm.Section header="Personal Info" key="personal_info">
           <p>
             Email addresses cannot be deleted. If information is incorrect,
@@ -83,48 +90,49 @@ function AuthorForm({ values, isCatalogerLoggedIn, isUpdate }) {
             component={TextField}
           />
           <ArrayOf
+            // @ts-expect-error ts-migrate(2322) FIXME: Type '{ values: any; name: string; label: string; ... Remove this comment to see the full error message
             values={values}
             name="emails"
             label="Emails"
             emptyItem={{}}
             allowItemDelete={isCatalogerLoggedIn || !isUpdate}
-            renderItem={(itemName) => (
-              <Row type="flex" justify="space-between">
-                <Col span={11}>
-                  <Field
-                    onlyChild
-                    name={`${itemName}.value`}
-                    placeholder="Email"
-                    component={TextField}
-                  />
-                </Col>
-                <Col span={11}>
-                  <Row gutter={16}>
-                    <Col>
-                      <Field
-                        onlyChild
-                        name={`${itemName}.current`}
-                        suffixText="Current"
-                        component={BooleanField}
-                      />
-                    </Col>
-                    <Col>
-                      <Field
-                        onlyChild
-                        name={`${itemName}.hidden`}
-                        suffixText={
-                          <LabelWithHelp
-                            label="Hidden"
-                            help="Hidden emails will not be displayed, but will only be used by INSPIRE staff for contact and identification purposes."
-                          />
-                        }
-                        component={BooleanField}
-                      />
-                    </Col>
-                  </Row>
-                </Col>
-              </Row>
-            )}
+            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+            renderItem={(itemName: any) => <Row type="flex" justify="space-between">
+              <Col span={11}>
+                <Field
+                  onlyChild
+                  name={`${itemName}.value`}
+                  placeholder="Email"
+                  component={TextField}
+                />
+              </Col>
+              <Col span={11}>
+                <Row gutter={16}>
+                  <Col>
+                    <Field
+                      onlyChild
+                      name={`${itemName}.current`}
+                      suffixText="Current"
+                      component={BooleanField}
+                    />
+                  </Col>
+                  <Col>
+                    <Field
+                      onlyChild
+                      name={`${itemName}.hidden`}
+                      suffixText={
+                        <LabelWithHelp
+                          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+                          label="Hidden"
+                          help="Hidden emails will not be displayed, but will only be used by INSPIRE staff for contact and identification purposes."
+                        />
+                      }
+                      component={BooleanField}
+                    />
+                  </Col>
+                </Row>
+              </Col>
+            </Row>}
           />
           <Field
             name="status"
@@ -137,6 +145,7 @@ function AuthorForm({ values, isCatalogerLoggedIn, isUpdate }) {
             addonBefore="orcid.org/"
             label={
               <LabelWithHelp
+                // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                 label={
                   <Tooltip title="ORCID provides a persistent digital identifier that distinguishes you from other researchers">
                     ORCID
@@ -148,19 +157,20 @@ function AuthorForm({ values, isCatalogerLoggedIn, isUpdate }) {
             placeholder="0000-0000-0000-0000"
             component={TextField}
           />
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'Section' does not exist on type 'typeof ... Remove this comment to see the full error message
         </CollapsableForm.Section>
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'Section' does not exist on type 'typeof ... Remove this comment to see the full error message
         <CollapsableForm.Section
           header="Author websites"
           key="personal_websites"
         >
           <ArrayOf
+            // @ts-expect-error ts-migrate(2322) FIXME: Type '{ values: any; name: string; label: string; ... Remove this comment to see the full error message
             values={values}
             name="websites"
             label="Websites"
             emptyItem=""
-            renderItem={(itemName) => (
-              <Field onlyChild name={itemName} component={TextField} />
-            )}
+            renderItem={(itemName: any) => <Field onlyChild name={itemName} component={TextField} />}
           />
           <Field name="blog" label="Blog" component={TextField} />
           <Field
@@ -175,7 +185,9 @@ function AuthorForm({ values, isCatalogerLoggedIn, isUpdate }) {
             addonBefore="twitter.com/"
             component={TextField}
           />
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'Section' does not exist on type 'typeof ... Remove this comment to see the full error message
         </CollapsableForm.Section>
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'Section' does not exist on type 'typeof ... Remove this comment to see the full error message
         <CollapsableForm.Section header="Career Info" key="career_info">
           <p>
             Career information cannot be deleted. If information is incorrect,
@@ -190,181 +202,183 @@ function AuthorForm({ values, isCatalogerLoggedIn, isUpdate }) {
             component={SelectField}
           />
           <ArrayOf
+            // @ts-expect-error ts-migrate(2322) FIXME: Type '{ values: any; label: string; name: string; ... Remove this comment to see the full error message
             values={values}
             label="Institution History"
             name="positions"
             emptyItem={{}}
             allowItemDelete={isCatalogerLoggedIn || !isUpdate}
-            renderItem={(itemName) => (
-              <Row type="flex" justify="space-between">
-                <Col span={11}>
-                  <Field
-                    onlyChild
-                    name={`${itemName}.institution`}
-                    recordFieldPath={`${itemName}.record`}
-                    placeholder="Institution, type for suggestions"
-                    pidType="institutions"
-                    suggesterName="affiliation"
-                    searchAsYouType
-                    extractItemCompletionValue={getSuggestionSourceLegacyICN}
-                    component={SuggesterField}
-                  />
-                </Col>
-                <Col span={11}>
-                  <Row gutter={16}>
+            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+            renderItem={(itemName: any) => <Row type="flex" justify="space-between">
+              <Col span={11}>
+                <Field
+                  onlyChild
+                  name={`${itemName}.institution`}
+                  recordFieldPath={`${itemName}.record`}
+                  placeholder="Institution, type for suggestions"
+                  pidType="institutions"
+                  suggesterName="affiliation"
+                  searchAsYouType
+                  extractItemCompletionValue={getSuggestionSourceLegacyICN}
+                  component={SuggesterField}
+                />
+              </Col>
+              <Col span={11}>
+                <Row gutter={16}>
+                  <Col>
+                    <Field
+                      onlyChild
+                      name={`${itemName}.current`}
+                      suffixText="Current"
+                      component={BooleanField}
+                    />
+                  </Col>
+                  {isUpdate && (
                     <Col>
                       <Field
                         onlyChild
-                        name={`${itemName}.current`}
-                        suffixText="Current"
+                        name={`${itemName}.hidden`}
+                        suffixText={HiddenFieldLabel}
                         component={BooleanField}
                       />
                     </Col>
-                    {isUpdate && (
-                      <Col>
-                        <Field
-                          onlyChild
-                          name={`${itemName}.hidden`}
-                          suffixText={HiddenFieldLabel}
-                          component={BooleanField}
-                        />
-                      </Col>
-                    )}
-                  </Row>
-                </Col>
-                <Col span={11}>
-                  <Field
-                    onlyChild
-                    name={`${itemName}.start_date`}
-                    placeholder="Start year"
-                    component={DateField}
-                    picker="year"
-                  />
-                </Col>
-                <Col span={11}>
-                  <Field
-                    onlyChild
-                    name={`${itemName}.end_date`}
-                    placeholder="End year"
-                    component={DateField}
-                    picker="year"
-                  />
-                </Col>
-                <Col span={11}>
-                  <Field
-                    onlyChild
-                    name={`${itemName}.rank`}
-                    placeholder="Rank"
-                    options={rankOptions}
-                    component={SelectField}
-                  />
-                </Col>
-              </Row>
-            )}
+                  )}
+                </Row>
+              </Col>
+              <Col span={11}>
+                <Field
+                  onlyChild
+                  name={`${itemName}.start_date`}
+                  placeholder="Start year"
+                  component={DateField}
+                  picker="year"
+                />
+              </Col>
+              <Col span={11}>
+                <Field
+                  onlyChild
+                  name={`${itemName}.end_date`}
+                  placeholder="End year"
+                  component={DateField}
+                  picker="year"
+                />
+              </Col>
+              <Col span={11}>
+                <Field
+                  onlyChild
+                  name={`${itemName}.rank`}
+                  placeholder="Rank"
+                  options={rankOptions}
+                  component={SelectField}
+                />
+              </Col>
+            </Row>}
           />
           <ArrayOf
+            // @ts-expect-error ts-migrate(2322) FIXME: Type '{ values: any; label: string; name: string; ... Remove this comment to see the full error message
             values={values}
             label="Experiment History"
             name="project_membership"
             allowItemDelete={isCatalogerLoggedIn || !isUpdate}
             emptyItem={{}}
-            renderItem={(itemName) => (
-              <Row type="flex" justify="space-between">
-                <Col span={11}>
-                  <Field
-                    onlyChild
-                    name={`${itemName}.name`}
-                    recordFieldPath={`${itemName}.record`}
-                    placeholder="Experiment, type for suggestions"
-                    pidType="experiments"
-                    suggesterName="experiment"
-                    searchAsYouType
-                    extractItemCompletionValue={getSuggestionSourceLegacyName}
-                    component={SuggesterField}
-                  />
-                </Col>
-                <Col span={11}>
-                  <Row gutter={16}>
+            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+            renderItem={(itemName: any) => <Row type="flex" justify="space-between">
+              <Col span={11}>
+                <Field
+                  onlyChild
+                  name={`${itemName}.name`}
+                  recordFieldPath={`${itemName}.record`}
+                  placeholder="Experiment, type for suggestions"
+                  pidType="experiments"
+                  suggesterName="experiment"
+                  searchAsYouType
+                  extractItemCompletionValue={getSuggestionSourceLegacyName}
+                  component={SuggesterField}
+                />
+              </Col>
+              <Col span={11}>
+                <Row gutter={16}>
+                  <Col>
+                    <Field
+                      onlyChild
+                      name={`${itemName}.current`}
+                      suffixText="Current"
+                      component={BooleanField}
+                    />
+                  </Col>
+                  {isUpdate && (
                     <Col>
                       <Field
                         onlyChild
-                        name={`${itemName}.current`}
-                        suffixText="Current"
+                        name={`${itemName}.hidden`}
+                        suffixText={HiddenFieldLabel}
                         component={BooleanField}
                       />
                     </Col>
-                    {isUpdate && (
-                      <Col>
-                        <Field
-                          onlyChild
-                          name={`${itemName}.hidden`}
-                          suffixText={HiddenFieldLabel}
-                          component={BooleanField}
-                        />
-                      </Col>
-                    )}
-                  </Row>
-                </Col>
-                <Col span={11}>
-                  <Field
-                    onlyChild
-                    name={`${itemName}.start_date`}
-                    placeholder="Start year"
-                    component={DateField}
-                    picker="year"
-                  />
-                </Col>
-                <Col span={11}>
-                  <Field
-                    onlyChild
-                    name={`${itemName}.end_date`}
-                    placeholder="End year"
-                    component={DateField}
-                    picker="year"
-                  />
-                </Col>
-              </Row>
-            )}
+                  )}
+                </Row>
+              </Col>
+              <Col span={11}>
+                <Field
+                  onlyChild
+                  name={`${itemName}.start_date`}
+                  placeholder="Start year"
+                  component={DateField}
+                  picker="year"
+                />
+              </Col>
+              <Col span={11}>
+                <Field
+                  onlyChild
+                  name={`${itemName}.end_date`}
+                  placeholder="End year"
+                  component={DateField}
+                  picker="year"
+                />
+              </Col>
+            </Row>}
           />
           <ArrayOf
+            // @ts-expect-error ts-migrate(2322) FIXME: Type '{ values: any; label: string; name: string; ... Remove this comment to see the full error message
             values={values}
             label="Advisors"
             name="advisors"
             allowItemDelete={isCatalogerLoggedIn || !isUpdate}
             emptyItem={{}}
-            renderItem={(itemName) => (
-              <Row type="flex" justify="space-between">
-                <Col span={11}>
-                  <AuthorSuggesterField
-                    onlyChild
-                    name={`${itemName}.name`}
-                    recordFieldPath={`${itemName}.record`}
-                    placeholder="Family name, first name"
-                  />
-                </Col>
+            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+            renderItem={(itemName: any) => <Row type="flex" justify="space-between">
+              <Col span={11}>
+                <AuthorSuggesterField
+                  onlyChild
+                  name={`${itemName}.name`}
+                  recordFieldPath={`${itemName}.record`}
+                  placeholder="Family name, first name"
+                />
+              </Col>
+              <Col span={11}>
+                <Field
+                  onlyChild
+                  name={`${itemName}.degree_type`}
+                  placeholder="Degree type"
+                  options={degreeTypeOptions}
+                  component={SelectField}
+                />
+              </Col>
+              {isUpdate && (
                 <Col span={11}>
                   <Field
                     onlyChild
-                    name={`${itemName}.degree_type`}
-                    placeholder="Degree type"
-                    options={degreeTypeOptions}
-                    component={SelectField}
+                    name={`${itemName}.hidden`}
+                    suffixText={HiddenFieldLabel}
+                    component={BooleanField}
                   />
                 </Col>
-                {isUpdate && (
-                  <Col span={11}>
-                    <Field
-                      onlyChild
-                      name={`${itemName}.hidden`}
-                      suffixText={HiddenFieldLabel}
-                      component={BooleanField}
-                    />
-                  </Col>
-                )}
-              </Row>
-            )}
+              )}
+            </Row>}
           />
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'Section' does not exist on type 'typeof ... Remove this comment to see the full error message
         </CollapsableForm.Section>
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'Section' does not exist on type 'typeof ... Remove this comment to see the full error message
         <CollapsableForm.Section
           header="Comments to the INSPIRE team"
           key="comments"
@@ -376,8 +390,10 @@ function AuthorForm({ values, isCatalogerLoggedIn, isUpdate }) {
             rows={4}
             component={TextAreaField}
           />
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'Section' does not exist on type 'typeof ... Remove this comment to see the full error message
         </CollapsableForm.Section>
       </CollapsableForm>
+      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
       <Row type="flex" justify="end">
         <SubmitButton />
       </Row>

@@ -5,6 +5,7 @@ import SecondaryButton from './SecondaryButton';
 
 class ExpandListToggle extends Component {
   render() {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'size' does not exist on type 'Readonly<{... Remove this comment to see the full error message
     const { size, limit, onToggle, expanded, expandLabel } = this.props;
 
     if (size <= limit) {
@@ -12,10 +13,12 @@ class ExpandListToggle extends Component {
     }
 
     const buttonText = expanded ? 'Hide' : `${expandLabel} (${size})`;
+    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
     return <SecondaryButton onClick={onToggle}>{buttonText}</SecondaryButton>;
   }
 }
 
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'propTypes' does not exist on type 'typeo... Remove this comment to see the full error message
 ExpandListToggle.propTypes = {
   size: PropTypes.number.isRequired,
   limit: PropTypes.number.isRequired,
@@ -24,6 +27,7 @@ ExpandListToggle.propTypes = {
   expandLabel: PropTypes.string,
 };
 
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultProps' does not exist on type 'ty... Remove this comment to see the full error message
 ExpandListToggle.defaultProps = {
   expandLabel: 'Show all',
 };

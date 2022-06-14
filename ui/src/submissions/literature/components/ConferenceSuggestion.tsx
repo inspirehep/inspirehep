@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 class ConferenceSuggestion extends Component {
   render() {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'conference' does not exist on type 'Read... Remove this comment to see the full error message
     const { conference } = this.props;
     const { cnum, acronyms, address, titles } = conference;
     const { title } = titles[0];
@@ -33,6 +34,7 @@ class ConferenceSuggestion extends Component {
   }
 }
 
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'propTypes' does not exist on type 'typeo... Remove this comment to see the full error message
 ConferenceSuggestion.propTypes = {
   conference: PropTypes.objectOf(PropTypes.any).isRequired,
 };

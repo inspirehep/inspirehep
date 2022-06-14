@@ -1,12 +1,14 @@
 import React from 'react';
+// @ts-expect-error ts-migrate(2305) FIXME: Module '"immutable"' has no exported member 'Itera... Remove this comment to see the full error message
 import { Iterable, isImmutable } from 'immutable';
 import { getWrapperComponentDisplayName } from './utils';
 
-export const convertAllImmutablePropsToJS = (WrappedComponent) => {
-  const Wrapper = (wrappedComponentProps) => {
+export const convertAllImmutablePropsToJS = (WrappedComponent: any) => {
+  const Wrapper = (wrappedComponentProps: any) => {
     const propsAsJS = Object.keys(wrappedComponentProps).reduce(
       (newProps, key) => {
         const value = wrappedComponentProps[key];
+        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         newProps[key] = Iterable.isIterable(value) ? value.toJS() : value;
         return newProps;
       },
@@ -23,13 +25,13 @@ export const convertAllImmutablePropsToJS = (WrappedComponent) => {
 };
 
 export const convertSomeImmutablePropsToJS = (
-  WrappedComponent,
-  propsToConvert
+  WrappedComponent: any,
+  propsToConvert: any
 ) => {
-  const Wrapper = (wrappedComponentProps) => {
+  const Wrapper = (wrappedComponentProps: any) => {
     const convertedProps = propsToConvert
-      .filter((prop) => wrappedComponentProps[prop])
-      .reduce((propsAsJS, prop) => {
+      .filter((prop: any) => wrappedComponentProps[prop])
+      .reduce((propsAsJS: any, prop: any) => {
         let props = wrappedComponentProps[prop];
         if (isImmutable(props)) {
           props = props.toJS();

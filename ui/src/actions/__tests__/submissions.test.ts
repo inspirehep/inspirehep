@@ -2,6 +2,7 @@ import { CALL_HISTORY_METHOD } from 'connected-react-router';
 import MockAdapter from 'axios-mock-adapter';
 
 import { getStore } from '../../fixtures/store';
+// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.ts' extension. ... Remove this comment to see the full error message
 import http from '../../common/http.ts';
 import {
   SUBMIT_ERROR,
@@ -20,13 +21,17 @@ import {
 
 const mockHttp = new MockAdapter(http.httpClient);
 
+// @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
 describe('submissions - async action creator', () => {
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'afterEach'.
   afterEach(() => {
     mockHttp.reset();
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
   describe('submit', () => {
-    it('creates SUBMIT_SUCCESS and pushes /submissions/success to history if successful', async done => {
+    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+    it('creates SUBMIT_SUCCESS and pushes /submissions/success to history if successful', async (done: any) => {
       const submissionUrl = '/submissions/authors';
       const data = { field: 'value' };
       mockHttp.onPost(submissionUrl, { data }).replyOnce(200, { foo: 'bar' });
@@ -48,11 +53,13 @@ describe('submissions - async action creator', () => {
 
       const store = getStore();
       await store.dispatch(submit('authors', data));
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
       expect(store.getActions()).toEqual(expectedActions);
       done();
     });
 
-    it('creates SUBMIT_ERROR if not successful', async done => {
+    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+    it('creates SUBMIT_ERROR if not successful', async (done: any) => {
       const submissionUrl = '/submissions/jobs';
       mockHttp.onPost(submissionUrl).replyOnce(400, { message: 'Error' });
 
@@ -68,13 +75,16 @@ describe('submissions - async action creator', () => {
 
       const store = getStore();
       await store.dispatch(submit('jobs', {}));
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
       expect(store.getActions()).toEqual(expectedActions);
       done();
     });
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
   describe('submitUpdate', () => {
-    it('creates SUBMIT_SUCCESS and pushes /submissions/:type/:id/success to history if successful', async done => {
+    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+    it('creates SUBMIT_SUCCESS and pushes /submissions/:type/:id/success to history if successful', async (done: any) => {
       const submissionUrl = '/submissions/jobs/123';
       const data = { field: 'value' };
       mockHttp.onPut(submissionUrl, { data }).replyOnce(200, { foo: 'bar' });
@@ -93,11 +103,13 @@ describe('submissions - async action creator', () => {
 
       const store = getStore();
       await store.dispatch(submitUpdate('jobs', '123', data));
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
       expect(store.getActions()).toEqual(expectedActions);
       done();
     });
 
-    it('creates SUBMIT_ERROR if not successful', async done => {
+    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+    it('creates SUBMIT_ERROR if not successful', async (done: any) => {
       const submissionUrl = '/submissions/authors/123';
       mockHttp.onPut(submissionUrl).replyOnce(400, { message: 'Error' });
 
@@ -113,13 +125,16 @@ describe('submissions - async action creator', () => {
 
       const store = getStore();
       await store.dispatch(submitUpdate('authors', '123', {}));
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
       expect(store.getActions()).toEqual(expectedActions);
       done();
     });
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
   describe('fetchUpdateFormData', () => {
-    it('creates INITIAL_FORM_DATA_SUCCESS', async done => {
+    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+    it('creates INITIAL_FORM_DATA_SUCCESS', async (done: any) => {
       const submissionUrl = '/submissions/authors/123';
       const data = { field: 'value' };
       const meta = { can_access: true };
@@ -141,11 +156,13 @@ describe('submissions - async action creator', () => {
 
       const store = getStore();
       await store.dispatch(fetchUpdateFormData('authors', '123'));
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
       expect(store.getActions()).toEqual(expectedActions);
       done();
     });
 
-    it('creates INITIAL_FORM_DATA_ERROR if not successful', async done => {
+    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+    it('creates INITIAL_FORM_DATA_ERROR if not successful', async (done: any) => {
       const submissionUrl = '/submissions/jobs/123';
       mockHttp.onGet(submissionUrl).replyOnce(404, { message: 'Error' });
 
@@ -167,13 +184,16 @@ describe('submissions - async action creator', () => {
 
       const store = getStore();
       await store.dispatch(fetchUpdateFormData('jobs', '123'));
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
       expect(store.getActions()).toEqual(expectedActions);
       done();
     });
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
   describe('importExternalLiterature', () => {
-    it('creates INITIAL_FORM_DATA_SUCCESS', async done => {
+    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+    it('creates INITIAL_FORM_DATA_SUCCESS', async (done: any) => {
       const data = { field: 'value' };
       const id = '1234.5678';
       mockHttp.onGet(`/literature/import/${id}`, { data }).replyOnce(200, data);
@@ -193,10 +213,12 @@ describe('submissions - async action creator', () => {
 
       const store = getStore();
       await store.dispatch(importExternalLiterature(id));
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
       expect(store.getActions()).toEqual(expectedActions);
       done();
     });
 
+    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
     it('creates INITIAL_FORM_DATA_ERROR if not successful', async () => {
       const id = '1234.5678';
       mockHttp
@@ -218,6 +240,7 @@ describe('submissions - async action creator', () => {
 
       const store = getStore();
       await store.dispatch(importExternalLiterature(id));
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
       expect(store.getActions()).toEqual(expectedActions);
     });
   });

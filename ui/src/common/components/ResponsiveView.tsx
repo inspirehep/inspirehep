@@ -1,7 +1,11 @@
 import PropTypes from 'prop-types';
 import useResponsiveCheck from '../hooks/useResponsiveCheck';
 
-function ResponsiveView({ min, max, render }) {
+function ResponsiveView({
+  min,
+  max,
+  render
+}: any) {
   const shouldRender = useResponsiveCheck({ min, max });
 
   return shouldRender ? render() : null;

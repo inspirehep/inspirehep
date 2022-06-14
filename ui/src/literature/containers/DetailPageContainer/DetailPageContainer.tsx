@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { connect } from 'react-redux';
 import { Row, Col, Tabs } from 'antd';
 import { Map, List } from 'immutable';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'clas... Remove this comment to see the full error message
 import classNames from 'classnames';
 import { FilePdfOutlined, DatabaseOutlined } from '@ant-design/icons';
 
@@ -14,6 +16,7 @@ import {
 } from '../../../actions/literature';
 import Abstract from '../../components/Abstract';
 import ArxivEprintList from '../../components/ArxivEprintList';
+// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.tsx' extension.... Remove this comment to see the full error message
 import EditRecordAction from '../../../common/components/EditRecordAction.tsx';
 import DOIList from '../../components/DOIList';
 import AuthorsAndCollaborations from '../../../common/components/AuthorsAndCollaborations';
@@ -57,8 +60,8 @@ function DetailPage({
   record,
   referencesCount,
   supervisors,
-  seminarsCount,
-}) {
+  seminarsCount
+}: any) {
   const metadata = record.get('metadata');
 
   const title = metadata.getIn(['titles', 0]);
@@ -94,7 +97,7 @@ function DetailPage({
   const datasetLinks = metadata.get('dataset_links');
 
   const publicationInfoWithTitle = publicationInfo
-    ? publicationInfo.filter((pub) => pub.has('journal_title'))
+    ? publicationInfo.filter((pub: any) => pub.has('journal_title'))
     : null;
 
   return (
@@ -103,19 +106,23 @@ function DetailPage({
         metadata={metadata}
         created={record.get('created')}
       />
+      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
       <Row className="__DetailPage__" type="flex" justify="center">
         <Col xs={24} md={22} lg={21} xxl={18}>
+          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
           <Row className="mv3" type="flex" justify="center">
             <Col span={24}>{hiddenCollection && <HiddenCollectionAlert />}</Col>
           </Row>
           <Row
             className="mv3"
+            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
             type="flex"
             justify="center"
             gutter={{ xs: 0, lg: 16, xl: 32 }}
           >
             <Col xs={24} lg={16}>
               <ContentBox
+                // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                 className="md-pb3"
                 leftActions={
                   <>
@@ -167,10 +174,12 @@ function DetailPage({
                   <Col span={24}>{deleted && <DeletedAlert />}</Col>
                 </Row>
                 <h2>
+                  // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                   <LiteratureTitle title={title} />
                 </h2>
                 <div>
                   <AuthorsAndCollaborations
+                    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                     authorCount={authorCount}
                     authors={authors}
                     enableAuthorsShowAll
@@ -178,14 +187,18 @@ function DetailPage({
                     collaborationsWithSuffix={collaborationsWithSuffix}
                   />
                 </div>
+                // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                 <LiteratureDate date={date} />
                 <div className="mt3">
+                  // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                   <NumberOfPages numberOfPages={numberOfPages} />
                   <SupervisorList supervisors={supervisors} />
+                  // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                   <ThesisInfo thesisInfo={thesisInfo} />
                   {linkedBook && (
                     <ParentRecordInfo
                       parentRecord={linkedBook}
+                      // @ts-expect-error ts-migrate(2322) FIXME: Type '{ parentRecord: any; publicationInfo: any; }... Remove this comment to see the full error message
                       publicationInfo={publicationInfo}
                     />
                   )}
@@ -193,23 +206,33 @@ function DetailPage({
                   {publicationInfoWithTitle &&
                     publicationInfoWithTitle.size > 0 && (
                       <PublicationInfoList
+                        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                         publicationInfo={publicationInfoWithTitle}
                       />
                     )}
+                  // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                   <ConferenceInfoList conferenceInfo={conferenceInfo} />
+                  // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                   <IsbnList isbns={isbns} />
+                  // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                   <ImprintInfo imprint={imprint} />
+                  // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                   <ArxivEprintList eprints={eprints} />
+                  // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                   <DOIList dois={dois} />
+                  // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                   <ReportNumberList reportNumbers={reportNumbers} />
+                  // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                   <ExperimentList experiments={acceleratorExperiments} />
                   <ExternalSystemIdentifierList
+                    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                     externalSystemIdentifiers={externalSystemIdentifiers}
                   />
                 </div>
               </ContentBox>
             </Col>
             <Col xs={24} lg={8}>
+              // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
               <ContentBox subTitle="Citations per year">
                 <CitationsByYearGraphContainer />
               </ContentBox>
@@ -220,6 +243,7 @@ function DetailPage({
               <RequireOneOf dependencies={[abstract, publicNotes, keywords]}>
                 <ContentBox>
                   <div>
+                    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                     <Abstract abstract={abstract} />
                   </div>
                   <div
@@ -228,9 +252,11 @@ function DetailPage({
                       mb3: keywords,
                     })}
                   >
+                    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                     <PublicNotesList publicNotes={publicNotes} />
                   </div>
                   <div>
+                    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                     <KeywordList keywords={keywords} />
                   </div>
                 </ContentBox>
@@ -247,6 +273,7 @@ function DetailPage({
                 <Tabs.TabPane
                   tab={
                     <TabNameWithCount
+                      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                       name="References"
                       count={referencesCount}
                     />
@@ -258,6 +285,7 @@ function DetailPage({
                 <Tabs.TabPane
                   tab={
                     <TabNameWithCount
+                      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                       name="Figures"
                       count={figures ? figures.size : 0}
                     />
@@ -285,35 +313,42 @@ function DetailPage({
 }
 
 DetailPage.propTypes = {
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof Map' is not assignable to... Remove this comment to see the full error message
   record: PropTypes.instanceOf(Map).isRequired,
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof List' is not assignable t... Remove this comment to see the full error message
   authors: PropTypes.instanceOf(List).isRequired,
   referencesCount: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
     .isRequired,
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof List' is not assignable t... Remove this comment to see the full error message
   supervisors: PropTypes.instanceOf(List),
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   record: state.literature.get('data'),
   authors: state.literature.get('authors'),
   supervisors: state.literature.get('supervisors'),
   referencesCount: state.literature.get('totalReferences'),
+
   loadingSeminars: state.search.getIn([
     'namespaces',
     LITERATURE_SEMINARS_NS,
     'loading',
   ]),
+
   seminarsCount: state.search.getIn([
     'namespaces',
     LITERATURE_SEMINARS_NS,
     'initialTotal',
-  ]),
+  ])
 });
 
 const DetailPageContainer = connect(mapStateToProps)(DetailPage);
 
 export default withRouteActionsDispatcher(DetailPageContainer, {
-  routeParamSelector: ({ id }) => id,
-  routeActions: (id) => [
+  routeParamSelector: ({
+    id
+  }: any) => id,
+  routeActions: (id: any) => [
     fetchLiterature(id),
     fetchLiteratureReferences(id),
     fetchLiteratureAuthors(id),
@@ -323,6 +358,5 @@ export default withRouteActionsDispatcher(DetailPageContainer, {
       baseQuery: { q: `literature_records.record.$ref:${id}` },
     }),
   ],
-  loadingStateSelector: (state) =>
-    !state.literature.hasIn(['data', 'metadata']),
+  loadingStateSelector: (state: any) => !state.literature.hasIn(['data', 'metadata']),
 });

@@ -30,7 +30,7 @@ export const initialState = Map({
   publicationSelectionCanNotClaim: Set(),
 }).merge(initialRecordState);
 
-const authorsReducer = (state = initialState, action) => {
+const authorsReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case CLEAR_STATE:
       return initialState;
@@ -45,7 +45,9 @@ const authorsReducer = (state = initialState, action) => {
       const selectionUpdate = Set(publicationIds);
       const currentSelection = state.get('publicationSelection');
       const nextSelection = selected
+        // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
         ? currentSelection.union(selectionUpdate)
+        // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
         : currentSelection.subtract(selectionUpdate);
       return state.set('publicationSelection', nextSelection);
     case AUTHOR_PUBLICATION_SELECTION_CLEAR:
@@ -56,7 +58,9 @@ const authorsReducer = (state = initialState, action) => {
       const claimedSelectionUpdate = Set(action.payload.papersIds);
       const currentClaimedSelection = state.get('publicationSelectionClaimed');
       const nextClaimedSelection = action.payload.selected
+        // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
         ? currentClaimedSelection.union(claimedSelectionUpdate)
+        // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
         : currentClaimedSelection.subtract(claimedSelectionUpdate);
       return state.set('publicationSelectionClaimed', nextClaimedSelection);
     case AUTHOR_PUBLICATIONS_CLAIM_CLEAR:
@@ -67,7 +71,9 @@ const authorsReducer = (state = initialState, action) => {
         'publicationSelectionUnclaimed'
       );
       const nextUnclaimedSelection = action.payload.selected
+        // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
         ? currentUnclaimedSelection.union(unclaimedSelectionUpdate)
+        // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
         : currentUnclaimedSelection.subtract(unclaimedSelectionUpdate);
       return state.set('publicationSelectionUnclaimed', nextUnclaimedSelection);
     case AUTHOR_PUBLICATIONS_UNCLAIM_CLEAR:
@@ -78,9 +84,11 @@ const authorsReducer = (state = initialState, action) => {
         'publicationSelectionCanNotClaim'
       );
       const nextcanNotClaimSelection = action.payload.selected
+        // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
         ? currentcanNotClaimPapersSelection.union(
             canNotClaimPapersSelectionUpdate
           )
+        // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
         : currentcanNotClaimPapersSelection.subtract(
             canNotClaimPapersSelectionUpdate
           );

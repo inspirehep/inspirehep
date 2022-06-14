@@ -7,7 +7,11 @@ import AggregationBox from './AggregationBox';
 import DateRangeFilter from './DateRangeFilter';
 import { START_DATE_UPCOMING, START_DATE_ALL } from '../constants';
 
-function EventStartDateFilter({ onChange, selection = '', switchTitle }) {
+function EventStartDateFilter({
+  onChange,
+  selection = '',
+  switchTitle
+}: any) {
   const [isUpcoming, setUpcoming] = useState(selection === START_DATE_UPCOMING);
 
   useEffect(
@@ -46,7 +50,9 @@ function EventStartDateFilter({ onChange, selection = '', switchTitle }) {
 
   return (
     <Row className="pa3 bg-white mb3">
+      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
       <AggregationBox name="Start Date" className="mb3">
+        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
         <Row className="mb3" type="flex" align="middle" gutter={8}>
           <Col>
             <Switch
@@ -55,6 +61,7 @@ function EventStartDateFilter({ onChange, selection = '', switchTitle }) {
               // if onChange is called before animation, it slows down & freezes the animation
               // because onChange() triggers search requests and eventually rendering aggs/results
               // which is already a lot of events/task that have priority over animation in browsers
+              // @ts-expect-error ts-migrate(2322) FIXME: Type '{ checked: boolean; onChange: (checked: any)... Remove this comment to see the full error message
               onAnimationEnd={onUpcomingSwitchAnimationEnd}
             />
           </Col>

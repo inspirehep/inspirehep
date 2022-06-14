@@ -7,19 +7,23 @@ import {
   FlexibleWidthXYPlot,
   DiscreteColorLegend,
   ChartLabel,
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 } from 'react-vis';
 import PropTypes from 'prop-types';
 import { Row, Col, Tooltip } from 'antd';
 
 import './CitationSummaryGraph.scss';
 import 'react-vis/dist/style.css';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'loda... Remove this comment to see the full error message
 import maxBy from 'lodash.maxby';
 import { ErrorPropType } from '../../propTypes';
 import LoadingOrChildren from '../LoadingOrChildren';
 import ErrorAlertOrChildren from '../ErrorAlertOrChildren';
 import { CITEABLE_BAR_TYPE, PUBLISHED_BAR_TYPE } from '../../constants';
+// @ts-expect-error ts-migrate(2306) FIXME: File '/Users/karolinasiemieniuk-morawska/repos/CER... Remove this comment to see the full error message
 import styleVariables from '../../../styleVariables';
 import { shallowEqual, abbreviateNumber } from '../../utils';
+// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.ts' extension. ... Remove this comment to see the full error message
 import { browser } from '../../browser.ts';
 
 const BAR_WIDTH = 0.75;
@@ -56,7 +60,10 @@ const typeToColors = {
 export const LABEL_OFFSET_RATIO_TO_GRAPH_WIDTH = 0.025;
 
 class CitationSummaryGraph extends Component {
+  graphRef: any;
+
   constructor() {
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 1-2 arguments, but got 0.
     super();
     this.onBarMouseOut = this.onBarMouseOut.bind(this);
     this.onCiteableBarHover = this.onCiteableBarHover.bind(this);
@@ -80,21 +87,22 @@ class CitationSummaryGraph extends Component {
     window.removeEventListener('resize', this.updateGraphWidth);
   }
 
-  onCiteableBarClick(datapoint) {
+  onCiteableBarClick(datapoint: any) {
     this.onBarClick({
       xValue: datapoint.x,
       type: CITEABLE_BAR_TYPE,
     });
   }
 
-  onPublishedBarClick(datapoint) {
+  onPublishedBarClick(datapoint: any) {
     this.onBarClick({
       xValue: datapoint.x,
       type: PUBLISHED_BAR_TYPE,
     });
   }
 
-  onBarClick(clickedBar) {
+  onBarClick(clickedBar: any) {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'onSelectBarChange' does not exist on typ... Remove this comment to see the full error message
     const { onSelectBarChange, excludeSelfCitations } = this.props;
     if (this.isSelectedBar(clickedBar)) {
       onSelectBarChange(null);
@@ -103,7 +111,7 @@ class CitationSummaryGraph extends Component {
     }
   }
 
-  onCiteableBarHover(datapoint) {
+  onCiteableBarHover(datapoint: any) {
     const bar = {
       xValue: datapoint.x,
       type: CITEABLE_BAR_TYPE,
@@ -111,7 +119,7 @@ class CitationSummaryGraph extends Component {
     this.onBarMouseHover(bar);
   }
 
-  onPublishedBarHover(datapoint) {
+  onPublishedBarHover(datapoint: any) {
     const bar = {
       xValue: datapoint.x,
       type: PUBLISHED_BAR_TYPE,
@@ -119,7 +127,7 @@ class CitationSummaryGraph extends Component {
     this.onBarMouseHover(bar);
   }
 
-  onBarMouseHover(hoveredBar) {
+  onBarMouseHover(hoveredBar: any) {
     this.setState({ hoveredBar });
   }
 
@@ -127,24 +135,28 @@ class CitationSummaryGraph extends Component {
     this.setState({ hoveredBar: null });
   }
 
-  getBarColor(bar) {
+  getBarColor(bar: any) {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'selectedBar' does not exist on type 'Rea... Remove this comment to see the full error message
     const { selectedBar } = this.props;
     if (this.isHoveredBar(bar)) {
+      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       return typeToColors[bar.type].hoveredColor;
     }
     if (!selectedBar || this.isSelectedBar(bar)) {
+      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       return typeToColors[bar.type].color;
     }
     return GRAY;
   }
 
-  static getCountLabel(docCount) {
+  static getCountLabel(docCount: any) {
     if (docCount === 0) return null;
     if (docCount < 10000) return docCount.toString();
     return abbreviateNumber(docCount).toString();
   }
 
   updateGraphWidth() {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'graphWidth' does not exist on type 'Read... Remove this comment to see the full error message
     const { graphWidth } = this.state;
     const currentWidth = this.graphRef.current.getBoundingClientRect().width;
     if (currentWidth !== graphWidth) {
@@ -152,7 +164,8 @@ class CitationSummaryGraph extends Component {
     }
   }
 
-  toSeriesData(bucket, type) {
+  toSeriesData(bucket: any, type: any) {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'graphWidth' does not exist on type 'Read... Remove this comment to see the full error message
     const { graphWidth } = this.state;
     const docCount = bucket.doc_count;
     const xOffset =
@@ -168,23 +181,24 @@ class CitationSummaryGraph extends Component {
     };
   }
 
-  isHoveredBar(bar) {
+  isHoveredBar(bar: any) {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'hoveredBar' does not exist on type 'Read... Remove this comment to see the full error message
     const { hoveredBar } = this.state;
     return shallowEqual(bar, hoveredBar);
   }
 
-  isSelectedBar(bar) {
+  isSelectedBar(bar: any) {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'selectedBar' does not exist on type 'Rea... Remove this comment to see the full error message
     const { selectedBar } = this.props;
     return shallowEqual(bar, selectedBar);
   }
 
   render() {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'citeableData' does not exist on type 'Re... Remove this comment to see the full error message
     const { citeableData, publishedData, loading, error } = this.props;
-    const publishedSeriesData = publishedData.map(b =>
-      this.toSeriesData(b, PUBLISHED_BAR_TYPE)
+    const publishedSeriesData = publishedData.map((b: any) => this.toSeriesData(b, PUBLISHED_BAR_TYPE)
     );
-    const citeableSeriesData = citeableData.map(b =>
-      this.toSeriesData(b, CITEABLE_BAR_TYPE)
+    const citeableSeriesData = citeableData.map((b: any) => this.toSeriesData(b, CITEABLE_BAR_TYPE)
     );
 
     const yDomainMax = Math.max(
@@ -194,8 +208,11 @@ class CitationSummaryGraph extends Component {
 
     return (
       <div className="__CitationSummaryGraph__" ref={this.graphRef}>
+        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
         <LoadingOrChildren loading={loading}>
+          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
           <ErrorAlertOrChildren error={error}>
+            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
             <Row type="flex" align="middle">
               <Col span={24}>
                 <Tooltip
@@ -210,7 +227,8 @@ class CitationSummaryGraph extends Component {
                   >
                     <XAxis
                       className="x-axis"
-                      tickFormat={v => xValueToLabel[v]}
+                      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+                      tickFormat={(v: any) => xValueToLabel[v]}
                     />
                     <ChartLabel
                       text="Citations"
@@ -265,6 +283,7 @@ class CitationSummaryGraph extends Component {
   }
 }
 
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'propTypes' does not exist on type 'typeo... Remove this comment to see the full error message
 CitationSummaryGraph.propTypes = {
   excludeSelfCitations: PropTypes.bool,
   publishedData: PropTypes.arrayOf(PropTypes.any),
@@ -278,6 +297,7 @@ CitationSummaryGraph.propTypes = {
   }),
 };
 
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultProps' does not exist on type 'ty... Remove this comment to see the full error message
 CitationSummaryGraph.defaultProps = {
   publishedData: [],
   citeableData: [],

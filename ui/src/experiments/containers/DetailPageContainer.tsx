@@ -1,4 +1,5 @@
 import React from 'react';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
@@ -27,7 +28,9 @@ import { makeCompliantMetaDescription } from '../../common/utils';
 import { EXPERIMENT_PAPERS_NS } from '../../search/constants';
 import { EXPERIMENTS_PID_TYPE } from '../../common/constants';
 
-function DetailPage({ record }) {
+function DetailPage({
+  record
+}: any) {
   const metadata = record.get('metadata');
 
   const legacyName = metadata.get('legacy_name');
@@ -52,12 +55,14 @@ function DetailPage({ record }) {
   return (
     <>
       <DocumentHead
+        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
         title={legacyName}
         description={makeCompliantMetaDescription(description)}
       />
       <Row justify="center">
         <Col className="mv3" xs={24} md={22} lg={21} xxl={18}>
           <ContentBox
+            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
             className="sm-pb3"
             leftActions={urls && <UrlsAction urls={urls} text="links" />}
           >
@@ -72,6 +77,7 @@ function DetailPage({ record }) {
                     <span className="pl1 f6">
                       (
                       <AffiliationList
+                        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                         affiliations={institutions}
                         separator={SEPARATOR_MIDDLEDOT}
                       />
@@ -184,6 +190,7 @@ function DetailPage({ record }) {
             {publicNotes && (
               <Row className="mt2">
                 <Col>
+                  // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                   <PublicNotesList publicNotes={publicNotes} />
                 </Col>
               </Row>
@@ -203,16 +210,19 @@ function DetailPage({ record }) {
 }
 
 DetailPage.propTypes = {
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof Map' is not assignable to... Remove this comment to see the full error message
   record: PropTypes.instanceOf(Map).isRequired,
 };
 
-const mapStateToProps = state => ({
-  record: state.experiments.get('data'),
+const mapStateToProps = (state: any) => ({
+  record: state.experiments.get('data')
 });
 const DetailPageContainer = connect(mapStateToProps)(DetailPage);
 
 export default withRouteActionsDispatcher(DetailPageContainer, {
-  routeParamSelector: ({ id }) => id,
-  routeActions: id => [fetchExperiment(id), newSearch(EXPERIMENT_PAPERS_NS)],
-  loadingStateSelector: state => !state.experiments.hasIn(['data', 'metadata']),
+  routeParamSelector: ({
+    id
+  }: any) => id,
+  routeActions: (id: any) => [fetchExperiment(id), newSearch(EXPERIMENT_PAPERS_NS)],
+  loadingStateSelector: (state: any) => !state.experiments.hasIn(['data', 'metadata']),
 });

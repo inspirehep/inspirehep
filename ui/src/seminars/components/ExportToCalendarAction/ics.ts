@@ -5,12 +5,12 @@ import { SEMINARS } from '../../../common/routes';
 import { stripHtml } from '../../../common/utils';
 import { getEventTitle } from './common';
 
-function formatDateTime(datetimeString) {
+function formatDateTime(datetimeString: any) {
   const datetime = moment.utc(datetimeString);
   return datetime.format('YYYYMMDDTHHmmssZ').replace('+00:00', 'Z');
 }
 
-export default function getIcsFileContent(seminar) {
+export default function getIcsFileContent(seminar: any) {
   const controlNumber = seminar.get('control_number');
   const id = `inspirehep-seminar-${controlNumber}`;
   const location = seminar.getIn(['address', 'place_name']);
@@ -22,7 +22,7 @@ export default function getIcsFileContent(seminar) {
 
   const categories = seminar
     .get('inspire_categories', List())
-    .map(category => category.get('term'))
+    .map((category: any) => category.get('term'))
     .join(',');
 
   return [

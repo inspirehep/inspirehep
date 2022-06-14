@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.tsx' extension.... Remove this comment to see the full error message
 import ExternalLink from '../../common/components/ExternalLink.tsx';
 import EventTracker from '../../common/components/EventTracker';
 
@@ -13,6 +14,7 @@ class ArxivEprintLink extends Component {
   render() {
     const href = `//arxiv.org/abs/${this.arxivId}`;
     return (
+      // @ts-expect-error ts-migrate(2322) FIXME: Type '{ children: Element; eventId: string; }' is ... Remove this comment to see the full error message
       <EventTracker eventId="ArvixEprintLink">
         <ExternalLink href={href}>{this.arxivId}</ExternalLink>
       </EventTracker>
@@ -20,6 +22,7 @@ class ArxivEprintLink extends Component {
   }
 }
 
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'propTypes' does not exist on type 'typeo... Remove this comment to see the full error message
 ArxivEprintLink.propTypes = {
   children: PropTypes.node.isRequired,
 };

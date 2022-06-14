@@ -17,12 +17,16 @@ import {
   AUTHOR_PUBLICATION_CAN_NOT_CLAIM_SELECTION,
 } from '../../actions/actionTypes';
 
+// @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
 describe('authors reducer', () => {
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('default', () => {
     const state = reducer(undefined, {});
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state).toEqual(initialState);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('CLEAR_STATE', () => {
     const currentState = fromJS({
       data: {
@@ -32,15 +36,19 @@ describe('authors reducer', () => {
       },
     });
     const state = reducer(currentState, { type: CLEAR_STATE });
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state).toEqual(initialState);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('AUTHOR_REQUEST', () => {
     const state = reducer(Map(), { type: AUTHOR_REQUEST });
     const expected = Map({ loading: true });
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state).toEqual(expected);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('AUTHOR_SUCCESS', () => {
     const payload = {
       metadata: {
@@ -58,9 +66,11 @@ describe('authors reducer', () => {
       data: payload,
       error: initialState.get('error'),
     });
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state).toEqual(expected);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('AUTHOR_ERROR', () => {
     const state = reducer(Map(), {
       type: AUTHOR_ERROR,
@@ -73,9 +83,11 @@ describe('authors reducer', () => {
       error: { message: 'error' },
       data: initialState.get('data'),
     });
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state).toEqual(expected);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('AUTHOR_PUBLICATION_SELECTION_SET when selected', () => {
     const payload = {
       publicationIds: [2, 3],
@@ -89,9 +101,11 @@ describe('authors reducer', () => {
     const expected = fromJS({
       publicationSelection: Set([1, 2, 3]),
     });
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state).toEqual(expected);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('AUTHOR_PUBLICATION_SELECTION_SET when deselected', () => {
     const payload = {
       publicationIds: [2, 3],
@@ -105,9 +119,11 @@ describe('authors reducer', () => {
     const expected = fromJS({
       publicationSelection: Set([1]),
     });
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state).toEqual(expected);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('AUTHOR_PUBLICATION_SELECTION_CLEAR', () => {
     const currentState = Map({ publicationSelection: Set([1, 2]) });
     const state = reducer(currentState, {
@@ -116,9 +132,11 @@ describe('authors reducer', () => {
     const expected = fromJS({
       publicationSelection: Set(),
     });
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state).toEqual(expected);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('AUTHOR_PUBLICATION_CLAIM_SELECTION when selected', () => {
     const payload = {
       papersIds: [1, 2],
@@ -133,9 +151,11 @@ describe('authors reducer', () => {
       payload,
     });
     const expected = Set([2, 3, 1]);
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state.get('publicationSelectionClaimed')).toEqual(expected);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('AUTHOR_PUBLICATION_CLAIM_SELECTION when deselected', () => {
     const payload = {
       papersIds: [2],
@@ -150,9 +170,11 @@ describe('authors reducer', () => {
       payload,
     });
     const expected = Set([1]);
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state.get('publicationSelectionClaimed')).toEqual(expected);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('AUTHOR_PUBLICATIONS_CLAIM_CLEAR', () => {
     const currentState = Map({
       publicationSelection: Set([1, 2]),
@@ -162,9 +184,11 @@ describe('authors reducer', () => {
       type: AUTHOR_PUBLICATIONS_CLAIM_CLEAR,
     });
     const expected = Set([]);
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state.get('publicationSelectionClaimed')).toEqual(expected);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('AUTHOR_PUBLICATION_UNCLAIM_SELECTION when selected', () => {
     const payload = {
       papersIds: [1, 2],
@@ -179,9 +203,11 @@ describe('authors reducer', () => {
       payload,
     });
     const expected = Set([2, 3, 1]);
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state.get('publicationSelectionUnclaimed')).toEqual(expected);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('AUTHOR_PUBLICATION_UNCLAIM_SELECTION when deselected', () => {
     const payload = {
       papersIds: [2],
@@ -196,9 +222,11 @@ describe('authors reducer', () => {
       payload,
     });
     const expected = Set([1]);
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state.get('publicationSelectionUnclaimed')).toEqual(expected);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('AUTHOR_PUBLICATION_CAN_NOT_CLAIM_SELECTION when selected', () => {
     const payload = {
       papersIds: [1, 2],
@@ -213,9 +241,11 @@ describe('authors reducer', () => {
       payload,
     });
     const expected = Set([2, 3, 1]);
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state.get('publicationSelectionCanNotClaim')).toEqual(expected);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('AUTHOR_PUBLICATION_CAN_NOT_CLAIM_SELECTION when deselected', () => {
     const payload = {
       papersIds: [2],
@@ -230,9 +260,11 @@ describe('authors reducer', () => {
       payload,
     });
     const expected = Set([1]);
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state.get('publicationSelectionCanNotClaim')).toEqual(expected);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('AUTHOR_PUBLICATIONS_UNCLAIM_CLEAR', () => {
     const currentState = Map({
       publicationSelection: Set([1, 2]),
@@ -242,9 +274,11 @@ describe('authors reducer', () => {
       type: AUTHOR_PUBLICATIONS_UNCLAIM_CLEAR,
     });
     const expected = Set([]);
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state.get('publicationSelectionUnclaimed')).toEqual(expected);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('AUTHOR_PUBLICATION_CAN_NOT_CLAIM_CLEAR', () => {
     const currentState = Map({
       publicationSelection: Set([1, 2]),
@@ -255,9 +289,11 @@ describe('authors reducer', () => {
       type: AUTHOR_PUBLICATION_CAN_NOT_CLAIM_CLEAR,
     });
     const expected = Set([]);
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state.get('publicationSelectionCanNotClaim')).toEqual(expected);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('AUTHOR_SET_ASSIGN_DRAWER_VISIBILITY', () => {
     const currentState = Map({ isAssignDrawerVisible: false });
     const state = reducer(currentState, {
@@ -267,6 +303,7 @@ describe('authors reducer', () => {
     const expected = fromJS({
       isAssignDrawerVisible: true,
     });
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state).toEqual(expected);
   });
 });

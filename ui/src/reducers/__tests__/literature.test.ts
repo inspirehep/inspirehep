@@ -16,12 +16,16 @@ import {
   CLEAR_STATE,
 } from '../../actions/actionTypes';
 
+// @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
 describe('literature reducer', () => {
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('default', () => {
     const state = reducer(undefined, {});
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state).toEqual(initialState);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('CLEAR_STATE', () => {
     const currentState = fromJS({
       data: {
@@ -29,15 +33,19 @@ describe('literature reducer', () => {
       },
     });
     const state = reducer(currentState, { type: CLEAR_STATE });
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state).toEqual(initialState);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('LITERATURE_REQUEST', () => {
     const state = reducer(Map(), { type: LITERATURE_REQUEST });
     const expected = Map({ loading: true });
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state).toEqual(expected);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('LITERATURE_SUCCESS', () => {
     const payload = {
       metadata: {
@@ -54,9 +62,11 @@ describe('literature reducer', () => {
       data: payload,
       error: null,
     });
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state).toEqual(expected);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('LITERATURE_ERROR', () => {
     const state = reducer(Map(), {
       type: LITERATURE_ERROR,
@@ -69,9 +79,11 @@ describe('literature reducer', () => {
       data: initialState.get('data'),
       error: { message: 'error' },
     });
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state).toEqual(expected);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('LITERATURE_REFERENCES_REQUEST', () => {
     const state = reducer(Map(), {
       type: LITERATURE_REFERENCES_REQUEST,
@@ -81,9 +93,11 @@ describe('literature reducer', () => {
       loadingReferences: true,
       pageReferences: 1,
     });
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state).toEqual(expected);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('LITERATURE_REFERENCES_SUCCESS', () => {
     const references = [
       {
@@ -106,9 +120,11 @@ describe('literature reducer', () => {
       errorReferences: initialState.get('errorReferences'),
       totalReferences: 100,
     });
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state).toEqual(expected);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('LITERATURE_REFERENCES_ERROR', () => {
     const state = reducer(Map(), {
       type: LITERATURE_REFERENCES_ERROR,
@@ -122,15 +138,19 @@ describe('literature reducer', () => {
       references: initialState.get('references'),
       totalReferences: initialState.get('totalReferences'),
     });
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state).toEqual(expected);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('LITERATURE_AUTHORS_REQUEST', () => {
     const state = reducer(Map(), { type: LITERATURE_AUTHORS_REQUEST });
     const expected = Map({ loadingAuthors: true });
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state).toEqual(expected);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('LITERATURE_AUTHORS_SUCCESS', () => {
     const authors = [
       {
@@ -158,9 +178,11 @@ describe('literature reducer', () => {
       supervisors,
       errorAuthors: initialState.get('errorAuthors'),
     });
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state).toEqual(expected);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('LITERATURE_AUTHORS_ERROR', () => {
     const state = reducer(Map(), {
       type: LITERATURE_AUTHORS_ERROR,
@@ -173,9 +195,11 @@ describe('literature reducer', () => {
       errorAuthors: { message: 'error' },
       authors: initialState.get('authors'),
     });
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state).toEqual(expected);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('LITERATURE_SELECTION_SET when selected', () => {
     const payload = {
       literatureIds: [2, 3],
@@ -189,9 +213,11 @@ describe('literature reducer', () => {
     const expected = fromJS({
       literatureSelection: Set([1, 2, 3]),
     });
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state).toEqual(expected);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('LITERATURE_SELECTION_SET when deselected', () => {
     const payload = {
       literatureIds: [2, 3],
@@ -205,9 +231,11 @@ describe('literature reducer', () => {
     const expected = fromJS({
       literatureSelection: Set([1]),
     });
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state).toEqual(expected);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('LITERATURE_SELECTION_CLEAR', () => {
     const currentState = Map({ literatureSelection: Set([1, 2]) });
     const state = reducer(currentState, {
@@ -216,9 +244,11 @@ describe('literature reducer', () => {
     const expected = fromJS({
       literatureSelection: Set(),
     });
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state).toEqual(expected);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('LITERATURE_SET_ASSIGN_DRAWER_VISIBILITY', () => {
     const currentState = Map({ isAssignDrawerVisible: false });
     const state = reducer(currentState, {
@@ -228,6 +258,7 @@ describe('literature reducer', () => {
     const expected = fromJS({
       isAssignDrawerVisible: true,
     });
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state).toEqual(expected);
   });
 });

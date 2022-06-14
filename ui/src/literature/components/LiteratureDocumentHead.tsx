@@ -8,7 +8,10 @@ import { makeCompliantMetaDescription } from '../../common/utils';
 
 const FULL_DATE_FORMAT = 'YYYY/MM/DD';
 
-function LiteratureDocumentHead({ metadata, created }) {
+function LiteratureDocumentHead({
+  metadata,
+  created
+}: any) {
   const title = metadata.getIn(['titles', 0, 'title']);
   const abstract = metadata.getIn(['abstracts', 0, 'value']);
 
@@ -30,6 +33,7 @@ function LiteratureDocumentHead({ metadata, created }) {
     // `citation_*` meta tags are used by Google Scholar
     // https://scholar.google.com/intl/en/scholar/inclusion.html#indexing
     <DocumentHead
+      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
       title={title}
       description={makeCompliantMetaDescription(abstract)}
     >
@@ -50,18 +54,14 @@ function LiteratureDocumentHead({ metadata, created }) {
       {doi && <meta name="citation_doi" content={doi} />}
 
       {citationPdfUrls &&
-        citationPdfUrls.map(link => (
-          <meta key={link} name="citation_pdf_url" content={link} />
-        ))}
+        citationPdfUrls.map((link: any) => <meta key={link} name="citation_pdf_url" content={link} />)}
 
       {authors &&
-        authors.map(author => (
-          <meta
-            key={author.get('full_name')}
-            name="citation_author"
-            content={author.get('full_name')}
-          />
-        ))}
+        authors.map((author: any) => <meta
+          key={author.get('full_name')}
+          name="citation_author"
+          content={author.get('full_name')}
+        />)}
 
       {journalTitle && (
         <meta name="citation_journal_title" content={journalTitle} />
@@ -75,6 +75,7 @@ function LiteratureDocumentHead({ metadata, created }) {
 }
 
 LiteratureDocumentHead.propTypes = {
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof Map' is not assignable to... Remove this comment to see the full error message
   metadata: PropTypes.instanceOf(Map).isRequired,
   created: PropTypes.string.isRequired,
 };

@@ -1,3 +1,4 @@
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'redu... Remove this comment to see the full error message
 import configureMockStore from 'redux-mock-store';
 
 import { initialState as citations } from '../reducers/citations';
@@ -43,8 +44,8 @@ export function getState() {
   };
 }
 
-export function mockActionCreator(actionCreator) {
-  const mockedImplementation = (...args) => ({
+export function mockActionCreator(actionCreator: any) {
+  const mockedImplementation = (...args: any[]) => ({
     type: actionCreator.name,
     payload: args,
   });
@@ -60,7 +61,7 @@ export function getStore(overrideState = {}) {
 /**
  * DEPRECATED! use `getStore` instead
  */
-export function getStoreWithState(state) {
+export function getStoreWithState(state: any) {
   const mockStore = configureMockStore([thunkMiddleware]);
   return mockStore({ ...getState(), ...state });
 }

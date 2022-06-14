@@ -5,7 +5,11 @@ import RouterLinkButton from '../../common/components/RouterLinkButton';
 
 const TEXT_CENTER = { textAlign: 'center' };
 
-function SubmissionCard({ title, children, formLink }) {
+function SubmissionCard({
+  title,
+  children,
+  formLink
+}: any) {
   const actions = useMemo(
     () => [
       <RouterLinkButton key="submit" to={formLink}>
@@ -15,6 +19,7 @@ function SubmissionCard({ title, children, formLink }) {
     [formLink]
   );
   return (
+    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
     <Card
       title={title}
       actions={actions}

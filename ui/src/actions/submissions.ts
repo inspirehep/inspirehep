@@ -14,7 +14,7 @@ import { httpErrorToActionPayload } from '../common/utils';
 
 export const REDIRECT_TO_EDITOR = List(['experiments', 'institutions']);
 
-function submitSuccess(payload) {
+function submitSuccess(payload: any) {
   return {
     type: SUBMIT_SUCCESS,
     payload,
@@ -27,36 +27,36 @@ function submitRequest() {
   };
 }
 
-function submitError(error) {
+function submitError(error: any) {
   return {
     type: SUBMIT_ERROR,
     payload: error,
   };
 }
 
-function fetchingInitialFormData(payload) {
+function fetchingInitialFormData(payload: any) {
   return {
     type: INITIAL_FORM_DATA_REQUEST,
     payload, // only used for testing
   };
 }
 
-function fetchInitialFormDataError(error) {
+function fetchInitialFormDataError(error: any) {
   return {
     type: INITIAL_FORM_DATA_ERROR,
     payload: error,
   };
 }
 
-function fetchInitialFormDataSuccess(data) {
+function fetchInitialFormDataSuccess(data: any) {
   return {
     type: INITIAL_FORM_DATA_SUCCESS,
     payload: data,
   };
 }
 
-export function submit(pidType, data) {
-  return async (dispatch, getState, http) => {
+export function submit(pidType: any, data: any) {
+  return async (dispatch: any, getState: any, http: any) => {
     dispatch(submitRequest());
     try {
       const response = await http.post(`${SUBMISSIONS}/${pidType}`, { data });
@@ -73,8 +73,8 @@ export function submit(pidType, data) {
   };
 }
 
-export function submitUpdate(pidType, pidValue, data) {
-  return async (dispatch, getState, http) => {
+export function submitUpdate(pidType: any, pidValue: any, data: any) {
+  return async (dispatch: any, getState: any, http: any) => {
     dispatch(submitRequest());
     try {
       const response = await http.put(`${SUBMISSIONS}/${pidType}/${pidValue}`, {
@@ -89,8 +89,8 @@ export function submitUpdate(pidType, pidValue, data) {
   };
 }
 
-export function fetchUpdateFormData(pidType, pidValue) {
-  return async (dispatch, getState, http) => {
+export function fetchUpdateFormData(pidType: any, pidValue: any) {
+  return async (dispatch: any, getState: any, http: any) => {
     dispatch(fetchingInitialFormData({ pidValue, pidType }));
     try {
       const response = await http.get(`${SUBMISSIONS}/${pidType}/${pidValue}`);
@@ -102,8 +102,8 @@ export function fetchUpdateFormData(pidType, pidValue) {
   };
 }
 
-export function importExternalLiterature(id) {
-  return async (dispatch, getState, http) => {
+export function importExternalLiterature(id: any) {
+  return async (dispatch: any, getState: any, http: any) => {
     dispatch(fetchingInitialFormData({ id }));
     try {
       const response = await http.get(`/literature/import/${id}`);

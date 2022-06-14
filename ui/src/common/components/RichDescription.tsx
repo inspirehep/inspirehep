@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import SanitizedHTML from 'react-sanitized-html';
 
 const ALLOWED_ATTRIBUTES_BY_TAG = { a: ['href', 'title'] };
@@ -30,6 +31,7 @@ class RichDescription extends Component {
   }
 }
 
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'propTypes' does not exist on type 'typeo... Remove this comment to see the full error message
 RichDescription.propTypes = {
   children: PropTypes.node,
 };

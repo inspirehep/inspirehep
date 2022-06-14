@@ -11,7 +11,7 @@ export const initialState = fromJS({
   excludeSelfCitations: false,
 });
 
-const uiReducer = (state = initialState, action) => {
+const uiReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case UI_CLOSE_BANNER:
       return state.setIn(['closedBannersById', action.payload.id], true);

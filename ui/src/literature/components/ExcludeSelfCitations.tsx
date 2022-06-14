@@ -18,8 +18,8 @@ function ExcludeSelfCitations({
   onChange,
   excluded,
   preference,
-  onPreferenceChange,
-}) {
+  onPreferenceChange
+}: any) {
   useEffect(
     () => {
       onPreferenceChange(preference);
@@ -32,6 +32,7 @@ function ExcludeSelfCitations({
       checked={excluded}
     >
       <LabelWithHelp
+        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
         label="Exclude self-citations"
         help={EXCLUDE_SELF_CITATIONS_HELP}
       />

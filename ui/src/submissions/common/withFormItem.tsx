@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import { Tooltip, Form } from 'antd';
 import { getIn } from 'formik';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'clas... Remove this comment to see the full error message
 import classNames from 'classnames';
 
 import { getWrapperComponentDisplayName } from '../../common/utils';
@@ -20,9 +21,10 @@ export const WRAPPER_COL = {
  *
  * @param FormInputComponent input component to be used as formik's <Field component={...}/>
  */
-export default function withFormItem(FormInputComponent) {
+export default function withFormItem(FormInputComponent: any) {
   class WithFormItem extends Component {
     getWrapperColForOnlyChild() {
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'label' does not exist on type 'Readonly<... Remove this comment to see the full error message
       const { label, labelCol } = this.props;
       if (label && labelCol) {
         return WRAPPER_COL;
@@ -31,6 +33,7 @@ export default function withFormItem(FormInputComponent) {
     }
 
     renderError() {
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'field' does not exist on type 'Readonly<... Remove this comment to see the full error message
       const { field, form } = this.props;
       const { errors } = form;
       const { name } = field;
@@ -44,12 +47,19 @@ export default function withFormItem(FormInputComponent) {
 
     render() {
       const {
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'field' does not exist on type 'Readonly<... Remove this comment to see the full error message
         field,
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'form' does not exist on type 'Readonly<{... Remove this comment to see the full error message
         form,
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'label' does not exist on type 'Readonly<... Remove this comment to see the full error message
         label,
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'suffixText' does not exist on type 'Read... Remove this comment to see the full error message
         suffixText,
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'labelCol' does not exist on type 'Readon... Remove this comment to see the full error message
         labelCol,
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'wrapperCol' does not exist on type 'Read... Remove this comment to see the full error message
         wrapperCol,
+        // @ts-expect-error ts-migrate(2339) FIXME: Property 'onlyChild' does not exist on type 'Reado... Remove this comment to see the full error message
         onlyChild,
         ...props
       } = this.props;
@@ -76,11 +86,13 @@ export default function withFormItem(FormInputComponent) {
     }
   }
 
+  // @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultProps' does not exist on type 'ty... Remove this comment to see the full error message
   WithFormItem.defaultProps = {
     labelCol: LABEL_COL,
     wrapperCol: WRAPPER_COL,
   };
 
+  // @ts-expect-error ts-migrate(2339) FIXME: Property 'displayName' does not exist on type 'typ... Remove this comment to see the full error message
   WithFormItem.displayName = getWrapperComponentDisplayName(
     'WithFormItem',
     FormInputComponent

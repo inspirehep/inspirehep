@@ -12,10 +12,14 @@ const DEFAULT_FORM_DATA = institutionSchema.cast();
 
 const InstitutionSubmission = ({
   onSubmit,
-  error = null,
-}) => {
+  error = null
+}: any) => {
   const onFormikSubmit = useSubmitCallback(onSubmit);
-  const modifyFormData = (formData) => ({...formData, ICN: [formData.identifier], legacy_ICN: formData.identifier});
+  const modifyFormData = (formData: any) => ({
+    ...formData,
+    ICN: [formData.identifier],
+    legacy_ICN: formData.identifier
+  });
 
   return (
     <div>      
@@ -31,6 +35,7 @@ const InstitutionSubmission = ({
           <Formik
             initialValues={DEFAULT_FORM_DATA}
             validationSchema={institutionSchema}
+            // @ts-expect-error ts-migrate(2554) FIXME: Expected 2 arguments, but got 1.
             onSubmit={data => onFormikSubmit(modifyFormData(data))}
             validateOnChange={false}
             component={InstitutionForm}

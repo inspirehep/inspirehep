@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import { hasDayMonthAndYear, hasMonthAndYear } from '../../common/utils';
 
-function getDisplayFormatForDateString(date) {
+function getDisplayFormatForDateString(date: any) {
   if (hasDayMonthAndYear(date)) {
     return 'D MMMM YYYY';
   }
@@ -14,7 +14,10 @@ function getDisplayFormatForDateString(date) {
   return 'YYYY';
 }
 
-function ConferenceDates({ openingDate, closingDate }) {
+function ConferenceDates({
+  openingDate,
+  closingDate
+}: any) {
   if (!openingDate) {
     return null;
   }

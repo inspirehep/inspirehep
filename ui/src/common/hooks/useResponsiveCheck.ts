@@ -16,13 +16,18 @@ const SIZE_TO_MIN_WIDTH = {
   xxl: 1600,
 };
 
-export default function useResponsiveCheck({ min, max }) {
+export default function useResponsiveCheck({
+  min,
+  max
+}: any) {
   const query = {};
   if (min) {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'minWidth' does not exist on type '{}'.
     query.minWidth = SIZE_TO_MIN_WIDTH[min];
   }
 
   if (max) {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'maxWidth' does not exist on type '{}'.
     query.maxWidth = SIZE_TO_MAX_WIDTH[max];
   }
 

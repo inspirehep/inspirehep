@@ -2,7 +2,7 @@ import { fromJS, setIn, isImmutable } from 'immutable';
 import { REDUCERS_TO_PERSISTS } from '../reducers';
 import storage from '../common/storage';
 
-export function getStorageKeyForReducer(reducerName, statePath) {
+export function getStorageKeyForReducer(reducerName: any, statePath: any) {
   let pathString = '';
   if (statePath != null) {
     pathString = `.${statePath.join('.')}`;
@@ -34,7 +34,7 @@ export function reHydrateRootStateFromStorage() {
 }
 
 export function createPersistToStorageMiddleware() {
-  const writeStateToStorage = async (state) => {
+  const writeStateToStorage = async (state: any) => {
     REDUCERS_TO_PERSISTS.forEach(({ name, statePath }) => {
       const key = getStorageKeyForReducer(name, statePath);
       if (statePath == null) {
@@ -49,7 +49,9 @@ export function createPersistToStorageMiddleware() {
     });
   };
 
-  return ({ getState }) => (next) => (action) => {
+  return ({
+    getState
+  }: any) => (next: any) => (action: any) => {
     const result = next(action);
     writeStateToStorage(getState());
     return result;

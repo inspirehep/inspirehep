@@ -8,14 +8,17 @@ import InlineList, {
 import { RANK_VALUE_TO_DISPLAY } from '../../common/constants';
 
 class RanksList extends Component {
-  static renderRank(rank) {
+  static renderRank(rank: any) {
+    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     return RANK_VALUE_TO_DISPLAY[rank];
   }
 
   render() {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'ranks' does not exist on type 'Readonly<... Remove this comment to see the full error message
     const { ranks } = this.props;
     return (
       <InlineList
+        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
         items={ranks}
         renderItem={RanksList.renderRank}
         separator={SEPARATOR_MIDDLEDOT}
@@ -24,10 +27,13 @@ class RanksList extends Component {
   }
 }
 
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'propTypes' does not exist on type 'typeo... Remove this comment to see the full error message
 RanksList.propTypes = {
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof List' is not assignable t... Remove this comment to see the full error message
   ranks: PropTypes.instanceOf(List),
 };
 
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultProps' does not exist on type 'ty... Remove this comment to see the full error message
 RanksList.defaultProps = {
   ranks: null,
 };

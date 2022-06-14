@@ -6,7 +6,7 @@ import SubmitButton from '../../common/components/SubmitButton';
 import SuggesterField from '../../common/components/SuggesterField';
 
 const InstitutionsForm = () => {
-  const getSuggestionSourceLegacyICN = (suggestion) => suggestion._source.legacy_ICN;
+  const getSuggestionSourceLegacyICN = (suggestion: any) => suggestion._source.legacy_ICN;
 
   return (
     <Form className="bg-white pa3">
@@ -25,6 +25,7 @@ const InstitutionsForm = () => {
         </Col>
       </Row>
 
+      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
       <Row type="flex" justify="end">
         <SubmitButton />
       </Row>

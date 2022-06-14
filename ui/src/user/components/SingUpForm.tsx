@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import { Row, Col, Button } from 'antd';
 import { Field, Form, Formik } from 'formik';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'yup'... Remove this comment to see the full error message
 import { object, string } from 'yup';
 
 import TextField from '../../submissions/common/components/TextField';
@@ -15,7 +16,10 @@ const SCHEMA = object().shape({
 
 const FULL_ROW = { span: 24 };
 
-function SingUpForm({ loading, onSubmit }) {
+function SingUpForm({
+  loading,
+  onSubmit
+}: any) {
   const renderForm = useCallback(
     ({ isValid }) => (
       <Form>
@@ -27,6 +31,7 @@ function SingUpForm({ loading, onSubmit }) {
           component={TextField}
           disabled={loading}
         />
+        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
         <Row type="flex" justify="end">
           <Col>
             <Button

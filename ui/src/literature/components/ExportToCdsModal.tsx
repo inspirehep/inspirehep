@@ -3,7 +3,12 @@ import { Modal, Button } from 'antd';
 import PropTypes from 'prop-types';
 import pluralizeUnlessSingle from '../../common/utils';
 
-function ExportToCdsModal({ visible, onCancel, onOk, selectionSize }) {
+function ExportToCdsModal({
+  visible,
+  onCancel,
+  onOk,
+  selectionSize
+}: any) {
   return (
     <Modal
       visible={visible}

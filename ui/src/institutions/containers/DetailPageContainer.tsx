@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
@@ -24,12 +25,15 @@ import InstitutionAddressList from '../components/InstitutionAddressList';
 import AuthorizedContainer from '../../common/containers/AuthorizedContainer';
 import { SUPERUSER_OR_CATALOGER } from '../../common/authorization';
 import { INSTITUTIONS_PID_TYPE } from '../../common/constants';
+// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.tsx' extension.... Remove this comment to see the full error message
 import EditRecordAction from '../../common/components/EditRecordAction.tsx';
 import RelatedRecordsList from '../../common/components/RelatedRecordsList';
 import UrlsAction from '../../literature/components/UrlsAction';
 import DeletedAlert from '../../common/components/DeletedAlert';
 
-function DetailPage({ record }) {
+function DetailPage({
+  record
+}: any) {
   const metadata = record.get('metadata');
 
   const urls = metadata.get('urls');
@@ -53,10 +57,12 @@ function DetailPage({ record }) {
   const deleted = metadata.get('deleted', false);
   return (
     <>
+      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
       <DocumentHead title={legacyIcn} description={metaDescription} />
       <Row justify="center">
         <Col className="mv3" xs={24} md={22} lg={21} xxl={18}>
           <ContentBox
+            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
             className="sm-pb3"
             leftActions={
               <>
@@ -120,6 +126,7 @@ function DetailPage({ record }) {
                   <InstitutionsHistoricalDataList
                     historicalData={historicalData}
                   />
+                  // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                   <PublicNotesList publicNotes={publicNotes} />
                   <RelatedRecordsList
                     relatedRecords={parentInstitutions}
@@ -168,17 +175,19 @@ function DetailPage({ record }) {
 }
 
 DetailPage.propTypes = {
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof Map' is not assignable to... Remove this comment to see the full error message
   record: PropTypes.instanceOf(Map).isRequired,
 };
 
-const mapStateToProps = state => ({
-  record: state.institutions.get('data'),
+const mapStateToProps = (state: any) => ({
+  record: state.institutions.get('data')
 });
 const DetailPageContainer = connect(mapStateToProps)(DetailPage);
 
 export default withRouteActionsDispatcher(DetailPageContainer, {
-  routeParamSelector: ({ id }) => id,
-  routeActions: id => [fetchInstitution(id), newSearch(INSTITUTION_PAPERS_NS)],
-  loadingStateSelector: state =>
-    !state.institutions.hasIn(['data', 'metadata']),
+  routeParamSelector: ({
+    id
+  }: any) => id,
+  routeActions: (id: any) => [fetchInstitution(id), newSearch(INSTITUTION_PAPERS_NS)],
+  loadingStateSelector: (state: any) => !state.institutions.hasIn(['data', 'metadata']),
 });

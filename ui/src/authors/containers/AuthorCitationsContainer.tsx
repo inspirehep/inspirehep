@@ -1,11 +1,14 @@
 import React, { useMemo } from 'react';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import LiteratureSearchContainer from '../../literature/containers/LiteratureSearchContainer';
 import { AUTHOR_CITATIONS_NS } from '../../search/constants';
 
-function AuthorCitations({ authorBai }) {
+function AuthorCitations({
+  authorBai
+}: any) {
   const baseQuery = useMemo(
     () => ({
       q: `refersto a ${authorBai}`,
@@ -28,8 +31,8 @@ AuthorCitations.propTypes = {
   authorBai: PropTypes.string.isRequired,
 };
 
-const stateToProps = state => ({
-  authorBai: state.authors.getIn(['data', 'metadata', 'bai']),
+const stateToProps = (state: any) => ({
+  authorBai: state.authors.getIn(['data', 'metadata', 'bai'])
 });
 
 export default connect(stateToProps)(AuthorCitations);

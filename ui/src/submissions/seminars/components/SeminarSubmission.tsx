@@ -10,7 +10,11 @@ import useSubmitCallback from '../../common/hooks/useSubmitCallback';
 
 const DEFAULT_FORM_DATA = seminarSubmission.cast();
 
-function SeminarSubmission({ onSubmit, initialFormData = {}, error = null }) {
+function SeminarSubmission({
+  onSubmit,
+  initialFormData = {},
+  error = null
+}: any) {
   const initialValues = {
     ...DEFAULT_FORM_DATA,
     ...initialFormData,

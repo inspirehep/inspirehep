@@ -23,26 +23,27 @@ function isStorageAvailable() {
 const storage = {
   isAvailable: isStorageAvailable(),
 
-  getSync(key) {
+  getSync(key: any) {
     // eslint-disable-next-line react/no-this-in-sfc
     if (this.isAvailable) {
       const rawValue = localStorage.getItem(key);
+      // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'string | null' is not assignable... Remove this comment to see the full error message
       return JSON.parse(rawValue);
     }
     return null;
   },
 
-  async get(key) {
+  async get(key: any) {
     return this.getSync(key);
   },
 
-  async set(key, value) {
+  async set(key: any, value: any) {
     if (this.isAvailable) {
       localStorage.setItem(key, JSON.stringify(value));
     }
   },
 
-  async remove(key) {
+  async remove(key: any) {
     if (this.isAvailable) {
       localStorage.removeItem(key);
     }

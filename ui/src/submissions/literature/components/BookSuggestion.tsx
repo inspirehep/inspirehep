@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 class BookSuggestion extends Component {
   render() {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'book' does not exist on type 'Readonly<{... Remove this comment to see the full error message
     const { book } = this.props;
     const { authors, titles } = book;
     const { title } = titles[0];
@@ -20,6 +21,7 @@ class BookSuggestion extends Component {
   }
 }
 
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'propTypes' does not exist on type 'typeo... Remove this comment to see the full error message
 BookSuggestion.propTypes = {
   book: PropTypes.objectOf(PropTypes.any).isRequired,
 };

@@ -1,4 +1,6 @@
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'qs'.... Remove this comment to see the full error message
 import { stringify } from 'qs';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'loda... Remove this comment to see the full error message
 import omit from 'lodash.omit';
 import { replace, push } from 'connected-react-router';
 
@@ -10,12 +12,22 @@ const SORT_AND_PAGINATION_PARAMS = ['sort', 'page', 'size'];
 
 // FIXME: needs better name
 export default class SearchHelper {
+  dispatch: any;
+
+  dueToNavigationToSearchPage: any;
+
+  namespace: any;
+
+  prevState: any;
+
+  state: any;
+
   constructor(
-    namespace,
-    prevState,
-    state,
-    dispatch,
-    dueToNavigationToSearchPage
+    namespace: any,
+    prevState: any,
+    state: any,
+    dispatch: any,
+    dueToNavigationToSearchPage: any
   ) {
     this.namespace = namespace;
     this.prevState = prevState;
@@ -83,6 +95,7 @@ export default class SearchHelper {
   }
 
   getPathname() {
+    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     return NAMESPACE_TO_PATHNAME[this.namespace];
   }
 

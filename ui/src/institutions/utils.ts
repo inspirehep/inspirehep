@@ -1,11 +1,11 @@
 import { List } from 'immutable';
 import { makeCompliantMetaDescription } from '../common/utils';
 
-export function getPapersQueryString(recordId) {
+export function getPapersQueryString(recordId: any) {
   return `affid ${recordId}`;
 }
 
-function getAddressText(address) {
+function getAddressText(address: any) {
   const postalAddresses = address.get('postal_address', List());
   const country = address.get('country');
   const postalAddress = postalAddresses.join(', ');
@@ -14,7 +14,7 @@ function getAddressText(address) {
   return addressText;
 }
 
-function getInstitutionHierarchiesText(hierarchy) {
+function getInstitutionHierarchiesText(hierarchy: any) {
   const name = hierarchy.get('name');
   const acronym = hierarchy.get('acronym');
   const hierarchyElements = [name, acronym ? `(${acronym})` : null];
@@ -23,16 +23,16 @@ function getInstitutionHierarchiesText(hierarchy) {
 }
 
 const ITEM_SEPARATOR = ' and ';
-export function getInstitutionMetaDescription(institution) {
+export function getInstitutionMetaDescription(institution: any) {
   const legacyICNText = institution.get('legacy_ICN');
   const institutionHierarchiesText = institution
     .get('institution_hierarchy', List())
-    .map(hierarchy => getInstitutionHierarchiesText(hierarchy))
+    .map((hierarchy: any) => getInstitutionHierarchiesText(hierarchy))
     .filter(Boolean)
     .join(ITEM_SEPARATOR);
   const addressText = institution
     .get('addresses', List())
-    .map(address => getAddressText(address))
+    .map((address: any) => getAddressText(address))
     .filter(Boolean)
     .join(ITEM_SEPARATOR);
 

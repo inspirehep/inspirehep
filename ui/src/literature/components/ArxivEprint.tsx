@@ -6,6 +6,7 @@ import ArxivEprintLink from './ArxivEprintLink';
 
 class ArxivEprint extends Component {
   render() {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'eprint' does not exist on type 'Readonly... Remove this comment to see the full error message
     const { eprint } = this.props;
     return (
       <span>
@@ -18,7 +19,9 @@ class ArxivEprint extends Component {
   }
 }
 
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'propTypes' does not exist on type 'typeo... Remove this comment to see the full error message
 ArxivEprint.propTypes = {
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof Map' is not assignable to... Remove this comment to see the full error message
   eprint: PropTypes.instanceOf(Map).isRequired,
 };
 

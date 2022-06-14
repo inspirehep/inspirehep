@@ -5,7 +5,11 @@ import { Field, Form, Formik } from 'formik';
 import DocumentHead from '../../common/components/DocumentHead';
 
 class LocalLoginPage extends Component {
-  static renderFormInput({ field, form, ...props }) {
+  static renderFormInput({
+    field,
+    form,
+    ...props
+  }: any) {
     return <Input {...field} {...props} />;
   }
 
@@ -43,11 +47,15 @@ class LocalLoginPage extends Component {
   }
 
   render() {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'onLoginFormSubmit' does not exist on typ... Remove this comment to see the full error message
     const { onLoginFormSubmit } = this.props;
     return (
       <>
+        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
         <DocumentHead title="Login" />
+        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
         <Row className="h-100" type="flex" justify="center" align="middle">
+          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
           <Card align="middle">
             <p>This login page is included only for dev and test environment</p>
             <Formik onSubmit={onLoginFormSubmit} initialValues={{}}>
@@ -60,6 +68,7 @@ class LocalLoginPage extends Component {
   }
 }
 
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'propTypes' does not exist on type 'typeo... Remove this comment to see the full error message
 LocalLoginPage.propTypes = {
   onLoginFormSubmit: PropTypes.func.isRequired,
 };

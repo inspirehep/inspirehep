@@ -3,12 +3,15 @@ import PropTypes from 'prop-types';
 import { LoadingOutlined } from '@ant-design/icons';
 
 import EventTracker from '../EventTracker';
+// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.tsx' extension.... Remove this comment to see the full error message
 import FormattedNumber from '../FormattedNumber.tsx';
 
 class TabNameWithCount extends Component {
   render() {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'name' does not exist on type 'Readonly<{... Remove this comment to see the full error message
     const { name, loading, count } = this.props;
     return (
+      // @ts-expect-error ts-migrate(2322) FIXME: Type '{ children: Element; eventId: string; }' is ... Remove this comment to see the full error message
       <EventTracker eventId={`${name}-Tab`}>
         <span>
           <span>{name}</span>
@@ -31,12 +34,14 @@ class TabNameWithCount extends Component {
   }
 }
 
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'propTypes' does not exist on type 'typeo... Remove this comment to see the full error message
 TabNameWithCount.propTypes = {
   name: PropTypes.string.isRequired,
   loading: PropTypes.bool,
   count: PropTypes.number,
 };
 
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultProps' does not exist on type 'ty... Remove this comment to see the full error message
 TabNameWithCount.defaultProps = {
   count: null,
   loading: false,

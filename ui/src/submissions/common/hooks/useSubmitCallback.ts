@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import cleanupFormData from '../cleanupFormData';
 import useIsMounted from '../../../common/hooks/useIsMounted';
 
-export default function useSubmitCallback(onSubmit) {
+export default function useSubmitCallback(onSubmit: any) {
   const isMounted = useIsMounted();
   const onFormikSubmit = useCallback(
     async (values, actions) => {

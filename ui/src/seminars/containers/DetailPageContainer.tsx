@@ -1,4 +1,5 @@
 import React from 'react';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
@@ -8,6 +9,7 @@ import { VideoCameraAddOutlined, FileOutlined } from '@ant-design/icons';
 import DocumentHead from '../../common/components/DocumentHead';
 import fetchSeminar from '../../actions/seminars';
 import ContentBox from '../../common/components/ContentBox';
+// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.tsx' extension.... Remove this comment to see the full error message
 import EditRecordAction from '../../common/components/EditRecordAction.tsx';
 import DeletedAlert from '../../common/components/DeletedAlert';
 import withRouteActionsDispatcher from '../../common/withRouteActionsDispatcher';
@@ -30,7 +32,9 @@ import ExportToCalendarAction from '../components/ExportToCalendarAction/ExportT
 import UrlsAction from '../../literature/components/UrlsAction';
 import LiteratureRecordsList from '../components/LiteratureRecordsList';
 
-function DetailPage({ record }) {
+function DetailPage({
+  record
+}: any) {
   const metadata = record.get('metadata');
   const title = metadata.get('title');
   const recordId = metadata.get('control_number');
@@ -53,17 +57,39 @@ function DetailPage({ record }) {
   const captioned = metadata.get('captioned');
   const materialUrls = metadata.get('material_urls');
 
+  const authorListProps = {
+    authors: speakers
+  }
+
+  const abstractProps = {
+    abstract
+  }
+
+  const contactsProps = {
+    contacts
+  }
+
+  const publicNotesProps = {
+    publicNotes
+  }
+
+  const keywordsProps = {
+    keywords
+  }
+  
   return (
     <>
       <DocumentHead
+        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
         title={title.get('title')}
         description={makeCompliantMetaDescription(
           abstract && abstract.get('value')
         )}
       />
-      <Row type="flex" justify="center">
+      <Row justify="center">
         <Col className="mv3" xs={24} md={22} lg={21} xxl={18}>
           <ContentBox
+            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
             className="sm-pb3"
             leftActions={
               <>
@@ -101,7 +127,7 @@ function DetailPage({ record }) {
             </Row>
             <Row>
               <Col>
-                <AuthorList authors={speakers} />
+                <AuthorList {...authorListProps} />
               </Col>
             </Row>
             <Row>
@@ -139,6 +165,7 @@ function DetailPage({ record }) {
                 <Col>
                   <InspireCategoryList
                     categories={inspireCategories}
+                    // @ts-expect-error ts-migrate(2322) FIXME: Type '{ categories: any; wrapperClassName: string;... Remove this comment to see the full error message
                     wrapperClassName="di"
                   />
                 </Col>
@@ -147,7 +174,7 @@ function DetailPage({ record }) {
             {abstract && (
               <Row className="mt2">
                 <Col>
-                  <Abstract abstract={abstract} />
+                  <Abstract {...abstractProps} />
                 </Col>
               </Row>
             )}
@@ -163,6 +190,7 @@ function DetailPage({ record }) {
                 <Col>
                   <LiteratureRecordsList
                     literatureRecords={literatureRecords}
+                    // @ts-expect-error ts-migrate(2322) FIXME: Type '{ literatureRecords: any; wrapperClassName: ... Remove this comment to see the full error message
                     wrapperClassName="di"
                   />
                 </Col>
@@ -176,21 +204,21 @@ function DetailPage({ record }) {
             {contacts && (
               <Row className="mt2">
                 <Col>
-                  <ContactList contacts={contacts} />
+                  <ContactList {...contactsProps} />
                 </Col>
               </Row>
             )}
             {publicNotes && (
               <Row className="mt2">
                 <Col>
-                  <PublicNotesList publicNotes={publicNotes} />
+                  <PublicNotesList {...publicNotesProps} />
                 </Col>
               </Row>
             )}
             {keywords && (
               <Row className="mt2">
                 <Col>
-                  <KeywordList keywords={keywords} />
+                  <KeywordList {...keywordsProps} />
                 </Col>
               </Row>
             )}
@@ -202,16 +230,19 @@ function DetailPage({ record }) {
 }
 
 DetailPage.propTypes = {
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof Map' is not assignable to... Remove this comment to see the full error message
   record: PropTypes.instanceOf(Map).isRequired,
 };
 
-const mapStateToProps = state => ({
-  record: state.seminars.get('data'),
+const mapStateToProps = (state: any) => ({
+  record: state.seminars.get('data')
 });
 const DetailPageContainer = connect(mapStateToProps)(DetailPage);
 
 export default withRouteActionsDispatcher(DetailPageContainer, {
-  routeParamSelector: ({ id }) => id,
-  routeActions: id => [fetchSeminar(id)],
-  loadingStateSelector: state => !state.seminars.hasIn(['data', 'metadata']),
+  routeParamSelector: ({
+    id
+  }: any) => id,
+  routeActions: (id: any) => [fetchSeminar(id)],
+  loadingStateSelector: (state: any) => !state.seminars.hasIn(['data', 'metadata']),
 });

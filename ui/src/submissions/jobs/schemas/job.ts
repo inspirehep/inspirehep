@@ -1,3 +1,4 @@
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'yup'... Remove this comment to see the full error message
 import { string, object, array, mixed } from 'yup';
 import moment from 'moment';
 
@@ -8,10 +9,11 @@ import date from '../../common/schemas/date';
 import OR from '../../common/schemas/OR';
 import { DATE_RANGE_FORMAT } from '../../../common/constants';
 
-export function isValidDeadlineDate(value) {
+export function isValidDeadlineDate(value: any) {
   const dateValue = value instanceof moment ? value : moment(value);
   const now = moment();
   const nextYear = moment().add({ years: 1 });
+  // @ts-expect-error ts-migrate(2339) FIXME: Property 'isAfter' does not exist on type '{}'.
   return dateValue.isAfter(now) && dateValue.isBefore(nextYear);
 }
 

@@ -39,7 +39,7 @@ const FORMS_BY_DOC_TYPE = {
 };
 const ALLOWED_DOC_TYPES = Object.keys(FORMS_BY_DOC_TYPE);
 
-function fallbackToArticleIfNotAllowed(docType) {
+function fallbackToArticleIfNotAllowed(docType: any) {
   const isAllowed = ALLOWED_DOC_TYPES.some(
     allowedDocType => docType === allowedDocType
   );
@@ -50,13 +50,14 @@ function LiteratureSubmission({
   error = null,
   docType,
   initialFormData = null,
-  onSubmit,
-}) {
+  onSubmit
+}: any) {
   const normalizedDocType = useMemo(
     () => fallbackToArticleIfNotAllowed(docType),
     [docType]
   );
 
+  // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   const { component, schema, defaultData } = FORMS_BY_DOC_TYPE[
     normalizedDocType
   ];
@@ -76,6 +77,7 @@ function LiteratureSubmission({
         }
       } catch (yupErrors) {
         const errors = yupToFormErrors(yupErrors);
+        // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'FormikErrors<unknown>' is not as... Remove this comment to see the full error message
         setInitialErrors(errors);
       }
     },

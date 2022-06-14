@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { Route, Redirect } from 'react-router-dom';
 
 import {
@@ -36,6 +37,7 @@ class Submissions extends Component {
   render() {
     return (
       <>
+        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
         <DocumentHead title="Submit" />
         <div className="w-100">
           <SafeSwitch>

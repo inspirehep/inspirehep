@@ -1,4 +1,5 @@
 import { LOCATION_CHANGE } from 'connected-react-router';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'qs'.... Remove this comment to see the full error message
 import { stringify } from 'qs';
 
 import {
@@ -10,7 +11,7 @@ import { SEARCHABLE_COLLECTION_PATHNAMES } from '../search/constants';
 import { getRootOfLocationPathname } from '../common/utils';
 
 const idInUrlRegExp = new RegExp('/\\d+');
-function isSearchPage(location) {
+function isSearchPage(location: any) {
   const isCollectionPage = SEARCHABLE_COLLECTION_PATHNAMES.some(pathname =>
     location.pathname.startsWith(pathname)
   );
@@ -18,11 +19,11 @@ function isSearchPage(location) {
   return isCollectionPage && !idInUrlRegExp.test(location.pathname);
 }
 
-function removeUiParam(param, value) {
+function removeUiParam(param: any, value: any) {
   return param.startsWith('ui-') ? undefined : value;
 }
 
-function isLocationSyncedWithSearchQuery(namespace, state) {
+function isLocationSyncedWithSearchQuery(namespace: any, state: any) {
   const {
     search,
     router: { location },
@@ -40,8 +41,11 @@ function isLocationSyncedWithSearchQuery(namespace, state) {
 }
 
 // FIXME: this can be moved to reducer?
-export default function({ dispatch, getState }) {
-  return next => action => {
+export default function({
+  dispatch,
+  getState
+}: any) {
+  return (next: any) => (action: any) => {
     if (action.type === LOCATION_CHANGE) {
       const prevState = getState();
       const prevLocation = prevState.router.location;

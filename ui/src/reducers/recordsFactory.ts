@@ -7,13 +7,13 @@ export const initialState = fromJS({
   error: null,
 });
 
-export const onRequest = state => state.set('loading', true);
-export const onSuccess = (state, action) =>
+export const onRequest = (state: any) => state.set('loading', true);
+export const onSuccess = (state: any, action: any) =>
   state
     .set('loading', false)
     .set('data', fromJS(action.payload))
     .set('error', initialState.get('error'));
-export const onError = (state, action) =>
+export const onError = (state: any, action: any) =>
   state
     .set('loading', false)
     .set('error', fromJS(action.payload.error))
@@ -22,9 +22,9 @@ export const onError = (state, action) =>
 export default function generateRecordFetchReducer({
   fetchingActionActionType,
   fecthSuccessActionType,
-  fetchErrorActionType,
-}) {
-  const reducer = (state = initialState, action) => {
+  fetchErrorActionType
+}: any) {
+  const reducer = (state = initialState, action: any) => {
     switch (action.type) {
       case CLEAR_STATE:
         return initialState;

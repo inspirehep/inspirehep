@@ -11,7 +11,10 @@ import {
   DATE_RANGE_FORMAT,
 } from '../constants';
 
-function DateRangeFilter({ onChange, range = '' }) {
+function DateRangeFilter({
+  onChange,
+  range = ''
+}: any) {
   const [startDate = '', endDate = ''] = useMemo(
     () => range.split(RANGE_AGGREGATION_SELECTION_SEPARATOR),
     [range]

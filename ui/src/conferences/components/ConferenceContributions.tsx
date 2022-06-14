@@ -5,7 +5,9 @@ import LiteratureSearchContainer from '../../literature/containers/LiteratureSea
 import { CONFERENCE_CONTRIBUTIONS_NS } from '../../search/constants';
 import { getContributionsQueryString } from '../utils';
 
-function ConferenceContributions({ conferenceRecordId }) {
+function ConferenceContributions({
+  conferenceRecordId
+}: any) {
   const baseQuery = useMemo(
     () => ({
       q: getContributionsQueryString(conferenceRecordId),

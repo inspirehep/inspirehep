@@ -9,9 +9,10 @@ const EXAMPLES = [
   '1207.7214',
 ];
 
-function renderExample(freetextSearch) {
+function renderExample(freetextSearch: any) {
   return (
     <div key={freetextSearch}>
+      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
       <LinkWithEncodedLiteratureQuery query={freetextSearch} />
     </div>
   );

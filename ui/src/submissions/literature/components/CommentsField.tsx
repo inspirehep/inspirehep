@@ -12,6 +12,7 @@ class CommentsField extends Component {
         name="comments"
         label={
           <LabelWithHelp
+            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
             label={
               <Tooltip title="Why is this content relevant to INSPIRE?">
                 Comments

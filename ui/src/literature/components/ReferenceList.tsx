@@ -15,14 +15,15 @@ function ReferenceList({
   error,
   loading,
   onQueryChange,
-  query,
-}) {
+  query
+}: any) {
   const renderReferenceItem = useCallback(
     (reference, index) => (
       // reference data model doesn't have any identifier, thus we have hack for `key`
       // FIXME: find an proper key for reference item as index might cause bugs
       <ReferenceItem
         key={reference.getIn(['titles', 0, 'title']) || String(index)}
+        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
         reference={reference}
       />
     ),
@@ -42,6 +43,7 @@ function ReferenceList({
     () =>
       total > 0 && (
         <ListWithPagination
+          // @ts-expect-error ts-migrate(2322) FIXME: Type '{ renderItem: (reference: any, index: any) =... Remove this comment to see the full error message
           renderItem={renderReferenceItem}
           pageItems={references}
           onPageChange={onPageChange}
@@ -63,8 +65,11 @@ function ReferenceList({
   );
 
   return (
+    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
     <ContentBox loading={loading}>
+      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
       <ErrorAlertOrChildren error={error}>
+        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
         <EmptyOrChildren data={references} title="0 References">
           {renderList()}
         </EmptyOrChildren>
@@ -74,6 +79,7 @@ function ReferenceList({
 }
 ReferenceList.propTypes = {
   total: PropTypes.number.isRequired,
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof List' is not assignable t... Remove this comment to see the full error message
   references: PropTypes.instanceOf(List).isRequired,
   error: ErrorPropType,
   loading: PropTypes.bool.isRequired,

@@ -4,7 +4,9 @@ import { fromJS } from 'immutable';
 
 import LiteratureDocumentHead from '../LiteratureDocumentHead';
 
+// @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
 describe('LiteratureDocumentHead', () => {
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('renders with only title', () => {
     const wrapper = shallow(
       <LiteratureDocumentHead
@@ -17,9 +19,11 @@ describe('LiteratureDocumentHead', () => {
         created="2019-01-16T00:00:00+00:00"
       />
     );
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(wrapper).toMatchSnapshot();
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('renders full literature', () => {
     const metadata = fromJS({
       abstracts: [
@@ -55,6 +59,7 @@ describe('LiteratureDocumentHead', () => {
         created="2019-01-16T00:00:00+00:00"
       />
     );
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(wrapper).toMatchSnapshot();
   });
 });

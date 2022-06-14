@@ -3,14 +3,16 @@ import PropTypes from 'prop-types';
 import { AutoComplete } from 'antd';
 import debounce from 'lodash.debounce';
 
+// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.ts' extension. ... Remove this comment to see the full error message
 import http, { isCancelError } from '../http.ts';
 
 export const REQUEST_DEBOUNCE_MS = 250;
 
 class Suggester extends Component {
-  constructor(props) {
+  constructor(props: any) {
     super(props);
 
+    // @ts-expect-error ts-migrate(2322) FIXME: Type 'DebouncedFunc<(value: any) => Promise<void>>... Remove this comment to see the full error message
     this.onSearch = debounce(this.onSearch.bind(this), REQUEST_DEBOUNCE_MS);
     this.onSuggestionSelect = this.onSuggestionSelect.bind(this);
     this.state = {
@@ -18,12 +20,13 @@ class Suggester extends Component {
     };
   }
 
-  async onSearch(value) {
+  async onSearch(value: any) {
     if (!value) {
       this.setState({ results: [] });
       return;
     }
 
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'pidType' does not exist on type 'Readonl... Remove this comment to see the full error message
     const { pidType, suggesterName, searchAsYouType } = this.props;
     const endpoint = searchAsYouType ? '_search_as_you_type' : '_suggest';
     const urlWithQuery = `/${pidType}/${endpoint}?${suggesterName}=${value}`;
@@ -40,9 +43,14 @@ class Suggester extends Component {
   }
 
   onSuggestionSelect(
-    _,
-    { suggestion, value: uniqueItemValue, completionValue }
+    _: any,
+    {
+      suggestion,
+      value: uniqueItemValue,
+      completionValue
+    }: any
   ) {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'onSelect' does not exist on type 'Readon... Remove this comment to see the full error message
     const { onSelect, onChange } = this.props;
 
     if (uniqueItemValue !== completionValue) {
@@ -54,19 +62,24 @@ class Suggester extends Component {
     }
   }
 
-  responseDataToResults(responseData) {
+  responseDataToResults(responseData: any) {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'suggesterName' does not exist on type 'R... Remove this comment to see the full error message
     const { suggesterName } = this.props;
     return responseData[suggesterName][0].options;
   }
 
   renderSuggestions() {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'results' does not exist on type 'Readonl... Remove this comment to see the full error message
     const { results } = this.state;
     const {
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'renderResultItem' does not exist on type... Remove this comment to see the full error message
       renderResultItem,
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'extractUniqueItemValue' does not exist o... Remove this comment to see the full error message
       extractUniqueItemValue,
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'extractItemCompletionValue' does not exi... Remove this comment to see the full error message
       extractItemCompletionValue,
     } = this.props;
-    return results.map((result) => {
+    return results.map((result: any) => {
       const uniqueValue = extractUniqueItemValue(result);
       const completionValue = extractItemCompletionValue
         ? extractItemCompletionValue(result)
@@ -86,11 +99,17 @@ class Suggester extends Component {
 
   render() {
     const {
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'renderResultItem' does not exist on type... Remove this comment to see the full error message
       renderResultItem,
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'extractItemCompletionValue' does not exi... Remove this comment to see the full error message
       extractItemCompletionValue,
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'extractUniqueItemValue' does not exist o... Remove this comment to see the full error message
       extractUniqueItemValue,
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'suggesterName' does not exist on type 'R... Remove this comment to see the full error message
       suggesterName,
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'pidType' does not exist on type 'Readonl... Remove this comment to see the full error message
       pidType,
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'onSelect' does not exist on type 'Readon... Remove this comment to see the full error message
       onSelect,
       ...autoCompleteProps
     } = this.props;
@@ -106,6 +125,7 @@ class Suggester extends Component {
   }
 }
 
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'propTypes' does not exist on type 'typeo... Remove this comment to see the full error message
 Suggester.propTypes = {
   // also accepts other antd.AutoComplete props
   pidType: PropTypes.string.isRequired,
@@ -116,8 +136,9 @@ Suggester.propTypes = {
   searchAsYouType: PropTypes.bool,
 };
 
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultProps' does not exist on type 'ty... Remove this comment to see the full error message
 Suggester.defaultProps = {
-  extractUniqueItemValue: (resultItem) => resultItem.text,
+  extractUniqueItemValue: (resultItem: any) => resultItem.text,
   searchAsYouType: false,
 };
 export default Suggester;

@@ -10,6 +10,7 @@ import LinkedAuthor from './LinkedAuthor';
 
 class Author extends Component {
   renderRoleSuffix() {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'author' does not exist on type 'Readonly... Remove this comment to see the full error message
     const { author } = this.props;
     const roles = author.get('inspire_roles', []);
 
@@ -21,12 +22,14 @@ class Author extends Component {
   }
 
   renderAffiliationsList() {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'author' does not exist on type 'Readonly... Remove this comment to see the full error message
     const { author } = this.props;
     const affiliations = author.get('affiliations');
     return (
       affiliations && (
         <span className="pl1 secondary-color">
           (
+          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
           <AffiliationList affiliations={affiliations} />
           )
         </span>
@@ -35,6 +38,7 @@ class Author extends Component {
   }
 
   renderAuthorName() {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'author' does not exist on type 'Readonly... Remove this comment to see the full error message
     const { author } = this.props;
     if (author.has('record')) {
       return <LinkedAuthor author={author} />;
@@ -56,7 +60,9 @@ class Author extends Component {
   }
 }
 
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'propTypes' does not exist on type 'typeo... Remove this comment to see the full error message
 Author.propTypes = {
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof Map' is not assignable to... Remove this comment to see the full error message
   author: PropTypes.instanceOf(Map).isRequired,
 };
 

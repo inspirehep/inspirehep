@@ -1,3 +1,4 @@
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'qs'.... Remove this comment to see the full error message
 import { stringify } from 'qs';
 import { ExportOutlined } from '@ant-design/icons';
 
@@ -12,11 +13,12 @@ import {
   MAX_CITEABLE_RECORDS,
   CITE_FILE_FORMAT,
 } from '../constants';
+// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.ts' extension. ... Remove this comment to see the full error message
 import http from '../../common/http.ts';
 import { downloadTextAsFile } from '../../common/utils';
 
 class CiteAllAction extends Component {
-  constructor(props) {
+  constructor(props: any) {
     super(props);
     this.onCiteClick = this.onCiteClick.bind(this);
     this.state = {
@@ -24,7 +26,10 @@ class CiteAllAction extends Component {
     };
   }
 
-  async onCiteClick({ key }) {
+  async onCiteClick({
+    key
+  }: any) {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'query' does not exist on type 'Readonly<... Remove this comment to see the full error message
     const { query } = this.props;
     const citeQuery = {
       ...query,
@@ -42,7 +47,9 @@ class CiteAllAction extends Component {
       this.setState({ loading: false });
       downloadTextAsFile(
         response.data,
+        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         `INSPIRE-CiteAll.${CITE_FILE_FORMAT[key].extension}`,
+        // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
         CITE_FILE_FORMAT[key].mimetype
       );
     } catch (error) {
@@ -50,7 +57,8 @@ class CiteAllAction extends Component {
     }
   }
 
-  renderDropdownTitle(disabled) {
+  renderDropdownTitle(disabled: any) {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'loading' does not exist on type 'Readonl... Remove this comment to see the full error message
     const { loading } = this.state;
     return (
       <Tooltip
@@ -61,6 +69,7 @@ class CiteAllAction extends Component {
         }
       >
         <Button loading={loading} disabled={disabled}>
+          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
           <IconText text="cite all" icon={<ExportOutlined />} />
         </Button>
       </Tooltip>
@@ -68,11 +77,13 @@ class CiteAllAction extends Component {
   }
 
   render() {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'numberOfResults' does not exist on type ... Remove this comment to see the full error message
     const { numberOfResults } = this.props;
     const disabled = numberOfResults > MAX_CITEABLE_RECORDS;
     return (
       <ListItemAction>
         <DropdownMenu
+          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
           disabled={disabled}
           onClick={this.onCiteClick}
           title={this.renderDropdownTitle(disabled)}
@@ -86,6 +97,7 @@ class CiteAllAction extends Component {
   }
 }
 
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'propTypes' does not exist on type 'typeo... Remove this comment to see the full error message
 CiteAllAction.propTypes = {
   numberOfResults: PropTypes.number.isRequired,
   query: PropTypes.object.isRequired,

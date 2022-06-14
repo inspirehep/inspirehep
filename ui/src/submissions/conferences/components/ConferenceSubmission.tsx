@@ -10,7 +10,10 @@ import useSubmitCallback from '../../common/hooks/useSubmitCallback';
 
 const DEFAULT_FORM_DATA = conferenceSchema.cast();
 
-function ConferenceSubmission({ onSubmit, error = null }) {
+function ConferenceSubmission({
+  onSubmit,
+  error = null
+}: any) {
   const onFormikSubmit = useSubmitCallback(onSubmit);
   return (
     <div>

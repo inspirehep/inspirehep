@@ -13,7 +13,7 @@ export const initialState = fromJS({
   error: null,
 });
 
-const bibliographyGeneratorReducer = (state = initialState, action) => {
+const bibliographyGeneratorReducer = (state = initialState, action: any) => {
   const { payload } = action;
   const { data, error, errors } = payload || {};
   switch (action.type) {

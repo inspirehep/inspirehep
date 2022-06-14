@@ -7,8 +7,11 @@ import CitationSummaryGraphContainer from '../../common/containers/CitationSumma
 import CitationSummaryTableContainer from '../../common/containers/CitationSummaryTableContainer';
 import ExcludeSelfCitationsContainer from '../containers/ExcludeSelfCitationsContainer';
 
-function CitationSummaryBox({ namespace }) {
+function CitationSummaryBox({
+  namespace
+}: any) {
   return (
+    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
     <ContentBox subTitle="Citation Summary">
       <ExcludeSelfCitationsContainer namespace={namespace} />
 

@@ -5,7 +5,7 @@ import storage from '../../storage';
 const STORAGE_KEY = 'search-box-history';
 const HISTORY_LIMIT = 25;
 
-function runWhenIdle(task) {
+function runWhenIdle(task: any) {
   if ('requestIdleCallback' in window) {
     window.requestIdleCallback(
       () => {
@@ -19,18 +19,19 @@ function runWhenIdle(task) {
   }
 }
 
-export function persistHistory(history) {
+export function persistHistory(history: any) {
   runWhenIdle(async () => {
     await storage.set(STORAGE_KEY, history);
   });
 }
 
-export function readHistory(callback) {
+export function readHistory(callback: any) {
   return runWhenIdle(async () => {
     const historyFromStorage = (await storage.get(STORAGE_KEY)) || {};
 
     const history = {};
     SEARCH_BOX_NAMESPACES.forEach(namespace => {
+      // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
       history[namespace] = new LRASet(
         historyFromStorage[namespace],
         HISTORY_LIMIT

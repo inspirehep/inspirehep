@@ -13,6 +13,7 @@ class LinkFields extends Component {
           name="pdf_link"
           label={
             <LabelWithHelp
+              // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
               label={
                 <Tooltip title="Where can we find a PDF to check the references?">
                   Link to PDF
@@ -28,6 +29,7 @@ class LinkFields extends Component {
           name="additional_link"
           label={
             <LabelWithHelp
+              // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
               label={
                 <Tooltip title="Link to additional information (eg. abstract): Which page should we link from INSPIRE?">
                   Link to additional info

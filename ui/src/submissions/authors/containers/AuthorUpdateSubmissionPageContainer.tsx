@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { connect } from 'react-redux';
 import { Map } from 'immutable';
 
@@ -15,11 +16,11 @@ import ErrorAlertOrChildren from '../../../common/components/ErrorAlertOrChildre
 import { isCataloger } from '../../../common/authorization';
 
 class AuthorUpdateSubmissionPage extends Component {
-  static getRecordIdFromProps(props) {
+  static getRecordIdFromProps(props: any) {
     return props.match.params.id;
   }
 
-  constructor(props) {
+  constructor(props: any) {
     super(props);
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -28,7 +29,7 @@ class AuthorUpdateSubmissionPage extends Component {
     this.dispatch(fetchUpdateFormData(AUTHORS_PID_TYPE, this.recordId));
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: any) {
     const prevRecordId = AuthorUpdateSubmissionPage.getRecordIdFromProps(
       prevProps
     );
@@ -37,13 +38,14 @@ class AuthorUpdateSubmissionPage extends Component {
     }
   }
 
-  async onSubmit(formData) {
+  async onSubmit(formData: any) {
     await this.dispatch(
       submitUpdate(AUTHORS_PID_TYPE, this.recordId, formData)
     );
   }
 
   get dispatch() {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'dispatch' does not exist on type 'Readon... Remove this comment to see the full error message
     const { dispatch } = this.props;
     return dispatch;
   }
@@ -54,10 +56,15 @@ class AuthorUpdateSubmissionPage extends Component {
 
   render() {
     const {
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'error' does not exist on type 'Readonly<... Remove this comment to see the full error message
       error,
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'updateFormData' does not exist on type '... Remove this comment to see the full error message
       updateFormData,
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'loadingUpdateFormData' does not exist on... Remove this comment to see the full error message
       loadingUpdateFormData,
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'updateFormDataError' does not exist on t... Remove this comment to see the full error message
       updateFormDataError,
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'isCatalogerLoggedIn' does not exist on t... Remove this comment to see the full error message
       isCatalogerLoggedIn,
     } = this.props;
     return (
@@ -70,7 +77,9 @@ class AuthorUpdateSubmissionPage extends Component {
           </span>
         }
       >
+        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
         <LoadingOrChildren loading={loadingUpdateFormData}>
+          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
           <ErrorAlertOrChildren error={updateFormDataError}>
             <AuthorSubmission
               // TODO: use composition reduce or react-redux hook API to avoid prop-drilling
@@ -88,25 +97,31 @@ class AuthorUpdateSubmissionPage extends Component {
   }
 }
 
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'propTypes' does not exist on type 'typeo... Remove this comment to see the full error message
 AuthorUpdateSubmissionPage.propTypes = {
   match: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
   isCatalogerLoggedIn: PropTypes.bool.isRequired,
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof Map' is not assignable to... Remove this comment to see the full error message
   error: PropTypes.instanceOf(Map),
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof Map' is not assignable to... Remove this comment to see the full error message
   updateFormData: PropTypes.instanceOf(Map),
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof Map' is not assignable to... Remove this comment to see the full error message
   updateFormDataError: PropTypes.instanceOf(Map),
   loadingUpdateFormData: PropTypes.bool.isRequired,
 };
 
-const stateToProps = state => ({
+const stateToProps = (state: any) => ({
   error: state.submissions.get('submitError'),
   isCatalogerLoggedIn: isCataloger(state.user.getIn(['data', 'roles'])),
   updateFormData: state.submissions.get('initialData'),
   updateFormDataError: state.submissions.get('initialDataError'),
-  loadingUpdateFormData: state.submissions.get('loadingInitialData'),
+  loadingUpdateFormData: state.submissions.get('loadingInitialData')
 });
 
-const dispatchToProps = dispatch => ({ dispatch });
+const dispatchToProps = (dispatch: any) => ({
+  dispatch
+});
 
 export default connect(stateToProps, dispatchToProps)(
   AuthorUpdateSubmissionPage

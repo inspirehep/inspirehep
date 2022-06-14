@@ -12,8 +12,8 @@ const DEFAULT_FORM_DATA = experimentSchema.cast();
 
 const ExperimentSubmission = ({
   onSubmit,
-  error = null,
-}) => {
+  error = null
+}: any) => {
   const onFormikSubmit = useSubmitCallback(onSubmit);
   return (
     <div>

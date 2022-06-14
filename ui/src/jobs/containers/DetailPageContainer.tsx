@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { connect } from 'react-redux';
 import { Row, Col } from 'antd';
 import { Map } from 'immutable';
@@ -10,6 +11,7 @@ import RichDescription from '../../common/components/RichDescription';
 import DateFromNow from '../components/DateFromNow';
 import ArxivCategoryList from '../../common/components/ArxivCategoryList';
 import ExperimentList from '../../common/components/ExperimentList';
+// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.tsx' extension.... Remove this comment to see the full error message
 import EditRecordAction from '../../common/components/EditRecordAction.tsx';
 import RegionsList from '../components/RegionsList';
 import InstitutionsList from '../components/InstitutionsList';
@@ -30,7 +32,9 @@ import { makeCompliantMetaDescription } from '../../common/utils';
 import withRouteActionsDispatcher from '../../common/withRouteActionsDispatcher';
 import RequireOneOf from '../../common/components/RequireOneOf';
 
-function DetailPage({ record }) {
+function DetailPage({
+  record
+}: any) {
   const metadata = record.get('metadata');
   const created = record.get('created');
   const updated = record.get('updated');
@@ -55,10 +59,13 @@ function DetailPage({ record }) {
 
   return (
     <>
+      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
       <DocumentHead title={position} description={metaDescription} />
+      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
       <Row type="flex" justify="center">
         <Col className="mt3" xs={24} md={21} lg={19} xl={18}>
           <ContentBox
+            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
             leftActions={
               canEdit && (
                 <EditRecordAction pidType="jobs" pidValue={controlNumber} />
@@ -70,12 +77,14 @@ function DetailPage({ record }) {
             </Row>
             <Row>
               <Col span={24}>
+                // @ts-expect-error ts-migrate(2786) FIXME: 'JobStatusAlert' cannot be used as a JSX component... Remove this comment to see the full error message
                 <JobStatusAlert status={status} />
               </Col>
             </Row>
             <Row>
               <Col>
                 <h2>
+                  // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                   <JobTitle position={position} externalJobId={externalJobId} />
                 </h2>
               </Col>
@@ -83,10 +92,13 @@ function DetailPage({ record }) {
             <RequireOneOf dependencies={[institutions, regions]}>
               <Row className="mt1">
                 <Col>
+                  // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                   <InlineUL separator={SEPARATOR_MIDDLEDOT}>
                     {institutions && (
+                      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                       <InstitutionsList institutions={institutions} />
                     )}
+                    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                     <RegionsList regions={regions} />
                   </InlineUL>
                 </Col>
@@ -96,15 +108,19 @@ function DetailPage({ record }) {
               <Row className="mt2">
                 <Col>
                   <ArxivCategoryList
+                    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                     arxivCategories={arxivCategories}
                     wrapperClassName="di"
                   />
                   <InlineUL
+                    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                     separator={SEPARATOR_MIDDLEDOT}
                     wrapperClassName="di"
                   >
+                    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                     {ranks && <RanksList ranks={ranks} />}
                     {experiments && (
+                      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                       <ExperimentList experiments={experiments} />
                     )}
                   </InlineUL>
@@ -113,6 +129,7 @@ function DetailPage({ record }) {
             </RequireOneOf>
             <Row className="mt3">
               <Col>
+                // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                 <DeadlineDate deadlineDate={deadlineDate} />
               </Col>
             </Row>
@@ -124,14 +141,20 @@ function DetailPage({ record }) {
             </Row>
             <Row className="mt4">
               <Col>
+                // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                 <ContactList contacts={contacts} />
+                // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                 <ReferenceLettersContacts referenceLetters={referenceLetters} />
+                // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                 <MoreInfo urls={urls} />
               </Col>
             </Row>
+            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
             <Row type="flex" justify="end">
               <Col>
+                // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                 Posted <DateFromNow date={created} />, updated{' '}
+                // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                 <DateFromNow date={updated} />
               </Col>
             </Row>
@@ -143,18 +166,21 @@ function DetailPage({ record }) {
 }
 
 DetailPage.propTypes = {
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof Map' is not assignable to... Remove this comment to see the full error message
   record: PropTypes.instanceOf(Map).isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: any) => ({
   loading: state.jobs.get('loading'),
-  record: state.jobs.get('data'),
+  record: state.jobs.get('data')
 });
 
 const DetailPageContainer = connect(mapStateToProps)(DetailPage);
 
 export default withRouteActionsDispatcher(DetailPageContainer, {
-  routeParamSelector: ({ id }) => id,
-  routeActions: id => [fetchJob(id)],
-  loadingStateSelector: state => !state.jobs.hasIn(['data', 'metadata']),
+  routeParamSelector: ({
+    id
+  }: any) => id,
+  routeActions: (id: any) => [fetchJob(id)],
+  loadingStateSelector: (state: any) => !state.jobs.hasIn(['data', 'metadata']),
 });

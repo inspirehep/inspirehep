@@ -2,6 +2,7 @@ import { replace } from 'connected-react-router';
 import {
   isCancelError,
   UI_SERIALIZER_REQUEST_OPTIONS,
+// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.ts' extension. ... Remove this comment to see the full error message
 } from '../common/http.ts';
 import { httpErrorToActionPayload } from '../common/utils';
 
@@ -10,25 +11,25 @@ export default function generateRecordFetchAction({
   fetchingActionActionType,
   fecthSuccessActionType,
   fetchErrorActionType,
-  requestOptions = UI_SERIALIZER_REQUEST_OPTIONS,
-}) {
-  const fetching = recordId => ({
+  requestOptions = UI_SERIALIZER_REQUEST_OPTIONS
+}: any) {
+  const fetching = (recordId: any) => ({
     type: fetchingActionActionType,
-    payload: { recordId },
+    payload: { recordId }
   });
 
-  const fetchSuccess = result => ({
+  const fetchSuccess = (result: any) => ({
     type: fecthSuccessActionType,
-    payload: result,
+    payload: result
   });
 
-  const fetchError = error => ({
+  const fetchError = (error: any) => ({
     type: fetchErrorActionType,
     payload: error,
-    meta: { redirectableError: true },
+    meta: { redirectableError: true }
   });
 
-  return recordId => async (dispatch, getState, http) => {
+  return (recordId: any) => async (dispatch: any, getState: any, http: any) => {
     dispatch(fetching(recordId));
     try {
       const response = await http.get(

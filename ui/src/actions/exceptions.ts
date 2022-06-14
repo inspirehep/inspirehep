@@ -11,14 +11,14 @@ function fetching() {
   };
 }
 
-function fetchSuccess(result) {
+function fetchSuccess(result: any) {
   return {
     type: EXCEPTIONS_SUCCESS,
     payload: result,
   };
 }
 
-function fetchError(error) {
+function fetchError(error: any) {
   return {
     type: EXCEPTIONS_ERROR,
     payload: error,
@@ -27,7 +27,7 @@ function fetchError(error) {
 }
 
 export default function fetch() {
-  return async (dispatch, getState, http) => {
+  return async (dispatch: any, getState: any, http: any) => {
     dispatch(fetching());
     try {
       const response = await http.get('/migrator/errors');

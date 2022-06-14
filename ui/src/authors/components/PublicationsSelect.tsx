@@ -10,9 +10,9 @@ function PublicationsSelect({
   claimed,
   canClaim,
   disabled,
-  checked,
-}) {
-  const onChange = (event) => {
+  checked
+}: any) {
+  const onChange = (event: any) => {
     onSelectPapers(event);
     if (!canClaim) {
       onSelectPapersUserCanNotClaim(event);

@@ -8,7 +8,7 @@ import Affiliation from '../../common/components/Affiliation';
 const DISPLAY_LIMIT = 3;
 
 class PositionsTimeline extends Component {
-  static renderPositionTimelineItem(position) {
+  static renderPositionTimelineItem(position: any) {
     const institution = position.get('institution');
     const rank = position.get('rank');
     const displayDate = position.get('display_date');
@@ -24,7 +24,7 @@ class PositionsTimeline extends Component {
     );
   }
 
-  constructor(props) {
+  constructor(props: any) {
     super(props);
 
     this.state = { expanded: false };
@@ -32,12 +32,15 @@ class PositionsTimeline extends Component {
   }
 
   onExpandToggle() {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'expanded' does not exist on type 'Readon... Remove this comment to see the full error message
     const { expanded } = this.state;
     this.setState({ expanded: !expanded });
   }
 
   render() {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'positions' does not exist on type 'Reado... Remove this comment to see the full error message
     const { positions } = this.props;
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'expanded' does not exist on type 'Readon... Remove this comment to see the full error message
     const { expanded } = this.state;
 
     const positionsToDisplay = expanded
@@ -50,6 +53,7 @@ class PositionsTimeline extends Component {
           {positionsToDisplay.map(PositionsTimeline.renderPositionTimelineItem)}
         </Timeline>
         <ExpandListToggle
+          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
           limit={DISPLAY_LIMIT}
           size={positions.size}
           expanded={expanded}
@@ -61,10 +65,13 @@ class PositionsTimeline extends Component {
   }
 }
 
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'propTypes' does not exist on type 'typeo... Remove this comment to see the full error message
 PositionsTimeline.propTypes = {
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof List' is not assignable t... Remove this comment to see the full error message
   positions: PropTypes.instanceOf(List),
 };
 
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultProps' does not exist on type 'ty... Remove this comment to see the full error message
 PositionsTimeline.defaultProps = {
   positions: null,
 };

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Switch, Popconfirm } from 'antd';
 import OrcidPushSettingMessageContainer from '../containers/OrcidPushSettingMessageContainer';
 
-function renderPopConfirmTitle(isCurrentlyEnabled) {
+function renderPopConfirmTitle(isCurrentlyEnabled: any) {
   return (
     <>
       {isCurrentlyEnabled ? (
@@ -20,7 +20,11 @@ function renderPopConfirmTitle(isCurrentlyEnabled) {
   );
 }
 
-function OrcidPushSetting({ isUpdating, onChange, enabled }) {
+function OrcidPushSetting({
+  isUpdating,
+  onChange,
+  enabled
+}: any) {
   const onSettingToggleConfirm = useCallback(() => {
     onChange(!enabled);
   }, [enabled, onChange]);

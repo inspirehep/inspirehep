@@ -1,28 +1,32 @@
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'loda... Remove this comment to see the full error message
 import mergeWith from 'lodash.mergewith';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'loda... Remove this comment to see the full error message
 import cloneDeep from 'lodash.clonedeep';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'mome... Remove this comment to see the full error message
 import moment from 'moment-timezone';
 import { Map } from 'immutable';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'numb... Remove this comment to see the full error message
 import NumberAbbreviator from 'number-abbreviate';
 import { LITERATURE } from './routes';
 
-export function forceArray(maybeArray) {
+export function forceArray(maybeArray: any) {
   return maybeArray === undefined || Array.isArray(maybeArray)
     ? maybeArray
     : [maybeArray];
 }
 
-export function castPropToNumber(prop) {
+export function castPropToNumber(prop: any) {
   return prop !== undefined ? Number(prop) : undefined;
 }
 
-export function pluckMinMaxPair(list, valueGetter) {
+export function pluckMinMaxPair(list: any, valueGetter: any) {
   if (list.isEmpty()) {
     return [0, 0];
   }
   let min = Infinity;
   let max = -Infinity;
 
-  list.forEach(item => {
+  list.forEach((item: any) => {
     const value = valueGetter(item);
     max = Math.max(max, value);
     min = Math.min(min, value);
@@ -30,35 +34,35 @@ export function pluckMinMaxPair(list, valueGetter) {
   return [min, max];
 }
 
-export function toNumbers(array) {
+export function toNumbers(array: any) {
   return array && array.map(Number);
 }
 
-export function convertArrayToMap(array) {
-  return array.reduce((map, item, index) => {
+export function convertArrayToMap(array: any) {
+  return array.reduce((map: any, item: any, index: any) => {
     map[item] = index;
     return map;
   }, {});
 }
 
-export function selfOrInfinity(number) {
+export function selfOrInfinity(number: any) {
   if (number != null) {
     return number;
   }
   return Infinity;
 }
 
-export function getSizeOfArrayOrImmutableList(arrayOrList) {
+export function getSizeOfArrayOrImmutableList(arrayOrList: any) {
   return Array.isArray(arrayOrList) ? arrayOrList.length : arrayOrList.size;
 }
 
-export function getFromObjectOrImmutableMap(objectOrMap, key) {
+export function getFromObjectOrImmutableMap(objectOrMap: any, key: any) {
   return Map.isMap(objectOrMap) ? objectOrMap.get(key) : objectOrMap[key];
 }
 
 export function getWrapperComponentDisplayName(
-  wrapperHocName,
-  WrappedComponentClass
+  wrapperHocName: any,
+  WrappedComponentClass: any
 ) {
   const componentDisplayName =
     WrappedComponentClass.displayName ||
@@ -67,18 +71,18 @@ export function getWrapperComponentDisplayName(
   return `${wrapperHocName}(${componentDisplayName})`;
 }
 
-export function doSetsHaveCommonItem(set1, set2) {
+export function doSetsHaveCommonItem(set1: any, set2: any) {
   if (set1.isEmpty() && set2.isEmpty()) {
     return false;
   }
   return set1.subtract(set2).size < set1.size;
 }
 
-export function hasAnyOfKeys(map, keys) {
-  return keys.some(key => map.has(key));
+export function hasAnyOfKeys(map: any, keys: any) {
+  return keys.some((key: any) => map.has(key));
 }
 
-export function isEmptyObjectShallow(object) {
+export function isEmptyObjectShallow(object: any) {
   if (!object) {
     return true;
   }
@@ -88,17 +92,17 @@ export function isEmptyObjectShallow(object) {
   );
 }
 
-export function mergeWithConcattingArrays(destObject, ...sources) {
+export function mergeWithConcattingArrays(destObject: any, ...sources: any[]) {
   const clonedDestObject = cloneDeep(destObject);
   // eslint-disable-next-line consistent-return
-  return mergeWith(clonedDestObject, ...sources, (objValue, srcValue) => {
+  return mergeWith(clonedDestObject, ...sources, (objValue: any, srcValue: any) => {
     if (Array.isArray(objValue) && Array.isArray(srcValue)) {
       return objValue.concat(srcValue);
     }
   });
 }
 
-export function httpErrorToActionPayload(httpError) {
+export function httpErrorToActionPayload(httpError: any) {
   const { message } = httpError;
   if (message === 'Network Error') {
     return {
@@ -118,7 +122,7 @@ export function httpErrorToActionPayload(httpError) {
 }
 
 // adapted from facebook/fbjs shallowEqual
-export function shallowEqual(objA, objB) {
+export function shallowEqual(objA: any, objB: any) {
   if (Object.is(objA, objB)) {
     return true;
   }
@@ -152,23 +156,24 @@ export function shallowEqual(objA, objB) {
   return true;
 }
 
-export function getSearchRank(index, page, pageSize) {
+export function getSearchRank(index: any, page: any, pageSize: any) {
   return (page - 1) * pageSize + index + 1;
 }
 
-export function wait(milisec) {
+export function wait(milisec: any) {
   return new Promise(resolve => {
+    // @ts-expect-error ts-migrate(2794) FIXME: Expected 1 arguments, but got 0. Did you forget to... Remove this comment to see the full error message
     setTimeout(() => resolve(), milisec);
   });
 }
 
 // appending `s` is all that's needed for the current usages
 // TODO: do not export default (leftover)
-export default function pluralizeUnlessSingle(singularWord, count) {
+export default function pluralizeUnlessSingle(singularWord: any, count: any) {
   return count !== 1 ? `${singularWord}s` : singularWord;
 }
 
-export function pickEvenlyDistributedElements(array, numberOfElements) {
+export function pickEvenlyDistributedElements(array: any, numberOfElements: any) {
   if (numberOfElements <= 1) {
     throw new Error('number of elements must be greater than 1');
   }
@@ -189,11 +194,11 @@ export function pickEvenlyDistributedElements(array, numberOfElements) {
 }
 
 const protocolAndWwwRegexp = new RegExp('^(?:(https?:)?//)?(?:www.)?', 'i');
-export function removeProtocolAndWwwFromUrl(url) {
+export function removeProtocolAndWwwFromUrl(url: any) {
   return url.replace(protocolAndWwwRegexp, '');
 }
 
-export function getRecordIdFromRef($ref) {
+export function getRecordIdFromRef($ref: any) {
   if ($ref == null) {
     return null;
   }
@@ -203,13 +208,15 @@ export function getRecordIdFromRef($ref) {
 }
 
 export function downloadTextAsFile(
-  text,
+  text: any,
   filename = 'download.txt',
   type = 'text/plain'
 ) {
   const blob = new Blob([text], { type });
+  // @ts-expect-error ts-migrate(2339) FIXME: Property 'msSaveOrOpenBlob' does not exist on type... Remove this comment to see the full error message
   if (window.navigator && window.navigator.msSaveOrOpenBlob) {
     // Edge
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'msSaveOrOpenBlob' does not exist on type... Remove this comment to see the full error message
     window.navigator.msSaveOrOpenBlob(blob, filename);
   } else {
     const url = URL.createObjectURL(blob);
@@ -223,7 +230,7 @@ export function downloadTextAsFile(
   }
 }
 
-export function addOrdinalSuffix(i) {
+export function addOrdinalSuffix(i: any) {
   const lastDigit = i % 10;
   const lastTwoDigits = i % 100;
   if (lastDigit === 1 && lastTwoDigits !== 11) {
@@ -239,17 +246,17 @@ export function addOrdinalSuffix(i) {
 }
 
 const numberAbbreviator = new NumberAbbreviator(['K', 'M', 'B', 'T']);
-export function abbreviateNumber(number) {
+export function abbreviateNumber(number: any) {
   const numberOfFractionDigits = number < 10000 ? 1 : 0;
   return numberAbbreviator.abbreviate(number, numberOfFractionDigits);
 }
 
 const HTML_TAG_REGEXP = /(<([^>]+)>)/gi;
-export function stripHtml(richText) {
+export function stripHtml(richText: any) {
   return richText.replace(HTML_TAG_REGEXP, '');
 }
 
-export function truncateStringWithEllipsis(string, charCountLimit) {
+export function truncateStringWithEllipsis(string: any, charCountLimit: any) {
   if (string.length > charCountLimit) {
     const truncated = string.slice(0, charCountLimit - 3);
     return `${truncated}...`;
@@ -265,11 +272,11 @@ export function makeCompliantMetaDescription(description = '') {
   return truncateStringWithEllipsis(withoutHtml, MAX_DESCRIPTION_LENGTH);
 }
 
-export function getLiteratureSearchUrlForAuthorBAI(bai) {
+export function getLiteratureSearchUrlForAuthorBAI(bai: any) {
   return `${LITERATURE}?q=${encodeURIComponent(`a ${bai}`)}`;
 }
 
-export function getAuthorName(author) {
+export function getAuthorName(author: any) {
   if (author.has('first_name')) {
     const firstName = author.get('first_name');
     const lastName = author.get('last_name', '');
@@ -284,19 +291,19 @@ export function getAuthorName(author) {
   return author.get('name') || author.get('full_name');
 }
 
-export function addCommasToNumber(number) {
+export function addCommasToNumber(number: any) {
   return number && Number(number).toLocaleString('en-US');
 }
 
-export function getRootOfLocationPathname(pathname) {
+export function getRootOfLocationPathname(pathname: any) {
   return pathname.split('/')[1];
 }
 
-export function getInstitutionName(affiliation) {
+export function getInstitutionName(affiliation: any) {
   return affiliation.get('value') || affiliation.get('institution');
 }
 
-export function doTimezonesHaveDifferentTimes(timezone1, timezone2) {
+export function doTimezonesHaveDifferentTimes(timezone1: any, timezone2: any) {
   const now = Date.now();
   return (
     moment.tz.zone(timezone1).utcOffset(now) !==
@@ -304,10 +311,10 @@ export function doTimezonesHaveDifferentTimes(timezone1, timezone2) {
   );
 }
 
-export function hasMonthAndYear(date) {
+export function hasMonthAndYear(date: any) {
   return date.length >= 6;
 }
 
-export function hasDayMonthAndYear(date) {
+export function hasDayMonthAndYear(date: any) {
   return date.length >= 8;
 }

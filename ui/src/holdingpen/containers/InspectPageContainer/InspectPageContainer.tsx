@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Row, Col, Card } from 'antd';
@@ -12,12 +13,14 @@ import './InspectPage.scss';
 
 class InspectPage extends Component {
   componentDidMount() {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'match' does not exist on type 'Readonly<... Remove this comment to see the full error message
     const { match, dispatch } = this.props;
     const workflowId = match.params.id;
     dispatch(fetchInspect(workflowId));
   }
 
   render() {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'loading' does not exist on type 'Readonl... Remove this comment to see the full error message
     const { loading, data } = this.props;
     const root = data.root || {};
     const head = data.head || {};
@@ -26,9 +29,11 @@ class InspectPage extends Component {
 
     return (
       <div className="__InspectPage__ w-100">
+        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
         <LoadingOrChildren loading={loading}>
           <Row
             align="middle"
+            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
             type="flex"
             justify="space-around"
             gutter={16}
@@ -36,16 +41,19 @@ class InspectPage extends Component {
           >
             <Col span={8}>
               <Card title="Head on root">
+                // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                 <JsonDiff first={root} second={head} />
               </Card>
             </Col>
             <Col span={8}>
               <Card title="Update on root">
+                // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                 <JsonDiff first={root} second={update} />
               </Card>
             </Col>
             <Col span={8}>
               <Card title="Merged on head">
+                // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                 <JsonDiff first={head} second={merged} />
               </Card>
             </Col>
@@ -56,6 +64,7 @@ class InspectPage extends Component {
   }
 }
 
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'propTypes' does not exist on type 'typeo... Remove this comment to see the full error message
 InspectPage.propTypes = {
   data: PropTypes.shape({
     root: PropTypes.objectOf(PropTypes.any),
@@ -68,11 +77,13 @@ InspectPage.propTypes = {
   match: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: any) => ({
   data: state.inspect.get('data'),
-  loading: state.inspect.get('loading'),
+  loading: state.inspect.get('loading')
 });
-const dispatchToProps = dispatch => ({ dispatch });
+const dispatchToProps = (dispatch: any) => ({
+  dispatch
+});
 
 export default connect(mapStateToProps, dispatchToProps)(
   convertAllImmutablePropsToJS(InspectPage)

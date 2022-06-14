@@ -7,7 +7,9 @@ import FiguresCarousel from './FiguresCarousel';
 import FigureListItem from './FigureListItem';
 import EmptyOrChildren from '../../../common/components/EmptyOrChildren';
 
-function Figures({ figures }) {
+function Figures({
+  figures
+}: any) {
   const [isCarouselVisible, setCarouselVisible] = useState(false);
   const carouselRef = useRef();
 
@@ -24,6 +26,7 @@ function Figures({ figures }) {
           setCarouselVisible(true);
           // TODO: setTimeout only if needed
           // wait for the carousel to be in dom
+          // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
           setTimeout(() => carouselRef.current.goTo(index, true));
         }}
       />
@@ -32,8 +35,10 @@ function Figures({ figures }) {
   );
 
   return (
+    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
     <EmptyOrChildren data={figures} title="0 Figures">
       <ClientPaginatedList
+        // @ts-expect-error ts-migrate(2322) FIXME: Type '{ items: any; renderItem: (figure: any, inde... Remove this comment to see the full error message
         items={figures}
         renderItem={renderListItem}
         pageSize={12}
@@ -41,6 +46,7 @@ function Figures({ figures }) {
       />
       <FiguresCarousel
         ref={carouselRef}
+        // @ts-expect-error ts-migrate(2322) FIXME: Type '{ ref: MutableRefObject<undefined>; figures:... Remove this comment to see the full error message
         figures={figures}
         visible={isCarouselVisible}
         onCancel={onCarouselCancel}
@@ -50,6 +56,7 @@ function Figures({ figures }) {
 }
 
 Figures.propTypes = {
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof List' is not assignable t... Remove this comment to see the full error message
   figures: PropTypes.instanceOf(List),
 };
 

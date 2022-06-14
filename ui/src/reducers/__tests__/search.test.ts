@@ -12,12 +12,16 @@ import {
 import searchConfig from '../../search/config';
 import * as types from '../../actions/actionTypes';
 
+// @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
 describe('search reducer', () => {
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('default', () => {
     const state = reducer(undefined, {});
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state).toEqual(initialState);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('LOCATION_CHANGE authors', () => {
     const state = reducer(Map(), {
       type: LOCATION_CHANGE,
@@ -25,9 +29,11 @@ describe('search reducer', () => {
         location: { pathname: '/authors/12345' },
       },
     });
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state.get('searchBoxNamespace')).toEqual(AUTHORS_NS);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('LOCATION_CHANGE literature', () => {
     const state = reducer(Map(), {
       type: LOCATION_CHANGE,
@@ -35,9 +41,11 @@ describe('search reducer', () => {
         location: { pathname: '/literature?q=CERN' },
       },
     });
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state.get('searchBoxNamespace')).toEqual(LITERATURE_NS);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('LOCATION_CHANGE something else', () => {
     const state = reducer(Map(), {
       type: LOCATION_CHANGE,
@@ -45,18 +53,22 @@ describe('search reducer', () => {
         location: { pathname: '/something/else' },
       },
     });
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state.get('searchBoxNamespace')).toEqual(LITERATURE_NS);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('CHANGE_SEARCH_BOX_NAMESPACE', () => {
     const aNamespace = SEARCH_BOX_NAMESPACES[0];
     const state = reducer(Map(), {
       type: types.CHANGE_SEARCH_BOX_NAMESPACE,
       payload: { searchBoxNamespace: aNamespace },
     });
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state.get('searchBoxNamespace')).toEqual(aNamespace);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('NEW_SEARCH_REQUEST', () => {
     const namespace = AUTHOR_PUBLICATIONS_NS;
     const { persistedQueryParamsDuringNewSearch } = searchConfig[namespace];
@@ -97,9 +109,11 @@ describe('search reducer', () => {
         },
       },
     });
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state).toEqual(expected);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('SEARCH_QUERY_UPDATE', () => {
     const namespace = LITERATURE_NS;
     const initialReducerState = fromJS({
@@ -130,9 +144,11 @@ describe('search reducer', () => {
         },
       },
     });
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state).toEqual(expected);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('SEARCH_QUERY_RESET', () => {
     const namespace = LITERATURE_NS;
     const initialReducerState = fromJS({
@@ -155,9 +171,11 @@ describe('search reducer', () => {
         },
       },
     });
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state).toEqual(expected);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('SEARCH_BASE_QUERIES_UPDATE', () => {
     const namespace = LITERATURE_NS;
     const initialReducerState = fromJS({
@@ -189,9 +207,11 @@ describe('search reducer', () => {
         },
       },
     });
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state).toEqual(expected);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('SEARCH_BASE_QUERIES_UPDATE with only baseQuery', () => {
     const namespace = LITERATURE_NS;
     const initialReducerState = fromJS({
@@ -222,9 +242,11 @@ describe('search reducer', () => {
         },
       },
     });
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state).toEqual(expected);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('SEARCH_REQUEST', () => {
     const namespace = JOBS_NS;
     const state = reducer(Map(), {
@@ -238,9 +260,11 @@ describe('search reducer', () => {
         },
       },
     });
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state).toEqual(expected);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('SEARCH_SUCCESS when initial total is not set', () => {
     const namespace = JOBS_NS;
     const initialReducerState = fromJS({
@@ -273,9 +297,11 @@ describe('search reducer', () => {
         },
       },
     });
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state).toEqual(expected);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('SEARCH_SUCCESS when initial total is set', () => {
     const namespace = JOBS_NS;
     const initialReducerState = fromJS({
@@ -308,9 +334,11 @@ describe('search reducer', () => {
         },
       },
     });
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state).toEqual(expected);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('SEARCH_ERROR', () => {
     const namespace = AUTHORS_NS;
     const error = { message: 'error' };
@@ -326,9 +354,11 @@ describe('search reducer', () => {
         },
       },
     });
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state).toEqual(expected);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('SEARCH_AGGREGATIONS_ERROR', () => {
     const namespace = AUTHORS_NS;
     const error = { message: 'error' };
@@ -349,9 +379,11 @@ describe('search reducer', () => {
         },
       },
     });
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state).toEqual(expected);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('SEARCH_AGGREGATIONS_REQUEST', () => {
     const namespace = LITERATURE_NS;
     const state = reducer(Map(), {
@@ -365,9 +397,11 @@ describe('search reducer', () => {
         },
       },
     });
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state).toEqual(expected);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('SEARCH_AGGREGATIONS_SUCCESS when initialAggregations is empty', () => {
     const namespace = LITERATURE_NS;
     const data = {
@@ -400,9 +434,11 @@ describe('search reducer', () => {
         },
       },
     });
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state).toEqual(expected);
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('SEARCH_AGGREGATIONS_SUCCESS when initialAggregations is not empty', () => {
     const namespace = LITERATURE_NS;
     const data = {
@@ -435,6 +471,7 @@ describe('search reducer', () => {
         },
       },
     });
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(state).toEqual(expected);
   });
 });

@@ -1,4 +1,5 @@
 import React, { Fragment, useContext } from 'react';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
@@ -17,6 +18,7 @@ import PublicationInfoList from '../../common/components/PublicationInfoList';
 import BookSeriesInfoList from './BookSeriesInfoList';
 import UrlsAction from './UrlsAction';
 import DOILinkAction from './DOILinkAction';
+// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.tsx' extension.... Remove this comment to see the full error message
 import EditRecordAction from '../../common/components/EditRecordAction.tsx';
 import ResultItem from '../../common/components/ResultItem';
 import { LITERATURE } from '../../common/routes';
@@ -41,7 +43,11 @@ import AssignNoProfileAction from '../../authors/components/AssignNoProfileActio
 import AssignViewNoProfileContext from '../../authors/assignViewNoProfileContext';
 import ClaimingDisabledButton from '../../authors/components/ClaimingDisabledButton';
 
-function LiteratureItem({ metadata, searchRank, isCatalogerLoggedIn }) {
+function LiteratureItem({
+  metadata,
+  searchRank,
+  isCatalogerLoggedIn
+}: any) {
   const title = metadata.getIn(['titles', 0]);
   const authors = metadata.get('authors');
 
@@ -81,11 +87,12 @@ function LiteratureItem({ metadata, searchRank, isCatalogerLoggedIn }) {
   const assignNotLoggedInView = useContext(AssignViewNotLoggedInContext);
   const assignNotLoggedInViewCondition = assignNotLoggedInView && !assignNoProfileViewCondition;
   const publicationInfoWithTitle = publicationInfo
-    ? publicationInfo.filter((pub) => pub.has('journal_title'))
+    ? publicationInfo.filter((pub: any) => pub.has('journal_title'))
     : null;
 
   return (
     <ResultItem
+      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
       leftActions={
         <Fragment>
           {fullTextLinks && (
@@ -155,6 +162,7 @@ function LiteratureItem({ metadata, searchRank, isCatalogerLoggedIn }) {
               className="result-item-title"
               to={`${LITERATURE}/${recordId}`}
             >
+              // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
               <LiteratureTitle title={title} />
               {(assignAuthorView || assignOwnProfileView) && !curatedRelation && (
                 <Tooltip title="Unclaimed paper. Click on the Claim button to claim or remove it from the profile">
@@ -177,6 +185,7 @@ function LiteratureItem({ metadata, searchRank, isCatalogerLoggedIn }) {
         </div>
         <div className="mt1">
           <AuthorsAndCollaborations
+            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
             authorCount={authorCount}
             authors={authors}
             collaborations={collaborations}
@@ -185,25 +194,32 @@ function LiteratureItem({ metadata, searchRank, isCatalogerLoggedIn }) {
           {date && (
             <>
               {' ('}
+              // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
               <LiteratureDate date={date} />)
             </>
           )}
         </div>
         <div className="mt1">
+          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
           <InlineUL separator={SEPARATOR_MIDDLEDOT}>
             {bookSeries && <BookSeriesInfoList bookSeries={bookSeries} />}
             {publicationInfoWithTitle && publicationInfoWithTitle.size > 0 && (
+              // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
               <PublicationInfoList publicationInfo={publicationInfoWithTitle} />
             )}
             {conferenceInfo && (
+              // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
               <ConferenceInfoList conferenceInfo={conferenceInfo} />
             )}
+            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
             {eprints && <ArxivEprintList eprints={eprints} />}
           </InlineUL>
         </div>
         {isCatalogerLoggedIn && (
           <div className="mt1">
+            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
             <InlineUL separator={SEPARATOR_MIDDLEDOT}>
+              // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
               <PublicNotesList publicNotes={publicNotes} />
             </InlineUL>
           </div>
@@ -214,6 +230,7 @@ function LiteratureItem({ metadata, searchRank, isCatalogerLoggedIn }) {
 }
 
 LiteratureItem.propTypes = {
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof Map' is not assignable to... Remove this comment to see the full error message
   metadata: PropTypes.instanceOf(Map).isRequired,
   searchRank: PropTypes.number.isRequired,
   isCatalogerLoggedIn: PropTypes.bool,

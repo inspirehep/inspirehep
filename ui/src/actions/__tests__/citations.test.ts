@@ -2,6 +2,7 @@ import MockAdapter from 'axios-mock-adapter';
 import { fromJS } from 'immutable';
 
 import { getStore } from '../../fixtures/store';
+// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.ts' extension. ... Remove this comment to see the full error message
 import http from '../../common/http.ts';
 import * as types from '../actionTypes';
 import { fetchCitationSummary, fetchCitationsByYear } from '../citations';
@@ -11,12 +12,15 @@ import { EXCLUDE_SELF_CITATIONS_PREFERENCE } from '../../reducers/user';
 
 const mockHttp = new MockAdapter(http.httpClient);
 
+// @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
 describe('citations - async action creator', () => {
+  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'afterEach'.
   afterEach(() => {
     mockHttp.reset();
   });
 
-  it('creates CITATIONS_SUMMARY_SUCCESS if successful', async done => {
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  it('creates CITATIONS_SUMMARY_SUCCESS if successful', async (done: any) => {
     const query = { author: ['12345_Jared'] };
     const excludeSelfCitations = false;
     const namespace = AUTHOR_PUBLICATIONS_NS;
@@ -48,11 +52,13 @@ describe('citations - async action creator', () => {
     ];
 
     await store.dispatch(fetchCitationSummary(namespace));
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(store.getActions()).toEqual(expectedActions);
     done();
   });
 
-  it('creates CITATIONS_SUMMARY_ERROR if unsuccessful', async done => {
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  it('creates CITATIONS_SUMMARY_ERROR if unsuccessful', async (done: any) => {
     const query = { q: 'stuff' };
     const namespace = LITERATURE;
 
@@ -91,11 +97,13 @@ describe('citations - async action creator', () => {
     ];
 
     await store.dispatch(fetchCitationSummary(namespace));
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(store.getActions()).toEqual(expectedActions);
     done();
   });
 
-  it('creates CITATIONS_BY_YEAR_SUCCESS if successful', async done => {
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  it('creates CITATIONS_BY_YEAR_SUCCESS if successful', async (done: any) => {
     mockHttp
       .onGet(
         '/literature/facets?author=12345_Jared&facet_name=citations-by-year'
@@ -113,11 +121,13 @@ describe('citations - async action creator', () => {
         author: ['12345_Jared'],
       })
     );
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(store.getActions()).toEqual(expectedActions);
     done();
   });
 
-  it('creates CITATIONS_BY_YEAR_ERROR if unsuccessful', async done => {
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  it('creates CITATIONS_BY_YEAR_ERROR if unsuccessful', async (done: any) => {
     mockHttp
       .onGet('/literature/facets?q=stuff&facet_name=citations-by-year')
       .replyOnce(404, { message: 'Error' });
@@ -138,6 +148,7 @@ describe('citations - async action creator', () => {
         q: 'stuff',
       })
     );
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(store.getActions()).toEqual(expectedActions);
     done();
   });

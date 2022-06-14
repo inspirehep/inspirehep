@@ -18,10 +18,12 @@ function AssignNoProfileAction() {
     // TODO: rename `ListItemAction` because it's not only used for list item actions, such as (assign all and cite all)
     <ListItemAction>
       <DropdownMenu
+        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
         disabled
         title={
           <Tooltip title={CLAIMING_DISABLED_INFO}>
             <Button disabled>
+              // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
               <IconText text="claim" icon={<FileDoneOutlined />} />
             </Button>
           </Tooltip>

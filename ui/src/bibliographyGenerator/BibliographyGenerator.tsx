@@ -21,7 +21,9 @@ const META_DESCRIPTION =
   'Generate a LaTeX/BibTeX bibliography from citations in a LaTeX file.';
 const TITLE = 'Bibliography Generator';
 
-function Cite({ children }) {
+function Cite({
+  children
+}: any) {
   return <code>\cite{`{${children}}`}</code>;
 }
 
@@ -34,15 +36,17 @@ function BibliographyGenerator({
   loading,
   data,
   citationErrors,
-  error,
-}) {
+  error
+}: any) {
   const [fileList, setFileList] = useState();
 
   const uploadProps = {
     onRemove: () => {
+      // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'null' is not assignable to param... Remove this comment to see the full error message
       setFileList(null);
     },
-    beforeUpload: f => {
+    beforeUpload: (f: any) => {
+      // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'any[]' is not assignable to para... Remove this comment to see the full error message
       setFileList([f]);
       return false;
     },
@@ -57,40 +61,42 @@ function BibliographyGenerator({
     [data]
   );
 
-  return (
-    <>
-      <DocumentHead title={TITLE} description={META_DESCRIPTION} />
-      <Row type="flex" justify="center" className="overflow-x-auto">
-        <Col className="mt3 mb3" xs={24} md={21} lg={16} xl={15} xxl={14}>
-          <Row className="mb3 pa3 bg-white">
+  return <>
+    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+    <DocumentHead title={TITLE} description={META_DESCRIPTION} />
+    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+    <Row type="flex" justify="center" className="overflow-x-auto">
+      <Col className="mt3 mb3" xs={24} md={21} lg={16} xl={15} xxl={14}>
+        <Row className="mb3 pa3 bg-white">
+          <Col>
+            <h2>Bibliography generator</h2>
+            <p>
+              Generate a LaTeX/BibTeX bibliography from citations in a LaTeX
+              file.
+            </p>
+          </Col>
+        </Row>
+        <Form
+          name="bibliography-generator-form"
+          onFinish={onSubmit}
+          initialValues={{
+            format: BIBLIOGRAPHY_GENERATOR_FORMATS[0].value,
+          }}
+        >
+          <Row>
             <Col>
-              <h2>Bibliography generator</h2>
-              <p>
-                Generate a LaTeX/BibTeX bibliography from citations in a LaTeX
-                file.
-              </p>
-            </Col>
-          </Row>
-          <Form
-            name="bibliography-generator-form"
-            onFinish={onSubmit}
-            initialValues={{
-              format: BIBLIOGRAPHY_GENERATOR_FORMATS[0].value,
-            }}
-          >
-            <Row>
-              <Col>
-                <CollapsableForm>
-                  <CollapsableForm.Section header="Example" key="example">
-                    <p>
-                      <strong>
-                        Here is an example of a LaTeX file that could be sent to
-                        our bibliography service, the output as LaTeX is shown
-                        below.
-                      </strong>
-                    </p>
-                    <pre className="latex-example">
-                      {`
+              <CollapsableForm>
+                // @ts-expect-error ts-migrate(2339) FIXME: Property 'Section' does not exist on type 'typeof ... Remove this comment to see the full error message
+                <CollapsableForm.Section header="Example" key="example">
+                  <p>
+                    <strong>
+                      Here is an example of a LaTeX file that could be sent to
+                      our bibliography service, the output as LaTeX is shown
+                      below.
+                    </strong>
+                  </p>
+                  <pre className="latex-example">
+                    {`
 \\documentclass[12pt]{article}
 
 \\begin {document}
@@ -99,7 +105,7 @@ function BibliographyGenerator({
 SLAC--PUB--10812\\\\
 October 2012\\\\}
 \\end{flushright}
-                                                                              
+                                                                            
 \\title{A Really Great Paper with Excellent Bibliography}
 \\author{Jane Q. Physicist \\\\
 Stanford Linear Accelerator Center \\\\
@@ -109,8 +115,8 @@ Stanford University, Stanford, California 94309 \\\\
 \\maketitle
 
 This paper is pretty eclectic, since it cites a buch of diverse
-  things.  Of course, since it has no content, that is perhaps not so
-  difficult.
+things.  Of course, since it has no content, that is perhaps not so
+difficult.
 
 Primarily I want to refer the reader to Brodsky and Wu's recent work on the renormalization 
 group\\cite{Brodsky:2012ms}, which is relatively unrelated to the recent
@@ -142,18 +148,18 @@ Finally, let me make a mistake citing this paper \\cite{hep-scifi/0101001}.
 
 
 \\end{document}
-                    `}
-                    </pre>
+                  `}
+                  </pre>
 
-                    <p>
-                      <strong>
-                        This will warn about the unknown reference to{' '}
-                        <code>hep-scifi/0101001</code> and generate a file
-                        containing:
-                      </strong>
-                    </p>
-                    <pre className="latex-example">
-                      {`
+                  <p>
+                    <strong>
+                      This will warn about the unknown reference to{' '}
+                      <code>hep-scifi/0101001</code> and generate a file
+                      containing:
+                    </strong>
+                  </p>
+                  <pre className="latex-example">
+                    {`
 %\\cite{Brodsky:2012ms}
 \\bibitem{Brodsky:2012ms}
 S.~J.~Brodsky and X.~G.~Wu,
@@ -251,174 +257,177 @@ Phys. Rev. Lett. \\textbf{83} (1999), 3370-3373
 doi:10.1103/PhysRevLett.83.3370
 [arXiv:hep-ph/9905221 [hep-ph]].
 %8745 citations counted in INSPIRE as of 24 Jun 2020
-                    `}
-                    </pre>
-                  </CollapsableForm.Section>
-                </CollapsableForm>
+                  `}
+                  </pre>
+                // @ts-expect-error ts-migrate(2339) FIXME: Property 'Section' does not exist on type 'typeof ... Remove this comment to see the full error message
+                </CollapsableForm.Section>
+              </CollapsableForm>
 
-                <Row className="pa3 bg-white">
-                  <Col>
-                    <Row className="mb3">
-                      <Col>
-                        <h3>Instructions</h3>
-                        <p>
-                          Write your paper in LaTeX as usual. Cite papers in
-                          your LaTeX file using the <Cite>...</Cite> macro. The
-                          citation keys will be used to retrieve the
-                          bibliographic information for the referenced papers
-                          from the INSPIRE database. The following types of
-                          citation keys are supported:
-                        </p>
-                        <ol>
-                          <li>
-                            INSPIRE Texkeys, e.g. <Cite>Beacom:2010kk</Cite>
-                          </li>
-                          <li>
-                            arXiv eprint numbers, e.g. <Cite>1004.3311</Cite> or{' '}
-                            <Cite>hep-th/9711200</Cite>
-                          </li>
-                          <li>
-                            Journal references as present on INSPIRE, with the
-                            spaces and dots removed from the title, and dots
-                            used as separator between title, volume and
-                            page-number/article ID, e.g.{' '}
-                            <Cite>PhysRev.D66.010001</Cite>
-                          </li>
-                          <li>
-                            ADS bibcodes, e.g. <Cite>1999IJTP...38.1113M</Cite>
-                          </li>
-                          <li>
-                            Report numbers, e.g.{' '}
-                            <Cite>CERN-PH-EP-2012-218</Cite>
-                          </li>
-                        </ol>
-                        <p>
-                          You can then upload your LaTeX file here to generate a
-                          list of the references in the order they are cited in
-                          your paper. You’ll receive an output file that can be
-                          used as a BibTeX database or copy/pasted in the
-                          bibliography environment depending on the selected
-                          format. In case some citations can’t be found or are
-                          ambiguous, you’ll receive an error message (but a
-                          bibliography will still be generated for the other
-                          citations).
-                        </p>
-                        <p>Notes:</p>
-                        <ul>
-                          <li>
-                            You can cite multiple papers at once by separating
-                            the keys with commas, such as{' '}
-                            <Cite>Beacom:2010kk, hep-th/9711200</Cite>. Each of
-                            them will appear as a separate entry in the
-                            bibliography.
-                          </li>
-                          <li>
-                            The reference will always appear in the same format
-                            regardless of how you cite it so if you have a
-                            choice, use the eprint number as the identifier
-                            rather than a journal publication note for
-                            simplicity.
-                          </li>
-                          <li>
-                            Do not worry about whether you have cited something
-                            before, INSPIRE will get the order right based on
-                            when you cited the references in the paper.
-                          </li>
-                          <li>
-                            The only allowed characters in <Cite>...</Cite>{' '}
-                            commands are letters, numbers and the following
-                            punctuation characters: &ldquo;-&rdquo;,
-                            &ldquo;/&rdquo;, &ldquo;:&rdquo;, &ldquo;,&rdquo;
-                            and &ldquo;.&rdquo;. If your citation key contains
-                            anything else, it will not be processed.
-                          </li>
-                          <li>
-                            You have to send a LaTeX file containing citations,
-                            you can’t send a BibTeX database.
-                          </li>
-                        </ul>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col span={24}>
-                        <Form.Item
-                          name="fileupload"
-                          rules={[
-                            {
-                              required: true,
-                              message: 'Please select a file',
-                            },
-                          ]}
+              <Row className="pa3 bg-white">
+                <Col>
+                  <Row className="mb3">
+                    <Col>
+                      <h3>Instructions</h3>
+                      <p>
+                        Write your paper in LaTeX as usual. Cite papers in
+                        your LaTeX file using the <Cite>...</Cite> macro. The
+                        citation keys will be used to retrieve the
+                        bibliographic information for the referenced papers
+                        from the INSPIRE database. The following types of
+                        citation keys are supported:
+                      </p>
+                      <ol>
+                        <li>
+                          INSPIRE Texkeys, e.g. <Cite>Beacom:2010kk</Cite>
+                        </li>
+                        <li>
+                          arXiv eprint numbers, e.g. <Cite>1004.3311</Cite> or{' '}
+                          <Cite>hep-th/9711200</Cite>
+                        </li>
+                        <li>
+                          Journal references as present on INSPIRE, with the
+                          spaces and dots removed from the title, and dots
+                          used as separator between title, volume and
+                          page-number/article ID, e.g.{' '}
+                          <Cite>PhysRev.D66.010001</Cite>
+                        </li>
+                        <li>
+                          ADS bibcodes, e.g. <Cite>1999IJTP...38.1113M</Cite>
+                        </li>
+                        <li>
+                          Report numbers, e.g.{' '}
+                          <Cite>CERN-PH-EP-2012-218</Cite>
+                        </li>
+                      </ol>
+                      <p>
+                        You can then upload your LaTeX file here to generate a
+                        list of the references in the order they are cited in
+                        your paper. You’ll receive an output file that can be
+                        used as a BibTeX database or copy/pasted in the
+                        bibliography environment depending on the selected
+                        format. In case some citations can’t be found or are
+                        ambiguous, you’ll receive an error message (but a
+                        bibliography will still be generated for the other
+                        citations).
+                      </p>
+                      <p>Notes:</p>
+                      <ul>
+                        <li>
+                          You can cite multiple papers at once by separating
+                          the keys with commas, such as{' '}
+                          <Cite>Beacom:2010kk, hep-th/9711200</Cite>. Each of
+                          them will appear as a separate entry in the
+                          bibliography.
+                        </li>
+                        <li>
+                          The reference will always appear in the same format
+                          regardless of how you cite it so if you have a
+                          choice, use the eprint number as the identifier
+                          rather than a journal publication note for
+                          simplicity.
+                        </li>
+                        <li>
+                          Do not worry about whether you have cited something
+                          before, INSPIRE will get the order right based on
+                          when you cited the references in the paper.
+                        </li>
+                        <li>
+                          The only allowed characters in <Cite>...</Cite>{' '}
+                          commands are letters, numbers and the following
+                          punctuation characters: &ldquo;-&rdquo;,
+                          &ldquo;/&rdquo;, &ldquo;:&rdquo;, &ldquo;,&rdquo;
+                          and &ldquo;.&rdquo;. If your citation key contains
+                          anything else, it will not be processed.
+                        </li>
+                        <li>
+                          You have to send a LaTeX file containing citations,
+                          you can’t send a BibTeX database.
+                        </li>
+                      </ul>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col span={24}>
+                      <Form.Item
+                        name="fileupload"
+                        rules={[
+                          {
+                            required: true,
+                            message: 'Please select a file',
+                          },
+                        ]}
+                      >
+                        <Dragger
+                          {...uploadProps}
+                          accept=".tex"
+                          name="file"
+                          fileList={fileList}
                         >
-                          <Dragger
-                            {...uploadProps}
-                            accept=".tex"
-                            name="file"
-                            fileList={fileList}
-                          >
-                            <p className="ant-upload-drag-icon">
-                              <InboxOutlined />
-                            </p>
-                            <p className="ant-upload-text">LaTeX file</p>
-                            <p className="ant-upload-hint">
-                              Click or drag file to this area to upload
-                            </p>
-                          </Dragger>
-                        </Form.Item>
-                        <Form.Item label="Output format" name="format">
-                          <SelectBox options={BIBLIOGRAPHY_GENERATOR_FORMATS} />
-                        </Form.Item>
-                      </Col>
-                    </Row>
-                    {citationErrors && (
-                      <Row className="mb3">
-                        <Col span={24}>
-                          {citationErrors.map(e => (
-                            <div className="mb2">
-                              <Alert
-                                type="warning"
-                                message={e.get('message')}
-                              />
-                            </div>
-                          ))}
-                        </Col>
-                      </Row>
-                    )}
-                    {error && (
-                      <Row className="mb3">
-                        <Col span={24}>
-                          <ErrorAlert message={error.get('message')} />
-                        </Col>
-                      </Row>
-                    )}
-                    <Row type="flex" justify="end">
-                      <Form.Item className="no-margin-bottom">
-                        <Button
-                          type="primary"
-                          htmlType="submit"
-                          disabled={!fileList}
-                          loading={loading}
-                        >
-                          Submit
-                        </Button>
+                          <p className="ant-upload-drag-icon">
+                            <InboxOutlined />
+                          </p>
+                          <p className="ant-upload-text">LaTeX file</p>
+                          <p className="ant-upload-hint">
+                            Click or drag file to this area to upload
+                          </p>
+                        </Dragger>
                       </Form.Item>
+                      <Form.Item label="Output format" name="format">
+                        <SelectBox options={BIBLIOGRAPHY_GENERATOR_FORMATS} />
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                  {citationErrors && (
+                    <Row className="mb3">
+                      <Col span={24}>
+                        {citationErrors.map((e: any) => <div className="mb2">
+                          <Alert
+                            type="warning"
+                            message={e.get('message')}
+                          />
+                        </div>)}
+                      </Col>
                     </Row>
-                  </Col>
-                </Row>
-              </Col>
-            </Row>
-          </Form>
-        </Col>
-      </Row>
-    </>
-  );
+                  )}
+                  {error && (
+                    <Row className="mb3">
+                      <Col span={24}>
+                        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+                        <ErrorAlert message={error.get('message')} />
+                      </Col>
+                    </Row>
+                  )}
+                  // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+                  <Row type="flex" justify="end">
+                    <Form.Item className="no-margin-bottom">
+                      <Button
+                        type="primary"
+                        htmlType="submit"
+                        disabled={!fileList}
+                        loading={loading}
+                      >
+                        Submit
+                      </Button>
+                    </Form.Item>
+                  </Row>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </Form>
+      </Col>
+    </Row>
+  </>;
 }
 
 BibliographyGenerator.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   loading: PropTypes.bool,
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof Map' is not assignable to... Remove this comment to see the full error message
   data: PropTypes.instanceOf(Map),
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof List' is not assignable t... Remove this comment to see the full error message
   citationErrors: PropTypes.instanceOf(List),
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof Map' is not assignable to... Remove this comment to see the full error message
   error: PropTypes.instanceOf(Map),
 };
 

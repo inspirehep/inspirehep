@@ -1,4 +1,5 @@
 import React from 'react';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -7,12 +8,11 @@ function RouteOrRedirect({
   condition,
   redirectTo,
   ...rest
-}) {
+}: any) {
   return (
     <Route
       {...rest}
-      render={props =>
-        condition ? <Component {...props} /> : <Redirect to={redirectTo} />
+      render={(props: any) => condition ? <Component {...props} /> : <Redirect to={redirectTo} />
       }
     />
   );

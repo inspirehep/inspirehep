@@ -12,7 +12,7 @@ import NumberOfResultsContainer from '../../common/containers/NumberOfResultsCon
 import EmbeddedSearchBoxContainer from '../../common/containers/EmbeddedSearchBoxContainer';
 import pluralizeUnlessSingle from '../../common/utils';
 
-function renderConferenceItem(result) {
+function renderConferenceItem(result: any) {
   const controlNumber = result.getIn(['metadata', 'control_number']);
   const title = result.getIn(['metadata', 'titles', 0, 'title']);
   return (
@@ -21,13 +21,19 @@ function renderConferenceItem(result) {
         <Radio value={{ controlNumber, title }} />
       </Col>
       <Col flex="1 1 1px">
+        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
         <ConferenceItem metadata={result.get('metadata')} openDetailInNewTab />
       </Col>
     </Row>
   );
 }
 
-function AssignDrawer({ visible, onDrawerClose, onAssign, selectedPapers }) {
+function AssignDrawer({
+  visible,
+  onDrawerClose,
+  onAssign,
+  selectedPapers
+}: any) {
   const [selectedConferenceId, setSelectedConferenceId] = useState();
   const [selectedConferenceTitle, setSelectedConferenceTitle] = useState();
 
@@ -88,6 +94,7 @@ AssignDrawer.propTypes = {
   visible: PropTypes.bool,
   onDrawerClose: PropTypes.func,
   onAssign: PropTypes.func,
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof Set' is not assignable to... Remove this comment to see the full error message
   selectedPapers: PropTypes.instanceOf(Set),
 };
 

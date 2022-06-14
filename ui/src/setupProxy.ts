@@ -6,6 +6,6 @@ const localProxy = proxy({
   changeOrigin: true,
 });
 
-module.exports = (app) => {
+module.exports = (app: any) => {
   app.use('/api', localProxy);
 };

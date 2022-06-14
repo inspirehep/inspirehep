@@ -1,8 +1,9 @@
 import { USER_LOGIN_SUCCESS } from '../actions/actionTypes';
 import { setUserCategoryFromRoles } from '../tracker';
 
-export default ({ getState }) => {
-  return next => action => {
+export default ({
+  getState
+}: any) => (next: any) => (action: any) => {
     const result = next(action);
 
     // track only necessary redux actions below:
@@ -14,4 +15,3 @@ export default ({ getState }) => {
     }
     return result;
   };
-};

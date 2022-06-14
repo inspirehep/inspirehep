@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { useParams } from 'react-router-dom';
 import { Set } from 'immutable';
 import { SelectOutlined } from '@ant-design/icons';
@@ -12,7 +13,7 @@ import NumberOfResultsContainer from '../../../common/containers/NumberOfResults
 import EmbeddedSearchBoxContainer from '../../../common/containers/EmbeddedSearchBoxContainer';
 import pluralizeUnlessSingle from '../../../common/utils';
 
-function renderAuthorItem(result) {
+function renderAuthorItem(result: any) {
   return (
     <Row>
       <Col flex="0 1 1px">
@@ -20,6 +21,7 @@ function renderAuthorItem(result) {
       </Col>
       <Col flex="1 1 1px">
         <AuthorResultItem
+          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
           metadata={result.get('metadata')}
           openDetailInNewTab
         />
@@ -28,7 +30,12 @@ function renderAuthorItem(result) {
   );
 }
 
-function AssignDrawer({ visible, onDrawerClose, selectedPapers, onAssign }) {
+function AssignDrawer({
+  visible,
+  onDrawerClose,
+  selectedPapers,
+  onAssign
+}: any) {
   const currentAuthorId = Number(useParams().id);
   const [selectedAuthorId, setSelectedAuthorId] = useState();
   const onSelectedAuthorChange = useCallback(event => {
@@ -95,6 +102,7 @@ AssignDrawer.propTypes = {
   visible: PropTypes.bool,
   onDrawerClose: PropTypes.func,
   onAssign: PropTypes.func,
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof Set' is not assignable to... Remove this comment to see the full error message
   selectedPapers: PropTypes.instanceOf(Set),
 };
 

@@ -7,7 +7,7 @@ import ResultsContainer from '../../common/containers/ResultsContainer';
 import PaginationContainer from '../../common/containers/PaginationContainer';
 import SeminarCountWarning from '../../seminars/components/SeminarCountWarning';
 
-function renderSeminarItem(result) {
+function renderSeminarItem(result: any) {
   return (
     <SeminarItem
       metadata={result.get('metadata')}

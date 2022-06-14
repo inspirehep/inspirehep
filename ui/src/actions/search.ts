@@ -14,26 +14,28 @@ import {
 import {
   UI_SERIALIZER_REQUEST_OPTIONS,
   isCancelError,
+// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.ts' extension. ... Remove this comment to see the full error message
 } from '../common/http.ts';
 import { httpErrorToActionPayload } from '../common/utils';
 import SearchHelper from '../search/helper';
 import searchConfig from '../search/config';
 
-function searching(namespace) {
+function searching(namespace: any) {
   return {
     type: SEARCH_REQUEST,
     payload: { namespace },
   };
 }
 
-function searchSuccess(namespace, data) {
+function searchSuccess(namespace: any, data: any) {
   return {
     type: SEARCH_SUCCESS,
     payload: { namespace, data },
   };
 }
 
-function searchError(namespace, errorPayload) {
+function searchError(namespace: any, errorPayload: any) {
+  // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
   const { redirectableError } = searchConfig[namespace];
   return {
     type: SEARCH_ERROR,
@@ -42,15 +44,15 @@ function searchError(namespace, errorPayload) {
   };
 }
 
-export function newSearch(namespace) {
+export function newSearch(namespace: any) {
   return {
     type: NEW_SEARCH_REQUEST,
     payload: { namespace },
   };
 }
 
-export function fetchSearchResults(namespace, url) {
-  return async (dispatch, getState, http) => {
+export function fetchSearchResults(namespace: any, url: any) {
+  return async (dispatch: any, getState: any, http: any) => {
     dispatch(searching(namespace));
     try {
       const response = await http.get(
@@ -68,29 +70,29 @@ export function fetchSearchResults(namespace, url) {
   };
 }
 
-function fetchingSearchAggregations(namespace) {
+function fetchingSearchAggregations(namespace: any) {
   return {
     type: SEARCH_AGGREGATIONS_REQUEST,
     payload: { namespace },
   };
 }
 
-function searchAggregationsSuccess(namespace, data) {
+function searchAggregationsSuccess(namespace: any, data: any) {
   return {
     type: SEARCH_AGGREGATIONS_SUCCESS,
     payload: { data, namespace },
   };
 }
 
-function searchAggregationsError(namespace, errorPayload) {
+function searchAggregationsError(namespace: any, errorPayload: any) {
   return {
     type: SEARCH_AGGREGATIONS_ERROR,
     payload: { ...errorPayload, namespace },
   };
 }
 
-export function fetchSearchAggregations(namespace, url) {
-  return async (dispatch, getState, http) => {
+export function fetchSearchAggregations(namespace: any, url: any) {
+  return async (dispatch: any, getState: any, http: any) => {
     dispatch(fetchingSearchAggregations(namespace));
     try {
       const response = await http.get(
@@ -109,11 +111,11 @@ export function fetchSearchAggregations(namespace, url) {
 }
 
 export function searchQueryUpdate(
-  namespace,
-  query,
+  namespace: any,
+  query: any,
   dueToNavigationToSearchPage = false
 ) {
-  return async (dispatch, getState) => {
+  return async (dispatch: any, getState: any) => {
     const currentQuery = getState().search.getIn([
       'namespaces',
       namespace,
@@ -143,6 +145,7 @@ export function searchQueryUpdate(
       dispatch,
       dueToNavigationToSearchPage
     );
+    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     searchConfig[namespace].onQueryChange(
       helper,
       dispatch,
@@ -151,7 +154,7 @@ export function searchQueryUpdate(
   };
 }
 
-export function searchQueryReset(namespace) {
+export function searchQueryReset(namespace: any) {
   return {
     type: SEARCH_QUERY_RESET,
     payload: { namespace },
@@ -159,10 +162,13 @@ export function searchQueryReset(namespace) {
 }
 
 export function searchBaseQueriesUpdate(
-  namespace,
-  { baseQuery, baseAggregationsQuery }
+  namespace: any,
+  {
+    baseQuery,
+    baseAggregationsQuery
+  }: any
 ) {
-  return async (dispatch, getState) => {
+  return async (dispatch: any, getState: any) => {
     const prevState = getState();
 
     dispatch({
@@ -171,12 +177,14 @@ export function searchBaseQueriesUpdate(
     });
 
     const nextState = getState();
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 5 arguments, but got 4.
     const helper = new SearchHelper(namespace, prevState, nextState, dispatch);
+    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     searchConfig[namespace].onQueryChange(helper, dispatch);
   };
 }
 
-export function changeSearchBoxNamespace(searchBoxNamespace) {
+export function changeSearchBoxNamespace(searchBoxNamespace: any) {
   return {
     type: CHANGE_SEARCH_BOX_NAMESPACE,
     payload: { searchBoxNamespace },

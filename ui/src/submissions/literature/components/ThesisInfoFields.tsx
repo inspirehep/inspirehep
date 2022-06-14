@@ -9,6 +9,7 @@ import LiteratureAuthorsField from './LiteratureAuthorsField';
 
 class ThesisInfoFields extends Component {
   render() {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'values' does not exist on type 'Readonly... Remove this comment to see the full error message
     const { values } = this.props;
 
     return (
@@ -33,6 +34,7 @@ class ThesisInfoFields extends Component {
         />
         <Field name="institution" label="Institution" component={TextField} />
         <LiteratureAuthorsField
+          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
           values={values}
           name="supervisors"
           label="Supervisors"
@@ -42,6 +44,7 @@ class ThesisInfoFields extends Component {
   }
 }
 
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'propTypes' does not exist on type 'typeo... Remove this comment to see the full error message
 ThesisInfoFields.propTypes = {
   values: PropTypes.objectOf(PropTypes.any).isRequired, // current form data
 };

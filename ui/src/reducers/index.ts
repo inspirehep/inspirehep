@@ -18,7 +18,7 @@ import bibliographyGenerator from './bibliographyGenerator';
 import ui, { initialState as uiInitialState } from './ui';
 import { LITERATURE_NS, LITERATURE_REFERENCES_NS } from '../search/constants';
 
-export default function createRootReducer(history) {
+export default function createRootReducer(history: any) {
   return combineReducers({
     router: connectRouter(history),
     exceptions,

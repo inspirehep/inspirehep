@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Field, Form } from 'formik';
 import { Row } from 'antd';
 
+// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.tsx' extension.... Remove this comment to see the full error message
 import ExternalLink from '../../../common/components/ExternalLink.tsx';
 import TextField from '../../common/components/TextField';
 import SelectField from '../../common/components/SelectField';
@@ -20,28 +21,28 @@ import { POST_DOC_RANK_VALUE } from '../../../common/constants';
 import ContactsField from '../../common/components/ContactsField';
 
 class JobForm extends Component {
-  static isInvalidDeadlineDate(date) {
+  static isInvalidDeadlineDate(date: any) {
     return !isValidDeadlineDate(date);
   }
 
   // TODO: move them somewhere common to share with `AuthorForm`
-  static getSuggestionSourceLegacyICN(suggestion) {
+  static getSuggestionSourceLegacyICN(suggestion: any) {
     return suggestion._source.legacy_ICN;
   }
 
-  static getSuggestionSourceLegacyName(suggestion) {
+  static getSuggestionSourceLegacyName(suggestion: any) {
     return suggestion._source.legacy_name;
   }
 
   isPostDocSubmission() {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'values' does not exist on type 'Readonly... Remove this comment to see the full error message
     const { values } = this.props;
 
-    return (
-      values.ranks && values.ranks.some((rank) => rank === POST_DOC_RANK_VALUE)
-    );
+    return values.ranks && values.ranks.some((rank: any) => rank === POST_DOC_RANK_VALUE);
   }
 
   render() {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'values' does not exist on type 'Readonly... Remove this comment to see the full error message
     const { values } = this.props;
     return (
       <Form className="bg-white pa3">
@@ -58,23 +59,22 @@ class JobForm extends Component {
           component={TextField}
         />
         <ArrayOf
+          // @ts-expect-error ts-migrate(2322) FIXME: Type '{ values: any; name: string; label: string; ... Remove this comment to see the full error message
           values={values}
           name="institutions"
           label="* Institutions"
           emptyItem={{}}
-          renderItem={(itemName) => (
-            <Field
-              onlyChild
-              name={`${itemName}.value`}
-              recordFieldPath={`${itemName}.record`}
-              placeholder="Institution, type for suggestions"
-              pidType="institutions"
-              suggesterName="affiliation"
-              searchAsYouType
-              extractItemCompletionValue={JobForm.getSuggestionSourceLegacyICN}
-              component={SuggesterField}
-            />
-          )}
+          renderItem={(itemName: any) => <Field
+            onlyChild
+            name={`${itemName}.value`}
+            recordFieldPath={`${itemName}.record`}
+            placeholder="Institution, type for suggestions"
+            pidType="institutions"
+            suggesterName="affiliation"
+            searchAsYouType
+            extractItemCompletionValue={JobForm.getSuggestionSourceLegacyICN}
+            component={SuggesterField}
+          />}
         />
         <Field
           name="regions"
@@ -98,23 +98,22 @@ class JobForm extends Component {
           component={SelectField}
         />
         <ArrayOf
+          // @ts-expect-error ts-migrate(2322) FIXME: Type '{ values: any; name: string; label: string; ... Remove this comment to see the full error message
           values={values}
           name="experiments"
           label="Experiment"
           emptyItem={{}}
-          renderItem={(itemName) => (
-            <Field
-              onlyChild
-              name={`${itemName}.legacy_name`}
-              recordFieldPath={`${itemName}.record`}
-              placeholder="Experiment, type for suggestions"
-              pidType="experiments"
-              suggesterName="experiment"
-              searchAsYouType
-              extractItemCompletionValue={JobForm.getSuggestionSourceLegacyName}
-              component={SuggesterField}
-            />
-          )}
+          renderItem={(itemName: any) => <Field
+            onlyChild
+            name={`${itemName}.legacy_name`}
+            recordFieldPath={`${itemName}.record`}
+            placeholder="Experiment, type for suggestions"
+            pidType="experiments"
+            suggesterName="experiment"
+            searchAsYouType
+            extractItemCompletionValue={JobForm.getSuggestionSourceLegacyName}
+            component={SuggesterField}
+          />}
         />
         <Field
           name="url"
@@ -124,6 +123,7 @@ class JobForm extends Component {
         />
         {this.isPostDocSubmission() && (
           <FieldInfoAlert
+            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
             description={
               <span>
                 Many institutions have agreed to set January 7 as the earliest
@@ -144,18 +144,17 @@ class JobForm extends Component {
         />
         <ContactsField label="* Contact Details" />
         <ArrayOf
+          // @ts-expect-error ts-migrate(2322) FIXME: Type '{ values: any; name: string; label: string; ... Remove this comment to see the full error message
           values={values}
           name="reference_letters"
           label="Reference Letters"
           emptyItem=""
-          renderItem={(itemName) => (
-            <Field
-              onlyChild
-              name={itemName}
-              placeholder="URL (http://) or email where reference letters should be sent"
-              component={TextField}
-            />
-          )}
+          renderItem={(itemName: any) => <Field
+            onlyChild
+            name={itemName}
+            placeholder="URL (http://) or email where reference letters should be sent"
+            component={TextField}
+          />}
         />
 
         <Field
@@ -163,6 +162,7 @@ class JobForm extends Component {
           label="* Description"
           component={RichTextField}
         />
+        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
         <Row type="flex" justify="end">
           <SubmitButton />
         </Row>
@@ -171,6 +171,7 @@ class JobForm extends Component {
   }
 }
 
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'propTypes' does not exist on type 'typeo... Remove this comment to see the full error message
 JobForm.propTypes = {
   values: PropTypes.objectOf(PropTypes.any).isRequired, // current form data
 };

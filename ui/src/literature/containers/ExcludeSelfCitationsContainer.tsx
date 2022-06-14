@@ -1,3 +1,4 @@
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { connect } from 'react-redux';
 
 import { fetchCitationSummary } from '../../actions/citations';
@@ -13,31 +14,37 @@ import { searchQueryUpdate } from '../../actions/search';
 
 export const UI_EXCLUDE_SELF_CITATIONS_PARAM = 'ui-exclude-self-citations';
 
-function selfCitationsExcludedOnLocation(state) {
+function selfCitationsExcludedOnLocation(state: any) {
   return state.router.location.query[UI_EXCLUDE_SELF_CITATIONS_PARAM] != null;
 }
 
-function selfCitationsExcludedOnUserPreferences(state) {
+function selfCitationsExcludedOnUserPreferences(state: any) {
   return state.user.getIn(
     ['preferences', EXCLUDE_SELF_CITATIONS_PREFERENCE],
     false
   );
 }
 
-export function shouldExcludeSelfCitations(state) {
+export function shouldExcludeSelfCitations(state: any) {
   return (
     selfCitationsExcludedOnLocation(state) ||
     selfCitationsExcludedOnUserPreferences(state)
   );
 }
 
-const stateToProps = state => ({
+const stateToProps = (state: any) => ({
   excluded: selfCitationsExcludedOnLocation(state),
-  preference: selfCitationsExcludedOnUserPreferences(state),
+  preference: selfCitationsExcludedOnUserPreferences(state)
 });
 
-const dispatchToProps = (dispatch, { namespace }) => ({
-  onChange(excluded) {
+const dispatchToProps = (
+  // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'dispatch' implicitly has an 'any' type.
+  dispatch,
+  {
+    namespace
+  }: any
+) => ({
+  onChange(excluded: any) {
     dispatch(setPreference(EXCLUDE_SELF_CITATIONS_PREFERENCE, excluded));
     dispatch(
       searchQueryUpdate(namespace, {
@@ -54,13 +61,14 @@ const dispatchToProps = (dispatch, { namespace }) => ({
     }
     dispatch(fetchCitationSummary(namespace));
   },
-  onPreferenceChange(preference) {
+
+  onPreferenceChange(preference: any) {
     if (preference) {
       dispatch(
         appendQueryToLocationSearch({ [UI_EXCLUDE_SELF_CITATIONS_PARAM]: true })
       );
     }
-  },
+  }
 });
 
 export default connect(stateToProps, dispatchToProps)(ExcludeSelfCitations);

@@ -8,7 +8,7 @@ import UnclickableTag from '../../common/components/UnclickableTag';
 import './ExceptionsDashboard.scss';
 
 class ExceptionsDashboard extends Component {
-  static getDerivedStateFromProps(nextProps, prevState) {
+  static getDerivedStateFromProps(nextProps: any, prevState: any) {
     const { exceptions } = nextProps;
     const { prevExceptions } = prevState;
 
@@ -26,8 +26,8 @@ class ExceptionsDashboard extends Component {
     };
   }
 
-  static getExceptionCountEntriesByCollection(exceptions) {
-    const countMap = exceptions.reduce((counts, exception) => {
+  static getExceptionCountEntriesByCollection(exceptions: any) {
+    const countMap = exceptions.reduce((counts: any, exception: any) => {
       if (counts[exception.collection] === undefined) {
         counts[exception.collection] = 0;
       }
@@ -37,32 +37,42 @@ class ExceptionsDashboard extends Component {
     return Object.entries(countMap);
   }
 
-  constructor(props) {
+  constructor(props: any) {
     super(props);
     this.state = {};
   }
 
   render() {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'countEntriesByCollection' does not exist... Remove this comment to see the full error message
     const { countEntriesByCollection } = this.state;
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'loading' does not exist on type 'Readonl... Remove this comment to see the full error message
     const { loading, exceptions } = this.props;
+
+    const exceptionsTableProps = {
+      exceptions,
+      loading
+    }
 
     return (
       <div className="__ExceptionsDashboard__">
         <div className="collection-counts">
           <InlineList
+            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
             separateItems={false}
             items={countEntriesByCollection}
             label="Collections"
+            // @ts-expect-error ts-migrate(7031) FIXME: Binding element 'collectionName' implicitly has an... Remove this comment to see the full error message
             renderItem={([collectionName, collectionCount]) => (
+              // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
               <UnclickableTag className="space-around">
                 {collectionCount} {collectionName}
               </UnclickableTag>
             )}
           />
         </div>
-        <Row type="flex" justify="space-around">
+        <Row justify="space-around">
           <Col span={20}>
-            <ExceptionsTable exceptions={exceptions} loading={loading} />
+            <ExceptionsTable {...exceptionsTableProps} />
           </Col>
         </Row>
       </div>
@@ -70,6 +80,7 @@ class ExceptionsDashboard extends Component {
   }
 }
 
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'propTypes' does not exist on type 'typeo... Remove this comment to see the full error message
 ExceptionsDashboard.propTypes = {
   exceptions: PropTypes.arrayOf(
     PropTypes.shape({

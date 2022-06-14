@@ -18,7 +18,7 @@ export const initialState = fromJS({
   errorCitationsByYear: null,
 });
 
-const citationsReducer = (state = initialState, action) => {
+const citationsReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case CITATIONS_SUMMARY_REQUEST:
       return state.set('loadingCitationSummary', true);

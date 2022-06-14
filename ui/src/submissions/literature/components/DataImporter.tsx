@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 import { Input, Button, Alert, Row, Col, Tooltip, Form } from 'antd';
+// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.tsx' extension.... Remove this comment to see the full error message
 import ExternalLink from '../../../common/components/ExternalLink.tsx';
 
 import LinkLikeButton from '../../../common/components/LinkLikeButton';
@@ -10,23 +11,27 @@ import { LABEL_COL, WRAPPER_COL } from '../../common/withFormItem';
 const DEFAULT_ERROR_MESSAGE = 'Something went wrong during the import';
 
 class DataImporter extends Component {
-  constructor(props) {
+  importValue: any;
+
+  constructor(props: any) {
     super(props);
     this.onImportChange = this.onImportChange.bind(this);
     this.onImportClick = this.onImportClick.bind(this);
   }
 
-  async onImportChange(event) {
+  async onImportChange(event: any) {
     const { value } = event.target;
     this.importValue = value;
   }
 
   onImportClick() {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'onImportClick' does not exist on type 'R... Remove this comment to see the full error message
     const { onImportClick } = this.props;
     onImportClick(this.importValue);
   }
 
   renderAlertMessage() {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'error' does not exist on type 'Readonly<... Remove this comment to see the full error message
     const { error } = this.props;
     const recordId = error.get('recid');
     return (
@@ -45,6 +50,7 @@ class DataImporter extends Component {
   }
 
   render() {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'onSkipClick' does not exist on type 'Rea... Remove this comment to see the full error message
     const { onSkipClick, isImporting, error } = this.props;
     return (
       <div>
@@ -80,9 +86,11 @@ class DataImporter extends Component {
             onPressEnter={this.onImportClick}
           />
         </Form.Item>
+        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
         <Row type="flex" justify="space-between" align="middle">
           <Col>
             <LinkLikeButton
+              // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
               dataTestId="skip-import-button"
               onClick={onSkipClick}
             >
@@ -105,11 +113,13 @@ class DataImporter extends Component {
   }
 }
 
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'propTypes' does not exist on type 'typeo... Remove this comment to see the full error message
 DataImporter.propTypes = {
   // TODO: maybe use portal to put this future directly into SubmissionPage or remove this component fully since it's not used anywhere else, or use redux
   onSkipClick: PropTypes.func.isRequired,
   onImportClick: PropTypes.func.isRequired,
   isImporting: PropTypes.bool.isRequired,
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof Map' is not assignable to... Remove this comment to see the full error message
   error: PropTypes.instanceOf(Map),
 };
 

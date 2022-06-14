@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { Link } from 'react-router-dom';
 import { Map } from 'immutable';
 import { Row, Col } from 'antd';
@@ -10,6 +11,7 @@ import { INSTITUTIONS } from '../../common/routes';
 import ListItemAction from '../../common/components/ListItemAction';
 import InstitutionHierarchyList from './InstitutionHierarchyList';
 import InstitutionAddressList from './InstitutionAddressList';
+// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.tsx' extension.... Remove this comment to see the full error message
 import EditRecordAction from '../../common/components/EditRecordAction.tsx';
 import AuthorizedContainer from '../../common/containers/AuthorizedContainer';
 import { SUPERUSER_OR_CATALOGER } from '../../common/authorization';
@@ -17,7 +19,9 @@ import { INSTITUTIONS_PID_TYPE } from '../../common/constants';
 import { getPapersQueryString } from '../utils';
 import UrlsAction from '../../literature/components/UrlsAction';
 
-function InstitutionItem({ metadata }) {
+function InstitutionItem({
+  metadata
+}: any) {
   const legacyIcn = metadata.get('legacy_ICN');
   const recordId = metadata.get('control_number');
   const addresses = metadata.get('addresses');
@@ -27,6 +31,7 @@ function InstitutionItem({ metadata }) {
 
   return (
     <ResultItem
+      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
       leftActions={
         <>
           {urls && <UrlsAction urls={urls} />}
@@ -74,6 +79,7 @@ function InstitutionItem({ metadata }) {
 }
 
 InstitutionItem.propTypes = {
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof Map' is not assignable to... Remove this comment to see the full error message
   metadata: PropTypes.instanceOf(Map).isRequired,
 };
 

@@ -1,7 +1,10 @@
 import React, { useEffect } from 'react';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { Route } from 'react-router-dom';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { connect } from 'react-redux';
 import { Layout } from 'antd';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import Loadable from 'react-loadable';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
@@ -55,7 +58,11 @@ const Submissions$ = Loadable({
   loading: Loading,
 });
 
-function App({ userRoles, dispatch, guideModalVisibility }) {
+function App({
+  userRoles,
+  dispatch,
+  guideModalVisibility
+}: any) {
   useEffect(
     () => {
       dispatch(fetchLoggedInUser());
@@ -119,17 +126,18 @@ function App({ userRoles, dispatch, guideModalVisibility }) {
 
 App.propTypes = {
   guideModalVisibility: PropTypes.bool,
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof List' is not assignable t... Remove this comment to see the full error message
   userRoles: PropTypes.instanceOf(List).isRequired,
   dispatch: PropTypes.func.isRequired,
 };
 
-const stateToProps = state => ({
+const stateToProps = (state: any) => ({
   guideModalVisibility: state.ui.get('guideModalVisibility'),
-  userRoles: state.user.getIn(['data', 'roles']),
+  userRoles: state.user.getIn(['data', 'roles'])
 });
 
-const dispatchToProps = dispatch => ({
-  dispatch,
+const dispatchToProps = (dispatch: any) => ({
+  dispatch
 });
 
 export default connect(stateToProps, dispatchToProps)(App);

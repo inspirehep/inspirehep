@@ -4,7 +4,7 @@ import moment from 'moment';
 import { InlineUL } from '../../common/components/InlineList';
 import { hasDayMonthAndYear, hasMonthAndYear } from '../../common/utils';
 
-function getDisplayFormatForDateString(date) {
+function getDisplayFormatForDateString(date: any) {
   if (hasDayMonthAndYear(date)) {
     return 'MMM D, YYYY';
   }
@@ -16,7 +16,7 @@ function getDisplayFormatForDateString(date) {
   return 'YYYY';
 }
 
-function getFormattedDate(date) {
+function getFormattedDate(date: any) {
   return moment(date).format(getDisplayFormatForDateString(date));
 }
 
@@ -26,9 +26,10 @@ function ExperimentDates({
   dateApproved,
   dateCompleted,
   dateCancelled,
-  wrapperClassName,
-}) {
+  wrapperClassName
+}: any) {
   return (
+    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
     <InlineUL wrapperClassName={wrapperClassName}>
       {dateProposed && <span>Proposed: {getFormattedDate(dateProposed)}</span>}
       {dateApproved && <span>Approved: {getFormattedDate(dateApproved)}</span>}

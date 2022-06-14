@@ -1,10 +1,13 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { LineSeries, YAxis } from 'react-vis';
 
 import CitationsByYearGraph from '../CitationsByYearGraph';
 
+// @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
 describe('CitationsByYearGraph', () => {
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('renders citations for more than 3 less than 8 years with tickValues for the XAxis and without dummy data', () => {
     const citationsByYear = {
       '1999': 10,
@@ -14,14 +17,17 @@ describe('CitationsByYearGraph', () => {
     };
     const wrapper = shallow(
       <CitationsByYearGraph
+        // @ts-expect-error ts-migrate(2322) FIXME: Type '{ citationsByYear: { '1999': number; '2000':... Remove this comment to see the full error message
         citationsByYear={citationsByYear}
         loading={false}
         error={null}
       />
     );
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(wrapper).toMatchSnapshot();
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('renders citations for less than 5 different citation counts with tickValues for the YAxis', () => {
     const citationsByYear = {
       '1999': 10,
@@ -31,14 +37,17 @@ describe('CitationsByYearGraph', () => {
     };
     const wrapper = shallow(
       <CitationsByYearGraph
+        // @ts-expect-error ts-migrate(2322) FIXME: Type '{ citationsByYear: { '1999': number; '2000':... Remove this comment to see the full error message
         citationsByYear={citationsByYear}
         loading={false}
         error={null}
       />
     );
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(wrapper).toMatchSnapshot();
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('renders more than 5 different citation counts without explicit tickValues for the YAxis', () => {
     const citationsByYear = {
       '1999': 10,
@@ -51,40 +60,49 @@ describe('CitationsByYearGraph', () => {
     };
     const wrapper = shallow(
       <CitationsByYearGraph
+        // @ts-expect-error ts-migrate(2322) FIXME: Type '{ citationsByYear: { '1999': number; '2000':... Remove this comment to see the full error message
         citationsByYear={citationsByYear}
         loading={false}
         error={null}
       />
     );
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(wrapper).toMatchSnapshot();
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('renders citations for less than 3 years with dummy data for previous 1-2 years', () => {
     const citationsByYear = {
       '1999': 10,
     };
     const wrapper = shallow(
       <CitationsByYearGraph
+        // @ts-expect-error ts-migrate(2322) FIXME: Type '{ citationsByYear: { '1999': number; }; load... Remove this comment to see the full error message
         citationsByYear={citationsByYear}
         loading={false}
         error={null}
       />
     );
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(wrapper).toMatchSnapshot();
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('renders without citations', () => {
     const citationsByYear = {};
     const wrapper = shallow(
       <CitationsByYearGraph
+        // @ts-expect-error ts-migrate(2322) FIXME: Type '{ citationsByYear: {}; loading: true; error:... Remove this comment to see the full error message
         citationsByYear={citationsByYear}
         loading
         error={null}
       />
     );
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(wrapper).toMatchSnapshot();
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('renders more than 8 years without explicit tickValues for the xAxis', () => {
     const citationsByYear = {
       '1999': 10,
@@ -105,14 +123,17 @@ describe('CitationsByYearGraph', () => {
     };
     const wrapper = shallow(
       <CitationsByYearGraph
+        // @ts-expect-error ts-migrate(2322) FIXME: Type '{ citationsByYear: { '1999': number; '2000':... Remove this comment to see the full error message
         citationsByYear={citationsByYear}
         loading={false}
         error={null}
       />
     );
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(wrapper).toMatchSnapshot();
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('renders hovered info in a tooltip on line series hover', () => {
     const citationsByYear = {
       '1999': 10,
@@ -121,17 +142,21 @@ describe('CitationsByYearGraph', () => {
     };
     const wrapper = shallow(
       <CitationsByYearGraph
+        // @ts-expect-error ts-migrate(2322) FIXME: Type '{ citationsByYear: { '1999': number; '2000':... Remove this comment to see the full error message
         citationsByYear={citationsByYear}
         loading={false}
         error={null}
       />
     );
     const onLineSeriesHover = wrapper.find(LineSeries).prop('onNearestX');
+    // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
     onLineSeriesHover({ x: 1999, y: 10 });
     wrapper.update();
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(wrapper).toMatchSnapshot();
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('renders filling missing years with 0', () => {
     const citationsByYear = {
       '2000': 10,
@@ -139,15 +164,19 @@ describe('CitationsByYearGraph', () => {
       '2015': 5,
     };
     const wrapper = shallow(
+      // @ts-expect-error ts-migrate(2322) FIXME: Type '{ citationsByYear: { '2000': number; '2014':... Remove this comment to see the full error message
       <CitationsByYearGraph citationsByYear={citationsByYear} />
     );
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(wrapper).toMatchSnapshot();
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('sets tickFormat to abbrivate values at Y axis', () => {
     const citationsByYear = {};
     const wrapper = shallow(
       <CitationsByYearGraph
+        // @ts-expect-error ts-migrate(2322) FIXME: Type '{ citationsByYear: {}; loading: boolean; err... Remove this comment to see the full error message
         citationsByYear={citationsByYear}
         loading={false}
         error={null}
@@ -155,8 +184,11 @@ describe('CitationsByYearGraph', () => {
     );
     const tickFormat = wrapper.find(YAxis).prop('tickFormat');
 
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(tickFormat(1234)).toEqual('1.2K');
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(tickFormat(15123)).toEqual('15K');
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(tickFormat(500)).toEqual(500);
   });
 });

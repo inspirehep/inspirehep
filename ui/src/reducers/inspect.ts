@@ -12,7 +12,7 @@ export const initialState = fromJS({
   error: {},
 });
 
-const inspectReducer = (state = initialState, action) => {
+const inspectReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case INSPECT_REQUEST:
       return state.set('loading', true);

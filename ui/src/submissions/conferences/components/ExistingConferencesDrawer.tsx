@@ -7,8 +7,9 @@ import { EXISTING_CONFERENCES_NS } from '../../../search/constants';
 import PaginationContainer from '../../../common/containers/PaginationContainer';
 import pluralizeUnlessSingle from '../../../common/utils';
 
-function renderConferenceItem(result) {
+function renderConferenceItem(result: any) {
   return (
+    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
     <ConferenceItem metadata={result.get('metadata')} openDetailInNewTab />
   );
 }
@@ -16,8 +17,8 @@ function renderConferenceItem(result) {
 function ExistingConferencesDrawer({
   visible,
   onDrawerClose,
-  numberOfConferences,
-}) {
+  numberOfConferences
+}: any) {
   return (
     <Drawer
       className="search-drawer"

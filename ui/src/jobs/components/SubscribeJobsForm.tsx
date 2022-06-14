@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Field, Form, Formik } from 'formik';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'yup'... Remove this comment to see the full error message
 import { object, string } from 'yup';
 import { Button, Row, Col } from 'antd';
 
@@ -22,7 +23,9 @@ const SCHEMA = object().shape({
 
 const FULL_ROW = { span: 24 };
 
-function SubscribeJobsForm({ onSubmit }) {
+function SubscribeJobsForm({
+  onSubmit
+}: any) {
   const renderForm = useCallback(
     ({ isValid }) => (
       <Form>
@@ -45,6 +48,7 @@ function SubscribeJobsForm({ onSubmit }) {
           placeholder="Last Name"
           component={TextField}
         />
+        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
         <Row type="flex" justify="end">
           <Col>
             <Button disabled={!isValid} type="primary" htmlType="submit">

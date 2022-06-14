@@ -1,13 +1,16 @@
 import { applyMiddleware, createStore as createReduxStore } from 'redux';
 import thunk from 'redux-thunk';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'hist... Remove this comment to see the full error message
 import createHistory from 'history/createBrowserHistory';
 import { routerMiddleware } from 'connected-react-router';
 /* eslint-disable import/no-extraneous-dependencies */
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'redu... Remove this comment to see the full error message
 import { createLogger } from 'redux-logger';
 /* eslint-disable import/no-extraneous-dependencies */
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import createRootReducer from './reducers';
+// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.ts' extension. ... Remove this comment to see the full error message
 import http from './common/http.ts';
 import queryParamsParserMiddleware from './middlewares/queryParamsParser';
 import keepPreviousUrlMiddleware from './middlewares/keepPreviousUrl';
@@ -32,6 +35,7 @@ const PROD_MIDDLEWARES = [
   connectedRouterMiddleware,
   queryParamsParserMiddleware,
   keepPreviousUrlMiddleware,
+  // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 1.
   createPersistToStorageMiddleware(reducersToPersist),
   clearStateDispatcher,
   redirectToErrorPageMiddleware,
@@ -53,6 +57,7 @@ const withMiddlewares = () => {
 export default function createStore() {
   return createReduxStore(
     createRootReducer(history),
+    // @ts-expect-error ts-migrate(2554) FIXME: Expected 0 arguments, but got 1.
     reHydrateRootStateFromStorage(reducersToPersist),
     composeWithDevTools(withMiddlewares())
   );

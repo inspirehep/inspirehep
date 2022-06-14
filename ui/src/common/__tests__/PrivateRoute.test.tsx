@@ -1,13 +1,17 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { fromJS, List } from 'immutable';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { Provider } from 'react-redux';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { MemoryRouter, Route, Switch } from 'react-router-dom';
 
 import { getStoreWithState } from '../../fixtures/store';
 import PrivateRoute from '../PrivateRoute';
 
+// @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
 describe('PrivateRoute', () => {
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('redirects to login if not logged in ', () => {
     const store = getStoreWithState({
       user: fromJS({
@@ -29,9 +33,11 @@ describe('PrivateRoute', () => {
         </MemoryRouter>
       </Provider>
     );
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(wrapper).toMatchSnapshot();
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('routes if logged in', () => {
     const store = getStoreWithState({
       user: fromJS({
@@ -51,9 +57,11 @@ describe('PrivateRoute', () => {
         </MemoryRouter>
       </Provider>
     );
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(wrapper).toMatchSnapshot();
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('redirects 401 if logged in but not authorized', () => {
     const store = getStoreWithState({
       user: fromJS({
@@ -80,9 +88,11 @@ describe('PrivateRoute', () => {
         </MemoryRouter>
       </Provider>
     );
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(wrapper).toMatchSnapshot();
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('routes if logged in user is authorized', () => {
     const store = getStoreWithState({
       user: fromJS({
@@ -107,6 +117,7 @@ describe('PrivateRoute', () => {
         </MemoryRouter>
       </Provider>
     );
+    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(wrapper).toMatchSnapshot();
   });
 });

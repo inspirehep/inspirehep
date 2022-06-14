@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { connect } from 'react-redux';
 import { Map } from 'immutable';
 import { Row, Col, Tooltip, Form } from 'antd';
@@ -7,6 +8,7 @@ import { Row, Col, Tooltip, Form } from 'antd';
 import { submit } from '../../../actions/submissions';
 import { LABEL_COL, WRAPPER_COL } from '../../common/withFormItem';
 import LiteratureSubmission from '../components/LiteratureSubmission';
+// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.tsx' extension.... Remove this comment to see the full error message
 import ExternalLink from '../../../common/components/ExternalLink.tsx';
 import SelectBox from '../../../common/components/SelectBox';
 import DataImporterContainer from './DataImporterContainer';
@@ -35,7 +37,11 @@ const DOC_TYPE_OPTIONS = [
   },
 ];
 
-function LiteratureSubmissionPage({ error, importedFormData, onSubmit }) {
+function LiteratureSubmissionPage({
+  error,
+  importedFormData,
+  onSubmit
+}: any) {
   const [docType, setDocType] = useState(DOC_TYPE_OPTIONS[0].value);
   const [isDataImportSkipped, setDataImportSkipped] = useState(false);
   const shouldDisplayForm = isDataImportSkipped || importedFormData != null;
@@ -91,6 +97,7 @@ function LiteratureSubmissionPage({ error, importedFormData, onSubmit }) {
               >
                 <SelectBox
                   data-test-id="document-type-select"
+                  // @ts-expect-error ts-migrate(2322) FIXME: Type '{ "data-test-id": string; className: string;... Remove this comment to see the full error message
                   className="w-100"
                   value={docType}
                   options={DOC_TYPE_OPTIONS}
@@ -117,19 +124,21 @@ function LiteratureSubmissionPage({ error, importedFormData, onSubmit }) {
 
 LiteratureSubmissionPage.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof Map' is not assignable to... Remove this comment to see the full error message
   error: PropTypes.instanceOf(Map),
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof Map' is not assignable to... Remove this comment to see the full error message
   importedFormData: PropTypes.instanceOf(Map),
 };
 
-const stateToProps = state => ({
+const stateToProps = (state: any) => ({
   error: state.submissions.get('submitError'),
-  importedFormData: state.submissions.get('initialData'),
+  importedFormData: state.submissions.get('initialData')
 });
 
-const dispatchToProps = dispatch => ({
-  async onSubmit(formData) {
+const dispatchToProps = (dispatch: any) => ({
+  async onSubmit(formData: any) {
     await dispatch(submit(LITERATURE_PID_TYPE, formData));
-  },
+  }
 });
 
 export default connect(stateToProps, dispatchToProps)(LiteratureSubmissionPage);

@@ -23,7 +23,7 @@ import AuthorSuggesterField from '../../common/components/AuthorSuggesterField';
 import BooleanField from '../../common/components/BooleanField';
 import LabelWithHelp from '../../../common/components/LabelWithHelp';
 
-function getSuggestionSourceLegacyICN(suggestion) {
+function getSuggestionSourceLegacyICN(suggestion: any) {
   return suggestion._source.legacy_ICN;
 }
 
@@ -32,7 +32,9 @@ const TIME_PICKER_OPTIONS = {
   minuteStep: 5,
 };
 
-function SeminarForm({ values }) {
+function SeminarForm({
+  values
+}: any) {
   return (
     <Form className="bg-white pa3">
       <Field name="name" label="* Seminar Title" component={TextField} />
@@ -52,35 +54,35 @@ function SeminarForm({ values }) {
         component={SelectField}
       />
       <ArrayOf
+        // @ts-expect-error ts-migrate(2322) FIXME: Type '{ values: any; name: string; label: string; ... Remove this comment to see the full error message
         values={values}
         name="speakers"
         label="* Speaker(s)"
         emptyItem={{}}
-        renderItem={(itemName) => (
-          <Row type="flex" justify="space-between">
-            <Col span={11}>
-              <AuthorSuggesterField
-                onlyChild
-                name={`${itemName}.name`}
-                recordFieldPath={`${itemName}.record`}
-                placeholder="Family name, first name"
-              />
-            </Col>
-            <Col span={11}>
-              <Field
-                onlyChild
-                name={`${itemName}.affiliation`}
-                recordFieldPath={`${itemName}.affiliation_record`}
-                placeholder="Affiliation, type for suggestions"
-                pidType="institutions"
-                suggesterName="affiliation"
-                searchAsYouType
-                extractItemCompletionValue={getSuggestionSourceLegacyICN}
-                component={SuggesterField}
-              />
-            </Col>
-          </Row>
-        )}
+        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+        renderItem={(itemName: any) => <Row type="flex" justify="space-between">
+          <Col span={11}>
+            <AuthorSuggesterField
+              onlyChild
+              name={`${itemName}.name`}
+              recordFieldPath={`${itemName}.record`}
+              placeholder="Family name, first name"
+            />
+          </Col>
+          <Col span={11}>
+            <Field
+              onlyChild
+              name={`${itemName}.affiliation`}
+              recordFieldPath={`${itemName}.affiliation_record`}
+              placeholder="Affiliation, type for suggestions"
+              pidType="institutions"
+              suggesterName="affiliation"
+              searchAsYouType
+              extractItemCompletionValue={getSuggestionSourceLegacyICN}
+              component={SuggesterField}
+            />
+          </Col>
+        </Row>}
       />
       <Field
         name="series_name"
@@ -96,65 +98,64 @@ function SeminarForm({ values }) {
         component={NumberField}
       />
       <ArrayOf
+        // @ts-expect-error ts-migrate(2322) FIXME: Type '{ values: any; name: string; label: string; ... Remove this comment to see the full error message
         values={values}
         name="websites"
         label="Seminar Website(s)"
         emptyItem=""
-        renderItem={(itemName) => (
-          <Field onlyChild name={itemName} component={TextField} />
-        )}
+        renderItem={(itemName: any) => <Field onlyChild name={itemName} component={TextField} />}
       />
       <ArrayOf
+        // @ts-expect-error ts-migrate(2322) FIXME: Type '{ values: any; name: string; label: string; ... Remove this comment to see the full error message
         values={values}
         name="material_urls"
         label="Material(s)"
         emptyItem={{}}
-        renderItem={(itemName) => (
-          <Row type="flex" justify="space-between">
-            <Col span={11}>
-              <Field
-                onlyChild
-                name={`${itemName}.value`}
-                placeholder="https://drive.google.com/slides"
-                component={TextField}
-              />
-            </Col>
-            <Col span={11}>
-              <Field
-                onlyChild
-                name={`${itemName}.description`}
-                placeholder="Description, eg. Slides, PDF"
-                component={TextField}
-              />
-            </Col>
-          </Row>
-        )}
+        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+        renderItem={(itemName: any) => <Row type="flex" justify="space-between">
+          <Col span={11}>
+            <Field
+              onlyChild
+              name={`${itemName}.value`}
+              placeholder="https://drive.google.com/slides"
+              component={TextField}
+            />
+          </Col>
+          <Col span={11}>
+            <Field
+              onlyChild
+              name={`${itemName}.description`}
+              placeholder="Description, eg. Slides, PDF"
+              component={TextField}
+            />
+          </Col>
+        </Row>}
       />
       <ArrayOf
+        // @ts-expect-error ts-migrate(2322) FIXME: Type '{ values: any; name: string; label: string; ... Remove this comment to see the full error message
         values={values}
         name="join_urls"
         label="Join URL(s)"
         emptyItem={{}}
-        renderItem={(itemName) => (
-          <Row type="flex" justify="space-between">
-            <Col span={11}>
-              <Field
-                onlyChild
-                name={`${itemName}.value`}
-                placeholder="https://zoom.us/videoconference"
-                component={TextField}
-              />
-            </Col>
-            <Col span={11}>
-              <Field
-                onlyChild
-                name={`${itemName}.description`}
-                placeholder="Description, eg. Zoom"
-                component={TextField}
-              />
-            </Col>
-          </Row>
-        )}
+        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+        renderItem={(itemName: any) => <Row type="flex" justify="space-between">
+          <Col span={11}>
+            <Field
+              onlyChild
+              name={`${itemName}.value`}
+              placeholder="https://zoom.us/videoconference"
+              component={TextField}
+            />
+          </Col>
+          <Col span={11}>
+            <Field
+              onlyChild
+              name={`${itemName}.description`}
+              placeholder="Description, eg. Zoom"
+              component={TextField}
+            />
+          </Col>
+        </Row>}
       />
       <Field name="captioned" label="Has captions" component={BooleanField} />
       <AntForm.Item // TODO: create `ObjectOf` component
@@ -162,6 +163,7 @@ function SeminarForm({ values }) {
         labelCol={LABEL_COL}
         wrapperCol={WRAPPER_COL}
       >
+        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
         <Row type="flex" justify="space-between">
           <Col span={11}>
             <Field
@@ -208,23 +210,23 @@ function SeminarForm({ values }) {
       />
       <ContactsField />
       <ArrayOf
+        // @ts-expect-error ts-migrate(2322) FIXME: Type '{ values: any; name: string; label: Element;... Remove this comment to see the full error message
         values={values}
         name="literature_records"
         label={
           <LabelWithHelp
+            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
             label="Related paper(s)"
             help="If the seminar refers to an INSPIRE paper, please fill in the link."
           />
         }
         emptyItem=""
-        renderItem={(itemName) => (
-          <Field
-            onlyChild
-            addonBefore="inspirehep.net/literature/"
-            name={itemName}
-            component={TextField}
-          />
-        )}
+        renderItem={(itemName: any) => <Field
+          onlyChild
+          addonBefore="inspirehep.net/literature/"
+          name={itemName}
+          component={TextField}
+        />}
       />
       <Field name="abstract" label="Abstract" component={RichTextField} />
       <Field
@@ -233,14 +235,14 @@ function SeminarForm({ values }) {
         component={TextField}
       />
       <ArrayOf
+        // @ts-expect-error ts-migrate(2322) FIXME: Type '{ values: any; name: string; label: string; ... Remove this comment to see the full error message
         values={values}
         name="keywords"
         label="Keywords"
         emptyItem=""
-        renderItem={(itemName) => (
-          <Field onlyChild name={itemName} component={TextField} />
-        )}
+        renderItem={(itemName: any) => <Field onlyChild name={itemName} component={TextField} />}
       />
+      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
       <Row type="flex" justify="end">
         <SubmitButton />
       </Row>

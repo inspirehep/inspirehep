@@ -35,7 +35,7 @@ const fetchAuthor = generateRecordFetchAction({
 
 export default fetchAuthor;
 
-export function setPublicationSelection(publicationIds, selected) {
+export function setPublicationSelection(publicationIds: any, selected: any) {
   return {
     type: AUTHOR_PUBLICATION_SELECTION_SET,
     payload: { publicationIds, selected },
@@ -48,21 +48,21 @@ export function clearPublicationSelection() {
   };
 }
 
-export function setPublicationsClaimedSelection(papersIds, selected) {
+export function setPublicationsClaimedSelection(papersIds: any, selected: any) {
   return {
     type: AUTHOR_PUBLICATION_CLAIM_SELECTION,
     payload: { papersIds, selected },
   };
 }
 
-export function setPublicationsUnclaimedSelection(papersIds, selected) {
+export function setPublicationsUnclaimedSelection(papersIds: any, selected: any) {
   return {
     type: AUTHOR_PUBLICATION_UNCLAIM_SELECTION,
     payload: { papersIds, selected },
   };
 }
 
-export function setPublicationsCanNotClaimSelection(papersIds, selected) {
+export function setPublicationsCanNotClaimSelection(papersIds: any, selected: any) {
   return {
     type: AUTHOR_PUBLICATION_CAN_NOT_CLAIM_SELECTION,
     payload: { papersIds, selected },
@@ -87,15 +87,18 @@ export function clearPublicationsCanNotClaimSelection() {
   };
 }
 
-export function setAssignDrawerVisibility(visible) {
+export function setAssignDrawerVisibility(visible: any) {
   return {
     type: AUTHOR_SET_ASSIGN_DRAWER_VISIBILITY,
     payload: { visible },
   };
 }
 
-export function assignPapers({ from, to }) {
-  return async (dispatch, getState, http) => {
+export function assignPapers({
+  from,
+  to
+}: any) {
+  return async (dispatch: any, getState: any, http: any) => {
     try {
       const papers = getState().authors.get('publicationSelection');
       assigning();
@@ -118,8 +121,12 @@ export function assignPapers({ from, to }) {
   };
 }
 
-export function assignOwnPapers({ from, to, isUnassignAction }) {
-  return async (dispatch, getState, http) => {
+export function assignOwnPapers({
+  from,
+  to,
+  isUnassignAction
+}: any) {
+  return async (dispatch: any, getState: any, http: any) => {
     try {
       const claimedPapers = getState().authors.get(
         'publicationSelectionClaimed'
@@ -162,8 +169,11 @@ export function assignOwnPapers({ from, to, isUnassignAction }) {
   };
 }
 
-export function assignDifferentProfileClaimedPapers({ from, to }) {
-  return async (dispatch, getState, http) => {
+export function assignDifferentProfileClaimedPapers({
+  from,
+  to
+}: any) {
+  return async (dispatch: any, getState: any, http: any) => {
     try {
       const claimedPapers = getState().authors.get(
         'publicationSelectionClaimed'
@@ -197,8 +207,11 @@ export function assignDifferentProfileClaimedPapers({ from, to }) {
   };
 }
 
-export function assignDifferentProfileUnclaimedPapers({ from, to }) {
-  return async (dispatch, getState, http) => {
+export function assignDifferentProfileUnclaimedPapers({
+  from,
+  to
+}: any) {
+  return async (dispatch: any, getState: any, http: any) => {
     try {
       const unclaimedPapers = getState().authors.get(
         'publicationSelectionUnclaimed'

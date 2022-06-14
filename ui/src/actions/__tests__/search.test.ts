@@ -1,6 +1,7 @@
 import MockAdapter from 'axios-mock-adapter';
 
 import { getStore } from '../../fixtures/store';
+// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.ts' extension. ... Remove this comment to see the full error message
 import http from '../../common/http.ts';
 import * as types from '../actionTypes';
 import {
@@ -15,12 +16,16 @@ import { LITERATURE_NS, AUTHOR_PUBLICATIONS_NS } from '../../search/constants';
 import { LITERATURE } from '../../common/routes';
 import searchConfig from '../../search/config';
 
+// @ts-expect-error ts-migrate(2708) FIXME: Cannot use namespace 'jest' as a value.
 jest.mock('../../search/config');
 
 const mockHttp = new MockAdapter(http.httpClient);
 
+// @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
 describe('search - action creators', () => {
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
   describe('fetchSearchResults', () => {
+    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
     it('creates SEARCH_REQUEST and SEARCH_SUCCESS', async () => {
       const namespace = LITERATURE_NS;
       const pathname = LITERATURE;
@@ -35,9 +40,11 @@ describe('search - action creators', () => {
         { type: types.SEARCH_REQUEST, payload: { namespace } },
         { type: types.SEARCH_SUCCESS, payload: { namespace, data } },
       ];
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
       expect(store.getActions()).toEqual(expectedActions);
     });
 
+    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
     it('creates SEARCH_REQUEST and SEARCH_ERROR for embedded search if search request is unsuccessful', async () => {
       const namespace = LITERATURE_NS;
       const pathname = LITERATURE;
@@ -55,9 +62,11 @@ describe('search - action creators', () => {
           meta: { redirectableError: true },
         },
       ];
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
       expect(store.getActions()).toEqual(expectedActions);
     });
 
+    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
     it('creates SEARCH_REQUEST and SEARCH_ERROR if search request is unsuccessful', async () => {
       const namespace = AUTHOR_PUBLICATIONS_NS;
       const pathname = LITERATURE;
@@ -75,10 +84,13 @@ describe('search - action creators', () => {
           meta: { redirectableError: false },
         },
       ];
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
       expect(store.getActions()).toEqual(expectedActions);
     });
 
+    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
     describe('fetchSearchAggregations', () => {
+      // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
       it('creates SEARCH_AGGREGATIONS_REQUEST and SEARCH_AGGREGATIONS_SUCCESS if search request is successful', async () => {
         const namespace = AUTHOR_PUBLICATIONS_NS;
         const pathname = LITERATURE;
@@ -96,10 +108,12 @@ describe('search - action creators', () => {
             payload: { namespace, data },
           },
         ];
+        // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
         expect(store.getActions()).toEqual(expectedActions);
       });
     });
 
+    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
     it('creates SEARCH_AGGREGATIONS_REQUEST and SEARCH_AGGREGATIONS_ERROR if search request is unsuccessful', async () => {
       const namespace = LITERATURE_NS;
       const pathname = LITERATURE;
@@ -116,11 +130,14 @@ describe('search - action creators', () => {
           payload: { error: { message: 'error', status: 400 }, namespace },
         },
       ];
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
       expect(store.getActions()).toEqual(expectedActions);
     });
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
   describe('changeSearchBoxNamespace', () => {
+    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
     it('creates CHANGE_SEARCH_BOX_NAMESPACE', async () => {
       const store = getStore();
 
@@ -133,11 +150,14 @@ describe('search - action creators', () => {
         },
       ];
 
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
       expect(store.getActions()).toEqual(expectedActions);
     });
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
   describe('searchBaseQueriesUpdate', () => {
+    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
     it('creates SEARCH_BASE_QUERIES_UPDATE', async () => {
       const store = getStore();
       const namespace = LITERATURE_NS;
@@ -154,13 +174,17 @@ describe('search - action creators', () => {
         },
       ];
 
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
       expect(searchConfig[namespace].onQueryChange).toHaveBeenCalled();
 
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
       expect(store.getActions()).toEqual(expectedActions);
     });
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
   describe('searchQueryUpdate', () => {
+    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
     it('creates SEARCH_QUERY_UPDATE', async () => {
       const store = getStore();
       const namespace = AUTHOR_PUBLICATIONS_NS;
@@ -175,13 +199,17 @@ describe('search - action creators', () => {
       ];
 
       // TODO: assert parameters
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
       expect(searchConfig[namespace].onQueryChange).toHaveBeenCalled();
 
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
       expect(store.getActions()).toEqual(expectedActions);
     });
   });
 
+  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
   describe('newSearch', () => {
+    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
     it('creates SEARCH_QUERY_UPDATE', async () => {
       const store = getStore();
       const namespace = LITERATURE_NS;
@@ -194,6 +222,7 @@ describe('search - action creators', () => {
         },
       ];
 
+      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
       expect(store.getActions()).toEqual(expectedActions);
     });
   });

@@ -1,4 +1,4 @@
-export function getEventTitle(seminar) {
+export function getEventTitle(seminar: any) {
   const seminarTitle = seminar.getIn(['title', 'title']);
   const speakers = seminar.get('speakers');
   const speaker = speakers.get(0);

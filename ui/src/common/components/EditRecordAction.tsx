@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import { EditOutlined } from '@ant-design/icons';
 
 import ListItemAction from './ListItemAction';
@@ -44,11 +43,20 @@ export default function EditRecordAction({
       ? EDIT_AUTHOR_CATALOGER
       : pidTypeToEditRoutePrefix[pidType];
 
+  const eventTrackerProps = {
+    eventId: "Edit"
+  }
+
+  const iconTextProps = {
+    text: "edit",
+    icon: <EditOutlined />
+  }
+
   return (
     <ListItemAction>
-      <EventTracker eventId="Edit">
+      <EventTracker {...eventTrackerProps}>
         <ExternalLink href={`${pidTypeRoute}/${pidValue}`}>
-          <IconText text="edit" icon={<EditOutlined />} />
+          <IconText {...iconTextProps} />
         </ExternalLink>
       </EventTracker>
     </ListItemAction>

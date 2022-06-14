@@ -6,19 +6,23 @@ import InlineList, {
   SEPARATOR_COMMA,
 } from '../../common/components/InlineList';
 
-function postalAddressesContainWord(postalAddresses, word) {
+function postalAddressesContainWord(postalAddresses: any, word: any) {
   return postalAddresses.some(
-    address => address.toLowerCase().indexOf(word.toLowerCase()) > -1
+    (address: any) => address.toLowerCase().indexOf(word.toLowerCase()) > -1
   );
 }
 
-function InstitutionAddress({ address }) {
+function InstitutionAddress({
+  address
+}: any) {
   const postalAddresses = address.get('postal_address', List());
   const city = address.getIn(['cities', 0]);
   const country = address.get('country');
   return (
     <span>
+      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
       <InlineUL separator={SEPARATOR_COMMA} wrapperClassName="di">
+        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
         {postalAddresses.size > 0 && <InlineList items={postalAddresses} />}
         {city &&
           !postalAddressesContainWord(postalAddresses, city) && (
@@ -34,6 +38,7 @@ function InstitutionAddress({ address }) {
 }
 
 InstitutionAddress.propTypes = {
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof Map' is not assignable to... Remove this comment to see the full error message
   address: PropTypes.instanceOf(Map).isRequired,
 };
 

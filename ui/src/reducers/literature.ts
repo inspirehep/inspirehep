@@ -37,7 +37,7 @@ export const initialState = fromJS({
   isAssignDrawerVisible: false,
 }).merge(initialRecordState);
 
-const literatureReducer = (state = initialState, action) => {
+const literatureReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case CLEAR_STATE:
       return initialState;

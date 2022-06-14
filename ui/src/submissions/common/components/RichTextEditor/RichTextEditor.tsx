@@ -19,7 +19,9 @@ const QUILL_FORMATS = ['bold', 'italic', 'list', 'bullet', 'link'];
 class RichTextEditor extends Component {
   render() {
     const {
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'data-test-type' does not exist on type '... Remove this comment to see the full error message
       'data-test-type': dataTestType,
+      // @ts-expect-error ts-migrate(2339) FIXME: Property 'data-test-id' does not exist on type 'Re... Remove this comment to see the full error message
       'data-test-id': dataTestId,
       ...quillProps
     } = this.props;
@@ -32,6 +34,7 @@ class RichTextEditor extends Component {
         <div id="toolbar">
           <EditorToolbar />
         </div>
+        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
         <QuillEditor
           theme="snow"
           modules={QUILL_MODULES}
@@ -43,6 +46,7 @@ class RichTextEditor extends Component {
   }
 }
 
+// @ts-expect-error ts-migrate(2339) FIXME: Property 'propTypes' does not exist on type 'typeo... Remove this comment to see the full error message
 RichTextEditor.propTypes = QuillEditor.propTypes;
 
 export default RichTextEditor;

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Row } from 'antd';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { Route, Redirect, Switch } from 'react-router-dom';
 
 import {
@@ -16,6 +17,7 @@ import ErrorNetwork from './components/ErrorNetwork';
 class Errors extends Component {
   render() {
     return (
+      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
       <Row className="w-100 h-100" type="flex" justify="center" align="middle">
         <Switch>
           <Route exact path={ERROR_404} component={Error404} />
