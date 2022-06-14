@@ -1,5 +1,4 @@
 import React, { ComponentPropsWithoutRef, ElementType } from 'react';
-import PropTypes from 'prop-types';
 
 const defaultProps = {
   as: 'a',

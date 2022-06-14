@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { EditOutlined } from '@ant-design/icons';
 
 import ListItemAction from './ListItemAction';
@@ -46,6 +45,7 @@ export default function EditRecordAction({
 
   return (
     <ListItemAction>
+      {/* @ts-expect-error ts-migrate(2745) FIXME: This JSX tag's 'children' prop expects type 'never... Remove this comment to see the full error message */}
       <EventTracker eventId="Edit">
         <ExternalLink href={`${pidTypeRoute}/${pidValue}`}>
           <IconText text="edit" icon={<EditOutlined />} />

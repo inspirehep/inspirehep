@@ -1,0 +1,107 @@
+import React, { useMemo } from 'react';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
+import { Link } from 'react-router-dom';
+import { Row, Col, Menu, Button } from 'antd';
+
+import './CollectionsMenu.scss';
+import {
+  LITERATURE,
+  AUTHORS,
+  JOBS,
+  CONFERENCES,
+  INSTITUTIONS,
+  SEMINARS,
+  EXPERIMENTS,
+} from '../../routes';
+import { getRootOfLocationPathname } from '../../utils';
+import {
+  LITERATURE_PID_TYPE,
+  AUTHORS_PID_TYPE,
+  JOBS_PID_TYPE,
+  CONFERENCES_PID_TYPE,
+  SEMINARS_PID_TYPE,
+} from '../../constants';
+import CollectionLink from './CollectionLink';
+import DropdownMenu from '../../components/DropdownMenu';
+
+type Props = {
+    currentPathname: string;
+};
+
+function CollectionsMenu({ currentPathname }: Props) {
+  const activeCollection = useMemo(
+    () => getRootOfLocationPathname(currentPathname),
+    [currentPathname]
+  );
+  const dropdownTitle = 'More...';
+
+  return (
+    <Row className="__CollectionsMenu__" justify="center">
+      <Col>
+        <CollectionLink
+          active={activeCollection === LITERATURE_PID_TYPE}
+          to={`${LITERATURE}`}
+        >
+          Literature
+        </CollectionLink>
+      </Col>
+      <Col>
+        <CollectionLink
+          active={activeCollection === AUTHORS_PID_TYPE}
+          to={AUTHORS}
+        >
+          Authors
+        </CollectionLink>
+      </Col>
+      <Col>
+        <CollectionLink active={activeCollection === JOBS_PID_TYPE} to={JOBS}>
+          Jobs
+        </CollectionLink>
+      </Col>
+      <Col>
+        <CollectionLink
+          active={activeCollection === SEMINARS_PID_TYPE}
+          to={SEMINARS}
+        >
+          Seminars
+        </CollectionLink>
+      </Col>
+      <Col>
+        <CollectionLink
+          active={activeCollection === CONFERENCES_PID_TYPE}
+          to={CONFERENCES}
+        >
+          Conferences
+        </CollectionLink>
+      </Col>
+      <Col>
+        <DropdownMenu
+          overlayClassName="more-collections-menu"
+          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+          className="dropdown mh4 m-mh2"
+          title={
+            <Button
+              className="button-no-background ml4"
+              onClick={e => e.preventDefault()}
+            >
+              <span className="button-title f5 white"> {dropdownTitle} </span>
+            </Button>
+          }
+        >
+          <Menu.Item className="dropdown-menu-item" key="more.institutions">
+            <Link className="dropdown-link" to={INSTITUTIONS}>
+              Institutions
+            </Link>
+          </Menu.Item>
+          <Menu.Item className="dropdown-menu-item" key="more.experiments">
+            <Link className="dropdown-link" to={EXPERIMENTS}>
+              Experiments
+            </Link>
+          </Menu.Item>
+        </DropdownMenu>
+      </Col>
+    </Row>
+  );
+}
+
+export default CollectionsMenu;
