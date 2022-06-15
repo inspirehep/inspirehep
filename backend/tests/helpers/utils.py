@@ -88,9 +88,9 @@ def create_record(record_type, data=None, **kwargs):
     return record
 
 
-def create_s3_file(bucket, key, data, metadata={}):
+def create_s3_file(bucket, key, data, metadata={}, **kwargs):
     current_s3_instance.client.put_object(
-        Bucket=bucket, Key=key, Body=data, Metadata=metadata
+        Bucket=bucket, Key=key, Body=data, Metadata=metadata, **kwargs
     )
 
 

@@ -7,6 +7,7 @@
 from contextlib import contextmanager
 from functools import partial
 
+import boto3
 import mock
 import pytest
 import structlog
@@ -14,11 +15,13 @@ from click.testing import CliRunner
 from flask.cli import ScriptInfo
 from helpers.cleanups import db_cleanup, es_cleanup
 from invenio_search import current_search_client as es
+from moto import mock_s3
 from redis import StrictRedis
 
 from inspirehep.celery import CeleryTask
 from inspirehep.cli import cli as inspire_cli
 from inspirehep.factory import create_app as inspire_create_app
+from inspirehep.files.api.s3 import S3
 
 LOGGER = structlog.getLogger()
 
@@ -148,3 +151,28 @@ def enable_disambiguation(inspire_app, override_config):
         FEATURE_FLAG_ENABLE_BAI_CREATION=True,
     ):
         yield inspire_app
+
+
+@pytest.fixture(scope="function")
+def enable_files(inspire_app, override_config):
+    with override_config(FEATURE_FLAG_ENABLE_FILES=True):
+        yield inspire_app
+
+
+@pytest.fixture()
+def s3(inspire_app, enable_files):
+    mock = mock_s3()
+    mock.start()
+    client = boto3.client("s3")
+    resource = boto3.resource("s3")
+    s3 = S3(client, resource)
+
+    class MockedInspireS3:
+        s3_instance = s3
+
+    real_inspirehep_s3 = inspire_app.extensions["inspirehep-s3"]
+    inspire_app.extensions["inspirehep-s3"] = MockedInspireS3
+
+    yield s3
+    mock.stop()
+    inspire_app.extensions["inspirehep-s3"] = real_inspirehep_s3
