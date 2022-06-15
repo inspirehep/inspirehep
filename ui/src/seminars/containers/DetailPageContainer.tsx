@@ -8,8 +8,7 @@ import { VideoCameraAddOutlined, FileOutlined } from '@ant-design/icons';
 import DocumentHead from '../../common/components/DocumentHead';
 import fetchSeminar from '../../actions/seminars';
 import ContentBox from '../../common/components/ContentBox';
-// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.tsx' extension.... Remove this comment to see the full error message
-import EditRecordAction from '../../common/components/EditRecordAction.tsx';
+import EditRecordAction from '../../common/components/EditRecordAction';
 import DeletedAlert from '../../common/components/DeletedAlert';
 import withRouteActionsDispatcher from '../../common/withRouteActionsDispatcher';
 import AuthorList from '../../common/components/AuthorList';
@@ -109,6 +108,7 @@ function DetailPage({
                 )}
                 <ExportToCalendarAction seminar={metadata} />
                 {canEdit && (
+                  /* @ts-ignore */
                   <EditRecordAction pidType="seminars" pidValue={recordId} />
                 )}
               </>

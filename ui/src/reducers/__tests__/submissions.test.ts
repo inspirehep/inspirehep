@@ -23,7 +23,6 @@ describe('submissions reducer', () => {
       initialDataError: null,
       initialMeta: null,
     });
-    // @ts-expect-error ts-migrate(2552) FIXME: Cannot find name 'expect'. Did you mean 'expected'... Remove this comment to see the full error message
     expect(state).toEqual(expected);
   });
 

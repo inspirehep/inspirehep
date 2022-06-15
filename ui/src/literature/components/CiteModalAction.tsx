@@ -183,7 +183,7 @@ class CiteModalAction extends Component {
                 extractEventArgsToForward={(args: any) => [args[0]]}
               >
                 <SelectBox
-                  // @ts-expect-error ts-migrate(2322) FIXME: Type '{ style: { width: number; }; defaultValue: a... Remove this comment to see the full error message
+                  /* @ts-ignore */
                   style={{ width: 140 }}
                   defaultValue={initialCiteFormat}
                   onChange={this.onFormatChange}

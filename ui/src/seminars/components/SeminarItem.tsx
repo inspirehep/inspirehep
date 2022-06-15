@@ -5,8 +5,7 @@ import { Map } from 'immutable';
 
 import { VideoCameraAddOutlined, FileOutlined } from '@ant-design/icons';
 import { Row, Col } from 'antd';
-// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.tsx' extension.... Remove this comment to see the full error message
-import EditRecordAction from '../../common/components/EditRecordAction.tsx';
+import EditRecordAction from '../../common/components/EditRecordAction';
 import ResultItem from '../../common/components/ResultItem';
 import { SEMINARS } from '../../common/routes';
 import AuthorList from '../../common/components/AuthorList';
@@ -62,6 +61,7 @@ function SeminarItem({
             )}
             <ExportToCalendarAction seminar={metadata} />
             {canEdit && (
+              /* @ts-ignore */
               <EditRecordAction pidType="seminars" pidValue={recordId} />
             )}
           </>

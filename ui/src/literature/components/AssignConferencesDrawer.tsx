@@ -21,7 +21,7 @@ function renderConferenceItem(result: any) {
         <Radio value={{ controlNumber, title }} />
       </Col>
       <Col flex="1 1 1px">
-        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+        {/* @ts-ignore */}
         <ConferenceItem metadata={result.get('metadata')} openDetailInNewTab />
       </Col>
     </Row>

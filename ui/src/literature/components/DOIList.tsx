@@ -12,9 +12,9 @@ class DOIList extends Component {
     const value = doi.get('value');
     return (
       <span>
-        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+        {/* @ts-ignore */}
         <DOILink doi={value}>{value}</DOILink>
-        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+        {/* @ts-ignore */}
         <DOIMaterial material={material} />
       </span>
     );

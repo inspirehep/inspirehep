@@ -69,7 +69,7 @@ class CiteAllAction extends Component {
         }
       >
         <Button loading={loading} disabled={disabled}>
-          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+          {/* @ts-ignore */}
           <IconText text="cite all" icon={<ExportOutlined />} />
         </Button>
       </Tooltip>

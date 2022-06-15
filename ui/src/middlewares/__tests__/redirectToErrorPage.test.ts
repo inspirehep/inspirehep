@@ -9,7 +9,6 @@ describe('redirectToErrorPage middleware', () => {
   let dispatch: any;
   let mockDispatch: any;
 
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'beforeEach'.
   beforeEach(() => {
     
     mirrorNext = jest.fn((value: any) => value);

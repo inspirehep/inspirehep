@@ -1,6 +1,4 @@
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'qs'.... Remove this comment to see the full error message
 import { stringify } from 'qs';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'loda... Remove this comment to see the full error message
 import omit from 'lodash.omit';
 import { replace, push } from 'connected-react-router';
 
