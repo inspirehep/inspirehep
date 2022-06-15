@@ -1,10 +1,7 @@
 import React, { useEffect } from 'react';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { Route } from 'react-router-dom';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { connect } from 'react-redux';
 import { Layout } from 'antd';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import Loadable from 'react-loadable';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
@@ -101,6 +98,7 @@ function App({
         <SafeSwitch id="main">
           <Route exact path={HOME} component={Home} />
           <Route path={USER} component={User} />
+          {/* @ts-ignore */}
           <PrivateRoute path={HOLDINGPEN} component={Holdingpen$} />
           <Route path={LITERATURE} component={Literature} />
           <Route path={AUTHORS} component={Authors} />
@@ -109,6 +107,7 @@ function App({
           <Route path={INSTITUTIONS} component={Institutions} />
           <Route path={SEMINARS} component={Seminars} />
           <Route path={EXPERIMENTS} component={Experiments} />
+          {/* @ts-ignore */}
           <PrivateRoute path={SUBMISSIONS} component={Submissions$} />
           <Route
             path={BIBLIOGRAPHY_GENERATOR}

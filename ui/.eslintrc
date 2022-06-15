@@ -50,7 +50,8 @@
       2,
       { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
     ],
-    "react/jsx-no-comment-textnodes": "warn"
+    "react/jsx-no-comment-textnodes": "warn",
+    "no-use-before-define": "off"
   },
   "overrides": [
     {

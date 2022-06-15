@@ -1,6 +1,5 @@
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { connect } from 'react-redux';
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
@@ -8,10 +7,8 @@ import RouteOrRedirect from './components/RouteOrRedirect';
 import { isAuthorized } from './authorization';
 import { ERROR_401, USER_LOGIN } from './routes';
 
-class PrivateRoute extends Component {
-  render() {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'loggedIn' does not exist on type 'Readon... Remove this comment to see the full error message
-    const { loggedIn, userRoles, authorizedRoles, ...routeProps } = this.props;
+function PrivateRoute(props: any) {
+    const { loggedIn, userRoles, authorizedRoles, ...routeProps } = props;
     if (loggedIn && authorizedRoles) {
       const isUserAuthorized = isAuthorized(userRoles, authorizedRoles);
       return (
@@ -30,9 +27,7 @@ class PrivateRoute extends Component {
       />
     );
   }
-}
 
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'propTypes' does not exist on type 'typeo... Remove this comment to see the full error message
 PrivateRoute.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
   // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof List' is not assignable t... Remove this comment to see the full error message
@@ -41,7 +36,6 @@ PrivateRoute.propTypes = {
   authorizedRoles: PropTypes.instanceOf(List),
 };
 
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'defaultProps' does not exist on type 'ty... Remove this comment to see the full error message
 PrivateRoute.defaultProps = {
   authorizedRoles: null,
 };

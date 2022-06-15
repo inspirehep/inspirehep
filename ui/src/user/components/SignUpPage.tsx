@@ -12,10 +12,9 @@ function SignUpPage({
 }: any) {
   return (
     <>
-      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+      {/* @ts-ignore */}
       <DocumentHead title="Sign up" />
-      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
-      <Row className="h-100" type="flex" justify="center" align="middle">
+      <Row className="h-100" justify="center" align="middle">
         <Card>
           <p>
           Please let us know your e-mail address to complete your account registration.

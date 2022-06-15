@@ -51,11 +51,11 @@ class LocalLoginPage extends Component {
     const { onLoginFormSubmit } = this.props;
     return (
       <>
-        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+        {/* @ts-ignore */}
         <DocumentHead title="Login" />
-        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
-        <Row className="h-100" type="flex" justify="center" align="middle">
-          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+        {/* @ts-ignore */}
+        <Row className="h-100" justify="center" align="middle">
+          {/* @ts-ignore */}
           <Card align="middle">
             <p>This login page is included only for dev and test environment</p>
             <Formik onSubmit={onLoginFormSubmit} initialValues={{}}>

@@ -1,6 +1,5 @@
 import { applyMiddleware, createStore as createReduxStore } from 'redux';
 import thunk from 'redux-thunk';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'hist... Remove this comment to see the full error message
 import createHistory from 'history/createBrowserHistory';
 import { routerMiddleware } from 'connected-react-router';
 /* eslint-disable import/no-extraneous-dependencies */

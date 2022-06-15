@@ -2,10 +2,8 @@ import 'core-js/modules/es7.object.entries';
 import 'core-js/modules/es7.array.includes';
 
 import ReactDOM from 'react-dom';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { Provider } from 'react-redux';
 import React from 'react';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 import 'tachyons';
@@ -53,5 +51,6 @@ unregisterServiceWorker();
 new Idle()
   .whenNotInteractive()
   .within(30)
+  // @ts-ignore
   .do(() => store.dispatch(userInactive()))
   .start();

@@ -20,7 +20,7 @@ class LoginPage extends Component {
     const loginHref = `/api/accounts/login?next=${previousUrl}`;
     return (
       <>
-        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+        {/* @ts-ignore */}
         <DocumentHead title={TITLE} description={META_DESCRIPTION} />
         <Row
           className="__LoginPage__ h-100"
@@ -29,7 +29,7 @@ class LoginPage extends Component {
           justify="center"
           align="middle"
         >
-          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+          {/* @ts-ignore */}
           <Card align="middle">
             <p className="f4">Please sign in to INSPIRE</p>
             <p className="pb2">

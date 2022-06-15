@@ -28,25 +28,19 @@ global.CONFIG = {};
 global.scrollTo = () => {};
 
 // fix react-media
-// @ts-expect-error ts-migrate(2708) FIXME: Cannot use namespace 'jest' as a value.
 global.window.matchMedia = jest.fn().mockImplementation((query: any) => ({
   matches: false,
   media: query,
   onchange: null,
 
   // deprecated
-  // @ts-expect-error ts-migrate(2708) FIXME: Cannot use namespace 'jest' as a value.
   addListener: jest.fn(),
 
   // deprecated
-  // @ts-expect-error ts-migrate(2708) FIXME: Cannot use namespace 'jest' as a value.
   removeListener: jest.fn(),
 
-  // @ts-expect-error ts-migrate(2708) FIXME: Cannot use namespace 'jest' as a value.
   addEventListener: jest.fn(),
-  // @ts-expect-error ts-migrate(2708) FIXME: Cannot use namespace 'jest' as a value.
   removeEventListener: jest.fn(),
-  // @ts-expect-error ts-migrate(2708) FIXME: Cannot use namespace 'jest' as a value.
   dispatchEvent: jest.fn()
 }));
 
