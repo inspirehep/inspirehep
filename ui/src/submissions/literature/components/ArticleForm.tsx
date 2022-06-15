@@ -44,20 +44,20 @@ class ArticleForm extends Component {
     const { values } = this.props;
     return (
       <Form>
-        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+        {/* @ts-ignore */}
         <CollapsableForm openSections={OPEN_SECTIONS}>
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'Section' does not exist on type 'typeof ... Remove this comment to see the full error message
+          {/* @ts-ignore */}
           <CollapsableForm.Section header="Links" key="links">
             <LinkFields />
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'Section' does not exist on type 'typeof ... Remove this comment to see the full error message
+          {/* @ts-ignore */}
           </CollapsableForm.Section>
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'Section' does not exist on type 'typeof ... Remove this comment to see the full error message
+          {/* @ts-ignore */}
           <CollapsableForm.Section header="Basic Info" key="basic_info">
-            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+            {/* @ts-ignore */}
             <BasicInfoFields values={values} withCollaborationField />
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'Section' does not exist on type 'typeof ... Remove this comment to see the full error message
+          {/* @ts-ignore */}
           </CollapsableForm.Section>
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'Section' does not exist on type 'typeof ... Remove this comment to see the full error message
+          {/* @ts-ignore */}
           <CollapsableForm.Section
             header="Publication Info"
             key="publication_info"
@@ -83,9 +83,9 @@ class ArticleForm extends Component {
               placeholder="e.g. 1-100"
               component={TextField}
             />
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'Section' does not exist on type 'typeof ... Remove this comment to see the full error message
+          {/* @ts-ignore */}
           </CollapsableForm.Section>
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'Section' does not exist on type 'typeof ... Remove this comment to see the full error message
+          {/* @ts-ignore */}
           <CollapsableForm.Section
             header="Conference Info"
             key="conference_info"
@@ -103,9 +103,9 @@ class ArticleForm extends Component {
               renderResultItem={ArticleForm.renderConferenceSuggestion}
               component={SuggesterField}
             />
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'Section' does not exist on type 'typeof ... Remove this comment to see the full error message
+          {/* @ts-ignore */}
           </CollapsableForm.Section>
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'Section' does not exist on type 'typeof ... Remove this comment to see the full error message
+          {/* @ts-ignore */}
           <CollapsableForm.Section
             header="Proceedings Info (if not published in a journal)"
             key="proceedings_info"
@@ -117,22 +117,22 @@ class ArticleForm extends Component {
               rows={6}
               component={TextAreaField}
             />
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'Section' does not exist on type 'typeof ... Remove this comment to see the full error message
+          {/* @ts-ignore */}
           </CollapsableForm.Section>
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'Section' does not exist on type 'typeof ... Remove this comment to see the full error message
+          {/* @ts-ignore */}
           <CollapsableForm.Section header="References" key="references">
-            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+            {/* @ts-ignore */}
             <ReferencesField values={values} />
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'Section' does not exist on type 'typeof ... Remove this comment to see the full error message
+          {/* @ts-ignore */}
           </CollapsableForm.Section>
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'Section' does not exist on type 'typeof ... Remove this comment to see the full error message
+          {/* @ts-ignore */}
           <CollapsableForm.Section header="Comments" key="comments">
-            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+            {/* @ts-ignore */}
             <CommentsField values={values} />
-          // @ts-expect-error ts-migrate(2339) FIXME: Property 'Section' does not exist on type 'typeof ... Remove this comment to see the full error message
+          {/* @ts-ignore */}
           </CollapsableForm.Section>
         </CollapsableForm>
-        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+        {/* @ts-ignore */}
         <Row type="flex" justify="end">
           <SubmitButton />
         </Row>

@@ -163,8 +163,7 @@ function SeminarForm({
         labelCol={LABEL_COL}
         wrapperCol={WRAPPER_COL}
       >
-        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
-        <Row type="flex" justify="space-between">
+        <Row justify="space-between">
           <Col span={11}>
             <Field
               onlyChild
@@ -242,8 +241,7 @@ function SeminarForm({
         emptyItem=""
         renderItem={(itemName: any) => <Field onlyChild name={itemName} component={TextField} />}
       />
-      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
-      <Row type="flex" justify="end">
+      <Row justify="end">
         <SubmitButton />
       </Row>
     </Form>

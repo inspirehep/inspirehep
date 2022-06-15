@@ -8,7 +8,6 @@ function getSuggestionControlNumber(suggestion: any) {
 }
 
 class SuggesterField extends Component {
-  recordFieldPopulated: any;
 
   constructor(props: any) {
     super(props);
@@ -43,6 +42,8 @@ class SuggesterField extends Component {
     form.setFieldValue(recordFieldPath, { $ref });
     this.recordFieldPopulated = true;
   }
+
+  recordFieldPopulated: any;
 
   render() {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'recordFieldPath' does not exist on type ... Remove this comment to see the full error message

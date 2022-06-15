@@ -52,7 +52,7 @@ class ArrayOf extends Component {
               labelCol={labelCol}
               wrapperCol={wrapperCol}
             >
-              // @ts-expect-error ts-migrate(2559) FIXME: Type 'number' has no properties in common with typ... Remove this comment to see the full error message
+              {/* @ts-ignore */}
               <Form.Item wrapperCol={24} className="items-container">
                 {items &&
                   items.length > 0 &&

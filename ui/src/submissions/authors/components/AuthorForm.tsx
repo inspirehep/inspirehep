@@ -50,10 +50,10 @@ function AuthorForm({
 }: any) {
   return (
     <Form>
-      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+      {/* @ts-ignore */}
       <CollapsableForm openSections={OPEN_SECTIONS}>
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'Section' does not exist on type 'typeof ... Remove this comment to see the full error message
-        <CollapsableForm.Section header="Personal Info" key="personal_info">
+        {/* @ts-ignore */}        
+          <CollapsableForm.Section header="Personal Info" key="personal_info">
           <p>
             Email addresses cannot be deleted. If information is incorrect,
             please mark it as `Hidden` and give more details in the Comments
@@ -157,9 +157,9 @@ function AuthorForm({
             placeholder="0000-0000-0000-0000"
             component={TextField}
           />
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'Section' does not exist on type 'typeof ... Remove this comment to see the full error message
+          {/* @ts-ignore */}
         </CollapsableForm.Section>
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'Section' does not exist on type 'typeof ... Remove this comment to see the full error message
+        {/* @ts-ignore */}
         <CollapsableForm.Section
           header="Author websites"
           key="personal_websites"
@@ -185,9 +185,10 @@ function AuthorForm({
             addonBefore="twitter.com/"
             component={TextField}
           />
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'Section' does not exist on type 'typeof ... Remove this comment to see the full error message
+
+        {/* @ts-ignore */}
         </CollapsableForm.Section>
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'Section' does not exist on type 'typeof ... Remove this comment to see the full error message
+        {/* @ts-ignore */}
         <CollapsableForm.Section header="Career Info" key="career_info">
           <p>
             Career information cannot be deleted. If information is incorrect,
@@ -376,9 +377,9 @@ function AuthorForm({
               )}
             </Row>}
           />
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'Section' does not exist on type 'typeof ... Remove this comment to see the full error message
+          {/* @ts-ignore */}
         </CollapsableForm.Section>
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'Section' does not exist on type 'typeof ... Remove this comment to see the full error message
+        {/* @ts-ignore */}
         <CollapsableForm.Section
           header="Comments to the INSPIRE team"
           key="comments"
@@ -390,11 +391,10 @@ function AuthorForm({
             rows={4}
             component={TextAreaField}
           />
-        // @ts-expect-error ts-migrate(2339) FIXME: Property 'Section' does not exist on type 'typeof ... Remove this comment to see the full error message
+          {/* @ts-ignore */}
         </CollapsableForm.Section>
       </CollapsableForm>
-      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
-      <Row type="flex" justify="end">
+      <Row justify="end">
         <SubmitButton />
       </Row>
     </Form>

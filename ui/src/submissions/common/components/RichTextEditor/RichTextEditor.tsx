@@ -34,7 +34,7 @@ class RichTextEditor extends Component {
         <div id="toolbar">
           <EditorToolbar />
         </div>
-        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+        {/* @ts-ignore */}
         <QuillEditor
           theme="snow"
           modules={QUILL_MODULES}

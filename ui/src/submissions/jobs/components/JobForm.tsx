@@ -162,8 +162,7 @@ class JobForm extends Component {
           label="* Description"
           component={RichTextField}
         />
-        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
-        <Row type="flex" justify="end">
+        <Row justify="end">
           <SubmitButton />
         </Row>
       </Form>

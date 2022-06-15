@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { connect } from 'react-redux';
 import { Map } from 'immutable';
 
@@ -77,9 +76,9 @@ class AuthorUpdateSubmissionPage extends Component {
           </span>
         }
       >
-        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+        {/* @ts-ignore */}
         <LoadingOrChildren loading={loadingUpdateFormData}>
-          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+          {/* @ts-ignore */}
           <ErrorAlertOrChildren error={updateFormDataError}>
             <AuthorSubmission
               // TODO: use composition reduce or react-redux hook API to avoid prop-drilling

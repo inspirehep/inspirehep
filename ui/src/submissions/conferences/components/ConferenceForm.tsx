@@ -47,7 +47,10 @@ function ConferenceForm({
         component={NumberField}
       />
       {values.dates && (
-        <ExistingConferencesAlertContainer dates={values.dates} />
+        <ExistingConferencesAlertContainer 
+          // @ts-ignore
+          dates={values.dates} 
+        />
       )}
       <Field name="dates" label="* Dates" component={DateRangeField} />
       <ArrayOf
@@ -124,8 +127,7 @@ function ConferenceForm({
         emptyItem=""
         renderItem={(itemName: any) => <Field onlyChild name={itemName} component={TextField} />}
       />
-      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
-      <Row type="flex" justify="end">
+      <Row justify="end">
         <SubmitButton />
       </Row>
     </Form>

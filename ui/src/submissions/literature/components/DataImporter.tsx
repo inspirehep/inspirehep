@@ -11,7 +11,6 @@ import { LABEL_COL, WRAPPER_COL } from '../../common/withFormItem';
 const DEFAULT_ERROR_MESSAGE = 'Something went wrong during the import';
 
 class DataImporter extends Component {
-  importValue: any;
 
   constructor(props: any) {
     super(props);
@@ -29,6 +28,8 @@ class DataImporter extends Component {
     const { onImportClick } = this.props;
     onImportClick(this.importValue);
   }
+
+  importValue: any;
 
   renderAlertMessage() {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'error' does not exist on type 'Readonly<... Remove this comment to see the full error message
@@ -86,8 +87,7 @@ class DataImporter extends Component {
             onPressEnter={this.onImportClick}
           />
         </Form.Item>
-        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
-        <Row type="flex" justify="space-between" align="middle">
+        <Row justify="space-between" align="middle">
           <Col>
             <LinkLikeButton
               // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.

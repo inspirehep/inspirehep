@@ -1,4 +1,3 @@
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { connect } from 'react-redux';
 import { EXISTING_CONFERENCES_NS } from '../../../search/constants';
 import { RANGE_AGGREGATION_SELECTION_SEPARATOR } from '../../../common/constants';
@@ -24,4 +23,5 @@ const dispatchToProps = (dispatch: any) => ({
   }
 });
 
+// @ts-ignore
 export default connect(stateToProps, dispatchToProps)(ExistingConferencesAlert);
