@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { FileDoneOutlined } from '@ant-design/icons';
 import { Button, Menu, Tooltip } from 'antd';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { useParams } from 'react-router-dom';
 
 import DropdownMenu from '../../common/components/DropdownMenu';
@@ -15,7 +14,7 @@ function AssignAction({
   disabled,
   numberOfSelected
 }: any) {
-  const currentAuthorId = Number(useParams().id);
+  const currentAuthorId = Number((useParams() as any).id);
   const onSelfAssign = useCallback(() => {
     onAssign({ from: currentAuthorId, to: currentAuthorId });
   }, [currentAuthorId, onAssign]);
@@ -42,7 +41,7 @@ function AssignAction({
             }
           >
             <Button>
-              // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+              {/* @ts-ignore */}
               <IconText text="claim" icon={<FileDoneOutlined />} />
             </Button>
           </Tooltip>

@@ -7,7 +7,7 @@ import 'jest-enzyme';
 
 configure({ adapter: new Adapter() });
 
-// @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+
 expect.addSnapshotSerializer(createSerializer({ mode: 'deep' }));
 
 /* eslint-disable */

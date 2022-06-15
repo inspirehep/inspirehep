@@ -23,7 +23,7 @@ function AssignNoProfileAction() {
         title={
           <Tooltip title={CLAIMING_DISABLED_INFO}>
             <Button disabled>
-              // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+              {/* @ts-ignore */}
               <IconText text="claim" icon={<FileDoneOutlined />} />
             </Button>
           </Tooltip>

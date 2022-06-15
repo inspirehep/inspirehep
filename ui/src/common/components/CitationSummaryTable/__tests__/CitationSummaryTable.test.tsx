@@ -4,9 +4,9 @@ import { fromJS } from 'immutable';
 
 import CitationSummaryTable from '../CitationSummaryTable';
 
-// @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
+
 describe('CitationSummaryTable', () => {
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('renders table without render props', () => {
     const citeableBucket = fromJS({
       doc_count: 29000,
@@ -42,19 +42,19 @@ describe('CitationSummaryTable', () => {
         error={null}
       />
     );
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper).toMatchSnapshot();
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('renders table with only required props', () => {
     // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
     const wrapper = shallow(<CitationSummaryTable loading={false} />);
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper).toMatchSnapshot();
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('renders table with null numbers', () => {
     const citeableBucket = fromJS({
       doc_count: null,
@@ -90,11 +90,11 @@ describe('CitationSummaryTable', () => {
         error={null}
       />
     );
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper).toMatchSnapshot();
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('calls render props', () => {
     const citeableBucket = fromJS({
       doc_count: 29,
@@ -120,9 +120,9 @@ describe('CitationSummaryTable', () => {
         published: 9,
       },
     });
-    // @ts-expect-error ts-migrate(2708) FIXME: Cannot use namespace 'jest' as a value.
+    
     const renderNumberOfCiteablePapers = jest.fn();
-    // @ts-expect-error ts-migrate(2708) FIXME: Cannot use namespace 'jest' as a value.
+    
     const renderNumberOfPublishedPapers = jest.fn();
     mount(
       <CitationSummaryTable
@@ -136,9 +136,9 @@ describe('CitationSummaryTable', () => {
         renderNumberOfPublishedPapers={renderNumberOfPublishedPapers}
       />
     );
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(renderNumberOfCiteablePapers).toHaveBeenCalledWith(29);
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(renderNumberOfPublishedPapers).toHaveBeenCalledWith(0);
   });
 });

@@ -2,25 +2,25 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import AssignOneDifferentProfileAction from '../AssignOneDifferentProfileAction';
 
-// @ts-expect-error ts-migrate(2708) FIXME: Cannot use namespace 'jest' as a value.
+
 jest.mock('react-router-dom', () => ({
-  // @ts-expect-error ts-migrate(2708) FIXME: Cannot use namespace 'jest' as a value.
+  
   useParams: jest.fn().mockImplementation(() => ({
     id: 123,
   })),
 }));
 
-// @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
+
 describe('AssignDifferentProfileAction', () => {
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('renders for unclaimed paper', () => {
     const wrapper = shallow(
       <AssignOneDifferentProfileAction
-        // @ts-expect-error ts-migrate(2708) FIXME: Cannot use namespace 'jest' as a value.
+        
         onAssignWithoutUnclaimed={jest.fn()}
-        // @ts-expect-error ts-migrate(2708) FIXME: Cannot use namespace 'jest' as a value.
+        
         onAssignWithoutClaimed={jest.fn()}
-        // @ts-expect-error ts-migrate(2708) FIXME: Cannot use namespace 'jest' as a value.
+        
         onAssignUserCanNotClaim={jest.fn()}
         // @ts-expect-error ts-migrate(2322) FIXME: Type '{ onAssignWithoutUnclaimed: any; onAssignWit... Remove this comment to see the full error message
         currentUserId={33}
@@ -29,19 +29,19 @@ describe('AssignDifferentProfileAction', () => {
         userCanNotClaimProfile={false}
       />
     );
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper).toMatchSnapshot();
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('renders for claimed paper', () => {
     const wrapper = shallow(
       <AssignOneDifferentProfileAction
-        // @ts-expect-error ts-migrate(2708) FIXME: Cannot use namespace 'jest' as a value.
+        
         onAssignWithoutUnclaimed={jest.fn()}
-        // @ts-expect-error ts-migrate(2708) FIXME: Cannot use namespace 'jest' as a value.
+        
         onAssignWithoutClaimed={jest.fn()}
-        // @ts-expect-error ts-migrate(2708) FIXME: Cannot use namespace 'jest' as a value.
+        
         onAssignUserCanNotClaim={jest.fn()}
         // @ts-expect-error ts-migrate(2322) FIXME: Type '{ onAssignWithoutUnclaimed: any; onAssignWit... Remove this comment to see the full error message
         currentUserId={33}
@@ -50,11 +50,11 @@ describe('AssignDifferentProfileAction', () => {
         userCanNotClaimProfile={false}
       />
     );
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper).toMatchSnapshot();
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('renders for unclaimed paper with userCanNotClaimProfile', () => {
     const wrapper = shallow(
       <AssignOneDifferentProfileAction
@@ -67,17 +67,17 @@ describe('AssignDifferentProfileAction', () => {
         userCanNotClaimProfile
       />
     );
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper).toMatchSnapshot();
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('calls onAssign on for unclaimed paper that user cant claim', () => {
-    // @ts-expect-error ts-migrate(2708) FIXME: Cannot use namespace 'jest' as a value.
+    
     const onAssignWithoutClaimed = jest.fn();
-    // @ts-expect-error ts-migrate(2708) FIXME: Cannot use namespace 'jest' as a value.
+    
     const onAssignWithoutUnclaimed = jest.fn();
-    // @ts-expect-error ts-migrate(2708) FIXME: Cannot use namespace 'jest' as a value.
+    
     const onAssignUserCanNotClaim = jest.fn();
     const wrapper = shallow(
       <AssignOneDifferentProfileAction
@@ -92,17 +92,17 @@ describe('AssignDifferentProfileAction', () => {
       />
     );
     wrapper.find('[data-test-id="assign-self"]').simulate('click');
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(onAssignUserCanNotClaim).toHaveBeenCalled();
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('calls onAssign on for claimed paper that user cant claim', () => {
-    // @ts-expect-error ts-migrate(2708) FIXME: Cannot use namespace 'jest' as a value.
+    
     const onAssignWithoutClaimed = jest.fn();
-    // @ts-expect-error ts-migrate(2708) FIXME: Cannot use namespace 'jest' as a value.
+    
     const onAssignWithoutUnclaimed = jest.fn();
-    // @ts-expect-error ts-migrate(2708) FIXME: Cannot use namespace 'jest' as a value.
+    
     const onAssignUserCanNotClaim = jest.fn();
     const wrapper = shallow(
       <AssignOneDifferentProfileAction
@@ -117,17 +117,17 @@ describe('AssignDifferentProfileAction', () => {
       />
     );
     wrapper.find('[data-test-id="assign-self"]').simulate('click');
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(onAssignWithoutUnclaimed).toHaveBeenCalled();
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('calls onAssign on for claimed paper that user can claim', () => {
-    // @ts-expect-error ts-migrate(2708) FIXME: Cannot use namespace 'jest' as a value.
+    
     const onAssignWithoutClaimed = jest.fn();
-    // @ts-expect-error ts-migrate(2708) FIXME: Cannot use namespace 'jest' as a value.
+    
     const onAssignWithoutUnclaimed = jest.fn();
-    // @ts-expect-error ts-migrate(2708) FIXME: Cannot use namespace 'jest' as a value.
+    
     const onAssignUserCanNotClaim = jest.fn();
     const wrapper = shallow(
       <AssignOneDifferentProfileAction
@@ -142,17 +142,17 @@ describe('AssignDifferentProfileAction', () => {
       />
     );
     wrapper.find('[data-test-id="assign-self"]').simulate('click');
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(onAssignWithoutUnclaimed).toHaveBeenCalled();
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('calls onAssign on for unclaimed paper that user can claim', () => {
-    // @ts-expect-error ts-migrate(2708) FIXME: Cannot use namespace 'jest' as a value.
+    
     const onAssignWithoutClaimed = jest.fn();
-    // @ts-expect-error ts-migrate(2708) FIXME: Cannot use namespace 'jest' as a value.
+    
     const onAssignWithoutUnclaimed = jest.fn();
-    // @ts-expect-error ts-migrate(2708) FIXME: Cannot use namespace 'jest' as a value.
+    
     const onAssignUserCanNotClaim = jest.fn();
     const wrapper = shallow(
       <AssignOneDifferentProfileAction
@@ -167,7 +167,7 @@ describe('AssignDifferentProfileAction', () => {
       />
     );
     wrapper.find('[data-test-id="assign-self"]').simulate('click');
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(onAssignWithoutClaimed).toHaveBeenCalled();
   });
 });

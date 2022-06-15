@@ -1,6 +1,5 @@
 import React, { useCallback, useState, useMemo, forwardRef } from 'react';
 import PropTypes from 'prop-types';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import Modal from 'react-modal';
 import { Carousel, Row, Col, Button } from 'antd';
 

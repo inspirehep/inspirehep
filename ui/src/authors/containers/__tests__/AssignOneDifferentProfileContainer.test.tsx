@@ -1,6 +1,5 @@
 import React from 'react';
 import { mount } from 'enzyme';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { Provider } from 'react-redux';
 
 import { getStore, mockActionCreator } from '../../../fixtures/store';
@@ -20,15 +19,15 @@ import {
 import AssignOneDifferentProfileContainer from '../AssignOneDifferentProfileContainer';
 import AssignOneDifferentProfileAction from '../../components/AssignOneDifferentProfileAction';
 
-// @ts-expect-error ts-migrate(2708) FIXME: Cannot use namespace 'jest' as a value.
+
 jest.mock('react-router-dom', () => ({
-  // @ts-expect-error ts-migrate(2708) FIXME: Cannot use namespace 'jest' as a value.
+  
   useParams: jest.fn().mockImplementation(() => ({
     id: 123,
   })),
 }));
 
-// @ts-expect-error ts-migrate(2708) FIXME: Cannot use namespace 'jest' as a value.
+
 jest.mock('../../../actions/authors');
 mockActionCreator(assignDifferentProfileUnclaimedPapers);
 mockActionCreator(assignDifferentProfileClaimedPapers);
@@ -41,9 +40,9 @@ mockActionCreator(clearPublicationsUnclaimedSelection);
 mockActionCreator(setPublicationsCanNotClaimSelection);
 mockActionCreator(clearPublicationsCanNotClaimSelection);
 
-// @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
+
 describe('AssignOneDifferentProfileActionContainer', () => {
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('selects the one paper and dispatches assignPapers for claiming papers that user cant claim', () => {
     const store = getStore();
     const paperRecordId = 12345;
@@ -72,10 +71,10 @@ describe('AssignOneDifferentProfileActionContainer', () => {
       setPublicationsCanNotClaimSelection([paperRecordId], true),
       assignDifferentProfileClaimedPapers({ from, to }),
     ];
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(store.getActions()).toEqual(expectedActions);
   });
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('selects one paper and dispatches assignPapers when paper claimed', () => {
     const store = getStore();
     const paperRecordId = 12345;
@@ -104,10 +103,10 @@ describe('AssignOneDifferentProfileActionContainer', () => {
       setPublicationsClaimedSelection([paperRecordId], true),
       assignDifferentProfileClaimedPapers({ from, to }),
     ];
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(store.getActions()).toEqual(expectedActions);
   });
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('selects one paper and dispatches assignPapers when paper unclaimed', () => {
     const store = getStore();
     const paperRecordId = 12345;
@@ -136,7 +135,7 @@ describe('AssignOneDifferentProfileActionContainer', () => {
       setPublicationsUnclaimedSelection([paperRecordId], true),
       assignDifferentProfileUnclaimedPapers({ from, to }),
     ];
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(store.getActions()).toEqual(expectedActions);
   });
 });

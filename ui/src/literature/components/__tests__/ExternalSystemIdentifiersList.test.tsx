@@ -4,9 +4,9 @@ import { fromJS } from 'immutable';
 
 import ExternalSystemIdentifierList from '../ExternalSystemIdentifierList';
 
-// @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
+
 describe('ExternalSystemIdentifierList', () => {
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('renders with external system identifiers', () => {
     const externalSystemIdentifiers = fromJS([
       {
@@ -24,7 +24,7 @@ describe('ExternalSystemIdentifierList', () => {
         externalSystemIdentifiers={externalSystemIdentifiers}
       />
     );
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper.dive()).toMatchSnapshot();
   });
 });

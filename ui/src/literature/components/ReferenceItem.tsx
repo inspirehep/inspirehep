@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 import { List, Row, Col } from 'antd';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { Link } from 'react-router-dom';
 
 import AuthorsAndCollaborations from '../../common/components/AuthorsAndCollaborations';

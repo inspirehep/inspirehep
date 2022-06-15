@@ -2,9 +2,9 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import ExceptionsTable from '../ExceptionsTable';
 
-// @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
+
 describe('ExceptionsTable', () => {
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('renders with exceptions', () => {
     const exceptions = [
       {
@@ -28,11 +28,11 @@ describe('ExceptionsTable', () => {
       // @ts-expect-error ts-migrate(2322) FIXME: Type '{ exceptions: { collection: string; error: s... Remove this comment to see the full error message
       <ExceptionsTable exceptions={exceptions} loading={loading} />
     );
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper).toMatchSnapshot();
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('renders when loading is true', () => {
     const exceptions: any = [];
     const loading = true;
@@ -40,11 +40,11 @@ describe('ExceptionsTable', () => {
       // @ts-expect-error ts-migrate(2322) FIXME: Type '{ exceptions: any; loading: boolean; }' is n... Remove this comment to see the full error message
       <ExceptionsTable exceptions={exceptions} loading={loading} />
     );
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper).toMatchSnapshot();
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('renders filtered results on error search', () => {
     const exceptions = [
       {
@@ -72,11 +72,11 @@ describe('ExceptionsTable', () => {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'onErrorSearch' does not exist on type 'C... Remove this comment to see the full error message
     wrapper.instance().onErrorSearch(searchText);
     wrapper.update();
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper).toMatchSnapshot();
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('renders no results on error search if nothing matches', () => {
     const exceptions = [
       {
@@ -104,11 +104,11 @@ describe('ExceptionsTable', () => {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'onErrorSearch' does not exist on type 'C... Remove this comment to see the full error message
     wrapper.instance().onErrorSearch(searchText);
     wrapper.update();
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper).toMatchSnapshot();
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('renders all exceptions on clear error search', () => {
     const exceptions = [
       {
@@ -136,11 +136,11 @@ describe('ExceptionsTable', () => {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'onErrorSearch' does not exist on type 'C... Remove this comment to see the full error message
     wrapper.instance().onErrorSearch(searchText);
     wrapper.update();
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper).toMatchSnapshot();
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('renders no results on recid search if there is no exact match', () => {
     const exceptions = [
       {
@@ -168,11 +168,11 @@ describe('ExceptionsTable', () => {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'onRecidSearch' does not exist on type 'C... Remove this comment to see the full error message
     wrapper.instance().onRecidSearch(recidText);
     wrapper.update();
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper).toMatchSnapshot();
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('renders single exception on recid search if there is exact match', () => {
     const exceptions = [
       {
@@ -200,11 +200,11 @@ describe('ExceptionsTable', () => {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'onRecidSearch' does not exist on type 'C... Remove this comment to see the full error message
     wrapper.instance().onRecidSearch(recidText);
     wrapper.update();
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper).toMatchSnapshot();
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('renders all exceptions on clear recid search', () => {
     const exceptions = [
       {
@@ -232,13 +232,13 @@ describe('ExceptionsTable', () => {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'onRecidSearch' does not exist on type 'C... Remove this comment to see the full error message
     wrapper.instance().onRecidSearch(recidText);
     wrapper.update();
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper).toMatchSnapshot();
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
+  
   describe('getCollectionColumnFilters', () => {
-    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+    
     it('returns collection column filters', () => {
       const exceptions = [
         {
@@ -256,39 +256,39 @@ describe('ExceptionsTable', () => {
         { text: 'Job', value: 'Job' },
       ];
       const result = ExceptionsTable.getCollectionColumnFilters(exceptions);
-      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+
       expect(result.sort()).toEqual(expected.sort());
     });
 
-    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+    
     it('returns empty array if expections empty', () => {
       const exceptions: any = [];
       const expected: any = [];
       const result = ExceptionsTable.getCollectionColumnFilters(exceptions);
-      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+
       expect(result).toEqual(expected);
     });
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
+  
   describe('hasCollection', () => {
-    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+    
     it('returns true if exception.collection equals to passed collection', () => {
       const exception = {
         collection: 'Hep',
       };
       const result = ExceptionsTable.hasCollection('Hep', exception);
-      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+
       expect(result).toBe(true);
     });
 
-    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+    
     it('returns false if expcetion.collection does not equal to passed collection', () => {
       const exception = {
         collection: 'Hep',
       };
       const result = ExceptionsTable.hasCollection('Not Hep', exception);
-      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+
       expect(result).toBe(false);
     });
   });

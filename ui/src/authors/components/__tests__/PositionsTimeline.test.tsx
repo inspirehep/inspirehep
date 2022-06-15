@@ -5,9 +5,9 @@ import { fromJS } from 'immutable';
 import PositionsTimeline from '../PositionsTimeline';
 import ExpandListToggle from '../../../common/components/ExpandListToggle';
 
-// @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
+
 describe('PositionsTimeline', () => {
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('renders with positions', () => {
     const positions = fromJS([
       {
@@ -29,11 +29,11 @@ describe('PositionsTimeline', () => {
     ]);
     // @ts-expect-error ts-migrate(2322) FIXME: Type '{ positions: any; }' is not assignable to ty... Remove this comment to see the full error message
     const wrapper = shallow(<PositionsTimeline positions={positions} />);
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper).toMatchSnapshot();
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('renders with single position', () => {
     const positions = fromJS([
       {
@@ -45,11 +45,11 @@ describe('PositionsTimeline', () => {
     ]);
     // @ts-expect-error ts-migrate(2322) FIXME: Type '{ positions: any; }' is not assignable to ty... Remove this comment to see the full error message
     const wrapper = shallow(<PositionsTimeline positions={positions} />);
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper).toMatchSnapshot();
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('renders only first 3 by default', () => {
     const positions = fromJS([
       { institution: 'Inst 1' },
@@ -61,11 +61,11 @@ describe('PositionsTimeline', () => {
     ]);
     // @ts-expect-error ts-migrate(2322) FIXME: Type '{ positions: any; }' is not assignable to ty... Remove this comment to see the full error message
     const wrapper = shallow(<PositionsTimeline positions={positions} />);
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper).toMatchSnapshot();
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('renders all when ExpandListToggle is toggled by default', () => {
     const positions = fromJS([
       { institution: 'Inst 1' },
@@ -82,7 +82,7 @@ describe('PositionsTimeline', () => {
     // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
     onExpandToggle();
     wrapper.update();
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper).toMatchSnapshot();
   });
 });

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { Link } from 'react-router-dom';
 import { Map, List } from 'immutable';
 
@@ -43,22 +42,22 @@ class AuthorResultItem extends Component {
         <Link
           className="result-item-title"
           to={`/authors/${recordId}`}
-          target={openDetailInNewTab ? '_blank' : null}
+          target={openDetailInNewTab ? '_blank' : undefined}
         >
-          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+          {/* @ts-ignore */}
           <AuthorName name={name} />
         </Link>
         {currentPositions.size > 0 && (
           <span className="pl1">
             (
-            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+            {/* @ts-ignore */}
             <AffiliationList affiliations={currentPositions} />)
           </span>
         )}
         <div className="mt1">
-          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+          {/* @ts-ignore */}
           <ArxivCategoryList arxivCategories={arxivCategories} />
-          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+          {/* @ts-ignore */}
           <ExperimentList experiments={experiments} />
         </div>
       </ResultItem>

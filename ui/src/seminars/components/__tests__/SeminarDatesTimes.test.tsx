@@ -3,9 +3,9 @@ import { shallow } from 'enzyme';
 import { advanceTo, clear } from 'jest-date-mock';
 import SeminarDateTimes from '../SeminarDateTimes';
 
-// @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
+
 describe('SeminarDateTimes', () => {
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('renders with dates same day', () => {
     const wrapper = shallow(
       <SeminarDateTimes
@@ -14,10 +14,10 @@ describe('SeminarDateTimes', () => {
         timezone="Europe/Zurich"
       />
     );
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper).toMatchSnapshot();
   });
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('renders with dates different days', () => {
     const wrapper = shallow(
       <SeminarDateTimes
@@ -28,10 +28,10 @@ describe('SeminarDateTimes', () => {
         displayTimeZone
       />
     );
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper).toMatchSnapshot();
   });
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('renders with timezone abbreviation', () => {
     advanceTo('2020-09-10');
     const wrapper = shallow(
@@ -42,7 +42,7 @@ describe('SeminarDateTimes', () => {
         displayTimezone
       />
     );
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper).toMatchSnapshot();
     clear();
   });

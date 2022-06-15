@@ -24,9 +24,9 @@ import { CITATION_SUMMARY_ENABLING_PREFERENCE } from '../../reducers/user';
 
 const mockHttp = new MockAdapter(http.httpClient);
 
-// @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
+
 describe('user - async action creator', () => {
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('successful logged in user fetch creates USER_LOGIN_SUCCESS', async () => {
     const user = { data: { email: 'test@testemail.thing' } };
     mockHttp.onGet('/accounts/me').replyOnce(200, user);
@@ -38,11 +38,11 @@ describe('user - async action creator', () => {
 
     const store = getStore();
     await store.dispatch(fetchLoggedInUser());
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(store.getActions()).toEqual(expectedActions);
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('unsuccessful logged in user fetch creates USER_LOGOUT_SUCCESS', async () => {
     mockHttp.onGet('/acconts/me').replyOnce(401);
 
@@ -53,11 +53,11 @@ describe('user - async action creator', () => {
 
     const store = getStore();
     await store.dispatch(fetchLoggedInUser());
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(store.getActions()).toEqual(expectedActions);
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('successful logout creates USER_LOGOUT_SUCCESS', async (done: any) => {
     mockHttp.onGet('/accounts/logout').replyOnce(200);
 
@@ -69,12 +69,12 @@ describe('user - async action creator', () => {
 
     const store = getStore();
     await store.dispatch(userLogout());
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(store.getActions()).toEqual(expectedActions);
     done();
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('successful update orcid push settings creates USER_SET_ORCID_PUSH_SETTING_SUCCESS', async () => {
     mockHttp.onPut('/accounts/settings/orcid-push').replyOnce(200);
 
@@ -92,11 +92,11 @@ describe('user - async action creator', () => {
 
     const store = getStore();
     await store.dispatch(updateOrcidPushSetting(orcidPushValue));
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(store.getActions()).toEqual(expectedActions);
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('unsuccessful update orcid push settings creates USER_SET_ORCID_PUSH_SETTING_ERROR', async () => {
     mockHttp
       .onPut('/accounts/settings/orcid-push')
@@ -115,11 +115,11 @@ describe('user - async action creator', () => {
 
     const store = getStore();
     await store.dispatch(updateOrcidPushSetting(orcidPushValue));
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(store.getActions()).toEqual(expectedActions);
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('setPreference creates USER_SET_PREFERENCE', async () => {
     const name = CITATION_SUMMARY_ENABLING_PREFERENCE;
     const value = true;
@@ -132,7 +132,7 @@ describe('user - async action creator', () => {
 
     const store = getStore();
     await store.dispatch(setPreference(name, value));
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(store.getActions()).toEqual(expectedActions);
   });
 });

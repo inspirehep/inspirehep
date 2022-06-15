@@ -1,7 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { fromJS, List } from 'immutable';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { Provider } from 'react-redux';
 
 import { getStoreWithState } from '../../../fixtures/store';
@@ -9,9 +8,9 @@ import ResultsContainer from '../ResultsContainer';
 import SearchResults from '../../components/SearchResults';
 import { JOBS_NS } from '../../../search/constants';
 
-// @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
+
 describe('ResultsContainer', () => {
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('passes results from state', () => {
     const namespace = JOBS_NS;
     const results = fromJS([
@@ -42,7 +41,7 @@ describe('ResultsContainer', () => {
         <ResultsContainer namespace={namespace} renderItem={renderItem} />
       </Provider>
     );
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper.find(SearchResults)).toHaveProp({
       results,
       isCatalogerLoggedIn: false,

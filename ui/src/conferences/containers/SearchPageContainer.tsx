@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col } from 'antd';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { connect } from 'react-redux';
 
 import AggregationFiltersContainer from '../../common/containers/AggregationFiltersContainer';

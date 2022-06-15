@@ -3,9 +3,9 @@ import { shallow } from 'enzyme';
 
 import NumberOfResultsWithSelectedItemsNumber from '../NumberOfResultsWithSelectedItemsNumber';
 
-// @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
+
 describe('NumberOfResultsWithSelectedItemsNumber', () => {
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('renders selected when selected is more than 1', () => {
     const wrapper = shallow(
       <NumberOfResultsWithSelectedItemsNumber
@@ -14,11 +14,11 @@ describe('NumberOfResultsWithSelectedItemsNumber', () => {
         numberOfSelected={25}
       />
     );
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper).toMatchSnapshot();
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('renders selected when selected is 1', () => {
     const wrapper = shallow(
       <NumberOfResultsWithSelectedItemsNumber
@@ -27,11 +27,11 @@ describe('NumberOfResultsWithSelectedItemsNumber', () => {
         numberOfSelected={1}
       />
     );
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper).toMatchSnapshot();
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('does not render selected when selected is 0', () => {
     const wrapper = shallow(
       <NumberOfResultsWithSelectedItemsNumber
@@ -40,7 +40,7 @@ describe('NumberOfResultsWithSelectedItemsNumber', () => {
         numberOfSelected={0}
       />
     );
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper).toMatchSnapshot();
   });
 });

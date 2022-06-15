@@ -1,6 +1,5 @@
 import React from 'react';
 import { mount } from 'enzyme';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { Provider } from 'react-redux';
 import { Checkbox } from 'antd';
 import { fromJS } from 'immutable';
@@ -17,16 +16,16 @@ import {
   setPublicationsUnclaimedSelection,
 } from '../../../actions/authors';
 
-// @ts-expect-error ts-migrate(2708) FIXME: Cannot use namespace 'jest' as a value.
+
 jest.mock('../../../actions/authors');
 mockActionCreator(setPublicationSelection);
 mockActionCreator(setPublicationsClaimedSelection);
 mockActionCreator(setPublicationsUnclaimedSelection);
 mockActionCreator(setPublicationsCanNotClaimSelection);
 
-// @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
+
 describe('PublicationSelectContainer', () => {
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('dispatches setPublicationSelection and setPublicationsClaimedSelection on change', () => {
     const store = getStore();
     const wrapper = mount(
@@ -40,10 +39,10 @@ describe('PublicationSelectContainer', () => {
       setPublicationSelection([1], true),
       setPublicationsClaimedSelection([1], true),
     ];
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(store.getActions()).toEqual(expectedActions);
   });
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('dispatches setPublicationsCanNotClaimSelection on change when user can not claim', () => {
     const store = getStore();
     const wrapper = mount(
@@ -58,10 +57,10 @@ describe('PublicationSelectContainer', () => {
       setPublicationsCanNotClaimSelection([1], true),
       setPublicationsClaimedSelection([1], true),
     ];
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(store.getActions()).toEqual(expectedActions);
   });
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('dispatches setPublicationSelection on change for unclaimed record', () => {
     const store = getStore();
     const wrapper = mount(
@@ -75,10 +74,10 @@ describe('PublicationSelectContainer', () => {
       setPublicationSelection([1], true),
       setPublicationsUnclaimedSelection([1], true),
     ];
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(store.getActions()).toEqual(expectedActions);
   });
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('passes correct checked value if publication is selected', () => {
     const store = getStoreWithState({
       authors: fromJS({
@@ -92,10 +91,10 @@ describe('PublicationSelectContainer', () => {
       </Provider>
     );
     
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper.find(PublicationsSelect).prop('checked')).toBe(true);
   });
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('renders checkbox checked when select all is checked', () => {
     const store = getStoreWithState({
       authors: fromJS({
@@ -109,7 +108,7 @@ describe('PublicationSelectContainer', () => {
       </Provider>
     );
 
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper).toMatchSnapshot();
   });
 });

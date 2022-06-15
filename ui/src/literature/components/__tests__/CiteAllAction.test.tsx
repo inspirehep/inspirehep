@@ -9,11 +9,11 @@ import { MAX_CITEABLE_RECORDS } from '../../constants';
 import http from '../../../common/http.ts';
 import { downloadTextAsFile } from '../../../common/utils';
 
-// @ts-expect-error ts-migrate(2708) FIXME: Cannot use namespace 'jest' as a value.
+
 jest.mock('../../../common/utils');
 
 const mockHttp = new MockAdapter(http.httpClient);
-// @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
+
 describe('CiteAllAction', () => {
   // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'beforeEach'.
   beforeEach(() => {
@@ -21,17 +21,17 @@ describe('CiteAllAction', () => {
     downloadTextAsFile.mockClear();
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('renders with less than max citeable records results', () => {
     const wrapper = shallow(
       // @ts-expect-error ts-migrate(2322) FIXME: Type '{ numberOfResults: number; query: { q: strin... Remove this comment to see the full error message
       <CiteAllAction numberOfResults={12} query={{ q: 'ac>2000' }} />
     );
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper).toMatchSnapshot();
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('renders with disabled', () => {
     const wrapper = shallow(
       <CiteAllAction
@@ -40,11 +40,11 @@ describe('CiteAllAction', () => {
         query={{ q: 'ac>2000' }}
       />
     );
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper).toMatchSnapshot();
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('renders with loading', () => {
     const wrapper = shallow(
       // @ts-expect-error ts-migrate(2322) FIXME: Type '{ numberOfResults: number; query: { q: strin... Remove this comment to see the full error message
@@ -53,11 +53,11 @@ describe('CiteAllAction', () => {
     wrapper.setState({
       loading: true,
     });
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper).toMatchSnapshot();
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('calls downloadTextAsFile with correct data when option is clicked', async () => {
     mockHttp
       .onGet(
@@ -80,7 +80,7 @@ describe('CiteAllAction', () => {
     await wrapper.find(DropdownMenu).prop('onClick')({
       key: 'application/vnd+inspire.latex.eu+x-latex',
     });
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(downloadTextAsFile).toHaveBeenCalledWith(
       'Test',
       'INSPIRE-CiteAll.tex',
@@ -88,7 +88,7 @@ describe('CiteAllAction', () => {
     );
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('calls downloadTextAsFile with correct data omitting page and size when option is clicked', async () => {
     mockHttp
       .onGet(
@@ -111,7 +111,7 @@ describe('CiteAllAction', () => {
     await wrapper.find(DropdownMenu).prop('onClick')({
       key: 'application/vnd+inspire.latex.eu+x-latex',
     });
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(downloadTextAsFile).toHaveBeenCalledWith(
       'Test',
       'INSPIRE-CiteAll.tex',

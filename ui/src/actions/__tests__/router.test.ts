@@ -3,11 +3,8 @@ import { replace } from 'connected-react-router';
 import { getStoreWithState } from '../../fixtures/store';
 import { appendQueryToLocationSearch } from '../router';
 
-// @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
 describe('router', () => {
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
-  describe('appendQueryToLocationSearch', () => {
-    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+    describe('appendQueryToLocationSearch', () => {
     it('creates router.replace with new search', () => {
       const currentLocation = {
         pathname: '/pathname',
@@ -29,7 +26,6 @@ describe('router', () => {
       store.dispatch(
         appendQueryToLocationSearch({ param1: 'value1', param2: 'value2' })
       );
-      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
       expect(store.getActions()).toEqual(expectedActions);
     });
   });

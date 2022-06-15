@@ -10,9 +10,9 @@ import {
   SUBMIT_REQUEST,
 } from '../../actions/actionTypes';
 
-// @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
+
 describe('submissions reducer', () => {
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('default', () => {
     const state = reducer(undefined, {});
     const expected = fromJS({
@@ -27,18 +27,18 @@ describe('submissions reducer', () => {
     expect(state).toEqual(expected);
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('SUBMIT_ERROR', () => {
     const submitError = { message: 'Error' };
     const state = reducer(Map(), {
       type: SUBMIT_ERROR,
       payload: { error: submitError },
     });
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(state.get('submitError')).toEqual(fromJS(submitError));
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('SUBMIT_REQUEST', () => {
     const submitError = { message: 'Error' };
     const successData = { foo: 'bar' };
@@ -47,13 +47,13 @@ describe('submissions reducer', () => {
       successData,
     });
     const state = reducer(stateWithErrorAndData, { type: SUBMIT_REQUEST });
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(state.get('successData')).toEqual(initialState.get('successData'));
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(state.get('submitError')).toEqual(initialState.get('submitError'));
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('SUBMIT_SUCCESS', () => {
     const submitError = { message: 'Error' };
     const stateWithError = fromJS({
@@ -64,20 +64,20 @@ describe('submissions reducer', () => {
       type: SUBMIT_SUCCESS,
       payload: data,
     });
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(state.get('successData')).toEqual(fromJS(data));
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('INITIAL_FORM_DATA_REQUEST', () => {
     const state = reducer(Map(), {
       type: INITIAL_FORM_DATA_REQUEST,
     });
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(state.get('loadingInitialData')).toBe(true);
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('INITIAL_FORM_DATA_SUCCESS', () => {
     const data = {
       control_number: 123,
@@ -89,19 +89,19 @@ describe('submissions reducer', () => {
       type: INITIAL_FORM_DATA_SUCCESS,
       payload: { data, meta },
     });
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(state.get('initialData').toJS()).toEqual(data);
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(state.get('initialMeta').toJS()).toEqual(meta);
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(state.get('loadingInitialData')).toBe(false);
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(state.get('initialDataError')).toEqual(
       initialState.get('initialDataError')
     );
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('INITIAL_FORM_DATA_ERROR', () => {
     const error = {
       message: 'Error',
@@ -110,11 +110,11 @@ describe('submissions reducer', () => {
       type: INITIAL_FORM_DATA_ERROR,
       payload: { error },
     });
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(state.get('initialDataError')).toEqual(fromJS(error));
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(state.get('loadingInitialData')).toBe(false);
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(state.get('initialData')).toEqual(initialState.get('initialData'));
   });
 });

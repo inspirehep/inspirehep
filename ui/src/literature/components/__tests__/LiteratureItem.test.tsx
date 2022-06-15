@@ -4,9 +4,9 @@ import { fromJS } from 'immutable';
 
 import LiteratureItem from '../LiteratureItem';
 
-// @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
+
 describe('LiteratureItem', () => {
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('renders with all props set, including sub props', () => {
     const metadata = fromJS({
       date: 'Jun 7, 1993',
@@ -35,11 +35,11 @@ describe('LiteratureItem', () => {
     const wrapper = shallow(
       <LiteratureItem metadata={metadata} searchRank={2} />
     );
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper).toMatchSnapshot();
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('does not arxiv pdf download action if there is no eprint value', () => {
     const metadata = fromJS({
       control_number: 12345,
@@ -48,11 +48,11 @@ describe('LiteratureItem', () => {
     const wrapper = shallow(
       <LiteratureItem metadata={metadata} searchRank={1} />
     );
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper).toMatchSnapshot();
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('renders 0 citations if it does not exist', () => {
     const metadata = fromJS({
       control_number: 12345,
@@ -61,11 +61,11 @@ describe('LiteratureItem', () => {
     const wrapper = shallow(
       <LiteratureItem metadata={metadata} searchRank={2} />
     );
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper).toMatchSnapshot();
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('renders publication info when book exists but publication title not', () => {
     const metadata = fromJS({
       control_number: 12345,
@@ -86,7 +86,7 @@ describe('LiteratureItem', () => {
     const wrapper = shallow(
       <LiteratureItem metadata={metadata} searchRank={3} />
     );
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper).toMatchSnapshot();
   });
 });

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Spin } from 'antd';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import Image from 'react-image';
 import useResponsiveCheck from '../../hooks/useResponsiveCheck';
 import CarouselModal from '../CarouselModal';

@@ -1,6 +1,5 @@
 import React, { useMemo, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { FlexibleWidthXYPlot, VerticalRectSeries, Hint } from 'react-vis';
 import { Slider } from 'antd';
 import { List } from 'immutable';

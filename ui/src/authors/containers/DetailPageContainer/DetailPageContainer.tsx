@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { connect } from 'react-redux';
 import { Row, Col, Tabs, Tooltip } from 'antd';
 import { Map, List } from 'immutable';
@@ -101,30 +100,30 @@ function DetailPage({
   return (
     <>
       <DocumentHead
-        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+        // @ts-ignore
         title={getAuthorDisplayName(name)}
         description={metaDescription}
       />
-      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+      {/* @ts-ignore */}
       <Row className="__DetailPage__" type="flex" justify="center">
         <Col xs={24} md={22} lg={21} xxl={18}>
           <Row
             className="mv3"
-            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+            // @ts-ignore
             type="flex"
             gutter={{ xs: 0, md: 16, xl: 32 }}
             justify="space-between"
           >
             <Col span={24}>
               <ContentBox
-                // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+                // @ts-ignore
                 className="sm-pb3"
                 leftActions={
                   <>
                     {emails && <AuthorEmailsAction emails={emails} />}
-                    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+                    {/* @ts-ignore */}
                     {twitter && <AuthorTwitterAction twitter={twitter} />}
-                    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+                    {/* @ts-ignore */}
                     {linkedin && <AuthorLinkedinAction linkedin={linkedin} />}
                     {urls && <AuthorWebsitesAction websites={urls} />}
                     {orcid && orcid === userOrcid && <UserSettingsAction />}
@@ -145,32 +144,32 @@ function DetailPage({
                   <Col span={24}>{deleted && <DeletedAlert />}</Col>
                 </Row>
                 <h2>
-                  // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+                  {/* @ts-ignore */}
                   <AuthorName name={name} />
                   {currentPositions.size > 0 && (
                     <span className="pl1 f6">
-                      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+                      {/* @ts-ignore */}
                       (<AffiliationList affiliations={currentPositions} />)
                     </span>
                   )}
                   {orcid && (
                     <span className="pl1">
-                      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+                      {/* @ts-ignore */}
                       <AuthorOrcid orcid={orcid} />
                     </span>
                   )}
                 </h2>
-                // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+                {/* @ts-ignore */}
                 <Row type="flex" justify="space-between">
                   <Col xs={24} lg={12} className="mb3">
-                    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+                    {/* @ts-ignore */}
                     <ArxivCategoryList arxivCategories={arxivCategories} />
-                    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+                    {/* @ts-ignore */}
                     <ExperimentList experiments={experiments} />
                     {bai && <AuthorBAI bai={bai} />}
                     {advisors && (
                       <div className="mt2">
-                        // @ts-expect-error ts-migrate(2786) FIXME: 'Advisors' cannot be used as a JSX component.
+                        {/* @ts-ignore */}
                         <Advisors advisors={advisors} />
                       </div>
                     )}
@@ -193,7 +192,7 @@ function DetailPage({
                     <Tooltip title="Research from the author">
                       <span>
                         <TabNameWithCount
-                          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+                          // @ts-ignore *
                           loading={
                             publicationsCount === null && loadingPublications
                           }
@@ -205,7 +204,7 @@ function DetailPage({
                   }
                   key="1"
                 >
-                  // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+                  {/* @ts-ignore */}
                   <ContentBox className="remove-top-border-of-card">
                     <AuthorPublicationsContainer />
                   </ContentBox>
@@ -221,7 +220,7 @@ function DetailPage({
                   key="2"
                   forceRender
                 >
-                  // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+                  {/* @ts-ignore */}
                   <ContentBox className="remove-top-border-of-card">
                     <AuthorCitationsContainer />
                   </ContentBox>
@@ -235,7 +234,7 @@ function DetailPage({
                     }
                     key="3"
                   >
-                    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+                    {/* @ts-ignore */}
                     <ContentBox className="remove-top-border-of-card">
                       <AuthorSeminars />
                     </ContentBox>

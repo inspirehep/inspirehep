@@ -16,16 +16,16 @@ import {
   USER_SET_PREFERENCE,
 } from '../../actions/actionTypes';
 
-// @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
+
 describe('user reducer', () => {
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('default', () => {
     const state = reducer(undefined, {});
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(state).toEqual(initialState);
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('USER_LOGIN_SUCCESS', () => {
     const payload = {
       data: { username: 'dude', roles: ['dudelikeuser'] },
@@ -37,11 +37,11 @@ describe('user reducer', () => {
       loggedIn: true,
       data: payload.data,
     });
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(state.sort()).toEqual(expected.sort());
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('USER_SIGN_UP_SUCCESS', () => {
     const payload = {
       data: { username: 'dude', roles: ['dudelikeuser'] },
@@ -53,11 +53,11 @@ describe('user reducer', () => {
       loggedIn: true,
       data: payload.data,
     });
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(state.sort()).toEqual(expected.sort());
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('USER_LOGIN_ERROR', () => {
     const state = reducer(Map(), { type: USER_LOGIN_ERROR });
     const expected = fromJS({
@@ -65,11 +65,11 @@ describe('user reducer', () => {
       data: initialState.get('data'),
       isSigningUp: false,
     });
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(state).toEqual(expected);
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('USER_SIGN_UP_ERROR', () => {
     const payload = {
       error: { message: 'Error here' },
@@ -85,11 +85,11 @@ describe('user reducer', () => {
       },
       isSigningUp: false,
     });
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(state).toEqual(expected);
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('USER_LOGOUT_SUCCESS', () => {
     const state = reducer(Map(), { type: USER_LOGOUT_SUCCESS });
     const expected = fromJS({
@@ -97,11 +97,11 @@ describe('user reducer', () => {
       data: initialState.get('data'),
       isSigningUp: false,
     });
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(state).toEqual(expected);
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('USER_SET_ORCID_PUSH_SETTING_REQUEST', () => {
     const state = reducer(Map(), {
       type: USER_SET_ORCID_PUSH_SETTING_REQUEST,
@@ -113,11 +113,11 @@ describe('user reducer', () => {
         'updateOrcidPushSettingError'
       ),
     });
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(state).toEqual(expected);
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('USER_SET_ORCID_PUSH_SETTING_ERROR', () => {
     const state = reducer(Map(), {
       type: USER_SET_ORCID_PUSH_SETTING_ERROR,
@@ -127,11 +127,11 @@ describe('user reducer', () => {
       isUpdatingOrcidPushSetting: false,
       updateOrcidPushSettingError: { message: 'Error' },
     });
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(state).toEqual(expected);
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('USER_SET_ORCID_PUSH_SETTING_SUCCESS', () => {
     const settingValue = true;
     const state = reducer(Map(), {
@@ -147,11 +147,11 @@ describe('user reducer', () => {
         'updateOrcidPushSettingError'
       ),
     });
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(state).toEqual(expected);
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('USER_SET_ORCID_PUSH_SETTING_REQUEST', () => {
     const state = reducer(Map(), { type: USER_SET_ORCID_PUSH_SETTING_REQUEST });
     const expected = fromJS({
@@ -160,11 +160,11 @@ describe('user reducer', () => {
         'updateOrcidPushSettingError'
       ),
     });
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(state).toEqual(expected);
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('USER_SET_PREFERENCE', () => {
     const state = reducer(Map(), {
       type: USER_SET_PREFERENCE,
@@ -175,7 +175,7 @@ describe('user reducer', () => {
         [CITATION_SUMMARY_ENABLING_PREFERENCE]: true,
       },
     });
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(state).toEqual(expected);
   });
 });

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Row } from 'antd';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { Route, Redirect, Switch } from 'react-router-dom';
 
 import {

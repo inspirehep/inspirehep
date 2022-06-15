@@ -8,16 +8,12 @@ import fetchJob from '../jobs';
 
 const mockHttp = new MockAdapter(http.httpClient);
 
-// @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
 describe('jobs - async action creators', () => {
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
-  describe('fetch job', () => {
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'afterEach'.
+    describe('fetch job', () => {
     afterEach(() => {
       mockHttp.reset();
     });
 
-    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
     it('creates JOB_SUCCESS', async (done: any) => {
       mockHttp.onGet('/jobs/123').replyOnce(200, { foo: 'bar' });
 
@@ -28,12 +24,10 @@ describe('jobs - async action creators', () => {
 
       const store = getStore();
       await store.dispatch(fetchJob(123));
-      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
       expect(store.getActions()).toEqual(expectedActions);
       done();
     });
 
-    // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
     it('creates JOB_ERROR', async (done: any) => {
       mockHttp.onGet('/jobs/123').replyOnce(500, { message: 'Error' });
 
@@ -50,7 +44,6 @@ describe('jobs - async action creators', () => {
 
       const store = getStore();
       await store.dispatch(fetchJob(123));
-      // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
       expect(store.getActions()).toEqual(expectedActions);
       done();
     });

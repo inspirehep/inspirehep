@@ -4,9 +4,9 @@ import { shallow } from 'enzyme';
 
 import TreeAggregation from '../TreeAggregation';
 
-// @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
+
 describe('TreeAggregation', () => {
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('render initial state with all props set', () => {
     const buckets = fromJS([
       {
@@ -36,7 +36,7 @@ describe('TreeAggregation', () => {
     ]);
     const wrapper = shallow(
       <TreeAggregation
-        // @ts-expect-error ts-migrate(2708) FIXME: Cannot use namespace 'jest' as a value.
+        
         onChange={jest.fn()}
         buckets={buckets}
         name="Test"
@@ -46,7 +46,7 @@ describe('TreeAggregation', () => {
         splitTreeBy="|"
       />
     );
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper).toMatchSnapshot();
   });
 });

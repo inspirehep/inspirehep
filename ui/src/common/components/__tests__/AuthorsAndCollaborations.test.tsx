@@ -4,9 +4,9 @@ import { fromJS } from 'immutable';
 
 import AuthorsAndCollaborations from '../AuthorsAndCollaborations';
 
-// @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
+
 describe('AuthorsAndCollaborations', () => {
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('renders only author list if collaborations are missing (default author props)', () => {
     const authors = fromJS([
       {
@@ -17,11 +17,11 @@ describe('AuthorsAndCollaborations', () => {
       // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
       <AuthorsAndCollaborations authors={authors} />
     );
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper).toMatchSnapshot();
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('renders only author list if collaborations are missing (extra author props)', () => {
     const authors = fromJS([
       {
@@ -36,11 +36,11 @@ describe('AuthorsAndCollaborations', () => {
         enableAuthorsShowAll
       />
     );
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper).toMatchSnapshot();
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('renders only one collaboration and author for the collaboration', () => {
     const authors = fromJS([
       {
@@ -61,11 +61,11 @@ describe('AuthorsAndCollaborations', () => {
         collaborations={collaborations}
       />
     );
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper).toMatchSnapshot();
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('renders multiple collaborations and author for the collaborations', () => {
     const authors = fromJS([
       {
@@ -89,11 +89,11 @@ describe('AuthorsAndCollaborations', () => {
         collaborations={collaborations}
       />
     );
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper).toMatchSnapshot();
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('renders collaboration list with single item and author list with limit 1 if there are multiple authors', () => {
     const authors = fromJS([
       {
@@ -117,11 +117,11 @@ describe('AuthorsAndCollaborations', () => {
         collaborationsWithSuffix={collaborationsWithSuffix}
       />
     );
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper).toMatchSnapshot();
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('renders collaboration list and author list if collaborations and authors have multiple items', () => {
     const authors = fromJS([
       {
@@ -154,11 +154,11 @@ describe('AuthorsAndCollaborations', () => {
         collaborationsWithSuffix={collaborationsWithSuffix}
       />
     );
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper).toMatchSnapshot();
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('does not render bullet if authors missing', () => {
     const collaborationsWithSuffix = fromJS([
       {
@@ -180,11 +180,11 @@ describe('AuthorsAndCollaborations', () => {
         collaborationsWithSuffix={collaborationsWithSuffix}
       />
     );
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper).toMatchSnapshot();
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
+  
   it('does not render bullet if authors missing with single collaboration', () => {
     const collaborations = fromJS([
       {
@@ -197,7 +197,7 @@ describe('AuthorsAndCollaborations', () => {
         collaborations={collaborations}
       />
     );
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
+    
     expect(wrapper).toMatchSnapshot();
   });
 });

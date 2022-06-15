@@ -19,7 +19,7 @@ function UserSettingsAction() {
     <>
       <ListItemAction>
         <Button onClick={onClick}>
-          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+          {/* @ts-ignore */}
           <IconText text="settings" icon={<SettingOutlined />} />
         </Button>
       </ListItemAction>

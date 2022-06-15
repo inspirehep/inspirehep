@@ -7,7 +7,6 @@ import {
   FlexibleWidthXYPlot,
   DiscreteColorLegend,
   ChartLabel,
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 } from 'react-vis';
 import PropTypes from 'prop-types';
 import { Row, Col, Tooltip } from 'antd';

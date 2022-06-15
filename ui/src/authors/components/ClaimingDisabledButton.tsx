@@ -13,7 +13,7 @@ const ClaimingDisabledButton = () => <ListItemAction>
     title={
       <Tooltip title='Login to claim your papers'>
         <Button disabled>
-          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+          {/* @ts-ignore */}
           <IconText text="claim" icon={<FileDoneOutlined />} />
         </Button>
       </Tooltip>
