@@ -16,7 +16,7 @@ function InstitutionsNameVariantsList({
 }: any) {
   return (
     <InlineList
-      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+      /* @ts-ignore */
       label="Name Variants"
       items={nameVariants}
       extractKey={extractKeyFromNameVariant}
@@ -26,7 +26,7 @@ function InstitutionsNameVariantsList({
 }
 
 InstitutionsNameVariantsList.propTypes = {
-  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof List' is not assignable t... Remove this comment to see the full error message
+  /* @ts-ignore */
   nameVariants: PropTypes.instanceOf(List),
 };
 

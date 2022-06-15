@@ -24,17 +24,17 @@ function InstitutionSearchPage({
 }: any) {
   return (
     <>
-      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+      {/* @ts-ignore */}
       <DocumentHead title={TITLE} description={META_DESCRIPTION} />
       <Row
         className="mt3"
         gutter={SEARCH_PAGE_GUTTER}
-        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+        /* @ts-ignore */
         type="flex"
         justify="center"
       >
         <Col xs={24} lg={16} xl={16} xxl={14}>
-          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+          {/* @ts-ignore */}
           <LoadingOrChildren loading={loading}>
             <Row>
               <Col>

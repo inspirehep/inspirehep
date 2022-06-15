@@ -4,14 +4,11 @@ import { List } from 'immutable';
 
 import RegionsList from '../RegionsList';
 
-
 describe('RegionsList', () => {
-  
   it('renders regions', () => {
     const regions = List(['Asia', 'North America']);
-    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+    // @ts-ignore 
     const wrapper = shallow(<RegionsList regions={regions} />);
-    
     expect(wrapper.dive()).toMatchSnapshot();
   });
 });

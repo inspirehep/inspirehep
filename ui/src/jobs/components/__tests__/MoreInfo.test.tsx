@@ -3,9 +3,7 @@ import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
 import MoreInfo from '../MoreInfo';
 
-
 describe('MoreInfo', () => {
-  
   it('renders with urls', () => {
     const urls = fromJS([
       {
@@ -15,9 +13,8 @@ describe('MoreInfo', () => {
         value: 'url2',
       },
     ]);
-    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+    // @ts-ignore 
     const wrapper = shallow(<MoreInfo urls={urls} />);
-    
     expect(wrapper).toMatchSnapshot();
   });
 });

@@ -4,9 +4,7 @@ import { fromJS } from 'immutable';
 
 import JobItem from '../JobItem';
 
-
 describe('JobItem', () => {
-  
   it('renders full job search result item', () => {
     const created = '2019-05-31T12:23:15.104851+00:00';
     const metadata = fromJS({
@@ -23,9 +21,8 @@ describe('JobItem', () => {
         },
       ],
     });
-    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+    // @ts-ignore 
     const wrapper = shallow(<JobItem metadata={metadata} created={created} />);
-    
     expect(wrapper).toMatchSnapshot();
   });
 });

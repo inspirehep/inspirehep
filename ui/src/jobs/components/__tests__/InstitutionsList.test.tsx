@@ -4,9 +4,7 @@ import { fromJS } from 'immutable';
 
 import InstitutionsList from '../InstitutionsList';
 
-
 describe('InstitutionsList', () => {
-  
   it('renders institutions', () => {
     const institutions = fromJS([
       {
@@ -16,9 +14,8 @@ describe('InstitutionsList', () => {
         value: 'CERN',
       },
     ]);
-    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+    // @ts-ignore
     const wrapper = shallow(<InstitutionsList institutions={institutions} />);
-    
     expect(wrapper.dive()).toMatchSnapshot();
   });
 });

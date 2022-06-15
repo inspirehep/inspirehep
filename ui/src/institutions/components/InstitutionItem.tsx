@@ -10,8 +10,7 @@ import { INSTITUTIONS } from '../../common/routes';
 import ListItemAction from '../../common/components/ListItemAction';
 import InstitutionHierarchyList from './InstitutionHierarchyList';
 import InstitutionAddressList from './InstitutionAddressList';
-// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.tsx' extension.... Remove this comment to see the full error message
-import EditRecordAction from '../../common/components/EditRecordAction.tsx';
+import EditRecordAction from '../../common/components/EditRecordAction';
 import AuthorizedContainer from '../../common/containers/AuthorizedContainer';
 import { SUPERUSER_OR_CATALOGER } from '../../common/authorization';
 import { INSTITUTIONS_PID_TYPE } from '../../common/constants';
@@ -30,7 +29,7 @@ function InstitutionItem({
 
   return (
     <ResultItem
-      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+      /* @ts-ignore */
       leftActions={
         <>
           {urls && <UrlsAction urls={urls} />}
@@ -78,7 +77,7 @@ function InstitutionItem({
 }
 
 InstitutionItem.propTypes = {
-  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof Map' is not assignable to... Remove this comment to see the full error message
+  /* @ts-ignore */
   metadata: PropTypes.instanceOf(Map).isRequired,
 };
 

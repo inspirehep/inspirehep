@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ExternalLink from '../../../common/components/ExternalLink.js';
+import ExternalLink from '../../../common/components/ExternalLink';
 
 function CollaborationLogo({
   href,

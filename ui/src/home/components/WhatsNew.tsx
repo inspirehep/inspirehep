@@ -2,8 +2,7 @@ import React from 'react';
 import { Row, Col } from 'antd';
 import useAxios from 'axios-hooks';
 
-// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.tsx' extension.... Remove this comment to see the full error message
-import ExternalLink from '../../common/components/ExternalLink.tsx';
+import ExternalLink from '../../common/components/ExternalLink';
 import ContentBox from '../../common/components/ContentBox';
 import { BLOG_URL } from '../../common/constants';
 

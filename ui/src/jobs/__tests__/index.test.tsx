@@ -9,16 +9,12 @@ import Jobs from '..';
 import DetailPageContainer from '../containers/DetailPageContainer';
 import SearchPageContainer from '../containers/SearchPageContainer';
 
-
 describe('Jobs', () => {
-  
   it('renders initial state', () => {
     const component = shallow(<Jobs />);
-    
     expect(component).toMatchSnapshot();
   });
 
-  
   it('navigates to DetailPageContainer when /jobs/:id', async (done: any) => {
     const wrapper = mount(
       <Provider store={getStore()}>
@@ -30,13 +26,11 @@ describe('Jobs', () => {
     await Loadable.preloadAll();
     wrapper.update();
 
-    
     expect(wrapper.find(DetailPageContainer)).toExist();
 
     done();
   });
 
-  
   it('navigates to SerachPage when /jobs', async (done: any) => {
     const wrapper = mount(
       <Provider store={getStore()}>
@@ -48,7 +42,6 @@ describe('Jobs', () => {
     await Loadable.preloadAll();
     wrapper.update();
 
-    
     expect(wrapper.find(SearchPageContainer)).toExist();
 
     done();
