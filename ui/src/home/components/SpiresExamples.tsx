@@ -15,7 +15,6 @@ const TABLE_COLUMNS = [
   {
     title: 'Example',
     dataIndex: 'example',
-    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
     render: (query: any) => <LinkWithEncodedLiteratureQuery query={query} />,
   },
 ];

@@ -12,7 +12,6 @@ const EXAMPLES = [
 function renderExample(freetextSearch: any) {
   return (
     <div key={freetextSearch}>
-      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
       <LinkWithEncodedLiteratureQuery query={freetextSearch} />
     </div>
   );

@@ -12,16 +12,12 @@ import Institutions from '..';
 import SearchPageContainer from '../containers/SearchPageContainer';
 import DetailPageContainer from '../containers/DetailPageContainer';
 
-// @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'describe'. Do you need to instal... Remove this comment to see the full error message
 describe('Institutions', () => {
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('renders initial state', () => {
     const component = shallow(<Institutions />);
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(component).toMatchSnapshot();
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('navigates to SearchPage when /institutions', async (done: any) => {
     const wrapper = mount(
       <Provider store={getStore()}>
@@ -33,13 +29,11 @@ describe('Institutions', () => {
     await Loadable.preloadAll();
     wrapper.update();
 
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(wrapper.find(SearchPageContainer)).toExist();
 
     done();
   });
 
-  // @ts-expect-error ts-migrate(2582) FIXME: Cannot find name 'it'. Do you need to install type... Remove this comment to see the full error message
   it('navigates to DetailPageContainer when /institutions/:id', async (done: any) => {
     const wrapper = mount(
       <Provider store={getStore()}>
@@ -51,7 +45,6 @@ describe('Institutions', () => {
     await Loadable.preloadAll();
     wrapper.update();
 
-    // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'expect'.
     expect(wrapper.find(DetailPageContainer)).toExist();
 
     done();
