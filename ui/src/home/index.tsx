@@ -18,9 +18,9 @@ const TITLE = 'Home';
 function Home() {
   return (
     <>
-      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+      {/* @ts-ignore */}
       <DocumentHead title={TITLE} description={META_DESCRIPTION} />
-      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+      {/* @ts-ignore */}
       <Row className="__Home__" type="flex" justify="center" align="middle">
         <Col span={24}>
           <HomePageSection

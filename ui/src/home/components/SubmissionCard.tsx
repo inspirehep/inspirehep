@@ -12,7 +12,7 @@ function SubmissionCard({
 }: any) {
   const actions = useMemo(
     () => [
-      <RouterLinkButton key="submit" to={formLink}>
+      <RouterLinkButton key="submit" to={formLink} className={undefined}>
         Submit
       </RouterLinkButton>,
     ],

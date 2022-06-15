@@ -22,7 +22,7 @@ function WhatsNew() {
   return (
     <Row justify="center">
       <Col>
-        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+        {/* @ts-ignore */}
         <ContentBox loading={loading}>
           {data && data.map(renderBlogPost)}
         </ContentBox>
