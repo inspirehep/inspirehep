@@ -25,7 +25,7 @@ function InstitutionHierarchyList({
 }: any) {
   return (
     <InlineList
-      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+      /* @ts-ignore */
       items={hierarchies}
       extractKey={extractKeyFromHierarchy}
       renderItem={renderHierarchy}
@@ -35,7 +35,7 @@ function InstitutionHierarchyList({
 }
 
 InstitutionHierarchyList.propTypes = {
-  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof List' is not assignable t... Remove this comment to see the full error message
+  /* @ts-ignore */
   hierarchies: PropTypes.instanceOf(List),
 };
 

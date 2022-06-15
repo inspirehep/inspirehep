@@ -20,9 +20,9 @@ function InstitutionAddress({
   const country = address.get('country');
   return (
     <span>
-      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+      {/* @ts-ignore */}
       <InlineUL separator={SEPARATOR_COMMA} wrapperClassName="di">
-        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+       {/* @ts-ignore */}
         {postalAddresses.size > 0 && <InlineList items={postalAddresses} />}
         {city &&
           !postalAddressesContainWord(postalAddresses, city) && (

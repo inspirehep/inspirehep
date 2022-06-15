@@ -19,7 +19,7 @@ function SubmissionCard({
     [formLink]
   );
   return (
-    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+    /* @ts-ignore */
     <Card
       title={title}
       actions={actions}

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col } from 'antd';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { connect } from 'react-redux';
 
 import PaginationContainer from '../../common/containers/PaginationContainer';
@@ -25,17 +24,17 @@ function InstitutionSearchPage({
 }: any) {
   return (
     <>
-      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+      {/* @ts-ignore */}
       <DocumentHead title={TITLE} description={META_DESCRIPTION} />
       <Row
         className="mt3"
         gutter={SEARCH_PAGE_GUTTER}
-        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+        /* @ts-ignore */
         type="flex"
         justify="center"
       >
         <Col xs={24} lg={16} xl={16} xxl={14}>
-          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+          {/* @ts-ignore */}
           <LoadingOrChildren loading={loading}>
             <Row>
               <Col>

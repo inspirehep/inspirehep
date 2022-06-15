@@ -10,8 +10,7 @@ function InstitutionsHistoricalDataList({
 }: any) {
   return (
     <InlineList
-      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
-      label="Note"
+      /* @ts-ignore */
       items={historicalData}
       separator={SEPARATOR_MIDDLEDOT}
     />
@@ -19,7 +18,7 @@ function InstitutionsHistoricalDataList({
 }
 
 InstitutionsHistoricalDataList.propTypes = {
-  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof List' is not assignable t... Remove this comment to see the full error message
+  /* @ts-ignore */
   historicalData: PropTypes.instanceOf(List),
 };
 
