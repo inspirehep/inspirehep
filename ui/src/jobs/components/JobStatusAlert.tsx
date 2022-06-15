@@ -7,7 +7,7 @@ const ALERT_TYPES_BY_STATUS = { pending: 'warning', closed: 'error' };
 function JobStatusAlert({
   status
 }: any) {
-  // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+  {/* @ts-ignore */}
   const shouldDisplayAlert = ALERT_TYPES_BY_STATUS[status] != null;
 
   return (

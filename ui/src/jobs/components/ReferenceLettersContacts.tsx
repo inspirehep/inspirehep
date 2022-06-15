@@ -16,11 +16,11 @@ class ReferenceLettersContacts extends Component {
       shouldRender && (
         <div>
           <strong>Letters of Reference should be sent to: </strong>
-          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+          {/* @ts-ignore */}
           <InlineUL wrapperClassName="di">
-            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+            {/* @ts-ignore */}
             {emails && <EmailList emails={emails} />}
-            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+            {/* @ts-ignore */}
             {urls && <URLList urls={urls} />}
           </InlineUL>
         </div>

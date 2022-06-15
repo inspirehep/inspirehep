@@ -38,7 +38,7 @@ function InstitutionAddress({
 }
 
 InstitutionAddress.propTypes = {
-  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof Map' is not assignable to... Remove this comment to see the full error message
+  /* @ts-ignore */
   address: PropTypes.instanceOf(Map).isRequired,
 };
 

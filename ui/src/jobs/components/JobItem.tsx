@@ -13,8 +13,7 @@ import RegionsList from './RegionsList';
 import ArxivCategoryList from '../../common/components/ArxivCategoryList';
 import RanksList from './RanksList';
 import ExperimentList from '../../common/components/ExperimentList';
-// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.tsx' extension.... Remove this comment to see the full error message
-import EditRecordAction from '../../common/components/EditRecordAction.tsx';
+import EditRecordAction from '../../common/components/EditRecordAction';
 import JobTitle from './JobTitle';
 import {
   InlineUL,
@@ -38,12 +37,13 @@ class JobItem extends Component {
     const externalJobId = metadata.get('external_job_identifier');
     return (
       <ResultItem
-        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+       /* @ts-ignore */
         leftActions={
+           /* @ts-ignore */
           canEdit && <EditRecordAction pidType="jobs" pidValue={recordId} />
         }
       >
-        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+        {/* @ts-ignore */}
         <Row type="flex" align="middle">
           <Col>
             <Link className="result-item-title pr1" to={`${JOBS}/${recordId}`}>
@@ -52,11 +52,11 @@ class JobItem extends Component {
             </Link>
           </Col>
           <Col>
-            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+            {/* @ts-ignore */}
             (<InlineUL wrapperClassName="di" separator={SEPARATOR_MIDDLEDOT}>
-              // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+              {/* @ts-ignore */}
               {institutions && <InstitutionsList institutions={institutions} />}
-              // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+              {/* @ts-ignore */}
               <RegionsList regions={regions} />
             </InlineUL>)
           </Col>
@@ -68,23 +68,23 @@ class JobItem extends Component {
               arxivCategories={arxivCategories}
               wrapperClassName="di"
             />
-            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+            {/* @ts-ignore */}
             <InlineUL separator={SEPARATOR_MIDDLEDOT} wrapperClassName="di">
-              // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+              {/* @ts-ignore */}
               {experiments && <ExperimentList experiments={experiments} />}
-              // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+              {/* @ts-ignore */}
               {ranks && <RanksList ranks={ranks} />}
             </InlineUL>
           </Col>
         </Row>
-        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+        {/* @ts-ignore */}
         <Row className="mt3" type="flex" justify="space-between">
           <Col>
-            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+            {/* @ts-ignore */}
             <DeadlineDate deadlineDate={deadlineDate} />
           </Col>
           <Col>
-            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+            /{/* @ts-ignore */}
             Posted <DateFromNow date={created} />
           </Col>
         </Row>
@@ -93,9 +93,9 @@ class JobItem extends Component {
   }
 }
 
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'propTypes' does not exist on type 'typeo... Remove this comment to see the full error message
+{/* @ts-ignore */}
 JobItem.propTypes = {
-  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof Map' is not assignable to... Remove this comment to see the full error message
+  /* @ts-ignore */
   metadata: PropTypes.instanceOf(Map).isRequired,
   created: PropTypes.string.isRequired,
 };

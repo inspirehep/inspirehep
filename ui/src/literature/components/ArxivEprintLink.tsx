@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.tsx' extension.... Remove this comment to see the full error message
-import ExternalLink from '../../common/components/ExternalLink.tsx';
+import ExternalLink from '../../common/components/ExternalLink';
 import EventTracker from '../../common/components/EventTracker';
 
 class ArxivEprintLink extends Component {

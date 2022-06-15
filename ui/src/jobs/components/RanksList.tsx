@@ -9,12 +9,12 @@ import { RANK_VALUE_TO_DISPLAY } from '../../common/constants';
 
 class RanksList extends Component {
   static renderRank(rank: any) {
-    // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+    {/* @ts-ignore */}
     return RANK_VALUE_TO_DISPLAY[rank];
   }
 
   render() {
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'ranks' does not exist on type 'Readonly<... Remove this comment to see the full error message
+    {/* @ts-ignore */}
     const { ranks } = this.props;
     return (
       <InlineList

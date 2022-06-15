@@ -14,11 +14,11 @@ class InstitutionsList extends Component {
     const { institutions } = this.props;
     return (
       <InlineList
-        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+        /* @ts-ignore */
         items={institutions}
         renderItem={InstitutionsList.renderInstitution}
       />
-    );
+    )
   }
 }
 

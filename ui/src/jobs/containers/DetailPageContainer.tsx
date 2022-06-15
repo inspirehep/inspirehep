@@ -10,7 +10,6 @@ import RichDescription from '../../common/components/RichDescription';
 import DateFromNow from '../components/DateFromNow';
 import ArxivCategoryList from '../../common/components/ArxivCategoryList';
 import ExperimentList from '../../common/components/ExperimentList';
-// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.tsx' extension.... Remove this comment to see the full error message
 import EditRecordAction from '../../common/components/EditRecordAction.tsx';
 import RegionsList from '../components/RegionsList';
 import InstitutionsList from '../components/InstitutionsList';
@@ -58,9 +57,9 @@ function DetailPage({
 
   return (
     <>
-      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+      {/* @ts-ignore */}
       <DocumentHead title={position} description={metaDescription} />
-      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+      {/* @ts-ignore */}
       <Row type="flex" justify="center">
         <Col className="mt3" xs={24} md={21} lg={19} xl={18}>
           <ContentBox
@@ -76,7 +75,7 @@ function DetailPage({
             </Row>
             <Row>
               <Col span={24}>
-                // @ts-expect-error ts-migrate(2786) FIXME: 'JobStatusAlert' cannot be used as a JSX component... Remove this comment to see the full error message
+                {/* @ts-ignore */}
                 <JobStatusAlert status={status} />
               </Col>
             </Row>
@@ -91,13 +90,13 @@ function DetailPage({
             <RequireOneOf dependencies={[institutions, regions]}>
               <Row className="mt1">
                 <Col>
-                  // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+                  {/* @ts-ignore */}
                   <InlineUL separator={SEPARATOR_MIDDLEDOT}>
                     {institutions && (
                       // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
                       <InstitutionsList institutions={institutions} />
                     )}
-                    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+                    {/* @ts-ignore */}
                     <RegionsList regions={regions} />
                   </InlineUL>
                 </Col>
@@ -116,7 +115,7 @@ function DetailPage({
                     separator={SEPARATOR_MIDDLEDOT}
                     wrapperClassName="di"
                   >
-                    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+                    {/* @ts-ignore */}
                     {ranks && <RanksList ranks={ranks} />}
                     {experiments && (
                       // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
@@ -128,7 +127,7 @@ function DetailPage({
             </RequireOneOf>
             <Row className="mt3">
               <Col>
-                // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+                {/* @ts-ignore */}
                 <DeadlineDate deadlineDate={deadlineDate} />
               </Col>
             </Row>
@@ -140,20 +139,20 @@ function DetailPage({
             </Row>
             <Row className="mt4">
               <Col>
-                // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+                {/* @ts-ignore */}
                 <ContactList contacts={contacts} />
-                // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+                {/* @ts-ignore */}
                 <ReferenceLettersContacts referenceLetters={referenceLetters} />
-                // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+                {/* @ts-ignore */}
                 <MoreInfo urls={urls} />
               </Col>
             </Row>
-            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+            {/* @ts-ignore */}
             <Row type="flex" justify="end">
               <Col>
-                // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+               {/* @ts-ignore */}
                 Posted <DateFromNow date={created} />, updated{' '}
-                // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+                {/* @ts-ignore */}
                 <DateFromNow date={updated} />
               </Col>
             </Row>
