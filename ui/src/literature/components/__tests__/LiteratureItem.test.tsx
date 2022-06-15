@@ -4,9 +4,13 @@ import { fromJS } from 'immutable';
 
 import LiteratureItem from '../LiteratureItem';
 
+<<<<<<< Updated upstream
 
 describe('LiteratureItem', () => {
   
+=======
+describe('LiteratureItem', () => {
+>>>>>>> Stashed changes
   it('renders with all props set, including sub props', () => {
     const metadata = fromJS({
       date: 'Jun 7, 1993',
@@ -35,11 +39,17 @@ describe('LiteratureItem', () => {
     const wrapper = shallow(
       <LiteratureItem metadata={metadata} searchRank={2} />
     );
+<<<<<<< Updated upstream
     
     expect(wrapper).toMatchSnapshot();
   });
 
   
+=======
+    expect(wrapper).toMatchSnapshot();
+  });
+
+>>>>>>> Stashed changes
   it('does not arxiv pdf download action if there is no eprint value', () => {
     const metadata = fromJS({
       control_number: 12345,
@@ -48,11 +58,17 @@ describe('LiteratureItem', () => {
     const wrapper = shallow(
       <LiteratureItem metadata={metadata} searchRank={1} />
     );
+<<<<<<< Updated upstream
     
     expect(wrapper).toMatchSnapshot();
   });
 
   
+=======
+    expect(wrapper).toMatchSnapshot();
+  });
+
+>>>>>>> Stashed changes
   it('renders 0 citations if it does not exist', () => {
     const metadata = fromJS({
       control_number: 12345,
@@ -61,11 +77,17 @@ describe('LiteratureItem', () => {
     const wrapper = shallow(
       <LiteratureItem metadata={metadata} searchRank={2} />
     );
+<<<<<<< Updated upstream
     
     expect(wrapper).toMatchSnapshot();
   });
 
   
+=======
+    expect(wrapper).toMatchSnapshot();
+  });
+
+>>>>>>> Stashed changes
   it('renders publication info when book exists but publication title not', () => {
     const metadata = fromJS({
       control_number: 12345,
@@ -86,7 +108,10 @@ describe('LiteratureItem', () => {
     const wrapper = shallow(
       <LiteratureItem metadata={metadata} searchRank={3} />
     );
+<<<<<<< Updated upstream
     
+=======
+>>>>>>> Stashed changes
     expect(wrapper).toMatchSnapshot();
   });
 });

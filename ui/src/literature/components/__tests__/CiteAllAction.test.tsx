@@ -5,33 +5,46 @@ import { shallow } from 'enzyme';
 import CiteAllAction from '../CiteAllAction';
 import DropdownMenu from '../../../common/components/DropdownMenu';
 import { MAX_CITEABLE_RECORDS } from '../../constants';
-// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.ts' extension. ... Remove this comment to see the full error message
-import http from '../../../common/http.ts';
+import http from '../../../common/http';
 import { downloadTextAsFile } from '../../../common/utils';
 
+<<<<<<< Updated upstream
 
 jest.mock('../../../common/utils');
 
 const mockHttp = new MockAdapter(http.httpClient);
 
+=======
+jest.mock('../../../common/utils');
+
+const mockHttp = new MockAdapter(http.httpClient);
+>>>>>>> Stashed changes
 describe('CiteAllAction', () => {
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'beforeEach'.
   beforeEach(() => {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'mockClear' does not exist on type '(text... Remove this comment to see the full error message
     downloadTextAsFile.mockClear();
   });
 
+<<<<<<< Updated upstream
   
+=======
+>>>>>>> Stashed changes
   it('renders with less than max citeable records results', () => {
     const wrapper = shallow(
       // @ts-expect-error ts-migrate(2322) FIXME: Type '{ numberOfResults: number; query: { q: strin... Remove this comment to see the full error message
       <CiteAllAction numberOfResults={12} query={{ q: 'ac>2000' }} />
     );
+<<<<<<< Updated upstream
     
     expect(wrapper).toMatchSnapshot();
   });
 
   
+=======
+    expect(wrapper).toMatchSnapshot();
+  });
+
+>>>>>>> Stashed changes
   it('renders with disabled', () => {
     const wrapper = shallow(
       <CiteAllAction
@@ -40,11 +53,17 @@ describe('CiteAllAction', () => {
         query={{ q: 'ac>2000' }}
       />
     );
+<<<<<<< Updated upstream
     
     expect(wrapper).toMatchSnapshot();
   });
 
   
+=======
+    expect(wrapper).toMatchSnapshot();
+  });
+
+>>>>>>> Stashed changes
   it('renders with loading', () => {
     const wrapper = shallow(
       // @ts-expect-error ts-migrate(2322) FIXME: Type '{ numberOfResults: number; query: { q: strin... Remove this comment to see the full error message
@@ -53,11 +72,17 @@ describe('CiteAllAction', () => {
     wrapper.setState({
       loading: true,
     });
+<<<<<<< Updated upstream
     
     expect(wrapper).toMatchSnapshot();
   });
 
   
+=======
+    expect(wrapper).toMatchSnapshot();
+  });
+
+>>>>>>> Stashed changes
   it('calls downloadTextAsFile with correct data when option is clicked', async () => {
     mockHttp
       .onGet(
@@ -80,7 +105,10 @@ describe('CiteAllAction', () => {
     await wrapper.find(DropdownMenu).prop('onClick')({
       key: 'application/vnd+inspire.latex.eu+x-latex',
     });
+<<<<<<< Updated upstream
     
+=======
+>>>>>>> Stashed changes
     expect(downloadTextAsFile).toHaveBeenCalledWith(
       'Test',
       'INSPIRE-CiteAll.tex',
@@ -88,7 +116,10 @@ describe('CiteAllAction', () => {
     );
   });
 
+<<<<<<< Updated upstream
   
+=======
+>>>>>>> Stashed changes
   it('calls downloadTextAsFile with correct data omitting page and size when option is clicked', async () => {
     mockHttp
       .onGet(
@@ -111,7 +142,10 @@ describe('CiteAllAction', () => {
     await wrapper.find(DropdownMenu).prop('onClick')({
       key: 'application/vnd+inspire.latex.eu+x-latex',
     });
+<<<<<<< Updated upstream
     
+=======
+>>>>>>> Stashed changes
     expect(downloadTextAsFile).toHaveBeenCalledWith(
       'Test',
       'INSPIRE-CiteAll.tex',

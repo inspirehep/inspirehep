@@ -4,9 +4,13 @@ import { fromJS } from 'immutable';
 
 import ReferenceItem from '../ReferenceItem';
 
+<<<<<<< Updated upstream
 
 describe('ReferenceItem', () => {
   
+=======
+describe('ReferenceItem', () => {
+>>>>>>> Stashed changes
   it('renders with full reference', () => {
     const reference = fromJS({
       titles: [{ title: 'Title' }],
@@ -26,11 +30,17 @@ describe('ReferenceItem', () => {
     });
     // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
     const wrapper = shallow(<ReferenceItem reference={reference} />);
+<<<<<<< Updated upstream
     
     expect(wrapper).toMatchSnapshot();
   });
 
   
+=======
+    expect(wrapper).toMatchSnapshot();
+  });
+
+>>>>>>> Stashed changes
   it('renders unlinked reference (no control_number)', () => {
     const reference = fromJS({
       titles: [{ title: 'Title' }],
@@ -48,29 +58,44 @@ describe('ReferenceItem', () => {
     });
     // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
     const wrapper = shallow(<ReferenceItem reference={reference} />);
+<<<<<<< Updated upstream
     
     expect(wrapper).toMatchSnapshot();
   });
 
   
+=======
+    expect(wrapper).toMatchSnapshot();
+  });
+
+>>>>>>> Stashed changes
   it('renders misc if present', () => {
     const reference = fromJS({
       misc: 'A Misc',
     });
     // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
     const wrapper = shallow(<ReferenceItem reference={reference} />);
+<<<<<<< Updated upstream
     
     expect(wrapper).toMatchSnapshot();
   });
 
   
+=======
+    expect(wrapper).toMatchSnapshot();
+  });
+
+>>>>>>> Stashed changes
   it('does not render misc if title present', () => {
     const reference = fromJS({
       titles: [{ title: 'Title' }],
     });
     // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
     const wrapper = shallow(<ReferenceItem reference={reference} />);
+<<<<<<< Updated upstream
     
+=======
+>>>>>>> Stashed changes
     expect(wrapper).toMatchSnapshot();
   });
 });

@@ -3,9 +3,13 @@ import { shallow } from 'enzyme';
 import { Menu } from 'antd';
 import DropdownMenu from '../../../common/components/DropdownMenu';
 
+<<<<<<< Updated upstream
 
 describe('DropdownMenu', () => {
   
+=======
+describe('DropdownMenu', () => {
+>>>>>>> Stashed changes
   it('renders', () => {
     const wrapper = shallow(
       // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
@@ -18,11 +22,17 @@ describe('DropdownMenu', () => {
         </Menu.Item>
       </DropdownMenu>
     );
+<<<<<<< Updated upstream
     
     expect(wrapper).toMatchSnapshot();
   });
 
   
+=======
+    expect(wrapper).toMatchSnapshot();
+  });
+
+>>>>>>> Stashed changes
   it('renders with all props set', () => {
     const wrapper = shallow(
       // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
@@ -35,7 +45,10 @@ describe('DropdownMenu', () => {
         </Menu.Item>
       </DropdownMenu>
     );
+<<<<<<< Updated upstream
     
+=======
+>>>>>>> Stashed changes
     expect(wrapper).toMatchSnapshot();
   });
 });
