@@ -14,7 +14,12 @@ import pytest
 import requests_mock
 from freezegun import freeze_time
 from helpers.providers.faker import faker
-from helpers.utils import create_pidstore, create_record, create_s3_bucket
+from helpers.utils import (
+    create_pidstore,
+    create_record,
+    create_s3_bucket,
+    create_s3_file,
+)
 from invenio_db import db
 from invenio_pidstore.errors import PIDAlreadyExists
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
@@ -25,12 +30,13 @@ from inspirehep.files.api import current_s3_instance
 from inspirehep.records.api import InspireRecord, LiteratureRecord
 from inspirehep.records.api.literature import import_article
 from inspirehep.records.errors import (
-    DownloadFileError,
     ExistingArticleError,
     UnknownImportIdentifierError,
     UnsupportedFileError,
 )
 from inspirehep.records.models import RecordCitations, RecordsAuthors
+
+KEY = "b50c2ea2d26571e0c5a3411e320586289fd715c2"
 
 
 def test_literature_create(inspire_app):
@@ -2413,16 +2419,23 @@ def test_import_article_with_unknown_type_should_import_as_article(inspire_app):
     assert record["document_type"] == ["article"]
 
 
-@pytest.mark.vcr()
-def test_index_fulltext_document(inspire_app):
+def test_index_fulltext_document_s3(inspire_app, s3):
+    metadata = {"foo": "bar"}
+    create_s3_bucket(KEY)
+    create_s3_file(
+        current_s3_instance.get_bucket_for_file_key(KEY),
+        KEY,
+        "this is my data",
+        metadata,
+    )
     doi = "10.31234/osf.io/4ms5a"
     record = import_article(doi)
     data = {
         "documents": [
             {
-                "source": "arxiv",
                 "fulltext": True,
-                "key": "2105.15193.pdf",
+                "hidden": False,
+                "key": KEY,
                 "filename": "2105.15193.pdf",
                 "url": "https://arxiv.org/pdf/2105.15193.pdf",
             }
@@ -2434,53 +2447,70 @@ def test_index_fulltext_document(inspire_app):
     assert "text" in serialized_data["documents"][0]
 
 
-@mock.patch(
-    "inspirehep.records.marshmallow.literature.es.download_file_from_url",
-    side_effect=[DownloadFileError, str.encode("this is a test", "utf-8")],
-)
-@mock.patch(
-    "inspirehep.records.marshmallow.literature.es.magic.from_buffer",
-    side_effect=["application/pdf"],
-)
 def test_index_fulltext_with_not_existing_doc_handle_exception(
-    mock_mimetype, mock_download_file, inspire_app
+    inspire_app, s3, override_config
 ):
+    metadata = {"foo": "bar"}
+    key_for_non_existing_doc = "12323123"
+    create_s3_bucket(KEY)
+    create_s3_bucket(key_for_non_existing_doc)
+    create_s3_file(
+        current_s3_instance.get_bucket_for_file_key(KEY),
+        KEY,
+        "this is my data",
+        metadata,
+    )
+    doi = "10.31234/osf.io/4ms5a"
+    record = import_article(doi)
     data = {
         "documents": [
             {
-                "source": "arxiv",
                 "fulltext": True,
-                "key": "2105.15191.pdf",
-                "filename": "2105.15191.pdf",
-                "url": "https://this-url-doesnt-exist.pdf",
-            },
-            {
-                "source": "arxiv",
-                "fulltext": True,
-                "key": "2105.15193.pdf",
+                "hidden": False,
+                "key": KEY,
                 "filename": "2105.15193.pdf",
-                "url": "http://www.africau.edu/images/default/sample.pdf",
-            },
+                "url": "https://arxiv.org/pdf/2105.15193.pdf",
+            }
         ]
     }
     record_data = faker.record("lit", with_control_number=True, data=data)
     record = LiteratureRecord.create(record_data)
-    serialized_data = record.serialize_for_es_with_fulltext()
-    assert "text" in serialized_data["documents"][1]
-    assert "text" not in serialized_data["documents"][0]
+    with override_config(FEATURE_FLAG_ENABLE_FILES=False):
+        record["documents"].append(
+            {
+                "source": "arxiv",
+                "fulltext": True,
+                "key": key_for_non_existing_doc,
+                "filename": "2105.15198.pdf",
+                "url": "http://www.africau.edu/images/default/sample.pdf",
+            }
+        )
+        record.update(dict(record))
+        serialized_data = record.serialize_for_es_with_fulltext()
+        assert "text" in serialized_data["documents"][0]
+        assert "text" not in serialized_data["documents"][1]
 
 
-@pytest.mark.vcr()
-def test_get_documents_for_fulltext_works_for_arxiv(inspire_app):
+def test_get_documents_for_fulltext_works_for_arxiv(inspire_app, s3):
+    metadata = {"foo": "bar"}
+    create_s3_bucket(KEY)
+    create_s3_file(
+        current_s3_instance.get_bucket_for_file_key(KEY),
+        KEY,
+        "this is my data",
+        metadata,
+    )
+    doi = "10.31234/osf.io/4ms5a"
+    record = import_article(doi)
     data = {
         "documents": [
             {
                 "source": "arxiv",
-                "hidden": True,
-                "key": "1704.06612.pdf",
-                "filename": "1704.06612.pdf",
-                "url": "https://arxiv.org/pdf/1704.06612.pdf",
-            },
+                "fulltext": True,
+                "key": KEY,
+                "filename": "2105.15193.pdf",
+                "url": "https://arxiv.org/pdf/2105.15193.pdf",
+            }
         ]
     }
     record_data = faker.record("lit", with_control_number=True, data=data)

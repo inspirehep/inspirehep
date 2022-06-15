@@ -1,15 +1,20 @@
+import os
+
 import mock
 import pytest
 from flask_sqlalchemy import models_committed
 from helpers.providers.faker import faker
-from helpers.utils import retry_until_pass
+from helpers.utils import create_s3_bucket, create_s3_file, retry_until_pass
 from invenio_db import db
 from invenio_search import current_search
 
+from inspirehep.files.api import current_s3_instance
 from inspirehep.indexer.tasks import batch_index_literature_fulltext
 from inspirehep.records.api import LiteratureRecord
 from inspirehep.records.receivers import index_after_commit
 from inspirehep.search.api import LiteratureSearch
+
+KEY = "b50c2ea2d26571e0c5a3411e320586289fd715c2"
 
 
 def assert_record_not_in_es(recid):
@@ -161,11 +166,23 @@ def test_fulltext_indexer_updates_documents_when_record_changed(
         retry_until_pass(assert_update_in_es, timeout=90, retry_interval=20)
 
 
-@pytest.mark.vcr()
 def test_index_record_fulltext_manually(
-    inspire_app, clean_celery_session, override_config
+    inspire_app, clean_celery_session, override_config, s3, datadir
 ):
-    with override_config(FEATURE_FLAG_ENABLE_FULLTEXT=True):
+    metadata = {"foo": "bar"}
+    pdf_path = os.path.join(datadir, "2206.04407.pdf")
+    create_s3_bucket(KEY)
+    create_s3_file(
+        current_s3_instance.get_bucket_for_file_key(KEY),
+        KEY,
+        pdf_path,
+        metadata,
+        **{"ContentType": "application/pdf"},
+    )
+
+    with override_config(
+        FEATURE_FLAG_ENABLE_FULLTEXT=True, FEATURE_FLAG_ENABLE_FILES=False
+    ):
         data = faker.record("lit")
         data.update(
             {
@@ -174,7 +191,7 @@ def test_index_record_fulltext_manually(
                         "source": "arxiv",
                         "fulltext": True,
                         "filename": "new_doc.pdf",
-                        "key": "new_doc.pdf",
+                        "key": KEY,
                         "url": "http://www.africau.edu/images/default/sample.pdf",
                     }
                 ]
@@ -201,22 +218,50 @@ def test_index_record_fulltext_manually(
         retry_until_pass(assert_record_in_es, timeout=90, retry_interval=5)
 
 
-@pytest.mark.vcr()
 def test_index_records_batch_fulltext_manually(
-    inspire_app, clean_celery_session, override_config
+    inspire_app, clean_celery_session, override_config, s3
 ):
-    with override_config(FEATURE_FLAG_ENABLE_FULLTEXT=True):
+    metadata = {"foo": "bar"}
+    key_2 = "9bfe422f251eeaa7ec2a4dd5aebebc8a"
+    key_3 = "e5892c4e59898346d307332354c6c7b8"
+    create_s3_bucket(KEY)
+    create_s3_file(
+        current_s3_instance.get_bucket_for_file_key(KEY),
+        KEY,
+        "this is my data",
+        metadata,
+    )
+
+    create_s3_bucket(key_2)
+    create_s3_file(
+        current_s3_instance.get_bucket_for_file_key(key_2),
+        key_2,
+        "this is my data",
+        metadata,
+    )
+
+    create_s3_bucket(key_3)
+    create_s3_file(
+        current_s3_instance.get_bucket_for_file_key(key_3),
+        key_3,
+        "this is my data",
+        metadata,
+    )
+
+    with override_config(
+        FEATURE_FLAG_ENABLE_FULLTEXT=True, FEATURE_FLAG_ENABLE_FILES=False
+    ):
         lit_record = LiteratureRecord.create(
             faker.record(
                 "lit",
                 data={
                     "documents": [
                         {
-                            "source": "arxiv",
                             "fulltext": True,
-                            "filename": "new_doc.pdf",
-                            "key": "new_doc.pdf",
-                            "url": "http://www.africau.edu/images/default/sample.pdf",
+                            "hidden": False,
+                            "key": KEY,
+                            "filename": "2105.15193.pdf",
+                            "url": "https://arxiv.org/pdf/2105.15193.pdf",
                         }
                     ]
                 },
@@ -225,14 +270,13 @@ def test_index_records_batch_fulltext_manually(
         lit_record_2 = LiteratureRecord.create(
             faker.record(
                 "lit",
-                literature_citations=[lit_record["control_number"]],
                 data={
                     "documents": [
                         {
-                            "source": "arxiv",
                             "fulltext": True,
+                            "hidden": False,
                             "filename": "new_doc.pdf",
-                            "key": "new_doc.pdf",
+                            "key": key_2,
                             "url": "http://www.africau.edu/images/default/sample.pdf",
                         }
                     ]
@@ -256,7 +300,7 @@ def test_index_records_batch_fulltext_manually(
                 "source": "arxiv",
                 "fulltext": True,
                 "filename": "another_doc.pdf",
-                "key": "another_doc.pdf",
+                "key": key_3,
                 "url": "http://www.africau.edu/images/default/sample.pdf",
             },
         )
@@ -275,10 +319,17 @@ def test_index_records_batch_fulltext_manually(
         }
 
 
-@pytest.mark.vcr()
 def test_fulltext_indexer_removes_deleted_from_es(
-    inspire_app, override_config, clean_celery_session
+    inspire_app, override_config, clean_celery_session, s3
 ):
+    metadata = {"foo": "bar"}
+    create_s3_bucket(KEY)
+    create_s3_file(
+        current_s3_instance.get_bucket_for_file_key(KEY),
+        KEY,
+        "this is my data",
+        metadata,
+    )
     with override_config(FEATURE_FLAG_ENABLE_FULLTEXT=True):
         lit_record = LiteratureRecord.create(
             faker.record(
@@ -286,11 +337,11 @@ def test_fulltext_indexer_removes_deleted_from_es(
                 data={
                     "documents": [
                         {
-                            "source": "arxiv",
                             "fulltext": True,
-                            "filename": "new_doc.pdf",
-                            "key": "new_doc.pdf",
-                            "url": "http://www.africau.edu/images/default/sample.pdf",
+                            "hidden": False,
+                            "key": KEY,
+                            "filename": "2105.15193.pdf",
+                            "url": "https://arxiv.org/pdf/2105.15193.pdf",
                         }
                     ]
                 },

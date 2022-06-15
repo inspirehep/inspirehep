@@ -8,7 +8,6 @@
 import base64
 from itertools import chain
 
-import magic
 import orjson
 import structlog
 from flask import current_app
@@ -17,10 +16,10 @@ from inspire_utils.record import get_value
 from invenio_db import db
 from marshmallow import fields, missing, pre_dump
 
+from inspirehep.files.api import current_s3_instance
 from inspirehep.oai.utils import is_cds_set, is_cern_arxiv_set
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.api import InspireRecord
-from inspirehep.records.errors import DownloadFileError
 from inspirehep.records.marshmallow.literature.common.abstract import AbstractSource
 from inspirehep.records.marshmallow.literature.common.author import (
     AuthorsInfoSchemaForES,
@@ -31,7 +30,6 @@ from inspirehep.records.marshmallow.literature.common.thesis_info import (
     ThesisInfoSchemaForESV1,
 )
 from inspirehep.records.models import RecordCitations, RecordsAuthors
-from inspirehep.records.utils import download_file_from_url
 
 from ..base import ElasticSearchBaseSchema
 from ..utils import get_display_name_for_author_name, get_facet_author_name_for_author
@@ -252,13 +250,18 @@ class LiteratureFulltextElasticSearchSchema(LiteratureElasticSearchSchema):
                 and document.get("fulltext")
             ) or document.get("source") == "arxiv":
                 try:
-                    file_data = download_file_from_url(document["url"])
-                    mimetype = magic.from_buffer(file_data, mime=True)
+                    key = document["key"]
+                    bucket = current_s3_instance.get_bucket_for_file_key(key)
+                    file_data = current_s3_instance.client.get_object(
+                        Bucket=bucket, Key=key
+                    )
+                    mimetype = file_data.get("ContentType", "")
+                    body = file_data["Body"]
                     if mimetype != "application/pdf":
                         continue
-                    encoded_file = base64.b64encode(file_data).decode("ascii")
+                    encoded_file = base64.b64encode(body.read()).decode("ascii")
                     document["text"] = encoded_file
-                except DownloadFileError:
+                except current_s3_instance.client.exceptions.NoSuchKey:
                     LOGGER.error(
                         "File was not found for the given url",
                         document_url=document["url"],
