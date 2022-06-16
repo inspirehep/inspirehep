@@ -16,7 +16,7 @@
     "test": "yarn lint && yarn test:unit --no-watch && yarn test:size",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "eject": "react-scripts eject",
-    "lint": "eslint ."
+    "lint": "./node_modules/eslint/bin/eslint.js ./src --ext .js,.jsx --config .eslintrc"
   },
   "dependencies": {
     "@ant-design/icons": "^4.0.0",
