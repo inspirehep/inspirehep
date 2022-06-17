@@ -25,7 +25,7 @@ function Header({
         <Banners />
         {isBetaPage && <BetaRibbon />}
         <Layout.Header className="header">
-          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+          {/* @ts-ignore */}
           <Row type="flex" align="middle" gutter={{ xs: 8, sm: 16 }}>
             <Col xs={{ span: 13, order: 1 }} sm={{ span: 6, order: 1 }} lg={5}>
               <Logo />
