@@ -7,7 +7,6 @@ describe('keepPreviousUrl middleware', () => {
   let next: any;
   let dispatch: any;
 
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'beforeEach'.
   beforeEach(() => {
     
     next = jest.fn();
@@ -46,7 +45,6 @@ describe('keepPreviousUrl middleware', () => {
     };
     dispatch(previous);
     dispatch(action);
-    // @ts-expect-error ts-migrate(2552) FIXME: Cannot find name 'expect'. Did you mean 'expected'... Remove this comment to see the full error message
     expect(next).toHaveBeenLastCalledWith(expected);
   });
 

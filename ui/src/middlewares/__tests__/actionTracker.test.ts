@@ -9,7 +9,6 @@ jest.mock('../../tracker');
 
 
 describe('actionTracker middleware', () => {
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'beforeEach'.
   beforeEach(() => {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'mockClear' does not exist on type '(user... Remove this comment to see the full error message
     setUserCategoryFromRoles.mockClear();

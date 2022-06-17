@@ -1,6 +1,5 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-
+import React, { ComponentType } from 'react';
 import ExternalLink from '../../../common/components/ExternalLink';
 
 function CollaborationLogo({

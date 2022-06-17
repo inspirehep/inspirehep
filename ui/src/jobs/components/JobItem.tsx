@@ -13,8 +13,7 @@ import RegionsList from './RegionsList';
 import ArxivCategoryList from '../../common/components/ArxivCategoryList';
 import RanksList from './RanksList';
 import ExperimentList from '../../common/components/ExperimentList';
-// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.tsx' extension.... Remove this comment to see the full error message
-import EditRecordAction from '../../common/components/EditRecordAction.tsx';
+import EditRecordAction from '../../common/components/EditRecordAction';
 import JobTitle from './JobTitle';
 import {
   InlineUL,
@@ -38,12 +37,14 @@ class JobItem extends Component {
     const externalJobId = metadata.get('external_job_identifier');
     return (
       <ResultItem
-        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+       /* @ts-ignore */
         leftActions={
+           /* @ts-ignore */
           canEdit && <EditRecordAction pidType="jobs" pidValue={recordId} />
         }
       >
-        <Row align="middle">
+        {/* @ts-ignore */}
+        <Row type="flex" align="middle">
           <Col>
             <Link className="result-item-title pr1" to={`${JOBS}/${recordId}`}>
               {/* @ts-ignore */}
@@ -92,9 +93,9 @@ class JobItem extends Component {
   }
 }
 
-// @ts-expect-error ts-migrate(2339) FIXME: Property 'propTypes' does not exist on type 'typeo... Remove this comment to see the full error message
+/* @ts-ignore */
 JobItem.propTypes = {
-  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'typeof Map' is not assignable to... Remove this comment to see the full error message
+  /* @ts-ignore */
   metadata: PropTypes.instanceOf(Map).isRequired,
   created: PropTypes.string.isRequired,
 };

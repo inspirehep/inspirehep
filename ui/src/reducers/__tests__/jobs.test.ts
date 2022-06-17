@@ -34,7 +34,6 @@ describe('jobs reducer', () => {
   it('JOB_REQUEST', () => {
     const state = reducer(Map(), { type: JOB_REQUEST });
     const expected = Map({ loading: true });
-    // @ts-expect-error ts-migrate(2552) FIXME: Cannot find name 'expect'. Did you mean 'expected'... Remove this comment to see the full error message
     expect(state).toEqual(expected);
   });
 
@@ -55,7 +54,6 @@ describe('jobs reducer', () => {
       data: payload,
       error: null,
     });
-    // @ts-expect-error ts-migrate(2552) FIXME: Cannot find name 'expect'. Did you mean 'expected'... Remove this comment to see the full error message
     expect(state).toEqual(expected);
   });
 

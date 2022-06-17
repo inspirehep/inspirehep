@@ -17,8 +17,7 @@ import PublicationInfoList from '../../common/components/PublicationInfoList';
 import BookSeriesInfoList from './BookSeriesInfoList';
 import UrlsAction from './UrlsAction';
 import DOILinkAction from './DOILinkAction';
-// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.tsx' extension.... Remove this comment to see the full error message
-import EditRecordAction from '../../common/components/EditRecordAction.tsx';
+import EditRecordAction from '../../common/components/EditRecordAction';
 import ResultItem from '../../common/components/ResultItem';
 import { LITERATURE } from '../../common/routes';
 import LiteratureTitle from '../../common/components/LiteratureTitle';
@@ -118,7 +117,9 @@ function LiteratureItem({
               text="datasets"
             />
           )}
+          
           {canEdit && (
+            /* @ts-ignore */
             <EditRecordAction pidType="literature" pidValue={recordId} />
           )}
           {assignAuthorView && <AssignOneActionContainer recordId={recordId} />}
@@ -161,7 +162,7 @@ function LiteratureItem({
               className="result-item-title"
               to={`${LITERATURE}/${recordId}`}
             >
-              // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+              {/* @ts-ignore */}
               <LiteratureTitle title={title} />
               {(assignAuthorView || assignOwnProfileView) && !curatedRelation && (
                 <Tooltip title="Unclaimed paper. Click on the Claim button to claim or remove it from the profile">
@@ -193,13 +194,13 @@ function LiteratureItem({
           {date && (
             <>
               {' ('}
-              // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+              {/* @ts-ignore */}
               <LiteratureDate date={date} />)
             </>
           )}
         </div>
         <div className="mt1">
-          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+          {/* @ts-ignore */}
           <InlineUL separator={SEPARATOR_MIDDLEDOT}>
             {bookSeries && <BookSeriesInfoList bookSeries={bookSeries} />}
             {publicationInfoWithTitle && publicationInfoWithTitle.size > 0 && (
@@ -210,15 +211,15 @@ function LiteratureItem({
               // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
               <ConferenceInfoList conferenceInfo={conferenceInfo} />
             )}
-            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+            {/* @ts-ignore */}
             {eprints && <ArxivEprintList eprints={eprints} />}
           </InlineUL>
         </div>
         {isCatalogerLoggedIn && (
           <div className="mt1">
-            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+            {/* @ts-ignore */}
             <InlineUL separator={SEPARATOR_MIDDLEDOT}>
-              // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+              {/* @ts-ignore */}
               <PublicNotesList publicNotes={publicNotes} />
             </InlineUL>
           </div>

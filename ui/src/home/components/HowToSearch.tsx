@@ -32,6 +32,7 @@ function HowToSearch() {
       </div>
       <div className="tc">
         <ExternalLink
+          /* @ts-ignore */
           as={Button}
           href={PAPER_SEARCH_URL}
           type="primary"

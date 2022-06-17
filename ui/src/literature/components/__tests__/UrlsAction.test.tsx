@@ -5,9 +5,13 @@ import { DownloadOutlined } from '@ant-design/icons';
 
 import UrlsAction from '../UrlsAction';
 
+<<<<<<< Updated upstream
 
 describe('UrlsAction', () => {
   
+=======
+describe('UrlsAction', () => {
+>>>>>>> Stashed changes
   it('renders multiple, with and without description', () => {
     const links = fromJS([
       {
@@ -24,11 +28,17 @@ describe('UrlsAction', () => {
         trackerEventId="PdfDownload"
       />
     );
+<<<<<<< Updated upstream
     
     expect(wrapper.dive()).toMatchSnapshot();
   });
 
   
+=======
+    expect(wrapper.dive()).toMatchSnapshot();
+  });
+
+>>>>>>> Stashed changes
   it('renders single', () => {
     const links = fromJS([
       {
@@ -44,7 +54,10 @@ describe('UrlsAction', () => {
         trackerEventId="PdfDownload"
       />
     );
+<<<<<<< Updated upstream
     
+=======
+>>>>>>> Stashed changes
     expect(wrapper.dive()).toMatchSnapshot();
   });
 });

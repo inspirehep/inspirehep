@@ -16,7 +16,7 @@ function renderLiteratureRecord(literatureRecord: any) {
       data-test-id="author-link"
       to={`${LITERATURE}/${literatureRecord.get('control_number')}`}
     >
-      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+      {/* @ts-ignore */}
       <LiteratureTitle title={title} />
     </Link>
   );

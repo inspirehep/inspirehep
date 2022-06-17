@@ -14,7 +14,6 @@ jest.mock('../../../actions/user');
 
 
 describe('CiteModalActionContainer', () => {
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'beforeAll'.
   beforeAll(() => {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'mockReturnValue' does not exist on type ... Remove this comment to see the full error message
     setPreference.mockReturnValue(async () => {});

@@ -10,8 +10,7 @@ import ResultsContainer from '../../common/containers/ResultsContainer';
 import NumberOfResultsContainer from '../../common/containers/NumberOfResultsContainer';
 import LoadingOrChildren from '../../common/components/LoadingOrChildren';
 import ResponsiveView from '../../common/components/ResponsiveView';
-// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.tsx' extension.... Remove this comment to see the full error message
-import DrawerHandle from '../../common/components/DrawerHandle.tsx';
+import DrawerHandle from '../../common/components/DrawerHandle';
 import JobItem from '../components/JobItem';
 import SubscribeJobsModalButton from '../components/SubscribeJobsModalButton';
 import DocumentHead from '../../common/components/DocumentHead';
@@ -49,7 +48,7 @@ class SearchPage extends Component {
       <div className="mt3">
         {/* @ts-ignore */}
         <LoadingOrChildren loading={loadingAggregations}>
-          {/* @ts-ignore */}
+         {/* @ts-ignore */}
           <Row type="flex" justify="space-between">
             <Col className="f5">Select Job Filters:</Col>
             <Col>{SearchPage.renderSubscribeJobsModalButton()}</Col>

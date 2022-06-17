@@ -10,8 +10,7 @@ import RichDescription from '../../common/components/RichDescription';
 import DateFromNow from '../components/DateFromNow';
 import ArxivCategoryList from '../../common/components/ArxivCategoryList';
 import ExperimentList from '../../common/components/ExperimentList';
-// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.tsx' extension.... Remove this comment to see the full error message
-import EditRecordAction from '../../common/components/EditRecordAction.tsx';
+import EditRecordAction from '../../common/components/EditRecordAction';
 import RegionsList from '../components/RegionsList';
 import InstitutionsList from '../components/InstitutionsList';
 import RanksList from '../components/RanksList';
@@ -67,7 +66,7 @@ function DetailPage({
             /* @ts-ignore */
             leftActions={
               canEdit && (
-                <EditRecordAction pidType="jobs" pidValue={controlNumber} />
+                <EditRecordAction isCatalogerLoggedIn pidType="jobs" pidValue={controlNumber} />
               )
             }
           >
@@ -151,7 +150,7 @@ function DetailPage({
             {/* @ts-ignore */}
             <Row type="flex" justify="end">
               <Col>
-                {/* @ts-ignore */}
+               {/* @ts-ignore */}
                 Posted <DateFromNow date={created} />, updated{' '}
                 {/* @ts-ignore */}
                 <DateFromNow date={updated} />

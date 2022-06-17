@@ -29,7 +29,7 @@ class ReferenceItem extends Component {
     if (recordId && title) {
       return (
         <Link className="f5" to={`${LITERATURE}/${recordId}`}>
-          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+          {/* @ts-ignore */}
           <LiteratureTitle title={title} />
         </Link>
       );
@@ -38,7 +38,7 @@ class ReferenceItem extends Component {
     if (title) {
       return (
         <div className="f5">
-          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+          {/* @ts-ignore */}
           <LiteratureTitle title={title} />
         </div>
       );
@@ -104,11 +104,11 @@ class ReferenceItem extends Component {
                         labeled={false}
                       />
                     )}
-                    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+                    {/* @ts-ignore */}
                     {arxivEprint && <ArxivEprintList eprints={arxivEprint} />}
-                    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+                    {/* @ts-ignore */}
                     {dois && <DOIList dois={dois} />}
-                    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+                    {/* @ts-ignore */}
                     {urls && !recordId && <URLList urls={urls} />}
                   </InlineUL>
                 </Fragment>

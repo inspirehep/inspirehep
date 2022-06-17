@@ -4,9 +4,13 @@ import { fromJS } from 'immutable';
 
 import ConferenceInfo from '../ConferenceInfo';
 
+<<<<<<< Updated upstream
 
 describe('ConferenceInfo', () => {
   
+=======
+describe('ConferenceInfo', () => {
+>>>>>>> Stashed changes
   it('renders without acronyms present', () => {
     const info = fromJS({
       control_number: 1639582,
@@ -19,11 +23,17 @@ describe('ConferenceInfo', () => {
     });
     // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
     const wrapper = shallow(<ConferenceInfo conferenceInfo={info} />);
+<<<<<<< Updated upstream
     
     expect(wrapper).toMatchSnapshot();
   });
 
   
+=======
+    expect(wrapper).toMatchSnapshot();
+  });
+
+>>>>>>> Stashed changes
   it('renders with acronyms', () => {
     const info = fromJS({
       acronyms: ['MG15', 'SAP16'],
@@ -37,11 +47,17 @@ describe('ConferenceInfo', () => {
     });
     // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
     const wrapper = shallow(<ConferenceInfo conferenceInfo={info} />);
+<<<<<<< Updated upstream
     
     expect(wrapper).toMatchSnapshot();
   });
 
   
+=======
+    expect(wrapper).toMatchSnapshot();
+  });
+
+>>>>>>> Stashed changes
   it('renders with acronyms and start and end page', () => {
     const info = fromJS({
       acronyms: ['MG15'],
@@ -57,11 +73,17 @@ describe('ConferenceInfo', () => {
     });
     // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
     const wrapper = shallow(<ConferenceInfo conferenceInfo={info} />);
+<<<<<<< Updated upstream
     
     expect(wrapper).toMatchSnapshot();
   });
 
   
+=======
+    expect(wrapper).toMatchSnapshot();
+  });
+
+>>>>>>> Stashed changes
   it('renders with only page start', () => {
     const info = fromJS({
       acronyms: ['MG15'],
@@ -76,11 +98,17 @@ describe('ConferenceInfo', () => {
     });
     // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
     const wrapper = shallow(<ConferenceInfo conferenceInfo={info} />);
+<<<<<<< Updated upstream
     
     expect(wrapper).toMatchSnapshot();
   });
 
   
+=======
+    expect(wrapper).toMatchSnapshot();
+  });
+
+>>>>>>> Stashed changes
   it('renders with only page end', () => {
     const info = fromJS({
       acronyms: ['MG15'],
@@ -95,7 +123,10 @@ describe('ConferenceInfo', () => {
     });
     // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
     const wrapper = shallow(<ConferenceInfo conferenceInfo={info} />);
+<<<<<<< Updated upstream
     
+=======
+>>>>>>> Stashed changes
     expect(wrapper).toMatchSnapshot();
   });
 });

@@ -73,7 +73,7 @@ export default class SubscribeJobsModalButton extends Component {
       <div>
         {hasError && (
           <div className="mb3">
-            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+            {/* @ts-ignore */}
             <Alert
               type="error"
               showIcon
@@ -95,7 +95,7 @@ export default class SubscribeJobsModalButton extends Component {
     const { isModalVisible, isSubscriptionSubmitted } = this.state;
     return (
       <>
-        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+        {/* @ts-ignore */}
         <LinkLikeButton onClick={this.onClick}>
           <MailOutlined />
           <ResponsiveView

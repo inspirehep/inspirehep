@@ -34,6 +34,7 @@ function InstitutionItem({
         <>
           {urls && <UrlsAction urls={urls} />}
           <AuthorizedContainer authorizedRoles={SUPERUSER_OR_CATALOGER}>
+            {/* @ts-ignore */}
             <EditRecordAction
               pidType={INSTITUTIONS_PID_TYPE}
               pidValue={recordId}

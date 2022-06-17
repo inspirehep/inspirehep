@@ -67,9 +67,9 @@ function ReferenceList({
   return (
     // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
     <ContentBox loading={loading}>
-      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+      {/* @ts-ignore */}
       <ErrorAlertOrChildren error={error}>
-        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+        {/* @ts-ignore */}
         <EmptyOrChildren data={references} title="0 References">
           {renderList()}
         </EmptyOrChildren>

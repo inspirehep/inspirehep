@@ -4,9 +4,13 @@ import { fromJS } from 'immutable';
 
 import ArxivEprint from '../ArxivEprint';
 
+<<<<<<< Updated upstream
 
 describe('ArxivEprint', () => {
   
+=======
+describe('ArxivEprint', () => {
+>>>>>>> Stashed changes
   it('renders with arXiv id', () => {
     const eprint = fromJS({
       value: '123.12345',
@@ -18,7 +22,10 @@ describe('ArxivEprint', () => {
         eprint={eprint}
       />
     ));
+<<<<<<< Updated upstream
     
+=======
+>>>>>>> Stashed changes
     expect(wrapper).toMatchSnapshot();
   });
 });

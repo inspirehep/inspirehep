@@ -5,9 +5,13 @@ import { fromJS } from 'immutable';
 import ReferenceList from '../ReferenceList';
 import ListWithPagination from '../../../common/components/ListWithPagination';
 
+<<<<<<< Updated upstream
 
 describe('ReferenceList', () => {
   
+=======
+describe('ReferenceList', () => {
+>>>>>>> Stashed changes
   it('renders with references', () => {
     const references = fromJS([
       {
@@ -23,16 +27,25 @@ describe('ReferenceList', () => {
         error={null}
         references={references}
         total={1}
+<<<<<<< Updated upstream
         
+=======
+>>>>>>> Stashed changes
         onQueryChange={jest.fn()}
         query={{ size: 25, page: 1 }}
       />
     );
+<<<<<<< Updated upstream
     
     expect(wrapper).toMatchSnapshot();
   });
 
   
+=======
+    expect(wrapper).toMatchSnapshot();
+  });
+
+>>>>>>> Stashed changes
   it('renders items with (page * index) key if title is absent', () => {
     const references = fromJS([
       {
@@ -48,11 +61,15 @@ describe('ReferenceList', () => {
         error={null}
         references={references}
         total={1}
+<<<<<<< Updated upstream
         
+=======
+>>>>>>> Stashed changes
         onQueryChange={jest.fn()}
         query={{ size: 25, page: 1 }}
       />
     );
+<<<<<<< Updated upstream
     
     expect(wrapper).toMatchSnapshot();
   });
@@ -60,6 +77,12 @@ describe('ReferenceList', () => {
   
   it('calls onQueryChange and sets the correct page', () => {
     
+=======
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('calls onQueryChange and sets the correct page', () => {
+>>>>>>> Stashed changes
     const onQueryChange = jest.fn();
     const wrapper = shallow(
       <ReferenceList
@@ -77,13 +100,19 @@ describe('ReferenceList', () => {
       .prop('onPageChange');
     // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
     onListPageChange(page);
+<<<<<<< Updated upstream
     
+=======
+>>>>>>> Stashed changes
     expect(onQueryChange).toHaveBeenCalledWith({
       page,
     });
   });
 
+<<<<<<< Updated upstream
   
+=======
+>>>>>>> Stashed changes
   it('does not render the list if total 0', () => {
     const wrapper = shallow(
       <ReferenceList
@@ -91,16 +120,25 @@ describe('ReferenceList', () => {
         error={null}
         references={fromJS([{ titles: [{ title: 'Reference 1' }] }])}
         total={0}
+<<<<<<< Updated upstream
         
+=======
+>>>>>>> Stashed changes
         onQueryChange={jest.fn()}
         query={{ size: 25, page: 1 }}
       />
     );
+<<<<<<< Updated upstream
     
     expect(wrapper).toMatchSnapshot();
   });
 
   
+=======
+    expect(wrapper).toMatchSnapshot();
+  });
+
+>>>>>>> Stashed changes
   it('renders with error', () => {
     const wrapper = shallow(
       <ReferenceList
@@ -108,19 +146,29 @@ describe('ReferenceList', () => {
         error={fromJS({ message: 'error' })}
         references={fromJS([])}
         total={0}
+<<<<<<< Updated upstream
         
+=======
+>>>>>>> Stashed changes
         onQueryChange={jest.fn()}
         query={{ size: 25, page: 1 }}
       />
     );
+<<<<<<< Updated upstream
     
+=======
+>>>>>>> Stashed changes
     expect(wrapper).toMatchSnapshot();
   });
 });
 
+<<<<<<< Updated upstream
 
 it('calls onQueryChange and sets display to 50 references/page', () => {
   
+=======
+it('calls onQueryChange and sets display to 50 references/page', () => {
+>>>>>>> Stashed changes
   const onQueryChange = jest.fn();
   const wrapper = shallow(
     <ReferenceList
@@ -139,7 +187,10 @@ it('calls onQueryChange and sets display to 50 references/page', () => {
     .prop('onSizeChange');
   // @ts-expect-error ts-migrate(2571) FIXME: Object is of type 'unknown'.
   onListPageSizeChange(page, size);
+<<<<<<< Updated upstream
   
+=======
+>>>>>>> Stashed changes
   expect(onQueryChange).toHaveBeenCalledWith({
     page,
     size,

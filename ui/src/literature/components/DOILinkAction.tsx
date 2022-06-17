@@ -12,10 +12,10 @@ import ActionsDropdownOrAction from '../../common/components/ActionsDropdownOrAc
 function renderDOIDropdownAction(doi: any) {
   return (
     <Menu.Item key={doi.get('value')}>
-      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+      {/* @ts-ignore */}
       <DOILink doi={doi.get('value')}>
         {doi.get('value')}
-        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+        {/* @ts-ignore */}
         <DOIMaterial material={doi.get('material')} />
       </DOILink>
     </Menu.Item>

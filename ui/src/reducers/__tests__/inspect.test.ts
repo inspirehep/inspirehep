@@ -17,7 +17,6 @@ describe('inspect reducer', () => {
       data: {},
       error: {},
     });
-    // @ts-expect-error ts-migrate(2552) FIXME: Cannot find name 'expect'. Did you mean 'expected'... Remove this comment to see the full error message
     expect(state).toEqual(expected);
   });
 
@@ -25,7 +24,6 @@ describe('inspect reducer', () => {
   it('INSPECT_REQUEST', () => {
     const state = reducer(Map(), { type: INSPECT_REQUEST });
     const expected = Map({ loading: true });
-    // @ts-expect-error ts-migrate(2552) FIXME: Cannot find name 'expect'. Did you mean 'expected'... Remove this comment to see the full error message
     expect(state).toEqual(expected);
   });
 
@@ -40,7 +38,6 @@ describe('inspect reducer', () => {
       error: {},
       data: payload,
     });
-    // @ts-expect-error ts-migrate(2552) FIXME: Cannot find name 'expect'. Did you mean 'expected'... Remove this comment to see the full error message
     expect(state).toEqual(expected);
   });
 
@@ -57,7 +54,6 @@ describe('inspect reducer', () => {
       data: {},
       error: { message: 'error' },
     });
-    // @ts-expect-error ts-migrate(2552) FIXME: Cannot find name 'expect'. Did you mean 'expected'... Remove this comment to see the full error message
     expect(state).toEqual(expected);
   });
 });

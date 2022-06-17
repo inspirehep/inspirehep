@@ -10,7 +10,6 @@ describe('LogoutUser middleware', () => {
   let dispatch: any;
   let mockDispatch;
 
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'beforeEach'.
   beforeEach(() => {
     
     mirrorNext = jest.fn((value: any) => value);

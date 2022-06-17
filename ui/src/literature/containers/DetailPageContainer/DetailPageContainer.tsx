@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Row, Col, Tabs } from 'antd';
 import { Map, List } from 'immutable';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'clas... Remove this comment to see the full error message
 import classNames from 'classnames';
 import { FilePdfOutlined, DatabaseOutlined } from '@ant-design/icons';
 
@@ -15,8 +14,7 @@ import {
 } from '../../../actions/literature';
 import Abstract from '../../components/Abstract';
 import ArxivEprintList from '../../components/ArxivEprintList';
-// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.tsx' extension.... Remove this comment to see the full error message
-import EditRecordAction from '../../../common/components/EditRecordAction.tsx';
+import EditRecordAction from '../../../common/components/EditRecordAction';
 import DOIList from '../../components/DOIList';
 import AuthorsAndCollaborations from '../../../common/components/AuthorsAndCollaborations';
 import ExternalSystemIdentifierList from '../../components/ExternalSystemIdentifierList';
@@ -105,10 +103,10 @@ function DetailPage({
         metadata={metadata}
         created={record.get('created')}
       />
-      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+      {/* @ts-ignore */}
       <Row className="__DetailPage__" type="flex" justify="center">
         <Col xs={24} md={22} lg={21} xxl={18}>
-          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+          {/* @ts-ignore */}
           <Row className="mv3" type="flex" justify="center">
             <Col span={24}>{hiddenCollection && <HiddenCollectionAlert />}</Col>
           </Row>
@@ -142,6 +140,7 @@ function DetailPage({
                     )}
                     <CiteModalActionContainer recordId={controlNumber} />
                     {canEdit && (
+                      /* @ts-ignore */
                       <EditRecordAction
                         pidType="literature"
                         pidValue={controlNumber}
@@ -173,7 +172,7 @@ function DetailPage({
                   <Col span={24}>{deleted && <DeletedAlert />}</Col>
                 </Row>
                 <h2>
-                  // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+                  {/* @ts-ignore */}
                   <LiteratureTitle title={title} />
                 </h2>
                 <div>
@@ -186,13 +185,13 @@ function DetailPage({
                     collaborationsWithSuffix={collaborationsWithSuffix}
                   />
                 </div>
-                // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+                {/* @ts-ignore */}
                 <LiteratureDate date={date} />
                 <div className="mt3">
-                  // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+                  {/* @ts-ignore */}
                   <NumberOfPages numberOfPages={numberOfPages} />
                   <SupervisorList supervisors={supervisors} />
-                  // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+                  {/* @ts-ignore */}
                   <ThesisInfo thesisInfo={thesisInfo} />
                   {linkedBook && (
                     <ParentRecordInfo
@@ -209,19 +208,19 @@ function DetailPage({
                         publicationInfo={publicationInfoWithTitle}
                       />
                     )}
-                  // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+                  {/* @ts-ignore */}
                   <ConferenceInfoList conferenceInfo={conferenceInfo} />
-                  // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+                  {/* @ts-ignore */}
                   <IsbnList isbns={isbns} />
-                  // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+                  {/* @ts-ignore */}
                   <ImprintInfo imprint={imprint} />
-                  // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+                  {/* @ts-ignore */}
                   <ArxivEprintList eprints={eprints} />
-                  // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+                  {/* @ts-ignore */}
                   <DOIList dois={dois} />
-                  // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+                  {/* @ts-ignore */}
                   <ReportNumberList reportNumbers={reportNumbers} />
-                  // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+                  {/* @ts-ignore */}
                   <ExperimentList experiments={acceleratorExperiments} />
                   <ExternalSystemIdentifierList
                     // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
@@ -231,7 +230,7 @@ function DetailPage({
               </ContentBox>
             </Col>
             <Col xs={24} lg={8}>
-              // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+              {/* @ts-ignore */}
               <ContentBox subTitle="Citations per year">
                 <CitationsByYearGraphContainer />
               </ContentBox>
@@ -242,7 +241,7 @@ function DetailPage({
               <RequireOneOf dependencies={[abstract, publicNotes, keywords]}>
                 <ContentBox>
                   <div>
-                    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+                    {/* @ts-ignore */}
                     <Abstract abstract={abstract} />
                   </div>
                   <div
@@ -251,11 +250,11 @@ function DetailPage({
                       mb3: keywords,
                     })}
                   >
-                    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+                    {/* @ts-ignore */}
                     <PublicNotesList publicNotes={publicNotes} />
                   </div>
                   <div>
-                    // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+                    {/* @ts-ignore */}
                     <KeywordList keywords={keywords} />
                   </div>
                 </ContentBox>
@@ -353,6 +352,7 @@ export default withRouteActionsDispatcher(DetailPageContainer, {
     fetchLiteratureAuthors(id),
     fetchCitationsByYear({ q: `recid:${id}` }),
     newSearch(LITERATURE_SEMINARS_NS),
+    /* @ts-ignore */
     searchBaseQueriesUpdate(LITERATURE_SEMINARS_NS, {
       baseQuery: { q: `literature_records.record.$ref:${id}` },
     }),

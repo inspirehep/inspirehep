@@ -10,8 +10,7 @@ import ResultsContainer from '../../common/containers/ResultsContainer';
 import NumberOfResultsContainer from '../../common/containers/NumberOfResultsContainer';
 import LoadingOrChildren from '../../common/components/LoadingOrChildren';
 import ResponsiveView from '../../common/components/ResponsiveView';
-// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.tsx' extension.... Remove this comment to see the full error message
-import DrawerHandle from '../../common/components/DrawerHandle.tsx';
+import DrawerHandle from '../../common/components/DrawerHandle';
 import { SEMINARS_NS, AUTHOR_SEMINARS_NS } from '../../search/constants';
 import { SEARCH_PAGE_GUTTER, LOCAL_TIMEZONE } from '../../common/constants';
 import SeminarItem from '../components/SeminarItem';
@@ -37,7 +36,7 @@ function SeminarSearch({
             switchTitle="Upcoming seminars"
           />
         )}
-        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+        {/* @ts-ignore */}
         <LoadingOrChildren loading={loadingAggregations}>
           <AggregationFiltersContainer
             namespace={namespace}
@@ -76,9 +75,9 @@ function SeminarSearch({
         <ResponsiveView min="lg" render={renderAggregations} />
       </Col>
       <Col xs={24} lg={17}>
-        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+        {/* @ts-ignore */}
         <LoadingOrChildren loading={loading}>
-          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+          {/* @ts-ignore */}
           <Row type="flex" align="middle" justify="end">
             <Col xs={24} lg={12}>
               <NumberOfResultsContainer namespace={namespace} />

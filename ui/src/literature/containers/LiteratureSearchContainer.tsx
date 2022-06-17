@@ -11,8 +11,7 @@ import ResultsContainer from '../../common/containers/ResultsContainer';
 import NumberOfResultsWithSelectedItemsNumber from '../components/NumberOfResultsWithSelectedItemsNumber';
 import LoadingOrChildren from '../../common/components/LoadingOrChildren';
 import ResponsiveView from '../../common/components/ResponsiveView';
-// @ts-expect-error ts-migrate(2691) FIXME: An import path cannot end with a '.tsx' extension.... Remove this comment to see the full error message
-import DrawerHandle from '../../common/components/DrawerHandle.tsx';
+import DrawerHandle from '../../common/components/DrawerHandle';
 import LiteratureItem from '../components/LiteratureItem';
 import CiteAllActionContainer from './CiteAllActionContainer';
 import VerticalDivider from '../../common/VerticalDivider';
@@ -114,9 +113,9 @@ function LiteratureSearch({
           <ResponsiveView min="lg" render={renderAggregations} />
         </Col>
         <Col xs={24} lg={17}>
-          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+        {/* @ts-ignore */}
           <LoadingOrChildren loading={loading}>
-            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+            {/* @ts-ignore */}
             <Row type="flex" align="middle" justify="end">
               <Col xs={24} lg={12}>
                 {(assignAuthorView ||

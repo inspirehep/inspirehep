@@ -50,7 +50,7 @@ describe('statePersister', () => {
 
       expect(next).toHaveBeenCalledWith(action);
 
-
+      {/* @ts-ignore */}
       expect(storage.set).toHaveBeenCalledWith(getStorageKeyForReducer('a'), {
         foo: 'A',
       });

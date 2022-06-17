@@ -4,9 +4,13 @@ import { fromJS } from 'immutable';
 
 import ExternalSystemIdentifierList from '../ExternalSystemIdentifierList';
 
+<<<<<<< Updated upstream
 
 describe('ExternalSystemIdentifierList', () => {
   
+=======
+describe('ExternalSystemIdentifierList', () => {
+>>>>>>> Stashed changes
   it('renders with external system identifiers', () => {
     const externalSystemIdentifiers = fromJS([
       {
@@ -24,7 +28,10 @@ describe('ExternalSystemIdentifierList', () => {
         externalSystemIdentifiers={externalSystemIdentifiers}
       />
     );
+<<<<<<< Updated upstream
     
+=======
+>>>>>>> Stashed changes
     expect(wrapper.dive()).toMatchSnapshot();
   });
 });

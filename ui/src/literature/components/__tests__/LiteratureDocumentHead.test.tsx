@@ -4,9 +4,13 @@ import { fromJS } from 'immutable';
 
 import LiteratureDocumentHead from '../LiteratureDocumentHead';
 
+<<<<<<< Updated upstream
 
 describe('LiteratureDocumentHead', () => {
   
+=======
+describe('LiteratureDocumentHead', () => {
+>>>>>>> Stashed changes
   it('renders with only title', () => {
     const wrapper = shallow(
       <LiteratureDocumentHead
@@ -19,11 +23,17 @@ describe('LiteratureDocumentHead', () => {
         created="2019-01-16T00:00:00+00:00"
       />
     );
+<<<<<<< Updated upstream
     
     expect(wrapper).toMatchSnapshot();
   });
 
   
+=======
+    expect(wrapper).toMatchSnapshot();
+  });
+
+>>>>>>> Stashed changes
   it('renders full literature', () => {
     const metadata = fromJS({
       abstracts: [
@@ -59,7 +69,10 @@ describe('LiteratureDocumentHead', () => {
         created="2019-01-16T00:00:00+00:00"
       />
     );
+<<<<<<< Updated upstream
     
+=======
+>>>>>>> Stashed changes
     expect(wrapper).toMatchSnapshot();
   });
 });

@@ -4,9 +4,13 @@ import { fromJS } from 'immutable';
 
 import IsbnList from '../IsbnList';
 
+<<<<<<< Updated upstream
 
 describe('IsbnList', () => {
   
+=======
+describe('IsbnList', () => {
+>>>>>>> Stashed changes
   it('renders isbns with medium and without medium', () => {
     const isbns = fromJS([
       {
@@ -19,7 +23,10 @@ describe('IsbnList', () => {
     ]);
     // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
     const wrapper = shallow(<IsbnList isbns={isbns} />);
+<<<<<<< Updated upstream
     
+=======
+>>>>>>> Stashed changes
     expect(wrapper.dive()).toMatchSnapshot();
   });
 });

@@ -33,7 +33,6 @@ describe('seminars reducer', () => {
   it('SEMINAR_REQUEST', () => {
     const state = reducer(Map(), { type: SEMINAR_REQUEST });
     const expected = Map({ loading: true });
-    // @ts-expect-error ts-migrate(2552) FIXME: Cannot find name 'expect'. Did you mean 'expected'... Remove this comment to see the full error message
     expect(state).toEqual(expected);
   });
 
@@ -54,7 +53,6 @@ describe('seminars reducer', () => {
       data: payload,
       error: null,
     });
-    // @ts-expect-error ts-migrate(2552) FIXME: Cannot find name 'expect'. Did you mean 'expected'... Remove this comment to see the full error message
     expect(state).toEqual(expected);
   });
 

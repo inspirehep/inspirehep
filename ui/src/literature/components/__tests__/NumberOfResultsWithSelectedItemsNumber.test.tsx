@@ -3,9 +3,13 @@ import { shallow } from 'enzyme';
 
 import NumberOfResultsWithSelectedItemsNumber from '../NumberOfResultsWithSelectedItemsNumber';
 
+<<<<<<< Updated upstream
 
 describe('NumberOfResultsWithSelectedItemsNumber', () => {
   
+=======
+describe('NumberOfResultsWithSelectedItemsNumber', () => {
+>>>>>>> Stashed changes
   it('renders selected when selected is more than 1', () => {
     const wrapper = shallow(
       <NumberOfResultsWithSelectedItemsNumber
@@ -14,11 +18,17 @@ describe('NumberOfResultsWithSelectedItemsNumber', () => {
         numberOfSelected={25}
       />
     );
+<<<<<<< Updated upstream
     
     expect(wrapper).toMatchSnapshot();
   });
 
   
+=======
+    expect(wrapper).toMatchSnapshot();
+  });
+
+>>>>>>> Stashed changes
   it('renders selected when selected is 1', () => {
     const wrapper = shallow(
       <NumberOfResultsWithSelectedItemsNumber
@@ -27,11 +37,17 @@ describe('NumberOfResultsWithSelectedItemsNumber', () => {
         numberOfSelected={1}
       />
     );
+<<<<<<< Updated upstream
     
     expect(wrapper).toMatchSnapshot();
   });
 
   
+=======
+    expect(wrapper).toMatchSnapshot();
+  });
+
+>>>>>>> Stashed changes
   it('does not render selected when selected is 0', () => {
     const wrapper = shallow(
       <NumberOfResultsWithSelectedItemsNumber
@@ -40,7 +56,10 @@ describe('NumberOfResultsWithSelectedItemsNumber', () => {
         numberOfSelected={0}
       />
     );
+<<<<<<< Updated upstream
     
+=======
+>>>>>>> Stashed changes
     expect(wrapper).toMatchSnapshot();
   });
 });
