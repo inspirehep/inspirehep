@@ -1,4 +1,4 @@
-FROM node:lts-jessie as build-stage
+FROM node:12 as build-stage
 
 WORKDIR /usr/src/app
 
