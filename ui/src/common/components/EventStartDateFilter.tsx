@@ -50,9 +50,9 @@ function EventStartDateFilter({
 
   return (
     <Row className="pa3 bg-white mb3">
-      // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+      {/* @ts-ignore */}
       <AggregationBox name="Start Date" className="mb3">
-        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+        {/* @ts-ignore */}
         <Row className="mb3" type="flex" align="middle" gutter={8}>
           <Col>
             <Switch

@@ -8,7 +8,7 @@ class LabelWithHelp extends Component {
     const { help, label } = this.props;
     return (
       <span>
-        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+        {/* @ts-ignore */}
         {label} {<HelpIconTooltip help={help} />}
       </span>
     );

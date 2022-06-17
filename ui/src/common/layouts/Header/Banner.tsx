@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
+// @ts-ignore
 import SanitizedHTML from 'react-sanitized-html';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'clas... Remove this comment to see the full error message
 import classNames from 'classnames';
 import { Alert, Button } from 'antd';
 import { Map } from 'immutable';

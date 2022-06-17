@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List, Pagination } from 'antd';
 import Immutable from 'immutable';
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'clas... Remove this comment to see the full error message
 import classNames from 'classnames';
 
 const GRID_CONFIG = {
@@ -81,7 +80,6 @@ class ListWithPagination extends Component {
       <List
         header={title}
         footer={this.renderPagination()}
-        // @ts-expect-error ts-migrate(2322) FIXME: Type '{ gutter: number; xs: number; sm: number; lg... Remove this comment to see the full error message
         grid={grid ? GRID_CONFIG : undefined}
         dataSource={pageItems}
         renderItem={this.renderItem}

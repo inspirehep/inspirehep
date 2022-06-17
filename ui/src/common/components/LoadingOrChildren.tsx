@@ -7,6 +7,7 @@ class LoadingOrChildren extends Component {
   render() {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'loading' does not exist on type 'Readonl... Remove this comment to see the full error message
     const { children, loading } = this.props;
+    // @ts-ignore
     return loading ? <Loading /> : children;
   }
 }

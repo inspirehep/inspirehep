@@ -5,7 +5,6 @@ import Banners from '../Banners';
 
 
 describe('Banners', () => {
-  // @ts-expect-error ts-migrate(2304) FIXME: Cannot find name 'beforeEach'.
   beforeEach(() => {
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'CONFIG' does not exist on type 'Global &... Remove this comment to see the full error message
     global.CONFIG = {};

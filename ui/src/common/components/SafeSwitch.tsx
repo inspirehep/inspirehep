@@ -15,6 +15,7 @@ function SafeSwitch({
 }
 
 SafeSwitch.propTypes = {
+  // @ts-ignore
   ...Switch.propTypes,
 };
 

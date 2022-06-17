@@ -1,5 +1,6 @@
 import React, { useMemo, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
+// @ts-ignore
 import { FlexibleWidthXYPlot, VerticalRectSeries, Hint } from 'react-vis';
 import { Slider } from 'antd';
 import { List } from 'immutable';

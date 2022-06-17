@@ -44,6 +44,7 @@ class HeaderMenu extends Component {
             <ExternalLink href={PAPER_SEARCH_URL}>Search Tips</ExternalLink>
           </Menu.Item>
           <Menu.Item key="help.tour">
+            {/* @ts-ignore */}
             <DisplayGuideButtonContainer>
               Take the tour
             </DisplayGuideButtonContainer>
@@ -101,7 +102,7 @@ class HeaderMenu extends Component {
               )}
             </Menu.Item>
             <Menu.Item key="logout">
-              // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+              {/* @ts-ignore */}
               <LinkLikeButton onClick={onLogoutClick} dataTestId="logout">
                 Logout
               </LinkLikeButton>

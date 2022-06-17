@@ -20,6 +20,7 @@ function RouteOrRedirect({
 RouteOrRedirect.propTypes = {
   redirectTo: PropTypes.string.isRequired,
   condition: PropTypes.bool.isRequired,
+  // @ts-ignore
   ...Route.propTypes,
 };
 

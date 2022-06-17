@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithoutRef, ElementType } from 'react';
+import React, { ComponentPropsWithoutRef } from 'react';
 
 const defaultProps = {
   as: 'a',
