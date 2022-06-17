@@ -25,7 +25,7 @@ class SearchPage extends Component {
   static renderJobResultItem(result: any) {
     return (
       <JobItem
-        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+        /* @ts-ignore */
         metadata={result.get('metadata')}
         created={result.get('created')}
       />
@@ -47,9 +47,9 @@ class SearchPage extends Component {
     const { loadingAggregations } = this.props;
     return (
       <div className="mt3">
-        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+        {/* @ts-ignore */}
         <LoadingOrChildren loading={loadingAggregations}>
-          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+          {/* @ts-ignore */}
           <Row type="flex" justify="space-between">
             <Col className="f5">Select Job Filters:</Col>
             <Col>{SearchPage.renderSubscribeJobsModalButton()}</Col>
@@ -69,7 +69,7 @@ class SearchPage extends Component {
     const { loadingAggregations } = this.props;
     return (
       <DrawerHandle className="mt2" handleText="Filter" drawerTitle="Filter">
-        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+        {/* @ts-ignore */}
         <LoadingOrChildren loading={loadingAggregations}>
           <AggregationFiltersContainer
             inline
@@ -87,21 +87,21 @@ class SearchPage extends Component {
     const { loading } = this.props;
     return (
       <>
-        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+        {/* @ts-ignore */}
         <DocumentHead title={TITLE} description={META_DESCRIPTION} />
         <div>
-          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+          {/* @ts-ignore */}
           <Row className="bg-white mb3" type="flex" justify="center">
             <Col xs={0} lg={16} xl={16} xxl={14}>
               <ResponsiveView min="lg" render={this.renderAggregations} />
             </Col>
           </Row>
-          // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+          {/* @ts-ignore */}
           <Row type="flex" justify="center">
             <Col xs={24} lg={16} xl={16} xxl={14}>
-              // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+              {/* @ts-ignore */}
               <LoadingOrChildren loading={loading}>
-                // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+                {/* @ts-ignore */}
                 <Row type="flex" align="middle" justify="end">
                   <Col xs={12} lg={12}>
                     <NumberOfResultsContainer namespace={JOBS_NS} />

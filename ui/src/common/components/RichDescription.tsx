@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+/* @ts-ignore */
 import SanitizedHTML from 'react-sanitized-html';
 
 const ALLOWED_ATTRIBUTES_BY_TAG = { a: ['href', 'title'] };

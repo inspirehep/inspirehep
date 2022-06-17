@@ -43,20 +43,19 @@ class JobItem extends Component {
           canEdit && <EditRecordAction pidType="jobs" pidValue={recordId} />
         }
       >
-        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
-        <Row type="flex" align="middle">
+        <Row align="middle">
           <Col>
             <Link className="result-item-title pr1" to={`${JOBS}/${recordId}`}>
-              // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+              {/* @ts-ignore */}
               <JobTitle position={position} externalJobId={externalJobId} />
             </Link>
           </Col>
           <Col>
-            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+            {/* @ts-ignore */}
             (<InlineUL wrapperClassName="di" separator={SEPARATOR_MIDDLEDOT}>
-              // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+              {/* @ts-ignore */}
               {institutions && <InstitutionsList institutions={institutions} />}
-              // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+              {/* @ts-ignore */}
               <RegionsList regions={regions} />
             </InlineUL>)
           </Col>
@@ -68,23 +67,23 @@ class JobItem extends Component {
               arxivCategories={arxivCategories}
               wrapperClassName="di"
             />
-            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+            {/* @ts-ignore */}
             <InlineUL separator={SEPARATOR_MIDDLEDOT} wrapperClassName="di">
-              // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+              {/* @ts-ignore */}
               {experiments && <ExperimentList experiments={experiments} />}
-              // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+              {/* @ts-ignore */}
               {ranks && <RanksList ranks={ranks} />}
             </InlineUL>
           </Col>
         </Row>
-        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+        {/* @ts-ignore */}
         <Row className="mt3" type="flex" justify="space-between">
           <Col>
-            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+            {/* @ts-ignore */}
             <DeadlineDate deadlineDate={deadlineDate} />
           </Col>
           <Col>
-            // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+            {/* @ts-ignore */}
             Posted <DateFromNow date={created} />
           </Col>
         </Row>

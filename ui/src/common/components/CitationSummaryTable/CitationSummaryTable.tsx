@@ -54,7 +54,7 @@ class CitationSummaryTable extends Component {
     return (
       // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
       <LoadingOrChildren loading={loading}>
-        // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
+        {/* @ts-ignore */}
         <ErrorAlertOrChildren error={error}>
           <div className="__CitationTable__">
             <table>

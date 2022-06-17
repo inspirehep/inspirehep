@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+// @ts-ignore
 import { Helmet } from 'react-helmet';
 import PropTypes from 'prop-types';
 

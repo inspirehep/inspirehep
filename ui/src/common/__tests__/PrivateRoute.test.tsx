@@ -26,6 +26,7 @@ describe('PrivateRoute', () => {
         <MemoryRouter initialEntries={['/private']} initialIndex={0}>
           <Switch>
             <Route exact path="/user/login" component={UserLogin} />
+            {/* @ts-ignore */}
             <PrivateRoute exact path="/private" component={Private} />
           </Switch>
         </MemoryRouter>
@@ -50,6 +51,7 @@ describe('PrivateRoute', () => {
       <Provider store={store}>
         <MemoryRouter initialEntries={['/private']} initialIndex={0}>
           <Switch>
+            {/* @ts-ignore */}
             <PrivateRoute exact path="/private" component={Private} />
           </Switch>
         </MemoryRouter>
@@ -77,6 +79,7 @@ describe('PrivateRoute', () => {
           <Switch>
             <Route exact path="/errors/401" component={Error401} />
             <PrivateRoute
+            // @ts-ignore
               exact
               path="/authorized"
               authorizedRoles={List(['authorizeduser'])}
@@ -106,6 +109,7 @@ describe('PrivateRoute', () => {
         <MemoryRouter initialEntries={['/authorized']} initialIndex={0}>
           <Switch>
             <PrivateRoute
+            // @ts-ignore
               exact
               path="/authorized"
               authorizedRoles={List(['authorizeduser'])}
