@@ -262,6 +262,7 @@ def _disambiguate_authors(authors_to_disambiguate, record):
     ignore_result=False,
     bind=True,
     retry_backoff=2,
+    queue="disambiguation",
     retry_kwargs={"max_retries": 6},
     autoretry_for=(PIDAlreadyExists, OperationalError, StaleDataError),
 )

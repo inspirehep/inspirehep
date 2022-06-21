@@ -78,7 +78,10 @@ def query_authors_with_linked_papers_by_bai(authors_bais):
 
 @disambiguation.command(name="not-disambiguated")
 @with_appcontext
-def disambiguate_all_not_disambiguated():
+@click.option(
+    "-bs", "--batch-size", type=int, default=5, help="Batch size for celery task chunks"
+)
+def disambiguate_all_not_disambiguated(batch_size):
     """Trigger disambiguation task for all the records that are not disambiguated"""
     not_disambiguiated_records_condition = (
         not_(
@@ -98,9 +101,10 @@ def disambiguate_all_not_disambiguated():
         batch = next_batch(items, 1000)
         while batch:
             uuids = [str(item[0]) for item in batch]
-            disambiguate_authors.chunks(
-                zip(uuids, [True for i in uuids]), 10
-            ).apply_async()
+            task_group = disambiguate_authors.chunks(
+                zip(uuids, [True for _ in uuids]), batch_size
+            ).group()
+            task_group.apply_async(countdown=5, queue="disambiguation")
             batch = next_batch(items, 1000)
 
 
