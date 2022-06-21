@@ -132,6 +132,7 @@ export function assignOwnPapers({ from, to, isUnassignAction }) {
 
       const numberOfUnclaimedPapers = unclaimedPapers.size;
       const numberOfClaimedPapers = claimedPapers.size;
+      const numberOfPapers = numberOfUnclaimedPapers + numberOfClaimedPapers;
 
       assigning();
       await http.post('/assign/author', {
@@ -141,7 +142,7 @@ export function assignOwnPapers({ from, to, isUnassignAction }) {
       });
 
       if (isUnassignAction) {
-        unassignSuccessOwnProfile();
+        unassignSuccessOwnProfile(numberOfPapers);
       } else {
         assignSuccessOwnProfile({
           numberOfClaimedPapers,
@@ -171,6 +172,11 @@ export function assignDifferentProfileClaimedPapers({ from, to }) {
       const unclaimablePapers = getState().authors.get(
         'publicationSelectionCanNotClaim'
       );
+      const unclaimedPapers = getState().authors.get(
+        'publicationSelectionUnclaimed'
+      );
+      const numberOfUnclaimedPapers = unclaimedPapers.size;
+
       assigning();
       const { data } = await http.post('/assign/author', {
         from_author_recid: from,
@@ -181,7 +187,7 @@ export function assignDifferentProfileClaimedPapers({ from, to }) {
       if (Object.prototype.hasOwnProperty.call(data, 'created_rt_ticket')) {
         assignSuccessDifferentProfileClaimedPapers();
       } else {
-        assignSuccessDifferentProfileUnclaimedPapers();
+        assignSuccessDifferentProfileUnclaimedPapers(numberOfUnclaimedPapers);
       }
 
       // add timestamp based query to in order to trigger search again
@@ -206,6 +212,8 @@ export function assignDifferentProfileUnclaimedPapers({ from, to }) {
       const claimedPapers = getState().authors.get(
         'publicationSelectionClaimed'
       );
+      const numberOfUnclaimedPapers = unclaimedPapers.size;
+
       assigning();
       await http.post('/assign/author', {
         from_author_recid: from,
@@ -213,7 +221,7 @@ export function assignDifferentProfileUnclaimedPapers({ from, to }) {
         literature_recids: unclaimedPapers,
       });
       if (claimedPapers.size === 0) {
-        assignSuccessDifferentProfileUnclaimedPapers();
+        assignSuccessDifferentProfileUnclaimedPapers(numberOfUnclaimedPapers);
       }
       // add timestamp based query to in order to trigger search again
       dispatch(

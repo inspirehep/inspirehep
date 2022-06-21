@@ -191,6 +191,7 @@ function LiteratureSearch({
                               ['metadata', 'curated_relation'],
                               false
                             )}
+                            isOwnProfile={assignAuthorOwnProfileView}
                           />
                         </Col>
                       )}

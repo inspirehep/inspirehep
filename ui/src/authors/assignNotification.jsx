@@ -46,14 +46,17 @@ export function assignSuccessOwnProfile({
 }) {
   const message =
     numberOfClaimedPapers === 0
-      ? 'All selected papers will be claimed to your profile.'
+      ? `All ${numberOfUnclaimedPapers} selected ${pluralizeUnlessSingle(
+          'paper',
+          numberOfUnclaimedPapers
+        )} will be claimed to your profile.`
       : `${numberOfUnclaimedPapers} ${pluralizeUnlessSingle(
           'paper',
           numberOfUnclaimedPapers
         )} will be claimed to your profile. ${numberOfClaimedPapers} ${pluralizeUnlessSingle(
           'paper',
           numberOfClaimedPapers
-        )} can not be claimed. `;
+        )} can not be claimed.`;
   notification.close(ASSIGNING_NOTIFICATION_KEY);
   notification.success({
     message,
@@ -61,16 +64,24 @@ export function assignSuccessOwnProfile({
   });
 }
 
-export function unassignSuccessOwnProfile() {
-  const message = 'All selected papers will be removed from your profile.';
+export function unassignSuccessOwnProfile(numberOfPapers) {
+  const message = `All ${numberOfPapers} selected ${pluralizeUnlessSingle(
+    'paper',
+    numberOfPapers
+  )} will be removed from your profile.`;
   notification.success({
     message,
     duration: null,
   });
 }
 
-export function assignSuccessDifferentProfileUnclaimedPapers() {
-  const message = 'All selected papers will be moved to your profile.';
+export function assignSuccessDifferentProfileUnclaimedPapers(
+  numberOfUnclaimedPapers
+) {
+  const message = `All ${numberOfUnclaimedPapers} selected ${pluralizeUnlessSingle(
+    'paper',
+    numberOfUnclaimedPapers
+  )} will be moved to your profile.`;
   notification.close(ASSIGNING_NOTIFICATION_KEY);
   notification.success({
     message,
