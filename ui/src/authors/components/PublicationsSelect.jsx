@@ -11,9 +11,13 @@ function PublicationsSelect({
   canClaim,
   disabled,
   checked,
+  isOwnProfile,
 }) {
   const onChange = (event) => {
     onSelectPapers(event);
+    if (isOwnProfile && !claimed) {
+      onSelectUnclaimedPapers(event);
+    }
     if (!canClaim) {
       onSelectPapersUserCanNotClaim(event);
     }
@@ -23,6 +27,7 @@ function PublicationsSelect({
       onSelectUnclaimedPapers(event);
     }
   };
+
   return (
     <Checkbox
       onChange={(event) => {

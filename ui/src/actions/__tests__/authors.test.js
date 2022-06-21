@@ -406,6 +406,7 @@ describe('AUTHOR - async action creators', () => {
       const toAuthorId = 5555;
       const fromAuthorId = 123;
       const publicationSelectionClaimed = [1, 2];
+      const publicationSelectionUnclaimed = [1, 2];
       const publicationSelectionCanNotClaim = [3];
       const fakeNow = 1597314028798;
 
@@ -415,6 +416,7 @@ describe('AUTHOR - async action creators', () => {
         authors: fromJS({
           publicationSelectionClaimed: Set(publicationSelectionClaimed),
           publicationSelectionCanNotClaim: Set(publicationSelectionCanNotClaim),
+          publicationSelectionUnclaimed: Set(publicationSelectionUnclaimed)
         }),
       });
 
@@ -452,6 +454,7 @@ describe('AUTHOR - async action creators', () => {
       const fromAuthorId = 123;
       const publicationSelectionClaimed = [1, 2];
       const publicationSelectionCanNotClaim = [3];
+      const publicationSelectionUnclaimed = [1, 2];
       const fakeNow = 1597314028798;
 
       advanceTo(fakeNow);
@@ -460,6 +463,7 @@ describe('AUTHOR - async action creators', () => {
         authors: fromJS({
           publicationSelectionClaimed: Set(publicationSelectionClaimed),
           publicationSelectionCanNotClaim: Set(publicationSelectionCanNotClaim),
+          publicationSelectionUnclaimed: Set(publicationSelectionUnclaimed)
         }),
       });
 
