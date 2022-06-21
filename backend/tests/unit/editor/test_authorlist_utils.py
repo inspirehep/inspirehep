@@ -24,7 +24,7 @@ from __future__ import absolute_import, division, print_function
 
 import pytest
 
-from inspirehep.editor.authorlist_utils import create_authors
+from inspirehep.editor.authorlist_utils import authorlist, create_authors
 
 
 def test_create_authors_without_affiliations():
@@ -36,28 +36,28 @@ def test_create_authors_without_affiliations():
     )
 
     expected = [
-        (u"K. Berkelman", []),
-        (u"D. Cords", []),
-        (u"R. Felst", []),
-        (u"E. Gadermann", []),
-        (u"G. Grindhammer", []),
-        (u"H. Hultschig", []),
-        (u"P. Joos", []),
-        (u"W. Koch", []),
-        (u"U. Kötz", []),
-        (u"H. Krehbiel", []),
-        (u"D. Kreinick", []),
-        (u"J. Ludwig", []),
-        (u"K.-H. Mess", []),
-        (u"K.C. Moffeit", []),
-        (u"A. Petersen", []),
-        (u"G. Poelz", []),
-        (u"J. Ringel", []),
-        (u"K. Sauerberg", []),
-        (u"P. Schm\xfcser", []),
-        (u"G. Vogel", []),
-        (u"B.H. Wiik", []),
-        (u"G. Wolf", []),
+        {"fullname": "K. Berkelman", "affiliations": [], "ids": [], "emails": []},
+        {"fullname": "D. Cords", "affiliations": [], "ids": [], "emails": []},
+        {"fullname": "R. Felst", "affiliations": [], "ids": [], "emails": []},
+        {"fullname": "E. Gadermann", "affiliations": [], "ids": [], "emails": []},
+        {"fullname": "G. Grindhammer", "affiliations": [], "ids": [], "emails": []},
+        {"fullname": "H. Hultschig", "affiliations": [], "ids": [], "emails": []},
+        {"fullname": "P. Joos", "affiliations": [], "ids": [], "emails": []},
+        {"fullname": "W. Koch", "affiliations": [], "ids": [], "emails": []},
+        {"fullname": "U. Kötz", "affiliations": [], "ids": [], "emails": []},
+        {"fullname": "H. Krehbiel", "affiliations": [], "ids": [], "emails": []},
+        {"fullname": "D. Kreinick", "affiliations": [], "ids": [], "emails": []},
+        {"fullname": "J. Ludwig", "affiliations": [], "ids": [], "emails": []},
+        {"fullname": "K.-H. Mess", "affiliations": [], "ids": [], "emails": []},
+        {"fullname": "K.C. Moffeit", "affiliations": [], "ids": [], "emails": []},
+        {"fullname": "A. Petersen", "affiliations": [], "ids": [], "emails": []},
+        {"fullname": "G. Poelz", "affiliations": [], "ids": [], "emails": []},
+        {"fullname": "J. Ringel", "affiliations": [], "ids": [], "emails": []},
+        {"fullname": "K. Sauerberg", "affiliations": [], "ids": [], "emails": []},
+        {"fullname": "P. Schm\xfcser", "affiliations": [], "ids": [], "emails": []},
+        {"fullname": "G. Vogel", "affiliations": [], "ids": [], "emails": []},
+        {"fullname": "B.H. Wiik", "affiliations": [], "ids": [], "emails": []},
+        {"fullname": "G. Wolf", "affiliations": [], "ids": [], "emails": []},
     ]
     result = create_authors(text)
 
@@ -76,16 +76,28 @@ def test_create_authors_with_affiliations():
     )
 
     expected = [
-        (u"F. Dur\xe3es", [u"CERN"]),
-        (u"A.V. Giannini", [u"Fermilab"]),
-        (
-            u"V.P. Gon\xe7alves",
-            [
-                u"Lund University",
-                u"Instituto de F\xedsica, Universidade de S\xe3o Paulo",
+        {"fullname": "F. Dur\xe3es", "affiliations": ["CERN"], "ids": [], "emails": []},
+        {
+            "fullname": "A.V. Giannini",
+            "affiliations": ["Fermilab"],
+            "ids": [],
+            "emails": [],
+        },
+        {
+            "fullname": "V.P. Gon\xe7alves",
+            "affiliations": [
+                "Lund University",
+                "Instituto de F\xedsica, Universidade de S\xe3o Paulo",
             ],
-        ),
-        (u"F.S. Navarra", [u"Fermilab"]),
+            "ids": [],
+            "emails": [],
+        },
+        {
+            "fullname": "F.S. Navarra",
+            "affiliations": ["Fermilab"],
+            "ids": [],
+            "emails": [],
+        },
     ]
     result = create_authors(text)
 
@@ -105,7 +117,10 @@ def test_create_authors_with_no_text():
 def test_create_authors_with_no_firstnames():
     text = "Einstein, Bohr"
 
-    expected = [(u"Einstein", []), (u"Bohr", [])]
+    expected = [
+        {"fullname": "Einstein", "affiliations": [], "ids": [], "emails": []},
+        {"fullname": "Bohr", "affiliations": [], "ids": [], "emails": []},
+    ]
     result = create_authors(text)
 
     assert expected == result["authors"]
@@ -122,7 +137,10 @@ def test_create_authors_with_missing_affid():
 
     result = create_authors(text)
 
-    expected = [(u"A. Einstein", []), (u"N. Bohr", [])]
+    expected = [
+        {"fullname": "A. Einstein", "affiliations": [], "ids": [], "emails": []},
+        {"fullname": "N. Bohr", "affiliations": [], "ids": [], "emails": []},
+    ]
     warning = "Unresolved aff-ID or stray footnote symbol. Problematic author and aff-id: N. Bohr 2"
 
     assert expected == result["authors"]
@@ -135,7 +153,15 @@ def test_create_authors_with_affid_but_missing_affiliation():
 
     result = create_authors(text)
 
-    expected = [(u"A. Einstein", []), (u"N. Bohr", [u"K\xf8benhavns Universitet"])]
+    expected = [
+        {"fullname": "A. Einstein", "affiliations": [], "ids": [], "emails": []},
+        {
+            "fullname": "N. Bohr",
+            "affiliations": ["K\xf8benhavns Universitet"],
+            "ids": [],
+            "emails": [],
+        },
+    ]
     warning = "Unresolved aff-ID or stray footnote symbol. Problematic author and aff-id: A. Einstein 1"
 
     assert expected == result["authors"]
@@ -158,8 +184,13 @@ def test_create_authors_with_one_author_missing_affiliation():
     result = create_authors(text)
 
     expected = [
-        (u"A. Einstein", []),
-        (u"N. Bohr", [u"ETH", u"K\xf8benhavns Universitet"]),
+        {"fullname": "A. Einstein", "affiliations": [], "ids": [], "emails": []},
+        {
+            "fullname": "N. Bohr",
+            "affiliations": ["ETH", "K\xf8benhavns Universitet"],
+            "ids": [],
+            "emails": [],
+        },
     ]
     warning = "Author without affiliation-id. Problematic author: A. Einstein"
 
@@ -171,8 +202,13 @@ def test_create_authors_ignores_space_between_authors_and_affiliations():
     text = "F. Lastname1, F.M. Otherlastname1,2\n" "\n" "1 CERN\n" "2 Otheraffiliation"
 
     expected = [
-        (u"F. Lastname", [u"CERN"]),
-        (u"F.M. Otherlastname", [u"CERN", u"Otheraffiliation"]),
+        {"fullname": "F. Lastname", "affiliations": ["CERN"], "ids": [], "emails": []},
+        {
+            "fullname": "F.M. Otherlastname",
+            "affiliations": ["CERN", "Otheraffiliation"],
+            "ids": [],
+            "emails": [],
+        },
     ]
 
     result = create_authors(text)
@@ -198,10 +234,25 @@ def test_create_authors_bad_author_lines():
     )
 
     expected = [
-        (u"A. Aduszkiewicz", [u"CERN"]),
-        (u"Y.X. Ali", [u"CERN", u"DESY"]),
-        (u"E I Andronov", [u"DESY"]),
-        (u"Einstein", [u"ETH Z\xdcRICH", u"PRINCETON"]),
+        {
+            "fullname": "A. Aduszkiewicz",
+            "affiliations": ["CERN"],
+            "ids": [],
+            "emails": [],
+        },
+        {
+            "fullname": "Y.X. Ali",
+            "affiliations": ["CERN", "DESY"],
+            "ids": [],
+            "emails": [],
+        },
+        {"fullname": "E I Andronov", "affiliations": ["DESY"], "ids": [], "emails": []},
+        {
+            "fullname": "Einstein",
+            "affiliations": ["ETH Z\xdcRICH", "PRINCETON"],
+            "ids": [],
+            "emails": [],
+        },
     ]
     result = create_authors(text)
 
@@ -217,25 +268,31 @@ def test_create_authors_no_commas_between_authors():
     )
 
     expected = [
-        (
-            u"C. Patrignani",
-            [
-                u"Universita di Bologna and INFN, Dip. Scienze per la Qualita della Vita, I-47921, Rimini, Italy"
+        {
+            "fullname": "C. Patrignani",
+            "affiliations": [
+                "Universita di Bologna and INFN, Dip. Scienze per la Qualita della Vita, I-47921, Rimini, Italy"
             ],
-        ),
-        (
-            u"K. Agashe",
-            [
-                u"University of Maryland, Department of Physics, College Park, MD 20742-4111, USA"
+            "ids": [],
+            "emails": [],
+        },
+        {
+            "fullname": "K. Agashe",
+            "affiliations": [
+                "University of Maryland, Department of Physics, College Park, MD 20742-4111, USA"
             ],
-        ),
-        (
-            u"G. Aielli",
-            [
-                u"Universita di Bologna and INFN, Dip. Scienze per la Qualita della Vita, I-47921, Rimini, Italy",
-                u"University of Maryland, Department of Physics, College Park, MD 20742-4111, USA",
+            "ids": [],
+            "emails": [],
+        },
+        {
+            "fullname": "G. Aielli",
+            "affiliations": [
+                "Universita di Bologna and INFN, Dip. Scienze per la Qualita della Vita, I-47921, Rimini, Italy",
+                "University of Maryland, Department of Physics, College Park, MD 20742-4111, USA",
             ],
-        ),
+            "ids": [],
+            "emails": [],
+        },
     ]
     result = create_authors(text)
 
@@ -259,25 +316,31 @@ def test_create_authors_newlines_and_no_commas_between_authors():
     )
 
     expected = [
-        (
-            u"C. Patrignani",
-            [
-                u"Universita di Bologna and INFN, Dip. Scienze per la Qualita della Vita, I-47921, Rimini, Italy"
+        {
+            "fullname": "C. Patrignani",
+            "affiliations": [
+                "Universita di Bologna and INFN, Dip. Scienze per la Qualita della Vita, I-47921, Rimini, Italy"
             ],
-        ),
-        (
-            u"K. Agashe",
-            [
-                u"University of Maryland, Department of Physics, College Park, MD 20742-4111, USA"
+            "ids": [],
+            "emails": [],
+        },
+        {
+            "fullname": "K. Agashe",
+            "affiliations": [
+                "University of Maryland, Department of Physics, College Park, MD 20742-4111, USA"
             ],
-        ),
-        (
-            u"G. Aielli",
-            [
-                u"Universita di Bologna and INFN, Dip. Scienze per la Qualita della Vita, I-47921, Rimini, Italy",
-                u"University of Maryland, Department of Physics, College Park, MD 20742-4111, USA",
+            "ids": [],
+            "emails": [],
+        },
+        {
+            "fullname": "G. Aielli",
+            "affiliations": [
+                "Universita di Bologna and INFN, Dip. Scienze per la Qualita della Vita, I-47921, Rimini, Italy",
+                "University of Maryland, Department of Physics, College Park, MD 20742-4111, USA",
             ],
-        ),
+            "ids": [],
+            "emails": [],
+        },
     ]
     result = create_authors(text)
 
@@ -301,25 +364,31 @@ def test_create_authors_affids_with_dots():
     )
 
     expected = [
-        (
-            u"C. Patrignani",
-            [
-                u"Universita di Bologna and INFN, Dip. Scienze per la Qualita della Vita, I-47921, Rimini, Italy"
+        {
+            "fullname": "C. Patrignani",
+            "affiliations": [
+                "Universita di Bologna and INFN, Dip. Scienze per la Qualita della Vita, I-47921, Rimini, Italy"
             ],
-        ),
-        (
-            u"K. Agashe",
-            [
-                u"University of Maryland, Department of Physics, College Park, MD 20742-4111, USA"
+            "ids": [],
+            "emails": [],
+        },
+        {
+            "fullname": "K. Agashe",
+            "affiliations": [
+                "University of Maryland, Department of Physics, College Park, MD 20742-4111, USA"
             ],
-        ),
-        (
-            u"G. Aielli",
-            [
-                u"Universita di Bologna and INFN, Dip. Scienze per la Qualita della Vita, I-47921, Rimini, Italy",
-                u"University of Maryland, Department of Physics, College Park, MD 20742-4111, USA",
+            "ids": [],
+            "emails": [],
+        },
+        {
+            "fullname": "G. Aielli",
+            "affiliations": [
+                "Universita di Bologna and INFN, Dip. Scienze per la Qualita della Vita, I-47921, Rimini, Italy",
+                "University of Maryland, Department of Physics, College Park, MD 20742-4111, USA",
             ],
-        ),
+            "ids": [],
+            "emails": [],
+        },
     ]
     result = create_authors(text)
 
@@ -343,25 +412,31 @@ def test_create_authors_no_commas_between_affids():
     )
 
     expected = [
-        (
-            u"C. Patrignani",
-            [
-                u"Universita di Bologna and INFN, Dip. Scienze per la Qualita della Vita, I-47921, Rimini, Italy"
+        {
+            "fullname": "C. Patrignani",
+            "affiliations": [
+                "Universita di Bologna and INFN, Dip. Scienze per la Qualita della Vita, I-47921, Rimini, Italy"
             ],
-        ),
-        (
-            u"K. Agashe",
-            [
-                u"University of Maryland, Department of Physics, College Park, MD 20742-4111, USA"
+            "ids": [],
+            "emails": [],
+        },
+        {
+            "fullname": "K. Agashe",
+            "affiliations": [
+                "University of Maryland, Department of Physics, College Park, MD 20742-4111, USA"
             ],
-        ),
-        (
-            u"G. Aielli",
-            [
-                u"Universita di Bologna and INFN, Dip. Scienze per la Qualita della Vita, I-47921, Rimini, Italy",
-                u"University of Maryland, Department of Physics, College Park, MD 20742-4111, USA",
+            "ids": [],
+            "emails": [],
+        },
+        {
+            "fullname": "G. Aielli",
+            "affiliations": [
+                "Universita di Bologna and INFN, Dip. Scienze per la Qualita della Vita, I-47921, Rimini, Italy",
+                "University of Maryland, Department of Physics, College Park, MD 20742-4111, USA",
             ],
-        ),
+            "ids": [],
+            "emails": [],
+        },
     ]
     result = create_authors(text)
 
@@ -383,9 +458,19 @@ def test_create_authors_multiple_affiliations_on_single_line():
     )
 
     expected = [
-        (u"Y.X. Ali", [u"CERN", u"DESY"]),
-        (u"E I Andronov", [u"DESY"]),
-        (u"Einstein", [u"ETH Z\xdcRICH15PRINCETON"]),
+        {
+            "fullname": "Y.X. Ali",
+            "affiliations": ["CERN", "DESY"],
+            "ids": [],
+            "emails": [],
+        },
+        {"fullname": "E I Andronov", "affiliations": ["DESY"], "ids": [], "emails": []},
+        {
+            "fullname": "Einstein",
+            "affiliations": ["ETH Z\xdcRICH15PRINCETON"],
+            "ids": [],
+            "emails": [],
+        },
     ]
     warning = "Unresolved aff-ID or stray footnote symbol. Problematic author and aff-id: Einstein 15"
 
@@ -398,7 +483,16 @@ def test_create_authors_multiple_affiliations_on_single_line():
 def test_create_authors_space_between_affids():
     text = "Y.X. Ali1, 20, E I Andronov20\n" "\n" "1 CERN\n" "20 DESY"
 
-    expected = [(u"Y.X. Ali", [u"CERN", u"DESY"]), (u"E I Andronov", [u"DESY"])]
+    expected = [("Y.X. Ali", ["CERN", "DESY"]), ("E I Andronov", ["DESY"])]
+    expected = [
+        {
+            "fullname": "Y.X. Ali",
+            "affiliations": ["CERN", "DESY"],
+            "ids": [],
+            "emails": [],
+        },
+        {"fullname": "E I Andronov", "affiliations": ["DESY"], "ids": [], "emails": []},
+    ]
     result = create_authors(text)
 
     assert expected == result["authors"]
@@ -418,18 +512,22 @@ def test_create_authors_affiliation_with_numbers_and_letters():
     )
 
     expected = [
-        (
-            u"O. Buchmueller",
-            [
-                u"High Energy Physics Group, Blackett Laboratory, Imperial College, Prince Consort Road, London SW7 2AZ, UK"
+        {
+            "fullname": "O. Buchmueller",
+            "affiliations": [
+                "High Energy Physics Group, Blackett Laboratory, Imperial College, Prince Consort Road, London SW7 2AZ, UK"
             ],
-        ),
-        (
-            u"K. Agashe",
-            [
-                u"University of Maryland, Department of Physics, College Park, MD 20742-4111, USA"
+            "ids": [],
+            "emails": [],
+        },
+        {
+            "fullname": "K. Agashe",
+            "affiliations": [
+                "University of Maryland, Department of Physics, College Park, MD 20742-4111, USA"
             ],
-        ),
+            "ids": [],
+            "emails": [],
+        },
     ]
     result = create_authors(text)
 
@@ -440,8 +538,16 @@ def test_create_authors_note_footnotes():
     """Test authors which have some footnote symbols like † and ∗"""
     text = "Y.X. Ali†1, 20, E I Andronov20∗\n" "\n" "1 CERN\n" "20 DESY"
 
-    expected = [(u"Y.X. Ali", [u"CERN", u"DESY"]), (u"E I Andronov", [u"DESY"])]
-    warning = u"Unresolved aff-ID or stray footnote symbol. Problematic author and aff-id: Y.X. Ali †"
+    expected = expected = [
+        {
+            "fullname": "Y.X. Ali",
+            "affiliations": ["CERN", "DESY"],
+            "ids": [],
+            "emails": [],
+        },
+        {"fullname": "E I Andronov", "affiliations": ["DESY"], "ids": [], "emails": []},
+    ]
+    warning = "Unresolved aff-ID or stray footnote symbol. Problematic author and aff-id: Y.X. Ali †"
     result = create_authors(text)
 
     assert expected == result["authors"]
@@ -452,7 +558,15 @@ def test_create_authors_note_symbols():
     """Test authors which have symbols like † and ∗"""
     text = "Y.X. Aduszkiewicž†1, 20, E I Andronov20∗\n" "\n" "† CERN\n" "∗ DESY"
 
-    expected = [(u"Y.X. Aduszkiewic\u017e", [u"CERN"]), (u"E I Andronov", [u"DESY"])]
+    expected = [
+        {
+            "fullname": "Y.X. Aduszkiewic\u017e",
+            "affiliations": ["CERN"],
+            "ids": [],
+            "emails": [],
+        },
+        {"fullname": "E I Andronov", "affiliations": ["DESY"], "ids": [], "emails": []},
+    ]
     warning = "CAUTION! Using symbols (# and stuff) as aff-IDs."
     result = create_authors(text)
 
@@ -477,18 +591,37 @@ def test_create_authors_comma_wrong_position():
 
     expected = [
         (
-            u"Y. Bao",
+            "Y. Bao",
             [
-                u"Department of Physics, University of Florida, Gainesville, Florida 32611"
+                "Department of Physics, University of Florida, Gainesville, Florida 32611"
             ],
         ),
         (
-            u"A. Lambrecht",
+            "A. Lambrecht",
             [
-                u"Department of Physics, University of Florida, Gainesville, Florida 32611",
-                u"Laboratoire Kastler-Brossel, CNRS, ENS, Universit \u0301e Pierre et Marie Curie case 74, Campus Jussieu, F-75252 Paris Cedex 05, France",
+                "Department of Physics, University of Florida, Gainesville, Florida 32611",
+                "Laboratoire Kastler-Brossel, CNRS, ENS, Universit \u0301e Pierre et Marie Curie case 74, Campus Jussieu, F-75252 Paris Cedex 05, France",
             ],
         ),
+    ]
+    expected = [
+        {
+            "fullname": "Y. Bao",
+            "affiliations": [
+                "Department of Physics, University of Florida, Gainesville, Florida 32611"
+            ],
+            "ids": [],
+            "emails": [],
+        },
+        {
+            "fullname": "A. Lambrecht",
+            "affiliations": [
+                "Department of Physics, University of Florida, Gainesville, Florida 32611",
+                "Laboratoire Kastler-Brossel, CNRS, ENS, Universit \u0301e Pierre et Marie Curie case 74, Campus Jussieu, F-75252 Paris Cedex 05, France",
+            ],
+            "ids": [],
+            "emails": [],
+        },
     ]
     result = create_authors(text)
 
@@ -509,18 +642,22 @@ def test_create_authors_when_aff_line_ends_in_number():
     )
 
     expected = [
-        (
-            u"T.M. Liss",
-            [
-                u"Division of Science, City College of New York, 160 Convent Avenue, New York, NY 10031"
+        {
+            "fullname": "T.M. Liss",
+            "affiliations": [
+                "Division of Science, City College of New York, 160 Convent Avenue, New York, NY 10031"
             ],
-        ),
-        (
-            u"L. Littenberg",
-            [
-                u"Physics Department, Brookhaven National Laboratory, Upton, NY 11973, USA"
+            "ids": [],
+            "emails": [],
+        },
+        {
+            "fullname": "L. Littenberg",
+            "affiliations": [
+                "Physics Department, Brookhaven National Laboratory, Upton, NY 11973, USA"
             ],
-        ),
+            "ids": [],
+            "emails": [],
+        },
     ]
     result = create_authors(text)
 
@@ -538,15 +675,17 @@ def test_create_authors_with_many_affiliations():
     )
 
     expected = [
-        (
-            u"F. Dur\xe3es",
-            [
-                u"CERN",
-                u"Fermilab",
-                u"Lund University",
-                u"Instituto de F\xedsica, Universidade de S\xe3o Paulo",
+        {
+            "fullname": "F. Dur\xe3es",
+            "affiliations": [
+                "CERN",
+                "Fermilab",
+                "Lund University",
+                "Instituto de F\xedsica, Universidade de S\xe3o Paulo",
             ],
-        )
+            "ids": [],
+            "emails": [],
+        },
     ]
     result = create_authors(text)
 
@@ -556,7 +695,15 @@ def test_create_authors_with_many_affiliations():
 def test_create_authors_handles_spaces_at_the_end_of_an_author_or_affiliation():
     text = "J. Smith1 \n" "\n" "1 University of somewhere "
 
-    expected = [(u"J. Smith", [u"University of somewhere"])]
+    expected = [("J. Smith", ["University of somewhere"])]
+    expected = [
+        {
+            "fullname": "J. Smith",
+            "affiliations": ["University of somewhere"],
+            "ids": [],
+            "emails": [],
+        },
+    ]
     result = create_authors(text)
 
     assert expected == result["authors"]
@@ -566,9 +713,23 @@ def test_create_authors_with_letters():
     text = "J. Mills a L. di Caprio\n" "B. Smith bb\n" "\n" "a CERN\n" "bb Fermilab\n"
 
     expected = [
-        (u"J. Mills", ["CERN"]),
-        (u"L. di Caprio", []),
-        (u"B. Smith", ["Fermilab"]),
+        {
+            "fullname": "J. Mills",
+            "affiliations": [
+                "CERN",
+            ],
+            "ids": [],
+            "emails": [],
+        },
+        {"fullname": "L. di Caprio", "affiliations": [], "ids": [], "emails": []},
+        {
+            "fullname": "B. Smith",
+            "affiliations": [
+                "Fermilab",
+            ],
+            "ids": [],
+            "emails": [],
+        },
     ]
     warnings = [
         'Is this part of a name or missing aff-id? "di" in a L. di Caprio',
@@ -584,7 +745,22 @@ def test_create_authors_with_letters():
 def test_create_authors_unused_affiliation():
     text = "K. Sachs 1, F. Schwennsen 1\n" "\n" "1 DESY\n" "2 CERN\n"
 
-    expected = [(u"K. Sachs", ["DESY"]), (u"F. Schwennsen", ["DESY"])]
+    expected = [
+        {
+            "fullname": "K. Sachs",
+            "affiliations": [
+                "DESY",
+            ],
+            "ids": [],
+            "emails": [],
+        },
+        {
+            "fullname": "F. Schwennsen",
+            "affiliations": ["DESY"],
+            "ids": [],
+            "emails": [],
+        },
+    ]
     result = create_authors(text)
 
     assert expected == result["authors"]
@@ -599,16 +775,16 @@ def test_create_authors_no_empty_line():
     )
 
     expected = [
-        (u"K. Sachs", []),
-        (u"M. Moskovic", []),
-        (u"DESY", []),
-        (u"D", []),
-        (u"Hamburg", []),
-        (u"Germany", []),
-        (u"CERN", []),
-        (u"CH", []),
-        (u"Geneva", []),
-        (u"Switzerland", []),
+        {"fullname": "K. Sachs", "affiliations": [], "ids": [], "emails": []},
+        {"fullname": "M. Moskovic", "affiliations": [], "ids": [], "emails": []},
+        {"fullname": "DESY", "affiliations": [], "ids": [], "emails": []},
+        {"fullname": "D", "affiliations": [], "ids": [], "emails": []},
+        {"fullname": "Hamburg", "affiliations": [], "ids": [], "emails": []},
+        {"fullname": "Germany", "affiliations": [], "ids": [], "emails": []},
+        {"fullname": "CERN", "affiliations": [], "ids": [], "emails": []},
+        {"fullname": "CH", "affiliations": [], "ids": [], "emails": []},
+        {"fullname": "Geneva", "affiliations": [], "ids": [], "emails": []},
+        {"fullname": "Switzerland", "affiliations": [], "ids": [], "emails": []},
     ]
     result = create_authors(text)
 
@@ -631,3 +807,109 @@ def test_create_authors_author_blocks_by_affiliation():
     with pytest.raises(ValueError) as excinfo:
         create_authors(text)
     assert "Authors grouped by affiliation? - Comming soon" in str(excinfo.value)
+
+
+def test_create_authors_with_affiliation_get_emails_and_orcid():
+    text = (
+        "Dan Hooper\n"
+        "1,2,3,4\n"
+        "Aurora Ireland\n"
+        "3,5,6\n"
+        "Gordan Krnjaic\n"
+        "1,2,3,7\n"
+        "\n"
+        "1 john.smith@example.org\n"
+        "2 jane.smith@example.org\n"
+        "3 Fermi National Accelerator Laboratory,Theoretical Astrophysics Group,Batavia,IL,US\n"
+        "4 0000-0001-8837-4127\n"
+        "5 University of Chicago,Department of Physics,Chicago IL,USA\n"
+        "6 0000-0002-3004-0930\n"
+        "7 0000-0001-7420-9577\n"
+    )
+
+    expected = [
+        {
+            "full_name": "Hooper, Dan",
+            "raw_affiliations": [
+                {
+                    "value": "Fermi National Accelerator Laboratory,Theoretical Astrophysics Group,Batavia,IL,US",
+                }
+            ],
+            "emails": ["john.smith@example.org", "jane.smith@example.org"],
+            "ids": [
+                {
+                    "schema": "ORCID",
+                    "value": "0000-0001-8837-4127",
+                }
+            ],
+        },
+        {
+            "full_name": "Ireland, Aurora",
+            "raw_affiliations": [
+                {
+                    "value": "Fermi National Accelerator Laboratory,Theoretical Astrophysics Group,Batavia,IL,US",
+                },
+                {"value": "University of Chicago,Department of Physics,Chicago IL,USA"},
+            ],
+            "ids": [
+                {
+                    "schema": "ORCID",
+                    "value": "0000-0002-3004-0930",
+                }
+            ],
+        },
+        {
+            "full_name": "Krnjaic, Gordan",
+            "raw_affiliations": [
+                {
+                    "value": "Fermi National Accelerator Laboratory,Theoretical Astrophysics Group,Batavia,IL,US",
+                }
+            ],
+            "emails": ["john.smith@example.org", "jane.smith@example.org"],
+            "ids": [
+                {
+                    "schema": "ORCID",
+                    "value": "0000-0001-7420-9577",
+                }
+            ],
+        },
+    ]
+
+    result = authorlist(text)
+    assert expected == result["authors"]
+    assert "warnings" not in result.keys()
+
+
+def test_create_authors_with_affiliation_authorlist():
+    text = (
+        "Dan Hooper\n"
+        "1\n"
+        "Aurora Ireland\n"
+        "1,2\n"
+        "\n"
+        "1 Fermi National Accelerator Laboratory,Theoretical Astrophysics Group,Batavia,IL,US\n"
+        "2 University of Chicago,Department of Physics,Chicago IL,USA\n"
+    )
+
+    expected = [
+        {
+            "full_name": "Hooper, Dan",
+            "raw_affiliations": [
+                {
+                    "value": "Fermi National Accelerator Laboratory,Theoretical Astrophysics Group,Batavia,IL,US",
+                }
+            ],
+        },
+        {
+            "full_name": "Ireland, Aurora",
+            "raw_affiliations": [
+                {
+                    "value": "Fermi National Accelerator Laboratory,Theoretical Astrophysics Group,Batavia,IL,US",
+                },
+                {"value": "University of Chicago,Department of Physics,Chicago IL,USA"},
+            ],
+        },
+    ]
+    result = authorlist(text)
+    assert expected == result["authors"]
+    assert "warnings" not in result.keys()

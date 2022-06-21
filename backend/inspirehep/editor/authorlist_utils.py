@@ -8,9 +8,13 @@ re_hyphens = re.compile(
     r"(\\255|\u02D7|\u0335|\u0336|\u2212|\u2013|\u002D|\uFE63|\uFF0D)", re.UNICODE
 )
 re_multiple_space = re.compile(r"\s{2,}", re.UNICODE)
+re_multiple_comma = re.compile(r",/s+,|,,", re.UNICODE)
 re_potential_key = re.compile(r"^(?:\d|[^\w.'-])+$", re.UNICODE)
-re_trailing_nonword = re.compile(r"((?:\d|[^\w,.'-])+ )", re.UNICODE)
+re_trailing_nonword = re.compile(r"((?:\d|[^\w,.'-])+ |\d+(\.\d+)?)", re.UNICODE)
 re_symbols = re.compile(r"[^\w ]", re.UNICODE)
+re_is_orcid = re.compile(r"^(orcid:)?\d{4}-\d{4}-\d{4}-\d{3}[0-9X]$")
+re_is_email = r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b"
+re_replaceble_char = re.compile(r"\sand\s|\n|,", re.UNICODE)
 
 
 def split_id(word):
@@ -32,14 +36,19 @@ def split_id(word):
     return aff_ids
 
 
-def cleanup_affiliations_text(text):
-    text_with_replaced_chars = (
-        text.replace(",", " , ").replace("\n", " , ").replace(" and ", " , ") + " "
-    )
+def affiliations_text_to_list(text):
+    """
+    Creates a list from the affliation text
+    """
+
+    text_with_replaced_chars = re.sub(re_replaceble_char, " , ", text)
     text_with_trailed_non_word = re_trailing_nonword.sub(
         r" \1", text_with_replaced_chars
     )
-    return re_multiple_space.sub(" ", text_with_trailed_non_word)
+    cleaned_text = re_multiple_comma.sub(
+        ",", re_multiple_space.sub(" ", text_with_trailed_non_word)
+    )
+    return cleaned_text.strip().split(" ")
 
 
 def add_author_affiliation(affiliations, affiliation_key, author_affiliations):
@@ -50,6 +59,10 @@ def add_author_affiliation(affiliations, affiliation_key, author_affiliations):
 
 
 def check_affiliation_key_type(aff_keys, warnings):
+    """
+    Checks affiliation keys type and returns it if there is
+    an affiliation key if not reurns a warning and an empty string.
+    """
     if not aff_keys:
         warnings.append("Found no affiliations (empty line needed)")
         return ""
@@ -70,12 +83,17 @@ def create_author_fullname(author_names):
 
 
 def handle_affiliations(
-    author_full_name, author_name_list, word_in_processing, affiliations, author_affs
+    author_full_name,
+    author_name_list,
+    word_in_processing,
+    affiliations,
+    author_affs,
 ):
     warnings = []
     if author_name_list:
         author_full_name, new_warnings = create_author_fullname(author_name_list)
-        warnings.extend(new_warnings)
+        if new_warnings:
+            warnings.extend(new_warnings)
     added_affiliation = add_author_affiliation(
         affiliations, word_in_processing, author_affs
     )
@@ -96,6 +114,8 @@ def parse_authors(text, affiliations):
     """
     Parse author names and convert to Lastname, Firstnames.
     Can be separated by ',', newline or affiliation tag.
+    Parameters:
+    text, affiliations
     Returns:
     List of tuples: (author_fullname, [author_affiliations])
     List of strings: warnings
@@ -103,8 +123,7 @@ def parse_authors(text, affiliations):
     authors = []
     warnings = []
 
-    text = cleanup_affiliations_text(text)
-
+    list_of_words = affiliations_text_to_list(text)
     aff_keys = list(affiliations)
     already_occurred_affiliations = []
     key_type = check_affiliation_key_type(aff_keys, warnings)
@@ -112,16 +131,20 @@ def parse_authors(text, affiliations):
     author_names = []
     author_affs = []
     fullname = ""
-    list_of_words = text.split(" ")
+
     for nw, word in enumerate(list_of_words):
-        if word in aff_keys or word == "," or re_potential_key.search(word):
+        # word is an affiliation key or ,
+        if word in aff_keys or re_potential_key.search(word) or word == ",":
             fullname, added_affiliation, new_warnings = handle_affiliations(
                 fullname, author_names, word, affiliations, author_affs
             )
+
+            if new_warnings:
+                warnings.extend(new_warnings)
             already_occurred_affiliations.append(added_affiliation)
-            warnings.extend(new_warnings)
             if fullname:
                 author_names = []
+        # word is a name
         else:
             # (part of) (next) author name:test_create_authors_unused_affiliation, process previous author
             if key_type == "alpha" and word.islower() and word.isalpha():
@@ -133,29 +156,62 @@ def parse_authors(text, affiliations):
                 )
             if fullname:
                 if affiliations and not author_affs:
-                    # there should be affiliations
                     warnings.append(
                         f"""Author without affiliation-id. Problematic author: {fullname}"""
                     )
-                authors.append((fullname, author_affs))
+
+                add_author_to_authors(fullname, authors, author_affs)
                 author_affs = []
                 fullname = ""
             if word:
                 author_names.append(word)
 
     if author_names:
-        fullname = " ".join(author_names)
-        if len(author_names) == 1:
-            warnings.append(f"Author without firstname: {fullname}")
+        fullname, new_warnings = create_author_fullname(author_names)
+        if new_warnings:
+            warnings.extend(new_warnings)
         author_affs = []
-    if fullname:
-        authors.append((fullname, author_affs))
+
+    # if author doesn't have a firstname and affiliations
+    add_author_to_authors(fullname, authors, author_affs)
 
     unused_affiliations = set(affiliations) - set(already_occurred_affiliations)
     if unused_affiliations:
         warnings.append(f"Unused affiliation-IDs: {list(unused_affiliations)}")
 
     return authors, warnings
+
+
+def add_author_to_authors(fullname, authors, author_affs):
+
+    if not fullname:
+        return authors
+
+    author_affs, ids, emails = check_affiliations_for_ids_and_emails(author_affs)
+    author = {
+        "fullname": fullname,
+        "affiliations": author_affs,
+        "ids": ids,
+        "emails": emails,
+    }
+
+    authors.append(author)
+    return authors
+
+
+def check_affiliations_for_ids_and_emails(author_affs):
+    ids = []
+    emails = []
+    affiliations = []
+    for word in author_affs:
+        if re_is_orcid.match(word):
+            ids.append(["ORCID", word])
+        elif re.fullmatch(re_is_email, word):
+            emails.append(word)
+        else:
+            affiliations.append(word)
+
+    return affiliations, ids, emails
 
 
 def determine_aff_type_character(char_list):
@@ -334,14 +390,18 @@ def authorlist(text):
     and optional additional information.
     """
     builder = LiteratureBuilder()
-
     text = replace_undesirable_characters(text)
     result = create_authors(text)
 
     if "authors" in result:
-        for fullname, author_affs in result["authors"]:
+        for author in result["authors"]:
             builder.add_author(
-                builder.make_author(fullname, raw_affiliations=author_affs)
+                builder.make_author(
+                    author.get("fullname"),
+                    raw_affiliations=author.get("affiliations", []),
+                    ids=author.get("ids", []),
+                    emails=author.get("emails", []),
+                )
             )
         result["authors"] = builder.record["authors"]
     return result
