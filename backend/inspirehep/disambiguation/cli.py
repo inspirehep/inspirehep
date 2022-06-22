@@ -10,15 +10,11 @@ from elasticsearch_dsl import Q
 from flask.cli import with_appcontext
 from inspire_utils.record import get_values_for_schema
 from invenio_db import db
-from invenio_records.models import RecordMetadata
-from sqlalchemy import String, cast, not_, type_coerce
-from sqlalchemy.dialects.postgresql import JSONB
 
 from inspirehep.disambiguation.tasks import disambiguate_authors
 from inspirehep.records.api import AuthorsRecord
 from inspirehep.records.models import RecordsAuthors
-from inspirehep.search.api import AuthorsSearch
-from inspirehep.utils import next_batch
+from inspirehep.search.api import AuthorsSearch, LiteratureSearch
 
 
 @click.group()
@@ -76,6 +72,44 @@ def query_authors_with_linked_papers_by_bai(authors_bais):
         yield data.author_id
 
 
+def _get_all_not_disambiguated_records_search():
+    query = {
+        "query": {
+            "bool": {
+                "must": [
+                    {
+                        "nested": {
+                            "path": "authors",
+                            "query": {
+                                "bool": {
+                                    "must_not": {
+                                        "exists": {"field": "authors.record.$ref"}
+                                    }
+                                }
+                            },
+                        }
+                    },
+                    {"match": {"_collections": "Literature"}},
+                ]
+            }
+        }
+    }
+
+    search_obj = (
+        LiteratureSearch()
+        .from_dict(query)
+        .params(track_total_hits=True, _source={}, size=1000, scroll="60m")
+    )
+    return search_obj
+
+
+def _send_celery_group_disambiguation_task(uuids, batch_size):
+    task_group = disambiguate_authors.chunks(
+        zip(uuids, [True for _ in uuids]), batch_size
+    ).group()
+    task_group.apply_async(countdown=5, queue="disambiguation")
+
+
 @disambiguation.command(name="not-disambiguated")
 @with_appcontext
 @click.option(
@@ -83,29 +117,19 @@ def query_authors_with_linked_papers_by_bai(authors_bais):
 )
 def disambiguate_all_not_disambiguated(batch_size):
     """Trigger disambiguation task for all the records that are not disambiguated"""
-    not_disambiguiated_records_condition = (
-        not_(
-            type_coerce(RecordMetadata.json, JSONB)["authors"].has_key("record")  # noqa
-        )
-    ) & (
-        type_coerce(RecordMetadata.json, JSONB)["_collections"].contains(["Literature"])
-    )
-    query = RecordMetadata.query.with_entities(cast(RecordMetadata.id, String)).filter(
-        not_disambiguiated_records_condition
-    )
-    with click.progressbar(
-        query.yield_per(1000),
-        length=query.count(),
-        label="Scheduling disambiguation tasks",
-    ) as items:
-        batch = next_batch(items, 1000)
-        while batch:
-            uuids = [str(item[0]) for item in batch]
-            task_group = disambiguate_authors.chunks(
-                zip(uuids, [True for _ in uuids]), batch_size
-            ).group()
-            task_group.apply_async(countdown=5, queue="disambiguation")
-            batch = next_batch(items, 1000)
+    not_disambiguated_records_search = _get_all_not_disambiguated_records_search()
+    scan_obj = not_disambiguated_records_search.scan()
+    generator_empty = False
+    while not generator_empty:
+        try:
+            uuids = []
+            for _ in range(1000):
+                document = next(scan_obj)
+                uuids.append(str(document.meta.id))
+            _send_celery_group_disambiguation_task(uuids, batch_size)
+        except StopIteration:
+            generator_empty = True
+            _send_celery_group_disambiguation_task(uuids, batch_size)
 
 
 @disambiguation.command(name="record")
