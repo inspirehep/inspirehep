@@ -51,6 +51,10 @@ import LiteratureSeminars from '../../components/LiteratureSeminars';
 import { newSearch, searchBaseQueriesUpdate } from '../../../actions/search';
 import ImprintInfo from '../../components/ImprintInfo';
 import HiddenCollectionAlert from '../../components/LiteratureCollectionBanner';
+import ClaimingDisabledButton from '../../../authors/components/ClaimingDisabledButton';
+import AssignNoProfileAction from '../../../authors/components/AssignNoProfileAction';
+import AssignLiteratureItemContainer from '../AssignLiteratureItemContainer.tsx';
+import AssignLiteratureItemDrawerContainer from '../AssignLiteratureItemDrawerContainer.tsx';
 
 function DetailPage({
   authors,
@@ -58,6 +62,8 @@ function DetailPage({
   referencesCount,
   supervisors,
   seminarsCount,
+  loggedIn,
+  hasAuthorProfile,
 }) {
   const metadata = record.get('metadata');
 
@@ -97,8 +103,18 @@ function DetailPage({
     ? publicationInfo.filter((pub) => pub.has('journal_title'))
     : null;
 
+  const displayClaimingButton = () => {
+    if (!loggedIn) return <ClaimingDisabledButton />;
+    if (!hasAuthorProfile) return <AssignNoProfileAction />;
+    return <AssignLiteratureItemContainer controlNumber={controlNumber} />;
+  };
+
   return (
     <>
+      <AssignLiteratureItemDrawerContainer
+        authors={authors}
+        paperId={controlNumber}
+      />
       <LiteratureDocumentHead
         metadata={metadata}
         created={record.get('created')}
@@ -134,6 +150,7 @@ function DetailPage({
                         trackerEventId="LiteratureFileLink"
                       />
                     )}
+                    {displayClaimingButton()}
                     <CiteModalActionContainer recordId={controlNumber} />
                     {canEdit && (
                       <EditRecordAction
@@ -307,6 +324,9 @@ const mapStateToProps = (state) => ({
     LITERATURE_SEMINARS_NS,
     'initialTotal',
   ]),
+  loggedIn: state.user.get('loggedIn'),
+  hasAuthorProfile:
+    state.user.getIn(['data', 'profile_control_number']) !== null,
 });
 
 const DetailPageContainer = connect(mapStateToProps)(DetailPage);

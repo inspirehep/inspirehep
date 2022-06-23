@@ -1,0 +1,200 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AssignLiteratureItemDrawer renders authors list 1`] = `
+<withConfigConsumer(Drawer)
+  className="search-drawer"
+  onClose={[MockFunction]}
+  placement="right"
+  visible={true}
+>
+  <p>
+    <strong>
+      Select the author to claim:
+    </strong>
+  </p>
+  <RadioGroup
+    buttonStyle="outline"
+    className="w-100"
+    data-test-id="literature-drawer-radio-group"
+    onChange={[Function]}
+  >
+    <Row
+      gutter={0}
+    >
+      <Col
+        flex="0 1 1px"
+      >
+        <Radio
+          type="radio"
+          value="recid"
+        />
+      </Col>
+      <Col
+        className="pb2"
+        flex="1 1 1px"
+      >
+        <ResultItem>
+          <Author
+            author={
+              Immutable.Map {
+                "full_name": "Test, Guy 1",
+              }
+            }
+          />
+        </ResultItem>
+      </Col>
+    </Row>
+    <Row
+      gutter={0}
+    >
+      <Col
+        flex="0 1 1px"
+      >
+        <Radio
+          type="radio"
+          value="recid"
+        />
+      </Col>
+      <Col
+        className="pb2"
+        flex="1 1 1px"
+      >
+        <ResultItem>
+          <Author
+            author={
+              Immutable.Map {
+                "full_name": "Test, Guy 2",
+              }
+            }
+          />
+        </ResultItem>
+      </Col>
+    </Row>
+    <Row
+      gutter={0}
+    >
+      <Col
+        flex="0 1 1px"
+      >
+        <Radio
+          type="radio"
+          value="recid"
+        />
+      </Col>
+      <Col
+        className="pb2"
+        flex="1 1 1px"
+      >
+        <ResultItem>
+          <Author
+            author={
+              Immutable.Map {
+                "full_name": "Test, Guy 3",
+              }
+            }
+          />
+        </ResultItem>
+      </Col>
+    </Row>
+    <Row
+      gutter={0}
+    >
+      <Col
+        flex="0 1 1px"
+      >
+        <Radio
+          type="radio"
+          value="recid"
+        />
+      </Col>
+      <Col
+        className="pb2"
+        flex="1 1 1px"
+      >
+        <ResultItem>
+          <Author
+            author={
+              Immutable.Map {
+                "full_name": "Test, Guy 4",
+              }
+            }
+          />
+        </ResultItem>
+      </Col>
+    </Row>
+    <Row
+      gutter={0}
+    >
+      <Col
+        flex="0 1 1px"
+      >
+        <Radio
+          type="radio"
+          value="recid"
+        />
+      </Col>
+      <Col
+        className="pb2"
+        flex="1 1 1px"
+      >
+        <ResultItem>
+          <Author
+            author={
+              Immutable.Map {
+                "full_name": "Test, Guy 5",
+              }
+            }
+          />
+        </ResultItem>
+      </Col>
+    </Row>
+    <Row
+      gutter={0}
+    >
+      <Col
+        flex="0 1 1px"
+      >
+        <Radio
+          type="radio"
+          value="recid"
+        />
+      </Col>
+      <Col
+        className="pb2"
+        flex="1 1 1px"
+      >
+        <ResultItem>
+          <Author
+            author={
+              Immutable.Map {
+                "full_name": "Test, Guy 6",
+              }
+            }
+          />
+        </ResultItem>
+      </Col>
+    </Row>
+  </RadioGroup>
+  <Row
+    className="mt2"
+    gutter={0}
+    justify="end"
+  >
+    <Col>
+      <Button
+        block={false}
+        data-test-id="assign-literature-item-button"
+        disabled={true}
+        ghost={false}
+        htmlType="button"
+        icon={<ForwardRef(SelectOutlined) />}
+        loading={false}
+        onClick={[Function]}
+        type="primary"
+      >
+        Claim
+      </Button>
+    </Col>
+  </Row>
+</withConfigConsumer(Drawer)>
+`;

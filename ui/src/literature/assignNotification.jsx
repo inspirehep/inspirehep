@@ -7,11 +7,12 @@ import { CONFERENCES } from '../common/routes';
 import ExternalLink from '../common/components/ExternalLink.tsx';
 
 // to render notification over the drawer, if one is open.
-const ASSIGNING_NOTIFICATION_KEY = 'assigning-conferences-notification';
+export const ASSIGNING_NOTIFICATION_KEY = 'assigning-conferences-notification';
+export const ASSIGNING_NOTIFICATION_LITERATURE_ITEM_KEY = 'assigning-notification';
 
-export function assigning() {
+export function assigning(key) {
   notification.info({
-    key: ASSIGNING_NOTIFICATION_KEY,
+    key,
     message: 'Assigning...',
     description: 'We are processing your request',
     duration: null,
@@ -34,8 +35,33 @@ export function assignSuccess({ conferenceId, conferenceTitle, papers }) {
   });
 }
 
-export function assignError() {
-  notification.close(ASSIGNING_NOTIFICATION_KEY);
+export function assignLiteratureItemSuccess() {
+  notification.close(ASSIGNING_NOTIFICATION_LITERATURE_ITEM_KEY);
+  notification.success({
+    message: 'Assignment Successful!',
+    duration: null,
+    description: '1 paper added to your profile',
+  });
+}
+
+export function assignLiteratureItemError(key) {
+  notification.close(key);
+  notification.error({
+    className: 'super-zindex',
+    message: 'Assignment Error!',
+    description: (
+      <span>
+        This paper cannot be claimed automatically. Please contact us at {' '}
+        <a href="mailto:authors@inspirehep.net">
+          authors@inspirehep.net
+        </a>
+      </span>
+    ),
+  });
+}
+
+export function assignError(key) {
+  notification.close(key);
   notification.error({
     className: 'super-zindex',
     message: 'Assignment Error!',
