@@ -12,6 +12,7 @@ import {
   LITERATURE_SELECTION_SET,
   LITERATURE_SET_ASSIGN_DRAWER_VISIBILITY,
   LITERATURE_SELECTION_CLEAR,
+  LITERATURE_SET_ASSIGN_DETAIL_VIEW_DRAWER_VISIBILITY,
 } from './actionTypes';
 import { isCancelError } from '../common/http.ts';
 import { httpErrorToActionPayload } from '../common/utils';
@@ -24,10 +25,15 @@ import {
   exportToCdsSuccess,
   exportToCdsError,
   exporting,
+  assignLiteratureItemSuccess,
+  assignLiteratureItemError,
+  ASSIGNING_NOTIFICATION_KEY,
+  ASSIGNING_NOTIFICATION_LITERATURE_ITEM_KEY,
 } from '../literature/assignNotification';
 
 import { LITERATURE_REFERENCES_NS } from '../search/constants';
 import { searchQueryUpdate } from './search';
+import { assignSuccessDifferentProfileClaimedPapers } from '../authors/assignNotification';
 
 function fetchingLiteratureReferences(query) {
   return {
@@ -148,11 +154,73 @@ export function setAssignDrawerVisibility(visible) {
   };
 }
 
+export function setAssignDetailViewDrawerVisibility(visible) {
+  return {
+    type: LITERATURE_SET_ASSIGN_DETAIL_VIEW_DRAWER_VISIBILITY,
+    payload: { visible },
+  };
+}
+
+export function assignLiteratureItem({ from, to, literatureId }) {
+  return async (dispatch, getState, http) => {
+    try {
+      assigning(ASSIGNING_NOTIFICATION_LITERATURE_ITEM_KEY);
+      const { data } = await http
+        .post('/assign/author', {
+          from_author_recid: from,
+          to_author_recid: to,
+          literature_recids: [literatureId],
+        })
+      if (data) assignLiteratureItemSuccess();
+    } catch (error) {
+      assignError(ASSIGNING_NOTIFICATION_LITERATURE_ITEM_KEY);
+    }
+  };
+}
+
+export function assignLiteratureItemNoNameMatch({ from, to, literatureId }) {
+  return async (dispatch, getState, http) => {
+    try {
+      assigning(ASSIGNING_NOTIFICATION_LITERATURE_ITEM_KEY);
+      const { data } = await http.post('/assign/author', {
+        from_author_recid: from,
+        to_author_recid: to,
+        papers_ids_not_matching_name: [literatureId],
+      });
+      if (Object.prototype.hasOwnProperty.call(data, 'created_rt_ticket')) {
+        assignSuccessDifferentProfileClaimedPapers();
+        dispatch(setAssignDetailViewDrawerVisibility(false));
+      } else {
+        assignLiteratureItemError(ASSIGNING_NOTIFICATION_LITERATURE_ITEM_KEY);
+      }
+    } catch (error) {
+      assignLiteratureItemError(ASSIGNING_NOTIFICATION_LITERATURE_ITEM_KEY);
+    }
+  };
+}
+
+export function checkNameCompatibility({ to, literatureId }) {
+  return async (dispatch, getState, http) => {
+    try {
+      const { data } = await http.get(
+        `/assign/check-names-compatibility?literature_recid=${literatureId}`
+      );
+      dispatch(assignLiteratureItem({
+        from: data.matched_author_recid,
+        to,
+        literatureId,
+      }));
+    } catch (error) {
+      dispatch(setAssignDetailViewDrawerVisibility(true));
+    }
+  };
+}
+
 export function assignPapers(conferenceId, conferenceTitle) {
   return async (dispatch, getState, http) => {
     try {
       const papers = getState().literature.get('literatureSelection');
-      assigning();
+      assigning(ASSIGNING_NOTIFICATION_KEY);
       await http.post('/assign/conference', {
         conference_recid: conferenceId,
         literature_recids: papers,
@@ -161,7 +229,7 @@ export function assignPapers(conferenceId, conferenceTitle) {
       dispatch(clearLiteratureSelection());
       dispatch(setAssignDrawerVisibility(false));
     } catch (error) {
-      assignError();
+      assignError(ASSIGNING_NOTIFICATION_KEY);
     }
   };
 }

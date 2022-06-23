@@ -26,7 +26,12 @@ import {
   setAssignDrawerVisibility,
   assignPapers,
   exportToCds,
+  assignLiteratureItem,
+  setAssignDetailViewDrawerVisibility,
+  assignLiteratureItemNoNameMatch,
+  checkNameCompatibility
 } from '../literature';
+import { assignSuccessDifferentProfileClaimedPapers } from '../../authors/assignNotification';
 import {
   assignError,
   assignSuccess,
@@ -34,11 +39,13 @@ import {
   exportToCdsSuccess,
   exportToCdsError,
   exporting,
+  assignLiteratureItemSuccess,
 } from '../../literature/assignNotification';
 import { LITERATURE_REFERENCES_NS } from '../../search/constants';
 
 const mockHttp = new MockAdapter(http.httpClient);
 jest.mock('../../literature/assignNotification');
+jest.mock('../../authors/assignNotification');
 
 describe('literature - async action creators', () => {
   afterEach(() => {
@@ -221,6 +228,178 @@ describe('literature - async action creators', () => {
 
       const store = getStore();
       store.dispatch(clearLiteratureSelection());
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
+  describe('assignLiteratureItem', () => {
+    afterEach(() => {
+      clear();
+    });
+
+    it('successfully assigns paper to author', async () => {
+      const to = 123456;
+      const from = 654321;
+      const literatureId = 159731;
+
+      const store = getStore();
+
+      mockHttp
+        .onPost('/assign/author', {
+          from_author_recid: from,
+          to_author_recid: to,
+          literature_recids: [literatureId],
+        })
+        .replyOnce(200, { message: 'Success' });
+
+      const expectedActions = [];
+
+      const dispatchPromise = store.dispatch(
+        assignLiteratureItem({ from, to, literatureId })
+      );
+      expect(assigning).toHaveBeenCalled();
+
+      await dispatchPromise;
+      expect(store.getActions()).toEqual(expectedActions);
+      expect(assignLiteratureItemSuccess).toHaveBeenCalled();
+    });
+
+    it('error', async () => {
+      const to = 123456;
+      const from = 654321;
+      const paperId = 159731;
+
+      const store = getStore();
+
+      mockHttp
+        .onPost('/assign/author', {
+          from_author_recid: from,
+          to_author_recid: to,
+          literature_recids: paperId,
+        })
+        .replyOnce(500, {});
+
+      const expectedActions = [];
+
+      const dispatchPromise = store.dispatch(
+        assignLiteratureItem({ from, to, paperId })
+      );
+      expect(assigning).toHaveBeenCalled();
+
+      await dispatchPromise;
+      expect(store.getActions()).toEqual(expectedActions);
+      expect(assignError).toHaveBeenCalled();
+    });
+  });
+
+  describe('assignLiteratureItemNoNameMatch', () => {
+    afterEach(() => {
+      clear();
+    });
+
+    it('successfully creates rt_ticket', async () => {
+      const to = 123456;
+      const from = 654321;
+      const literatureId = 159731;
+
+      const store = getStore();
+
+      mockHttp
+        .onPost('/assign/author', {
+          from_author_recid: from,
+          to_author_recid: to,
+          papers_ids_not_matching_name: [literatureId],
+        })
+        .replyOnce(200, { message: 'Success', created_rt_ticket: true });
+
+      const expectedActions = [
+        setAssignDetailViewDrawerVisibility(false)
+      ];
+
+      const dispatchPromise = store.dispatch(
+        assignLiteratureItemNoNameMatch({ from, to, literatureId })
+      );
+      expect(assigning).toHaveBeenCalled();
+
+      await dispatchPromise;
+      expect(store.getActions()).toEqual(expectedActions);
+      expect(assignSuccessDifferentProfileClaimedPapers).toHaveBeenCalled();
+    });
+
+    it('error', async () => {
+      const to = 123456;
+      const from = 654321;
+      const literatureId = 159731;
+
+      const store = getStore();
+
+      mockHttp
+        .onPost('/assign/author', {
+          from_author_recid: from,
+          to_author_recid: to,
+          literature_recids: literatureId,
+        })
+        .replyOnce(500, {});
+
+      const expectedActions = [];
+
+      const dispatchPromise = store.dispatch(
+        assignLiteratureItemNoNameMatch({ from, to, literatureId })
+      );
+      expect(assigning).toHaveBeenCalled();
+
+      await dispatchPromise;
+      expect(store.getActions()).toEqual(expectedActions);
+      expect(assignError).toHaveBeenCalled();
+    });
+  });
+
+  describe('checkNameCompatibility', () => {
+    afterEach(() => {
+      clear();
+    });
+
+    it('returns matching authors recid if exists', async () => {
+      const to = 123456;
+      const literatureId = 159731;
+
+      const store = getStore();
+
+      mockHttp
+        .onGet(`/assign/check-names-compatibility?literature_recid=${literatureId}`)
+        .replyOnce(200, { matched_author_recid: 1010819 });
+
+      const expectedActions = [];
+
+      const dispatchPromise = store.dispatch(
+        checkNameCompatibility({ to, literatureId })
+      );
+      expect(assigning).toHaveBeenCalled();
+
+      await dispatchPromise;
+      expect(store.getActions()).toEqual(expectedActions);
+      expect(assignLiteratureItemSuccess).toHaveBeenCalled();
+    });
+
+    it('error', async () => {
+      const paperId = 159731;
+            
+      const store = getStore();
+
+      mockHttp
+        .onGet(`/assign/check-names-compatibility?literature_recid=${paperId}`)
+        .replyOnce(500, {});
+
+      const expectedActions = [
+        setAssignDetailViewDrawerVisibility(true)
+      ];
+
+      const dispatchPromise = store.dispatch(
+        setAssignDetailViewDrawerVisibility(true)
+      );
+      expect(assigning).toHaveBeenCalled();
+
+      await dispatchPromise;
       expect(store.getActions()).toEqual(expectedActions);
     });
   });

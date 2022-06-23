@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AssignLiteratureItem renders 1`] = `
+<ListItemAction>
+  <DropdownMenu
+    disabled={false}
+    title={
+      <Button
+        block={false}
+        ghost={false}
+        htmlType="button"
+        loading={false}
+      >
+        <IconText
+          icon={<ForwardRef(FileDoneOutlined) />}
+          text="claim"
+        />
+      </Button>
+    }
+  >
+    <MenuItem
+      data-test-id="assign-literature-item"
+      key="assign-literature-item"
+      onClick={[Function]}
+    >
+      Move to my profile
+    </MenuItem>
+  </DropdownMenu>
+</ListItemAction>
+`;
