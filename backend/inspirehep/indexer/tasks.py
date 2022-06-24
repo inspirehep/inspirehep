@@ -24,6 +24,7 @@ from inspirehep.indexer.base import (
     LiteratureRecordFulltextIndexer,
 )
 from inspirehep.records.api import InspireRecord
+from inspirehep.utils import setup_celery_task_signals
 
 LOGGER = structlog.getLogger()
 
@@ -100,6 +101,9 @@ def index_record(self, uuid, record_version=None, force_delete=None):
     autoretry_for=CELERY_INDEX_RECORD_RETRY_ON_EXCEPTIONS,
 )
 def index_fulltext(self, record_id, record_version):
+    if current_app.config.get("FEATURE_FLAG_ENABLE_SIGNAL_HANDLER"):
+        setup_celery_task_signals([record_id], self.name)
+
     LOGGER.info("Indexing record including fulltext", uuid=record_id)
     record = InspireRecord.get_record(record_id, record_version)
     if record.pid_type != "lit":
@@ -122,6 +126,10 @@ def batch_index_literature_fulltext(self, records_uuids, request_timeout=None):
     LOGGER.info(
         f"Starting task `batch_index_literature_fulltext` for {len(records_uuids)} records"
     )
+
+    if current_app.config.get("FEATURE_FLAG_ENABLE_SIGNAL_HANDLER"):
+        setup_celery_task_signals(records_uuids, self.name)
+
     return LiteratureRecordFulltextIndexer().bulk_index(
         records_uuids,
         max_chunk_bytes=current_app.config.get("ES_FULLTEXT_MAX_BULK_CHUNK_SIZE"),

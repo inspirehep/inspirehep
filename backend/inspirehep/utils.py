@@ -6,13 +6,19 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import hashlib
+import resource
+import signal
 from contextlib import contextmanager
+from functools import partial
 from math import ceil
 
+import structlog
 from flask import current_app
 from flask_celeryext.app import current_celery_app
 from redis import StrictRedis
 from redis_lock import Lock
+
+LOGGER = structlog.getLogger()
 
 
 def include_table_check(object, name, type_, *args, **kwargs):
@@ -153,3 +159,18 @@ def next_batch(iterator, batch_size):
         pass
 
     return batch
+
+
+def _exit_handler(record_uuids, task_name, signum, frame):
+    memory_consumption = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+    LOGGER.error(
+        "Worker was killed",
+        record_uuids=record_uuids,
+        celery_task_name=task_name,
+        memory_consumption=memory_consumption,
+    )
+
+
+def setup_celery_task_signals(record_ids, task_name):
+    signal.signal(signal.SIGINT, partial(_exit_handler, record_ids, task_name))
+    signal.signal(signal.SIGTERM, partial(_exit_handler, record_ids, task_name))
