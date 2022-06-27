@@ -5,7 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 import structlog
-from flask import Blueprint
+from flask import Blueprint, request
 from flask_celeryext.app import current_celery_app
 from invenio_db import db
 from webargs import fields
@@ -18,7 +18,10 @@ from inspirehep.assign.tasks import (
     create_rt_ticket_for_claiming_action,
     export_papers_to_cds,
 )
-from inspirehep.assign.utils import get_author_by_recid
+from inspirehep.assign.utils import (
+    check_author_compability_with_lit_authors,
+    get_author_by_recid,
+)
 from inspirehep.disambiguation.utils import create_new_stub_author, update_author_names
 from inspirehep.records.api import AuthorsRecord, LiteratureRecord
 from inspirehep.serializers import jsonify
@@ -182,3 +185,13 @@ def literature_export_to_cds(args):
         LOGGER.exception("Cannot start 'export_to_cds' task.")
         return jsonify({"message": "Internal Error"}), 500
     return jsonify({"message": "Success"}), 200
+
+
+@blueprint.route("check-names-compatibility", methods=["GET"])
+@login_required_with_roles()
+def literature_assign_check_names_compatibility():
+    literature_recid = request.args.get("literature_recid")
+    matched_author_recid = check_author_compability_with_lit_authors(literature_recid)
+    if not matched_author_recid:
+        return jsonify({"message": "Not found"}), 404
+    return jsonify({"matched_author_recid": matched_author_recid}), 200
