@@ -1649,3 +1649,42 @@ def test_authors_detail_can_claim_is_true_when_more_than_10_authors(inspire_app)
     response_data_metadata = response_data_hits[0]["metadata"]
 
     assert "can_claim" in response_data_metadata
+
+
+def test_literature_detail_can_claim_is_false_when_name_not_matching(inspire_app):
+    headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+    user_orcid = "0000-0002-9127-1687"
+    user = create_user(orcid=user_orcid)
+    create_record(
+        "aut",
+        data={
+            "name": {"value": "Matczak, Michal"},
+            "ids": [{"value": user_orcid, "schema": "ORCID"}],
+        },
+    )
+    author_from_lit = create_record(
+        "aut",
+        data={
+            "name": {"value": "Skute, Bob"},
+        },
+    )
+    create_record(
+        "lit",
+        data={
+            "authors": [{"full_name": "Skute, Bobo", "record": author_from_lit["self"]}]
+        },
+    )
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(
+            f"/literature?author={author_from_lit['control_number']}_Bob%20Skute&search_type=hep-author-publication",
+            headers=headers,
+        )
+    response_data = orjson.loads(response.data)
+
+    assert response_data["hits"]["total"] == 1
+
+    response_data_hits = response_data["hits"]["hits"]
+    response_data_metadata = response_data_hits[0]["metadata"]
+
+    assert "can_claim" not in response_data_metadata

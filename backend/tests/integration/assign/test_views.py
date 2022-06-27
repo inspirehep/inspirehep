@@ -653,3 +653,242 @@ def test_author_assign_view_claimed_with_stub_author(mock_create_ticket, inspire
         papers_ids_already_claimed,
     )
     assert response_status_code == 200
+
+
+def test_literature_assign_check_names_compatibility_unambiguous_last_name(inspire_app):
+    author_profile_oricd = "0000-0001-8829-5461"
+    user = create_user(role="user", orcid=author_profile_oricd)
+    author_profile_data = {
+        "name": {"value": "Axelsen, Viktor", "preferred_name": "Axelsen, Viktor"},
+        "ids": [
+            {"value": "V.Axelsen.1", "schema": "INSPIRE BAI"},
+            {"schema": "ORCID", "value": author_profile_oricd},
+        ],
+        "control_number": 1,
+    }
+
+    create_record("aut", data=author_profile_data)
+
+    author_data = {
+        "name": {"value": "Axelsen, Victor", "preferred_name": "Georges Aad"},
+        "ids": [{"value": "G.Aad.1", "schema": "INSPIRE BAI"}],
+        "control_number": 2,
+    }
+
+    author = create_record("aut", data=author_data)
+    literature_1 = create_record(
+        "lit",
+        data={
+            "control_number": 3,
+            "authors": [
+                {
+                    "curated_relation": False,
+                    "full_name": "Axelsen, Victor",
+                    "record": {
+                        "$ref": f"http://localhost:5000/api/authors/{author['control_number']}"
+                    },
+                },
+                {
+                    "full_name": "Urhan, Ahmet",
+                    "record": {"$ref": "http://localhost:5000/api/authors/17200"},
+                },
+            ],
+        },
+    )
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(
+            f"/assign/check-names-compatibility?literature_recid={literature_1['control_number']}",
+            content_type="application/json",
+        )
+        assert response.status_code == 200
+        assert response.json["matched_author_recid"] == author["control_number"]
+
+
+def test_literature_assign_check_names_compatibility_unambiguous_full_name(inspire_app):
+    author_profile_oricd = "0000-0001-8829-5461"
+    user = create_user(role="user", orcid=author_profile_oricd)
+    author_profile_data = {
+        "name": {"value": "Axelsen, Viktor", "preferred_name": "Axelsen, Viktor"},
+        "ids": [
+            {"value": "V.Axelsen.1", "schema": "INSPIRE BAI"},
+            {"schema": "ORCID", "value": author_profile_oricd},
+        ],
+        "control_number": 1,
+    }
+
+    create_record("aut", data=author_profile_data)
+
+    author_data = {
+        "name": {"value": "Axelsen, Victor"},
+        "ids": [{"value": "V.Axelsen.2", "schema": "INSPIRE BAI"}],
+        "control_number": 2,
+    }
+
+    author = create_record("aut", data=author_data)
+
+    author_data_2 = {
+        "name": {"value": "Axelsen, Viktor"},
+        "ids": [{"value": "V.Axelsen.3", "schema": "INSPIRE BAI"}],
+        "control_number": 3,
+    }
+
+    author_2 = create_record("aut", data=author_data_2)
+
+    literature_1 = create_record(
+        "lit",
+        data={
+            "control_number": 4,
+            "authors": [
+                {
+                    "curated_relation": False,
+                    "full_name": "Axelsen, Victor",
+                    "record": {
+                        "$ref": f"http://localhost:5000/api/authors/{author['control_number']}"
+                    },
+                },
+                {
+                    "full_name": "Axelsen, Viktor",
+                    "record": {
+                        "$ref": f"http://localhost:5000/api/authors/{author_2['control_number']}"
+                    },
+                },
+            ],
+        },
+    )
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(
+            f"/assign/check-names-compatibility?literature_recid={literature_1['control_number']}",
+            content_type="application/json",
+        )
+        assert response.status_code == 200
+        assert response.json["matched_author_recid"] == author_2["control_number"]
+
+
+def test_literature_assign_check_names_compatibility_unambiguous_with_initials(
+    inspire_app,
+):
+    author_profile_oricd = "0000-0001-8829-5461"
+    user = create_user(role="user", orcid=author_profile_oricd)
+    author_profile_data = {
+        "name": {"value": "Axelsen, Viktor A.", "preferred_name": "Axelsen, Viktor"},
+        "ids": [
+            {"value": "V.Axelsen.1", "schema": "INSPIRE BAI"},
+            {"schema": "ORCID", "value": author_profile_oricd},
+        ],
+        "control_number": 1,
+    }
+
+    create_record("aut", data=author_profile_data)
+
+    author_data = {
+        "name": {"value": "Axelsen, Viktor Anders"},
+        "ids": [{"value": "V.Axelsen.2", "schema": "INSPIRE BAI"}],
+        "control_number": 2,
+    }
+
+    author = create_record("aut", data=author_data)
+
+    author_data_2 = {
+        "name": {"value": "Axelsen, Viktor"},
+        "ids": [{"value": "V.Axelsen.3", "schema": "INSPIRE BAI"}],
+        "control_number": 3,
+    }
+
+    author_2 = create_record("aut", data=author_data_2)
+
+    literature_1 = create_record(
+        "lit",
+        data={
+            "control_number": 4,
+            "authors": [
+                {
+                    "curated_relation": False,
+                    "full_name": "Axelsen, Viktor Anders",
+                    "record": {
+                        "$ref": f"http://localhost:5000/api/authors/{author['control_number']}"
+                    },
+                },
+                {
+                    "full_name": "Axelsen, Viktor",
+                    "record": {
+                        "$ref": f"http://localhost:5000/api/authors/{author_2['control_number']}"
+                    },
+                },
+            ],
+        },
+    )
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(
+            f"/assign/check-names-compatibility?literature_recid={literature_1['control_number']}",
+            content_type="application/json",
+        )
+        assert response.status_code == 200
+        assert response.json["matched_author_recid"] == author["control_number"]
+
+
+def test_literature_assign_check_names_compatibility_ambiguous_match(inspire_app):
+    author_profile_oricd = "0000-0001-8829-5461"
+    user = create_user(role="user", orcid=author_profile_oricd)
+    author_profile_data = {
+        "name": {"value": "Axelsen, Viktor A.", "preferred_name": "Axelsen, Viktor"},
+        "ids": [
+            {"value": "V.Axelsen.1", "schema": "INSPIRE BAI"},
+            {"schema": "ORCID", "value": author_profile_oricd},
+        ],
+        "control_number": 1,
+    }
+
+    create_record("aut", data=author_profile_data)
+
+    author_data = {
+        "name": {"value": "Axelsen, Viktor Anders"},
+        "ids": [{"value": "V.Axelsen.2", "schema": "INSPIRE BAI"}],
+        "control_number": 2,
+    }
+
+    author = create_record("aut", data=author_data)
+
+    author_data_2 = {
+        "name": {"value": "Axelsen, Viktor Anton"},
+        "ids": [{"value": "V.Axelsen.3", "schema": "INSPIRE BAI"}],
+        "control_number": 3,
+    }
+
+    author_2 = create_record("aut", data=author_data_2)
+
+    literature_1 = create_record(
+        "lit",
+        data={
+            "control_number": 4,
+            "authors": [
+                {
+                    "curated_relation": False,
+                    "full_name": "Axelsen, Viktor Anders",
+                    "record": {
+                        "$ref": f"http://localhost:5000/api/authors/{author['control_number']}"
+                    },
+                },
+                {
+                    "full_name": "Axelsen, Viktor Anton",
+                    "record": {
+                        "$ref": f"http://localhost:5000/api/authors/{author_2['control_number']}"
+                    },
+                },
+            ],
+        },
+    )
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(
+            f"/assign/check-names-compatibility?literature_recid={literature_1['control_number']}",
+            content_type="application/json",
+        )
+        assert response.status_code == 404
+        assert response.json["message"] == "Not found"
