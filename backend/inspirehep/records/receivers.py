@@ -10,7 +10,6 @@ from flask import current_app
 from flask_sqlalchemy import models_committed
 from invenio_records.models import RecordMetadata
 
-from inspirehep.disambiguation.tasks import disambiguate_authors
 from inspirehep.indexer.tasks import index_fulltext
 from inspirehep.pidstore.api.base import PidStoreBase
 from inspirehep.records.api import InspireRecord
@@ -39,11 +38,6 @@ def index_after_commit(sender, changes):
                 InspireRecord(model_instance.json, model=model_instance).index(
                     force_delete=force_delete
                 )
-                if (
-                    change != "delete"
-                    and current_app.config["FEATURE_FLAG_ENABLE_AUTHOR_DISAMBIGUATION"]
-                ):
-                    disambiguate_authors.delay(str(model_instance.id))
                 if "new_record" in model_instance.json:
                     redirect_references_to_merged_record.delay(str(model_instance.id))
                 if (

@@ -28,6 +28,7 @@ from invenio_db import db
 from jsonschema import ValidationError
 from redis import StrictRedis
 
+from inspirehep.disambiguation.tasks import disambiguate_authors
 from inspirehep.files.api import current_s3_instance
 from inspirehep.hal.api import push_to_hal
 from inspirehep.orcid.api import push_to_orcid
@@ -111,6 +112,7 @@ class LiteratureRecord(
         data,
         disable_external_push=False,
         disable_relations_update=False,
+        disable_disambiguation=False,
         *args,
         **kwargs,
     ):
@@ -133,6 +135,11 @@ class LiteratureRecord(
         else:
             push_to_orcid(record)
             push_to_hal(record)
+        if (
+            not disable_disambiguation
+            and current_app.config["FEATURE_FLAG_ENABLE_AUTHOR_DISAMBIGUATION"]
+        ):
+            disambiguate_authors.delay(str(record.id))
         record.push_authors_phonetic_blocks_to_redis()
         return record
 
@@ -200,6 +207,7 @@ class LiteratureRecord(
         data,
         disable_external_push=False,
         disable_relations_update=False,
+        disable_disambiguation=False,
         *args,
         **kwargs,
     ):
@@ -221,6 +229,11 @@ class LiteratureRecord(
         else:
             push_to_orcid(self)
             push_to_hal(self)
+        if (
+            not disable_disambiguation
+            and current_app.config["FEATURE_FLAG_ENABLE_AUTHOR_DISAMBIGUATION"]
+        ):
+            disambiguate_authors.delay(str(self.id))
         self.push_authors_phonetic_blocks_to_redis()
 
     def get_modified_authors(self):

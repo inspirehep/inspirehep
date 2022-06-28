@@ -304,6 +304,6 @@ def disambiguate_authors(self, record_uuid, disambiguate_all_not_disambiguated=F
                 "authors_control_numbers": updated_authors,
             },
         )
-        record.update(dict(record))
+        record.update(dict(record), disable_disambiguation=True)
         db.session.commit()
     editor_soft_lock.remove_lock()

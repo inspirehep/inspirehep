@@ -8,7 +8,6 @@ from prometheus_client import Counter as metrics_counter
 from unidecode import unidecode
 
 from inspirehep.records.api.authors import AuthorsRecord
-from inspirehep.records.api.literature import LiteratureRecord
 
 LOGGER = structlog.getLogger()
 
@@ -27,6 +26,8 @@ def link_signature_to_author(signature_data, author_control_number):
     Returns:
         dict: The signature data from the publication with the linked author.
     """
+    from inspirehep.records.api.literature import LiteratureRecord
+
     record = LiteratureRecord.get_record_by_pid_value(signature_data["publication_id"])
     signature = next(
         (
