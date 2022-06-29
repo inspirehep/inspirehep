@@ -9,6 +9,7 @@ import structlog
 from elasticsearch import ConflictError, NotFoundError, RequestError, TransportError
 from elasticsearch.helpers import streaming_bulk
 from flask import current_app
+from inspire_utils.record import get_value
 from invenio_indexer.api import RecordIndexer
 from invenio_indexer.signals import before_record_index
 from invenio_indexer.utils import _es7_expand_action
@@ -103,7 +104,17 @@ class InspireRecordIndexer(RecordIndexer):
         failures = []
         for action_success, action_data in result:
             if not action_success:
-                failures.append(action_data["index"])
+                failures.append(
+                    {
+                        "status_code": action_data["index"]["status"],
+                        "error_type": str(
+                            get_value(action_data, "index.error.type", "")
+                        ),
+                        "falure_reason": str(
+                            get_value(action_data, "index.error.reason", "")
+                        ),
+                    }
+                )
 
         number_of_failures = len(failures)
 

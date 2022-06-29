@@ -69,7 +69,10 @@ def test_reindex_one_type_of_record_with_fulltext(
 
     assert mock_index_fulltext.called_once()
     assert mock_index_fulltext.mock_calls[0][2] == {
-        "kwargs": {"records_uuids": [str(record_lit.id)], "request_timeout": 900},
+        "kwargs": {
+            "records_uuids": [str(record_lit.id)],
+            "request_timeout": inspire_app.config["INDEXER_BULK_REQUEST_TIMEOUT"],
+        },
         "queue": "indexer_task",
     }
 
