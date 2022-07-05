@@ -7,6 +7,7 @@
 from flask import request
 from inspire_dojson.utils import get_recid_from_ref
 from inspire_utils.name import ParsedName
+from inspire_utils.record import get_value
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier
@@ -107,15 +108,30 @@ def can_claim(data, author_profile_recid):
     if not lit_record:
         return False
 
-    author_names = {current_author_profile.get_value("name.value").split(",")[0]}
+    author_parsed_name = ParsedName.loads(current_author_profile["name"]["value"])
+    author_names = {
+        current_author_profile["name"]["value"],
+        author_parsed_name.last,
+        str(author_parsed_name),  # removes ',' and puts it in normal order
+    }
     author_names.update(
         [
             author_name.split(",")[0]
-            for author_name in current_author_profile.get("name.name_variants", [])
+            for author_name in get_value(
+                current_author_profile, "name.name_variants", []
+            )
         ]
     )
+
     lit_author = get_author_by_recid(lit_record, int(author_profile_recid))
-    return author_names & set([lit_author.get("full_name").split(",")[0]])
+    lit_author_parsed_name = ParsedName.loads(lit_author.get("full_name", ""))
+    lit_author_names = {
+        lit_author.get("full_name", ""),
+        lit_author_parsed_name.last,
+        str(lit_author_parsed_name),
+    }
+
+    return lit_author_names & author_names
 
 
 def _check_names_compability(lit_record, author_parsed_name, last_names_only=False):

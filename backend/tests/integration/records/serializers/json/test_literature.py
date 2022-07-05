@@ -4,6 +4,7 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+import urllib.parse
 from urllib.parse import quote
 from uuid import UUID
 
@@ -1655,6 +1656,7 @@ def test_literature_detail_can_claim_is_false_when_name_not_matching(inspire_app
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
     user_orcid = "0000-0002-9127-1687"
     user = create_user(orcid=user_orcid)
+
     create_record(
         "aut",
         data={
@@ -1688,3 +1690,101 @@ def test_literature_detail_can_claim_is_false_when_name_not_matching(inspire_app
     response_data_metadata = response_data_hits[0]["metadata"]
 
     assert "can_claim" not in response_data_metadata
+
+
+def test_authors_detail_can_claim_is_true_when_incorrectly_classified_last_name(
+    inspire_app,
+):
+    headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+    user_orcid = "0000-0002-9127-1687"
+    user = create_user(orcid=user_orcid)
+    create_record(
+        "aut",
+        data={
+            "name": {
+                "value": "Urquía Calderón, Kevin Alberto",
+                "name_variants": ["Kevin A. Urquía Calderón"],
+                "preferred_name": "Kevin Urquía",
+            },
+            "ids": [{"value": user_orcid, "schema": "ORCID"}],
+        },
+    )
+    author_from_lit = create_record(
+        "aut",
+        data={
+            "name": {"value": "Calderón, Kevin A. Urquía"},
+        },
+    )
+    create_record(
+        "lit",
+        data={
+            "authors": [
+                {
+                    "full_name": "Calderón, Kevin A. Urquía",
+                    "record": author_from_lit["self"],
+                }
+            ]
+        },
+    )
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(
+            f"/literature?search_type=hep-author-publication&author={author_from_lit['control_number']}_{urllib.parse.quote_plus('Kevin A. Urquía Calderón')}",
+            headers=headers,
+        )
+    response_data = orjson.loads(response.data)
+
+    assert response_data["hits"]["total"] == 1
+
+    response_data_hits = response_data["hits"]["hits"]
+    response_data_metadata = response_data_hits[0]["metadata"]
+
+    assert "can_claim" in response_data_metadata
+
+
+def test_authors_detail_can_claim_is_true_when_match_with_name_variants(inspire_app):
+    headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+    user_orcid = "0000-0002-9127-1687"
+    user = create_user(orcid=user_orcid)
+    create_record(
+        "aut",
+        data={
+            "name": {
+                "value": "Urquía Calderón, Kevin Alberto",
+                "name_variants": ["Calderón, Kevin Alberto"],
+                "preferred_name": "Kevin Urquía",
+            },
+            "ids": [{"value": user_orcid, "schema": "ORCID"}],
+        },
+    )
+    author_from_lit = create_record(
+        "aut",
+        data={
+            "name": {"value": "Calderón, Kevin A. Urquía"},
+        },
+    )
+    create_record(
+        "lit",
+        data={
+            "authors": [
+                {
+                    "full_name": "Calderón, Kevin A. Urquía",
+                    "record": author_from_lit["self"],
+                }
+            ]
+        },
+    )
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(
+            f"/literature?search_type=hep-author-publication&author={author_from_lit['control_number']}_{urllib.parse.quote_plus('Kevin A. Urquía Calderón')}",
+            headers=headers,
+        )
+    response_data = orjson.loads(response.data)
+
+    assert response_data["hits"]["total"] == 1
+
+    response_data_hits = response_data["hits"]["hits"]
+    response_data_metadata = response_data_hits[0]["metadata"]
+
+    assert "can_claim" in response_data_metadata
