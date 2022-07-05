@@ -265,9 +265,12 @@ def create_rt_ticket_for_claiming_action(
                 f"{INSPIREHEP_URL}/literature/{paper_recid}"
             ] = matched_author_name
 
+    to_author_names = []
+    to_author_names.extend(get_value(to_author_record, "name.name_variants", []))
+    to_author_names.append(get_value(to_author_record, "name.value"))
+
     template_payload = dict(
-        to_author_names=get_value(to_author_record, "name.name_variants", [])
-        or [to_author_record["name"]["value"]],
+        to_author_names=to_author_names,
         from_author_url=f"{INSPIREHEP_URL}/authors/{from_author_recid}",
         to_author_url=f"{INSPIREHEP_URL}/authors/{to_author_recid}",
         incompatibile_names_papers=incompatibile_names_papers,
