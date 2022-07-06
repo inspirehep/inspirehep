@@ -637,6 +637,199 @@ def test_authorlist_text_exception(inspire_app):
     assert expected == result
 
 
+def test_authorlist_text_is_normalizing_affiliaitons(inspire_app):
+    schema = load_schema("hep")
+    subschema = schema["properties"]["authors"]
+    user = create_user(role=Roles.cataloger.value)
+
+    create_record(
+        "lit",
+        data={
+            "curated": True,
+            "authors": [
+                {
+                    "curated_relation": True,
+                    "full_name": "Mangiarotti, F.J.",
+                    "raw_affiliations": [
+                        {
+                            "value": "CERN European Organization for Nuclear Research, 1211, Geneva 23, Switzerland",
+                            "source": "Elsevier Ltd",
+                        }
+                    ],
+                    "affiliations": [
+                        {
+                            "value": "CERN",
+                            "record": {
+                                "$ref": "https://inspirebeta.net/api/institutions/902725"
+                            },
+                        }
+                    ],
+                }
+            ],
+        },
+    )
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/editor/authorlist/text",
+            content_type="application/json",
+            data=orjson.dumps(
+                {
+                    "text": (
+                        "F. Lastname1, F.M. Otherlastname1,2\n"
+                        "\n"
+                        "1 CERN\n"
+                        "2 Otheraffiliation"
+                    )
+                }
+            ),
+        )
+    assert response.status_code == 200
+
+    expected = {
+        "authors": [
+            {
+                "full_name": "Lastname, F.",
+                "raw_affiliations": [{"value": "CERN"}],
+                "affiliations": [
+                    {
+                        "record": {
+                            "$ref": "https://inspirebeta.net/api/institutions/902725"
+                        },
+                        "value": "CERN",
+                    }
+                ],
+            },
+            {
+                "full_name": "Otherlastname, F.M.",
+                "raw_affiliations": [{"value": "CERN"}, {"value": "Otheraffiliation"}],
+                "affiliations": [
+                    {
+                        "record": {
+                            "$ref": "https://inspirebeta.net/api/institutions/902725"
+                        },
+                        "value": "CERN",
+                    }
+                ],
+            },
+        ]
+    }
+    result = orjson.loads(response.data)
+
+    assert validate(result["authors"], subschema) is None
+    assert expected == result
+
+
+def test_authorlist_text_is_normalizing_multiple_affiliaitons(inspire_app):
+    schema = load_schema("hep")
+    subschema = schema["properties"]["authors"]
+    user = create_user(role=Roles.cataloger.value)
+
+    create_record(
+        "lit",
+        data={
+            "curated": True,
+            "authors": [
+                {
+                    "curated_relation": True,
+                    "full_name": "Mangiarotti, F.J.",
+                    "raw_affiliations": [
+                        {
+                            "value": "CERN European Organization for Nuclear Research, 1211, Geneva 23, Switzerland",
+                            "source": "Elsevier Ltd",
+                        }
+                    ],
+                    "affiliations": [
+                        {
+                            "value": "CERN",
+                            "record": {
+                                "$ref": "https://inspirebeta.net/api/institutions/902725"
+                            },
+                        }
+                    ],
+                }
+            ],
+        },
+    )
+
+    create_record(
+        "lit",
+        data={
+            "curated": True,
+            "authors": [
+                {
+                    "curated_relation": True,
+                    "full_name": "Bednorz, Adam",
+                    "affiliations": [
+                        {
+                            "value": "Warsaw U.",
+                            "record": {
+                                "$ref": "https://inspirebeta.net/api/institutions/903335"
+                            },
+                        }
+                    ],
+                    "signature_block": "BADNARa",
+                    "raw_affiliations": [
+                        {
+                            "value": "Faculty of Physics, University of Warsaw, ul. Pasteura 5, PL02-093 Warsaw, Poland"
+                        }
+                    ],
+                }
+            ],
+        },
+    )
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/editor/authorlist/text",
+            content_type="application/json",
+            data=orjson.dumps(
+                {
+                    "text": (
+                        "F. Lastname1, F.M. Otherlastname2\n"
+                        "\n"
+                        "1 CERN\n"
+                        "2 Warsaw U."
+                    )
+                }
+            ),
+        )
+    assert response.status_code == 200
+    expected = {
+        "authors": [
+            {
+                "full_name": "Lastname, F.",
+                "raw_affiliations": [{"value": "CERN"}],
+                "affiliations": [
+                    {
+                        "record": {
+                            "$ref": "https://inspirebeta.net/api/institutions/902725"
+                        },
+                        "value": "CERN",
+                    }
+                ],
+            },
+            {
+                "full_name": "Otherlastname, F.M.",
+                "raw_affiliations": [{"value": "Warsaw U."}],
+                "affiliations": [
+                    {
+                        "record": {
+                            "$ref": "https://inspirebeta.net/api/institutions/903335"
+                        },
+                        "value": "Warsaw U.",
+                    }
+                ],
+            },
+        ]
+    }
+    result = orjson.loads(response.data)
+
+    assert validate(result["authors"], subschema) is None
+    assert expected == result
+
+
 def test_editor_lock_is_created_on_editor_open(inspire_app):
     user = create_user(role=Roles.cataloger.value)
     record = create_record("lit")

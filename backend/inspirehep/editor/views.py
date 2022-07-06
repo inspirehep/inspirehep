@@ -14,6 +14,7 @@ from flask import Blueprint, current_app, make_response, request
 from flask_login import current_user
 from inspire_schemas.api import load_schema
 from inspire_utils.dedupers import dedupe_list
+from inspire_utils.record import normalize_affiliations
 from invenio_db import db
 from invenio_records.models import RecordMetadata
 from invenio_records_rest.utils import set_headers_for_record_caching_and_concurrency
@@ -32,6 +33,7 @@ from inspirehep.matcher.utils import create_journal_dict, map_refextract_to_sche
 from inspirehep.pidstore.api.base import PidStoreBase
 from inspirehep.records.api import InspireRecord
 from inspirehep.rt import tickets
+from inspirehep.search.api import LiteratureSearch
 from inspirehep.serializers import jsonify
 from inspirehep.utils import hash_data
 
@@ -340,6 +342,20 @@ def authorlist_text():
     """Run authorlist on a piece of text."""
     try:
         parsed_authors = authorlist(request.json["text"])
+        normalized_affiliations, ambiguous_affiliations = normalize_affiliations(
+            parsed_authors, LiteratureSearch()
+        )
+        for author, normalized_affiliation in zip(
+            parsed_authors.get("authors", []), normalized_affiliations
+        ):
+            if "affiliations" in author:
+                continue
+            if normalized_affiliation:
+                author["affiliations"] = normalized_affiliation
+        LOGGER.info(
+            "Found ambiguous affiliations for raw affiliations, skipping affiliation linking.",
+            ambiguous_affiliations=ambiguous_affiliations,
+        )
         return jsonify(parsed_authors)
     except Exception as err:
         return jsonify(status=400, message=" / ".join(err.args)), 400
