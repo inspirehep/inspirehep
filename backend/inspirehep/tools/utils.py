@@ -17,6 +17,7 @@ FORMAT_TO_SOURCE_FIELD = {
     "latex_eu": "_latex_eu_display",
     "latex_us": "_latex_us_display",
     "bibtex": "_bibtex_display",
+    "cv": "_cv_format",
 }
 
 
@@ -44,7 +45,6 @@ def get_references(f):
 
 def find_references(references, requested_format):
     display_format = FORMAT_TO_SOURCE_FIELD[requested_format]
-
     ret = []
     errors = []
     for ref, line in references:
@@ -89,6 +89,8 @@ def find_references(references, requested_format):
 def get_mimetype(requested_format):
     if requested_format == "bibtex":
         return "application/x-bibtex"
+    elif requested_format == "cv":
+        return "text/vnd+inspire.html+html"
     return "application/x-latex"
 
 

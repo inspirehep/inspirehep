@@ -971,6 +971,7 @@ def test_literature_detail_links(inspire_app):
         "json": f"http://localhost:5000/literature/{cn}?format=json",
         "latex-eu": f"http://localhost:5000/literature/{cn}?format=latex-eu",
         "latex-us": f"http://localhost:5000/literature/{cn}?format=latex-us",
+        "cv": f"http://localhost:5000/literature/{cn}?format=cv",
     }
 
     with inspire_app.test_client() as client:
