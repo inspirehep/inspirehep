@@ -146,6 +146,13 @@ def test_find_references(literature_records):
         "%\\cite{JHEP.0412.015}\n\\bibitem{JHEP.0412.015}\nL.~J.~Dixon,\n%``MHV rules for Higgs plus multi-gluon amplitudes,''\nJHEP \\textbf{12} (2004), 015\n%0 citations counted in INSPIRE as of 12 Jun 2020",
     ]
 
+    expected_references_cv = [
+        '<p><b>\n    <a href="https://localhost:5000/literature/1721863">\n      Baryon Number Generation in Grand Unified Theories\n    </a>\n  </b></p>\n  \n    <p>John R. Ellis</p>\n  \n  \n  \n  \n  <br>',
+        '<p><b>\n    <a href="https://localhost:5000/literature/1721864">\n      Neutrinoless universe\n    </a>\n  </b></p>\n  \n    <p>John F. Beacom</p>\n  \n  \n  \n  \n  <br>',
+        '<p><b>\n    <a href="https://localhost:5000/literature/1721865">\n      On-shell recurrence relations for one-loop QCD amplitudes\n    </a>\n  </b></p>\n  \n    <p>Zvi Bern</p>\n  \n  <p>\n      e-Print:\n          <a href="https://arxiv.org/abs/hep-th/0501240">\n      hep-th/0501240\n    </a>[hep-th]</p>\n  \n  \n  <br>',
+        '<p><b>\n    <a href="https://localhost:5000/literature/663871">\n      MHV rules for Higgs plus multi-gluon amplitudes\n    </a>\n  </b></p>\n  \n    <p>Lance J. Dixon</p>\n  \n  \n  \n  <p>\n    Published in:<span>\n      JHEP 12 (2004),\n      015</span></p>\n  <br>',
+    ]
+
     expected_errors = [
         {"ref": "CERN-W5013", "line": 6, "type": "ambiguous"},
         {"ref": "Garcia:2020ay", "line": 8, "type": "not found"},
@@ -159,5 +166,8 @@ def test_find_references(literature_records):
 
     references, errors = find_references(reference_names, "latex_us")
     assert references == expected_references_latex_us
+
+    references, errors = find_references(reference_names, "cv")
+    assert references == expected_references_cv
 
     assert errors == expected_errors

@@ -137,12 +137,14 @@ LITERATURE.update(
             "latex-eu": "application/vnd+inspire.latex.eu+x-latex",
             "latex-us": "application/vnd+inspire.latex.us+x-latex",
             "json": "application/json",
+            "cv": "text/vnd+inspire.html+html",
         },
         "search_serializers_aliases": {
             "bibtex": "application/x-bibtex",
             "latex-eu": "application/vnd+inspire.latex.eu+x-latex",
             "latex-us": "application/vnd+inspire.latex.us+x-latex",
             "json": "application/json",
+            "cv": "text/vnd+inspire.html+html",
         },
     }
 )

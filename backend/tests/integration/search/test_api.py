@@ -832,6 +832,7 @@ def test_public_api_generates_correct_links_in_literature_search(inspire_app):
         "latex-eu": "http://localhost:5000/api/literature/?q=&size=10&page=1&format=latex-eu",
         "latex-us": "http://localhost:5000/api/literature/?q=&size=10&page=1&format=latex-us",
         "json": "http://localhost:5000/api/literature/?q=&size=10&page=1&format=json",
+        "cv": "http://localhost:5000/api/literature/?q=&size=10&page=1&format=cv",
     }
     record = create_record("lit")
     cn = record["control_number"]
@@ -841,6 +842,7 @@ def test_public_api_generates_correct_links_in_literature_search(inspire_app):
         "latex-us": f"http://localhost:5000/api/literature/{cn}?format=latex-us",
         "json": f"http://localhost:5000/api/literature/{cn}?format=json",
         "citations": f"http://localhost:5000/api/literature/?q=refersto%3Arecid%3A{cn}",
+        "cv": f"http://localhost:5000/api/literature/{cn}?format=cv",
     }
     with inspire_app.test_client() as client:
         url = "/api/literature"
@@ -1080,6 +1082,7 @@ def test_public_api_generates_correct_links_in_literature_search_with_fields(
         "json": "http://localhost:5000/api/literature/?q=&size=1&page=2&fields=ids,authors&format=json",
         "prev": "http://localhost:5000/api/literature/?q=&size=1&page=1&fields=ids,authors",
         "next": "http://localhost:5000/api/literature/?q=&size=1&page=3&fields=ids,authors",
+        "cv": "http://localhost:5000/api/literature/?q=&size=1&page=2&format=cv",
     }
     create_record("lit")
     create_record("lit")

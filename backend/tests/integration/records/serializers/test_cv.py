@@ -601,3 +601,22 @@ def test_cv_search_cached(inspire_app):
     assert expected_result == response_data
 
     models_committed.connect(index_after_commit)
+
+
+def test_literature_detail_cv_link_alias_format(inspire_app):
+
+    data = {
+        "control_number": 637275232,
+        "titles": [{"title": "Yet another title"}],
+    }
+    record = create_record("lit", data=data)
+
+    expected_status_code = 200
+    expected_result = '<!DOCTYPE html><html><body>  <p><b>    <a href="https://localhost:5000/literature/637275232">      Yet another title    </a>  </b></p>          <br></body></html>'
+
+    with inspire_app.test_client() as client:
+        response = client.get(f"/literature/{record['control_number']}?format=cv")
+    response_data = response.get_data(as_text=True).replace("\n", "")
+
+    assert response.status_code == expected_status_code
+    assert expected_result == response_data
