@@ -273,3 +273,60 @@ def test_schema_replaces_underscore_in_doi():
     result = orjson.loads(schema.dumps(record).data)
 
     assert expected == result["dois"]
+
+
+@freeze_time("1994-12-19")
+def test_full_schema_with_book_data():
+    TODAY = "19 Dec 1994"
+    schema = LatexSchema()
+    record = {
+        "texkeys": ["a123bx"],
+        "titles": [{"title": "Jessica Jones"}],
+        "authors": [
+            {"full_name": "Castle, Frank"},
+            {"full_name": "Smith, John"},
+            {"full_name": "Black, Joe Jr."},
+            {"full_name": "Jimmy"},
+        ],
+        "collaborations": [{"value": "LHCb"}],
+        "dois": [{"value": "10.1088/1361-6633/aa5514"}],
+        "arxiv_eprints": [{"value": "1607.06746", "categories": ["hep-th"]}],
+        "publication_info": [
+            {
+                "journal_title": "Phys.Rev.A",
+                "journal_volume": "58",
+                "page_start": "500",
+                "page_end": "593",
+                "artid": "17920",
+                "year": "2019",
+            }
+        ],
+        "report_numbers": [{"value": "DESY-17-036"}],
+        "document_type": ["book"],
+        "imprints": [{"date": "2019-12-05", "publisher": "Princeton University Press"}],
+        "isbns": [{"value": "9781108705011"}],
+    }
+    expected = {
+        "texkeys": "a123bx",
+        "title": "Jessica Jones",
+        "authors": ["F.~Castle", "J.~Smith", "J.~Black, Jr.", "Jimmy"],
+        "collaborations": ["LHCb"],
+        "dois": [{"value": "10.1088/1361-6633/aa5514"}],
+        "arxiv_eprints": [{"value": "1607.06746", "categories": ["hep-th"]}],
+        "publication_info": {
+            "journal_title": "Phys. Rev. A",
+            "journal_volume": "58",
+            "page_start": "500",
+            "page_end": "593",
+            "page_range": "500-593",
+            "artid": "17920",
+            "year": "2019",
+        },
+        "report_numbers": [{"value": "DESY-17-036"}],
+        "today": TODAY,
+        "notes": None,
+        "book_publication_info": "Princeton University Press, 2019",
+        "isbns": "978-1-108-70501-1",
+    }
+    result = orjson.loads(schema.dumps(record).data)
+    assert expected == result
