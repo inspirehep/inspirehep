@@ -8,12 +8,16 @@
 
 import datetime
 
+from idutils import normalize_isbn
 from inspire_utils.name import format_name
 from inspire_utils.record import get_value
+from isbn import ISBNError
 from marshmallow import fields, missing
+
 from ..base import BaseSchema
 from .bibtex import BibTexCommonSchema
 from .utils import latex_encode
+
 
 class LatexSchema(BaseSchema):
     arxiv_eprints = fields.Raw()
@@ -28,6 +32,8 @@ class LatexSchema(BaseSchema):
     texkeys = fields.Method("get_texkey")
     today = fields.Method("get_current_date")
     notes = fields.Method("get_note")
+    book_publication_info = fields.Method("get_book_publication_info")
+    isbns = fields.Method("get_isbn")
 
     @staticmethod
     def cleanup_publication_info(pub_info):
@@ -55,12 +61,15 @@ class LatexSchema(BaseSchema):
             return missing
 
         author_names = (
-            latex_encode(format_name(author["full_name"], initials_only=True, without_titles=True))
+            latex_encode(
+                format_name(
+                    author["full_name"], initials_only=True, without_titles=True
+                )
+            )
             for author in authors
             if "supervisor" not in author.get("inspire_roles", [])
         )
         return [name.replace(". ", ".~") for name in author_names]
-
 
     def get_publication_info(self, data):
         publication_info = BibTexCommonSchema.get_best_publication_info(data)
@@ -113,3 +122,33 @@ class LatexSchema(BaseSchema):
         for doi_data in dois:
             doi_data["value"] = latex_encode(doi_data.get("value"))
         return dois or None
+
+    def get_book_publication_info(self, data):
+        if "book" not in get_value(data, "document_type", []):
+            return missing
+
+        imprint_date = get_value(data, "imprints.date[0]")
+        publisher = latex_encode(get_value(data, "imprints.publisher[0]"))
+
+        if imprint_date and publisher:
+            imprint_year = imprint_date.split("-")[0]
+            return f"{publisher}, {imprint_year}"
+        elif imprint_date:
+            return imprint_date.split("-")[0]
+        elif publisher:
+            return publisher
+        return missing
+
+    def get_isbn(self, data):
+
+        isbns = get_value(data, "isbns.value")
+        if not isbns:
+            return missing
+
+        normalized_isbns = []
+        for isbn in isbns:
+            try:
+                normalized_isbns.append(normalize_isbn(isbn))
+            except ISBNError:
+                normalized_isbns.append(isbn)
+        return ", ".join(normalized_isbns)

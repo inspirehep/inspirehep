@@ -5,9 +5,10 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+import pytest
 from freezegun import freeze_time
 from helpers.utils import create_record, create_record_factory
-import pytest
+
 
 @freeze_time("1994-12-19")
 def test_latex_eu(inspire_app):
@@ -141,7 +142,7 @@ def test_latex_eu_search_response(inspire_app):
         "%0 citations counted in INSPIRE as of 19 Dec 1994"
     )
     with inspire_app.test_client() as client:
-        response = client.get(f"/literature", headers=headers)
+        response = client.get("/literature", headers=headers)
 
     response_status_code = response.status_code
     response_data = response.get_data(as_text=True)
@@ -177,7 +178,7 @@ def test_latex_eu_search_response_full_record(inspire_app):
         ],
         "report_numbers": [{"value": "DESY-17-036"}],
     }
-    record = create_record("lit", data=data)
+    create_record("lit", data=data)
 
     expected_status_code = 200
     expected_result = (
@@ -191,7 +192,7 @@ def test_latex_eu_search_response_full_record(inspire_app):
         "%0 citations counted in INSPIRE as of 19 Dec 1994"
     )
     with inspire_app.test_client() as client:
-        response = client.get(f"/literature", headers=headers)
+        response = client.get("/literature", headers=headers)
 
     response_status_code = response.status_code
     response_data = response.get_data(as_text=True)
@@ -222,7 +223,7 @@ def test_latex_us_search_response(inspire_app):
         "%0 citations counted in INSPIRE as of 19 Dec 1994"
     )
     with inspire_app.test_client() as client:
-        response = client.get(f"/literature", headers=headers)
+        response = client.get("/literature", headers=headers)
 
     response_status_code = response.status_code
     response_data = response.get_data(as_text=True)
@@ -258,7 +259,7 @@ def test_latex_us_search_response_full_record(inspire_app):
         ],
         "report_numbers": [{"value": "DESY-17-036"}],
     }
-    record = create_record("lit", data=data)
+    create_record("lit", data=data)
 
     expected_status_code = 200
     expected_result = (
@@ -272,7 +273,7 @@ def test_latex_us_search_response_full_record(inspire_app):
         "%0 citations counted in INSPIRE as of 19 Dec 1994"
     )
     with inspire_app.test_client() as client:
-        response = client.get(f"/literature", headers=headers)
+        response = client.get("/literature", headers=headers)
 
     response_status_code = response.status_code
     response_data = response.get_data(as_text=True)
@@ -547,11 +548,12 @@ def test_latex_encodes_non_latex_chars(inspire_app):
 @freeze_time("2020-09-11")
 @pytest.mark.parametrize(
     "input_author,expected_name",
-    [("Lieber, Ed", "E.~Lieber,"),
-     ('Lieber, Ed Viktor', "E.~V.~Lieber,"),
-     ('Lieber, Ed Jr.', "E.~Lieber, Jr.,"),
-     ('Lieber, Ed Victor Jr.', "E.~V.~Lieber, Jr.,"),
-     ],
+    [
+        ("Lieber, Ed", "E.~Lieber,"),
+        ("Lieber, Ed Viktor", "E.~V.~Lieber,"),
+        ("Lieber, Ed Jr.", "E.~Lieber, Jr.,"),
+        ("Lieber, Ed Victor Jr.", "E.~V.~Lieber, Jr.,"),
+    ],
 )
 def test_latex_returns_names_correctly(input_author, expected_name, inspire_app):
     data = {
@@ -576,3 +578,432 @@ def test_latex_returns_names_correctly(input_author, expected_name, inspire_app)
 
     assert response.status_code == 200
     assert response_data == expected
+
+
+@freeze_time("1994-12-19")
+def test_latex_eu_search_response_full_book_record(inspire_app):
+    headers = {"Accept": "application/vnd+inspire.latex.eu+x-latex"}
+    data = {
+        "texkeys": ["a123bx"],
+        "titles": [{"title": "Jessica Jones"}],
+        "authors": [
+            {"full_name": "Castle, Frank"},
+            {"full_name": "Smith, John"},
+            {"full_name": "Black, Joe Jr."},
+            {"full_name": "Jimmy"},
+        ],
+        "collaborations": [{"value": "LHCb"}],
+        "dois": [{"value": "10.1088/1361-6633/aa5514"}],
+        "arxiv_eprints": [{"value": "1607.06746", "categories": ["hep-th"]}],
+        "publication_info": [
+            {
+                "journal_title": "Phys.Rev.A",
+                "journal_volume": "58",
+                "page_start": "500",
+                "page_end": "593",
+                "artid": "17920",
+                "year": 2019,
+            }
+        ],
+        "report_numbers": [{"value": "DESY-17-036"}],
+        "document_type": ["book"],
+        "imprints": [{"date": "2019-12-05", "publisher": "Princeton University Press"}],
+        "isbns": [{"value": "9781108705011"}],
+    }
+    create_record("lit", data=data)
+
+    expected_status_code = 200
+    expected_result = (
+        "%\\cite{a123bx}\n"
+        "\\bibitem{a123bx}\n"
+        "F.~Castle \\textit{et al.} [LHCb],\n"
+        "%``Jessica Jones,''\n"
+        "Phys. Rev. A \\textbf{58} (2019), 500-593\n"
+        "Princeton University Press, 2019,\n"
+        "ISBN 978-1-108-70501-1\n"
+        "doi:10.1088/1361-6633/aa5514\n"
+        "[arXiv:1607.06746 [hep-th]].\n"
+        "%0 citations counted in INSPIRE as of 19 Dec 1994"
+    )
+    with inspire_app.test_client() as client:
+        response = client.get("/literature", headers=headers)
+
+    response_status_code = response.status_code
+    response_data = response.get_data(as_text=True)
+    assert expected_status_code == response_status_code
+    assert expected_result == response_data
+
+
+@freeze_time("1994-12-19")
+def test_latex_eu_search_response_full_book_record_with_missing_publisher(inspire_app):
+    headers = {"Accept": "application/vnd+inspire.latex.eu+x-latex"}
+    data = {
+        "texkeys": ["a123bx"],
+        "titles": [{"title": "Jessica Jones"}],
+        "authors": [
+            {"full_name": "Castle, Frank"},
+            {"full_name": "Smith, John"},
+            {"full_name": "Black, Joe Jr."},
+            {"full_name": "Jimmy"},
+        ],
+        "collaborations": [{"value": "LHCb"}],
+        "dois": [{"value": "10.1088/1361-6633/aa5514"}],
+        "arxiv_eprints": [{"value": "1607.06746", "categories": ["hep-th"]}],
+        "publication_info": [
+            {
+                "journal_title": "Phys.Rev.A",
+                "journal_volume": "58",
+                "page_start": "500",
+                "page_end": "593",
+                "artid": "17920",
+                "year": 2019,
+            }
+        ],
+        "report_numbers": [{"value": "DESY-17-036"}],
+        "document_type": ["book"],
+        "imprints": [{"date": "2019-12-05"}],
+        "isbns": [{"value": "9781108705011"}],
+    }
+
+    create_record("lit", data=data)
+
+    expected_status_code = 200
+    expected_result = (
+        "%\\cite{a123bx}\n"
+        "\\bibitem{a123bx}\n"
+        "F.~Castle \\textit{et al.} [LHCb],\n"
+        "%``Jessica Jones,''\n"
+        "Phys. Rev. A \\textbf{58} (2019), 500-593\n"
+        "2019,\n"
+        "ISBN 978-1-108-70501-1\n"
+        "doi:10.1088/1361-6633/aa5514\n"
+        "[arXiv:1607.06746 [hep-th]].\n"
+        "%0 citations counted in INSPIRE as of 19 Dec 1994"
+    )
+    with inspire_app.test_client() as client:
+        response = client.get("/literature", headers=headers)
+
+    response_status_code = response.status_code
+    response_data = response.get_data(as_text=True)
+    assert expected_status_code == response_status_code
+    assert expected_result == response_data
+
+
+@freeze_time("1994-12-19")
+def test_latex_eu_search_response_full_book_record_with_missing_year(inspire_app):
+    headers = {"Accept": "application/vnd+inspire.latex.eu+x-latex"}
+    data = {
+        "texkeys": ["a123bx"],
+        "titles": [{"title": "Jessica Jones"}],
+        "authors": [
+            {"full_name": "Castle, Frank"},
+            {"full_name": "Smith, John"},
+            {"full_name": "Black, Joe Jr."},
+            {"full_name": "Jimmy"},
+        ],
+        "collaborations": [{"value": "LHCb"}],
+        "dois": [{"value": "10.1088/1361-6633/aa5514"}],
+        "arxiv_eprints": [{"value": "1607.06746", "categories": ["hep-th"]}],
+        "publication_info": [
+            {
+                "journal_title": "Phys.Rev.A",
+                "journal_volume": "58",
+                "page_start": "500",
+                "page_end": "593",
+                "artid": "17920",
+                "year": 2019,
+            }
+        ],
+        "report_numbers": [{"value": "DESY-17-036"}],
+        "document_type": ["book"],
+        "imprints": [{"publisher": "Princeton University Press"}],
+        "isbns": [{"value": "9781108705011"}],
+    }
+    create_record("lit", data=data)
+
+    expected_status_code = 200
+    expected_result = (
+        "%\\cite{a123bx}\n"
+        "\\bibitem{a123bx}\n"
+        "F.~Castle \\textit{et al.} [LHCb],\n"
+        "%``Jessica Jones,''\n"
+        "Phys. Rev. A \\textbf{58} (2019), 500-593\n"
+        "Princeton University Press,\n"
+        "ISBN 978-1-108-70501-1\n"
+        "doi:10.1088/1361-6633/aa5514\n"
+        "[arXiv:1607.06746 [hep-th]].\n"
+        "%0 citations counted in INSPIRE as of 19 Dec 1994"
+    )
+    with inspire_app.test_client() as client:
+        response = client.get("/literature", headers=headers)
+
+    response_status_code = response.status_code
+    response_data = response.get_data(as_text=True)
+    assert expected_status_code == response_status_code
+    assert expected_result == response_data
+
+
+@freeze_time("1994-12-19")
+def test_latex_eu_search_response_full_book_recordwith_missing_isbn(inspire_app):
+    headers = {"Accept": "application/vnd+inspire.latex.eu+x-latex"}
+    data = {
+        "texkeys": ["a123bx"],
+        "titles": [{"title": "Jessica Jones"}],
+        "authors": [
+            {"full_name": "Castle, Frank"},
+            {"full_name": "Smith, John"},
+            {"full_name": "Black, Joe Jr."},
+            {"full_name": "Jimmy"},
+        ],
+        "collaborations": [{"value": "LHCb"}],
+        "dois": [{"value": "10.1088/1361-6633/aa5514"}],
+        "arxiv_eprints": [{"value": "1607.06746", "categories": ["hep-th"]}],
+        "publication_info": [
+            {
+                "journal_title": "Phys.Rev.A",
+                "journal_volume": "58",
+                "page_start": "500",
+                "page_end": "593",
+                "artid": "17920",
+                "year": 2019,
+            }
+        ],
+        "report_numbers": [{"value": "DESY-17-036"}],
+        "document_type": ["book"],
+        "imprints": [{"date": "2019-12-05", "publisher": "Princeton University Press"}],
+    }
+    create_record("lit", data=data)
+
+    expected_status_code = 200
+    expected_result = (
+        "%\\cite{a123bx}\n"
+        "\\bibitem{a123bx}\n"
+        "F.~Castle \\textit{et al.} [LHCb],\n"
+        "%``Jessica Jones,''\n"
+        "Phys. Rev. A \\textbf{58} (2019), 500-593\n"
+        "Princeton University Press, 2019,\n"
+        "doi:10.1088/1361-6633/aa5514\n"
+        "[arXiv:1607.06746 [hep-th]].\n"
+        "%0 citations counted in INSPIRE as of 19 Dec 1994"
+    )
+    with inspire_app.test_client() as client:
+        response = client.get("/literature", headers=headers)
+
+    response_status_code = response.status_code
+    response_data = response.get_data(as_text=True)
+    assert expected_status_code == response_status_code
+    assert expected_result == response_data
+
+
+@freeze_time("1994-12-19")
+def test_latex_us_search_response_full_book_record(inspire_app):
+    headers = {"Accept": "application/vnd+inspire.latex.us+x-latex"}
+    data = {
+        "texkeys": ["a123bx"],
+        "titles": [{"title": "Jessica Jones"}],
+        "authors": [
+            {"full_name": "Castle, Frank"},
+            {"full_name": "Smith, John"},
+            {"full_name": "Black, Joe Jr."},
+            {"full_name": "Jimmy"},
+        ],
+        "collaborations": [{"value": "LHCb"}],
+        "dois": [{"value": "10.1088/1361-6633/aa5514"}],
+        "arxiv_eprints": [{"value": "1607.06746", "categories": ["hep-th"]}],
+        "publication_info": [
+            {
+                "journal_title": "Phys.Rev.A",
+                "journal_volume": "58",
+                "page_start": "500",
+                "page_end": "593",
+                "artid": "17920",
+                "year": 2019,
+            }
+        ],
+        "report_numbers": [{"value": "DESY-17-036"}],
+        "document_type": ["book"],
+        "imprints": [{"date": "2019-12-05", "publisher": "Princeton University Press"}],
+        "isbns": [{"value": "9781108705011"}],
+    }
+    create_record("lit", data=data)
+
+    expected_status_code = 200
+    expected_result = (
+        "%\\cite{a123bx}\n"
+        "\\bibitem{a123bx}\n"
+        "F.~Castle \\textit{et al.} [LHCb],\n"
+        "%``Jessica Jones,''\n"
+        "Phys. Rev. A \\textbf{58}, 500-593 (2019)\n"
+        "Princeton University Press, 2019,\n"
+        "ISBN 978-1-108-70501-1\n"
+        "doi:10.1088/1361-6633/aa5514\n"
+        "[arXiv:1607.06746 [hep-th]].\n"
+        "%0 citations counted in INSPIRE as of 19 Dec 1994"
+    )
+    with inspire_app.test_client() as client:
+        response = client.get("/literature", headers=headers)
+
+    response_status_code = response.status_code
+    response_data = response.get_data(as_text=True)
+    assert expected_status_code == response_status_code
+    assert expected_result == response_data
+
+
+@freeze_time("1994-12-19")
+def test_latex_us_search_response_full_book_record_with_missing_publisher(inspire_app):
+    headers = {"Accept": "application/vnd+inspire.latex.us+x-latex"}
+    data = {
+        "texkeys": ["a123bx"],
+        "titles": [{"title": "Jessica Jones"}],
+        "authors": [
+            {"full_name": "Castle, Frank"},
+            {"full_name": "Smith, John"},
+            {"full_name": "Black, Joe Jr."},
+            {"full_name": "Jimmy"},
+        ],
+        "collaborations": [{"value": "LHCb"}],
+        "dois": [{"value": "10.1088/1361-6633/aa5514"}],
+        "arxiv_eprints": [{"value": "1607.06746", "categories": ["hep-th"]}],
+        "publication_info": [
+            {
+                "journal_title": "Phys.Rev.A",
+                "journal_volume": "58",
+                "page_start": "500",
+                "page_end": "593",
+                "artid": "17920",
+                "year": 2019,
+            }
+        ],
+        "report_numbers": [{"value": "DESY-17-036"}],
+        "document_type": ["book"],
+        "imprints": [{"date": "2019-12-05"}],
+        "isbns": [{"value": "9781108705011"}],
+    }
+    create_record("lit", data=data)
+
+    expected_status_code = 200
+    expected_result = (
+        "%\\cite{a123bx}\n"
+        "\\bibitem{a123bx}\n"
+        "F.~Castle \\textit{et al.} [LHCb],\n"
+        "%``Jessica Jones,''\n"
+        "Phys. Rev. A \\textbf{58}, 500-593 (2019)\n"
+        "2019,\n"
+        "ISBN 978-1-108-70501-1\n"
+        "doi:10.1088/1361-6633/aa5514\n"
+        "[arXiv:1607.06746 [hep-th]].\n"
+        "%0 citations counted in INSPIRE as of 19 Dec 1994"
+    )
+    with inspire_app.test_client() as client:
+        response = client.get("/literature", headers=headers)
+
+    response_status_code = response.status_code
+    response_data = response.get_data(as_text=True)
+    assert expected_status_code == response_status_code
+    assert expected_result == response_data
+
+
+@freeze_time("1994-12-19")
+def test_latex_us_search_response_full_book_record_with_missing_year(inspire_app):
+    headers = {"Accept": "application/vnd+inspire.latex.us+x-latex"}
+    data = {
+        "texkeys": ["a123bx"],
+        "titles": [{"title": "Jessica Jones"}],
+        "authors": [
+            {"full_name": "Castle, Frank"},
+            {"full_name": "Smith, John"},
+            {"full_name": "Black, Joe Jr."},
+            {"full_name": "Jimmy"},
+        ],
+        "collaborations": [{"value": "LHCb"}],
+        "dois": [{"value": "10.1088/1361-6633/aa5514"}],
+        "arxiv_eprints": [{"value": "1607.06746", "categories": ["hep-th"]}],
+        "publication_info": [
+            {
+                "journal_title": "Phys.Rev.A",
+                "journal_volume": "58",
+                "page_start": "500",
+                "page_end": "593",
+                "artid": "17920",
+                "year": 2019,
+            }
+        ],
+        "report_numbers": [{"value": "DESY-17-036"}],
+        "document_type": ["book"],
+        "imprints": [{"publisher": "Princeton University Press"}],
+        "isbns": [{"value": "9781108705011"}],
+    }
+    create_record("lit", data=data)
+
+    expected_status_code = 200
+    expected_result = (
+        "%\\cite{a123bx}\n"
+        "\\bibitem{a123bx}\n"
+        "F.~Castle \\textit{et al.} [LHCb],\n"
+        "%``Jessica Jones,''\n"
+        "Phys. Rev. A \\textbf{58}, 500-593 (2019)\n"
+        "Princeton University Press,\n"
+        "ISBN 978-1-108-70501-1\n"
+        "doi:10.1088/1361-6633/aa5514\n"
+        "[arXiv:1607.06746 [hep-th]].\n"
+        "%0 citations counted in INSPIRE as of 19 Dec 1994"
+    )
+    with inspire_app.test_client() as client:
+        response = client.get("/literature", headers=headers)
+
+    response_status_code = response.status_code
+    response_data = response.get_data(as_text=True)
+    assert expected_status_code == response_status_code
+    assert expected_result == response_data
+
+
+@freeze_time("1994-12-19")
+def test_latex_us_search_response_full_book_record_with_missing_isbn(inspire_app):
+    headers = {"Accept": "application/vnd+inspire.latex.us+x-latex"}
+    data = {
+        "texkeys": ["a123bx"],
+        "titles": [{"title": "Jessica Jones"}],
+        "authors": [
+            {"full_name": "Castle, Frank"},
+            {"full_name": "Smith, John"},
+            {"full_name": "Black, Joe Jr."},
+            {"full_name": "Jimmy"},
+        ],
+        "collaborations": [{"value": "LHCb"}],
+        "dois": [{"value": "10.1088/1361-6633/aa5514"}],
+        "arxiv_eprints": [{"value": "1607.06746", "categories": ["hep-th"]}],
+        "publication_info": [
+            {
+                "journal_title": "Phys.Rev.A",
+                "journal_volume": "58",
+                "page_start": "500",
+                "page_end": "593",
+                "artid": "17920",
+                "year": 2019,
+            }
+        ],
+        "report_numbers": [{"value": "DESY-17-036"}],
+        "document_type": ["book"],
+        "imprints": [{"date": "2019-12-05", "publisher": "Princeton University Press"}],
+    }
+    create_record("lit", data=data)
+
+    expected_status_code = 200
+    expected_result = (
+        "%\\cite{a123bx}\n"
+        "\\bibitem{a123bx}\n"
+        "F.~Castle \\textit{et al.} [LHCb],\n"
+        "%``Jessica Jones,''\n"
+        "Phys. Rev. A \\textbf{58}, 500-593 (2019)\n"
+        "Princeton University Press, 2019,\n"
+        "doi:10.1088/1361-6633/aa5514\n"
+        "[arXiv:1607.06746 [hep-th]].\n"
+        "%0 citations counted in INSPIRE as of 19 Dec 1994"
+    )
+    with inspire_app.test_client() as client:
+        response = client.get("/literature", headers=headers)
+
+    response_status_code = response.status_code
+    response_data = response.get_data(as_text=True)
+    assert expected_status_code == response_status_code
+    assert expected_result == response_data

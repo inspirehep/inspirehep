@@ -55,6 +55,12 @@
     {%- endfor -%}
     \VAR{ ']' }
 {%- endif -%}
+{%- if 'book_publication_info' in data -%}
+    \VAR{- '\n' ~ data.book_publication_info ~ ','  if 'book_publication_info' in data}
+{%- endif -%}
+{%- if 'isbns' in data -%}
+    \VAR{- '\nISBN ' ~ data.isbns if 'book_publication_info' in data}
+{%- endif -%}
 \VAR{- '\ndoi:' ~ data.dois.0.value if 'dois' in data }
 \VAR{- '\n[arXiv:' ~ data.arxiv_eprints.0.value ~ ' [' ~ data.arxiv_eprints.0.categories.0 ~ ']].' if 'arxiv_eprints' in data and 'categories' in data.arxiv_eprints.0}
 \VAR{- '\n' ~ data.report_numbers.0.value ~ '.' if 'dois' not in data and 'arxiv_eprints' not in data and 'report_numbers' in data }
