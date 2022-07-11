@@ -1,5 +1,5 @@
-FROM node:10.14.0-jessie as build-stage
-
+# FROM node:10.14.0-jessie as build-stage
+FROM node:10.14.0-stretch as build-stage
 WORKDIR /usr/src/app
 
 ENV PATH /usr/src/app/node_modules/.bin:$PATH

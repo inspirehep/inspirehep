@@ -50,7 +50,8 @@ services:
   es:
     build:
       context: docker/opensearch
-    restart: 'always'
+      dockerfile: 'opensearch.Dockerfile'
+    restart: always
     environment:
       - cluster.name=opensearch-cluster
       - node.name=opensearch-node1

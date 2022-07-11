@@ -87,7 +87,7 @@
   "devDependencies": {
     "@epegzz/sass-vars-loader": "^3.4.0",
     "axios-mock-adapter": "^1.15.0",
-    "bundlesize": "^0.17.0",
+    "bundlesize": "0.18.1",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-to-json": "^3.3.3",
