@@ -4,9 +4,13 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+import mock
+import orjson
 from flask_sqlalchemy import models_committed
 from helpers.utils import create_record
 
+from inspirehep.records.api import LiteratureRecord
+from inspirehep.records.marshmallow.literature.cv import CVSchema
 from inspirehep.records.receivers import index_after_commit
 from inspirehep.search.api import LiteratureSearch
 
@@ -620,3 +624,72 @@ def test_literature_detail_cv_link_alias_format(inspire_app):
 
     assert response.status_code == expected_status_code
     assert expected_result == response_data
+
+
+@mock.patch("inspirehep.records.api.base.InspireRecord.get_records_by_pids")
+def test_doesnt_raise_key_error_missing_fullname(get_records_mock):
+    schema = CVSchema()
+    dump = {
+        "titles": [{"title": "This is a title."}],
+        "collaborations": [{"value": "ATLAS"}, {"value": "CMS"}],
+        "control_number": 123,
+        "authors": [
+            {
+                "ids": [{"schema": "INSPIRE BAI", "value": "Benjamin.P.Abbott.1"}],
+                "record": {"$ref": "http://labs.inspirehep.net/api/authors/1032336"},
+                "recid": 1032336,
+                "raw_affiliations": [
+                    {
+                        "value": "LIGO - California Institute of Technology - Pasadena - CA 91125 - USA"
+                    }
+                ],
+                "affiliations": [
+                    {
+                        "record": {
+                            "$ref": "http://labs.inspirehep.net/api/institutions/908529"
+                        },
+                        "value": "LIGO Lab., Caltech",
+                    }
+                ],
+                "signature_block": "ABATb",
+                "uuid": "7662251b-47d4-4083-b44b-ce8a0112fd7b",
+            }
+        ],
+        "record": {"$ref": "http://localhost:5000/api/literature/123"},
+        "arxiv_eprints": [{"value": "1606.09129", "categories": ["hep"]}],
+    }
+    expected = {
+        "title_display": "This is a title.",
+        "collaborations": [{"value": "ATLAS"}, {"value": "CMS"}],
+        "control_number": 123,
+        "authors": [
+            {
+                "ids": [{"schema": "INSPIRE BAI", "value": "Benjamin.P.Abbott.1"}],
+                "uuid": "7662251b-47d4-4083-b44b-ce8a0112fd7b",
+                "signature_block": "ABATb",
+                "bai": "Benjamin.P.Abbott.1",
+                "record": {"$ref": "http://labs.inspirehep.net/api/authors/1032336"},
+                "control_number": "1032336",
+                "affiliations": [
+                    {
+                        "record": {
+                            "$ref": "http://labs.inspirehep.net/api/institutions/908529"
+                        },
+                        "value": "LIGO Lab., Caltech",
+                        "control_number": "908529",
+                    }
+                ],
+                "recid": 1032336,
+                "raw_affiliations": [
+                    {
+                        "value": "LIGO - California Institute of Technology - Pasadena - CA 91125 - USA"
+                    }
+                ],
+            }
+        ],
+        "arxiv_eprints": [{"value": "1606.09129", "categories": ["hep"]}],
+    }
+    record = LiteratureRecord(dump)
+    result = schema.dumps(record).data
+
+    assert expected == orjson.loads(result)

@@ -95,7 +95,7 @@ class CVAuthorSchemaV1(AuthorSchemaV1):
         last_name = get_last_name(data.get("full_name", ""))
         if first_name:
             return f"{first_name} {last_name}"
-        return data["full_name"]
+        return data.get("full_name", "")
 
 
 class AuthorsInfoSchemaForES(AuthorSchemaV1):

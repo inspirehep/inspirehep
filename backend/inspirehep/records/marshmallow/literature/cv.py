@@ -5,7 +5,8 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from marshmallow import Schema, fields, missing
+from inspire_dojson.utils import strip_empty_values
+from marshmallow import Schema, fields, missing, post_dump
 
 from inspirehep.records.marshmallow.fields.list_with_limit import ListWithLimit
 from inspirehep.records.marshmallow.fields.nested_without_empty_objects import (
@@ -54,3 +55,7 @@ class CVSchema(Schema):
             return f"{first_title['title']} : {first_title['subtitle']}"
 
         return first_title["title"]
+
+    @post_dump
+    def strip_empty(self, data):
+        return strip_empty_values(data)
