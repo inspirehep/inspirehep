@@ -12,7 +12,7 @@ import {
 import { SUBMISSIONS } from '../common/routes';
 import { httpErrorToActionPayload } from '../common/utils';
 
-export const REDIRECT_TO_EDITOR = List(['experiments', 'institutions']);
+export const REDIRECT_TO_EDITOR = List(['experiments', 'institutions', 'journals']);
 
 function submitSuccess(payload) {
   return {

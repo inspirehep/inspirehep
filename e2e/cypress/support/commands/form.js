@@ -1,5 +1,7 @@
 import moment from 'moment';
 
+export const REDIRECT_TO_EDITOR = ['experiments', 'institutions', 'journals'];
+
 Cypress.Commands.add('selectLiteratureDocType', (docType) => {
   cy.get('[data-test-id=skip-import-button]')
     .click()
@@ -26,21 +28,34 @@ Cypress.Commands.add(
     return cy
       .waitForRoute(apiRoute)
       .then((xhr) => {
-        const recordId = xhr.response.body.pid_value;
-
-        if (recordId) {
-          cy.wrap(xhr).its('status').should('equal', 201);
-          return cy.requestRecord({ collection, recordId });
-        } else {
-          // workflow based submissions
-          cy.wrap(xhr).its('status').should('equal', 200);
-          const workflowId = xhr.response.body.workflow_object_id;
-          return cy.requestWorkflow({ workflowId });
-        }
+        const mapIdToRequest = () => {
+          if (xhr.response.body.pid_value) {
+            return {
+              status: cy.wrap(xhr).its('status').should('equal', 201),
+              request: cy.requestRecord({ collection, recordId: xhr.response.body.pid_value }),
+            };
+          } else if (xhr.response.body.control_number) {
+              return {
+                status: cy.wrap(xhr).its('status').should('equal', 201),
+                request: cy.requestEditor({ collection, recordId: xhr.response.body.control_number }),
+              };
+          } else {
+              return {
+                status: cy.wrap(xhr).its('status').should('equal', 200),
+                request: cy.requestWorkflow({ workflowId: xhr.response.body.workflow_object_id }),
+              }
+            }
+        };
+        mapIdToRequest().status;
+        return mapIdToRequest().request;
       })
       .then((recordOrWorkflow) => {
-        expect(recordOrWorkflow.metadata).like(expectedMetadata);
-        return recordOrWorkflow;
+        const metadata = recordOrWorkflow.metadata;
+
+        if (!REDIRECT_TO_EDITOR.includes(collection)) {
+          expect(metadata).like(expectedMetadata);
+          return recordOrWorkflow;
+        }
       });
   }
 );

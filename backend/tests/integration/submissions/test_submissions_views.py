@@ -32,6 +32,7 @@ from inspirehep.records.api import (
     InstitutionsRecord,
     JobsRecord,
     SeminarsRecord,
+    JournalsRecord,
 )
 
 
@@ -2277,3 +2278,57 @@ def test_new_institution_submission_with_empty_data(
 
     assert response.status_code == 400
     assert response.json["message"][0] == "Institution is missing a value or values."
+
+
+def test_new_journal_submission(
+    inspire_app,
+):
+    journal_data = {
+        "_collections": ["Journals"],
+        "$schema": "http://localhost:5000/schemas/records/journals.json",
+        "short_title": "RoMP",
+        "journal_title": {"title": "Reviews of Modern Physics"},
+    }
+    
+    form_data = {
+        "short_title": "RoMP",
+        "journal_title": {"title": "Reviews of Modern Physics"},
+    }
+    
+    curator = create_user(role="cataloger")
+    
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=curator.email)
+        response = client.post(
+            "/submissions/journals",
+            content_type="application/json",
+            data=orjson.dumps({"data": form_data}),
+        )
+
+    assert response.status_code == 201
+
+    payload = orjson.loads(response.data)
+    journal_id = payload["control_number"]
+    journal_record = JournalsRecord.get_record_by_pid_value(journal_id)
+    journal_record_data = {
+        key: value
+        for (key, value) in journal_record.items()
+        if key in journal_data
+    }
+    assert journal_record_data == journal_data
+
+
+def test_new_journal_submission_with_empty_data(
+    inspire_app,
+):
+    form_data = {}
+    curator = create_user(role="cataloger")
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=curator.email)
+        response = client.post(
+            "/submissions/journals",
+            content_type="application/json",
+            data=orjson.dumps({"data": form_data}),
+        )
+    assert response.status_code == 400
+    assert response.json["message"][0] == "Journal is missing short_title"

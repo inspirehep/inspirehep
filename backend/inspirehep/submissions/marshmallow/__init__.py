@@ -15,3 +15,4 @@ from .institutions import Institution
 from .job import Job
 from .literature import Literature
 from .seminars import Seminar
+from .journals import Journal

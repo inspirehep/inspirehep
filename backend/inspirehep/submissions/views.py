@@ -35,6 +35,7 @@ from inspirehep.records.api import (
     InstitutionsRecord,
     JobsRecord,
     SeminarsRecord,
+    JournalsRecord,
 )
 from inspirehep.serializers import jsonify
 from inspirehep.submissions.errors import RESTDataError
@@ -45,6 +46,7 @@ from .loaders import author_v1 as author_loader_v1
 from .loaders import conference_v1 as conference_loader_v1
 from .loaders import experiment_v1 as experiment_loader_v1
 from .loaders import institution_v1 as institution_loader_v1
+from .loaders import journal_v1 as journal_loader_v1
 from .loaders import job_v1 as job_loader_v1
 from .loaders import literature_v1 as literature_loader_v1
 from .loaders import seminar_v1 as seminar_loader_v1
@@ -565,6 +567,22 @@ class InstitutionSubmissionsResource(BaseSubmissionsResource):
 
         return jsonify({"control_number": record["control_number"]}), 201
 
+class JournalSubmissionsResource(BaseSubmissionsResource):
+        
+        def load_data_from_request(self):
+            return journal_loader_v1()
+
+        def post(self):
+            """Adds new Journal"""
+            
+            if is_superuser_or_cataloger_logged_in():
+
+                data = self.load_data_from_request()
+                record = JournalsRecord(data=data).create(data)
+                db.session.commit()
+
+                return jsonify({"control_number": record["control_number"]}), 201
+
 
 author_submissions_view = AuthorSubmissionsResource.as_view("author_submissions_view")
 blueprint.add_url_rule("/authors", view_func=author_submissions_view)
@@ -600,3 +618,8 @@ institution_submission_view = InstitutionSubmissionsResource.as_view(
     "institution_submission_view"
 )
 blueprint.add_url_rule("/institutions", view_func=institution_submission_view)
+
+journal_submission_view = JournalSubmissionsResource.as_view(
+    "journal_submission_view"
+)
+blueprint.add_url_rule("/journals", view_func=journal_submission_view)
