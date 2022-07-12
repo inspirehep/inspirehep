@@ -18,6 +18,7 @@ from .marshmallow import (
     Institution,
     Literature,
     Seminar,
+    Journal,
 )
 
 literature_v1 = JSONSerializer(Literature)
@@ -27,3 +28,4 @@ conference_v1 = JSONSerializer(Conference)
 seminar_v1 = JSONSerializer(Seminar)
 experiment_v1 = JSONSerializer(Experiment)
 institution_v1 = JSONSerializer(Institution)
+journal_v1 = JSONSerializer(Journal)

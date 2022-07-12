@@ -11,6 +11,7 @@ import {
   SUBMISSIONS_SEMINAR,
   SUBMISSIONS_INSTITUTION,
   SUBMISSIONS_EXPERIMENT,
+  SUBMISSIONS_JOURNAL,
 } from '../common/routes';
 import { SUPERUSER_OR_CATALOGER } from '../common/authorization';
 import PrivateRoute from '../common/PrivateRoute';
@@ -31,6 +32,7 @@ import SeminarSubmissionSuccessPageContainer from './seminars/containers/Seminar
 import AuthorUpdateSubmissionSuccessPage from './authors/components/AuthorUpdateSubmissionSuccessPage';
 import InstitutionSubmissionPageContainer from './institutions/containers/InstitutionSubmissionPageContainer';
 import ExperimentSubmissionPageContainer from './experiments/containers/ExperimentSubmissionPageContainer';
+import JournalSubmissionPageContainer from './journals/containers/JournalSubmissionPageContainer.tsx';
 
 class Submissions extends Component {
   render() {
@@ -91,6 +93,12 @@ class Submissions extends Component {
               authorizedRoles={SUPERUSER_OR_CATALOGER}
               path={SUBMISSIONS_EXPERIMENT}
               component={ExperimentSubmissionPageContainer}
+            />
+            <PrivateRoute
+              exact
+              authorizedRoles={SUPERUSER_OR_CATALOGER}
+              path={SUBMISSIONS_JOURNAL}
+              component={JournalSubmissionPageContainer}
             />
             <Redirect
               exact

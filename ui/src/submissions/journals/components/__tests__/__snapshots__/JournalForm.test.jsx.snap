@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JournalForm renders 1`] = `
+<Form
+  className="bg-white pa3"
+>
+  <Row
+    className="mb3 pt2 bg-white"
+    gutter={0}
+  >
+    <Col
+      span={24}
+    >
+      <Field
+        component={[Function]}
+        label="* Short title"
+        name="short_title"
+      />
+      <Field
+        component={[Function]}
+        label="* Journal Title"
+        name="journal_title"
+      />
+    </Col>
+  </Row>
+  <Row
+    gutter={0}
+    justify="end"
+  >
+    <SubmitButton />
+  </Row>
+</Form>
+`;

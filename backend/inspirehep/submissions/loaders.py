@@ -20,6 +20,7 @@ from .marshmallow import (
     Job,
     Literature,
     Seminar,
+    Journal,
 )
 
 
@@ -56,3 +57,4 @@ literature_v1 = inspire_submission_marshmallow_loader(Literature)
 seminar_v1 = inspire_submission_marshmallow_loader(Seminar)
 experiment_v1 = inspire_submission_marshmallow_loader(Experiment)
 institution_v1 = inspire_submission_marshmallow_loader(Institution)
+journal_v1 = inspire_submission_marshmallow_loader(Journal)

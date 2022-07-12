@@ -78,6 +78,9 @@ Cypress.Commands.add('requestRecord', ({ collection, recordId }) => {
 Cypress.Commands.add('requestWorkflow', ({ workflowId }) => {
   cy.request(`/api/holdingpen/${workflowId}`).its('body');
 });
+Cypress.Commands.add('requestEditor', ({ collection, recordId }) => {
+  cy.request(`/editor/record/${collection}/${recordId}`).its('body');
+});
 
 Cypress.Commands.add('waitForSearchResults', () => {
   cy.get('[data-test-id="search-results"]', { timeout: 10000 }).should(
