@@ -1,0 +1,40 @@
+{
+  "authors": [
+    {
+      "ids": [
+        {
+          "value": "N.McCallum.1",
+          "schema": "INSPIRE BAI"
+        }
+      ],
+      "uuid": "b634b018-1356-4ce9-8162-ab57475ed9ce",
+      "record": {
+        "$ref": "https://inspirehep.net/api/authors/1881631"
+      },
+      "full_name": "Mccallum, Nialh",
+      "signature_block": "MCALANn",
+      "raw_affiliations": [
+        {
+          "value": "Manchester U."
+        }
+      ]
+    },
+    {
+      "ids": [
+        {
+          "value": "M.Brown.4",
+          "schema": "INSPIRE BAI"
+        }
+      ],
+      "uuid": "49fcb902-eb0d-43ac-8653-7ac6418191be",
+      "record": {
+        "$ref": "https://inspirehep.net/api/authors/2108904"
+      },
+      "full_name": "Brown, Michael",
+      "inspire_roles": [
+        "supervisor"
+      ],
+      "signature_block": "BRANm"
+    }
+  ]
+}

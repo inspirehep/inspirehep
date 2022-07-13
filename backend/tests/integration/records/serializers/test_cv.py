@@ -4,6 +4,7 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+import orjson
 from flask_sqlalchemy import models_committed
 from helpers.utils import create_record
 
@@ -620,3 +621,15 @@ def test_literature_detail_cv_link_alias_format(inspire_app):
 
     assert response.status_code == expected_status_code
     assert expected_result == response_data
+
+
+def test_literature_detail_format(inspire_app, shared_datadir):
+    data = orjson.loads((shared_datadir / "2108903.json").read_text())
+    record = create_record("lit", data=data)
+    expected_status_code = 200
+    record = create_record("lit")
+    expected_content_type = "text/vnd+inspire.html+html; charset=utf-8"
+    with inspire_app.test_client() as client:
+        response = client.get(f"/literature/{record['control_number']}?format=cv")
+    assert response.status_code == expected_status_code
+    assert response.content_type == expected_content_type
