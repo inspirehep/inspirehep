@@ -23,7 +23,7 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { JsonStoreService } from 'ng2-json-editor';
 
-import { CommonApiService } from '../../../core/services';
+import { CommonApiService, RecordCleanupService } from '../../../core/services';
 import { ToastrService } from 'ngx-toastr';
 import { HOVER_TO_DISMISS_INDEFINITE_TOAST } from '../../constants';
 
@@ -36,7 +36,8 @@ export class LinkReferencesButtonComponent {
   constructor(
     private apiService: CommonApiService,
     private jsonStoreService: JsonStoreService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private recordCleanupService: RecordCleanupService
   ) {}
 
   onLinkButtonClick() {
@@ -47,15 +48,16 @@ export class LinkReferencesButtonComponent {
     );
 
     const references = this.jsonStoreService.getIn(['references']);
+    this.recordCleanupService.cleanup(references);
     this.apiService
       .getLinkedReferences(references)
-      .then(linkedReferences => {
+      .then((linkedReferences) => {
         this.jsonStoreService.setIn(['references'], linkedReferences);
 
         this.toastrService.clear(infoToast.toastId);
         this.toastrService.success(`References are linked.`, 'Success');
       })
-      .catch(error => {
+      .catch((error) => {
         this.toastrService.clear(infoToast.toastId);
         this.toastrService.error('Could not link references', 'Error');
       });
