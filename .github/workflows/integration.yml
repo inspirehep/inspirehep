@@ -590,6 +590,7 @@ jobs:
   end_to_end_test_firefox:
     name: End to end test - Firefox
     runs-on: ubuntu-20.04
+    container: cypress/browsers:node14.19.0-chrome100-ff99-edge
     needs:
       - backend_build
       - ui_build
