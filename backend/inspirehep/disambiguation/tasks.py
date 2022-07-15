@@ -92,14 +92,28 @@ def match_literature_author_with_config(author_data, matcher_config):
     return matched_records
 
 
-def get_reference_and_bai_if_unambiguous_match(matched_refs_ids):
+def get_reference_and_bai_if_unambiguous_match(author_reference, author_ids):
+    author_bais = get_values_for_schema(author_ids, "INSPIRE BAI")
+    return {
+        "author_reference": author_reference,
+        "author_bai": author_bais[0] if author_bais else None,
+    }
+
+
+def get_stub_author_data_if_matched(matched_refs_ids):
+    for matched_ref, matched_ids in matched_refs_ids.items():
+        author = AuthorsRecord.get_record_by_pid_value(
+            int(matched_ref.rsplit("/", 1)[-1])
+        )
+        if author.get("stub"):
+            return get_reference_and_bai_if_unambiguous_match(matched_ref, matched_ids)
+
+
+def find_unabiguous_author_match_or_stub_author(matched_refs_ids):
     if len(matched_refs_ids) == 1:
-        author_reference, author_ids = matched_refs_ids.popitem()
-        author_bais = get_values_for_schema(author_ids, "INSPIRE BAI")
-        return {
-            "author_reference": author_reference,
-            "author_bai": author_bais[0] if author_bais else None,
-        }
+        return get_reference_and_bai_if_unambiguous_match(*matched_refs_ids.popitem())
+    elif len(matched_refs_ids) > 1:
+        return get_stub_author_data_if_matched(matched_refs_ids)
 
 
 def get_reference_and_bai_if_unambiguous_literature_author_match(matched_records):
@@ -109,8 +123,7 @@ def get_reference_and_bai_if_unambiguous_literature_author_match(matched_records
         ): get_value(matched_author, "inner_hits.authors.hits.hits[0]._source.ids", [])
         for matched_author in matched_records
     }
-    matched_author_data = get_reference_and_bai_if_unambiguous_match(matched_refs_ids)
-    return matched_author_data
+    return find_unabiguous_author_match_or_stub_author(matched_refs_ids)
 
 
 def _filter_out_initials(name):
@@ -166,7 +179,7 @@ def match_literature_author(author, record):
             return matched_author_data
 
 
-def create_new_author(full_name, from_recid):
+def create_new_author(full_name, from_recid, orcids):
     new_author_data = {
         "name": {"value": full_name},
         "_private_notes": [
@@ -176,6 +189,8 @@ def create_new_author(full_name, from_recid):
             }
         ],
     }
+    if orcids:
+        new_author_data["ids"] = [{"value": orcids[0], "schema": "ORCID"}]
 
     new_author = create_new_stub_author(**new_author_data)
     LOGGER.info(
@@ -196,8 +211,7 @@ def match_author(author):
         )
         for matched_author in matched_authors
     }
-    matched_author_data = get_reference_and_bai_if_unambiguous_match(matched_refs_ids)
-    return matched_author_data
+    return find_unabiguous_author_match_or_stub_author(matched_refs_ids)
 
 
 def assign_bai_to_literature_author(author, bai):
@@ -237,7 +251,9 @@ def _disambiguate_authors(authors_to_disambiguate, record):
             ]
         elif "record" not in author:
             linked_author_record = create_new_author(
-                author["full_name"], record["control_number"]
+                author["full_name"],
+                record["control_number"],
+                get_values_for_schema(author.get("ids", []), "ORCID"),
             )
             author["record"] = linked_author_record["self"]
             new_author_bai = get_values_for_schema(

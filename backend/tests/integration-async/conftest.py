@@ -32,7 +32,7 @@ def app():
     app_config = {}
     app_config["DEBUG"] = False
     app_config["CELERY_CACHE_BACKEND"] = "memory"
-    app_config["CELERY_TASK_ALWAYS_EAGER"] = False
+    app_config["CELERY_TASK_ALWAYS_EAGER"] = True
     app_config["CELERY_TASK_EAGER_PROPAGATES"] = False
     app_config["TESTING"] = True
     app_config["SEARCH_INDEX_PREFIX"] = "test-integration-async-"
