@@ -6,3 +6,4 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 EDITOR_UPLOAD_ALLOWED_EXTENSIONS = {".pdf"}
+GROBID_URL = "http://grobid.test"

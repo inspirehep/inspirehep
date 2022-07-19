@@ -10,6 +10,7 @@ import os
 
 import orjson
 import pkg_resources
+import pytest
 import requests_mock
 from flask.globals import current_app
 from helpers.utils import create_record, create_user
@@ -951,3 +952,123 @@ def test_refextract_text_dedupe_references(mock_refs, inspire_app):
     assert response.status_code == 200
     assert validate(references, subschema) is None
     assert len(references) == 1
+
+
+@pytest.mark.vcr()
+def test_authorlist_url(inspire_app):
+    schema = load_schema("hep")
+    subschema = schema["properties"]["authors"]
+    user = create_user(role=Roles.cataloger.value)
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/editor/authorlist/url",
+            content_type="application/json",
+            data=orjson.dumps({"url": ("https://arxiv.org/pdf/1612.06414.pdf")}),
+        )
+    assert response.status_code == 200
+    result = orjson.loads(response.data)
+    assert validate(result["authors"], subschema) is None
+    expected = {
+        "authors": [
+            {
+                "full_name": "Moskovic, Micha",
+                "raw_affiliations": [
+                    {
+                        "value": "Università di Torino, Dipartimento di Fisica and I.N.F.N. -sezione di Torino, Via P. Giuria 1, I-10125 Torino, Italy"
+                    }
+                ],
+            },
+            {
+                "full_name": "Zein Assi, Ahmad",
+            },
+        ]
+    }
+
+    assert expected == result
+
+
+def test_authorlist_url_exception(inspire_app):
+    user = create_user(role=Roles.cataloger.value)
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/editor/authorlist/url",
+            content_type="application/json",
+            data=orjson.dumps(
+                {"url": "https://grobid.readthedocs.io/en/latest/training/header/"}
+            ),
+        )
+
+    assert response.status_code == 400
+
+
+@pytest.mark.vcr()
+def test_authorlist_url_is_normalizing_affiliaitons(inspire_app):
+    schema = load_schema("hep")
+    subschema = schema["properties"]["authors"]
+    user = create_user(role=Roles.cataloger.value)
+
+    create_record(
+        "lit",
+        data={
+            "curated": True,
+            "authors": [
+                {
+                    "curated_relation": True,
+                    "full_name": "Moskovic, Micha",
+                    "raw_affiliations": [
+                        {
+                            "value": "Università di Torino, Dipartimento di Fisica and I.N.F.N. -sezione di Torino, Via P. Giuria 1, I-10125 Torino, Italy",
+                        }
+                    ],
+                    "affiliations": [
+                        {
+                            "value": "Università di Torino",
+                            "record": {
+                                "$ref": "https://inspirebeta.net/api/institutions/902725"
+                            },
+                        }
+                    ],
+                }
+            ],
+        },
+    )
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/editor/authorlist/url",
+            content_type="application/json",
+            data=orjson.dumps({"url": ("https://arxiv.org/pdf/1612.06414.pdf")}),
+        )
+    assert response.status_code == 200
+
+    expected = {
+        "authors": [
+            {
+                "full_name": "Moskovic, Micha",
+                "raw_affiliations": [
+                    {
+                        "value": "Università di Torino, Dipartimento di Fisica and I.N.F.N. -sezione di Torino, Via P. Giuria 1, I-10125 Torino, Italy"
+                    }
+                ],
+                "affiliations": [
+                    {
+                        "record": {
+                            "$ref": "https://inspirebeta.net/api/institutions/902725"
+                        },
+                        "value": "Università di Torino",
+                    }
+                ],
+            },
+            {
+                "full_name": "Zein Assi, Ahmad",
+            },
+        ]
+    }
+    result = orjson.loads(response.data)
+    assert validate(result["authors"], subschema) is None
+    assert expected == result

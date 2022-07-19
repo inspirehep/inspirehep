@@ -5,12 +5,16 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+from urllib.parse import urljoin
+
 import requests
 from flask import current_app
 from inspire_dojson.utils import get_recid_from_ref, get_record_ref
 from inspire_matcher import match
 from inspire_utils.dedupers import dedupe_list
 from inspire_utils.record import get_value
+
+from inspirehep.matcher.parsers import GrobidAuthors
 
 from .parsers import GrobidReferenceParser
 
@@ -214,3 +218,20 @@ def match_references(references):
         "added_recids": added_recids,
         "removed_recids": removed_recids,
     }
+
+
+def get_affiliations_from_pdf(url, **kwargs):
+    api_path = "api/processHeaderDocument"
+    document = requests.get(url, headers={"Content-Type": "application/pdf"}).content
+    data = {"input": document}
+    data.update(kwargs)
+    grobid_url = current_app.config["GROBID_URL"]
+    response = requests.post(urljoin(grobid_url, api_path), files=data)
+    response.raise_for_status()
+
+    parsed_authors = [
+        author["author"] for author in GrobidAuthors(response.text).parse_all()
+    ]
+    if not response:
+        return
+    return {"authors": parsed_authors}
