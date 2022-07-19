@@ -52,9 +52,13 @@ export class CommonApiService {
       .toPromise();
   }
 
-  authorExtract(source: string): Observable<AuthorExtractResult> {
+  authorExtract(
+    source: string,
+    sourceType: string
+  ): Observable<AuthorExtractResult> {
+    let body = { [sourceType]: source };
     return this.http
-      .post(`${editorApiUrl}/authorlist/text`, { text: source })
+      .post(`${editorApiUrl}/authorlist/${sourceType}`, body)
       .catch((error) => Observable.throw(new ApiError(error)))
       .map((res) => res.json());
   }

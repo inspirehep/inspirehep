@@ -62,7 +62,7 @@ export class AuthorExtractActionsComponent {
       HOVER_TO_DISMISS_INDEFINITE_TOAST
     );
 
-    this.apiService.authorExtract(this.source).subscribe(
+    this.apiService.authorExtract(this.source, this.sourceType).subscribe(
       (authors) => this.onExtract(authors),
       (error) => this.onError(error)
     );
@@ -106,5 +106,10 @@ export class AuthorExtractActionsComponent {
     } else {
       this.toastrService.error('Could not extract authors', 'Error');
     }
+  }
+
+  get sourceType(): 'text' | 'url' {
+    const isUrl = this.source.startsWith('http') && this.source.length < 2048;
+    return isUrl ? 'url' : 'text';
   }
 }

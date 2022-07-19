@@ -28,7 +28,7 @@ from inspirehep.accounts.api import (
 from inspirehep.accounts.decorators import login_required, login_required_with_roles
 from inspirehep.accounts.roles import Roles
 from inspirehep.files.api import current_s3_instance
-from inspirehep.matcher.api import match_references
+from inspirehep.matcher.api import get_affiliations_from_pdf, match_references
 from inspirehep.matcher.utils import create_journal_dict, map_refextract_to_schema
 from inspirehep.pidstore.api.base import PidStoreBase
 from inspirehep.records.api import InspireRecord
@@ -342,21 +342,9 @@ def authorlist_text():
     """Run authorlist on a piece of text."""
     try:
         parsed_authors = authorlist(request.json["text"])
-        normalized_affiliations, ambiguous_affiliations = normalize_affiliations(
-            parsed_authors, LiteratureSearch()
-        )
-        for author, normalized_affiliation in zip(
-            parsed_authors.get("authors", []), normalized_affiliations
-        ):
-            if "affiliations" in author:
-                continue
-            if normalized_affiliation:
-                author["affiliations"] = normalized_affiliation
-        LOGGER.info(
-            "Found ambiguous affiliations for raw affiliations, skipping affiliation linking.",
-            ambiguous_affiliations=ambiguous_affiliations,
-        )
-        return jsonify(parsed_authors)
+        authors_normalized_affs = normalize_affiliations_for_authors(parsed_authors)
+
+        return jsonify(authors_normalized_affs)
     except Exception as err:
         return jsonify(status=400, message=" / ".join(err.args)), 400
 
@@ -379,3 +367,38 @@ def remove_editor_lock(endpoint, pid_value):
     )
     editor_soft_lock.remove_lock()
     return jsonify(success=True)
+
+
+@blueprint.route("/authorlist/url", methods=["POST"])
+@login_required_with_roles([Roles.cataloger.value])
+def authorlist_url():
+    """GROBID extraction from PDF"""
+
+    url = request.json["url"]
+    kwargs_to_grobid = {"includeRawAffiliations": "1", "consolidateHeader": "1"}
+
+    try:
+        parsed_authors = get_affiliations_from_pdf(url, **kwargs_to_grobid)
+        authors_normalized_affs = normalize_affiliations_for_authors(parsed_authors)
+        return jsonify(authors_normalized_affs)
+    except Exception as err:
+        return jsonify(status=400, message=" / ".join(err.args)), 400
+
+
+def normalize_affiliations_for_authors(parsed_authors):
+    normalized_affiliations, ambiguous_affiliations = normalize_affiliations(
+        parsed_authors, LiteratureSearch()
+    )
+
+    for author, normalized_affiliation in zip(
+        parsed_authors.get("authors", []), normalized_affiliations
+    ):
+        if "affiliations" in author:
+            continue
+        if normalized_affiliation:
+            author["affiliations"] = normalized_affiliation
+    LOGGER.info(
+        "Found ambiguous affiliations for raw affiliations, skipping affiliation linking.",
+        ambiguous_affiliations=ambiguous_affiliations,
+    )
+    return parsed_authors
