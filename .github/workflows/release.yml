@@ -84,3 +84,9 @@ jobs:
           repository: cern-sis/kubernetes
           event-type: deploy
           client-payload: '{"project": "inspire", "application": "${{ matrix.applications }}", "namespace": "inspire-prod", "image":"inspirehep/${{ matrix.applications }}","new_tag":"${{ github.event.inputs.tag }}"}'
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          prerelease: false
+          draft: false
