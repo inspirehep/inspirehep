@@ -13,7 +13,6 @@ import InstitutionPapers from './InstitutionPapers';
 import { newSearch } from '../../actions/search';
 import { INSTITUTION_PAPERS_NS } from '../../search/constants';
 import RequireOneOf from '../../common/components/RequireOneOf';
-import GridLink from '../components/GridLink';
 import RorLink from '../components/RorLink';
 import InstitutionsNameVariantsList from '../components/InstitutionNameVariantsList';
 import InstitutionPeople from '../components/InstitutionPeople';
@@ -106,11 +105,6 @@ function DetailPage({ record }) {
             >
               <Row className="mt3">
                 <Col>
-                  {grid && (
-                    <Row>
-                      <GridLink grid={grid} />
-                    </Row>
-                  )}
                   {ror && (
                     <Row>
                       <RorLink ror={ror} />
