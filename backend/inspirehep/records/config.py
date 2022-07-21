@@ -67,6 +67,7 @@ from inspirehep.search.facets import (
 )
 
 INSPIRE_SERIALIZERS = "inspirehep.records.serializers"
+
 # /literature endpoints
 RECORD = {
     "pid_fetcher": "recid",
@@ -146,7 +147,7 @@ LITERATURE.update(
             "json": "application/json",
             "cv": "text/vnd+inspire.html+html",
         },
-    }
+    },
 )
 LITERATURE_FACETS = deepcopy(LITERATURE)
 LITERATURE_FACETS.update(
@@ -689,3 +690,4 @@ LITERATURE_SOURCE_EXCLUDES_BY_CONTENT_TYPE = {
 ADDITIONAL_LINKS = {"LITERATURE": {"citations": build_citation_search_link}}
 
 FILES_RESTRICTED_MIMETYPES = ("text/html", "text/javascript")
+FILES_SIZE_LIMIT = 100 * 1024 * 1024  # ~ 100MB

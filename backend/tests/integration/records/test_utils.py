@@ -9,7 +9,7 @@ import pytest
 import requests_mock
 from helpers.utils import create_record
 
-from inspirehep.records.errors import DownloadFileError
+from inspirehep.records.errors import DownloadFileError, FileSizeExceededError
 from inspirehep.records.marshmallow.literature.utils import get_parent_record
 from inspirehep.records.utils import download_file_from_url, get_pid_for_pid
 
@@ -49,6 +49,18 @@ def test_download_file_from_url_fails(inspire_app):
         )
         with pytest.raises(DownloadFileError):
             download_file_from_url(url)
+
+
+def test_download_file_from_url_fails_with_large_file(inspire_app):
+    url = "https://inspirehep.net/record/1759380/files/channelxi3.png"
+    with requests_mock.Mocker() as mocker:
+        mocker.get(
+            "https://inspirehep.net/record/1759380/files/channelxi3.png",
+            status_code=200,
+            headers={"Content-Length": f"{200 * 1024 * 1024}"},
+        )
+        with pytest.raises(FileSizeExceededError):
+            download_file_from_url(url, check_file_size=True)
 
 
 def test_get_pids_for_one_pid(inspire_app):

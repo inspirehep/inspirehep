@@ -198,12 +198,7 @@ def test_literature_workflows_record_source_get_record_happy_flow(inspire_app):
         response = client.get(
             "/api/literature/workflows_record_sources",
             content_type="application/json",
-            data=orjson.dumps(
-                {
-                    "record_uuid": str(record.id),
-                    "source": source,
-                }
-            ),
+            data=orjson.dumps({"record_uuid": str(record.id), "source": source}),
         )
         assert response.status_code == 200
         assert "workflow_sources" in response.json
@@ -223,12 +218,7 @@ def test_literature_workflows_record_source_get_not_found(inspire_app):
         response = client.get(
             "/literature/workflows_record_sources",
             content_type="application/json",
-            data=orjson.dumps(
-                {
-                    "record_uuid": str(record.id),
-                    "source": source,
-                }
-            ),
+            data=orjson.dumps({"record_uuid": str(record.id), "source": source}),
         )
         assert response.status_code == 404
         assert "Workflow source not found" == response.json["message"]
@@ -241,10 +231,7 @@ def test_literature_workflows_record_source_post_with_wrong_data(inspire_app):
 
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=superuser.email)
-        data = {
-            "record_uuid": str(record.id),
-            "source": source,
-        }
+        data = {"record_uuid": str(record.id), "source": source}
         response = client.post(
             "/literature/workflows_record_sources",
             content_type="application/json",
@@ -293,11 +280,7 @@ def test_literature_workflows_record_source_post_update(inspire_app):
         record.update(dict(record))
         db.session.commit()
 
-        data = {
-            "record_uuid": str(record.id),
-            "source": source,
-            "json": dict(record),
-        }
+        data = {"record_uuid": str(record.id), "source": source, "json": dict(record)}
         response = client.post(
             "/literature/workflows_record_sources",
             content_type="application/json",
@@ -338,11 +321,7 @@ def test_literature_workflows_record_source_post_with_another_source(inspire_app
         response = client.get(
             "/literature/workflows_record_sources",
             content_type="application/json",
-            data=orjson.dumps(
-                {
-                    "record_uuid": str(record.id),
-                }
-            ),
+            data=orjson.dumps({"record_uuid": str(record.id)}),
         )
         assert response.status_code == 200
         assert "workflow_sources" in response.json
