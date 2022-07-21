@@ -6,6 +6,7 @@ import {
   SEMINARS,
   INSTITUTIONS,
   EXPERIMENTS,
+  JOURNALS
 } from '../common/routes';
 
 export const AUTHORS_NS = 'authors';
@@ -21,6 +22,8 @@ export const INSTITUTIONS_NS = 'institutions';
 export const INSTITUTION_PAPERS_NS = 'institutionPapers';
 export const SEMINARS_NS = 'seminars';
 export const EXPERIMENTS_NS = 'experiments';
+export const JOURNALS_NS = 'journals';
+export const JOURNAL_PAPERS_NS = 'journalPapers';
 export const EXPERIMENT_PAPERS_NS = 'experimentPapers';
 export const AUTHOR_SEMINARS_NS = 'authorSeminars';
 export const LITERATURE_SEMINARS_NS = 'literatureSeminars';
@@ -35,6 +38,7 @@ export const SEARCH_BOX_NAMESPACES = [
   CONFERENCES_NS,
   INSTITUTIONS_NS,
   EXPERIMENTS_NS,
+  JOURNALS_NS
 ];
 
 export const SEARCHABLE_COLLECTION_PATHNAMES = [
@@ -45,6 +49,7 @@ export const SEARCHABLE_COLLECTION_PATHNAMES = [
   CONFERENCES,
   INSTITUTIONS,
   EXPERIMENTS,
+  JOURNALS,
 ];
 
 export const NAMESPACE_TO_PATHNAME = {
@@ -68,4 +73,6 @@ export const NAMESPACE_TO_PATHNAME = {
   [CONFERENCES_NS]: CONFERENCES,
   [INSTITUTIONS_NS]: INSTITUTIONS,
   [EXPERIMENTS_NS]: EXPERIMENTS,
+  [JOURNALS_NS]: JOURNALS,
+  [JOURNAL_PAPERS_NS]: LITERATURE,
 };

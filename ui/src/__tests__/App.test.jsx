@@ -19,6 +19,7 @@ import Jobs from '../jobs';
 import Conferences from '../conferences';
 import { LOGGED_IN_USER_REQUEST } from '../actions/actionTypes';
 import BibliographyGeneratorPageContainer from '../bibliographyGenerator/BibliographyGeneratorPageContainer';
+import Journals from '../journals';
 
 jest.mock('../tracker');
 
@@ -249,5 +250,19 @@ describe('App', () => {
       </Provider>
     );
     expect(wrapper.find(BibliographyGeneratorPageContainer)).toExist();
+  });
+
+  it('navigates to Journals when /journals', () => {
+    const wrapper = mount(
+      <Provider store={getStore()}>
+        <MemoryRouter
+          initialEntries={['/journals']}
+          initialIndex={0}
+        >
+          <App />
+        </MemoryRouter>
+      </Provider>
+    );
+    expect(wrapper.find(Journals)).toExist();
   });
 });

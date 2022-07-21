@@ -21,6 +21,7 @@ def test_journals_json(inspire_app, datadir):
     record_control_number = record.json["control_number"]
 
     expected_metadata = deepcopy(record.json)
+    del expected_metadata["_collections"]
     expected_created = utils.isoformat(record.created)
     expected_updated = utils.isoformat(record.updated)
     with inspire_app.test_client() as client:
@@ -44,6 +45,7 @@ def test_journals_search_json(inspire_app, datadir):
     record = create_record("jou", data=data)
 
     expected_result = deepcopy(record)
+    del expected_result["_collections"]
     expected_created = utils.isoformat(record.created)
     expected_updated = utils.isoformat(record.updated)
     with inspire_app.test_client() as client:

@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JournalItem renders with props 1`] = `
+<ResultItem
+  leftActions={
+    <React.Fragment>
+      <UrlsAction
+        icon={<ForwardRef(LinkOutlined) />}
+        text="links"
+        urls={
+          Immutable.List [
+            Immutable.Map {
+              "value": "http://url.com",
+            },
+          ]
+        }
+      />
+      <Connect(Authorized)
+        authorizedRoles={
+          Immutable.List [
+            "superuser",
+            "cataloger",
+          ]
+        }
+      >
+        <EditRecordAction
+          pidType="journals"
+          pidValue="1234"
+        />
+      </Connect(Authorized)>
+    </React.Fragment>
+  }
+>
+  <Row
+    gutter={0}
+  >
+    <Col>
+      <Link
+        className="result-item-title"
+        to="/journals/1234"
+      >
+        <PageHeader
+          className="site-page-header"
+          subTitle="(Liverpool)"
+          title="West Virginia U."
+        />
+      </Link>
+    </Col>
+  </Row>
+  <Row
+    gutter={0}
+  >
+    <Col>
+      title
+      Department of Physics
+    </Col>
+  </Row>
+</ResultItem>
+`;
+
+exports[`JournalItem renders with some props undefined 1`] = `
+<ResultItem
+  leftActions={
+    <React.Fragment>
+      <Connect(Authorized)
+        authorizedRoles={
+          Immutable.List [
+            "superuser",
+            "cataloger",
+          ]
+        }
+      >
+        <EditRecordAction
+          pidType="journals"
+          pidValue="1234"
+        />
+      </Connect(Authorized)>
+    </React.Fragment>
+  }
+>
+  <Row
+    gutter={0}
+  >
+    <Col>
+      <Link
+        className="result-item-title"
+        to="/journals/1234"
+      >
+        <PageHeader
+          className="site-page-header"
+          subTitle={false}
+          title="West Virginia U."
+        />
+      </Link>
+    </Col>
+  </Row>
+  <Row
+    gutter={0}
+  >
+    <Col>
+      Department of Physics
+    </Col>
+  </Row>
+</ResultItem>
+`;

@@ -34,6 +34,8 @@ from .json import (
     jobs_json_response_search,
     journals_json_response,
     journals_json_response_search,
+    journals_json_detail_response,
+    journals_json_list_response,
     literature_authors_json_response,
     literature_json_detail_response,
     literature_json_list_response,

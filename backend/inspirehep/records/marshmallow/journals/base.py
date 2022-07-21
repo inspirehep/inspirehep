@@ -24,4 +24,10 @@ class JournalsAdminSchema(JournalsRawSchema):
 
 class JournalsPublicSchema(JournalsRawSchema):
     class Meta:
-        exclude = FIELDS_TO_EXCLUDE
+        exclude = FIELDS_TO_EXCLUDE + ["_private_notes", "_collections"]
+
+
+class JournalsPublicListSchema(JournalsRawSchema):
+    class Meta:
+        exclude = FIELDS_TO_EXCLUDE + ["_private_notes", "_collections"]
+

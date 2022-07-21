@@ -293,10 +293,12 @@ JOURNALS.update(
             }
         },
         "search_serializers": {
-            "application/json": INSPIRE_SERIALIZERS + ":journals_json_response_search"
+            "application/json": INSPIRE_SERIALIZERS + ":journals_json_response_search",
+            "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS + ":journals_json_list_response",
         },
         "record_serializers": {
             "application/json": INSPIRE_SERIALIZERS + ":journals_json_response",
+            "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS + ":journals_json_detail_response",
             "application/vnd+inspire.record.raw+json": f"{INSPIRE_SERIALIZERS}:raw_json_detail_response",
         },
     }

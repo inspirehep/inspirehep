@@ -1,5 +1,28 @@
 import { onlyOn } from '@cypress/skip-test';
 
+describe('Journal Detail', () => {
+  onlyOn('headless', () => {
+    it('matches image snapshot', () => {
+      cy.registerRoute();
+      cy.visit('/journals/1213103');
+      cy.waitForRoute();
+      cy.matchSnapshots('JournalDetail');
+    });
+  });
+});
+
+describe('Journal Search', () => {
+  onlyOn('headless', () => {
+    it('matches image snapshot', () => {
+      cy.registerRoute();
+      cy.visit('/journals');
+      cy.waitForRoute();
+      cy.waitForSearchResults();
+      cy.matchSnapshots('JournalsSearch');
+    });
+  });
+});
+
 describe('Journal Submission', () => {
   beforeEach(() => {
     cy.login('cataloger');

@@ -17,6 +17,8 @@ import {
   ASSIGN_AUTHOR_NS,
   ASSIGN_CONFERENCE_NS,
   LITERATURE_REFERENCES_NS,
+  JOURNALS_NS,
+  JOURNAL_PAPERS_NS
 } from './constants';
 import {
   onLiteratureQueryChange,
@@ -102,6 +104,16 @@ const searchConfig = {
   [AUTHOR_CITATIONS_NS]: {
     persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
     onQueryChange: onEmbeddedSearchWithAggregationsQueryChange,
+    redirectableError: false,
+  },
+  [JOURNALS_NS]: {
+    persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
+    onQueryChange: onAggregationlessCollectionQueryChange,
+    redirectableError: true,
+  },
+  [JOURNAL_PAPERS_NS]: {
+    persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
+    onQueryChange: onEmbeddedLiteratureQueryChange,
     redirectableError: false,
   },
   [EXPERIMENTS_NS]: {

@@ -72,6 +72,7 @@ def test_journal_record_search_results(inspire_app):
     expected_metadata.pop("_created")
     expected_metadata.pop("_updated")
     expected_metadata.pop("title_suggest")
+    expected_metadata.pop("_collections")
 
     with inspire_app.test_client() as client:
         result = client.get("/journals")
