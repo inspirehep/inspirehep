@@ -31,6 +31,7 @@ from inspirehep.records.api import InspireRecord, LiteratureRecord
 from inspirehep.records.api.literature import import_article
 from inspirehep.records.errors import (
     ExistingArticleError,
+    FileSizeExceededError,
     UnknownImportIdentifierError,
     UnsupportedFileError,
 )
@@ -1004,6 +1005,23 @@ def test_record_cannot_cite_itself(inspire_app):
         literature_citations=[record_control_number],
     )
     assert record_cited.citation_count == 0
+
+
+@pytest.mark.vcr()
+def test_documents_with_large_size(inspire_app, override_config):
+    with override_config(FILES_SIZE_LIMIT=1, FEATURE_FLAG_ENABLE_FILES=True):
+        data = {
+            "documents": [
+                {
+                    "source": "arxiv",
+                    "key": "arXiv:nucl-th_9310031.pdf",
+                    "url": "https://arxiv.org/pdf/1910.07488.pdf",
+                }
+            ],
+        }
+        data = faker.record("lit", data=data)
+        with pytest.raises(FileSizeExceededError):
+            LiteratureRecord.create(data)
 
 
 @pytest.mark.vcr()

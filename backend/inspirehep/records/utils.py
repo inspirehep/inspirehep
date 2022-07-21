@@ -20,7 +20,7 @@ from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from sqlalchemy.orm import aliased
 
 from inspirehep.pidstore.api import PidStoreBase
-from inspirehep.records.errors import DownloadFileError
+from inspirehep.records.errors import DownloadFileError, FileSizeExceededError
 from inspirehep.utils import get_inspirehep_url
 
 
@@ -79,7 +79,7 @@ def requests_retry_session(retries=3):
     return session
 
 
-def download_file_from_url(url):
+def download_file_from_url(url, check_file_size=False):
     download_url = url if url.startswith("http") else f"{get_inspirehep_url()}{url}"
     max_retries = current_app.config.get("FILES_DOWNLOAD_MAX_RETRIES", 3)
     try:
@@ -89,6 +89,18 @@ def download_file_from_url(url):
             timeout=current_app.config.get("FILES_DOWNLOAD_TIMEOUT", 60),
         )
         request.raise_for_status()
+
+        file_size_limit = current_app.config["FILES_SIZE_LIMIT"]
+        content_length = request.headers.get("content-length")
+
+        if content_length and isinstance(content_length, str):
+            content_length = int(content_length)
+
+        if check_file_size and content_length and content_length > file_size_limit:
+
+            raise FileSizeExceededError(
+                f"File size {content_length} is larger than the limit {file_size_limit}."
+            )
     except requests.exceptions.RequestException as exc:
         raise DownloadFileError(
             f"Cannot download file from url {download_url}. Reason: {exc}"

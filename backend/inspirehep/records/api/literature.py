@@ -495,7 +495,8 @@ class LiteratureRecord(
                     thread=threading.get_ident(),
                 )
                 return result
-            file_data = download_file_from_url(url)
+
+            file_data = download_file_from_url(url, check_file_size=True)
             new_key = hash_data(file_data)
             mimetype = magic.from_buffer(file_data, mime=True)
             file_data = BytesIO(file_data)
@@ -510,6 +511,7 @@ class LiteratureRecord(
                     thread=threading.get_ident(),
                 )
                 raise UnsupportedFileError(mimetype)
+
             acl = current_app.config["S3_FILE_ACL"]
             if current_s3_instance.file_exists(new_key):
                 LOGGER.info(

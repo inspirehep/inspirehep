@@ -54,6 +54,10 @@ class DownloadFileError(Exception):
     pass
 
 
+class FileSizeExceededError(Exception):
+    pass
+
+
 class UnsupportedFileError(RESTException):
     def __init__(self, mimetype="", **kwargs):
         super().__init__(**kwargs)
