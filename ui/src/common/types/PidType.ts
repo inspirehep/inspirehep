@@ -5,6 +5,7 @@ import {
   AUTHORS_PID_TYPE,
   INSTITUTIONS_PID_TYPE,
   SEMINARS_PID_TYPE,
+  JOURNALS_PID_TYPE,
 } from '../constants';
 
 type PidType =
@@ -13,6 +14,7 @@ type PidType =
   | typeof CONFERENCES_PID_TYPE
   | typeof AUTHORS_PID_TYPE
   | typeof INSTITUTIONS_PID_TYPE
-  | typeof SEMINARS_PID_TYPE;
+  | typeof SEMINARS_PID_TYPE
+  | typeof JOURNALS_PID_TYPE
 
 export default PidType;

@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import { EditOutlined } from '@ant-design/icons';
 
 import ListItemAction from './ListItemAction';
@@ -15,6 +14,7 @@ import {
   EDIT_AUTHOR_CATALOGER,
   EDIT_INSTITUTION,
   EDIT_SEMINAR,
+  EDIT_JOURNAL
 } from '../routes';
 import PidType from '../types/PidType';
 import PidValue from '../types/PidValue';
@@ -26,6 +26,7 @@ const pidTypeToEditRoutePrefix = {
   authors: EDIT_AUTHOR,
   institutions: EDIT_INSTITUTION,
   seminars: EDIT_SEMINAR,
+  journals: EDIT_JOURNAL
 };
 
 interface EditRecordActionProps {

@@ -1,0 +1,117 @@
+import React, { useState } from 'react';
+import './DetailPage.scss';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Row, Col, PageHeader, Button } from 'antd';
+
+import fetchJournal from '../../actions/journals';
+import withRouteActionsDispatcher from '../../common/withRouteActionsDispatcher';
+import ContentBox from '../../common/components/ContentBox';
+import DocumentHead from '../../common/components/DocumentHead';
+import UrlsAction from '../../literature/components/UrlsAction';
+import PublicNotesList from '../../common/components/PublicNotesList';
+import { Journal } from './SearchPageContainer';
+import { LITERATURE } from '../../common/routes';
+import { JournalTitlesListModal } from '../components/JournalTitlesListModal';
+
+interface RootState {
+  journals: {
+    get: (values: string) => Journal;
+    hasIn: (values: string[]) => boolean;
+  };
+}
+
+export const DetailPage = ({ result }: { result: Journal }) => {
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
+
+  const metadata = result.get('metadata');
+
+  const shortTitle = metadata.get('short_title');
+  const journalTitle = metadata.get('journal_title');
+  const urls = metadata.get('urls');
+  const publicNotes = metadata.get('public_notes');
+  const titleVariants = metadata.get('title_variants');
+  const publisher = metadata.get('publisher');
+
+  const onModalVisibilityChange = () => {
+    setModalVisible(!modalVisible);
+  };
+
+  return (
+    <>
+      <DocumentHead title={shortTitle} />
+      <Row justify="center">
+        <Col className="mv3" xs={24} md={22} lg={21} xxl={18}>
+          <ContentBox
+            className="sm-pb3"
+            leftActions={urls && <UrlsAction urls={urls} text="links" />}
+          >
+            <Row>
+              <Col>
+                <PageHeader
+                  className="site-page-header"
+                  title={shortTitle}
+                  subTitle={
+                    // @ts-ignore
+                    publisher ? `(${publisher.toArray().map((p: string) => p)})` : false
+                  }
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                {journalTitle}
+                {titleVariants && (
+                  <Button
+                    className="btn-ghost"
+                    onClick={onModalVisibilityChange}
+                  >
+                    {/* @ts-ignore */}
+                    Show other names ({titleVariants.toArray().length})
+                  </Button>
+                )}
+              </Col>
+            </Row>
+            {publicNotes && (
+              <Row className="mt2">
+                <Col>
+                  <PublicNotesList publicNotes={publicNotes} />
+                </Col>
+              </Row>
+            )}
+            <Row className="mt2">
+              <Col>
+                <Link
+                  to={`${LITERATURE}?sort=mostrecent&size=25&page=1&q=publication_info.journal_title.raw:"${shortTitle}"`}
+                >
+                  Articles published in {shortTitle}
+                </Link>
+              </Col>
+            </Row>
+          </ContentBox>
+        </Col>
+      </Row>
+      {titleVariants && (
+        <JournalTitlesListModal
+          modalVisible={modalVisible}
+          onModalVisibilityChange={onModalVisibilityChange}
+          // @ts-ignore
+          titleVariants={titleVariants.toArray()}
+        />
+      )}
+    </>
+  );
+};
+
+const mapStateToProps = (state: RootState) => ({
+  result: state.journals.get('data'),
+});
+
+const DetailPageContainer = connect(mapStateToProps)(DetailPage);
+
+export default withRouteActionsDispatcher(DetailPageContainer, {
+  routeParamSelector: ({ id }: { id: number }) => id,
+  routeActions: (id: number) => [fetchJournal(id)],
+  loadingStateSelector: (state: RootState) =>
+    !state.journals.hasIn(['data', 'metadata']),
+});

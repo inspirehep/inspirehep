@@ -37,7 +37,12 @@ from .jobs import (
     jobs_json_response,
     jobs_json_response_search,
 )
-from .journals import journals_json_response, journals_json_response_search
+from .journals import (
+    journals_json_response,
+    journals_json_response_search,
+    journals_json_detail_response,
+    journals_json_list_response
+)
 from .literature import (
     facets_json_response_search,
     literature_authors_json_response,

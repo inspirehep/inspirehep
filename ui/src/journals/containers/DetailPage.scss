@@ -1,0 +1,19 @@
+.ant-btn.btn-ghost {
+  border: none;
+  box-shadow: none;
+  height: 26px;
+  padding: 0 5px;
+  margin: 4px 10px;
+  font-size: 12px;
+  border-radius: 0;
+  color: rgba(94, 94, 94, 0.5);
+  background-color: #f0f2f5;
+  border: none;
+  &:hover {
+    border: none;
+    box-shadow: none;
+    color: rgba(94, 94, 94, 0.6);
+    background-color: #e0e1e3;
+    border: none;
+  }
+}

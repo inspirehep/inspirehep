@@ -40,6 +40,7 @@ export function getState() {
     seminars: initialRecordState,
     institutions: initialRecordState,
     experiments: initialRecordState,
+    journals: initialRecordState,
   };
 }
 

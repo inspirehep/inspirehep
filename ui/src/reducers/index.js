@@ -14,6 +14,7 @@ import conferences from './conferences';
 import institutions from './institutions';
 import seminars from './seminars';
 import experiments from './experiments';
+import journals from './journals';
 import bibliographyGenerator from './bibliographyGenerator';
 import ui, { initialState as uiInitialState } from './ui';
 import { LITERATURE_NS, LITERATURE_REFERENCES_NS } from '../search/constants';
@@ -36,6 +37,7 @@ export default function createRootReducer(history) {
     seminars,
     experiments,
     bibliographyGenerator,
+    journals
   });
 }
 

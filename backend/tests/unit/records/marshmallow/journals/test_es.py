@@ -20,9 +20,8 @@ def test_journals_serializer_should_serialize_whole_basic_record():
     expected_result = deepcopy(data)
     title_suggest = {"input": [data["journal_title"]["title"], data["short_title"]]}
     expected_result["title_suggest"] = title_suggest
-
-    conference = JournalsRecord(data)
-    result = schema.dump(conference).data
+    journal = JournalsRecord(data)
+    result = schema.dump(journal).data
 
     assert result == expected_result
 
@@ -41,8 +40,8 @@ def test_journals_serializer_populates_title_suggest():
             data["title_variants"][1],
         ]
     }
-    institution = JournalsRecord(data)
-    result = schema.dump(institution).data["title_suggest"]
+    journal = JournalsRecord(data)
+    result = schema.dump(journal).data["title_suggest"]
 
     assert result == expected_result
 

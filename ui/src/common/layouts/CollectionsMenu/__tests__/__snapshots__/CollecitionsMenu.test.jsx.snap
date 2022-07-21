@@ -92,6 +92,17 @@ exports[`CollectionsMenu renders when authors page 1`] = `
           Experiments
         </Link>
       </MenuItem>
+      <MenuItem
+        className="dropdown-menu-item"
+        key="more.journals"
+      >
+        <Link
+          className="dropdown-link"
+          to="/journals"
+        >
+          Journals
+        </Link>
+      </MenuItem>
     </DropdownMenu>
   </Col>
 </Row>
@@ -187,6 +198,17 @@ exports[`CollectionsMenu renders when conferences page 1`] = `
           to="/experiments"
         >
           Experiments
+        </Link>
+      </MenuItem>
+      <MenuItem
+        className="dropdown-menu-item"
+        key="more.journals"
+      >
+        <Link
+          className="dropdown-link"
+          to="/journals"
+        >
+          Journals
         </Link>
       </MenuItem>
     </DropdownMenu>
@@ -286,6 +308,17 @@ exports[`CollectionsMenu renders when experiments page 1`] = `
           Experiments
         </Link>
       </MenuItem>
+      <MenuItem
+        className="dropdown-menu-item"
+        key="more.journals"
+      >
+        <Link
+          className="dropdown-link"
+          to="/journals"
+        >
+          Journals
+        </Link>
+      </MenuItem>
     </DropdownMenu>
   </Col>
 </Row>
@@ -381,6 +414,17 @@ exports[`CollectionsMenu renders when home page 1`] = `
           to="/experiments"
         >
           Experiments
+        </Link>
+      </MenuItem>
+      <MenuItem
+        className="dropdown-menu-item"
+        key="more.journals"
+      >
+        <Link
+          className="dropdown-link"
+          to="/journals"
+        >
+          Journals
         </Link>
       </MenuItem>
     </DropdownMenu>
@@ -480,6 +524,17 @@ exports[`CollectionsMenu renders when jobs page 1`] = `
           Experiments
         </Link>
       </MenuItem>
+      <MenuItem
+        className="dropdown-menu-item"
+        key="more.journals"
+      >
+        <Link
+          className="dropdown-link"
+          to="/journals"
+        >
+          Journals
+        </Link>
+      </MenuItem>
     </DropdownMenu>
   </Col>
 </Row>
@@ -575,6 +630,17 @@ exports[`CollectionsMenu renders when literature page 1`] = `
           to="/experiments"
         >
           Experiments
+        </Link>
+      </MenuItem>
+      <MenuItem
+        className="dropdown-menu-item"
+        key="more.journals"
+      >
+        <Link
+          className="dropdown-link"
+          to="/journals"
+        >
+          Journals
         </Link>
       </MenuItem>
     </DropdownMenu>
@@ -674,6 +740,17 @@ exports[`CollectionsMenu renders when seminars page 1`] = `
           Experiments
         </Link>
       </MenuItem>
+      <MenuItem
+        className="dropdown-menu-item"
+        key="more.journals"
+      >
+        <Link
+          className="dropdown-link"
+          to="/journals"
+        >
+          Journals
+        </Link>
+      </MenuItem>
     </DropdownMenu>
   </Col>
 </Row>
@@ -769,6 +846,17 @@ exports[`CollectionsMenu renders when submissions page 1`] = `
           to="/experiments"
         >
           Experiments
+        </Link>
+      </MenuItem>
+      <MenuItem
+        className="dropdown-menu-item"
+        key="more.journals"
+      >
+        <Link
+          className="dropdown-link"
+          to="/journals"
+        >
+          Journals
         </Link>
       </MenuItem>
     </DropdownMenu>

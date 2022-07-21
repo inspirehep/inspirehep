@@ -12,6 +12,7 @@ import {
   INSTITUTIONS,
   SEMINARS,
   EXPERIMENTS,
+  JOURNALS,
 } from '../../routes';
 import { getRootOfLocationPathname } from '../../utils';
 import {
@@ -91,6 +92,11 @@ function CollectionsMenu({ currentPathname }) {
           <Menu.Item className="dropdown-menu-item" key="more.experiments">
             <Link className="dropdown-link" to={EXPERIMENTS}>
               Experiments
+            </Link>
+          </Menu.Item>
+          <Menu.Item className="dropdown-menu-item" key="more.journals">
+            <Link className="dropdown-link" to={JOURNALS}>
+              Journals
             </Link>
           </Menu.Item>
         </DropdownMenu>

@@ -17,6 +17,7 @@ import {
   ASSIGN_AUTHOR_NS,
   ASSIGN_CONFERENCE_NS,
   LITERATURE_REFERENCES_NS,
+  JOURNALS_NS
 } from './constants';
 import {
   START_DATE_UPCOMING,
@@ -164,6 +165,9 @@ const namespacesState = {
     baseAggregationsQuery: {
       facet_name: 'hep-experiment-papers',
     },
+  },
+  [JOURNALS_NS]: {
+    ...initialNamespaceState,
   },
   [AUTHOR_SEMINARS_NS]: {
     ...initialNamespaceState,
