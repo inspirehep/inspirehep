@@ -1,3 +1,5 @@
+import { Action, ActionCreator, Dispatch } from 'redux';
+import { RootStateOrAny } from 'react-redux';
 import {
   AUTHOR_REQUEST,
   AUTHOR_SUCCESS,
@@ -23,6 +25,7 @@ import {
 } from '../authors/assignNotification';
 import { searchQueryUpdate } from './search';
 import { AUTHOR_PUBLICATIONS_NS } from '../search/constants';
+import { HttpClientWrapper } from '../common/http';
 
 const fetchAuthor = generateRecordFetchAction({
   pidType: AUTHORS_PID_TYPE,
@@ -33,7 +36,10 @@ const fetchAuthor = generateRecordFetchAction({
 
 export default fetchAuthor;
 
-export function setPublicationSelection(publicationIds, selected) {
+export function setPublicationSelection(
+  publicationIds: number[],
+  selected: boolean
+) {
   return {
     type: AUTHOR_PUBLICATION_SELECTION_SET,
     payload: { publicationIds, selected },
@@ -46,14 +52,20 @@ export function clearPublicationSelection() {
   };
 }
 
-export function setPublicationsClaimedSelection(papersIds, selected) {
+export function setPublicationsClaimedSelection(
+  papersIds: number[],
+  selected: boolean
+) {
   return {
     type: AUTHOR_PUBLICATION_CLAIM_SELECTION,
     payload: { papersIds, selected },
   };
 }
 
-export function setPublicationsUnclaimedSelection(papersIds, selected) {
+export function setPublicationsUnclaimedSelection(
+  papersIds: number[],
+  selected: boolean
+) {
   return {
     type: AUTHOR_PUBLICATION_UNCLAIM_SELECTION,
     payload: { papersIds, selected },
@@ -72,14 +84,24 @@ export function clearPublicationsUnclaimedSelection() {
   };
 }
 
-export function setAssignDrawerVisibility(visible) {
+export function setAssignDrawerVisibility(visible: boolean) {
   return {
     type: AUTHOR_SET_ASSIGN_DRAWER_VISIBILITY,
     payload: { visible },
   };
 }
 
-export function assignPapers({ from, to }) {
+export function assignPapers({
+  from,
+  to,
+}: {
+  from: string;
+  to: string;
+}): (
+  dispatch: Dispatch | ActionCreator<Action>,
+  getState: () => RootStateOrAny,
+  http: HttpClientWrapper
+) => Promise<void> {
   return async (dispatch, getState, http) => {
     try {
       const literatureIds = getState().authors.get('publicationSelection');
@@ -103,7 +125,15 @@ export function assignPapers({ from, to }) {
   };
 }
 
-export function unassignPapers({ from }) {
+export function unassignPapers({
+  from,
+}: {
+  from: string;
+}): (
+  dispatch: Dispatch | ActionCreator<Action>,
+  getState: () => RootStateOrAny,
+  http: HttpClientWrapper
+) => Promise<void> {
   return async (dispatch, getState, http) => {
     try {
       const literatureIds = getState().authors.get('publicationSelection');
@@ -127,7 +157,17 @@ export function unassignPapers({ from }) {
   };
 }
 
-export function assignOwnPapers({ from, to }) {
+export function assignOwnPapers({
+  from,
+  to,
+}: {
+  from: string;
+  to: string;
+}): (
+  dispatch: Dispatch | ActionCreator<Action>,
+  getState: () => RootStateOrAny,
+  http: HttpClientWrapper
+) => Promise<void> {
   return async (dispatch, getState, http) => {
     try {
       const claimedLiteratureIds = getState().authors.get(
@@ -167,7 +207,15 @@ export function assignOwnPapers({ from, to }) {
   };
 }
 
-export function unassignOwnPapers({ from }) {
+export function unassignOwnPapers({
+  from,
+}: {
+  from: string;
+}): (
+  dispatch: Dispatch | ActionCreator<Action>,
+  getState: () => RootStateOrAny,
+  http: HttpClientWrapper
+) => Promise<void> {
   return async (dispatch, getState, http) => {
     try {
       const literatureIds = getState().authors.get('publicationSelection');
@@ -193,7 +241,17 @@ export function unassignOwnPapers({ from }) {
   };
 }
 
-export function assignDifferentProfile({ from, to }) {
+export function assignDifferentProfile({
+  from,
+  to,
+}: {
+  from: string;
+  to: string;
+}): (
+  dispatch: Dispatch | ActionCreator<Action>,
+  getState: () => RootStateOrAny,
+  http: HttpClientWrapper
+) => Promise<void> {
   return async (dispatch, getState, http) => {
     try {
       const literatureIds = getState().authors.get('publicationSelection');

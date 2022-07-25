@@ -1,3 +1,6 @@
+import { Action, ActionCreator, Dispatch } from 'redux';
+import { RootStateOrAny } from 'react-redux';
+import { HttpClientWrapper } from '../common/http';
 import {
   EXCEPTIONS_REQUEST,
   EXCEPTIONS_SUCCESS,
@@ -11,14 +14,14 @@ function fetching() {
   };
 }
 
-function fetchSuccess(result) {
+function fetchSuccess<T>(result: T) {
   return {
     type: EXCEPTIONS_SUCCESS,
     payload: result,
   };
 }
 
-function fetchError(error) {
+function fetchError(error: { error: Error }) {
   return {
     type: EXCEPTIONS_ERROR,
     payload: error,
@@ -26,15 +29,19 @@ function fetchError(error) {
   };
 }
 
-export default function fetch() {
+export default function fetch(): (
+  dispatch: Dispatch | ActionCreator<Action>,
+  getState: () => RootStateOrAny,
+  http: HttpClientWrapper
+) => Promise<void> {
   return async (dispatch, getState, http) => {
     dispatch(fetching());
     try {
       const response = await http.get('/migrator/errors');
       dispatch(fetchSuccess(response.data));
-    } catch (error) {
-      const errorPayload = httpErrorToActionPayload(error)
-      dispatch(fetchError(errorPayload));
+    } catch (err) {
+      const { error } = httpErrorToActionPayload(err);
+      dispatch(fetchError({ error }));
     }
   };
 }

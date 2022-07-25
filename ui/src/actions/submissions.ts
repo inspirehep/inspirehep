@@ -1,5 +1,7 @@
 import { push } from 'connected-react-router';
 import { List } from 'immutable';
+import { Action, ActionCreator, Dispatch } from 'redux';
+import { RootStateOrAny } from 'react-redux';
 
 import {
   SUBMIT_SUCCESS,
@@ -11,10 +13,11 @@ import {
 } from './actionTypes';
 import { SUBMISSIONS } from '../common/routes';
 import { httpErrorToActionPayload } from '../common/utils';
+import { HttpClientWrapper } from '../common/http';
 
 export const REDIRECT_TO_EDITOR = List(['experiments', 'institutions', 'journals']);
 
-function submitSuccess(payload) {
+function submitSuccess(payload: { pidType: string, pidValue: number}) {
   return {
     type: SUBMIT_SUCCESS,
     payload,
@@ -27,35 +30,39 @@ function submitRequest() {
   };
 }
 
-function submitError(error) {
+function submitError(error: {error: Error}) {
   return {
     type: SUBMIT_ERROR,
     payload: error,
   };
 }
 
-function fetchingInitialFormData(payload) {
+function fetchingInitialFormData(payload: { pidType: string, pidValue: number } | { id?: number }) {
   return {
     type: INITIAL_FORM_DATA_REQUEST,
     payload, // only used for testing
   };
 }
 
-function fetchInitialFormDataError(error) {
+function fetchInitialFormDataError(error: { error: Error }) {
   return {
     type: INITIAL_FORM_DATA_ERROR,
     payload: error,
   };
 }
 
-function fetchInitialFormDataSuccess(data) {
+function fetchInitialFormDataSuccess(data: Record<string, string | string[]>) {
   return {
     type: INITIAL_FORM_DATA_SUCCESS,
     payload: data,
   };
 }
 
-export function submit(pidType, data) {
+export function submit<T>(pidType: string, data: T): (
+  dispatch: Dispatch | ActionCreator<Action>,
+  getState: () => RootStateOrAny,
+  http: HttpClientWrapper
+) => Promise<void> {
   return async (dispatch, getState, http) => {
     dispatch(submitRequest());
     try {
@@ -66,14 +73,18 @@ export function submit(pidType, data) {
       } else {
         dispatch(push(`/submissions/${pidType}/new/success`));
       }
-    } catch (error) {
-      const errorPayload = httpErrorToActionPayload(error)
-      dispatch(submitError(errorPayload));
+    } catch (err) {
+      const { error } = httpErrorToActionPayload(err)
+      dispatch(submitError({ error }));
     }
   };
 }
 
-export function submitUpdate(pidType, pidValue, data) {
+export function submitUpdate(pidType: string, pidValue: number, data: Record<string, string | string[] | number>): (
+  dispatch: Dispatch | ActionCreator<Action>,
+  getState: () => RootStateOrAny,
+  http: HttpClientWrapper
+) => Promise<void> {
   return async (dispatch, getState, http) => {
     dispatch(submitRequest());
     try {
@@ -82,27 +93,35 @@ export function submitUpdate(pidType, pidValue, data) {
       });
       dispatch(submitSuccess(response.data));
       dispatch(push(`/submissions/${pidType}/${pidValue}/success`));
-    } catch (error) {
-      const errorPayload = httpErrorToActionPayload(error)
-      dispatch(submitError(errorPayload));
+    } catch (err) {
+      const { error } = httpErrorToActionPayload(err)
+      dispatch(submitError({ error }));
     }
   };
 }
 
-export function fetchUpdateFormData(pidType, pidValue) {
+export function fetchUpdateFormData(pidType: string, pidValue: number): (
+  dispatch: Dispatch | ActionCreator<Action>,
+  getState: () => RootStateOrAny,
+  http: HttpClientWrapper
+) => Promise<void> {
   return async (dispatch, getState, http) => {
     dispatch(fetchingInitialFormData({ pidValue, pidType }));
     try {
       const response = await http.get(`${SUBMISSIONS}/${pidType}/${pidValue}`);
       dispatch(fetchInitialFormDataSuccess(response.data));
-    } catch (error) {
-      const errorPayload = httpErrorToActionPayload(error)
-      dispatch(fetchInitialFormDataError(errorPayload));
+    } catch (err) {
+      const error = httpErrorToActionPayload(err)
+      dispatch(fetchInitialFormDataError(error));
     }
   };
 }
 
-export function importExternalLiterature(id) {
+export function importExternalLiterature(id: number): (
+  dispatch: Dispatch | ActionCreator<Action>,
+  getState: () => RootStateOrAny,
+  http: HttpClientWrapper
+) => Promise<void> {
   return async (dispatch, getState, http) => {
     dispatch(fetchingInitialFormData({ id }));
     try {

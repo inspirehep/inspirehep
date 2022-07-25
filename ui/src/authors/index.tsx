@@ -10,6 +10,7 @@ class Authors extends Component {
   render() {
     return (
       <div className="__Authors__">
+        {/* @ts-ignore */}
         <Route exact path={AUTHORS} component={SearchPageContainer} />
         <Route exact path={`${AUTHORS}/:id`} component={DetailPageContainer} />
       </div>

@@ -1,7 +1,8 @@
+/* eslint-disable no-unused-vars */
 import { fetchCitationSummary } from '../actions/citations';
 import { isCitationSummaryEnabled } from '../literature/containers/CitationSummarySwitchContainer';
 
-export function onLiteratureQueryChange(helper) {
+export function onLiteratureQueryChange(helper, _dispatch, _dueToNavigationToSearchPage) {
   if (helper.isInitialQueryUpdate() || helper.hasQueryChanged()) {
     helper.fetchSearchResults();
     helper.updateLocation();
@@ -19,7 +20,7 @@ export function onLiteratureQueryChange(helper) {
   helper.fetchSearchAggregations();
 }
 
-export function onEmbeddedLiteratureQueryChange(helper) {
+export function onEmbeddedLiteratureQueryChange(helper, _dispatch, _dueToNavigationToSearchPage) {
   if (helper.hasQueryChanged()) {
     helper.fetchSearchResults();
   }
@@ -33,7 +34,7 @@ export function onEmbeddedLiteratureQueryChange(helper) {
   }
 }
 
-export function onEmbeddedSearchWithAggregationsQueryChange(helper) {
+export function onEmbeddedSearchWithAggregationsQueryChange(helper, _dispatch, _dueToNavigationToSearchPage) {
   if (helper.hasQueryChanged()) {
     helper.fetchSearchResults();
   }
@@ -43,14 +44,14 @@ export function onEmbeddedSearchWithAggregationsQueryChange(helper) {
   }
 }
 
-export function onAggregationlessCollectionQueryChange(helper) {
+export function onAggregationlessCollectionQueryChange(helper, _dispatch, _dueToNavigationToSearchPage) {
   if (helper.hasQueryChanged() || helper.isInitialQueryUpdate()) {
     helper.fetchSearchResults();
     helper.updateLocation();
   }
 }
 
-export function onJobsQueryChange(helper) {
+export function onJobsQueryChange(helper, _dispatch, _dueToNavigationToSearchPage) {
   if (helper.isInitialQueryUpdate() || helper.hasQueryChanged()) {
     helper.fetchSearchResults();
     helper.updateLocation();
@@ -61,7 +62,7 @@ export function onJobsQueryChange(helper) {
   }
 }
 
-export function onCollectionQueryChange(helper) {
+export function onCollectionQueryChange(helper, _dispatch, _dueToNavigationToSearchPage) {
   if (helper.isInitialQueryUpdate() || helper.hasQueryChanged()) {
     helper.fetchSearchResults();
     helper.updateLocation();
@@ -75,7 +76,7 @@ export function onCollectionQueryChange(helper) {
   }
 }
 
-export function onEmbeddedSearchWithoutAggregationsQueryChange(helper) {
+export function onEmbeddedSearchWithoutAggregationsQueryChange(helper, _dispatch, _dueToNavigationToSearchPage) {
   if (helper.hasQueryChanged()) {
     helper.fetchSearchResults();
   }

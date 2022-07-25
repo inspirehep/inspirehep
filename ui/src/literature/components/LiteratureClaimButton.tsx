@@ -15,7 +15,7 @@ const LiteratureClaimButton = ({
   loggedIn: boolean;
   hasAuthorProfile: boolean;
   authors: List<{}>;
-  controlNumber: string;
+  controlNumber: number;
 }) => {
   const notLoggedInCondidtion = !loggedIn;
   const notAnAuthorContition = !hasAuthorProfile && loggedIn;

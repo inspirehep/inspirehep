@@ -15,7 +15,7 @@ export const stateToProps = (state: RootState) => ({
 export const dispatchToProps = (
   dispatch: MapDispatchToPropsParam<any, any>
 ) => ({
-  onAssign({ to, literatureId }: { to: number; literatureId: string }) {
+  onAssign({ to, literatureId }: { to: number; literatureId: number }) {
     dispatch(checkNameCompatibility({ to, literatureId }));
   },
 });

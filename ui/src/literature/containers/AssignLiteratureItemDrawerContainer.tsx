@@ -32,7 +32,7 @@ export const dispatchToProps = (
     to,
     literatureId,
   }: {
-    from: string | undefined;
+    from: number | undefined;
     to: number;
     literatureId: number;
   }) {

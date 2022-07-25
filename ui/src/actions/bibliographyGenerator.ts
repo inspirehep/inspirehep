@@ -1,3 +1,6 @@
+import { Action, ActionCreator, Dispatch } from 'redux';
+import { RootStateOrAny } from 'react-redux';
+import { HttpClientWrapper } from '../common/http';
 import {
   BIBLIOGRAPHY_GENERATOR_SUCCESS,
   BIBLIOGRAPHY_GENERATOR_REQUEST,
@@ -6,7 +9,7 @@ import {
 import { httpErrorToActionPayload } from '../common/utils';
 import { BIBLIOGRAPHY_GENERATOR } from '../common/routes';
 
-function submitBibliographyGeneratorSuccess(payload) {
+function submitBibliographyGeneratorSuccess(payload: { data: { download_url: string }, error: Error }) {
   return {
     type: BIBLIOGRAPHY_GENERATOR_SUCCESS,
     payload,
@@ -19,14 +22,21 @@ function submitBibliographyGeneratorRequest() {
   };
 }
 
-function submitBibliographyGeneratorError(error) {
+function submitBibliographyGeneratorError(error: { error: Error }) {
   return {
     type: BIBLIOGRAPHY_GENERATOR_ERROR,
     payload: error,
   };
 }
 
-export function submitBibliographyGenerator(format, data) {
+export function submitBibliographyGenerator(
+  format: string,
+  data: FormData
+): (
+  dispatch: Dispatch | ActionCreator<Action>,
+  getState: () => RootStateOrAny,
+  http: HttpClientWrapper
+) => Promise<void> {
   return async (dispatch, getState, http) => {
     dispatch(submitBibliographyGeneratorRequest());
     try {
