@@ -3,14 +3,14 @@ import {
   UI_CHANGE_GUIDE_MODAL_VISIBILITY,
 } from './actionTypes';
 
-export function closeBanner(id) {
+export function closeBanner(id: number) {
   return {
     type: UI_CLOSE_BANNER,
     payload: { id },
   };
 }
 
-export function changeGuideModalVisibility(visibility) {
+export function changeGuideModalVisibility(visibility: boolean) {
   return {
     type: UI_CHANGE_GUIDE_MODAL_VISIBILITY,
     payload: { visibility },

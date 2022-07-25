@@ -1,4 +1,6 @@
 import { stringify } from 'qs';
+import { Action, ActionCreator, Dispatch } from 'redux';
+import { RootStateOrAny } from 'react-redux';
 import {
   LITERATURE_ERROR,
   LITERATURE_REQUEST,
@@ -14,7 +16,7 @@ import {
   LITERATURE_SELECTION_CLEAR,
   LITERATURE_SET_ASSIGN_LITERATURE_ITEM_DRAWER_VISIBILITY,
 } from './actionTypes';
-import { isCancelError } from '../common/http.ts';
+import { isCancelError, HttpClientWrapper } from '../common/http';
 import { httpErrorToActionPayload } from '../common/utils';
 import generateRecordFetchAction from './recordsFactory';
 import { LITERATURE_PID_TYPE } from '../common/constants';
@@ -35,21 +37,24 @@ import { LITERATURE_REFERENCES_NS } from '../search/constants';
 import { searchQueryUpdate } from './search';
 import { assignSuccessDifferentProfileClaimedPapers } from '../authors/assignNotification';
 
-function fetchingLiteratureReferences(query) {
+function fetchingLiteratureReferences(query: { page?: number; size?: number }) {
   return {
     type: LITERATURE_REFERENCES_REQUEST,
     payload: query.page,
   };
 }
 
-function fetchLiteratureReferencesSuccess(result) {
+function fetchLiteratureReferencesSuccess<T>(result: {
+  metadata: { references: T[] };
+  references_count: number;
+}) {
   return {
     type: LITERATURE_REFERENCES_SUCCESS,
     payload: result,
   };
 }
 
-function fetchLiteratureReferencesError(error) {
+function fetchLiteratureReferencesError(error: { error: Error }) {
   return {
     type: LITERATURE_REFERENCES_ERROR,
     payload: error,
@@ -62,14 +67,18 @@ function fetchingLiteratureAuthors() {
   };
 }
 
-function fetchLiteratureAuthorsSuccess(result) {
+function fetchLiteratureAuthorsSuccess<T>(result: {
+  id: string;
+  links: Record<string, string>;
+  metadata: Record<string, T>;
+}) {
   return {
     type: LITERATURE_AUTHORS_SUCCESS,
     payload: result,
   };
 }
 
-function fetchLiteratureAuthorsError(errorPayload) {
+function fetchLiteratureAuthorsError(errorPayload: { error: Error }) {
   return {
     type: LITERATURE_AUTHORS_ERROR,
     payload: errorPayload,
@@ -83,9 +92,16 @@ export const fetchLiterature = generateRecordFetchAction({
   fetchErrorActionType: LITERATURE_ERROR,
 });
 
-export function fetchLiteratureReferences(recordId, newQuery = {}) {
+export function fetchLiteratureReferences(
+  recordId: string,
+  newQuery = {}
+): (
+  dispatch: Dispatch | ActionCreator<Action>,
+  getState: () => RootStateOrAny,
+  http: HttpClientWrapper
+) => Promise<void> {
   return async (dispatch, getState, http) => {
-    const query = {
+    const query: { size?: number; q?: string; assigned?: number } = {
       ...{
         size: getState().search.getIn([
           'namespaces',
@@ -106,16 +122,22 @@ export function fetchLiteratureReferences(recordId, newQuery = {}) {
       );
       dispatch(fetchLiteratureReferencesSuccess(response.data));
       dispatch(searchQueryUpdate(LITERATURE_REFERENCES_NS, query));
-    } catch (error) {
-      if (!isCancelError(error)) {
-        const payload = httpErrorToActionPayload(error);
-        dispatch(fetchLiteratureReferencesError(payload));
+    } catch (err) {
+      if (!isCancelError(err as Error)) {
+        const { error } = httpErrorToActionPayload(err);
+        dispatch(fetchLiteratureReferencesError({ error }));
       }
     }
   };
 }
 
-export function fetchLiteratureAuthors(recordId) {
+export function fetchLiteratureAuthors(
+  recordId: string
+): (
+  dispatch: Dispatch | ActionCreator<Action>,
+  getState: () => RootStateOrAny,
+  http: HttpClientWrapper
+) => Promise<void> {
   return async (dispatch, getState, http) => {
     dispatch(fetchingLiteratureAuthors());
     try {
@@ -125,16 +147,19 @@ export function fetchLiteratureAuthors(recordId) {
         'literature-authors-detail'
       );
       dispatch(fetchLiteratureAuthorsSuccess(response.data));
-    } catch (error) {
-      if (!isCancelError(error)) {
-        const errorPayload = httpErrorToActionPayload(error);
-        dispatch(fetchLiteratureAuthorsError(errorPayload));
+    } catch (err) {
+      if (!isCancelError(err as Error)) {
+        const { error } = httpErrorToActionPayload(err);
+        dispatch(fetchLiteratureAuthorsError({ error }));
       }
     }
   };
 }
 
-export function setLiteratureSelection(literatureIds, selected) {
+export function setLiteratureSelection(
+  literatureIds: string[],
+  selected: boolean
+) {
   return {
     type: LITERATURE_SELECTION_SET,
     payload: { literatureIds, selected },
@@ -147,30 +172,43 @@ export function clearLiteratureSelection() {
   };
 }
 
-export function setAssignDrawerVisibility(visible) {
+export function setAssignDrawerVisibility(visible: boolean) {
   return {
     type: LITERATURE_SET_ASSIGN_DRAWER_VISIBILITY,
     payload: { visible },
   };
 }
 
-export function setAssignLiteratureItemDrawerVisibility(literatureId) {
+export function setAssignLiteratureItemDrawerVisibility(
+  literatureId: number | null
+) {
   return {
     type: LITERATURE_SET_ASSIGN_LITERATURE_ITEM_DRAWER_VISIBILITY,
     payload: { literatureId },
   };
 }
 
-export function assignLiteratureItem({ from, to, literatureId }) {
+export function assignLiteratureItem({
+  from,
+  to,
+  literatureId,
+}: {
+  from: string;
+  to: number;
+  literatureId: number;
+}): (
+  dispatch: Dispatch | ActionCreator<Action>,
+  getState: () => RootStateOrAny,
+  http: HttpClientWrapper
+) => Promise<void> {
   return async (dispatch, getState, http) => {
     try {
       assigning(ASSIGNING_NOTIFICATION_LITERATURE_ITEM_KEY);
-      const { data } = await http
-        .post('/assign/literature/assign', {
-          from_author_recid: from,
-          to_author_recid: to,
-          literature_ids: [literatureId],
-        })
+      const { data } = await http.post('/assign/literature/assign', {
+        from_author_recid: from,
+        to_author_recid: to,
+        literature_ids: [literatureId],
+      });
       if (data) assignLiteratureItemSuccess();
     } catch (error) {
       assignError(ASSIGNING_NOTIFICATION_LITERATURE_ITEM_KEY);
@@ -178,16 +216,30 @@ export function assignLiteratureItem({ from, to, literatureId }) {
   };
 }
 
-export function assignLiteratureItemNoNameMatch({ from, to, literatureId }) {
+export function assignLiteratureItemNoNameMatch({
+  from,
+  to,
+  literatureId,
+}: {
+  from: number | undefined;
+  to: number;
+  literatureId: number;
+}): (
+  dispatch: Dispatch | ActionCreator<Action>,
+  getState: () => RootStateOrAny,
+  http: HttpClientWrapper
+) => Promise<void> {
   return async (dispatch, getState, http) => {
     try {
       assigning(ASSIGNING_NOTIFICATION_LITERATURE_ITEM_KEY);
-      const { data } = await http.post('/assign/literature/assign-different-profile',
-      {
-        from_author_recid: from,
-        to_author_recid: to,
-        literature_ids: [literatureId],
-      });
+      const { data } = await http.post(
+        '/assign/literature/assign-different-profile',
+        {
+          from_author_recid: from,
+          to_author_recid: to,
+          literature_ids: [literatureId],
+        }
+      );
       if (Object.prototype.hasOwnProperty.call(data, 'created_rt_ticket')) {
         assignSuccessDifferentProfileClaimedPapers();
         dispatch(setAssignLiteratureItemDrawerVisibility(null));
@@ -200,24 +252,38 @@ export function assignLiteratureItemNoNameMatch({ from, to, literatureId }) {
   };
 }
 
-export function checkNameCompatibility({ to, literatureId }) {
+export function checkNameCompatibility({
+  to,
+  literatureId,
+}: {
+  to: number;
+  literatureId: number;
+}): (
+  dispatch: Dispatch | ActionCreator<Action>,
+  getState: () => RootStateOrAny,
+  http: HttpClientWrapper
+) => Promise<void> {
   return async (dispatch, getState, http) => {
     try {
       const { data } = await http.get(
         `/assign/check-names-compatibility?literature_recid=${literatureId}`
       );
       if (data.matched_author_recid === to) {
-        dispatch(assignLiteratureItem({
-          from: data.matched_author_recid,
-          to,
-          literatureId,
-        }));
+        dispatch(
+          assignLiteratureItem({
+            from: data.matched_author_recid,
+            to,
+            literatureId,
+          })
+        );
       } else {
-        dispatch(assignLiteratureItemNoNameMatch({
-          from: data.matched_author_recid,
-          to,
-          literatureId
-        }));
+        dispatch(
+          assignLiteratureItemNoNameMatch({
+            from: data.matched_author_recid,
+            to,
+            literatureId,
+          })
+        );
       }
     } catch (error) {
       dispatch(setAssignLiteratureItemDrawerVisibility(literatureId));
@@ -225,7 +291,14 @@ export function checkNameCompatibility({ to, literatureId }) {
   };
 }
 
-export function assignPapers(conferenceId, conferenceTitle) {
+export function assignPapers(
+  conferenceId: string,
+  conferenceTitle: string
+): (
+  dispatch: Dispatch | ActionCreator<Action>,
+  getState: () => RootStateOrAny,
+  http: HttpClientWrapper
+) => Promise<void> {
   return async (dispatch, getState, http) => {
     try {
       const papers = getState().literature.get('literatureSelection');
@@ -243,7 +316,11 @@ export function assignPapers(conferenceId, conferenceTitle) {
   };
 }
 
-export function exportToCds() {
+export function exportToCds(): (
+  dispatch: Dispatch | ActionCreator<Action>,
+  getState: () => RootStateOrAny,
+  http: HttpClientWrapper
+) => Promise<void> {
   return async (dispatch, getState, http) => {
     try {
       const papers = getState().literature.get('literatureSelection');

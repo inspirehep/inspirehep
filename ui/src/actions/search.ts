@@ -1,3 +1,5 @@
+import { Action, ActionCreator, Dispatch } from 'redux';
+import { RootStateOrAny } from 'react-redux';
 import {
   SEARCH_REQUEST,
   SEARCH_ERROR,
@@ -14,27 +16,29 @@ import {
 import {
   UI_SERIALIZER_REQUEST_OPTIONS,
   isCancelError,
-} from '../common/http.ts';
+  HttpClientWrapper,
+} from '../common/http';
 import { httpErrorToActionPayload } from '../common/utils';
 import SearchHelper from '../search/helper';
 import searchConfig from '../search/config';
 
-function searching(namespace) {
+function searching(namespace: string) {
   return {
     type: SEARCH_REQUEST,
     payload: { namespace },
   };
 }
 
-function searchSuccess(namespace, data) {
+function searchSuccess(namespace: string, data: {}) {
   return {
     type: SEARCH_SUCCESS,
     payload: { namespace, data },
   };
 }
 
-function searchError(namespace, errorPayload) {
-  const { redirectableError } = searchConfig[namespace];
+function searchError(namespace: string, errorPayload: { error: Error }) {
+  const { redirectableError } =
+    searchConfig[namespace as keyof typeof searchConfig];
   return {
     type: SEARCH_ERROR,
     payload: { ...errorPayload, namespace },
@@ -42,14 +46,21 @@ function searchError(namespace, errorPayload) {
   };
 }
 
-export function newSearch(namespace) {
+export function newSearch(namespace: string) {
   return {
     type: NEW_SEARCH_REQUEST,
     payload: { namespace },
   };
 }
 
-export function fetchSearchResults(namespace, url) {
+export function fetchSearchResults(
+  namespace: string,
+  url: string
+): (
+  dispatch: Dispatch | ActionCreator<Action>,
+  getState: () => RootStateOrAny,
+  http: HttpClientWrapper
+) => Promise<void> {
   return async (dispatch, getState, http) => {
     dispatch(searching(namespace));
     try {
@@ -59,37 +70,51 @@ export function fetchSearchResults(namespace, url) {
         `search-results-${namespace}`
       );
       dispatch(searchSuccess(namespace, response.data));
-    } catch (error) {
-      if (!isCancelError(error)) {
-        const errorPayload = httpErrorToActionPayload(error);
-        dispatch(searchError(namespace, errorPayload));
+    } catch (err) {
+      if (!isCancelError(err as Error)) {
+        const error = httpErrorToActionPayload(err);
+        dispatch(searchError(namespace, error));
       }
     }
   };
 }
 
-function fetchingSearchAggregations(namespace) {
+function fetchingSearchAggregations(namespace: string) {
   return {
     type: SEARCH_AGGREGATIONS_REQUEST,
     payload: { namespace },
   };
 }
 
-function searchAggregationsSuccess(namespace, data) {
+function searchAggregationsSuccess(
+  namespace: string,
+  data: {
+    took: number;
+    timed_out: boolean;
+    namespace: string;
+  }
+) {
   return {
     type: SEARCH_AGGREGATIONS_SUCCESS,
     payload: { data, namespace },
   };
 }
 
-function searchAggregationsError(namespace, errorPayload) {
+function searchAggregationsError(namespace: string, error: Error) {
   return {
     type: SEARCH_AGGREGATIONS_ERROR,
-    payload: { ...errorPayload, namespace },
+    payload: { error, namespace },
   };
 }
 
-export function fetchSearchAggregations(namespace, url) {
+export function fetchSearchAggregations(
+  namespace: string,
+  url: string
+): (
+  dispatch: Dispatch | ActionCreator<Action>,
+  getState: () => RootStateOrAny,
+  http: HttpClientWrapper
+) => Promise<void> {
   return async (dispatch, getState, http) => {
     dispatch(fetchingSearchAggregations(namespace));
     try {
@@ -99,20 +124,24 @@ export function fetchSearchAggregations(namespace, url) {
         `search-aggregations-${namespace}`
       );
       dispatch(searchAggregationsSuccess(namespace, response.data));
-    } catch (error) {
-      if (!isCancelError(error)) {
-        const errorPayload = httpErrorToActionPayload(error);
-        dispatch(searchAggregationsError(namespace, errorPayload));
+    } catch (err) {
+      if (!isCancelError(err as Error)) {
+        const { error } = httpErrorToActionPayload(err);
+        dispatch(searchAggregationsError(namespace, error));
       }
     }
   };
 }
 
 export function searchQueryUpdate(
-  namespace,
-  query,
+  namespace: string,
+  query: { size?: number; q?: string; assigned?: number },
   dueToNavigationToSearchPage = false
-) {
+): (
+  dispatch: Dispatch | ActionCreator<Action>,
+  getState: () => RootStateOrAny,
+  http: HttpClientWrapper
+) => Promise<void> {
   return async (dispatch, getState) => {
     const currentQuery = getState().search.getIn([
       'namespaces',
@@ -143,7 +172,7 @@ export function searchQueryUpdate(
       dispatch,
       dueToNavigationToSearchPage
     );
-    searchConfig[namespace].onQueryChange(
+    searchConfig[namespace as keyof typeof searchConfig].onQueryChange(
       helper,
       dispatch,
       dueToNavigationToSearchPage
@@ -151,14 +180,17 @@ export function searchQueryUpdate(
   };
 }
 
-export function searchQueryReset(namespace) {
+export function searchQueryReset(namespace: string) {
   return {
     type: SEARCH_QUERY_RESET,
     payload: { namespace },
   };
 }
 
-export function fetchAggregationsAndSearchQueryReset(namespace, shouldReset) {
+export function fetchAggregationsAndSearchQueryReset(namespace: string, shouldReset: boolean): (
+  dispatch: Dispatch | ActionCreator<Action>,
+  getState: () => RootStateOrAny,
+) => Promise<void> {
   return async (dispatch, getState) => {
     const prevState = getState();
 
@@ -176,9 +208,16 @@ export function fetchAggregationsAndSearchQueryReset(namespace, shouldReset) {
 }
 
 export function searchBaseQueriesUpdate(
-  namespace,
-  { baseQuery, baseAggregationsQuery }
-) {
+  namespace: string,
+  {
+    baseQuery,
+    baseAggregationsQuery,
+  }: { baseQuery: string; baseAggregationsQuery: string }
+): (
+  dispatch: Dispatch | ActionCreator<Action>,
+  getState: () => RootStateOrAny,
+  http: HttpClientWrapper
+) => Promise<void> {
   return async (dispatch, getState) => {
     const prevState = getState();
 
@@ -189,11 +228,14 @@ export function searchBaseQueriesUpdate(
 
     const nextState = getState();
     const helper = new SearchHelper(namespace, prevState, nextState, dispatch);
-    searchConfig[namespace].onQueryChange(helper, dispatch);
+    searchConfig[namespace as keyof typeof searchConfig].onQueryChange(
+      helper,
+      dispatch
+    );
   };
 }
 
-export function changeSearchBoxNamespace(searchBoxNamespace) {
+export function changeSearchBoxNamespace(searchBoxNamespace: string) {
   return {
     type: CHANGE_SEARCH_BOX_NAMESPACE,
     payload: { searchBoxNamespace },

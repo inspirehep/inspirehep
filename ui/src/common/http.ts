@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig, CancelTokenSource } from 'axios';
 
 // `Proxy` could be used instead of wrapper class, depending on the browser support
-class HttpClientWrapper {
+export class HttpClientWrapper {
   httpClient = axios.create({
     baseURL: '/api',
   });
@@ -12,7 +12,7 @@ class HttpClientWrapper {
    * and there can't be multiple active requests with the same id
    * current one is cancelled when a newer one comes
    */
-  async get(url: string, config: AxiosRequestConfig, id?: string) {
+  async get(url: string, config?: AxiosRequestConfig, id?: string) {
     if (!id) {
       return this.httpClient.get(url, config);
     }

@@ -1,4 +1,7 @@
 import { stringify } from 'qs';
+import { Action, ActionCreator, Dispatch } from 'redux';
+import { RootStateOrAny } from 'react-redux';
+import { HttpClientWrapper, isCancelError } from '../common/http';
 import {
   CITATIONS_SUMMARY_REQUEST,
   CITATIONS_SUMMARY_SUCCESS,
@@ -8,31 +11,41 @@ import {
   CITATIONS_BY_YEAR_ERROR,
 } from './actionTypes';
 import { httpErrorToActionPayload } from '../common/utils';
-import { isCancelError } from '../common/http.ts';
 import { shouldExcludeSelfCitations } from '../literature/containers/ExcludeSelfCitationsContainer';
 
-function fetchingCitationSummary(namespace) {
+function fetchingCitationSummary(namespace: string) {
   return {
     type: CITATIONS_SUMMARY_REQUEST,
     payload: { namespace },
   };
 }
 
-function fetchCitationSummarySuccess(result) {
+function fetchCitationSummarySuccess<T, K>(result: {
+  took: number;
+  timed_out: boolean;
+  hits: T;
+  aggregations: K;
+}) {
   return {
     type: CITATIONS_SUMMARY_SUCCESS,
     payload: result,
   };
 }
 
-function fetchCitationSummaryError(error) {
+function fetchCitationSummaryError(error: { error: Error }) {
   return {
     type: CITATIONS_SUMMARY_ERROR,
     payload: error,
   };
 }
 
-export function fetchCitationSummary(namespace) {
+export function fetchCitationSummary(
+  namespace: string
+): (
+  dispatch: Dispatch | ActionCreator<Action>,
+  getState: () => RootStateOrAny,
+  http: HttpClientWrapper
+) => Promise<void> {
   return async (dispatch, getState, http) => {
     dispatch(fetchingCitationSummary(namespace));
     try {
@@ -51,10 +64,10 @@ export function fetchCitationSummary(namespace) {
       const url = `/literature/facets?${queryString}`;
       const response = await http.get(url, {}, 'citations-summary');
       dispatch(fetchCitationSummarySuccess(response.data));
-    } catch (error) {
-      if (!isCancelError(error)) {
-        const payload = httpErrorToActionPayload(error);
-        dispatch(fetchCitationSummaryError(payload));
+    } catch (err) {
+      if (!isCancelError(err as Error)) {
+        const { error } = httpErrorToActionPayload(err);
+        dispatch(fetchCitationSummaryError({ error }));
       }
     }
   };
@@ -66,21 +79,30 @@ function fetchingCitationsByYear() {
   };
 }
 
-function fetchCitationsByYearSuccess(result) {
+function fetchCitationsByYearSuccess<T, K>(result: {
+  took: number;
+  timed_out: boolean;
+  hits: T;
+  aggregations: K;
+}) {
   return {
     type: CITATIONS_BY_YEAR_SUCCESS,
     payload: result,
   };
 }
 
-function fetchCitationsByYearError(error) {
+function fetchCitationsByYearError(error: { error: Error }) {
   return {
     type: CITATIONS_BY_YEAR_ERROR,
     payload: error,
   };
 }
 
-export function fetchCitationsByYear(literatureSearchQuery) {
+export function fetchCitationsByYear(literatureSearchQuery: {}): (
+  dispatch: Dispatch | ActionCreator<Action>,
+  getState: () => RootStateOrAny,
+  http: HttpClientWrapper
+) => Promise<void> {
   return async (dispatch, getState, http) => {
     dispatch(fetchingCitationsByYear());
     try {
@@ -92,10 +114,10 @@ export function fetchCitationsByYear(literatureSearchQuery) {
       const url = `/literature/facets?${queryString}`;
       const response = await http.get(url, {}, 'citations-by-year');
       dispatch(fetchCitationsByYearSuccess(response.data));
-    } catch (error) {
-      if (!isCancelError(error)) {
-        const payload = httpErrorToActionPayload(error);
-        dispatch(fetchCitationsByYearError(payload));
+    } catch (err) {
+      if (!isCancelError(err as Error)) {
+        const { error } = httpErrorToActionPayload(err);
+        dispatch(fetchCitationsByYearError({ error }));
       }
     }
   };

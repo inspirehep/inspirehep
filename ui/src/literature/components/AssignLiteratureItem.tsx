@@ -7,8 +7,8 @@ import IconText from '../../common/components/IconText';
 import ListItemAction from '../../common/components/ListItemAction';
 
 interface AssignLiteratureItemProps {
-  onAssign(data: { to: number; literatureId: string }): void;
-  controlNumber: string;
+  onAssign(data: { to: number; literatureId: number }): void;
+  controlNumber: number;
   currentUserRecordId: number;
 }
 

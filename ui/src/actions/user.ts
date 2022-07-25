@@ -1,4 +1,7 @@
 import { push, goBack } from 'connected-react-router';
+import { Action, ActionCreator, Dispatch } from 'redux';
+import { RootStateOrAny } from 'react-redux';
+import { HttpClientWrapper } from '../common/http';
 import {
   USER_LOGIN_ERROR,
   USER_LOGIN_SUCCESS,
@@ -15,29 +18,30 @@ import {
 import { HOME } from '../common/routes';
 import { httpErrorToActionPayload } from '../common/utils';
 import notifySessionExpired from '../user/sessionExpireNotification';
+import { Credentials, User } from '../types';
 
-export function userLoginSuccess(user) {
+export function userLoginSuccess(user: User) {
   return {
     type: USER_LOGIN_SUCCESS,
     payload: user,
   };
 }
 
-export function userSignUpSuccess(user) {
+export function userSignUpSuccess(user: User) {
   return {
     type: USER_SIGN_UP_SUCCESS,
     payload: user,
   };
 }
 
-function userLoginError(error) {
+function userLoginError(error: { error: Error }) {
   return {
     type: USER_LOGIN_ERROR,
     payload: error,
   };
 }
 
-function userSignUpError(error) {
+function userSignUpError(error: { error: Error }) {
   return {
     type: USER_SIGN_UP_ERROR,
     payload: error,
@@ -62,20 +66,28 @@ function userSignUpRequest() {
   };
 }
 
-export function userSignUp(userEmail) {
+export function userSignUp(userEmail: string): (
+  dispatch: Dispatch | ActionCreator<Action>,
+  getState: () => RootStateOrAny,
+  http: HttpClientWrapper
+) => Promise<void> {
   return async (dispatch, getState, http) => {
     dispatch(userSignUpRequest());
     try {
       const response = await http.post('/accounts/signup', userEmail);
       dispatch(userSignUpSuccess(response.data));
-    } catch (error) {
-      const errorPayload = httpErrorToActionPayload(error);
-      dispatch(userSignUpError(errorPayload));
+    } catch (err) {
+      const { error } = httpErrorToActionPayload(err);
+      dispatch(userSignUpError({ error }));
     }
   };
 }
 
-export function fetchLoggedInUser() {
+export function fetchLoggedInUser(): (
+  dispatch: Dispatch | ActionCreator<Action>,
+  getState: () => RootStateOrAny,
+  http: HttpClientWrapper
+) => Promise<void> {
   return async (dispatch, getState, http) => {
     dispatch(fetchingLoggedInUser());
     try {
@@ -88,19 +100,27 @@ export function fetchLoggedInUser() {
   };
 }
 
-export function userLocalLogin(credentials) {
+export function userLocalLogin(credentials: Credentials): (
+  dispatch: Dispatch | ActionCreator<Action>,
+  getState: () => RootStateOrAny,
+  http: HttpClientWrapper
+) => Promise<void> {
   return async (dispatch, getState, http) => {
     try {
       const response = await http.post('/accounts/login', credentials);
       dispatch(userLoginSuccess(response.data));
-    } catch (error) {
-      const errorPayload = httpErrorToActionPayload(error);
-      dispatch(userLoginError(errorPayload));
+    } catch (err) {
+      const { error } = httpErrorToActionPayload(err);
+      dispatch(userLoginError({ error }));
     }
   };
 }
 
-export function userLogout() {
+export function userLogout(): (
+  dispatch: Dispatch | ActionCreator<Action>,
+  getState: () => RootStateOrAny,
+  http: HttpClientWrapper
+) => Promise<void> {
   return async (dispatch, getState, http) => {
     try {
       await http.get('/accounts/logout');
@@ -115,7 +135,11 @@ export function userLogout() {
   };
 }
 
-export function userInactive() {
+export function userInactive(): (
+  dispatch: Dispatch | ActionCreator<Action>,
+  getState: () => RootStateOrAny,
+  http: HttpClientWrapper
+) => Promise<void> {
   return async (dispatch, getState, http) => {
     if (getState().user.get('loggedIn')) {
       try {
@@ -128,43 +152,47 @@ export function userInactive() {
   };
 }
 
-export function setPreference(name, value) {
+export function setPreference(name: string, value: boolean) {
   return {
     type: USER_SET_PREFERENCE,
     payload: { name, value },
   };
 }
 
-function updatingOrcidPushSetting(value) {
+function updatingOrcidPushSetting(value: boolean) {
   return {
     type: USER_SET_ORCID_PUSH_SETTING_REQUEST,
     payload: { value },
   };
 }
 
-function updateOrcidPushSettingSuccess(value) {
+function updateOrcidPushSettingSuccess(value: boolean) {
   return {
     type: USER_SET_ORCID_PUSH_SETTING_SUCCESS,
     payload: { value },
   };
 }
 
-function updateOrcidPushSettingError(errorPayload) {
+function updateOrcidPushSettingError(error: { error: Error }) {
   return {
     type: USER_SET_ORCID_PUSH_SETTING_ERROR,
-    payload: errorPayload,
+    payload: error,
   };
 }
 
-export function updateOrcidPushSetting(value) {
+export function updateOrcidPushSetting(value: boolean): (
+  dispatch: Dispatch | ActionCreator<Action>,
+  getState: () => RootStateOrAny,
+  http: HttpClientWrapper
+) => Promise<void> {
   return async (dispatch, getState, http) => {
     dispatch(updatingOrcidPushSetting(value));
     try {
       await http.put('/accounts/settings/orcid-push', { value });
       dispatch(updateOrcidPushSettingSuccess(value));
-    } catch (error) {
-      const errorPayload = httpErrorToActionPayload(error);
-      dispatch(updateOrcidPushSettingError(errorPayload));
+    } catch (err) {
+      const { error } = httpErrorToActionPayload(err);
+      dispatch(updateOrcidPushSettingError({ error }));
     }
   };
 }

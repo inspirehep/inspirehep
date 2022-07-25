@@ -18,7 +18,7 @@ const resolveSuccessMessage = (numberOfPapers, action) =>
     numberOfPapers
   )} will be ${action} your profile.`;
 
-const resolveSuccessMessageMixedPapers = (numberOfClaimedPapers, numberOfUnclaimedPapers) =>
+  const resolveSuccessMessageMixedPapers = (numberOfClaimedPapers, numberOfUnclaimedPapers) =>
   `${numberOfUnclaimedPapers} ${pluralizeUnlessSingle(
     'paper',
     numberOfUnclaimedPapers
@@ -36,14 +36,14 @@ export function assigning() {
   });
 }
 
-export function assignSuccess({ from, to, papers }) {
+export function assignSuccess({ from, to, literatureIds }) {
   notification.close(ASSIGNING_NOTIFICATION_KEY);
   notification.success({
     message: 'Processing request...',
     duration: null,
     description: (
       <span>
-        Selected papers ({papers}) will be moved from{' '}
+        Selected papers ({literatureIds}) will be moved from{' '}
         <ExternalLink target="_blank" href={`${AUTHORS}/${from}`}>
           {from}
         </ExternalLink>{' '}
@@ -52,7 +52,7 @@ export function assignSuccess({ from, to, papers }) {
           {to}
         </ExternalLink>
         .
-      </span>
+    </span>
     ),
   });
 }

@@ -1,21 +1,24 @@
+import { Action, ActionCreator, Dispatch } from 'redux';
+import { RootStateOrAny } from 'react-redux';
+import { HttpClientWrapper } from '../common/http';
 import { INSPECT_REQUEST, INSPECT_SUCCESS, INSPECT_ERROR } from './actionTypes';
 import { httpErrorToActionPayload } from '../common/utils';
 
-function fetching(id) {
+function fetching(id: number) {
   return {
     type: INSPECT_REQUEST,
     payload: { id },
   };
 }
 
-function fetchSuccess(result) {
+function fetchSuccess<T>(result: T) {
   return {
     type: INSPECT_SUCCESS,
     payload: result,
   };
 }
 
-function fetchError(error) {
+function fetchError(error: { error: Error}) {
   return {
     type: INSPECT_ERROR,
     payload: error,
@@ -23,7 +26,11 @@ function fetchError(error) {
   };
 }
 
-export default function fetch(id) {
+export default function fetch(id: number): (
+  dispatch: Dispatch | ActionCreator<Action>,
+  getState: () => RootStateOrAny,
+  http: HttpClientWrapper
+) => Promise<void> {
   return async (dispatch, getState, http) => {
     dispatch(fetching(id));
     try {

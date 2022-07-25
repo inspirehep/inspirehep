@@ -27,7 +27,7 @@ interface AssignLiteratureItemDrawerProps {
   literatureId: number;
   onDrawerClose: () => void;
   onAssign: (args: {
-    from: string | undefined;
+    from: number | undefined;
     to: number;
     literatureId: number;
   }) => void;
@@ -44,7 +44,7 @@ function AssignLiteratureItemDrawer({
   authors,
   itemLiteratureId,
 }: AssignLiteratureItemDrawerProps) {
-  const [selectedAuthorId, setSelectedAuthorId] = useState<string>();
+  const [selectedAuthorId, setSelectedAuthorId] = useState<number>();
   const [availableAuthors, setAvailableAuthors] = useState<IAuthorResult[]>([]);
   
   useEffect(() => {

@@ -1,11 +1,13 @@
-import { List } from 'immutable';
+import Immutable, { List } from 'immutable';
 import { makeCompliantMetaDescription } from '../common/utils';
 
-export function getCurrentAffiliationsFromPositions(positions) {
-  return positions.filter(position => position.get('current'));
+export function getCurrentAffiliationsFromPositions(
+  positions: { get: (arg: string) => string }[]
+): { get: (arg: string) => string }[] {
+  return positions.filter((position) => position.get('current'));
 }
 
-export function getAuthorDisplayName(name) {
+export function getAuthorDisplayName(name: { get: (arg: string) => string }) {
   const preferredName = name.get('preferred_name');
 
   if (preferredName) {
@@ -19,7 +21,16 @@ export function getAuthorDisplayName(name) {
     : nameValue;
 }
 
-export function getAuthorMetaDescription(author) {
+export function getAuthorMetaDescription(author: {
+  getIn: (
+    arg: string[],
+    list: Immutable.List<any>
+  ) => { get: (arg: string) => string }[];
+  get: (
+    arg: string,
+    list: Immutable.List<any>
+  ) => { get: (arg: string) => string }[];
+}) {
   const ITEM_SEPARATOR = ' and ';
 
   const nativeNamesText = author
@@ -29,7 +40,7 @@ export function getAuthorMetaDescription(author) {
   const affiliationsText = getCurrentAffiliationsFromPositions(
     author.get('positions', List([]))
   )
-    .map(position => position.get('institution'))
+    .map((position) => position.get('institution'))
     .filter(Boolean)
     .join(ITEM_SEPARATOR);
   const categoriesText = author
@@ -38,7 +49,7 @@ export function getAuthorMetaDescription(author) {
     .join(ITEM_SEPARATOR);
   const experimentsText = author
     .get('project_membership', List())
-    .map(experiment => experiment.get('name'))
+    .map((experiment) => experiment.get('name'))
     .filter(Boolean)
     .join(ITEM_SEPARATOR);
 
