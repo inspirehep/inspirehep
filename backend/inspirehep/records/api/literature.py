@@ -138,6 +138,7 @@ class LiteratureRecord(
         if (
             not disable_disambiguation
             and current_app.config["FEATURE_FLAG_ENABLE_AUTHOR_DISAMBIGUATION"]
+            and not data.get("deleted")
         ):
             disambiguate_authors.delay(str(record.id))
         record.push_authors_phonetic_blocks_to_redis()
@@ -232,6 +233,7 @@ class LiteratureRecord(
         if (
             not disable_disambiguation
             and current_app.config["FEATURE_FLAG_ENABLE_AUTHOR_DISAMBIGUATION"]
+            and not data.get("deleted")
         ):
             disambiguate_authors.delay(str(self.id))
         self.push_authors_phonetic_blocks_to_redis()

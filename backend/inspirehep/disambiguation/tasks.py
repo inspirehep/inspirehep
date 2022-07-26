@@ -261,17 +261,13 @@ def _disambiguate_authors(authors_to_disambiguate, record):
 @shared_task(
     ignore_result=False,
     bind=True,
-    retry_backoff=2,
+    retry_backoff=True,
     queue="disambiguation",
-    retry_kwargs={"max_retries": 6},
-    autoretry_for=(PIDAlreadyExists, OperationalError, StaleDataError),
+    max_retries=6,
+    autoretry_for=(PIDAlreadyExists, OperationalError, StaleDataError, NoResultFound),
 )
 def disambiguate_authors(self, record_uuid, disambiguate_all_not_disambiguated=False):
-    # handle case when we try to get a record which is deleted
-    try:
-        record = InspireRecord.get_record(record_uuid)
-    except NoResultFound:
-        return
+    record = InspireRecord.get_record(record_uuid)
     editor_soft_lock = EditorSoftLock(
         recid=record["control_number"],
         record_version=record.model.version_id,
