@@ -21,6 +21,7 @@ from inspirehep.matcher.validators import (
     affiliations_validator,
     collaboration_validator,
 )
+from inspirehep.pidstore.errors import PIDAlreadyExistsError
 from inspirehep.records.api import InspireRecord
 from inspirehep.records.api.authors import AuthorsRecord
 
@@ -264,7 +265,13 @@ def _disambiguate_authors(authors_to_disambiguate, record):
     retry_backoff=True,
     queue="disambiguation",
     max_retries=6,
-    autoretry_for=(PIDAlreadyExists, OperationalError, StaleDataError, NoResultFound),
+    autoretry_for=(
+        PIDAlreadyExists,
+        OperationalError,
+        StaleDataError,
+        NoResultFound,
+        PIDAlreadyExistsError,
+    ),
 )
 def disambiguate_authors(self, record_uuid, disambiguate_all_not_disambiguated=False):
     record = InspireRecord.get_record(record_uuid)
