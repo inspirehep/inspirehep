@@ -26,6 +26,7 @@ from inspirehep.accounts.api import (
     is_superuser_or_cataloger_logged_in,
 )
 from inspirehep.accounts.decorators import login_required_with_roles
+from inspirehep.accounts.roles import Roles
 from inspirehep.mailing.api.conferences import send_conference_confirmation_email
 from inspirehep.mailing.api.seminars import send_seminar_confirmation_email
 from inspirehep.records.api import (
@@ -34,8 +35,8 @@ from inspirehep.records.api import (
     ExperimentsRecord,
     InstitutionsRecord,
     JobsRecord,
-    SeminarsRecord,
     JournalsRecord,
+    SeminarsRecord,
 )
 from inspirehep.serializers import jsonify
 from inspirehep.submissions.errors import RESTDataError
@@ -46,8 +47,8 @@ from .loaders import author_v1 as author_loader_v1
 from .loaders import conference_v1 as conference_loader_v1
 from .loaders import experiment_v1 as experiment_loader_v1
 from .loaders import institution_v1 as institution_loader_v1
-from .loaders import journal_v1 as journal_loader_v1
 from .loaders import job_v1 as job_loader_v1
+from .loaders import journal_v1 as journal_loader_v1
 from .loaders import literature_v1 as literature_loader_v1
 from .loaders import seminar_v1 as seminar_loader_v1
 from .serializers import author_v1, job_v1
@@ -266,6 +267,9 @@ class ConferenceSubmissionsResource(BaseSubmissionsResource):
 
 
 class ExperimentSubmissionsResource(BaseSubmissionsResource):
+
+    decorators = [login_required_with_roles([Roles.cataloger.value])]
+
     def load_data_from_request(self):
         return experiment_loader_v1()
 
@@ -555,6 +559,9 @@ class JobSubmissionsResource(BaseSubmissionsResource):
 
 
 class InstitutionSubmissionsResource(BaseSubmissionsResource):
+
+    decorators = [login_required_with_roles([Roles.cataloger.value])]
+
     def load_data_from_request(self):
         return institution_loader_v1()
 
@@ -567,21 +574,20 @@ class InstitutionSubmissionsResource(BaseSubmissionsResource):
 
         return jsonify({"control_number": record["control_number"]}), 201
 
+
 class JournalSubmissionsResource(BaseSubmissionsResource):
-        
-        def load_data_from_request(self):
-            return journal_loader_v1()
 
-        def post(self):
-            """Adds new Journal"""
-            
-            if is_superuser_or_cataloger_logged_in():
+    decorators = [login_required_with_roles([Roles.cataloger.value])]
 
-                data = self.load_data_from_request()
-                record = JournalsRecord(data=data).create(data)
-                db.session.commit()
+    def load_data_from_request(self):
+        return journal_loader_v1()
 
-                return jsonify({"control_number": record["control_number"]}), 201
+    def post(self):
+        data = self.load_data_from_request()
+        record = JournalsRecord(data=data).create(data)
+        db.session.commit()
+
+        return jsonify({"control_number": record["control_number"]}), 201
 
 
 author_submissions_view = AuthorSubmissionsResource.as_view("author_submissions_view")
@@ -619,7 +625,5 @@ institution_submission_view = InstitutionSubmissionsResource.as_view(
 )
 blueprint.add_url_rule("/institutions", view_func=institution_submission_view)
 
-journal_submission_view = JournalSubmissionsResource.as_view(
-    "journal_submission_view"
-)
+journal_submission_view = JournalSubmissionsResource.as_view("journal_submission_view")
 blueprint.add_url_rule("/journals", view_func=journal_submission_view)
