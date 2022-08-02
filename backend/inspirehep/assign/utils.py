@@ -79,8 +79,10 @@ def _find_matching_author_in_lit_record(author_parsed_name, lit_recid):
         "bool": {"must": [author_name_query, {"match": {"control_number": lit_recid}}]}
     }
     hits = LiteratureSearch().query(query).execute()
+    if len(hits) != 1:
+        return
     authors_matched = hits[0].meta["inner_hits"].to_dict().get("authors")
-    if len(hits) == 1 and len(authors_matched) == 1:
+    if len(authors_matched) == 1:
         author_record = authors_matched[0]["record"].to_dict()
         return get_recid_from_ref(author_record)
 

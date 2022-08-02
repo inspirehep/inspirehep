@@ -894,6 +894,55 @@ def test_literature_assign_check_names_compatibility_ambiguous_match(inspire_app
         assert response.json["message"] == "Not found"
 
 
+def test_literature_assign_check_names_compatibility_no_match(inspire_app):
+    author_profile_oricd = "0000-0001-8829-5461"
+    user = create_user(role="user", orcid=author_profile_oricd)
+    author_profile_data = {
+        "name": {"value": "Axelsen, Viktor", "preferred_name": "Axelsen, Viktor"},
+        "ids": [
+            {"value": "V.Axelsen.1", "schema": "INSPIRE BAI"},
+            {"schema": "ORCID", "value": author_profile_oricd},
+        ],
+        "control_number": 1,
+    }
+
+    create_record("aut", data=author_profile_data)
+
+    author_data = {
+        "name": {"value": "Antonsen, Anders", "preferred_name": "Anders Antonsen"},
+        "ids": [{"value": "A.Antonsen.1", "schema": "INSPIRE BAI"}],
+        "control_number": 2,
+    }
+
+    create_record("aut", data=author_data)
+    literature_1 = create_record(
+        "lit",
+        data={
+            "control_number": 3,
+            "authors": [
+                {
+                    "curated_relation": False,
+                    "full_name": "Vittingus, Hans Christian",
+                    "record": {"$ref": "http://localhost:5000/api/authors/123456"},
+                },
+                {
+                    "full_name": "Urhan, Ahmet",
+                    "record": {"$ref": "http://localhost:5000/api/authors/17200"},
+                },
+            ],
+        },
+    )
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(
+            f"/assign/check-names-compatibility?literature_recid={literature_1['control_number']}",
+            content_type="application/json",
+        )
+        assert response.status_code == 404
+        assert response.json["message"] == "Not found"
+
+
 @mock.patch("inspirehep.assign.tasks.async_create_ticket_with_template")
 def test_assign_author_has_main_name(mock_create_ticket, inspire_app):
     cataloger = create_user(role="cataloger")
