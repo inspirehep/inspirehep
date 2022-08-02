@@ -6,18 +6,17 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import mock
 import orjson
-from celery.app.annotations import MapAnnotation, resolve_all
 from flask import current_app
 from flask_sqlalchemy import models_committed
 from helpers.providers.faker import faker
 from helpers.utils import create_user, retry_until_pass
+from inspire_utils.query import ordered
 from inspire_utils.record import get_values_for_schema
 from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_search import current_search
 from redis import StrictRedis
-from sqlalchemy.orm.exc import NoResultFound
 
 from inspirehep.disambiguation.tasks import (
     disambiguate_authors,
@@ -504,6 +503,26 @@ def test_disambiguate_authors_on_first_last_name_and_initials(
 def test_disambiguate_authors_on_collaboration(
     inspire_app, clean_celery_session, enable_disambiguation
 ):
+    author_data = faker.record(
+        "aut",
+        with_control_number=True,
+        data={
+            "name": {"value": "'t Hooft, Gerard"},
+            "ids": [{"schema": "INSPIRE BAI", "value": "G.Hooft.1"}],
+        },
+    )
+    author_record = AuthorsRecord.create(author_data)
+
+    author_data_1 = faker.record(
+        "aut",
+        with_control_number=True,
+        data={
+            "name": {"value": "'t Hooft, Gerard"},
+            "ids": [{"schema": "INSPIRE BAI", "value": "G.Hooft.2"}],
+        },
+    )
+    author_record_1 = AuthorsRecord.create(author_data_1)
+
     literature_data = faker.record("lit", with_control_number=True)
     literature_data.update(
         {
@@ -511,7 +530,7 @@ def test_disambiguate_authors_on_collaboration(
                 {
                     "full_name": "'t Hooft, Gerard",
                     "curated_relation": True,
-                    "record": {"$ref": "http://localhost:5000/api/authors/999108"},
+                    "record": author_record["self"],
                     "ids": [{"schema": "INSPIRE BAI", "value": "G.Hooft.1"}],
                 }
             ]
@@ -526,7 +545,7 @@ def test_disambiguate_authors_on_collaboration(
                 {
                     "full_name": "'t Hooft, Gerard",
                     "curated_relation": True,
-                    "record": {"$ref": "http://localhost:5000/api/authors/999101"},
+                    "record": author_record_1["self"],
                     "ids": [{"schema": "INSPIRE BAI", "value": "G.Hooft.2"}],
                 }
             ],
@@ -569,13 +588,33 @@ def test_disambiguate_authors_on_collaboration(
 def test_disambiguate_authors_on_affiliation(
     inspire_app, clean_celery_session, enable_disambiguation
 ):
+    author_data = faker.record(
+        "aut",
+        with_control_number=True,
+        data={
+            "name": {"value": "'t Hooft, Gerard"},
+            "ids": [{"schema": "INSPIRE BAI", "value": "G.Hooft.2"}],
+        },
+    )
+    author_record = AuthorsRecord.create(author_data)
+
+    author_data_1 = faker.record(
+        "aut",
+        with_control_number=True,
+        data={
+            "name": {"value": "'t Hooft, Gerard"},
+            "ids": [{"schema": "INSPIRE BAI", "value": "G.Hooft.1"}],
+        },
+    )
+    author_record_1 = AuthorsRecord.create(author_data_1)
+
     literature_data = faker.record("lit", with_control_number=True)
     literature_data.update(
         {
             "authors": [
                 {
                     "full_name": "'t Hooft, Gerard",
-                    "record": {"$ref": "http://localhost:5000/api/authors/999108"},
+                    "record": author_record["self"],
                     "curated_relation": True,
                     "ids": [{"schema": "INSPIRE BAI", "value": "G.Hooft.2"}],
                 },
@@ -591,7 +630,7 @@ def test_disambiguate_authors_on_affiliation(
             "authors": [
                 {
                     "full_name": "'t Hooft, Gerard",
-                    "record": {"$ref": "http://localhost:5000/api/authors/999101"},
+                    "record": author_record_1["self"],
                     "affiliations": [
                         {"value": "UC, Berkeley, CfPA"},
                         {"value": "Warsaw U."},
@@ -801,6 +840,15 @@ def test_disambiguation_on_author_record_update(
     author_data = faker.record("aut", with_control_number=True)
     author_data.update({"name": {"value": "Kowal, Michal"}})
     aut_record = AuthorsRecord.create(author_data)
+
+    author_data_1 = faker.record("aut", with_control_number=True)
+    author_data_1.update(
+        {
+            "name": {"value": "Kowal, Michal"},
+            "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.2"}],
+        }
+    )
+    aut_record_1 = AuthorsRecord.create(author_data_1)
     db.session.commit()
 
     def assert_author_record_exist_in_es():
@@ -832,7 +880,7 @@ def test_disambiguation_on_author_record_update(
                 {
                     "full_name": "Kowal, Michal",
                     "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.2"}],
-                    "record": {"$ref": "http://localhost:5000/api/authors/999102"},
+                    "record": aut_record_1["self"],
                     "curated_relation": True,
                 }
             ]
@@ -865,13 +913,11 @@ def test_disambiguation_on_author_record_update(
         assert get_values_for_schema(
             literature_record_from_es["authors"][0]["ids"], "INSPIRE BAI"
         )
-        assert (
-            literature_record_from_es["authors"][0]["ids"]
-            != literature_record["authors"][0]["ids"]
+        assert ordered(literature_record_from_es["authors"][0]["ids"]) != ordered(
+            literature_record["authors"][0]["ids"]
         )
-        assert (
-            literature_record_from_es["authors"][0]["ids"]
-            != literature_record_2["authors"][0]["ids"]
+        assert ordered(literature_record_from_es["authors"][0]["ids"]) != ordered(
+            literature_record_2["authors"][0]["ids"]
         )
 
     retry_until_pass(assert_first_disambiguation_no_match, retry_interval=2)
@@ -897,6 +943,26 @@ def test_disambiguation_on_author_record_update(
 def test_disambiguation_on_record_update_ambiguous_match(
     inspire_app, clean_celery_session, enable_disambiguation
 ):
+    author_data = faker.record(
+        "aut",
+        with_control_number=True,
+        data={
+            "name": {"value": "Kowal, Michal"},
+            "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
+        },
+    )
+    author_record = AuthorsRecord.create(author_data)
+
+    author_data_1 = faker.record(
+        "aut",
+        with_control_number=True,
+        data={
+            "name": {"value": "Kowal, Michal"},
+            "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.2"}],
+        },
+    )
+    author_record_1 = AuthorsRecord.create(author_data_1)
+
     literature_data = faker.record("lit", with_control_number=True)
     literature_data.update(
         {
@@ -905,7 +971,7 @@ def test_disambiguation_on_record_update_ambiguous_match(
                     "full_name": "Kowal, Michal",
                     "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
                     "affiliations": [{"value": "Warsaw U."}],
-                    "record": {"$ref": "http://localhost:5000/api/authors/999101"},
+                    "record": author_record["self"],
                     "curated_relation": True,
                 }
             ]
@@ -920,7 +986,7 @@ def test_disambiguation_on_record_update_ambiguous_match(
                 {
                     "full_name": "Kowal, Michal",
                     "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.2"}],
-                    "record": {"$ref": "http://localhost:5000/api/authors/999102"},
+                    "record": author_record_1["self"],
                     "curated_relation": True,
                 }
             ]
@@ -977,11 +1043,6 @@ def test_disambiguation_on_record_update_ambiguous_match(
         assert (
             literature_record_from_es["authors"][0]["ids"]
             == lit_record["authors"][0]["ids"]
-        )
-
-        assert (
-            literature_record_from_es["authors"][0]["record"]
-            == lit_record["authors"][0]["record"]
         )
 
     retry_until_pass(assert_disambiguation_on_record_update, retry_interval=2)
@@ -1467,144 +1528,97 @@ def test_editor_lock_is_created_when_disambiguation_runs(
     retry_until_pass(assert_remove_lock)
 
 
-def test_disambiguate_raises_no_result_found(
+def test_disambiguation_deosnt_create_new_stub_author_if_theres_one(
     inspire_app, clean_celery_session, enable_disambiguation
 ):
-    def my_on_failure(*args, **kwargs):
-        return "task failed"
-
-    celery_task_annotation = MapAnnotation(
-        {"on_failure": my_on_failure, "max_retries": 1, "retry_backoff": 0.2}
-    )
-    celery_task_annotation.annotate(disambiguate_authors)
-
-    author_1 = faker.record("aut", with_control_number=True)
+    author_1 = faker.record("aut")
     author_1.update(
         {
-            "name": {"value": "Gross, Brian"},
+            "control_number": 123456,
+            "name": {
+                "value": "'t Hooft, Gerard",
+            },
             "ids": [
                 {"schema": "INSPIRE ID", "value": "INSPIRE-00304313"},
                 {"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"},
-            ],
-            "email_addresses": [{"current": True, "value": "test@test.com"}],
-        }
-    )
-    author_2 = faker.record("aut", with_control_number=True)
-    author_2.update(
-        {
-            "name": {"value": "Matthews, Donald"},
-            "ids": [{"schema": "INSPIRE BAI", "value": "H.Khalfoun.1"}],
-            "email_addresses": [
-                {"current": True, "value": "test1@test.pl"},
-                {"current": True, "value": "test1.1@test.pl"},
             ],
         }
     )
 
     author_record_1 = InspireRecord.create(author_1)
+
+    author_2 = faker.record("aut")
+    author_2.update(
+        {
+            "control_number": 234567,
+            "name": {
+                "value": "'t Hooft, Gerard",
+            },
+            "ids": [
+                {"schema": "INSPIRE ID", "value": "INSPIRE-00304314"},
+                {"schema": "INSPIRE BAI", "value": "J.M.Maldacena.2"},
+            ],
+            "stub": True,
+        }
+    )
+
     author_record_2 = InspireRecord.create(author_2)
     db.session.commit()
-
-    def assert_authors_records_exist_in_es():
-        author_record_1_from_es = InspireSearch.get_record_data_from_es(author_record_1)
-        author_record_2_from_es = InspireSearch.get_record_data_from_es(author_record_2)
-        assert author_record_1_from_es and author_record_2_from_es
-
-    retry_until_pass(assert_authors_records_exist_in_es)
 
     literature_data = faker.record("lit", with_control_number=True)
     literature_data.update(
         {
             "authors": [
                 {
-                    "full_name": "Gross, Brian",
-                    "ids": [
-                        {"schema": "INSPIRE ID", "value": "INSPIRE-00304313"},
-                        {"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"},
-                    ],
-                    "emails": ["test@test.com"],
-                },
-                {
-                    "full_name": "Matthews, Donald",
-                    "ids": [{"schema": "INSPIRE BAI", "value": "H.Khalfoun.1"}],
-                    "emails": ["test1@test.pl", "test1.1@test.pl"],
-                },
+                    "full_name": "'t Hooft, Gerard",
+                    "curated_relation": True,
+                    "record": author_record_1["self"],
+                    "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
+                }
             ]
         }
     )
     literature_record = LiteratureRecord.create(literature_data)
 
-    task = disambiguate_authors.apply_async(
-        kwargs={"record_uuid": str(literature_record.id)}, max_retries=1
-    )
-
-    def assert_task_fails():
-        assert type(task.info) == NoResultFound
-
-    retry_until_pass(assert_task_fails, retry_interval=5)
-    resolve_all(celery_task_annotation, disambiguate_authors)
-
-
-@mock.patch("inspirehep.records.api.literature.disambiguate_authors")
-def test_disambiguate_not_running_for_deleted(
-    mock_disambiguate_authors, inspire_app, clean_celery_session, enable_disambiguation
-):
-    author_1 = faker.record("aut", with_control_number=True)
-    author_1.update(
+    literature_data_2 = faker.record("lit", with_control_number=True)
+    literature_data_2.update(
         {
-            "name": {"value": "Gross, Brian"},
-            "ids": [
-                {"schema": "INSPIRE ID", "value": "INSPIRE-00304313"},
-                {"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"},
-            ],
-            "email_addresses": [{"current": True, "value": "test@test.com"}],
-        }
-    )
-    author_2 = faker.record("aut", with_control_number=True)
-    author_2.update(
-        {
-            "name": {"value": "Matthews, Donald"},
-            "ids": [{"schema": "INSPIRE BAI", "value": "H.Khalfoun.1"}],
-            "email_addresses": [
-                {"current": True, "value": "test1@test.pl"},
-                {"current": True, "value": "test1.1@test.pl"},
-            ],
-        }
-    )
-
-    author_record_1 = InspireRecord.create(author_1)
-    author_record_2 = InspireRecord.create(author_2)
-    db.session.commit()
-
-    def assert_authors_records_exist_in_es():
-        author_record_1_from_es = InspireSearch.get_record_data_from_es(author_record_1)
-        author_record_2_from_es = InspireSearch.get_record_data_from_es(author_record_2)
-        assert author_record_1_from_es and author_record_2_from_es
-
-    retry_until_pass(assert_authors_records_exist_in_es)
-
-    literature_data = faker.record("lit", with_control_number=True)
-    literature_data.update(
-        {
-            "deleted": True,
             "authors": [
                 {
-                    "full_name": "Gross, Brian",
-                    "ids": [
-                        {"schema": "INSPIRE ID", "value": "INSPIRE-00304313"},
-                        {"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"},
-                    ],
-                    "emails": ["test@test.com"],
-                },
-                {
-                    "full_name": "Matthews, Donald",
-                    "ids": [{"schema": "INSPIRE BAI", "value": "H.Khalfoun.1"}],
-                    "emails": ["test1@test.pl", "test1.1@test.pl"],
-                },
-            ],
+                    "full_name": "'t Hooft, Gerard",
+                    "curated_relation": True,
+                    "record": author_record_2["self"],
+                    "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.2"}],
+                }
+            ]
         }
     )
-    LiteratureRecord.create(literature_data)
+    literature_record_2 = LiteratureRecord.create(literature_data_2)
     db.session.commit()
 
-    assert mock_disambiguate_authors.call_count == 0
+    def assert_lit_records_exist_in_es():
+        lit_record_1_from_es = InspireSearch.get_record_data_from_es(literature_record)
+        lit_record_2_from_es = InspireSearch.get_record_data_from_es(
+            literature_record_2
+        )
+        assert lit_record_1_from_es and lit_record_2_from_es
+
+    retry_until_pass(assert_lit_records_exist_in_es, retry_interval=3)
+
+    literature_data_3 = faker.record("lit", with_control_number=True)
+    literature_data_3.update({"authors": [{"full_name": "'t Hooft, Gerard"}]})
+    literature_record_3 = LiteratureRecord.create(literature_data_3)
+    db.session.commit()
+
+    def assert_disambiguation_task():
+        authors_from_es = AuthorsSearch().query_from_iq("'t Hooft, Gerard").execute()
+        literature_record_from_es = InspireSearch.get_record_data_from_es(
+            literature_record_3
+        )
+        # no new stub authors created
+        assert len(authors_from_es) == 2
+        assert (
+            literature_record_from_es["authors"][0]["record"] == author_record_2["self"]
+        )
+
+    retry_until_pass(assert_disambiguation_task, retry_interval=2)
