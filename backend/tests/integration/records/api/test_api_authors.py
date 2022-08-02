@@ -264,3 +264,16 @@ def test_assign_author_to_papers(inspire_app, override_config):
 
     assert lit_record_db["authors"][0]["record"] == record["self"]
     assert lit_record_1_db["authors"][0]["record"] == record["self"]
+
+
+def test_get_stub_authors_by_pids(inspire_app):
+    author = create_record("aut")
+    author2 = create_record("aut", data={"stub": True})
+
+    authors_to_search = [
+        ("aut", str(author["control_number"])),
+        ("aut", str(author2["control_number"])),
+    ]
+
+    result = list(AuthorsRecord.get_stub_authors_by_pids(authors_to_search))
+    assert len(result) == 1

@@ -9,12 +9,16 @@ from flask import current_app
 from inspire_utils.record import get_values_for_schema
 from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier
+from invenio_records.api import RecordMetadata
+from sqlalchemy import cast, type_coerce
+from sqlalchemy.dialects.postgresql import JSONB
 
 from inspirehep.pidstore.api.base import PidStoreBase
 from inspirehep.records.api.mixins import StudentsAdvisorMixin
 from inspirehep.records.marshmallow.authors import AuthorsElasticSearchSchema
 from inspirehep.records.models import RecordsAuthors
 from inspirehep.search.api import AuthorsSearch
+from inspirehep.utils import chunker
 
 from ...pidstore.api import PidStoreAuthors
 from ..utils import get_author_by_bai
@@ -102,6 +106,15 @@ class AuthorsRecord(StudentsAdvisorMixin, InspireRecord):
 
         for data in query.yield_per(100).with_entities(RecordsAuthors.record_id):
             yield data.record_id
+
+    @classmethod
+    def get_stub_authors_by_pids(cls, pids, max_batch=100):
+        for batch in chunker(pids, max_chunk_size=max_batch):
+            query = cls.get_record_metadata_by_pids(batch).filter(
+                type_coerce(RecordMetadata.json, JSONB)["stub"] == cast(True, JSONB)
+            )
+            for data in query.yield_per(100):
+                yield cls(data.json, model=data)
 
     def update(self, data, *args, **kwargs):
         with db.session.begin_nested():
