@@ -1037,3 +1037,42 @@ def test_assign_author_has_main_name(mock_create_ticket, inspire_app):
     )
     assert response_status_code == 200
     assert "created_rt_ticket" in response.json
+
+
+def test_literature_assign_check_names_compatibility_when_no_record_in_matched_author(
+    inspire_app,
+):
+    author_profile_oricd = "0000-0001-8829-5461"
+    user = create_user(role="user", orcid=author_profile_oricd)
+    author_profile_data = {
+        "name": {"value": "Axelsen, Viktor A.", "preferred_name": "Axelsen, Viktor"},
+        "ids": [
+            {"value": "V.Axelsen.1", "schema": "INSPIRE BAI"},
+            {"schema": "ORCID", "value": author_profile_oricd},
+        ],
+        "control_number": 1,
+    }
+
+    create_record("aut", data=author_profile_data)
+
+    literature_1 = create_record(
+        "lit",
+        data={
+            "control_number": 4,
+            "authors": [
+                {
+                    "curated_relation": False,
+                    "full_name": "Axelsen, Viktor A.",
+                },
+            ],
+        },
+    )
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(
+            f"/assign/check-names-compatibility?literature_recid={literature_1['control_number']}",
+            content_type="application/json",
+        )
+        assert response.status_code == 404
+        assert response.json["message"] == "Not found"
