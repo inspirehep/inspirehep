@@ -83,8 +83,10 @@ def _find_matching_author_in_lit_record(author_parsed_name, lit_recid):
         return
     authors_matched = hits[0].meta["inner_hits"].to_dict().get("authors")
     if len(authors_matched) == 1:
-        author_record = authors_matched[0]["record"].to_dict()
-        return get_recid_from_ref(author_record)
+        author_data = authors_matched[0].to_dict()
+        if "record" not in author_data:
+            return
+        return get_recid_from_ref(author_data["record"])
 
 
 def _get_lit_authors_names_recids_dict(authors, last_names_only=False):
