@@ -118,12 +118,14 @@ class InspireRecordIndexer(RecordIndexer):
 
         number_of_failures = len(failures)
 
-        return {
+        result_payload = {
             "uuids": records_uuids,
             "success_count": len(records_uuids) - number_of_failures,
             "failures_count": number_of_failures,
             "failures": failures,
         }
+        LOGGER.info("Bulk index is finished.", results=result_payload)
+        return result_payload
 
     def bulk_iterator(self, records_uuids):
         for record_uuid in records_uuids:
