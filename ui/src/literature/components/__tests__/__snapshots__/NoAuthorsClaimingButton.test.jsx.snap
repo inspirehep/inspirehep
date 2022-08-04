@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NoAuthorsClaimingButton renders 1`] = `
+<ListItemAction>
+  <DropdownMenu
+    disabled={true}
+    title={
+      <Tooltip
+        arrowPointAtCenter={false}
+        autoAdjustOverflow={true}
+        mouseEnterDelay={0.1}
+        mouseLeaveDelay={0.1}
+        placement="top"
+        title="This paper has no authors."
+        transitionName="zoom-big-fast"
+      >
+        <Button
+          block={false}
+          disabled={true}
+          ghost={false}
+          htmlType="button"
+          loading={false}
+        >
+          <IconText
+            icon={<ForwardRef(FileDoneOutlined) />}
+            text="claim"
+          />
+        </Button>
+      </Tooltip>
+    }
+  />
+</ListItemAction>
+`;
