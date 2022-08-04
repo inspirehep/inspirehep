@@ -12,7 +12,7 @@ function HiddenCollectionAlert() {
             This record is not part of the INSPIRE Literature collection.{' '}
             <ExternalLink
               as="a"
-              href="https://inspirehep.net/help/knowledge-base/faq/#not-part"
+              href="https://help.inspirehep.net/knowledge-base/faq/#not-part"
             >
               Learn More
             </ExternalLink>
