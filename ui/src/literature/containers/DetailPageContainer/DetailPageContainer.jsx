@@ -149,9 +149,9 @@ function DetailPage({
                         text="links"
                         trackerEventId="LiteratureFileLink"
                       />
-                    )}
-                    {displayClaimingButton()}
+                    )}  
                     <CiteModalActionContainer recordId={controlNumber} />
+                    {displayClaimingButton()}
                     {canEdit && (
                       <EditRecordAction
                         pidType="literature"
