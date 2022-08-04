@@ -107,15 +107,22 @@ def _send_celery_group_disambiguation_task(uuids, batch_size):
     task_group = disambiguate_authors.chunks(
         zip(uuids, [True for _ in uuids]), batch_size
     ).group()
-    task_group.apply_async(countdown=5, queue="disambiguation")
+    task_group.apply_async(countdown=5)
 
 
 @disambiguation.command(name="not-disambiguated")
 @with_appcontext
 @click.option(
+    "-gs",
+    "--group-size",
+    type=int,
+    default=100,
+    help="Batch size for celery group primitive",
+)
+@click.option(
     "-bs", "--batch-size", type=int, default=5, help="Batch size for celery task chunks"
 )
-def disambiguate_all_not_disambiguated(batch_size):
+def disambiguate_all_not_disambiguated(group_size, batch_size):
     """Trigger disambiguation task for all the records that are not disambiguated"""
     not_disambiguated_records_search = _get_all_not_disambiguated_records_search()
     scan_obj = not_disambiguated_records_search.scan()
@@ -123,7 +130,7 @@ def disambiguate_all_not_disambiguated(batch_size):
     while not generator_empty:
         try:
             uuids = []
-            for _ in range(1000):
+            for _ in range(group_size):
                 document = next(scan_obj)
                 uuids.append(str(document.meta.id))
             _send_celery_group_disambiguation_task(uuids, batch_size)
