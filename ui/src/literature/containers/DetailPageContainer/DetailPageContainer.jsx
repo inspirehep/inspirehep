@@ -55,6 +55,7 @@ import ClaimingDisabledButton from '../../../authors/components/ClaimingDisabled
 import AssignNoProfileAction from '../../../authors/components/AssignNoProfileAction';
 import AssignLiteratureItemContainer from '../AssignLiteratureItemContainer.tsx';
 import AssignLiteratureItemDrawerContainer from '../AssignLiteratureItemDrawerContainer.tsx';
+import NoAuthorsClaimingButton from '../../components/NoAuthorsClaimingButton';
 
 function DetailPage({
   authors,
@@ -106,15 +107,18 @@ function DetailPage({
   const displayClaimingButton = () => {
     if (!loggedIn) return <ClaimingDisabledButton />;
     if (!hasAuthorProfile) return <AssignNoProfileAction />;
+    if (!authors) return <NoAuthorsClaimingButton />
     return <AssignLiteratureItemContainer controlNumber={controlNumber} />;
   };
 
   return (
     <>
-      <AssignLiteratureItemDrawerContainer
-        authors={authors}
-        paperId={controlNumber}
-      />
+      {authors && (
+        <AssignLiteratureItemDrawerContainer
+          authors={authors}
+          paperId={controlNumber}
+        />
+      )}
       <LiteratureDocumentHead
         metadata={metadata}
         created={record.get('created')}
