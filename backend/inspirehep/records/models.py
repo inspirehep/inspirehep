@@ -250,19 +250,19 @@ class StudentsAdvisors(db.Model):
         UUIDType,
         db.ForeignKey("records_metadata.id", name="fk_students_advisors_advisor_id"),
         nullable=False,
-        primary_key=True,
     )
 
     student_id = db.Column(
         UUIDType,
         db.ForeignKey("records_metadata.id", name="fk_students_advisors_student_id"),
         nullable=False,
-        primary_key=True,
     )
 
     degree_type = db.Column(
-        ENUM(*[key.value for key in DegreeType], name="enum_degree_type")
+        ENUM(*[key.value for key in DegreeType], name="enum_degree_type"),
     )
+
+    id = db.Column(db.Integer , primary_key=True)
 
 
 class Timestamp(object):
