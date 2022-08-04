@@ -8,7 +8,7 @@ const EXCLUDE_SELF_CITATIONS_HELP = (
   <p>
     Self-citations are citations from the same collaboration or any of the
     authors of the paper being cited.{' '}
-    <a href="https://inspirehep.net/help/knowledge-base/citation-metrics/">
+    <a href="https://help.inspirehep.net/knowledge-base/citation-metrics/">
       Learn More
     </a>
   </p>
@@ -20,15 +20,12 @@ function ExcludeSelfCitations({
   preference,
   onPreferenceChange,
 }) {
-  useEffect(
-    () => {
-      onPreferenceChange(preference);
-    },
-    [onPreferenceChange, preference]
-  );
+  useEffect(() => {
+    onPreferenceChange(preference);
+  }, [onPreferenceChange, preference]);
   return (
     <Checkbox
-      onChange={event => onChange(event.target.checked)}
+      onChange={(event) => onChange(event.target.checked)}
       checked={excluded}
     >
       <LabelWithHelp
