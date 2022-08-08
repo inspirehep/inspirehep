@@ -1,0 +1,43 @@
+{
+  "refereed": true,
+  "publisher": [
+    "Springer"
+  ],
+  "urls": [
+    {
+      "value": "https://www.springer.com/journal/526"
+    }
+  ],
+  "_collections": [
+    "Journals"
+  ],
+  "journal_title": {
+    "title": "Calculus of Variations and Partial Differential Equations"
+  },
+  "public_notes": [
+    {
+      "value": "Calculus of Variations and Partial Differential Equations attracts and collects many of the important top-quality contributions to this field of research, and stresses the interactions between analysts, geometers, and physicists."
+    }
+  ],
+  "self": {
+    "$ref": "https://inspirehep.net/api/journals/1213100"
+  },
+  "control_number": 1213100,
+  "short_title": "Calc.Var.Part.Differ.Equ",
+  "title_variants": [
+    "CALC VAR PARTIAL DIFFERENTIAL EQUATIONS",
+    "CALC VAR PARTIAL DIFFER EQU",
+    "CALC VAR PART DIFFER EQU",
+    "CALC VAR PART DIFF EQ",
+    "CALC VAR"
+  ],
+  "_harvesting_info": {
+    "method": "feed",
+    "coverage": "partial",
+    "last_seen_item": "Calc.Var.Part.Differ.Equ,60,2",
+    "date_last_harvest": "2021-06-07"
+  },
+  "legacy_creation_date": "2013-01-18",
+  "$schema": "https://inspirehep.net/schemas/records/journals.json",
+  "legacy_version": "20210607130823.0"
+}

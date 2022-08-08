@@ -559,6 +559,8 @@ jobs:
           -f data/records/literature/1306493.json
           -f data/records/literature/1383683.json
           -f data/records/literature/1238110.json
+          -f data/records/journals/1213103.json
+          -f data/records/journals/1213100.json
       - name: 'End to end test - Chrome'
         uses: cypress-io/github-action@v2
         env:
