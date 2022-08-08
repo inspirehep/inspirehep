@@ -7,6 +7,7 @@
 from flask_sqlalchemy import models_committed
 from helpers.utils import create_record
 
+from inspirehep.records.marshmallow.literature.common.author import CVAuthorSchemaV1
 from inspirehep.records.receivers import index_after_commit
 from inspirehep.search.api import LiteratureSearch
 
@@ -620,3 +621,57 @@ def test_literature_detail_cv_link_alias_format(inspire_app):
 
     assert response.status_code == expected_status_code
     assert expected_result == response_data
+
+
+def test_supervisors_are_not_returned_in_cv(inspire_app):
+    headers = {"Accept": "text/vnd+inspire.html+html"}
+    data = {
+        "core": True,
+        "urls": [{"value": "https://escholarship.mcgill.ca/concern/theses/m613mz38c"}],
+        "titles": [{"title": "Hard probes of the quark-gluon plasma"}],
+        "$schema": "https://inspirehep.net/schemas/records/hep.json",
+        "authors": [
+            {
+                "ids": [{"value": "S.Caron.Huot.1", "schema": "INSPIRE BAI"}],
+                "uuid": "7c094b4d-639a-4539-a125-596b59fb7b4b",
+                "record": {"$ref": "https://inspirehep.net/api/authors/1259628"},
+                "full_name": "Caron-Huot, Simon",
+                "affiliations": [
+                    {
+                        "value": "McGill U.",
+                        "record": {
+                            "$ref": "https://inspirehep.net/api/institutions/902995"
+                        },
+                    }
+                ],
+                "signature_block": "HATs",
+                "raw_affiliations": [{"value": "McGill U."}],
+            },
+            {
+                "uuid": "f378d3dd-ac32-4f94-b323-51504d1b5478",
+                "full_name": "Moore, Guy",
+                "affiliations": [
+                    {
+                        "value": "McGill U.",
+                        "record": {
+                            "$ref": "https://inspirehep.net/api/institutions/902995"
+                        },
+                    }
+                ],
+                "inspire_roles": ["supervisor"],
+                "signature_block": "MARg",
+            },
+        ],
+    }
+    record = create_record("lit", data=data)
+    record_control_number = record["control_number"]
+
+    expected_status_code = 200
+
+    with inspire_app.test_client() as client:
+        response = client.get(f"/literature/{record_control_number}", headers=headers)
+
+    response_status_code = response.status_code
+    response_data = response.get_data(as_text=True).replace("\n", "")
+    assert expected_status_code == response_status_code
+    assert CVAuthorSchemaV1.get_display_name(record["authors"][1]) not in response_data
