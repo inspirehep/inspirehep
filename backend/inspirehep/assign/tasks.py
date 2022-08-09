@@ -277,6 +277,14 @@ def create_rt_ticket_for_claiming_action(
         already_claimed_papers=already_claimed_papers,
     )
 
+    if incompatibile_names_papers:
+        template_payload.update(
+            {"incompatibile_names_papers": incompatibile_names_papers}
+        )
+
+    if already_claimed_papers:
+        template_payload.update({"already_claimed_papers": already_claimed_papers})
+
     rt_queue = "AUTHORS_claim_manual"
     requestor = None
     to_author_preffered_name = (

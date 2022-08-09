@@ -102,9 +102,9 @@ def author_assign_view(args):
     to_author_recid = args.get("to_author_recid")
     from_author_recid = args["from_author_recid"]
     literature_recids = args.get("literature_recids", [])
-    claimed_literature_recids = args.get("papers_ids_already_claimed")
+    claimed_literature_recids = args.get("papers_ids_already_claimed", [])
     not_allowed_to_be_claimed_literature_recids = args.get(
-        "papers_ids_not_matching_name"
+        "papers_ids_not_matching_name", []
     )
 
     if not any(

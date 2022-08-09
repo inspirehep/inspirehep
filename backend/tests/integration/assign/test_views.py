@@ -1076,3 +1076,80 @@ def test_literature_assign_check_names_compatibility_when_no_record_in_matched_a
         )
         assert response.status_code == 404
         assert response.json["message"] == "Not found"
+
+
+@mock.patch("inspirehep.assign.tasks.async_create_ticket_with_template")
+def test_assign_author_calls_create_rt_ticket_for_claiming_action_when_some_args_not_in_payload(
+    mock_create_ticket, inspire_app
+):
+    cataloger = create_user(role="cataloger")
+    author_data = {
+        "name": {"value": "Aad, Georges", "preferred_name": "Georges Aad"},
+        "ids": [{"value": "G.Aad.1", "schema": "INSPIRE BAI"}],
+        "control_number": 1,
+    }
+    author_data_2 = {
+        "name": {
+            "preferred_name": "Viktor Axelsen",
+            "name_variants": ["Viktor Axelsen"],
+            "value": "Axelsen, Viktor",
+        },
+        "ids": [{"value": "M.Matczak.1", "schema": "INSPIRE BAI"}],
+        "control_number": 2,
+    }
+    from_author = create_record("aut", data=author_data)
+    to_author = create_record("aut", data=author_data_2)
+    literature_1 = create_record(
+        "lit",
+        data={
+            "control_number": 3,
+            "authors": [
+                {
+                    "full_name": "Aad, Georges",
+                    "record": {
+                        "$ref": f"http://localhost:5000/api/authors/{from_author['control_number']}"
+                    },
+                },
+                {
+                    "full_name": "Urhan, Ahmet",
+                    "record": {"$ref": "http://localhost:5000/api/authors/17200"},
+                },
+            ],
+        },
+    )
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=cataloger.email)
+        response = client.post(
+            "/assign/author",
+            data=orjson.dumps(
+                {
+                    "papers_ids_not_matching_name": [
+                        literature_1["control_number"],
+                    ],
+                    "from_author_recid": from_author["control_number"],
+                    "to_author_recid": to_author["control_number"],
+                }
+            ),
+            content_type="application/json",
+        )
+    response_status_code = response.status_code
+
+    assert mock_create_ticket.mock_calls[0][1] == (
+        "AUTHORS_claim_manual",
+        None,
+        "rt/assign_authors_from_different_profile.html",
+        {
+            "to_author_names": ["Viktor Axelsen", "Axelsen, Viktor"],
+            "from_author_url": "http://localhost:5000/authors/1",
+            "to_author_url": "http://localhost:5000/authors/2",
+            "incompatibile_names_papers": {
+                "http://localhost:5000/literature/3": "Aad, Georges"
+            },
+            "already_claimed_papers": [],
+        },
+        "Claims by user Viktor Axelsen require curator action",
+    )
+    assert response_status_code == 200
+
+    assert "created_rt_ticket" in response.json
