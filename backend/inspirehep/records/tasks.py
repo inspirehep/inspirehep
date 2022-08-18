@@ -21,6 +21,9 @@ from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.api import InspireRecord, LiteratureRecord
 from inspirehep.search.api import InspireSearch
 from inspirehep.utils import flatten_list
+from inspire_utils.dedupers import dedupe_list_of_dicts, dedupe_list
+from dict_deep import deep_set
+
 
 LOGGER = structlog.getLogger()
 
@@ -96,10 +99,13 @@ def update_references_pointing_to_merged_record(
             referenced_records_in_path = flatten_list(
                 get_value(matched_inspire_record, path[: -len(".$ref")], [])
             )
+
             for referenced_record in referenced_records_in_path:
-                update_reference_if_reference_uri_matches(
-                    referenced_record, merged_record_uri, new_record_uri
-                )
+                update_reference_if_reference_uri_matches(referenced_record, merged_record_uri, new_record_uri)
+            deduped_matched_inspire_record = remove_duplicate_refs_from_record(matched_inspire_record, path)
+            
+            if deduped_matched_inspire_record:
+                matched_inspire_record = deduped_matched_inspire_record
             matched_inspire_record.update(dict(matched_inspire_record))
             LOGGER.info(
                 "Updated reference for record", uuid=str(matched_inspire_record.id)
@@ -135,3 +141,15 @@ def regenerate_author_records_table_entries(uuids_to_regenerate):
         record.update_authors_records_table()
         record.update_self_citations()
         db.session.commit()
+
+
+def remove_duplicate_refs_from_record(matched_inspire_record, path):
+    references_path = ".".join(path.split(".")[:-2])
+    references = flatten_list(get_value(matched_inspire_record, references_path, []))
+
+    deduped_references = dedupe_list_of_dicts(references)
+    if len(references) == len(deduped_references):
+        return None
+
+    deep_set(matched_inspire_record, references_path, deduped_references)
+    return matched_inspire_record

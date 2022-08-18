@@ -95,6 +95,7 @@ sqlalchemy-continuum = {git = "https://github.com/inspirehep/sqlalchemy-continuu
 "zope.interface" = "~=5.4.0"
 backoff = "^1.10.0"
 invenio-records-rest = {git = "https://github.com/inspirehep/invenio-records-rest", rev = "bfa7cf024ca5b22b010d1a1d379275f790de47b9"}
+dict-deep = "^4.1.2"
 
 [tool.poetry.dev-dependencies]
 freezegun = "*"
