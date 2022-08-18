@@ -8,6 +8,7 @@
 from helpers.providers.faker import faker
 from helpers.utils import retry_until_pass
 from invenio_db import db
+from inspire_utils.record import get_value
 
 from inspirehep.records.api import InspireRecord
 from inspirehep.search.api import InspireSearch, LiteratureSearch
@@ -236,6 +237,7 @@ def test_recalculate_references_after_institution_record_merge(
         author_record_from_es = InspireSearch.get_record_data_from_es(author)
         job_record_from_es = InspireSearch.get_record_data_from_es(job)
         literature_record_from_es = InspireSearch.get_record_data_from_es(literature)
+
         assert (
             author_record_from_es["positions"][0]["record"]["$ref"]
             == merged_institution_record["self"]["$ref"]
@@ -254,6 +256,183 @@ def test_recalculate_references_after_institution_record_merge(
                 "$ref"
             ]
             == merged_institution_record["self"]["$ref"]
+        )
+
+    retry_until_pass(assert_recalculate_references_task, retry_interval=3)
+
+
+def test_recalculate_references_after_institution_record_merge_when_author_has_them_both(
+    inspire_app, clean_celery_session
+):
+    institution_data = faker.record("ins", with_control_number=True)
+    institution_data["legacy_ICN"] = "Beijing, Inst. High Energy Phys."
+    institution = InspireRecord.create(institution_data)
+    institution_record_reference = institution["self"]["$ref"]
+
+    institution_data_extra = faker.record("ins", with_control_number=True)
+    institution_data_extra["legacy_ICN"] = "Warsaw U."
+    institution_extra = InspireRecord.create(institution_data_extra)
+    institution_extra_record_reference = institution_extra["self"]["$ref"]
+
+    merged_institution_data = faker.record("ins", with_control_number=True)
+    merged_institution_record = InspireRecord.create(merged_institution_data)
+
+    new_institution_record_reference = merged_institution_record["self"]["$ref"]
+    author_data = faker.record("aut", with_control_number=True)
+    author_data.update(
+        {
+            "positions": [
+                {
+                    "institution": "Beijing, Inst. High Energy Phys.",
+                    "rank": "SENIOR",
+                    "record": {"$ref": institution_record_reference},
+                    "start_date": "1972",
+                },
+                {
+                    "institution": "Beijing, Inst. High Energy Phys.",
+                    "rank": "SENIOR",
+                    "record": {"$ref": new_institution_record_reference},
+                    "start_date": "1972",
+                },
+                {
+                    "institution": "Warsaw U.",
+                    "rank": "JUNIOR",
+                    "record": {"$ref": institution_extra_record_reference},
+                    "start_date": "1972",
+                }
+            ]
+        }
+    )
+    author = InspireRecord.create(author_data)
+
+    job_data = faker.record("job", with_control_number=True)
+    job_data.update(
+        {
+            "institutions": [
+                {"value": "Beijing, Inst. High Energy Phys.", "record": {"$ref": new_institution_record_reference}},
+                {"value": "Beijing, Inst. High Energy Phys.", "record": {"$ref": institution_record_reference}},
+                {"value": "Warsaw U.", "record": {"$ref": institution_extra_record_reference}}
+            ]
+        }
+    )
+    job = InspireRecord.create(job_data)
+
+    literature_data = faker.record("lit", with_control_number=True)
+    literature_data.update(
+        {
+            "authors": [
+                {
+                    "affiliations": [
+                        {
+                            "record": {"$ref": new_institution_record_reference},
+                            "value": "Beijing, Inst. High Energy Phys.",
+                        },
+                        {
+                            "record": {"$ref": institution_record_reference},
+                            "value": "Beijing, Inst. High Energy Phys.",
+                        },
+                        {
+                            "record": {"$ref": institution_extra_record_reference},
+                            "value": "Warsaw U.",
+                        }
+                    ],
+                    "full_name": "John Smith",
+                },
+                {
+                    "affiliations": [
+                        {
+                            "record": {"$ref": new_institution_record_reference},
+                            "value": "Beijing, Inst. High Energy Phys.",
+                        },
+                        {
+                            "record": {"$ref": institution_record_reference},
+                            "value": "Beijing, Inst. High Energy Phys.",
+                        },
+                        {
+                            "record": {"$ref": institution_extra_record_reference},
+                            "value": "Warsaw U.",
+                        }
+                    ],
+                    "full_name": "Jane Smith",
+                }
+            ],
+            "thesis_info": {
+                "institutions": [
+                    {"name": "Beijing, Inst. High Energy Phys.", "record": {"$ref": institution_record_reference}},
+                    {"name": "Warsaw U.", "record": {"$ref": institution_extra_record_reference}},
+                ]
+            },
+        }
+    )
+    literature = InspireRecord.create(literature_data)
+    db.session.commit()
+
+    def assert_all_records_in_es():
+        literature_record_from_es = InspireSearch.get_record_data_from_es(literature)
+        job_record_from_es = InspireSearch.get_record_data_from_es(job)
+        author_record_from_es = InspireSearch.get_record_data_from_es(author)
+        institution_record_from_es = InspireSearch.get_record_data_from_es(institution)
+        assert all(
+            [
+                literature_record_from_es,
+                job_record_from_es,
+                author_record_from_es,
+                institution_record_from_es,
+            ]
+        )
+
+    retry_until_pass(assert_all_records_in_es, retry_interval=3)
+    merged_institution_data["deleted_records"] = [{"$ref": institution_record_reference}]
+    merged_institution_record.update(merged_institution_data)
+
+    db.session.commit()
+
+    def assert_recalculate_references_task():
+        author_record_from_es = InspireSearch.get_record_data_from_es(author)
+        job_record_from_es = InspireSearch.get_record_data_from_es(job)
+        literature_record_from_es = InspireSearch.get_record_data_from_es(literature)
+
+        assert (
+            author_record_from_es["positions"][0]["record"]["$ref"]
+            == new_institution_record_reference
+        )
+        assert (
+            len(author_record_from_es["positions"])
+            == 2
+        )
+        assert (
+            job_record_from_es["institutions"][0]["record"]["$ref"]
+            == new_institution_record_reference
+        )
+        assert (
+            len(job_record_from_es["institutions"])
+            == 2
+        )
+        assert (
+            new_institution_record_reference in get_value(literature_record_from_es["authors"][0]["affiliations"], "record.$ref") 
+        )
+        assert (
+            len(literature_record_from_es["authors"][0]["affiliations"])
+            == 2
+        )
+        assert (
+            institution_extra_record_reference in get_value(literature_record_from_es["authors"][0]["affiliations"], "record.$ref") 
+        )
+        assert (
+            new_institution_record_reference in get_value(literature_record_from_es["authors"][1]["affiliations"], "record.$ref") 
+        )
+        assert (
+            institution_extra_record_reference in get_value(literature_record_from_es["authors"][1]["affiliations"], "record.$ref") 
+        )
+        assert (
+            len(literature_record_from_es["authors"][1]["affiliations"])
+            == 2
+        )
+        assert (
+            literature_record_from_es["thesis_info"]["institutions"][0]["record"][
+                "$ref"
+            ]
+            == new_institution_record_reference
         )
 
     retry_until_pass(assert_recalculate_references_task, retry_interval=3)
