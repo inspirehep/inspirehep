@@ -54,7 +54,7 @@ import HiddenCollectionAlert from '../../components/LiteratureCollectionBanner';
 import ClaimingDisabledButton from '../../../authors/components/ClaimingDisabledButton';
 import AssignNoProfileAction from '../../../authors/components/AssignNoProfileAction';
 import AssignLiteratureItemContainer from '../AssignLiteratureItemContainer.tsx';
-import AssignLiteratureItemDrawerContainer from '../AssignLiteratureItemDrawerContainer.tsx';
+import AssignLiteratureItemDrawerContainer from '../AssignLiteratureItemDrawerContainer';
 import NoAuthorsClaimingButton from '../../components/NoAuthorsClaimingButton';
 
 function DetailPage({

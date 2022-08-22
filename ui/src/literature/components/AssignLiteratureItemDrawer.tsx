@@ -1,8 +1,7 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { SelectOutlined } from '@ant-design/icons';
 
-import { Drawer, Radio, Row, Col, Button } from 'antd';
-import { RadioChangeEvent } from 'antd/lib/radio';
+import { Drawer, Radio, Row, Col, Button, List, Input } from 'antd';
 import ResultItem from '../../common/components/ResultItem';
 import Author from '../../common/components/Author';
 
@@ -37,30 +36,6 @@ interface AssignLiteratureItemDrawerProps {
   paperId: string;
 }
 
-const renderAuthorItem = (
-  authors: IAuthorResult[],
-  onChange: (event: RadioChangeEvent) => void
-) => (
-  <Radio.Group
-    className="w-100"
-    onChange={onChange}
-    data-test-id="literature-drawer-radio-group"
-  >
-    {authors.map((result: IAuthorResult) => (
-      <Row>
-        <Col flex="0 1 1px">
-          <Radio value={result.get('recid') || 'recid'} />
-        </Col>
-        <Col flex="1 1 1px" className="pb2">
-          <ResultItem>
-            <Author author={result} />
-          </ResultItem>
-        </Col>
-      </Row>
-    ))}
-  </Radio.Group>
-);
-
 function AssignLiteratureItemDrawer({
   visible,
   onDrawerClose,
@@ -70,7 +45,13 @@ function AssignLiteratureItemDrawer({
   paperId,
 }: AssignLiteratureItemDrawerProps) {
   const [selectedAuthorId, setSelectedAuthorId] = useState<string>();
-
+  const [availableAuthors, setAvailableAuthors] = useState<IAuthorResult[]>([]);
+  
+  useEffect(() => {
+    // @ts-ignore
+    setAvailableAuthors(authors.toArray());
+  }, [authors]);
+  
   const onSelectedAuthorChange = useCallback((event) => {
     setSelectedAuthorId(event.target.value);
   }, []);
@@ -83,6 +64,18 @@ function AssignLiteratureItemDrawer({
     });
   }, [currentUserRecordId, selectedAuthorId, onAssign, paperId]);
 
+  const onAuthorSearch = (value: string): void => {
+    const filteredAuthors = authors.filter(
+        (author: IAuthorResult) => author
+          .get('full_name')
+          .toString()
+          .toLowerCase()
+          .includes(value.toLowerCase())
+      );
+    // @ts-ignore
+    setAvailableAuthors(filteredAuthors.toArray());
+  };
+
   return (
     <Drawer
       className="search-drawer"
@@ -93,7 +86,40 @@ function AssignLiteratureItemDrawer({
       <p>
         <strong>Select the author to claim:</strong>
       </p>
-      {renderAuthorItem(authors, onSelectedAuthorChange)}
+      <Input.Search
+        onSearch={onAuthorSearch}
+        enterButton
+        className="pb3"
+        placeholder="Search for an author"
+      />
+      <Radio.Group
+        className="w-100"
+        onChange={onSelectedAuthorChange}
+        data-test-id="literature-drawer-radio-group"
+      >
+        <List
+          itemLayout="horizontal"
+          pagination={{
+            pageSize: 20,
+            size: 'small',
+            hideOnSinglePage: true,
+          }}
+          dataSource={availableAuthors}
+          renderItem={(item: IAuthorResult) => (
+            <Row>
+              <Col flex="0 1 1px">
+                <Radio value={item.get('recid') || 'recid'} />
+              </Col>
+              <Col flex="1 1 1px" className="pb2">
+                <ResultItem>
+                  <Author author={item} />
+                </ResultItem>
+              </Col>
+            </Row>
+          )}
+        />
+      </Radio.Group>
+
       <Row className="mt2" justify="end">
         <Col>
           <Button
