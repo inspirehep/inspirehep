@@ -12,168 +12,33 @@ exports[`AssignLiteratureItemDrawer renders authors list 1`] = `
       Select the author to claim:
     </strong>
   </p>
+  <Search
+    className="pb3"
+    enterButton={true}
+    onSearch={[Function]}
+    placeholder="Search for an author"
+  />
   <RadioGroup
     buttonStyle="outline"
     className="w-100"
     data-test-id="literature-drawer-radio-group"
     onChange={[Function]}
   >
-    <Row
-      gutter={0}
-    >
-      <Col
-        flex="0 1 1px"
-      >
-        <Radio
-          type="radio"
-          value="recid"
-        />
-      </Col>
-      <Col
-        className="pb2"
-        flex="1 1 1px"
-      >
-        <ResultItem>
-          <Author
-            author={
-              Immutable.Map {
-                "full_name": "Test, Guy 1",
-              }
-            }
-          />
-        </ResultItem>
-      </Col>
-    </Row>
-    <Row
-      gutter={0}
-    >
-      <Col
-        flex="0 1 1px"
-      >
-        <Radio
-          type="radio"
-          value="recid"
-        />
-      </Col>
-      <Col
-        className="pb2"
-        flex="1 1 1px"
-      >
-        <ResultItem>
-          <Author
-            author={
-              Immutable.Map {
-                "full_name": "Test, Guy 2",
-              }
-            }
-          />
-        </ResultItem>
-      </Col>
-    </Row>
-    <Row
-      gutter={0}
-    >
-      <Col
-        flex="0 1 1px"
-      >
-        <Radio
-          type="radio"
-          value="recid"
-        />
-      </Col>
-      <Col
-        className="pb2"
-        flex="1 1 1px"
-      >
-        <ResultItem>
-          <Author
-            author={
-              Immutable.Map {
-                "full_name": "Test, Guy 3",
-              }
-            }
-          />
-        </ResultItem>
-      </Col>
-    </Row>
-    <Row
-      gutter={0}
-    >
-      <Col
-        flex="0 1 1px"
-      >
-        <Radio
-          type="radio"
-          value="recid"
-        />
-      </Col>
-      <Col
-        className="pb2"
-        flex="1 1 1px"
-      >
-        <ResultItem>
-          <Author
-            author={
-              Immutable.Map {
-                "full_name": "Test, Guy 4",
-              }
-            }
-          />
-        </ResultItem>
-      </Col>
-    </Row>
-    <Row
-      gutter={0}
-    >
-      <Col
-        flex="0 1 1px"
-      >
-        <Radio
-          type="radio"
-          value="recid"
-        />
-      </Col>
-      <Col
-        className="pb2"
-        flex="1 1 1px"
-      >
-        <ResultItem>
-          <Author
-            author={
-              Immutable.Map {
-                "full_name": "Test, Guy 5",
-              }
-            }
-          />
-        </ResultItem>
-      </Col>
-    </Row>
-    <Row
-      gutter={0}
-    >
-      <Col
-        flex="0 1 1px"
-      >
-        <Radio
-          type="radio"
-          value="recid"
-        />
-      </Col>
-      <Col
-        className="pb2"
-        flex="1 1 1px"
-      >
-        <ResultItem>
-          <Author
-            author={
-              Immutable.Map {
-                "full_name": "Test, Guy 6",
-              }
-            }
-          />
-        </ResultItem>
-      </Col>
-    </Row>
+    <List
+      bordered={false}
+      dataSource={Array []}
+      itemLayout="horizontal"
+      loading={false}
+      pagination={
+        Object {
+          "hideOnSinglePage": true,
+          "pageSize": 20,
+          "size": "small",
+        }
+      }
+      renderItem={[Function]}
+      split={true}
+    />
   </RadioGroup>
   <Row
     className="mt2"
