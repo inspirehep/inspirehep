@@ -10,7 +10,7 @@ Cypress.Commands.add('selectLiteratureDocType', (docType) => {
     .get(
       `.ant-select-dropdown [data-test-id=document-type-select-option-${docType}]`
     )
-    .click()
+    .click({ force: true })
     .should('be.hidden'); // wait for dropdown menu to be closed before proceeding further.
 });
 
