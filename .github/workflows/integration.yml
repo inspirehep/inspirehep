@@ -592,6 +592,7 @@ jobs:
   end_to_end_test_firefox:
     name: End to end test - Firefox
     runs-on: ubuntu-20.04
+    container: cypress/browsers:node16.14.2-slim-chrome103-ff102
     needs:
       - backend_build
       - ui_build
