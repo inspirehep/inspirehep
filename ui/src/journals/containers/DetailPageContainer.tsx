@@ -12,16 +12,22 @@ import UrlsAction from '../../literature/components/UrlsAction';
 import PublicNotesList from '../../common/components/PublicNotesList';
 import { Journal } from './SearchPageContainer';
 import { LITERATURE } from '../../common/routes';
+import { JOURNALS_PID_TYPE } from '../../common/constants';
 import { JournalTitlesListModal } from '../components/JournalTitlesListModal';
+import EditRecordAction from '../../common/components/EditRecordAction';
+import { isCataloger } from '../../common/authorization';
 
 interface RootState {
   journals: {
     get: (values: string) => Journal;
     hasIn: (values: string[]) => boolean;
   };
+  user: {
+    getIn: (arg: string[]) => boolean;
+  }
 }
 
-export const DetailPage = ({ result }: { result: Journal }) => {
+export const DetailPage = ({ result, isCatalogerLoggedIn }: { result: Journal, isCatalogerLoggedIn: boolean }) => {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
 
   const metadata = result.get('metadata');
@@ -32,6 +38,7 @@ export const DetailPage = ({ result }: { result: Journal }) => {
   const publicNotes = metadata.get('public_notes');
   const titleVariants = metadata.get('title_variants');
   const publisher = metadata.get('publisher');
+  const recordId = metadata.get('control_number');
 
   const onModalVisibilityChange = () => {
     setModalVisible(!modalVisible);
@@ -44,7 +51,16 @@ export const DetailPage = ({ result }: { result: Journal }) => {
         <Col className="mv3" xs={24} md={22} lg={21} xxl={18}>
           <ContentBox
             className="sm-pb3"
-            leftActions={urls && <UrlsAction urls={urls} text="links" />}
+            leftActions={
+              <>
+                {urls && <UrlsAction urls={urls} text="links" />}
+                {recordId && <EditRecordAction
+                  isCatalogerLoggedIn={isCatalogerLoggedIn}
+                  pidType={JOURNALS_PID_TYPE}
+                  pidValue={recordId.toString()}
+                />}
+              </>
+            }
           >
             <Row>
               <Col>
@@ -105,6 +121,7 @@ export const DetailPage = ({ result }: { result: Journal }) => {
 
 const mapStateToProps = (state: RootState) => ({
   result: state.journals.get('data'),
+  isCatalogerLoggedIn: isCataloger(state.user.getIn(['data', 'roles'])),
 });
 
 const DetailPageContainer = connect(mapStateToProps)(DetailPage);
