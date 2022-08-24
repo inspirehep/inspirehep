@@ -76,8 +76,7 @@ services:
     extends:
       file: docker-compose.services.yml
       service: app
-    entrypoint: watchmedo auto-restart -d . -p '*.py'
-    command: -- celery worker -E -A inspirehep.celery -l INFO --purge --queues celery,migrator,indexer_task,matcher,assign
+    command: celery worker -E -A inspirehep.celery -l INFO --purge --queues celery,migrator,indexer_task,matcher,assign
     depends_on:
       - db
       - es
