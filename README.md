@@ -15,7 +15,7 @@ $ sudo apt-get install python3 build-essential python3-dev
 #### MacOS
 
 ```bash
-$ brew install python
+$ brew install postgresql libmagic openssl@3 openblas python
 ```
 
 ### nodejs & npm using nvm
@@ -33,7 +33,7 @@ $ nvm use global 10.14.0
 
 #### Debian / Ubuntu
 
-Please folow the instructions https://classic.yarnpkg.com/en/docs/install/#debian-stable
+Please follow the instructions https://classic.yarnpkg.com/en/docs/install/#debian-stable
 
 #### MacOS
 

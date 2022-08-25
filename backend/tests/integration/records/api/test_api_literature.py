@@ -2443,6 +2443,7 @@ def test_import_article_with_unknown_type_should_import_as_article(inspire_app):
     assert record["document_type"] == ["article"]
 
 
+@pytest.mark.vcr()
 def test_index_fulltext_document_s3(inspire_app, s3):
     metadata = {"foo": "bar"}
     create_s3_bucket(KEY)
@@ -2471,6 +2472,7 @@ def test_index_fulltext_document_s3(inspire_app, s3):
     assert "text" in serialized_data["documents"][0]
 
 
+@pytest.mark.vcr()
 def test_index_fulltext_with_not_existing_doc_handle_exception(
     inspire_app, s3, override_config
 ):
@@ -2515,6 +2517,7 @@ def test_index_fulltext_with_not_existing_doc_handle_exception(
         assert "text" not in serialized_data["documents"][1]
 
 
+@pytest.mark.vcr()
 def test_get_documents_for_fulltext_works_for_arxiv(inspire_app, s3):
     metadata = {"foo": "bar"}
     create_s3_bucket(KEY)
