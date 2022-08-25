@@ -317,6 +317,7 @@ def _disambiguate_authors(authors_to_disambiguate, record):
     ),
 )
 def disambiguate_authors(self, record_uuid, disambiguate_all_not_disambiguated=False):
+    LOGGER.info("Starting disambiguation task", uuid=str(record_uuid))
     record = InspireRecord.get_record(record_uuid)
     editor_soft_lock = EditorSoftLock(
         recid=record["control_number"],
@@ -340,16 +341,23 @@ def disambiguate_authors(self, record_uuid, disambiguate_all_not_disambiguated=F
         authors = _get_not_disambiguated_authors(record.get("authors", []))
     else:
         authors = record.get_modified_authors()
+    if not authors:
+        LOGGER.info("No authors eligible for disambiguation", uuid=str(record.id))
     updated_authors = _disambiguate_authors(authors, record)
     if updated_authors:
         LOGGER.info(
             "Updated references for authors",
-            {
-                "uuid": str(record.id),
-                "recid": record["control_number"],
-                "authors_control_numbers": updated_authors,
-            },
+            uuid=str(record.id),
+            recid=record["control_number"],
+            authors_control_numbers=updated_authors,
         )
         record.update(dict(record), disable_disambiguation=True)
         db.session.commit()
+    else:
+        LOGGER.info(
+            "References for authors not updated",
+            uuid=str(record.id),
+            recid=record["control_number"],
+        )
     editor_soft_lock.remove_lock()
+    return updated_authors
