@@ -43,31 +43,3 @@ def test_get_linked_advisors_when_name_changes(inspire_app):
     student.update(dict(student))
     db.session.commit()
     assert student.get_linked_advisors_when_name_changes() == set([str(advisor.id)])
-
-
-def test_student_with_the_same_advisor_for_multiple_degrees(inspire_app):
-    data_advisor = faker.record("aut")
-    advisor = AuthorsRecord.create(data_advisor)
-    db.session.commit()
-
-    assert not advisor.get_linked_advisors_when_name_changes()
-
-    student_data = faker.record(
-        "aut",
-        data={
-            "advisors": [
-                {
-                    "name": advisor["name"]["value"],
-                    "record": advisor["self"],
-                    "degree_type": "master",
-                },
-                {
-                    "name": advisor["name"]["value"],
-                    "record": advisor["self"],
-                    "degree_type": "phd",
-                },
-            ]
-        },
-    )
-    AuthorsRecord.create(student_data)
-    db.session.commit()

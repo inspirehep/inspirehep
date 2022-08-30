@@ -653,37 +653,6 @@ def test_create_author_with_advisors_updates_students_advisors_table(inspire_app
     assert all_advisors[1].degree_type == "other"
 
 
-def test_create_author_with_same_advisor_for_multiple_degrees_updates_students_advisors_table(
-    inspire_app,
-):
-    advisor = create_record("aut")
-    student = create_record(
-        "aut",
-        data={
-            "advisors": [
-                {
-                    "name": advisor["name"]["value"],
-                    "record": advisor["self"],
-                    "degree_type": "master",
-                },
-                {
-                    "name": advisor["name"]["value"],
-                    "record": advisor["self"],
-                    "degree_type": "phd",
-                },
-            ]
-        },
-    )
-
-    all_advisors = StudentsAdvisors.query.filter_by(student_id=student.id).all()
-    assert len(all_advisors) == 2
-    assert all_advisors[0].advisor_id == advisor.id
-    assert all_advisors[0].degree_type == "master"
-
-    assert all_advisors[1].advisor_id == advisor.id
-    assert all_advisors[1].degree_type == "phd"
-
-
 def test_update_author_with_advisors_updates_students_advisors_table(inspire_app):
     advisor = create_record("aut")
     advisor_2 = create_record("aut")
