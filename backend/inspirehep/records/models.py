@@ -262,7 +262,7 @@ class StudentsAdvisors(db.Model):
         ENUM(*[key.value for key in DegreeType], name="enum_degree_type"),
     )
 
-    id = db.Column(db.Integer , primary_key=True, autoincrement=True)
+    id = db.Column(db.Integer , primary_key=True)
 
 
 class Timestamp(object):
