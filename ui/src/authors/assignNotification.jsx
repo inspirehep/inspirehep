@@ -16,7 +16,7 @@ const resolveSuccessMessage = (numberOfPapers, action) =>
   }${numberOfPapers} selected ${pluralizeUnlessSingle(
     'paper',
     numberOfPapers
-  )} will be ${action} to your profile.`;
+  )} will be ${action} your profile.`;
 
 const resolveSuccessMessageMixedPapers = (numberOfClaimedPapers, numberOfUnclaimedPapers) =>
   `${numberOfUnclaimedPapers} ${pluralizeUnlessSingle(
@@ -63,7 +63,7 @@ export function assignSuccessOwnProfile({
 }) {
   const message =
     numberOfClaimedPapers === 0
-      ? resolveSuccessMessage(numberOfUnclaimedPapers, 'claimed')
+      ? resolveSuccessMessage(numberOfUnclaimedPapers, 'claimed to')
       : resolveSuccessMessageMixedPapers(numberOfClaimedPapers, numberOfUnclaimedPapers);
   notification.close(ASSIGNING_NOTIFICATION_KEY);
   notification.success({
@@ -73,7 +73,7 @@ export function assignSuccessOwnProfile({
 }
 
 export function unassignSuccessOwnProfile(numberOfPapers) {
-  const message = resolveSuccessMessage(numberOfPapers, 'removed');
+  const message = resolveSuccessMessage(numberOfPapers, 'removed from');
   notification.success({
     message,
     duration: null,
@@ -83,7 +83,7 @@ export function unassignSuccessOwnProfile(numberOfPapers) {
 export function assignSuccessDifferentProfileUnclaimedPapers(
   numberOfUnclaimedPapers
 ) {
-  const message = resolveSuccessMessage(numberOfUnclaimedPapers, 'moved');
+  const message = resolveSuccessMessage(numberOfUnclaimedPapers, 'moved to');
   notification.close(ASSIGNING_NOTIFICATION_KEY);
   notification.success({
     message,
