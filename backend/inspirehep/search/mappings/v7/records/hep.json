@@ -1150,6 +1150,11 @@
           "record": {
             "properties": {
               "$ref": {
+                "fields": {
+                  "raw": {
+                    "type": "keyword"
+                  }
+                },
                 "type": "text",
                 "analyzer": "recid_analyzer"
               }
@@ -1370,9 +1375,15 @@
       "self": {
         "properties": {
           "$ref": {
-            "type": "text",
-            "analyzer": "recid_analyzer"
-          }
+              "fields": {
+                "raw": {
+                  "type": "keyword"
+                }
+              },
+              "type": "text",
+              "analyzer": "recid_analyzer"
+            }
+          
         },
         "type": "object"
       },
