@@ -11,7 +11,7 @@ from inspirehep.search.api import LiteratureSearch
 def _remove_pdg_keywords_from_record_keywords(record):
     record_keywords = record["keywords"]
     for keyword_idx, keyword_object in enumerate(record_keywords):
-        if keyword_object["schema"] == "PDG":
+        if keyword_object.get("schema") == "PDG":
             del record_keywords[keyword_idx]
     if not record_keywords:
         del record["keywords"]

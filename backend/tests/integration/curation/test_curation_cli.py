@@ -19,7 +19,7 @@ def test_update_pdg_keywords(inspire_app, cli):
         "lit",
         data={
             "control_number": 48509,
-            "keywords": [{"schema": "PDG", "value": "a test"}],
+            "keywords": [{"schema": "PDG", "value": "a test"}, {"value": "a test"}],
         },
     )
     rec_without_pdg_keywords_on_pdg_list = create_record(
