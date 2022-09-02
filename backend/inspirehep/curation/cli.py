@@ -48,7 +48,12 @@ def update_pdg_keywords(ctx, url):
     updated_recids = set()
 
     records_with_pdg_keywords_query = Q("match", keywords__schema="PDG")
-    for rec in LiteratureSearch().query(records_with_pdg_keywords_query).scan():
+    search_obj = (
+        LiteratureSearch()
+        .query(records_with_pdg_keywords_query)
+        .params(size=1000, scroll="60m")
+    )
+    for rec in search_obj.scan():
         record = LiteratureRecord.get_record_by_pid_value(rec["control_number"])
         _remove_pdg_keywords_from_record_keywords(record)
         if record["control_number"] in record_ids_pdg_keywords_dict:
