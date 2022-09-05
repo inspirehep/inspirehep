@@ -6,7 +6,6 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import re
-from os import makedirs, path
 from time import sleep
 
 import click
@@ -88,9 +87,22 @@ def get_query_records_to_index(pid_types):
     return query
 
 
-def _prepare_logdir(log_path):
-    if not path.exists(path.dirname(log_path)):
-        makedirs(path.dirname(log_path))
+def dispatch_indexing_task(items, batch_size, queue_name, is_fulltext=False):
+    indexing_function = batch_index_literature_fulltext if is_fulltext else batch_index
+    tasks = []
+    request_timeout = current_app.config.get("INDEXER_BULK_REQUEST_TIMEOUT")
+
+    batch = next_batch(items, batch_size)
+    while batch:
+        uuids = [str(item[0]) for item in batch]
+        indexer_task = indexing_function.apply_async(
+            kwargs={"records_uuids": uuids, "request_timeout": request_timeout},
+            queue=queue_name,
+        )
+        tasks.append(indexer_task)
+        batch = next_batch(items, batch_size)
+
+    return tasks
 
 
 @index.command("reindex")  # noqa
@@ -176,7 +188,7 @@ def reindex_records(
             "Please, specify only one of the args between 'all', 'pidtype', and 'pid'."
         )
 
-    allowed_pids = ("lit", "con", "dat", "exp", "jou", "aut", "job", "ins", "sem")
+    allowed_pids = {"lit", "con", "dat", "exp", "jou", "aut", "job", "ins", "sem"}
 
     if pid:
         pid_type = pid[0]
@@ -193,44 +205,39 @@ def reindex_records(
         click.secho(f"Successfully reindexed record {pid}", fg="green")
         ctx.exit(0)
 
-    if not set(pidtype) <= set(allowed_pids):
+    pidtypes = set(pidtype)
+    if not pidtypes <= allowed_pids:
         raise ValueError(
-            f"PIDs {set(pidtype).difference(set(allowed_pids))} are not a subset of {allowed_pids}."
+            f"PIDs {pidtypes.difference(allowed_pids)} are not a subset of {allowed_pids}."
         )
     if all:
-        pidtype = allowed_pids
+        pidtypes = allowed_pids
 
     if not log_path:
         raise ValueError("Specified empty log path.")
 
-    request_timeout = current_app.config.get("INDEXER_BULK_REQUEST_TIMEOUT")
     all_tasks = []
-    uuid_records_per_tasks = {}
-    query = get_query_records_to_index(pidtype)
 
+    if "lit" in pidtypes and fulltext:
+        pidtypes.remove("lit")
+        query = get_query_records_to_index({"lit"})
+
+        with click.progressbar(
+            query.yield_per(db_batch_size),
+            length=query.count(),
+            label=f"Scheduling indexing tasks for literature to the '{queue_name}' queue.",
+        ) as items:
+            created_tasks = dispatch_indexing_task(items, batch_size, queue_name, True)
+            all_tasks.extend(created_tasks)
+
+    query = get_query_records_to_index(pidtypes)
     with click.progressbar(
         query.yield_per(db_batch_size),
         length=query.count(),
         label=f"Scheduling indexing tasks to the '{queue_name}' queue.",
     ) as items:
-        batch = next_batch(items, batch_size)
-
-        while batch:
-            uuids = [str(item[0]) for item in batch]
-            if len(pidtype) == 1 and "lit" in pidtype and fulltext:
-                indexer_task = batch_index_literature_fulltext.apply_async(
-                    kwargs={"records_uuids": uuids, "request_timeout": request_timeout},
-                    queue=queue_name,
-                )
-            else:
-                indexer_task = batch_index.apply_async(
-                    kwargs={"records_uuids": uuids, "request_timeout": request_timeout},
-                    queue=queue_name,
-                )
-
-            uuid_records_per_tasks[indexer_task.id] = uuids
-            all_tasks.append(indexer_task)
-            batch = next_batch(items, batch_size)
+        created_tasks = dispatch_indexing_task(items, batch_size, queue_name)
+        all_tasks.extend(created_tasks)
 
     click.secho("Created {} bulk-indexing tasks.".format(len(all_tasks)), fg="green")
 
@@ -361,7 +368,7 @@ def create_aliases(ctx, yes_i_know, prefix_alias):
                 f"Index '{index_name}' does not contain current prefix '{prefix}'."
             )
             continue
-        alias_name = prefix_alias + re.sub(fr"(^{prefix}|-\d{{10,}}$)", "", index_name)
+        alias_name = prefix_alias + re.sub(rf"(^{prefix}|-\d{{10,}}$)", "", index_name)
 
         if current_search.client.indices.exists_alias(alias_name):
             if not yes_i_know and not click.confirm(
