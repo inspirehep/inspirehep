@@ -58,6 +58,7 @@ def celery_worker_parameters():
             "indexer_task",
             "assign",
             "disambiguation",
+            "curation",
         ],
         "perform_ping_check": False,
     }
