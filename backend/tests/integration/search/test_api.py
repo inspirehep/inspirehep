@@ -1311,3 +1311,16 @@ def test_citedby_query(mocked_query_parser, inspire_app):
         response.json["hits"]["hits"][0]["metadata"]["control_number"]
         == cited_record["control_number"]
     )
+
+
+def test_highlighting_query(inspire_app):
+    result = LiteratureSearch().query_from_iq("ft boson")
+    expected_highlight_options = {
+        "documents.attachment.content": {
+            "fragment_size": 160,
+            "type": "plain",
+            "number_of_fragments": 1,
+            "order": "score",
+        }
+    }
+    assert expected_highlight_options == result._highlight
