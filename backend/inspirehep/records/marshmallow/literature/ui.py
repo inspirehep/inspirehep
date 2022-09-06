@@ -273,6 +273,10 @@ class LiteratureListWrappedSchema(EnvelopeSchema):
         try:
             ui_display = orjson.loads(get_value(data, "metadata._ui_display", ""))
             collections = get_value(data, "metadata._collections", "")
+            if "fulltext_highlight" in data.get("metadata", {}):
+                ui_display["fulltext_highlight"] = data["metadata"][
+                    "fulltext_highlight"
+                ]
             if is_user_logged_in():
                 ui_display["curated_relation"] = get_value(
                     data, "metadata.curated_relation", False

@@ -183,14 +183,29 @@ class JSONSerializerLiteratureSearch(JSONSerializer):
         self, pid_fetcher, search_result, links=None, item_links_factory=None, **kwargs
     ):
         hits = search_result["hits"]["hits"]
-        if hits and is_user_logged_in():
-            self.populate_curated_relation(hits)
+        if hits:
+            self.populate_derived_fields(hits)
         return super().serialize_search(
             pid_fetcher, search_result, links, item_links_factory, **kwargs
         )
 
-    @staticmethod
-    def populate_curated_relation(hits):
+    def populate_derived_fields(self, hits):
+        papers_with_author_curated_recids = (
+            self._get_recids_for_papers_with_author_curated(hits)
+        )
+        for hit in hits:
+            if (
+                hit["_source"]["control_number"] in papers_with_author_curated_recids
+                and is_user_logged_in()
+            ):
+                hit["_source"]["curated_relation"] = True
+            highlight = hit.get("highlight")
+            if highlight:
+                hit["_source"]["fulltext_highlight"] = highlight
+
+        return hits
+
+    def _get_recids_for_papers_with_author_curated(self, hits):
         author_recid = request.values.get("author", "", type=str).split("_")[0]
         hits_control_numbers = [hit["_source"]["control_number"] for hit in hits]
         nested_query = Q("match", authors__curated_relation=True) & Q(
@@ -205,11 +220,7 @@ class JSONSerializerLiteratureSearch(JSONSerializer):
         papers_with_author_curated_recids = {
             el["control_number"] for el in papers_with_author_curated
         }
-
-        for hit in hits:
-            if hit["_source"]["control_number"] in papers_with_author_curated_recids:
-                hit["_source"]["curated_relation"] = True
-        return hits
+        return papers_with_author_curated_recids
 
 
 def serialize_json_for_sqlalchemy(data):

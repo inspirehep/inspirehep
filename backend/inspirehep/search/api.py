@@ -189,14 +189,23 @@ class LiteratureSearch(InspireSearch):
         return results
 
     def query_by_user_role(self, query_string):
+        fulltext_highlight_options = dict(
+            fragment_size=160, type="plain", number_of_fragments=1, order="score"
+        )
         if is_superuser_or_cataloger_logged_in():
-            return self.query(IQ(query_string, self))
+            return self.query(IQ(query_string, self)).highlight(
+                "documents.attachment.content", **fulltext_highlight_options
+            )
 
         searched_collections = ["Literature"]
         if "_collections" in query_string:
             searched_collections = list(get_allowed_collections_for_user())
         user_query = Q(IQ(query_string, self))
-        return self.query(user_query).filter("terms", _collections=searched_collections)
+        return (
+            self.query(user_query)
+            .filter("terms", _collections=searched_collections)
+            .highlight("documents.attachment.content", **fulltext_highlight_options)
+        )
 
     def query_from_iq(self, query_string):
         """Initialize ES DSL object using INSPIRE query parser.
