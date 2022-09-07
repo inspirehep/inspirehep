@@ -199,9 +199,13 @@ class JSONSerializerLiteratureSearch(JSONSerializer):
                 and is_user_logged_in()
             ):
                 hit["_source"]["curated_relation"] = True
-            highlight = hit.get("highlight")
-            if highlight:
-                hit["_source"]["fulltext_highlight"] = highlight
+            highlights = hit.get("highlight", {}).get(
+                "documents.attachment.content", []
+            )
+            if highlights:
+                hit["_source"]["fulltext_highlight"] = [
+                    highlight.replace("\n", "") for highlight in highlights
+                ]
 
         return hits
 

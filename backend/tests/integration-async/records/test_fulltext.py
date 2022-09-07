@@ -80,8 +80,7 @@ def test_highlighting(mock_get_fulltext, inspire_app, clean_celery_session):
             "key": "arXiv:nucl-th_9310030.pdf",
             "filename": "arXiv:nucl-th_9310030.pdf",
             "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-            "text": "e1xydGYxXGFuc2kNCkxvcmVtIGlwc3VtIGRvbG9yIHNpdCBhbWV0DQpccGFyIH0=",
-            "text": "e1xydGYxXGFuc2kNCkxvcmVtIGlwc3VtIGRvbG9yIHNpdCBhbWV0DQpccGFyIH0=",
+            "text": "e1xydGYxXGFuc2kKTG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQKCgpccGFyIH0=",
         }
     ],
 )
@@ -127,6 +126,6 @@ def test_highlight_in_search_response(
     response_data = orjson.loads(response.data)
     response_data_hits = response_data["hits"]["hits"]
     assert "fulltext_highlight" in response_data_hits[0]["metadata"]
-    assert response_data_hits[0]["metadata"]["fulltext_highlight"] == {
-        "documents.attachment.content": ["Lorem <em>ipsum</em> dolor sit amet"]
-    }
+    assert response_data_hits[0]["metadata"]["fulltext_highlight"] == [
+        "Lorem <em>ipsum</em> dolor sit amet"
+    ]
