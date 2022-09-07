@@ -2,16 +2,16 @@ import click
 import requests
 from elasticsearch_dsl import Q
 from flask.cli import with_appcontext
-from invenio_db import db
 
-from inspirehep.records.api.literature import LiteratureRecord
+from inspirehep.curation.tasks import update_pdg_keywords_in_records
 from inspirehep.search.api import LiteratureSearch
+from inspirehep.utils import chunker
 
 
 def _remove_pdg_keywords_from_record_keywords(record):
     record_keywords = record["keywords"]
     for keyword_idx, keyword_object in enumerate(record_keywords):
-        if keyword_object["schema"] == "PDG":
+        if keyword_object.get("schema") == "PDG":
             del record_keywords[keyword_idx]
     if not record_keywords:
         del record["keywords"]
@@ -45,36 +45,13 @@ def update_pdg_keywords(ctx, url):
     record_ids_pdg_keywords_dict = {
         record["inspireId"]: record["pdgIdList"] for record in pdg_json_data
     }
-    updated_recids = set()
-
     records_with_pdg_keywords_query = Q("match", keywords__schema="PDG")
-    for rec in LiteratureSearch().query(records_with_pdg_keywords_query).scan():
-        record = LiteratureRecord.get_record_by_pid_value(rec["control_number"])
-        _remove_pdg_keywords_from_record_keywords(record)
-        if record["control_number"] in record_ids_pdg_keywords_dict:
-            _update_record_keywords_with_new_pdg_keywords(
-                record, record_ids_pdg_keywords_dict[record["control_number"]]
-            )
-        record.update(dict(record))
-        updated_recids.add(record["control_number"])
-
-    new_records_with_pdg_keywords_recids = [
-        ("lit", str(recid))
-        for recid in set(record_ids_pdg_keywords_dict).difference(updated_recids)
-    ]
-    new_records_with_pdg_keywords = LiteratureRecord.get_records_by_pids(
-        new_records_with_pdg_keywords_recids
+    search_obj = (
+        LiteratureSearch()
+        .query(records_with_pdg_keywords_query)
+        .params(size=1000, scroll="60m")
     )
+    records_with_pdg_recids = (rec["control_number"] for rec in search_obj.scan())
 
-    for record in new_records_with_pdg_keywords:
-        if record.get("keywords", []):
-            _remove_pdg_keywords_from_record_keywords(record)
-        _update_record_keywords_with_new_pdg_keywords(
-            record, record_ids_pdg_keywords_dict[record["control_number"]]
-        )
-        record.update(dict(record))
-        updated_recids.add(record["control_number"])
-
-    db.session.commit()
-    click.secho(f"Updated {len(updated_recids)} records with PDG keywords")
-    click.secho(f"Updated recids: {updated_recids}")
+    for batch in chunker(records_with_pdg_recids, 50):
+        update_pdg_keywords_in_records.delay(batch, record_ids_pdg_keywords_dict)

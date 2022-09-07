@@ -14,6 +14,7 @@ import orjson
 import pytest
 from helpers.utils import create_record, create_user
 from invenio_accounts.testutils import login_user_via_session
+from invenio_search.utils import prefix_index
 from requests.exceptions import RequestException
 
 from inspirehep.search.api import (
@@ -1279,3 +1280,34 @@ def test_literature_journal_title_search_is_case_insensitive(inspire_app):
 
     assert str(record1.id) in result_uppercase_found_record_ids
     assert str(record2.id) in result_uppercase_found_record_ids
+
+
+@mock.patch("inspirehep.search.factories.query.inspire_query_parser.parse_query")
+def test_citedby_query(mocked_query_parser, inspire_app):
+    cited_record = create_record("lit")
+    citing_record = create_record(
+        "lit",
+        data={"references": [{"record": {"$ref": cited_record["self"]["$ref"]}}]},
+    )
+    mocked_query_parser.return_value = {
+        "terms": {
+            "self.$ref.raw": {
+                "index": prefix_index("records-hep"),
+                "id": str(citing_record.id),
+                "path": "references.record.$ref.raw",
+            }
+        }
+    }
+
+    with inspire_app.test_client() as client:
+        query_string = urllib.parse.quote(
+            f"citedby:recid:{citing_record['control_number']}"
+        )
+        url = f"/api/literature?q={query_string}"
+        response = client.get(url)
+
+    assert len(response.json["hits"]["hits"]) == 1
+    assert (
+        response.json["hits"]["hits"][0]["metadata"]["control_number"]
+        == cited_record["control_number"]
+    )

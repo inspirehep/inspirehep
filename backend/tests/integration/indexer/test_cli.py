@@ -77,6 +77,23 @@ def test_reindex_one_type_of_record_with_fulltext(
     }
 
 
+@mock.patch("inspirehep.indexer.cli.batch_index_literature_fulltext")
+def test_reindex_all_is_reuindexing_with_fulltext(
+    mock_index_fulltext, inspire_app, cli
+):
+    record_lit = create_record("lit")
+    cli.invoke(["index", "reindex", "-ft", "--all"])
+
+    assert mock_index_fulltext.called_once()
+    assert mock_index_fulltext.mock_calls[0][2] == {
+        "kwargs": {
+            "records_uuids": [str(record_lit.id)],
+            "request_timeout": inspire_app.config["INDEXER_BULK_REQUEST_TIMEOUT"],
+        },
+        "queue": "indexer_task",
+    }
+
+
 def test_remap_one_index(inspire_app, cli):
     indexes_before = set(current_search.client.indices.get("*").keys())
     # Generate new suffix to distinguish new indexes easier

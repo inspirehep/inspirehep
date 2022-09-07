@@ -151,6 +151,22 @@ class PidStoreBase(object):
         )
 
     @staticmethod
+    def get_uuid_for_recid(recid, pid_type):
+        """Returns the ``uuid`` of the record for provided recid ``recid``.
+
+        Args:
+            recid (str): the ``recid``.
+            pid_type (str): the persistent identifier type, i.e. ``lit``.
+        Returns:
+            The ``uuid`` if found. None otherwise.
+        """
+        return (
+            PersistentIdentifier.query.with_entities(PersistentIdentifier.object_uuid)
+            .filter_by(pid_value=recid, pid_provider="recid", pid_type=pid_type)
+            .scalar()
+        )
+
+    @staticmethod
     def get_endpoint_for_recid(recid):
         """Returns the endpoint name for the provided ``recid``.
 
