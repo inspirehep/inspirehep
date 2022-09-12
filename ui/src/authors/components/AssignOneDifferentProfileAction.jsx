@@ -8,61 +8,11 @@ import DropdownMenu from '../../common/components/DropdownMenu';
 import IconText from '../../common/components/IconText';
 import ListItemAction from '../../common/components/ListItemAction';
 
-function AssignOneDifferentProfileAction({
-  onAssignWithoutUnclaimed,
-  onAssignWithoutClaimed,
-  onAssignUserCanNotClaim,
-  currentUserId,
-  claimingUnclaimedPapersDisabled,
-  claimingClaimedPapersDisabled,
-  userCanNotClaimProfile,
-}) {
+function AssignOneDifferentProfileAction({ currentUserId, onAssign }) {
   const currentAuthorId = Number(useParams().id);
-  const onAssignUnclaimed = useCallback(() => {
-    onAssignWithoutClaimed({
-      from: currentAuthorId,
-      to: currentUserId,
-    });
-  }, [currentAuthorId, currentUserId, onAssignWithoutClaimed]);
-  const onAssignClaimed = useCallback(() => {
-    onAssignWithoutUnclaimed({
-      from: currentAuthorId,
-      to: currentUserId,
-      userCanNotClaimProfile,
-    });
-  }, [
-    currentAuthorId,
-    currentUserId,
-    userCanNotClaimProfile,
-    onAssignWithoutUnclaimed,
-  ]);
-
-  const onAssignUserCantClaim = useCallback(() => {
-    onAssignUserCanNotClaim({
-      from: currentAuthorId,
-      to: currentUserId,
-    });
-  }, [currentAuthorId, currentUserId, onAssignUserCanNotClaim]);
-
-  const onSelfAssign = () => {
-    const onlyCanNotClaim =
-      userCanNotClaimProfile && claimingClaimedPapersDisabled;
-    const onlyClaimUnclaimed =
-      !claimingUnclaimedPapersDisabled &&
-      !userCanNotClaimProfile &&
-      claimingClaimedPapersDisabled;
-    const onlyClaimClaimedAndMaybeNotMatchingName = !claimingClaimedPapersDisabled;
-
-    if (onlyCanNotClaim) {
-      onAssignUserCantClaim();
-    }
-    if (onlyClaimUnclaimed) {
-      onAssignUnclaimed();
-    }
-    if (onlyClaimClaimedAndMaybeNotMatchingName) {
-      onAssignClaimed();
-    }
-  };
+  const onSelfAssign = useCallback(() => {
+    onAssign({ from: currentAuthorId, to: currentUserId });
+  }, [onAssign, currentAuthorId, currentUserId]);
 
   return (
     <ListItemAction>
@@ -86,12 +36,7 @@ function AssignOneDifferentProfileAction({
 }
 
 AssignOneDifferentProfileAction.propTypes = {
-  onAssignWithoutUnclaimed: PropTypes.func.isRequired,
-  onAssignWithoutClaimed: PropTypes.func.isRequired,
-  onAssignUserCanNotClaim: PropTypes.func.isRequired,
-  claimingUnclaimedPapersDisabled: PropTypes.bool,
-  claimingClaimedPapersDisabled: PropTypes.bool,
-  userCanNotClaimProfile: PropTypes.bool,
+  onAssign: PropTypes.func.isRequired,
 };
 
 export default AssignOneDifferentProfileAction;

@@ -3,27 +3,19 @@ import PropTypes from 'prop-types';
 import { Checkbox } from 'antd';
 
 function PublicationsSelect({
-  onSelectPapersUserCanNotClaim,
   onSelectClaimedPapers,
   onSelectUnclaimedPapers,
   onSelectPapers,
   claimed,
-  canClaim,
   disabled,
   checked,
   isOwnProfile,
 }) {
   const onChange = (event) => {
     onSelectPapers(event);
-    if (isOwnProfile && !claimed) {
-      onSelectUnclaimedPapers(event);
-    }
-    if (!canClaim) {
-      onSelectPapersUserCanNotClaim(event);
-    }
-    if (claimed) {
+    if (isOwnProfile && claimed) {
       onSelectClaimedPapers(event);
-    } else if (!claimed && canClaim) {
+    } else if (isOwnProfile && !claimed) {
       onSelectUnclaimedPapers(event);
     }
   };
@@ -41,8 +33,6 @@ function PublicationsSelect({
 
 PublicationsSelect.propTypes = {
   claimed: PropTypes.bool,
-  canClaim: PropTypes.bool,
-  onSelectPapersUserCanNotClaim: PropTypes.func.isRequired,
   onSelectClaimedPapers: PropTypes.func.isRequired,
   onSelectUnclaimedPapers: PropTypes.func.isRequired,
   onSelectPapers: PropTypes.func.isRequired,

@@ -2,15 +2,8 @@ import { connect } from 'react-redux';
 
 import {
   setPublicationSelection,
-  setPublicationsUnclaimedSelection,
   clearPublicationSelection,
-  clearPublicationsClaimedSelection,
-  assignDifferentProfileClaimedPapers,
-  assignDifferentProfileUnclaimedPapers,
-  clearPublicationsUnclaimedSelection,
-  clearPublicationsCanNotClaimSelection,
-  setPublicationsCanNotClaimSelection,
-  setPublicationsClaimedSelection,
+  assignDifferentProfile,
 } from '../../actions/authors';
 import AssignOneDifferentProfileAction from '../components/AssignOneDifferentProfileAction';
 
@@ -19,39 +12,10 @@ export const stateToProps = (state) => ({
 });
 
 export const dispatchToProps = (dispatch, { recordId }) => ({
-  onAssignWithoutUnclaimed({ from, to, userCanNotClaimProfile }) {
+  onAssign({ from, to }) {
     dispatch(clearPublicationSelection());
-    dispatch(clearPublicationsClaimedSelection());
-    dispatch(clearPublicationsUnclaimedSelection());
-    dispatch(clearPublicationsCanNotClaimSelection());
-    if (userCanNotClaimProfile) {
-      dispatch(setPublicationsCanNotClaimSelection([recordId], true));
-    }
     dispatch(setPublicationSelection([recordId], true));
-    dispatch(setPublicationsClaimedSelection([recordId], true));
-    dispatch(assignDifferentProfileClaimedPapers({ from, to }));
-  },
-  onAssignUserCanNotClaim({ from, to }) {
-    dispatch(clearPublicationSelection());
-    dispatch(clearPublicationsClaimedSelection());
-    dispatch(clearPublicationsUnclaimedSelection());
-    dispatch(clearPublicationsCanNotClaimSelection());
-
-    dispatch(setPublicationSelection([recordId], true));
-    dispatch(setPublicationsCanNotClaimSelection([recordId], true));
-
-    dispatch(assignDifferentProfileClaimedPapers({ from, to }));
-  },
-  onAssignWithoutClaimed({ from, to }) {
-    dispatch(clearPublicationSelection());
-    dispatch(clearPublicationsClaimedSelection());
-    dispatch(clearPublicationsUnclaimedSelection());
-    dispatch(clearPublicationsCanNotClaimSelection());
-
-    dispatch(setPublicationSelection([recordId], true));
-    dispatch(setPublicationsUnclaimedSelection([recordId], true));
-
-    dispatch(assignDifferentProfileUnclaimedPapers({ from, to }));
+    dispatch(assignDifferentProfile({ from, to }));
   },
 });
 

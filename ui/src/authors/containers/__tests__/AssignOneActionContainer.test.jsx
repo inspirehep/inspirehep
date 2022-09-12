@@ -10,6 +10,7 @@ import {
   assignPapers,
   setPublicationSelection,
   clearPublicationSelection,
+  unassignPapers,
 } from '../../../actions/authors';
 import AssignAction from '../../components/AssignAction';
 
@@ -22,11 +23,12 @@ jest.mock('react-router-dom', () => ({
 jest.mock('../../../actions/authors');
 mockActionCreator(setAssignDrawerVisibility);
 mockActionCreator(assignPapers);
+mockActionCreator(unassignPapers);
 mockActionCreator(setPublicationSelection);
 mockActionCreator(clearPublicationSelection);
 
 describe('AssignOneActionContainer', () => {
-  it('selects the one paper and dispatches setAssignDrawerVisibility with true on assign to another author', () => {
+  it('selects one paper and dispatches setAssignDrawerVisibility with true on assign to another author', () => {
     const store = getStore();
     const paperRecordId = 12345;
     const wrapper = mount(
@@ -46,7 +48,7 @@ describe('AssignOneActionContainer', () => {
     expect(store.getActions()).toEqual(expectedActions);
   });
 
-  it('selects the one paper and dispatches assignPapers', () => {
+  it('selects one paper and dispatches assignPapers', () => {
     const store = getStore();
     const paperRecordId = 12345;
     const from = 123;
@@ -63,6 +65,26 @@ describe('AssignOneActionContainer', () => {
       clearPublicationSelection(),
       setPublicationSelection([paperRecordId], true),
       assignPapers({ from, to }),
+    ];
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+
+  it('selects one paper and dispatches unassignPapers', () => {
+    const store = getStore();
+    const paperRecordId = 12345;
+    const from = 123;
+    const wrapper = mount(
+      <Provider store={store}>
+        <AssignOneActionContainer recordId={paperRecordId} />
+      </Provider>
+    );
+    const onUnassign = wrapper.find(AssignAction).prop('onUnassign');
+    onUnassign({ from });
+
+    const expectedActions = [
+      clearPublicationSelection(),
+      setPublicationSelection([paperRecordId], true),
+      unassignPapers({ from }),
     ];
     expect(store.getActions()).toEqual(expectedActions);
   });

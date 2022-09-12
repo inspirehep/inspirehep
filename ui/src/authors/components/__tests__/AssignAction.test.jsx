@@ -21,6 +21,7 @@ describe('AssignAction', () => {
       <AssignAction
         onAssignToAnotherAuthor={jest.fn()}
         onAssign={jest.fn()}
+        onUnassign={jest.fn()}
         disabled
       />
     );
@@ -32,6 +33,7 @@ describe('AssignAction', () => {
       <AssignAction
         onAssignToAnotherAuthor={jest.fn()}
         onAssign={jest.fn()}
+        onUnassign={jest.fn()}
         numberOfSelected={1}
       />
     );
@@ -43,6 +45,7 @@ describe('AssignAction', () => {
       <AssignAction
         onAssignToAnotherAuthor={jest.fn()}
         onAssign={jest.fn()}
+        onUnassign={jest.fn()}
         numberOfSelected={123}
       />
     );
@@ -52,19 +55,27 @@ describe('AssignAction', () => {
   it('calls onAssign on assign-self click ', () => {
     const onAssign = jest.fn();
     const wrapper = shallow(
-      <AssignAction onAssignToAnotherAuthor={jest.fn()} onAssign={onAssign} />
+      <AssignAction
+        onAssignToAnotherAuthor={jest.fn()}
+        onAssign={onAssign}
+        onUnassign={jest.fn()}
+      />
     );
     wrapper.find('[data-test-id="assign-self"]').simulate('click');
     expect(onAssign).toHaveBeenCalledWith({ from: 123, to: 123 });
   });
 
   it('calls onAssign on unassign click ', () => {
-    const onAssign = jest.fn();
+    const onUnassign = jest.fn();
     const wrapper = shallow(
-      <AssignAction onAssignToAnotherAuthor={jest.fn()} onAssign={onAssign} />
+      <AssignAction
+        onAssignToAnotherAuthor={jest.fn()}
+        onAssign={jest.fn()}
+        onUnassign={onUnassign}
+      />
     );
     wrapper.find('[data-test-id="unassign"]').simulate('click');
-    expect(onAssign).toHaveBeenCalledWith({ from: 123 });
+    expect(onUnassign).toHaveBeenCalledWith({ from: 123 });
   });
 
   it('calls onAssignToAnotherAuthor on assign-another click ', () => {

@@ -6,10 +6,7 @@ import { fromJS, Set } from 'immutable';
 import { getStore, mockActionCreator } from '../../../fixtures/store';
 import AssignAllDifferentProfileActionContainer from '../AssignAllDifferentProfileActionContainer';
 
-import {
-  assignDifferentProfileUnclaimedPapers,
-  assignDifferentProfileClaimedPapers,
-} from '../../../actions/authors';
+import { assignDifferentProfile } from '../../../actions/authors';
 import AssignDifferentProfileAction from '../../components/AssignDifferentProfileAction';
 
 jest.mock('react-router-dom', () => ({
@@ -19,16 +16,13 @@ jest.mock('react-router-dom', () => ({
 }));
 
 jest.mock('../../../actions/authors');
-mockActionCreator(assignDifferentProfileUnclaimedPapers);
-mockActionCreator(assignDifferentProfileClaimedPapers);
+mockActionCreator(assignDifferentProfile);
 
-describe('AssignOwnProfileActionContainer', () => {
+describe('AssignDifferentProfileActionContainer', () => {
   it('sets disabled=false if publication selection is not empty', () => {
     const store = getStore({
       authors: fromJS({
         publicationSelection: [1, 2],
-        publicationSelectionClaimed: [1],
-        publicationSelectionUnclaimed: [2],
       }),
       user: fromJS({
         data: {
@@ -44,61 +38,6 @@ describe('AssignOwnProfileActionContainer', () => {
     expect(wrapper.find(AssignDifferentProfileAction)).toHaveProp({
       disabled: false,
       currentUserId: 8,
-      claimingUnclaimedPapersDisabled: false,
-      claimingClaimedPapersDisabled: false,
-    });
-  });
-
-  it('sets claimingUnclaimedPapersDisabled if no unclaimed papers selected', () => {
-    const store = getStore({
-      authors: fromJS({
-        publicationSelection: [1, 2],
-        publicationSelectionClaimed: [1, 2],
-        publicationSelectionUnclaimed: [],
-      }),
-      user: fromJS({
-        data: {
-          recid: 8,
-        },
-      }),
-    });
-    const wrapper = mount(
-      <Provider store={store}>
-        <AssignAllDifferentProfileActionContainer />
-      </Provider>
-    );
-    expect(wrapper.find(AssignDifferentProfileAction)).toHaveProp({
-      disabled: false,
-      currentUserId: 8,
-      claimingUnclaimedPapersDisabled: true,
-      claimingClaimedPapersDisabled: false,
-    });
-  });
-
-  it('sets claimingClaimedPapersDisabled if unclaimed papers selected', () => {
-    const store = getStore({
-      authors: fromJS({
-        publicationSelection: [1, 2],
-        publicationSelectionClaimed: [],
-        publicationSelectionUnclaimed: [1, 2],
-        publicationSelectionCanNotClaim: [],
-      }),
-      user: fromJS({
-        data: {
-          recid: 8,
-        },
-      }),
-    });
-    const wrapper = mount(
-      <Provider store={store}>
-        <AssignAllDifferentProfileActionContainer />
-      </Provider>
-    );
-    expect(wrapper.find(AssignDifferentProfileAction)).toHaveProp({
-      disabled: false,
-      currentUserId: 8,
-      claimingUnclaimedPapersDisabled: false,
-      claimingClaimedPapersDisabled: true,
     });
   });
 
@@ -106,9 +45,6 @@ describe('AssignOwnProfileActionContainer', () => {
     const store = getStore({
       authors: fromJS({
         publicationSelection: Set(),
-        publicationSelectionClaimed: [],
-        publicationSelectionUnclaimed: [],
-        publicationSelectionCanNotClaim: [],
       }),
       user: fromJS({
         data: {
@@ -123,12 +59,10 @@ describe('AssignOwnProfileActionContainer', () => {
     );
     expect(wrapper.find(AssignDifferentProfileAction)).toHaveProp({
       disabled: true,
-      claimingUnclaimedPapersDisabled: true,
-      claimingClaimedPapersDisabled: true,
     });
   });
 
-  it('dispatches assignDifferentProfileClaimedPapers with on onAssignWithoutUnclaimed ', () => {
+  it('dispatches assignDifferentProfile with on onAssign ', () => {
     const store = getStore();
     const wrapper = mount(
       <Provider store={store}>
@@ -137,36 +71,14 @@ describe('AssignOwnProfileActionContainer', () => {
     );
     const from = 123;
     const to = 321;
-    const onAssignWithoutUnclaimed = wrapper
+    const onAssign = wrapper
       .find(AssignDifferentProfileAction)
-      .prop('onAssignWithoutUnclaimed');
-    onAssignWithoutUnclaimed({
+      .prop('onAssign');
+    onAssign({
       from,
       to,
     });
-    const expectedActions = [assignDifferentProfileClaimedPapers({ from, to })];
-    expect(store.getActions()).toEqual(expectedActions);
-  });
-
-  it('dispatches assignDifferentProfileUnclaimedPapers with on onAssignWithoutClaimed ', () => {
-    const store = getStore();
-    const wrapper = mount(
-      <Provider store={store}>
-        <AssignAllDifferentProfileActionContainer />
-      </Provider>
-    );
-    const from = 123;
-    const to = 321;
-    const onAssignWithoutClaimed = wrapper
-      .find(AssignDifferentProfileAction)
-      .prop('onAssignWithoutClaimed');
-    onAssignWithoutClaimed({
-      from,
-      to,
-    });
-    const expectedActions = [
-      assignDifferentProfileUnclaimedPapers({ from, to }),
-    ];
+    const expectedActions = [assignDifferentProfile({ from, to })];
     expect(store.getActions()).toEqual(expectedActions);
   });
 });

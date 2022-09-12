@@ -10,6 +10,7 @@ import ListItemAction from '../../common/components/ListItemAction';
 
 function AssignOwnProfileAction({
   onAssign,
+  onUnassign,
   disabled,
   disabledAssignAction,
   numberOfSelected,
@@ -20,13 +21,12 @@ function AssignOwnProfileAction({
     onAssign({
       from: currentAuthorId,
       to: currentAuthorId,
-      isUnassignAction: false,
     });
   }, [currentAuthorId, onAssign]);
 
-  const onUnassign = useCallback(() => {
-    onAssign({ from: currentAuthorId, isUnassignAction: true });
-  }, [currentAuthorId, onAssign]);
+  const onSelfUnassign = useCallback(() => {
+    onUnassign({ from: currentAuthorId });
+  }, [currentAuthorId, onUnassign]);
 
   return (
     // TODO: rename `ListItemAction` because it's not only used for list item actions, such as (assign all and cite all)
@@ -53,13 +53,7 @@ function AssignOwnProfileAction({
           onClick={onSelfAssign}
           disabled={disabledAssignAction}
         >
-          <Tooltip
-            title={
-              disabledAssignAction
-                ? claimingTooltip
-                : null
-            }
-          >
+          <Tooltip title={disabledAssignAction ? claimingTooltip : null}>
             <p>
               {numberOfSelected === 1
                 ? 'This is my paper'
@@ -67,7 +61,11 @@ function AssignOwnProfileAction({
             </p>
           </Tooltip>
         </Menu.Item>
-        <Menu.Item data-test-id="unassign" key="unassign" onClick={onUnassign}>
+        <Menu.Item
+          data-test-id="unassign"
+          key="unassign"
+          onClick={onSelfUnassign}
+        >
           {numberOfSelected === 1
             ? 'This is not my paper'
             : 'These are not my papers'}
@@ -79,6 +77,7 @@ function AssignOwnProfileAction({
 
 AssignOwnProfileAction.propTypes = {
   onAssign: PropTypes.func.isRequired,
+  onUnassign: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
   disabledAssignAction: PropTypes.bool,
   numberOfSelected: PropTypes.number,

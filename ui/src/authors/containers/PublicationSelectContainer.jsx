@@ -5,7 +5,6 @@ import {
   setPublicationSelection,
   setPublicationsClaimedSelection,
   setPublicationsUnclaimedSelection,
-  setPublicationsCanNotClaimSelection,
 } from '../../actions/authors';
 
 const stateToProps = (state, { recordId }) => ({
@@ -13,11 +12,6 @@ const stateToProps = (state, { recordId }) => ({
 });
 
 const dispatchToProps = (dispatch, { recordId }) => ({
-  onSelectPapersUserCanNotClaim(event) {
-    dispatch(
-      setPublicationsCanNotClaimSelection([recordId], event.target.checked)
-    );
-  },
   onSelectClaimedPapers(event) {
     dispatch(setPublicationsClaimedSelection([recordId], event.target.checked));
   },

@@ -6,13 +6,16 @@ import { fromJS } from 'immutable';
 
 import { initialState } from '../../../reducers/authors';
 import PublicationsSelect from '../../components/PublicationsSelect';
-import { getStore, mockActionCreator, getStoreWithState } from '../../../fixtures/store';
+import {
+  getStore,
+  mockActionCreator,
+  getStoreWithState,
+} from '../../../fixtures/store';
 import PublicationSelectContainer from '../PublicationSelectContainer';
 
 import {
   setPublicationSelection,
   setPublicationsClaimedSelection,
-  setPublicationsCanNotClaimSelection,
   setPublicationsUnclaimedSelection,
 } from '../../../actions/authors';
 
@@ -20,34 +23,18 @@ jest.mock('../../../actions/authors');
 mockActionCreator(setPublicationSelection);
 mockActionCreator(setPublicationsClaimedSelection);
 mockActionCreator(setPublicationsUnclaimedSelection);
-mockActionCreator(setPublicationsCanNotClaimSelection);
 
 describe('PublicationSelectContainer', () => {
   it('dispatches setPublicationSelection and setPublicationsClaimedSelection on change', () => {
     const store = getStore();
     const wrapper = mount(
       <Provider store={store}>
-        <PublicationSelectContainer recordId={1} claimed canClaim />
+        <PublicationSelectContainer recordId={1} claimed isOwnProfile />
       </Provider>
     );
     wrapper.find(Checkbox).prop('onChange')({ target: { checked: true } });
     const expectedActions = [
       setPublicationSelection([1], true),
-      setPublicationsClaimedSelection([1], true),
-    ];
-    expect(store.getActions()).toEqual(expectedActions);
-  });
-  it('dispatches setPublicationsCanNotClaimSelection on change when user can not claim', () => {
-    const store = getStore();
-    const wrapper = mount(
-      <Provider store={store}>
-        <PublicationSelectContainer recordId={1} claimed canClaim={false} />
-      </Provider>
-    );
-    wrapper.find(Checkbox).prop('onChange')({ target: { checked: true } });
-    const expectedActions = [
-      setPublicationSelection([1], true),
-      setPublicationsCanNotClaimSelection([1], true),
       setPublicationsClaimedSelection([1], true),
     ];
     expect(store.getActions()).toEqual(expectedActions);
@@ -56,7 +43,7 @@ describe('PublicationSelectContainer', () => {
     const store = getStore();
     const wrapper = mount(
       <Provider store={store}>
-        <PublicationSelectContainer recordId={1} claimed={false} canClaim />
+        <PublicationSelectContainer recordId={1} claimed={false} isOwnProfile />
       </Provider>
     );
     wrapper.find(Checkbox).prop('onChange')({ target: { checked: true } });
@@ -75,10 +62,10 @@ describe('PublicationSelectContainer', () => {
     });
     const wrapper = mount(
       <Provider store={store}>
-        <PublicationSelectContainer recordId={1} claimed canClaim />
+        <PublicationSelectContainer recordId={1} claimed />
       </Provider>
     );
-    
+
     expect(wrapper.find(PublicationsSelect).prop('checked')).toBe(true);
   });
   it('renders checkbox checked when select all is checked', () => {
@@ -90,7 +77,7 @@ describe('PublicationSelectContainer', () => {
     });
     const wrapper = mount(
       <Provider store={store}>
-        <PublicationSelectContainer recordId={1} claimed canClaim />
+        <PublicationSelectContainer recordId={1} claimed />
       </Provider>
     );
 

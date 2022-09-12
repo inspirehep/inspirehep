@@ -7,6 +7,7 @@ import AssignOneOwnProfileContainer from '../AssignOneOwnProfileContainer';
 
 import {
   assignOwnPapers,
+  unassignOwnPapers,
   setPublicationSelection,
   setPublicationsClaimedSelection,
   clearPublicationSelection,
@@ -24,6 +25,7 @@ jest.mock('react-router-dom', () => ({
 
 jest.mock('../../../actions/authors');
 mockActionCreator(assignOwnPapers);
+mockActionCreator(unassignOwnPapers);
 mockActionCreator(setPublicationsClaimedSelection);
 mockActionCreator(clearPublicationsClaimedSelection);
 mockActionCreator(setPublicationSelection);
@@ -32,12 +34,11 @@ mockActionCreator(setPublicationsUnclaimedSelection);
 mockActionCreator(clearPublicationsUnclaimedSelection);
 
 describe('AssignOneOwnProfileActionContainer', () => {
-  it('selects the one paper and dispatches assignPapers when paper unclaimed', () => {
+  it('selects one paper and dispatches assignOwnPapers when paper unclaimed', () => {
     const store = getStore();
     const paperRecordId = 12345;
     const from = 123;
     const to = 321;
-    const isUnassignAction = true;
     const disabledAssignAction = false;
     const wrapper = mount(
       <Provider store={store}>
@@ -48,7 +49,7 @@ describe('AssignOneOwnProfileActionContainer', () => {
       </Provider>
     );
     const onAssign = wrapper.find(AssignOwnProfileAction).prop('onAssign');
-    onAssign({ from, to, isUnassignAction });
+    onAssign({ from, to });
 
     const expectedActions = [
       clearPublicationSelection(),
@@ -56,16 +57,41 @@ describe('AssignOneOwnProfileActionContainer', () => {
       clearPublicationsUnclaimedSelection(),
       setPublicationSelection([paperRecordId], true),
       setPublicationsUnclaimedSelection([paperRecordId], true),
-      assignOwnPapers({ from, to, isUnassignAction }),
+      assignOwnPapers({ from, to }),
     ];
     expect(store.getActions()).toEqual(expectedActions);
   });
-  it('selects the one paper and dispatches assignPapers when paper claimed', () => {
+
+  it('selects one paper and dispatches unassignOwnPapers when paper unclaimed', () => {
     const store = getStore();
     const paperRecordId = 12345;
     const from = 123;
-    const to = 321;
-    const isUnassignAction = true;
+    const disabledAssignAction = false;
+    const wrapper = mount(
+      <Provider store={store}>
+        <AssignOneOwnProfileContainer
+          recordId={paperRecordId}
+          disabledAssignAction={disabledAssignAction}
+        />
+      </Provider>
+    );
+    const onUnassign = wrapper.find(AssignOwnProfileAction).prop('onUnassign');
+    onUnassign({ from });
+
+    const expectedActions = [
+      clearPublicationSelection(),
+      clearPublicationsClaimedSelection(),
+      clearPublicationsUnclaimedSelection(),
+      setPublicationSelection([paperRecordId], true),
+      setPublicationsUnclaimedSelection([paperRecordId], true),
+      unassignOwnPapers({ from }),
+    ];
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+  it('selects one paper and dispatches unassignOwnPapers when paper claimed', () => {
+    const store = getStore();
+    const paperRecordId = 12345;
+    const from = 123;
     const disabledAssignAction = true;
     const wrapper = mount(
       <Provider store={store}>
@@ -75,8 +101,8 @@ describe('AssignOneOwnProfileActionContainer', () => {
         />
       </Provider>
     );
-    const onAssign = wrapper.find(AssignOwnProfileAction).prop('onAssign');
-    onAssign({ from, to, isUnassignAction });
+    const onUnassign = wrapper.find(AssignOwnProfileAction).prop('onUnassign');
+    onUnassign({ from });
 
     const expectedActions = [
       clearPublicationSelection(),
@@ -84,7 +110,7 @@ describe('AssignOneOwnProfileActionContainer', () => {
       clearPublicationsUnclaimedSelection(),
       setPublicationSelection([paperRecordId], true),
       setPublicationsClaimedSelection([paperRecordId], true),
-      assignOwnPapers({ from, to, isUnassignAction }),
+      unassignOwnPapers({ from }),
     ];
     expect(store.getActions()).toEqual(expectedActions);
   });

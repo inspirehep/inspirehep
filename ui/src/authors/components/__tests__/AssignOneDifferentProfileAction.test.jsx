@@ -9,59 +9,32 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('AssignDifferentProfileAction', () => {
-  it('renders for unclaimed paper', () => {
-    const wrapper = shallow(
-      <AssignOneDifferentProfileAction
-        onAssignWithoutUnclaimed={jest.fn()}
-        onAssignWithoutClaimed={jest.fn()}
-        onAssignUserCanNotClaim={jest.fn()}
-        currentUserId={33}
-        claimingUnclaimedPapersDisabled={false}
-        claimingClaimedPapersDisabled
-        userCanNotClaimProfile={false}
-      />
-    );
-    expect(wrapper).toMatchSnapshot();
-  });
-
-  it('renders for claimed paper', () => {
-    const wrapper = shallow(
-      <AssignOneDifferentProfileAction
-        onAssignWithoutUnclaimed={jest.fn()}
-        onAssignWithoutClaimed={jest.fn()}
-        onAssignUserCanNotClaim={jest.fn()}
-        currentUserId={33}
-        claimingUnclaimedPapersDisabled
-        claimingClaimedPapersDisabled={false}
-        userCanNotClaimProfile={false}
-      />
-    );
-    expect(wrapper).toMatchSnapshot();
-  });
-
-  it('renders for unclaimed paper with userCanNotClaimProfile', () => {
+  it('renders', () => {
     const wrapper = shallow(
       <AssignOneDifferentProfileAction
         onAssign={jest.fn()}
-        disabled
         currentUserId={33}
-        claimingUnclaimedPapersDisabled={false}
-        claimingClaimedPapersDisabled
-        userCanNotClaimProfile
       />
     );
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('calls onAssign on for unclaimed paper that user cant claim', () => {
-    const onAssignWithoutClaimed = jest.fn();
-    const onAssignWithoutUnclaimed = jest.fn();
-    const onAssignUserCanNotClaim = jest.fn();
+  it('renders disabled', () => {
     const wrapper = shallow(
       <AssignOneDifferentProfileAction
-        onAssignWithoutClaimed={onAssignWithoutClaimed}
-        onAssignWithoutUnclaimed={onAssignWithoutUnclaimed}
-        onAssignUserCanNotClaim={onAssignUserCanNotClaim}
+        onAssign={jest.fn()}
+        currentUserId={33}
+        claimingUnclaimedPapersDisabled={false}
+      />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('calls onAssign on click', () => {
+    const onAssign = jest.fn();
+    const wrapper = shallow(
+      <AssignOneDifferentProfileAction
+        onAssign={onAssign}
         currentUserId={33}
         claimingUnclaimedPapersDisabled={false}
         claimingClaimedPapersDisabled
@@ -69,63 +42,6 @@ describe('AssignDifferentProfileAction', () => {
       />
     );
     wrapper.find('[data-test-id="assign-self"]').simulate('click');
-    expect(onAssignUserCanNotClaim).toHaveBeenCalled();
-  });
-
-  it('calls onAssign on for claimed paper that user cant claim', () => {
-    const onAssignWithoutClaimed = jest.fn();
-    const onAssignWithoutUnclaimed = jest.fn();
-    const onAssignUserCanNotClaim = jest.fn();
-    const wrapper = shallow(
-      <AssignOneDifferentProfileAction
-        onAssignWithoutClaimed={onAssignWithoutClaimed}
-        onAssignWithoutUnclaimed={onAssignWithoutUnclaimed}
-        onAssignUserCanNotClaim={onAssignUserCanNotClaim}
-        currentUserId={33}
-        claimingUnclaimedPapersDisabled
-        claimingClaimedPapersDisabled={false}
-        userCanNotClaimProfile
-      />
-    );
-    wrapper.find('[data-test-id="assign-self"]').simulate('click');
-    expect(onAssignWithoutUnclaimed).toHaveBeenCalled();
-  });
-
-  it('calls onAssign on for claimed paper that user can claim', () => {
-    const onAssignWithoutClaimed = jest.fn();
-    const onAssignWithoutUnclaimed = jest.fn();
-    const onAssignUserCanNotClaim = jest.fn();
-    const wrapper = shallow(
-      <AssignOneDifferentProfileAction
-        onAssignWithoutClaimed={onAssignWithoutClaimed}
-        onAssignWithoutUnclaimed={onAssignWithoutUnclaimed}
-        onAssignUserCanNotClaim={onAssignUserCanNotClaim}
-        currentUserId={33}
-        claimingUnclaimedPapersDisabled
-        claimingClaimedPapersDisabled={false}
-        userCanNotClaimProfile={false}
-      />
-    );
-    wrapper.find('[data-test-id="assign-self"]').simulate('click');
-    expect(onAssignWithoutUnclaimed).toHaveBeenCalled();
-  });
-
-  it('calls onAssign on for unclaimed paper that user can claim', () => {
-    const onAssignWithoutClaimed = jest.fn();
-    const onAssignWithoutUnclaimed = jest.fn();
-    const onAssignUserCanNotClaim = jest.fn();
-    const wrapper = shallow(
-      <AssignOneDifferentProfileAction
-        onAssignWithoutClaimed={onAssignWithoutClaimed}
-        onAssignWithoutUnclaimed={onAssignWithoutUnclaimed}
-        onAssignUserCanNotClaim={onAssignUserCanNotClaim}
-        currentUserId={33}
-        claimingUnclaimedPapersDisabled={false}
-        claimingClaimedPapersDisabled
-        userCanNotClaimProfile={false}
-      />
-    );
-    wrapper.find('[data-test-id="assign-self"]').simulate('click');
-    expect(onAssignWithoutClaimed).toHaveBeenCalled();
+    expect(onAssign).toHaveBeenCalled();
   });
 });

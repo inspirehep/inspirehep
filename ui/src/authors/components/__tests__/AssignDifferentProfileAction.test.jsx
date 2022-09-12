@@ -49,20 +49,15 @@ describe('AssignDifferentProfileAction', () => {
   });
 
   it('calls onAssign on assign-self click ', () => {
-    const onAssignWithoutClaimed = jest.fn();
-    const onAssignWithoutUnclaimed = jest.fn();
+    const onAssign = jest.fn();
     const wrapper = shallow(
       <AssignDifferentProfileAction
-        onAssignWithoutClaimed={onAssignWithoutClaimed}
-        onAssignWithoutUnclaimed={onAssignWithoutUnclaimed}
+        onAssign={onAssign}
         currentUserId={33}
         disabled={false}
-        claimingUnclaimedPapersDisabled={false}
-        claimingClaimedPapersDisabled={false}
       />
     );
     wrapper.find('[data-test-id="assign-self"]').simulate('click');
-    expect(onAssignWithoutUnclaimed).toHaveBeenCalled();
-    expect(onAssignWithoutClaimed).toHaveBeenCalled();
+    expect(onAssign).toHaveBeenCalled();
   });
 });

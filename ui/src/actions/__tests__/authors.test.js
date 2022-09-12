@@ -12,22 +12,19 @@ import {
   AUTHOR_PUBLICATION_SELECTION_CLEAR,
   AUTHOR_PUBLICATION_CLAIM_SELECTION,
   AUTHOR_PUBLICATIONS_CLAIM_CLEAR,
-  AUTHOR_PUBLICATION_CAN_NOT_CLAIM_SELECTION,
-  AUTHOR_PUBLICATION_CAN_NOT_CLAIM_CLEAR,
 } from '../actionTypes';
 import fetchAuthor, {
   setPublicationSelection,
   clearPublicationSelection,
   setAssignDrawerVisibility,
   assignPapers,
+  unassignPapers,
   assignOwnPapers,
+  unassignOwnPapers,
   setPublicationsClaimedSelection,
   clearPublicationsClaimedSelection,
   clearPublicationsUnclaimedSelection,
-  setPublicationsCanNotClaimSelection,
-  clearPublicationsCanNotClaimSelection,
-  assignDifferentProfileClaimedPapers,
-  assignDifferentProfileUnclaimedPapers,
+  assignDifferentProfile,
 } from '../authors';
 import { searchQueryUpdate } from '../search';
 import {
@@ -122,22 +119,6 @@ describe('AUTHOR - async action creators', () => {
       expect(store.getActions()).toEqual(expectedActions);
     });
 
-    it('setPublicationsCanNotClaimSelection', () => {
-      const expectedActions = [
-        {
-          type: AUTHOR_PUBLICATION_CAN_NOT_CLAIM_SELECTION,
-          payload: {
-            papersIds: [1, 2],
-            selected: true,
-          },
-        },
-      ];
-
-      const store = getStore();
-      store.dispatch(setPublicationsCanNotClaimSelection([1, 2], true));
-      expect(store.getActions()).toEqual(expectedActions);
-    });
-
     it('clearPublicationSelection', () => {
       const expectedActions = [
         {
@@ -163,24 +144,12 @@ describe('AUTHOR - async action creators', () => {
     });
   });
 
-  it('clearPublicationsCanNotClaimSelection', () => {
-    const expectedActions = [
-      {
-        type: AUTHOR_PUBLICATION_CAN_NOT_CLAIM_CLEAR,
-      },
-    ];
-
-    const store = getStore();
-    store.dispatch(clearPublicationsCanNotClaimSelection());
-    expect(store.getActions()).toEqual(expectedActions);
-  });
-
-  describe('assignPapers', () => {
+  describe('assign papers', () => {
     afterEach(() => {
       clear();
     });
 
-    it('successful with stub author', async () => {
+    it('unassign papers', async () => {
       const stubAuthorId = 5555;
       const fromAuthorId = 123;
       const publicationSelection = [1, 2, 3];
@@ -195,9 +164,9 @@ describe('AUTHOR - async action creators', () => {
       });
 
       mockHttp
-        .onPost('/assign/author', {
+        .onPost('/assign/literature/unassign', {
           from_author_recid: fromAuthorId,
-          literature_recids: publicationSelection,
+          literature_ids: publicationSelection,
         })
         .replyOnce(200, { stub_author_id: stubAuthorId });
 
@@ -208,7 +177,7 @@ describe('AUTHOR - async action creators', () => {
       ];
 
       const dispatchPromise = store.dispatch(
-        assignPapers({ from: fromAuthorId })
+        unassignPapers({ from: fromAuthorId })
       );
       expect(assigning).toHaveBeenCalled();
 
@@ -218,7 +187,7 @@ describe('AUTHOR - async action creators', () => {
       expect(assignSuccess).toHaveBeenCalledWith({
         from: fromAuthorId,
         to: stubAuthorId,
-        papers: Set(publicationSelection),
+        literatureIds: Set(publicationSelection),
       });
     });
 
@@ -237,10 +206,10 @@ describe('AUTHOR - async action creators', () => {
       });
 
       mockHttp
-        .onPost('/assign/author', {
+        .onPost('/assign/literature/assign', {
           from_author_recid: fromAuthorId,
           to_author_recid: toAuthorId,
-          literature_recids: publicationSelection,
+          literature_ids: publicationSelection,
         })
         .replyOnce(200, {});
 
@@ -261,7 +230,7 @@ describe('AUTHOR - async action creators', () => {
       expect(assignSuccess).toHaveBeenCalledWith({
         from: fromAuthorId,
         to: toAuthorId,
-        papers: Set(publicationSelection),
+        literatureIds: Set(publicationSelection),
       });
     });
 
@@ -277,10 +246,10 @@ describe('AUTHOR - async action creators', () => {
       });
 
       mockHttp
-        .onPost('/assign/author', {
+        .onPost('/assign/literature/assign', {
           from_author_recid: fromAuthorId,
           to_author_recid: toAuthorId,
-          literature_recids: publicationSelection,
+          literature_ids: publicationSelection,
         })
         .replyOnce(500, {});
 
@@ -297,13 +266,13 @@ describe('AUTHOR - async action creators', () => {
       expect(assignError).toHaveBeenCalled();
     });
   });
-  describe('assignOwnPapers when assigning to own profile', () => {
+  describe('assignOwnPapers (assigning to own profile)', () => {
     afterEach(() => {
       clear();
     });
 
     it('successful', async () => {
-      const stubAuthorId = 5555;
+      const toAuthorId = 321;
       const fromAuthorId = 123;
       const publicationSelection = [1, 2, 3];
       const publicationSelectionClaimed = [1, 2];
@@ -321,11 +290,12 @@ describe('AUTHOR - async action creators', () => {
       });
 
       mockHttp
-        .onPost('/assign/author', {
+        .onPost('/assign/literature/assign', {
           from_author_recid: fromAuthorId,
-          literature_recids: publicationSelection,
+          to_author_recid: toAuthorId,
+          literature_ids: publicationSelection,
         })
-        .replyOnce(200, { stub_author_id: stubAuthorId });
+        .replyOnce(200);
 
       const expectedActions = [
         searchQueryUpdate(AUTHOR_PUBLICATIONS_NS, { assigned: fakeNow }),
@@ -335,7 +305,7 @@ describe('AUTHOR - async action creators', () => {
       ];
 
       const dispatchPromise = store.dispatch(
-        assignOwnPapers({ from: fromAuthorId, isUnassignAction: false })
+        assignOwnPapers({ from: fromAuthorId, to: toAuthorId })
       );
       expect(assigning).toHaveBeenCalled();
 
@@ -349,7 +319,7 @@ describe('AUTHOR - async action creators', () => {
     });
   });
 
-  describe('assignOwnPapers when unassigning own profile', () => {
+  describe('unassignOwnPapers (unassigning own profile)', () => {
     afterEach(() => {
       clear();
     });
@@ -373,9 +343,9 @@ describe('AUTHOR - async action creators', () => {
       });
 
       mockHttp
-        .onPost('/assign/author', {
+        .onPost('/assign/literature/unassign', {
           from_author_recid: fromAuthorId,
-          literature_recids: publicationSelection,
+          literature_ids: publicationSelection,
         })
         .replyOnce(200, { stub_author_id: stubAuthorId });
 
@@ -387,7 +357,7 @@ describe('AUTHOR - async action creators', () => {
       ];
 
       const dispatchPromise = store.dispatch(
-        assignOwnPapers({ from: fromAuthorId, isUnassignAction: true })
+        unassignOwnPapers({ from: fromAuthorId, isUnassignAction: true })
       );
       expect(assigning).toHaveBeenCalled();
 
@@ -397,7 +367,7 @@ describe('AUTHOR - async action creators', () => {
       expect(unassignSuccessOwnProfile).toHaveBeenCalled();
     });
   });
-  describe('assignDifferentProfileClaimedPapers', () => {
+  describe('assignDifferentProfile', () => {
     afterEach(() => {
       clear();
     });
@@ -405,39 +375,32 @@ describe('AUTHOR - async action creators', () => {
     it('successful', async () => {
       const toAuthorId = 5555;
       const fromAuthorId = 123;
-      const publicationSelectionClaimed = [1, 2];
-      const publicationSelectionUnclaimed = [1, 2];
-      const publicationSelectionCanNotClaim = [3];
+      const publicationSelection = [1, 2];
       const fakeNow = 1597314028798;
 
       advanceTo(fakeNow);
 
       const store = getStore({
         authors: fromJS({
-          publicationSelectionClaimed: Set(publicationSelectionClaimed),
-          publicationSelectionCanNotClaim: Set(publicationSelectionCanNotClaim),
-          publicationSelectionUnclaimed: Set(publicationSelectionUnclaimed)
+          publicationSelection: Set(publicationSelection),
         }),
       });
 
       mockHttp
-        .onPost('/assign/author', {
+        .onPost('/assign/literature/assign-different-profile', {
           from_author_recid: fromAuthorId,
           to_author_recid: toAuthorId,
-          papers_ids_already_claimed: publicationSelectionClaimed,
-          papers_ids_not_matching_name: publicationSelectionCanNotClaim,
+          literature_ids: publicationSelection,
         })
         .replyOnce(200, { created_rt_ticket: true });
 
       const expectedActions = [
         searchQueryUpdate(AUTHOR_PUBLICATIONS_NS, { assigned: fakeNow }),
         clearPublicationSelection(),
-        clearPublicationsClaimedSelection(),
-        clearPublicationsCanNotClaimSelection(),
       ];
 
       const dispatchPromise = store.dispatch(
-        assignDifferentProfileClaimedPapers({
+        assignDifferentProfile({
           from: fromAuthorId,
           to: toAuthorId,
         })
@@ -449,42 +412,35 @@ describe('AUTHOR - async action creators', () => {
       expect(assignSuccessDifferentProfileClaimedPapers).toHaveBeenCalled();
     });
 
-    it('successful for stub from author', async () => {
+    it('assignDifferentProfileUnclaimedPapers successful for unclaimed papers', async () => {
       const toAuthorId = 5555;
       const fromAuthorId = 123;
-      const publicationSelectionClaimed = [1, 2];
-      const publicationSelectionCanNotClaim = [3];
-      const publicationSelectionUnclaimed = [1, 2];
+      const publicationSelection = [1, 2];
       const fakeNow = 1597314028798;
 
       advanceTo(fakeNow);
 
       const store = getStore({
         authors: fromJS({
-          publicationSelectionClaimed: Set(publicationSelectionClaimed),
-          publicationSelectionCanNotClaim: Set(publicationSelectionCanNotClaim),
-          publicationSelectionUnclaimed: Set(publicationSelectionUnclaimed)
+          publicationSelection: Set(publicationSelection),
         }),
       });
 
       mockHttp
-        .onPost('/assign/author', {
+        .onPost('/assign/literature/assign-different-profile', {
           from_author_recid: fromAuthorId,
           to_author_recid: toAuthorId,
-          papers_ids_already_claimed: publicationSelectionClaimed,
-          papers_ids_not_matching_name: publicationSelectionCanNotClaim,
+          literature_ids: publicationSelection,
         })
         .replyOnce(200, {});
 
       const expectedActions = [
         searchQueryUpdate(AUTHOR_PUBLICATIONS_NS, { assigned: fakeNow }),
         clearPublicationSelection(),
-        clearPublicationsClaimedSelection(),
-        clearPublicationsCanNotClaimSelection(),
       ];
 
       const dispatchPromise = store.dispatch(
-        assignDifferentProfileClaimedPapers({
+        assignDifferentProfile({
           from: fromAuthorId,
           to: toAuthorId,
         })
@@ -493,56 +449,6 @@ describe('AUTHOR - async action creators', () => {
 
       await dispatchPromise;
       expect(store.getActions()).toEqual(expectedActions);
-      expect(assignSuccessDifferentProfileUnclaimedPapers).toHaveBeenCalled();
-    });
-  });
-
-  describe('assignDifferentProfileUnclaimedPapers', () => {
-    afterEach(() => {
-      clear();
-    });
-
-    it('successful', async () => {
-      const toAuthorId = 5555;
-      const fromAuthorId = 123;
-      const publicationSelectionUnclaimed = [1, 2];
-      const publicationSelectionClaimed = [];
-      const fakeNow = 1597314028798;
-
-      advanceTo(fakeNow);
-
-      const store = getStore({
-        authors: fromJS({
-          publicationSelectionUnclaimed: Set(publicationSelectionUnclaimed),
-          publicationSelectionClaimed: Set(publicationSelectionClaimed),
-        }),
-      });
-
-      mockHttp
-        .onPost('/assign/author', {
-          from_author_recid: fromAuthorId,
-          to_author_recid: toAuthorId,
-          literature_recids: publicationSelectionUnclaimed,
-        })
-        .replyOnce(200);
-
-      const expectedActions = [
-        searchQueryUpdate(AUTHOR_PUBLICATIONS_NS, { assigned: fakeNow }),
-        clearPublicationSelection(),
-        clearPublicationsUnclaimedSelection(),
-      ];
-
-      const dispatchPromise = store.dispatch(
-        assignDifferentProfileUnclaimedPapers({
-          from: fromAuthorId,
-          to: toAuthorId,
-        })
-      );
-      expect(assigning).toHaveBeenCalled();
-
-      await dispatchPromise;
-      expect(store.getActions()).toEqual(expectedActions);
-
       expect(assignSuccessDifferentProfileUnclaimedPapers).toHaveBeenCalled();
     });
   });

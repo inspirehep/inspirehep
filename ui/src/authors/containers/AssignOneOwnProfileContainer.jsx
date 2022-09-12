@@ -7,6 +7,7 @@ import {
   clearPublicationSelection,
   clearPublicationsClaimedSelection,
   assignOwnPapers,
+  unassignOwnPapers,
   clearPublicationsUnclaimedSelection,
 } from '../../actions/authors';
 import AssignOwnProfileAction from '../components/AssignOwnProfileAction';
@@ -15,7 +16,7 @@ export const dispatchToProps = (
   dispatch,
   { recordId, disabledAssignAction }
 ) => ({
-  onAssign({ from, to, isUnassignAction }) {
+  onUnassign({ from }) {
     dispatch(clearPublicationSelection());
     dispatch(clearPublicationsClaimedSelection());
     dispatch(clearPublicationsUnclaimedSelection());
@@ -25,7 +26,20 @@ export const dispatchToProps = (
     } else {
       dispatch(setPublicationsUnclaimedSelection([recordId], true));
     }
-    dispatch(assignOwnPapers({ from, to, isUnassignAction }));
+    dispatch(unassignOwnPapers({ from }));
+  },
+
+  onAssign({ from, to }) {
+    dispatch(clearPublicationSelection());
+    dispatch(clearPublicationsClaimedSelection());
+    dispatch(clearPublicationsUnclaimedSelection());
+    dispatch(setPublicationSelection([recordId], true));
+    if (disabledAssignAction) {
+      dispatch(setPublicationsClaimedSelection([recordId], true));
+    } else {
+      dispatch(setPublicationsUnclaimedSelection([recordId], true));
+    }
+    dispatch(assignOwnPapers({ from, to }));
   },
 });
 
