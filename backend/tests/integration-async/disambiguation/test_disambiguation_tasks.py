@@ -1162,10 +1162,12 @@ def test_disambiguation_races_assign(
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=cataloger.email)
         client.post(
-            "/api/assign/author",
+            "/api/assign/literature/unassign",
             data=orjson.dumps(
                 {
-                    "literature_recids": [lit_record["control_number"]],
+                    "literature_ids": [
+                        lit_record["control_number"],
+                    ],
                     "from_author_recid": author_record["control_number"],
                 }
             ),

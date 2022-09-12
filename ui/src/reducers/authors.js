@@ -12,8 +12,6 @@ import {
   AUTHOR_PUBLICATIONS_CLAIM_CLEAR,
   AUTHOR_PUBLICATION_UNCLAIM_SELECTION,
   AUTHOR_PUBLICATIONS_UNCLAIM_CLEAR,
-  AUTHOR_PUBLICATION_CAN_NOT_CLAIM_SELECTION,
-  AUTHOR_PUBLICATION_CAN_NOT_CLAIM_CLEAR,
 } from '../actions/actionTypes';
 import {
   onRequest,
@@ -72,24 +70,6 @@ const authorsReducer = (state = initialState, action) => {
       return state.set('publicationSelectionUnclaimed', nextUnclaimedSelection);
     case AUTHOR_PUBLICATIONS_UNCLAIM_CLEAR:
       return state.set('publicationSelectionUnclaimed', Set());
-    case AUTHOR_PUBLICATION_CAN_NOT_CLAIM_SELECTION:
-      const canNotClaimPapersSelectionUpdate = Set(action.payload.papersIds);
-      const currentcanNotClaimPapersSelection = state.get(
-        'publicationSelectionCanNotClaim'
-      );
-      const nextcanNotClaimSelection = action.payload.selected
-        ? currentcanNotClaimPapersSelection.union(
-            canNotClaimPapersSelectionUpdate
-          )
-        : currentcanNotClaimPapersSelection.subtract(
-            canNotClaimPapersSelectionUpdate
-          );
-      return state.set(
-        'publicationSelectionCanNotClaim',
-        nextcanNotClaimSelection
-      );
-    case AUTHOR_PUBLICATION_CAN_NOT_CLAIM_CLEAR:
-      return state.set('publicationSelectionCanNotClaim', Set());
     default:
       return state;
   }

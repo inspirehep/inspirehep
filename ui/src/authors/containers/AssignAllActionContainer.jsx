@@ -1,17 +1,25 @@
 import { connect } from 'react-redux';
 
 import AssignAction from '../components/AssignAction';
-import { setAssignDrawerVisibility, assignPapers } from '../../actions/authors';
+import {
+  setAssignDrawerVisibility,
+  assignPapers,
+  unassignPapers,
+} from '../../actions/authors';
 
-const stateToProps = state => ({
+const stateToProps = (state) => ({
   disabled: state.authors.get('publicationSelection').size === 0,
   numberOfSelected: state.authors.get('publicationSelection').size,
   claimingTooltip: 'All selected papers are already claimed',
 });
 
-const dispatchToProps = dispatch => ({
+const dispatchToProps = (dispatch) => ({
   onAssignToAnotherAuthor() {
     dispatch(setAssignDrawerVisibility(true));
+  },
+
+  onUnassign({ from }) {
+    dispatch(unassignPapers({ from }));
   },
 
   onAssign({ from, to }) {

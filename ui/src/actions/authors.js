@@ -9,8 +9,6 @@ import {
   AUTHOR_PUBLICATIONS_CLAIM_CLEAR,
   AUTHOR_PUBLICATION_UNCLAIM_SELECTION,
   AUTHOR_PUBLICATIONS_UNCLAIM_CLEAR,
-  AUTHOR_PUBLICATION_CAN_NOT_CLAIM_SELECTION,
-  AUTHOR_PUBLICATION_CAN_NOT_CLAIM_CLEAR,
 } from './actionTypes';
 import generateRecordFetchAction from './recordsFactory';
 import { AUTHORS_PID_TYPE } from '../common/constants';
@@ -62,13 +60,6 @@ export function setPublicationsUnclaimedSelection(papersIds, selected) {
   };
 }
 
-export function setPublicationsCanNotClaimSelection(papersIds, selected) {
-  return {
-    type: AUTHOR_PUBLICATION_CAN_NOT_CLAIM_SELECTION,
-    payload: { papersIds, selected },
-  };
-}
-
 export function clearPublicationsClaimedSelection() {
   return {
     type: AUTHOR_PUBLICATIONS_CLAIM_CLEAR,
@@ -78,12 +69,6 @@ export function clearPublicationsClaimedSelection() {
 export function clearPublicationsUnclaimedSelection() {
   return {
     type: AUTHOR_PUBLICATIONS_UNCLAIM_CLEAR,
-  };
-}
-
-export function clearPublicationsCanNotClaimSelection() {
-  return {
-    type: AUTHOR_PUBLICATION_CAN_NOT_CLAIM_CLEAR,
   };
 }
 
@@ -97,15 +82,15 @@ export function setAssignDrawerVisibility(visible) {
 export function assignPapers({ from, to }) {
   return async (dispatch, getState, http) => {
     try {
-      const papers = getState().authors.get('publicationSelection');
+      const literatureIds = getState().authors.get('publicationSelection');
+
       assigning();
-      const { data } = await http.post('/assign/author', {
+      await http.post('/assign/literature/assign', {
         from_author_recid: from,
         to_author_recid: to,
-        literature_recids: papers,
+        literature_ids: literatureIds,
       });
-      const toOrNewAuthor = to || data.stub_author_id;
-      assignSuccess({ from, to: toOrNewAuthor, papers });
+      assignSuccess({ from, to, literatureIds });
       // add timestamp based query to in order to trigger search again
       dispatch(
         searchQueryUpdate(AUTHOR_PUBLICATIONS_NS, { assigned: Date.now() })
@@ -118,37 +103,56 @@ export function assignPapers({ from, to }) {
   };
 }
 
-export function assignOwnPapers({ from, to, isUnassignAction }) {
+export function unassignPapers({ from }) {
   return async (dispatch, getState, http) => {
     try {
-      const claimedPapers = getState().authors.get(
+      const literatureIds = getState().authors.get('publicationSelection');
+
+      assigning();
+      const { data } = await http.post('/assign/literature/unassign', {
+        from_author_recid: from,
+        literature_ids: literatureIds,
+      });
+      const newAuthor = data.stub_author_id;
+      assignSuccess({ from, to: newAuthor, literatureIds });
+      // add timestamp based query to in order to trigger search again
+      dispatch(
+        searchQueryUpdate(AUTHOR_PUBLICATIONS_NS, { assigned: Date.now() })
+      );
+      dispatch(clearPublicationSelection());
+      dispatch(setAssignDrawerVisibility(false));
+    } catch (error) {
+      assignError();
+    }
+  };
+}
+
+export function assignOwnPapers({ from, to }) {
+  return async (dispatch, getState, http) => {
+    try {
+      const claimedLiteratureIds = getState().authors.get(
         'publicationSelectionClaimed'
       );
-      const unclaimedPapers = getState().authors.get(
+      const unclaimedLiteratureIds = getState().authors.get(
         'publicationSelectionUnclaimed'
       );
 
-      const paperIds = getState().authors.get('publicationSelection');
+      const literatureIds = getState().authors.get('publicationSelection');
 
-      const numberOfUnclaimedPapers = unclaimedPapers.size;
-      const numberOfClaimedPapers = claimedPapers.size;
-      const numberOfPapers = numberOfUnclaimedPapers + numberOfClaimedPapers;
+      const numberOfUnclaimedPapers = unclaimedLiteratureIds.size;
+      const numberOfClaimedPapers = claimedLiteratureIds.size;
 
       assigning();
-      await http.post('/assign/author', {
+      await http.post('/assign/literature/assign', {
         from_author_recid: from,
         to_author_recid: to,
-        literature_recids: paperIds,
+        literature_ids: literatureIds,
       });
 
-      if (isUnassignAction) {
-        unassignSuccessOwnProfile(numberOfPapers);
-      } else {
-        assignSuccessOwnProfile({
-          numberOfClaimedPapers,
-          numberOfUnclaimedPapers,
-        });
-      }
+      assignSuccessOwnProfile({
+        numberOfClaimedPapers,
+        numberOfUnclaimedPapers,
+      });
 
       // add timestamp based query to in order to trigger search again
       dispatch(
@@ -163,30 +167,51 @@ export function assignOwnPapers({ from, to, isUnassignAction }) {
   };
 }
 
-export function assignDifferentProfileClaimedPapers({ from, to }) {
+export function unassignOwnPapers({ from }) {
   return async (dispatch, getState, http) => {
     try {
-      const claimedPapers = getState().authors.get(
-        'publicationSelectionClaimed'
-      );
-      const unclaimablePapers = getState().authors.get(
-        'publicationSelectionCanNotClaim'
-      );
-      const unclaimedPapers = getState().authors.get(
-        'publicationSelectionUnclaimed'
-      );
-      const numberOfUnclaimedPapers = unclaimedPapers.size;
+      const literatureIds = getState().authors.get('publicationSelection');
 
       assigning();
-      const { data } = await http.post('/assign/author', {
+      await http.post('/assign/literature/unassign', {
         from_author_recid: from,
-        to_author_recid: to,
-        papers_ids_already_claimed: claimedPapers,
-        papers_ids_not_matching_name: unclaimablePapers,
+        literature_ids: literatureIds,
       });
+
+      unassignSuccessOwnProfile(literatureIds.size);
+
+      // add timestamp based query to in order to trigger search again
+      dispatch(
+        searchQueryUpdate(AUTHOR_PUBLICATIONS_NS, { assigned: Date.now() })
+      );
+      dispatch(clearPublicationSelection());
+      dispatch(clearPublicationsClaimedSelection());
+      dispatch(clearPublicationsUnclaimedSelection());
+    } catch (error) {
+      assignError();
+    }
+  };
+}
+
+export function assignDifferentProfile({ from, to }) {
+  return async (dispatch, getState, http) => {
+    try {
+      const literatureIds = getState().authors.get('publicationSelection');
+
+      assigning();
+      const { data } = await http.post(
+        '/assign/literature/assign-different-profile',
+        {
+          from_author_recid: from,
+          to_author_recid: to,
+          literature_ids: literatureIds,
+        }
+      );
+
       if (Object.prototype.hasOwnProperty.call(data, 'created_rt_ticket')) {
         assignSuccessDifferentProfileClaimedPapers();
       } else {
+        const numberOfUnclaimedPapers = literatureIds.size;
         assignSuccessDifferentProfileUnclaimedPapers(numberOfUnclaimedPapers);
       }
 
@@ -195,40 +220,6 @@ export function assignDifferentProfileClaimedPapers({ from, to }) {
         searchQueryUpdate(AUTHOR_PUBLICATIONS_NS, { assigned: Date.now() })
       );
       dispatch(clearPublicationSelection());
-      dispatch(clearPublicationsClaimedSelection());
-      dispatch(clearPublicationsCanNotClaimSelection());
-    } catch (error) {
-      assignError();
-    }
-  };
-}
-
-export function assignDifferentProfileUnclaimedPapers({ from, to }) {
-  return async (dispatch, getState, http) => {
-    try {
-      const unclaimedPapers = getState().authors.get(
-        'publicationSelectionUnclaimed'
-      );
-      const claimedPapers = getState().authors.get(
-        'publicationSelectionClaimed'
-      );
-      const numberOfUnclaimedPapers = unclaimedPapers.size;
-
-      assigning();
-      await http.post('/assign/author', {
-        from_author_recid: from,
-        to_author_recid: to,
-        literature_recids: unclaimedPapers,
-      });
-      if (claimedPapers.size === 0) {
-        assignSuccessDifferentProfileUnclaimedPapers(numberOfUnclaimedPapers);
-      }
-      // add timestamp based query to in order to trigger search again
-      dispatch(
-        searchQueryUpdate(AUTHOR_PUBLICATIONS_NS, { assigned: Date.now() })
-      );
-      dispatch(clearPublicationSelection());
-      dispatch(clearPublicationsUnclaimedSelection());
     } catch (error) {
       assignError();
     }

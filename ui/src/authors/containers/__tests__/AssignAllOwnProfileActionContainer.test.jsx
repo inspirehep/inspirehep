@@ -6,7 +6,7 @@ import { fromJS, Set } from 'immutable';
 import { getStore, mockActionCreator } from '../../../fixtures/store';
 import AssignAllOwnProfileActionContainer from '../AssignAllOwnProfileActionContainer';
 
-import { assignOwnPapers } from '../../../actions/authors';
+import { assignOwnPapers, unassignOwnPapers } from '../../../actions/authors';
 import AssignOwnProfileAction from '../../components/AssignOwnProfileAction';
 
 jest.mock('react-router-dom', () => ({
@@ -17,6 +17,7 @@ jest.mock('react-router-dom', () => ({
 
 jest.mock('../../../actions/authors');
 mockActionCreator(assignOwnPapers);
+mockActionCreator(unassignOwnPapers);
 
 describe('AssignOwnProfileActionContainer', () => {
   it('sets disabled=false if publication selection is not empty', () => {
@@ -94,8 +95,7 @@ describe('AssignOwnProfileActionContainer', () => {
     });
   });
 
-
-  it('dispatches assignPapers with on assign', () => {
+  it('dispatches assignOwnPapers on assign', () => {
     const store = getStore();
     const wrapper = mount(
       <Provider store={store}>
@@ -104,10 +104,23 @@ describe('AssignOwnProfileActionContainer', () => {
     );
     const from = 123;
     const to = 321;
-    const isUnassignAction = true;
     const onAssign = wrapper.find(AssignOwnProfileAction).prop('onAssign');
-    onAssign({ from, to, isUnassignAction });
-    const expectedActions = [assignOwnPapers({ from, to, isUnassignAction })];
+    onAssign({ from, to });
+    const expectedActions = [assignOwnPapers({ from, to })];
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+
+  it('dispatches unassignOwnPapers on unassign', () => {
+    const store = getStore();
+    const wrapper = mount(
+      <Provider store={store}>
+        <AssignAllOwnProfileActionContainer />
+      </Provider>
+    );
+    const from = 123;
+    const onUnassign = wrapper.find(AssignOwnProfileAction).prop('onUnassign');
+    onUnassign({ from });
+    const expectedActions = [unassignOwnPapers({ from })];
     expect(store.getActions()).toEqual(expectedActions);
   });
 });

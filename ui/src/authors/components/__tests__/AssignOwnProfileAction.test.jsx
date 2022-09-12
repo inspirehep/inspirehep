@@ -16,20 +16,14 @@ describe('AssignOwnProfileAction', () => {
 
   it('renders singular form if numberOfSelected is 1', () => {
     const wrapper = shallow(
-      <AssignOwnProfileAction
-        onAssign={jest.fn()}
-        numberOfSelected={1}
-      />
+      <AssignOwnProfileAction onAssign={jest.fn()} numberOfSelected={1} />
     );
     expect(wrapper).toMatchSnapshot();
   });
 
   it('renders plural form if numberOfSelected is more than 1', () => {
     const wrapper = shallow(
-      <AssignOwnProfileAction
-        onAssign={jest.fn()}
-        numberOfSelected={123}
-      />
+      <AssignOwnProfileAction onAssign={jest.fn()} numberOfSelected={123} />
     );
     expect(wrapper).toMatchSnapshot();
   });
@@ -66,19 +60,22 @@ describe('AssignOwnProfileAction', () => {
     expect(onAssign).toHaveBeenCalledWith({
       from: 123,
       to: 123,
-      isUnassignAction: false,
     });
   });
 
-  it('calls onAssign on unassign click ', () => {
+  it('calls onUnssign on unassign click ', () => {
+    const onUnassign = jest.fn();
     const onAssign = jest.fn();
     const wrapper = shallow(
-      <AssignOwnProfileAction onAssign={onAssign} isUnassignAction />
+      <AssignOwnProfileAction
+        onAssign={onAssign}
+        onUnassign={onUnassign}
+        isUnassignAction
+      />
     );
     wrapper.find('[data-test-id="unassign"]').simulate('click');
-    expect(onAssign).toHaveBeenCalledWith({
+    expect(onUnassign).toHaveBeenCalledWith({
       from: 123,
-      isUnassignAction: true,
     });
   });
 });

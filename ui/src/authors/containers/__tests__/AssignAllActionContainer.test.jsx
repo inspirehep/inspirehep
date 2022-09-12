@@ -9,6 +9,7 @@ import AssignAllActionContainer from '../AssignAllActionContainer';
 import {
   setAssignDrawerVisibility,
   assignPapers,
+  unassignPapers,
 } from '../../../actions/authors';
 import AssignAction from '../../components/AssignAction';
 
@@ -21,6 +22,7 @@ jest.mock('react-router-dom', () => ({
 jest.mock('../../../actions/authors');
 mockActionCreator(setAssignDrawerVisibility);
 mockActionCreator(assignPapers);
+mockActionCreator(unassignPapers);
 
 describe('AssignAllActionContainer', () => {
   it('sets disabled=false if publication selection is not empty', () => {
@@ -98,6 +100,20 @@ describe('AssignAllActionContainer', () => {
     const onAssign = wrapper.find(AssignAction).prop('onAssign');
     onAssign({ from, to });
     const expectedActions = [assignPapers({ from, to })];
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+
+  it('dispatches unassignPapers with on unassign', () => {
+    const store = getStore();
+    const wrapper = mount(
+      <Provider store={store}>
+        <AssignAllActionContainer />
+      </Provider>
+    );
+    const from = 123;
+    const onUnassign = wrapper.find(AssignAction).prop('onUnassign');
+    onUnassign({ from });
+    const expectedActions = [unassignPapers({ from })];
     expect(store.getActions()).toEqual(expectedActions);
   });
 });

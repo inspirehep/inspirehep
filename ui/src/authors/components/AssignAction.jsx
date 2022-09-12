@@ -11,6 +11,7 @@ import ListItemAction from '../../common/components/ListItemAction';
 function AssignAction({
   onAssignToAnotherAuthor,
   onAssign,
+  onUnassign,
   disabled,
   numberOfSelected,
 }) {
@@ -19,9 +20,9 @@ function AssignAction({
     onAssign({ from: currentAuthorId, to: currentAuthorId });
   }, [currentAuthorId, onAssign]);
 
-  const onUnassign = useCallback(() => {
-    onAssign({ from: currentAuthorId });
-  }, [currentAuthorId, onAssign]);
+  const onSelfUnassign = useCallback(() => {
+    onUnassign({ from: currentAuthorId });
+  }, [currentAuthorId, onUnassign]);
 
   const onAssignToAnother = useCallback(() => {
     onAssignToAnotherAuthor();
@@ -52,7 +53,11 @@ function AssignAction({
         >
           {numberOfSelected === 1 ? 'This is my paper' : 'These are my papers'}
         </Menu.Item>
-        <Menu.Item data-test-id="unassign" key="unassign" onClick={onUnassign}>
+        <Menu.Item
+          data-test-id="unassign"
+          key="unassign"
+          onClick={onSelfUnassign}
+        >
           {numberOfSelected === 1
             ? 'This is not my paper'
             : 'These are not my papers'}
@@ -71,6 +76,7 @@ function AssignAction({
 
 AssignAction.propTypes = {
   onAssignToAnotherAuthor: PropTypes.func.isRequired,
+  onUnassign: PropTypes.func.isRequired,
   onAssign: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
   numberOfSelected: PropTypes.number,

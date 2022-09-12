@@ -4,10 +4,10 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+
 import structlog
 from flask import Blueprint, request
 from flask_celeryext.app import current_celery_app
-from invenio_db import db
 from webargs import fields
 from webargs.flaskparser import FlaskParser
 
@@ -19,6 +19,7 @@ from inspirehep.assign.tasks import (
     export_papers_to_cds,
 )
 from inspirehep.assign.utils import (
+    can_claim,
     check_author_compability_with_lit_authors,
     get_author_by_recid,
 )
@@ -86,64 +87,90 @@ def assign_to_author(from_author_recid, to_author_recid, literature_recids):
     unstub_author_by_recid(to_author_recid)
 
 
-@blueprint.route("author", methods=["POST"])
+@blueprint.route("literature/assign", methods=["POST"])
 @login_required_with_roles()
 @parser.use_args(
     {
         "from_author_recid": fields.Integer(required=True),
-        "to_author_recid": fields.Integer(required=False),
-        "literature_recids": fields.List(fields.Integer, required=False),
-        "papers_ids_already_claimed": fields.List(fields.Integer, required=False),
-        "papers_ids_not_matching_name": fields.List(fields.Integer, required=False),
+        "to_author_recid": fields.Integer(required=True),
+        "literature_ids": fields.List(fields.Integer, required=True),
     },
     locations=("json",),
 )
-def author_assign_view(args):
-    to_author_recid = args.get("to_author_recid")
+def assign_papers(args):
+    from inspirehep.accounts.api import can_user_edit_author_record
+
+    to_author_recid = args["to_author_recid"]
     from_author_recid = args["from_author_recid"]
-    literature_recids = args.get("literature_recids", [])
-    claimed_literature_recids = args.get("papers_ids_already_claimed", [])
-    not_allowed_to_be_claimed_literature_recids = args.get(
-        "papers_ids_not_matching_name", []
-    )
+    literature_ids = args["literature_ids"]
 
-    if not any(
-        [
-            literature_recids,
-            claimed_literature_recids,
-            not_allowed_to_be_claimed_literature_recids,
-        ]
-    ):
-        return (
-            jsonify(
-                success=False,
-                message="None of required fields was passed",
-            ),
-            400,
-        )
+    if not can_user_edit_author_record(from_author_recid):
+        return jsonify({"message": "Forbidden"}), 403
 
-    if claimed_literature_recids:
-        from_author_record = AuthorsRecord.get_record_by_pid_value(from_author_recid)
-        if from_author_record.get("stub"):
-            literature_recids = literature_recids + claimed_literature_recids
-            claimed_literature_recids = []
+    assign_to_author(from_author_recid, to_author_recid, literature_ids)
+    return jsonify({"message": "Success"}), 200
 
-    if claimed_literature_recids or not_allowed_to_be_claimed_literature_recids:
+
+@blueprint.route("literature/unassign", methods=["POST"])
+@login_required_with_roles()
+@parser.use_args(
+    {
+        "from_author_recid": fields.Integer(required=True),
+        "literature_ids": fields.List(fields.Integer, required=True),
+    },
+    locations=("json",),
+)
+def unassign_papers(args):
+    from inspirehep.accounts.api import can_user_edit_author_record
+
+    from_author_recid = args["from_author_recid"]
+    literature_ids = args["literature_ids"]
+
+    if not can_user_edit_author_record(from_author_recid):
+        return jsonify({"message": "Forbidden"}), 403
+
+    stub_author_id = assign_to_new_stub_author(from_author_recid, literature_ids)
+    return jsonify({"stub_author_id": stub_author_id}), 200
+
+
+@blueprint.route("literature/assign-different-profile", methods=["POST"])
+@login_required_with_roles()
+@parser.use_args(
+    {
+        "from_author_recid": fields.Integer(required=True),
+        "to_author_recid": fields.Integer(required=True),
+        "literature_ids": fields.List(fields.Integer, required=True),
+    },
+    locations=("json",),
+)
+def assign_different_profile(args):
+    to_author_recid = args["to_author_recid"]
+    from_author_recid = args["from_author_recid"]
+    literature_ids = args.get("literature_ids", [])
+
+    literature_ids_already_claimed = []
+    literature_ids_not_compatible_name = []
+
+    from_author_record = AuthorsRecord.get_record_by_pid_value(from_author_recid)
+    is_from_author_stub = from_author_record.get("stub")
+
+    for literature_id in literature_ids:
+        record = LiteratureRecord.get_record_by_pid_value(literature_id)
+        if record.get("curated") and not is_from_author_stub:
+            literature_ids_already_claimed.append(literature_id)
+        if not can_claim(record, from_author_recid):
+            literature_ids_not_compatible_name.append(literature_id)
+
+    if literature_ids_already_claimed or literature_ids_not_compatible_name:
         create_rt_ticket_for_claiming_action.delay(
             from_author_recid,
             to_author_recid,
-            claimed_literature_recids,
-            not_allowed_to_be_claimed_literature_recids,
+            literature_ids_already_claimed,
+            literature_ids_not_compatible_name,
         )
         return jsonify({"message": "Success", "created_rt_ticket": True}), 200
 
-    if to_author_recid is None:
-        stub_author_id = assign_to_new_stub_author(from_author_recid, literature_recids)
-    else:
-        assign_to_author(from_author_recid, to_author_recid, literature_recids)
-    db.session.commit()
-    if to_author_recid is None:
-        return jsonify({"stub_author_id": stub_author_id}), 200
+    assign_to_author(from_author_recid, to_author_recid, literature_ids)
     return jsonify({"message": "Success"}), 200
 
 

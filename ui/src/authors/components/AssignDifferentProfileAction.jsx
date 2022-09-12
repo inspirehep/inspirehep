@@ -8,39 +8,13 @@ import DropdownMenu from '../../common/components/DropdownMenu';
 import IconText from '../../common/components/IconText';
 import ListItemAction from '../../common/components/ListItemAction';
 
-function AssignDifferentProfileAction({
-  onAssignWithoutUnclaimed,
-  onAssignWithoutClaimed,
-  disabled,
-  currentUserId,
-  claimingUnclaimedPapersDisabled,
-  claimingClaimedPapersDisabled,
-}) {
+function AssignDifferentProfileAction({ disabled, currentUserId, onAssign }) {
   const currentAuthorId = Number(useParams().id);
-  const onAssignUnclaimed = useCallback(() => {
-    onAssignWithoutClaimed({
-      from: currentAuthorId,
-      to: currentUserId,
-    });
-  }, [currentAuthorId, currentUserId, onAssignWithoutClaimed]);
-  const onAssignClaimed = useCallback(() => {
-    onAssignWithoutUnclaimed({
-      from: currentAuthorId,
-      to: currentUserId,
-    });
-  }, [currentAuthorId, currentUserId, onAssignWithoutUnclaimed]);
-
-  const onSelfAssign = () => {
-    if (!claimingUnclaimedPapersDisabled) {
-      onAssignUnclaimed();
-    }
-    if (!claimingClaimedPapersDisabled) {
-      onAssignClaimed();
-    }
-  };
+  const onSelfAssign = useCallback(() => {
+    onAssign({ from: currentAuthorId, to: currentUserId });
+  }, [currentAuthorId, currentUserId, onAssign]);
 
   return (
-    // TODO: rename `ListItemAction` because it's not only used for list item actions, such as (assign all and cite all)
     <ListItemAction>
       <DropdownMenu
         disabled={disabled}
@@ -71,11 +45,8 @@ function AssignDifferentProfileAction({
 }
 
 AssignDifferentProfileAction.propTypes = {
-  onAssignWithoutUnclaimed: PropTypes.func.isRequired,
-  onAssignWithoutClaimed: PropTypes.func.isRequired,
+  onAssign: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
-  claimingUnclaimedPapersDisabled: PropTypes.bool,
-  claimingClaimedPapersDisabled: PropTypes.bool,
 };
 
 export default AssignDifferentProfileAction;

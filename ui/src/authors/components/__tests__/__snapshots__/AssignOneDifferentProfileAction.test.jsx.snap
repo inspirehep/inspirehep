@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AssignDifferentProfileAction renders for claimed paper 1`] = `
+exports[`AssignDifferentProfileAction renders 1`] = `
 <ListItemAction>
   <DropdownMenu
     disabled={false}
@@ -29,36 +29,7 @@ exports[`AssignDifferentProfileAction renders for claimed paper 1`] = `
 </ListItemAction>
 `;
 
-exports[`AssignDifferentProfileAction renders for unclaimed paper 1`] = `
-<ListItemAction>
-  <DropdownMenu
-    disabled={false}
-    title={
-      <Button
-        block={false}
-        ghost={false}
-        htmlType="button"
-        loading={false}
-      >
-        <IconText
-          icon={<ForwardRef(FileDoneOutlined) />}
-          text="claim"
-        />
-      </Button>
-    }
-  >
-    <MenuItem
-      data-test-id="assign-self"
-      key="assign-self"
-      onClick={[Function]}
-    >
-      Move to my profile
-    </MenuItem>
-  </DropdownMenu>
-</ListItemAction>
-`;
-
-exports[`AssignDifferentProfileAction renders for unclaimed paper with userCanNotClaimProfile 1`] = `
+exports[`AssignDifferentProfileAction renders disabled 1`] = `
 <ListItemAction>
   <DropdownMenu
     disabled={false}

@@ -12,9 +12,7 @@ import {
   AUTHOR_PUBLICATION_CLAIM_SELECTION,
   AUTHOR_PUBLICATIONS_CLAIM_CLEAR,
   AUTHOR_PUBLICATION_UNCLAIM_SELECTION,
-  AUTHOR_PUBLICATION_CAN_NOT_CLAIM_CLEAR,
   AUTHOR_PUBLICATIONS_UNCLAIM_CLEAR,
-  AUTHOR_PUBLICATION_CAN_NOT_CLAIM_SELECTION,
 } from '../../actions/actionTypes';
 
 describe('authors reducer', () => {
@@ -199,40 +197,6 @@ describe('authors reducer', () => {
     expect(state.get('publicationSelectionUnclaimed')).toEqual(expected);
   });
 
-  it('AUTHOR_PUBLICATION_CAN_NOT_CLAIM_SELECTION when selected', () => {
-    const payload = {
-      papersIds: [1, 2],
-      selected: true,
-    };
-    const currentState = Map({
-      publicationSelection: Set([2, 3]),
-      publicationSelectionCanNotClaim: Set([2, 3]),
-    });
-    const state = reducer(currentState, {
-      type: AUTHOR_PUBLICATION_CAN_NOT_CLAIM_SELECTION,
-      payload,
-    });
-    const expected = Set([2, 3, 1]);
-    expect(state.get('publicationSelectionCanNotClaim')).toEqual(expected);
-  });
-
-  it('AUTHOR_PUBLICATION_CAN_NOT_CLAIM_SELECTION when deselected', () => {
-    const payload = {
-      papersIds: [2],
-      selected: false,
-    };
-    const currentState = Map({
-      publicationSelection: Set([1, 2]),
-      publicationSelectionCanNotClaim: Set([1, 2]),
-    });
-    const state = reducer(currentState, {
-      type: AUTHOR_PUBLICATION_CAN_NOT_CLAIM_SELECTION,
-      payload,
-    });
-    const expected = Set([1]);
-    expect(state.get('publicationSelectionCanNotClaim')).toEqual(expected);
-  });
-
   it('AUTHOR_PUBLICATIONS_UNCLAIM_CLEAR', () => {
     const currentState = Map({
       publicationSelection: Set([1, 2]),
@@ -243,19 +207,6 @@ describe('authors reducer', () => {
     });
     const expected = Set([]);
     expect(state.get('publicationSelectionUnclaimed')).toEqual(expected);
-  });
-
-  it('AUTHOR_PUBLICATION_CAN_NOT_CLAIM_CLEAR', () => {
-    const currentState = Map({
-      publicationSelection: Set([1, 2]),
-      publicationSelectionCanNotClaim: Set([1, 2]),
-      publicationSelectionClaimed: Set([1, 2]),
-    });
-    const state = reducer(currentState, {
-      type: AUTHOR_PUBLICATION_CAN_NOT_CLAIM_CLEAR,
-    });
-    const expected = Set([]);
-    expect(state.get('publicationSelectionCanNotClaim')).toEqual(expected);
   });
 
   it('AUTHOR_SET_ASSIGN_DRAWER_VISIBILITY', () => {

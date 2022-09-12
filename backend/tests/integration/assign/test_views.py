@@ -35,10 +35,10 @@ def test_assign_without_login(inspire_app):
 
     with inspire_app.test_client() as client:
         response = client.post(
-            "/assign/author",
+            "/assign/literature/assign",
             data=orjson.dumps(
                 {
-                    "literature_recids": [literature["control_number"]],
+                    "literature_ids": [literature["control_number"]],
                     "from_author_recid": from_author["control_number"],
                     "to_author_recid": to_author["control_number"],
                 }
@@ -109,10 +109,10 @@ def test_assign_from_an_author_to_another(mock_assign, inspire_app):
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=cataloger.email)
         response = client.post(
-            "/assign/author",
+            "/assign/literature/assign",
             data=orjson.dumps(
                 {
-                    "literature_recids": [
+                    "literature_ids": [
                         literature_1["control_number"],
                         literature_2["control_number"],
                     ],
@@ -159,10 +159,10 @@ def test_assign_from_an_author_to_another_that_is_not_stub(mock_assign, inspire_
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=cataloger.email)
         response = client.post(
-            "/assign/author",
+            "/assign/literature/assign",
             data=orjson.dumps(
                 {
-                    "literature_recids": [literature["control_number"]],
+                    "literature_ids": [literature["control_number"]],
                     "from_author_recid": from_author["control_number"],
                     "to_author_recid": to_author["control_number"],
                 }
@@ -215,10 +215,10 @@ def test_assign_without_to_author(mock_assign, inspire_app, override_config):
         with inspire_app.test_client() as client:
             login_user_via_session(client, email=cataloger.email)
             response = client.post(
-                "/assign/author",
+                "/assign/literature/unassign",
                 data=orjson.dumps(
                     {
-                        "literature_recids": [
+                        "literature_ids": [
                             literature1["control_number"],
                             literature2["control_number"],
                         ],
@@ -386,10 +386,10 @@ def test_assign_doesnt_raise_resource_closed_error(inspire_app, override_config)
             with inspire_app.test_client() as client:
                 login_user_via_session(client, email=cataloger.email)
                 client.post(
-                    "/assign/author",
+                    "/assign/literature/unassign",
                     data=orjson.dumps(
                         {
-                            "literature_recids": [
+                            "literature_ids": [
                                 paper["control_number"],
                             ],
                             "from_author_recid": author_record["control_number"],
@@ -402,7 +402,7 @@ def test_assign_doesnt_raise_resource_closed_error(inspire_app, override_config)
 
 
 @mock.patch("inspirehep.assign.tasks.async_create_ticket_with_template")
-def test_author_assign_view_claimed(mock_create_ticket, inspire_app):
+def test_author_assign_papers_different_profile(mock_create_ticket, inspire_app):
     cataloger = create_user(role="cataloger")
     author_data = {
         "name": {"value": "Aad, Georges", "preferred_name": "Georges Aad"},
@@ -438,6 +438,7 @@ def test_author_assign_view_claimed(mock_create_ticket, inspire_app):
     literature_2 = create_record(
         "lit",
         data={
+            "curated": True,
             "control_number": 4,
             "authors": [
                 {
@@ -454,13 +455,11 @@ def test_author_assign_view_claimed(mock_create_ticket, inspire_app):
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=cataloger.email)
         response = client.post(
-            "/assign/author",
+            "/assign/literature/assign-different-profile",
             data=orjson.dumps(
                 {
-                    "papers_ids_already_claimed": [
+                    "literature_ids": [
                         literature_2["control_number"],
-                    ],
-                    "papers_ids_not_matching_name": [
                         literature_1["control_number"],
                     ],
                     "from_author_recid": from_author["control_number"],
@@ -480,7 +479,8 @@ def test_author_assign_view_claimed(mock_create_ticket, inspire_app):
             "from_author_url": "http://localhost:5000/authors/1",
             "to_author_url": "http://localhost:5000/authors/2",
             "incompatibile_names_papers": {
-                "http://localhost:5000/literature/3": "Aad, Georges"
+                "http://localhost:5000/literature/3": "Aad, Georges",
+                "http://localhost:5000/literature/4": "Aad, Georges",
             },
             "already_claimed_papers": ["http://localhost:5000/literature/4"],
         },
@@ -508,7 +508,7 @@ def test_author_assign_validates_input_when_no_papers_passed(inspire_app):
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=cataloger.email)
         response = client.post(
-            "/assign/author",
+            "/assign/literature/assign",
             data=orjson.dumps(
                 {
                     "from_author_recid": from_author["control_number"],
@@ -518,7 +518,8 @@ def test_author_assign_validates_input_when_no_papers_passed(inspire_app):
             content_type="application/json",
         )
     response_status_code = response.status_code
-    assert response_status_code == 400
+
+    assert response_status_code == 422
 
 
 @mock.patch("inspirehep.assign.views.assign_to_author")
@@ -559,12 +560,12 @@ def test_author_assign_uses_parser_args(mock_assign, inspire_app):
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=cataloger.email)
         client.post(
-            "/assign/author",
+            "/assign/literature/assign",
             data=orjson.dumps(
                 {
                     "from_author_recid": str(from_author["control_number"]),
                     "to_author_recid": str(to_author["control_number"]),
-                    "literature_recids": [str(literature_1["control_number"])],
+                    "literature_ids": [str(literature_1["control_number"])],
                 }
             ),
             content_type="application/json",
@@ -576,7 +577,7 @@ def test_author_assign_uses_parser_args(mock_assign, inspire_app):
     )
 
 
-@mock.patch("inspirehep.assign.views.assign_to_author")
+@mock.patch("inspirehep.assign.tasks.async_create_ticket_with_template")
 def test_author_assign_view_claimed_with_stub_author(mock_create_ticket, inspire_app):
     cataloger = create_user(role="cataloger")
     author_data = {
@@ -596,6 +597,7 @@ def test_author_assign_view_claimed_with_stub_author(mock_create_ticket, inspire
         "lit",
         data={
             "control_number": 3,
+            "curated": True,
             "authors": [
                 {
                     "curated_relation": False,
@@ -614,6 +616,7 @@ def test_author_assign_view_claimed_with_stub_author(mock_create_ticket, inspire
     literature_2 = create_record(
         "lit",
         data={
+            "curated": True,
             "control_number": 4,
             "authors": [
                 {
@@ -635,10 +638,10 @@ def test_author_assign_view_claimed_with_stub_author(mock_create_ticket, inspire
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=cataloger.email)
         response = client.post(
-            "/assign/author",
+            "/assign/literature/assign-different-profile",
             data=orjson.dumps(
                 {
-                    "papers_ids_already_claimed": papers_ids_already_claimed,
+                    "literature_ids": papers_ids_already_claimed,
                     "from_author_recid": from_author["control_number"],
                     "to_author_recid": to_author["control_number"],
                 }
@@ -648,9 +651,20 @@ def test_author_assign_view_claimed_with_stub_author(mock_create_ticket, inspire
     response_status_code = response.status_code
 
     assert mock_create_ticket.mock_calls[0][1] == (
-        from_author["control_number"],
-        to_author["control_number"],
-        papers_ids_already_claimed,
+        "AUTHORS_claim_manual",
+        None,
+        "rt/assign_authors_from_different_profile.html",
+        {
+            "to_author_names": ["Matczak, Michal"],
+            "from_author_url": "http://localhost:5000/authors/1",
+            "to_author_url": "http://localhost:5000/authors/2",
+            "incompatibile_names_papers": {
+                "http://localhost:5000/literature/4": "Aad, Georges",
+                "http://localhost:5000/literature/3": "Aad, Georges",
+            },
+            "already_claimed_papers": [],
+        },
+        "Claims by user Michal Mata require curator action",
     )
     assert response_status_code == 200
 
@@ -984,6 +998,7 @@ def test_assign_author_has_main_name(mock_create_ticket, inspire_app):
     literature_2 = create_record(
         "lit",
         data={
+            "curated": True,
             "control_number": 4,
             "authors": [
                 {
@@ -1000,14 +1015,12 @@ def test_assign_author_has_main_name(mock_create_ticket, inspire_app):
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=cataloger.email)
         response = client.post(
-            "/assign/author",
+            "/assign/literature/assign-different-profile",
             data=orjson.dumps(
                 {
-                    "papers_ids_already_claimed": [
-                        literature_2["control_number"],
-                    ],
-                    "papers_ids_not_matching_name": [
+                    "literature_ids": [
                         literature_1["control_number"],
+                        literature_2["control_number"],
                     ],
                     "from_author_recid": from_author["control_number"],
                     "to_author_recid": to_author["control_number"],
@@ -1029,7 +1042,8 @@ def test_assign_author_has_main_name(mock_create_ticket, inspire_app):
             "from_author_url": "http://localhost:5000/authors/1",
             "to_author_url": "http://localhost:5000/authors/2",
             "incompatibile_names_papers": {
-                "http://localhost:5000/literature/3": "Aad, Georges"
+                "http://localhost:5000/literature/3": "Aad, Georges",
+                "http://localhost:5000/literature/4": "Aad, Georges",
             },
             "already_claimed_papers": ["http://localhost:5000/literature/4"],
         },
@@ -1121,10 +1135,10 @@ def test_assign_author_calls_create_rt_ticket_for_claiming_action_when_some_args
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=cataloger.email)
         response = client.post(
-            "/assign/author",
+            "/assign/literature/assign-different-profile",
             data=orjson.dumps(
                 {
-                    "papers_ids_not_matching_name": [
+                    "literature_ids": [
                         literature_1["control_number"],
                     ],
                     "from_author_recid": from_author["control_number"],
