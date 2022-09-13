@@ -316,9 +316,18 @@ def _disambiguate_authors(authors_to_disambiguate, record):
         PIDAlreadyExistsError,
     ),
 )
-def disambiguate_authors(self, record_uuid, disambiguate_all_not_disambiguated=False):
+def disambiguate_authors(
+    self, record_uuid, version_id, disambiguate_all_not_disambiguated=False
+):
     LOGGER.info("Starting disambiguation task", uuid=str(record_uuid))
     record = InspireRecord.get_record(record_uuid)
+    if record.model.version_id < version_id:
+        LOGGER.warining(
+            "Received stale data",
+            recent_version_id=version_id,
+            record_version_id=record.model.version_id,
+        )
+        raise StaleDataError
     editor_soft_lock = EditorSoftLock(
         recid=record["control_number"],
         record_version=record.model.version_id,

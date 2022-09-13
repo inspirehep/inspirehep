@@ -1447,7 +1447,7 @@ def test_author_disambiguation_manually_when_empty_authors(
     models_committed.disconnect(index_after_commit)
     db.session.commit()
     models_committed.connect(index_after_commit)
-    task = disambiguate_authors.delay(record.id)
+    task = disambiguate_authors.delay(record.id, record.model.version_id)
 
     def assert_disambiguation_task():
         assert task.status == "SUCCESS"
@@ -1512,7 +1512,7 @@ def test_editor_lock_is_created_when_disambiguation_runs(
     remove_lock_side_effect.counter = 0
     mocked_remove_lock.side_effect = remove_lock_side_effect
 
-    disambiguate_authors.delay(literature_record.id)
+    disambiguate_authors.delay(literature_record.id, literature_record.model.version_id)
 
     def assert_lock_created():
         lock_found = redis.hget(lock.hash_name, lock.key)

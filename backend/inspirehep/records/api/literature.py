@@ -140,7 +140,9 @@ class LiteratureRecord(
             and current_app.config["FEATURE_FLAG_ENABLE_AUTHOR_DISAMBIGUATION"]
             and not data.get("deleted")
         ):
-            disambiguate_authors.delay(str(record.id))
+            disambiguate_authors.delay(
+                str(record.id), version_id=record.model.version_id
+            )
         record.push_authors_phonetic_blocks_to_redis()
         return record
 
@@ -235,7 +237,7 @@ class LiteratureRecord(
             and current_app.config["FEATURE_FLAG_ENABLE_AUTHOR_DISAMBIGUATION"]
             and not data.get("deleted")
         ):
-            disambiguate_authors.delay(str(self.id))
+            disambiguate_authors.delay(str(self.id), version_id=self.model.version_id)
         self.push_authors_phonetic_blocks_to_redis()
 
     def get_modified_authors(self):
