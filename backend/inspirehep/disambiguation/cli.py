@@ -13,6 +13,7 @@ from invenio_db import db
 
 from inspirehep.disambiguation.tasks import disambiguate_authors
 from inspirehep.records.api import AuthorsRecord
+from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.records.models import RecordsAuthors
 from inspirehep.search.api import AuthorsSearch, LiteratureSearch
 
@@ -104,9 +105,9 @@ def _get_all_not_disambiguated_records_search():
 
 
 def _send_celery_group_disambiguation_task(uuids, batch_size):
-    task_group = disambiguate_authors.chunks(
-        zip(uuids, [True for _ in uuids]), batch_size
-    ).group()
+    records = LiteratureRecord.get_records(uuids)
+    input_data = ((record.id, record.model.version_id, True) for record in records)
+    task_group = disambiguate_authors.chunks(input_data, batch_size).group()
     task_group.apply_async(countdown=5)
 
 
@@ -144,4 +145,7 @@ def disambiguate_all_not_disambiguated(group_size, batch_size):
 @click.option("-id", "--uuid", type=str, required=True)
 def disambiguate_record_by_uuid(uuid):
     """Trigger disambiguation task for one record and disambiguate all the authors without reference"""
-    disambiguate_authors.delay(uuid, disambiguate_all_not_disambiguated=True)
+    record = LiteratureRecord.get_record(uuid)
+    disambiguate_authors.delay(
+        uuid, record.model.version_id, disambiguate_all_not_disambiguated=True
+    )
