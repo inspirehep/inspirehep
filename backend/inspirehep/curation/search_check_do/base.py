@@ -10,7 +10,7 @@ from invenio_db import db
 from structlog import get_logger
 
 from inspirehep.records.api import InspireRecord
-from inspirehep.search.api import LiteratureSearch
+from inspirehep.search.api import IQ, LiteratureSearch
 from inspirehep.utils import chunker
 
 
@@ -60,11 +60,14 @@ class SearchCheckDo(ABC):
             return NotImplementedError("`query` needs to be set to a search query")
 
         self.logger.info("Searching records", query=self.query)
-        query = (
-            self.search_class()
-            .query_from_iq(self.query)
-            .params(_source={}, size=self.size, scroll="60m")
-        )
+        search_instance = self.search_class()
+        # For literature, `query_from_iq` does unwanted permission checks,
+        # so we work around it
+        if isinstance(search_instance, LiteratureSearch):
+            query = search_instance.query(IQ(self.query, search_instance))
+        else:
+            query = search_instance.query_from_iq(self.query)
+        query = query.params(_source={}, size=self.size, scroll="60m")
         if shard_filter := self._current_shard_filter():
             query = query.filter("script", script=shard_filter)
         return query.scan()
