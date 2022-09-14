@@ -322,7 +322,7 @@ def disambiguate_authors(
     LOGGER.info("Starting disambiguation task", uuid=str(record_uuid))
     record = InspireRecord.get_record(record_uuid)
     if record.model.version_id < version_id:
-        LOGGER.warining(
+        LOGGER.warning(
             "Received stale data",
             recent_version_id=version_id,
             record_version_id=record.model.version_id,
