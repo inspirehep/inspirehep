@@ -52,6 +52,7 @@ export const EDIT_JOB = SUBMISSIONS_JOB;
 export const EDIT_CONFERENCE = '/editor/record/conferences';
 export const EDIT_INSTITUTION = '/editor/record/institutions';
 export const EDIT_JOURNAL = '/editor/record/journals';
+export const EDIT_EXPERIMENT = '/editor/record/experiments';
 export const EDIT_SEMINAR = SUBMISSIONS_SEMINAR;
 
 export const BIBLIOGRAPHY_GENERATOR = '/bibliography-generator';
