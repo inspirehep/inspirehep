@@ -49,7 +49,7 @@ def update_pdg_keywords(ctx, url):
     search_obj = (
         LiteratureSearch()
         .query(records_with_pdg_keywords_query)
-        .params(size=1000, scroll="60m")
+        .params(size=1000, scroll="60m", _source=["control_number"])
     )
     records_with_pdg_recids = (rec["control_number"] for rec in search_obj.scan())
 
