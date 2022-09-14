@@ -15,7 +15,8 @@ import { LITERATURE } from '../../common/routes';
 import { JOURNALS_PID_TYPE } from '../../common/constants';
 import { JournalTitlesListModal } from '../components/JournalTitlesListModal';
 import EditRecordAction from '../../common/components/EditRecordAction';
-import { isCataloger } from '../../common/authorization';
+import { isCataloger, SUPERUSER_OR_CATALOGER } from '../../common/authorization';
+import AuthorizedContainer from '../../common/containers/AuthorizedContainer';
 
 interface RootState {
   journals: {
@@ -54,11 +55,13 @@ export const DetailPage = ({ result, isCatalogerLoggedIn }: { result: Journal, i
             leftActions={
               <>
                 {urls && <UrlsAction urls={urls} text="links" />}
-                {recordId && <EditRecordAction
-                  isCatalogerLoggedIn={isCatalogerLoggedIn}
-                  pidType={JOURNALS_PID_TYPE}
-                  pidValue={recordId.toString()}
-                />}
+                <AuthorizedContainer authorizedRoles={SUPERUSER_OR_CATALOGER}>
+                  <EditRecordAction
+                    isCatalogerLoggedIn={isCatalogerLoggedIn}
+                    pidType={JOURNALS_PID_TYPE}
+                    pidValue={recordId.toString()}
+                  />
+                </AuthorizedContainer>
               </>
             }
           >

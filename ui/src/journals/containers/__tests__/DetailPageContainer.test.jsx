@@ -22,6 +22,7 @@ describe('DetailPageContainer', () => {
               'JOURNL OF HIGH ENERGY PHYSICS',
             ],
             publisher: ['Springer'],
+            control_number: 1234
           },
         },
       }),
@@ -45,6 +46,7 @@ describe('DetailPageContainer', () => {
             'JOURNL OF HIGH ENERGY PHYSICS',
           ]),
           publisher: List(['Springer']),
+          control_number: 1234
         }),
       }),
     );
