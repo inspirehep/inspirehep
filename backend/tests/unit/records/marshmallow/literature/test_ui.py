@@ -279,3 +279,31 @@ def test_documents_doesnt_contain_error_from_fulltext(
     serializer = LiteratureDetailSchema()
     serialized = serializer.dump(entry_data).data
     assert "_error" not in serialized
+
+def test_filter_non_pdg_keywords():
+    data = {
+        "keywords": [
+            { "schema": "PDG", "source": "PDG", "value": "M013WX" },
+            { "source": "publisher", "value": "Strong Interactions" },
+        ]
+    }
+    expected_data = [
+        { "source": "publisher", "value": "Strong Interactions" }
+    ]
+    serializer = LiteratureDetailSchema()
+    serialized = serializer.dump(data).data
+    assert serialized["keywords"] == expected_data
+
+def test_filter_pdg_keywords():
+    data = {
+        "keywords": [
+            { "schema": "PDG", "source": "PDG", "value": "M013WX" },
+            { "source": "publisher", "value": "Strong Interactions" },
+        ]
+    }
+    expected_data = [
+        { "value": "M013WX", "description": "f(2)'(1525) WIDTH" }
+    ]
+    serializer = LiteratureDetailSchema()
+    serialized = serializer.dump(data).data
+    assert serialized["pdg_keywords"] == expected_data

@@ -16,11 +16,12 @@ import Abstract from '../../components/Abstract';
 import ArxivEprintList from '../../components/ArxivEprintList';
 import EditRecordAction from '../../../common/components/EditRecordAction.tsx';
 import DOIList from '../../components/DOIList';
+import { PDGKeywords } from '../../components/PDGKeywords.tsx';
+import KeywordList from '../../../common/components/KeywordList';
 import AuthorsAndCollaborations from '../../../common/components/AuthorsAndCollaborations';
 import ExternalSystemIdentifierList from '../../components/ExternalSystemIdentifierList';
 import ContentBox from '../../../common/components/ContentBox';
 import LiteratureDate from '../../components/LiteratureDate';
-import KeywordList from '../../../common/components/KeywordList';
 import PublicationInfoList from '../../../common/components/PublicationInfoList';
 import ReportNumberList from '../../components/ReportNumberList';
 import ThesisInfo from '../../components/ThesisInfo';
@@ -92,6 +93,7 @@ function DetailPage({
   const bookSeries = metadata.get('book_series');
   const hiddenCollection = metadata.get('is_collection_hidden');
   const keywords = metadata.get('keywords');
+  const PDGkeywords = metadata.get('pdg_keywords');
   const authorCount = metadata.get('author_count');
   const citationCount = metadata.get('citation_count');
 
@@ -107,7 +109,7 @@ function DetailPage({
   const displayClaimingButton = () => {
     if (!loggedIn) return <ClaimingDisabledButton />;
     if (!hasAuthorProfile) return <AssignNoProfileAction />;
-    if (!authors) return <NoAuthorsClaimingButton />
+    if (!authors) return <NoAuthorsClaimingButton />;
     return <AssignLiteratureItemContainer controlNumber={controlNumber} />;
   };
 
@@ -153,7 +155,7 @@ function DetailPage({
                         text="links"
                         trackerEventId="LiteratureFileLink"
                       />
-                    )}  
+                    )}
                     <CiteModalActionContainer recordId={controlNumber} />
                     {displayClaimingButton()}
                     {canEdit && (
@@ -222,6 +224,9 @@ function DetailPage({
                   <ImprintInfo imprint={imprint} />
                   <ArxivEprintList eprints={eprints} />
                   <DOIList dois={dois} />
+                  {PDGkeywords && PDGkeywords.size > 0 && (
+                    <PDGKeywords keywords={PDGkeywords} />
+                  )}
                   <ReportNumberList reportNumbers={reportNumbers} />
                   <ExperimentList experiments={acceleratorExperiments} />
                   <ExternalSystemIdentifierList

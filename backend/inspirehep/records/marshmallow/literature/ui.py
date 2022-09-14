@@ -40,6 +40,7 @@ from .common import (
     ThesisInfoSchemaV1,
 )
 from .utils import get_authors_without_emails
+from .pdg_identifiers import PDG_IDS_TO_DESCRIPTION_MAPPING
 
 DATASET_SCHEMA_TO_URL_PREFIX_MAP = {
     "hepdata": "https://www.hepdata.net/record/",
@@ -111,6 +112,8 @@ class LiteratureDetailSchema(
     )
     thesis_info = fields.Nested(ThesisInfoSchemaV1, dump_only=True)
     dataset_links = fields.Method("get_datasets")
+    pdg_keywords = fields.Method("get_pdg_keywords", dump_only=True)
+    keywords = fields.Method("get_keywords", dump_only=True)
 
     def get_is_collection_hidden(self, data):
         collections = data.get("_collections")
@@ -259,6 +262,28 @@ class LiteratureDetailSchema(
             if "_error" in document:
                 del document["_error"]
         return documents
+
+    def get_pdg_keywords(self, data):
+        keywords = data.get("keywords", [])
+        pdg_keywords = []
+
+        for keyword_entry in keywords:
+            if keyword_entry.get('schema') != 'PDG':
+                continue
+            pdg_identifier = keyword_entry['value']
+            pdg_keywords.append({'value': pdg_identifier, 'description': PDG_IDS_TO_DESCRIPTION_MAPPING[pdg_identifier]})
+
+        return pdg_keywords
+
+    def get_keywords(self, data):
+        keywords = data.get("keywords", [])
+        keywords_without_pdg = []
+
+        for keyword_entry in keywords:
+            if keyword_entry.get('schema') != 'PDG':
+                keywords_without_pdg.append(keyword_entry)
+
+        return keywords_without_pdg
 
 
 class LiteratureListWrappedSchema(EnvelopeSchema):
