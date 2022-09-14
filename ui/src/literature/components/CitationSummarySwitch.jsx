@@ -20,14 +20,17 @@ function CitationSummarySwitch({
   const actionName = checked ? 'Hide' : 'Show';
   const tooltipHelp = `${actionName} Citation Summary`;
   return (
-    <Tooltip title={tooltipHelp}>
-      <Switch
-        checkedChildren={CHART_ICON}
-        unCheckedChildren={CHART_ICON}
-        checked={checked}
-        onChange={onChange}
-      />
-    </Tooltip>
+    <>
+      <span className="pr2 dn di-m di-l" style={{ verticalAlign: 'middle' }}>Citation Summary</span>
+      <Tooltip title={tooltipHelp}>
+        <Switch
+          checkedChildren={CHART_ICON}
+          unCheckedChildren={CHART_ICON}
+          checked={checked}
+          onChange={onChange}
+        />
+      </Tooltip>
+    </>
   );
 }
 
