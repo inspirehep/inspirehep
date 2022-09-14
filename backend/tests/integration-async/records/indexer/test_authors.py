@@ -216,3 +216,38 @@ def test_indexer_updates_advisor_when_student_name_changes(
         assert record_from_es["students"][0]["name"] == expected_student_name
 
     retry_until_pass(assert_record, retry_interval=3)
+
+
+def test_student_with_the_same_advisor_for_multiple_degrees(
+    inspire_app, clean_celery_session
+):
+    advisor_data = faker.record("aut")
+    advisor = AuthorsRecord.create(advisor_data)
+    db.session.commit()
+    current_search.flush_and_refresh("records-authors")
+    student_data = faker.record(
+        "aut",
+        data={
+            "advisors": [
+                {
+                    "name": advisor["name"]["value"],
+                    "record": advisor["self"],
+                    "degree_type": "master",
+                },
+                {
+                    "name": advisor["name"]["value"],
+                    "record": advisor["self"],
+                    "degree_type": "phd",
+                },
+            ]
+        },
+    )
+    AuthorsRecord.create(student_data)
+    db.session.commit()
+
+    def assert_record():
+        current_search.flush_and_refresh("records-authors")
+        records_from_es = AuthorsSearch().query_from_iq("").execute()
+        assert len(records_from_es.hits) == 2
+
+    retry_until_pass(assert_record, 3)
