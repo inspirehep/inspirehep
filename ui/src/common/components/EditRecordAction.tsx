@@ -14,7 +14,8 @@ import {
   EDIT_AUTHOR_CATALOGER,
   EDIT_INSTITUTION,
   EDIT_SEMINAR,
-  EDIT_JOURNAL
+  EDIT_JOURNAL,
+  EDIT_EXPERIMENT
 } from '../routes';
 import PidType from '../types/PidType';
 import PidValue from '../types/PidValue';
@@ -26,7 +27,8 @@ const pidTypeToEditRoutePrefix = {
   authors: EDIT_AUTHOR,
   institutions: EDIT_INSTITUTION,
   seminars: EDIT_SEMINAR,
-  journals: EDIT_JOURNAL
+  journals: EDIT_JOURNAL,
+  experiments: EDIT_EXPERIMENT
 };
 
 interface EditRecordActionProps {

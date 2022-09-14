@@ -26,6 +26,9 @@ import ExperimentPapers from './ExperimentPapers';
 import { makeCompliantMetaDescription } from '../../common/utils';
 import { EXPERIMENT_PAPERS_NS } from '../../search/constants';
 import { EXPERIMENTS_PID_TYPE } from '../../common/constants';
+import { SUPERUSER_OR_CATALOGER } from '../../common/authorization';
+import AuthorizedContainer from '../../common/containers/AuthorizedContainer';
+import EditRecordAction from '../../common/components/EditRecordAction.tsx';
 
 function DetailPage({ record }) {
   const metadata = record.get('metadata');
@@ -59,7 +62,17 @@ function DetailPage({ record }) {
         <Col className="mv3" xs={24} md={22} lg={21} xxl={18}>
           <ContentBox
             className="sm-pb3"
-            leftActions={urls && <UrlsAction urls={urls} text="links" />}
+            leftActions={
+              <>
+                {urls && <UrlsAction urls={urls} text="links" />}
+                <AuthorizedContainer authorizedRoles={SUPERUSER_OR_CATALOGER}>
+                  <EditRecordAction
+                    pidType={EXPERIMENTS_PID_TYPE}
+                    pidValue={recordId}
+                  />
+                </AuthorizedContainer>
+              </>
+            }
           >
             <Row>
               <Col span={24}>{deleted && <DeletedAlert />}</Col>
