@@ -23,7 +23,7 @@ def test_update_pdg_keywords(inspire_app, clean_celery_session, cli):
             "lit",
             data={
                 "control_number": 48509,
-                "keywords": [{"schema": "PDG", "value": "a test"}, {"value": "a test"}],
+                "keywords": [{"schema": "PDG", "value": "S000"}, {"value": "a test"}],
             },
         )
     )
@@ -44,7 +44,7 @@ def test_update_pdg_keywords(inspire_app, clean_celery_session, cli):
             "lit",
             data={
                 "control_number": 4444444,
-                "keywords": [{"schema": "PDG", "value": "a test"}],
+                "keywords": [{"schema": "PDG", "value": "S000"}],
             },
         )
     )
@@ -85,7 +85,7 @@ def test_update_pdg_keywords(inspire_app, clean_celery_session, cli):
         rec_4444444_es = LiteratureSearch.get_record_data_from_es(rec_4444444)
 
         assert {"schema": "PDG", "value": "S027RHO"} in rec_48509_es["keywords"]
-        assert {"schema": "PDG", "value": "a test"} not in rec_48509_es["keywords"]
+        assert {"schema": "PDG", "value": "S000"} not in rec_48509_es["keywords"]
         assert len(get_values_for_schema(rec_48468_es["keywords"], "PDG")) == 4
         assert rec_48478_es["keywords"] == [{"schema": "PDG", "value": "S024M"}]
         assert not rec_4444444_es.get("keywords")
