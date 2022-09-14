@@ -246,18 +246,18 @@ class StudentsAdvisors(db.Model):
     __tablename__ = "students_advisors"
     __table_args__ = (db.Index("ix_students_advisors_student_id", "student_id"),)
 
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
+
     advisor_id = db.Column(
         UUIDType,
         db.ForeignKey("records_metadata.id", name="fk_students_advisors_advisor_id"),
         nullable=False,
-        primary_key=True,
     )
 
     student_id = db.Column(
         UUIDType,
         db.ForeignKey("records_metadata.id", name="fk_students_advisors_student_id"),
         nullable=False,
-        primary_key=True,
     )
 
     degree_type = db.Column(
