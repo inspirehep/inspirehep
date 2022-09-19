@@ -190,7 +190,7 @@ class LiteratureSearch(InspireSearch):
 
     def query_by_user_role(self, query_string):
         fulltext_highlight_options = dict(
-            fragment_size=160, type="plain", number_of_fragments=1, order="score"
+            fragment_size=160, type="fvh", number_of_fragments=1, order="score"
         )
         if is_superuser_or_cataloger_logged_in():
             return self.query(IQ(query_string, self)).highlight(

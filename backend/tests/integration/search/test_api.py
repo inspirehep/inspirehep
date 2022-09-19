@@ -1318,7 +1318,7 @@ def test_highlighting_query(inspire_app):
     expected_highlight_options = {
         "documents.attachment.content": {
             "fragment_size": 160,
-            "type": "plain",
+            "type": "fvh",
             "number_of_fragments": 1,
             "order": "score",
         }
