@@ -40,6 +40,7 @@ import AssignOneDifferentProfileContainer from '../../authors/containers/AssignO
 import AssignNoProfileAction from '../../authors/components/AssignNoProfileAction';
 import AssignViewNoProfileContext from '../../authors/assignViewNoProfileContext';
 import ClaimingDisabledButton from '../../authors/components/ClaimingDisabledButton';
+import { FulltextSnippet } from './FulltextSnippet/FulltextSnippet';
 
 function LiteratureItem({ metadata, searchRank, isCatalogerLoggedIn }) {
   const title = metadata.getIn(['titles', 0]);
@@ -53,6 +54,7 @@ function LiteratureItem({ metadata, searchRank, isCatalogerLoggedIn }) {
   const authorCount = metadata.get('number_of_authors');
   const conferenceInfo = metadata.get('conference_info');
   const publicNotes = metadata.get('public_notes');
+  const fulltextSnippet = metadata.get('fulltext_highlight');
 
   const date = metadata.get('date');
   const publicationInfo = metadata.get('publication_info');
@@ -209,6 +211,9 @@ function LiteratureItem({ metadata, searchRank, isCatalogerLoggedIn }) {
           </div>
         )}
       </div>
+      {fulltextSnippet && <div className="mt1">
+        <FulltextSnippet snippet={fulltextSnippet.valueSeq().first()} />
+      </div>}
     </ResultItem>
   );
 }
