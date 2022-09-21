@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { fromJS } from 'immutable';
+import { fromJS, List } from 'immutable';
 
 import LiteratureItem from '../LiteratureItem';
 
@@ -29,6 +29,7 @@ describe('LiteratureItem', () => {
           ],
         },
       ],
+      fulltext_highlight: List(['A snippet of <em>fulltext</em>'])
     });
     const wrapper = shallow(
       <LiteratureItem metadata={metadata} searchRank={2} />

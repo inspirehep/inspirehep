@@ -1,0 +1,9 @@
+.__FulltextSnippet__ {
+  opacity: 0.85;
+  & > div {
+    display: inline;
+  }
+  em {
+    font-weight: bold;
+  }
+}

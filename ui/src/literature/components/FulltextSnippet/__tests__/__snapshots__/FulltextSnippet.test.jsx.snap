@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FulltextSnippet renders 1`] = `
+<div
+  className="__FulltextSnippet__"
+>
+  "
+  <SanitizedHTML
+    html="A snippet of <em>fulltext</em>"
+  />
+   ..."
+</div>
+`;
