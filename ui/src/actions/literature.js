@@ -12,7 +12,7 @@ import {
   LITERATURE_SELECTION_SET,
   LITERATURE_SET_ASSIGN_DRAWER_VISIBILITY,
   LITERATURE_SELECTION_CLEAR,
-  LITERATURE_SET_ASSIGN_DETAIL_VIEW_DRAWER_VISIBILITY,
+  LITERATURE_SET_ASSIGN_LITERATURE_ITEM_DRAWER_VISIBILITY,
 } from './actionTypes';
 import { isCancelError } from '../common/http.ts';
 import { httpErrorToActionPayload } from '../common/utils';
@@ -154,10 +154,10 @@ export function setAssignDrawerVisibility(visible) {
   };
 }
 
-export function setAssignDetailViewDrawerVisibility(visible) {
+export function setAssignLiteratureItemDrawerVisibility(literatureId) {
   return {
-    type: LITERATURE_SET_ASSIGN_DETAIL_VIEW_DRAWER_VISIBILITY,
-    payload: { visible },
+    type: LITERATURE_SET_ASSIGN_LITERATURE_ITEM_DRAWER_VISIBILITY,
+    payload: { literatureId },
   };
 }
 
@@ -166,10 +166,10 @@ export function assignLiteratureItem({ from, to, literatureId }) {
     try {
       assigning(ASSIGNING_NOTIFICATION_LITERATURE_ITEM_KEY);
       const { data } = await http
-        .post('/assign/author', {
+        .post('/assign/literature/assign', {
           from_author_recid: from,
           to_author_recid: to,
-          literature_recids: [literatureId],
+          literature_ids: [literatureId],
         })
       if (data) assignLiteratureItemSuccess();
     } catch (error) {
@@ -182,14 +182,15 @@ export function assignLiteratureItemNoNameMatch({ from, to, literatureId }) {
   return async (dispatch, getState, http) => {
     try {
       assigning(ASSIGNING_NOTIFICATION_LITERATURE_ITEM_KEY);
-      const { data } = await http.post('/assign/author', {
+      const { data } = await http.post('/assign/literature/assign-different-profile',
+      {
         from_author_recid: from,
         to_author_recid: to,
-        papers_ids_not_matching_name: [literatureId],
+        literature_ids: [literatureId],
       });
       if (Object.prototype.hasOwnProperty.call(data, 'created_rt_ticket')) {
         assignSuccessDifferentProfileClaimedPapers();
-        dispatch(setAssignDetailViewDrawerVisibility(false));
+        dispatch(setAssignLiteratureItemDrawerVisibility(null));
       } else {
         assignLiteratureItemError(ASSIGNING_NOTIFICATION_LITERATURE_ITEM_KEY);
       }
@@ -211,7 +212,7 @@ export function checkNameCompatibility({ to, literatureId }) {
         literatureId,
       }));
     } catch (error) {
-      dispatch(setAssignDetailViewDrawerVisibility(true));
+      dispatch(setAssignLiteratureItemDrawerVisibility(literatureId));
     }
   };
 }

@@ -24,25 +24,25 @@ interface IAuthorResult {
 }
 
 interface AssignLiteratureItemDrawerProps {
-  visible: boolean;
+  literatureId: number;
   onDrawerClose: () => void;
   onAssign: (args: {
     from: string | undefined;
     to: number;
-    literatureId: string;
+    literatureId: number;
   }) => void;
   currentUserRecordId: number;
   authors: IAuthorResult[];
-  paperId: string;
+  itemLiteratureId: number;
 }
 
 function AssignLiteratureItemDrawer({
-  visible,
+  literatureId,
   onDrawerClose,
   onAssign,
   currentUserRecordId,
   authors,
-  paperId,
+  itemLiteratureId,
 }: AssignLiteratureItemDrawerProps) {
   const [selectedAuthorId, setSelectedAuthorId] = useState<string>();
   const [availableAuthors, setAvailableAuthors] = useState<IAuthorResult[]>([]);
@@ -60,9 +60,9 @@ function AssignLiteratureItemDrawer({
     onAssign({
       from: selectedAuthorId,
       to: currentUserRecordId,
-      literatureId: paperId,
+      literatureId: itemLiteratureId,
     });
-  }, [currentUserRecordId, selectedAuthorId, onAssign, paperId]);
+  }, [currentUserRecordId, selectedAuthorId, onAssign, itemLiteratureId]);
 
   const onAuthorSearch = (value: string): void => {
     const filteredAuthors = authors.filter(
@@ -79,9 +79,10 @@ function AssignLiteratureItemDrawer({
   return (
     <Drawer
       className="search-drawer"
+      data-test-id="assign-literature-drawer"
       placement="right"
       onClose={onDrawerClose}
-      visible={visible}
+      visible={itemLiteratureId === literatureId}
     >
       <p>
         <strong>Select the author to claim:</strong>

@@ -12,7 +12,7 @@ jest.mock('react-router-dom', () => ({
 
 describe('AssignLiteratureItemDrawer', () => {
   it('renders authors list', () => {
-    const visible = true;
+    const literatureId = 122334;
     const onDrawerClose = jest.fn();
     const onAssign = jest.fn();
     const authors = fromJS([
@@ -37,30 +37,30 @@ describe('AssignLiteratureItemDrawer', () => {
     ]);
     const wrapper = shallow(
       <AssignLiteratureItemDrawer
-        visible={visible}
+        literatureId={literatureId}
         onDrawerClose={onDrawerClose}
         onAssign={onAssign}
         currentAuthorId={12345676}
         authors={authors}
-        paperId={122334}
+        itemLiteratureId={122334}
       />
     );
     expect(wrapper).toMatchSnapshot();
   });
 
   it('calls onAssign on assign button click', () => {
-    const visible = true;
+    const literatureId = 122334;
     const onDrawerClose = jest.fn();
     const onAssignClick = jest.fn();
 
     const wrapper = shallow(
       <AssignLiteratureItemDrawer
-        visible={visible}
+        literatureId={literatureId}
         onDrawerClose={onDrawerClose}
         onAssign={onAssignClick}
         currentAuthorId={12345676}
         authors={[]}
-        paperId={122334}
+        itemLiteratureId={122334}
       />
     );
     expect(
