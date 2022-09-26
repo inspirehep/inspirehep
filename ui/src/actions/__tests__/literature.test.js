@@ -27,7 +27,7 @@ import {
   assignPapers,
   exportToCds,
   assignLiteratureItem,
-  setAssignDetailViewDrawerVisibility,
+  setAssignLiteratureItemDrawerVisibility,
   assignLiteratureItemNoNameMatch,
   checkNameCompatibility
 } from '../literature';
@@ -245,10 +245,10 @@ describe('literature - async action creators', () => {
       const store = getStore();
 
       mockHttp
-        .onPost('/assign/author', {
+        .onPost('/assign/literature/assign', {
           from_author_recid: from,
           to_author_recid: to,
-          literature_recids: [literatureId],
+          literature_ids: [literatureId],
         })
         .replyOnce(200, { message: 'Success' });
 
@@ -272,10 +272,10 @@ describe('literature - async action creators', () => {
       const store = getStore();
 
       mockHttp
-        .onPost('/assign/author', {
+        .onPost('/assign/literature/assign', {
           from_author_recid: from,
           to_author_recid: to,
-          literature_recids: paperId,
+          literature_ids: paperId,
         })
         .replyOnce(500, {});
 
@@ -305,15 +305,15 @@ describe('literature - async action creators', () => {
       const store = getStore();
 
       mockHttp
-        .onPost('/assign/author', {
+        .onPost('/assign/literature/assign-different-profile', {
           from_author_recid: from,
           to_author_recid: to,
-          papers_ids_not_matching_name: [literatureId],
+          literature_ids: [literatureId],
         })
         .replyOnce(200, { message: 'Success', created_rt_ticket: true });
 
       const expectedActions = [
-        setAssignDetailViewDrawerVisibility(false)
+        setAssignLiteratureItemDrawerVisibility(null)
       ];
 
       const dispatchPromise = store.dispatch(
@@ -334,10 +334,10 @@ describe('literature - async action creators', () => {
       const store = getStore();
 
       mockHttp
-        .onPost('/assign/author', {
+        .onPost('/assign/literature/assign-different-profile', {
           from_author_recid: from,
           to_author_recid: to,
-          literature_recids: literatureId,
+          literature_ids: literatureId,
         })
         .replyOnce(500, {});
 
@@ -391,11 +391,11 @@ describe('literature - async action creators', () => {
         .replyOnce(500, {});
 
       const expectedActions = [
-        setAssignDetailViewDrawerVisibility(true)
+        setAssignLiteratureItemDrawerVisibility(paperId)
       ];
 
       const dispatchPromise = store.dispatch(
-        setAssignDetailViewDrawerVisibility(true)
+        setAssignLiteratureItemDrawerVisibility(paperId)
       );
       expect(assigning).toHaveBeenCalled();
 

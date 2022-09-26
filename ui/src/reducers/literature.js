@@ -15,7 +15,7 @@ import {
   LITERATURE_SELECTION_SET,
   LITERATURE_SET_ASSIGN_DRAWER_VISIBILITY,
   LITERATURE_SELECTION_CLEAR,
-  LITERATURE_SET_ASSIGN_DETAIL_VIEW_DRAWER_VISIBILITY
+  LITERATURE_SET_ASSIGN_LITERATURE_ITEM_DRAWER_VISIBILITY
 } from '../actions/actionTypes';
 import {
   onRequest,
@@ -36,7 +36,7 @@ export const initialState = fromJS({
   supervisors: [],
   literatureSelection: Set(),
   isAssignDrawerVisible: false,
-  isAssignDetailViewDrawerVisible: false,
+  assignDetailViewDrawerVisible: null,
 }).merge(initialRecordState);
 
 const literatureReducer = (state = initialState, action) => {
@@ -82,8 +82,8 @@ const literatureReducer = (state = initialState, action) => {
       return state.set('literatureSelection', Set());
     case LITERATURE_SET_ASSIGN_DRAWER_VISIBILITY:
       return state.set('isAssignDrawerVisible', action.payload.visible);
-    case LITERATURE_SET_ASSIGN_DETAIL_VIEW_DRAWER_VISIBILITY:
-        return state.set('isAssignDetailViewDrawerVisible', action.payload.visible);
+    case LITERATURE_SET_ASSIGN_LITERATURE_ITEM_DRAWER_VISIBILITY:
+        return state.set('assignLiteratureItemDrawerVisible', action.payload.literatureId);
     case LITERATURE_SELECTION_SET:
       const { literatureIds, selected } = action.payload;
       const selectionUpdate = Set(literatureIds);

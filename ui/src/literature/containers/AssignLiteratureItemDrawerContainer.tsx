@@ -1,7 +1,7 @@
 import { connect, MapDispatchToPropsParam } from 'react-redux';
 
 import {
-  setAssignDetailViewDrawerVisibility,
+  setAssignLiteratureItemDrawerVisibility,
   assignLiteratureItemNoNameMatch,
 } from '../../actions/literature';
 import AssignLiteratureItemDrawer from '../components/AssignLiteratureItemDrawer';
@@ -11,12 +11,12 @@ interface RootState {
     getIn: (values: [string, string]) => string;
   };
   literature: {
-    get: (value: string) => boolean;
+    get: (value: string) => number;
   };
 }
 
 const stateToProps = (state: RootState) => ({
-  visible: state.literature.get('isAssignDetailViewDrawerVisible'),
+  literatureId: state.literature.get('assignLiteratureItemDrawerVisible'),
   currentUserRecordId: Number(state.user.getIn(['data', 'recid'])),
 });
 
@@ -24,7 +24,7 @@ export const dispatchToProps = (
   dispatch: MapDispatchToPropsParam<any, any>
 ) => ({
   onDrawerClose() {
-    dispatch(setAssignDetailViewDrawerVisibility(false));
+    dispatch(setAssignLiteratureItemDrawerVisibility(null));
   },
 
   onAssign({
@@ -34,7 +34,7 @@ export const dispatchToProps = (
   }: {
     from: string | undefined;
     to: number;
-    literatureId: string;
+    literatureId: number;
   }) {
     dispatch(assignLiteratureItemNoNameMatch({ from, to, literatureId }));
   },

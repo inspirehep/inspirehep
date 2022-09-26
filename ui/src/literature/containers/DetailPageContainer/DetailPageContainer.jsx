@@ -52,11 +52,8 @@ import LiteratureSeminars from '../../components/LiteratureSeminars';
 import { newSearch, searchBaseQueriesUpdate } from '../../../actions/search';
 import ImprintInfo from '../../components/ImprintInfo';
 import HiddenCollectionAlert from '../../components/LiteratureCollectionBanner';
-import ClaimingDisabledButton from '../../../authors/components/ClaimingDisabledButton';
-import AssignNoProfileAction from '../../../authors/components/AssignNoProfileAction';
-import AssignLiteratureItemContainer from '../AssignLiteratureItemContainer.tsx';
 import AssignLiteratureItemDrawerContainer from '../AssignLiteratureItemDrawerContainer';
-import NoAuthorsClaimingButton from '../../components/NoAuthorsClaimingButton';
+import LiteratureClaimButton from '../../components/LiteratureClaimButton';
 
 function DetailPage({
   authors,
@@ -106,19 +103,12 @@ function DetailPage({
     ? publicationInfo.filter((pub) => pub.has('journal_title'))
     : null;
 
-  const displayClaimingButton = () => {
-    if (!loggedIn) return <ClaimingDisabledButton />;
-    if (!hasAuthorProfile) return <AssignNoProfileAction />;
-    if (!authors) return <NoAuthorsClaimingButton />;
-    return <AssignLiteratureItemContainer controlNumber={controlNumber} />;
-  };
-
   return (
     <>
       {authors && (
         <AssignLiteratureItemDrawerContainer
           authors={authors}
-          paperId={controlNumber}
+          itemLiteratureId={controlNumber}
         />
       )}
       <LiteratureDocumentHead
@@ -157,7 +147,12 @@ function DetailPage({
                       />
                     )}
                     <CiteModalActionContainer recordId={controlNumber} />
-                    {displayClaimingButton()}
+                    <LiteratureClaimButton
+                      loggedIn={loggedIn}
+                      hasAuthorProfile={hasAuthorProfile}
+                      authors={authors}
+                      controlNumber={controlNumber}
+                    />
                     {canEdit && (
                       <EditRecordAction
                         pidType="literature"

@@ -3,6 +3,7 @@
 exports[`AssignLiteratureItemDrawer renders authors list 1`] = `
 <withConfigConsumer(Drawer)
   className="search-drawer"
+  data-test-id="assign-literature-drawer"
   onClose={[MockFunction]}
   placement="right"
   visible={true}

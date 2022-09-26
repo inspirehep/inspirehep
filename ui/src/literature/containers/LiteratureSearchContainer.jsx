@@ -12,7 +12,7 @@ import NumberOfResultsWithSelectedItemsNumber from '../components/NumberOfResult
 import LoadingOrChildren from '../../common/components/LoadingOrChildren';
 import ResponsiveView from '../../common/components/ResponsiveView';
 import DrawerHandle from '../../common/components/DrawerHandle.tsx';
-import LiteratureItem from '../components/LiteratureItem';
+import LiteratureItemContainer from './LiteratureItemContainer';
 import CiteAllActionContainer from './CiteAllActionContainer';
 import VerticalDivider from '../../common/VerticalDivider';
 import { searchBaseQueriesUpdate } from '../../actions/search';
@@ -207,10 +207,6 @@ function LiteratureSearch({
                                 ['metadata', 'curated_relation'],
                                 false
                               )}
-                              canClaim={result.getIn(
-                                ['metadata', 'can_claim'],
-                                false
-                              )}
                             />
                           </Col>
                         )}
@@ -230,10 +226,11 @@ function LiteratureSearch({
                         </Col>
                       )}
                       <Col flex="1 1 1px">
-                        <LiteratureItem
+                        <LiteratureItemContainer
                           metadata={result.get('metadata')}
                           searchRank={rank}
                           isCatalogerLoggedIn={isCatalogerLoggedIn}
+                          namespace={namespace}
                         />
                       </Col>
                     </Row>

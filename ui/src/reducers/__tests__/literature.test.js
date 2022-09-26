@@ -12,7 +12,7 @@ import {
   LITERATURE_REFERENCES_SUCCESS,
   LITERATURE_SELECTION_SET,
   LITERATURE_SET_ASSIGN_DRAWER_VISIBILITY,
-  LITERATURE_SET_ASSIGN_DETAIL_VIEW_DRAWER_VISIBILITY,
+  LITERATURE_SET_ASSIGN_LITERATURE_ITEM_DRAWER_VISIBILITY,
   LITERATURE_SELECTION_CLEAR,
   CLEAR_STATE,
 } from '../../actions/actionTypes';
@@ -232,14 +232,14 @@ describe('literature reducer', () => {
     expect(state).toEqual(expected);
   });
 
-  it('LITERATURE_SET_ASSIGN_DETAIL_VIEW_DRAWER_VISIBILITY', () => {
-    const currentState = Map({ isAssignDetailViewDrawerVisible: false });
+  it('LITERATURE_SET_ASSIGN_LITERATURE_ITEM_DRAWER_VISIBILITY', () => {
+    const currentState = Map({ assignLiteratureItemDrawerVisible: null });
     const state = reducer(currentState, {
-      type: LITERATURE_SET_ASSIGN_DETAIL_VIEW_DRAWER_VISIBILITY,
-      payload: { visible: true },
+      type: LITERATURE_SET_ASSIGN_LITERATURE_ITEM_DRAWER_VISIBILITY,
+      payload: { literatureId: 12345 },
     });
     const expected = fromJS({
-      isAssignDetailViewDrawerVisible: true,
+      assignLiteratureItemDrawerVisible: 12345,
     });
     expect(state).toEqual(expected);
   });
