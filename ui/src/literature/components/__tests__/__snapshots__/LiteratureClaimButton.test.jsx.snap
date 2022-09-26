@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LiteratureClaimButton renders disabled when user is logged in and has profile but there is no authors 1`] = `
+<Fragment>
+  <NoAuthorsClaimingButton />
+</Fragment>
+`;
+
+exports[`LiteratureClaimButton renders disabled when user is logged in but doesnt have profile 1`] = `
+<Fragment>
+  <AssignNoProfileAction />
+</Fragment>
+`;
+
+exports[`LiteratureClaimButton renders disabled when user is not logged in 1`] = `
+<Fragment>
+  <ClaimingDisabledButton />
+  <AssignNoProfileAction />
+</Fragment>
+`;
+
+exports[`LiteratureClaimButton renders enabled 1`] = `
+<Fragment>
+  <Connect(AssignLiteratureItem)
+    controlNumber={123456}
+  />
+</Fragment>
+`;

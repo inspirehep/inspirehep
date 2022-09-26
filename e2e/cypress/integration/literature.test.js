@@ -59,6 +59,9 @@ describe('Literature Detail', () => {
 
       cy.get('@referenceListItems').should('have.length', 25);
       cy.get('@selectionItem').should('be.visible');
+
+      cy.get('[data-test-id="assign-literature-drawer"]')
+        .find('button[class="ant-drawer-close"]').click()
       cy.get('@paginationList')
         .find('.ant-select-selection-search-input')
         .click();

@@ -379,5 +379,100 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
       snippet="A snippet of <em>fulltext</em>"
     />
   </div>
+  <Connect(AssignLiteratureItemDrawer)
+    authors={
+      Immutable.List [
+        Immutable.Map {
+          "full_name": "Test, Author",
+        },
+      ]
+    }
+    itemLiteratureId={12345}
+  />
+</ResultItem>
+`;
+
+exports[`LiteratureItem renders with literature item claiming button on literature search page 1`] = `
+<ResultItem
+  leftActions={
+    <React.Fragment>
+      <Connect(CiteModalAction)
+        recordId={12345}
+      />
+      <LiteratureClaimButton
+        controlNumber={12345}
+        hasAuthorProfile={true}
+        loggedIn={true}
+      />
+    </React.Fragment>
+  }
+  rightActions={
+    <React.Fragment>
+      <IncomingLiteratureReferencesLinkAction
+        itemCount={0}
+        linkQuery="refersto:recid:12345"
+        referenceType="citation"
+        trackerEventId="Citations:Search"
+      />
+    </React.Fragment>
+  }
+>
+  <div
+    data-test-id="literature-result-item"
+  >
+    <div
+      className="flex flex-nowrap"
+    >
+      <div
+        className="flex-grow-1"
+      >
+        <Link
+          className="result-item-title"
+          data-test-id="literature-result-title-link"
+          to="/literature/12345"
+        >
+          <LiteratureTitle
+            title={
+              Immutable.Map {
+                "title": "test",
+              }
+            }
+          />
+        </Link>
+      </div>
+      <ResponsiveView
+        min="sm"
+        render={[Function]}
+      />
+    </div>
+    <div
+      className="mt1"
+    >
+      <AuthorsAndCollaborations
+        authors={Immutable.List []}
+        collaborations={Immutable.List []}
+        collaborationsWithSuffix={Immutable.List []}
+        enableAuthorsShowAll={false}
+      />
+    </div>
+    <div
+      className="mt1"
+    >
+      <InlineUL
+        separator=" • "
+        wrapperClassName={null}
+      >
+        <BookSeriesInfoList
+          bookSeries={
+            Immutable.List [
+              Immutable.Map {
+                "title": "SpringerBriefs in Physics",
+              },
+            ]
+          }
+        />
+      </InlineUL>
+    </div>
+  </div>
 </ResultItem>
 `;

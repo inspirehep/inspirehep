@@ -19,6 +19,7 @@ import UrlsAction from './UrlsAction';
 import DOILinkAction from './DOILinkAction';
 import EditRecordAction from '../../common/components/EditRecordAction.tsx';
 import ResultItem from '../../common/components/ResultItem';
+import { LITERATURE_NS } from '../../search/constants';
 import { LITERATURE } from '../../common/routes';
 import LiteratureTitle from '../../common/components/LiteratureTitle';
 import ResponsiveView from '../../common/components/ResponsiveView';
@@ -41,8 +42,17 @@ import AssignNoProfileAction from '../../authors/components/AssignNoProfileActio
 import AssignViewNoProfileContext from '../../authors/assignViewNoProfileContext';
 import ClaimingDisabledButton from '../../authors/components/ClaimingDisabledButton';
 import { FulltextSnippet } from './FulltextSnippet/FulltextSnippet';
+import LiteratureClaimButton from './LiteratureClaimButton';
+import AssignLiteratureItemDrawerContainer from '../containers/AssignLiteratureItemDrawerContainer';
 
-function LiteratureItem({ metadata, searchRank, isCatalogerLoggedIn }) {
+function LiteratureItem({
+  metadata,
+  searchRank,
+  isCatalogerLoggedIn,
+  loggedIn,
+  hasAuthorProfile,
+  namespace,
+}) {
   const title = metadata.getIn(['titles', 0]);
   const authors = metadata.get('authors');
 
@@ -79,9 +89,13 @@ function LiteratureItem({ metadata, searchRank, isCatalogerLoggedIn }) {
     !assignOwnProfileView &&
     !assignAuthorView &&
     !assignDifferentProfileView;
-  
+
   const assignNotLoggedInView = useContext(AssignViewNotLoggedInContext);
-  const assignNotLoggedInViewCondition = assignNotLoggedInView && !assignNoProfileViewCondition;
+  const assignNotLoggedInViewCondition =
+    assignNotLoggedInView && !assignNoProfileViewCondition;
+  const assignLiteratureViewCondition =
+    !assignAuthorView && namespace === LITERATURE_NS;
+
   const publicationInfoWithTitle = publicationInfo
     ? publicationInfo.filter((pub) => pub.has('journal_title'))
     : null;
@@ -134,6 +148,14 @@ function LiteratureItem({ metadata, searchRank, isCatalogerLoggedIn }) {
           )}
           {assignNoProfileViewCondition && <AssignNoProfileAction />}
           {assignNotLoggedInViewCondition && <ClaimingDisabledButton />}
+          {assignLiteratureViewCondition && (
+            <LiteratureClaimButton
+              loggedIn={loggedIn}
+              hasAuthorProfile={hasAuthorProfile}
+              authors={authors}
+              controlNumber={recordId}
+            />
+          )}
         </Fragment>
       }
       rightActions={
@@ -211,9 +233,17 @@ function LiteratureItem({ metadata, searchRank, isCatalogerLoggedIn }) {
           </div>
         )}
       </div>
-      {fulltextSnippet && <div className="mt1">
-        <FulltextSnippet snippet={fulltextSnippet.valueSeq().first()} />
-      </div>}
+      {fulltextSnippet && (
+        <div className="mt1">
+          <FulltextSnippet snippet={fulltextSnippet.valueSeq().first()} />
+        </div>
+      )}
+      {authors && (
+        <AssignLiteratureItemDrawerContainer
+          authors={authors}
+          itemLiteratureId={recordId}
+        />
+      )}
     </ResultItem>
   );
 }

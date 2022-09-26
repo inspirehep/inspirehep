@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 import { fromJS, List } from 'immutable';
 
 import LiteratureItem from '../LiteratureItem';
+import { LITERATURE_NS } from '../../../search/constants';
 
 describe('LiteratureItem', () => {
   it('renders with all props set, including sub props', () => {
@@ -78,6 +79,29 @@ describe('LiteratureItem', () => {
     });
     const wrapper = shallow(
       <LiteratureItem metadata={metadata} searchRank={3} />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('renders with literature item claiming button on literature search page', () => {
+    const metadata = fromJS({
+      control_number: 12345,
+      titles: [{ title: 'test' }],
+      publication_info: [
+        {
+          year: 2021,
+          journal_volume: '9783030795993',
+        },
+      ],
+      document_type: ['book'],
+      book_series: [
+        {
+          title: 'SpringerBriefs in Physics',
+        },
+      ],
+    });
+    const wrapper = shallow(
+      <LiteratureItem metadata={metadata} searchRank={3} loggedIn hasAuthorProfile namespace={LITERATURE_NS} />
     );
     expect(wrapper).toMatchSnapshot();
   });
