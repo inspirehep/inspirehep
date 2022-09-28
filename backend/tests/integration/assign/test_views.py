@@ -65,7 +65,7 @@ def test_assign_without_login(inspire_app):
 
 @mock.patch("inspirehep.assign.views.current_celery_app.send_task")
 def test_assign_from_an_author_to_another(mock_assign, inspire_app):
-    cataloger = create_user(role="cataloger")
+    cataloger = create_user(role=Roles.cataloger.value)
     author_data = {
         "name": {"value": "Aad, Georges", "preferred_name": "Georges Aad"},
         "ids": [{"value": "G.Aad.1", "schema": "INSPIRE BAI"}],
@@ -129,8 +129,83 @@ def test_assign_from_an_author_to_another(mock_assign, inspire_app):
 
 
 @mock.patch("inspirehep.assign.views.current_celery_app.send_task")
+@mock.patch("inspirehep.accounts.api.get_current_user_orcid", return_value='0000-0003-1134-6827')
+def test_regression_assign_from_an_author_to_another_with_checking_record_ids(mock_assign, mock_orcid, inspire_app):
+    cataloger = create_user()
+    author_data = {
+        "name": {"value": "Aad, Georges", "preferred_name": "Georges Aad"},
+        "ids": [{"value": "G.Aad.1", "schema": "INSPIRE BAI"}],
+        "stub": True,
+    }
+    from_author = create_record("aut", data={
+        'ids': [
+            {
+                'schema': 'ORCID',
+                'value': '0000-0003-1134-6827'
+            }
+        ]
+
+    })
+    to_author = create_record("aut", data=author_data)
+    literature_1 = create_record(
+        "lit",
+        data={
+            "authors": [
+                {
+                    "curated_relation": False,
+                    "full_name": "Urhan, Harun",
+                    "record": {
+                        "$ref": f"http://localhost:5000/api/authors/{from_author['control_number']}"
+                    },
+                },
+                {
+                    "full_name": "Urhan, Ahmet",
+                    "record": {"$ref": "http://localhost:5000/api/authors/17200"},
+                },
+            ]
+        },
+    )
+    literature_2 = create_record(
+        "lit",
+        data={
+            "authors": [
+                {
+                    "curated_relation": False,
+                    "full_name": "Urhan, Harun",
+                    "record": {
+                        "$ref": f"http://localhost:5000/api/authors/{from_author['control_number']}"
+                    },
+                }
+            ]
+        },
+    )
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=cataloger.email)
+        response = client.post(
+            "/assign/literature/assign",
+            data=orjson.dumps(
+                {
+                    "literature_ids": [
+                        literature_1["control_number"],
+                        literature_2["control_number"],
+                    ],
+                    "from_author_recid": from_author["control_number"],
+                    "to_author_recid": to_author["control_number"],
+                }
+            ),
+            content_type="application/json",
+        )
+    response_status_code = response.status_code
+
+    assert response_status_code == 200
+    mock_assign.assert_called_once()
+
+
+
+@mock.patch("inspirehep.assign.views.current_celery_app.send_task")
 def test_assign_from_an_author_to_another_that_is_not_stub(mock_assign, inspire_app):
-    cataloger = create_user(role="cataloger")
+    cataloger = create_user(role=Roles.cataloger.value)
     author_data = {
         "name": {"value": "Aad, Georges", "preferred_name": "Georges Aad"},
         "ids": [{"value": "G.Aad.1", "schema": "INSPIRE BAI"}],
@@ -175,12 +250,13 @@ def test_assign_from_an_author_to_another_that_is_not_stub(mock_assign, inspire_
     mock_assign.assert_called_once()
 
 
+
 @mock.patch("inspirehep.assign.views.current_celery_app.send_task")
 def test_assign_without_to_author(mock_assign, inspire_app, override_config):
     with override_config(
         FEATURE_FLAG_ENABLE_BAI_PROVIDER=True, FEATURE_FLAG_ENABLE_BAI_CREATION=True
     ):
-        cataloger = create_user(role="cataloger")
+        cataloger = create_user(role=Roles.cataloger.value)
         from_author = create_record("aut", data={"name": {"value": "Urhan, Harun"}})
         literature1 = create_record(
             "lit",
