@@ -172,7 +172,6 @@ def test_return_record_for_publication_info_search_example_1(inspire_app):
     cited_record_json = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Literature"],
-        "control_number": 1,
         "document_type": ["article"],
         "publication_info": [
             {
@@ -192,9 +191,9 @@ def test_return_record_for_publication_info_search_example_1(inspire_app):
             "journal_title": {"title": "Phys. Lett. B"},
         },
     )
-    create_record("lit", cited_record_json)
+    record = create_record("lit", cited_record_json)
 
-    expected_control_number = 1
+    expected_control_number = record["control_number"]
 
     with inspire_app.test_client() as client:
 
@@ -218,7 +217,6 @@ def test_return_record_for_publication_info_search_with_multiple_records_with_th
     cited_record_json = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Literature"],
-        "control_number": 1,
         "document_type": ["article"],
         "publication_info": [
             {
@@ -234,7 +232,6 @@ def test_return_record_for_publication_info_search_with_multiple_records_with_th
     cited_record_2_json = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Literature"],
-        "control_number": 2,
         "document_type": ["article"],
         "publication_info": [
             {
@@ -254,10 +251,10 @@ def test_return_record_for_publication_info_search_with_multiple_records_with_th
             "journal_title": {"title": "Phys. Lett. B"},
         },
     )
-    create_record("lit", cited_record_json)
+    record_1 = create_record("lit", cited_record_json)
     create_record("lit", cited_record_2_json)
 
-    expected_control_number = 1
+    expected_control_number = record_1["control_number"]
 
     with inspire_app.test_client() as client:
 

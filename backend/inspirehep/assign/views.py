@@ -104,7 +104,8 @@ def assign_papers(args):
     from_author_recid = args["from_author_recid"]
     literature_ids = args["literature_ids"]
 
-    if not can_user_edit_author_record(from_author_recid):
+    record = AuthorsRecord.get_record_by_pid_value(from_author_recid)
+    if not can_user_edit_author_record(record):
         return jsonify({"message": "Forbidden"}), 403
 
     assign_to_author(from_author_recid, to_author_recid, literature_ids)
@@ -126,7 +127,8 @@ def unassign_papers(args):
     from_author_recid = args["from_author_recid"]
     literature_ids = args["literature_ids"]
 
-    if not can_user_edit_author_record(from_author_recid):
+    record = AuthorsRecord.get_record_by_pid_value(from_author_recid)
+    if not can_user_edit_author_record(record):
         return jsonify({"message": "Forbidden"}), 403
 
     stub_author_id = assign_to_new_stub_author(from_author_recid, literature_ids)
