@@ -63,11 +63,11 @@ export class CommonApiService {
       .map((res) => res.json());
   }
 
-  uploadFile(file: File): Observable<{ url: string }> {
+  uploadFile(file: File, endpoint: string, recordId: string | number): Observable<{ url: string }> {
     const fileData = new FormData();
     fileData.append('file', file, file.name);
     return this.http
-      .post(`${editorApiUrl}/upload`, fileData)
+      .post(`${editorApiUrl}/${endpoint}/${recordId}/upload`, fileData)
       .map((res) => res.json())
       .map((uploaded) => uploaded.path);
   }

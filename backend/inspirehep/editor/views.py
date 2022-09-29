@@ -112,7 +112,7 @@ def get_revisions(endpoint, pid_value):
         if not check_permissions_for_private_collection_read(
             record.get("_collections", [])
         ):
-            return jsonify(message="Unauthorized", code=403), 403
+            return jsonify(message="Unauthorized"), 403
 
         revisions = []
         for revision in reversed(record.revisions):
@@ -304,10 +304,16 @@ def refextract_url():
     return jsonify(match_result.get("matched_references"))
 
 
-@blueprint.route("/upload", methods=["POST"])
-@login_required_with_roles([Roles.cataloger.value])
-def upload():
+@blueprint.route("/<endpoint>/<int:pid_value>/upload", methods=["POST"])
+@login_required
+def upload(endpoint, pid_value):
     """Upload file to S3."""
+    pid_type = PidStoreBase.get_pid_type_from_endpoint(endpoint)
+    record = InspireRecord.get_record_by_pid_value(pid_value, pid_type)
+    if not check_permissions_for_private_collection_read_write(
+        record.get("_collections", [])
+    ):
+        return jsonify(message="Unauthorized"), 403
 
     if "file" not in request.files:
         return jsonify(success=False, message="File key is missing."), 400
