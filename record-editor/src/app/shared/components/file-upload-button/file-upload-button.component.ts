@@ -20,12 +20,13 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { JsonStoreService } from 'ng2-json-editor';
 import { ToastrService } from 'ngx-toastr';
-
-import { CommonApiService } from '../../../core/services';
+import { Observable } from 'rxjs/Observable';
+import { CommonApiService, GlobalAppStateService } from '../../../core/services';
 import { HOVER_TO_DISMISS_INDEFINITE_TOAST } from '../../../shared/constants';
+import { SubscriberComponent } from '../../classes';
 
 @Component({
   selector: 're-file-upload-button',
@@ -33,12 +34,32 @@ import { HOVER_TO_DISMISS_INDEFINITE_TOAST } from '../../../shared/constants';
   styleUrls: ['./file-upload-button.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FileUploadButtonComponent {
+export class FileUploadButtonComponent extends SubscriberComponent
+implements OnInit {
+
+  pidValue: number;
+  pidType: string;
   constructor(
     private apiService: CommonApiService,
     private jsonStoreService: JsonStoreService,
-    private toastrService: ToastrService
-  ) {}
+    private toastrService: ToastrService,
+    private globalAppStateService: GlobalAppStateService
+  ) {
+    super();
+  }
+
+  ngOnInit() {
+    Observable.combineLatest(
+      this.globalAppStateService.pidTypeBeingEdited$,
+      this.globalAppStateService.pidValueBeingEdited$
+    )
+      .filter(([pidType, pidValue]) => pidType && pidValue)
+      .takeUntil(this.isDestroyed)
+      .subscribe(([pidType, pidValue]) => {
+        this.pidType = pidType;
+        this.pidValue = pidValue;
+      });
+  }
 
   onFileSelect(file: File) {
     if (file) {
@@ -48,7 +69,7 @@ export class FileUploadButtonComponent {
         HOVER_TO_DISMISS_INDEFINITE_TOAST
       );
 
-      this.apiService.uploadFile(file).subscribe(
+      this.apiService.uploadFile(file, this.pidType, this.pidValue).subscribe(
         uploadedPath => {
           this.jsonStoreService.addIn(['documents', '-'], {
             url: uploadedPath,

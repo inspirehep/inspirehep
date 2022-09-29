@@ -13,7 +13,7 @@ import pkg_resources
 import pytest
 import requests_mock
 from flask.globals import current_app
-from helpers.utils import create_record, create_user
+from helpers.utils import create_record, create_user, create_user_and_token
 from inspire_schemas.api import load_schema, validate
 from inspire_utils.record import get_value
 from invenio_accounts.testutils import login_user_via_session
@@ -511,7 +511,7 @@ def test_refextract_url(inspire_app):
 def test_file_upload(inspire_app, s3, datadir, override_config):
     current_s3_instance.client.create_bucket(Bucket="inspire-editor")
     user = create_user(role=Roles.cataloger.value)
-
+    record = create_record("lit")
     with override_config(
         EDITOR_UPLOAD_ALLOWED_EXTENSIONS=".pdf"
     ), inspire_app.test_client() as client:
@@ -519,8 +519,9 @@ def test_file_upload(inspire_app, s3, datadir, override_config):
         file_pdf = open(f"{datadir}/test.pdf", "rb")
         bytes_file = FileStorage(file_pdf)
         data = {"file": bytes_file}
-        response = client.post("/editor/upload", data=data)
-
+        response = client.post(
+            "/editor/literature/{}/upload".format(record["control_number"]), data=data
+        )
         expected_status_code = 200
         assert expected_status_code == response.status_code
         assert "path" in response.json
@@ -529,10 +530,12 @@ def test_file_upload(inspire_app, s3, datadir, override_config):
 def test_file_upload_without_a_file(inspire_app, s3, datadir):
     current_s3_instance.client.create_bucket(Bucket="inspire-editor")
     user = create_user(role=Roles.cataloger.value)
-
+    record = create_record("lit")
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
-        response = client.post("/editor/upload")
+        response = client.post(
+            "/editor/literature/{}/upload".format(record["control_number"])
+        )
 
     expected_status_code = 400
     assert expected_status_code == response.status_code
@@ -541,7 +544,7 @@ def test_file_upload_without_a_file(inspire_app, s3, datadir):
 def test_file_upload_with_wrong_mimetype(inspire_app, s3, datadir, override_config):
     current_s3_instance.client.create_bucket(Bucket="inspire-editor")
     user = create_user(role=Roles.cataloger.value)
-
+    record = create_record("lit")
     with override_config(
         EDITOR_UPLOAD_ALLOWED_EXTENSIONS=".pdf"
     ), inspire_app.test_client() as client:
@@ -549,7 +552,9 @@ def test_file_upload_with_wrong_mimetype(inspire_app, s3, datadir, override_conf
         file_txt = open(f"{datadir}/test.txt", "rb")
         bytes_file = FileStorage(file_txt)
         data = {"file": bytes_file}
-        response = client.post("/editor/upload", data=data)
+        response = client.post(
+            "/editor/literature/{}/upload".format(record["control_number"]), data=data
+        )
 
     expected_status_code = 400
     assert expected_status_code == response.status_code
@@ -557,15 +562,80 @@ def test_file_upload_with_wrong_mimetype(inspire_app, s3, datadir, override_conf
 
 def test_file_upload_without_permissions(inspire_app, s3, datadir):
     current_s3_instance.client.create_bucket(Bucket="inspire-editor")
-
+    record = create_record("lit")
     with inspire_app.test_client() as client:
         file_pdf = open(f"{datadir}/test.pdf", "rb")
         bytes_file = FileStorage(file_pdf)
         data = {"file": bytes_file}
-        response = client.post("/editor/upload", data=data)
+        response = client.post(
+            "/editor/literature/{}/upload".format(record["control_number"]), data=data
+        )
 
     expected_status_code = 401
     assert expected_status_code == response.status_code
+
+
+def test_file_upload_with_read_write_access(inspire_app, s3, datadir, override_config):
+    current_s3_instance.client.create_bucket(Bucket="inspire-editor")
+    hidden_collection = "HEP Hidden"
+    hidden_collection_role_prefix = hidden_collection.lower().replace(" ", "-")
+    user = create_user(role=f"{hidden_collection_role_prefix}-read-write")
+    record = create_record("lit", data={"_collections": [hidden_collection]})
+    token_readwrite = create_user_and_token(
+        user_role=f"{hidden_collection_role_prefix}-read-write"
+    )
+    headers_readwrite = {
+        "Authorization": "BEARER " + token_readwrite.access_token,
+        "If-Match": '"0"',
+    }
+
+    with override_config(
+        EDITOR_UPLOAD_ALLOWED_EXTENSIONS=".pdf"
+    ), inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        file_pdf = open(f"{datadir}/test.pdf", "rb")
+        bytes_file = FileStorage(file_pdf)
+        data = {"file": bytes_file}
+        response = client.post(
+            "/editor/literature/{}/upload".format(record["control_number"]),
+            data=data,
+            headers=headers_readwrite,
+        )
+
+        expected_status_code = 200
+        assert expected_status_code == response.status_code
+        assert "path" in response.json
+
+
+def test_file_upload_with_read_access(inspire_app, s3, datadir, override_config):
+    current_s3_instance.client.create_bucket(Bucket="inspire-editor")
+    hidden_collection = "HEP Hidden"
+    hidden_collection_role_prefix = hidden_collection.lower().replace(" ", "-")
+    user = create_user(role=f"{hidden_collection_role_prefix}-read")
+    record = create_record("lit", data={"_collections": [hidden_collection]})
+    token_readwrite = create_user_and_token(
+        user_role=f"{hidden_collection_role_prefix}-read"
+    )
+    headers_readwrite = {
+        "Authorization": "BEARER " + token_readwrite.access_token,
+        "If-Match": '"0"',
+    }
+
+    with override_config(
+        EDITOR_UPLOAD_ALLOWED_EXTENSIONS=".pdf"
+    ), inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        file_pdf = open(f"{datadir}/test.pdf", "rb")
+        bytes_file = FileStorage(file_pdf)
+        data = {"file": bytes_file}
+        response = client.post(
+            "/editor/literature/{}/upload".format(record["control_number"]),
+            data=data,
+            headers=headers_readwrite,
+        )
+
+        expected_status_code = 403
+        assert expected_status_code == response.status_code
 
 
 def test_authorlist_text(inspire_app):
