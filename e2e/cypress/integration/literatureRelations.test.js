@@ -18,8 +18,6 @@ describe('Literature and Authors', () => {
 
     cy.registerRoute('**/literature**search_type=hep-author-publication**');
 
-    cy.get('[data-test-id="assign-literature-drawer"]')
-      .find('button[class="ant-drawer-close"]').click()
     cy.get('[data-test-id="author-link"]').contains('Grit Hotzel').click();
 
     cy.waitForRoute('**/literature**search_type=hep-author-publication**');
