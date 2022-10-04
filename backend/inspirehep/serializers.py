@@ -8,8 +8,10 @@ from builtins import TypeError
 
 import orjson
 import pytz
+import structlog
 from elasticsearch_dsl import Q
 from flask import current_app, request
+from inspire_utils.record import get_value
 from invenio_records_rest.serializers.json import (
     JSONSerializer as InvenioJSONSerializer,
 )
@@ -18,6 +20,8 @@ from invenio_search.utils import build_alias_name
 from inspirehep.accounts.api import is_user_logged_in
 from inspirehep.records.links import inspire_search_links
 from inspirehep.search.api import LiteratureSearch
+
+LOGGER = structlog.getLogger()
 
 
 class ORJSONSerializerMixin:
@@ -62,6 +66,16 @@ class JSONSerializer(ORJSONSerializerMixin, InvenioJSONSerializer):
         :param search_result: Elasticsearch search result.
         :param links: Dictionary of links to add to response.
         """
+        failures = get_value(search_result, "_shards.failures")
+        if failures:
+            failure_reasons = [
+                get_value(reason, "reason.reason") for reason in failures
+            ]
+            LOGGER.error(
+                "Search for some records failed",
+                number_of_failures=len(failures),
+                reasons=failure_reasons,
+            )
         links = inspire_search_links(links)
         data = dict(
             hits=dict(
