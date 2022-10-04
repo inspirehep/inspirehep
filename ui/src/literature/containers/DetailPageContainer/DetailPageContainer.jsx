@@ -108,7 +108,7 @@ function DetailPage({
       {authors && (
         <AssignLiteratureItemDrawerContainer
           authors={authors}
-          paperId={controlNumber}
+          itemLiteratureId={controlNumber}
         />
       )}
       <LiteratureDocumentHead
