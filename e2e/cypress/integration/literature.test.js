@@ -62,8 +62,8 @@ describe('Literature Detail', () => {
 
       cy.get('@paginationList')
         .find('.ant-select-selection-search-input')
-        .click();
-      cy.get('@paginationList').find('div').contains('50 / page').click();
+        .click({ force: true });
+      cy.get('@paginationList').find('div').contains('50 / page').click({ force: true });
       cy.waitForRoute();
 
       cy.get('@referenceListItems').should('have.length', 50);

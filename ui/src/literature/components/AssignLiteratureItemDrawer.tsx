@@ -79,7 +79,6 @@ function AssignLiteratureItemDrawer({
   return (
     <Drawer
       className="search-drawer"
-      data-test-id="assign-literature-drawer"
       placement="right"
       onClose={onDrawerClose}
       visible={itemLiteratureId === literatureId}
