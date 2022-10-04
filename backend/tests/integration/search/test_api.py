@@ -1290,7 +1290,7 @@ def test_citedby_query(mocked_query_parser, inspire_app):
         "terms": {
             "self.$ref.raw": {
                 "index": prefix_index("records-hep"),
-                "id": str(citing_record.id),
+                "id": str(citing_record["control_number"]),
                 "path": "references.record.$ref.raw",
             }
         }
@@ -1321,3 +1321,123 @@ def test_highlighting_query(inspire_app):
         }
     }
     assert expected_highlight_options == result._highlight
+
+
+def test_citedby_query_simple(inspire_app):
+    rec = create_record("lit", data={"control_number": 12})
+    result = LiteratureSearch().query_from_iq("citedby:  recid 12")
+    expected = {
+        "bool": {
+            "filter": [{"match_all": {}}, {"terms": {"_collections": ["Literature"]}}],
+            "must": [
+                {
+                    "terms": {
+                        "self.$ref.raw": {
+                            "index": "records-hep",
+                            "id": str(rec.id),
+                            "path": "references.record.$ref.raw",
+                        }
+                    }
+                }
+            ],
+            "minimum_should_match": "0<1",
+        }
+    }
+    assert result.to_dict()["query"] == expected
+
+
+def test_citedby_bool_query(inspire_app):
+    rec_1 = create_record("lit", data={"control_number": 12})
+    rec_2 = create_record("lit", data={"control_number": 13})
+
+    result = LiteratureSearch().query_from_iq("citedby:  recid 12 or citedby:recid:13")
+    expected = {
+        "bool": {
+            "filter": [{"match_all": {}}, {"terms": {"_collections": ["Literature"]}}],
+            "should": [
+                {
+                    "terms": {
+                        "self.$ref.raw": {
+                            "index": "records-hep",
+                            "id": str(rec_1.id),
+                            "path": "references.record.$ref.raw",
+                        }
+                    }
+                },
+                {
+                    "terms": {
+                        "self.$ref.raw": {
+                            "index": "records-hep",
+                            "id": str(rec_2.id),
+                            "path": "references.record.$ref.raw",
+                        }
+                    }
+                },
+            ],
+            "minimum_should_match": 1,
+        }
+    }
+    assert result.to_dict()["query"] == expected
+
+
+def test_citedby_complex_query(inspire_app):
+    rec_1 = create_record("lit", data={"control_number": 12})
+    rec_2 = create_record(
+        "lit", data={"control_number": 13, "authors": [{"full_name": "Mata"}]}
+    )
+
+    result = LiteratureSearch().query_from_iq(
+        "citedby:  recid 12 or citedby:recid:13 and a Mata"
+    )
+    expected = {
+        "bool": {
+            "filter": [{"match_all": {}}, {"terms": {"_collections": ["Literature"]}}],
+            "should": [
+                {
+                    "terms": {
+                        "self.$ref.raw": {
+                            "index": "records-hep",
+                            "id": str(rec_1.id),
+                            "path": "references.record.$ref.raw",
+                        }
+                    }
+                },
+                {
+                    "bool": {
+                        "must": [
+                            {
+                                "terms": {
+                                    "self.$ref.raw": {
+                                        "index": "records-hep",
+                                        "id": str(rec_2.id),
+                                        "path": "references.record.$ref.raw",
+                                    }
+                                }
+                            },
+                            {
+                                "nested": {
+                                    "path": "authors",
+                                    "query": {
+                                        "bool": {
+                                            "must": [
+                                                {
+                                                    "match": {
+                                                        "authors.last_name": {
+                                                            "query": "Mata",
+                                                            "operator": "AND",
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    },
+                                }
+                            },
+                        ]
+                    }
+                },
+            ],
+            "minimum_should_match": 1,
+        }
+    }
+    assert result.to_dict()["query"] == expected

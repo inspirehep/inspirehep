@@ -1405,7 +1405,7 @@ tests = ["flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pytest-c
 
 [[package]]
 name = "inspire-query-parser"
-version = "6.0.48"
+version = "6.0.50"
 description = "A PEG-based query parser for INSPIRE."
 category = "main"
 optional = false
@@ -4111,7 +4111,7 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<3.9"
-content-hash = "3ad1be5930c62b7b6804ecfdb888324df62533fbc57eaab3780f183a7ad7db7d"
+content-hash = "ec76ccaaddf1c157bd0131879e25b395a729ce2388774b6aa6735b01056b1d96"
 
 [metadata.files]
 alembic = [
