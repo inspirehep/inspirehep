@@ -206,11 +206,19 @@ export function checkNameCompatibility({ to, literatureId }) {
       const { data } = await http.get(
         `/assign/check-names-compatibility?literature_recid=${literatureId}`
       );
-      dispatch(assignLiteratureItem({
-        from: data.matched_author_recid,
-        to,
-        literatureId,
-      }));
+      if (data.matched_author_recid === to) {
+        dispatch(assignLiteratureItem({
+          from: data.matched_author_recid,
+          to,
+          literatureId,
+        }));
+      } else {
+        dispatch(assignLiteratureItemNoNameMatch({
+          from: data.matched_author_recid,
+          to,
+          literatureId
+        }));
+      }
     } catch (error) {
       dispatch(setAssignLiteratureItemDrawerVisibility(literatureId));
     }

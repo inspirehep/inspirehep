@@ -359,8 +359,30 @@ describe('literature - async action creators', () => {
       clear();
     });
 
-    it('returns matching authors recid if exists', async () => {
+    it('returns matching authors recid if exists and calls assignLiteratureItemSuccess if recids dont match', async () => {
       const to = 123456;
+      const literatureId = 159731;
+
+      const store = getStore();
+
+      mockHttp
+        .onGet(`/assign/check-names-compatibility?literature_recid=${literatureId}`)
+        .replyOnce(200, { matched_author_recid: 1010819 });
+
+      const expectedActions = [];
+
+      const dispatchPromise = store.dispatch(
+        checkNameCompatibility({ to, literatureId })
+      );
+      expect(assigning).toHaveBeenCalled();
+
+      await dispatchPromise;
+      expect(store.getActions()).toEqual(expectedActions);
+      expect(assignSuccessDifferentProfileClaimedPapers).toHaveBeenCalled();
+    });
+
+    it('returns matching authors recid if exists and calls assignLiteratureItemSuccess if recids match', async () => {
+      const to = 1010819;
       const literatureId = 159731;
 
       const store = getStore();
