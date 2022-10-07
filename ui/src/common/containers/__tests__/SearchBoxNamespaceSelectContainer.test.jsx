@@ -4,12 +4,12 @@ import { Provider } from 'react-redux';
 import { fromJS } from 'immutable';
 
 import { getStoreWithState, getStore } from '../../../fixtures/store';
-import SearchScopeSelectContainer from '../SearchScopeSelectContainer';
-import SearchScopeSelect from '../../components/SearchScopeSelect';
+import SearchBoxNamespaceSelectContainer from '../SearchBoxNamespaceSelectContainer';
+import SearchBoxNamespaceSelect from '../../components/SearchBoxNamespaceSelect';
 import { CHANGE_SEARCH_BOX_NAMESPACE } from '../../../actions/actionTypes';
 import { AUTHORS_NS } from '../../../search/constants';
 
-describe('SearchScopeSelectContainer', () => {
+describe('SearchBoxNamespaceSelectContainer', () => {
   it('passes url query q param to SearchBox', () => {
     const searchBoxNamespace = AUTHORS_NS;
     const store = getStoreWithState({
@@ -19,10 +19,10 @@ describe('SearchScopeSelectContainer', () => {
     });
     const wrapper = mount(
       <Provider store={store}>
-        <SearchScopeSelectContainer />
+        <SearchBoxNamespaceSelectContainer />
       </Provider>
     );
-    expect(wrapper.find(SearchScopeSelect)).toHaveProp({
+    expect(wrapper.find(SearchBoxNamespaceSelect)).toHaveProp({
       searchScopeName: searchBoxNamespace,
     });
   });
@@ -32,11 +32,11 @@ describe('SearchScopeSelectContainer', () => {
     const store = getStore();
     const wrapper = mount(
       <Provider store={store}>
-        <SearchScopeSelectContainer />
+        <SearchBoxNamespaceSelectContainer />
       </Provider>
     );
     const onSearchScopeChange = wrapper
-      .find(SearchScopeSelect)
+      .find(SearchBoxNamespaceSelect)
       .prop('onSearchScopeChange');
     onSearchScopeChange(searchBoxNamespace);
     const expectedActions = [

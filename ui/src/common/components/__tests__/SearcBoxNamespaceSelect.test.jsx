@@ -1,13 +1,13 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import SearchScopeSelect from '../SearchScopeSelect';
+import SearchBoxNamespaceSelect from '../SearchBoxNamespaceSelect';
 import SelectBox from '../SelectBox';
 
-describe('SearchScopeSelect', () => {
+describe('SearchBoxNamespaceSelect', () => {
   it('render initial state with all props set', () => {
     const wrapper = shallow(
-      <SearchScopeSelect
+      <SearchBoxNamespaceSelect
         onSearchScopeChange={jest.fn()}
         searchScopeName="authors"
       />
@@ -18,7 +18,7 @@ describe('SearchScopeSelect', () => {
   it('calls onSearchScopeChange on select change', () => {
     const onSearchScopeChange = jest.fn();
     const wrapper = shallow(
-      <SearchScopeSelect
+      <SearchBoxNamespaceSelect
         searchScopeName="literature"
         onSearchScopeChange={onSearchScopeChange}
       />

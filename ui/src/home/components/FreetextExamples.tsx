@@ -9,7 +9,7 @@ const EXAMPLES = [
   '1207.7214',
 ];
 
-function renderExample(freetextSearch) {
+function renderExample(freetextSearch: string) {
   return (
     <div key={freetextSearch}>
       <LinkWithEncodedLiteratureQuery query={freetextSearch} />

@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ExternalLink from '../../../common/components/ExternalLink.tsx';
+import ExternalLink from '../../../common/components/ExternalLink';
 
-function CollaborationLogo({ href, name, src }) {
+function CollaborationLogo({ href, name, src }: { href: string, name: string, src: string }) {
   return (
     <ExternalLink href={href}>
-      <img height={60} src={src} alt={name} />
+      <img height={40} src={src} alt={name} />
     </ExternalLink>
   );
 }

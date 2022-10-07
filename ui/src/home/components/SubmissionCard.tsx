@@ -1,11 +1,20 @@
 import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
 import { Card } from 'antd';
 import RouterLinkButton from '../../common/components/RouterLinkButton';
 
-const TEXT_CENTER = { textAlign: 'center' };
+const TEXT_CENTER: Record<string | number, string & {}> = {
+  textAlign: 'center',
+};
 
-function SubmissionCard({ title, children, formLink }) {
+function SubmissionCard({
+  title,
+  children,
+  formLink,
+}: {
+  title: string;
+  children: JSX.Element | JSX.Element[];
+  formLink: string;
+}) {
   const actions = useMemo(
     () => [
       <RouterLinkButton key="submit" to={formLink}>
@@ -25,11 +34,5 @@ function SubmissionCard({ title, children, formLink }) {
     </Card>
   );
 }
-
-SubmissionCard.propTypes = {
-  title: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired,
-  formLink: PropTypes.string.isRequired,
-};
 
 export default SubmissionCard;
