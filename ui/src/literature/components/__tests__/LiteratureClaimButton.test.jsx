@@ -9,7 +9,7 @@ describe('LiteratureClaimButton', () => {
     const wrapper = shallow(<LiteratureClaimButton
       loggedIn={false}
       hasAuthorProfile={false}
-      authors={[]}
+      authors={fromJS([])}
       controlNumber={123456}
     />);
     expect(wrapper).toMatchSnapshot();
@@ -18,7 +18,7 @@ describe('LiteratureClaimButton', () => {
     const wrapper = shallow(<LiteratureClaimButton
       loggedIn
       hasAuthorProfile={false}
-      authors={[]}
+      authors={fromJS([])}
       controlNumber={123456}
     />);
     expect(wrapper).toMatchSnapshot();
