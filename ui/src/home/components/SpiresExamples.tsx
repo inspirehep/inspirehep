@@ -15,7 +15,7 @@ const TABLE_COLUMNS = [
   {
     title: 'Example',
     dataIndex: 'example',
-    render: query => <LinkWithEncodedLiteratureQuery query={query} />,
+    render: (query: string) => <LinkWithEncodedLiteratureQuery query={query} />,
   },
 ];
 

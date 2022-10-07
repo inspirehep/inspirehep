@@ -10,7 +10,6 @@ exports[`Home renders home page 1`] = `
     align="middle"
     className="__Home__"
     justify="center"
-    type="flex"
   >
     <Col
       span={24}
@@ -20,25 +19,48 @@ exports[`Home renders home page 1`] = `
         title="Discover High-Energy Physics Content"
       >
         <Connect(SearchBox) />
+        <div
+          className="tc f5 mt4"
+          data-test-id="scroll-button"
+        >
+          <LinkLikeButton
+            onClick={[Function]}
+          >
+            How to search?
+          </LinkLikeButton>
+        </div>
       </HomePageSection>
       <HomePageSection
         className="bg-white"
-        description="INSPIRE supports the most popular SPIRES syntax operators and free text searches for searching papers."
-        title="How to Search"
       >
-        <HowToSearch />
+        <h3
+          className="tc ttu mb4"
+        >
+          Brought to you by
+        </h3>
+        <CollaborationLogos />
       </HomePageSection>
+      <HomePageSection
+        title="News and updates"
+      >
+        <NewsAndUpdates />
+      </HomePageSection>
+      <div
+        data-test-id="how-to-search"
+      >
+        <HomePageSection
+          className="bg-white"
+          description="INSPIRE supports the most popular SPIRES syntax operators and free text searches for searching papers."
+          title="How to Search"
+        >
+          <HowToSearch />
+        </HomePageSection>
+      </div>
       <HomePageSection
         description="INSPIRE systematically adds content from various sources. Anyone can also submit new content by logging in with their ORCID."
         title="How to Submit"
       >
         <HowToSubmit />
-      </HomePageSection>
-      <HomePageSection
-        className="bg-white"
-        title="INSPIRE Collaboration"
-      >
-        <CollaborationLogos />
       </HomePageSection>
     </Col>
   </Row>

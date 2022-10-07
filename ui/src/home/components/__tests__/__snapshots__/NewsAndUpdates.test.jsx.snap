@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NewsAndUpdates renders 1`] = `
+<Fragment>
+  <Row
+    className="__NewsAndUpdates__"
+    justify="center"
+  >
+    <Col>
+      <ContentBox
+        className="container"
+        leftActions={null}
+        loading={false}
+        rightActions={null}
+        subTitle={null}
+        title={null}
+      >
+        <Loading />
+      </ContentBox>
+    </Col>
+  </Row>
+  <Row
+    justify="center"
+  >
+    <Col>
+      <ExternalLink
+        as="a"
+        className="db tc f5 mt4"
+        href="https://opendata.cern.ch/"
+      >
+        View all
+      </ExternalLink>
+    </Col>
+  </Row>
+</Fragment>
+`;

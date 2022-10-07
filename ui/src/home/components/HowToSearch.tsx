@@ -1,9 +1,9 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, forwardRef, RefObject } from 'react';
 import { Radio, Button } from 'antd';
 
 import SpiresExamples from './SpiresExamples';
 import FreetextExamples from './FreetextExamples';
-import ExternalLink from '../../common/components/ExternalLink.tsx';
+import ExternalLink from '../../common/components/ExternalLink';
 import { PAPER_SEARCH_URL } from '../../common/constants';
 
 const SPIRES_RADIO = 'spires';
@@ -32,7 +32,7 @@ function HowToSearch() {
       </div>
       <div className="tc">
         <ExternalLink
-          as={Button}
+          as='button'
           href={PAPER_SEARCH_URL}
           type="primary"
           className="mt3"
