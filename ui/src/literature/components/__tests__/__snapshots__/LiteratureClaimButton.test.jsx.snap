@@ -15,7 +15,6 @@ exports[`LiteratureClaimButton renders disabled when user is logged in but doesn
 exports[`LiteratureClaimButton renders disabled when user is not logged in 1`] = `
 <Fragment>
   <ClaimingDisabledButton />
-  <AssignNoProfileAction />
 </Fragment>
 `;
 
