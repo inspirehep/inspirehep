@@ -34,7 +34,8 @@ from inspirehep.search.aggregations import (
     jobs_field_of_interest_aggregation,
     jobs_rank_aggregation,
     jobs_region_aggregation,
-    jobs_status_aggregation,
+    jobs_status_aggregation_cataloger,
+    jobs_status_aggregation_user,
     seminar_accessibility_aggregation,
     seminar_series_aggregation,
     seminar_subject_aggregation,
@@ -489,7 +490,7 @@ def citations_by_year():
     }
 
 
-def records_jobs(order=None):
+def _records_jobs(order=None):
     if order is None:
         order = count(start=1)
     return {
@@ -500,6 +501,14 @@ def records_jobs(order=None):
             **jobs_region_aggregation(order=next(order)),
         },
     }
+
+
+def records_jobs(order=None):
+    if order is None:
+        order = count(start=1)
+    records = _records_jobs(order=order)
+    records["aggs"].update({**jobs_status_aggregation_user(order=next(order))})
+    return records
 
 
 def records_conferences(order=None):
@@ -579,8 +588,8 @@ def hep_author_citations_cataloger(order=None):
 def records_jobs_cataloger(order=None):
     if order is None:
         order = count(start=1)
-    records = records_jobs(order=order)
-    records["aggs"].update({**jobs_status_aggregation(order=next(order))})
+    records = _records_jobs(order=order)
+    records["aggs"].update({**jobs_status_aggregation_cataloger(order=next(order))})
     return records
 
 

@@ -23,7 +23,8 @@ from inspirehep.search.aggregations import (
     jobs_field_of_interest_aggregation,
     jobs_rank_aggregation,
     jobs_region_aggregation,
-    jobs_status_aggregation,
+    jobs_status_aggregation_cataloger,
+    jobs_status_aggregation_user,
     seminar_accessibility_aggregation,
     seminar_series_aggregation,
     seminar_subject_aggregation,
@@ -368,6 +369,7 @@ def test_records_jobs_facets(inspire_app):
             **jobs_field_of_interest_aggregation(order=1),
             **jobs_rank_aggregation(order=2),
             **jobs_region_aggregation(order=3),
+            **jobs_status_aggregation_user(order=4),
         }
 
         filters = current_app.config["RECORDS_REST_FACETS"]["records-jobs"]()[
@@ -553,7 +555,7 @@ def test_records_jobs_cataloger_facets(inspire_app):
             **jobs_field_of_interest_aggregation(order=1),
             **jobs_rank_aggregation(order=2),
             **jobs_region_aggregation(order=3),
-            **jobs_status_aggregation(order=4),
+            **jobs_status_aggregation_cataloger(order=4),
         }
         filters = current_app.config["CATALOGER_RECORDS_REST_FACETS"]["records-jobs"]()[
             "filters"
