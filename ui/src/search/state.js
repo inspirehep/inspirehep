@@ -17,7 +17,7 @@ import {
   ASSIGN_AUTHOR_NS,
   ASSIGN_CONFERENCE_NS,
   LITERATURE_REFERENCES_NS,
-  JOURNALS_NS
+  JOURNALS_NS,
 } from './constants';
 import {
   START_DATE_UPCOMING,
@@ -68,6 +68,10 @@ const namespacesState = {
   },
   [JOBS_NS]: {
     ...initialNamespaceState,
+    baseQuery: {
+      ...initialBaseQuery,
+      status: 'open',
+    },
   },
   [AUTHOR_PUBLICATIONS_NS]: {
     ...initialNamespaceState,

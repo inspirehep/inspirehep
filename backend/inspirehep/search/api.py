@@ -387,13 +387,13 @@ class JobsSearch(InspireSearch):
         """
         if not is_superuser_or_cataloger_logged_in():
             if not query_string:
-                user_query = Q("term", status="open")
+                user_query = Q("terms", status=["open", "closed"])
             else:
                 user_query = Q(
                     "bool",
                     must=[
                         Q("query_string", query=query_string, default_operator="AND"),
-                        Q("term", status="open"),
+                        Q("terms", status=["open", "closed"]),
                     ],
                 )
             return self.query(user_query)

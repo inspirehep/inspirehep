@@ -632,7 +632,7 @@ def test_jobs_query_from_iq_regression(inspire_app):
                             "default_operator": "AND",
                         }
                     },
-                    {"term": {"status": "open"}},
+                    {"terms": {"status": ["open", "closed"]}},
                 ]
             }
         },
@@ -645,10 +645,11 @@ def test_empty_jobs_search(inspire_app):
     create_record("job", data={"status": "open"})
     create_record("job", data={"status": "open"})
     create_record("job", data={"status": "closed"})
+    create_record("job", data={"status": "pending"})
     with inspire_app.test_client() as client:
         response = client.get("api/jobs")
 
-    expected_results_count = 2
+    expected_results_count = 3
     assert expected_results_count == len(response.json["hits"]["hits"])
 
 
@@ -705,9 +706,9 @@ def test_jobs_search_with_parameter_regression(inspire_app):
     curator = create_user(role="cataloger")
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=curator.email)
-        response_curator = client.get("api/jobs?q=kek-bf-belle-ii&status=open")
+        response_curator = client.get("api/jobs?q=kek-bf-belle-ii")
 
-    expected_results_count = 2
+    expected_results_count = 3
     assert expected_results_count == len(response.json["hits"]["hits"])
     assert response.json["hits"]["hits"] == response_curator.json["hits"]["hits"]
 
@@ -1441,3 +1442,17 @@ def test_citedby_complex_query(inspire_app):
         }
     }
     assert result.to_dict()["query"] == expected
+
+
+def test_jobs_search_returns_closed_jobs(inspire_app):
+    create_record(
+        "job",
+        data={"status": "closed"},
+    )
+
+    with inspire_app.test_client() as client:
+        url = "/api/jobs"
+        response = client.get(url)
+
+    assert response.status_code == 200
+    assert len(response.json["hits"]["hits"]) == 1

@@ -147,7 +147,16 @@ def jobs_region_aggregation(order, title="Region", agg_type="multiselect"):
     }
 
 
-def jobs_status_aggregation(order, title="Status", agg_type="multiselect"):
+def jobs_status_aggregation_user(order, title="Status", agg_type="multiselect"):
+    return {
+        "status": {
+            "terms": {"field": "status", "exclude": "pending"},
+            "meta": {"order": order, "type": agg_type, "title": title},
+        }
+    }
+
+
+def jobs_status_aggregation_cataloger(order, title="Status", agg_type="multiselect"):
     return {
         "status": {
             "terms": {"field": "status"},

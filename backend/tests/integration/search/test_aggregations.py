@@ -25,7 +25,8 @@ from inspirehep.search.aggregations import (
     jobs_field_of_interest_aggregation,
     jobs_rank_aggregation,
     jobs_region_aggregation,
-    jobs_status_aggregation,
+    jobs_status_aggregation_cataloger,
+    jobs_status_aggregation_user,
     seminar_accessibility_aggregation,
     seminar_series_aggregation,
     seminar_subject_aggregation,
@@ -508,13 +509,51 @@ def test_jobs_region_aggregation_and_filter(inspire_app, override_config):
         )
 
 
-def test_jobs_status_aggregation_and_filter(inspire_app, override_config):
+def test_jobs_status_aggregation_and_filter_user(inspire_app, override_config):
+    user = create_user()
+    config = {
+        "RECORDS_REST_FACETS": {
+            "records-jobs": {
+                "filters": {**current_app.config["JOBS_FILTERS"]},
+                "aggs": {**jobs_status_aggregation_user(1)},
+            }
+        }
+    }
+
+    with override_config(**config):
+        data = {"status": "open"}
+        create_record("job", data)
+        data = {"status": "closed"}
+        create_record("job", data)
+        data = {"status": "pending"}
+        create_record("job", data)
+
+        expected_aggregation = {
+            "meta": {"order": 1, "title": "Status", "type": "multiselect"},
+            "doc_count_error_upper_bound": 0,
+            "sum_other_doc_count": 0,
+            "buckets": [
+                {"doc_count": 1, "key": "closed"},
+                {"doc_count": 1, "key": "open"},
+            ],
+        }
+
+        with inspire_app.test_client() as client:
+            login_user_via_session(client, email=user.email)
+            response = client.get("/jobs/facets").json
+            assert response["aggregations"]["status"] == expected_aggregation
+
+            response = client.get("/jobs?status=pending").json
+        assert len(response["hits"]["hits"]) == 0
+
+
+def test_jobs_status_aggregation_and_filter_cataloger(inspire_app, override_config):
     user = create_user(role="cataloger")
     config = {
         "CATALOGER_RECORDS_REST_FACETS": {
             "records-jobs": {
                 "filters": {**current_app.config["JOBS_FILTERS"]},
-                "aggs": {**jobs_status_aggregation(1)},
+                "aggs": {**jobs_status_aggregation_cataloger(1)},
             }
         }
     }
