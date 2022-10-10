@@ -63,7 +63,16 @@ def test_disambiguate_all(inspire_app, cli, clean_celery_session, override_confi
         )
         db.session.commit()
 
-        cli.invoke(["disambiguation", "not-disambiguated", "-gs", "50", "-bs", "2"])
+        cli.invoke(
+            [
+                "disambiguation",
+                "not-disambiguated",
+                "--celery-batch-size",
+                "50",
+                "--total-records",
+                "20",
+            ]
+        )
 
         def assert_disambiguation_cli():
             records = LiteratureSearch().get_records(record_uuids).execute()

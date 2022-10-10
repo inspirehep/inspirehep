@@ -5,6 +5,8 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+from itertools import islice
+
 import click
 from elasticsearch_dsl import Q
 from flask.cli import with_appcontext
@@ -114,30 +116,21 @@ def _send_celery_group_disambiguation_task(uuids, batch_size):
 @disambiguation.command(name="not-disambiguated")
 @with_appcontext
 @click.option(
-    "-gs",
-    "--group-size",
-    type=int,
-    default=100,
-    help="Batch size for celery group primitive",
+    "--celery-batch-size", type=int, default=5, help="Batch size for celery task chunks"
 )
 @click.option(
-    "-bs", "--batch-size", type=int, default=5, help="Batch size for celery task chunks"
+    "--total-records",
+    type=int,
+    help="Number of records to disambiguate, if not passed all records with at least one not disambiguated will be sent to the queue",
 )
-def disambiguate_all_not_disambiguated(group_size, batch_size):
+def disambiguate_all_not_disambiguated(celery_batch_size, total_records):
     """Trigger disambiguation task for all the records that are not disambiguated"""
     not_disambiguated_records_search = _get_all_not_disambiguated_records_search()
-    scan_obj = not_disambiguated_records_search.scan()
-    generator_empty = False
-    while not generator_empty:
-        try:
-            uuids = []
-            for _ in range(group_size):
-                document = next(scan_obj)
-                uuids.append(str(document.meta.id))
-            _send_celery_group_disambiguation_task(uuids, batch_size)
-        except StopIteration:
-            generator_empty = True
-            _send_celery_group_disambiguation_task(uuids, batch_size)
+    documents = not_disambiguated_records_search.scan()
+    if total_records:
+        documents = islice(documents, total_records)
+    uuids = (document.meta.id for document in documents)
+    _send_celery_group_disambiguation_task(uuids, celery_batch_size)
 
 
 @disambiguation.command(name="record")
