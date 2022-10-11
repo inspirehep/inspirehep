@@ -8,23 +8,6 @@ from inspirehep.search.api import LiteratureSearch
 from inspirehep.utils import chunker
 
 
-def _remove_pdg_keywords_from_record_keywords(record):
-    record_keywords = record["keywords"]
-    for keyword_idx, keyword_object in enumerate(record_keywords):
-        if keyword_object.get("schema") == "PDG":
-            del record_keywords[keyword_idx]
-    if not record_keywords:
-        del record["keywords"]
-
-
-def _update_record_keywords_with_new_pdg_keywords(record, pdg_keywords):
-    keywords = record.get("keywords", [])
-    for pdg_keyword in pdg_keywords:
-        keywords.append({"schema": "PDG", "value": pdg_keyword})
-    if keywords:
-        record["keywords"] = keywords
-
-
 @click.group()
 def curation():
     """Commands for curation"""
