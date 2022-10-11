@@ -25,6 +25,7 @@ import LiteratureTitle from '../../common/components/LiteratureTitle';
 import ResponsiveView from '../../common/components/ResponsiveView';
 import CiteModalActionContainer from '../containers/CiteModalActionContainer';
 import IncomingLiteratureReferencesLinkAction from '../../common/components/IncomingLiteratureReferencesLinkAction';
+import ReferenceSearchLinkAction from '../../common/components/ReferenceSearchLinkAction';
 import ConferenceInfoList from './ConferenceInfoList';
 import { getPapersQueryString } from '../utils';
 import {
@@ -160,6 +161,7 @@ function LiteratureItem({
       }
       rightActions={
         <Fragment>
+          <ReferenceSearchLinkAction recordId={recordId} />
           {citationCount != null && (
             <IncomingLiteratureReferencesLinkAction
               linkQuery={getPapersQueryString(recordId)}
