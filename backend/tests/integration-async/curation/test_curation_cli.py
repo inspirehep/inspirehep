@@ -6,6 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
+import mock
 import pytest
 from helpers.providers.faker import faker
 from helpers.utils import retry_until_pass
@@ -17,6 +18,23 @@ from inspirehep.search.api import LiteratureSearch
 
 
 @pytest.mark.vcr()
+@mock.patch(
+    "inspirehep.records.marshmallow.literature.ui.PDG_IDS_TO_DESCRIPTION_MAPPING",
+    {
+        "S000": "gamma (photon)",
+        "S000.99": "test",
+        "S010.4": "K+ --> pi+ pi0 pi0",
+        "S024M": "Omega- MASS",
+        "S027RHO": "Quark Density -- Matter Searches",
+        "S008.1": "pi+ --> mu+ nu_mu",
+        "S008.2": "pi+ --> e+ nu_e",
+        "S008.3": "pi+ --> mu+ nu_mu gamma",
+        "S008.4": "pi+ --> e+ nu_e pi0",
+        "S008.5": "pi+ --> e+ nu_e gamma",
+        "S009.1": "pi0 --> 2gamma",
+        "S009.2": "pi0 --> e+ e- gamma",
+    },
+)
 def test_update_pdg_keywords(inspire_app, clean_celery_session, cli):
     rec_with_pdg_keywords = LiteratureRecord.create(
         faker.record(
@@ -48,11 +66,25 @@ def test_update_pdg_keywords(inspire_app, clean_celery_session, cli):
             },
         )
     )
+
+    rec_with_pdg_one_keyword_not_on_pdg_list = LiteratureRecord.create(
+        faker.record(
+            "lit",
+            data={
+                "control_number": 48469,
+                "keywords": [
+                    {"schema": "PDG", "value": "S000"},
+                    {"schema": "PDG", "value": "S000.99"},
+                    {"schema": "PDG", "value": "S010.4"},
+                ],
+            },
+        )
+    )
     db.session.commit()
 
     def assert_all_records_are_indexed():
         hits = LiteratureSearch().query_from_iq("").execute()
-        assert len(hits.hits) == 4
+        assert len(hits.hits) == 5
 
     retry_until_pass(assert_all_records_are_indexed)
 
@@ -77,17 +109,26 @@ def test_update_pdg_keywords(inspire_app, clean_celery_session, cli):
     rec_4444444 = LiteratureRecord.get_record_by_pid_value(
         rec_with_pdg_keywords_not_on_pdg_list["control_number"]
     )
+    rec_4444445 = LiteratureRecord.get_record_by_pid_value(
+        rec_with_pdg_one_keyword_not_on_pdg_list["control_number"]
+    )
 
     def assert_keywords_are_updated():
         rec_48509_es = LiteratureSearch.get_record_data_from_es(rec_48509)
         rec_48468_es = LiteratureSearch.get_record_data_from_es(rec_48468)
         rec_48478_es = LiteratureSearch.get_record_data_from_es(rec_48478)
         rec_4444444_es = LiteratureSearch.get_record_data_from_es(rec_4444444)
+        rec_4444445_es = LiteratureSearch.get_record_data_from_es(rec_4444445)
 
         assert {"schema": "PDG", "value": "S027RHO"} in rec_48509_es["keywords"]
         assert {"schema": "PDG", "value": "S000"} not in rec_48509_es["keywords"]
         assert len(get_values_for_schema(rec_48468_es["keywords"], "PDG")) == 4
         assert rec_48478_es["keywords"] == [{"schema": "PDG", "value": "S024M"}]
         assert not rec_4444444_es.get("keywords")
+        assert len(rec_4444445_es["keywords"]) == 2
+        assert rec_4444445_es["keywords"] == [
+            {"schema": "PDG", "value": "S009.1"},
+            {"schema": "PDG", "value": "S009.2"},
+        ]
 
     retry_until_pass(assert_keywords_are_updated)

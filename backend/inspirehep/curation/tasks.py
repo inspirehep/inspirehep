@@ -17,9 +17,9 @@ LOGGER = structlog.getLogger()
 
 def _remove_pdg_keywords_from_record_keywords(record):
     record_keywords = record["keywords"]
-    for keyword_idx, keyword_object in enumerate(record_keywords):
+    for keyword_object in record_keywords:
         if keyword_object.get("schema") == "PDG":
-            del record_keywords[keyword_idx]
+            record_keywords.remove(keyword_object)
     if not record_keywords:
         del record["keywords"]
 
