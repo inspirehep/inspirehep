@@ -11,13 +11,13 @@ export function onLiteratureQueryChange(helper) {
     helper.isInitialQueryUpdate() ||
     helper.hasQueryChangedExceptSortAndPagination()
   ) {
-    helper.fetchSearchAggregations();
-
+    
     // `if isCitationSummaryEnabled` can be pushed down to `fetchCitationSummary`
     if (isCitationSummaryEnabled(helper.state)) {
       helper.dispatch(fetchCitationSummary(helper.namespace));
     }
   }
+  helper.fetchSearchAggregations();
 }
 
 export function onEmbeddedLiteratureQueryChange(helper) {
