@@ -1007,3 +1007,30 @@ def test_latex_us_search_response_full_book_record_with_missing_isbn(inspire_app
     response_data = response.get_data(as_text=True)
     assert expected_status_code == response_status_code
     assert expected_result == response_data
+
+
+@freeze_time("1994-12-19")
+def test_latex_strips_mathml(inspire_app):
+    headers = {"Accept": "application/vnd+inspire.latex.eu+x-latex"}
+    data = {
+        "control_number": 637_275_237,
+        "titles": [
+            {
+                "title": 'Inert Higgs Dark Matter for CDF II <math display="inline"><mi>W</mi></math>-Boson Mass and Detection Prospects'
+            }
+        ],
+    }
+
+    record = create_record_factory("lit", data=data, with_indexing=True)
+    record_control_number = record.json["control_number"]
+
+    expected_status_code = 200
+    expected_result = "%\\cite{637275237}\n\\bibitem{637275237}\n%``Inert Higgs Dark Matter for CDF II W-Boson Mass and Detection Prospects,''\n%0 citations counted in INSPIRE as of 19 Dec 1994"
+    with inspire_app.test_client() as client:
+        response = client.get(f"/literature/{record_control_number}", headers=headers)
+
+    response_status_code = response.status_code
+    response_data = response.get_data(as_text=True)
+
+    assert expected_status_code == response_status_code
+    assert expected_result == response_data

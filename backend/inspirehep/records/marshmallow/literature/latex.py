@@ -9,6 +9,7 @@
 import datetime
 
 from idutils import normalize_isbn
+from inspire_utils.helpers import remove_tags
 from inspire_utils.name import format_name
 from inspire_utils.record import get_value
 from isbn import ISBNError
@@ -87,7 +88,14 @@ class LatexSchema(BaseSchema):
         title_parts = [title_dict["title"]]
         if "subtitle" in title_dict:
             title_parts.append(title_dict["subtitle"])
-        return ": ".join(latex_encode(part, contains_math=True) for part in title_parts)
+        formatted_parts = []
+        for part in title_parts:
+            part_witouth_mathml = remove_tags(
+                remove_tags(part, allowed_tags="DUMMYROOTTAG")
+            )
+            latex_encoded_part = latex_encode(part_witouth_mathml, contains_math=True)
+            formatted_parts.append(latex_encoded_part)
+        return ": ".join(formatted_parts)
 
     def get_current_date(self, data):
         now = datetime.datetime.now()
