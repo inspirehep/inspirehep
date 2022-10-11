@@ -11,6 +11,7 @@ from idutils import is_arxiv_post_2007, normalize_isbn
 from inspire_schemas.readers.conference import ConferenceReader
 from inspire_schemas.readers.literature import LiteratureReader
 from inspire_utils.date import PartialDate
+from inspire_utils.helpers import remove_tags
 from inspire_utils.record import get_value
 from isbn import ISBNError
 from marshmallow import fields, pre_dump
@@ -233,9 +234,17 @@ class BibTexCommonSchema(BaseSchema):
         title_parts = [title_dict["title"]]
         if "subtitle" in title_dict:
             title_parts.append(title_dict["subtitle"])
-        return ": ".join(
-            f"{{{latex_encode(part, contains_math=True)}}}" for part in title_parts
-        )
+
+        formatted_parts = []
+        for part in title_parts:
+            part_witouth_mathml = remove_tags(
+                remove_tags(part, allowed_tags="DUMMYROOTTAG")
+            )
+            latex_encoded_part = (
+                f"{{{latex_encode(part_witouth_mathml, contains_math=True)}}}"
+            )
+            formatted_parts.append(latex_encoded_part)
+        return ": ".join(formatted_parts)
 
     def get_url(self, data):
         return get_value(data, "urls.value[0]")

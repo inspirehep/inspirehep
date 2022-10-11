@@ -182,3 +182,20 @@ def test_literature_detail_bibtex_link_alias_format(inspire_app):
         response = client.get(f"/literature/{record['control_number']}?format=bibtex")
     assert response.status_code == expected_status_code
     assert response.content_type == expected_content_type
+
+
+def test_bibtex_strips_mathml(inspire_app):
+    data = {
+        "control_number": 637_275_237,
+        "titles": [
+            {
+                "title": 'Inert Higgs Dark Matter for CDF II <math display="inline"><mi>W</mi></math>-Boson Mass and Detection Prospects'
+            }
+        ],
+    }
+
+    expected_data = '@article{637275237,\n    title = "{Inert Higgs Dark Matter for CDF II W-Boson Mass and Detection Prospects}"\n}\n'
+    record = create_record("lit", data=data)
+    with inspire_app.test_client() as client:
+        response = client.get(f"/literature/{record['control_number']}?format=bibtex")
+    assert response.get_data(as_text=True) == expected_data
