@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReferenceSearchLinkAction renders with required props 1`] = `
+<ListItemAction>
+  <EventTracker
+    eventId="Reference:Search"
+    eventPropName="onClick"
+    extractEventArgsToForward={null}
+  >
+    <Link
+      to="/literature?q=citedby:recid:12345"
+    >
+      <IconText
+        icon={<ForwardRef(FileSearchOutlined) />}
+        text="reference search"
+      />
+    </Link>
+  </EventTracker>
+</ListItemAction>
+`;

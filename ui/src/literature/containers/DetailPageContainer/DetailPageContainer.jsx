@@ -44,6 +44,7 @@ import SupervisorList from '../../components/SupervisorList';
 import withRouteActionsDispatcher from '../../../common/withRouteActionsDispatcher';
 import LiteratureDocumentHead from '../../components/LiteratureDocumentHead';
 import IncomingLiteratureReferencesLinkAction from '../../../common/components/IncomingLiteratureReferencesLinkAction';
+import ReferenceSearchLinkAction from '../../../common/components/ReferenceSearchLinkAction';
 import { getPapersQueryString } from '../../utils';
 import ParentRecordInfo from '../../components/ParentRecordInfo';
 import BookSeriesInfoList from '../../components/BookSeriesInfoList';
@@ -170,6 +171,7 @@ function DetailPage({
                 }
                 rightActions={
                   <>
+                    <ReferenceSearchLinkAction recordId={controlNumber} />
                     {citationCount != null && (
                       <IncomingLiteratureReferencesLinkAction
                         linkQuery={getPapersQueryString(controlNumber)}
