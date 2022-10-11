@@ -26,7 +26,7 @@ def update_pdg_keywords(ctx, url):
 
     pdg_json_data = pdg_json_response.json()
     record_ids_pdg_keywords_dict = {
-        record["inspireId"]: record["pdgIdList"] for record in pdg_json_data
+        str(record["inspireId"]): record["pdgIdList"] for record in pdg_json_data
     }
     records_with_pdg_keywords_query = Q("match", keywords__schema="PDG")
     search_obj = (
@@ -34,7 +34,15 @@ def update_pdg_keywords(ctx, url):
         .query(records_with_pdg_keywords_query)
         .params(size=1000, scroll="60m", _source=["control_number"])
     )
-    records_with_pdg_recids = (rec["control_number"] for rec in search_obj.scan())
+    records_with_pdg_recids = (str(rec["control_number"]) for rec in search_obj.scan())
+    updated_recids = set()
 
     for batch in chunker(records_with_pdg_recids, 50):
+        update_pdg_keywords_in_records.delay(batch, record_ids_pdg_keywords_dict)
+        updated_recids.update(batch)
+
+    new_records_with_pdg_keywords = set(record_ids_pdg_keywords_dict).difference(
+        updated_recids
+    )
+    for batch in chunker(new_records_with_pdg_keywords, 50):
         update_pdg_keywords_in_records.delay(batch, record_ids_pdg_keywords_dict)
