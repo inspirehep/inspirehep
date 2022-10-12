@@ -215,6 +215,7 @@ inspirehep_matcher = "inspirehep.matcher.tasks"
 inspirehep_disambiguation = "inspirehep.disambiguation.tasks"
 inspirehep_hal = "inspirehep.hal.tasks"
 inspirehep_cds = "inspirehep.cds.tasks"
+inspirehep_curation = "inspirehep.curation.tasks"
 
 [tool.isort]
 profile = "black"
