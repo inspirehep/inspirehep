@@ -34,7 +34,7 @@ class LoginPage extends Component {
                 https://orcid.org/register
               </ExternalLink>
             </p>
-            <Button className="login-button h3" href={loginHref}>
+            <Button className="login-button" href={loginHref}>
               <img className="logo mr2" src={orcidLogo} alt="ORCID" />
               <strong>Login with ORCID</strong>
             </Button>

@@ -1,3 +1,9 @@
+body {
+  // For Chrome 'overscrolling' of the page  not working correctly with Header's 
+  // 'position: fixed' property, resulting in unsticking the menu bar from header
+  // https://chromestatus.com/feature/5381155556687872
+  overscroll-behavior-y: none;
+}
 .__App__ {
   min-height: 100vh !important;
 
