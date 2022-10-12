@@ -7,10 +7,12 @@
 
 import structlog
 from celery import shared_task
+from dict_deep import deep_set
 from elasticsearch import TransportError
 from elasticsearch_dsl import Q
 from flask import current_app
 from inspire_schemas.utils import get_refs_to_schemas
+from inspire_utils.dedupers import dedupe_list_of_dicts
 from inspire_utils.record import get_value
 from invenio_db import db
 from invenio_records.models import RecordMetadata
@@ -21,9 +23,6 @@ from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.api import InspireRecord, LiteratureRecord
 from inspirehep.search.api import InspireSearch
 from inspirehep.utils import flatten_list
-from inspire_utils.dedupers import dedupe_list_of_dicts, dedupe_list
-from dict_deep import deep_set
-
 
 LOGGER = structlog.getLogger()
 
@@ -83,7 +82,9 @@ def update_references_pointing_to_merged_record(
     for index, path in refs_to_schema:
         query = get_query_for_given_path(index, path, merged_record_uri)
         es_index_name = f"records-{index}"
-        matched_records = InspireSearch(index=es_index_name).query(query).scan()
+        matched_records = (
+            InspireSearch(index=es_index_name).query(query).params(scroll="60m").scan()
+        )
         for matched_record in matched_records:
             pid_type = current_app.config["SCHEMA_TO_PID_TYPES"][index]
             record_class = InspireRecord.get_subclasses()[pid_type]
@@ -101,9 +102,13 @@ def update_references_pointing_to_merged_record(
             )
 
             for referenced_record in referenced_records_in_path:
-                update_reference_if_reference_uri_matches(referenced_record, merged_record_uri, new_record_uri)
-            deduped_matched_inspire_record = remove_duplicate_refs_from_record(matched_inspire_record, path)
-            
+                update_reference_if_reference_uri_matches(
+                    referenced_record, merged_record_uri, new_record_uri
+                )
+            deduped_matched_inspire_record = remove_duplicate_refs_from_record(
+                matched_inspire_record, path
+            )
+
             if deduped_matched_inspire_record:
                 matched_inspire_record = deduped_matched_inspire_record
             matched_inspire_record.update(dict(matched_inspire_record))
