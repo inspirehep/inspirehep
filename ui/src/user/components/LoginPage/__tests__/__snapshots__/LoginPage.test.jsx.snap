@@ -33,7 +33,7 @@ exports[`LoginPage renders page 1`] = `
         </ExternalLink>
       </p>
       <Button
-        className="login-button h3"
+        className="login-button"
         href="/api/accounts/login?next=/"
       >
         <img

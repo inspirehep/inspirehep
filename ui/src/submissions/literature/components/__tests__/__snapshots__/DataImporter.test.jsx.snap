@@ -17,7 +17,9 @@ exports[`DataImporter renders with error with a message 1`] = `
   <Row
     className="mb3"
   >
-    <Col>
+    <Col
+      span={24}
+    >
       <Alert
         closable={true}
         message={
@@ -115,7 +117,9 @@ exports[`DataImporter renders with error with message and recid 1`] = `
   <Row
     className="mb3"
   >
-    <Col>
+    <Col
+      span={24}
+    >
       <Alert
         closable={true}
         message={
@@ -223,7 +227,9 @@ exports[`DataImporter renders with error without a message 1`] = `
   <Row
     className="mb3"
   >
-    <Col>
+    <Col
+      span={24}
+    >
       <Alert
         closable={true}
         message={

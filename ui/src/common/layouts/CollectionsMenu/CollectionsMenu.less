@@ -6,12 +6,14 @@
     display: none;
   }
   .button-no-background {
-    top: -15%;
     padding: 0;
     background-color: @layout-header-background;
     border-style: none;
     border-width: 0;
-    vertical-align: top;
+    & > span {
+      vertical-align: top;
+      line-height: 1.05;
+    }
   }
 
   .button-no-background:hover,

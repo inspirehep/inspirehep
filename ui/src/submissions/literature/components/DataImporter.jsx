@@ -58,7 +58,7 @@ class DataImporter extends Component {
         </Row>
         {error && (
           <Row className="mb3">
-            <Col>
+            <Col span={24}>
               <Alert
                 message={this.renderAlertMessage()}
                 type="error"
