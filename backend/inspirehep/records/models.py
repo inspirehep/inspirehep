@@ -309,3 +309,38 @@ class WorkflowsRecordSources(db.Model, Timestamp):
         JSONB(),
         default=lambda: dict(),
     )
+
+
+class JournalLiterature(db.Model):
+    """Keeps track of papers linked to Journal records."""
+
+    __tablename__ = "journal_literature"
+    __table_args__ = (
+        db.Index("ix_journal_experiment_journal_uuid", "journal_uuid"),
+        db.Index("ix_journal_literature_literature_uuid", "literature_uuid"),
+    )
+
+    journal_uuid = db.Column(
+        UUIDType,
+        db.ForeignKey(
+            "records_metadata.id", name="fk_journal_literature_experiment_uuid"
+        ),
+        nullable=False,
+        primary_key=True,
+    )
+    literature_uuid = db.Column(
+        UUIDType,
+        db.ForeignKey(
+            "records_metadata.id", name="fk_journal_literature_literature_uuid"
+        ),
+        nullable=False,
+        primary_key=True,
+    )
+
+    journal = db.relationship(
+        RecordMetadata, backref="journal_papers", foreign_keys=[journal_uuid]
+    )
+
+    journal_paper = db.relationship(
+        RecordMetadata, backref="journals", foreign_keys=[literature_uuid]
+    )

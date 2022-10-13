@@ -7,26 +7,31 @@
 
 from copy import deepcopy
 
+import mock
 from helpers.providers.faker import faker
 
 from inspirehep.records.api import JournalsRecord
 from inspirehep.records.marshmallow.journals import JournalsElasticSearchSchema
 
 
-def test_journals_serializer_should_serialize_whole_basic_record():
+@mock.patch("inspirehep.records.api.journals.JournalLiterature")
+def test_journals_serializer_should_serialize_whole_basic_record(
+    mock_journal_lit_table,
+):
     schema = JournalsElasticSearchSchema()
-
     data = faker.record("jou")
     expected_result = deepcopy(data)
     title_suggest = {"input": [data["journal_title"]["title"], data["short_title"]]}
     expected_result["title_suggest"] = title_suggest
     journal = JournalsRecord(data)
     result = schema.dump(journal).data
+    del result["number_of_papers"]
 
     assert result == expected_result
 
 
-def test_journals_serializer_populates_title_suggest():
+@mock.patch("inspirehep.records.api.journals.JournalLiterature")
+def test_journals_serializer_populates_title_suggest(mock_journal_lit_table):
     schema = JournalsElasticSearchSchema()
     data = {"title_variants": ["title_variant1", "title_variant2"]}
 
@@ -46,7 +51,8 @@ def test_journals_serializer_populates_title_suggest():
     assert result == expected_result
 
 
-def test_populate_title_suggest_with_all_inputs():
+@mock.patch("inspirehep.records.api.journals.JournalLiterature")
+def test_populate_title_suggest_with_all_inputs(mock_journal_lit_table):
     data = {
         "$schema": "http://localhost:5000/schemas/records/journals.json",
         "journal_title": {"title": "The Journal of High Energy Physics (JHEP)"},

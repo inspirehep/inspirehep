@@ -12,6 +12,7 @@ from inspirehep.records.models import (
     ConferenceLiterature,
     ExperimentLiterature,
     InstitutionLiterature,
+    JournalLiterature,
     RecordCitations,
 )
 from inspirehep.records.tasks import update_records_relations
@@ -134,3 +135,19 @@ def test_update_records_relations_updated_experiment_literature_relations(inspir
     ).one()
 
     assert experiment_literature_relation.literature_uuid == record.id
+
+
+def test_update_records_relations_updated_journal_literature_relations(inspire_app):
+    journal = create_record("jou")
+    lit_data_with_journal = {"publication_info": [{"journal_record": journal["self"]}]}
+    record = create_record("lit", data=lit_data_with_journal)
+
+    result = update_records_relations([record.id])
+
+    assert [record.id] == result
+
+    journal_literature_relation = JournalLiterature.query.filter_by(
+        journal_uuid=journal.id
+    ).one()
+
+    assert journal_literature_relation.literature_uuid == record.id

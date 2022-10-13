@@ -20,6 +20,7 @@ from inspirehep.records.models import (
     ConferenceToLiteratureRelationshipType,
     ExperimentLiterature,
     InstitutionLiterature,
+    JournalLiterature,
     RecordCitations,
     RecordsAuthors,
     StudentsAdvisors,
@@ -664,3 +665,54 @@ class StudentsAdvisorMixin:
             )
         ).delete()
         super().hard_delete()
+
+
+class JournalPapersMixin:
+    def clean_journal_literature_relations(self):
+        JournalLiterature.query.filter_by(literature_uuid=self.id).delete()
+
+    def create_journal_relations(self):
+        journal_recids = self.linked_journal_pids
+        journals = self.get_records_by_pids(journal_recids)
+        journal_literature_relations_waiting_for_commit = []
+
+        for journal in journals:
+            if not journal.get("deleted"):
+                journal_literature_relations_waiting_for_commit.append(
+                    JournalLiterature(journal_uuid=journal.id, literature_uuid=self.id)
+                )
+        if len(journal_literature_relations_waiting_for_commit) == 0:
+            return
+        db.session.bulk_save_objects(journal_literature_relations_waiting_for_commit)
+        LOGGER.info(
+            "Adding journal-literature relations",
+            recid=self.get("control_number"),
+            uuid=str(self.id),
+            records_attached=len(journal_literature_relations_waiting_for_commit),
+        )
+
+    def update_journal_relations(self):
+        self.clean_journal_literature_relations()
+        if not self.get("deleted"):
+            self.create_journal_relations()
+
+    def hard_delete(self):
+        self.clean_journal_literature_relations()
+        super().hard_delete()
+
+    def get_modified_journal_uuids(self):
+        prev_version = self._previous_version
+
+        changed_deleted_status = self.get("deleted", False) ^ prev_version.get(
+            "deleted", False
+        )
+        pids_latest = list(self.linked_journal_pids)
+
+        if changed_deleted_status:
+            return list(self.get_records_ids_by_pids(pids_latest))
+
+        pids_previous = self._previous_version.linked_journal_pids
+
+        pids_changed = set.symmetric_difference(set(pids_latest), set(pids_previous))
+
+        return list(self.get_records_ids_by_pids(list(pids_changed)))

@@ -60,6 +60,7 @@ class InspireRecord(Record):
     ]
 
     experiment_field = "accelerator_experiments.record"
+    journal_field = "publication_info.journal_record"
     nested_record_fields = []
 
     @staticmethod
@@ -628,6 +629,10 @@ class InspireRecord(Record):
     @property
     def linked_experiments_pids(self):
         return self.get_linked_pids_from_field(self.experiment_field)
+
+    @property
+    def linked_journal_pids(self):
+        return self.get_linked_pids_from_field(self.journal_field)
 
     def serialize_for_es(self):
         """Prepares proper json data for es serializer

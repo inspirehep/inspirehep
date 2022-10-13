@@ -9,6 +9,7 @@ from inspirehep.records.marshmallow.journals.base import (
     JournalsPublicSchema,
 )
 
+
 def test_admin_schema():
     expected_result = {
         "_private_notes": "PRIVATE",
@@ -27,13 +28,16 @@ def test_admin_schema():
     result = JournalsAdminSchema().dump(data).data
     assert expected_result == result
 
+
 def test_public_schema():
     expected_result = {
+        "number_of_papers": 2137,
         "journal_title": {"title": "Journal of Physical Science and Application"},
         "short_title": "J.Phys.Sci.Appl.",
     }
 
     data = {
+        "number_of_papers": 2137,
         "_private_notes": "PRIVATE",
         "_collections": ["collection1, collection2"],
         "journal_title": {"title": "Journal of Physical Science and Application"},

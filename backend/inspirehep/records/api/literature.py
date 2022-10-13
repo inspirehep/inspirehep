@@ -38,6 +38,7 @@ from inspirehep.records.api.mixins import (
     ConferencePaperAndProceedingsMixin,
     ExperimentPapersMixin,
     InstitutionPapersMixin,
+    JournalPapersMixin,
 )
 from inspirehep.records.errors import (
     ExistingArticleError,
@@ -82,6 +83,7 @@ class LiteratureRecord(
     ConferencePaperAndProceedingsMixin,
     ExperimentPapersMixin,
     InstitutionPapersMixin,
+    JournalPapersMixin,
     InspireRecord,
 ):
     """Literature Record."""
@@ -105,6 +107,7 @@ class LiteratureRecord(
         self.update_conference_paper_and_proccedings()
         self.update_institution_relations()
         self.update_experiment_relations()
+        self.update_journal_relations()
 
     @classmethod
     def create(

@@ -22,6 +22,9 @@ from sqlalchemy.dialects.postgresql import JSONB
 from inspirehep.mailing.api.jobs import send_job_deadline_reminder
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.api import InspireRecord, JobsRecord
+from inspirehep.records.tasks import populate_journal_literature
+from inspirehep.search.api import LiteratureSearch
+from inspirehep.utils import chunker
 
 LOGGER = structlog.getLogger()
 
@@ -192,3 +195,32 @@ def close_expired_jobs(notify):
             send_job_deadline_reminder(dict(job_record))
 
     LOGGER.info("Closed expired jobs", notify=notify, num_records=len(expired_jobs))
+
+
+@click.group()
+def relationships():
+    """Command to manage records relationships."""
+
+
+@relationships.command(help="Populates relations in JournalLiterature table")
+@with_appcontext
+def populate_journal_literature_table():
+    query = {
+        "query": {
+            "nested": {
+                "path": "publication_info",
+                "query": {
+                    "bool": {
+                        "must": [
+                            {"exists": {"field": "publication_info.journal_record"}}
+                        ]
+                    }
+                },
+            }
+        }
+    }
+    records_es = LiteratureSearch().from_dict(query).params(scroll="60m").scan()
+
+    for chunk in chunker(records_es, 100):
+        uuids = [record.meta.id for record in chunk]
+        populate_journal_literature.delay(uuids)
