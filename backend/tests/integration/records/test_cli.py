@@ -171,9 +171,7 @@ def test_close_expired_jobs_with_notify(
     expired_record = create_record(
         "job", data={"status": "open", "deadline_date": "2019-11-01"}
     )
-    not_expired_record = create_record(
-        "job", data={"status": "open", "deadline_date": "2020-11-01"}
-    )
+    create_record("job", data={"status": "open", "deadline_date": "2020-11-01"})
     cli.invoke(["jobs", "close_expired_jobs", "--notify"])
 
     expired_record = JobsRecord.get_record_by_pid_value(

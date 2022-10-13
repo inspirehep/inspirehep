@@ -16,8 +16,14 @@ from inspire_utils.dedupers import dedupe_list_of_dicts
 from inspire_utils.record import get_value
 from invenio_db import db
 from invenio_records.models import RecordMetadata
-from sqlalchemy.exc import OperationalError
-from sqlalchemy.orm.exc import StaleDataError
+from sqlalchemy.exc import (
+    DisconnectionError,
+    OperationalError,
+    ResourceClosedError,
+    TimeoutError,
+    UnboundExecutionError,
+)
+from sqlalchemy.orm.exc import NoResultFound, StaleDataError
 
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.api import InspireRecord, LiteratureRecord
@@ -45,6 +51,7 @@ def update_records_relations(uuids):
                     record.update_conference_paper_and_proccedings()
                     record.update_institution_relations()
                     record.update_experiment_relations()
+                    record.update_journal_relations()
         except OperationalError:
             LOGGER.exception(
                 "OperationalError on recalculate relations.", uuid=str(uuid)
@@ -158,3 +165,24 @@ def remove_duplicate_refs_from_record(matched_inspire_record, path):
 
     deep_set(matched_inspire_record, references_path, deduped_references)
     return matched_inspire_record
+
+
+@shared_task(
+    ignore_results=False,
+    acks_late=True,
+    retry_backoff=2,
+    retry_kwargs={"max_retries": 6},
+    autoretry_for=(
+        NoResultFound,
+        StaleDataError,
+        DisconnectionError,
+        TimeoutError,
+        UnboundExecutionError,
+        ResourceClosedError,
+        OperationalError,
+    ),
+)
+def populate_journal_literature(uuids):
+    records = LiteratureRecord.get_records(uuids)
+    for record in records:
+        record.update_journal_relations()

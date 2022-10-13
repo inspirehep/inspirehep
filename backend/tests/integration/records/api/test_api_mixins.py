@@ -6,6 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 """INSPIRE module that adds more fun to the platform."""
+import copy
 from copy import deepcopy
 
 import mock
@@ -14,11 +15,24 @@ from helpers.providers.faker import faker
 from helpers.utils import create_record
 
 from inspirehep.records.api import LiteratureRecord
+from inspirehep.records.api.journals import JournalsRecord
 from inspirehep.records.models import (
     ExperimentLiterature,
     InstitutionLiterature,
+    JournalLiterature,
     StudentsAdvisors,
 )
+
+
+@pytest.fixture
+def journal_data():
+    journal_data = {
+        "_collections": ["Journals"],
+        "journal_title": {"title": "Test"},
+        "$schema": "https://inspirehep.net/schemas/records/journals.json",
+        "short_title": "Test",
+    }
+    return journal_data
 
 
 def test_records_links_correctly_with_conference(inspire_app):
@@ -810,3 +824,108 @@ def test_hard_delete_advisor_clears_entries_in_students_advisors_table(
     advisor.hard_delete()
 
     assert StudentsAdvisors.query.filter_by(student_id=student.id).count() == 0
+
+
+def test_journal_literature_table_is_populated_when_lit_record_added(inspire_app):
+    journal_rec = create_record("jou")
+    rec = create_record(
+        "lit", data={"publication_info": [{"journal_record": journal_rec["self"]}]}
+    )
+    assert JournalLiterature.query.filter_by(literature_uuid=rec.id).count() == 1
+
+
+def test_journal_literature_table_is_populated_when_multiple_lit_records_added(
+    inspire_app, journal_data
+):
+    journal_rec = JournalsRecord(data=journal_data).create(journal_data)
+    journal_data_2 = copy.deepcopy(journal_data)
+    journal_data_2["journal_title"] = {"title": "Another Test"}
+    journal_rec_2 = JournalsRecord(data=journal_data_2).create(journal_data_2)
+    data = {
+        "_collections": ["Literature"],
+        "document_type": ["article"],
+        "$schema": "https://inspirehep.net/schemas/records/hep.json",
+        "titles": [{"title": "A test"}],
+        "publication_info": [{"journal_record": journal_rec["self"]}],
+    }
+    data_2 = {
+        "_collections": ["Literature"],
+        "document_type": ["article"],
+        "$schema": "https://inspirehep.net/schemas/records/hep.json",
+        "titles": [{"title": "A test 2"}],
+        "publication_info": [{"journal_record": journal_rec_2["self"]}],
+    }
+    rec = LiteratureRecord(data=data).create(data)
+    rec_2 = LiteratureRecord(data=data_2).create(data_2)
+    assert JournalLiterature.query.count() == 2
+    assert JournalLiterature.query.filter_by(literature_uuid=rec.id).count() == 1
+    assert JournalLiterature.query.filter_by(literature_uuid=rec_2.id).count() == 1
+
+
+def test_journal_literature_table_is_updated_when_literature_record_modified(
+    inspire_app, journal_data
+):
+    journal_rec = JournalsRecord(data=journal_data).create(journal_data)
+    data = {
+        "_collections": ["Literature"],
+        "document_type": ["article"],
+        "$schema": "https://inspirehep.net/schemas/records/hep.json",
+        "titles": [{"title": "A test"}],
+    }
+    rec = LiteratureRecord(data=data).create(data)
+    assert JournalLiterature.query.filter_by(literature_uuid=rec.id).count() == 0
+    rec["publication_info"] = [{"journal_record": journal_rec["self"]}]
+    rec.update(dict(rec))
+    assert JournalLiterature.query.filter_by(literature_uuid=rec.id).count() == 1
+
+
+def test_journal_literature_table_is_updated_when_journal_record_ref_deleted_from_literature(
+    inspire_app, journal_data
+):
+    journal_rec = JournalsRecord(data=journal_data).create(journal_data)
+    data = {
+        "_collections": ["Literature"],
+        "document_type": ["article"],
+        "$schema": "https://inspirehep.net/schemas/records/hep.json",
+        "titles": [{"title": "A test"}],
+        "publication_info": [{"journal_record": journal_rec["self"]}],
+    }
+    rec = LiteratureRecord(data=data).create(data)
+    assert JournalLiterature.query.filter_by(literature_uuid=rec.id).count() == 1
+    del rec["publication_info"]
+    rec.update(dict(rec))
+    assert JournalLiterature.query.filter_by(literature_uuid=rec.id).count() == 0
+
+
+def test_journal_literature_is_cleaned_after_deleting_lit_record(
+    inspire_app, journal_data
+):
+    journal_rec = JournalsRecord(data=journal_data).create(journal_data)
+    data = {
+        "_collections": ["Literature"],
+        "document_type": ["article"],
+        "$schema": "https://inspirehep.net/schemas/records/hep.json",
+        "titles": [{"title": "A test"}],
+        "publication_info": [{"journal_record": journal_rec["self"]}],
+    }
+    rec = LiteratureRecord(data=data).create(data)
+    assert JournalLiterature.query.filter_by(literature_uuid=rec.id).count() == 1
+    rec.delete()
+    assert JournalLiterature.query.filter_by(journal_uuid=journal_rec.id).count() == 0
+
+
+def test_journal_literature_is_cleaned_after_hard_delete_lit_record(
+    inspire_app, journal_data
+):
+    journal_rec = JournalsRecord(data=journal_data).create(journal_data)
+    data = {
+        "_collections": ["Literature"],
+        "document_type": ["article"],
+        "$schema": "https://inspirehep.net/schemas/records/hep.json",
+        "titles": [{"title": "A test"}],
+        "publication_info": [{"journal_record": journal_rec["self"]}],
+    }
+    rec = LiteratureRecord(data=data).create(data)
+    assert JournalLiterature.query.filter_by(literature_uuid=rec.id).count() == 1
+    rec.hard_delete()
+    assert JournalLiterature.query.filter_by(journal_uuid=journal_rec.id).count() == 0

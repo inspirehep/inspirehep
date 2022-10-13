@@ -13,6 +13,8 @@ from sqlalchemy.engine import reflection
 
 def test_downgrade(inspire_app):
     alembic = Alembic(current_app)
+    alembic.downgrade(target="35ba3d715114")
+    assert "id" in get_primary_keys("students_advisors")
     alembic.downgrade(target="232af38d2604")
     assert "workflows_record_sources" not in _get_table_names()
     alembic.downgrade(target="2d7ea622feda")
@@ -263,6 +265,13 @@ def test_upgrade(inspire_app):
     alembic.upgrade(target="0ae62076ae0c")
     assert "workflows_record_sources" in _get_table_names()
     assert "source_enum" in _get_custom_enums()
+    alembic.upgrade(target="35ba3d715114")
+    assert "id" in get_primary_keys("students_advisors")
+    alembic.upgrade(target="0d1cf7c4501e")
+    assert "journal_literature" in _get_table_names()
+    assert set(["journal_uuid", "literature_uuid"]) == set(
+        get_primary_keys("journal_literature")
+    )
 
 
 def _get_indexes(tablename):
@@ -319,3 +328,9 @@ def _get_custom_enums():
 def _check_column_in_table(table, column):
     insp = reflection.Inspector.from_engine(db.engine)
     return column in [col["name"] for col in insp.get_columns(table)]
+
+
+def get_primary_keys(tablename):
+    insp = reflection.Inspector.from_engine(db.engine)
+    primary_keys = insp.get_primary_keys(tablename)
+    return primary_keys

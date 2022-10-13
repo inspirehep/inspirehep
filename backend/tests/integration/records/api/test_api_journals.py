@@ -181,3 +181,21 @@ def test_cn_redirection_works_for_journals(inspire_app):
     assert original_record != new_record
     assert original_record == redirected_record.id
     assert new_record == record.id
+
+
+def test_journal_number_of_papers_query(inspire_app):
+    record = create_record("jou")
+
+    assert record.number_of_papers == 0
+
+    lit_record = create_record(
+        "lit", data={"publication_info": [{"journal_record": record["self"]}]}
+    )
+    create_record(
+        "lit", data={"publication_info": [{"journal_record": record["self"]}]}
+    )
+
+    assert record.number_of_papers == 2
+    lit_record.delete()
+
+    assert record.number_of_papers == 1
