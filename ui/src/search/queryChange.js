@@ -11,7 +11,6 @@ export function onLiteratureQueryChange(helper) {
     helper.isInitialQueryUpdate() ||
     helper.hasQueryChangedExceptSortAndPagination()
   ) {
-    
     // `if isCitationSummaryEnabled` can be pushed down to `fetchCitationSummary`
     if (isCitationSummaryEnabled(helper.state)) {
       helper.dispatch(fetchCitationSummary(helper.namespace));

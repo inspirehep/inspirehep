@@ -158,6 +158,23 @@ export function searchQueryReset(namespace) {
   };
 }
 
+export function fetchAggregationsAndSearchQueryReset(namespace, shouldReset) {
+  return async (dispatch, getState) => {
+    const prevState = getState();
+
+    if (shouldReset) {
+      dispatch({
+        type: SEARCH_QUERY_RESET,
+        payload: { namespace },
+      })
+    }
+
+    const nextState = getState();
+    const helper = new SearchHelper(namespace, prevState, nextState, dispatch);
+    helper.fetchSearchAggregations();
+  };
+}
+
 export function searchBaseQueriesUpdate(
   namespace,
   { baseQuery, baseAggregationsQuery }
