@@ -5,13 +5,17 @@ import {
   searchQueryUpdate,
   newSearch,
   searchQueryReset,
+  fetchAggregationsAndSearchQueryReset,
 } from '../actions/search';
-import { SEARCHABLE_COLLECTION_PATHNAMES } from '../search/constants';
+import {
+  LITERATURE_NS,
+  SEARCHABLE_COLLECTION_PATHNAMES,
+} from '../search/constants';
 import { getRootOfLocationPathname } from '../common/utils';
 
 const idInUrlRegExp = new RegExp('/\\d+');
 function isSearchPage(location) {
-  const isCollectionPage = SEARCHABLE_COLLECTION_PATHNAMES.some(pathname =>
+  const isCollectionPage = SEARCHABLE_COLLECTION_PATHNAMES.some((pathname) =>
     location.pathname.startsWith(pathname)
   );
 
@@ -40,16 +44,18 @@ function isLocationSyncedWithSearchQuery(namespace, state) {
 }
 
 // FIXME: this can be moved to reducer?
-export default function({ dispatch, getState }) {
-  return next => action => {
+export default function ({ dispatch, getState }) {
+  return (next) => (action) => {
     if (action.type === LOCATION_CHANGE) {
       const prevState = getState();
+
       const prevLocation = prevState.router.location;
+      const nextLocation = action.payload.location;
+
+      const prevNamespace = getRootOfLocationPathname(prevLocation.pathname);
+      const nextNamespace = getRootOfLocationPathname(nextLocation.pathname);
 
       const result = next(action);
-
-      // use this instead of getState() for ease of testing
-      const nextLocation = action.payload.location;
 
       // dipsatch new search to clear to search state for previous location when pathname changes
       // ex: from `/literature?...` to `/` (home)
@@ -57,12 +63,14 @@ export default function({ dispatch, getState }) {
         prevLocation.pathname !== nextLocation.pathname &&
         isSearchPage(prevLocation)
       ) {
-        const prevNamespace = getRootOfLocationPathname(prevLocation.pathname);
+
         dispatch(newSearch(prevNamespace));
-      }
+        if (nextNamespace === LITERATURE_NS) {
+          // fetch literature aggregations when `back` is clicked
+          dispatch(fetchAggregationsAndSearchQueryReset(nextNamespace));
+      }}
 
       if (isSearchPage(nextLocation)) {
-        const nextNamespace = getRootOfLocationPathname(nextLocation.pathname);
 
         const { isFirstRendering } = action.payload;
         if (
@@ -75,7 +83,12 @@ export default function({ dispatch, getState }) {
             prevLocation.pathname === nextLocation.pathname &&
             action.payload.action === 'POP'
           ) {
-            dispatch(searchQueryReset(nextNamespace));
+            if (nextNamespace === LITERATURE_NS) {
+              // reset query and fetch aggregations when `back` is clicked within literature collection
+              dispatch(fetchAggregationsAndSearchQueryReset(nextNamespace, true));
+            } else {
+              dispatch(searchQueryReset(nextNamespace));
+            }
           }
 
           const { query } = nextLocation;

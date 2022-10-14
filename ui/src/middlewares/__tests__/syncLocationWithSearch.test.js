@@ -2,13 +2,14 @@ import { LOCATION_CHANGE } from 'connected-react-router';
 import { fromJS } from 'immutable';
 
 import middleware from '../syncLocationWithSearch';
-import { LITERATURE_NS } from '../../search/constants';
+import { LITERATURE_NS, AUTHORS_NS } from '../../search/constants';
 import { mockActionCreator } from '../../fixtures/store';
-import { LITERATURE } from '../../common/routes';
+import { LITERATURE, AUTHORS } from '../../common/routes';
 import {
   searchQueryUpdate,
   searchQueryReset,
   newSearch,
+  fetchAggregationsAndSearchQueryReset
 } from '../../actions/search';
 
 jest.mock('../../actions/search');
@@ -53,10 +54,42 @@ describe('syncLocationWithSearch middleware', () => {
       );
     });
 
-    it('dispatches searchQueryReset if there is a POP (back) but pathname has not changed', () => {
+    it('dispatches fetchAggregationsAndSearchQueryReset if there is a POP (back) but pathname has not changed and namespace is literature', () => {
       const namespace = LITERATURE_NS;
       const location = {
         pathname: LITERATURE,
+        search: '?size=10&q=guy',
+        query: { size: 10, q: 'guy' },
+      };
+      const router = { location };
+      const search = fromJS({
+        namespaces: {
+          [namespace]: {
+            query: { size: 10, q: 'dude' },
+          },
+        },
+      });
+      const getState = () => ({ search, router });
+      const mockNextFuncThatMirrors = action => action;
+      const mockDispatch = jest.fn();
+      const testMiddleware = middleware({ getState, dispatch: mockDispatch })(
+        mockNextFuncThatMirrors
+      );
+
+      const action = {
+        type: LOCATION_CHANGE,
+        payload: { location, action: 'POP' },
+      };
+      const resultAction = testMiddleware(action);
+
+      expect(resultAction).toEqual(action);
+      expect(mockDispatch).toHaveBeenCalledWith(fetchAggregationsAndSearchQueryReset(namespace));
+    });
+
+    it('dispatches searchQueryReset if there is a POP (back) but pathname has not changed', () => {
+      const namespace = AUTHORS_NS;
+      const location = {
+        pathname: AUTHORS,
         search: '?size=10&q=guy',
         query: { size: 10, q: 'guy' },
       };
