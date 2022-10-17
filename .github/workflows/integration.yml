@@ -1064,3 +1064,35 @@ jobs:
           image: inspirehep/editor
           pull-tag: ${{ needs.end_to_end_test_chrome.outputs.editor_image }}
           push-tag: master-${{ env.REF }}
+
+  build_and_push_jupyter_image:
+    name: Build Jupyter image
+    runs-on: ubuntu-latest
+    needs: push
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ env.REF }}
+
+      - name: Export requirements.txt
+        uses: divideprojects/poetry-export-requirements-action@v1
+        with:
+          without-hashes: true
+          outfile-name: ./docker/jupyter/hep_requirements.txt
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          registry: registry.cern.ch
+          username: ${{ secrets.HARBOR_USERNAME }}
+          password: ${{ secrets.HARBOR_PASSWORD }}
+
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: ./docker/jupyter/
+          build-args: GH_COMMIT_HASH=${{ github.sha }}
+          push: true
+          tags: registry.cern.ch/cern-sis/inspirehep/jupyter:latest,registry.cern.ch/cern-sis/inspirehep/jupyter:${{ github.sha }}
