@@ -8,6 +8,8 @@
 import pytest
 from freezegun import freeze_time
 from helpers.utils import create_record, create_record_factory
+from lxml.etree import XMLSyntaxError
+from mock import patch
 
 
 @freeze_time("1994-12-19")
@@ -1034,3 +1036,52 @@ def test_latex_strips_mathml(inspire_app):
 
     assert expected_status_code == response_status_code
     assert expected_result == response_data
+
+
+@freeze_time("1994-12-19")
+def test_latex_strips_mathml_with_and_in_title(inspire_app):
+    headers = {"Accept": "application/vnd+inspire.latex.eu+x-latex"}
+    data = {
+        "control_number": 637_275_237,
+        "titles": [
+            {
+                "title": 'Inert Higgs & Dark Matter for CDF II <math display="inline"><mi>W</mi></math>-Boson Mass and Detection Prospects'
+            }
+        ],
+    }
+
+    expected_data = "%\\cite{637275237}\n\\bibitem{637275237}\n%``Inert Higgs \\& Dark Matter for CDF II W-Boson Mass and Detection Prospects,''\n%0 citations counted in INSPIRE as of 19 Dec 1994"
+    record = create_record("lit", data=data)
+    with inspire_app.test_client() as client:
+        response = client.get(
+            f"/literature/{record['control_number']}", headers=headers
+        )
+    assert response.get_data(as_text=True) == expected_data
+
+
+@freeze_time("1994-12-19")
+@patch("inspirehep.records.marshmallow.literature.latex.remove_tags")
+def test_latex_leaves_mathml_in_title_when_conversion_error(
+    mock_remove_tags, inspire_app
+):
+    class CustomException(XMLSyntaxError):
+        def __init__(filename="test", lineno=1, msg="text", offset=1):
+            ...
+
+    mock_remove_tags.side_effect = CustomException
+    headers = {"Accept": "application/vnd+inspire.latex.eu+x-latex"}
+    data = {
+        "control_number": 637_275_237,
+        "titles": [
+            {
+                "title": 'Inert Higgs & Dark Matter for CDF II <math display="inline"><mi>W</mi></math>-Boson Mass and Detection Prospects'
+            }
+        ],
+    }
+    expected_data = "%\\cite{637275237}\n\\bibitem{637275237}\n%``Inert Higgs \\& Dark Matter for CDF II \\ensuremath{<}math display=''inline''\\ensuremath{>}\\ensuremath{<}mi\\ensuremath{>}W\\ensuremath{<}/mi\\ensuremath{>}\\ensuremath{<}/math\\ensuremath{>}-Boson Mass and Detection Prospects,''\n%0 citations counted in INSPIRE as of 19 Dec 1994"
+    record = create_record("lit", data=data)
+    with inspire_app.test_client() as client:
+        response = client.get(
+            f"/literature/{record['control_number']}", headers=headers
+        )
+    assert response.get_data(as_text=True) == expected_data

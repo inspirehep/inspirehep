@@ -13,11 +13,26 @@ from inspire_utils.helpers import remove_tags
 from inspire_utils.name import format_name
 from inspire_utils.record import get_value
 from isbn import ISBNError
+from lxml.etree import XMLSyntaxError
 from marshmallow import fields, missing
+from prometheus_client import Counter
 
 from ..base import BaseSchema
 from .bibtex import BibTexCommonSchema
 from .utils import latex_encode
+
+latex_conversion_success = Counter(
+    "latex_title_serialization_success", "Latex title serialization success"
+)
+
+latex_conversion_success_with_and_replacement = Counter(
+    "latex_title_serialization_success_after_and_conversion",
+    "Latex title serialization success after `&` removal",
+)
+
+latex_conversion_errors = Counter(
+    "latex_title_serialization_error", "Latex title serialization errors"
+)
 
 
 class LatexSchema(BaseSchema):
@@ -90,9 +105,24 @@ class LatexSchema(BaseSchema):
             title_parts.append(title_dict["subtitle"])
         formatted_parts = []
         for part in title_parts:
-            part_witouth_mathml = remove_tags(
-                remove_tags(part, allowed_tags="DUMMYROOTTAG")
-            )
+            try:
+                part_witouth_mathml = remove_tags(
+                    remove_tags(part, allowed_tags="DUMMYROOTTAG")
+                )
+                latex_conversion_success.inc()
+            except XMLSyntaxError:
+                try:
+                    part_with_replaced_and_char = part.replace("&", "DUMMYAND")
+                    part_witouth_mathml = remove_tags(
+                        remove_tags(
+                            part_with_replaced_and_char, allowed_tags="DUMMYROOTTAG"
+                        )
+                    )
+                    part_witouth_mathml = part_witouth_mathml.replace("DUMMYAND", "&")
+                    latex_conversion_success_with_and_replacement.inc()
+                except XMLSyntaxError:
+                    part_witouth_mathml = part
+                    latex_conversion_errors.inc()
             latex_encoded_part = latex_encode(part_witouth_mathml, contains_math=True)
             formatted_parts.append(latex_encoded_part)
         return ": ".join(formatted_parts)

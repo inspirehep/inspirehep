@@ -14,7 +14,9 @@ from inspire_utils.date import PartialDate
 from inspire_utils.helpers import remove_tags
 from inspire_utils.record import get_value
 from isbn import ISBNError
+from lxml.etree import XMLSyntaxError
 from marshmallow import fields, pre_dump
+from prometheus_client import Counter
 from six import text_type
 
 from inspirehep.records.marshmallow.literature.utils import (
@@ -23,6 +25,19 @@ from inspirehep.records.marshmallow.literature.utils import (
 )
 
 from ..base import BaseSchema
+
+bibtex_conversion_success = Counter(
+    "bibtex_title_serialization_success", "Bibtex title serialization success"
+)
+
+bibtex_conversion_success_with_and_replacement = Counter(
+    "bibtex_title_serialization_success_after_and_conversion",
+    "Bibtex title serialization success after `&` removal",
+)
+
+bibtex_conversion_errors = Counter(
+    "bibtex_title_serialization_error", "Bibtex title serialization errors"
+)
 
 
 class BibTexCommonSchema(BaseSchema):
@@ -237,9 +252,25 @@ class BibTexCommonSchema(BaseSchema):
 
         formatted_parts = []
         for part in title_parts:
-            part_witouth_mathml = remove_tags(
-                remove_tags(part, allowed_tags="DUMMYROOTTAG")
-            )
+            try:
+                part_witouth_mathml = remove_tags(
+                    remove_tags(part, allowed_tags="DUMMYROOTTAG")
+                )
+                bibtex_conversion_success.inc()
+            except XMLSyntaxError:
+                try:
+                    part_with_replaced_and_char = part.replace("&", "DUMMYAND")
+                    part_witouth_mathml = remove_tags(
+                        remove_tags(
+                            part_with_replaced_and_char, allowed_tags="DUMMYROOTTAG"
+                        )
+                    )
+                    part_witouth_mathml = part_witouth_mathml.replace("DUMMYAND", "&")
+                    bibtex_conversion_success_with_and_replacement.inc()
+                except XMLSyntaxError:
+
+                    part_witouth_mathml = part
+                    bibtex_conversion_errors.inc()
             latex_encoded_part = (
                 f"{{{latex_encode(part_witouth_mathml, contains_math=True)}}}"
             )
