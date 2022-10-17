@@ -23,6 +23,7 @@ export const JournalTitlesListModal = ({
         pageSize: 8,
         size: 'small',
         hideOnSinglePage: true,
+        showSizeChanger: false
       }}
       renderItem={(item: string) => <List.Item>{item}</List.Item>}
     />

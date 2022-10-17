@@ -26,6 +26,7 @@ exports[`JournalTitlesListModal renders with props 1`] = `
       Object {
         "hideOnSinglePage": true,
         "pageSize": 8,
+        "showSizeChanger": false,
         "size": "small",
       }
     }
