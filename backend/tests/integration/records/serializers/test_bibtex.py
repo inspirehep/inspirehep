@@ -5,6 +5,8 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 from helpers.utils import create_record
+from lxml.etree import XMLSyntaxError
+from mock import patch
 
 
 def test_bibtex(inspire_app):
@@ -197,5 +199,48 @@ def test_bibtex_strips_mathml(inspire_app):
     expected_data = '@article{637275237,\n    title = "{Inert Higgs Dark Matter for CDF II W-Boson Mass and Detection Prospects}"\n}\n'
     record = create_record("lit", data=data)
     with inspire_app.test_client() as client:
+        response = client.get(f"/literature/{record['control_number']}?format=bibtex")
+    assert response.get_data(as_text=True) == expected_data
+
+
+def test_bibtex_strips_mathml_with_and_in_title(inspire_app):
+    data = {
+        "control_number": 637_275_237,
+        "titles": [
+            {
+                "title": 'Inert Higgs & Dark Matter for CDF II <math display="inline"><mi>W</mi></math>-Boson Mass and Detection Prospects'
+            }
+        ],
+    }
+
+    expected_data = '@article{637275237,\n    title = "{Inert Higgs \& Dark Matter for CDF II W-Boson Mass and Detection Prospects}"\n}\n'  # noqa:W605
+    record = create_record("lit", data=data)
+    with inspire_app.test_client() as client:
+        response = client.get(f"/literature/{record['control_number']}?format=bibtex")
+    assert response.get_data(as_text=True) == expected_data
+
+
+@patch("inspirehep.records.marshmallow.literature.bibtex.remove_tags")
+def test_bibtex_leaves_mathml_in_title_when_conversion_error(
+    mock_remove_tags, inspire_app
+):
+    class CustomException(XMLSyntaxError):
+        def __init__(filename="test", lineno=1, msg="text", offset=1):
+            ...
+
+    mock_remove_tags.side_effect = CustomException
+
+    data = {
+        "control_number": 637_275_237,
+        "titles": [
+            {
+                "title": 'Inert Higgs & Dark Matter for CDF II <math display="inline"><mi>W</mi></math>-Boson Mass and Detection Prospects'
+            }
+        ],
+    }
+    expected_data = "@article{637275237,\n    title = \"{Inert Higgs \\& Dark Matter for CDF II \\ensuremath{<}math display=''inline''\\ensuremath{>}\\ensuremath{<}mi\\ensuremath{>}W\\ensuremath{<}/mi\\ensuremath{>}\\ensuremath{<}/math\\ensuremath{>}-Boson Mass and Detection Prospects}\"\n}\n"
+    record = create_record("lit", data=data)
+    with inspire_app.test_client() as client:
+
         response = client.get(f"/literature/{record['control_number']}?format=bibtex")
     assert response.get_data(as_text=True) == expected_data
