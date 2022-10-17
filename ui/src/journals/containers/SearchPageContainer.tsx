@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Row, Col } from 'antd';
+import { Map } from 'immutable';
 
 import PaginationContainer from '../../common/containers/PaginationContainer';
 import ResultsContainer from '../../common/containers/ResultsContainer';
@@ -15,12 +16,23 @@ import { isCataloger } from '../../common/authorization';
 const META_DESCRIPTION = 'Find journals publishing about High Energy Physics';
 const TITLE = 'Journals Search';
 
+export interface JournalMetadata {
+  short_title: string;
+  journal_title: string;
+  urls: string[];
+  control_number: number;
+  publisher: string[];
+  number_of_papers: number;
+  public_notes: string[];
+  title_variants: string[];
+}
+
 export interface Journal {
   get: (metadata: string) => {
-    get: (arg: string) => string | string[] | number;
-    getIn: (values: [string, string]) => string;
+    get: (metadataKey: keyof JournalMetadata) => Map<keyof JournalMetadata, JournalMetadata[keyof JournalMetadata]>;
   };
 }
+
 interface RootState {
   search: {
     getIn: (values: [string, string, string]) => boolean;

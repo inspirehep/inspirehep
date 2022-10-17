@@ -18,6 +18,7 @@ import {
   ASSIGN_CONFERENCE_NS,
   LITERATURE_REFERENCES_NS,
   JOURNALS_NS,
+  JOURNAL_PAPERS_NS
 } from './constants';
 import {
   START_DATE_UPCOMING,
@@ -172,6 +173,12 @@ const namespacesState = {
   },
   [JOURNALS_NS]: {
     ...initialNamespaceState,
+  },
+  [JOURNAL_PAPERS_NS]: {
+    ...initialNamespaceState,
+    baseQuery: {
+      ...initialBaseQuery,
+    },
   },
   [AUTHOR_SEMINARS_NS]: {
     ...initialNamespaceState,
