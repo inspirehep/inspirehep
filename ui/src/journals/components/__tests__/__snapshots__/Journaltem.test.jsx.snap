@@ -25,10 +25,28 @@ exports[`JournalItem renders with props 1`] = `
       >
         <EditRecordAction
           pidType="journals"
-          pidValue="1234"
+          pidValue={1234}
         />
       </Connect(Authorized)>
     </React.Fragment>
+  }
+  rightActions={
+    <ListItemAction>
+      <EventTracker
+        eventId="Journals:PapersSearch"
+        eventPropName="onClick"
+        extractEventArgsToForward={null}
+      >
+        <ForwardRef
+          to="/literature?sort=mostrecent&size=25&page=1&q=publication_info.journal_title:\\"West Virginia U.\\""
+        >
+          <IconText
+            icon={<ForwardRef(LoginOutlined) />}
+            text="2 papers"
+          />
+        </ForwardRef>
+      </EventTracker>
+    </ListItemAction>
   }
 >
   <Row>
@@ -68,11 +86,12 @@ exports[`JournalItem renders with some props undefined 1`] = `
       >
         <EditRecordAction
           pidType="journals"
-          pidValue="1234"
+          pidValue={1234}
         />
       </Connect(Authorized)>
     </React.Fragment>
   }
+  rightActions={null}
 >
   <Row>
     <Col>
@@ -82,7 +101,6 @@ exports[`JournalItem renders with some props undefined 1`] = `
       >
         <PageHeader
           className="site-page-header"
-          subTitle={false}
           title="West Virginia U."
         />
       </Link>

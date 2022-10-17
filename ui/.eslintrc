@@ -79,6 +79,15 @@
       "rules": {
         "arrow-body-style": "off"
       }
+    },
+    {
+      "files": [
+        "*.ts", "*.tsx"
+      ],
+      "parser": "@typescript-eslint/parser",
+      "plugins": [
+        "@typescript-eslint"
+      ]
     }
   ],
   "settings": {

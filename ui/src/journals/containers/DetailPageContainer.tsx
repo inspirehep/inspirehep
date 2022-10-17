@@ -3,6 +3,7 @@ import './DetailPage.less';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Row, Col, PageHeader, Button } from 'antd';
+import { List } from 'immutable';
 
 import fetchJournal from '../../actions/journals';
 import withRouteActionsDispatcher from '../../common/withRouteActionsDispatcher';
@@ -17,6 +18,7 @@ import { JournalTitlesListModal } from '../components/JournalTitlesListModal';
 import EditRecordAction from '../../common/components/EditRecordAction';
 import { isCataloger, SUPERUSER_OR_CATALOGER } from '../../common/authorization';
 import AuthorizedContainer from '../../common/containers/AuthorizedContainer';
+import JournalPapers from '../components/JournalPapers';
 
 interface RootState {
   journals: {
@@ -33,13 +35,13 @@ export const DetailPage = ({ result, isCatalogerLoggedIn }: { result: Journal, i
 
   const metadata = result.get('metadata');
 
-  const shortTitle = metadata.get('short_title');
-  const journalTitle = metadata.get('journal_title');
-  const urls = metadata.get('urls');
-  const publicNotes = metadata.get('public_notes');
-  const titleVariants = metadata.get('title_variants');
-  const publisher = metadata.get('publisher');
-  const recordId = metadata.get('control_number');
+  const shortTitle = metadata.get('short_title') as unknown as string;
+  const journalTitle = metadata.get('journal_title') as unknown as string;
+  const urls = metadata.get('urls') as unknown as string[];
+  const publicNotes = metadata.get('public_notes') as unknown as string[];
+  const titleVariants = metadata.get('title_variants') as unknown as List<string>;
+  const publisher = metadata.get('publisher') as unknown as List<string>;
+  const recordId = metadata.get('control_number') as unknown as number;
 
   const onModalVisibilityChange = () => {
     setModalVisible(!modalVisible);
@@ -60,7 +62,7 @@ export const DetailPage = ({ result, isCatalogerLoggedIn }: { result: Journal, i
                   <EditRecordAction
                     isCatalogerLoggedIn={isCatalogerLoggedIn}
                     pidType={JOURNALS_PID_TYPE}
-                    pidValue={recordId.toString()}
+                    pidValue={recordId}
                   />
                 </AuthorizedContainer>
               </>
@@ -71,10 +73,7 @@ export const DetailPage = ({ result, isCatalogerLoggedIn }: { result: Journal, i
                 <PageHeader
                   className="site-page-header"
                   title={shortTitle}
-                  subTitle={
-                    // @ts-ignore
-                    publisher ? `(${publisher.toArray().map((p: string) => p)})` : false
-                  }
+                  subTitle={publisher && `(${publisher.toArray().map((p: string) => p)})`}
                 />
               </Col>
             </Row>
@@ -86,7 +85,6 @@ export const DetailPage = ({ result, isCatalogerLoggedIn }: { result: Journal, i
                     className="btn-ghost"
                     onClick={onModalVisibilityChange}
                   >
-                    {/* @ts-ignore */}
                     Show other names ({titleVariants.toArray().length})
                   </Button>
                 )}
@@ -102,7 +100,7 @@ export const DetailPage = ({ result, isCatalogerLoggedIn }: { result: Journal, i
             <Row className="mt2">
               <Col>
                 <Link
-                  to={`${LITERATURE}?sort=mostrecent&size=25&page=1&q=publication_info.journal_title.raw:"${shortTitle}"`}
+                  to={`${LITERATURE}?sort=mostrecent&size=25&page=1&q=publication_info.journal_title:"${shortTitle}"`}
                 >
                   Articles published in {shortTitle}
                 </Link>
@@ -111,11 +109,17 @@ export const DetailPage = ({ result, isCatalogerLoggedIn }: { result: Journal, i
           </ContentBox>
         </Col>
       </Row>
+      <Row justify="center">
+        <Col xs={24} md={22} lg={21} xxl={18}>
+          <ContentBox>
+            <JournalPapers journalName={shortTitle} />
+          </ContentBox>
+        </Col>
+      </Row>
       {titleVariants && (
         <JournalTitlesListModal
           modalVisible={modalVisible}
           onModalVisibilityChange={onModalVisibilityChange}
-          // @ts-ignore
           titleVariants={titleVariants.toArray()}
         />
       )}

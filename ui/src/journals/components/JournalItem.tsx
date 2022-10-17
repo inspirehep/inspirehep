@@ -1,6 +1,8 @@
 import React from 'react';
 import { Row, Col, PageHeader } from 'antd';
 import { Link } from 'react-router-dom';
+import { LoginOutlined } from '@ant-design/icons';
+import { List } from 'immutable';
 
 import ResultItem from '../../common/components/ResultItem';
 import EditRecordAction from '../../common/components/EditRecordAction';
@@ -8,8 +10,12 @@ import AuthorizedContainer from '../../common/containers/AuthorizedContainer';
 import { SUPERUSER_OR_CATALOGER } from '../../common/authorization';
 import { JOURNALS_PID_TYPE } from '../../common/constants';
 import UrlsAction from '../../literature/components/UrlsAction';
-import { JOURNALS } from '../../common/routes';
+import { JOURNALS, LITERATURE } from '../../common/routes';
 import { Journal } from '../containers/SearchPageContainer';
+import IconText from '../../common/components/IconText';
+import ListItemAction from '../../common/components/ListItemAction';
+import EventTracker from '../../common/components/EventTracker';
+import pluralizeUnlessSingle from '../../common/utils';
 
 export const JournalItem = ({
   result,
@@ -19,11 +25,12 @@ export const JournalItem = ({
   isCatalogerLoggedIn: boolean;
 }) => {
   const metadata = result.get('metadata');
-  const shortTitle = metadata.get('short_title');
-  const journalTitle = metadata.get('journal_title');
-  const urls = metadata.get('urls');
-  const recordId = metadata.get('control_number').toString();
-  const publisher = metadata.get('publisher');
+  const shortTitle = metadata.get('short_title') as unknown as string;
+  const journalTitle = metadata.get('journal_title') as unknown as string;
+  const urls = metadata.get('urls') as unknown as string[];
+  const recordId = metadata.get('control_number') as unknown as number;
+  const publisher = metadata.get('publisher') as unknown as List<string>;
+  const numberOfPapers = metadata.get('number_of_papers') as unknown as number;
 
   return (
     <ResultItem
@@ -40,6 +47,19 @@ export const JournalItem = ({
           </AuthorizedContainer>
         </>
       }
+      rightActions={
+        numberOfPapers ? (
+          <ListItemAction>
+            <EventTracker eventId="Journals:PapersSearch">
+              <Link
+                to={`${LITERATURE}?sort=mostrecent&size=25&page=1&q=publication_info.journal_title:"${shortTitle}"`}
+              >
+                <IconText text={`${numberOfPapers} ${pluralizeUnlessSingle('paper', numberOfPapers)}`} icon={<LoginOutlined />} />
+              </Link>
+            </EventTracker>
+          </ListItemAction>
+        ) : null
+      }
     >
       <Row>
         <Col>
@@ -47,10 +67,7 @@ export const JournalItem = ({
             <PageHeader
               className="site-page-header"
               title={shortTitle}
-              subTitle={
-                // @ts-ignore
-                publisher ? `(${publisher.toArray().map((p: string) => p)})` : false
-              }
+              subTitle={publisher && `(${publisher.toArray().map((p: string) => p)})`}
             />
           </Link>
         </Col>

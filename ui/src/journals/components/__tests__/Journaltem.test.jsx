@@ -12,6 +12,7 @@ describe('JournalItem', () => {
         urls: [{ value: 'http://url.com' }],
         control_number: 1234,
         journal_title: {title: 'Department of Physics'},
+        number_of_papers: 2
       })
     });
 
