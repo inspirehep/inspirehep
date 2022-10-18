@@ -140,14 +140,21 @@ First you need to start all the services (postgreSQL, Redis, ElasticSearch, Rabb
 $ docker-compose -f docker-compose.services.yml up es mq db cache
 ```
 
-And initialize database and ES
+And initialize database, ES, rabbitMQ, redis and s3
 
 ```bash
 $ cd backend
 $ ./scripts/setup
 ```
 
----
+Note that s3 configuration requires default region to be set to `us-east-1`. If you have another default setup in your AWS config (`~/.aws/config`) you need to update it!
+
+Also, to enable fulltext indexing & highlighting the following feature flags must be set to true:
+
+```
+FEATURE_FLAG_ENABLE_FULLTEXT = True
+FEATURE_FLAG_ENABLE_FILES = True
+```
 
 ### Run
 

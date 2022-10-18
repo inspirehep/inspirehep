@@ -93,3 +93,17 @@ services:
       - 'APP_DANGEROUSLY_ENABLE_LOCAL_LOGIN=True'
       - 'APP_ENABLE_SECURE_HEADERS=False'
       - 'APP_SECRET_KEY=CHANGE_ME'
+  s3:
+    image: localstack/localstack:1.2.0
+    hostname: localstack
+    container_name: '${LOCALSTACK_DOCKER_NAME-localstack}'
+    ports:
+      - '4572:4572'
+      - '4566:4566'
+    environment:
+      - SERVICES=s3
+      - DEBUG=1
+      - DEFAULT_REGION=us-east-1
+      - DATA_DIR=/home/localstack/data
+    volumes:
+      - './.localstack:/tmp/localstack'
