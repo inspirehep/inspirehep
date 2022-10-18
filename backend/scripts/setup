@@ -17,6 +17,7 @@ poetry run inspirehep index destroy --force --yes-i-know
 poetry run inspirehep index put-files-pipeline
 poetry run inspirehep index init --force
 poetry run inspirehep index queue init purge
+poetry run inspirehep files create_buckets
 
 # Create users and roles
 poetry run inspirehep fixtures init

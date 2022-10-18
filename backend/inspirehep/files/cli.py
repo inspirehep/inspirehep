@@ -6,6 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import click
+from flask import current_app
 from flask.cli import with_appcontext
 
 from .proxies import current_s3_instance
@@ -41,6 +42,10 @@ BUCKETS = [
 def create_buckets():
 
     click.secho("Creating buckets")
+
+    if not current_app.config["FEATURE_FLAG_ENABLE_FILES"]:
+        click.secho("Files are disabled, can't create buckets")
+        return
 
     for bucket in BUCKETS:
         current_s3_instance.create_bucket(bucket)
