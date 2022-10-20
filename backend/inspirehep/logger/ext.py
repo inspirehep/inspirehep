@@ -78,7 +78,13 @@ class InspireLogger:
 
         prefix = app.name
         metrics_flask = GunicornInternalPrometheusMetrics.for_app_factory(
-            defaults_prefix=prefix, group_by=url_rule
+            defaults_prefix=prefix,
+            group_by=url_rule,
+            static_labels={
+                "source": lambda request: "external"
+                if "X-Unique-ID" in request.headers
+                else "internal"
+            },
         )
         metrics_flask.init_app(app)
         LOGGER.debug(f"Prometheus Flask exporter is initialized with prefix {prefix}.")
