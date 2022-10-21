@@ -14,7 +14,7 @@ import InspireCategoryList from './InspireCategoryList';
 import ProceedingsAction from './ProceedingsAction';
 import pluralizeUnlessSingle from '../../common/utils';
 import IconText from '../../common/components/IconText';
-import ListItemAction from '../../common/components/ListItemAction';
+import UserAction from '../../common/components/UserAction';
 import { getContributionsQueryString } from '../utils';
 import EventTitle from '../../common/components/EventTitle';
 import UrlsAction from '../../literature/components/UrlsAction';
@@ -49,7 +49,7 @@ class ConferenceItem extends Component {
         }
         rightActions={
           contributionsCount !== 0 && (
-            <ListItemAction>
+            <UserAction>
               <Link
                 to={`${LITERATURE}?q=${getContributionsQueryString(
                   recordId
@@ -63,7 +63,7 @@ class ConferenceItem extends Component {
                   icon={<LoginOutlined />}
                 />
               </Link>
-            </ListItemAction>
+            </UserAction>
           )
         }
       >

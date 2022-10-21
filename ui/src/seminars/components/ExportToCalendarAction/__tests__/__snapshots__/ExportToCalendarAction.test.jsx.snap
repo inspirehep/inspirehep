@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ExportToCalendarAction renders with seminar 1`] = `
-<ListItemAction>
+<UserActionWrapper>
   <DropdownMenu
     disabled={false}
     title={
@@ -19,13 +19,13 @@ exports[`ExportToCalendarAction renders with seminar 1`] = `
       Download .ics
     </MenuItem>
     <MenuItem>
-      <ExternalLink
+      <LinkWithTargetBlank
         as="a"
         href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Harun%20Urhan%20%20%E2%80%94%20Seminar%20Title&details=&dates=20200515T114500Z%2F20200517T004500Z"
       >
         Google Calendar
-      </ExternalLink>
+      </LinkWithTargetBlank>
     </MenuItem>
   </DropdownMenu>
-</ListItemAction>
+</UserActionWrapper>
 `;

@@ -3,11 +3,11 @@
 exports[`GridLink renders 1`] = `
 <span>
   GRID Record: 
-  <ExternalLink
+  <LinkWithTargetBlank
     as="a"
     href="//grid.ac/institutes/grid123"
   >
     grid123
-  </ExternalLink>
+  </LinkWithTargetBlank>
 </span>
 `;

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import FilterDropdown from './FilterDropdown';
 import './ExceptionsTable.less';
 import { LEGACY_URL } from '../../common/constants';
-import ExternalLink from '../../common/components/ExternalLink.tsx';
+import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank.tsx';
 
 class ExceptionsTable extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -169,7 +169,7 @@ class ExceptionsTable extends Component {
         onFilterDropdownVisibleChange: this.onRecidFilterDropdownVisibleChange,
         render: text => {
           const recordLink = `${LEGACY_URL}/record/${text}/edit`;
-          return <ExternalLink href={recordLink}>{text}</ExternalLink>;
+          return <LinkWithTargetBlank href={recordLink}>{text}</LinkWithTargetBlank>;
         },
       },
     ];

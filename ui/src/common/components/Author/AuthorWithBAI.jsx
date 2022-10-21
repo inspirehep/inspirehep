@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { Tooltip } from 'antd';
 
 import { getAuthorName, getLiteratureSearchUrlForAuthorBAI } from '../../utils';
-import ExternalLink from '../ExternalLink.tsx';
+import LinkWithTargetBlank from '../LinkWithTargetBlank.tsx';
 import { SUBMISSIONS_AUTHOR } from '../../routes';
 
 function renderCreateProfileTooltipMessage(author) {
@@ -13,9 +13,9 @@ function renderCreateProfileTooltipMessage(author) {
     <>
       <div>The author does not have an INSPIRE profile</div>
       <div>
-        <ExternalLink href={`${SUBMISSIONS_AUTHOR}?bai=${author.get('bai')}`}>
+        <LinkWithTargetBlank href={`${SUBMISSIONS_AUTHOR}?bai=${author.get('bai')}`}>
           Create profile
-        </ExternalLink>
+        </LinkWithTargetBlank>
       </div>
     </>
   );

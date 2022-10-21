@@ -24,6 +24,7 @@ exports[`Home renders home page 1`] = `
           data-test-id="scroll-button"
         >
           <LinkLikeButton
+            color="blue middle"
             onClick={[Function]}
           >
             How to search?

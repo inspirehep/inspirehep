@@ -1,6 +1,7 @@
 import React from 'react';
 import { Alert } from 'antd';
-import ExternalLink from '../../common/components/ExternalLink.tsx';
+
+import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank.tsx';
 
 function HiddenCollectionAlert() {
   return (
@@ -10,12 +11,12 @@ function HiddenCollectionAlert() {
         message={
           <span>
             This record is not part of the INSPIRE Literature collection.{' '}
-            <ExternalLink
+            <LinkWithTargetBlank
               as="a"
               href="https://help.inspirehep.net/knowledge-base/faq/#not-part"
             >
               Learn More
-            </ExternalLink>
+            </LinkWithTargetBlank>
           </span>
         }
       />

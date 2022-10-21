@@ -4,10 +4,10 @@ import { Map } from 'immutable';
 import { Button, Menu } from 'antd';
 import { CalendarOutlined } from '@ant-design/icons';
 
-import ListItemAction from '../../../common/components/ListItemAction';
+import UserAction from '../../../common/components/UserAction';
 import IconText from '../../../common/components/IconText';
 import DropdownMenu from '../../../common/components/DropdownMenu';
-import ExternalLink from '../../../common/components/ExternalLink.tsx';
+import LinkWithTargetBlank from '../../../common/components/LinkWithTargetBlank.tsx';
 import getIcsFileContent from './ics';
 import { downloadTextAsFile } from '../../../common/utils';
 import getGoogleCalendarUrl from './google';
@@ -28,16 +28,16 @@ function ExportToCalendarAction({ seminar }) {
     [seminar]
   );
   return (
-    <ListItemAction>
+    <UserAction>
       <DropdownMenu title={<Button>{TITLE}</Button>}>
         <Menu.Item onClick={onDownloadClick}>Download .ics</Menu.Item>
         <Menu.Item>
-          <ExternalLink href={getGoogleCalendarUrl(seminar)}>
+          <LinkWithTargetBlank href={getGoogleCalendarUrl(seminar)}>
             Google Calendar
-          </ExternalLink>
+          </LinkWithTargetBlank>
         </Menu.Item>
       </DropdownMenu>
-    </ListItemAction>
+    </UserAction>
   );
 }
 

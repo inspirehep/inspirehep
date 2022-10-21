@@ -20,7 +20,7 @@ import {
   INVENIO_URL,
   REPORT_METADATA_URL,
 } from '../../constants';
-import ExternalLink from '../../components/ExternalLink.tsx';
+import LinkWithTargetBlank from '../../components/LinkWithTargetBlank.tsx';
 import { BIBLIOGRAPHY_GENERATOR } from '../../routes';
 
 const COLUMNS = [
@@ -116,7 +116,7 @@ const COLUMNS = [
 const BOTTOM = (
   <Row>
     <Col className="tl sm-tc" xs={24} md={12}>
-      <ExternalLink href={INVENIO_URL}>Powered by Invenio</ExternalLink>
+      <LinkWithTargetBlank href={INVENIO_URL}>Powered by Invenio</LinkWithTargetBlank>
     </Col>
     <Col className="tr sm-tc" xs={24} md={12}>
       Made with <span className="red">❤</span> by the INSPIRE Team

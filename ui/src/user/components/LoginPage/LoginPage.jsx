@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-
 import PropTypes from 'prop-types';
 import { Row, Card, Button } from 'antd';
 
 import orcidLogo from '../../../common/orcid.svg';
 import './LoginPage.less';
-import ExternalLink from '../../../common/components/ExternalLink.tsx';
+import LinkWithTargetBlank from '../../../common/components/LinkWithTargetBlank.tsx';
 import DocumentHead from '../../../common/components/DocumentHead';
 import { WHAT_IS_ORCID_URL } from '../../../common/constants';
 
@@ -30,17 +29,17 @@ class LoginPage extends Component {
             <p className="pb2">
               To suggest content to INSPIRE, an ORCID is required. Registration
               is free, quick, and open to all! Sign up at{' '}
-              <ExternalLink href="https://orcid.org/register!">
+              <LinkWithTargetBlank href="https://orcid.org/register!">
                 https://orcid.org/register
-              </ExternalLink>
+              </LinkWithTargetBlank>
             </p>
             <Button className="login-button" href={loginHref}>
               <img className="logo mr2" src={orcidLogo} alt="ORCID" />
               <strong>Login with ORCID</strong>
             </Button>
-            <ExternalLink href={WHAT_IS_ORCID_URL} className="db pt3">
+            <LinkWithTargetBlank href={WHAT_IS_ORCID_URL} className="db pt3">
               What is ORCID?
-            </ExternalLink>
+            </LinkWithTargetBlank>
           </Card>
         </Row>
       </>

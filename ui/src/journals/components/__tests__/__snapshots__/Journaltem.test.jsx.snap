@@ -31,7 +31,7 @@ exports[`JournalItem renders with props 1`] = `
     </React.Fragment>
   }
   rightActions={
-    <ListItemAction>
+    <UserActionWrapper>
       <EventTracker
         eventId="Journals:PapersSearch"
         eventPropName="onClick"
@@ -46,7 +46,7 @@ exports[`JournalItem renders with props 1`] = `
           />
         </ForwardRef>
       </EventTracker>
-    </ListItemAction>
+    </UserActionWrapper>
   }
 >
   <Row>

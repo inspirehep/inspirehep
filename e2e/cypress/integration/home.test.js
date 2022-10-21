@@ -10,17 +10,17 @@ describe('Home Page', () => {
       cy.matchSnapshots('Homepage');
     });
     
-    it('scrolls to How to Search section on button click', () => {
-      cy.on('uncaught:exception', () => {
-        return false;
-      });
-      cy.registerRoute();
-      cy.visit('/');
-      cy.waitForRoute();
-
-      cy.get('[data-test-id="scroll-button"] a').click();
-      cy.get('[data-test-id="how-to-search"]').should('be.visible');
+  });
+  it('scrolls to How to Search section on button click', () => {
+    cy.on('uncaught:exception', () => {
+      return false;
     });
+    cy.registerRoute();
+    cy.visit('/');
+    cy.waitForRoute();
+
+    cy.get('[data-test-id="scroll-button"]').click();
+    cy.get('[data-test-id="how-to-search"]').should('be.visible');
   });
 });
 

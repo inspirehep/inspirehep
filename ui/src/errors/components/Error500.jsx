@@ -11,7 +11,7 @@ class Error500 extends Component {
         message="Something went wrong"
         detail={
           <span>
-            Please try again later or <GoBackLinkContainer />
+            Please try again later or <GoBackLinkContainer color="black" />
           </span>
         }
         imageSrc={error500Image}

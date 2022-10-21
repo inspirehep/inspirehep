@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AuthorEmailsAction renders multiple current emails in a dropdown 1`] = `
-<ListItemAction>
+<UserActionWrapper>
   <DropdownMenu
     disabled={false}
     title={
@@ -22,30 +22,30 @@ exports[`AuthorEmailsAction renders multiple current emails in a dropdown 1`] = 
     <MenuItem
       key="dude@email.cern"
     >
-      <ExternalLink
+      <LinkWithTargetBlank
         as="a"
         href="mailto:dude@email.cern"
       >
         dude@email.cern
-      </ExternalLink>
+      </LinkWithTargetBlank>
     </MenuItem>
     <MenuItem
       key="other-dude@email.cern"
     >
-      <ExternalLink
+      <LinkWithTargetBlank
         as="a"
         href="mailto:other-dude@email.cern"
       >
         other-dude@email.cern
-      </ExternalLink>
+      </LinkWithTargetBlank>
     </MenuItem>
   </DropdownMenu>
-</ListItemAction>
+</UserActionWrapper>
 `;
 
 exports[`AuthorEmailsAction renders single email 1`] = `
-<ListItemAction>
-  <ExternalLink
+<UserActionWrapper>
+  <LinkWithTargetBlank
     as="a"
     href="mailto:dude@email.cern"
   >
@@ -59,6 +59,6 @@ exports[`AuthorEmailsAction renders single email 1`] = `
     >
       <ForwardRef(MailOutlined) />
     </Tooltip>
-  </ExternalLink>
-</ListItemAction>
+  </LinkWithTargetBlank>
+</UserActionWrapper>
 `;

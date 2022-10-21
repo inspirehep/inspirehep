@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
 import InlineList from './InlineList';
-import ExternalLink from './ExternalLink.tsx';
+import LinkWithTargetBlank from './LinkWithTargetBlank.tsx';
 
 class URLList extends Component {
   static renderURLItem(url) {
     return (
-      <ExternalLink href={url.get('value')}>{url.get('value')}</ExternalLink>
+      <LinkWithTargetBlank href={url.get('value')}>{url.get('value')}</LinkWithTargetBlank>
     );
   }
 

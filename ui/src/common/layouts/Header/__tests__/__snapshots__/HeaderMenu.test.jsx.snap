@@ -15,29 +15,31 @@ exports[`HeaderMenu renders when logged in 1`] = `
     <MenuItem
       key="help.search-tips"
     >
-      <ExternalLink
+      <LinkWithTargetBlank
         as="a"
         href="https://help.inspirehep.net/knowledge-base/inspire-paper-search"
       >
         Search Tips
-      </ExternalLink>
+      </LinkWithTargetBlank>
     </MenuItem>
     <MenuItem
       key="help.tour"
     >
-      <Connect(LinkLikeButton)>
+      <Connect(LinkLikeButton)
+        color="white"
+      >
         Take the tour
       </Connect(LinkLikeButton)>
     </MenuItem>
     <MenuItem
       key="help.help-center"
     >
-      <ExternalLink
+      <LinkWithTargetBlank
         as="a"
         href="https://help.inspirehep.net"
       >
         Help Center
-      </ExternalLink>
+      </LinkWithTargetBlank>
     </MenuItem>
   </SubMenu>
   <SubMenu
@@ -130,6 +132,7 @@ exports[`HeaderMenu renders when logged in 1`] = `
       key="logout"
     >
       <LinkLikeButton
+        color="white"
         dataTestId="logout"
         onClick={[MockFunction]}
       >
@@ -155,29 +158,31 @@ exports[`HeaderMenu renders when not logged in 1`] = `
     <MenuItem
       key="help.search-tips"
     >
-      <ExternalLink
+      <LinkWithTargetBlank
         as="a"
         href="https://help.inspirehep.net/knowledge-base/inspire-paper-search"
       >
         Search Tips
-      </ExternalLink>
+      </LinkWithTargetBlank>
     </MenuItem>
     <MenuItem
       key="help.tour"
     >
-      <Connect(LinkLikeButton)>
+      <Connect(LinkLikeButton)
+        color="white"
+      >
         Take the tour
       </Connect(LinkLikeButton)>
     </MenuItem>
     <MenuItem
       key="help.help-center"
     >
-      <ExternalLink
+      <LinkWithTargetBlank
         as="a"
         href="https://help.inspirehep.net"
       >
         Help Center
-      </ExternalLink>
+      </LinkWithTargetBlank>
     </MenuItem>
   </SubMenu>
   <SubMenu

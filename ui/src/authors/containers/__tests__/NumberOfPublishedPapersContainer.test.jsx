@@ -6,7 +6,7 @@ import { getStore } from '../../../fixtures/store';
 import NumberOfPublishedPapersContainer from '../NumberOfPublishedPapersContainer';
 import { SEARCH_QUERY_UPDATE } from '../../../actions/actionTypes';
 import { AUTHOR_PUBLICATIONS_NS } from '../../../search/constants';
-import LinkLikeButton from '../../../common/components/LinkLikeButton';
+import LinkLikeButton from '../../../common/components/LinkLikeButton/LinkLikeButton';
 import { PUBLISHED_QUERY } from '../../../common/constants';
 
 describe('NumberOfPublishedPapersContainer', () => {

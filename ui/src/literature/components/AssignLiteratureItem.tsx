@@ -4,7 +4,7 @@ import { Button, Menu } from 'antd';
 
 import DropdownMenu from '../../common/components/DropdownMenu';
 import IconText from '../../common/components/IconText';
-import ListItemAction from '../../common/components/ListItemAction';
+import UserAction from '../../common/components/UserAction';
 
 interface AssignLiteratureItemProps {
   onAssign(data: { to: number; literatureId: number }): void;
@@ -20,7 +20,7 @@ const AssignLiteratureItem = (props: AssignLiteratureItemProps) => {
   }, [onAssign, controlNumber, currentUserRecordId]);
 
   return (
-    <ListItemAction>
+    <UserAction>
       <DropdownMenu
         title={
           <Button>
@@ -36,7 +36,7 @@ const AssignLiteratureItem = (props: AssignLiteratureItemProps) => {
           Move to my profile
         </Menu.Item>
       </DropdownMenu>
-    </ListItemAction>
+    </UserAction>
   );
 };
 

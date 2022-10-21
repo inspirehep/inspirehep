@@ -4,7 +4,7 @@ import { Modal, Button, Rate, Input, Alert } from 'antd';
 
 import './UserFeedback.less';
 import { trackEvent, checkIsTrackerBlocked } from '../../../tracker';
-import ExternalLink from '../ExternalLink.tsx';
+import LinkWithTargetBlank from '../LinkWithTargetBlank.tsx';
 import ResponsiveView from '../ResponsiveView';
 import ModalSuccessResult from '../ModalSuccessResult';
 import { SURVEY_LINK, FEEDBACK_EMAIL } from '../../constants';
@@ -24,7 +24,7 @@ class UserFeedback extends Component {
         <div>Thank you for your response.</div>
         <div>
           For further feedback, please{' '}
-          <ExternalLink href={SURVEY_LINK}>take our survey</ExternalLink>.
+          <LinkWithTargetBlank href={SURVEY_LINK}>take our survey</LinkWithTargetBlank>.
         </div>
         <div>It takes around 5 minutes to complete.</div>
       </ModalSuccessResult>
@@ -107,13 +107,13 @@ class UserFeedback extends Component {
                   </p>
                   <p>
                     Alternatively, you could send us your feedback using the{' '}
-                    <ExternalLink href={SURVEY_LINK}>
+                    <LinkWithTargetBlank href={SURVEY_LINK}>
                       feedback form
-                    </ExternalLink>{' '}
+                    </LinkWithTargetBlank>{' '}
                     or by email at{' '}
-                    <ExternalLink href={`mailto:${FEEDBACK_EMAIL}`}>
+                    <LinkWithTargetBlank href={`mailto:${FEEDBACK_EMAIL}`}>
                       {FEEDBACK_EMAIL}
-                    </ExternalLink>
+                    </LinkWithTargetBlank>
                     .
                   </p>
                 </>

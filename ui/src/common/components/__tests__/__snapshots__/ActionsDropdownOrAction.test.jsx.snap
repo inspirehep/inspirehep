@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ActionsDropdownOrAction renders with multiple values 1`] = `
-<ListItemAction>
+<UserActionWrapper>
   <DropdownMenu
     disabled={false}
     title={
@@ -13,34 +13,34 @@ exports[`ActionsDropdownOrAction renders with multiple values 1`] = `
     <MenuItem
       key="dude.com/1"
     >
-      <ExternalLink
+      <LinkWithTargetBlank
         as="a"
         href="dude.com/1"
       >
         dude.com/1
-      </ExternalLink>
+      </LinkWithTargetBlank>
     </MenuItem>
     <MenuItem
       key="dude.com/2"
     >
-      <ExternalLink
+      <LinkWithTargetBlank
         as="a"
         href="dude.com/2"
       >
         dude.com/2
-      </ExternalLink>
+      </LinkWithTargetBlank>
     </MenuItem>
   </DropdownMenu>
-</ListItemAction>
+</UserActionWrapper>
 `;
 
 exports[`ActionsDropdownOrAction renders with single value 1`] = `
-<ListItemAction>
-  <ExternalLink
+<UserActionWrapper>
+  <LinkWithTargetBlank
     as="a"
     href="dude.com/1"
   >
     Dude URL
-  </ExternalLink>
-</ListItemAction>
+  </LinkWithTargetBlank>
+</UserActionWrapper>
 `;

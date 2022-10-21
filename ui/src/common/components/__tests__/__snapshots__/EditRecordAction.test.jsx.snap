@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`EditRecordAction renders edit button with pidType authors and pidValue 1`] = `
-<ListItemAction>
+<UserActionWrapper>
   <EventTracker
     eventId="Edit"
     eventPropName="onClick"
     extractEventArgsToForward={null}
   >
-    <ExternalLink
+    <LinkWithTargetBlank
       as="a"
       href="/submissions/authors/1"
     >
@@ -15,19 +15,19 @@ exports[`EditRecordAction renders edit button with pidType authors and pidValue 
         icon={<ForwardRef(EditOutlined) />}
         text="edit"
       />
-    </ExternalLink>
+    </LinkWithTargetBlank>
   </EventTracker>
-</ListItemAction>
+</UserActionWrapper>
 `;
 
 exports[`EditRecordAction renders edit button with pidType authors and pidValue for catalogers 1`] = `
-<ListItemAction>
+<UserActionWrapper>
   <EventTracker
     eventId="Edit"
     eventPropName="onClick"
     extractEventArgsToForward={null}
   >
-    <ExternalLink
+    <LinkWithTargetBlank
       as="a"
       href="/editor/record/authors/1"
     >
@@ -35,19 +35,19 @@ exports[`EditRecordAction renders edit button with pidType authors and pidValue 
         icon={<ForwardRef(EditOutlined) />}
         text="edit"
       />
-    </ExternalLink>
+    </LinkWithTargetBlank>
   </EventTracker>
-</ListItemAction>
+</UserActionWrapper>
 `;
 
 exports[`EditRecordAction renders edit button with pidType conferences and pidValue 1`] = `
-<ListItemAction>
+<UserActionWrapper>
   <EventTracker
     eventId="Edit"
     eventPropName="onClick"
     extractEventArgsToForward={null}
   >
-    <ExternalLink
+    <LinkWithTargetBlank
       as="a"
       href="/editor/record/conferences/1"
     >
@@ -55,19 +55,19 @@ exports[`EditRecordAction renders edit button with pidType conferences and pidVa
         icon={<ForwardRef(EditOutlined) />}
         text="edit"
       />
-    </ExternalLink>
+    </LinkWithTargetBlank>
   </EventTracker>
-</ListItemAction>
+</UserActionWrapper>
 `;
 
 exports[`EditRecordAction renders edit button with pidType institutions and pidValue 1`] = `
-<ListItemAction>
+<UserActionWrapper>
   <EventTracker
     eventId="Edit"
     eventPropName="onClick"
     extractEventArgsToForward={null}
   >
-    <ExternalLink
+    <LinkWithTargetBlank
       as="a"
       href="/editor/record/institutions/1"
     >
@@ -75,19 +75,19 @@ exports[`EditRecordAction renders edit button with pidType institutions and pidV
         icon={<ForwardRef(EditOutlined) />}
         text="edit"
       />
-    </ExternalLink>
+    </LinkWithTargetBlank>
   </EventTracker>
-</ListItemAction>
+</UserActionWrapper>
 `;
 
 exports[`EditRecordAction renders edit button with pidType jobs and pidValue 1`] = `
-<ListItemAction>
+<UserActionWrapper>
   <EventTracker
     eventId="Edit"
     eventPropName="onClick"
     extractEventArgsToForward={null}
   >
-    <ExternalLink
+    <LinkWithTargetBlank
       as="a"
       href="/submissions/jobs/1"
     >
@@ -95,19 +95,19 @@ exports[`EditRecordAction renders edit button with pidType jobs and pidValue 1`]
         icon={<ForwardRef(EditOutlined) />}
         text="edit"
       />
-    </ExternalLink>
+    </LinkWithTargetBlank>
   </EventTracker>
-</ListItemAction>
+</UserActionWrapper>
 `;
 
 exports[`EditRecordAction renders edit button with pidType literature and pidValue 1`] = `
-<ListItemAction>
+<UserActionWrapper>
   <EventTracker
     eventId="Edit"
     eventPropName="onClick"
     extractEventArgsToForward={null}
   >
-    <ExternalLink
+    <LinkWithTargetBlank
       as="a"
       href="/editor/record/literature/1"
     >
@@ -115,19 +115,19 @@ exports[`EditRecordAction renders edit button with pidType literature and pidVal
         icon={<ForwardRef(EditOutlined) />}
         text="edit"
       />
-    </ExternalLink>
+    </LinkWithTargetBlank>
   </EventTracker>
-</ListItemAction>
+</UserActionWrapper>
 `;
 
 exports[`EditRecordAction renders edit button with pidType seminars and pidValue 1`] = `
-<ListItemAction>
+<UserActionWrapper>
   <EventTracker
     eventId="Edit"
     eventPropName="onClick"
     extractEventArgsToForward={null}
   >
-    <ExternalLink
+    <LinkWithTargetBlank
       as="a"
       href="/submissions/seminars/1"
     >
@@ -135,7 +135,7 @@ exports[`EditRecordAction renders edit button with pidType seminars and pidValue
         icon={<ForwardRef(EditOutlined) />}
         text="edit"
       />
-    </ExternalLink>
+    </LinkWithTargetBlank>
   </EventTracker>
-</ListItemAction>
+</UserActionWrapper>
 `;

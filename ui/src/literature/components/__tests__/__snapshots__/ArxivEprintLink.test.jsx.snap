@@ -6,11 +6,11 @@ exports[`ArxivEprintLink renders with arXiv id 1`] = `
   eventPropName="onClick"
   extractEventArgsToForward={null}
 >
-  <ExternalLink
+  <LinkWithTargetBlank
     as="a"
     href="//arxiv.org/abs/123.123456"
   >
     123.123456
-  </ExternalLink>
+  </LinkWithTargetBlank>
 </EventTracker>
 `;

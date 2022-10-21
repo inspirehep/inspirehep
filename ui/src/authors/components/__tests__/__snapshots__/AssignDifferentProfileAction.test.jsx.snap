@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AssignDifferentProfileAction renders 1`] = `
-<ListItemAction>
+<UserActionWrapper>
   <DropdownMenu
     disabled={false}
     title={
@@ -30,11 +30,11 @@ exports[`AssignDifferentProfileAction renders 1`] = `
       Move to my profile
     </MenuItem>
   </DropdownMenu>
-</ListItemAction>
+</UserActionWrapper>
 `;
 
 exports[`AssignDifferentProfileAction renders disabled 1`] = `
-<ListItemAction>
+<UserActionWrapper>
   <DropdownMenu
     disabled={true}
     title={
@@ -63,11 +63,11 @@ exports[`AssignDifferentProfileAction renders disabled 1`] = `
       Move to my profile
     </MenuItem>
   </DropdownMenu>
-</ListItemAction>
+</UserActionWrapper>
 `;
 
 exports[`AssignDifferentProfileAction renders with claimingUnclaimedPapersDisabled 1`] = `
-<ListItemAction>
+<UserActionWrapper>
   <DropdownMenu
     disabled={true}
     title={
@@ -96,5 +96,5 @@ exports[`AssignDifferentProfileAction renders with claimingUnclaimedPapersDisabl
       Move to my profile
     </MenuItem>
   </DropdownMenu>
-</ListItemAction>
+</UserActionWrapper>
 `;

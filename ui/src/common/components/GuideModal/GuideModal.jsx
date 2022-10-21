@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Spin } from 'antd';
 import Image from 'react-image';
+
 import useResponsiveCheck from '../../hooks/useResponsiveCheck';
 import CarouselModal from '../CarouselModal';
-import ExternalLink from '../ExternalLink.tsx';
+import LinkWithTargetBlank from '../LinkWithTargetBlank.tsx';
 import { BLOG_URL } from '../../constants';
 import { GUIDE_STEPS_MOBILE, GUIDE_STEPS_DESKTOP } from './steps';
 
@@ -27,7 +28,7 @@ function GuideModal({ visible, onCancel }) {
       <div className="f2 tc bg-white pa5">
         <p>Thanks for taking the tour of the new INSPIRE!</p>
         <p className="mb0">
-          Visit <ExternalLink href={BLOG_URL}>our blog</ExternalLink> for more
+          Visit <LinkWithTargetBlank href={BLOG_URL}>our blog</LinkWithTargetBlank> for more
           info.
         </p>
       </div>

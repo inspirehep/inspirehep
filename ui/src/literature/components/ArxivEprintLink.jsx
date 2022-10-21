@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import ExternalLink from '../../common/components/ExternalLink.tsx';
+import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank.tsx';
 import EventTracker from '../../common/components/EventTracker';
 
 class ArxivEprintLink extends Component {
@@ -14,7 +14,7 @@ class ArxivEprintLink extends Component {
     const href = `//arxiv.org/abs/${this.arxivId}`;
     return (
       <EventTracker eventId="ArvixEprintLink">
-        <ExternalLink href={href}>{this.arxivId}</ExternalLink>
+        <LinkWithTargetBlank href={href}>{this.arxivId}</LinkWithTargetBlank>
       </EventTracker>
     );
   }

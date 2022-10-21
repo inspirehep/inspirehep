@@ -18,12 +18,12 @@ exports[`ContactList renders with contacts with both email and name 1`] = `
         John
       </span>
        (
-      <ExternalLink
+      <LinkWithTargetBlank
         as="a"
         href="mailto:johndoe@yahoo.com"
       >
         johndoe@yahoo.com
-      </ExternalLink>
+      </LinkWithTargetBlank>
       )
       ; 
     </li>
@@ -34,12 +34,12 @@ exports[`ContactList renders with contacts with both email and name 1`] = `
         John2
       </span>
        (
-      <ExternalLink
+      <LinkWithTargetBlank
         as="a"
         href="mailto:johndoe2@yahoo.com"
       >
         johndoe2@yahoo.com
-      </ExternalLink>
+      </LinkWithTargetBlank>
       )
     </li>
   </ul>
@@ -60,12 +60,12 @@ exports[`ContactList renders with contacts with only email or name 1`] = `
     <li
       key="johndoe@yahoo.com"
     >
-      <ExternalLink
+      <LinkWithTargetBlank
         as="a"
         href="mailto:johndoe@yahoo.com"
       >
         johndoe@yahoo.com
-      </ExternalLink>
+      </LinkWithTargetBlank>
       ; 
     </li>
     <li

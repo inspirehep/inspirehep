@@ -4,7 +4,7 @@ import { Map } from 'immutable';
 import { Link } from 'react-router-dom';
 
 import './CitationSummaryTable.less';
-import ExternalLink from '../ExternalLink.tsx';
+import LinkWithTargetBlank from '../LinkWithTargetBlank.tsx';
 import LabelWithHelp from '../LabelWithHelp';
 import LoadingOrChildren from '../LoadingOrChildren';
 import ErrorAlertOrChildren from '../ErrorAlertOrChildren';
@@ -15,7 +15,7 @@ import { PUBLISHED_URL } from '../../constants';
 const PUBLISHED_HELP_MESSAGE = (
   <span>
     Published papers are believed to have undergone rigorous peer review.{' '}
-    <ExternalLink href={PUBLISHED_URL}>Learn More</ExternalLink>
+    <LinkWithTargetBlank href={PUBLISHED_URL}>Learn More</LinkWithTargetBlank>
   </span>
 );
 

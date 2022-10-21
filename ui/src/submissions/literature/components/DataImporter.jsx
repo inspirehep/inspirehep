@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 import { Input, Button, Alert, Row, Col, Tooltip, Form } from 'antd';
-import ExternalLink from '../../../common/components/ExternalLink.tsx';
 
-import LinkLikeButton from '../../../common/components/LinkLikeButton';
+import LinkWithTargetBlank from '../../../common/components/LinkWithTargetBlank.tsx';
+import LinkLikeButton from '../../../common/components/LinkLikeButton/LinkLikeButton';
 import { LABEL_COL, WRAPPER_COL } from '../../common/withFormItem';
 
 const DEFAULT_ERROR_MESSAGE = 'Something went wrong during the import';
@@ -35,9 +35,9 @@ class DataImporter extends Component {
         {recordId && (
           <>
             {'. '}{' '}
-            <ExternalLink href={`http://inspirehep.net/record/${recordId}`}>
+            <LinkWithTargetBlank href={`http://inspirehep.net/record/${recordId}`}>
               See the record
-            </ExternalLink>
+            </LinkWithTargetBlank>
           </>
         )}
       </>

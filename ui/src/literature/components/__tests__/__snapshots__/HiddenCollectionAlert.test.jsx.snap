@@ -9,12 +9,12 @@ exports[`HiddenCollectionAlert renders alert 1`] = `
       <span>
         This record is not part of the INSPIRE Literature collection.
          
-        <ExternalLink
+        <LinkWithTargetBlank
           as="a"
           href="https://help.inspirehep.net/knowledge-base/faq/#not-part"
         >
           Learn More
-        </ExternalLink>
+        </LinkWithTargetBlank>
       </span>
     }
     type="warning"

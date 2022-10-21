@@ -3,7 +3,7 @@ import { fromJS } from 'immutable';
 import { shallow } from 'enzyme';
 
 import DataImporter from '../DataImporter';
-import LinkLikeButton from '../../../../common/components/LinkLikeButton';
+import LinkLikeButton from '../../../../common/components/LinkLikeButton/LinkLikeButton';
 
 describe('DataImporter', () => {
   it('renders without error while importing', () => {

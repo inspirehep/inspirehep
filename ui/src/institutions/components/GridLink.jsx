@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ExternalLink from '../../common/components/ExternalLink.tsx';
+import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank.tsx';
 
 function GridLink({ grid }) {
   const href = `//grid.ac/institutes/${grid}`;
   return (
     <span>
-      GRID Record: <ExternalLink href={href}>{grid}</ExternalLink>
+      GRID Record: <LinkWithTargetBlank href={href}>{grid}</LinkWithTargetBlank>
     </span>
   );
 }

@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ExternalLink from './ExternalLink.tsx';
+import LinkWithTargetBlank from './LinkWithTargetBlank.tsx';
 
 function OrcidProfileLink({ children, orcid, className }) {
   return (
-    <ExternalLink className={className} href={`//orcid.org/${orcid}`}>
+    <LinkWithTargetBlank className={className} href={`//orcid.org/${orcid}`}>
       {children || orcid}
-    </ExternalLink>
+    </LinkWithTargetBlank>
   );
 }
 

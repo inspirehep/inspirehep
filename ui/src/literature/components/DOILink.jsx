@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import ExternalLink from '../../common/components/ExternalLink.tsx';
+import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank.tsx';
 import EventTracker from '../../common/components/EventTracker';
 
 class DOILink extends Component {
@@ -10,7 +10,7 @@ class DOILink extends Component {
     const href = `//doi.org/${doi}`;
     return (
       <EventTracker eventId="DoiLink">
-        <ExternalLink href={href}>{children}</ExternalLink>
+        <LinkWithTargetBlank href={href}>{children}</LinkWithTargetBlank>
       </EventTracker>
     );
   }

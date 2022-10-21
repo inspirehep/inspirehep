@@ -4,7 +4,7 @@ import { Modal } from 'antd';
 
 import SubscribeJobsModalButton from '../SubscribeJobsModalButton';
 import subscribeJobMailingList from '../../subscribeJobMailingList';
-import LinkLikeButton from '../../../common/components/LinkLikeButton';
+import LinkLikeButton from '../../../common/components/LinkLikeButton/LinkLikeButton';
 import SubscribeJobsForm from '../SubscribeJobsForm';
 
 jest.mock('../../subscribeJobMailingList');

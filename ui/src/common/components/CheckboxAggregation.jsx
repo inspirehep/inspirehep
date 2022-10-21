@@ -8,7 +8,7 @@ import AggregationBox from './AggregationBox';
 import SecondaryButton from './SecondaryButton';
 import { forceArray } from '../utils';
 import HelpIconTooltip from './HelpIconTooltip';
-import ExternalLink from './ExternalLink.tsx';
+import LinkWithTargetBlank from './LinkWithTargetBlank';
 import FormattedNumber from './FormattedNumber.tsx';
 
 const BUCKET_CHUNK_SIZE = 10;
@@ -87,7 +87,7 @@ class CheckboxAggregation extends Component {
             <>
               {bucketText}{' '}
               {bucketLink && (
-                <ExternalLink href={bucketLink}>Learn More</ExternalLink>
+                <LinkWithTargetBlank href={bucketLink}>Learn More</LinkWithTargetBlank>
               )}
             </>
           }

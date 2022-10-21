@@ -27,7 +27,7 @@ exports[`HowToSearch renders freetext examples after freetext radio option is se
   <div
     className="tc"
   >
-    <ExternalLink
+    <LinkWithTargetBlank
       as={
         Object {
           "$$typeof": Symbol(react.forward_ref),
@@ -42,7 +42,7 @@ exports[`HowToSearch renders freetext examples after freetext radio option is se
       type="primary"
     >
       Learn more
-    </ExternalLink>
+    </LinkWithTargetBlank>
   </div>
 </div>
 `;
@@ -74,7 +74,7 @@ exports[`HowToSearch renders with spires examples by default 1`] = `
   <div
     className="tc"
   >
-    <ExternalLink
+    <LinkWithTargetBlank
       as={
         Object {
           "$$typeof": Symbol(react.forward_ref),
@@ -89,7 +89,7 @@ exports[`HowToSearch renders with spires examples by default 1`] = `
       type="primary"
     >
       Learn more
-    </ExternalLink>
+    </LinkWithTargetBlank>
   </div>
 </div>
 `;

@@ -1,10 +1,8 @@
-import { notification } from 'antd';
 import React from 'react';
+import { notification } from 'antd';
 
 import { CONFERENCES } from '../common/routes';
-// TODO: rename ExternalLink
-// becuase it's used also for internal links that we want to open in a new tab
-import ExternalLink from '../common/components/ExternalLink.tsx';
+import LinkWithTargetBlank from '../common/components/LinkWithTargetBlank';
 
 // to render notification over the drawer, if one is open.
 export const ASSIGNING_NOTIFICATION_KEY = 'assigning-conferences-notification';
@@ -27,9 +25,9 @@ export function assignSuccess({ conferenceId, conferenceTitle, papers }) {
     description: (
       <span>
         {papers.size} selected papers assigned to{' '}
-        <ExternalLink target="_blank" href={`${CONFERENCES}/${conferenceId}`}>
+        <LinkWithTargetBlank target="_blank" href={`${CONFERENCES}/${conferenceId}`}>
           {conferenceTitle}
-        </ExternalLink>
+        </LinkWithTargetBlank>
       </span>
     ),
   });

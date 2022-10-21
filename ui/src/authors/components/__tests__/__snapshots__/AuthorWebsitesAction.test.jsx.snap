@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AuthorWebsitesAction renders only a url 1`] = `
-<ListItemAction>
-  <ExternalLink
+<UserActionWrapper>
+  <LinkWithTargetBlank
     as="a"
     href="www.descriptionless.com/url"
   >
@@ -16,13 +16,13 @@ exports[`AuthorWebsitesAction renders only a url 1`] = `
     >
       <ForwardRef(LinkOutlined) />
     </Tooltip>
-  </ExternalLink>
-</ListItemAction>
+  </LinkWithTargetBlank>
+</UserActionWrapper>
 `;
 
 exports[`AuthorWebsitesAction renders only blog 1`] = `
-<ListItemAction>
-  <ExternalLink
+<UserActionWrapper>
+  <LinkWithTargetBlank
     as="a"
     href="https://author.wordpress.com"
   >
@@ -36,12 +36,12 @@ exports[`AuthorWebsitesAction renders only blog 1`] = `
     >
       <ForwardRef(LinkOutlined) />
     </Tooltip>
-  </ExternalLink>
-</ListItemAction>
+  </LinkWithTargetBlank>
+</UserActionWrapper>
 `;
 
 exports[`AuthorWebsitesAction renders with a blog and urls in a dropdown 1`] = `
-<ListItemAction>
+<UserActionWrapper>
   <DropdownMenu
     disabled={false}
     title={
@@ -62,33 +62,33 @@ exports[`AuthorWebsitesAction renders with a blog and urls in a dropdown 1`] = `
     <MenuItem
       key="https://author.wordpress.com"
     >
-      <ExternalLink
+      <LinkWithTargetBlank
         as="a"
         href="https://author.wordpress.com"
       >
         Blog
-      </ExternalLink>
+      </LinkWithTargetBlank>
     </MenuItem>
     <MenuItem
       key="https://www.whatever.com/author"
     >
-      <ExternalLink
+      <LinkWithTargetBlank
         as="a"
         href="https://www.whatever.com/author"
       >
         whatever.com/author
-      </ExternalLink>
+      </LinkWithTargetBlank>
     </MenuItem>
     <MenuItem
       key="www.descriptionless.com/url"
     >
-      <ExternalLink
+      <LinkWithTargetBlank
         as="a"
         href="www.descriptionless.com/url"
       >
         descriptionless.com/url
-      </ExternalLink>
+      </LinkWithTargetBlank>
     </MenuItem>
   </DropdownMenu>
-</ListItemAction>
+</UserActionWrapper>
 `;

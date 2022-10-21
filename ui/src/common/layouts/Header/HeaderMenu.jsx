@@ -14,8 +14,8 @@ import {
   SUBMISSIONS_EXPERIMENT,
   SUBMISSIONS_JOURNAL,
 } from '../../routes';
-import ExternalLink from '../../components/ExternalLink.tsx';
-import LinkLikeButton from '../../components/LinkLikeButton';
+import LinkWithTargetBlank from '../../components/LinkWithTargetBlank.tsx';
+import LinkLikeButton from '../../components/LinkLikeButton/LinkLikeButton';
 
 import './HeaderMenu.less';
 import { PAPER_SEARCH_URL, HELP_BLOG_URL } from '../../constants';
@@ -40,15 +40,15 @@ class HeaderMenu extends Component {
           popupClassName="header-submenu ant-menu-dark"
         >
           <Menu.Item key="help.search-tips">
-            <ExternalLink href={PAPER_SEARCH_URL}>Search Tips</ExternalLink>
+            <LinkWithTargetBlank href={PAPER_SEARCH_URL}>Search Tips</LinkWithTargetBlank>
           </Menu.Item>
           <Menu.Item key="help.tour">
-            <DisplayGuideButtonContainer>
+            <DisplayGuideButtonContainer color="white">
               Take the tour
             </DisplayGuideButtonContainer>
           </Menu.Item>
           <Menu.Item key="help.help-center">
-            <ExternalLink href={HELP_BLOG_URL}>Help Center</ExternalLink>
+            <LinkWithTargetBlank href={HELP_BLOG_URL}>Help Center</LinkWithTargetBlank>
           </Menu.Item>
         </Menu.SubMenu>
 
@@ -105,7 +105,7 @@ class HeaderMenu extends Component {
               )}
             </Menu.Item>
             <Menu.Item key="logout">
-              <LinkLikeButton onClick={onLogoutClick} dataTestId="logout">
+              <LinkLikeButton onClick={onLogoutClick} dataTestId="logout" color="white" >
                 Logout
               </LinkLikeButton>
             </Menu.Item>

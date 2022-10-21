@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Advisors renders advisors 1`] = `
-Array [
+<Fragment>
   <AdvisorsOfDegree
     advisors={
       Immutable.List [
@@ -15,7 +15,7 @@ Array [
       ]
     }
     degreeType="other"
-  />,
+  />
   <AdvisorsOfDegree
     advisors={
       Immutable.List [
@@ -26,7 +26,7 @@ Array [
       ]
     }
     degreeType="master"
-  />,
+  />
   <AdvisorsOfDegree
     advisors={
       Immutable.List [
@@ -41,6 +41,6 @@ Array [
       ]
     }
     degreeType="phd"
-  />,
-]
+  />
+</Fragment>
 `;

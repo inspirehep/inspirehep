@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ReferenceSearchLinkAction renders with required props 1`] = `
-<ListItemAction>
+<UserActionWrapper>
   <EventTracker
     eventId="Reference:Search"
     eventPropName="onClick"
@@ -17,5 +17,5 @@ exports[`ReferenceSearchLinkAction renders with required props 1`] = `
       />
     </Link>
   </EventTracker>
-</ListItemAction>
+</UserActionWrapper>
 `;
