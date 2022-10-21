@@ -108,7 +108,7 @@ def _get_all_not_disambiguated_records_search():
 
 def _send_celery_group_disambiguation_task(uuids, batch_size):
     records = LiteratureRecord.get_records(uuids)
-    input_data = ((record.id, record.model.version_id, True) for record in records)
+    input_data = ((str(record.id), record.model.version_id, True) for record in records)
     task_group = disambiguate_authors.chunks(input_data, batch_size).group()
     task_group.apply_async(countdown=5)
 
