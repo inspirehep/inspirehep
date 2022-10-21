@@ -2,7 +2,7 @@
 
 exports[`CiteModalAction renders with all props 1`] = `
 <Fragment>
-  <ListItemAction>
+  <UserActionWrapper>
     <EventTracker
       eventId="Cite"
       eventPropName="onClick"
@@ -17,7 +17,7 @@ exports[`CiteModalAction renders with all props 1`] = `
         />
       </Button>
     </EventTracker>
-  </ListItemAction>
+  </UserActionWrapper>
   <Modal
     confirmLoading={false}
     footer={null}
@@ -105,7 +105,7 @@ exports[`CiteModalAction renders with all props 1`] = `
 
 exports[`CiteModalAction renders with loading 1`] = `
 <Fragment>
-  <ListItemAction>
+  <UserActionWrapper>
     <EventTracker
       eventId="Cite"
       eventPropName="onClick"
@@ -120,7 +120,7 @@ exports[`CiteModalAction renders with loading 1`] = `
         />
       </Button>
     </EventTracker>
-  </ListItemAction>
+  </UserActionWrapper>
   <Modal
     confirmLoading={false}
     footer={null}
@@ -208,7 +208,7 @@ exports[`CiteModalAction renders with loading 1`] = `
 
 exports[`CiteModalAction shows an alert with the error message when there is an error in setCiteContentFor 1`] = `
 <Fragment>
-  <ListItemAction>
+  <UserActionWrapper>
     <EventTracker
       eventId="Cite"
       eventPropName="onClick"
@@ -223,7 +223,7 @@ exports[`CiteModalAction shows an alert with the error message when there is an 
         />
       </Button>
     </EventTracker>
-  </ListItemAction>
+  </UserActionWrapper>
   <Modal
     confirmLoading={false}
     footer={null}

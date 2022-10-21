@@ -7,7 +7,7 @@ import { Row, Col } from 'antd';
 import ResultItem from '../../common/components/ResultItem';
 import IncomingLiteratureReferencesLinkAction from '../../common/components/IncomingLiteratureReferencesLinkAction';
 import { INSTITUTIONS } from '../../common/routes';
-import ListItemAction from '../../common/components/ListItemAction';
+import UserAction from '../../common/components/UserAction';
 import InstitutionHierarchyList from './InstitutionHierarchyList';
 import InstitutionAddressList from './InstitutionAddressList';
 import EditRecordAction from '../../common/components/EditRecordAction.tsx';
@@ -39,14 +39,14 @@ function InstitutionItem({ metadata }) {
         </>
       }
       rightActions={
-        <ListItemAction>
+        <UserAction>
           <IncomingLiteratureReferencesLinkAction
             itemCount={papersCount}
             referenceType="paper"
             linkQuery={getPapersQueryString(recordId)}
             trackerEventId="Institutions:PaperLink"
           />
-        </ListItemAction>
+        </UserAction>
       }
     >
       <Row>

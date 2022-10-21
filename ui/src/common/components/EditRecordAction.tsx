@@ -1,10 +1,10 @@
 import React from 'react';
 import { EditOutlined } from '@ant-design/icons';
 
-import ListItemAction from './ListItemAction';
+import UserAction from './UserAction';
 import IconText from './IconText';
 import EventTracker from './EventTracker';
-import ExternalLink from './ExternalLink';
+import LinkWithTargetBlank from './LinkWithTargetBlank';
 
 import {
   EDIT_LITERATURE,
@@ -48,12 +48,12 @@ export default function EditRecordAction({
       : pidTypeToEditRoutePrefix[pidType];
 
   return (
-    <ListItemAction>
+    <UserAction>
       <EventTracker eventId="Edit">
-        <ExternalLink href={`${pidTypeRoute}/${pidValue}`}>
+        <LinkWithTargetBlank href={`${pidTypeRoute}/${pidValue}`}>
           <IconText text="edit" icon={<EditOutlined />} />
-        </ExternalLink>
+        </LinkWithTargetBlank>
       </EventTracker>
-    </ListItemAction>
+    </UserAction>
   );
 }

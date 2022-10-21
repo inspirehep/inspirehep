@@ -8,12 +8,12 @@ exports[`OrcidPushSettingMessage renders when disabled 1`] = `
   <div>
     A new interface that will allow you to claim your papers is coming up soon. In the meantime, if you wish to claim a paper as yours, you can send your request at
      
-    <ExternalLink
+    <LinkWithTargetBlank
       as="a"
       href="mailto:authors@inspirehep.net"
     >
       authors@inspirehep.net
-    </ExternalLink>
+    </LinkWithTargetBlank>
     .
   </div>
 </div>

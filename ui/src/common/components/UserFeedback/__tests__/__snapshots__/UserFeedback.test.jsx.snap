@@ -42,12 +42,12 @@ exports[`UserFeedback calls trackEvent with feedback on modal Ok and renders tha
       <div>
         For further feedback, please
          
-        <ExternalLink
+        <LinkWithTargetBlank
           as="a"
           href="https://forms.gle/ZQi31GvXXHcsgXgM6"
         >
           take our survey
-        </ExternalLink>
+        </LinkWithTargetBlank>
         .
       </div>
       <div>
@@ -174,21 +174,21 @@ exports[`UserFeedback renders when tracker is blocked 1`] = `
             <p>
               Alternatively, you could send us your feedback using the
                
-              <ExternalLink
+              <LinkWithTargetBlank
                 as="a"
                 href="https://forms.gle/ZQi31GvXXHcsgXgM6"
               >
                 feedback form
-              </ExternalLink>
+              </LinkWithTargetBlank>
                
               or by email at
                
-              <ExternalLink
+              <LinkWithTargetBlank
                 as="a"
                 href="mailto:feedback@inspirehep.net"
               >
                 feedback@inspirehep.net
-              </ExternalLink>
+              </LinkWithTargetBlank>
               .
             </p>
           </React.Fragment>

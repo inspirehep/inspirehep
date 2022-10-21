@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+
 import Error500 from '../Error500';
 
 describe('Error500', () => {

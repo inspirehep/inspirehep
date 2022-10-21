@@ -4,9 +4,9 @@ import { Button, Tooltip } from 'antd';
 
 import DropdownMenu from '../../common/components/DropdownMenu';
 import IconText from '../../common/components/IconText';
-import ListItemAction from '../../common/components/ListItemAction';
+import UserAction from '../../common/components/UserAction';
 
-const NoAuthorsClaimingButton = () => <ListItemAction>
+const NoAuthorsClaimingButton = () => <UserAction>
   <DropdownMenu
     disabled
     title={
@@ -17,6 +17,6 @@ const NoAuthorsClaimingButton = () => <ListItemAction>
       </Tooltip>
     }
   />
-</ListItemAction>;
+</UserAction>;
 
 export default NoAuthorsClaimingButton;

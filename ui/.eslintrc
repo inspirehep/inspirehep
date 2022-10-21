@@ -88,7 +88,10 @@
       "parser": "@typescript-eslint/parser",
       "plugins": [
         "@typescript-eslint"
-      ]
+      ],
+      "rules": {
+        "no-nested-ternary": "off"
+      }
     }
   ],
   "settings": {

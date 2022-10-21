@@ -13,7 +13,7 @@ import UrlsAction from '../../literature/components/UrlsAction';
 import { JOURNALS, LITERATURE } from '../../common/routes';
 import { Journal } from '../containers/SearchPageContainer';
 import IconText from '../../common/components/IconText';
-import ListItemAction from '../../common/components/ListItemAction';
+import UserAction from '../../common/components/UserAction';
 import EventTracker from '../../common/components/EventTracker';
 import pluralizeUnlessSingle from '../../common/utils';
 
@@ -49,7 +49,7 @@ export const JournalItem = ({
       }
       rightActions={
         numberOfPapers ? (
-          <ListItemAction>
+          <UserAction>
             <EventTracker eventId="Journals:PapersSearch">
               <Link
                 to={`${LITERATURE}?sort=mostrecent&size=25&page=1&q=publication_info.journal_title:"${shortTitle}"`}
@@ -57,7 +57,7 @@ export const JournalItem = ({
                 <IconText text={`${numberOfPapers} ${pluralizeUnlessSingle('paper', numberOfPapers)}`} icon={<LoginOutlined />} />
               </Link>
             </EventTracker>
-          </ListItemAction>
+          </UserAction>
         ) : null
       }
     >

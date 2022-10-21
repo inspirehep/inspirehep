@@ -8,23 +8,23 @@ exports[`EmailList renders with emails 1`] = `
     <li
       key="johndoe@yahoo.com"
     >
-      <ExternalLink
+      <LinkWithTargetBlank
         as="a"
         href="mailto:johndoe@yahoo.com"
       >
         johndoe@yahoo.com
-      </ExternalLink>
+      </LinkWithTargetBlank>
       , 
     </li>
     <li
       key="johndoe2@yahoo.com"
     >
-      <ExternalLink
+      <LinkWithTargetBlank
         as="a"
         href="mailto:johndoe2@yahoo.com"
       >
         johndoe2@yahoo.com
-      </ExternalLink>
+      </LinkWithTargetBlank>
     </li>
   </ul>
 </div>

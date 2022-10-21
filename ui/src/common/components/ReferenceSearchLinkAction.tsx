@@ -4,17 +4,17 @@ import { Link } from 'react-router-dom';
 
 import IconText from './IconText';
 import { LITERATURE } from '../routes';
-import ListItemAction from './ListItemAction';
+import UserAction from './UserAction';
 import EventTracker from './EventTracker';
 
 const ReferenceSearchLinkAction = ({ recordId }: { recordId: number}) => (
-  <ListItemAction>
+  <UserAction>
     <EventTracker eventId="Reference:Search">
       <Link to={`${LITERATURE}?q=citedby:recid:${recordId}`} data-test-id="reference-search-button">
         <IconText text="reference search" icon={<FileSearchOutlined />} />
       </Link>
     </EventTracker>
-  </ListItemAction>
+  </UserAction>
 );
 
 export default ReferenceSearchLinkAction;

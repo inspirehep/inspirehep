@@ -4,7 +4,7 @@ import { ExportOutlined } from '@ant-design/icons';
 import React, { Component } from 'react';
 import { Button, Menu, Tooltip } from 'antd';
 import PropTypes from 'prop-types';
-import ListItemAction from '../../common/components/ListItemAction';
+import UserAction from '../../common/components/UserAction';
 import IconText from '../../common/components/IconText';
 import DropdownMenu from '../../common/components/DropdownMenu';
 import {
@@ -71,7 +71,7 @@ class CiteAllAction extends Component {
     const { numberOfResults } = this.props;
     const disabled = numberOfResults > MAX_CITEABLE_RECORDS;
     return (
-      <ListItemAction>
+      <UserAction>
         <DropdownMenu
           disabled={disabled}
           onClick={this.onCiteClick}
@@ -81,7 +81,7 @@ class CiteAllAction extends Component {
             <Menu.Item key={format.value}>{format.display}</Menu.Item>
           ))}
         </DropdownMenu>
-      </ListItemAction>
+      </UserAction>
     );
   }
 }

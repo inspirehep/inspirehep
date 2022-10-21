@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { getStore } from '../../../fixtures/store';
 import DisplayGuideButtonContainer from '../DisplayGuideButtonContainer';
 import { UI_CHANGE_GUIDE_MODAL_VISIBILITY } from '../../../actions/actionTypes';
-import LinkLikeButton from '../../components/LinkLikeButton';
+import LinkLikeButton from '../../components/LinkLikeButton/LinkLikeButton';
 
 describe('DisplayGuideButtonContainer', () => {
   it('dispatches UI_CHANGE_GUIDE_MODAL_VISIBILITY with true, on button click', () => {

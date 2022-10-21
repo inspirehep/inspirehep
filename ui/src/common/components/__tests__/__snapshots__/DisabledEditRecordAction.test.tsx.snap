@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DisabledEditRecordAction renders with message 1`] = `
-<ListItemAction>
+<UserActionWrapper>
   <Tooltip
     arrowPointAtCenter={false}
     autoAdjustOverflow={true}
@@ -19,5 +19,5 @@ exports[`DisabledEditRecordAction renders with message 1`] = `
       />
     </Button>
   </Tooltip>
-</ListItemAction>
+</UserActionWrapper>
 `;

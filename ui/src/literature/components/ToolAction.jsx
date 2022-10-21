@@ -5,7 +5,7 @@ import { Button, Menu } from 'antd';
 
 import DropdownMenu from '../../common/components/DropdownMenu';
 import IconText from '../../common/components/IconText';
-import ListItemAction from '../../common/components/ListItemAction';
+import UserAction from '../../common/components/UserAction';
 import { MAX_BULK_ASSIGN } from '../constants';
 import ExportToCdsModal from './ExportToCdsModal';
 
@@ -29,7 +29,7 @@ function ToolAction({
   };
 
   return (
-    <ListItemAction>
+    <UserAction>
       <DropdownMenu
         title={
           <Button>
@@ -70,7 +70,7 @@ function ToolAction({
           selectionSize={selectionSize}
         />
       </DropdownMenu>
-    </ListItemAction>
+    </UserAction>
   );
 }
 

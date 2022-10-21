@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ProceedingsAction renders proceedings 1`] = `
-<ListItemAction>
+<UserActionWrapper>
   <DropdownMenu
     disabled={false}
     title={
@@ -16,7 +16,7 @@ exports[`ProceedingsAction renders proceedings 1`] = `
     <MenuItem
       key="12345"
     >
-      <ExternalLink
+      <LinkWithTargetBlank
         as="a"
         href="/literature/12345"
       >
@@ -24,12 +24,12 @@ exports[`ProceedingsAction renders proceedings 1`] = `
           Proceedings 
           1
         </span>
-      </ExternalLink>
+      </LinkWithTargetBlank>
     </MenuItem>
     <MenuItem
       key="54321"
     >
-      <ExternalLink
+      <LinkWithTargetBlank
         as="a"
         href="/literature/54321"
       >
@@ -40,15 +40,15 @@ exports[`ProceedingsAction renders proceedings 1`] = `
             }
           }
         />
-      </ExternalLink>
+      </LinkWithTargetBlank>
     </MenuItem>
   </DropdownMenu>
-</ListItemAction>
+</UserActionWrapper>
 `;
 
 exports[`ProceedingsAction renders single item 1`] = `
-<ListItemAction>
-  <ExternalLink
+<UserActionWrapper>
+  <LinkWithTargetBlank
     as="a"
     href="/literature/12345"
   >
@@ -56,6 +56,6 @@ exports[`ProceedingsAction renders single item 1`] = `
       icon={<ForwardRef(BookOutlined) />}
       text="proceedings"
     />
-  </ExternalLink>
-</ListItemAction>
+  </LinkWithTargetBlank>
+</UserActionWrapper>
 `;

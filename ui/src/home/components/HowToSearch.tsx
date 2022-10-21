@@ -3,7 +3,7 @@ import { Radio, Button } from 'antd';
 
 import SpiresExamples from './SpiresExamples';
 import FreetextExamples from './FreetextExamples';
-import ExternalLink from '../../common/components/ExternalLink';
+import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank';
 import { PAPER_SEARCH_URL } from '../../common/constants';
 
 const SPIRES_RADIO = 'spires';
@@ -31,14 +31,14 @@ function HowToSearch() {
         )}
       </div>
       <div className="tc">
-        <ExternalLink
+        <LinkWithTargetBlank
           as={Button}
           href={PAPER_SEARCH_URL}
           type="primary"
           className="mt3"
         >
           Learn more
-        </ExternalLink>
+        </LinkWithTargetBlank>
       </div>
     </div>
   );

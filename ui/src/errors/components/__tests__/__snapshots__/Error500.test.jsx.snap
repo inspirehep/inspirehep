@@ -5,7 +5,9 @@ exports[`Error500 renders Error500 1`] = `
   detail={
     <span>
       Please try again later or 
-      <Connect(GoBackLink) />
+      <Connect(GoBackLink)
+        color="black"
+      />
     </span>
   }
   imageSrc="500.svg"

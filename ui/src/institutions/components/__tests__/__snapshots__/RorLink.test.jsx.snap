@@ -3,11 +3,11 @@
 exports[`RorLink renders 1`] = `
 <span>
   ROR Record: 
-  <ExternalLink
+  <LinkWithTargetBlank
     as="a"
     href="https://ror123.org"
   >
     https://ror123.org
-  </ExternalLink>
+  </LinkWithTargetBlank>
 </span>
 `;

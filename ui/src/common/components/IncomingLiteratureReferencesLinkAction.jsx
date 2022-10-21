@@ -7,7 +7,7 @@ import IconText from './IconText';
 import FormattedNumber from './FormattedNumber.tsx';
 import pluralizeUnlessSingle from '../utils';
 import { LITERATURE } from '../routes';
-import ListItemAction from './ListItemAction';
+import UserAction from './UserAction';
 import EventTracker from './EventTracker';
 
 const IncomingLiteratureReferencesLinkAction = ({
@@ -16,7 +16,7 @@ const IncomingLiteratureReferencesLinkAction = ({
   linkQuery,
   trackerEventId,
 }) => (
-  <ListItemAction>
+  <UserAction>
     <EventTracker eventId={trackerEventId}>
       <Link to={`${LITERATURE}?q=${linkQuery}`}>
         <IconText
@@ -30,7 +30,7 @@ const IncomingLiteratureReferencesLinkAction = ({
         />
       </Link>
     </EventTracker>
-  </ListItemAction>
+  </UserAction>
 );
 
 IncomingLiteratureReferencesLinkAction.propTypes = {

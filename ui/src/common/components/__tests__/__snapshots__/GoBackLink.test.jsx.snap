@@ -2,6 +2,7 @@
 
 exports[`GoBackLink renders with custom children 1`] = `
 <LinkLikeButton
+  color="blue big"
   onClick={[MockFunction]}
 >
   custom
@@ -10,6 +11,7 @@ exports[`GoBackLink renders with custom children 1`] = `
 
 exports[`GoBackLink renders with default children 1`] = `
 <LinkLikeButton
+  color="blue big"
   onClick={[MockFunction]}
 >
   go back

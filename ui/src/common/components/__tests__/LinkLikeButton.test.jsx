@@ -1,7 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { Button } from 'antd';
 
-import LinkLikeButton from '../LinkLikeButton';
+import LinkLikeButton from '../LinkLikeButton/LinkLikeButton';
 
 describe('LinkLikeButton', () => {
   it('renders with required props', () => {
@@ -25,7 +26,7 @@ describe('LinkLikeButton', () => {
     const wrapper = shallow(
       <LinkLikeButton onClick={onClick}>example</LinkLikeButton>
     );
-    wrapper.find('a').simulate('click');
+    wrapper.find(Button).simulate('click');
     expect(onClick).toHaveBeenCalledTimes(1);
   });
 });

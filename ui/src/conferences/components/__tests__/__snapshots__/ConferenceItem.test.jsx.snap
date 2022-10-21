@@ -36,7 +36,7 @@ exports[`ConferenceItem renders with all props set 1`] = `
     </React.Fragment>
   }
   rightActions={
-    <ListItemAction>
+    <UserActionWrapper>
       <ForwardRef
         to="/literature?q=publication_info.conference_record.$ref:12345&doc_type=conference%20paper"
       >
@@ -45,7 +45,7 @@ exports[`ConferenceItem renders with all props set 1`] = `
           text="3 contributions"
         />
       </ForwardRef>
-    </ListItemAction>
+    </UserActionWrapper>
   }
 >
   <Row

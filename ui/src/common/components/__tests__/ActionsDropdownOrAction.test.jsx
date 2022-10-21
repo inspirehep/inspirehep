@@ -4,7 +4,7 @@ import { fromJS } from 'immutable';
 import { Menu } from 'antd';
 
 import ActionsDropdownOrAction from '../ActionsDropdownOrAction';
-import ExternalLink from '../ExternalLink.tsx';
+import LinkWithTargetBlank from '../LinkWithTargetBlank.tsx';
 
 describe('ActionsDropdownOrAction', () => {
   it('renders with multiple values', () => {
@@ -13,11 +13,11 @@ describe('ActionsDropdownOrAction', () => {
       <ActionsDropdownOrAction
         values={urls}
         renderAction={(url, title) => (
-          <ExternalLink href={url}>{title}</ExternalLink>
+          <LinkWithTargetBlank href={url}>{title}</LinkWithTargetBlank>
         )}
         renderDropdownAction={url => (
           <Menu.Item key={url}>
-            <ExternalLink href={url}>{url}</ExternalLink>
+            <LinkWithTargetBlank href={url}>{url}</LinkWithTargetBlank>
           </Menu.Item>
         )}
         title="Dude URL"
@@ -32,11 +32,11 @@ describe('ActionsDropdownOrAction', () => {
       <ActionsDropdownOrAction
         values={urls}
         renderAction={(url, title) => (
-          <ExternalLink href={url}>{title}</ExternalLink>
+          <LinkWithTargetBlank href={url}>{title}</LinkWithTargetBlank>
         )}
         renderDropdownAction={url => (
           <Menu.Item key={url}>
-            <ExternalLink href={url}>{url}</ExternalLink>
+            <LinkWithTargetBlank href={url}>{url}</LinkWithTargetBlank>
           </Menu.Item>
         )}
         title="Dude URL"

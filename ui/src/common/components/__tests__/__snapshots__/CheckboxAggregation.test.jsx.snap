@@ -83,12 +83,12 @@ exports[`CheckboxAggregation render initial state with bucketHelp 1`] = `
               <React.Fragment>
                 Published papers are believed to have undergone rigorous peer review.
                  
-                <ExternalLink
+                <LinkWithTargetBlank
                   as="a"
                   href="https://inspirehep.net/info/faq/general#published"
                 >
                   Learn More
-                </ExternalLink>
+                </LinkWithTargetBlank>
               </React.Fragment>
             }
           />
@@ -156,12 +156,12 @@ exports[`CheckboxAggregation render initial state with bucketHelp 1`] = `
             help={
               <React.Fragment>
                  
-                <ExternalLink
+                <LinkWithTargetBlank
                   as="a"
                   href="https://inspirehep.net/info/faq/general#published"
                 >
                   Learn More
-                </ExternalLink>
+                </LinkWithTargetBlank>
               </React.Fragment>
             }
           />

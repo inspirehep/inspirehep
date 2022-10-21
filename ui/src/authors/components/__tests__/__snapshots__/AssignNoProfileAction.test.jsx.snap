@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AssignNoProfileAction renders 1`] = `
-<ListItemAction>
+<UserActionWrapper>
   <DropdownMenu
     disabled={true}
     title={
@@ -34,5 +34,5 @@ exports[`AssignNoProfileAction renders 1`] = `
       </ForwardRef>
     }
   />
-</ListItemAction>
+</UserActionWrapper>
 `;

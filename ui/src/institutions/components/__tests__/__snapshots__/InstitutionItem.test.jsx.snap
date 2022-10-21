@@ -31,14 +31,14 @@ exports[`InstitutionItem renders with all props set 1`] = `
     </React.Fragment>
   }
   rightActions={
-    <ListItemAction>
+    <UserActionWrapper>
       <IncomingLiteratureReferencesLinkAction
         itemCount={1}
         linkQuery="affid 1234"
         referenceType="paper"
         trackerEventId="Institutions:PaperLink"
       />
-    </ListItemAction>
+    </UserActionWrapper>
   }
 >
   <Row>
@@ -102,14 +102,14 @@ exports[`InstitutionItem renders with only needed props 1`] = `
     </React.Fragment>
   }
   rightActions={
-    <ListItemAction>
+    <UserActionWrapper>
       <IncomingLiteratureReferencesLinkAction
         itemCount={0}
         linkQuery="affid 123"
         referenceType="paper"
         trackerEventId="Institutions:PaperLink"
       />
-    </ListItemAction>
+    </UserActionWrapper>
   }
 >
   <Row>

@@ -1,0 +1,28 @@
+.__LinkLikeButton__ {
+  padding: 4px 0;
+  &:hover {
+    background-color: transparent;
+    color: #40a9ff;
+  }
+  &.white {
+    color: white;
+    &:hover {
+      color: white;
+      & > *:hover {
+        text-decoration: underline;
+      }
+    } 
+  }
+  &.blue {
+    color: #0050b3;
+    &:hover {
+      color: #40a9ff;
+    }
+  }
+  &.middle {
+    font-size: 1rem;
+  }
+  &.big {
+    font-size: 1.5rem;
+  }
+}

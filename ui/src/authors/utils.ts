@@ -1,13 +1,13 @@
-import Immutable, { List } from 'immutable';
+import { List, Map } from 'immutable';
 import { makeCompliantMetaDescription } from '../common/utils';
 
 export function getCurrentAffiliationsFromPositions(
-  positions: { get: (arg: string) => string }[]
-): { get: (arg: string) => string }[] {
-  return positions.filter((position) => position.get('current'));
+  positions: Map<string, string>
+): Map<string, string> {
+  return positions.filter((position) => (position as unknown as Map<string, string>).get('current'));
 }
 
-export function getAuthorDisplayName(name: { get: (arg: string) => string }) {
+export function getAuthorDisplayName(name: Map<string, string>) {
   const preferredName = name.get('preferred_name');
 
   if (preferredName) {
@@ -15,7 +15,7 @@ export function getAuthorDisplayName(name: { get: (arg: string) => string }) {
   }
 
   const nameValue = name.get('value');
-  const splittedByComma = nameValue.split(', ');
+  const splittedByComma = (nameValue as string).split(', ');
   return splittedByComma.length === 2
     ? `${splittedByComma[1]} ${splittedByComma[0]}`
     : nameValue;
@@ -24,12 +24,12 @@ export function getAuthorDisplayName(name: { get: (arg: string) => string }) {
 export function getAuthorMetaDescription(author: {
   getIn: (
     arg: string[],
-    list: Immutable.List<any>
+    list: List<string>
   ) => { get: (arg: string) => string }[];
   get: (
     arg: string,
-    list: Immutable.List<any>
-  ) => { get: (arg: string) => string }[];
+    list: List<string>
+  ) => Map<string, string>;
 }) {
   const ITEM_SEPARATOR = ' and ';
 
@@ -40,7 +40,7 @@ export function getAuthorMetaDescription(author: {
   const affiliationsText = getCurrentAffiliationsFromPositions(
     author.get('positions', List([]))
   )
-    .map((position) => position.get('institution'))
+    .map((position) => (position as unknown as Map<string, string>).get('institution'))
     .filter(Boolean)
     .join(ITEM_SEPARATOR);
   const categoriesText = author
@@ -49,7 +49,7 @@ export function getAuthorMetaDescription(author: {
     .join(ITEM_SEPARATOR);
   const experimentsText = author
     .get('project_membership', List())
-    .map((experiment) => experiment.get('name'))
+    .map((experiment) => (experiment as unknown as Map<string, string>).get('name'))
     .filter(Boolean)
     .join(ITEM_SEPARATOR);
 

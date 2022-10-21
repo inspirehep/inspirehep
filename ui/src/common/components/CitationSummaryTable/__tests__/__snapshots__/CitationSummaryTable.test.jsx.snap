@@ -26,12 +26,12 @@ exports[`CitationSummaryTable renders table with null numbers 1`] = `
                   <span>
                     Published papers are believed to have undergone rigorous peer review.
                      
-                    <ExternalLink
+                    <LinkWithTargetBlank
                       as="a"
                       href="https://help.inspirehep.net/knowledge-base/faq/#faq-published"
                     >
                       Learn More
-                    </ExternalLink>
+                    </LinkWithTargetBlank>
                   </span>
                 }
                 label="Published"
@@ -133,12 +133,12 @@ exports[`CitationSummaryTable renders table with only required props 1`] = `
                   <span>
                     Published papers are believed to have undergone rigorous peer review.
                      
-                    <ExternalLink
+                    <LinkWithTargetBlank
                       as="a"
                       href="https://help.inspirehep.net/knowledge-base/faq/#faq-published"
                     >
                       Learn More
-                    </ExternalLink>
+                    </LinkWithTargetBlank>
                   </span>
                 }
                 label="Published"
@@ -250,12 +250,12 @@ exports[`CitationSummaryTable renders table without render props 1`] = `
                   <span>
                     Published papers are believed to have undergone rigorous peer review.
                      
-                    <ExternalLink
+                    <LinkWithTargetBlank
                       as="a"
                       href="https://help.inspirehep.net/knowledge-base/faq/#faq-published"
                     >
                       Learn More
-                    </ExternalLink>
+                    </LinkWithTargetBlank>
                   </span>
                 }
                 label="Published"

@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { Modal, List } from 'antd';
 
 import SecondaryButton from '../../common/components/SecondaryButton';
-// @ts-ignore
-import ExternalLink from '../../common/components/ExternalLink.tsx';
+import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank';
 
 interface IKeyword {
   get: (arg: string) => string;
@@ -29,9 +28,9 @@ export const PDGKeywords = ({ keywords }: { keywords: IKeyword }) => {
     const keywordDescription = keyword && keyword.get('description');
     
     return (
-      <ExternalLink href={`https://pdglive.lbl.gov/view/${keywordValue}`}>
+      <LinkWithTargetBlank href={`https://pdglive.lbl.gov/view/${keywordValue}`}>
         {keywordDescription}
-      </ExternalLink>
+      </LinkWithTargetBlank>
     );
   };
 

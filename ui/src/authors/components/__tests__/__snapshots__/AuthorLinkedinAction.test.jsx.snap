@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AuthorLinkedinAction renders with linkedin 1`] = `
-<ListItemAction>
+<UserActionWrapper>
   <Tooltip
     arrowPointAtCenter={false}
     autoAdjustOverflow={true}
@@ -10,12 +10,12 @@ exports[`AuthorLinkedinAction renders with linkedin 1`] = `
     placement="top"
     title="LinkedIn"
   >
-    <ExternalLink
+    <LinkWithTargetBlank
       as="a"
       href="//linkedin.com/in/harunurhan"
     >
       <ForwardRef(LinkedinOutlined) />
-    </ExternalLink>
+    </LinkWithTargetBlank>
   </Tooltip>
-</ListItemAction>
+</UserActionWrapper>
 `;

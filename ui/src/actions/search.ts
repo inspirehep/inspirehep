@@ -135,7 +135,7 @@ export function fetchSearchAggregations(
 
 export function searchQueryUpdate(
   namespace: string,
-  query: { size?: number; q?: string; assigned?: number },
+  query: { size?: number; q?: string; assigned?: number, page?: string },
   dueToNavigationToSearchPage = false
 ): (
   dispatch: Dispatch | ActionCreator<Action>,
@@ -212,7 +212,7 @@ export function searchBaseQueriesUpdate(
   {
     baseQuery,
     baseAggregationsQuery,
-  }: { baseQuery: string; baseAggregationsQuery: string }
+  }: { baseQuery: { q: string }; baseAggregationsQuery?: { q: string } }
 ): (
   dispatch: Dispatch | ActionCreator<Action>,
   getState: () => RootStateOrAny,

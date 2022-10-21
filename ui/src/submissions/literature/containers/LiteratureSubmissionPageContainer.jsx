@@ -7,7 +7,7 @@ import { Row, Col, Tooltip, Form } from 'antd';
 import { submit } from '../../../actions/submissions';
 import { LABEL_COL, WRAPPER_COL } from '../../common/withFormItem';
 import LiteratureSubmission from '../components/LiteratureSubmission';
-import ExternalLink from '../../../common/components/ExternalLink.tsx';
+import LinkWithTargetBlank from '../../../common/components/LinkWithTargetBlank.tsx';
 import SelectBox from '../../../common/components/SelectBox';
 import DataImporterContainer from './DataImporterContainer';
 import {
@@ -64,9 +64,9 @@ function LiteratureSubmissionPage({ error, importedFormData, onSubmit }) {
           This form allows you to suggest a preprint, an article, a book, a
           conference proceeding or a thesis you would like to see added to
           INSPIRE. We will check your suggestion with our{' '}
-          <ExternalLink href={CONTENT_POLICY_URL}>
+          <LinkWithTargetBlank href={CONTENT_POLICY_URL}>
             selection policy
-          </ExternalLink>{' '}
+          </LinkWithTargetBlank>{' '}
           and transfer it to INSPIRE.
         </span>
       }

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`IncomingLiteratureReferencesLinkAction renders with required props 1`] = `
-<ListItemAction>
+<UserActionWrapper>
   <EventTracker
     eventId="Citations:Search"
     eventPropName="onClick"
@@ -24,11 +24,11 @@ exports[`IncomingLiteratureReferencesLinkAction renders with required props 1`] 
       />
     </Link>
   </EventTracker>
-</ListItemAction>
+</UserActionWrapper>
 `;
 
 exports[`IncomingLiteratureReferencesLinkAction renders with required props when reference count is singular 1`] = `
-<ListItemAction>
+<UserActionWrapper>
   <EventTracker
     eventId="Papers:Search"
     eventPropName="onClick"
@@ -51,5 +51,5 @@ exports[`IncomingLiteratureReferencesLinkAction renders with required props when
       />
     </Link>
   </EventTracker>
-</ListItemAction>
+</UserActionWrapper>
 `;

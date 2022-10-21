@@ -13,12 +13,12 @@ exports[`AuthorWithBAI renders 1`] = `
         The author does not have an INSPIRE profile
       </div>
       <div>
-        <ExternalLink
+        <LinkWithTargetBlank
           as="a"
           href="/submissions/authors?bai=Name.Full.1"
         >
           Create profile
-        </ExternalLink>
+        </LinkWithTargetBlank>
       </div>
     </React.Fragment>
   }

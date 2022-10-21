@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { MailOutlined } from '@ant-design/icons';
 import { Modal, Alert, Typography } from 'antd';
-import LinkLikeButton from '../../common/components/LinkLikeButton';
+import LinkLikeButton from '../../common/components/LinkLikeButton/LinkLikeButton';
 import ResponsiveView from '../../common/components/ResponsiveView';
 import subscribeJobMailingList from '../subscribeJobMailingList';
 import ModalSuccessResult from '../../common/components/ModalSuccessResult';

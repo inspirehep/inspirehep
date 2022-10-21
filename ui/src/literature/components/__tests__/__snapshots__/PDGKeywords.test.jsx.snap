@@ -4,12 +4,12 @@ exports[`PDGKeywords renders with keywords 1`] = `
 <div>
   PDG:
    
-  <ExternalLink
+  <LinkWithTargetBlank
     as="a"
     href="https://pdglive.lbl.gov/view/Q007TP"
   >
     Test description
-  </ExternalLink>
+  </LinkWithTargetBlank>
   <div
     className="di pl2"
   >

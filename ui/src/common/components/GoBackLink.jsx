@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import LinkLikeButton from './LinkLikeButton';
+import LinkLikeButton from './LinkLikeButton/LinkLikeButton';
 
 class GoBackLink extends Component {
   render() {
     const { children, onClick } = this.props;
-    return <LinkLikeButton onClick={onClick}>{children}</LinkLikeButton>;
+    return <LinkLikeButton color='blue big' onClick={onClick}>{children}</LinkLikeButton>;
   }
 }
 

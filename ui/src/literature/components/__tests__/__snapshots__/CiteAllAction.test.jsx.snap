@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CiteAllAction renders with disabled 1`] = `
-<ListItemAction>
+<UserActionWrapper>
   <DropdownMenu
     disabled={true}
     onClick={[Function]}
@@ -47,11 +47,11 @@ exports[`CiteAllAction renders with disabled 1`] = `
       CV (html)
     </MenuItem>
   </DropdownMenu>
-</ListItemAction>
+</UserActionWrapper>
 `;
 
 exports[`CiteAllAction renders with less than max citeable records results 1`] = `
-<ListItemAction>
+<UserActionWrapper>
   <DropdownMenu
     disabled={false}
     onClick={[Function]}
@@ -97,11 +97,11 @@ exports[`CiteAllAction renders with less than max citeable records results 1`] =
       CV (html)
     </MenuItem>
   </DropdownMenu>
-</ListItemAction>
+</UserActionWrapper>
 `;
 
 exports[`CiteAllAction renders with loading 1`] = `
-<ListItemAction>
+<UserActionWrapper>
   <DropdownMenu
     disabled={false}
     onClick={[Function]}
@@ -147,5 +147,5 @@ exports[`CiteAllAction renders with loading 1`] = `
       CV (html)
     </MenuItem>
   </DropdownMenu>
-</ListItemAction>
+</UserActionWrapper>
 `;

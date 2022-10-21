@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AuthorTwitterAction renders with twitter 1`] = `
-<ListItemAction>
+<UserActionWrapper>
   <Tooltip
     arrowPointAtCenter={false}
     autoAdjustOverflow={true}
@@ -10,12 +10,12 @@ exports[`AuthorTwitterAction renders with twitter 1`] = `
     placement="top"
     title="Twitter"
   >
-    <ExternalLink
+    <LinkWithTargetBlank
       as="a"
       href="//twitter.com/harunurhan"
     >
       <ForwardRef(TwitterOutlined) />
-    </ExternalLink>
+    </LinkWithTargetBlank>
   </Tooltip>
-</ListItemAction>
+</UserActionWrapper>
 `;

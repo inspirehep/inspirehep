@@ -5,7 +5,7 @@ import { Menu } from 'antd';
 import { LinkOutlined } from '@ant-design/icons';
 
 import IconText from '../../common/components/IconText';
-import ExternalLink from '../../common/components/ExternalLink.tsx';
+import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank.tsx';
 import { removeProtocolAndWwwFromUrl } from '../../common/utils';
 import ActionsDropdownOrAction from '../../common/components/ActionsDropdownOrAction';
 import EventTracker from '../../common/components/EventTracker';
@@ -21,7 +21,7 @@ function UrlsAction({ urls, text, icon, trackerEventId }) {
   const renderUrlsAction = useCallback(
     (url, title) => (
       <EventTracker eventId={trackerEventId}>
-        <ExternalLink href={url.get('value')}>{title}</ExternalLink>
+        <LinkWithTargetBlank href={url.get('value')}>{title}</LinkWithTargetBlank>
       </EventTracker>
     ),
     [trackerEventId]
@@ -33,7 +33,7 @@ function UrlsAction({ urls, text, icon, trackerEventId }) {
       return (
         <Menu.Item key={href}>
           <EventTracker eventId={trackerEventId}>
-            <ExternalLink href={href}>{display}</ExternalLink>
+            <LinkWithTargetBlank href={href}>{display}</LinkWithTargetBlank>
           </EventTracker>
         </Menu.Item>
       );

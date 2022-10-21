@@ -5,7 +5,7 @@ import { Modal, Button } from 'antd';
 import CiteModalAction from '../CiteModalAction';
 import citeArticle from '../../citeArticle';
 import SelectBox from '../../../common/components/SelectBox';
-import ListItemAction from '../../../common/components/ListItemAction';
+import UserAction from '../../../common/components/UserAction';
 import { CITE_FORMAT_VALUES } from '../../constants';
 
 jest.mock('../../citeArticle');
@@ -54,7 +54,7 @@ describe('CiteModalAction', () => {
     wrapper.instance().setCiteContentFor = setCiteContentFor;
     wrapper.update();
     const onCiteClick = wrapper
-      .find(ListItemAction)
+      .find(UserAction)
       .find(Button)
       .prop('onClick');
     onCiteClick();
@@ -75,7 +75,7 @@ describe('CiteModalAction', () => {
     wrapper.setState({ citeContent: 'CONTENT' });
     wrapper.update();
     const onCiteClick = wrapper
-      .find(ListItemAction)
+      .find(UserAction)
       .find(Button)
       .prop('onClick');
     onCiteClick();

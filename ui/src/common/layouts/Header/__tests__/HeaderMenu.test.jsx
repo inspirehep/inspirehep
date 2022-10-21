@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import HeaderMenu from '../HeaderMenu';
-import LinkLikeButton from '../../../components/LinkLikeButton';
+import LinkLikeButton from '../../../components/LinkLikeButton/LinkLikeButton';
 
 describe('HeaderMenu', () => {
   it('renders when logged in', () => {

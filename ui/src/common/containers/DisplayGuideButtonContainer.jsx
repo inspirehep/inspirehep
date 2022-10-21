@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { changeGuideModalVisibility } from '../../actions/ui';
-import LinkLikeButton from '../components/LinkLikeButton';
+import LinkLikeButton from '../components/LinkLikeButton/LinkLikeButton';
 
 export const dispatchToProps = dispatch => ({
   onClick() {

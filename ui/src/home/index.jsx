@@ -8,7 +8,7 @@ import DocumentHead from '../common/components/DocumentHead';
 import HomePageSection from './components/HomePageSection';
 import HowToSubmit from './components/HowToSubmit';
 import CollaborationLogos from './components/CollaborationLogos';
-import LinkLikeButton from '../common/components/LinkLikeButton';
+import LinkLikeButton from '../common/components/LinkLikeButton/LinkLikeButton';
 import NewsAndUpdates from './components/NewsAndUpdates';
 
 const INSPIRE_DESCRIPTION =
@@ -34,7 +34,7 @@ function Home() {
             <>
               <SearchBoxContainer />
               <div className="tc f5 mt4" data-test-id="scroll-button">
-                <LinkLikeButton onClick={scrollToSection}>
+                <LinkLikeButton onClick={scrollToSection} color="blue middle">
                   How to search?
                 </LinkLikeButton>
               </div>

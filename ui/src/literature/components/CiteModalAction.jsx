@@ -9,7 +9,7 @@ import { Modal, Button, Row, Alert } from 'antd';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import SelectBox from '../../common/components/SelectBox';
-import ListItemAction from '../../common/components/ListItemAction';
+import UserAction from '../../common/components/UserAction';
 import IconText from '../../common/components/IconText';
 import EventTracker from '../../common/components/EventTracker';
 import {
@@ -104,13 +104,13 @@ class CiteModalAction extends Component {
     } = this.state;
     return (
       <>
-        <ListItemAction>
+        <UserAction>
           <EventTracker eventId="Cite">
             <Button onClick={this.onCiteClick}>
               <IconText text="cite" icon={<ExportOutlined />} />
             </Button>
           </EventTracker>
-        </ListItemAction>
+        </UserAction>
         <Modal
           title="Cite Article"
           visible={modalVisible}

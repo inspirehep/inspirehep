@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AssignAction renders 1`] = `
-<ListItemAction>
+<UserActionWrapper>
   <DropdownMenu
     disabled={false}
     title={
@@ -44,11 +44,11 @@ exports[`AssignAction renders 1`] = `
       Assign to another author
     </MenuItem>
   </DropdownMenu>
-</ListItemAction>
+</UserActionWrapper>
 `;
 
 exports[`AssignAction renders disabled 1`] = `
-<ListItemAction>
+<UserActionWrapper>
   <DropdownMenu
     disabled={true}
     title={
@@ -91,11 +91,11 @@ exports[`AssignAction renders disabled 1`] = `
       Assign to another author
     </MenuItem>
   </DropdownMenu>
-</ListItemAction>
+</UserActionWrapper>
 `;
 
 exports[`AssignAction renders plural form if numberOfSelected is more than 1 1`] = `
-<ListItemAction>
+<UserActionWrapper>
   <DropdownMenu
     disabled={false}
     title={
@@ -138,11 +138,11 @@ exports[`AssignAction renders plural form if numberOfSelected is more than 1 1`]
       Assign to another author
     </MenuItem>
   </DropdownMenu>
-</ListItemAction>
+</UserActionWrapper>
 `;
 
 exports[`AssignAction renders singular form if numberOfSelected is 1 1`] = `
-<ListItemAction>
+<UserActionWrapper>
   <DropdownMenu
     disabled={false}
     title={
@@ -185,5 +185,5 @@ exports[`AssignAction renders singular form if numberOfSelected is 1 1`] = `
       Assign to another author
     </MenuItem>
   </DropdownMenu>
-</ListItemAction>
+</UserActionWrapper>
 `;

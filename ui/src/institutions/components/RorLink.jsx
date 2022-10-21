@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ExternalLink from '../../common/components/ExternalLink.tsx';
+import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank.tsx';
 
 function RorLink({ ror }) {
   return (
     <span>
-      ROR Record: <ExternalLink href={ror}>{ror}</ExternalLink>
+      ROR Record: <LinkWithTargetBlank href={ror}>{ror}</LinkWithTargetBlank>
     </span>
   );
 }
