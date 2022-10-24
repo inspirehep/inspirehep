@@ -19,7 +19,7 @@ from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_search import current_search
 from invenio_search.cli import index
 
-from inspirehep.indexer.tasks import batch_index, batch_index_literature_fulltext
+from inspirehep.indexer.tasks import batch_index
 from inspirehep.records.api import InspireRecord
 from inspirehep.utils import next_batch
 
@@ -88,7 +88,7 @@ def get_query_records_to_index(pid_types):
 
 
 def dispatch_indexing_task(items, batch_size, queue_name, is_fulltext=False):
-    indexing_function = batch_index_literature_fulltext if is_fulltext else batch_index
+    indexing_function = batch_index
     tasks = []
     request_timeout = current_app.config.get("INDEXER_BULK_REQUEST_TIMEOUT")
 
@@ -198,10 +198,7 @@ def reindex_records(
         record = InspireRecord.get_record_by_pid_value(
             pid_value, pid_type, original_record=True
         )
-        if pid_type == "lit" and fulltext:
-            record.index_fulltext()
-        else:
-            record.index()
+        record.index()
         click.secho(f"Successfully reindexed record {pid}", fg="green")
         ctx.exit(0)
 
@@ -217,19 +214,6 @@ def reindex_records(
         raise ValueError("Specified empty log path.")
 
     all_tasks = []
-
-    if "lit" in pidtypes and fulltext:
-        pidtypes.remove("lit")
-        query = get_query_records_to_index({"lit"})
-
-        with click.progressbar(
-            query.yield_per(db_batch_size),
-            length=query.count(),
-            label=f"Scheduling indexing tasks for literature to the '{queue_name}' queue.",
-        ) as items:
-            created_tasks = dispatch_indexing_task(items, batch_size, queue_name, True)
-            all_tasks.extend(created_tasks)
-
     query = get_query_records_to_index(pidtypes)
     with click.progressbar(
         query.yield_per(db_batch_size),
