@@ -9,7 +9,7 @@ from invenio_db import db
 from invenio_search import current_search
 
 from inspirehep.files.api import current_s3_instance
-from inspirehep.indexer.tasks import batch_index_literature_fulltext
+from inspirehep.indexer.tasks import batch_index
 from inspirehep.records.api import LiteratureRecord
 from inspirehep.records.receivers import index_after_commit
 from inspirehep.search.api import LiteratureSearch
@@ -204,7 +204,7 @@ def test_index_record_fulltext_manually(
 
         assert_record_not_in_es(rec["control_number"])
 
-        rec.index_fulltext()
+        rec.index()
 
         def assert_record_in_es():
             current_search.flush_and_refresh("*")
@@ -308,7 +308,7 @@ def test_index_records_batch_fulltext_manually(
         db.session.commit()
         # reconnect signal before we call process_references_in_records
         models_committed.connect(index_after_commit)
-        task = batch_index_literature_fulltext.delay([lit_record.id, lit_record_2.id])
+        task = batch_index.delay([lit_record.id, lit_record_2.id])
         task.get(timeout=5)
 
         assert task.result == {

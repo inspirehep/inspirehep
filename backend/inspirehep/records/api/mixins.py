@@ -709,10 +709,10 @@ class JournalPapersMixin:
         pids_latest = list(self.linked_journal_pids)
 
         if changed_deleted_status:
-            return list(self.get_records_ids_by_pids(pids_latest))
+            return set(self.get_records_ids_by_pids(pids_latest))
 
         pids_previous = self._previous_version.linked_journal_pids
 
         pids_changed = set.symmetric_difference(set(pids_latest), set(pids_previous))
 
-        return list(self.get_records_ids_by_pids(list(pids_changed)))
+        return set(self.get_records_ids_by_pids(list(pids_changed)))

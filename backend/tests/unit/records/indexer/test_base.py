@@ -59,6 +59,7 @@ def test_indexer_prepare_record(
 
 
 @mock.patch("invenio_indexer.api.build_alias_name", return_value="prefixed-index")
+@mock.patch("inspirehep.indexer.base.current_app")
 @mock.patch(
     "inspirehep.indexer.base.InspireRecordIndexer._prepare_record", return_value={}
 )
@@ -67,7 +68,7 @@ def test_indexer_prepare_record(
     return_value=(None, None),
 )
 def test_process_bulk_record_for_index(
-    record_to_index_mock, prepare_record_mock, build_alias_mocked
+    record_to_index_mock, prepare_record_mock, mock_config, build_alias_mocked
 ):
     record = LiteratureRecord({})
     indexer = InspireRecordIndexer()
@@ -84,6 +85,8 @@ def test_process_bulk_record_for_index(
     bulk_data = indexer._process_bulk_record_for_index(
         record, "version_type", "index_name", "document_type"
     )
+    # we pop pipeline cause flask app is mocked
+    bulk_data.pop("pipeline")
 
     assert record_to_index_mock.call_count == 1
     assert prepare_record_mock.call_count == 1
@@ -91,6 +94,7 @@ def test_process_bulk_record_for_index(
 
 
 @mock.patch("invenio_indexer.api.build_alias_name", return_value="prefixed-index")
+@mock.patch("inspirehep.indexer.base.current_app")
 @mock.patch(
     "inspirehep.indexer.base.InspireRecordIndexer._prepare_record", return_value={}
 )
@@ -99,7 +103,7 @@ def test_process_bulk_record_for_index(
     return_value=("test_index", "test_type"),
 )
 def test_process_bulk_record_for_index_default_values(
-    record_to_index_mock, prepare_record_mock, build_alias_mocked
+    record_to_index_mock, prepare_record_mock, mock_current_app, build_alias_mocked
 ):
     record = LiteratureRecord({})
     indexer = InspireRecordIndexer()
@@ -114,6 +118,8 @@ def test_process_bulk_record_for_index_default_values(
     }
 
     bulk_data = indexer._process_bulk_record_for_index(record)
+    # we pop pipeline cause flask app is mocked
+    bulk_data.pop("pipeline")
 
     assert record_to_index_mock.call_count == 1
     assert prepare_record_mock.call_count == 1
