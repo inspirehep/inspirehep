@@ -60,38 +60,40 @@ def test_reindex_one_type_of_record(inspire_app, cli):
     assert expected_aut_len == results_aut_len
 
 
-@mock.patch("inspirehep.indexer.cli.batch_index_literature_fulltext")
+@mock.patch("inspirehep.indexer.cli.batch_index")
 def test_reindex_one_type_of_record_with_fulltext(
-    mock_index_fulltext, inspire_app, cli
+    mock_index_fulltext, inspire_app, cli, override_config
 ):
-    record_lit = create_record("lit")
-    cli.invoke(["index", "reindex", "-ft", "-p", "lit"])
+    with override_config(FEATURE_FLAG_ENABLE_FULLTEXT=True):
+        record_lit = create_record("lit")
+        cli.invoke(["index", "reindex", "-p", "lit"])
 
-    assert mock_index_fulltext.called_once()
-    assert mock_index_fulltext.mock_calls[0][2] == {
-        "kwargs": {
-            "records_uuids": [str(record_lit.id)],
-            "request_timeout": inspire_app.config["INDEXER_BULK_REQUEST_TIMEOUT"],
-        },
-        "queue": "indexer_task",
-    }
+        assert mock_index_fulltext.called_once()
+        assert mock_index_fulltext.mock_calls[0][2] == {
+            "kwargs": {
+                "records_uuids": [str(record_lit.id)],
+                "request_timeout": inspire_app.config["INDEXER_BULK_REQUEST_TIMEOUT"],
+            },
+            "queue": "indexer_task",
+        }
 
 
-@mock.patch("inspirehep.indexer.cli.batch_index_literature_fulltext")
+@mock.patch("inspirehep.indexer.cli.batch_index")
 def test_reindex_all_is_reuindexing_with_fulltext(
-    mock_index_fulltext, inspire_app, cli
+    mock_index_fulltext, inspire_app, cli, override_config
 ):
-    record_lit = create_record("lit")
-    cli.invoke(["index", "reindex", "-ft", "--all"])
+    with override_config(FEATURE_FLAG_ENABLE_FULLTEXT=True):
+        record_lit = create_record("lit")
+        cli.invoke(["index", "reindex", "--all"])
 
-    assert mock_index_fulltext.called_once()
-    assert mock_index_fulltext.mock_calls[0][2] == {
-        "kwargs": {
-            "records_uuids": [str(record_lit.id)],
-            "request_timeout": inspire_app.config["INDEXER_BULK_REQUEST_TIMEOUT"],
-        },
-        "queue": "indexer_task",
-    }
+        assert mock_index_fulltext.called_once()
+        assert mock_index_fulltext.mock_calls[0][2] == {
+            "kwargs": {
+                "records_uuids": [str(record_lit.id)],
+                "request_timeout": inspire_app.config["INDEXER_BULK_REQUEST_TIMEOUT"],
+            },
+            "queue": "indexer_task",
+        }
 
 
 def test_remap_one_index(inspire_app, cli):

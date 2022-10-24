@@ -565,6 +565,7 @@ class LiteratureRecord(
         uuids |= set(self.get_newest_linked_conferences_uuid())
         uuids |= set(self.get_modified_institutions_uuids())
         uuids |= set(self.get_modified_experiment_uuids())
+        uuids |= set(self.get_modified_journal_uuids())
         if uuids:
             LOGGER.info(
                 f"Found {len(uuids)} references changed, indexing them",
@@ -573,26 +574,6 @@ class LiteratureRecord(
             return uuids
         LOGGER.info("No references changed", uuid=str(self.id))
         return set()
-
-    def index_fulltext(self, delay=True):
-        """Index record in ES.
-
-        Args:
-            force_delete: set to True if record has to be deleted,
-                If not set, tries to determine automatically if record should be deleted
-            delay: if True will start the index task async otherwise async.
-        """
-        from inspirehep.indexer.tasks import index_fulltext
-
-        LOGGER.info(
-            "Record indexing with fulltext",
-            recid=self.control_number,
-            uuid=str(self.id),
-        )
-        if delay:
-            index_fulltext.delay(str(self.id), self.model.version_id)
-            return
-        index_fulltext(str(self.id), self.model.version_id)
 
     @classmethod
     def fix_entries_by_update_date(cls, before=None, after=None, max_chunk=100):

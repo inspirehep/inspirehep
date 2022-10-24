@@ -134,22 +134,26 @@ def test_reindex_only_one_record(inspire_app, clean_celery_session, cli):
     assert expected_message in result.output
 
 
-def test_reindex_only_one_record_fulltext(inspire_app, clean_celery_session, cli):
-    generate_records(count=1, data={"control_number": 3})
-    result = cli.invoke(["index", "reindex", "-id", "lit", "3", "-ft", "-q", ""])
+def test_reindex_only_one_record_fulltext(
+    inspire_app, clean_celery_session, cli, override_config
+):
+    with override_config(FEATURE_FLAG_ENABLE_FULLTEXT=True):
+        generate_records(count=1, data={"control_number": 3})
+        result = cli.invoke(["index", "reindex", "-id", "lit", "3", "-q", ""])
 
-    expected_message = "Successfully reindexed record ('lit', '3')"
-    assert result.exit_code == 0
-    assert expected_message in result.output
+        expected_message = "Successfully reindexed record ('lit', '3')"
+        assert result.exit_code == 0
+        assert expected_message in result.output
 
 
-def test_reindex_many_fulltext(inspire_app, clean_celery_session, cli):
-    generate_records(count=1, data={"control_number": 3})
-    result = cli.invoke(["index", "reindex", "--pid", "lit", "3", "-ft", "-q", ""])
+def test_reindex_many_fulltext(inspire_app, clean_celery_session, cli, override_config):
+    with override_config(FEATURE_FLAG_ENABLE_FULLTEXT=True):
+        generate_records(count=1, data={"control_number": 3})
+        result = cli.invoke(["index", "reindex", "--pid", "lit", "3", "-q", ""])
 
-    expected_message = "Successfully reindexed record ('lit', '3')"
-    assert result.exit_code == 0
-    assert expected_message in result.output
+        expected_message = "Successfully reindexed record ('lit', '3')"
+        assert result.exit_code == 0
+        assert expected_message in result.output
 
 
 def test_reindex_only_one_record_wring_input(inspire_app, clean_celery_session, cli):

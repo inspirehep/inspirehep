@@ -19,7 +19,7 @@ from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_search import current_search
 from invenio_search.cli import index
 
-from inspirehep.indexer.tasks import batch_index, batch_index_literature_fulltext
+from inspirehep.indexer.tasks import batch_index
 from inspirehep.records.api import InspireRecord
 from inspirehep.utils import next_batch
 
@@ -87,15 +87,14 @@ def get_query_records_to_index(pid_types):
     return query
 
 
-def dispatch_indexing_task(items, batch_size, queue_name, is_fulltext=False):
-    indexing_function = batch_index_literature_fulltext if is_fulltext else batch_index
+def dispatch_indexing_task(items, batch_size, queue_name):
     tasks = []
     request_timeout = current_app.config.get("INDEXER_BULK_REQUEST_TIMEOUT")
 
     batch = next_batch(items, batch_size)
     while batch:
         uuids = [str(item[0]) for item in batch]
-        indexer_task = indexing_function.apply_async(
+        indexer_task = batch_index.apply_async(
             kwargs={"records_uuids": uuids, "request_timeout": request_timeout},
             queue=queue_name,
         )
@@ -122,7 +121,6 @@ def dispatch_indexing_task(items, batch_size, queue_name, is_fulltext=False):
     "Example `reindex -id lit 1234.`",
     show_default=True,
 )
-@click.option("-ft", "--fulltext", is_flag=True, help="Index with fulltext")
 @click.option(
     "-q",
     "--queue-name",
@@ -154,7 +152,7 @@ def dispatch_indexing_task(items, batch_size, queue_name, is_fulltext=False):
 @with_appcontext
 @click.pass_context
 def reindex_records(
-    ctx, all, pidtype, pid, fulltext, queue_name, batch_size, db_batch_size, log_path
+    ctx, all, pidtype, pid, queue_name, batch_size, db_batch_size, log_path
 ):
     """(Inspire) Reindex records in ElasticSearch.
 
@@ -198,10 +196,7 @@ def reindex_records(
         record = InspireRecord.get_record_by_pid_value(
             pid_value, pid_type, original_record=True
         )
-        if pid_type == "lit" and fulltext:
-            record.index_fulltext()
-        else:
-            record.index()
+        record.index()
         click.secho(f"Successfully reindexed record {pid}", fg="green")
         ctx.exit(0)
 
@@ -217,19 +212,6 @@ def reindex_records(
         raise ValueError("Specified empty log path.")
 
     all_tasks = []
-
-    if "lit" in pidtypes and fulltext:
-        pidtypes.remove("lit")
-        query = get_query_records_to_index({"lit"})
-
-        with click.progressbar(
-            query.yield_per(db_batch_size),
-            length=query.count(),
-            label=f"Scheduling indexing tasks for literature to the '{queue_name}' queue.",
-        ) as items:
-            created_tasks = dispatch_indexing_task(items, batch_size, queue_name, True)
-            all_tasks.extend(created_tasks)
-
     query = get_query_records_to_index(pidtypes)
     with click.progressbar(
         query.yield_per(db_batch_size),

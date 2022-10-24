@@ -25,7 +25,14 @@ class InspireRecordIndexer(RecordIndexer):
 
     @staticmethod
     def _prepare_record(record, index, doc_type="_doc", arguments=None, **kwargs):
-        data = record.serialize_for_es()
+        from inspirehep.records.api import LiteratureRecord
+
+        if current_app.config["FEATURE_FLAG_ENABLE_FULLTEXT"] and isinstance(
+            record, LiteratureRecord
+        ):
+            data = record.serialize_for_es_with_fulltext()
+        else:
+            data = record.serialize_for_es()
         before_record_index.send(
             current_app._get_current_object(),
             json=data,
@@ -58,12 +65,14 @@ class InspireRecordIndexer(RecordIndexer):
             dict: dict with preprocessed record for bulk indexing
 
         """
+        from inspirehep.records.api import LiteratureRecord
+
         index_from_record, doc_type_from_record = self.record_to_index(record)
         if not index:
             index = index_from_record
 
         index, doc_type = self._prepare_index(index, doc_type or doc_type_from_record)
-        return {
+        payload = {
             "_op_type": "index",
             "_index": index,
             "_type": doc_type,
@@ -72,6 +81,12 @@ class InspireRecordIndexer(RecordIndexer):
             "_version_type": version_type,
             "_source": self._prepare_record(record, index, doc_type),
         }
+        if current_app.config["FEATURE_FLAG_ENABLE_FULLTEXT"] and isinstance(
+            record, LiteratureRecord
+        ):
+            ingestion_pipeline_name = current_app.config["ES_FULLTEXT_PIPELINE_NAME"]
+            payload["pipeline"] = ingestion_pipeline_name
+        return payload
 
     def bulk_index(self, records_uuids, request_timeout=None, max_chunk_bytes=None):
         """Starts bulk indexing for specified records
@@ -100,7 +115,6 @@ class InspireRecordIndexer(RecordIndexer):
             initial_backoff=10,  # wait for initial_backoff * 2^retry_number,
             max_chunk_bytes=max_chunk_bytes,
         )
-
         failures = []
         for action_success, action_data in result:
             if not action_success:
@@ -156,11 +170,18 @@ class InspireRecordIndexer(RecordIndexer):
                 "Kombu is not able to process response!", uuid=str(record_uuid)
             )
 
-    def _get_indexing_arguments(self):
+    def _get_indexing_arguments(self, fulltext=False):
         """Returns custom arguments for record indexing"""
-        pass
+        if fulltext:
+            arguments = {
+                "pipeline": current_app.config["ES_FULLTEXT_PIPELINE_NAME"],
+                "timeout": current_app.config["FULLLTEXT_INDEXER_REQUEST_TIMEOUT"],
+            }
+            return arguments
 
     def index(self, record, force_delete=None, record_version=None):
+        from inspirehep.records.api import LiteratureRecord
+
         if not force_delete:
             deleted = record.get("deleted", False)
 
@@ -172,7 +193,12 @@ class InspireRecordIndexer(RecordIndexer):
                 LOGGER.debug("Record to delete not found", uuid=str(record.id))
         else:
             try:
-                super().index(record, arguments=self._get_indexing_arguments())
+                fulltext_enabled = current_app.config[
+                    "FEATURE_FLAG_ENABLE_FULLTEXT"
+                ] and isinstance(record, LiteratureRecord)
+                super().index(
+                    record, arguments=self._get_indexing_arguments(fulltext_enabled)
+                )
             except ConflictError as err:
                 LOGGER.warning(
                     "VersionConflict on record indexing.",
@@ -181,53 +207,3 @@ class InspireRecordIndexer(RecordIndexer):
                     force_delete=force_delete,
                     error=err,
                 )
-
-
-class LiteratureRecordFulltextIndexer(InspireRecordIndexer):
-    def _prepare_record(self, record, index, doc_type="_doc", arguments=None, **kwargs):
-        data = record.serialize_for_es_with_fulltext()
-        before_record_index.send(
-            current_app._get_current_object(),
-            json=data,
-            record=record,
-            index=index,
-            doc_type=doc_type,
-            arguments={} if arguments is None else arguments,
-            **kwargs,
-        )
-        return data
-
-    def _process_bulk_record_for_index(
-        self, record, version_type="external", index=None, doc_type=None
-    ):
-        """Process basic data required for indexing record during bulk indexing
-
-        Args:
-            record (InspireRecord): Proper inspire record record object
-            version_type (str): Proper ES versioning type:
-                * internal
-                * external
-                * external_gt
-                * external_gte
-            index (str): Name of the index to which record should be indexed.
-                Determined automatically from record metadata if not provided.
-            doc_type (str): Document type. Determined automatically from
-                record metadata if not provided.
-
-        Returns:
-            dict: dict with preprocessed record for bulk indexing
-
-        """
-        ingestion_pipeline_name = current_app.config["ES_FULLTEXT_PIPELINE_NAME"]
-        payload = super()._process_bulk_record_for_index(
-            record, version_type="external_gte", index=None, doc_type=None
-        )
-        payload["pipeline"] = ingestion_pipeline_name
-        return payload
-
-    def _get_indexing_arguments(self):
-        arguments = {
-            "pipeline": current_app.config["ES_FULLTEXT_PIPELINE_NAME"],
-            "timeout": current_app.config["FULLLTEXT_INDEXER_REQUEST_TIMEOUT"],
-        }
-        return arguments

@@ -24,5 +24,6 @@ def test_index_author_record(inspire_app, datadir):
     expected_metadata["_updated"] = utils.isoformat(record.updated)
 
     response = es_search("records-authors")
+    response_sources = [hit["_source"] for hit in response["hits"]["hits"]]
     assert response["hits"]["total"]["value"] == expected_count
-    assert response["hits"]["hits"][0]["_source"] == expected_metadata
+    assert expected_metadata in response_sources
