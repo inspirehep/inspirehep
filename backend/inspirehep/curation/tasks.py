@@ -2,15 +2,8 @@ import structlog
 from celery import shared_task
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
-from sqlalchemy.exc import (
-    DisconnectionError,
-    OperationalError,
-    ResourceClosedError,
-    TimeoutError,
-    UnboundExecutionError,
-)
-from sqlalchemy.orm.exc import NoResultFound, StaleDataError
 
+from inspirehep.errors import DB_TASK_EXCEPTIONS
 from inspirehep.records.api.literature import LiteratureRecord
 
 LOGGER = structlog.getLogger()
@@ -40,15 +33,7 @@ def _update_record_keywords_with_new_pdg_keywords(record, pdg_keywords):
     acks_late=True,
     retry_backoff=2,
     retry_kwargs={"max_retries": 6},
-    autoretry_for=(
-        NoResultFound,
-        StaleDataError,
-        DisconnectionError,
-        TimeoutError,
-        UnboundExecutionError,
-        ResourceClosedError,
-        OperationalError,
-    ),
+    autoretry_for=DB_TASK_EXCEPTIONS,
 )
 def update_pdg_keywords_in_records(ids_to_update, record_ids_pdg_keyword_mapping):
     updated_recids = set()

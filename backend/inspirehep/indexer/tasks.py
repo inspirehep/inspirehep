@@ -7,35 +7,14 @@
 
 import structlog
 from celery import shared_task
-from elasticsearch import ConnectionError, ConnectionTimeout, RequestError
-from sqlalchemy.exc import (
-    DisconnectionError,
-    OperationalError,
-    ResourceClosedError,
-    TimeoutError,
-    UnboundExecutionError,
-)
-from sqlalchemy.orm.exc import NoResultFound, StaleDataError
+from flask import current_app
 
+from inspirehep.errors import DB_TASK_EXCEPTIONS, ES_TASK_EXCEPTIONS
 from inspirehep.indexer.api import get_references_to_update
 from inspirehep.indexer.base import InspireRecordIndexer
 from inspirehep.records.api import InspireRecord
 
 LOGGER = structlog.getLogger()
-
-
-CELERY_INDEX_RECORD_RETRY_ON_EXCEPTIONS = (
-    NoResultFound,
-    StaleDataError,
-    DisconnectionError,
-    TimeoutError,
-    UnboundExecutionError,
-    ResourceClosedError,
-    OperationalError,
-    ConnectionError,
-    ConnectionTimeout,
-    RequestError,
-)
 
 
 @shared_task(ignore_result=False, bind=True)
@@ -59,7 +38,7 @@ def batch_index(self, records_uuids, request_timeout=None):
     bind=True,
     retry_backoff=2,
     retry_kwargs={"max_retries": 6},
-    autoretry_for=CELERY_INDEX_RECORD_RETRY_ON_EXCEPTIONS,
+    autoretry_for=(*DB_TASK_EXCEPTIONS, *ES_TASK_EXCEPTIONS),
 )
 def index_record(self, uuid, record_version=None, force_delete=None):
     """Record indexing.

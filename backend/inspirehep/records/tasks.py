@@ -8,7 +8,6 @@
 import structlog
 from celery import shared_task
 from dict_deep import deep_set
-from elasticsearch import TransportError
 from elasticsearch_dsl import Q
 from flask import current_app
 from inspire_schemas.utils import get_refs_to_schemas
@@ -16,15 +15,9 @@ from inspire_utils.dedupers import dedupe_list_of_dicts
 from inspire_utils.record import get_value
 from invenio_db import db
 from invenio_records.models import RecordMetadata
-from sqlalchemy.exc import (
-    DisconnectionError,
-    OperationalError,
-    ResourceClosedError,
-    TimeoutError,
-    UnboundExecutionError,
-)
-from sqlalchemy.orm.exc import NoResultFound, StaleDataError
+from sqlalchemy.exc import OperationalError
 
+from inspirehep.errors import DB_TASK_EXCEPTIONS, ES_TASK_EXCEPTIONS
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.api import InspireRecord, LiteratureRecord
 from inspirehep.search.api import InspireSearch
@@ -70,7 +63,7 @@ def update_records_relations(uuids):
     acks_late=True,
     retry_backoff=True,
     retry_kwargs={"max_retries": 3},
-    autoretry_for=(StaleDataError, OperationalError, TransportError),
+    autoretry_for=(*DB_TASK_EXCEPTIONS, *ES_TASK_EXCEPTIONS),
 )
 def redirect_references_to_merged_record(self, uuid):
     record = InspireRecord.get_record(uuid, with_deleted=True)
@@ -172,15 +165,7 @@ def remove_duplicate_refs_from_record(matched_inspire_record, path):
     acks_late=True,
     retry_backoff=2,
     retry_kwargs={"max_retries": 6},
-    autoretry_for=(
-        NoResultFound,
-        StaleDataError,
-        DisconnectionError,
-        TimeoutError,
-        UnboundExecutionError,
-        ResourceClosedError,
-        OperationalError,
-    ),
+    autoretry_for=DB_TASK_EXCEPTIONS,
 )
 def populate_journal_literature(uuids):
     records = LiteratureRecord.get_records(uuids)

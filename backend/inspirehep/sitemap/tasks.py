@@ -7,15 +7,9 @@
 
 import structlog
 from celery import shared_task
-from elasticsearch import (
-    ConflictError,
-    ConnectionError,
-    ConnectionTimeout,
-    NotFoundError,
-    RequestError,
-)
 from flask import current_app, render_template
 
+from inspirehep.errors import ES_TASK_EXCEPTIONS
 from inspirehep.utils import chunker
 
 from .sitemap import generate_sitemap_items
@@ -30,13 +24,7 @@ LOGGER = structlog.getLogger()
     acks_late=True,
     retry_backoff=2,
     retry_kwargs={"max_retries": 6},
-    autoretry_for=(
-        ConflictError,
-        ConnectionError,
-        ConnectionTimeout,
-        NotFoundError,
-        RequestError,
-    ),
+    autoretry_for=ES_TASK_EXCEPTIONS,
 )
 def create_sitemap():
     page_size = current_app.config["SITEMAP_PAGE_SIZE"]
