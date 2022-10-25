@@ -17,6 +17,7 @@ from sqlalchemy.orm.exc import StaleDataError
 from sword2.exceptions import RequestTimeOut
 
 from inspirehep.editor.editor_soft_lock import EditorSoftLock
+from inspirehep.errors import DB_TASK_EXCEPTIONS
 from inspirehep.hal.core.sword import create, update
 from inspirehep.hal.core.tei import convert_to_tei
 from inspirehep.records.api import LiteratureRecord
@@ -43,7 +44,7 @@ def _get_error_message_from_hal_exception(exception):
     queue="hal_push",
     retry_backoff=2,
     retry_kwargs={"max_retries": 6},
-    autoretry_for=(RequestTimeOut, StaleDataError),
+    autoretry_for=(RequestTimeOut, *DB_TASK_EXCEPTIONS),
 )
 def hal_push(self, recid, record_version_id):
     """Celery task to push a record to HAL.

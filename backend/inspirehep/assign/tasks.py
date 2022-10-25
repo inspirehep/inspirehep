@@ -12,15 +12,8 @@ from inspire_utils.record import get_value, get_values_for_schema
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
 from jsonschema import ValidationError
-from sqlalchemy.exc import (
-    DisconnectionError,
-    OperationalError,
-    ResourceClosedError,
-    TimeoutError,
-    UnboundExecutionError,
-)
-from sqlalchemy.orm.exc import NoResultFound, StaleDataError
 
+from inspirehep.errors import DB_TASK_EXCEPTIONS
 from inspirehep.records.api import AuthorsRecord, ConferencesRecord, LiteratureRecord
 from inspirehep.records.errors import MissingArgumentError
 from inspirehep.submissions.tasks import async_create_ticket_with_template
@@ -37,15 +30,7 @@ LOGGER = structlog.getLogger()
     acks_late=True,
     retry_backoff=2,
     retry_kwargs={"max_retries": 6},
-    autoretry_for=(
-        NoResultFound,
-        StaleDataError,
-        DisconnectionError,
-        TimeoutError,
-        UnboundExecutionError,
-        ResourceClosedError,
-        OperationalError,
-    ),
+    autoretry_for=DB_TASK_EXCEPTIONS,
 )
 def assign_paper_to_conference(literature_recids, conference_recid):
     try:
@@ -152,15 +137,7 @@ def assign_conference(record, conference_ref, cnum):
     acks_late=True,
     retry_backoff=2,
     retry_kwargs={"max_retries": 6},
-    autoretry_for=(
-        NoResultFound,
-        StaleDataError,
-        DisconnectionError,
-        TimeoutError,
-        UnboundExecutionError,
-        ResourceClosedError,
-        OperationalError,
-    ),
+    autoretry_for=DB_TASK_EXCEPTIONS,
 )
 def export_papers_to_cds(literature_recids):
     for recid in literature_recids:
@@ -186,15 +163,7 @@ def export_papers_to_cds(literature_recids):
     bind=True,
     retry_backoff=2,
     retry_kwargs={"max_retries": 6},
-    autoretry_for=(
-        NoResultFound,
-        StaleDataError,
-        DisconnectionError,
-        TimeoutError,
-        UnboundExecutionError,
-        ResourceClosedError,
-        OperationalError,
-    ),
+    autoretry_for=DB_TASK_EXCEPTIONS,
 )
 def assign_papers(
     self,
@@ -229,15 +198,7 @@ def _get_claimed_author_name_for_paper(from_author_recid, paper_authors):
     bind=True,
     retry_backoff=2,
     retry_kwargs={"max_retries": 6},
-    autoretry_for=(
-        NoResultFound,
-        StaleDataError,
-        DisconnectionError,
-        TimeoutError,
-        UnboundExecutionError,
-        ResourceClosedError,
-        OperationalError,
-    ),
+    autoretry_for=DB_TASK_EXCEPTIONS,
 )
 def create_rt_ticket_for_claiming_action(
     self,

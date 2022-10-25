@@ -5,10 +5,8 @@ from inspire_matcher.api import match
 from inspire_utils.name import ParsedName
 from inspire_utils.record import get_value, get_values_for_schema
 from invenio_db import db
-from invenio_pidstore.errors import PIDAlreadyExists
 from prometheus_client import Counter
-from sqlalchemy.exc import OperationalError
-from sqlalchemy.orm.exc import NoResultFound, StaleDataError
+from sqlalchemy.orm.exc import StaleDataError
 
 from inspirehep.disambiguation.utils import (
     create_new_stub_author,
@@ -17,11 +15,11 @@ from inspirehep.disambiguation.utils import (
     update_author_names,
 )
 from inspirehep.editor.editor_soft_lock import EditorSoftLock
+from inspirehep.errors import DB_TASK_EXCEPTIONS, ES_TASK_EXCEPTIONS
 from inspirehep.matcher.validators import (
     affiliations_validator,
     collaboration_validator,
 )
-from inspirehep.pidstore.errors import PIDAlreadyExistsError
 from inspirehep.records.api import InspireRecord
 from inspirehep.records.api.authors import AuthorsRecord
 
@@ -308,13 +306,7 @@ def _disambiguate_authors(authors_to_disambiguate, record):
     retry_backoff=True,
     queue="disambiguation",
     max_retries=6,
-    autoretry_for=(
-        PIDAlreadyExists,
-        OperationalError,
-        StaleDataError,
-        NoResultFound,
-        PIDAlreadyExistsError,
-    ),
+    autoretry_for=[*DB_TASK_EXCEPTIONS, *ES_TASK_EXCEPTIONS],
 )
 def disambiguate_authors(
     self, record_uuid, version_id, disambiguate_all_not_disambiguated=False
