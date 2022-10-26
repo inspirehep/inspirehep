@@ -69,7 +69,7 @@ Cypress.Commands.add('registerRoute', (optionsOrRoute = '/api/**') => {
 });
 
 Cypress.Commands.add('waitForRoute', (route = '/api/**') => {
-  return cy.wait(`@${route}`, { timeout: 35000 });
+  return cy.wait(`@${route}`, { timeout: 40000 });
 });
 
 Cypress.Commands.add('requestRecord', ({ collection, recordId }) => {
