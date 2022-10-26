@@ -7,7 +7,7 @@ exports[`ConferenceInfoList renders conference link 1`] = `
   <span
     className=""
   >
-    Contribution to
+    Proceedings of
     : 
   </span>
   <ul>
