@@ -11,7 +11,7 @@ class ConferenceInfoList extends Component {
     return (
       <InlineList
         wrapperClassName={wrapperClassName}
-        label="Contribution to"
+        label="Proceedings of"
         items={conferenceInfo}
         extractKey={info => info.get('control_number')}
         renderItem={info => <ConferenceInfo conferenceInfo={info} />}
