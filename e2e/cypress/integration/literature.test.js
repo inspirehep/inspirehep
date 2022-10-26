@@ -398,3 +398,45 @@ describe('Literature Submission', () => {
     cy.logout();
   });
 });
+
+describe('Reference Search', () => {
+  onlyOn('headless', () => {
+    it('matches image snapshot for reference search', () => {
+      cy.registerRoute();
+      cy.visit('/literature?sort=mostrecent&size=25&page=1&q=citedby%3Arecid%3A1322719');
+      cy.waitForRoute();
+      cy.matchSnapshots('LiteratureReferenceSearch');
+    });
+  });
+
+  it('displays references search results if item has references in inspire', () => {
+    cy.on('uncaught:exception', () => {
+      return false;
+    });
+
+    cy.registerRoute();
+    cy.visit('/literature/1322719');
+    cy.waitForRoute();
+
+    cy.get('[data-test-id="reference-search-button"]').click();
+
+    cy.waitForRoute();
+
+    cy.get('[data-test-id="search-results"]').children().should('have.length', 1);
+  });
+
+
+  it('displays empty search results if item doesnt have references in inspire', () => {
+    cy.on('uncaught:exception', () => {
+      return false;
+    });
+
+    cy.registerRoute();
+    cy.visit('/literature/1787272');
+    cy.waitForRoute();
+
+    cy.get('[data-test-id="reference-search-button"]').click();
+
+    cy.get('.ant-empty').should('be.visible');
+  });
+});

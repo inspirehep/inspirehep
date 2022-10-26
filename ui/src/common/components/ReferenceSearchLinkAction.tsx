@@ -10,7 +10,7 @@ import EventTracker from './EventTracker';
 const ReferenceSearchLinkAction = ({ recordId }: { recordId: number}) => (
   <ListItemAction>
     <EventTracker eventId="Reference:Search">
-      <Link to={`${LITERATURE}?q=citedby:recid:${recordId}`}>
+      <Link to={`${LITERATURE}?q=citedby:recid:${recordId}`} data-test-id="reference-search-button">
         <IconText text="reference search" icon={<FileSearchOutlined />} />
       </Link>
     </EventTracker>
