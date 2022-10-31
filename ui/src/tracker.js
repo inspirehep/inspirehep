@@ -45,7 +45,7 @@ function getUserEventCategoryFromRoles(userRoles) {
 export async function setUserCategoryFromRoles(userRoles) {
   if (isTrackerConfigured()) {
     const userCategory = getUserEventCategoryFromRoles(userRoles);
-    Piwik.push(['setCustomVariable', 1, 'UserCategory', userCategory]);
+    Piwik.push(['setCustomDimension', 1, 'UserRole', userCategory]);
   }
 }
 
