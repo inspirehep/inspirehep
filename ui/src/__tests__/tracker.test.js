@@ -28,7 +28,6 @@ describe('tracker', () => {
       expect(Piwik.push).toHaveBeenCalledWith([
         'setCustomDimension',
         1,
-        'UserRole',
         'Superuser',
       ]);
     });
@@ -38,7 +37,6 @@ describe('tracker', () => {
       expect(Piwik.push).toHaveBeenCalledWith([
         'setCustomDimension',
         1,
-        'UserRole',
         'Cataloger',
       ]);
     });
@@ -48,7 +46,6 @@ describe('tracker', () => {
       expect(Piwik.push).toHaveBeenCalledWith([
         'setCustomDimension',
         1,
-        'UserRole',
         'User',
       ]);
     });
@@ -58,7 +55,6 @@ describe('tracker', () => {
       expect(Piwik.push).toHaveBeenCalledWith([
         'setCustomDimension',
         1,
-        'UserRole',
         'User',
       ]);
     });
