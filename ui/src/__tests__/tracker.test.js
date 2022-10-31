@@ -26,9 +26,9 @@ describe('tracker', () => {
     it('sets Superuser if user has superuser role', async () => {
       await setUserCategoryFromRoles(List(['superuser', 'cataloger']));
       expect(Piwik.push).toHaveBeenCalledWith([
-        'setCustomVariable',
+        'setCustomDimension',
         1,
-        'UserCategory',
+        'UserRole',
         'Superuser',
       ]);
     });
@@ -36,9 +36,9 @@ describe('tracker', () => {
     it('sets Cataloger if user has cataloger role', async () => {
       await setUserCategoryFromRoles(List(['cataloger', 'another']));
       expect(Piwik.push).toHaveBeenCalledWith([
-        'setCustomVariable',
+        'setCustomDimension',
         1,
-        'UserCategory',
+        'UserRole',
         'Cataloger',
       ]);
     });
@@ -46,9 +46,9 @@ describe('tracker', () => {
     it('sets User if user does not have superuser or cataloger role', async () => {
       await setUserCategoryFromRoles(List(['another']));
       expect(Piwik.push).toHaveBeenCalledWith([
-        'setCustomVariable',
+        'setCustomDimension',
         1,
-        'UserCategory',
+        'UserRole',
         'User',
       ]);
     });
@@ -56,9 +56,9 @@ describe('tracker', () => {
     it('sets User if user does not have any role', async () => {
       await setUserCategoryFromRoles(List([]));
       expect(Piwik.push).toHaveBeenCalledWith([
-        'setCustomVariable',
+        'setCustomDimension',
         1,
-        'UserCategory',
+        'UserRole',
         'User',
       ]);
     });
