@@ -8,6 +8,7 @@
 import structlog
 from flask import Blueprint, request
 from flask_celeryext.app import current_celery_app
+from invenio_db import db
 from webargs import fields
 from webargs.flaskparser import FlaskParser
 
@@ -52,12 +53,17 @@ def get_author_signatures(from_author_recid, author_papers):
     return signatures
 
 
-def assign_to_new_stub_author(from_author_recid, literature_recids):
+def assign_to_new_stub_author(author_record, literature_recids):
     # TODO: differentiate from BEARD created stub author
+    from_author_recid = author_record["control_number"]
     author_papers = get_literature_records_by_recid(literature_recids)
     author_signatures = get_author_signatures(from_author_recid, author_papers)
-    stub_author_data = update_author_names({"name": {}}, author_signatures)
+    if author_signatures:
+        stub_author_data = update_author_names({"name": {}}, author_signatures)
+    else:
+        stub_author_data = {"name": author_record["name"]}
     to_author = create_new_stub_author(**stub_author_data)
+    db.session.commit()
     num_workers = count_consumers_for_queue("assign")
     for batch in chunker(literature_recids, 10, num_workers):
         current_celery_app.send_task(
@@ -131,7 +137,7 @@ def unassign_papers(args):
     if not can_user_edit_author_record(record):
         return jsonify({"message": "Forbidden"}), 403
 
-    stub_author_id = assign_to_new_stub_author(from_author_recid, literature_ids)
+    stub_author_id = assign_to_new_stub_author(record, literature_ids)
     return jsonify({"stub_author_id": stub_author_id}), 200
 
 

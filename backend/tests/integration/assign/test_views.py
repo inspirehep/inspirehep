@@ -129,23 +129,21 @@ def test_assign_from_an_author_to_another(mock_assign, inspire_app):
 
 
 @mock.patch("inspirehep.assign.views.current_celery_app.send_task")
-@mock.patch("inspirehep.accounts.api.get_current_user_orcid", return_value='0000-0003-1134-6827')
-def test_regression_assign_from_an_author_to_another_with_checking_record_ids(mock_assign, mock_orcid, inspire_app):
+@mock.patch(
+    "inspirehep.accounts.api.get_current_user_orcid", return_value="0000-0003-1134-6827"
+)
+def test_regression_assign_from_an_author_to_another_with_checking_record_ids(
+    mock_assign, mock_orcid, inspire_app
+):
     cataloger = create_user()
     author_data = {
         "name": {"value": "Aad, Georges", "preferred_name": "Georges Aad"},
         "ids": [{"value": "G.Aad.1", "schema": "INSPIRE BAI"}],
         "stub": True,
     }
-    from_author = create_record("aut", data={
-        'ids': [
-            {
-                'schema': 'ORCID',
-                'value': '0000-0003-1134-6827'
-            }
-        ]
-
-    })
+    from_author = create_record(
+        "aut", data={"ids": [{"schema": "ORCID", "value": "0000-0003-1134-6827"}]}
+    )
     to_author = create_record("aut", data=author_data)
     literature_1 = create_record(
         "lit",
@@ -202,7 +200,6 @@ def test_regression_assign_from_an_author_to_another_with_checking_record_ids(mo
     mock_assign.assert_called_once()
 
 
-
 @mock.patch("inspirehep.assign.views.current_celery_app.send_task")
 def test_assign_from_an_author_to_another_that_is_not_stub(mock_assign, inspire_app):
     cataloger = create_user(role=Roles.cataloger.value)
@@ -248,7 +245,6 @@ def test_assign_from_an_author_to_another_that_is_not_stub(mock_assign, inspire_
 
     assert response_status_code == 200
     mock_assign.assert_called_once()
-
 
 
 @mock.patch("inspirehep.assign.views.current_celery_app.send_task")
@@ -1243,3 +1239,36 @@ def test_assign_author_calls_create_rt_ticket_for_claiming_action_when_some_args
     assert response_status_code == 200
 
     assert "created_rt_ticket" in response.json
+
+
+def test_assign_regression(inspire_app, override_config):
+    author = create_record("aut", data={"control_number": 1486131})
+    create_record(
+        "lit",
+        data={"control_number": 123456, "authors": [{"full_name": "Test, Author"}]},
+    )
+
+    with override_config(
+        FEATURE_FLAG_ENABLE_BAI_PROVIDER=True, FEATURE_FLAG_ENABLE_BAI_CREATION=True
+    ):
+        cataloger = create_user(role=Roles.cataloger.value)
+
+        with inspire_app.test_client() as client:
+            login_user_via_session(client, email=cataloger.email)
+            response = client.post(
+                "/api/assign/literature/unassign",
+                data=orjson.dumps(
+                    {
+                        "literature_ids": [str(2171912)],
+                        "from_author_recid": 1486131,
+                    }
+                ),
+                content_type="application/json",
+            )
+        response_status_code = response.status_code
+
+    assert response_status_code == 200
+    assert "stub_author_id" in response.json
+    stub_author_id = response.json["stub_author_id"]
+    stub_author_record = AuthorsRecord.get_record_by_pid_value(stub_author_id)
+    assert stub_author_record["name"] == author["name"]
