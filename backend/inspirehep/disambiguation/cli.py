@@ -10,6 +10,7 @@ from itertools import islice
 import click
 from elasticsearch_dsl import Q
 from flask.cli import with_appcontext
+from flask_celeryext.app import current_celery_app
 from inspire_utils.record import get_values_for_schema
 from invenio_db import db
 
@@ -18,6 +19,9 @@ from inspirehep.records.api import AuthorsRecord
 from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.records.models import RecordsAuthors
 from inspirehep.search.api import AuthorsSearch, LiteratureSearch
+
+MAX_INDEXER_QUEUE_LEN = 100000
+MAX_DISAMBIGUATION_QUEUE_LEN = 10000
 
 
 @click.group()
@@ -110,7 +114,7 @@ def _send_celery_group_disambiguation_task(uuids, batch_size):
     records = LiteratureRecord.get_records(uuids)
     input_data = ((str(record.id), record.model.version_id, True) for record in records)
     task_group = disambiguate_authors.chunks(input_data, batch_size).group()
-    task_group.apply_async(countdown=5)
+    task_group.apply_async(countdown=5, queue="disambiguation")
 
 
 @disambiguation.command(name="not-disambiguated")
@@ -123,8 +127,37 @@ def _send_celery_group_disambiguation_task(uuids, batch_size):
     type=int,
     help="Number of records to disambiguate, if not passed all records with at least one not disambiguated will be sent to the queue",
 )
-def disambiguate_all_not_disambiguated(celery_batch_size, total_records):
+@click.option(
+    "--indexing-queue-limit",
+    type=int,
+    default=MAX_INDEXER_QUEUE_LEN,
+    show_default=True,
+    help="Number of records to disambiguate, if not passed all records with at least one not disambiguated will be sent to the queue",
+)
+@click.option(
+    "--disambiguation-queue-limit",
+    type=int,
+    default=MAX_DISAMBIGUATION_QUEUE_LEN,
+    show_default=True,
+    help="Number of records to disambiguate, if not passed all records with at least one not disambiguated will be sent to the queue",
+)
+def disambiguate_all_not_disambiguated(
+    celery_batch_size, total_records, indexing_queue_limit, disambiguation_queue_limit
+):
     """Trigger disambiguation task for all the records that are not disambiguated"""
+    with current_celery_app.connection_or_acquire() as conn:
+        indexer_queue = conn.default_channel.queue_declare(
+            queue="indexer_task", passive=True
+        )
+        disambiguation_queue = conn.default_channel.queue_declare(
+            queue="disambiguation", passive=True
+        )
+    if (
+        disambiguation_queue.message_count > disambiguation_queue_limit
+        or indexer_queue.message_count > indexing_queue_limit
+    ):
+        click.echo("MQ queues are full, can't run disambiguation")
+        return
     not_disambiguated_records_search = _get_all_not_disambiguated_records_search()
     documents = not_disambiguated_records_search.scan()
     if total_records:
