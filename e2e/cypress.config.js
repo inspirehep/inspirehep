@@ -1,4 +1,6 @@
-{
+const { defineConfig } = require('cypress');
+
+module.exports = defineConfig({
   "projectId": "439or1",
   "videosFolder": "cypress/__videos__",
   "screenshotsFolder": "cypress/__screenshots__",
@@ -13,5 +15,11 @@
     "runMode": 2,
     "openMode": 0
   },
-  "video": false
-}
+  "video": false,
+  e2e: {
+    setupNodeEvents(on, config) {
+      return require('./cypress/plugins/index.js')(on, config);
+    },
+    "specPattern": "cypress/e2e/**/*.{js,jsx,ts,tsx}"
+  }
+});

@@ -37,6 +37,7 @@ describe('Literature Detail', () => {
       cy.registerRoute();
       cy.visit('/literature/1235543');
       cy.waitForRoute();
+      cy.waitForLoading();
       cy.matchSnapshots('LiteratureDetail');
     });
 
@@ -405,6 +406,7 @@ describe('Reference Search', () => {
       cy.registerRoute();
       cy.visit('/literature?sort=mostrecent&size=25&page=1&q=citedby%3Arecid%3A1322719');
       cy.waitForRoute();
+      cy.waitForReferences();
       cy.matchSnapshots('LiteratureReferenceSearch');
     });
   });

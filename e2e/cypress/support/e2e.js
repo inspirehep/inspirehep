@@ -1,11 +1,10 @@
 import installLogsCollector from 'cypress-terminal-report/src/installLogsCollector';
-// import chai from 'chai';
 import like from 'chai-like';
 import './commands';
 
 const ALLOWED_UNCAUGHT_ERROR_MESSAGES = [
   "Cannot read property 'focus' of null", // TODO: explain why
-  'ResizeObserver loop limit exceeded',
+  "ResizeObserver loop limit exceeded",
   "ResizeObserver loop completed with undelivered notifications."
 ];
 

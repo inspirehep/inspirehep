@@ -9,6 +9,7 @@ describe('Conference Detail', () => {
       cy.visit('/conferences/1217045?ui-citation-summary=true');
       cy.waitForRoute();
       cy.waitForSearchResults();
+      cy.waitForLoading();
       cy.matchSnapshots('ConferenceDetail');
     });
   });

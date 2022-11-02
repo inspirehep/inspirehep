@@ -21,6 +21,7 @@ describe('Job Detail', () => {
       cy.registerRoute();
       cy.visit('/jobs/1812440');
       cy.waitForRoute();
+      cy.waitForLoading();
       cy.matchSnapshots('JobDetail');
     });
   });

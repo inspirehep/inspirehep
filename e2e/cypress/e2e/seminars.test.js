@@ -7,6 +7,7 @@ describe('Seminar Detail', () => {
       cy.registerRoute();
       cy.visit('/seminars/1799778');
       cy.waitForRoute();
+      cy.waitForLoading();
       cy.matchSnapshots('SeminarDetail');
     });
   });
