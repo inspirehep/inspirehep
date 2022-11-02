@@ -171,3 +171,4 @@ def populate_journal_literature(uuids):
     records = LiteratureRecord.get_records(uuids)
     for record in records:
         record.update_journal_relations()
+        db.session.commit()
