@@ -2544,3 +2544,56 @@ def test_get_documents_for_fulltext_works_for_arxiv(inspire_app, s3):
     record = LiteratureRecord.create(record_data)
     serialized_data = record.serialize_for_es_with_fulltext()
     assert "text" in serialized_data["documents"][0]
+
+
+@pytest.mark.vcr()
+def test_add_record_with_scanned_documents(inspire_app, s3):
+    expected_document_key = "8d2fc6d280b1385302910fd5162eaad2"
+    create_s3_bucket(expected_document_key)
+    data = {
+        "documents": [
+            {
+                "source": "arxiv",
+                "key": "scansmpl.pdf",
+                "url": "http://solutions.weblite.ca/pdfocrx/scansmpl.pdf",
+                "original_url": "http://original-url.com/2",
+                "filename": "fermilab.pdf",
+            }
+        ]
+    }
+    record = create_record("lit", data=data)
+    expected_documents = [
+        {
+            "source": "arxiv",
+            "key": expected_document_key,
+            "url": current_s3_instance.get_public_url(expected_document_key),
+            "original_url": "http://original-url.com/2",
+            "filename": "fermilab.pdf",
+            "fulltext": False,
+        }
+    ]
+    assert record["documents"] == expected_documents
+
+
+@pytest.mark.vcr()
+@mock.patch("inspirehep.records.api.literature.is_document_scanned")
+def test_add_record_with_fulltext_documents_ommit_scanned_check(
+    mock_is_scanned, inspire_app, s3
+):
+    expected_document_key = "8d2fc6d280b1385302910fd5162eaad2"
+    create_s3_bucket(expected_document_key)
+    data = {
+        "documents": [
+            {
+                "source": "arxiv",
+                "key": "scansmpl.pdf",
+                "url": "http://solutions.weblite.ca/pdfocrx/scansmpl.pdf",
+                "original_url": "http://original-url.com/2",
+                "filename": "fermilab.pdf",
+                "fulltext": True,
+            }
+        ]
+    }
+    create_record("lit", data=data)
+
+    assert not mock_is_scanned.called
