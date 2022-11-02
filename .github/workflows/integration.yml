@@ -651,6 +651,7 @@ jobs:
       APP_DANGEROUSLY_ENABLE_LOCAL_LOGIN: True
       APP_ENABLE_SECURE_HEADERS: False
       APP_SECRET_KEY: CHANGE_ME
+    container: cypress/browsers:node16.16.0-chrome106-ff99-edge
     steps:
       - name: Checkout
         uses: actions/checkout@v2
