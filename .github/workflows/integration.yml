@@ -830,6 +830,9 @@ jobs:
           -f data/records/journals/1213103.json
           -f data/records/journals/1213100.json
       - name: 'End to end test - Firefox'
+        container:
+          image: cypress/browsers:node16.16.0-chrome106-ff99-edge
+          options: --user 1001
         uses: cypress-io/github-action@v2
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
