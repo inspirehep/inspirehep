@@ -43,6 +43,7 @@ describe('Experiment Search', () => {
       cy.visit('/experiments');
       cy.waitForRoute();
       cy.waitForSearchResults();
+      cy.waitForLoading();
       cy.matchSnapshots('ExperimentSearch');
     });
   });
@@ -55,6 +56,7 @@ describe('Experiment Detail', () => {
       cy.visit('/experiments/1513946?ui-citation-summary=true');
       cy.waitForRoute();
       cy.waitForSearchResults();
+      cy.waitForLoading();
       cy.matchSnapshots('ExperimentDetail');
     });
   });

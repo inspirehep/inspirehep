@@ -41,6 +41,7 @@ describe('Journal Detail', () => {
       cy.registerRoute();
       cy.visit('/journals/1213103');
       cy.waitForRoute();
+      cy.waitForSearchResults();
       cy.matchSnapshots('JournalDetail');
     });
   });

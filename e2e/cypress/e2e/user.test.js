@@ -60,7 +60,7 @@ describe('user', () => {
       cy.window().trigger('mouseover', 'topRight');
       cy.tick(1800000);
       cy.clock().invoke('restore');
-      cy.wait(500);
+      cy.waitForLoading();
       cy.matchSnapshots('SessionTimeout');
     });
   });
