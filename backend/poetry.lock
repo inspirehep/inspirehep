@@ -1924,7 +1924,7 @@ werkzeug = ">=0.14.1"
 admin = ["Flask-Admin (>=1.3.0)"]
 all = ["Sphinx (>=1.7.2)", "Flask-Admin (>=1.3.0)", "check-manifest (>=0.25)", "coverage (>=4.5.3)", "Flask-Menu (>=0.5.0)", "invenio-admin (>=1.0.0)", "isort (>=4.3.0)", "mock (>=1.3.0)", "pydocstyle (>=3.0.0)", "pytest-cov (>=2.7.1)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.6.4,<5.0.0)"]
 docs = ["Sphinx (>=1.7.2)"]
-mysql = ["invenio-db[mysql,versioning] (>=1.0.0)"]
+mysql = ["invenio-db[versioning,mysql] (>=1.0.0)"]
 postgresql = ["invenio-db[versioning,postgresql] (>=1.0.0)"]
 sqlite = ["invenio-db[versioning] (>=1.0.0)"]
 tests = ["check-manifest (>=0.25)", "coverage (>=4.5.3)", "Flask-Menu (>=0.5.0)", "invenio-admin (>=1.0.0)", "isort (>=4.3.0)", "mock (>=1.3.0)", "pydocstyle (>=3.0.0)", "pytest-cov (>=2.7.1)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.6.4,<5.0.0)"]
@@ -2706,7 +2706,7 @@ twisted = ["twisted"]
 
 [[package]]
 name = "prometheus-flask-exporter"
-version = "0.14.1"
+version = "0.15.4"
 description = "Prometheus metrics exporter for Flask"
 category = "main"
 optional = false
@@ -4111,7 +4111,7 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<3.9"
-content-hash = "ec76ccaaddf1c157bd0131879e25b395a729ce2388774b6aa6735b01056b1d96"
+content-hash = "b3553cb403e06f319ea2a78a1cdff2d766ab9f9dbb1cff1cce1e0d354ed6e66f"
 
 [metadata.files]
 alembic = [
@@ -5026,9 +5026,7 @@ pre-commit = [
 prometheus-client = [
     {file = "prometheus_client-0.7.1.tar.gz", hash = "sha256:71cd24a2b3eb335cb800c7159f423df1bd4dcd5171b234be15e3f31ec9f622da"},
 ]
-prometheus-flask-exporter = [
-    {file = "prometheus_flask_exporter-0.14.1.tar.gz", hash = "sha256:794ff244a5316f5ac2b6c44972cc7d366b1829913cdc9572c044097ee62cc5a3"},
-]
+prometheus-flask-exporter = []
 prompt-toolkit = [
     {file = "prompt_toolkit-3.0.2-py3-none-any.whl", hash = "sha256:0278d2f51b5ceba6ea8da39f76d15684e84c996b325475f6e5720edc584326a7"},
     {file = "prompt_toolkit-3.0.2.tar.gz", hash = "sha256:63daee79aa8366c8f1c637f1a4876b890da5fc92a19ebd2f7080ebacb901e990"},
