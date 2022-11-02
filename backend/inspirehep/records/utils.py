@@ -8,6 +8,7 @@
 from itertools import chain
 
 import numpy as np
+import pdfplumber
 import requests
 from beard.clustering import block_phonetic
 from flask import current_app
@@ -152,3 +153,12 @@ def remove_author_bai_from_id_list(author):
     author["ids"] = [
         author_id for author_id in author["ids"] if author_id["schema"] != "INSPIRE BAI"
     ]
+
+
+def is_document_scanned(file_data):
+    with pdfplumber.open(file_data) as pdf:
+        for page in pdf.pages:
+            page_text = page.extract_text()
+            if page_text:
+                return False
+    return True

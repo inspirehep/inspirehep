@@ -248,7 +248,10 @@ class LiteratureFulltextElasticSearchSchema(LiteratureElasticSearchSchema):
                 not document.get("hidden")
                 and document.get("filename", "").endswith("pdf")
                 and document.get("fulltext")
-            ) or document.get("source") == "arxiv":
+            ) or (
+                document.get("source") == "arxiv"
+                and document.get("fulltext") is not False
+            ):
                 try:
                     key = document["key"]
                     bucket = current_s3_instance.get_bucket_for_file_key(key)

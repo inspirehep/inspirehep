@@ -26,6 +26,7 @@ from inspire_schemas.utils import is_arxiv, normalize_arxiv
 from inspire_utils.record import get_value
 from invenio_db import db
 from jsonschema import ValidationError
+from pdfminer.pdftypes import PDFException
 from redis import StrictRedis
 
 from inspirehep.disambiguation.tasks import disambiguate_authors
@@ -57,6 +58,7 @@ from inspirehep.records.utils import (
     get_literature_earliest_date,
     get_pid_for_pid,
     get_ref_from_pid,
+    is_document_scanned,
     remove_author_bai_from_id_list,
 )
 from inspirehep.search.api import LiteratureSearch
@@ -471,6 +473,7 @@ class LiteratureRecord(
         original_url=None,
         key=None,
         filename=None,
+        fulltext=None,
         *args,
         **kwargs,
     ):
@@ -480,13 +483,13 @@ class LiteratureRecord(
             app_context: Original app context should be passed here if running in separate thread
         """
         with app_context.app.app_context():
+            result = {}
             is_s3_or_public_url = current_s3_instance.is_s3_url_with_bucket_prefix(
                 url
             ) or current_s3_instance.is_public_url(url)
             if is_s3_or_public_url and not current_app.config.get(
                 "UPDATE_S3_FILES_METADATA", False
             ):
-                result = {}
                 if key not in url:
                     filename = filename or key
                     key = url.split("/")[-1]
@@ -510,6 +513,15 @@ class LiteratureRecord(
             filename = filename or key
             if not filename:
                 filename = new_key
+            if not fulltext and mimetype == "application/pdf":
+                try:
+                    if is_document_scanned(file_data):
+                        result["fulltext"] = False
+                except PDFException:
+                    LOGGER.info(
+                        "File supposed to be PDF but PDF reader can't read it!",
+                        filename=filename,
+                    )
             if mimetype in current_app.config.get("FILES_RESTRICTED_MIMETYPES"):
                 LOGGER.error(
                     "Unsupported file type - Aborting",
@@ -538,11 +550,13 @@ class LiteratureRecord(
                 current_s3_instance.upload_file(
                     file_data, new_key, filename, mimetype, acl
                 )
-            result = {
-                "key": new_key,
-                "filename": filename,
-                "url": current_s3_instance.get_public_url(new_key),
-            }
+            result.update(
+                {
+                    "key": new_key,
+                    "filename": filename,
+                    "url": current_s3_instance.get_public_url(new_key),
+                }
+            )
             if (
                 url.startswith("http")
                 and not current_s3_instance.is_s3_url(url)
@@ -550,6 +564,7 @@ class LiteratureRecord(
                 and not original_url
             ):
                 result["original_url"] = url
+
             return result
 
     def get_linked_papers_if_reference_changed(self):

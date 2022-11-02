@@ -5,13 +5,19 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+import io
+
 import pytest
 import requests_mock
 from helpers.utils import create_record
 
 from inspirehep.records.errors import DownloadFileError, FileSizeExceededError
 from inspirehep.records.marshmallow.literature.utils import get_parent_record
-from inspirehep.records.utils import download_file_from_url, get_pid_for_pid
+from inspirehep.records.utils import (
+    download_file_from_url,
+    get_pid_for_pid,
+    is_document_scanned,
+)
 
 
 def test_download_file_from_url_with_relative_url(inspire_app):
@@ -124,3 +130,19 @@ def test_get_parent_record_for_proceedings_from_es(inspire_app):
     }
     extracted_parent_record = get_parent_record(data)
     assert extracted_parent_record == parent_record
+
+
+@pytest.mark.vcr
+def test_is_document_scanned_when_scanned_pdf(inspire_app):
+    scanned_document_url = "http://solutions.weblite.ca/pdfocrx/scansmpl.pdf"
+    file_data = download_file_from_url(scanned_document_url, check_file_size=True)
+    file_data = io.BytesIO(file_data)
+    assert is_document_scanned(file_data)
+
+
+@pytest.mark.vcr
+def test_is_document_scanned_with_not_scanned_pdf(inspire_app):
+    document_url = "https://inspirehep.net/files/e12e3c55e2844871904fdda01d6cd42d"
+    file_data = download_file_from_url(document_url, check_file_size=True)
+    file_data = io.BytesIO(file_data)
+    assert not is_document_scanned(file_data)
