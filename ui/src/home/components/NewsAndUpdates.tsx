@@ -75,7 +75,7 @@ const NewsAndUpdates = () => {
         <Col>
           <ExternalLink
             className="db tc f5 mt4"
-            href="https://opendata.cern.ch/"
+            href="https://blog.inspirehep.net/"
           >
             View all
           </ExternalLink>
