@@ -75,3 +75,4 @@ celerybeat-schedule
 # macOS
 .DS_Store
 *.orig
+.localstack
