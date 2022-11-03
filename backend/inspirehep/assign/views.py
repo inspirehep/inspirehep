@@ -61,6 +61,10 @@ def assign_to_new_stub_author(author_record, literature_recids):
     if author_signatures:
         stub_author_data = update_author_names({"name": {}}, author_signatures)
     else:
+        LOGGER.warning(
+            "Author not found in literature authors, creating stub author with author record data",
+            author_recid=from_author_recid,
+        )
         stub_author_data = {"name": author_record["name"]}
     to_author = create_new_stub_author(**stub_author_data)
     db.session.commit()

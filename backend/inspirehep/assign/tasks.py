@@ -176,6 +176,11 @@ def assign_papers(
     for recid in author_papers_recids:
         record = LiteratureRecord.get_record_by_pid_value(recid)
         lit_author = get_author_by_recid(record, from_author_recid)
+        LOGGER.warning(
+            "Author not found in literature record, skipping assign action",
+            author_recid=from_author_recid,
+            literature_recid=recid,
+        )
         lit_author["record"] = get_record_ref(
             to_author_record["control_number"], endpoint="authors"
         )

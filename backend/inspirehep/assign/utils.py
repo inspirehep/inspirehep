@@ -42,6 +42,7 @@ def get_author_by_recid(literature_record, author_recid):
             "Author not found in literature authors",
             lit_authors_recids=lit_authors_recids.keys(),
             author_recid=author_recid,
+            literature_recid=literature_record["control_number"],
         )
     return lit_author_found
 
