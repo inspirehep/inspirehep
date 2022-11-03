@@ -76,7 +76,8 @@ services:
     extends:
       file: docker-compose.services.yml
       service: app
-    command: celery worker -E -A inspirehep.celery -l INFO --purge --queues celery,migrator,indexer_task,matcher,assign
+    entrypoint: celery
+    command: worker -E -A inspirehep.celery -l INFO --purge --queues celery,migrator,indexer_task,matcher,assign
     depends_on:
       - db
       - es

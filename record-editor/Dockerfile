@@ -1,4 +1,4 @@
-FROM node:10.14.0-jessie as build-stage
+FROM node:10.14.0 as build-stage
 
 WORKDIR /usr/src/app
 
