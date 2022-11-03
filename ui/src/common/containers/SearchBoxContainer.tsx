@@ -22,7 +22,7 @@ const stateToProps = (state: RootStateOrAny) => ({
 });
 
 export const dispatchToProps = (dispatch: Dispatch | ActionCreator<Action>) => ({
-  onSearch(namespace: string, value: { q: string }) {
+  onSearch(namespace: string, value: string) {
     if (namespace !== LITERATURE_NS) {
       dispatch(
         appendQueryToLocationSearch({
