@@ -7,6 +7,7 @@ exports[`JournalTitlesListModal renders with props 1`] = `
   okType="primary"
   onCancel={[MockFunction]}
   open={false}
+  title="Title variants"
   visible={false}
   width={520}
 >
@@ -16,11 +17,6 @@ exports[`JournalTitlesListModal renders with props 1`] = `
         "Test1",
         "Test2",
       ]
-    }
-    header={
-      <h3>
-        Title variants
-      </h3>
     }
     pagination={
       Object {

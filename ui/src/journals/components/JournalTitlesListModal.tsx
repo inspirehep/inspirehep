@@ -14,16 +14,16 @@ export const JournalTitlesListModal = ({
     visible={modalVisible}
     onCancel={onModalVisibilityChange}
     footer={null}
+    title="Title variants"
   >
     <List
-      header={<h3>Title variants</h3>}
       size="small"
       dataSource={titleVariants}
       pagination={{
         pageSize: 8,
         size: 'small',
         hideOnSinglePage: true,
-        showSizeChanger: false
+        showSizeChanger: false,
       }}
       renderItem={(item: string) => <List.Item>{item}</List.Item>}
     />

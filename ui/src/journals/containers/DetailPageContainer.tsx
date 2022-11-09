@@ -16,7 +16,10 @@ import { LITERATURE } from '../../common/routes';
 import { JOURNALS_PID_TYPE } from '../../common/constants';
 import { JournalTitlesListModal } from '../components/JournalTitlesListModal';
 import EditRecordAction from '../../common/components/EditRecordAction';
-import { isCataloger, SUPERUSER_OR_CATALOGER } from '../../common/authorization';
+import {
+  isCataloger,
+  SUPERUSER_OR_CATALOGER,
+} from '../../common/authorization';
 import AuthorizedContainer from '../../common/containers/AuthorizedContainer';
 import JournalPapers from '../components/JournalPapers';
 
@@ -27,10 +30,16 @@ interface RootState {
   };
   user: {
     getIn: (arg: string[]) => boolean;
-  }
+  };
 }
 
-export const DetailPage = ({ result, isCatalogerLoggedIn }: { result: Journal, isCatalogerLoggedIn: boolean }) => {
+export const DetailPage = ({
+  result,
+  isCatalogerLoggedIn,
+}: {
+  result: Journal;
+  isCatalogerLoggedIn: boolean;
+}) => {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
 
   const metadata = result.get('metadata');
@@ -39,7 +48,9 @@ export const DetailPage = ({ result, isCatalogerLoggedIn }: { result: Journal, i
   const journalTitle = metadata.get('journal_title') as unknown as string;
   const urls = metadata.get('urls') as unknown as string[];
   const publicNotes = metadata.get('public_notes') as unknown as string[];
-  const titleVariants = metadata.get('title_variants') as unknown as List<string>;
+  const titleVariants = metadata.get(
+    'title_variants'
+  ) as unknown as List<string>;
   const publisher = metadata.get('publisher') as unknown as List<string>;
   const recordId = metadata.get('control_number') as unknown as number;
 
@@ -73,7 +84,10 @@ export const DetailPage = ({ result, isCatalogerLoggedIn }: { result: Journal, i
                 <PageHeader
                   className="site-page-header"
                   title={shortTitle}
-                  subTitle={publisher && `(${publisher.toArray().map((p: string) => p)})`}
+                  subTitle={
+                    publisher &&
+                    `(${publisher.toArray().map((p: string) => p)})`
+                  }
                 />
               </Col>
             </Row>
@@ -81,12 +95,19 @@ export const DetailPage = ({ result, isCatalogerLoggedIn }: { result: Journal, i
               <Col>
                 {journalTitle}
                 {titleVariants && (
-                  <Button
-                    className="btn-ghost"
-                    onClick={onModalVisibilityChange}
-                  >
-                    Show other names ({titleVariants.toArray().length})
-                  </Button>
+                  <>
+                    <Button
+                      className="btn-ghost"
+                      onClick={onModalVisibilityChange}
+                    >
+                      Show other names ({titleVariants.toArray().length})
+                    </Button>
+                    <JournalTitlesListModal
+                      modalVisible={modalVisible}
+                      onModalVisibilityChange={onModalVisibilityChange}
+                      titleVariants={titleVariants.toArray()}
+                    />
+                  </>
                 )}
               </Col>
             </Row>
@@ -116,13 +137,6 @@ export const DetailPage = ({ result, isCatalogerLoggedIn }: { result: Journal, i
           </ContentBox>
         </Col>
       </Row>
-      {titleVariants && (
-        <JournalTitlesListModal
-          modalVisible={modalVisible}
-          onModalVisibilityChange={onModalVisibilityChange}
-          titleVariants={titleVariants.toArray()}
-        />
-      )}
     </>
   );
 };
