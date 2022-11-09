@@ -28,7 +28,15 @@ exports[`HowToSearch renders freetext examples after freetext radio option is se
     className="tc"
   >
     <ExternalLink
-      as="button"
+      as={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "Group": [Function],
+          "__ANT_BUTTON": true,
+          "displayName": "Button",
+          "render": [Function],
+        }
+      }
       className="mt3"
       href="https://help.inspirehep.net/knowledge-base/inspire-paper-search"
       type="primary"
@@ -67,7 +75,15 @@ exports[`HowToSearch renders with spires examples by default 1`] = `
     className="tc"
   >
     <ExternalLink
-      as="button"
+      as={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "Group": [Function],
+          "__ANT_BUTTON": true,
+          "displayName": "Button",
+          "render": [Function],
+        }
+      }
       className="mt3"
       href="https://help.inspirehep.net/knowledge-base/inspire-paper-search"
       type="primary"
