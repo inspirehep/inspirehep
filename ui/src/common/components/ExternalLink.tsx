@@ -1,9 +1,14 @@
-import React, { ComponentPropsWithoutRef } from 'react';
+import React, {
+  ComponentPropsWithoutRef,
+  FunctionComponent,
+  createElement,
+} from 'react';
 
-const defaultProps = {
-  as: 'a',
-};
-type ExternalLinkProps = ComponentPropsWithoutRef<'a'> & typeof defaultProps;
+interface AnchorElement {
+  as: 'a' | 'button' | FunctionComponent;
+}
+
+type ExternalLinkProps = ComponentPropsWithoutRef<'a'> & AnchorElement;
 
 function ExternalLink({ as, ...anchorProps }: ExternalLinkProps) {
   const externalLinkProps = {
@@ -11,9 +16,12 @@ function ExternalLink({ as, ...anchorProps }: ExternalLinkProps) {
     target: '_blank',
     rel: 'noopener',
   };
-  return React.createElement(as, externalLinkProps);
+
+  return createElement(as, externalLinkProps);
 }
 
-ExternalLink.defaultProps = defaultProps;
+ExternalLink.defaultProps = {
+  as: 'a',
+};
 
 export default ExternalLink;

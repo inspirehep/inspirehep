@@ -1,4 +1,4 @@
-import React, { useCallback, useState, forwardRef, RefObject } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Radio, Button } from 'antd';
 
 import SpiresExamples from './SpiresExamples';
@@ -32,7 +32,7 @@ function HowToSearch() {
       </div>
       <div className="tc">
         <ExternalLink
-          as='button'
+          as={Button}
           href={PAPER_SEARCH_URL}
           type="primary"
           className="mt3"
