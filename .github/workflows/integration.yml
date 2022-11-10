@@ -588,7 +588,7 @@ jobs:
         with:
           name: container-logs-${{ env.REF }}
           path: '*.log'
-  
+
   to_push:
     name: To Push
     runs-on: ubuntu-latest
