@@ -7,11 +7,11 @@ import ConferenceInfo from './ConferenceInfo';
 
 class ConferenceInfoList extends Component {
   render() {
-    const { conferenceInfo, wrapperClassName } = this.props;
+    const { conferenceInfo, wrapperClassName, isProceedings } = this.props;
     return (
       <InlineList
         wrapperClassName={wrapperClassName}
-        label="Proceedings of"
+        label={isProceedings ? "Proceedings of" : "Contribution to"}
         items={conferenceInfo}
         extractKey={info => info.get('control_number')}
         renderItem={info => <ConferenceInfo conferenceInfo={info} />}

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { Fragment, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -64,6 +65,7 @@ function LiteratureItem({
   const citationCount = metadata.get('citation_count', 0);
   const authorCount = metadata.get('number_of_authors');
   const conferenceInfo = metadata.get('conference_info');
+  const documentType = metadata.get('document_type');
   const publicNotes = metadata.get('public_notes');
   const fulltextSnippet = metadata.get('fulltext_highlight');
 
@@ -222,7 +224,12 @@ function LiteratureItem({
               <PublicationInfoList publicationInfo={publicationInfoWithTitle} />
             )}
             {conferenceInfo && (
-              <ConferenceInfoList conferenceInfo={conferenceInfo} />
+              <ConferenceInfoList
+                conferenceInfo={conferenceInfo}
+                isProceedings={
+                  documentType && documentType.toJS().includes('proceedings')
+                }
+              />
             )}
             {eprints && <ArxivEprintList eprints={eprints} />}
           </InlineUL>
