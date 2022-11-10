@@ -75,6 +75,7 @@ function DetailPage({
   const imprint = metadata.get('imprints');
   const publicationInfo = metadata.get('publication_info');
   const conferenceInfo = metadata.get('conference_info');
+  const documentType = metadata.get('document_type');
   const eprints = metadata.get('arxiv_eprints');
   const publicNotes = metadata.get('public_notes');
   const dois = metadata.get('dois');
@@ -216,7 +217,13 @@ function DetailPage({
                         publicationInfo={publicationInfoWithTitle}
                       />
                     )}
-                  <ConferenceInfoList conferenceInfo={conferenceInfo} />
+                  <ConferenceInfoList
+                    conferenceInfo={conferenceInfo}
+                    isProceedings={
+                      documentType &&
+                      documentType.toJS().includes('proceedings')
+                    }
+                  />
                   <IsbnList isbns={isbns} />
                   <ImprintInfo imprint={imprint} />
                   <ArxivEprintList eprints={eprints} />
