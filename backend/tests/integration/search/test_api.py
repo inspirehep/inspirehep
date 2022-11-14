@@ -1456,3 +1456,38 @@ def test_jobs_search_returns_closed_jobs(inspire_app):
 
     assert response.status_code == 200
     assert len(response.json["hits"]["hits"]) == 1
+
+
+def test_normalize_title_for_journals_trims_whitespace(inspire_app):
+    data = {
+        "short_title": "JCAP",
+        "_collections": ["Journals"],
+        "journal_title": {
+            "title": "The Journal of Cosmology and Astroparticle Physics (JCAP)"
+        },
+        "title_variants": [
+            "JOURNAL OF COSMOLOGY AND ASTRO PARTICLE PHYSICS",
+            "JOURNAL OF COSMOLOGY AND ASTRO-PARTICLE PHYSICS",
+            "JOURNAL OF COSMOLOGY AND ASTROPARTICLE PHYSICS",
+            "JOURNL OF COSMOLOGY AND ASTROPARTICLE PHYSICS",
+            "J COSMOLOGY AND ASTROPARTICLE PHYSICS",
+            "J COSMOL ASTROPART PHYSICS",
+            "J COSMOLOGY ASTROPART PHYS",
+            "J COSMOL ASTRO PART PHYS",
+            "J COSMOL ASTRPOPART PHYS",
+            "J COSMOL ASTROPART PHYS",
+            "J COSMOLOGY ASTRO PHYS",
+            "J COSM ASTROPART PHYS",
+            "J COSMOLOGY ASTROPHYS",
+            "J COSMOLOGYASTROPHYS",
+            "J COS ASTRO PHYS",
+            "JCAPA",
+            "JCAP",
+            "J COSMOL ASTROPART",
+            "J COSM ASTROP PHYS",
+        ],
+    }
+    create_record("jou", data=data)
+    title_to_normalize = "J. Cosmol. Astropart. Phys."
+    normalized_title = JournalsSearch().normalize_title(title_to_normalize)
+    assert normalized_title == "JCAP"

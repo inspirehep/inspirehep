@@ -257,7 +257,7 @@
             "journal_title_punctuation",
             "whitespace_normalization"
           ],
-          "filter": ["lowercase"]
+          "filter": ["lowercase", "trim"]
         }
       },
       "char_filter": {
