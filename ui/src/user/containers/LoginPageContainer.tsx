@@ -1,7 +1,8 @@
-import { connect } from 'react-redux';
+import { connect, RootStateOrAny } from 'react-redux';
+
 import LoginPage from '../components/LoginPage';
 
-export const stateToProps = state => ({
+export const stateToProps = (state: RootStateOrAny) => ({
   previousUrl: state.router.location.previousUrl,
 });
 
