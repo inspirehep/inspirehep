@@ -1,21 +1,28 @@
 import React, { useCallback } from 'react';
 import { Row, Col, Button } from 'antd';
-import { Field, Form, Formik } from 'formik';
+import { Field, Form, Formik, FormikHelpers } from 'formik';
 import PropTypes from 'prop-types';
 import { object, string } from 'yup';
 
 import TextField from '../../submissions/common/components/TextField';
 
 const SCHEMA = object().shape({
-  email: string()
-    .email()
-    .required()
-    .label('Email'),
+  email: string().email().required().label('Email'),
 });
 
 const FULL_ROW = { span: 24 };
 
-function SingUpForm({ loading, onSubmit }) {
+function SingUpForm({
+  loading,
+  onSubmit,
+}: {
+  loading: boolean;
+  onSubmit: ((
+    values: {},
+    formikHelpers: FormikHelpers<{}>
+  ) => void | Promise<any>) &
+    Function;
+}) {
   const renderForm = useCallback(
     ({ isValid }) => (
       <Form>
@@ -27,7 +34,7 @@ function SingUpForm({ loading, onSubmit }) {
           component={TextField}
           disabled={loading}
         />
-        <Row type="flex" justify="end">
+        <Row justify="end">
           <Col>
             <Button
               loading={loading}
@@ -49,10 +56,5 @@ function SingUpForm({ loading, onSubmit }) {
     </Formik>
   );
 }
-
-SingUpForm.propTypes = {
-  loading: PropTypes.bool.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-};
 
 export default SingUpForm;

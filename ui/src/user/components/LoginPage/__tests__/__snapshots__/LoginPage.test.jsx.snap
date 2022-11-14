@@ -10,10 +10,13 @@ exports[`LoginPage renders page 1`] = `
     align="middle"
     className="__LoginPage__ h-100"
     justify="center"
-    type="flex"
   >
     <ForwardRef
-      align="middle"
+      bodyStyle={
+        Object {
+          "textAlign": "center",
+        }
+      }
     >
       <p
         className="f4"
@@ -25,12 +28,12 @@ exports[`LoginPage renders page 1`] = `
       >
         To suggest content to INSPIRE, an ORCID is required. Registration is free, quick, and open to all! Sign up at
          
-        <LinkWithTargetBlank
+        <ExternalLink
           as="a"
           href="https://orcid.org/register!"
         >
           https://orcid.org/register
-        </LinkWithTargetBlank>
+        </ExternalLink>
       </p>
       <Button
         className="login-button"
@@ -45,13 +48,13 @@ exports[`LoginPage renders page 1`] = `
           Login with ORCID
         </strong>
       </Button>
-      <LinkWithTargetBlank
+      <ExternalLink
         as="a"
         className="db pt3"
         href="https://help.inspirehep.net/knowledge-base/what-is-orcid"
       >
         What is ORCID?
-      </LinkWithTargetBlank>
+      </ExternalLink>
     </ForwardRef>
   </Row>
 </Fragment>

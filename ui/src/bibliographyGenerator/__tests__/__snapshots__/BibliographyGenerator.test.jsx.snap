@@ -9,7 +9,6 @@ exports[`BibliographyGenerator renders 1`] = `
   <Row
     className="overflow-x-auto"
     justify="center"
-    type="flex"
   >
     <Col
       className="mt3 mb3"
@@ -383,7 +382,6 @@ doi:10.1103/PhysRevLett.83.3370
                 </Row>
                 <Row
                   justify="end"
-                  type="flex"
                 >
                   <InternalFormItem
                     className="no-margin-bottom"

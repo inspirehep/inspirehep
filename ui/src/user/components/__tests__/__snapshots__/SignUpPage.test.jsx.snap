@@ -9,7 +9,6 @@ exports[`SignUpPage renders page 1`] = `
     align="middle"
     className="h-100"
     justify="center"
-    type="flex"
   >
     <ForwardRef>
       <p>
@@ -33,7 +32,6 @@ exports[`SignUpPage renders page with errors 1`] = `
     align="middle"
     className="h-100"
     justify="center"
-    type="flex"
   >
     <ForwardRef>
       <p>
@@ -57,7 +55,6 @@ exports[`SignUpPage renders page with loading 1`] = `
     align="middle"
     className="h-100"
     justify="center"
-    type="flex"
   >
     <ForwardRef>
       <p>
