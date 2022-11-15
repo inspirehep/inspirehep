@@ -475,6 +475,111 @@ def hep_curation_collection_aggregation(
         }
     }
 
+    in2p3_institutions_recids = [
+        1188219,
+        1201986,
+        1347082,
+        1608212,
+        1743848,
+        1776404,
+        1776405,
+        2020952,
+        2078467,
+        2093671,
+        2093672,
+        2093673,
+        2093680,
+        902703,
+        902740,
+        902786,
+        902828,
+        902974,
+        902989,
+        903099,
+        903100,
+        903118,
+        903119,
+        903421,
+        903453,
+        904493,
+        906885,
+        907247,
+        907588,
+        907607,
+        910133,
+        911249,
+        911366,
+    ]
+
+    hal_incorrect_metadata_filter = {
+        "bool": {
+            "must": [
+                {
+                    "nested": {
+                        "path": "publication_info",
+                        "query": {
+                            "range": {
+                                "publication_info.year": {
+                                    "gte": "2016",
+                                }
+                            }
+                        },
+                    }
+                },
+                {
+                    "nested": {
+                        "path": "publication_info",
+                        "query": {
+                            "bool": {
+                                "must_not": {
+                                    "exists": {"field": "publication_info.year"}
+                                }
+                            }
+                        },
+                    }
+                },
+                {"terms": {"_collections": ["Literature", "HAL Hidden"]}},
+                {"match": {"_export_to.HAL": "true"}},
+                {
+                    "bool": {
+                        "should": [
+                            {
+                                "nested": {
+                                    "path": "authors",
+                                    "query": {
+                                        "terms": {
+                                            "authors.affiliations.record.$ref": in2p3_institutions_recids
+                                        }
+                                    },
+                                }
+                            },
+                            {
+                                "nested": {
+                                    "path": "supervisors",
+                                    "query": {
+                                        "terms": {
+                                            "supervisors.affiliations.record.$ref": in2p3_institutions_recids
+                                        }
+                                    },
+                                }
+                            },
+                            {
+                                "terms": {
+                                    "thesis_info.institutions.record.$ref": in2p3_institutions_recids
+                                }
+                            },
+                            {
+                                "terms": {
+                                    "record_affiliations.record.$ref": in2p3_institutions_recids
+                                }
+                            },
+                        ]
+                    }
+                },
+            ]
+        }
+    }
+
     return {
         "curation_collection": {
             "filters": {
@@ -482,6 +587,7 @@ def hep_curation_collection_aggregation(
                     "CDS candidates": cds_candidates_filter,
                     "Fermilab candidates": fermilab_candidates_filter,
                     "IHEP curation": ihep_curation_filter,
+                    "HAL incorrect metadata": hal_incorrect_metadata_filter,
                 }
             },
             "meta": {
