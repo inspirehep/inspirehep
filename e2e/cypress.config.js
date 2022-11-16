@@ -5,7 +5,7 @@ module.exports = defineConfig({
   "videosFolder": "cypress/__videos__",
   "screenshotsFolder": "cypress/__screenshots__",
   "env": {
-    "inspirehep_url": "localhost:3000",
+    "inspirehep_url": "localhost:8080",
     "desktop_viewport_width": 1920,
     "desktop_viewport_height": 1080,
     "mobile_viewport_width": 375,
