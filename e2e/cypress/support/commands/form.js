@@ -31,20 +31,39 @@ Cypress.Commands.add(
         const mapIdToRequest = () => {
           if (xhr.response.body.pid_value) {
             return {
-              status: cy.wrap(xhr).its('status').should('equal', 201),
-              request: cy.requestRecord({ collection, recordId: xhr.response.body.pid_value }),
+              status: cy
+                .wrap(xhr)
+                .its('response.statusCode')
+                .should('equal', 201),
+              request: cy.requestRecord({
+                collection,
+                recordId: xhr.response.body.pid_value,
+              }),
             };
           } else if (xhr.response.body.control_number) {
-              return {
-                status: cy.wrap(xhr).its('status').should('equal', 201),
-                request: cy.requestEditor({ collection, recordId: xhr.response.body.control_number }),
-              };
+            return {
+              status: cy
+                .wrap(xhr)
+                .its('response.statusCode')
+                .should('equal', 201),
+              request: cy.requestEditor({
+                collection,
+                recordId: xhr.response.body.control_number,
+              }),
+            };
           } else {
-              return {
-                status: cy.wrap(xhr).its('status').should('equal', 200),
-                request: cy.requestWorkflow({ workflowId: xhr.response.body.workflow_object_id }),
-              }
-            }
+            return {
+              status: cy
+                .wrap(xhr)
+                .its('response.statusCode')
+                .should('equal', 200),
+              request: cy
+                .requestWorkflow(
+                  {workflowId: xhr.response.body.workflow_object_id}
+                )
+                .its('body'),
+            };
+          }
         };
         mapIdToRequest().status;
         return mapIdToRequest().request;
@@ -74,7 +93,7 @@ Cypress.Commands.add(
     });
     cy.submitForm(formData);
 
-    cy.waitForRoute(apiRoute).its('status').should('equal', 200);
+    cy.waitForRoute(apiRoute).its('response.statusCode').should('equal', 200);
 
     cy.requestRecord({ collection, recordId })
       .its('metadata')

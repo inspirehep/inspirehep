@@ -2,7 +2,7 @@ version: '2.1'
 
 services:
   cypress:
-    image: cypress/included:8.2.0
+    image: cypress/included:12.17.0
     volumes:
       - ./e2e:/tests
     environment:

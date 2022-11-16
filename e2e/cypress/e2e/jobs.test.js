@@ -3,7 +3,7 @@ import moment from 'moment';
 
 describe('Job Search', () => {
   onlyOn('headless', () => {
-    it('matches image snapshot', () => {
+    it.skip('matches image snapshot', () => {
       cy.clock(1688594400000);
       cy.registerRoute();
       cy.visit('/jobs');
@@ -16,7 +16,7 @@ describe('Job Search', () => {
 
 describe('Job Detail', () => {
   onlyOn('headless', () => {
-    it('matches image snapshot', () => {
+    it.skip('matches image snapshot', () => {
       cy.clock(1688594400000);
       cy.registerRoute();
       cy.visit('/jobs/1812440');
@@ -32,13 +32,13 @@ describe('Job Submission', () => {
   });
 
   onlyOn('headless', () => {
-    it('matches image snapshot', () => {
+    it.skip('matches image snapshot', () => {
       cy.visit('/submissions/jobs');
       cy.get('form').should('be.visible');
       cy.matchSnapshots('JobSubmission', { skipMobile: true });
     });
 
-    it('matches image snapshot for Job update', () => {
+    it.skip('matches image snapshot for Job update', () => {
       cy.registerRoute();
       cy.visit('/submissions/jobs/1812440');
       cy.waitForRoute();
@@ -47,7 +47,7 @@ describe('Job Submission', () => {
     });
   });
 
-  it('submits and updates new job', () => {
+  it.skip('submits and updates new job', () => {
     const formData = {
       title: 'Software developer',
       external_job_identifier: '07587',
