@@ -77,7 +77,6 @@ def create_record(record_type, data=None, **kwargs):
         )
     """
     accepted_record_types = current_app.config["PID_TYPE_TO_INDEX"].keys()
-
     if record_type not in accepted_record_types:
         raise ValueError(f"{record_type} is not supported")
     index = current_app.config["PID_TYPE_TO_INDEX"][record_type]

@@ -25,7 +25,7 @@ class RecordProvider(BaseProvider):
 
     @staticmethod
     def control_number():
-        return fake.random_number(digits=8, fix_len=True)
+        return random.randint(1, 2_147_483_647)
 
     @staticmethod
     def doi():
