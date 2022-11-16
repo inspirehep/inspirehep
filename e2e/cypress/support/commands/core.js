@@ -8,13 +8,6 @@ Cypress.Commands.overwrite('visit', (originalVisit, relativeUrl, options) => {
   return originalVisit(absoluteUrl, options);
 });
 
-Cypress.Commands.add('useDesktop', () => {
-  cy.viewport(
-    Cypress.env('desktop_viewport_width'),
-    Cypress.env('desktop_viewport_height')
-  );
-});
-
 Cypress.Commands.add('useMobile', () => {
   cy.viewport(
     Cypress.env('mobile_viewport_width'),
@@ -64,8 +57,7 @@ Cypress.Commands.add('registerRoute', (optionsOrRoute = '/api/**') => {
     route = optionsOrRoute.url;
   }
 
-  cy.server();
-  cy.route(optionsOrRoute).as(route);
+  cy.intercept(optionsOrRoute).as(route);
 });
 
 Cypress.Commands.add('waitForRoute', (route = '/api/**') => {
@@ -83,11 +75,11 @@ Cypress.Commands.add('requestEditor', ({ collection, recordId }) => {
 });
 
 Cypress.Commands.add('waitForSearchResults', () => {
-  cy.get('[data-test-id="search-results"]', { timeout: 10000 }).should(
+  cy.get('[data-test-id="search-results"]', { timeout: 20000 }).should(
     'be.visible'
   );
 });
 
-Cypress.Commands.add('waitForLoading', (timeout = 10000) => {
+Cypress.Commands.add('waitForLoading', (timeout = 20000) => {
   cy.get('[data-test-id="loading"]', { timeout }).should('not.exist');
 });

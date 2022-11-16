@@ -3,12 +3,13 @@ import { onlyOn } from '@cypress/skip-test';
 describe('References', () => {
   describe('Reference Search', () => {
     onlyOn('headless', () => {
-      it('matches image snapshot for reference search', () => {
+      it.skip('matches image snapshot for reference search', () => {
         cy.registerRoute();
         cy.visit(
           '/literature?sort=mostrecent&size=25&page=1&q=citedby%3Arecid%3A1322719'
         );
         cy.waitForRoute();
+        cy.waitForLoading();
         cy.matchSnapshots('LiteratureReferenceSearch');
       });
     });

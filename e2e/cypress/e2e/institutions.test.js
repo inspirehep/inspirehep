@@ -1,12 +1,36 @@
 import { onlyOn } from '@cypress/skip-test';
 
+describe('Institution Search', () => {
+  onlyOn('headless', () => {
+    it.skip('matches image snapshot', () => {
+      cy.registerRoute();
+      cy.visit('/institutions');
+      cy.waitForRoute();
+      cy.waitForSearchResults();
+      cy.matchSnapshots('InstitutionSearch');
+    });
+  });
+});
+
+describe('Institution Detail', () => {
+  onlyOn('headless', () => {
+    it.skip('matches image snapshot', () => {
+      cy.registerRoute();
+      cy.visit('/institutions/902858?ui-citation-summary=true');
+      cy.waitForRoute();
+      cy.waitForSearchResults();
+      cy.matchSnapshots('InstitutionDetail');
+    });
+  });
+});
+
 describe('Institution Submission', () => {
   beforeEach(() => {
     cy.login('cataloger');
   });
 
   onlyOn('headless', () => {
-    it('matches image snapshot', () => {
+    it.skip('matches image snapshot', () => {
       cy.visit('/submissions/institutions');
       cy.get('form').should('be.visible');
       cy.matchSnapshots('InstitutionSubmission', { skipMobile: true });
@@ -31,30 +55,6 @@ describe('Institution Submission', () => {
 
   afterEach(() => {
     cy.logout();
-  });
-});
-
-describe('Institution Search', () => {
-  onlyOn('headless', () => {
-    it('matches image snapshot', () => {
-      cy.registerRoute();
-      cy.visit('/institutions');
-      cy.waitForRoute();
-      cy.waitForSearchResults();
-      cy.matchSnapshots('InstitutionSearch');
-    });
-  });
-});
-
-describe('Institution Detail', () => {
-  onlyOn('headless', () => {
-    it('matches image snapshot', () => {
-      cy.registerRoute();
-      cy.visit('/institutions/902858?ui-citation-summary=true');
-      cy.waitForRoute();
-      cy.waitForSearchResults();
-      cy.matchSnapshots('InstitutionDetail');
-    });
   });
 });
 

@@ -1,22 +1,9 @@
 import { onlyOn } from '@cypress/skip-test';
-// TODO: remove `moment` to in favor of `Cypress.moment`
 import moment from 'moment';
-
-describe('Conference Detail', () => {
-  onlyOn('headless', () => {
-    it('matches image snapshot', () => {
-      cy.registerRoute();
-      cy.visit('/conferences/1217045?ui-citation-summary=true');
-      cy.waitForRoute();
-      cy.waitForSearchResults();
-      cy.matchSnapshots('ConferenceDetail');
-    });
-  });
-});
 
 describe('Conference Search', () => {
   onlyOn('headless', () => {
-    it('matches image snapshot', () => {
+    it.skip('matches image snapshot', () => {
       cy.registerRoute();
       cy.visit('/conferences?start_date=all');
       cy.waitForRoute();
@@ -24,7 +11,7 @@ describe('Conference Search', () => {
       cy.matchSnapshots('ConferenceSearch');
     });
 
-    it('matches image snapshot for author update when cataloger is logged in', () => {
+    it.skip('matches image snapshot for author update when cataloger is logged in', () => {
       cy.login('cataloger');
       cy.registerRoute();
       cy.visit('/conferences?start_date=all');
@@ -32,6 +19,18 @@ describe('Conference Search', () => {
       cy.waitForSearchResults();
       cy.matchSnapshots('ConferenceSearchByCataloger');
       cy.logout();
+    });
+  });
+});
+
+describe('Conference Detail', () => {
+  onlyOn('headless', () => {
+    it.skip('matches image snapshot', () => {
+      cy.registerRoute();
+      cy.visit('/conferences/1217045?ui-citation-summary=true');
+      cy.waitForRoute();
+      cy.waitForSearchResults();
+      cy.matchSnapshots('ConferenceDetail');
     });
   });
 });
@@ -79,14 +78,14 @@ describe('Conference Submission', () => {
   });
 
   onlyOn('headless', () => {
-    it('matches image snapshot', () => {
+    it.skip('matches image snapshot', () => {
       cy.visit('/submissions/conferences');
       cy.get('form').should('be.visible');
       cy.matchSnapshots('ConferenceSubmission', { skipMobile: true });
     });
   });
 
-  it('submits a new conference', () => {
+  it.skip('submits a new conference', () => {
     const startDateMoment = moment().add(1, 'day');
     const endDateMoment = moment().add(7, 'day');
     const formData = {
@@ -155,7 +154,7 @@ describe('Conference Submission', () => {
     });
   });
 
-  it('warns about already existing conference during selected dates [conferences/1794610]', () => {
+  it.skip('warns about already existing conference during selected dates [conferences/1794610]', () => {
     const startDate = moment('2021-08-30');
     cy.visit('/submissions/conferences');
     cy.registerRoute();

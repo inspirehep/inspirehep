@@ -19,7 +19,7 @@ describe('Author collection', () => {
       cy.login('johnellis');
     });
 
-    describe("Claiming from author's own profile", () => {
+    describe.skip("Claiming from author's own profile", () => {
       it('assigns paper to user profile successfully', () => {
         cy.intercept('POST', '/api/assign/literature/assign', {
           statusCode: 200,

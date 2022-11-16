@@ -18,13 +18,14 @@ const {
 const addLogsPrinterPlugin = require('cypress-terminal-report/src/installLogsPrinter');
 
 module.exports = (on, config) => {
-  on('before:browser:launch', (browser = {}, options) => {
-    if (browser.name === 'chrome' || browser.name === 'firefox') {
-      options.args.push('--window-size=1920,1080');
-      return options;
+  on('before:browser:launch', (browser = {}, launchOptions) => {
+    if (browser.name == 'chrome') {
+      launchOptions.args.push('--disable-gpu')
+      launchOptions.args.push("--disable-dev-shm-usage");
     }
-  });
 
+    return launchOptions
+  }),
   addMatchImageSnapshotPlugin(on, config);
   addLogsPrinterPlugin(on);
 };

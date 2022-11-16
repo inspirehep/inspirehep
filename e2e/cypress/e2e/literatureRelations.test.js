@@ -3,8 +3,6 @@ import _ from 'lodash';
 
 describe('Literature and Authors', () => {
   it('literature:search -> literautre:detail -> authors:detail -> authors:publications', () => {
-    cy.useDesktop();
-
     cy.registerRoute('*/literature?*');
     cy.visit('/literature?q=a%20Grit%20Hotzel');
     cy.waitForRoute('*/literature?*');
@@ -34,9 +32,7 @@ describe('Literature and Authors', () => {
 });
 
 describe('Literature and Conferences', () => {
-  it('literature:search -> conferences:detail -> conferences:contributions', () => {
-    cy.useDesktop();
-
+  it.skip('literature:search -> conferences:detail -> conferences:contributions', () => {
     cy.registerRoute('*/literature?*');
     cy.visit('/literature');
     cy.waitForRoute('*/literature?*');
@@ -71,7 +67,7 @@ describe('Literature and Conferences', () => {
 
 describe('Assign Conference', () => {
   onlyOn('headless', () => {
-    it('matches image snapshot', () => {
+    it.skip('matches image snapshot', () => {
       cy.login('admin');
       cy.registerRoute();
       cy.visit('/literature');

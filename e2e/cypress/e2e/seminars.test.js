@@ -1,25 +1,25 @@
 import { onlyOn } from '@cypress/skip-test';
 import moment from 'moment';
 
-describe('Seminar Detail', () => {
-  onlyOn('headless', () => {
-    it('matches image snapshot', () => {
-      cy.registerRoute();
-      cy.visit('/seminars/1799778');
-      cy.waitForRoute();
-      cy.matchSnapshots('SeminarDetail');
-    });
-  });
-});
-
 describe('Seminar Search', () => {
   onlyOn('headless', () => {
-    it('matches image snapshot', () => {
+    it.skip('matches image snapshot', () => {
       cy.registerRoute();
       cy.visit('/seminars?start_date=all');
       cy.waitForRoute();
       cy.waitForSearchResults();
       cy.matchSnapshots('SeminarSearch');
+    });
+  });
+});
+
+describe('Seminar Detail', () => {
+  onlyOn('headless', () => {
+    it.skip('matches image snapshot', () => {
+      cy.registerRoute();
+      cy.visit('/seminars/1799778');
+      cy.waitForRoute();
+      cy.matchSnapshots('SeminarDetail');
     });
   });
 });
@@ -30,13 +30,13 @@ describe('Seminar Submission', () => {
   });
 
   onlyOn('headless', () => {
-    it('matches image snapshot', () => {
+    it.skip('matches image snapshot', () => {
       cy.visit('/submissions/seminars');
       cy.get('form').should('be.visible');
       cy.matchSnapshots('SeminarSubmission', { skipMobile: true });
     });
 
-    it('matches image snapshot for Seminar update', () => {
+    it.skip('matches image snapshot for Seminar update', () => {
       cy.registerRoute();
       cy.visit('/submissions/seminars/1799778');
       cy.waitForRoute();
@@ -45,7 +45,7 @@ describe('Seminar Submission', () => {
     });
   });
 
-  it('submits and updates new seminar', () => {
+  it.skip('submits and updates new seminar', () => {
     const startDateMoment = moment('2020-05-06 08:30');
     const endDateMoment = moment('2020-05-06 14:30');
     const formData = {

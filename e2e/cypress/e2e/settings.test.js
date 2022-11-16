@@ -1,22 +1,24 @@
 import { onlyOn } from '@cypress/skip-test';
 
 describe('settings', () => {
+  const email = `johnrellis@inspirehep.net`;
+
   beforeEach(() => {
     cy.login('johnellis');
     cy.visit('/user/settings');
   });
 
   onlyOn('headless', () => {
-    it('matches image snapshot', () => {
+    it.skip('matches image snapshot', () => {
       cy.visit('/user/settings');
+      cy.wait(2000);
       cy.matchSnapshots('Settings');
     });
   });
 
   it('enables submit button when email is correct', () => {
-    const email = `johnrellis@inspirehep.net`;
-
     cy.visit('/user/settings');
+    cy.wait(2000);
 
     cy.get('[data-test-id=email]')
       .clear()
@@ -26,13 +28,12 @@ describe('settings', () => {
   });
 
   it('should display validation error when email is incorrect', () => {
-    const email = `johnrellis@inspirehep`;
-
     cy.visit('/user/settings');
+    cy.wait(2000);
 
     cy.get('[data-test-id=email]')
       .clear()
-      .type(email)
+      .type('johnrellis@inspirehep')
       .blur();
       
     cy.get('[data-test-id=email-error]').should('be.visible');
@@ -42,6 +43,7 @@ describe('settings', () => {
     const recordId = 1010819;
 
     cy.visit('/user/settings');
+    cy.wait(2000);
 
     cy.get('[data-test-id="author-form"]').click();
 
@@ -50,30 +52,33 @@ describe('settings', () => {
 
   it('exports to orcid', () => {
     cy.visit('/user/settings');
+    cy.wait(2000);
 
     cy.get('[data-test-id="orcid-switch"]').click();
     cy.get('div[class~="ant-popconfirm"]').find('button[class~="ant-btn-primary"]').click();
 
     cy.reload();
+    cy.wait(2000);
 
     cy.get('[data-test-id="orcid-switch"]').should('have.attr', 'aria-checked', 'true');
   });
 
   it('unexports from orcid', () => {
     cy.visit('/user/settings');
+    cy.wait(2000);
 
     cy.get('[data-test-id="orcid-switch"]').click();
     cy.get('div[class~="ant-popconfirm"]').find('button[class~="ant-btn-primary"]').click();
 
     cy.reload();
+    cy.wait(2000);
 
     cy.get('[data-test-id="orcid-switch"]').should('have.attr', 'aria-checked', 'false');
   });
 
   it('changes user email', () => {
-    const email = `johnrellis@inspirehep.net`;
-
     cy.visit('/user/settings');
+    cy.wait(10000);
 
     cy.registerRoute({
       url: '/api/accounts/settings/update-email',
@@ -87,7 +92,7 @@ describe('settings', () => {
       .click();
 
     cy.waitForRoute('/api/accounts/settings/update-email')
-      .its('status')
+      .its('response.statusCode')
       .should('equal', 200);
   });
 });
