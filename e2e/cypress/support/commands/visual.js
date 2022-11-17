@@ -9,7 +9,7 @@ addMatchImageSnapshotCommand({
 
 Cypress.Commands.add('matchSnapshots', (name, { skipMobile } = {}) => {
   cy.useDesktop();
-  
+
   // fixes unreliable scrolling when capturing full screen ss
   cy.get('html').invoke('css', 'height', 'initial');
   cy.get('body').invoke('css', 'height', 'initial');
