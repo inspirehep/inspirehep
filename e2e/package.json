@@ -17,6 +17,5 @@
     "cypress-image-snapshot": "^3.1.1",
     "cypress-terminal-report": "^1.4.2",
     "moment": "^2.24.0"
-  },
-  "devDependencies": {}
+  }
 }
