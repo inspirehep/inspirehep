@@ -17,10 +17,13 @@ from inspirehep.tools.utils import find_references
 @pytest.fixture(scope="function")
 def literature_records(inspire_app):
     with freeze_time("2020-06-12"):
+        aut1 = create_record(
+            "aut", data={"name": {"value": "Ellis, John R."}, "control_number": 1}
+        )
         data_ads = {
             "control_number": 1_721_863,
             "titles": [{"title": "Baryon Number Generation in Grand Unified Theories"}],
-            "authors": [{"full_name": "Ellis, John R."}],
+            "authors": [{"full_name": "Ellis, John R.", "record": aut1["self"]}],
             "external_system_identifiers": [
                 {"schema": "ADS", "value": "1979PhLB...80..360E"}
             ],
@@ -28,37 +31,49 @@ def literature_records(inspire_app):
         }
         create_record("lit", data=data_ads)
 
+        aut2 = create_record(
+            "aut", data={"name": {"value": "Beacom, John F."}, "control_number": 2}
+        )
         data_texkey = {
             "control_number": 1_721_864,
             "titles": [{"title": "Neutrinoless universe"}],
-            "authors": [{"full_name": "Beacom, John F."}],
+            "authors": [{"full_name": "Beacom, John F.", "record": aut2["self"]}],
             "texkeys": ["Beacom:2004yd"],
         }
         create_record("lit", data=data_texkey)
 
+        aut3 = create_record(
+            "aut", data={"name": {"value": "Bern, Zvi"}, "control_number": 3}
+        )
         data_eprint = {
             "control_number": 1_721_865,
             "titles": [
                 {"title": "On-shell recurrence relations for one-loop QCD amplitudes"}
             ],
-            "authors": [{"full_name": "Bern, Zvi"}],
+            "authors": [{"full_name": "Bern, Zvi", "record": aut3["self"]}],
             "arxiv_eprints": [{"categories": ["hep-th"], "value": "hep-th/0501240"}],
         }
         create_record("lit", data=data_eprint)
 
+        aut4 = create_record(
+            "aut", data={"name": {"value": "Bern, Zvi"}, "control_number": 4}
+        )
         data_r = {
             "control_number": 1_721_867,
             "titles": [{"title": "GEANT Detector Description and Simulation Tool"}],
-            "authors": [{"full_name": "run, René"}],
+            "authors": [{"full_name": "run, René", "record": aut4["self"]}],
             "report_numbers": [{"value": "CERN-W5013"}],
             "texkeys": ["Brun:1994aa"],
         }
         create_record("lit", data=data_r)
 
+        aut5 = create_record(
+            "aut", data={"name": {"value": "Bern, Zvi"}, "control_number": 5}
+        )
         data_j = {
             "control_number": 663_871,
             "titles": [{"title": "MHV rules for Higgs plus multi-gluon amplitudes"}],
-            "authors": [{"full_name": "Dixon, Lance J."}],
+            "authors": [{"full_name": "Dixon, Lance J.", "record": aut5["self"]}],
             "publication_info": [
                 {
                     "journal_title": "JHEP",
@@ -71,10 +86,13 @@ def literature_records(inspire_app):
         }
         create_record("lit", data=data_j)
 
+        aut6 = create_record(
+            "aut", data={"name": {"value": "Bern, Zvi"}, "control_number": 6}
+        )
         data_r_ambiguous = {
             "control_number": 1_721_868,
             "titles": [{"title": "This is another record with the same report number"}],
-            "authors": [{"full_name": "Garcia, Miguel"}],
+            "authors": [{"full_name": "Garcia, Miguel", "record": aut6["self"]}],
             "report_numbers": [{"value": "CERN-W5013"}],
             "texkeys": ["Garcia:2020ab"],
         }
@@ -147,10 +165,10 @@ def test_find_references(literature_records):
     ]
 
     expected_references_cv = [
-        '<p><b>\n    <a href="https://localhost:5000/literature/1721863">\n      Baryon Number Generation in Grand Unified Theories\n    </a>\n  </b></p>\n  \n    <p>John R. Ellis</p>\n  \n  \n  \n  \n  <br>',
-        '<p><b>\n    <a href="https://localhost:5000/literature/1721864">\n      Neutrinoless universe\n    </a>\n  </b></p>\n  \n    <p>John F. Beacom</p>\n  \n  \n  \n  \n  <br>',
-        '<p><b>\n    <a href="https://localhost:5000/literature/1721865">\n      On-shell recurrence relations for one-loop QCD amplitudes\n    </a>\n  </b></p>\n  \n    <p>Zvi Bern</p>\n  \n  <p>\n      e-Print:\n          <a href="https://arxiv.org/abs/hep-th/0501240">\n      hep-th/0501240\n    </a>[hep-th]</p>\n  \n  \n  <br>',
-        '<p><b>\n    <a href="https://localhost:5000/literature/663871">\n      MHV rules for Higgs plus multi-gluon amplitudes\n    </a>\n  </b></p>\n  \n    <p>Lance J. Dixon</p>\n  \n  \n  \n  <p>\n    Published in:<span>\n      JHEP 12 (2004),\n      015</span></p>\n  <br>',
+        '<p><b>\n    <a href="https://localhost:5000/literature/1721863">\n      Baryon Number Generation in Grand Unified Theories\n    </a>\n  </b></p>\n  \n    <p><a href="https://localhost:5000/authors/1">John R. Ellis</a></p>\n  \n  \n  \n  \n  <br>',
+        '<p><b>\n    <a href="https://localhost:5000/literature/1721864">\n      Neutrinoless universe\n    </a>\n  </b></p>\n  \n    <p><a href="https://localhost:5000/authors/2">John F. Beacom</a></p>\n  \n  \n  \n  \n  <br>',
+        '<p><b>\n    <a href="https://localhost:5000/literature/1721865">\n      On-shell recurrence relations for one-loop QCD amplitudes\n    </a>\n  </b></p>\n  \n    <p><a href="https://localhost:5000/authors/3">Zvi Bern</a></p>\n  \n  <p>\n      e-Print:\n          <a href="https://arxiv.org/abs/hep-th/0501240">\n      hep-th/0501240\n    </a>[hep-th]</p>\n  \n  \n  <br>',
+        '<p><b>\n    <a href="https://localhost:5000/literature/663871">\n      MHV rules for Higgs plus multi-gluon amplitudes\n    </a>\n  </b></p>\n  \n    <p><a href="https://localhost:5000/authors/5">Lance J. Dixon</a></p>\n  \n  \n  \n  <p>\n    Published in:<span>\n      JHEP 12 (2004),\n      015</span></p>\n  <br>',
     ]
 
     expected_errors = [

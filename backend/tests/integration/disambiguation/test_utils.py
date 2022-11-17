@@ -89,7 +89,7 @@ def test_link_signature_to_author_with_curated_signature_but_no_ref(inspire_app)
             }
         ]
     }
-    record = create_record("lit", data=data)
+    record = create_record("lit", data=data, without_author_refs=True)
     signature_data = {
         "publication_id": record["control_number"],
         "signature_uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e51",
@@ -114,7 +114,7 @@ def test_link_signature_to_author_missing_uuid(inspire_app):
             {"full_name": "Doe, John", "uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e54"}
         ]
     }
-    record = create_record("lit", data=data)
+    record = create_record("lit", data=data, without_author_refs=True)
     signature_data = {
         "publication_id": record["control_number"],
         "signature_uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e51",

@@ -9,9 +9,11 @@ from copy import deepcopy
 from unicodedata import normalize
 
 from inspire_dojson.utils import get_recid_from_ref
+from invenio_pidstore.errors import PIDDoesNotExistError
 from marshmallow import Schema, fields, missing, pre_dump
 
 from inspirehep.pidstore.api.base import PidStoreBase
+from inspirehep.records.api import AuthorsRecord
 from inspirehep.records.marshmallow.utils import (
     get_first_name,
     get_first_value_for_schema,
@@ -58,7 +60,16 @@ class AuthorSchemaV1(FirstAuthorSchemaV1):
 
     @staticmethod
     def get_bai(data):
-        return get_first_value_for_schema(data.get("ids", []), "INSPIRE BAI") or missing
+        try:
+            author_record = AuthorsRecord.get_record_by_pid_value(
+                get_recid_from_ref(data["record"])
+            )
+        except (PIDDoesNotExistError, KeyError):
+            return missing
+        return (
+            get_first_value_for_schema(author_record.get("ids", []), "INSPIRE BAI")
+            or missing
+        )
 
     @pre_dump
     def filter(self, data):

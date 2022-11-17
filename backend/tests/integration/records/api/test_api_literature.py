@@ -1831,27 +1831,19 @@ def test_adding_files_with_public_file_url_but_wrong_key(inspire_app, s3):
 
 
 def test_creating_record_updates_entries_in_authors_records_table(inspire_app):
-    expected_authors_entries_count = 5
+    expected_authors_entries_count = 4
     expected_table_entries = [
-        ("K.Janeway.1", "INSPIRE BAI"),
-        ("INSPIRE-12345678", "INSPIRE ID"),
-        ("J.T.Kirk.1", "INSPIRE BAI"),
+        ("1", "recid"),
+        ("2", "recid"),
         ("collaboration_1", "collaboration"),
         ("collaboration_2", "collaboration"),
     ]
+    author_1 = create_record("aut", data={"control_number": 1})
+    author_2 = create_record("aut", data={"control_number": 2})
     data = {
         "authors": [
-            {
-                "full_name": "Kathryn Janeway",
-                "ids": [
-                    {"value": "K.Janeway.1", "schema": "INSPIRE BAI"},
-                    {"value": "INSPIRE-12345678", "schema": "INSPIRE ID"},
-                ],
-            },
-            {
-                "full_name": 'James Tiberius "Jim" Kirk',
-                "ids": [{"value": "J.T.Kirk.1", "schema": "INSPIRE BAI"}],
-            },
+            {"full_name": author_1["name"]["value"], "record": author_1["self"]},
+            {"full_name": author_2["name"]["value"], "record": author_2["self"]},
         ],
         "collaborations": [{"value": "collaboration_1"}, {"value": "collaboration_2"}],
     }
@@ -1868,16 +1860,13 @@ def test_creating_record_updates_entries_in_authors_records_table(inspire_app):
 
 def test_updating_record_updates_entries_in_authors_records_table(inspire_app):
     expected_authors_entries_count = 3
+    author_1 = create_record("aut", data={"control_number": 1})
+    author_2 = create_record("aut", data={"control_number": 2})
+    author_3 = create_record("aut", data={"control_number": 3})
     data = {
         "authors": [
-            {
-                "full_name": "Kathryn Janeway",
-                "ids": [{"value": "K.Janeway.1", "schema": "INSPIRE BAI"}],
-            },
-            {
-                "full_name": 'James Tiberius "Jim" Kirk',
-                "ids": [{"value": "J.T.Kirk.1", "schema": "INSPIRE BAI"}],
-            },
+            {"full_name": author_1["name"]["value"], "record": author_1["self"]},
+            {"full_name": author_2["name"]["value"], "record": author_2["self"]},
         ],
         "collaborations": [{"value": "collaboration_1"}],
     }
@@ -1892,10 +1881,7 @@ def test_updating_record_updates_entries_in_authors_records_table(inspire_app):
     data.update(
         {
             "authors": [
-                {
-                    "full_name": "Kathryn Janeway",
-                    "ids": [{"value": "INSPIRE-12345678", "schema": "INSPIRE ID"}],
-                }
+                {"full_name": author_1["name"]["value"], "record": author_1["self"]},
             ]
         }
     )
@@ -1911,17 +1897,9 @@ def test_updating_record_updates_entries_in_authors_records_table(inspire_app):
     data.update(
         {
             "authors": [
-                {
-                    "full_name": "Kathryn Janeway",
-                    "ids": [
-                        {"value": "K.Janeway.1", "schema": "INSPIRE BAI"},
-                        {"value": "INSPIRE-12345678", "schema": "INSPIRE ID"},
-                    ],
-                },
-                {
-                    "full_name": 'James Tiberius "Jim" Kirk',
-                    "ids": [{"value": "J.T.Kirk.1", "schema": "INSPIRE BAI"}],
-                },
+                {"full_name": author_1["name"]["value"], "record": author_1["self"]},
+                {"full_name": author_2["name"]["value"], "record": author_2["self"]},
+                {"full_name": author_3["name"]["value"], "record": author_3["self"]},
             ],
             "collaborations": [
                 {"value": "collaboration_1"},

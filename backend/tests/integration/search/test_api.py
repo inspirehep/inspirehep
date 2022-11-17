@@ -710,7 +710,14 @@ def test_jobs_search_with_parameter_regression(inspire_app):
 
     expected_results_count = 3
     assert expected_results_count == len(response.json["hits"]["hits"])
-    assert response.json["hits"]["hits"] == response_curator.json["hits"]["hits"]
+    found_record_recids = {
+        hit["metadata"]["control_number"] for hit in response.json["hits"]["hits"]
+    }
+    found_record_recids_curator = {
+        hit["metadata"]["control_number"]
+        for hit in response_curator.json["hits"]["hits"]
+    }
+    assert found_record_recids == found_record_recids_curator
 
 
 def test_empty_conferences_search(inspire_app):

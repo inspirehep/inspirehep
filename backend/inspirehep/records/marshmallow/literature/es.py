@@ -60,18 +60,18 @@ class LiteratureElasticSearchSchema(ElasticSearchBaseSchema, LiteratureRawSchema
     journal_title_variants = fields.Method("get_journal_title_variants")
     id_field = fields.Integer(dump_only=True, dump_to="id", attribute="control_number")
     thesis_info = fields.Nested(ThesisInfoSchemaForESV1, dump_only=True)
-    referenced_authors_bais = fields.Method(
-        "get_referenced_authors_bais", dump_only=True
+    referenced_authors_recids = fields.Method(
+        "get_referenced_authors_recids", dump_only=True
     )
     primary_arxiv_category = fields.Method("get_primary_arxiv_category", dump_only=True)
 
     @staticmethod
-    def get_referenced_authors_bais(record):
+    def get_referenced_authors_recids(record):
         return [
             result.author_id
             for result in db.session.query(RecordsAuthors.author_id)
             .filter(
-                RecordsAuthors.id_type == "INSPIRE BAI",
+                RecordsAuthors.id_type == "recid",
                 RecordsAuthors.record_id == RecordCitations.cited_id,
                 RecordCitations.citer_id == record.id,
             )

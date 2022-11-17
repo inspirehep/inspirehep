@@ -6,8 +6,8 @@ from invenio_db import db
 from invenio_search import current_search
 
 from inspirehep.accounts.roles import Roles
-from inspirehep.assign.utils import get_author_by_recid
 from inspirehep.records.api import AuthorsRecord, LiteratureRecord
+from inspirehep.records.utils import get_author_by_recid
 from inspirehep.search.api import LiteratureSearch
 
 

@@ -12,7 +12,7 @@ from inspirehep.records.api import LiteratureRecord
 
 
 @mock.patch(
-    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_referenced_authors_bais",
+    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_referenced_authors_recids",
     return_value=[],
 )
 @mock.patch(

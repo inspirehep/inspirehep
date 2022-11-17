@@ -19,13 +19,10 @@ from inspirehep.assign.tasks import (
     create_rt_ticket_for_claiming_action,
     export_papers_to_cds,
 )
-from inspirehep.assign.utils import (
-    can_claim,
-    check_author_compability_with_lit_authors,
-    get_author_by_recid,
-)
+from inspirehep.assign.utils import can_claim, check_author_compability_with_lit_authors
 from inspirehep.disambiguation.utils import create_new_stub_author, update_author_names
 from inspirehep.records.api import AuthorsRecord, LiteratureRecord
+from inspirehep.records.utils import get_author_by_recid
 from inspirehep.serializers import jsonify
 from inspirehep.utils import chunker, count_consumers_for_queue
 

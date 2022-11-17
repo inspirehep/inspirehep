@@ -8,7 +8,7 @@ import structlog
 from celery import shared_task
 from inspire_dojson.utils import get_recid_from_ref, get_record_ref
 from inspire_schemas.builders import LiteratureBuilder
-from inspire_utils.record import get_value, get_values_for_schema
+from inspire_utils.record import get_value
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
 from jsonschema import ValidationError
@@ -16,10 +16,9 @@ from jsonschema import ValidationError
 from inspirehep.errors import DB_TASK_EXCEPTIONS
 from inspirehep.records.api import AuthorsRecord, ConferencesRecord, LiteratureRecord
 from inspirehep.records.errors import MissingArgumentError
+from inspirehep.records.utils import get_author_by_recid
 from inspirehep.submissions.tasks import async_create_ticket_with_template
 from inspirehep.utils import get_inspirehep_url
-
-from .utils import get_author_by_recid, update_author_bai
 
 LOGGER = structlog.getLogger()
 
@@ -172,7 +171,6 @@ def assign_papers(
     author_papers_recids,
     is_stub_author=False,
 ):
-    author_bai = get_values_for_schema(to_author_record["ids"], "INSPIRE BAI")[0]
     for recid in author_papers_recids:
         record = LiteratureRecord.get_record_by_pid_value(recid)
         lit_author = get_author_by_recid(record, from_author_recid)
@@ -188,7 +186,6 @@ def assign_papers(
         )
         if not is_stub_author:
             lit_author["curated_relation"] = True
-        lit_author["ids"] = update_author_bai(author_bai, lit_author)
         record.update(dict(record))
     db.session.commit()
 

@@ -790,7 +790,7 @@
       "facet_author_name": {
         "type": "keyword"
       },
-      "referenced_authors_bais": {
+      "referenced_authors_recids": {
         "type": "keyword",
         "normalizer": "lowercase_normalizer"
       },

@@ -11,7 +11,6 @@ import click
 from elasticsearch_dsl import Q
 from flask.cli import with_appcontext
 from flask_celeryext.app import current_celery_app
-from inspire_utils.record import get_values_for_schema
 from invenio_db import db
 
 from inspirehep.disambiguation.tasks import disambiguate_authors
@@ -48,31 +47,31 @@ def clean_stub_authors():
     stub_authors_verified = AuthorsRecord.get_records_by_pids(
         stub_authors_control_numbers
     )
-    stub_authors_bais = {
-        get_values_for_schema(author["ids"], "INSPIRE BAI")[0]: author
+    stub_authors_recids = {
+        str(author["control_number"]): author
         for author in stub_authors_verified
         if author.get("stub")
     }
     # We verify which authors have linked papers
     stub_authors_with_papers = set(
-        query_authors_with_linked_papers_by_bai(stub_authors_bais.keys())
+        query_authors_with_linked_papers_by_recid(stub_authors_recids.keys())
     )
     # For every author who has not linked papers we delete record
-    authors_to_remove = set(stub_authors_bais.keys()).difference(
+    authors_to_remove = set(stub_authors_recids.keys()).difference(
         stub_authors_with_papers
     )
     click.echo(f"Removing {len(authors_to_remove)} stub authors with no linked papers")
-    for author_bai in authors_to_remove:
-        author = stub_authors_bais[author_bai]
+    for author_recid in authors_to_remove:
+        author = stub_authors_recids[author_recid]
         author.delete()
     db.session.commit()
     click.echo("Successfully removed stub authors")
 
 
-def query_authors_with_linked_papers_by_bai(authors_bais):
+def query_authors_with_linked_papers_by_recid(author_recids):
     query = RecordsAuthors.query.filter(
-        RecordsAuthors.id_type == "INSPIRE BAI",
-        RecordsAuthors.author_id.in_(authors_bais),
+        RecordsAuthors.id_type == "recid",
+        RecordsAuthors.author_id.in_(author_recids),
     )
 
     for data in query.yield_per(100).with_entities(RecordsAuthors.author_id):

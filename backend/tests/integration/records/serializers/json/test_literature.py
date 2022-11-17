@@ -21,11 +21,18 @@ from inspirehep.records.errors import MaxResultWindowRESTError
 
 @mock.patch("inspirehep.records.api.literature.uuid.uuid4")
 def test_literature_authors_json(mock_uuid4, inspire_app):
-    mock_uuid4.return_value = UUID("727238f3-8ed6-40b6-97d2-dc3cd1429131")
+    mock_uuid4.side_effect = [
+        UUID("727238f3-8ed6-40b6-97d2-dc3cd1429122"),
+        UUID("727238f3-8ed6-40b6-97d2-dc3cd1429131"),
+        UUID("727238f3-8ed6-40b6-97d2-dc3cd1429133"),
+    ]
     headers = {"Accept": "application/json"}
     full_name_1 = "Tanner Walker"
+    author = create_record(
+        "aut", data={"control_number": 1, "name": {"value": "Walker, Tanner"}}
+    )
     data = {
-        "authors": [{"full_name": full_name_1}],
+        "authors": [{"full_name": full_name_1, "record": author["self"]}],
         "collaborations": [{"value": "ATLAS"}],
     }
     record = create_record("lit", data=data)
@@ -39,6 +46,8 @@ def test_literature_authors_json(mock_uuid4, inspire_app):
                 "full_name": full_name_1,
                 "signature_block": "WALCARt",
                 "uuid": "727238f3-8ed6-40b6-97d2-dc3cd1429131",
+                "recid": 1,
+                "record": author["self"],
             }
         ],
         "collaborations": [{"value": "ATLAS"}],

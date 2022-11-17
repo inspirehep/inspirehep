@@ -49,7 +49,13 @@ def test_clean_stub_authors_doesnt_remove_stub_authors_with_linked_papers(
     stub_author = create_record("aut", data=stub_author_data)
 
     lit_record_data = {
-        "authors": [{"full_name": "'t Hooft, Gerardus", "ids": stub_author_data["ids"]}]
+        "authors": [
+            {
+                "full_name": "'t Hooft, Gerardus",
+                "ids": stub_author_data["ids"],
+                "record": stub_author["self"],
+            }
+        ]
     }
     create_record("lit", lit_record_data)
     cli.invoke(["disambiguation", "clean_stub_authors"])

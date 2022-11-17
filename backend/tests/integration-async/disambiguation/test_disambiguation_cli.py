@@ -23,6 +23,7 @@ def test_disambiguate_all(inspire_app, cli, clean_celery_session, override_confi
                 "lit",
                 data={"authors": [{"full_name": "Test Author"}]},
                 with_control_number=True,
+                without_author_refs=True,
             )
             record_uuids.append(record.id)
         record_with_two_collections = create_record(
@@ -32,6 +33,7 @@ def test_disambiguate_all(inspire_app, cli, clean_celery_session, override_confi
                 "authors": [{"full_name": "Test Author"}],
             },
             with_control_number=True,
+            without_author_refs=True,
         )
         record_uuids.append(record_with_two_collections.id)
         record_with_some_authors_not_disambiguated = create_record(
@@ -48,6 +50,7 @@ def test_disambiguate_all(inspire_app, cli, clean_celery_session, override_confi
                 ]
             },
             with_control_number=True,
+            without_author_refs=True,
         )
         record_uuids.append(record_with_some_authors_not_disambiguated.id)
         record_that_shouldnt_be_disambiguated = create_record(
@@ -57,6 +60,7 @@ def test_disambiguate_all(inspire_app, cli, clean_celery_session, override_confi
                 "authors": [{"full_name": "Test Author"}],
             },
             with_control_number=True,
+            without_author_refs=True,
         )
         record_that_shouldnt_be_disambiguated_uuid = (
             record_that_shouldnt_be_disambiguated.id
