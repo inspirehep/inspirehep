@@ -125,7 +125,7 @@ def test_disambiguate_signatures_cluster_with_more_than_1_authors(inspire_app):
             {"full_name": "Doe, John", "uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e51"}
         ]
     }
-    record = create_record("lit", data=data)
+    record = create_record("lit", data=data, without_author_refs=True)
     clusters = [
         {
             "signatures": [

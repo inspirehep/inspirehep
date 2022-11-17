@@ -15,6 +15,7 @@ from inspirehep.records.errors import DownloadFileError, FileSizeExceededError
 from inspirehep.records.marshmallow.literature.utils import get_parent_record
 from inspirehep.records.utils import (
     download_file_from_url,
+    get_author_by_recid,
     get_pid_for_pid,
     is_document_scanned,
 )
@@ -146,3 +147,17 @@ def test_is_document_scanned_with_not_scanned_pdf(inspire_app):
     file_data = download_file_from_url(document_url, check_file_size=True)
     file_data = io.BytesIO(file_data)
     assert not is_document_scanned(file_data)
+
+
+def test_author_by_recid(inspire_app):
+    author = create_record("aut", data={"control_number": 1})
+    literature = create_record(
+        "lit",
+        data={
+            "authors": [
+                {"full_name": author["name"]["value"], "record": author["self"]}
+            ]
+        },
+    )
+    lit_author = get_author_by_recid(literature, author["control_number"])
+    assert lit_author["full_name"] == author["name"]["value"]

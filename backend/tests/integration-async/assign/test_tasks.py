@@ -66,7 +66,6 @@ def test_assign_from_an_author_to_another(inspire_app, clean_celery_session):
                 "$ref": f"http://localhost:5000/api/authors/{to_author['control_number']}"
             }
             assert literature_author["curated_relation"]
-            assert literature_author["ids"] == to_author["ids"]
 
     retry_until_pass(assert_assign, retry_interval=5)
 
@@ -117,7 +116,6 @@ def test_assign_from_an_author_to_another_that_is_not_stub(
             "$ref": f"http://localhost:5000/api/authors/{to_author['control_number']}"
         }
         assert literature_author["curated_relation"]
-        assert literature_author["ids"] == to_author["ids"]
         assert not to_author_after["stub"]
 
     retry_until_pass(assert_assign, retry_interval=5)

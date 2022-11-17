@@ -23,6 +23,7 @@ from invenio_search.utils import build_alias_name
 
 from inspirehep.files import current_s3_instance
 from inspirehep.records.api import InspireRecord, LiteratureRecord
+from inspirehep.utils import get_inspirehep_url
 
 
 def es_search(index):
@@ -80,7 +81,10 @@ def create_record(record_type, data=None, **kwargs):
     if record_type not in accepted_record_types:
         raise ValueError(f"{record_type} is not supported")
     index = current_app.config["PID_TYPE_TO_INDEX"][record_type]
+    lit_record_without_author_refs = kwargs.pop("without_author_refs", False)
     record_data = faker.record(record_type, data=data, **kwargs)
+    if record_type == "lit" and not lit_record_without_author_refs:
+        record_data = _update_authors_with_record_ref(record_data)
     record = InspireRecord.create(record_data)
     record._indexing = record.index(delay=False)
     current_search.flush_and_refresh(index)
@@ -183,3 +187,25 @@ def create_record_async(record_type, data=None, skip_validation=False):
     record = InspireRecord.create(data)
     db.session.commit()
     return record
+
+
+def _update_authors_with_record_ref(data):
+    if "authors" not in data:
+        return data
+    assigned_recids = set()
+    base_url = get_inspirehep_url()
+    new_data = data.copy()
+    for author in new_data["authors"]:
+        if "record" not in author:
+            recid = get_random_recid(assigned_recids)
+            author["record"] = {"$ref": f"{base_url}/api/authors/{recid}"}
+    return new_data
+
+
+def get_random_recid(recids_to_exclude):
+    random_recid = random.randint(1, 2_147_483_647)
+    return (
+        random_recid
+        if random_recid not in recids_to_exclude
+        else get_random_recid(recids_to_exclude)
+    )

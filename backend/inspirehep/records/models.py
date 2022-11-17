@@ -150,23 +150,6 @@ class InstitutionLiterature(db.Model):
 
 
 class AuthorSchemaType(enum.Enum):
-    INSPIRE_ID = "INSPIRE ID"
-    INSPIRE_BAI = "INSPIRE BAI"
-    ORCID = "ORCID"
-    JACOW = "JACOW"
-    KAKEN = "KAKEN"
-    ARXIV = "ARXIV"
-    CERN = "CERN"
-    DESY = "DESY"
-    GOOGLESCHOLAR = "GOOGLESCHOLAR"
-    VIAF = "VIAF"
-    RESEARCHERID = "RESEARCHERID"
-    SCOPUS = "SCOPUS"
-    SPIRES = "SPIRES"
-    WIKIPEDIA = "WIKIPEDIA"
-    SLAC = "SLAC"
-    TWITTER = "TWITTER"
-    LINKEDIN = "LINKEDIN"
     collaboration = "collaboration"
     recid = "recid"
 

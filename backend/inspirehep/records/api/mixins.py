@@ -9,7 +9,7 @@ import structlog
 from flask import current_app
 from inspire_dojson.utils import get_recid_from_ref
 from inspire_utils.date import fill_missing_date_parts
-from inspire_utils.record import get_values_for_schema
+from inspire_utils.record import get_value
 from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier
 from sqlalchemy import and_, func, not_, or_, text
@@ -25,36 +25,11 @@ from inspirehep.records.models import (
     RecordsAuthors,
     StudentsAdvisors,
 )
-from inspirehep.utils import flatten_list
 
 LOGGER = structlog.getLogger()
 
 
 class PapersAuthorsExtensionMixin:
-    # TODO: remove it after modyfying enum
-    def generate_entries_for_authors_in_authors_records_table(self):
-        """Generates RecordsAuthors objects table based on record data for authors"""
-
-        authors_ids_field = "authors.ids"
-        table_entries_buffer = []
-        for author in self.get_value(authors_ids_field, []):
-            for id in author:
-                try:
-                    table_entries_buffer.append(
-                        RecordsAuthors(
-                            author_id=id["value"],
-                            id_type=id["schema"],
-                            record_id=self.id,
-                        )
-                    )
-                except KeyError:
-                    LOGGER.exception(
-                        "id entry is missing keys",
-                        recid=self.get("control_number"),
-                        uuid=str(self.id),
-                    )
-        return table_entries_buffer
-
     def generate_entries_for_authors_recids_in_authors_records_table(self):
         """Generates RecordsAuthors objects table based on record data for authors"""
         table_entries_buffer = []
@@ -106,18 +81,12 @@ class PapersAuthorsExtensionMixin:
                 uuid=str(self.id),
             )
             return
-        # TODO: remove it after modyfying enum
         table_entries_buffer = (
-            self.generate_entries_for_authors_in_authors_records_table()
-        )
-        table_entries_buffer.extend(
             self.generate_entries_for_collaborations_in_authors_records_table()
         )
-        # TODO: remove the feature flag
-        if current_app.config["FEATURE_FLAG_ENABLE_RECID_IN_RECORDS_AUTHORS"]:
-            table_entries_buffer.extend(
-                self.generate_entries_for_authors_recids_in_authors_records_table()
-            )
+        table_entries_buffer.extend(
+            self.generate_entries_for_authors_recids_in_authors_records_table()
+        )
         db.session.bulk_save_objects(table_entries_buffer)
         LOGGER.info(
             "authors_record table updated for record",
@@ -284,10 +253,11 @@ class CitationMixin(PapersAuthorsExtensionMixin):
             uuid=str(self.id),
         )
 
-    def get_authors_bais(self):
-        return get_values_for_schema(
-            flatten_list(self.get_value("authors.ids", [])), "INSPIRE BAI"
-        )
+    def get_authors_recids(self):
+        return [
+            str(get_recid_from_ref(ref))
+            for ref in get_value(self, "authors.record", [])
+        ]
 
     def get_collaborations_values(self):
         return self.get_value("collaborations.value", [])
@@ -303,7 +273,7 @@ class CitationMixin(PapersAuthorsExtensionMixin):
                     a2.record_id = :uuid
                     AND a1.author_id=a2.author_id
                     AND (
-                        (a1.id_type='INSPIRE BAI' AND a2.id_type='INSPIRE BAI')
+                        (a1.id_type='recid' AND a2.id_type='recid')
                          OR (a1.id_type='collaboration' AND a2.id_type='collaboration')
                     )
                 ) AS papers_from_authors,
@@ -361,8 +331,8 @@ class CitationMixin(PapersAuthorsExtensionMixin):
 
     def get_all_connected_records_uuids_of_modified_authors(self):
         prev_version = self._previous_version
-        current_authors = set(self.get_authors_bais())
-        old_authors = set(prev_version.get_authors_bais())
+        current_authors = set(self.get_authors_recids())
+        old_authors = set(prev_version.get_authors_recids())
         diff = current_authors.symmetric_difference(old_authors)
         connected_papers = set()
         if diff:
@@ -379,7 +349,7 @@ class CitationMixin(PapersAuthorsExtensionMixin):
                 )
                 .filter(
                     RecordsAuthors.author_id.in_(diff),
-                    RecordsAuthors.id_type == "INSPIRE BAI",
+                    RecordsAuthors.id_type == "recid",
                     RecordsAuthors.record_id.in_(
                         self.get_self_cited_referenced_papers()
                     ),

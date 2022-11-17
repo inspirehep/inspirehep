@@ -430,13 +430,12 @@ def test_literature_get_modified_authors_after_ref_update(inspire_app):
 
 def test_fix_entries_by_update_date(inspire_app, clean_celery_session):
     literature_data = faker.record("lit", with_control_number=True)
+    author_1 = InspireRecord.create(data=faker.record("aut", with_control_number=True))
+    author_2 = InspireRecord.create(data=faker.record("aut", with_control_number=True))
     literature_data.update(
         {
             "authors": [
-                {
-                    "full_name": "George, Smith",
-                    "ids": [{"value": "Smith.G.1", "schema": "INSPIRE BAI"}],
-                }
+                {"full_name": author_2["name"]["value"], "record": author_2["self"]}
             ]
         }
     )
@@ -445,25 +444,22 @@ def test_fix_entries_by_update_date(inspire_app, clean_celery_session):
     literature_data_2.update(
         {
             "authors": [
-                {
-                    "full_name": "Xiu, Li",
-                    "ids": [{"value": "X.Liu.1", "schema": "INSPIRE BAI"}],
-                }
+                {"full_name": author_1["name"]["value"], "record": author_1["self"]}
             ]
         }
     )
     record_2 = InspireRecord.create(literature_data_2)
     db.session.add(
         RecordsAuthors(
-            author_id="A.Test.1",
-            id_type="INSPIRE BAI",
+            author_id="1",
+            id_type="recid",
             record_id=record_1.id,
         )
     )
     db.session.add(
         RecordsAuthors(
-            author_id="A.Test.2",
-            id_type="INSPIRE BAI",
+            author_id="2",
+            id_type="recid",
             record_id=record_2.id,
         )
     )

@@ -21,7 +21,7 @@ from inspirehep.search.api import AuthorsSearch
 from inspirehep.utils import chunker
 
 from ...pidstore.api import PidStoreAuthors
-from ..utils import get_author_by_bai
+from ..utils import get_author_by_recid
 from .base import InspireRecord
 
 LOGGER = structlog.getLogger()
@@ -83,25 +83,23 @@ class AuthorsRecord(StudentsAdvisorMixin, InspireRecord):
     def assign_author_to_papers(self):
         from .literature import LiteratureRecord
 
-        bai_list = get_values_for_schema(self.get("ids", []), "INSPIRE BAI")
-        if not bai_list:
-            return
-        bai = bai_list[0]
         author_papers_ids = [
             str(record_control_number)
-            for record_control_number in self.query_author_papers(bai)
+            for record_control_number in self.query_author_papers(
+                str(self["control_number"])
+            )
         ]
         author_papers = LiteratureRecord.get_records_batched(author_papers_ids)
         for paper in author_papers:
-            author = get_author_by_bai(paper, bai)
+            author = get_author_by_recid(paper, self["control_number"])
             author["record"] = self.get("self")
             paper.update(dict(paper))
 
     @staticmethod
-    def query_author_papers(bai):
+    def query_author_papers(recid):
         query = RecordsAuthors.query.filter(
-            RecordsAuthors.id_type == "INSPIRE BAI",
-            RecordsAuthors.author_id == bai,
+            RecordsAuthors.id_type == "recid",
+            RecordsAuthors.author_id == recid,
         )
 
         for data in query.yield_per(100).with_entities(RecordsAuthors.record_id):
@@ -152,6 +150,20 @@ class AuthorsRecord(StudentsAdvisorMixin, InspireRecord):
             return set(str(uuid_list[0]) for uuid_list in advisor_uuids)
 
         return set()
+
+    def get_linked_author_paper_uuids_if_author_changed_bai(self):
+        if get_values_for_schema(
+            self.get("ids", []), "INSPIRE BAI"
+        ) == get_values_for_schema(
+            self._previous_version.get("ids", []), "INSPIRE BAI"
+        ):
+            return set()
+        literature_uuids = (
+            RecordsAuthors.query.with_entities(RecordsAuthors.record_id)
+            .filter_by(author_id=str(self["control_number"]), id_type="recid")
+            .all()
+        )
+        return set(str(uuid[0]) for uuid in literature_uuids)
 
     def hard_delete(self):
         self.delete_students_advisors_table_entries()

@@ -21,10 +21,10 @@ OAI_TIME_FORMAT = "%Y-%m-%dT%H:%M:%S.%f"
 @freeze_time("1994-12-19")
 def test_index_literature_record(inspire_app, datadir):
     author_data = orjson.loads((datadir / "1032336.json").read_text())
-    author = create_record("aut", data=author_data)
+    create_record("aut", data=author_data)
 
     data = orjson.loads((datadir / "1630825.json").read_text())
-    record = create_record("lit", data=data)
+    record = create_record("lit", data=data, without_author_refs=True)
 
     expected_count = 1
     expected_metadata = orjson.loads((datadir / "es_1630825.json").read_text())
@@ -58,7 +58,7 @@ def test_index_literature_record(inspire_app, datadir):
 
 def test_regression_index_literature_record_with_related_records(inspire_app, datadir):
     data = orjson.loads((datadir / "1503270.json").read_text())
-    record = create_record("lit", data=data)
+    create_record("lit", data=data)
 
     response = es_search("records-hep")
 
@@ -92,7 +92,7 @@ def test_indexer_creates_proper_fulltext_links_for_hidden_documents_in_ui_displa
             }
         ],
     }
-    record = create_record("lit", data=data)
+    create_record("lit", data=data)
     response = es_search("records-hep")
 
     result = response["hits"]["hits"][0]["_source"]
@@ -126,7 +126,7 @@ def test_indexer_creates_proper_fulltext_links_in_ui_display_files_enabled(
             }
         ],
     }
-    record = create_record("lit", data=data)
+    create_record("lit", data=data)
     response = es_search("records-hep")
 
     result = response["hits"]["hits"][0]["_source"]
@@ -242,30 +242,21 @@ def test_indexer_separates_supervisors_from_authors(inspire_app):
     assert result_supervisors[0]["full_name"] == expected_supervisor
 
 
-def test_indexer_populates_referenced_authors_bais(inspire_app):
+def test_indexer_populates_referenced_authors_recids(inspire_app):
+    author_1 = create_record("aut", data={"control_number": 1630829})
+    author_2 = create_record("aut", data={"control_number": 1630830})
+    author_3 = create_record("aut", data={"control_number": 1630831})
     data_authors = {
         "authors": [
-            {
-                "full_name": "Jean-Luc Picard",
-                "ids": [{"schema": "INSPIRE BAI", "value": "Jean.L.Picard.1"}],
-            },
-            {
-                "full_name": "John Doe",
-                "ids": [{"schema": "INSPIRE BAI", "value": "J.Doe.1"}],
-            },
+            {"full_name": author_1["name"]["value"], "record": author_1["self"]},
+            {"full_name": author_2["name"]["value"], "record": author_2["self"]},
         ]
     }
     cited_record_1 = create_record("lit", data=data_authors)
     data_authors = {
         "authors": [
-            {
-                "full_name": "Jean-Luc Picard",
-                "ids": [{"schema": "INSPIRE BAI", "value": "Jean.L.Picard.1"}],
-            },
-            {
-                "full_name": "Steven Johnson",
-                "ids": [{"schema": "INSPIRE BAI", "value": "S.Johnson.1"}],
-            },
+            {"full_name": author_1["name"]["value"], "record": author_1["self"]},
+            {"full_name": author_3["name"]["value"], "record": author_3["self"]},
         ]
     }
     cited_record_2 = create_record("lit", data=data_authors)
@@ -276,19 +267,15 @@ def test_indexer_populates_referenced_authors_bais(inspire_app):
             cited_record_2["control_number"],
         ],
     )
-    expected_rec3_referenced_authors_bais = [
-        "J.Doe.1",
-        "Jean.L.Picard.1",
-        "S.Johnson.1",
-    ]
+    expected_rec3_referenced_authors_recids = ["1630829", "1630830", "1630831"]
     rec1_es = LiteratureSearch.get_record_data_from_es(cited_record_1)
     rec2_es = LiteratureSearch.get_record_data_from_es(cited_record_2)
     rec3_es = LiteratureSearch.get_record_data_from_es(citing_record)
-    assert "referenced_authors_bais" not in rec1_es
-    assert "referenced_authors_bais" not in rec2_es
+    assert "referenced_authors_recids" not in rec1_es
+    assert "referenced_authors_recids" not in rec2_es
     assert (
-        sorted(rec3_es["referenced_authors_bais"])
-        == expected_rec3_referenced_authors_bais
+        sorted(rec3_es["referenced_authors_recids"])
+        == expected_rec3_referenced_authors_recids
     )
 
 

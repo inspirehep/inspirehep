@@ -10,7 +10,6 @@ from flask import current_app
 from flask_sqlalchemy import models_committed
 from helpers.providers.faker import faker
 from helpers.utils import create_user, retry_until_pass
-from inspire_utils.query import ordered
 from inspire_utils.record import get_values_for_schema
 from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db
@@ -76,7 +75,6 @@ def test_disambiguation_runs_after_record_creation(
     author_data.update(
         {
             "name": {"value": "Gross, Brian"},
-            "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
             "email_addresses": [{"current": True, "value": "test@test.com"}],
         }
     )
@@ -95,7 +93,6 @@ def test_disambiguation_runs_after_record_creation(
             "authors": [
                 {
                     "full_name": "Gross, Brian",
-                    "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
                     "emails": ["test@test.com"],
                 }
             ]
@@ -125,7 +122,6 @@ def test_disambiguate_many_authors_runs_after_record_creation(
             "name": {"value": "Gross, Brian"},
             "ids": [
                 {"schema": "INSPIRE ID", "value": "INSPIRE-00304313"},
-                {"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"},
             ],
             "email_addresses": [{"current": True, "value": "test@test.com"}],
         }
@@ -134,7 +130,6 @@ def test_disambiguate_many_authors_runs_after_record_creation(
     author_2.update(
         {
             "name": {"value": "Matthews, Donald"},
-            "ids": [{"schema": "INSPIRE BAI", "value": "H.Khalfoun.1"}],
             "email_addresses": [
                 {"current": True, "value": "test1@test.pl"},
                 {"current": True, "value": "test1.1@test.pl"},
@@ -161,13 +156,11 @@ def test_disambiguate_many_authors_runs_after_record_creation(
                     "full_name": "Gross, Brian",
                     "ids": [
                         {"schema": "INSPIRE ID", "value": "INSPIRE-00304313"},
-                        {"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"},
                     ],
                     "emails": ["test@test.com"],
                 },
                 {
                     "full_name": "Matthews, Donald",
-                    "ids": [{"schema": "INSPIRE BAI", "value": "H.Khalfoun.1"}],
                     "emails": ["test1@test.pl", "test1.1@test.pl"],
                 },
             ]
@@ -202,7 +195,6 @@ def test_disambiguate_authors_doesnt_match_when_author_is_ambiguous(
             "name": {"value": "Gross, Brian"},
             "ids": [
                 {"schema": "INSPIRE ID", "value": "INSPIRE-00304313"},
-                {"schema": "INSPIRE BAI", "value": "J.M.Maldacena.2"},
             ],
             "email_addresses": [{"current": True, "value": "test@test.com"}],
             "control_number": 90_676_330,
@@ -214,7 +206,6 @@ def test_disambiguate_authors_doesnt_match_when_author_is_ambiguous(
             "name": {"value": "Gross, Brian"},
             "ids": [
                 {"schema": "INSPIRE ID", "value": "INSPIRE-00300003"},
-                {"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"},
             ],
             "email_addresses": [{"current": True, "value": "test@test.com"}],
             "control_number": 90_676_331,
@@ -309,7 +300,6 @@ def test_disambiguation_runs_after_lit_record_update(
         {
             "control_number": 1,
             "name": {"value": "Gross, Brian"},
-            "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
             "email_addresses": [{"current": True, "value": "test@uw.edu.pl"}],
         }
     )
@@ -451,7 +441,6 @@ def test_disambiguate_authors_on_first_last_name_and_initials(
                     "full_name": "'t Hooft, Gerard",
                     "curated_relation": True,
                     "record": {"$ref": "http://localhost:5000/api/authors/999108"},
-                    "ids": [{"schema": "INSPIRE BAI", "value": "G.Hooft.2"}],
                 }
             ]
         }
@@ -466,7 +455,6 @@ def test_disambiguate_authors_on_first_last_name_and_initials(
                     "full_name": "'t Hooft, Gerard Antonio",
                     "curated_relation": True,
                     "record": {"$ref": "http://localhost:5000/api/authors/999105"},
-                    "ids": [{"schema": "INSPIRE BAI", "value": "G.Hooft.1"}],
                 }
             ]
         }
@@ -531,7 +519,6 @@ def test_disambiguate_authors_on_collaboration(
                     "full_name": "'t Hooft, Gerard",
                     "curated_relation": True,
                     "record": author_record["self"],
-                    "ids": [{"schema": "INSPIRE BAI", "value": "G.Hooft.1"}],
                 }
             ]
         }
@@ -546,7 +533,6 @@ def test_disambiguate_authors_on_collaboration(
                     "full_name": "'t Hooft, Gerard",
                     "curated_relation": True,
                     "record": author_record_1["self"],
-                    "ids": [{"schema": "INSPIRE BAI", "value": "G.Hooft.2"}],
                 }
             ],
         }
@@ -616,7 +602,6 @@ def test_disambiguate_authors_on_affiliation(
                     "full_name": "'t Hooft, Gerard",
                     "record": author_record["self"],
                     "curated_relation": True,
-                    "ids": [{"schema": "INSPIRE BAI", "value": "G.Hooft.2"}],
                 },
                 {"full_name": "Kowalski, Brian", "curated_relation": True},
             ]
@@ -635,7 +620,6 @@ def test_disambiguate_authors_on_affiliation(
                         {"value": "UC, Berkeley, CfPA"},
                         {"value": "Warsaw U."},
                     ],
-                    "ids": [{"schema": "INSPIRE BAI", "value": "G.Hooft.1"}],
                     "curated_relation": True,
                 }
             ]
@@ -741,99 +725,6 @@ def test_disambiguate_authors_create_two_author_with_same_name(
     retry_until_pass(assert_disambiguation_task)
 
 
-def test_disambiguation_assigns_bai_when_author_match_based_on_ids(
-    inspire_app, clean_celery_session, enable_disambiguation
-):
-    author_data = faker.record("aut", with_control_number=True)
-    author_data.update(
-        {
-            "name": {"value": "Gross, Brian"},
-            "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
-            "email_addresses": [{"current": True, "value": "test@test.com"}],
-        }
-    )
-    author_record = InspireRecord.create(author_data)
-    db.session.commit()
-
-    def assert_authors_records_exist_in_es():
-        author_record_from_es = InspireSearch.get_record_data_from_es(author_record)
-        assert author_record_from_es
-
-    retry_until_pass(assert_authors_records_exist_in_es)
-
-    literature_data = faker.record("lit", with_control_number=True)
-    literature_data.update(
-        {
-            "authors": [
-                {
-                    "full_name": "Gross, Brian",
-                    "emails": ["test@test.com"],
-                }
-            ]
-        }
-    )
-    literature_record = LiteratureRecord.create(literature_data)
-    db.session.commit()
-
-    def assert_disambiguation_task():
-        literature_record_from_es = InspireSearch.get_record_data_from_es(
-            literature_record
-        )
-        assert {
-            "schema": "INSPIRE BAI",
-            "value": "J.M.Maldacena.1",
-        } in literature_record_from_es["authors"][0]["ids"]
-
-    retry_until_pass(assert_disambiguation_task, retry_interval=2)
-
-
-def test_disambiguation_doesnt_assign_bai_when_already_in_author(
-    inspire_app, clean_celery_session, enable_disambiguation
-):
-    author_data = faker.record("aut", with_control_number=True)
-    author_data.update(
-        {
-            "name": {"value": "Gross, Brian"},
-            "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
-            "email_addresses": [{"current": True, "value": "test@test.com"}],
-        }
-    )
-    author_record = InspireRecord.create(author_data)
-    db.session.commit()
-
-    def assert_authors_records_exist_in_es():
-        author_record_from_es = InspireSearch.get_record_data_from_es(author_record)
-        assert author_record_from_es
-
-    retry_until_pass(assert_authors_records_exist_in_es)
-
-    literature_data = faker.record("lit", with_control_number=True)
-    literature_data.update(
-        {
-            "authors": [
-                {
-                    "full_name": "Gross, Brian",
-                    "ids": [{"schema": "INSPIRE BAI", "value": "A.Test.1"}],
-                    "emails": ["test@test.com"],
-                }
-            ]
-        }
-    )
-    literature_record = LiteratureRecord.create(literature_data)
-    db.session.commit()
-
-    def assert_disambiguation_task():
-        literature_record_from_es = InspireSearch.get_record_data_from_es(
-            literature_record
-        )
-        assert {
-            "schema": "INSPIRE BAI",
-            "value": "J.M.Maldacena.1",
-        } in literature_record_from_es["authors"][0]["ids"]
-
-    retry_until_pass(assert_disambiguation_task, retry_interval=2)
-
-
 def test_disambiguation_on_author_record_update(
     inspire_app, clean_celery_session, enable_disambiguation
 ):
@@ -845,7 +736,6 @@ def test_disambiguation_on_author_record_update(
     author_data_1.update(
         {
             "name": {"value": "Kowal, Michal"},
-            "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.2"}],
         }
     )
     aut_record_1 = AuthorsRecord.create(author_data_1)
@@ -863,7 +753,6 @@ def test_disambiguation_on_author_record_update(
             "authors": [
                 {
                     "full_name": "Kowal, Michal",
-                    "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
                     "affiliations": [{"value": "Warsaw U."}],
                     "record": aut_record["self"],
                     "curated_relation": True,
@@ -879,7 +768,6 @@ def test_disambiguation_on_author_record_update(
             "authors": [
                 {
                     "full_name": "Kowal, Michal",
-                    "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.2"}],
                     "record": aut_record_1["self"],
                     "curated_relation": True,
                 }
@@ -905,19 +793,24 @@ def test_disambiguation_on_author_record_update(
     literature_record_3 = LiteratureRecord.create(data=literature_data_3)
     db.session.commit()
 
+    # TODO: other assertions
     def assert_first_disambiguation_no_match():
         literature_record_from_es = InspireSearch.get_record_data_from_es(
             literature_record_3
         )
 
-        assert get_values_for_schema(
-            literature_record_from_es["authors"][0]["ids"], "INSPIRE BAI"
+        assert (
+            literature_record_from_es["authors"][0]["record"]
+            != literature_record["authors"][0]["record"]
         )
-        assert ordered(literature_record_from_es["authors"][0]["ids"]) != ordered(
-            literature_record["authors"][0]["ids"]
+        assert "record" in literature_record_from_es["authors"][0]
+        assert (
+            literature_record_from_es["authors"][0]["record"]
+            != literature_record["authors"][0]["record"]
         )
-        assert ordered(literature_record_from_es["authors"][0]["ids"]) != ordered(
-            literature_record_2["authors"][0]["ids"]
+        assert (
+            literature_record_from_es["authors"][0]["record"]
+            != literature_record_2["authors"][0]["record"]
         )
 
     retry_until_pass(assert_first_disambiguation_no_match, retry_interval=2)
@@ -933,8 +826,8 @@ def test_disambiguation_on_author_record_update(
             literature_record_3
         )
         assert (
-            literature_record_from_es["authors"][0]["ids"]
-            == literature_record["authors"][0]["ids"]
+            literature_record_from_es["authors"][0]["record"]
+            != literature_record["authors"][0]["record"]
         )
 
     retry_until_pass(assert_disambiguation_on_record_update, retry_interval=2)
@@ -948,7 +841,6 @@ def test_disambiguation_on_record_update_ambiguous_match(
         with_control_number=True,
         data={
             "name": {"value": "Kowal, Michal"},
-            "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
         },
     )
     author_record = AuthorsRecord.create(author_data)
@@ -958,7 +850,6 @@ def test_disambiguation_on_record_update_ambiguous_match(
         with_control_number=True,
         data={
             "name": {"value": "Kowal, Michal"},
-            "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.2"}],
         },
     )
     author_record_1 = AuthorsRecord.create(author_data_1)
@@ -969,7 +860,6 @@ def test_disambiguation_on_record_update_ambiguous_match(
             "authors": [
                 {
                     "full_name": "Kowal, Michal",
-                    "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
                     "affiliations": [{"value": "Warsaw U."}],
                     "record": author_record["self"],
                     "curated_relation": True,
@@ -985,7 +875,6 @@ def test_disambiguation_on_record_update_ambiguous_match(
             "authors": [
                 {
                     "full_name": "Kowal, Michal",
-                    "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.2"}],
                     "record": author_record_1["self"],
                     "curated_relation": True,
                 }
@@ -1011,21 +900,19 @@ def test_disambiguation_on_record_update_ambiguous_match(
     literature_record_3 = LiteratureRecord.create(data=literature_data_3)
     db.session.commit()
 
+    # TODO: other assertions
     def assert_first_disambiguation_no_match():
         literature_record_from_es = InspireSearch.get_record_data_from_es(
             literature_record_3
         )
-
-        assert get_values_for_schema(
-            literature_record_from_es["authors"][0]["ids"], "INSPIRE BAI"
+        assert literature_record_from_es["authors"][0]["record"]
+        assert (
+            literature_record_from_es["authors"][0]["record"]
+            != literature_record["authors"][0]["record"]
         )
         assert (
-            literature_record_from_es["authors"][0]["ids"]
-            != literature_record["authors"][0]["ids"]
-        )
-        assert (
-            literature_record_from_es["authors"][0]["ids"]
-            != literature_record_2["authors"][0]["ids"]
+            literature_record_from_es["authors"][0]["record"]
+            != literature_record_2["authors"][0]["record"]
         )
 
     retry_until_pass(assert_first_disambiguation_no_match, retry_interval=2)
@@ -1040,10 +927,9 @@ def test_disambiguation_on_record_update_ambiguous_match(
         literature_record_from_es = InspireSearch.get_record_data_from_es(
             literature_record_3
         )
-        assert (
-            literature_record_from_es["authors"][0]["ids"]
-            == lit_record["authors"][0]["ids"]
-        )
+        literature_record_from_es["authors"][0]["record"] != lit_record["authors"][0][
+            "record"
+        ]
 
     retry_until_pass(assert_disambiguation_on_record_update, retry_interval=2)
 
@@ -1084,6 +970,7 @@ def test_disambiguation_on_record_update_unambiguous_match(
     lit_record.update(dict(lit_record))
     db.session.commit()
 
+    # TODO: fix it
     def assert_disambiguation_on_record_update():
         literature_record_from_es = InspireSearch.get_record_data_from_es(
             literature_record
@@ -1137,7 +1024,6 @@ def test_disambiguation_races_assign(
         author_record_data.update(
             {
                 "name": {"value": "A'Hearn, Michael F."},
-                "ids": [{"schema": "INSPIRE BAI", "value": "M.F.A.Hearn.1"}],
             }
         )
         author_record = AuthorsRecord.create(author_record_data)
@@ -1146,7 +1032,6 @@ def test_disambiguation_races_assign(
             {
                 "authors": [
                     {
-                        "ids": [{"value": "M.F.A.Hearn.1", "schema": "INSPIRE BAI"}],
                         "uuid": "ce061c1e-866a-422d-9982-652183bae814",
                         "full_name": "A'Hearn, M.F.",
                         "signature_block": "HARNm",
@@ -1180,10 +1065,8 @@ def test_disambiguation_races_assign(
             )
 
             assert (
-                get_values_for_schema(
-                    literature_record_from_es["authors"][0]["ids"], "INSPIRE BAI"
-                )[0]
-                != "M.F.A.Hearn.1"
+                literature_record_from_es["authors"][0]["record"]
+                != author_record["self"]
             )
 
         retry_until_pass(assert_disambiguation_on_record_update, retry_interval=2)
@@ -1224,14 +1107,12 @@ def test_disambiguation_removes_links_to_authors_records_if_record_moved_to_hidd
             "authors": [
                 {
                     "full_name": "Gross, Brian",
-                    "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
                     "emails": ["test@test.com"],
                     "curated_relation": True,
                     "record": author_record["self"],
                 },
                 {
                     "full_name": "Author, Test",
-                    "ids": [{"schema": "INSPIRE BAI", "value": "T.Author.1"}],
                     "emails": ["test@test.com"],
                     "curated_relation": True,
                     "record": author_record_2["self"],
@@ -1270,7 +1151,6 @@ def test_disambiguation_run_for_every_author_when_record_moved_from_private_coll
     author_data.update(
         {
             "name": {"value": "Gross, Brian"},
-            "ids": [{"schema": "INSPIRE BAI", "value": "B.Gross.1"}],
             "email_addresses": [{"current": True, "value": "b.gross@cern.ch"}],
         }
     )
@@ -1279,7 +1159,6 @@ def test_disambiguation_run_for_every_author_when_record_moved_from_private_coll
     author_data_2.update(
         {
             "name": {"value": "Author, Test"},
-            "ids": [{"schema": "INSPIRE BAI", "value": "T.Author.1"}],
             "email_addresses": [{"current": True, "value": "author@author.com"}],
         }
     )
@@ -1299,12 +1178,10 @@ def test_disambiguation_run_for_every_author_when_record_moved_from_private_coll
             "authors": [
                 {
                     "full_name": "Gross, Brian",
-                    "ids": [{"schema": "INSPIRE BAI", "value": "B.Gross.1"}],
                     "emails": ["b.gross@cern.ch"],
                 },
                 {
                     "full_name": "Author, Test",
-                    "ids": [{"schema": "INSPIRE BAI", "value": "T.Author.1"}],
                     "emails": ["author@author.com"],
                 },
             ],
@@ -1348,7 +1225,6 @@ def test_disambiguation_match_when_initials_not_present_in_matched_author(
             "authors": [
                 {
                     "full_name": "Gross, Brian",
-                    "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
                 }
             ]
         }
@@ -1413,7 +1289,6 @@ def test_disambiguation_reorders_name_after_succesfull_disambiguation(
                     "full_name": "Gross, Brian Davis",
                     "ids": [
                         {"schema": "INSPIRE ID", "value": "INSPIRE-00304313"},
-                        {"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"},
                     ],
                     "emails": ["test@test.com"],
                 }
@@ -1470,7 +1345,6 @@ def test_editor_lock_is_created_when_disambiguation_runs(
     author_data.update(
         {
             "name": {"value": "Gross, Brian"},
-            "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
             "email_addresses": [{"current": True, "value": "test@test.com"}],
         }
     )
@@ -1489,7 +1363,6 @@ def test_editor_lock_is_created_when_disambiguation_runs(
             "authors": [
                 {
                     "full_name": "Gross, Brian",
-                    "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
                     "emails": ["test@test.com"],
                 }
             ]
@@ -1542,7 +1415,6 @@ def test_disambiguation_deosnt_create_new_stub_author_if_theres_one(
             },
             "ids": [
                 {"schema": "INSPIRE ID", "value": "INSPIRE-00304313"},
-                {"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"},
             ],
         }
     )
@@ -1558,7 +1430,6 @@ def test_disambiguation_deosnt_create_new_stub_author_if_theres_one(
             },
             "ids": [
                 {"schema": "INSPIRE ID", "value": "INSPIRE-00304314"},
-                {"schema": "INSPIRE BAI", "value": "J.M.Maldacena.2"},
             ],
             "stub": True,
         }
@@ -1575,7 +1446,6 @@ def test_disambiguation_deosnt_create_new_stub_author_if_theres_one(
                     "full_name": "'t Hooft, Gerard",
                     "curated_relation": True,
                     "record": author_record_1["self"],
-                    "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"}],
                 }
             ]
         }
@@ -1590,7 +1460,6 @@ def test_disambiguation_deosnt_create_new_stub_author_if_theres_one(
                     "full_name": "'t Hooft, Gerard",
                     "curated_relation": True,
                     "record": author_record_2["self"],
-                    "ids": [{"schema": "INSPIRE BAI", "value": "J.M.Maldacena.2"}],
                 }
             ]
         }

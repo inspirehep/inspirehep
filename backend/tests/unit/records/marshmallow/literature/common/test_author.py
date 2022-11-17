@@ -48,7 +48,6 @@ def test_author_with_bai():
     expected = {
         "full_name": "Frank Castle",
         "first_name": "Frank Castle",
-        "bai": "Frank.Castle.1",
         "ids": [{"schema": "INSPIRE BAI", "value": "Frank.Castle.1"}],
     }
     result = schema.dumps(dump).data

@@ -1133,16 +1133,16 @@ def test_literature_assign_check_names_compatibility_when_no_record_in_matched_a
     author_profile_data = {
         "name": {"value": "Axelsen, Viktor A.", "preferred_name": "Axelsen, Viktor"},
         "ids": [
-            {"value": "V.Axelsen.1", "schema": "INSPIRE BAI"},
             {"schema": "ORCID", "value": author_profile_oricd},
         ],
         "control_number": 1,
     }
 
-    create_record("aut", data=author_profile_data)
+    create_record("aut", data=author_profile_data, without_author_refs=True)
 
     literature_1 = create_record(
         "lit",
+        without_author_refs=True,
         data={
             "control_number": 4,
             "authors": [

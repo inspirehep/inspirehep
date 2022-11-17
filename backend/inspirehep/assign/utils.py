@@ -7,7 +7,6 @@
 import structlog
 from flask import request
 from inspire_dojson.utils import get_recid_from_ref
-from inspire_utils.helpers import maybe_int
 from inspire_utils.name import ParsedName
 from inspire_utils.record import get_value
 from invenio_db import db
@@ -18,6 +17,7 @@ from sqlalchemy.orm.exc import NoResultFound
 
 from inspirehep.accounts.api import get_current_user_orcid
 from inspirehep.records.api import AuthorsRecord
+from inspirehep.records.utils import get_author_by_recid
 from inspirehep.search.api import LiteratureSearch
 
 LOGGER = structlog.getLogger()
@@ -27,24 +27,6 @@ def is_assign_view_enabled():
     return request.values.get(
         "search_type", "", type=str
     ) == "hep-author-publication" and request.values.get("author", "", type=str)
-
-
-def get_author_by_recid(literature_record, author_recid):
-    lit_authors_recids = {
-        get_recid_from_ref(author["record"]): author
-        for author in literature_record.get("authors", [])
-        if "record" in author
-    }
-    lit_author_found = lit_authors_recids.get(maybe_int(author_recid))
-
-    if not lit_author_found:
-        LOGGER.warning(
-            "Author not found in literature authors",
-            lit_authors_recids=lit_authors_recids.keys(),
-            author_recid=author_recid,
-            literature_recid=literature_record["control_number"],
-        )
-    return lit_author_found
 
 
 def update_author_bai(to_author_bai, lit_author):

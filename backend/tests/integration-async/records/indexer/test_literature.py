@@ -16,7 +16,7 @@ from invenio_search import current_search
 from sqlalchemy.orm.exc import StaleDataError
 
 from inspirehep.indexer.tasks import index_record
-from inspirehep.records.api import InspireRecord, LiteratureRecord
+from inspirehep.records.api import AuthorsRecord, InspireRecord, LiteratureRecord
 from inspirehep.records.receivers import index_after_commit
 from inspirehep.search.api import LiteratureSearch
 
@@ -323,12 +323,11 @@ def test_literature_citations_superseded_status_change_and_cited_records_are_rei
 def test_literature_regression_changing_bai_in_record_reindex_records_which_are_citing_changed_one(
     inspire_app, clean_celery_session, enable_self_citations
 ):
+    author_1 = InspireRecord.create(data=faker.record("aut", with_control_number=True))
+    author_2 = InspireRecord.create(data=faker.record("aut", with_control_number=True))
     data = {
         "authors": [
-            {
-                "full_name": "Jean-Luc Picard",
-                "ids": [{"schema": "INSPIRE BAI", "value": "Jean.L.Picard.1"}],
-            }
+            {"full_name": author_1["name"]["value"], "record": author_1["self"]}
         ]
     }
     data = faker.record("lit", data=data)
@@ -338,25 +337,27 @@ def test_literature_regression_changing_bai_in_record_reindex_records_which_are_
     )
     citer = LiteratureRecord.create(citer_data)
     db.session.commit()
-    expected_ids = ["Jean.L.Picard.1"]
+    expected_recids = [str(author_1["control_number"])]
 
     def assert_record():
         current_search.flush_and_refresh("records-hep")
         record_from_es = LiteratureSearch().get_record_data_from_es(citer)
-        assert expected_ids == record_from_es["referenced_authors_bais"]
+        assert expected_recids == record_from_es["referenced_authors_recids"]
 
     retry_until_pass(assert_record)
 
     data = dict(base_record)
-    data["authors"][0]["ids"][0]["value"] = "Jean.L.Picard.2"
+    data["authors"] = [
+        {"full_name": author_2["name"]["value"], "record": author_2["self"]}
+    ]
     base_record.update(data)
     db.session.commit()
-    expected_ids = ["Jean.L.Picard.2"]
+    expected_ids = [str(author_2["control_number"])]
 
     def assert_record():
         current_search.flush_and_refresh("records-hep")
         record_from_es = LiteratureSearch().get_record_data_from_es(citer)
-        assert expected_ids == record_from_es["referenced_authors_bais"]
+        assert expected_ids == record_from_es["referenced_authors_recids"]
 
     retry_until_pass(assert_record)
 
@@ -466,3 +467,45 @@ def test_indexer_deletes_record_from_es(inspire_app, datadir, clean_celery_sessi
     db.session.commit()
 
     retry_until_pass(assert_record_is_deleted_from_es)
+
+
+def test_indexing_updates_bai_in_literature_es_document(
+    inspire_app, clean_celery_session
+):
+    author_data = faker.record(
+        "aut", data={"ids": [{"schema": "INSPIRE BAI", "value": "A.Test.1"}]}
+    )
+    author = AuthorsRecord(data=author_data).create(data=author_data)
+    lit_data = faker.record(
+        "lit",
+        data={
+            "authors": [
+                {"full_name": author["name"]["value"], "record": author["self"]}
+            ]
+        },
+    )
+    literature = LiteratureRecord(data=lit_data).create(data=lit_data)
+    db.session.commit()
+
+    def assert_bai_in_lit_record():
+        current_search.flush_and_refresh("records-hep")
+        record_lit_es = (
+            LiteratureSearch().get_record(str(literature.id)).execute().hits[0]
+        )
+        assert record_lit_es["authors"][0]["bai"] == "A.Test.1"
+
+    retry_until_pass(assert_bai_in_lit_record)
+
+    new_ids = [{"schema": "INSPIRE BAI", "value": "A.Test.2"}]
+    author["ids"] = new_ids
+    author.update(dict(author))
+    db.session.commit()
+
+    def assert_bai_was_updated_in_es():
+        current_search.flush_and_refresh("records-hep")
+        record_lit_es = (
+            LiteratureSearch().get_record(str(literature.id)).execute().hits[0]
+        )
+        assert record_lit_es["authors"][0]["bai"] == "A.Test.2"
+
+    retry_until_pass(assert_bai_was_updated_in_es)

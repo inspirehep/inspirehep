@@ -10,11 +10,12 @@ from itertools import chain
 import numpy as np
 import pdfplumber
 import requests
+import structlog
 from beard.clustering import block_phonetic
 from flask import current_app
-from inspire_dojson.utils import get_record_ref
+from inspire_dojson.utils import get_recid_from_ref, get_record_ref
 from inspire_utils.date import earliest_date
-from inspire_utils.helpers import force_list
+from inspire_utils.helpers import force_list, maybe_int
 from inspire_utils.record import get_value, get_values_for_schema
 from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
@@ -23,6 +24,8 @@ from sqlalchemy.orm import aliased
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.errors import DownloadFileError, FileSizeExceededError
 from inspirehep.utils import get_inspirehep_url
+
+LOGGER = structlog.getLogger()
 
 
 def get_literature_earliest_date(data):
@@ -145,6 +148,24 @@ def get_author_by_bai(literature_record, author_bai):
         for author in literature_record.get("authors")
         if get_values_for_schema(author.get("ids", []), "INSPIRE BAI") == [author_bai]
     )
+
+
+def get_author_by_recid(literature_record, author_recid):
+    lit_authors_recids = {
+        get_recid_from_ref(author["record"]): author
+        for author in literature_record.get("authors", [])
+        if "record" in author
+    }
+    lit_author_found = lit_authors_recids.get(maybe_int(author_recid))
+
+    if not lit_author_found:
+        LOGGER.warning(
+            "Author not found in literature authors",
+            lit_authors_recids=lit_authors_recids.keys(),
+            author_recid=author_recid,
+            literature_recid=literature_record["control_number"],
+        )
+    return lit_author_found
 
 
 def remove_author_bai_from_id_list(author):

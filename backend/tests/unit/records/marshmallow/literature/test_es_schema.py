@@ -13,7 +13,7 @@ from inspirehep.records.marshmallow.literature import LiteratureElasticSearchSch
 
 
 @patch(
-    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_referenced_authors_bais",
+    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_referenced_authors_recids",
     return_value=[],
 )
 @patch(
@@ -37,7 +37,7 @@ def test_es_schema_removes_supervisors_from_authors(
 
 
 @patch(
-    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_referenced_authors_bais",
+    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_referenced_authors_recids",
     return_value=[],
 )
 @patch(
@@ -60,7 +60,7 @@ def test_es_schema_removes_supervisors_from_facet_author_name(
 
 
 @patch(
-    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_referenced_authors_bais",
+    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_referenced_authors_recids",
     return_value=[],
 )
 @patch(
@@ -94,7 +94,7 @@ def test_es_schema_removes_fulltext_fields_from_ui_display(
 
 
 @patch(
-    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_referenced_authors_bais",
+    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_referenced_authors_recids",
     return_value=[],
 )
 @patch(

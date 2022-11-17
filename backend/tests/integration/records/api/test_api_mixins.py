@@ -958,6 +958,6 @@ def test_new_enum_value_in_records_literature_is_populated(inspire_app):
     )
     LiteratureRecord(data=data).create(data=data)
     results = RecordsAuthors.query.all()
-    assert len(results) == 3
-    assert results[2].id_type == "recid"
-    assert results[2].author_id == str(author["control_number"])
+    assert len(results) == 1
+    assert results[0].id_type == "recid"
+    assert results[0].author_id == str(author["control_number"])

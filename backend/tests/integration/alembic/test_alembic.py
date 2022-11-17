@@ -8,13 +8,38 @@ from flask import current_app
 from flask_alembic import Alembic
 from invenio_db import db
 from sqlalchemy import text
+from sqlalchemy.dialects.postgresql import ENUM
 from sqlalchemy.engine import reflection
 
 
 def test_downgrade(inspire_app):
     alembic = Alembic(current_app)
-    alembic.downgrade("0d1cf7c4501e")
-    assert "recid" not in _get_enum_values("enum_author_schema_type")
+    alembic.downgrade(target="b495825c322b")
+    assert isinstance(_get_column("id_type", "records_authors")["type"], ENUM)
+    assert set(_get_column("id_type", "records_authors")["type"].enums) == {
+        "INSPIRE ID",
+        "INSPIRE BAI",
+        "ORCID",
+        "JACOW",
+        "KAKEN",
+        "ARXIV",
+        "CERN",
+        "DESY",
+        "GOOGLESCHOLAR",
+        "VIAF",
+        "RESEARCHERID",
+        "SCOPUS",
+        "SPIRES",
+        "WIKIPEDIA",
+        "SLAC",
+        "TWITTER",
+        "LINKEDIN",
+        "collaboration",
+        "recid",
+    }
+
+    alembic.downgrade(target="0d1cf7c4501e")
+    assert "recid" not in _get_column("id_type", "records_authors")["type"].enums
     alembic.downgrade(target="35ba3d715114")
     assert "id" in get_primary_keys("students_advisors")
     alembic.downgrade(target="232af38d2604")
@@ -274,8 +299,15 @@ def test_upgrade(inspire_app):
     assert set(["journal_uuid", "literature_uuid"]) == set(
         get_primary_keys("journal_literature")
     )
-    alembic.upgrade("b495825c322b")
-    assert "recid" in _get_enum_values("enum_author_schema_type")
+    alembic.upgrade(target="b495825c322b")
+    assert "recid" in _get_column("id_type", "records_authors")["type"].enums
+
+    alembic.upgrade(target="3637cb5551a8")
+    assert isinstance(_get_column("id_type", "records_authors")["type"], ENUM)
+    assert _get_column("id_type", "records_authors")["type"].enums == [
+        "collaboration",
+        "recid",
+    ]
 
 
 def _get_indexes(tablename):
@@ -340,7 +372,9 @@ def get_primary_keys(tablename):
     return primary_keys
 
 
-def _get_enum_values(enum_name):
-    result = db.session.execute(f"SELECT unnest(enum_range(NULL::{enum_name}))")
-    enum_values = [val[0] for val in result.fetchall()]
-    return enum_values
+def _get_column(column_name, table_name):
+    insp = reflection.Inspector.from_engine(db.engine)
+    columns_found = [
+        col for col in insp.get_columns(table_name) if col["name"] == column_name
+    ]
+    return columns_found[0]

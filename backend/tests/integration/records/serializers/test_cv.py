@@ -73,7 +73,7 @@ def test_cv_with_linked_and_unlinked_authors(inspire_app, shared_datadir):
             {"full_name": "Doe, John6"},
         ],
     }
-    record = create_record("lit", data=data)
+    record = create_record("lit", data=data, without_author_refs=True)
     record_control_number = record["control_number"]
 
     expected_status_code = 200
@@ -93,11 +93,14 @@ def test_cv_with_linked_and_unlinked_authors(inspire_app, shared_datadir):
 
 def test_cv_with_multiple_collaborations(inspire_app, shared_datadir):
     headers = {"Accept": "text/vnd+inspire.html+html"}
+    author = create_record(
+        "aut", data={"name": {"value": "Doe, John"}, "control_number": 1}
+    )
     data = {
         "control_number": 637_275_237,
         "titles": [{"title": "This is a title."}],
         "collaborations": [{"value": "ATLAS"}, {"value": "CMS"}],
-        "authors": [{"full_name": "Doe, John6"}],
+        "authors": [{"full_name": "Doe, John6", "record": author["self"]}],
     }
     record = create_record("lit", data=data)
     record_control_number = record["control_number"]
@@ -143,11 +146,17 @@ def test_cv_with_collaborations_and_no_authors(inspire_app, shared_datadir):
 
 def test_cv_with_collaboration_and_multiple_authors(inspire_app, shared_datadir):
     headers = {"Accept": "text/vnd+inspire.html+html"}
+    author = create_record(
+        "aut", data={"name": {"value": "John Doe"}, "control_number": 1}
+    )
     data = {
         "control_number": 637_275_237,
         "titles": [{"title": "This is a title."}],
         "collaborations": [{"value": "ATLAS"}],
-        "authors": [{"full_name": "Doe, John6"}, {"full_name": "Didi, Jane"}],
+        "authors": [
+            {"full_name": "Doe, John6", "record": author["self"]},
+            {"full_name": "Didi, Jane"},
+        ],
     }
     record = create_record("lit", data=data)
     record_control_number = record["control_number"]
@@ -171,11 +180,20 @@ def test_cv_with_collaboration_with_suffix_and_multiple_authors(
     inspire_app, shared_datadir
 ):
     headers = {"Accept": "text/vnd+inspire.html+html"}
+    author = create_record(
+        "aut", data={"name": {"value": "Doe, John"}, "control_number": 1}
+    )
+    author_2 = create_record(
+        "aut", data={"name": {"value": "Didi, Jane"}, "control_number": 2}
+    )
     data = {
         "control_number": 637_275_237,
         "titles": [{"title": "This is a title."}],
         "collaborations": [{"value": "Particle Data Group"}],
-        "authors": [{"full_name": "Doe, John6"}, {"full_name": "Didi, Jane"}],
+        "authors": [
+            {"full_name": "Doe, John6", "record": author["self"]},
+            {"full_name": "Didi, Jane", "record": author_2["self"]},
+        ],
     }
     record = create_record("lit", data=data)
     record_control_number = record["control_number"]
@@ -198,12 +216,16 @@ def test_cv_with_collaboration_with_suffix_and_multiple_authors(
 def test_cv_with_author_with_affiliations(inspire_app, shared_datadir):
     headers = {"Accept": "text/vnd+inspire.html+html"}
     institution = create_record("ins", data={"control_number": 637_275_238})
+    authors = create_record(
+        "aut", data={"control_number": 1, "name": {"value": "Doe, John"}}
+    )
     data = {
         "control_number": 637_275_237,
         "titles": [{"title": "This is a title."}],
         "authors": [
             {
                 "full_name": "Doe, John6",
+                "record": authors["self"],
                 "affiliations": [
                     {
                         "record": {
@@ -236,11 +258,15 @@ def test_cv_with_author_with_affiliations(inspire_app, shared_datadir):
 def test_cv_with_author_with_multiple_affiliations(inspire_app, shared_datadir):
     headers = {"Accept": "text/vnd+inspire.html+html"}
     institution = create_record("ins", data={"control_number": 637_275_238})
+    author = create_record(
+        "aut", data={"control_number": 1, "name": {"value": "Doe, John"}}
+    )
     data = {
         "control_number": 637_275_237,
         "titles": [{"title": "This is a title."}],
         "authors": [
             {
+                "record": author["self"],
                 "full_name": "Doe, John6",
                 "affiliations": [
                     {
@@ -274,10 +300,19 @@ def test_cv_with_author_with_multiple_affiliations(inspire_app, shared_datadir):
 
 def test_cv_with_author_with_editor_role(inspire_app, shared_datadir):
     headers = {"Accept": "text/vnd+inspire.html+html"}
+    author = create_record(
+        "aut", data={"control_number": 1, "name": {"value": "Doe, John"}}
+    )
     data = {
         "control_number": 637_275_237,
         "titles": [{"title": "This is a title."}],
-        "authors": [{"full_name": "Doe, John6", "inspire_roles": ["editor"]}],
+        "authors": [
+            {
+                "record": author["self"],
+                "full_name": "Doe, John6",
+                "inspire_roles": ["editor"],
+            }
+        ],
     }
     record = create_record("lit", data=data)
     record_control_number = record["control_number"]
@@ -531,6 +566,9 @@ def test_cv_with_arxiv_eprints(inspire_app, shared_datadir):
 
 def test_cv_search_with_more_complex_records(inspire_app, shared_datadir):
     headers = {"Accept": "text/vnd+inspire.html+html"}
+    author = create_record(
+        "aut", data={"control_number": 1, "name": {"value": "Doe, John"}}
+    )
     data_1 = {
         "control_number": 637_275_237,
         "titles": [{"title": "This is a title."}],
@@ -542,7 +580,13 @@ def test_cv_search_with_more_complex_records(inspire_app, shared_datadir):
     data_2 = {
         "control_number": 637_275_232,
         "titles": [{"title": "Yet another title"}],
-        "authors": [{"full_name": "Doe, John6", "inspire_roles": ["editor"]}],
+        "authors": [
+            {
+                "record": author["self"],
+                "full_name": "Doe, John6",
+                "inspire_roles": ["editor"],
+            }
+        ],
         "publication_info": [
             {
                 "journal_title": "Test Journal",

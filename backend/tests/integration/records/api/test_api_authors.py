@@ -14,7 +14,7 @@ from invenio_pidstore.models import PersistentIdentifier
 from invenio_records.models import RecordMetadata
 from jsonschema import ValidationError
 
-from inspirehep.records.api import AuthorsRecord, InspireRecord
+from inspirehep.records.api import AuthorsRecord, InspireRecord, LiteratureRecord
 
 
 def test_authors_create(inspire_app):
@@ -224,48 +224,6 @@ def test_redirection_works_for_authors(inspire_app):
     assert new_record == record.id
 
 
-def test_assign_author_to_papers(inspire_app, override_config):
-
-    with override_config(
-        FEATURE_FLAG_ENABLE_ASSIGN_AUTHOR_PAPERS=True,
-    ):
-        lit_record = create_record(
-            "lit",
-            data={
-                "authors": [
-                    {
-                        "full_name": "Test Author",
-                        "ids": [{"schema": "INSPIRE BAI", "value": "T.Author.1"}],
-                    }
-                ]
-            },
-        )
-        lit_record_1 = create_record(
-            "lit",
-            data={
-                "authors": [
-                    {
-                        "full_name": "Test Author",
-                        "ids": [{"schema": "INSPIRE BAI", "value": "T.Author.1"}],
-                    }
-                ]
-            },
-        )
-        record = create_record(
-            "aut", data={"ids": [{"schema": "INSPIRE BAI", "value": "T.Author.1"}]}
-        )
-
-    lit_record_db = InspireRecord.get_record_by_pid_value(
-        lit_record["control_number"], "lit"
-    )
-    lit_record_1_db = InspireRecord.get_record_by_pid_value(
-        lit_record_1["control_number"], "lit"
-    )
-
-    assert lit_record_db["authors"][0]["record"] == record["self"]
-    assert lit_record_1_db["authors"][0]["record"] == record["self"]
-
-
 def test_get_stub_authors_by_pids(inspire_app):
     author = create_record("aut")
     author2 = create_record("aut", data={"stub": True})
@@ -277,3 +235,27 @@ def test_get_stub_authors_by_pids(inspire_app):
 
     result = list(AuthorsRecord.get_stub_authors_by_pids(authors_to_search))
     assert len(result) == 1
+
+
+def test_get_linked_author_paper_uuids_if_author_changed_bai(inspire_app):
+    data_aut = faker.record(
+        "aut", data={"ids": [{"schema": "INSPIRE BAI", "value": "A.Bai.1"}]}
+    )
+    author_record = AuthorsRecord(data=data_aut).create(data=data_aut)
+    data_lit = faker.record(
+        "lit",
+        data={
+            "authors": [
+                {
+                    "record": author_record["self"],
+                    "full_name": data_aut["name"]["value"],
+                }
+            ]
+        },
+    )
+    literature_record = LiteratureRecord(data=data_lit).create(data_lit)
+    new_ids = [{"schema": "INSPIRE BAI", "value": "A.Bai.2"}]
+    author_record["ids"] = new_ids
+    author_record.update(dict(author_record))
+    records_ids = author_record.get_linked_author_paper_uuids_if_author_changed_bai()
+    assert str(literature_record.id) in records_ids
