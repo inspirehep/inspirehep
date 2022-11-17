@@ -562,7 +562,7 @@ jobs:
           -f data/records/journals/1213103.json
           -f data/records/journals/1213100.json
       - name: 'End to end test - Chrome'
-        uses: cypress-io/github-action@v4
+        uses: cypress-io/github-action@v2
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
         with:
@@ -830,7 +830,7 @@ jobs:
           -f data/records/journals/1213103.json
           -f data/records/journals/1213100.json
       - name: 'End to end test - Firefox'
-        uses: cypress-io/github-action@v4
+        uses: cypress-io/github-action@v2
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
         with:
