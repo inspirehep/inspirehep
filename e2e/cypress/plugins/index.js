@@ -17,16 +17,10 @@ const {
 } = require('cypress-image-snapshot/plugin');
 const addLogsPrinterPlugin = require('cypress-terminal-report/src/installLogsPrinter');
 
-
 module.exports = (on, config) => {
   on('before:browser:launch', (browser = {}, options) => {
-    if (browser.name === 'chrome') {
+    if (browser.name === 'chrome' || browser.name === 'firefox') {
       options.args.push('--window-size=1920,1080');
-      return options;
-    }
-    if (browser.name === 'firefox') {
-      options.args.push('--width=1920');
-      options.args.push('--height=1080');
       return options;
     }
   });

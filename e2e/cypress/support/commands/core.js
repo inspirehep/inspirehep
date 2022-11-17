@@ -69,11 +69,7 @@ Cypress.Commands.add('registerRoute', (optionsOrRoute = '/api/**') => {
 });
 
 Cypress.Commands.add('waitForRoute', (route = '/api/**') => {
-  return cy.wait(`@${route}`, { timeout: 45000 });
-});
-
-Cypress.Commands.add('waitForReferences', (route = '/api/**') => {
-  return cy.wait(45000);
+  return cy.wait(`@${route}`, { timeout: 40000 });
 });
 
 Cypress.Commands.add('requestRecord', ({ collection, recordId }) => {
@@ -87,11 +83,11 @@ Cypress.Commands.add('requestEditor', ({ collection, recordId }) => {
 });
 
 Cypress.Commands.add('waitForSearchResults', () => {
-  cy.get('[data-test-id="search-results"]', { timeout: 20000 }).should(
+  cy.get('[data-test-id="search-results"]', { timeout: 10000 }).should(
     'be.visible'
   );
 });
 
 Cypress.Commands.add('waitForLoading', () => {
-  cy.get('[data-test-id="loading"]', { timeout: 20000 }).should('not.exist');
+  cy.get('[data-test-id="loading"]', { timeout: 10000 }).should('not.exist');
 });
