@@ -31,6 +31,7 @@ LOGGER = structlog.getLogger()
 
 
 class PapersAuthorsExtensionMixin:
+    # TODO: remove it after modyfying enum
     def generate_entries_for_authors_in_authors_records_table(self):
         """Generates RecordsAuthors objects table based on record data for authors"""
 
@@ -52,6 +53,27 @@ class PapersAuthorsExtensionMixin:
                         recid=self.get("control_number"),
                         uuid=str(self.id),
                     )
+        return table_entries_buffer
+
+    def generate_entries_for_authors_recids_in_authors_records_table(self):
+        """Generates RecordsAuthors objects table based on record data for authors"""
+        table_entries_buffer = []
+        for ref in self.get_value("authors.record", []):
+            recid = get_recid_from_ref(ref)
+            if not recid:
+                LOGGER.exception(
+                    "Malformated author reference!",
+                    recid=self.get("control_number"),
+                    uuid=str(self.id),
+                )
+                continue
+            table_entries_buffer.append(
+                RecordsAuthors(
+                    author_id=get_recid_from_ref(ref),
+                    id_type="recid",
+                    record_id=self.id,
+                )
+            )
         return table_entries_buffer
 
     def generate_entries_for_collaborations_in_authors_records_table(self):
@@ -84,13 +106,18 @@ class PapersAuthorsExtensionMixin:
                 uuid=str(self.id),
             )
             return
+        # TODO: remove it after modyfying enum
         table_entries_buffer = (
             self.generate_entries_for_authors_in_authors_records_table()
         )
         table_entries_buffer.extend(
             self.generate_entries_for_collaborations_in_authors_records_table()
         )
-
+        # TODO: remove the feature flag
+        if current_app.config["FEATURE_FLAG_ENABLE_RECID_IN_RECORDS_AUTHORS"]:
+            table_entries_buffer.extend(
+                self.generate_entries_for_authors_recids_in_authors_records_table()
+            )
         db.session.bulk_save_objects(table_entries_buffer)
         LOGGER.info(
             "authors_record table updated for record",

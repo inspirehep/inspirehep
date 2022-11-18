@@ -22,7 +22,11 @@ from sqlalchemy.dialects.postgresql import JSONB
 from inspirehep.mailing.api.jobs import send_job_deadline_reminder
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.api import InspireRecord, JobsRecord
-from inspirehep.records.tasks import populate_journal_literature
+from inspirehep.records.models import RecordsAuthors
+from inspirehep.records.tasks import (
+    populate_journal_literature,
+    regenerate_author_records_table_entries,
+)
 from inspirehep.search.api import LiteratureSearch
 from inspirehep.utils import chunker
 
@@ -224,3 +228,14 @@ def populate_journal_literature_table():
     for chunk in chunker(records_es, 100):
         uuids = [record.meta.id for record in chunk]
         populate_journal_literature.delay(uuids)
+
+
+@relationships.command(help="Populates relations in RecordsAuthors table")
+@with_appcontext
+def populate_recid_in_record_authors_table():
+    records_ids_query = db.session.query(RecordsAuthors.record_id).distinct()
+
+    uuids_to_regenerate = []
+    for batch in chunker(records_ids_query.yield_per(100), 100):
+        uuids_to_regenerate = [str(uuid[0]) for uuid in batch]
+        regenerate_author_records_table_entries(uuids_to_regenerate)
