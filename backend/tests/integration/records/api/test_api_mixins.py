@@ -15,11 +15,13 @@ from helpers.providers.faker import faker
 from helpers.utils import create_record
 
 from inspirehep.records.api import LiteratureRecord
+from inspirehep.records.api.authors import AuthorsRecord
 from inspirehep.records.api.journals import JournalsRecord
 from inspirehep.records.models import (
     ExperimentLiterature,
     InstitutionLiterature,
     JournalLiterature,
+    RecordsAuthors,
     StudentsAdvisors,
 )
 
@@ -929,3 +931,33 @@ def test_journal_literature_is_cleaned_after_hard_delete_lit_record(
     assert JournalLiterature.query.filter_by(literature_uuid=rec.id).count() == 1
     rec.hard_delete()
     assert JournalLiterature.query.filter_by(journal_uuid=journal_rec.id).count() == 0
+
+
+def test_new_enum_value_in_records_literature_is_populated(inspire_app):
+    author_data = faker.record(
+        "aut",
+        data={
+            "ids": [
+                {"value": "H.Kuipers.1", "schema": "INSPIRE BAI"},
+                {"value": "HEPNAMES-221945", "schema": "SPIRES"},
+            ]
+        },
+    )
+    author = AuthorsRecord(data=author_data).create(data=author_data)
+    data = faker.record(
+        "lit",
+        {
+            "authors": [
+                {
+                    "record": author["self"],
+                    "full_name": author["name"]["value"],
+                    "ids": author["ids"],
+                }
+            ]
+        },
+    )
+    LiteratureRecord(data=data).create(data=data)
+    results = RecordsAuthors.query.all()
+    assert len(results) == 3
+    assert results[2].id_type == "recid"
+    assert results[2].author_id == str(author["control_number"])

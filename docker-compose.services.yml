@@ -45,7 +45,7 @@ services:
     image: rabbitmq:3.8-management-alpine
     restart: 'always'
   mq:
-    image: rabbitmq:3.8-management-alpine
+    image: rabbitmq:3.9.11-management
     restart: 'always'
   es:
     build:

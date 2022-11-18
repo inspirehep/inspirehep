@@ -168,6 +168,7 @@ class AuthorSchemaType(enum.Enum):
     TWITTER = "TWITTER"
     LINKEDIN = "LINKEDIN"
     collaboration = "collaboration"
+    recid = "recid"
 
 
 class RecordsAuthors(db.Model):
