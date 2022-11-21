@@ -23,6 +23,7 @@ Sentry.init({
   dsn: getConfigFor('REACT_APP_SENTRY_DSN'),
   release: process.env.REACT_APP_VERSION,
   environment: getConfigFor('REACT_APP_SENTRY_ENVIRONMENT'),
+  ignoreErrors: ['ResizeObserver loop limit exceeded']
 });
 Sentry.setUser({ id: getClientId() });
 
