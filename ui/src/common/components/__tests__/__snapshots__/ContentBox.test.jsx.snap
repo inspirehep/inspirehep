@@ -23,7 +23,6 @@ exports[`ContentBox renders ContentBox with actions 1`] = `
     <Row
       className="actions ph2"
       justify="space-between"
-      type="flex"
     >
       <Col />
       <Col />
@@ -53,7 +52,6 @@ exports[`ContentBox renders ContentBox with actions and title with loading 1`] =
     <Row
       className="actions ph2"
       justify="space-between"
-      type="flex"
     >
       <Col />
       <Col />
@@ -83,7 +81,6 @@ exports[`ContentBox renders ContentBox with actions and title without loading 1`
     <Row
       className="actions ph2"
       justify="space-between"
-      type="flex"
     >
       <Col />
       <Col />
@@ -118,7 +115,6 @@ exports[`ContentBox renders ContentBox with subTitle and className 1`] = `
     <Row
       className="actions ph2"
       justify="space-between"
-      type="flex"
     >
       <Col />
       <Col />
@@ -148,7 +144,6 @@ exports[`ContentBox renders ContentBox without actions 1`] = `
     <Row
       className="actions ph2"
       justify="space-between"
-      type="flex"
     >
       <Col />
       <Col />

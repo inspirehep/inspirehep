@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
-import InlineList from '../../common/components/InlineList';
+import InlineDataList from '../../common/components/InlineList';
 
 class IsbnList extends Component {
   static renderIsbn(isbn) {
@@ -22,7 +22,7 @@ class IsbnList extends Component {
   render() {
     const { isbns } = this.props;
     return (
-      <InlineList
+      <InlineDataList
         label="ISBN"
         items={isbns}
         extractKey={IsbnList.extractKeyFromIsbn}

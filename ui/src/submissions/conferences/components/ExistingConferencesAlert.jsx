@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Button } from 'antd';
 import FieldInfoAlert from '../../common/components/FieldInfoAlert';
-import pluralizeUnlessSingle from '../../../common/utils';
+import { pluralizeUnlessSingle } from '../../../common/utils';
 import ExistingConferencesDrawer from './ExistingConferencesDrawer';
 
 function ExistingConferencesAlert({

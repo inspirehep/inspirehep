@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
-import InlineList from '../../common/components/InlineList';
+import InlineDataList from '../../common/components/InlineList';
 import Institution from './Institution';
 
 class ThesisInfo extends Component {
   renderInstutions() {
     const { thesisInfo } = this.props;
     return (
-      <InlineList
+      <InlineDataList
         wrapperClassName="di"
         items={thesisInfo.get('institutions')}
         extractKey={(institution) => institution.get('name')}

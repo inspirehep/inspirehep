@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
 import UnclickableTag from './UnclickableTag';
-import InlineList from './InlineList';
+import InlineDataList from './InlineList';
 
 class ArxivCategoryList extends Component {
   static renderArxivCategory(category) {
@@ -13,7 +13,7 @@ class ArxivCategoryList extends Component {
   render() {
     const { arxivCategories, wrapperClassName } = this.props;
     return (
-      <InlineList
+      <InlineDataList
         separateItems={false}
         items={arxivCategories}
         renderItem={ArxivCategoryList.renderArxivCategory}

@@ -15,7 +15,7 @@ import { Journal } from '../containers/SearchPageContainer';
 import IconText from '../../common/components/IconText';
 import UserAction from '../../common/components/UserAction';
 import EventTracker from '../../common/components/EventTracker';
-import pluralizeUnlessSingle from '../../common/utils';
+import { pluralizeUnlessSingle } from '../../common/utils';
 
 export const JournalItem = ({
   result,

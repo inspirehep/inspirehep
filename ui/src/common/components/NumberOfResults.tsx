@@ -1,5 +1,5 @@
 import React from 'react';
-import pluralizeUnlessSingle from '../utils';
+import { pluralizeUnlessSingle } from '../utils';
 import FormattedNumber from './FormattedNumber';
 
 const NumberOfResults = ({ numberOfResults }: { numberOfResults: number }) => (

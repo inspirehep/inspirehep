@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
-import InlineList, {
+import InlineDataList, {
   SEPARATOR_MIDDLEDOT,
 } from '../../common/components/InlineList';
 
 function InstitutionsHistoricalDataList({ historicalData }) {
   return (
-    <InlineList
+    <InlineDataList
       label="Note"
       items={historicalData}
       separator={SEPARATOR_MIDDLEDOT}

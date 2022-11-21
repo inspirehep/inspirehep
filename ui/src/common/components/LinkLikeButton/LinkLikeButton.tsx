@@ -9,7 +9,7 @@ const LinkLikeButton = ({
   dataTestId,
   color,
 }: {
-  children: JSX.Element;
+  children: JSX.Element | string;
   onClick: MouseEventHandler<HTMLElement>;
   dataTestId: string;
   color: string

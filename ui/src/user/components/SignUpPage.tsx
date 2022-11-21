@@ -5,11 +5,7 @@ import { FormikHelpers } from 'formik';
 import SingUpForm from './SingUpForm';
 import DocumentHead from '../../common/components/DocumentHead';
 
-function SignUpPage({
-  onSubmit,
-  loading,
-  error,
-}: {
+const SignUpPage: React.FC<{
   onSubmit: ((
     values: {},
     formikHelpers: FormikHelpers<{}>
@@ -17,11 +13,16 @@ function SignUpPage({
     Function;
   loading: boolean;
   error?: { message: string };
-}) {
+}> = ({ onSubmit, loading, error }) => {
   return (
     <>
       <DocumentHead title="Sign up" />
-      <Row className="h-100" justify="center" align="middle" data-testid="sign-up">
+      <Row
+        className="h-100"
+        justify="center"
+        align="middle"
+        data-testid="sign-up"
+      >
         <Card>
           <p>
             Please let us know your e-mail address to complete your account
@@ -41,6 +42,6 @@ function SignUpPage({
       </Row>
     </>
   );
-}
+};
 
 export default SignUpPage;

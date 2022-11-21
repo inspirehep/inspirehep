@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
-import InlineList, { SEPARATOR_AND } from '../../common/components/InlineList';
+import InlineDataList, { SEPARATOR_AND } from '../../common/components/InlineList';
 
 function extractSeries(bookSeries) {
   return bookSeries.get('title') + bookSeries.get('volume', '');
@@ -20,7 +20,7 @@ function renderSeriesInfo(bookSeries) {
 
 function BookSeriesInfoList({ bookSeries }) {
   return (
-    <InlineList
+    <InlineDataList
       label="Published in"
       items={bookSeries}
       separator={SEPARATOR_AND}

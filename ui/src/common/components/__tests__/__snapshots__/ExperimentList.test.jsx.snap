@@ -12,7 +12,7 @@ exports[`ExperimentList renders arxiv categories 1`] = `
   </span>
   <ul>
     <li
-      key="CERN-LHC-CMS"
+      key="CERN-LHC-CMS-0"
     >
       <Link
         to="/experiments/1110623"
@@ -22,7 +22,7 @@ exports[`ExperimentList renders arxiv categories 1`] = `
       , 
     </li>
     <li
-      key="CERN-LHC-LHCb"
+      key="CERN-LHC-LHCb-2"
     >
       CERN-LHC-LHCb
     </li>

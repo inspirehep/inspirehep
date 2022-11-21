@@ -6,7 +6,7 @@ import { AUTHORS } from '../../../common/routes';
 
 function Advisor({ advisor }: { advisor: Map<string, string> }) {
   const name = advisor.get('name');
-  const $ref = advisor.getIn(['record', '$ref']);
+  const $ref = advisor.getIn(['record', '$ref']) as string;
   const recordId = getRecordIdFromRef($ref);
   const profileOrSearchUrl = recordId
     ? `${AUTHORS}/${recordId}`

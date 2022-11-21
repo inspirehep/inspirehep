@@ -12,7 +12,7 @@ exports[`InstitutionNameVariantsList renders 1`] = `
   </span>
   <ul>
     <li
-      key="Name1"
+      key="Name1-0"
     >
       <span>
         Name1
@@ -20,7 +20,7 @@ exports[`InstitutionNameVariantsList renders 1`] = `
       , 
     </li>
     <li
-      key="Name2"
+      key="Name2-2"
     >
       <span>
         Name2

@@ -5,7 +5,9 @@ exports[`ImprintInfo renders date with month and day 1`] = `
   className="__InlineList__"
 >
   <ul>
-    <li>
+    <li
+      key="undefined-0"
+    >
       <div>
         <span>
           Published:
@@ -22,7 +24,9 @@ exports[`ImprintInfo renders imprints with date 1`] = `
   className="__InlineList__"
 >
   <ul>
-    <li>
+    <li
+      key="undefined-0"
+    >
       <div>
         <span>
           Published:
@@ -39,7 +43,9 @@ exports[`ImprintInfo renders imprints with date and place 1`] = `
   className="__InlineList__"
 >
   <ul>
-    <li>
+    <li
+      key="undefined-0"
+    >
       <div>
         <span>
           Published:
@@ -57,7 +63,9 @@ exports[`ImprintInfo renders imprints with date and publisher 1`] = `
   className="__InlineList__"
 >
   <ul>
-    <li>
+    <li
+      key="undefined-0"
+    >
       <div>
         <span>
           Published:
@@ -75,7 +83,9 @@ exports[`ImprintInfo renders imprints with date, publisher, and place 1`] = `
   className="__InlineList__"
 >
   <ul>
-    <li>
+    <li
+      key="undefined-0"
+    >
       <div>
         <span>
           Published:
@@ -94,7 +104,9 @@ exports[`ImprintInfo renders imprints with place 1`] = `
   className="__InlineList__"
 >
   <ul>
-    <li>
+    <li
+      key="undefined-0"
+    >
       <div>
         <span>
           Published:
@@ -111,7 +123,9 @@ exports[`ImprintInfo renders imprints with publisher 1`] = `
   className="__InlineList__"
 >
   <ul>
-    <li>
+    <li
+      key="undefined-0"
+    >
       <div>
         <span>
           Published:
@@ -128,7 +142,9 @@ exports[`ImprintInfo renders imprints with publisher and place 1`] = `
   className="__InlineList__"
 >
   <ul>
-    <li>
+    <li
+      key="undefined-0"
+    >
       <div>
         <span>
           Published:
@@ -146,7 +162,9 @@ exports[`ImprintInfo renders multiple imprints 1`] = `
   className="__InlineList__"
 >
   <ul>
-    <li>
+    <li
+      key="undefined-0"
+    >
       <div>
         <span>
           Published:
@@ -157,7 +175,9 @@ exports[`ImprintInfo renders multiple imprints 1`] = `
       </div>
        and 
     </li>
-    <li>
+    <li
+      key="undefined-2"
+    >
       <div>
         <span>
           Published:

@@ -3,7 +3,7 @@ import { notification } from 'antd';
 
 import { AUTHORS } from '../common/routes';
 import LinkWithTargetBlank from '../common/components/LinkWithTargetBlank';
-import pluralizeUnlessSingle from '../common/utils';
+import { pluralizeUnlessSingle } from '../common/utils';
 
 type AssignActionType = 'claimed to' | 'moved to' | 'removed from';
 

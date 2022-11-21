@@ -6,13 +6,13 @@ exports[`RanksList renders ranks 1`] = `
 >
   <ul>
     <li
-      key="POSTDOC"
+      key="POSTDOC-0"
     >
       PostDoc
        • 
     </li>
     <li
-      key="PHD"
+      key="PHD-2"
     >
       PhD
     </li>

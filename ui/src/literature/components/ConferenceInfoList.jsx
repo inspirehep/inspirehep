@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
-import InlineList from '../../common/components/InlineList';
+import InlineDataList from '../../common/components/InlineList';
 import ConferenceInfo from './ConferenceInfo';
 
 class ConferenceInfoList extends Component {
   render() {
     const { conferenceInfo, wrapperClassName, isProceedings } = this.props;
     return (
-      <InlineList
+      <InlineDataList
         wrapperClassName={wrapperClassName}
         label={isProceedings ? "Proceedings of" : "Contribution to"}
         items={conferenceInfo}

@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
-import InlineList from '../../common/components/InlineList';
+import InlineDataList from '../../common/components/InlineList';
 
 class RegionsList extends Component {
   render() {
     const { regions } = this.props;
-    return <InlineList items={regions} />;
+    return <InlineDataList items={regions} />;
   }
 }
 

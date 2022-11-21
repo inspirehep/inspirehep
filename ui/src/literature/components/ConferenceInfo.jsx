@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Map, List } from 'immutable';
 import { Link } from 'react-router-dom';
-import InlineList, { SEPARATOR_AND } from '../../common/components/InlineList';
+import InlineDataList, { SEPARATOR_AND } from '../../common/components/InlineList';
 import { getPageDisplay } from '../utils';
 
 class ConferenceInfo extends Component {
   renderAcronyms() {
     const { conferenceInfo } = this.props;
     return (
-      <InlineList
+      <InlineDataList
         wrapperClassName="di"
         separator={SEPARATOR_AND}
         items={conferenceInfo.get('acronyms')}

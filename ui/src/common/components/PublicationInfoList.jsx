@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
-import InlineList from './InlineList';
+import InlineDataList from './InlineList';
 import PublicationInfo from './PublicationInfo';
 
 class PublicationInfoList extends Component {
@@ -10,7 +10,7 @@ class PublicationInfoList extends Component {
     const { publicationInfo, labeled } = this.props;
     const label = labeled ? 'Published in' : null;
     return (
-      <InlineList
+      <InlineDataList
         label={label}
         items={publicationInfo}
         extractKey={info =>

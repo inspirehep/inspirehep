@@ -12,7 +12,7 @@ exports[`RelatedRecordsList renders with multiple records 1`] = `
   </span>
   <ul>
     <li
-      key="123"
+      key="123-0"
     >
       <Link
         to="/institutions/123"
@@ -22,7 +22,7 @@ exports[`RelatedRecordsList renders with multiple records 1`] = `
       , 
     </li>
     <li
-      key="124"
+      key="124-2"
     >
       <Link
         to="/institutions/124"
@@ -46,7 +46,7 @@ exports[`RelatedRecordsList renders with one record 1`] = `
   </span>
   <ul>
     <li
-      key="123"
+      key="123-0"
     >
       <Link
         to="/experiments/123"

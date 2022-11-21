@@ -6,7 +6,7 @@ exports[`EventSeries renders conference series with name and number 1`] = `
 >
   <ul>
     <li
-      key="Conference Name"
+      key="Conference Name-0"
     >
       <span>
         <span>
@@ -34,7 +34,7 @@ exports[`EventSeries renders seminar series with name and number 1`] = `
 >
   <ul>
     <li
-      key="Seminar Name"
+      key="Seminar Name-0"
     >
       <span>
         <span>
@@ -62,7 +62,7 @@ exports[`EventSeries renders several series 1`] = `
 >
   <ul>
     <li
-      key="Conference 1"
+      key="Conference 1-0"
     >
       <span>
         <span>
@@ -79,7 +79,7 @@ exports[`EventSeries renders several series 1`] = `
        and 
     </li>
     <li
-      key="Conference 2"
+      key="Conference 2-2"
     >
       <span>
         <span>
@@ -99,7 +99,7 @@ exports[`EventSeries renders several series 1`] = `
        and 
     </li>
     <li
-      key="Conference 3"
+      key="Conference 3-4"
     >
       <span>
         <span>
@@ -124,7 +124,7 @@ exports[`EventSeries renders with only name 1`] = `
 >
   <ul>
     <li
-      key="Conference Name"
+      key="Conference Name-0"
     >
       <span>
         <span>

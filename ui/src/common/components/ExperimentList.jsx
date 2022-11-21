@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { List } from 'immutable';
 import { Link } from 'react-router-dom';
 
-import InlineList from './InlineList';
+import InlineDataList from './InlineList';
 import { EXPERIMENTS } from '../routes';
 import { getRecordIdFromRef } from '../utils';
 
@@ -30,7 +30,7 @@ class ExperimentList extends Component {
   render() {
     const { experiments } = this.props;
     return (
-      <InlineList
+      <InlineDataList
         label="Experiments"
         items={experiments}
         extractKey={ExperimentList.getExperimentName}

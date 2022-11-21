@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Row, Col } from 'antd';
-import { Map } from 'immutable';
+import { List, Map } from 'immutable';
 
 import PaginationContainer from '../../common/containers/PaginationContainer';
 import ResultsContainer from '../../common/containers/ResultsContainer';
@@ -38,7 +38,7 @@ interface RootState {
     getIn: (values: [string, string, string]) => boolean;
   };
   user: {
-    getIn: (values: [string, string]) => boolean;
+    getIn: (values: [string, string]) => List<string>;
   };
 }
 

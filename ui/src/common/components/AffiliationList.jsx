@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
-import InlineList, { SEPARATOR_AND, SEPARATOR_TYPES } from './InlineList';
+import InlineDataList, { SEPARATOR_AND, SEPARATOR_TYPES } from './InlineList';
 import Affiliation from './Affiliation';
 import { getInstitutionName } from '../utils';
 
@@ -14,7 +14,7 @@ class AffiliationList extends Component {
   render() {
     const { affiliations, separator } = this.props;
     return (
-      <InlineList
+      <InlineDataList
         wrapperClassName="di"
         separator={separator}
         items={affiliations}

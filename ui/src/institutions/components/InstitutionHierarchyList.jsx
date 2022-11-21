@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
-import InlineList, {
+import InlineDataList, {
   SEPARATOR_MIDDLEDOT,
 } from '../../common/components/InlineList';
 
@@ -22,7 +22,7 @@ function extractKeyFromHierarchy(hierarchy) {
 
 function InstitutionHierarchyList({ hierarchies }) {
   return (
-    <InlineList
+    <InlineDataList
       items={hierarchies}
       extractKey={extractKeyFromHierarchy}
       renderItem={renderHierarchy}

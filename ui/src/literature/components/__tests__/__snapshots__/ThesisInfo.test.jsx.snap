@@ -8,7 +8,7 @@ exports[`ThesisInfo renders full thesis info 1`] = `
     Thesis: 
   </span>
   <span>
-    <InlineList
+    <InlineDataList
       extractKey={[Function]}
       items={
         Immutable.List [
@@ -38,7 +38,7 @@ exports[`ThesisInfo renders with date and without defense date 1`] = `
     Thesis: 
   </span>
   <span>
-    <InlineList
+    <InlineDataList
       extractKey={[Function]}
       items={null}
       label={null}
@@ -62,7 +62,7 @@ exports[`ThesisInfo renders with defense date 1`] = `
     Thesis: 
   </span>
   <span>
-    <InlineList
+    <InlineDataList
       extractKey={[Function]}
       items={null}
       label={null}
@@ -86,7 +86,7 @@ exports[`ThesisInfo renders without any date 1`] = `
     Thesis: 
   </span>
   <span>
-    <InlineList
+    <InlineDataList
       extractKey={[Function]}
       items={
         Immutable.List [

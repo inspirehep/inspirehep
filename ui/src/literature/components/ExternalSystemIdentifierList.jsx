@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
-import InlineList from '../../common/components/InlineList';
+import InlineDataList from '../../common/components/InlineList';
 
 class ExternalSystemIdentifierList extends Component {
   render() {
     const { externalSystemIdentifiers } = this.props;
     return (
-      <InlineList
+      <InlineDataList
         label="View in"
         items={externalSystemIdentifiers}
         extractKey={esid => esid.get('url_link')}

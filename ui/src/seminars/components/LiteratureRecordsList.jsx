@@ -5,8 +5,8 @@ import { List } from 'immutable';
 import { Link } from 'react-router-dom';
 
 import { LITERATURE } from '../../common/routes';
-import pluralizeUnlessSingle from '../../common/utils';
-import InlineList from '../../common/components/InlineList';
+import { pluralizeUnlessSingle } from '../../common/utils';
+import InlineDataList from '../../common/components/InlineList';
 import LiteratureTitle from '../../common/components/LiteratureTitle';
 
 function renderLiteratureRecord(literatureRecord) {
@@ -23,7 +23,7 @@ function renderLiteratureRecord(literatureRecord) {
 
 function LiteratureRecordsList({ literatureRecords }) {
   return (
-    <InlineList
+    <InlineDataList
       label={`INSPIRE ${pluralizeUnlessSingle(
         'paper',
         literatureRecords && literatureRecords.size

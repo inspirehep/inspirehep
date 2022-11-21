@@ -12,7 +12,7 @@ exports[`SupervisorList renders with multiple supervisors 1`] = `
   </span>
   <ul>
     <li
-      key="123"
+      key="123-0"
     >
       <Author
         author={
@@ -25,7 +25,7 @@ exports[`SupervisorList renders with multiple supervisors 1`] = `
       , 
     </li>
     <li
-      key="456"
+      key="456-2"
     >
       <Author
         author={
@@ -52,7 +52,7 @@ exports[`SupervisorList renders with one supervisor 1`] = `
   </span>
   <ul>
     <li
-      key="123"
+      key="123-0"
     >
       <Author
         author={

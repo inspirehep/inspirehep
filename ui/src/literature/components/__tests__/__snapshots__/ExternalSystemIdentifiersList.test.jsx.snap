@@ -12,7 +12,7 @@ exports[`ExternalSystemIdentifierList renders with external system identifiers 1
   </span>
   <ul>
     <li
-      key="https://cds.cern.ch/record/12345"
+      key="https://cds.cern.ch/record/12345-0"
     >
       <a
         href="https://cds.cern.ch/record/12345"
@@ -22,7 +22,7 @@ exports[`ExternalSystemIdentifierList renders with external system identifiers 1
       , 
     </li>
     <li
-      key="https://ui.adsabs.harvard.edu/abs/123.1234"
+      key="https://ui.adsabs.harvard.edu/abs/123.1234-2"
     >
       <a
         href="https://ui.adsabs.harvard.edu/abs/123.1234"

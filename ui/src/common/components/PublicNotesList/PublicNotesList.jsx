@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
-import InlineList, { SEPARATOR_MIDDLEDOT } from '../InlineList';
+import InlineDataList, { SEPARATOR_MIDDLEDOT } from '../InlineList';
 
 import './PublicNotesList.less';
 
@@ -34,7 +34,7 @@ class PublicNotesList extends Component {
   render() {
     const { publicNotes } = this.props;
     return (
-      <InlineList
+      <InlineDataList
         label="Note"
         items={publicNotes}
         extractKey={(note) => PublicNotesList.getValue(note)}

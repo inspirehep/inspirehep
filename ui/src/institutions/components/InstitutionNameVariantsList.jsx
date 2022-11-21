@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
-import InlineList from '../../common/components/InlineList';
+import InlineDataList from '../../common/components/InlineList';
 
 function renderNameVariant(nameVariant) {
   return <span>{nameVariant.get('value')}</span>;
@@ -13,7 +13,7 @@ function extractKeyFromNameVariant(nameVariant) {
 
 function InstitutionsNameVariantsList({ nameVariants }) {
   return (
-    <InlineList
+    <InlineDataList
       label="Name Variants"
       items={nameVariants}
       extractKey={extractKeyFromNameVariant}

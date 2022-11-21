@@ -9,7 +9,7 @@ import { ASSIGN_AUTHOR_NS } from '../../../search/constants';
 import AuthorResultItem from '../AuthorResultItem';
 import NumberOfResultsContainer from '../../../common/containers/NumberOfResultsContainer';
 import EmbeddedSearchBoxContainer from '../../../common/containers/EmbeddedSearchBoxContainer';
-import pluralizeUnlessSingle from '../../../common/utils';
+import { pluralizeUnlessSingle } from '../../../common/utils';
 
 function renderAuthorItem(result: Map<string, string>) {
   return (

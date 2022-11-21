@@ -18,7 +18,9 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "typeRoots": ["../node_modules/@types", "../src/types/index.d.ts"],
+    "downlevelIteration": true
   },
   "include": [
     "src"

@@ -4,7 +4,7 @@ import { fromJS } from 'immutable';
 import { Modal } from 'antd';
 
 import AuthorList from '../AuthorList';
-import InlineList from '../InlineList';
+import InlineDataList from '../InlineList';
 
 describe('AuthorList', () => {
   it('renders only 5 authors and suffixes "show all" if passed more', () => {
@@ -119,7 +119,7 @@ describe('AuthorList', () => {
     // Can not dive since root is a Fragment
     expect(
       wrapper
-        .find(InlineList)
+        .find(InlineDataList)
         .first()
         .dive()
     ).toMatchSnapshot();
@@ -136,7 +136,7 @@ describe('AuthorList', () => {
     );
     expect(
       wrapper
-        .find(InlineList)
+        .find(InlineDataList)
         .first()
         .dive()
     ).toMatchSnapshot();
@@ -156,7 +156,7 @@ describe('AuthorList', () => {
     );
     expect(
       wrapper
-        .find(InlineList)
+        .find(InlineDataList)
         .first()
         .dive()
     ).toMatchSnapshot();

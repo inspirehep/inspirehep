@@ -10,37 +10,54 @@ import ActionsDropdownOrAction from '../../common/components/ActionsDropdownOrAc
 import EventTracker from '../../common/components/EventTracker';
 
 function linkToHrefDisplayPair(link: Map<string, string>) {
-  const href = link.get('value');
+  const href = link.get('value') as unknown as string;
   const description = link.get('description');
   const display = description || removeProtocolAndWwwFromUrl(href);
   return [href, display];
 }
 
-interface UrlsActionProps { 
-  urls: List<string>, 
-  text: string, 
-  icon: JSX.Element, 
-  trackerEventId: string, 
-  page: string,
-  eventAction?: string 
-};
+interface UrlsActionProps {
+  urls: List<string>;
+  text: string;
+  icon: JSX.Element;
+  trackerEventId: string;
+  page: string;
+  eventAction?: string;
+}
 
-function UrlsAction({ urls, text, icon, trackerEventId, page, eventAction }: UrlsActionProps) {
+function UrlsAction({
+  urls,
+  text,
+  icon,
+  trackerEventId,
+  page,
+  eventAction,
+}: UrlsActionProps) {
   const renderUrlsAction = useCallback(
     (url, title) => (
-      <EventTracker eventCategory={page} eventAction={eventAction || "Link"} eventId={trackerEventId}>
-        <LinkWithTargetBlank href={url.get('value')}>{title}</LinkWithTargetBlank>
+      <EventTracker
+        eventCategory={page}
+        eventAction={eventAction || 'Link'}
+        eventId={trackerEventId}
+      >
+        <LinkWithTargetBlank href={url.get('value')}>
+          {title}
+        </LinkWithTargetBlank>
       </EventTracker>
     ),
     [trackerEventId, page, eventAction]
   );
 
   const renderUrlsDropdownAction = useCallback(
-    url => {
+    (url) => {
       const [href, display] = linkToHrefDisplayPair(url);
       return (
         <Menu.Item key={href}>
-          <EventTracker eventCategory={page} eventAction={eventAction || "Link"} eventId={trackerEventId}>
+          <EventTracker
+            eventCategory={page}
+            eventAction={eventAction || 'Link'}
+            eventId={trackerEventId}
+          >
             <LinkWithTargetBlank href={href}>{display}</LinkWithTargetBlank>
           </EventTracker>
         </Menu.Item>

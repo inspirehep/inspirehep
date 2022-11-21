@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
 import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank';
-import InlineList from '../../common/components/InlineList';
+import InlineDataList from '../../common/components/InlineList';
 
 class EmailList extends Component {
   static renderEmail(email) {
@@ -13,7 +13,7 @@ class EmailList extends Component {
   render() {
     const { emails } = this.props;
 
-    return <InlineList items={emails} renderItem={EmailList.renderEmail} />;
+    return <InlineDataList items={emails} renderItem={EmailList.renderEmail} />;
   }
 }
 
