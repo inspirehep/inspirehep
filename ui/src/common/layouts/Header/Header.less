@@ -32,12 +32,12 @@
 
   .non-sticky {
     background-color: @layout-header-background;
+    margin-top: 4rem;
 
     // remove the margin top for mobile
     // because .sticky is not stick anymore
     @media (max-width: @screen-xs-max) {
-      margin-top: -1px !important;
-      padding-top: 1px;
+      margin-top: 0;
     }
   }
 }

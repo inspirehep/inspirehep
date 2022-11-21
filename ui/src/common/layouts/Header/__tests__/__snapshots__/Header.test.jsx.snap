@@ -85,11 +85,6 @@ exports[`Header renders with Banner and Ribbon if it is on beta page 1`] = `
   </div>
   <div
     className="non-sticky"
-    style={
-      Object {
-        "marginTop": 1,
-      }
-    }
   >
     <Connect(CollectionsMenu) />
   </div>
@@ -180,11 +175,6 @@ exports[`Header renders with search box if it is not on home or submission 1`] =
   </div>
   <div
     className="non-sticky"
-    style={
-      Object {
-        "marginTop": 1,
-      }
-    }
   >
     <Connect(CollectionsMenu) />
   </div>
@@ -271,11 +261,6 @@ exports[`Header renders without search box if it is on homepage \`/\` 1`] = `
   </div>
   <div
     className="non-sticky"
-    style={
-      Object {
-        "marginTop": 1,
-      }
-    }
   >
     <Connect(CollectionsMenu) />
   </div>
@@ -362,11 +347,6 @@ exports[`Header renders without search box if it is on submission page 1`] = `
   </div>
   <div
     className="non-sticky"
-    style={
-      Object {
-        "marginTop": 1,
-      }
-    }
   >
     <Connect(CollectionsMenu) />
   </div>

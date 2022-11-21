@@ -1,7 +1,6 @@
 import React from 'react';
 import { Layout, Row, Col } from 'antd';
 import PropTypes from 'prop-types';
-import useResizeObserver from 'use-resize-observer';
 
 import SearchBoxContainer from '../../containers/SearchBoxContainer';
 import './Header.less';
@@ -12,11 +11,9 @@ import CollectionsMenu from '../CollectionsMenu';
 import Banners from './Banners';
 
 function Header({ isHomePage, isSubmissionsPage, isBetaPage }) {
-  const [stickyContainerRef, , stickyContainerHeight] = useResizeObserver();
-
   return (
     <div className="__Header__">
-      <div ref={stickyContainerRef} className="sticky" data-test-id="sticky">
+      <div className="sticky" data-test-id="sticky">
         <Banners />
         {isBetaPage && <BetaRibbon />}
         <Layout.Header className="header">
@@ -48,7 +45,7 @@ function Header({ isHomePage, isSubmissionsPage, isBetaPage }) {
           </Row>
         </Layout.Header>
       </div>
-      <div className="non-sticky" style={{ marginTop: stickyContainerHeight }}>
+      <div className="non-sticky">
         <CollectionsMenu />
       </div>
     </div>
