@@ -2,7 +2,7 @@ import React from 'react';
 import { Row, Card, Button } from 'antd';
 
 import './LoginPage.less';
-import orcidLogo from '../../../common/orcid.svg';
+import orcidLogo from '../../../common/assets/orcid.svg';
 import ExternalLink from '../../../common/components/ExternalLink';
 import DocumentHead from '../../../common/components/DocumentHead';
 import { WHAT_IS_ORCID_URL } from '../../../common/constants';

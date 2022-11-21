@@ -1,28 +1,9 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { SelectOutlined } from '@ant-design/icons';
 import { Drawer, Radio, Row, Col, Button, List, Input } from 'antd';
+import { Map } from 'immutable';
 
 import AuthorResult from './AuthorResult';
-
-interface IAuthor {
-  affiliations: string[];
-  signature_block: string;
-  bai: string;
-  recid: number;
-  record: string[];
-  last_name: string;
-  ids: string[];
-  raw_affiliations: string[];
-  first_name: string;
-  full_name: string;
-  uuid: string;
-  toJS: () => Record<string, any>;
-}
-
-export interface IAuthorResult {
-  get: (value: string) => IAuthor;
-  getIn: ([value1, value2]: [string, string]) => IAuthor;
-}
 
 interface AssignLiteratureItemDrawerProps {
   literatureId: number;
@@ -33,7 +14,7 @@ interface AssignLiteratureItemDrawerProps {
     literatureId: number;
   }) => void;
   currentUserRecordId: number;
-  authors: IAuthorResult[];
+  authors: Map<string, string>[];
   itemLiteratureId: number;
   page: string;
 }
@@ -48,7 +29,9 @@ function AssignLiteratureItemDrawer({
   page,
 }: AssignLiteratureItemDrawerProps) {
   const [selectedAuthorId, setSelectedAuthorId] = useState<number>();
-  const [availableAuthors, setAvailableAuthors] = useState<IAuthorResult[]>([]);
+  const [availableAuthors, setAvailableAuthors] = useState<
+    Map<string, string>[]
+  >([]);
 
   useEffect(() => {
     if (authors) {
@@ -70,10 +53,10 @@ function AssignLiteratureItemDrawer({
   }, [currentUserRecordId, selectedAuthorId, onAssign, itemLiteratureId]);
 
   const onAuthorSearch = (value: string): void => {
-    const filteredAuthors = authors.filter((author: IAuthorResult) =>
+    const filteredAuthors = authors.filter((author: Map<string, string>) =>
       author
-        .get('full_name')
-        .toString()
+        ?.get('full_name')
+        ?.toString()
         .toLowerCase()
         .includes(value.toLowerCase())
     );
@@ -112,7 +95,9 @@ function AssignLiteratureItemDrawer({
             hideOnSinglePage: true,
           }}
           dataSource={availableAuthors}
-          renderItem={(item: IAuthorResult) => <AuthorResult item={item} page={page} />}
+          renderItem={(item: Map<string, string>) => (
+            <AuthorResult item={item} page={page} />
+          )}
         />
       </Radio.Group>
 

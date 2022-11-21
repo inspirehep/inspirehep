@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import pluralizeUnlessSingle from '../../common/utils';
+import { pluralizeUnlessSingle } from '../../common/utils';
 
 class NumberOfPages extends Component {
   render() {

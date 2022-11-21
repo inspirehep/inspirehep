@@ -6,13 +6,13 @@ exports[`InstitutionsList renders institutions 1`] = `
 >
   <ul>
     <li
-      key="Map { \\"value\\": \\"UC, Berkeley\\" }"
+      key="Map { \\"value\\": \\"UC, Berkeley\\" }-0"
     >
       UC, Berkeley
       , 
     </li>
     <li
-      key="Map { \\"value\\": \\"CERN\\" }"
+      key="Map { \\"value\\": \\"CERN\\" }-2"
     >
       CERN
     </li>

@@ -6,7 +6,7 @@ exports[`InstitutionAddressList renders with addresses 1`] = `
 >
   <ul>
     <li
-      key="Map { \\"postal_address\\": List [ \\"Rue Einstein\\", \\"CH-1211 Genève 23\\" ], \\"cities\\": List [ \\"Meyrin\\" ], \\"country\\": \\"Switzerland\\", \\"state\\": \\"Geneva\\", \\"place_name\\": \\"CERN\\" }"
+      key="Map { \\"postal_address\\": List [ \\"Rue Einstein\\", \\"CH-1211 Genève 23\\" ], \\"cities\\": List [ \\"Meyrin\\" ], \\"country\\": \\"Switzerland\\", \\"state\\": \\"Geneva\\", \\"place_name\\": \\"CERN\\" }-0"
     >
       <InstitutionAddress
         address={
@@ -27,7 +27,7 @@ exports[`InstitutionAddressList renders with addresses 1`] = `
        • 
     </li>
     <li
-      key="Map { \\"cities\\": List [ \\"Geneva\\" ], \\"country\\": \\"Switzerland\\" }"
+      key="Map { \\"cities\\": List [ \\"Geneva\\" ], \\"country\\": \\"Switzerland\\" }-2"
     >
       <InstitutionAddress
         address={

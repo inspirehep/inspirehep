@@ -141,7 +141,7 @@ export function fetchSearchAggregations(
 
 export function searchQueryUpdate(
   namespace: string,
-  query: { size?: number; q?: string; assigned?: number, page?: string },
+  query: { size?: number; q?: string; assigned?: number, page?: string, sort?: boolean },
   dueToNavigationToSearchPage = false
 ): (
   dispatch: ActionCreator<Action>,

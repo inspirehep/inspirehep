@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Map, List } from 'immutable';
-import InlineList, {
+import InlineDataList, {
   InlineUL,
   SEPARATOR_COMMA,
 } from '../../common/components/InlineList';
@@ -19,7 +19,7 @@ function InstitutionAddress({ address }) {
   return (
     <span>
       <InlineUL separator={SEPARATOR_COMMA} wrapperClassName="di">
-        {postalAddresses.size > 0 && <InlineList items={postalAddresses} />}
+        {postalAddresses.size > 0 && <InlineDataList items={postalAddresses} />}
         {city &&
           !postalAddressesContainWord(postalAddresses, city) && (
             <span>{city}</span>

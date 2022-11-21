@@ -6,14 +6,14 @@ exports[`ArxivCategoryList renders arxiv categories 1`] = `
 >
   <ul>
     <li
-      key="hep-ex"
+      key="hep-ex-0"
     >
       <UnclickableTag>
         hep-ex
       </UnclickableTag>
     </li>
     <li
-      key="hep-ph"
+      key="hep-ph-2"
     >
       <UnclickableTag>
         hep-ph

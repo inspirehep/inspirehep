@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { addCommasToNumber } from '../utils';
 
 interface FormattedNumberProps {
@@ -5,7 +7,7 @@ interface FormattedNumberProps {
 }
 
 function FormattedNumber({ children }: FormattedNumberProps) {
-  return addCommasToNumber(children);
+  return <>{addCommasToNumber(children)}</>;
 }
 
 export default FormattedNumber;

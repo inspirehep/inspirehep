@@ -12,7 +12,7 @@ exports[`AdvisorsOfDegree renders other advisors 1`] = `
   </span>
   <ul>
     <li
-      key="Yoda"
+      key="Yoda-0"
     >
       <Advisor
         advisor={
@@ -24,7 +24,7 @@ exports[`AdvisorsOfDegree renders other advisors 1`] = `
       , 
     </li>
     <li
-      key="Another Dude"
+      key="Another Dude-2"
     >
       <Advisor
         advisor={
@@ -51,7 +51,7 @@ exports[`AdvisorsOfDegree renders phd advisors 1`] = `
   </span>
   <ul>
     <li
-      key="Yoda"
+      key="Yoda-0"
     >
       <Advisor
         advisor={
@@ -64,7 +64,7 @@ exports[`AdvisorsOfDegree renders phd advisors 1`] = `
       , 
     </li>
     <li
-      key="Another Dude"
+      key="Another Dude-2"
     >
       <Advisor
         advisor={
@@ -91,7 +91,7 @@ exports[`AdvisorsOfDegree renders the master advisor 1`] = `
   </span>
   <ul>
     <li
-      key="Yoda"
+      key="Yoda-0"
     >
       <Advisor
         advisor={

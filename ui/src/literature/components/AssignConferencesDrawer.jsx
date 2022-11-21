@@ -10,7 +10,7 @@ import { ASSIGN_CONFERENCE_NS } from '../../search/constants';
 import ConferenceItem from '../../conferences/components/ConferenceItem';
 import NumberOfResultsContainer from '../../common/containers/NumberOfResultsContainer';
 import EmbeddedSearchBoxContainer from '../../common/containers/EmbeddedSearchBoxContainer';
-import pluralizeUnlessSingle from '../../common/utils';
+import { pluralizeUnlessSingle } from '../../common/utils';
 
 function renderConferenceItem(result) {
   const controlNumber = result.getIn(['metadata', 'control_number']);

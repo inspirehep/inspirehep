@@ -1,22 +1,23 @@
 import { connect, MapDispatchToPropsParam } from 'react-redux';
+import { Map } from 'immutable';
 
 import {
   setAssignLiteratureItemDrawerVisibility,
   assignLiteratureItemNoNameMatch,
 } from '../../actions/literature';
-import AssignLiteratureItemDrawer, { IAuthorResult } from '../components/AssignLiteratureItemDrawer';
+import AssignLiteratureItemDrawer from '../components/AssignLiteratureItemDrawer';
 
 interface RootState {
   user: {
     getIn: (values: [string, string]) => string;
   };
   literature: {
-    get: (value: string) => number | IAuthorResult[];
+    get: (value: string) => number | Map<string, string>[];
   };
 }
 
 const stateToProps = (state: RootState) => ({
-  authors: state.literature.get('allAuthors') as IAuthorResult[],
+  authors: state.literature.get('allAuthors') as Map<string, string>[],
   literatureId: state.literature.get('assignLiteratureItemDrawerVisible') as number,
   currentUserRecordId: Number(state.user.getIn(['data', 'recid'])),
 });

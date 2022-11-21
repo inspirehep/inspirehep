@@ -12,7 +12,7 @@ exports[`LiteratureRecordsList renders with multiple records 1`] = `
   </span>
   <ul>
     <li
-      key="123"
+      key="123-0"
     >
       <Link
         data-test-id="author-link"
@@ -29,7 +29,7 @@ exports[`LiteratureRecordsList renders with multiple records 1`] = `
       , 
     </li>
     <li
-      key="124"
+      key="124-2"
     >
       <Link
         data-test-id="author-link"
@@ -60,7 +60,7 @@ exports[`LiteratureRecordsList renders with one record 1`] = `
   </span>
   <ul>
     <li
-      key="123"
+      key="123-0"
     >
       <Link
         data-test-id="author-link"

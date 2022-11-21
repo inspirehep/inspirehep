@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { List, Map } from 'immutable';
 
 import LinkWithTargetBlank from './LinkWithTargetBlank';
-import InlineList, { SEPARATOR_SEMICOLON } from './InlineList';
+import InlineDataList, { SEPARATOR_SEMICOLON } from './InlineList';
 import { getRecordIdFromRef } from '../utils';
 import { AUTHORS } from '../routes';
 import EventTracker from './EventTracker';
@@ -18,7 +18,7 @@ const ContactList = ({
   function renderContactName(contact: Map<string, string>) {
     const name = contact.get('name');
     const contactRecordId = getRecordIdFromRef(
-      contact.getIn(['record', '$ref'])
+      contact.getIn(['record', '$ref']) as string
     );
     return contactRecordId ? (
       <Link to={`${AUTHORS}/${contactRecordId}`}>{name}</Link>
@@ -56,7 +56,7 @@ const ContactList = ({
   }
 
   return (
-    <InlineList
+    <InlineDataList
       label="Contact"
       items={contacts}
       renderItem={renderContact}

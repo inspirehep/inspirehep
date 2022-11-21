@@ -6,7 +6,7 @@ exports[`AffiliationList renders author with multiple affiliations 1`] = `
 >
   <ul>
     <li
-      key="CERN2"
+      key="CERN2-0"
     >
       <Affiliation
         affiliation={
@@ -21,7 +21,7 @@ exports[`AffiliationList renders author with multiple affiliations 1`] = `
        and 
     </li>
     <li
-      key="CERN1"
+      key="CERN1-2"
     >
       <Affiliation
         affiliation={
@@ -41,7 +41,7 @@ exports[`AffiliationList renders author with one affiliation 1`] = `
 >
   <ul>
     <li
-      key="CERN2"
+      key="CERN2-0"
     >
       <Affiliation
         affiliation={

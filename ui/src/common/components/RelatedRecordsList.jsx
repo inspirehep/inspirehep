@@ -2,8 +2,8 @@ import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
-import InlineList from './InlineList';
-import pluralizeUnlessSingle from '../utils';
+import InlineDataList from './InlineList';
+import { pluralizeUnlessSingle } from '../utils';
 import { INSTITUTIONS_PID_TYPE, EXPERIMENTS_PID_TYPE } from '../constants';
 
 function extractKeyFromRelatedRecord(relatedRecord) {
@@ -21,7 +21,7 @@ function RelatedRecordsList({ relatedRecords, relationType, label, pidType }) {
   );
 
   return (
-    <InlineList
+    <InlineDataList
       label={`${relationType} ${pluralizeUnlessSingle(
         label,
         relatedRecords && relatedRecords.size

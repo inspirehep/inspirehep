@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
-import InlineList from '../../common/components/InlineList';
+import InlineDataList from '../../common/components/InlineList';
 
 class InstitutionsList extends Component {
   static renderInstitution(institution) {
@@ -12,7 +12,7 @@ class InstitutionsList extends Component {
   render() {
     const { institutions } = this.props;
     return (
-      <InlineList
+      <InlineDataList
         items={institutions}
         renderItem={InstitutionsList.renderInstitution}
       />

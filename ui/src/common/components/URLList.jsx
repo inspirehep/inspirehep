@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
-import InlineList from './InlineList';
+import InlineDataList from './InlineList';
 import LinkWithTargetBlank from './LinkWithTargetBlank';
 
 class URLList extends Component {
@@ -16,7 +16,7 @@ class URLList extends Component {
     const { urls, wrapperClassName } = this.props;
 
     return (
-      <InlineList
+      <InlineDataList
         wrapperClassName={wrapperClassName}
         items={urls}
         extractKey={url => url.get('value')}

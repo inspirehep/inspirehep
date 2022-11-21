@@ -12,7 +12,7 @@ exports[`PublicNotesList renders public notes 1`] = `
   </span>
   <ul>
     <li
-      key="note1"
+      key="note1-0"
     >
       <span>
         note1
@@ -20,7 +20,7 @@ exports[`PublicNotesList renders public notes 1`] = `
        • 
     </li>
     <li
-      key="note2"
+      key="note2-2"
     >
       <span>
         note2
@@ -28,7 +28,7 @@ exports[`PublicNotesList renders public notes 1`] = `
        • 
     </li>
     <li
-      key="note3 here https://pos.sissa.it/390/977/pdf"
+      key="note3 here https://pos.sissa.it/390/977/pdf-4"
     >
       <span>
         note3 here 

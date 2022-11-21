@@ -1,8 +1,9 @@
 import { fromJS, Set, Map } from 'immutable';
 import { clear, advanceTo } from 'jest-date-mock';
 
-import pluralizeUnlessSingle, {
+import {
   forceArray,
+  pluralizeUnlessSingle,
   castPropToNumber,
   pluckMinMaxPair,
   convertArrayToMap,

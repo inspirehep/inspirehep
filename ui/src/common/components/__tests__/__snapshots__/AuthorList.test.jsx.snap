@@ -6,7 +6,7 @@ exports[`AuthorList prefixes \`Supervisor\` when 1 supervisor is passed 1`] = `
 >
   <ul>
     <li
-      key="Test, Guy 1"
+      key="Test, Guy 1-0"
     >
       <Author
         author={
@@ -26,7 +26,7 @@ exports[`AuthorList prefixes \`Supervisor\` when 2 or more supervisors are passe
 >
   <ul>
     <li
-      key="Test, Guy 1"
+      key="Test, Guy 1-0"
     >
       <Author
         author={
@@ -38,7 +38,7 @@ exports[`AuthorList prefixes \`Supervisor\` when 2 or more supervisors are passe
       , 
     </li>
     <li
-      key="Test, Guy 2"
+      key="Test, Guy 2-2"
     >
       <Author
         author={
@@ -54,7 +54,7 @@ exports[`AuthorList prefixes \`Supervisor\` when 2 or more supervisors are passe
 
 exports[`AuthorList renders all authors if they are less than the limit without suffix 1`] = `
 <Fragment>
-  <InlineList
+  <InlineDataList
     extractKey={[Function]}
     items={
       Immutable.List [
@@ -83,7 +83,7 @@ exports[`AuthorList renders all authors if they are less than the limit without 
     visible={false}
     width="50%"
   >
-    <InlineList
+    <InlineDataList
       extractKey={[Function]}
       items={
         Immutable.List [
@@ -112,7 +112,7 @@ exports[`AuthorList renders authors by using AuthorLink 1`] = `
 >
   <ul>
     <li
-      key="Test, Guy 1"
+      key="Test, Guy 1-0"
     >
       <Author
         author={
@@ -128,7 +128,7 @@ exports[`AuthorList renders authors by using AuthorLink 1`] = `
 
 exports[`AuthorList renders only 5 authors and suffixes "et al." if passed more 1`] = `
 <Fragment>
-  <InlineList
+  <InlineDataList
     extractKey={[Function]}
     items={
       Immutable.List [
@@ -170,7 +170,7 @@ exports[`AuthorList renders only 5 authors and suffixes "et al." if passed more 
     visible={false}
     width="50%"
   >
-    <InlineList
+    <InlineDataList
       extractKey={[Function]}
       items={
         Immutable.List [
@@ -207,7 +207,7 @@ exports[`AuthorList renders only 5 authors and suffixes "et al." if passed more 
 
 exports[`AuthorList renders only 5 authors and suffixes "show all" if passed more 1`] = `
 <Fragment>
-  <InlineList
+  <InlineDataList
     extractKey={[Function]}
     items={
       Immutable.List [
@@ -257,7 +257,7 @@ exports[`AuthorList renders only 5 authors and suffixes "show all" if passed mor
     visible={false}
     width="50%"
   >
-    <InlineList
+    <InlineDataList
       extractKey={[Function]}
       items={
         Immutable.List [
@@ -294,7 +294,7 @@ exports[`AuthorList renders only 5 authors and suffixes "show all" if passed mor
 
 exports[`AuthorList renders only limited (prop) authors and suffixes "et all." if passed more 1`] = `
 <Fragment>
-  <InlineList
+  <InlineDataList
     extractKey={[Function]}
     items={
       Immutable.List [
@@ -327,7 +327,7 @@ exports[`AuthorList renders only limited (prop) authors and suffixes "et all." i
     visible={false}
     width="50%"
   >
-    <InlineList
+    <InlineDataList
       extractKey={[Function]}
       items={
         Immutable.List [
@@ -355,7 +355,7 @@ exports[`AuthorList renders only limited (prop) authors and suffixes "et all." i
 
 exports[`AuthorList renders only limited (prop) authors and suffixes "show all." if passed more 1`] = `
 <Fragment>
-  <InlineList
+  <InlineDataList
     extractKey={[Function]}
     items={
       Immutable.List [
@@ -396,7 +396,7 @@ exports[`AuthorList renders only limited (prop) authors and suffixes "show all."
     visible={false}
     width="50%"
   >
-    <InlineList
+    <InlineDataList
       extractKey={[Function]}
       items={
         Immutable.List [
@@ -433,7 +433,7 @@ exports[`AuthorList should display \`authors\` in modal title by default 1`] = `
   visible={false}
   width="50%"
 >
-  <InlineList
+  <InlineDataList
     extractKey={[Function]}
     items={
       Immutable.List [
@@ -463,7 +463,7 @@ exports[`AuthorList should show \`supervisors\` in modal title if supervisors ar
   visible={false}
   width="50%"
 >
-  <InlineList
+  <InlineDataList
     extractKey={[Function]}
     items={
       Immutable.List [

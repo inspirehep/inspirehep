@@ -12,7 +12,7 @@ import ConferenceDates from './ConferenceDates';
 import AddressList from '../../common/components/AddressList';
 import InspireCategoryList from './InspireCategoryList';
 import ProceedingsAction from './ProceedingsAction';
-import pluralizeUnlessSingle from '../../common/utils';
+import { pluralizeUnlessSingle } from '../../common/utils';
 import IconText from '../../common/components/IconText';
 import UserAction from '../../common/components/UserAction';
 import { getContributionsQueryString } from '../utils';

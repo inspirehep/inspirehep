@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { List } from 'immutable';
 import { Modal } from 'antd';
 
-import InlineList from './InlineList';
+import InlineDataList from './InlineList';
 import Author from './Author';
 import SecondaryButton from './SecondaryButton';
 import { getAuthorName } from '../utils';
@@ -44,7 +44,7 @@ class AuthorList extends Component {
   renderAuthorList(authorsToDisplay, displayShowAll = true) {
     const { authors, limit, wrapperClassName, page } = this.props;
     return (
-      <InlineList
+      <InlineDataList
         wrapperClassName={wrapperClassName}
         items={authorsToDisplay}
         suffix={

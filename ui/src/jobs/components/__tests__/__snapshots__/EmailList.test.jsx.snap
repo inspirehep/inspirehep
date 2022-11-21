@@ -6,7 +6,7 @@ exports[`EmailList renders with emails 1`] = `
 >
   <ul>
     <li
-      key="johndoe@yahoo.com"
+      key="johndoe@yahoo.com-0"
     >
       <LinkWithTargetBlank
         as="a"
@@ -17,7 +17,7 @@ exports[`EmailList renders with emails 1`] = `
       , 
     </li>
     <li
-      key="johndoe2@yahoo.com"
+      key="johndoe2@yahoo.com-2"
     >
       <LinkWithTargetBlank
         as="a"

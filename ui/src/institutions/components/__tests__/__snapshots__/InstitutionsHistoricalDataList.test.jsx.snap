@@ -12,13 +12,13 @@ exports[`InstitutionsHistoricalDataList renders 1`] = `
   </span>
   <ul>
     <li
-      key="This is my first note"
+      key="This is my first note-0"
     >
       This is my first note
        • 
     </li>
     <li
-      key="second note"
+      key="second note-2"
     >
       second note
     </li>

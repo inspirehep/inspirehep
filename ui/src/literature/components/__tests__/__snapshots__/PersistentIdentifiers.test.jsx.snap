@@ -12,7 +12,7 @@ exports[`PersistentIdentifiers renders with identifiers 1`] = `
   </span>
   <ul>
     <li
-      key="1866/20706"
+      key="1866/20706-0"
     >
       <EventTracker
         eventAction="Link"
@@ -31,7 +31,7 @@ exports[`PersistentIdentifiers renders with identifiers 1`] = `
       , 
     </li>
     <li
-      key="12345"
+      key="12345-2"
     >
       <span>
         12345

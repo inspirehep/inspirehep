@@ -1,7 +1,7 @@
 import { List, Map } from 'immutable';
 import React from 'react';
 import EventTracker from '../../common/components/EventTracker';
-import InlineList from '../../common/components/InlineList';
+import InlineDataList from '../../common/components/InlineList';
 import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank';
 
 const PersistentIdentifiers = ({
@@ -30,7 +30,7 @@ const PersistentIdentifiers = ({
   };
 
   return (
-    <InlineList
+    <InlineDataList
       label="URN/HDL"
       items={identifiers}
       extractKey={(identifier: Map<string, string>) => identifier.get('value')}

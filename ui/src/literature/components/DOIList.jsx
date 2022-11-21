@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
 import DOILink from './DOILink';
-import InlineList from '../../common/components/InlineList';
+import InlineDataList from '../../common/components/InlineList';
 import DOIMaterial from './DOIMaterial';
 
 class DOIList extends Component {
@@ -22,7 +22,7 @@ class DOIList extends Component {
     const { dois } = this.props;
 
     return (
-      <InlineList
+      <InlineDataList
         label="DOI"
         items={dois}
         extractKey={doi => doi.get('value')}

@@ -1,7 +1,8 @@
 import React from 'react';
 import { List, Map } from 'immutable';
-import InlineList from '../../../common/components/InlineList/InlineList';
-import pluralizeUnlessSingle from '../../../common/utils';
+
+import InlineDataList from '../../../common/components/InlineList/InlineDataList';
+import { pluralizeUnlessSingle } from '../../../common/utils';
 import { DEGREE_TYPE_TO_DISPLAY } from '../../../common/constants';
 import Advisor from './Advisor';
 
@@ -24,7 +25,7 @@ function AdvisorsOfDegree<T>({ advisors, degreeType }: {
     advisors.size
   );
   return (
-    <InlineList
+    <InlineDataList
       label={label}
       items={advisors}
       extractKey={getName}

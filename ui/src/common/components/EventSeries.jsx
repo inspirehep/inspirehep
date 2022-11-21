@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 import { addOrdinalSuffix } from '../utils';
-import InlineList, { SEPARATOR_AND } from './InlineList';
+import InlineDataList, { SEPARATOR_AND } from './InlineList';
 import { CONFERENCES_PID_TYPE, SEMINARS_PID_TYPE } from '../constants';
 
 function extractKeyFromSeriesItem(seriesItem) {
@@ -37,7 +37,7 @@ function EventSeries({ series, pidType }) {
   );
 
   return (
-    <InlineList
+    <InlineDataList
       items={series}
       separator={SEPARATOR_AND}
       renderItem={renderSeries}

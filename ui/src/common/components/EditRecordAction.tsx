@@ -17,8 +17,7 @@ import {
   EDIT_JOURNAL,
   EDIT_EXPERIMENT
 } from '../routes';
-import PidType from '../types/PidType';
-import PidValue from '../types/PidValue';
+import { PidValue, PidType } from '../../types';
 
 const pidTypeToEditRoutePrefix = {
   literature: EDIT_LITERATURE,

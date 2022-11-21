@@ -29,7 +29,7 @@ interface RootState {
     hasIn: (values: string[]) => boolean;
   };
   user: {
-    getIn: (arg: string[]) => boolean;
+    getIn: (arg: string[]) => List<string>;
   };
 }
 

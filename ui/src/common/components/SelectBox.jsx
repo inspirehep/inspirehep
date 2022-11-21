@@ -1,7 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Select } from 'antd';
-import { SelectOptionsPropType } from '../propTypes';
 
 function SelectBox({ options, virtualScroll = false, ...selectProps }) {
   return (
@@ -21,10 +19,5 @@ function SelectBox({ options, virtualScroll = false, ...selectProps }) {
     </Select>
   );
 }
-
-SelectBox.propTypes = {
-  options: SelectOptionsPropType.isRequired,
-  virtualScroll: PropTypes.bool,
-};
 
 export default SelectBox;

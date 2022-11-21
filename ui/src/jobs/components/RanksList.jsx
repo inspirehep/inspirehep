@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
-import InlineList, {
+import InlineDataList, {
   SEPARATOR_MIDDLEDOT,
 } from '../../common/components/InlineList';
 import { RANK_VALUE_TO_DISPLAY } from '../../common/constants';
@@ -15,7 +15,7 @@ class RanksList extends Component {
   render() {
     const { ranks } = this.props;
     return (
-      <InlineList
+      <InlineDataList
         items={ranks}
         renderItem={RanksList.renderRank}
         separator={SEPARATOR_MIDDLEDOT}

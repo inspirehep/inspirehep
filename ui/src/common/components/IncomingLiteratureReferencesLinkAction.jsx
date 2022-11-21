@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import IconText from './IconText';
 import FormattedNumber from './FormattedNumber';
-import pluralizeUnlessSingle from '../utils';
+import { pluralizeUnlessSingle } from '../utils';
 import { LITERATURE } from '../routes';
 import UserAction from './UserAction';
 import EventTracker from './EventTracker';

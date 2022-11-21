@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
-import InlineList, { SEPARATOR_MIDDLEDOT } from './InlineList';
+import InlineDataList, { SEPARATOR_MIDDLEDOT } from './InlineList';
 import Address from './Address';
 
 function renderAddress(address) {
@@ -11,7 +11,7 @@ function renderAddress(address) {
 
 function AddressList({ addresses }) {
   return (
-    <InlineList
+    <InlineDataList
       wrapperClassName="di"
       items={addresses}
       // FIXME: set extractKey explictly

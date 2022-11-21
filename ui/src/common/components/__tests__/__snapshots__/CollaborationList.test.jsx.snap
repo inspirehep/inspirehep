@@ -2,7 +2,7 @@
 
 exports[`CollaborationList renders with collaboration without suffix 1`] = `
 <Fragment>
-  <InlineList
+  <InlineDataList
     extractKey={[Function]}
     items={
       Immutable.List [
@@ -22,7 +22,7 @@ exports[`CollaborationList renders with collaboration without suffix 1`] = `
     }
     wrapperClassName="di"
   />
-  <InlineList
+  <InlineDataList
     extractKey={[Function]}
     items={Immutable.List []}
     label={null}
@@ -37,7 +37,7 @@ exports[`CollaborationList renders with collaboration without suffix 1`] = `
 
 exports[`CollaborationList renders with collaborations with and without suffix 1`] = `
 <Fragment>
-  <InlineList
+  <InlineDataList
     extractKey={[Function]}
     items={
       Immutable.List [
@@ -69,7 +69,7 @@ exports[`CollaborationList renders with collaborations with and without suffix 1
   <span>
      and 
   </span>
-  <InlineList
+  <InlineDataList
     extractKey={[Function]}
     items={
       Immutable.List [
@@ -99,7 +99,7 @@ exports[`CollaborationList renders with collaborations with and without suffix 1
 
 exports[`CollaborationList renders with collaborations with suffix 1`] = `
 <Fragment>
-  <InlineList
+  <InlineDataList
     extractKey={[Function]}
     items={Immutable.List []}
     label={null}
@@ -109,7 +109,7 @@ exports[`CollaborationList renders with collaborations with suffix 1`] = `
     suffix={false}
     wrapperClassName="di"
   />
-  <InlineList
+  <InlineDataList
     extractKey={[Function]}
     items={
       Immutable.List [
@@ -142,7 +142,7 @@ exports[`CollaborationList renders with collaborations with suffix 1`] = `
 
 exports[`CollaborationList renders with collaborations without suffix 1`] = `
 <Fragment>
-  <InlineList
+  <InlineDataList
     extractKey={[Function]}
     items={
       Immutable.List [
@@ -165,7 +165,7 @@ exports[`CollaborationList renders with collaborations without suffix 1`] = `
     }
     wrapperClassName="di"
   />
-  <InlineList
+  <InlineDataList
     extractKey={[Function]}
     items={Immutable.List []}
     label={null}

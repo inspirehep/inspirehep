@@ -5,7 +5,7 @@ import ResultsContainer from '../../../common/containers/ResultsContainer';
 import ConferenceItem from '../../../conferences/components/ConferenceItem';
 import { EXISTING_CONFERENCES_NS } from '../../../search/constants';
 import PaginationContainer from '../../../common/containers/PaginationContainer';
-import pluralizeUnlessSingle from '../../../common/utils';
+import { pluralizeUnlessSingle } from '../../../common/utils';
 
 function renderConferenceItem(result) {
   return (

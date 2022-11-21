@@ -12,7 +12,7 @@ exports[`ContactList renders with contacts with both email and name 1`] = `
   </span>
   <ul>
     <li
-      key="johndoe@yahoo.com"
+      key="johndoe@yahoo.com-0"
     >
       <span>
         John
@@ -35,7 +35,7 @@ exports[`ContactList renders with contacts with both email and name 1`] = `
       ; 
     </li>
     <li
-      key="johndoe2@yahoo.com"
+      key="johndoe2@yahoo.com-2"
     >
       <span>
         John2
@@ -72,7 +72,7 @@ exports[`ContactList renders with contacts with only email or name 1`] = `
   </span>
   <ul>
     <li
-      key="johndoe@yahoo.com"
+      key="johndoe@yahoo.com-0"
     >
       <EventTracker
         eventAction="Mail"
@@ -90,7 +90,7 @@ exports[`ContactList renders with contacts with only email or name 1`] = `
       ; 
     </li>
     <li
-      key="John2"
+      key="John2-2"
     >
       <span>
         John2
@@ -112,7 +112,7 @@ exports[`ContactList renders with contacts with record and name 1`] = `
   </span>
   <ul>
     <li
-      key="John"
+      key="John-0"
     >
       <Link
         to="/authors/12345"

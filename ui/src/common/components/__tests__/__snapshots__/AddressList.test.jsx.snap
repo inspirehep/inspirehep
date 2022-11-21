@@ -6,7 +6,7 @@ exports[`AddressList renders with addresses 1`] = `
 >
   <ul>
     <li
-      key="Map { \\"place_name\\": \\"CERN\\" }"
+      key="Map { \\"place_name\\": \\"CERN\\" }-0"
     >
       <Address
         address={
@@ -18,7 +18,7 @@ exports[`AddressList renders with addresses 1`] = `
        • 
     </li>
     <li
-      key="Map { \\"cities\\": List [ \\"Geneva\\" ], \\"country\\": \\"Switzerland\\" }"
+      key="Map { \\"cities\\": List [ \\"Geneva\\" ], \\"country\\": \\"Switzerland\\" }-2"
     >
       <Address
         address={

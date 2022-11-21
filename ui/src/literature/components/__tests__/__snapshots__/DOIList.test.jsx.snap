@@ -12,7 +12,7 @@ exports[`DOIList renders with dois 1`] = `
   </span>
   <ul>
     <li
-      key="12.1234/1234567890123_1234"
+      key="12.1234/1234567890123_1234-0"
     >
       <span>
         <DOILink
@@ -27,7 +27,7 @@ exports[`DOIList renders with dois 1`] = `
       , 
     </li>
     <li
-      key="99.9999/9999999999999_9999"
+      key="99.9999/9999999999999_9999-2"
     >
       <span>
         <DOILink

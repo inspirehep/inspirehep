@@ -3,7 +3,8 @@ import React from 'react';
 import DisabledEditRecordAction from '../../common/components/DisabledEditRecordAction';
 import EditRecordAction from '../../common/components/EditRecordAction';
 import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank';
-import PidValue from '../../common/types/PidValue';
+import { PidValue } from '../../types';
+
 
 type EditAuthorRecordActionProps = {
   isCatalogerLoggedIn: boolean;

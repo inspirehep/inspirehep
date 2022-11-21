@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
-import InlineList from '../../common/components/InlineList';
+import InlineDataList from '../../common/components/InlineList';
 import Author from '../../common/components/Author';
-import pluralizeUnlessSingle from '../../common/utils';
+import { pluralizeUnlessSingle } from '../../common/utils';
 
 function renderSupervisor(supervisor, page) {
   return <Author author={supervisor} page={page} />;
@@ -16,7 +16,7 @@ function extractKeyFromSupervisor(supervisor) {
 
 function SupervisorList({ supervisors, page }) {
   return (
-    <InlineList
+    <InlineDataList
       label={pluralizeUnlessSingle(
         'Supervisor',
         supervisors && supervisors.size

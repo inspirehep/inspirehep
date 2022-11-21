@@ -2,7 +2,7 @@
 
 exports[`ExpandableInlineList renders all on expand toggle 1`] = `
 <div>
-  <InlineList
+  <InlineDataList
     extractKey={[Function]}
     items={
       Immutable.List [
@@ -32,7 +32,7 @@ exports[`ExpandableInlineList renders all on expand toggle 1`] = `
 
 exports[`ExpandableInlineList renders only 10 by default with expand toggle 1`] = `
 <div>
-  <InlineList
+  <InlineDataList
     extractKey={[Function]}
     items={
       Immutable.List [
@@ -67,7 +67,7 @@ exports[`ExpandableInlineList renders only 10 by default with expand toggle 1`] 
 
 exports[`ExpandableInlineList renders only limited amount with expand toggle 1`] = `
 <div>
-  <InlineList
+  <InlineDataList
     extractKey={[Function]}
     items={
       Immutable.List [
