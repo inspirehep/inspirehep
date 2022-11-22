@@ -244,6 +244,8 @@ jobs:
     needs: backend_build
     strategy:
       fail-fast: false
+      matrix:
+        group: [1, 2, 3, 4]
     services:
       redis:
         image: redis
@@ -275,10 +277,51 @@ jobs:
         with:
           ref: ${{ env.REF }}
 
+      - name: Get durations from cache
+        uses: actions/cache@v2
+        with:
+          path: test_async_durations
+          key: integration-async-test-durations-split-${{ github.run_id }}-${{ github.run_number }}-${{ matrix.group }}
+          restore-keys: |
+            integration-async-test-durations-combined-${{ env.REF }}
+            integration-async-test-durations-combined
+
       - name: Test
         uses: ./.github/actions/backend-test
         with:
-          suite: integration-async
+          suite: 'integration-async --splits 4 --group ${{ matrix.group }} --durations-path test_async_durations/durations.json --store-durations --random-order-seed ${{ needs.backend_build.outputs.random-seed }}'
+
+      - name: Upload partial durations
+        uses: actions/upload-artifact@v2
+        with:
+          name: split-${{ matrix.group }}
+          path: test_async_durations
+
+  update_integration_async_durations:
+    name: Combine and update integration-async test durations
+    runs-on: ubuntu-latest
+    needs: backend_integration_async_test
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ env.REF }}
+
+      - name: Get durations from cache
+        uses: actions/cache@v2
+        with:
+          path: test_async_durations
+          key: integration-async-test-durations-combined-${{ env.REF }}
+          restore-keys: integration-async-test-durations-combined
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+
+      - name: Combine test durations
+        uses: ./.github/actions/combine-durations
+        with:
+          durations-path: test_async_durations/durations.json
+          split-prefix: split-
 
   backend_unit_test:
     name: Backend unit test
