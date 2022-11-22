@@ -211,7 +211,6 @@ function DetailPage({
                     </Tooltip>
                   }
                   key="2"
-                  forceRender
                 >
                   <ContentBox className="remove-top-border-of-card">
                     <AuthorCitationsContainer />
