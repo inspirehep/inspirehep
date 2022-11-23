@@ -21,5 +21,6 @@ runs:
         --env GITHUB_ACTIONS=true
         --env PYTEST_RUN_PATH=backend
         --volume $GITHUB_WORKSPACE/test_durations:/opt/inspire/test_durations
+        --volume $GITHUB_WORKSPACE/test_async_durations:/opt/inspire/test_async_durations
         $IMAGE:$REF_TAG
         run py.test tests/${{ inputs.suite }}
