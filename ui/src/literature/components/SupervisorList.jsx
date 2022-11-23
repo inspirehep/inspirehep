@@ -6,15 +6,15 @@ import InlineList from '../../common/components/InlineList';
 import Author from '../../common/components/Author';
 import pluralizeUnlessSingle from '../../common/utils';
 
-function renderSupervisor(supervisor) {
-  return <Author author={supervisor} />;
+function renderSupervisor(supervisor, page) {
+  return <Author author={supervisor} page={page} />;
 }
 
 function extractKeyFromSupervisor(supervisor) {
   return supervisor.get('uuid');
 }
 
-function SupervisorList({ supervisors }) {
+function SupervisorList({ supervisors, page }) {
   return (
     <InlineList
       label={pluralizeUnlessSingle(
@@ -23,7 +23,7 @@ function SupervisorList({ supervisors }) {
       )}
       items={supervisors}
       extractKey={extractKeyFromSupervisor}
-      renderItem={renderSupervisor}
+      renderItem={(supervisor) => renderSupervisor(supervisor, page)}
     />
   );
 }

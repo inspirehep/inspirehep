@@ -13,19 +13,33 @@ exports[`ExportToCalendarAction renders with seminar 1`] = `
       </ForwardRef(InternalButton)>
     }
   >
-    <MenuItem
-      onClick={[Function]}
+    <EventTracker
+      eventAction="Download"
+      eventId="Download .ics"
+      eventPropName="onClick"
+      extractEventArgsToForward={null}
     >
-      Download .ics
-    </MenuItem>
-    <MenuItem>
-      <LinkWithTargetBlank
-        as="a"
-        href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Harun%20Urhan%20%20%E2%80%94%20Seminar%20Title&details=&dates=20200515T114500Z%2F20200517T004500Z"
+      <MenuItem
+        onClick={[Function]}
       >
-        Google Calendar
-      </LinkWithTargetBlank>
-    </MenuItem>
+        Download .ics
+      </MenuItem>
+    </EventTracker>
+    <EventTracker
+      eventAction="Link"
+      eventId="Add to Google Calendar"
+      eventPropName="onClick"
+      extractEventArgsToForward={null}
+    >
+      <MenuItem>
+        <LinkWithTargetBlank
+          as="a"
+          href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Harun%20Urhan%20%20%E2%80%94%20Seminar%20Title&details=&dates=20200515T114500Z%2F20200517T004500Z"
+        >
+          Google Calendar
+        </LinkWithTargetBlank>
+      </MenuItem>
+    </EventTracker>
   </DropdownMenu>
 </UserActionWrapper>
 `;

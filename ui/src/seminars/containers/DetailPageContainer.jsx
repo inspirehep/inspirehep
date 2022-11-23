@@ -67,12 +67,20 @@ function DetailPage({ record }) {
             className="sm-pb3"
             leftActions={
               <>
-                {urls && <UrlsAction urls={urls} />}
+                {urls && (
+                  <UrlsAction
+                    urls={urls}
+                    trackerEventId="Seminar website"
+                    page="Seminar detail"
+                  />
+                )}
                 {joinUrls && (
                   <UrlsAction
                     urls={joinUrls}
                     icon={<VideoCameraAddOutlined />}
                     text="join"
+                    trackerEventId="Meeting link"
+                    page="Seminar detail"
                   />
                 )}
                 {materialUrls && (
@@ -80,11 +88,20 @@ function DetailPage({ record }) {
                     urls={materialUrls}
                     icon={<FileOutlined />}
                     text="material"
+                    trackerEventId="Material link"
+                    page="Seminar detail"
                   />
                 )}
-                <ExportToCalendarAction seminar={metadata} />
+                <ExportToCalendarAction
+                  seminar={metadata}
+                  page="Seminar detail"
+                />
                 {canEdit && (
-                  <EditRecordAction pidType="seminars" pidValue={recordId} />
+                  <EditRecordAction
+                    pidType="seminars"
+                    pidValue={recordId}
+                    page="Seminar detail"
+                  />
                 )}
               </>
             }
@@ -101,7 +118,7 @@ function DetailPage({ record }) {
             </Row>
             <Row>
               <Col>
-                <AuthorList authors={speakers} />
+                <AuthorList authors={speakers} page="Seminar detail" />
               </Col>
             </Row>
             <Row>
@@ -176,7 +193,7 @@ function DetailPage({ record }) {
             {contacts && (
               <Row className="mt2">
                 <Col>
-                  <ContactList contacts={contacts} />
+                  <ContactList contacts={contacts} page="Seminar detail" />
                 </Col>
               </Row>
             )}
@@ -205,13 +222,13 @@ DetailPage.propTypes = {
   record: PropTypes.instanceOf(Map).isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   record: state.seminars.get('data'),
 });
 const DetailPageContainer = connect(mapStateToProps)(DetailPage);
 
 export default withRouteActionsDispatcher(DetailPageContainer, {
   routeParamSelector: ({ id }) => id,
-  routeActions: id => [fetchSeminar(id)],
-  loadingStateSelector: state => !state.seminars.hasIn(['data', 'metadata']),
+  routeActions: (id) => [fetchSeminar(id)],
+  loadingStateSelector: (state) => !state.seminars.hasIn(['data', 'metadata']),
 });

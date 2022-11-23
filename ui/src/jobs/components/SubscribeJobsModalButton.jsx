@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { MailOutlined } from '@ant-design/icons';
 import { Modal, Alert, Typography } from 'antd';
+
 import LinkLikeButton from '../../common/components/LinkLikeButton/LinkLikeButton';
 import ResponsiveView from '../../common/components/ResponsiveView';
 import subscribeJobMailingList from '../subscribeJobMailingList';
 import ModalSuccessResult from '../../common/components/ModalSuccessResult';
 import SubscribeJobsForm from './SubscribeJobsForm';
+import EventTracker from '../../common/components/EventTracker';
 
 const MODAL_AUTO_CLOSE_TIMEOUT_AFTER_SUBMISSION = 4000;
 
@@ -92,15 +94,17 @@ export default class SubscribeJobsModalButton extends Component {
     const { isModalVisible, isSubscriptionSubmitted } = this.state;
     return (
       <>
-        <LinkLikeButton onClick={this.onClick}>
-          <MailOutlined />
-          <ResponsiveView
-            min="sm"
-            render={() => (
-              <span className="pl1">Subscribe to mailing list</span>
-            )}
-          />
-        </LinkLikeButton>
+        <EventTracker eventCategory="Jobs search" eventAction="Subscribe" eventId="Subscribe jobs" >
+          <LinkLikeButton onClick={this.onClick}>
+            <MailOutlined />
+            <ResponsiveView
+              min="sm"
+              render={() => (
+                <span className="pl1">Subscribe to mailing list</span>
+              )}
+            />
+          </LinkLikeButton>
+        </EventTracker>
         <Modal
           title="Subscribe to the INSPIRE job mailing list"
           visible={isModalVisible}

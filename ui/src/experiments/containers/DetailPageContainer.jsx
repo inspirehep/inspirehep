@@ -64,11 +64,19 @@ function DetailPage({ record }) {
             className="sm-pb3"
             leftActions={
               <>
-                {urls && <UrlsAction urls={urls} text="links" />}
+                {urls && (
+                  <UrlsAction
+                    urls={urls}
+                    text="links"
+                    trackerEventId="Experiment website"
+                    eventCategory="Experiments detail"
+                  />
+                )}
                 <AuthorizedContainer authorizedRoles={SUPERUSER_OR_CATALOGER}>
                   <EditRecordAction
                     pidType={EXPERIMENTS_PID_TYPE}
                     pidValue={recordId}
+                    page="Experiments detail"
                   />
                 </AuthorizedContainer>
               </>
@@ -110,14 +118,16 @@ function DetailPage({ record }) {
             >
               <Row>
                 <Col>
-                  (<ExperimentDates
+                  (
+                  <ExperimentDates
                     dateApproved={dateApproved}
                     dateProposed={dateProposed}
                     dateStarted={dateStarted}
                     dateCancelled={dateCancelled}
                     dateCompleted={dateCompleted}
                     wrapperClassName="di"
-                  />)
+                  />
+                  )
                 </Col>
               </Row>
             </RequireOneOf>
@@ -219,13 +229,14 @@ DetailPage.propTypes = {
   record: PropTypes.instanceOf(Map).isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   record: state.experiments.get('data'),
 });
 const DetailPageContainer = connect(mapStateToProps)(DetailPage);
 
 export default withRouteActionsDispatcher(DetailPageContainer, {
   routeParamSelector: ({ id }) => id,
-  routeActions: id => [fetchExperiment(id), newSearch(EXPERIMENT_PAPERS_NS)],
-  loadingStateSelector: state => !state.experiments.hasIn(['data', 'metadata']),
+  routeActions: (id) => [fetchExperiment(id), newSearch(EXPERIMENT_PAPERS_NS)],
+  loadingStateSelector: (state) =>
+    !state.experiments.hasIn(['data', 'metadata']),
 });

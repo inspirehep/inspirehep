@@ -16,20 +16,36 @@ exports[`EventStartDateFilter renders with selection: a date range 1`] = `
       type="flex"
     >
       <Col>
-        <Switch
-          checked={false}
-          onAnimationEnd={[Function]}
-          onChange={[Function]}
-        />
+        <EventTracker
+          eventAction="Start date facet"
+          eventCategory="Conferences search"
+          eventId="show upcoming conferences"
+          eventPropName="onChange"
+          extractEventArgsToForward={null}
+        >
+          <Switch
+            checked={false}
+            onAnimationEnd={[Function]}
+            onChange={[Function]}
+          />
+        </EventTracker>
       </Col>
       <Col>
         Upcoming items
       </Col>
     </Row>
-    <DateRangeFilter
-      onChange={[Function]}
-      range="2019-05-05--2020-01-01"
-    />
+    <EventTracker
+      eventAction="Start date facet"
+      eventCategory="Conferences search"
+      eventId="date range"
+      eventPropName="onChange"
+      extractEventArgsToForward={null}
+    >
+      <DateRangeFilter
+        onChange={[Function]}
+        range="2019-05-05--2020-01-01"
+      />
+    </EventTracker>
   </AggregationBox>
 </Row>
 `;
@@ -50,20 +66,36 @@ exports[`EventStartDateFilter renders with selection: all 1`] = `
       type="flex"
     >
       <Col>
-        <Switch
-          checked={false}
-          onAnimationEnd={[Function]}
-          onChange={[Function]}
-        />
+        <EventTracker
+          eventAction="Start date facet"
+          eventCategory="Conferences search"
+          eventId="show upcoming conferences"
+          eventPropName="onChange"
+          extractEventArgsToForward={null}
+        >
+          <Switch
+            checked={false}
+            onAnimationEnd={[Function]}
+            onChange={[Function]}
+          />
+        </EventTracker>
       </Col>
       <Col>
         Upcoming items
       </Col>
     </Row>
-    <DateRangeFilter
-      onChange={[Function]}
-      range=""
-    />
+    <EventTracker
+      eventAction="Start date facet"
+      eventCategory="Conferences search"
+      eventId="date range"
+      eventPropName="onChange"
+      extractEventArgsToForward={null}
+    >
+      <DateRangeFilter
+        onChange={[Function]}
+        range=""
+      />
+    </EventTracker>
   </AggregationBox>
 </Row>
 `;
@@ -84,20 +116,36 @@ exports[`EventStartDateFilter renders with selection: upcoming 1`] = `
       type="flex"
     >
       <Col>
-        <Switch
-          checked={true}
-          onAnimationEnd={[Function]}
-          onChange={[Function]}
-        />
+        <EventTracker
+          eventAction="Start date facet"
+          eventCategory="Conferences search"
+          eventId="show upcoming conferences"
+          eventPropName="onChange"
+          extractEventArgsToForward={null}
+        >
+          <Switch
+            checked={true}
+            onAnimationEnd={[Function]}
+            onChange={[Function]}
+          />
+        </EventTracker>
       </Col>
       <Col>
         Upcoming items
       </Col>
     </Row>
-    <DateRangeFilter
-      onChange={[Function]}
-      range=""
-    />
+    <EventTracker
+      eventAction="Start date facet"
+      eventCategory="Conferences search"
+      eventId="date range"
+      eventPropName="onChange"
+      extractEventArgsToForward={null}
+    >
+      <DateRangeFilter
+        onChange={[Function]}
+        range=""
+      />
+    </EventTracker>
   </AggregationBox>
 </Row>
 `;
@@ -118,20 +166,36 @@ exports[`EventStartDateFilter renders without selection 1`] = `
       type="flex"
     >
       <Col>
-        <Switch
-          checked={false}
-          onAnimationEnd={[Function]}
-          onChange={[Function]}
-        />
+        <EventTracker
+          eventAction="Start date facet"
+          eventCategory="Conferences search"
+          eventId="show upcoming conferences"
+          eventPropName="onChange"
+          extractEventArgsToForward={null}
+        >
+          <Switch
+            checked={false}
+            onAnimationEnd={[Function]}
+            onChange={[Function]}
+          />
+        </EventTracker>
       </Col>
       <Col>
         Upcoming items
       </Col>
     </Row>
-    <DateRangeFilter
-      onChange={[Function]}
-      range=""
-    />
+    <EventTracker
+      eventAction="Start date facet"
+      eventCategory="Conferences search"
+      eventId="date range"
+      eventPropName="onChange"
+      extractEventArgsToForward={null}
+    >
+      <DateRangeFilter
+        onChange={[Function]}
+        range=""
+      />
+    </EventTracker>
   </AggregationBox>
 </Row>
 `;

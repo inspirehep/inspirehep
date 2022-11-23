@@ -86,6 +86,7 @@ class ReferenceItem extends Component {
                     authors={authors}
                     collaborations={collaborations}
                     collaborationsWithSuffix={collaborationsWithSuffix}
+                    page="Literature detail"
                   />
                   <InlineUL
                     separator={SEPARATOR_MIDDLEDOT}
@@ -97,7 +98,7 @@ class ReferenceItem extends Component {
                         labeled={false}
                       />
                     )}
-                    {arxivEprint && <ArxivEprintList eprints={arxivEprint} />}
+                    {arxivEprint && <ArxivEprintList page="Literature detail" eprints={arxivEprint} />}
                     {dois && <DOIList dois={dois} />}
                     {urls && !recordId && <URLList urls={urls} />}
                   </InlineUL>

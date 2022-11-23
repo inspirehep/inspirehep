@@ -58,6 +58,7 @@ export function AuthorPublications({
                 noResultsTitle="0 Research works"
                 embedded
                 numberOfSelected={numberOfSelected}
+                page="Author publications"
               />
               {assignView && <AssignDrawerContainer />}
             </AssignViewContext.Provider>

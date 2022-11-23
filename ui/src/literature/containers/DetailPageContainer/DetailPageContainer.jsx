@@ -111,6 +111,7 @@ function DetailPage({
         <AssignLiteratureItemDrawerContainer
           authors={authors}
           itemLiteratureId={controlNumber}
+          page="Literature detail"
         />
       )}
       <LiteratureDocumentHead
@@ -138,27 +139,32 @@ function DetailPage({
                         urls={fullTextLinks}
                         text="pdf"
                         icon={<FilePdfOutlined />}
-                        trackerEventId="PdfDownload"
+                        trackerEventId="Pdf download"
+                        eventAction="Download"
+                        page="Literature detail"
                       />
                     )}
                     {urls && (
                       <UrlsAction
                         urls={urls}
                         text="links"
-                        trackerEventId="LiteratureFileLink"
+                        trackerEventId="Literature file"
+                        page="Literature detail"
                       />
                     )}
-                    <CiteModalActionContainer recordId={controlNumber} />
+                    <CiteModalActionContainer recordId={controlNumber} page="Literature detail" />
                     <LiteratureClaimButton
                       loggedIn={loggedIn}
                       hasAuthorProfile={hasAuthorProfile}
                       authors={authors}
                       controlNumber={controlNumber}
+                      page="Literature detail"
                     />
                     {canEdit && (
                       <EditRecordAction
                         pidType="literature"
                         pidValue={controlNumber}
+                        page="Literature detail"
                       />
                     )}
                     {datasetLinks && (
@@ -166,19 +172,22 @@ function DetailPage({
                         urls={datasetLinks}
                         icon={<DatabaseOutlined />}
                         text="datasets"
+                        trackerEventId="Dataset links"
+                        page="Literature detail"
                       />
                     )}
                   </>
                 }
                 rightActions={
                   <>
-                    <ReferenceSearchLinkAction recordId={controlNumber} />
+                    <ReferenceSearchLinkAction recordId={controlNumber} page="Literature detail" />
                     {citationCount != null && (
                       <IncomingLiteratureReferencesLinkAction
                         linkQuery={getPapersQueryString(controlNumber)}
                         referenceType="citation"
                         itemCount={citationCount}
-                        trackerEventId="Citations:Detail"
+                        trackerEventId="Citations link"
+                        eventCategory="Literature detail"
                       />
                     )}
                   </>
@@ -197,12 +206,13 @@ function DetailPage({
                     enableAuthorsShowAll
                     collaborations={collaborations}
                     collaborationsWithSuffix={collaborationsWithSuffix}
+                    page="Literature detail"
                   />
                 </div>
                 <LiteratureDate date={date} />
                 <div className="mt3">
                   <NumberOfPages numberOfPages={numberOfPages} />
-                  <SupervisorList supervisors={supervisors} />
+                  <SupervisorList supervisors={supervisors} page="Literature detail" />
                   <ThesisInfo thesisInfo={thesisInfo} />
                   {linkedBook && (
                     <ParentRecordInfo
@@ -226,7 +236,7 @@ function DetailPage({
                   />
                   <IsbnList isbns={isbns} />
                   <ImprintInfo imprint={imprint} />
-                  <ArxivEprintList eprints={eprints} />
+                  <ArxivEprintList page="Literature detail" eprints={eprints} />
                   <DOIList dois={dois} />
                   {PDGkeywords && PDGkeywords.size > 0 && (
                     <PDGKeywords keywords={PDGkeywords} />
@@ -279,6 +289,7 @@ function DetailPage({
                     <TabNameWithCount
                       name="References"
                       count={referencesCount}
+                      page="Literature detail"
                     />
                   }
                   key="1"
@@ -290,6 +301,7 @@ function DetailPage({
                     <TabNameWithCount
                       name="Figures"
                       count={figures ? figures.size : 0}
+                      page="Literature detail"
                     />
                   }
                   key="2"

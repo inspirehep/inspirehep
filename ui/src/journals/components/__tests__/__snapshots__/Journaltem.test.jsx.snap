@@ -6,7 +6,9 @@ exports[`JournalItem renders with props 1`] = `
     <React.Fragment>
       <UrlsAction
         icon={<ForwardRef(LinkOutlined) />}
+        page="Journals search"
         text="links"
+        trackerEventId="Journal website"
         urls={
           Immutable.List [
             Immutable.Map {
@@ -24,6 +26,7 @@ exports[`JournalItem renders with props 1`] = `
         }
       >
         <EditRecordAction
+          page="Journals search"
           pidType="journals"
           pidValue={1234}
         />
@@ -33,7 +36,9 @@ exports[`JournalItem renders with props 1`] = `
   rightActions={
     <UserActionWrapper>
       <EventTracker
-        eventId="Journals:PapersSearch"
+        eventAction="Literature references search"
+        eventCategory="Journals search"
+        eventId="Journal papers"
         eventPropName="onClick"
         extractEventArgsToForward={null}
       >
@@ -85,6 +90,7 @@ exports[`JournalItem renders with some props undefined 1`] = `
         }
       >
         <EditRecordAction
+          page="Journals search"
           pidType="journals"
           pidValue={1234}
         />

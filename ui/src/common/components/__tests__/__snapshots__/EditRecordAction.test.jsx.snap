@@ -3,7 +3,9 @@
 exports[`EditRecordAction renders edit button with pidType authors and pidValue 1`] = `
 <UserActionWrapper>
   <EventTracker
-    eventId="Edit"
+    eventAction="Edit"
+    eventCategory="Authors"
+    eventId="Edit authors record"
     eventPropName="onClick"
     extractEventArgsToForward={null}
   >
@@ -23,7 +25,9 @@ exports[`EditRecordAction renders edit button with pidType authors and pidValue 
 exports[`EditRecordAction renders edit button with pidType authors and pidValue for catalogers 1`] = `
 <UserActionWrapper>
   <EventTracker
-    eventId="Edit"
+    eventAction="Edit"
+    eventCategory="Authors"
+    eventId="Edit authors record"
     eventPropName="onClick"
     extractEventArgsToForward={null}
   >
@@ -43,7 +47,9 @@ exports[`EditRecordAction renders edit button with pidType authors and pidValue 
 exports[`EditRecordAction renders edit button with pidType conferences and pidValue 1`] = `
 <UserActionWrapper>
   <EventTracker
-    eventId="Edit"
+    eventAction="Edit"
+    eventCategory="Conferences"
+    eventId="Edit conferences record"
     eventPropName="onClick"
     extractEventArgsToForward={null}
   >
@@ -63,7 +69,9 @@ exports[`EditRecordAction renders edit button with pidType conferences and pidVa
 exports[`EditRecordAction renders edit button with pidType institutions and pidValue 1`] = `
 <UserActionWrapper>
   <EventTracker
-    eventId="Edit"
+    eventAction="Edit"
+    eventCategory="Institutions"
+    eventId="Edit institutions record"
     eventPropName="onClick"
     extractEventArgsToForward={null}
   >
@@ -83,7 +91,9 @@ exports[`EditRecordAction renders edit button with pidType institutions and pidV
 exports[`EditRecordAction renders edit button with pidType jobs and pidValue 1`] = `
 <UserActionWrapper>
   <EventTracker
-    eventId="Edit"
+    eventAction="Edit"
+    eventCategory="Jobs"
+    eventId="Edit jobs record"
     eventPropName="onClick"
     extractEventArgsToForward={null}
   >
@@ -103,7 +113,9 @@ exports[`EditRecordAction renders edit button with pidType jobs and pidValue 1`]
 exports[`EditRecordAction renders edit button with pidType literature and pidValue 1`] = `
 <UserActionWrapper>
   <EventTracker
-    eventId="Edit"
+    eventAction="Edit"
+    eventCategory="Literature"
+    eventId="Edit literature record"
     eventPropName="onClick"
     extractEventArgsToForward={null}
   >
@@ -123,7 +135,9 @@ exports[`EditRecordAction renders edit button with pidType literature and pidVal
 exports[`EditRecordAction renders edit button with pidType seminars and pidValue 1`] = `
 <UserActionWrapper>
   <EventTracker
-    eventId="Edit"
+    eventAction="Edit"
+    eventCategory="Seminars"
+    eventId="Edit seminars record"
     eventPropName="onClick"
     extractEventArgsToForward={null}
   >

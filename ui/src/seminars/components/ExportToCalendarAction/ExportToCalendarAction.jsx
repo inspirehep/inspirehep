@@ -11,31 +11,42 @@ import LinkWithTargetBlank from '../../../common/components/LinkWithTargetBlank.
 import getIcsFileContent from './ics';
 import { downloadTextAsFile } from '../../../common/utils';
 import getGoogleCalendarUrl from './google';
+import EventTracker from '../../../common/components/EventTracker';
 
 const TITLE = <IconText icon={<CalendarOutlined />} text="export" />;
 
-function ExportToCalendarAction({ seminar }) {
-  const onDownloadClick = useCallback(
-    () => {
-      const fileContent = getIcsFileContent(seminar);
-      const controlNumber = seminar.get('control_number');
-      downloadTextAsFile(
-        fileContent,
-        `INSPIRE-Seminar-${controlNumber}.ics`,
-        'text/calendar'
-      );
-    },
-    [seminar]
-  );
+function ExportToCalendarAction({ seminar, page }) {
+  const onDownloadClick = useCallback(() => {
+    const fileContent = getIcsFileContent(seminar);
+    const controlNumber = seminar.get('control_number');
+    downloadTextAsFile(
+      fileContent,
+      `INSPIRE-Seminar-${controlNumber}.ics`,
+      'text/calendar'
+    );
+  }, [seminar]);
+  
   return (
     <UserAction>
       <DropdownMenu title={<Button>{TITLE}</Button>}>
-        <Menu.Item onClick={onDownloadClick}>Download .ics</Menu.Item>
-        <Menu.Item>
-          <LinkWithTargetBlank href={getGoogleCalendarUrl(seminar)}>
-            Google Calendar
-          </LinkWithTargetBlank>
-        </Menu.Item>
+        <EventTracker
+          eventCategory={page}
+          eventAction="Download"
+          eventId="Download .ics"
+        >
+          <Menu.Item onClick={onDownloadClick}>Download .ics</Menu.Item>
+        </EventTracker>
+        <EventTracker
+          eventCategory={page}
+          eventAction="Link"
+          eventId="Add to Google Calendar"
+        >
+          <Menu.Item>
+            <LinkWithTargetBlank href={getGoogleCalendarUrl(seminar)}>
+              Google Calendar
+            </LinkWithTargetBlank>
+          </Menu.Item>
+        </EventTracker>
       </DropdownMenu>
     </UserAction>
   );

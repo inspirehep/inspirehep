@@ -13,13 +13,21 @@ exports[`AssignDifferentProfileAction renders 1`] = `
       </ForwardRef(InternalButton)>
     }
   >
-    <MenuItem
-      data-test-id="assign-self"
-      key="assign-self"
-      onClick={[Function]}
+    <EventTracker
+      eventAction="Claim"
+      eventCategory="Author detail"
+      eventId="Move to my profile"
+      eventPropName="onClick"
+      extractEventArgsToForward={null}
     >
-      Move to my profile
-    </MenuItem>
+      <MenuItem
+        data-test-id="assign-self"
+        key="assign-self"
+        onClick={[Function]}
+      >
+        Move to my profile
+      </MenuItem>
+    </EventTracker>
   </DropdownMenu>
 </UserActionWrapper>
 `;
@@ -37,13 +45,21 @@ exports[`AssignDifferentProfileAction renders disabled 1`] = `
       </ForwardRef(InternalButton)>
     }
   >
-    <MenuItem
-      data-test-id="assign-self"
-      key="assign-self"
-      onClick={[Function]}
+    <EventTracker
+      eventAction="Claim"
+      eventCategory="Author detail"
+      eventId="Move to my profile"
+      eventPropName="onClick"
+      extractEventArgsToForward={null}
     >
-      Move to my profile
-    </MenuItem>
+      <MenuItem
+        data-test-id="assign-self"
+        key="assign-self"
+        onClick={[Function]}
+      >
+        Move to my profile
+      </MenuItem>
+    </EventTracker>
   </DropdownMenu>
 </UserActionWrapper>
 `;

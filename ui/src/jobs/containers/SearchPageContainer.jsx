@@ -53,6 +53,7 @@ class SearchPage extends Component {
             inline
             displayWhenNoResults
             namespace={JOBS_NS}
+            page="Jobs search"
           />
         </LoadingOrChildren>
       </div>
@@ -68,6 +69,7 @@ class SearchPage extends Component {
             inline
             displayWhenNoResults
             namespace={JOBS_NS}
+            page="Jobs search"
           />
         </LoadingOrChildren>
       </DrawerHandle>

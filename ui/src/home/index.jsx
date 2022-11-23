@@ -10,6 +10,7 @@ import HowToSubmit from './components/HowToSubmit';
 import CollaborationLogos from './components/CollaborationLogos';
 import LinkLikeButton from '../common/components/LinkLikeButton/LinkLikeButton';
 import NewsAndUpdates from './components/NewsAndUpdates';
+import EventTracker from '../common/components/EventTracker';
 
 const INSPIRE_DESCRIPTION =
   'INSPIRE is a trusted community hub that helps researchers to share and find accurate scholarly information in high energy physics.';
@@ -34,9 +35,11 @@ function Home() {
             <>
               <SearchBoxContainer />
               <div className="tc f5 mt4" data-test-id="scroll-button">
-                <LinkLikeButton onClick={scrollToSection} color="blue middle">
-                  How to search?
-                </LinkLikeButton>
+                <EventTracker eventCategory="Home page" eventAction="Link" eventId="How to search" >
+                  <LinkLikeButton onClick={scrollToSection} color="blue middle">
+                    How to search?
+                  </LinkLikeButton>
+                </EventTracker>
               </div>
             </>
           </HomePageSection>

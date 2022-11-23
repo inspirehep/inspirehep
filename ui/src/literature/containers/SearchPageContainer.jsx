@@ -26,6 +26,7 @@ export function SearchPage({ assignView, numberOfSelected }) {
             <LiteratureSearchContainer
               namespace={LITERATURE_NS}
               noResultsTitle="0 Results"
+              page="Literature search"
               noResultsDescription={
                 <em>
                   Oops! You might want to check out our{' '}

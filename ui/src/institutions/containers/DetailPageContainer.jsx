@@ -59,11 +59,13 @@ function DetailPage({ record }) {
             className="sm-pb3"
             leftActions={
               <>
-                {urls && <UrlsAction urls={urls} />}
+                {urls && <UrlsAction urls={urls}               trackerEventId="Institution website"
+              eventCategory="Institution detail"/>}
                 <AuthorizedContainer authorizedRoles={SUPERUSER_OR_CATALOGER}>
                   <EditRecordAction
                     pidType={INSTITUTIONS_PID_TYPE}
                     pidValue={controlNumber}
+                    page="Institutions detail"
                   />
                 </AuthorizedContainer>
               </>

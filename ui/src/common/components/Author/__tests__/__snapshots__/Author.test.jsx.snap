@@ -21,22 +21,29 @@ exports[`Author renders editor 1`] = `
       }
     }
   />
-  <span
-    className="pl1 secondary-color"
+  <EventTracker
+    eventAction="Link"
+    eventId="Author profile"
+    eventPropName="onClick"
+    extractEventArgsToForward={null}
   >
-    (
-    <AffiliationList
-      affiliations={
-        Immutable.List [
-          Immutable.Map {
-            "value": "Affiliation",
-          },
-        ]
-      }
-      separator=" and "
-    />
-    )
-  </span>
+    <span
+      className="pl1 secondary-color"
+    >
+      (
+      <AffiliationList
+        affiliations={
+          Immutable.List [
+            Immutable.Map {
+              "value": "Affiliation",
+            },
+          ]
+        }
+        separator=" and "
+      />
+      )
+    </span>
+  </EventTracker>
   <Tooltip
     arrowPointAtCenter={false}
     autoAdjustOverflow={true}
@@ -65,6 +72,12 @@ exports[`Author renders linked author 1`] = `
       }
     }
   />
+  <EventTracker
+    eventAction="Link"
+    eventId="Author profile"
+    eventPropName="onClick"
+    extractEventArgsToForward={null}
+  />
 </div>
 `;
 
@@ -82,6 +95,12 @@ exports[`Author renders supervisor 1`] = `
       }
     }
   />
+  <EventTracker
+    eventAction="Link"
+    eventId="Author profile"
+    eventPropName="onClick"
+    extractEventArgsToForward={null}
+  />
 </div>
 `;
 
@@ -96,6 +115,12 @@ exports[`Author renders unlinked author with bai 1`] = `
         "bai": "Full.Name.1",
       }
     }
+  />
+  <EventTracker
+    eventAction="Link"
+    eventId="Author profile"
+    eventPropName="onClick"
+    extractEventArgsToForward={null}
   />
 </div>
 `;
@@ -118,21 +143,28 @@ exports[`Author renders unlinkedAuthor with affiliations 1`] = `
       }
     }
   />
-  <span
-    className="pl1 secondary-color"
+  <EventTracker
+    eventAction="Link"
+    eventId="Author profile"
+    eventPropName="onClick"
+    extractEventArgsToForward={null}
   >
-    (
-    <AffiliationList
-      affiliations={
-        Immutable.List [
-          Immutable.Map {
-            "value": "Affiliation",
-          },
-        ]
-      }
-      separator=" and "
-    />
-    )
-  </span>
+    <span
+      className="pl1 secondary-color"
+    >
+      (
+      <AffiliationList
+        affiliations={
+          Immutable.List [
+            Immutable.Map {
+              "value": "Affiliation",
+            },
+          ]
+        }
+        separator=" and "
+      />
+      )
+    </span>
+  </EventTracker>
 </div>
 `;

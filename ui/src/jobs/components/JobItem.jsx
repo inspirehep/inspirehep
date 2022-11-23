@@ -37,7 +37,7 @@ class JobItem extends Component {
     return (
       <ResultItem
         leftActions={
-          canEdit && <EditRecordAction pidType="jobs" pidValue={recordId} />
+          canEdit && <EditRecordAction pidType="jobs" pidValue={recordId} page="Jobs search" />
         }
       >
         <Row type="flex" align="middle">

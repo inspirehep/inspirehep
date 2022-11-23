@@ -134,6 +134,7 @@ function DetailPage({
                       canEdit={canEdit}
                       pidValue={recordId}
                       isCatalogerLoggedIn={isCatalogerLoggedIn}
+                      page="Author detail"
                     />
                   </>
                 }
@@ -192,6 +193,7 @@ function DetailPage({
                           }
                           name="Research works"
                           count={publicationsCount}
+                          page="Author detail"
                         />
                       </span>
                     </Tooltip>

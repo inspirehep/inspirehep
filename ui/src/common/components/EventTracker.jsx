@@ -14,14 +14,16 @@ class EventTracker extends Component {
     const {
       children,
       eventId,
+      eventCategory,
+      eventAction,
       eventPropName,
       extractEventArgsToForward,
     } = this.props;
 
-    const eventInfo = extractEventArgsToForward
+    const eventName = extractEventArgsToForward
       ? [eventId, extractEventArgsToForward(eventArgs)]
       : eventId;
-    trackEvent('User', eventPropName, eventInfo);
+    trackEvent(eventCategory, eventAction, eventName);
 
     if (children.props[eventPropName]) {
       children.props[eventPropName](...eventArgs);
@@ -38,7 +40,9 @@ class EventTracker extends Component {
 
 EventTracker.propTypes = {
   children: PropTypes.node.isRequired, // single child
+  eventCategory: PropTypes.string,
   eventPropName: PropTypes.string,
+  eventAction: PropTypes.string,
   eventId: PropTypes.string.isRequired,
   extractEventArgsToForward: PropTypes.func,
 };

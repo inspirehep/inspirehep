@@ -19,6 +19,7 @@ function InstitutionPapers({ recordId }) {
       baseQuery={baseQuery}
       noResultsTitle="0 Papers"
       embedded
+      page="Institution details"
     />
   );
 }

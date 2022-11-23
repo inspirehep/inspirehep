@@ -40,10 +40,10 @@ class ConferenceItem extends Component {
       <ResultItem
         leftActions={
           <>
-            {urls && <UrlsAction urls={urls} />}
+            {urls && <UrlsAction urls={urls} page="Conferences search" trackerEventId="Conferences website" />}
             {proceedings && <ProceedingsAction proceedings={proceedings} />}
             {canEdit && (
-              <EditRecordAction pidType="conferences" pidValue={recordId} />
+              <EditRecordAction pidType="conferences" pidValue={recordId} page="Conferences search" />
             )}
           </>
         }

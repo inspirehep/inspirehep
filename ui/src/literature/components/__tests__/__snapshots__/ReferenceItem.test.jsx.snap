@@ -27,6 +27,7 @@ exports[`ReferenceItem does not render misc if title present 1`] = `
               collaborations={Immutable.List []}
               collaborationsWithSuffix={Immutable.List []}
               enableAuthorsShowAll={false}
+              page="Literature detail"
             />
             <InlineUL
               separator=" • "
@@ -83,6 +84,7 @@ exports[`ReferenceItem renders misc if present 1`] = `
               collaborations={Immutable.List []}
               collaborationsWithSuffix={Immutable.List []}
               enableAuthorsShowAll={false}
+              page="Literature detail"
             />
             <InlineUL
               separator=" • "
@@ -142,6 +144,7 @@ exports[`ReferenceItem renders unlinked reference (no control_number) 1`] = `
                 ]
               }
               enableAuthorsShowAll={false}
+              page="Literature detail"
             />
             <InlineUL
               separator=" • "
@@ -249,6 +252,7 @@ exports[`ReferenceItem renders with full reference 1`] = `
                 ]
               }
               enableAuthorsShowAll={false}
+              page="Literature detail"
             />
             <InlineUL
               separator=" • "

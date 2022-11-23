@@ -3,6 +3,7 @@
 exports[`IncomingLiteratureReferencesLinkAction renders with required props 1`] = `
 <UserActionWrapper>
   <EventTracker
+    eventAction="Literature references search"
     eventId="Citations:Search"
     eventPropName="onClick"
     extractEventArgsToForward={null}
@@ -30,6 +31,7 @@ exports[`IncomingLiteratureReferencesLinkAction renders with required props 1`] 
 exports[`IncomingLiteratureReferencesLinkAction renders with required props when reference count is singular 1`] = `
 <UserActionWrapper>
   <EventTracker
+    eventAction="Literature references search"
     eventId="Papers:Search"
     eventPropName="onClick"
     extractEventArgsToForward={null}

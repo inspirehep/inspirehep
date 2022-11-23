@@ -1,23 +1,39 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`OrcidProfileLink renders with all props set 1`] = `
-<LinkWithTargetBlank
-  as="a"
-  className="test"
-  href="//orcid.org/0000-0001-8058-0014"
+<EventTracker
+  eventAction="Link"
+  eventCategory="Author detail"
+  eventId="Orcid link"
+  eventPropName="onClick"
+  extractEventArgsToForward={null}
 >
-  Orcid: 
-  <strong>
-    0000-0001-8058-0014
-  </strong>
-</LinkWithTargetBlank>
+  <LinkWithTargetBlank
+    as="a"
+    className="test"
+    href="//orcid.org/0000-0001-8058-0014"
+  >
+    Orcid: 
+    <strong>
+      0000-0001-8058-0014
+    </strong>
+  </LinkWithTargetBlank>
+</EventTracker>
 `;
 
 exports[`OrcidProfileLink renders with only orcid 1`] = `
-<LinkWithTargetBlank
-  as="a"
-  href="//orcid.org/0000-0001-8058-0014"
+<EventTracker
+  eventAction="Link"
+  eventCategory="Author detail"
+  eventId="Orcid link"
+  eventPropName="onClick"
+  extractEventArgsToForward={null}
 >
-  0000-0001-8058-0014
-</LinkWithTargetBlank>
+  <LinkWithTargetBlank
+    as="a"
+    href="//orcid.org/0000-0001-8058-0014"
+  >
+    0000-0001-8058-0014
+  </LinkWithTargetBlank>
+</EventTracker>
 `;

@@ -101,11 +101,12 @@ class CiteModalAction extends Component {
       errorMessage,
       format,
       loading,
+      page,
     } = this.state;
     return (
       <>
         <UserAction>
-          <EventTracker eventId="Cite">
+          <EventTracker eventCategory={page} eventAction="Open modal" eventId="Cite">
             <Button onClick={this.onCiteClick}>
               <IconText text="cite" icon={<ExportOutlined />} />
             </Button>
@@ -133,6 +134,12 @@ class CiteModalAction extends Component {
               </Row>
               <Row type="flex" justify="space-between">
                 <div>
+              <EventTracker
+                  eventCategory={page} eventAction="Copy to clipboard"
+                  eventId="Copy citation"
+                  eventPropName="onChange"
+                  extractEventArgsToForward={args => [args[0]]}
+                >
                   <CopyToClipboard
                     text={citeContent}
                     onCopy={this.onModalCancel}
@@ -141,12 +148,21 @@ class CiteModalAction extends Component {
                       <CopyOutlined /> Copy to Clipboard
                     </Button>
                   </CopyToClipboard>
+                  </EventTracker>
+                <EventTracker
+                  eventCategory={page} eventAction="Download"
+                  eventId="Download citation"
+                  eventPropName="onChange"
+                  extractEventArgsToForward={args => [args[0]]}
+                >
                   <Button onClick={this.onDownloadClick}>
                     <DownloadOutlined /> Download
                   </Button>
+                </EventTracker>
                 </div>
                 <EventTracker
-                  eventId="CiteFormatSelection"
+                  eventCategory={page} eventAction="Select"
+                  eventId="Cite format selection"
                   eventPropName="onChange"
                   extractEventArgsToForward={args => [args[0]]}
                 >

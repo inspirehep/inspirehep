@@ -2,16 +2,24 @@
 
 exports[`SubscribeJobsModalButton renders confirmation if subscription is submitted 1`] = `
 <Fragment>
-  <LinkLikeButton
-    color="blue"
-    onClick={[Function]}
+  <EventTracker
+    eventAction="Subscribe"
+    eventCategory="Jobs search"
+    eventId="Subscribe jobs"
+    eventPropName="onClick"
+    extractEventArgsToForward={null}
   >
-    <ForwardRef(MailOutlined) />
-    <ResponsiveView
-      min="sm"
-      render={[Function]}
-    />
-  </LinkLikeButton>
+    <LinkLikeButton
+      color="blue"
+      onClick={[Function]}
+    >
+      <ForwardRef(MailOutlined) />
+      <ResponsiveView
+        min="sm"
+        render={[Function]}
+      />
+    </LinkLikeButton>
+  </EventTracker>
   <Modal
     afterClose={[Function]}
     confirmLoading={false}
@@ -37,16 +45,24 @@ exports[`SubscribeJobsModalButton renders confirmation if subscription is submit
 
 exports[`SubscribeJobsModalButton renders with error alert if hasError 1`] = `
 <Fragment>
-  <LinkLikeButton
-    color="blue"
-    onClick={[Function]}
+  <EventTracker
+    eventAction="Subscribe"
+    eventCategory="Jobs search"
+    eventId="Subscribe jobs"
+    eventPropName="onClick"
+    extractEventArgsToForward={null}
   >
-    <ForwardRef(MailOutlined) />
-    <ResponsiveView
-      min="sm"
-      render={[Function]}
-    />
-  </LinkLikeButton>
+    <LinkLikeButton
+      color="blue"
+      onClick={[Function]}
+    >
+      <ForwardRef(MailOutlined) />
+      <ResponsiveView
+        min="sm"
+        render={[Function]}
+      />
+    </LinkLikeButton>
+  </EventTracker>
   <Modal
     afterClose={[Function]}
     confirmLoading={false}
@@ -83,16 +99,24 @@ exports[`SubscribeJobsModalButton renders with error alert if hasError 1`] = `
 
 exports[`SubscribeJobsModalButton renders with initial state 1`] = `
 <Fragment>
-  <LinkLikeButton
-    color="blue"
-    onClick={[Function]}
+  <EventTracker
+    eventAction="Subscribe"
+    eventCategory="Jobs search"
+    eventId="Subscribe jobs"
+    eventPropName="onClick"
+    extractEventArgsToForward={null}
   >
-    <ForwardRef(MailOutlined) />
-    <ResponsiveView
-      min="sm"
-      render={[Function]}
-    />
-  </LinkLikeButton>
+    <LinkLikeButton
+      color="blue"
+      onClick={[Function]}
+    >
+      <ForwardRef(MailOutlined) />
+      <ResponsiveView
+        min="sm"
+        render={[Function]}
+      />
+    </LinkLikeButton>
+  </EventTracker>
   <Modal
     afterClose={[Function]}
     confirmLoading={false}

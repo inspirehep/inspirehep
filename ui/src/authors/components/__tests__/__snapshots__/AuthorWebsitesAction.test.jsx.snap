@@ -2,41 +2,59 @@
 
 exports[`AuthorWebsitesAction renders only a url 1`] = `
 <UserActionWrapper>
-  <LinkWithTargetBlank
-    as="a"
-    href="www.descriptionless.com/url"
+  <EventTracker
+    eventAction="Link"
+    eventCategory="Author detail"
+    eventId="Author websites"
+    eventPropName="onClick"
+    extractEventArgsToForward={null}
   >
-    <Tooltip
-      arrowPointAtCenter={false}
-      autoAdjustOverflow={true}
-      mouseEnterDelay={0.1}
-      mouseLeaveDelay={0.1}
-      placement="top"
-      title="Author websites"
+    <LinkWithTargetBlank
+      as="a"
+      href="www.descriptionless.com/url"
     >
-      <ForwardRef(LinkOutlined) />
-    </Tooltip>
-  </LinkWithTargetBlank>
+      <Tooltip
+        arrowPointAtCenter={false}
+        autoAdjustOverflow={true}
+        mouseEnterDelay={0.1}
+        mouseLeaveDelay={0.1}
+        placement="top"
+        title="Author websites"
+      >
+        <ForwardRef(LinkOutlined) />
+      </Tooltip>
+    </LinkWithTargetBlank>
+    ;
+  </EventTracker>
 </UserActionWrapper>
 `;
 
 exports[`AuthorWebsitesAction renders only blog 1`] = `
 <UserActionWrapper>
-  <LinkWithTargetBlank
-    as="a"
-    href="https://author.wordpress.com"
+  <EventTracker
+    eventAction="Link"
+    eventCategory="Author detail"
+    eventId="Author websites"
+    eventPropName="onClick"
+    extractEventArgsToForward={null}
   >
-    <Tooltip
-      arrowPointAtCenter={false}
-      autoAdjustOverflow={true}
-      mouseEnterDelay={0.1}
-      mouseLeaveDelay={0.1}
-      placement="top"
-      title="Author websites"
+    <LinkWithTargetBlank
+      as="a"
+      href="https://author.wordpress.com"
     >
-      <ForwardRef(LinkOutlined) />
-    </Tooltip>
-  </LinkWithTargetBlank>
+      <Tooltip
+        arrowPointAtCenter={false}
+        autoAdjustOverflow={true}
+        mouseEnterDelay={0.1}
+        mouseLeaveDelay={0.1}
+        placement="top"
+        title="Author websites"
+      >
+        <ForwardRef(LinkOutlined) />
+      </Tooltip>
+    </LinkWithTargetBlank>
+    ;
+  </EventTracker>
 </UserActionWrapper>
 `;
 
@@ -62,32 +80,56 @@ exports[`AuthorWebsitesAction renders with a blog and urls in a dropdown 1`] = `
     <MenuItem
       key="https://author.wordpress.com"
     >
-      <LinkWithTargetBlank
-        as="a"
-        href="https://author.wordpress.com"
+      <EventTracker
+        eventAction="Link"
+        eventCategory="Author detail"
+        eventId="Author websites"
+        eventPropName="onClick"
+        extractEventArgsToForward={null}
       >
-        Blog
-      </LinkWithTargetBlank>
+        <LinkWithTargetBlank
+          as="a"
+          href="https://author.wordpress.com"
+        >
+          Blog
+        </LinkWithTargetBlank>
+      </EventTracker>
     </MenuItem>
     <MenuItem
       key="https://www.whatever.com/author"
     >
-      <LinkWithTargetBlank
-        as="a"
-        href="https://www.whatever.com/author"
+      <EventTracker
+        eventAction="Link"
+        eventCategory="Author detail"
+        eventId="Author websites"
+        eventPropName="onClick"
+        extractEventArgsToForward={null}
       >
-        whatever.com/author
-      </LinkWithTargetBlank>
+        <LinkWithTargetBlank
+          as="a"
+          href="https://www.whatever.com/author"
+        >
+          whatever.com/author
+        </LinkWithTargetBlank>
+      </EventTracker>
     </MenuItem>
     <MenuItem
       key="www.descriptionless.com/url"
     >
-      <LinkWithTargetBlank
-        as="a"
-        href="www.descriptionless.com/url"
+      <EventTracker
+        eventAction="Link"
+        eventCategory="Author detail"
+        eventId="Author websites"
+        eventPropName="onClick"
+        extractEventArgsToForward={null}
       >
-        descriptionless.com/url
-      </LinkWithTargetBlank>
+        <LinkWithTargetBlank
+          as="a"
+          href="www.descriptionless.com/url"
+        >
+          descriptionless.com/url
+        </LinkWithTargetBlank>
+      </EventTracker>
     </MenuItem>
   </DropdownMenu>
 </UserActionWrapper>

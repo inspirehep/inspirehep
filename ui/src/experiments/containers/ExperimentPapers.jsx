@@ -19,6 +19,7 @@ function ExperimentPapers({ recordId }) {
       baseQuery={baseQuery}
       noResultsTitle="0 Papers"
       embedded
+      page="Experiment details"
     />
   );
 }

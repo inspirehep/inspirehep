@@ -6,7 +6,9 @@ exports[`ConferenceItem renders with all props set 1`] = `
     <React.Fragment>
       <UrlsAction
         icon={<ForwardRef(LinkOutlined) />}
+        page="Conferences search"
         text="website"
+        trackerEventId="Conferences website"
         urls={
           Immutable.List [
             Immutable.Map {
@@ -30,6 +32,7 @@ exports[`ConferenceItem renders with all props set 1`] = `
         }
       />
       <EditRecordAction
+        page="Conferences search"
         pidType="conferences"
         pidValue={12345}
       />

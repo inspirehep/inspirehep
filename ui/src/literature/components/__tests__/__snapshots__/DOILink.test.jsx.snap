@@ -2,7 +2,9 @@
 
 exports[`DOILink renders with doi 1`] = `
 <EventTracker
-  eventId="DoiLink"
+  eventAction="Link"
+  eventCategory="Literature detail"
+  eventId="Doi link"
   eventPropName="onClick"
   extractEventArgsToForward={null}
 >

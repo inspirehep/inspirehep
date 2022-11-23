@@ -6,6 +6,7 @@ exports[`AuthorResultItem renders full author result 1`] = `
     <EditAuthorRecordAction
       canEdit={true}
       isCatalogerLoggedIn={false}
+      page="Authors search"
       pidValue={12345}
     />
   }
@@ -73,6 +74,7 @@ exports[`AuthorResultItem renders with only name 1`] = `
     <EditAuthorRecordAction
       canEdit={false}
       isCatalogerLoggedIn={false}
+      page="Authors search"
       pidValue={12345}
     />
   }

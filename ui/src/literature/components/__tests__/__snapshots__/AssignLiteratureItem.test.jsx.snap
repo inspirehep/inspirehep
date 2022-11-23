@@ -13,13 +13,20 @@ exports[`AssignLiteratureItem renders 1`] = `
       </ForwardRef(InternalButton)>
     }
   >
-    <MenuItem
-      data-test-id="assign-literature-item"
-      key="assign-literature-item"
-      onClick={[Function]}
+    <EventTracker
+      eventAction="Claim"
+      eventId="Move to my profile"
+      eventPropName="onClick"
+      extractEventArgsToForward={null}
     >
-      Move to my profile
-    </MenuItem>
+      <MenuItem
+        data-test-id="assign-literature-item"
+        key="assign-literature-item"
+        onClick={[Function]}
+      >
+        Move to my profile
+      </MenuItem>
+    </EventTracker>
   </DropdownMenu>
 </UserActionWrapper>
 `;

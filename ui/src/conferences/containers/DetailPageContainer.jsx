@@ -57,12 +57,13 @@ function DetailPage({ record }) {
             className="sm-pb3"
             leftActions={
               <>
-                {urls && <UrlsAction urls={urls} />}
+                {urls && <UrlsAction urls={urls} page="Conferences detail" trackerEventId="Conferences website" />}
                 {proceedings && <ProceedingsAction proceedings={proceedings} />}
                 {canEdit && (
                   <EditRecordAction
                     pidType="conferences"
                     pidValue={controlNumber}
+                    page="Conferences detail"
                   />
                 )}
               </>
@@ -120,7 +121,7 @@ function DetailPage({ record }) {
             {contacts && (
               <Row className="mt2">
                 <Col>
-                  <ContactList contacts={contacts} />
+                  <ContactList contacts={contacts} page="Conference detail" />
                 </Col>
               </Row>
             )}

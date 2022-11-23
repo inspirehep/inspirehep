@@ -2,12 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import LinkWithTargetBlank from './LinkWithTargetBlank.tsx';
+import EventTracker from './EventTracker';
 
 function OrcidProfileLink({ children, orcid, className }) {
   return (
-    <LinkWithTargetBlank className={className} href={`//orcid.org/${orcid}`}>
-      {children || orcid}
-    </LinkWithTargetBlank>
+    <EventTracker
+      eventCategory="Author detail"
+      eventAction="Link"
+      eventId="Orcid link"
+    >
+      <LinkWithTargetBlank className={className} href={`//orcid.org/${orcid}`}>
+        {children || orcid}
+      </LinkWithTargetBlank>
+    </EventTracker>
   );
 }
 

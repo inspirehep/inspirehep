@@ -6,39 +6,34 @@ import { Row, Switch, Col } from 'antd';
 import AggregationBox from './AggregationBox';
 import DateRangeFilter from './DateRangeFilter';
 import { START_DATE_UPCOMING, START_DATE_ALL } from '../constants';
+import EventTracker from './EventTracker';
 
 function EventStartDateFilter({ onChange, selection = '', switchTitle }) {
   const [isUpcoming, setUpcoming] = useState(selection === START_DATE_UPCOMING);
 
-  useEffect(
-    () => {
-      setUpcoming(selection === START_DATE_UPCOMING);
-    },
-    [selection]
-  );
+  useEffect(() => {
+    setUpcoming(selection === START_DATE_UPCOMING);
+  }, [selection]);
 
   const isDateRangeSelected =
     selection !== START_DATE_UPCOMING && selection !== START_DATE_ALL;
   const selectedRange = isDateRangeSelected ? selection : '';
 
   const onChangeCalledAfterChangeRef = useRef(false);
-  const onUpcomingSwitchChange = useCallback(checked => {
+  const onUpcomingSwitchChange = useCallback((checked) => {
     setUpcoming(checked);
     onChangeCalledAfterChangeRef.current = false;
   }, []);
-  const onUpcomingSwitchAnimationEnd = useCallback(
-    () => {
-      // because onAnimatonEnd called twice
-      if (!onChangeCalledAfterChangeRef.current) {
-        onChange(isUpcoming ? START_DATE_UPCOMING : START_DATE_ALL);
-        onChangeCalledAfterChangeRef.current = true;
-      }
-    },
-    [onChange, isUpcoming]
-  );
+  const onUpcomingSwitchAnimationEnd = useCallback(() => {
+    // because onAnimatonEnd called twice
+    if (!onChangeCalledAfterChangeRef.current) {
+      onChange(isUpcoming ? START_DATE_UPCOMING : START_DATE_ALL);
+      onChangeCalledAfterChangeRef.current = true;
+    }
+  }, [onChange, isUpcoming]);
 
   const onDateRangeFilterChange = useCallback(
-    range => {
+    (range) => {
       onChange(range || START_DATE_ALL);
     },
     [onChange]
@@ -49,21 +44,35 @@ function EventStartDateFilter({ onChange, selection = '', switchTitle }) {
       <AggregationBox name="Start Date" className="mb3">
         <Row className="mb3" type="flex" align="middle" gutter={8}>
           <Col>
-            <Switch
-              checked={isUpcoming}
-              onChange={onUpcomingSwitchChange}
-              // if onChange is called before animation, it slows down & freezes the animation
-              // because onChange() triggers search requests and eventually rendering aggs/results
-              // which is already a lot of events/task that have priority over animation in browsers
-              onAnimationEnd={onUpcomingSwitchAnimationEnd}
-            />
+            <EventTracker
+              eventId="show upcoming conferences"
+              eventCategory="Conferences search"
+              eventAction="Start date facet"
+              eventPropName="onChange"
+            >
+              <Switch
+                checked={isUpcoming}
+                onChange={onUpcomingSwitchChange}
+                // if onChange is called before animation, it slows down & freezes the animation
+                // because onChange() triggers search requests and eventually rendering aggs/results
+                // which is already a lot of events/task that have priority over animation in browsers
+                onAnimationEnd={onUpcomingSwitchAnimationEnd}
+              />
+            </EventTracker>
           </Col>
           <Col>{switchTitle}</Col>
         </Row>
-        <DateRangeFilter
-          onChange={onDateRangeFilterChange}
-          range={selectedRange}
-        />
+        <EventTracker
+          eventId="date range"
+          eventCategory="Conferences search"
+          eventAction="Start date facet"
+          eventPropName="onChange"
+        >
+          <DateRangeFilter
+            onChange={onDateRangeFilterChange}
+            range={selectedRange}
+          />
+        </EventTracker>
       </AggregationBox>
     </Row>
   );
