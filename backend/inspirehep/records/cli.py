@@ -238,4 +238,4 @@ def populate_recid_in_record_authors_table():
     uuids_to_regenerate = []
     for batch in chunker(records_ids_query.yield_per(100), 100):
         uuids_to_regenerate = [str(uuid[0]) for uuid in batch]
-        regenerate_author_records_table_entries(uuids_to_regenerate)
+        regenerate_author_records_table_entries.delay(uuids_to_regenerate)
