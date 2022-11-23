@@ -5,9 +5,10 @@ exports[`ExperimentItem renders with all props set 1`] = `
   leftActions={
     <React.Fragment>
       <UrlsAction
+        eventCategory="Experiments search"
         icon={<ForwardRef(LinkOutlined) />}
         text="links"
-        trackerEventId="Experiments:Url"
+        trackerEventId="Experiment website"
         urls={
           Immutable.List [
             Immutable.Map {
@@ -20,10 +21,11 @@ exports[`ExperimentItem renders with all props set 1`] = `
   }
   rightActions={
     <IncomingLiteratureReferencesLinkAction
+      eventCategory="Experiments search"
       itemCount={99}
       linkQuery="accelerator_experiments.record.$ref:1234"
       referenceType="paper"
-      trackerEventId="Experiments:PapersLink"
+      trackerEventId="Papers link"
     />
   }
 >
@@ -84,10 +86,11 @@ exports[`ExperimentItem renders with only needed props 1`] = `
   leftActions={<React.Fragment />}
   rightActions={
     <IncomingLiteratureReferencesLinkAction
+      eventCategory="Experiments search"
       itemCount={0}
       linkQuery="accelerator_experiments.record.$ref:1234"
       referenceType="paper"
-      trackerEventId="Experiments:PapersLink"
+      trackerEventId="Papers link"
     />
   }
 >

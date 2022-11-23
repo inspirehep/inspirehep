@@ -9,10 +9,10 @@ import DOILink from './DOILink';
 import DOIMaterial from './DOIMaterial';
 import ActionsDropdownOrAction from '../../common/components/ActionsDropdownOrAction';
 
-function renderDOIDropdownAction(doi) {
+function renderDOIDropdownAction(doi, page) {
   return (
     <Menu.Item key={doi.get('value')}>
-      <DOILink doi={doi.get('value')}>
+      <DOILink doi={doi.get('value')} page={page} >
         {doi.get('value')}
         <DOIMaterial material={doi.get('material')} />
       </DOILink>

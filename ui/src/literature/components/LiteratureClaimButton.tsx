@@ -11,11 +11,13 @@ const LiteratureClaimButton = ({
   hasAuthorProfile,
   authors,
   controlNumber,
+  page
 }: {
   loggedIn: boolean;
   hasAuthorProfile: boolean;
   authors: List<{}>;
   controlNumber: number;
+  page: string;
 }) => {
   const notLoggedInCondidtion = !loggedIn;
   const notAnAuthorContition = !hasAuthorProfile && loggedIn;
@@ -28,7 +30,7 @@ const LiteratureClaimButton = ({
       {notLoggedInCondidtion && <ClaimingDisabledButton />}
       {notAnAuthorContition && <AssignNoProfileAction />}
       {noAuthorsCondition && <NoAuthorsClaimingButton />}
-      {allowClaimingCondition && <AssignLiteratureItemContainer controlNumber={controlNumber} />}
+      {allowClaimingCondition && <AssignLiteratureItemContainer controlNumber={controlNumber} page={page} />}
     </>
   );
 }

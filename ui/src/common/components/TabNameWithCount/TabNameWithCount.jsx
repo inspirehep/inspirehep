@@ -7,9 +7,9 @@ import FormattedNumber from '../FormattedNumber.tsx';
 
 class TabNameWithCount extends Component {
   render() {
-    const { name, loading, count } = this.props;
+    const { name, loading, count, page } = this.props;
     return (
-      <EventTracker eventId={`${name}-Tab`}>
+      <EventTracker eventCategory={page} eventAction="Tab selection" eventId={`${name} tab`}>
         <span>
           <span>{name}</span>
           <span className="ml1">

@@ -26,7 +26,7 @@ function ExperimentSearchPage({ loading, loadingAggregations }) {
   const renderAggregations = useCallback(
     () => (
       <LoadingOrChildren loading={loadingAggregations}>
-        <AggregationFiltersContainer namespace={EXPERIMENTS_NS} />
+        <AggregationFiltersContainer namespace={EXPERIMENTS_NS} page="Experiments search" />
       </LoadingOrChildren>
     ),
     [loadingAggregations]

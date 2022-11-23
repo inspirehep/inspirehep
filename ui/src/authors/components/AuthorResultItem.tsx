@@ -35,6 +35,7 @@ const AuthorResultItem = ({
           pidValue={recordId}
           canEdit={canEdit}
           isCatalogerLoggedIn={isCatalogerLoggedIn || false}
+          page="Authors search"
         />
       }
     >

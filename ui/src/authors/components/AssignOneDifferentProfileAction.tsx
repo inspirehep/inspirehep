@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import DropdownMenu from '../../common/components/DropdownMenu';
 import IconText from '../../common/components/IconText';
 import UserAction from '../../common/components/UserAction';
+import EventTracker from '../../common/components/EventTracker';
 
 function AssignOneDifferentProfileAction({
   currentUserId,
@@ -28,13 +29,19 @@ function AssignOneDifferentProfileAction({
           </Button>
         }
       >
-        <Menu.Item
-          data-test-id="assign-self"
-          key="assign-self"
-          onClick={onSelfAssign}
+        <EventTracker
+          eventCategory="Author detail"
+          eventAction="Claim"
+          eventId="Move to my profile"
         >
-          Move to my profile
-        </Menu.Item>
+          <Menu.Item
+            data-test-id="assign-self"
+            key="assign-self"
+            onClick={onSelfAssign}
+          >
+            Move to my profile
+          </Menu.Item>
+        </EventTracker>
       </DropdownMenu>
     </UserAction>
   );

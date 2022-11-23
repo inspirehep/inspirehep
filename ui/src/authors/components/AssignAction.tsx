@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import DropdownMenu from '../../common/components/DropdownMenu';
 import IconText from '../../common/components/IconText';
 import UserAction from '../../common/components/UserAction';
+import EventTracker from '../../common/components/EventTracker';
 
 function AssignAction({
   onAssignToAnotherAuthor,
@@ -51,6 +52,11 @@ function AssignAction({
           </Tooltip>
         }
       >
+        <EventTracker
+          eventCategory="Author detail"
+          eventAction="Claim"
+          eventId="This is my paper"
+        >
         <Menu.Item
           data-test-id="assign-self"
           key="assign-self"
@@ -58,6 +64,12 @@ function AssignAction({
         >
           {numberOfSelected === 1 ? 'This is my paper' : 'These are my papers'}
         </Menu.Item>
+        </EventTracker>
+        <EventTracker
+          eventCategory="Author detail"
+          eventAction="Claim"
+          eventId="This is not my paper"
+        >
         <Menu.Item
           data-test-id="unassign"
           key="unassign"
@@ -67,6 +79,12 @@ function AssignAction({
             ? 'This is not my paper'
             : 'These are not my papers'}
         </Menu.Item>
+        </EventTracker>
+        <EventTracker
+          eventCategory="Author detail"
+          eventAction="Claim"
+          eventId="Assign to another author"
+        >
         <Menu.Item
           data-test-id="assign-another"
           key="assign-another"
@@ -74,6 +92,7 @@ function AssignAction({
         >
           Assign to another author
         </Menu.Item>
+        </EventTracker>
       </DropdownMenu>
     </UserAction>
   );

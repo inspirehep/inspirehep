@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import DropdownMenu from '../../common/components/DropdownMenu';
 import IconText from '../../common/components/IconText';
 import UserAction from '../../common/components/UserAction';
+import EventTracker from '../../common/components/EventTracker';
 
 function AssignOwnProfileAction({
   onAssign,
@@ -53,20 +54,31 @@ function AssignOwnProfileAction({
           </Tooltip>
         }
       >
-        <Menu.Item
-          data-test-id="assign-self"
-          key="assign-self"
-          onClick={onSelfAssign}
-          disabled={disabledAssignAction}
+        <EventTracker      
+          eventCategory="Author detail"
+          eventAction="Claim"
+          eventId="This is my paper"
         >
-          <Tooltip title={disabledAssignAction ? claimingTooltip : null}>
-            <p>
-              {numberOfSelected === 1
-                ? 'This is my paper'
-                : 'These are my papers'}
-            </p>
-          </Tooltip>
-        </Menu.Item>
+          <Menu.Item
+            data-test-id="assign-self"
+            key="assign-self"
+            onClick={onSelfAssign}
+            disabled={disabledAssignAction}
+          >
+            <Tooltip title={disabledAssignAction ? claimingTooltip : null}>
+              <p>
+                {numberOfSelected === 1
+                  ? 'This is my paper'
+                  : 'These are my papers'}
+              </p>
+            </Tooltip>
+          </Menu.Item>
+        </EventTracker>
+        <EventTracker      
+          eventCategory="Author detail"
+          eventAction="Claim"
+          eventId="This is not my paper"
+        >
         <Menu.Item
           data-test-id="unassign"
           key="unassign"
@@ -76,6 +88,7 @@ function AssignOwnProfileAction({
             ? 'This is not my paper'
             : 'These are not my papers'}
         </Menu.Item>
+        </EventTracker>
       </DropdownMenu>
     </UserAction>
   );

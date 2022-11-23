@@ -54,6 +54,7 @@ function LiteratureItem({
   loggedIn,
   hasAuthorProfile,
   namespace,
+  page,
 }) {
   const title = metadata.getIn(['titles', 0]);
   const authors = metadata.get('authors');
@@ -112,27 +113,32 @@ function LiteratureItem({
               urls={fullTextLinks}
               icon={<FilePdfOutlined />}
               text="pdf"
-              trackerEventId="PdfDownload"
+              trackerEventId="Pdf download"
+              eventAction="Download"
+              page={page}
             />
           )}
           {urls && (
             <UrlsAction
               urls={urls}
               text="links"
-              trackerEventId="LiteratureFileLink"
+              trackerEventId="Literature file"
+              page={page}
             />
           )}
-          {dois && <DOILinkAction dois={dois} />}
-          <CiteModalActionContainer recordId={recordId} />
+          {dois && <DOILinkAction dois={dois} page={page} />}
+          <CiteModalActionContainer recordId={recordId} page={page} />
           {datasetLinks && (
             <UrlsAction
               urls={datasetLinks}
               icon={<DatabaseOutlined />}
               text="datasets"
+              trackerEventId="Dataset links"
+              page={page}
             />
           )}
           {canEdit && (
-            <EditRecordAction pidType="literature" pidValue={recordId} />
+            <EditRecordAction pidType="literature" pidValue={recordId} page={page} />
           )}
           {assignAuthorView && <AssignOneActionContainer recordId={recordId} />}
           {assignOwnProfileView && !assignAuthorView && (
@@ -157,19 +163,21 @@ function LiteratureItem({
               hasAuthorProfile={hasAuthorProfile}
               authors={authors}
               controlNumber={recordId}
+              page={page}
             />
           )}
         </Fragment>
       }
       rightActions={
         <Fragment>
-          <ReferenceSearchLinkAction recordId={recordId} />
+          <ReferenceSearchLinkAction recordId={recordId} page={page} />
           {citationCount != null && (
             <IncomingLiteratureReferencesLinkAction
               linkQuery={getPapersQueryString(recordId)}
               referenceType="citation"
               itemCount={citationCount}
-              trackerEventId="Citations:Search"
+              trackerEventId="Citations link"
+              eventCategory={page}
             />
           )}
         </Fragment>
@@ -209,6 +217,7 @@ function LiteratureItem({
             authors={authors}
             collaborations={collaborations}
             collaborationsWithSuffix={collaborationsWithSuffix}
+            page={page}
           />
           {date && (
             <>
@@ -231,7 +240,7 @@ function LiteratureItem({
                 }
               />
             )}
-            {eprints && <ArxivEprintList eprints={eprints} />}
+            {eprints && <ArxivEprintList page="Literature search" eprints={eprints} />}
           </InlineUL>
         </div>
         {isCatalogerLoggedIn && (
@@ -251,6 +260,7 @@ function LiteratureItem({
         <AssignLiteratureItemDrawerContainer
           authors={authors}
           itemLiteratureId={recordId}
+          page={page}
         />
       )}
     </ResultItem>

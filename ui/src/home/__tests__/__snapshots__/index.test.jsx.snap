@@ -23,12 +23,20 @@ exports[`Home renders home page 1`] = `
           className="tc f5 mt4"
           data-test-id="scroll-button"
         >
-          <LinkLikeButton
-            color="blue middle"
-            onClick={[Function]}
+          <EventTracker
+            eventAction="Link"
+            eventCategory="Home page"
+            eventId="How to search"
+            eventPropName="onClick"
+            extractEventArgsToForward={null}
           >
-            How to search?
-          </LinkLikeButton>
+            <LinkLikeButton
+              color="blue middle"
+              onClick={[Function]}
+            >
+              How to search?
+            </LinkLikeButton>
+          </EventTracker>
         </div>
       </HomePageSection>
       <HomePageSection

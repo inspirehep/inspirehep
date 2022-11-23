@@ -4,6 +4,7 @@ exports[`CiteModalAction renders with all props 1`] = `
 <Fragment>
   <UserActionWrapper>
     <EventTracker
+      eventAction="Open modal"
       eventId="Cite"
       eventPropName="onClick"
       extractEventArgsToForward={null}
@@ -40,29 +41,44 @@ exports[`CiteModalAction renders with all props 1`] = `
           type="flex"
         >
           <div>
-            <CopyToClipboard
-              onCopy={[Function]}
+            <EventTracker
+              eventAction="Copy to clipboard"
+              eventId="Copy citation"
+              eventPropName="onChange"
+              extractEventArgsToForward={[Function]}
+            >
+              <CopyToClipboard
+                onCopy={[Function]}
+              >
+                <Button
+                  style={
+                    Object {
+                      "marginRight": 12,
+                    }
+                  }
+                >
+                  <ForwardRef(CopyOutlined) />
+                   Copy to Clipboard
+                </Button>
+              </CopyToClipboard>
+            </EventTracker>
+            <EventTracker
+              eventAction="Download"
+              eventId="Download citation"
+              eventPropName="onChange"
+              extractEventArgsToForward={[Function]}
             >
               <Button
-                style={
-                  Object {
-                    "marginRight": 12,
-                  }
-                }
+                onClick={[Function]}
               >
-                <ForwardRef(CopyOutlined) />
-                 Copy to Clipboard
+                <ForwardRef(DownloadOutlined) />
+                 Download
               </Button>
-            </CopyToClipboard>
-            <Button
-              onClick={[Function]}
-            >
-              <ForwardRef(DownloadOutlined) />
-               Download
-            </Button>
+            </EventTracker>
           </div>
           <EventTracker
-            eventId="CiteFormatSelection"
+            eventAction="Select"
+            eventId="Cite format selection"
             eventPropName="onChange"
             extractEventArgsToForward={[Function]}
           >
@@ -107,6 +123,7 @@ exports[`CiteModalAction renders with loading 1`] = `
 <Fragment>
   <UserActionWrapper>
     <EventTracker
+      eventAction="Open modal"
       eventId="Cite"
       eventPropName="onClick"
       extractEventArgsToForward={null}
@@ -143,29 +160,44 @@ exports[`CiteModalAction renders with loading 1`] = `
           type="flex"
         >
           <div>
-            <CopyToClipboard
-              onCopy={[Function]}
+            <EventTracker
+              eventAction="Copy to clipboard"
+              eventId="Copy citation"
+              eventPropName="onChange"
+              extractEventArgsToForward={[Function]}
+            >
+              <CopyToClipboard
+                onCopy={[Function]}
+              >
+                <Button
+                  style={
+                    Object {
+                      "marginRight": 12,
+                    }
+                  }
+                >
+                  <ForwardRef(CopyOutlined) />
+                   Copy to Clipboard
+                </Button>
+              </CopyToClipboard>
+            </EventTracker>
+            <EventTracker
+              eventAction="Download"
+              eventId="Download citation"
+              eventPropName="onChange"
+              extractEventArgsToForward={[Function]}
             >
               <Button
-                style={
-                  Object {
-                    "marginRight": 12,
-                  }
-                }
+                onClick={[Function]}
               >
-                <ForwardRef(CopyOutlined) />
-                 Copy to Clipboard
+                <ForwardRef(DownloadOutlined) />
+                 Download
               </Button>
-            </CopyToClipboard>
-            <Button
-              onClick={[Function]}
-            >
-              <ForwardRef(DownloadOutlined) />
-               Download
-            </Button>
+            </EventTracker>
           </div>
           <EventTracker
-            eventId="CiteFormatSelection"
+            eventAction="Select"
+            eventId="Cite format selection"
             eventPropName="onChange"
             extractEventArgsToForward={[Function]}
           >
@@ -210,6 +242,7 @@ exports[`CiteModalAction shows an alert with the error message when there is an 
 <Fragment>
   <UserActionWrapper>
     <EventTracker
+      eventAction="Open modal"
       eventId="Cite"
       eventPropName="onClick"
       extractEventArgsToForward={null}
@@ -255,29 +288,44 @@ exports[`CiteModalAction shows an alert with the error message when there is an 
           type="flex"
         >
           <div>
-            <CopyToClipboard
-              onCopy={[Function]}
+            <EventTracker
+              eventAction="Copy to clipboard"
+              eventId="Copy citation"
+              eventPropName="onChange"
+              extractEventArgsToForward={[Function]}
+            >
+              <CopyToClipboard
+                onCopy={[Function]}
+              >
+                <Button
+                  style={
+                    Object {
+                      "marginRight": 12,
+                    }
+                  }
+                >
+                  <ForwardRef(CopyOutlined) />
+                   Copy to Clipboard
+                </Button>
+              </CopyToClipboard>
+            </EventTracker>
+            <EventTracker
+              eventAction="Download"
+              eventId="Download citation"
+              eventPropName="onChange"
+              extractEventArgsToForward={[Function]}
             >
               <Button
-                style={
-                  Object {
-                    "marginRight": 12,
-                  }
-                }
+                onClick={[Function]}
               >
-                <ForwardRef(CopyOutlined) />
-                 Copy to Clipboard
+                <ForwardRef(DownloadOutlined) />
+                 Download
               </Button>
-            </CopyToClipboard>
-            <Button
-              onClick={[Function]}
-            >
-              <ForwardRef(DownloadOutlined) />
-               Download
-            </Button>
+            </EventTracker>
           </div>
           <EventTracker
-            eventId="CiteFormatSelection"
+            eventAction="Select"
+            eventId="Cite format selection"
             eventPropName="onChange"
             extractEventArgsToForward={[Function]}
           >

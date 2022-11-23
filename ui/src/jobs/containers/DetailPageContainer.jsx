@@ -61,7 +61,7 @@ function DetailPage({ record }) {
           <ContentBox
             leftActions={
               canEdit && (
-                <EditRecordAction pidType="jobs" pidValue={controlNumber} />
+                <EditRecordAction pidType="jobs" pidValue={controlNumber} page="Jobs detail" />
               )
             }
           >
@@ -124,7 +124,7 @@ function DetailPage({ record }) {
             </Row>
             <Row className="mt4">
               <Col>
-                <ContactList contacts={contacts} />
+                <ContactList contacts={contacts} page="Job detail" />
                 <ReferenceLettersContacts referenceLetters={referenceLetters} />
                 <MoreInfo urls={urls} />
               </Col>

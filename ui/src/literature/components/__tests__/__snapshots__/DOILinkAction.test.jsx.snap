@@ -31,6 +31,7 @@ exports[`DOILinkAction renders with multiple doi ids 1`] = `
     >
       <DOILink
         doi="10.1007/s11182-019-01606-1"
+        page={0}
       >
         10.1007/s11182-019-01606-1
         <DOIMaterial
@@ -43,6 +44,7 @@ exports[`DOILinkAction renders with multiple doi ids 1`] = `
     >
       <DOILink
         doi="10.1007/s11182-019-01606-2"
+        page={1}
       >
         10.1007/s11182-019-01606-2
         <DOIMaterial
@@ -72,6 +74,7 @@ exports[`DOILinkAction renders with multiple doi ids and material 1`] = `
     >
       <DOILink
         doi="10.1007/s11182-019-01606-1"
+        page={0}
       >
         10.1007/s11182-019-01606-1
         <DOIMaterial
@@ -84,6 +87,7 @@ exports[`DOILinkAction renders with multiple doi ids and material 1`] = `
     >
       <DOILink
         doi="10.1007/s11182-019-01606-2"
+        page={1}
       >
         10.1007/s11182-019-01606-2
         <DOIMaterial

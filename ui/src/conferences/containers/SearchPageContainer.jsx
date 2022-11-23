@@ -30,7 +30,7 @@ function ConferenceSearchPage({ loading, loadingAggregations }) {
       <>
         <ConferenceStartDateFilterContainer switchTitle="Upcoming conferences" />
         <LoadingOrChildren loading={loadingAggregations}>
-          <AggregationFiltersContainer namespace={CONFERENCES_NS} />
+          <AggregationFiltersContainer namespace={CONFERENCES_NS} page="Conferences search" />
         </LoadingOrChildren>
       </>
     ),

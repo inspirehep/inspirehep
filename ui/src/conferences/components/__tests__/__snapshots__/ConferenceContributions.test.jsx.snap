@@ -10,5 +10,6 @@ exports[`ConferenceContributions renders 1`] = `
   embedded={true}
   namespace="conferenceContributions"
   noResultsTitle="0 Contributions"
+  page="Conference details"
 />
 `;

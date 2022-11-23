@@ -34,12 +34,20 @@ function SeminarItem({ metadata, selectedTimezone, enableActions }) {
       leftActions={
         enableActions && (
           <>
-            {urls && <UrlsAction urls={urls} />}
+            {urls && (
+              <UrlsAction
+                urls={urls}
+                trackerEventId="Seminar website"
+                page="Seminars search"
+              />
+            )}
             {joinUrls && (
               <UrlsAction
                 urls={joinUrls}
                 icon={<VideoCameraAddOutlined />}
                 text="join"
+                trackerEventId="Meeting link"
+                page="Seminars search"
               />
             )}
             {materialUrls && (
@@ -47,11 +55,17 @@ function SeminarItem({ metadata, selectedTimezone, enableActions }) {
                 urls={materialUrls}
                 icon={<FileOutlined />}
                 text="material"
+                trackerEventId="Material link"
+                page="Seminars search"
               />
             )}
-            <ExportToCalendarAction seminar={metadata} />
+            <ExportToCalendarAction seminar={metadata} page="Seminars search" />
             {canEdit && (
-              <EditRecordAction pidType="seminars" pidValue={recordId} />
+              <EditRecordAction
+                pidType="seminars"
+                pidValue={recordId}
+                page="Seminars search"
+              />
             )}
           </>
         )
@@ -66,7 +80,7 @@ function SeminarItem({ metadata, selectedTimezone, enableActions }) {
       </Row>
       <Row>
         <Col>
-          <AuthorList authors={speakers} />
+          <AuthorList authors={speakers} page="Seminars search" />
         </Col>
       </Row>
       <Row>

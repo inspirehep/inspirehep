@@ -30,7 +30,7 @@ describe('LiteratureItem', () => {
           ],
         },
       ],
-      fulltext_highlight: List(['A snippet of <em>fulltext</em>'])
+      fulltext_highlight: List(['A snippet of <em>fulltext</em>']),
     });
     const wrapper = shallow(
       <LiteratureItem metadata={metadata} searchRank={2} />
@@ -78,7 +78,7 @@ describe('LiteratureItem', () => {
       ],
     });
     const wrapper = shallow(
-      <LiteratureItem metadata={metadata} searchRank={3} />
+      <LiteratureItem metadata={metadata} searchRank={3} page="Literature" />
     );
     expect(wrapper).toMatchSnapshot();
   });
@@ -101,7 +101,14 @@ describe('LiteratureItem', () => {
       ],
     });
     const wrapper = shallow(
-      <LiteratureItem metadata={metadata} searchRank={3} loggedIn hasAuthorProfile namespace={LITERATURE_NS} />
+      <LiteratureItem
+        metadata={metadata}
+        searchRank={3}
+        loggedIn
+        hasAuthorProfile
+        namespace={LITERATURE_NS}
+        page="Literature"
+      />
     );
     expect(wrapper).toMatchSnapshot();
   });

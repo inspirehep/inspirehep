@@ -19,6 +19,7 @@ function AuthorCitations({ authorBai }: { authorBai: string }) {
       noResultsTitle="0 Citations"
       embedded
       enableCitationSummary={false}
+      page="Author citations"
     />
   );
 }

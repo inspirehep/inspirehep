@@ -42,7 +42,7 @@ class AuthorList extends Component {
   }
 
   renderAuthorList(authorsToDisplay, displayShowAll = true) {
-    const { authors, limit, wrapperClassName } = this.props;
+    const { authors, limit, wrapperClassName, page } = this.props;
     return (
       <InlineList
         wrapperClassName={wrapperClassName}
@@ -53,7 +53,7 @@ class AuthorList extends Component {
             : null
         }
         extractKey={getAuthorName}
-        renderItem={author => <Author author={author} />}
+        renderItem={author => <Author author={author} page={page} />}
       />
     );
   }

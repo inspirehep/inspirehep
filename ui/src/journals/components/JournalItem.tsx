@@ -27,7 +27,7 @@ export const JournalItem = ({
   const metadata = result.get('metadata');
   const shortTitle = metadata.get('short_title') as unknown as string;
   const journalTitle = metadata.get('journal_title') as unknown as string;
-  const urls = metadata.get('urls') as unknown as string[];
+  const urls = metadata.get('urls') as unknown as List<string>;
   const recordId = metadata.get('control_number') as unknown as number;
   const publisher = metadata.get('publisher') as unknown as List<string>;
   const numberOfPapers = metadata.get('number_of_papers') as unknown as number;
@@ -36,13 +36,21 @@ export const JournalItem = ({
     <ResultItem
       leftActions={
         <>
-          {urls && <UrlsAction urls={urls} text="links" />}
+          {urls && (
+            <UrlsAction
+              urls={urls}
+              text="links"
+              page="Journals search"
+              trackerEventId="Journal website"
+            />
+          )}
           {/* @ts-ignore */}
           <AuthorizedContainer authorizedRoles={SUPERUSER_OR_CATALOGER}>
             <EditRecordAction
               pidType={JOURNALS_PID_TYPE}
               pidValue={recordId}
               isCatalogerLoggedIn={isCatalogerLoggedIn}
+              page="Journals search"
             />
           </AuthorizedContainer>
         </>
@@ -50,11 +58,21 @@ export const JournalItem = ({
       rightActions={
         numberOfPapers ? (
           <UserAction>
-            <EventTracker eventId="Journals:PapersSearch">
+            <EventTracker
+              eventCategory="Journals search"
+              eventAction="Literature references search"
+              eventId="Journal papers"
+            >
               <Link
                 to={`${LITERATURE}?sort=mostrecent&size=25&page=1&q=publication_info.journal_title:"${shortTitle}"`}
               >
-                <IconText text={`${numberOfPapers} ${pluralizeUnlessSingle('paper', numberOfPapers)}`} icon={<LoginOutlined />} />
+                <IconText
+                  text={`${numberOfPapers} ${pluralizeUnlessSingle(
+                    'paper',
+                    numberOfPapers
+                  )}`}
+                  icon={<LoginOutlined />}
+                />
               </Link>
             </EventTracker>
           </UserAction>
@@ -67,7 +85,9 @@ export const JournalItem = ({
             <PageHeader
               className="site-page-header"
               title={shortTitle}
-              subTitle={publisher && `(${publisher.toArray().map((p: string) => p)})`}
+              subTitle={
+                publisher && `(${publisher.toArray().map((p: string) => p)})`
+              }
             />
           </Link>
         </Col>

@@ -6,7 +6,9 @@ exports[`SeminarItem renders with all props set 1`] = `
     <React.Fragment>
       <UrlsAction
         icon={<ForwardRef(LinkOutlined) />}
+        page="Seminars search"
         text="website"
+        trackerEventId="Seminar website"
         urls={
           Immutable.List [
             Immutable.Map {
@@ -17,7 +19,9 @@ exports[`SeminarItem renders with all props set 1`] = `
       />
       <UrlsAction
         icon={<ForwardRef(VideoCameraAddOutlined) />}
+        page="Seminars search"
         text="join"
+        trackerEventId="Meeting link"
         urls={
           Immutable.List [
             Immutable.Map {
@@ -29,7 +33,9 @@ exports[`SeminarItem renders with all props set 1`] = `
       />
       <UrlsAction
         icon={<ForwardRef(FileOutlined) />}
+        page="Seminars search"
         text="material"
+        trackerEventId="Material link"
         urls={
           Immutable.List [
             Immutable.Map {
@@ -40,6 +46,7 @@ exports[`SeminarItem renders with all props set 1`] = `
         }
       />
       <ExportToCalendarAction
+        page="Seminars search"
         seminar={
           Immutable.Map {
             "urls": Immutable.List [
@@ -80,6 +87,7 @@ exports[`SeminarItem renders with all props set 1`] = `
         }
       />
       <EditRecordAction
+        page="Seminars search"
         pidType="seminars"
         pidValue={12345}
       />
@@ -121,6 +129,7 @@ exports[`SeminarItem renders with all props set 1`] = `
         }
         enableShowAll={false}
         limit={5}
+        page="Seminars search"
         total={-1}
         wrapperClassName={null}
       />
@@ -144,6 +153,7 @@ exports[`SeminarItem renders with only needed props 1`] = `
   leftActions={
     <React.Fragment>
       <ExportToCalendarAction
+        page="Seminars search"
         seminar={
           Immutable.Map {
             "title": Immutable.Map {
@@ -167,6 +177,7 @@ exports[`SeminarItem renders with only needed props 1`] = `
         }
       />
       <EditRecordAction
+        page="Seminars search"
         pidType="seminars"
         pidValue={12345}
       />
@@ -208,6 +219,7 @@ exports[`SeminarItem renders with only needed props 1`] = `
         }
         enableShowAll={false}
         limit={5}
+        page="Seminars search"
         total={-1}
         wrapperClassName={null}
       />
@@ -231,6 +243,7 @@ exports[`SeminarItem renders with selected timezone with a different time than l
   leftActions={
     <React.Fragment>
       <ExportToCalendarAction
+        page="Seminars search"
         seminar={
           Immutable.Map {
             "title": Immutable.Map {
@@ -254,6 +267,7 @@ exports[`SeminarItem renders with selected timezone with a different time than l
         }
       />
       <EditRecordAction
+        page="Seminars search"
         pidType="seminars"
         pidValue={12345}
       />
@@ -295,6 +309,7 @@ exports[`SeminarItem renders with selected timezone with a different time than l
         }
         enableShowAll={false}
         limit={5}
+        page="Seminars search"
         total={-1}
         wrapperClassName={null}
       />
@@ -328,6 +343,7 @@ exports[`SeminarItem renders with selected timezone with a same time as local ti
   leftActions={
     <React.Fragment>
       <ExportToCalendarAction
+        page="Seminars search"
         seminar={
           Immutable.Map {
             "title": Immutable.Map {
@@ -351,6 +367,7 @@ exports[`SeminarItem renders with selected timezone with a same time as local ti
         }
       />
       <EditRecordAction
+        page="Seminars search"
         pidType="seminars"
         pidValue={12345}
       />
@@ -392,6 +409,7 @@ exports[`SeminarItem renders with selected timezone with a same time as local ti
         }
         enableShowAll={false}
         limit={5}
+        page="Seminars search"
         total={-1}
         wrapperClassName={null}
       />

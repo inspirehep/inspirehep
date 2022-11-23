@@ -6,8 +6,15 @@ import LinkWithTargetBlank from './LinkWithTargetBlank';
 import InlineList, { SEPARATOR_SEMICOLON } from './InlineList';
 import { getRecordIdFromRef } from '../utils';
 import { AUTHORS } from '../routes';
+import EventTracker from './EventTracker';
 
-const ContactList = ({ contacts }: { contacts: List<string> }) => {
+const ContactList = ({
+  contacts,
+  page,
+}: {
+  contacts: List<string>;
+  page: string;
+}) => {
   function renderContactName(contact: Map<string, string>) {
     const name = contact.get('name');
     const contactRecordId = getRecordIdFromRef(
@@ -29,9 +36,15 @@ const ContactList = ({ contacts }: { contacts: List<string> }) => {
         {name && renderContactName(contact)}
         {renderParanthesis && ' ('}
         {email && (
-          <LinkWithTargetBlank href={`mailto:${email}`}>
-            {email}
-          </LinkWithTargetBlank>
+          <EventTracker
+            eventCategory={page}
+            eventAction="Mail"
+            eventId="Contact list"
+          >
+            <LinkWithTargetBlank href={`mailto:${email}`}>
+              {email}
+            </LinkWithTargetBlank>
+          </EventTracker>
         )}
         {renderParanthesis && ')'}
       </>

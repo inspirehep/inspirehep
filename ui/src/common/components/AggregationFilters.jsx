@@ -32,6 +32,7 @@ class AggregationFilters extends Component {
       displayWhenNoResults,
       initialAggregations,
       embedded,
+      page,
     } = this.props;
     const rowClassName = className('bg-white', {
       ph3: !inline,
@@ -57,7 +58,9 @@ class AggregationFilters extends Component {
                 lg={inline ? 5 : 24}
               >
                 <EventTracker
-                  eventId={`Facet-${aggregation.getIn(['meta', 'title'])}`}
+                  eventId={aggregation.getIn(['meta', 'title'])}
+                  eventCategory={page} 
+                  eventAction ="Facet"
                   eventPropName="onChange"
                 >
                   <AggregationFilter

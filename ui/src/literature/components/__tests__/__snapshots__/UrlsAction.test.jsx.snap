@@ -17,6 +17,8 @@ exports[`UrlsAction renders multiple, with and without description 1`] = `
       key="https://www.whatever.com/pdfs/fulltext.pdf"
     >
       <EventTracker
+        eventAction="Link"
+        eventCategory="Home"
         eventId="PdfDownload"
         eventPropName="onClick"
         extractEventArgsToForward={null}
@@ -33,6 +35,8 @@ exports[`UrlsAction renders multiple, with and without description 1`] = `
       key="www.descriptionless.com/fulltext.pdf"
     >
       <EventTracker
+        eventAction="Link"
+        eventCategory="Home"
         eventId="PdfDownload"
         eventPropName="onClick"
         extractEventArgsToForward={null}
@@ -52,6 +56,8 @@ exports[`UrlsAction renders multiple, with and without description 1`] = `
 exports[`UrlsAction renders single 1`] = `
 <UserActionWrapper>
   <EventTracker
+    eventAction="Link"
+    eventCategory="Home"
     eventId="PdfDownload"
     eventPropName="onClick"
     extractEventArgsToForward={null}

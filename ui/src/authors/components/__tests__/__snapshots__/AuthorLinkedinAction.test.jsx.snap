@@ -10,12 +10,20 @@ exports[`AuthorLinkedinAction renders with linkedin 1`] = `
     placement="top"
     title="LinkedIn"
   >
-    <LinkWithTargetBlank
-      as="a"
-      href="//linkedin.com/in/harunurhan"
+    <EventTracker
+      eventAction="Link"
+      eventCategory="Author detail"
+      eventId="Linkedin"
+      eventPropName="onClick"
+      extractEventArgsToForward={null}
     >
-      <ForwardRef(LinkedinOutlined) />
-    </LinkWithTargetBlank>
+      <LinkWithTargetBlank
+        as="a"
+        href="//linkedin.com/in/harunurhan"
+      >
+        <ForwardRef(LinkedinOutlined) />
+      </LinkWithTargetBlank>
+    </EventTracker>
   </Tooltip>
 </UserActionWrapper>
 `;

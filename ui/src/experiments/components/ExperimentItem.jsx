@@ -30,7 +30,8 @@ function ExperimentItem({ metadata }) {
             <UrlsAction
               urls={urls}
               text="links"
-              trackerEventId="Experiments:Url"
+              trackerEventId="Experiment website"
+              eventCategory="Experiments search"
             />
           )}
         </>
@@ -40,7 +41,8 @@ function ExperimentItem({ metadata }) {
           itemCount={papersCount}
           referenceType="paper"
           linkQuery={getPapersQueryString(recordId)}
-          trackerEventId="Experiments:PapersLink"
+          trackerEventId="Papers link"
+          eventCategory="Experiments search"
         />
       }
     >

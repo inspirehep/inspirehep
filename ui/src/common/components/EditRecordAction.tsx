@@ -35,12 +35,14 @@ interface EditRecordActionProps {
   pidType: PidType;
   pidValue: PidValue;
   isCatalogerLoggedIn: boolean;
+  page: string;
 }
 
 export default function EditRecordAction({
   pidType,
   pidValue,
   isCatalogerLoggedIn,
+  page,
 }: EditRecordActionProps) {
   const pidTypeRoute =
     pidType === 'authors' && isCatalogerLoggedIn
@@ -49,7 +51,7 @@ export default function EditRecordAction({
 
   return (
     <UserAction>
-      <EventTracker eventId="Edit">
+      <EventTracker eventCategory={page} eventAction="Edit" eventId={`Edit ${pidType} record`}>
         <LinkWithTargetBlank href={`${pidTypeRoute}/${pidValue}`}>
           <IconText text="edit" icon={<EditOutlined />} />
         </LinkWithTargetBlank>

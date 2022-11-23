@@ -43,9 +43,9 @@ describe('UserFeedback', () => {
     const onModalOk = wrapper.find(Modal).prop('onOk');
     onModalOk();
     expect(trackEvent).toHaveBeenCalledWith(
-      'Feedback',
-      'Main',
-      commentValue,
+      'Feedback modal',
+      'Feedback submission',
+      `Feedback comment: ${commentValue}`,
       rateValue
     );
     expect(wrapper).toMatchSnapshot();

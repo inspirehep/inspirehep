@@ -3,7 +3,8 @@
 exports[`ReferenceSearchLinkAction renders with required props 1`] = `
 <UserActionWrapper>
   <EventTracker
-    eventId="Reference:Search"
+    eventAction="Search"
+    eventId="Reference search"
     eventPropName="onClick"
     extractEventArgsToForward={null}
   >

@@ -7,6 +7,7 @@ import AffiliationList from '../AffiliationList';
 import UnlinkedAuthor from './UnlinkedAuthor';
 import AuthorWithBAI from './AuthorWithBAI';
 import LinkedAuthor from './LinkedAuthor';
+import EventTracker from '../EventTracker';
 
 class Author extends Component {
   renderRoleSuffix() {
@@ -46,10 +47,21 @@ class Author extends Component {
   }
 
   render() {
+    const { page } = this.props;
+
     return (
       <div className="di">
         {this.renderAuthorName()}
-        {this.renderAffiliationsList()}
+        <EventTracker
+          eventCategory={page}
+          eventAction="Link"
+          eventId="Author profile"
+          eventPropName="onClick"
+        >
+          <>
+            {this.renderAffiliationsList()}
+          </>
+        </EventTracker>
         {this.renderRoleSuffix()}
       </div>
     );

@@ -43,6 +43,8 @@ describe('AssignLiteratureItemDrawer', () => {
         currentAuthorId={12345676}
         authors={authors}
         itemLiteratureId={122334}
+        page="Page"
+
       />
     );
     expect(wrapper).toMatchSnapshot();
@@ -61,6 +63,7 @@ describe('AssignLiteratureItemDrawer', () => {
         currentAuthorId={12345676}
         authors={[]}
         itemLiteratureId={122334}
+        page="Page"
       />
     );
     expect(

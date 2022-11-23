@@ -19,6 +19,7 @@ function ConferenceContributions({ conferenceRecordId }) {
       baseQuery={baseQuery}
       noResultsTitle="0 Contributions"
       embedded
+      page="Conference details"
     />
   );
 }

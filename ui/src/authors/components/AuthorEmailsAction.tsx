@@ -5,6 +5,7 @@ import { Menu, Tooltip } from 'antd';
 
 import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank';
 import ActionsDropdownOrAction from '../../common/components/ActionsDropdownOrAction';
+import EventTracker from '../../common/components/EventTracker';
 
 function getHrefForEmail(email: Map<string, string>) {
   return `mailto:${email.get('value')}`;
@@ -13,15 +14,31 @@ function getHrefForEmail(email: Map<string, string>) {
 function renderEmailsDropdownAction(email: Map<string, string>) {
   return (
     <Menu.Item key={email.get('value')}>
-      <LinkWithTargetBlank href={getHrefForEmail(email)}>
-        {email.get('value')}
-      </LinkWithTargetBlank>
+      <EventTracker
+        eventCategory="Author detail"
+        eventAction="Mail"
+        eventId="Contact author"
+      >
+        <LinkWithTargetBlank href={getHrefForEmail(email)}>
+          {email.get('value')}
+        </LinkWithTargetBlank>
+      </EventTracker>
     </Menu.Item>
   );
 }
 
 function renderEmailAction(email: Map<string, string>, title: string) {
-  return <LinkWithTargetBlank href={getHrefForEmail(email)}>{title}</LinkWithTargetBlank>;
+  return (
+    <EventTracker
+      eventCategory="Author detail"
+      eventAction="Mail"
+      eventId="Contact author"
+    >
+      <LinkWithTargetBlank href={getHrefForEmail(email)}>
+        {title}
+      </LinkWithTargetBlank>
+    </EventTracker>
+  );
 }
 
 const ACTION_TITLE = (

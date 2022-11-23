@@ -54,6 +54,7 @@ function LiteratureSearch({
   embedded,
   enableCitationSummary,
   numberOfSelected,
+  page,
 }) {
   const renderAggregations = useCallback(
     () => (
@@ -61,10 +62,11 @@ function LiteratureSearch({
         <AggregationFiltersContainer
           namespace={namespace}
           embedded={embedded}
+          page={page}
         />
       </LoadingOrChildren>
     ),
-    [loadingAggregations, namespace, embedded]
+    [loadingAggregations, namespace, embedded, page]
   );
 
   useEffect(() => {
@@ -231,6 +233,7 @@ function LiteratureSearch({
                           searchRank={rank}
                           isCatalogerLoggedIn={isCatalogerLoggedIn}
                           namespace={namespace}
+                          page={page}
                         />
                       </Col>
                     </Row>

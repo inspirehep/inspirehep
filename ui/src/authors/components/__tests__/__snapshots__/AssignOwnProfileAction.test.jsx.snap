@@ -22,31 +22,47 @@ exports[`AssignOwnProfileAction renders 1`] = `
       </ForwardRef>
     }
   >
-    <MenuItem
-      data-test-id="assign-self"
-      key="assign-self"
-      onClick={[Function]}
+    <EventTracker
+      eventAction="Claim"
+      eventCategory="Author detail"
+      eventId="This is my paper"
+      eventPropName="onClick"
+      extractEventArgsToForward={null}
     >
-      <Tooltip
-        arrowPointAtCenter={false}
-        autoAdjustOverflow={true}
-        mouseEnterDelay={0.1}
-        mouseLeaveDelay={0.1}
-        placement="top"
-        title={null}
+      <MenuItem
+        data-test-id="assign-self"
+        key="assign-self"
+        onClick={[Function]}
       >
-        <p>
-          This is my paper
-        </p>
-      </Tooltip>
-    </MenuItem>
-    <MenuItem
-      data-test-id="unassign"
-      key="unassign"
-      onClick={[Function]}
+        <Tooltip
+          arrowPointAtCenter={false}
+          autoAdjustOverflow={true}
+          mouseEnterDelay={0.1}
+          mouseLeaveDelay={0.1}
+          placement="top"
+          title={null}
+        >
+          <p>
+            This is my paper
+          </p>
+        </Tooltip>
+      </MenuItem>
+    </EventTracker>
+    <EventTracker
+      eventAction="Claim"
+      eventCategory="Author detail"
+      eventId="This is not my paper"
+      eventPropName="onClick"
+      extractEventArgsToForward={null}
     >
-      This is not my paper
-    </MenuItem>
+      <MenuItem
+        data-test-id="unassign"
+        key="unassign"
+        onClick={[Function]}
+      >
+        This is not my paper
+      </MenuItem>
+    </EventTracker>
   </DropdownMenu>
 </UserActionWrapper>
 `;
@@ -73,32 +89,48 @@ exports[`AssignOwnProfileAction renders disabled 1`] = `
       </ForwardRef>
     }
   >
-    <MenuItem
-      data-test-id="assign-self"
-      disabled={true}
-      key="assign-self"
-      onClick={[Function]}
+    <EventTracker
+      eventAction="Claim"
+      eventCategory="Author detail"
+      eventId="This is my paper"
+      eventPropName="onClick"
+      extractEventArgsToForward={null}
     >
-      <Tooltip
-        arrowPointAtCenter={false}
-        autoAdjustOverflow={true}
-        mouseEnterDelay={0.1}
-        mouseLeaveDelay={0.1}
-        placement="top"
-        title="This paper is already claimed"
+      <MenuItem
+        data-test-id="assign-self"
+        disabled={true}
+        key="assign-self"
+        onClick={[Function]}
       >
-        <p>
-          This is my paper
-        </p>
-      </Tooltip>
-    </MenuItem>
-    <MenuItem
-      data-test-id="unassign"
-      key="unassign"
-      onClick={[Function]}
+        <Tooltip
+          arrowPointAtCenter={false}
+          autoAdjustOverflow={true}
+          mouseEnterDelay={0.1}
+          mouseLeaveDelay={0.1}
+          placement="top"
+          title="This paper is already claimed"
+        >
+          <p>
+            This is my paper
+          </p>
+        </Tooltip>
+      </MenuItem>
+    </EventTracker>
+    <EventTracker
+      eventAction="Claim"
+      eventCategory="Author detail"
+      eventId="This is not my paper"
+      eventPropName="onClick"
+      extractEventArgsToForward={null}
     >
-      This is not my paper
-    </MenuItem>
+      <MenuItem
+        data-test-id="unassign"
+        key="unassign"
+        onClick={[Function]}
+      >
+        This is not my paper
+      </MenuItem>
+    </EventTracker>
   </DropdownMenu>
 </UserActionWrapper>
 `;
@@ -125,31 +157,47 @@ exports[`AssignOwnProfileAction renders plural form if numberOfSelected is more 
       </ForwardRef>
     }
   >
-    <MenuItem
-      data-test-id="assign-self"
-      key="assign-self"
-      onClick={[Function]}
+    <EventTracker
+      eventAction="Claim"
+      eventCategory="Author detail"
+      eventId="This is my paper"
+      eventPropName="onClick"
+      extractEventArgsToForward={null}
     >
-      <Tooltip
-        arrowPointAtCenter={false}
-        autoAdjustOverflow={true}
-        mouseEnterDelay={0.1}
-        mouseLeaveDelay={0.1}
-        placement="top"
-        title={null}
+      <MenuItem
+        data-test-id="assign-self"
+        key="assign-self"
+        onClick={[Function]}
       >
-        <p>
-          These are my papers
-        </p>
-      </Tooltip>
-    </MenuItem>
-    <MenuItem
-      data-test-id="unassign"
-      key="unassign"
-      onClick={[Function]}
+        <Tooltip
+          arrowPointAtCenter={false}
+          autoAdjustOverflow={true}
+          mouseEnterDelay={0.1}
+          mouseLeaveDelay={0.1}
+          placement="top"
+          title={null}
+        >
+          <p>
+            These are my papers
+          </p>
+        </Tooltip>
+      </MenuItem>
+    </EventTracker>
+    <EventTracker
+      eventAction="Claim"
+      eventCategory="Author detail"
+      eventId="This is not my paper"
+      eventPropName="onClick"
+      extractEventArgsToForward={null}
     >
-      These are not my papers
-    </MenuItem>
+      <MenuItem
+        data-test-id="unassign"
+        key="unassign"
+        onClick={[Function]}
+      >
+        These are not my papers
+      </MenuItem>
+    </EventTracker>
   </DropdownMenu>
 </UserActionWrapper>
 `;
@@ -176,31 +224,47 @@ exports[`AssignOwnProfileAction renders singular form if numberOfSelected is 1 1
       </ForwardRef>
     }
   >
-    <MenuItem
-      data-test-id="assign-self"
-      key="assign-self"
-      onClick={[Function]}
+    <EventTracker
+      eventAction="Claim"
+      eventCategory="Author detail"
+      eventId="This is my paper"
+      eventPropName="onClick"
+      extractEventArgsToForward={null}
     >
-      <Tooltip
-        arrowPointAtCenter={false}
-        autoAdjustOverflow={true}
-        mouseEnterDelay={0.1}
-        mouseLeaveDelay={0.1}
-        placement="top"
-        title={null}
+      <MenuItem
+        data-test-id="assign-self"
+        key="assign-self"
+        onClick={[Function]}
       >
-        <p>
-          This is my paper
-        </p>
-      </Tooltip>
-    </MenuItem>
-    <MenuItem
-      data-test-id="unassign"
-      key="unassign"
-      onClick={[Function]}
+        <Tooltip
+          arrowPointAtCenter={false}
+          autoAdjustOverflow={true}
+          mouseEnterDelay={0.1}
+          mouseLeaveDelay={0.1}
+          placement="top"
+          title={null}
+        >
+          <p>
+            This is my paper
+          </p>
+        </Tooltip>
+      </MenuItem>
+    </EventTracker>
+    <EventTracker
+      eventAction="Claim"
+      eventCategory="Author detail"
+      eventId="This is not my paper"
+      eventPropName="onClick"
+      extractEventArgsToForward={null}
     >
-      This is not my paper
-    </MenuItem>
+      <MenuItem
+        data-test-id="unassign"
+        key="unassign"
+        onClick={[Function]}
+      >
+        This is not my paper
+      </MenuItem>
+    </EventTracker>
   </DropdownMenu>
 </UserActionWrapper>
 `;
@@ -227,32 +291,48 @@ exports[`AssignOwnProfileAction renders with disabled assign action 1`] = `
       </ForwardRef>
     }
   >
-    <MenuItem
-      data-test-id="assign-self"
-      disabled={true}
-      key="assign-self"
-      onClick={[Function]}
+    <EventTracker
+      eventAction="Claim"
+      eventCategory="Author detail"
+      eventId="This is my paper"
+      eventPropName="onClick"
+      extractEventArgsToForward={null}
     >
-      <Tooltip
-        arrowPointAtCenter={false}
-        autoAdjustOverflow={true}
-        mouseEnterDelay={0.1}
-        mouseLeaveDelay={0.1}
-        placement="top"
-        title="This paper is already claimed"
+      <MenuItem
+        data-test-id="assign-self"
+        disabled={true}
+        key="assign-self"
+        onClick={[Function]}
       >
-        <p>
-          This is my paper
-        </p>
-      </Tooltip>
-    </MenuItem>
-    <MenuItem
-      data-test-id="unassign"
-      key="unassign"
-      onClick={[Function]}
+        <Tooltip
+          arrowPointAtCenter={false}
+          autoAdjustOverflow={true}
+          mouseEnterDelay={0.1}
+          mouseLeaveDelay={0.1}
+          placement="top"
+          title="This paper is already claimed"
+        >
+          <p>
+            This is my paper
+          </p>
+        </Tooltip>
+      </MenuItem>
+    </EventTracker>
+    <EventTracker
+      eventAction="Claim"
+      eventCategory="Author detail"
+      eventId="This is not my paper"
+      eventPropName="onClick"
+      extractEventArgsToForward={null}
     >
-      This is not my paper
-    </MenuItem>
+      <MenuItem
+        data-test-id="unassign"
+        key="unassign"
+        onClick={[Function]}
+      >
+        This is not my paper
+      </MenuItem>
+    </EventTracker>
   </DropdownMenu>
 </UserActionWrapper>
 `;

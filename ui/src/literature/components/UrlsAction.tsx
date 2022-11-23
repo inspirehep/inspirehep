@@ -1,30 +1,38 @@
 import React, { useCallback } from 'react';
-import { List } from 'immutable';
-import PropTypes from 'prop-types';
+import { List, Map } from 'immutable';
 import { Menu } from 'antd';
 import { LinkOutlined } from '@ant-design/icons';
 
 import IconText from '../../common/components/IconText';
-import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank.tsx';
+import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank';
 import { removeProtocolAndWwwFromUrl } from '../../common/utils';
 import ActionsDropdownOrAction from '../../common/components/ActionsDropdownOrAction';
 import EventTracker from '../../common/components/EventTracker';
 
-function linkToHrefDisplayPair(link) {
+function linkToHrefDisplayPair(link: Map<string, string>) {
   const href = link.get('value');
   const description = link.get('description');
   const display = description || removeProtocolAndWwwFromUrl(href);
   return [href, display];
 }
 
-function UrlsAction({ urls, text, icon, trackerEventId }) {
+interface UrlsActionProps { 
+  urls: List<string>, 
+  text: string, 
+  icon: JSX.Element, 
+  trackerEventId: string, 
+  page: string,
+  eventAction?: string 
+};
+
+function UrlsAction({ urls, text, icon, trackerEventId, page, eventAction }: UrlsActionProps) {
   const renderUrlsAction = useCallback(
     (url, title) => (
-      <EventTracker eventId={trackerEventId}>
+      <EventTracker eventCategory={page} eventAction={eventAction || "Link"} eventId={trackerEventId}>
         <LinkWithTargetBlank href={url.get('value')}>{title}</LinkWithTargetBlank>
       </EventTracker>
     ),
-    [trackerEventId]
+    [trackerEventId, page, eventAction]
   );
 
   const renderUrlsDropdownAction = useCallback(
@@ -32,13 +40,13 @@ function UrlsAction({ urls, text, icon, trackerEventId }) {
       const [href, display] = linkToHrefDisplayPair(url);
       return (
         <Menu.Item key={href}>
-          <EventTracker eventId={trackerEventId}>
+          <EventTracker eventCategory={page} eventAction={eventAction || "Link"} eventId={trackerEventId}>
             <LinkWithTargetBlank href={href}>{display}</LinkWithTargetBlank>
           </EventTracker>
         </Menu.Item>
       );
     },
-    [trackerEventId]
+    [trackerEventId, page, eventAction]
   );
 
   const ACTION_TITLE = <IconText icon={icon} text={text} />;
@@ -52,13 +60,6 @@ function UrlsAction({ urls, text, icon, trackerEventId }) {
     />
   );
 }
-
-UrlsAction.propTypes = {
-  urls: PropTypes.instanceOf(List).isRequired,
-  text: PropTypes.string,
-  icon: PropTypes.node,
-  trackerEventId: PropTypes.string,
-};
 
 UrlsAction.defaultProps = {
   text: 'website',

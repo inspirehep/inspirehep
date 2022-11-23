@@ -17,6 +17,7 @@ export const JournalPapers = ({ journalName }: { journalName: string }) => {
       baseQuery={baseQuery}
       noResultsTitle="0 Journal papers"
       embedded
+      page="Journal details"
     />
   );
 };

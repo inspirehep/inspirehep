@@ -34,6 +34,7 @@ interface AssignLiteratureItemDrawerProps {
   currentUserRecordId: number;
   authors: IAuthorResult[];
   itemLiteratureId: number;
+  page: string;
 }
 
 function AssignLiteratureItemDrawer({
@@ -43,6 +44,7 @@ function AssignLiteratureItemDrawer({
   currentUserRecordId,
   authors,
   itemLiteratureId,
+  page
 }: AssignLiteratureItemDrawerProps) {
   const [selectedAuthorId, setSelectedAuthorId] = useState<number>();
   const [availableAuthors, setAvailableAuthors] = useState<IAuthorResult[]>([]);
@@ -110,7 +112,7 @@ function AssignLiteratureItemDrawer({
               </Col>
               <Col flex="1 1 1px" className="pb2">
                 <ResultItem>
-                  <Author author={item} />
+                  <Author author={item} page={page} />
                 </ResultItem>
               </Col>
             </Row>

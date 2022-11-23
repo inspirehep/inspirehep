@@ -65,7 +65,7 @@ class UserFeedback extends Component {
 
   onFeedbackSubmit() {
     const { rateValue, commentValue } = this.state;
-    trackEvent('Feedback', 'Main', commentValue, rateValue);
+    trackEvent('Feedback modal', 'Feedback submission', `Feedback comment: ${commentValue}`, rateValue);
     this.setState({
       rateValue: 0,
       commentValue: null,

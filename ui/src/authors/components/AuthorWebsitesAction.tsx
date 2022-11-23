@@ -6,6 +6,7 @@ import { Menu, Tooltip } from 'antd';
 import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank';
 import { removeProtocolAndWwwFromUrl } from '../../common/utils';
 import ActionsDropdownOrAction from '../../common/components/ActionsDropdownOrAction';
+import EventTracker from '../../common/components/EventTracker';
 
 function isBlog(website: Map<string, any>): boolean {
   return website.get('description', '').toLowerCase() === 'blog';
@@ -37,13 +38,30 @@ function renderWebsitesDropdownAction(website: Map<string, any>) {
   const [href, display] = websiteToHrefDisplayPair(website);
   return (
     <Menu.Item key={href}>
-      <LinkWithTargetBlank href={href}>{display}</LinkWithTargetBlank>
+      <EventTracker
+        eventCategory="Author detail"
+        eventAction="Link"
+        eventId="Author websites"
+      >
+        <LinkWithTargetBlank href={href}>{display}</LinkWithTargetBlank>
+      </EventTracker>
     </Menu.Item>
   );
 }
 
 function renderWebsiteAction(website: Map<string, any>, title: string) {
-  return <LinkWithTargetBlank href={website.get('value')}>{title}</LinkWithTargetBlank>;
+  return (
+    <EventTracker
+      eventCategory="Author detail"
+      eventAction="Link"
+      eventId="Author websites"
+    >
+      <LinkWithTargetBlank href={website.get('value')}>
+        {title}
+      </LinkWithTargetBlank>
+      ;
+    </EventTracker>
+  );
 }
 
 const ACTION_TITLE = (
@@ -53,9 +71,10 @@ const ACTION_TITLE = (
 );
 
 function AuthorWebsitesAction({ websites }: { websites: List<string> }) {
-  const sortedWebsites = useMemo(() => websites.sort(sortBlogFirst), [
-    websites,
-  ]);
+  const sortedWebsites = useMemo(
+    () => websites.sort(sortBlogFirst),
+    [websites]
+  );
   return (
     <ActionsDropdownOrAction
       values={sortedWebsites}

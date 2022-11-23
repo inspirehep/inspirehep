@@ -29,11 +29,18 @@ function InstitutionItem({ metadata }) {
     <ResultItem
       leftActions={
         <>
-          {urls && <UrlsAction urls={urls} />}
+          {urls && (
+            <UrlsAction
+              urls={urls}
+              trackerEventId="Institution website"
+              eventCategory="Institutions search"
+            />
+          )}
           <AuthorizedContainer authorizedRoles={SUPERUSER_OR_CATALOGER}>
             <EditRecordAction
               pidType={INSTITUTIONS_PID_TYPE}
               pidValue={recordId}
+              page="Institutions search"
             />
           </AuthorizedContainer>
         </>
@@ -44,7 +51,8 @@ function InstitutionItem({ metadata }) {
             itemCount={papersCount}
             referenceType="paper"
             linkQuery={getPapersQueryString(recordId)}
-            trackerEventId="Institutions:PaperLink"
+            trackerEventId="Papers link"
+            eventCategory="Institutions search"
           />
         </UserAction>
       }

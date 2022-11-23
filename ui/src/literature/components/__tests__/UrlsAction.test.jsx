@@ -20,6 +20,7 @@ describe('UrlsAction', () => {
         icon={<DownloadOutlined />}
         text="download"
         trackerEventId="PdfDownload"
+        page="Home"
       />
     );
     expect(wrapper.dive()).toMatchSnapshot();
@@ -38,6 +39,7 @@ describe('UrlsAction', () => {
         text="pdf"
         icon={<DownloadOutlined />}
         trackerEventId="PdfDownload"
+        page="Home"
       />
     );
     expect(wrapper.dive()).toMatchSnapshot();

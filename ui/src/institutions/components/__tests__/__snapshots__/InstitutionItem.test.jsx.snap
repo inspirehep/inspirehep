@@ -5,8 +5,10 @@ exports[`InstitutionItem renders with all props set 1`] = `
   leftActions={
     <React.Fragment>
       <UrlsAction
+        eventCategory="Institutions search"
         icon={<ForwardRef(LinkOutlined) />}
         text="website"
+        trackerEventId="Institution website"
         urls={
           Immutable.List [
             Immutable.Map {
@@ -24,6 +26,7 @@ exports[`InstitutionItem renders with all props set 1`] = `
         }
       >
         <EditRecordAction
+          page="Institutions search"
           pidType="institutions"
           pidValue={1234}
         />
@@ -33,10 +36,11 @@ exports[`InstitutionItem renders with all props set 1`] = `
   rightActions={
     <UserActionWrapper>
       <IncomingLiteratureReferencesLinkAction
+        eventCategory="Institutions search"
         itemCount={1}
         linkQuery="affid 1234"
         referenceType="paper"
-        trackerEventId="Institutions:PaperLink"
+        trackerEventId="Papers link"
       />
     </UserActionWrapper>
   }
@@ -95,6 +99,7 @@ exports[`InstitutionItem renders with only needed props 1`] = `
         }
       >
         <EditRecordAction
+          page="Institutions search"
           pidType="institutions"
           pidValue={123}
         />
@@ -104,10 +109,11 @@ exports[`InstitutionItem renders with only needed props 1`] = `
   rightActions={
     <UserActionWrapper>
       <IncomingLiteratureReferencesLinkAction
+        eventCategory="Institutions search"
         itemCount={0}
         linkQuery="affid 123"
         referenceType="paper"
-        trackerEventId="Institutions:PaperLink"
+        trackerEventId="Papers link"
       />
     </UserActionWrapper>
   }

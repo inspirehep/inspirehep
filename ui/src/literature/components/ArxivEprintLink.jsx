@@ -11,9 +11,11 @@ class ArxivEprintLink extends Component {
   }
 
   render() {
+    const { page } = this.props;
+
     const href = `//arxiv.org/abs/${this.arxivId}`;
     return (
-      <EventTracker eventId="ArvixEprintLink">
+      <EventTracker eventCategory={page} eventAction="link" eventId="Arvix eprint link">
         <LinkWithTargetBlank href={href}>{this.arxivId}</LinkWithTargetBlank>
       </EventTracker>
     );

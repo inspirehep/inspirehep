@@ -46,7 +46,7 @@ export const DetailPage = ({
 
   const shortTitle = metadata.get('short_title') as unknown as string;
   const journalTitle = metadata.get('journal_title') as unknown as string;
-  const urls = metadata.get('urls') as unknown as string[];
+  const urls = metadata.get('urls') as unknown as List<string>;
   const publicNotes = metadata.get('public_notes') as unknown as string[];
   const titleVariants = metadata.get(
     'title_variants'
@@ -67,13 +67,21 @@ export const DetailPage = ({
             className="sm-pb3"
             leftActions={
               <>
-                {urls && <UrlsAction urls={urls} text="links" />}
+                {urls && (
+                  <UrlsAction
+                    urls={urls}
+                    text="links"
+                    page="Journals search"
+                    trackerEventId="Journal website"
+                  />
+                )}
                 {/* @ts-ignore */}
                 <AuthorizedContainer authorizedRoles={SUPERUSER_OR_CATALOGER}>
                   <EditRecordAction
                     isCatalogerLoggedIn={isCatalogerLoggedIn}
                     pidType={JOURNALS_PID_TYPE}
                     pidValue={recordId}
+                    page="Journals detail"
                   />
                 </AuthorizedContainer>
               </>

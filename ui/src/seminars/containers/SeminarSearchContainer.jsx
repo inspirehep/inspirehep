@@ -40,6 +40,7 @@ function SeminarSearch({
           <AggregationFiltersContainer
             namespace={namespace}
             embedded={embedded}
+            page="Seminars search"
           />
         </LoadingOrChildren>
       </>

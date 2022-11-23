@@ -22,27 +22,51 @@ exports[`AssignAction renders 1`] = `
       </ForwardRef>
     }
   >
-    <MenuItem
-      data-test-id="assign-self"
-      key="assign-self"
-      onClick={[Function]}
+    <EventTracker
+      eventAction="Claim"
+      eventCategory="Author detail"
+      eventId="This is my paper"
+      eventPropName="onClick"
+      extractEventArgsToForward={null}
     >
-      This is my paper
-    </MenuItem>
-    <MenuItem
-      data-test-id="unassign"
-      key="unassign"
-      onClick={[Function]}
+      <MenuItem
+        data-test-id="assign-self"
+        key="assign-self"
+        onClick={[Function]}
+      >
+        This is my paper
+      </MenuItem>
+    </EventTracker>
+    <EventTracker
+      eventAction="Claim"
+      eventCategory="Author detail"
+      eventId="This is not my paper"
+      eventPropName="onClick"
+      extractEventArgsToForward={null}
     >
-      This is not my paper
-    </MenuItem>
-    <MenuItem
-      data-test-id="assign-another"
-      key="assign-another"
-      onClick={[Function]}
+      <MenuItem
+        data-test-id="unassign"
+        key="unassign"
+        onClick={[Function]}
+      >
+        This is not my paper
+      </MenuItem>
+    </EventTracker>
+    <EventTracker
+      eventAction="Claim"
+      eventCategory="Author detail"
+      eventId="Assign to another author"
+      eventPropName="onClick"
+      extractEventArgsToForward={null}
     >
-      Assign to another author
-    </MenuItem>
+      <MenuItem
+        data-test-id="assign-another"
+        key="assign-another"
+        onClick={[Function]}
+      >
+        Assign to another author
+      </MenuItem>
+    </EventTracker>
   </DropdownMenu>
 </UserActionWrapper>
 `;
@@ -69,27 +93,51 @@ exports[`AssignAction renders disabled 1`] = `
       </ForwardRef>
     }
   >
-    <MenuItem
-      data-test-id="assign-self"
-      key="assign-self"
-      onClick={[Function]}
+    <EventTracker
+      eventAction="Claim"
+      eventCategory="Author detail"
+      eventId="This is my paper"
+      eventPropName="onClick"
+      extractEventArgsToForward={null}
     >
-      This is my paper
-    </MenuItem>
-    <MenuItem
-      data-test-id="unassign"
-      key="unassign"
-      onClick={[Function]}
+      <MenuItem
+        data-test-id="assign-self"
+        key="assign-self"
+        onClick={[Function]}
+      >
+        This is my paper
+      </MenuItem>
+    </EventTracker>
+    <EventTracker
+      eventAction="Claim"
+      eventCategory="Author detail"
+      eventId="This is not my paper"
+      eventPropName="onClick"
+      extractEventArgsToForward={null}
     >
-      This is not my paper
-    </MenuItem>
-    <MenuItem
-      data-test-id="assign-another"
-      key="assign-another"
-      onClick={[Function]}
+      <MenuItem
+        data-test-id="unassign"
+        key="unassign"
+        onClick={[Function]}
+      >
+        This is not my paper
+      </MenuItem>
+    </EventTracker>
+    <EventTracker
+      eventAction="Claim"
+      eventCategory="Author detail"
+      eventId="Assign to another author"
+      eventPropName="onClick"
+      extractEventArgsToForward={null}
     >
-      Assign to another author
-    </MenuItem>
+      <MenuItem
+        data-test-id="assign-another"
+        key="assign-another"
+        onClick={[Function]}
+      >
+        Assign to another author
+      </MenuItem>
+    </EventTracker>
   </DropdownMenu>
 </UserActionWrapper>
 `;
@@ -116,27 +164,51 @@ exports[`AssignAction renders plural form if numberOfSelected is more than 1 1`]
       </ForwardRef>
     }
   >
-    <MenuItem
-      data-test-id="assign-self"
-      key="assign-self"
-      onClick={[Function]}
+    <EventTracker
+      eventAction="Claim"
+      eventCategory="Author detail"
+      eventId="This is my paper"
+      eventPropName="onClick"
+      extractEventArgsToForward={null}
     >
-      These are my papers
-    </MenuItem>
-    <MenuItem
-      data-test-id="unassign"
-      key="unassign"
-      onClick={[Function]}
+      <MenuItem
+        data-test-id="assign-self"
+        key="assign-self"
+        onClick={[Function]}
+      >
+        These are my papers
+      </MenuItem>
+    </EventTracker>
+    <EventTracker
+      eventAction="Claim"
+      eventCategory="Author detail"
+      eventId="This is not my paper"
+      eventPropName="onClick"
+      extractEventArgsToForward={null}
     >
-      These are not my papers
-    </MenuItem>
-    <MenuItem
-      data-test-id="assign-another"
-      key="assign-another"
-      onClick={[Function]}
+      <MenuItem
+        data-test-id="unassign"
+        key="unassign"
+        onClick={[Function]}
+      >
+        These are not my papers
+      </MenuItem>
+    </EventTracker>
+    <EventTracker
+      eventAction="Claim"
+      eventCategory="Author detail"
+      eventId="Assign to another author"
+      eventPropName="onClick"
+      extractEventArgsToForward={null}
     >
-      Assign to another author
-    </MenuItem>
+      <MenuItem
+        data-test-id="assign-another"
+        key="assign-another"
+        onClick={[Function]}
+      >
+        Assign to another author
+      </MenuItem>
+    </EventTracker>
   </DropdownMenu>
 </UserActionWrapper>
 `;
@@ -163,27 +235,51 @@ exports[`AssignAction renders singular form if numberOfSelected is 1 1`] = `
       </ForwardRef>
     }
   >
-    <MenuItem
-      data-test-id="assign-self"
-      key="assign-self"
-      onClick={[Function]}
+    <EventTracker
+      eventAction="Claim"
+      eventCategory="Author detail"
+      eventId="This is my paper"
+      eventPropName="onClick"
+      extractEventArgsToForward={null}
     >
-      This is my paper
-    </MenuItem>
-    <MenuItem
-      data-test-id="unassign"
-      key="unassign"
-      onClick={[Function]}
+      <MenuItem
+        data-test-id="assign-self"
+        key="assign-self"
+        onClick={[Function]}
+      >
+        This is my paper
+      </MenuItem>
+    </EventTracker>
+    <EventTracker
+      eventAction="Claim"
+      eventCategory="Author detail"
+      eventId="This is not my paper"
+      eventPropName="onClick"
+      extractEventArgsToForward={null}
     >
-      This is not my paper
-    </MenuItem>
-    <MenuItem
-      data-test-id="assign-another"
-      key="assign-another"
-      onClick={[Function]}
+      <MenuItem
+        data-test-id="unassign"
+        key="unassign"
+        onClick={[Function]}
+      >
+        This is not my paper
+      </MenuItem>
+    </EventTracker>
+    <EventTracker
+      eventAction="Claim"
+      eventCategory="Author detail"
+      eventId="Assign to another author"
+      eventPropName="onClick"
+      extractEventArgsToForward={null}
     >
-      Assign to another author
-    </MenuItem>
+      <MenuItem
+        data-test-id="assign-another"
+        key="assign-another"
+        onClick={[Function]}
+      >
+        Assign to another author
+      </MenuItem>
+    </EventTracker>
   </DropdownMenu>
 </UserActionWrapper>
 `;
