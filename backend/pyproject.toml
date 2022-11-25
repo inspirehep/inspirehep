@@ -98,9 +98,9 @@ invenio-records-rest = {git = "https://github.com/inspirehep/invenio-records-res
 dict-deep = "^4.1.2"
 pdfplumber = "^0.7.5"
 psycopg2-binary = "^2.9.5"
+freezegun = "^1.2.2"
 
 [tool.poetry.dev-dependencies]
-freezegun = "*"
 coverage = {version = "^5.0.3", extras = ["toml"]}
 isort = "^5.6.4"
 mock = ">=3.0.0,<4.0.0"
