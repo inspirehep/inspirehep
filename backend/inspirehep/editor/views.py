@@ -18,7 +18,6 @@ from inspire_utils.record import normalize_affiliations
 from invenio_db import db
 from invenio_records.models import RecordMetadata
 from invenio_records_rest.utils import set_headers_for_record_caching_and_concurrency
-from refextract import extract_references_from_string, extract_references_from_url
 from sqlalchemy_continuum import transaction_class, version_class
 
 from inspirehep.accounts.api import (
@@ -254,23 +253,16 @@ def _simplify_ticket_response(ticket):
 @login_required_with_roles([Roles.cataloger.value])
 def refextract_text():
     """Run refextract on a piece of text."""
-    if current_app.config.get("FEATURE_FLAG_ENABLE_REFEXTRACT_SERVICE"):
-        headers = {"Content-Type": "application/json", "Accept": "application/json"}
-        data = {"journal_kb_data": create_journal_dict(), "text": request.json["text"]}
-        response = requests.post(
-            f"{current_app.config['REFEXTRACT_SERVICE_URL']}/extract_references_from_text",
-            headers=headers,
-            data=orjson.dumps(data),
-        )
-        if response.status_code != 200:
-            return jsonify({"message": "Can not extract references"}, 500)
-        extracted_references = response.json()["extracted_references"]
-    else:
-        extracted_references = extract_references_from_string(
-            request.json["text"],
-            override_kbs_files={"journals": create_journal_dict()},
-            reference_format="{title},{volume},{page}",
-        )
+    headers = {"Content-Type": "application/json", "Accept": "application/json"}
+    data = {"journal_kb_data": create_journal_dict(), "text": request.json["text"]}
+    response = requests.post(
+        f"{current_app.config['REFEXTRACT_SERVICE_URL']}/extract_references_from_text",
+        headers=headers,
+        data=orjson.dumps(data),
+    )
+    if response.status_code != 200:
+        return jsonify({"message": "Can not extract references"}, 500)
+    extracted_references = response.json()["extracted_references"]
     deduplicated_extracted_references = dedupe_list(extracted_references)
     references = map_refextract_to_schema(deduplicated_extracted_references)
     match_result = match_references(references)
@@ -281,23 +273,16 @@ def refextract_text():
 @login_required_with_roles([Roles.cataloger.value])
 def refextract_url():
     """Run refextract on a URL."""
-    if current_app.config.get("FEATURE_FLAG_ENABLE_REFEXTRACT_SERVICE"):
-        headers = {"Content-Type": "application/json", "Accept": "application/json"}
-        data = {"journal_kb_data": create_journal_dict(), "url": request.json["url"]}
-        response = requests.post(
-            f"{current_app.config['REFEXTRACT_SERVICE_URL']}/extract_references_from_url",
-            headers=headers,
-            data=orjson.dumps(data),
-        )
-        if response.status_code != 200:
-            return jsonify({"message": "Can not extract references"}, 500)
-        extracted_references = response.json()["extracted_references"]
-    else:
-        extracted_references = extract_references_from_url(
-            request.json["url"],
-            override_kbs_files={"journals": create_journal_dict()},
-            reference_format="{title},{volume},{page}",
-        )
+    headers = {"Content-Type": "application/json", "Accept": "application/json"}
+    data = {"journal_kb_data": create_journal_dict(), "url": request.json["url"]}
+    response = requests.post(
+        f"{current_app.config['REFEXTRACT_SERVICE_URL']}/extract_references_from_url",
+        headers=headers,
+        data=orjson.dumps(data),
+    )
+    if response.status_code != 200:
+        return jsonify({"message": "Can not extract references"}, 500)
+    extracted_references = response.json()["extracted_references"]
     deduplicated_extracted_references = dedupe_list(extracted_references)
     references = map_refextract_to_schema(deduplicated_extracted_references)
     match_result = match_references(references)
