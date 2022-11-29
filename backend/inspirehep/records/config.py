@@ -17,6 +17,7 @@ from copy import deepcopy
 
 from invenio_records_rest.facets import range_filter, terms_filter
 from invenio_records_rest.utils import allow_all, deny_all
+from invenio_rest.errors import RESTException
 
 from inspirehep.access_control import (
     LiteratureCollectionReadPermissionCheck,
@@ -65,6 +66,14 @@ from inspirehep.search.facets import (
     records_jobs_cataloger,
     records_seminars,
 )
+from inspirehep.serializers import jsonify
+
+
+def default_handler(error):
+    code = error.code if hasattr(error, "code") else 500
+    message = error.description if hasattr(error, "description") else "Unexpected error"
+    return jsonify(message=message, status=code), code
+
 
 INSPIRE_SERIALIZERS = "inspirehep.records.serializers"
 
@@ -92,6 +101,7 @@ RECORD = {
     "list_permission_factory_imp": allow_all,
     "record_serializers_aliases": {"json": "application/json"},
     "search_serializers_aliases": {"json": "application/json"},
+    "error_handlers": {RESTException: default_handler},
 }
 
 LITERATURE = deepcopy(RECORD)
@@ -294,11 +304,13 @@ JOURNALS.update(
         },
         "search_serializers": {
             "application/json": INSPIRE_SERIALIZERS + ":journals_json_response_search",
-            "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS + ":journals_json_list_response",
+            "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
+            + ":journals_json_list_response",
         },
         "record_serializers": {
             "application/json": INSPIRE_SERIALIZERS + ":journals_json_response",
-            "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS + ":journals_json_detail_response",
+            "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
+            + ":journals_json_detail_response",
             "application/vnd+inspire.record.raw+json": f"{INSPIRE_SERIALIZERS}:raw_json_detail_response",
         },
     }

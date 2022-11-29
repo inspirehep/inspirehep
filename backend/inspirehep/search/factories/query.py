@@ -10,6 +10,7 @@ from elasticsearch_dsl import Q
 from flask import current_app
 
 from inspirehep.pidstore.api import PidStoreBase
+from inspirehep.search.errors import MalformatedQuery
 from inspirehep.search.utils import RecursionLimit
 
 
@@ -53,7 +54,10 @@ def inspire_query_factory():
 
     def inspire_query(query_string, search):
         with RecursionLimit(current_app.config.get("SEARCH_MAX_RECURSION_LIMIT", 5000)):
-            query = Q(inspire_query_parser.parse_query(query_string))
+            try:
+                query = Q(inspire_query_parser.parse_query(query_string))
+            except ValueError:
+                raise MalformatedQuery
             if "citedby" in query_string:
                 query = query.to_dict()
                 replace_recid_in_citedby_query(query)

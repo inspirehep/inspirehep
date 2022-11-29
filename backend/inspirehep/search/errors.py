@@ -25,3 +25,8 @@ class FieldsParamForbidden(BaseRestError):
     description = (
         "'fields' parameter cannot be used with the requested format or MIME type."
     )
+
+
+class MalformatedQuery(BaseRestError):
+    code = 400
+    description = "The syntax of the search query is invalid."
