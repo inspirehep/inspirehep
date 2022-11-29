@@ -29,6 +29,8 @@ from inspirehep.search.errors import MaximumSearchPageSizeExceeded
 from inspirehep.search.factories import inspire_query_factory
 from inspirehep.search.utils import RecursionLimit
 
+from .errors import MalformatedQuery
+
 IQ = inspire_query_factory()
 LOGGER = structlog.getLogger()
 
@@ -53,7 +55,12 @@ class SearchMixin(object):
         """
         if not query_string:
             return self.query()
-        return self.query("query_string", query=query_string, default_operator="AND")
+        try:
+            return self.query(
+                "query_string", query=query_string, default_operator="AND"
+            )
+        except ValueError:
+            raise MalformatedQuery
 
     def get_source(self, uuid, **kwargs):
         """Get source from a given uuid.

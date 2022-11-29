@@ -1491,3 +1491,14 @@ def test_normalize_title_for_journals_trims_whitespace(inspire_app):
     title_to_normalize = "J. Cosmol. Astropart. Phys."
     normalized_title = JournalsSearch().normalize_title(title_to_normalize)
     assert normalized_title == "JCAP"
+
+
+def test_lit_search_malformated_query_returns_jsonified_error(inspire_app):
+    headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+    with inspire_app.test_client() as client:
+        url = "api/literature?page=2&q=a%20test%2C."
+        response = client.get(url, headers=headers)
+
+    assert response.status_code == 400
+    assert response.json["message"] == "The syntax of the search query is invalid."
+    assert response.json["status"] == 400
