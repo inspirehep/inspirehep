@@ -1502,3 +1502,28 @@ def test_lit_search_malformated_query_returns_jsonified_error(inspire_app):
     assert response.status_code == 400
     assert response.json["message"] == "The syntax of the search query is invalid."
     assert response.json["status"] == 400
+
+
+@mock.patch("inspirehep.records.api.base.get_validation_errors", return_value=[])
+def test_jobs_search_returns_jsonified_error_when_value_error(
+    mock_validate, inspire_app
+):
+    create_record(
+        "job",
+        data={
+            "position": "desy fellowship",
+            "status": "closed",
+            "deadline_date": "8888",
+        },
+        skip_validation=True,
+    )
+    headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+    with inspire_app.test_client() as client:
+        url = (
+            "/api/jobs?page=1&q=desy%20fellowship&size=25&sort=mostrecent&status=closed"
+        )
+        response = client.get(url, headers=headers)
+
+    assert response.status_code == 400
+    assert response.json["message"] == "The search result can't be serialized"
+    assert response.json["status"] == 400

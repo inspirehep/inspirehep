@@ -30,3 +30,8 @@ class FieldsParamForbidden(BaseRestError):
 class MalformatedQuery(BaseRestError):
     code = 400
     description = "The syntax of the search query is invalid."
+
+
+class NonSerializableSearchResult(BaseRestError):
+    code = 400
+    description = "The search result can't be serialized"

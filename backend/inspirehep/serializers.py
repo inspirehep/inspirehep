@@ -20,6 +20,7 @@ from invenio_search.utils import build_alias_name
 from inspirehep.accounts.api import is_user_logged_in
 from inspirehep.records.links import inspire_search_links
 from inspirehep.search.api import LiteratureSearch
+from inspirehep.search.errors import NonSerializableSearchResult
 
 LOGGER = structlog.getLogger()
 
@@ -77,21 +78,24 @@ class JSONSerializer(ORJSONSerializerMixin, InvenioJSONSerializer):
                 reasons=failure_reasons,
             )
         links = inspire_search_links(links)
-        data = dict(
-            hits=dict(
-                hits=[
-                    self.transform_search_hit(
-                        pid_fetcher(hit["_id"], hit["_source"]),
-                        hit,
-                        links_factory=item_links_factory,
-                        **kwargs,
-                    )
-                    for hit in search_result["hits"]["hits"]
-                ],
-                total=search_result["hits"]["total"]["value"],
-            ),
-            links=links,
-        )
+        try:
+            data = dict(
+                hits=dict(
+                    hits=[
+                        self.transform_search_hit(
+                            pid_fetcher(hit["_id"], hit["_source"]),
+                            hit,
+                            links_factory=item_links_factory,
+                            **kwargs,
+                        )
+                        for hit in search_result["hits"]["hits"]
+                    ],
+                    total=search_result["hits"]["total"]["value"],
+                ),
+                links=links,
+            )
+        except ValueError:
+            raise NonSerializableSearchResult
         sort_options = self._get_sort_options()
         if sort_options:
             data["sort_options"] = sort_options
