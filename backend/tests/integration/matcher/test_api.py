@@ -122,7 +122,7 @@ def test_match_reference_for_data_config(inspire_app):
 
     expected_control_number = [1]
     result_control_number = match_reference_control_numbers_with_relaxed_journal_titles(
-        reference
+        reference, with_data_records=True
     )
 
     assert expected_control_number == result_control_number

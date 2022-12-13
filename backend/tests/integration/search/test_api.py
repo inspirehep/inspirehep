@@ -1527,3 +1527,19 @@ def test_jobs_search_returns_jsonified_error_when_value_error(
     assert response.status_code == 400
     assert response.json["message"] == "The search result can't be serialized"
     assert response.json["status"] == 400
+
+
+def test_search_doesnt_match_data_records_when_no_lit_records_found(inspire_app):
+    record_data = {
+        "dois": [{"value": "10.15484/milc.asqtad.en20a/1178036"}],
+        "self": {"$ref": "https://inspirehep.net/api/data/1399446"},
+        "$schema": "https://inspirehep.net/schemas/records/data.json",
+        "deleted": False,
+        "_collections": ["Data"],
+        "control_number": 1399446,
+        "legacy_version": "20151029133634.0",
+    }
+    create_record("dat", data=record_data)
+    query_string = "10.13384/milc.asqt888ad.en20a/117808836"
+    result = LiteratureSearch().query_from_iq(query_string).execute()
+    assert not result.hits
