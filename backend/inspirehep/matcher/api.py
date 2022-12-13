@@ -100,7 +100,7 @@ def match_journal_title_config(reference, use_relaxed_titles_matching):
     return config_publication_info
 
 
-def match_reference_config(reference, use_relaxed_titles_matching=False):
+def match_literature_reference_config(reference, use_relaxed_titles_matching=False):
     """Returns the configs which will be used for matching reference.
 
     Args:
@@ -114,7 +114,6 @@ def match_reference_config(reference, use_relaxed_titles_matching=False):
     ]
     config_report_numbers = current_app.config["REFERENCE_MATCHER_REPORT_NUMBERS"]
     config_texkey = current_app.config["REFERENCE_MATCHER_TEXKEY_CONFIG"]
-    config_data = current_app.config["REFERENCE_MATCHER_DATA_CONFIG"]
 
     config_publication_info = match_journal_title_config(
         reference, use_relaxed_titles_matching
@@ -124,7 +123,6 @@ def match_reference_config(reference, use_relaxed_titles_matching=False):
         config_report_numbers,
         *config_publication_info,
         config_texkey,
-        config_data,
     ]
 
     return configs
@@ -143,7 +141,8 @@ def match_reference(reference, previous_matched_recid=None):
     if reference.get("curated_relation"):
         return reference
 
-    configs = match_reference_config(reference)
+    configs = match_literature_reference_config(reference)
+    configs.append(current_app.config["REFERENCE_MATCHER_DATA_CONFIG"])
     if "record" in reference:
         del reference["record"]
     matches = (
@@ -157,7 +156,9 @@ def match_reference(reference, previous_matched_recid=None):
     return reference
 
 
-def match_reference_control_numbers_with_relaxed_journal_titles(reference):
+def match_reference_control_numbers_with_relaxed_journal_titles(
+    reference, with_data_records=False
+):
     """Match reference and return the `control_number`.
 
     Args:
@@ -171,8 +172,11 @@ def match_reference_control_numbers_with_relaxed_journal_titles(reference):
         except KeyError:
             return None
 
-    configs = match_reference_config(reference, use_relaxed_titles_matching=True)
-
+    configs = match_literature_reference_config(
+        reference, use_relaxed_titles_matching=True
+    )
+    if with_data_records:
+        configs.append(current_app.config["REFERENCE_MATCHER_DATA_CONFIG"])
     matches = set()
     for config in configs:
         matched_recids = [
