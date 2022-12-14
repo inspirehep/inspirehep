@@ -5,6 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+from flask import current_app
 from invenio_records.errors import RecordsError
 from invenio_rest.errors import RESTException
 from marshmallow import ValidationError
@@ -50,12 +51,15 @@ class WrongRecordSubclass(RecordsError):
     pass
 
 
-class DownloadFileError(Exception):
+class DownloadFileError(RESTException):
     pass
 
 
-class FileSizeExceededError(Exception):
-    pass
+class FileSizeExceededError(RESTException):
+    def __init__(self, message="", **kwargs):
+        super().__init__(**kwargs)
+        default_message = f"File size exceeded, maximum file size: {current_app.config['FILES_SIZE_LIMIT']} bytes"
+        self.description = message or default_message
 
 
 class UnsupportedFileError(RESTException):
