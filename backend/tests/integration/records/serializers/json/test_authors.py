@@ -7,6 +7,7 @@
 
 import orjson
 from helpers.utils import create_record, create_record_factory, create_user
+from inspire_utils.query import ordered
 from invenio_accounts.testutils import login_user_via_session
 
 from inspirehep.accounts.roles import Roles
@@ -599,18 +600,20 @@ def test_students_are_populated_correctly_if_ui_serializer(inspire_app):
             f"/authors/{advisor['control_number']}", headers=headers
         )
 
-    expected_metadata = [
-        {
-            "name": student["name"]["value"],
-            "record": student["self"],
-            "degree_type": "phd",
-        },
-        {
-            "name": student_2["name"]["preferred_name"],
-            "record": student_2["self"],
-            "degree_type": "phd",
-        },
-    ]
+    expected_metadata = ordered(
+        [
+            {
+                "name": student["name"]["value"],
+                "record": student["self"],
+                "degree_type": "phd",
+            },
+            {
+                "name": student_2["name"]["preferred_name"],
+                "record": student_2["self"],
+                "degree_type": "phd",
+            },
+        ]
+    )
 
     advisor_control_numbers = [advisor["control_number"], advisor2["control_number"]]
 
@@ -621,15 +624,15 @@ def test_students_are_populated_correctly_if_ui_serializer(inspire_app):
     response_data_2 = orjson.loads(response_2.data)
 
     assert expected_status_code == response_status_code
-    assert expected_metadata == response_data_1["metadata"]["students"]
-    assert expected_metadata == response_data_2["metadata"]["students"]
+    assert expected_metadata == ordered(response_data_1["metadata"]["students"])
+    assert expected_metadata == ordered(response_data_2["metadata"]["students"])
 
     with inspire_app.test_client() as client:
         response_3 = client.get("/authors", headers=headers)
 
     for record in response_3.json["hits"]["hits"]:
         if record["metadata"]["control_number"] in advisor_control_numbers:
-            assert record["metadata"]["students"] == expected_metadata
+            assert ordered(record["metadata"]["students"]) == expected_metadata
 
 
 def test_students_are_not_populated_if_application_json_serializer(inspire_app):
