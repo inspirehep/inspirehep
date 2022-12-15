@@ -50,7 +50,8 @@ def get_author_signatures(from_author_recid, author_papers):
     signatures = [
         get_author_by_recid(record, from_author_recid) for record in author_papers
     ]
-    return signatures
+    valid_signatures = [signature for signature in signatures if signature]
+    return valid_signatures
 
 
 def assign_to_new_stub_author(author_record, literature_recids):
