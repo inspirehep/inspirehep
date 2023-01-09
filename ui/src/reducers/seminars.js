@@ -7,7 +7,7 @@ import generateRecordFetchReducer from './recordsFactory';
 
 const seminarsReducer = generateRecordFetchReducer({
   fetchingActionActionType: SEMINAR_REQUEST,
-  fecthSuccessActionType: SEMINAR_SUCCESS,
+  fetchSuccessActionType: SEMINAR_SUCCESS,
   fetchErrorActionType: SEMINAR_ERROR,
 });
 

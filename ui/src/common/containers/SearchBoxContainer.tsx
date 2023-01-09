@@ -1,5 +1,5 @@
 import { connect, RootStateOrAny } from 'react-redux';
-import { ThunkAction } from 'redux-thunk';
+import { Action, ActionCreator } from 'redux';
 
 import SearchBox from '../components/SearchBox';
 import { searchQueryUpdate } from '../../actions/search';
@@ -8,7 +8,6 @@ import { appendQueryToLocationSearch } from '../../actions/router';
 import { clearLiteratureSelection } from '../../actions/literature';
 import { UI_CITATION_SUMMARY_PARAM } from '../../literature/containers/CitationSummarySwitchContainer';
 import { UI_EXCLUDE_SELF_CITATIONS_PARAM } from '../../literature/containers/ExcludeSelfCitationsContainer';
-import { Action, ActionCreator, Dispatch } from 'redux';
 
 
 const stateToProps = (state: RootStateOrAny) => ({
@@ -21,7 +20,7 @@ const stateToProps = (state: RootStateOrAny) => ({
   namespace: state.search.get('searchBoxNamespace'),
 });
 
-export const dispatchToProps = (dispatch: Dispatch | ActionCreator<Action>) => ({
+export const dispatchToProps = (dispatch: ActionCreator<Action>) => ({
   onSearch(namespace: string, value: string) {
     if (namespace !== LITERATURE_NS) {
       dispatch(

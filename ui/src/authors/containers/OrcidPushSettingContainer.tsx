@@ -1,5 +1,5 @@
 import { connect, RootStateOrAny } from 'react-redux';
-import { Action, ActionCreator, Dispatch } from 'redux';
+import { Action, ActionCreator } from 'redux';
 
 import OrcidPushSetting from '../components/OrcidPushSetting';
 import { updateOrcidPushSetting } from '../../actions/user';
@@ -9,7 +9,7 @@ const stateToProps = (state: RootStateOrAny) => ({
   isUpdating: state.user.get('isUpdatingOrcidPushSetting'),
 });
 
-const dispatchToProps = (dispatch: Dispatch | ActionCreator<Action>) => ({
+const dispatchToProps = (dispatch: ActionCreator<Action>) => ({
   onChange(value: boolean) {
     dispatch(updateOrcidPushSetting(value));
   },

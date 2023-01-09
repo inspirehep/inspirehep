@@ -7,7 +7,7 @@ import generateRecordFetchReducer from './recordsFactory';
 
 const institutionsReducer = generateRecordFetchReducer({
   fetchingActionActionType: INSTITUTION_REQUEST,
-  fecthSuccessActionType: INSTITUTION_SUCCESS,
+  fetchSuccessActionType: INSTITUTION_SUCCESS,
   fetchErrorActionType: INSTITUTION_ERROR,
 });
 

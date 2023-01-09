@@ -1,6 +1,7 @@
 import { push, goBack } from 'connected-react-router';
-import { Action, ActionCreator, Dispatch } from 'redux';
+import { Action, ActionCreator } from 'redux';
 import { RootStateOrAny } from 'react-redux';
+
 import { HttpClientWrapper } from '../common/http';
 import {
   USER_LOGIN_ERROR,
@@ -67,7 +68,7 @@ function userSignUpRequest() {
 }
 
 export function userSignUp(userEmail: string): (
-  dispatch: Dispatch | ActionCreator<Action>,
+  dispatch: ActionCreator<Action>,
   getState: () => RootStateOrAny,
   http: HttpClientWrapper
 ) => Promise<void> {
@@ -84,7 +85,7 @@ export function userSignUp(userEmail: string): (
 }
 
 export function fetchLoggedInUser(): (
-  dispatch: Dispatch | ActionCreator<Action>,
+  dispatch: ActionCreator<Action>,
   getState: () => RootStateOrAny,
   http: HttpClientWrapper
 ) => Promise<void> {
@@ -101,7 +102,7 @@ export function fetchLoggedInUser(): (
 }
 
 export function userLocalLogin(credentials: Credentials): (
-  dispatch: Dispatch | ActionCreator<Action>,
+  dispatch: ActionCreator<Action>,
   getState: () => RootStateOrAny,
   http: HttpClientWrapper
 ) => Promise<void> {
@@ -117,7 +118,7 @@ export function userLocalLogin(credentials: Credentials): (
 }
 
 export function userLogout(): (
-  dispatch: Dispatch | ActionCreator<Action>,
+  dispatch: ActionCreator<Action>,
   getState: () => RootStateOrAny,
   http: HttpClientWrapper
 ) => Promise<void> {
@@ -136,7 +137,7 @@ export function userLogout(): (
 }
 
 export function userInactive(): (
-  dispatch: Dispatch | ActionCreator<Action>,
+  dispatch: ActionCreator<Action>,
   getState: () => RootStateOrAny,
   http: HttpClientWrapper
 ) => Promise<void> {
@@ -181,7 +182,7 @@ function updateOrcidPushSettingError(error: { error: Error }) {
 }
 
 export function updateOrcidPushSetting(value: boolean): (
-  dispatch: Dispatch | ActionCreator<Action>,
+  dispatch: ActionCreator<Action>,
   getState: () => RootStateOrAny,
   http: HttpClientWrapper
 ) => Promise<void> {

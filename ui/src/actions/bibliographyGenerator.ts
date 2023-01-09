@@ -1,5 +1,6 @@
-import { Action, ActionCreator, Dispatch } from 'redux';
+import { Action, ActionCreator } from 'redux';
 import { RootStateOrAny } from 'react-redux';
+
 import { HttpClientWrapper } from '../common/http';
 import {
   BIBLIOGRAPHY_GENERATOR_SUCCESS,
@@ -33,7 +34,7 @@ export function submitBibliographyGenerator(
   format: string,
   data: FormData
 ): (
-  dispatch: Dispatch | ActionCreator<Action>,
+  dispatch: ActionCreator<Action>,
   getState: () => RootStateOrAny,
   http: HttpClientWrapper
 ) => Promise<void> {

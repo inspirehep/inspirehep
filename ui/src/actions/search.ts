@@ -1,5 +1,6 @@
-import { Action, ActionCreator, Dispatch } from 'redux';
+import { Action, ActionCreator } from 'redux';
 import { RootStateOrAny } from 'react-redux';
+
 import {
   SEARCH_REQUEST,
   SEARCH_ERROR,
@@ -57,7 +58,7 @@ export function fetchSearchResults(
   namespace: string,
   url: string
 ): (
-  dispatch: Dispatch | ActionCreator<Action>,
+  dispatch: ActionCreator<Action>,
   getState: () => RootStateOrAny,
   http: HttpClientWrapper
 ) => Promise<void> {
@@ -111,7 +112,7 @@ export function fetchSearchAggregations(
   namespace: string,
   url: string
 ): (
-  dispatch: Dispatch | ActionCreator<Action>,
+  dispatch: ActionCreator<Action>,
   getState: () => RootStateOrAny,
   http: HttpClientWrapper
 ) => Promise<void> {
@@ -138,7 +139,7 @@ export function searchQueryUpdate(
   query: { size?: number; q?: string; assigned?: number, page?: string },
   dueToNavigationToSearchPage = false
 ): (
-  dispatch: Dispatch | ActionCreator<Action>,
+  dispatch: ActionCreator<Action>,
   getState: () => RootStateOrAny,
   http: HttpClientWrapper
 ) => Promise<void> {
@@ -188,7 +189,7 @@ export function searchQueryReset(namespace: string) {
 }
 
 export function fetchAggregationsAndSearchQueryReset(namespace: string, shouldReset: boolean): (
-  dispatch: Dispatch | ActionCreator<Action>,
+  dispatch: ActionCreator<Action>,
   getState: () => RootStateOrAny,
 ) => Promise<void> {
   return async (dispatch, getState) => {
@@ -214,7 +215,7 @@ export function searchBaseQueriesUpdate(
     baseAggregationsQuery,
   }: { baseQuery: { q: string }; baseAggregationsQuery?: { q: string } }
 ): (
-  dispatch: Dispatch | ActionCreator<Action>,
+  dispatch: ActionCreator<Action>,
   getState: () => RootStateOrAny,
   http: HttpClientWrapper
 ) => Promise<void> {

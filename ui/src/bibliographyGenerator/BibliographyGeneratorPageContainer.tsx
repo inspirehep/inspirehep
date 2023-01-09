@@ -1,5 +1,5 @@
 import { connect, RootStateOrAny } from 'react-redux';
-import { Action, ActionCreator, Dispatch } from 'redux';
+import { Action, ActionCreator } from 'redux';
 
 import BibliographyGenerator from './BibliographyGenerator';
 import { submitBibliographyGenerator } from '../actions/bibliographyGenerator';
@@ -11,7 +11,7 @@ const stateToProps = (state: RootStateOrAny) => ({
   error: state.bibliographyGenerator.get('error'),
 });
 
-const dispatchToProps = (dispatch: Dispatch | ActionCreator<Action>) => ({
+const dispatchToProps = (dispatch: ActionCreator<Action>) => ({
   async onSubmit(formData: { fileupload: { file: string }; format: string }) {
     const data = new FormData();
     data.append('file', formData.fileupload.file);

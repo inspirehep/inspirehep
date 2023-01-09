@@ -3,7 +3,7 @@ import generateRecordFetchReducer from './recordsFactory';
 
 const jobsReducer = generateRecordFetchReducer({
   fetchingActionActionType: JOB_REQUEST,
-  fecthSuccessActionType: JOB_SUCCESS,
+  fetchSuccessActionType: JOB_SUCCESS,
   fetchErrorActionType: JOB_ERROR,
 });
 

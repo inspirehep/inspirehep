@@ -1,5 +1,5 @@
 import { connect, RootStateOrAny } from 'react-redux';
-import { Action, ActionCreator, Dispatch } from 'redux';
+import { Action, ActionCreator } from 'redux';
 
 import { userSignUp } from '../../actions/user';
 import { convertAllImmutablePropsToJS } from '../../common/immutableToJS';
@@ -11,7 +11,7 @@ const stateToProps = (state: RootStateOrAny) => ({
 });
 
 export const dispatchToProps = (
-  dispatch: Dispatch | ActionCreator<Action>
+  dispatch: ActionCreator<Action>
 ) => ({
   onSubmit(data: string) {
     dispatch(userSignUp(data));

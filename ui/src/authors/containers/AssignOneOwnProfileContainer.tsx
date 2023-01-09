@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { Action, ActionCreator, Dispatch } from 'redux';
+import { Action, ActionCreator } from 'redux';
 
 import {
   setPublicationSelection,
@@ -14,7 +14,7 @@ import {
 import AssignOwnProfileAction from '../components/AssignOwnProfileAction';
 
 export const dispatchToProps = (
-  dispatch: Dispatch | ActionCreator<Action>,
+  dispatch: ActionCreator<Action>,
   {
     recordId,
     disabledAssignAction,

@@ -1,5 +1,6 @@
-import { Action, ActionCreator, Dispatch } from 'redux';
+import { Action, ActionCreator } from 'redux';
 import { RootStateOrAny } from 'react-redux';
+
 import {
   AUTHOR_REQUEST,
   AUTHOR_SUCCESS,
@@ -12,7 +13,7 @@ import {
   AUTHOR_PUBLICATION_UNCLAIM_SELECTION,
   AUTHOR_PUBLICATIONS_UNCLAIM_CLEAR,
 } from './actionTypes';
-import generateRecordFetchAction from './recordsFactory';
+import { generateRecordFetchAction } from './recordsFactory';
 import { AUTHORS_PID_TYPE } from '../common/constants';
 import {
   assignSuccess,
@@ -30,7 +31,7 @@ import { HttpClientWrapper } from '../common/http';
 const fetchAuthor = generateRecordFetchAction({
   pidType: AUTHORS_PID_TYPE,
   fetchingActionActionType: AUTHOR_REQUEST,
-  fecthSuccessActionType: AUTHOR_SUCCESS,
+  fetchSuccessActionType: AUTHOR_SUCCESS,
   fetchErrorActionType: AUTHOR_ERROR,
 });
 
@@ -98,7 +99,7 @@ export function assignPapers({
   from: string;
   to: string;
 }): (
-  dispatch: Dispatch | ActionCreator<Action>,
+  dispatch: ActionCreator<Action>,
   getState: () => RootStateOrAny,
   http: HttpClientWrapper
 ) => Promise<void> {
@@ -130,7 +131,7 @@ export function unassignPapers({
 }: {
   from: string;
 }): (
-  dispatch: Dispatch | ActionCreator<Action>,
+  dispatch: ActionCreator<Action>,
   getState: () => RootStateOrAny,
   http: HttpClientWrapper
 ) => Promise<void> {
@@ -164,7 +165,7 @@ export function assignOwnPapers({
   from: string;
   to: string;
 }): (
-  dispatch: Dispatch | ActionCreator<Action>,
+  dispatch: ActionCreator<Action>,
   getState: () => RootStateOrAny,
   http: HttpClientWrapper
 ) => Promise<void> {
@@ -212,7 +213,7 @@ export function unassignOwnPapers({
 }: {
   from: string;
 }): (
-  dispatch: Dispatch | ActionCreator<Action>,
+  dispatch: ActionCreator<Action>,
   getState: () => RootStateOrAny,
   http: HttpClientWrapper
 ) => Promise<void> {
@@ -248,7 +249,7 @@ export function assignDifferentProfile({
   from: string;
   to: string;
 }): (
-  dispatch: Dispatch | ActionCreator<Action>,
+  dispatch: ActionCreator<Action>,
   getState: () => RootStateOrAny,
   http: HttpClientWrapper
 ) => Promise<void> {

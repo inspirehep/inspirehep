@@ -36,6 +36,7 @@ function sortBlogFirst(a: string, b: string): number {
 
 function renderWebsitesDropdownAction(website: Map<string, any>) {
   const [href, display] = websiteToHrefDisplayPair(website);
+  
   return (
     <Menu.Item key={href}>
       <EventTracker
@@ -49,17 +50,16 @@ function renderWebsitesDropdownAction(website: Map<string, any>) {
   );
 }
 
-function renderWebsiteAction(website: Map<string, any>, title: string) {
+function renderWebsiteAction(website: Map<string, any>) {
   return (
     <EventTracker
       eventCategory="Author detail"
       eventAction="Link"
-      eventId="Author websites"
+      eventId="Author website"
     >
       <LinkWithTargetBlank href={website.get('value')}>
-        {title}
+        {ACTION_TITLE}
       </LinkWithTargetBlank>
-      ;
     </EventTracker>
   );
 }
