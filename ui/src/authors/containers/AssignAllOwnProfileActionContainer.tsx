@@ -1,5 +1,5 @@
 import { connect, RootStateOrAny } from 'react-redux';
-import { Action, ActionCreator, Dispatch } from 'redux';
+import { Action, ActionCreator } from 'redux';
 
 import AssignOwnProfileAction from '../components/AssignOwnProfileAction';
 import { assignOwnPapers, unassignOwnPapers } from '../../actions/authors';
@@ -13,7 +13,7 @@ const stateToProps = (state: RootStateOrAny) => ({
   claimingTooltip: 'All selected papers are already claimed',
 });
 
-const dispatchToProps = (dispatch: Dispatch | ActionCreator<Action>) => ({
+const dispatchToProps = (dispatch: ActionCreator<Action>) => ({
   onAssign({ from, to }: { from: string; to: string }) {
     dispatch(assignOwnPapers({ from, to }));
   },

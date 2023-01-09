@@ -5,7 +5,7 @@ exports[`AuthorWebsitesAction renders only a url 1`] = `
   <EventTracker
     eventAction="Link"
     eventCategory="Author detail"
-    eventId="Author websites"
+    eventId="Author website"
     eventPropName="onClick"
     extractEventArgsToForward={null}
   >
@@ -24,7 +24,6 @@ exports[`AuthorWebsitesAction renders only a url 1`] = `
         <ForwardRef(LinkOutlined) />
       </Tooltip>
     </LinkWithTargetBlank>
-    ;
   </EventTracker>
 </UserActionWrapper>
 `;
@@ -34,7 +33,7 @@ exports[`AuthorWebsitesAction renders only blog 1`] = `
   <EventTracker
     eventAction="Link"
     eventCategory="Author detail"
-    eventId="Author websites"
+    eventId="Author website"
     eventPropName="onClick"
     extractEventArgsToForward={null}
   >
@@ -53,7 +52,6 @@ exports[`AuthorWebsitesAction renders only blog 1`] = `
         <ForwardRef(LinkOutlined) />
       </Tooltip>
     </LinkWithTargetBlank>
-    ;
   </EventTracker>
 </UserActionWrapper>
 `;

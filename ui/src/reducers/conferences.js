@@ -7,7 +7,7 @@ import generateRecordFetchReducer from './recordsFactory';
 
 const conferencesReducer = generateRecordFetchReducer({
   fetchingActionActionType: CONFERENCE_REQUEST,
-  fecthSuccessActionType: CONFERENCE_SUCCESS,
+  fetchSuccessActionType: CONFERENCE_SUCCESS,
   fetchErrorActionType: CONFERENCE_ERROR,
 });
 

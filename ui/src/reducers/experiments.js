@@ -7,7 +7,7 @@ import generateRecordFetchReducer from './recordsFactory';
 
 const experimentsReducer = generateRecordFetchReducer({
   fetchingActionActionType: EXPERIMENT_REQUEST,
-  fecthSuccessActionType: EXPERIMENT_SUCCESS,
+  fetchSuccessActionType: EXPERIMENT_SUCCESS,
   fetchErrorActionType: EXPERIMENT_ERROR,
 });
 

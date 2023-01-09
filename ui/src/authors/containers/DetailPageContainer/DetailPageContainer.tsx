@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo } from 'react';
 import { connect, RootStateOrAny } from 'react-redux';
+import { Action, ActionCreator } from 'redux';
 import { Row, Col, Tabs, Tooltip } from 'antd';
 import { Map, List } from 'immutable';
-import { Action, ActionCreator, Dispatch } from 'redux';
 
 import './DetailPage.less';
 import ContentBox from '../../../common/components/ContentBox';
@@ -57,7 +57,7 @@ function DetailPage({
   record: Map<string, any>;
   publicationsQuery: Map<string, string>;
   userOrcid: string;
-  dispatch: Dispatch | ActionCreator<Action>;
+  dispatch: ActionCreator<Action>;
   publicationsCount: number;
   citingPapersCount: number;
   loadingPublications: boolean;
@@ -277,7 +277,7 @@ const mapStateToProps = (state: RootStateOrAny) => ({
   isCatalogerLoggedIn: isCataloger(state.user.getIn(['data', 'roles'])),
 });
 
-const dispatchToProps = (dispatch: Dispatch) => ({ dispatch });
+const dispatchToProps = (dispatch: ActionCreator<Action>) => ({ dispatch });
 
 const DetailPageContainer = connect(
   mapStateToProps,

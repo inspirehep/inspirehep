@@ -1,6 +1,7 @@
 import { stringify } from 'qs';
-import { Action, ActionCreator, Dispatch } from 'redux';
+import { Action, ActionCreator } from 'redux';
 import { RootStateOrAny } from 'react-redux';
+
 import {
   LITERATURE_ERROR,
   LITERATURE_REQUEST,
@@ -18,7 +19,7 @@ import {
 } from './actionTypes';
 import { isCancelError, HttpClientWrapper } from '../common/http';
 import { httpErrorToActionPayload } from '../common/utils';
-import generateRecordFetchAction from './recordsFactory';
+import { generateRecordFetchAction } from './recordsFactory';
 import { LITERATURE_PID_TYPE } from '../common/constants';
 import {
   assignSuccess,
@@ -32,7 +33,6 @@ import {
   ASSIGNING_NOTIFICATION_KEY,
   ASSIGNING_NOTIFICATION_LITERATURE_ITEM_KEY,
 } from '../literature/assignNotification';
-
 import { LITERATURE_REFERENCES_NS } from '../search/constants';
 import { searchQueryUpdate } from './search';
 import { assignSuccessDifferentProfileClaimedPapers } from '../authors/assignNotification';
@@ -88,7 +88,7 @@ function fetchLiteratureAuthorsError(errorPayload: { error: Error }) {
 export const fetchLiterature = generateRecordFetchAction({
   pidType: LITERATURE_PID_TYPE,
   fetchingActionActionType: LITERATURE_REQUEST,
-  fecthSuccessActionType: LITERATURE_SUCCESS,
+  fetchSuccessActionType: LITERATURE_SUCCESS,
   fetchErrorActionType: LITERATURE_ERROR,
 });
 
@@ -96,7 +96,7 @@ export function fetchLiteratureReferences(
   recordId: string,
   newQuery = {}
 ): (
-  dispatch: Dispatch | ActionCreator<Action>,
+  dispatch: ActionCreator<Action>,
   getState: () => RootStateOrAny,
   http: HttpClientWrapper
 ) => Promise<void> {
@@ -134,7 +134,7 @@ export function fetchLiteratureReferences(
 export function fetchLiteratureAuthors(
   recordId: string
 ): (
-  dispatch: Dispatch | ActionCreator<Action>,
+  dispatch: ActionCreator<Action>,
   getState: () => RootStateOrAny,
   http: HttpClientWrapper
 ) => Promise<void> {
@@ -197,7 +197,7 @@ export function assignLiteratureItem({
   to: number;
   literatureId: number;
 }): (
-  dispatch: Dispatch | ActionCreator<Action>,
+  dispatch: ActionCreator<Action>,
   getState: () => RootStateOrAny,
   http: HttpClientWrapper
 ) => Promise<void> {
@@ -225,7 +225,7 @@ export function assignLiteratureItemNoNameMatch({
   to: number;
   literatureId: number;
 }): (
-  dispatch: Dispatch | ActionCreator<Action>,
+  dispatch: ActionCreator<Action>,
   getState: () => RootStateOrAny,
   http: HttpClientWrapper
 ) => Promise<void> {
@@ -259,7 +259,7 @@ export function checkNameCompatibility({
   to: number;
   literatureId: number;
 }): (
-  dispatch: Dispatch | ActionCreator<Action>,
+  dispatch: ActionCreator<Action>,
   getState: () => RootStateOrAny,
   http: HttpClientWrapper
 ) => Promise<void> {
@@ -295,7 +295,7 @@ export function assignPapers(
   conferenceId: string,
   conferenceTitle: string
 ): (
-  dispatch: Dispatch | ActionCreator<Action>,
+  dispatch: ActionCreator<Action>,
   getState: () => RootStateOrAny,
   http: HttpClientWrapper
 ) => Promise<void> {
@@ -317,7 +317,7 @@ export function assignPapers(
 }
 
 export function exportToCds(): (
-  dispatch: Dispatch | ActionCreator<Action>,
+  dispatch: ActionCreator<Action>,
   getState: () => RootStateOrAny,
   http: HttpClientWrapper
 ) => Promise<void> {

@@ -7,7 +7,7 @@ import generateRecordFetchReducer from './recordsFactory';
 
 const journalsReducer = generateRecordFetchReducer({
   fetchingActionActionType: JOURNAL_REQUEST,
-  fecthSuccessActionType: JOURNAL_SUCCESS,
+  fetchSuccessActionType: JOURNAL_SUCCESS,
   fetchErrorActionType: JOURNAL_ERROR,
 });
 

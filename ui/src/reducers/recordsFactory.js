@@ -21,7 +21,7 @@ export const onError = (state, action) =>
 
 export default function generateRecordFetchReducer({
   fetchingActionActionType,
-  fecthSuccessActionType,
+  fetchSuccessActionType,
   fetchErrorActionType,
 }) {
   const reducer = (state = initialState, action) => {
@@ -30,7 +30,7 @@ export default function generateRecordFetchReducer({
         return initialState;
       case fetchingActionActionType:
         return onRequest(state);
-      case fecthSuccessActionType:
+      case fetchSuccessActionType:
         return onSuccess(state, action);
       case fetchErrorActionType:
         return onError(state, action);

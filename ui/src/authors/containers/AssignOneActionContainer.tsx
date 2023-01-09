@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { Action, ActionCreator, Dispatch } from 'redux';
+import { Action, ActionCreator } from 'redux';
 
 import {
   setPublicationSelection,
@@ -11,7 +11,7 @@ import {
 import AssignAction from '../components/AssignAction';
 
 export const dispatchToProps = (
-  dispatch: Dispatch | ActionCreator<Action>,
+  dispatch: ActionCreator<Action>,
   { recordId }: { recordId: number }
 ) => ({
   onAssignToAnotherAuthor() {

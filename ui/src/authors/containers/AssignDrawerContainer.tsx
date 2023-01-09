@@ -1,5 +1,5 @@
 import { connect, RootStateOrAny } from 'react-redux';
-import { Action, ActionCreator, Dispatch } from 'redux';
+import { Action, ActionCreator } from 'redux';
 
 import {
   setAssignDrawerVisibility,
@@ -13,7 +13,7 @@ const stateToProps = (state: RootStateOrAny) => ({
   selectedPapers: state.authors.get('publicationSelection'),
 });
 
-const dispatchToProps = (dispatch: Dispatch | ActionCreator<Action>) => ({
+const dispatchToProps = (dispatch: ActionCreator<Action>) => ({
   onDrawerClose() {
     dispatch(setAssignDrawerVisibility(false));
   },

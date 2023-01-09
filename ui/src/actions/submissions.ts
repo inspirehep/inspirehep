@@ -1,6 +1,6 @@
 import { push } from 'connected-react-router';
 import { List } from 'immutable';
-import { Action, ActionCreator, Dispatch } from 'redux';
+import { Action, ActionCreator } from 'redux';
 import { RootStateOrAny } from 'react-redux';
 
 import {
@@ -59,7 +59,7 @@ function fetchInitialFormDataSuccess(data: Record<string, string | string[]>) {
 }
 
 export function submit<T>(pidType: string, data: T): (
-  dispatch: Dispatch | ActionCreator<Action>,
+  dispatch: ActionCreator<Action>,
   getState: () => RootStateOrAny,
   http: HttpClientWrapper
 ) => Promise<void> {
@@ -81,7 +81,7 @@ export function submit<T>(pidType: string, data: T): (
 }
 
 export function submitUpdate(pidType: string, pidValue: number, data: Record<string, string | string[] | number>): (
-  dispatch: Dispatch | ActionCreator<Action>,
+  dispatch: ActionCreator<Action>,
   getState: () => RootStateOrAny,
   http: HttpClientWrapper
 ) => Promise<void> {
@@ -101,7 +101,7 @@ export function submitUpdate(pidType: string, pidValue: number, data: Record<str
 }
 
 export function fetchUpdateFormData(pidType: string, pidValue: number): (
-  dispatch: Dispatch | ActionCreator<Action>,
+  dispatch: ActionCreator<Action>,
   getState: () => RootStateOrAny,
   http: HttpClientWrapper
 ) => Promise<void> {
@@ -118,7 +118,7 @@ export function fetchUpdateFormData(pidType: string, pidValue: number): (
 }
 
 export function importExternalLiterature(id: number): (
-  dispatch: Dispatch | ActionCreator<Action>,
+  dispatch: ActionCreator<Action>,
   getState: () => RootStateOrAny,
   http: HttpClientWrapper
 ) => Promise<void> {

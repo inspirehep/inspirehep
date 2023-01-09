@@ -1,6 +1,7 @@
 import { replace } from 'connected-react-router';
-import { Dispatch } from 'redux';
+import { Action, ActionCreator } from 'redux';
 import { RootStateOrAny } from 'react-redux';
+
 import {
   isCancelError,
   UI_SERIALIZER_REQUEST_OPTIONS,
@@ -8,16 +9,16 @@ import {
 } from '../common/http';
 import { httpErrorToActionPayload } from '../common/utils';
 
-export default function generateRecordFetchAction({
+export function generateRecordFetchAction({
   pidType,
   fetchingActionActionType,
-  fecthSuccessActionType,
+  fetchSuccessActionType,
   fetchErrorActionType,
   requestOptions = UI_SERIALIZER_REQUEST_OPTIONS,
 }: {
   pidType: string,
   fetchingActionActionType: string,
-  fecthSuccessActionType: string,
+  fetchSuccessActionType: string,
   fetchErrorActionType: string,
   requestOptions?: { headers: { Accept: string; }; },
 }) {
@@ -27,7 +28,7 @@ export default function generateRecordFetchAction({
   });
 
   const fetchSuccess = (result: Record<string, string | number>) => ({
-    type: fecthSuccessActionType,
+    type: fetchSuccessActionType,
     payload: result,
   });
 
@@ -37,7 +38,7 @@ export default function generateRecordFetchAction({
     meta: { redirectableError: true },
   });
 
-  return (recordId: number) => async (dispatch: Dispatch, getState: () => RootStateOrAny, http: HttpClientWrapper) => {
+  return (recordId: number) => async (dispatch: ActionCreator<Action>, getState: () => RootStateOrAny, http: HttpClientWrapper) => {
     dispatch(fetching(recordId));
     try {
       const response = await http.get(

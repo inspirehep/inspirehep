@@ -1,5 +1,5 @@
 import { connect, RootStateOrAny } from 'react-redux';
-import { Action, ActionCreator, Dispatch } from 'redux';
+import { Action, ActionCreator } from 'redux';
 
 import PublicationsSelect from '../components/PublicationsSelect';
 import {
@@ -13,7 +13,7 @@ const stateToProps = (state: RootStateOrAny, { recordId }: { recordId: number })
   checked: state.authors.get('publicationSelection').has(recordId),
 });
 
-const dispatchToProps = (dispatch: Dispatch | ActionCreator<Action>, { recordId }: { recordId: number }) => ({
+const dispatchToProps = (dispatch: ActionCreator<Action>, { recordId }: { recordId: number }) => ({
   onSelectClaimedPapers(event: CheckboxChangeEvent) {
     dispatch(setPublicationsClaimedSelection([recordId], event.target.checked));
   },

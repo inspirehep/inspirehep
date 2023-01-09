@@ -1,5 +1,5 @@
 import { connect, RootStateOrAny } from 'react-redux';
-import { Action, ActionCreator, Dispatch } from 'redux';
+import { Action, ActionCreator } from 'redux';
 
 import AssignAction from '../components/AssignAction';
 import {
@@ -14,7 +14,7 @@ const stateToProps = (state: RootStateOrAny) => ({
   claimingTooltip: 'All selected papers are already claimed',
 });
 
-const dispatchToProps = (dispatch: Dispatch | ActionCreator<Action>) => ({
+const dispatchToProps = (dispatch: ActionCreator<Action>) => ({
   onAssignToAnotherAuthor() {
     dispatch(setAssignDrawerVisibility(true));
   },

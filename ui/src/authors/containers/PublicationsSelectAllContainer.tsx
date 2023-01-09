@@ -1,5 +1,5 @@
 import { connect, RootStateOrAny } from 'react-redux';
-import { Action, ActionCreator, Dispatch } from 'redux';
+import { Action, ActionCreator } from 'redux';
 
 import {
   setPublicationSelection,
@@ -18,7 +18,7 @@ const stateToProps = (state: RootStateOrAny) => ({
   selection: state.authors.get('publicationSelection'),
 });
 
-const dispatchToProps = (dispatch: Dispatch | ActionCreator<Action>) => ({
+const dispatchToProps = (dispatch: ActionCreator<Action>) => ({
   onChange(
     publicationIds: number[],
     claimed: Map<number, boolean>,
