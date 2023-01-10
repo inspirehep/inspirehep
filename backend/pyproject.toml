@@ -183,6 +183,7 @@ inspirehep_search = "inspirehep.search.config"
 inspirehep_sitemap = "inspirehep.sitemap.config"
 inspirehep_hal = "inspirehep.hal.config"
 inspirehep_cds = "inspirehep.cds.config"
+inspirehep_snow = "inspirehep.snow.config"
 
 [tool.poetry.plugins."invenio_base.api_apps"]
 inspirehep_logger = "inspirehep.logger:InspireLogger"

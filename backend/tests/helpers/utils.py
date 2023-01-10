@@ -8,6 +8,7 @@ import random
 import time
 from functools import partial
 
+import orjson
 from click.testing import CliRunner
 from elasticsearch import NotFoundError
 from flask import current_app
@@ -24,6 +25,9 @@ from invenio_search.utils import build_alias_name
 from inspirehep.files import current_s3_instance
 from inspirehep.records.api import InspireRecord, LiteratureRecord
 from inspirehep.utils import get_inspirehep_url
+
+SENSITIVE_RESPONSE_KEYS = ["user.name", "user.email"]
+ENABLED_USER_DATA = ["marcjanna.jedrych@cern.ch"]
 
 
 def es_search(index):
@@ -209,3 +213,29 @@ def get_random_recid(recids_to_exclude):
         if random_recid not in recids_to_exclude
         else get_random_recid(recids_to_exclude)
     )
+
+
+def filter_out_authentication(request):
+    if "api-access" in request.path:
+        return None
+    return request
+
+
+def filter_out_user_data_and_cookie_headers():
+    def before_record_response(response):
+        response_headers = response["headers"]
+        if response_headers.get("Set-Cookie"):
+            del response_headers["Set-Cookie"]
+        response["headers"] = response_headers
+        response_body = orjson.loads(response["body"]["string"])
+        for item in response_body.get("result", []):
+            for key in item:
+                if (
+                    key in SENSITIVE_RESPONSE_KEYS
+                    and item[key] not in ENABLED_USER_DATA
+                ):
+                    item[key] = "XXX"
+        response["body"]["string"] = orjson.dumps(response_body)
+        return response
+
+    return before_record_response
