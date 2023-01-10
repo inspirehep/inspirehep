@@ -6,7 +6,9 @@ from inspirehep.submissions.tasks import async_create_ticket_with_template
 
 
 @patch("inspirehep.submissions.tasks.create_ticket_with_template")
-def test_async_create_ticket_with_template(mock_create_ticket):
+@patch("inspirehep.submissions.tasks.current_app")
+def test_async_create_ticket_with_template(mocked_current_app, mock_create_ticket):
+    mocked_current_app.config = {"FEATURE_FLAG_ENABLE_SNOW": False}
     args = [
         "test",
         "test@guy.com",
@@ -20,7 +22,11 @@ def test_async_create_ticket_with_template(mock_create_ticket):
 
 
 @patch("inspirehep.submissions.tasks.create_ticket_with_template", return_value=-1)
-def test_async_create_ticket_with_template_logs_on_error(mock_create_ticket):
+@patch("inspirehep.submissions.tasks.current_app")
+def test_async_create_ticket_with_template_logs_on_error(
+    mocked_current_app, mock_create_ticket
+):
+    mocked_current_app.config = {"FEATURE_FLAG_ENABLE_SNOW": False}
     args = [
         "test",
         "test@guy.com",

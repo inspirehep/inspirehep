@@ -19,6 +19,7 @@ from helpers.factories.models.base import BaseFactory
 from helpers.factories.models.migrator import LegacyRecordsMirrorFactory
 from helpers.factories.models.pidstore import PersistentIdentifierFactory
 from helpers.factories.models.records import RecordMetadataFactory
+from invenio_cache import current_cache
 from moto import mock_s3
 from redis import StrictRedis
 
@@ -218,3 +219,23 @@ def s3(inspire_app, enable_files):
     yield s3
     mock.stop()
     inspire_app.extensions["inspirehep-s3"] = real_inspirehep_s3
+
+
+@pytest.fixture(scope="function")
+def mocked_inspire_snow(mocker):
+    mocker.patch(
+        "inspirehep.snow.api.InspireSnow.headers",
+        new_callable=mocker.PropertyMock,
+        return_value={
+            "Authorization": "Bearer abcd",
+            "Content-Type": "application/json",
+        },
+    )
+    mocker.patch("inspirehep.snow.api.InspireSnow.get_token", return_value="abcd")
+
+
+@pytest.fixture(scope="function")
+def teardown_cache():
+    yield
+    current_cache.delete("snow_users")
+    current_cache.delete("snow_functional_categories")

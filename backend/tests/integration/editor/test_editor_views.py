@@ -11,9 +11,16 @@ import os
 import orjson
 import pkg_resources
 import pytest
+import requests
 import requests_mock
 from flask.globals import current_app
-from helpers.utils import create_record, create_user, create_user_and_token
+from helpers.utils import (
+    create_record,
+    create_user,
+    create_user_and_token,
+    filter_out_authentication,
+    filter_out_user_data_and_cookie_headers,
+)
 from inspire_schemas.api import load_schema, validate
 from inspire_utils.record import get_value
 from invenio_accounts.testutils import login_user_via_session
@@ -107,6 +114,39 @@ def test_create_rt_ticket(mock_tickets, inspire_app):
     assert response.status_code == 200
 
 
+@pytest.mark.vcr(
+    filter_headers=["authorization", "Set-Cookie"],
+    before_record_request=filter_out_authentication,
+    before_record_response=filter_out_user_data_and_cookie_headers(),
+)
+def test_create_snow_ticket(
+    mocked_inspire_snow, inspire_app, override_config, teardown_cache
+):
+    with override_config(FEATURE_FLAG_ENABLE_SNOW=True):
+        user = create_user(
+            role=Roles.cataloger.value, email="marcjanna.jedrych@cern.ch"
+        )
+
+        with inspire_app.test_client() as client:
+            login_user_via_session(client, email=user.email)
+            response = client.post(
+                "api/editor/literature/1497201/rt/tickets/create",
+                content_type="application/json",
+                data=orjson.dumps(
+                    {
+                        "description": "description",
+                        "queue": "Test",
+                        "recid": "4328",
+                        "subject": "subject",
+                    }
+                ),
+            )
+
+        assert response.status_code == 200
+        assert "id" in response.json["data"]
+        assert "link" in response.json["data"]
+
+
 @patch("inspirehep.editor.views.tickets")
 def test_create_rt_ticket_only_needs_queue_and_recid(mock_tickets, inspire_app):
     mock_tickets.create_ticket.return_value = 1
@@ -122,6 +162,32 @@ def test_create_rt_ticket_only_needs_queue_and_recid(mock_tickets, inspire_app):
         )
 
     assert response.status_code == 200
+
+
+@pytest.mark.vcr(
+    filter_headers=["authorization", "Set-Cookie"],
+    before_record_request=filter_out_authentication,
+    before_record_response=filter_out_user_data_and_cookie_headers(),
+)
+def test_create_snow_ticket_only_needs_queue_and_recid(
+    mocked_inspire_snow, inspire_app, override_config, teardown_cache
+):
+    with override_config(FEATURE_FLAG_ENABLE_SNOW=True):
+        user = create_user(
+            role=Roles.cataloger.value, email="marcjanna.jedrych@cern.ch"
+        )
+
+        with inspire_app.test_client() as client:
+            login_user_via_session(client, email=user.email)
+            response = client.post(
+                "api/editor/literature/1497201/rt/tickets/create",
+                content_type="application/json",
+                data=orjson.dumps({"queue": "Test", "recid": "4328"}),
+            )
+
+        assert response.status_code == 200
+        assert "id" in response.json["data"]
+        assert "link" in response.json["data"]
 
 
 @patch("inspirehep.editor.views.tickets")
@@ -154,6 +220,51 @@ def test_create_rt_ticket_returns_500_on_error(mock_tickets, inspire_app):
     assert expected == result
 
 
+@pytest.mark.vcr(
+    filter_headers=["authorization", "Set-Cookie"],
+    before_record_request=filter_out_authentication,
+    before_record_response=filter_out_user_data_and_cookie_headers(),
+)
+@patch("inspirehep.snow.api.requests.put")
+def test_create_snow_ticket_returns_500_on_error(
+    mocked_update_ticket_with_inspire_recid,
+    mocked_inspire_snow,
+    inspire_app,
+    override_config,
+    teardown_cache,
+):
+    with override_config(
+        FEATURE_FLAG_ENABLE_SNOW=True, SNOW_URL="https://non-existing-url.com"
+    ):
+        user = create_user(role=Roles.cataloger.value)
+        mocked_update_ticket_with_inspire_recid.side_effect = (
+            requests.exceptions.HTTPError
+        )
+
+        with inspire_app.test_client() as client:
+            login_user_via_session(client, email=user.email)
+            response = client.post(
+                "api/editor/literature/1497201/rt/tickets/create",
+                content_type="application/json",
+                data=orjson.dumps(
+                    {
+                        "description": "description",
+                        "owner": "owner",
+                        "queue": "queue",
+                        "recid": "4328",
+                        "subject": "subject",
+                    }
+                ),
+            )
+
+        assert response.status_code == 500
+
+        expected = {"success": False}
+        result = orjson.loads(response.data)
+
+        assert expected == result
+
+
 def test_create_rt_ticket_returns_403_on_authentication_error(inspire_app):
     user = create_user()
 
@@ -182,6 +293,34 @@ def test_resolve_rt_ticket(mock_tickets, inspire_app):
     result = orjson.loads(response.data)
 
     assert expected == result
+
+
+@pytest.mark.vcr(
+    filter_headers=["authorization", "Set-Cookie"],
+    before_record_request=filter_out_authentication,
+    before_record_response=filter_out_user_data_and_cookie_headers(),
+)
+def test_resolve_snow_ticket(
+    mocked_inspire_snow, inspire_app, override_config, teardown_cache
+):
+    with override_config(FEATURE_FLAG_ENABLE_SNOW=True):
+
+        user = create_user(
+            role=Roles.cataloger.value, email="marcjanna.jedrych@cern.ch"
+        )
+
+        with inspire_app.test_client() as client:
+            login_user_via_session(client, email=user.email)
+            response = client.get(
+                "api/editor/literature/1497201/rt/tickets/d6d1901387ece11084e9ac1a0cbb352b/resolve"
+            )
+
+        assert response.status_code == 200
+
+        expected = {"success": True}
+        result = orjson.loads(response.data)
+
+        assert expected == result
 
 
 @patch("inspirehep.editor.views.tickets")
@@ -236,6 +375,55 @@ def test_resolve_rt_ticket_returns_403_on_authentication_error(inspire_app):
     assert response.status_code == 403
 
 
+def test_resolve_snow_ticket_returns_403_on_authentication_error(
+    mocked_inspire_snow, inspire_app, override_config
+):
+    with override_config(FEATURE_FLAG_ENABLE_SNOW=True):
+        user = create_user()
+
+        with inspire_app.test_client() as client:
+            login_user_via_session(client, email=user.email)
+            response = client.get(
+                "api/editor/literature/1497201/rt/tickets/4328/resolve"
+            )
+
+        assert response.status_code == 403
+
+
+@pytest.mark.vcr(
+    filter_headers=["authorization", "Set-Cookie"],
+    before_record_request=filter_out_authentication,
+    before_record_response=filter_out_user_data_and_cookie_headers(),
+)
+def test_get_snow_tickets_for_record(
+    mocked_inspire_snow, inspire_app, override_config, teardown_cache
+):
+    with override_config(FEATURE_FLAG_ENABLE_SNOW=True):
+        user = create_user(
+            role=Roles.cataloger.value, email="marcjanna.jedrych@cern.ch"
+        )
+
+        with inspire_app.test_client() as client:
+            login_user_via_session(client, email=user.email)
+            response = client.post(
+                "api/editor/literature/12349910/rt/tickets/create",
+                content_type="application/json",
+                data=orjson.dumps(
+                    {
+                        "description": "description",
+                        "queue": "Test",
+                        "recid": "12349910",
+                        "subject": "subject",
+                    }
+                ),
+            )
+
+        assert response.status_code == 200
+        response = client.get("api/editor/literature/12349910/rt/tickets")
+        assert response.status_code == 200
+        assert len(response.json) == 1
+
+
 @patch("inspirehep.editor.views.tickets")
 def test_get_tickets_for_record(mock_tickets, inspire_app):
     mock_tickets.get_rt_link_for_ticket.return_value = "http://rt_address"
@@ -270,6 +458,30 @@ def test_get_rt_users(mock_tickets, inspire_app):
     assert response.status_code == 200
 
 
+@pytest.mark.vcr(
+    filter_headers=["authorization", "Set-Cookie"],
+    before_record_request=filter_out_authentication,
+    before_record_response=filter_out_user_data_and_cookie_headers(),
+)
+def test_get_snow_users(
+    mocked_inspire_snow, inspire_app, override_config, teardown_cache
+):
+    with override_config(FEATURE_FLAG_ENABLE_SNOW=True):
+        user = create_user(
+            role=Roles.cataloger.value, email="marcjanna.jedrych@cern.ch"
+        )
+
+        with inspire_app.test_client() as client:
+            login_user_via_session(client, email=user.email)
+            response = client.get("api/editor/rt/users")
+
+        assert response.status_code == 200
+        assert len(response.json) > 1
+        assert next(
+            (user.email == snow_user["email"] for snow_user in response.json), None
+        )
+
+
 @patch("inspirehep.rt.tickets.query_rt")
 def test_rt_users_are_cached(mock_query_rt, inspire_app):
     mock_query_rt.return_value = [
@@ -296,6 +508,32 @@ def test_get_rt_users_returns_403_on_authentication_error(inspire_app):
     assert response.status_code == 403
 
 
+def test_get_snow_users_returns_403_on_authentication_error(
+    mocked_inspire_snow, inspire_app, override_config
+):
+    with override_config(FEATURE_FLAG_ENABLE_SNOW=True):
+        user = create_user()
+        with inspire_app.test_client() as client:
+            login_user_via_session(client, email=user.email)
+            response = client.get("api/editor/rt/users")
+
+        assert response.status_code == 403
+
+
+def test_get_snow_functional_categories_returns_403_on_authentication_error(
+    mocked_inspire_snow, inspire_app, override_config
+):
+    with override_config(FEATURE_FLAG_ENABLE_SNOW=True):
+
+        user = create_user()
+
+        with inspire_app.test_client() as client:
+            login_user_via_session(client, email=user.email)
+            response = client.get("api/editor/rt/queues")
+
+        assert response.status_code == 403
+
+
 @patch("inspirehep.editor.views.tickets")
 def test_get_rt_queues(mock_tickets, inspire_app):
     mock_tickets.get_queues.return_value = [{}]
@@ -306,6 +544,29 @@ def test_get_rt_queues(mock_tickets, inspire_app):
         response = client.get("api/editor/rt/queues")
 
     assert response.status_code == 200
+
+
+@pytest.mark.vcr(
+    filter_headers=["authorization", "Set-Cookie"],
+    before_record_request=filter_out_authentication,
+    before_record_response=filter_out_user_data_and_cookie_headers(),
+)
+def test_get_snow_functional_categories(
+    mocked_inspire_snow, inspire_app, override_config, teardown_cache
+):
+    with override_config(FEATURE_FLAG_ENABLE_SNOW=True):
+        user = create_user(
+            role=Roles.cataloger.value, email="marcjanna.jedrych@cern.ch"
+        )
+
+        with inspire_app.test_client() as client:
+            login_user_via_session(client, email=user.email)
+            response = client.get("api/editor/rt/queues")
+
+        assert response.status_code == 200
+        assert len(response.json) > 1
+        assert "name" in response.json[0]
+        assert "id" in response.json[1]
 
 
 @patch("inspirehep.rt.tickets.query_rt")
