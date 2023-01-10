@@ -46,8 +46,8 @@ def test_all_schema_types_except_kekscan():
                 "url_name": "Project Euclid",
             },
             {
-                "url_link": "https://hal.archives-ouvertes.fr/hal-id",
-                "url_name": "HAL Archives Ouvertes",
+                "url_link": "https://hal.science/hal-id",
+                "url_name": "HAL Science Ouverte",
             },
             {
                 "url_link": "http://www.ams.org/mathscinet-getitem?mr=msnet-id",
