@@ -6,6 +6,7 @@ import GoBackLinkContainer from '../../common/containers/GoBackLinkContainer';
 
 class Error500 extends Component {
   render() {
+    const previousURL = document.referrer;
     return (
       <ErrorPage
         message="Something went wrong"
@@ -15,6 +16,7 @@ class Error500 extends Component {
           </span>
         }
         imageSrc={error500Image}
+        url={previousURL}
       />
     );
   }

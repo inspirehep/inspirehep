@@ -4,10 +4,12 @@ import ErrorPage from './ErrorPage';
 
 class Error401 extends Component {
   render() {
+    const previousURL = document.referrer;
     return (
       <ErrorPage
         message="Sorry, you are not authorised to view this page."
         imageSrc={error401Image}
+        url={previousURL}
       />
     );
   }

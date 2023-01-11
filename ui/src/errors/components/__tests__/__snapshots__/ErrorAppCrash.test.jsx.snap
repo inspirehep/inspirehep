@@ -19,6 +19,7 @@ exports[`ErrorAppCrash renders ErrorAppCrash 1`] = `
     }
     imageSrc="500.svg"
     message="Something went wrong"
+    url=""
   />
 </Row>
 `;

@@ -12,5 +12,6 @@ exports[`Error500 renders Error500 1`] = `
   }
   imageSrc="500.svg"
   message="Something went wrong"
+  url=""
 />
 `;
