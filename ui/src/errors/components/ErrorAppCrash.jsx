@@ -6,6 +6,7 @@ import ErrorPage from './ErrorPage';
 
 class ErrorAppCrash extends Component {
   render() {
+    const previousURL = document.referrer;
     return (
       <Row type="flex" justify="center">
         <ErrorPage
@@ -16,6 +17,7 @@ class ErrorAppCrash extends Component {
             </span>
           }
           imageSrc={error500Image}
+          url={previousURL}
         />
       </Row>
     );

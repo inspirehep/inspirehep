@@ -7,10 +7,13 @@ describe('redirectToErrorPage middleware', () => {
   let mirrorNext;
   let dispatch;
   let mockDispatch;
+  let mockLocationAssign;
 
   beforeEach(() => {
     mirrorNext = jest.fn(value => value);
     mockDispatch = jest.fn();
+    // eslint-disable-next-line no-multi-assign
+    mockLocationAssign = window.location.assign = jest.fn();
     dispatch = middleware({ dispatch: mockDispatch })(mirrorNext);
   });
 
@@ -24,7 +27,7 @@ describe('redirectToErrorPage middleware', () => {
     };
     const result = dispatch(action);
     expect(result).toBe(action);
-    expect(mockDispatch).toHaveBeenCalledWith(replace(`${ERRORS}/500`));
+    expect(mockLocationAssign).toBeCalledWith(`${ERRORS}/500`);
   });
 
   it('only returns result of next(action) when not a redirectable error', () => {
