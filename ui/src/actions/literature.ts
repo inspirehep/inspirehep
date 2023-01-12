@@ -16,6 +16,9 @@ import {
   LITERATURE_SET_ASSIGN_DRAWER_VISIBILITY,
   LITERATURE_SELECTION_CLEAR,
   LITERATURE_SET_ASSIGN_LITERATURE_ITEM_DRAWER_VISIBILITY,
+  LITERATURE_ALL_AUTHORS_REQUEST,
+  LITERATURE_ALL_AUTHORS_SUCCESS,
+  LITERATURE_ALL_AUTHORS_ERROR
 } from './actionTypes';
 import { isCancelError, HttpClientWrapper } from '../common/http';
 import { httpErrorToActionPayload } from '../common/utils';
@@ -67,6 +70,12 @@ function fetchingLiteratureAuthors() {
   };
 }
 
+function fetchingLiteratureAllAuthors() {
+  return {
+    type: LITERATURE_ALL_AUTHORS_REQUEST,
+  };
+}
+
 function fetchLiteratureAuthorsSuccess<T>(result: {
   id: string;
   links: Record<string, string>;
@@ -78,9 +87,27 @@ function fetchLiteratureAuthorsSuccess<T>(result: {
   };
 }
 
+function fetchLiteratureAllAuthorsSuccess<T>(result: {
+  id: string;
+  links: Record<string, string>;
+  metadata: Record<string, T>;
+}) {
+  return {
+    type: LITERATURE_ALL_AUTHORS_SUCCESS,
+    payload: result,
+  };
+}
+
 function fetchLiteratureAuthorsError(errorPayload: { error: Error }) {
   return {
     type: LITERATURE_AUTHORS_ERROR,
+    payload: errorPayload,
+  };
+}
+
+function fetchLiteratureAllAuthorsError(errorPayload: { error: Error }) {
+  return {
+    type: LITERATURE_ALL_AUTHORS_ERROR,
     payload: errorPayload,
   };
 }
@@ -151,6 +178,28 @@ export function fetchLiteratureAuthors(
       if (!isCancelError(err as Error)) {
         const { error } = httpErrorToActionPayload(err);
         dispatch(fetchLiteratureAuthorsError({ error }));
+      }
+    }
+  };
+}
+
+export function fetchLiteratureAllAuthors(
+  recordId: number
+): (
+  dispatch: ActionCreator<Action>,
+  getState: () => RootStateOrAny,
+  http: HttpClientWrapper
+) => Promise<void> {
+  return async (dispatch, getState, http) => {
+    dispatch(fetchingLiteratureAllAuthors());
+    try {
+      const response = await http.get(`/literature/${recordId}?field=authors`);
+      dispatch(fetchLiteratureAllAuthorsSuccess(response.data));
+    } catch (err) {
+      if (!isCancelError(err as Error)) {
+        const { error } = httpErrorToActionPayload(err);
+        dispatch(fetchLiteratureAllAuthorsError({ error }));
+        assignError(ASSIGNING_NOTIFICATION_LITERATURE_ITEM_KEY);
       }
     }
   };
@@ -286,6 +335,7 @@ export function checkNameCompatibility({
         );
       }
     } catch (error) {
+      dispatch(fetchLiteratureAllAuthors(literatureId))
       dispatch(setAssignLiteratureItemDrawerVisibility(literatureId));
     }
   };
