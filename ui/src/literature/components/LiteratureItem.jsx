@@ -258,7 +258,6 @@ function LiteratureItem({
       )}
       {authors && (
         <AssignLiteratureItemDrawerContainer
-          authors={authors}
           itemLiteratureId={recordId}
           page={page}
         />

@@ -398,13 +398,6 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
     />
   </div>
   <Connect(AssignLiteratureItemDrawer)
-    authors={
-      Immutable.List [
-        Immutable.Map {
-          "full_name": "Test, Author",
-        },
-      ]
-    }
     itemLiteratureId={12345}
   />
 </ResultItem>

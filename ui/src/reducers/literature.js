@@ -15,7 +15,10 @@ import {
   LITERATURE_SELECTION_SET,
   LITERATURE_SET_ASSIGN_DRAWER_VISIBILITY,
   LITERATURE_SELECTION_CLEAR,
-  LITERATURE_SET_ASSIGN_LITERATURE_ITEM_DRAWER_VISIBILITY
+  LITERATURE_SET_ASSIGN_LITERATURE_ITEM_DRAWER_VISIBILITY,
+  LITERATURE_ALL_AUTHORS_REQUEST,
+  LITERATURE_ALL_AUTHORS_SUCCESS,
+  LITERATURE_ALL_AUTHORS_ERROR
 } from '../actions/actionTypes';
 import {
   onRequest,
@@ -33,6 +36,8 @@ export const initialState = fromJS({
   loadingAuthors: false,
   errorAuthors: null,
   authors: [],
+  errorAllAuthors: null,
+  allAuthors: [],
   supervisors: [],
   literatureSelection: Set(),
   isAssignDrawerVisible: false,
@@ -78,6 +83,18 @@ const literatureReducer = (state = initialState, action) => {
         .set('loadingAuthors', false)
         .set('errorAuthors', fromJS(action.payload.error))
         .set('authors', initialState.get('authors'));
+    case LITERATURE_ALL_AUTHORS_REQUEST:
+      return state.set('loadingAllAuthors', true);
+    case LITERATURE_ALL_AUTHORS_SUCCESS:
+      return state
+        .set('loadingAllAuthors', false)
+        .set('allAuthors', fromJS(action.payload.metadata.authors))
+        .set('errorAllAuthors', initialState.get('errorAuthors'));
+    case LITERATURE_ALL_AUTHORS_ERROR:
+      return state
+        .set('loadingAllAuthors', false)
+        .set('errorAllAuthors', fromJS(action.payload.error))
+        .set('allAuthors', initialState.get('allAuthors'));
     case LITERATURE_SELECTION_CLEAR:
       return state.set('literatureSelection', Set());
     case LITERATURE_SET_ASSIGN_DRAWER_VISIBILITY:

@@ -4,19 +4,20 @@ import {
   setAssignLiteratureItemDrawerVisibility,
   assignLiteratureItemNoNameMatch,
 } from '../../actions/literature';
-import AssignLiteratureItemDrawer from '../components/AssignLiteratureItemDrawer';
+import AssignLiteratureItemDrawer, { IAuthorResult } from '../components/AssignLiteratureItemDrawer';
 
 interface RootState {
   user: {
     getIn: (values: [string, string]) => string;
   };
   literature: {
-    get: (value: string) => number;
+    get: (value: string) => number | IAuthorResult[];
   };
 }
 
 const stateToProps = (state: RootState) => ({
-  literatureId: state.literature.get('assignLiteratureItemDrawerVisible'),
+  authors: state.literature.get('allAuthors') as IAuthorResult[],
+  literatureId: state.literature.get('assignLiteratureItemDrawerVisible') as number,
   currentUserRecordId: Number(state.user.getIn(['data', 'recid'])),
 });
 

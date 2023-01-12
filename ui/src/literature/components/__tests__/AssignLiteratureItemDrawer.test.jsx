@@ -4,47 +4,29 @@ import { fromJS } from 'immutable';
 
 import AssignLiteratureItemDrawer from '../AssignLiteratureItemDrawer.tsx';
 
-jest.mock('react-router-dom', () => ({
-  useParams: jest.fn().mockImplementation(() => ({
-    id: 123,
-  })),
-}));
-
 describe('AssignLiteratureItemDrawer', () => {
   it('renders authors list', () => {
-    const literatureId = 122334;
     const onDrawerClose = jest.fn();
     const onAssign = jest.fn();
+    const literatureId = 122334;
     const authors = fromJS([
       {
-        full_name: 'Test, Guy 1',
-      },
-      {
-        full_name: 'Test, Guy 2',
-      },
-      {
-        full_name: 'Test, Guy 3',
-      },
-      {
-        full_name: 'Test, Guy 4',
-      },
-      {
-        full_name: 'Test, Guy 5',
-      },
-      {
-        full_name: 'Test, Guy 6',
+        full_name: 'Test, A',
+        record: {
+          $ref: 'https://inspirebeta.net/api/authors/1016091',
+        },
       },
     ]);
+
     const wrapper = shallow(
       <AssignLiteratureItemDrawer
+        authors={authors}
         literatureId={literatureId}
         onDrawerClose={onDrawerClose}
         onAssign={onAssign}
         currentAuthorId={12345676}
-        authors={authors}
         itemLiteratureId={122334}
         page="Page"
-
       />
     );
     expect(wrapper).toMatchSnapshot();
@@ -83,7 +65,9 @@ describe('AssignLiteratureItemDrawer', () => {
       disabled: false,
     });
 
-    wrapper.find('[data-test-id="assign-literature-item-button"]').simulate('click');
+    wrapper
+      .find('[data-test-id="assign-literature-item-button"]')
+      .simulate('click');
     expect(onAssignClick).toHaveBeenCalled();
   });
 });

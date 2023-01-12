@@ -10,6 +10,9 @@ import {
   LITERATURE_AUTHORS_ERROR,
   LITERATURE_AUTHORS_REQUEST,
   LITERATURE_AUTHORS_SUCCESS,
+  LITERATURE_ALL_AUTHORS_ERROR,
+  LITERATURE_ALL_AUTHORS_REQUEST,
+  LITERATURE_ALL_AUTHORS_SUCCESS,
   LITERATURE_REFERENCES_ERROR,
   LITERATURE_REFERENCES_REQUEST,
   LITERATURE_REFERENCES_SUCCESS,
@@ -20,6 +23,7 @@ import {
 import {
   fetchLiterature,
   fetchLiteratureAuthors,
+  fetchLiteratureAllAuthors,
   fetchLiteratureReferences,
   setLiteratureSelection,
   clearLiteratureSelection,
@@ -200,6 +204,41 @@ describe('literature - async action creators', () => {
 
       const store = getStore();
       await store.dispatch(fetchLiteratureAuthors(123));
+      expect(store.getActions()).toEqual(expectedActions);
+      done();
+    });
+  });
+
+  describe('literature all authors', () => {
+    it('happy - creates LITERATURE_ALL_AUTHORS_SUCCESS', async (done) => {
+      mockHttp.onGet('/literature/123?field=authors').replyOnce(200, {});
+
+      const expectedActions = [
+        { type: LITERATURE_ALL_AUTHORS_REQUEST },
+        { type: LITERATURE_ALL_AUTHORS_SUCCESS, payload: {} },
+      ];
+
+      const store = getStore();
+      await store.dispatch(fetchLiteratureAllAuthors(123));
+      expect(store.getActions()).toEqual(expectedActions);
+      done();
+    });
+
+    it('unhappy - creates LITERATURE_ALL_AUTHORS_ERROR', async (done) => {
+      mockHttp.onGet('/literature/123?field=authors').replyOnce(500);
+
+      const expectedActions = [
+        { type: LITERATURE_ALL_AUTHORS_REQUEST },
+        {
+          type: LITERATURE_ALL_AUTHORS_ERROR,
+          payload: {
+            error: { status: 500 },
+          },
+        },
+      ];
+
+      const store = getStore();
+      await store.dispatch(fetchLiteratureAllAuthors(123));
       expect(store.getActions()).toEqual(expectedActions);
       done();
     });
