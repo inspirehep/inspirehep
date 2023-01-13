@@ -18,6 +18,8 @@ class CollapsableForm extends Component {
   }
 }
 
+CollapsableForm.Section = undefined;
+
 CollapsableForm.propTypes = {
   openSections: PropTypes.arrayOf(PropTypes.string),
 };

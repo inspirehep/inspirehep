@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
 import { Row, Col, Button } from 'antd';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
-import PropTypes from 'prop-types';
 import { object, string } from 'yup';
 
 import TextField from '../../submissions/common/components/TextField';
