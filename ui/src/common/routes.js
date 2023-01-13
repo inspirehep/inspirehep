@@ -21,6 +21,7 @@ export const USER_PROFILE = `${USER}/profile`;
 export const USER_LOGIN = `${USER}/login`;
 export const USER_SIGNUP = `${USER}/signup`;
 export const USER_LOCAL_LOGIN = `${USER_LOGIN}/local`;
+export const USER_SETTINGS = `${USER}/settings`;
 
 // TODO: rename `holdingpen` to `admin`
 export const HOLDINGPEN = '/holdingpen';

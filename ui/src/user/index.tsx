@@ -15,8 +15,10 @@ import {
   USER_PROFILE,
   USER,
   HOME,
+  USER_SETTINGS,
 } from '../common/routes';
 import SafeSwitch from '../common/components/SafeSwitch';
+import SettingsContainer from '../settings/containers/SettingsContainer';
 
 const User = ({
   loggedIn,
@@ -34,6 +36,13 @@ const User = ({
           path={USER_LOGIN}
           condition={!loggedIn}
           component={LoginPageContainer}
+          redirectTo={previousUrl}
+        />
+        <RouteOrRedirect
+          exact
+          path={USER_SETTINGS}
+          condition={loggedIn}
+          component={SettingsContainer}
           redirectTo={previousUrl}
         />
         <RouteOrRedirect

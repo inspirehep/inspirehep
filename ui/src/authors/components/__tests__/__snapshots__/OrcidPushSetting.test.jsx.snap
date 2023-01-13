@@ -25,6 +25,7 @@ exports[`OrcidPushSetting renders when disabled 1`] = `
     >
       <Switch
         checked={false}
+        data-test-id="orcid-switch"
         loading={false}
       />
     </ForwardRef>
@@ -60,6 +61,7 @@ exports[`OrcidPushSetting renders when enabled 1`] = `
     >
       <Switch
         checked={true}
+        data-test-id="orcid-switch"
         loading={false}
       />
     </ForwardRef>

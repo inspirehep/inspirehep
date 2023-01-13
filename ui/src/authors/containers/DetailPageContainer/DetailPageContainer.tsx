@@ -42,6 +42,10 @@ import RecordUpdateInfo from '../../../common/components/RecordUpdateInfo';
 import AuthorSeminars from '../../components/AuthorSeminars';
 import EditAuthorRecordAction from '../../components/EditAuthorRecordAction';
 import { isCataloger } from '../../../common/authorization';
+import { SettingOutlined } from '@ant-design/icons';
+import IconText from '../../../common/components/IconText';
+import LinkWithTargetBlank from '../../../common/components/LinkWithTargetBlank';
+import UserAction from '../../../common/components/UserAction';
 
 function DetailPage({
   record,
@@ -129,7 +133,11 @@ function DetailPage({
                     {twitter && <AuthorTwitterAction twitter={twitter} />}
                     {linkedin && <AuthorLinkedinAction linkedin={linkedin} />}
                     {urls && <AuthorWebsitesAction websites={urls} />}
-                    {orcid && orcid === userOrcid && <UserSettingsAction />}
+                    {orcid && orcid === userOrcid && <UserAction>
+                      <LinkWithTargetBlank href='/user/settings'>
+                        <IconText text="settings" icon={<SettingOutlined />} />
+                      </LinkWithTargetBlank>
+                    </UserAction>}
                     <EditAuthorRecordAction
                       canEdit={canEdit}
                       pidValue={recordId}
