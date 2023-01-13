@@ -129,6 +129,15 @@ exports[`HeaderMenu renders when logged in 1`] = `
       </Tooltip>
     </MenuItem>
     <MenuItem
+      key="settings"
+    >
+      <Link
+        to="/user/settings"
+      >
+        Settings
+      </Link>
+    </MenuItem>
+    <MenuItem
       key="logout"
     >
       <LinkLikeButton

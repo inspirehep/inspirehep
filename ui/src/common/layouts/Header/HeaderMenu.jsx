@@ -13,6 +13,7 @@ import {
   SUBMISSIONS_INSTITUTION,
   SUBMISSIONS_EXPERIMENT,
   SUBMISSIONS_JOURNAL,
+  USER_SETTINGS
 } from '../../routes';
 import LinkWithTargetBlank from '../../components/LinkWithTargetBlank.tsx';
 import LinkLikeButton from '../../components/LinkLikeButton/LinkLikeButton';
@@ -103,6 +104,9 @@ class HeaderMenu extends Component {
                   <Button ghost disabled>My profile</Button>
                 </Tooltip>
               )}
+            </Menu.Item>
+            <Menu.Item key="settings">
+              <Link to={USER_SETTINGS}>Settings</Link>
             </Menu.Item>
             <Menu.Item key="logout">
               <LinkLikeButton onClick={onLogoutClick} dataTestId="logout" color="white" >
