@@ -6,11 +6,14 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from flask import Blueprint, redirect, request, session
+from flask_login import current_user
 from flask_security.utils import login_user, logout_user, verify_password
 from invenio_accounts.models import User
 from invenio_db import db
 from invenio_oauthclient import current_oauthclient
 from sqlalchemy.exc import IntegrityError
+from webargs import fields
+from webargs.flaskparser import FlaskParser
 
 from inspirehep.orcid.tasks import push_account_literature_to_orcid
 from inspirehep.serializers import jsonify
@@ -18,6 +21,8 @@ from inspirehep.serializers import jsonify
 from .api import get_current_user_remote_orcid_account
 from .decorators import login_required
 from .handlers import get_current_user_data
+
+parser = FlaskParser()
 
 blueprint = Blueprint(
     "inspirehep_accounts", __name__, template_folder="templates", url_prefix="/accounts"
@@ -104,3 +109,22 @@ def set_orcid_push_setting():
         )
 
     return jsonify({"message": "Successfully changed orcid push setting"}), 200
+
+
+@blueprint.route("/settings/update-email", methods=["POST"])
+@login_required
+@parser.use_args(
+    {
+        "new_email": fields.String(required=True),
+    },
+    locations=("json",),
+)
+def update_email(args):
+    new_email = args["new_email"]
+    try:
+        user = User.query.filter_by(email=current_user.email).first()
+        user.email = new_email
+        db.session.commit()
+    except Exception:
+        return jsonify({"message": "Can not update user email!"}), 400
+    return jsonify({"message": "Success"}, 200)
