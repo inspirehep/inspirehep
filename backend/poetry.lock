@@ -1348,7 +1348,7 @@ python-versions = "*"
 
 [[package]]
 name = "inspire-dojson"
-version = "63.1.5"
+version = "63.1.9"
 description = "INSPIRE-specific rules to transform from MARCXML to JSON and back."
 category = "main"
 optional = false
@@ -1362,7 +1362,9 @@ inspire-schemas = ">=61.4,<62.0"
 inspire-utils = ">=3.0.0,<4.0"
 isbnid-fork = ">=0.5.2,<1.0"
 langdetect = ">=1.0.7,<2.0"
+MarkupSafe = ">=1.1.1,<2.1.0"
 pycountry = ">=17.5.4,<18.0"
+urllib3 = ">=1.25.0,<1.26.0"
 
 [package.extras]
 all = ["flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pytest (>=4.6,<5.0)", "pytest-cov (>=2.6.1,<3.0)", "unicode-string-literal (>=1.1,<2.0)"]
@@ -1570,7 +1572,7 @@ admin = ["Flask-Admin (>=1.3.0)"]
 all = ["Flask-Admin (>=1.3.0)", "Sphinx (>=1.4.2,<1.6)", "check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.3.0)", "mock (>=2.0.0)", "pydocstyle (>=1.0.0)", "pytest (>=4.0.0,<5.0.0)", "pytest-cov (>=1.8.0)", "pytest-flask (>=0.10.0)", "pytest-pep8 (>=1.0.6)", "selenium (>=3.0.1)"]
 docs = ["Sphinx (>=1.4.2,<1.6)"]
 mysql = ["invenio-db[versioning,mysql] (>=1.0.0)"]
-postgresql = ["invenio-db[versioning,postgresql] (>=1.0.0)"]
+postgresql = ["invenio-db[postgresql,versioning] (>=1.0.0)"]
 sqlite = ["invenio-db[versioning] (>=1.0.0)"]
 tests = ["check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.3.0)", "mock (>=2.0.0)", "pydocstyle (>=1.0.0)", "pytest (>=4.0.0,<5.0.0)", "pytest-cov (>=1.8.0)", "pytest-flask (>=0.10.0)", "pytest-pep8 (>=1.0.6)", "selenium (>=3.0.1)"]
 
@@ -1933,7 +1935,7 @@ admin = ["Flask-Admin (>=1.3.0)"]
 all = ["Sphinx (>=1.7.2)", "Flask-Admin (>=1.3.0)", "check-manifest (>=0.25)", "coverage (>=4.5.3)", "Flask-Menu (>=0.5.0)", "invenio-admin (>=1.0.0)", "isort (>=4.3.0)", "mock (>=1.3.0)", "pydocstyle (>=3.0.0)", "pytest-cov (>=2.7.1)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.6.4,<5.0.0)"]
 docs = ["Sphinx (>=1.7.2)"]
 mysql = ["invenio-db[versioning,mysql] (>=1.0.0)"]
-postgresql = ["invenio-db[versioning,postgresql] (>=1.0.0)"]
+postgresql = ["invenio-db[postgresql,versioning] (>=1.0.0)"]
 sqlite = ["invenio-db[versioning] (>=1.0.0)"]
 tests = ["check-manifest (>=0.25)", "coverage (>=4.5.3)", "Flask-Menu (>=0.5.0)", "invenio-admin (>=1.0.0)", "isort (>=4.3.0)", "mock (>=1.3.0)", "pydocstyle (>=3.0.0)", "pytest-cov (>=2.7.1)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.6.4,<5.0.0)"]
 
@@ -4804,8 +4806,8 @@ iniconfig = [
     {file = "iniconfig-1.1.1.tar.gz", hash = "sha256:bc3af051d7d14b2ee5ef9969666def0cd1a000e121eaea580d4a313df4b37f32"},
 ]
 inspire-dojson = [
-    {file = "inspire-dojson-63.1.5.tar.gz", hash = "sha256:48b72b8852d8d3b78359b36b5cdce5d8e6987632497e86a5d88f98d839cc687a"},
-    {file = "inspire_dojson-63.1.5-py2-none-any.whl", hash = "sha256:21c25249e233e9b4d0461f6b5a55ef9f1a2504de6809e97ad5fac0f1980c3ec8"},
+    {file = "inspire-dojson-63.1.9.tar.gz", hash = "sha256:2a7559cb09f39f3a6f752fd237ff2071aefbd90f2032bcc051b963ffabf20d77"},
+    {file = "inspire_dojson-63.1.9-py2-none-any.whl", hash = "sha256:af221afbffca0e1e219f5f77a2ffaf55f2d45d99876c981de20b0595d82c8321"},
 ]
 inspire-json-merger = [
     {file = "inspire-json-merger-11.0.29.tar.gz", hash = "sha256:72bb26d2adf68f318c2f4b1e2381d623950a4b7577306ef6879aad13bd174541"},
