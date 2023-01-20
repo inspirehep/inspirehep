@@ -63,7 +63,7 @@ def get_authors_phonetic_blocks(full_names, phonetic_algorithm="nysiis"):
     # Create a list of phonetic blocks.
     phonetic_blocks = list(
         block_phonetic(
-            np.array(full_names_formatted, dtype=np.object).reshape(-1, 1),
+            np.array(full_names_formatted, dtype=object).reshape(-1, 1),
             threshold=0,
             phonetic_algorithm=phonetic_algorithm,
         )
