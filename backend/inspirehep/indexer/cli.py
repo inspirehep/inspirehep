@@ -169,7 +169,7 @@ def reindex_records(
 
         * Reindex only author records:
 
-            >>> inspirehep index reindex --pid aut
+            >>> inspirehep index reindex -p aut
 
 
         * Reindex only authors and journals:
