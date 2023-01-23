@@ -6,6 +6,9 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
+import random
+import string
+
 import click
 from flask import current_app
 from flask_security.utils import hash_password
@@ -13,9 +16,14 @@ from invenio_access.models import ActionRoles
 from invenio_accounts.models import Role
 from invenio_db import db
 from invenio_oauth2server.models import Client, Token
-from invenio_oauthclient.models import UserIdentity
+from invenio_oauthclient.models import RemoteAccount, UserIdentity
 
 from inspirehep.accounts.roles import Roles
+
+
+def generate_random_string(size):
+    domain = string.ascii_lowercase + string.ascii_uppercase + string.digits
+    return "".join(random.choice(domain) for _ in range(size))
 
 
 def init_oauth_token():
@@ -117,9 +125,16 @@ def init_users():
             active=True,
         )
         ellis_orcid_id = UserIdentity(
-            id="0000-0002-7399-0813", method="orcid", id_user=ellis.get_id()
+            id="0000-0003-1134-6827", method="orcid", id_user=ellis.get_id()
         )
         db.session.add(ellis_orcid_id)
+        ellis_remote_account_data = {
+            "user_id": ellis.get_id(),
+            "extra_data": {"email": ellis.email, "orcid": ellis_orcid_id.id},
+            "client_id": generate_random_string(255),
+        }
+        account = RemoteAccount(**ellis_remote_account_data)
+        db.session.add(account)
 
     db.session.commit()
 

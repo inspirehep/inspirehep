@@ -16,9 +16,10 @@ import pkg_resources
 from invenio_records.models import RecordMetadata
 from invenio_search import current_search_client as es
 
+from inspirehep.accounts.fixtures import generate_random_string
 from inspirehep.records.api import InspireRecord
 
-from .base import TestBaseModel, generate_random_string
+from .base import TestBaseModel
 from .invenio_pidstore import TestPersistentIdentifier
 
 USED_RECIDS = {}
