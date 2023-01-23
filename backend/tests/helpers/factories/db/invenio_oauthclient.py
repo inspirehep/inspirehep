@@ -9,7 +9,9 @@
 from invenio_db import db
 from invenio_oauthclient.models import RemoteAccount, RemoteToken, UserIdentity
 
-from .base import TestBaseModel, generate_random_string
+from inspirehep.accounts.fixtures import generate_random_string
+
+from .base import TestBaseModel
 from .invenio_accounts import TestUser
 
 

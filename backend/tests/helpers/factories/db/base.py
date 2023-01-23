@@ -7,16 +7,9 @@
 
 
 import abc
-import random
-import string
 
 import six
 from invenio_db import db
-
-
-def generate_random_string(size):
-    domain = string.ascii_lowercase + string.ascii_uppercase + string.digits
-    return "".join(random.choice(domain) for _ in range(size))
 
 
 @six.add_metaclass(abc.ABCMeta)
