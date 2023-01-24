@@ -38,8 +38,13 @@ function searchSuccess(namespace: string, data: {}) {
 }
 
 function searchError(namespace: string, errorPayload: { error: Error }) {
-  const { redirectableError } =
+  let { redirectableError } = 
     searchConfig[namespace as keyof typeof searchConfig];
+
+  if (errorPayload.error.message === 'The syntax of the search query is invalid.') {
+    redirectableError = false;
+  }
+
   return {
     type: SEARCH_ERROR,
     payload: { ...errorPayload, namespace },

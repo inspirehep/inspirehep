@@ -38,7 +38,7 @@ describe('search - action creators', () => {
       expect(store.getActions()).toEqual(expectedActions);
     });
 
-    it('creates SEARCH_REQUEST and SEARCH_ERROR for embedded search if search request is unsuccessful', async () => {
+    it('creates SEARCH_REQUEST and SEARCH_ERROR if search request is unsuccessful', async () => {
       const namespace = LITERATURE_NS;
       const pathname = LITERATURE;
       const store = getStore();
@@ -58,7 +58,7 @@ describe('search - action creators', () => {
       expect(store.getActions()).toEqual(expectedActions);
     });
 
-    it('creates SEARCH_REQUEST and SEARCH_ERROR if search request is unsuccessful', async () => {
+    it('creates SEARCH_REQUEST and SEARCH_ERROR for embedded search if search request is unsuccessful', async () => {
       const namespace = AUTHOR_PUBLICATIONS_NS;
       const pathname = LITERATURE;
       const store = getStore();
@@ -78,26 +78,54 @@ describe('search - action creators', () => {
       expect(store.getActions()).toEqual(expectedActions);
     });
 
-    describe('fetchSearchAggregations', () => {
-      it('creates SEARCH_AGGREGATIONS_REQUEST and SEARCH_AGGREGATIONS_SUCCESS if search request is successful', async () => {
-        const namespace = AUTHOR_PUBLICATIONS_NS;
-        const pathname = LITERATURE;
-        const store = getStore();
-        const data = { foo: 'bar' };
-        const url = `${pathname}/facets?page=1&size=10&q=test&facet_name=pubs`;
-        mockHttp.onGet(url).replyOnce(200, data);
-
-        await store.dispatch(fetchSearchAggregations(namespace, url));
-
-        const expectedActions = [
-          { type: types.SEARCH_AGGREGATIONS_REQUEST, payload: { namespace } },
-          {
-            type: types.SEARCH_AGGREGATIONS_SUCCESS,
-            payload: { namespace, data },
-          },
-        ];
-        expect(store.getActions()).toEqual(expectedActions);
+    it('sets redirectableError parameter to false if invalid query', async () => {
+      const namespace = LITERATURE_NS;
+      const pathname = LITERATURE;
+      const store = getStore();
+      const url = `${pathname}?page=1&size=10&q=test,.`;
+      mockHttp.onGet(url).replyOnce(400, {
+        message: 'The syntax of the search query is invalid.',
       });
+
+      await store.dispatch(fetchSearchResults(namespace, url));
+
+      const expectedActions = [
+        { type: types.SEARCH_REQUEST, payload: { namespace } },
+        {
+          type: types.SEARCH_ERROR,
+          payload: {
+            namespace,
+            error: {
+              message: 'The syntax of the search query is invalid.',
+              status: 400,
+            },
+          },
+          meta: { redirectableError: false },
+        },
+      ];
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
+  describe('fetchSearchAggregations', () => {
+    it('creates SEARCH_AGGREGATIONS_REQUEST and SEARCH_AGGREGATIONS_SUCCESS if search request is successful', async () => {
+      const namespace = AUTHOR_PUBLICATIONS_NS;
+      const pathname = LITERATURE;
+      const store = getStore();
+      const data = { foo: 'bar' };
+      const url = `${pathname}/facets?page=1&size=10&q=test&facet_name=pubs`;
+      mockHttp.onGet(url).replyOnce(200, data);
+
+      await store.dispatch(fetchSearchAggregations(namespace, url));
+
+      const expectedActions = [
+        { type: types.SEARCH_AGGREGATIONS_REQUEST, payload: { namespace } },
+        {
+          type: types.SEARCH_AGGREGATIONS_SUCCESS,
+          payload: { namespace, data },
+        },
+      ];
+      expect(store.getActions()).toEqual(expectedActions);
     });
 
     it('creates SEARCH_AGGREGATIONS_REQUEST and SEARCH_AGGREGATIONS_ERROR if search request is unsuccessful', async () => {
