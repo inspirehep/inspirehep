@@ -42,10 +42,44 @@ old_enum_values = (
 
 def upgrade():
     """Upgrade database."""
-    op.execute(f"DELETE FROM records_authors WHERE id_type NOT IN {new_enum_types}")
-    op.execute("ALTER TABLE records_authors ALTER COLUMN id_type TYPE VARCHAR(255);")
+    op.execute(
+        "CREATE TABLE tmp_records_authors (LIKE records_authors INCLUDING CONSTRAINTS);"
+    )
+    op.execute(
+        f"INSERT INTO tmp_records_authors SELECT * FROM records_authors WHERE id_type IN {new_enum_types};"
+    )
+    op.execute(
+        "ALTER TABLE tmp_records_authors ALTER COLUMN id_type TYPE VARCHAR(255);"
+    )
+    op.execute("DROP TABLE records_authors;")
+    op.create_index(
+        "ix_authors_records_author_id_id_type_record_id",
+        "tmp_records_authors",
+        ["author_id", "id_type", "record_id"],
+        unique=False,
+    )
+    op.create_index(
+        "ix_authors_records_record_id",
+        "tmp_records_authors",
+        ["record_id"],
+        unique=False,
+    )
+    op.create_index(
+        "ix_records_authors_id_type_authors_id",
+        "tmp_records_authors",
+        ["id_type", "author_id"],
+        unique=False,
+    )
+    op.create_index(
+        "ix_records_authors_id_type_record_id",
+        "tmp_records_authors",
+        ["id_type", "record_id"],
+        unique=False,
+    )
+
     op.execute("DROP TYPE IF EXISTS enum_author_schema_type;")
-    op.execute(f"CREATE TYPE enum_author_schema_type AS ENUM {new_enum_types}")
+    op.execute(f"CREATE TYPE enum_author_schema_type AS ENUM {new_enum_types};")
+    op.execute("ALTER TABLE tmp_records_authors RENAME TO records_authors")
     op.execute(
         "ALTER TABLE records_authors ALTER COLUMN id_type TYPE enum_author_schema_type USING (id_type::enum_author_schema_type);"
     )
