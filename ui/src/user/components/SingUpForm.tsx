@@ -7,7 +7,7 @@ import { object, string } from 'yup';
 import TextField from '../../submissions/common/components/TextField';
 
 const SCHEMA = object().shape({
-  email: string().email().required().label('Email'),
+  email: string().email().trim().required().label('Email'),
 });
 
 const FULL_ROW = { span: 24 };

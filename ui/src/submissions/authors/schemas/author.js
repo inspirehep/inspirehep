@@ -22,7 +22,7 @@ const authorSchema = object().shape({
     .default([{}])
     .of(
       emptyObjectOrShapeOf({
-        value: string().email().required().label('Email'),
+        value: string().email().trim().required().label('Email'),
         current: boolean(),
         hidden: boolean(),
       })

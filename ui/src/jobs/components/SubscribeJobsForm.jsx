@@ -11,6 +11,7 @@ const SCHEMA = object().shape({
   email: string()
     .email()
     .required()
+    .trim()
     .label('Email'),
   first_name: string()
     .required()
