@@ -69,6 +69,7 @@ const jobSchema = object().shape({
           .label('Contact name'),
         email: string()
           .email()
+          .trim()
           .required()
           .label('Contact email'),
       })
@@ -102,7 +103,8 @@ const jobSchema = object().shape({
             .url(),
           string()
             .nullable()
-            .email(),
+            .email()
+            .trim(),
         ],
         'Must be a url or an email'
       )

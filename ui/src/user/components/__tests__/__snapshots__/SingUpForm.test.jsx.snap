@@ -39,6 +39,7 @@ exports[`SingUpForm disable email input and display loading on the button while 
           "_deps": Array [],
           "_exclusive": Object {
             "required": false,
+            "trim": false,
             "undefined": false,
           },
           "_label": "Email",
@@ -57,8 +58,10 @@ exports[`SingUpForm disable email input and display loading on the button while 
             [Function],
             [Function],
             [Function],
+            [Function],
           ],
           "transforms": Array [
+            [Function],
             [Function],
           ],
         },
@@ -113,6 +116,7 @@ exports[`SingUpForm renders the form with invalid input 1`] = `
           "_deps": Array [],
           "_exclusive": Object {
             "required": false,
+            "trim": false,
             "undefined": false,
           },
           "_label": "Email",
@@ -131,8 +135,10 @@ exports[`SingUpForm renders the form with invalid input 1`] = `
             [Function],
             [Function],
             [Function],
+            [Function],
           ],
           "transforms": Array [
+            [Function],
             [Function],
           ],
         },
@@ -187,6 +193,7 @@ exports[`SingUpForm renders the form with valid input 1`] = `
           "_deps": Array [],
           "_exclusive": Object {
             "required": false,
+            "trim": false,
             "undefined": false,
           },
           "_label": "Email",
@@ -205,8 +212,10 @@ exports[`SingUpForm renders the form with valid input 1`] = `
             [Function],
             [Function],
             [Function],
+            [Function],
           ],
           "transforms": Array [
+            [Function],
             [Function],
           ],
         },

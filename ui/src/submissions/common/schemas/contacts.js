@@ -13,6 +13,7 @@ export default function contacts() {
         email: string()
           .email()
           .required()
+          .trim()
           .label('Contact email'),
       })
     );
