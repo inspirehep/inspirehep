@@ -55,6 +55,7 @@ import ImprintInfo from '../../components/ImprintInfo';
 import HiddenCollectionAlert from '../../components/LiteratureCollectionBanner';
 import AssignLiteratureItemDrawerContainer from '../AssignLiteratureItemDrawerContainer';
 import LiteratureClaimButton from '../../components/LiteratureClaimButton';
+import PersistentIdentifiers from '../../components/PersistentIdentifiers';
 
 function DetailPage({
   authors,
@@ -95,6 +96,7 @@ function DetailPage({
   const PDGkeywords = metadata.get('pdg_keywords');
   const authorCount = metadata.get('author_count');
   const citationCount = metadata.get('citation_count');
+  const persistentIdentifiers = metadata.get('persistent_identifiers');
 
   const canEdit = metadata.get('can_edit', false);
   const figures = metadata.get('figures');
@@ -151,7 +153,10 @@ function DetailPage({
                         page="Literature detail"
                       />
                     )}
-                    <CiteModalActionContainer recordId={controlNumber} page="Literature detail" />
+                    <CiteModalActionContainer
+                      recordId={controlNumber}
+                      page="Literature detail"
+                    />
                     <LiteratureClaimButton
                       loggedIn={loggedIn}
                       hasAuthorProfile={hasAuthorProfile}
@@ -179,7 +184,10 @@ function DetailPage({
                 }
                 rightActions={
                   <>
-                    <ReferenceSearchLinkAction recordId={controlNumber} page="Literature detail" />
+                    <ReferenceSearchLinkAction
+                      recordId={controlNumber}
+                      page="Literature detail"
+                    />
                     {citationCount != null && (
                       <IncomingLiteratureReferencesLinkAction
                         linkQuery={getPapersQueryString(controlNumber)}
@@ -211,7 +219,10 @@ function DetailPage({
                 <LiteratureDate date={date} />
                 <div className="mt3">
                   <NumberOfPages numberOfPages={numberOfPages} />
-                  <SupervisorList supervisors={supervisors} page="Literature detail" />
+                  <SupervisorList
+                    supervisors={supervisors}
+                    page="Literature detail"
+                  />
                   <ThesisInfo thesisInfo={thesisInfo} />
                   {linkedBook && (
                     <ParentRecordInfo
@@ -237,6 +248,11 @@ function DetailPage({
                   <ImprintInfo imprint={imprint} />
                   <ArxivEprintList page="Literature detail" eprints={eprints} />
                   <DOIList dois={dois} />
+                  {persistentIdentifiers && persistentIdentifiers.size > 0 && (
+                    <PersistentIdentifiers
+                      identifiers={persistentIdentifiers}
+                    />
+                  )}
                   {PDGkeywords && PDGkeywords.size > 0 && (
                     <PDGKeywords keywords={PDGkeywords} />
                   )}
