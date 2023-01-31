@@ -118,6 +118,16 @@
   "core": true,
   "curated": true,
   "document_type": ["article"],
+  "persistent_identifiers": [
+    {
+      "value": "1866/20706",
+      "schema": "HDL"
+    },
+    {
+      "value": "12345",
+      "schema": "URN"
+    }
+  ],
   "documents": [
     {
       "hidden": true,

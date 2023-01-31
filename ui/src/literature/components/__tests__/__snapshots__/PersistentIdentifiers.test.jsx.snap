@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PersistentIdentifiers renders with identifiers 1`] = `
+<div
+  className="__InlineList__"
+>
+  <span
+    className=""
+  >
+    URN/HDL
+    : 
+  </span>
+  <ul>
+    <li
+      key="1866/20706"
+    >
+      <EventTracker
+        eventAction="Link"
+        eventCategory="Literature detail"
+        eventId="HDL link"
+        eventPropName="onClick"
+        extractEventArgsToForward={null}
+      >
+        <LinkWithTargetBlank
+          as="a"
+          href="//hdl.handle.net/1866/20706"
+        >
+          1866/20706
+        </LinkWithTargetBlank>
+      </EventTracker>
+      , 
+    </li>
+    <li
+      key="12345"
+    >
+      <span>
+        12345
+      </span>
+    </li>
+  </ul>
+</div>
+`;
