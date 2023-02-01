@@ -367,8 +367,6 @@ jobs:
   end_to_end_test_chrome:
     name: End to end test - Chrome
     runs-on: ubuntu-latest
-    container:
-      image: cypress/browsers:node16.17.1-chrome106-ff105-edge
     strategy:
       fail-fast: false
       matrix:
