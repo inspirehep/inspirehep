@@ -8,12 +8,14 @@
 from itertools import islice
 
 import click
+import structlog
 from elasticsearch_dsl import Q
 from flask.cli import with_appcontext
 from flask_celeryext.app import current_celery_app
 from invenio_db import db
 
 from inspirehep.disambiguation.tasks import disambiguate_authors
+from inspirehep.errors import DB_TASK_EXCEPTIONS
 from inspirehep.records.api import AuthorsRecord
 from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.records.models import RecordsAuthors
@@ -21,6 +23,8 @@ from inspirehep.search.api import AuthorsSearch, LiteratureSearch
 
 MAX_INDEXER_QUEUE_LEN = 100000
 MAX_DISAMBIGUATION_QUEUE_LEN = 10000
+
+LOGGER = structlog.getLogger()
 
 
 @click.group()
@@ -39,7 +43,8 @@ def clean_stub_authors():
         AuthorsSearch().query(stub_authors_query).source(["control_number"])
     )
     stub_authors_control_numbers = [
-        ("aut", str(author["control_number"])) for author in stub_authors_search.scan()
+        ("aut", str(author["control_number"]))
+        for author in stub_authors_search.params(scroll="60m").scan()
     ]
     # We change isolation level in db to the higher one (serializable) to avoid
     # issues with race condition
@@ -61,11 +66,21 @@ def clean_stub_authors():
         stub_authors_with_papers
     )
     click.echo(f"Removing {len(authors_to_remove)} stub authors with no linked papers")
+    failed_removals = 0
     for author_recid in authors_to_remove:
-        author = stub_authors_recids[author_recid]
-        author.delete()
-    db.session.commit()
-    click.echo("Successfully removed stub authors")
+        try:
+            author = stub_authors_recids[author_recid]
+            author.delete()
+            db.session.commit()
+        except DB_TASK_EXCEPTIONS:
+            LOGGER.error("Can not delete author!", recid=author_recid)
+            failed_removals += 1
+
+    click.echo(
+        "Successfully removed stub authors",
+        number_of_removed_authors=len(authors_to_remove) - failed_removals,
+        number_of_failed_removals=failed_removals,
+    )
 
 
 def query_authors_with_linked_papers_by_recid(author_recids):
