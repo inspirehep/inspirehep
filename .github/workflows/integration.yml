@@ -609,6 +609,8 @@ jobs:
           -f data/records/journals/1213103.json
           -f data/records/journals/1213100.json
       - name: 'End to end test - Chrome'
+        container:
+          image: cypress/browsers:node16.17.1-chrome106-ff105-edge
         uses: cypress-io/github-action@v5
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
