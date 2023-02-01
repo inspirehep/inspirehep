@@ -16,6 +16,7 @@ from helpers.utils import create_record, create_user
 from invenio_accounts.testutils import login_user_via_session
 from invenio_search.utils import prefix_index
 from requests.exceptions import RequestException
+from sqlalchemy.exc import OperationalError
 
 from inspirehep.search.api import (
     AuthorsSearch,
@@ -1550,3 +1551,29 @@ def test_search_doesnt_match_data_records_when_no_lit_records_found(inspire_app)
     query_string = "10.13384/milc.asqt888ad.en20a/117808836"
     result = LiteratureSearch().query_from_iq(query_string).execute()
     assert not result.hits
+
+
+@mock.patch(
+    "inspirehep.records.links.find_record_endpoint",
+    side_effect=OperationalError("test", "test", "test"),
+)
+def test_search_serializer_handles_db_exceptions(mocked_get_pid_type, inspire_app):
+    query = "t transition"
+
+    record = {
+        "titles": [
+            {
+                "title": "Phase structure and phase transition of the SU(2) Higgs model in three-dimensions"
+            }
+        ],
+    }
+
+    create_record("lit", record)
+
+    with inspire_app.test_client() as client:
+        response = client.get("api/literature", query_string={"q": query})
+
+    expected_json = {"message": "The search result can't be serialized", "status": 400}
+
+    assert 400 == response.status_code
+    assert response.json == expected_json
