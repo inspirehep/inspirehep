@@ -18,6 +18,7 @@ from invenio_records_rest.serializers.json import (
 from invenio_search.utils import build_alias_name
 
 from inspirehep.accounts.api import is_user_logged_in
+from inspirehep.errors import DB_TASK_EXCEPTIONS, ES_TASK_EXCEPTIONS
 from inspirehep.records.links import inspire_search_links
 from inspirehep.search.api import LiteratureSearch
 from inspirehep.search.errors import NonSerializableSearchResult
@@ -94,7 +95,7 @@ class JSONSerializer(ORJSONSerializerMixin, InvenioJSONSerializer):
                 ),
                 links=links,
             )
-        except ValueError:
+        except (ValueError, *DB_TASK_EXCEPTIONS, *ES_TASK_EXCEPTIONS):
             raise NonSerializableSearchResult
         sort_options = self._get_sort_options()
         if sort_options:
