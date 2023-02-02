@@ -369,8 +369,6 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix:
-        containers: [1, 2, 3]
     needs:
       - backend_build
       - ui_build
@@ -615,7 +613,6 @@ jobs:
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
         with:
-          build: false
           working-directory: ./e2e
           parallel: true
           group: 'E2E tests Chrome'
