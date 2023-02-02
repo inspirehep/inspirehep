@@ -614,7 +614,6 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
         with:
           working-directory: ./e2e
-          parallel: true
           group: 'E2E tests Chrome'
           record: true
           browser: '${{ env.BROWSER_PATH }}'
