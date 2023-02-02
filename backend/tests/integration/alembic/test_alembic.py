@@ -14,6 +14,12 @@ from sqlalchemy.engine import reflection
 
 def test_downgrade(inspire_app):
     alembic = Alembic(current_app)
+
+    alembic.downgrade(target="3637cb5551a8")
+    assert not sequence_exists("records_authors_id_seq")
+    assert not get_foreign_keys_for_table("records_authors")
+    assert not get_primary_keys("records_authors")
+
     alembic.downgrade(target="b495825c322b")
     assert isinstance(_get_column("id_type", "records_authors")["type"], ENUM)
     assert set(_get_column("id_type", "records_authors")["type"].enums) == {
@@ -299,6 +305,11 @@ def test_upgrade(inspire_app):
     assert set(["journal_uuid", "literature_uuid"]) == set(
         get_primary_keys("journal_literature")
     )
+
+    old_records_authors_foreign_keys = get_foreign_keys_for_table("records_authors")
+    old_records_authors_primary_keys = get_primary_keys("records_authors")
+    old_record_authors_indexes = get_indexes_for_table("records_authors")
+
     alembic.upgrade(target="b495825c322b")
     assert "recid" in _get_column("id_type", "records_authors")["type"].enums
 
@@ -308,6 +319,16 @@ def test_upgrade(inspire_app):
         "collaboration",
         "recid",
     ]
+    alembic.upgrade(target="72d010d89702")
+
+    new_records_authors_foreign_keys = get_foreign_keys_for_table("records_authors")
+    new_records_authors_primary_keys = get_primary_keys("records_authors")
+    new_record_authors_indexes = get_indexes_for_table("records_authors")
+
+    assert new_records_authors_foreign_keys == old_records_authors_foreign_keys
+    assert new_record_authors_indexes == old_record_authors_indexes
+    assert new_records_authors_primary_keys == old_records_authors_primary_keys
+    assert sequence_exists("records_authors_id_seq")
 
 
 def _get_indexes(tablename):
@@ -378,3 +399,19 @@ def _get_column(column_name, table_name):
         col for col in insp.get_columns(table_name) if col["name"] == column_name
     ]
     return columns_found[0]
+
+
+def sequence_exists(sequence_name):
+    query = "select sequence_name FROM information_schema.sequences"
+
+    return sequence_name in set([result[0] for result in db.session.execute(query)])
+
+
+def get_foreign_keys_for_table(table_name):
+    insp = reflection.Inspector.from_engine(db.engine)
+    return insp.get_foreign_keys(table_name)
+
+
+def get_indexes_for_table(table_name):
+    insp = reflection.Inspector.from_engine(db.engine)
+    return insp.get_indexes(table_name)
