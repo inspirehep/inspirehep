@@ -74,7 +74,7 @@ exports[`Footer renders when cataloger 1`] = `
           Object {
             "openExternal": false,
             "title": "Report metadata issues",
-            "url": "mailto:help@inspirehep.net?subject=[Metadata Issue]",
+            "url": "https://cern.service-now.com/service-portal?id=sc_cat_item&name=inspire&fe=INSPIRE",
           },
         ],
         "title": "Help",
@@ -202,7 +202,7 @@ exports[`Footer renders when not cataloger 1`] = `
           Object {
             "openExternal": false,
             "title": "Report metadata issues",
-            "url": "mailto:help@inspirehep.net?subject=[Metadata Issue]",
+            "url": "https://cern.service-now.com/service-portal?id=sc_cat_item&name=inspire&fe=INSPIRE",
           },
         ],
         "title": "Help",
