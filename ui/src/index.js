@@ -23,11 +23,35 @@ Sentry.init({
   dsn: getConfigFor('REACT_APP_SENTRY_DSN'),
   release: process.env.REACT_APP_VERSION,
   environment: getConfigFor('REACT_APP_SENTRY_ENVIRONMENT'),
-  ignoreErrors: ['ResizeObserver loop limit exceeded']
+  ignoreErrors: [
+    'ResizeObserver loop limit exceeded',
+    'ResizeObserver loop completed with undelivered notifications',
+  ],
 });
 Sentry.setUser({ id: getClientId() });
 
 const store = createStore();
+
+/**
+ * The "ResizeObserver loop limit exceeded" error means that `ResizeObserver` was not
+ * able to deliver all observations within a single animation frame. It doesn't break
+ * the functionality of the application. The W3C considers converting this error to a warning:
+ * https://github.com/w3c/csswg-drafts/issues/5023
+ * We can safely ignore it in the production environment to avoid hammering Sentry and other
+ * libraries relying on `window.addEventListener('error', callback)`.
+ */
+if (typeof window !== 'undefined') {
+  window.addEventListener('error', (error) => {
+    const isResizeObserverLoopError =
+      error.message === 'ResizeObserver loop limit exceeded' ||
+      error.message ===
+        'ResizeObserver loop completed with undelivered notifications';
+
+    if (process.env.NODE_ENV === 'production' && isResizeObserverLoopError) {
+      error.stopImmediatePropagation();
+    }
+  });
+}
 
 ReactDOM.render(
   // eslint-disable-next-line react/jsx-filename-extension
