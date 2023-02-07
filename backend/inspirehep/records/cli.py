@@ -26,6 +26,7 @@ from inspirehep.records.models import RecordsAuthors
 from inspirehep.records.tasks import (
     populate_journal_literature,
     regenerate_author_records_table_entries,
+    remove_bai_from_literature_authors,
 )
 from inspirehep.search.api import LiteratureSearch
 from inspirehep.utils import chunker
@@ -239,3 +240,15 @@ def populate_recid_in_record_authors_table():
     for batch in chunker(records_ids_query.yield_per(100), 100):
         uuids_to_regenerate = [str(uuid[0]) for uuid in batch]
         regenerate_author_records_table_entries.delay(uuids_to_regenerate)
+
+
+@relationships.command(help="Removes BAI from literature records authors")
+@with_appcontext
+def remove_bai_from_literature_records():
+    query = 'authors.ids.schema:"INSPIRE BAI"'
+    search = LiteratureSearch().query_from_iq(query).params(scroll="60m")
+    records_es = search.scan()
+
+    for chunk in chunker(records_es, 100):
+        uuids = [record.meta.id for record in chunk]
+        remove_bai_from_literature_authors.delay(uuids)
