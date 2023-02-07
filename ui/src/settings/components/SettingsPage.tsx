@@ -18,8 +18,12 @@ const SettingsPage = ({
   userOrcid,
   userEmail,
 }: {
-  onChangeEmailAddress: (({ email }: { email: string }) => void | Promise<any>) &
-  Function;
+  onChangeEmailAddress: (({
+    email,
+  }: {
+    email: string;
+  }) => void | Promise<any>) &
+    Function;
   loading: boolean;
   userEmail: string;
   error?: Map<string, string | number>;
@@ -33,7 +37,12 @@ const SettingsPage = ({
       {error && (
         <Row justify="center" align="middle" className="mv3">
           <Col xs={24} md={22} lg={21} xxl={18}>
-            <Alert message={error.get('message') || 'Error occured'} type="error" showIcon closable />
+            <Alert
+              message={error.get('message') || 'Error occured'}
+              type="error"
+              showIcon
+              closable
+            />
           </Col>
         </Row>
       )}
@@ -67,9 +76,9 @@ const SettingsPage = ({
                 key="author_email"
               >
                 <p>
-                  Change the email addresses registered on your author profile,
-                  which is used for contact by other INSPIRE users and automatic
-                  matching of your papers.
+                  Change the email addresses registered on your author profile.
+                  These are used by other INSPIRE users to contact you and for
+                  the automatic matching of your papers.
                 </p>
 
                 <EventTracker
