@@ -132,7 +132,7 @@ exports[`SettingsPage renders page with authors profile section when user has au
           key="author_email"
         >
           <p>
-            Change the email addresses registered on your author profile, which is used for contact by other INSPIRE users and automatic matching of your papers.
+            Change the email addresses registered on your author profile. These are used by other INSPIRE users to contact you and for the automatic matching of your papers.
           </p>
           <EventTracker
             eventAction="Edit"
