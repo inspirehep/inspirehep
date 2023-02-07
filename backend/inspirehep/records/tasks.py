@@ -172,3 +172,28 @@ def populate_journal_literature(uuids):
     for record in records:
         record.update_journal_relations()
         db.session.commit()
+
+
+@shared_task(
+    ignore_results=False,
+    acks_late=True,
+    retry_backoff=2,
+    retry_kwargs={"max_retries": 6},
+    autoretry_for=DB_TASK_EXCEPTIONS,
+)
+def remove_bai_from_literature_authors(uuids):
+    records = LiteratureRecord.get_records(uuids)
+    for record in records:
+        for author in record.get("authors"):
+            author_ids = author.get("ids")
+            if not author_ids:
+                continue
+            new_ids = [
+                id_dict for id_dict in author_ids if id_dict["schema"] != "INSPIRE BAI"
+            ]
+            if new_ids:
+                author["ids"] = new_ids
+            else:
+                del author["ids"]
+        record.update(dict(record))
+        db.session.commit()
