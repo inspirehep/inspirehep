@@ -5,7 +5,8 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import io
+
+from io import BytesIO
 
 import pytest
 import requests_mock
@@ -137,7 +138,6 @@ def test_get_parent_record_for_proceedings_from_es(inspire_app):
 def test_is_document_scanned_when_scanned_pdf(inspire_app):
     scanned_document_url = "http://solutions.weblite.ca/pdfocrx/scansmpl.pdf"
     file_data = download_file_from_url(scanned_document_url, check_file_size=True)
-    file_data = io.BytesIO(file_data)
     assert is_document_scanned(file_data)
 
 
@@ -145,7 +145,6 @@ def test_is_document_scanned_when_scanned_pdf(inspire_app):
 def test_is_document_scanned_with_not_scanned_pdf(inspire_app):
     document_url = "https://inspirehep.net/files/e12e3c55e2844871904fdda01d6cd42d"
     file_data = download_file_from_url(document_url, check_file_size=True)
-    file_data = io.BytesIO(file_data)
     assert not is_document_scanned(file_data)
 
 
@@ -161,3 +160,13 @@ def test_author_by_recid(inspire_app):
     )
     lit_author = get_author_by_recid(literature, author["control_number"])
     assert lit_author["full_name"] == author["name"]["value"]
+
+
+@pytest.mark.vcr
+def test_is_document_scanned_doesnt_corrupt_document(inspire_app):
+    document_url = "https://inspirehep.net/files/e12e3c55e2844871904fdda01d6cd42d"
+    file_data = download_file_from_url(document_url, check_file_size=True)
+    original_pdf = BytesIO(file_data)
+    is_document_scanned(file_data)
+    pdf_after_check = BytesIO(file_data)
+    assert original_pdf.read(10) == pdf_after_check.read(10)

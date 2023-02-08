@@ -5,6 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+from io import BytesIO
 from itertools import chain
 
 import numpy as np
@@ -177,7 +178,8 @@ def remove_author_bai_from_id_list(author):
 
 
 def is_document_scanned(file_data):
-    with pdfplumber.open(file_data) as pdf:
+    byte_stream = BytesIO(file_data)
+    with pdfplumber.open(byte_stream) as pdf:
         for page in pdf.pages:
             page_text = page.extract_text()
             if page_text:
