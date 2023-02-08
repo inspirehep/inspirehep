@@ -506,22 +506,13 @@ class LiteratureRecord(
                 )
                 return result
 
-            file_data = download_file_from_url(url, check_file_size=True)
-            new_key = hash_data(file_data)
-            mimetype = magic.from_buffer(file_data, mime=True)
-            file_data = BytesIO(file_data)
+            data = download_file_from_url(url, check_file_size=True)
+            new_key = hash_data(data)
+            mimetype = magic.from_buffer(data, mime=True)
+            file_data = BytesIO(data)
             filename = filename or key
             if not filename:
                 filename = new_key
-            if not fulltext and mimetype == "application/pdf":
-                try:
-                    if is_document_scanned(file_data):
-                        result["fulltext"] = False
-                except PDFException:
-                    LOGGER.info(
-                        "File supposed to be PDF but PDF reader can't read it!",
-                        filename=filename,
-                    )
             if mimetype in current_app.config.get("FILES_RESTRICTED_MIMETYPES"):
                 LOGGER.error(
                     "Unsupported file type - Aborting",
@@ -557,6 +548,15 @@ class LiteratureRecord(
                     "url": current_s3_instance.get_public_url(new_key),
                 }
             )
+            if not fulltext and mimetype == "application/pdf":
+                try:
+                    if is_document_scanned(data):
+                        result["fulltext"] = False
+                except PDFException:
+                    LOGGER.info(
+                        "File supposed to be PDF but PDF reader can't read it!",
+                        filename=filename,
+                    )
             if (
                 url.startswith("http")
                 and not current_s3_instance.is_s3_url(url)
