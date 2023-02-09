@@ -4,6 +4,7 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+import mock
 from helpers.utils import create_record
 
 from inspirehep.records.api import InspireRecord
@@ -80,3 +81,24 @@ def test_clean_stub_authors_query_all_stub_authors(override_config, inspire_app,
         results = InspireRecord.get_records_by_pids(control_numbers)
         for result in results:
             assert result["deleted"]
+
+
+@mock.patch(
+    "inspirehep.disambiguation.cli.verify_author_has_linked_papers", return_value=True
+)
+def test_clean_stub_authors_checks_if_author_is_stub_before_delete(
+    mock_verify_stub_author, override_config, inspire_app, cli
+):
+    with override_config(
+        FEATURE_FLAG_ENABLE_BAI_PROVIDER=True, FEATURE_FLAG_ENABLE_BAI_CREATION=True
+    ):
+        control_numbers = []
+        for _ in range(2):
+            rec = create_record("aut", data={"stub": True}, with_control_number=True)
+            control_numbers.append(("aut", str(rec["control_number"])))
+
+        cli.invoke(["disambiguation", "clean_stub_authors"])
+
+        results = InspireRecord.get_records_by_pids(control_numbers)
+        for result in results:
+            assert not result.get("deleted")
