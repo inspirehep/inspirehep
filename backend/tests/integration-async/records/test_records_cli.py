@@ -68,7 +68,9 @@ def test_remove_bai_from_literature_records(inspire_app, cli, clean_celery_sessi
 
     retry_until_pass(assert_records_added)
 
-    cli.invoke(["relationships", "remove_bai_from_literature_records"])
+    cli.invoke(
+        ["relationships", "remove_bai_from_literature_records", "--total-records", "2"]
+    )
 
     def assert_bai_removed():
         record_lit_es = (
