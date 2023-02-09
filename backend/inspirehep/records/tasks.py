@@ -195,5 +195,5 @@ def remove_bai_from_literature_authors(uuids):
                 author["ids"] = new_ids
             else:
                 del author["ids"]
-        record.update(dict(record))
+        record.update(dict(record), disable_disambiguation=True)
         db.session.commit()
