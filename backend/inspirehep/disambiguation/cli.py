@@ -13,6 +13,7 @@ from elasticsearch_dsl import Q
 from flask.cli import with_appcontext
 from flask_celeryext.app import current_celery_app
 from invenio_db import db
+from sqlalchemy.orm.exc import NoResultFound
 
 from inspirehep.disambiguation.tasks import disambiguate_authors
 from inspirehep.errors import DB_TASK_EXCEPTIONS
@@ -69,6 +70,8 @@ def clean_stub_authors():
     failed_removals = 0
     for author_recid in authors_to_remove:
         try:
+            if verify_author_has_linked_papers(author_recid):
+                continue
             author = stub_authors_recids[author_recid]
             author.delete()
             db.session.commit()
@@ -81,6 +84,13 @@ def clean_stub_authors():
         number_of_removed_authors=len(authors_to_remove) - failed_removals,
         number_of_failed_removals=failed_removals,
     )
+
+
+def verify_author_has_linked_papers(recid):
+    try:
+        return RecordsAuthors.query.filter_by(id_type="recid", author_id=recid).all()
+    except NoResultFound:
+        return False
 
 
 def query_authors_with_linked_papers_by_recid(author_recids):
