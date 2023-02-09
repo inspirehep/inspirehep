@@ -7,6 +7,7 @@
 
 import datetime
 import os
+from itertools import islice
 
 import click
 import orjson
@@ -14,6 +15,7 @@ import requests
 import structlog
 from flask import current_app
 from flask.cli import with_appcontext
+from flask_celeryext.app import current_celery_app
 from invenio_db import db
 from invenio_records.api import RecordMetadata
 from sqlalchemy import DateTime, cast, not_, or_, type_coerce
@@ -243,12 +245,48 @@ def populate_recid_in_record_authors_table():
 
 
 @relationships.command(help="Removes BAI from literature records authors")
+@click.option(
+    "--total-records",
+    type=int,
+    help="Number of records to disambiguate, if not passed all records with at least one not disambiguated will be sent to the queue",
+)
+@click.option(
+    "--indexing-queue-limit",
+    type=int,
+    default=10000,
+    show_default=True,
+    help="Number of records to disambiguate, if not passed all records with at least one not disambiguated will be sent to the queue",
+)
+@click.option(
+    "--disambiguation-queue-limit",
+    type=int,
+    default=10000,
+    show_default=True,
+    help="Number of records to disambiguate, if not passed all records with at least one not disambiguated will be sent to the queue",
+)
 @with_appcontext
-def remove_bai_from_literature_records():
+def remove_bai_from_literature_records(
+    total_records, indexing_queue_limit, disambiguation_queue_limit
+):
+    with current_celery_app.connection_or_acquire() as conn:
+        indexer_queue = conn.default_channel.queue_declare(
+            queue="indexer_task", passive=True
+        )
+        disambiguation_queue = conn.default_channel.queue_declare(
+            queue="disambiguation", passive=True
+        )
+    if (
+        disambiguation_queue.message_count > disambiguation_queue_limit
+        or indexer_queue.message_count > indexing_queue_limit
+    ):
+        click.echo("MQ queues are full, can't run disambiguation")
+        return
     query = 'authors.ids.schema:"INSPIRE BAI"'
     search = LiteratureSearch().query_from_iq(query).params(scroll="60m")
     records_es = search.scan()
+    if total_records:
+        documents = islice(records_es, total_records)
 
-    for chunk in chunker(records_es, 100):
+    for chunk in chunker(documents, 100):
         uuids = [record.meta.id for record in chunk]
         remove_bai_from_literature_authors.delay(uuids)
