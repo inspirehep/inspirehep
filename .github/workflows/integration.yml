@@ -1071,9 +1071,9 @@ jobs:
     needs: push
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: Bhacaz/checkout-files@v2
         with:
-          ref: ${{ env.REF }}
+          files: backend
 
       - name: Export requirements.txt
         uses: divideprojects/poetry-export-requirements-action@v1
