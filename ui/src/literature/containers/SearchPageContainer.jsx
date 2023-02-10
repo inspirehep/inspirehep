@@ -21,7 +21,7 @@ export function SearchPage({ assignView, numberOfSelected, error }) {
   return (
     <>
       <DocumentHead title={TITLE} description={META_DESCRIPTION} />
-      {error ? (
+      {error && error.get('message') === 'The syntax of the search query is invalid.' ? (
         <Row justify="center" className="mv3">
           <Col xs={24} lg={12}>
             <Empty
