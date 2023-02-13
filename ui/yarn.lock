@@ -6741,7 +6741,7 @@ inquirer@^6.1.0:
     strip-ansi "^5.1.0"
     through "^2.3.6"
 
-inspire-schemas@^61.2.6-2-g90a8aaf:
+inspire-schemas@^61.3.1:
   version "61.3.1"
   resolved "https://registry.yarnpkg.com/inspire-schemas/-/inspire-schemas-61.3.1.tgz#146631ad64ee7f85522b7ec17e75dc93b7f23b2a"
   integrity sha512-a2Mq5vFKt09sWksMBLwSjHNtEwziVwuLgE1d8LTMg4W3myIylU/ba8I0O0hKQbaqTlYgIozP3j2OdPKVfX0Syg==

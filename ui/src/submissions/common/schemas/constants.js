@@ -1,4 +1,5 @@
 import { countryCodeToName } from 'inspire-schemas';
+
 import getValue from '../getValue';
 import {
   RANK_VALUE_TO_DISPLAY,
