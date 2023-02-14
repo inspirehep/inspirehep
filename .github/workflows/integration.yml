@@ -25,8 +25,7 @@ jobs:
       - name: Lint Code Base
         uses: github/super-linter@v4
         env:
-          FILTER_REGEX_INCLUDE: .github/.*.yml
-          FILTER_REGEX_EXCLUDE: .github/workflows/hotfix.yml
+          FILTER_REGEX_EXCLUDE: .github/.*.yml
           VALIDATE_ALL_CODEBASE: false # validates only new files
           DEFAULT_BRANCH: master
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
