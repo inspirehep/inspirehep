@@ -2,9 +2,9 @@ name: Hotfix
 
 on:
   push:
-    branches: [hotfix-*]
+    branches: [hotfix-**]
   pull_request_target:
-    branches: [hotfix-*]
+    branches: [hotfix-**]
 
 env:
   REF: ${{ github.event.pull_request.head.sha || github.sha }}
