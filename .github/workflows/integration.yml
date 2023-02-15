@@ -569,6 +569,7 @@ jobs:
           -f data/records/authors/1274753.json
           -f data/records/institutions/902858.json
           -f data/records/experiments/1513946.json
+          -f data/records/literature/44707.json
           -f data/records/literature/1331798.json
           -f data/records/literature/1325985.json
           -f data/records/literature/1306493.json

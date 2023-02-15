@@ -14,6 +14,7 @@ exports[`NoAuthorsClaimingButton renders 1`] = `
         title="This paper has no authors."
       >
         <ForwardRef(InternalButton)
+          data-test-id="btn-claiming-authors"
           disabled={true}
         >
           <IconText

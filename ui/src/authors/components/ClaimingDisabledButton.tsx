@@ -11,7 +11,7 @@ const ClaimingDisabledButton = () => <UserAction>
     disabled
     title={
       <Tooltip title='Login to claim your papers'>
-        <Button disabled>
+        <Button disabled data-test-id="btn-claiming-login">
           <IconText text="claim" icon={<FileDoneOutlined />} />
         </Button>
       </Tooltip>

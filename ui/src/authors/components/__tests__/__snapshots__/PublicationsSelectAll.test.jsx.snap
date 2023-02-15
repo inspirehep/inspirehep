@@ -3,6 +3,7 @@
 exports[`PublicationsSelectAll render unchecked if all publications are not part of the selection 1`] = `
 <Checkbox
   checked={false}
+  data-test-id="select-all-publications"
   onChange={[Function]}
 />
 `;
@@ -10,12 +11,14 @@ exports[`PublicationsSelectAll render unchecked if all publications are not part
 exports[`PublicationsSelectAll renders checked if all publications are part of the selection 1`] = `
 <Checkbox
   checked={true}
+  data-test-id="select-all-publications"
   onChange={[Function]}
 />
 `;
 
 exports[`PublicationsSelectAll renders disabled 1`] = `
 <Checkbox
+  data-test-id="select-all-publications"
   disabled={true}
   onChange={[Function]}
 />

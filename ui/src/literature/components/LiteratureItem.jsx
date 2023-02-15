@@ -105,164 +105,166 @@ function LiteratureItem({
     : null;
 
   return (
-    <ResultItem
-      leftActions={
-        <Fragment>
-          {fullTextLinks && (
-            <UrlsAction
-              urls={fullTextLinks}
-              icon={<FilePdfOutlined />}
-              text="pdf"
-              trackerEventId="Pdf download"
-              eventAction="Download"
-              page={page}
-            />
-          )}
-          {urls && (
-            <UrlsAction
-              urls={urls}
-              text="links"
-              trackerEventId="Literature file"
-              page={page}
-            />
-          )}
-          {dois && <DOILinkAction dois={dois} page={page} />}
-          <CiteModalActionContainer recordId={recordId} page={page} />
-          {datasetLinks && (
-            <UrlsAction
-              urls={datasetLinks}
-              icon={<DatabaseOutlined />}
-              text="datasets"
-              trackerEventId="Dataset links"
-              page={page}
-            />
-          )}
-          {canEdit && (
-            <EditRecordAction pidType="literature" pidValue={recordId} page={page} />
-          )}
-          {assignAuthorView && <AssignOneActionContainer recordId={recordId} />}
-          {assignOwnProfileView && !assignAuthorView && (
-            <AssignOneOwnProfileContainer
-              recordId={recordId}
-              disabledAssignAction={curatedRelation}
-            />
-          )}
-          {assignDifferentProfileView && !assignOwnProfileView && (
-            <AssignOneDifferentProfileContainer
-              recordId={recordId}
-              claimingClaimedPapersDisabled={!curatedRelation}
-              claimingUnclaimedPapersDisabled={curatedRelation}
-              userCanNotClaimProfile={!canClaimDifferentProfile}
-            />
-          )}
-          {assignNoProfileViewCondition && <AssignNoProfileAction />}
-          {assignNotLoggedInViewCondition && <ClaimingDisabledButton />}
-          {assignLiteratureViewCondition && (
-            <LiteratureClaimButton
-              loggedIn={loggedIn}
-              hasAuthorProfile={hasAuthorProfile}
-              authors={authors}
-              controlNumber={recordId}
-              page={page}
-            />
-          )}
-        </Fragment>
-      }
-      rightActions={
-        <Fragment>
-          <ReferenceSearchLinkAction recordId={recordId} page={page} />
-          {citationCount != null && (
-            <IncomingLiteratureReferencesLinkAction
-              linkQuery={getPapersQueryString(recordId)}
-              referenceType="citation"
-              itemCount={citationCount}
-              trackerEventId="Citations link"
-              eventCategory={page}
-            />
-          )}
-        </Fragment>
-      }
-    >
-      <div data-test-id="literature-result-item">
-        <div className="flex flex-nowrap">
-          <div className="flex-grow-1">
-            <Link
-              data-test-id="literature-result-title-link"
-              className="result-item-title"
-              to={`${LITERATURE}/${recordId}`}
-            >
-              <LiteratureTitle title={title} />
-              {(assignAuthorView || assignOwnProfileView) && !curatedRelation && (
-                <Tooltip title="Unclaimed paper. Click on the Claim button to claim or remove it from the profile">
-                  <FileExclamationTwoTone className="ml1" />
-                </Tooltip>
-              )}
-            </Link>
-          </div>
-          <ResponsiveView
-            min="sm"
-            render={() => (
-              <div
-                data-test-id="literature-result-rank"
-                className="light-silver pl2"
-              >
-                #{searchRank}
-              </div>
-            )}
-          />
-        </div>
-        <div className="mt1">
-          <AuthorsAndCollaborations
-            authorCount={authorCount}
-            authors={authors}
-            collaborations={collaborations}
-            collaborationsWithSuffix={collaborationsWithSuffix}
-            page={page}
-          />
-          {date && (
-            <>
-              {' ('}
-              <LiteratureDate date={date} />)
-            </>
-          )}
-        </div>
-        <div className="mt1">
-          <InlineUL separator={SEPARATOR_MIDDLEDOT}>
-            {bookSeries && <BookSeriesInfoList bookSeries={bookSeries} />}
-            {publicationInfoWithTitle && publicationInfoWithTitle.size > 0 && (
-              <PublicationInfoList publicationInfo={publicationInfoWithTitle} />
-            )}
-            {conferenceInfo && (
-              <ConferenceInfoList
-                conferenceInfo={conferenceInfo}
-                isProceedings={
-                  documentType && documentType.toJS().includes('proceedings')
-                }
+    <div data-test-id="literature-result-item">
+      <ResultItem
+        leftActions={
+          <Fragment>
+            {fullTextLinks && (
+              <UrlsAction
+                urls={fullTextLinks}
+                icon={<FilePdfOutlined />}
+                text="pdf"
+                trackerEventId="Pdf download"
+                eventAction="Download"
+                page={page}
               />
             )}
-            {eprints && <ArxivEprintList page="Literature search" eprints={eprints} />}
-          </InlineUL>
-        </div>
-        {isCatalogerLoggedIn && (
+            {urls && (
+              <UrlsAction
+                urls={urls}
+                text="links"
+                trackerEventId="Literature file"
+                page={page}
+              />
+            )}
+            {dois && <DOILinkAction dois={dois} page={page} />}
+            <CiteModalActionContainer recordId={recordId} page={page} />
+            {datasetLinks && (
+              <UrlsAction
+                urls={datasetLinks}
+                icon={<DatabaseOutlined />}
+                text="datasets"
+                trackerEventId="Dataset links"
+                page={page}
+              />
+            )}
+            {canEdit && (
+              <EditRecordAction pidType="literature" pidValue={recordId} page={page} />
+            )}
+            {assignAuthorView && <AssignOneActionContainer recordId={recordId} />}
+            {assignOwnProfileView && !assignAuthorView && (
+              <AssignOneOwnProfileContainer
+                recordId={recordId}
+                disabledAssignAction={curatedRelation}
+              />
+            )}
+            {assignDifferentProfileView && !assignOwnProfileView && (
+              <AssignOneDifferentProfileContainer
+                recordId={recordId}
+                claimingClaimedPapersDisabled={!curatedRelation}
+                claimingUnclaimedPapersDisabled={curatedRelation}
+                userCanNotClaimProfile={!canClaimDifferentProfile}
+              />
+            )}
+            {assignNoProfileViewCondition && <AssignNoProfileAction />}
+            {assignNotLoggedInViewCondition && <ClaimingDisabledButton />}
+            {assignLiteratureViewCondition && (
+              <LiteratureClaimButton
+                loggedIn={loggedIn}
+                hasAuthorProfile={hasAuthorProfile}
+                authors={authors}
+                controlNumber={recordId}
+                page={page}
+              />
+            )}
+          </Fragment>
+        }
+        rightActions={
+          <Fragment>
+            <ReferenceSearchLinkAction recordId={recordId} page={page} />
+            {citationCount != null && (
+              <IncomingLiteratureReferencesLinkAction
+                linkQuery={getPapersQueryString(recordId)}
+                referenceType="citation"
+                itemCount={citationCount}
+                trackerEventId="Citations link"
+                eventCategory={page}
+              />
+            )}
+          </Fragment>
+        }
+      >
+        <div data-test-id="literature-result-item-inner">
+          <div className="flex flex-nowrap">
+            <div className="flex-grow-1">
+              <Link
+                data-test-id="literature-result-title-link"
+                className="result-item-title"
+                to={`${LITERATURE}/${recordId}`}
+              >
+                <LiteratureTitle title={title} />
+                {(assignAuthorView || assignOwnProfileView) && !curatedRelation && (
+                  <Tooltip title="Unclaimed paper. Click on the Claim button to claim or remove it from the profile">
+                    <FileExclamationTwoTone className="ml1" />
+                  </Tooltip>
+                )}
+              </Link>
+            </div>
+            <ResponsiveView
+              min="sm"
+              render={() => (
+                <div
+                  data-test-id="literature-result-rank"
+                  className="light-silver pl2"
+                >
+                  #{searchRank}
+                </div>
+              )}
+            />
+          </div>
+          <div className="mt1">
+            <AuthorsAndCollaborations
+              authorCount={authorCount}
+              authors={authors}
+              collaborations={collaborations}
+              collaborationsWithSuffix={collaborationsWithSuffix}
+              page={page}
+            />
+            {date && (
+              <>
+                {' ('}
+                <LiteratureDate date={date} />)
+              </>
+            )}
+          </div>
           <div className="mt1">
             <InlineUL separator={SEPARATOR_MIDDLEDOT}>
-              <PublicNotesList publicNotes={publicNotes} />
+              {bookSeries && <BookSeriesInfoList bookSeries={bookSeries} />}
+              {publicationInfoWithTitle && publicationInfoWithTitle.size > 0 && (
+                <PublicationInfoList publicationInfo={publicationInfoWithTitle} />
+              )}
+              {conferenceInfo && (
+                <ConferenceInfoList
+                  conferenceInfo={conferenceInfo}
+                  isProceedings={
+                    documentType && documentType.toJS().includes('proceedings')
+                  }
+                />
+              )}
+              {eprints && <ArxivEprintList page="Literature search" eprints={eprints} />}
             </InlineUL>
           </div>
-        )}
-      </div>
-      {fulltextSnippet && (
-        <div className="mt1">
-          <FulltextSnippet snippet={fulltextSnippet.valueSeq().first()} />
+          {isCatalogerLoggedIn && (
+            <div className="mt1">
+              <InlineUL separator={SEPARATOR_MIDDLEDOT}>
+                <PublicNotesList publicNotes={publicNotes} />
+              </InlineUL>
+            </div>
+          )}
         </div>
-      )}
-      {authors && (
-        <AssignLiteratureItemDrawerContainer
-          itemLiteratureId={recordId}
-          page={page}
-        />
-      )}
-    </ResultItem>
+        {fulltextSnippet && (
+          <div className="mt1">
+            <FulltextSnippet snippet={fulltextSnippet.valueSeq().first()} />
+          </div>
+        )}
+        {authors && (
+          <AssignLiteratureItemDrawerContainer
+            itemLiteratureId={recordId}
+            page={page}
+          />
+        )}
+      </ResultItem>
+    </div>
   );
 }
 

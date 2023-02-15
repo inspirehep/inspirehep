@@ -57,7 +57,7 @@ export function assignSuccess({
     message: 'Processing request...',
     duration: null,
     description: (
-      <span>
+      <span data-test-id="claim-notification-description">
         Selected papers ({literatureIds.join(", ")}) will be moved from{' '}
         <LinkWithTargetBlank target="_blank" href={`${AUTHORS}/${from}`}>
           {from}
@@ -95,6 +95,7 @@ export function assignSuccessOwnProfile({
 
 export function unassignSuccessOwnProfile(numberOfPapers: number) {
   const message = resolveSuccessMessage(numberOfPapers, 'removed from');
+  notification.close(ASSIGNING_NOTIFICATION_KEY);
   notification.success({
     message,
     duration: null,

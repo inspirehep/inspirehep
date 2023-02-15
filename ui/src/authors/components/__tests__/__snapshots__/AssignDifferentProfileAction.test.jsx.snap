@@ -13,7 +13,9 @@ exports[`AssignDifferentProfileAction renders 1`] = `
         placement="top"
         title={null}
       >
-        <ForwardRef(InternalButton)>
+        <ForwardRef(InternalButton)
+          data-test-id="claim-multiple"
+        >
           <IconText
             icon={<ForwardRef(FileDoneOutlined) />}
             text="claim"
@@ -46,7 +48,9 @@ exports[`AssignDifferentProfileAction renders disabled 1`] = `
         placement="top"
         title="Please select the papers you want to claim or remove from the profile."
       >
-        <ForwardRef(InternalButton)>
+        <ForwardRef(InternalButton)
+          data-test-id="claim-multiple"
+        >
           <IconText
             icon={<ForwardRef(FileDoneOutlined) />}
             text="claim"
@@ -79,7 +83,9 @@ exports[`AssignDifferentProfileAction renders with claimingUnclaimedPapersDisabl
         placement="top"
         title="Please select the papers you want to claim or remove from the profile."
       >
-        <ForwardRef(InternalButton)>
+        <ForwardRef(InternalButton)
+          data-test-id="claim-multiple"
+        >
           <IconText
             icon={<ForwardRef(FileDoneOutlined) />}
             text="claim"

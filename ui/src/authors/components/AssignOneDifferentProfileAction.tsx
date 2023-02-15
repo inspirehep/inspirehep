@@ -24,7 +24,7 @@ function AssignOneDifferentProfileAction({
     <UserAction>
       <DropdownMenu
         title={
-          <Button>
+          <Button data-test-id="btn-claim">
             <IconText text="claim" icon={<FileDoneOutlined />} />
           </Button>
         }

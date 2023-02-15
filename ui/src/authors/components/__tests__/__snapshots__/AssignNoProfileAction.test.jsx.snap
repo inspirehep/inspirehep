@@ -24,6 +24,7 @@ exports[`AssignNoProfileAction renders 1`] = `
         }
       >
         <ForwardRef(InternalButton)
+          data-test-id="btn-claiming-profile"
           disabled={true}
         >
           <IconText
