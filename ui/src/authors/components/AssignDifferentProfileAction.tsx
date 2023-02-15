@@ -25,7 +25,7 @@ function AssignDifferentProfileAction({ disabled, currentUserId, onAssign }: { d
                 : null
             }
           >
-            <Button>
+            <Button data-test-id="claim-multiple">
               <IconText text="claim" icon={<FileDoneOutlined />} />
             </Button>
           </Tooltip>

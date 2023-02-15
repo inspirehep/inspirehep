@@ -5,7 +5,9 @@ exports[`AssignDifferentProfileAction renders 1`] = `
   <DropdownMenu
     disabled={false}
     title={
-      <ForwardRef(InternalButton)>
+      <ForwardRef(InternalButton)
+        data-test-id="btn-claim"
+      >
         <IconText
           icon={<ForwardRef(FileDoneOutlined) />}
           text="claim"
@@ -37,7 +39,9 @@ exports[`AssignDifferentProfileAction renders disabled 1`] = `
   <DropdownMenu
     disabled={false}
     title={
-      <ForwardRef(InternalButton)>
+      <ForwardRef(InternalButton)
+        data-test-id="btn-claim"
+      >
         <IconText
           icon={<ForwardRef(FileDoneOutlined) />}
           text="claim"

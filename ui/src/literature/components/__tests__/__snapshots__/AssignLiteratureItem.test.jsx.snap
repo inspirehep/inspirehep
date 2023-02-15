@@ -5,7 +5,9 @@ exports[`AssignLiteratureItem renders 1`] = `
   <DropdownMenu
     disabled={false}
     title={
-      <ForwardRef(InternalButton)>
+      <ForwardRef(InternalButton)
+        data-test-id="btn-claiming-literature"
+      >
         <IconText
           icon={<ForwardRef(FileDoneOutlined) />}
           text="claim"

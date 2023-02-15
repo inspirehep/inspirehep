@@ -37,6 +37,7 @@ function PublicationsSelectAll<T>({
     <Checkbox
       disabled={disabled}
       checked={checked}
+      data-test-id="select-all-publications"
       onChange={(event) => {
         onChange(
           publications.map(getRecordId),

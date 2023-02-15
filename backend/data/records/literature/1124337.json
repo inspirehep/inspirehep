@@ -55344,7 +55344,7 @@
   "imprints": [{ "date": "2012-09-17" }],
   "inspire_categories": [{ "term": "Experiment-HEP" }],
   "keywords": [
-    { "schema": "PDG", "source": "PDG", "value": "S055H" },
+    { "schema": "PDG", "source": "PDG", "value": "S055HAD" },
     { "schema": "PDG", "source": "PDG", "value": "S126SA" },
     { "schema": "PDG", "source": "PDG", "value": "S126STT" },
     { "schema": "PDG", "source": "PDG", "value": "S126SBB" },

@@ -13,7 +13,9 @@ exports[`AssignOwnProfileAction renders 1`] = `
         placement="top"
         title={null}
       >
-        <ForwardRef(InternalButton)>
+        <ForwardRef(InternalButton)
+          data-test-id="btn-claim"
+        >
           <IconText
             icon={<ForwardRef(FileDoneOutlined) />}
             text="claim"
@@ -80,7 +82,9 @@ exports[`AssignOwnProfileAction renders disabled 1`] = `
         placement="top"
         title="Please select the papers you want to claim or remove from the profile."
       >
-        <ForwardRef(InternalButton)>
+        <ForwardRef(InternalButton)
+          data-test-id="btn-claim"
+        >
           <IconText
             icon={<ForwardRef(FileDoneOutlined) />}
             text="claim"
@@ -148,7 +152,9 @@ exports[`AssignOwnProfileAction renders plural form if numberOfSelected is more 
         placement="top"
         title={null}
       >
-        <ForwardRef(InternalButton)>
+        <ForwardRef(InternalButton)
+          data-test-id="btn-claim"
+        >
           <IconText
             icon={<ForwardRef(FileDoneOutlined) />}
             text="claim"
@@ -215,7 +221,9 @@ exports[`AssignOwnProfileAction renders singular form if numberOfSelected is 1 1
         placement="top"
         title={null}
       >
-        <ForwardRef(InternalButton)>
+        <ForwardRef(InternalButton)
+          data-test-id="btn-claim"
+        >
           <IconText
             icon={<ForwardRef(FileDoneOutlined) />}
             text="claim"
@@ -282,7 +290,9 @@ exports[`AssignOwnProfileAction renders with disabled assign action 1`] = `
         placement="top"
         title={null}
       >
-        <ForwardRef(InternalButton)>
+        <ForwardRef(InternalButton)
+          data-test-id="btn-claim"
+        >
           <IconText
             icon={<ForwardRef(FileDoneOutlined) />}
             text="claim"
