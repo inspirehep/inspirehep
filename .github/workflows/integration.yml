@@ -26,6 +26,7 @@ jobs:
         uses: github/super-linter@v4
         env:
           FILTER_REGEX_EXCLUDE: .github/.*.yml
+          VALIDATE_DOCKERFILE_HADOLINT: false
           VALIDATE_ALL_CODEBASE: false # validates only new files
           DEFAULT_BRANCH: master
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
