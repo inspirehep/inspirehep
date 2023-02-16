@@ -7,7 +7,7 @@ describe('emptyObjectOrShapeOf', () => {
     foo: string().required(),
   });
 
-  it('validates empty object', async done => {
+  it('validates empty object', async () => {
     let validationError;
     try {
       await emptyObjectOrHasRequiredFooSchema.validate({});
@@ -15,10 +15,9 @@ describe('emptyObjectOrShapeOf', () => {
       validationError = error;
     }
     expect(validationError).toBeUndefined();
-    done();
   });
 
-  it('validates empty object if object has only empty properties', async done => {
+  it('validates empty object if object has only empty properties', async () => {
     let validationError;
     try {
       await emptyObjectOrHasRequiredFooSchema.validate({ foo: '' });
@@ -26,10 +25,9 @@ describe('emptyObjectOrShapeOf', () => {
       validationError = error;
     }
     expect(validationError).toBeUndefined();
-    done();
   });
 
-  it('validates according to shape schema', async done => {
+  it('validates according to shape schema', async () => {
     const data = {
       foo: 'bar',
     };
@@ -40,10 +38,9 @@ describe('emptyObjectOrShapeOf', () => {
       validationError = error;
     }
     expect(validationError).toBeUndefined();
-    done();
   });
 
-  it('invalidates according to shape schema', async done => {
+  it('invalidates according to shape schema', async () => {
     const data = {
       notFoo: 'bar',
     };
@@ -54,6 +51,5 @@ describe('emptyObjectOrShapeOf', () => {
       validationError = error;
     }
     expect(validationError).toBeDefined();
-    done();
   });
 });

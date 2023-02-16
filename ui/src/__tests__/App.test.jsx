@@ -5,7 +5,11 @@ import { mount } from 'enzyme';
 import { fromJS, List } from 'immutable';
 import Loadable from 'react-loadable';
 
-import { getStore, getStoreWithState } from '../fixtures/store';
+import {
+  getStore,
+  getStoreWithState,
+  mockActionCreator,
+} from '../fixtures/store';
 import App from '../App';
 import Holdingpen from '../holdingpen';
 import Home from '../home';
@@ -17,11 +21,14 @@ import Authors from '../authors';
 import { setUserCategoryFromRoles } from '../tracker';
 import Jobs from '../jobs';
 import Conferences from '../conferences';
-import { LOGGED_IN_USER_REQUEST } from '../actions/actionTypes';
 import BibliographyGeneratorPageContainer from '../bibliographyGenerator/BibliographyGeneratorPageContainer';
 import Journals from '../journals';
+import { userSignUp, fetchLoggedInUser } from '../actions/user';
 
 jest.mock('../tracker');
+jest.mock('../actions/user');
+mockActionCreator(userSignUp);
+mockActionCreator(fetchLoggedInUser);
 
 describe('App', () => {
   afterEach(() => {
@@ -49,7 +56,7 @@ describe('App', () => {
     );
   });
 
-  it('dispatches LOGGED_IN_USER_REQUEST on mount', () => {
+  it('dispatches fetchLoggedInUser on mount', () => {
     const store = getStore();
     mount(
       <Provider store={store}>
@@ -60,7 +67,8 @@ describe('App', () => {
     );
     const expectedActions = [
       {
-        type: LOGGED_IN_USER_REQUEST,
+        type: 'fetchLoggedInUser',
+        payload: [],
       },
     ];
     expect(store.getActions()).toEqual(expectedActions);
@@ -255,10 +263,7 @@ describe('App', () => {
   it('navigates to Journals when /journals', () => {
     const wrapper = mount(
       <Provider store={getStore()}>
-        <MemoryRouter
-          initialEntries={['/journals']}
-          initialIndex={0}
-        >
+        <MemoryRouter initialEntries={['/journals']} initialIndex={0}>
           <App />
         </MemoryRouter>
       </Provider>

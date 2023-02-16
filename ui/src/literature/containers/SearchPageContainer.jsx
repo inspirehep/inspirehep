@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import LiteratureSearchContainer from './LiteratureSearchContainer';
 import { LITERATURE_NS } from '../../search/constants';
 import DocumentHead from '../../common/components/DocumentHead';
-import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank.tsx';
+import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank';
 import { PAPER_SEARCH_URL } from '../../common/constants';
 import AssignViewContext from '../AssignViewContext';
 import AssignConferencesDrawerContainer from './AssignConferencesDrawerContainer';

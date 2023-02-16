@@ -1,5 +1,6 @@
 import { connect, RootStateOrAny } from 'react-redux';
 import { Action, ActionCreator } from 'redux';
+import { CheckboxChangeEvent } from 'antd/lib/checkbox';
 
 import PublicationsSelect from '../components/PublicationsSelect';
 import {
@@ -7,7 +8,6 @@ import {
   setPublicationsClaimedSelection,
   setPublicationsUnclaimedSelection,
 } from '../../actions/authors';
-import { CheckboxChangeEvent } from 'antd/lib/checkbox';
 
 const stateToProps = (state: RootStateOrAny, { recordId }: { recordId: number }) => ({
   checked: state.authors.get('publicationSelection').has(recordId),

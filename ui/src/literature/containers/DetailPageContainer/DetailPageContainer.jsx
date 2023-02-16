@@ -14,9 +14,9 @@ import {
 } from '../../../actions/literature';
 import Abstract from '../../components/Abstract';
 import ArxivEprintList from '../../components/ArxivEprintList';
-import EditRecordAction from '../../../common/components/EditRecordAction.tsx';
+import EditRecordAction from '../../../common/components/EditRecordAction';
 import DOIList from '../../components/DOIList';
-import { PDGKeywords } from '../../components/PDGKeywords.tsx';
+import { PDGKeywords } from '../../components/PDGKeywords';
 import KeywordList from '../../../common/components/KeywordList';
 import AuthorsAndCollaborations from '../../../common/components/AuthorsAndCollaborations';
 import ExternalSystemIdentifierList from '../../components/ExternalSystemIdentifierList';

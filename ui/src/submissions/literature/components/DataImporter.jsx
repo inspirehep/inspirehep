@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 import { Input, Button, Alert, Row, Col, Tooltip, Form } from 'antd';
 
-import LinkWithTargetBlank from '../../../common/components/LinkWithTargetBlank.tsx';
+import LinkWithTargetBlank from '../../../common/components/LinkWithTargetBlank';
 import LinkLikeButton from '../../../common/components/LinkLikeButton/LinkLikeButton';
 import { LABEL_COL, WRAPPER_COL } from '../../common/withFormItem';
 

@@ -7,7 +7,7 @@ import { CalendarOutlined } from '@ant-design/icons';
 import UserAction from '../../../common/components/UserAction';
 import IconText from '../../../common/components/IconText';
 import DropdownMenu from '../../../common/components/DropdownMenu';
-import LinkWithTargetBlank from '../../../common/components/LinkWithTargetBlank.tsx';
+import LinkWithTargetBlank from '../../../common/components/LinkWithTargetBlank';
 import getIcsFileContent from './ics';
 import { downloadTextAsFile } from '../../../common/utils';
 import getGoogleCalendarUrl from './google';

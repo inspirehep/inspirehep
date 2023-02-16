@@ -5,7 +5,7 @@ exports[`AssignDifferentProfileAction renders 1`] = `
   <DropdownMenu
     disabled={false}
     title={
-      <ForwardRef
+      <Tooltip
         arrowPointAtCenter={false}
         autoAdjustOverflow={true}
         mouseEnterDelay={0.1}
@@ -13,15 +13,15 @@ exports[`AssignDifferentProfileAction renders 1`] = `
         placement="top"
         title={null}
       >
-        <ForwardRef(InternalButton)
+        <Button
           data-test-id="claim-multiple"
         >
           <IconText
             icon={<ForwardRef(FileDoneOutlined) />}
             text="claim"
           />
-        </ForwardRef(InternalButton)>
-      </ForwardRef>
+        </Button>
+      </Tooltip>
     }
   >
     <MenuItem
@@ -40,7 +40,7 @@ exports[`AssignDifferentProfileAction renders disabled 1`] = `
   <DropdownMenu
     disabled={true}
     title={
-      <ForwardRef
+      <Tooltip
         arrowPointAtCenter={false}
         autoAdjustOverflow={true}
         mouseEnterDelay={0.1}
@@ -48,15 +48,15 @@ exports[`AssignDifferentProfileAction renders disabled 1`] = `
         placement="top"
         title="Please select the papers you want to claim or remove from the profile."
       >
-        <ForwardRef(InternalButton)
+        <Button
           data-test-id="claim-multiple"
         >
           <IconText
             icon={<ForwardRef(FileDoneOutlined) />}
             text="claim"
           />
-        </ForwardRef(InternalButton)>
-      </ForwardRef>
+        </Button>
+      </Tooltip>
     }
   >
     <MenuItem
@@ -75,7 +75,7 @@ exports[`AssignDifferentProfileAction renders with claimingUnclaimedPapersDisabl
   <DropdownMenu
     disabled={true}
     title={
-      <ForwardRef
+      <Tooltip
         arrowPointAtCenter={false}
         autoAdjustOverflow={true}
         mouseEnterDelay={0.1}
@@ -83,15 +83,15 @@ exports[`AssignDifferentProfileAction renders with claimingUnclaimedPapersDisabl
         placement="top"
         title="Please select the papers you want to claim or remove from the profile."
       >
-        <ForwardRef(InternalButton)
+        <Button
           data-test-id="claim-multiple"
         >
           <IconText
             icon={<ForwardRef(FileDoneOutlined) />}
             text="claim"
           />
-        </ForwardRef(InternalButton)>
-      </ForwardRef>
+        </Button>
+      </Tooltip>
     }
   >
     <MenuItem

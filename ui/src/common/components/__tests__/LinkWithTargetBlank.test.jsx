@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { Button } from 'antd';
 
-import LinkWithTargetBlank from '../LinkWithTargetBlank.tsx';
+import LinkWithTargetBlank from '../LinkWithTargetBlank';
 
 describe('LinkWithTargetBlank', () => {
   it('renders with only href and children', () => {

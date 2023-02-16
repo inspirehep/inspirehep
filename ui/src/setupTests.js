@@ -24,7 +24,7 @@ global.CONFIG = {};
 global.scrollTo = () => {};
 
 // fix react-media
-global.window.matchMedia = jest.fn().mockImplementation(query => ({
+window.matchMedia = (query) => ({
   matches: false,
   media: query,
   onchange: null,
@@ -33,7 +33,7 @@ global.window.matchMedia = jest.fn().mockImplementation(query => ({
   addEventListener: jest.fn(),
   removeEventListener: jest.fn(),
   dispatchEvent: jest.fn(),
-}));
+})
 
 global.window.location = {
   origin: 'http://localhost:3000',

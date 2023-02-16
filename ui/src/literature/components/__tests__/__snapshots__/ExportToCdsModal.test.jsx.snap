@@ -5,12 +5,12 @@ exports[`ExportToCdsModal renders modal for one paper 1`] = `
   confirmLoading={false}
   footer={
     Array [
-      <ForwardRef(InternalButton)
+      <Button
         onClick={[MockFunction]}
         type="primary"
       >
         Confirm
-      </ForwardRef(InternalButton)>,
+      </Button>,
     ]
   }
   okType="primary"
@@ -36,12 +36,12 @@ exports[`ExportToCdsModal renders not visible 1`] = `
   confirmLoading={false}
   footer={
     Array [
-      <ForwardRef(InternalButton)
+      <Button
         onClick={[MockFunction]}
         type="primary"
       >
         Confirm
-      </ForwardRef(InternalButton)>,
+      </Button>,
     ]
   }
   okType="primary"

@@ -2,7 +2,7 @@ import MockAdapter from 'axios-mock-adapter';
 import { fromJS } from 'immutable';
 
 import { getStore } from '../../fixtures/store';
-import http from '../../common/http.ts';
+import http from '../../common/http';
 import * as types from '../actionTypes';
 import { fetchCitationSummary, fetchCitationsByYear } from '../citations';
 import { AUTHOR_PUBLICATIONS_NS } from '../../search/constants';
@@ -16,7 +16,7 @@ describe('citations - async action creator', () => {
     mockHttp.reset();
   });
 
-  it('creates CITATIONS_SUMMARY_SUCCESS if successful', async done => {
+  it('creates CITATIONS_SUMMARY_SUCCESS if successful', async () => {
     const query = { author: ['12345_Jared'] };
     const excludeSelfCitations = false;
     const namespace = AUTHOR_PUBLICATIONS_NS;
@@ -49,10 +49,9 @@ describe('citations - async action creator', () => {
 
     await store.dispatch(fetchCitationSummary(namespace));
     expect(store.getActions()).toEqual(expectedActions);
-    done();
   });
 
-  it('creates CITATIONS_SUMMARY_ERROR if unsuccessful', async done => {
+  it('creates CITATIONS_SUMMARY_ERROR if unsuccessful', async () => {
     const query = { q: 'stuff' };
     const namespace = LITERATURE;
 
@@ -92,10 +91,9 @@ describe('citations - async action creator', () => {
 
     await store.dispatch(fetchCitationSummary(namespace));
     expect(store.getActions()).toEqual(expectedActions);
-    done();
   });
 
-  it('creates CITATIONS_BY_YEAR_SUCCESS if successful', async done => {
+  it('creates CITATIONS_BY_YEAR_SUCCESS if successful', async () => {
     mockHttp
       .onGet(
         '/literature/facets?author=12345_Jared&facet_name=citations-by-year'
@@ -114,10 +112,9 @@ describe('citations - async action creator', () => {
       })
     );
     expect(store.getActions()).toEqual(expectedActions);
-    done();
   });
 
-  it('creates CITATIONS_BY_YEAR_ERROR if unsuccessful', async done => {
+  it('creates CITATIONS_BY_YEAR_ERROR if unsuccessful', async () => {
     mockHttp
       .onGet('/literature/facets?q=stuff&facet_name=citations-by-year')
       .replyOnce(404, { message: 'Error' });
@@ -139,6 +136,5 @@ describe('citations - async action creator', () => {
       })
     );
     expect(store.getActions()).toEqual(expectedActions);
-    done();
   });
 });

@@ -102,7 +102,7 @@ function AssignLiteratureItemDrawer({
         className="w-100"
         onChange={onSelectedAuthorChange}
         data-test-id="literature-drawer-radio-group"
-        value={selectedAuthorId ? selectedAuthorId : null}
+        value={selectedAuthorId || null}
       >
         <List
           itemLayout="horizontal"

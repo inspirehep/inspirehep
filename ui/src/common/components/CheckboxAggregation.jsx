@@ -9,7 +9,7 @@ import SecondaryButton from './SecondaryButton';
 import { forceArray } from '../utils';
 import HelpIconTooltip from './HelpIconTooltip';
 import LinkWithTargetBlank from './LinkWithTargetBlank';
-import FormattedNumber from './FormattedNumber.tsx';
+import FormattedNumber from './FormattedNumber';
 
 const BUCKET_CHUNK_SIZE = 10;
 export const BUCKET_NAME_SPLITTER = '_';

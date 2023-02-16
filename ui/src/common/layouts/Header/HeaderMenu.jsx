@@ -15,7 +15,7 @@ import {
   SUBMISSIONS_JOURNAL,
   USER_SETTINGS
 } from '../../routes';
-import LinkWithTargetBlank from '../../components/LinkWithTargetBlank.tsx';
+import LinkWithTargetBlank from '../../components/LinkWithTargetBlank';
 import LinkLikeButton from '../../components/LinkLikeButton/LinkLikeButton';
 
 import './HeaderMenu.less';

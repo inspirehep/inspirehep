@@ -5,12 +5,12 @@ exports[`ExportToCalendarAction renders with seminar 1`] = `
   <DropdownMenu
     disabled={false}
     title={
-      <ForwardRef(InternalButton)>
+      <Button>
         <IconText
           icon={<ForwardRef(CalendarOutlined) />}
           text="export"
         />
-      </ForwardRef(InternalButton)>
+      </Button>
     }
   >
     <EventTracker

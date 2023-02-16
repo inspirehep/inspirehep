@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import EditRecordAction from '../EditRecordAction.tsx';
+import EditRecordAction from '../EditRecordAction';
 import {
   INSTITUTIONS_PID_TYPE,
   JOBS_PID_TYPE,

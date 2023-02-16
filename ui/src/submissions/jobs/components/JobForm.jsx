@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Field, Form } from 'formik';
 import { Row } from 'antd';
 
-import LinkWithTargetBlank from '../../../common/components/LinkWithTargetBlank.tsx';
+import LinkWithTargetBlank from '../../../common/components/LinkWithTargetBlank';
 import TextField from '../../common/components/TextField';
 import SelectField from '../../common/components/SelectField';
 import ArrayOf from '../../common/components/ArrayOf';

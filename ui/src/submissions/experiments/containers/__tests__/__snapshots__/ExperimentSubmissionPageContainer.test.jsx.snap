@@ -5,11 +5,11 @@ exports[`ExperimentSubmissionSuccessPageContainer ExperimentSubmissionSucessPage
   description={
     <span>
       This form allows you to create a new experiment record. It will appear in the 
-      <ForwardRef
+      <Link
         to="/experiments"
       >
         Experiments List
-      </ForwardRef>
+      </Link>
        immediately.
     </span>
   }

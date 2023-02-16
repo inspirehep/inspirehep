@@ -42,14 +42,14 @@ exports[`JournalItem renders with props 1`] = `
         eventPropName="onClick"
         extractEventArgsToForward={null}
       >
-        <ForwardRef
+        <Link
           to="/literature?sort=mostrecent&size=25&page=1&q=publication_info.journal_title:\\"West Virginia U.\\""
         >
           <IconText
             icon={<ForwardRef(LoginOutlined) />}
             text="2 papers"
           />
-        </ForwardRef>
+        </Link>
       </EventTracker>
     </UserActionWrapper>
   }

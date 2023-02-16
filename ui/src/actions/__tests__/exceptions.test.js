@@ -1,7 +1,7 @@
 import MockAdapter from 'axios-mock-adapter';
 
 import { getStore } from '../../fixtures/store';
-import http from '../../common/http.ts';
+import http from '../../common/http';
 import * as types from '../actionTypes';
 import fetch from '../exceptions';
 
@@ -12,7 +12,7 @@ describe('exceptions dashboard - async action creator', () => {
     mockHttp.reset();
   });
 
-  it('successful - creates EXCEPTIONS_SUCCESS', async done => {
+  it('successful - creates EXCEPTIONS_SUCCESS', async () => {
     mockHttp.onGet('/migrator/errors').replyOnce(200, {});
 
     const expectedActions = [
@@ -23,10 +23,9 @@ describe('exceptions dashboard - async action creator', () => {
     const store = getStore();
     await store.dispatch(fetch());
     expect(store.getActions()).toEqual(expectedActions);
-    done();
   });
 
-  it('unsuccessful - creates EXCEPTIONS_ERROR', async done => {
+  it('unsuccessful - creates EXCEPTIONS_ERROR', async () => {
     mockHttp.onGet('/migrator/errors').replyOnce(500, {});
 
     const expectedActions = [
@@ -43,6 +42,5 @@ describe('exceptions dashboard - async action creator', () => {
     const store = getStore();
     await store.dispatch(fetch());
     expect(store.getActions()).toEqual(expectedActions);
-    done();
   });
 });

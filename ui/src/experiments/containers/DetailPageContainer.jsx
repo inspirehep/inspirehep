@@ -28,7 +28,7 @@ import { EXPERIMENT_PAPERS_NS } from '../../search/constants';
 import { EXPERIMENTS_PID_TYPE } from '../../common/constants';
 import { SUPERUSER_OR_CATALOGER } from '../../common/authorization';
 import AuthorizedContainer from '../../common/containers/AuthorizedContainer';
-import EditRecordAction from '../../common/components/EditRecordAction.tsx';
+import EditRecordAction from '../../common/components/EditRecordAction';
 
 function DetailPage({ record }) {
   const metadata = record.get('metadata');

@@ -7,7 +7,7 @@ import {
   SETTINGS_CHANGE_EMAIL_REQUEST,
 } from '../actionTypes';
 import { changeEmailAddress } from '../settings';
-import http from '../../common/http.ts';
+import http from '../../common/http';
 
 const mockHttp = new MockAdapter(http.httpClient);
 

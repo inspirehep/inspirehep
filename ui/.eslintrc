@@ -1,20 +1,14 @@
 {
   "root": true,
   "parser": "babel-eslint",
-  "plugins": [
-    "react-hooks"
-  ],
-  "extends": [
-    "airbnb",
-    "prettier",
-    "prettier/react"
-  ],
+  "plugins": ["react-hooks"],
+  "extends": ["airbnb", "prettier", "prettier/react"],
   "env": {
     "browser": true,
     "jest": true
   },
   "rules": {
-    "react/prefer-stateless-function": "off",
+    "func-names": "off",
     "no-param-reassign": [
       "error",
       {
@@ -24,73 +18,70 @@
     "no-underscore-dangle": [
       "error",
       {
-        "allow": [
-          "_source",
-          "_id"
-        ]
+        "allow": ["_source", "_id"]
       }
     ],
     "jsx-a11y/anchor-is-valid": [
       "error",
       {
-        "components": [
-          "Link"
-        ],
-        "specialLink": [
-          "to",
-          "hrefLeft",
-          "hrefRight"
-        ],
-        "aspects": [
-          "noHref",
-          "invalidHref",
-          "preferButton"
-        ]
+        "components": ["Link"],
+        "specialLink": ["to", "hrefLeft", "hrefRight"],
+        "aspects": ["noHref", "invalidHref", "preferButton"]
       }
     ],
     "import/no-extraneous-dependencies": [
       "off",
       {
-        "devDependencies": [
-          "**/*.test.jsx?"
-        ]
+        "devDependencies": ["**/*.test.jsx?"]
       }
     ],
     "import/prefer-default-export": "off",
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
     "react/no-unused-prop-types": "off",
     "react/require-default-props": "off",
     "react/prop-types": "off",
-    "react/forbid-prop-types": [
-      "error",
-      {
-        "forbid": [
-          "any"
-        ]
-      }
-    ],
+    "react/forbid-prop-types": "off",
     "react-hooks/exhaustive-deps": "warn",
+    "react/destructuring-assignment": "off",
+    "react/prefer-stateless-function": "off",
     "react-hooks/rules-of-hooks": "error",
-    "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }]
+    "react/jsx-filename-extension": [
+      2,
+      { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
+    ]
   },
   "overrides": [
     {
-      "files": [
-        "src/middlewares/*.js"
-      ],
+      "files": ["src/middlewares/*.js"],
       "rules": {
         "arrow-body-style": "off"
       }
     },
     {
-      "files": [
-        "*.ts", "*.tsx"
-      ],
+      "files": ["*.ts", "*.tsx"],
       "parser": "@typescript-eslint/parser",
-      "plugins": [
-        "@typescript-eslint"
-      ],
+      "plugins": ["@typescript-eslint"],
       "rules": {
-        "no-nested-ternary": "off"
+        "no-nested-ternary": "off",
+        "no-undef": "off",
+        "no-unused-vars": "off",
+        "no-use-before-define": "off",
+        "@typescript-eslint/no-use-before-define": ["error"],
+        "camelcase": "off",
+        "react/default-props-match-prop-types": "off",
+        "no-shadow": "off",
+        "arrow-body-style": "off",
+        "react/jsx-no-bind": "off",
+        "import/no-cycle": "off"
       }
     }
   ],

@@ -13,19 +13,12 @@ const AuthorResult = ({
   item: IAuthorResult;
   page: string;
 }) => {
-  const getAuthorRecordIdFromRef = (
-    item: IAuthorResult
-  ): number | undefined => {
-    if (item.get('record')) {
-      return castPropToNumber(
-        getRecordIdFromRef(item.get('record').toJS().$ref)
-      );
-    }
+  const getAuthorRecordIdFromRef = (item: IAuthorResult): number | undefined => {
+    const recordRef = item.get('record')?.toJS().$ref;
+    return recordRef ? castPropToNumber(getRecordIdFromRef(recordRef)) : undefined;
   };
-
-  const isRadioButtonDisabled = (item: IAuthorResult): boolean => {
-    return getAuthorRecordIdFromRef(item) ? false : true;
-  };
+  
+  const isRadioButtonDisabled = (item: IAuthorResult): boolean => !getAuthorRecordIdFromRef(item);
 
   return (
     <Row>

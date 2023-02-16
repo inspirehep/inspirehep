@@ -1,7 +1,7 @@
 import MockAdapter from 'axios-mock-adapter';
 
 import { getStore } from '../../fixtures/store';
-import http from '../../common/http.ts';
+import http from '../../common/http';
 import {
   SEMINAR_REQUEST,
   SEMINAR_SUCCESS,
@@ -17,7 +17,7 @@ describe('seminars - async action creators', () => {
       mockHttp.reset();
     });
 
-    it('creates SEMINAR_SUCCESS', async done => {
+    it('creates SEMINAR_SUCCESS', async () => {
       mockHttp.onGet('/seminars/123').replyOnce(200, { foo: 'bar' });
 
       const expectedActions = [
@@ -28,10 +28,9 @@ describe('seminars - async action creators', () => {
       const store = getStore();
       await store.dispatch(fetchSeminar(123));
       expect(store.getActions()).toEqual(expectedActions);
-      done();
     });
 
-    it('creates SEMINAR_ERROR', async done => {
+    it('creates SEMINAR_ERROR', async () => {
       mockHttp.onGet('/seminars/123').replyOnce(500, { message: 'Error' });
 
       const expectedActions = [
@@ -48,7 +47,6 @@ describe('seminars - async action creators', () => {
       const store = getStore();
       await store.dispatch(fetchSeminar(123));
       expect(store.getActions()).toEqual(expectedActions);
-      done();
     });
   });
 });

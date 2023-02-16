@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
 
-import AssignLiteratureItemDrawer from '../AssignLiteratureItemDrawer.tsx';
+import AssignLiteratureItemDrawer from '../AssignLiteratureItemDrawer';
 
 describe('AssignLiteratureItemDrawer', () => {
   it('renders authors list', () => {

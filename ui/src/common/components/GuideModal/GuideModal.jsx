@@ -5,7 +5,7 @@ import Image from 'react-image';
 
 import useResponsiveCheck from '../../hooks/useResponsiveCheck';
 import CarouselModal from '../CarouselModal';
-import LinkWithTargetBlank from '../LinkWithTargetBlank.tsx';
+import LinkWithTargetBlank from '../LinkWithTargetBlank';
 import { BLOG_URL } from '../../constants';
 import { GUIDE_STEPS_MOBILE, GUIDE_STEPS_DESKTOP } from './steps';
 

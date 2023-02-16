@@ -5,11 +5,11 @@ exports[`JournalSubmissionPageContainer JournalSubmissionPage renders 1`] = `
   description={
     <span>
       This form allows you to create a new journal record. It will appear in the 
-      <ForwardRef
+      <Link
         to="/journals"
       >
         Journals List
-      </ForwardRef>
+      </Link>
        immediately.
     </span>
   }

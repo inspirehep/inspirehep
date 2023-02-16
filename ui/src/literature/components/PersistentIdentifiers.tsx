@@ -25,9 +25,8 @@ const PersistentIdentifiers = ({
           </LinkWithTargetBlank>
         </EventTracker>
       );
-    } else {
-      return <span>{value}</span>;
-    }
+    } 
+    return <span>{value}</span>;
   };
 
   return (

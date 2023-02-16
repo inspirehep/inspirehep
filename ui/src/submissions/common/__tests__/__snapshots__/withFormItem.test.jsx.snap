@@ -12,7 +12,7 @@ exports[`withFormItem passes all props correctly to Form.Item and wrapped Input 
     </span>
   }
   label={
-    <ForwardRef
+    <Tooltip
       arrowPointAtCenter={false}
       autoAdjustOverflow={true}
       mouseEnterDelay={0.1}
@@ -21,7 +21,7 @@ exports[`withFormItem passes all props correctly to Form.Item and wrapped Input 
       title="Test Label"
     >
       Test Label
-    </ForwardRef>
+    </Tooltip>
   }
   labelCol={
     Object {
@@ -76,7 +76,7 @@ exports[`withFormItem passes all props correctly to Form.Item and wrapped Input 
   className=""
   hasFeedback={false}
   label={
-    <ForwardRef
+    <Tooltip
       arrowPointAtCenter={false}
       autoAdjustOverflow={true}
       mouseEnterDelay={0.1}
@@ -85,7 +85,7 @@ exports[`withFormItem passes all props correctly to Form.Item and wrapped Input 
       title="Test Label"
     >
       Test Label
-    </ForwardRef>
+    </Tooltip>
   }
   labelCol={
     Object {
@@ -138,7 +138,7 @@ exports[`withFormItem passes props correctly to Form.Item and wrapped Input comp
   className=""
   hasFeedback={false}
   label={
-    <ForwardRef
+    <Tooltip
       arrowPointAtCenter={false}
       autoAdjustOverflow={true}
       mouseEnterDelay={0.1}
@@ -147,7 +147,7 @@ exports[`withFormItem passes props correctly to Form.Item and wrapped Input comp
       title="Test Label"
     >
       Test Label
-    </ForwardRef>
+    </Tooltip>
   }
   labelCol={
     Object {

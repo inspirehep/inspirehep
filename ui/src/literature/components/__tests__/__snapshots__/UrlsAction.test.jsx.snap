@@ -5,12 +5,12 @@ exports[`UrlsAction renders multiple, with and without description 1`] = `
   <DropdownMenu
     disabled={false}
     title={
-      <ForwardRef(InternalButton)>
+      <Button>
         <IconText
           icon={<ForwardRef(DownloadOutlined) />}
           text="download"
         />
-      </ForwardRef(InternalButton)>
+      </Button>
     }
   >
     <MenuItem

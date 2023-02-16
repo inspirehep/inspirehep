@@ -61,8 +61,8 @@ exports[`AuthorWebsitesAction renders with a blog and urls in a dropdown 1`] = `
   <DropdownMenu
     disabled={false}
     title={
-      <ForwardRef(InternalButton)>
-        <ForwardRef
+      <Button>
+        <Tooltip
           arrowPointAtCenter={false}
           autoAdjustOverflow={true}
           mouseEnterDelay={0.1}
@@ -71,8 +71,8 @@ exports[`AuthorWebsitesAction renders with a blog and urls in a dropdown 1`] = `
           title="Author websites"
         >
           <ForwardRef(LinkOutlined) />
-        </ForwardRef>
-      </ForwardRef(InternalButton)>
+        </Tooltip>
+      </Button>
     }
   >
     <MenuItem

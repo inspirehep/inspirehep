@@ -4,7 +4,7 @@ import { Modal, Button, Rate, Input, Alert } from 'antd';
 
 import './UserFeedback.less';
 import { trackEvent, checkIsTrackerBlocked } from '../../../tracker';
-import LinkWithTargetBlank from '../LinkWithTargetBlank.tsx';
+import LinkWithTargetBlank from '../LinkWithTargetBlank';
 import ResponsiveView from '../ResponsiveView';
 import ModalSuccessResult from '../ModalSuccessResult';
 import { SURVEY_LINK, FEEDBACK_EMAIL } from '../../constants';
