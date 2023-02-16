@@ -88,6 +88,6 @@ Cypress.Commands.add('waitForSearchResults', () => {
   );
 });
 
-Cypress.Commands.add('waitForLoading', () => {
-  cy.get('[data-test-id="loading"]', { timeout: 10000 }).should('not.exist');
+Cypress.Commands.add('waitForLoading', (timeout = 10000) => {
+  cy.get('[data-test-id="loading"]', { timeout }).should('not.exist');
 });

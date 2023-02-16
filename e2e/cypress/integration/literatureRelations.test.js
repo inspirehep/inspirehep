@@ -47,7 +47,7 @@ describe('Literature and Conferences', () => {
 
     cy.get('[data-test-id="literature-conference-link"]')
       .first()
-      .closest('[data-test-id="literature-result-item"]')
+      .closest('[data-test-id="literature-result-item-inner"]')
       .find('[data-test-id="literature-result-title-link"]')
       .invoke('text')
       .as('literature-title');
