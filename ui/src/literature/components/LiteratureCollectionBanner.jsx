@@ -1,7 +1,7 @@
 import React from 'react';
 import { Alert } from 'antd';
 
-import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank.tsx';
+import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank';
 
 function HiddenCollectionAlert() {
   return (

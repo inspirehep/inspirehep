@@ -4,12 +4,12 @@ import { Map } from 'immutable';
 import { Link } from 'react-router-dom';
 
 import './CitationSummaryTable.less';
-import LinkWithTargetBlank from '../LinkWithTargetBlank.tsx';
+import LinkWithTargetBlank from '../LinkWithTargetBlank';
 import LabelWithHelp from '../LabelWithHelp';
 import LoadingOrChildren from '../LoadingOrChildren';
 import ErrorAlertOrChildren from '../ErrorAlertOrChildren';
 import { ErrorPropType } from '../../propTypes';
-import FormattedNumber from '../FormattedNumber.tsx';
+import FormattedNumber from '../FormattedNumber';
 import { PUBLISHED_URL } from '../../constants';
 
 const PUBLISHED_HELP_MESSAGE = (

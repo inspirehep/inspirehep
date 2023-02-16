@@ -49,6 +49,11 @@ function renderWebsitesDropdownAction(website: Map<string, any>) {
     </Menu.Item>
   );
 }
+const ACTION_TITLE = (
+  <Tooltip title="Author websites">
+    <LinkOutlined />
+  </Tooltip>
+);
 
 function renderWebsiteAction(website: Map<string, any>) {
   return (
@@ -63,12 +68,6 @@ function renderWebsiteAction(website: Map<string, any>) {
     </EventTracker>
   );
 }
-
-const ACTION_TITLE = (
-  <Tooltip title="Author websites">
-    <LinkOutlined />
-  </Tooltip>
-);
 
 function AuthorWebsitesAction({ websites }: { websites: List<string> }) {
   const sortedWebsites = useMemo(

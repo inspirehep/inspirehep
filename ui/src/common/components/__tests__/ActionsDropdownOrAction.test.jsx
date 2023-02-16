@@ -4,7 +4,7 @@ import { fromJS } from 'immutable';
 import { Menu } from 'antd';
 
 import ActionsDropdownOrAction from '../ActionsDropdownOrAction';
-import LinkWithTargetBlank from '../LinkWithTargetBlank.tsx';
+import LinkWithTargetBlank from '../LinkWithTargetBlank';
 
 describe('ActionsDropdownOrAction', () => {
   it('renders with multiple values', () => {

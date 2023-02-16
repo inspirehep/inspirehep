@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank.tsx';
+import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank';
 import EventTracker from '../../common/components/EventTracker';
 
 class DOILink extends Component {

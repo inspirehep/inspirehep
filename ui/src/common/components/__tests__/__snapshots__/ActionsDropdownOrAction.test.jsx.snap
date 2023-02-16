@@ -5,9 +5,9 @@ exports[`ActionsDropdownOrAction renders with multiple values 1`] = `
   <DropdownMenu
     disabled={false}
     title={
-      <ForwardRef(InternalButton)>
+      <Button>
         Dude URL
-      </ForwardRef(InternalButton)>
+      </Button>
     }
   >
     <MenuItem

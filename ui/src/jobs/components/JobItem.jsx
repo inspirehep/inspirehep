@@ -13,7 +13,7 @@ import RegionsList from './RegionsList';
 import ArxivCategoryList from '../../common/components/ArxivCategoryList';
 import RanksList from './RanksList';
 import ExperimentList from '../../common/components/ExperimentList';
-import EditRecordAction from '../../common/components/EditRecordAction.tsx';
+import EditRecordAction from '../../common/components/EditRecordAction';
 import JobTitle from './JobTitle';
 import {
   InlineUL,

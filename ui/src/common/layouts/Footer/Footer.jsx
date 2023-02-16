@@ -20,7 +20,7 @@ import {
   INVENIO_URL,
   REPORT_METADATA_URL,
 } from '../../constants';
-import LinkWithTargetBlank from '../../components/LinkWithTargetBlank.tsx';
+import LinkWithTargetBlank from '../../components/LinkWithTargetBlank';
 import { BIBLIOGRAPHY_GENERATOR } from '../../routes';
 
 const COLUMNS = [

@@ -4,7 +4,7 @@ import { List, Map } from 'immutable';
 import { Menu } from 'antd';
 import { BookOutlined } from '@ant-design/icons';
 
-import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank.tsx';
+import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank';
 import ActionsDropdownOrAction from '../../common/components/ActionsDropdownOrAction';
 import IconText from '../../common/components/IconText';
 import JournalInfo from '../../common/components/JournalInfo';

@@ -15,7 +15,7 @@ describe('Institutions', () => {
     expect(component).toMatchSnapshot();
   });
 
-  it('navigates to SearchPage when /institutions', async done => {
+  it('navigates to SearchPage when /institutions', async () => {
     const wrapper = mount(
       <Provider store={getStore()}>
         <MemoryRouter initialEntries={['/institutions']} initialIndex={0}>
@@ -27,11 +27,9 @@ describe('Institutions', () => {
     wrapper.update();
 
     expect(wrapper.find(SearchPageContainer)).toExist();
-
-    done();
   });
 
-  it('navigates to DetailPageContainer when /institutions/:id', async done => {
+  it('navigates to DetailPageContainer when /institutions/:id', async () => {
     const wrapper = mount(
       <Provider store={getStore()}>
         <MemoryRouter initialEntries={['/institutions/1']} initialIndex={0}>
@@ -43,7 +41,5 @@ describe('Institutions', () => {
     wrapper.update();
 
     expect(wrapper.find(DetailPageContainer)).toExist();
-
-    done();
   });
 });

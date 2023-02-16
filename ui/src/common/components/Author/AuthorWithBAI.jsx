@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { Tooltip } from 'antd';
 
 import { getAuthorName, getLiteratureSearchUrlForAuthorBAI } from '../../utils';
-import LinkWithTargetBlank from '../LinkWithTargetBlank.tsx';
+import LinkWithTargetBlank from '../LinkWithTargetBlank';
 import { SUBMISSIONS_AUTHOR } from '../../routes';
 
 function renderCreateProfileTooltipMessage(author) {

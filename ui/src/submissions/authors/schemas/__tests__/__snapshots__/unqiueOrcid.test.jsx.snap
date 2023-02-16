@@ -4,10 +4,10 @@ exports[`uniqueOrcid invalidates if orcid exists with message that includes link
 <span>
   Author with this ORCID already exist, please submit an
    
-  <ForwardRef
+  <Link
     to="/submissions/authors/999108"
   >
     update
-  </ForwardRef>
+  </Link>
 </span>
 `;

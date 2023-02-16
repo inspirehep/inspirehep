@@ -105,13 +105,13 @@ exports[`Banner renders with custom style 1`] = `
         className="di mr3"
         html="We have problem with our storage."
       />
-      <ForwardRef(InternalButton)
+      <Button
         href="https://status.inspirehep.net"
         target="_blank"
         type="primary"
       >
         Learn more
-      </ForwardRef(InternalButton)>
+      </Button>
     </span>
   }
   showIcon={false}

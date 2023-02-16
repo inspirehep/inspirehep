@@ -5,7 +5,7 @@ exports[`AssignOwnProfileAction renders 1`] = `
   <DropdownMenu
     disabled={false}
     title={
-      <ForwardRef
+      <Tooltip
         arrowPointAtCenter={false}
         autoAdjustOverflow={true}
         mouseEnterDelay={0.1}
@@ -13,15 +13,15 @@ exports[`AssignOwnProfileAction renders 1`] = `
         placement="top"
         title={null}
       >
-        <ForwardRef(InternalButton)
+        <Button
           data-test-id="btn-claim"
         >
           <IconText
             icon={<ForwardRef(FileDoneOutlined) />}
             text="claim"
           />
-        </ForwardRef(InternalButton)>
-      </ForwardRef>
+        </Button>
+      </Tooltip>
     }
   >
     <EventTracker
@@ -74,7 +74,7 @@ exports[`AssignOwnProfileAction renders disabled 1`] = `
   <DropdownMenu
     disabled={true}
     title={
-      <ForwardRef
+      <Tooltip
         arrowPointAtCenter={false}
         autoAdjustOverflow={true}
         mouseEnterDelay={0.1}
@@ -82,15 +82,15 @@ exports[`AssignOwnProfileAction renders disabled 1`] = `
         placement="top"
         title="Please select the papers you want to claim or remove from the profile."
       >
-        <ForwardRef(InternalButton)
+        <Button
           data-test-id="btn-claim"
         >
           <IconText
             icon={<ForwardRef(FileDoneOutlined) />}
             text="claim"
           />
-        </ForwardRef(InternalButton)>
-      </ForwardRef>
+        </Button>
+      </Tooltip>
     }
   >
     <EventTracker
@@ -144,7 +144,7 @@ exports[`AssignOwnProfileAction renders plural form if numberOfSelected is more 
   <DropdownMenu
     disabled={false}
     title={
-      <ForwardRef
+      <Tooltip
         arrowPointAtCenter={false}
         autoAdjustOverflow={true}
         mouseEnterDelay={0.1}
@@ -152,15 +152,15 @@ exports[`AssignOwnProfileAction renders plural form if numberOfSelected is more 
         placement="top"
         title={null}
       >
-        <ForwardRef(InternalButton)
+        <Button
           data-test-id="btn-claim"
         >
           <IconText
             icon={<ForwardRef(FileDoneOutlined) />}
             text="claim"
           />
-        </ForwardRef(InternalButton)>
-      </ForwardRef>
+        </Button>
+      </Tooltip>
     }
   >
     <EventTracker
@@ -213,7 +213,7 @@ exports[`AssignOwnProfileAction renders singular form if numberOfSelected is 1 1
   <DropdownMenu
     disabled={false}
     title={
-      <ForwardRef
+      <Tooltip
         arrowPointAtCenter={false}
         autoAdjustOverflow={true}
         mouseEnterDelay={0.1}
@@ -221,15 +221,15 @@ exports[`AssignOwnProfileAction renders singular form if numberOfSelected is 1 1
         placement="top"
         title={null}
       >
-        <ForwardRef(InternalButton)
+        <Button
           data-test-id="btn-claim"
         >
           <IconText
             icon={<ForwardRef(FileDoneOutlined) />}
             text="claim"
           />
-        </ForwardRef(InternalButton)>
-      </ForwardRef>
+        </Button>
+      </Tooltip>
     }
   >
     <EventTracker
@@ -282,7 +282,7 @@ exports[`AssignOwnProfileAction renders with disabled assign action 1`] = `
   <DropdownMenu
     disabled={false}
     title={
-      <ForwardRef
+      <Tooltip
         arrowPointAtCenter={false}
         autoAdjustOverflow={true}
         mouseEnterDelay={0.1}
@@ -290,15 +290,15 @@ exports[`AssignOwnProfileAction renders with disabled assign action 1`] = `
         placement="top"
         title={null}
       >
-        <ForwardRef(InternalButton)
+        <Button
           data-test-id="btn-claim"
         >
           <IconText
             icon={<ForwardRef(FileDoneOutlined) />}
             text="claim"
           />
-        </ForwardRef(InternalButton)>
-      </ForwardRef>
+        </Button>
+      </Tooltip>
     }
   >
     <EventTracker

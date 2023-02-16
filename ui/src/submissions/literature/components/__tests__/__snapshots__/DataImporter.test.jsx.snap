@@ -34,7 +34,7 @@ exports[`DataImporter renders with error with a message 1`] = `
   </Row>
   <InternalFormItem
     label={
-      <ForwardRef
+      <Tooltip
         arrowPointAtCenter={false}
         autoAdjustOverflow={true}
         mouseEnterDelay={0.1}
@@ -43,7 +43,7 @@ exports[`DataImporter renders with error with a message 1`] = `
         title="From arXiv or DOI"
       >
         From arXiv or DOI
-      </ForwardRef>
+      </Tooltip>
     }
     labelCol={
       Object {
@@ -145,7 +145,7 @@ exports[`DataImporter renders with error with message and recid 1`] = `
   </Row>
   <InternalFormItem
     label={
-      <ForwardRef
+      <Tooltip
         arrowPointAtCenter={false}
         autoAdjustOverflow={true}
         mouseEnterDelay={0.1}
@@ -154,7 +154,7 @@ exports[`DataImporter renders with error with message and recid 1`] = `
         title="From arXiv or DOI"
       >
         From arXiv or DOI
-      </ForwardRef>
+      </Tooltip>
     }
     labelCol={
       Object {
@@ -246,7 +246,7 @@ exports[`DataImporter renders with error without a message 1`] = `
   </Row>
   <InternalFormItem
     label={
-      <ForwardRef
+      <Tooltip
         arrowPointAtCenter={false}
         autoAdjustOverflow={true}
         mouseEnterDelay={0.1}
@@ -255,7 +255,7 @@ exports[`DataImporter renders with error without a message 1`] = `
         title="From arXiv or DOI"
       >
         From arXiv or DOI
-      </ForwardRef>
+      </Tooltip>
     }
     labelCol={
       Object {
@@ -329,7 +329,7 @@ exports[`DataImporter renders without error while importing 1`] = `
   </Row>
   <InternalFormItem
     label={
-      <ForwardRef
+      <Tooltip
         arrowPointAtCenter={false}
         autoAdjustOverflow={true}
         mouseEnterDelay={0.1}
@@ -338,7 +338,7 @@ exports[`DataImporter renders without error while importing 1`] = `
         title="From arXiv or DOI"
       >
         From arXiv or DOI
-      </ForwardRef>
+      </Tooltip>
     }
     labelCol={
       Object {

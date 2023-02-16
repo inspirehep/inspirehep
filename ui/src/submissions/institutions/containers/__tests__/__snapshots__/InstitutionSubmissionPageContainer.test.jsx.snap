@@ -5,11 +5,11 @@ exports[`InstitutionSubmissionPageContainer InstitutionSubmissionPage renders 1`
   description={
     <span>
       This form allows you to create a new institution record. It will appear in the 
-      <ForwardRef
+      <Link
         to="/institutions"
       >
         Institutions List
-      </ForwardRef>
+      </Link>
        immediately.
     </span>
   }

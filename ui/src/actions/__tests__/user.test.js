@@ -17,7 +17,7 @@ import {
   updateOrcidPushSetting,
   setPreference,
 } from '../user';
-import http from '../../common/http.ts';
+import http from '../../common/http';
 import { HOME } from '../../common/routes';
 import { CITATION_SUMMARY_ENABLING_PREFERENCE } from '../../reducers/user';
 
@@ -51,7 +51,7 @@ describe('user - async action creator', () => {
     expect(store.getActions()).toEqual(expectedActions);
   });
 
-  it('successful logout creates USER_LOGOUT_SUCCESS', async done => {
+  it('successful logout creates USER_LOGOUT_SUCCESS', async () => {
     mockHttp.onGet('/accounts/logout').replyOnce(200);
 
     const expectedActions = [
@@ -63,7 +63,6 @@ describe('user - async action creator', () => {
     const store = getStore();
     await store.dispatch(userLogout());
     expect(store.getActions()).toEqual(expectedActions);
-    done();
   });
 
   it('successful update orcid push settings creates USER_SET_ORCID_PUSH_SETTING_SUCCESS', async () => {

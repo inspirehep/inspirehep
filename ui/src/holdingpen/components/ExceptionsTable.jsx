@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import FilterDropdown from './FilterDropdown';
 import './ExceptionsTable.less';
 import { LEGACY_URL } from '../../common/constants';
-import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank.tsx';
+import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank';
 
 class ExceptionsTable extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {

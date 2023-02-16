@@ -1,7 +1,7 @@
 import MockAdapter from 'axios-mock-adapter';
 
 import { getStore } from '../../fixtures/store';
-import http from '../../common/http.ts';
+import http from '../../common/http';
 import { JOB_REQUEST, JOB_SUCCESS, JOB_ERROR } from '../actionTypes';
 import fetchJob from '../jobs';
 
@@ -13,7 +13,7 @@ describe('jobs - async action creators', () => {
       mockHttp.reset();
     });
 
-    it('creates JOB_SUCCESS', async done => {
+    it('creates JOB_SUCCESS', async () => {
       mockHttp.onGet('/jobs/123').replyOnce(200, { foo: 'bar' });
 
       const expectedActions = [
@@ -23,11 +23,10 @@ describe('jobs - async action creators', () => {
 
       const store = getStore();
       await store.dispatch(fetchJob(123));
-      expect(store.getActions()).toEqual(expectedActions);
-      done();
+      expect(store.getActions()).toEqual(expectedActions);      
     });
 
-    it('creates JOB_ERROR', async done => {
+    it('creates JOB_ERROR', async () => {
       mockHttp.onGet('/jobs/123').replyOnce(500, { message: 'Error' });
 
       const expectedActions = [
@@ -43,8 +42,7 @@ describe('jobs - async action creators', () => {
 
       const store = getStore();
       await store.dispatch(fetchJob(123));
-      expect(store.getActions()).toEqual(expectedActions);
-      done();
+      expect(store.getActions()).toEqual(expectedActions);      
     });
   });
 });

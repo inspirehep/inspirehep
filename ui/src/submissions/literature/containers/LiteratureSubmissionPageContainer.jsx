@@ -7,7 +7,7 @@ import { Row, Col, Tooltip, Form } from 'antd';
 import { submit } from '../../../actions/submissions';
 import { LABEL_COL, WRAPPER_COL } from '../../common/withFormItem';
 import LiteratureSubmission from '../components/LiteratureSubmission';
-import LinkWithTargetBlank from '../../../common/components/LinkWithTargetBlank.tsx';
+import LinkWithTargetBlank from '../../../common/components/LinkWithTargetBlank';
 import SelectBox from '../../../common/components/SelectBox';
 import DataImporterContainer from './DataImporterContainer';
 import {

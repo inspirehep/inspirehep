@@ -51,7 +51,7 @@ exports[`CollectionsMenu renders when authors page 1`] = `
       disabled={false}
       overlayClassName="more-collections-menu"
       title={
-        <ForwardRef(InternalButton)
+        <Button
           className="button-no-background ml4"
           onClick={[Function]}
         >
@@ -62,7 +62,7 @@ exports[`CollectionsMenu renders when authors page 1`] = `
             More...
              
           </span>
-        </ForwardRef(InternalButton)>
+        </Button>
       }
     >
       <MenuItem
@@ -154,7 +154,7 @@ exports[`CollectionsMenu renders when conferences page 1`] = `
       disabled={false}
       overlayClassName="more-collections-menu"
       title={
-        <ForwardRef(InternalButton)
+        <Button
           className="button-no-background ml4"
           onClick={[Function]}
         >
@@ -165,7 +165,7 @@ exports[`CollectionsMenu renders when conferences page 1`] = `
             More...
              
           </span>
-        </ForwardRef(InternalButton)>
+        </Button>
       }
     >
       <MenuItem
@@ -257,7 +257,7 @@ exports[`CollectionsMenu renders when experiments page 1`] = `
       disabled={false}
       overlayClassName="more-collections-menu"
       title={
-        <ForwardRef(InternalButton)
+        <Button
           className="button-no-background ml4"
           onClick={[Function]}
         >
@@ -268,7 +268,7 @@ exports[`CollectionsMenu renders when experiments page 1`] = `
             More...
              
           </span>
-        </ForwardRef(InternalButton)>
+        </Button>
       }
     >
       <MenuItem
@@ -360,7 +360,7 @@ exports[`CollectionsMenu renders when home page 1`] = `
       disabled={false}
       overlayClassName="more-collections-menu"
       title={
-        <ForwardRef(InternalButton)
+        <Button
           className="button-no-background ml4"
           onClick={[Function]}
         >
@@ -371,7 +371,7 @@ exports[`CollectionsMenu renders when home page 1`] = `
             More...
              
           </span>
-        </ForwardRef(InternalButton)>
+        </Button>
       }
     >
       <MenuItem
@@ -463,7 +463,7 @@ exports[`CollectionsMenu renders when jobs page 1`] = `
       disabled={false}
       overlayClassName="more-collections-menu"
       title={
-        <ForwardRef(InternalButton)
+        <Button
           className="button-no-background ml4"
           onClick={[Function]}
         >
@@ -474,7 +474,7 @@ exports[`CollectionsMenu renders when jobs page 1`] = `
             More...
              
           </span>
-        </ForwardRef(InternalButton)>
+        </Button>
       }
     >
       <MenuItem
@@ -566,7 +566,7 @@ exports[`CollectionsMenu renders when literature page 1`] = `
       disabled={false}
       overlayClassName="more-collections-menu"
       title={
-        <ForwardRef(InternalButton)
+        <Button
           className="button-no-background ml4"
           onClick={[Function]}
         >
@@ -577,7 +577,7 @@ exports[`CollectionsMenu renders when literature page 1`] = `
             More...
              
           </span>
-        </ForwardRef(InternalButton)>
+        </Button>
       }
     >
       <MenuItem
@@ -669,7 +669,7 @@ exports[`CollectionsMenu renders when seminars page 1`] = `
       disabled={false}
       overlayClassName="more-collections-menu"
       title={
-        <ForwardRef(InternalButton)
+        <Button
           className="button-no-background ml4"
           onClick={[Function]}
         >
@@ -680,7 +680,7 @@ exports[`CollectionsMenu renders when seminars page 1`] = `
             More...
              
           </span>
-        </ForwardRef(InternalButton)>
+        </Button>
       }
     >
       <MenuItem
@@ -772,7 +772,7 @@ exports[`CollectionsMenu renders when submissions page 1`] = `
       disabled={false}
       overlayClassName="more-collections-menu"
       title={
-        <ForwardRef(InternalButton)
+        <Button
           className="button-no-background ml4"
           onClick={[Function]}
         >
@@ -783,7 +783,7 @@ exports[`CollectionsMenu renders when submissions page 1`] = `
             More...
              
           </span>
-        </ForwardRef(InternalButton)>
+        </Button>
       }
     >
       <MenuItem

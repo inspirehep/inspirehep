@@ -2,7 +2,7 @@ import React from 'react';
 import { Row, Col } from 'antd';
 import useAxios from 'axios-hooks';
 
-import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank.tsx';
+import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank';
 import ContentBox from '../../common/components/ContentBox';
 import { BLOG_URL } from '../../common/constants';
 

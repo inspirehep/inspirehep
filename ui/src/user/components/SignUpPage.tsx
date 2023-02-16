@@ -1,9 +1,9 @@
 import React from 'react';
 import { Row, Col, Card, Alert } from 'antd';
+import { FormikHelpers } from 'formik';
 
 import SingUpForm from './SingUpForm';
 import DocumentHead from '../../common/components/DocumentHead';
-import { FormikHelpers } from 'formik';
 
 function SignUpPage({
   onSubmit,

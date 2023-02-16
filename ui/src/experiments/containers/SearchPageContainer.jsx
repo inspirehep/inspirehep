@@ -13,7 +13,7 @@ import ExperimentItem from '../components/ExperimentItem';
 import { EXPERIMENTS_NS } from '../../search/constants';
 import AggregationFiltersContainer from '../../common/containers/AggregationFiltersContainer';
 import ResponsiveView from '../../common/components/ResponsiveView';
-import DrawerHandle from '../../common/components/DrawerHandle.tsx';
+import DrawerHandle from '../../common/components/DrawerHandle';
 
 const META_DESCRIPTION = 'Find experiments in High Energy Physics';
 const TITLE = 'Experiments Search';

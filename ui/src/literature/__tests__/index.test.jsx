@@ -15,7 +15,7 @@ describe('Literature', () => {
     expect(component).toMatchSnapshot();
   });
 
-  it('navigates to SearchPageContainer when /literature', async (done) => {
+  it('navigates to SearchPageContainer when /literature', async () => {
     const wrapper = mount(
       <Provider store={getStore()}>
         <MemoryRouter initialEntries={['/literature']} initialIndex={0}>
@@ -27,11 +27,9 @@ describe('Literature', () => {
     wrapper.update();
 
     expect(wrapper.find(SearchPageContainer)).toExist();
-
-    done();
   });
 
-  it('navigates to DetailPageContainer when /literature/:id', async (done) => {
+  it('navigates to DetailPageContainer when /literature/:id', async () => {
     const wrapper = mount(
       <Provider store={getStore()}>
         <MemoryRouter initialEntries={['/literature/1']} initialIndex={0}>
@@ -43,7 +41,5 @@ describe('Literature', () => {
     wrapper.update();
 
     expect(wrapper.find(DetailPageContainer)).toExist();
-
-    done();
   });
 });

@@ -5,6 +5,7 @@ export class HttpClientWrapper {
   httpClient = axios.create({
     baseURL: '/api',
   });
+  
   private activeCancelManagersById = new Map<string, CancelTokenSource>();
 
   /**

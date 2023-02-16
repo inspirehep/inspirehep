@@ -1,8 +1,10 @@
+
 import React, { useEffect, useMemo } from 'react';
 import { connect, RootStateOrAny } from 'react-redux';
 import { Action, ActionCreator } from 'redux';
 import { Row, Col, Tabs, Tooltip } from 'antd';
 import { Map, List } from 'immutable';
+import { SettingOutlined } from '@ant-design/icons';
 
 import './DetailPage.less';
 import ContentBox from '../../../common/components/ContentBox';
@@ -33,7 +35,6 @@ import {
 } from '../../../search/constants';
 import { newSearch, searchBaseQueriesUpdate } from '../../../actions/search';
 import DeletedAlert from '../../../common/components/DeletedAlert';
-import UserSettingsAction from '../../components/UserSettingsAction';
 import withRouteActionsDispatcher from '../../../common/withRouteActionsDispatcher';
 import AuthorBAI from '../../components/AuthorBAI';
 import Advisors from '../../components/Advisors';
@@ -42,7 +43,6 @@ import RecordUpdateInfo from '../../../common/components/RecordUpdateInfo';
 import AuthorSeminars from '../../components/AuthorSeminars';
 import EditAuthorRecordAction from '../../components/EditAuthorRecordAction';
 import { isCataloger } from '../../../common/authorization';
-import { SettingOutlined } from '@ant-design/icons';
 import IconText from '../../../common/components/IconText';
 import LinkWithTargetBlank from '../../../common/components/LinkWithTargetBlank';
 import UserAction from '../../../common/components/UserAction';
