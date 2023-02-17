@@ -16,12 +16,12 @@ function AssignOwnProfileAction({
   numberOfSelected,
   claimingTooltip,
 }: {
-  onAssign: Function,
-  onUnassign: Function,
-  disabled: boolean,
-  disabledAssignAction: boolean,
-  numberOfSelected: number,
-  claimingTooltip: string,
+  onAssign: Function;
+  onUnassign: Function;
+  disabled: boolean;
+  disabledAssignAction: boolean;
+  numberOfSelected: number;
+  claimingTooltip: string;
 }) {
   const currentAuthorId = Number(useParams<{ id: string }>().id);
   const onSelfAssign = useCallback(() => {
@@ -54,7 +54,7 @@ function AssignOwnProfileAction({
           </Tooltip>
         }
       >
-        <EventTracker      
+        <EventTracker
           eventCategory="Author detail"
           eventAction="Claim"
           eventId="This is my paper"
@@ -74,20 +74,20 @@ function AssignOwnProfileAction({
             </Tooltip>
           </Menu.Item>
         </EventTracker>
-        <EventTracker      
+        <EventTracker
           eventCategory="Author detail"
           eventAction="Claim"
           eventId="This is not my paper"
         >
-        <Menu.Item
-          data-test-id="unassign"
-          key="unassign"
-          onClick={onSelfUnassign}
-        >
-          {numberOfSelected === 1
-            ? 'This is not my paper'
-            : 'These are not my papers'}
-        </Menu.Item>
+          <Menu.Item
+            data-test-id="unassign"
+            key="unassign"
+            onClick={onSelfUnassign}
+          >
+            {numberOfSelected === 1
+              ? 'This is not my paper'
+              : 'These are not my papers'}
+          </Menu.Item>
         </EventTracker>
       </DropdownMenu>
     </UserAction>
