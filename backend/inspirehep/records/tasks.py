@@ -177,8 +177,8 @@ def populate_journal_literature(uuids):
 @shared_task(
     ignore_results=False,
     acks_late=True,
-    retry_backoff=2,
-    retry_kwargs={"max_retries": 6},
+    retry_backoff=True,
+    retry_kwargs={"max_retries": 8},
     autoretry_for=DB_TASK_EXCEPTIONS,
 )
 def remove_bai_from_literature_authors(uuids):
