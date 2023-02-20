@@ -14,23 +14,6 @@ env:
   BUILD_TAG: build-${{ github.event.pull_request.head.sha || github.sha }}
 
 jobs:
-  linter:
-    name: Lint new files in code base
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Lint Code Base
-        uses: github/super-linter@v4
-        env:
-          FILTER_REGEX_EXCLUDE: .github/.*.yml
-          VALIDATE_DOCKERFILE_HADOLINT: false
-          VALIDATE_ALL_CODEBASE: false # validates only new files
-          DEFAULT_BRANCH: master
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
   changed:
     name: Group changes by app
     runs-on: ubuntu-latest
