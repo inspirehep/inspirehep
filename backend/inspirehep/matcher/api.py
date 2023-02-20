@@ -50,7 +50,7 @@ def match_reference_with_config(reference, config, previous_matched_recid=None):
         reference["reference"]["publication_info"]["year"] = str(
             reference["reference"]["publication_info"]["year"]
         )
-    except KeyError:
+    except (KeyError, ValueError):
         pass
 
     matched_recids = [
