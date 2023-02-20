@@ -104,8 +104,8 @@ class OrcidPusher(object):
                 return True
         return self.inspire_record.get("deleted", False)
 
-    @time_execution  # noqa: C901
-    def push(self):
+    @time_execution
+    def push(self):  # noqa: C901
         putcode = None
         if not self._do_force_cache_miss:
             putcode = self.cache.read_work_putcode()
@@ -177,7 +177,7 @@ class OrcidPusher(object):
                 put_code=None,
             )
             putcode = self._cache_all_author_putcodes()
-            self._post_or_put_work(putcode)
+            putcode = self._post_or_put_work(putcode)
         except (
             orcid_client_exceptions.TokenInvalidException,
             orcid_client_exceptions.TokenMismatchException,
