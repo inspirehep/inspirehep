@@ -15,6 +15,7 @@ from inspire_utils.dedupers import dedupe_list_of_dicts
 from inspire_utils.record import get_value
 from invenio_db import db
 from invenio_records.models import RecordMetadata
+from jsonschema import ValidationError
 from sqlalchemy.exc import OperationalError
 
 from inspirehep.errors import DB_TASK_EXCEPTIONS, ES_TASK_EXCEPTIONS
@@ -195,5 +196,12 @@ def remove_bai_from_literature_authors(uuids):
                 author["ids"] = new_ids
             else:
                 del author["ids"]
-        record.update(dict(record), disable_disambiguation=True)
-        db.session.commit()
+        try:
+            record.update(dict(record), disable_disambiguation=True)
+            db.session.commit()
+        except ValidationError:
+            LOGGER.warning(
+                "Can't update record due to validation error",
+                recid=record["control_number"],
+                uuid=record.id,
+            )
