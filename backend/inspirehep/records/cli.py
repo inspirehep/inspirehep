@@ -283,9 +283,9 @@ def remove_bai_from_literature_records(
         return
     query = 'authors.ids.schema:"INSPIRE BAI"'
     search = LiteratureSearch().query_from_iq(query).params(scroll="60m")
-    records_es = search.scan()
+    documents = search.scan()
     if total_records:
-        documents = islice(records_es, total_records)
+        documents = islice(documents, total_records)
 
     for chunk in chunker(documents, 100):
         uuids = [record.meta.id for record in chunk]
