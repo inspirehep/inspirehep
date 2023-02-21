@@ -5,7 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-SNOW_URL = "https://cerntraining.service-now.com/api/now/table"
+SNOW_URL = "https://cerntraining.service-now.com"
 SNOW_VERIFY_SSL = False
 SNOW_CLIENT_ID = "change-me"
 SNOW_CLIENT_SECRET = "change-me"
