@@ -643,4 +643,4 @@ class InspireSnow(SnowTicketAPI):
 
     def get_ticket_link(self, ticket_id):
         """Return ticket API url."""
-        return f"{self.base_url}/nav_to.do?uri=/u_request_fulfillment.do?sys_id=/{ticket_id}"
+        return f"{self.base_url}/nav_to.do?uri=/u_request_fulfillment.do?sys_id={ticket_id}"
