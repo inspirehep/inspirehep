@@ -281,8 +281,13 @@ def remove_bai_from_literature_records(
     ):
         click.echo("MQ queues are full, can't run disambiguation")
         return
-    query = 'authors.ids.schema:"INSPIRE BAI"'
-    search = LiteratureSearch().query_from_iq(query).params(scroll="60m")
+    query = {
+        "nested": {
+            "path": "authors",
+            "query": {"match_phrase": {"authors.ids.schema": "INSPIRE BAI"}},
+        }
+    }
+    search = LiteratureSearch().query(query).params(scroll="60m")
     documents = search.scan()
     if total_records:
         documents = islice(documents, total_records)
