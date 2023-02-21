@@ -42,7 +42,8 @@ class SnowTicketAPI:
         self.secret = secret or current_app.config.get("SNOW_CLIENT_SECRET")
         self.auth_url = auth_url or current_app.config.get("SNOW_AUTH_URL")
         self.verify_cert = verify_cert
-        self.url = url or current_app.config.get("SNOW_URL")
+        self.base_url = url or current_app.config.get("SNOW_URL", "")
+        self.api_url = f"{self.base_url}/api/now/table"
 
     def relogin_if_needed(f):
         """Recalculate SNOW token if it's invalid."""
@@ -111,7 +112,7 @@ class SnowTicketAPI:
             payload (:obj:`dict`): ticket payload.
         """
         response = requests.post(
-            f"{self.url}/{endpoint}",
+            f"{self.api_url}/{endpoint}",
             data=orjson.dumps(payload),
             headers=self.headers,
         )
@@ -127,7 +128,7 @@ class SnowTicketAPI:
                 Defaults to None.
         """
         ticket_response = requests.get(
-            f"{self.url}/u_request_fulfillment/{ticket_id}",
+            f"{self.api_url}/u_request_fulfillment/{ticket_id}",
             params=params,
             headers=self.headers,
         )
@@ -192,7 +193,7 @@ class SnowTicketAPI:
             Edited ticket (list(dict)).
         """
         response = requests.put(
-            f"{self.url}/u_request_fulfillment/{ticket_id}",
+            f"{self.api_url}/u_request_fulfillment/{ticket_id}",
             orjson.dumps(payload),
             headers=self.headers,
         )
@@ -220,7 +221,7 @@ class SnowTicketAPI:
             search_parameters, safe="&=^"
         )
         response = requests.get(
-            f"{self.url}/{endpoint}",
+            f"{self.api_url}/{endpoint}",
             params=search_parameters_query_string,
             headers=self.headers,
         )
@@ -642,4 +643,4 @@ class InspireSnow(SnowTicketAPI):
 
     def get_ticket_link(self, ticket_id):
         """Return ticket API url."""
-        return f"{self.url}/{self.ticket_endpoint}/{ticket_id}"
+        return f"{self.base_url}/nav_to.do?uri=/u_request_fulfillment.do?sys_id=/{ticket_id}"
