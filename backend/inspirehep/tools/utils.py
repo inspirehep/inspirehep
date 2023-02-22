@@ -24,7 +24,7 @@ FORMAT_TO_SOURCE_FIELD = {
 def get_references(f):
     """Extract references from LaTeX string (whole file)"""
 
-    references = []
+    references = {}
     cstrip = re.compile(r"(?<!\\)%.*$", re.M)
 
     for num, line in enumerate(f, 1):
@@ -37,10 +37,10 @@ def get_references(f):
                 one_ref = re.sub(r"\s", "", one_ref)
                 if re.match(r"^#\d{1,2}$", one_ref):
                     continue
-                if not any(r[0] == one_ref for r in references):
-                    references.append((one_ref, num))
+                if one_ref not in references:
+                    references[one_ref] = num
 
-    return references
+    return list(references.items())
 
 
 def find_references(references, requested_format):
