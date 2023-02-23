@@ -32,5 +32,29 @@ exports[`NewsAndUpdates renders 1`] = `
       </ExternalLink>
     </Col>
   </Row>
+  <Row
+    justify="center"
+  >
+    <Col
+      className="mt5"
+    >
+      <p
+        className="tc"
+      >
+        <img
+          alt="Twitter logo"
+          className="logo mr2"
+          src="twitter-icon.svg"
+        />
+        <a
+          href="https://twitter.com/inspirehep"
+          rel="noreferrer"
+          target="_blank"
+        >
+          Follow us on Twitter
+        </a>
+      </p>
+    </Col>
+  </Row>
 </Fragment>
 `;

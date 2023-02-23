@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Card} from 'antd';
+import { Row, Col, Card } from 'antd';
 import useAxios from 'axios-hooks';
 // @ts-ignore
 import SanitizedHTML from 'react-sanitized-html';
@@ -8,6 +8,7 @@ import Loading from '../../common/components/Loading';
 import ExternalLink from '../../common/components/ExternalLink';
 import ContentBox from '../../common/components/ContentBox';
 import { BLOG_URL } from '../../common/constants';
+import twitterLogo from '../assets/twitter-icon.svg';
 
 interface Post {
   id: string;
@@ -25,7 +26,7 @@ const MOST_RECENT_BLOG_POSTS_URL = `${BLOG_URL}/wp-json/wp/v2/posts?per_page=3`;
 
 function renderBlogPost(post: Post) {
   return (
-    <ExternalLink href={post.link} key={post.id}>
+    <ExternalLink href={post.link}>
       <Row justify="center">
         <Col sm={24} lg={14} className="mb2 __ContentBox__">
           <Card>
@@ -63,7 +64,9 @@ const NewsAndUpdates = () => {
               <Loading />
             ) : data ? (
               data.map((post: Post) => (
-                <div data-test-id="news-post">{renderBlogPost(post)}</div>
+                <div data-test-id="news-post" key={post.id}>
+                  {renderBlogPost(post)}
+                </div>
               ))
             ) : (
               <span>No new updates</span>
@@ -79,6 +82,20 @@ const NewsAndUpdates = () => {
           >
             View all
           </ExternalLink>
+        </Col>
+      </Row>
+      <Row justify="center">
+        <Col className="mt5">
+          <p className="tc">
+            <img className="logo mr2" src={twitterLogo} alt="Twitter logo" />
+            <a
+              href="https://twitter.com/inspirehep"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Follow us on Twitter
+            </a>
+          </p>
         </Col>
       </Row>
     </>
