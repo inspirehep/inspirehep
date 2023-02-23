@@ -33,7 +33,6 @@ exports[`HowToSearch renders freetext examples after freetext radio option is se
           "$$typeof": Symbol(react.forward_ref),
           "Group": [Function],
           "__ANT_BUTTON": true,
-          "displayName": "Button",
           "render": [Function],
         }
       }
@@ -80,7 +79,6 @@ exports[`HowToSearch renders with spires examples by default 1`] = `
           "$$typeof": Symbol(react.forward_ref),
           "Group": [Function],
           "__ANT_BUTTON": true,
-          "displayName": "Button",
           "render": [Function],
         }
       }
