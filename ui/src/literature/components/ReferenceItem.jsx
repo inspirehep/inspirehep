@@ -1,8 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
-import { List, Row, Col } from 'antd';
+import { List, Row, Col, Button, Tooltip } from 'antd';
 import { Link } from 'react-router-dom';
+import { EditOutlined } from '@ant-design/icons';
 
 import AuthorsAndCollaborations from '../../common/components/AuthorsAndCollaborations';
 import ArxivEprintList from './ArxivEprintList';
@@ -15,6 +16,7 @@ import {
   InlineUL,
   SEPARATOR_MIDDLEDOT,
 } from '../../common/components/InlineList';
+import { getConfigFor } from '../../common/config';
 
 class ReferenceItem extends Component {
   static renderLabel(reference) {
@@ -64,6 +66,10 @@ class ReferenceItem extends Component {
       'collaborations_with_suffix'
     );
 
+    const displayEditButton = getConfigFor(
+      'SELF_CURATION' && 'SELF_CURATION_BUTTON_V2'
+    );
+
     return (
       <List.Item>
         <Row
@@ -73,10 +79,28 @@ class ReferenceItem extends Component {
           align="middle"
           className="w-100 sm-plus-flex-nowrap"
         >
-          <Col className="xs-sm-col-24">
-            {ReferenceItem.renderLabel(reference)}
+          <Col className="xs-sm-col-24 pr3">
+            <div className="flex">
+              {displayEditButton && (
+                <Tooltip title="Edit reference">
+                  <Button
+                    shape="square"
+                    size="small"
+                    style={{
+                      color: '#0050b3',
+                      fontStyle: 'normal',
+                      textDecoration: 'none',
+                      border: 'none',
+                    }}
+                  >
+                    <EditOutlined />
+                  </Button>
+                </Tooltip>
+              )}
+              {ReferenceItem.renderLabel(reference)}
+            </div>
           </Col>
-          <Col style={{width: '100%'}}>
+          <Col style={{ width: '100%' }}>
             <List.Item.Meta
               title={ReferenceItem.renderTitle(reference)}
               description={
@@ -98,7 +122,12 @@ class ReferenceItem extends Component {
                         labeled={false}
                       />
                     )}
-                    {arxivEprint && <ArxivEprintList page="Literature detail" eprints={arxivEprint} />}
+                    {arxivEprint && (
+                      <ArxivEprintList
+                        page="Literature detail"
+                        eprints={arxivEprint}
+                      />
+                    )}
                     {dois && <DOIList dois={dois} />}
                     {urls && !recordId && <URLList urls={urls} />}
                   </InlineUL>
