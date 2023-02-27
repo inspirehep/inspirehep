@@ -1,8 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
-import { List, Row, Col } from 'antd';
+import { List, Row, Col, Button, Tooltip } from 'antd';
 import { Link } from 'react-router-dom';
+import { EditOutlined } from '@ant-design/icons';
 
 import AuthorsAndCollaborations from '../../common/components/AuthorsAndCollaborations';
 import ArxivEprintList from './ArxivEprintList';
@@ -73,10 +74,10 @@ class ReferenceItem extends Component {
           align="middle"
           className="w-100 sm-plus-flex-nowrap"
         >
-          <Col className="xs-sm-col-24">
+          <Col className="xs-sm-col-24 pr3">
             {ReferenceItem.renderLabel(reference)}
           </Col>
-          <Col style={{width: '100%'}}>
+          <Col style={{ width: '100%' }}>
             <List.Item.Meta
               title={ReferenceItem.renderTitle(reference)}
               description={
@@ -98,13 +99,33 @@ class ReferenceItem extends Component {
                         labeled={false}
                       />
                     )}
-                    {arxivEprint && <ArxivEprintList page="Literature detail" eprints={arxivEprint} />}
+                    {arxivEprint && (
+                      <ArxivEprintList
+                        page="Literature detail"
+                        eprints={arxivEprint}
+                      />
+                    )}
                     {dois && <DOIList dois={dois} />}
                     {urls && !recordId && <URLList urls={urls} />}
                   </InlineUL>
                 </Fragment>
               }
             />
+          </Col>
+          <Col className="xs-sm-col-24 pr3">
+            <Tooltip title="Edit reference">
+              <Button
+                shape="square"
+                size="small"
+                style={{
+                  color: '#0050b3',
+                  fontStyle: 'normal',
+                  textDecoration: 'none',
+                }}
+              >
+                <EditOutlined />
+              </Button>
+            </Tooltip>
           </Col>
         </Row>
       </List.Item>
