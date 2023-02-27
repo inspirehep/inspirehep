@@ -10,7 +10,7 @@ exports[`ReferenceItem does not render misc if title present 1`] = `
     type="flex"
   >
     <Col
-      className="xs-sm-col-24"
+      className="xs-sm-col-24 pr3"
     />
     <Col
       style={
@@ -64,7 +64,7 @@ exports[`ReferenceItem renders misc if present 1`] = `
     type="flex"
   >
     <Col
-      className="xs-sm-col-24"
+      className="xs-sm-col-24 pr3"
     />
     <Col
       style={
@@ -109,7 +109,7 @@ exports[`ReferenceItem renders unlinked reference (no control_number) 1`] = `
     type="flex"
   >
     <Col
-      className="xs-sm-col-24"
+      className="xs-sm-col-24 pr3"
     />
     <Col
       style={
@@ -211,7 +211,7 @@ exports[`ReferenceItem renders with full reference 1`] = `
     type="flex"
   >
     <Col
-      className="xs-sm-col-24"
+      className="xs-sm-col-24 pr3"
     >
       <span>
         [
