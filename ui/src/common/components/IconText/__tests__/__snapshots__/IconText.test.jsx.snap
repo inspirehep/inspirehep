@@ -2,7 +2,7 @@
 
 exports[`IconText renders with all props set 1`] = `
 <span
-  className="__IconText__"
+  className="__IconText__ undefined"
 >
   <span
     className="icon"

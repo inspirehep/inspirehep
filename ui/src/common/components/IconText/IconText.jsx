@@ -5,9 +5,9 @@ import './IconText.less';
 
 class IconText extends Component {
   render() {
-    const { icon, text } = this.props;
+    const { icon, text, classNames } = this.props;
     return (
-      <span className="__IconText__">
+      <span className={`__IconText__ ${classNames}`}>
         <span className="icon">{icon}</span>
         <span className="v-top">{text}</span>
       </span>
