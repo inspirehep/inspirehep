@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import './IconText.less';
 
 class IconText extends Component {
   render() {
-    const { icon, text } = this.props;
+    const { icon, text, className } = this.props;
     return (
-      <span className="__IconText__">
+      <span className={classNames('__IconText__', className)}>
         <span className="icon">{icon}</span>
         <span className="v-top">{text}</span>
       </span>
