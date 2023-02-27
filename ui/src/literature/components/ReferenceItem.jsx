@@ -1,8 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
-import { List, Row, Col } from 'antd';
+import { List, Row, Col, Button, Tooltip } from 'antd';
 import { Link } from 'react-router-dom';
+import { EditOutlined } from '@ant-design/icons';
 
 import AuthorsAndCollaborations from '../../common/components/AuthorsAndCollaborations';
 import ArxivEprintList from './ArxivEprintList';
@@ -15,6 +16,9 @@ import {
   InlineUL,
   SEPARATOR_MIDDLEDOT,
 } from '../../common/components/InlineList';
+import IconText from '../../common/components/IconText';
+import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank';
+import { getConfigFor } from '../../common/config';
 
 class ReferenceItem extends Component {
   static renderLabel(reference) {
@@ -74,9 +78,27 @@ class ReferenceItem extends Component {
           className="w-100 sm-plus-flex-nowrap"
         >
           <Col className="xs-sm-col-24">
-            {ReferenceItem.renderLabel(reference)}
+            <div className="flex">
+              {getConfigFor('SELF_CURATION_BUTTON_V1') && (
+                <Tooltip title="Edit reference">
+                  <Button
+                    shape="square"
+                    size="small"
+                    style={{
+                      color: '#0050b3',
+                      fontStyle: 'normal',
+                      textDecoration: 'none',
+                      border: 'none',
+                    }}
+                  >
+                    <EditOutlined />
+                  </Button>
+                </Tooltip>
+              )}
+              {ReferenceItem.renderLabel(reference)}
+            </div>
           </Col>
-          <Col style={{width: '100%'}}>
+          <Col style={{ width: '100%' }}>
             <List.Item.Meta
               title={ReferenceItem.renderTitle(reference)}
               description={
@@ -98,7 +120,12 @@ class ReferenceItem extends Component {
                         labeled={false}
                       />
                     )}
-                    {arxivEprint && <ArxivEprintList page="Literature detail" eprints={arxivEprint} />}
+                    {arxivEprint && (
+                      <ArxivEprintList
+                        page="Literature detail"
+                        eprints={arxivEprint}
+                      />
+                    )}
                     {dois && <DOIList dois={dois} />}
                     {urls && !recordId && <URLList urls={urls} />}
                   </InlineUL>
@@ -106,6 +133,28 @@ class ReferenceItem extends Component {
               }
             />
           </Col>
+          {getConfigFor('SELF_CURATION_BUTTON_V2') && (
+            <Col className="xs-sm-col-24 pr3">
+              <Tooltip title="Edit reference">
+                <div className="flex items-center justify-center">
+                  <LinkWithTargetBlank
+                    href="/"
+                    style={{
+                      color: '#0050b3',
+                      fontStyle: 'normal',
+                      textDecoration: 'none',
+                    }}
+                  >
+                    <IconText
+                      text="edit"
+                      icon={<EditOutlined />}
+                      className="flex items-center justify-center pr2"
+                    />
+                  </LinkWithTargetBlank>
+                </div>
+              </Tooltip>
+            </Col>
+          )}
         </Row>
       </List.Item>
     );
