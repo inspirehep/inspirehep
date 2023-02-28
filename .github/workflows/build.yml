@@ -2,19 +2,21 @@ name: Build
 
 on:
   workflow_dispatch:
-    image:
-      description: The name of the image to build
-      required: true
-    context:
-      description: The context used to build the image
-      required: true
+    inputs:
+      image:
+        description: The name of the image to build
+        required: true
+      context:
+        description: The context used to build the image
+        required: true
   workflow_call:
-    image:
-      description: The name of the image to build
-      required: true
-    context:
-      description: The context used to build the image
-      required: true
+    inputs:
+      image:
+        description: The name of the image to build
+        required: true
+      context:
+        description: The context used to build the image
+        required: true
 
 jobs:
   build:
