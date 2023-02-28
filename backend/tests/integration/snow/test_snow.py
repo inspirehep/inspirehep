@@ -31,6 +31,7 @@ def test_create_inspire_ticket(mocked_inspire_snow, inspire_app, teardown_cache)
         description="This is a test subject by Jessica Jones.",
         user_email="marcjanna.jedrych@cern.ch",
         recid=control_number,
+        assigned_to_email="marcjanna.jedrych@cern.ch",
     )
 
     assert ticket_id
@@ -82,7 +83,16 @@ def test_get_ticket(mocked_inspire_snow, inspire_app, teardown_cache):
     before_record_response=filter_out_user_data_and_cookie_headers(),
 )
 def test_get_ticket_by_recid(mocked_inspire_snow, inspire_app, teardown_cache):
-    control_number = 349121119
+    required_ticket_keys = [
+        "u_functional_category",
+        "assigned_to",
+        "sys_id",
+        "date",
+        "link",
+        "subject",
+        "description",
+    ]
+    control_number = 33322211
     ticket_id = InspireSnow().create_inspire_ticket(
         subject="This is a test description by Jessica Jones.",
         description="This is a test subject by Jessica Jones.",
@@ -93,7 +103,8 @@ def test_get_ticket_by_recid(mocked_inspire_snow, inspire_app, teardown_cache):
     found_tickets = InspireSnow().get_tickets_by_recid(control_number)
     assert len(found_tickets) == 1
     assert found_tickets[0]
-    assert len(found_tickets[0].keys()) == 3
+    for field in required_ticket_keys:
+        assert field in found_tickets[0]
 
 
 @pytest.mark.vcr(
@@ -175,6 +186,7 @@ def test_edit_inspire_ticket(mocked_inspire_snow, inspire_app, teardown_cache):
         subject="This is a test description by Jessica Jones.",
         description="This is a test subject by Jessica Jones.",
         recid=control_number,
+        assigned_to_email="marcjanna.jedrych@cern.ch",
     )
 
     assert ticket_id

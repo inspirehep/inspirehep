@@ -437,6 +437,7 @@ class InspireSnow(SnowTicketAPI):
         subject=None,
         description=None,
         recid=None,
+        assigned_to_email=None,
         **kwargs,
     ):
         """Creates new RT ticket with a body that is rendered template.
@@ -447,29 +448,20 @@ class InspireSnow(SnowTicketAPI):
             description (str): The body of the ticket
             subject (str): The subject of the ticket.
             recid (int): The record id to be set custom RecordID field.
-            assignee (str): Snow id of the account that should be assigned to the ticket.
+            assigned_to_email (str): Email of the user to whom the ticket should be assigned.
 
         Returns:
-            int: the ID of the ticket
+            str: the ID of the ticket.
 
         Raises: CreateTicketException, EditTicketException in case of failure
         """
         description = strip_lines(description)
         subject = subject or "No Subject"
 
-        if user_email:
-            snow_user_id = next(
-                (
-                    user["id"]
-                    for user in self.get_formatted_user_list()
-                    if user["email"] == user_email
-                ),
-                None,
-            )
-            caller_id = assignee = snow_user_id
-        else:
-            caller_id = self.user_id
-            assignee = ""
+        caller_id = self._get_user_by_email(user_email) if user_email else self.user_id
+        assignee_id = (
+            self._get_user_by_email(assigned_to_email) if assigned_to_email else ""
+        )
 
         functional_category_id = next(
             (
@@ -502,7 +494,7 @@ class InspireSnow(SnowTicketAPI):
             )
             if recid:
                 self._update_ticket_with_inspire_recid(
-                    ticket_id, str(recid), assignee=assignee
+                    ticket_id, str(recid), assignee=assignee_id
                 )
             return ticket_id
         except requests.exceptions.RequestException:
@@ -532,7 +524,7 @@ class InspireSnow(SnowTicketAPI):
             kwargs : Other arguments possible to set.
 
         Returns:
-            int: the ID of the ticket or None if fails.
+            str: the ID of the ticket or None if fails.
         """
         description = render_template(template_path, **template_context).strip()
         return self.create_inspire_ticket(
@@ -548,14 +540,7 @@ class InspireSnow(SnowTicketAPI):
             message (str): message to be added when resolving the ticket.
         """
         if user_email:
-            snow_user_id = next(
-                (
-                    user["id"]
-                    for user in self.get_formatted_user_list()
-                    if user["email"] == user_email
-                ),
-                None,
-            )
+            snow_user_id = self._get_user_by_email(user_email)
         else:
             snow_user_id = None
 
@@ -601,7 +586,7 @@ class InspireSnow(SnowTicketAPI):
         return categories
 
     def get_users(self):
-        """Get functional categories for functional element Inspire"""
+        """Get users for functional element Inspire"""
         query = "group.nameSTARTSWITHInspire Information system"
         fields = "user.name,group.name,user.email,user.sys_id"
         return super().get_users(query, fields)
@@ -627,6 +612,25 @@ class InspireSnow(SnowTicketAPI):
         ]
         return users
 
+    def _get_user_by_email(self, user_email):
+        """Find SNOW user id by an email.
+
+        Args:
+            user_email (str): Email of the user whos id should be found.
+
+        Returns:
+            str: the ID of the user or None if fails.
+        """
+        found_user = next(
+            (
+                user["id"]
+                for user in self.get_formatted_user_list()
+                if user["email"] == user_email
+            ),
+            None,
+        )
+        return found_user
+
     def get_ticket_simplified_response(self, ticket):
         """Return ticket in human-readable format."""
         formatted_ticket = {}
@@ -639,6 +643,10 @@ class InspireSnow(SnowTicketAPI):
         asigned_user = self.get_user(assigned_to) if assigned_to else ""
         formatted_ticket["assigned_to"] = asigned_user
         formatted_ticket["sys_id"] = ticket["sys_id"]
+        formatted_ticket["date"] = ticket["sys_created_on"]
+        formatted_ticket["link"] = self.get_ticket_link(ticket["sys_id"])
+        formatted_ticket["subject"] = ticket["short_description"]
+        formatted_ticket["description"] = ticket["description"]
         return formatted_ticket
 
     def get_ticket_link(self, ticket_id):

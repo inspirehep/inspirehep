@@ -138,6 +138,7 @@ def test_create_snow_ticket(
                         "queue": "Test",
                         "recid": "4328",
                         "subject": "subject",
+                        "assigned_to_email": "marcjanna.jedrych@cern.ch",
                     }
                 ),
             )
@@ -406,20 +407,20 @@ def test_get_snow_tickets_for_record(
         with inspire_app.test_client() as client:
             login_user_via_session(client, email=user.email)
             response = client.post(
-                "api/editor/literature/12349910/rt/tickets/create",
+                "api/editor/literature/12349919/rt/tickets/create",
                 content_type="application/json",
                 data=orjson.dumps(
                     {
                         "description": "description",
                         "queue": "Test",
-                        "recid": "12349910",
+                        "recid": "12349919",
                         "subject": "subject",
                     }
                 ),
             )
 
         assert response.status_code == 200
-        response = client.get("api/editor/literature/12349910/rt/tickets")
+        response = client.get("api/editor/literature/12349919/rt/tickets")
         assert response.status_code == 200
         assert len(response.json) == 1
 
