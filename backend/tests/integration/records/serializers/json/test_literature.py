@@ -1798,3 +1798,77 @@ def test_authors_detail_can_claim_is_true_when_match_with_name_variants(inspire_
     response_data_metadata = response_data_hits[0]["metadata"]
 
     assert "can_claim" in response_data_metadata
+
+
+def test_literature_list_populates_author_bai(inspire_app):
+    headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+    author_record = create_record(
+        "aut",
+        data={
+            "ids": [{"schema": "INSPIRE BAI", "value": "T.Author.1"}],
+            "name": {"value": "Author, Test"},
+        },
+    )
+    create_record(
+        "lit",
+        data={
+            "authors": [{"full_name": "Author, Test", "record": author_record["self"]}]
+        },
+    )
+    expected_status_code = 200
+    with inspire_app.test_client() as client:
+        response = client.get("/literature", headers=headers)
+    response_status_code = response.status_code
+    response_data = orjson.loads(response.data)
+
+    assert response_data["hits"]["total"] == 1
+
+    response_data_hits = response_data["hits"]["hits"]
+    response_data_metadata = response_data_hits[0]["metadata"]
+
+    assert expected_status_code == response_status_code
+    assert response_data_metadata["authors"][0]["ids"] == [
+        {"schema": "INSPIRE BAI", "value": "T.Author.1"}
+    ]
+
+
+def test_literature_list_populates_author_bai_and_keeps_other_ids(inspire_app):
+    headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+    author_record = create_record(
+        "aut",
+        data={
+            "ids": [{"schema": "INSPIRE BAI", "value": "T.Author.1"}],
+            "name": {"value": "Author, Test"},
+        },
+    )
+    create_record(
+        "lit",
+        data={
+            "authors": [
+                {
+                    "full_name": "Author, Test",
+                    "record": author_record["self"],
+                    "ids": [{"schema": "ORCID", "value": "0000-0003-1134-6827"}],
+                }
+            ]
+        },
+    )
+    expected_status_code = 200
+    with inspire_app.test_client() as client:
+        response = client.get("/literature", headers=headers)
+    response_status_code = response.status_code
+    response_data = orjson.loads(response.data)
+
+    assert response_data["hits"]["total"] == 1
+
+    response_data_hits = response_data["hits"]["hits"]
+    response_data_metadata = response_data_hits[0]["metadata"]
+
+    assert expected_status_code == response_status_code
+    assert {
+        "schema": "ORCID",
+        "value": "0000-0003-1134-6827",
+    } in response_data_metadata["authors"][0]["ids"]
+    assert {"schema": "INSPIRE BAI", "value": "T.Author.1"} in response_data_metadata[
+        "authors"
+    ][0]["ids"]

@@ -42,16 +42,24 @@ def test_populate_journal_literature_table(inspire_app, cli, clean_celery_sessio
 
 
 def test_remove_bai_from_literature_records(inspire_app, cli, clean_celery_session):
+    author_data_1 = faker.record("aut", with_control_number=True)
+    author_data_2 = faker.record("aut", with_control_number=True)
+
+    author_data_1["ids"] = [{"schema": "INSPIRE BAI", "value": "A.Test.1"}]
+    author_data_2["ids"] = [
+        {"schema": "INSPIRE BAI", "value": "A.Different.1"},
+    ]
+
+    author_1 = InspireRecord.create(author_data_1)
+    author_2 = InspireRecord.create(author_data_2)
+
     literature_data = faker.record("lit", with_control_number=True)
     literature_data["authors"] = [
-        {
-            "full_name": "Test, Author",
-            "ids": [{"schema": "INSPIRE BAI", "value": "A.Test.1"}],
-        },
+        {"full_name": "Test, Author", "record": author_1["self"]},
         {
             "full_name": "Different, Author",
+            "record": author_2["self"],
             "ids": [
-                {"schema": "INSPIRE BAI", "value": "A.Different.1"},
                 {"schema": "ORCID", "value": "0000-0003-1134-6827"},
             ],
         },
@@ -73,10 +81,8 @@ def test_remove_bai_from_literature_records(inspire_app, cli, clean_celery_sessi
     )
 
     def assert_bai_removed():
-        record_lit_es = (
-            LiteratureSearch().get_record(literature.id).execute().hits.hits[0]
-        )
-        authors = record_lit_es._source["authors"]
+        record_lit = InspireRecord.get_record(literature.id)
+        authors = record_lit["authors"]
         assert "ids" not in authors[0]
         assert authors[1]["ids"] == [
             {"schema": "ORCID", "value": "0000-0003-1134-6827"}
@@ -88,16 +94,24 @@ def test_remove_bai_from_literature_records(inspire_app, cli, clean_celery_sessi
 def test_remove_bai_from_other_collections_records(
     inspire_app, cli, clean_celery_session
 ):
+    author_data_1 = faker.record("aut", with_control_number=True)
+    author_data_2 = faker.record("aut", with_control_number=True)
+
+    author_data_1["ids"] = [{"schema": "INSPIRE BAI", "value": "A.Test.1"}]
+    author_data_2["ids"] = [
+        {"schema": "INSPIRE BAI", "value": "A.Different.1"},
+    ]
+
+    author_1 = InspireRecord.create(author_data_1)
+    author_2 = InspireRecord.create(author_data_2)
+
     literature_data = faker.record("lit", with_control_number=True)
     literature_data["authors"] = [
-        {
-            "full_name": "Test, Author",
-            "ids": [{"schema": "INSPIRE BAI", "value": "A.Test.1"}],
-        },
+        {"full_name": "Test, Author", "record": author_1["self"]},
         {
             "full_name": "Different, Author",
+            "record": author_2["self"],
             "ids": [
-                {"schema": "INSPIRE BAI", "value": "A.Different.1"},
                 {"schema": "ORCID", "value": "0000-0003-1134-6827"},
             ],
         },
@@ -120,10 +134,8 @@ def test_remove_bai_from_other_collections_records(
     )
 
     def assert_bai_removed():
-        record_lit_es = (
-            LiteratureSearch().get_record(literature.id).execute().hits.hits[0]
-        )
-        authors = record_lit_es._source["authors"]
+        record_lit = InspireRecord.get_record(literature.id)
+        authors = record_lit["authors"]
         assert "ids" not in authors[0]
         assert authors[1]["ids"] == [
             {"schema": "ORCID", "value": "0000-0003-1134-6827"}

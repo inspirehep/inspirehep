@@ -5,13 +5,17 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+import mock
 import orjson
 from helpers.providers.faker import faker
 
 from inspirehep.records.marshmallow.literature import LiteratureAuthorsSchema
 
 
-def test_authors_schema():
+@mock.patch("inspirehep.records.marshmallow.literature.common.author.current_app")
+def test_authors_schema(mock_current_app):
+    mock_current_app.config = {"FEATURE_FLAG_ENABLE_POPULATE_BAI_FROM_LIT_AUTHOR": True}
+
     schema = LiteratureAuthorsSchema()
     authors = [
         {"full_name": "Frank Castle"},
