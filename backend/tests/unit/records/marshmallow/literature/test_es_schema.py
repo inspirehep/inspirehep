@@ -20,9 +20,12 @@ from inspirehep.records.marshmallow.literature import LiteratureElasticSearchSch
     "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_cv_format",
     return_value=[],
 )
+@patch("inspirehep.records.marshmallow.literature.common.author.current_app")
 def test_es_schema_removes_supervisors_from_authors(
-    mock_referenced_authors, mock_cv_format
+    mock_current_app, mock_referenced_authors, mock_cv_format
 ):
+    mock_current_app.config = {"FEATURE_FLAG_ENABLE_POPULATE_BAI_FROM_LIT_AUTHOR": True}
+
     schema = LiteratureElasticSearchSchema()
     authors = [
         {"full_name": "Frank Castle"},
@@ -44,9 +47,12 @@ def test_es_schema_removes_supervisors_from_authors(
     "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_cv_format",
     return_value=[],
 )
+@patch("inspirehep.records.marshmallow.literature.common.author.current_app")
 def test_es_schema_removes_supervisors_from_facet_author_name(
-    mock_referenced_authors, mock_cv_format
+    mock_current_app, mock_referenced_authors, mock_cv_format
 ):
+    mock_current_app.config = {"FEATURE_FLAG_ENABLE_POPULATE_BAI_FROM_LIT_AUTHOR": True}
+
     schema = LiteratureElasticSearchSchema()
     authors = [
         {"full_name": "Frank Castle"},

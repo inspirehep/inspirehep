@@ -5,12 +5,16 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+import mock
 import orjson
 
 from inspirehep.records.marshmallow.literature.common import CitationItemSchemaV1
 
 
-def test_returns_non_empty_fields():
+@mock.patch("inspirehep.records.marshmallow.literature.common.author.current_app")
+def test_returns_non_empty_fields(current_app_mock):
+    current_app_mock.config = {"FEATURE_FLAG_ENABLE_POPULATE_BAI_FROM_LIT_AUTHOR": True}
+
     schema = CitationItemSchemaV1()
     dump = {
         "control_number": 123,
@@ -33,7 +37,10 @@ def test_returns_non_empty_fields():
     assert expected == orjson.loads(result)
 
 
-def test_returns_max_10_authors():
+@mock.patch("inspirehep.records.marshmallow.literature.common.author.current_app")
+def test_returns_max_10_authors(current_app_mock):
+    current_app_mock.config = {"FEATURE_FLAG_ENABLE_POPULATE_BAI_FROM_LIT_AUTHOR": True}
+
     schema = CitationItemSchemaV1()
     dump = {
         "control_number": 123,

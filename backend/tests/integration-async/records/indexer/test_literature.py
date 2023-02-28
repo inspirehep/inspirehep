@@ -492,7 +492,7 @@ def test_indexing_updates_bai_in_literature_es_document(
         record_lit_es = (
             LiteratureSearch().get_record(str(literature.id)).execute().hits[0]
         )
-        assert record_lit_es["authors"][0]["bai"] == "A.Test.1"
+        assert record_lit_es["authors"][0]["ids"][0]["value"] == "A.Test.1"
 
     retry_until_pass(assert_bai_in_lit_record)
 
@@ -506,6 +506,6 @@ def test_indexing_updates_bai_in_literature_es_document(
         record_lit_es = (
             LiteratureSearch().get_record(str(literature.id)).execute().hits[0]
         )
-        assert record_lit_es["authors"][0]["bai"] == "A.Test.2"
+        assert record_lit_es["authors"][0]["ids"][0]["value"] == "A.Test.2"
 
     retry_until_pass(assert_bai_was_updated_in_es)

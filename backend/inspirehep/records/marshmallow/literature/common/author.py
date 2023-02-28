@@ -8,6 +8,7 @@
 from copy import deepcopy
 from unicodedata import normalize
 
+from flask import current_app
 from inspire_dojson.utils import get_recid_from_ref
 from invenio_pidstore.errors import PIDDoesNotExistError
 from marshmallow import Schema, fields, missing, pre_dump
@@ -56,20 +57,25 @@ class AuthorSchemaV1(FirstAuthorSchemaV1):
     record = fields.Raw()
     signature_block = fields.Raw()
     uuid = fields.Raw()
-    bai = fields.Method("get_bai", dump_only=True)
+    ids = fields.Method("get_ids", dump_only=True)
 
     @staticmethod
-    def get_bai(data):
+    def get_ids(data):
+        ids_from_lit_record = data.get("ids", [])
+        if not current_app.config.get(
+            "FEATURE_FLAG_ENABLE_POPULATE_BAI_FROM_LIT_AUTHOR"
+        ):
+            return ids_from_lit_record
         try:
             author_record = AuthorsRecord.get_record_by_pid_value(
                 get_recid_from_ref(data["record"])
             )
         except (PIDDoesNotExistError, KeyError):
             return missing
-        return (
-            get_first_value_for_schema(author_record.get("ids", []), "INSPIRE BAI")
-            or missing
-        )
+        bai = get_first_value_for_schema(author_record.get("ids", []), "INSPIRE BAI")
+        if bai:
+            ids_from_lit_record.append({"schema": "INSPIRE BAI", "value": bai})
+        return ids_from_lit_record or missing
 
     @pre_dump
     def filter(self, data):
