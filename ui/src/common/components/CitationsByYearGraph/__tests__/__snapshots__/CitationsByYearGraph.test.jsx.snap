@@ -867,6 +867,133 @@ exports[`CitationsByYearGraph renders more than 8 years without explicit tickVal
 </LoadingOrChildren>
 `;
 
+exports[`CitationsByYearGraph renders two citations graphs when current year citations are included 1`] = `
+<LoadingOrChildren
+  loading={false}
+>
+  <ErrorAlertOrChildren
+    error={null}
+  >
+    <EmptyOrChildren
+      data={
+        Object {
+          "2020": 5,
+          "2021": 16,
+          "2022": 33,
+          "2023": 10,
+        }
+      }
+      title="0 Citations"
+    >
+      <div
+        data-test-id="citations-by-year-graph"
+      >
+        <FlexibleXYPlot
+          className="__CitationsByYearGraph__"
+          height={250}
+          margin={
+            Object {
+              "bottom": 40,
+              "left": 40,
+              "right": 20,
+              "top": 10,
+            }
+          }
+          onMouseLeave={[Function]}
+          yDomain={
+            Array [
+              0,
+              33,
+            ]
+          }
+        >
+          <XAxis
+            attr="x"
+            attrAxis="y"
+            orientation="bottom"
+            tickFormat={[Function]}
+            tickValues={
+              Array [
+                2020,
+                2021,
+                2022,
+                2023,
+              ]
+            }
+          />
+          <YAxis
+            attr="y"
+            attrAxis="x"
+            orientation="left"
+            tickFormat={[Function]}
+            tickTotal={5}
+            tickValues={
+              Array [
+                5,
+                16,
+                33,
+                10,
+              ]
+            }
+          />
+          <LineSeries
+            className=""
+            color="#1890ff"
+            curve={null}
+            data={
+              Array [
+                Object {
+                  "x": 2020,
+                  "y": 5,
+                },
+                Object {
+                  "x": 2021,
+                  "y": 16,
+                },
+                Object {
+                  "x": 2022,
+                  "y": 33,
+                },
+              ]
+            }
+            getNull={[Function]}
+            onNearestX={[Function]}
+            opacity={1}
+            sizeType="literal"
+            stack={false}
+            strokeStyle="solid"
+            style={Object {}}
+          />
+          <LineSeries
+            className=""
+            color="#1890FF99"
+            curve={null}
+            data={
+              Array [
+                Object {
+                  "x": 2022,
+                  "y": 33,
+                },
+                Object {
+                  "x": 2023,
+                  "y": 10,
+                },
+              ]
+            }
+            getNull={[Function]}
+            opacity={1}
+            stack={false}
+            strokeDasharray="7 3"
+            strokeStyle="solid"
+            style={Object {}}
+          />
+        </FlexibleXYPlot>
+      </div>
+    </EmptyOrChildren>
+  </ErrorAlertOrChildren>
+</LoadingOrChildren>
+`;
+
 exports[`CitationsByYearGraph renders without citations 1`] = `
 <LoadingOrChildren
   loading={true}

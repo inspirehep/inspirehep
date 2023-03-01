@@ -159,4 +159,20 @@ describe('CitationsByYearGraph', () => {
     expect(tickFormat(15123)).toEqual('15K');
     expect(tickFormat(500)).toEqual(500);
   });
+  it('renders two citations graphs when current year citations are included', () => {
+    const citationsByYear = {
+      '2020': 5,
+      '2021': 16,
+      '2022': 33,
+      '2023': 10,
+    };
+    const wrapper = shallow(
+      <CitationsByYearGraph
+        citationsByYear={citationsByYear}
+        loading={false}
+        error={null}
+      />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
 });
