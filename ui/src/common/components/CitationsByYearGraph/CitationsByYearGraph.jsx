@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { LineSeries, FlexibleWidthXYPlot, YAxis, XAxis, Hint } from 'react-vis';
+import { LineSeries, FlexibleWidthXYPlot, XAxis, YAxis, Hint } from 'react-vis';
 
 import 'react-vis/dist/style.css';
 import maxBy from 'lodash.maxby';
@@ -16,6 +16,7 @@ import pluralizeUnlessSingle, {
 import EmptyOrChildren from '../EmptyOrChildren';
 
 const BLUE = styleVariables['@primary-color'];
+const LIGHT_BLUE = styleVariables['@primary-with-opacity'];
 const GRAPH_MARGIN = { left: 40, right: 20, top: 10, bottom: 40 };
 const GRAPH_HEIGHT = 250;
 
@@ -28,9 +29,8 @@ class CitationsByYearGraph extends Component {
     const { citationsByYear } = nextProps;
     return {
       ...prevState,
-      seriesData: CitationsByYearGraph.citationsByYearToSeriesData(
-        citationsByYear
-      ),
+      seriesData:
+        CitationsByYearGraph.citationsByYearToSeriesData(citationsByYear),
     };
   }
 
@@ -100,7 +100,7 @@ class CitationsByYearGraph extends Component {
   renderXAxis() {
     const { seriesData } = this.state;
 
-    const valuesAtX = seriesData.map(point => point.x);
+    const valuesAtX = seriesData.map((point) => point.x);
     const tickValuesAtX =
       seriesData.length < MAX_NUMBER_OF_TICKS_AT_X
         ? valuesAtX
@@ -108,7 +108,7 @@ class CitationsByYearGraph extends Component {
     return (
       <XAxis
         tickValues={tickValuesAtX}
-        tickFormat={value => value /* avoid comma per 3 digit */}
+        tickFormat={(value) => value /* avoid comma per 3 digit */}
       />
     );
   }
@@ -117,7 +117,7 @@ class CitationsByYearGraph extends Component {
     const { seriesData } = this.state;
     // set tickValues at Y explicitly to avoid ticks like `2011.5`
     // only if it has less than MAX_NUMBER_OF_TICKS_AT_Y data points.
-    const uniqueValues = [...new Set(seriesData.map(point => point.y))];
+    const uniqueValues = [...new Set(seriesData.map((point) => point.y))];
     const tickValuesAtY =
       uniqueValues.length < MAX_NUMBER_OF_TICKS_AT_Y ? uniqueValues : null;
     return (
@@ -129,11 +129,44 @@ class CitationsByYearGraph extends Component {
     );
   }
 
+  renderCitationsGraph() {
+    const { seriesData } = this.state;
+    const currentYear = new Date().getFullYear();
+    const yearOfLastCitation = seriesData?.slice(-1)[0]?.x;
+    const currentYearSeries = seriesData.slice(seriesData.length - 2, seriesData.length);
+    const pastYearsSeries = seriesData.slice(0, seriesData.length - 1);
+
+    if (yearOfLastCitation === currentYear) {
+      return [
+          <LineSeries
+            sizeType="literal"
+            onNearestX={this.onGraphMouseOver}
+            data={pastYearsSeries}
+            color={BLUE}
+          />,
+          <LineSeries
+            data={currentYearSeries}
+            color={LIGHT_BLUE}
+            strokeDasharray="7 3"
+          />
+      ];
+    }
+    return (
+      <LineSeries
+        sizeType="literal"
+        onNearestX={this.onGraphMouseOver}
+        data={seriesData}
+        color={BLUE}
+      />
+    );
+  }
+
   render() {
     const { loading, error, citationsByYear } = this.props;
     const { seriesData } = this.state;
     const yDomainMax =
       (seriesData.length !== 0 && maxBy(seriesData, 'y').y) || 0;
+
     return (
       <LoadingOrChildren loading={loading}>
         <ErrorAlertOrChildren error={error}>
@@ -148,12 +181,7 @@ class CitationsByYearGraph extends Component {
               >
                 {this.renderXAxis()}
                 {this.renderYAxis()}
-                <LineSeries
-                  sizeType="literal"
-                  onNearestX={this.onGraphMouseOver}
-                  data={seriesData}
-                  color={BLUE}
-                />
+                {this.renderCitationsGraph()}
                 {this.renderHint()}
               </FlexibleWidthXYPlot>
             </div>

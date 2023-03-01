@@ -2,6 +2,7 @@
 
 module.exports = {
   '@primary-color': '#1890ff',
+  '@primary-with-opacity': '#1890FF99',
   '@link-color': '#0050b3',
   '@link-hover-color': '#40a9ff',
   '@layout-body-background': '#f0f2f5',
