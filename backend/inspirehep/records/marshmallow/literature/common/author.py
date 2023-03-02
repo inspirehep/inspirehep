@@ -8,7 +8,6 @@
 from copy import deepcopy
 from unicodedata import normalize
 
-from flask import current_app
 from inspire_dojson.utils import get_recid_from_ref
 from invenio_pidstore.errors import PIDDoesNotExistError
 from marshmallow import Schema, fields, missing, pre_dump
@@ -62,9 +61,8 @@ class AuthorSchemaV1(FirstAuthorSchemaV1):
     @staticmethod
     def get_ids(data):
         ids_from_lit_record = data.get("ids", [])
-        if not current_app.config.get(
-            "FEATURE_FLAG_ENABLE_POPULATE_BAI_FROM_LIT_AUTHOR"
-        ):
+        # TODO: remove it after deletion of all BAIs
+        if get_first_value_for_schema(ids_from_lit_record, "INSPIRE BAI"):
             return ids_from_lit_record
         try:
             author_record = AuthorsRecord.get_record_by_pid_value(
