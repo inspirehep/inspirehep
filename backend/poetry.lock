@@ -1415,7 +1415,7 @@ tests = ["flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pytest-c
 
 [[package]]
 name = "inspire-query-parser"
-version = "6.0.50"
+version = "6.0.51"
 description = "A PEG-based query parser for INSPIRE."
 category = "main"
 optional = false
@@ -1479,7 +1479,7 @@ reference = "362425d6f77a4770794615d3b98c233fca08e537"
 
 [[package]]
 name = "inspire-utils"
-version = "3.0.28"
+version = "3.0.33"
 description = "INSPIRE-specific utils."
 category = "main"
 optional = false
@@ -1494,6 +1494,7 @@ nameparser = ">=0.5.3,<1.0"
 python-dateutil = ">=2.6.1,<3.0"
 six = ">=1.10.0,<2.0"
 Unidecode = ">=1.0.22,<2.0"
+urllib3 = ">=1.0,<=1.26.12"
 
 [package.extras]
 all = ["flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pytest-cov (>=2.5.1,<3.0)", "pytest (>=4.6.0,<5.0)", "unicode-string-literal (>=1.1,<2.0)"]
@@ -1572,7 +1573,7 @@ admin = ["Flask-Admin (>=1.3.0)"]
 all = ["Flask-Admin (>=1.3.0)", "Sphinx (>=1.4.2,<1.6)", "check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.3.0)", "mock (>=2.0.0)", "pydocstyle (>=1.0.0)", "pytest (>=4.0.0,<5.0.0)", "pytest-cov (>=1.8.0)", "pytest-flask (>=0.10.0)", "pytest-pep8 (>=1.0.6)", "selenium (>=3.0.1)"]
 docs = ["Sphinx (>=1.4.2,<1.6)"]
 mysql = ["invenio-db[mysql,versioning] (>=1.0.0)"]
-postgresql = ["invenio-db[postgresql,versioning] (>=1.0.0)"]
+postgresql = ["invenio-db[versioning,postgresql] (>=1.0.0)"]
 sqlite = ["invenio-db[versioning] (>=1.0.0)"]
 tests = ["check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.3.0)", "mock (>=2.0.0)", "pydocstyle (>=1.0.0)", "pytest (>=4.0.0,<5.0.0)", "pytest-cov (>=1.8.0)", "pytest-flask (>=0.10.0)", "pytest-pep8 (>=1.0.6)", "selenium (>=3.0.1)"]
 
@@ -1935,7 +1936,7 @@ admin = ["Flask-Admin (>=1.3.0)"]
 all = ["Sphinx (>=1.7.2)", "Flask-Admin (>=1.3.0)", "check-manifest (>=0.25)", "coverage (>=4.5.3)", "Flask-Menu (>=0.5.0)", "invenio-admin (>=1.0.0)", "isort (>=4.3.0)", "mock (>=1.3.0)", "pydocstyle (>=3.0.0)", "pytest-cov (>=2.7.1)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.6.4,<5.0.0)"]
 docs = ["Sphinx (>=1.7.2)"]
 mysql = ["invenio-db[mysql,versioning] (>=1.0.0)"]
-postgresql = ["invenio-db[postgresql,versioning] (>=1.0.0)"]
+postgresql = ["invenio-db[versioning,postgresql] (>=1.0.0)"]
 sqlite = ["invenio-db[versioning] (>=1.0.0)"]
 tests = ["check-manifest (>=0.25)", "coverage (>=4.5.3)", "Flask-Menu (>=0.5.0)", "invenio-admin (>=1.0.0)", "isort (>=4.3.0)", "mock (>=1.3.0)", "pydocstyle (>=3.0.0)", "pytest-cov (>=2.7.1)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.6.4,<5.0.0)"]
 
@@ -4818,16 +4819,16 @@ inspire-matcher = [
     {file = "inspire_matcher-9.0.14-py2-none-any.whl", hash = "sha256:d72a6b996ac8d24e630e0b898073fec214b74ad6778564a1e2d872ac5ccab110"},
 ]
 inspire-query-parser = [
-    {file = "inspire-query-parser-6.0.50.tar.gz", hash = "sha256:89cf83fe9d1a9c50667463cc0b489cf0cc290056f364e28260b274c8edf70c1b"},
-    {file = "inspire_query_parser-6.0.50-py3-none-any.whl", hash = "sha256:9e950701252c0d57fcc21b03e51556ef318c2a0ea621114b97ff0e11ff6202da"},
+    {file = "inspire-query-parser-6.0.51.tar.gz", hash = "sha256:26a21804e7224bba9d664b9bb98589684ff1dbc1ba0b6e27896e8a9d3b70e3cf"},
+    {file = "inspire_query_parser-6.0.51-py3-none-any.whl", hash = "sha256:af5803db6d6e7b461e468486a37eea8723aea8a05cc9224bcebe10b5e214346b"},
 ]
 inspire-schemas = [
     {file = "inspire_schemas-61.4.16-py2.py3-none-any.whl", hash = "sha256:50948f0a573bec8db16fa64093caf5e52511b9e6b248dbabeacb46a75ddb529d"},
 ]
 inspire-service-orcid = []
 inspire-utils = [
-    {file = "inspire-utils-3.0.28.tar.gz", hash = "sha256:c67eab596ec4e4a7046fb7bc33568f725c16acebc153c63dbbc0af149cee1942"},
-    {file = "inspire_utils-3.0.28-py2-none-any.whl", hash = "sha256:d7f62fc48170eb6c5469871d47594a2dc72fabfdedce25b678b37aa14ee338a4"},
+    {file = "inspire-utils-3.0.33.tar.gz", hash = "sha256:28af853d615b162b116acc6a9757f7651ef2c9ea3e22d147b13cc55e6086a320"},
+    {file = "inspire_utils-3.0.33-py2-none-any.whl", hash = "sha256:f90550ed28d20b6e0ce997958ab4291f3a4d2b74f6203a48d48bde14c6d876ae"},
 ]
 intervals = [
     {file = "intervals-0.8.1.tar.gz", hash = "sha256:37921da1407a5e9384e8e1350cfb8500f8d0d69fc43d03d01a4fdc6e7a7c7166"},
