@@ -15,9 +15,7 @@ from inspirehep.records.marshmallow.literature.common.author import (
 )
 
 
-@mock.patch("inspirehep.records.marshmallow.literature.common.author.current_app")
-def test_author(current_app_mock):
-    current_app_mock.config = {"FEATURE_FLAG_ENABLE_POPULATE_BAI_FROM_LIT_AUTHOR": True}
+def test_author():
     schema = AuthorSchemaV1()
 
     dump = {"full_name": "Castle, Frank"}
@@ -31,9 +29,7 @@ def test_author(current_app_mock):
     assert expected == orjson.loads(result)
 
 
-@mock.patch("inspirehep.records.marshmallow.literature.common.author.current_app")
-def test_author_without_last_name(current_app_mock):
-    current_app_mock.config = {"FEATURE_FLAG_ENABLE_POPULATE_BAI_FROM_LIT_AUTHOR": True}
+def test_author_without_last_name():
     schema = AuthorSchemaV1()
 
     dump = {"full_name": "Frank Castle"}
@@ -47,9 +43,7 @@ def test_author_without_last_name(current_app_mock):
     "inspirehep.records.api.authors.AuthorsRecord.get_record_by_pid_value",
     return_value={"ids": [{"schema": "INSPIRE BAI", "value": "Frank.Castle.1"}]},
 )
-@mock.patch("inspirehep.records.marshmallow.literature.common.author.current_app")
-def test_author_with_bai(current_app_mock, mock_get_record):
-    current_app_mock.config = {"FEATURE_FLAG_ENABLE_POPULATE_BAI_FROM_LIT_AUTHOR": True}
+def test_author_with_bai(mock_get_record):
     schema = AuthorSchemaV1()
 
     dump = {
@@ -68,9 +62,7 @@ def test_author_with_bai(current_app_mock, mock_get_record):
     assert expected == orjson.loads(result)
 
 
-@mock.patch("inspirehep.records.marshmallow.literature.common.author.current_app")
-def test_author_with_with_inspire_roles(current_app_mock):
-    current_app_mock.config = {"FEATURE_FLAG_ENABLE_POPULATE_BAI_FROM_LIT_AUTHOR": True}
+def test_author_with_with_inspire_roles():
     schema = AuthorSchemaV1()
     dump = {"full_name": "Smith, John", "inspire_roles": ["author"]}
     expected = {
@@ -84,9 +76,7 @@ def test_author_with_with_inspire_roles(current_app_mock):
     assert expected == orjson.loads(result)
 
 
-@mock.patch("inspirehep.records.marshmallow.literature.common.author.current_app")
-def test_author_schema_returns_empty_for_supervisor(current_app_mock):
-    current_app_mock.config = {"FEATURE_FLAG_ENABLE_POPULATE_BAI_FROM_LIT_AUTHOR": True}
+def test_author_schema_returns_empty_for_supervisor():
     schema = AuthorSchemaV1()
     dump = {"full_name": "Smith, John", "inspire_roles": ["supervisor"]}
     result = schema.dumps(dump).data
@@ -94,9 +84,7 @@ def test_author_schema_returns_empty_for_supervisor(current_app_mock):
     assert orjson.loads(result) == {}
 
 
-@mock.patch("inspirehep.records.marshmallow.literature.common.author.current_app")
-def test_supervisor_schema(current_app_mock):
-    current_app_mock.config = {"FEATURE_FLAG_ENABLE_POPULATE_BAI_FROM_LIT_AUTHOR": True}
+def test_supervisor_schema():
     schema = SupervisorSchema()
     dump = {"full_name": "Smith, John", "inspire_roles": ["supervisor"]}
     expected = {
@@ -110,9 +98,7 @@ def test_supervisor_schema(current_app_mock):
     assert expected == orjson.loads(result)
 
 
-@mock.patch("inspirehep.records.marshmallow.literature.common.author.current_app")
-def test_supervisor_schema_returns_empty_for_non_supervisor(current_app_mock):
-    current_app_mock.config = {"FEATURE_FLAG_ENABLE_POPULATE_BAI_FROM_LIT_AUTHOR": True}
+def test_supervisor_schema_returns_empty_for_non_supervisor():
     schema = SupervisorSchema()
     dump = {"full_name": "Smith, John", "inspire_roles": ["author"]}
     result = schema.dumps(dump).data
@@ -120,9 +106,7 @@ def test_supervisor_schema_returns_empty_for_non_supervisor(current_app_mock):
     assert orjson.loads(result) == {}
 
 
-@mock.patch("inspirehep.records.marshmallow.literature.common.author.current_app")
-def test_first_author(current_app_mock):
-    current_app_mock.config = {"FEATURE_FLAG_ENABLE_POPULATE_BAI_FROM_LIT_AUTHOR": True}
+def test_first_author():
     schema = FirstAuthorSchemaV1()
 
     dump = {

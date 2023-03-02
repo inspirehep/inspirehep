@@ -14,10 +14,8 @@ from inspirehep.records.api import InspireRecord, LiteratureRecord
 from inspirehep.records.marshmallow.literature.common import ReferenceItemSchemaV1
 
 
-@mock.patch("inspirehep.records.marshmallow.literature.common.author.current_app")
 @mock.patch("inspirehep.records.api.base.InspireRecord.get_records_by_pids")
-def test_returns_non_empty_fields(get_records_mock, current_app_mock):
-    current_app_mock.config = {"FEATURE_FLAG_ENABLE_POPULATE_BAI_FROM_LIT_AUTHOR": True}
+def test_returns_non_empty_fields(get_records_mock):
 
     schema = ReferenceItemSchemaV1()
     dump = {
@@ -114,12 +112,10 @@ def test_returns_empty_if_empty_reference_or_record_field(get_records_mock):
     assert expected == orjson.loads(result)
 
 
-@mock.patch("inspirehep.records.marshmallow.literature.common.author.current_app")
 @mock.patch("inspirehep.records.api.base.InspireRecord.get_records_by_pids")
 def test_returns_non_empty_fields_if_some_fields_missing(
-    get_records_mock, current_app_mock
+    get_records_mock,
 ):
-    current_app_mock.config = {"FEATURE_FLAG_ENABLE_POPULATE_BAI_FROM_LIT_AUTHOR": True}
 
     schema = ReferenceItemSchemaV1()
     dump = {"reference": {"label": "123", "control_number": 123}}
