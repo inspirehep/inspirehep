@@ -1,5 +1,15 @@
 FROM jupyter/scipy-notebook:python-3.8
+
 USER 0
+
+ENV SSL_CERT_FILE="/etc/ssl/certs/ca-certificates.crt" \
+    REQUESTS_CA_BUNDLE="/etc/ssl/certs/ca-certificates.crt"
+
+COPY CERN_Root_Certification_Authority_2.pem /usr/local/share/ca-certificates/CERN_Root_Certification_Authority_2.crt
+
+RUN update-ca-certificates \
+ && pip config set global.cert "${REQUESTS_CA_BUNDLE}"
+
 RUN apt-get update -y && \ 
     apt-get install -y \
     gcc \
