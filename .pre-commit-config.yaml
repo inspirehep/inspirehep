@@ -16,3 +16,13 @@ repos:
     hooks:
       - id: flake8
         args: ['--config=backend/setup.cfg']
+  - repo: local
+    hooks:
+      - id: poetry-export
+        name: poetry-export
+        config: backend
+        description: run poetry export to sync lock file with requirements.txt
+        entry: bash -c 'cd backend && poetry export --without-hashes -f requirements.txt -o ../docker/jupyter/hep_requirements.txt'
+        language: system
+        pass_filenames: false
+        files: ^backend/poetry.lock$
