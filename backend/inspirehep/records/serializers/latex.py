@@ -6,10 +6,8 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from invenio_records_rest.serializers.json import MarshmallowMixin, PreprocessorMixin
-from invenio_records_rest.serializers.response import (
-    record_responsify,
-    search_responsify,
-)
+
+from inspirehep.serializers import record_responsify, search_responsify
 
 from ..marshmallow.literature.latex import LatexSchema
 from .jinja import jinja_latex_env
