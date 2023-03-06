@@ -12,3 +12,4 @@ export { WorkflowSaveErrorBody } from './workflow-save-error-body';
 export { JsonPatch } from './json-patch';
 export { RecordResource } from './record-resource';
 export { WorkflowResource } from './workflow-resource';
+export { SnowTicket } from './snow-ticket';

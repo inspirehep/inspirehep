@@ -33,7 +33,7 @@ import {
   CommonApiService,
   GlobalAppStateService,
 } from '../../../core/services';
-import { Ticket } from '../../interfaces';
+import { Ticket, SnowTicket } from '../../interfaces';
 import { SubscriberComponent } from '../../classes';
 
 @Component({
@@ -44,7 +44,7 @@ import { SubscriberComponent } from '../../classes';
 })
 export class TicketsComponent extends SubscriberComponent implements OnInit {
   displayLimit = 1;
-  tickets: Array<Ticket>;
+  tickets: Array<Ticket | SnowTicket>;
   recordId: number;
 
   constructor(
@@ -74,28 +74,36 @@ export class TicketsComponent extends SubscriberComponent implements OnInit {
     this.tickets.splice(ticketIndex, 1);
   }
 
-  onTicketCreate(ticket: Ticket) {
+  onTicketCreate(ticket: Ticket | SnowTicket) {
     this.tickets.push(ticket);
   }
 
-  private fetchTickets(pidType: string) {
-    this.apiService
-      .fetchRecordTickets(pidType, this.recordId)
-      .then((tickets) => {
-        this.tickets = tickets.filter(
-          (ticket) => ticket.queue !== 'HEP_conflicts'
-        );
-        this.changeDetectorRef.markForCheck();
-      })
-      .catch((error) => {
-        if (error.status === 403) {
-          this.toastrService.error(
-            'Logged in user can not access to tickets',
-            'Forbidden'
-          );
-        } else {
-          this.toastrService.error('Could not load the tickets!', 'Error');
-        }
+  private async fetchTickets(pidType: string) {
+    try {
+      const tickets = await this.apiService.fetchRecordTickets(
+        pidType,
+        this.recordId
+      );
+      const filteredTickets = tickets.filter((ticket) => {
+        return this.isSnowTicket(ticket)
+          ? ticket.u_functional_category !== 'HEP_conflicts'
+          : ticket.queue !== 'HEP_conflicts';
       });
+      this.tickets = filteredTickets;
+      this.changeDetectorRef.markForCheck();
+    } catch (error) {
+      if (error.status === 403) {
+        this.toastrService.error(
+          'Logged in user cannot access tickets',
+          'Forbidden'
+        );
+      } else {
+        this.toastrService.error('Could not load tickets', 'Error');
+      }
+    }
+  }
+
+  private isSnowTicket(ticket: Ticket | SnowTicket): ticket is SnowTicket {
+    return (ticket as SnowTicket).u_functional_category !== undefined;
   }
 }

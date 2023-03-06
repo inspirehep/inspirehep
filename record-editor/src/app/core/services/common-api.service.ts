@@ -31,6 +31,7 @@ import {
   AuthorExtractResult,
   Ticket,
   RecordRevision,
+  SnowTicket,
 } from '../../shared/interfaces';
 
 @Injectable()
@@ -77,15 +78,15 @@ export class CommonApiService {
   fetchRecordTickets(
     endpoint: string,
     recordId: string | number
-  ): Promise<Array<Ticket>> {
+  ): Promise<Array<Ticket | SnowTicket>> {
     return this.fetchUrl(
       `${editorApiUrl}/${endpoint}/${recordId}/rt/tickets`
-    ) as Promise<Array<Ticket>>;
+    ) as Promise<Array<Ticket | SnowTicket>>;
   }
 
   createRecordTicket(
     recordId: string | number,
-    ticket: Ticket
+    ticket: Ticket | SnowTicket
   ): Promise<{ id: string; link: string }> {
     return this.http
       .post(`${editorApiUrl}/literature/${recordId}/rt/tickets/create`, ticket)
