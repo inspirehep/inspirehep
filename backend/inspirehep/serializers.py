@@ -15,6 +15,7 @@ from inspire_utils.record import get_value
 from invenio_records_rest.serializers.json import (
     JSONSerializer as InvenioJSONSerializer,
 )
+from invenio_records_rest.utils import set_headers_for_record_caching_and_concurrency
 from invenio_search.utils import build_alias_name
 
 from inspirehep.accounts.api import is_user_logged_in
@@ -321,3 +322,76 @@ def dumps(obj, app=None, **kwargs):
             return rv.encode(encoding)
 
     return rv
+
+
+def record_responsify(serializer, mimetype):
+    """Create a Records-REST response serializer.
+    :param serializer: Serializer instance.
+    :param mimetype: MIME type of response.
+    :returns: Function that generates a record HTTP response.
+    """
+
+    def view(pid, record, code=200, headers=None, links_factory=None):
+        response = current_app.response_class(
+            serializer.serialize(pid, record, links_factory=links_factory),
+            mimetype=mimetype,
+        )
+        response.status_code = code
+        set_headers_for_record_caching_and_concurrency(response, record)
+
+        if headers is not None:
+            response.headers.extend(headers)
+
+        if links_factory:
+            add_link_header(response, links_factory(pid))
+
+        return response
+
+    return view
+
+
+def search_responsify(serializer, mimetype):
+    """Create a Records-REST search result response serializer.
+    :param serializer: Serializer instance.
+    :param mimetype: MIME type of response.
+    :returns: Function that generates a record HTTP response.
+    """
+
+    def view(
+        pid_fetcher,
+        search_result,
+        code=200,
+        headers=None,
+        links=None,
+        item_links_factory=None,
+    ):
+        response = current_app.response_class(
+            serializer.serialize_search(
+                pid_fetcher,
+                search_result,
+                links=links,
+                item_links_factory=item_links_factory,
+            ),
+            mimetype=mimetype,
+        )
+        response.status_code = code
+        if headers is not None:
+            response.headers.extend(headers)
+
+        if links:
+            add_link_header(response, links)
+
+        return response
+
+    return view
+
+
+def add_link_header(response, links):
+    """Add a Link HTTP header to a REST response.
+    :param response: REST response instance
+    :param links: Dictionary of links
+    """
+    if links is not None:
+        response.headers.extend(
+            {"Link": ", ".join([f'<{r}>; rel="{l}"' for r, l in links.items()])}
+        )
