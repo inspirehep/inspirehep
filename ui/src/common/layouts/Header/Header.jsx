@@ -1,7 +1,7 @@
 import React from 'react';
 import { Layout, Row, Col } from 'antd';
-import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import useResizeObserver from 'use-resize-observer';
 
 import SearchBoxContainer from '../../containers/SearchBoxContainer';
 import './Header.less';
@@ -10,14 +10,13 @@ import HeaderMenuContainer from './HeaderMenuContainer';
 import BetaRibbon from './BetaRibbon';
 import CollectionsMenu from '../CollectionsMenu';
 import Banners from './Banners';
-import { getConfigFor } from '../../config';
 
 function Header({ isHomePage, isSubmissionsPage, isBetaPage }) {
-  const banners = getConfigFor('BANNERS', []);
+  const [stickyContainerRef, , stickyContainerHeight] = useResizeObserver();
 
   return (
     <div className="__Header__">
-      <div className="sticky" data-test-id="sticky">
+      <div ref={stickyContainerRef} className="sticky" data-test-id="sticky">
         <Banners />
         {isBetaPage && <BetaRibbon />}
         <Layout.Header className="header">
@@ -48,12 +47,7 @@ function Header({ isHomePage, isSubmissionsPage, isBetaPage }) {
           </Row>
         </Layout.Header>
       </div>
-      <div
-        className={classNames('non-sticky', {
-          mt5: banners.length === 0,
-          mt6: banners.length > 0,
-        })}
-      >
+      <div className="non-sticky" style={{ marginTop: stickyContainerHeight }}>
         <CollectionsMenu />
       </div>
     </div>
