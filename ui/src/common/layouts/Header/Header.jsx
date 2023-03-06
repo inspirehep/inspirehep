@@ -1,5 +1,6 @@
 import React from 'react';
 import { Layout, Row, Col } from 'antd';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
 import SearchBoxContainer from '../../containers/SearchBoxContainer';
@@ -9,8 +10,11 @@ import HeaderMenuContainer from './HeaderMenuContainer';
 import BetaRibbon from './BetaRibbon';
 import CollectionsMenu from '../CollectionsMenu';
 import Banners from './Banners';
+import { getConfigFor } from '../../config';
 
 function Header({ isHomePage, isSubmissionsPage, isBetaPage }) {
+  const banners = getConfigFor('BANNERS', []);
+
   return (
     <div className="__Header__">
       <div className="sticky" data-test-id="sticky">
@@ -28,10 +32,9 @@ function Header({ isHomePage, isSubmissionsPage, isBetaPage }) {
               xl={13}
               xxl={14}
             >
-              {!isHomePage &&
-                !isSubmissionsPage && (
-                  <SearchBoxContainer className="search-box" />
-                )}
+              {!isHomePage && !isSubmissionsPage && (
+                <SearchBoxContainer className="search-box" />
+              )}
             </Col>
             <Col
               xs={{ span: 11, order: 2 }}
@@ -45,7 +48,12 @@ function Header({ isHomePage, isSubmissionsPage, isBetaPage }) {
           </Row>
         </Layout.Header>
       </div>
-      <div className="non-sticky">
+      <div
+        className={classNames('non-sticky', {
+          mt5: banners.length === 0,
+          mt6: banners.length > 0,
+        })}
+      >
         <CollectionsMenu />
       </div>
     </div>
