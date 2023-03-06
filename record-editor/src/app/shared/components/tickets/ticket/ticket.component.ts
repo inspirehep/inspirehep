@@ -22,7 +22,7 @@
 
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 
-import { Ticket } from '../../../interfaces';
+import { SnowTicket, Ticket } from '../../../interfaces';
 import { SubscriberComponent } from '../../../classes';
 import {
   CommonApiService,
@@ -35,10 +35,16 @@ import {
   styleUrls: ['./ticket.component.scss'],
 })
 export class TicketComponent extends SubscriberComponent implements OnInit {
-  @Input() ticket: Ticket;
+  @Input() ticket: Ticket | SnowTicket;
   @Output() resolve = new EventEmitter<void>();
 
   recordId: number;
+
+  get category() {
+    return this.isSnowTicket(this.ticket)
+      ? this.ticket.u_functional_category
+      : this.ticket.queue;
+  }
 
   constructor(
     private apiService: CommonApiService,
@@ -50,7 +56,7 @@ export class TicketComponent extends SubscriberComponent implements OnInit {
   ngOnInit() {
     this.globalAppStateService.pidValueBeingEdited$
       .takeUntil(this.isDestroyed)
-      .subscribe(recordId => {
+      .subscribe((recordId) => {
         this.recordId = recordId;
       });
   }
@@ -59,5 +65,9 @@ export class TicketComponent extends SubscriberComponent implements OnInit {
     this.apiService
       .resolveTicket(this.recordId, this.ticket.id)
       .then(() => this.resolve.emit());
+  }
+
+  private isSnowTicket(ticket: Ticket | SnowTicket): ticket is SnowTicket {
+    return (ticket as SnowTicket).u_functional_category !== undefined;
   }
 }
