@@ -92,3 +92,4 @@ jobs:
       backend-image: "inspirehep/hep@${{ needs.build-backend.outputs.image-id }}"
       ui-image: "inspirehep/ui@${{ needs.build-ui.outputs.image-id }}"
       editor-image: "inspirehep/editor@${{ needs.build-editor.outputs.image-id }}"
+    secrets: inherit
