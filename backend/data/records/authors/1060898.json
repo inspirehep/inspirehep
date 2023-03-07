@@ -1,59 +1,91 @@
 {
-  "$schema": "https://inspirehep.net/schemas/records/authors.json",
-  "_collections": ["Authors"],
-  "arxiv_categories": ["astro-ph"],
-  "control_number": 1060898,
-  "deleted": false,
-  "ids": [
-    { "schema": "INSPIRE ID", "value": "INSPIRE-00283612" },
-    { "schema": "INSPIRE BAI", "value": "K.Kirby.1" },
-    { "schema": "SPIRES", "value": "HEPNAMES-875295" }
-  ],
-  "legacy_creation_date": "2009-05-21",
-  "legacy_version": "20161012090314.0",
-  "name": { "preferred_name": "Kate Kirby", "value": "Kirby, Kate" },
-  "positions": [
-    {
-      "curated_relation": true,
-      "current": true,
-      "institution": "Harvard-Smithsonian Ctr. Astrophys.",
-      "rank": "SENIOR",
-      "record": { "$ref": "https://inspirehep.net/api/institutions/902836" },
-      "start_date": "1973"
+    "ids": [
+        {
+            "value": "K.Kirby.1",
+            "schema": "INSPIRE BAI"
+        },
+        {
+            "value": "INSPIRE-00283612",
+            "schema": "INSPIRE ID"
+        },
+        {
+            "value": "HEPNAMES-875295",
+            "schema": "SPIRES"
+        }
+    ],
+    "name": {
+        "value": "Kirby, Kate",
+        "preferred_name": "Kate Kirby"
     },
-    {
-      "curated_relation": true,
-      "current": true,
-      "institution": "Harvard U.",
-      "rank": "SENIOR",
-      "record": { "$ref": "https://inspirehep.net/api/institutions/902835" }
+    "self": {
+        "$ref": "https://inspirebeta.net/api/authors/1060898"
     },
-    {
-      "curated_relation": true,
-      "current": true,
-      "end_date": "1967",
-      "institution": "Harvard U.",
-      "rank": "UNDERGRADUATE",
-      "record": { "$ref": "https://inspirehep.net/api/institutions/902835" }
-    },
-    {
-      "curated_relation": true,
-      "end_date": "1973",
-      "institution": "Harvard Coll. Observ.",
-      "rank": "POSTDOC",
-      "record": { "$ref": "https://inspirehep.net/api/institutions/905578" },
-      "start_date": "1972"
-    },
-    {
-      "curated_relation": true,
-      "end_date": "1972",
-      "institution": "Chicago U.",
-      "rank": "PHD",
-      "record": { "$ref": "https://inspirehep.net/api/institutions/902729" }
-    }
-  ],
-  "self": { "$ref": "https://inspirehep.net/api/authors/1060898" },
-  "status": "active",
-  "stub": false,
-  "urls": [{ "value": "http://www.cfa.harvard.edu/itamp/people.html" }]
+    "stub": false,
+    "urls": [
+        {
+            "value": "http://www.cfa.harvard.edu/itamp/people.html"
+        }
+    ],
+    "status": "active",
+    "$schema": "https://inspirebeta.net/schemas/records/authors.json",
+    "deleted": false,
+    "positions": [
+        {
+            "rank": "SENIOR",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/institutions/902836"
+            },
+            "current": true,
+            "start_date": "1973",
+            "institution": "Harvard-Smithsonian Ctr. Astrophys.",
+            "curated_relation": true
+        },
+        {
+            "rank": "SENIOR",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/institutions/902835"
+            },
+            "current": true,
+            "institution": "Harvard U.",
+            "curated_relation": true
+        },
+        {
+            "rank": "UNDERGRADUATE",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/institutions/902835"
+            },
+            "current": true,
+            "end_date": "1967",
+            "institution": "Harvard U.",
+            "curated_relation": true
+        },
+        {
+            "rank": "POSTDOC",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/institutions/905578"
+            },
+            "end_date": "1973",
+            "start_date": "1972",
+            "institution": "Harvard Coll. Observ.",
+            "curated_relation": true
+        },
+        {
+            "rank": "PHD",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/institutions/902729"
+            },
+            "end_date": "1972",
+            "institution": "Chicago U.",
+            "curated_relation": true
+        }
+    ],
+    "_collections": [
+        "Authors"
+    ],
+    "control_number": 1060898,
+    "legacy_version": "20161012090314.0",
+    "arxiv_categories": [
+        "astro-ph"
+    ],
+    "legacy_creation_date": "2009-05-21"
 }

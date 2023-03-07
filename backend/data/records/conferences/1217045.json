@@ -1,30 +1,56 @@
 {
-  "$schema": "http://ui:8080/schemas/records/conferences.json",
-  "_collections": ["Conferences"],
-  "acronyms": ["Lattice 2013"],
-  "addresses": [
-    {
-      "cities": ["Mainz"],
-      "country_code": "DE",
-      "latitude": 49.9928617,
-      "longitude": 8.2472526
-    }
-  ],
-  "closing_date": "2013-08-03",
-  "cnum": "C13-07-29.1",
-  "contact_details": [
-    { "email": "chair@lattice2013.uni-mainz.de", "name": "Hartmut Wittig" }
-  ],
-  "control_number": 1217045,
-  "core": true,
-  "inspire_categories": [{ "term": "Lattice" }],
-  "legacy_creation_date": "2013-02-12",
-  "legacy_version": "20161028121306.0",
-  "opening_date": "2013-07-29",
-  "self": { "$ref": "https://labs.inspirehep.net/api/conferences/1217045" },
-  "series": [{ "name": "Lattice", "number": 31 }],
-  "titles": [
-    { "title": "31st International Symposium on Lattice Field Theory" }
-  ],
-  "urls": [{ "value": "http://www.lattice2013.uni-mainz.de/" }]
+    "cnum": "C13-07-29.1",
+    "core": true,
+    "self": {
+        "$ref": "https://inspirebeta.net/api/conferences/1217045"
+    },
+    "urls": [
+        {
+            "value": "http://www.lattice2013.uni-mainz.de/"
+        }
+    ],
+    "series": [
+        {
+            "name": "Lattice",
+            "number": 31
+        }
+    ],
+    "titles": [
+        {
+            "title": "31st International Symposium on Lattice Field Theory"
+        }
+    ],
+    "$schema": "https://inspirebeta.net/schemas/records/conferences.json",
+    "acronyms": [
+        "Lattice 2013"
+    ],
+    "addresses": [
+        {
+            "cities": [
+                "Mainz"
+            ],
+            "latitude": 49.9928617,
+            "longitude": 8.2472526,
+            "country_code": "DE"
+        }
+    ],
+    "_collections": [
+        "Conferences"
+    ],
+    "closing_date": "2013-08-03",
+    "opening_date": "2013-07-29",
+    "control_number": 1217045,
+    "legacy_version": "20161028121306.0",
+    "contact_details": [
+        {
+            "name": "Hartmut Wittig",
+            "email": "chair@lattice2013.uni-mainz.de"
+        }
+    ],
+    "inspire_categories": [
+        {
+            "term": "Lattice"
+        }
+    ],
+    "legacy_creation_date": "2013-02-12"
 }

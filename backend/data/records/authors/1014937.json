@@ -1,0 +1,103 @@
+{
+    "ids": [
+        {
+            "value": "0000-0003-1866-1950",
+            "schema": "ORCID"
+        },
+        {
+            "value": "David.Lyle.Burke.1",
+            "schema": "INSPIRE BAI"
+        },
+        {
+            "value": "SLAC-16411",
+            "schema": "SLAC"
+        },
+        {
+            "value": "INSPIRE-00070132",
+            "schema": "INSPIRE ID"
+        },
+        {
+            "value": "HEPNAMES-373222",
+            "schema": "SPIRES"
+        }
+    ],
+    "name": {
+        "value": "Burke, David Lyle",
+        "preferred_name": "David Lyle Burke"
+    },
+    "self": {
+        "$ref": "https://inspirebeta.net/api/authors/1014937"
+    },
+    "stub": false,
+    "urls": [
+        {
+            "value": "https://kipac.stanford.edu/people/david-burke"
+        }
+    ],
+    "status": "active",
+    "$schema": "https://inspirebeta.net/schemas/records/authors.json",
+    "deleted": false,
+    "positions": [
+        {
+            "rank": "SENIOR",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/institutions/903206"
+            },
+            "current": true,
+            "institution": "SLAC",
+            "curated_relation": true
+        },
+        {
+            "rank": "PHD",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/institutions/903007"
+            },
+            "end_date": "1978",
+            "institution": "Michigan U.",
+            "curated_relation": true
+        },
+        {
+            "rank": "UNDERGRADUATE",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/institutions/903142"
+            },
+            "end_date": "1971",
+            "institution": "Purdue U.",
+            "curated_relation": true
+        }
+    ],
+    "_collections": [
+        "Authors"
+    ],
+    "control_number": 1014937,
+    "legacy_version": "20200616205209.0",
+    "email_addresses": [
+        {
+            "value": "daveb@slac.stanford.edu",
+            "current": true
+        }
+    ],
+    "arxiv_categories": [
+        "astro-ph",
+        "hep-ex"
+    ],
+    "project_membership": [
+        {
+            "name": "FNAL-E-0230",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/experiments/1318024"
+            },
+            "current": false,
+            "curated_relation": true
+        },
+        {
+            "name": "DES",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/experiments/1108381"
+            },
+            "current": true,
+            "curated_relation": true
+        }
+    ],
+    "legacy_creation_date": "2001-05-18"
+}

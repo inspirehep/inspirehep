@@ -1,37 +1,68 @@
 {
-  "$schema": "https://inspirehep.net/schemas/records/authors.json",
-  "_collections": ["Authors"],
-  "arxiv_categories": ["hep-ex"],
-  "control_number": 1064002,
-  "deleted": false,
-  "ids": [
-    { "schema": "INSPIRE ID", "value": "INSPIRE-00312131" },
-    { "schema": "INSPIRE BAI", "value": "A.M.Sirunyan.1" },
-    { "schema": "SPIRES", "value": "HEPNAMES-915661" }
-  ],
-  "legacy_creation_date": "2009-11-05",
-  "legacy_version": "20161012090519.0",
-  "name": {
-    "preferred_name": "Albert M. Sirunyan",
-    "value": "Sirunyan, Albert M."
-  },
-  "positions": [
-    {
-      "curated_relation": true,
-      "current": true,
-      "institution": "Yerevan Phys. Inst.",
-      "record": { "$ref": "https://inspirehep.net/api/institutions/903361" }
-    }
-  ],
-  "project_membership": [
-    {
-      "curated_relation": true,
-      "current": false,
-      "name": "CERN-LHC-CMS",
-      "record": { "$ref": "https://inspirehep.net/api/experiments/1108642" }
-    }
-  ],
-  "self": { "$ref": "https://inspirehep.net/api/authors/1064002" },
-  "status": "active",
-  "stub": false
+    "ids": [
+        {
+            "value": "A.M.Sirunyan.1",
+            "schema": "INSPIRE BAI"
+        },
+        {
+            "value": "INSPIRE-00312131",
+            "schema": "INSPIRE ID"
+        },
+        {
+            "value": "HEPNAMES-915661",
+            "schema": "SPIRES"
+        }
+    ],
+    "name": {
+        "value": "Sirunyan, Albert M.",
+        "preferred_name": "Albert M. Sirunyan"
+    },
+    "self": {
+        "$ref": "https://inspirebeta.net/api/authors/1064002"
+    },
+    "stub": false,
+    "status": "active",
+    "$schema": "https://inspirebeta.net/schemas/records/authors.json",
+    "deleted": false,
+    "positions": [
+        {
+            "rank": "SENIOR",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/institutions/903361"
+            },
+            "current": true,
+            "institution": "Yerevan Phys. Inst.",
+            "curated_relation": true
+        },
+        {
+            "rank": "PHD",
+            "hidden": false,
+            "record": {
+                "$ref": "https://inspirebeta.net/api/institutions/903361"
+            },
+            "current": false,
+            "end_date": "1977",
+            "institution": "Yerevan Phys. Inst.",
+            "curated_relation": true
+        }
+    ],
+    "_collections": [
+        "Authors"
+    ],
+    "control_number": 1064002,
+    "legacy_version": "20161012090519.0",
+    "arxiv_categories": [
+        "hep-ex"
+    ],
+    "project_membership": [
+        {
+            "name": "CERN-LHC-CMS",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/experiments/1108642"
+            },
+            "current": false,
+            "curated_relation": true
+        }
+    ],
+    "legacy_creation_date": "2009-11-05"
 }
