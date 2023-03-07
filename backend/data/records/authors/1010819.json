@@ -1,91 +1,129 @@
 {
-  "$schema": "https://labs.inspirehep.net/schemas/records/authors.json",
-  "_collections": ["Authors"],
-  "arxiv_categories": ["hep-th", "hep-ph", "astro-ph"],
-  "control_number": 1010819,
-  "deleted": false,
-  "email_addresses": [
-    { "current": true, "value": "john.ellis@cern.ch" },
-    { "current": false, "value": "JOHNE@CERNVM.BITNET", "hidden": true },
-    { "current": false, "value": "johne@cernvm.cern.ch" }
-  ],
-  "ids": [
-    { "schema": "INSPIRE ID", "value": "INSPIRE-00146525" },
-    { "schema": "CERN", "value": "CERN-389900" },
-    { "schema": "INSPIRE BAI", "value": "J.R.Ellis.1" },
-    { "schema": "WIKIPEDIA", "value": "John_Ellis_(physicist)" },
-    { "schema": "ORCID", "value": "0000-0003-1134-6827" },
-    { "schema": "SPIRES", "value": "HEPNAMES-326275" }
-  ],
-  "legacy_creation_date": "1999-06-18",
-  "legacy_version": "20170228183215.0",
-  "name": {
-    "name_variants": ["Ellis, Jonathan Richard"],
-    "preferred_name": "John Richard Ellis",
-    "value": "Ellis, John Richard"
-  },
-  "positions": [
-    {
-      "curated_relation": true,
-      "current": true,
-      "hidden": true,
-      "institution": "King's Coll. London",
-      "rank": "SENIOR",
-      "record": {
-        "$ref": "http://labs.inspirehep.net/api/institutions/902927"
-      },
-      "start_date": "2010"
+    "ids": [
+        {
+            "value": "0000-0002-7399-0813",
+            "schema": "ORCID"
+        },
+        {
+            "value": "John_Ellis_(physicist)",
+            "schema": "WIKIPEDIA"
+        },
+        {
+            "value": "J.R.Ellis.1",
+            "schema": "INSPIRE BAI"
+        },
+        {
+            "value": "CERN-389900",
+            "schema": "CERN"
+        },
+        {
+            "value": "INSPIRE-00146525",
+            "schema": "INSPIRE ID"
+        },
+        {
+            "value": "HEPNAMES-326275",
+            "schema": "SPIRES"
+        }
+    ],
+    "name": {
+        "value": "Ellis, John Richard",
+        "name_variants": [
+            "Ellis, Jonathan Richard"
+        ],
+        "preferred_name": "John Richard Ellis"
     },
-    {
-      "curated_relation": true,
-      "end_date": "2010",
-      "institution": "CERN",
-      "rank": "SENIOR",
-      "record": {
-        "$ref": "http://labs.inspirehep.net/api/institutions/902725"
-      },
-      "start_date": "1973"
+    "self": {
+        "$ref": "https://inspirebeta.net/api/authors/1010819"
     },
-    {
-      "curated_relation": true,
-      "institution": "Caltech",
-      "rank": "POSTDOC",
-      "record": { "$ref": "http://labs.inspirehep.net/api/institutions/902711" }
-    },
-    {
-      "curated_relation": true,
-      "institution": "SLAC",
-      "rank": "POSTDOC",
-      "record": { "$ref": "http://labs.inspirehep.net/api/institutions/903206" }
-    },
-    {
-      "curated_relation": true,
-      "end_date": "1971",
-      "institution": "Cambridge U.",
-      "rank": "PHD",
-      "record": {
-        "$ref": "http://labs.inspirehep.net/api/institutions/902712"
-      },
-      "start_date": "1967"
-    },
-    {
-      "curated_relation": true,
-      "end_date": "1967",
-      "institution": "Cambridge U.",
-      "rank": "UNDERGRADUATE",
-      "record": {
-        "$ref": "http://labs.inspirehep.net/api/institutions/902712"
-      },
-      "start_date": "1964"
-    }
-  ],
-  "self": { "$ref": "http://labs.inspirehep.net/api/authors/1010819" },
-  "status": "active",
-  "stub": false,
-  "urls": [
-    {
-      "value":
-        "https://www.kcl.ac.uk/nms/depts/physics/people/academicstaff/ellis.aspx"
-    }
-  ]
+    "stub": false,
+    "urls": [
+        {
+            "value": "https://theory.cern/roster/ellis-jonathan-r"
+        }
+    ],
+    "status": "active",
+    "$schema": "https://inspirebeta.net/schemas/records/authors.json",
+    "positions": [
+        {
+            "rank": "SENIOR",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/institutions/902927"
+            },
+            "current": true,
+            "start_date": "2010",
+            "institution": "King's Coll. London",
+            "curated_relation": true
+        },
+        {
+            "rank": "SENIOR",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/institutions/902725"
+            },
+            "end_date": "2010",
+            "start_date": "1973",
+            "institution": "CERN",
+            "curated_relation": true
+        },
+        {
+            "rank": "POSTDOC",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/institutions/902711"
+            },
+            "institution": "Caltech",
+            "curated_relation": true
+        },
+        {
+            "rank": "POSTDOC",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/institutions/903206"
+            },
+            "institution": "SLAC",
+            "curated_relation": true
+        },
+        {
+            "rank": "PHD",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/institutions/902712"
+            },
+            "end_date": "1971",
+            "start_date": "1967",
+            "institution": "Cambridge U.",
+            "curated_relation": true
+        },
+        {
+            "rank": "UNDERGRADUATE",
+            "record": {
+                "$ref": "https://inspirebeta.net/api/institutions/902712"
+            },
+            "end_date": "1967",
+            "start_date": "1964",
+            "institution": "Cambridge U.",
+            "curated_relation": true
+        }
+    ],
+    "_collections": [
+        "Authors"
+    ],
+    "control_number": 1010819,
+    "legacy_version": "20170228183215.0",
+    "email_addresses": [
+        {
+            "value": "john.ellis@cern.ch",
+            "current": true
+        },
+        {
+            "value": "JOHNE@CERNVM.BITNET",
+            "current": false
+        },
+        {
+            "value": "johne@cernvm.cern.ch",
+            "current": false
+        }
+    ],
+    "arxiv_categories": [
+        "hep-th",
+        "hep-ph",
+        "astro-ph"
+    ],
+    "legacy_creation_date": "1999-06-18"
 }

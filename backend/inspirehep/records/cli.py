@@ -98,6 +98,13 @@ def _create_records_from_list_files(files):
         _create_record(data)
 
 
+def _create_records_from_path_list(files):
+    for file_path in files:
+        with open(file_path) as file:
+            data = orjson.loads(file.read())
+            _create_record(data)
+
+
 def _create_records_from_files_in_directory(directory):
     if directory:
         for path in os.listdir(directory):
@@ -154,6 +161,20 @@ def records(urls, directory, files, save, token):
     _create_records_from_urls(urls, token, save)
     _create_records_from_list_files(files)
     _create_records_from_files_in_directory(directory)
+
+
+@importer.command("demo-records", help="Import demo records")
+@with_appcontext
+def demo_records():
+    records_directory = "data/records"
+    records_with_advisors = [
+        os.path.join(records_directory, "authors/1014937.json"),
+        os.path.join(records_directory, "authors/1006021.json"),
+        os.path.join(records_directory, "authors/1078577.json"),
+    ]
+    _create_records_from_path_list(records_with_advisors)
+    for path in os.listdir(records_directory):
+        _create_records_from_files_in_directory(os.path.join(records_directory, path))
 
 
 @click.group()
