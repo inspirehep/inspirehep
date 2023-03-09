@@ -60,10 +60,10 @@ def update_records_relations(uuids):
 
 @shared_task(
     bind=True,
-    queue="indexer_task",
-    acks_late=True,
+    queue="redirect_references",
     retry_backoff=True,
-    retry_kwargs={"max_retries": 3},
+    acks_late=True,
+    retry_kwargs={"max_retries": 6},
     autoretry_for=(*DB_TASK_EXCEPTIONS, *ES_TASK_EXCEPTIONS),
 )
 def redirect_references_to_merged_record(self, uuid):
@@ -91,7 +91,6 @@ def update_references_pointing_to_merged_record(
             record_class = InspireRecord.get_subclasses()[pid_type]
             matched_inspire_record_data = (
                 db.session.query(RecordMetadata)
-                .with_for_update()
                 .filter_by(id=matched_record.meta.id)
                 .first()
             )
@@ -116,7 +115,7 @@ def update_references_pointing_to_merged_record(
             LOGGER.info(
                 "Updated reference for record", uuid=str(matched_inspire_record.id)
             )
-    db.session.commit()
+        db.session.commit()
 
 
 def get_query_for_given_path(index, path, record_ref):

@@ -59,6 +59,7 @@ def celery_worker_parameters():
             "assign",
             "disambiguation",
             "curation",
+            "redirect_references",
         ],
         "perform_ping_check": False,
     }
