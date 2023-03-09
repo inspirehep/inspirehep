@@ -14,6 +14,7 @@ from flask import current_app
 from inspire_utils.helpers import force_list
 from inspire_utils.record import get_value
 from invenio_db import db
+from invenio_pidstore.models import PersistentIdentifier
 from marshmallow import fields, missing, pre_dump
 
 from inspirehep.files.api import current_s3_instance
@@ -60,14 +61,14 @@ class LiteratureElasticSearchSchema(ElasticSearchBaseSchema, LiteratureRawSchema
     journal_title_variants = fields.Method("get_journal_title_variants")
     id_field = fields.Integer(dump_only=True, dump_to="id", attribute="control_number")
     thesis_info = fields.Nested(ThesisInfoSchemaForESV1, dump_only=True)
-    referenced_authors_recids = fields.Method(
-        "get_referenced_authors_recids", dump_only=True
+    referenced_authors_bais = fields.Method(
+        "get_referenced_authors_bais", dump_only=True
     )
     primary_arxiv_category = fields.Method("get_primary_arxiv_category", dump_only=True)
 
     @staticmethod
-    def get_referenced_authors_recids(record):
-        return [
+    def get_referenced_authors_bais(record):
+        recids = [
             result.author_id
             for result in db.session.query(RecordsAuthors.author_id)
             .filter(
@@ -78,6 +79,26 @@ class LiteratureElasticSearchSchema(ElasticSearchBaseSchema, LiteratureRawSchema
             .distinct(RecordsAuthors.author_id)
             .all()
         ]
+        if not recids:
+            return
+
+        subquery = (
+            db.session.query(PersistentIdentifier.object_uuid)
+            .filter(
+                PersistentIdentifier.pid_value.in_(recids),
+                PersistentIdentifier.pid_type == "aut",
+            )
+            .subquery()
+        )
+        bais = (
+            db.session.query(PersistentIdentifier.pid_value)
+            .filter(
+                PersistentIdentifier.object_uuid.in_(subquery),
+                PersistentIdentifier.pid_provider == "bai",
+            )
+            .all()
+        )
+        return [bai[0] for bai in bais]
 
     def get_ui_display(self, record):
         return orjson.dumps(LiteratureDetailSchema().dump(record).data).decode("utf-8")

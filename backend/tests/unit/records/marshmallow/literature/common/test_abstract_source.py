@@ -15,7 +15,7 @@ from inspirehep.records.marshmallow.literature import LiteratureElasticSearchSch
 
 
 @mock.patch(
-    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_referenced_authors_recids",
+    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_referenced_authors_bais",
     return_value=[],
 )
 @mock.patch(
@@ -52,7 +52,7 @@ def test_abstract_source_full(
 
 
 @mock.patch(
-    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_referenced_authors_recids",
+    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_referenced_authors_bais",
     return_value=[],
 )
 @mock.patch(
@@ -87,7 +87,7 @@ def test_abstract_source_one_missing_source(
 
 
 @mock.patch(
-    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_referenced_authors_recids",
+    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_referenced_authors_bais",
     return_value=[],
 )
 @mock.patch(
@@ -108,7 +108,7 @@ def test_abstract_source_missing(
 
 
 @mock.patch(
-    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_referenced_authors_recids",
+    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_referenced_authors_bais",
     return_value=[],
 )
 @mock.patch(

@@ -18,7 +18,7 @@ from sqlalchemy.orm.exc import StaleDataError
 from inspirehep.indexer.tasks import index_record
 from inspirehep.records.api import AuthorsRecord, InspireRecord, LiteratureRecord
 from inspirehep.records.receivers import index_after_commit
-from inspirehep.search.api import LiteratureSearch
+from inspirehep.search.api import AuthorsSearch, LiteratureSearch
 
 
 def assert_citation_count(cited_record, expected_count):
@@ -321,45 +321,51 @@ def test_literature_citations_superseded_status_change_and_cited_records_are_rei
 
 
 def test_literature_regression_changing_bai_in_record_reindex_records_which_are_citing_changed_one(
-    inspire_app, clean_celery_session, enable_self_citations
+    inspire_app, clean_celery_session, enable_self_citations, override_config
 ):
-    author_1 = InspireRecord.create(data=faker.record("aut", with_control_number=True))
-    author_2 = InspireRecord.create(data=faker.record("aut", with_control_number=True))
-    data = {
-        "authors": [
-            {"full_name": author_1["name"]["value"], "record": author_1["self"]}
-        ]
-    }
-    data = faker.record("lit", data=data)
-    base_record = LiteratureRecord.create(data)
-    citer_data = faker.record(
-        "lit", literature_citations=[base_record["control_number"]]
-    )
-    citer = LiteratureRecord.create(citer_data)
-    db.session.commit()
-    expected_recids = [str(author_1["control_number"])]
+    with override_config(
+        FEATURE_FLAG_ENABLE_BAI_PROVIDER=True, FEATURE_FLAG_ENABLE_BAI_CREATION=True
+    ):
+        author_data = {"ids": [{"schema": "INSPIRE BAI", "value": "Jean.L.Picard.1"}]}
+        author_data = faker.record("aut", data=author_data)
+        author = AuthorsRecord.create(author_data)
+        db.session.commit()
 
-    def assert_record():
-        current_search.flush_and_refresh("records-hep")
-        record_from_es = LiteratureSearch().get_record_data_from_es(citer)
-        assert expected_recids == record_from_es["referenced_authors_recids"]
+        def assert_record():
+            current_search.flush_and_refresh("records-authors")
+            record_from_es = AuthorsSearch().get_record_data_from_es(author)
+            assert record_from_es
 
-    retry_until_pass(assert_record)
+        retry_until_pass(assert_record)
 
-    data = dict(base_record)
-    data["authors"] = [
-        {"full_name": author_2["name"]["value"], "record": author_2["self"]}
-    ]
-    base_record.update(data)
-    db.session.commit()
-    expected_ids = [str(author_2["control_number"])]
+        data = {"authors": [{"full_name": "Jean-Luc Picard", "record": author["self"]}]}
+        data = faker.record("lit", data=data)
+        base_record = LiteratureRecord.create(data)
+        citer_data = faker.record(
+            "lit", literature_citations=[base_record["control_number"]]
+        )
+        citer = LiteratureRecord.create(citer_data)
+        db.session.commit()
+        citer_control_number = citer["control_number"]
 
-    def assert_record():
-        current_search.flush_and_refresh("records-hep")
-        record_from_es = LiteratureSearch().get_record_data_from_es(citer)
-        assert expected_ids == record_from_es["referenced_authors_recids"]
+        def assert_record():
+            current_search.flush_and_refresh("records-hep")
+            record_from_es = LiteratureSearch().get_record_data_from_es(citer)
+            assert ["Jean.L.Picard.1"] == record_from_es["referenced_authors_bais"]
 
-    retry_until_pass(assert_record)
+        retry_until_pass(assert_record)
+
+        author["ids"][0]["value"] = "J.Picard.2"
+        author.update(dict(author))
+        db.session.commit()
+
+        def assert_record():
+            current_search.flush_and_refresh("records-hep")
+            record = LiteratureRecord.get_record_by_pid_value(citer_control_number)
+            record_from_es = LiteratureSearch().get_record_data_from_es(record)
+            assert ["J.Picard.2"] == record_from_es["referenced_authors_bais"]
+
+        retry_until_pass(assert_record)
 
 
 def test_gracefully_handle_records_updating_in_wrong_order(

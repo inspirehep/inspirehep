@@ -242,41 +242,54 @@ def test_indexer_separates_supervisors_from_authors(inspire_app):
     assert result_supervisors[0]["full_name"] == expected_supervisor
 
 
-def test_indexer_populates_referenced_authors_recids(inspire_app):
-    author_1 = create_record("aut", data={"control_number": 1630829})
-    author_2 = create_record("aut", data={"control_number": 1630830})
-    author_3 = create_record("aut", data={"control_number": 1630831})
-    data_authors = {
-        "authors": [
-            {"full_name": author_1["name"]["value"], "record": author_1["self"]},
-            {"full_name": author_2["name"]["value"], "record": author_2["self"]},
+def test_indexer_populates_referenced_authors_bais(inspire_app, override_config):
+    with override_config(
+        FEATURE_FLAG_ENABLE_BAI_PROVIDER=True, FEATURE_FLAG_ENABLE_BAI_CREATION=True
+    ):
+        author1 = create_record(
+            "aut", data={"ids": [{"schema": "INSPIRE BAI", "value": "Jean.L.Picard.1"}]}
+        )
+        author2 = create_record(
+            "aut", data={"ids": [{"schema": "INSPIRE BAI", "value": "J.Doe.1"}]}
+        )
+        author3 = create_record(
+            "aut", data={"ids": [{"schema": "INSPIRE BAI", "value": "S.Johnson.1"}]}
+        )
+        data_authors = {
+            "authors": [
+                {"full_name": "Jean-Luc Picard", "record": author1["self"]},
+                {"full_name": "John Doe", "record": author2["self"]},
+            ]
+        }
+        cited_record_1 = create_record("lit", data=data_authors)
+        data_authors = {
+            "authors": [
+                {"full_name": "Jean-Luc Picard", "record": author2["self"]},
+                {"full_name": "Steven Johnson", "record": author3["self"]},
+            ]
+        }
+        cited_record_2 = create_record("lit", data=data_authors)
+        citing_record = create_record(
+            "lit",
+            literature_citations=[
+                cited_record_1["control_number"],
+                cited_record_2["control_number"],
+            ],
+        )
+        expected_rec3_referenced_authors_bais = [
+            "J.Doe.1",
+            "Jean.L.Picard.1",
+            "S.Johnson.1",
         ]
-    }
-    cited_record_1 = create_record("lit", data=data_authors)
-    data_authors = {
-        "authors": [
-            {"full_name": author_1["name"]["value"], "record": author_1["self"]},
-            {"full_name": author_3["name"]["value"], "record": author_3["self"]},
-        ]
-    }
-    cited_record_2 = create_record("lit", data=data_authors)
-    citing_record = create_record(
-        "lit",
-        literature_citations=[
-            cited_record_1["control_number"],
-            cited_record_2["control_number"],
-        ],
-    )
-    expected_rec3_referenced_authors_recids = ["1630829", "1630830", "1630831"]
-    rec1_es = LiteratureSearch.get_record_data_from_es(cited_record_1)
-    rec2_es = LiteratureSearch.get_record_data_from_es(cited_record_2)
-    rec3_es = LiteratureSearch.get_record_data_from_es(citing_record)
-    assert "referenced_authors_recids" not in rec1_es
-    assert "referenced_authors_recids" not in rec2_es
-    assert (
-        sorted(rec3_es["referenced_authors_recids"])
-        == expected_rec3_referenced_authors_recids
-    )
+        rec1_es = LiteratureSearch.get_record_data_from_es(cited_record_1)
+        rec2_es = LiteratureSearch.get_record_data_from_es(cited_record_2)
+        rec3_es = LiteratureSearch.get_record_data_from_es(citing_record)
+        assert "referenced_authors_bais" not in rec1_es
+        assert "referenced_authors_bais" not in rec2_es
+        assert (
+            sorted(rec3_es["referenced_authors_bais"])
+            == expected_rec3_referenced_authors_bais
+        )
 
 
 def test_indexer_oai_set_CDS(inspire_app):

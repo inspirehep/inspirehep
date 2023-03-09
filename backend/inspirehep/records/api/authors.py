@@ -16,7 +16,7 @@ from sqlalchemy.dialects.postgresql import JSONB
 from inspirehep.pidstore.api.base import PidStoreBase
 from inspirehep.records.api.mixins import StudentsAdvisorMixin
 from inspirehep.records.marshmallow.authors import AuthorsElasticSearchSchema
-from inspirehep.records.models import RecordsAuthors
+from inspirehep.records.models import RecordCitations, RecordsAuthors
 from inspirehep.search.api import AuthorsSearch
 from inspirehep.utils import chunker
 
@@ -158,12 +158,23 @@ class AuthorsRecord(StudentsAdvisorMixin, InspireRecord):
             self._previous_version.get("ids", []), "INSPIRE BAI"
         ):
             return set()
-        literature_uuids = (
+        referenced_literature_uuids = (
             RecordsAuthors.query.with_entities(RecordsAuthors.record_id)
             .filter_by(author_id=str(self["control_number"]), id_type="recid")
             .all()
         )
-        return set(str(uuid[0]) for uuid in literature_uuids)
+        uuids = set(str(uuid[0]) for uuid in referenced_literature_uuids)
+        cited_by_referenced_literature_uuids = (
+            RecordCitations.query.with_entities(RecordCitations.citer_id)
+            .filter(RecordCitations.cited_id.in_(uuids))
+            .all()
+        )
+        citing_uuids = set(
+            str(uuid[0]) for uuid in cited_by_referenced_literature_uuids
+        )
+        uuids.update(citing_uuids)
+
+        return uuids
 
     def hard_delete(self):
         self.delete_students_advisors_table_entries()
