@@ -42,17 +42,17 @@ jobs:
       suite: ${{ matrix.suite }}
       splits: ${{ matrix.splits }}
 
-  build-ui:
+  build-ui-build-stage:
     uses: ./.github/workflows/build.yml
     with:
       ref: ${{ inputs.ref }}
-      image: inspirehep/ui
+      image: inspirehep/ui-build
       context: ui/
       stage: build-stage
     secrets: inherit
 
   test-ui:
-    needs: build-ui
+    needs: build-ui-build-stage
     runs-on: ubuntu-latest
     steps:
       - name: test
@@ -60,8 +60,17 @@ jobs:
           docker run
           --pull always
           --network="host"
-          "inspirehep/ui@${{ needs.build-ui.outputs.image-id }}"
+          "inspirehep/ui@${{ needs.build-ui-build-stage.outputs.image-id }}"
           yarn test
+
+  build-ui-final:
+    needs: test-ui
+    uses: ./.github/workflows/build.yml
+    with:
+      ref: ${{ inputs.ref }}
+      image: inspirehep/ui
+      context: ui/
+    secrets: inherit
 
   build-editor:
     uses: ./.github/workflows/build.yml
