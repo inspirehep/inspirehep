@@ -60,7 +60,7 @@ jobs:
           docker run
           --pull always
           --network="host"
-          "inspirehep/ui@${{ needs.build-ui-build-stage.outputs.image-id }}"
+          "inspirehep/ui-build@${{ needs.build-ui-build-stage.outputs.image-id }}"
           yarn test
 
   build-ui:
