@@ -1577,3 +1577,28 @@ def test_search_serializer_handles_db_exceptions(mocked_get_pid_type, inspire_ap
 
     assert 400 == response.status_code
     assert response.json == expected_json
+
+
+def test_referenced_author_bais(inspire_app, override_config):
+    with override_config(
+        FEATURE_FLAG_ENABLE_BAI_PROVIDER=True, FEATURE_FLAG_ENABLE_BAI_CREATION=True
+    ):
+        author1 = create_record(
+            "aut", data={"ids": [{"schema": "INSPIRE BAI", "value": "Jean.L.Picard.1"}]}
+        )
+        data_authors = {
+            "authors": [{"full_name": "Jean-Luc Picard", "record": author1["self"]}]
+        }
+        cited_record_1 = create_record("lit", data=data_authors)
+        citing_record = create_record(
+            "lit",
+            literature_citations=[
+                cited_record_1["control_number"],
+            ],
+        )
+        result = (
+            LiteratureSearch()
+            .query_from_iq("refersto:author:Jean.L.Picard.1")
+            .execute()
+        )
+        assert result.hits[0]["control_number"] == citing_record["control_number"]
