@@ -63,7 +63,7 @@ jobs:
           "inspirehep/ui@${{ needs.build-ui-build-stage.outputs.image-id }}"
           yarn test
 
-  build-ui-final:
+  build-ui:
     needs: test-ui
     uses: ./.github/workflows/build.yml
     with:
