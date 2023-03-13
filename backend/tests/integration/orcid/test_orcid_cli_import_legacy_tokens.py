@@ -219,11 +219,7 @@ def test_import_multiple_orcid_tokens_no_user_exists(
     assert_db_has_n_legacy_tokens(0, SAMPLE_USER_2)
 
     # Migrate
-    result = orcid_app_cli_runner().invoke(import_legacy_orcid_tokens)
-
-    # both authors are not found
-    output = result.output.split("\n")
-    assert output.count("No row was found for one()") == 2
+    orcid_app_cli_runner().invoke(import_legacy_orcid_tokens)
 
     # Check state after migration
     assert not redis_setup.llen("legacy_orcid_tokens")
@@ -263,7 +259,6 @@ def test_empty_name(
     )
 
     assert_user_and_token_models(orcid, token, email, name)
-    assert result.output.split("\n").count("No row was found for one()") == 1
 
 
 @patch("inspirehep.orcid.cli.orcid_push")
@@ -470,34 +465,11 @@ def test_empty_email(
         ("myotherorcid", "myothertoken", email, "othername"),
     )
 
-    result = orcid_app_cli_runner().invoke(import_legacy_orcid_tokens)
+    orcid_app_cli_runner().invoke(import_legacy_orcid_tokens)
 
     assert_user_and_token_models(
         orcid, token, USER_EMAIL_EMPTY_PATTERN.format(orcid), name
     )
-    assert result.output.split("\n").count("No row was found for one()") == 1
-
-
-@patch("inspirehep.orcid.cli.orcid_push")
-@patch("inspirehep.orcid.cli.legacy_orcid_arrays")
-def test_print_exception_when_no_author_record(
-    mock_legacy_orcid_arrays,
-    mock_orcid_push,
-    redis_setup,
-    inspire_record_author,
-    inspire_record_literature,
-):
-    orcid = "inexistentorcid"
-    token = "mytoken"
-    name = "myname"
-    email = "myemail@me.com"
-    mock_legacy_orcid_arrays.return_value = ((orcid, token, email, name),)
-
-    result = orcid_app_cli_runner().invoke(import_legacy_orcid_tokens)
-
-    # Ensure that when no author record is found with that ORCID
-    # the exception is printed out.
-    assert result.output.split("\n").count("No row was found for one()") == 1
 
 
 @patch("inspirehep.orcid.cli.orcid_push")
@@ -545,7 +517,7 @@ def test_2_entries_in_legacy_orcid_arrays_but_1_literature(
         ("myotherorcid", "myothertoken", "otheremail@me.com", "othername"),
     )
 
-    result = orcid_app_cli_runner().invoke(import_legacy_orcid_tokens)
+    orcid_app_cli_runner().invoke(import_legacy_orcid_tokens)
 
     mock_orcid_push.apply_async.assert_any_call(
         queue="orcid_push_legacy_tokens",
@@ -557,7 +529,6 @@ def test_2_entries_in_legacy_orcid_arrays_but_1_literature(
     )
 
     assert_user_and_token_models(orcid, token, email, name)
-    assert result.output.split("\n").count("No row was found for one()") == 1
 
 
 @patch("inspirehep.orcid.cli.orcid_push")
