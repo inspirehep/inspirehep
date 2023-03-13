@@ -38,7 +38,6 @@ from inspire_utils.record import get_values_for_schema
 from invenio_db import db
 from invenio_pidstore.errors import PIDAlreadyExists
 from mock import patch
-from sqlalchemy.orm.exc import NoResultFound
 
 from inspirehep.orcid.push_access_tokens import get_access_tokens
 from inspirehep.orcid.utils import (
@@ -213,8 +212,7 @@ def test_get_literature_recids_for_orcid(inspire_app, datadir):
 
 
 def test_get_literature_recids_for_orcid_raises_if_no_author_is_found(inspire_app):
-    with pytest.raises(NoResultFound):
-        get_literature_recids_for_orcid("THIS-ORCID-DOES-NOT-EXIST")
+    assert not get_literature_recids_for_orcid("THIS-ORCID-DOES-NOT-EXIST")
 
 
 def test_get_literature_recids_for_orcid_raises_if_two_authors_are_found(
@@ -240,8 +238,7 @@ def test_get_literature_recids_for_orcid_still_works_if_author_has_no_ids(
     del record["ids"]
     record = InspireRecord.create_or_update(record)
 
-    with pytest.raises(NoResultFound):
-        get_literature_recids_for_orcid("0000-0003-4792-9178")
+    assert not get_literature_recids_for_orcid("0000-0003-4792-9178")
 
 
 def test_get_literature_recids_for_orcid_still_works_if_author_has_no_orcid_id(
@@ -254,8 +251,7 @@ def test_get_literature_recids_for_orcid_still_works_if_author_has_no_orcid_id(
     record["ids"] = [{"schema": "INSPIRE BAI", "value": "Maurizio.Martinelli.1"}]
     record = InspireRecord.create_or_update(record)
 
-    with pytest.raises(NoResultFound):
-        get_literature_recids_for_orcid("0000-0003-4792-9178")
+    assert not get_literature_recids_for_orcid("0000-0003-4792-9178")
 
 
 @shared_task(bind=True)

@@ -23,6 +23,7 @@ from invenio_pidstore.models import PersistentIdentifier
 from invenio_records.models import RecordMetadata
 from sqlalchemy import cast, type_coerce
 from sqlalchemy.dialects.postgresql import JSONB
+from sqlalchemy.orm.exc import NoResultFound
 
 from inspirehep.mailing.api.authors import send_orcid_push_disabled_email
 from inspirehep.orcid.push_access_tokens import delete_access_token
@@ -156,12 +157,18 @@ def get_literature_recids_for_orcid(orcid):
     orcid_object = f'[{{"schema": "ORCID", "value": "{orcid}"}}]'
     # this first query is written in a way that can use the index on (json -> ids)
 
-    author_rec_uuid = (
-        db.session.query(RecordMetadata.id)
-        .filter(type_coerce(RecordMetadata.json, JSONB)["ids"].contains(orcid_object))
-        .one()
-        .id
-    )
+    try:
+        author_rec_uuid = (
+            db.session.query(RecordMetadata.id)
+            .filter(
+                type_coerce(RecordMetadata.json, JSONB)["ids"].contains(orcid_object)
+            )
+            .one()
+            .id
+        )
+    except NoResultFound:
+        LOGGER.warning("No profile is associated with this account!", orcid=orcid)
+        return []
 
     author_record = (
         db.session.query(PersistentIdentifier)
