@@ -97,7 +97,7 @@ const SettingsPage = ({
               </CollapsableForm.Section>
             )}
 
-            {userOrcid && (
+            {userOrcid && profileControlNumber && (
               <CollapsableForm.Section header="Orcid settings" key="orcid">
                 <OrcidPushSettingContainer />
               </CollapsableForm.Section>
