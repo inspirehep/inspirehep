@@ -6,8 +6,30 @@ on:
 
 
 jobs:
-  tests:
+  test:
     uses: ./.github/workflows/integration-tests.yml
     with:
       ref: ${{ github.ref }}
     secrets: inherit
+
+  deploy:
+    needs: test
+    strategy:
+      matrix:
+        include:
+          - image: inspirehep/hep
+            id: ${{ needs.test.outputs.backend-image-id }}
+          - image: inspirehep/ui
+            id: ${{ needs.test.outputs.ui-image-id }}
+          - image: inspirehep/editor
+            id: ${{ needs.test.outputs.editor-image-id }}
+    uses: cern-sis/gh-workflows/.github/workflows/deploy-qa.yml@v1.0.0
+    with:
+      project: inspire
+      application: hep
+      namespace: inspire-qa
+      image: ${{ matrix.image }}
+      new_tag: ${{ matrix.id }}
+    secrets:
+      PAT: ${{ secrets.PAT_FIRE_EVENTS_ON_CERN_SIS_KUBERNETES }}
+
