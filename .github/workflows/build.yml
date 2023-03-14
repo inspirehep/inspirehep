@@ -43,5 +43,9 @@ jobs:
           image: ${{ inputs.image }}
           context: ${{ inputs.context }}
           stage: ${{ inputs.stage }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=ref,event=tag
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
