@@ -1,0 +1,13 @@
+name: Pull request master
+
+on:
+  pull_request_target:
+    branches: [master]
+
+
+jobs:
+  tests:
+    uses: ./.github/workflows/integration-tests.yml
+    with:
+      ref: ${{ github.ref }}
+    secrets: inherit

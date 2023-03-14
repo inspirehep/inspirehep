@@ -1,12 +1,6 @@
 name: Integration tests
 
 on:
-  workflow_dispatch:
-    inputs:
-      ref:
-        description: The reference to build
-        type: string
-        required: true
   workflow_call:
     inputs:
       ref:

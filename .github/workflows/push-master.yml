@@ -1,0 +1,13 @@
+name: Push master
+
+on:
+  push:
+    branches: [master]
+
+
+jobs:
+  tests:
+    uses: ./.github/workflows/integration-tests.yml
+    with:
+      ref: ${{ github.ref }}
+    secrets: inherit
