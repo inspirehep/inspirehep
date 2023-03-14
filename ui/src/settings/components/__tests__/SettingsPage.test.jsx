@@ -37,7 +37,7 @@ describe('SettingsPage', () => {
 
   it('renders page with orcid section when user has orcid profile', () => {
     const wrapper = shallow(
-      <SettingsPage loading={false} userOrcid="1234567" onSubmit={jest.fn()} />
+      <SettingsPage loading={false} profileControlNumber="1234567" userOrcid="1234567" onSubmit={jest.fn()} />
     );
 
     expect(wrapper).toMatchSnapshot();

@@ -302,6 +302,29 @@ exports[`SettingsPage renders page with orcid section when user has orcid profil
           />
         </CollapsableFormSection>
         <CollapsableFormSection
+          header="Author email address"
+          key="author_email"
+        >
+          <p>
+            Change the email addresses registered on your author profile. These are used by other INSPIRE users to contact you and for the automatic matching of your papers.
+          </p>
+          <EventTracker
+            eventAction="Edit"
+            eventCategory="Settings"
+            eventId="Edit 1234567 record"
+            eventPropName="onClick"
+            extractEventArgsToForward={null}
+          >
+            <Link
+              className="db pb3"
+              data-test-id="author-form"
+              to="/submissions/authors/1234567"
+            >
+              Update author information
+            </Link>
+          </EventTracker>
+        </CollapsableFormSection>
+        <CollapsableFormSection
           header="Orcid settings"
           key="orcid"
         >
