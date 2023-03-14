@@ -7,6 +7,16 @@ on:
         description: The reference to build
         type: string
         required: true
+    outputs:
+      backend-image-id:
+        description: The ID of image that has been buit
+        value: ${{ jobs.build-backend.outputs.image-id }}
+      ui-image-id:
+        description: The ID of image that has been buit
+        value: ${{ jobs.build-ui.outputs.image-id }}
+      editor-image-id:
+        description: The ID of image that has been buit
+        value: ${{ jobs.build-editor.outputs.image-id }}
 
 jobs:
   build-backend:
