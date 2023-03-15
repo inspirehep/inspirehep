@@ -21,6 +21,7 @@ from inspirehep.records.api import AuthorsRecord
 from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.records.models import RecordsAuthors
 from inspirehep.search.api import AuthorsSearch, LiteratureSearch
+from inspirehep.utils import chunker
 
 MAX_INDEXER_QUEUE_LEN = 100000
 MAX_DISAMBIGUATION_QUEUE_LEN = 10000
@@ -34,8 +35,9 @@ def disambiguation():
 
 
 @disambiguation.command()
+@click.option("--batch-size", type=int, default=50, help="DB batch size")
 @with_appcontext
-def clean_stub_authors():
+def clean_stub_authors(batch_size):
     """Removes all the authors created by disambiguation and having no linked papers."""
     # We get all the stub authors (created by disambiguation) from ES and we verify
     # in db if the returned records are stub (ES data might be outdated)
@@ -47,6 +49,19 @@ def clean_stub_authors():
         ("aut", str(author["control_number"]))
         for author in stub_authors_search.params(scroll="60m").scan()
     ]
+    LOGGER.info(
+        "Inspecting potential stub authors with no linked papers",
+        nb_of_profiles=len(stub_authors_control_numbers),
+    )
+    for stub_authors_control_numbers_chunk in chunker(
+        stub_authors_control_numbers, batch_size
+    ):
+        _clean_stub_authors(stub_authors_control_numbers_chunk)
+    LOGGER.info("Successfully removed all stub authors")
+
+
+def _clean_stub_authors(stub_authors_control_numbers):
+    failed_removals = 0
     # We change isolation level in db to the higher one (serializable) to avoid
     # issues with race condition
     db.session.connection(execution_options={"isolation_level": "SERIALIZABLE"})
@@ -66,8 +81,8 @@ def clean_stub_authors():
     authors_to_remove = set(stub_authors_recids.keys()).difference(
         stub_authors_with_papers
     )
-    click.echo(f"Removing {len(authors_to_remove)} stub authors with no linked papers")
-    failed_removals = 0
+    LOGGER.info(f"Removing {len(authors_to_remove)} stub authors with no linked papers")
+
     for author_recid in authors_to_remove:
         try:
             if verify_author_has_linked_papers(author_recid):
@@ -79,7 +94,7 @@ def clean_stub_authors():
             LOGGER.error("Can not delete author!", recid=author_recid)
             failed_removals += 1
 
-    click.echo(
+    LOGGER.info(
         "Successfully removed stub authors",
         number_of_removed_authors=len(authors_to_remove) - failed_removals,
         number_of_failed_removals=failed_removals,
