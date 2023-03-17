@@ -31,7 +31,7 @@ jobs:
       fail-fast: false
       matrix:
         browser: [ chrome ]
-        containers: [ 1, 2, 3, 4, 5 ]
+        containers: [ 1 ]
     services:
       redis:
         image: redis
