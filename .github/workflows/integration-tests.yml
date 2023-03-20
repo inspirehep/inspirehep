@@ -94,7 +94,7 @@ jobs:
           docker run
           --pull always
           --network="host"
-          "inspirehep/editor@${{ needs.build-editor.outputs.image-id }}"
+          "inspirehep/editor@${{ needs.build-editor-build-stage.outputs.image-id }}"
           yarn lint
 
   build-editor:
@@ -106,7 +106,7 @@ jobs:
       context: record-editor/
     secrets: inherit
 
-  e2e-test:
+  test-e2e:
     needs: [ build-backend, build-ui, build-editor ]
     uses: ./.github/workflows/e2e-tests.yml
     with:
