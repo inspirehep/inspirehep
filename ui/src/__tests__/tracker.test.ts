@@ -4,6 +4,7 @@ import { List } from 'immutable';
 import { setUserCategoryFromRoles } from '../tracker';
 
 jest.mock('react-piwik');
+const mockedPiwik = Piwik as jest.Mocked<typeof Piwik>;
 
 describe('tracker', () => {
   beforeAll(() => {
@@ -19,7 +20,7 @@ describe('tracker', () => {
 
   afterEach(() => {
     window.CONFIG = {};
-    Piwik.push.mockClear();
+    mockedPiwik.push.mockClear();
   });
 
   describe('setUserCategoryFromRoles', () => {

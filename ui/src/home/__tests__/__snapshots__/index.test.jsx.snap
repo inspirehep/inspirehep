@@ -9,6 +9,7 @@ exports[`Home renders home page 1`] = `
   <Row
     align="middle"
     className="__Home__"
+    data-testid="home"
     justify="center"
   >
     <Col

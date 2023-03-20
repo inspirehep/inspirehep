@@ -9,7 +9,7 @@ import DetailPageContainer from './containers/DetailPageContainer';
 class Jobs extends Component {
   render() {
     return (
-      <div className="__Jobs__">
+      <div className="__Jobs__" data-testid="jobs">
         <Route exact path={JOBS} component={SearchPageContainer} />
         <Route exact path={`${JOBS}/:id`} component={DetailPageContainer} />
       </div>

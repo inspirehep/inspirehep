@@ -61,7 +61,7 @@ function fetchingLoggedInUser() {
   };
 }
 
-function userSignUpRequest() {
+export function userSignUpRequest() {
   return {
     type: USER_SIGN_UP_REQUEST,
   };

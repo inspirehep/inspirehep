@@ -13,45 +13,43 @@ const FULL_ROW = { span: 24 };
 
 function SingUpForm({
   loading,
-  onSubmit,
+  onSignUp,
 }: {
   loading: boolean;
-  onSubmit: ((
+  onSignUp: ((
     values: {},
     formikHelpers: FormikHelpers<{}>
   ) => void | Promise<any>) &
     Function;
 }) {
-  const renderForm = useCallback(
-    ({ isValid }) => (
-      <Form>
-        <Field
-          wrapperCol={FULL_ROW}
-          name="email"
-          type="email"
-          placeholder="Email"
-          component={TextField}
-          disabled={loading}
-        />
-        <Row justify="end">
-          <Col>
-            <Button
-              loading={loading}
-              disabled={!isValid}
-              type="primary"
-              htmlType="submit"
-            >
-              Sign up
-            </Button>
-          </Col>
-        </Row>
-      </Form>
-    ),
-    [loading]
-  );
   return (
-    <Formik validationSchema={SCHEMA} initialValues={{}} onSubmit={onSubmit}>
-      {renderForm}
+    <Formik validationSchema={SCHEMA} initialValues={{}} onSubmit={onSignUp}>
+      {(props) => (
+        <Form>
+          <Field
+            wrapperCol={FULL_ROW}
+            name="email"
+            type="email"
+            placeholder="Email"
+            component={TextField}
+            disabled={loading}
+            data-testid="email"
+          />
+          <Row justify="end">
+            <Col>
+              <Button
+                loading={loading}
+                disabled={!props.isValid}
+                type="primary"
+                htmlType="submit"
+                data-testid="submit"
+              >
+                Sign up
+              </Button>
+            </Col>
+          </Row>
+        </Form>
+      )}
     </Formik>
   );
 }

@@ -16,25 +16,27 @@ function SignUpPage({
   ) => void | Promise<any>) &
     Function;
   loading: boolean;
-  error: Error;
+  error?: { message: string };
 }) {
   return (
     <>
       <DocumentHead title="Sign up" />
-      <Row className="h-100" justify="center" align="middle">
+      <Row className="h-100" justify="center" align="middle" data-testid="sign-up">
         <Card>
           <p>
             Please let us know your e-mail address to complete your account
             registration.
           </p>
           {error && (
-            <Row className="mb3">
+            <Row className="mb3" data-testid={error.message}>
               <Col>
                 <Alert message={error.message} type="error" showIcon closable />
               </Col>
             </Row>
           )}
-          <SingUpForm onSubmit={onSubmit} loading={loading} />
+          <div data-testid={loading}>
+            <SingUpForm onSignUp={onSubmit} loading={loading} />
+          </div>
         </Card>
       </Row>
     </>

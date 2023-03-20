@@ -7,7 +7,7 @@ import SearchPageContainer from './containers/SearchPageContainer';
 import DetailPageContainer from './containers/DetailPageContainer';
 
 const Journals = () => (
-  <div className="w-100">
+  <div className="w-100" data-testid="journals">
     <Route exact path={JOURNALS} component={SearchPageContainer} />
     <Route exact path={`${JOURNALS}/:id`} component={DetailPageContainer} />
   </div>

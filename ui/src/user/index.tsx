@@ -28,7 +28,7 @@ const User = ({
   previousUrl: string;
 }) => {
   return (
-    <div className="w-100">
+    <div className="w-100" data-testid="user">
       <SafeSwitch>
         <Redirect exact from={USER} to={USER_PROFILE} />
         <RouteOrRedirect

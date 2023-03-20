@@ -90,7 +90,7 @@ function App({ userRoles, dispatch, guideModalVisibility }) {
   }, []);
 
   return (
-    <Layout className="__App__">
+    <Layout className="__App__" data-testid='app'>
       <Header />
       <Layout.Content className="content">
         <SafeSwitch id="main">

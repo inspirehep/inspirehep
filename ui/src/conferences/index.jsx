@@ -9,7 +9,7 @@ import DetailPageContainer from './containers/DetailPageContainer';
 class Conferences extends Component {
   render() {
     return (
-      <div className="w-100">
+      <div className="w-100" data-testid="conferences">
         <Route exact path={CONFERENCES} component={SearchPageContainer} />
         <Route
           exact

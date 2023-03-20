@@ -39,7 +39,7 @@ class Submissions extends Component {
     return (
       <>
         <DocumentHead title="Submit" />
-        <div className="w-100">
+        <div className="w-100" data-testid="submissions">
           <SafeSwitch>
             <Redirect exact from={SUBMISSIONS} to={SUBMISSIONS_AUTHOR} />
             <Route

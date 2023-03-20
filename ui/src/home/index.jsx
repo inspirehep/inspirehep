@@ -26,7 +26,7 @@ function Home() {
   return (
     <>
       <DocumentHead title={TITLE} description={META_DESCRIPTION} />
-      <Row className="__Home__" justify="center" align="middle">
+      <Row className="__Home__" justify="center" align="middle" data-testid="home">
         <Col span={24}>
           <HomePageSection
             title="Discover High-Energy Physics Content"

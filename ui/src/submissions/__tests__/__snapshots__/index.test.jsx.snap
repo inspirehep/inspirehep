@@ -7,6 +7,7 @@ exports[`Submissions renders initial state 1`] = `
   />
   <div
     className="w-100"
+    data-testid="submissions"
   >
     <SafeSwitch>
       <Redirect

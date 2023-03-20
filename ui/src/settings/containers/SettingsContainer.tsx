@@ -5,7 +5,7 @@ import { Action, ActionCreator } from 'redux';
 import { changeEmailAddress } from '../../actions/settings';
 import SettingsPage from '../components/SettingsPage';
 
-const stateToProps = (state: RootStateOrAny) => ({
+export const stateToProps = (state: RootStateOrAny) => ({
   error: state.settings.get('changeEmailError'),
   loading: state.settings.get('changeEmailRequest'),
   profileControlNumber: state.user.getIn(['data', 'profile_control_number']),
