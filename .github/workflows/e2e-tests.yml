@@ -266,3 +266,11 @@ jobs:
           browser: ${{ matrix.browser }}
           tag: Chrome
           env: inspirehep_url=http://localhost:8080
+
+      - name: application logs
+        run: |
+          for container in (hep-worker hep-web next-worker next-web record-editor ui); do
+            echo "::group::$container"
+            docker logs $container
+            echo "::endgroup::"
+          done
