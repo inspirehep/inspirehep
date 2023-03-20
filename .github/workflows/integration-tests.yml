@@ -94,7 +94,7 @@ jobs:
           docker run
           --pull always
           --network="host"
-          "inspirehep/editor@${{ needs.build-editor-build-stage.outputs.image-id }}"
+          "inspirehep/editor-build@${{ needs.build-editor-build-stage.outputs.image-id }}"
           yarn lint
 
   build-editor:
