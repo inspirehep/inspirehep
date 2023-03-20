@@ -6,7 +6,7 @@ on:
 
 
 jobs:
-  tests:
+  test:
     uses: ./.github/workflows/integration-tests.yml
     with:
       ref: ${{ github.ref }}
