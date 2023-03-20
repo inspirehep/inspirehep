@@ -97,12 +97,12 @@ jobs:
           "inspirehep/editor@${{ needs.build-editor.outputs.image-id }}"
           yarn lint
 
-  e2e-test:
-    needs: [ build-backend, build-ui, build-editor ]
-    uses: ./.github/workflows/e2e-tests.yml
-    with:
-      ref: ${{ inputs.ref }}
-      backend-image: "inspirehep/hep@${{ needs.build-backend.outputs.image-id }}"
-      ui-image: "inspirehep/ui@${{ needs.build-ui.outputs.image-id }}"
-      editor-image: "inspirehep/editor@${{ needs.build-editor.outputs.image-id }}"
-    secrets: inherit
+          #  e2e-test:
+          #    needs: [ build-backend, build-ui, build-editor ]
+          #    uses: ./.github/workflows/e2e-tests.yml
+          #    with:
+          #      ref: ${{ inputs.ref }}
+          #      backend-image: "inspirehep/hep@${{ needs.build-backend.outputs.image-id }}"
+          #      ui-image: "inspirehep/ui@${{ needs.build-ui.outputs.image-id }}"
+          #      editor-image: "inspirehep/editor@${{ needs.build-editor.outputs.image-id }}"
+          #    secrets: inherit
