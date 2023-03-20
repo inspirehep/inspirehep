@@ -76,17 +76,17 @@ jobs:
       context: ui/
     secrets: inherit
 
-  build-editor:
+  build-editor-build-stage:
     uses: ./.github/workflows/build.yml
     with:
       ref: ${{ inputs.ref }}
-      image: inspirehep/editor
+      image: inspirehep/editor-build
       context: record-editor/
       stage: build-stage
     secrets: inherit
 
   test-editor:
-    needs: build-editor
+    needs: build-editor-build-stage
     runs-on: ubuntu-latest
     steps:
       - name: test
@@ -97,12 +97,21 @@ jobs:
           "inspirehep/editor@${{ needs.build-editor.outputs.image-id }}"
           yarn lint
 
-          #  e2e-test:
-          #    needs: [ build-backend, build-ui, build-editor ]
-          #    uses: ./.github/workflows/e2e-tests.yml
-          #    with:
-          #      ref: ${{ inputs.ref }}
-          #      backend-image: "inspirehep/hep@${{ needs.build-backend.outputs.image-id }}"
-          #      ui-image: "inspirehep/ui@${{ needs.build-ui.outputs.image-id }}"
-          #      editor-image: "inspirehep/editor@${{ needs.build-editor.outputs.image-id }}"
-          #    secrets: inherit
+  build-editor:
+    needs: test-editor
+    uses: ./.github/workflows/build.yml
+    with:
+      ref: ${{ inputs.ref }}
+      image: inspirehep/editor
+      context: record-editor/
+    secrets: inherit
+
+  e2e-test:
+    needs: [ build-backend, build-ui, build-editor ]
+    uses: ./.github/workflows/e2e-tests.yml
+    with:
+      ref: ${{ inputs.ref }}
+      backend-image: "inspirehep/hep@${{ needs.build-backend.outputs.image-id }}"
+      ui-image: "inspirehep/ui@${{ needs.build-ui.outputs.image-id }}"
+      editor-image: "inspirehep/editor@${{ needs.build-editor.outputs.image-id }}"
+    secrets: inherit
