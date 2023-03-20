@@ -270,8 +270,21 @@ jobs:
       - name: application logs
         if: ${{ always() }}
         run: |
-          for container in (hep-worker hep-web next-worker next-web record-editor ui); do
-            echo "::group::$container"
-            docker logs $container
-            echo "::endgroup::"
-          done
+          echo "::group::hep-worker"
+          docker logs hep-worker
+          echo "::endgroup::"
+          echo "::group::hep-web"
+          docker logs hep-web
+          echo "::endgroup::"
+          echo "::group::next-worker"
+          docker logs next-worker
+          echo "::endgroup::"
+          echo "::group::next-web"
+          docker logs next-web
+          echo "::endgroup::"
+          echo "::group::record-editor"
+          docker logs record-editor
+          echo "::endgroup::"
+          echo "::group::ui"
+          docker logs ui
+          echo "::endgroup::"
