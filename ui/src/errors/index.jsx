@@ -16,7 +16,7 @@ import ErrorNetwork from './components/ErrorNetwork';
 class Errors extends Component {
   render() {
     return (
-      <Row className="w-100 h-100" type="flex" justify="center" align="middle">
+      <Row className="w-100 h-100" type="flex" justify="center" align="middle" data-testid="errors">
         <Switch>
           <Route exact path={ERROR_404} component={Error404} />
           <Route exact path={ERROR_401} component={Error401} />

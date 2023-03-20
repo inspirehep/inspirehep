@@ -42,6 +42,7 @@ export const ChangeEmailForm = ({
               type="email"
               placeholder="Email"
               data-test-id="email"
+              data-testid="email"
               component={TextField}
             />
             <EventTracker
@@ -55,6 +56,7 @@ export const ChangeEmailForm = ({
                 type="primary"
                 htmlType="submit"
                 data-test-id="submit-email"
+                data-testid="submit-email"
               >
                 Change
               </Button>

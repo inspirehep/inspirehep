@@ -9,7 +9,7 @@ import DetailPageContainer from './containers/DetailPageContainer';
 class Literature extends Component {
   render() {
     return (
-      <div className="__Literature__">
+      <div className="__Literature__" data-testid="literature">
         <Route exact path={LITERATURE} component={SearchPageContainer} />
         <Route
           exact

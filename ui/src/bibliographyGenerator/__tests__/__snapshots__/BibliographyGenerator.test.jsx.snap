@@ -8,6 +8,7 @@ exports[`BibliographyGenerator renders 1`] = `
   />
   <Row
     className="overflow-x-auto"
+    data-testid="bibliography"
     justify="center"
   >
     <Col

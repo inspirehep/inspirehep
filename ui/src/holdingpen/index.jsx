@@ -13,7 +13,7 @@ import SafeSwitch from '../common/components/SafeSwitch';
 class Holdingpen extends Component {
   render() {
     return (
-      <div className="w-100">
+      <div className="w-100" data-testid="holdingpen">
         <SafeSwitch>
           <Redirect exact from={HOLDINGPEN} to={HOLDINGPEN_DASHBOARD} />
           <Route

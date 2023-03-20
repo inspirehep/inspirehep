@@ -1,10 +1,9 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render, within } from '@testing-library/react';
 import { Provider } from 'react-redux';
 
 import { getStoreWithState } from '../../../fixtures/store';
 import LoginPageContainer from '../LoginPageContainer';
-import LoginPage from '../../components/LoginPage';
 
 describe('LoginPageContainer', () => {
   it('passes props from state', () => {
@@ -16,16 +15,17 @@ describe('LoginPageContainer', () => {
       },
     });
 
-    const wrapper = mount(
+    const { getByTestId } = render(
       <Provider store={store}>
         <LoginPageContainer />
       </Provider>
     );
 
-    const dummyWrapper = wrapper.find(LoginPageContainer);
-
-    expect(dummyWrapper.find(LoginPage)).toHaveProp({
-      previousUrl: '/jobs?q=cern',
-    });
+    const loginPage = getByTestId('login-page');
+    const button = within(loginPage).getByTestId('login-button');
+    expect(button).toHaveAttribute(
+      'href',
+      `/api/accounts/login?next=/jobs?q=cern`
+    );
   });
 });

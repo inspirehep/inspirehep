@@ -9,7 +9,7 @@ import DetailPageContainer from './containers/DetailPageContainer';
 class Authors extends Component {
   render() {
     return (
-      <div className="__Authors__">
+      <div className="__Authors__" data-testid="authors">
         {/* @ts-ignore */}
         <Route exact path={AUTHORS} component={SearchPageContainer} />
         <Route exact path={`${AUTHORS}/:id`} component={DetailPageContainer} />

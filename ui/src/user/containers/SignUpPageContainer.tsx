@@ -13,7 +13,7 @@ const stateToProps = (state: RootStateOrAny) => ({
 export const dispatchToProps = (
   dispatch: ActionCreator<Action>
 ) => ({
-  onSubmit(data: string) {
+  onSignUp(data: string) {
     dispatch(userSignUp(data));
   },
 });

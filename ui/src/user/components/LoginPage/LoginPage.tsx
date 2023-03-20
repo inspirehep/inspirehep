@@ -15,7 +15,7 @@ const LoginPage = ({ previousUrl }: { previousUrl: string }) => {
   return (
     <>
       <DocumentHead title={TITLE} description={META_DESCRIPTION} />
-      <Row className="__LoginPage__ h-100" justify="center" align="middle">
+      <Row className="__LoginPage__ h-100" justify="center" align="middle" data-testid="login-page">
         <Card bodyStyle={{ textAlign: 'center' }}>
           <p className="f4">Please sign in to INSPIRE</p>
           <p className="pb2">
@@ -25,7 +25,7 @@ const LoginPage = ({ previousUrl }: { previousUrl: string }) => {
               https://orcid.org/register
             </ExternalLink>
           </p>
-          <Button className="login-button" href={loginHref}>
+          <Button className="login-button" href={loginHref} data-testid="login-button">
             <img className="logo mr2" src={orcidLogo} alt="ORCID" />
             <strong>Login with ORCID</strong>
           </Button>

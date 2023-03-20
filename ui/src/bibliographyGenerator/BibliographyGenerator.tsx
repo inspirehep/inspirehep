@@ -62,7 +62,7 @@ function BibliographyGenerator({
   return (
     <>
       <DocumentHead title={TITLE} description={META_DESCRIPTION} />
-      <Row justify="center" className="overflow-x-auto">
+      <Row justify="center" className="overflow-x-auto" data-testid="bibliography">
         <Col className="mt3 mb3" xs={24} md={21} lg={16} xl={15} xxl={14}>
           <Row className="mb3 pa3 bg-white">
             <Col>

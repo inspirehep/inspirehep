@@ -3,6 +3,7 @@
 exports[`Authors renders initial state 1`] = `
 <div
   className="__Authors__"
+  data-testid="authors"
 >
   <Route
     component={[Function]}

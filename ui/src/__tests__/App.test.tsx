@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
-import { mount } from 'enzyme';
+import { render, within } from '@testing-library/react';
 import { fromJS, List } from 'immutable';
 import Loadable from 'react-loadable';
 
@@ -11,18 +11,7 @@ import {
   mockActionCreator,
 } from '../fixtures/store';
 import App from '../App';
-import Holdingpen from '../holdingpen';
-import Home from '../home';
-import Literature from '../literature';
-import User from '../user';
-import Submissions from '../submissions';
-import Errors from '../errors';
-import Authors from '../authors';
 import { setUserCategoryFromRoles } from '../tracker';
-import Jobs from '../jobs';
-import Conferences from '../conferences';
-import BibliographyGeneratorPageContainer from '../bibliographyGenerator/BibliographyGeneratorPageContainer';
-import Journals from '../journals';
 import { userSignUp, fetchLoggedInUser } from '../actions/user';
 
 jest.mock('../tracker');
@@ -32,10 +21,10 @@ mockActionCreator(fetchLoggedInUser);
 
 describe('App', () => {
   afterEach(() => {
-    setUserCategoryFromRoles.mockClear();
+    (setUserCategoryFromRoles as jest.Mock).mockClear();
   });
 
-  it('calls to set user category with roles on mount', () => {
+  it('calls to set user category with roles on render', () => {
     const store = getStoreWithState({
       user: fromJS({
         loggedIn: true,
@@ -44,7 +33,7 @@ describe('App', () => {
         },
       }),
     });
-    mount(
+    render(
       <Provider store={store}>
         <MemoryRouter initialEntries={['/']} initialIndex={0}>
           <App />
@@ -56,9 +45,9 @@ describe('App', () => {
     );
   });
 
-  it('dispatches fetchLoggedInUser on mount', () => {
+  it('dispatches fetchLoggedInUser on render', () => {
     const store = getStore();
-    mount(
+    render(
       <Provider store={store}>
         <MemoryRouter initialEntries={['/']} initialIndex={0}>
           <App />
@@ -83,7 +72,7 @@ describe('App', () => {
         },
       }),
     });
-    const wrapper = mount(
+    const { getByTestId } = render(
       <Provider store={store}>
         <MemoryRouter initialEntries={['/holdingpen']} initialIndex={0}>
           <App />
@@ -91,8 +80,11 @@ describe('App', () => {
       </Provider>
     );
     await Loadable.preloadAll();
-    wrapper.update();
-    expect(wrapper.find(Holdingpen)).toExist();
+
+    const app = getByTestId('app');
+    const holdingpen = within(app).getByTestId('holdingpen');
+
+    expect(holdingpen).toBeInTheDocument();
   });
 
   it('does not navigate to Holdingpen when /holdingpen if not logged in', async () => {
@@ -104,7 +96,7 @@ describe('App', () => {
         },
       }),
     });
-    const wrapper = mount(
+    const { getByTestId } = render(
       <Provider store={store}>
         <MemoryRouter initialEntries={['/holdingpen']} initialIndex={0}>
           <App />
@@ -112,52 +104,66 @@ describe('App', () => {
       </Provider>
     );
     await Loadable.preloadAll();
-    wrapper.update();
-    expect(wrapper.find(Holdingpen)).not.toExist();
+    const app = getByTestId('app');
+    const holdingpen = within(app).queryByTestId('holdingpen');
+
+    expect(holdingpen).not.toBeInTheDocument();
   });
 
   it('navigates to User when /user', () => {
-    const wrapper = mount(
+    const { getByTestId } = render(
       <Provider store={getStore()}>
         <MemoryRouter initialEntries={['/user']} initialIndex={0}>
           <App />
         </MemoryRouter>
       </Provider>
     );
-    expect(wrapper.find(User)).toExist();
+    const app = getByTestId('app');
+    const user = within(app).getByTestId('user');
+
+    expect(user).toBeInTheDocument();
   });
 
   it('navigates to Literature when /literature', () => {
-    const wrapper = mount(
+    const { getByTestId } = render(
       <Provider store={getStore()}>
         <MemoryRouter initialEntries={['/literature']} initialIndex={0}>
           <App />
         </MemoryRouter>
       </Provider>
     );
-    expect(wrapper.find(Literature)).toExist();
+    const app = getByTestId('app');
+    const literature = within(app).getByTestId('literature');
+
+    expect(literature).toBeInTheDocument();
   });
 
   it('navigates to Authors when /authors', () => {
-    const wrapper = mount(
+    const { getByTestId } = render(
       <Provider store={getStore()}>
         <MemoryRouter initialEntries={['/authors']} initialIndex={0}>
           <App />
         </MemoryRouter>
       </Provider>
     );
-    expect(wrapper.find(Authors)).toExist();
+    const app = getByTestId('app');
+    const authors = within(app).getByTestId('authors');
+
+    expect(authors).toBeInTheDocument();
   });
 
   it('navigates to Conferences when /conferences', () => {
-    const wrapper = mount(
+    const { getByTestId } = render(
       <Provider store={getStore()}>
         <MemoryRouter initialEntries={['/conferences']} initialIndex={0}>
           <App />
         </MemoryRouter>
       </Provider>
     );
-    expect(wrapper.find(Conferences)).toExist();
+    const app = getByTestId('app');
+    const conferences = within(app).getByTestId('conferences');
+
+    expect(conferences).toBeInTheDocument();
   });
 
   it('navigates to Submissions when /submissions if logged in', async () => {
@@ -169,7 +175,7 @@ describe('App', () => {
         },
       }),
     });
-    const wrapper = mount(
+    const { getByTestId } = render(
       <Provider store={store}>
         <MemoryRouter initialEntries={['/submissions']} initialIndex={0}>
           <App />
@@ -177,11 +183,13 @@ describe('App', () => {
       </Provider>
     );
     await Loadable.preloadAll();
-    wrapper.update();
-    expect(wrapper.find(Submissions)).toExist();
+    const app = getByTestId('app');
+    const submissions = within(app).getByTestId('submissions');
+
+    expect(submissions).toBeInTheDocument();
   });
 
-  it('navigates to Submissions when /submissions if not logged in', async () => {
+  it('does not navigate to Submissions when /submissions if not logged in', async () => {
     const store = getStoreWithState({
       user: fromJS({
         loggedIn: false,
@@ -190,7 +198,7 @@ describe('App', () => {
         },
       }),
     });
-    const wrapper = mount(
+    const { getByTestId } = render(
       <Provider store={store}>
         <MemoryRouter initialEntries={['/submissions']} initialIndex={0}>
           <App />
@@ -198,56 +206,71 @@ describe('App', () => {
       </Provider>
     );
     await Loadable.preloadAll();
-    wrapper.update();
-    expect(wrapper.find(Submissions)).not.toExist();
+
+    const app = getByTestId('app');
+    const submissions = within(app).queryByTestId('submissions');
+
+    expect(submissions).not.toBeInTheDocument();
   });
 
   it('navigates to Home when /', () => {
-    const wrapper = mount(
+    const { getByTestId } = render(
       <Provider store={getStore()}>
         <MemoryRouter initialEntries={['/']} initialIndex={0}>
           <App />
         </MemoryRouter>
       </Provider>
     );
-    expect(wrapper.find(Home)).toExist();
+    const app = getByTestId('app');
+    const home = within(app).getByTestId('home');
+
+    expect(home).toBeInTheDocument();
   });
 
   it('navigates to Errors when /errors', () => {
-    const wrapper = mount(
+    const { getByTestId } = render(
       <Provider store={getStore()}>
         <MemoryRouter initialEntries={['/errors']} initialIndex={0}>
           <App />
         </MemoryRouter>
       </Provider>
     );
-    expect(wrapper.find(Errors)).toExist();
+    const app = getByTestId('app');
+    const errors = within(app).getByTestId('errors');
+
+    expect(errors).toBeInTheDocument();
   });
 
   it('redirects to Errors when /anythingElse', () => {
-    const wrapper = mount(
+    const { getByTestId } = render(
       <Provider store={getStore()}>
         <MemoryRouter initialEntries={['/anythingElse']} initialIndex={0}>
           <App />
         </MemoryRouter>
       </Provider>
     );
-    expect(wrapper.find(Errors)).toExist();
+    const app = getByTestId('app');
+    const errors = within(app).getByTestId('errors');
+
+    expect(errors).toBeInTheDocument();
   });
 
   it('navigates to Jobs when /jobs', () => {
-    const wrapper = mount(
+    const { getByTestId } = render(
       <Provider store={getStore()}>
         <MemoryRouter initialEntries={['/jobs']} initialIndex={0}>
           <App />
         </MemoryRouter>
       </Provider>
     );
-    expect(wrapper.find(Jobs)).toExist();
+    const app = getByTestId('app');
+    const jobs = within(app).getByTestId('jobs');
+
+    expect(jobs).toBeInTheDocument();
   });
 
   it('navigates to BibliographyGenerator when /bibliography-generator', () => {
-    const wrapper = mount(
+    const { getByTestId } = render(
       <Provider store={getStore()}>
         <MemoryRouter
           initialEntries={['/bibliography-generator']}
@@ -257,17 +280,23 @@ describe('App', () => {
         </MemoryRouter>
       </Provider>
     );
-    expect(wrapper.find(BibliographyGeneratorPageContainer)).toExist();
+    const app = getByTestId('app');
+    const bibliography = within(app).getByTestId('bibliography');
+
+    expect(bibliography).toBeInTheDocument();
   });
 
   it('navigates to Journals when /journals', () => {
-    const wrapper = mount(
+    const { getByTestId } = render(
       <Provider store={getStore()}>
         <MemoryRouter initialEntries={['/journals']} initialIndex={0}>
           <App />
         </MemoryRouter>
       </Provider>
     );
-    expect(wrapper.find(Journals)).toExist();
+    const app = getByTestId('app');
+    const journals = within(app).getByTestId('journals');
+
+    expect(journals).toBeInTheDocument();
   });
 });

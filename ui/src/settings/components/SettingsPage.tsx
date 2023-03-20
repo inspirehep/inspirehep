@@ -35,7 +35,12 @@ const SettingsPage = ({
       <DocumentHead title="Settings" />
 
       {error && (
-        <Row justify="center" align="middle" className="mv3">
+        <Row
+          justify="center"
+          align="middle"
+          className="mv3"
+          data-testid={error?.get('message')}
+        >
           <Col xs={24} md={22} lg={21} xxl={18}>
             <Alert
               message={error.get('message') || 'Error occured'}
@@ -63,11 +68,13 @@ const SettingsPage = ({
               header="Account email address"
               key="account_email"
             >
-              <ChangeEmailForm
-                onChangeEmailAddress={onChangeEmailAddress}
-                loading={loading}
-                email={userEmail}
-              />
+              <div data-testid={`${loading} ${userEmail}`}>
+                <ChangeEmailForm
+                  onChangeEmailAddress={onChangeEmailAddress}
+                  loading={loading}
+                  email={userEmail}
+                />
+              </div>
             </CollapsableForm.Section>
 
             {profileControlNumber && (
@@ -75,31 +82,39 @@ const SettingsPage = ({
                 header="Author email address"
                 key="author_email"
               >
-                <p>
-                  Change the email addresses registered on your author profile.
-                  These are used by other INSPIRE users to contact you and for
-                  the automatic matching of your papers.
-                </p>
+                <div data-testid={profileControlNumber}>
+                  <p>
+                    Change the email addresses registered on your author
+                    profile. These are used by other INSPIRE users to contact
+                    you and for the automatic matching of your papers.
+                  </p>
 
-                <EventTracker
-                  eventCategory="Settings"
-                  eventAction="Edit"
-                  eventId={`Edit ${profileControlNumber} record`}
-                >
-                  <Link
-                    to={`/submissions/authors/${profileControlNumber}`}
-                    className="db pb3"
-                    data-test-id="author-form"
+                  <EventTracker
+                    eventCategory="Settings"
+                    eventAction="Edit"
+                    eventId={`Edit ${profileControlNumber} record`}
                   >
-                    Update author information
-                  </Link>
-                </EventTracker>
+                    <Link
+                      to={`/submissions/authors/${profileControlNumber}`}
+                      className="db pb3"
+                      data-test-id="author-form"
+                    >
+                      Update author information
+                    </Link>
+                  </EventTracker>
+                </div>
               </CollapsableForm.Section>
             )}
 
             {userOrcid && profileControlNumber && (
-              <CollapsableForm.Section header="Orcid settings" key="orcid">
-                <OrcidPushSettingContainer />
+              <CollapsableForm.Section
+                header="Orcid settings"
+                key="orcid"
+                data-test-id="orcid"
+              >
+                <div data-testid={userOrcid}>
+                  <OrcidPushSettingContainer />
+                </div>
               </CollapsableForm.Section>
             )}
           </CollapsableForm>
