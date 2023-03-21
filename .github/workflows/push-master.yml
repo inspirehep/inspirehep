@@ -17,16 +17,19 @@ jobs:
     strategy:
       matrix:
         include:
-          - image: inspirehep/hep
+          - application: hep
+            image: inspirehep/hep
             id: ${{ needs.test.outputs.backend-image-id }}
-          - image: inspirehep/ui
+          - application: ui
+            image: inspirehep/ui
             id: ${{ needs.test.outputs.ui-image-id }}
-          - image: inspirehep/editor
+          - application: editor
+            image: inspirehep/editor
             id: ${{ needs.test.outputs.editor-image-id }}
     uses: cern-sis/gh-workflows/.github/workflows/deploy-qa.yml@update-build-action
     with:
       project: inspire
-      application: hep
+      application: ${{ matrix.application }}
       namespace: inspire-qa
       image: ${{ matrix.image }}
       new_digest: ${{ matrix.id }}
