@@ -68,7 +68,6 @@ jobs:
           yarn test
 
   build-ui:
-    needs: test-ui
     uses: ./.github/workflows/build.yml
     with:
       ref: ${{ inputs.ref }}
@@ -98,7 +97,6 @@ jobs:
           yarn lint
 
   build-editor:
-    needs: test-editor
     uses: ./.github/workflows/build.yml
     with:
       ref: ${{ inputs.ref }}
