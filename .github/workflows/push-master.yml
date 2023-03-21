@@ -26,7 +26,7 @@ jobs:
           - application: editor
             image: inspirehep/editor
             id: ${{ needs.test.outputs.editor-image-id }}
-    uses: cern-sis/gh-workflows/.github/workflows/deploy-qa.yml@update-build-action
+    uses: cern-sis/gh-workflows/.github/workflows/deploy-qa.yml@v2.0.0
     with:
       project: inspire
       application: ${{ matrix.application }}
