@@ -29,7 +29,7 @@ jobs:
       application: hep
       namespace: inspire-qa
       image: ${{ matrix.image }}
-      new_tag: ${{ matrix.id }}
+      new_digest: ${{ matrix.id }}
     secrets:
       PAT: ${{ secrets.PAT_FIRE_EVENTS_ON_CERN_SIS_KUBERNETES }}
 
