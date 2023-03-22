@@ -6,6 +6,9 @@
       "$schema": {
         "type": "keyword"
       },
+      "_all": {
+        "type": "text"
+      },
       "_created": {
         "type": "date"
       },
@@ -20,7 +23,8 @@
         "type": "integer"
       },
       "control_number": {
-        "type": "integer"
+        "type": "integer",
+        "copy_to": "_all"
       },
       "deleted": {
         "type": "boolean"
@@ -52,7 +56,8 @@
                 "type": "text"
               }
             },
-            "type": "text"
+            "type": "text",
+            "copy_to": "_all"
           }
         },
         "type": "object"
@@ -99,7 +104,9 @@
         "lowercase_normalizer": {
           "type": "custom",
           "char_filter": [],
-          "filter": ["lowercase"]
+          "filter": [
+            "lowercase"
+          ]
         }
       },
       "tokenizer": {

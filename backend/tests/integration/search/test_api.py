@@ -20,6 +20,7 @@ from sqlalchemy.exc import OperationalError
 
 from inspirehep.search.api import (
     AuthorsSearch,
+    InstitutionsSearch,
     JobsSearch,
     JournalsSearch,
     LiteratureSearch,
@@ -1602,3 +1603,49 @@ def test_referenced_author_bais(inspire_app, override_config):
             .execute()
         )
         assert result.hits[0]["control_number"] == citing_record["control_number"]
+
+
+def test_query_string_wit_default_field(inspire_app):
+    data = {
+        "addresses": [
+            {
+                "cities": ["Modena"],
+                "latitude": 44.6446127,
+                "longitude": 10.9371698,
+                "postal_code": "41100",
+                "country_code": "IT",
+                "postal_address": ["via Università 4", "I-41100 Modena"],
+            }
+        ],
+        "ICN": ["INFN, Modena"],
+        "$schema": "https://inspirehep.net/schemas/records/institutions.json",
+        "legacy_ICN": "INFN, Modena",
+        "extra_words": [
+            "Nazionale, Natl., National",
+            "Inst., Institute, Nucl.",
+            "dell",
+            "Istituto Nazionale di Fisica Nucleare Sezione",
+            "University",
+            "dellUniversità",
+            "dell'INFN",
+            "41100 I-41100 IT-41100",
+            "Nazionali",
+            "univ",
+            "Nat., Inst., Nucl, Phys., Inst., Naz., Fis.",
+        ],
+        "name_variants": [{"value": "National Institute of Nuclear Physics"}],
+        "control_number": 906350,
+        "legacy_version": "20181122151116.0",
+        "historical_data": ["doesn't exist any more. Finished probably in 2005"],
+        "institution_type": ["Research Center"],
+        "legacy_creation_date": "1993-04-02",
+        "institution_hierarchy": [
+            {"name": "Sezione di Modena"},
+            {"name": "Istituto Nazionale di Fisica Nucleare", "acronym": "INFN"},
+        ],
+        "external_system_identifiers": [{"value": "INST-46051", "schema": "SPIRES"}],
+    }
+
+    create_record("ins", data=data)
+    result = InstitutionsSearch().query_from_iq("infn italy").execute()
+    assert result.hits[0]["control_number"] == 906350

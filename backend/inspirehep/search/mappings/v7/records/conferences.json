@@ -32,14 +32,20 @@
         "type": "text"
       },
       "acronyms": {
-        "copy_to": ["conferenceautocomplete", "_all"],
+        "copy_to": [
+          "conferenceautocomplete",
+          "_all"
+        ],
         "normalizer": "lowercase_normalizer",
         "type": "keyword"
       },
       "addresses": {
         "properties": {
           "cities": {
-            "copy_to": ["conferenceautocomplete", "_all"],
+            "copy_to": [
+              "conferenceautocomplete",
+              "_all"
+            ],
             "normalizer": "lowercase_normalizer",
             "type": "keyword"
           },
@@ -53,7 +59,10 @@
             "copy_to": "_all"
           },
           "postal_address": {
-            "copy_to": ["conferenceautocomplete", "_all"],
+            "copy_to": [
+              "conferenceautocomplete",
+              "_all"
+            ],
             "type": "text"
           },
           "postal_code": {
@@ -93,7 +102,10 @@
         "copy_to": "_all"
       },
       "cnum": {
-        "copy_to": ["conferenceautocomplete", "_all"],
+        "copy_to": [
+          "conferenceautocomplete",
+          "_all"
+        ],
         "normalizer": "lowercase_normalizer",
         "type": "keyword"
       },
@@ -175,10 +187,55 @@
         },
         "type": "object"
       },
+      "number_of_contributions": {
+        "type": "integer"
+      },
       "opening_date": {
-        "copy_to": ["conferenceautocomplete", "_all"],
+        "copy_to": [
+          "conferenceautocomplete",
+          "_all"
+        ],
         "format": "yyyy-MM-dd||yyyy-MM||yyyy",
         "type": "date"
+      },
+      "proceedings": {
+        "properties": {
+          "control_number": {
+            "type": "integer"
+          },
+          "publication_info": {
+            "properties": {
+              "artid": {
+                "type": "keyword"
+              },
+              "journal_issue": {
+                "type": "keyword"
+              },
+              "journal_title": {
+                "type": "text"
+              },
+              "journal_volume": {
+                "type": "text"
+              },
+              "material": {
+                "type": "keyword"
+              },
+              "page_end": {
+                "type": "keyword"
+              },
+              "page_start": {
+                "type": "keyword"
+              },
+              "pubinfo_freetext": {
+                "type": "text"
+              },
+              "year": {
+                "format": "yyyy",
+                "type": "date"
+              }
+            }
+          }
+        }
       },
       "public_notes": {
         "properties": {
@@ -208,7 +265,10 @@
       "series": {
         "properties": {
           "name": {
-            "copy_to": ["seriesautocomplete", "_all"],
+            "copy_to": [
+              "seriesautocomplete",
+              "_all"
+            ],
             "fields": {
               "raw": {
                 "type": "keyword"
@@ -249,7 +309,10 @@
             "copy_to": "_all"
           },
           "title": {
-            "copy_to": ["conferenceautocomplete", "_all"],
+            "copy_to": [
+              "conferenceautocomplete",
+              "_all"
+            ],
             "type": "text"
           }
         },
@@ -279,7 +342,9 @@
         "lowercase_normalizer": {
           "type": "custom",
           "char_filter": [],
-          "filter": ["lowercase"]
+          "filter": [
+            "lowercase"
+          ]
         }
       },
       "tokenizer": {

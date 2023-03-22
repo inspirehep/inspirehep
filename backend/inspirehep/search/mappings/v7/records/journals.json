@@ -6,6 +6,9 @@
       "$schema": {
         "type": "keyword"
       },
+      "_all": {
+        "type": "text"
+      },
       "_created": {
         "type": "date"
       },
@@ -49,7 +52,8 @@
         "type": "boolean"
       },
       "control_number": {
-        "type": "integer"
+        "type": "integer",
+        "copy_to": "_all"
       },
       "date_ended": {
         "format": "yyyy-MM-dd||yyyy-MM||yyyy",
@@ -83,7 +87,8 @@
             "type": "keyword"
           },
           "term": {
-            "type": "keyword"
+            "type": "keyword",
+            "copy_to": "_all"
           }
         },
         "type": "object"
@@ -94,7 +99,8 @@
             "type": "keyword"
           },
           "value": {
-            "type": "keyword"
+            "type": "keyword",
+            "copy_to": "_all"
           }
         },
         "type": "object"
@@ -108,7 +114,11 @@
             "type": "text"
           },
           "title": {
-            "copy_to": ["journalautocomplete", "lowercase_journal_titles"],
+            "copy_to": [
+              "journalautocomplete",
+              "lowercase_journal_titles",
+              "_all"
+            ],
             "type": "text"
           }
         },
@@ -120,6 +130,9 @@
       "legacy_creation_date": {
         "format": "yyyy-MM-dd||yyyy-MM||yyyy",
         "type": "date"
+      },
+      "legacy_version": {
+        "type": "text"
       },
       "license": {
         "properties": {
@@ -166,7 +179,8 @@
         "type": "object"
       },
       "publisher": {
-        "type": "keyword"
+        "type": "keyword",
+        "copy_to": "_all"
       },
       "refereed": {
         "type": "boolean"
@@ -210,14 +224,22 @@
         "type": "integer"
       },
       "short_title": {
-        "copy_to": ["journalautocomplete", "lowercase_journal_titles"],
+        "copy_to": [
+          "journalautocomplete",
+          "lowercase_journal_titles",
+          "_all"
+        ],
         "type": "text"
       },
       "title_suggest": {
         "type": "completion"
       },
       "title_variants": {
-        "copy_to": ["journalautocomplete", "lowercase_journal_titles"],
+        "copy_to": [
+          "journalautocomplete",
+          "lowercase_journal_titles",
+          "_all"
+        ],
         "type": "text"
       },
       "urls": {
@@ -249,7 +271,9 @@
         "lowercase_normalizer": {
           "type": "custom",
           "char_filter": [],
-          "filter": ["lowercase"]
+          "filter": [
+            "lowercase"
+          ]
         },
         "journal_title_normalizer": {
           "type": "custom",
@@ -257,7 +281,10 @@
             "journal_title_punctuation",
             "whitespace_normalization"
           ],
-          "filter": ["lowercase", "trim"]
+          "filter": [
+            "lowercase",
+            "trim"
+          ]
         }
       },
       "char_filter": {
