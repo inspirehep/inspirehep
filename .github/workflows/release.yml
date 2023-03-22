@@ -1,93 +1,46 @@
-name: Release on prod
+name: Release
 
 on:
-  workflow_dispatch:
-    inputs:
-      ref:
-        description: 'Commit to deploy on prod'
-        required: true
-      tag:
-        description: 'Tag to release'
-        required: true
+  release:
+    types: [released]
+
+defaults:
+  run:
+    shell: bash
 
 jobs:
-  merge:
+  push:
     name: Merge to Prod
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          ref: master
 
-      - name: Configure git
+      - name: Push
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
+          git push --force --follow-tags origin ${{ github.ref_name }}:prod
 
-      - name: Is this reference on master?
-        run: >
-          git merge-base
-          --is-ancestor
-          ${{ github.event.inputs.ref }}
-          HEAD
-
-      - name: Create local branch
-        if: ${{ success() }}
-        run: |
-          git checkout ${{ github.event.inputs.ref }} -b prod
-
-      - name: Tag
-        if: ${{ success() }}
-        run: |
-          git tag -a ${{ github.event.inputs.tag }} -m "${MSG}"
-
-      - name: Push
-        if: ${{ success() }}
-        run: |
-          git push --force --follow-tags origin prod
-
-  push:
-    name: Push
-    needs: merge
-    runs-on: ubuntu-latest
+  deploy:
+    needs: push
     strategy:
       matrix:
-        applications:
-          - hep
-          - ui
-          - editor
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          ref: prod
-
-      - name: Login
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Tag and push
-        uses: ./.github/actions/docker-tag-and-push
-        with:
-          image: inspirehep/${{ matrix.applications }}
-          pull-tag: master-${{ github.event.inputs.ref }}
-          push-tag: ${{ github.event.inputs.tag }}
-
-      - name: Deploy Prod
-        uses: peter-evans/repository-dispatch@v1
-        with:
-          token: ${{ secrets.INSPIRE_BOT_TOKEN }}
-          repository: cern-sis/kubernetes
-          event-type: deploy
-          client-payload: '{"project": "inspire", "application": "${{ matrix.applications }}", "namespace": "inspire-prod", "image":"inspirehep/${{ matrix.applications }}","new_tag":"${{ github.event.inputs.tag }}"}'
-
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        with:
-          prerelease: false
-          draft: false
-          tag_name: ${{ github.event.inputs.tag }}
+        include:
+          - application: hep
+            image: inspirehep/hep
+          - application: ui
+            image: inspirehep/ui
+          - application: editor
+            image: inspirehep/editor
+    uses: cern-sis/gh-workflows/.github/workflows/deploy-qa.yml@v2.0.0
+    with:
+      project: inspire
+      application: ${{ matrix.application }}
+      namespace: inspire-prod
+      image: ${{ matrix.image }}
+      new_tag: master-${{ github.sha }}
+    secrets:
+      PAT: ${{ secrets.PAT_FIRE_EVENTS_ON_CERN_SIS_KUBERNETES }}
