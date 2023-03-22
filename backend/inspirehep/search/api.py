@@ -57,7 +57,10 @@ class SearchMixin(object):
             return self.query()
         try:
             return self.query(
-                "query_string", query=query_string, default_operator="AND"
+                "query_string",
+                query=query_string,
+                default_field="_all",
+                default_operator="AND",
             )
         except ValueError:
             raise MalformatedQuery

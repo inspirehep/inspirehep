@@ -6,6 +6,9 @@
       "$schema": {
         "type": "keyword"
       },
+      "_all": {
+        "type": "text"
+      },
       "_created": {
         "type": "date"
       },
@@ -36,13 +39,19 @@
             "type": "boolean"
           },
           "experiment": {
-            "type": "text"
+            "type": "text",
+            "copy_to": "_all"
           },
           "institution": {
-            "type": "text"
+            "type": "text",
+            "copy_to": "_all"
           },
           "legacy_name": {
             "type": "text"
+          },
+          "name": {
+            "type": "text",
+            "copy_to": "_all"
           },
           "recid": {
             "type": "integer"
@@ -90,10 +99,12 @@
       "address": {
         "properties": {
           "cities": {
-            "type": "text"
+            "type": "text",
+            "copy_to": "_all"
           },
           "country_code": {
-            "type": "keyword"
+            "type": "keyword",
+            "copy_to": "_all"
           },
           "place_name": {
             "type": "text"
@@ -105,7 +116,8 @@
             "type": "keyword"
           },
           "state": {
-            "type": "text"
+            "type": "text",
+            "copy_to": "_all"
           }
         },
         "type": "object"
@@ -117,12 +129,37 @@
           },
           "name": {
             "type": "text"
+          },
+          "record": {
+            "properties": {
+              "$ref": {
+                "type": "text"
+              }
+            },
+            "type": "object"
           }
         },
         "type": "object"
       },
       "control_number": {
-        "type": "integer"
+        "type": "integer",
+        "copy_to": "_all"
+      },
+      "external_job_identifier": {
+        "type": "keyword"
+      },
+      "external_system_identifiers": {
+        "properties": {
+          "schema": {
+            "normalizer": "lowercase_normalizer",
+            "type": "keyword"
+          },
+          "value": {
+            "normalizer": "lowercase_normalizer",
+            "type": "keyword"
+          }
+        },
+        "type": "object"
       },
       "deadline_date": {
         "format": "yyyy-MM-dd||yyyy-MM||yyyy",
@@ -166,7 +203,8 @@
             "type": "object"
           },
           "value": {
-            "type": "text"
+            "type": "text",
+            "copy_to": "_all"
           }
         },
         "type": "object"
@@ -174,6 +212,9 @@
       "legacy_creation_date": {
         "format": "yyyy-MM-dd||yyyy-MM||yyyy",
         "type": "date"
+      },
+      "legacy_version": {
+        "type": "text"
       },
       "new_recid": {
         "type": "integer"
@@ -215,12 +256,16 @@
               }
             },
             "type": "object"
+          },
+          "value": {
+            "type": "text"
           }
         },
         "type": "object"
       },
       "regions": {
-        "type": "keyword"
+        "type": "keyword",
+        "copy_to": "_all"
       },
       "self": {
         "properties": {
@@ -255,7 +300,9 @@
         "lowercase_normalizer": {
           "type": "custom",
           "char_filter": [],
-          "filter": ["lowercase"]
+          "filter": [
+            "lowercase"
+          ]
         }
       }
     }

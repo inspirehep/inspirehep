@@ -6,8 +6,12 @@
       "$schema": {
         "type": "keyword"
       },
-      "ICN": {
+      "_all": {
         "type": "text"
+      },
+      "ICN": {
+        "type": "text",
+        "copy_to": "_all"
       },
       "_created": {
         "type": "date"
@@ -33,10 +37,12 @@
       "addresses": {
         "properties": {
           "cities": {
-            "type": "keyword"
+            "type": "keyword",
+            "copy_to": "_all"
           },
           "country_code": {
-            "type": "keyword"
+            "type": "keyword",
+            "copy_to": "_all"
           },
           "latitude": {
             "type": "double"
@@ -54,7 +60,12 @@
             "type": "text"
           },
           "state": {
-            "type": "keyword"
+            "type": "keyword",
+            "copy_to": "_all"
+          },
+          "country": {
+            "type": "keyword",
+            "copy_to": "_all"
           }
         },
         "type": "object"
@@ -63,7 +74,8 @@
         "type": "search_as_you_type"
       },
       "control_number": {
-        "type": "integer"
+        "type": "integer",
+        "copy_to": "_all"
       },
       "core": {
         "type": "boolean"
@@ -89,7 +101,8 @@
             "type": "keyword"
           },
           "value": {
-            "type": "keyword"
+            "type": "keyword",
+            "copy_to": "_all"
           }
         },
         "type": "object"
@@ -109,7 +122,8 @@
             "type": "keyword"
           },
           "term": {
-            "type": "keyword"
+            "type": "keyword",
+            "copy_to": "_all"
           }
         },
         "type": "object"
@@ -135,13 +149,17 @@
         "format": "yyyy-MM-dd||yyyy-MM||yyyy",
         "type": "date"
       },
+      "legacy_version": {
+        "type": "text"
+      },
       "name_variants": {
         "properties": {
           "source": {
             "type": "keyword"
           },
           "value": {
-            "type": "text"
+            "type": "text",
+            "copy_to": "_all"
           }
         },
         "type": "object"
@@ -234,7 +252,9 @@
         "lowercase_normalizer": {
           "type": "custom",
           "char_filter": [],
-          "filter": ["lowercase"]
+          "filter": [
+            "lowercase"
+          ]
         }
       },
       "tokenizer": {

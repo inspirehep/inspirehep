@@ -167,6 +167,28 @@
         },
         "type": "object"
       },
+      "literature_records": {
+        "properties": {
+          "record": {
+            "properties": {
+              "$ref": {
+                "type": "text",
+                "analyzer": "recid_analyzer"
+              }
+            }
+          }
+        }
+      },
+      "material_urls": {
+        "properties": {
+          "description": {
+            "type": "text"
+          },
+          "value": {
+            "type": "text"
+          }
+        }
+      },
       "new_recid": {
         "type": "integer"
       },
@@ -350,7 +372,9 @@
         "lowercase_normalizer": {
           "type": "custom",
           "char_filter": [],
-          "filter": ["lowercase"]
+          "filter": [
+            "lowercase"
+          ]
         }
       },
       "tokenizer": {

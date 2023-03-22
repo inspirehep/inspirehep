@@ -6,6 +6,9 @@
       "$schema": {
         "type": "keyword"
       },
+      "_all": {
+        "type": "text"
+      },
       "_created": {
         "type": "date"
       },
@@ -38,7 +41,7 @@
         "type": "search_as_you_type"
       },
       "name_variants_search_as_you_type": {
-      "type": "search_as_you_type"
+        "type": "search_as_you_type"
       },
       "legacy_name_search_as_you_type": {
         "type": "search_as_you_type"
@@ -73,7 +76,10 @@
           },
           "value": {
             "type": "text",
-            "copy_to": ["accelerator_search_as_you_type"]
+            "copy_to": [
+              "accelerator_search_as_you_type",
+              "_all"
+            ]
           }
         },
         "type": "object"
@@ -100,13 +106,17 @@
           },
           "value": {
             "type": "text",
-            "copy_to": ["collaboration_search_as_you_type"]
+            "copy_to": [
+              "collaboration_search_as_you_type",
+              "_all"
+            ]
           }
         },
         "type": "object"
       },
       "control_number": {
-        "type": "integer"
+        "type": "integer",
+        "copy_to": "_all"
       },
       "core": {
         "type": "boolean"
@@ -153,11 +163,16 @@
         "properties": {
           "short_name": {
             "type": "keyword",
-            "copy_to": ["short_name_search_as_you_type"]
+            "copy_to": [
+              "short_name_search_as_you_type"
+            ]
           },
           "value": {
             "type": "text",
-            "copy_to": ["experiment_search_as_you_type"]
+            "copy_to": [
+              "experiment_search_as_you_type",
+              "_all"
+            ]
           }
         },
         "type": "object"
@@ -168,7 +183,8 @@
             "type": "keyword"
           },
           "value": {
-            "type": "keyword"
+            "type": "keyword",
+            "copy_to": "_all"
           }
         },
         "type": "object"
@@ -179,7 +195,8 @@
             "type": "keyword"
           },
           "term": {
-            "type": "keyword"
+            "type": "keyword",
+            "copy_to": "_all"
           }
         },
         "type": "object"
@@ -188,7 +205,8 @@
         "type": "text",
         "fielddata": true,
         "analyzer": "inspire_classification_analyzer",
-        "search_analyzer": "keyword"
+        "search_analyzer": "keyword",
+        "copy_to": "_all"
       },
       "facet_inspire_classification": {
         "type": "text",
@@ -215,7 +233,10 @@
           },
           "value": {
             "type": "keyword",
-            "copy_to": ["institution_search_as_you_type"]
+            "copy_to": [
+              "institution_search_as_you_type",
+              "_all"
+            ]
           }
         },
         "type": "object"
@@ -226,15 +247,24 @@
       },
       "legacy_name": {
         "type": "keyword",
-        "copy_to": ["legacy_name_search_as_you_type"]
+        "copy_to": [
+          "legacy_name_search_as_you_type",
+          "_all"
+        ]
       },
       "long_name": {
         "type": "text",
-        "copy_to": ["long_name_search_as_you_type"]
+        "copy_to": [
+          "long_name_search_as_you_type",
+          "_all"
+        ]
       },
       "name_variants": {
         "type": "text",
-        "copy_to": ["name_variants_search_as_you_type"]
+        "copy_to": [
+          "name_variants_search_as_you_type",
+          "_all"
+        ]
       },
       "normalized_name_variants": {
         "type": "keyword",
@@ -337,20 +367,26 @@
       "char_filter": {
         "specialCharactersFilter": {
           "pattern": "[^\\p{L}\\p{Nd}]",
-           "type": "pattern_replace",
-           "replacement": " "
+          "type": "pattern_replace",
+          "replacement": " "
         }
       },
       "normalizer": {
         "lowercase_normalizer": {
           "type": "custom",
           "char_filter": [],
-          "filter": ["lowercase"]
+          "filter": [
+            "lowercase"
+          ]
         },
         "name_variants_normalizer": {
           "type": "custom",
-          "char_filter": ["specialCharactersFilter"],
-          "filter": ["lowercase"]
+          "char_filter": [
+            "specialCharactersFilter"
+          ],
+          "filter": [
+            "lowercase"
+          ]
         }
       },
       "tokenizer": {

@@ -157,7 +157,13 @@ def test_search_factory_with_query(inspire_app):
         search = InspireSearch()
         expected_query_string = "foo"
         expected_search_to_dict = {
-            "query": {"query_string": {"default_operator": "AND", "query": "foo"}},
+            "query": {
+                "query_string": {
+                    "default_field": "_all",
+                    "default_operator": "AND",
+                    "query": "foo",
+                }
+            },
             "track_total_hits": True,
         }
         query_string, search = inspire_search_factory(None, search)
@@ -172,7 +178,13 @@ def test_search_factory_with_query_has_operator_AND(inspire_app):
         search = InspireSearch()
         expected_query_string = "foo"
         expected_search_to_dict = {
-            "query": {"query_string": {"default_operator": "AND", "query": "foo"}},
+            "query": {
+                "query_string": {
+                    "default_field": "_all",
+                    "default_operator": "AND",
+                    "query": "foo",
+                }
+            },
             "track_total_hits": True,
         }
         query_string, search = inspire_search_factory(None, search)
