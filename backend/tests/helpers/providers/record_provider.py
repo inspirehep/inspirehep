@@ -25,7 +25,7 @@ class RecordProvider(BaseProvider):
 
     @staticmethod
     def control_number():
-        return random.randint(1, 2_147_483_647)
+        return random.randint(1, 999_999_999)
 
     @staticmethod
     def doi():
@@ -212,7 +212,7 @@ class RecordProvider(BaseProvider):
         self,
         record_type,
         data=None,
-        with_control_number=False,
+        with_control_number=True,
         literature_citations=[],  # TODO: call `literature_references`
         data_citations=[],
         skip_validation=False,
@@ -238,11 +238,11 @@ class RecordProvider(BaseProvider):
             record = self.institutions_record()
         elif record_type == "sem":
             record = self.seminars_record()
-        if with_control_number:
-            record["control_number"] = self.control_number()
 
         if data:
             record.update(data)
+        if with_control_number and "control_number" not in record:
+            record["control_number"] = self.control_number()
         if literature_citations:
             record.update(self.add_citations(literature_citations))
         if data_citations:
