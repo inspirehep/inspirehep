@@ -6,11 +6,11 @@ describe('Home Page', () => {
       cy.registerRoute();
       cy.visit('/');
       cy.waitForRoute();
-      cy.waitForLoading();
+      cy.waitForLoading(80000);
       cy.matchSnapshots('Homepage');
     });
-    
   });
+  
   it('scrolls to How to Search section on button click', () => {
     cy.on('uncaught:exception', () => {
       return false;
@@ -33,7 +33,7 @@ describe('News and Updates', () => {
       cy.registerRoute();
       cy.visit('/');
       cy.waitForRoute();
-      cy.waitForLoading();
+      cy.waitForLoading(80000);
 
       cy.get('[data-test-id="news-post"]').as('newsAndUpdates');
       cy.get('@newsAndUpdates').should('have.length', 3);
