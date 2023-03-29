@@ -17,10 +17,16 @@ from invenio_db import db
 from invenio_records.models import RecordMetadata
 from jsonschema import ValidationError
 from sqlalchemy.exc import OperationalError
+from sqlalchemy.orm.exc import StaleDataError
 
-from inspirehep.errors import DB_TASK_EXCEPTIONS, ES_TASK_EXCEPTIONS
+from inspirehep.errors import (
+    DB_TASK_EXCEPTIONS,
+    DB_TASK_EXCEPTIONS_WITHOUT_STALE_DATA,
+    ES_TASK_EXCEPTIONS,
+)
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.api import InspireRecord, LiteratureRecord
+from inspirehep.records.utils import _create_ticket_self_curation, get_ref_from_pid
 from inspirehep.search.api import InspireSearch
 from inspirehep.utils import flatten_list
 
@@ -205,3 +211,28 @@ def remove_bai_from_literature_authors(uuids):
                 recid=record["control_number"],
                 uuid=record.id,
             )
+
+
+@shared_task(
+    acks_late=True,
+    retry_backoff=True,
+    autoretry_for=DB_TASK_EXCEPTIONS_WITHOUT_STALE_DATA,
+    retry_kwargs={"max_retries": 5},
+    queue="curation",
+)
+def reference_self_curation(
+    record_id, revision_id, reference_index, new_reference_recid
+):
+    record = InspireRecord.get_record(record_id)
+    if record.revision_id > revision_id:
+        raise StaleDataError
+    updated_reference = get_ref_from_pid("lit", new_reference_recid)
+    record["references"][reference_index]["record"] = updated_reference
+    record["references"][reference_index]["curated_relation"] = True
+    record.update(dict(record))
+    db.session.commit()
+
+    _create_ticket_self_curation(
+        record_control_number=record["control_number"],
+        record_revision_id=record.revision_id,
+    )

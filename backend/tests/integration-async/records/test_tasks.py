@@ -5,12 +5,16 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+import mock
 from helpers.providers.faker import faker
 from helpers.utils import retry_until_pass
+from inspire_dojson.utils import get_recid_from_ref
 from inspire_utils.record import get_value
 from invenio_db import db
+from tenacity import retry, stop_after_delay
 
 from inspirehep.records.api import InspireRecord
+from inspirehep.records.tasks import reference_self_curation
 from inspirehep.search.api import InspireSearch, LiteratureSearch
 
 
@@ -659,3 +663,94 @@ def test_recalculate_references_recalculates_more_than_10_references(
         assert len(literature_records_from_es) == 11
 
     retry_until_pass(assert_recalculate_references_task, retry_interval=3)
+
+
+@mock.patch("inspirehep.records.tasks._create_ticket_self_curation")
+def test_self_curation_happy_flow(inspire_app, clean_celery_session, override_config):
+    with override_config(FEATURE_FLAG_ENABLE_SNOW=True):
+        literature_data = faker.record("lit")
+        literature_data.update(
+            {
+                "references": [
+                    {
+                        "reference": {
+                            "dois": ["10.1103/PhysRev.92.649"],
+                            "misc": ["The 7.68MeV state in 12C"],
+                            "label": "31",
+                            "authors": [
+                                {"full_name": "Dunbar, D.N.F."},
+                                {"full_name": "Pixley, R.E."},
+                                {"full_name": "Wenzel, W.A."},
+                                {"full_name": "Whaling, W."},
+                            ],
+                            "publication_info": {
+                                "year": 1953,
+                                "page_end": "650",
+                                "page_start": "649",
+                                "journal_title": "Phys.Rev.",
+                                "journal_volume": "92",
+                            },
+                        }
+                    },
+                    {
+                        "record": {
+                            "$ref": "https://inspirebeta.net/api/literature/1312496"
+                        },
+                        "raw_refs": [
+                            {
+                                "value": "[32] M. Freer and H.O.U. Fynbo. The Hoyle state in 12C. Progress in Particle and Nuclear Physics, 78:1–23, 2014. ISSN 0146-6410. doi: https://doi.org/10.1016/ j.ppnp.2014.06.001. URL https://www.sciencedirect.com/science/article/ pii/S0146641014000453.",
+                                "schema": "text",
+                                "source": "desy",
+                            }
+                        ],
+                        "reference": {
+                            "misc": ["The Hoyle state in 12C", "ISSN 0146-6410. doi:"],
+                            "urls": [{"value": "https://doi.org/10.1016/"}],
+                            "label": "32",
+                            "authors": [
+                                {"full_name": "Freer, M."},
+                                {"full_name": "Fynbo, H.O.U."},
+                            ],
+                            "publication_info": {
+                                "year": 2014,
+                                "page_end": "23",
+                                "page_start": "1",
+                                "journal_title": "Prog.Part.Nucl.Phys.",
+                                "journal_volume": "78",
+                            },
+                        },
+                    },
+                ]
+            }
+        )
+        literature = InspireRecord.create(literature_data)
+
+        db.session.commit()
+        task_kwargs = {
+            "record_id": literature.id,
+            "revision_id": literature.revision_id,
+            "reference_index": 0,
+            "new_reference_recid": 12,
+        }
+        reference_self_curation.delay(*task_kwargs.values())
+
+        @retry(stop=stop_after_delay(10))
+        def assert_all_records_in_es():
+            literature_record_from_es = InspireSearch.get_record_data_from_es(
+                literature
+            )
+            assert literature_record_from_es
+
+        assert_all_records_in_es()
+
+        @retry(stop=stop_after_delay(15))
+        def assert_reference_self_curation_task():
+            literature_record_from_es = InspireSearch.get_record_data_from_es(
+                literature
+            )
+            assert (
+                get_recid_from_ref(literature_record_from_es["references"][0]["record"])
+                == 12
+            )
+
+        assert_reference_self_curation_task()

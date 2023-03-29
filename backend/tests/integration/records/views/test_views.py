@@ -326,3 +326,120 @@ def test_literature_workflows_record_source_post_with_another_source(inspire_app
         assert response.status_code == 200
         assert "workflow_sources" in response.json
         assert len(response.json["workflow_sources"]) == 2
+
+
+def test_self_curation_returns_500_when_stale_data(inspire_app):
+    user = create_user()
+    literature_data = {
+        "references": [
+            {
+                "reference": {
+                    "dois": ["10.1103/PhysRev.92.649"],
+                    "misc": ["The 7.68MeV state in 12C"],
+                    "label": "31",
+                    "authors": [
+                        {"full_name": "Dunbar, D.N.F."},
+                        {"full_name": "Pixley, R.E."},
+                        {"full_name": "Wenzel, W.A."},
+                        {"full_name": "Whaling, W."},
+                    ],
+                    "publication_info": {
+                        "year": 1953,
+                        "page_end": "650",
+                        "page_start": "649",
+                        "journal_title": "Phys.Rev.",
+                        "journal_volume": "92",
+                    },
+                }
+            },
+        ]
+    }
+
+    record = create_record("lit", data=literature_data)
+    record["authors"] = [{"full_name": "An Author"}]
+    record.update(dict(record))
+    data = {
+        "record_id": record.id,
+        "revision_id": 0,
+        "reference_index": 0,
+        "new_reference_recid": 12,
+    }
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/literature/reference-self-curation",
+            content_type="application/json",
+            data=orjson.dumps(data),
+        )
+
+    assert response.status_code == 422
+    assert response.json["message"] == "Record version doesn't match the latest version"
+
+
+def test_self_curation_returns_500_when_wrong_index(inspire_app):
+    user = create_user()
+    literature_data = {
+        "references": [
+            {
+                "reference": {
+                    "dois": ["10.1103/PhysRev.92.649"],
+                    "misc": ["The 7.68MeV state in 12C"],
+                    "label": "31",
+                    "authors": [
+                        {"full_name": "Dunbar, D.N.F."},
+                        {"full_name": "Pixley, R.E."},
+                        {"full_name": "Wenzel, W.A."},
+                        {"full_name": "Whaling, W."},
+                    ],
+                    "publication_info": {
+                        "year": 1953,
+                        "page_end": "650",
+                        "page_start": "649",
+                        "journal_title": "Phys.Rev.",
+                        "journal_volume": "92",
+                    },
+                }
+            },
+        ]
+    }
+
+    record = create_record("lit", data=literature_data)
+
+    data = {
+        "record_id": record.id,
+        "revision_id": record.revision_id,
+        "reference_index": 10,
+        "new_reference_recid": 12,
+    }
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/literature/reference-self-curation",
+            content_type="application/json",
+            data=orjson.dumps(data),
+        )
+
+    assert response.status_code == 412
+    assert response.json["message"] == "Reference index doesn't exist"
+
+
+def test_self_curation_returns_401_for_not_authenticated_user(inspire_app):
+    record = create_record("lit")
+
+    data = {
+        "record_id": record.id,
+        "revision_id": 0,
+        "reference_index": 0,
+        "new_reference_recid": 12,
+    }
+
+    with inspire_app.test_client() as client:
+        response = client.post(
+            "/literature/reference-self-curation",
+            content_type="application/json",
+            data=orjson.dumps(data),
+        )
+
+    assert response.status_code == 401
