@@ -31,7 +31,6 @@ jobs:
       fail-fast: false
       matrix:
         browser: [ chrome ]
-        containers: [ 1 ]
     services:
       redis:
         image: redis
@@ -193,7 +192,7 @@ jobs:
         with:
           working-directory: ./e2e
           record: true
-          parallel: true
+          parallel: false
           browser: ${{ matrix.browser }}
           tag: Chrome
           env: inspirehep_url=http://localhost:8080
