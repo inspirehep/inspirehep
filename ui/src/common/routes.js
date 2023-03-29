@@ -26,7 +26,6 @@ export const USER_SETTINGS = `${USER}/settings`;
 // TODO: rename `holdingpen` to `admin`
 export const HOLDINGPEN = '/holdingpen';
 export const HOLDINGPEN_DASHBOARD = `${HOLDINGPEN}/dashboard`;
-export const HOLDINGPEN_EXCEPTIONS = `${HOLDINGPEN}/exceptions`;
 export const HOLDINGPEN_INSPECT = `${HOLDINGPEN}/inspect`;
 
 export const ERRORS = '/errors';
