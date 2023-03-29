@@ -24,6 +24,7 @@ from sqlalchemy.orm import aliased
 
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.errors import DownloadFileError, FileSizeExceededError
+from inspirehep.submissions.tasks import async_create_ticket_with_template
 from inspirehep.utils import get_inspirehep_url
 
 LOGGER = structlog.getLogger()
@@ -185,3 +186,18 @@ def is_document_scanned(file_data):
             if page_text:
                 return False
     return True
+
+
+def _create_ticket_self_curation(record_control_number, record_revision_id):
+    INSPIREHEP_URL = get_inspirehep_url()
+    template_payload = {
+        "diff_url": f"{INSPIREHEP_URL}/literature/{record_control_number}/diff/{record_revision_id -1}..{record_revision_id}",
+    }
+    async_create_ticket_with_template.delay(
+        queue="Reference self-curation",
+        template_path="rt/self_curation.html",
+        template_context=template_payload,
+        title=f"reference self-curation for record {record_control_number}",
+        requestor=None,
+        recid=record_control_number,
+    )

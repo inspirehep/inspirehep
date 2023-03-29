@@ -18,8 +18,13 @@ def async_create_ticket_with_template(
     queue, requestor, template_path, template_context, title, recid=None
 ):
     if current_app.config.get("FEATURE_FLAG_ENABLE_SNOW"):
-        ticket = InspireSnow().create_ticket_with_template(
-            queue, requestor, template_path, template_context, title, recid
+        ticket = InspireSnow().create_inspire_ticket_with_template(
+            functional_category=queue,
+            user_email=requestor,
+            template_path=template_path,
+            template_context=template_context,
+            subject=title,
+            recid=recid,
         )
     else:
         ticket = create_ticket_with_template(

@@ -13,9 +13,9 @@ from requests.exceptions import RequestException
 from webargs import fields
 from webargs.flaskparser import FlaskParser
 
-from inspirehep.accounts.decorators import login_required_with_roles
+from inspirehep.accounts.decorators import login_required, login_required_with_roles
 from inspirehep.accounts.roles import Roles
-from inspirehep.records.api.literature import import_article
+from inspirehep.records.api.literature import LiteratureRecord, import_article
 from inspirehep.records.errors import (
     ExistingArticleError,
     ImportArticleNotFoundError,
@@ -31,6 +31,7 @@ from inspirehep.serializers import jsonify
 from inspirehep.submissions.serializers import literature_v1
 
 from ..search.api import LiteratureSearch
+from .tasks import reference_self_curation as reference_self_curation_task
 
 LOGGER = structlog.getLogger()
 blueprint = Blueprint("inspirehep_records", __name__, url_prefix="")
@@ -207,6 +208,35 @@ def import_article_view(identifier):
             ),
             502,
         )
+
+
+@blueprint.route("/literature/reference-self-curation", methods=["POST"])
+@login_required
+@parser.use_args(
+    {
+        "record_id": fields.String(required=True),
+        "revision_id": fields.Integer(required=True),
+        "reference_index": fields.Integer(required=True),
+        "new_reference_recid": fields.Integer(required=True),
+    },
+    locations=("json",),
+)
+def reference_self_curation(args):
+    record = LiteratureRecord.get_record(args["record_id"])
+    if record.revision_id != args["revision_id"]:
+        return (
+            jsonify({"message": "Record version doesn't match the latest version"}),
+            422,
+        )
+    if len(record.get("references", [])) - 1 < args["reference_index"]:
+        return jsonify({"message": "Reference index doesn't exist"}), 412
+    reference_self_curation_task.delay(
+        record.id,
+        record.revision_id,
+        args["reference_index"],
+        args["new_reference_recid"],
+    )
+    return jsonify({"message": "Success"}), 200
 
 
 literature_citations_view = LiteratureCitationsResource.as_view(

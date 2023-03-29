@@ -25,9 +25,8 @@ from sqlalchemy.exc import (
 )
 from sqlalchemy.orm.exc import NoResultFound, StaleDataError
 
-DB_TASK_EXCEPTIONS = [
+DB_TASK_EXCEPTIONS_WITHOUT_STALE_DATA = [
     NoResultFound,
-    StaleDataError,
     DisconnectionError,
     TimeoutError,
     UnboundExecutionError,
@@ -36,6 +35,8 @@ DB_TASK_EXCEPTIONS = [
     InvalidRequestError,
     StatementError,
 ]
+
+DB_TASK_EXCEPTIONS = DB_TASK_EXCEPTIONS_WITHOUT_STALE_DATA + [StaleDataError]
 
 ES_TASK_EXCEPTIONS = [
     TransportError,
