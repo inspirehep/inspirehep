@@ -5,7 +5,6 @@ import { shallow, mount } from 'enzyme';
 import { getStore } from '../../fixtures/store';
 import Holdingpen from '..';
 import DashboardPageContainer from '../containers/DashboardPageContainer';
-import ExceptionsPageContainer from '../containers/ExceptionsPageContainer';
 import InspectPageContainer from '../containers/InspectPageContainer';
 
 describe('Holdingpen', () => {
@@ -27,20 +26,6 @@ describe('Holdingpen', () => {
     );
 
     expect(wrapper.find(DashboardPageContainer)).toExist();
-  });
-
-  it('navigates to DashboardPageContainer when /holdingpen/exceptions', () => {
-    const wrapper = mount(
-      <Provider store={getStore()}>
-        <MemoryRouter
-          initialEntries={['/holdingpen/exceptions']}
-          initialIndex={0}
-        >
-          <Holdingpen />
-        </MemoryRouter>
-      </Provider>
-    );
-    expect(wrapper.find(ExceptionsPageContainer)).toExist();
   });
 
   it('navigates to InspectPageContainer when /holdingpen/inspect/:id', () => {

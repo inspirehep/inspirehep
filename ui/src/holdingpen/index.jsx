@@ -2,11 +2,9 @@ import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
 import DashboardPageContainer from './containers/DashboardPageContainer';
-import ExceptionsPageContainer from './containers/ExceptionsPageContainer';
 import InspectPageContainer from './containers/InspectPageContainer';
 import {
   HOLDINGPEN_DASHBOARD,
-  HOLDINGPEN_EXCEPTIONS,
   HOLDINGPEN_INSPECT,
   HOLDINGPEN,
 } from '../common/routes';
@@ -22,11 +20,6 @@ class Holdingpen extends Component {
             exact
             path={HOLDINGPEN_DASHBOARD}
             component={DashboardPageContainer}
-          />
-          <Route
-            exact
-            path={HOLDINGPEN_EXCEPTIONS}
-            component={ExceptionsPageContainer}
           />
           <Route
             exact
