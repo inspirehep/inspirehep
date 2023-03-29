@@ -1,5 +1,3 @@
-import installLogsCollector from 'cypress-terminal-report/src/installLogsCollector';
-// import chai from 'chai';
 import like from 'chai-like';
 import './commands';
 
@@ -17,5 +15,4 @@ Cypress.on('uncaught:exception', error => {
   return shouldThrow;
 });
 
-installLogsCollector({ collectTypes: ['cons:error', 'cons:warn'] });
 chai.use(like);
