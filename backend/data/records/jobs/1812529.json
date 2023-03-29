@@ -7,7 +7,7 @@
     "ranks": [
         "POSTDOC"
     ],
-    "status": "closed",
+    "status": "open",
     "$schema": "https://inspirebeta.net/api/schemas/records/jobs.json",
     "regions": [
         "Europe"
@@ -25,7 +25,7 @@
             }
         }
     ],
-    "deadline_date": "2020-09-10",
+    "deadline_date": "2023-09-10",
     "control_number": 1812529,
     "contact_details": [
         {

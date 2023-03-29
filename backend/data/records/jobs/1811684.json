@@ -7,7 +7,7 @@
     "ranks": [
         "PHD"
     ],
-    "status": "closed",
+    "status": "open",
     "$schema": "https://inspirebeta.net/api/schemas/records/jobs.json",
     "regions": [
         "Europe"
@@ -22,7 +22,7 @@
             "value": "Geneva U."
         }
     ],
-    "deadline_date": "2020-09-04",
+    "deadline_date": "2023-09-04",
     "control_number": 1811684,
     "contact_details": [
         {

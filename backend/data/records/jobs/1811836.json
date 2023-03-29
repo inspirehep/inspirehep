@@ -7,7 +7,7 @@
     "ranks": [
         "MASTER"
     ],
-    "status": "closed",
+    "status": "open",
     "$schema": "https://inspirebeta.net/api/schemas/records/jobs.json",
     "regions": [
         "Europe"
@@ -25,7 +25,7 @@
             }
         }
     ],
-    "deadline_date": "2020-11-01",
+    "deadline_date": "2023-11-01",
     "control_number": 1811836,
     "contact_details": [
         {

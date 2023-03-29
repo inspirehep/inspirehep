@@ -7,7 +7,7 @@
     "ranks": [
         "PHD"
     ],
-    "status": "closed",
+    "status": "open",
     "$schema": "https://inspirebeta.net/api/schemas/records/jobs.json",
     "regions": [
         "Europe"
@@ -25,7 +25,7 @@
             }
         }
     ],
-    "deadline_date": "2020-09-20",
+    "deadline_date": "2023-09-20",
     "control_number": 1813119,
     "contact_details": [
         {
