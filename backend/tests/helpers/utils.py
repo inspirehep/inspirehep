@@ -168,24 +168,30 @@ def retry_until_pass(assert_function, timeout=30, retry_interval=0.3):
 
 
 def generate_records(
-    count=10, record_type=LiteratureRecord, data={}, skip_validation=False
+    count=10,
+    record_type=LiteratureRecord,
+    data={},
+    skip_validation=False,
+    with_control_number=True,
 ):
     for i in range(count):
         record_data = faker.record(
             record_type.pid_type,
             data=data,
             skip_validation=skip_validation,
-            with_control_number=True,
+            with_control_number=with_control_number,
         )
         record_type.create(record_data)
     db.session.commit()
 
 
-def create_record_async(record_type, data=None, skip_validation=False):
+def create_record_async(
+    record_type, data=None, skip_validation=False, with_control_number=True
+):
     data = faker.record(
         record_type,
         data=data,
-        with_control_number=True,
+        with_control_number=with_control_number,
         skip_validation=skip_validation,
     )
     record = InspireRecord.create(data)

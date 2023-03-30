@@ -16,6 +16,7 @@ from faker.providers import BaseProvider
 from inspire_schemas.api import validate as schema_validate
 
 fake = Faker()
+random.seed()
 
 
 class RecordProvider(BaseProvider):
@@ -212,7 +213,7 @@ class RecordProvider(BaseProvider):
         self,
         record_type,
         data=None,
-        with_control_number=True,
+        with_control_number=False,
         literature_citations=[],  # TODO: call `literature_references`
         data_citations=[],
         skip_validation=False,
@@ -241,7 +242,7 @@ class RecordProvider(BaseProvider):
 
         if data:
             record.update(data)
-        if with_control_number and "control_number" not in record:
+        if with_control_number:
             record["control_number"] = self.control_number()
         if literature_citations:
             record.update(self.add_citations(literature_citations))
