@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
-import { List, Row, Col, Button, Tooltip } from 'antd';
+import { List, Row, Col, Tooltip } from 'antd';
 import { Link } from 'react-router-dom';
 import { EditOutlined } from '@ant-design/icons';
 
@@ -79,22 +79,6 @@ class ReferenceItem extends Component {
         >
           <Col className="xs-sm-col-24">
             <div className="flex">
-              {getConfigFor('SELF_CURATION_BUTTON_V1') && (
-                <Tooltip title="Edit reference">
-                  <Button
-                    shape="square"
-                    size="small"
-                    style={{
-                      color: '#0050b3',
-                      fontStyle: 'normal',
-                      textDecoration: 'none',
-                      border: 'none',
-                    }}
-                  >
-                    <EditOutlined />
-                  </Button>
-                </Tooltip>
-              )}
               {ReferenceItem.renderLabel(reference)}
             </div>
           </Col>
@@ -133,9 +117,9 @@ class ReferenceItem extends Component {
               }
             />
           </Col>
-          {getConfigFor('SELF_CURATION_BUTTON_V2') && (
+          {getConfigFor('SELF_CURATION_BUTTON') && (
             <Col className="xs-sm-col-24 pr3">
-              <Tooltip title="Edit reference">
+              <Tooltip title="Edit this reference">
                 <div className="flex items-center justify-center">
                   <LinkWithTargetBlank
                     href="/"
