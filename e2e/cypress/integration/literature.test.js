@@ -422,7 +422,7 @@ describe('Reference Search', () => {
 
     cy.waitForRoute();
 
-    cy.get('[data-test-id="search-results"]').children().should('have.length', 1);
+    cy.get('[data-test-id="search-results"]').children().should('have.length', 4);
   });
 
 
