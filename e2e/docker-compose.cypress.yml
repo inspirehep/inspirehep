@@ -12,6 +12,17 @@ services:
     depends_on:
       - ui
       - record-editor
+  ui:
+    build:
+      context: ui
+      dockerfile: Dockerfile
+    ports:
+      - '8080:8080'
+    volumes:
+      - ./ui/docker/nginx/config/e2e.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - hep-web
+      - next-web
   hep-web:
     build:
       context: backend
