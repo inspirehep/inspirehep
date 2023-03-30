@@ -7,6 +7,7 @@
 
 import datetime
 import os
+import re
 from itertools import islice
 
 import click
@@ -16,6 +17,7 @@ import structlog
 from flask import current_app
 from flask.cli import with_appcontext
 from flask_celeryext.app import current_celery_app
+from inspire_utils.record import get_value
 from invenio_db import db
 from invenio_records.api import RecordMetadata
 from sqlalchemy import DateTime, cast, not_, or_, type_coerce
@@ -36,10 +38,30 @@ from inspirehep.utils import chunker
 LOGGER = structlog.getLogger()
 
 
-def _create_record(data, save_to_file=False):
+def _replace_host_for_current_app_host(value):
+    value = re.sub(
+        "https://(inspirebeta|inspirehep).net",
+        f"{current_app.config['PREFERRED_URL_SCHEME']}://{current_app.config['SERVER_NAME']}",
+        value,
+    )
+    return value
+
+
+def _replace_host_in_ref_url(data):
+    """Replaces host in url with host set in app config"""
+    for reference in data.get("references", []):
+        raw_ref = get_value(reference, "record.$ref")
+        if raw_ref:
+            reference["record"]["$ref"] = _replace_host_for_current_app_host(raw_ref)
+
+
+def _create_record(data, save_to_file=False, replace_host_in_ref_url=True):
     control_number = data["control_number"]
 
     click.echo(f"Creating record {control_number}.")
+
+    if replace_host_in_ref_url:
+        _replace_host_in_ref_url(data)
 
     record = InspireRecord.create_or_update(data)
 
