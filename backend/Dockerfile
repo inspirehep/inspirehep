@@ -20,10 +20,11 @@ ENV PYTHONBUFFERED=0 \
 
 COPY CERN_Root_Certification_Authority_2.pem /usr/local/share/ca-certificates/CERN_Root_Certification_Authority_2.crt
 
-RUN update-ca-certificates \
- && pip config set global.cert "${REQUESTS_CA_BUNDLE}"
-
-RUN apt update && apt install poppler-utils -y
+RUN apt-get update && \
+    apt-get install -y libpq-dev poppler-utils && \
+    rm -rf /var/lib/apt/lists/* && \
+    update-ca-certificates && \
+    pip config set global.cert "${REQUESTS_CA_BUNDLE}"
 
 ARG POETRY_VERSION
 ENV POETRY_VERSION="${POETRY_VERSION:-1.1.14}"

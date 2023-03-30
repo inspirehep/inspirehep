@@ -39,21 +39,27 @@ services:
       service: es
     ports:
       - '9200:9200'
-  ui: # TODO: change the name since to app or lb since it's the main entry point for every request
+  ui:
+    image: inspirehep/nginx:1.19-with-vts
+    ports:
+      - '8080:8080'
+    volumes:
+      - ./ui/docker/nginx/config/dev.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - hep-ui
+      - hep-web
+      - next-web
+      - record-editor
+  hep-ui:
     build:
       context: ui
       dockerfile: Dockerfile-local
     ports:
-      - '8080:8080'
+      - '3000:3000'
     volumes:
-      - ./ui/:/opt/inspire/ui
-      - ./ui/build/:/usr/share/nginx/html
-      - ./ui/docker/nginx/config/local.conf:/etc/nginx/conf.d/default.conf
-    depends_on:
-      hep-web:
-        condition: service_started
-      next-web:
-        condition: service_started
+      - './ui/src:/usr/src/app/src'
+      - './ui/package.json:/usr/src/app/package.json'
+      - './ui/yarn.lock:/usr/src/app/yarn.lock'
   record-editor:
     build:
       context: record-editor
@@ -67,6 +73,8 @@ services:
     extends:
       file: docker-compose.services.yml
       service: app
+    volumes:
+      - ./backend:/opt/inspire
     ports:
       - '8000:8000'
       - '7777:7777'
@@ -77,6 +85,8 @@ services:
       file: docker-compose.services.yml
       service: app
     entrypoint: celery
+    volumes:
+      - ./backend:/opt/inspire
     command: worker -E -A inspirehep.celery -l INFO --purge --queues celery,migrator,indexer_task,matcher,assign
     depends_on:
       - db

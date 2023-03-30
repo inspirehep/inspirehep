@@ -22,11 +22,11 @@ $ brew install postgresql libmagic openssl@3 openblas python
 
 Please follow the instructions https://github.com/nvm-sh/nvm#installing-and-updating
 
-We're using `v10.14.0` (first version we install is the default)
+We're using `v16.16.0` (first version we install is the default)
 
 ```
-$ nvm install 10.14.0
-$ nvm use global 10.14.0
+$ nvm install 16.16.0
+$ nvm use global 16.16.0
 ```
 
 ### yarn
@@ -65,6 +65,10 @@ $ pre-commit install
 
 ### Docker & Docker Compose
 
+#### The topology of docker-compose
+
+![Alt text](./docker/topology.png)
+
 Follow the guide https://docs.docker.com/compose/install/
 
 ### For MacOS M1 users
@@ -85,24 +89,40 @@ $ brew file install
 
 ## Run with docker
 
+### Make
+
+This will prepare the whole inspire development with demo records:
+
+```bash
+make run
+make setup
+```
+
+You can stop it by simply run
+
+```bash
+make stop
+```
+
+Alternatively you can follow the steps:
+
 ### Step 1: In a terminal run
 
 ```bash
-docker-compose -f docker-compose.yml -f docker-compose.override.yml up
+docker-compose up
 ```
 
 ### Step 2: On another browser run
 
 ```bash
-docker-compose -f docker-compose.yml -f docker-compose.override.yml exec hep-web ./scripts/setup
-docker-compose -f docker-compose.yml -f docker-compose.override.yml exec next-web inspirehep db create
+docker-compose exec hep-web ./scripts/setup
+docker-compose exec next-web inspirehep db create
 ```
 
 ### Step 3: Import records
 
 ```bash
-docker-compose -f docker-compose.yml -f docker-compose.override.yml exec hep-web inspirehep importer demo-records
-
+docker-compose exec hep-web inspirehep importer demo-records
 ```
 
 ---
