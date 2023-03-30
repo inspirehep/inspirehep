@@ -28,7 +28,7 @@ def record_with_two_revisions(inspire_app, clean_celery_session):
         "_collections": ["Literature"],
     }
 
-    record = create_record_async("lit", data=record_data)
+    record = create_record_async("lit", data=record_data, with_control_number=False)
 
     record_data["titles"][0]["title"] = "record rev1"
 
@@ -47,7 +47,7 @@ def hidden_record_with_two_revisions(inspire_app, clean_celery_session):
         "_collections": ["HEP Hidden"],
     }
 
-    record = create_record_async("lit", data=record_data)
+    record = create_record_async("lit", data=record_data, with_control_number=False)
 
     record_data["titles"][0]["title"] = "record rev1"
 

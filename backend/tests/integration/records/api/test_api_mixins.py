@@ -582,7 +582,7 @@ def test_experiment_literature_table_is_not_updated_when_feature_flag_is_disable
     data = {
         "accelerator_experiments": [{"legacy_name": "LIGO", "record": {"$ref": ref}}]
     }
-    record_data = faker.record("lit", data)
+    record_data = faker.record("lit", data, with_control_number=False)
     LiteratureRecord.create(record_data, disable_relations_update=True)
     update_function_mock.assert_not_called()
 
