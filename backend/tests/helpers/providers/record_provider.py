@@ -212,7 +212,7 @@ class RecordProvider(BaseProvider):
         self,
         record_type,
         data=None,
-        with_control_number=True,
+        with_control_number=False,
         literature_citations=[],  # TODO: call `literature_references`
         data_citations=[],
         skip_validation=False,
@@ -241,7 +241,7 @@ class RecordProvider(BaseProvider):
 
         if data:
             record.update(data)
-        if with_control_number and "control_number" not in record:
+        if with_control_number or "control_number" in record:
             record["control_number"] = self.control_number()
         if literature_citations:
             record.update(self.add_citations(literature_citations))

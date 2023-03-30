@@ -7,8 +7,8 @@
 
 from helpers.providers.faker import faker
 from helpers.utils import retry_until_pass
-from invenio_db import db
 from inspire_utils.record import get_value
+from invenio_db import db
 
 from inspirehep.records.api import InspireRecord
 from inspirehep.search.api import InspireSearch, LiteratureSearch
@@ -299,7 +299,7 @@ def test_recalculate_references_after_institution_record_merge_when_author_has_t
                     "rank": "JUNIOR",
                     "record": {"$ref": institution_extra_record_reference},
                     "start_date": "1972",
-                }
+                },
             ]
         }
     )
@@ -309,9 +309,18 @@ def test_recalculate_references_after_institution_record_merge_when_author_has_t
     job_data.update(
         {
             "institutions": [
-                {"value": "Beijing, Inst. High Energy Phys.", "record": {"$ref": new_institution_record_reference}},
-                {"value": "Beijing, Inst. High Energy Phys.", "record": {"$ref": institution_record_reference}},
-                {"value": "Warsaw U.", "record": {"$ref": institution_extra_record_reference}}
+                {
+                    "value": "Beijing, Inst. High Energy Phys.",
+                    "record": {"$ref": new_institution_record_reference},
+                },
+                {
+                    "value": "Beijing, Inst. High Energy Phys.",
+                    "record": {"$ref": institution_record_reference},
+                },
+                {
+                    "value": "Warsaw U.",
+                    "record": {"$ref": institution_extra_record_reference},
+                },
             ]
         }
     )
@@ -334,7 +343,7 @@ def test_recalculate_references_after_institution_record_merge_when_author_has_t
                         {
                             "record": {"$ref": institution_extra_record_reference},
                             "value": "Warsaw U.",
-                        }
+                        },
                     ],
                     "full_name": "John Smith",
                 },
@@ -351,15 +360,21 @@ def test_recalculate_references_after_institution_record_merge_when_author_has_t
                         {
                             "record": {"$ref": institution_extra_record_reference},
                             "value": "Warsaw U.",
-                        }
+                        },
                     ],
                     "full_name": "Jane Smith",
-                }
+                },
             ],
             "thesis_info": {
                 "institutions": [
-                    {"name": "Beijing, Inst. High Energy Phys.", "record": {"$ref": institution_record_reference}},
-                    {"name": "Warsaw U.", "record": {"$ref": institution_extra_record_reference}},
+                    {
+                        "name": "Beijing, Inst. High Energy Phys.",
+                        "record": {"$ref": institution_record_reference},
+                    },
+                    {
+                        "name": "Warsaw U.",
+                        "record": {"$ref": institution_extra_record_reference},
+                    },
                 ]
             },
         }
@@ -382,7 +397,9 @@ def test_recalculate_references_after_institution_record_merge_when_author_has_t
         )
 
     retry_until_pass(assert_all_records_in_es, retry_interval=3)
-    merged_institution_data["deleted_records"] = [{"$ref": institution_record_reference}]
+    merged_institution_data["deleted_records"] = [
+        {"$ref": institution_record_reference}
+    ]
     merged_institution_record.update(merged_institution_data)
 
     db.session.commit()
@@ -396,38 +413,26 @@ def test_recalculate_references_after_institution_record_merge_when_author_has_t
             author_record_from_es["positions"][0]["record"]["$ref"]
             == new_institution_record_reference
         )
-        assert (
-            len(author_record_from_es["positions"])
-            == 2
-        )
+        assert len(author_record_from_es["positions"]) == 2
         assert (
             job_record_from_es["institutions"][0]["record"]["$ref"]
             == new_institution_record_reference
         )
-        assert (
-            len(job_record_from_es["institutions"])
-            == 2
+        assert len(job_record_from_es["institutions"]) == 2
+        assert new_institution_record_reference in get_value(
+            literature_record_from_es["authors"][0]["affiliations"], "record.$ref"
         )
-        assert (
-            new_institution_record_reference in get_value(literature_record_from_es["authors"][0]["affiliations"], "record.$ref") 
+        assert len(literature_record_from_es["authors"][0]["affiliations"]) == 2
+        assert institution_extra_record_reference in get_value(
+            literature_record_from_es["authors"][0]["affiliations"], "record.$ref"
         )
-        assert (
-            len(literature_record_from_es["authors"][0]["affiliations"])
-            == 2
+        assert new_institution_record_reference in get_value(
+            literature_record_from_es["authors"][1]["affiliations"], "record.$ref"
         )
-        assert (
-            institution_extra_record_reference in get_value(literature_record_from_es["authors"][0]["affiliations"], "record.$ref") 
+        assert institution_extra_record_reference in get_value(
+            literature_record_from_es["authors"][1]["affiliations"], "record.$ref"
         )
-        assert (
-            new_institution_record_reference in get_value(literature_record_from_es["authors"][1]["affiliations"], "record.$ref") 
-        )
-        assert (
-            institution_extra_record_reference in get_value(literature_record_from_es["authors"][1]["affiliations"], "record.$ref") 
-        )
-        assert (
-            len(literature_record_from_es["authors"][1]["affiliations"])
-            == 2
-        )
+        assert len(literature_record_from_es["authors"][1]["affiliations"]) == 2
         assert (
             literature_record_from_es["thesis_info"]["institutions"][0]["record"][
                 "$ref"
@@ -612,7 +617,7 @@ def test_recalculate_references_recalculates_more_than_10_references(
     journal = InspireRecord.create(journal_data)
     journal_record_reference = journal["self"]["$ref"]
 
-    literature_data = faker.record("lit")
+    literature_data = faker.record("lit", with_control_number=False)
     literature_data.update(
         {"publication_info": [{"journal_record": {"$ref": journal_record_reference}}]}
     )
