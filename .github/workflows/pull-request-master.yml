@@ -9,5 +9,5 @@ jobs:
   test:
     uses: ./.github/workflows/integration-tests.yml
     with:
-      ref: ${{ github.ref }}
+      ref: ${{ github.head_ref }}
     secrets: inherit
