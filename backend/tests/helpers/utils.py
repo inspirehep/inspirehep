@@ -47,7 +47,7 @@ def create_pidstore(object_uuid, pid_type, pid_value):
 def create_record_factory(
     record_type, data=None, with_pid=True, with_indexing=False, with_validation=False
 ):
-    control_number = random.randint(1, 2_147_483_647)
+    control_number = random.randint(1, 999_999_999)
     if with_validation:
         data = faker.record(record_type, data)
     record = RecordMetadataFactory(

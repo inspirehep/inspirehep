@@ -31,11 +31,11 @@ class TestSerializer(object):
         return str(len(result))
 
 
-def test_page_links(app):
+def test_page_links(inspire_app):
     """Test Link HTTP header on multi-page searches."""
     create_record("lit", data={"titles": [{"title": "Solenoid"}]})
     create_record("lit", data={"titles": [{"title": "Solenoid"}]})
-    with app.test_client() as client:
+    with inspire_app.test_client() as client:
         # Limit records
         response = client.get(
             "/api/literature", query_string=dict(size=1, page=1, q="Solenoid")
@@ -61,11 +61,11 @@ def test_page_links(app):
         assert len(response_json["hits"]["hits"]) == 1
         data = response.json["links"]
         assert data["self"] == next_url
-        assert "next" in data
+        assert "next" not in data
         assert "prev" in data and data["prev"] == first_url
 
 
-def test_record_responsify(app):
+def test_record_responsify(inspire_app):
     """Test JSON serialize."""
     rec_serializer = record_responsify(TestSerializer(), "application/x-custom")
 
@@ -81,7 +81,7 @@ def test_record_responsify(app):
     assert resp.status_code == 201
 
 
-def test_search_responsify(app):
+def test_search_responsify(inspire_app):
     """Test JSON serialize."""
     search_serializer = search_responsify(TestSerializer(), "application/x-custom")
 
@@ -101,7 +101,7 @@ def test_search_responsify(app):
     assert not resp.headers.get("Link")
 
 
-def test_record_responsify_attach_link_header_when_needed(app):
+def test_record_responsify_attach_link_header_when_needed(inspire_app):
     """Test JSON serialize."""
     rec_serializer = record_responsify(TestSerializer(), "application/x-custom")
 
@@ -119,7 +119,7 @@ def test_record_responsify_attach_link_header_when_needed(app):
     assert resp.status_code == 201
 
 
-def test_search_responsify_attach_link_header_when_needed(app):
+def test_search_responsify_attach_link_header_when_needed(inspire_app):
     """Test JSON serialize."""
     search_serializer = search_responsify(TestSerializer(), "application/x-custom")
 
