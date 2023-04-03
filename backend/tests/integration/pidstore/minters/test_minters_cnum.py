@@ -22,7 +22,7 @@ def test_minter_mint_cnum_more_than_once(inspire_app):
         "_collections": ["Conferences"],
         "opening_date": opening_date,
     }
-    record = create_record("con", data=data)
+    record = create_record("con", data=data, with_control_number=True)
 
     expected_cnum = "C05-09-16"
 
@@ -49,14 +49,14 @@ def test_minter_mint_cnum_more_than_once(inspire_app):
 
     # minting again to get cnums with ".X" part
     for i in range(1, 4):
-        record = create_record("con", data=data)
+        record = create_record("con", data=data, with_control_number=True)
 
         assert "cnum" in record
         assert record["cnum"] == f"{expected_cnum}.{i}"
 
 
 def test_minter_mint_cnum_from_empty_opening_date(inspire_app):
-    record = create_record("con")
+    record = create_record("con", with_control_number=True)
 
     assert "cnum" not in record
 
@@ -120,7 +120,7 @@ def test_minter_mints_cnum_of_migrated_record_having_already_cnum_field(inspire_
         "opening_date": "2005-09-16",
         "cnum": cnum,  # different than opening_date on purpose
     }
-    create_record("con", data=data)
+    create_record("con", data=data, with_control_number=True)
     pid = (
         PersistentIdentifier.query.filter_by(pid_type="cnum")
         .filter_by(pid_value=cnum)
@@ -137,7 +137,7 @@ def test_minter_mints_cnum_of_migrated_record_fails_if_pid_already_exists(inspir
         "opening_date": "2005-09-16",
     }
     expected_cnum = "C05-09-16"
-    rec = create_record("con", data=data)
+    rec = create_record("con", data=data, with_control_number=True)
     pid = (
         PersistentIdentifier.query.filter_by(pid_type="cnum")
         .filter_by(object_uuid=rec.id)
@@ -150,7 +150,7 @@ def test_minter_mints_cnum_of_migrated_record_fails_if_pid_already_exists(inspir
 
     with pytest.raises(PIDAlreadyExists):
         # a new record with same cnum is migrated
-        create_record("con", data=data)
+        create_record("con", data=data, with_control_number=True)
 
 
 def test_minter_mints_cnum_from_partial_date_doesnt_happen_because_partial_date_is_not_valid(
@@ -163,11 +163,11 @@ def test_minter_mints_cnum_from_partial_date_doesnt_happen_because_partial_date_
         "opening_date": partial_date,
     }
     with pytest.raises(ValidationError):
-        create_record("con", data=data)
+        create_record("con", data=data, with_control_number=True)
 
 
 def test_minter_mints_cnum_on_update_when_cnum_is_missing_in_db(inspire_app):
-    rec = create_record("con")
+    rec = create_record("con", with_control_number=True)
     record_cnums_count = PersistentIdentifier.query.filter_by(
         pid_type="cnum", object_uuid=str(rec.id)
     ).count()
@@ -188,10 +188,10 @@ def test_minter_mints_cnum_on_update_when_cnum_is_missing_in_db(inspire_app):
 def test_generate_cnum_when_holes_in_cnums_sequence(inspire_app):
     data = {"opening_date": "2020-01-01"}
     expected_cnum = "C20-01-01.2"
-    rec1 = create_record("con", data)
-    create_record("con", data)
+    rec1 = create_record("con", data, with_control_number=True)
+    create_record("con", data, with_control_number=True)
     rec1.hard_delete()
-    rec3 = create_record("con", data)
+    rec3 = create_record("con", data, with_control_number=True)
     assert rec3.get("cnum") == expected_cnum
 
 
@@ -199,34 +199,34 @@ def test_generate_cnum_when_holes_in_cnums_sequence_and_weird_creation_order(
     inspire_app,
 ):
     data = {"opening_date": "2020-01-01", "cnum": "C20-01-01.2"}
-    create_record("con", data)
+    create_record("con", data, with_control_number=True)
     data["cnum"] = "C20-01-01.1"
-    rec2 = create_record("con", data)
+    rec2 = create_record("con", data, with_control_number=True)
     data["cnum"] = "C20-01-01"
-    create_record("con", data)
+    create_record("con", data, with_control_number=True)
     del data["cnum"]
     rec2.hard_delete()
-    rec4 = create_record("con", data)
+    rec4 = create_record("con", data, with_control_number=True)
     assert rec4["cnum"] == "C20-01-01.3"
 
 
 def test_generate_cnum_when_holes_in_cnums_sequence_and_big_holes(inspire_app):
     data = {"opening_date": "2020-01-01", "cnum": "C20-01-01.20"}
-    create_record("con", data)
+    create_record("con", data, with_control_number=True)
     data["cnum"] = "C20-01-01.31"
-    rec2 = create_record("con", data)
+    rec2 = create_record("con", data, with_control_number=True)
     data["cnum"] = "C20-01-01.3"
-    create_record("con", data)
+    create_record("con", data, with_control_number=True)
     del data["cnum"]
     rec2.hard_delete()
-    rec4 = create_record("con", data)
+    rec4 = create_record("con", data, with_control_number=True)
     assert rec4["cnum"] == "C20-01-01.21"
 
 
 def test_cnum_minter_without_deleting_when_record_removed(inspire_app):
     data = {"opening_date": "2020-01-01", "cnum": "C20-01-01.20"}
     expected_cnum = "C20-01-01.20"
-    rec = create_record("con", data)
+    rec = create_record("con", data, with_control_number=True)
     cnum_pid = PersistentIdentifier.query.filter_by(pid_type="cnum").one()
 
     assert cnum_pid.pid_value == expected_cnum
