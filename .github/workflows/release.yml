@@ -35,12 +35,13 @@ jobs:
             image: inspirehep/ui
           - application: editor
             image: inspirehep/editor
-    uses: cern-sis/gh-workflows/.github/workflows/deploy-qa.yml@v2.0.0
+    uses: cern-sis/gh-workflows/.github/workflows/update-image-reference.yml@v3.0.0
     with:
       project: inspire
       application: ${{ matrix.application }}
       namespace: inspire-prod
       image: ${{ matrix.image }}
-      new_tag: master-${{ github.sha }}
+      ref_type: tag
+      new_ref: master-${{ github.sha }}
     secrets:
       PAT: ${{ secrets.PAT_FIRE_EVENTS_ON_CERN_SIS_KUBERNETES }}
