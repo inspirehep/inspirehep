@@ -4,6 +4,9 @@ on:
   push:
     branches: [master]
 
+defautls:
+  run:
+    shell: bash
 
 jobs:
   test:
@@ -14,26 +17,19 @@ jobs:
 
   deploy:
     needs: test
-    strategy:
-      matrix:
-        include:
-          - application: hep
-            image: inspirehep/hep
-            id: ${{ needs.test.outputs.backend-image-id }}
-          - application: ui
-            image: inspirehep/ui
-            id: ${{ needs.test.outputs.ui-image-id }}
-          - application: editor
-            image: inspirehep/editor
-            id: ${{ needs.test.outputs.editor-image-id }}
-    uses: cern-sis/gh-workflows/.github/workflows/update-image-reference.yml@v3.0.0
-    with:
-      project: inspire
-      application: ${{ matrix.application }}
-      namespace: inspire-qa
-      image: ${{ matrix.image }}
-      ref_type: digest
-      new_ref: ${{ matrix.id }}
-    secrets:
-      PAT: ${{ secrets.PAT_FIRE_EVENTS_ON_CERN_SIS_KUBERNETES }}
+    steps:
+      - name: generate payload
+        run: >
+          printf
+          'PAYLOAD={"images":["inspirehep/hep@%s","inspirehep/ui@%s","inspirehep/editor@%s"]}'
+            "${{ needs.test.outputs.backend-image-id }}"
+            "${{ needs.test.outputs.ui-image-id }}"
+            "${{ needs.test.outputs.editor-image-id }}"
+          >>$GITHUB_ENV
+
+      - name: send event
+        uses: cern-sis/gh-workflows/.github/actions/kubernetes-project-update@main
+        with:
+          images: ${{ env.PAYLOAD }}
+          token: ${{ secrets.PAT_FIRE_EVENTS_ON_CERN_SIS_KUBERNETES }}
 
