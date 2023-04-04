@@ -22,7 +22,7 @@ const AuthorResultItem = ({
   const name = metadata.get('name') as Map<string, string>;
   const recordId = metadata.get('control_number') as number;
   const currentPositions = getCurrentAffiliationsFromPositions(
-    metadata.get('positions', List()) as Map<string, string>
+    metadata.get('positions', List())
   );
   const arxivCategories = metadata.get('arxiv_categories');
   const experiments = metadata.get('project_membership');

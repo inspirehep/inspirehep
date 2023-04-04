@@ -9,24 +9,24 @@ import ListWithPagination from '../../common/components/ListWithPagination';
 import LoadingOrChildren from '../../common/components/LoadingOrChildren';
 
 function ReferenceList({
-  total,
   references,
+  onPageChange,
+  onSizeChange,
+  total,
   error,
   loading,
   query,
-  onPageChange,
-  onSizeChange,
   onEditReferenceClick,
   loggedIn,
   setScrollElement,
 }: {
+  references: any[],
+  onPageChange: (page: number, pageSize: number) => void,
+  onSizeChange: (current: number, size: number) => void,
   total?: number,
-  references?: any[],
   error?: Map<string, any>,
   loading?: boolean,
   query?: any,
-  onPageChange?: Function,
-  onSizeChange?: Function,
   children?: any
   onEditReferenceClick?: Function,
   loggedIn?: boolean,
@@ -74,7 +74,7 @@ function ReferenceList({
 
   return (
     <ContentBox>
-      <LoadingOrChildren loading={loading}>
+      <LoadingOrChildren loading={loading!}>
         <ErrorAlertOrChildren error={error}>
           <EmptyOrChildren data={references} title="0 References">
             {renderList()}

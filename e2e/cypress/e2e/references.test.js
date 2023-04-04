@@ -50,9 +50,6 @@ describe('References', () => {
   describe('Reference container', () => {
     onlyOn('headless', () => {
       it('number of references per page', () => {
-        cy.on('uncaught:exception', (err, runnable) => {
-          return false;
-        });
         cy.registerRoute();
         cy.visit('/literature/1374620');
         cy.waitForRoute();
@@ -69,13 +66,11 @@ describe('References', () => {
         cy.get('@referenceListItems').should('have.length', 25);
         cy.get('@selectionItem').should('be.visible');
 
-        cy.get('@paginationList')
+        cy.get('@paginationList').find('.ant-select-selection-item').click();
+        cy.get('.ant-pagination-options-size-changer')
           .find('.ant-select-selection-search-input')
-          .click({ force: true });
-        cy.get('@paginationList')
-          .find('div')
-          .contains('50 / page')
-          .click({ force: true });
+          .type('{downArrow}', { force: true })
+          .type('{enter}', { force: true });
         cy.waitForRoute();
 
         cy.get('@referenceListItems').should('have.length', 50);
@@ -211,10 +206,6 @@ describe('References', () => {
           'selfCurationRequest'
         );
 
-        cy.on('uncaught:exception', () => {
-          return false;
-        });
-
         cy.login('cataloger');
 
         cy.registerRoute();
@@ -230,14 +221,12 @@ describe('References', () => {
           .find('span[class="ant-select-selection-item"]')
           .as('selectionItem');
 
-        cy.get('@paginationList')
-          .find('.ant-select-selection-search-input')
-          .click({ force: true });
-        cy.get('@paginationList')
-          .find('div')
-          .contains('50 / page')
-          .click({ force: true });
-        cy.waitForRoute();
+          cy.get('@paginationList').find('.ant-select-selection-item').click();
+          cy.get('.ant-pagination-options-size-changer')
+            .find('.ant-select-selection-search-input')
+            .type('{downArrow}', { force: true })
+            .type('{enter}', { force: true });
+          cy.waitForRoute();
 
         cy.get('[data-test-id="reference-item"]').eq(38).as('referenceItem');
         cy.get('@referenceItem')

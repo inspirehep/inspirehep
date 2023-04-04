@@ -76,7 +76,7 @@ const SearchBox = ({
 
         if (inputValue) {
           (HISTORY_BY_NAMESPACE[namespace as keyof typeof HISTORY_BY_NAMESPACE] as Set<string>).add(inputValue.trim());
-          persistHistory(HISTORY_BY_NAMESPACE);
+          persistHistory(HISTORY_BY_NAMESPACE as string[]);
         }
         setShouldSearch(false);
         setAutoCompleteOptions([]);

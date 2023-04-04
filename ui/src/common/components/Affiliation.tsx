@@ -7,7 +7,7 @@ import { getRecordIdFromRef, getInstitutionName } from '../utils';
 
 function Affiliation({ affiliation, unlinked }: { affiliation: Map<string, any>, unlinked?: boolean }) {
   const institutionRecordId = getRecordIdFromRef(
-    affiliation.getIn(['record', '$ref'])
+    affiliation.getIn(['record', '$ref']) as string
   );
 
   const institutionName = getInstitutionName(affiliation);

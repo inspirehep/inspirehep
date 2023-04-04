@@ -61,4 +61,5 @@ const dispatchToProps = (
 export default connect(
   stateToProps,
   dispatchToProps
+  // @ts-expect-error
 )(convertSomeImmutablePropsToJS(ReferenceList, ['query']));
