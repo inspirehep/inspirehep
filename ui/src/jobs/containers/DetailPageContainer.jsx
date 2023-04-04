@@ -160,7 +160,7 @@ const mapStateToProps = state => ({
 const DetailPageContainer = connect(mapStateToProps)(DetailPage);
 
 export default withRouteActionsDispatcher(DetailPageContainer, {
-  routeParamSelector: ({ id }) => id,
-  routeActions: id => [fetchJob(id)],
+  routeParamSelector: (args) => args,
+  routeActions: args => [fetchJob(args.id)],
   loadingStateSelector: state => !state.jobs.hasIn(['data', 'metadata']),
 });

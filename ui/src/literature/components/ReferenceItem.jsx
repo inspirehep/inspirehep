@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 import { List, Row, Col, Tooltip } from 'antd';
 import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 import { EditOutlined } from '@ant-design/icons';
 
 import AuthorsAndCollaborations from '../../common/components/AuthorsAndCollaborations';
@@ -27,12 +28,12 @@ class ReferenceItem extends Component {
     return labelDisplay;
   }
 
-  static renderTitle(reference) {
+  static renderTitle(reference, unlinked) {
     const recordId = reference.get('control_number');
     const title = reference.getIn(['titles', 0]);
-    if (recordId && title) {
+    if (recordId && title && !unlinked) {
       return (
-        <Link className="f5" to={`${LITERATURE}/${recordId}`}>
+        <Link className={classNames("f5", unlinked ? 'unlinked' : '')} to={`${LITERATURE}/${recordId}`}>
           <LiteratureTitle title={title} />
         </Link>
       );
@@ -40,8 +41,8 @@ class ReferenceItem extends Component {
 
     if (title) {
       return (
-        <div className="f5">
-          <LiteratureTitle title={title} />
+        <div className={classNames("f5", unlinked ? 'unlinked' : '')}>
+          <LiteratureTitle title={title} unlinked={unlinked} />
         </div>
       );
     }
@@ -55,7 +56,7 @@ class ReferenceItem extends Component {
   }
 
   render() {
-    const { reference } = this.props;
+    const { reference, unlinked } = this.props;
     const publicationInfo = reference.get('publication_info');
     const arxivEprint = reference.get('arxiv_eprint');
     const dois = reference.get('dois');
@@ -84,7 +85,7 @@ class ReferenceItem extends Component {
           </Col>
           <Col style={{ width: '100%' }}>
             <List.Item.Meta
-              title={ReferenceItem.renderTitle(reference)}
+              title={ReferenceItem.renderTitle(reference, unlinked)}
               description={
                 <Fragment>
                   {ReferenceItem.renderMisc(reference)}
@@ -93,6 +94,7 @@ class ReferenceItem extends Component {
                     collaborations={collaborations}
                     collaborationsWithSuffix={collaborationsWithSuffix}
                     page="Literature detail"
+                    unlinked={unlinked}
                   />
                   <InlineUL
                     separator={SEPARATOR_MIDDLEDOT}

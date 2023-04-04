@@ -8,6 +8,9 @@ import {
   LITERATURE_REFERENCES_ERROR,
   LITERATURE_REFERENCES_REQUEST,
   LITERATURE_REFERENCES_SUCCESS,
+  REFERENCES_DIFF_REQUEST,
+  REFERENCES_DIFF_SUCCESS,
+  REFERENCES_DIFF_ERROR,
   LITERATURE_AUTHORS_ERROR,
   LITERATURE_AUTHORS_REQUEST,
   LITERATURE_AUTHORS_SUCCESS,
@@ -18,7 +21,7 @@ import {
   LITERATURE_SET_ASSIGN_LITERATURE_ITEM_DRAWER_VISIBILITY,
   LITERATURE_ALL_AUTHORS_REQUEST,
   LITERATURE_ALL_AUTHORS_SUCCESS,
-  LITERATURE_ALL_AUTHORS_ERROR
+  LITERATURE_ALL_AUTHORS_ERROR,
 } from '../actions/actionTypes';
 import {
   onRequest,
@@ -31,6 +34,9 @@ export const initialState = fromJS({
   loadingReferences: false,
   errorReferences: null,
   references: [],
+  loadingReferencesDiff: false,
+  errorReferencesDiff: null,
+  referencesDiff: [],
   totalReferences: 0,
   pageReferences: 1,
   loadingAuthors: false,
@@ -70,6 +76,22 @@ const literatureReducer = (state = initialState, action) => {
         .set('errorReferences', fromJS(action.payload.error))
         .set('references', initialState.get('references'))
         .set('totalReferences', initialState.get('totalReferences'));
+    case REFERENCES_DIFF_REQUEST:
+      return state.set('loadingReferencesDiff', true);
+    case REFERENCES_DIFF_SUCCESS:
+      return state
+        .set('loadingReferencesDiff', false)
+        .set('referencesDiff', {
+          previousVersion: fromJS(JSON.parse(action.payload.previous_version)),
+          currentVersion: fromJS(JSON.parse(action.payload.current_version)),
+          referenceId: fromJS(action.payload.reference_index),
+        })
+        .set('errorReferencesDiff', initialState.get('errorReferences'));
+    case REFERENCES_DIFF_ERROR:
+      return state
+        .set('loadingReferencesDiff', false)
+        .set('errorReferencesDiff', fromJS(action.payload.error))
+        .set('referencesDiff', initialState.get('referencesDiff'));
     case LITERATURE_AUTHORS_REQUEST:
       return state.set('loadingAuthors', true);
     case LITERATURE_AUTHORS_SUCCESS:
@@ -100,7 +122,10 @@ const literatureReducer = (state = initialState, action) => {
     case LITERATURE_SET_ASSIGN_DRAWER_VISIBILITY:
       return state.set('isAssignDrawerVisible', action.payload.visible);
     case LITERATURE_SET_ASSIGN_LITERATURE_ITEM_DRAWER_VISIBILITY:
-        return state.set('assignLiteratureItemDrawerVisible', action.payload.literatureId);
+      return state.set(
+        'assignLiteratureItemDrawerVisible',
+        action.payload.literatureId
+      );
     case LITERATURE_SELECTION_SET:
       const { literatureIds, selected } = action.payload;
       const selectionUpdate = Set(literatureIds);

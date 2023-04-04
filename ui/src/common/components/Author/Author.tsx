@@ -11,9 +11,11 @@ import EventTracker from '../EventTracker';
 const Author = ({
   author,
   page,
+  unlinked
 }: {
   author: Map<string, string>;
   page: string;
+  unlinked?: boolean;
 }) => {
   function renderRoleSuffix() {
     const roles = author.get('inspire_roles', []) as unknown as string[];
@@ -31,17 +33,17 @@ const Author = ({
       affiliations && (
         <span className="pl1 secondary-color">
           (
-          <AffiliationList affiliations={affiliations} />)
+          <AffiliationList affiliations={affiliations} unlinked={unlinked} />)
         </span>
       )
     );
   }
 
   function renderAuthorName() {
-    if (author.has('record')) {
+    if (author.has('record') && !unlinked) {
       return <LinkedAuthor author={author} />;
     }
-    if (author.has('bai')) {
+    if (author.has('bai') && !unlinked) {
       return <AuthorWithBAI author={author} />;
     }
     return <UnlinkedAuthor author={author} />;

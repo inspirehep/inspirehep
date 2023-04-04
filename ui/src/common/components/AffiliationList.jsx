@@ -7,18 +7,18 @@ import Affiliation from './Affiliation';
 import { getInstitutionName } from '../utils';
 
 class AffiliationList extends Component {
-  static renderAffiliation(affiliation) {
-    return <Affiliation affiliation={affiliation} />;
+  static renderAffiliation(affiliation, unlinked) {
+    return <Affiliation affiliation={affiliation} unlinked={unlinked} />;
   }
 
   render() {
-    const { affiliations, separator } = this.props;
+    const { affiliations, separator, unlinked } = this.props;
     return (
       <InlineDataList
         wrapperClassName="di"
         separator={separator}
         items={affiliations}
-        renderItem={AffiliationList.renderAffiliation}
+        renderItem={(affiliation) => AffiliationList.renderAffiliation(affiliation, unlinked)}
         extractKey={getInstitutionName}
       />
     );

@@ -240,8 +240,8 @@ const mapStateToProps = (state) => ({
 const DetailPageContainer = connect(mapStateToProps)(DetailPage);
 
 export default withRouteActionsDispatcher(DetailPageContainer, {
-  routeParamSelector: ({ id }) => id,
-  routeActions: (id) => [fetchExperiment(id), newSearch(EXPERIMENT_PAPERS_NS)],
+  routeParamSelector: (args) => args,
+  routeActions: (args) => [fetchExperiment(args.id), newSearch(EXPERIMENT_PAPERS_NS)],
   loadingStateSelector: (state) =>
     !state.experiments.hasIn(['data', 'metadata']),
 });

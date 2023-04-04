@@ -10,7 +10,6 @@ import { getStore, getStoreWithState } from '../../../fixtures/store';
 import { USER_SIGN_UP_REQUEST } from '../../../actions/actionTypes';
 import { initialState } from '../../../reducers/user';
 import SignUpPageContainer from '../SignUpPageContainer';
-import { userSignUpRequest } from '../../../actions/user';
 
 describe('SignUpPageContainer', () => {
   it('calls userSignUp onLoginClick', async () => {

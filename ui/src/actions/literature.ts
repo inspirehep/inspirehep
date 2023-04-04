@@ -18,7 +18,10 @@ import {
   LITERATURE_SET_ASSIGN_LITERATURE_ITEM_DRAWER_VISIBILITY,
   LITERATURE_ALL_AUTHORS_REQUEST,
   LITERATURE_ALL_AUTHORS_SUCCESS,
-  LITERATURE_ALL_AUTHORS_ERROR
+  LITERATURE_ALL_AUTHORS_ERROR,
+  REFERENCES_DIFF_SUCCESS,
+  REFERENCES_DIFF_ERROR,
+  REFERENCES_DIFF_REQUEST
 } from './actionTypes';
 import { isCancelError, HttpClientWrapper } from '../common/http';
 import { httpErrorToActionPayload } from '../common/utils';
@@ -60,6 +63,30 @@ function fetchLiteratureReferencesSuccess<T>(result: {
 function fetchLiteratureReferencesError(error: { error: Error }) {
   return {
     type: LITERATURE_REFERENCES_ERROR,
+    payload: error,
+  };
+}
+
+function fetchingReferenceDiff() {
+  return {
+    type: REFERENCES_DIFF_REQUEST,
+  };
+}
+
+function fetchReferenceDiffSuccess(result: {
+  currentVersion: Map<string, any>;
+  previousVersion: Map<string, any>;
+  referenceIndex: number;
+}) {
+  return {
+    type: REFERENCES_DIFF_SUCCESS,
+    payload: result,
+  };
+}
+
+function fetchReferenceDiffError(error: { error: Error }) {
+  return {
+    type: REFERENCES_DIFF_ERROR,
     payload: error,
   };
 }
@@ -157,6 +184,29 @@ export function fetchLiteratureReferences(
     }
   };
 }
+
+export function fetchReferencesDiff(  
+  recordId: number,
+  prevRevisionId: number,
+  newRevisionId: number,
+): (
+  dispatch: ActionCreator<Action>,
+  getState: () => RootStateOrAny,
+  http: HttpClientWrapper
+) => Promise<void> {
+  return async (dispatch, getState, http) => {
+    dispatch(fetchingReferenceDiff());
+    try {
+      const response = await http.get(`/literature/${recordId}/diff/${prevRevisionId}..${newRevisionId}`);
+      dispatch(fetchReferenceDiffSuccess(response.data));
+    } catch (err) {
+      if (!isCancelError(err as Error)) {
+        const { error } = httpErrorToActionPayload(err);
+        dispatch(fetchReferenceDiffError({ error }));
+      }
+    }
+};
+};
 
 export function fetchLiteratureAuthors(
   recordId: number
