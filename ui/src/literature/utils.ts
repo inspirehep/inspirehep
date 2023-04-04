@@ -1,4 +1,6 @@
-export function getPageDisplay(pagesInfo) {
+import { Map } from "immutable";
+
+export function getPageDisplay(pagesInfo: Map<string, any>) {
   if (pagesInfo.has('page_start') && pagesInfo.has('page_end')) {
     return `${pagesInfo.get('page_start')}-${pagesInfo.get('page_end')}`;
   }
@@ -10,6 +12,6 @@ export function getPageDisplay(pagesInfo) {
   return null;
 }
 
-export function getPapersQueryString(recordId) {
+export function getPapersQueryString(recordId: number) {
   return `refersto:recid:${recordId}`;
 }

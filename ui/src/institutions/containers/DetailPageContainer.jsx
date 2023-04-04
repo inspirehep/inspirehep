@@ -184,9 +184,9 @@ const mapStateToProps = (state) => ({
 const DetailPageContainer = connect(mapStateToProps)(DetailPage);
 
 export default withRouteActionsDispatcher(DetailPageContainer, {
-  routeParamSelector: ({ id }) => id,
-  routeActions: (id) => [
-    fetchInstitution(id),
+  routeParamSelector: (args) => args,
+  routeActions: (args) => [
+    fetchInstitution(args.id),
     newSearch(INSTITUTION_PAPERS_NS),
   ],
   loadingStateSelector: (state) =>

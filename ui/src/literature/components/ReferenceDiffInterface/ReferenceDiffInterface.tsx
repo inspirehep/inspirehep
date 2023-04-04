@@ -1,87 +1,75 @@
 import React from 'react';
-import { connect, RootStateOrAny } from 'react-redux';
-import { Row, Col, Tabs } from 'antd';
-import { Map, List } from 'immutable';
-import classNames from 'classnames';
+import { Row, Col, Card, Alert } from 'antd';
+import { Map, List, fromJS } from 'immutable';
 import { FilePdfOutlined, DatabaseOutlined } from '@ant-design/icons';
 
-import './DetailPage.less';
-import {
-  fetchLiterature,
-  fetchLiteratureAuthors,
-  fetchLiteratureReferences,
-} from '../../../actions/literature';
-import Abstract from '../../components/Abstract';
-import ArxivEprintList from '../../components/ArxivEprintList';
-import EditRecordAction from '../../../common/components/EditRecordAction';
-import DOIList from '../../components/DOIList';
-import { PDGKeywords } from '../../components/PDGKeywords';
-import KeywordList from '../../../common/components/KeywordList';
+import './ReferenceDiffInterface.less';
 import AuthorsAndCollaborations from '../../../common/components/AuthorsAndCollaborations';
-import ExternalSystemIdentifierList from '../../components/ExternalSystemIdentifierList';
 import ContentBox from '../../../common/components/ContentBox';
-import LiteratureDate from '../../components/LiteratureDate';
-import PublicationInfoList from '../../../common/components/PublicationInfoList';
-import ReportNumberList from '../../components/ReportNumberList';
-import ThesisInfo from '../../components/ThesisInfo';
-import IsbnList from '../../components/IsbnList';
-import ConferenceInfoList from '../../components/ConferenceInfoList';
-import NumberOfPages from '../../components/NumberOfPages';
-import TabNameWithCount from '../../../common/components/TabNameWithCount';
-import ExperimentList from '../../../common/components/ExperimentList';
-import LiteratureTitle from '../../../common/components/LiteratureTitle';
-import CiteModalActionContainer from '../CiteModalActionContainer';
-import { fetchCitationsByYear } from '../../../actions/citations';
-import CitationsByYearGraphContainer from '../../../common/containers/CitationsByYearGraphContainer';
-import Figures from '../../components/Figures';
-import RequireOneOf from '../../../common/components/RequireOneOf';
-import ReferenceListContainer from '../../../common/containers/ReferenceListContainer';
-import PublicNotesList from '../../../common/components/PublicNotesList';
-import UrlsAction from '../../components/UrlsAction';
 import DeletedAlert from '../../../common/components/DeletedAlert';
-import SupervisorList from '../../components/SupervisorList';
-import withRouteActionsDispatcher from '../../../common/withRouteActionsDispatcher';
-import LiteratureDocumentHead from '../../components/LiteratureDocumentHead';
+import EditRecordAction from '../../../common/components/EditRecordAction';
+import ExperimentList from '../../../common/components/ExperimentList';
 import IncomingLiteratureReferencesLinkAction from '../../../common/components/IncomingLiteratureReferencesLinkAction';
+import LiteratureTitle from '../../../common/components/LiteratureTitle';
+import PublicationInfoList from '../../../common/components/PublicationInfoList';
 import ReferenceSearchLinkAction from '../../../common/components/ReferenceSearchLinkAction';
+import CiteModalActionContainer from '../../containers/CiteModalActionContainer';
 import { getPapersQueryString } from '../../utils';
-import ParentRecordInfo from '../../components/ParentRecordInfo';
-import BookSeriesInfoList from '../../components/BookSeriesInfoList';
-import { LITERATURE_SEMINARS_NS } from '../../../search/constants';
-import LiteratureSeminars from '../../components/LiteratureSeminars';
-import { newSearch, searchBaseQueriesUpdate } from '../../../actions/search';
-import ImprintInfo from '../../components/ImprintInfo';
-import HiddenCollectionAlert from '../../components/LiteratureCollectionBanner';
-import AssignLiteratureItemDrawerContainer from '../AssignLiteratureItemDrawerContainer';
-import LiteratureClaimButton from '../../components/LiteratureClaimButton';
-import PersistentIdentifiers from '../../components/PersistentIdentifiers';
-import { APIButton } from '../../../common/components/APIButton';
-import { isSuperUser } from '../../../common/authorization';
+import ArxivEprintList from '../ArxivEprintList';
+import BookSeriesInfoList from '../BookSeriesInfoList';
+import ConferenceInfoList from '../ConferenceInfoList';
+import DOIList from '../DOIList';
+import ExternalSystemIdentifierList from '../ExternalSystemIdentifierList';
+import ImprintInfo from '../ImprintInfo';
+import IsbnList from '../IsbnList';
+import LiteratureClaimButton from '../LiteratureClaimButton';
+import LiteratureDate from '../LiteratureDate';
+import NumberOfPages from '../NumberOfPages';
+import ParentRecordInfo from '../ParentRecordInfo';
+import { PDGKeywords } from '../PDGKeywords';
+import PersistentIdentifiers from '../PersistentIdentifiers';
+import ReportNumberList from '../ReportNumberList';
+import SupervisorList from '../SupervisorList';
+import ThesisInfo from '../ThesisInfo';
+import UrlsAction from '../UrlsAction';
+import DocumentHead from '../../../common/components/DocumentHead';
+import ReferenceItem from '../ReferenceItem';
+import EmptyOrChildren from '../../../common/components/EmptyOrChildren';
+import ErrorAlertOrChildren from '../../../common/components/ErrorAlertOrChildren';
 
-function DetailPage({
+const META_DESCRIPTION = 'Self curation reference review';
+
+const TITLE = 'Reference Curation';
+
+function ReferenceDiffInterface({
   authors,
   record,
-  referencesCount,
   supervisors,
-  seminarsCount,
   loggedIn,
   hasAuthorProfile,
-  isSuperUserLoggedIn,
+  referenceId,
+  previousReference,
+  currentReference,
+  loading,
+  error,
 }: {
   authors: List<any>;
   record: Map<string, any>;
-  referencesCount: string | number;
   supervisors: List<any>;
-  seminarsCount: number;
   loggedIn: boolean;
   hasAuthorProfile: boolean;
-  isSuperUserLoggedIn: boolean;
+  references: List<Map<string, any>>;
+  referenceId: number;
+  previousReference: Map<string, any>;
+  currentReference: Map<string, any>;
+  loading: boolean;
+  error: Map<string, any> | undefined;
 }) {
   const metadata = record.get('metadata');
 
   const title = metadata.getIn(['titles', 0]);
   const date = metadata.get('date');
-  const controlNumber = metadata.get('control_number') as number;
+  const controlNumber = metadata.get('control_number');
   const thesisInfo = metadata.get('thesis_info');
   const isbns = metadata.get('isbns');
   const imprint = metadata.get('imprints');
@@ -89,28 +77,23 @@ function DetailPage({
   const conferenceInfo = metadata.get('conference_info');
   const documentType = metadata.get('document_type');
   const eprints = metadata.get('arxiv_eprints');
-  const publicNotes = metadata.get('public_notes');
   const dois = metadata.get('dois');
   const reportNumbers = metadata.get('report_numbers');
   const numberOfPages = metadata.get('number_of_pages');
   const externalSystemIdentifiers = metadata.get('external_system_identifiers');
   const acceleratorExperiments = metadata.get('accelerator_experiments');
-  const abstract = metadata.getIn(['abstracts', 0]);
   const fullTextLinks = metadata.get('fulltext_links');
   const urls = metadata.get('urls');
   const collaborations = metadata.get('collaborations');
   const collaborationsWithSuffix = metadata.get('collaborations_with_suffix');
   const linkedBook = metadata.get('linked_book');
   const bookSeries = metadata.get('book_series');
-  const hiddenCollection = metadata.get('is_collection_hidden');
-  const keywords = metadata.get('keywords');
   const PDGkeywords = metadata.get('pdg_keywords');
   const authorCount = metadata.get('author_count');
   const citationCount = metadata.get('citation_count');
   const persistentIdentifiers = metadata.get('persistent_identifiers');
 
   const canEdit = metadata.get('can_edit', false);
-  const figures = metadata.get('figures');
   const deleted = metadata.get('deleted', false);
   const datasetLinks = metadata.get('dataset_links');
 
@@ -120,73 +103,22 @@ function DetailPage({
       )
     : null;
 
-  let tabItems = [
-    {
-      label: (
-        <TabNameWithCount
-          name="References"
-          count={referencesCount}
-          page="Literature detail"
-        />
-      ),
-      key: '1',
-      children: <ReferenceListContainer recordId={controlNumber} />,
-    },
-    {
-      label: (
-        <TabNameWithCount
-          name="Figures"
-          count={figures ? figures.size : 0}
-          page="Literature detail"
-        />
-      ),
-      key: '2',
-      children: (
-        <ContentBox>
-          <Figures figures={figures} />
-        </ContentBox>
-      ),
-    },
-  ];
-
-  if (seminarsCount > 0) {
-    tabItems = [
-      ...tabItems,
-      {
-        label: <span>Seminars</span>,
-        key: '3',
-        children: (
-          <ContentBox>
-            <LiteratureSeminars />
-          </ContentBox>
-        ),
-      },
-    ];
-  }
+  const displayPreviousReference =
+    previousReference &&
+    previousReference?.get('control_number') &&
+    previousReference?.getIn(['titles', 0]);
 
   return (
     <>
-      {authors && (
-        <AssignLiteratureItemDrawerContainer
-          itemLiteratureId={controlNumber}
-          page="Literature detail"
-        />
-      )}
-      <LiteratureDocumentHead
-        metadata={metadata}
-        created={record.get('created')}
-      />
-      <Row className="__DetailPage__" justify="center">
+      <DocumentHead title={TITLE} description={META_DESCRIPTION} />
+      <Row justify="center" className="__ReferenceDiffInterface__">
         <Col xs={24} md={22} lg={21} xxl={18}>
-          <Row className="mv3" justify="center">
-            <Col span={24}>{hiddenCollection && <HiddenCollectionAlert />}</Col>
-          </Row>
           <Row
             className="mv3"
             justify="center"
             gutter={{ xs: 0, lg: 16, xl: 32 }}
           >
-            <Col xs={24} lg={16}>
+            <Col span={24}>
               <ContentBox
                 className="md-pb3"
                 leftActions={
@@ -210,9 +142,9 @@ function DetailPage({
                       />
                     )}
                     <CiteModalActionContainer
-                      // @ts-ignore
+                      // @ts-expect-error
                       recordId={controlNumber}
-                      // @ts-ignore
+                      // @ts-expect-error
                       page="Literature detail"
                     />
                     <LiteratureClaimButton
@@ -237,9 +169,6 @@ function DetailPage({
                         trackerEventId="Dataset links"
                         page="Literature detail"
                       />
-                    )}
-                    {isSuperUserLoggedIn && (
-                      <APIButton url={window.location.href} />
                     )}
                   </>
                 }
@@ -325,85 +254,100 @@ function DetailPage({
                 </div>
               </ContentBox>
             </Col>
-            <Col xs={24} lg={8}>
-              <ContentBox subTitle="Citations per year">
-                <CitationsByYearGraphContainer />
-              </ContentBox>
-            </Col>
           </Row>
-          <Row>
-            <Col span={24}>
-              <RequireOneOf dependencies={[abstract, publicNotes, keywords]}>
-                <ContentBox>
-                  <div>
-                    <Abstract abstract={abstract} />
-                  </div>
-                  <div
-                    className={classNames({
-                      mt3: publicNotes,
-                      mb3: keywords,
-                    })}
-                  >
-                    <PublicNotesList publicNotes={publicNotes} />
-                  </div>
-                  <div>
-                    <KeywordList keywords={keywords} />
-                  </div>
-                </ContentBox>
-              </RequireOneOf>
-            </Col>
-          </Row>
-          <Row>
-            <Col className="mt3" span={24}>
-              <Tabs
-                type="card"
-                tabBarStyle={{ marginBottom: 0 }}
-                className="remove-top-border-of-card-children"
-                items={tabItems}
-              />
-            </Col>
-          </Row>
+          {error ? (
+            <Row className="mb3">
+              <Col span={24}>
+                <Alert
+                  message={error.get('message')}
+                  type="error"
+                  showIcon
+                  closable
+                />
+              </Col>
+            </Row>
+          ) : (
+            <>
+              <Row>
+                <Col className="mt3" span={24}>
+                  <ContentBox loading={loading}>
+                    <ErrorAlertOrChildren error={error}>
+                      <EmptyOrChildren
+                        data={currentReference}
+                        title="0 References"
+                      >
+                        <>
+                          {displayPreviousReference && (
+                            <Card
+                              size="small"
+                              className="no-border"
+                              title={`Reference ${referenceId} changed from`}
+                            >
+                              <ReferenceItem
+                                key="reference-1"
+                                reference={previousReference}
+                              />
+                            </Card>
+                          )}
+                          {currentReference && (
+                            <Card
+                              size="small"
+                              className="no-border"
+                              title={
+                                displayPreviousReference
+                                  ? 'to'
+                                  : `Reference ${referenceId} changed to`
+                              }
+                            >
+                              <ReferenceItem
+                                key="reference-2"
+                                reference={currentReference}
+                              />
+                            </Card>
+                          )}
+                        </>
+                      </EmptyOrChildren>
+                    </ErrorAlertOrChildren>
+                  </ContentBox>
+                </Col>
+              </Row>
+              <Row>
+                <Col className="mt3" span={24}>
+                  <ContentBox loading={loading}>
+                    <ErrorAlertOrChildren error={error}>
+                      <EmptyOrChildren
+                        data={previousReference}
+                        title="0 References"
+                      >
+                        <>
+                          <Card
+                            size="small"
+                            className="no-border"
+                            title="Reference metadata"
+                          >
+                            <ReferenceItem
+                              key="reference-metadata"
+                              reference={previousReference}
+                              unlinked
+                            />
+                          </Card>
+                          <Card size="small" className="no-border">
+                            <p className="b mb0 mt4">
+                              {previousReference?.get('raw_ref')}
+                            </p>
+                          </Card>
+                        </>
+                      </EmptyOrChildren>
+                    </ErrorAlertOrChildren>
+                  </ContentBox>
+                </Col>
+              </Row>
+            </>
+          )}
         </Col>
       </Row>
     </>
   );
 }
 
-const mapStateToProps = (state: RootStateOrAny) => ({
-  record: state.literature.get('data'),
-  authors: state.literature.get('authors'),
-  supervisors: state.literature.get('supervisors'),
-  referencesCount: state.literature.get('totalReferences'),
-  loadingSeminars: state.search.getIn([
-    'namespaces',
-    LITERATURE_SEMINARS_NS,
-    'loading',
-  ]),
-  seminarsCount: state.search.getIn([
-    'namespaces',
-    LITERATURE_SEMINARS_NS,
-    'initialTotal',
-  ]),
-  loggedIn: state.user.get('loggedIn'),
-  hasAuthorProfile:
-    state.user.getIn(['data', 'profile_control_number']) !== null,
-  isSuperUserLoggedIn: isSuperUser(state.user.getIn(['data', 'roles'])),
-});
-
-const DetailPageContainer = connect(mapStateToProps)(DetailPage);
-
-export default withRouteActionsDispatcher(DetailPageContainer, {
-  routeParamSelector: (args) => args,
-  routeActions: (args) => [
-    fetchLiterature(args.id),
-    fetchLiteratureReferences(args.id),
-    fetchLiteratureAuthors(args.id),
-    fetchCitationsByYear({ q: `recid:${args.id}` }),
-    newSearch(LITERATURE_SEMINARS_NS),
-    searchBaseQueriesUpdate(LITERATURE_SEMINARS_NS, {
-      baseQuery: { q: `literature_records.record.$ref:${args.id}` },
-    }),
-  ],
-  loadingStateSelector: (state) =>
-    !state.literature.hasIn(['data', 'metadata']),
-});
+export default ReferenceDiffInterface;

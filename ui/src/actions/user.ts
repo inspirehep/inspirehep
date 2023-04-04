@@ -153,7 +153,7 @@ export function userInactive(): (
   };
 }
 
-export function setPreference(name: string, value: boolean) {
+export function setPreference(name: string, value: string) {
   return {
     type: USER_SET_PREFERENCE,
     payload: { name, value },

@@ -169,9 +169,9 @@ const mapStateToProps = state => ({
 const DetailPageContainer = connect(mapStateToProps)(DetailPage);
 
 export default withRouteActionsDispatcher(DetailPageContainer, {
-  routeParamSelector: ({ id }) => id,
-  routeActions: id => [
-    fetchConference(id),
+  routeParamSelector: (args) => args,
+  routeActions: args => [
+    fetchConference(args.id),
     newSearch(CONFERENCE_CONTRIBUTIONS_NS),
   ],
   loadingStateSelector: state => !state.conferences.hasIn(['data', 'metadata']),

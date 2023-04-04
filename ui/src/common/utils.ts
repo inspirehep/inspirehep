@@ -193,7 +193,7 @@ export function removeProtocolAndWwwFromUrl(url: string) {
   return url.replace(protocolAndWwwRegexp, '');
 }
 
-export function getRecordIdFromRef($ref: string) {
+export function getRecordIdFromRef($ref: any) {
   if ($ref == null) {
     return null;
   }

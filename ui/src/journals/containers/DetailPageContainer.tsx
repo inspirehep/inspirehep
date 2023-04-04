@@ -164,8 +164,8 @@ const mapStateToProps = (state: RootState) => ({
 const DetailPageContainer = connect(mapStateToProps)(DetailPage);
 
 export default withRouteActionsDispatcher(DetailPageContainer, {
-  routeParamSelector: ({ id }: { id: number }) => id,
-  routeActions: (id: number) => [fetchJournal(id)],
+  routeParamSelector: (args) => args,
+  routeActions: (args) => [fetchJournal(args.id)],
   loadingStateSelector: (state: RootState) =>
     !state.journals.hasIn(['data', 'metadata']),
 });
