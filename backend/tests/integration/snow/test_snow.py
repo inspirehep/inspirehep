@@ -216,3 +216,50 @@ def test_create_ticket_raises_create_ticket_exception(
             description="This is a test subject by Jessica Jones.",
             recid=recid,
         )
+
+
+@pytest.mark.vcr(
+    filter_headers=["authorization", "Set-Cookie"],
+    before_record_request=filter_out_authentication,
+    before_record_response=filter_out_user_data_and_cookie_headers(),
+)
+def test_reply_ticket(mocked_inspire_snow, inspire_app, teardown_cache):
+    snow_instance = InspireSnow()
+    ticket_id = snow_instance.create_inspire_ticket(
+        subject="This is a test description by Jessica Jones.",
+        description="This is a test subject by Jessica Jones.",
+        user_email="marcjanna.jedrych@cern.ch",
+    )
+
+    assert ticket_id
+    snow_instance.reply_ticket(ticket_id, reply_message="This is a test reply")
+    ticket = snow_instance.get_ticket(ticket_id, params="sysparm_display_value=true")
+    assert "This is a test reply" in ticket["comments"]
+
+
+@pytest.mark.vcr(
+    filter_headers=["authorization", "Set-Cookie"],
+    before_record_request=filter_out_authentication,
+    before_record_response=filter_out_user_data_and_cookie_headers(),
+)
+def test_reply_ticket_with_template(mocked_inspire_snow, inspire_app, teardown_cache):
+    snow_instance = InspireSnow()
+    ticket_id = snow_instance.create_inspire_ticket(
+        subject="This is a test description by Jessica Jones.",
+        description="This is a test subject by Jessica Jones.",
+        user_email="marcjanna.jedrych@cern.ch",
+    )
+
+    assert ticket_id
+    template_context = dict(
+        user_name="Test, User",
+        author_name="Test, Author",
+        record_url="https://inspirebeta.net/api/authors/2621784",
+    )
+    template_path = "rt/user_accepted.html"
+    snow_instance.reply_ticket_with_template(
+        ticket_id, template_path=template_path, template_context=template_context
+    )
+
+    ticket = snow_instance.get_ticket(ticket_id, params="sysparm_display_value=true")
+    assert "Thank you very much again for your suggestion" in ticket["comments"]
