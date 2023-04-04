@@ -6,6 +6,9 @@
 
 Python `3.8`
 
+You can also use [pyenv](https://github.com/pyenv/pyenv) for your python installations.
+Simply follow the [instructions](https://github.com/pyenv/pyenv#installation) and set the global version to 3.8.
+
 #### Debian / Ubuntu
 
 ```bash
@@ -15,7 +18,7 @@ $ sudo apt-get install python3 build-essential python3-dev
 #### MacOS
 
 ```bash
-$ brew install postgresql libmagic openssl@3 openblas python
+$ brew install postgresql@14 libmagic openssl@3 openblas python
 ```
 
 ### nodejs & npm using nvm
@@ -71,9 +74,16 @@ $ pre-commit install
 
 Follow the guide https://docs.docker.com/compose/install/
 
-### For MacOS M1 users
+### For MacOS users
+#### General
+Turn of the `AirPlay Receiver` under System Preference -> Sharing -> AirPlay Receiver.
+Otherwise, you will run into problems with port 5000 being already in use.
+See [this](https://developer.apple.com/forums/thread/682332) for more information.
 
-install `Homebrew-file` https://homebrew-file.readthedocs.io/en/latest/installation.html
+
+#### M1 users
+
+Install `Homebrew-file` https://homebrew-file.readthedocs.io/en/latest/installation.html
 
 ```bash
 $ brew install rcmdnk/file/brew-file
@@ -124,6 +134,10 @@ docker-compose exec next-web inspirehep db create
 ```bash
 docker-compose exec hep-web inspirehep importer demo-records
 ```
+
+### Usage
+
+inspirehep should now be available under http://localhost:8080
 
 ---
 
