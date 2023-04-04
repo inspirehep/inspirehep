@@ -1,5 +1,9 @@
 import useMedia from 'use-media';
 
+export type MinSize = "sm" | "md" | "lg" | "xl" | "xxl";
+
+export type MaxSize = "xs" | "sm" | "md" | "lg" | "xl";
+
 const SIZE_TO_MAX_WIDTH = {
   xs: 575,
   sm: 767,
@@ -21,7 +25,7 @@ export default function useResponsiveCheck({
   max,
 }: {
   min?: keyof typeof SIZE_TO_MIN_WIDTH;
-  max: keyof typeof SIZE_TO_MAX_WIDTH;
+  max?: keyof typeof SIZE_TO_MAX_WIDTH;
 }) {
   const query: { minWidth?: number; maxWidth?: number } = {};
 

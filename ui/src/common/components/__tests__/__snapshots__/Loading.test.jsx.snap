@@ -5,7 +5,6 @@ exports[`Loading render loading component 1`] = `
   align="middle"
   className="w-100"
   justify="center"
-  type="flex"
 >
   <Col>
     <div

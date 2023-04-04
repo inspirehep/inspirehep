@@ -14,6 +14,7 @@ exports[`AuthorList prefixes \`Supervisor\` when 1 supervisor is passed 1`] = `
             "full_name": "Test, Guy 1",
           }
         }
+        page=""
       />
     </li>
   </ul>
@@ -34,6 +35,7 @@ exports[`AuthorList prefixes \`Supervisor\` when 2 or more supervisors are passe
             "full_name": "Test, Guy 1",
           }
         }
+        page=""
       />
       , 
     </li>
@@ -46,6 +48,7 @@ exports[`AuthorList prefixes \`Supervisor\` when 2 or more supervisors are passe
             "full_name": "Test, Guy 2",
           }
         }
+        page=""
       />
     </li>
   </ul>
@@ -117,6 +120,7 @@ exports[`AuthorList renders authors by using AuthorLink 1`] = `
             "full_name": "Test, Guy 1",
           }
         }
+        page=""
       />
     </li>
   </ul>

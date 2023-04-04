@@ -2,9 +2,9 @@ import { List, Map } from 'immutable';
 import { makeCompliantMetaDescription } from '../common/utils';
 
 export function getCurrentAffiliationsFromPositions(
-  positions: Map<string, string>
-): Map<string, string> {
-  return positions.filter((position) => (position as unknown as Map<string, string>).get('current'));
+  positions: List<any>
+) {
+  return positions.filter((position: Map<string, any>) => position.get('current'));
 }
 
 export function getAuthorDisplayName(name: Map<string, string>) {
@@ -38,7 +38,7 @@ export function getAuthorMetaDescription(author: {
     .filter(Boolean)
     .join(ITEM_SEPARATOR);
   const affiliationsText = getCurrentAffiliationsFromPositions(
-    author.get('positions', List([]))
+    author.get('positions', List([])) as unknown as List<any>
   )
     .map((position) => (position as unknown as Map<string, string>).get('institution'))
     .filter(Boolean)

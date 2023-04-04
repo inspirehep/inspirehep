@@ -6,7 +6,6 @@ exports[`AggregationBox renders AggreagationBox with action 1`] = `
 >
   <Row
     justify="space-between"
-    type="flex"
   >
     <Col
       flex="auto"
@@ -43,7 +42,6 @@ exports[`AggregationBox renders AggreagationBox with empty string name 1`] = `
 >
   <Row
     justify="space-between"
-    type="flex"
   >
     <Col
       flex="auto"
@@ -78,7 +76,6 @@ exports[`AggregationBox renders AggreagationBox without action 1`] = `
 >
   <Row
     justify="space-between"
-    type="flex"
   >
     <Col
       flex="auto"
@@ -111,7 +108,6 @@ exports[`AggregationBox renders AggreagationBox without children and with action
 >
   <Row
     justify="space-between"
-    type="flex"
   >
     <Col
       flex="auto"
@@ -144,7 +140,6 @@ exports[`AggregationBox renders AggreagationBox without children and without act
 >
   <Row
     justify="space-between"
-    type="flex"
   >
     <Col
       flex="auto"

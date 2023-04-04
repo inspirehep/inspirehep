@@ -19,7 +19,8 @@
     "test": "yarn lint && yarn test:unit --watchAll=false --resetMocks=false && yarn test:size",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "eject": "react-scripts eject",
-    "lint": "./node_modules/eslint/bin/eslint.js ./src --ext \"**/*.{js,jsx,ts,tsx}\" --config .eslintrc"
+    "lint": "./node_modules/eslint/bin/eslint.js ./src --ext \"**/*.{js,jsx,ts,tsx}\" --config .eslintrc && yarn check-types",
+    "check-types": "tsc --noemit"
   },
   "dependencies": {
     "@ant-design/icons": "^4.0.0",
@@ -103,6 +104,7 @@
   "devDependencies": {
     "@types/qs": "^6.9.7",
     "@types/react-copy-to-clipboard": "^5.0.4",
+    "@types/react-helmet": "^6.1.6",
     "@types/react-loadable": "^5.5.6",
     "@types/react-redux": "^7.1.24",
     "@types/react-router-dom": "^5.3.3",

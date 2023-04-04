@@ -60,14 +60,12 @@ function AssignDrawer({
             author to assign the selected papers:`}
     >
       <EmbeddedSearchBoxContainer namespace={ASSIGN_AUTHOR_NS} />
-      {/* @ts-ignore */}
       <NumberOfResultsContainer namespace={ASSIGN_AUTHOR_NS} />
       <Radio.Group
         data-test-id="author-radio-group"
         className="w-100"
         onChange={onSelectedAuthorChange}
       >
-        {/* @ts-ignore */}
         <ResultsContainer namespace={ASSIGN_AUTHOR_NS} renderItem={renderAuthorItem} />
         <div className="mv2">
           <Radio value="new">

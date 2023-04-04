@@ -1,6 +1,3 @@
-import 'core-js/modules/es7.object.entries';
-import 'core-js/modules/es7.array.includes';
-
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import React from 'react';

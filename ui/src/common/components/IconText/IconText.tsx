@@ -9,7 +9,7 @@ const IconText = ({
   className,
 }: {
   icon: JSX.Element;
-  text: string;
+  text: string | JSX.Element;
   className?: string;
 }) => {
   return (

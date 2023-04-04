@@ -71,7 +71,7 @@ function DetailPage({
 }: {
   authors: List<any>;
   record: Map<string, any>;
-  referencesCount: string | number;
+  referencesCount: number;
   supervisors: List<any>;
   seminarsCount: number;
   loggedIn: boolean;
