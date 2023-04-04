@@ -351,11 +351,9 @@ class TestPushToOrcid(object):
             )
 
     def test_new_record(self, override_config):
-        recid = 9999912587
         record_json = {
             "$schema": "http://localhost:5000/schemas/records/hep.json",
             "document_type": ["article"],
-            "control_number": recid,
             "titles": [{"title": "Jessica Jones"}],
             "_collections": ["Literature"],
             "references": [
@@ -383,6 +381,6 @@ class TestPushToOrcid(object):
                     "kwargs_to_pusher": {
                         "record_db_version": inspire_record.model.version_id
                     },
-                    "rec_id": recid,
+                    "rec_id": inspire_record["control_number"],
                 }
             )
