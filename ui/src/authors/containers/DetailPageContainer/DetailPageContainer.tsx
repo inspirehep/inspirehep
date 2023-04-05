@@ -42,10 +42,11 @@ import AffiliationList from '../../../common/components/AffiliationList';
 import RecordUpdateInfo from '../../../common/components/RecordUpdateInfo';
 import AuthorSeminars from '../../components/AuthorSeminars';
 import EditAuthorRecordAction from '../../components/EditAuthorRecordAction';
-import { isCataloger } from '../../../common/authorization';
+import { isCataloger, isSuperUser } from '../../../common/authorization';
 import IconText from '../../../common/components/IconText';
 import LinkWithTargetBlank from '../../../common/components/LinkWithTargetBlank';
 import UserAction from '../../../common/components/UserAction';
+import { APIButton } from '../../../common/components/APIButton';
 
 function DetailPage({
   record,
@@ -57,6 +58,7 @@ function DetailPage({
   loadingPublications,
   seminarsCount,
   isCatalogerLoggedIn,
+  isSuperUserLoggedIn
 }: {
   record: Map<string, any>;
   publicationsQuery: Map<string, string>;
@@ -67,6 +69,7 @@ function DetailPage({
   loadingPublications: boolean;
   seminarsCount: number;
   isCatalogerLoggedIn: boolean;
+  isSuperUserLoggedIn: boolean;
 }) {
   const authorFacetName = publicationsQuery.getIn(['author', 0]) as string;
   const metadata = record.get('metadata');
@@ -144,6 +147,9 @@ function DetailPage({
                       isCatalogerLoggedIn={isCatalogerLoggedIn}
                       page="Author detail"
                     />
+                    {isSuperUserLoggedIn && (
+                      <APIButton url={window.location.href} />
+                    )}
                   </>
                 }
                 rightActions={
@@ -283,6 +289,7 @@ const mapStateToProps = (state: RootStateOrAny) => ({
     'initialTotal',
   ]),
   isCatalogerLoggedIn: isCataloger(state.user.getIn(['data', 'roles'])),
+  isSuperUserLoggedIn: isSuperUser(state.user.getIn(['data', 'roles'])),
 });
 
 const dispatchToProps = (dispatch: ActionCreator<Action>) => ({ dispatch });

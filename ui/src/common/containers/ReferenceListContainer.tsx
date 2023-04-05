@@ -30,7 +30,7 @@ const stateToProps = (state: RootStateOrAny) => ({
   ]),
 });
 
-const dispatchToProps = (dispatch: ActionCreator<Action>, ownProps: { recordId: string }) => ({
+const dispatchToProps = (dispatch: ActionCreator<Action>, ownProps: { recordId: number }) => ({
   onPageChange(page: number, size: number) {
     const { recordId } = ownProps;
     dispatch(fetchLiteratureReferences(recordId, { size, page: String(page) }));

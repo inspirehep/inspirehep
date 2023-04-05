@@ -25,8 +25,10 @@ import withRouteActionsDispatcher from '../../common/withRouteActionsDispatcher'
 import EventTitle from '../../common/components/EventTitle';
 import { CONFERENCES_PID_TYPE } from '../../common/constants';
 import UrlsAction from '../../literature/components/UrlsAction';
+import { isSuperUser } from '../../common/authorization';
+import { APIButton } from '../../common/components/APIButton';
 
-function DetailPage({ record }) {
+function DetailPage({ record, isSuperUserLoggedIn }) {
   const metadata = record.get('metadata');
   const controlNumber = metadata.get('control_number');
   const title = metadata.getIn(['titles', 0]);
@@ -65,6 +67,9 @@ function DetailPage({ record }) {
                     pidValue={controlNumber}
                     page="Conferences detail"
                   />
+                )}
+                { isSuperUserLoggedIn && (
+                  <APIButton url={window.location.href} />
                 )}
               </>
             }
@@ -159,6 +164,7 @@ DetailPage.propTypes = {
 
 const mapStateToProps = state => ({
   record: state.conferences.get('data'),
+  isSuperUserLoggedIn: isSuperUser(state.user.getIn(['data', 'roles'])),
 });
 const DetailPageContainer = connect(mapStateToProps)(DetailPage);
 

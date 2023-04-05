@@ -1,0 +1,644 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DetailPageContainer renders initial state 1`] = `
+<DocumentFragment>
+  <div
+    class="ant-row ant-row-center __DetailPage__"
+  >
+    <div
+      class="ant-col ant-col-xs-24 ant-col-md-22 ant-col-lg-21 ant-col-xxl-18"
+    >
+      <div
+        class="ant-row ant-row-center mv3"
+      >
+        <div
+          class="ant-col ant-col-24"
+        />
+      </div>
+      <div
+        class="ant-row ant-row-center mv3"
+        style="margin-left: -16px; margin-right: -16px;"
+      >
+        <div
+          class="ant-col ant-col-xs-24 ant-col-lg-16"
+          style="padding-left: 16px; padding-right: 16px;"
+        >
+          <div
+            class="__ContentBox__ h-100 md-pb3"
+          >
+            <div
+              class="ant-card ant-card-bordered h-100"
+            >
+              <div
+                class="ant-card-body"
+              >
+                <div
+                  class="pa2"
+                >
+                  <div>
+                    <div
+                      class="ant-row"
+                    >
+                      <div
+                        class="ant-col ant-col-24"
+                      />
+                    </div>
+                    <h2>
+                      <span>
+                        <span
+                          class="__Latex__"
+                        >
+                          Detail view
+                        </span>
+                      </span>
+                    </h2>
+                    <div>
+                      <div
+                        class="__InlineList__ di"
+                      >
+                        <ul>
+                          <li>
+                            <div
+                              class="di"
+                            >
+                              <span>
+                                Test, Guy 1
+                              </span>
+                            </div>
+                            , 
+                          </li>
+                          <li>
+                            <div
+                              class="di"
+                            >
+                              <span>
+                                Test, Guy 2
+                              </span>
+                            </div>
+                            , 
+                          </li>
+                          <li>
+                            <div
+                              class="di"
+                            >
+                              <span>
+                                Test, Guy 3
+                              </span>
+                            </div>
+                            , 
+                          </li>
+                          <li>
+                            <div
+                              class="di"
+                            >
+                              <span>
+                                Test, Guy 4
+                              </span>
+                            </div>
+                            , 
+                          </li>
+                          <li>
+                            <div
+                              class="di"
+                            >
+                              <span>
+                                Test, Guy 5
+                              </span>
+                            </div>
+                          </li>
+                        </ul>
+                        <div
+                          class="di pl1"
+                        >
+                          <button
+                            class="__SecondaryButton__"
+                            type="button"
+                          >
+                            Show All(6)
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <span />
+                    <div
+                      class="mt3"
+                    >
+                      <div
+                        class="__InlineList__"
+                      >
+                        <span
+                          class=""
+                        >
+                          Supervisors: 
+                        </span>
+                        <ul>
+                          <li>
+                            <div
+                              class="di"
+                            >
+                              <span>
+                                John Doe
+                              </span>
+                            </div>
+                            , 
+                          </li>
+                          <li>
+                            <div
+                              class="di"
+                            >
+                              <span>
+                                Jane Doe
+                              </span>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="ant-row ant-row-space-between actions ph2"
+                >
+                  <div
+                    class="ant-col"
+                  >
+                    <span
+                      class="__UserAction__"
+                    >
+                      <button
+                        class="ant-btn ant-btn-default"
+                        type="button"
+                      >
+                        <span
+                          class="__IconText__"
+                        >
+                          <span
+                            class="icon"
+                          >
+                            <span
+                              aria-label="export"
+                              class="anticon anticon-export"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="export"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="64 64 896 896"
+                                width="1em"
+                              >
+                                <path
+                                  d="M888.3 757.4h-53.8c-4.2 0-7.7 3.5-7.7 7.7v61.8H197.1V197.1h629.8v61.8c0 4.2 3.5 7.7 7.7 7.7h53.8c4.2 0 7.7-3.4 7.7-7.7V158.7c0-17-13.7-30.7-30.7-30.7H158.7c-17 0-30.7 13.7-30.7 30.7v706.6c0 17 13.7 30.7 30.7 30.7h706.6c17 0 30.7-13.7 30.7-30.7V765.1c0-4.3-3.5-7.7-7.7-7.7zm18.6-251.7L765 393.7c-5.3-4.2-13-.4-13 6.3v76H438c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h314v76c0 6.7 7.8 10.5 13 6.3l141.9-112a8 8 0 000-12.6z"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                          <span
+                            class="v-top"
+                          >
+                            cite
+                          </span>
+                        </span>
+                      </button>
+                    </span>
+                    <span
+                      class="__UserAction__"
+                    >
+                      <span
+                        class="ant-tooltip-disabled-compatible-wrapper ant-dropdown-trigger"
+                        style="display: inline-block; cursor: not-allowed;"
+                      >
+                        <button
+                          class="ant-btn ant-btn-default"
+                          data-test-id="btn-claiming-profile"
+                          disabled=""
+                          style="pointer-events: none;"
+                          type="button"
+                        >
+                          <span
+                            class="__IconText__"
+                          >
+                            <span
+                              class="icon"
+                            >
+                              <span
+                                aria-label="file-done"
+                                class="anticon anticon-file-done"
+                                role="img"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  data-icon="file-done"
+                                  fill="currentColor"
+                                  focusable="false"
+                                  height="1em"
+                                  viewBox="64 64 896 896"
+                                  width="1em"
+                                >
+                                  <path
+                                    d="M688 312v-48c0-4.4-3.6-8-8-8H296c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8zm-392 88c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H296zm376 116c-119.3 0-216 96.7-216 216s96.7 216 216 216 216-96.7 216-216-96.7-216-216-216zm107.5 323.5C750.8 868.2 712.6 884 672 884s-78.8-15.8-107.5-44.5C535.8 810.8 520 772.6 520 732s15.8-78.8 44.5-107.5C593.2 595.8 631.4 580 672 580s78.8 15.8 107.5 44.5C808.2 653.2 824 691.4 824 732s-15.8 78.8-44.5 107.5zM761 656h-44.3c-2.6 0-5 1.2-6.5 3.3l-63.5 87.8-23.1-31.9a7.92 7.92 0 00-6.5-3.3H573c-6.5 0-10.3 7.4-6.5 12.7l73.8 102.1c3.2 4.4 9.7 4.4 12.9 0l114.2-158c3.9-5.3.1-12.7-6.4-12.7zM440 852H208V148h560v344c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V108c0-17.7-14.3-32-32-32H168c-17.7 0-32 14.3-32 32v784c0 17.7 14.3 32 32 32h272c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8z"
+                                  />
+                                </svg>
+                              </span>
+                            </span>
+                            <span
+                              class="v-top"
+                            >
+                              claim
+                            </span>
+                          </span>
+                        </button>
+                      </span>
+                    </span>
+                  </div>
+                  <div
+                    class="ant-col"
+                  >
+                    <span
+                      class="__UserAction__"
+                    >
+                      <a
+                        data-test-id="reference-search-button"
+                        href="/literature?q=citedby:recid:undefined"
+                      >
+                        <span
+                          class="__IconText__"
+                        >
+                          <span
+                            class="icon"
+                          >
+                            <span
+                              aria-label="file-search"
+                              class="anticon anticon-file-search"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="file-search"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="64 64 896 896"
+                                width="1em"
+                              >
+                                <path
+                                  d="M688 312v-48c0-4.4-3.6-8-8-8H296c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h384c4.4 0 8-3.6 8-8zm-392 88c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H296zm144 452H208V148h560v344c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V108c0-17.7-14.3-32-32-32H168c-17.7 0-32 14.3-32 32v784c0 17.7 14.3 32 32 32h272c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm445.7 51.5l-93.3-93.3C814.7 780.7 828 743.9 828 704c0-97.2-78.8-176-176-176s-176 78.8-176 176 78.8 176 176 176c35.8 0 69-10.7 96.8-29l94.7 94.7c1.6 1.6 3.6 2.3 5.6 2.3s4.1-.8 5.6-2.3l31-31a7.9 7.9 0 000-11.2zM652 816c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                          <span
+                            class="v-top"
+                          >
+                            reference search
+                          </span>
+                        </span>
+                      </a>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="ant-col ant-col-xs-24 ant-col-lg-8"
+          style="padding-left: 16px; padding-right: 16px;"
+        >
+          <div
+            class="__ContentBox__ h-100 "
+          >
+            <div
+              class="ant-card ant-card-bordered h-100"
+            >
+              <div
+                class="ant-card-body"
+              >
+                <div
+                  class="pa2"
+                >
+                  <h3
+                    class="pb1"
+                  >
+                    Citations per year
+                  </h3>
+                  <div>
+                    <div
+                      class="ant-empty ant-empty-normal"
+                    >
+                      <div
+                        class="ant-empty-image"
+                      >
+                        <svg
+                          class="ant-empty-img-simple"
+                          height="41"
+                          viewBox="0 0 64 41"
+                          width="64"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g
+                            fill="none"
+                            fill-rule="evenodd"
+                            transform="translate(0 1)"
+                          >
+                            <ellipse
+                              class="ant-empty-img-simple-ellipse"
+                              cx="32"
+                              cy="33"
+                              rx="32"
+                              ry="7"
+                            />
+                            <g
+                              class="ant-empty-img-simple-g"
+                              fill-rule="nonzero"
+                            >
+                              <path
+                                d="M55 12.76L44.854 1.258C44.367.474 43.656 0 42.907 0H21.093c-.749 0-1.46.474-1.947 1.257L9 12.761V22h46v-9.24z"
+                              />
+                              <path
+                                class="ant-empty-img-simple-path"
+                                d="M41.613 15.931c0-1.605.994-2.93 2.227-2.931H55v18.137C55 33.26 53.68 35 52.05 35h-40.1C10.32 35 9 33.259 9 31.137V13h11.16c1.233 0 2.227 1.323 2.227 2.928v.022c0 1.605 1.005 2.901 2.237 2.901h14.752c1.232 0 2.237-1.308 2.237-2.913v-.007z"
+                              />
+                            </g>
+                          </g>
+                        </svg>
+                      </div>
+                      <div
+                        class="ant-empty-description"
+                      >
+                        0 Citations
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="ant-row ant-row-space-between actions ph2"
+                >
+                  <div
+                    class="ant-col"
+                  />
+                  <div
+                    class="ant-col"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="ant-row"
+      >
+        <div
+          class="ant-col ant-col-24"
+        />
+      </div>
+      <div
+        class="ant-row"
+      >
+        <div
+          class="ant-col ant-col-24 mt3"
+        >
+          <div
+            class="ant-tabs ant-tabs-top ant-tabs-card remove-top-border-of-card-children"
+          >
+            <div
+              class="ant-tabs-nav"
+              role="tablist"
+              style="margin-bottom: 0px;"
+            >
+              <div
+                class="ant-tabs-nav-wrap"
+              >
+                <div
+                  class="ant-tabs-nav-list"
+                  style="transform: translate(0px, 0px);"
+                >
+                  <div
+                    class="ant-tabs-tab ant-tabs-tab-active"
+                  >
+                    <div
+                      aria-controls="rc-tabs-test-panel-1"
+                      aria-selected="true"
+                      class="ant-tabs-tab-btn"
+                      id="rc-tabs-test-tab-1"
+                      role="tab"
+                      tabindex="0"
+                    >
+                      <span>
+                        <span>
+                          References
+                        </span>
+                        <span
+                          class="ml1"
+                        >
+                          <span>
+                            (2)
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="ant-tabs-tab"
+                  >
+                    <div
+                      aria-controls="rc-tabs-test-panel-2"
+                      aria-selected="false"
+                      class="ant-tabs-tab-btn"
+                      id="rc-tabs-test-tab-2"
+                      role="tab"
+                      tabindex="0"
+                    >
+                      <span>
+                        <span>
+                          Figures
+                        </span>
+                        <span
+                          class="ml1"
+                        >
+                          <span>
+                            (0)
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="ant-tabs-tab"
+                  >
+                    <div
+                      aria-controls="rc-tabs-test-panel-3"
+                      aria-selected="false"
+                      class="ant-tabs-tab-btn"
+                      id="rc-tabs-test-tab-3"
+                      role="tab"
+                      tabindex="0"
+                    >
+                      <span>
+                        Seminars
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="ant-tabs-ink-bar ant-tabs-ink-bar-animated"
+                  />
+                </div>
+              </div>
+              <div
+                class="ant-tabs-nav-operations ant-tabs-nav-operations-hidden"
+                style="margin-bottom: 0px;"
+              >
+                <button
+                  aria-controls="rc-tabs-test-more-popup"
+                  aria-expanded="false"
+                  aria-haspopup="listbox"
+                  aria-hidden="true"
+                  class="ant-tabs-nav-more"
+                  id="rc-tabs-test-more"
+                  style="visibility: hidden; order: 1;"
+                  tabindex="-1"
+                  type="button"
+                >
+                  <span
+                    aria-label="ellipsis"
+                    class="anticon anticon-ellipsis"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="ellipsis"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M176 511a56 56 0 10112 0 56 56 0 10-112 0zm280 0a56 56 0 10112 0 56 56 0 10-112 0zm280 0a56 56 0 10112 0 56 56 0 10-112 0z"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </div>
+            </div>
+            <div
+              class="ant-tabs-content-holder"
+            >
+              <div
+                class="ant-tabs-content ant-tabs-content-top"
+              >
+                <div
+                  aria-hidden="false"
+                  aria-labelledby="rc-tabs-test-tab-1"
+                  class="ant-tabs-tabpane ant-tabs-tabpane-active"
+                  id="rc-tabs-test-panel-1"
+                  role="tabpanel"
+                  tabindex="0"
+                >
+                  <div
+                    class="__ContentBox__ h-100 "
+                  >
+                    <div
+                      class="ant-card ant-card-bordered h-100"
+                    >
+                      <div
+                        class="ant-card-body"
+                      >
+                        <div
+                          class="pa2"
+                        >
+                          <div>
+                            <div
+                              class="ant-list ant-list-split ant-list-something-after-last-item"
+                              data-test-id="pagination-list"
+                            >
+                              <div
+                                class="ant-spin-nested-loading"
+                              >
+                                <div
+                                  class="ant-spin-container"
+                                >
+                                  <div
+                                    class="ant-list-empty-text"
+                                  >
+                                    <div
+                                      class="ant-empty ant-empty-normal"
+                                    >
+                                      <div
+                                        class="ant-empty-image"
+                                      >
+                                        <svg
+                                          class="ant-empty-img-simple"
+                                          height="41"
+                                          viewBox="0 0 64 41"
+                                          width="64"
+                                          xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                          <g
+                                            fill="none"
+                                            fill-rule="evenodd"
+                                            transform="translate(0 1)"
+                                          >
+                                            <ellipse
+                                              class="ant-empty-img-simple-ellipse"
+                                              cx="32"
+                                              cy="33"
+                                              rx="32"
+                                              ry="7"
+                                            />
+                                            <g
+                                              class="ant-empty-img-simple-g"
+                                              fill-rule="nonzero"
+                                            >
+                                              <path
+                                                d="M55 12.76L44.854 1.258C44.367.474 43.656 0 42.907 0H21.093c-.749 0-1.46.474-1.947 1.257L9 12.761V22h46v-9.24z"
+                                              />
+                                              <path
+                                                class="ant-empty-img-simple-path"
+                                                d="M41.613 15.931c0-1.605.994-2.93 2.227-2.931H55v18.137C55 33.26 53.68 35 52.05 35h-40.1C10.32 35 9 33.259 9 31.137V13h11.16c1.233 0 2.227 1.323 2.227 2.928v.022c0 1.605 1.005 2.901 2.237 2.901h14.752c1.232 0 2.237-1.308 2.237-2.913v-.007z"
+                                              />
+                                            </g>
+                                          </g>
+                                        </svg>
+                                      </div>
+                                      <div
+                                        class="ant-empty-description"
+                                      >
+                                        No Data
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div
+                                class="ant-list-footer"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="ant-row ant-row-space-between actions ph2"
+                        >
+                          <div
+                            class="ant-col"
+                          />
+                          <div
+                            class="ant-col"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

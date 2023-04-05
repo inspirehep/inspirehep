@@ -18,6 +18,8 @@ import SeminarStartDateFilterContainer from './SeminarStartDateFilterContainer';
 import VerticalDivider from '../../common/VerticalDivider';
 import SeminarTimezone from '../components/SeminarTimezone';
 import { doTimezonesHaveDifferentTimes } from '../../common/utils';
+import { APIButton } from '../../common/components/APIButton';
+import { isSuperUser } from '../../common/authorization';
 
 function SeminarSearch({
   loading,
@@ -26,6 +28,7 @@ function SeminarSearch({
   namespace,
   enableDateFilter,
   embedded,
+  isSuperUserLoggedIn,
 }) {
   const renderAggregations = useCallback(
     () => (
@@ -88,6 +91,9 @@ function SeminarSearch({
               ) : (
                 <SeminarTimezone timezone={timezone} />
               )}
+              {isSuperUserLoggedIn && (
+                <APIButton url={window.location.href} />
+              )}
             </Col>
             <Col xs={12} lg={0}>
               <ResponsiveView
@@ -133,6 +139,7 @@ SeminarSearch.propTypes = {
 };
 
 const stateToProps = (state, { namespace }) => ({
+  isSuperUserLoggedIn: isSuperUser(state.user.getIn(['data', 'roles'])),
   loading: state.search.getIn(['namespaces', namespace, 'loading']),
   loadingAggregations: state.search.getIn([
     'namespaces',

@@ -11,6 +11,8 @@ import LoadingOrChildren from '../../common/components/LoadingOrChildren';
 import DocumentHead from '../../common/components/DocumentHead';
 import { AUTHORS_NS } from '../../search/constants';
 import { SEARCH_PAGE_GUTTER } from '../../common/constants';
+import { APIButton } from '../../common/components/APIButton';
+import { isSuperUser } from '../../common/authorization';
 
 const META_DESCRIPTION = 'Find authors in High Energy Physics';
 const TITLE = 'Authors Search';
@@ -26,7 +28,7 @@ class SearchPage extends Component {
   }
 
   render() {
-    const { loading } = this.props;
+    const { loading, isSuperUserLoggedIn } = this.props;
     return (
       <>
         <DocumentHead title={TITLE} description={META_DESCRIPTION} />
@@ -41,6 +43,9 @@ class SearchPage extends Component {
               <Row>
                 <Col>
                   <NumberOfResultsContainer namespace={AUTHORS_NS} />
+                  {isSuperUserLoggedIn && (
+                      <APIButton url={window.location.href} />
+                    )}
                 </Col>
               </Row>
               <Row>
@@ -66,6 +71,7 @@ SearchPage.propTypes = {
 
 const stateToProps = (state) => ({
   loading: state.search.getIn(['namespaces', AUTHORS_NS, 'loading']),
+  isSuperUserLoggedIn: isSuperUser(state.user.getIn(['data', 'roles'])),
 });
 
 export default connect(stateToProps)(SearchPage);

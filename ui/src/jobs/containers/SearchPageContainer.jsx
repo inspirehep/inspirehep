@@ -15,6 +15,8 @@ import JobItem from '../components/JobItem';
 import SubscribeJobsModalButton from '../components/SubscribeJobsModalButton';
 import DocumentHead from '../../common/components/DocumentHead';
 import { JOBS_NS } from '../../search/constants';
+import { APIButton } from '../../common/components/APIButton';
+import { isSuperUser } from '../../common/authorization';
 
 const META_DESCRIPTION =
   'Jobs in High-Energy Physics. A listing of academic and research jobs of interest to the community in high energy physics, nuclear physics, accelerator physics and astrophysics.';
@@ -78,7 +80,7 @@ class SearchPage extends Component {
 
   // TODO: investigate if it is better to use `Context` to pass namespace rather than props
   render() {
-    const { loading } = this.props;
+    const { loading, isSuperUserLoggedIn } = this.props;
     return (
       <>
         <DocumentHead title={TITLE} description={META_DESCRIPTION} />
@@ -94,6 +96,9 @@ class SearchPage extends Component {
                 <Row type="flex" align="middle" justify="end">
                   <Col xs={12} lg={12}>
                     <NumberOfResultsContainer namespace={JOBS_NS} />
+                    {isSuperUserLoggedIn && (
+                      <APIButton url={window.location.href} />
+                    )}
                   </Col>
                   <Col className="tr" xs={12} lg={0}>
                     <ResponsiveView
@@ -135,6 +140,7 @@ SearchPage.propTypes = {
 };
 
 const stateToProps = state => ({
+  isSuperUserLoggedIn: isSuperUser(state.user.getIn(['data', 'roles'])),
   loading: state.search.getIn(['namespaces', JOBS_NS, 'loading']),
   loadingAggregations: state.search.getIn([
     'namespaces',

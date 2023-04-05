@@ -120,7 +120,7 @@ export const fetchLiterature = generateRecordFetchAction({
 });
 
 export function fetchLiteratureReferences(
-  recordId: string,
+  recordId: number,
   newQuery = {}
 ): (
   dispatch: ActionCreator<Action>,
@@ -159,7 +159,7 @@ export function fetchLiteratureReferences(
 }
 
 export function fetchLiteratureAuthors(
-  recordId: string
+  recordId: number
 ): (
   dispatch: ActionCreator<Action>,
   getState: () => RootStateOrAny,

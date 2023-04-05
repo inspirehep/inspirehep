@@ -33,8 +33,8 @@ const pidTypeToEditRoutePrefix = {
 interface EditRecordActionProps {
   pidType: PidType;
   pidValue: PidValue;
-  isCatalogerLoggedIn: boolean;
   page: string;
+  isCatalogerLoggedIn?: boolean;
 }
 
 export default function EditRecordAction({

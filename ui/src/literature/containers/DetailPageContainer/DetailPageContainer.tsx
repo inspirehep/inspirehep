@@ -1,6 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { connect, RootStateOrAny } from 'react-redux';
 import { Row, Col, Tabs } from 'antd';
 import { Map, List } from 'immutable';
 import classNames from 'classnames';
@@ -56,6 +55,8 @@ import HiddenCollectionAlert from '../../components/LiteratureCollectionBanner';
 import AssignLiteratureItemDrawerContainer from '../AssignLiteratureItemDrawerContainer';
 import LiteratureClaimButton from '../../components/LiteratureClaimButton';
 import PersistentIdentifiers from '../../components/PersistentIdentifiers';
+import { APIButton } from '../../../common/components/APIButton';
+import { isSuperUser } from '../../../common/authorization';
 
 function DetailPage({
   authors,
@@ -65,12 +66,22 @@ function DetailPage({
   seminarsCount,
   loggedIn,
   hasAuthorProfile,
+  isSuperUserLoggedIn,
+}: {
+  authors: List<any>,
+  record: Map<string, any>,
+  referencesCount: string | number,
+  supervisors: List<any>,
+  seminarsCount: number,
+  loggedIn: boolean,
+  hasAuthorProfile: boolean,
+  isSuperUserLoggedIn: boolean,
 }) {
   const metadata = record.get('metadata');
 
   const title = metadata.getIn(['titles', 0]);
   const date = metadata.get('date');
-  const controlNumber = metadata.get('control_number');
+  const controlNumber = metadata.get('control_number') as number;
   const thesisInfo = metadata.get('thesis_info');
   const isbns = metadata.get('isbns');
   const imprint = metadata.get('imprints');
@@ -104,7 +115,7 @@ function DetailPage({
   const datasetLinks = metadata.get('dataset_links');
 
   const publicationInfoWithTitle = publicationInfo
-    ? publicationInfo.filter((pub) => pub.has('journal_title'))
+    ? publicationInfo.filter((pub: Map<string, any>) => pub.has('journal_title'))
     : null;
 
   return (
@@ -119,14 +130,13 @@ function DetailPage({
         metadata={metadata}
         created={record.get('created')}
       />
-      <Row className="__DetailPage__" type="flex" justify="center">
+      <Row className="__DetailPage__" justify="center">
         <Col xs={24} md={22} lg={21} xxl={18}>
-          <Row className="mv3" type="flex" justify="center">
+          <Row className="mv3" justify="center">
             <Col span={24}>{hiddenCollection && <HiddenCollectionAlert />}</Col>
           </Row>
           <Row
             className="mv3"
-            type="flex"
             justify="center"
             gutter={{ xs: 0, lg: 16, xl: 32 }}
           >
@@ -153,10 +163,8 @@ function DetailPage({
                         page="Literature detail"
                       />
                     )}
-                    <CiteModalActionContainer
-                      recordId={controlNumber}
-                      page="Literature detail"
-                    />
+                    { /* @ts-ignore */}
+                    <CiteModalActionContainer recordId={controlNumber} page="Literature detail" />
                     <LiteratureClaimButton
                       loggedIn={loggedIn}
                       hasAuthorProfile={hasAuthorProfile}
@@ -179,6 +187,9 @@ function DetailPage({
                         trackerEventId="Dataset links"
                         page="Literature detail"
                       />
+                    )}
+                    {isSuperUserLoggedIn && (
+                      <APIButton url={window.location.href} />
                     )}
                   </>
                 }
@@ -341,15 +352,7 @@ function DetailPage({
   );
 }
 
-DetailPage.propTypes = {
-  record: PropTypes.instanceOf(Map).isRequired,
-  authors: PropTypes.instanceOf(List).isRequired,
-  referencesCount: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-    .isRequired,
-  supervisors: PropTypes.instanceOf(List),
-};
-
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: RootStateOrAny) => ({
   record: state.literature.get('data'),
   authors: state.literature.get('authors'),
   supervisors: state.literature.get('supervisors'),
@@ -367,6 +370,7 @@ const mapStateToProps = (state) => ({
   loggedIn: state.user.get('loggedIn'),
   hasAuthorProfile:
     state.user.getIn(['data', 'profile_control_number']) !== null,
+  isSuperUserLoggedIn: isSuperUser(state.user.getIn(['data', 'roles'])),
 });
 
 const DetailPageContainer = connect(mapStateToProps)(DetailPage);

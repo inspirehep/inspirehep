@@ -1,7 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, RootStateOrAny } from 'react-redux';
 import { Row, Col } from 'antd';
-import { List, Map } from 'immutable';
+import { Map } from 'immutable';
 
 import PaginationContainer from '../../common/containers/PaginationContainer';
 import ResultsContainer from '../../common/containers/ResultsContainer';
@@ -11,7 +11,8 @@ import DocumentHead from '../../common/components/DocumentHead';
 import { JOURNALS_NS } from '../../search/constants';
 import { SEARCH_PAGE_GUTTER } from '../../common/constants';
 import { JournalItem } from '../components/JournalItem';
-import { isCataloger } from '../../common/authorization';
+import { isCataloger, isSuperUser } from '../../common/authorization';
+import { APIButton } from '../../common/components/APIButton';
 
 const META_DESCRIPTION = 'Find journals publishing about High Energy Physics';
 const TITLE = 'Journals Search';
@@ -33,21 +34,14 @@ export interface Journal {
   };
 }
 
-interface RootState {
-  search: {
-    getIn: (values: [string, string, string]) => boolean;
-  };
-  user: {
-    getIn: (values: [string, string]) => List<string>;
-  };
-}
-
 export const JournalSearchPage = ({
   loading,
   isCatalogerLoggedIn,
+  isSuperUserLoggedIn
 }: {
   loading: boolean;
   isCatalogerLoggedIn: boolean;
+  isSuperUserLoggedIn: boolean;
 }) => {
   const renderJournalItem = (result: Journal, correctUserRole: boolean) => (
     <JournalItem result={result} isCatalogerLoggedIn={correctUserRole} />
@@ -61,21 +55,20 @@ export const JournalSearchPage = ({
           <LoadingOrChildren loading={loading}>
             <Row>
               <Col>
-              {/* @ts-ignore */}
                 <NumberOfResultsContainer namespace={JOURNALS_NS} />
+                {isSuperUserLoggedIn && (
+                  <APIButton url={window.location.href} />
+                )}
               </Col>
             </Row>
             <Row>
               <Col span={24}>
                 <ResultsContainer
-                  // @ts-ignore
                   namespace={JOURNALS_NS}
-                  // @ts-ignore
-                  renderItem={(item) =>
+                  renderItem={(item: Journal) =>
                     renderJournalItem(item, isCatalogerLoggedIn)
                   }
                 />
-                {/* @ts-ignore */}
                 <PaginationContainer namespace={JOURNALS_NS} />
               </Col>
             </Row>
@@ -86,9 +79,10 @@ export const JournalSearchPage = ({
   );
 };
 
-const stateToProps = (state: RootState) => ({
+const stateToProps = (state: RootStateOrAny) => ({
   loading: state.search.getIn(['namespaces', JOURNALS_NS, 'loading']),
   isCatalogerLoggedIn: isCataloger(state.user.getIn(['data', 'roles'])),
+  isSuperUserLoggedIn: isSuperUser(state.user.getIn(['data', 'roles'])),
 });
 
 export default connect(stateToProps)(JournalSearchPage);

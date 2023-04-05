@@ -14,6 +14,8 @@ import { EXPERIMENTS_NS } from '../../search/constants';
 import AggregationFiltersContainer from '../../common/containers/AggregationFiltersContainer';
 import ResponsiveView from '../../common/components/ResponsiveView';
 import DrawerHandle from '../../common/components/DrawerHandle';
+import { APIButton } from '../../common/components/APIButton';
+import { isSuperUser } from '../../common/authorization';
 
 const META_DESCRIPTION = 'Find experiments in High Energy Physics';
 const TITLE = 'Experiments Search';
@@ -22,7 +24,7 @@ function renderExperimentItem(result) {
   return <ExperimentItem metadata={result.get('metadata')} />;
 }
 
-function ExperimentSearchPage({ loading, loadingAggregations }) {
+function ExperimentSearchPage({ loading, loadingAggregations, isSuperUserLoggedIn }) {
   const renderAggregations = useCallback(
     () => (
       <LoadingOrChildren loading={loadingAggregations}>
@@ -46,6 +48,9 @@ function ExperimentSearchPage({ loading, loadingAggregations }) {
                 <Row>
                   <Col xs={24} lg={12}>
                     <NumberOfResultsContainer namespace={EXPERIMENTS_NS} />
+                    {isSuperUserLoggedIn && (
+                      <APIButton url={window.location.href} />
+                    )}
                   </Col>
                   <Col xs={12} lg={0}>
                     <ResponsiveView
@@ -82,6 +87,7 @@ ExperimentSearchPage.propTypes = {
 };
 
 const stateToProps = state => ({
+  isSuperUserLoggedIn: isSuperUser(state.user.getIn(['data', 'roles'])),
   loading: state.search.getIn(['namespaces', EXPERIMENTS_NS, 'loading']),
   loadingAggregations: state.search.getIn([
     'namespaces',
