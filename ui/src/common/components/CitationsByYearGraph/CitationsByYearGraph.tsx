@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { LineSeries, FlexibleWidthXYPlot, YAxis, XAxis, Hint } from 'react-vis';
+import { LineMarkSeries, FlexibleWidthXYPlot, YAxis, XAxis, Hint, LineMarkSeriesPoint, RVNearestXEventHandler } from 'react-vis';
 import 'react-vis/dist/style.css';
 import maxBy from 'lodash.maxby';
 import { Map } from 'immutable';
@@ -130,26 +130,31 @@ function CitationsByYearGraph({
 
     if (yearOfLastCitation === currentYear) {
       return [
-          <LineSeries
-            sizeType="literal"
-            onNearestX={onGraphMouseOver}
+          <LineMarkSeries
+            onNearestX={onGraphMouseOver as RVNearestXEventHandler<LineMarkSeriesPoint>}
             data={pastYearsSeries}
             color={BLUE}
+            markStyle={{stroke: BLUE}}
+            size={3}
           />,
-          <LineSeries
+          <LineMarkSeries
             data={currentYearSeries}
             color={LIGHT_BLUE}
+            onNearestX={onGraphMouseOver as RVNearestXEventHandler<LineMarkSeriesPoint>}
             // @ts-ignore
             strokeDasharray="7 3"
+            markStyle={{stroke: LIGHT_BLUE}}
+            size={3}
           />
       ];
     }
     return (
-      <LineSeries
-        sizeType="literal"
-        onNearestX={onGraphMouseOver}
+      <LineMarkSeries
+        onNearestX={onGraphMouseOver as RVNearestXEventHandler<LineMarkSeriesPoint>}
         data={seriesData}
+        markStyle={{stroke: BLUE}}
         color={BLUE}
+        size={3}
       />
     );
   }
