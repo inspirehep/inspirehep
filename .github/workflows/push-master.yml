@@ -19,18 +19,12 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
-      - name: generate payload
-        run: |
-          printf \
-          'PAYLOAD={"images":["inspirehep/hep@%s","inspirehep/ui@%s","inspirehep/editor@%s"]}' \
-            "${{ needs.test.outputs.backend-image-id }}" \
-            "${{ needs.test.outputs.ui-image-id }}" \
-            "${{ needs.test.outputs.editor-image-id }}" \
-          >>$GITHUB_ENV
-
       - name: send event
         uses: cern-sis/gh-workflows/.github/actions/kubernetes-project-update@main
         with:
-          images: ${{ env.PAYLOAD }}
+          images: |
+            "inspirehep/hep@${{ needs.test.outputs.backend-image-id }}"
+            "inspirehep/ui@${{ needs.test.outputs.ui-image-id }}"
+            "inspirehep/editor@${{ needs.test.outputs.editor-image-id }}"
           token: ${{ secrets.PAT_FIRE_EVENTS_ON_CERN_SIS_KUBERNETES }}
 
