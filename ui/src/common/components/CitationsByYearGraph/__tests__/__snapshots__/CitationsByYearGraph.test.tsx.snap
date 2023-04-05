@@ -151,12 +151,39 @@ exports[`CitationsByYearGraph renders citations for less than 3 years with dummy
               </g>
             </g>
           </g>
-          <path
-            class="rv-xy-plot__series rv-xy-plot__series--line "
-            d="M0,200L-30,200L-60,0"
-            style="opacity: 1; stroke: #1890ff;"
-            transform="translate(40,10)"
-          />
+          <g
+            class="rv-xy-plot__series rv-xy-plot__series--linemark"
+          >
+            <path
+              class="rv-xy-plot__series rv-xy-plot__series--line "
+              d="M0,200L-30,200L-60,0"
+              style="opacity: 1; stroke: #1890ff;"
+              transform="translate(40,10)"
+            />
+            <g
+              class="rv-xy-plot__series rv-xy-plot__series--mark "
+              transform="translate(40,10)"
+            >
+              <circle
+                cx="0"
+                cy="200"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+              <circle
+                cx="-30"
+                cy="200"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+              <circle
+                cx="-60"
+                cy="0"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+            </g>
+          </g>
         </svg>
       </div>
     </div>
@@ -335,12 +362,45 @@ exports[`CitationsByYearGraph renders citations for less than 5 different citati
               </g>
             </g>
           </g>
-          <path
-            class="rv-xy-plot__series rv-xy-plot__series--line "
-            d="M0,0L-20,0L-40,100L-60,100"
-            style="opacity: 1; stroke: #1890ff;"
-            transform="translate(40,10)"
-          />
+          <g
+            class="rv-xy-plot__series rv-xy-plot__series--linemark"
+          >
+            <path
+              class="rv-xy-plot__series rv-xy-plot__series--line "
+              d="M0,0L-20,0L-40,100L-60,100"
+              style="opacity: 1; stroke: #1890ff;"
+              transform="translate(40,10)"
+            />
+            <g
+              class="rv-xy-plot__series rv-xy-plot__series--mark "
+              transform="translate(40,10)"
+            >
+              <circle
+                cx="0"
+                cy="0"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+              <circle
+                cx="-20"
+                cy="0"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+              <circle
+                cx="-40"
+                cy="100"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+              <circle
+                cx="-60"
+                cy="100"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+            </g>
+          </g>
         </svg>
       </div>
     </div>
@@ -559,12 +619,45 @@ exports[`CitationsByYearGraph renders citations for more than 3 less than 8 year
               </g>
             </g>
           </g>
-          <path
-            class="rv-xy-plot__series rv-xy-plot__series--line "
-            d="M0,164.28571428571428L-20,182.14285714285714L-40,0L-60,82.14285714285714"
-            style="opacity: 1; stroke: #1890ff;"
-            transform="translate(40,10)"
-          />
+          <g
+            class="rv-xy-plot__series rv-xy-plot__series--linemark"
+          >
+            <path
+              class="rv-xy-plot__series rv-xy-plot__series--line "
+              d="M0,164.28571428571428L-20,182.14285714285714L-40,0L-60,82.14285714285714"
+              style="opacity: 1; stroke: #1890ff;"
+              transform="translate(40,10)"
+            />
+            <g
+              class="rv-xy-plot__series rv-xy-plot__series--mark "
+              transform="translate(40,10)"
+            >
+              <circle
+                cx="0"
+                cy="164.28571428571428"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+              <circle
+                cx="-20"
+                cy="182.14285714285714"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+              <circle
+                cx="-40"
+                cy="0"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+              <circle
+                cx="-60"
+                cy="82.14285714285714"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+            </g>
+          </g>
         </svg>
       </div>
     </div>
@@ -803,12 +896,117 @@ exports[`CitationsByYearGraph renders filling missing years with 0 1`] = `
               </g>
             </g>
           </g>
-          <path
-            class="rv-xy-plot__series rv-xy-plot__series--line "
-            d="M0,153.48837209302326L-4,200L-8,200L-12,200L-16,200L-20,200L-24,200L-28,200L-32,200L-36,200L-40,200L-44,200L-48,200L-52,200L-56,0L-60,176.74418604651163"
-            style="opacity: 1; stroke: #1890ff;"
-            transform="translate(40,10)"
-          />
+          <g
+            class="rv-xy-plot__series rv-xy-plot__series--linemark"
+          >
+            <path
+              class="rv-xy-plot__series rv-xy-plot__series--line "
+              d="M0,153.48837209302326L-4,200L-8,200L-12,200L-16,200L-20,200L-24,200L-28,200L-32,200L-36,200L-40,200L-44,200L-48,200L-52,200L-56,0L-60,176.74418604651163"
+              style="opacity: 1; stroke: #1890ff;"
+              transform="translate(40,10)"
+            />
+            <g
+              class="rv-xy-plot__series rv-xy-plot__series--mark "
+              transform="translate(40,10)"
+            >
+              <circle
+                cx="0"
+                cy="153.48837209302326"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+              <circle
+                cx="-4"
+                cy="200"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+              <circle
+                cx="-8"
+                cy="200"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+              <circle
+                cx="-12"
+                cy="200"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+              <circle
+                cx="-16"
+                cy="200"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+              <circle
+                cx="-20"
+                cy="200"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+              <circle
+                cx="-24"
+                cy="200"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+              <circle
+                cx="-28"
+                cy="200"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+              <circle
+                cx="-32"
+                cy="200"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+              <circle
+                cx="-36"
+                cy="200"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+              <circle
+                cx="-40"
+                cy="200"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+              <circle
+                cx="-44"
+                cy="200"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+              <circle
+                cx="-48"
+                cy="200"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+              <circle
+                cx="-52"
+                cy="200"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+              <circle
+                cx="-56"
+                cy="0"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+              <circle
+                cx="-60"
+                cy="176.74418604651163"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+            </g>
+          </g>
         </svg>
       </div>
     </div>
@@ -1109,12 +1307,123 @@ exports[`CitationsByYearGraph renders more than 8 years without explicit tickVal
               </g>
             </g>
           </g>
-          <path
-            class="rv-xy-plot__series rv-xy-plot__series--line "
-            d="M0,183.739837398374L-3.75,191.869918699187L-7.5,191.869918699187L-11.25,188.6178861788618L-15,191.869918699187L-18.75,108.9430894308943L-22.5,177.2357723577236L-26.25,0L-30,17.886178861788625L-33.75,55.284552845528445L-37.5,151.21951219512195L-41.25,37.398373983739845L-45,138.21138211382114L-48.75,200L-52.5,200L-56.25,130.0813008130081L-60,191.869918699187"
-            style="opacity: 1; stroke: #1890ff;"
-            transform="translate(40,10)"
-          />
+          <g
+            class="rv-xy-plot__series rv-xy-plot__series--linemark"
+          >
+            <path
+              class="rv-xy-plot__series rv-xy-plot__series--line "
+              d="M0,183.739837398374L-3.75,191.869918699187L-7.5,191.869918699187L-11.25,188.6178861788618L-15,191.869918699187L-18.75,108.9430894308943L-22.5,177.2357723577236L-26.25,0L-30,17.886178861788625L-33.75,55.284552845528445L-37.5,151.21951219512195L-41.25,37.398373983739845L-45,138.21138211382114L-48.75,200L-52.5,200L-56.25,130.0813008130081L-60,191.869918699187"
+              style="opacity: 1; stroke: #1890ff;"
+              transform="translate(40,10)"
+            />
+            <g
+              class="rv-xy-plot__series rv-xy-plot__series--mark "
+              transform="translate(40,10)"
+            >
+              <circle
+                cx="0"
+                cy="183.739837398374"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+              <circle
+                cx="-3.75"
+                cy="191.869918699187"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+              <circle
+                cx="-7.5"
+                cy="191.869918699187"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+              <circle
+                cx="-11.25"
+                cy="188.6178861788618"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+              <circle
+                cx="-15"
+                cy="191.869918699187"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+              <circle
+                cx="-18.75"
+                cy="108.9430894308943"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+              <circle
+                cx="-22.5"
+                cy="177.2357723577236"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+              <circle
+                cx="-26.25"
+                cy="0"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+              <circle
+                cx="-30"
+                cy="17.886178861788625"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+              <circle
+                cx="-33.75"
+                cy="55.284552845528445"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+              <circle
+                cx="-37.5"
+                cy="151.21951219512195"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+              <circle
+                cx="-41.25"
+                cy="37.398373983739845"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+              <circle
+                cx="-45"
+                cy="138.21138211382114"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+              <circle
+                cx="-48.75"
+                cy="200"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+              <circle
+                cx="-52.5"
+                cy="200"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+              <circle
+                cx="-56.25"
+                cy="130.0813008130081"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+              <circle
+                cx="-60"
+                cy="191.869918699187"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+            </g>
+          </g>
         </svg>
       </div>
     </div>
@@ -1333,18 +1642,66 @@ exports[`CitationsByYearGraph renders two citations graphs when current year cit
               </g>
             </g>
           </g>
-          <path
-            class="rv-xy-plot__series rv-xy-plot__series--line "
-            d="M0,169.6969696969697L-20,103.03030303030303L-40,0"
-            style="opacity: 1; stroke: #1890ff;"
-            transform="translate(40,10)"
-          />
-          <path
-            class="rv-xy-plot__series rv-xy-plot__series--line "
-            d="M-40,0L-60,139.3939393939394"
-            style="opacity: 1; stroke-dasharray: 7 3; stroke: #1890FF99;"
-            transform="translate(40,10)"
-          />
+          <g
+            class="rv-xy-plot__series rv-xy-plot__series--linemark"
+          >
+            <path
+              class="rv-xy-plot__series rv-xy-plot__series--line "
+              d="M0,169.6969696969697L-20,103.03030303030303L-40,0"
+              style="opacity: 1; stroke: #1890ff;"
+              transform="translate(40,10)"
+            />
+            <g
+              class="rv-xy-plot__series rv-xy-plot__series--mark "
+              transform="translate(40,10)"
+            >
+              <circle
+                cx="0"
+                cy="169.6969696969697"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+              <circle
+                cx="-20"
+                cy="103.03030303030303"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+              <circle
+                cx="-40"
+                cy="0"
+                r="3"
+                style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+              />
+            </g>
+          </g>
+          <g
+            class="rv-xy-plot__series rv-xy-plot__series--linemark"
+          >
+            <path
+              class="rv-xy-plot__series rv-xy-plot__series--line "
+              d="M-40,0L-60,139.3939393939394"
+              style="opacity: 1; stroke-dasharray: 7 3; stroke: #1890FF99;"
+              transform="translate(40,10)"
+            />
+            <g
+              class="rv-xy-plot__series rv-xy-plot__series--mark "
+              transform="translate(40,10)"
+            >
+              <circle
+                cx="-40"
+                cy="0"
+                r="3"
+                style="opacity: 1; stroke: #1890FF99; fill: #1890FF99; stroke-width: 1;"
+              />
+              <circle
+                cx="-60"
+                cy="139.3939393939394"
+                r="3"
+                style="opacity: 1; stroke: #1890FF99; fill: #1890FF99; stroke-width: 1;"
+              />
+            </g>
+          </g>
         </svg>
       </div>
     </div>
