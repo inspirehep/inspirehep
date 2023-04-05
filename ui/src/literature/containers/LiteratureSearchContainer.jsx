@@ -21,7 +21,7 @@ import CitationSummarySwitchContainer, {
   isCitationSummaryEnabled,
 } from './CitationSummarySwitchContainer';
 import { SEARCH_PAGE_GUTTER } from '../../common/constants';
-import { isCataloger } from '../../common/authorization';
+import { isCataloger, isSuperUser } from '../../common/authorization';
 import CitationSummaryBox from '../components/CitationSummaryBox';
 import PublicationSelectContainer from '../../authors/containers/PublicationSelectContainer';
 import PublicationsSelectAllContainer from '../../authors/containers/PublicationsSelectAllContainer';
@@ -39,6 +39,7 @@ import LiteratureSelectContainer from './LiteratureSelectContainer';
 import AssignAllDifferentProfileActionContainer from '../../authors/containers/AssignAllDifferentProfileActionContainer';
 import AssignNoProfileAction from '../../authors/components/AssignNoProfileAction';
 import ClaimingDisabledButton from '../../authors/components/ClaimingDisabledButton';
+import { APIButton } from '../../common/components/APIButton';
 
 function LiteratureSearch({
   loading,
@@ -55,6 +56,7 @@ function LiteratureSearch({
   enableCitationSummary,
   numberOfSelected,
   page,
+  isSuperUserLoggedIn
 }) {
   const renderAggregations = useCallback(
     () => (
@@ -149,6 +151,9 @@ function LiteratureSearch({
                 {assignNoProfileViewCondition && <AssignNoProfileAction />}
                 {assignNotLoggedInViewCondition && <ClaimingDisabledButton />}
                 {assignConferenceView && <ToolActionContainer />}
+                {isSuperUserLoggedIn && (
+                  <APIButton url={window.location.href} />
+                )}
               </Col>
               <Col xs={8} lg={0}>
                 <ResponsiveView
@@ -280,6 +285,7 @@ const stateToProps = (state, { namespace }) => ({
   results: state.search.getIn(['namespaces', namespace, 'results']),
   isCitationSummaryVisible: isCitationSummaryEnabled(state),
   isCatalogerLoggedIn: isCataloger(state.user.getIn(['data', 'roles'])),
+  isSuperUserLoggedIn: isSuperUser(state.user.getIn(['data', 'roles'])),
 });
 
 const dispatchToProps = (dispatch) => ({

@@ -26,11 +26,12 @@ import ExperimentPapers from './ExperimentPapers';
 import { makeCompliantMetaDescription } from '../../common/utils';
 import { EXPERIMENT_PAPERS_NS } from '../../search/constants';
 import { EXPERIMENTS_PID_TYPE } from '../../common/constants';
-import { SUPERUSER_OR_CATALOGER } from '../../common/authorization';
+import { SUPERUSER_OR_CATALOGER, isSuperUser } from '../../common/authorization';
 import AuthorizedContainer from '../../common/containers/AuthorizedContainer';
 import EditRecordAction from '../../common/components/EditRecordAction';
+import { APIButton } from '../../common/components/APIButton';
 
-function DetailPage({ record }) {
+function DetailPage({ record, isSuperUserLoggedIn }) {
   const metadata = record.get('metadata');
 
   const legacyName = metadata.get('legacy_name');
@@ -79,6 +80,9 @@ function DetailPage({ record }) {
                     page="Experiments detail"
                   />
                 </AuthorizedContainer>
+                {isSuperUserLoggedIn && (
+                  <APIButton url={window.location.href} />
+                )}
               </>
             }
           >
@@ -231,6 +235,7 @@ DetailPage.propTypes = {
 
 const mapStateToProps = (state) => ({
   record: state.experiments.get('data'),
+  isSuperUserLoggedIn: isSuperUser(state.user.getIn(['data', 'roles'])),
 });
 const DetailPageContainer = connect(mapStateToProps)(DetailPage);
 

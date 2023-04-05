@@ -29,8 +29,10 @@ import { LOCAL_TIMEZONE, SEMINARS_PID_TYPE } from '../../common/constants';
 import ExportToCalendarAction from '../components/ExportToCalendarAction/ExportToCalendarAction';
 import UrlsAction from '../../literature/components/UrlsAction';
 import LiteratureRecordsList from '../components/LiteratureRecordsList';
+import { isSuperUser } from '../../common/authorization';
+import { APIButton } from '../../common/components/APIButton';
 
-function DetailPage({ record }) {
+function DetailPage({ record, isSuperUserLoggedIn }) {
   const metadata = record.get('metadata');
   const title = metadata.get('title');
   const recordId = metadata.get('control_number');
@@ -102,6 +104,9 @@ function DetailPage({ record }) {
                     pidValue={recordId}
                     page="Seminar detail"
                   />
+                )}
+                {isSuperUserLoggedIn && (
+                  <APIButton url={window.location.href} />
                 )}
               </>
             }
@@ -224,6 +229,7 @@ DetailPage.propTypes = {
 
 const mapStateToProps = (state) => ({
   record: state.seminars.get('data'),
+  isSuperUserLoggedIn: isSuperUser(state.user.getIn(['data', 'roles'])),
 });
 const DetailPageContainer = connect(mapStateToProps)(DetailPage);
 

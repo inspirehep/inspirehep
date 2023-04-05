@@ -29,8 +29,10 @@ import DeletedAlert from '../../common/components/DeletedAlert';
 import { makeCompliantMetaDescription } from '../../common/utils';
 import withRouteActionsDispatcher from '../../common/withRouteActionsDispatcher';
 import RequireOneOf from '../../common/components/RequireOneOf';
+import { isSuperUser } from '../../common/authorization';
+import { APIButton } from '../../common/components/APIButton';
 
-function DetailPage({ record }) {
+function DetailPage({ record, isSuperUserLoggedIn }) {
   const metadata = record.get('metadata');
   const created = record.get('created');
   const updated = record.get('updated');
@@ -59,11 +61,14 @@ function DetailPage({ record }) {
       <Row type="flex" justify="center">
         <Col className="mt3" xs={24} md={21} lg={19} xl={18}>
           <ContentBox
-            leftActions={
+            leftActions={[
               canEdit && (
                 <EditRecordAction pidType="jobs" pidValue={controlNumber} page="Jobs detail" />
+              ),
+              isSuperUserLoggedIn && (
+                <APIButton url={window.location.href} />
               )
-            }
+            ]}
           >
             <Row>
               <Col span={24}>{deleted && <DeletedAlert />}</Col>
@@ -149,6 +154,7 @@ DetailPage.propTypes = {
 const mapStateToProps = state => ({
   loading: state.jobs.get('loading'),
   record: state.jobs.get('data'),
+  isSuperUserLoggedIn: isSuperUser(state.user.getIn(['data', 'roles'])),
 });
 
 const DetailPageContainer = connect(mapStateToProps)(DetailPage);

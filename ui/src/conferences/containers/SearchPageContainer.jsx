@@ -16,6 +16,8 @@ import { CONFERENCES_NS } from '../../search/constants';
 import ConferenceItem from '../components/ConferenceItem';
 import ConferenceStartDateFilterContainer from './ConferenceStartDateFilterContainer';
 import { SEARCH_PAGE_GUTTER } from '../../common/constants';
+import { APIButton } from '../../common/components/APIButton';
+import { isSuperUser } from '../../common/authorization';
 
 const META_DESCRIPTION = 'Find conferences in High Energy Physics';
 const TITLE = 'Conferences Search';
@@ -24,7 +26,7 @@ function renderConferenceItem(result) {
   return <ConferenceItem metadata={result.get('metadata')} />;
 }
 
-function ConferenceSearchPage({ loading, loadingAggregations }) {
+function ConferenceSearchPage({ loading, loadingAggregations, isSuperUserLoggedIn }) {
   const renderAggregations = useCallback(
     () => (
       <>
@@ -56,6 +58,9 @@ function ConferenceSearchPage({ loading, loadingAggregations }) {
                 <Row type="flex" align="middle" justify="end">
                   <Col xs={24} lg={12}>
                     <NumberOfResultsContainer namespace={CONFERENCES_NS} />
+                    {isSuperUserLoggedIn && (
+                      <APIButton url={window.location.href} />
+                    )}
                   </Col>
                   <Col xs={12} lg={0}>
                     <ResponsiveView
@@ -99,6 +104,7 @@ ConferenceSearchPage.propTypes = {
 };
 
 const stateToProps = state => ({
+  isSuperUserLoggedIn: isSuperUser(state.user.getIn(['data', 'roles'])),
   loading: state.search.getIn(['namespaces', CONFERENCES_NS, 'loading']),
   loadingAggregations: state.search.getIn([
     'namespaces',

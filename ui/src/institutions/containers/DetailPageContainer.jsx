@@ -21,14 +21,18 @@ import InstitutionsHistoricalDataList from '../components/InstitutionsHistorical
 import PublicNotesList from '../../common/components/PublicNotesList';
 import InstitutionAddressList from '../components/InstitutionAddressList';
 import AuthorizedContainer from '../../common/containers/AuthorizedContainer';
-import { SUPERUSER_OR_CATALOGER } from '../../common/authorization';
+import {
+  SUPERUSER_OR_CATALOGER,
+  isSuperUser,
+} from '../../common/authorization';
 import { INSTITUTIONS_PID_TYPE } from '../../common/constants';
 import EditRecordAction from '../../common/components/EditRecordAction';
 import RelatedRecordsList from '../../common/components/RelatedRecordsList';
 import UrlsAction from '../../literature/components/UrlsAction';
 import DeletedAlert from '../../common/components/DeletedAlert';
+import { APIButton } from '../../common/components/APIButton';
 
-function DetailPage({ record }) {
+function DetailPage({ record, isSuperUserLoggedIn }) {
   const metadata = record.get('metadata');
 
   const urls = metadata.get('urls');
@@ -59,8 +63,13 @@ function DetailPage({ record }) {
             className="sm-pb3"
             leftActions={
               <>
-                {urls && <UrlsAction urls={urls}               trackerEventId="Institution website"
-              eventCategory="Institution detail"/>}
+                {urls && (
+                  <UrlsAction
+                    urls={urls}
+                    trackerEventId="Institution website"
+                    eventCategory="Institution detail"
+                  />
+                )}
                 <AuthorizedContainer authorizedRoles={SUPERUSER_OR_CATALOGER}>
                   <EditRecordAction
                     pidType={INSTITUTIONS_PID_TYPE}
@@ -68,6 +77,7 @@ function DetailPage({ record }) {
                     page="Institutions detail"
                   />
                 </AuthorizedContainer>
+                {isSuperUserLoggedIn && <APIButton url={window.location.href} />}
               </>
             }
           >
@@ -167,14 +177,18 @@ DetailPage.propTypes = {
   record: PropTypes.instanceOf(Map).isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   record: state.institutions.get('data'),
+  isSuperUserLoggedIn: isSuperUser(state.user.getIn(['data', 'roles'])),
 });
 const DetailPageContainer = connect(mapStateToProps)(DetailPage);
 
 export default withRouteActionsDispatcher(DetailPageContainer, {
   routeParamSelector: ({ id }) => id,
-  routeActions: id => [fetchInstitution(id), newSearch(INSTITUTION_PAPERS_NS)],
-  loadingStateSelector: state =>
+  routeActions: (id) => [
+    fetchInstitution(id),
+    newSearch(INSTITUTION_PAPERS_NS),
+  ],
+  loadingStateSelector: (state) =>
     !state.institutions.hasIn(['data', 'metadata']),
 });

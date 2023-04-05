@@ -11,6 +11,8 @@ import DocumentHead from '../../common/components/DocumentHead';
 import { INSTITUTIONS_NS } from '../../search/constants';
 import { SEARCH_PAGE_GUTTER } from '../../common/constants';
 import InstitutionItem from '../components/InstitutionItem';
+import { isSuperUser } from '../../common/authorization';
+import { APIButton } from '../../common/components/APIButton';
 
 const META_DESCRIPTION = 'Find institutions in High Energy Physics';
 const TITLE = 'Institutions Search';
@@ -19,7 +21,7 @@ function renderInstitutionItem(result) {
   return <InstitutionItem metadata={result.get('metadata')} />;
 }
 
-function InstitutionSearchPage({ loading }) {
+function InstitutionSearchPage({ loading, isSuperUserLoggedIn }) {
   return (
     <>
       <DocumentHead title={TITLE} description={META_DESCRIPTION} />
@@ -34,6 +36,9 @@ function InstitutionSearchPage({ loading }) {
             <Row>
               <Col>
                 <NumberOfResultsContainer namespace={INSTITUTIONS_NS} />
+                {isSuperUserLoggedIn && (
+                  <APIButton url={window.location.href} />
+                )}
               </Col>
             </Row>
             <Row>
@@ -58,6 +63,7 @@ InstitutionSearchPage.propTypes = {
 
 const stateToProps = state => ({
   loading: state.search.getIn(['namespaces', INSTITUTIONS_NS, 'loading']),
+  isSuperUserLoggedIn: isSuperUser(state.user.getIn(['data', 'roles'])),
 });
 
 export default connect(stateToProps)(InstitutionSearchPage);

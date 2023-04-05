@@ -18,10 +18,12 @@ import { JournalTitlesListModal } from '../components/JournalTitlesListModal';
 import EditRecordAction from '../../common/components/EditRecordAction';
 import {
   isCataloger,
+  isSuperUser,
   SUPERUSER_OR_CATALOGER,
 } from '../../common/authorization';
 import AuthorizedContainer from '../../common/containers/AuthorizedContainer';
 import JournalPapers from '../components/JournalPapers';
+import { APIButton } from '../../common/components/APIButton';
 
 interface RootState {
   journals: {
@@ -36,9 +38,11 @@ interface RootState {
 export const DetailPage = ({
   result,
   isCatalogerLoggedIn,
+  isSuperUserLoggedIn,
 }: {
   result: Journal;
   isCatalogerLoggedIn: boolean;
+  isSuperUserLoggedIn: boolean;
 }) => {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
 
@@ -75,7 +79,6 @@ export const DetailPage = ({
                     trackerEventId="Journal website"
                   />
                 )}
-                {/* @ts-ignore */}
                 <AuthorizedContainer authorizedRoles={SUPERUSER_OR_CATALOGER}>
                   <EditRecordAction
                     isCatalogerLoggedIn={isCatalogerLoggedIn}
@@ -84,6 +87,9 @@ export const DetailPage = ({
                     page="Journals detail"
                   />
                 </AuthorizedContainer>
+                {isSuperUserLoggedIn && (
+                  <APIButton url={window.location.href} />
+                )}
               </>
             }
           >
@@ -152,6 +158,7 @@ export const DetailPage = ({
 const mapStateToProps = (state: RootState) => ({
   result: state.journals.get('data'),
   isCatalogerLoggedIn: isCataloger(state.user.getIn(['data', 'roles'])),
+  isSuperUserLoggedIn: isSuperUser(state.user.getIn(['data', 'roles'])),
 });
 
 const DetailPageContainer = connect(mapStateToProps)(DetailPage);
