@@ -28,7 +28,7 @@ jobs:
     needs: push
     steps:
       - name: send event
-        uses: cern-sis/gh-workflows/.github/actions/kubernetes-project-release@main
+        uses: cern-sis/gh-workflows/.github/actions/kubernetes-project-release@v4.0.0
         with:
           images: |
             "inspirehep/hep@${{ needs.test.outputs.backend-image-id }}"
