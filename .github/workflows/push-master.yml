@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: send event
-        uses: cern-sis/gh-workflows/.github/actions/kubernetes-project-update@v4.0.0
+        uses: cern-sis/gh-workflows/.github/actions/kubernetes-project-update@main
         with:
           images: |
             "inspirehep/hep@${{ needs.test.outputs.backend-image-id }}"
