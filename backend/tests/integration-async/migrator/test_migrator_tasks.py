@@ -10,10 +10,11 @@ import pytest
 from elasticsearch import TransportError
 from flask_sqlalchemy import models_committed
 from helpers.providers.faker import faker
-from helpers.utils import create_record_async, retry_until_pass
+from helpers.utils import create_record_async
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
+from tenacity import retry, stop_after_delay, wait_fixed
 
 from inspirehep.migrator.models import LegacyRecordsMirror
 from inspirehep.migrator.tasks import (
@@ -155,13 +156,14 @@ def test_process_references_in_records_process_self_citations(
     )
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(5))
     def assert_records_in_es():
         lit_record_from_es = InspireSearch.get_record_data_from_es(lit_record)
         lit_record_from_es_2 = InspireSearch.get_record_data_from_es(lit_record_2)
         aut_record_from_es = InspireSearch.get_record_data_from_es(author_record)
         assert lit_record_from_es and aut_record_from_es and lit_record_from_es_2
 
-    retry_until_pass(assert_records_in_es, retry_interval=5)
+    assert_records_in_es()
 
     models_committed.disconnect(index_after_commit)
     lit_record["authors"].append(
@@ -219,13 +221,14 @@ def test_process_references_in_records_process_author_records(
 
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(5))
     def assert_records_in_es():
         lit_record_from_es = InspireSearch.get_record_data_from_es(lit_record)
         lit_record_from_es_2 = InspireSearch.get_record_data_from_es(lit_record_2)
         aut_record_from_es = InspireSearch.get_record_data_from_es(author_record)
         assert lit_record_from_es and aut_record_from_es and lit_record_from_es_2
 
-    retry_until_pass(assert_records_in_es, retry_interval=5)
+    assert_records_in_es()
 
     models_committed.disconnect(index_after_commit)
     author_record["name"]["value"] = "Another Name"
@@ -260,13 +263,14 @@ def test_process_references_in_records_process_conference_records(
 
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(5))
     def assert_records_in_es():
         lit_record_from_es = InspireSearch.get_record_data_from_es(lit_record)
         lit_record_from_es_2 = InspireSearch.get_record_data_from_es(lit_record_2)
         aut_record_from_es = InspireSearch.get_record_data_from_es(conf_record)
         assert lit_record_from_es and aut_record_from_es and lit_record_from_es_2
 
-    retry_until_pass(assert_records_in_es, retry_interval=5)
+    assert_records_in_es()
 
     models_committed.disconnect(index_after_commit)
     conf_record["titles"] = [{"title": "Southern California Strings Seminar "}]
@@ -658,6 +662,7 @@ def test_migrate_recids_from_mirror_all_only_with_literature(
 
     migrate_from_mirror(also_migrate="all")
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
     def assert_migrator_task():
         record_citer = InspireRecord.get_record_by_pid_value(
             citer_control_number, "lit"
@@ -678,7 +683,7 @@ def test_migrate_recids_from_mirror_all_only_with_literature(
 
         assert citing_control_number == result_citing_control_number
 
-    retry_until_pass(assert_migrator_task)
+    assert_migrator_task()
 
 
 def test_migrate_recids_from_mirror_all_only_with_literature_author_and_invalid(
@@ -766,6 +771,7 @@ def test_migrate_recids_from_mirror_all_only_with_literature_author_and_invalid(
 
     migrate_from_mirror(also_migrate="all")
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
     def assert_migrator_task():
         record_citer = InspireRecord.get_record_by_pid_value(
             citer_control_number, "lit"
@@ -798,7 +804,7 @@ def test_migrate_recids_from_mirror_all_only_with_literature_author_and_invalid(
         with pytest.raises(PIDDoesNotExistError):
             InspireRecord.get_record_by_pid_value(invalid_control_number, "lit")
 
-    retry_until_pass(assert_migrator_task)
+    assert_migrator_task()
 
 
 def test_process_references_in_records_reindexes_experiments_when_linked_experiments_change(

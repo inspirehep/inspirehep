@@ -6,15 +6,16 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from helpers.providers.faker import faker
-from helpers.utils import retry_until_pass
 from invenio_db import db
 from invenio_search import current_search
+from tenacity import retry, stop_after_delay, wait_fixed
 
 from inspirehep.records.api import DataRecord
 from inspirehep.search.api import DataSearch
 
 
 def test_indexer_deletes_record_from_es(inspire_app):
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
     def assert_record_is_deleted_from_es():
         current_search.flush_and_refresh("records-data")
         expected_records_count = 0
@@ -27,4 +28,4 @@ def test_indexer_deletes_record_from_es(inspire_app):
     record.delete()
     db.session.commit()
 
-    retry_until_pass(assert_record_is_deleted_from_es)
+    assert_record_is_deleted_from_es()

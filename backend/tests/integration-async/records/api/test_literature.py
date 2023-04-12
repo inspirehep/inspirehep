@@ -7,8 +7,8 @@
 import copy
 
 from helpers.providers.faker import faker
-from helpers.utils import retry_until_pass
 from invenio_db import db
+from tenacity import retry, stop_after_delay, wait_fixed
 
 from inspirehep.records.api import ConferencesRecord, LiteratureRecord
 from inspirehep.records.api.base import InspireRecord
@@ -465,17 +465,19 @@ def test_fix_entries_by_update_date(inspire_app, clean_celery_session):
     )
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
     def assert_all_entries_in_db():
         assert len(RecordsAuthors.query.all()) == 4
 
-    retry_until_pass(assert_all_entries_in_db)
+    assert_all_entries_in_db()
 
     LiteratureRecord.fix_entries_by_update_date()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(3))
     def assert_all_entries_in_db():
         assert len(RecordsAuthors.query.all()) == 2
 
-    retry_until_pass(assert_all_entries_in_db, retry_interval=3)
+    assert_all_entries_in_db()
 
 
 def test_failing_with_null_character(inspire_app, clean_celery_session):

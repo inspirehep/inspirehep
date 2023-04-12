@@ -1,9 +1,10 @@
 import orjson
 from helpers.providers.faker import faker
-from helpers.utils import create_user, retry_until_pass
+from helpers.utils import create_user
 from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db
 from invenio_search import current_search
+from tenacity import retry, stop_after_delay, wait_fixed
 
 from inspirehep.accounts.roles import Roles
 from inspirehep.records.api import AuthorsRecord, LiteratureRecord
@@ -45,6 +46,7 @@ def test_assign_regression(inspire_app, datadir, override_config, clean_celery_s
     stub_author_record = AuthorsRecord.get_record_by_pid_value(stub_author_id)
     assert stub_author_record
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(5))
     def assert_get_author_by_recid():
         current_search.flush_and_refresh("*")
         lit_record = LiteratureSearch().get_records_by_pids(
@@ -52,4 +54,4 @@ def test_assign_regression(inspire_app, datadir, override_config, clean_celery_s
         )[0]
         assert get_author_by_recid(lit_record.to_dict(), stub_author_id)
 
-    retry_until_pass(assert_get_author_by_recid, retry_interval=5)
+    assert_get_author_by_recid()

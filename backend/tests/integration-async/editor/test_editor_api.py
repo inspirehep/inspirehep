@@ -9,9 +9,10 @@
 import orjson
 import pytest
 from celery.app.annotations import MapAnnotation, resolve_all
-from helpers.utils import create_record_async, create_user, logout, retry_until_pass
+from helpers.utils import create_record_async, create_user, logout
 from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db
+from tenacity import retry, stop_after_delay, wait_fixed
 
 from inspirehep.accounts.roles import Roles
 from inspirehep.records.api import LiteratureRecord
@@ -351,6 +352,7 @@ def test_editor_locks_are_passed_in_payload_when_another_user_editing(
         record.update(dict(record))
         db.session.commit()
 
+        @retry(stop=stop_after_delay(0.05), wait=wait_fixed(0.3))
         def assert_locks():
             with inspire_app.test_client() as client:
                 login_user_via_session(client, email=user.email)
@@ -362,5 +364,5 @@ def test_editor_locks_are_passed_in_payload_when_another_user_editing(
             assert "task_locks" in response.json
             assert response.json["task_locks"].startswith("Scheduled tasks:")
 
-        retry_until_pass(assert_locks, 0.05)
+        assert_locks()
         resolve_all(celery_task_annotation, disambiguate_authors)

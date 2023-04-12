@@ -7,10 +7,11 @@
 
 from helpers.factories.models.user_access_token import AccessTokenFactory
 from helpers.providers.faker import faker
-from helpers.utils import es_search, retry_until_pass
+from helpers.utils import es_search
 from inspire_utils.record import get_value
 from invenio_db import db
 from invenio_search import current_search
+from tenacity import retry, stop_after_delay, wait_fixed
 
 from inspirehep.records.api import AuthorsRecord, LiteratureRecord
 from inspirehep.search.api import AuthorsSearch, LiteratureSearch
@@ -23,12 +24,13 @@ def test_aut_record_appear_in_es_when_created(inspire_app, clean_celery_session)
 
     expected_control_number = record["control_number"]
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
     def assert_record():
         current_search.flush_and_refresh("records-authors")
         record_from_es = AuthorsSearch().get_record_data_from_es(record)
         assert expected_control_number == record_from_es["control_number"]
 
-    retry_until_pass(assert_record)
+    assert_record()
 
 
 def test_aut_record_update_when_changed(inspire_app, clean_celery_session):
@@ -41,12 +43,13 @@ def test_aut_record_update_when_changed(inspire_app, clean_celery_session):
     rec.update(data)
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
     def assert_record():
         current_search.flush_and_refresh("records-authors")
         record_from_es = AuthorsSearch().get_record_data_from_es(rec)
         assert expected_death_date == record_from_es["death_date"]
 
-    retry_until_pass(assert_record)
+    assert_record()
 
 
 def test_aut_record_removed_form_es_when_deleted(inspire_app, clean_celery_session):
@@ -54,6 +57,7 @@ def test_aut_record_removed_form_es_when_deleted(inspire_app, clean_celery_sessi
     rec = AuthorsRecord.create(data)
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
     def assert_record():
         current_search.flush_and_refresh("records-authors")
         result = es_search("records-authors")
@@ -61,11 +65,12 @@ def test_aut_record_removed_form_es_when_deleted(inspire_app, clean_celery_sessi
         expected_total = 1
         assert expected_total == result_total
 
-    retry_until_pass(assert_record)
+    assert_record()
 
     rec.delete()
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
     def assert_record():
         current_search.flush_and_refresh("records-authors")
         result = es_search("records-authors")
@@ -73,7 +78,7 @@ def test_aut_record_removed_form_es_when_deleted(inspire_app, clean_celery_sessi
         expected_total = 0
         assert expected_total == result_total
 
-    retry_until_pass(assert_record)
+    assert_record()
 
 
 def test_record_created_through_api_is_indexed(inspire_app, clean_celery_session):
@@ -87,6 +92,7 @@ def test_record_created_through_api_is_indexed(inspire_app, clean_celery_session
     )
     assert response.status_code == 201
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
     def assert_record():
         current_search.flush_and_refresh("records-authors")
         result = es_search("records-authors")
@@ -94,7 +100,7 @@ def test_record_created_through_api_is_indexed(inspire_app, clean_celery_session
         expected_total = 1
         assert expected_total == result_total
 
-    retry_until_pass(assert_record)
+    assert_record()
 
 
 def test_indexer_updates_authors_papers_when_name_changes(
@@ -123,12 +129,13 @@ def test_indexer_updates_authors_papers_when_name_changes(
 
     expected_facet_author_name = f"{author['control_number']}_{author['name']['value']}"
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
     def assert_record():
         current_search.flush_and_refresh("records-hep")
         record_from_es = LiteratureSearch().get_record_data_from_es(lit_1)
         assert expected_facet_author_name == record_from_es["facet_author_name"][0]
 
-    retry_until_pass(assert_record)
+    assert_record()
 
     data = dict(author)
     data["name"]["value"] = "Some other name"
@@ -137,12 +144,13 @@ def test_indexer_updates_authors_papers_when_name_changes(
 
     expected_facet_author_name = f"{author['control_number']}_Some other name"
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
     def assert_record():
         current_search.flush_and_refresh("records-hep")
         record_from_es = LiteratureSearch().get_record_data_from_es(lit_1)
         assert expected_facet_author_name == record_from_es["facet_author_name"][0]
 
-    retry_until_pass(assert_record)
+    assert_record()
 
 
 def test_regression_get_linked_author_records_uuids_if_author_changed_name_does_not_return_none_for_author_which_name_didnt_change(
@@ -160,6 +168,7 @@ def test_regression_get_linked_author_records_uuids_if_author_changed_name_does_
 
 
 def test_indexer_deletes_record_from_es(inspire_app, datadir):
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
     def assert_record_is_deleted_from_es():
         current_search.flush_and_refresh("records-authors")
         expected_records_count = 0
@@ -172,7 +181,7 @@ def test_indexer_deletes_record_from_es(inspire_app, datadir):
     record.delete()
     db.session.commit()
 
-    retry_until_pass(assert_record_is_deleted_from_es)
+    assert_record_is_deleted_from_es()
 
 
 def test_indexer_updates_advisor_when_student_name_changes(
@@ -197,12 +206,13 @@ def test_indexer_updates_advisor_when_student_name_changes(
     student = AuthorsRecord.create(student_data)
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
     def assert_record():
         current_search.flush_and_refresh("records-authors")
         records_from_es = AuthorsSearch().query_from_iq("").execute()
         assert len(records_from_es.hits) == 2
 
-    retry_until_pass(assert_record, 3)
+    assert_record()
 
     student["name"]["preferred_name"] = "Test Student"
     student.update(dict(student))
@@ -210,12 +220,13 @@ def test_indexer_updates_advisor_when_student_name_changes(
 
     expected_student_name = "Test Student"
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(3))
     def assert_record():
         current_search.flush_and_refresh("records-authors")
         record_from_es = AuthorsSearch().get_record_data_from_es(advisor)
         assert record_from_es["students"][0]["name"] == expected_student_name
 
-    retry_until_pass(assert_record, retry_interval=3)
+    assert_record()
 
 
 def test_student_with_the_same_advisor_for_multiple_degrees(
@@ -245,9 +256,10 @@ def test_student_with_the_same_advisor_for_multiple_degrees(
     AuthorsRecord.create(student_data)
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
     def assert_record():
         current_search.flush_and_refresh("records-authors")
         records_from_es = AuthorsSearch().query_from_iq("").execute()
         assert len(records_from_es.hits) == 2
 
-    retry_until_pass(assert_record, 3)
+    assert_record()

@@ -5,12 +5,10 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 import random
-import time
 from functools import partial
 
 import orjson
 from click.testing import CliRunner
-from elasticsearch import NotFoundError
 from flask import current_app
 from flask.cli import ScriptInfo
 from helpers.factories.models.pidstore import PersistentIdentifierFactory
@@ -18,7 +16,6 @@ from helpers.factories.models.records import RecordMetadataFactory
 from helpers.factories.models.user_access_token import AccessTokenFactory, UserFactory
 from helpers.providers.faker import faker
 from invenio_db import db
-from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_search import current_search
 from invenio_search.utils import build_alias_name
 
@@ -141,30 +138,6 @@ def orcid_app_cli_runner():
     runner._invoke = runner.invoke
     runner.invoke = partial(runner.invoke, obj=obj)
     return runner
-
-
-def retry_until_pass(assert_function, timeout=30, retry_interval=0.3):
-    last_raised_assertion_error = None
-    start = time.monotonic()
-    while True:
-        time_passed = time.monotonic() - start
-        if time_passed > timeout:
-            raise last_raised_assertion_error or TimeoutError(
-                f"Timed out after {timeout} seconds"
-            )
-        try:
-            return assert_function()
-        # retry on assertion and not found errors
-        except (
-            AssertionError,
-            PIDDoesNotExistError,
-            NotFoundError,
-            KeyError,
-            ValueError,
-            IndexError,
-        ) as error:
-            last_raised_assertion_error = error
-            time.sleep(retry_interval)
 
 
 def generate_records(
