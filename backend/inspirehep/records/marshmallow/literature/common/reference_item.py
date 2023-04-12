@@ -7,7 +7,7 @@
 
 from inspire_dojson.utils import get_recid_from_ref, strip_empty_values
 from inspire_utils.helpers import force_list
-from inspire_utils.record import get_value
+from inspire_utils.record import get_value, get_values_for_schema
 from marshmallow import Schema, fields, missing, post_dump, pre_dump
 
 from inspirehep.records.marshmallow.fields import ListWithLimit, NestedField
@@ -127,3 +127,14 @@ class ReferenceItemSchemaV1(Schema):
     @post_dump
     def strip_empty(self, data):
         return strip_empty_values(data)
+
+
+class ReferenceItemSchemaV2(ReferenceItemSchemaV1):
+    raw_ref = fields.Raw()
+
+    def get_reference_data(self, reference, reference_records):
+        reference_data = super().get_reference_data(reference, reference_records)
+        raw_refs = get_values_for_schema(reference.get("raw_refs", []), "text")
+        if raw_refs:
+            reference_data["raw_ref"] = raw_refs[0]
+        return reference_data

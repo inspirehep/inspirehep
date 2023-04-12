@@ -11,7 +11,10 @@ from inspire_schemas.api import load_schema, validate
 from marshmallow import Schema, fields
 
 from inspirehep.records.api import InspireRecord, LiteratureRecord
-from inspirehep.records.marshmallow.literature.common import ReferenceItemSchemaV1
+from inspirehep.records.marshmallow.literature.common import (
+    ReferenceItemSchemaV1,
+    ReferenceItemSchemaV2,
+)
 
 
 @mock.patch("inspirehep.records.api.base.InspireRecord.get_records_by_pids")
@@ -243,5 +246,44 @@ def test_returns_arxiv_eprints_from_the_resolved_record(
     assert validate([dump], subschema) is None
 
     expected = {"control_number": 123, "arxiv_eprint": [{"value": "1606.09129"}]}
+    result = schema.dumps(dump).data
+    assert expected == orjson.loads(result)
+
+
+@mock.patch(
+    ("inspirehep.records.api.literature.LiteratureRecord.get_es_linked_references")
+)
+def test_schema_v2_returns_raw_ref(
+    mock_get_linked_records_in_field,
+):
+    mock_get_linked_records_in_field.return_value = [
+        InspireRecord(
+            {
+                "control_number": 123,
+                "arxiv_eprints": [{"value": "1606.09129", "categories": ["hep"]}],
+            }
+        )
+    ]
+
+    hep_schema = load_schema("hep")
+    subschema = hep_schema["properties"]["references"]
+    schema = ReferenceItemSchemaV2()
+    dump = {
+        "raw_refs": [
+            {
+                "value": "[1] M. Freer, H. Horiuchi, Y. Kanada-En’yo, D. Lee, and Ulf-G Meißner. Microscopic clustering in light nuclei. Reviews of Modern Physics, 90(3):035004, 2018. doi: https://doi.org/10.1103/RevModPhys.90.035004. URL https://link.aps.org/ doi/10.1103/RevModPhys.90.035004.",
+                "schema": "text",
+                "source": "desy",
+            }
+        ],
+        "record": {"$ref": "http://localhost:5000/api/literature/123"},
+    }
+    assert validate([dump], subschema) is None
+
+    expected = {
+        "control_number": 123,
+        "arxiv_eprint": [{"value": "1606.09129"}],
+        "raw_ref": "[1] M. Freer, H. Horiuchi, Y. Kanada-En’yo, D. Lee, and Ulf-G Meißner. Microscopic clustering in light nuclei. Reviews of Modern Physics, 90(3):035004, 2018. doi: https://doi.org/10.1103/RevModPhys.90.035004. URL https://link.aps.org/ doi/10.1103/RevModPhys.90.035004.",
+    }
     result = schema.dumps(dump).data
     assert expected == orjson.loads(result)
