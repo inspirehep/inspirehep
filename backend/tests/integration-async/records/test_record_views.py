@@ -12,7 +12,7 @@ from helpers.utils import create_user
 from inspire_dojson.utils import get_recid_from_ref
 from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db
-from tenacity import retry, stop_after_delay
+from tenacity import retry, stop_after_delay, wait_fixed
 
 from inspirehep.records.api import InspireRecord
 from inspirehep.search.api import InspireSearch
@@ -56,7 +56,7 @@ def test_self_curation_view_happy_flow(
         record = InspireRecord.create(literature_data)
         db.session.commit()
 
-        @retry(stop=stop_after_delay(15))
+        @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
         def assert_record_in_es():
             literature_record_from_es = InspireSearch.get_record_data_from_es(record)
             assert literature_record_from_es
@@ -80,7 +80,7 @@ def test_self_curation_view_happy_flow(
 
         assert response.status_code == 200
 
-        @retry(stop=stop_after_delay(15))
+        @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
         def assert_reference_self_curation_task():
             literature_record_from_es = InspireSearch.get_record_data_from_es(record)
             assert (

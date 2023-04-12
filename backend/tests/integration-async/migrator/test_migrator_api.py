@@ -8,8 +8,8 @@
 import zlib
 
 import pytest
-from helpers.utils import retry_until_pass
 from invenio_pidstore.errors import PIDDoesNotExistError
+from tenacity import retry, stop_after_delay, wait_fixed
 
 from inspirehep.migrator.api import continuous_migration
 from inspirehep.records.api import InspireRecord
@@ -65,6 +65,7 @@ def test_continuous_migration(inspire_app, clean_celery_session, redis):
 
     continuous_migration()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
     def assert_continuous_migration():
         record_citer = InspireRecord.get_record_by_pid_value(
             citer_control_number, "lit"
@@ -95,7 +96,7 @@ def test_continuous_migration(inspire_app, clean_celery_session, redis):
 
         assert redis.llen("legacy_records") == 0
 
-    retry_until_pass(assert_continuous_migration)
+    assert_continuous_migration()
 
 
 def test_continuous_migration_with_an_invalid_record(
@@ -163,6 +164,7 @@ def test_continuous_migration_with_an_invalid_record(
 
     continuous_migration()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
     def assert_continuous_migration():
         record_citer = InspireRecord.get_record_by_pid_value(
             citer_control_number, "lit"
@@ -196,7 +198,7 @@ def test_continuous_migration_with_an_invalid_record(
 
         assert redis.llen("legacy_records") == 0
 
-    retry_until_pass(assert_continuous_migration)
+    assert_continuous_migration()
 
 
 def test_continuous_migration_with_different_type_of_records(
@@ -265,6 +267,7 @@ def test_continuous_migration_with_different_type_of_records(
 
     continuous_migration()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
     def assert_continuous_migration():
         record_citer = InspireRecord.get_record_by_pid_value(
             citer_control_number, "lit"
@@ -303,7 +306,7 @@ def test_continuous_migration_with_different_type_of_records(
 
         assert redis.llen("legacy_records") == 0
 
-    retry_until_pass(assert_continuous_migration)
+    assert_continuous_migration()
 
 
 def test_continuous_migration_with_invalid_control_number(
@@ -356,7 +359,8 @@ def test_continuous_migration_with_invalid_control_number(
     with pytest.raises(ValueError):
         continuous_migration()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
     def assert_continuous_migration():
         assert redis.llen("legacy_records") == 2
 
-    retry_until_pass(assert_continuous_migration)
+    assert_continuous_migration()

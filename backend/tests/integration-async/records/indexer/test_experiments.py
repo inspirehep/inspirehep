@@ -6,9 +6,9 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from helpers.providers.faker import faker
-from helpers.utils import es_search, retry_until_pass
 from invenio_db import db
 from invenio_search import current_search
+from tenacity import retry, stop_after_delay, wait_fixed
 
 from inspirehep.records.api import LiteratureRecord
 from inspirehep.records.api.experiments import ExperimentsRecord
@@ -24,12 +24,13 @@ def test_experiment_record_updates_in_es_when_lit_rec_refers_to_it(
     db.session.commit()
     expected_number_of_papers = 0
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
     def assert_record():
         current_search.flush_and_refresh("records-experiments")
         record_from_es = ExperimentsSearch().get_record_data_from_es(experiment_1)
         assert expected_number_of_papers == record_from_es["number_of_papers"]
 
-    retry_until_pass(assert_record)
+    assert_record()
 
     data = {
         "accelerator_experiments": [{"legacy_name": "LIGO", "record": {"$ref": ref_1}}]
@@ -39,15 +40,17 @@ def test_experiment_record_updates_in_es_when_lit_rec_refers_to_it(
     db.session.commit()
     expected_number_of_papers = 1
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
     def assert_record():
         current_search.flush_and_refresh("records-experiments")
         record_from_es = ExperimentsSearch().get_record_data_from_es(experiment_1)
         assert expected_number_of_papers == record_from_es["number_of_papers"]
 
-    retry_until_pass(assert_record)
+    assert_record()
 
 
 def test_indexer_deletes_record_from_es(inspire_app, datadir):
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
     def assert_record_is_deleted_from_es():
         current_search.flush_and_refresh("records-experiments")
         expected_records_count = 0
@@ -60,4 +63,4 @@ def test_indexer_deletes_record_from_es(inspire_app, datadir):
     record.delete()
     db.session.commit()
 
-    retry_until_pass(assert_record_is_deleted_from_es)
+    assert_record_is_deleted_from_es()

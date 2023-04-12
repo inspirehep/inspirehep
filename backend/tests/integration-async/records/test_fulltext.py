@@ -11,9 +11,9 @@ import mock
 import orjson
 from flask_sqlalchemy import models_committed
 from helpers.providers.faker import faker
-from helpers.utils import retry_until_pass
 from invenio_db import db
 from invenio_search import current_search
+from tenacity import retry, stop_after_delay, wait_fixed
 
 from inspirehep.records.api import LiteratureRecord
 from inspirehep.records.receivers import index_after_commit
@@ -61,6 +61,7 @@ def test_highlighting(
         models_committed.connect(index_after_commit)
         record.index()
 
+        @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
         def assert_record_in_es():
             current_search.flush_and_refresh("*")
             record_lit_es = (
@@ -68,7 +69,7 @@ def test_highlighting(
             )
             assert "attachment" in record_lit_es._source["documents"][0]
 
-        retry_until_pass(assert_record_in_es)
+        assert_record_in_es()
         result = LiteratureSearch().query_from_iq("ft ipsum").execute()
         assert "highlight" in result[0].meta
         assert result[0].meta.highlight["documents.attachment.content"] == [
@@ -116,6 +117,7 @@ def test_highlight_in_search_response(
         models_committed.connect(index_after_commit)
         record.index()
 
+        @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
         def assert_record_in_es():
             current_search.flush_and_refresh("*")
             record_lit_es = (
@@ -123,7 +125,7 @@ def test_highlight_in_search_response(
             )
             assert "attachment" in record_lit_es._source["documents"][0]
 
-        retry_until_pass(assert_record_in_es)
+        assert_record_in_es()
 
         headers = {"Accept": "application/vnd+inspire.record.ui+json"}
         query_string = urllib.parse.quote("ft ipsum")

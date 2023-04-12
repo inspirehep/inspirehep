@@ -9,13 +9,14 @@ import orjson
 from flask import current_app
 from flask_sqlalchemy import models_committed
 from helpers.providers.faker import faker
-from helpers.utils import create_user, retry_until_pass
+from helpers.utils import create_user
 from inspire_utils.record import get_values_for_schema
 from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_search import current_search
 from redis import StrictRedis
+from tenacity import retry, stop_after_delay, wait_fixed
 
 from inspirehep.disambiguation.tasks import (
     disambiguate_authors,
@@ -59,13 +60,14 @@ def test_signature_linked_by_disambiguation_has_correct_facet_author_name(
     expected_facet_author_name = [f"{author_control_number}_John Doe"]
     expected_record_ref = f"http://localhost:5000/api/authors/{pid_value}"
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_references():
         current_search.flush_and_refresh("records-hep")
         record_from_es = InspireSearch.get_record_data_from_es(record)
         assert expected_facet_author_name == record_from_es["facet_author_name"]
         assert expected_record_ref == record_from_es["authors"][0]["record"]["$ref"]
 
-    retry_until_pass(assert_references, retry_interval=2)
+    assert_references()
 
 
 def test_disambiguation_runs_after_record_creation(
@@ -81,11 +83,12 @@ def test_disambiguation_runs_after_record_creation(
     author_record = InspireRecord.create(author_data)
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
     def assert_authors_records_exist_in_es():
         author_record_from_es = InspireSearch.get_record_data_from_es(author_record)
         assert author_record_from_es
 
-    retry_until_pass(assert_authors_records_exist_in_es)
+    assert_authors_records_exist_in_es()
 
     literature_data = faker.record("lit", with_control_number=True)
     literature_data.update(
@@ -101,6 +104,7 @@ def test_disambiguation_runs_after_record_creation(
     literature_record = LiteratureRecord.create(literature_data)
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_disambiguation_task():
         literature_record_from_es = InspireSearch.get_record_data_from_es(
             literature_record
@@ -110,7 +114,7 @@ def test_disambiguation_runs_after_record_creation(
             in literature_record_from_es["authors"][0]["record"]["$ref"]
         )
 
-    retry_until_pass(assert_disambiguation_task, retry_interval=2)
+    assert_disambiguation_task()
 
 
 def test_disambiguate_many_authors_runs_after_record_creation(
@@ -141,12 +145,13 @@ def test_disambiguate_many_authors_runs_after_record_creation(
     author_record_2 = InspireRecord.create(author_2)
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
     def assert_authors_records_exist_in_es():
         author_record_1_from_es = InspireSearch.get_record_data_from_es(author_record_1)
         author_record_2_from_es = InspireSearch.get_record_data_from_es(author_record_2)
         assert author_record_1_from_es and author_record_2_from_es
 
-    retry_until_pass(assert_authors_records_exist_in_es)
+    assert_authors_records_exist_in_es()
 
     literature_data = faker.record("lit", with_control_number=True)
     literature_data.update(
@@ -169,6 +174,7 @@ def test_disambiguate_many_authors_runs_after_record_creation(
     literature_record = LiteratureRecord.create(literature_data)
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_disambiguation_task():
         literature_record_from_es = InspireSearch.get_record_data_from_es(
             literature_record
@@ -183,7 +189,7 @@ def test_disambiguate_many_authors_runs_after_record_creation(
             in literature_record_from_es_authors[1]["record"]["$ref"]
         )
 
-    retry_until_pass(assert_disambiguation_task, retry_interval=2)
+    assert_disambiguation_task()
 
 
 def test_disambiguate_authors_doesnt_match_when_author_is_ambiguous(
@@ -216,13 +222,14 @@ def test_disambiguate_authors_doesnt_match_when_author_is_ambiguous(
     author_record_2 = InspireRecord.create(author_2)
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_authors_records_exist_in_es():
         author_record_from_es = InspireSearch.get_record_data_from_es(author_record_1)
         author_2_from_es = InspireSearch.get_record_data_from_es(author_record_2)
         assert author_record_from_es
         assert author_2_from_es
 
-    retry_until_pass(assert_authors_records_exist_in_es, retry_interval=2)
+    assert_authors_records_exist_in_es()
 
     authors = [{"full_name": "Gross, Brian", "emails": ["test@test.com"]}]
 
@@ -231,6 +238,7 @@ def test_disambiguate_authors_doesnt_match_when_author_is_ambiguous(
     literature_record = LiteratureRecord.create(literature_data)
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(5))
     def assert_disambiguation_task():
         literature_record_from_es = InspireSearch.get_record_data_from_es(
             literature_record
@@ -245,7 +253,7 @@ def test_disambiguate_authors_doesnt_match_when_author_is_ambiguous(
             != "http://localhost:5000/api/authors/90676331"
         )
 
-    retry_until_pass(assert_disambiguation_task, retry_interval=5)
+    assert_disambiguation_task()
 
 
 def test_disambiguation_doesnt_run_with_feature_flag_disabling_it(
@@ -262,11 +270,12 @@ def test_disambiguation_doesnt_run_with_feature_flag_disabling_it(
     author_record = InspireRecord.create(author_data)
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
     def assert_authors_records_exist_in_es():
         author_record_from_es = InspireSearch.get_record_data_from_es(author_record)
         assert author_record_from_es
 
-    retry_until_pass(assert_authors_records_exist_in_es)
+    assert_authors_records_exist_in_es()
 
     literature_data = faker.record("lit", with_control_number=True)
     literature_data.update(
@@ -283,13 +292,14 @@ def test_disambiguation_doesnt_run_with_feature_flag_disabling_it(
     literature_record = LiteratureRecord.create(literature_data)
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(5))
     def assert_disambiguation_task():
         literature_record_from_es = InspireSearch.get_record_data_from_es(
             literature_record
         )
         assert not literature_record_from_es["authors"][0].get("record")
 
-    retry_until_pass(assert_disambiguation_task, retry_interval=5)
+    assert_disambiguation_task()
 
 
 def test_disambiguation_runs_after_lit_record_update(
@@ -328,6 +338,7 @@ def test_disambiguation_runs_after_lit_record_update(
     author_record_3 = InspireRecord.create(author_data_3)
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(5))
     def assert_authors_records_exist_in_es():
         author_record_from_es = InspireSearch.get_record_data_from_es(author_record)
         author_2_from_es = InspireSearch.get_record_data_from_es(author_record_2)
@@ -336,7 +347,7 @@ def test_disambiguation_runs_after_lit_record_update(
         assert author_2_from_es
         assert author_3_from_es
 
-    retry_until_pass(assert_authors_records_exist_in_es, retry_interval=5)
+    assert_authors_records_exist_in_es()
 
     literature_data = faker.record("lit")
     literature_data.update(
@@ -356,6 +367,7 @@ def test_disambiguation_runs_after_lit_record_update(
     literature_record_uuid = literature_record.id
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(5))
     def assert_disambiguation_on_update():
         db.session.close()
         literature_record = LiteratureRecord.get_record(literature_record_uuid)
@@ -365,7 +377,7 @@ def test_disambiguation_runs_after_lit_record_update(
         assert literature_record["authors"][0]["record"]["$ref"]
         assert literature_record_from_es["authors"][0]["record"]["$ref"]
 
-    retry_until_pass(assert_disambiguation_on_update, retry_interval=5)
+    assert_disambiguation_on_update()
 
     literature_record = LiteratureRecord.get_record(literature_record_uuid)
     literature_record["authors"].append(
@@ -374,6 +386,7 @@ def test_disambiguation_runs_after_lit_record_update(
     literature_record.update(dict(literature_record))
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(5))
     def assert_disambiguation_on_update():
         db.session.close()
         literature_record = LiteratureRecord.get_record(literature_record_uuid)
@@ -385,7 +398,7 @@ def test_disambiguation_runs_after_lit_record_update(
         assert literature_record_from_es["authors"][0]["record"]["$ref"]
         assert literature_record_from_es["authors"][1]["record"]["$ref"]
 
-    retry_until_pass(assert_disambiguation_on_update, retry_interval=5)
+    assert_disambiguation_on_update()
 
 
 def test_disambiguate_authors_on_first_and_last_name(
@@ -407,17 +420,19 @@ def test_disambiguate_authors_on_first_and_last_name(
     literature_record = LiteratureRecord.create(literature_data)
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(3))
     def assert_lit_records_exist_in_es():
         lit_record_1_from_es = InspireSearch.get_record_data_from_es(literature_record)
         assert lit_record_1_from_es
 
-    retry_until_pass(assert_lit_records_exist_in_es, retry_interval=3)
+    assert_lit_records_exist_in_es()
 
     literature_data_2 = faker.record("lit", with_control_number=True)
     literature_data_2.update({"authors": [{"full_name": "'t Hooft, Gerardus"}]})
     literature_record_2 = LiteratureRecord.create(literature_data_2)
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_disambiguation_task():
         literature_record_from_es = InspireSearch.get_record_data_from_es(
             literature_record_2
@@ -427,7 +442,7 @@ def test_disambiguate_authors_on_first_and_last_name(
             == literature_record_from_es["authors"][0]["record"]
         )
 
-    retry_until_pass(assert_disambiguation_task, retry_interval=2)
+    assert_disambiguation_task()
 
 
 def test_disambiguate_authors_on_first_last_name_and_initials(
@@ -462,6 +477,7 @@ def test_disambiguate_authors_on_first_last_name_and_initials(
     literature_record_2 = LiteratureRecord.create(literature_data_2)
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(3))
     def assert_lit_records_exist_in_es():
         lit_record_1_from_es = InspireSearch.get_record_data_from_es(literature_record)
         lit_record_2_from_es = InspireSearch.get_record_data_from_es(
@@ -469,13 +485,14 @@ def test_disambiguate_authors_on_first_last_name_and_initials(
         )
         assert lit_record_1_from_es and lit_record_2_from_es
 
-    retry_until_pass(assert_lit_records_exist_in_es, retry_interval=3)
+    assert_lit_records_exist_in_es()
 
     literature_data_3 = faker.record("lit", with_control_number=True)
     literature_data_3.update({"authors": [{"full_name": "'t Hooft, Gerard Antonio"}]})
     literature_record_3 = LiteratureRecord.create(literature_data_3)
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_disambiguation_task():
         literature_record_from_es = InspireSearch.get_record_data_from_es(
             literature_record_3
@@ -485,7 +502,7 @@ def test_disambiguate_authors_on_first_last_name_and_initials(
             == literature_record_from_es["authors"][0]["record"]
         )
 
-    retry_until_pass(assert_disambiguation_task, retry_interval=2)
+    assert_disambiguation_task()
 
 
 def test_disambiguate_authors_on_collaboration(
@@ -540,6 +557,7 @@ def test_disambiguate_authors_on_collaboration(
     literature_record_2 = LiteratureRecord.create(literature_data_2)
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_lit_records_exist_in_es():
         lit_record_1_from_es = InspireSearch.get_record_data_from_es(literature_record)
         lit_record_2_from_es = InspireSearch.get_record_data_from_es(
@@ -547,7 +565,7 @@ def test_disambiguate_authors_on_collaboration(
         )
         assert lit_record_1_from_es and lit_record_2_from_es
 
-    retry_until_pass(assert_lit_records_exist_in_es, retry_interval=2)
+    assert_lit_records_exist_in_es()
 
     literature_data_3 = faker.record("lit", with_control_number=True)
     literature_data_3.update(
@@ -559,6 +577,7 @@ def test_disambiguate_authors_on_collaboration(
     literature_record_3 = LiteratureRecord.create(literature_data_3)
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_disambiguation_task():
         literature_record_from_es = InspireSearch.get_record_data_from_es(
             literature_record_3
@@ -568,7 +587,7 @@ def test_disambiguate_authors_on_collaboration(
             == literature_record_from_es["authors"][0]["record"]
         )
 
-    retry_until_pass(assert_disambiguation_task, retry_interval=2)
+    assert_disambiguation_task()
 
 
 def test_disambiguate_authors_on_affiliation(
@@ -628,6 +647,7 @@ def test_disambiguate_authors_on_affiliation(
     literature_record_2 = LiteratureRecord.create(literature_data_2)
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_lit_records_exist_in_es():
         lit_record_1_from_es = InspireSearch.get_record_data_from_es(literature_record)
         lit_record_2_from_es = InspireSearch.get_record_data_from_es(
@@ -635,7 +655,7 @@ def test_disambiguate_authors_on_affiliation(
         )
         assert lit_record_1_from_es and lit_record_2_from_es
 
-    retry_until_pass(assert_lit_records_exist_in_es, retry_interval=2)
+    assert_lit_records_exist_in_es()
 
     literature_data_3 = faker.record("lit", with_control_number=True)
     literature_data_3.update(
@@ -654,6 +674,7 @@ def test_disambiguate_authors_on_affiliation(
     literature_record_3 = LiteratureRecord.create(literature_data_3)
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_disambiguation_task():
         literature_record_from_es = InspireSearch.get_record_data_from_es(
             literature_record_3
@@ -663,7 +684,7 @@ def test_disambiguate_authors_on_affiliation(
             == literature_record_from_es["authors"][0]["record"]
         )
 
-    retry_until_pass(assert_disambiguation_task, retry_interval=2)
+    assert_disambiguation_task()
 
 
 def test_disambiguate_authors_create_new_author(
@@ -680,12 +701,14 @@ def test_disambiguate_authors_create_new_author(
     literature_record = LiteratureRecord.create(data=literature_data)
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(3))
     def assert_lit_records_exist_in_es():
         lit_record_1_from_es = InspireSearch.get_record_data_from_es(literature_record)
         assert lit_record_1_from_es
 
-    retry_until_pass(assert_lit_records_exist_in_es, retry_interval=3)
+    assert_lit_records_exist_in_es()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(3))
     def assert_disambiguation_task():
         literature_record_from_es = InspireSearch.get_record_data_from_es(
             literature_record
@@ -697,7 +720,7 @@ def test_disambiguate_authors_create_new_author(
             == author_record_from_es.hits[0].control_number
         )
 
-    retry_until_pass(assert_disambiguation_task)
+    assert_disambiguation_task()
 
 
 def test_disambiguate_authors_create_two_author_with_same_name(
@@ -711,18 +734,20 @@ def test_disambiguate_authors_create_two_author_with_same_name(
 
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(3))
     def assert_lit_records_exist_in_es():
         lit_record_from_es = InspireSearch.get_record_data_from_es(literature_record)
 
         assert lit_record_from_es
 
-    retry_until_pass(assert_lit_records_exist_in_es, retry_interval=3)
+    assert_lit_records_exist_in_es()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
     def assert_disambiguation_task():
         author_records_from_es = AuthorsSearch().query_from_iq("").execute()
         assert len(author_records_from_es.hits) == 2
 
-    retry_until_pass(assert_disambiguation_task)
+    assert_disambiguation_task()
 
 
 def test_disambiguation_on_author_record_update(
@@ -741,11 +766,12 @@ def test_disambiguation_on_author_record_update(
     aut_record_1 = AuthorsRecord.create(author_data_1)
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
     def assert_author_record_exist_in_es():
         aut_record_from_es = InspireSearch.get_record_data_from_es(aut_record)
         assert aut_record_from_es
 
-    retry_until_pass(assert_author_record_exist_in_es)
+    assert_author_record_exist_in_es()
 
     literature_data = faker.record("lit", with_control_number=True)
     literature_data.update(
@@ -778,6 +804,7 @@ def test_disambiguation_on_author_record_update(
 
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
     def assert_authors_records_exist_in_es():
         lit_record_from_es = InspireSearch.get_record_data_from_es(literature_record)
         lit_record_from_es_2 = InspireSearch.get_record_data_from_es(
@@ -786,7 +813,7 @@ def test_disambiguation_on_author_record_update(
         assert lit_record_from_es
         assert lit_record_from_es_2
 
-    retry_until_pass(assert_authors_records_exist_in_es)
+    assert_authors_records_exist_in_es()
 
     literature_data_3 = faker.record("lit", with_control_number=True)
     literature_data_3.update({"authors": [{"full_name": "Kowal, Michal"}]})
@@ -794,6 +821,7 @@ def test_disambiguation_on_author_record_update(
     db.session.commit()
 
     # TODO: other assertions
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_first_disambiguation_no_match():
         literature_record_from_es = InspireSearch.get_record_data_from_es(
             literature_record_3
@@ -813,7 +841,7 @@ def test_disambiguation_on_author_record_update(
             != literature_record_2["authors"][0]["record"]
         )
 
-    retry_until_pass(assert_first_disambiguation_no_match, retry_interval=2)
+    assert_first_disambiguation_no_match()
 
     db.session.expire_all()
     lit_record = InspireRecord.get_record(literature_record_3.id)
@@ -821,6 +849,7 @@ def test_disambiguation_on_author_record_update(
     lit_record.update(dict(lit_record))
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_disambiguation_on_record_update():
         literature_record_from_es = InspireSearch.get_record_data_from_es(
             literature_record_3
@@ -830,7 +859,7 @@ def test_disambiguation_on_author_record_update(
             != literature_record["authors"][0]["record"]
         )
 
-    retry_until_pass(assert_disambiguation_on_record_update, retry_interval=2)
+    assert_disambiguation_on_record_update()
 
 
 def test_disambiguation_on_record_update_ambiguous_match(
@@ -885,6 +914,7 @@ def test_disambiguation_on_record_update_ambiguous_match(
 
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
     def assert_authors_records_exist_in_es():
         lit_record_from_es = InspireSearch.get_record_data_from_es(literature_record)
         lit_record_from_es_2 = InspireSearch.get_record_data_from_es(
@@ -893,7 +923,7 @@ def test_disambiguation_on_record_update_ambiguous_match(
         assert lit_record_from_es
         assert lit_record_from_es_2
 
-    retry_until_pass(assert_authors_records_exist_in_es)
+    assert_authors_records_exist_in_es()
 
     literature_data_3 = faker.record("lit", with_control_number=True)
     literature_data_3.update({"authors": [{"full_name": "Kowal, Michal"}]})
@@ -901,6 +931,7 @@ def test_disambiguation_on_record_update_ambiguous_match(
     db.session.commit()
 
     # TODO: other assertions
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_first_disambiguation_no_match():
         literature_record_from_es = InspireSearch.get_record_data_from_es(
             literature_record_3
@@ -915,7 +946,7 @@ def test_disambiguation_on_record_update_ambiguous_match(
             != literature_record_2["authors"][0]["record"]
         )
 
-    retry_until_pass(assert_first_disambiguation_no_match, retry_interval=2)
+    assert_first_disambiguation_no_match()
 
     db.session.expire_all()
     lit_record = InspireRecord.get_record(literature_record_3.id)
@@ -923,6 +954,7 @@ def test_disambiguation_on_record_update_ambiguous_match(
     lit_record.update(dict(lit_record))
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_disambiguation_on_record_update():
         literature_record_from_es = InspireSearch.get_record_data_from_es(
             literature_record_3
@@ -931,7 +963,7 @@ def test_disambiguation_on_record_update_ambiguous_match(
             "record"
         ]
 
-    retry_until_pass(assert_disambiguation_on_record_update, retry_interval=2)
+    assert_disambiguation_on_record_update()
 
 
 def test_disambiguation_on_record_update_unambiguous_match(
@@ -951,6 +983,7 @@ def test_disambiguation_on_record_update_unambiguous_match(
     literature_record = LiteratureRecord.create(data=literature_data)
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_first_disambiguation_no_match():
         literature_record_from_es = InspireSearch.get_record_data_from_es(
             literature_record
@@ -960,7 +993,7 @@ def test_disambiguation_on_record_update_unambiguous_match(
             literature_record_from_es["authors"][0]["ids"], "INSPIRE BAI"
         )
 
-    retry_until_pass(assert_first_disambiguation_no_match, retry_interval=2)
+    assert_first_disambiguation_no_match()
     old_bai = get_values_for_schema(
         literature_record["authors"][0]["ids"], "INSPIRE BAI"
     )[0]
@@ -971,6 +1004,7 @@ def test_disambiguation_on_record_update_unambiguous_match(
     db.session.commit()
 
     # TODO: fix it
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_disambiguation_on_record_update():
         literature_record_from_es = InspireSearch.get_record_data_from_es(
             literature_record
@@ -982,7 +1016,7 @@ def test_disambiguation_on_record_update_unambiguous_match(
             == old_bai
         )
 
-    retry_until_pass(assert_disambiguation_on_record_update, retry_interval=2)
+    assert_disambiguation_on_record_update()
 
 
 def test_disambiguation_handle_deleted_records(
@@ -1059,6 +1093,7 @@ def test_disambiguation_races_assign(
             content_type="application/json",
         )
 
+        @retry(stop=stop_after_delay(30), wait=wait_fixed(3))
         def assert_disambiguation_on_record_update():
             literature_record_from_es = InspireSearch.get_record_data_from_es(
                 lit_record
@@ -1069,7 +1104,7 @@ def test_disambiguation_races_assign(
                 != author_record["self"]
             )
 
-        retry_until_pass(assert_disambiguation_on_record_update, retry_interval=2)
+        assert_disambiguation_on_record_update()
 
 
 def test_disambiguation_removes_links_to_authors_records_if_record_moved_to_hidden_collection(
@@ -1095,11 +1130,12 @@ def test_disambiguation_removes_links_to_authors_records_if_record_moved_to_hidd
     author_record_2 = InspireRecord.create(author_data_2)
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
     def assert_authors_records_exist_in_es():
         author_record_from_es = InspireSearch.get_record_data_from_es(author_record)
         assert author_record_from_es
 
-    retry_until_pass(assert_authors_records_exist_in_es)
+    assert_authors_records_exist_in_es()
 
     literature_data = faker.record("lit", with_control_number=True)
     literature_data.update(
@@ -1123,16 +1159,18 @@ def test_disambiguation_removes_links_to_authors_records_if_record_moved_to_hidd
     literature_record = LiteratureRecord.create(literature_data)
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(3))
     def assert_authors_records_exist_in_es():
         lit_record_from_es = InspireSearch.get_record_data_from_es(literature_record)
         assert lit_record_from_es
 
-    retry_until_pass(assert_authors_records_exist_in_es, retry_interval=3)
+    assert_authors_records_exist_in_es()
 
     literature_record["_collections"] = ["HAL Hidden"]
     literature_record.update(dict(literature_record))
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(3))
     def assert_disambiguation_task():
         literature_record_from_es = InspireSearch.get_record_data_from_es(
             literature_record
@@ -1141,7 +1179,7 @@ def test_disambiguation_removes_links_to_authors_records_if_record_moved_to_hidd
         assert not literature_record_from_es["authors"][1].get("curated_relation")
         assert not literature_record_from_es["authors"][1].get("record")
 
-    retry_until_pass(assert_disambiguation_task, retry_interval=3)
+    assert_disambiguation_task()
 
 
 def test_disambiguation_run_for_every_author_when_record_moved_from_private_collection_to_literature(
@@ -1165,11 +1203,12 @@ def test_disambiguation_run_for_every_author_when_record_moved_from_private_coll
     author_record_2 = InspireRecord.create(author_data_2)
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
     def assert_authors_records_exist_in_es():
         author_record_from_es = InspireSearch.get_record_data_from_es(author_record)
         assert author_record_from_es
 
-    retry_until_pass(assert_authors_records_exist_in_es)
+    assert_authors_records_exist_in_es()
 
     literature_data = faker.record("lit", with_control_number=True)
     literature_data.update(
@@ -1190,16 +1229,18 @@ def test_disambiguation_run_for_every_author_when_record_moved_from_private_coll
     literature_record = LiteratureRecord.create(literature_data)
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(3))
     def assert_authors_records_exist_in_es():
         lit_record_from_es = InspireSearch.get_record_data_from_es(literature_record)
         assert lit_record_from_es
 
-    retry_until_pass(assert_authors_records_exist_in_es, retry_interval=3)
+    assert_authors_records_exist_in_es()
 
     literature_record["_collections"] = ["Literature"]
     literature_record.update(dict(literature_record))
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(5))
     def assert_disambiguation_task():
         literature_record_from_es = InspireSearch.get_record_data_from_es(
             literature_record
@@ -1213,7 +1254,7 @@ def test_disambiguation_run_for_every_author_when_record_moved_from_private_coll
             == author_record_2["self"]
         )
 
-    retry_until_pass(assert_disambiguation_task, retry_interval=5)
+    assert_disambiguation_task()
 
 
 def test_disambiguation_match_when_initials_not_present_in_matched_author(
@@ -1232,19 +1273,21 @@ def test_disambiguation_match_when_initials_not_present_in_matched_author(
     literature_record_1 = LiteratureRecord.create(literature_data_1)
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
     def assert_authors_records_exist_in_es():
         author_record_from_es = InspireSearch.get_record_data_from_es(
             literature_record_1
         )
         assert author_record_from_es
 
-    retry_until_pass(assert_authors_records_exist_in_es)
+    assert_authors_records_exist_in_es()
 
     literature_data_2 = faker.record("lit", with_control_number=True)
     literature_data_2.update({"authors": [{"full_name": "Brian V. Gross"}]})
     literature_record_2 = LiteratureRecord.create(literature_data_2)
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_disambiguation_task():
         literature_record_from_es = InspireSearch.get_record_data_from_es(
             literature_record_2
@@ -1254,7 +1297,7 @@ def test_disambiguation_match_when_initials_not_present_in_matched_author(
             == literature_record_from_es["authors"][0]["record"]
         )
 
-    retry_until_pass(assert_disambiguation_task, retry_interval=2)
+    assert_disambiguation_task()
 
 
 def test_disambiguation_reorders_name_after_succesfull_disambiguation(
@@ -1275,11 +1318,12 @@ def test_disambiguation_reorders_name_after_succesfull_disambiguation(
     author_record_1 = InspireRecord.create(author_1)
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
     def assert_authors_records_exist_in_es():
         author_record_1_from_es = InspireSearch.get_record_data_from_es(author_record_1)
         assert author_record_1_from_es
 
-    retry_until_pass(assert_authors_records_exist_in_es)
+    assert_authors_records_exist_in_es()
 
     literature_data = faker.record("lit", with_control_number=True)
     literature_data.update(
@@ -1298,6 +1342,7 @@ def test_disambiguation_reorders_name_after_succesfull_disambiguation(
     literature_record = LiteratureRecord.create(literature_data)
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_disambiguation_task():
         literature_record_from_es = InspireSearch.get_record_data_from_es(
             literature_record
@@ -1310,7 +1355,7 @@ def test_disambiguation_reorders_name_after_succesfull_disambiguation(
 
         assert "Davis Gross, Brian" == literature_record_from_es_authors[0]["full_name"]
 
-    retry_until_pass(assert_disambiguation_task, retry_interval=2)
+    assert_disambiguation_task()
 
 
 def test_author_disambiguation_manually_when_empty_authors(
@@ -1326,12 +1371,13 @@ def test_author_disambiguation_manually_when_empty_authors(
     models_committed.connect(index_after_commit)
     task = disambiguate_authors.delay(record.id, record.model.version_id)
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_disambiguation_task():
         assert task.status == "SUCCESS"
         record_after_disambiguation = InspireRecord.get_record(record.id)
         assert record_after_disambiguation.model.version_id == record_version
 
-    retry_until_pass(assert_disambiguation_task, retry_interval=2)
+    assert_disambiguation_task()
 
 
 @mock.patch.object(EditorSoftLock, "remove_lock")
@@ -1351,11 +1397,12 @@ def test_editor_lock_is_created_when_disambiguation_runs(
     author_record = InspireRecord.create(author_data)
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
     def assert_authors_records_exist_in_es():
         author_record_from_es = InspireSearch.get_record_data_from_es(author_record)
         assert author_record_from_es
 
-    retry_until_pass(assert_authors_records_exist_in_es)
+    assert_authors_records_exist_in_es()
 
     literature_data = faker.record("lit", data={"control_number": 12345})
     literature_data.update(
@@ -1389,18 +1436,20 @@ def test_editor_lock_is_created_when_disambiguation_runs(
 
     disambiguate_authors.delay(literature_record.id, literature_record.model.version_id)
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
     def assert_lock_created():
         lock_found = redis.hget(lock.hash_name, lock.key)
         assert lock_found
 
-    retry_until_pass(assert_lock_created)
+    assert_lock_created()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
     def assert_remove_lock():
         lock.remove_lock()
         lock_found = redis.hget(lock.hash_name, lock.key)
         assert not lock_found
 
-    retry_until_pass(assert_remove_lock)
+    assert_remove_lock()
 
 
 def test_disambiguation_deosnt_create_new_stub_author_if_theres_one(
@@ -1467,6 +1516,7 @@ def test_disambiguation_deosnt_create_new_stub_author_if_theres_one(
     literature_record_2 = LiteratureRecord.create(literature_data_2)
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(3))
     def assert_lit_records_exist_in_es():
         lit_record_1_from_es = InspireSearch.get_record_data_from_es(literature_record)
         lit_record_2_from_es = InspireSearch.get_record_data_from_es(
@@ -1474,13 +1524,14 @@ def test_disambiguation_deosnt_create_new_stub_author_if_theres_one(
         )
         assert lit_record_1_from_es and lit_record_2_from_es
 
-    retry_until_pass(assert_lit_records_exist_in_es, retry_interval=3)
+    assert_lit_records_exist_in_es()
 
     literature_data_3 = faker.record("lit", with_control_number=True)
     literature_data_3.update({"authors": [{"full_name": "'t Hooft, Gerard"}]})
     literature_record_3 = LiteratureRecord.create(literature_data_3)
     db.session.commit()
 
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_disambiguation_task():
         authors_from_es = AuthorsSearch().query_from_iq("'t Hooft, Gerard").execute()
         literature_record_from_es = InspireSearch.get_record_data_from_es(
@@ -1492,4 +1543,4 @@ def test_disambiguation_deosnt_create_new_stub_author_if_theres_one(
             literature_record_from_es["authors"][0]["record"] == author_record_2["self"]
         )
 
-    retry_until_pass(assert_disambiguation_task, retry_interval=2)
+    assert_disambiguation_task()

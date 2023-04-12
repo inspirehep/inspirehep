@@ -4,9 +4,10 @@ import mock
 import pytest
 from flask_sqlalchemy import models_committed
 from helpers.providers.faker import faker
-from helpers.utils import create_s3_bucket, create_s3_file, retry_until_pass
+from helpers.utils import create_s3_bucket, create_s3_file
 from invenio_db import db
 from invenio_search import current_search
+from tenacity import retry, stop_after_delay, wait_fixed
 
 from inspirehep.files.api import current_s3_instance
 from inspirehep.indexer.tasks import batch_index
@@ -18,12 +19,13 @@ KEY = "b50c2ea2d26571e0c5a3411e320586289fd715c2"
 
 
 def assert_record_not_in_es(recid):
+    @retry(stop=stop_after_delay(30), wait=wait_fixed(5))
     def assert_hits():
         current_search.flush_and_refresh("records-hep")
         hits = LiteratureSearch().query_from_iq(f"recid:{recid}").execute().hits
         assert not hits
 
-    retry_until_pass(assert_hits, retry_interval=5)
+    assert_hits()
 
 
 @pytest.mark.xfail(reason="it takes to long to put attachment in es")
@@ -63,6 +65,7 @@ def test_fulltext_indexer(inspire_app, clean_celery_session, override_config):
         record = LiteratureRecord.create(data)
         db.session.commit()
 
+        @retry(stop=stop_after_delay(90), wait=wait_fixed(20))
         def assert_record_in_es():
             current_search.flush_and_refresh("*")
             record_lit_es = (
@@ -70,7 +73,7 @@ def test_fulltext_indexer(inspire_app, clean_celery_session, override_config):
             )
             assert "attachment" in record_lit_es._source["documents"][0]
 
-        retry_until_pass(assert_record_in_es, timeout=90, retry_interval=20)
+        assert_record_in_es()
 
 
 @pytest.mark.xfail(reason="it takes to long to put attachment in es")
@@ -123,6 +126,7 @@ def test_fulltext_indexer_updates_documents_when_record_changed(
         record = LiteratureRecord.create(data)
         db.session.commit()
 
+        @retry(stop=stop_after_delay(90), wait=wait_fixed(20))
         def assert_record_in_es():
             current_search.flush_and_refresh("*")
             record_lit_es = (
@@ -130,7 +134,7 @@ def test_fulltext_indexer_updates_documents_when_record_changed(
             )
             assert "attachment" in record_lit_es._source["documents"][0]
 
-        retry_until_pass(assert_record_in_es, timeout=90, retry_interval=20)
+        assert_record_in_es()
         record_first_attachment = (
             LiteratureSearch()
             .get_record(str(record.id))
@@ -152,6 +156,7 @@ def test_fulltext_indexer_updates_documents_when_record_changed(
         record.update(dict(record))
         db.session.commit()
 
+        @retry(stop=stop_after_delay(90), wait=wait_fixed(20))
         def assert_update_in_es():
             current_search.flush_and_refresh("*")
             record_lit_es = (
@@ -163,7 +168,7 @@ def test_fulltext_indexer_updates_documents_when_record_changed(
                 != record_lit_es._source["documents"][0]["attachment"]
             )
 
-        retry_until_pass(assert_update_in_es, timeout=90, retry_interval=20)
+        assert_update_in_es()
 
 
 def test_index_record_fulltext_manually(
@@ -206,6 +211,7 @@ def test_index_record_fulltext_manually(
 
         rec.index()
 
+        @retry(stop=stop_after_delay(90), wait=wait_fixed(5))
         def assert_record_in_es():
             current_search.flush_and_refresh("*")
             record_lit_es = (
@@ -215,7 +221,7 @@ def test_index_record_fulltext_manually(
             assert "attachment" in document
             assert "text" not in document  # pipeline should remove it
 
-        retry_until_pass(assert_record_in_es, timeout=90, retry_interval=5)
+        assert_record_in_es()
 
 
 def test_index_records_batch_fulltext_manually(
@@ -285,6 +291,7 @@ def test_index_records_batch_fulltext_manually(
         )
         db.session.commit()
 
+        @retry(stop=stop_after_delay(30), wait=wait_fixed(5))
         def assert_records_in_es():
             lit_record_from_es = LiteratureSearch.get_record_data_from_es(lit_record)
             lit_record_from_es_2 = LiteratureSearch.get_record_data_from_es(
@@ -292,7 +299,7 @@ def test_index_records_batch_fulltext_manually(
             )
             assert lit_record_from_es and lit_record_from_es_2
 
-        retry_until_pass(assert_records_in_es, retry_interval=5)
+        assert_records_in_es()
 
         models_committed.disconnect(index_after_commit)
         lit_record["documents"].append(
@@ -349,12 +356,13 @@ def test_fulltext_indexer_removes_deleted_from_es(
         )
         db.session.commit()
 
+        @retry(stop=stop_after_delay(30), wait=wait_fixed(5))
         def assert_records_in_es():
             lit_record_from_es = LiteratureSearch.get_record_data_from_es(lit_record)
 
             assert lit_record_from_es
 
-        retry_until_pass(assert_records_in_es, retry_interval=5)
+        assert_records_in_es()
 
         lit_record.delete()
         db.session.commit()
