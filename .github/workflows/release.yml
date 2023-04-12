@@ -28,11 +28,13 @@ jobs:
     needs: push
     steps:
       - name: send event
-        uses: cern-sis/gh-workflows/.github/actions/kubernetes-project-release@v4.0.0
+        uses: cern-sis/gh-workflows/.github/actions/kubernetes-project-new-images@v5.0.0
         with:
+          event-type: release
           images: |
-            "inspirehep/hep@${{ needs.test.outputs.backend-image-id }}"
-            "inspirehep/ui@${{ needs.test.outputs.ui-image-id }}"
-            "inspirehep/editor@${{ needs.test.outputs.editor-image-id }}"
+            inspirehep/hep@${{ needs.test.outputs.backend-image-id }}
+            inspirehep/ui@${{ needs.test.outputs.ui-image-id }}
+            inspirehep/editor@${{ needs.test.outputs.editor-image-id }}
           token: ${{ secrets.PAT_FIRE_EVENTS_ON_CERN_SIS_KUBERNETES }}
+
 

@@ -1,18 +1,26 @@
-name: Push master
+name: Hotfix
 
 on:
-  push:
-    branches: [master]
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'The branch to deploy on prod'
+        required: true
+        type: string
 
 defaults:
   run:
     shell: bash
 
+concurrency:
+  group: hotfix
+  cancel-in-progress: false
+
 jobs:
   test:
     uses: ./.github/workflows/integration-tests.yml
     with:
-      ref: ${{ github.ref }}
+      ref: ${{ inputs.branch }}
     secrets: inherit
 
   deploy:
@@ -22,7 +30,7 @@ jobs:
       - name: send event
         uses: cern-sis/gh-workflows/.github/actions/kubernetes-project-new-images@v5.0.0
         with:
-          event-type: update
+          event-type: hotfix
           images: |
             inspirehep/hep@${{ needs.test.outputs.backend-image-id }}
             inspirehep/ui@${{ needs.test.outputs.ui-image-id }}
