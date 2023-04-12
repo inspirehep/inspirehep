@@ -15,5 +15,5 @@ from .doi import DOISchemaV1
 from .external_system_identifier import ExternalSystemIdentifierSchemaV1
 from .isbn import IsbnSchemaV1
 from .publication_info_item import PublicationInfoItemSchemaV1
-from .reference_item import ReferenceItemSchemaV1
+from .reference_item import ReferenceItemSchemaV1, ReferenceItemSchemaV2
 from .thesis_info import ThesisInfoSchemaV1

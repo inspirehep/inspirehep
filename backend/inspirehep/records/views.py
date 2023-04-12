@@ -10,12 +10,18 @@ from flask.views import MethodView
 from invenio_db import db
 from invenio_records_rest.views import pass_record
 from requests.exceptions import RequestException
+from sqlalchemy.orm.exc import StaleDataError
 from webargs import fields
 from webargs.flaskparser import FlaskParser
 
 from inspirehep.accounts.decorators import login_required, login_required_with_roles
 from inspirehep.accounts.roles import Roles
-from inspirehep.records.api.literature import LiteratureRecord, import_article
+from inspirehep.pidstore.api.base import PidStoreBase
+from inspirehep.records.api.literature import (
+    InspireRecord,
+    LiteratureRecord,
+    import_article,
+)
 from inspirehep.records.errors import (
     ExistingArticleError,
     ImportArticleNotFoundError,
@@ -23,6 +29,7 @@ from inspirehep.records.errors import (
     MaxResultWindowRESTError,
     UnknownImportIdentifierError,
 )
+from inspirehep.records.marshmallow.literature.common import ReferenceItemSchemaV2
 from inspirehep.records.marshmallow.literature.references import (
     LiteratureReferencesSchema,
 )
@@ -32,6 +39,7 @@ from inspirehep.submissions.serializers import literature_v1
 
 from ..search.api import LiteratureSearch
 from .tasks import reference_self_curation as reference_self_curation_task
+from .utils import get_changed_reference
 
 LOGGER = structlog.getLogger()
 blueprint = Blueprint("inspirehep_records", __name__, url_prefix="")
@@ -237,6 +245,42 @@ def reference_self_curation(args):
         args["new_reference_recid"],
     )
     return jsonify({"message": "Success"}), 200
+
+
+@blueprint.route(
+    '/literature/<inspirepid(lit,record_class="inspirehep.records.api:LiteratureRecord"):pid_value>/<int:old_revision>..<int:new_revision>'
+)
+@login_required_with_roles([Roles.superuser.value, Roles.cataloger.value])
+def literature_reference_difference_between_versions(
+    pid_value, old_revision, new_revision
+):
+
+    if new_revision <= old_revision:
+        return (
+            jsonify({"message": "Old revision must be lower than new revision"}),
+            400,
+        )
+    new_version_id = new_revision + 1
+    old_version_id = old_revision + 1
+    record_uuid = str(PidStoreBase.get_uuid_for_recid(pid_value.value, "lit"))
+    try:
+        old_record = InspireRecord.get_record(
+            record_uuid, record_version=old_version_id
+        )
+        new_record = InspireRecord.get_record(
+            record_uuid, record_version=new_version_id
+        )
+    except StaleDataError:
+        return jsonify({"message": "Record in given revision was not found"}), 400
+    changed_reference = get_changed_reference(old_record, new_record)
+    if not changed_reference:
+        return jsonify({"message": "Changed reference not found"}), 400
+
+    data = {
+        key: ReferenceItemSchemaV2().dumps(value).data
+        for key, value in changed_reference.items()
+    }
+    return jsonify(data), 200
 
 
 literature_citations_view = LiteratureCitationsResource.as_view(
