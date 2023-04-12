@@ -231,7 +231,7 @@ def reference_self_curation(args):
     if len(record.get("references", [])) - 1 < args["reference_index"]:
         return jsonify({"message": "Reference index doesn't exist"}), 412
     reference_self_curation_task.delay(
-        record.id,
+        str(record.id),
         record.revision_id,
         args["reference_index"],
         args["new_reference_recid"],
