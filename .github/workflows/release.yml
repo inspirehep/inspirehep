@@ -10,7 +10,6 @@ defaults:
 
 jobs:
   push:
-    name: Merge to Prod
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -24,18 +23,19 @@ jobs:
           git config user.email github-actions@github.com
           git push --force --follow-tags origin ${{ github.ref_name }}:prod
 
-  deploy:
-    needs: push
-    runs-on: ubuntu-latest
-    steps:
+      - name: Generate metadata
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: |
+            inspirehep/hep
+            inspirehep/ui
+            inspirehep/editor
+          tags: "type=sha"
+
       - name: send event
         uses: cern-sis/gh-workflows/.github/actions/kubernetes-project-new-images@v5.0.0
         with:
           event-type: release
-          images: |
-            inspirehep/hep@${{ needs.test.outputs.backend-image-id }}
-            inspirehep/ui@${{ needs.test.outputs.ui-image-id }}
-            inspirehep/editor@${{ needs.test.outputs.editor-image-id }}
+          images: ${{ env.DOCKER_METADATA_OUTPUT_TAGS }}
           token: ${{ secrets.PAT_FIRE_EVENTS_ON_CERN_SIS_KUBERNETES }}
-
-
