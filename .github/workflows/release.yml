@@ -26,6 +26,7 @@ jobs:
 
   deploy:
     needs: push
+    runs-on: ubuntu-latest
     steps:
       - name: send event
         uses: cern-sis/gh-workflows/.github/actions/kubernetes-project-new-images@v5.0.0
