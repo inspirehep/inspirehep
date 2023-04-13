@@ -6,14 +6,11 @@ from inspire_matcher.api import match
 from inspire_utils.name import ParsedName
 from inspire_utils.record import get_value, get_values_for_schema
 from invenio_db import db
-from prometheus_client import Counter
 from sqlalchemy.orm.exc import StaleDataError
 
 from inspirehep.disambiguation.utils import (
     create_new_stub_author,
-    link_signatures_to_author,
     reorder_lit_author_names,
-    update_author_names,
 )
 from inspirehep.editor.editor_soft_lock import EditorSoftLock
 from inspirehep.errors import DB_TASK_EXCEPTIONS, ES_TASK_EXCEPTIONS
@@ -25,60 +22,6 @@ from inspirehep.records.api import InspireRecord
 from inspirehep.records.api.authors import AuthorsRecord
 
 LOGGER = structlog.getLogger()
-
-disambiguation_assigned_clusters = Counter(
-    "disambiguation_assigned_clusters", "Assigned clusters", ["num_authors"]
-)
-disambiguation_created_authors = Counter(
-    "disambiguation_created_authors",
-    "How many authors were created during disambiguation.",
-)
-
-
-@shared_task(ignore_result=False, bind=True)
-def disambiguate_signatures(self, clusters):
-    """Task which performs author disambiguation according to the given clusters.
-    If the cluster has no authors, it creates a new author using the data from all the signatures
-    and links all signatures to the newly created author.
-    If the cluster has exactly one author, it links all signatures to that author.
-
-    Args:
-        clusters (list): clusters received after the clustering performed by inspire_disambiguation.
-    """
-    for cluster in clusters:
-        authors = cluster["authors"]
-        if len(authors) == 1:
-            disambiguation_assigned_clusters.labels("1").inc()
-            LOGGER.debug(
-                "Received cluster with 1 author.",
-                author=cluster["authors"][0],
-                signatures=cluster["signatures"],
-            )
-            with db.session.begin_nested():
-                link_signatures_to_author(
-                    cluster["signatures"], cluster["authors"][0]["author_id"]
-                )
-
-        elif len(authors) == 0:
-            disambiguation_assigned_clusters.labels("0").inc()
-            with db.session.begin_nested():
-                LOGGER.debug(
-                    "Received cluster with 0 authors.", signatures=cluster["signatures"]
-                )
-                author = create_new_stub_author()
-                linked_signatures = link_signatures_to_author(
-                    cluster["signatures"], author["control_number"]
-                )
-                if not linked_signatures:
-                    author.hard_delete()
-                else:
-                    disambiguation_created_authors.inc()
-                    update_author_names(author, linked_signatures)
-
-        else:
-            disambiguation_assigned_clusters.labels("2+").inc()
-            LOGGER.debug("Received cluster with more than 1 author.")
-    db.session.commit()
 
 
 def match_literature_author_with_config(author_data, matcher_config):

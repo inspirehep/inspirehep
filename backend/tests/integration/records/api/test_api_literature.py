@@ -4,7 +4,6 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-import datetime
 from copy import deepcopy
 from uuid import UUID, uuid4
 
@@ -267,6 +266,30 @@ def test_literature_create_with_invalid_data(inspire_app):
         pid_value=record_control_number
     ).one_or_none()
     assert record_pid is None
+
+
+@mock.patch("inspirehep.records.api.literature.uuid.uuid4")
+def test_update_authors_uuids_does_not_update_existing_uuids(mock_uuid4, inspire_app):
+    mock_uuid4.return_value = UUID("727238f3-8ed6-40b6-97d2-dc3cd1429131")
+    author_data = {
+        "authors": [
+            {
+                "full_name": "Ellis, John Richard",
+                "uuid": "e14955b0-7e57-41a0-90a8-f4c64eb8f4e9",
+            }
+        ]
+    }
+    data = faker.record("lit", data=author_data)
+    record = LiteratureRecord.create(data)
+
+    expected_result_create = [
+        {
+            "full_name": "Ellis, John Richard",
+            "uuid": "e14955b0-7e57-41a0-90a8-f4c64eb8f4e9",
+        }
+    ]
+
+    assert expected_result_create == record["authors"]
 
 
 def test_literature_create_with_invalid_data_and_mutliple_pids(inspire_app):
@@ -785,216 +808,6 @@ def test_get_modified_references(inspire_app):
     citing_record.delete()
 
     assert citing_record.get_modified_references() == [cited_record_2.id]
-
-
-@mock.patch("inspirehep.records.api.literature.uuid.uuid4")
-def test_update_authors_signature_blocks_handles_ascii_names(mock_uuid4, inspire_app):
-    mock_uuid4.return_value = UUID("727238f3-8ed6-40b6-97d2-dc3cd1429131")
-    author_data = {"authors": [{"full_name": "Ellis, John Richard"}]}
-    data = faker.record("lit", data=author_data)
-    record = LiteratureRecord.create(data)
-
-    expected_result = [
-        {
-            "full_name": "Ellis, John Richard",
-            "signature_block": "ELj",
-            "uuid": "727238f3-8ed6-40b6-97d2-dc3cd1429131",
-        }
-    ]
-
-    assert expected_result == record["authors"]
-
-
-@mock.patch("inspirehep.records.api.literature.uuid.uuid4")
-def test_update_authors_signature_blocks_handles_unicode_names(mock_uuid4, inspire_app):
-    mock_uuid4.return_value = UUID("727238f3-8ed6-40b6-97d2-dc3cd1429131")
-    author_data = {"authors": [{"full_name": "Páramos, Jorge"}]}
-    data = faker.record("lit", data=author_data)
-    record = LiteratureRecord.create(data)
-
-    expected_result = [
-        {
-            "full_name": "Páramos, Jorge",
-            "signature_block": "PARANj",
-            "uuid": "727238f3-8ed6-40b6-97d2-dc3cd1429131",
-        }
-    ]
-
-    assert expected_result == record["authors"]
-
-
-@mock.patch("inspirehep.records.api.literature.uuid.uuid4")
-def test_update_authors_signature_blocks_handles_jimmy(mock_uuid4, inspire_app):
-    mock_uuid4.return_value = UUID("727238f3-8ed6-40b6-97d2-dc3cd1429131")
-    author_data = {"authors": [{"full_name": "Jimmy"}]}
-    data = faker.record("lit", data=author_data)
-    record = LiteratureRecord.create(data)
-
-    expected_result = [
-        {
-            "full_name": "Jimmy",
-            "signature_block": "JANY",
-            "uuid": "727238f3-8ed6-40b6-97d2-dc3cd1429131",
-        }
-    ]
-
-    assert expected_result == record["authors"]
-
-
-@mock.patch("inspirehep.records.api.literature.uuid.uuid4")
-def test_update_authors_signature_blocks_handles_two_authors_with_the_same_name(
-    mock_uuid4, inspire_app
-):
-    mock_uuid4.return_value = UUID("727238f3-8ed6-40b6-97d2-dc3cd1429131")
-    author_data = {"authors": [{"full_name": "Jimmy"}]}
-    data = faker.record("lit", data=author_data)
-    record = LiteratureRecord.create(data)
-
-    expected_result = [
-        {
-            "full_name": "Jimmy",
-            "signature_block": "JANY",
-            "uuid": "727238f3-8ed6-40b6-97d2-dc3cd1429131",
-        }
-    ]
-
-    assert expected_result == record["authors"]
-
-
-@mock.patch("inspirehep.records.api.literature.uuid.uuid4")
-def test_update_authors_signature_blocks_discards_empty_signature_blocks(
-    mock_uuid4, inspire_app
-):
-    mock_uuid4.return_value = UUID("727238f3-8ed6-40b6-97d2-dc3cd1429131")
-    author_data = {"authors": [{"full_name": "ae"}]}
-    data = faker.record("lit", data=author_data)
-    record = LiteratureRecord.create(data)
-
-    expected_result = [
-        {"full_name": "ae", "uuid": "727238f3-8ed6-40b6-97d2-dc3cd1429131"}
-    ]
-
-    assert expected_result == record["authors"]
-
-
-@mock.patch("inspirehep.records.api.literature.uuid.uuid4")
-def test_update_authors_signature_discards_empty_signature_blocks(
-    mock_uuid4, inspire_app
-):
-    mock_uuid4.return_value = UUID("727238f3-8ed6-40b6-97d2-dc3cd1429131")
-    author_data = {"authors": [{"full_name": "ae"}]}
-    data = faker.record("lit", data=author_data)
-    record = LiteratureRecord.create(data)
-
-    expected_result = [
-        {"full_name": "ae", "uuid": "727238f3-8ed6-40b6-97d2-dc3cd1429131"}
-    ]
-
-    assert expected_result == record["authors"]
-
-
-@mock.patch("inspirehep.records.api.literature.uuid.uuid4")
-def test_updating_record_updates_authors_signature_blocks_and_uuids(
-    mock_uuid4, inspire_app
-):
-    mock_uuid4.return_value = UUID("727238f3-8ed6-40b6-97d2-dc3cd1429131")
-    author_data = {"authors": [{"full_name": "Ellis, John Richard"}]}
-    data = faker.record("lit", data=author_data)
-    record = LiteratureRecord.create(data)
-    expected_result_create = [
-        {
-            "full_name": "Ellis, John Richard",
-            "signature_block": "ELj",
-            "uuid": "727238f3-8ed6-40b6-97d2-dc3cd1429131",
-        }
-    ]
-
-    assert expected_result_create == record["authors"]
-
-    mock_uuid4.return_value = UUID("e14955b0-7e57-41a0-90a8-f4c64eb8f4e9")
-    data.update({"authors": [{"full_name": "Jimmy"}]})
-    data["control_number"] = record["control_number"]
-    record.update(data)
-    expected_result_update = [
-        {
-            "full_name": "Jimmy",
-            "signature_block": "JANY",
-            "uuid": "e14955b0-7e57-41a0-90a8-f4c64eb8f4e9",
-        }
-    ]
-
-    assert expected_result_update == record["authors"]
-
-
-@mock.patch("inspirehep.records.api.literature.uuid.uuid4")
-def test_update_authors_uuids_does_not_update_existing_uuids(mock_uuid4, inspire_app):
-    mock_uuid4.return_value = UUID("727238f3-8ed6-40b6-97d2-dc3cd1429131")
-    author_data = {
-        "authors": [
-            {
-                "full_name": "Ellis, John Richard",
-                "uuid": "e14955b0-7e57-41a0-90a8-f4c64eb8f4e9",
-            }
-        ]
-    }
-    data = faker.record("lit", data=author_data)
-    record = LiteratureRecord.create(data)
-
-    expected_result_create = [
-        {
-            "full_name": "Ellis, John Richard",
-            "signature_block": "ELj",
-            "uuid": "e14955b0-7e57-41a0-90a8-f4c64eb8f4e9",
-        }
-    ]
-
-    assert expected_result_create == record["authors"]
-
-
-def test_create_record_sends_phonetic_blocks_to_redis(inspire_app, redis):
-    author_data = {"authors": [{"full_name": "Ellis, John Richard"}]}
-    data = faker.record("lit", data=author_data)
-    LiteratureRecord.create(data)
-    assert "ELj" == redis.zpopmin("author_phonetic_blocks")[0][0]
-
-
-def test_update_record_sends_phonetic_blocks_to_redis(inspire_app, redis):
-    data = faker.record("lit")
-    record = LiteratureRecord.create(data)
-    author_data_updated = {"authors": [{"full_name": "Ellis, John Richard"}]}
-    data.update(author_data_updated)
-    data["control_number"] = record["control_number"]
-    record.update(data)
-    assert "ELj" == redis.zpopmin("author_phonetic_blocks")[0][0]
-
-
-def test_phonetic_blocks_keep_order_in_redis_based_on_timestamp(inspire_app, redis):
-    with freeze_time(datetime.datetime(2015, 8, 18, 8, 51, 50)):
-        author_data = {"authors": [{"full_name": "Ellis, John Richard"}]}
-        data = faker.record("lit", data=author_data)
-        InspireRecord.create(data)
-
-    with freeze_time(datetime.datetime(2015, 8, 18, 9, 51, 50)):
-        author_data2 = {"authors": [{"full_name": "Jimmy"}]}
-        data2 = faker.record("lit", data=author_data2)
-        LiteratureRecord.create(data2)
-
-    assert "ELj" == redis.zpopmin("author_phonetic_blocks")[0][0]
-    assert "JANY" == redis.zpopmin("author_phonetic_blocks")[0][0]
-
-
-def test_phonetic_blocks_not_updated_when_record_does_not_have_lit_collection(
-    inspire_app, redis
-):
-    data = {
-        "_collections": ["CDS Hidden"],
-        "authors": [{"full_name": "Ellis, John Richard"}],
-    }
-    data = faker.record("lit", data=data)
-    record = LiteratureRecord.create(data)
-    expected_result_authors = [{"full_name": "Ellis, John Richard"}]
-    assert expected_result_authors == record["authors"]
-    assert [] == redis.zpopmin("author_phonetic_blocks")
 
 
 def test_record_cannot_cite_itself(inspire_app):

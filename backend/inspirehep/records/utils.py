@@ -8,11 +8,9 @@
 from io import BytesIO
 from itertools import chain
 
-import numpy as np
 import pdfplumber
 import requests
 import structlog
-from beard.clustering import block_phonetic
 from flask import current_app
 from inspire_dojson.utils import get_recid_from_ref, get_record_ref
 from inspire_utils.date import earliest_date
@@ -57,24 +55,6 @@ def get_literature_earliest_date(data):
             return result
 
     return None
-
-
-def get_authors_phonetic_blocks(full_names, phonetic_algorithm="nysiis"):
-    """Create a dictionary of phonetic blocks for a given list of names."""
-
-    # The method requires a list of dictionaries with full_name as keys.
-    full_names_formatted = [{"author_name": i} for i in full_names]
-
-    # Create a list of phonetic blocks.
-    phonetic_blocks = list(
-        block_phonetic(
-            np.array(full_names_formatted, dtype=object).reshape(-1, 1),
-            threshold=0,
-            phonetic_algorithm=phonetic_algorithm,
-        )
-    )
-
-    return dict(zip(full_names, phonetic_blocks))
 
 
 def requests_retry_session(retries=3):

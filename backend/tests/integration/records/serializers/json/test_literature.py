@@ -44,7 +44,6 @@ def test_literature_authors_json(mock_uuid4, inspire_app):
             {
                 "first_name": full_name_1,
                 "full_name": full_name_1,
-                "signature_block": "WALCARt",
                 "uuid": "727238f3-8ed6-40b6-97d2-dc3cd1429131",
                 "recid": 1,
                 "record": author["self"],
