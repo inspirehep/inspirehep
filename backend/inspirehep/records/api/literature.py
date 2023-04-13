@@ -4,7 +4,6 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-import datetime
 import threading
 import uuid
 from concurrent.futures import ThreadPoolExecutor, TimeoutError, as_completed
@@ -27,7 +26,6 @@ from inspire_utils.record import get_value
 from invenio_db import db
 from jsonschema import ValidationError
 from pdfminer.pdftypes import PDFException
-from redis import StrictRedis
 
 from inspirehep.disambiguation.tasks import disambiguate_authors
 from inspirehep.files.api import current_s3_instance
@@ -54,7 +52,6 @@ from inspirehep.records.marshmallow.literature import (
 )
 from inspirehep.records.utils import (
     download_file_from_url,
-    get_authors_phonetic_blocks,
     get_literature_earliest_date,
     get_pid_for_pid,
     get_ref_from_pid,
@@ -121,11 +118,11 @@ class LiteratureRecord(
         *args,
         **kwargs,
     ):
-        LiteratureRecord.update_authors_signature_blocks_and_uuids(data)
         LiteratureRecord.update_refs_to_conferences(data)
         data = LiteratureRecord.add_files(data)
 
         with db.session.begin_nested():
+            LiteratureRecord.update_authors_uuids(data)
             record = super().create(data, **kwargs)
 
             if not disable_relations_update:
@@ -148,7 +145,6 @@ class LiteratureRecord(
             disambiguate_authors.delay(
                 str(record.id), version_id=record.model.version_id
             )
-        record.push_authors_phonetic_blocks_to_redis()
         return record
 
     @classmethod
@@ -220,7 +216,7 @@ class LiteratureRecord(
         **kwargs,
     ):
         with db.session.begin_nested():
-            LiteratureRecord.update_authors_signature_blocks_and_uuids(data)
+            LiteratureRecord.update_authors_uuids(data)
             LiteratureRecord.update_refs_to_conferences(data)
             data = self.add_files(data)
             super().update(data, *args, **kwargs)
@@ -243,7 +239,6 @@ class LiteratureRecord(
             and not data.get("deleted")
         ):
             disambiguate_authors.delay(str(self.id), version_id=self.model.version_id)
-        self.push_authors_phonetic_blocks_to_redis()
 
     def get_modified_authors(self):
         previous_authors = self._previous_version.get("authors", [])
@@ -274,6 +269,17 @@ class LiteratureRecord(
 
             if author_with_excluded_ref != previous_author_with_excluded_ref:
                 yield author
+
+    @staticmethod
+    def update_authors_uuids(data):
+        """Assigns a an uuid to each author of a record."""
+
+        if "Literature" not in data["_collections"]:
+            return
+
+        for author in data.get("authors", []):
+            if "uuid" not in author:
+                author["uuid"] = str(uuid.uuid4())
 
     def get_modified_references(self):
         """Return the ids of the references diff between the latest and the
@@ -324,53 +330,6 @@ class LiteratureRecord(
             return list(self.get_records_ids_by_pids(list(pids_latest | pids_changed)))
 
         return list(self.get_records_ids_by_pids(list(pids_changed)))
-
-    @staticmethod
-    def update_authors_signature_blocks_and_uuids(data):
-        """Assigns a phonetic block and a uuid to each signature of a record.
-        Sends the phonetic blocks to redis to be consumed by the disambiguation service.
-
-        Uses the NYSIIS algorithm to compute a phonetic block from each
-        signature's full name, skipping those that are not recognized
-        as real names, but logging an error when that happens.
-        """
-
-        if "Literature" not in data["_collections"]:
-            return
-
-        author_names = get_value(data, "authors.full_name", default=[])
-
-        try:
-            signature_blocks = get_authors_phonetic_blocks(author_names)
-        except Exception:
-            LOGGER.exception(
-                "Cannot extract phonetic blocks", recid=data.get("control_number")
-            )
-            return
-
-        for author in data.get("authors", []):
-            author_signature_block = signature_blocks.get(author["full_name"])
-            if author_signature_block:
-                author["signature_block"] = author_signature_block
-            if "uuid" not in author:
-                author["uuid"] = str(uuid.uuid4())
-
-    def push_authors_phonetic_blocks_to_redis(self):
-        """Sends the phonetic blocks to redis to be consumed by the disambiguation service."""
-        if "Literature" not in self["_collections"]:
-            return
-
-        redis_url = current_app.config.get("CACHE_REDIS_URL")
-        r = StrictRedis.from_url(redis_url)
-
-        for author in self.get("authors", []):
-            author_signature_block = author.get("signature_block")
-            if author_signature_block:
-                r.zadd(
-                    "author_phonetic_blocks",
-                    {author_signature_block: datetime.datetime.utcnow().timestamp()},
-                    nx=True,
-                )
 
     @staticmethod
     def add_files(data):

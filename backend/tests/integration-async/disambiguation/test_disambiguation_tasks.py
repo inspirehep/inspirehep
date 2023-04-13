@@ -13,61 +13,15 @@ from helpers.utils import create_user
 from inspire_utils.record import get_values_for_schema
 from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db
-from invenio_pidstore.models import PersistentIdentifier
-from invenio_search import current_search
 from redis import StrictRedis
 from tenacity import retry, stop_after_delay, wait_fixed
 
-from inspirehep.disambiguation.tasks import (
-    disambiguate_authors,
-    disambiguate_signatures,
-)
+from inspirehep.disambiguation.tasks import disambiguate_authors
 from inspirehep.editor.editor_soft_lock import EditorSoftLock
 from inspirehep.records.api import AuthorsRecord, InspireRecord
 from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.records.receivers import index_after_commit
 from inspirehep.search.api import AuthorsSearch, InspireSearch
-
-
-def test_signature_linked_by_disambiguation_has_correct_facet_author_name(
-    inspire_app, clean_celery_session
-):
-    data = faker.record("lit")
-    data["authors"] = [
-        {"full_name": "Doe, John", "uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e51"}
-    ]
-    record = LiteratureRecord.create(data)
-    db.session.commit()
-    clusters = [
-        {
-            "signatures": [
-                {
-                    "publication_id": record["control_number"],
-                    "signature_uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e51",
-                }
-            ],
-            "authors": [],
-        }
-    ]
-    disambiguate_signatures(clusters)
-    author_pids = PersistentIdentifier.query.filter_by(pid_type="aut").all()
-    assert len(author_pids) == 1
-
-    pid_value = author_pids[0].pid_value
-    author = AuthorsRecord.get_record_by_pid_value(pid_value)
-    author_control_number = author.pop("control_number")
-
-    expected_facet_author_name = [f"{author_control_number}_John Doe"]
-    expected_record_ref = f"http://localhost:5000/api/authors/{pid_value}"
-
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(2))
-    def assert_references():
-        current_search.flush_and_refresh("records-hep")
-        record_from_es = InspireSearch.get_record_data_from_es(record)
-        assert expected_facet_author_name == record_from_es["facet_author_name"]
-        assert expected_record_ref == record_from_es["authors"][0]["record"]["$ref"]
-
-    assert_references()
 
 
 def test_disambiguation_runs_after_record_creation(

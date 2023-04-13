@@ -12,7 +12,6 @@ backoff==1.10.0; (python_version >= "2.7" and python_full_version < "3.0.0") or 
 backports.tempfile==1.0
 backports.weakref==1.0.post1
 base32-lib==1.0.1
-beard==0.2.1
 beautifulsoup4==4.8.2
 billiard==3.6.3.0; python_version >= "3.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version >= "3.7"
 bleach==3.2.1; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0"
@@ -65,7 +64,6 @@ ftfy==6.0.3; python_version >= "3.6"
 ftputil==3.4
 furl==2.1.0
 future==0.18.2; python_version >= "2.6" and python_full_version < "3.0.0" or python_full_version >= "3.3.0"
-fuzzy==1.2.2
 gunicorn==19.10.0; (python_version >= "2.6" and python_full_version < "3.0.0") or (python_full_version >= "3.2.0")
 harvestingkit==0.6.17
 hepcrawl==13.0.31
@@ -114,10 +112,8 @@ isbnid-fork==0.5.2
 isodate==0.6.0
 itsdangerous==1.1.0; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.4.0")
 jedi==0.15.2; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.4.0" and python_version >= "3.6"
-jellyfish==0.6.1
 jinja2==2.10.3; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0"
 jmespath==0.9.4; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.6.0"
-joblib==1.1.0; python_version >= "3.8"
 json-merger==0.7.11
 jsonpatch==1.24; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.4.0"
 jsonpointer==2.0; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.4.0"
@@ -195,8 +191,6 @@ requests==2.22.0; python_version >= "2.7" and python_full_version < "3.0.0" or p
 rfc3987==1.3.8
 rt==1.0.12
 s3transfer==0.4.1; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.6.0"
-scikit-learn==1.1.2; python_version >= "3.8"
-scipy==1.9.0; python_version >= "3.8" and python_version < "3.12"
 scrapy-crawl-once==0.1.1
 scrapy-sentry==0.9.0
 scrapy==1.6.0; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.4.0"
@@ -218,7 +212,6 @@ structlog-sentry==1.2.1; python_version >= "3.5"
 structlog==19.2.0
 sword2 @ git+https://github.com/inspirehep/python-client-sword2.git@python3
 tenacity==8.2.2; python_version >= "3.6"
-threadpoolctl==3.1.0; python_version >= "3.8"
 timeexecution==1.10.4
 traitlets==4.3.3; python_version >= "3.6"
 twisted==18.9.0; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.4.0"

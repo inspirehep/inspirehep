@@ -15,9 +15,7 @@ from inspirehep.records.api.base import InspireRecord
 from inspirehep.records.models import RecordsAuthors
 
 
-def test_authors_signature_blocks_and_uuids_added_after_create_and_update(
-    inspire_app, clean_celery_session
-):
+def test_authors_uuids_added_after_create_and_update(inspire_app, clean_celery_session):
     data = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "titles": [{"title": "Test a valid record"}],
@@ -31,9 +29,7 @@ def test_authors_signature_blocks_and_uuids_added_after_create_and_update(
 
     record_control_number = record["control_number"]
     record = LiteratureRecord.get_record_by_pid_value(record_control_number)
-    expected_signature_block = "Dj"
 
-    assert expected_signature_block == record["authors"][0]["signature_block"]
     assert "uuid" in record["authors"][0]
 
     expected_versions_len = 1
@@ -43,7 +39,6 @@ def test_authors_signature_blocks_and_uuids_added_after_create_and_update(
     assert expected_versions_len == len(results)
     assert result_latest_version == record
 
-    expected_signature_block = "ELj"
     data.update(
         {
             "authors": [{"full_name": "Ellis, Jane"}],
@@ -54,8 +49,6 @@ def test_authors_signature_blocks_and_uuids_added_after_create_and_update(
     db.session.commit()
 
     record = LiteratureRecord.get_record_by_pid_value(record_control_number)
-
-    assert expected_signature_block == record["authors"][0]["signature_block"]
 
     expected_versions_len = 2
     results = record.model.versions.all()
