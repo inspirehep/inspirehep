@@ -1,5 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { LineMarkSeries, FlexibleWidthXYPlot, YAxis, XAxis, Hint, LineMarkSeriesPoint, RVNearestXEventHandler } from 'react-vis';
+import {
+  LineMarkSeries,
+  MarkSeries,
+  LineSeries,
+  FlexibleWidthXYPlot,
+  YAxis,
+  XAxis,
+  Hint,
+  MarkSeriesPoint,
+  LineMarkSeriesPoint,
+  RVNearestXEventHandler,
+} from 'react-vis';
 import 'react-vis/dist/style.css';
 import maxBy from 'lodash.maxby';
 import { Map } from 'immutable';
@@ -61,7 +72,7 @@ function CitationsByYearGraph({
         seriesData.unshift({ x: firstX - 1, y: 0 });
       }
     }
-    
+
     return seriesData;
   }
 
@@ -82,6 +93,7 @@ function CitationsByYearGraph({
       hoveredDatapoint && (
         <Hint
           align={{ vertical: 'top', horizontal: 'auto' }}
+          key={hoveredDatapoint.x}
           value={hoveredDatapoint}
           format={({ x, y }) => [
             {
@@ -125,40 +137,48 @@ function CitationsByYearGraph({
   function renderCitationsGraph() {
     const currentYear = new Date().getFullYear();
     const yearOfLastCitation = seriesData?.slice(-1)[0]?.x;
-    const currentYearSeries = seriesData.slice(seriesData.length - 2, seriesData.length);
+    const currentYearSeries = seriesData.slice(
+      seriesData.length - 2,
+      seriesData.length
+    );
     const pastYearsSeries = seriesData.slice(0, seriesData.length - 1);
 
     if (yearOfLastCitation === currentYear) {
       return [
-          <LineMarkSeries
-            onNearestX={onGraphMouseOver as RVNearestXEventHandler<LineMarkSeriesPoint>}
-            data={pastYearsSeries}
-            color={BLUE}
-            markStyle={{stroke: BLUE}}
-            size={3}
-          />,
-          <LineMarkSeries
-            data={currentYearSeries}
-            color={LIGHT_BLUE}
-            onNearestX={onGraphMouseOver as RVNearestXEventHandler<LineMarkSeriesPoint>}
-            // @ts-ignore
-            strokeDasharray="7 3"
-            markStyle={{stroke: LIGHT_BLUE}}
-            size={3}
-          />
+        <LineSeries data={pastYearsSeries} color={BLUE} key="past-years" />,
+        <LineSeries
+          data={currentYearSeries}
+          color={LIGHT_BLUE}
+          // @ts-expect-error
+          strokeDasharray="7 3"
+          key="current-year"
+        />,
+        <MarkSeries
+          data={[...pastYearsSeries, ...currentYearSeries]}
+          color={BLUE}
+          onNearestX={
+            onGraphMouseOver as RVNearestXEventHandler<MarkSeriesPoint>
+          }
+          stroke={BLUE}
+          // @ts-expect-error
+          size={3}
+          fill={BLUE}
+          key="marks"
+        />,
       ];
     }
     return (
       <LineMarkSeries
-        onNearestX={onGraphMouseOver as RVNearestXEventHandler<LineMarkSeriesPoint>}
+        onNearestX={
+          onGraphMouseOver as RVNearestXEventHandler<LineMarkSeriesPoint>
+        }
         data={seriesData}
-        markStyle={{stroke: BLUE}}
+        markStyle={{ stroke: BLUE }}
         color={BLUE}
         size={3}
       />
     );
   }
-
 
   const yDomainMax =
     (seriesData.length !== 0 && maxBy(seriesData, 'y')?.y) || 0;
