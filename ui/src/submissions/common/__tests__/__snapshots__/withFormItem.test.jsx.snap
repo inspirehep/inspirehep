@@ -13,11 +13,6 @@ exports[`withFormItem passes all props correctly to Form.Item and wrapped Input 
   }
   label={
     <Tooltip
-      arrowPointAtCenter={false}
-      autoAdjustOverflow={true}
-      mouseEnterDelay={0.1}
-      mouseLeaveDelay={0.1}
-      placement="top"
       title="Test Label"
     >
       Test Label
@@ -77,11 +72,6 @@ exports[`withFormItem passes all props correctly to Form.Item and wrapped Input 
   hasFeedback={false}
   label={
     <Tooltip
-      arrowPointAtCenter={false}
-      autoAdjustOverflow={true}
-      mouseEnterDelay={0.1}
-      mouseLeaveDelay={0.1}
-      placement="top"
       title="Test Label"
     >
       Test Label
@@ -139,11 +129,6 @@ exports[`withFormItem passes props correctly to Form.Item and wrapped Input comp
   hasFeedback={false}
   label={
     <Tooltip
-      arrowPointAtCenter={false}
-      autoAdjustOverflow={true}
-      mouseEnterDelay={0.1}
-      mouseLeaveDelay={0.1}
-      placement="top"
       title="Test Label"
     >
       Test Label

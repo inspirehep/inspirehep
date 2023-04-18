@@ -11,7 +11,7 @@ export const JournalTitlesListModal = ({
   titleVariants: string[];
 }) => (
   <Modal
-    visible={modalVisible}
+    open={modalVisible}
     onCancel={onModalVisibilityChange}
     footer={null}
     title="Title variants"

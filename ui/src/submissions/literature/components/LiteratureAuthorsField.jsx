@@ -39,7 +39,7 @@ class LiteratureAuthorsField extends Component {
                 placeholder="Affiliation, type for suggestions"
                 pidType="institutions"
                 suggesterName="affiliation"
-                searchAsYouType
+                searchasyoutype="true"
                 extractItemCompletionValue={
                   LiteratureAuthorsField.getSuggestionSourceLegacyICN
                 }

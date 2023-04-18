@@ -3,11 +3,6 @@
 exports[`AuthorLinkedinAction renders with linkedin 1`] = `
 <UserActionWrapper>
   <Tooltip
-    arrowPointAtCenter={false}
-    autoAdjustOverflow={true}
-    mouseEnterDelay={0.1}
-    mouseLeaveDelay={0.1}
-    placement="top"
     title="LinkedIn"
   >
     <EventTracker

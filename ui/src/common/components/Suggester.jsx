@@ -24,8 +24,8 @@ class Suggester extends Component {
       return;
     }
 
-    const { pidType, suggesterName, searchAsYouType } = this.props;
-    const endpoint = searchAsYouType ? '_search_as_you_type' : '_suggest';
+    const { pidType, suggesterName, searchasyoutype } = this.props;
+    const endpoint = searchasyoutype ? '_search_as_you_type' : '_suggest';
     const urlWithQuery = `/${pidType}/${endpoint}?${suggesterName}=${value}`;
     const suggesterRequestId = `${pidType}-${suggesterName}`;
     try {
@@ -113,11 +113,11 @@ Suggester.propTypes = {
   extractUniqueItemValue: PropTypes.func,
   extractItemCompletionValue: PropTypes.func, // defaults to extractUniqueItemValue
   renderResultItem: PropTypes.func, // defaults to extractItemCompletionValue
-  searchAsYouType: PropTypes.bool,
+  searchasyoutype: PropTypes.string,
 };
 
 Suggester.defaultProps = {
   extractUniqueItemValue: (resultItem) => resultItem.text,
-  searchAsYouType: false,
+  searchasyoutype: undefined,
 };
 export default Suggester;

@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { FileDoneOutlined } from '@ant-design/icons';
-import { Button, Menu, Tooltip } from 'antd';
+import { Button, Tooltip } from 'antd';
 import { useParams } from 'react-router-dom';
 
 import DropdownMenu from '../../common/components/DropdownMenu';
@@ -35,8 +35,52 @@ function AssignOwnProfileAction({
     onUnassign({ from: currentAuthorId });
   }, [currentAuthorId, onUnassign]);
 
+  const menuItems = [
+    {
+      key: '1',
+      disabled: disabledAssignAction,
+      label: (
+        <EventTracker
+          eventCategory="Author detail"
+          eventAction="Claim"
+          eventId="This is my paper"
+        >
+          <span
+            data-test-id="assign-self"
+            data-testid="assign-self"
+            key="assign-self"
+            onClick={onSelfAssign}
+          >
+            <Tooltip title={disabledAssignAction ? claimingTooltip : null}>
+              <p>
+                {numberOfSelected === 1
+                  ? 'This is my paper'
+                  : 'These are my papers'}
+              </p>
+            </Tooltip>
+          </span>
+        </EventTracker>
+      ),
+    },
+    {
+      key: '2',
+      label: (
+        <EventTracker
+          eventCategory="Author detail"
+          eventAction="Claim"
+          eventId="This is not my paper"
+        >
+          <span data-test-id="unassign" data-testid="unassign" key="unassign" onClick={onSelfUnassign}>
+            {numberOfSelected === 1
+              ? 'This is not my paper'
+              : 'These are not my papers'}
+          </span>
+        </EventTracker>
+      ),
+    },
+  ];
+
   return (
-    // TODO: rename `UserAction` because it's not only used for list item actions, such as (assign all and cite all)
     <UserAction>
       <DropdownMenu
         disabled={disabled}
@@ -53,43 +97,8 @@ function AssignOwnProfileAction({
             </Button>
           </Tooltip>
         }
-      >
-        <EventTracker
-          eventCategory="Author detail"
-          eventAction="Claim"
-          eventId="This is my paper"
-        >
-          <Menu.Item
-            data-test-id="assign-self"
-            key="assign-self"
-            onClick={onSelfAssign}
-            disabled={disabledAssignAction}
-          >
-            <Tooltip title={disabledAssignAction ? claimingTooltip : null}>
-              <p>
-                {numberOfSelected === 1
-                  ? 'This is my paper'
-                  : 'These are my papers'}
-              </p>
-            </Tooltip>
-          </Menu.Item>
-        </EventTracker>
-        <EventTracker
-          eventCategory="Author detail"
-          eventAction="Claim"
-          eventId="This is not my paper"
-        >
-          <Menu.Item
-            data-test-id="unassign"
-            key="unassign"
-            onClick={onSelfUnassign}
-          >
-            {numberOfSelected === 1
-              ? 'This is not my paper'
-              : 'These are not my papers'}
-          </Menu.Item>
-        </EventTracker>
-      </DropdownMenu>
+        items={menuItems}
+      />
     </UserAction>
   );
 }

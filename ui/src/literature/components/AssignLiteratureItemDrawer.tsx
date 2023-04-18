@@ -72,7 +72,7 @@ function AssignLiteratureItemDrawer({
         onDrawerClose();
         setSelectedAuthorId(undefined);
       }}
-      visible={itemLiteratureId === literatureId}
+      open={itemLiteratureId === literatureId}
       title="Select the author to claim:"
     >
       <Input.Search

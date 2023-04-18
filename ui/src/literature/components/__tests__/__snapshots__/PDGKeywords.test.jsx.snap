@@ -27,13 +27,10 @@ exports[`PDGKeywords renders with keywords 1`] = `
         "padding": "12px 24px 24px 24px",
       }
     }
-    confirmLoading={false}
     footer={null}
-    okType="primary"
     onCancel={[Function]}
     open={false}
     title="PDG keywords"
-    visible={false}
     width="50%"
   >
     <List

@@ -418,6 +418,7 @@ exports[`DetailPageContainer renders initial state 1`] = `
                 >
                   <div
                     class="ant-tabs-tab ant-tabs-tab-active"
+                    data-node-key="1"
                   >
                     <div
                       aria-controls="rc-tabs-test-panel-1"
@@ -443,6 +444,7 @@ exports[`DetailPageContainer renders initial state 1`] = `
                   </div>
                   <div
                     class="ant-tabs-tab"
+                    data-node-key="2"
                   >
                     <div
                       aria-controls="rc-tabs-test-panel-2"
@@ -468,6 +470,7 @@ exports[`DetailPageContainer renders initial state 1`] = `
                   </div>
                   <div
                     class="ant-tabs-tab"
+                    data-node-key="3"
                   >
                     <div
                       aria-controls="rc-tabs-test-panel-3"
@@ -607,7 +610,7 @@ exports[`DetailPageContainer renders initial state 1`] = `
                                       <div
                                         class="ant-empty-description"
                                       >
-                                        No Data
+                                        No data
                                       </div>
                                     </div>
                                   </div>

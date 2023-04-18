@@ -4,58 +4,58 @@ exports[`AuthorEmailsAction renders multiple current emails in a dropdown 1`] = 
 <UserActionWrapper>
   <DropdownMenu
     disabled={false}
+    items={
+      Immutable.List [
+        Object {
+          "key": "dude@email.cern",
+          "label": <span>
+            <EventTracker
+              eventAction="Mail"
+              eventCategory="Author detail"
+              eventId="Contact author"
+              eventPropName="onClick"
+              extractEventArgsToForward={null}
+            >
+              <LinkWithTargetBlank
+                as="a"
+                href="mailto:dude@email.cern"
+              >
+                dude@email.cern
+              </LinkWithTargetBlank>
+            </EventTracker>
+          </span>,
+        },
+        Object {
+          "key": "other-dude@email.cern",
+          "label": <span>
+            <EventTracker
+              eventAction="Mail"
+              eventCategory="Author detail"
+              eventId="Contact author"
+              eventPropName="onClick"
+              extractEventArgsToForward={null}
+            >
+              <LinkWithTargetBlank
+                as="a"
+                href="mailto:other-dude@email.cern"
+              >
+                other-dude@email.cern
+              </LinkWithTargetBlank>
+            </EventTracker>
+          </span>,
+        },
+      ]
+    }
     title={
       <Button>
         <Tooltip
-          arrowPointAtCenter={false}
-          autoAdjustOverflow={true}
-          mouseEnterDelay={0.1}
-          mouseLeaveDelay={0.1}
-          placement="top"
           title="Contact author"
         >
           <ForwardRef(MailOutlined) />
         </Tooltip>
       </Button>
     }
-  >
-    <MenuItem
-      key="dude@email.cern"
-    >
-      <EventTracker
-        eventAction="Mail"
-        eventCategory="Author detail"
-        eventId="Contact author"
-        eventPropName="onClick"
-        extractEventArgsToForward={null}
-      >
-        <LinkWithTargetBlank
-          as="a"
-          href="mailto:dude@email.cern"
-        >
-          dude@email.cern
-        </LinkWithTargetBlank>
-      </EventTracker>
-    </MenuItem>
-    <MenuItem
-      key="other-dude@email.cern"
-    >
-      <EventTracker
-        eventAction="Mail"
-        eventCategory="Author detail"
-        eventId="Contact author"
-        eventPropName="onClick"
-        extractEventArgsToForward={null}
-      >
-        <LinkWithTargetBlank
-          as="a"
-          href="mailto:other-dude@email.cern"
-        >
-          other-dude@email.cern
-        </LinkWithTargetBlank>
-      </EventTracker>
-    </MenuItem>
-  </DropdownMenu>
+  />
 </UserActionWrapper>
 `;
 
@@ -73,11 +73,6 @@ exports[`AuthorEmailsAction renders single email 1`] = `
       href="mailto:dude@email.cern"
     >
       <Tooltip
-        arrowPointAtCenter={false}
-        autoAdjustOverflow={true}
-        mouseEnterDelay={0.1}
-        mouseLeaveDelay={0.1}
-        placement="top"
         title="Contact author"
       >
         <ForwardRef(MailOutlined) />

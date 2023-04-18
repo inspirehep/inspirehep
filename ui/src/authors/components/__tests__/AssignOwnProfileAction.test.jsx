@@ -1,5 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { render, waitFor, fireEvent, screen } from '@testing-library/react';
+
 import AssignOwnProfileAction from '../AssignOwnProfileAction';
 
 jest.mock('react-router-dom', () => ({
@@ -51,31 +53,41 @@ describe('AssignOwnProfileAction', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('calls onAssign on assign-self click ', () => {
+  it('calls onAssign on assign-self click ', async () => {
     const onAssign = jest.fn();
-    const wrapper = shallow(
+    const { container } = render(
       <AssignOwnProfileAction onAssign={onAssign} isUnassignAction={false} />
     );
-    wrapper.find('[data-test-id="assign-self"]').simulate('click');
-    expect(onAssign).toHaveBeenCalledWith({
-      from: 123,
-      to: 123,
-    });
+
+    const dropdown = container.getElementsByClassName(
+      'ant-dropdown-trigger'
+    )[0];
+    fireEvent.mouseOver(dropdown);
+
+    await waitFor(() => screen.getByTestId('assign-self').click());
+
+    await waitFor(() => expect(onAssign).toHaveBeenCalledWith({ from: 123, to: 123 }));
   });
 
-  it('calls onUnssign on unassign click ', () => {
+  it('calls onUnssign on unassign click ', async () => {
     const onUnassign = jest.fn();
     const onAssign = jest.fn();
-    const wrapper = shallow(
+
+    const { container } = render(
       <AssignOwnProfileAction
         onAssign={onAssign}
         onUnassign={onUnassign}
         isUnassignAction
       />
     );
-    wrapper.find('[data-test-id="unassign"]').simulate('click');
-    expect(onUnassign).toHaveBeenCalledWith({
-      from: 123,
-    });
+
+    const dropdown = container.getElementsByClassName(
+      'ant-dropdown-trigger'
+    )[0];
+    fireEvent.mouseOver(dropdown);
+    
+    await waitFor(() => screen.getByTestId('unassign').click());
+
+    await waitFor(() => expect(onUnassign).toHaveBeenCalledWith({ from: 123 }));
   });
 });

@@ -793,6 +793,7 @@ exports[`SettingsPage renders page with orcid section when user has orcid profil
         </div>
         <div
           class="ant-collapse-item ant-collapse-item-active bg-white mb3 overflow-hidden"
+          data-test-id="orcid"
         >
           <div
             aria-disabled="false"

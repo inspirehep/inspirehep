@@ -29,7 +29,7 @@ describe('UserFeedback', () => {
     wrapper.find(Button).simulate('click');
     wrapper.update();
     const modalWrapper = wrapper.find(Modal);
-    expect(modalWrapper).toHaveProp('visible', true);
+    expect(modalWrapper).toHaveProp('open', true);
   });
 
   it('calls trackEvent with feedback on modal Ok and renders thank you', () => {

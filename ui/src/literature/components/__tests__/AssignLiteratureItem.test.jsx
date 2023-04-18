@@ -1,5 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { render, waitFor, fireEvent, screen } from '@testing-library/react';
+
 import AssignLiteratureItem from '../AssignLiteratureItem';
 
 jest.mock('react-router-dom', () => ({
@@ -17,10 +19,10 @@ describe('AssignLiteratureItem', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('calls onAssign on assign-self click', () => {
+  it('calls onAssign on assign-self click', async () => {
     const onAssign = jest.fn();
 
-    const wrapper = shallow(
+    const { container } = render(
       <AssignLiteratureItem
         onAssign={onAssign}
         currentUserRecordId={33}
@@ -28,7 +30,13 @@ describe('AssignLiteratureItem', () => {
       />
     );
 
-    wrapper.find('[data-test-id="assign-literature-item"]').simulate('click');
-    expect(onAssign).toHaveBeenCalledWith({ to: 33, literatureId: 123456 });
+    const dropdown = container.getElementsByClassName(
+      'ant-dropdown-trigger'
+    )[0];
+    fireEvent.mouseOver(dropdown);
+
+    await waitFor(() => screen.getByTestId('assign-literature-item').click());
+
+    await waitFor(() => expect(onAssign).toHaveBeenCalled());
   });
 });

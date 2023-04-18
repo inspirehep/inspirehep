@@ -4,6 +4,7 @@ exports[`LinkLikeButton renders with dataTestId 1`] = `
 <Button
   className="__LinkLikeButton__ blue"
   data-test-id="example-button"
+  data-testid="example-button"
   onClick={[MockFunction]}
   type="text"
 >

@@ -11,7 +11,7 @@ function UserSettingsModal({
   visible: boolean;
 }) {
   return (
-    <Modal title="Settings" visible={visible} footer={null} onCancel={onCancel}>
+    <Modal title="Settings" open={visible} footer={null} onCancel={onCancel}>
       <OrcidPushSettingContainer />
     </Modal>
   );

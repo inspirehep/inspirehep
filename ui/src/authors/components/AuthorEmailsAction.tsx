@@ -1,7 +1,7 @@
 import React from 'react';
 import { List, Map } from 'immutable';
 import { MailOutlined } from '@ant-design/icons';
-import { Menu, Tooltip } from 'antd';
+import { Tooltip } from 'antd';
 
 import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank';
 import ActionsDropdownOrAction from '../../common/components/ActionsDropdownOrAction';
@@ -12,19 +12,22 @@ function getHrefForEmail(email: Map<string, string>) {
 }
 
 function renderEmailsDropdownAction(email: Map<string, string>) {
-  return (
-    <Menu.Item key={email.get('value')}>
-      <EventTracker
-        eventCategory="Author detail"
-        eventAction="Mail"
-        eventId="Contact author"
-      >
-        <LinkWithTargetBlank href={getHrefForEmail(email)}>
-          {email.get('value')}
-        </LinkWithTargetBlank>
-      </EventTracker>
-    </Menu.Item>
-  );
+  return {
+    key: email.get('value'),
+    label: (
+      <span key={email.get('value')}>
+        <EventTracker
+          eventCategory="Author detail"
+          eventAction="Mail"
+          eventId="Contact author"
+        >
+          <LinkWithTargetBlank href={getHrefForEmail(email)}>
+            {email.get('value')}
+          </LinkWithTargetBlank>
+        </EventTracker>
+      </span>
+    ),
+  };
 }
 
 function renderEmailAction(email: Map<string, string>, title: string) {

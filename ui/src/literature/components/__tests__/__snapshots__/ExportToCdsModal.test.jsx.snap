@@ -2,7 +2,6 @@
 
 exports[`ExportToCdsModal renders modal for one paper 1`] = `
 <Modal
-  confirmLoading={false}
   footer={
     Array [
       <Button
@@ -13,13 +12,12 @@ exports[`ExportToCdsModal renders modal for one paper 1`] = `
       </Button>,
     ]
   }
-  okType="primary"
   onCancel={[MockFunction]}
-  open={false}
-  visible={true}
-  width={520}
+  open={true}
 >
-  <p>
+  <p
+    data-testid="export-modal"
+  >
     You have selected 
     1
      
@@ -33,7 +31,6 @@ exports[`ExportToCdsModal renders modal for one paper 1`] = `
 
 exports[`ExportToCdsModal renders not visible 1`] = `
 <Modal
-  confirmLoading={false}
   footer={
     Array [
       <Button
@@ -44,12 +41,11 @@ exports[`ExportToCdsModal renders not visible 1`] = `
       </Button>,
     ]
   }
-  okType="primary"
   onCancel={[MockFunction]}
-  open={false}
-  width={520}
 >
-  <p>
+  <p
+    data-testid="export-modal"
+  >
     You have selected 
     1
      

@@ -2,14 +2,10 @@
 
 exports[`UserSettingsModal renders with props 1`] = `
 <Modal
-  confirmLoading={false}
   footer={null}
-  okType="primary"
   onCancel={[MockFunction]}
-  open={false}
+  open={true}
   title="Settings"
-  visible={true}
-  width={520}
 >
   <Connect(OrcidPushSetting) />
 </Modal>

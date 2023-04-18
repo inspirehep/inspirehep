@@ -278,7 +278,7 @@ function RangeAggregation({
           max={initialFakeMax}
           marks={sliderMarks}
           included
-          tooltipVisible={false}
+          tooltip={{ open: false }}
         />
       </div>
     </AggregationBox>

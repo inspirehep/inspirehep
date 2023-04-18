@@ -3,11 +3,6 @@
 exports[`DisabledEditRecordAction renders with message 1`] = `
 <UserActionWrapper>
   <Tooltip
-    arrowPointAtCenter={false}
-    autoAdjustOverflow={true}
-    mouseEnterDelay={0.1}
-    mouseLeaveDelay={0.1}
-    placement="top"
     title="Can not be edited"
   >
     <Button

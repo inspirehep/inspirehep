@@ -4,6 +4,41 @@ exports[`ProceedingsAction renders proceedings 1`] = `
 <UserActionWrapper>
   <DropdownMenu
     disabled={false}
+    items={
+      Immutable.List [
+        Object {
+          "key": "/literature/12345",
+          "label": <span>
+            <LinkWithTargetBlank
+              as="a"
+              href="/literature/12345"
+            >
+              <span>
+                Proceedings 
+                1
+              </span>
+            </LinkWithTargetBlank>
+          </span>,
+        },
+        Object {
+          "key": "/literature/54321",
+          "label": <span>
+            <LinkWithTargetBlank
+              as="a"
+              href="/literature/54321"
+            >
+              <JournalInfo
+                info={
+                  Immutable.Map {
+                    "journal_title": "Journal 1",
+                  }
+                }
+              />
+            </LinkWithTargetBlank>
+          </span>,
+        },
+      ]
+    }
     title={
       <Button>
         <IconText
@@ -12,37 +47,7 @@ exports[`ProceedingsAction renders proceedings 1`] = `
         />
       </Button>
     }
-  >
-    <MenuItem
-      key="12345"
-    >
-      <LinkWithTargetBlank
-        as="a"
-        href="/literature/12345"
-      >
-        <span>
-          Proceedings 
-          1
-        </span>
-      </LinkWithTargetBlank>
-    </MenuItem>
-    <MenuItem
-      key="54321"
-    >
-      <LinkWithTargetBlank
-        as="a"
-        href="/literature/54321"
-      >
-        <JournalInfo
-          info={
-            Immutable.Map {
-              "journal_title": "Journal 1",
-            }
-          }
-        />
-      </LinkWithTargetBlank>
-    </MenuItem>
-  </DropdownMenu>
+  />
 </UserActionWrapper>
 `;
 

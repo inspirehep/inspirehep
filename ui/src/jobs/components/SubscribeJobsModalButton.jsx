@@ -107,7 +107,7 @@ export default class SubscribeJobsModalButton extends Component {
         </EventTracker>
         <Modal
           title="Subscribe to the INSPIRE job mailing list"
-          visible={isModalVisible}
+          open={isModalVisible}
           afterClose={this.afterModalCloase}
           onCancel={this.onModalCancel}
           footer={null}

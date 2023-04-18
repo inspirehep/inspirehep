@@ -19,7 +19,6 @@ exports[`UserFeedback calls trackEvent with feedback on modal Ok and renders tha
   </Button>
   <Modal
     afterClose={[Function]}
-    confirmLoading={false}
     footer={null}
     okButtonProps={
       Object {
@@ -27,13 +26,10 @@ exports[`UserFeedback calls trackEvent with feedback on modal Ok and renders tha
       }
     }
     okText="Submit"
-    okType="primary"
     onCancel={[Function]}
     onOk={[Function]}
     open={false}
     title="Your Feedback"
-    visible={false}
-    width={520}
   >
     <ModalSuccessResult>
       <div>
@@ -77,20 +73,16 @@ exports[`UserFeedback renders 1`] = `
   </Button>
   <Modal
     afterClose={[Function]}
-    confirmLoading={false}
     okButtonProps={
       Object {
         "disabled": undefined,
       }
     }
     okText="Submit"
-    okType="primary"
     onCancel={[Function]}
     onOk={[Function]}
     open={false}
     title="Your Feedback"
-    visible={false}
-    width={520}
   >
     <div
       className="mb4"
@@ -147,20 +139,16 @@ exports[`UserFeedback renders when tracker is blocked 1`] = `
   </Button>
   <Modal
     afterClose={[Function]}
-    confirmLoading={false}
     okButtonProps={
       Object {
         "disabled": true,
       }
     }
     okText="Submit"
-    okType="primary"
     onCancel={[Function]}
     onOk={[Function]}
     open={false}
     title="Your Feedback"
-    visible={false}
-    width={520}
   >
     <div
       className="mb4"

@@ -114,7 +114,7 @@ class CiteModalAction extends Component {
         </UserAction>
         <Modal
           title="Cite Article"
-          visible={modalVisible}
+          open={modalVisible}
           footer={null}
           onCancel={this.onModalCancel}
         >

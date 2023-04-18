@@ -11,8 +11,4 @@ function SafeSwitch({ children, ...switchProps }) {
   );
 }
 
-SafeSwitch.propTypes = {
-  ...Switch.propTypes,
-};
-
 export default SafeSwitch;

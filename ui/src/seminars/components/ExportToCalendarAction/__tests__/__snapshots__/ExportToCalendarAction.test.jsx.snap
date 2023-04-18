@@ -4,6 +4,43 @@ exports[`ExportToCalendarAction renders with seminar 1`] = `
 <UserActionWrapper>
   <DropdownMenu
     disabled={false}
+    items={
+      Array [
+        Object {
+          "key": "download",
+          "label": <EventTracker
+            eventAction="Download"
+            eventId="Download .ics"
+            eventPropName="onClick"
+            extractEventArgsToForward={null}
+          >
+            <span
+              onClick={[Function]}
+            >
+              Download .ics
+            </span>
+          </EventTracker>,
+        },
+        Object {
+          "key": "calendar",
+          "label": <EventTracker
+            eventAction="Link"
+            eventId="Add to Google Calendar"
+            eventPropName="onClick"
+            extractEventArgsToForward={null}
+          >
+            <span>
+              <LinkWithTargetBlank
+                as="a"
+                href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Harun%20Urhan%20%20%E2%80%94%20Seminar%20Title&details=&dates=20200515T114500Z%2F20200517T004500Z"
+              >
+                Google Calendar
+              </LinkWithTargetBlank>
+            </span>
+          </EventTracker>,
+        },
+      ]
+    }
     title={
       <Button>
         <IconText
@@ -12,34 +49,6 @@ exports[`ExportToCalendarAction renders with seminar 1`] = `
         />
       </Button>
     }
-  >
-    <EventTracker
-      eventAction="Download"
-      eventId="Download .ics"
-      eventPropName="onClick"
-      extractEventArgsToForward={null}
-    >
-      <MenuItem
-        onClick={[Function]}
-      >
-        Download .ics
-      </MenuItem>
-    </EventTracker>
-    <EventTracker
-      eventAction="Link"
-      eventId="Add to Google Calendar"
-      eventPropName="onClick"
-      extractEventArgsToForward={null}
-    >
-      <MenuItem>
-        <LinkWithTargetBlank
-          as="a"
-          href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Harun%20Urhan%20%20%E2%80%94%20Seminar%20Title&details=&dates=20200515T114500Z%2F20200517T004500Z"
-        >
-          Google Calendar
-        </LinkWithTargetBlank>
-      </MenuItem>
-    </EventTracker>
-  </DropdownMenu>
+  />
 </UserActionWrapper>
 `;

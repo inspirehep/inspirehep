@@ -48,7 +48,7 @@ exports[`ExperimentForm renders 1`] = `
         name="legacy_name"
         pidType="experiments"
         placeholder="Legacy name, type for suggestions"
-        searchAsYouType={true}
+        searchasyoutype="true"
         suggesterName="experiment"
       />
     </Col>

@@ -19,25 +19,8 @@ exports[`TreeAggregation render initial state with all props set 1`] = `
         "a|b",
       ]
     }
-    motion={
-      Object {
-        "motionAppear": false,
-        "motionDeadline": 500,
-        "motionName": "ant-motion-collapse",
-        "onAppearActive": [Function],
-        "onAppearEnd": [Function],
-        "onAppearStart": [Function],
-        "onEnterActive": [Function],
-        "onEnterEnd": [Function],
-        "onEnterStart": [Function],
-        "onLeaveActive": [Function],
-        "onLeaveEnd": [Function],
-        "onLeaveStart": [Function],
-      }
-    }
     onCheck={[Function]}
     selectable={false}
-    showIcon={false}
     treeData={
       Array [
         Object {

@@ -1,5 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { render, waitFor, fireEvent, screen } from '@testing-library/react';
+
 import AssignOneDifferentProfileAction from '../AssignOneDifferentProfileAction';
 
 jest.mock('react-router-dom', () => ({
@@ -30,9 +32,9 @@ describe('AssignDifferentProfileAction', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('calls onAssign on click', () => {
+  it('calls onAssign on click', async () => {
     const onAssign = jest.fn();
-    const wrapper = shallow(
+    const { container } = render(
       <AssignOneDifferentProfileAction
         onAssign={onAssign}
         currentUserId={33}
@@ -41,7 +43,14 @@ describe('AssignDifferentProfileAction', () => {
         userCanNotClaimProfile
       />
     );
-    wrapper.find('[data-test-id="assign-self"]').simulate('click');
-    expect(onAssign).toHaveBeenCalled();
+
+    const dropdown = container.getElementsByClassName(
+      'ant-dropdown-trigger'
+    )[0];
+    fireEvent.mouseOver(dropdown);
+
+    await waitFor(() => screen.getByTestId('assign-self').click());
+
+    await waitFor(() => expect(onAssign).toHaveBeenCalled());
   });
 });

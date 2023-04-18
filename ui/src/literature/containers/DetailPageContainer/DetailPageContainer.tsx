@@ -68,14 +68,14 @@ function DetailPage({
   hasAuthorProfile,
   isSuperUserLoggedIn,
 }: {
-  authors: List<any>,
-  record: Map<string, any>,
-  referencesCount: string | number,
-  supervisors: List<any>,
-  seminarsCount: number,
-  loggedIn: boolean,
-  hasAuthorProfile: boolean,
-  isSuperUserLoggedIn: boolean,
+  authors: List<any>;
+  record: Map<string, any>;
+  referencesCount: string | number;
+  supervisors: List<any>;
+  seminarsCount: number;
+  loggedIn: boolean;
+  hasAuthorProfile: boolean;
+  isSuperUserLoggedIn: boolean;
 }) {
   const metadata = record.get('metadata');
 
@@ -115,8 +115,54 @@ function DetailPage({
   const datasetLinks = metadata.get('dataset_links');
 
   const publicationInfoWithTitle = publicationInfo
-    ? publicationInfo.filter((pub: Map<string, any>) => pub.has('journal_title'))
+    ? publicationInfo.filter((pub: Map<string, any>) =>
+        pub.has('journal_title')
+      )
     : null;
+
+  let tabItems = [
+    {
+      label: (
+        <TabNameWithCount
+          name="References"
+          count={referencesCount}
+          page="Literature detail"
+        />
+      ),
+      key: '1',
+      children: <ReferenceListContainer recordId={controlNumber} />,
+    },
+    {
+      label: (
+        <TabNameWithCount
+          name="Figures"
+          count={figures ? figures.size : 0}
+          page="Literature detail"
+        />
+      ),
+      key: '2',
+      children: (
+        <ContentBox>
+          <Figures figures={figures} />
+        </ContentBox>
+      ),
+    },
+  ];
+
+  if (seminarsCount > 0) {
+    tabItems = [
+      ...tabItems,
+      {
+        label: <span>Seminars</span>,
+        key: '3',
+        children: (
+          <ContentBox>
+            <LiteratureSeminars />
+          </ContentBox>
+        ),
+      },
+    ];
+  }
 
   return (
     <>
@@ -163,8 +209,12 @@ function DetailPage({
                         page="Literature detail"
                       />
                     )}
-                    { /* @ts-ignore */}
-                    <CiteModalActionContainer recordId={controlNumber} page="Literature detail" />
+                    <CiteModalActionContainer
+                      // @ts-ignore
+                      recordId={controlNumber}
+                      // @ts-ignore
+                      page="Literature detail"
+                    />
                     <LiteratureClaimButton
                       loggedIn={loggedIn}
                       hasAuthorProfile={hasAuthorProfile}
@@ -309,41 +359,8 @@ function DetailPage({
                 type="card"
                 tabBarStyle={{ marginBottom: 0 }}
                 className="remove-top-border-of-card-children"
-              >
-                <Tabs.TabPane
-                  tab={
-                    <TabNameWithCount
-                      name="References"
-                      count={referencesCount}
-                      page="Literature detail"
-                    />
-                  }
-                  key="1"
-                >
-                  <ReferenceListContainer recordId={controlNumber} />
-                </Tabs.TabPane>
-                <Tabs.TabPane
-                  tab={
-                    <TabNameWithCount
-                      name="Figures"
-                      count={figures ? figures.size : 0}
-                      page="Literature detail"
-                    />
-                  }
-                  key="2"
-                >
-                  <ContentBox>
-                    <Figures figures={figures} />
-                  </ContentBox>
-                </Tabs.TabPane>
-                {seminarsCount > 0 && (
-                  <Tabs.TabPane tab={<span>Seminars</span>} key="3">
-                    <ContentBox>
-                      <LiteratureSeminars />
-                    </ContentBox>
-                  </Tabs.TabPane>
-                )}
-              </Tabs>
+                items={tabItems}
+              />
             </Col>
           </Row>
         </Col>

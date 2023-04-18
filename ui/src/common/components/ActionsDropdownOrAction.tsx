@@ -11,16 +11,18 @@ const ActionsDropdownOrAction = ({
   title,
   renderAction,
 }: {
-  values: List<string>;
+  values: List<any>;
   title: string | JSX.Element;
-  renderDropdownAction: (args: any) => JSX.Element;
+  renderDropdownAction: (args: any) => any;
   renderAction: Function;
 }) => {
   function renderDropdown() {
     return (
-      <DropdownMenu title={<Button>{title}</Button>}>
-        {values.map(renderDropdownAction)}
-      </DropdownMenu>
+      <DropdownMenu
+        title={<Button>{title}</Button>}
+        // @ts-expect-error
+        items={values.map(renderDropdownAction)}
+      />
     );
   }
 

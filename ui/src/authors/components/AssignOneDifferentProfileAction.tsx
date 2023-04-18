@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { FileDoneOutlined } from '@ant-design/icons';
-import { Button, Menu } from 'antd';
+import { Button } from 'antd';
 import { useParams } from 'react-router-dom';
 
 import DropdownMenu from '../../common/components/DropdownMenu';
@@ -20,6 +20,28 @@ function AssignOneDifferentProfileAction({
     onAssign({ from: currentAuthorId, to: currentUserId });
   }, [onAssign, currentAuthorId, currentUserId]);
 
+  const menuItems = [
+    {
+      key: '1',
+      label: (
+        <EventTracker
+          eventCategory="Author detail"
+          eventAction="Claim"
+          eventId="Move to my profile"
+        >
+          <span
+            data-test-id="assign-self"
+            data-testid="assign-self"
+            key="assign-self"
+            onClick={onSelfAssign}
+          >
+            Move to my profile
+          </span>
+        </EventTracker>
+      ),
+    },
+  ];
+
   return (
     <UserAction>
       <DropdownMenu
@@ -28,21 +50,8 @@ function AssignOneDifferentProfileAction({
             <IconText text="claim" icon={<FileDoneOutlined />} />
           </Button>
         }
-      >
-        <EventTracker
-          eventCategory="Author detail"
-          eventAction="Claim"
-          eventId="Move to my profile"
-        >
-          <Menu.Item
-            data-test-id="assign-self"
-            key="assign-self"
-            onClick={onSelfAssign}
-          >
-            Move to my profile
-          </Menu.Item>
-        </EventTracker>
-      </DropdownMenu>
+        items={menuItems}
+      />
     </UserAction>
   );
 }

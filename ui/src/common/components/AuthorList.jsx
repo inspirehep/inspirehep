@@ -68,7 +68,7 @@ class AuthorList extends Component {
         <Modal
           title={`${showTotal} authors`}
           width="50%"
-          visible={modalVisible}
+          open={modalVisible}
           footer={null}
           onCancel={this.onModalCancel}
         >

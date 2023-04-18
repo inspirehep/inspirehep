@@ -205,7 +205,7 @@ function AuthorForm({ values, isCatalogerLoggedIn, isUpdate }) {
                     placeholder="Institution, type for suggestions"
                     pidType="institutions"
                     suggesterName="affiliation"
-                    searchAsYouType
+                    searchasyoutype="true"
                     extractItemCompletionValue={getSuggestionSourceLegacyICN}
                     component={SuggesterField}
                   />
@@ -278,7 +278,7 @@ function AuthorForm({ values, isCatalogerLoggedIn, isUpdate }) {
                     placeholder="Experiment, type for suggestions"
                     pidType="experiments"
                     suggesterName="experiment"
-                    searchAsYouType
+                    searchasyoutype="true"
                     extractItemCompletionValue={getSuggestionSourceLegacyName}
                     component={SuggesterField}
                   />

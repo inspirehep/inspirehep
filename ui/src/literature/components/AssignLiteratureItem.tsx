@@ -21,6 +21,28 @@ const AssignLiteratureItem = (props: AssignLiteratureItemProps) => {
     onAssign({ to: currentUserRecordId, literatureId: controlNumber });
   }, [onAssign, controlNumber, currentUserRecordId]);
 
+  const menuItems = [
+    {
+      key: '1',
+      label: (
+        <EventTracker      
+          eventCategory={page}
+          eventAction="Claim"
+          eventId="Move to my profile"
+        >
+          <span
+            data-test-id="assign-literature-item"
+            data-testid="assign-literature-item"
+            key="assign-literature-item"
+            onClick={onAssignLiteratureItem}
+          >
+            Move to my profile
+          </span>
+        </EventTracker>
+      ),
+    },
+  ];
+
   return (
     <UserAction>
       <DropdownMenu
@@ -29,21 +51,8 @@ const AssignLiteratureItem = (props: AssignLiteratureItemProps) => {
             <IconText text="claim" icon={<FileDoneOutlined />} />
           </Button>
         }
-      >
-        <EventTracker      
-          eventCategory={page}
-          eventAction="Claim"
-          eventId="Move to my profile"
-        >
-          <Menu.Item
-            data-test-id="assign-literature-item"
-            key="assign-literature-item"
-            onClick={onAssignLiteratureItem}
-          >
-            Move to my profile
-          </Menu.Item>
-        </EventTracker>
-      </DropdownMenu>
+        items={menuItems}
+      />
     </UserAction>
   );
 };

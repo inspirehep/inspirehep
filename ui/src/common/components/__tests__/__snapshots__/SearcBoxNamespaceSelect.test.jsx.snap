@@ -2,7 +2,6 @@
 
 exports[`SearchBoxNamespaceSelect render initial state with all props set 1`] = `
 <SelectBox
-  dropdownClassName="header-dropdown"
   onChange={[MockFunction]}
   options={
     Array [
@@ -32,6 +31,7 @@ exports[`SearchBoxNamespaceSelect render initial state with all props set 1`] = 
       },
     ]
   }
+  popupClassName="header-dropdown"
   value="authors"
 />
 `;

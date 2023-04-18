@@ -46,7 +46,7 @@ function AssignDrawer({ visible, onDrawerClose, onAssign, selectedPapers }) {
       className="search-drawer"
       placement="right"
       onClose={onDrawerClose}
-      visible={visible}
+      open={visible}
       title={`You have selected ${selectedPapers.size} 
       ${pluralizeUnlessSingle('paper', selectedPapers.size)}. Select the
       conference to assign the selected papers:`}

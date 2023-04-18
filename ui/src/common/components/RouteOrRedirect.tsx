@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { ComponentPropsWithoutRef } from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import PropTypes from 'prop-types';
+
+interface RouteOrRedirectProps extends ComponentPropsWithoutRef<any> {
+  component: any,
+  condition: boolean,
+  redirectTo: string,
+}
 
 function RouteOrRedirect({
   component: Component,
   condition,
   redirectTo,
   ...rest
-}) {
+}: RouteOrRedirectProps) {
   return (
     <Route
       {...rest}
@@ -17,11 +22,5 @@ function RouteOrRedirect({
     />
   );
 }
-
-RouteOrRedirect.propTypes = {
-  redirectTo: PropTypes.string.isRequired,
-  condition: PropTypes.bool.isRequired,
-  ...Route.propTypes,
-};
 
 export default RouteOrRedirect;

@@ -19,7 +19,7 @@ describe('SubscribeJobsModalButton', () => {
     const wrapper = shallow(<SubscribeJobsModalButton />);
 
     wrapper.find(LinkLikeButton).prop('onClick')();
-    expect(wrapper.find(Modal).prop('visible')).toBe(true);
+    expect(wrapper.find(Modal).prop('open')).toBe(true);
   });
 
   it('renders with error alert if hasError', () => {
@@ -62,6 +62,6 @@ describe('SubscribeJobsModalButton', () => {
     };
     onSubscribeFormSubmit(data);
     expect(subscribeJobMailingList).toHaveBeenCalledWith(data);
-    expect(wrapper.find(Modal).prop('visible')).toBe(false);
+    expect(wrapper.find(Modal).prop('open')).toBe(false);
   });
 });

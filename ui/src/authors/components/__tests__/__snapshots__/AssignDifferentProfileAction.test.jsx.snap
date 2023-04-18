@@ -4,13 +4,22 @@ exports[`AssignDifferentProfileAction renders 1`] = `
 <UserActionWrapper>
   <DropdownMenu
     disabled={false}
+    items={
+      Array [
+        Object {
+          "key": "1",
+          "label": <span
+            data-test-id="assign-self"
+            data-testid="assign-self"
+            onClick={[Function]}
+          >
+            Move to my profile
+          </span>,
+        },
+      ]
+    }
     title={
       <Tooltip
-        arrowPointAtCenter={false}
-        autoAdjustOverflow={true}
-        mouseEnterDelay={0.1}
-        mouseLeaveDelay={0.1}
-        placement="top"
         title={null}
       >
         <Button
@@ -23,15 +32,7 @@ exports[`AssignDifferentProfileAction renders 1`] = `
         </Button>
       </Tooltip>
     }
-  >
-    <MenuItem
-      data-test-id="assign-self"
-      key="assign-self"
-      onClick={[Function]}
-    >
-      Move to my profile
-    </MenuItem>
-  </DropdownMenu>
+  />
 </UserActionWrapper>
 `;
 
@@ -39,13 +40,22 @@ exports[`AssignDifferentProfileAction renders disabled 1`] = `
 <UserActionWrapper>
   <DropdownMenu
     disabled={true}
+    items={
+      Array [
+        Object {
+          "key": "1",
+          "label": <span
+            data-test-id="assign-self"
+            data-testid="assign-self"
+            onClick={[Function]}
+          >
+            Move to my profile
+          </span>,
+        },
+      ]
+    }
     title={
       <Tooltip
-        arrowPointAtCenter={false}
-        autoAdjustOverflow={true}
-        mouseEnterDelay={0.1}
-        mouseLeaveDelay={0.1}
-        placement="top"
         title="Please select the papers you want to claim or remove from the profile."
       >
         <Button
@@ -58,15 +68,7 @@ exports[`AssignDifferentProfileAction renders disabled 1`] = `
         </Button>
       </Tooltip>
     }
-  >
-    <MenuItem
-      data-test-id="assign-self"
-      key="assign-self"
-      onClick={[Function]}
-    >
-      Move to my profile
-    </MenuItem>
-  </DropdownMenu>
+  />
 </UserActionWrapper>
 `;
 
@@ -74,13 +76,22 @@ exports[`AssignDifferentProfileAction renders with claimingUnclaimedPapersDisabl
 <UserActionWrapper>
   <DropdownMenu
     disabled={true}
+    items={
+      Array [
+        Object {
+          "key": "1",
+          "label": <span
+            data-test-id="assign-self"
+            data-testid="assign-self"
+            onClick={[Function]}
+          >
+            Move to my profile
+          </span>,
+        },
+      ]
+    }
     title={
       <Tooltip
-        arrowPointAtCenter={false}
-        autoAdjustOverflow={true}
-        mouseEnterDelay={0.1}
-        mouseLeaveDelay={0.1}
-        placement="top"
         title="Please select the papers you want to claim or remove from the profile."
       >
         <Button
@@ -93,14 +104,6 @@ exports[`AssignDifferentProfileAction renders with claimingUnclaimedPapersDisabl
         </Button>
       </Tooltip>
     }
-  >
-    <MenuItem
-      data-test-id="assign-self"
-      key="assign-self"
-      onClick={[Function]}
-    >
-      Move to my profile
-    </MenuItem>
-  </DropdownMenu>
+  />
 </UserActionWrapper>
 `;
