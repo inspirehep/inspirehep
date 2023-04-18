@@ -74,7 +74,7 @@ function SeminarForm({ values }) {
                 placeholder="Affiliation, type for suggestions"
                 pidType="institutions"
                 suggesterName="affiliation"
-                searchAsYouType
+                searchasyoutype="true"
                 extractItemCompletionValue={getSuggestionSourceLegacyICN}
                 component={SuggesterField}
               />

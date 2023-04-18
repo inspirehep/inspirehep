@@ -19,7 +19,7 @@ const InstitutionsForm = () => {
             name="identifier"
             pidType="institutions"
             placeholder="Institution, type for suggestions"
-            searchAsYouType
+            searchasyoutype="true"
             suggesterName="affiliation"
           />
         </Col>

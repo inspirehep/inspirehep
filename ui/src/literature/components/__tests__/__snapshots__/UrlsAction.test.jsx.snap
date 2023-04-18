@@ -4,6 +4,48 @@ exports[`UrlsAction renders multiple, with and without description 1`] = `
 <UserActionWrapper>
   <DropdownMenu
     disabled={false}
+    items={
+      Immutable.List [
+        Object {
+          "key": "Whatever",
+          "label": <span>
+            <EventTracker
+              eventAction="Link"
+              eventCategory="Home"
+              eventId="PdfDownload"
+              eventPropName="onClick"
+              extractEventArgsToForward={null}
+            >
+              <LinkWithTargetBlank
+                as="a"
+                href="https://www.whatever.com/pdfs/fulltext.pdf"
+              >
+                Whatever
+              </LinkWithTargetBlank>
+            </EventTracker>
+          </span>,
+        },
+        Object {
+          "key": "descriptionless.com/fulltext.pdf",
+          "label": <span>
+            <EventTracker
+              eventAction="Link"
+              eventCategory="Home"
+              eventId="PdfDownload"
+              eventPropName="onClick"
+              extractEventArgsToForward={null}
+            >
+              <LinkWithTargetBlank
+                as="a"
+                href="www.descriptionless.com/fulltext.pdf"
+              >
+                descriptionless.com/fulltext.pdf
+              </LinkWithTargetBlank>
+            </EventTracker>
+          </span>,
+        },
+      ]
+    }
     title={
       <Button>
         <IconText
@@ -12,44 +54,7 @@ exports[`UrlsAction renders multiple, with and without description 1`] = `
         />
       </Button>
     }
-  >
-    <MenuItem
-      key="https://www.whatever.com/pdfs/fulltext.pdf"
-    >
-      <EventTracker
-        eventAction="Link"
-        eventCategory="Home"
-        eventId="PdfDownload"
-        eventPropName="onClick"
-        extractEventArgsToForward={null}
-      >
-        <LinkWithTargetBlank
-          as="a"
-          href="https://www.whatever.com/pdfs/fulltext.pdf"
-        >
-          Whatever
-        </LinkWithTargetBlank>
-      </EventTracker>
-    </MenuItem>
-    <MenuItem
-      key="www.descriptionless.com/fulltext.pdf"
-    >
-      <EventTracker
-        eventAction="Link"
-        eventCategory="Home"
-        eventId="PdfDownload"
-        eventPropName="onClick"
-        extractEventArgsToForward={null}
-      >
-        <LinkWithTargetBlank
-          as="a"
-          href="www.descriptionless.com/fulltext.pdf"
-        >
-          descriptionless.com/fulltext.pdf
-        </LinkWithTargetBlank>
-      </EventTracker>
-    </MenuItem>
-  </DropdownMenu>
+  />
 </UserActionWrapper>
 `;
 

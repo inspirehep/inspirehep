@@ -63,10 +63,10 @@ function DetailPage({ record, isSuperUserLoggedIn }) {
           <ContentBox
             leftActions={[
               canEdit && (
-                <EditRecordAction pidType="jobs" pidValue={controlNumber} page="Jobs detail" />
+                <EditRecordAction key="edit" pidType="jobs" pidValue={controlNumber} page="Jobs detail" />
               ),
               isSuperUserLoggedIn && (
-                <APIButton url={window.location.href} />
+                <APIButton key="api"  url={window.location.href} />
               )
             ]}
           >

@@ -4,33 +4,32 @@ exports[`ActionsDropdownOrAction renders with multiple values 1`] = `
 <UserActionWrapper>
   <DropdownMenu
     disabled={false}
+    items={
+      Immutable.List [
+        <MenuItem>
+          <LinkWithTargetBlank
+            as="a"
+            href="dude.com/1"
+          >
+            dude.com/1
+          </LinkWithTargetBlank>
+        </MenuItem>,
+        <MenuItem>
+          <LinkWithTargetBlank
+            as="a"
+            href="dude.com/2"
+          >
+            dude.com/2
+          </LinkWithTargetBlank>
+        </MenuItem>,
+      ]
+    }
     title={
       <Button>
         Dude URL
       </Button>
     }
-  >
-    <MenuItem
-      key="dude.com/1"
-    >
-      <LinkWithTargetBlank
-        as="a"
-        href="dude.com/1"
-      >
-        dude.com/1
-      </LinkWithTargetBlank>
-    </MenuItem>
-    <MenuItem
-      key="dude.com/2"
-    >
-      <LinkWithTargetBlank
-        as="a"
-        href="dude.com/2"
-      >
-        dude.com/2
-      </LinkWithTargetBlank>
-    </MenuItem>
-  </DropdownMenu>
+  />
 </UserActionWrapper>
 `;
 

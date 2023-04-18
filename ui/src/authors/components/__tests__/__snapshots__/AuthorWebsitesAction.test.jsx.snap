@@ -14,11 +14,6 @@ exports[`AuthorWebsitesAction renders only a url 1`] = `
       href="www.descriptionless.com/url"
     >
       <Tooltip
-        arrowPointAtCenter={false}
-        autoAdjustOverflow={true}
-        mouseEnterDelay={0.1}
-        mouseLeaveDelay={0.1}
-        placement="top"
         title="Author websites"
       >
         <ForwardRef(LinkOutlined) />
@@ -42,11 +37,6 @@ exports[`AuthorWebsitesAction renders only blog 1`] = `
       href="https://author.wordpress.com"
     >
       <Tooltip
-        arrowPointAtCenter={false}
-        autoAdjustOverflow={true}
-        mouseEnterDelay={0.1}
-        mouseLeaveDelay={0.1}
-        placement="top"
         title="Author websites"
       >
         <ForwardRef(LinkOutlined) />
@@ -60,75 +50,84 @@ exports[`AuthorWebsitesAction renders with a blog and urls in a dropdown 1`] = `
 <UserActionWrapper>
   <DropdownMenu
     disabled={false}
+    items={
+      Immutable.List [
+        Object {
+          "key": Immutable.Map {
+            "description": "BLOG",
+            "value": "https://author.wordpress.com",
+          },
+          "label": <span>
+            <EventTracker
+              eventAction="Link"
+              eventCategory="Author detail"
+              eventId="Author websites"
+              eventPropName="onClick"
+              extractEventArgsToForward={null}
+            >
+              <LinkWithTargetBlank
+                as="a"
+                href="https://author.wordpress.com"
+              >
+                Blog
+              </LinkWithTargetBlank>
+            </EventTracker>
+          </span>,
+        },
+        Object {
+          "key": Immutable.Map {
+            "description": "Whatever",
+            "value": "https://www.whatever.com/author",
+          },
+          "label": <span>
+            <EventTracker
+              eventAction="Link"
+              eventCategory="Author detail"
+              eventId="Author websites"
+              eventPropName="onClick"
+              extractEventArgsToForward={null}
+            >
+              <LinkWithTargetBlank
+                as="a"
+                href="https://www.whatever.com/author"
+              >
+                whatever.com/author
+              </LinkWithTargetBlank>
+            </EventTracker>
+          </span>,
+        },
+        Object {
+          "key": Immutable.Map {
+            "value": "www.descriptionless.com/url",
+          },
+          "label": <span>
+            <EventTracker
+              eventAction="Link"
+              eventCategory="Author detail"
+              eventId="Author websites"
+              eventPropName="onClick"
+              extractEventArgsToForward={null}
+            >
+              <LinkWithTargetBlank
+                as="a"
+                href="www.descriptionless.com/url"
+              >
+                descriptionless.com/url
+              </LinkWithTargetBlank>
+            </EventTracker>
+          </span>,
+        },
+      ]
+    }
     title={
       <Button>
         <Tooltip
-          arrowPointAtCenter={false}
-          autoAdjustOverflow={true}
-          mouseEnterDelay={0.1}
-          mouseLeaveDelay={0.1}
-          placement="top"
           title="Author websites"
         >
           <ForwardRef(LinkOutlined) />
         </Tooltip>
       </Button>
     }
-  >
-    <MenuItem
-      key="https://author.wordpress.com"
-    >
-      <EventTracker
-        eventAction="Link"
-        eventCategory="Author detail"
-        eventId="Author websites"
-        eventPropName="onClick"
-        extractEventArgsToForward={null}
-      >
-        <LinkWithTargetBlank
-          as="a"
-          href="https://author.wordpress.com"
-        >
-          Blog
-        </LinkWithTargetBlank>
-      </EventTracker>
-    </MenuItem>
-    <MenuItem
-      key="https://www.whatever.com/author"
-    >
-      <EventTracker
-        eventAction="Link"
-        eventCategory="Author detail"
-        eventId="Author websites"
-        eventPropName="onClick"
-        extractEventArgsToForward={null}
-      >
-        <LinkWithTargetBlank
-          as="a"
-          href="https://www.whatever.com/author"
-        >
-          whatever.com/author
-        </LinkWithTargetBlank>
-      </EventTracker>
-    </MenuItem>
-    <MenuItem
-      key="www.descriptionless.com/url"
-    >
-      <EventTracker
-        eventAction="Link"
-        eventCategory="Author detail"
-        eventId="Author websites"
-        eventPropName="onClick"
-        extractEventArgsToForward={null}
-      >
-        <LinkWithTargetBlank
-          as="a"
-          href="www.descriptionless.com/url"
-        >
-          descriptionless.com/url
-        </LinkWithTargetBlank>
-      </EventTracker>
-    </MenuItem>
-  </DropdownMenu>
+  />
 </UserActionWrapper>
 `;

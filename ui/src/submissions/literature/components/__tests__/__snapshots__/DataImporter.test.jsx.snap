@@ -35,11 +35,6 @@ exports[`DataImporter renders with error with a message 1`] = `
   <InternalFormItem
     label={
       <Tooltip
-        arrowPointAtCenter={false}
-        autoAdjustOverflow={true}
-        mouseEnterDelay={0.1}
-        mouseLeaveDelay={0.1}
-        placement="top"
         title="From arXiv or DOI"
       >
         From arXiv or DOI
@@ -146,11 +141,6 @@ exports[`DataImporter renders with error with message and recid 1`] = `
   <InternalFormItem
     label={
       <Tooltip
-        arrowPointAtCenter={false}
-        autoAdjustOverflow={true}
-        mouseEnterDelay={0.1}
-        mouseLeaveDelay={0.1}
-        placement="top"
         title="From arXiv or DOI"
       >
         From arXiv or DOI
@@ -247,11 +237,6 @@ exports[`DataImporter renders with error without a message 1`] = `
   <InternalFormItem
     label={
       <Tooltip
-        arrowPointAtCenter={false}
-        autoAdjustOverflow={true}
-        mouseEnterDelay={0.1}
-        mouseLeaveDelay={0.1}
-        placement="top"
         title="From arXiv or DOI"
       >
         From arXiv or DOI
@@ -330,11 +315,6 @@ exports[`DataImporter renders without error while importing 1`] = `
   <InternalFormItem
     label={
       <Tooltip
-        arrowPointAtCenter={false}
-        autoAdjustOverflow={true}
-        mouseEnterDelay={0.1}
-        mouseLeaveDelay={0.1}
-        placement="top"
         title="From arXiv or DOI"
       >
         From arXiv or DOI

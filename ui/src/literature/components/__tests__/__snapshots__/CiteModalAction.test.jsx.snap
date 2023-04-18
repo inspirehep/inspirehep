@@ -20,14 +20,10 @@ exports[`CiteModalAction renders with all props 1`] = `
     </EventTracker>
   </UserActionWrapper>
   <Modal
-    confirmLoading={false}
     footer={null}
-    okType="primary"
     onCancel={[Function]}
     open={false}
     title="Cite Article"
-    visible={false}
-    width={520}
   >
     <LoadingOrChildren
       loading={false}
@@ -139,14 +135,10 @@ exports[`CiteModalAction renders with loading 1`] = `
     </EventTracker>
   </UserActionWrapper>
   <Modal
-    confirmLoading={false}
     footer={null}
-    okType="primary"
     onCancel={[Function]}
     open={false}
     title="Cite Article"
-    visible={false}
-    width={520}
   >
     <LoadingOrChildren
       loading={true}
@@ -258,14 +250,10 @@ exports[`CiteModalAction shows an alert with the error message when there is an 
     </EventTracker>
   </UserActionWrapper>
   <Modal
-    confirmLoading={false}
     footer={null}
-    okType="primary"
     onCancel={[Function]}
     open={false}
     title="Cite Article"
-    visible={false}
-    width={520}
   >
     <LoadingOrChildren
       loading={false}

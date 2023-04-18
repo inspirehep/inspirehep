@@ -14,7 +14,7 @@ const LinkLikeButton = ({
   dataTestId: string;
   color: string
 }) => (
-  <Button type="text" data-test-id={dataTestId} onClick={onClick} className={`__LinkLikeButton__ ${color}`}>
+  <Button type="text" data-test-id={dataTestId} onClick={onClick} className={`__LinkLikeButton__ ${color}`} data-testid={dataTestId}>
     {children}
   </Button>
 );

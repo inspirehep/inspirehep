@@ -3,256 +3,311 @@
 exports[`HeaderMenu renders when logged in 1`] = `
 <Menu
   className="__HeaderMenu__"
+  items={
+    Array [
+      Object {
+        "children": Array [
+          Object {
+            "key": "help.search-tips",
+            "label": Array [
+              <span>
+                <LinkWithTargetBlank
+                  as="a"
+                  href="https://help.inspirehep.net/knowledge-base/inspire-paper-search"
+                >
+                  Search Tips
+                </LinkWithTargetBlank>
+              </span>,
+            ],
+          },
+          Object {
+            "key": "help.tour",
+            "label": Array [
+              <span>
+                <Connect(LinkLikeButton)
+                  color="white"
+                >
+                  Take the tour
+                </Connect(LinkLikeButton)>
+              </span>,
+            ],
+          },
+          Object {
+            "key": "help.help-center",
+            "label": Array [
+              <span>
+                <LinkWithTargetBlank
+                  as="a"
+                  href="https://help.inspirehep.net"
+                >
+                  Help Center
+                </LinkWithTargetBlank>
+              </span>,
+            ],
+          },
+        ],
+        "key": "help",
+        "label": "Help",
+        "popupClassName": "header-submenu ant-menu-dark",
+      },
+      Object {
+        "children": Array [
+          Object {
+            "key": "submit.literature",
+            "label": Array [
+              <span>
+                <Link
+                  to="/submissions/literature"
+                >
+                  Literature
+                </Link>
+              </span>,
+            ],
+          },
+          Object {
+            "key": "submit.author",
+            "label": Array [
+              <span>
+                <Link
+                  to="/submissions/authors"
+                >
+                  Author
+                </Link>
+              </span>,
+            ],
+          },
+          Object {
+            "key": "submit.job",
+            "label": Array [
+              <span>
+                <Link
+                  to="/submissions/jobs"
+                >
+                  Job
+                </Link>
+              </span>,
+            ],
+          },
+          Object {
+            "key": "submit.seminar",
+            "label": Array [
+              <span>
+                <Link
+                  to="/submissions/seminars"
+                >
+                  Seminar
+                </Link>
+              </span>,
+            ],
+          },
+          Object {
+            "key": "submit.conference",
+            "label": Array [
+              <span>
+                <Link
+                  to="/submissions/conferences"
+                >
+                  Conference
+                </Link>
+              </span>,
+            ],
+          },
+        ],
+        "key": "submit",
+        "label": "Submit",
+        "popupClassName": "header-submenu ant-menu-dark",
+      },
+      Object {
+        "children": Array [
+          Object {
+            "key": "my-profile",
+            "label": Array [
+              <Tooltip
+                title={
+                  <p>
+                    There is no profile associated to your account. Please contact us at
+                     
+                    <a
+                      href="mailto:authors@inspirehep.net"
+                    >
+                      authors@inspirehep.net
+                    </a>
+                  </p>
+                }
+              >
+                <Button
+                  disabled={true}
+                  ghost={true}
+                >
+                  My profile
+                </Button>
+              </Tooltip>,
+            ],
+          },
+          Object {
+            "key": "settings",
+            "label": Array [
+              <Link
+                to="/user/settings"
+              >
+                Settings
+              </Link>,
+            ],
+          },
+          Object {
+            "key": "logout",
+            "label": Array [
+              <LinkLikeButton
+                color="white"
+                dataTestId="logout"
+                onClick={[MockFunction]}
+              >
+                Logout
+              </LinkLikeButton>,
+            ],
+          },
+        ],
+        "key": "account",
+        "label": "Account",
+        "popupClassName": "header-submenu ant-menu-dark",
+      },
+    ]
+  }
   mode="horizontal"
   selectable={false}
   theme="dark"
->
-  <SubMenu
-    key="help"
-    popupClassName="header-submenu ant-menu-dark"
-    title="Help"
-  >
-    <MenuItem
-      key="help.search-tips"
-    >
-      <LinkWithTargetBlank
-        as="a"
-        href="https://help.inspirehep.net/knowledge-base/inspire-paper-search"
-      >
-        Search Tips
-      </LinkWithTargetBlank>
-    </MenuItem>
-    <MenuItem
-      key="help.tour"
-    >
-      <Connect(LinkLikeButton)
-        color="white"
-      >
-        Take the tour
-      </Connect(LinkLikeButton)>
-    </MenuItem>
-    <MenuItem
-      key="help.help-center"
-    >
-      <LinkWithTargetBlank
-        as="a"
-        href="https://help.inspirehep.net"
-      >
-        Help Center
-      </LinkWithTargetBlank>
-    </MenuItem>
-  </SubMenu>
-  <SubMenu
-    key="submit"
-    popupClassName="header-submenu ant-menu-dark"
-    title="Submit"
-  >
-    <MenuItem
-      key="submit.literature"
-    >
-      <Link
-        to="/submissions/literature"
-      >
-        Literature
-      </Link>
-    </MenuItem>
-    <MenuItem
-      key="submit.author"
-    >
-      <Link
-        to="/submissions/authors"
-      >
-        Author
-      </Link>
-    </MenuItem>
-    <MenuItem
-      key="submit.job"
-    >
-      <Link
-        to="/submissions/jobs"
-      >
-        Job
-      </Link>
-    </MenuItem>
-    <MenuItem
-      key="submit.seminar"
-    >
-      <Link
-        to="/submissions/seminars"
-      >
-        Seminar
-      </Link>
-    </MenuItem>
-    <MenuItem
-      key="submit.conference"
-    >
-      <Link
-        to="/submissions/conferences"
-      >
-        Conference
-      </Link>
-    </MenuItem>
-  </SubMenu>
-  <SubMenu
-    data-test-id="account"
-    key="account"
-    popupClassName="header-submenu ant-menu-dark"
-    title="Account"
-  >
-    <MenuItem
-      key="my-profile"
-    >
-      <Tooltip
-        arrowPointAtCenter={false}
-        autoAdjustOverflow={true}
-        mouseEnterDelay={0.1}
-        mouseLeaveDelay={0.1}
-        placement="top"
-        title={
-          <p>
-            There is no profile associated to your account. Please contact us at
-             
-            <a
-              href="mailto:authors@inspirehep.net"
-            >
-              authors@inspirehep.net
-            </a>
-          </p>
-        }
-      >
-        <Button
-          disabled={true}
-          ghost={true}
-        >
-          My profile
-        </Button>
-      </Tooltip>
-    </MenuItem>
-    <MenuItem
-      key="settings"
-    >
-      <Link
-        to="/user/settings"
-      >
-        Settings
-      </Link>
-    </MenuItem>
-    <MenuItem
-      key="logout"
-    >
-      <LinkLikeButton
-        color="white"
-        dataTestId="logout"
-        onClick={[MockFunction]}
-      >
-        Logout
-      </LinkLikeButton>
-    </MenuItem>
-  </SubMenu>
-</Menu>
+/>
 `;
 
 exports[`HeaderMenu renders when not logged in 1`] = `
 <Menu
   className="__HeaderMenu__"
+  items={
+    Array [
+      Object {
+        "children": Array [
+          Object {
+            "key": "help.search-tips",
+            "label": Array [
+              <span>
+                <LinkWithTargetBlank
+                  as="a"
+                  href="https://help.inspirehep.net/knowledge-base/inspire-paper-search"
+                >
+                  Search Tips
+                </LinkWithTargetBlank>
+              </span>,
+            ],
+          },
+          Object {
+            "key": "help.tour",
+            "label": Array [
+              <span>
+                <Connect(LinkLikeButton)
+                  color="white"
+                >
+                  Take the tour
+                </Connect(LinkLikeButton)>
+              </span>,
+            ],
+          },
+          Object {
+            "key": "help.help-center",
+            "label": Array [
+              <span>
+                <LinkWithTargetBlank
+                  as="a"
+                  href="https://help.inspirehep.net"
+                >
+                  Help Center
+                </LinkWithTargetBlank>
+              </span>,
+            ],
+          },
+        ],
+        "key": "help",
+        "label": "Help",
+        "popupClassName": "header-submenu ant-menu-dark",
+      },
+      Object {
+        "children": Array [
+          Object {
+            "key": "submit.literature",
+            "label": Array [
+              <span>
+                <Link
+                  to="/submissions/literature"
+                >
+                  Literature
+                </Link>
+              </span>,
+            ],
+          },
+          Object {
+            "key": "submit.author",
+            "label": Array [
+              <span>
+                <Link
+                  to="/submissions/authors"
+                >
+                  Author
+                </Link>
+              </span>,
+            ],
+          },
+          Object {
+            "key": "submit.job",
+            "label": Array [
+              <span>
+                <Link
+                  to="/submissions/jobs"
+                >
+                  Job
+                </Link>
+              </span>,
+            ],
+          },
+          Object {
+            "key": "submit.seminar",
+            "label": Array [
+              <span>
+                <Link
+                  to="/submissions/seminars"
+                >
+                  Seminar
+                </Link>
+              </span>,
+            ],
+          },
+          Object {
+            "key": "submit.conference",
+            "label": Array [
+              <span>
+                <Link
+                  to="/submissions/conferences"
+                >
+                  Conference
+                </Link>
+              </span>,
+            ],
+          },
+        ],
+        "key": "submit",
+        "label": "Submit",
+        "popupClassName": "header-submenu ant-menu-dark",
+      },
+      Object {
+        "key": "login",
+        "label": <Link
+          to="/user/login"
+        >
+          Login
+        </Link>,
+      },
+    ]
+  }
   mode="horizontal"
   selectable={false}
   theme="dark"
->
-  <SubMenu
-    key="help"
-    popupClassName="header-submenu ant-menu-dark"
-    title="Help"
-  >
-    <MenuItem
-      key="help.search-tips"
-    >
-      <LinkWithTargetBlank
-        as="a"
-        href="https://help.inspirehep.net/knowledge-base/inspire-paper-search"
-      >
-        Search Tips
-      </LinkWithTargetBlank>
-    </MenuItem>
-    <MenuItem
-      key="help.tour"
-    >
-      <Connect(LinkLikeButton)
-        color="white"
-      >
-        Take the tour
-      </Connect(LinkLikeButton)>
-    </MenuItem>
-    <MenuItem
-      key="help.help-center"
-    >
-      <LinkWithTargetBlank
-        as="a"
-        href="https://help.inspirehep.net"
-      >
-        Help Center
-      </LinkWithTargetBlank>
-    </MenuItem>
-  </SubMenu>
-  <SubMenu
-    key="submit"
-    popupClassName="header-submenu ant-menu-dark"
-    title="Submit"
-  >
-    <MenuItem
-      key="submit.literature"
-    >
-      <Link
-        to="/submissions/literature"
-      >
-        Literature
-      </Link>
-    </MenuItem>
-    <MenuItem
-      key="submit.author"
-    >
-      <Link
-        to="/submissions/authors"
-      >
-        Author
-      </Link>
-    </MenuItem>
-    <MenuItem
-      key="submit.job"
-    >
-      <Link
-        to="/submissions/jobs"
-      >
-        Job
-      </Link>
-    </MenuItem>
-    <MenuItem
-      key="submit.seminar"
-    >
-      <Link
-        to="/submissions/seminars"
-      >
-        Seminar
-      </Link>
-    </MenuItem>
-    <MenuItem
-      key="submit.conference"
-    >
-      <Link
-        to="/submissions/conferences"
-      >
-        Conference
-      </Link>
-    </MenuItem>
-  </SubMenu>
-  <MenuItem
-    key="login"
-  >
-    <Link
-      to="/user/login"
-    >
-      Login
-    </Link>
-  </MenuItem>
-</Menu>
+/>
 `;

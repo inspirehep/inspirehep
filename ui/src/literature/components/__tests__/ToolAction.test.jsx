@@ -1,6 +1,7 @@
 import React from 'react';
+import { render, waitFor, fireEvent, screen } from '@testing-library/react';
 import { shallow } from 'enzyme';
-import ExportToCdsModal from '../ExportToCdsModal';
+
 import ToolAction from '../ToolAction';
 
 jest.mock('react-router-dom', () => ({
@@ -33,31 +34,45 @@ describe('ToolAction', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('calls onAssignToConference on assign-conference click ', () => {
+  it('calls onAssignToConference on assign-conference click ', async () => {
     const onAssignToConference = jest.fn();
-    const wrapper = shallow(
+    const { container } = render(
       <ToolAction
         onAssignToConference={onAssignToConference}
         onExportToCds={jest.fn()}
         selectionSize={3}
       />
     );
-    wrapper.find('[data-test-id="assign-conference"]').simulate('click');
-    expect(onAssignToConference).toHaveBeenCalled();
+
+    const dropdown = container.getElementsByClassName(
+      'ant-dropdown-trigger'
+    )[0];
+    fireEvent.mouseOver(dropdown);
+
+    await waitFor(() => screen.getByTestId('assign-conference').click());
+
+    await waitFor(() => expect(onAssignToConference).toHaveBeenCalled());
   });
 
-  it('opens modal on export-to-CDS click ', () => {
+  it('opens modal on export-to-CDS click ', async () => {
     const onAssignToConference = jest.fn();
     const onExportToCds = jest.fn();
-    const wrapper = shallow(
+
+    const { container } = render(
       <ToolAction
         onAssignToConference={onAssignToConference}
         onExportToCds={onExportToCds}
         selectionSize={3}
       />
     );
-    wrapper.find('[data-test-id="export-to-CDS"]').simulate('click');
-    const exportToCdsModal = wrapper.find(ExportToCdsModal);
-    expect(exportToCdsModal.prop('visible')).toBe(true);
+
+    const dropdown = container.getElementsByClassName(
+      'ant-dropdown-trigger'
+    )[0];
+    fireEvent.mouseOver(dropdown);
+
+    await waitFor(() => screen.getByTestId('export-to-CDS').click());
+
+    await waitFor(() => expect(screen.getByTestId('export-modal')).toBeInTheDocument);
   });
 });

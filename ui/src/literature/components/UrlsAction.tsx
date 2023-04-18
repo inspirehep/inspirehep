@@ -51,8 +51,9 @@ function UrlsAction({
   const renderUrlsDropdownAction = useCallback(
     (url) => {
       const [href, display] = linkToHrefDisplayPair(url);
-      return (
-        <Menu.Item key={href}>
+      return {
+        key: display,
+        label: <span key={href}>
           <EventTracker
             eventCategory={page}
             eventAction={eventAction || 'Link'}
@@ -60,8 +61,8 @@ function UrlsAction({
           >
             <LinkWithTargetBlank href={href}>{display}</LinkWithTargetBlank>
           </EventTracker>
-        </Menu.Item>
-      );
+        </span>
+      };
     },
     [trackerEventId, page, eventAction]
   );

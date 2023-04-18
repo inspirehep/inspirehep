@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
-import { Button, Menu } from 'antd';
+import { Button } from 'antd';
 import { CalendarOutlined } from '@ant-design/icons';
 
 import UserAction from '../../../common/components/UserAction';
@@ -26,28 +26,40 @@ function ExportToCalendarAction({ seminar, page }) {
     );
   }, [seminar]);
   
-  return (
-    <UserAction>
-      <DropdownMenu title={<Button>{TITLE}</Button>}>
+  const menuItems = [
+    {
+      key: 'download',
+      label: (
         <EventTracker
           eventCategory={page}
           eventAction="Download"
           eventId="Download .ics"
         >
-          <Menu.Item onClick={onDownloadClick}>Download .ics</Menu.Item>
+          <span onClick={onDownloadClick}>Download .ics</span>
         </EventTracker>
+      ),
+    },
+    {
+      key: 'calendar',
+      label: (
         <EventTracker
           eventCategory={page}
           eventAction="Link"
           eventId="Add to Google Calendar"
         >
-          <Menu.Item>
+          <span>
             <LinkWithTargetBlank href={getGoogleCalendarUrl(seminar)}>
               Google Calendar
             </LinkWithTargetBlank>
-          </Menu.Item>
+          </span>
         </EventTracker>
-      </DropdownMenu>
+      ),
+    },
+  ];
+
+  return (
+    <UserAction>
+      <DropdownMenu title={<Button>{TITLE}</Button>} items={menuItems} />
     </UserAction>
   );
 }

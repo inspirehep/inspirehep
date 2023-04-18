@@ -5,8 +5,8 @@ exports[`ExistingConferencesDrawer renders drawer with number of conferences 1`]
   className="search-drawer"
   closable={false}
   onClose={[MockFunction]}
+  open={true}
   placement="right"
-  visible={true}
 >
   <p>
     <strong>

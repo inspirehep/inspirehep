@@ -3,20 +3,7 @@
 exports[`DropdownMenu renders 1`] = `
 <Dropdown
   disabled={false}
-  overlay={
-    <Menu>
-      <MenuItem>
-        <li>
-          test
-        </li>
-      </MenuItem>
-      <MenuItem>
-        <li>
-          test2
-        </li>
-      </MenuItem>
-    </Menu>
-  }
+  overlay={<Menu />}
 >
   title
 </Dropdown>
@@ -28,18 +15,7 @@ exports[`DropdownMenu renders with all props set 1`] = `
   overlay={
     <Menu
       onClick={[MockFunction]}
-    >
-      <MenuItem>
-        <li>
-          test
-        </li>
-      </MenuItem>
-      <MenuItem>
-        <li>
-          test2
-        </li>
-      </MenuItem>
-    </Menu>
+    />
   }
 >
   title

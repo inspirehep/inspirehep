@@ -4,9 +4,9 @@ exports[`AssignLiteratureItemDrawer renders authors list 1`] = `
 <Drawer
   className="search-drawer"
   onClose={[Function]}
+  open={true}
   placement="right"
   title="Select the author to claim:"
-  visible={true}
 >
   <Search
     className="pb3"

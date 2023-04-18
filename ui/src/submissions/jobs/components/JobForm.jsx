@@ -70,7 +70,7 @@ class JobForm extends Component {
               placeholder="Institution, type for suggestions"
               pidType="institutions"
               suggesterName="affiliation"
-              searchAsYouType
+              searchasyoutype="true"
               extractItemCompletionValue={JobForm.getSuggestionSourceLegacyICN}
               component={SuggesterField}
             />
@@ -110,7 +110,7 @@ class JobForm extends Component {
               placeholder="Experiment, type for suggestions"
               pidType="experiments"
               suggesterName="experiment"
-              searchAsYouType
+              searchasyoutype="true"
               extractItemCompletionValue={JobForm.getSuggestionSourceLegacyName}
               component={SuggesterField}
             />

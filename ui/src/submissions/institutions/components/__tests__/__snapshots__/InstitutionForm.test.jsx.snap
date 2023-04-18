@@ -17,7 +17,7 @@ exports[`InstitutionForm renders 1`] = `
         name="identifier"
         pidType="institutions"
         placeholder="Institution, type for suggestions"
-        searchAsYouType={true}
+        searchasyoutype="true"
         suggesterName="affiliation"
       />
     </Col>

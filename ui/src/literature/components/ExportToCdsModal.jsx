@@ -6,7 +6,7 @@ import { pluralizeUnlessSingle } from '../../common/utils';
 function ExportToCdsModal({ visible, onCancel, onOk, selectionSize }) {
   return (
     <Modal
-      visible={visible}
+      open={visible}
       onCancel={onCancel}
       footer={[
         <Button key="confirm" type="primary" onClick={onOk}>
@@ -14,7 +14,7 @@ function ExportToCdsModal({ visible, onCancel, onOk, selectionSize }) {
         </Button>,
       ]}
     >
-      <p>
+      <p data-testid="export-modal">
         You have selected {selectionSize}{' '}
         {pluralizeUnlessSingle('paper', selectionSize)}.<br />
         Are you sure you want to export it to CDS?

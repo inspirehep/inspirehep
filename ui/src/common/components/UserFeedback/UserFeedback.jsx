@@ -173,7 +173,7 @@ class UserFeedback extends Component {
         )}
         <Modal
           title="Your Feedback"
-          visible={isModalVisible}
+          open={isModalVisible}
           onOk={this.onFeedbackSubmit}
           okText="Submit"
           okButtonProps={{ disabled: isTrackerBlocked }}

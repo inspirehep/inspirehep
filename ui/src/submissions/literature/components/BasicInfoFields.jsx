@@ -54,7 +54,7 @@ class BasicInfoFields extends Component {
           placeholder="Experiment, type for suggestions"
           pidType="experiments"
           suggesterName="experiment"
-          searchAsYouType
+          searchasyoutype="true"
           extractItemCompletionValue={
             BasicInfoFields.getSuggestionSourceLegacyName
           }

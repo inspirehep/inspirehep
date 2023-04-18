@@ -5,17 +5,17 @@ const DropdownMenu = ({
   title,
   disabled,
   overlayClassName,
-  children,
+  items,
   onClick,
 }: {
   title: any;
   disabled: boolean;
   className?: string;
   overlayClassName?: string;
-  children?: any;
+  items?: any[];
   onClick?: any;
 }) => {
-  const renderMenu = () => <Menu onClick={onClick}>{children}</Menu>;
+  const renderMenu = () => <Menu onClick={onClick} items={items} />;
 
   return (
     <Dropdown

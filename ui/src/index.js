@@ -54,7 +54,6 @@ if (typeof window !== 'undefined') {
 }
 
 ReactDOM.render(
-  // eslint-disable-next-line react/jsx-filename-extension
   <ErrorBoundary renderError={() => <ErrorAppCrash />}>
     <Provider store={store}>
       <ConnectedRouter history={injectTrackerToHistory(history)}>

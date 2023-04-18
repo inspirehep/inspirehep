@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect, forwardRef } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { Input, AutoComplete } from 'antd';
 import { HistoryOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
@@ -96,7 +96,7 @@ const SearchBox = ({
         </span>
         <AutoComplete
           autoFocus
-          dropdownClassName="header-dropdown"
+          popupClassName="header-dropdown"
           className="autocomplete"
           value={inputValue}
           dropdownMatchSelectWidth

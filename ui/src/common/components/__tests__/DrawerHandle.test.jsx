@@ -37,6 +37,6 @@ describe('DrawerHandle', () => {
 
     wrapper.find('[data-test-id="handle-button"]').simulate('click');
     wrapper.update();
-    expect(wrapper.find(Drawer).prop('visible')).toBe(true);
+    expect(wrapper.find(Drawer).prop('open')).toBe(true);
   });
 });

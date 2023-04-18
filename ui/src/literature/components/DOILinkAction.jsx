@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
-import { Menu } from 'antd';
 import { LinkOutlined } from '@ant-design/icons';
 
 import IconText from '../../common/components/IconText';
@@ -10,14 +9,15 @@ import DOIMaterial from './DOIMaterial';
 import ActionsDropdownOrAction from '../../common/components/ActionsDropdownOrAction';
 
 function renderDOIDropdownAction(doi, page) {
-  return (
-    <Menu.Item key={doi.get('value')}>
+  return {
+    key: doi.get('value'),
+    label: <span key={doi.get('value')}>
       <DOILink doi={doi.get('value')} page={page} >
         {doi.get('value')}
         <DOIMaterial material={doi.get('material')} />
       </DOILink>
-    </Menu.Item>
-  );
+    </span>
+  };
 }
 
 function renderDOIAction(doi, title) {

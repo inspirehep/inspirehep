@@ -34,7 +34,7 @@ const ExperimentForm = () => {
             name="legacy_name"
             pidType="experiments"
             placeholder="Legacy name, type for suggestions"
-            searchAsYouType
+            searchasyoutype="true"
             suggesterName="experiment"
           />
         </Col>

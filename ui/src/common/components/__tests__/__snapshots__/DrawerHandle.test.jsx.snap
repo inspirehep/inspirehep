@@ -11,9 +11,9 @@ exports[`DrawerHandle renders DrawerHandle with all props 1`] = `
   </Button>
   <Drawer
     onClose={[Function]}
+    open={false}
     placement="left"
     title="Title"
-    visible={false}
     width={256}
   >
     <div>
@@ -34,9 +34,9 @@ exports[`DrawerHandle renders DrawerHandle with default props 1`] = `
   </Button>
   <Drawer
     onClose={[Function]}
+    open={false}
     placement="left"
     title="Title"
-    visible={false}
     width={304}
   >
     <div>

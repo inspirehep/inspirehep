@@ -43,7 +43,7 @@ export const PDGKeywords = ({ keywords }: { keywords: IKeyword }) => {
         <Modal
           title="PDG keywords"
           width="50%"
-          visible={modalVisibility}
+          open={modalVisibility}
           footer={null}
           onCancel={toggleModal}
           bodyStyle={{padding: '12px 24px 24px 24px'}}

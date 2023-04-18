@@ -24,7 +24,7 @@ function ExistingConferencesDrawer({
       placement="right"
       closable={false}
       onClose={onDrawerClose}
-      visible={visible}
+      open={visible}
     >
       <p>
         <strong>{numberOfConferences}</strong>{' '}

@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { List, Map } from 'immutable';
 import { LinkOutlined } from '@ant-design/icons';
-import { Menu, Tooltip } from 'antd';
+import { Tooltip } from 'antd';
 
 import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank';
 import { removeProtocolAndWwwFromUrl } from '../../common/utils';
@@ -36,18 +36,21 @@ function sortBlogFirst(a: string, b: string): number {
 
 function renderWebsitesDropdownAction(website: Map<string, any>) {
   const [href, display] = websiteToHrefDisplayPair(website);
-  
-  return (
-    <Menu.Item key={href}>
-      <EventTracker
-        eventCategory="Author detail"
-        eventAction="Link"
-        eventId="Author websites"
-      >
-        <LinkWithTargetBlank href={href}>{display}</LinkWithTargetBlank>
-      </EventTracker>
-    </Menu.Item>
-  );
+
+  return {
+    key: website,
+    label: (
+      <span key={href}>
+        <EventTracker
+          eventCategory="Author detail"
+          eventAction="Link"
+          eventId="Author websites"
+        >
+          <LinkWithTargetBlank href={href}>{display}</LinkWithTargetBlank>
+        </EventTracker>
+      </span>
+    ),
+  };
 }
 const ACTION_TITLE = (
   <Tooltip title="Author websites">

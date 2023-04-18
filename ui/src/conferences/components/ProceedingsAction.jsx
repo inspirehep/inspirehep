@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { List, Map } from 'immutable';
-import { Menu } from 'antd';
 import { BookOutlined } from '@ant-design/icons';
 
 import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank';
@@ -17,23 +16,28 @@ function getProceedingHref(recordId) {
 function renderProceedingsDropdownAction(proceeding, index) {
   const recordId = proceeding.get('control_number');
   const publicationInfo = proceeding.getIn(['publication_info', 0], Map());
-  return (
-    <Menu.Item key={recordId}>
-      <LinkWithTargetBlank href={getProceedingHref(recordId)}>
-        {publicationInfo.has('journal_title') ? (
-          <JournalInfo info={publicationInfo} />
-        ) : (
-          <span>Proceedings {index + 1}</span>
-        )}
-      </LinkWithTargetBlank>
-    </Menu.Item>
-  );
+  return {
+    key: getProceedingHref(recordId),
+    label: (
+      <span key={recordId}>
+        <LinkWithTargetBlank href={getProceedingHref(recordId)}>
+          {publicationInfo.has('journal_title') ? (
+            <JournalInfo info={publicationInfo} />
+          ) : (
+            <span>Proceedings {index + 1}</span>
+          )}
+        </LinkWithTargetBlank>
+      </span>
+    ),
+  };
 }
 
 function renderProceedingAction(proceeding, title) {
   const recordId = proceeding.get('control_number');
   return (
-    <LinkWithTargetBlank href={getProceedingHref(recordId)}>{title}</LinkWithTargetBlank>
+    <LinkWithTargetBlank href={getProceedingHref(recordId)}>
+      {title}
+    </LinkWithTargetBlank>
   );
 }
 

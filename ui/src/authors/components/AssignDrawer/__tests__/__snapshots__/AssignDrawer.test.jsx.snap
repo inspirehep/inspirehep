@@ -4,11 +4,11 @@ exports[`AssignDrawer renders assign authors search 1`] = `
 <Drawer
   className="search-drawer"
   onClose={[MockFunction]}
+  open={true}
   placement="right"
   title="You have selected 3 
             papers. Select the
             author to assign the selected papers:"
-  visible={true}
 >
   <Connect(EmbeddedSearchBox)
     namespace="assignAuthor"

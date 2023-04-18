@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { Row, Col, Menu, Button } from 'antd';
+import { Row, Col, Button } from 'antd';
 import PropTypes from 'prop-types';
 
 import './CollectionsMenu.less';
@@ -31,6 +31,33 @@ function CollectionsMenu({ currentPathname }: { currentPathname: string }) {
     [currentPathname]
   );
   const dropdownTitle = 'More...';
+
+  const menuItems = [
+    {
+      key: '1',
+      label: (
+        <Link key="1" className="dropdown-link" to={INSTITUTIONS}>
+          Institutions
+        </Link>
+      ),
+    },
+    {
+      key: '2',
+      label: (
+        <Link key="2" className="dropdown-link" to={EXPERIMENTS}>
+          Experiments
+        </Link>
+      ),
+    },
+    {
+      key: '3',
+      label: [
+        <Link key="3" className="dropdown-link" to={JOURNALS}>
+          Journals
+        </Link>,
+      ],
+    },
+  ];
 
   return (
     <Row className="__CollectionsMenu__" justify="center">
@@ -78,28 +105,13 @@ function CollectionsMenu({ currentPathname }: { currentPathname: string }) {
           title={
             <Button
               className="button-no-background ml4"
-              onClick={e => e.preventDefault()}
+              onClick={(e) => e.preventDefault()}
             >
               <span className="button-title f5 white"> {dropdownTitle} </span>
             </Button>
           }
-        >
-          <Menu.Item className="dropdown-menu-item" key="more.institutions">
-            <Link className="dropdown-link" to={INSTITUTIONS}>
-              Institutions
-            </Link>
-          </Menu.Item>
-          <Menu.Item className="dropdown-menu-item" key="more.experiments">
-            <Link className="dropdown-link" to={EXPERIMENTS}>
-              Experiments
-            </Link>
-          </Menu.Item>
-          <Menu.Item className="dropdown-menu-item" key="more.journals">
-            <Link className="dropdown-link" to={JOURNALS}>
-              Journals
-            </Link>
-          </Menu.Item>
-        </DropdownMenu>
+          items={menuItems}
+        />
       </Col>
     </Row>
   );

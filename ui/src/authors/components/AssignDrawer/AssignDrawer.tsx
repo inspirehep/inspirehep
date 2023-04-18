@@ -54,7 +54,7 @@ function AssignDrawer({
       className="search-drawer"
       placement="right"
       onClose={onDrawerClose}
-      visible={visible}
+      open={visible}
       title={`You have selected ${selectedPapers.size} 
             ${pluralizeUnlessSingle('paper', selectedPapers.size)}. Select the
             author to assign the selected papers:`}

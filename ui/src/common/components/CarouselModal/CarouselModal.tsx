@@ -83,7 +83,7 @@ const CarouselModal: React.FC<PropsWithChildren<CarouselModalProps>> = forwardRe
         {rootElement && (
           <Modal
             appElement={rootElement}
-            isOpen={visible} // TODO: animate on visibility change?
+            isOpen={visible || false} // TODO: animate on visibility change?
             className="__CarouselModal__ h-100"
             overlayClassName="__CarouselModal__overlay"
             bodyOpenClassName="__CarouselModal__body-open"

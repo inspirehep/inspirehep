@@ -22,22 +22,18 @@ exports[`SubscribeJobsModalButton renders confirmation if subscription is submit
   </EventTracker>
   <Modal
     afterClose={[Function]}
-    confirmLoading={false}
     footer={null}
-    okType="primary"
     onCancel={[Function]}
     open={false}
     title="Subscribe to the INSPIRE job mailing list"
-    visible={false}
-    width={520}
   >
     <ModalSuccessResult>
-      <ForwardRef(Paragraph)>
+      <ForwardRef>
         You have successfully subscribed!
-      </ForwardRef(Paragraph)>
-      <ForwardRef(Paragraph)>
+      </ForwardRef>
+      <ForwardRef>
         You will receive a weekly update on new INSPIRE job listings every Monday.
-      </ForwardRef(Paragraph)>
+      </ForwardRef>
     </ModalSuccessResult>
   </Modal>
 </Fragment>
@@ -65,14 +61,10 @@ exports[`SubscribeJobsModalButton renders with error alert if hasError 1`] = `
   </EventTracker>
   <Modal
     afterClose={[Function]}
-    confirmLoading={false}
     footer={null}
-    okType="primary"
     onCancel={[Function]}
     open={false}
     title="Subscribe to the INSPIRE job mailing list"
-    visible={false}
-    width={520}
   >
     <div>
       <div
@@ -119,14 +111,10 @@ exports[`SubscribeJobsModalButton renders with initial state 1`] = `
   </EventTracker>
   <Modal
     afterClose={[Function]}
-    confirmLoading={false}
     footer={null}
-    okType="primary"
     onCancel={[Function]}
     open={false}
     title="Subscribe to the INSPIRE job mailing list"
-    visible={false}
-    width={520}
   >
     <div>
       <div

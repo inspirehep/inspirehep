@@ -1,4 +1,3 @@
-
 import React, { useEffect, useMemo } from 'react';
 import { connect, RootStateOrAny } from 'react-redux';
 import { Action, ActionCreator } from 'redux';
@@ -58,7 +57,7 @@ function DetailPage({
   loadingPublications,
   seminarsCount,
   isCatalogerLoggedIn,
-  isSuperUserLoggedIn
+  isSuperUserLoggedIn,
 }: {
   record: Map<string, any>;
   publicationsQuery: Map<string, string>;
@@ -114,6 +113,62 @@ function DetailPage({
     () => getAuthorMetaDescription(metadata),
     [metadata]
   );
+
+  let tabItems = [
+    {
+      label: (
+        <Tooltip title="Research from the author">
+          <span>
+            <TabNameWithCount
+              loading={publicationsCount === null && loadingPublications}
+              name="Research works"
+              count={publicationsCount}
+              page="Author detail"
+            />
+          </span>
+        </Tooltip>
+      ),
+      key: '1',
+      children: (
+        <ContentBox className="remove-top-border-of-card">
+          <AuthorPublicationsContainer />
+        </ContentBox>
+      ),
+    },
+    {
+      label: (
+        <Tooltip title="Research citing the author">
+          <span>Cited By {citingPapersCount === 0 && <span> (0)</span>}</span>
+        </Tooltip>
+      ),
+      key: '2',
+      children: (
+        <ContentBox className="remove-top-border-of-card">
+          <AuthorCitationsContainer />
+        </ContentBox>
+      ),
+    },
+  ];
+
+  if (seminarsCount > 0) {
+    tabItems = [
+      ...tabItems,
+      {
+        label: (
+          <Tooltip title="Seminars from the author">
+            <span>Seminars</span>
+          </Tooltip>
+        ),
+        key: '3',
+        children: (
+          <ContentBox className="remove-top-border-of-card">
+            <AuthorSeminars />
+          </ContentBox>
+        ),
+      },
+    ];
+  }
+
   return (
     <>
       <DocumentHead
@@ -136,11 +191,16 @@ function DetailPage({
                     {twitter && <AuthorTwitterAction twitter={twitter} />}
                     {linkedin && <AuthorLinkedinAction linkedin={linkedin} />}
                     {urls && <AuthorWebsitesAction websites={urls} />}
-                    {orcid && orcid === userOrcid && <UserAction>
-                      <LinkWithTargetBlank href='/user/settings'>
-                        <IconText text="settings" icon={<SettingOutlined />} />
-                      </LinkWithTargetBlank>
-                    </UserAction>}
+                    {orcid && orcid === userOrcid && (
+                      <UserAction>
+                        <LinkWithTargetBlank href="/user/settings">
+                          <IconText
+                            text="settings"
+                            icon={<SettingOutlined />}
+                          />
+                        </LinkWithTargetBlank>
+                      </UserAction>
+                    )}
                     <EditAuthorRecordAction
                       canEdit={canEdit}
                       pidValue={recordId}
@@ -196,57 +256,11 @@ function DetailPage({
           </Row>
           <Row>
             <Col span={24}>
-              <Tabs type="card" tabBarStyle={{ marginBottom: 0 }}>
-                <Tabs.TabPane
-                  tab={
-                    <Tooltip title="Research from the author">
-                      <span>
-                        <TabNameWithCount
-                          loading={
-                            publicationsCount === null && loadingPublications
-                          }
-                          name="Research works"
-                          count={publicationsCount}
-                          page="Author detail"
-                        />
-                      </span>
-                    </Tooltip>
-                  }
-                  key="1"
-                >
-                  <ContentBox className="remove-top-border-of-card">
-                    <AuthorPublicationsContainer />
-                  </ContentBox>
-                </Tabs.TabPane>
-                <Tabs.TabPane
-                  tab={
-                    <Tooltip title="Research citing the author">
-                      <span>
-                        Cited By {citingPapersCount === 0 && <span> (0)</span>}
-                      </span>
-                    </Tooltip>
-                  }
-                  key="2"
-                >
-                  <ContentBox className="remove-top-border-of-card">
-                    <AuthorCitationsContainer />
-                  </ContentBox>
-                </Tabs.TabPane>
-                {seminarsCount > 0 && (
-                  <Tabs.TabPane
-                    tab={
-                      <Tooltip title="Seminars from the author">
-                        <span>Seminars</span>
-                      </Tooltip>
-                    }
-                    key="3"
-                  >
-                    <ContentBox className="remove-top-border-of-card">
-                      <AuthorSeminars />
-                    </ContentBox>
-                  </Tabs.TabPane>
-                )}
-              </Tabs>
+              <Tabs
+                type="card"
+                tabBarStyle={{ marginBottom: 0 }}
+                items={tabItems}
+              />
             </Col>
           </Row>
         </Col>

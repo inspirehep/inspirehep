@@ -6,11 +6,6 @@ exports[`ClaimingDisabledButton renders 1`] = `
     disabled={true}
     title={
       <Tooltip
-        arrowPointAtCenter={false}
-        autoAdjustOverflow={true}
-        mouseEnterDelay={0.1}
-        mouseLeaveDelay={0.1}
-        placement="top"
         title="Login to claim your papers"
       >
         <Button

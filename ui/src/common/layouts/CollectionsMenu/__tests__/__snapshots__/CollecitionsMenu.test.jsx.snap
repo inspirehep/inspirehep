@@ -49,6 +49,39 @@ exports[`CollectionsMenu renders when authors page 1`] = `
     <DropdownMenu
       className="dropdown mh4 m-mh2"
       disabled={false}
+      items={
+        Array [
+          Object {
+            "key": "1",
+            "label": <Link
+              className="dropdown-link"
+              to="/institutions"
+            >
+              Institutions
+            </Link>,
+          },
+          Object {
+            "key": "2",
+            "label": <Link
+              className="dropdown-link"
+              to="/experiments"
+            >
+              Experiments
+            </Link>,
+          },
+          Object {
+            "key": "3",
+            "label": Array [
+              <Link
+                className="dropdown-link"
+                to="/journals"
+              >
+                Journals
+              </Link>,
+            ],
+          },
+        ]
+      }
       overlayClassName="more-collections-menu"
       title={
         <Button
@@ -64,41 +97,7 @@ exports[`CollectionsMenu renders when authors page 1`] = `
           </span>
         </Button>
       }
-    >
-      <MenuItem
-        className="dropdown-menu-item"
-        key="more.institutions"
-      >
-        <Link
-          className="dropdown-link"
-          to="/institutions"
-        >
-          Institutions
-        </Link>
-      </MenuItem>
-      <MenuItem
-        className="dropdown-menu-item"
-        key="more.experiments"
-      >
-        <Link
-          className="dropdown-link"
-          to="/experiments"
-        >
-          Experiments
-        </Link>
-      </MenuItem>
-      <MenuItem
-        className="dropdown-menu-item"
-        key="more.journals"
-      >
-        <Link
-          className="dropdown-link"
-          to="/journals"
-        >
-          Journals
-        </Link>
-      </MenuItem>
-    </DropdownMenu>
+    />
   </Col>
 </Row>
 `;
@@ -152,6 +151,39 @@ exports[`CollectionsMenu renders when conferences page 1`] = `
     <DropdownMenu
       className="dropdown mh4 m-mh2"
       disabled={false}
+      items={
+        Array [
+          Object {
+            "key": "1",
+            "label": <Link
+              className="dropdown-link"
+              to="/institutions"
+            >
+              Institutions
+            </Link>,
+          },
+          Object {
+            "key": "2",
+            "label": <Link
+              className="dropdown-link"
+              to="/experiments"
+            >
+              Experiments
+            </Link>,
+          },
+          Object {
+            "key": "3",
+            "label": Array [
+              <Link
+                className="dropdown-link"
+                to="/journals"
+              >
+                Journals
+              </Link>,
+            ],
+          },
+        ]
+      }
       overlayClassName="more-collections-menu"
       title={
         <Button
@@ -167,41 +199,7 @@ exports[`CollectionsMenu renders when conferences page 1`] = `
           </span>
         </Button>
       }
-    >
-      <MenuItem
-        className="dropdown-menu-item"
-        key="more.institutions"
-      >
-        <Link
-          className="dropdown-link"
-          to="/institutions"
-        >
-          Institutions
-        </Link>
-      </MenuItem>
-      <MenuItem
-        className="dropdown-menu-item"
-        key="more.experiments"
-      >
-        <Link
-          className="dropdown-link"
-          to="/experiments"
-        >
-          Experiments
-        </Link>
-      </MenuItem>
-      <MenuItem
-        className="dropdown-menu-item"
-        key="more.journals"
-      >
-        <Link
-          className="dropdown-link"
-          to="/journals"
-        >
-          Journals
-        </Link>
-      </MenuItem>
-    </DropdownMenu>
+    />
   </Col>
 </Row>
 `;
@@ -255,6 +253,39 @@ exports[`CollectionsMenu renders when experiments page 1`] = `
     <DropdownMenu
       className="dropdown mh4 m-mh2"
       disabled={false}
+      items={
+        Array [
+          Object {
+            "key": "1",
+            "label": <Link
+              className="dropdown-link"
+              to="/institutions"
+            >
+              Institutions
+            </Link>,
+          },
+          Object {
+            "key": "2",
+            "label": <Link
+              className="dropdown-link"
+              to="/experiments"
+            >
+              Experiments
+            </Link>,
+          },
+          Object {
+            "key": "3",
+            "label": Array [
+              <Link
+                className="dropdown-link"
+                to="/journals"
+              >
+                Journals
+              </Link>,
+            ],
+          },
+        ]
+      }
       overlayClassName="more-collections-menu"
       title={
         <Button
@@ -270,41 +301,7 @@ exports[`CollectionsMenu renders when experiments page 1`] = `
           </span>
         </Button>
       }
-    >
-      <MenuItem
-        className="dropdown-menu-item"
-        key="more.institutions"
-      >
-        <Link
-          className="dropdown-link"
-          to="/institutions"
-        >
-          Institutions
-        </Link>
-      </MenuItem>
-      <MenuItem
-        className="dropdown-menu-item"
-        key="more.experiments"
-      >
-        <Link
-          className="dropdown-link"
-          to="/experiments"
-        >
-          Experiments
-        </Link>
-      </MenuItem>
-      <MenuItem
-        className="dropdown-menu-item"
-        key="more.journals"
-      >
-        <Link
-          className="dropdown-link"
-          to="/journals"
-        >
-          Journals
-        </Link>
-      </MenuItem>
-    </DropdownMenu>
+    />
   </Col>
 </Row>
 `;
@@ -358,6 +355,39 @@ exports[`CollectionsMenu renders when home page 1`] = `
     <DropdownMenu
       className="dropdown mh4 m-mh2"
       disabled={false}
+      items={
+        Array [
+          Object {
+            "key": "1",
+            "label": <Link
+              className="dropdown-link"
+              to="/institutions"
+            >
+              Institutions
+            </Link>,
+          },
+          Object {
+            "key": "2",
+            "label": <Link
+              className="dropdown-link"
+              to="/experiments"
+            >
+              Experiments
+            </Link>,
+          },
+          Object {
+            "key": "3",
+            "label": Array [
+              <Link
+                className="dropdown-link"
+                to="/journals"
+              >
+                Journals
+              </Link>,
+            ],
+          },
+        ]
+      }
       overlayClassName="more-collections-menu"
       title={
         <Button
@@ -373,41 +403,7 @@ exports[`CollectionsMenu renders when home page 1`] = `
           </span>
         </Button>
       }
-    >
-      <MenuItem
-        className="dropdown-menu-item"
-        key="more.institutions"
-      >
-        <Link
-          className="dropdown-link"
-          to="/institutions"
-        >
-          Institutions
-        </Link>
-      </MenuItem>
-      <MenuItem
-        className="dropdown-menu-item"
-        key="more.experiments"
-      >
-        <Link
-          className="dropdown-link"
-          to="/experiments"
-        >
-          Experiments
-        </Link>
-      </MenuItem>
-      <MenuItem
-        className="dropdown-menu-item"
-        key="more.journals"
-      >
-        <Link
-          className="dropdown-link"
-          to="/journals"
-        >
-          Journals
-        </Link>
-      </MenuItem>
-    </DropdownMenu>
+    />
   </Col>
 </Row>
 `;
@@ -461,6 +457,39 @@ exports[`CollectionsMenu renders when jobs page 1`] = `
     <DropdownMenu
       className="dropdown mh4 m-mh2"
       disabled={false}
+      items={
+        Array [
+          Object {
+            "key": "1",
+            "label": <Link
+              className="dropdown-link"
+              to="/institutions"
+            >
+              Institutions
+            </Link>,
+          },
+          Object {
+            "key": "2",
+            "label": <Link
+              className="dropdown-link"
+              to="/experiments"
+            >
+              Experiments
+            </Link>,
+          },
+          Object {
+            "key": "3",
+            "label": Array [
+              <Link
+                className="dropdown-link"
+                to="/journals"
+              >
+                Journals
+              </Link>,
+            ],
+          },
+        ]
+      }
       overlayClassName="more-collections-menu"
       title={
         <Button
@@ -476,41 +505,7 @@ exports[`CollectionsMenu renders when jobs page 1`] = `
           </span>
         </Button>
       }
-    >
-      <MenuItem
-        className="dropdown-menu-item"
-        key="more.institutions"
-      >
-        <Link
-          className="dropdown-link"
-          to="/institutions"
-        >
-          Institutions
-        </Link>
-      </MenuItem>
-      <MenuItem
-        className="dropdown-menu-item"
-        key="more.experiments"
-      >
-        <Link
-          className="dropdown-link"
-          to="/experiments"
-        >
-          Experiments
-        </Link>
-      </MenuItem>
-      <MenuItem
-        className="dropdown-menu-item"
-        key="more.journals"
-      >
-        <Link
-          className="dropdown-link"
-          to="/journals"
-        >
-          Journals
-        </Link>
-      </MenuItem>
-    </DropdownMenu>
+    />
   </Col>
 </Row>
 `;
@@ -564,6 +559,39 @@ exports[`CollectionsMenu renders when literature page 1`] = `
     <DropdownMenu
       className="dropdown mh4 m-mh2"
       disabled={false}
+      items={
+        Array [
+          Object {
+            "key": "1",
+            "label": <Link
+              className="dropdown-link"
+              to="/institutions"
+            >
+              Institutions
+            </Link>,
+          },
+          Object {
+            "key": "2",
+            "label": <Link
+              className="dropdown-link"
+              to="/experiments"
+            >
+              Experiments
+            </Link>,
+          },
+          Object {
+            "key": "3",
+            "label": Array [
+              <Link
+                className="dropdown-link"
+                to="/journals"
+              >
+                Journals
+              </Link>,
+            ],
+          },
+        ]
+      }
       overlayClassName="more-collections-menu"
       title={
         <Button
@@ -579,41 +607,7 @@ exports[`CollectionsMenu renders when literature page 1`] = `
           </span>
         </Button>
       }
-    >
-      <MenuItem
-        className="dropdown-menu-item"
-        key="more.institutions"
-      >
-        <Link
-          className="dropdown-link"
-          to="/institutions"
-        >
-          Institutions
-        </Link>
-      </MenuItem>
-      <MenuItem
-        className="dropdown-menu-item"
-        key="more.experiments"
-      >
-        <Link
-          className="dropdown-link"
-          to="/experiments"
-        >
-          Experiments
-        </Link>
-      </MenuItem>
-      <MenuItem
-        className="dropdown-menu-item"
-        key="more.journals"
-      >
-        <Link
-          className="dropdown-link"
-          to="/journals"
-        >
-          Journals
-        </Link>
-      </MenuItem>
-    </DropdownMenu>
+    />
   </Col>
 </Row>
 `;
@@ -667,6 +661,39 @@ exports[`CollectionsMenu renders when seminars page 1`] = `
     <DropdownMenu
       className="dropdown mh4 m-mh2"
       disabled={false}
+      items={
+        Array [
+          Object {
+            "key": "1",
+            "label": <Link
+              className="dropdown-link"
+              to="/institutions"
+            >
+              Institutions
+            </Link>,
+          },
+          Object {
+            "key": "2",
+            "label": <Link
+              className="dropdown-link"
+              to="/experiments"
+            >
+              Experiments
+            </Link>,
+          },
+          Object {
+            "key": "3",
+            "label": Array [
+              <Link
+                className="dropdown-link"
+                to="/journals"
+              >
+                Journals
+              </Link>,
+            ],
+          },
+        ]
+      }
       overlayClassName="more-collections-menu"
       title={
         <Button
@@ -682,41 +709,7 @@ exports[`CollectionsMenu renders when seminars page 1`] = `
           </span>
         </Button>
       }
-    >
-      <MenuItem
-        className="dropdown-menu-item"
-        key="more.institutions"
-      >
-        <Link
-          className="dropdown-link"
-          to="/institutions"
-        >
-          Institutions
-        </Link>
-      </MenuItem>
-      <MenuItem
-        className="dropdown-menu-item"
-        key="more.experiments"
-      >
-        <Link
-          className="dropdown-link"
-          to="/experiments"
-        >
-          Experiments
-        </Link>
-      </MenuItem>
-      <MenuItem
-        className="dropdown-menu-item"
-        key="more.journals"
-      >
-        <Link
-          className="dropdown-link"
-          to="/journals"
-        >
-          Journals
-        </Link>
-      </MenuItem>
-    </DropdownMenu>
+    />
   </Col>
 </Row>
 `;
@@ -770,6 +763,39 @@ exports[`CollectionsMenu renders when submissions page 1`] = `
     <DropdownMenu
       className="dropdown mh4 m-mh2"
       disabled={false}
+      items={
+        Array [
+          Object {
+            "key": "1",
+            "label": <Link
+              className="dropdown-link"
+              to="/institutions"
+            >
+              Institutions
+            </Link>,
+          },
+          Object {
+            "key": "2",
+            "label": <Link
+              className="dropdown-link"
+              to="/experiments"
+            >
+              Experiments
+            </Link>,
+          },
+          Object {
+            "key": "3",
+            "label": Array [
+              <Link
+                className="dropdown-link"
+                to="/journals"
+              >
+                Journals
+              </Link>,
+            ],
+          },
+        ]
+      }
       overlayClassName="more-collections-menu"
       title={
         <Button
@@ -785,41 +811,7 @@ exports[`CollectionsMenu renders when submissions page 1`] = `
           </span>
         </Button>
       }
-    >
-      <MenuItem
-        className="dropdown-menu-item"
-        key="more.institutions"
-      >
-        <Link
-          className="dropdown-link"
-          to="/institutions"
-        >
-          Institutions
-        </Link>
-      </MenuItem>
-      <MenuItem
-        className="dropdown-menu-item"
-        key="more.experiments"
-      >
-        <Link
-          className="dropdown-link"
-          to="/experiments"
-        >
-          Experiments
-        </Link>
-      </MenuItem>
-      <MenuItem
-        className="dropdown-menu-item"
-        key="more.journals"
-      >
-        <Link
-          className="dropdown-link"
-          to="/journals"
-        >
-          Journals
-        </Link>
-      </MenuItem>
-    </DropdownMenu>
+    />
   </Col>
 </Row>
 `;

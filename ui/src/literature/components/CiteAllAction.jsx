@@ -2,7 +2,7 @@ import { stringify } from 'qs';
 import { ExportOutlined } from '@ant-design/icons';
 
 import React, { Component } from 'react';
-import { Button, Menu, Tooltip } from 'antd';
+import { Button, Tooltip } from 'antd';
 import PropTypes from 'prop-types';
 import UserAction from '../../common/components/UserAction';
 import IconText from '../../common/components/IconText';
@@ -76,11 +76,11 @@ class CiteAllAction extends Component {
           disabled={disabled}
           onClick={this.onCiteClick}
           title={this.renderDropdownTitle(disabled)}
-        >
-          {CITE_FORMAT_OPTIONS.map(format => (
-            <Menu.Item key={format.value}>{format.display}</Menu.Item>
-          ))}
-        </DropdownMenu>
+          items={CITE_FORMAT_OPTIONS.map(format => ({
+            key: format.value,
+            label: <span key={format.value}>{format.display}</span>
+          }))}
+        />
       </UserAction>
     );
   }
