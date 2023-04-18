@@ -60,6 +60,7 @@ exports[`SignUpPage renders page 1`] = `
                 <button
                   class="ant-btn ant-btn-primary"
                   data-testid="submit"
+                  disabled=""
                   type="submit"
                 >
                   <span>
@@ -204,6 +205,7 @@ exports[`SignUpPage renders page with errors 1`] = `
                 <button
                   class="ant-btn ant-btn-primary"
                   data-testid="submit"
+                  disabled=""
                   type="submit"
                 >
                   <span>
@@ -281,6 +283,7 @@ exports[`SignUpPage renders page with loading 1`] = `
                 <button
                   class="ant-btn ant-btn-primary ant-btn-loading"
                   data-testid="submit"
+                  disabled=""
                   type="submit"
                 >
                   <span
