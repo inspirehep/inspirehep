@@ -6,14 +6,14 @@ import SingUpForm from './SingUpForm';
 import DocumentHead from '../../common/components/DocumentHead';
 
 const SignUpPage: React.FC<{
-  onSubmit: ((
+  onSignUp: ((
     values: {},
     formikHelpers: FormikHelpers<{}>
   ) => void | Promise<any>) &
     Function;
   loading: boolean;
   error?: { message: string };
-}> = ({ onSubmit, loading, error }) => {
+}> = ({ onSignUp, loading, error }) => {
   return (
     <>
       <DocumentHead title="Sign up" />
@@ -36,7 +36,7 @@ const SignUpPage: React.FC<{
             </Row>
           )}
           <div data-testid={loading}>
-            <SingUpForm onSignUp={onSubmit} loading={loading} />
+            <SingUpForm onSignUp={onSignUp} loading={loading} />
           </div>
         </Card>
       </Row>

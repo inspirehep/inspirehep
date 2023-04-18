@@ -45,6 +45,7 @@ exports[`SingUpForm disable email input and display loading on the button while 
         <button
           class="ant-btn ant-btn-primary ant-btn-loading"
           data-testid="submit"
+          disabled=""
           type="submit"
         >
           <span
@@ -124,6 +125,7 @@ exports[`SingUpForm renders the form 1`] = `
         <button
           class="ant-btn ant-btn-primary"
           data-testid="submit"
+          disabled=""
           type="submit"
         >
           <span>

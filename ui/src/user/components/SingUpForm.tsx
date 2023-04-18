@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { Row, Col, Button } from 'antd';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { object, string } from 'yup';
@@ -23,7 +23,7 @@ function SingUpForm({
     Function;
 }) {
   return (
-    <Formik validationSchema={SCHEMA} initialValues={{}} onSubmit={onSignUp}>
+    <Formik validationSchema={SCHEMA} initialValues={{}} onSubmit={onSignUp} validateOnChange={false}>
       {(props) => (
         <Form>
           <Field
@@ -39,7 +39,7 @@ function SingUpForm({
             <Col>
               <Button
                 loading={loading}
-                disabled={!props.isValid}
+                disabled={!props.isValid || !props.dirty}
                 type="primary"
                 htmlType="submit"
                 data-testid="submit"

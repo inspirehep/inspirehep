@@ -29,8 +29,6 @@ describe('SignUpPageContainer', () => {
     const submitButton = getByTestId('submit');
     await userEvent.click(submitButton);
 
-    // TODO
-    await store.dispatch(userSignUpRequest());
     const expectedActions = [
       {
         type: USER_SIGN_UP_REQUEST,

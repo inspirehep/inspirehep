@@ -25,7 +25,7 @@ const FULL_ROW = { span: 24 };
 
 function SubscribeJobsForm({ onSubmit }) {
   const renderForm = useCallback(
-    ({ isValid }) => (
+    ({ isValid, dirty }) => (
       <Form>
         <Field
           wrapperCol={FULL_ROW}
@@ -48,7 +48,7 @@ function SubscribeJobsForm({ onSubmit }) {
         />
         <Row type="flex" justify="end">
           <Col>
-            <Button disabled={!isValid} type="primary" htmlType="submit">
+            <Button disabled={!isValid || !dirty} type="primary" htmlType="submit">
               Subscribe
             </Button>
           </Col>
@@ -59,7 +59,7 @@ function SubscribeJobsForm({ onSubmit }) {
   );
 
   return (
-    <Formik validationSchema={SCHEMA} initialValues={{}} onSubmit={onSubmit}>
+    <Formik validationSchema={SCHEMA} initialValues={{}} onSubmit={onSubmit} validateOnChange={false}>
       {renderForm}
     </Formik>
   );

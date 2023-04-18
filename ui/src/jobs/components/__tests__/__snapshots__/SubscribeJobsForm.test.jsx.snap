@@ -39,7 +39,7 @@ exports[`SubscribeJobsForm renders 1`] = `
       "validateField": [Function],
       "validateForm": [Function],
       "validateOnBlur": true,
-      "validateOnChange": true,
+      "validateOnChange": false,
       "validateOnMount": false,
       "values": Object {},
     }
@@ -83,7 +83,7 @@ exports[`SubscribeJobsForm renders 1`] = `
     >
       <Col>
         <Button
-          disabled={false}
+          disabled={true}
           htmlType="submit"
           type="primary"
         >
