@@ -10,10 +10,11 @@ import pytest
 from flask_sqlalchemy import models_committed
 from helpers.factories.models.user_access_token import AccessTokenFactory
 from helpers.providers.faker import faker
+from helpers.utils import retry_test
 from invenio_db import db
 from invenio_search import current_search
 from sqlalchemy.orm.exc import StaleDataError
-from tenacity import retry, stop_after_delay, wait_fixed
+from tenacity import stop_after_delay, wait_fixed
 
 from inspirehep.indexer.tasks import index_record
 from inspirehep.records.api import AuthorsRecord, InspireRecord, LiteratureRecord
@@ -22,7 +23,7 @@ from inspirehep.search.api import AuthorsSearch, LiteratureSearch
 
 
 def assert_citation_count(cited_record, expected_count):
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(3))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(3))
     def assert_record():
         current_search.flush_and_refresh("records-hep")
         record_from_es = LiteratureSearch().get_record_data_from_es(cited_record)
@@ -32,7 +33,7 @@ def assert_citation_count(cited_record, expected_count):
 
 
 def assert_record_in_es(recid):
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(5))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(5))
     def assert_hits():
         current_search.flush_and_refresh("records-hep")
         hits = LiteratureSearch().query_from_iq(f"recid:{recid}").execute().hits
@@ -42,7 +43,7 @@ def assert_record_in_es(recid):
 
 
 def assert_record_not_in_es(recid):
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(5))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(5))
     def assert_hits():
         current_search.flush_and_refresh("records-hep")
         hits = LiteratureSearch().query_from_iq(f"recid:{recid}").execute().hits
@@ -56,7 +57,7 @@ def test_lit_record_appear_in_es_when_created(inspire_app, clean_celery_session)
     record = LiteratureRecord.create(data)
     db.session.commit()
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_record():
         current_search.flush_and_refresh("records-hep")
         record_from_es = LiteratureSearch().get_record_data_from_es(record)
@@ -76,7 +77,7 @@ def test_lit_record_update_when_changed(inspire_app, clean_celery_session):
     rec.update(data)
     db.session.commit()
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_record():
         current_search.flush_and_refresh("records-hep")
         record_from_es = LiteratureSearch().get_record_data_from_es(rec)
@@ -233,7 +234,7 @@ def test_lit_record_reindexes_references_when_earliest_date_changed(
 
     expected_citation_year = [{"count": 1, "year": 2018}]
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_record():
         current_search.flush_and_refresh("records-hep")
         record_from_es = LiteratureSearch().get_record_data_from_es(cited_record)
@@ -248,7 +249,7 @@ def test_lit_record_reindexes_references_when_earliest_date_changed(
 
     expected_citation_year = [{"count": 1, "year": 2019}]
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(3))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(3))
     def assert_record():
         current_search.flush_and_refresh("records-hep")
         record_from_es = LiteratureSearch().get_record_data_from_es(cited_record)
@@ -266,7 +267,7 @@ def test_many_records_in_one_commit(inspire_app, clean_celery_session):
     db.session.commit()
     current_search.flush_and_refresh("records-hep")
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(5))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(5))
     def assert_all_records_in_es():
         result = LiteratureSearch().query_from_iq("").execute().hits
         result_recids = {hit.control_number for hit in result}
@@ -339,7 +340,7 @@ def test_literature_regression_changing_bai_in_record_reindex_records_which_are_
         author = AuthorsRecord.create(author_data)
         db.session.commit()
 
-        @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
+        @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
         def assert_record():
             current_search.flush_and_refresh("records-authors")
             record_from_es = AuthorsSearch().get_record_data_from_es(author)
@@ -357,7 +358,7 @@ def test_literature_regression_changing_bai_in_record_reindex_records_which_are_
         db.session.commit()
         citer_control_number = citer["control_number"]
 
-        @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
+        @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
         def assert_record():
             current_search.flush_and_refresh("records-hep")
             record_from_es = LiteratureSearch().get_record_data_from_es(citer)
@@ -369,7 +370,7 @@ def test_literature_regression_changing_bai_in_record_reindex_records_which_are_
         author.update(dict(author))
         db.session.commit()
 
-        @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
+        @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
         def assert_record():
             current_search.flush_and_refresh("records-hep")
             record = LiteratureRecord.get_record_by_pid_value(citer_control_number)
@@ -470,7 +471,7 @@ def test_get_record_specific_version(inspire_app, clean_celery_session):
 
 
 def test_indexer_deletes_record_from_es(inspire_app, datadir, clean_celery_session):
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_record_is_deleted_from_es():
         current_search.flush_and_refresh("records-hep")
         expected_records_count = 0
@@ -505,7 +506,7 @@ def test_indexing_updates_bai_in_literature_es_document(
     literature = LiteratureRecord(data=lit_data).create(data=lit_data)
     db.session.commit()
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_bai_in_lit_record():
         current_search.flush_and_refresh("records-hep")
         record_lit_es = (
@@ -520,7 +521,7 @@ def test_indexing_updates_bai_in_literature_es_document(
     author.update(dict(author))
     db.session.commit()
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_bai_was_updated_in_es():
         current_search.flush_and_refresh("records-hep")
         record_lit_es = (

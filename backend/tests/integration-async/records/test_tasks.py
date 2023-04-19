@@ -7,10 +7,11 @@
 
 import mock
 from helpers.providers.faker import faker
+from helpers.utils import retry_test
 from inspire_dojson.utils import get_recid_from_ref
 from inspire_utils.record import get_value
 from invenio_db import db
-from tenacity import retry, stop_after_delay, wait_fixed
+from tenacity import stop_after_delay, wait_fixed
 
 from inspirehep.records.api import InspireRecord
 from inspirehep.records.tasks import reference_self_curation
@@ -39,7 +40,7 @@ def test_recalculate_references_after_literature_record_merge(
     )
     db.session.commit()
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(3))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(3))
     def assert_all_records_in_es():
         literature_record_from_es = InspireSearch.get_record_data_from_es(literature)
         seminar_record_from_es = InspireSearch.get_record_data_from_es(seminar)
@@ -54,7 +55,7 @@ def test_recalculate_references_after_literature_record_merge(
     merged_literature_record = InspireRecord.create(merged_literature_data)
     db.session.commit()
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(3))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(3))
     def assert_recalculate_references_task():
         seminar_record_from_es = InspireSearch.get_record_data_from_es(seminar)
         literature_record_from_es = InspireSearch.get_record_data_from_es(
@@ -111,7 +112,7 @@ def test_recalculate_references_after_author_record_merge(
     literature = InspireRecord.create(literature_data)
     db.session.commit()
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(3))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(3))
     def assert_all_records_in_es():
         literature_record_from_es = InspireSearch.get_record_data_from_es(literature)
         job_record_from_es = InspireSearch.get_record_data_from_es(job)
@@ -135,7 +136,7 @@ def test_recalculate_references_after_author_record_merge(
     merged_author_record = InspireRecord.create(merged_author_data)
     db.session.commit()
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(3))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(3))
     def assert_recalculate_references_task():
         seminar_record_from_es = InspireSearch.get_record_data_from_es(seminar)
         conference_record_from_es = InspireSearch.get_record_data_from_es(conference)
@@ -217,7 +218,7 @@ def test_recalculate_references_after_institution_record_merge(
     literature = InspireRecord.create(literature_data)
     db.session.commit()
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(3))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(3))
     def assert_all_records_in_es():
         literature_record_from_es = InspireSearch.get_record_data_from_es(literature)
         job_record_from_es = InspireSearch.get_record_data_from_es(job)
@@ -241,7 +242,7 @@ def test_recalculate_references_after_institution_record_merge(
     merged_institution_record = InspireRecord.create(merged_institution_data)
     db.session.commit()
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(3))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(3))
     def assert_recalculate_references_task():
         author_record_from_es = InspireSearch.get_record_data_from_es(author)
         job_record_from_es = InspireSearch.get_record_data_from_es(job)
@@ -391,7 +392,7 @@ def test_recalculate_references_after_institution_record_merge_when_author_has_t
     literature = InspireRecord.create(literature_data)
     db.session.commit()
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(3))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(3))
     def assert_all_records_in_es():
         literature_record_from_es = InspireSearch.get_record_data_from_es(literature)
         job_record_from_es = InspireSearch.get_record_data_from_es(job)
@@ -414,7 +415,7 @@ def test_recalculate_references_after_institution_record_merge_when_author_has_t
 
     db.session.commit()
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(3))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(3))
     def assert_recalculate_references_task():
         author_record_from_es = InspireSearch.get_record_data_from_es(author)
         job_record_from_es = InspireSearch.get_record_data_from_es(job)
@@ -491,7 +492,7 @@ def test_recalculate_references_after_experiment_record_merge(
     job = InspireRecord.create(job_data)
     db.session.commit()
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(3))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(3))
     def assert_all_records_in_es():
         literature_record_from_es = InspireSearch.get_record_data_from_es(literature)
         job_record_from_es = InspireSearch.get_record_data_from_es(job)
@@ -515,7 +516,7 @@ def test_recalculate_references_after_experiment_record_merge(
     merged_experiment_record = InspireRecord.create(merged_experiment_data)
     db.session.commit()
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(3))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(3))
     def assert_recalculate_references_task():
         author_record_from_es = InspireSearch.get_record_data_from_es(author)
         job_record_from_es = InspireSearch.get_record_data_from_es(job)
@@ -552,7 +553,7 @@ def test_recalculate_references_after_journal_record_merge(
 
     db.session.commit()
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(3))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(3))
     def assert_all_records_in_es():
         literature_record_from_es = InspireSearch.get_record_data_from_es(literature)
         journal_record_from_es = InspireSearch.get_record_data_from_es(journal)
@@ -568,7 +569,7 @@ def test_recalculate_references_after_journal_record_merge(
     merged_journal_record = InspireRecord.create(merged_journal_data)
     db.session.commit()
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(3))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(3))
     def assert_recalculate_references_task():
         literature_record_from_es = InspireSearch.get_record_data_from_es(literature)
         assert (
@@ -598,7 +599,7 @@ def test_recalculate_references_after_conference_record_merge(
 
     db.session.commit()
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(3))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(3))
     def assert_all_records_in_es():
         literature_record_from_es = InspireSearch.get_record_data_from_es(literature)
         conference_record_from_es = InspireSearch.get_record_data_from_es(conference)
@@ -614,7 +615,7 @@ def test_recalculate_references_after_conference_record_merge(
 
     db.session.commit()
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(3))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(3))
     def assert_recalculate_references_task():
         literature_record_from_es = InspireSearch.get_record_data_from_es(literature)
         assert (
@@ -643,7 +644,7 @@ def test_recalculate_references_recalculates_more_than_10_references(
 
     db.session.commit()
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(5))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(5))
     def assert_all_records_in_es():
         literature_records_from_es = list(
             LiteratureSearch()
@@ -666,7 +667,7 @@ def test_recalculate_references_recalculates_more_than_10_references(
     merged_journal_record = InspireRecord.create(merged_journal_data)
     db.session.commit()
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(3))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(3))
     def assert_recalculate_references_task():
         literature_records_from_es = list(
             LiteratureSearch()
@@ -749,7 +750,7 @@ def test_self_curation_happy_flow(inspire_app, clean_celery_session, override_co
         }
         reference_self_curation.delay(*task_kwargs.values())
 
-        @retry(stop=stop_after_delay(30), wait=wait_fixed(3))
+        @retry_test(stop=stop_after_delay(30), wait=wait_fixed(3))
         def assert_all_records_in_es():
             literature_record_from_es = InspireSearch.get_record_data_from_es(
                 literature
@@ -758,7 +759,7 @@ def test_self_curation_happy_flow(inspire_app, clean_celery_session, override_co
 
         assert_all_records_in_es()
 
-        @retry(stop=stop_after_delay(30), wait=wait_fixed(3))
+        @retry_test(stop=stop_after_delay(30), wait=wait_fixed(3))
         def assert_reference_self_curation_task():
             literature_record_from_es = InspireSearch.get_record_data_from_es(
                 literature

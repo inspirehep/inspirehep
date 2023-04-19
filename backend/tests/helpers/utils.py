@@ -4,8 +4,9 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+import logging
 import random
-from functools import partial
+from functools import partial, wraps
 
 import orjson
 from click.testing import CliRunner
@@ -18,6 +19,7 @@ from helpers.providers.faker import faker
 from invenio_db import db
 from invenio_search import current_search
 from invenio_search.utils import build_alias_name
+from tenacity import retry
 
 from inspirehep.files import current_s3_instance
 from inspirehep.records.api import InspireRecord, LiteratureRecord
@@ -218,3 +220,26 @@ def filter_out_user_data_and_cookie_headers():
         return response
 
     return before_record_response
+
+
+def disable_low_level_logging(f):
+    def wrapper(*args):
+        logging.disable(logging.ERROR)
+        result = f(*args)
+        logging.disable(logging.NOTSET)
+        return result
+
+    return wrapper
+
+
+def retry_test(stop=None, wait=None):
+    def inner(func):
+        @disable_low_level_logging
+        @retry(stop=stop, wait=wait)
+        @wraps(func)
+        def _retry_test(*args, **kwargs):
+            return func(*args, **kwargs)
+
+        return _retry_test
+
+    return inner

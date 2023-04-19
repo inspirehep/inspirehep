@@ -5,9 +5,9 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from helpers.utils import create_record
+from helpers.utils import create_record, retry_test
 from invenio_db import db
-from tenacity import retry, stop_after_delay, wait_fixed
+from tenacity import stop_after_delay, wait_fixed
 
 from inspirehep.search.api import LiteratureSearch
 
@@ -79,7 +79,7 @@ def test_disambiguate_all(inspire_app, cli, clean_celery_session, override_confi
             ]
         )
 
-        @retry(stop=stop_after_delay(30), wait=wait_fixed(3))
+        @retry_test(stop=stop_after_delay(30), wait=wait_fixed(3))
         def assert_disambiguation_cli():
             records = LiteratureSearch().get_records(record_uuids).execute()
             for record in records:
@@ -122,7 +122,7 @@ def test_disambiguate_selected_record(
 
         cli.invoke(["disambiguation", "record", "-id", str(record.id)])
 
-        @retry(stop=stop_after_delay(30), wait=wait_fixed(3))
+        @retry_test(stop=stop_after_delay(30), wait=wait_fixed(3))
         def assert_disambiguation_cli():
             record_from_es = LiteratureSearch.get_record_data_from_es(record)
             for author in record_from_es["authors"]:

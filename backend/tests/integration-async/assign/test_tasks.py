@@ -1,7 +1,7 @@
-from helpers.utils import create_record
+from helpers.utils import create_record, retry_test
 from invenio_db import db
 from invenio_search import current_search
-from tenacity import retry, stop_after_delay, wait_fixed
+from tenacity import stop_after_delay, wait_fixed
 
 from inspirehep.assign.tasks import assign_papers
 from inspirehep.records.api import AuthorsRecord
@@ -58,7 +58,7 @@ def test_assign_from_an_author_to_another(inspire_app, clean_celery_session):
         ],
     )
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(5))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(5))
     def assert_assign():
         for literature in [literature_1, literature_2]:
             current_search.flush_and_refresh("*")
@@ -107,7 +107,7 @@ def test_assign_from_an_author_to_another_that_is_not_stub(
         author_papers_recids=[literature["control_number"]],
     )
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(5))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(5))
     def assert_assign():
         current_search.flush_and_refresh("*")
         literature_after = LiteratureSearch.get_record_data_from_es(literature)

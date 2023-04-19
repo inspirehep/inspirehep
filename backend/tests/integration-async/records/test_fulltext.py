@@ -11,9 +11,10 @@ import mock
 import orjson
 from flask_sqlalchemy import models_committed
 from helpers.providers.faker import faker
+from helpers.utils import retry_test
 from invenio_db import db
 from invenio_search import current_search
-from tenacity import retry, stop_after_delay, wait_fixed
+from tenacity import stop_after_delay, wait_fixed
 
 from inspirehep.records.api import LiteratureRecord
 from inspirehep.records.receivers import index_after_commit
@@ -61,7 +62,7 @@ def test_highlighting(
         models_committed.connect(index_after_commit)
         record.index()
 
-        @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
+        @retry_test(stop=stop_after_delay(30), wait=wait_fixed(0.3))
         def assert_record_in_es():
             current_search.flush_and_refresh("*")
             record_lit_es = (
@@ -117,7 +118,7 @@ def test_highlight_in_search_response(
         models_committed.connect(index_after_commit)
         record.index()
 
-        @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
+        @retry_test(stop=stop_after_delay(30), wait=wait_fixed(0.3))
         def assert_record_in_es():
             current_search.flush_and_refresh("*")
             record_lit_es = (
