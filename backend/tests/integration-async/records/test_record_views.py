@@ -154,7 +154,7 @@ def test_reference_diff(inspire_app, clean_celery_session):
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.get(
-            f"/api/literature/{record['control_number']}/{old_record_revision}..{new_record_revision}",
+            f"/api/literature/{record['control_number']}/diff/{old_record_revision}..{new_record_revision}",
         )
         assert response.status_code == 200
         response_new_reference = orjson.loads(response.json["current_version"])
@@ -165,6 +165,7 @@ def test_reference_diff(inspire_app, clean_celery_session):
         response_new_raw_ref = response_old_reference.pop("raw_ref")
         assert response_old_reference["authors"][0]["full_name"] == "Dunbar, D.N.F."
         assert response_new_raw_ref == raw_ref_text
+        assert response.json["reference_index"] == 0
 
 
 def test_reference_diff_multiple_references(inspire_app, clean_celery_session):
@@ -244,7 +245,7 @@ def test_reference_diff_multiple_references(inspire_app, clean_celery_session):
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.get(
-            f"/api/literature/{record['control_number']}/{old_record_revision}..{new_record_revision}",
+            f"/api/literature/{record['control_number']}/diff/{old_record_revision}..{new_record_revision}",
         )
         assert response.status_code == 200
         response_new_reference = orjson.loads(response.json["current_version"])
@@ -255,6 +256,7 @@ def test_reference_diff_multiple_references(inspire_app, clean_celery_session):
         response_old_raw_ref = response_old_reference.pop("raw_ref")
         assert response_old_reference["authors"][0]["full_name"] == "Another, Author"
         assert response_old_raw_ref == raw_ref_text
+        assert response.json["reference_index"] == 1
 
 
 def test_reference_diff_when_no_changed_references(inspire_app, clean_celery_session):
@@ -312,7 +314,7 @@ def test_reference_diff_when_no_changed_references(inspire_app, clean_celery_ses
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.get(
-            f"/api/literature/{record['control_number']}/{old_record_revision}..{new_record_revision}",
+            f"/api/literature/{record['control_number']}/diff/{old_record_revision}..{new_record_revision}",
         )
         assert response.status_code == 400
         assert response.json["message"] == "Changed reference not found"
@@ -373,7 +375,7 @@ def test_reference_diff_when_wrong_versions_passed(inspire_app, clean_celery_ses
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.get(
-            f"/api/literature/{record['control_number']}/{new_record_revision}..{old_record_revision}",
+            f"/api/literature/{record['control_number']}/diff/{new_record_revision}..{old_record_revision}",
         )
         assert response.status_code == 400
         assert (
@@ -442,7 +444,7 @@ def test_reference_diff_when_stale_data(inspire_app, clean_celery_session):
         ):
             login_user_via_session(client, email=user.email)
             response = client.get(
-                f"/api/literature/{record['control_number']}/{old_record_revision}..{new_record_revision}",
+                f"/api/literature/{record['control_number']}/diff/{old_record_revision}..{new_record_revision}",
             )
             assert response.status_code == 400
             assert response.json["message"] == "Record in given revision was not found"
@@ -503,6 +505,6 @@ def test_reference_diff_when_user_not_authenticated(inspire_app, clean_celery_se
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.get(
-            f"/api/literature/{record['control_number']}/{new_record_revision}..{old_record_revision}",
+            f"/api/literature/{record['control_number']}/diff/{new_record_revision}..{old_record_revision}",
         )
         assert response.status_code == 403

@@ -248,7 +248,7 @@ def reference_self_curation(args):
 
 
 @blueprint.route(
-    '/literature/<inspirepid(lit,record_class="inspirehep.records.api:LiteratureRecord"):pid_value>/<int:old_revision>..<int:new_revision>'
+    '/literature/<inspirepid(lit,record_class="inspirehep.records.api:LiteratureRecord"):pid_value>/diff/<int:old_revision>..<int:new_revision>'
 )
 @login_required_with_roles([Roles.superuser.value, Roles.cataloger.value])
 def literature_reference_difference_between_versions(
@@ -276,10 +276,12 @@ def literature_reference_difference_between_versions(
     if not changed_reference:
         return jsonify({"message": "Changed reference not found"}), 400
 
+    reference_index = changed_reference.pop("reference_index")
     data = {
         key: ReferenceItemSchemaV2().dumps(value).data
         for key, value in changed_reference.items()
     }
+    data["reference_index"] = reference_index
     return jsonify(data), 200
 
 
