@@ -8,11 +8,11 @@
 
 import orjson
 from helpers.providers.faker import faker
-from helpers.utils import es_search
+from helpers.utils import es_search, retry_test
 from inspire_utils.record import get_value
 from invenio_db import db
 from invenio_search import current_search
-from tenacity import retry, stop_after_delay, wait_fixed
+from tenacity import stop_after_delay, wait_fixed
 
 from inspirehep.records.api import ConferencesRecord, LiteratureRecord
 from inspirehep.records.marshmallow.conferences.common.proceeding_info_item import (
@@ -30,7 +30,7 @@ def test_conference_record_updates_in_es_when_lit_rec_refers_to_it(
     db.session.commit()
     expected_contributions_count = 0
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_record():
         current_search.flush_and_refresh("records-conferences")
         record_from_es = ConferencesSearch().get_record_data_from_es(conference_1)
@@ -53,7 +53,7 @@ def test_conference_record_updates_in_es_when_lit_rec_refers_to_it(
     record2 = LiteratureRecord.create(faker.record("lit", data))
     db.session.commit()
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_record():
         current_search.flush_and_refresh("records-conferences")
         record_from_es = ConferencesSearch().get_record_data_from_es(conference_1)
@@ -63,7 +63,7 @@ def test_conference_record_updates_in_es_when_lit_rec_refers_to_it(
 
     expected_proceedings = [ProceedingInfoItemSchemaV1().dump(record2).data]
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_record():
         current_search.flush_and_refresh("records-conferences")
         record_from_es = ConferencesSearch().get_record_data_from_es(conference_1)
@@ -98,7 +98,7 @@ def test_indexer_updates_conference_papers_when_name_changes(
     LiteratureRecord.create(conference_paper_data)
     db.session.commit()
 
-    @retry(stop=stop_after_delay(90), wait=wait_fixed(0.3))
+    @retry_test(stop=stop_after_delay(90), wait=wait_fixed(0.3))
     def assert_literature_has_correct_conference_title():
         current_search.flush_and_refresh("*")
         result = es_search("records-hep")
@@ -123,7 +123,7 @@ def test_indexer_updates_conference_papers_when_name_changes(
 
 
 def test_indexer_deletes_record_from_es(inspire_app, datadir):
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_record_is_deleted_from_es():
         current_search.flush_and_refresh("records-conferences")
         expected_records_count = 0

@@ -9,9 +9,10 @@
 import mock
 import requests_mock
 from helpers.providers.faker import faker
+from helpers.utils import retry_test
 from inspire_utils.record import get_values_for_schema
 from invenio_db import db
-from tenacity import retry, stop_after_delay, wait_fixed
+from tenacity import stop_after_delay, wait_fixed
 
 from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.search.api import LiteratureSearch
@@ -72,7 +73,7 @@ def test_update_pdg_keywords(inspire_app, clean_celery_session, cli):
     )
     db.session.commit()
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_all_records_are_indexed():
         hits = LiteratureSearch().query_from_iq("").execute()
         assert len(hits.hits) == 4
@@ -112,7 +113,7 @@ def test_update_pdg_keywords(inspire_app, clean_celery_session, cli):
             rec_with_pdg_one_keyword_not_on_pdg_list["control_number"]
         )
 
-        @retry(stop=stop_after_delay(30), wait=wait_fixed(2))
+        @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
         def assert_keywords_are_updated():
             rec_48509_es = LiteratureSearch.get_record_data_from_es(rec_48509)
             rec_48478_es = LiteratureSearch.get_record_data_from_es(rec_48478)
@@ -164,7 +165,7 @@ def test_update_pdg_keywords_in_record_without_any_pdg_keywords(
     )
     db.session.commit()
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_all_records_are_indexed():
         hits = LiteratureSearch().query_from_iq("").execute()
         assert len(hits.hits) == 1
@@ -194,7 +195,7 @@ def test_update_pdg_keywords_in_record_without_any_pdg_keywords(
             rec_without_pdg_keywords_on_pdg_list["control_number"]
         )
 
-        @retry(stop=stop_after_delay(30), wait=wait_fixed(2))
+        @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
         def assert_keywords_are_updated():
             rec_48468_es = LiteratureSearch.get_record_data_from_es(rec_48468)
 

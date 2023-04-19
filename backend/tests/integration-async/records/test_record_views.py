@@ -8,12 +8,12 @@
 import mock
 import orjson
 from helpers.providers.faker import faker
-from helpers.utils import create_user
+from helpers.utils import create_user, retry_test
 from inspire_dojson.utils import get_recid_from_ref
 from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db
 from sqlalchemy.orm.exc import StaleDataError
-from tenacity import retry, stop_after_delay, wait_fixed
+from tenacity import stop_after_delay, wait_fixed
 
 from inspirehep.records.api import InspireRecord
 from inspirehep.search.api import InspireSearch
@@ -57,7 +57,7 @@ def test_self_curation_view_happy_flow(
         record = InspireRecord.create(literature_data)
         db.session.commit()
 
-        @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
+        @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
         def assert_record_in_es():
             literature_record_from_es = InspireSearch.get_record_data_from_es(record)
             assert literature_record_from_es
@@ -81,7 +81,7 @@ def test_self_curation_view_happy_flow(
 
         assert response.status_code == 200
 
-        @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
+        @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
         def assert_reference_self_curation_task():
             literature_record_from_es = InspireSearch.get_record_data_from_es(record)
             assert (
@@ -127,7 +127,7 @@ def test_reference_diff(inspire_app, clean_celery_session):
     db.session.commit()
     old_record_revision = str(record.revision_id)
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(2))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_record_in_es():
         literature_record_from_es = InspireSearch.get_record_data_from_es(record)
         assert literature_record_from_es
@@ -139,7 +139,7 @@ def test_reference_diff(inspire_app, clean_celery_session):
     db.session.commit()
     new_record_revision = str(record.revision_id)
 
-    @retry(stop=stop_after_delay(15), wait=wait_fixed(2))
+    @retry_test(stop=stop_after_delay(15), wait=wait_fixed(2))
     def assert_record_updated():
         literature_record_from_es = InspireSearch.get_record_data_from_es(record)
         assert (
@@ -218,7 +218,7 @@ def test_reference_diff_multiple_references(inspire_app, clean_celery_session):
     db.session.commit()
     old_record_revision = record.revision_id
 
-    @retry(stop=stop_after_delay(15))
+    @retry_test(stop=stop_after_delay(15))
     def assert_record_in_es():
         literature_record_from_es = InspireSearch.get_record_data_from_es(record)
         assert literature_record_from_es
@@ -230,7 +230,7 @@ def test_reference_diff_multiple_references(inspire_app, clean_celery_session):
     db.session.commit()
     new_record_revision = record.revision_id
 
-    @retry(stop=stop_after_delay(15))
+    @retry_test(stop=stop_after_delay(15))
     def assert_record_updated():
         literature_record_from_es = InspireSearch.get_record_data_from_es(record)
         assert (
@@ -292,7 +292,7 @@ def test_reference_diff_when_no_changed_references(inspire_app, clean_celery_ses
     db.session.commit()
     old_record_revision = record.revision_id
 
-    @retry(stop=stop_after_delay(15))
+    @retry_test(stop=stop_after_delay(15))
     def assert_record_in_es():
         literature_record_from_es = InspireSearch.get_record_data_from_es(record)
         assert literature_record_from_es
@@ -304,7 +304,7 @@ def test_reference_diff_when_no_changed_references(inspire_app, clean_celery_ses
     db.session.commit()
     new_record_revision = record.revision_id
 
-    @retry(stop=stop_after_delay(15))
+    @retry_test(stop=stop_after_delay(15))
     def assert_record_updated():
         literature_record_from_es = InspireSearch.get_record_data_from_es(record)
         assert literature_record_from_es["authors"][0]["full_name"] == "Author, A."
@@ -353,7 +353,7 @@ def test_reference_diff_when_wrong_versions_passed(inspire_app, clean_celery_ses
     db.session.commit()
     old_record_revision = record.revision_id
 
-    @retry(stop=stop_after_delay(15))
+    @retry_test(stop=stop_after_delay(15))
     def assert_record_in_es():
         literature_record_from_es = InspireSearch.get_record_data_from_es(record)
         assert literature_record_from_es
@@ -365,7 +365,7 @@ def test_reference_diff_when_wrong_versions_passed(inspire_app, clean_celery_ses
     db.session.commit()
     new_record_revision = record.revision_id
 
-    @retry(stop=stop_after_delay(15))
+    @retry_test(stop=stop_after_delay(15))
     def assert_record_updated():
         literature_record_from_es = InspireSearch.get_record_data_from_es(record)
         assert literature_record_from_es["authors"][0]["full_name"] == "Author, A."
@@ -417,7 +417,7 @@ def test_reference_diff_when_stale_data(inspire_app, clean_celery_session):
     record = InspireRecord.create(literature_data)
     db.session.commit()
 
-    @retry(stop=stop_after_delay(15))
+    @retry_test(stop=stop_after_delay(15))
     def assert_record_in_es():
         literature_record_from_es = InspireSearch.get_record_data_from_es(record)
         assert literature_record_from_es
@@ -429,7 +429,7 @@ def test_reference_diff_when_stale_data(inspire_app, clean_celery_session):
     record.update(dict(record))
     db.session.commit()
 
-    @retry(stop=stop_after_delay(15))
+    @retry_test(stop=stop_after_delay(15))
     def assert_record_updated():
         literature_record_from_es = InspireSearch.get_record_data_from_es(record)
         assert literature_record_from_es["authors"][0]["full_name"] == "Author, A."
@@ -483,7 +483,7 @@ def test_reference_diff_when_user_not_authenticated(inspire_app, clean_celery_se
     db.session.commit()
     old_record_revision = record.revision_id
 
-    @retry(stop=stop_after_delay(15))
+    @retry_test(stop=stop_after_delay(15))
     def assert_record_in_es():
         literature_record_from_es = InspireSearch.get_record_data_from_es(record)
         assert literature_record_from_es
@@ -495,7 +495,7 @@ def test_reference_diff_when_user_not_authenticated(inspire_app, clean_celery_se
     db.session.commit()
     new_record_revision = record.revision_id
 
-    @retry(stop=stop_after_delay(15))
+    @retry_test(stop=stop_after_delay(15))
     def assert_record_updated():
         literature_record_from_es = InspireSearch.get_record_data_from_es(record)
         assert literature_record_from_es["authors"][0]["full_name"] == "Author, A."

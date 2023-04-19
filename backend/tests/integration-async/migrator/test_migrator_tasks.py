@@ -10,11 +10,11 @@ import pytest
 from elasticsearch import TransportError
 from flask_sqlalchemy import models_committed
 from helpers.providers.faker import faker
-from helpers.utils import create_record_async
+from helpers.utils import create_record_async, retry_test
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
-from tenacity import retry, stop_after_delay, wait_fixed
+from tenacity import stop_after_delay, wait_fixed
 
 from inspirehep.migrator.models import LegacyRecordsMirror
 from inspirehep.migrator.tasks import (
@@ -156,7 +156,7 @@ def test_process_references_in_records_process_self_citations(
     )
     db.session.commit()
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(5))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(5))
     def assert_records_in_es():
         lit_record_from_es = InspireSearch.get_record_data_from_es(lit_record)
         lit_record_from_es_2 = InspireSearch.get_record_data_from_es(lit_record_2)
@@ -221,7 +221,7 @@ def test_process_references_in_records_process_author_records(
 
     db.session.commit()
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(5))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_records_in_es():
         lit_record_from_es = InspireSearch.get_record_data_from_es(lit_record)
         lit_record_from_es_2 = InspireSearch.get_record_data_from_es(lit_record_2)
@@ -263,7 +263,7 @@ def test_process_references_in_records_process_conference_records(
 
     db.session.commit()
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(5))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(5))
     def assert_records_in_es():
         lit_record_from_es = InspireSearch.get_record_data_from_es(lit_record)
         lit_record_from_es_2 = InspireSearch.get_record_data_from_es(lit_record_2)
@@ -662,7 +662,7 @@ def test_migrate_recids_from_mirror_all_only_with_literature(
 
     migrate_from_mirror(also_migrate="all")
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_migrator_task():
         record_citer = InspireRecord.get_record_by_pid_value(
             citer_control_number, "lit"
@@ -771,7 +771,7 @@ def test_migrate_recids_from_mirror_all_only_with_literature_author_and_invalid(
 
     migrate_from_mirror(also_migrate="all")
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_migrator_task():
         record_citer = InspireRecord.get_record_by_pid_value(
             citer_control_number, "lit"

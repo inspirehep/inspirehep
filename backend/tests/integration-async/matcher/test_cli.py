@@ -5,10 +5,10 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from helpers.utils import create_record_async, es_search
+from helpers.utils import create_record_async, es_search, retry_test
 from inspire_utils.record import get_value
 from invenio_search import current_search
-from tenacity import retry, stop_after_delay, wait_fixed
+from tenacity import stop_after_delay, wait_fixed
 
 from inspirehep.records.api import LiteratureRecord
 
@@ -34,7 +34,7 @@ def test_match_references(inspire_app, cli, clean_celery_session):
     record_data = create_record_async("dat")
     record_data_uuids = record_data.id
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_all_records_are_indexed():
         current_search.flush_and_refresh("*")
         result = es_search("records-hep")

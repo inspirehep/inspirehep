@@ -1,7 +1,8 @@
 from helpers.providers.faker import faker
+from helpers.utils import retry_test
 from invenio_db import db
 from invenio_search import current_search
-from tenacity import retry, stop_after_delay, wait_fixed
+from tenacity import stop_after_delay, wait_fixed
 
 from inspirehep.records.api import InspireRecord
 from inspirehep.records.models import JournalLiterature
@@ -17,7 +18,7 @@ def test_populate_journal_literature_table(inspire_app, cli, clean_celery_sessio
     literature = InspireRecord.create(literature_data)
     db.session.commit()
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_records_added():
         current_search.flush_and_refresh("*")
         record_lit_es = (
@@ -35,7 +36,7 @@ def test_populate_journal_literature_table(inspire_app, cli, clean_celery_sessio
     assert JournalLiterature.query.count() == 0
     cli.invoke(["relationships", "populate_journal_literature_table"])
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_relation_added():
         record_jou_es = JournalsSearch().get_record(journal_id).execute().hits.hits[0]
         assert record_jou_es._source.number_of_papers == 1
@@ -69,7 +70,7 @@ def test_remove_bai_from_literature_records(inspire_app, cli, clean_celery_sessi
     literature = InspireRecord.create(literature_data)
     db.session.commit()
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_records_added():
         current_search.flush_and_refresh("*")
         record_lit_es = (
@@ -83,7 +84,7 @@ def test_remove_bai_from_literature_records(inspire_app, cli, clean_celery_sessi
         ["relationships", "remove_bai_from_literature_records", "--total-records", "2"]
     )
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_bai_removed():
         record_lit = InspireRecord.get_record(literature.id)
         authors = record_lit["authors"]
@@ -124,7 +125,7 @@ def test_remove_bai_from_other_collections_records(
     literature = InspireRecord.create(literature_data)
     db.session.commit()
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_records_added():
         current_search.flush_and_refresh("*")
         record_lit_es = (
@@ -138,7 +139,7 @@ def test_remove_bai_from_other_collections_records(
         ["relationships", "remove_bai_from_literature_records", "--total-records", "2"]
     )
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_bai_removed():
         record_lit = InspireRecord.get_record(literature.id)
         authors = record_lit["authors"]

@@ -8,13 +8,13 @@
 from textwrap import indent
 
 from helpers.providers.faker import faker
-from helpers.utils import es_search
+from helpers.utils import es_search, retry_test
 from inspire_dojson.api import record2marcxml
 from inspire_utils.record import get_value
 from invenio_db import db
 from invenio_oaiserver.models import OAISet
 from invenio_search import current_search
-from tenacity import retry, stop_after_delay, wait_fixed
+from tenacity import stop_after_delay, wait_fixed
 
 from inspirehep.records.api import LiteratureRecord
 
@@ -29,7 +29,7 @@ def test_oai_with_for_cds_set(inspire_app, clean_celery_session):
     record_marcxml = indent(record2marcxml(record).decode(), RECORD_INDENT).encode()
     db.session.commit()
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_the_record_is_indexed():
         current_search.flush_and_refresh("*")
         result = es_search("records-hep")
@@ -62,7 +62,7 @@ def test_oai_with_for_arxiv_set(inspire_app, clean_celery_session):
     record_marcxml = indent(record2marcxml(record).decode(), RECORD_INDENT).encode()
     db.session.commit()
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_the_record_is_indexed():
         current_search.flush_and_refresh("*")
         result = es_search("records-hep")
@@ -90,7 +90,7 @@ def test_oai_get_single_identifier_for_CDS_set(inspire_app, clean_celery_session
     record_marcxml = indent(record2marcxml(record).decode(), RECORD_INDENT).encode()
     db.session.commit()
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_the_record_is_indexed():
         current_search.flush_and_refresh("*")
         result = es_search("records-hep")
@@ -123,7 +123,7 @@ def test_oai_get_single_identifier_for_arxiv_set(inspire_app, clean_celery_sessi
     record_marcxml = indent(record2marcxml(record).decode(), RECORD_INDENT).encode()
     db.session.commit()
 
-    @retry(stop=stop_after_delay(30), wait=wait_fixed(0.3))
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_the_record_is_indexed():
         current_search.flush_and_refresh("*")
         result = es_search("records-hep")
