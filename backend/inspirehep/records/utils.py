@@ -186,6 +186,10 @@ def _create_ticket_self_curation(record_control_number, record_revision_id):
 def get_changed_reference(old_record_version, new_record_version):
     old_references = old_record_version.get("references", [])
     new_references = new_record_version.get("references", [])
-    for old_ref, new_ref in zip(old_references, new_references):
+    for idx, (old_ref, new_ref) in enumerate(zip(old_references, new_references)):
         if old_ref != new_ref:
-            return {"current_version": new_ref, "previous_version": old_ref}
+            return {
+                "current_version": new_ref,
+                "previous_version": old_ref,
+                "reference_index": idx,
+            }
