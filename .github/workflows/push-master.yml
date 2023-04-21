@@ -29,3 +29,13 @@ jobs:
             inspirehep/editor@${{ needs.test.outputs.editor-image-id }}
           token: ${{ secrets.PAT_FIRE_EVENTS_ON_CERN_SIS_KUBERNETES }}
 
+  deploy-jupyter:
+    runs-on: ubuntu-latest
+    needs:
+    - tests
+    - deploy
+    steps:
+      - name: send event
+        uses: ../.github/workflows/build.yml
+        with:
+          ref: ${{ github.ref }}
