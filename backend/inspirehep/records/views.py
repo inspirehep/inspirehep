@@ -7,6 +7,7 @@
 import structlog
 from flask import Blueprint, abort, current_app, request
 from flask.views import MethodView
+from flask_login import current_user
 from invenio_db import db
 from invenio_records_rest.views import pass_record
 from requests.exceptions import RequestException
@@ -243,6 +244,7 @@ def reference_self_curation(args):
         record.revision_id,
         args["reference_index"],
         args["new_reference_recid"],
+        current_user.email,
     )
     return jsonify({"message": "Success"}), 200
 

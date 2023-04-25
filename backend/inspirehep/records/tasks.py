@@ -220,7 +220,7 @@ def remove_bai_from_literature_authors(uuids):
     queue="curation",
 )
 def reference_self_curation(
-    record_id, revision_id, reference_index, new_reference_recid
+    record_id, revision_id, reference_index, new_reference_recid, user_email
 ):
     record = InspireRecord.get_record(record_id)
     if record.revision_id > revision_id:
@@ -234,4 +234,5 @@ def reference_self_curation(
     _create_ticket_self_curation(
         record_control_number=record["control_number"],
         record_revision_id=record.revision_id,
+        user_email=user_email,
     )

@@ -450,7 +450,7 @@ def test_self_curation_returns_401_for_not_authenticated_user(inspire_app):
 def test_reference_self_curation_task_is_called_with_proper_args(
     mock_self_curation_task, inspire_app
 ):
-    user = create_user()
+    user = create_user(email="test@cern.ch")
     literature_data = {
         "references": [
             {
@@ -497,4 +497,5 @@ def test_reference_self_curation_task_is_called_with_proper_args(
         int(record.revision_id),
         0,
         1,
+        "test@cern.ch",
     )
