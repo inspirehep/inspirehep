@@ -8,6 +8,7 @@
 import datetime
 import os
 import re
+import shutil
 from itertools import islice
 
 import click
@@ -23,7 +24,9 @@ from invenio_records.api import RecordMetadata
 from sqlalchemy import DateTime, cast, not_, or_, type_coerce
 from sqlalchemy.dialects.postgresql import JSONB
 
+from inspirehep.files.api import current_s3_instance
 from inspirehep.mailing.api.jobs import send_job_deadline_reminder
+from inspirehep.migrator.models import LegacyRecordsMirror
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.api import InspireRecord, JobsRecord
 from inspirehep.records.models import RecordsAuthors
@@ -338,3 +341,85 @@ def remove_bai_from_literature_records(
     for chunk in chunker(documents, 100):
         uuids = [record.meta.id for record in chunk]
         remove_bai_from_literature_authors.delay(uuids)
+
+
+@click.group()
+def legacy_records():
+    """Commands for LegacyRecordsMirror"""
+
+
+@legacy_records.command(help="Export marcxml column from LegacyRecordsMirror table")
+@click.option(
+    "--dir-path",
+    help="Path where the xml files will be saved.",
+    default="/tmp/legacy_xmls",
+    show_default=True,
+)
+@with_appcontext
+def export_xml(dir_path):
+    if not os.path.exists(dir_path):
+        try:
+            os.mkdir(dir_path)
+        except OSError as e:
+            LOGGER.info(f"There was a problem creating the dir: {e}")
+            return
+    try:
+        query = LegacyRecordsMirror.query.yield_per(1000)
+        for row in query:
+            file_path = os.path.join(dir_path, f"{row.recid}.xml")
+            with open(file_path, "wb") as xml:
+                xml.write(row.marcxml)
+    except Exception as e:
+        LOGGER.info(f"There was a problem exporting the column: {e}")
+
+    rows_number = len(
+        [f for f in os.listdir(dir_path) if os.path.isfile(os.path.join(dir_path, f))]
+    )
+    LOGGER.info("marcxml rows exported to xml.", rows_number=rows_number)
+
+
+@legacy_records.command(help="Upload xml files to S3.")
+@click.option(
+    "--dir-path",
+    help="Path where the xml files ar stored.",
+    default="/tmp/legacy_xmls",
+    show_default=True,
+)
+@click.option(
+    "--bucket",
+    help="S3 bucket where the files should be stored",
+    default="inspire-qa-legacy",
+    show_default=True,
+)
+@with_appcontext
+def upload_xmls(dir_path, bucket):
+    mime_type = "application/xml"
+    acl = current_app.config["S3_FILE_ACL"]
+    try:
+        for filename in os.listdir(dir_path):
+            key = "legacy_xml_" + filename
+            LOGGER.info(f"Uploading {key} to {bucket} bucket")
+            with open(os.path.join(dir_path, filename), "rb") as file:
+                current_s3_instance.upload_file(
+                    file, key, filename, mime_type, acl, bucket
+                )
+        LOGGER.info("All files uploaded successfully.")
+    except Exception as e:
+        LOGGER.info(f"Error while uploading the xmls: {e}")
+
+
+@legacy_records.command(help="Delete local xml directory.")
+@click.option(
+    "--dir-path",
+    help="Path where the xml files ar stored.",
+    default="/tmp/legacy_xmls",
+    show_default=True,
+)
+def cleanup_dir(dir_path):
+    if click.confirm(
+        f"Do you really want to delete {len([f for f in os.listdir(dir_path) if os.path.isfile(os.path.join(dir_path, f))])} files inside {dir_path}?",
+        abort=True,
+    ):
+        LOGGER.info("Deleting dir...")
+        shutil.rmtree(dir_path)
+        LOGGER.info("Dir deleted.")
