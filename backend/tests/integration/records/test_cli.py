@@ -13,7 +13,10 @@ import pytest
 from freezegun import freeze_time
 from helpers.providers.faker import faker
 from helpers.utils import create_record
+from invenio_db import db
 
+from inspirehep.files import current_s3_instance
+from inspirehep.migrator.models import LegacyRecordsMirror
 from inspirehep.records.api import AuthorsRecord, JobsRecord, LiteratureRecord
 
 
@@ -232,3 +235,56 @@ def test_close_expired_jobs_ignores_deleted_records(inspire_app, cli):
 
     assert result.exit_code == 0
     assert deleted_record["status"] == "open"
+
+
+def test_legacy_records_mirror_xml_export(cli, tmp_path):
+    xml_path = os.path.join(tmp_path, "legacy_records_xml")
+    db.session.add(
+        LegacyRecordsMirror.from_marcxml(
+            b"<record>"
+            b'  <controlfield tag="001">111</controlfield>'
+            b'  <datafield tag="245" ind1=" " ind2=" ">'
+            b'    <subfield code="a">This is a citing record</subfield>'
+            b"  </datafield>"
+            b'  <datafield tag="980" ind1=" " ind2=" ">'
+            b'    <subfield code="a">HEP</subfield>'
+            b"  </datafield>"
+            b"</record>"
+        )
+    )
+    db.session.commit()
+    cli.invoke(["legacy_records", "export_xml", "--dir-path", xml_path])
+    assert os.path.exists(os.path.join(xml_path, "111.xml"))
+
+
+def test_legacy_records_mirror_xml_upload(cli, s3, tmp_path):
+    xml_path = os.path.join(tmp_path, "legacy_records_xml")
+    os.mkdir(xml_path)
+    current_s3_instance.client.create_bucket(Bucket="inspire-tmp")
+    open(os.path.join(xml_path, "987654.xml"), "w").close
+    cli.invoke(
+        [
+            "legacy_records",
+            "upload_xmls",
+            "--dir-path",
+            xml_path,
+            "--bucket",
+            "inspire-tmp",
+        ]
+    )
+    result = current_s3_instance.file_exists(
+        key="legacy_xml_987654.xml", bucket="inspire-tmp"
+    )
+    assert result
+
+
+@mock.patch("click.confirm")
+def test_legacy_records_mirror_xml_cleanup(mock_click, cli, tmp_path):
+    xml_path = os.path.join(tmp_path, "legacy_records_xml")
+    os.mkdir(xml_path)
+    mock_click.return_value = "y"
+    open(os.path.join(xml_path, "1.xml"), "w").close
+    open(os.path.join(xml_path, "2.xml"), "w").close
+    open(os.path.join(xml_path, "3.xml"), "w").close
+    cli.invoke(["legacy_records", "cleanup_dir", "--dir-path", xml_path])
+    assert not os.path.exists(xml_path)
