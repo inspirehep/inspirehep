@@ -168,10 +168,11 @@ def is_document_scanned(file_data):
     return True
 
 
-def _create_ticket_self_curation(record_control_number, record_revision_id):
+def _create_ticket_self_curation(record_control_number, record_revision_id, user_email):
     INSPIREHEP_URL = get_inspirehep_url()
     template_payload = {
         "diff_url": f"{INSPIREHEP_URL}/literature/{record_control_number}/diff/{record_revision_id -1}..{record_revision_id}",
+        "user_email": user_email,
     }
     async_create_ticket_with_template.delay(
         queue="Reference self-curation",

@@ -747,6 +747,7 @@ def test_self_curation_happy_flow(inspire_app, clean_celery_session, override_co
             "revision_id": literature.revision_id,
             "reference_index": 0,
             "new_reference_recid": 12,
+            "user_email": "test@cern.ch",
         }
         reference_self_curation.delay(*task_kwargs.values())
 
