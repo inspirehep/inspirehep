@@ -57,7 +57,7 @@ def create_ticket_with_template(args):
     try:
         template_path = f"rt/{args['template']}.html"
         ticket = snow_instance.create_inspire_ticket_with_template(
-            template_context=args.get("template_context"),
+            template_context=args.get("template_context", {}),
             template_path=template_path,
             user_email=args.get("caller_email"),
             functional_category=args.get("functional_category"),
@@ -83,7 +83,7 @@ def reply_ticket_with_template(args):
     try:
         template_path = f"rt/{args['template']}.html"
         snow_instance.reply_ticket_with_template(
-            args["ticket_id"], template_path, args["template_context"]
+            args["ticket_id"], template_path, args.get("template_context", {})
         )
         return jsonify({"message": "Ticket was updated with the reply"}), 200
     except EditTicketException as e:
