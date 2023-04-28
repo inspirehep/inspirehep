@@ -1,8 +1,16 @@
-name: Build
+name: Release Jupyter
 
 on:
   workflow_call:
     inputs:
+      username:
+        type: string
+        description: Username to login to the image registry
+        required: true
+      password:
+        type: string
+        description: Password to login to the image registry
+        required: true
       ref:
         description: The reference to build
         type: string
@@ -28,8 +36,8 @@ jobs:
         name: Build and push
         uses: cern-sis/gh-workflows/.github/actions/docker-build@v5.1.0
         with:
-          username: ${{ secrets.HARBOR_USERNAME }}
-          password: ${{ secrets.HARBOR_PASSWORD }}
+          username: ${{ inputs.username }}
+          password: ${{ inputs.password }}
           image: "inspirehep/jupyter"
           context: "docker/juypyter"
           registry: "registry.cern.ch"
