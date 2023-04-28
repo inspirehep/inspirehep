@@ -28,10 +28,10 @@ jobs:
         name: Build and push
         uses: cern-sis/gh-workflows/.github/actions/docker-build@v5.1.0
         with:
+          username: ${{ secrets.HARBOR_USERNAME }}
+          password: ${{ secrets.HARBOR_PASSWORD }}
           image: "inspirehep/jupyter"
           context: "docker/juypyter"
           registry: "registry.cern.ch"
           tags:
             type=ref,event=tag
-          username: ${{ secrets.HARBOR_USERNAME }}
-          password: ${{ secrets.HARBOR_PASSWORD }}
