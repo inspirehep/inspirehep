@@ -36,5 +36,6 @@ jobs:
     uses: ./.github/workflows/release-jupyter.yml
     with:
       username: ${{ secrets.HARBOR_USERNAME }}
-      password: ${{ secrets.HARBOR_USERNAME }}
+      password: ${{ secrets.HARBOR_PASSWORD }}
       ref: ${{ github.ref }}
+    secrets: inherit
