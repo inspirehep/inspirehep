@@ -38,7 +38,7 @@ jobs:
           username: ${{ secrets.harbor_username }}
           password: ${{ secrets.harbor_password }}
           image: "inspirehep/jupyter"
-          context: "docker/juypyter"
+          context: "./docker/jupyter"
           registry: "registry.cern.ch"
           tags:
             type=ref,event=tag
