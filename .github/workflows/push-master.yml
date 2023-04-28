@@ -36,6 +36,6 @@ jobs:
     - deploy
     steps:
       - name: send event
-        uses: ../.github/workflows/build.yml
+        uses: ./.github/workflows/release-jupyter.yml
         with:
           ref: ${{ github.ref }}
