@@ -8,13 +8,14 @@
 import datetime
 import os
 import re
-import shutil
+from io import BytesIO
 from itertools import islice
 
 import click
 import orjson
 import requests
 import structlog
+from botocore.exceptions import ClientError
 from flask import current_app
 from flask.cli import with_appcontext
 from flask_celeryext.app import current_celery_app
@@ -348,78 +349,38 @@ def legacy_records():
     """Commands for LegacyRecordsMirror"""
 
 
-@legacy_records.command(help="Export marcxml column from LegacyRecordsMirror table")
-@click.option(
-    "--dir-path",
-    help="Path where the xml files will be saved.",
-    default="/tmp/legacy_xmls",
-    show_default=True,
-)
-@with_appcontext
-def export_xml(dir_path):
-    if not os.path.exists(dir_path):
-        try:
-            os.mkdir(dir_path)
-        except OSError as e:
-            LOGGER.info(f"There was a problem creating the dir: {e}")
-            return
-    try:
-        query = LegacyRecordsMirror.query.yield_per(1000)
-        for row in query:
-            file_path = os.path.join(dir_path, f"{row.recid}.xml")
-            with open(file_path, "wb") as xml:
-                xml.write(row.marcxml)
-    except Exception as e:
-        LOGGER.info(f"There was a problem exporting the column: {e}")
-
-    rows_number = len(
-        [f for f in os.listdir(dir_path) if os.path.isfile(os.path.join(dir_path, f))]
-    )
-    LOGGER.info("marcxml rows exported to xml.", rows_number=rows_number)
-
-
-@legacy_records.command(help="Upload xml files to S3.")
-@click.option(
-    "--dir-path",
-    help="Path where the xml files ar stored.",
-    default="/tmp/legacy_xmls",
-    show_default=True,
-)
+@legacy_records.command(help="Upload marcxml column to S3.")
 @click.option(
     "--bucket",
     help="S3 bucket where the files should be stored",
     default="inspire-qa-legacy",
     show_default=True,
 )
-@with_appcontext
-def upload_xmls(dir_path, bucket):
-    mime_type = "application/xml"
-    acl = current_app.config["S3_FILE_ACL"]
-    try:
-        for filename in os.listdir(dir_path):
-            key = "legacy_xml_" + filename
-            LOGGER.info(f"Uploading {key} to {bucket} bucket")
-            with open(os.path.join(dir_path, filename), "rb") as file:
-                current_s3_instance.upload_file(
-                    file, key, filename, mime_type, acl, bucket
-                )
-        LOGGER.info("All files uploaded successfully.")
-    except Exception as e:
-        LOGGER.info(f"Error while uploading the xmls: {e}")
-
-
-@legacy_records.command(help="Delete local xml directory.")
 @click.option(
-    "--dir-path",
-    help="Path where the xml files ar stored.",
-    default="/tmp/legacy_xmls",
+    "--batch-size",
+    help="Size of database fetches",
+    default=1000,
     show_default=True,
 )
-def cleanup_dir(dir_path):
-    if click.confirm(
-        f"Do you really want to delete {len([f for f in os.listdir(dir_path) if os.path.isfile(os.path.join(dir_path, f))])} files inside {dir_path}?",
-        abort=True,
-    ):
-        LOGGER.info("Deleting dir...")
-        shutil.rmtree(dir_path)
-        LOGGER.info("Dir deleted.")
+@with_appcontext
+def export_and_upload_xmls(bucket, batch_size):
+    upload_counter = 0
+    mime_type = "application/xml"
+    acl = current_app.config["S3_FILE_ACL"]
+
+    query = LegacyRecordsMirror.query.yield_per(batch_size)
+    for row in query:
+        filename = str(row.recid)
+        key = f"legacy_xml_{row.recid}"
+        fileob = BytesIO(row.marcxml)
+        try:
+            current_s3_instance.upload_file(
+                fileob, key, filename, mime_type, acl, bucket
+            )
+            upload_counter += 1
+        except ClientError:
+            LOGGER.warning("There was an issue uploading to s3", filename=filename)
+        if upload_counter % batch_size == 0:
+            LOGGER.info("files uploaded", upload_count=upload_counter)
+            LOGGER.info("latest upload", filename=filename)
+    LOGGER.info("Uploaded completed.", upload_count=upload_counter)
