@@ -9,7 +9,7 @@ from inspirehep.celery import celery
 
 
 def test_celery_annotations():
-    task = celery.tasks["inspirehep.migrator.tasks.create_records_from_mirror_recids"]
+    task = celery.tasks["inspirehep.records.tasks.redirect_references_to_merged_record"]
 
     assert task.acks_late is True
     assert task.reject_on_worker_lost is True

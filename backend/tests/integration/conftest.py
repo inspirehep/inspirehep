@@ -16,7 +16,6 @@ from click.testing import CliRunner
 from flask.cli import ScriptInfo
 from helpers.cleanups import db_cleanup, es_cleanup
 from helpers.factories.models.base import BaseFactory
-from helpers.factories.models.migrator import LegacyRecordsMirrorFactory
 from helpers.factories.models.pidstore import PersistentIdentifierFactory
 from helpers.factories.models.records import RecordMetadataFactory
 from invenio_cache import current_cache
@@ -119,7 +118,6 @@ def db_(database):
     BaseFactory._meta.sqlalchemy_session = session
     RecordMetadataFactory._meta.sqlalchemy_session = session
     PersistentIdentifierFactory._meta.sqlalchemy_session = session
-    LegacyRecordsMirrorFactory._meta.sqlalchemy_session = session
     # `session` is actually a scoped_session. For the `after_transaction_end`
     # event, we need a session instance to listen for, hence the `session()`
     # call.

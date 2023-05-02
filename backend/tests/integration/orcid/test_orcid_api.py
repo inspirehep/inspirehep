@@ -30,7 +30,6 @@ from invenio_db import db
 from invenio_oauthclient.models import RemoteAccount, RemoteToken, User, UserIdentity
 from invenio_oauthclient.utils import oauth_link_external_id
 
-from inspirehep.migrator.tasks import migrate_and_insert_record
 from inspirehep.records.api import InspireRecord, LiteratureRecord
 
 
@@ -117,19 +116,28 @@ def user_without_token(inspire_app):
 
 @pytest.fixture(scope="function")
 def raw_record(inspire_app):
-    record_fixture_path = pkg_resources.resource_filename(
-        __name__, os.path.join("fixtures", "1608652.xml")
-    )
-
-    with open(record_fixture_path) as _record_fixture_fd:
-        yield _record_fixture_fd.read()
+    data = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
+        "document_type": ["article"],
+        "titles": [{"title": "Jessica Jones"}],
+        "control_number": 1608652,
+        "_collections": ["Literature"],
+        "references": [
+            {"record": {"$ref": "http://localhost:5000/api/literature/1498589"}}
+        ],
+    }
+    return data
 
 
 @pytest.fixture(scope="function")
 def record(raw_record):
     with mock.patch("inspirehep.orcid.api._send_push_task") as mock_orcid_push:
         mock_orcid_push.return_value = mock_orcid_push
-        _record = migrate_and_insert_record(raw_record)
+        with mock.patch(
+            "inspirehep.orcid.api.get_orcids_for_push",
+            return_value=["0000-0001-8829-5461", "0000-0002-2174-4493"],
+        ):
+            _record = InspireRecord.create(raw_record)
 
     return _record
 
@@ -213,7 +221,11 @@ def test_orcid_push_not_trigger_for_author_records(
 def test_orcid_push_not_triggered_on_create_record_without_allow_push(
     mock_orcid_push_task, inspire_app, raw_record, user_without_permission
 ):
-    migrate_and_insert_record(raw_record)
+    with mock.patch(
+        "inspirehep.orcid.api.get_orcids_for_push",
+        return_value=["0000-0001-8829-5461", "0000-0002-2174-4493"],
+    ):
+        InspireRecord.create(raw_record)
 
     mock_orcid_push_task.assert_not_called()
 
@@ -222,7 +234,11 @@ def test_orcid_push_not_triggered_on_create_record_without_allow_push(
 def test_orcid_push_not_triggered_on_create_record_without_token(
     mock_orcid_push_task, inspire_app, raw_record, user_without_token
 ):
-    migrate_and_insert_record(raw_record)
+    with mock.patch(
+        "inspirehep.orcid.api.get_orcids_for_push",
+        return_value=["0000-0001-8829-5461", "0000-0002-2174-4493"],
+    ):
+        InspireRecord.create(raw_record)
 
     mock_orcid_push_task.assert_not_called()
 
@@ -234,19 +250,23 @@ def test_orcid_push_triggered_on_create_record_with_allow_push(
     raw_record,
     user_with_permission,
     enable_orcid_push_feature,
+    override_config,
 ):
-    migrate_and_insert_record(raw_record)
 
-    expected_kwargs = {
-        "kwargs": {
-            "orcid": user_with_permission["orcid"],
-            "rec_id": 1608652,
-            "oauth_token": user_with_permission["token"],
-            "kwargs_to_pusher": {"record_db_version": mock.ANY},
+    with mock.patch(
+        "inspirehep.orcid.api.get_orcids_for_push",
+        return_value=["0000-0001-8829-5461", "0000-0002-2174-4493"],
+    ):
+        InspireRecord.create(raw_record)
+        expected_kwargs = {
+            "kwargs": {
+                "orcid": user_with_permission["orcid"],
+                "rec_id": 1608652,
+                "oauth_token": user_with_permission["token"],
+                "kwargs_to_pusher": {"record_db_version": mock.ANY},
+            }
         }
-    }
-
-    mock_orcid_push_task.assert_called_once_with(**expected_kwargs)
+        mock_orcid_push_task.assert_called_once_with(**expected_kwargs)
 
 
 @mock.patch("inspirehep.orcid.api._send_push_task")
@@ -265,8 +285,11 @@ def test_orcid_push_triggered_on_record_update_with_allow_push(
             "kwargs_to_pusher": {"record_db_version": mock.ANY},
         }
     }
-
-    record.update(dict(record))
+    with mock.patch(
+        "inspirehep.orcid.api.get_orcids_for_push",
+        return_value=["0000-0001-8829-5461", "0000-0002-2174-4493"],
+    ):
+        record.update(dict(record))
 
     mock_orcid_push_task.assert_called_once_with(**expected_kwargs)
 
@@ -279,7 +302,11 @@ def test_orcid_push_triggered_on_create_record_with_multiple_authors_with_allow_
     two_users_with_permission,
     enable_orcid_push_feature,
 ):
-    migrate_and_insert_record(raw_record)
+    with mock.patch(
+        "inspirehep.orcid.api.get_orcids_for_push",
+        return_value=["0000-0001-8829-5461", "0000-0002-2174-4493"],
+    ):
+        InspireRecord.create(raw_record)
 
     expected_kwargs_user1 = {
         "kwargs": {
@@ -307,7 +334,11 @@ def test_orcid_push_triggered_on_create_record_with_multiple_authors_with_allow_
 def test_orcid_push_not_triggered_on_create_record_no_feat_flag(
     mocked_Task, inspire_app, raw_record, user_with_permission
 ):
-    migrate_and_insert_record(raw_record)
+    with mock.patch(
+        "inspirehep.orcid.api.get_orcids_for_push",
+        return_value=["0000-0001-8829-5461", "0000-0002-2174-4493"],
+    ):
+        InspireRecord.create(raw_record)
 
     mocked_Task.assert_not_called()
 

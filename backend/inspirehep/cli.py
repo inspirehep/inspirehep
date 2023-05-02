@@ -22,13 +22,7 @@ from inspirehep.mailing.cli import mailing
 from inspirehep.matcher.cli import match
 from inspirehep.orcid.cli import orcid
 from inspirehep.pidstore.cli import inspire_pidstore
-from inspirehep.records.cli import (
-    citations,
-    importer,
-    jobs,
-    legacy_records,
-    relationships,
-)
+from inspirehep.records.cli import citations, importer, jobs, relationships
 from inspirehep.sitemap.cli import sitemap
 
 cli = create_cli(create_app=create_app)
@@ -38,7 +32,6 @@ cli.add_command(importer)
 cli.add_command(jobs)
 cli.add_command(citations)
 cli.add_command(relationships)
-cli.add_command(legacy_records)
 cli.add_command(orcid)
 cli.add_command(mailing)
 cli.add_command(files)

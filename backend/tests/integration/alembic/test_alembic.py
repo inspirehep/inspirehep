@@ -15,6 +15,15 @@ from sqlalchemy.engine import reflection
 def test_downgrade(inspire_app):
     alembic = Alembic(current_app)
 
+    alembic.downgrade(target="72d010d89702")
+    assert "ix_legacy_records_mirror_last_updated" in _get_indexes(
+        "legacy_records_mirror"
+    )
+    assert "ix_legacy_records_mirror_valid_collection" in _get_indexes(
+        "legacy_records_mirror"
+    )
+    assert "legacy_records_mirror" in _get_table_names()
+
     alembic.downgrade(target="3637cb5551a8")
     assert not sequence_exists("records_authors_id_seq")
     assert not get_foreign_keys_for_table("records_authors")
@@ -329,6 +338,16 @@ def test_upgrade(inspire_app):
     assert new_record_authors_indexes == old_record_authors_indexes
     assert new_records_authors_primary_keys == old_records_authors_primary_keys
     assert sequence_exists("records_authors_id_seq")
+
+    alembic.upgrade(target="3fd6471bb960")
+
+    assert "ix_legacy_records_mirror_last_updated" not in _get_indexes(
+        "legacy_records_mirror"
+    )
+    assert "ix_legacy_records_mirror_valid_collection" not in _get_indexes(
+        "legacy_records_mirror"
+    )
+    assert "legacy_records_mirror" not in _get_table_names()
 
 
 def _get_indexes(tablename):
