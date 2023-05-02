@@ -3,6 +3,10 @@ name: Release Jupyter
 on:
   workflow_call:
     inputs:
+      sha:
+        description: The sha of the commit
+        type: string
+        required: true
       ref:
         description: The reference to build
         type: string
@@ -37,7 +41,7 @@ jobs:
         with:
           username: ${{ secrets.harbor_username }}
           password: ${{ secrets.harbor_password }}
-          build-args: COMMIT_HASH=${{ inputs.ref }}
+          build-args: COMMIT_HASH=${{ inputs.sha }}
           image: "inspirehep/jupyter"
           context: "./docker/jupyter"
           registry: "registry.cern.ch"
