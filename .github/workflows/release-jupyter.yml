@@ -42,7 +42,7 @@ jobs:
           username: ${{ secrets.harbor_username }}
           password: ${{ secrets.harbor_password }}
           build-args: COMMIT_HASH=${{ inputs.sha }}
-          image: "inspirehep/jupyter"
+          image: "cern-sis/inspirehep/jupyter"
           context: "./docker/jupyter"
           registry: "registry.cern.ch"
           tags:
