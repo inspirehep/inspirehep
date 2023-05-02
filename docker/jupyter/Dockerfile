@@ -15,7 +15,8 @@ RUN apt-get update -y && \
     gcc \
     g++ \
     poppler-utils \
-    libmagic1
+    libmagic1 \
+    libpq-dev
 COPY hep_requirements.txt jupyter_requirements.txt /etc/jupyter/
 WORKDIR /etc/jupyter/
 
