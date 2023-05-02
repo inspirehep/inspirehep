@@ -52,7 +52,6 @@ def app():
 def celery_worker_parameters():
     return {
         "queues": [
-            "migrator",
             "celery",
             "matcher",
             "indexer_task",

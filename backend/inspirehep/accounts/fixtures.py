@@ -151,7 +151,6 @@ def init_cataloger_permissions():
     db.session.add(ActionRoles(action="admin-holdingpen-authors", role=cataloger))
     db.session.add(ActionRoles(action="update-collection", role=cataloger))
     db.session.add(ActionRoles(action="editor-use-api", role=cataloger))
-    db.session.add(ActionRoles(action="migrator-use-api", role=cataloger))
 
 
 def init_hermes_permissions():
