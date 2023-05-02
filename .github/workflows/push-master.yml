@@ -35,6 +35,7 @@ jobs:
     - deploy
     uses: ./.github/workflows/release-jupyter.yml
     with:
+      sha: ${{ github.sha }}
       ref: ${{ github.ref }}
     secrets:
       harbor_username:  ${{ secrets.HARBOR_USERNAME }}
