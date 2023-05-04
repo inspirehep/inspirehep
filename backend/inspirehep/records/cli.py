@@ -6,16 +6,15 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import datetime
+import math
 import os
 import re
-from io import BytesIO
 from itertools import islice
 
 import click
 import orjson
 import requests
 import structlog
-from botocore.exceptions import ClientError
 from flask import current_app
 from flask.cli import with_appcontext
 from flask_celeryext.app import current_celery_app
@@ -25,19 +24,19 @@ from invenio_records.api import RecordMetadata
 from sqlalchemy import DateTime, cast, not_, or_, type_coerce
 from sqlalchemy.dialects.postgresql import JSONB
 
-from inspirehep.files.api import current_s3_instance
 from inspirehep.mailing.api.jobs import send_job_deadline_reminder
 from inspirehep.migrator.models import LegacyRecordsMirror
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.api import InspireRecord, JobsRecord
 from inspirehep.records.models import RecordsAuthors
 from inspirehep.records.tasks import (
+    export_legacy_recids,
     populate_journal_literature,
     regenerate_author_records_table_entries,
     remove_bai_from_literature_authors,
 )
 from inspirehep.search.api import LiteratureSearch
-from inspirehep.utils import chunker
+from inspirehep.utils import chunker, flatten_list
 
 LOGGER = structlog.getLogger()
 
@@ -351,36 +350,60 @@ def legacy_records():
 
 @legacy_records.command(help="Upload marcxml column to S3.")
 @click.option(
+    "--task-queue",
+    help="Celery task queue",
+    default="migrator",
+    show_default=True,
+)
+@click.option(
     "--bucket",
     help="S3 bucket where the files should be stored",
     default="inspire-qa-legacy",
     show_default=True,
 )
 @click.option(
+    "--bucket-size",
+    help="Size of database fetches",
+    default=100000,
+    show_default=True,
+)
+@click.option(
     "--batch-size",
+    help="Rows to export per celery task",
+    default=1000,
+    show_default=True,
+)
+@click.option(
+    "--db-batch-size",
     help="Size of database fetches",
     default=1000,
     show_default=True,
 )
 @with_appcontext
-def export_and_upload_xmls(bucket, batch_size):
-    upload_counter = 0
-    mime_type = "application/xml"
-    acl = current_app.config["S3_FILE_ACL"]
+def export_and_upload_xmls(task_queue, bucket, bucket_size, batch_size, db_batch_size):
+    row_count = LegacyRecordsMirror.query.count()
+    if batch_size > bucket_size:
+        batch_size = bucket_size
+    bucket_count = math.ceil(row_count / bucket_size)
+    LOGGER.info(
+        "Start export_and_upload_xmls",
+        bucket_prefix=bucket,
+        bucket_size=bucket_size,
+        batch_size=batch_size,
+        db_batch_size=db_batch_size,
+        bucket_count=bucket_count,
+    )
+    recid_chunks = chunker(
+        LegacyRecordsMirror.query.with_entities(LegacyRecordsMirror.recid).yield_per(
+            db_batch_size
+        ),
+        batch_size,
+    )
+    for count, recid_chunk in enumerate(recid_chunks):
+        bucket_name = f"{bucket}-{(count % bucket_count)}"
+        export_legacy_recids.apply_async(
+            args=(bucket_name, flatten_list(recid_chunk), db_batch_size),
+            queue=task_queue,
+        )
 
-    query = LegacyRecordsMirror.query.yield_per(batch_size)
-    for row in query:
-        filename = str(row.recid)
-        key = f"legacy_xml_{row.recid}"
-        fileob = BytesIO(row.marcxml)
-        try:
-            current_s3_instance.upload_file(
-                fileob, key, filename, mime_type, acl, bucket
-            )
-            upload_counter += 1
-        except ClientError:
-            LOGGER.warning("There was an issue uploading to s3", filename=filename)
-        if upload_counter % batch_size == 0:
-            LOGGER.info("files uploaded", upload_count=upload_counter)
-            LOGGER.info("latest upload", filename=filename)
-    LOGGER.info("Uploaded completed.", upload_count=upload_counter)
+    LOGGER.info("All tasks created.")
