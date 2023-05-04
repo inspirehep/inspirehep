@@ -4,6 +4,8 @@ from invenio_db import db
 from invenio_search import current_search
 from tenacity import stop_after_delay, wait_fixed
 
+from inspirehep.files import current_s3_instance
+from inspirehep.migrator.models import LegacyRecordsMirror
 from inspirehep.records.api import InspireRecord
 from inspirehep.records.models import JournalLiterature
 from inspirehep.search.api import JournalsSearch, LiteratureSearch
@@ -149,3 +151,126 @@ def test_remove_bai_from_other_collections_records(
         ]
 
     assert_bai_removed()
+
+
+def test_legacy_records_mirror_xml_export_two_buckets(
+    inspire_app, cli, s3, clean_celery_session
+):
+
+    current_s3_instance.client.create_bucket(Bucket="inspire-tmp-0")
+    current_s3_instance.client.create_bucket(Bucket="inspire-tmp-1")
+
+    db.session.add(
+        LegacyRecordsMirror.from_marcxml(
+            b"<record>"
+            b'  <controlfield tag="001">6767</controlfield>'
+            b'  <datafield tag="245" ind1=" " ind2=" ">'
+            b'    <subfield code="a">This is a citing record</subfield>'
+            b"  </datafield>"
+            b'  <datafield tag="980" ind1=" " ind2=" ">'
+            b'    <subfield code="a">HEP</subfield>'
+            b"  </datafield>"
+            b"</record>"
+        )
+    )
+    db.session.add(
+        LegacyRecordsMirror.from_marcxml(
+            b"<record>"
+            b'  <controlfield tag="001">4343</controlfield>'
+            b'  <datafield tag="245" ind1=" " ind2=" ">'
+            b'    <subfield code="a">This is a citing record</subfield>'
+            b"  </datafield>"
+            b'  <datafield tag="980" ind1=" " ind2=" ">'
+            b'    <subfield code="a">HEP</subfield>'
+            b"  </datafield>"
+            b"</record>"
+        )
+    )
+
+    db.session.commit()
+    cli.invoke(
+        [
+            "legacy_records",
+            "export_and_upload_xmls",
+            "--bucket",
+            "inspire-tmp",
+            "--bucket-size",
+            1,
+            "--batch-size",
+            10,
+        ]
+    )
+
+    @retry_test(stop=stop_after_delay(15), wait=wait_fixed(2))
+    def assert_different_buckets():
+        result_1 = current_s3_instance.file_exists(
+            key="legacy_xml_6767", bucket="inspire-tmp-0"
+        )
+        result_2 = current_s3_instance.file_exists(
+            key="legacy_xml_4343", bucket="inspire-tmp-1"
+        )
+        assert result_1
+        assert result_2
+
+    assert_different_buckets()
+
+
+def test_legacy_records_mirror_xml_export_one_bucket(
+    inspire_app, cli, s3, clean_celery_session
+):
+
+    current_s3_instance.client.create_bucket(Bucket="inspire-tmp-0")
+
+    db.session.add(
+        LegacyRecordsMirror.from_marcxml(
+            b"<record>"
+            b'  <controlfield tag="001">6767</controlfield>'
+            b'  <datafield tag="245" ind1=" " ind2=" ">'
+            b'    <subfield code="a">This is a citing record</subfield>'
+            b"  </datafield>"
+            b'  <datafield tag="980" ind1=" " ind2=" ">'
+            b'    <subfield code="a">HEP</subfield>'
+            b"  </datafield>"
+            b"</record>"
+        )
+    )
+    db.session.add(
+        LegacyRecordsMirror.from_marcxml(
+            b"<record>"
+            b'  <controlfield tag="001">4343</controlfield>'
+            b'  <datafield tag="245" ind1=" " ind2=" ">'
+            b'    <subfield code="a">This is a citing record</subfield>'
+            b"  </datafield>"
+            b'  <datafield tag="980" ind1=" " ind2=" ">'
+            b'    <subfield code="a">HEP</subfield>'
+            b"  </datafield>"
+            b"</record>"
+        )
+    )
+
+    db.session.commit()
+    cli.invoke(
+        [
+            "legacy_records",
+            "export_and_upload_xmls",
+            "--bucket",
+            "inspire-tmp",
+            "--bucket-size",
+            10,
+            "--batch-size",
+            10,
+        ]
+    )
+
+    @retry_test(stop=stop_after_delay(15), wait=wait_fixed(2))
+    def assert_same_bucket():
+        result_1 = current_s3_instance.file_exists(
+            key="legacy_xml_6767", bucket="inspire-tmp-0"
+        )
+        result_2 = current_s3_instance.file_exists(
+            key="legacy_xml_4343", bucket="inspire-tmp-0"
+        )
+        assert result_1
+        assert result_2
+
+    assert_same_bucket()

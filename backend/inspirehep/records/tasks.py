@@ -5,7 +5,10 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+from io import BytesIO
+
 import structlog
+from botocore.exceptions import ClientError
 from celery import shared_task
 from dict_deep import deep_set
 from elasticsearch_dsl import Q
@@ -24,6 +27,8 @@ from inspirehep.errors import (
     DB_TASK_EXCEPTIONS_WITHOUT_STALE_DATA,
     ES_TASK_EXCEPTIONS,
 )
+from inspirehep.files.api import current_s3_instance
+from inspirehep.migrator.models import LegacyRecordsMirror
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.api import InspireRecord, LiteratureRecord
 from inspirehep.records.utils import _create_ticket_self_curation, get_ref_from_pid
@@ -236,3 +241,35 @@ def reference_self_curation(
         record_revision_id=record.revision_id,
         user_email=user_email,
     )
+
+
+@shared_task(
+    retry_backoff=True,
+    acks_late=True,
+    retry_kwargs={"max_retries": 3},
+    autoretry_for=(*DB_TASK_EXCEPTIONS, *ES_TASK_EXCEPTIONS),
+)
+def export_legacy_recids(bucket_name, recids, db_batch_size):
+    current_s3_instance.create_bucket(bucket_name)
+    mime_type = "application/xml"
+    acl = current_app.config["S3_FILE_ACL"]
+    query = (
+        LegacyRecordsMirror.query.filter(LegacyRecordsMirror.recid.in_(recids))
+        .yield_per(db_batch_size)
+        .with_entities(LegacyRecordsMirror.recid, LegacyRecordsMirror._marcxml)
+    )
+    for legacy_record in query:
+        filename = str(legacy_record[0])
+        key = f"legacy_xml_{legacy_record[0]}"
+        fileob = BytesIO(legacy_record[1])
+        try:
+            current_s3_instance.upload_file(
+                fileob, key, filename, mime_type, acl, bucket_name
+            )
+        except ClientError as e:
+            LOGGER.warning(
+                "There was an issue uploading to s3",
+                filename=filename,
+                bucket_name=bucket_name,
+                stacktrace=e.msg,
+            )

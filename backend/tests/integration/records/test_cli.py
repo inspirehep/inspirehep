@@ -13,10 +13,7 @@ import pytest
 from freezegun import freeze_time
 from helpers.providers.faker import faker
 from helpers.utils import create_record
-from invenio_db import db
 
-from inspirehep.files import current_s3_instance
-from inspirehep.migrator.models import LegacyRecordsMirror
 from inspirehep.records.api import AuthorsRecord, JobsRecord, LiteratureRecord
 
 
@@ -235,52 +232,3 @@ def test_close_expired_jobs_ignores_deleted_records(inspire_app, cli):
 
     assert result.exit_code == 0
     assert deleted_record["status"] == "open"
-
-
-def test_legacy_records_mirror_xml_export(cli, s3, tmp_path):
-    db.session.add(
-        LegacyRecordsMirror.from_marcxml(
-            b"<record>"
-            b'  <controlfield tag="001">6767</controlfield>'
-            b'  <datafield tag="245" ind1=" " ind2=" ">'
-            b'    <subfield code="a">This is a citing record</subfield>'
-            b"  </datafield>"
-            b'  <datafield tag="980" ind1=" " ind2=" ">'
-            b'    <subfield code="a">HEP</subfield>'
-            b"  </datafield>"
-            b"</record>"
-        )
-    )
-    db.session.add(
-        LegacyRecordsMirror.from_marcxml(
-            b"<record>"
-            b'  <controlfield tag="001">4343</controlfield>'
-            b'  <datafield tag="245" ind1=" " ind2=" ">'
-            b'    <subfield code="a">This is a citing record</subfield>'
-            b"  </datafield>"
-            b'  <datafield tag="980" ind1=" " ind2=" ">'
-            b'    <subfield code="a">HEP</subfield>'
-            b"  </datafield>"
-            b"</record>"
-        )
-    )
-
-    db.session.commit()
-    current_s3_instance.client.create_bucket(Bucket="inspire-tmp")
-    cli.invoke(
-        [
-            "legacy_records",
-            "export_and_upload_xmls",
-            "--bucket",
-            "inspire-tmp",
-            "--batch-size",
-            "10",
-        ]
-    )
-    result_1 = current_s3_instance.file_exists(
-        key="legacy_xml_6767", bucket="inspire-tmp"
-    )
-    result_2 = current_s3_instance.file_exists(
-        key="legacy_xml_4343", bucket="inspire-tmp"
-    )
-    assert result_1 and result_2
