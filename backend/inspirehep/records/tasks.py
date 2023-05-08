@@ -251,6 +251,7 @@ def reference_self_curation(
 )
 def export_legacy_recids(bucket_name, recids, db_batch_size):
     current_s3_instance.create_bucket(bucket_name)
+    prefixed_bucket_name = current_s3_instance.get_prefixed_bucket(bucket_name)
     mime_type = "application/xml"
     acl = current_app.config["S3_FILE_ACL"]
     query = (
@@ -264,12 +265,12 @@ def export_legacy_recids(bucket_name, recids, db_batch_size):
         fileob = BytesIO(legacy_record[1])
         try:
             current_s3_instance.upload_file(
-                fileob, key, filename, mime_type, acl, bucket_name
+                fileob, key, filename, mime_type, acl, prefixed_bucket_name
             )
         except ClientError as e:
             LOGGER.warning(
                 "There was an issue uploading to s3",
                 filename=filename,
-                bucket_name=bucket_name,
+                bucket_name=prefixed_bucket_name,
                 stacktrace=e.msg,
             )

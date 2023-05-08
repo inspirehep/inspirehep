@@ -157,9 +157,6 @@ def test_legacy_records_mirror_xml_export_two_buckets(
     inspire_app, cli, s3, clean_celery_session
 ):
 
-    current_s3_instance.client.create_bucket(Bucket="inspire-tmp-0")
-    current_s3_instance.client.create_bucket(Bucket="inspire-tmp-1")
-
     db.session.add(
         LegacyRecordsMirror.from_marcxml(
             b"<record>"
@@ -203,11 +200,12 @@ def test_legacy_records_mirror_xml_export_two_buckets(
 
     @retry_test(stop=stop_after_delay(15), wait=wait_fixed(2))
     def assert_different_buckets():
+        prefixed_bucket_name = current_s3_instance.get_prefixed_bucket("inspire-tmp")
         result_1 = current_s3_instance.file_exists(
-            key="legacy_xml_6767", bucket="inspire-tmp-0"
+            key="legacy_xml_6767", bucket=f"{prefixed_bucket_name}-0"
         )
         result_2 = current_s3_instance.file_exists(
-            key="legacy_xml_4343", bucket="inspire-tmp-1"
+            key="legacy_xml_4343", bucket=f"{prefixed_bucket_name}-1"
         )
         assert result_1
         assert result_2
@@ -218,8 +216,6 @@ def test_legacy_records_mirror_xml_export_two_buckets(
 def test_legacy_records_mirror_xml_export_one_bucket(
     inspire_app, cli, s3, clean_celery_session
 ):
-
-    current_s3_instance.client.create_bucket(Bucket="inspire-tmp-0")
 
     db.session.add(
         LegacyRecordsMirror.from_marcxml(
@@ -264,11 +260,12 @@ def test_legacy_records_mirror_xml_export_one_bucket(
 
     @retry_test(stop=stop_after_delay(15), wait=wait_fixed(2))
     def assert_same_bucket():
+        prefixed_bucket_name = current_s3_instance.get_prefixed_bucket("inspire-tmp")
         result_1 = current_s3_instance.file_exists(
-            key="legacy_xml_6767", bucket="inspire-tmp-0"
+            key="legacy_xml_6767", bucket=f"{prefixed_bucket_name}-0"
         )
         result_2 = current_s3_instance.file_exists(
-            key="legacy_xml_4343", bucket="inspire-tmp-0"
+            key="legacy_xml_4343", bucket=f"{prefixed_bucket_name}-0"
         )
         assert result_1
         assert result_2
