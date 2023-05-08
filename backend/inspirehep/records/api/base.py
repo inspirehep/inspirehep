@@ -460,7 +460,8 @@ class InspireRecord(Record):
                     marked_to_delete=(pid_type, pid_value),
                 )
             else:
-                record_to_delete.delete()
+                if not record_to_delete.get("deleted"):
+                    record_to_delete.delete()
 
     def update(self, data, force_undelete=False, *args, **kwargs):
         if not self.get("deleted", False):
