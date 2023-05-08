@@ -771,3 +771,66 @@ def test_self_curation_happy_flow(inspire_app, clean_celery_session, override_co
             )
 
         assert_reference_self_curation_task()
+
+
+def test_redirecy_references_is_not_truggered_if_record_was_not_changed(
+    inspire_app, clean_celery_session
+):
+    literature_data = faker.record("lit", with_control_number=True)
+    literature = InspireRecord.create(literature_data)
+    literature_record_reference = literature["self"]["$ref"]
+
+    seminar_data = faker.record("sem", with_control_number=True)
+    seminar_data.update(
+        {"literature_records": [{"record": {"$ref": literature_record_reference}}]}
+    )
+    seminar = InspireRecord.create(seminar_data)
+
+    literature_data_with_references = faker.record("lit", with_control_number=True)
+    literature_data_with_references.update(
+        {"references": [{"record": {"$ref": literature_record_reference}}]}
+    )
+    literature_record_with_references = InspireRecord.create(
+        literature_data_with_references
+    )
+    db.session.commit()
+
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(3))
+    def assert_all_records_in_es():
+        literature_record_from_es = InspireSearch.get_record_data_from_es(literature)
+        seminar_record_from_es = InspireSearch.get_record_data_from_es(seminar)
+        assert all([literature_record_from_es, seminar_record_from_es])
+
+    assert_all_records_in_es()
+
+    merged_literature_data = faker.record("lit", with_control_number=True)
+    merged_literature_data.update(
+        {"deleted_records": [{"$ref": literature_record_reference}]}
+    )
+    merged_literature_record = InspireRecord.create(merged_literature_data)
+    db.session.commit()
+
+    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(3))
+    def assert_recalculate_references_task():
+        seminar_record_from_es = InspireSearch.get_record_data_from_es(seminar)
+        literature_record_from_es = InspireSearch.get_record_data_from_es(
+            literature_record_with_references
+        )
+        assert (
+            seminar_record_from_es["literature_records"][0]["record"]["$ref"]
+            == merged_literature_record["self"]["$ref"]
+        )
+        assert (
+            literature_record_from_es["references"][0]["record"]["$ref"]
+            == merged_literature_record["self"]["$ref"]
+        )
+
+    assert_recalculate_references_task()
+
+    with mock.patch(
+        "inspirehep.records.receivers.redirect_references_to_merged_record"
+    ) as update_references_mock:
+        merged_literature_record.update(dict(merged_literature_record))
+        db.session.commit()
+
+        assert not update_references_mock.called

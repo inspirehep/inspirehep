@@ -121,7 +121,7 @@ def update_references_pointing_to_merged_record(
             LOGGER.info(
                 "Updated reference for record", uuid=str(matched_inspire_record.id)
             )
-        db.session.commit()
+            db.session.commit()
 
 
 def get_query_for_given_path(index, path, record_ref):
