@@ -254,15 +254,13 @@ def export_legacy_recids(bucket_name, recids, db_batch_size):
     prefixed_bucket_name = current_s3_instance.get_prefixed_bucket(bucket_name)
     mime_type = "application/xml"
     acl = current_app.config["S3_FILE_ACL"]
-    query = (
-        LegacyRecordsMirror.query.filter(LegacyRecordsMirror.recid.in_(recids))
-        .yield_per(db_batch_size)
-        .with_entities(LegacyRecordsMirror.recid, LegacyRecordsMirror._marcxml)
-    )
+    query = LegacyRecordsMirror.query.filter(
+        LegacyRecordsMirror.recid.in_(recids)
+    ).yield_per(db_batch_size)
     for legacy_record in query:
-        filename = str(legacy_record[0])
-        key = f"legacy_xml_{legacy_record[0]}"
-        fileob = BytesIO(legacy_record[1])
+        filename = f"{legacy_record.recid}.xml"
+        key = f"legacy_xml_{legacy_record.recid}"
+        fileob = BytesIO(legacy_record.marcxml)
         try:
             current_s3_instance.upload_file(
                 fileob, key, filename, mime_type, acl, prefixed_bucket_name
