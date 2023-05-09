@@ -172,23 +172,22 @@ def test_add_keywords_raise_error_when_desy_bookkeeping_in_wrong_format(inspire_
         response.json["message"] == "Incorrect input type for fields: _desy_bookkeeping"
     )
 
-    def test_add_keywords_raise_error_when_energy_ranges_in_wrong_format(inspire_app):
-        user = create_user(role=Roles.cataloger.value)
-        record = create_record("lit")
-        with inspire_app.test_client() as client:
-            login_user_via_session(client, email=user.email)
-            response = client.put(
-                f"/curation/literature/{record['control_number']}/keywords",
-                content_type="application/json",
-                data=orjson.dumps(
-                    {"energy_ranges": [{"value": "Test", "source": "curation"}]}
-                ),
-            )
 
-        assert response.status_code == 400
-        assert (
-            response.json["message"] == "Incorrect input type for fields: energy_ranges"
+def test_add_keywords_raise_error_when_energy_ranges_in_wrong_format(inspire_app):
+    user = create_user(role=Roles.cataloger.value)
+    record = create_record("lit")
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.put(
+            f"/curation/literature/{record['control_number']}/keywords",
+            content_type="application/json",
+            data=orjson.dumps(
+                {"energy_ranges": [{"value": "Test", "source": "curation"}]}
+            ),
         )
+
+    assert response.status_code == 400
+    assert response.json["message"] == "Incorrect input type for fields: energy_ranges"
 
 
 def test_add_keyword_returns_validation_error(inspire_app):
@@ -218,3 +217,60 @@ def test_add_keyword_returns_validation_error(inspire_app):
         )
     assert response.status_code == 400
     assert "has non-unique elements" in response.json["message"]
+
+
+def test_normalize_collaborations_happy_flow(inspire_app):
+    user = create_user(role=Roles.cataloger.value)
+    record = create_record(
+        "exp",
+        data={
+            "name_variants": ["CYRK"],
+            "legacy_name": "CYRK-01",
+            "collaboration": {
+                "value": "Particle Data Group",
+            },
+        },
+    )
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(
+            "/curation/literature/collaborations-normalization",
+            content_type="application/json",
+            data=orjson.dumps(
+                {"collaborations": [{"value": "CYRK"}], "workflow_id": 1}
+            ),
+        )
+    assert response.status_code == 200
+    assert response.json["accelerator_experiments"] == [
+        {"record": record["self"], "legacy_name": record["legacy_name"]}
+    ]
+    assert response.json["normalized_collaborations"][0]["record"] == record["self"]
+
+
+def test_normalize_collaborations_happy_flow_collaboration_not_matched(inspire_app):
+    user = create_user(role=Roles.cataloger.value)
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(
+            "/curation/literature/collaborations-normalization",
+            content_type="application/json",
+            data=orjson.dumps(
+                {"collaborations": [{"value": "CYRK"}], "workflow_id": 1}
+            ),
+        )
+        assert not response.json["accelerator_experiments"]
+        assert "record" not in response.json["normalized_collaborations"][0]
+
+
+def test_normalize_collaborations_returns_403_for_non_authorized(inspire_app):
+    user = create_user()
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(
+            "/curation/literature/collaborations-normalization",
+            content_type="application/json",
+            data=orjson.dumps(
+                {"collaborations": [{"value": "CYRK"}], "workflow_id": 1}
+            ),
+        )
+    assert response.status_code == 403
