@@ -7,12 +7,15 @@
 
 import structlog
 from inspire_utils.dedupers import dedupe_list
+from inspire_utils.record import get_value
 
 from .utils import (
     collaboration_multi_search_query,
     create_accelerator_experiment_from_collaboration_match,
     enhance_collaboration_data_with_collaboration_match,
     find_collaboration_in_multisearch_response,
+    find_unambiguous_affiliation,
+    match_lit_author_affiliation,
 )
 
 LOGGER = structlog.getLogger()
@@ -61,4 +64,44 @@ def normalize_collaborations(collaborations, wf_id):
     return {
         "accelerator_experiments": dedupe_list(accelerator_experiments),
         "normalized_collaborations": collaborations,
+    }
+
+
+def normalize_affiliations(authors, workflow_id=None, **kwargs):
+    """
+    Normalizes author raw affiliations in literature record.
+    Params:
+        data (dict): data contaning list of authors with affiliations to normalize
+        literature_search_object (elasticsearch_dsl.search.Search): Search request to elasticsearch.
+
+    Returns:
+        normalized_affiliations: list containing normalized affiliations for each author
+        ambiguous_affiliations: not matched (not normalized) affiliations
+    """
+    matched_affiliations = {}
+    normalized_affiliations = []
+    ambiguous_affiliations = []
+    for author in authors:
+        author_affiliations = author.get("affiliations", [])
+        if author_affiliations:
+            normalized_affiliations.append(author_affiliations)
+            continue
+        raw_affs = get_value(author, "raw_affiliations.value", [])
+        for raw_aff in raw_affs:
+            if raw_aff in matched_affiliations:
+                author_affiliations.extend(matched_affiliations[raw_aff])
+                continue
+            matched_author_affiliations_hits = match_lit_author_affiliation(raw_aff)
+            matched_author_affiliations = find_unambiguous_affiliation(
+                matched_author_affiliations_hits, workflow_id
+            )
+            if matched_author_affiliations:
+                matched_affiliations[raw_aff] = matched_author_affiliations
+                author_affiliations.extend(matched_author_affiliations)
+            else:
+                ambiguous_affiliations.append(raw_aff)
+        normalized_affiliations.append(dedupe_list(author_affiliations))
+    return {
+        "normalized_affiliations": normalized_affiliations,
+        "ambiguous_affiliations": ambiguous_affiliations,
     }
