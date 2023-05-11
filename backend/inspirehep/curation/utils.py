@@ -18,6 +18,7 @@ from invenio_search import current_search_client
 from invenio_search.utils import prefix_index
 
 from inspirehep.records.api import JournalsRecord
+from inspirehep.search.api import LiteratureSearch
 
 from .errors import SubGroupNotFound
 
@@ -213,3 +214,81 @@ def enhance_collaboration_data_with_collaboration_match(
 ):
     collaboration["value"] = collaboration_normalized_name
     collaboration["record"] = collaboration_match[0].self.to_dict()
+
+
+def match_lit_author_affiliation(raw_aff):
+    query = Q(
+        "nested",
+        path="authors",
+        query=(
+            Q("match", authors__raw_affiliations__value=raw_aff)
+            & Q("exists", field="authors.affiliations.value")
+        ),
+        inner_hits={},
+    )
+    query_filters = Q("term", _collections="Literature") & Q("term", curated=True)
+    result = (
+        LiteratureSearch()
+        .query(query)
+        .filter(query_filters)
+        .highlight("authors.raw_affiliations.value", fragment_size=len(raw_aff))
+        .source(["control_number"])
+        .params(size=20)
+        .execute()
+        .hits
+    )
+    return result
+
+
+def clean_up_affiliation_data(affiliations):
+    cleaned_affiliations = []
+    for aff in affiliations:
+        cleaned_affiliations.append(
+            {key: val for key, val in aff.items() if key in ["value", "record"]}
+        )
+    return cleaned_affiliations
+
+
+def find_unambiguous_affiliation(result, wf_id):
+    for matched_author in result:
+        matched_author_data = matched_author.meta.inner_hits.authors.hits[0].to_dict()
+        matched_author_raw_affs = matched_author_data["raw_affiliations"]
+        matched_author_affs = matched_author_data["affiliations"]
+        matched_aff = []
+        if len(matched_author_raw_affs) == 1:
+            matched_aff = matched_author_affs
+        elif len(matched_author_raw_affs) == len(matched_author_affs):
+            matched_aff = extract_matched_aff_from_highlight(
+                matched_author.meta.highlight["authors.raw_affiliations.value"],
+                matched_author_raw_affs,
+                matched_author_affs,
+            )
+        if matched_aff:
+            message_payload = {"literature recid": matched_author["control_number"]}
+            message = f"Found matching affiliation, literature recid: {matched_author['control_number']}, raw_affiliations: {matched_author_raw_affs}, matched affiliations: {matched_aff}"
+            if wf_id:
+                message += f" workflow_id: {wf_id}"
+            LOGGER.info("Found matching affiliation", message_payload)
+            return clean_up_affiliation_data(matched_aff)
+
+
+def raw_aff_highlight_len(highlighted_raw_aff):
+    matches = re.findall(r"<em>(.*?)</em>", highlighted_raw_aff)
+    return sum(len(match) for match in matches)
+
+
+def extract_matched_aff_from_highlight(
+    highlighted_raw_affs, author_raw_affs, author_affs
+):
+    raw_aff_highlight_lenghts = [
+        raw_aff_highlight_len(raw_aff) for raw_aff in highlighted_raw_affs
+    ]
+    longest_highlight_idx = raw_aff_highlight_lenghts.index(
+        max(raw_aff_highlight_lenghts)
+    )
+    extracted_raw_aff = re.sub(
+        "<em>|</em>", "", highlighted_raw_affs[longest_highlight_idx]
+    )
+    for raw_aff, aff in zip(author_raw_affs, author_affs):
+        if raw_aff["value"] == extracted_raw_aff:
+            return [aff]

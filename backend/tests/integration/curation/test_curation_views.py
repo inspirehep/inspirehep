@@ -274,3 +274,81 @@ def test_normalize_collaborations_returns_403_for_non_authorized(inspire_app):
             ),
         )
     assert response.status_code == 403
+
+
+def test_normalize_affiliations_happy_flow(inspire_app):
+    institution = create_record(
+        "ins", data={"legacy_ICN": "Warsaw U.", "ICN": ["Warsaw U."]}
+    )
+    create_record(
+        "lit",
+        data={
+            "curated": True,
+            "authors": [
+                {
+                    "full_name": "Test, A.",
+                    "affiliations": [
+                        {"value": "Warsaw U.", "record": institution["self"]}
+                    ],
+                    "raw_affiliations": [{"value": "Warsaw U. blah blah"}],
+                }
+            ],
+        },
+    )
+    user = create_user(role=Roles.cataloger.value)
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(
+            "/curation/literature/affiliations-normalization",
+            content_type="application/json",
+            data=orjson.dumps(
+                {
+                    "authors": [
+                        {
+                            "full_name": "Test, Auth.",
+                            "raw_affiliations": [{"value": "Warsaw U."}],
+                        }
+                    ],
+                    "workflow_id": 1,
+                }
+            ),
+        )
+    assert response.status_code == 200
+    assert response.json["normalized_affiliations"]
+    assert not response.json["ambiguous_affiliations"]
+
+
+def test_normalize_affiliations_happy_flow_no_affiliations_matched(inspire_app):
+    user = create_user(role=Roles.cataloger.value)
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(
+            "/curation/literature/affiliations-normalization",
+            content_type="application/json",
+            data=orjson.dumps(
+                {
+                    "authors": [
+                        {
+                            "full_name": "Test, Auth.",
+                            "raw_affiliations": [{"value": "Warsaw U."}],
+                        }
+                    ],
+                    "workflow_id": 1,
+                }
+            ),
+        )
+    assert response.status_code == 200
+    assert not response.json["normalized_affiliations"][0]
+    assert response.json["ambiguous_affiliations"] == ["Warsaw U."]
+
+
+def test_normalize_affiliations_returns_403_for_non_authorized(inspire_app):
+    user = create_user()
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(
+            "/curation/literature/affiliations-normalization",
+            content_type="application/json",
+            data=orjson.dumps({"authors": [{"value": "CYRK"}], "workflow_id": 1}),
+        )
+    assert response.status_code == 403

@@ -16,7 +16,7 @@ from inspirehep.accounts.roles import Roles
 from inspirehep.records.api import LiteratureRecord
 from inspirehep.serializers import jsonify
 
-from .api import normalize_collaborations
+from .api import normalize_affiliations, normalize_collaborations
 
 blueprint = Blueprint("inspirehep_curation", __name__, url_prefix="/curation")
 parser = FlaskParser()
@@ -92,3 +92,19 @@ def collaborations_normalization(args):
         args["collaborations"], args["workflow_id"]
     )
     return jsonify(normalized_collaborations)
+
+
+@blueprint.route("/literature/affiliations-normalization")
+@login_required_with_roles([Roles.cataloger.value])
+@parser.use_args(
+    {
+        "authors": fields.List(fields.Dict, required=True),
+        "workflow_id": fields.Int(required=True),
+    },
+    locations=("json",),
+)
+def affiliations_normalization(args):
+    normalized_affiliations = normalize_affiliations(
+        args["authors"], workflow_id=args["workflow_id"]
+    )
+    return jsonify(normalized_affiliations)
