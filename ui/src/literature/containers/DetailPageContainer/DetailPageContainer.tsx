@@ -47,7 +47,7 @@ import ReferenceSearchLinkAction from '../../../common/components/ReferenceSearc
 import { getPapersQueryString } from '../../utils';
 import ParentRecordInfo from '../../components/ParentRecordInfo';
 import BookSeriesInfoList from '../../components/BookSeriesInfoList';
-import { LITERATURE_SEMINARS_NS } from '../../../search/constants';
+import { CURATE_REFERENCE_NS, LITERATURE_SEMINARS_NS } from '../../../search/constants';
 import LiteratureSeminars from '../../components/LiteratureSeminars';
 import { newSearch, searchBaseQueriesUpdate } from '../../../actions/search';
 import ImprintInfo from '../../components/ImprintInfo';
@@ -57,6 +57,7 @@ import LiteratureClaimButton from '../../components/LiteratureClaimButton';
 import PersistentIdentifiers from '../../components/PersistentIdentifiers';
 import { APIButton } from '../../../common/components/APIButton';
 import { isSuperUser } from '../../../common/authorization';
+import CurateReferenceDrawerContainer from '../CurateReferenceDrawerContainer';
 
 function DetailPage({
   authors,
@@ -82,6 +83,8 @@ function DetailPage({
   const title = metadata.getIn(['titles', 0]);
   const date = metadata.get('date');
   const controlNumber = metadata.get('control_number') as number;
+  const revisionId = record.get('revision_id') as number;
+  const uuid = record.get('uuid') as number;
   const thesisInfo = metadata.get('thesis_info');
   const isbns = metadata.get('isbns');
   const imprint = metadata.get('imprints');
@@ -172,6 +175,11 @@ function DetailPage({
           page="Literature detail"
         />
       )}
+      <CurateReferenceDrawerContainer
+        namespace={CURATE_REFERENCE_NS}
+        recordId={uuid}
+        revisionId={revisionId}
+      />
       <LiteratureDocumentHead
         metadata={metadata}
         created={record.get('created')}

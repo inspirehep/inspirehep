@@ -21,7 +21,8 @@ import {
   LITERATURE_ALL_AUTHORS_ERROR,
   REFERENCES_DIFF_SUCCESS,
   REFERENCES_DIFF_ERROR,
-  REFERENCES_DIFF_REQUEST
+  REFERENCES_DIFF_REQUEST,
+  LITERATURE_SET_CURATE_DRAWER_VISIBILITY,
 } from './actionTypes';
 import { isCancelError, HttpClientWrapper } from '../common/http';
 import { httpErrorToActionPayload } from '../common/utils';
@@ -34,10 +35,14 @@ import {
   exportToCdsSuccess,
   exportToCdsError,
   exporting,
+  curating,
+  curationSuccess,
+  curationError,
   assignLiteratureItemSuccess,
   assignLiteratureItemError,
   ASSIGNING_NOTIFICATION_KEY,
   ASSIGNING_NOTIFICATION_LITERATURE_ITEM_KEY,
+  CURATING_NOTIFICATION_KEY
 } from '../literature/assignNotification';
 import { LITERATURE_REFERENCES_NS } from '../search/constants';
 import { searchQueryUpdate } from './search';
@@ -185,10 +190,10 @@ export function fetchLiteratureReferences(
   };
 }
 
-export function fetchReferencesDiff(  
+export function fetchReferencesDiff(
   recordId: number,
   prevRevisionId: number,
-  newRevisionId: number,
+  newRevisionId: number
 ): (
   dispatch: ActionCreator<Action>,
   getState: () => RootStateOrAny,
@@ -197,7 +202,9 @@ export function fetchReferencesDiff(
   return async (dispatch, getState, http) => {
     dispatch(fetchingReferenceDiff());
     try {
-      const response = await http.get(`/literature/${recordId}/diff/${prevRevisionId}..${newRevisionId}`);
+      const response = await http.get(
+        `/literature/${recordId}/diff/${prevRevisionId}..${newRevisionId}`
+      );
       dispatch(fetchReferenceDiffSuccess(response.data));
     } catch (err) {
       if (!isCancelError(err as Error)) {
@@ -205,8 +212,8 @@ export function fetchReferencesDiff(
         dispatch(fetchReferenceDiffError({ error }));
       }
     }
-};
-};
+  };
+}
 
 export function fetchLiteratureAuthors(
   recordId: number
@@ -284,6 +291,44 @@ export function setAssignLiteratureItemDrawerVisibility(
   return {
     type: LITERATURE_SET_ASSIGN_LITERATURE_ITEM_DRAWER_VISIBILITY,
     payload: { literatureId },
+  };
+}
+
+export function setCurateDrawerVisibility(referenceId: number | null) {
+  return {
+    type: LITERATURE_SET_CURATE_DRAWER_VISIBILITY,
+    payload: { referenceId },
+  };
+}
+
+export function curateReference({
+  recordId,
+  revisionId,
+  referenceId,
+  newReferenceId,
+}: {
+  recordId: number;
+  revisionId: number;
+  referenceId: number;
+  newReferenceId: number;
+}): (
+  dispatch: ActionCreator<Action>,
+  getState: () => RootStateOrAny,
+  http: HttpClientWrapper
+) => Promise<void> {
+  return async (dispatch, getState, http) => {
+    try {
+      curating(CURATING_NOTIFICATION_KEY);
+      await http.post('/literature/reference-self-curation', {
+        record_id: recordId.toString(),
+        revision_id: revisionId,
+        reference_index: referenceId,
+        new_reference_recid: newReferenceId,
+      });
+      curationSuccess();
+    } catch (error) {
+      curationError(CURATING_NOTIFICATION_KEY);
+    }
   };
 }
 
@@ -385,7 +430,7 @@ export function checkNameCompatibility({
         );
       }
     } catch (error) {
-      dispatch(fetchLiteratureAllAuthors(literatureId))
+      dispatch(fetchLiteratureAllAuthors(literatureId));
       dispatch(setAssignLiteratureItemDrawerVisibility(literatureId));
     }
   };

@@ -11,12 +11,14 @@ const SearchPagination = ({
   pageSize,
   onPageChange,
   onSizeChange,
+  hideSizeChange,
 }: {
   page?: number;
   total?: number;
   pageSize?: number;
   onPageChange?: (page: number, pageSize: number) => void;
   onSizeChange?: (current: number, size: number) => void;
+  hideSizeChange?: boolean;
 }) => {
   return (
     <Pagination
@@ -29,7 +31,7 @@ const SearchPagination = ({
       pageSize={pageSize}
       onShowSizeChange={onSizeChange}
       pageSizeOptions={PAGE_SIZE_OPTIONS}
-      showSizeChanger
+      showSizeChanger={!hideSizeChange}
       responsive
     />
   );

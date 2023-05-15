@@ -18,7 +18,7 @@ import {
   SEPARATOR_MIDDLEDOT,
 } from '../../common/components/InlineList';
 import IconText from '../../common/components/IconText';
-import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank';
+import LinkLikeButton from '../../common/components/LinkLikeButton/LinkLikeButton';
 import { getConfigFor } from '../../common/config';
 
 class ReferenceItem extends Component {
@@ -56,12 +56,13 @@ class ReferenceItem extends Component {
   }
 
   render() {
-    const { reference, unlinked } = this.props;
+    const { reference, unlinked, onEditReferenceClick, disableEdit, loggedIn } = this.props;
     const publicationInfo = reference.get('publication_info');
     const arxivEprint = reference.get('arxiv_eprint');
     const dois = reference.get('dois');
     const urls = reference.get('urls');
     const recordId = reference.get('control_number');
+    const label = reference.get('label');
 
     const authors = reference.get('authors');
     const collaborations = reference.get('collaborations');
@@ -76,9 +77,9 @@ class ReferenceItem extends Component {
           type="flex"
           justify="start"
           align="middle"
-          className="w-100 sm-plus-flex-nowrap"
+          className="w-100 flex-nowrap"
         >
-          <Col className="xs-sm-col-24">
+          <Col xs={2} lg={1}>
             <div className="flex">
               {ReferenceItem.renderLabel(reference)}
             </div>
@@ -119,24 +120,20 @@ class ReferenceItem extends Component {
               }
             />
           </Col>
-          {getConfigFor('SELF_CURATION_BUTTON') && (
-            <Col className="xs-sm-col-24 pr3">
-              <Tooltip title="Edit this reference">
+          {getConfigFor('SELF_CURATION_BUTTON') && !disableEdit && (
+            <Col span={2} className="pr3">
+              <Tooltip title={loggedIn ? "Edit this reference" : "Log in to edit"}>
                 <div className="flex items-center justify-center">
-                  <LinkWithTargetBlank
-                    href="/"
-                    style={{
-                      color: '#0050b3',
-                      fontStyle: 'normal',
-                      textDecoration: 'none',
-                    }}
+                  <LinkLikeButton
+                    onClick={() => onEditReferenceClick(label)}
+                    disabled={!loggedIn}
                   >
                     <IconText
                       text="edit"
                       icon={<EditOutlined />}
                       className="flex items-center justify-center pr2"
                     />
-                  </LinkWithTargetBlank>
+                  </LinkLikeButton>
                 </div>
               </Tooltip>
             </Col>

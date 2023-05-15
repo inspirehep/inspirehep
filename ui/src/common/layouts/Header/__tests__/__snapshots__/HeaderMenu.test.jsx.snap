@@ -160,6 +160,7 @@ exports[`HeaderMenu renders when logged in 1`] = `
               <LinkLikeButton
                 color="white"
                 dataTestId="logout"
+                disabled={false}
                 onClick={[MockFunction]}
               >
                 Logout

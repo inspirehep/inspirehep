@@ -29,6 +29,7 @@ export const AUTHOR_SEMINARS_NS = 'authorSeminars';
 export const LITERATURE_SEMINARS_NS = 'literatureSeminars';
 export const ASSIGN_AUTHOR_NS = 'assignAuthor';
 export const ASSIGN_CONFERENCE_NS = 'assignConference';
+export const CURATE_REFERENCE_NS = 'curateReference';
 
 export const SEARCH_BOX_NAMESPACES = [
   LITERATURE_NS,
@@ -66,6 +67,7 @@ export const NAMESPACE_TO_PATHNAME = {
   [LITERATURE_SEMINARS_NS]: SEMINARS,
   [ASSIGN_AUTHOR_NS]: AUTHORS,
   [ASSIGN_CONFERENCE_NS]: CONFERENCES,
+  [CURATE_REFERENCE_NS]: LITERATURE,
 
   [AUTHORS_NS]: AUTHORS,
   [JOBS_NS]: JOBS,

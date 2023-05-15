@@ -15,6 +15,8 @@ function ReferenceList({
   query,
   onPageChange,
   onSizeChange,
+  onEditReferenceClick,
+  loggedIn,
 }: {
   total?: number,
   references?: any[],
@@ -24,6 +26,8 @@ function ReferenceList({
   onPageChange?: Function,
   onSizeChange?: Function,
   children?: any
+  onEditReferenceClick?: Function,
+  loggedIn?: boolean,
 }) {
   const renderReferenceItem = useCallback(
     (reference, index) => (
@@ -32,9 +36,11 @@ function ReferenceList({
       <ReferenceItem
         key={reference.getIn(['titles', 0, 'title']) || String(index)}
         reference={reference}
+        onEditReferenceClick={onEditReferenceClick}
+        loggedIn={loggedIn}
       />
     ),
-    []
+    [onEditReferenceClick, loggedIn]
   );
 
   const renderList = useCallback(

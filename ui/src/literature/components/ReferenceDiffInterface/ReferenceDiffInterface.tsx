@@ -286,6 +286,7 @@ function ReferenceDiffInterface({
                               <ReferenceItem
                                 key="reference-1"
                                 reference={previousReference}
+                                disableEdit
                               />
                             </Card>
                           )}
@@ -302,6 +303,7 @@ function ReferenceDiffInterface({
                               <ReferenceItem
                                 key="reference-2"
                                 reference={currentReference}
+                                disableEdit
                               />
                             </Card>
                           )}
@@ -329,6 +331,7 @@ function ReferenceDiffInterface({
                               key="reference-metadata"
                               reference={previousReference}
                               unlinked
+                              disableEdit
                             />
                           </Card>
                           <Card size="small" className="no-border">

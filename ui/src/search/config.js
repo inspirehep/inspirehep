@@ -18,7 +18,8 @@ import {
   ASSIGN_CONFERENCE_NS,
   LITERATURE_REFERENCES_NS,
   JOURNALS_NS,
-  JOURNAL_PAPERS_NS
+  JOURNAL_PAPERS_NS,
+  CURATE_REFERENCE_NS
 } from './constants';
 import {
   onLiteratureQueryChange,
@@ -139,6 +140,11 @@ const searchConfig = {
   [LITERATURE_REFERENCES_NS]: {
     persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
     onQueryChange: () => {},
+    redirectableError: false,
+  },
+  [CURATE_REFERENCE_NS]: {
+    persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
+    onQueryChange: onEmbeddedSearchWithoutAggregationsQueryChange,
     redirectableError: false,
   },
 };

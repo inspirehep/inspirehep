@@ -33,6 +33,7 @@ exports[`Home renders home page 1`] = `
           >
             <LinkLikeButton
               color="blue middle"
+              disabled={false}
               onClick={[Function]}
             >
               How to search?
