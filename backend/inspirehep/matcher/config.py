@@ -5,6 +5,8 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+from inspire_matcher.config import MATCHER_DEFAULT_CONFIGURATION as exact_match
+
 from .validators import authors_validator
 
 GROBID_URL = "https://grobid.inspirebeta.net"
@@ -347,3 +349,51 @@ AUTHOR_MATCHER_NAME_INITIALS_CONFIG = {
     "index": "records-hep",
     "source": ["control_number", "authors.full_name", "authors.record.$ref"],
 }
+
+FUZZY_LITERATURE_MATCH_CONFIG = {
+    "algorithm": [
+        {
+            "queries": [
+                {
+                    "clauses": [
+                        {
+                            "boost": 20,
+                            "path": "abstracts",
+                        },
+                        {
+                            "boost": 10,
+                            "path": "authors[:3]",
+                        },
+                        {
+                            "boost": 20,
+                            "path": "titles",
+                        },
+                        {
+                            "boost": 10,
+                            "path": "report_numbers",
+                        },
+                    ],
+                    "type": "fuzzy",
+                }
+            ],
+            "validator": [
+                "inspire_matcher.validators:authors_titles_validator",
+                "inspire_matcher.validators:arxiv_eprints_validator",
+            ],
+        }
+    ],
+    "index": "records-hep",
+    "source": [
+        "control_number",
+        "titles",
+        "abstracts",
+        "authors",
+        "arxiv_eprints",
+        "public_notes",
+        "number_of_pages",
+        "publication_info",
+        "earliest_date",
+    ],
+}
+
+EXACT_LITERATURE_MATCH_CONFIG = exact_match

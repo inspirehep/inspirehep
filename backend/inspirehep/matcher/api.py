@@ -5,6 +5,8 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+import re
+from copy import copy, deepcopy
 from urllib.parse import urljoin
 
 import requests
@@ -15,6 +17,7 @@ from inspire_utils.dedupers import dedupe_list
 from inspire_utils.record import get_value
 
 from inspirehep.matcher.parsers import GrobidAuthors
+from inspirehep.matcher.serializers import LiteratureSummary
 
 from .parsers import GrobidReferenceParser
 
@@ -239,3 +242,56 @@ def get_affiliations_from_pdf(url, **kwargs):
     if not response:
         return
     return {"authors": parsed_authors}
+
+
+def exact_match_literature_data(data):
+    """Return matched record ids if the record is already present in the system.
+
+    Uses the default configuration of the ``inspire-matcher`` to find
+    duplicates of the current workflow object in the system.
+
+    Arguments:
+        data: data used for matching.
+
+    Returns:
+        List: List of matched ids
+
+    """
+    exact_match_workflow_matcher_config = current_app.config[
+        "EXACT_LITERATURE_MATCH_CONFIG"
+    ]
+    matches = dedupe_list(match(data, exact_match_workflow_matcher_config))
+    matched_record_ids = [match["_source"]["control_number"] for match in matches]
+    return matched_record_ids
+
+
+def fuzzy_match_literature_data(data):
+    """Return list of similar records are found in the system.
+
+    Uses a custom configuration for ``inspire-matcher`` to find records
+    similar to the current workflow object's payload in the system.
+
+    Arguments:
+        data: data used for matching.
+
+    Returns:
+        list: List of fuzzy-matched record ids
+
+    """
+    math_ml_latex_regex = r"(<math(.*?)<\/math>|(?<!\\)\$.*?(?<!\\)\$|(?<!\\)\\(.*?(?<!\\)\\)|(?<!\\)\\[.*?(?<!\\)\\])"
+    fuzzy_match_workflow_matcher_config = current_app.config[
+        "FUZZY_LITERATURE_MATCH_CONFIG"
+    ]
+    data_without_math_ml_latex = copy(data)
+    if "abstracts" in data:
+        abstracts = deepcopy(data["abstracts"])
+        for abstract in abstracts:
+            abstract["value"] = re.sub(math_ml_latex_regex, "", abstract["value"])
+        data_without_math_ml_latex["abstracts"] = abstracts
+    matches = dedupe_list(
+        match(data_without_math_ml_latex, fuzzy_match_workflow_matcher_config)
+    )
+    matched_record_data = [
+        LiteratureSummary().dump(match["_source"]).data for match in matches
+    ]
+    return matched_record_data[0:5]
