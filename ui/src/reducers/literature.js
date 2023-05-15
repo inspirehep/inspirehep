@@ -22,6 +22,7 @@ import {
   LITERATURE_ALL_AUTHORS_REQUEST,
   LITERATURE_ALL_AUTHORS_SUCCESS,
   LITERATURE_ALL_AUTHORS_ERROR,
+  LITERATURE_SET_CURATE_DRAWER_VISIBILITY,
 } from '../actions/actionTypes';
 import {
   onRequest,
@@ -48,6 +49,7 @@ export const initialState = fromJS({
   literatureSelection: Set(),
   isAssignDrawerVisible: false,
   assignDetailViewDrawerVisible: null,
+  referenceDrawer: null,
 }).merge(initialRecordState);
 
 const literatureReducer = (state = initialState, action) => {
@@ -125,6 +127,11 @@ const literatureReducer = (state = initialState, action) => {
       return state.set(
         'assignLiteratureItemDrawerVisible',
         action.payload.literatureId
+      );
+    case LITERATURE_SET_CURATE_DRAWER_VISIBILITY:
+      return state.set(
+        'referenceDrawer',
+        action.payload.referenceId
       );
     case LITERATURE_SELECTION_SET:
       const { literatureIds, selected } = action.payload;

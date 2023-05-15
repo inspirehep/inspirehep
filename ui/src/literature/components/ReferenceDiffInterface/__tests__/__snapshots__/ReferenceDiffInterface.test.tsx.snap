@@ -320,12 +320,12 @@ exports[`ReferenceDiffInterface should render 1`] = `
                           class="ant-list-item"
                         >
                           <div
-                            class="ant-row ant-row-start ant-row-middle w-100 sm-plus-flex-nowrap"
+                            class="ant-row ant-row-start ant-row-middle w-100 flex-nowrap"
                             style="margin-left: -12px; margin-right: -12px;"
                             type="flex"
                           >
                             <div
-                              class="ant-col xs-sm-col-24"
+                              class="ant-col ant-col-xs-2 ant-col-lg-1"
                               style="padding-left: 12px; padding-right: 12px;"
                             >
                               <div
@@ -479,12 +479,12 @@ exports[`ReferenceDiffInterface should render 1`] = `
                           class="ant-list-item"
                         >
                           <div
-                            class="ant-row ant-row-start ant-row-middle w-100 sm-plus-flex-nowrap"
+                            class="ant-row ant-row-start ant-row-middle w-100 flex-nowrap"
                             style="margin-left: -12px; margin-right: -12px;"
                             type="flex"
                           >
                             <div
-                              class="ant-col xs-sm-col-24"
+                              class="ant-col ant-col-xs-2 ant-col-lg-1"
                               style="padding-left: 12px; padding-right: 12px;"
                             >
                               <div
@@ -1284,12 +1284,12 @@ exports[`ReferenceDiffInterface should render without previous reference if it i
                           class="ant-list-item"
                         >
                           <div
-                            class="ant-row ant-row-start ant-row-middle w-100 sm-plus-flex-nowrap"
+                            class="ant-row ant-row-start ant-row-middle w-100 flex-nowrap"
                             style="margin-left: -12px; margin-right: -12px;"
                             type="flex"
                           >
                             <div
-                              class="ant-col xs-sm-col-24"
+                              class="ant-col ant-col-xs-2 ant-col-lg-1"
                               style="padding-left: 12px; padding-right: 12px;"
                             >
                               <div
@@ -1443,12 +1443,12 @@ exports[`ReferenceDiffInterface should render without previous reference if it i
                           class="ant-list-item"
                         >
                           <div
-                            class="ant-row ant-row-start ant-row-middle w-100 sm-plus-flex-nowrap"
+                            class="ant-row ant-row-start ant-row-middle w-100 flex-nowrap"
                             style="margin-left: -12px; margin-right: -12px;"
                             type="flex"
                           >
                             <div
-                              class="ant-col xs-sm-col-24"
+                              class="ant-col ant-col-xs-2 ant-col-lg-1"
                               style="padding-left: 12px; padding-right: 12px;"
                             >
                               <div

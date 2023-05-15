@@ -7,6 +7,7 @@ import LinkWithTargetBlank from '../common/components/LinkWithTargetBlank';
 // to render notification over the drawer, if one is open.
 export const ASSIGNING_NOTIFICATION_KEY = 'assigning-conferences-notification';
 export const ASSIGNING_NOTIFICATION_LITERATURE_ITEM_KEY = 'assigning-notification';
+export const CURATING_NOTIFICATION_KEY = 'curation-notification';
 
 export function assigning(key) {
   notification.info({
@@ -14,6 +15,32 @@ export function assigning(key) {
     message: 'Assigning...',
     description: 'We are processing your request',
     duration: null,
+  });
+}
+
+export function curating(key) {
+  notification.info({
+    key,
+    message: 'We are processing your request',
+    duration: null,
+  });
+}
+
+export function curationSuccess() {
+  notification.close(CURATING_NOTIFICATION_KEY);
+  notification.success({
+    message: 'Curation Successful!',
+    duration: null,
+    description: 'Your claim will be reviewed by our staff for approval.',
+  });
+}
+
+export function curationError(key) {
+  notification.close(key);
+  notification.error({
+    className: 'super-zindex',
+    message: 'Error!',
+    description: 'Something went wrong.',
   });
 }
 

@@ -60,4 +60,12 @@ describe('ReferenceItem', () => {
     const wrapper = shallow(<ReferenceItem reference={reference} />);
     expect(wrapper).toMatchSnapshot();
   });
+
+  it('renders without edit button if disableEdit', () => {
+    const reference = fromJS({
+      titles: [{ title: 'Title' }],
+    });
+    const wrapper = shallow(<ReferenceItem reference={reference} disableEdit/>);
+    expect(wrapper).toMatchSnapshot();
+  });
 });

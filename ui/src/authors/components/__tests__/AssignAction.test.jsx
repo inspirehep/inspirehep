@@ -67,7 +67,8 @@ describe('AssignAction', () => {
     const dropdown = container.getElementsByClassName(
       'ant-dropdown-trigger'
     )[0];
-    fireEvent.mouseOver(dropdown);
+
+    await waitFor(() => fireEvent.mouseOver(dropdown));
 
     await waitFor(() => screen.getByTestId('assign-self').click());
 

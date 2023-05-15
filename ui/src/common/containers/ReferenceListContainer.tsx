@@ -1,7 +1,10 @@
 import { connect, RootStateOrAny } from 'react-redux';
 import { Action, ActionCreator } from 'redux';
 
-import { fetchLiteratureReferences } from '../../actions/literature';
+import {
+  fetchLiteratureReferences,
+  setCurateDrawerVisibility,
+} from '../../actions/literature';
 import ReferenceList from '../../literature/components/ReferenceList';
 import { LITERATURE_REFERENCES_NS } from '../../search/constants';
 import { convertSomeImmutablePropsToJS } from '../immutableToJS';
@@ -28,9 +31,13 @@ const stateToProps = (state: RootStateOrAny) => ({
     LITERATURE_REFERENCES_NS,
     'baseQuery',
   ]),
+  loggedIn: state.user.get('loggedIn'),
 });
 
-const dispatchToProps = (dispatch: ActionCreator<Action>, ownProps: { recordId: number }) => ({
+const dispatchToProps = (
+  dispatch: ActionCreator<Action>,
+  ownProps: { recordId: number }
+) => ({
   onPageChange(page: number, size: number) {
     const { recordId } = ownProps;
     dispatch(fetchLiteratureReferences(recordId, { size, page: String(page) }));
@@ -39,6 +46,10 @@ const dispatchToProps = (dispatch: ActionCreator<Action>, ownProps: { recordId: 
   onSizeChange(page: number, size: number) {
     const { recordId } = ownProps;
     dispatch(fetchLiteratureReferences(recordId, { size, page: '1' }));
+  },
+
+  onEditReferenceClick(referenceId: number) {
+    dispatch(setCurateDrawerVisibility(referenceId));
   },
 });
 

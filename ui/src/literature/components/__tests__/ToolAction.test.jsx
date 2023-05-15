@@ -69,7 +69,7 @@ describe('ToolAction', () => {
     const dropdown = container.getElementsByClassName(
       'ant-dropdown-trigger'
     )[0];
-    fireEvent.mouseOver(dropdown);
+    await waitFor(() => fireEvent.mouseOver(dropdown));
 
     await waitFor(() => screen.getByTestId('export-to-CDS').click());
 

@@ -5,6 +5,7 @@ exports[`LinkLikeButton renders with dataTestId 1`] = `
   className="__LinkLikeButton__ blue"
   data-test-id="example-button"
   data-testid="example-button"
+  disabled={false}
   onClick={[MockFunction]}
   type="text"
 >
@@ -15,6 +16,7 @@ exports[`LinkLikeButton renders with dataTestId 1`] = `
 exports[`LinkLikeButton renders with required props 1`] = `
 <Button
   className="__LinkLikeButton__ blue"
+  disabled={false}
   onClick={[MockFunction]}
   type="text"
 >

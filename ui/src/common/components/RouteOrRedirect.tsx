@@ -17,7 +17,7 @@ function RouteOrRedirect({
     <Route
       {...rest}
       render={props =>
-        condition ? <Component {...props} /> : <Redirect to={redirectTo} />
+        condition ? <Component {...props} /> : <Redirect to={redirectTo || '/'} />
       }
     />
   );
