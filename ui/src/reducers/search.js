@@ -19,9 +19,22 @@ import namespacesState from '../search/state';
 import {
   LITERATURE_NS,
   SEARCHABLE_COLLECTION_PATHNAMES,
+  AUTHOR_PUBLICATIONS_NS,
+  CONFERENCE_CONTRIBUTIONS_NS,
+  INSTITUTION_PAPERS_NS,
+  EXPERIMENT_PAPERS_NS,
+  JOURNAL_PAPERS_NS,
 } from '../search/constants';
 import searchConfig from '../search/config';
 import { LITERATURE } from '../common/routes';
+
+const embeddedSearchNamespaces = [
+  AUTHOR_PUBLICATIONS_NS,
+  CONFERENCE_CONTRIBUTIONS_NS,
+  INSTITUTION_PAPERS_NS,
+  JOURNAL_PAPERS_NS,
+  EXPERIMENT_PAPERS_NS,
+];
 
 export const initialState = fromJS({
   searchBoxNamespace: LITERATURE_NS,
@@ -32,7 +45,7 @@ export const initialState = fromJS({
 function getNamespaceForLocationChangeAction(action) {
   const { location } = action.payload;
   const rootPathname =
-    SEARCHABLE_COLLECTION_PATHNAMES.find(pathname =>
+    SEARCHABLE_COLLECTION_PATHNAMES.find((pathname) =>
       location.pathname.startsWith(pathname)
     ) || LITERATURE;
   return rootPathname.substring(1); // root pathname to search namespace
@@ -49,8 +62,7 @@ const searchReducer = (state = initialState, action) => {
     query,
     baseQuery,
     baseAggregationsQuery,
-  } =
-    payload || {};
+  } = payload || {};
   switch (action.type) {
     case LOCATION_CHANGE: // TODO: move it to a middleware?
       return state.set(
@@ -72,7 +84,10 @@ const searchReducer = (state = initialState, action) => {
       return state
         .setIn(
           ['namespaces', namespace, 'initialAggregations'],
-          initialState.getIn(['namespaces', namespace, 'initialAggregations'])
+          (embeddedSearchNamespaces.includes(namespace)
+            ? state
+            : initialState
+          ).getIn(['namespaces', namespace, 'initialAggregations'])
         )
         .setIn(
           ['namespaces', namespace, 'initialTotal'],

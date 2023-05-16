@@ -61,6 +61,16 @@ const searchConfig = {
     onQueryChange: onEmbeddedLiteratureQueryChange,
     redirectableError: false,
   },
+  [AUTHOR_CITATIONS_NS]: {
+    persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
+    onQueryChange: onEmbeddedSearchWithAggregationsQueryChange,
+    redirectableError: false,
+  },
+  [AUTHOR_SEMINARS_NS]: {
+    persistedQueryParamsDuringNewSearch: persistedQueryParamsDuringNewSearchForEvents,
+    onQueryChange: onEmbeddedSearchWithAggregationsQueryChange,
+    redirectableError: false,
+  },
   [CONFERENCE_CONTRIBUTIONS_NS]: {
     persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
     onQueryChange: onEmbeddedLiteratureQueryChange,
@@ -101,11 +111,6 @@ const searchConfig = {
     onQueryChange: onCollectionQueryChange,
     redirectableError: true,
   },
-  [AUTHOR_CITATIONS_NS]: {
-    persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
-    onQueryChange: onEmbeddedSearchWithAggregationsQueryChange,
-    redirectableError: false,
-  },
   [JOURNALS_NS]: {
     persistedQueryParamsDuringNewSearch: defaultPersistedQueryParamsDuringNewSearch,
     onQueryChange: onAggregationlessCollectionQueryChange,
@@ -124,11 +129,6 @@ const searchConfig = {
   [EXPERIMENT_PAPERS_NS]: {
     persistedQueryParamsDuringNewSearch: persistedQueryParamsDuringNewSearchForEvents,
     onQueryChange: onEmbeddedLiteratureQueryChange,
-    redirectableError: false,
-  },
-  [AUTHOR_SEMINARS_NS]: {
-    persistedQueryParamsDuringNewSearch: persistedQueryParamsDuringNewSearchForEvents,
-    onQueryChange: onEmbeddedSearchWithAggregationsQueryChange,
     redirectableError: false,
   },
   [LITERATURE_SEMINARS_NS]: {
