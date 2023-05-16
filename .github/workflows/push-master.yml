@@ -29,14 +29,14 @@ jobs:
             inspirehep/editor@${{ needs.test.outputs.editor-image-id }}
           token: ${{ secrets.PAT_FIRE_EVENTS_ON_CERN_SIS_KUBERNETES }}
 
-  deploy-jupyter:
-    needs:
-    - test
-    - deploy
-    uses: ./.github/workflows/release-jupyter.yml
-    with:
-      sha: ${{ github.sha }}
-      ref: ${{ github.ref }}
-    secrets:
-      harbor_username:  ${{ secrets.HARBOR_USERNAME }}
-      harbor_password: ${{ secrets.HARBOR_PASSWORD }}
+#   deploy-jupyter:
+#     needs:
+#     - test
+#     - deploy
+#     uses: ./.github/workflows/release-jupyter.yml
+#     with:
+#       sha: ${{ github.sha }}
+#       ref: ${{ github.ref }}
+#     secrets:
+#       harbor_username:  ${{ secrets.HARBOR_USERNAME }}
+#       harbor_password: ${{ secrets.HARBOR_PASSWORD }}
