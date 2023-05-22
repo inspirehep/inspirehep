@@ -85,7 +85,7 @@ describe('search reducer', () => {
             namespace,
             'initialTotal',
           ]),
-          initialAggregations: state.getIn([
+          initialAggregations: initialState.getIn([
             'namespaces',
             namespace,
             'initialAggregations',
