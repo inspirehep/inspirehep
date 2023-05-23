@@ -401,15 +401,15 @@ const mapStateToProps = (state: RootStateOrAny) => ({
 const DetailPageContainer = connect(mapStateToProps)(DetailPage);
 
 export default withRouteActionsDispatcher(DetailPageContainer, {
-  routeParamSelector: (args) => args,
-  routeActions: (args) => [
-    fetchLiterature(args.id),
-    fetchLiteratureReferences(args.id),
-    fetchLiteratureAuthors(args.id),
-    fetchCitationsByYear({ q: `recid:${args.id}` }),
+  routeParamSelector: ({ id }) => id,
+  routeActions: (id) => [
+    fetchLiterature(id),
+    fetchLiteratureReferences(id),
+    fetchLiteratureAuthors(id),
+    fetchCitationsByYear({ q: `recid:${id}` }),
     newSearch(LITERATURE_SEMINARS_NS),
     searchBaseQueriesUpdate(LITERATURE_SEMINARS_NS, {
-      baseQuery: { q: `literature_records.record.$ref:${args.id}` },
+      baseQuery: { q: `literature_records.record.$ref:${id}` },
     }),
   ],
   loadingStateSelector: (state) =>

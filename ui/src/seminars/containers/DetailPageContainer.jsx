@@ -234,7 +234,7 @@ const mapStateToProps = (state) => ({
 const DetailPageContainer = connect(mapStateToProps)(DetailPage);
 
 export default withRouteActionsDispatcher(DetailPageContainer, {
-  routeParamSelector: (args) => args,
-  routeActions: (args) => [fetchSeminar(args.id)],
+  routeParamSelector: ({ id }) => id,
+  routeActions: (id) => [fetchSeminar(id)],
   loadingStateSelector: (state) => !state.seminars.hasIn(['data', 'metadata']),
 });
