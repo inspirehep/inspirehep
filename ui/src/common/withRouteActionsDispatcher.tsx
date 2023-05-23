@@ -9,14 +9,14 @@ import { HttpClientWrapper } from './http';
 
 // used to dispatch actions when route has changed
 export default function withRouteActionsDispatcher(
-  Component: ConnectedComponent<any, any>,
+  DetailPage: ConnectedComponent<any, any>,
   {
     routeParamSelector,
     routeActions,
     loadingStateSelector,
   }: {
-    routeParamSelector: (arg: { id: number, old?: number, new?: number }) => { id: number, old?: number, new?: number };
-    routeActions: (args: { id: number, old?: number, new?: number }) => (
+    routeParamSelector: ({ id }: { id: number }) => number;
+    routeActions: (id: number) => (
       | ((
           dispatch: Dispatch<AnyAction>,
           getState: () => RootStateOrAny,
@@ -44,7 +44,7 @@ export default function withRouteActionsDispatcher(
 
     return (
       <LoadingOrChildren loading={loading}>
-        <Component {...props} />
+        <DetailPage {...props} />
       </LoadingOrChildren>
     );
   };
@@ -58,7 +58,7 @@ export default function withRouteActionsDispatcher(
 
   ConnectedWrapperWithRouter.displayName = getWrapperComponentDisplayName(
     'withRouteActionsDispatcher',
-    Component
+    DetailPage
   );
   return ConnectedWrapperWithRouter;
 }

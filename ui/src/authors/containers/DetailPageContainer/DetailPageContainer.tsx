@@ -314,14 +314,14 @@ const DetailPageContainer = connect(
 )(DetailPage);
 
 export default withRouteActionsDispatcher(DetailPageContainer, {
-  routeParamSelector: (args) => args,
-  routeActions: (args) => [
-    fetchAuthor(args.id),
+  routeParamSelector: ({ id }) => id,
+  routeActions: (id) => [
+    fetchAuthor(id),
     newSearch(AUTHOR_PUBLICATIONS_NS),
     newSearch(AUTHOR_CITATIONS_NS),
     newSearch(AUTHOR_SEMINARS_NS),
     searchBaseQueriesUpdate(AUTHOR_SEMINARS_NS, {
-      baseQuery: { q: `speakers.record.$ref:${args.id}` },
+      baseQuery: { q: `speakers.record.$ref:${id}` },
     }),
   ],
   loadingStateSelector: (state: RootStateOrAny) =>
