@@ -496,6 +496,7 @@ class InspireSnow(SnowTicketAPI):
                 self._update_ticket_with_inspire_recid(
                     ticket_id, str(recid), assignee=assignee_id
                 )
+            self.comment_ticket(ticket_id, description)
             return ticket_id
         except requests.exceptions.RequestException:
             raise CreateTicketException()
@@ -563,16 +564,16 @@ class InspireSnow(SnowTicketAPI):
             if ticket["u_current_task_state"] != self.ticket_status_mapping["resolved"]:
                 raise EditTicketException()
 
-    def reply_ticket(self, ticket_id, reply_message):
+    def comment_ticket(self, ticket_id, message):
         """Reply SNOW ticket with a custom message.
 
         Args:
             ticket_id (str): existing ticket id.
-            reply_message (str): message that will be used to reply to SNOW ticket.
+            message (str): message that will be used to reply to SNOW ticket.
         """
-        self.edit_ticket(ticket_id, payload={"comments": reply_message})
+        self.edit_ticket(ticket_id, payload={"comments": message})
 
-    def reply_ticket_with_template(self, ticket_id, template_path, template_context):
+    def comment_ticket_with_template(self, ticket_id, template_path, template_context):
         """Reply SNOW ticket with custom Jinja template
 
         Args:
@@ -581,7 +582,7 @@ class InspireSnow(SnowTicketAPI):
             template_context (str): context used in jinja template.
         """
         message = render_template(template_path, **template_context).strip()
-        self.reply_ticket(ticket_id, message)
+        self.comment_ticket(ticket_id, message)
 
     def get_functional_categories(self):
         """Get functional categories for functional element Inspire"""
@@ -618,7 +619,7 @@ class InspireSnow(SnowTicketAPI):
 
         Examples:
             >>> print(self.get_formatted_user_list())
-            [{"name": "Test User", "id": "23", "emai": "test@test.com}]
+            [{"name": "Test User", "id": "23", "email": "test@test.com}]
         """
         users = self.get_users_from_cache()
         # TODO: When we'll stop using rt we can return list(users.values())
