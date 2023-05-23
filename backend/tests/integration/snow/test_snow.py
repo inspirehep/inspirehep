@@ -92,7 +92,7 @@ def test_get_ticket_by_recid(mocked_inspire_snow, inspire_app, teardown_cache):
         "subject",
         "description",
     ]
-    control_number = 33322211
+    control_number = 3332212
     ticket_id = InspireSnow().create_inspire_ticket(
         subject="This is a test description by Jessica Jones.",
         description="This is a test subject by Jessica Jones.",
@@ -223,7 +223,7 @@ def test_create_ticket_raises_create_ticket_exception(
     before_record_request=filter_out_authentication,
     before_record_response=filter_out_user_data_and_cookie_headers(),
 )
-def test_reply_ticket(mocked_inspire_snow, inspire_app, teardown_cache):
+def test_comment_ticket(mocked_inspire_snow, inspire_app, teardown_cache):
     snow_instance = InspireSnow()
     ticket_id = snow_instance.create_inspire_ticket(
         subject="This is a test description by Jessica Jones.",
@@ -232,7 +232,7 @@ def test_reply_ticket(mocked_inspire_snow, inspire_app, teardown_cache):
     )
 
     assert ticket_id
-    snow_instance.reply_ticket(ticket_id, reply_message="This is a test reply")
+    snow_instance.comment_ticket(ticket_id, message="This is a test reply")
     ticket = snow_instance.get_ticket(ticket_id, params="sysparm_display_value=true")
     assert "This is a test reply" in ticket["comments"]
 
@@ -242,7 +242,7 @@ def test_reply_ticket(mocked_inspire_snow, inspire_app, teardown_cache):
     before_record_request=filter_out_authentication,
     before_record_response=filter_out_user_data_and_cookie_headers(),
 )
-def test_reply_ticket_with_template(mocked_inspire_snow, inspire_app, teardown_cache):
+def test_comment_ticket_with_template(mocked_inspire_snow, inspire_app, teardown_cache):
     snow_instance = InspireSnow()
     ticket_id = snow_instance.create_inspire_ticket(
         subject="This is a test description by Jessica Jones.",
@@ -257,7 +257,7 @@ def test_reply_ticket_with_template(mocked_inspire_snow, inspire_app, teardown_c
         record_url="https://inspirebeta.net/api/authors/2621784",
     )
     template_path = "rt/user_accepted.html"
-    snow_instance.reply_ticket_with_template(
+    snow_instance.comment_ticket_with_template(
         ticket_id, template_path=template_path, template_context=template_context
     )
 

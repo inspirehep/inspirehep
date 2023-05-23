@@ -36,7 +36,6 @@ interactions:
         Information system 2nd Line Support","user.sys_id":"1239e3824f7466004b4abc511310c70a","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system 2nd Line Support","user.sys_id":"477cfbdf870b1d102d1442650cbb357b","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system 2nd Line Support","user.sys_id":"da1c269e1bead910de8f42e6bb4bcbcd","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
-        Information system 2nd Line Support","user.sys_id":"68b4d2368768211084e9ac1a0cbb3561","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system 2nd Line Support","user.sys_id":"ed3a8f720a0a8c0a01fc90ad8487cc1b","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system Aggregated Group","user.sys_id":"5cdb7c8f49d770006d21ba2605c60735","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system Aggregated Group","user.sys_id":"8a2d3dfadbeec810b80594dadb961904","user.email":"marcjanna.jedrych@cern.ch","user.name":"XXX"},{"group.name":"Inspire
@@ -53,7 +52,6 @@ interactions:
         Information system Aggregated Group","user.sys_id":"ea4dfe1e0a0a8c0a016bddc2f2e5befc","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system Aggregated Group","user.sys_id":"f06113500a0a8c08006fdd448147d73b","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system Aggregated Group","user.sys_id":"dca8fbfc877ad5102d1442650cbb355c","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
-        Information system Aggregated Group","user.sys_id":"68b4d2368768211084e9ac1a0cbb3561","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system Aggregated Group","user.sys_id":"25ea715e94b074406d2120312bb3b648","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system Aggregated Group","user.sys_id":"083ecf274f469a0087a2f5601310c73b","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system Aggregated Group","user.sys_id":"ce1dd215873b951069c063990cbb35a7","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
@@ -70,7 +68,7 @@ interactions:
       Content-Type:
       - application/json;charset=UTF-8
       Date:
-      - Tue, 07 Feb 2023 08:36:20 GMT
+      - Tue, 23 May 2023 13:46:37 GMT
       Expires:
       - '0'
       Pragma:
@@ -86,11 +84,11 @@ interactions:
       X-Is-Logged-In:
       - 'true'
       X-Total-Count:
-      - '46'
+      - '44'
       X-Transaction-ID:
-      - 6649c8321bb8
+      - 933fb9a01b03
       content-length:
-      - '8098'
+      - '7814'
     status:
       code: 200
       message: OK

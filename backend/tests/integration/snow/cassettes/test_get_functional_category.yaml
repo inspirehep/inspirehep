@@ -16,11 +16,17 @@ interactions:
     uri: https://cerntraining.service-now.com/api/now/table/u_functional_element_category?sysparm_fields=u_category_id%2Csys_name%2Csys_id&sysparm_query=u_functional_element%3Dea56eb930a0a8c0a0004af7b268a0987
   response:
     body:
-      string: '{"result":[{"sys_id":"13d64fba1b6dd9107a83dc6a9b4bcb9d","u_category_id":"Information
-        in author profile","sys_name":"Information in author profile"},{"sys_id":"48d6cbba1b6dd9107a83dc6a9b4bcb53","u_category_id":"Outdated
-        information","sys_name":"Outdated information"},{"sys_id":"a4c687ba1b6dd9107a83dc6a9b4bcbed","u_category_id":"Other
-        information","sys_name":"Other information"},{"sys_id":"c8b607ba1b6dd9107a83dc6a9b4bcb06","u_category_id":"References
-        and citations","sys_name":"References and citations"}]}'
+      string: '{"result":[{"sys_id":"13d64fba1b6dd9107a83dc6a9b4bcb9d","u_category_id":"Authors","sys_name":"Authors"},{"sys_id":"48d6cbba1b6dd9107a83dc6a9b4bcb53","u_category_id":"Outdated
+        literature","sys_name":"Outdated literature"},{"sys_id":"614aa03e87b82510eb3b33390cbb35aa","u_category_id":"Feature
+        request","sys_name":"Feature request"},{"sys_id":"6f576f151b822150e823a71eab4bcbd7","u_category_id":"Author
+        submissions","sys_name":"Author submissions"},{"sys_id":"748aa7591b822150e823a71eab4bcbe3","u_category_id":"Author
+        curation","sys_name":"Author curation"},{"sys_id":"79f7eb551b822150e823a71eab4bcb9c","u_category_id":"Literature
+        submissions","sys_name":"Literature submissions"},{"sys_id":"91faa3991b822150e823a71eab4bcbf6","u_category_id":"Publisher
+        curation","sys_name":"Publisher curation"},{"sys_id":"992a2f191b822150e823a71eab4bcb55","u_category_id":"Author
+        updates","sys_name":"Author updates"},{"sys_id":"a4c687ba1b6dd9107a83dc6a9b4bcbed","u_category_id":"Literature","sys_name":"Literature"},{"sys_id":"a9a7ef151b822150e823a71eab4bcbfb","u_category_id":"HAL
+        curation","sys_name":"HAL curation"},{"sys_id":"b95a643e87b82510eb3b33390cbb354b","u_category_id":"General
+        request","sys_name":"General request"},{"sys_id":"c8b607ba1b6dd9107a83dc6a9b4bcb06","u_category_id":"References","sys_name":"References"},{"sys_id":"e0c7e3551b822150e823a71eab4bcbbc","u_category_id":"arXiv
+        curation","sys_name":"arXiv curation"}]}'
     headers:
       Cache-Control:
       - no-cache,no-store,must-revalidate,max-age=-1
@@ -29,7 +35,7 @@ interactions:
       Content-Type:
       - application/json;charset=UTF-8
       Date:
-      - Tue, 07 Feb 2023 08:36:26 GMT
+      - Tue, 23 May 2023 13:46:07 GMT
       Expires:
       - '0'
       Pragma:
@@ -45,11 +51,11 @@ interactions:
       X-Is-Logged-In:
       - 'true'
       X-Total-Count:
-      - '4'
+      - '13'
       X-Transaction-ID:
-      - 3b4984721bb8
+      - c82f79641b03
       content-length:
-      - '508'
+      - '1417'
     status:
       code: 200
       message: OK
