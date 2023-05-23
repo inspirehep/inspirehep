@@ -84,7 +84,7 @@ function DetailPage({
   const date = metadata.get('date');
   const controlNumber = metadata.get('control_number') as number;
   const revisionId = record.get('revision_id') as number;
-  const uuid = record.get('uuid') as number;
+  const uuid = record.get('uuid');
   const thesisInfo = metadata.get('thesis_info');
   const isbns = metadata.get('isbns');
   const imprint = metadata.get('imprints');
@@ -176,8 +176,9 @@ function DetailPage({
         />
       )}
       <CurateReferenceDrawerContainer
+        recordId={controlNumber}
         namespace={CURATE_REFERENCE_NS}
-        recordId={uuid}
+        recordUuid={uuid}
         revisionId={revisionId}
       />
       <LiteratureDocumentHead

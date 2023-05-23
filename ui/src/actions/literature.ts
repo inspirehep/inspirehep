@@ -42,7 +42,7 @@ import {
   assignLiteratureItemError,
   ASSIGNING_NOTIFICATION_KEY,
   ASSIGNING_NOTIFICATION_LITERATURE_ITEM_KEY,
-  CURATING_NOTIFICATION_KEY
+  CURATING_NOTIFICATION_KEY,
 } from '../literature/assignNotification';
 import { LITERATURE_REFERENCES_NS } from '../search/constants';
 import { searchQueryUpdate } from './search';
@@ -303,16 +303,18 @@ export function setCurateDrawerVisibility(referenceId: number | null) {
 
 export function curateReference({
   recordId,
+  recordUuid,
   revisionId,
   referenceId,
   newReferenceId,
 }: {
   recordId: number;
+  recordUuid: string;
   revisionId: number;
   referenceId: number;
   newReferenceId: number;
 }): (
-  dispatch: ActionCreator<Action>,
+  dispatch: any,
   getState: () => RootStateOrAny,
   http: HttpClientWrapper
 ) => Promise<void> {
@@ -320,12 +322,15 @@ export function curateReference({
     try {
       curating(CURATING_NOTIFICATION_KEY);
       await http.post('/literature/reference-self-curation', {
-        record_id: recordId.toString(),
+        record_id: recordUuid,
         revision_id: revisionId,
         reference_index: referenceId,
         new_reference_recid: newReferenceId,
       });
-      curationSuccess();
+      // fetch record data to refresh revision_id
+      dispatch(fetchLiterature(recordId)).then(() => {
+        curationSuccess();
+      });
     } catch (error) {
       curationError(CURATING_NOTIFICATION_KEY);
     }

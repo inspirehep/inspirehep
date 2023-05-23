@@ -17,21 +17,23 @@ const stateToProps = (state: RootStateOrAny, { namespace }: { namespace: string 
 
 const dispatchToProps = (dispatch: ActionCreator<Action>) => ({
   onDrawerClose() {
-    dispatch(setCurateDrawerVisibility(null));
+    dispatch(setCurateDrawerVisibility(null))
   },
 
   onCurate({
     recordId,
+    recordUuid,
     revisionId,
     referenceId,
     newReferenceId,
   }: {
     recordId: number;
+    recordUuid: string;
     revisionId: number;
     referenceId: number;
     newReferenceId: number;
   }) {
-    dispatch(curateReference({recordId, revisionId, referenceId, newReferenceId}));
+    dispatch(curateReference({recordId, recordUuid, revisionId, referenceId, newReferenceId}));
   },
 });
 

@@ -12,6 +12,7 @@ import { getStore } from '../../../../fixtures/store';
 describe('CurateReferenceDrawer', () => {
   const defaultProps = {
     recordId: 1,
+    recordUuid: '1',
     revisionId: 2,
     referenceId: 3,
     onDrawerClose: jest.fn(),

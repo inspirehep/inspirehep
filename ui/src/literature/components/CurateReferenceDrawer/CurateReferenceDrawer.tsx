@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { SelectOutlined } from '@ant-design/icons';
 import { Drawer, Radio, Row, Col, Card, Button } from 'antd';
@@ -66,11 +66,13 @@ export function renderReferenceItem(result: Map<string, any>) {
 
 interface CurateReferenceDrawerProps {
   recordId: number;
+  recordUuid: string;
   revisionId: number;
   referenceId: number;
   onDrawerClose: () => void;
   onCurate: (args: {
     recordId: number;
+    recordUuid: string;
     revisionId: number;
     referenceId: number;
     newReferenceId: number;
@@ -81,6 +83,7 @@ interface CurateReferenceDrawerProps {
 
 function CurateReferenceDrawer({
   recordId,
+  recordUuid,
   revisionId,
   referenceId,
   onDrawerClose,
@@ -97,12 +100,14 @@ function CurateReferenceDrawer({
   const onSelectClick = useCallback(() => {
     onCurate({
       recordId,
+      recordUuid,
       revisionId,
       referenceId,
       newReferenceId: selectedRecordId!,
     });
     onDrawerClose();
-  }, [recordId, revisionId, referenceId, selectedRecordId, onCurate, onDrawerClose]);
+    setSelectedRecordId(null);
+  }, [recordId, recordUuid, revisionId, referenceId, selectedRecordId, onCurate, onDrawerClose]);
 
   return (
     <Drawer
@@ -112,6 +117,7 @@ function CurateReferenceDrawer({
         onDrawerClose();
         setSelectedRecordId(null);
       }}
+      destroyOnClose
       open={visible}
       title="Find the correct reference:"
     >
