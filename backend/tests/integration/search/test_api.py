@@ -1649,3 +1649,22 @@ def test_query_string_wit_default_field(inspire_app):
     create_record("ins", data=data)
     result = InstitutionsSearch().query_from_iq("infn italy").execute()
     assert result.hits[0]["control_number"] == 906350
+
+
+def test_institution_search_in_all_field(inspire_app):
+    record = create_record(
+        "ins",
+        data={
+            "ICN": ["CERN"],
+            "extra_words": ["cern is awesome"],
+            "historical_data": ["cern is best place to work"],
+            "public_notes": [{"value": "drilling in the office is great"}],
+            "urls": [{"description": "website", "value": "https://cern.ch"}],
+            "addresses": [{"place_name": "meyrin", "postal_address": ["0000"]}],
+        },
+    )
+
+    queries = ["awesome", "best place", "drilling", "cern.ch", "meyrin", "0000"]
+    for query in queries:
+        result = InstitutionsSearch().query_from_iq(query).execute()
+        assert result.hits[0]["control_number"] == record["control_number"]

@@ -51,10 +51,12 @@
             "type": "double"
           },
           "place_name": {
-            "type": "text"
+            "type": "text",
+            "copy_to": "_all"
           },
           "postal_address": {
-            "type": "text"
+            "type": "text",
+            "copy_to": "_all"
           },
           "postal_code": {
             "type": "text"
@@ -108,10 +110,12 @@
         "type": "object"
       },
       "extra_words": {
-        "type": "text"
+        "type": "text",
+        "copy_to": "_all"
       },
       "historical_data": {
-        "type": "text"
+        "type": "text",
+        "copy_to": "_all"
       },
       "inactive": {
         "type": "boolean"
@@ -131,10 +135,12 @@
       "institution_hierarchy": {
         "properties": {
           "acronym": {
-            "type": "text"
+            "type": "text",
+            "copy_to": "_all"
           },
           "name": {
-            "type": "text"
+            "type": "text",
+            "copy_to": "_all"
           }
         },
         "type": "object"
@@ -182,7 +188,8 @@
             "type": "keyword"
           },
           "value": {
-            "type": "text"
+            "type": "text",
+            "copy_to": "_all"
           }
         },
         "type": "object"
@@ -228,10 +235,12 @@
       "urls": {
         "properties": {
           "description": {
-            "type": "text"
+            "type": "text",
+            "copy_to": "_all"
           },
           "value": {
-            "type": "text"
+            "type": "text",
+            "copy_to": "_all"
           }
         },
         "type": "object"
