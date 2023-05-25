@@ -47,8 +47,8 @@ describe('ToolAction', () => {
     const dropdown = container.getElementsByClassName(
       'ant-dropdown-trigger'
     )[0];
-    fireEvent.mouseOver(dropdown);
 
+    await waitFor(() => fireEvent.mouseOver(dropdown));
     await waitFor(() => screen.getByTestId('assign-conference').click());
 
     await waitFor(() => expect(onAssignToConference).toHaveBeenCalled());
@@ -69,8 +69,8 @@ describe('ToolAction', () => {
     const dropdown = container.getElementsByClassName(
       'ant-dropdown-trigger'
     )[0];
+    
     await waitFor(() => fireEvent.mouseOver(dropdown));
-
     await waitFor(() => screen.getByTestId('export-to-CDS').click());
 
     await waitFor(() => expect(screen.getByTestId('export-modal')).toBeInTheDocument);
