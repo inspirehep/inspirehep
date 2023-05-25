@@ -69,7 +69,6 @@ describe('AssignAction', () => {
     )[0];
 
     await waitFor(() => fireEvent.mouseOver(dropdown));
-
     await waitFor(() => screen.getByTestId('assign-self').click());
 
     await waitFor(() => expect(onAssign).toHaveBeenCalledWith({ from: 123, to: 123 }));
@@ -89,8 +88,8 @@ describe('AssignAction', () => {
     const dropdown = container.getElementsByClassName(
       'ant-dropdown-trigger'
     )[0];
-    fireEvent.mouseOver(dropdown);
-    
+
+    await waitFor(() => fireEvent.mouseOver(dropdown));
     await waitFor(() => screen.getByTestId('unassign').click());
 
     await waitFor(() => expect(onUnassign).toHaveBeenCalledWith({ from: 123 }));
@@ -110,8 +109,8 @@ describe('AssignAction', () => {
     const dropdown = container.getElementsByClassName(
       'ant-dropdown-trigger'
     )[0];
-    fireEvent.mouseOver(dropdown);
 
+    await waitFor(() => fireEvent.mouseOver(dropdown));
     await waitFor(() => screen.getByTestId('assign-another').click());
 
     await waitFor(() => expect(onAssign).toHaveBeenCalledTimes(0));

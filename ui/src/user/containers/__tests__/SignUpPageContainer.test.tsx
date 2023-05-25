@@ -24,9 +24,9 @@ describe('SignUpPageContainer', () => {
     );
 
     const emailInput = getByTestId('email');
-    fireEvent.change(emailInput, { target: { value: 'test@user.com' } });
+    await waitFor(() => fireEvent.change(emailInput, { target: { value: 'test@user.com' } }));
     const submitButton = getByTestId('submit');
-    await userEvent.click(submitButton);
+    await waitFor(() => userEvent.click(submitButton));
 
     const expectedActions = [
       {
