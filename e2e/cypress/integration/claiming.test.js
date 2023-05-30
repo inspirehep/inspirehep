@@ -518,7 +518,7 @@ describe('Literature collection', () => {
       );
       cy.get('.ant-notification-notice-description').should(
         'have.text',
-        'This paper cannot be claimed automatically. Please contact us at  authors@inspirehep.net'
+        'This paper cannot be claimed automatically. Please contact us at authors@inspirehep.net'
       );
     });
   });
