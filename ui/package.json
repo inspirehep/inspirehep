@@ -2,17 +2,20 @@
   "name": "inspire-next-react",
   "license": "GPL-2.0",
   "version": "0.1.19",
-  "bundlesize": [
-    {
-      "path": "./build/**/*.js",
-      "maxSize": "900 kB"
-    }
-  ],
+  "bundlemon": {
+    "baseDir": "./build",
+    "files": [
+      {
+        "path": "**/*.js",
+        "maxSize": "900kb"
+      }
+    ]
+  },
   "scripts": {
     "start": "craco start",
     "build": "craco build",
     "test:unit": "craco test --resetMocks=false",
-    "test:size": "yarn build && bundlesize",
+    "test:size": "yarn build && bundlemon",
     "test": "yarn lint && yarn test:unit --watchAll=false --resetMocks=false && yarn test:size",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "eject": "react-scripts eject",
@@ -44,7 +47,6 @@
     "antd": "4.24.8",
     "axios": "^0.18.0",
     "axios-hooks": "^1.9.0",
-    "bundlesize": "^0.18.1",
     "classnames": "^2.2.6",
     "connected-react-router": "^6.4.0",
     "craco-antd": "1.18.0",
@@ -108,6 +110,7 @@
     "@types/yup": "^0.29.14",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.8.0",
     "axios-mock-adapter": "^1.15.0",
+    "bundlemon": "^2.0.0-rc.1",
     "enzyme": "^3.3.0",
     "enzyme-to-json": "^3.3.3",
     "eslint-config-airbnb": "^17.1.0",
