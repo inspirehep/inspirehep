@@ -16,6 +16,7 @@ from elasticsearch import (
 from invenio_rest.errors import RESTException
 from sqlalchemy.exc import (
     DisconnectionError,
+    IntegrityError,
     InvalidRequestError,
     OperationalError,
     ResourceClosedError,
@@ -34,6 +35,7 @@ DB_TASK_EXCEPTIONS_WITHOUT_STALE_DATA = [
     OperationalError,
     InvalidRequestError,
     StatementError,
+    IntegrityError,
 ]
 
 DB_TASK_EXCEPTIONS = DB_TASK_EXCEPTIONS_WITHOUT_STALE_DATA + [StaleDataError]
