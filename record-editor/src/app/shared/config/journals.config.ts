@@ -48,6 +48,10 @@ export const journals: JsonEditorConfig = {
       'short_title',
       'title_variants',
       'urls',
+      'refereed',
+      'proceedings',
+      'book_series',
+      'deleted',
     ],
     order: [
       'short_title',

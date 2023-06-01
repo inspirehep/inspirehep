@@ -32,40 +32,43 @@ export const institutions: JsonEditorConfig = {
   schemaOptions: {
     alwaysShowRegExp: new RegExp('value'),
     alwaysShow: [
-      'titles',
-      'acronyms',
-      'addresses',
-      'cnum',
-      'opening_date',
-      'closing_date',
-      'series',
-      'urls',
-      'contact_details',
-      'short_description',
-      'public_notes',
+      'ICN',
       '_private_notes',
-      'alternative_titles',
-      'inspire_categories',
-      'keywords',
+      'addresses',
+      'core',
       'deleted',
+      'deleted_records',
+      'external_system_identifiers',
+      'extra_words',
+      'historical_data',
+      'inactive',
+      'inspire_categories',
+      'institution_hierarchy',
+      'institution_type',
+      'legacy_ICN',
+      'name_variants',
+      'public_notes',
+      'related_records',
+      'urls',
     ],
     order: [
-      'titles',
-      'acronyms',
+      'legacy_ICN',
+      'ICN',
+      'institution_type',
+      'institution_hierarchy',
       'addresses',
-      'cnum',
-      'opening_date',
-      'closing_date',
-      'series',
-      'urls',
-      'contact_details',
-      'short_description',
-      'public_notes',
-      '_private_notes',
-      'alternative_titles',
+      'name_variants',
+      'extra_words',
+      'deleted_records',
+      'external_system_identifiers',
+      'historical_data',
       'inspire_categories',
-      'keywords',
+      '_private_notes',
+      'public_notes',
+      'urls',
+      'related_records',
       'core',
+      'inactive',
       'deleted',
     ],
     properties: {
@@ -75,27 +78,8 @@ export const institutions: JsonEditorConfig = {
       deleted: {
         toggleColor: '#e74c3c',
       },
-      titles: {
-        items: {
-          alwaysShow: ['title'],
-          order: ['title', 'subtitle', 'source'],
-        },
-      },
-      series: {
-        items: {
-          alwaysShow: ['name'],
-          order: ['name', 'number'],
-          properties: {
-            name: {
-              autocompletionConfig: {
-                url: `${environment.baseUrl}/api/conferences/_suggest?series_name=`,
-                path: '/series_name/0/options',
-                optionField: '/text',
-                size: 10,
-              },
-            },
-          },
-        },
+      inactive: {
+        toggleColor: '#f1c40f',
       },
       inspire_categories: {
         items: {
@@ -105,16 +89,17 @@ export const institutions: JsonEditorConfig = {
       },
       addresses: {
         items: {
-          order: ['cities', 'state', 'country_code', 'place_name'],
+          order: [
+            'postal_address',
+            'postal_code',
+            'cities',
+            'state',
+            'country_code',
+            'place_name',
+          ],
           properties: {
             country_code: {
               enumDisplayValueMap: countryCodeToName,
-            },
-            postal_code: {
-              hidden: true,
-            },
-            postal_address: {
-              hidden: true,
             },
             longitude: {
               hidden: true,
@@ -125,26 +110,31 @@ export const institutions: JsonEditorConfig = {
           },
         },
       },
+      external_system_identifiers: {
+        items: {
+          anyOf: [
+            {
+              order: ['value', 'schema'],
+              alwaysShow: ['schema'],
+            },
+          ],
+        },
+      },
+      institution_hierarchy: {
+        items: {
+          order: ['name', 'acronym'],
+          alwaysShow: ['name', 'acronym'],
+        },
+      },
+      name_variants: {
+        items: {
+          order: ['value'],
+        },
+      },
       urls: {
         items: {
           order: ['value', 'description'],
         },
-      },
-      contact_details: {
-        items: {
-          order: ['email', 'name', 'curated_relation', 'hidden'],
-          properties: {
-            record: {
-              refFieldConfig: {
-                anchorBuilder: anchorBuilder,
-                displayInputField: true,
-              },
-            },
-          },
-        },
-      },
-      short_description: {
-        order: ['value'],
       },
       public_notes: {
         items: {
@@ -154,17 +144,6 @@ export const institutions: JsonEditorConfig = {
       _private_notes: {
         items: {
           order: ['value'],
-        },
-      },
-      alternative_titles: {
-        items: {
-          alwaysShow: ['title'],
-          order: ['title', 'subtitle', 'source'],
-        },
-      },
-      keywords: {
-        items: {
-          order: ['value', 'schema'],
         },
       },
       deleted_records: {
@@ -194,22 +173,19 @@ export const institutions: JsonEditorConfig = {
           },
         },
       },
-      cnum: {
-        disabled: true,
-      },
       new_record: {
         disabled: true,
       },
       $schema: {
         hidden: true,
       },
+      _collections: {
+        hidden: true,
+      },
       self: {
         hidden: true,
       },
       control_number: {
-        hidden: true,
-      },
-      external_system_identifiers: {
         hidden: true,
       },
       legacy_creation_date: {
