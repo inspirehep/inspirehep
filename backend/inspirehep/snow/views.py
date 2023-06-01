@@ -62,6 +62,7 @@ def create_ticket_with_template(args):
             user_email=args.get("caller_email"),
             functional_category=args.get("functional_category"),
             subject=args.get("subject"),
+            recid=args.get("recid"),
         )
         return jsonify({"ticket_id": ticket}), 200
     except (CreateTicketException, EditTicketException) as e:

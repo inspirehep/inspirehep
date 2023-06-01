@@ -36,6 +36,7 @@ def test_create_ticket_with_template_view(
                     "template": "curator_submitted",
                     "functional_category": "Authors",
                     "subject": "test create ticket with template endpoint",
+                    "recid": "123",
                     "template_context": dict(
                         email="marcjanna.jedrych@cern.ch",
                         identifier="arxiv:1234",
@@ -48,6 +49,7 @@ def test_create_ticket_with_template_view(
         )
         assert response.status_code == 200
         assert "ticket_id" in response.json
+        assert InspireSnow().get_tickets_by_recid("123")
 
 
 @pytest.mark.vcr(
