@@ -12,7 +12,11 @@ import orjson
 import pytest
 from helpers.utils import create_record
 
-from inspirehep.curation.api import normalize_affiliations, normalize_collaborations
+from inspirehep.curation.api import (
+    assign_institution_reference_to_affiliations,
+    normalize_affiliations,
+    normalize_collaborations,
+)
 
 
 def create_records_from_datadir(datadir, record_type, path_in_datadir):
@@ -520,3 +524,11 @@ def test_normalize_affiliations_assign_all_affiliations_if_one_raw_aff_in_matche
             "value": "Monash U.",
         },
     ]
+
+
+def test_assign_institution_reference_to_affiliations(
+    inspire_app, insert_institutions_in_db
+):
+    affiliations = [{"value": "CERN"}, {"value": "Warsaw U."}]
+    assign_institution_reference_to_affiliations(affiliations, {})
+    assert ["record" in affiliation for affiliation in affiliations]

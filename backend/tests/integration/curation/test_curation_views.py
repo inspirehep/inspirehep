@@ -352,3 +352,48 @@ def test_normalize_affiliations_returns_403_for_non_authorized(inspire_app):
             data=orjson.dumps({"authors": [{"value": "CYRK"}], "workflow_id": 1}),
         )
     assert response.status_code == 403
+
+
+def test_assign_institutions_happy_flow(inspire_app):
+    create_record("ins", data={"legacy_ICN": "Warsaw U."})
+    user = create_user(role=Roles.cataloger.value)
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(
+            "/curation/literature/assign-institutions",
+            content_type="application/json",
+            data=orjson.dumps(
+                {
+                    "authors": [
+                        {
+                            "full_name": "Test, Auth.",
+                            "affiliations": [{"value": "Warsaw U."}],
+                        }
+                    ],
+                }
+            ),
+        )
+    assert response.status_code == 200
+    assert response.json["authors"][0]["affiliations"][0]["record"]
+
+
+def test_assign_institutions_returns_403_for_non_authorized(inspire_app):
+    create_record("ins", data={"legacy_ICN": "Warsaw U."})
+    user = create_user()
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(
+            "/curation/literature/assign-institutions",
+            content_type="application/json",
+            data=orjson.dumps(
+                {
+                    "authors": [
+                        {
+                            "full_name": "Test, Auth.",
+                            "affiliations": [{"value": "Warsaw U."}],
+                        }
+                    ],
+                }
+            ),
+        )
+    assert response.status_code == 403

@@ -10,6 +10,7 @@ from inspire_utils.dedupers import dedupe_list
 from inspire_utils.record import get_value
 
 from .utils import (
+    assign_institution,
     collaboration_multi_search_query,
     create_accelerator_experiment_from_collaboration_match,
     enhance_collaboration_data_with_collaboration_match,
@@ -105,3 +106,21 @@ def normalize_affiliations(authors, workflow_id=None, **kwargs):
         "normalized_affiliations": normalized_affiliations,
         "ambiguous_affiliations": ambiguous_affiliations,
     }
+
+
+def assign_institution_reference_to_affiliations(
+    author_affiliations, already_matched_affiliations_refs
+):
+    for affiliation in author_affiliations:
+        if "record" in affiliation:
+            continue
+        if affiliation["value"] in already_matched_affiliations_refs:
+            affiliation["record"] = already_matched_affiliations_refs[
+                affiliation["value"]
+            ]
+        else:
+            complete_affiliation = assign_institution(affiliation)
+            if complete_affiliation:
+                already_matched_affiliations_refs[
+                    complete_affiliation["value"]
+                ] = complete_affiliation["record"]
