@@ -175,7 +175,7 @@ def _create_ticket_self_curation(record_control_number, record_revision_id, user
         "user_email": user_email,
     }
     async_create_ticket_with_template.delay(
-        queue="Reference self-curation",
+        queue="References",
         template_path="rt/self_curation.html",
         template_context=template_payload,
         title=f"reference self-curation for record {record_control_number}",
