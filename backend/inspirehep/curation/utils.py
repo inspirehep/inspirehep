@@ -18,7 +18,7 @@ from invenio_search import current_search_client
 from invenio_search.utils import prefix_index
 
 from inspirehep.records.api import JournalsRecord
-from inspirehep.search.api import LiteratureSearch
+from inspirehep.search.api import InstitutionsSearch, LiteratureSearch
 
 from .errors import SubGroupNotFound
 
@@ -292,3 +292,11 @@ def extract_matched_aff_from_highlight(
     for raw_aff, aff in zip(author_raw_affs, author_affs):
         if raw_aff["value"] == extracted_raw_aff:
             return [aff]
+
+
+def assign_institution(matched_affiliation):
+    query = Q("match", legacy_ICN=matched_affiliation["value"])
+    result = InstitutionsSearch().query(query).params(size=1).execute()
+    if result:
+        matched_affiliation["record"] = result.hits[0].to_dict()["self"]
+        return matched_affiliation

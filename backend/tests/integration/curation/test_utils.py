@@ -7,7 +7,10 @@
 
 from helpers.utils import create_record
 
-from inspirehep.curation.utils import set_refereed_and_fix_document_type
+from inspirehep.curation.utils import (
+    assign_institution,
+    set_refereed_and_fix_document_type,
+)
 
 
 def test_set_refereed_and_fix_document_type_sets_refereed_to_true(inspire_app):
@@ -76,3 +79,12 @@ def test_set_refereed_and_fix_document_type_sets_refereed_to_true_and_persists_d
 
     assert not record["refereed"]
     assert record["document_type"] == ["article"]
+
+
+def test_link_institutions_with_affiliations_assigning_institution_reference_in_correct_type(
+    inspire_app,
+):
+    create_record("ins", data={"legacy_ICN": "CERN"})
+    matched_affiliation = {"value": "CERN"}
+    matched_complete_affiliation = assign_institution(matched_affiliation)
+    assert isinstance(matched_complete_affiliation, dict)
