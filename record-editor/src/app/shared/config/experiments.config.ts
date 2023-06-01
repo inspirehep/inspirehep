@@ -57,7 +57,6 @@ export const experiments: JsonEditorConfig = {
       'urls',
       '_full_ingestion',
       'related_records',
-      'new_record',
       'deleted_records',
       'core',
       'deleted',
