@@ -32,6 +32,7 @@ from werkzeug.datastructures import FileStorage
 from inspirehep.accounts.roles import Roles
 from inspirehep.files import current_s3_instance
 from inspirehep.rt.errors import EmptyResponseFromRT, NoUsersFound
+from inspirehep.snow.api import InspireSnow
 
 
 def test_get_record_and_schema(inspire_app):
@@ -138,7 +139,7 @@ def test_create_snow_ticket(
                         "queue": "Test",
                         "recid": "4328",
                         "subject": "subject",
-                        "assigned_to_email": "marcjanna.jedrych@cern.ch",
+                        "owner": "Marcjanna Jedrych",
                     }
                 ),
             )
@@ -146,6 +147,8 @@ def test_create_snow_ticket(
         assert response.status_code == 200
         assert "id" in response.json["data"]
         assert "link" in response.json["data"]
+        ticket = InspireSnow().get_ticket(response.json["data"]["id"])
+        assert "assigned_to" in ticket
 
 
 @patch("inspirehep.editor.views.tickets")
