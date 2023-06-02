@@ -26,7 +26,7 @@ from inspirehep.records.api import InspireRecord, LiteratureRecord
 from inspirehep.utils import get_inspirehep_url
 
 SENSITIVE_RESPONSE_KEYS = ["user.name", "user.email"]
-ENABLED_USER_DATA = ["marcjanna.jedrych@cern.ch"]
+ENABLED_USER_DATA = ["marcjanna.jedrych@cern.ch", "Marcjanna Jedrych"]
 
 
 def es_search(index):

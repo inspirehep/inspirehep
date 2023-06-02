@@ -437,7 +437,7 @@ class InspireSnow(SnowTicketAPI):
         subject=None,
         description=None,
         recid=None,
-        assigned_to_email=None,
+        assigned_to_name=None,
         **kwargs,
     ):
         """Creates new RT ticket with a body that is rendered template.
@@ -448,8 +448,7 @@ class InspireSnow(SnowTicketAPI):
             description (str): The body of the ticket
             subject (str): The subject of the ticket.
             recid (int): The record id to be set custom RecordID field.
-            assigned_to_email (str): Email of the user to whom the ticket should be assigned.
-
+            assigned_to_name (str): Name (in SNOW) of the user to whom the ticket should be assigned.
         Returns:
             str: the ID of the ticket.
 
@@ -460,7 +459,7 @@ class InspireSnow(SnowTicketAPI):
 
         caller_id = self._get_user_by_email(user_email) if user_email else self.user_id
         assignee_id = (
-            self._get_user_by_email(assigned_to_email) if assigned_to_email else ""
+            self._get_user_by_name(assigned_to_name) if assigned_to_name else None
         )
 
         functional_category_id = next(
@@ -647,6 +646,25 @@ class InspireSnow(SnowTicketAPI):
                 user["id"]
                 for user in self.get_formatted_user_list()
                 if user["email"] == user_email
+            ),
+            None,
+        )
+        return found_user
+
+    def _get_user_by_name(self, user_name):
+        """Find SNOW user id by an name.
+
+        Args:
+            user_name (str): Name of the user whos id should be found.
+
+        Returns:
+            str: the ID of the user or None if fails.
+        """
+        found_user = next(
+            (
+                user["id"]
+                for user in self.get_formatted_user_list()
+                if user["name"] == user_name
             ),
             None,
         )

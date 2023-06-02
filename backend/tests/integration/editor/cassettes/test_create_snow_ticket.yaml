@@ -16,8 +16,8 @@ interactions:
     uri: https://cerntraining.service-now.com/api/now/table/sys_user_grmember?sysparm_fields=user.name%2Cgroup.name%2Cuser.email%2Cuser.sys_id&sysparm_query=group.nameSTARTSWITHInspire+Information+system
   response:
     body:
-      string: '{"result":[{"group.name":"Inspire Information system 2nd Line Support","user.sys_id":"8a2d3dfadbeec810b80594dadb961904","user.email":"marcjanna.jedrych@cern.ch","user.name":"XXX"},{"group.name":"Inspire
-        Information system 2nd Line Support","user.sys_id":"ea4dfe1e0a0a8c0a016bddc2f2e5befc","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
+      string: '{"result":[{"group.name":"Inspire Information system 2nd Line Support","user.sys_id":"8a2d3dfadbeec810b80594dadb961904","user.email":"marcjanna.jedrych@cern.ch","user.name":"Marcjanna
+        Jedrych"},{"group.name":"Inspire Information system 2nd Line Support","user.sys_id":"ea4dfe1e0a0a8c0a016bddc2f2e5befc","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system 2nd Line Support","user.sys_id":"f06113500a0a8c08006fdd448147d73b","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system 2nd Line Support","user.sys_id":"f51c269e1bead910de8f42e6bb4bcb9b","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system 2nd Line Support","user.sys_id":"41ee6c8d873ed510eb5284030cbb35cc","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
@@ -38,8 +38,8 @@ interactions:
         Information system 2nd Line Support","user.sys_id":"da1c269e1bead910de8f42e6bb4bcbcd","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system 2nd Line Support","user.sys_id":"ed3a8f720a0a8c0a01fc90ad8487cc1b","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system Aggregated Group","user.sys_id":"5cdb7c8f49d770006d21ba2605c60735","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
-        Information system Aggregated Group","user.sys_id":"8a2d3dfadbeec810b80594dadb961904","user.email":"marcjanna.jedrych@cern.ch","user.name":"XXX"},{"group.name":"Inspire
-        Information system Aggregated Group","user.sys_id":"f51c269e1bead910de8f42e6bb4bcb9b","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
+        Information system Aggregated Group","user.sys_id":"8a2d3dfadbeec810b80594dadb961904","user.email":"marcjanna.jedrych@cern.ch","user.name":"Marcjanna
+        Jedrych"},{"group.name":"Inspire Information system Aggregated Group","user.sys_id":"f51c269e1bead910de8f42e6bb4bcb9b","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system Aggregated Group","user.sys_id":"41ee6c8d873ed510eb5284030cbb35cc","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system Aggregated Group","user.sys_id":"171c669e1bead910de8f42e6bb4bcbc6","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system Aggregated Group","user.sys_id":"e6dad0404f61c20093ecdf601310c797","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
@@ -68,7 +68,7 @@ interactions:
       Content-Type:
       - application/json;charset=UTF-8
       Date:
-      - Tue, 23 May 2023 14:19:03 GMT
+      - Fri, 02 Jun 2023 13:20:45 GMT
       Expires:
       - '0'
       Pragma:
@@ -86,7 +86,7 @@ interactions:
       X-Total-Count:
       - '44'
       X-Transaction-ID:
-      - 2aa6c2ac1b03
+      - 82399df78747
       content-length:
       - '7814'
     status:
@@ -128,7 +128,7 @@ interactions:
       Content-Type:
       - application/json;charset=UTF-8
       Date:
-      - Tue, 23 May 2023 14:19:03 GMT
+      - Fri, 02 Jun 2023 13:20:46 GMT
       Expires:
       - '0'
       Pragma:
@@ -146,7 +146,7 @@ interactions:
       X-Total-Count:
       - '13'
       X-Transaction-ID:
-      - a2a60ae08783
+      - 423991f78747
       content-length:
       - '1417'
     status:
@@ -171,13 +171,13 @@ interactions:
     uri: https://cerntraining.service-now.com/api/now/table/u_request_fulfillment
   response:
     body:
-      string: '{"result":{"parent":"","u_ggusid_url":"","watch_list":"","u_exclude":"false","sys_updated_on":"2023-05-23
-        14:19:04","u_resolved_by":"","approval_history":"","number":"RQF2309001","u_financial_approval":"","u_functional_approval":"","u_cern_sla_due":"2023-05-29
-        10:19:04","state":"1","sys_created_by":"snow-inspire","knowledge":"false","u_last_updated_by":"othersup","u_confidentiality_approval":"","u_related_child_request":"0","cmdb_ci":"","contract":"","impact":"3","active":"true","u_new_work_notes":"false","u_resolved_at":"","priority":"4","u_record_producer":"","business_duration":"","group_list":"","u_reopened":"false","u_template":"","u_start_date":"","approval_set":"","u_rp_variables":"","universal_request":"","short_description":"subject","work_start":"","u_latest_work_notes":"","u_third_party":"","u_small_remarks":"","u_wfu_reminders_counter":"0","additional_assignee_list":"","u_external_caller":"","u_approval_type":"No
-        approval","u_third_party_type":"","service_offering":{"link":"https://cerntraining.service-now.com/api/now/table/service_offering/4042d31bdb487704f9956184da96199b","value":"4042d31bdb487704f9956184da96199b"},"sys_class_name":"u_request_fulfillment","u_third_party_description":"","u_project_description":"","u_previous_group":"","reassignment_count":"0","assigned_to":"","u_last_comment_time":"","u_solution_category":"","sla_due":"","u_configuration_items_list":"","u_category":"1","u_functional_category":"","u_amount":"","u_time_planned":"","u_reopen_count":"0","u_delivery":"2","u_workflow_version":"5","u_location_description":"","u_feedback":"","u_functional_problem_category":"","u_converted_from":"","task_effective_number":"RQF2309001","u_no_notification":"false","u_third_party_ticket":"","u_business_service":{"link":"https://cerntraining.service-now.com/api/now/table/u_service_element/cea19717db487704f9956184da961947","value":"cea19717db487704f9956184da961947"},"sys_updated_by":"snow-inspire","opened_by":{"link":"https://cerntraining.service-now.com/api/now/table/sys_user/ce1dd215873b951069c063990cbb35a7","value":"ce1dd215873b951069c063990cbb35a7"},"sys_created_on":"2023-05-23
-        14:19:04","sys_domain":{"link":"https://cerntraining.service-now.com/api/now/table/sys_user_group/global","value":"global"},"u_report":"","u_highlight_reopened_ticket":"false","route_reason":"","u_ci_relations":"","closed_at":"","u_third_party_contract":"","u_technical_approval":"","business_service":"","u_workflow_stage":"New","u_cloned_from_ticket":"","u_budget_code":"","time_worked":"","u_number_of_piquet_calls":"0","opened_at":"2023-05-23
-        14:19:04","u_reassignment_counter_fe":"0","u_state_updated_on":"2023-05-23
-        14:19:04","work_end":"","u_current_task_state":"2","u_ci_cluster_list":"","u_ci_count":"","work_notes":"","u_third_party_url":"","assignment_group":{"link":"https://cerntraining.service-now.com/api/now/table/sys_user_group/ea56eb980a0a8c0a00bba0894e847a40","value":"ea56eb980a0a8c0a00bba0894e847a40"},"u_infor_stwo":"","u_number_of_items":"0","u_caller_id":{"link":"https://cerntraining.service-now.com/api/now/table/sys_user/8a2d3dfadbeec810b80594dadb961904","value":"8a2d3dfadbeec810b80594dadb961904"},"description":"description","calendar_duration":"","u_reassignment_counter_sd":"0","u_change_description":"","close_notes":"","sys_id":"f2a606ec1b03e1102e3762c1ab4bcbee","contact_type":"","u_converted_to":"","u_end_date":"","u_email_from":"","urgency":"2","u_visibility":"se","u_email_to":"","u_ggusid":"","u_number_approvals":"0","u_solution":"","comments":"","u_functional_element":{"link":"https://cerntraining.service-now.com/api/now/table/u_cmdb_ci_functional_services/ea56eb930a0a8c0a0004af7b268a0987","value":"ea56eb930a0a8c0a0004af7b268a0987"},"approval":"not
+      string: '{"result":{"parent":"","u_ggusid_url":"","watch_list":"","u_exclude":"false","sys_updated_on":"2023-06-02
+        13:20:46","u_resolved_by":"","approval_history":"","number":"RQF2310531","u_financial_approval":"","u_functional_approval":"","u_cern_sla_due":"2023-06-08
+        09:20:46","state":"1","sys_created_by":"snow-inspire","knowledge":"false","u_last_updated_by":"othersup","u_confidentiality_approval":"","u_related_child_request":"0","cmdb_ci":"","contract":"","impact":"3","active":"true","u_new_work_notes":"false","u_resolved_at":"","priority":"4","u_record_producer":"","business_duration":"","group_list":"","u_reopened":"false","u_template":"","u_start_date":"","approval_set":"","u_rp_variables":"","universal_request":"","short_description":"subject","work_start":"","u_latest_work_notes":"","u_third_party":"","u_small_remarks":"","u_wfu_reminders_counter":"0","additional_assignee_list":"","u_external_caller":"","u_approval_type":"No
+        approval","u_third_party_type":"","service_offering":{"link":"https://cerntraining.service-now.com/api/now/table/service_offering/4042d31bdb487704f9956184da96199b","value":"4042d31bdb487704f9956184da96199b"},"sys_class_name":"u_request_fulfillment","u_third_party_description":"","u_project_description":"","u_previous_group":"","reassignment_count":"0","assigned_to":"","u_last_comment_time":"","u_solution_category":"","sla_due":"","u_configuration_items_list":"","u_category":"1","u_functional_category":"","u_amount":"","u_time_planned":"","u_reopen_count":"0","u_delivery":"2","u_workflow_version":"5","u_location_description":"","u_feedback":"","u_functional_problem_category":"","u_converted_from":"","task_effective_number":"RQF2310531","u_no_notification":"false","u_third_party_ticket":"","u_business_service":{"link":"https://cerntraining.service-now.com/api/now/table/u_service_element/cea19717db487704f9956184da961947","value":"cea19717db487704f9956184da961947"},"sys_updated_by":"snow-inspire","opened_by":{"link":"https://cerntraining.service-now.com/api/now/table/sys_user/ce1dd215873b951069c063990cbb35a7","value":"ce1dd215873b951069c063990cbb35a7"},"sys_created_on":"2023-06-02
+        13:20:46","sys_domain":{"link":"https://cerntraining.service-now.com/api/now/table/sys_user_group/global","value":"global"},"u_report":"","u_highlight_reopened_ticket":"false","route_reason":"","u_ci_relations":"","closed_at":"","u_third_party_contract":"","u_technical_approval":"","business_service":"","u_workflow_stage":"New","u_cloned_from_ticket":"","u_budget_code":"","time_worked":"","u_number_of_piquet_calls":"0","opened_at":"2023-06-02
+        13:20:46","u_reassignment_counter_fe":"0","u_state_updated_on":"2023-06-02
+        13:20:46","work_end":"","u_current_task_state":"2","u_ci_cluster_list":"","u_ci_count":"","work_notes":"","u_third_party_url":"","assignment_group":{"link":"https://cerntraining.service-now.com/api/now/table/sys_user_group/ea56eb980a0a8c0a00bba0894e847a40","value":"ea56eb980a0a8c0a00bba0894e847a40"},"u_infor_stwo":"","u_number_of_items":"0","u_caller_id":{"link":"https://cerntraining.service-now.com/api/now/table/sys_user/8a2d3dfadbeec810b80594dadb961904","value":"8a2d3dfadbeec810b80594dadb961904"},"description":"description","calendar_duration":"","u_reassignment_counter_sd":"0","u_change_description":"","close_notes":"","sys_id":"5639d9fb1b8be1502e3762c1ab4bcb6c","contact_type":"","u_converted_to":"","u_end_date":"","u_email_from":"","urgency":"2","u_visibility":"se","u_email_to":"","u_ggusid":"","u_number_approvals":"0","u_solution":"","comments":"","u_functional_element":{"link":"https://cerntraining.service-now.com/api/now/table/u_cmdb_ci_functional_services/ea56eb930a0a8c0a0004af7b268a0987","value":"ea56eb930a0a8c0a0004af7b268a0987"},"approval":"not
         requested","u_alarms_list":"","due_date":"","sys_mod_count":"1","sys_tags":"","u_master_task":"","u_skip_classification":"false","u_email_signature":"Kind
         Regards","u_close_code":"","u_task_template":"","location":{"link":"https://cerntraining.service-now.com/api/now/table/cmn_location/40635f700a0a8c0a015518fb42690249","value":"40635f700a0a8c0a015518fb42690249"},"u_last_updated_3rd_party":""}}'
     headers:
@@ -188,11 +188,11 @@ interactions:
       Content-Type:
       - application/json;charset=UTF-8
       Date:
-      - Tue, 23 May 2023 14:19:04 GMT
+      - Fri, 02 Jun 2023 13:20:47 GMT
       Expires:
       - '0'
       Location:
-      - https://cerntraining.service-now.com/api/now/table/u_request_fulfillment/f2a606ec1b03e1102e3762c1ab4bcbee
+      - https://cerntraining.service-now.com/api/now/table/u_request_fulfillment/5639d9fb1b8be1502e3762c1ab4bcb6c
       Pragma:
       - no-store,no-cache
       Server:
@@ -206,7 +206,7 @@ interactions:
       X-Is-Logged-In:
       - 'true'
       X-Transaction-ID:
-      - f6a6462c1b03
+      - 523919fb1b8b
       content-length:
       - '4125'
     status:
@@ -229,7 +229,9 @@ interactions:
     uri: https://cerntraining.service-now.com/api/now/table/u_third_party_ticket_inspire?sysparm_query=u_third_party_ticket_id%3D1497201
   response:
     body:
-      string: '{"result":[]}'
+      string: '{"result":[{"u_caller_message":"","u_work_notes":"","u_third_party":"INSPIRE","u_infor_status":"","u_snow_id":"","sys_mod_count":"0","u_infor_close_code":"","sys_updated_on":"2023-05-23
+        14:19:05","u_third_party_ticket_status":"","sys_tags":"","sys_class_name":"u_third_party_ticket_inspire","u_last_updated":"","sys_id":"4ba686ac1b03e1102e3762c1ab4bcbc5","u_description":"","sys_updated_by":"snow-inspire","u_comments":"","sys_created_on":"2023-05-23
+        14:19:05","u_contract":"","u_url":"","u_third_party_ticket_id":"1497201","sys_created_by":"snow-inspire","u_task_status":""}]}'
     headers:
       Cache-Control:
       - no-cache,no-store,must-revalidate,max-age=-1
@@ -238,7 +240,7 @@ interactions:
       Content-Type:
       - application/json;charset=UTF-8
       Date:
-      - Tue, 23 May 2023 14:19:05 GMT
+      - Fri, 02 Jun 2023 13:20:47 GMT
       Expires:
       - '0'
       Pragma:
@@ -254,70 +256,16 @@ interactions:
       X-Is-Logged-In:
       - 'true'
       X-Total-Count:
-      - '0'
+      - '1'
       X-Transaction-ID:
-      - cba602e08783
+      - '623915778747'
       content-length:
-      - '13'
+      - '577'
     status:
       code: 200
       message: OK
 - request:
-    body: '{"u_third_party_ticket_id":"1497201"}'
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Content-Length:
-      - '37'
-      Content-Type:
-      - application/json
-      User-Agent:
-      - python-requests/2.22.0
-    method: POST
-    uri: https://cerntraining.service-now.com/api/now/table/u_third_party_ticket_inspire
-  response:
-    body:
-      string: '{"result":{"u_caller_message":"","u_work_notes":"","u_third_party":"INSPIRE","u_infor_status":"","u_snow_id":"","sys_mod_count":"0","u_infor_close_code":"","sys_updated_on":"2023-05-23
-        14:19:05","u_third_party_ticket_status":"","sys_tags":"","sys_class_name":"u_third_party_ticket_inspire","u_last_updated":"","sys_id":"4ba686ac1b03e1102e3762c1ab4bcbc5","u_description":"","sys_updated_by":"snow-inspire","u_comments":"","sys_created_on":"2023-05-23
-        14:19:05","u_contract":"","u_url":"","u_third_party_ticket_id":"1497201","sys_created_by":"snow-inspire","u_task_status":""}}'
-    headers:
-      Cache-Control:
-      - no-cache,no-store,must-revalidate,max-age=-1
-      Connection:
-      - keep-alive
-      Content-Type:
-      - application/json;charset=UTF-8
-      Date:
-      - Tue, 23 May 2023 14:19:05 GMT
-      Expires:
-      - '0'
-      Location:
-      - https://cerntraining.service-now.com/api/now/table/u_third_party_ticket_inspire/4ba686ac1b03e1102e3762c1ab4bcbc5
-      Pragma:
-      - no-store,no-cache
-      Server:
-      - snow_adc
-      Server-Timing:
-      - sem_wait;dur=0, sesh_wait;dur=0
-      Strict-Transport-Security:
-      - max-age=63072000; includeSubDomains
-      Transfer-Encoding:
-      - chunked
-      X-Is-Logged-In:
-      - 'true'
-      X-Transaction-ID:
-      - 07a64a681b03
-      content-length:
-      - '575'
-    status:
-      code: 201
-      message: Created
-- request:
-    body: '{"assigned_to":"ce1dd215873b951069c063990cbb35a7","u_current_task_state":"6","u_third_party":"INSPIRE","u_third_party_ticket":"4ba686ac1b03e1102e3762c1ab4bcbc5"}'
+    body: '{"assigned_to":"8a2d3dfadbeec810b80594dadb961904","u_current_task_state":"6","u_third_party":"INSPIRE","u_third_party_ticket":"4ba686ac1b03e1102e3762c1ab4bcbc5"}'
     headers:
       Accept:
       - '*/*'
@@ -332,16 +280,16 @@ interactions:
       User-Agent:
       - python-requests/2.22.0
     method: PUT
-    uri: https://cerntraining.service-now.com/api/now/table/u_request_fulfillment/f2a606ec1b03e1102e3762c1ab4bcbee
+    uri: https://cerntraining.service-now.com/api/now/table/u_request_fulfillment/5639d9fb1b8be1502e3762c1ab4bcb6c
   response:
     body:
-      string: '{"result":{"parent":"","u_ggusid_url":"","watch_list":"","u_exclude":"false","sys_updated_on":"2023-05-23
-        14:19:06","u_resolved_by":"","approval_history":"","number":"RQF2309001","u_financial_approval":"","u_functional_approval":"","u_cern_sla_due":"2023-05-29
-        10:19:04","state":"-5","sys_created_by":"snow-inspire","knowledge":"false","u_last_updated_by":"assignee","u_confidentiality_approval":"","u_related_child_request":"0","cmdb_ci":"","contract":"","impact":"3","active":"true","u_new_work_notes":"false","u_resolved_at":"","priority":"4","u_record_producer":"","business_duration":"","group_list":"","u_reopened":"false","u_template":"","u_start_date":"","approval_set":"","u_rp_variables":"","universal_request":"","short_description":"subject","work_start":"","u_latest_work_notes":"","u_third_party":"INSPIRE","u_small_remarks":"","u_wfu_reminders_counter":"0","additional_assignee_list":"","u_external_caller":"","u_approval_type":"No
-        approval","u_third_party_type":"","service_offering":{"link":"https://cerntraining.service-now.com/api/now/table/service_offering/4042d31bdb487704f9956184da96199b","value":"4042d31bdb487704f9956184da96199b"},"sys_class_name":"u_request_fulfillment","u_third_party_description":"","u_project_description":"","u_previous_group":"","reassignment_count":"0","assigned_to":{"link":"https://cerntraining.service-now.com/api/now/table/sys_user/ce1dd215873b951069c063990cbb35a7","value":"ce1dd215873b951069c063990cbb35a7"},"u_last_comment_time":"","u_solution_category":"","sla_due":"","u_configuration_items_list":"","u_category":"1","u_functional_category":"","u_amount":"","u_time_planned":"","u_reopen_count":"0","u_delivery":"2","u_workflow_version":"5","u_location_description":"","u_feedback":"","u_functional_problem_category":"","u_converted_from":"","task_effective_number":"RQF2309001","u_no_notification":"false","u_third_party_ticket":{"link":"https://cerntraining.service-now.com/api/now/table/u_third_party_ticket/4ba686ac1b03e1102e3762c1ab4bcbc5","value":"4ba686ac1b03e1102e3762c1ab4bcbc5"},"u_business_service":{"link":"https://cerntraining.service-now.com/api/now/table/u_service_element/cea19717db487704f9956184da961947","value":"cea19717db487704f9956184da961947"},"sys_updated_by":"snow-inspire","opened_by":{"link":"https://cerntraining.service-now.com/api/now/table/sys_user/ce1dd215873b951069c063990cbb35a7","value":"ce1dd215873b951069c063990cbb35a7"},"sys_created_on":"2023-05-23
-        14:19:04","sys_domain":{"link":"https://cerntraining.service-now.com/api/now/table/sys_user_group/global","value":"global"},"u_report":"","u_highlight_reopened_ticket":"false","route_reason":"","u_ci_relations":"","closed_at":"","u_third_party_contract":"","u_technical_approval":"","business_service":"","u_workflow_stage":"New","u_cloned_from_ticket":"","u_budget_code":"","time_worked":"","u_number_of_piquet_calls":"0","opened_at":"2023-05-23
-        14:19:04","u_reassignment_counter_fe":"0","u_state_updated_on":"2023-05-23
-        14:19:06","work_end":"","u_current_task_state":"6","u_ci_cluster_list":"","u_ci_count":"","work_notes":"","u_third_party_url":"","assignment_group":{"link":"https://cerntraining.service-now.com/api/now/table/sys_user_group/ea56eb980a0a8c0a00bba0894e847a40","value":"ea56eb980a0a8c0a00bba0894e847a40"},"u_infor_stwo":"","u_number_of_items":"0","u_caller_id":{"link":"https://cerntraining.service-now.com/api/now/table/sys_user/8a2d3dfadbeec810b80594dadb961904","value":"8a2d3dfadbeec810b80594dadb961904"},"description":"description","calendar_duration":"","u_reassignment_counter_sd":"0","u_change_description":"","close_notes":"","sys_id":"f2a606ec1b03e1102e3762c1ab4bcbee","contact_type":"","u_converted_to":"","u_end_date":"","u_email_from":"","urgency":"2","u_visibility":"se","u_email_to":"","u_ggusid":"","u_number_approvals":"0","u_solution":"","comments":"","u_functional_element":{"link":"https://cerntraining.service-now.com/api/now/table/u_cmdb_ci_functional_services/ea56eb930a0a8c0a0004af7b268a0987","value":"ea56eb930a0a8c0a0004af7b268a0987"},"approval":"not
+      string: '{"result":{"parent":"","u_ggusid_url":"","watch_list":"","u_exclude":"false","sys_updated_on":"2023-06-02
+        13:20:47","u_resolved_by":"","approval_history":"","number":"RQF2310531","u_financial_approval":"","u_functional_approval":"","u_cern_sla_due":"2023-06-08
+        09:20:46","state":"-5","sys_created_by":"snow-inspire","knowledge":"false","u_last_updated_by":"othersup","u_confidentiality_approval":"","u_related_child_request":"0","cmdb_ci":"","contract":"","impact":"3","active":"true","u_new_work_notes":"false","u_resolved_at":"","priority":"4","u_record_producer":"","business_duration":"","group_list":"","u_reopened":"false","u_template":"","u_start_date":"","approval_set":"","u_rp_variables":"","universal_request":"","short_description":"subject","work_start":"","u_latest_work_notes":"","u_third_party":"INSPIRE","u_small_remarks":"","u_wfu_reminders_counter":"0","additional_assignee_list":"","u_external_caller":"","u_approval_type":"No
+        approval","u_third_party_type":"","service_offering":{"link":"https://cerntraining.service-now.com/api/now/table/service_offering/4042d31bdb487704f9956184da96199b","value":"4042d31bdb487704f9956184da96199b"},"sys_class_name":"u_request_fulfillment","u_third_party_description":"","u_project_description":"","u_previous_group":"","reassignment_count":"0","assigned_to":{"link":"https://cerntraining.service-now.com/api/now/table/sys_user/8a2d3dfadbeec810b80594dadb961904","value":"8a2d3dfadbeec810b80594dadb961904"},"u_last_comment_time":"","u_solution_category":"","sla_due":"","u_configuration_items_list":"","u_category":"1","u_functional_category":"","u_amount":"","u_time_planned":"","u_reopen_count":"0","u_delivery":"2","u_workflow_version":"5","u_location_description":"","u_feedback":"","u_functional_problem_category":"","u_converted_from":"","task_effective_number":"RQF2310531","u_no_notification":"false","u_third_party_ticket":{"link":"https://cerntraining.service-now.com/api/now/table/u_third_party_ticket/4ba686ac1b03e1102e3762c1ab4bcbc5","value":"4ba686ac1b03e1102e3762c1ab4bcbc5"},"u_business_service":{"link":"https://cerntraining.service-now.com/api/now/table/u_service_element/cea19717db487704f9956184da961947","value":"cea19717db487704f9956184da961947"},"sys_updated_by":"snow-inspire","opened_by":{"link":"https://cerntraining.service-now.com/api/now/table/sys_user/ce1dd215873b951069c063990cbb35a7","value":"ce1dd215873b951069c063990cbb35a7"},"sys_created_on":"2023-06-02
+        13:20:46","sys_domain":{"link":"https://cerntraining.service-now.com/api/now/table/sys_user_group/global","value":"global"},"u_report":"","u_highlight_reopened_ticket":"false","route_reason":"","u_ci_relations":"","closed_at":"","u_third_party_contract":"","u_technical_approval":"","business_service":"","u_workflow_stage":"New","u_cloned_from_ticket":"","u_budget_code":"","time_worked":"","u_number_of_piquet_calls":"0","opened_at":"2023-06-02
+        13:20:46","u_reassignment_counter_fe":"0","u_state_updated_on":"2023-06-02
+        13:20:47","work_end":"","u_current_task_state":"6","u_ci_cluster_list":"","u_ci_count":"","work_notes":"","u_third_party_url":"","assignment_group":{"link":"https://cerntraining.service-now.com/api/now/table/sys_user_group/ea56eb980a0a8c0a00bba0894e847a40","value":"ea56eb980a0a8c0a00bba0894e847a40"},"u_infor_stwo":"","u_number_of_items":"0","u_caller_id":{"link":"https://cerntraining.service-now.com/api/now/table/sys_user/8a2d3dfadbeec810b80594dadb961904","value":"8a2d3dfadbeec810b80594dadb961904"},"description":"description","calendar_duration":"","u_reassignment_counter_sd":"0","u_change_description":"","close_notes":"","sys_id":"5639d9fb1b8be1502e3762c1ab4bcb6c","contact_type":"","u_converted_to":"","u_end_date":"","u_email_from":"","urgency":"2","u_visibility":"se","u_email_to":"","u_ggusid":"","u_number_approvals":"0","u_solution":"","comments":"","u_functional_element":{"link":"https://cerntraining.service-now.com/api/now/table/u_cmdb_ci_functional_services/ea56eb930a0a8c0a0004af7b268a0987","value":"ea56eb930a0a8c0a0004af7b268a0987"},"approval":"not
         requested","u_alarms_list":"","due_date":"","sys_mod_count":"2","sys_tags":"","u_master_task":"","u_skip_classification":"false","u_email_signature":"Kind
         Regards","u_close_code":"","u_task_template":"","location":{"link":"https://cerntraining.service-now.com/api/now/table/cmn_location/40635f700a0a8c0a015518fb42690249","value":"40635f700a0a8c0a015518fb42690249"},"u_last_updated_3rd_party":""}}'
     headers:
@@ -352,7 +300,7 @@ interactions:
       Content-Type:
       - application/json;charset=UTF-8
       Date:
-      - Tue, 23 May 2023 14:19:06 GMT
+      - Fri, 02 Jun 2023 13:20:47 GMT
       Expires:
       - '0'
       Pragma:
@@ -360,7 +308,7 @@ interactions:
       Server:
       - snow_adc
       Server-Timing:
-      - sem_wait;dur=0, sesh_wait;dur=0
+      - sem_wait;dur=1, sesh_wait;dur=0
       Strict-Transport-Security:
       - max-age=63072000; includeSubDomains
       Transfer-Encoding:
@@ -368,67 +316,9 @@ interactions:
       X-Is-Logged-In:
       - 'true'
       X-Transaction-ID:
-      - 0ba6ceec8743
+      - e639ddf71b8b
       content-length:
       - '4433'
-    status:
-      code: 200
-      message: OK
-- request:
-    body: '{"assigned_to":""}'
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Content-Length:
-      - '18'
-      Content-Type:
-      - application/json
-      User-Agent:
-      - python-requests/2.22.0
-    method: PUT
-    uri: https://cerntraining.service-now.com/api/now/table/u_request_fulfillment/f2a606ec1b03e1102e3762c1ab4bcbee
-  response:
-    body:
-      string: '{"result":{"parent":"","u_ggusid_url":"","watch_list":"","u_exclude":"false","sys_updated_on":"2023-05-23
-        14:19:06","u_resolved_by":"","approval_history":"","number":"RQF2309001","u_financial_approval":"","u_functional_approval":"","u_cern_sla_due":"2023-05-29
-        10:19:04","state":"1","sys_created_by":"snow-inspire","knowledge":"false","u_last_updated_by":"othersup","u_confidentiality_approval":"","u_related_child_request":"0","cmdb_ci":"","contract":"","impact":"3","active":"true","u_new_work_notes":"false","u_resolved_at":"","priority":"4","u_record_producer":"","business_duration":"","group_list":"","u_reopened":"false","u_template":"","u_start_date":"","approval_set":"","u_rp_variables":"","universal_request":"","short_description":"subject","work_start":"","u_latest_work_notes":"","u_third_party":"INSPIRE","u_small_remarks":"","u_wfu_reminders_counter":"0","additional_assignee_list":"","u_external_caller":"","u_approval_type":"No
-        approval","u_third_party_type":"","service_offering":{"link":"https://cerntraining.service-now.com/api/now/table/service_offering/4042d31bdb487704f9956184da96199b","value":"4042d31bdb487704f9956184da96199b"},"sys_class_name":"u_request_fulfillment","u_third_party_description":"","u_project_description":"","u_previous_group":"","reassignment_count":"0","assigned_to":"","u_last_comment_time":"","u_solution_category":"","sla_due":"","u_configuration_items_list":"","u_category":"1","u_functional_category":"","u_amount":"","u_time_planned":"","u_reopen_count":"0","u_delivery":"2","u_workflow_version":"5","u_location_description":"","u_feedback":"","u_functional_problem_category":"","u_converted_from":"","task_effective_number":"RQF2309001","u_no_notification":"false","u_third_party_ticket":{"link":"https://cerntraining.service-now.com/api/now/table/u_third_party_ticket/4ba686ac1b03e1102e3762c1ab4bcbc5","value":"4ba686ac1b03e1102e3762c1ab4bcbc5"},"u_business_service":{"link":"https://cerntraining.service-now.com/api/now/table/u_service_element/cea19717db487704f9956184da961947","value":"cea19717db487704f9956184da961947"},"sys_updated_by":"snow-inspire","opened_by":{"link":"https://cerntraining.service-now.com/api/now/table/sys_user/ce1dd215873b951069c063990cbb35a7","value":"ce1dd215873b951069c063990cbb35a7"},"sys_created_on":"2023-05-23
-        14:19:04","sys_domain":{"link":"https://cerntraining.service-now.com/api/now/table/sys_user_group/global","value":"global"},"u_report":"","u_highlight_reopened_ticket":"false","route_reason":"","u_ci_relations":"","closed_at":"","u_third_party_contract":"","u_technical_approval":"","business_service":"","u_workflow_stage":"New","u_cloned_from_ticket":"","u_budget_code":"","time_worked":"","u_number_of_piquet_calls":"0","opened_at":"2023-05-23
-        14:19:04","u_reassignment_counter_fe":"0","u_state_updated_on":"2023-05-23
-        14:19:06","work_end":"","u_current_task_state":"2","u_ci_cluster_list":"","u_ci_count":"","work_notes":"","u_third_party_url":"","assignment_group":{"link":"https://cerntraining.service-now.com/api/now/table/sys_user_group/ea56eb980a0a8c0a00bba0894e847a40","value":"ea56eb980a0a8c0a00bba0894e847a40"},"u_infor_stwo":"","u_number_of_items":"0","u_caller_id":{"link":"https://cerntraining.service-now.com/api/now/table/sys_user/8a2d3dfadbeec810b80594dadb961904","value":"8a2d3dfadbeec810b80594dadb961904"},"description":"description","calendar_duration":"","u_reassignment_counter_sd":"0","u_change_description":"","close_notes":"","sys_id":"f2a606ec1b03e1102e3762c1ab4bcbee","contact_type":"","u_converted_to":"","u_end_date":"","u_email_from":"","urgency":"2","u_visibility":"se","u_email_to":"","u_ggusid":"","u_number_approvals":"0","u_solution":"","comments":"","u_functional_element":{"link":"https://cerntraining.service-now.com/api/now/table/u_cmdb_ci_functional_services/ea56eb930a0a8c0a0004af7b268a0987","value":"ea56eb930a0a8c0a0004af7b268a0987"},"approval":"not
-        requested","u_alarms_list":"","due_date":"","sys_mod_count":"3","sys_tags":"","u_master_task":"","u_skip_classification":"false","u_email_signature":"Kind
-        Regards","u_close_code":"","u_task_template":"","location":{"link":"https://cerntraining.service-now.com/api/now/table/cmn_location/40635f700a0a8c0a015518fb42690249","value":"40635f700a0a8c0a015518fb42690249"},"u_last_updated_3rd_party":""}}'
-    headers:
-      Cache-Control:
-      - no-cache,no-store,must-revalidate,max-age=-1
-      Connection:
-      - keep-alive
-      Content-Type:
-      - application/json;charset=UTF-8
-      Date:
-      - Tue, 23 May 2023 14:19:07 GMT
-      Expires:
-      - '0'
-      Pragma:
-      - no-store,no-cache
-      Server:
-      - snow_adc
-      Server-Timing:
-      - sem_wait;dur=0, sesh_wait;dur=0
-      Strict-Transport-Security:
-      - max-age=63072000; includeSubDomains
-      Transfer-Encoding:
-      - chunked
-      X-Is-Logged-In:
-      - 'true'
-      X-Transaction-ID:
-      - 9ba6c6e08783
-      content-length:
-      - '4288'
     status:
       code: 200
       message: OK
@@ -448,18 +338,18 @@ interactions:
       User-Agent:
       - python-requests/2.22.0
     method: PUT
-    uri: https://cerntraining.service-now.com/api/now/table/u_request_fulfillment/f2a606ec1b03e1102e3762c1ab4bcbee
+    uri: https://cerntraining.service-now.com/api/now/table/u_request_fulfillment/5639d9fb1b8be1502e3762c1ab4bcb6c
   response:
     body:
-      string: '{"result":{"parent":"","u_ggusid_url":"","watch_list":"","u_exclude":"false","sys_updated_on":"2023-05-23
-        14:19:08","u_resolved_by":"","approval_history":"","number":"RQF2309001","u_financial_approval":"","u_functional_approval":"","u_cern_sla_due":"2023-05-29
-        10:19:04","state":"1","sys_created_by":"snow-inspire","knowledge":"false","u_last_updated_by":"othersup","u_confidentiality_approval":"","u_related_child_request":"0","cmdb_ci":"","contract":"","impact":"3","active":"true","u_new_work_notes":"false","u_resolved_at":"","priority":"4","u_record_producer":"","business_duration":"","group_list":"","u_reopened":"true","u_template":"","u_start_date":"","approval_set":"","u_rp_variables":"","universal_request":"","short_description":"subject","work_start":"","u_latest_work_notes":"","u_third_party":"INSPIRE","u_small_remarks":"","u_wfu_reminders_counter":"0","additional_assignee_list":"","u_external_caller":"","u_approval_type":"No
-        approval","u_third_party_type":"","service_offering":{"link":"https://cerntraining.service-now.com/api/now/table/service_offering/4042d31bdb487704f9956184da96199b","value":"4042d31bdb487704f9956184da96199b"},"sys_class_name":"u_request_fulfillment","u_third_party_description":"","u_project_description":"","u_previous_group":"","reassignment_count":"0","assigned_to":"","u_last_comment_time":"2023-05-23
-        14:19:08","u_solution_category":"","sla_due":"","u_configuration_items_list":"","u_category":"1","u_functional_category":"","u_amount":"","u_time_planned":"","u_reopen_count":"0","u_delivery":"2","u_workflow_version":"5","u_location_description":"","u_feedback":"","u_functional_problem_category":"","u_converted_from":"","task_effective_number":"RQF2309001","u_no_notification":"false","u_third_party_ticket":{"link":"https://cerntraining.service-now.com/api/now/table/u_third_party_ticket/4ba686ac1b03e1102e3762c1ab4bcbc5","value":"4ba686ac1b03e1102e3762c1ab4bcbc5"},"u_business_service":{"link":"https://cerntraining.service-now.com/api/now/table/u_service_element/cea19717db487704f9956184da961947","value":"cea19717db487704f9956184da961947"},"sys_updated_by":"snow-inspire","opened_by":{"link":"https://cerntraining.service-now.com/api/now/table/sys_user/ce1dd215873b951069c063990cbb35a7","value":"ce1dd215873b951069c063990cbb35a7"},"sys_created_on":"2023-05-23
-        14:19:04","sys_domain":{"link":"https://cerntraining.service-now.com/api/now/table/sys_user_group/global","value":"global"},"u_report":"","u_highlight_reopened_ticket":"false","route_reason":"","u_ci_relations":"","closed_at":"","u_third_party_contract":"","u_technical_approval":"","business_service":"","u_workflow_stage":"New","u_cloned_from_ticket":"","u_budget_code":"","time_worked":"","u_number_of_piquet_calls":"0","opened_at":"2023-05-23
-        14:19:04","u_reassignment_counter_fe":"0","u_state_updated_on":"2023-05-23
-        14:19:06","work_end":"","u_current_task_state":"2","u_ci_cluster_list":"","u_ci_count":"","work_notes":"","u_third_party_url":"","assignment_group":{"link":"https://cerntraining.service-now.com/api/now/table/sys_user_group/ea56eb980a0a8c0a00bba0894e847a40","value":"ea56eb980a0a8c0a00bba0894e847a40"},"u_infor_stwo":"","u_number_of_items":"0","u_caller_id":{"link":"https://cerntraining.service-now.com/api/now/table/sys_user/8a2d3dfadbeec810b80594dadb961904","value":"8a2d3dfadbeec810b80594dadb961904"},"description":"description","calendar_duration":"","u_reassignment_counter_sd":"0","u_change_description":"","close_notes":"","sys_id":"f2a606ec1b03e1102e3762c1ab4bcbee","contact_type":"","u_converted_to":"","u_end_date":"","u_email_from":"","urgency":"2","u_visibility":"se","u_email_to":"","u_ggusid":"","u_number_approvals":"0","u_solution":"","comments":"","u_functional_element":{"link":"https://cerntraining.service-now.com/api/now/table/u_cmdb_ci_functional_services/ea56eb930a0a8c0a0004af7b268a0987","value":"ea56eb930a0a8c0a0004af7b268a0987"},"approval":"not
-        requested","u_alarms_list":"","due_date":"","sys_mod_count":"4","sys_tags":"","u_master_task":"","u_skip_classification":"false","u_email_signature":"Kind
+      string: '{"result":{"parent":"","u_ggusid_url":"","watch_list":"","u_exclude":"false","sys_updated_on":"2023-06-02
+        13:20:48","u_resolved_by":"","approval_history":"","number":"RQF2310531","u_financial_approval":"","u_functional_approval":"","u_cern_sla_due":"2023-06-08
+        09:20:46","state":"-5","sys_created_by":"snow-inspire","knowledge":"false","u_last_updated_by":"othersup","u_confidentiality_approval":"","u_related_child_request":"0","cmdb_ci":"","contract":"","impact":"3","active":"true","u_new_work_notes":"false","u_resolved_at":"","priority":"4","u_record_producer":"","business_duration":"","group_list":"","u_reopened":"true","u_template":"","u_start_date":"","approval_set":"","u_rp_variables":"","universal_request":"","short_description":"subject","work_start":"","u_latest_work_notes":"","u_third_party":"INSPIRE","u_small_remarks":"","u_wfu_reminders_counter":"0","additional_assignee_list":"","u_external_caller":"","u_approval_type":"No
+        approval","u_third_party_type":"","service_offering":{"link":"https://cerntraining.service-now.com/api/now/table/service_offering/4042d31bdb487704f9956184da96199b","value":"4042d31bdb487704f9956184da96199b"},"sys_class_name":"u_request_fulfillment","u_third_party_description":"","u_project_description":"","u_previous_group":"","reassignment_count":"0","assigned_to":{"link":"https://cerntraining.service-now.com/api/now/table/sys_user/8a2d3dfadbeec810b80594dadb961904","value":"8a2d3dfadbeec810b80594dadb961904"},"u_last_comment_time":"2023-06-02
+        13:20:48","u_solution_category":"","sla_due":"","u_configuration_items_list":"","u_category":"1","u_functional_category":"","u_amount":"","u_time_planned":"","u_reopen_count":"0","u_delivery":"2","u_workflow_version":"5","u_location_description":"","u_feedback":"","u_functional_problem_category":"","u_converted_from":"","task_effective_number":"RQF2310531","u_no_notification":"false","u_third_party_ticket":{"link":"https://cerntraining.service-now.com/api/now/table/u_third_party_ticket/4ba686ac1b03e1102e3762c1ab4bcbc5","value":"4ba686ac1b03e1102e3762c1ab4bcbc5"},"u_business_service":{"link":"https://cerntraining.service-now.com/api/now/table/u_service_element/cea19717db487704f9956184da961947","value":"cea19717db487704f9956184da961947"},"sys_updated_by":"snow-inspire","opened_by":{"link":"https://cerntraining.service-now.com/api/now/table/sys_user/ce1dd215873b951069c063990cbb35a7","value":"ce1dd215873b951069c063990cbb35a7"},"sys_created_on":"2023-06-02
+        13:20:46","sys_domain":{"link":"https://cerntraining.service-now.com/api/now/table/sys_user_group/global","value":"global"},"u_report":"","u_highlight_reopened_ticket":"false","route_reason":"","u_ci_relations":"","closed_at":"","u_third_party_contract":"","u_technical_approval":"","business_service":"","u_workflow_stage":"New","u_cloned_from_ticket":"","u_budget_code":"","time_worked":"","u_number_of_piquet_calls":"0","opened_at":"2023-06-02
+        13:20:46","u_reassignment_counter_fe":"0","u_state_updated_on":"2023-06-02
+        13:20:47","work_end":"","u_current_task_state":"6","u_ci_cluster_list":"","u_ci_count":"","work_notes":"","u_third_party_url":"","assignment_group":{"link":"https://cerntraining.service-now.com/api/now/table/sys_user_group/ea56eb980a0a8c0a00bba0894e847a40","value":"ea56eb980a0a8c0a00bba0894e847a40"},"u_infor_stwo":"","u_number_of_items":"0","u_caller_id":{"link":"https://cerntraining.service-now.com/api/now/table/sys_user/8a2d3dfadbeec810b80594dadb961904","value":"8a2d3dfadbeec810b80594dadb961904"},"description":"description","calendar_duration":"","u_reassignment_counter_sd":"0","u_change_description":"","close_notes":"","sys_id":"5639d9fb1b8be1502e3762c1ab4bcb6c","contact_type":"","u_converted_to":"","u_end_date":"","u_email_from":"","urgency":"2","u_visibility":"se","u_email_to":"","u_ggusid":"","u_number_approvals":"0","u_solution":"","comments":"","u_functional_element":{"link":"https://cerntraining.service-now.com/api/now/table/u_cmdb_ci_functional_services/ea56eb930a0a8c0a0004af7b268a0987","value":"ea56eb930a0a8c0a0004af7b268a0987"},"approval":"not
+        requested","u_alarms_list":"","due_date":"","sys_mod_count":"3","sys_tags":"","u_master_task":"","u_skip_classification":"false","u_email_signature":"Kind
         Regards","u_close_code":"","u_task_template":"","location":{"link":"https://cerntraining.service-now.com/api/now/table/cmn_location/40635f700a0a8c0a015518fb42690249","value":"40635f700a0a8c0a015518fb42690249"},"u_last_updated_3rd_party":""}}'
     headers:
       Cache-Control:
@@ -469,7 +359,7 @@ interactions:
       Content-Type:
       - application/json;charset=UTF-8
       Date:
-      - Tue, 23 May 2023 14:19:08 GMT
+      - Fri, 02 Jun 2023 13:20:48 GMT
       Expires:
       - '0'
       Pragma:
@@ -485,9 +375,66 @@ interactions:
       X-Is-Logged-In:
       - 'true'
       X-Transaction-ID:
-      - 2ba682248783
+      - a239593b1b8b
       content-length:
-      - '4306'
+      - '4451'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.22.0
+    method: GET
+    uri: https://cerntraining.service-now.com/api/now/table/u_request_fulfillment/5639d9fb1b8be1502e3762c1ab4bcb6c
+  response:
+    body:
+      string: '{"result":{"parent":"","u_ggusid_url":"","watch_list":"","u_exclude":"false","sys_updated_on":"2023-06-02
+        13:20:48","u_resolved_by":"","approval_history":"","number":"RQF2310531","u_financial_approval":"","u_functional_approval":"","u_cern_sla_due":"2023-06-08
+        09:20:46","state":"-5","sys_created_by":"snow-inspire","knowledge":"false","u_last_updated_by":"othersup","u_confidentiality_approval":"","u_related_child_request":"0","cmdb_ci":"","contract":"","impact":"3","active":"true","u_new_work_notes":"false","u_resolved_at":"","priority":"4","u_record_producer":"","business_duration":"","group_list":"","u_reopened":"true","u_template":"","u_start_date":"","approval_set":"","u_rp_variables":"","universal_request":"","short_description":"subject","work_start":"","u_latest_work_notes":"","u_third_party":"INSPIRE","u_small_remarks":"","u_wfu_reminders_counter":"0","additional_assignee_list":"","u_external_caller":"","u_approval_type":"No
+        approval","u_third_party_type":"","service_offering":{"link":"https://cerntraining.service-now.com/api/now/table/service_offering/4042d31bdb487704f9956184da96199b","value":"4042d31bdb487704f9956184da96199b"},"sys_class_name":"u_request_fulfillment","u_third_party_description":"","u_project_description":"","u_previous_group":"","reassignment_count":"0","assigned_to":{"link":"https://cerntraining.service-now.com/api/now/table/sys_user/8a2d3dfadbeec810b80594dadb961904","value":"8a2d3dfadbeec810b80594dadb961904"},"u_last_comment_time":"2023-06-02
+        13:20:48","u_solution_category":"","sla_due":"","u_configuration_items_list":"","u_category":"1","u_functional_category":"","u_amount":"","u_time_planned":"","u_reopen_count":"0","u_delivery":"2","u_workflow_version":"5","u_location_description":"","u_feedback":"","u_functional_problem_category":"","u_converted_from":"","task_effective_number":"RQF2310531","u_no_notification":"false","u_third_party_ticket":{"link":"https://cerntraining.service-now.com/api/now/table/u_third_party_ticket/4ba686ac1b03e1102e3762c1ab4bcbc5","value":"4ba686ac1b03e1102e3762c1ab4bcbc5"},"u_business_service":{"link":"https://cerntraining.service-now.com/api/now/table/u_service_element/cea19717db487704f9956184da961947","value":"cea19717db487704f9956184da961947"},"sys_updated_by":"snow-inspire","opened_by":{"link":"https://cerntraining.service-now.com/api/now/table/sys_user/ce1dd215873b951069c063990cbb35a7","value":"ce1dd215873b951069c063990cbb35a7"},"sys_created_on":"2023-06-02
+        13:20:46","sys_domain":{"link":"https://cerntraining.service-now.com/api/now/table/sys_user_group/global","value":"global"},"u_report":"","u_highlight_reopened_ticket":"false","route_reason":"","u_ci_relations":"","closed_at":"","u_third_party_contract":"","u_technical_approval":"","business_service":"","u_workflow_stage":"New","u_cloned_from_ticket":"","u_budget_code":"","time_worked":"","u_number_of_piquet_calls":"0","opened_at":"2023-06-02
+        13:20:46","u_reassignment_counter_fe":"0","u_state_updated_on":"2023-06-02
+        13:20:47","work_end":"","u_current_task_state":"6","u_ci_cluster_list":"","u_ci_count":"","work_notes":"","u_third_party_url":"","assignment_group":{"link":"https://cerntraining.service-now.com/api/now/table/sys_user_group/ea56eb980a0a8c0a00bba0894e847a40","value":"ea56eb980a0a8c0a00bba0894e847a40"},"u_infor_stwo":"","u_number_of_items":"0","u_caller_id":{"link":"https://cerntraining.service-now.com/api/now/table/sys_user/8a2d3dfadbeec810b80594dadb961904","value":"8a2d3dfadbeec810b80594dadb961904"},"description":"description","calendar_duration":"","u_reassignment_counter_sd":"0","u_change_description":"","close_notes":"","sys_id":"5639d9fb1b8be1502e3762c1ab4bcb6c","contact_type":"","u_converted_to":"","u_end_date":"","u_email_from":"","urgency":"2","u_visibility":"se","u_email_to":"","u_ggusid":"","u_number_approvals":"0","u_solution":"","comments":"","u_functional_element":{"link":"https://cerntraining.service-now.com/api/now/table/u_cmdb_ci_functional_services/ea56eb930a0a8c0a0004af7b268a0987","value":"ea56eb930a0a8c0a0004af7b268a0987"},"approval":"not
+        requested","u_alarms_list":"","due_date":"","sys_mod_count":"3","sys_tags":"","u_master_task":"","u_skip_classification":"false","u_email_signature":"Kind
+        Regards","u_close_code":"","u_task_template":"","location":{"link":"https://cerntraining.service-now.com/api/now/table/cmn_location/40635f700a0a8c0a015518fb42690249","value":"40635f700a0a8c0a015518fb42690249"},"u_last_updated_3rd_party":""}}'
+    headers:
+      Cache-Control:
+      - no-cache,no-store,must-revalidate,max-age=-1
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json;charset=UTF-8
+      Date:
+      - Fri, 02 Jun 2023 13:20:48 GMT
+      Expires:
+      - '0'
+      Pragma:
+      - no-store,no-cache
+      Server:
+      - snow_adc
+      Server-Timing:
+      - sem_wait;dur=0, sesh_wait;dur=0
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      X-Is-Logged-In:
+      - 'true'
+      X-Transaction-ID:
+      - 7a3995f78747
+      content-length:
+      - '4451'
     status:
       code: 200
       message: OK

@@ -174,6 +174,7 @@ def create_rt_ticket(endpoint, pid_value):
                 description=json.get("description", ""),
                 subject=json.get("subject"),
                 recid=pid_value,
+                assigned_to_name=json.get("owner"),
             )
             return jsonify(
                 success=True,

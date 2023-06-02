@@ -31,7 +31,7 @@ def test_create_inspire_ticket(mocked_inspire_snow, inspire_app, teardown_cache)
         description="This is a test subject by Jessica Jones.",
         user_email="marcjanna.jedrych@cern.ch",
         recid=control_number,
-        assigned_to_email="marcjanna.jedrych@cern.ch",
+        assigned_to_name="Marcjanna Jedrych",
     )
 
     assert ticket_id
@@ -186,7 +186,7 @@ def test_edit_inspire_ticket(mocked_inspire_snow, inspire_app, teardown_cache):
         subject="This is a test description by Jessica Jones.",
         description="This is a test subject by Jessica Jones.",
         recid=control_number,
-        assigned_to_email="marcjanna.jedrych@cern.ch",
+        assigned_to_name="Marcjanna Jedrych",
     )
 
     assert ticket_id
