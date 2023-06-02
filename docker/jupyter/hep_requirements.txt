@@ -26,7 +26,7 @@ charset-normalizer==3.0.0; python_version >= "3.7"
 click==6.7
 colorama==0.4.3; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.5.0")
 constantly==15.1.0; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.4.0"
-cryptography==36.0.2; python_version >= "3.6"
+cryptography==41.0.0; python_version >= "3.6"
 cssselect==1.1.0; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.4.0"
 datefinder==0.7.1
 decorator==4.4.1; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.2.0" and python_version >= "3.6"
