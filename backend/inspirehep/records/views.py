@@ -35,12 +35,12 @@ from inspirehep.records.marshmallow.literature.references import (
     LiteratureReferencesSchema,
 )
 from inspirehep.records.models import WorkflowsRecordSources
+from inspirehep.records.utils import _create_ticket_self_curation
 from inspirehep.serializers import jsonify
 from inspirehep.submissions.serializers import literature_v1
 
 from ..search.api import LiteratureSearch
-from .tasks import reference_self_curation as reference_self_curation_task
-from .utils import get_changed_reference
+from .utils import get_changed_reference, get_ref_from_pid
 
 LOGGER = structlog.getLogger()
 blueprint = Blueprint("inspirehep_records", __name__, url_prefix="")
@@ -231,21 +231,36 @@ def import_article_view(identifier):
     locations=("json",),
 )
 def reference_self_curation(args):
-    record = LiteratureRecord.get_record(args["record_id"])
-    if record.revision_id != args["revision_id"]:
+    record_id = args["record_id"]
+    reference_index = args["reference_index"]
+    revision_id = args["revision_id"]
+
+    record = LiteratureRecord.get_record(record_id)
+    if record.revision_id != revision_id:
         return (
             jsonify({"message": "Record version doesn't match the latest version"}),
             422,
         )
-    if len(record.get("references", [])) - 1 < args["reference_index"]:
+
+    if len(record.get("references", [])) - 1 < reference_index:
         return jsonify({"message": "Reference index doesn't exist"}), 412
-    reference_self_curation_task.delay(
-        str(record.id),
-        record.revision_id,
-        args["reference_index"],
-        args["new_reference_recid"],
-        current_user.email,
+
+    record = InspireRecord.get_record(record_id)
+    if record.revision_id > revision_id:
+        raise StaleDataError
+
+    updated_reference = get_ref_from_pid("lit", args["new_reference_recid"])
+    record["references"][reference_index]["record"] = updated_reference
+    record["references"][reference_index]["curated_relation"] = True
+    record.update(dict(record))
+    db.session.commit()
+
+    _create_ticket_self_curation(
+        record_control_number=record["control_number"],
+        record_revision_id=record.revision_id,
+        user_email=current_user.email,
     )
+
     return jsonify({"message": "Success"}), 200
 
 
