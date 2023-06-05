@@ -446,11 +446,10 @@ def test_self_curation_returns_401_for_not_authenticated_user(inspire_app):
     assert response.status_code == 401
 
 
-@mock.patch("inspirehep.records.views.reference_self_curation_task")
-def test_reference_self_curation_task_is_called_with_proper_args(
-    mock_self_curation_task, inspire_app
-):
+@mock.patch("inspirehep.records.views._create_ticket_self_curation")
+def test_reference_self_curation(mock_create_ticket, inspire_app):
     user = create_user(email="test@cern.ch")
+    new_reference_record = create_record("lit", data={"control_number": 1})
     literature_data = {
         "references": [
             {
@@ -492,10 +491,13 @@ def test_reference_self_curation_task_is_called_with_proper_args(
             content_type="application/json",
             data=orjson.dumps(data),
         )
-    assert mock_self_curation_task.mock_calls[0][1] == (
-        str(record.id),
-        int(record.revision_id),
-        0,
-        1,
-        "test@cern.ch",
+    assert record["references"][0]["curated_relation"]
+    assert record["references"][0]["record"] == new_reference_record["self"]
+    assert (
+        mock_create_ticket.mock_calls[0][2]["record_control_number"]
+        == record["control_number"]
     )
+    assert mock_create_ticket.mock_calls[0][2]["record_revision_id"] == int(
+        record.revision_id
+    )
+    assert mock_create_ticket.mock_calls[0][2]["user_email"] == user.email
