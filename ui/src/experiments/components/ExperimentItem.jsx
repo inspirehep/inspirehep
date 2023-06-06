@@ -12,6 +12,10 @@ import { SEPARATOR_MIDDLEDOT } from '../../common/components/InlineList';
 import ExperimentCollaboration from './ExperimentCollaboration';
 import UrlsAction from '../../literature/components/UrlsAction';
 import { getPapersQueryString } from '../utils';
+import EditRecordAction from '../../common/components/EditRecordAction';
+import { SUPERUSER_OR_CATALOGER } from '../../common/authorization';
+import { EXPERIMENTS_PID_TYPE } from '../../common/constants';
+import AuthorizedContainer from '../../common/containers/AuthorizedContainer';
 
 function ExperimentItem({ metadata }) {
   const legacyName = metadata.get('legacy_name');
@@ -34,6 +38,13 @@ function ExperimentItem({ metadata }) {
               eventCategory="Experiments search"
             />
           )}
+                <AuthorizedContainer authorizedRoles={SUPERUSER_OR_CATALOGER}>
+                  <EditRecordAction
+                    pidType={EXPERIMENTS_PID_TYPE}
+                    pidValue={recordId}
+                    page="Experiments detail"
+                  />
+                </AuthorizedContainer>
         </>
       }
       rightActions={
