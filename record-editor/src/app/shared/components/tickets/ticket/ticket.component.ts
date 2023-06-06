@@ -63,7 +63,10 @@ export class TicketComponent extends SubscriberComponent implements OnInit {
 
   onResolveClick() {
     this.apiService
-      .resolveTicket(this.recordId, this.ticket.id)
+      .resolveTicket(
+        this.recordId,
+        this.isSnowTicket(this.ticket) ? this.ticket.sys_id : this.ticket.id
+      )
       .then(() => this.resolve.emit());
   }
 
