@@ -168,8 +168,11 @@ def create_rt_ticket(endpoint, pid_value):
     # TODO: remove after testing snow
     if current_app.config.get("FEATURE_FLAG_ENABLE_SNOW"):
         try:
+            functional_category = current_app.config[
+                "SNOW_QUEUE_TO_FUNCTIONAL_CATEGORY_MAPPING"
+            ].get(json["queue"], json["queue"])
             ticket_id = InspireSnow().create_inspire_ticket(
-                functional_category=json["queue"],
+                functional_category=functional_category,
                 user_email=current_user.email,
                 description=json.get("description", ""),
                 subject=json.get("subject"),
