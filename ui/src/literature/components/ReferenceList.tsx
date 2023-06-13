@@ -36,6 +36,7 @@ function ReferenceList({
       <ReferenceItem
         key={reference.getIn(['titles', 0, 'title']) || String(index)}
         reference={reference}
+        reference_index={index}
         onEditReferenceClick={onEditReferenceClick}
         loggedIn={loggedIn}
       />

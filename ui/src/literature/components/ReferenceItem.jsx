@@ -56,13 +56,13 @@ class ReferenceItem extends Component {
   }
 
   render() {
-    const { reference, unlinked, onEditReferenceClick, disableEdit, loggedIn } = this.props;
+    // eslint-disable-next-line camelcase
+    const { reference, unlinked, onEditReferenceClick, disableEdit, loggedIn, reference_index } = this.props;
     const publicationInfo = reference.get('publication_info');
     const arxivEprint = reference.get('arxiv_eprint');
     const dois = reference.get('dois');
     const urls = reference.get('urls');
     const recordId = reference.get('control_number');
-    const label = reference.get('label');
 
     const authors = reference.get('authors');
     const collaborations = reference.get('collaborations');
@@ -125,7 +125,7 @@ class ReferenceItem extends Component {
               <Tooltip title={loggedIn ? "Edit this reference" : "Log in to edit"}>
                 <div className="flex items-center justify-center">
                   <LinkLikeButton
-                    onClick={() => onEditReferenceClick(label)}
+                    onClick={() => onEditReferenceClick(reference_index)}
                     disabled={!loggedIn}
                   >
                     <IconText
