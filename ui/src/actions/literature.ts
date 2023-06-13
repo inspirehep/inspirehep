@@ -331,6 +331,19 @@ export function curateReference({
       dispatch(fetchLiterature(recordId)).then(() => {
         curationSuccess();
       });
+      const size = getState().search.getIn([
+        'namespaces',
+        LITERATURE_REFERENCES_NS,
+        'query',
+        'size',
+      ]);
+      // update references to see changes immediately
+      const query = {
+        ...{
+          size
+        },
+      };
+      dispatch(fetchLiteratureReferences(recordId, query))
     } catch (error) {
       curationError(CURATING_NOTIFICATION_KEY);
     }
