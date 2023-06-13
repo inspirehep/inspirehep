@@ -6,6 +6,7 @@ import ReferenceItem from './ReferenceItem';
 import ErrorAlertOrChildren from '../../common/components/ErrorAlertOrChildren';
 import EmptyOrChildren from '../../common/components/EmptyOrChildren';
 import ListWithPagination from '../../common/components/ListWithPagination';
+import LoadingOrChildren from '../../common/components/LoadingOrChildren';
 
 function ReferenceList({
   total,
@@ -69,12 +70,14 @@ function ReferenceList({
   );
 
   return (
-    <ContentBox loading={loading}>
-      <ErrorAlertOrChildren error={error}>
-        <EmptyOrChildren data={references} title="0 References">
-          {renderList()}
-        </EmptyOrChildren>
-      </ErrorAlertOrChildren>
+    <ContentBox>
+      <LoadingOrChildren loading={loading}>
+        <ErrorAlertOrChildren error={error}>
+          <EmptyOrChildren data={references} title="0 References">
+            {renderList()}
+          </EmptyOrChildren>
+        </ErrorAlertOrChildren>
+      </LoadingOrChildren>
     </ContentBox>
   );
 }
