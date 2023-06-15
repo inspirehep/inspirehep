@@ -28,4 +28,9 @@ SNOW_QUEUE_TO_FUNCTIONAL_CATEGORY_MAPPING = {
     "AUTHORS_curation": "Author curation",
     "Authors_cor_user": "Author updates",
     "Authors_add_user": "Author submissions",
+    "AUTHORS_cor_user": "Author submissions",
+    "CONF_add_user": "Conferences",
+    "SEMINARS": "Seminars",
+    "AUTHORS_claim_manual": "Author claims",
+    "JOBS": "Jobs",
 }
