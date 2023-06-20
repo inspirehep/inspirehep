@@ -48,7 +48,7 @@ import { LITERATURE_REFERENCES_NS } from '../search/constants';
 import { searchQueryUpdate } from './search';
 import { assignSuccessDifferentProfileClaimedPapers } from '../authors/assignNotification';
 
-function fetchingLiteratureReferences(query: { page?: number; size?: number }) {
+function fetchingLiteratureReferences(query: { size?: number; page?: string }) {
   return {
     type: LITERATURE_REFERENCES_REQUEST,
     payload: query.page,
@@ -160,7 +160,7 @@ export function fetchLiteratureReferences(
   http: HttpClientWrapper
 ) => Promise<void> {
   return async (dispatch, getState, http) => {
-    const query: { size?: number; q?: string; assigned?: number } = {
+    const query: { size?: number; q?: string; assigned?: number, page?: string } = {
       ...{
         size: getState().search.getIn([
           'namespaces',
@@ -337,10 +337,17 @@ export function curateReference({
         'query',
         'size',
       ]);
+      const page = getState().search.getIn([
+        'namespaces',
+        LITERATURE_REFERENCES_NS,
+        'query',
+        'page',
+      ]);
       // update references to see changes immediately
       const query = {
         ...{
-          size
+          size,
+          page,
         },
       };
       dispatch(fetchLiteratureReferences(recordId, query))

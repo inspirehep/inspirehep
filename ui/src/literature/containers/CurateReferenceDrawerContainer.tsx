@@ -5,6 +5,7 @@ import {
   setCurateDrawerVisibility,
   curateReference,
 } from '../../actions/literature';
+import { searchResultsReset } from '../../actions/search';
 import { CURATE_REFERENCE_NS } from '../../search/constants';
 import CurateReferenceDrawer from '../components/CurateReferenceDrawer/CurateReferenceDrawer';
 
@@ -17,7 +18,8 @@ const stateToProps = (state: RootStateOrAny, { namespace }: { namespace: string 
 
 const dispatchToProps = (dispatch: ActionCreator<Action>) => ({
   onDrawerClose() {
-    dispatch(setCurateDrawerVisibility(null))
+    dispatch(setCurateDrawerVisibility(null));
+    dispatch(searchResultsReset(CURATE_REFERENCE_NS));
   },
 
   onCurate({

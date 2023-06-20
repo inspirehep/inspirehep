@@ -14,6 +14,7 @@ import {
   SEARCH_QUERY_UPDATE,
   SEARCH_BASE_QUERIES_UPDATE,
   SEARCH_QUERY_RESET,
+  RESET_SEARCH_RESULTS,
 } from '../actions/actionTypes';
 import namespacesState from '../search/state';
 import {
@@ -32,7 +33,7 @@ export const initialState = fromJS({
 function getNamespaceForLocationChangeAction(action) {
   const { location } = action.payload;
   const rootPathname =
-    SEARCHABLE_COLLECTION_PATHNAMES.find(pathname =>
+    SEARCHABLE_COLLECTION_PATHNAMES.find((pathname) =>
       location.pathname.startsWith(pathname)
     ) || LITERATURE;
   return rootPathname.substring(1); // root pathname to search namespace
@@ -49,8 +50,7 @@ const searchReducer = (state = initialState, action) => {
     query,
     baseQuery,
     baseAggregationsQuery,
-  } =
-    payload || {};
+  } = payload || {};
   switch (action.type) {
     case LOCATION_CHANGE: // TODO: move it to a middleware?
       return state.set(
@@ -162,6 +162,11 @@ const searchReducer = (state = initialState, action) => {
           ['namespaces', namespace, 'aggregations'],
           initialState.getIn(['namespaces', namespace, 'aggregations'])
         );
+    case RESET_SEARCH_RESULTS:
+      return state.setIn(
+        ['namespaces', namespace],
+        initialState.getIn(['namespaces', namespace])
+      );
     default:
       return state;
   }
