@@ -18,6 +18,7 @@ bleach==3.2.1; python_version >= "2.7" and python_full_version < "3.0.0" or pyth
 blinker==1.4; python_version >= "3.5"
 boto3==1.17.55; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.6.0")
 botocore==1.20.55; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.6.0"
+bump2version==1.0.1; python_version >= "3.5"
 celery==4.4.7; (python_version >= "2.7" and python_full_version < "3.0.0") or (python_full_version >= "3.5.0")
 certifi==2019.11.28; python_version >= "3.5" and python_full_version < "3.0.0" or python_full_version >= "3.5.0" and python_version >= "3.5"
 cffi==1.15.1; python_version >= "3.6"
@@ -82,7 +83,7 @@ inspire-dojson==63.1.9
 inspire-json-merger==11.0.29
 inspire-matcher==9.0.14
 inspire-query-parser==6.0.51
-inspire-schemas==61.5.0
+inspire-schemas==61.5.17
 inspire-service-orcid @ git+https://github.com/inspirehep/inspire-service-orcid.git@362425d6f77a4770794615d3b98c233fca08e537
 inspire-utils==3.0.33
 intervals==0.8.1
@@ -155,8 +156,7 @@ pluggy==0.13.1; python_version >= "2.7" and python_full_version < "3.0.0" or pyt
 prometheus-client==0.7.1
 prometheus-flask-exporter==0.15.4
 prompt-toolkit==3.0.2; python_version >= "3.6"
-psycopg2-binary==2.9.5; python_version >= "3.6"
-psycopg2==2.9.3; python_version >= "3.6"
+psycopg2-binary==2.9.6; python_version >= "3.6"
 ptyprocess==0.6.0; sys_platform != "win32" and python_version >= "3.6"
 pyasn1-modules==0.2.8; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.4.0"
 pyasn1==0.4.8; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.4.0"
