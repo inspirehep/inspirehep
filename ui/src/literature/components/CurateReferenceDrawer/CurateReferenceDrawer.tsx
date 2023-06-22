@@ -27,40 +27,45 @@ export function renderReferenceItem(result: Map<string, any>) {
   const collaborationsWithSuffix = metadata?.get('collaborations_with_suffix');
 
   return (
-    <Row>
-      <Col span={1}>
-        <Radio value={controlNumber} />
-      </Col>
-      <Col span={23}>
-        <Card className="reference-result-item">
-          <div>
-            <Link
-              data-test-id="result-item-title"
-              className="result-item-title"
-              to={`${LITERATURE}/${controlNumber}`}
-            >
-              <LiteratureTitle title={title} />
-            </Link>
-          </div>
-          <div className="mt1">
-            <AuthorsAndCollaborations
-              authorCount={authorCount}
-              authors={authors}
-              collaborations={collaborations}
-              collaborationsWithSuffix={collaborationsWithSuffix}
-              page="Literature detail"
-            />
-          </div>
-          <div>
-            {date && (
-              <>
-                (<LiteratureDate date={date} />)
-              </>
-            )}
-          </div>
-        </Card>
-      </Col>
-    </Row>
+    <div data-test-id={`reference-drawer-item-${controlNumber}`}>
+      <Row>
+        <Col span={1}>
+          <Radio
+            value={controlNumber}
+            data-test-id={`reference-drawer-radio-${controlNumber}`}
+          />
+        </Col>
+        <Col span={23}>
+          <Card className="reference-result-item">
+            <div>
+              <Link
+                data-test-id="result-item-title"
+                className="result-item-title"
+                to={`${LITERATURE}/${controlNumber}`}
+              >
+                <LiteratureTitle title={title} />
+              </Link>
+            </div>
+            <div className="mt1">
+              <AuthorsAndCollaborations
+                authorCount={authorCount}
+                authors={authors}
+                collaborations={collaborations}
+                collaborationsWithSuffix={collaborationsWithSuffix}
+                page="Literature detail"
+              />
+            </div>
+            <div>
+              {date && (
+                <>
+                  (<LiteratureDate date={date} />)
+                </>
+              )}
+            </div>
+          </Card>
+        </Col>
+      </Row>
+    </div>
   );
 }
 
@@ -107,7 +112,15 @@ function CurateReferenceDrawer({
     });
     onDrawerClose();
     setSelectedRecordId(null);
-  }, [recordId, recordUuid, revisionId, referenceId, selectedRecordId, onCurate, onDrawerClose]);
+  }, [
+    recordId,
+    recordUuid,
+    revisionId,
+    referenceId,
+    selectedRecordId,
+    onCurate,
+    onDrawerClose,
+  ]);
 
   return (
     <Drawer
@@ -121,7 +134,9 @@ function CurateReferenceDrawer({
       open={visible}
       title="Find the correct reference:"
     >
-      <EmbeddedSearchBoxContainer namespace={CURATE_REFERENCE_NS} />
+      <div data-test-id="reference-embedded-search">
+        <EmbeddedSearchBoxContainer namespace={CURATE_REFERENCE_NS} />
+      </div>
       <LoadingOrChildren loading={loading}>
         <div className="mt1">
           <NumberOfResultsContainer namespace={CURATE_REFERENCE_NS} />
