@@ -33,15 +33,23 @@ class ReferenceItem extends Component {
     const title = reference.getIn(['titles', 0]);
     if (recordId && title && !unlinked) {
       return (
-        <Link className={classNames("f5", unlinked ? 'unlinked' : '')} to={`${LITERATURE}/${recordId}`}>
-          <LiteratureTitle title={title} />
-        </Link>
+        <div data-test-id="reference-title">
+          <Link
+            className={classNames('f5', unlinked ? 'unlinked' : '')}
+            to={`${LITERATURE}/${recordId}`}
+          >
+            <LiteratureTitle title={title} />
+          </Link>
+        </div>
       );
     }
 
     if (title) {
       return (
-        <div className={classNames("f5", unlinked ? 'unlinked' : '')}>
+        <div
+          className={classNames('f5', unlinked ? 'unlinked' : '')}
+          data-test-id="reference-title"
+        >
           <LiteratureTitle title={title} unlinked={unlinked} />
         </div>
       );
@@ -56,8 +64,15 @@ class ReferenceItem extends Component {
   }
 
   render() {
-    // eslint-disable-next-line camelcase
-    const { reference, unlinked, onEditReferenceClick, disableEdit, loggedIn, reference_index } = this.props;
+    const {
+      reference,
+      unlinked,
+      onEditReferenceClick,
+      disableEdit,
+      loggedIn,
+      // eslint-disable-next-line camelcase
+      reference_index,
+    } = this.props;
     const publicationInfo = reference.get('publication_info');
     const arxivEprint = reference.get('arxiv_eprint');
     const dois = reference.get('dois');
@@ -70,76 +85,83 @@ class ReferenceItem extends Component {
       'collaborations_with_suffix'
     );
 
+    const enableEdit =  getConfigFor('SELF_CURATION_BUTTON') && !disableEdit;
+
     return (
-      <List.Item>
-        <Row
-          gutter={24}
-          type="flex"
-          justify="start"
-          align="middle"
-          className="w-100 flex-nowrap"
-        >
-          <Col xs={2} lg={1}>
-            <div className="flex">
-              {ReferenceItem.renderLabel(reference)}
-            </div>
-          </Col>
-          <Col style={{ width: '100%' }}>
-            <List.Item.Meta
-              title={ReferenceItem.renderTitle(reference, unlinked)}
-              description={
-                <Fragment>
-                  {ReferenceItem.renderMisc(reference)}
-                  <AuthorsAndCollaborations
-                    authors={authors}
-                    collaborations={collaborations}
-                    collaborationsWithSuffix={collaborationsWithSuffix}
-                    page="Literature detail"
-                    unlinked={unlinked}
-                  />
-                  <InlineUL
-                    separator={SEPARATOR_MIDDLEDOT}
-                    wrapperClassName="secondary-container"
-                  >
-                    {publicationInfo && (
-                      <PublicationInfoList
-                        publicationInfo={publicationInfo}
-                        labeled={false}
-                      />
-                    )}
-                    {arxivEprint && (
-                      <ArxivEprintList
-                        page="Literature detail"
-                        eprints={arxivEprint}
-                      />
-                    )}
-                    {dois && <DOIList dois={dois} />}
-                    {urls && !recordId && <URLList urls={urls} />}
-                  </InlineUL>
-                </Fragment>
-              }
-            />
-          </Col>
-          {getConfigFor('SELF_CURATION_BUTTON') && !disableEdit && (
-            <Col span={2} className="pr3">
-              <Tooltip title={loggedIn ? "Edit this reference" : "Log in to edit"}>
-                <div className="flex items-center justify-center">
-                  <LinkLikeButton
-                    onClick={() => onEditReferenceClick(reference_index)}
-                    disabled={!loggedIn}
-                  >
-                    <IconText
-                      text="edit"
-                      icon={<EditOutlined />}
-                      className="flex items-center justify-center pr2"
-                    />
-                  </LinkLikeButton>
-                </div>
-              </Tooltip>
+      <div data-test-id="reference-item">
+        <List.Item>
+          <Row
+            gutter={24}
+            type="flex"
+            justify="start"
+            align="middle"
+            className="w-100 flex-nowrap"
+          >
+            <Col xs={2} lg={1}>
+              <div className="flex">{ReferenceItem.renderLabel(reference)}</div>
             </Col>
-          )}
-        </Row>
-      </List.Item>
+            <Col style={{ width: '100%' }}>
+              <List.Item.Meta
+                title={ReferenceItem.renderTitle(reference, unlinked)}
+                description={
+                  <Fragment>
+                    {ReferenceItem.renderMisc(reference)}
+                    <AuthorsAndCollaborations
+                      authors={authors}
+                      collaborations={collaborations}
+                      collaborationsWithSuffix={collaborationsWithSuffix}
+                      page="Literature detail"
+                      unlinked={unlinked}
+                    />
+                    <InlineUL
+                      separator={SEPARATOR_MIDDLEDOT}
+                      wrapperClassName="secondary-container"
+                    >
+                      {publicationInfo && (
+                        <PublicationInfoList
+                          publicationInfo={publicationInfo}
+                          labeled={false}
+                        />
+                      )}
+                      {arxivEprint && (
+                        <ArxivEprintList
+                          page="Literature detail"
+                          eprints={arxivEprint}
+                        />
+                      )}
+                      {dois && <DOIList dois={dois} />}
+                      {urls && !recordId && <URLList urls={urls} />}
+                    </InlineUL>
+                  </Fragment>
+                }
+              />
+            </Col>
+            {enableEdit && (
+              <Col span={2} className="pr3">
+                <Tooltip
+                  title={loggedIn ? 'Edit this reference' : 'Log in to edit'}
+                >
+                  <div
+                    className="flex items-center justify-center"
+                    data-test-id="edit-reference"
+                  >
+                    <LinkLikeButton
+                      onClick={() => onEditReferenceClick(reference_index)}
+                      disabled={!loggedIn}
+                    >
+                      <IconText
+                        text="edit"
+                        icon={<EditOutlined />}
+                        className="flex items-center justify-center pr2"
+                      />
+                    </LinkLikeButton>
+                  </div>
+                </Tooltip>
+              </Col>
+            )}
+          </Row>
+        </List.Item>
+      </div>
     );
   }
 }
