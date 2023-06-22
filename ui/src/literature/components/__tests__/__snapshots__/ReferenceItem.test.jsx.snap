@@ -1,380 +1,407 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ReferenceItem does not render misc if title present 1`] = `
-<ForwardRef(InternalItem)>
-  <Row
-    align="middle"
-    className="w-100 flex-nowrap"
-    gutter={24}
-    justify="start"
-    type="flex"
-  >
-    <Col
-      lg={1}
-      xs={2}
+<div
+  data-test-id="reference-item"
+>
+  <ForwardRef(InternalItem)>
+    <Row
+      align="middle"
+      className="w-100 flex-nowrap"
+      gutter={24}
+      justify="start"
+      type="flex"
     >
-      <div
-        className="flex"
-      />
-    </Col>
-    <Col
-      style={
-        Object {
-          "width": "100%",
+      <Col
+        lg={1}
+        xs={2}
+      >
+        <div
+          className="flex"
+        />
+      </Col>
+      <Col
+        style={
+          Object {
+            "width": "100%",
+          }
         }
-      }
-    >
-      <Meta
-        description={
-          <React.Fragment>
-            <AuthorsAndCollaborations
-              authors={Immutable.List []}
-              collaborations={Immutable.List []}
-              collaborationsWithSuffix={Immutable.List []}
-              enableAuthorsShowAll={false}
-              page="Literature detail"
-            />
-            <InlineUL
-              separator=" • "
-              wrapperClassName="secondary-container"
-            />
-          </React.Fragment>
-        }
-        title={
-          <div
-            className="f5"
-          >
-            <LiteratureTitle
-              title={
-                Immutable.Map {
-                  "title": "Title",
+      >
+        <Meta
+          description={
+            <React.Fragment>
+              <AuthorsAndCollaborations
+                authors={Immutable.List []}
+                collaborations={Immutable.List []}
+                collaborationsWithSuffix={Immutable.List []}
+                enableAuthorsShowAll={false}
+                page="Literature detail"
+              />
+              <InlineUL
+                separator=" • "
+                wrapperClassName="secondary-container"
+              />
+            </React.Fragment>
+          }
+          title={
+            <div
+              className="f5"
+              data-test-id="reference-title"
+            >
+              <LiteratureTitle
+                title={
+                  Immutable.Map {
+                    "title": "Title",
+                  }
                 }
-              }
-            />
-          </div>
-        }
-      />
-    </Col>
-  </Row>
-</ForwardRef(InternalItem)>
+              />
+            </div>
+          }
+        />
+      </Col>
+    </Row>
+  </ForwardRef(InternalItem)>
+</div>
 `;
 
 exports[`ReferenceItem renders misc if present 1`] = `
-<ForwardRef(InternalItem)>
-  <Row
-    align="middle"
-    className="w-100 flex-nowrap"
-    gutter={24}
-    justify="start"
-    type="flex"
-  >
-    <Col
-      lg={1}
-      xs={2}
+<div
+  data-test-id="reference-item"
+>
+  <ForwardRef(InternalItem)>
+    <Row
+      align="middle"
+      className="w-100 flex-nowrap"
+      gutter={24}
+      justify="start"
+      type="flex"
     >
-      <div
-        className="flex"
-      />
-    </Col>
-    <Col
-      style={
-        Object {
-          "width": "100%",
+      <Col
+        lg={1}
+        xs={2}
+      >
+        <div
+          className="flex"
+        />
+      </Col>
+      <Col
+        style={
+          Object {
+            "width": "100%",
+          }
         }
-      }
-    >
-      <Meta
-        description={
-          <React.Fragment>
-            <div>
-              A Misc
-            </div>
-            <AuthorsAndCollaborations
-              authors={Immutable.List []}
-              collaborations={Immutable.List []}
-              collaborationsWithSuffix={Immutable.List []}
-              enableAuthorsShowAll={false}
-              page="Literature detail"
-            />
-            <InlineUL
-              separator=" • "
-              wrapperClassName="secondary-container"
-            />
-          </React.Fragment>
-        }
-        title={null}
-      />
-    </Col>
-  </Row>
-</ForwardRef(InternalItem)>
+      >
+        <Meta
+          description={
+            <React.Fragment>
+              <div>
+                A Misc
+              </div>
+              <AuthorsAndCollaborations
+                authors={Immutable.List []}
+                collaborations={Immutable.List []}
+                collaborationsWithSuffix={Immutable.List []}
+                enableAuthorsShowAll={false}
+                page="Literature detail"
+              />
+              <InlineUL
+                separator=" • "
+                wrapperClassName="secondary-container"
+              />
+            </React.Fragment>
+          }
+          title={null}
+        />
+      </Col>
+    </Row>
+  </ForwardRef(InternalItem)>
+</div>
 `;
 
 exports[`ReferenceItem renders unlinked reference (no control_number) 1`] = `
-<ForwardRef(InternalItem)>
-  <Row
-    align="middle"
-    className="w-100 flex-nowrap"
-    gutter={24}
-    justify="start"
-    type="flex"
-  >
-    <Col
-      lg={1}
-      xs={2}
+<div
+  data-test-id="reference-item"
+>
+  <ForwardRef(InternalItem)>
+    <Row
+      align="middle"
+      className="w-100 flex-nowrap"
+      gutter={24}
+      justify="start"
+      type="flex"
     >
-      <div
-        className="flex"
-      />
-    </Col>
-    <Col
-      style={
-        Object {
-          "width": "100%",
+      <Col
+        lg={1}
+        xs={2}
+      >
+        <div
+          className="flex"
+        />
+      </Col>
+      <Col
+        style={
+          Object {
+            "width": "100%",
+          }
         }
-      }
-    >
-      <Meta
-        description={
-          <React.Fragment>
-            <AuthorsAndCollaborations
-              authors={
-                Immutable.List [
-                  Immutable.Map {
-                    "full_name": "Author",
-                  },
-                ]
-              }
-              collaborations={
-                Immutable.List [
-                  Immutable.Map {
-                    "value": "Test Collab.",
-                  },
-                ]
-              }
-              collaborationsWithSuffix={
-                Immutable.List [
-                  Immutable.Map {
-                    "value": "Test Group",
-                  },
-                ]
-              }
-              enableAuthorsShowAll={false}
-              page="Literature detail"
-            />
-            <InlineUL
-              separator=" • "
-              wrapperClassName="secondary-container"
+      >
+        <Meta
+          description={
+            <React.Fragment>
+              <AuthorsAndCollaborations
+                authors={
+                  Immutable.List [
+                    Immutable.Map {
+                      "full_name": "Author",
+                    },
+                  ]
+                }
+                collaborations={
+                  Immutable.List [
+                    Immutable.Map {
+                      "value": "Test Collab.",
+                    },
+                  ]
+                }
+                collaborationsWithSuffix={
+                  Immutable.List [
+                    Immutable.Map {
+                      "value": "Test Group",
+                    },
+                  ]
+                }
+                enableAuthorsShowAll={false}
+                page="Literature detail"
+              />
+              <InlineUL
+                separator=" • "
+                wrapperClassName="secondary-container"
+              >
+                <PublicationInfoList
+                  labeled={false}
+                  publicationInfo={
+                    Immutable.List [
+                      Immutable.Map {
+                        "journal_title": "Journal",
+                      },
+                    ]
+                  }
+                />
+                <DOIList
+                  dois={
+                    Immutable.List [
+                      Immutable.Map {
+                        "value": "123456.12345",
+                      },
+                    ]
+                  }
+                />
+                <URLList
+                  urls={
+                    Immutable.List [
+                      Immutable.Map {
+                        "value": "https://dude.guy",
+                      },
+                    ]
+                  }
+                  wrapperClassName={null}
+                />
+              </InlineUL>
+            </React.Fragment>
+          }
+          title={
+            <div
+              className="f5"
+              data-test-id="reference-title"
             >
-              <PublicationInfoList
-                labeled={false}
-                publicationInfo={
-                  Immutable.List [
-                    Immutable.Map {
-                      "journal_title": "Journal",
-                    },
-                  ]
+              <LiteratureTitle
+                title={
+                  Immutable.Map {
+                    "title": "Title",
+                  }
                 }
               />
-              <DOIList
-                dois={
-                  Immutable.List [
-                    Immutable.Map {
-                      "value": "123456.12345",
-                    },
-                  ]
-                }
-              />
-              <URLList
-                urls={
-                  Immutable.List [
-                    Immutable.Map {
-                      "value": "https://dude.guy",
-                    },
-                  ]
-                }
-                wrapperClassName={null}
-              />
-            </InlineUL>
-          </React.Fragment>
-        }
-        title={
-          <div
-            className="f5"
-          >
-            <LiteratureTitle
-              title={
-                Immutable.Map {
-                  "title": "Title",
-                }
-              }
-            />
-          </div>
-        }
-      />
-    </Col>
-  </Row>
-</ForwardRef(InternalItem)>
+            </div>
+          }
+        />
+      </Col>
+    </Row>
+  </ForwardRef(InternalItem)>
+</div>
 `;
 
 exports[`ReferenceItem renders with full reference 1`] = `
-<ForwardRef(InternalItem)>
-  <Row
-    align="middle"
-    className="w-100 flex-nowrap"
-    gutter={24}
-    justify="start"
-    type="flex"
-  >
-    <Col
-      lg={1}
-      xs={2}
+<div
+  data-test-id="reference-item"
+>
+  <ForwardRef(InternalItem)>
+    <Row
+      align="middle"
+      className="w-100 flex-nowrap"
+      gutter={24}
+      justify="start"
+      type="flex"
     >
-      <div
-        className="flex"
+      <Col
+        lg={1}
+        xs={2}
       >
-        <span>
-          [
-          123
-          ]
-        </span>
-      </div>
-    </Col>
-    <Col
-      style={
-        Object {
-          "width": "100%",
+        <div
+          className="flex"
+        >
+          <span>
+            [
+            123
+            ]
+          </span>
+        </div>
+      </Col>
+      <Col
+        style={
+          Object {
+            "width": "100%",
+          }
         }
-      }
-    >
-      <Meta
-        description={
-          <React.Fragment>
-            <AuthorsAndCollaborations
-              authors={
-                Immutable.List [
-                  Immutable.Map {
-                    "full_name": "Author",
-                  },
-                ]
-              }
-              collaborations={
-                Immutable.List [
-                  Immutable.Map {
-                    "value": "Test Collab.",
-                  },
-                ]
-              }
-              collaborationsWithSuffix={
-                Immutable.List [
-                  Immutable.Map {
-                    "value": "Test Group",
-                  },
-                ]
-              }
-              enableAuthorsShowAll={false}
-              page="Literature detail"
-            />
-            <InlineUL
-              separator=" • "
-              wrapperClassName="secondary-container"
+      >
+        <Meta
+          description={
+            <React.Fragment>
+              <AuthorsAndCollaborations
+                authors={
+                  Immutable.List [
+                    Immutable.Map {
+                      "full_name": "Author",
+                    },
+                  ]
+                }
+                collaborations={
+                  Immutable.List [
+                    Immutable.Map {
+                      "value": "Test Collab.",
+                    },
+                  ]
+                }
+                collaborationsWithSuffix={
+                  Immutable.List [
+                    Immutable.Map {
+                      "value": "Test Group",
+                    },
+                  ]
+                }
+                enableAuthorsShowAll={false}
+                page="Literature detail"
+              />
+              <InlineUL
+                separator=" • "
+                wrapperClassName="secondary-container"
+              >
+                <PublicationInfoList
+                  labeled={false}
+                  publicationInfo={
+                    Immutable.List [
+                      Immutable.Map {
+                        "journal_title": "Journal",
+                      },
+                    ]
+                  }
+                />
+                <DOIList
+                  dois={
+                    Immutable.List [
+                      Immutable.Map {
+                        "value": "123456.12345",
+                      },
+                    ]
+                  }
+                />
+              </InlineUL>
+            </React.Fragment>
+          }
+          title={
+            <div
+              data-test-id="reference-title"
             >
-              <PublicationInfoList
-                labeled={false}
-                publicationInfo={
-                  Immutable.List [
+              <Link
+                className="f5"
+                to="/literature/12345"
+              >
+                <LiteratureTitle
+                  title={
                     Immutable.Map {
-                      "journal_title": "Journal",
-                    },
-                  ]
-                }
-              />
-              <DOIList
-                dois={
-                  Immutable.List [
-                    Immutable.Map {
-                      "value": "123456.12345",
-                    },
-                  ]
-                }
-              />
-            </InlineUL>
-          </React.Fragment>
-        }
-        title={
-          <Link
-            className="f5"
-            to="/literature/12345"
-          >
-            <LiteratureTitle
-              title={
-                Immutable.Map {
-                  "title": "Title",
-                }
-              }
-            />
-          </Link>
-        }
-      />
-    </Col>
-  </Row>
-</ForwardRef(InternalItem)>
+                      "title": "Title",
+                    }
+                  }
+                />
+              </Link>
+            </div>
+          }
+        />
+      </Col>
+    </Row>
+  </ForwardRef(InternalItem)>
+</div>
 `;
 
 exports[`ReferenceItem renders without edit button if disableEdit 1`] = `
-<ForwardRef(InternalItem)>
-  <Row
-    align="middle"
-    className="w-100 flex-nowrap"
-    gutter={24}
-    justify="start"
-    type="flex"
-  >
-    <Col
-      lg={1}
-      xs={2}
+<div
+  data-test-id="reference-item"
+>
+  <ForwardRef(InternalItem)>
+    <Row
+      align="middle"
+      className="w-100 flex-nowrap"
+      gutter={24}
+      justify="start"
+      type="flex"
     >
-      <div
-        className="flex"
-      />
-    </Col>
-    <Col
-      style={
-        Object {
-          "width": "100%",
+      <Col
+        lg={1}
+        xs={2}
+      >
+        <div
+          className="flex"
+        />
+      </Col>
+      <Col
+        style={
+          Object {
+            "width": "100%",
+          }
         }
-      }
-    >
-      <Meta
-        description={
-          <React.Fragment>
-            <AuthorsAndCollaborations
-              authors={Immutable.List []}
-              collaborations={Immutable.List []}
-              collaborationsWithSuffix={Immutable.List []}
-              enableAuthorsShowAll={false}
-              page="Literature detail"
-            />
-            <InlineUL
-              separator=" • "
-              wrapperClassName="secondary-container"
-            />
-          </React.Fragment>
-        }
-        title={
-          <div
-            className="f5"
-          >
-            <LiteratureTitle
-              title={
-                Immutable.Map {
-                  "title": "Title",
+      >
+        <Meta
+          description={
+            <React.Fragment>
+              <AuthorsAndCollaborations
+                authors={Immutable.List []}
+                collaborations={Immutable.List []}
+                collaborationsWithSuffix={Immutable.List []}
+                enableAuthorsShowAll={false}
+                page="Literature detail"
+              />
+              <InlineUL
+                separator=" • "
+                wrapperClassName="secondary-container"
+              />
+            </React.Fragment>
+          }
+          title={
+            <div
+              className="f5"
+              data-test-id="reference-title"
+            >
+              <LiteratureTitle
+                title={
+                  Immutable.Map {
+                    "title": "Title",
+                  }
                 }
-              }
-            />
-          </div>
-        }
-      />
-    </Col>
-  </Row>
-</ForwardRef(InternalItem)>
+              />
+            </div>
+          }
+        />
+      </Col>
+    </Row>
+  </ForwardRef(InternalItem)>
+</div>
 `;
