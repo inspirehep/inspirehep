@@ -195,3 +195,112 @@ def test_fuzzy_match_returns_403_for_non_autheorized_users(inspire_app):
             "api/matcher/fuzzy-match/", data=orjson.dumps({"data": record_data})
         )
     assert response.status_code == 403
+
+
+def test_match_references(inspire_app):
+    user = create_user(role=Roles.cataloger.value)
+    cited_record_json = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "control_number": 1,
+        "document_type": ["article"],
+        "publication_info": [
+            {
+                "artid": "045",
+                "journal_title": "JHEP",
+                "journal_volume": "06",
+                "page_start": "045",
+                "year": 2007,
+            }
+        ],
+        "titles": [{"title": "The Strongly-Interacting Light Higgs"}],
+    }
+
+    cited_record = create_record("lit", cited_record_json)
+    record_data = {
+        "control_number": 4328,
+        "references": [
+            {
+                "reference": {
+                    "publication_info": {
+                        "artid": "045",
+                        "journal_title": "JHEP",
+                        "journal_volume": "06",
+                        "page_start": "045",
+                        "year": 2007,
+                    }
+                }
+            }
+        ],
+        "titles": [
+            {"title": "title nb 1"},
+        ],
+    }
+    create_record("lit", record_data)
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(
+            "api/matcher/match-literature-reference/",
+            data=orjson.dumps({"references": record_data["references"]}),
+        )
+    assert response.status_code == 200
+    assert cited_record["self"] == response.json["matched_references"][0]["record"]
+
+
+def test_match_references_no_reference_match(inspire_app):
+    user = create_user(role=Roles.cataloger.value)
+    references = [
+        {
+            "reference": {
+                "publication_info": {
+                    "artid": "045",
+                    "journal_title": "JHEP",
+                    "journal_volume": "06",
+                    "page_start": "045",
+                    "year": 2007,
+                }
+            }
+        }
+    ]
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(
+            "api/matcher/match-literature-reference/",
+            data=orjson.dumps({"references": references}),
+        )
+    assert response.status_code == 200
+    assert not response.json["matched_references"][0].get("record")
+
+
+def test_match_references_returns_403_for_non_autheorized_users(inspire_app):
+    user = create_user()
+    record_data = {
+        "control_number": 4328,
+        "references": [
+            {
+                "reference": {
+                    "publication_info": {
+                        "artid": "045",
+                        "journal_title": "JHEP",
+                        "journal_volume": "06",
+                        "page_start": "045",
+                        "year": 2007,
+                    }
+                }
+            }
+        ],
+        "titles": [
+            {"title": "title nb 1"},
+        ],
+    }
+    create_record("lit", record_data)
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(
+            "api/matcher/match-literature-reference/",
+            data=orjson.dumps({"references": record_data["references"]}),
+        )
+    assert response.status_code == 403

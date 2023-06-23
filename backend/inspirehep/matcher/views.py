@@ -46,3 +46,16 @@ def exact_match(args):
 def fuzzy_match(args):
     match_result = fuzzy_match_literature_data(args["data"])
     return jsonify({"matched_data": match_result})
+
+
+@blueprint.route("/match-literature-reference", methods=["GET"])
+@login_required_with_roles([Roles.cataloger.value])
+@parser.use_args(
+    {
+        "references": fields.List(fields.Dict, required=True),
+    },
+    locations=("json",),
+)
+def match_literature_references(args):
+    match_result = match_references(args["references"])
+    return jsonify({"matched_references": match_result["matched_references"]})
