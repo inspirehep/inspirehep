@@ -316,112 +316,108 @@ exports[`ReferenceDiffInterface should render 1`] = `
                       <div
                         class="ant-card-body"
                       >
-                        <div
-                          data-test-id="reference-item"
+                        <li
+                          class="ant-list-item"
                         >
-                          <li
-                            class="ant-list-item"
+                          <div
+                            class="ant-row ant-row-start ant-row-middle w-100 flex-nowrap"
+                            style="margin-left: -12px; margin-right: -12px;"
+                            type="flex"
                           >
                             <div
-                              class="ant-row ant-row-start ant-row-middle w-100 flex-nowrap"
-                              style="margin-left: -12px; margin-right: -12px;"
-                              type="flex"
+                              class="ant-col ant-col-xs-2 ant-col-lg-1"
+                              style="padding-left: 12px; padding-right: 12px;"
                             >
                               <div
-                                class="ant-col ant-col-xs-2 ant-col-lg-1"
-                                style="padding-left: 12px; padding-right: 12px;"
+                                class="flex"
                               >
-                                <div
-                                  class="flex"
-                                >
-                                  <span>
-                                    [1]
-                                  </span>
-                                </div>
+                                <span>
+                                  [1]
+                                </span>
                               </div>
+                            </div>
+                            <div
+                              class="ant-col"
+                              style="padding-left: 12px; padding-right: 12px; width: 100%;"
+                            >
                               <div
-                                class="ant-col"
-                                style="padding-left: 12px; padding-right: 12px; width: 100%;"
+                                class="ant-list-item-meta"
                               >
                                 <div
-                                  class="ant-list-item-meta"
+                                  class="ant-list-item-meta-content"
                                 >
                                   <div
-                                    class="ant-list-item-meta-content"
+                                    class="ant-list-item-meta-description"
                                   >
                                     <div
-                                      class="ant-list-item-meta-description"
+                                      class="__InlineList__ di"
                                     >
-                                      <div
-                                        class="__InlineList__ di"
-                                      >
-                                        <ul>
-                                          <li>
-                                            <div
-                                              class="di"
-                                            >
-                                              <span>
-                                                Author2
-                                              </span>
-                                            </div>
-                                          </li>
-                                        </ul>
-                                      </div>
-                                      <div
-                                        class="__InlineList__ secondary-container"
-                                      >
-                                        <ul>
-                                          <li>
-                                            <div
-                                              class="__InlineList__"
-                                            >
-                                              <ul>
-                                                <li>
+                                      <ul>
+                                        <li>
+                                          <div
+                                            class="di"
+                                          >
+                                            <span>
+                                              Author2
+                                            </span>
+                                          </div>
+                                        </li>
+                                      </ul>
+                                    </div>
+                                    <div
+                                      class="__InlineList__ secondary-container"
+                                    >
+                                      <ul>
+                                        <li>
+                                          <div
+                                            class="__InlineList__"
+                                          >
+                                            <ul>
+                                              <li>
+                                                <span>
                                                   <span>
-                                                    <span>
-                                                      <i>
-                                                        Journal2
-                                                      </i>
-                                                    </span>
+                                                    <i>
+                                                      Journal2
+                                                    </i>
                                                   </span>
-                                                </li>
-                                              </ul>
-                                            </div>
-                                             • 
-                                          </li>
-                                          <li>
-                                            <div
-                                              class="__InlineList__"
+                                                </span>
+                                              </li>
+                                            </ul>
+                                          </div>
+                                           • 
+                                        </li>
+                                        <li>
+                                          <div
+                                            class="__InlineList__"
+                                          >
+                                            <span
+                                              class=""
                                             >
-                                              <span
-                                                class=""
-                                              >
-                                                DOI: 
-                                              </span>
-                                              <ul>
-                                                <li>
-                                                  <span>
-                                                    <a
-                                                      href="//doi.org/123456.12345"
-                                                      rel="noopener"
-                                                      target="_blank"
-                                                    >
-                                                      123456.12345
-                                                    </a>
-                                                  </span>
-                                                </li>
-                                              </ul>
-                                            </div>
-                                          </li>
-                                        </ul>
-                                      </div>
+                                              DOI: 
+                                            </span>
+                                            <ul>
+                                              <li>
+                                                <span>
+                                                  <a
+                                                    href="//doi.org/123456.12345"
+                                                    rel="noopener"
+                                                    target="_blank"
+                                                  >
+                                                    123456.12345
+                                                  </a>
+                                                </span>
+                                              </li>
+                                            </ul>
+                                          </div>
+                                        </li>
+                                      </ul>
                                     </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                          </li>
-                        </div>
+                          </div>
+                        </li>
                       </div>
                     </div>
                   </div>
@@ -479,112 +475,108 @@ exports[`ReferenceDiffInterface should render 1`] = `
                       <div
                         class="ant-card-body"
                       >
-                        <div
-                          data-test-id="reference-item"
+                        <li
+                          class="ant-list-item"
                         >
-                          <li
-                            class="ant-list-item"
+                          <div
+                            class="ant-row ant-row-start ant-row-middle w-100 flex-nowrap"
+                            style="margin-left: -12px; margin-right: -12px;"
+                            type="flex"
                           >
                             <div
-                              class="ant-row ant-row-start ant-row-middle w-100 flex-nowrap"
-                              style="margin-left: -12px; margin-right: -12px;"
-                              type="flex"
+                              class="ant-col ant-col-xs-2 ant-col-lg-1"
+                              style="padding-left: 12px; padding-right: 12px;"
                             >
                               <div
-                                class="ant-col ant-col-xs-2 ant-col-lg-1"
-                                style="padding-left: 12px; padding-right: 12px;"
+                                class="flex"
                               >
-                                <div
-                                  class="flex"
-                                >
-                                  <span>
-                                    [1]
-                                  </span>
-                                </div>
+                                <span>
+                                  [1]
+                                </span>
                               </div>
+                            </div>
+                            <div
+                              class="ant-col"
+                              style="padding-left: 12px; padding-right: 12px; width: 100%;"
+                            >
                               <div
-                                class="ant-col"
-                                style="padding-left: 12px; padding-right: 12px; width: 100%;"
+                                class="ant-list-item-meta"
                               >
                                 <div
-                                  class="ant-list-item-meta"
+                                  class="ant-list-item-meta-content"
                                 >
                                   <div
-                                    class="ant-list-item-meta-content"
+                                    class="ant-list-item-meta-description"
                                   >
                                     <div
-                                      class="ant-list-item-meta-description"
+                                      class="__InlineList__ di"
                                     >
-                                      <div
-                                        class="__InlineList__ di"
-                                      >
-                                        <ul>
-                                          <li>
-                                            <div
-                                              class="di"
-                                            >
-                                              <span>
-                                                Author
-                                              </span>
-                                            </div>
-                                          </li>
-                                        </ul>
-                                      </div>
-                                      <div
-                                        class="__InlineList__ secondary-container"
-                                      >
-                                        <ul>
-                                          <li>
-                                            <div
-                                              class="__InlineList__"
-                                            >
-                                              <ul>
-                                                <li>
+                                      <ul>
+                                        <li>
+                                          <div
+                                            class="di"
+                                          >
+                                            <span>
+                                              Author
+                                            </span>
+                                          </div>
+                                        </li>
+                                      </ul>
+                                    </div>
+                                    <div
+                                      class="__InlineList__ secondary-container"
+                                    >
+                                      <ul>
+                                        <li>
+                                          <div
+                                            class="__InlineList__"
+                                          >
+                                            <ul>
+                                              <li>
+                                                <span>
                                                   <span>
-                                                    <span>
-                                                      <i>
-                                                        Journal
-                                                      </i>
-                                                    </span>
+                                                    <i>
+                                                      Journal
+                                                    </i>
                                                   </span>
-                                                </li>
-                                              </ul>
-                                            </div>
-                                             • 
-                                          </li>
-                                          <li>
-                                            <div
-                                              class="__InlineList__"
+                                                </span>
+                                              </li>
+                                            </ul>
+                                          </div>
+                                           • 
+                                        </li>
+                                        <li>
+                                          <div
+                                            class="__InlineList__"
+                                          >
+                                            <span
+                                              class=""
                                             >
-                                              <span
-                                                class=""
-                                              >
-                                                DOI: 
-                                              </span>
-                                              <ul>
-                                                <li>
-                                                  <span>
-                                                    <a
-                                                      href="//doi.org/123456.12345"
-                                                      rel="noopener"
-                                                      target="_blank"
-                                                    >
-                                                      123456.12345
-                                                    </a>
-                                                  </span>
-                                                </li>
-                                              </ul>
-                                            </div>
-                                          </li>
-                                        </ul>
-                                      </div>
+                                              DOI: 
+                                            </span>
+                                            <ul>
+                                              <li>
+                                                <span>
+                                                  <a
+                                                    href="//doi.org/123456.12345"
+                                                    rel="noopener"
+                                                    target="_blank"
+                                                  >
+                                                    123456.12345
+                                                  </a>
+                                                </span>
+                                              </li>
+                                            </ul>
+                                          </div>
+                                        </li>
+                                      </ul>
                                     </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                          </li>
-                        </div>
+                          </div>
+                        </li>
                       </div>
                     </div>
                     <div
@@ -1288,112 +1280,108 @@ exports[`ReferenceDiffInterface should render without previous reference if it i
                       <div
                         class="ant-card-body"
                       >
-                        <div
-                          data-test-id="reference-item"
+                        <li
+                          class="ant-list-item"
                         >
-                          <li
-                            class="ant-list-item"
+                          <div
+                            class="ant-row ant-row-start ant-row-middle w-100 flex-nowrap"
+                            style="margin-left: -12px; margin-right: -12px;"
+                            type="flex"
                           >
                             <div
-                              class="ant-row ant-row-start ant-row-middle w-100 flex-nowrap"
-                              style="margin-left: -12px; margin-right: -12px;"
-                              type="flex"
+                              class="ant-col ant-col-xs-2 ant-col-lg-1"
+                              style="padding-left: 12px; padding-right: 12px;"
                             >
                               <div
-                                class="ant-col ant-col-xs-2 ant-col-lg-1"
-                                style="padding-left: 12px; padding-right: 12px;"
+                                class="flex"
                               >
-                                <div
-                                  class="flex"
-                                >
-                                  <span>
-                                    [1]
-                                  </span>
-                                </div>
+                                <span>
+                                  [1]
+                                </span>
                               </div>
+                            </div>
+                            <div
+                              class="ant-col"
+                              style="padding-left: 12px; padding-right: 12px; width: 100%;"
+                            >
                               <div
-                                class="ant-col"
-                                style="padding-left: 12px; padding-right: 12px; width: 100%;"
+                                class="ant-list-item-meta"
                               >
                                 <div
-                                  class="ant-list-item-meta"
+                                  class="ant-list-item-meta-content"
                                 >
                                   <div
-                                    class="ant-list-item-meta-content"
+                                    class="ant-list-item-meta-description"
                                   >
                                     <div
-                                      class="ant-list-item-meta-description"
+                                      class="__InlineList__ di"
                                     >
-                                      <div
-                                        class="__InlineList__ di"
-                                      >
-                                        <ul>
-                                          <li>
-                                            <div
-                                              class="di"
-                                            >
-                                              <span>
-                                                Author2
-                                              </span>
-                                            </div>
-                                          </li>
-                                        </ul>
-                                      </div>
-                                      <div
-                                        class="__InlineList__ secondary-container"
-                                      >
-                                        <ul>
-                                          <li>
-                                            <div
-                                              class="__InlineList__"
-                                            >
-                                              <ul>
-                                                <li>
+                                      <ul>
+                                        <li>
+                                          <div
+                                            class="di"
+                                          >
+                                            <span>
+                                              Author2
+                                            </span>
+                                          </div>
+                                        </li>
+                                      </ul>
+                                    </div>
+                                    <div
+                                      class="__InlineList__ secondary-container"
+                                    >
+                                      <ul>
+                                        <li>
+                                          <div
+                                            class="__InlineList__"
+                                          >
+                                            <ul>
+                                              <li>
+                                                <span>
                                                   <span>
-                                                    <span>
-                                                      <i>
-                                                        Journal2
-                                                      </i>
-                                                    </span>
+                                                    <i>
+                                                      Journal2
+                                                    </i>
                                                   </span>
-                                                </li>
-                                              </ul>
-                                            </div>
-                                             • 
-                                          </li>
-                                          <li>
-                                            <div
-                                              class="__InlineList__"
+                                                </span>
+                                              </li>
+                                            </ul>
+                                          </div>
+                                           • 
+                                        </li>
+                                        <li>
+                                          <div
+                                            class="__InlineList__"
+                                          >
+                                            <span
+                                              class=""
                                             >
-                                              <span
-                                                class=""
-                                              >
-                                                DOI: 
-                                              </span>
-                                              <ul>
-                                                <li>
-                                                  <span>
-                                                    <a
-                                                      href="//doi.org/123456.12345"
-                                                      rel="noopener"
-                                                      target="_blank"
-                                                    >
-                                                      123456.12345
-                                                    </a>
-                                                  </span>
-                                                </li>
-                                              </ul>
-                                            </div>
-                                          </li>
-                                        </ul>
-                                      </div>
+                                              DOI: 
+                                            </span>
+                                            <ul>
+                                              <li>
+                                                <span>
+                                                  <a
+                                                    href="//doi.org/123456.12345"
+                                                    rel="noopener"
+                                                    target="_blank"
+                                                  >
+                                                    123456.12345
+                                                  </a>
+                                                </span>
+                                              </li>
+                                            </ul>
+                                          </div>
+                                        </li>
+                                      </ul>
                                     </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                          </li>
-                        </div>
+                          </div>
+                        </li>
                       </div>
                     </div>
                   </div>
@@ -1451,112 +1439,108 @@ exports[`ReferenceDiffInterface should render without previous reference if it i
                       <div
                         class="ant-card-body"
                       >
-                        <div
-                          data-test-id="reference-item"
+                        <li
+                          class="ant-list-item"
                         >
-                          <li
-                            class="ant-list-item"
+                          <div
+                            class="ant-row ant-row-start ant-row-middle w-100 flex-nowrap"
+                            style="margin-left: -12px; margin-right: -12px;"
+                            type="flex"
                           >
                             <div
-                              class="ant-row ant-row-start ant-row-middle w-100 flex-nowrap"
-                              style="margin-left: -12px; margin-right: -12px;"
-                              type="flex"
+                              class="ant-col ant-col-xs-2 ant-col-lg-1"
+                              style="padding-left: 12px; padding-right: 12px;"
                             >
                               <div
-                                class="ant-col ant-col-xs-2 ant-col-lg-1"
-                                style="padding-left: 12px; padding-right: 12px;"
+                                class="flex"
                               >
-                                <div
-                                  class="flex"
-                                >
-                                  <span>
-                                    [1]
-                                  </span>
-                                </div>
+                                <span>
+                                  [1]
+                                </span>
                               </div>
+                            </div>
+                            <div
+                              class="ant-col"
+                              style="padding-left: 12px; padding-right: 12px; width: 100%;"
+                            >
                               <div
-                                class="ant-col"
-                                style="padding-left: 12px; padding-right: 12px; width: 100%;"
+                                class="ant-list-item-meta"
                               >
                                 <div
-                                  class="ant-list-item-meta"
+                                  class="ant-list-item-meta-content"
                                 >
                                   <div
-                                    class="ant-list-item-meta-content"
+                                    class="ant-list-item-meta-description"
                                   >
                                     <div
-                                      class="ant-list-item-meta-description"
+                                      class="__InlineList__ di"
                                     >
-                                      <div
-                                        class="__InlineList__ di"
-                                      >
-                                        <ul>
-                                          <li>
-                                            <div
-                                              class="di"
-                                            >
-                                              <span>
-                                                Author2
-                                              </span>
-                                            </div>
-                                          </li>
-                                        </ul>
-                                      </div>
-                                      <div
-                                        class="__InlineList__ secondary-container"
-                                      >
-                                        <ul>
-                                          <li>
-                                            <div
-                                              class="__InlineList__"
-                                            >
-                                              <ul>
-                                                <li>
+                                      <ul>
+                                        <li>
+                                          <div
+                                            class="di"
+                                          >
+                                            <span>
+                                              Author2
+                                            </span>
+                                          </div>
+                                        </li>
+                                      </ul>
+                                    </div>
+                                    <div
+                                      class="__InlineList__ secondary-container"
+                                    >
+                                      <ul>
+                                        <li>
+                                          <div
+                                            class="__InlineList__"
+                                          >
+                                            <ul>
+                                              <li>
+                                                <span>
                                                   <span>
-                                                    <span>
-                                                      <i>
-                                                        Journal2
-                                                      </i>
-                                                    </span>
+                                                    <i>
+                                                      Journal2
+                                                    </i>
                                                   </span>
-                                                </li>
-                                              </ul>
-                                            </div>
-                                             • 
-                                          </li>
-                                          <li>
-                                            <div
-                                              class="__InlineList__"
+                                                </span>
+                                              </li>
+                                            </ul>
+                                          </div>
+                                           • 
+                                        </li>
+                                        <li>
+                                          <div
+                                            class="__InlineList__"
+                                          >
+                                            <span
+                                              class=""
                                             >
-                                              <span
-                                                class=""
-                                              >
-                                                DOI: 
-                                              </span>
-                                              <ul>
-                                                <li>
-                                                  <span>
-                                                    <a
-                                                      href="//doi.org/123456.12345"
-                                                      rel="noopener"
-                                                      target="_blank"
-                                                    >
-                                                      123456.12345
-                                                    </a>
-                                                  </span>
-                                                </li>
-                                              </ul>
-                                            </div>
-                                          </li>
-                                        </ul>
-                                      </div>
+                                              DOI: 
+                                            </span>
+                                            <ul>
+                                              <li>
+                                                <span>
+                                                  <a
+                                                    href="//doi.org/123456.12345"
+                                                    rel="noopener"
+                                                    target="_blank"
+                                                  >
+                                                    123456.12345
+                                                  </a>
+                                                </span>
+                                              </li>
+                                            </ul>
+                                          </div>
+                                        </li>
+                                      </ul>
                                     </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                          </li>
-                        </div>
+                          </div>
+                        </li>
                       </div>
                     </div>
                     <div
