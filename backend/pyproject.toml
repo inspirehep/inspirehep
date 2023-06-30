@@ -85,7 +85,7 @@ deepdiff = "^4.3.2"
 xmltodict = "^0.12.0"
 inspire-matcher = "^9.0.5"
 pylatexenc = "^2.8"
-pypdf2 = "^1.26.0"
+pypdf2 = "^1.27.9"
 refextract = "^1.0.3"
 invenio-oaiserver = {git = "https://github.com/inspirehep/invenio-oaiserver.git", rev = "5d796cf354467773a7e00b75bc382ba2bf2efef7"}
 orjson = "^3.4.6"
