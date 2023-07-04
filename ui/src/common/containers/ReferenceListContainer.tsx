@@ -5,6 +5,7 @@ import {
   fetchLiteratureReferences,
   setCurateDrawerVisibility,
 } from '../../actions/literature';
+import { setScrollElement } from '../../actions/ui';
 import ReferenceList from '../../literature/components/ReferenceList';
 import { LITERATURE_REFERENCES_NS } from '../../search/constants';
 import { convertSomeImmutablePropsToJS } from '../immutableToJS';
@@ -50,6 +51,10 @@ const dispatchToProps = (
 
   onEditReferenceClick(referenceId: number) {
     dispatch(setCurateDrawerVisibility(referenceId));
+  },
+  
+  setScrollElement(element: string) {
+    dispatch(setScrollElement(element));
   },
 });
 

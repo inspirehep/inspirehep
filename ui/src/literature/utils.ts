@@ -15,3 +15,10 @@ export function getPageDisplay(pagesInfo: Map<string, any>) {
 export function getPapersQueryString(recordId: number) {
   return `refersto:recid:${recordId}`;
 }
+
+export function scrollToElement(element: string) {
+  const scrollElement = document.getElementById(element);
+  if (scrollElement) {
+    scrollElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+}

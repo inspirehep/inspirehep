@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
@@ -70,8 +71,8 @@ class ReferenceItem extends Component {
       onEditReferenceClick,
       disableEdit,
       loggedIn,
-      // eslint-disable-next-line camelcase
       reference_index,
+      setScrollElement,
     } = this.props;
     const publicationInfo = reference.get('publication_info');
     const arxivEprint = reference.get('arxiv_eprint');
@@ -88,7 +89,7 @@ class ReferenceItem extends Component {
     const enableEdit =  getConfigFor('SELF_CURATION_BUTTON') && !disableEdit;
 
     return (
-      <div data-test-id="reference-item">
+      <div data-test-id="reference-item" id={reference_index && `reference-${reference_index}`}>
         <List.Item>
           <Row
             gutter={24}
@@ -146,7 +147,10 @@ class ReferenceItem extends Component {
                     data-test-id="edit-reference"
                   >
                     <LinkLikeButton
-                      onClick={() => onEditReferenceClick(reference_index)}
+                      onClick={() => {
+                        setScrollElement(`reference-${reference_index}`);
+                        onEditReferenceClick(reference_index);
+                      }}
                       disabled={!loggedIn}
                     >
                       <IconText

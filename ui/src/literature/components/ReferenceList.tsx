@@ -18,6 +18,7 @@ function ReferenceList({
   onSizeChange,
   onEditReferenceClick,
   loggedIn,
+  setScrollElement,
 }: {
   total?: number,
   references?: any[],
@@ -29,6 +30,7 @@ function ReferenceList({
   children?: any
   onEditReferenceClick?: Function,
   loggedIn?: boolean,
+  setScrollElement?: Function,
 }) {
   const renderReferenceItem = useCallback(
     (reference, index) => (
@@ -40,9 +42,10 @@ function ReferenceList({
         reference_index={index}
         onEditReferenceClick={onEditReferenceClick}
         loggedIn={loggedIn}
+        setScrollElement={setScrollElement}
       />
     ),
-    [onEditReferenceClick, loggedIn]
+    [onEditReferenceClick, loggedIn, setScrollElement]
   );
 
   const renderList = useCallback(

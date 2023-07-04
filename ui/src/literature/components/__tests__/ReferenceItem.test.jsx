@@ -22,7 +22,7 @@ describe('ReferenceItem', () => {
       collaborations: [{ value: 'Test Collab.' }],
       collaborations_with_suffix: [{ value: 'Test Group' }],
     });
-    const wrapper = shallow(<ReferenceItem reference={reference} />);
+    const wrapper = shallow(<ReferenceItem reference={reference} reference_index='123' />);
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -41,7 +41,7 @@ describe('ReferenceItem', () => {
       collaborations: [{ value: 'Test Collab.' }],
       collaborations_with_suffix: [{ value: 'Test Group' }],
     });
-    const wrapper = shallow(<ReferenceItem reference={reference} />);
+    const wrapper = shallow(<ReferenceItem reference={reference} reference_index='123' />);
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -49,7 +49,7 @@ describe('ReferenceItem', () => {
     const reference = fromJS({
       misc: 'A Misc',
     });
-    const wrapper = shallow(<ReferenceItem reference={reference} />);
+    const wrapper = shallow(<ReferenceItem reference={reference} reference_index='123' />);
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -57,7 +57,7 @@ describe('ReferenceItem', () => {
     const reference = fromJS({
       titles: [{ title: 'Title' }],
     });
-    const wrapper = shallow(<ReferenceItem reference={reference} />);
+    const wrapper = shallow(<ReferenceItem reference={reference} reference_index='123' />);
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -65,7 +65,7 @@ describe('ReferenceItem', () => {
     const reference = fromJS({
       titles: [{ title: 'Title' }],
     });
-    const wrapper = shallow(<ReferenceItem reference={reference} disableEdit/>);
+    const wrapper = shallow(<ReferenceItem reference={reference} reference_index='123' disableEdit/>);
     expect(wrapper).toMatchSnapshot();
   });
 });

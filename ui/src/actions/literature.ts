@@ -47,6 +47,8 @@ import {
 import { LITERATURE_REFERENCES_NS } from '../search/constants';
 import { searchQueryUpdate } from './search';
 import { assignSuccessDifferentProfileClaimedPapers } from '../authors/assignNotification';
+import { scrollToElement } from '../literature/utils';
+import { setScrollElement } from './ui';
 
 function fetchingLiteratureReferences(query: { size?: number; page?: string }) {
   return {
@@ -327,6 +329,7 @@ export function curateReference({
         reference_index: referenceId,
         new_reference_recid: newReferenceId,
       });
+
       // fetch record data to refresh revision_id
       dispatch(fetchLiterature(recordId)).then(() => {
         curationSuccess();
@@ -343,6 +346,7 @@ export function curateReference({
         'query',
         'page',
       ]);
+
       // update references to see changes immediately
       const query = {
         ...{
@@ -350,7 +354,12 @@ export function curateReference({
           page,
         },
       };
-      dispatch(fetchLiteratureReferences(recordId, query))
+      dispatch(fetchLiteratureReferences(recordId, query)).then(() => {
+        // scroll to previous view
+        const element = getState().ui.get('referenceListActiveElement');
+        scrollToElement(element);
+        dispatch(setScrollElement(null));
+      });            
     } catch (error) {
       curationError(CURATING_NOTIFICATION_KEY);
     }
