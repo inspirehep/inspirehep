@@ -3,6 +3,7 @@
 exports[`ReferenceItem does not render misc if title present 1`] = `
 <div
   data-test-id="reference-item"
+  id="reference-123"
 >
   <ForwardRef(InternalItem)>
     <Row
@@ -67,6 +68,7 @@ exports[`ReferenceItem does not render misc if title present 1`] = `
 exports[`ReferenceItem renders misc if present 1`] = `
 <div
   data-test-id="reference-item"
+  id="reference-123"
 >
   <ForwardRef(InternalItem)>
     <Row
@@ -121,6 +123,7 @@ exports[`ReferenceItem renders misc if present 1`] = `
 exports[`ReferenceItem renders unlinked reference (no control_number) 1`] = `
 <div
   data-test-id="reference-item"
+  id="reference-123"
 >
   <ForwardRef(InternalItem)>
     <Row
@@ -233,6 +236,7 @@ exports[`ReferenceItem renders unlinked reference (no control_number) 1`] = `
 exports[`ReferenceItem renders with full reference 1`] = `
 <div
   data-test-id="reference-item"
+  id="reference-123"
 >
   <ForwardRef(InternalItem)>
     <Row
@@ -345,6 +349,7 @@ exports[`ReferenceItem renders with full reference 1`] = `
 exports[`ReferenceItem renders without edit button if disableEdit 1`] = `
 <div
   data-test-id="reference-item"
+  id="reference-123"
 >
   <ForwardRef(InternalItem)>
     <Row

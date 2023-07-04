@@ -40,6 +40,7 @@ class ListWithPagination extends Component {
       grid,
       onSizeChange,
     } = this.props;
+
     return (
       <Pagination
         className={classNames({ 'ant-col-24': grid })}
