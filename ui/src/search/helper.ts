@@ -2,20 +2,30 @@ import { stringify } from 'qs';
 import omit from 'lodash.omit';
 import { replace, push } from 'connected-react-router';
 
+import { ActionCreator, Action } from 'redux';
 import { shallowEqual } from '../common/utils';
 import { NAMESPACE_TO_PATHNAME } from './constants';
 import { fetchSearchResults, fetchSearchAggregations } from '../actions/search';
 
 const SORT_AND_PAGINATION_PARAMS = ['sort', 'page', 'size'];
 
-// FIXME: needs better name
 export default class SearchHelper {
+  namespace: string;
+
+  prevState: any;
+
+  state: any;
+
+  dispatch: ActionCreator<Action<any>>;
+
+  dueToNavigationToSearchPage?: boolean | undefined;
+
   constructor(
-    namespace,
-    prevState,
-    state,
-    dispatch,
-    dueToNavigationToSearchPage
+    namespace: string,
+    prevState: any,
+    state: any,
+    dispatch: ActionCreator<Action<any>>,
+    dueToNavigationToSearchPage : boolean | undefined = undefined
   ) {
     this.namespace = namespace;
     this.prevState = prevState;
@@ -83,7 +93,9 @@ export default class SearchHelper {
   }
 
   getPathname() {
-    return NAMESPACE_TO_PATHNAME[this.namespace];
+    return NAMESPACE_TO_PATHNAME[
+      this.namespace as keyof typeof NAMESPACE_TO_PATHNAME
+    ];
   }
 
   getQueryString() {

@@ -1,4 +1,5 @@
-import { connect } from 'react-redux';
+import { connect, RootStateOrAny } from 'react-redux';
+import { Action, ActionCreator } from 'redux';
 
 import { searchQueryUpdate } from '../../actions/search';
 import EventStartDateFilter from '../../common/components/EventStartDateFilter';
@@ -12,7 +13,7 @@ import {
   LOCAL_TIMEZONE,
 } from '../../common/constants';
 
-const stateToProps = state => ({
+const stateToProps = (state: RootStateOrAny) => ({
   selection: state.search.getIn([
     'namespaces',
     SEMINARS_NS,
@@ -21,9 +22,17 @@ const stateToProps = state => ({
   ]),
 });
 
-export const dispatchToProps = (dispatch, { namespace }) => ({
-  onChange(selection) {
-    const query = { [START_DATE]: selection, page: '1' };
+export const dispatchToProps = (
+  dispatch: ActionCreator<Action>,
+  { namespace }: { namespace: string }
+) => ({
+  onChange(selection: string) {
+    const query: {
+      start_date: string;
+      page: string;
+      sort?: string | undefined;
+      timezone?: string | undefined;
+    } = { [START_DATE]: selection, page: '1' };
 
     if (selection === START_DATE_UPCOMING) {
       query.sort = DATE_ASC;

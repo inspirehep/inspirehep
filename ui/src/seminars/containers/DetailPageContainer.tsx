@@ -1,6 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { connect, RootStateOrAny } from 'react-redux';
 import { Map } from 'immutable';
 import { Row, Col } from 'antd';
 import { VideoCameraAddOutlined, FileOutlined } from '@ant-design/icons';
@@ -32,7 +31,13 @@ import LiteratureRecordsList from '../components/LiteratureRecordsList';
 import { isSuperUser } from '../../common/authorization';
 import { APIButton } from '../../common/components/APIButton';
 
-function DetailPage({ record, isSuperUserLoggedIn }) {
+function DetailPage({
+  record,
+  isSuperUserLoggedIn,
+}: {
+  record: Map<string, any>;
+  isSuperUserLoggedIn: boolean;
+}) {
   const metadata = record.get('metadata');
   const title = metadata.get('title');
   const recordId = metadata.get('control_number');
@@ -63,7 +68,7 @@ function DetailPage({ record, isSuperUserLoggedIn }) {
           abstract && abstract.get('value')
         )}
       />
-      <Row type="flex" justify="center">
+      <Row justify="center">
         <Col className="mv3" xs={24} md={22} lg={21} xxl={18}>
           <ContentBox
             className="sm-pb3"
@@ -161,6 +166,7 @@ function DetailPage({ record, isSuperUserLoggedIn }) {
                 <Col>
                   <InspireCategoryList
                     categories={inspireCategories}
+                    // @ts-expect-error
                     wrapperClassName="di"
                   />
                 </Col>
@@ -185,6 +191,7 @@ function DetailPage({ record, isSuperUserLoggedIn }) {
                 <Col>
                   <LiteratureRecordsList
                     literatureRecords={literatureRecords}
+                    // @ts-expect-error
                     wrapperClassName="di"
                   />
                 </Col>
@@ -223,11 +230,7 @@ function DetailPage({ record, isSuperUserLoggedIn }) {
   );
 }
 
-DetailPage.propTypes = {
-  record: PropTypes.instanceOf(Map).isRequired,
-};
-
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: RootStateOrAny) => ({
   record: state.seminars.get('data'),
   isSuperUserLoggedIn: isSuperUser(state.user.getIn(['data', 'roles'])),
 });

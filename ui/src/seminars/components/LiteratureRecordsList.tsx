@@ -1,7 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { List } from 'immutable';
-
+import { List, Map } from 'immutable';
 import { Link } from 'react-router-dom';
 
 import { LITERATURE } from '../../common/routes';
@@ -9,7 +7,7 @@ import { pluralizeUnlessSingle } from '../../common/utils';
 import InlineDataList from '../../common/components/InlineList';
 import LiteratureTitle from '../../common/components/LiteratureTitle';
 
-function renderLiteratureRecord(literatureRecord) {
+function renderLiteratureRecord(literatureRecord: Map<string, any>) {
   const title = literatureRecord.getIn(['titles', 0]);
   return (
     <Link
@@ -21,7 +19,11 @@ function renderLiteratureRecord(literatureRecord) {
   );
 }
 
-function LiteratureRecordsList({ literatureRecords }) {
+function LiteratureRecordsList({
+  literatureRecords,
+}: {
+  literatureRecords: List<Map<string, any>>;
+}) {
   return (
     <InlineDataList
       label={`INSPIRE ${pluralizeUnlessSingle(
@@ -29,14 +31,12 @@ function LiteratureRecordsList({ literatureRecords }) {
         literatureRecords && literatureRecords.size
       )}`}
       items={literatureRecords}
-      extractKey={literatureRecord => literatureRecord.get('control_number')}
+      extractKey={(literatureRecord: Map<string, any>) =>
+        literatureRecord.get('control_number')
+      }
       renderItem={renderLiteratureRecord}
     />
   );
 }
-
-LiteratureRecordsList.propTypes = {
-  literatureRecords: PropTypes.instanceOf(List),
-};
 
 export default LiteratureRecordsList;

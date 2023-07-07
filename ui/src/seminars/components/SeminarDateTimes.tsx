@@ -9,6 +9,12 @@ function SeminarDateTimes({
   timezone,
   displayTimezone,
   className,
+}: {
+  startDate: Date,
+  endDate: Date,
+  timezone: string,
+  displayTimezone: boolean,
+  className?: string,
 }) {
   const startMoment = moment.utc(startDate).tz(timezone);
   const endMoment = moment.utc(endDate).tz(timezone);

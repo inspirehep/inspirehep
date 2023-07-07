@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
-import PropTypes from 'prop-types';
 import { Row, Col, Alert } from 'antd';
-import { connect } from 'react-redux';
+import { connect, RootStateOrAny } from 'react-redux';
 
 import AggregationFiltersContainer from '../../common/containers/AggregationFiltersContainer';
 import PaginationContainer from '../../common/containers/PaginationContainer';
@@ -11,7 +10,6 @@ import NumberOfResultsContainer from '../../common/containers/NumberOfResultsCon
 import LoadingOrChildren from '../../common/components/LoadingOrChildren';
 import ResponsiveView from '../../common/components/ResponsiveView';
 import DrawerHandle from '../../common/components/DrawerHandle';
-import { SEMINARS_NS, AUTHOR_SEMINARS_NS } from '../../search/constants';
 import { SEARCH_PAGE_GUTTER, LOCAL_TIMEZONE } from '../../common/constants';
 import SeminarItem from '../components/SeminarItem';
 import SeminarStartDateFilterContainer from './SeminarStartDateFilterContainer';
@@ -29,6 +27,14 @@ function SeminarSearch({
   enableDateFilter,
   embedded,
   isSuperUserLoggedIn,
+}: {
+  loading: boolean;
+  loadingAggregations: boolean;
+  selectedTimezone: string;
+  namespace: string;
+  enableDateFilter?: boolean;
+  embedded?: boolean;
+  isSuperUserLoggedIn: boolean;
 }) {
   const renderAggregations = useCallback(
     () => (
@@ -52,7 +58,7 @@ function SeminarSearch({
   );
 
   const renderSeminarItem = useCallback(
-    result => (
+    (result) => (
       <SeminarItem
         metadata={result.get('metadata')}
         selectedTimezone={selectedTimezone}
@@ -67,18 +73,13 @@ function SeminarSearch({
   const timezone = selectedTimezone || LOCAL_TIMEZONE;
 
   return (
-    <Row
-      className="mt3"
-      gutter={SEARCH_PAGE_GUTTER}
-      type="flex"
-      justify="start"
-    >
+    <Row className="mt3" gutter={SEARCH_PAGE_GUTTER} justify="start">
       <Col xs={0} lg={7}>
         <ResponsiveView min="lg" render={renderAggregations} />
       </Col>
       <Col xs={24} lg={17}>
         <LoadingOrChildren loading={loading}>
-          <Row type="flex" align="middle" justify="end">
+          <Row align="middle" justify="end">
             <Col xs={24} lg={12}>
               <NumberOfResultsContainer namespace={namespace} />
               <VerticalDivider />
@@ -91,9 +92,7 @@ function SeminarSearch({
               ) : (
                 <SeminarTimezone timezone={timezone} />
               )}
-              {isSuperUserLoggedIn && (
-                <APIButton url={window.location.href} />
-              )}
+              {isSuperUserLoggedIn && <APIButton url={window.location.href} />}
             </Col>
             <Col xs={12} lg={0}>
               <ResponsiveView
@@ -128,17 +127,10 @@ function SeminarSearch({
   );
 }
 
-SeminarSearch.propTypes = {
-  namespace: PropTypes.oneOf([SEMINARS_NS, AUTHOR_SEMINARS_NS]),
-  baseQuery: PropTypes.object,
-  loading: PropTypes.bool.isRequired,
-  loadingAggregations: PropTypes.bool.isRequired,
-  selectedTimezone: PropTypes.string,
-  enableDateFilter: PropTypes.bool,
-  embedded: PropTypes.bool,
-};
-
-const stateToProps = (state, { namespace }) => ({
+const stateToProps = (
+  state: RootStateOrAny,
+  { namespace }: { namespace: string }
+) => ({
   isSuperUserLoggedIn: isSuperUser(state.user.getIn(['data', 'roles'])),
   loading: state.search.getIn(['namespaces', namespace, 'loading']),
   loadingAggregations: state.search.getIn([

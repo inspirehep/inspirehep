@@ -101,6 +101,7 @@
     "yup": "^0.26.0"
   },
   "devDependencies": {
+    "@types/lodash.omit": "^4.5.7",
     "@types/qs": "^6.9.7",
     "@types/react-copy-to-clipboard": "^5.0.4",
     "@types/react-loadable": "^5.5.6",
