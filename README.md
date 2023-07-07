@@ -75,11 +75,12 @@ $ pre-commit install
 Follow the guide https://docs.docker.com/compose/install/
 
 ### For MacOS users
+
 #### General
+
 Turn of the `AirPlay Receiver` under System Preference -> Sharing -> AirPlay Receiver.
 Otherwise, you will run into problems with port 5000 being already in use.
 See [this](https://developer.apple.com/forums/thread/682332) for more information.
-
 
 #### M1 users
 
@@ -316,7 +317,7 @@ A selection of demo records can be found in `data` directory and they are struct
 # Local
 $ poetry run inspirehep importer records -u https://inspirehep.net/api/literature/20 -u https://inspirehep.net/api/literature/1726642
 # Docker
-$ .docker-compose run --rm hep-web poetry run inspirehep importer records -u https://inspirehep.net/api/literature/20 -u https://inspirehep.net/api/literature/1726642
+$ docker-compose exec hep-web inspirehep importer records -u https://inspirehep.net/api/literature/20 -u https://inspirehep.net/api/literature/1726642
 
 # `--save` will save the imported record also to the data folder
 $ <...> inspirehep importer records -u https://inspirehep.net/api/literature/20 --save
@@ -330,7 +331,7 @@ Valid `--token` or `backend/inspirehep/config.py:AUTHENTICATION_TOKEN` is requir
 # Local
 $ poetry run inspirehep importer records -d data/records/literature
 # Docker
-$ .docker-compose run --rm hep-web poetry run inspirehep importer records -d data/records/literature
+$ docker-compose exec hep-web inspirehep importer records -d data/records/literature
 ```
 
 #### With files
@@ -339,7 +340,7 @@ $ .docker-compose run --rm hep-web poetry run inspirehep importer records -d dat
 # Local
 $ poetry run inspirehep importer records -f data/records/literature/374836.json -f data/records/authors/999108.json
 # Docker
-$ docker-compose run --rm hep-web poetry run inspirehep importer records -f data/records/literature/374836.json -f data/records/authors/999108.json
+$ docker-compose exec hep-web inspirehep importer records -f data/records/literature/374836.json -f data/records/authors/999108.json
 ```
 
 #### All records
@@ -348,5 +349,5 @@ $ docker-compose run --rm hep-web poetry run inspirehep importer records -f data
 # Local
 $ poetry run inspirehep importer demo-records
 # Docker
-$ docker-compose run --rm hep-web poetry run inspirehep importer demo-records
+$ docker-compose exec hep-web inspirehep importer demo-records
 ```

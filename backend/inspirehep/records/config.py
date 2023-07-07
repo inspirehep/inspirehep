@@ -649,6 +649,15 @@ RECORDS_REST_SORT_OPTIONS = {
     "records-authors": {
         "bestmatch": {"fields": ["-_score", "name.value.raw", "-_updated"], "order": 1}
     },
+    "records-experiments": {
+        "bestmatch": {"title": "Best match", "fields": ["-_score"], "order": 1},
+        "mostrecent": {
+            "title": "Most Recent",
+            "fields": ["legacy_name"],
+            "default_order": "asc",
+            "order": 2,
+        },
+    },
     "records-conferences": {
         "dateasc": {"title": "Date ascending", "fields": ["opening_date"], "order": 1},
         "datedesc": {
