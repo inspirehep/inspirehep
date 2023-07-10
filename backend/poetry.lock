@@ -758,17 +758,17 @@ pyflakes = ">=2.1.0,<2.2.0"
 
 [[package]]
 name = "flask"
-version = "1.1.1"
+version = "1.1.4"
 description = "A simple framework for building complex web applications."
 category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [package.dependencies]
-click = ">=5.1"
-itsdangerous = ">=0.24"
-Jinja2 = ">=2.10.1"
-Werkzeug = ">=0.15"
+click = ">=5.1,<8.0"
+itsdangerous = ">=0.24,<2.0"
+Jinja2 = ">=2.10.1,<3.0"
+Werkzeug = ">=0.15,<2.0"
 
 [package.extras]
 dev = ["pytest", "coverage", "tox", "sphinx", "pallets-sphinx-themes", "sphinxcontrib-log-cabinet", "sphinx-issues"]
@@ -1370,7 +1370,7 @@ tests = ["decorator (>=4.1.2,<5.0)", "flake8-future-import (>=0.4.3,<1.0)", "moc
 
 [[package]]
 name = "inspire-matcher"
-version = "9.0.14"
+version = "9.0.25"
 description = "Find the records in INSPIRE most similar to a given record or reference."
 category = "main"
 optional = false
@@ -1378,19 +1378,20 @@ python-versions = "*"
 
 [package.dependencies]
 dictdiffer = "<0.9"
-Flask = ">=0.12.2"
+Flask = ">=1.1.4,<2.0"
 inspire-json-merger = ">=11.0.0,<12.0"
 inspire-utils = ">=3.0.0,<4.0"
 invenio-search = ">=1.0.0a10"
+jinja2 = "<3.0"
+MarkupSafe = "<2.0"
 six = ">=1.11.0,<2.0"
-Werkzeug = ">=0.12.2,<1.0"
 
 [package.extras]
-all = ["flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pytest-cov (>=2.0,<2.6.0)", "pytest (>=3.6.0,<4.0)", "unicode-string-literal (>=1.1,<2.0)"]
+all = ["flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pytest-cov (>=2.0,<2.6.0)", "pytest-pep8", "pytest (>=3.6.0,<4.0)", "unicode-string-literal (>=1.1,<2.0)"]
 elasticsearch2 = ["elasticsearch-dsl (>=2.2.0,<3.0)", "elasticsearch (>=2.4.1,<3.0)"]
 elasticsearch5 = ["elasticsearch-dsl (>=5.0,<6.0)", "elasticsearch (>=5.0,<6.0)"]
 elasticsearch7 = ["elasticsearch-dsl (>=7.0,<8.0)", "elasticsearch (>=7.0,<8.0)"]
-tests = ["flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pytest-cov (>=2.0,<2.6.0)", "pytest (>=3.6.0,<4.0)", "unicode-string-literal (>=1.1,<2.0)"]
+tests = ["flake8-future-import (>=0.4.3,<1.0)", "mock (>=2.0.0,<3.0)", "pytest-cov (>=2.0,<2.6.0)", "pytest-pep8", "pytest (>=3.6.0,<4.0)", "unicode-string-literal (>=1.1,<2.0)"]
 
 [[package]]
 name = "inspire-query-parser"
@@ -4590,8 +4591,8 @@ flake8 = [
     {file = "flake8-3.7.9.tar.gz", hash = "sha256:45681a117ecc81e870cbf1262835ae4af5e7a8b08e40b944a8a6e6b895914cfb"},
 ]
 flask = [
-    {file = "Flask-1.1.1-py2.py3-none-any.whl", hash = "sha256:45eb5a6fd193d6cf7e0cf5d8a5b31f83d5faae0293695626f539a823e93b13f6"},
-    {file = "Flask-1.1.1.tar.gz", hash = "sha256:13f9f196f330c7c2c5d7a5cf91af894110ca0215ac051b5844701f2bfd934d52"},
+    {file = "Flask-1.1.4-py2.py3-none-any.whl", hash = "sha256:c34f04500f2cbbea882b1acb02002ad6fe6b7ffa64a6164577995657f50aed22"},
+    {file = "Flask-1.1.4.tar.gz", hash = "sha256:0fbeb6180d383a9186d0d6ed954e0042ad9f18e0e8de088b2b419d526927d196"},
 ]
 flask-alembic = [
     {file = "Flask-Alembic-2.0.1.tar.gz", hash = "sha256:05a1e6f4148dbfcc9280a393373bfbd250af6f9f4f0ca9f744ef8f7376a3deec"},
@@ -4745,8 +4746,8 @@ inspire-json-merger = [
     {file = "inspire_json_merger-11.0.29-py2-none-any.whl", hash = "sha256:c070312d4190ae5156b0132a878f6dd4f31aa9b2663752b5c2af2af037d26c1f"},
 ]
 inspire-matcher = [
-    {file = "inspire-matcher-9.0.14.tar.gz", hash = "sha256:fb11edd28e76cff17bc339ff92e69e02ea6ca67dee84f029be28128530f3ebde"},
-    {file = "inspire_matcher-9.0.14-py2-none-any.whl", hash = "sha256:d72a6b996ac8d24e630e0b898073fec214b74ad6778564a1e2d872ac5ccab110"},
+    {file = "inspire-matcher-9.0.25.tar.gz", hash = "sha256:406cc63e8abe2402a9dc74026c1d98ce3a9135fbed3a48d708b9f43b96bde1c0"},
+    {file = "inspire_matcher-9.0.25-py3-none-any.whl", hash = "sha256:4343b18f2bf6511950e9708e2d50cc166497d34ad167286780efd264ffeacdce"},
 ]
 inspire-query-parser = [
     {file = "inspire-query-parser-6.0.51.tar.gz", hash = "sha256:26a21804e7224bba9d664b9bb98589684ff1dbc1ba0b6e27896e8a9d3b70e3cf"},
