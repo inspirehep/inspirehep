@@ -172,7 +172,7 @@ def test_close_expired_jobs_with_notify(
         "job", data={"status": "open", "deadline_date": "2019-11-01"}
     )
     create_record("job", data={"status": "open", "deadline_date": "2020-11-01"})
-    cli.invoke(["jobs", "close_expired_jobs", "--notify"])
+    cli.invoke(["jobs", "close-expired-jobs", "--notify"])
 
     expired_record = JobsRecord.get_record_by_pid_value(
         expired_record["control_number"]
@@ -185,7 +185,7 @@ def test_close_expired_jobs_with_notify(
 @freeze_time("2019-11-01")
 def test_close_expired_jobs_has_exclusive_deadline(inspire_app, cli):
     job = create_record("job", data={"status": "open", "deadline_date": "2019-11-01"})
-    result = cli.invoke(["jobs", "close_expired_jobs"])
+    result = cli.invoke(["jobs", "close-expired-jobs"])
     job = JobsRecord.get_record_by_pid_value(job["control_number"])
 
     assert result.exit_code == 0
@@ -203,7 +203,7 @@ def test_close_expired_jobs_without_notify(
     not_expired_record = create_record(
         "job", data={"status": "open", "deadline_date": "2020-11-01"}
     )
-    result = cli.invoke(["jobs", "close_expired_jobs"])
+    result = cli.invoke(["jobs", "close-expired-jobs"])
     expired_record = JobsRecord.get_record_by_pid_value(
         expired_record["control_number"]
     )
@@ -225,7 +225,7 @@ def test_close_expired_jobs_ignores_deleted_records(inspire_app, cli):
     )
     deleted_record["deleted"] = True
     deleted_record.update(dict(deleted_record))
-    result = cli.invoke(["jobs", "close_expired_jobs"])
+    result = cli.invoke(["jobs", "close-expired-jobs"])
     deleted_record = JobsRecord.get_record_by_pid_value(
         deleted_record["control_number"], with_deleted=True
     )

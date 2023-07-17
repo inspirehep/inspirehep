@@ -30,7 +30,7 @@ ENABLED_USER_DATA = ["marcjanna.jedrych@cern.ch", "Marcjanna Jedrych"]
 
 
 def es_search(index):
-    return current_search.client.search(get_index_alias(index))
+    return current_search.client.search(index=get_index_alias(index))
 
 
 def get_index_alias(index):

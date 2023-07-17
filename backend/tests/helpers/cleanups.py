@@ -11,7 +11,7 @@ from opensearchpy .client.ingest import IngestClient
 from flask import current_app
 from helpers.utils import get_index_alias
 from invenio_search.errors import IndexAlreadyExistsError
-from pytest_invenio.fixtures import _es_create_indexes
+from pytest_invenio.fixtures import _search_create_indexes
 from sqlalchemy_utils import create_database, database_exists
 
 from inspirehep.indexer.cli import _put_files_pipeline
@@ -41,7 +41,7 @@ def es_cleanup(es):
     missing_mappings = required_mappings.difference(existing_mappings)
     try:
         if len(missing_mappings):
-            _es_create_indexes(current_search, es)
+            _search_create_indexes(current_search, es)
         for index in required_mappings:
             try:
                 es.delete_by_query(index, '{"query" : {"match_all" : {} }}')
@@ -52,7 +52,7 @@ def es_cleanup(es):
     except (RequestError, NotFoundError, IndexAlreadyExistsError):
         es.indices.delete(index="*", allow_no_indices=True, expand_wildcards="all")
         current_search.flush_and_refresh("*")
-        _es_create_indexes(current_search, es)
+        _search_create_indexes(current_search, es)
     try:
         ingestion_pipeline_client.get_pipeline(
             current_app.config["ES_FULLTEXT_PIPELINE_NAME"]

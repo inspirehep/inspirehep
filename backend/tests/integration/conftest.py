@@ -153,9 +153,8 @@ def es_clear(es):
 def cli(inspire_app):
     """Click CLI runner inside the Flask application."""
     runner = CliRunner()
-    obj = ScriptInfo(create_app=lambda info: inspire_app)
-    runner._invoke = runner.invoke
-    runner.invoke = partial(runner._invoke, inspire_cli, obj=obj)
+    obj = ScriptInfo(create_app=lambda: inspire_app)
+    runner.invoke = partial(runner.invoke, inspire_cli, obj=obj)
     yield runner
 
 
