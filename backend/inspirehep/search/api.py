@@ -7,7 +7,7 @@
 
 
 import structlog
-from opensearchpy  import RequestError
+from opensearchpy import RequestError
 from opensearch_dsl.query import Match, Q
 from flask import current_app, request
 from inspire_schemas.utils import convert_old_publication_info_to_new

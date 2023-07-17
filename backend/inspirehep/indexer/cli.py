@@ -11,7 +11,7 @@ from time import sleep
 import click
 import structlog
 from click import UsageError
-from opensearchpy .client.ingest import IngestClient
+from opensearchpy.client.ingest import IngestClient
 from flask import current_app
 from flask.cli import with_appcontext
 from invenio_db import db

@@ -6,8 +6,8 @@
 # the terms of the MIT License; see LICENSE file for more details.
 from itertools import chain
 
-from opensearchpy  import ConflictError, NotFoundError, RequestError
-from opensearchpy .client.ingest import IngestClient
+from opensearchpy import ConflictError, NotFoundError, RequestError
+from opensearchpy.client.ingest import IngestClient
 from flask import current_app
 from helpers.utils import get_index_alias
 from invenio_search.errors import IndexAlreadyExistsError

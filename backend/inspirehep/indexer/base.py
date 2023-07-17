@@ -6,8 +6,8 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import structlog
-from opensearchpy  import ConflictError, NotFoundError, RequestError, TransportError
-from opensearchpy .helpers import streaming_bulk
+from opensearchpy import ConflictError, NotFoundError, RequestError, TransportError
+from opensearchpy.helpers import streaming_bulk
 from flask import current_app
 from inspire_utils.record import get_value
 from invenio_indexer.api import RecordIndexer

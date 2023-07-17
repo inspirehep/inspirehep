@@ -12,7 +12,7 @@ from datetime import datetime
 from itertools import chain
 
 import structlog
-from opensearchpy  import NotFoundError
+from opensearchpy import NotFoundError
 from flask import current_app
 from inspire_dojson.utils import strip_empty_values
 from inspire_schemas.utils import get_validation_errors
