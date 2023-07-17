@@ -52,7 +52,7 @@ invenio-search = {version = "==1.2.3", extras = [ "elasticsearch7",]}
 timeexecution = "<4.0"
 marshmallow = "<3.0.0"
 flask-shell-ipython = "~=0.3,>=0.3.0"
-flask-sqlalchemy = {git = "https://github.com/inspirehep/flask-sqlalchemy.git"}
+flask-sqlalchemy = {git = "https://github.com/inspirehep/flask-sqlalchemy.git", rev = "71abd94a1e2317a1365a25a31e719dbd9aafceea"}
 orcid = "==1.0.3"
 
 node-semver = "<0.2.0,>=0.1.1"

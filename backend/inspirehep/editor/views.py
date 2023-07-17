@@ -14,7 +14,6 @@ from flask import Blueprint, current_app, make_response, request
 from flask_login import current_user
 from inspire_schemas.api import load_schema
 from inspire_utils.dedupers import dedupe_list
-from inspire_utils.record import normalize_affiliations
 from invenio_db import db
 from invenio_records.models import RecordMetadata
 from invenio_records_rest.utils import set_headers_for_record_caching_and_concurrency
@@ -26,13 +25,13 @@ from inspirehep.accounts.api import (
 )
 from inspirehep.accounts.decorators import login_required, login_required_with_roles
 from inspirehep.accounts.roles import Roles
+from inspirehep.curation.api import normalize_affiliations
 from inspirehep.files.api import current_s3_instance
 from inspirehep.matcher.api import get_affiliations_from_pdf, match_references
 from inspirehep.matcher.utils import create_journal_dict, map_refextract_to_schema
 from inspirehep.pidstore.api.base import PidStoreBase
 from inspirehep.records.api import InspireRecord
 from inspirehep.rt import tickets
-from inspirehep.search.api import LiteratureSearch
 from inspirehep.serializers import jsonify
 from inspirehep.snow.api import InspireSnow
 from inspirehep.snow.errors import EditTicketException
@@ -418,12 +417,11 @@ def authorlist_url():
 
 
 def normalize_affiliations_for_authors(parsed_authors):
-    normalized_affiliations, ambiguous_affiliations = normalize_affiliations(
-        parsed_authors, LiteratureSearch()
-    )
+    normalized_affiliations_result = normalize_affiliations(parsed_authors["authors"])
 
     for author, normalized_affiliation in zip(
-        parsed_authors.get("authors", []), normalized_affiliations
+        parsed_authors.get("authors", []),
+        normalized_affiliations_result["normalized_affiliations"],
     ):
         if "affiliations" in author:
             continue
@@ -431,6 +429,6 @@ def normalize_affiliations_for_authors(parsed_authors):
             author["affiliations"] = normalized_affiliation
     LOGGER.info(
         "Found ambiguous affiliations for raw affiliations, skipping affiliation linking.",
-        ambiguous_affiliations=ambiguous_affiliations,
+        ambiguous_affiliations=normalized_affiliations_result["ambiguous_affiliations"],
     )
     return parsed_authors
