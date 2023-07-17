@@ -31,7 +31,7 @@ from inspirehep.hal.core.tei import convert_to_tei
 from inspirehep.records.api import InspireRecord
 
 
-def test_convert_to_tei(app, get_fixture):
+def test_convert_to_tei(inspire_app, get_fixture):
     record_json = orjson.loads(get_fixture("convert_to_tei.json"))
     record_data = faker.record("lit", data=record_json)
     record = InspireRecord.create(record_data)
@@ -47,7 +47,7 @@ def test_convert_to_tei(app, get_fixture):
     record.delete()
 
 
-def test_convert_to_tei_handles_preprints(app, get_fixture):
+def test_convert_to_tei_handles_preprints(inspire_app, get_fixture):
     record_json = orjson.loads(get_fixture("convert_to_tei_handles_preprints.json"))
     record_data = faker.record("lit", data=record_json)
     record = InspireRecord.create(record_data)

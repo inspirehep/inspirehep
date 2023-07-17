@@ -30,7 +30,7 @@ ENABLED_USER_DATA = ["marcjanna.jedrych@cern.ch", "Marcjanna Jedrych"]
 
 
 def es_search(index):
-    return current_search.client.search(get_index_alias(index))
+    return current_search.client.search(index=get_index_alias(index))
 
 
 def get_index_alias(index):
@@ -136,8 +136,7 @@ def logout(client):
 def orcid_app_cli_runner():
     """Click CLI runner inside the Flask application for orcid tests."""
     runner = CliRunner()
-    obj = ScriptInfo(create_app=lambda info: current_app)
-    runner._invoke = runner.invoke
+    obj = ScriptInfo(create_app=lambda: inspire_app)
     runner.invoke = partial(runner.invoke, obj=obj)
     return runner
 

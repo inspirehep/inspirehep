@@ -11,7 +11,7 @@
 from itertools import chain
 
 import structlog
-from elasticsearch_dsl import Q
+from opensearch_dsl import Q
 from flask import current_app
 from inspire_dojson.utils import get_recid_from_ref
 from inspire_utils.record import get_value, get_values_for_schema

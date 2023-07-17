@@ -30,7 +30,7 @@ def test_clean_stub_authors_removes_stub_authors(inspire_app, cli):
         ]
     }
     create_record("lit", lit_record_data)
-    cli.invoke(["disambiguation", "clean_stub_authors"])
+    cli.invoke(["disambiguation", "clean-stub-authors"])
 
     stub_record = InspireRecord.get_record_by_pid_value(
         stub_author["control_number"], "aut", with_deleted=True
@@ -59,7 +59,7 @@ def test_clean_stub_authors_doesnt_remove_stub_authors_with_linked_papers(
         ]
     }
     create_record("lit", lit_record_data)
-    cli.invoke(["disambiguation", "clean_stub_authors"])
+    cli.invoke(["disambiguation", "clean-stub-authors"])
 
     stub_record = InspireRecord.get_record_by_pid_value(
         stub_author["control_number"], "aut", with_deleted=True
@@ -76,7 +76,7 @@ def test_clean_stub_authors_query_all_stub_authors(override_config, inspire_app,
             rec = create_record("aut", data={"stub": True}, with_control_number=True)
             control_numbers.append(("aut", str(rec["control_number"])))
 
-        cli.invoke(["disambiguation", "clean_stub_authors"])
+        cli.invoke(["disambiguation", "clean-stub-authors"])
 
         results = InspireRecord.get_records_by_pids(control_numbers)
         for result in results:
@@ -97,7 +97,7 @@ def test_clean_stub_authors_checks_if_author_is_stub_before_delete(
             rec = create_record("aut", data={"stub": True}, with_control_number=True)
             control_numbers.append(("aut", str(rec["control_number"])))
 
-        cli.invoke(["disambiguation", "clean_stub_authors"])
+        cli.invoke(["disambiguation", "clean-stub-authors"])
 
         results = InspireRecord.get_records_by_pids(control_numbers)
         for result in results:

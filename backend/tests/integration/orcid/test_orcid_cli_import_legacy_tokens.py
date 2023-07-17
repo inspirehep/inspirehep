@@ -208,7 +208,7 @@ def test_legacy_orcid_arrays(inspire_app, redis_setup):
 
 
 def test_import_multiple_orcid_tokens_no_user_exists(
-    app_with_config, redis_setup, teardown_sample_user, teardown_sample_user_2
+    inspire_app, redis_setup, cli, teardown_sample_user, teardown_sample_user_2
 ):
     """Create two users and all the associate entries."""
     push_to_redis(SAMPLE_USER_2)
@@ -219,7 +219,7 @@ def test_import_multiple_orcid_tokens_no_user_exists(
     assert_db_has_n_legacy_tokens(0, SAMPLE_USER_2)
 
     # Migrate
-    orcid_app_cli_runner().invoke(import_legacy_orcid_tokens)
+    cli.invoke(["orcid", "import-legacy-tokens"])
 
     # Check state after migration
     assert not redis_setup.llen("legacy_orcid_tokens")
@@ -232,6 +232,7 @@ def test_import_multiple_orcid_tokens_no_user_exists(
 def test_empty_name(
     mock_legacy_orcid_arrays,
     mock_orcid_push,
+    cli,
     assert_user_and_token_models,
     redis_setup,
     inspire_record_author,
@@ -246,7 +247,8 @@ def test_empty_name(
         ("myotherorcid", "myothertoken", "otheremail@me.com", name),
     )
 
-    result = orcid_app_cli_runner().invoke(import_legacy_orcid_tokens)
+    result = cli.invoke(["orcid", "import-legacy-tokens"])
+
 
     assert "Pushing orcid" in result.output
     mock_orcid_push.apply_async.assert_any_call(
@@ -267,6 +269,7 @@ def test_import_legacy_orcid_tokens_pushes_on_new_user(
     mock_get_literature_recids_for_orcid,
     mock_orcid_push,
     app_with_config,
+    cli,
     redis_setup,
     teardown_sample_user,
 ):
@@ -279,7 +282,7 @@ def test_import_legacy_orcid_tokens_pushes_on_new_user(
     assert_db_has_n_legacy_tokens(0, SAMPLE_USER)
 
     # Migrate
-    result = orcid_app_cli_runner().invoke(import_legacy_orcid_tokens)
+    result = cli.invoke(["orcid", "import-legacy-tokens"])
 
     # Check state after migration
     assert not redis_setup.llen("legacy_orcid_tokens")
@@ -298,7 +301,7 @@ def test_import_legacy_orcid_tokens_pushes_on_new_user(
 
 
 def test_import_multiple_orcid_tokens_no_configuration(
-    app_without_config, redis_setup, teardown_sample_user, teardown_sample_user_2
+    app_without_config, cli, redis_setup, teardown_sample_user, teardown_sample_user_2
 ):
     """Attempt and fail to create new users when configuration missing."""
     push_to_redis(SAMPLE_USER_2)
@@ -310,7 +313,7 @@ def test_import_multiple_orcid_tokens_no_configuration(
     assert_db_has_n_legacy_tokens(0, SAMPLE_USER_2)
 
     # Migrate
-    result = orcid_app_cli_runner().invoke(import_legacy_orcid_tokens)
+    result = cli.invoke(["orcid", "import-legacy-tokens"])
 
     # Assert state unchanged after migration
     assert "Pushing orcid" not in result.output
@@ -420,6 +423,7 @@ def test_find_user_matching(app_with_config, teardown_sample_user, orcid, email)
 def test_orcid_happy_flow(
     mock_legacy_orcid_arrays,
     mock_orcid_push,
+    cli, 
     assert_user_and_token_models,
     redis_setup,
     inspire_record_author,
@@ -431,7 +435,7 @@ def test_orcid_happy_flow(
     name = "myname"
     mock_legacy_orcid_arrays.return_value = ((orcid, token, email, name),)
 
-    result = orcid_app_cli_runner().invoke(import_legacy_orcid_tokens)
+    result = cli.invoke(["orcid", "import-legacy-tokens"])
 
     assert "Pushing orcid" in result.output
     mock_orcid_push.apply_async.assert_any_call(
@@ -453,6 +457,7 @@ def test_empty_email(
     mock_orcid_push,
     assert_user_and_token_models,
     redis_setup,
+    cli,
     inspire_record_author,
     inspire_record_literature,
 ):
@@ -465,7 +470,7 @@ def test_empty_email(
         ("myotherorcid", "myothertoken", email, "othername"),
     )
 
-    orcid_app_cli_runner().invoke(import_legacy_orcid_tokens)
+    result = cli.invoke(["orcid", "import-legacy-tokens"])
 
     assert_user_and_token_models(
         orcid, token, USER_EMAIL_EMPTY_PATTERN.format(orcid), name
@@ -479,6 +484,7 @@ def test_empty_email_w_existing_user_w_empty_email(
     mock_orcid_push,
     assert_user_and_token_models,
     redis_setup,
+    cli,
     inspire_record_author,
     inspire_record_literature,
 ):
@@ -491,7 +497,7 @@ def test_empty_email_w_existing_user_w_empty_email(
     name = "myname"
     mock_legacy_orcid_arrays.return_value = ((orcid, token, email, name),)
 
-    orcid_app_cli_runner().invoke(import_legacy_orcid_tokens)
+    result = cli.invoke(["orcid", "import-legacy-tokens"])
 
     assert_user_and_token_models(
         orcid, token, USER_EMAIL_EMPTY_PATTERN.format(orcid), name
@@ -506,6 +512,7 @@ def test_2_entries_in_legacy_orcid_arrays_but_1_literature(
     assert_user_and_token_models,
     redis_setup,
     inspire_record_author,
+    cli,
     inspire_record_literature,
 ):
     orcid = "0000-0002-0942-3697"
@@ -517,7 +524,7 @@ def test_2_entries_in_legacy_orcid_arrays_but_1_literature(
         ("myotherorcid", "myothertoken", "otheremail@me.com", "othername"),
     )
 
-    orcid_app_cli_runner().invoke(import_legacy_orcid_tokens)
+    result = cli.invoke(["orcid", "import-legacy-tokens"])
 
     mock_orcid_push.apply_async.assert_any_call(
         queue="orcid_push_legacy_tokens",
@@ -537,6 +544,7 @@ def test_invalid_token(
     mock_legacy_orcid_arrays,
     mock_orcid_push,
     redis_setup,
+    cli,
     inspire_record_author,
     inspire_record_literature,
     cache_fixture,
@@ -549,7 +557,7 @@ def test_invalid_token(
     cache.write_invalid_token(orcid)
     mock_legacy_orcid_arrays.return_value = ((orcid, token, email, name),)
 
-    result = orcid_app_cli_runner().invoke(import_legacy_orcid_tokens)
+    result = cli.invoke(["orcid", "import-legacy-tokens"])
 
     mock_orcid_push.apply_async.assert_not_called()
 

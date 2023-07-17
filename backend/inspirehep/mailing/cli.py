@@ -30,9 +30,7 @@ def mailing():
 )
 @with_appcontext
 def update_weekly_jobs():
-
     click.secho("Searching for jobs posted last week")
-
     jobs = get_jobs_from_last_week()
     if not jobs:
         click.secho("No jobs found from last week skipping...", fg="red")

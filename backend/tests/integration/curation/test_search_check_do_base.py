@@ -6,6 +6,7 @@
 import os
 
 from helpers.utils import create_record
+from inspirehep.records.api import LiteratureRecord
 from mock import patch
 
 from inspirehep.curation.search_check_do import SearchCheckDo
@@ -13,7 +14,7 @@ from inspirehep.records.api import InspireRecord
 
 
 def test_search_check_do(inspire_app):
-    not_matching_query_data = {"titles": [{"title": "Some random title"}]}
+    not_matching_query_data= {"titles": [{"title": "Some random title"}]}
     not_passing_check_data = {"titles": [{"title": "A title not to modify"}]}
     to_modify_data = {"titles": [{"title": "A title to modify"}]}
 
@@ -39,6 +40,10 @@ def test_search_check_do(inspire_app):
                 title["title"] = state["new_title"]
 
     ModifyTitleWithState()
+
+    not_matching_query = LiteratureRecord.get_record_by_pid_value(not_matching_query['control_number'])
+    not_passing_check = LiteratureRecord.get_record_by_pid_value(not_passing_check['control_number'])
+    to_modify = LiteratureRecord.get_record_by_pid_value(to_modify['control_number'])
 
     assert not_matching_query.get_value("titles.title") == ["Some random title"]
     assert not_passing_check.get_value("titles.title") == ["A title not to modify"]

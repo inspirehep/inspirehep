@@ -8,7 +8,6 @@
 import structlog
 from celery import shared_task
 from dict_deep import deep_set
-from elasticsearch_dsl import Q
 from flask import current_app
 from inspire_schemas.utils import get_refs_to_schemas
 from inspire_utils.dedupers import dedupe_list_of_dicts
@@ -17,6 +16,7 @@ from inspire_utils.record import get_value
 from invenio_db import db
 from invenio_records.models import RecordMetadata
 from jsonschema import ValidationError
+from opensearch_dsl import Q
 from sqlalchemy.exc import OperationalError
 
 from inspirehep.errors import DB_TASK_EXCEPTIONS, ES_TASK_EXCEPTIONS
@@ -28,7 +28,14 @@ from inspirehep.utils import flatten_list
 LOGGER = structlog.getLogger()
 
 
-def update_records_relations(uuids):
+@shared_task(
+    bind=True,
+    retry_backoff=True,
+    acks_late=True,
+    retry_kwargs={"max_retries": 6},
+    autoretry_for=DB_TASK_EXCEPTIONS,
+)
+def update_records_relations(self, uuids):
     """Task which updates records_citations, institution_literature, experiment_literature and conference_literature tables with
     relation to proper literature records.
 

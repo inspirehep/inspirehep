@@ -16,7 +16,7 @@ def test_update_weekly_jobs(inspire_app, redis, cli, create_jobs, override_confi
         "WEEKLY_JOBS_EMAIL_TITLE": "Weekly jobs",
     }
     with override_config(**config):
-        result = cli.invoke(["mailing", "update_weekly_jobs"])
+        result = cli.invoke(["mailing", "update-weekly-jobs"])
     assert result.exit_code == 0
     assert "Campaign updated" in result.output
 
@@ -41,7 +41,7 @@ def test_update_weekly_jobs_populates_rss_feed(
         "WEEKLY_JOBS_EMAIL_TITLE": "Weekly jobs",
     }
     with override_config(**config), inspire_app.test_client() as client:
-        result = cli.invoke(["mailing", "update_weekly_jobs"])
+        result = cli.invoke(["mailing", "update-weekly-jobs"])
         assert result.exit_code == 0
         assert "Campaign updated" in result.output
 
@@ -58,7 +58,7 @@ def test_update_weekly_jobs_populates_rss_feed(
 
 
 def test_update_weekly_jobs_with_no_jobs(inspire_app, cli):
-    result = cli.invoke(["mailing", "update_weekly_jobs"])
+    result = cli.invoke(["mailing", "update-weekly-jobs"])
     assert result.exit_code == 0
     assert "No jobs found from last week skipping" in result.output
 
@@ -67,5 +67,5 @@ def test_update_weekly_jobs_api_missing_config(
     inspire_app, cli, create_jobs, override_config
 ):
     with override_config(**{"WEEKLY_JOBS_EMAIL_REDIS_KEY": None}):
-        result = cli.invoke(["mailing", "update_weekly_jobs"])
-        assert result.exit_code == -1
+        result = cli.invoke(["mailing", "update-weekly-jobs"])
+        assert result.exit_code == 1

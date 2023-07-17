@@ -679,7 +679,7 @@ def test_recalculate_references_recalculates_more_than_10_references(
     assert_recalculate_references_task()
 
 
-def test_redirecy_references_is_not_truggered_if_record_was_not_changed(
+def test_redirecy_references_is_not_triggered_if_record_was_not_changed(
     inspire_app, clean_celery_session
 ):
     literature_data = faker.record("lit", with_control_number=True)

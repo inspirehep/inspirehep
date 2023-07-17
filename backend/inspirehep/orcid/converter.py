@@ -16,7 +16,6 @@ from inspire_schemas.readers.literature import LiteratureReader
 from inspire_utils.date import PartialDate
 from inspire_utils.record import get_value
 from inspire_utils.urls import record_url_by_pattern
-from time_execution import time_execution
 
 from inspirehep.records.api import ConferencesRecord
 from inspirehep.records.serializers.bibtex import literature_bibtex
@@ -70,7 +69,7 @@ class OrcidConverter(object):
         self._bibtex_citation = None
         self._external_identifiers = []
 
-    @time_execution
+
     def get_xml(self, do_add_bibtex_citation=False):
         """Create an ORCID XML representation of the record.
 
@@ -267,7 +266,6 @@ class OrcidConverter(object):
             return None
 
     @property
-    @time_execution
     def bibtex_citation(self):
         if self._bibtex_citation is None:
             try:

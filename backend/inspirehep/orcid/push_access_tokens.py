@@ -14,7 +14,6 @@ from invenio_oauthclient.models import RemoteAccount, RemoteToken, UserIdentity
 from redis import StrictRedis
 from sqlalchemy import cast
 from sqlalchemy.dialects.postgresql import JSONB
-from time_execution import time_execution
 
 CACHE_PREFIX = None
 CACHE_EXPIRE = 60 * 60 * 24 * 30  # 30 days in seconds.
@@ -45,7 +44,6 @@ def get_access_tokens(orcids):
     )
 
 
-@time_execution
 def delete_access_token(token_plain, orcid):
     # Store the invalid token in Redis to prevent it from coming back
     # from Legacy when `inspirehep.orcid.tasks.import_legacy_orcid_tokens`

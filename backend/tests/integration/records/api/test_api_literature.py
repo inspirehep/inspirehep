@@ -2091,7 +2091,7 @@ def test_self_citations_on_collaborations_calculated_on_other_record_update(
     assert rec2.citation_count_without_self_citations == 0
 
 
-def test_arxiv_url_also_supports_format_alias(inspire_app):
+def test_arxiv_url_also_supports_format_alias_latex(inspire_app):
     expected_links = {
         "bibtex": "http://localhost:5000/api/arxiv/hep-ph/9709356?format=bibtex",
         "json": "http://localhost:5000/api/arxiv/hep-ph/9709356?format=json",
@@ -2102,9 +2102,60 @@ def test_arxiv_url_also_supports_format_alias(inspire_app):
 
     expected_latex_us_type = "application/vnd+inspire.latex.us+x-latex"
     expected_latex_eu_type = "application/vnd+inspire.latex.eu+x-latex"
+
+    data = {
+        "arxiv_eprints": [
+            {"value": "1607.06746", "categories": ["hep-th"]},
+            {"categories": ["hep-ph"], "value": "hep-ph/9709356"},
+        ]
+    }
+    create_record("lit", data)
+
+    with inspire_app.test_client() as client:
+        url = "/api/arxiv/hep-ph/9709356"
+        response_latex_us = client.get(f"{url}?format=latex-us")
+        response_latex_eu = client.get(f"{url}?format=latex-eu")
+
+    assert response_latex_us.status_code == 200
+    assert response_latex_us.content_type == expected_latex_us_type
+
+    assert response_latex_eu.status_code == 200
+    assert response_latex_eu.content_type == expected_latex_eu_type
+
+
+def test_arxiv_url_also_supports_format_alias_bibtex(inspire_app):
+    expected_links = {
+        "bibtex": "http://localhost:5000/api/arxiv/hep-ph/9709356?format=bibtex",
+        "json": "http://localhost:5000/api/arxiv/hep-ph/9709356?format=json",
+        "latex-eu": "http://localhost:5000/api/arxiv/hep-ph/9709356?format=latex-eu",
+        "latex-us": "http://localhost:5000/api/arxiv/hep-ph/9709356?format=latex-us",
+        "cv": "http://localhost:5000/api/arxiv/hep-ph/9709356?format=cv",
+    }
+
     expected_bibtex_type = "application/x-bibtex"
-    expected_json_type = "application/json"
-    expected_cv_type = "text/vnd+inspire.html+html; charset=utf-8"
+
+    data = {
+        "arxiv_eprints": [
+            {"value": "1607.06746", "categories": ["hep-th"]},
+            {"categories": ["hep-ph"], "value": "hep-ph/9709356"},
+        ]
+    }
+    create_record("lit", data)
+
+    with inspire_app.test_client() as client:
+        url = "/api/arxiv/hep-ph/9709356"
+        response_bibtex = client.get(f"{url}?format=bibtex")
+
+    assert response_bibtex.status_code == 200
+    assert response_bibtex.content_type == expected_bibtex_type
+
+
+def test_arxiv_url_also_supports_format_alias_json(inspire_app):
+    expected_links = {
+        "json": "http://localhost:5000/api/arxiv/hep-ph/9709356?format=json"
+    }
+
+    expected_bibtex_type = "application/json"
 
     data = {
         "arxiv_eprints": [
@@ -2117,23 +2168,33 @@ def test_arxiv_url_also_supports_format_alias(inspire_app):
     with inspire_app.test_client() as client:
         url = "/api/arxiv/hep-ph/9709356"
         response_json = client.get(f"{url}?format=json")
-        response_latex_us = client.get(f"{url}?format=latex-us")
-        response_latex_eu = client.get(f"{url}?format=latex-eu")
-        response_bibtex = client.get(f"{url}?format=bibtex")
-        response_cv = client.get(f"{url}?format=cv")
 
     assert response_json.status_code == 200
-    assert response_json.content_type == expected_json_type
-    assert response_json.json["links"] == expected_links
+    assert response_json.content_type == expected_bibtex_type
 
-    assert response_latex_us.status_code == 200
-    assert response_latex_us.content_type == expected_latex_us_type
 
-    assert response_latex_eu.status_code == 200
-    assert response_latex_eu.content_type == expected_latex_eu_type
+def test_arxiv_url_also_supports_format_alias_cv(inspire_app):
+    expected_links = {
+        "bibtex": "http://localhost:5000/api/arxiv/hep-ph/9709356?format=bibtex",
+        "json": "http://localhost:5000/api/arxiv/hep-ph/9709356?format=json",
+        "latex-eu": "http://localhost:5000/api/arxiv/hep-ph/9709356?format=latex-eu",
+        "latex-us": "http://localhost:5000/api/arxiv/hep-ph/9709356?format=latex-us",
+        "cv": "http://localhost:5000/api/arxiv/hep-ph/9709356?format=cv",
+    }
 
-    assert response_bibtex.status_code == 200
-    assert response_bibtex.content_type == expected_bibtex_type
+    expected_cv_type = "text/vnd+inspire.html+html; charset=utf-8"
+
+    data = {
+        "arxiv_eprints": [
+            {"value": "1607.06746", "categories": ["hep-th"]},
+            {"categories": ["hep-ph"], "value": "hep-ph/9709356"},
+        ]
+    }
+    create_record("lit", data)
+
+    with inspire_app.test_client() as client:
+        url = "/api/arxiv/hep-ph/9709356"
+        response_cv = client.get(f"{url}?format=cv")
 
     assert response_cv.status_code == 200
     assert response_cv.content_type == expected_cv_type

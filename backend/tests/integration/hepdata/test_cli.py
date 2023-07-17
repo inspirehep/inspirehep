@@ -43,7 +43,7 @@ def test_hepdata_harvest_happy_flow_with_date_passed(inspire_app, cli):
 def test_hepdata_harvest_incorrect_date_passed(inspire_app, cli):
     create_record("lit", data={"control_number": 1882568})
     result = cli.invoke(["hepdata", "harvest", "--since", "2021-08"])
-    assert result.exit_code == -1
+    assert result.exit_code == 1
 
 
 def test_hepdata_harvest_request_error(inspire_app, cli):
@@ -51,4 +51,4 @@ def test_hepdata_harvest_request_error(inspire_app, cli):
         "inspirehep.hepdata.cli.requests.get", side_effect=requests.ConnectionError
     ):
         result = cli.invoke(["hepdata", "harvest"])
-        assert result.exit_code == -1
+        assert result.exit_code == 1

@@ -33,7 +33,7 @@ from inspirehep.hal.utils import (
 from inspirehep.records.api import InspireRecord
 
 
-def test_get_conference_record(app, get_fixture):
+def test_get_conference_record(inspire_app, get_fixture):
     expexted_json = orjson.loads(get_fixture("expected_conference_record.json"))
     expected_record_data = faker.record("con", data=expexted_json)
     expected_record = InspireRecord.create(expected_record_data)
@@ -65,7 +65,7 @@ def test_get_conference_record(app, get_fixture):
     record.delete()
 
 
-def test_get_hal_id_map(app, get_fixture):
+def test_get_hal_id_map(inspire_app, get_fixture):
     record_json = orjson.loads(get_fixture("_get_hal_id_map.json"))
     record_data = faker.record("lit", data=record_json)
     record = InspireRecord.create(record_data)
@@ -83,7 +83,7 @@ def test_get_hal_id_map(app, get_fixture):
     institute_record.delete()
 
 
-def test_get_divulgation(app):
+def test_get_divulgation(inspire_app):
     schema = load_schema("hep")
     subschema = schema["properties"]["publication_type"]
 
@@ -101,8 +101,8 @@ def test_get_divulgation(app):
     record.delete()
 
 
-def test_get_domains(app):
-    app.config["HAL_DOMAIN_MAPPING"] = {
+def test_get_domains(inspire_app, override_config):
+    new_hal_mapping = {
         "Accelerators": "phys.phys.phys-acc-ph",
         "Astrophysics": "phys.astr",
         "Computing": "info",
@@ -119,18 +119,18 @@ def test_get_domains(app):
         "Theory-HEP": "phys.hthe",
         "Theory-Nucl": "phys.nucl",
     }
+    with override_config(HAL_DOMAIN_MAPPING=new_hal_mapping):
+        schema = load_schema("hep")
+        subschema = schema["properties"]["inspire_categories"]
 
-    schema = load_schema("hep")
-    subschema = schema["properties"]["inspire_categories"]
+        data = {"inspire_categories": [{"term": "Experiment-HEP"}]}
+        assert validate(data["inspire_categories"], subschema) is None
 
-    data = {"inspire_categories": [{"term": "Experiment-HEP"}]}
-    assert validate(data["inspire_categories"], subschema) is None
+        record_data = faker.record("lit", data)
+        record = InspireRecord.create(record_data)
 
-    record_data = faker.record("lit", data)
-    record = InspireRecord.create(record_data)
+        expected = ["phys.hexp"]
+        result = get_domains(record)
+        assert expected == result
 
-    expected = ["phys.hexp"]
-    result = get_domains(record)
-    assert expected == result
-
-    record.delete()
+        record.delete()

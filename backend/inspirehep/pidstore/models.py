@@ -144,5 +144,6 @@ class InspireRedirect(db.Model, Timestamp):
             self.original_pid.delete()
             db.session.delete(self)
             db.session.expire(self)
+            db.session.flush([self])
             db.session.expire(self.original_pid)
             db.session.expire(self.new_pid)

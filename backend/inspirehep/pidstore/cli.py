@@ -162,10 +162,10 @@ def fast_mint_bais(yes_i_know):
     current_app.config["FEATURE_FLAG_ENABLE_BAI_CREATION"] = True
     all_authors = PersistentIdentifier.query.filter_by(
         pid_type="aut", status="R"
-    ).with_entities("object_uuid")
+    ).with_entities(PersistentIdentifier.object_uuid)
     bai_authors = PersistentIdentifier.query.filter_by(
         pid_type="bai", status="R"
-    ).with_entities("object_uuid")
+    ).with_entities(PersistentIdentifier.object_uuid)
     all_authors = {author[0] for author in all_authors}
     bai_authors = {author[0] for author in bai_authors}
     missing_bais = all_authors - bai_authors

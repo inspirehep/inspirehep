@@ -19,7 +19,7 @@ def test_redirects_records_from_legacy_url(inspire_app):
     response_location_header = response.headers.get("Location")
 
     expected_status_code = 301
-    expected_redirect_url = "http://localhost:5000/literature/777"
+    expected_redirect_url = "/literature/777"
     assert expected_status_code == response_status_code
     assert response_location_header == expected_redirect_url
 
@@ -59,7 +59,7 @@ def test_redirects_authors_from_legacy_url(inspire_app):
     response_location_header = response.headers.get("Location")
 
     expected_status_code = 301
-    expected_redirect_url = "http://localhost:5000/authors/333"
+    expected_redirect_url = "/authors/333"
     assert expected_status_code == response_status_code
     assert response_location_header == expected_redirect_url
 
@@ -77,7 +77,7 @@ def test_redirects_author_profile_from_legacy_url(inspire_app):
     response_location_header = response.headers.get("Location")
 
     expected_status_code = 301
-    expected_redirect_url = "http://localhost:5000/authors/333"
+    expected_redirect_url = "/authors/333"
     assert expected_status_code == response_status_code
     assert response_location_header == expected_redirect_url
 
@@ -103,7 +103,7 @@ def test_redirects_claims_to_author_page(inspire_app):
         response_location_header = response.headers.get("Location")
 
         expected_status_code = 302
-        expected_redirect_url = "http://localhost:5000/authors/333"
+        expected_redirect_url = "/authors/333"
         assert expected_status_code == response_status_code
         assert response_location_header == expected_redirect_url
 
@@ -119,7 +119,7 @@ def test_redirects_claims_from_legacy_url(inspire_app):
     response_location_header = response.headers.get("Location")
 
     expected_status_code = 302
-    expected_redirect_url = f"http://localhost:5000/authors/{rec['control_number']}"
+    expected_redirect_url = f"/authors/{rec['control_number']}"
     assert expected_status_code == response_status_code
     assert response_location_header == expected_redirect_url
 
@@ -134,7 +134,7 @@ def test_redirects_merge_profiles_from_legacy_url(inspire_app):
     response_location_header = response.headers.get("Location")
 
     expected_status_code = 302
-    expected_redirect_url = "http://localhost:5000/authors"
+    expected_redirect_url = "/authors"
     assert expected_status_code == response_status_code
     assert response_location_header == expected_redirect_url
 
@@ -149,7 +149,7 @@ def test_redirects_merge_profiles_in_author_page(inspire_app):
     response_location_header = response.headers.get("Location")
 
     expected_status_code = 302
-    expected_redirect_url = "http://localhost:5000/authors"
+    expected_redirect_url = "/authors"
     assert expected_status_code == response_status_code
     assert response_location_header == expected_redirect_url
 
@@ -165,7 +165,7 @@ def test_redirects_manage_profile_from_legacy_url(inspire_app):
     response_location_header = response.headers.get("Location")
 
     expected_status_code = 302
-    expected_redirect_url = f"http://localhost:5000/authors/{rec['control_number']}"
+    expected_redirect_url = f"/authors/{rec['control_number']}"
     assert expected_status_code == response_status_code
     assert response_location_header == expected_redirect_url
 
@@ -184,7 +184,7 @@ def test_redirects_manage_profile_to_author_page(inspire_app):
     response_location_header = response.headers.get("Location")
 
     expected_status_code = 302
-    expected_redirect_url = "http://localhost:5000/authors/333"
+    expected_redirect_url = "/authors/333"
     assert expected_status_code == response_status_code
     assert response_location_header == expected_redirect_url
 
@@ -197,7 +197,7 @@ def test_redirects_query_from_legacy_url(inspire_app):
     response_location_header = response.headers.get("Location")
 
     expected_status_code = 301
-    expected_redirect_url = "http://localhost:5000/authors?q=witten"
+    expected_redirect_url = "/authors?q=witten"
     assert expected_status_code == response_status_code
     assert response_location_header == expected_redirect_url
 
@@ -211,7 +211,7 @@ def test_redirects_query_from_legacy_url_to_hep_search(inspire_app):
 
     expected_status_code = 301
     expected_redirect_url = (
-        "http://localhost:5000/literature?q=_collections:%22Slac%22%20and%20witten"
+        "/literature?q=_collections:%22Slac%22%20and%20witten"
     )
     assert expected_status_code == response_status_code
     assert response_location_header == expected_redirect_url
@@ -225,7 +225,7 @@ def test_redirects_query_from_legacy_url_with_empty_query(inspire_app):
     response_location_header = response.headers.get("Location")
 
     expected_status_code = 301
-    expected_redirect_url = "http://localhost:5000/literature?q="
+    expected_redirect_url = "/literature?q="
     assert expected_status_code == response_status_code
     assert response_location_header == expected_redirect_url
 
@@ -239,7 +239,7 @@ def test_redirects_query_from_legacy_url_with_empty_query_to_hep_search(inspire_
 
     expected_status_code = 301
     expected_redirect_url = (
-        'http://localhost:5000/literature?q=_collections:"halhidden"'
+        '/literature?q=_collections:"halhidden"'
     )
     assert expected_status_code == response_status_code
     assert response_location_header == expected_redirect_url
@@ -253,7 +253,7 @@ def test_redirects_query_from_legacy_url_not_in_labs(inspire_app):
     response_location_header = response.headers.get("Location")
 
     expected_status_code = 301
-    expected_redirect_url = "http://localhost:5000/literature?q=_collections:%22SOME_COLLECTION%22%20and%20CERN"
+    expected_redirect_url = "/literature?q=_collections:%22SOME_COLLECTION%22%20and%20CERN"
     assert expected_status_code == response_status_code
     assert response_location_header == expected_redirect_url
 
@@ -266,7 +266,7 @@ def test_redirects_collections_from_legacy_url(inspire_app):
     response_location_header = response.headers.get("Location")
 
     expected_status_code = 301
-    expected_redirect_url = "http://localhost:5000/authors"
+    expected_redirect_url = "/authors"
     assert expected_status_code == response_status_code
     assert response_location_header == expected_redirect_url
 
@@ -282,7 +282,7 @@ def test_redirects_collections_from_legacy_url_to_hep_search(
 
     expected_status_code = 301
     expected_redirect_url = (
-        'http://localhost:5000/literature?q=_collections:"halhidden"'
+        '/literature?q=_collections:"halhidden"'
     )
     assert expected_status_code == response_status_code
     assert response_location_header == expected_redirect_url
@@ -297,7 +297,7 @@ def test_redirects_collections_from_legacy_url_not_in_labs(inspire_app):
 
     expected_status_code = 301
     expected_redirect_url = (
-        'http://localhost:5000/literature?q=_collections:"SOME_COLLECTION"'
+        '/literature?q=_collections:"SOME_COLLECTION"'
     )
     assert expected_status_code == response_status_code
     assert response_location_header == expected_redirect_url
