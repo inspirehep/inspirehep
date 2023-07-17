@@ -5,9 +5,9 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 import orjson
-from elasticsearch import SerializationError
-from elasticsearch.compat import string_types
-from elasticsearch.serializer import JSONSerializer
+from opensearchpy  import SerializationError
+from opensearchpy .compat import string_types
+from opensearchpy .serializer import JSONSerializer
 from flask import current_app
 from freezegun.api import FakeDatetime
 

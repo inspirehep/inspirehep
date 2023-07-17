@@ -6,7 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import inspire_query_parser
-from elasticsearch_dsl import Q
+from opensearch_dsl import Q
 from flask import current_app
 
 from inspirehep.pidstore.api import PidStoreBase

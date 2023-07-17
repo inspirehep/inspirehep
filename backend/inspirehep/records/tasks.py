@@ -8,7 +8,7 @@
 import structlog
 from celery import shared_task
 from dict_deep import deep_set
-from elasticsearch_dsl import Q
+from opensearch_dsl import Q
 from flask import current_app
 from inspire_schemas.utils import get_refs_to_schemas
 from inspire_utils.dedupers import dedupe_list_of_dicts

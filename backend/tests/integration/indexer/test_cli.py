@@ -10,8 +10,8 @@ import re
 
 import mock
 import pytest
-from elasticsearch import NotFoundError
-from elasticsearch.client.ingest import IngestClient
+from opensearchpy  import NotFoundError
+from opensearchpy .client.ingest import IngestClient
 from flask_sqlalchemy import models_committed
 from helpers.utils import create_record, create_record_factory
 from invenio_search import current_search

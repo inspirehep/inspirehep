@@ -8,7 +8,7 @@ from urllib import parse
 
 import requests
 import structlog
-from elasticsearch_dsl import Q
+from opensearch_dsl import Q
 from flask import current_app
 from idutils import is_arxiv
 from inspire_schemas.builders import LiteratureBuilder

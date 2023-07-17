@@ -4,7 +4,7 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-from elasticsearch_dsl import Q
+from opensearch_dsl import Q
 
 from inspirehep.pidstore.api import PidStoreJobs
 from inspirehep.records.api.base import InspireRecord

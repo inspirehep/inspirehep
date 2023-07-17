@@ -6,14 +6,14 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import structlog
-from elasticsearch import ConflictError, NotFoundError, RequestError, TransportError
-from elasticsearch.helpers import streaming_bulk
+from opensearchpy  import ConflictError, NotFoundError, RequestError, TransportError
+from opensearchpy .helpers import streaming_bulk
 from flask import current_app
 from inspire_utils.record import get_value
 from invenio_indexer.api import RecordIndexer
 from invenio_indexer.signals import before_record_index
-from invenio_indexer.utils import _es7_expand_action
 from invenio_search import current_search_client as es
+from invenio_search.engine import dsl, search
 from kombu.exceptions import EncodeError
 from sqlalchemy.orm.exc import NoResultFound
 
@@ -110,7 +110,7 @@ class InspireRecordIndexer(RecordIndexer):
             request_timeout=request_timeout,
             raise_on_error=False,
             raise_on_exception=False,
-            expand_action_callback=(_es7_expand_action),
+            expand_action_callback=search.helpers.expand_action,
             max_retries=5,  # Retires on Error 429
             initial_backoff=10,  # wait for initial_backoff * 2^retry_number,
             max_chunk_bytes=max_chunk_bytes,

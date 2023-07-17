@@ -6,7 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import structlog
-from elasticsearch_dsl.query import Q
+from opensearch_dsl.query import Q
 from flask import current_app, render_template
 from inspire_utils.record import get_value
 from invenio_oauthclient.models import UserIdentity

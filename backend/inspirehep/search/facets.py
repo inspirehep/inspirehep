@@ -7,7 +7,7 @@
 from datetime import datetime
 from itertools import count
 
-from elasticsearch_dsl.query import Q, Range
+from opensearch_dsl.query import Q, Range
 from flask import current_app, request
 from invenio_records_rest.facets import range_filter
 

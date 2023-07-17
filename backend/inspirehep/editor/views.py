@@ -14,7 +14,7 @@ from flask import Blueprint, current_app, make_response, request
 from flask_login import current_user
 from inspire_schemas.api import load_schema
 from inspire_utils.dedupers import dedupe_list
-from inspire_utils.record import normalize_affiliations
+from inspirehep.curation.api import normalize_affiliations
 from invenio_db import db
 from invenio_records.models import RecordMetadata
 from invenio_records_rest.utils import set_headers_for_record_caching_and_concurrency

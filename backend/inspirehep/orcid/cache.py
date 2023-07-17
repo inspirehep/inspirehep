@@ -11,7 +11,6 @@ import io
 import flask
 from flask import current_app as app
 from redis import StrictRedis
-from time_execution import time_execution
 
 from .converter import OrcidConverter
 
@@ -48,7 +47,6 @@ class OrcidCache(object):
             prefix = "{}:".format(CACHE_PREFIX)
         return "{}orcidcache:{}:{}".format(prefix, self.orcid, self.recid)
 
-    @time_execution
     def write_work_putcode(self, putcode, inspire_record=None):
         """
         Write the putcode and the hash for the given (orcid, recid).
@@ -73,19 +71,16 @@ class OrcidCache(object):
 
         self.redis.hmset(self._key, data)
 
-    @time_execution
     def read_work_putcode(self):
         """Read the putcode for the given (orcid, recid)."""
         value = self.redis.hgetall(self._key)
         self._cached_hash_value = value.get("hash")
         return value.get("putcode")
 
-    @time_execution
     def delete_work_putcode(self):
         """Delete the putcode for the given (orcid, recid)."""
         return self.redis.delete(self._key)
 
-    @time_execution
     def has_work_content_changed(self, inspire_record):
         """
         True if the work content has changed compared to the cached version.
