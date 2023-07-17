@@ -15,6 +15,7 @@ from helpers.providers.faker import faker
 from helpers.utils import create_record
 
 from inspirehep.records.api import AuthorsRecord, JobsRecord, LiteratureRecord
+from inspirehep.records.models import InstitutionLiterature
 
 
 @pytest.mark.vcr()
@@ -172,7 +173,7 @@ def test_close_expired_jobs_with_notify(
         "job", data={"status": "open", "deadline_date": "2019-11-01"}
     )
     create_record("job", data={"status": "open", "deadline_date": "2020-11-01"})
-    cli.invoke(["jobs", "close_expired_jobs", "--notify"])
+    cli.invoke(["jobs", "close-expired-jobs", "--notify"])
 
     expired_record = JobsRecord.get_record_by_pid_value(
         expired_record["control_number"]
@@ -185,7 +186,7 @@ def test_close_expired_jobs_with_notify(
 @freeze_time("2019-11-01")
 def test_close_expired_jobs_has_exclusive_deadline(inspire_app, cli):
     job = create_record("job", data={"status": "open", "deadline_date": "2019-11-01"})
-    result = cli.invoke(["jobs", "close_expired_jobs"])
+    result = cli.invoke(["jobs", "close-expired-jobs"])
     job = JobsRecord.get_record_by_pid_value(job["control_number"])
 
     assert result.exit_code == 0
@@ -203,7 +204,7 @@ def test_close_expired_jobs_without_notify(
     not_expired_record = create_record(
         "job", data={"status": "open", "deadline_date": "2020-11-01"}
     )
-    result = cli.invoke(["jobs", "close_expired_jobs"])
+    result = cli.invoke(["jobs", "close-expired-jobs"])
     expired_record = JobsRecord.get_record_by_pid_value(
         expired_record["control_number"]
     )
@@ -225,10 +226,40 @@ def test_close_expired_jobs_ignores_deleted_records(inspire_app, cli):
     )
     deleted_record["deleted"] = True
     deleted_record.update(dict(deleted_record))
-    result = cli.invoke(["jobs", "close_expired_jobs"])
+    result = cli.invoke(["jobs", "close-expired-jobs"])
     deleted_record = JobsRecord.get_record_by_pid_value(
         deleted_record["control_number"], with_deleted=True
     )
 
     assert result.exit_code == 0
     assert deleted_record["status"] == "open"
+
+
+def test_update_records_relations_cli(inspire_app, cli):
+    institution = create_record("ins")
+    institution_id = institution.id
+    inst_ref = f"http://localhost:8000/api/institutions/{institution['control_number']}"
+    lit_data_with_institution = {
+        "authors": [
+            {
+                "full_name": "John Doe",
+                "affiliations": [
+                    {"value": "Institution", "record": {"$ref": inst_ref}}
+                ],
+            }
+        ]
+    }
+    record = create_record("lit", data=lit_data_with_institution)
+    record_id = record.id
+
+    result = cli.invoke(
+        ["relationships", "update-relationships-for-records", "--pid-type", "lit"]
+    )
+
+    assert 0 == result.exit_code
+
+    institution_literature_relation = InstitutionLiterature.query.filter_by(
+        institution_uuid=institution_id
+    ).one()
+
+    assert institution_literature_relation.literature_uuid == record_id

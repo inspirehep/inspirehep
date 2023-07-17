@@ -14,6 +14,7 @@ from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from inspirehep.pidstore.errors import PIDAlreadyExists
 from inspirehep.pidstore.providers.bai import InspireBAIProvider
 from inspirehep.utils import flatten_list
+from itertools import chain
 
 
 def test_old_minter_bai(inspire_app, override_config):
@@ -212,7 +213,7 @@ def test_bai_minter_many_pids(inspire_app):
     }
     expected_bais = ["K.Janeway.1", "K.Janeway.2"]
     rec = create_record("aut", data=data)
-    bais = flatten_list(
+    bais = chain.from_iterable(
         PersistentIdentifier.query.with_entities(PersistentIdentifier.pid_value)
         .filter_by(pid_type="bai", status=PIDStatus.REGISTERED, object_uuid=rec.id)
         .all()

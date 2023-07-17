@@ -74,20 +74,22 @@ class c(object):
 
 
 class TestOrcidInvalidTokensCacheBase(object):
-    def setup(self):
+    def setup_class(cls):
+        cls.CACHE_EXPIRE_ORIG = push_access_tokens.CACHE_EXPIRE
+        push_access_tokens.CACHE_EXPIRE = 2  # Sec.
+
+    def setup_method(self, method):
         self.token_plain = "token1234"
         self.orcid = "0000-0003-4792-9178"
         self.cache = push_access_tokens._OrcidInvalidTokensCache(self.token_plain)
-
-    def setup_method(self, method):
         push_access_tokens.CACHE_PREFIX = get_fqn(method)
-        self.CACHE_EXPIRE_ORIG = push_access_tokens.CACHE_EXPIRE
-        push_access_tokens.CACHE_EXPIRE = 2  # Sec.
-
-    def teardown(self):
+    
+    def teardown_class(cls):
         self.cache.delete_invalid_token()
+
+    def teardown_class(cls):
         push_access_tokens.CACHE_PREFIX = None
-        push_access_tokens.CACHE_EXPIRE = self.CACHE_EXPIRE_ORIG
+        push_access_tokens.CACHE_EXPIRE = cls.CACHE_EXPIRE_ORIG
 
 
 @pytest.mark.usefixtures("inspire_app")
@@ -114,16 +116,19 @@ class TestIsAccessTokenInvalid(TestOrcidInvalidTokensCacheBase):
         assert not push_access_tokens.is_access_token_invalid("nonexisting")
 
 
-@pytest.mark.usefixtures("inspire_app")
 class TestDeleteAccessToken(TestOrcidInvalidTokensCacheBase):
-    def setup(self):
+    @pytest.fixture(autouse=True)
+    def token(self, inspire_app):
+        self.remote_token = TestRemoteToken.create_for_orcid(self.orcid).remote_token
+
+    def setup_method(self, method):
         self.orcid = "0000-0003-4792-9178"
         self.remote_token = TestRemoteToken.create_for_orcid(self.orcid).remote_token
         self.cache = push_access_tokens._OrcidInvalidTokensCache(
             self.remote_token.access_token
         )
 
-    def test_happy_flow(self):
+    def test_happy_flow(self, inspire_app):
         push_access_tokens.delete_access_token(
             self.remote_token.access_token, self.orcid
         )
@@ -134,7 +139,7 @@ class TestDeleteAccessToken(TestOrcidInvalidTokensCacheBase):
             self.remote_token.access_token
         )
 
-    def test_orcid_with_no_token(self):
+    def test_orcid_with_no_token(self, inspire_app):
         orcid = "orcid-with-no-token"
         with pytest.raises(NoResultFound):
             push_access_tokens.delete_access_token(
@@ -142,7 +147,7 @@ class TestDeleteAccessToken(TestOrcidInvalidTokensCacheBase):
             )
             db.session.commit()
 
-    def test_token_plain_mismatch(self):
+    def test_token_plain_mismatch(self, inspire_app):
         token_plain = "nonexisting-token-plain"
         with pytest.raises(AssertionError):
             push_access_tokens.delete_access_token(token_plain, self.orcid)

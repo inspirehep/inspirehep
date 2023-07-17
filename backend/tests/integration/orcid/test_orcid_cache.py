@@ -21,6 +21,7 @@ pytestmark = pytest.mark.random_order(disabled=True)
 
 @pytest.mark.usefixtures("inspire_app")
 class TestOrcidCache(object):
+    @pytest.fixture(autouse=True)
     def setup(self):
         self.recid = "1936475"
         self.putcode = "myputcode"
@@ -100,6 +101,7 @@ class TestOrcidCache(object):
 
 @pytest.mark.usefixtures("inspire_app")
 class TestOrcidHasher(object):
+    @pytest.fixture(autouse=True)
     def setup(self):
         factory = TestRecordMetadata.create_from_file(
             __name__, "test_orcid_hasher_record.json"

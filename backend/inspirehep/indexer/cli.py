@@ -11,17 +11,18 @@ from time import sleep
 import click
 import structlog
 from click import UsageError
-from elasticsearch.client.ingest import IngestClient
 from flask import current_app
 from flask.cli import with_appcontext
 from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_search import current_search
 from invenio_search.cli import index
+from opensearchpy.client.ingest import IngestClient
+from opensearchpy.exceptions import NotFoundError
 
 from inspirehep.indexer.tasks import batch_index
 from inspirehep.records.api import InspireRecord
-from inspirehep.utils import next_batch
+from inspirehep.utils import chunker
 
 LOGGER = structlog.getLogger()
 FULLTEXT_PIPELINE_SETUP = {
@@ -90,16 +91,13 @@ def get_query_records_to_index(pid_types):
 def dispatch_indexing_task(items, batch_size, queue_name):
     tasks = []
     request_timeout = current_app.config.get("INDEXER_BULK_REQUEST_TIMEOUT")
-
-    batch = next_batch(items, batch_size)
-    while batch:
+    for batch in chunker(items, batch_size):
         uuids = [str(item[0]) for item in batch]
         indexer_task = batch_index.apply_async(
             kwargs={"records_uuids": uuids, "request_timeout": request_timeout},
             queue=queue_name,
         )
         tasks.append(indexer_task)
-        batch = next_batch(items, batch_size)
 
     return tasks
 
@@ -232,9 +230,9 @@ def reindex_records(
 
         while len(all_tasks) != _finished_tasks_count():
             sleep(0.5)
-            # this is so click doesn't divide by 0:
-            progressbar.pos = _finished_tasks_count() or 1
-            progressbar.update(0)
+            delta = _finished_tasks_count() - progressbar.pos
+            if delta > 0:
+                progressbar.update(delta)
 
     failures_count = 0
     successes_count = 0
@@ -374,11 +372,16 @@ def create_aliases(ctx, yes_i_know, prefix_alias):
 @click.option("--prefix", default="", type=str)
 @with_appcontext
 @click.pass_context
-def delete_aliases(ctx, yes_i_know, prefix):
+def delete_indexes(ctx, yes_i_know, prefix):
     indices = current_search.client.indices.get_alias()
     prefix_regex = re.compile(f"""{prefix}.*""")
     indices_to_delete = list(filter(prefix_regex.match, indices))
-    indices_to_delete = {k: indices[k] for k in indices_to_delete}
+    # exclude built-in OS indices
+    indices_to_delete = {
+        k: indices[k]
+        for k in indices_to_delete
+        if not k.startswith(".") and "security" not in k
+    }
 
     if not indices_to_delete:
         click.echo("No indices matching given prefix found.")
@@ -389,7 +392,10 @@ def delete_aliases(ctx, yes_i_know, prefix):
             f"This operation will remove '{index_to_delete}' index. Are you sure you want to continue?"
         ):
             continue
-        current_search.client.indices.delete_alias(index=index_to_delete, name="*")
+        try:
+            current_search.client.indices.delete_alias(index=index_to_delete, name="*")
+        except NotFoundError:
+            click.echo(f"Alias for index {index_to_delete} not found.")
         current_search.client.indices.delete(index_to_delete)
         click.echo(f"Deleted '{index_to_delete}' index and all linked aliases.")
 

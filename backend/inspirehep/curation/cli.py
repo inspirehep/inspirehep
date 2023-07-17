@@ -1,6 +1,6 @@
 import click
 import requests
-from elasticsearch_dsl import Q
+from opensearch_dsl import Q
 from flask.cli import with_appcontext
 
 from inspirehep.curation.tasks import update_pdg_keywords_in_records

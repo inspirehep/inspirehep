@@ -10,8 +10,8 @@ import re
 
 import mock
 import pytest
-from elasticsearch import NotFoundError
-from elasticsearch.client.ingest import IngestClient
+from opensearchpy import NotFoundError
+from opensearchpy.client.ingest import IngestClient
 from flask_sqlalchemy import models_committed
 from helpers.utils import create_record, create_record_factory
 from invenio_search import current_search
@@ -465,7 +465,7 @@ def test_cli_reindex_deleted_and_redirected_records(inspire_app, cli):
     control_numbers_from_es = [x.control_number for x in results.hits]
     assert set(control_numbers_from_es) == set(expected_control_numbers)
 
-    cli.invoke(["index", "reindex", "-p", "lit"])
+    result = cli.invoke(["index", "reindex", "-p", "lit"])
     current_search.flush_and_refresh("*")
 
     expected_control_numbers = [new_record.control_number]

@@ -9,7 +9,7 @@ from builtins import TypeError
 import orjson
 import pytz
 import structlog
-from elasticsearch_dsl import Q
+from opensearch_dsl import Q
 from flask import current_app, request
 from inspire_utils.record import get_value
 from invenio_records_rest.serializers.json import (

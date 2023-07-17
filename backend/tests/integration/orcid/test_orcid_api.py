@@ -345,7 +345,8 @@ def test_orcid_push_not_triggered_on_create_record_no_feat_flag(
 
 @pytest.mark.usefixtures("inspire_app")
 class TestPushToOrcid(object):
-    def setup(self):
+    @pytest.fixture(autouse=True)
+    def setup(self, inspire_app):
         # record 736770
         record_fixture_path = pkg_resources.resource_filename(
             __name__, os.path.join("fixtures", "736770.json")

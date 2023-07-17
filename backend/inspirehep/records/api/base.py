@@ -12,7 +12,7 @@ from datetime import datetime
 from itertools import chain
 
 import structlog
-from elasticsearch import NotFoundError
+from opensearchpy import NotFoundError
 from flask import current_app
 from inspire_dojson.utils import strip_empty_values
 from inspire_schemas.utils import get_validation_errors
@@ -541,7 +541,7 @@ class InspireRecord(Record):
             db.session.delete(self.model)
 
             try:
-                InspireRecordIndexer().delete(self)
+                InspireRecordIndexer().delete(self, version=None)
             except NotFoundError:
                 LOGGER.info("Record not found in ES", recid=recid, uuid=self.id)
 

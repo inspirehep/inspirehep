@@ -14,7 +14,6 @@ from inspire_service_orcid import exceptions as orcid_client_exceptions
 from inspire_service_orcid.client import OrcidClient
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
-from time_execution import time_execution
 
 from inspirehep.records.api import LiteratureRecord
 from inspirehep.utils import distributed_lock
@@ -49,7 +48,6 @@ class OrcidPusher(object):
         self.converter = None
         self.cached_author_putcodes = {}
 
-    @time_execution
     def _get_inspire_record(self):
         try:
             inspire_record = LiteratureRecord.get_record_by_pid_value(
@@ -104,7 +102,6 @@ class OrcidPusher(object):
                 return True
         return self.inspire_record.get("deleted", False)
 
-    @time_execution
     def push(self):  # noqa: C901
         putcode = None
         if not self._do_force_cache_miss:
@@ -199,7 +196,6 @@ class OrcidPusher(object):
         self.cache.write_work_putcode(putcode, self.inspire_record)
         return putcode
 
-    @time_execution
     def _post_or_put_work(self, putcode=None):
         # Note: if putcode is None, then it's a POST (it means the work is new).
         # Otherwise a PUT (it means the work already exists and it has the given
@@ -227,7 +223,6 @@ class OrcidPusher(object):
                 unique_recids_putcodes[fetched_recid] = fetched_putcode
         return unique_recids_putcodes
 
-    @time_execution
     def _cache_all_author_putcodes(self):
         LOGGER.debug("New OrcidPusher cache all author putcodes", orcid=self.orcid)
 
@@ -260,7 +255,6 @@ class OrcidPusher(object):
 
         return putcode
 
-    @time_execution
     def _delete_work(self, putcode=None):
         putcode = putcode or self._cache_all_author_putcodes()
         if not putcode:
@@ -281,7 +275,6 @@ class OrcidPusher(object):
 
         self.cache.delete_work_putcode()
 
-    @time_execution
     def _push_work_with_clashing_identifier(self):
         putcode_getter = OrcidPutcodeGetter(self.orcid, self.oauth_token)
 

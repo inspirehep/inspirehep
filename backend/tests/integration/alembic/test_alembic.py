@@ -128,12 +128,9 @@ def test_downgrade(inspire_app):
         "institution_literature"
     )
 
-    alembic.downgrade("e5e43ad8f861")
-
+    alembic.downgrade("f563233434cd")
     assert "idx_pidstore_pid_pid_value" not in _get_indexes("pidstore_pid")
-
-    alembic.downgrade(target="f563233434cd")
-
+    alembic.downgrade("e5e43ad8f861")
     assert "enum_conference_to_literature_relationship_type" not in _get_custom_enums()
     assert "conference_literature" not in _get_table_names()
     assert "ix_conference_literature_literature_uuid" not in _get_indexes(
@@ -408,7 +405,7 @@ def _check_column_in_table(table, column):
 
 def get_primary_keys(tablename):
     insp = reflection.Inspector.from_engine(db.engine)
-    primary_keys = insp.get_primary_keys(tablename)
+    primary_keys = insp.get_pk_constraint(tablename)['constrained_columns']
     return primary_keys
 
 

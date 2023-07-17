@@ -9,7 +9,7 @@ from itertools import islice
 
 import click
 import structlog
-from elasticsearch_dsl import Q
+from opensearch_dsl import Q
 from flask.cli import with_appcontext
 from flask_celeryext.app import current_celery_app
 from invenio_db import db

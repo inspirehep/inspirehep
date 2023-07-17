@@ -7,7 +7,7 @@
 import mock
 from helpers.utils import create_record
 from invenio_pidstore.models import PersistentIdentifier
-from werkzeug import MultiDict
+from  werkzeug.datastructures import MultiDict
 
 from inspirehep.records.links import (
     find_record_endpoint,

@@ -8,7 +8,7 @@
 import re
 
 import structlog
-from elasticsearch_dsl import MultiSearch, Q, Search
+from opensearch_dsl import MultiSearch, Q, Search
 from inspire_dojson.utils import get_recid_from_ref
 from inspire_schemas.utils import normalize_collaboration_name
 from inspire_utils.record import get_value

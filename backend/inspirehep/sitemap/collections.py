@@ -5,7 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from elasticsearch_dsl.query import Q
+from opensearch_dsl.query import Q
 
 from inspirehep.search.api import (
     AuthorsSearch,

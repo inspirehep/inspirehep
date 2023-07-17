@@ -19,6 +19,7 @@ from flask.cli import with_appcontext
 from flask_celeryext.app import current_celery_app
 from inspire_utils.record import get_value
 from invenio_db import db
+from invenio_pidstore.models import PersistentIdentifier
 from invenio_records.api import RecordMetadata
 from sqlalchemy import DateTime, cast, not_, or_, type_coerce
 from sqlalchemy.dialects.postgresql import JSONB
@@ -31,6 +32,7 @@ from inspirehep.records.tasks import (
     populate_journal_literature,
     regenerate_author_records_table_entries,
     remove_bai_from_literature_authors,
+    update_records_relations,
 )
 from inspirehep.search.api import LiteratureSearch
 from inspirehep.utils import chunker
@@ -338,3 +340,22 @@ def remove_bai_from_literature_records(
     for chunk in chunker(documents, 100):
         uuids = [record.meta.id for record in chunk]
         remove_bai_from_literature_authors.delay(uuids)
+
+
+@relationships.command(help="Update record relationships")
+@click.option("--pid-type", required=True)
+@with_appcontext
+def update_relationships_for_records(pid_type):
+    if pid_type not in current_app.config["PID_TYPES_TO_ENDPOINTS"].keys():
+        click.echo("PID type not found")
+        return
+    records_ids_query = (
+        db.session.query(PersistentIdentifier.object_uuid)
+        .filter_by(pid_type=pid_type, pid_provider="recid")
+        .distinct()
+    )
+
+    uuids_to_regenerate = []
+    for batch in chunker(records_ids_query.yield_per(100), 100):
+        uuids_to_regenerate = [str(uuid[0]) for uuid in batch]
+        update_records_relations.delay(uuids_to_regenerate)

@@ -21,7 +21,6 @@ from redis import StrictRedis
 from requests.exceptions import RequestException
 from simplejson import loads
 from sqlalchemy.orm.exc import FlushError
-from time_execution import time_execution
 
 from inspirehep.orcid import exceptions as domain_exceptions
 from inspirehep.orcid.utils import get_literature_recids_for_orcid
@@ -194,7 +193,6 @@ def _register_user(name, email, orcid, token):
 # Race conditions between the 2 limits are possible, but the orcid push
 # operation is idempotent.
 @shared_task(bind=True, soft_time_limit=10 * 60, time_limit=11 * 60)
-@time_execution
 def orcid_push(self, orcid, rec_id, oauth_token, kwargs_to_pusher=None):
     """Celery task to push a record to ORCID.
 

@@ -18,7 +18,7 @@ from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db
 
 from inspirehep.records.models import WorkflowsRecordSources
-
+from inspirehep.records.api import LiteratureRecord
 
 def test_error_message_on_pid_already_exists(inspire_app):
     create_record_factory("lit", data={"control_number": 666})
@@ -491,6 +491,7 @@ def test_reference_self_curation(mock_create_ticket, inspire_app):
             content_type="application/json",
             data=orjson.dumps(data),
         )
+    record = LiteratureRecord.get_record_by_pid_value(record['control_number'])
     assert record["references"][0]["curated_relation"]
     assert record["references"][0]["record"] == new_reference_record["self"]
     assert (
