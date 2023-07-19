@@ -136,8 +136,7 @@ def logout(client):
 def orcid_app_cli_runner():
     """Click CLI runner inside the Flask application for orcid tests."""
     runner = CliRunner()
-    obj = ScriptInfo(create_app=lambda info: current_app)
-    runner._invoke = runner.invoke
+    obj = ScriptInfo(create_app=lambda: inspire_app)
     runner.invoke = partial(runner.invoke, obj=obj)
     return runner
 

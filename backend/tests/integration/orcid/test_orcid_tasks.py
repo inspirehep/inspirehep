@@ -40,14 +40,15 @@ pytestmark = pytest.mark.random_order(disabled=True)
 
 @pytest.mark.usefixtures("inspire_app")
 class TestLinkUserAndToken(object):
-    def setup(self):
+    @pytest.fixture(autouse=True)
+    def setup(self, inspire_app):
+        self.orcid = "myorcid"
+        self.token = "mytoken"
+        self.name = "myname"
         with db.session.begin_nested():
             self.user = User()
             self.user.email = "email@foo.bar"
             db.session.add(self.user)
-        self.orcid = "myorcid"
-        self.token = "mytoken"
-        self.name = "myname"
 
     def _assert_remote_account_and_remote_token_and_user_identity(self):
         assert len(self.user.remote_accounts) == 1
