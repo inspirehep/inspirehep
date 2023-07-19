@@ -150,13 +150,19 @@ def test_fuzzy_match(inspire_app):
     user = create_user(role=Roles.cataloger.value)
     record_data = {
         "control_number": 4328,
+         "titles": [
+            {
+                "title": "Search for the limits on anomalous neutral triple gauge couplings via ZZ production in the $\\ell\\ell\\nu\\nu$ channel at FCC-hh",
+            }
+        ],
+        "authors": [
+            {"full_name": "Yilmaz, Ali"},
+        ],
         "abstracts": [
             {
-                "value": "abstract nb 1",
-            },
-        ],
-        "titles": [
-            {"title": "title nb 1"},
+                "value": "This paper presents the projections on the anomalous neutral triple gauge couplings via production in the 2ℓ2ν final state at a 100 TeV proton-proton collider, FCC-hh. The realistic FCC-hh detector environments and its effects taken into account in the analysis. The study is carried out in the mode where one Z boson decays into a pair of same-flavor, opposite-sign leptons (electrons or muons) and the other one decays to the two neutrinos. The new bounds on the charge-parity (CP)-conserving couplings and CP-violating couplings and achieved at 95% Confidence Level (C.L.) using the transverse momentum of the dilepton system, respectively.",
+                "source": "Elsevier B.V.",
+            }
         ],
     }
     record = create_record("lit", record_data)
