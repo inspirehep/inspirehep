@@ -10,7 +10,7 @@ import re
 
 import mock
 import pytest
-from opensearchpy import NotFoundErrorx
+from opensearchpy import NotFoundError
 from opensearchpy.client.ingest import IngestClient
 from flask_sqlalchemy import models_committed
 from helpers.utils import create_record, create_record_factory
