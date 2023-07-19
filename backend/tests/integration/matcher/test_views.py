@@ -153,7 +153,6 @@ def test_fuzzy_match(inspire_app):
         "abstracts": [
             {
                 "value": "abstract nb 1",
-                "source": "arXiv",
             },
         ],
         "titles": [
