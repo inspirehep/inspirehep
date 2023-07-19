@@ -22,7 +22,10 @@
 
 import logging
 import re
-
+import os
+from pathlib import Path
+from inspirehep.pidstore.errors import PIDAlreadyExistsError
+from inspirehep.records.api import LiteratureRecord, InspireRecord
 import mock
 import pytest
 from flask import current_app
@@ -31,11 +34,12 @@ from helpers.factories.db.invenio_records import TestRecordMetadata
 from inspire_service_orcid.exceptions import MovedPermanentlyException
 from requests.exceptions import RequestException
 
+from helpers.utils import create_record
 from inspirehep.orcid import cache as cache_module
 from inspirehep.orcid import exceptions as domain_exceptions
 from inspirehep.orcid.cache import OrcidCache
 from inspirehep.orcid.tasks import orcid_push
-
+import orjson
 # The tests are written in a specific order, disable random
 pytestmark = pytest.mark.random_order(disabled=True)
 
@@ -215,21 +219,20 @@ def get_local_access_tokens(orcid):
     return None
 
 
-@pytest.mark.usefixtures("inspire_app")
 class TestOrcidPushTask(object):
     # NOTE: Only a few test here (1 happy flow and a few error flows). Exhaustive
     # testing is done in the domain model tests.
-    def setup(self):
-        factory = TestRecordMetadata.create_from_file(
-            __name__, "test_orcid_tasks_orcid_push_TestOrcidPush.json"
-        )
-        self.orcid = "0000-0003-1134-6827"
-        self.recid = factory.record_metadata.json["control_number"]
-        self.inspire_record = factory.inspire_record
-        self.cache = OrcidCache(self.orcid, self.recid)
-        self.oauth_token = get_local_access_tokens(self.orcid) or "mytoken"
 
-    def setup_method(self, method):
+    @pytest.fixture(autouse=True)
+    def record(self, inspire_app):
+        record_data = orjson.loads((Path(__file__).parent / "fixtures" / "test_orcid_tasks_orcid_push_TestOrcidPush.json").read_text())
+        self.inspire_record = create_record('lit', data=record_data)
+        self.recid = self.inspire_record['control_number']
+
+    def setup(self, method):
+        self.orcid = "0000-0003-1134-6827"
+        self.cache = OrcidCache(self.orcid, 45)
+        self.oauth_token = get_local_access_tokens(self.orcid) or "mytoken"
         cache_module.CACHE_PREFIX = get_fqn(method)
 
     def teardown(self):
