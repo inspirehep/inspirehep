@@ -1158,31 +1158,40 @@ def test_workflow_matching(inspire_app):
 def test_fuzzy_match_returns_control_number_if_one_match(inspire_app):
     record = {
         "control_number": 4328,
+        "titles": [
+            {
+                "title": "Search for the limits on anomalous neutral triple gauge couplings via ZZ production in the $\\ell\\ell\\nu\\nu$ channel at FCC-hh",
+            }
+        ],
+        "authors": [
+            {"full_name": "Yilmaz, Ali"},
+        ],
         "abstracts": [
             {
-                "value": "abstract nb 1",
-                "source": "arXiv",
-            },
-        ],
-        "titles": [
-            {"title": "title nb 1"},
+                "value": "This paper presents the projections on the anomalous neutral triple gauge couplings via production in the 2ℓ2ν final state at a 100 TeV proton-proton collider, FCC-hh. The realistic FCC-hh detector environments and its effects taken into account in the analysis. The study is carried out in the mode where one Z boson decays into a pair of same-flavor, opposite-sign leptons (electrons or muons) and the other one decays to the two neutrinos. The new bounds on the charge-parity (CP)-conserving couplings and CP-violating couplings and achieved at 95% Confidence Level (C.L.) using the transverse momentum of the dilepton system, respectively.",
+                "source": "Elsevier B.V.",
+            }
         ],
     }
 
     matched_record = {
         "control_number": 4328,
+        "titles": [
+            {
+                "title": "Search for the limits on anomalous neutral triple gauge couplings via ZZ production in the $\\ell\\ell\\nu\\nu$ channel at FCC-hh",
+            }
+        ],
+        "authors": [
+            {"full_name": "Yilmaz, Ali"},
+        ],
         "abstracts": [
             {
-                "value": "abstract",
-                "source": "arXiv",
-            },
-        ],
-        "titles": [
-            {"title": "title"},
+                "value": "This paper presents the projections on the anomalous neutral triple gauge couplings via production in the 2ℓ2ν final state at a 100 TeV proton-proton collider, FCC-hh. The realistic FCC-hh detector environments and its effects taken into account in the analysis. The study is carried out in the mode where one Z boson decays into a pair of same-flavor, opposite-sign leptons (electrons or muons) and the other one decays to the two neutrinos. The new bounds on the charge-parity (CP)-conserving couplings and CP-violating couplings and achieved at 95% Confidence Level (C.L.) using the transverse momentum of the dilepton system, respectively.",
+                "source": "Elsevier B.V.",
+            }
         ],
     }
     matched_record = create_record("lit", matched_record)
-
     matches = fuzzy_match_literature_data(record)
 
     assert len(matches) == 1
@@ -1192,46 +1201,63 @@ def test_fuzzy_match_returns_control_number_if_one_match(inspire_app):
 def test_fuzzy_match_returns_control_numbers_if_multiple_matches(inspire_app):
     record = {
         "control_number": 4328,
+         "titles": [
+            {
+                "title": "Search for the limits on anomalous neutral triple gauge couplings via ZZ production in the $\\ell\\ell\\nu\\nu$ channel at FCC-hh",
+            }
+        ],
+        "authors": [
+            {"full_name": "Yilmaz, Ali"},
+        ],
         "abstracts": [
             {
-                "value": "abstract nb 1",
-                "source": "arXiv",
-            },
-        ],
-        "titles": [
-            {"title": "title nb 1"},
+                "value": "This paper presents the projections on the anomalous neutral triple gauge couplings via production in the 2ℓ2ν final state at a 100 TeV proton-proton collider, FCC-hh. The realistic FCC-hh detector environments and its effects taken into account in the analysis. The study is carried out in the mode where one Z boson decays into a pair of same-flavor, opposite-sign leptons (electrons or muons) and the other one decays to the two neutrinos. The new bounds on the charge-parity (CP)-conserving couplings and CP-violating couplings and achieved at 95% Confidence Level (C.L.) using the transverse momentum of the dilepton system, respectively.",
+                "source": "Elsevier B.V.",
+            }
         ],
     }
 
     matched_record = {
         "control_number": 4328,
+        "titles": [
+            {
+                "title": "Search for the limits on anomalous neutral triple gauge couplings via ZZ production in the $\\ell\\ell\\nu\\nu$ channel at FCC-hh",
+            }
+        ],
+        "authors": [
+            {"full_name": "Yilmaz, Ali"},
+        ],
         "abstracts": [
             {
-                "value": "abstract",
-                "source": "arXiv",
-            },
-        ],
-        "titles": [
-            {"title": "title"},
+                "value": "This paper presents the projections on the anomalous neutral triple gauge couplings via production in the 2ℓ2ν final state at a 100 TeV proton-proton collider, FCC-hh. The realistic FCC-hh detector environments and its effects taken into account in the analysis. The study is carried out in the mode where one Z boson decays into a pair of same-flavor, opposite-sign leptons (electrons or muons) and the other one decays to the two neutrinos. The new bounds on the charge-parity (CP)-conserving couplings and CP-violating couplings and achieved at 95% Confidence Level (C.L.) using the transverse momentum of the dilepton system, respectively.",
+                "source": "Elsevier B.V.",
+            }
         ],
     }
     matched_record_2 = {
         "control_number": 43228,
+         "titles": [
+            {
+                "title": "Search for the limits on anomalous neutral triple gauge couplings via ZZ production in the $\\ell\\ell\\nu\\nu$ channel at FCC-hh",
+            }
+        ],
+        "authors": [
+            {"full_name": "Yilmaz, Ali"},
+        ],
         "abstracts": [
             {
-                "value": "abstract blah",
-                "source": "arXiv",
-            },
-        ],
-        "titles": [
-            {"title": "title tiltle nb 2"},
+                "value": "This paper presents the projections on the anomalous neutral triple gauge couplings via production in the 2ℓ2ν final state at a 100 TeV proton-proton collider, FCC-hh. The realistic FCC-hh detector environments and its effects taken into account in the analysis. The study is carried out in the mode where one Z boson decays into a pair of same-flavor, opposite-sign leptons (electrons or muons) and the other one decays to the two neutrinos. The new bounds on the charge-parity (CP)-conserving couplings and CP-violating couplings and achieved at 95% Confidence Level (C.L.) using the transverse momentum of the dilepton system, respectively.",
+                "source": "Elsevier B.V.",
+            }
         ],
     }
-    matched_record = create_record("lit", matched_record)
+    matched_record_1 = create_record("lit", matched_record)
     matched_record_2 = create_record("lit", matched_record_2)
-
     matches = fuzzy_match_literature_data(record)
 
-    assert matches
-    assert matched_record_2["control_number"] == matches[0]["control_number"]
-    assert matched_record["control_number"] == matches[1]["control_number"]
+    assert len(matches) == 2
+
+    result_control_numbers = [match['control_number'] for match in matches]
+
+    assert matched_record_1["control_number"] in result_control_numbers
+    assert matched_record_2["control_number"] in result_control_numbers
