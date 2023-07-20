@@ -174,7 +174,8 @@ class InspireRecordIndexer(RecordIndexer):
         if fulltext:
             arguments = {
                 "pipeline": current_app.config["ES_FULLTEXT_PIPELINE_NAME"],
-                "timeout": current_app.config["FULLLTEXT_INDEXER_REQUEST_TIMEOUT"],
+                # TODO: when opensearch 2.2.1 is released, update package & change arg name to `timeout`
+                "request_timeout": int(current_app.config["FULLLTEXT_INDEXER_REQUEST_TIMEOUT"]),
             }
             return arguments
 
@@ -185,6 +186,7 @@ class InspireRecordIndexer(RecordIndexer):
             deleted = record.get("deleted", False)
 
         if force_delete or deleted:
+            print('deleting')
             try:
                 self.delete(record)
                 LOGGER.debug("Record removed from ES", uuid=str(record.id))

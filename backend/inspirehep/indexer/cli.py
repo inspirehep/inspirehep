@@ -68,7 +68,7 @@ FULLTEXT_PIPELINE_SETUP = {
 }
 
 
-def get_query_records_to_index(pid_types):
+def get_query_records_to_index(pid_types, db_batch_size=200):
     """Return a query for retrieving all records by pid_type.
 
     Args:
@@ -83,7 +83,7 @@ def get_query_records_to_index(pid_types):
         PersistentIdentifier.status.in_(
             (PIDStatus.REGISTERED, PIDStatus.REDIRECTED, PIDStatus.DELETED)
         ),
-    )  # noqa
+    ).execution_options(yield_per=db_batch_size)  # noqa
     return query
 
 
@@ -93,7 +93,7 @@ def dispatch_indexing_task(items, batch_size, queue_name):
 
     batch = next_batch(items, batch_size)
     while batch:
-        uuids = [str(item[0]) for item in batch]
+        uuids = [str(item) for item in batch[0]]
         indexer_task = batch_index.apply_async(
             kwargs={"records_uuids": uuids, "request_timeout": request_timeout},
             queue=queue_name,
@@ -212,9 +212,9 @@ def reindex_records(
         raise ValueError("Specified empty log path.")
 
     all_tasks = []
-    query = get_query_records_to_index(pidtypes)
+    query = get_query_records_to_index(pidtypes, db_batch_size)
     with click.progressbar(
-        query.yield_per(db_batch_size),
+        db.session.scalars(query).partitions(),
         length=query.count(),
         label=f"Scheduling indexing tasks to the '{queue_name}' queue.",
     ) as items:

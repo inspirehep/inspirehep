@@ -99,6 +99,7 @@ click = "^8"
 invenio-records-rest = {git = "https://github.com/inspirehep/invenio-records-rest.git"}
 Werkzeug = "^2.1.0"
 SQLAlchemy = "^1.4"
+opensearch-py = "2.2.0"
 
 [tool.poetry.dev-dependencies]
 coverage = {version = "^5.0.3", extras = ["toml"]}

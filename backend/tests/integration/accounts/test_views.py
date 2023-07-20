@@ -51,7 +51,7 @@ def test_login_redirects_to_oauthclient_login(inspire_app):
     response_status_code = response.status_code
     response_location_header = response.headers.get("Location")
 
-    expected_redirect_url = "http://localhost:5000/api/oauth/login/orcid"
+    expected_redirect_url = "/api/oauth/login/orcid"
     expected_status_code = 302
     assert expected_status_code == response_status_code
     assert response_location_header == expected_redirect_url
@@ -81,7 +81,7 @@ def test_login_success_redirects_to_home_if_next_url_not_in_session(inspire_app)
     response_status_code = response.status_code
     response_location_header = response.headers.get("Location")
 
-    expected_redirect_url = "http://localhost:5000/"
+    expected_redirect_url = "/"
     expected_status_code = 302
     assert expected_status_code == response_status_code
     assert response_location_header == expected_redirect_url
