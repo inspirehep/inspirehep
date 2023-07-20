@@ -117,7 +117,7 @@ class CitationMixin(PapersAuthorsExtensionMixin):
         Returns:
             query: Query containing all citations for this record
         """
-        query = RecordCitations.query.filter_by(cited_id=self.id)
+        query = RecordCitations.query.filter(RecordCitations.cited_id==self.id)
         if exclude_self_citations and current_app.config.get(
             "FEATURE_FLAG_ENABLE_SELF_CITATIONS"
         ):
@@ -339,7 +339,7 @@ class CitationMixin(PapersAuthorsExtensionMixin):
             citers = {
                 citer[0]
                 for citer in RecordCitations.query.filter_by(cited_id=self.id)
-                .with_entities("citer_id")
+                .with_entities(RecordCitations.citer_id)
                 .all()
             }
             self_cited = {
@@ -370,8 +370,8 @@ class CitationMixin(PapersAuthorsExtensionMixin):
         if diff:
             citers = {
                 citer[0]
-                for citer in RecordCitations.query.filter_by(cited_id=self.id)
-                .with_entities("citer_id")
+                for citer in RecordCitations.query.filter(RecordCitations.cited_id==self.id)
+                .with_entities(RecordCitations.citer_id)
                 .all()
             }
             self_cited = {
