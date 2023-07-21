@@ -253,7 +253,6 @@ def reference_self_curation(args):
     record["references"][reference_index]["record"] = updated_reference
     record["references"][reference_index]["curated_relation"] = True
     record.update(dict(record))
-    record.delete()
     db.session.commit()
 
     _create_ticket_self_curation(

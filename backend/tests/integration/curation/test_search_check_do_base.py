@@ -6,7 +6,7 @@
 import os
 
 from helpers.utils import create_record
-from inspirehep.records.api import *
+from inspirehep.records.api import LiteratureRecord
 from mock import patch
 
 from inspirehep.curation.search_check_do import SearchCheckDo
