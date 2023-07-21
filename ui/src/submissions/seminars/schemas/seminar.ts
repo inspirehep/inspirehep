@@ -11,10 +11,7 @@ import { timeZoneValues, SEMINAR_DATETIME_FORMAT } from './constants';
 import { LOCAL_TIMEZONE } from '../../../common/constants';
 
 const seminarSchema = object().shape({
-  name: string()
-    .trim()
-    .required()
-    .label('Seminar Name'),
+  name: string().trim().required().label('Seminar Name'),
   dates: array()
     .of(date(SEMINAR_DATETIME_FORMAT))
     .compact()
@@ -28,61 +25,40 @@ const seminarSchema = object().shape({
     .default(LOCAL_TIMEZONE)
     .label('Timezone'),
   speakers: array()
-    .default([{}])
     .of(
       object().shape({
-        name: string()
-          .required()
-          .label('Speaker Name'),
+        name: string().required().label('Speaker Name'),
         affiliation: string(),
       })
     )
     .required()
+    .default([{} as { name: string; affiliation: string }])
     .label('Speaker'),
   series_name: string(),
   series_number: number().label('Series Number'),
   websites: array()
-    .default([''])
-    .of(
-      string()
-        .nullable()
-        .url()
-        .label('Seminar Website')
-    ),
+    .of(string().nullable().url().label('Seminar Website'))
+    .default(['']),
   material_urls: array()
-    .default([{}])
     .of(
       emptyObjectOrShapeOf({
-        value: string()
-          .trim()
-          .url()
-          .required()
-          .label('Material'),
+        value: string().trim().url().required().label('Material'),
         description: string(),
       })
-    ),
+    )
+    .default([{}]),
   join_urls: array()
-    .default([{}])
     .of(
       emptyObjectOrShapeOf({
-        value: string()
-          .trim()
-          .url()
-          .required()
-          .label('Join Url'),
+        value: string().trim().url().required().label('Join Url'),
         description: string(),
       })
-    ),
+    )
+    .default([{}]),
   captioned: boolean(),
   address: emptyObjectOrShapeOf({
-    city: string()
-      .trim()
-      .required()
-      .label('City'),
-    country: string()
-      .oneOf(countryValues)
-      .required()
-      .label('Country'),
+    city: string().trim().required().label('City'),
+    country: string().oneOf(countryValues).required().label('Country'),
     state: string(),
     venue: string(),
   }),
@@ -92,17 +68,11 @@ const seminarSchema = object().shape({
     .label('Field of Interest'),
   contacts: contacts(),
   literature_records: array()
-    .default([''])
-    .of(
-      string()
-        .nullable()
-        .label('Related paper')
-    ),
+    .of(string().nullable().label('Related paper'))
+    .default(['']),
   abstract: string(),
   additional_info: string(),
-  keywords: array()
-    .default([''])
-    .of(string().nullable()),
+  keywords: array().of(string().nullable()).default(['']),
 });
 
 export default seminarSchema;

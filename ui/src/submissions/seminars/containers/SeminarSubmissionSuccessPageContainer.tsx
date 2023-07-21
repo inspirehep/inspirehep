@@ -1,11 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { connect, RootStateOrAny } from 'react-redux';
+
 import SubmissionSuccess from '../../common/components/SubmissionSuccess';
 import { SEMINARS } from '../../../common/routes';
 
-export function SeminarSubmissionSuccessPage({ recordId }) {
+export function SeminarSubmissionSuccessPage({
+  recordId,
+}: {
+  recordId: number;
+}) {
   return (
     <SubmissionSuccess
       message={
@@ -18,11 +22,7 @@ export function SeminarSubmissionSuccessPage({ recordId }) {
   );
 }
 
-SeminarSubmissionSuccessPage.propTypes = {
-  recordId: PropTypes.number.isRequired,
-};
-
-const stateToProps = state => ({
+const stateToProps = (state: RootStateOrAny) => ({
   recordId: state.submissions.getIn(['successData', 'pid_value']),
 });
 

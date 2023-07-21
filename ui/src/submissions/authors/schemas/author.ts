@@ -19,28 +19,27 @@ const authorSchema = object().shape({
   alternate_name: string(),
   native_name: string(),
   emails: array()
-    .default([{}])
     .of(
       emptyObjectOrShapeOf({
         value: string().email().trim().required().label('Email'),
         current: boolean(),
         hidden: boolean(),
       })
-    ),
+      )
+      .default([{}]),
   status: string()
     .oneOf(authorStatusValues)
     .required()
     .default(authorStatusValues[0]),
   orcid: orcid(),
   websites: array()
-    .default([''])
-    .of(string().trim().nullable().url().label('Website')),
+    .of(string().trim().nullable().url().label('Website'))
+    .default(['']),
   blog: string().url(),
   linkedin: string(),
   twitter: string(),
   arxiv_categories: array().of(string().oneOf(arxivCategoryValues)),
   positions: array()
-    .default([{}])
     .of(
       emptyObjectOrShapeOf({
         institution: string().trim().required().label('Institution name'),
@@ -50,9 +49,9 @@ const authorSchema = object().shape({
         current: boolean(),
         hidden: boolean(),
       })
-    ),
+    )
+    .default([{}]),
   project_membership: array()
-    .default([{}])
     .of(
       emptyObjectOrShapeOf({
         name: string().trim().required().label('Experiment name'),
@@ -61,16 +60,17 @@ const authorSchema = object().shape({
         current: boolean(),
         hidden: boolean(),
       })
-    ),
+    )
+    .default([{}]),
   advisors: array()
-    .default([{}])
     .of(
       emptyObjectOrShapeOf({
         name: string().trim().required().label('Advisor name'),
         degree_type: string().oneOf(degreeTypeValues),
         hidden: boolean(),
       })
-    ),
+    )
+    .default([{}]),
   comments: string(),
   bai: string(),
 });

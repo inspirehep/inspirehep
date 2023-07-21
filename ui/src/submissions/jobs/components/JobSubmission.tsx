@@ -1,8 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Row, Col, Alert } from 'antd';
 import { Formik } from 'formik';
-import { object } from 'yup';
+import { object, ObjectSchema } from 'yup';
 
 import JobForm from './JobForm';
 import jobSchema from '../schemas/job';
@@ -16,6 +15,11 @@ function JobSubmission({
   initialFormData = {},
   extendSchema = object(),
   error = null,
+}: {
+  onSubmit: Function;
+  initialFormData: object;
+  extendSchema: ObjectSchema;
+  error: { message: string } | null;
 }) {
   const initialValues = {
     ...DEFAULT_FORM_DATA,
@@ -27,7 +31,12 @@ function JobSubmission({
       {error && (
         <Row className="mb3">
           <Col span={24}>
-            <Alert message={error.message} type="error" showIcon closable />
+            <Alert
+              message={error.message ? error.message : 'Something went wrong.'}
+              type="error"
+              showIcon
+              closable
+            />
           </Col>
         </Row>
       )}
@@ -35,6 +44,7 @@ function JobSubmission({
         <Col span={24}>
           <Formik
             initialValues={initialValues}
+            // @ts-expect-error
             validationSchema={jobSchema.concat(extendSchema)}
             onSubmit={onFormikSubmit}
             validateOnChange={false}
@@ -45,12 +55,5 @@ function JobSubmission({
     </div>
   );
 }
-
-JobSubmission.propTypes = {
-  error: PropTypes.objectOf(PropTypes.any), // must have 'message'
-  initialFormData: PropTypes.objectOf(PropTypes.any),
-  onSubmit: PropTypes.func.isRequired, // must be async
-  extendSchema: PropTypes.instanceOf(object),
-};
 
 export default convertAllImmutablePropsToJS(JobSubmission);

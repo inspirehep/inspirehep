@@ -10,7 +10,15 @@ import useSubmitCallback from '../../common/hooks/useSubmitCallback';
 
 const DEFAULT_FORM_DATA = seminarSubmission.cast();
 
-function SeminarSubmission({ onSubmit, initialFormData = {}, error = null }) {
+function SeminarSubmission({
+  onSubmit,
+  initialFormData = {},
+  error = null,
+}: {
+  onSubmit: Function;
+  initialFormData: any;
+  error: any;
+}) {
   const initialValues = {
     ...DEFAULT_FORM_DATA,
     ...initialFormData,
@@ -40,11 +48,5 @@ function SeminarSubmission({ onSubmit, initialFormData = {}, error = null }) {
     </div>
   );
 }
-
-SeminarSubmission.propTypes = {
-  error: PropTypes.objectOf(PropTypes.any), // must have 'message'
-  initialFormData: PropTypes.objectOf(PropTypes.any),
-  onSubmit: PropTypes.func.isRequired, // must be async
-};
 
 export default convertAllImmutablePropsToJS(SeminarSubmission);

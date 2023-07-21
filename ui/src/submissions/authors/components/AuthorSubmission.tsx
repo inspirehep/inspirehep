@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Row, Col, Alert } from 'antd';
 import { Formik } from 'formik';
 import { object } from 'yup';
@@ -18,18 +17,26 @@ function AuthorSubmission({
   extendSchema = object(),
   isCatalogerLoggedIn,
   isUpdate,
+}: {
+  onSubmit: Function;
+  error: any | null;
+  initialFormData: any;
+  extendSchema: any;
+  isCatalogerLoggedIn: boolean;
+  isUpdate: boolean;
 }) {
   const initialValues = {
     ...DEFAULT_FORM_DATA,
     ...initialFormData,
   };
   const onFormikSubmit = useSubmitCallback(onSubmit);
+
   return (
     <div>
       {error && (
         <Row className="mb3">
           <Col span={24}>
-            <Alert message={error.message} type="error" showIcon closable />
+            <Alert message={error.message ? error.message : 'Something went wrong.'} type="error" showIcon closable />
           </Col>
         </Row>
       )}
@@ -56,14 +63,5 @@ function AuthorSubmission({
     </div>
   );
 }
-
-AuthorSubmission.propTypes = {
-  error: PropTypes.objectOf(PropTypes.any), // must have 'message'
-  initialFormData: PropTypes.objectOf(PropTypes.any),
-  onSubmit: PropTypes.func.isRequired, // must be async
-  extendSchema: PropTypes.instanceOf(object),
-  isCatalogerLoggedIn: PropTypes.bool,
-  isUpdate: PropTypes.bool,
-};
 
 export default convertAllImmutablePropsToJS(AuthorSubmission);
