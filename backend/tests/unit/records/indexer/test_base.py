@@ -16,17 +16,23 @@ from inspirehep.records.api import LiteratureRecord
     return_value=[],
 )
 @mock.patch(
-    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_bibtex_display"
+    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_bibtex_display",
+    return_value=""
 )
 @mock.patch(
-    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_latex_eu_display"
+    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_latex_eu_display",
+    return_value=""
 )
 @mock.patch(
-    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_latex_us_display"
+    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_latex_us_display",
+    return_value=""
 )
 @mock.patch(
-    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_cv_format"
+    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_cv_format",
+    return_value=""
 )
+@mock.patch("inspirehep.records.api.mixins.CitationMixin.citation_count_without_self_citations", return_value="")
+@mock.patch("inspirehep.records.api.mixins.CitationMixin.citation_count", return_value="")
 @mock.patch("flask_sqlalchemy._QueryProperty.__get__")
 @mock.patch("inspirehep.indexer.base.before_record_index")
 @mock.patch("inspirehep.indexer.base.current_app")
@@ -38,6 +44,8 @@ def test_indexer_prepare_record(
     current_app_mock,
     receiver_mock,
     query_mock,
+    mock_citations,
+    mock_citations_without_self_citations,
     mock_latex_us_display,
     mock_latex_eu_display,
     mock_bibtex_display,
@@ -100,7 +108,7 @@ def test_process_bulk_record_for_index(
 )
 @mock.patch(
     "inspirehep.indexer.base.InspireRecordIndexer.record_to_index",
-    return_value=("test_index", "test_type"),
+    return_value="test_index",
 )
 def test_process_bulk_record_for_index_default_values(
     record_to_index_mock, prepare_record_mock, mock_current_app, build_alias_mocked
@@ -110,7 +118,7 @@ def test_process_bulk_record_for_index_default_values(
     expected_data = {
         "_op_type": "index",
         "_index": "prefixed-index",
-        "_type": "test_type",
+        "_type": None,
         "_id": str(record.id),
         "_version": record.revision_id,
         "_version_type": "external_gte",

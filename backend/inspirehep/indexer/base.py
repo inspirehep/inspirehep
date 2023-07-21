@@ -38,7 +38,6 @@ class InspireRecordIndexer(RecordIndexer):
             json=data,
             record=record,
             index=index,
-            doc_type=doc_type,
             arguments={} if arguments is None else arguments,
             **kwargs,
         )
