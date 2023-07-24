@@ -185,7 +185,6 @@ class InspireRecordIndexer(RecordIndexer):
             deleted = record.get("deleted", False)
 
         if force_delete or deleted:
-            print('deleting')
             try:
                 self.delete(record)
                 LOGGER.debug("Record removed from ES", uuid=str(record.id))

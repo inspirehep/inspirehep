@@ -541,7 +541,7 @@ class InspireRecord(Record):
             db.session.delete(self.model)
 
             try:
-                InspireRecordIndexer().delete(self)
+                InspireRecordIndexer().delete(self, version=None)
             except NotFoundError:
                 LOGGER.info("Record not found in ES", recid=recid, uuid=self.id)
 

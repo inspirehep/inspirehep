@@ -16,7 +16,7 @@ def test_update_weekly_jobs(inspire_app, redis, cli, create_jobs, override_confi
         "WEEKLY_JOBS_EMAIL_TITLE": "Weekly jobs",
     }
     with override_config(**config):
-        result = cli.invoke(["mailing", "update_weekly_jobs"])
+        result = cli.invoke(["mailing", "update-weekly-jobs"])
     assert result.exit_code == 0
     assert "Campaign updated" in result.output
 

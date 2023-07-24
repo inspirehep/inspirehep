@@ -14,7 +14,7 @@ from inspirehep.records.api import InspireRecord
 
 
 def test_search_check_do(inspire_app):
-    not_matching_query_data = {"titles": [{"title": "Some random title"}]}
+    not_matching_query_data= {"titles": [{"title": "Some random title"}]}
     not_passing_check_data = {"titles": [{"title": "A title not to modify"}]}
     to_modify_data = {"titles": [{"title": "A title to modify"}]}
 

@@ -97,7 +97,7 @@ tenacity = "^8.2.2"
 MarkupSafe = "2.0.1"
 click = "^8"
 invenio-records-rest = {git = "https://github.com/inspirehep/invenio-records-rest.git"}
-Werkzeug = "^2.1.0"
+Werkzeug = "2.1.0"
 SQLAlchemy = "^1.3.13"
 opensearch-py = "2.2.0"
 
