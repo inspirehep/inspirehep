@@ -184,7 +184,7 @@ def test_redirects_manage_profile_to_author_page(inspire_app):
     response_location_header = response.headers.get("Location")
 
     expected_status_code = 302
-expected_redirect_url = "/authors/333"
+    expected_redirect_url = "/authors/333"
     assert expected_status_code == response_status_code
     assert response_location_header == expected_redirect_url
 
