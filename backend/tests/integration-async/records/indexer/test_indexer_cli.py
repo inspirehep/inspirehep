@@ -156,10 +156,10 @@ def test_reindex_many_fulltext(inspire_app, clean_celery_session, cli, override_
         assert expected_message in result.output
 
 
-def test_reindex_only_one_record_wring_input(inspire_app, clean_celery_session, cli):
+def test_reindex_only_one_record_wrong_input(inspire_app, clean_celery_session, cli):
     result = cli.invoke(["index", "reindex", "-id", "3"])
 
-    expected_message = "Error: -id option requires 2 arguments"
+    expected_message = "Error: Option '-id' requires 2 arguments."
     assert expected_message in result.output
 
 
