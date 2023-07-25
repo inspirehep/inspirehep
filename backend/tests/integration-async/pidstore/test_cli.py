@@ -28,8 +28,8 @@ def test_fast_bai_minter_cli(inspire_app, cli, override_config):
             == PersistentIdentifier.query.filter_by(pid_type="bai", status="R").count()
         )
 
-        with override_config(FEATURE_FLAG_ENABLE_BAI_CREATION=True):
-            cli.invoke(["inspire_pidstore", "fast-mint-new-bais", "--yes-i-know"])
+        with override_config(FEATURE_FLAG_ENABLE_BAI_CREATION=True, FEATURE_FLAG_ENABLE_BAI_PROVIDER=True):
+            cli.invoke(["inspire-pidstore", "fast-mint-new-bais", "--yes-i-know"])
 
         assert (
             2
