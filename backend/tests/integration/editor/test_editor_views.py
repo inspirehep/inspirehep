@@ -13,7 +13,7 @@ import pkg_resources
 import pytest
 import requests
 import requests_mock
-from flask.globals import current_app
+from flask import current_app
 from helpers.utils import (
     create_record,
     create_user,
