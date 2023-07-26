@@ -33,7 +33,7 @@ from inspirehep.hal.utils import (
 from inspirehep.records.api import InspireRecord
 
 
-def test_get_conference_record(app, get_fixture):
+def test_get_conference_record(inspire_app, get_fixture):
     expexted_json = orjson.loads(get_fixture("expected_conference_record.json"))
     expected_record_data = faker.record("con", data=expexted_json)
     expected_record = InspireRecord.create(expected_record_data)
@@ -65,7 +65,7 @@ def test_get_conference_record(app, get_fixture):
     record.delete()
 
 
-def test_get_hal_id_map(app, get_fixture):
+def test_get_hal_id_map(inspire_app, get_fixture):
     record_json = orjson.loads(get_fixture("_get_hal_id_map.json"))
     record_data = faker.record("lit", data=record_json)
     record = InspireRecord.create(record_data)
@@ -83,7 +83,7 @@ def test_get_hal_id_map(app, get_fixture):
     institute_record.delete()
 
 
-def test_get_divulgation(app):
+def test_get_divulgation(inspire_app):
     schema = load_schema("hep")
     subschema = schema["properties"]["publication_type"]
 
@@ -101,7 +101,7 @@ def test_get_divulgation(app):
     record.delete()
 
 
-def test_get_domains(app):
+def test_get_domains(inspire_app):
     app.config["HAL_DOMAIN_MAPPING"] = {
         "Accelerators": "phys.phys.phys-acc-ph",
         "Astrophysics": "phys.astr",

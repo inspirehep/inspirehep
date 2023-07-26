@@ -16,19 +16,6 @@ from sqlalchemy_utils import create_database, database_exists
 from inspirehep.indexer.cli import _put_files_pipeline
 
 
-def _search_create_indexes(current_search, current_search_client):
-    """Create all registered search indexes."""
-    from invenio_search.engine import search
-    from invenio_search.errors import IndexAlreadyExistsError
-
-    try:
-        list(current_search.create())
-    except (IndexAlreadyExistsError, search.RequestError):
-        list(current_search.delete(ignore=[404]))
-        list(current_search.create())
-    current_search_client.indices.refresh()
-
-
 def es_cleanup(es):
     """Removes all data from es indexes
 
