@@ -52,7 +52,8 @@ jobs:
           - 5672:5672
 
       elasticsearch:
-        image: registry.cern.ch/cern-sis/inspirehep/elasticsearch
+        # https://github.com/actions/runner/issues/409#issuecomment-752775072
+        image: ${{ contains(github.ref_name, 'opensearch') && registry.cern.ch/cern-sis/inspirehep/opensearch || registry.cern.ch/cern-sis/inspirehep/elasticsearch}}
         env:
           bootstrap.memory_lock: true
           ES_JAVA_OPTS: -Xms1024m -Xmx1024m
