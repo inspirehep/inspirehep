@@ -11,6 +11,7 @@ from opensearchpy.client.ingest import IngestClient
 from flask import current_app
 from helpers.utils import get_index_alias
 from invenio_search.errors import IndexAlreadyExistsError
+from pytest_invenio.fixtures import _search_create_indexes
 from sqlalchemy_utils import create_database, database_exists
 
 from inspirehep.indexer.cli import _put_files_pipeline
