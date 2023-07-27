@@ -189,7 +189,7 @@ jobs:
         id: setup-chrome
         uses: browser-actions/setup-chrome@v1
         with:
-          chrome-version: '114'
+          chrome-version: '999988'
 
       - name: cypress
         uses: cypress-io/github-action@v5
