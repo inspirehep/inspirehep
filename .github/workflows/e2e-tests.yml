@@ -184,14 +184,10 @@ jobs:
       - name: import dataset
         run: >
           docker exec hep-web inspirehep importer demo-records
-      
-      - name: Setup chrome
-        id: setup-chrome
-        uses: browser-actions/setup-chrome@v1
-        with:
-          chrome-version: '999988'
 
       - name: cypress
+        container:
+          image: cypress/browsers:node16.16.0-chrome107-ff107
         uses: cypress-io/github-action@v5
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
