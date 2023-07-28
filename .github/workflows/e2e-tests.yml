@@ -27,6 +27,7 @@ defaults:
 jobs:
   e2e:
     runs-on: ubuntu-latest
+    container: cypress/browsers:node16.16.0-chrome107-ff107-edge
     strategy:
       fail-fast: false
       matrix:
