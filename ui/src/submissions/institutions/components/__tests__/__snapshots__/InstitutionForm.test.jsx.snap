@@ -24,7 +24,6 @@ exports[`InstitutionForm renders 1`] = `
   </Row>
   <Row
     justify="end"
-    type="flex"
   >
     <SubmitButton />
   </Row>

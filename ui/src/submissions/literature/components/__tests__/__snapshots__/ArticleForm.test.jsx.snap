@@ -109,7 +109,6 @@ exports[`ArticleForm renders all props 1`] = `
   </CollapsableForm>
   <Row
     justify="end"
-    type="flex"
   >
     <SubmitButton />
   </Row>
