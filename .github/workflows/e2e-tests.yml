@@ -26,11 +26,11 @@ defaults:
 
 jobs:
   e2e:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        browser: [ chromium ]
+        browser: [ chrome ]
     services:
       redis:
         image: redis
@@ -184,12 +184,6 @@ jobs:
       - name: import dataset
         run: >
           docker exec hep-web inspirehep importer demo-records
-      
-      - name: Setup chrome
-        id: setup-chrome
-        uses: browser-actions/setup-chrome@v1
-        with:
-          chrome-version: '999988'
 
       - name: cypress
         uses: cypress-io/github-action@v5
