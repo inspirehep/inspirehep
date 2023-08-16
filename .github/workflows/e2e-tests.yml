@@ -27,6 +27,8 @@ defaults:
 jobs:
   e2e:
     runs-on: ubuntu-latest
+    container:
+      image: cypress/included:12.17.0
     strategy:
       fail-fast: false
       matrix:
