@@ -186,13 +186,13 @@ jobs:
           docker exec hep-web inspirehep importer demo-records
 
       - name: cypress
-        uses: cypress-io/github-action@v5.6.2
+        uses: cypress-io/github-action@v5
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
         with:
           working-directory: ./e2e
-          record: false
-          parallel: true
+          record: true
+          parallel: false
           browser: ${{ matrix.browser }}
           tag: Chrome
           env: inspirehep_url=http://localhost:8080
