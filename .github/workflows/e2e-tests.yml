@@ -189,6 +189,7 @@ jobs:
         uses: cypress-io/github-action@v5.6.2
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          CYPRESS_NO_COMMAND_LOG: 1
         with:
           working-directory: ./e2e
           record: true
