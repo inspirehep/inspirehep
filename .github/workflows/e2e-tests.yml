@@ -191,7 +191,7 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
         with:
           working-directory: ./e2e
-          record: true
+          record: false
           parallel: false
           browser: ${{ matrix.browser }}
           tag: Chrome
