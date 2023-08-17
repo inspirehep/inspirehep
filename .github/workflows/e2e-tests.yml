@@ -192,7 +192,7 @@ jobs:
         with:
           working-directory: ./e2e
           record: false
-          parallel: false
+          parallel: true
           browser: ${{ matrix.browser }}
           tag: Chrome
           env: inspirehep_url=http://localhost:8080
