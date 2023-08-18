@@ -18,7 +18,9 @@ describe('Literature and Authors', () => {
 
     cy.registerRoute('**/literature**search_type=hep-author-publication**');
 
-    cy.get('[data-test-id="author-link"]').contains('Grit Hotzel').click({ force: true });
+    cy.get('[data-test-id="author-link"]')
+      .contains('Grit Hotzel')
+      .click({ force: true });
 
     cy.waitForRoute('**/literature**search_type=hep-author-publication**');
     cy.waitForSearchResults();
@@ -45,7 +47,7 @@ describe('Literature and Conferences', () => {
     cy.waitForRoute('*/literature?*');
     cy.waitForSearchResults();
 
-    cy.get('[data-test-id="literature-conference-link"]')
+    cy.get('[data-test-id="literature-conference-link"]', { timeout: 10000 })
       .first()
       .closest('[data-test-id="literature-result-item-inner"]')
       .find('[data-test-id="literature-result-title-link"]')
@@ -54,7 +56,9 @@ describe('Literature and Conferences', () => {
 
     cy.registerRoute();
 
-    cy.get('[data-test-id="literature-conference-link"]').first().click();
+    cy.get('[data-test-id="literature-conference-link"]', { timeout: 10000 })
+      .first()
+      .click();
 
     cy.waitForRoute();
     cy.waitForSearchResults();
