@@ -76,6 +76,10 @@ def init_roles():
             name=Roles.jlabcurator.value,
             description="curator for JLAB related articles",
         )
+        ds.create_role(
+            name=Roles.chatbot.value,
+            description="Chatbot role",
+        )
     db.session.commit()
 
 
