@@ -13,3 +13,4 @@ class Roles(Enum):
     hermescoll = "hermescoll"
     hermescurator = "hermescurator"
     jlabcurator = "jlabcurator"
+    chatbot = "chatbot"
