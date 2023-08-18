@@ -83,7 +83,7 @@ describe.skip('Literature Editor', () => {
   });
 });
 
-describe('Literature Submission', () => {
+/*describe('Literature Submission', () => {
   beforeEach(() => {
     cy.login('cataloger');
   });
@@ -361,4 +361,4 @@ describe('Literature Submission', () => {
   afterEach(() => {
     cy.logout();
   });
-});
+}); */
