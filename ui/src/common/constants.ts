@@ -4,6 +4,7 @@ export const PUBLISHED_BAR_TYPE = 'published';
 export const CITEABLE_BAR_TYPE = 'citeable';
 
 export const POST_DOC_RANK_VALUE = 'POSTDOC';
+export const CONTACT_URL = "https://help.inspirehep.net/knowledge-base/contact-us"
 export const RANK_VALUE_TO_DISPLAY = {
   SENIOR: 'Senior (permanent)',
   JUNIOR: 'Junior (leads to Senior)',

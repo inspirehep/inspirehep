@@ -7,7 +7,7 @@ import { trackEvent, checkIsTrackerBlocked } from '../../../tracker';
 import LinkWithTargetBlank from '../LinkWithTargetBlank';
 import ResponsiveView from '../ResponsiveView';
 import ModalSuccessResult from '../ModalSuccessResult';
-import { SURVEY_LINK, FEEDBACK_EMAIL } from '../../constants';
+import { SURVEY_LINK } from '../../constants';
 
 const RATE_DESCRIPTIONS = [
   'poor',
@@ -24,7 +24,10 @@ class UserFeedback extends Component {
         <div>Thank you for your response.</div>
         <div>
           For further feedback, please{' '}
-          <LinkWithTargetBlank href={SURVEY_LINK}>take our survey</LinkWithTargetBlank>.
+          <LinkWithTargetBlank href={SURVEY_LINK}>
+            take our survey
+          </LinkWithTargetBlank>
+          .
         </div>
         <div>It takes around 5 minutes to complete.</div>
       </ModalSuccessResult>
@@ -65,7 +68,12 @@ class UserFeedback extends Component {
 
   onFeedbackSubmit() {
     const { rateValue, commentValue } = this.state;
-    trackEvent('Feedback modal', 'Feedback submission', `Feedback comment: ${commentValue}`, rateValue);
+    trackEvent(
+      'Feedback modal',
+      'Feedback submission',
+      `Feedback comment: ${commentValue}`,
+      rateValue
+    );
     this.setState({
       rateValue: 0,
       commentValue: null,
@@ -110,10 +118,14 @@ class UserFeedback extends Component {
                     <LinkWithTargetBlank href={SURVEY_LINK}>
                       feedback form
                     </LinkWithTargetBlank>{' '}
-                    or by email at{' '}
-                    <LinkWithTargetBlank href={`mailto:${FEEDBACK_EMAIL}`}>
-                      {FEEDBACK_EMAIL}
-                    </LinkWithTargetBlank>
+                    or
+                    <a
+                      href="https://help.inspirehep.net/knowledge-base/contact-us"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      contact us
+                    </a>
                     .
                   </p>
                 </>
@@ -151,11 +163,8 @@ class UserFeedback extends Component {
   }
 
   render() {
-    const {
-      isModalVisible,
-      isFeedbackButtonVisible,
-      feedbackSubmitted,
-    } = this.state;
+    const { isModalVisible, isFeedbackButtonVisible, feedbackSubmitted } =
+      this.state;
     const isTrackerBlocked = checkIsTrackerBlocked();
     return (
       <div className="__UserFeedback__">

@@ -8,8 +8,14 @@ import UserAction from '../../common/components/UserAction';
 
 export const CLAIMING_DISABLED_INFO = (
   <p>
-    There is no profile associated to your account. Please contact us at{' '}
-    <a href="mailto:authors@inspirehep.net">authors@inspirehep.net</a>
+    There is no profile associated to your account. Please{' '}
+    <a
+      href="https://help.inspirehep.net/knowledge-base/contact-us"
+      target="_blank"
+      rel="noreferrer"
+    >
+      contact us
+    </a>
   </p>
 );
 

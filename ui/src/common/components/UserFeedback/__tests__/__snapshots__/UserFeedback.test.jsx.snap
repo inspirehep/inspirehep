@@ -169,14 +169,14 @@ exports[`UserFeedback renders when tracker is blocked 1`] = `
                 feedback form
               </LinkWithTargetBlank>
                
-              or by email at
-               
-              <LinkWithTargetBlank
-                as="a"
-                href="mailto:feedback@inspirehep.net"
+              or
+              <a
+                href="https://help.inspirehep.net/knowledge-base/contact-us"
+                rel="noreferrer"
+                target="_blank"
               >
-                feedback@inspirehep.net
-              </LinkWithTargetBlank>
+                contact us
+              </a>
               .
             </p>
           </React.Fragment>
