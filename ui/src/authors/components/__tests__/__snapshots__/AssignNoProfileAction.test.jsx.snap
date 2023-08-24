@@ -8,12 +8,14 @@ exports[`AssignNoProfileAction renders 1`] = `
       <Tooltip
         title={
           <p>
-            There is no profile associated to your account. Please contact us at
+            There is no profile associated to your account. Please
              
             <a
-              href="mailto:authors@inspirehep.net"
+              href="https://help.inspirehep.net/knowledge-base/contact-us"
+              rel="noreferrer"
+              target="_blank"
             >
-              authors@inspirehep.net
+              contact us
             </a>
           </p>
         }

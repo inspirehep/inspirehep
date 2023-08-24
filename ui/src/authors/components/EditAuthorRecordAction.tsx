@@ -2,9 +2,7 @@ import React from 'react';
 
 import DisabledEditRecordAction from '../../common/components/DisabledEditRecordAction';
 import EditRecordAction from '../../common/components/EditRecordAction';
-import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank';
 import { PidValue } from '../../types';
-
 
 type EditAuthorRecordActionProps = {
   isCatalogerLoggedIn: boolean;
@@ -15,10 +13,14 @@ type EditAuthorRecordActionProps = {
 
 const CAN_NOT_EDIT_AUTHOR_MESSAGE = (
   <span>
-    Login to edit your profile. For any changes in other profiles, contact us at{' '}
-    <LinkWithTargetBlank href="mailto:authors@inspirehep.net">
-      authors@inspirehep.net
-    </LinkWithTargetBlank>
+    Login to edit your profile. For any changes in other profiles{' '}
+    <a
+      href="https://help.inspirehep.net/knowledge-base/contact-us"
+      target="_blank"
+      rel="noreferrer"
+    >
+      contact us
+    </a>
   </span>
 );
 
@@ -26,7 +28,7 @@ export default function EditAuthorRecordAction({
   isCatalogerLoggedIn,
   canEdit,
   pidValue,
-  page
+  page,
 }: EditAuthorRecordActionProps) {
   return canEdit ? (
     <EditRecordAction

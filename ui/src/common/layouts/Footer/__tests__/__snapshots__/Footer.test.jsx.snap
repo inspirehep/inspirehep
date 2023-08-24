@@ -118,7 +118,7 @@ exports[`Footer renders when cataloger 1`] = `
           Object {
             "openExternal": true,
             "title": "Contact",
-            "url": "mailto:feedback@inspirehep.net",
+            "url": "https://help.inspirehep.net/knowledge-base/contact-us",
           },
         ],
         "title": "Community",
@@ -234,7 +234,7 @@ exports[`Footer renders when not cataloger 1`] = `
           Object {
             "openExternal": true,
             "title": "Contact",
-            "url": "mailto:feedback@inspirehep.net",
+            "url": "https://help.inspirehep.net/knowledge-base/contact-us",
           },
         ],
         "title": "Community",

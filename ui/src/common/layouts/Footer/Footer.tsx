@@ -5,7 +5,6 @@ import { Row, Col } from 'antd';
 
 import './Footer.less';
 import {
-  FEEDBACK_EMAIL,
   INSPIRE_TWITTER_ACCOUNT,
   ABOUT_INSPIRE_URL,
   CONTENT_POLICY_URL,
@@ -18,6 +17,7 @@ import {
   AUTHORLIST_TOOL_URL,
   INVENIO_URL,
   REPORT_METADATA_URL,
+  CONTACT_URL
 } from '../../constants';
 import LinkWithTargetBlank from '../../components/LinkWithTargetBlank';
 import { BIBLIOGRAPHY_GENERATOR } from '../../routes';
@@ -117,7 +117,7 @@ const COLUMNS = [
       },
       {
         title: 'Contact',
-        url: `mailto:${FEEDBACK_EMAIL}`,
+        url: CONTACT_URL,
         openExternal: true,
       },
     ],

@@ -82,8 +82,14 @@ export function assignLiteratureItemError(key) {
     message: 'Assignment Error!',
     description: (
       <span>
-        This paper cannot be claimed automatically. Please contact us at{' '}
-        <a href="mailto:authors@inspirehep.net">authors@inspirehep.net</a>
+        This paper cannot be claimed automatically. Please{' '}
+        <a
+          href="https://help.inspirehep.net/knowledge-base/contact-us"
+          target="_blank"
+          rel="noreferrer"
+        >
+          contact us
+        </a>
       </span>
     ),
   });
