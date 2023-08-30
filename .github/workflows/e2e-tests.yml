@@ -55,6 +55,7 @@ jobs:
         # https://github.com/actions/runner/issues/409#issuecomment-752775072
         image: ${{ contains(inputs.ref, 'opensearch') && 'registry.cern.ch/cern-sis/inspirehep/opensearch' || 'registry.cern.ch/cern-sis/inspirehep/elasticsearch' }}
         env:
+          DISABLE_SECURITY_PLUGIN: true
           bootstrap.memory_lock: true
           ES_JAVA_OPTS: -Xms1024m -Xmx1024m
           discovery.type: single-node

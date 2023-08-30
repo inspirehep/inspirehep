@@ -52,6 +52,7 @@ services:
       context: docker/opensearch
     restart: 'always'
     environment:
+      - DISABLE_SECURITY_PLUGIN=true
       - cluster.name=opensearch-cluster
       - node.name=opensearch-node1
       - discovery.seed_hosts=opensearch-node1
