@@ -95,14 +95,13 @@ export const DetailPage = ({
           >
             <Row>
               <Col>
-                <PageHeader
-                  className="site-page-header"
-                  title={shortTitle}
-                  subTitle={
-                    publisher &&
-                    `(${publisher.toArray().map((p: string) => p)})`
-                  }
-                />
+                <h2 className="detail-page-title">
+                  {shortTitle}
+                  <span className="detail-page-subtitle">
+                    {publisher &&
+                      `(${publisher.toArray().map((p: string) => p)})`}
+                  </span>
+                </h2>
               </Col>
             </Row>
             <Row>

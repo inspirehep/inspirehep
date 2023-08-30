@@ -90,7 +90,7 @@ function DetailPage({ record, isSuperUserLoggedIn }) {
             )}
             <Row>
               <Col>
-                <h2>{legacyIcn}</h2>
+                <h2 className="detail-page-title">{legacyIcn}</h2>
               </Col>
             </Row>
             <Row>

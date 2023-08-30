@@ -62,8 +62,9 @@ describe('Author Submission', () => {
     });
   });
 
-  it.skip('submits a new author', () => {
+  it('submits a new author', () => {
     cy.login('cataloger');
+
     const formData = {
       given_name: 'Diego',
       family_name: 'Martínez Santos',
@@ -88,47 +89,12 @@ describe('Author Submission', () => {
         },
       ],
     };
-    const expectedMetadata = {
-      name: {
-        preferred_name: 'Diego Martínez',
-        value: 'Martínez Santos, Diego',
-        name_variants: ['Santos, Diego Martinez'],
-      },
-      acquisition_source: {
-        email: 'cataloger@inspirehep.net',
-        method: 'submitter',
-      },
-      arxiv_categories: ['hep-ex', 'hep-ph'],
-      email_addresses: [
-        { value: 'diego@martinez.ch', current: true },
-        { value: 'private@martinez.ch', hidden: true },
-      ],
-      status: 'retired',
-      positions: [
-        {
-          curated_relation: false,
-          current: true,
-          institution: 'CERN',
-          start_date: '2015',
-        },
-      ],
-      advisors: [
-        {
-          curated_relation: false,
-          name: 'Urhan, Harun',
-        },
-      ],
-    };
-    const expectedWorkflow = {
-      _workflow: { data_type: 'authors' },
-    };
+
     cy.visit('/submissions/authors');
     cy.testSubmission({
-      collection: 'authors',
       formData,
-      expectedMetadata,
-    }).then((newWorkflow) => {
-      cy.wrap(newWorkflow).should('like', expectedWorkflow);
+      collection: 'authors',
+      submissionType: 'workflow',
     });
   });
 
@@ -150,8 +116,14 @@ describe('Author Submission', () => {
   });
 
   it('updates its own author profile', () => {
-    cy.login('johnellis');
     const recordId = 1010819;
+    const expectedMetadata = {
+      name: {
+        value: 'John Richard Ellis',
+      },
+    };
+
+    cy.login('johnellis');
     cy.visit(`/submissions/authors/${recordId}`);
     cy.testUpdateSubmission({
       collection: 'authors',
@@ -160,7 +132,11 @@ describe('Author Submission', () => {
         display_name: ': Updated',
       },
       expectedMetadata: {
-        name: { preferred_name: 'John Richard Ellis: Updated' },
+        name: {
+          value: 'Ellis, John Richard',
+          name_variants: [ 'Ellis, Jonathan Richard' ],
+          preferred_name: expectedMetadata.name.value + ': Updated',
+        },
       },
     });
   });

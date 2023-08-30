@@ -31,11 +31,15 @@ Cypress.Commands.add('selectFromSelectBox', (selectBoxId, options) => {
     const hasSearch = $selectBox.hasClass('ant-select-show-search');
     const isMultiSelect = Array.isArray(options);
     cy.wrap($selectBox).click();
-    cy.get('.ant-select-dropdown').invoke('css', 'display', 'initial').should('be.visible');
+    cy.get('.ant-select-dropdown')
+      .invoke('css', 'display', 'initial')
+      .should('be.visible');
     const optionsArray = isMultiSelect ? options : [options];
     for (const option of optionsArray) {
       if (hasSearch) {
-        cy.get(selectBoxInputSelector).focus().type(`${option}`, { force: true });
+        cy.get(selectBoxInputSelector)
+          .focus()
+          .type(`${option}`, { force: true });
       }
       const optionSelector = `[data-test-id="${selectBoxId}-option-${option}"]`;
       cy.get(optionSelector).click();
@@ -45,7 +49,9 @@ Cypress.Commands.add('selectFromSelectBox', (selectBoxId, options) => {
       cy.wrap($selectBox).click({ force: true });
     }
 
-    cy.get('.ant-select-dropdown').invoke('css', 'display', 'none').should('not.be.visible');
+    cy.get('.ant-select-dropdown')
+      .invoke('css', 'display', 'none')
+      .should('not.be.visible');
   });
 });
 

@@ -91,7 +91,7 @@ function DetailPage({ record, isSuperUserLoggedIn }) {
             </Row>
             <Row>
               <Col>
-                <h2>
+                <h2 className='detail-page-title'>
                   {legacyName}
                   {institutions && (
                     <span className="pl1 f6">

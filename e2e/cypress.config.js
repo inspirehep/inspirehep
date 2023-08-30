@@ -10,7 +10,7 @@ module.exports = defineConfig({
     mobile_viewport_height: 667,
   },
   retries: {
-    runMode: 2,
+    runMode: 0,
     openMode: 0,
   },
   video: false,

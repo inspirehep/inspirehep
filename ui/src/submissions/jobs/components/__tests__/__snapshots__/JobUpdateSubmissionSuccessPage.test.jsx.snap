@@ -6,6 +6,7 @@ exports[`JobUpdateSubmissionSuccessPage renders 1`] = `
     <span>
       Successfully submitted, thank you for the submission! See the updates 
       <Link
+        className="submission-link"
         to="/jobs/1"
       >
         here

@@ -8,7 +8,7 @@ function EventTitle({ title, acronym }) {
   const mainTitle = title.get('title');
   const subTitle = title.get('subtitle');
   return (
-    <span>
+    <span className="detail-page-title">
       <Latex>{mainTitle}</Latex>
       {subTitle && (
         <span>

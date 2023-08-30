@@ -80,7 +80,7 @@ function DetailPage({ record, isSuperUserLoggedIn }) {
             </Row>
             <Row>
               <Col>
-                <h2>
+                <h2 className="detail-page-title">
                   <JobTitle position={position} externalJobId={externalJobId} />
                 </h2>
               </Col>
