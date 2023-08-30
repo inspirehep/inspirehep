@@ -68,6 +68,9 @@ jobs:
         with:
           ref: ${{ inputs.ref }}
 
+      - name: Curl opensearch
+        run: curl http://localhost:9200
+
       - name: create environment file
         run: |
           cat <<EOF >env.list
