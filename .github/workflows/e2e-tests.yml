@@ -31,6 +31,7 @@ jobs:
       fail-fast: false
       matrix:
         browser: [ chrome, firefox ]
+        search: [ elasticsearch, opensearch ]
     services:
       redis:
         image: redis
@@ -52,8 +53,7 @@ jobs:
           - 5672:5672
 
       elasticsearch:
-        # https://github.com/actions/runner/issues/409#issuecomment-752775072
-        image: ${{ contains(inputs.ref, 'opensearch') && 'registry.cern.ch/cern-sis/inspirehep/opensearch' || 'registry.cern.ch/cern-sis/inspirehep/elasticsearch' }}
+        image: registry.cern.ch/cern-sis/inspirehep/${{ matrix.search }}
         env:
           bootstrap.memory_lock: true
           ES_JAVA_OPTS: -Xms1024m -Xmx1024m
