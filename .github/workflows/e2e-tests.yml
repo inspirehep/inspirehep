@@ -55,6 +55,7 @@ jobs:
       elasticsearch:
         image: registry.cern.ch/cern-sis/inspirehep/${{ matrix.search }}
         env:
+          DISABLE_SECURITY_PLUGIN: true
           bootstrap.memory_lock: true
           ES_JAVA_OPTS: -Xms1024m -Xmx1024m
           discovery.type: single-node
