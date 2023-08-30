@@ -47,9 +47,10 @@ describe('Institution Submission', () => {
     cy.visit('/submissions/institutions');
     cy.wait(500);
     cy.testSubmission({
-      expectedMetadata,
+      expectedMetadata: expectedMetadata.identifier,
       formData,
       collection: 'institutions',
+      submissionType: 'editor'
     });
   });
 

@@ -12,7 +12,7 @@ export function ConferenceSubmissionSucessPage({ cnum, recordId }) {
         <span>
           Successfully submitted, thank you for the submission! See the
           conference ({cnum}){' '}
-          <Link to={`${CONFERENCES}/${recordId}`}>here</Link>.
+          <Link to={`${CONFERENCES}/${recordId}`} className="submission-link">here</Link>.
         </span>
       }
     />

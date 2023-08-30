@@ -37,7 +37,7 @@ describe('Experiment Submission', () => {
     });
   });
 
-  it.skip('submits a new experiments', () => {
+  it('submits a new experiments', () => {
     const formData = {
       project_type: 'collaboration',
       legacy_name: 'Test name',
@@ -49,9 +49,10 @@ describe('Experiment Submission', () => {
     cy.visit('/submissions/experiments');
     cy.wait(500);
     cy.testSubmission({
-      expectedMetadata,
+      expectedMetadata: expectedMetadata.legacy_name,
       formData,
       collection: 'experiments',
+      submissionType: 'editor'
     });
   });
 

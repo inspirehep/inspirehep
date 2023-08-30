@@ -11,7 +11,7 @@ export function SeminarSubmissionSuccessPage({ recordId }) {
       message={
         <span>
           Successfully submitted, thank you for the submission! See the seminar{' '}
-          <Link to={`${SEMINARS}/${recordId}`}>here</Link>.
+          <Link to={`${SEMINARS}/${recordId}`} className="submission-link">here</Link>.
         </span>
       }
     />

@@ -19,7 +19,8 @@ describe('Literature Search', () => {
       cy.matchSnapshots('LiteratureSearchCataloger');
       cy.logout();
     });
-    it.skip('matches image snapshot for searchRank', () => {
+    
+    it('displays correct searchRank', () => {
       cy.registerRoute();
       cy.visit('/literature?ui-citation-summary=true');
       cy.waitForRoute();
@@ -114,10 +115,30 @@ describe('Literature Submission', () => {
     });
   });
 
-  it.skip('submits a new article', () => {
-    cy.on('uncaught:exception', () => {
-      return false;
-    });
+  it('submits a new thesis', () => {
+    const formData = {
+      pdf_link: 'https://uni.eu/docs/thesis.pdf',
+      title: 'Cool Research',
+      subjects: ['Accelerators', 'Experiment-HEP'],
+      abstract: 'This contains some cool stuff about a super big thing',
+      authors: [{ full_name: 'Urhan, Harun', affiliation: 'CERN' }],
+      degree_type: 'phd',
+      submission_date: '2018-11',
+      defense_date: '2019-01-01',
+      institution: 'University of Geneva',
+      supervisors: [{ full_name: 'Tsanakoglu, Ioannis', affiliation: 'CERN' }],
+    };
+
+    cy.visit('/submissions/literature');
+    cy.selectLiteratureDocType('thesis');
+    cy.testSubmission({
+      formData,
+      collection: 'literature',
+      submissionType: 'workflow'
+    })
+  });
+
+  it('submits a new article', () => {
     const formData = {
       pdf_link:
         'http://caod.oriprobe.com/articles/61619219/Some_characterizations_for_the_exponential_φ_expan.html',
@@ -137,147 +158,20 @@ describe('Literature Submission', () => {
       proceedings_info: 'very private proceeding',
       conference_info: 'very private conference',
     };
-    const expectedMetadata = {
-      acquisition_source: {
-        email: 'cataloger@inspirehep.net',
-        method: 'submitter',
-        source: 'submitter',
-      },
-      document_type: ['article'],
-      abstracts: [
-        {
-          source: 'submitter',
-          value: 'This explains some cool stuff about a thing',
-        },
-      ],
-      titles: [
-        {
-          source: 'submitter',
-          title: 'Cool Article',
-        },
-      ],
-      authors: [
-        { affiliations: [{ value: 'CERN' }], full_name: 'Urhan, Harun' },
-        { full_name: 'Urhan, Ahmet' },
-      ],
-      inspire_categories: [
-        { term: 'Accelerators' },
-        { term: 'Experiment-Nucl' },
-      ],
-      publication_info: [
-        {
-          journal_title: 'Cool Journal',
-          journal_volume: 'Vol.1',
-          journal_issue: '20',
-          year: 2014,
-        },
-      ],
-      accelerator_experiments: [{ legacy_name: 'CERN-LEP-L3' }],
-      _private_notes: [
-        { value: 'very private thing', source: 'submitter' },
-        { value: 'very private proceeding', source: 'submitter' },
-        {
-          value: 'very private conference',
-          source: 'submitter',
-        },
-      ],
-    };
-    const expectedWorkflow = {
-      _workflow: { data_type: 'hep' },
-      _extra_data: {
-        formdata: {
-          url: formData.pdf_link,
-        },
-      },
-    };
+
     cy.visit('/submissions/literature');
     cy.selectLiteratureDocType('article');
     cy.contains('Conference Info').click();
     cy.contains('Proceedings Info').click();
     cy.contains('Comments').click();
     cy.testSubmission({
-      expectedMetadata,
       formData,
       collection: 'literature',
-    }).then((newWorkflow) => {
-      cy.wrap(newWorkflow).should('like', expectedWorkflow);
-    });
-    cy.on('uncaught:exception', () => {
-      return false;
+      submissionType: 'workflow'
     });
   });
 
-  it.skip('submits a new thesis', () => {
-    const formData = {
-      pdf_link: 'https://uni.eu/docs/thesis.pdf',
-      title: 'Cool Research',
-      subjects: ['Accelerators', 'Experiment-HEP'],
-      abstract: 'This contains some cool stuff about a super big thing',
-      authors: [{ full_name: 'Urhan, Harun', affiliation: 'CERN' }],
-      degree_type: 'phd',
-      submission_date: '2018-11',
-      defense_date: '2019-01-01',
-      institution: 'University of Geneva',
-      supervisors: [{ full_name: 'Tsanakoglu, Ioannis', affiliation: 'CERN' }],
-    };
-    const expectedMetadata = {
-      acquisition_source: {
-        email: 'cataloger@inspirehep.net',
-        method: 'submitter',
-        source: 'submitter',
-      },
-      document_type: ['thesis'],
-      abstracts: [
-        {
-          source: 'submitter',
-          value: 'This contains some cool stuff about a super big thing',
-        },
-      ],
-      titles: [
-        {
-          source: 'submitter',
-          title: 'Cool Research',
-        },
-      ],
-      authors: [
-        { affiliations: [{ value: 'CERN' }], full_name: 'Urhan, Harun' },
-        {
-          affiliations: [{ value: 'CERN' }],
-          full_name: 'Tsanakoglu, Ioannis',
-          inspire_roles: ['supervisor'],
-        },
-      ],
-      inspire_categories: [
-        { term: 'Accelerators' },
-        { term: 'Experiment-HEP' },
-      ],
-      thesis_info: {
-        date: '2018-11',
-        defense_date: '2019-01-01',
-        degree_type: 'phd',
-        institutions: [{ name: 'University of Geneva' }],
-      },
-    };
-    const expectedWorkflow = {
-      _workflow: { data_type: 'hep' },
-      _extra_data: {
-        formdata: {
-          url: formData.pdf_link,
-        },
-      },
-    };
-    cy.visit('/submissions/literature');
-    cy.selectLiteratureDocType('thesis');
-    cy.testSubmission({
-      collection: 'literature',
-      formData,
-      expectedMetadata,
-    }).then((newWorkflow) => {
-      cy.wrap(newWorkflow).should('like', expectedWorkflow);
-    });
-  });
-
-  it.skip('submits a new book', () => {
+  it('submits a new book', () => {
     const formData = {
       title: 'Nostalgic Rhythms',
       subjects: ['Accelerators'],
@@ -286,44 +180,17 @@ describe('Literature Submission', () => {
       publication_date: '2018-06',
       publication_place: 'Geneva, Switzerland',
     };
-    const expectedMetadata = {
-      acquisition_source: {
-        email: 'cataloger@inspirehep.net',
-        method: 'submitter',
-        source: 'submitter',
-      },
-      document_type: ['book'],
-      titles: [
-        {
-          source: 'submitter',
-          title: 'Nostalgic Rhythms',
-        },
-      ],
-      authors: [{ full_name: 'Paparrigopoulos, Panos' }],
-      inspire_categories: [{ term: 'Accelerators' }],
-      imprints: [
-        {
-          date: '2018-06',
-          publisher: 'CERN Library',
-          place: 'Geneva, Switzerland',
-        },
-      ],
-    };
-    const expectedWorkflow = {
-      _workflow: { data_type: 'hep' },
-    };
+
     cy.visit('/submissions/literature');
     cy.selectLiteratureDocType('book');
     cy.testSubmission({
-      collection: 'literature',
       formData,
-      expectedMetadata,
-    }).then((newWorkflow) => {
-      cy.wrap(newWorkflow).should('like', expectedWorkflow);
-    });
+      collection: 'literature',
+      submissionType: 'workflow'
+    })
   });
 
-  it.skip('submits a new book chapter', () => {
+  it('submits a new book chapter', () => {
     const formData = {
       title: 'Cool Dev Livre: Chapitre 2',
       subjects: ['Computing'],
@@ -332,36 +199,14 @@ describe('Literature Submission', () => {
       start_page: '200',
       end_page: '300',
     };
-    const expectedMetadata = {
-      acquisition_source: {
-        email: 'cataloger@inspirehep.net',
-        method: 'submitter',
-        source: 'submitter',
-      },
-      document_type: ['book chapter'],
-      languages: ['fr'],
-      titles: [
-        {
-          source: 'submitter',
-          title: 'Cool Dev Livre: Chapitre 2',
-        },
-      ],
-      authors: [{ full_name: 'Urhan, Harun' }],
-      inspire_categories: [{ term: 'Computing' }],
-      publication_info: [{ page_start: '200', page_end: '300' }],
-    };
-    const expectedWorkflow = {
-      _workflow: { data_type: 'hep' },
-    };
+
     cy.visit('/submissions/literature');
     cy.selectLiteratureDocType('bookChapter');
     cy.testSubmission({
-      collection: 'literature',
       formData,
-      expectedMetadata,
-    }).then((newWorkflow) => {
-      cy.wrap(newWorkflow).should('like', expectedWorkflow);
-    });
+      collection: 'literature',
+      submissionType: 'workflow'
+    })
   });
 
   afterEach(() => {

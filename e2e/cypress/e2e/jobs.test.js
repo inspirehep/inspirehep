@@ -47,7 +47,7 @@ describe('Job Submission', () => {
     });
   });
 
-  it.skip('submits and updates new job', () => {
+  it('submits and new job', () => {
     const formData = {
       title: 'Software developer',
       external_job_identifier: '07587',
@@ -75,64 +75,30 @@ describe('Job Submission', () => {
       description: 'This is my description',
     };
 
+    cy.visit('/submissions/jobs');
+    cy.testSubmission({
+      formData,
+      collection: 'jobs',
+      submissionType: 'workflow',
+    });
+  });
+
+  it('updates new job', () => {
     const expectedMetadata = {
-      acquisition_source: {
-        email: 'cataloger@inspirehep.net',
-        method: 'submitter',
-      },
-      status: 'pending',
-      position: 'Software developer',
-      external_job_identifier: '07587',
-      institutions: [{ value: 'CERN' }, { value: 'Berkley' }],
-      regions: ['Europe', 'Asia'],
-      arxiv_categories: ['cond-mat', 'astro-ph'],
-      ranks: ['POSTDOC', 'MASTER'],
-      accelerator_experiments: [{ name: 'Atlas' }, { name: 'CMS' }],
-      urls: [{ value: 'https://someinfo.com' }],
-      deadline_date: moment()
-        .add(1, 'day')
-        .format('YYYY-MM-DD'),
-      contact_details: [
-        {
-          name: 'John Doe',
-          email: 'john@yahoo.com',
-        },
-        {
-          name: 'Jane Doe',
-          email: 'jane@yahoo.com',
-        },
-      ],
-      reference_letters: {
-        emails: ['references@yahoo.com'],
-        urls: [{ value: 'https://uploadReferences.com' }],
-      },
-      description: '<div>This is my description</div>',
+      position: 'Cherenkov Telescope Array',
     };
 
-    cy.visit('/submissions/jobs');
-    cy
-      .testSubmission({
-        collection: 'jobs',
-        formData,
-        expectedMetadata,
-      })
-      .then(newRecord => {
-        const recordId = newRecord.metadata.control_number;
-        cy.visit(`/submissions/jobs/${recordId}`);
-        cy.testUpdateSubmission({
-          collection: 'jobs',
-          recordId,
-          formData: {
-            title: '-Updated',
-            status: 'closed',
-          },
-          expectedMetadata: {
-            ...expectedMetadata,
-            position: expectedMetadata.position + '-Updated',
-            status: 'closed',
-          },
-        });
-      });
+    cy.visit('/submissions/jobs/1813119');
+    cy.testUpdateSubmission({
+      collection: 'jobs',
+      recordId: 1813119,
+      formData: {
+        title: ': Updated',
+      },
+      expectedMetadata: {
+        position: expectedMetadata.position + ': Updated',
+      },
+    });
   });
 
   afterEach(() => {

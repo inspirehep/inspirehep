@@ -50,9 +50,10 @@ describe('Journal Submission', () => {
     };
     cy.visit('/submissions/journals');
     cy.testSubmission({
-      expectedMetadata,
+      expectedMetadata: expectedMetadata.short_title,
       formData,
       collection: 'journals',
+      submissionType: 'editor'
     });
   });
 

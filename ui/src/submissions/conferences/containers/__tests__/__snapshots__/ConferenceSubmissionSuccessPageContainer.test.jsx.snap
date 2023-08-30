@@ -9,6 +9,7 @@ exports[`ConferenceSubmissionSuccessPageContainer ConferenceSubmissionSucessPage
       )
        
       <Link
+        className="submission-link"
         to="/conferences/12345"
       >
         here

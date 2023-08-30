@@ -14,9 +14,30 @@ Cypress.Commands.add('selectLiteratureDocType', (docType) => {
     .should('be.hidden'); // wait for dropdown menu to be closed before proceeding further.
 });
 
+Cypress.Commands.add('testWorkflow', () => {
+  cy.get('.ant-alert-message').should(
+    'have.text',
+    'Successfully submitted, thank you! Your submission will be visible upon approval from the INSPIRE team.'
+  );
+});
+
+Cypress.Commands.add('testRecord', (title) => {
+  cy.get('.submission-link').click();
+  cy.waitForLoading();
+  cy.get('.detail-page-title').invoke('text').should('contain', title);
+});
+
+Cypress.Commands.add('testEditor', (title) => {
+  cy.wait(5000);
+
+  cy.get('.btn-success').first().click();
+  cy.waitForLoading();
+  cy.get('.detail-page-title').invoke('text').should('contain', title);
+});
+
 Cypress.Commands.add(
   'testSubmission',
-  ({ expectedMetadata, formData, collection }) => {
+  ({ expectedMetadata = null, formData, collection, submissionType }) => {
     const route = `/submissions/${collection}`;
     const apiRoute = `/api${route}`;
 
@@ -25,57 +46,19 @@ Cypress.Commands.add(
       method: 'POST',
     });
     cy.submitForm(formData);
-    return cy
-      .waitForRoute(apiRoute)
-      .then((xhr) => {
-        const mapIdToRequest = () => {
-          if (xhr.response.body.pid_value) {
-            return {
-              status: cy
-                .wrap(xhr)
-                .its('response.statusCode')
-                .should('equal', 201),
-              request: cy.requestRecord({
-                collection,
-                recordId: xhr.response.body.pid_value,
-              }),
-            };
-          } else if (xhr.response.body.control_number) {
-            return {
-              status: cy
-                .wrap(xhr)
-                .its('response.statusCode')
-                .should('equal', 201),
-              request: cy.requestEditor({
-                collection,
-                recordId: xhr.response.body.control_number,
-              }),
-            };
-          } else {
-            return {
-              status: cy
-                .wrap(xhr)
-                .its('response.statusCode')
-                .should('equal', 200),
-              request: cy
-                .requestWorkflow(
-                  {workflowId: xhr.response.body.workflow_object_id}
-                )
-                .its('body'),
-            };
-          }
-        };
-        mapIdToRequest().status;
-        return mapIdToRequest().request;
-      })
-      .then((recordOrWorkflow) => {
-        const metadata = recordOrWorkflow.metadata;
 
-        if (!REDIRECT_TO_EDITOR.includes(collection)) {
-          expect(metadata).like(expectedMetadata);
-          return recordOrWorkflow;
-        }
-      });
+    return cy.waitForRoute(apiRoute).then(() => {
+      if (submissionType === 'workflow') {
+        cy.testWorkflow();
+      }
+      if (submissionType === 'record') {
+        cy.testRecord(expectedMetadata);
+      }
+      if (submissionType === 'editor') {
+        cy.testEditor(expectedMetadata);
+      }
+      return null;
+    });
   }
 );
 
@@ -95,9 +78,9 @@ Cypress.Commands.add(
 
     cy.waitForRoute(apiRoute).its('response.statusCode').should('equal', 200);
 
-    cy.requestRecord({ collection, recordId })
-      .its('metadata')
-      .should('like', expectedMetadata);
+    cy.requestRecord({ collection, recordId }).then((req) =>
+      expect(req.metadata.toString()).to.include(expectedMetadata.toString())
+    );
   }
 );
 

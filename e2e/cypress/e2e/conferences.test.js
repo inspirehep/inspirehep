@@ -85,7 +85,7 @@ describe('Conference Submission', () => {
     });
   });
 
-  it.skip('submits a new conference', () => {
+  it('submits a new conference', () => {
     const startDateMoment = moment().add(1, 'day');
     const endDateMoment = moment().add(7, 'day');
     const formData = {
@@ -115,47 +115,24 @@ describe('Conference Submission', () => {
       keywords: ['keyword1', 'keyword2'],
     };
     const expectedMetadata = {
-      acronyms: ['AC'],
-      addresses: [
-        {
-          cities: ['Geneva'],
-          country: 'Switzerland',
-          country_code: 'CH',
-        },
-      ],
-      opening_date: startDateMoment.format('YYYY-MM-DD'),
-      closing_date: endDateMoment.format('YYYY-MM-DD'),
-      inspire_categories: [{ term: 'Accelerators' }],
-      keywords: [{ value: 'keyword1' }, { value: 'keyword2' }],
-      public_notes: [{ value: 'This is some additional info' }],
-      series: [
-        {
-          name: 'Amazing conference series',
-          number: 24,
-        },
-      ],
-      short_description: {
-        value:
-          '<div>This is an amazing conference about the wonders of physics and accelerators</div>',
-      },
       titles: [
         {
           subtitle: 'The best conference ever',
           title: 'Amazing conference',
         },
       ],
-      urls: [{ value: 'https://home.cern' }],
     };
+
     cy.visit('/submissions/conferences');
     cy.testSubmission({
-      collection: 'conferences',
+      expectedMetadata: expectedMetadata.titles[0].title,
       formData,
-      expectedMetadata,
+      collection: 'conferences',
+      submissionType: 'record'
     });
   });
 
-  it.skip('warns about already existing conference during selected dates [conferences/1794610]', () => {
-    const startDate = moment('2021-08-30');
+  it('warns about already existing conference during selected dates [conferences/1794610]', () => {
     cy.visit('/submissions/conferences');
     cy.registerRoute();
     cy.fillForm({

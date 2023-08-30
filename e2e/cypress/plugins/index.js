@@ -15,17 +15,15 @@
 const {
   addMatchImageSnapshotPlugin,
 } = require('cypress-image-snapshot/plugin');
-const addLogsPrinterPlugin = require('cypress-terminal-report/src/installLogsPrinter');
 
 module.exports = (on, config) => {
   on('before:browser:launch', (browser = {}, launchOptions) => {
     if (browser.name == 'chrome') {
       launchOptions.args.push('--disable-gpu')
-      launchOptions.args.push("--disable-dev-shm-usage");
+      launchOptions.args.push('--disable-dev-shm-usage');
+      launchOptions.args.push('--js-flags="--max_old_space_size=8192 --max_semi_space_size=8192"');
     }
-
     return launchOptions
   }),
   addMatchImageSnapshotPlugin(on, config);
-  addLogsPrinterPlugin(on);
 };
