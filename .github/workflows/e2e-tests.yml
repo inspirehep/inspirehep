@@ -70,7 +70,6 @@ jobs:
 
       - name: Curl opensearch
         run: |
-          curl http://localhost:9200
           netstat -an | grep 9200
 
       - name: create environment file
