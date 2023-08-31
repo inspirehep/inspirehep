@@ -19,6 +19,10 @@ on:
         description: Number of splits to run in parallel
         type: number
         required: true
+      search:
+        description: Search engine name
+        type: string
+        required: True
 
 env:
   CACHE_PREFIX: ${{ inputs.suite }}-test-durations
@@ -65,7 +69,7 @@ jobs:
         ports:
           - 5672:5672
       elasticsearch:
-        image: registry.cern.ch/cern-sis/inspirehep/elasticsearch
+        image: registry.cern.ch/cern-sis/inspirehep/${{ inputs.search }}
         env:
           bootstrap.memory_lock: true
           ES_JAVA_OPTS: -Xms1024m -Xmx1024m
