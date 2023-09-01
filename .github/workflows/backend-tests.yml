@@ -23,9 +23,6 @@ on:
         description: Search engine name
         type: string
         required: True
-      ref-name:
-        type: string
-        required: false
 
 env:
   CACHE_PREFIX: ${{ inputs.suite }}-test-durations
