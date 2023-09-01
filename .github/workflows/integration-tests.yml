@@ -51,7 +51,6 @@ jobs:
       image: "inspirehep/hep@${{ needs.build-backend.outputs.image-id }}"
       suite: ${{ matrix.suite }}
       splits: ${{ matrix.splits }}
-      ref-name: ${{ inputs.ref-name }}
 
   build-ui-build-stage:
     uses: ./.github/workflows/build.yml
