@@ -12,9 +12,6 @@ on:
         type: string
         default: 'elasticsearch'
         required: false
-      ref-name:
-        type: string
-        required: false
     outputs:
       backend-image-id:
         description: The ID of image that has been buit

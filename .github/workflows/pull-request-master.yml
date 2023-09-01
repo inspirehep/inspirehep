@@ -9,7 +9,6 @@ jobs:
   test:
     uses: ./.github/workflows/integration-tests.yml
     with:
-      ref-name: ${{ github.event.pull_request.head.ref }}
       search: ${{ contains(github.event.pull_request.head.ref, 'opensearch') && 'opensearch' || 'elasticsearch' }}
       ref: ${{ github.event.pull_request.head.sha }}
     secrets: inherit
