@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`LiteratureTitle renders with only title 1`] = `
-<span>
+<span
+  data-test-id="literature-detail-title"
+>
   <Latex>
     Test Literature Title
   </Latex>
@@ -9,7 +11,9 @@ exports[`LiteratureTitle renders with only title 1`] = `
 `;
 
 exports[`LiteratureTitle renders with title and subtitle 1`] = `
-<span>
+<span
+  data-test-id="literature-detail-title"
+>
   <Latex>
     Test Literature Title
   </Latex>
