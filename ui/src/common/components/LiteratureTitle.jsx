@@ -8,7 +8,7 @@ class LiteratureTitle extends Component {
   render() {
     const { title } = this.props;
     return (
-      <span>
+      <span data-test-id='literature-detail-title'>
         <Latex>{title.get('title')}</Latex>
         {title.has('subtitle') && (
           <span>

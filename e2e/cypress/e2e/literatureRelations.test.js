@@ -32,29 +32,19 @@ describe('Literature and Authors', () => {
 });
 
 describe('Literature and Conferences', () => {
-  it.skip('literature:search -> conferences:detail -> conferences:contributions', () => {
+  it('literature:detail -> conferences:detail -> conferences:contributions', () => {
     cy.registerRoute('*/literature?*');
-    cy.visit('/literature');
-    cy.waitForRoute('*/literature?*');
 
-    cy.get(
-      '[data-test-id="checkbox-aggregation-option-conference paper"]'
-    ).click();
-    cy.waitForRoute('*/literature?*');
-    cy.waitForSearchResults();
+    cy.visit('/literature/1787272');
+    cy.waitForLoading();
 
-    cy.get('[data-test-id="literature-conference-link"]', { timeout: 10000 })
-      .first()
-      .closest('[data-test-id="literature-result-item-inner"]')
-      .find('[data-test-id="literature-result-title-link"]')
+    cy.get('[data-test-id="literature-detail-title"]')
       .invoke('text')
       .as('literature-title');
 
     cy.registerRoute();
 
-    cy.get('[data-test-id="literature-conference-link"]', { timeout: 10000 })
-      .first()
-      .click();
+    cy.get('[data-test-id="literature-conference-link"]', { timeout: 10000 }).click();
 
     cy.waitForRoute();
     cy.waitForSearchResults();
