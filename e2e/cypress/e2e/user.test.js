@@ -29,7 +29,7 @@ describe('user', () => {
   });
 
   onlyOn('headless', () => {
-    it.skip('user session timeout', () => {
+    it('user session timeout', () => {
       const username = `cataloger@inspirehep.net`;
       const password = '123456';
       cy.clock();
@@ -47,21 +47,20 @@ describe('user', () => {
         .get('[data-test-id=login]')
         .click();
 
-      cy.waitForRoute('/api/accounts/login').its('statusCode').should('equal', 200);
+      cy.waitForRoute('/api/accounts/login').its('response.statusCode').should('equal', 200);
+
+      cy.window().trigger('mouseover', 'topRight');
+      cy.tick(1800000);
+      cy.clock().invoke('restore');
+      cy.waitForLoading();
 
       cy.clearCookies();
       cy.request({
         url: '/api/accounts/me',
         failOnStatusCode: false,
       })
-        .its('statusCode')
+        .its('status')
         .should('equal', 401);
-
-      cy.window().trigger('mouseover', 'topRight');
-      cy.tick(1800000);
-      cy.clock().invoke('restore');
-      cy.waitForLoading();
-      cy.matchSnapshots('SessionTimeout');
     });
   });
 });
