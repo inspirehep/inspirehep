@@ -1,4 +1,3 @@
-import like from 'chai-like';
 import './commands';
 
 const ALLOWED_UNCAUGHT_ERROR_MESSAGES = [
@@ -14,5 +13,3 @@ Cypress.on('uncaught:exception', error => {
 
   return shouldThrow;
 });
-
-chai.use(like);

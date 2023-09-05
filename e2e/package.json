@@ -12,7 +12,6 @@
   "license": "ISC",
   "dependencies": {
     "@cypress/skip-test": "^2.5.0",
-    "chai-like": "^1.1.1",
     "cypress": "^13.0.0",
     "cypress-image-snapshot": "^4.0.1",
     "moment": "^2.24.0"
