@@ -36,13 +36,13 @@ describe('Institution Submission', () => {
       cy.matchSnapshots('InstitutionSubmission', { skipMobile: true });
     });
   });
-  
+
   it('submits a new institution', () => {
     const formData = {
-      identifier: 'Amazing New Institution'
+      identifier: 'Amazing New Institution',
     };
     const expectedMetadata = {
-      identifier: 'Amazing New Institution'
+      identifier: 'Amazing New Institution',
     };
     cy.visit('/submissions/institutions');
     cy.wait(500);
@@ -50,7 +50,7 @@ describe('Institution Submission', () => {
       expectedMetadata: expectedMetadata.identifier,
       formData,
       collection: 'institutions',
-      submissionType: 'editor'
+      submissionType: 'editor',
     });
   });
 
@@ -84,13 +84,15 @@ describe('Institutions Editor', () => {
       method: 'PUT',
     });
 
-    cy.get('[data-path="/legacy_ICN"]').type('Updated by Cypress Test{enter}');
+    cy.get('[data-path="/institution_hierarchy/0/name"]').type(
+      'Updated by Cypress Test{enter}'
+    );
     cy.contains('button', 'Save').click();
 
     cy.waitForRoute(RECORD_API);
 
     cy.visit(RECORD_URL);
     cy.waitForRoute(API);
-    cy.get('h2').should('contain.text', 'Updated by Cypress');
+    cy.get('span').should('contain.text', 'Updated by Cypress');
   });
 });
