@@ -194,6 +194,9 @@ export const institutions: JsonEditorConfig = {
       legacy_version: {
         hidden: true,
       },
+      legacy_ICN: {
+        disabled: true,
+      },
     },
   },
 };
