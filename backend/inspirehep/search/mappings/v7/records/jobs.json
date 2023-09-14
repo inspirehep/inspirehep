@@ -59,7 +59,8 @@
           "record": {
             "properties": {
               "$ref": {
-                "type": "keyword"
+                "type": "text",
+                "analyzer": "recid_analyzer"
               }
             },
             "type": "object"
@@ -133,7 +134,8 @@
           "record": {
             "properties": {
               "$ref": {
-                "type": "text"
+                "type": "text",
+                "analyzer": "recid_analyzer"
               }
             },
             "type": "object"
@@ -197,7 +199,8 @@
           "record": {
             "properties": {
               "$ref": {
-                "type": "keyword"
+                "type": "text",
+                "analyzer": "recid_analyzer"
               }
             },
             "type": "object"
@@ -222,7 +225,8 @@
       "new_record": {
         "properties": {
           "$ref": {
-            "type": "keyword"
+            "type": "text",
+            "analyzer": "recid_analyzer"
           }
         },
         "type": "object"
@@ -270,7 +274,8 @@
       "self": {
         "properties": {
           "$ref": {
-            "type": "keyword"
+            "type": "text",
+            "analyzer": "recid_analyzer"
           }
         },
         "type": "object"
@@ -296,6 +301,16 @@
   },
   "settings": {
     "analysis": {
+      "analyzer": {
+        "recid_analyzer": {
+          "tokenizer": "recid_tokenizer"
+        },
+        "lowercase_analyzer": {
+          "filter": "lowercase",
+          "tokenizer": "keyword",
+          "type": "custom"
+        }
+      },
       "normalizer": {
         "lowercase_normalizer": {
           "type": "custom",
@@ -303,6 +318,13 @@
           "filter": [
             "lowercase"
           ]
+        }
+      },
+      "tokenizer": {
+        "recid_tokenizer": {
+          "type": "pattern",
+          "pattern": "(\\d+)",
+          "group": 1
         }
       }
     }

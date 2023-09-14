@@ -12,6 +12,7 @@ from elasticsearch_dsl import Q
 from flask import current_app
 from inspire_schemas.utils import get_refs_to_schemas
 from inspire_utils.dedupers import dedupe_list_of_dicts
+from inspire_utils.helpers import maybe_int
 from inspire_utils.record import get_value
 from invenio_db import db
 from invenio_records.models import RecordMetadata
@@ -86,6 +87,7 @@ def update_references_pointing_to_merged_record(
         matched_records = (
             InspireSearch(index=es_index_name).query(query).params(scroll="60m").scan()
         )
+        should_matched_record_be_updated = False
         for matched_record in matched_records:
             pid_type = current_app.config["SCHEMA_TO_PID_TYPES"][index]
             record_class = InspireRecord.get_subclasses()[pid_type]
@@ -102,20 +104,16 @@ def update_references_pointing_to_merged_record(
             )
 
             for referenced_record in referenced_records_in_path:
-                update_reference_if_reference_uri_matches(
-                    referenced_record, merged_record_uri, new_record_uri
+                if referenced_record["$ref"] == merged_record_uri:
+                    referenced_record.update({"$ref": new_record_uri})
+                    should_matched_record_be_updated = True
+            if should_matched_record_be_updated:
+                remove_duplicate_refs_from_record(matched_inspire_record, path)
+                matched_inspire_record.update(dict(matched_inspire_record))
+                LOGGER.info(
+                    "Updated reference for record", uuid=str(matched_inspire_record.id)
                 )
-            deduped_matched_inspire_record = remove_duplicate_refs_from_record(
-                matched_inspire_record, path
-            )
-
-            if deduped_matched_inspire_record:
-                matched_inspire_record = deduped_matched_inspire_record
-            matched_inspire_record.update(dict(matched_inspire_record))
-            LOGGER.info(
-                "Updated reference for record", uuid=str(matched_inspire_record.id)
-            )
-            db.session.commit()
+                db.session.commit()
 
 
 def get_query_for_given_path(index, path, record_ref):
@@ -123,20 +121,14 @@ def get_query_for_given_path(index, path, record_ref):
     nested_fields = InspireRecord.get_subclasses()[
         record_with_reference_pid
     ].nested_record_fields
+    record_recid = maybe_int(record_ref.split("/")[-1])
     if path.split(".")[0] in nested_fields:
         query = Q(
-            "nested", path=path.split(".")[0], query=Q("match", **{path: record_ref})
+            "nested", path=path.split(".")[0], query=Q("match", **{path: record_recid})
         )
     else:
-        query = Q("match", **{path: record_ref})
+        query = Q("match", **{path: record_recid})
     return query
-
-
-def update_reference_if_reference_uri_matches(
-    reference_record, merged_record_uri, new_record_uri
-):
-    if reference_record["$ref"] == merged_record_uri:
-        reference_record.update({"$ref": new_record_uri})
 
 
 @shared_task
