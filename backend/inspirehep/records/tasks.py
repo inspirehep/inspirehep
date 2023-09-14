@@ -87,8 +87,8 @@ def update_references_pointing_to_merged_record(
         matched_records = (
             InspireSearch(index=es_index_name).query(query).params(scroll="60m").scan()
         )
-        should_matched_record_be_updated = False
         for matched_record in matched_records:
+            should_matched_record_be_updated = False
             pid_type = current_app.config["SCHEMA_TO_PID_TYPES"][index]
             record_class = InspireRecord.get_subclasses()[pid_type]
             matched_inspire_record_data = (
