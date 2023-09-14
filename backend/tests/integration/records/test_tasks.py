@@ -15,7 +15,8 @@ from inspirehep.records.models import (
     JournalLiterature,
     RecordCitations,
 )
-from inspirehep.records.tasks import update_records_relations
+from inspirehep.records.tasks import get_query_for_given_path, update_records_relations
+from inspirehep.search.api import InspireSearch
 
 
 def test_update_records_relations(inspire_app):
@@ -151,3 +152,66 @@ def test_update_records_relations_updated_journal_literature_relations(inspire_a
     ).one()
 
     assert journal_literature_relation.literature_uuid == record.id
+
+
+def test_get_query_for_given_path_regression(inspire_app):
+    relevant_job_data = {
+        "ranks": ["POSTDOC"],
+        "status": "closed",
+        "$schema": "https://labs.inspirehep.net/api/schemas/records/jobs.json",
+        "regions": ["Asia"],
+        "position": "ATLAS Postdoctoral Research Fellow at Tsung-Dao Lee Institute",
+        "description": '<div><strong>The Particle Physics Division (PD) at Tsung-Dao Lee Institute (TDLI)</strong>&nbsp;and&nbsp;<strong>Institute for Nuclear and Particle Physics (INPAC) at Shanghai Jiao Tong University (SJTU)</strong>, China invite applications for postdoctoral researcher positions to work on ATLAS experiment at LHC, CERN. We welcome highly motivated applicants who have obtained a Ph.D. degree or who are expecting one prior to starting the position, in nuclear physics, particle physics, or a related field. The initial appointment is for 2 years with possible renewal based on mutual satisfaction (up to 5 year maximum). PD@TDLI and INPAC@SJTU offer competitive salary commensurate with qualifications and subsidized housing options through the university. We will also encourage promising candidates in applying for the prestigious&nbsp;<strong>"Tsung-Dao Lee Postdoctoral Fellowship" and “Chung-Yao Chao Postdoctoral Fellowship” for additional benefits.</strong></div><div><br></div><div><strong>The successful candidate will participate in ATLAS experiment at CERN and with good opportunities to be based at CERN</strong>, and also has chance to travel to and work in Shanghai if needed. The appointee will be expected to make major contributions to ATLAS Run2/Run3 data analysis related to property measurements of the Higgs boson, searches for new physics beyond the Standard Model, Standard Model electroweak multi-boson physics, and top quark physics. The hardware experience with high granularity analogue/digital calorimeters, muon spectrometer, and silicon detectors will be advantageous.</div><div><br></div><div><strong>TDLI is a newly established prestigious national research institute in China, initiated by Prof. Tsung-Dao Lee</strong>&nbsp;(University Professor Emeritus at Columbia Univ., USA; Nobel Prize in Physics 1957, Albert Einstein Award 1957), directly approved by China’s Central Government, co-funded by Ministry of Science and Technology, the Ministry of Education, the Municipal Government of Shanghai and National Science Foundation of China. Shanghai Jiao Tong University is retained and approved by the government to operate the new Institute as its contractor and trustee. The official director of the institute is Prof. Frank Wilczek (Professor of MIT, USA; Nobel Prize in Physics 2004) supporting world-class fundamental physics research in high energy physics, astrophysics and quantum physics.&nbsp;<strong>English is the working language at the institute. TDLI has an international working environment and provides diversified culture experiences. Non-Chinese-speaking candidates are equally highly encouraged to apply.</strong></div><div><br></div><div><strong>TDLI aims for establishing a top-notch physics research institute that is similar to the Niels Bohr Institute at Copenhagen and Institute of Advanced Studies at Princeton. The central government has strongly committed to this endeavor.</strong>&nbsp;The Institute aims to undertake three basic missions: 1) provides a platform to foster academic training, exchange, and collaborations for worldwide physicists; 2) hosts cutting-edge research programs on most fundamental questions in particle physics, cosmology and quantum physics with potential expansion to include other related areas such as the application of quantum mechanics to bioprocesses; 3) actively engages in general public science education.</div><div><br></div><div><strong>Applicants should submit a CV, a brief research statement, a list of publications and at least three letters of recommendation to:</strong></div><div>atlas-china-sjtu-faculty@cern.ch</div><div><strong>Please put “ATLAS Postdoc Application: YOUR_NAME” as the identifier in the email subject.</strong></div><div><br></div><div><strong>For full consideration, applications should be received by Feb. 29, 2019. The position will remain open till filled. In case of inquiries for more info, please feel free to contact: Profs. </strong>Jun Guo, Kim Siang Khaw, Liang Li, Shu Li, Kun Liu, Weihao Wu, Haijun Yang, Ning Zhou</div>',
+        "_collections": ["Jobs"],
+        "control_number": 1764162,
+        "contact_details": [
+            {
+                "name": "Liu, Kun",
+                "email": "kun.liu@sjtu.edu.cn",
+                "record": {"$ref": "https://labs.inspirehep.net/api/authors/1081452"},
+            }
+        ],
+        "arxiv_categories": [
+            "hep-ex",
+            "hep-th",
+            "nucl-ex",
+            "physics.ins-det",
+            "astro-ph",
+        ],
+    }
+
+    non_relevant_job_data = {
+        "ranks": ["POSTDOC"],
+        "status": "closed",
+        "$schema": "https://labs.inspirehep.net/api/schemas/records/jobs.json",
+        "regions": ["Asia"],
+        "position": "ATLAS Postdoctoral Research Fellow at Pung-Dao Lee Institute",
+        "description": '<div><strong>The Particle Physics Division (PD) at Tsung-Dao Lee Institute (TDLI)</strong>&nbsp;and&nbsp;<strong>Institute for Nuclear and Particle Physics (INPAC) at Shanghai Jiao Tong University (SJTU)</strong>, China invite applications for postdoctoral researcher positions to work on ATLAS experiment at LHC, CERN. We welcome highly motivated applicants who have obtained a Ph.D. degree or who are expecting one prior to starting the position, in nuclear physics, particle physics, or a related field. The initial appointment is for 2 years with possible renewal based on mutual satisfaction (up to 5 year maximum). PD@TDLI and INPAC@SJTU offer competitive salary commensurate with qualifications and subsidized housing options through the university. We will also encourage promising candidates in applying for the prestigious&nbsp;<strong>"Tsung-Dao Lee Postdoctoral Fellowship" and “Chung-Yao Chao Postdoctoral Fellowship” for additional benefits.</strong></div><div><br></div><div><strong>The successful candidate will participate in ATLAS experiment at CERN and with good opportunities to be based at CERN</strong>, and also has chance to travel to and work in Shanghai if needed. The appointee will be expected to make major contributions to ATLAS Run2/Run3 data analysis related to property measurements of the Higgs boson, searches for new physics beyond the Standard Model, Standard Model electroweak multi-boson physics, and top quark physics. The hardware experience with high granularity analogue/digital calorimeters, muon spectrometer, and silicon detectors will be advantageous.</div><div><br></div><div><strong>TDLI is a newly established prestigious national research institute in China, initiated by Prof. Tsung-Dao Lee</strong>&nbsp;(University Professor Emeritus at Columbia Univ., USA; Nobel Prize in Physics 1957, Albert Einstein Award 1957), directly approved by China’s Central Government, co-funded by Ministry of Science and Technology, the Ministry of Education, the Municipal Government of Shanghai and National Science Foundation of China. Shanghai Jiao Tong University is retained and approved by the government to operate the new Institute as its contractor and trustee. The official director of the institute is Prof. Frank Wilczek (Professor of MIT, USA; Nobel Prize in Physics 2004) supporting world-class fundamental physics research in high energy physics, astrophysics and quantum physics.&nbsp;<strong>English is the working language at the institute. TDLI has an international working environment and provides diversified culture experiences. Non-Chinese-speaking candidates are equally highly encouraged to apply.</strong></div><div><br></div><div><strong>TDLI aims for establishing a top-notch physics research institute that is similar to the Niels Bohr Institute at Copenhagen and Institute of Advanced Studies at Princeton. The central government has strongly committed to this endeavor.</strong>&nbsp;The Institute aims to undertake three basic missions: 1) provides a platform to foster academic training, exchange, and collaborations for worldwide physicists; 2) hosts cutting-edge research programs on most fundamental questions in particle physics, cosmology and quantum physics with potential expansion to include other related areas such as the application of quantum mechanics to bioprocesses; 3) actively engages in general public science education.</div><div><br></div><div><strong>Applicants should submit a CV, a brief research statement, a list of publications and at least three letters of recommendation to:</strong></div><div>atlas-china-sjtu-faculty@cern.ch</div><div><strong>Please put “ATLAS Postdoc Application: YOUR_NAME” as the identifier in the email subject.</strong></div><div><br></div><div><strong>For full consideration, applications should be received by Feb. 29, 2019. The position will remain open till filled. In case of inquiries for more info, please feel free to contact: Profs. </strong>Jun Guo, Kim Siang Khaw, Liang Li, Shu Li, Kun Liu, Weihao Wu, Haijun Yang, Ning Zhou</div>',
+        "_collections": ["Jobs"],
+        "control_number": 1764163,
+        "contact_details": [
+            {
+                "name": "Zhou, Ning",
+                "email": "nzhou@sjtu.edu.cn",
+                "record": {"$ref": "https://labs.inspirehep.net/api/authors/1060979"},
+            }
+        ],
+        "arxiv_categories": [
+            "hep-ex",
+            "hep-th",
+            "nucl-ex",
+            "physics.ins-det",
+            "astro-ph",
+        ],
+    }
+
+    relevant_record = create_record("job", relevant_job_data)
+    create_record("job", non_relevant_job_data)
+    path = "contact_details.record.$ref"
+    collection = "jobs"
+    inspire_index = "records-jobs"
+    record_ref = "https://labs.inspirehep.net/api/authors/1081452"
+    query = get_query_for_given_path(collection, path, record_ref)
+    matched_records = InspireSearch(index=inspire_index).query(query).execute()
+    assert len(matched_records) == 1
+    assert matched_records[0].control_number == relevant_record["control_number"]
