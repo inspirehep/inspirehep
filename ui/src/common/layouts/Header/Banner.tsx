@@ -60,7 +60,7 @@ function Banner({
             html={message}
           />
           {action && (
-            <Button type="primary" target="_blank" href={action.href}>
+            <Button type="primary" target="_blank" rel="noopener noreferrer" href={action.href}>
               {action.name}
             </Button>
           )}

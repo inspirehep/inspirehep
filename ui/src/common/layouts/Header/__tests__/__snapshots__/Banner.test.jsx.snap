@@ -107,6 +107,7 @@ exports[`Banner renders with custom style 1`] = `
       />
       <Button
         href="https://status.inspirehep.net"
+        rel="noopener noreferrer"
         target="_blank"
         type="primary"
       >
