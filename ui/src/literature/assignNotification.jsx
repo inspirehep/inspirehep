@@ -3,6 +3,7 @@ import { notification } from 'antd';
 
 import { CONFERENCES } from '../common/routes';
 import LinkWithTargetBlank from '../common/components/LinkWithTargetBlank';
+import { pluralizeUnlessSingle } from '../common/utils';
 
 // to render notification over the drawer, if one is open.
 export const ASSIGNING_NOTIFICATION_KEY = 'assigning-conferences-notification';
@@ -53,7 +54,8 @@ export function assignSuccess({ conferenceId, conferenceTitle, papers }) {
     duration: null,
     description: (
       <span>
-        {papers.size} selected papers assigned to{' '}
+        {papers.size} selected {pluralizeUnlessSingle('paper', papers.size)}{' '}
+        assigned to{' '}
         <LinkWithTargetBlank
           target="_blank"
           href={`${CONFERENCES}/${conferenceId}`}
