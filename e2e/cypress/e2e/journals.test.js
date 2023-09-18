@@ -2,7 +2,7 @@ import { onlyOn, skipOn } from '@cypress/skip-test';
 
 describe('Journal Detail', () => {
   onlyOn('headless', () => {
-    it.skip('matches image snapshot', () => {
+    it('matches image snapshot', () => {
       cy.registerRoute();
       cy.visit('/journals/1213103');
       cy.waitForRoute();
@@ -15,7 +15,7 @@ describe('Journal Detail', () => {
 
 describe('Journal Search', () => {
   onlyOn('headless', () => {
-    it.skip('matches image snapshot', () => {
+    it('matches image snapshot', () => {
       cy.registerRoute();
       cy.visit('/journals');
       cy.waitForRoute();
@@ -32,7 +32,7 @@ describe('Journal Submission', () => {
   });
 
   onlyOn('headless', () => {
-    it.skip('matches image snapshot', () => {
+    it('matches image snapshot', () => {
       cy.visit('/submissions/journals');
       cy.get('form').should('be.visible');
       cy.matchSnapshots('JournalSubmission', { skipMobile: true });

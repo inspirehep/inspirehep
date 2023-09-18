@@ -3,7 +3,7 @@ import { onlyOn, skipOn } from '@cypress/skip-test';
 describe('References', () => {
   describe('Reference Search', () => {
     onlyOn('headless', () => {
-      it.skip('matches image snapshot for reference search', () => {
+      it('matches image snapshot for reference search', () => {
         cy.registerRoute();
         cy.visit(
           '/literature?sort=mostrecent&size=25&page=1&q=citedby%3Arecid%3A1322719'

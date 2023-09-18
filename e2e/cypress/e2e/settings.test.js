@@ -9,7 +9,7 @@ describe('settings', () => {
   });
 
   onlyOn('headless', () => {
-    it.skip('matches image snapshot', () => {
+    it('matches image snapshot', () => {
       cy.visit('/user/settings');
       cy.wait(2000);
       cy.matchSnapshots('Settings');
