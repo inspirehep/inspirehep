@@ -52,7 +52,6 @@ services:
       - next-web
       - record-editor
   hep-ui:
-    platform: linux/arm64
     build:
       context: ui
       dockerfile: Dockerfile-local
