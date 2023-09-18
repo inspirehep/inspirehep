@@ -55,7 +55,6 @@ export function assignSuccess({ conferenceId, conferenceTitle, papers }) {
       <span>
         {papers.size} selected papers assigned to{' '}
         <LinkWithTargetBlank
-          target="_blank"
           href={`${CONFERENCES}/${conferenceId}`}
         >
           {conferenceTitle}

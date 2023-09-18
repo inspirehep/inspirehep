@@ -405,7 +405,7 @@ exports[`ReferenceDiffInterface should render 1`] = `
                                                   <span>
                                                     <a
                                                       href="//doi.org/123456.12345"
-                                                      rel="noopener"
+                                                      rel="noopener noreferrer"
                                                       target="_blank"
                                                     >
                                                       123456.12345
@@ -568,7 +568,7 @@ exports[`ReferenceDiffInterface should render 1`] = `
                                                   <span>
                                                     <a
                                                       href="//doi.org/123456.12345"
-                                                      rel="noopener"
+                                                      rel="noopener noreferrer"
                                                       target="_blank"
                                                     >
                                                       123456.12345
@@ -1381,7 +1381,7 @@ exports[`ReferenceDiffInterface should render without previous reference if it i
                                                   <span>
                                                     <a
                                                       href="//doi.org/123456.12345"
-                                                      rel="noopener"
+                                                      rel="noopener noreferrer"
                                                       target="_blank"
                                                     >
                                                       123456.12345
@@ -1544,7 +1544,7 @@ exports[`ReferenceDiffInterface should render without previous reference if it i
                                                   <span>
                                                     <a
                                                       href="//doi.org/123456.12345"
-                                                      rel="noopener"
+                                                      rel="noopener noreferrer"
                                                       target="_blank"
                                                     >
                                                       123456.12345

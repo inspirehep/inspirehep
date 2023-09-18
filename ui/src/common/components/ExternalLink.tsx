@@ -14,7 +14,7 @@ function ExternalLink({ as, ...anchorProps }: ExternalLinkProps) {
   const externalLinkProps = {
     ...anchorProps,
     target: '_blank',
-    rel: 'noopener',
+    rel: 'noopener noreferrer',
   };
 
   return createElement(as, externalLinkProps);

@@ -59,11 +59,11 @@ export function assignSuccess({
     description: (
       <span data-test-id="claim-notification-description">
         Selected papers ({literatureIds.join(", ")}) will be moved from{' '}
-        <LinkWithTargetBlank target="_blank" href={`${AUTHORS}/${from}`}>
+        <LinkWithTargetBlank href={`${AUTHORS}/${from}`}>
           {from}
         </LinkWithTargetBlank>{' '}
         to{' '}
-        <LinkWithTargetBlank target="_blank" href={`${AUTHORS}/${to}`}>
+        <LinkWithTargetBlank href={`${AUTHORS}/${to}`}>
           {to}
         </LinkWithTargetBlank>
         .

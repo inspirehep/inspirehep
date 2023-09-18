@@ -91,7 +91,7 @@ const NewsAndUpdates = () => {
             <a
               href="https://twitter.com/inspirehep"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
             >
               Follow us on Twitter
             </a>
