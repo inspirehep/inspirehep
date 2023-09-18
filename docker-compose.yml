@@ -41,6 +41,7 @@ services:
       - '9200:9200'
   ui:
     image: inspirehep/nginx:1.19-with-vts
+    platform: linux/arm64
     ports:
       - '8080:8080'
     volumes:
@@ -51,6 +52,7 @@ services:
       - next-web
       - record-editor
   hep-ui:
+    platform: linux/arm64
     build:
       context: ui
       dockerfile: Dockerfile-local
