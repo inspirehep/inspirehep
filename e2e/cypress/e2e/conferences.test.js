@@ -2,6 +2,27 @@ import { onlyOn } from '@cypress/skip-test';
 import moment from 'moment';
 
 describe('Conference Search', () => {
+  it('has search results for all conferences', () => {
+    cy.registerRoute();
+    cy.visit('/conferences?start_date=all');
+    cy.waitForRoute();
+    cy.waitForSearchResults();
+    cy.get('[data-test-id="search-results"]')
+      .children()
+      .should('have.length', 7);
+  });
+
+  it('has search results for upcoming conferences', () => {
+    cy.registerRoute();
+    cy.visit('/conferences?start_date=upcoming');
+    cy.waitForRoute();
+    cy.waitForSearchResults();
+    cy.get('[data-test-id="search-results"]')
+      .children()
+      .should('have.length', 1);
+  });
+
+
   onlyOn('headless', () => {
     it.skip('matches image snapshot', () => {
       cy.registerRoute();
@@ -86,8 +107,8 @@ describe('Conference Submission', () => {
   });
 
   it('submits a new conference', () => {
-    const startDateMoment = moment().add(1, 'day');
-    const endDateMoment = moment().add(7, 'day');
+    const startDateMoment = moment([2050, 1, 28]).add(1, 'day');
+    const endDateMoment = moment([2050, 1, 28]).add(7, 'day');
     const formData = {
       name: 'Amazing conference',
       subtitle: 'The best conference ever',
