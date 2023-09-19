@@ -9,7 +9,7 @@ exports[`EventTitle renders with also subtitle 1`] = `
   </Latex>
   <span>
     <span>
-       : 
+      : 
     </span>
     <Latex>
       Sub
@@ -27,15 +27,16 @@ exports[`EventTitle renders with everything 1`] = `
   </Latex>
   <span>
     <span>
-       : 
+      : 
     </span>
     <Latex>
       Sub
     </Latex>
   </span>
   <span>
-     (
-    CTest
+     
+    (
+    Test
     )
   </span>
 </span>
