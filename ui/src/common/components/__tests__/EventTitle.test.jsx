@@ -19,7 +19,7 @@ describe('EventTitle', () => {
 
   it('renders with everything', () => {
     const title = fromJS({ title: 'Conference Title', subtitle: 'Sub' });
-    const acronym = 'CTest';
+    const acronym = 'Test';
     const wrapper = shallow(<EventTitle title={title} acronym={acronym} />);
     expect(wrapper).toMatchSnapshot();
   });

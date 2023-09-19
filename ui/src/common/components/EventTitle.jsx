@@ -7,16 +7,17 @@ import Latex from './Latex';
 function EventTitle({ title, acronym }) {
   const mainTitle = title.get('title');
   const subTitle = title.get('subtitle');
+
   return (
     <span className="detail-page-title">
       <Latex>{mainTitle}</Latex>
       {subTitle && (
         <span>
-          <span> : </span>
+          <span>: </span>
           <Latex>{subTitle}</Latex>
         </span>
       )}
-      {acronym && <span> ({acronym})</span>}
+      {acronym && <span>{' '}({acronym})</span>}
     </span>
   );
 }
