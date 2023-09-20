@@ -1,5 +1,5 @@
 import React from 'react';
-import { Map } from 'immutable';
+import { List, Map } from 'immutable';
 import { Tooltip } from 'antd';
 
 import AffiliationList from '../AffiliationList';
@@ -28,7 +28,8 @@ const Author = ({
   }
 
   function renderAffiliationsList() {
-    const affiliations = author.get('affiliations');
+    const affiliations = author.get('affiliations') as unknown as List<any>;
+
     return (
       affiliations && (
         <span className="pl1 secondary-color">

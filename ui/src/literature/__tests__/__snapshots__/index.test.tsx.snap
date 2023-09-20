@@ -17,7 +17,6 @@ exports[`Literature navigates to DetailPageContainer when /literature/:id 1`] = 
   >
     <div
       class="ant-row ant-row-center ant-row-middle w-100"
-      type="flex"
     >
       <div
         class="ant-col"
@@ -68,7 +67,6 @@ exports[`Literature navigates to ReferenceDiffInterfaceContainer when /literatur
   >
     <div
       class="ant-row ant-row-center ant-row-middle w-100"
-      type="flex"
     >
       <div
         class="ant-col"

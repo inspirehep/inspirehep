@@ -39,7 +39,7 @@ describe('SettingsPage', () => {
     const { asFragment } = render(
       <SettingsPage
         loading={false}
-        error={error}
+        error={error as unknown as Map<string, string | number>}
         onChangeEmailAddress={jest.fn()}
         userEmail="test@test.pl"
       />

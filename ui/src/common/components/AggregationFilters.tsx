@@ -1,5 +1,5 @@
 import React from 'react';
-import { Map } from 'immutable';
+import { Map, List } from 'immutable';
 import { Row, Col } from 'antd';
 import className from 'classnames';
 
@@ -33,7 +33,7 @@ const AggregationFilters = ({
   displayWhenNoResults: boolean;
   initialAggregations: Map<string, any>;
   embedded: boolean;
-  page: number;
+  page: string;
 }) => {
   function compareAggregationEntries(
     [, aggregation1]: Map<string, any>[],
@@ -79,7 +79,7 @@ const AggregationFilters = ({
                   initialBuckets={initialAggregations.getIn([
                     aggregationKey,
                     'buckets',
-                  ])}
+                  ]) as List<any>}
                   // TODO: pass `{...agg.get('meta')}` instead of passing them separately
                   splitDisplayName={aggregation.getIn(['meta', 'split'])}
                   bucketHelp={aggregation.getIn(['meta', 'bucket_help'])}

@@ -17,6 +17,7 @@ exports[`AffiliationList renders author with multiple affiliations 1`] = `
             },
           }
         }
+        unlinked={0}
       />
        and 
     </li>
@@ -29,6 +30,7 @@ exports[`AffiliationList renders author with multiple affiliations 1`] = `
             "value": "CERN1",
           }
         }
+        unlinked={1}
       />
     </li>
   </ul>
@@ -52,6 +54,7 @@ exports[`AffiliationList renders author with one affiliation 1`] = `
             },
           }
         }
+        unlinked={0}
       />
     </li>
   </ul>

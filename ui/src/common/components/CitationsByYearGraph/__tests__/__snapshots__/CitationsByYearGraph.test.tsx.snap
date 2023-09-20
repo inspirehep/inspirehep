@@ -1700,7 +1700,6 @@ exports[`CitationsByYearGraph renders without citations 1`] = `
 <DocumentFragment>
   <div
     class="ant-row ant-row-center ant-row-middle w-100"
-    type="flex"
   >
     <div
       class="ant-col"

@@ -51,7 +51,7 @@ export const DetailPage = ({
   const shortTitle = metadata.get('short_title') as unknown as string;
   const journalTitle = metadata.get('journal_title') as unknown as string;
   const urls = metadata.get('urls') as unknown as List<string>;
-  const publicNotes = metadata.get('public_notes') as unknown as string[];
+  const publicNotes = metadata.get('public_notes') as unknown as List<string>;
   const titleVariants = metadata.get(
     'title_variants'
   ) as unknown as List<string>;

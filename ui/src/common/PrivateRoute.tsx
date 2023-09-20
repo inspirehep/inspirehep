@@ -1,6 +1,7 @@
 import React, { ComponentPropsWithoutRef } from 'react';
 import { connect, RootStateOrAny } from 'react-redux';
 import { List } from 'immutable';
+import { RouteProps } from 'react-router-dom';
 
 import RouteOrRedirect from './components/RouteOrRedirect';
 import { isAuthorized } from './authorization';

@@ -72,7 +72,7 @@ function DetailPage({
 }) {
   const authorFacetName = publicationsQuery.getIn(['author', 0]) as string;
   const metadata = record.get('metadata');
-  const updateTime = record.get('updated') as string;
+  const updateTime = record.get('updated') as Date;
   useEffect(
     () => {
       // check if author is fetched and author facet name is added to query of AUTHOR_PUBLICATIONS_NS

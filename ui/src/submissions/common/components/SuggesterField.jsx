@@ -56,6 +56,7 @@ class SuggesterField extends Component {
 
 SuggesterField.defaultProps = {
   extractItemCompletionValue: resultItem => resultItem.text,
+  searchasyoutype: "false",
 };
 
 export default withFormItem(SuggesterField);

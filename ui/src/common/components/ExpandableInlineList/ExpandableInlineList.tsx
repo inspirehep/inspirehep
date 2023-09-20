@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
+import React, { ComponentPropsWithoutRef, useState } from 'react';
 import { List } from 'immutable';
 
 import InlineDataList from '../InlineList';
 import ExpandListToggle from '../ExpandListToggle';
 
+interface ExpandableInlineListProps extends ComponentPropsWithoutRef<any> {
+  items: List<any>;
+  limit: number;
+}
+
 const ExpandableInlineList = ({
   limit,
   items,
   ...listProps
-}: {
-  limit: number;
-  items: List<any>;
-  listProps: any;
-}) => {
+}: ExpandableInlineListProps) => {
   const [expanded, setExpanded] = useState(false);
   const maybeLimitedItem = expanded ? items : items?.take(limit);
 
