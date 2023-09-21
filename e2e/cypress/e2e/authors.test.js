@@ -129,13 +129,13 @@ describe('Author Submission', () => {
       collection: 'authors',
       recordId,
       formData: {
-        display_name: ': Updated',
+        native_name: 'Updated',
       },
       expectedMetadata: {
         name: {
           value: 'Ellis, John Richard',
-          name_variants: [ 'Ellis, Jonathan Richard' ],
-          preferred_name: expectedMetadata.name.value + ': Updated',
+          name_variants: ['Ellis, Jonathan Richard'],
+          preferred_name: expectedMetadata.name.native_name + 'Updated',
         },
       },
     });
