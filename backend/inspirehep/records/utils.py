@@ -85,7 +85,7 @@ def download_file_from_url(url, check_file_size=False):
         if check_file_size and content_length and content_length > file_size_limit:
 
             raise FileSizeExceededError(
-                f"File size {content_length} is larger than the limit {file_size_limit}."
+                f"Can't download file from url {download_url}. File size {content_length} is larger than the limit {file_size_limit}."
             )
     except requests.exceptions.RequestException as exc:
         raise DownloadFileError(
