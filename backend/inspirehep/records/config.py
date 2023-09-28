@@ -706,7 +706,6 @@ LITERATURE_SOURCE_EXCLUDES_BY_CONTENT_TYPE = {
         "_bibtex_display",
         "_cv_format",
     ],
-    "text/html": ["_cv_format"],
 }
 
 
