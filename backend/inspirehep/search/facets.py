@@ -81,12 +81,12 @@ def must_match_all_filter(field):
     return inner
 
 
-def hep_subject_must_match_all_or_missing_filter(field):
+def must_match_all_or_missing_filter(field, missing_field_value):
     """Bool filter containing a list of must matches."""
 
     def inner(values):
 
-        if current_app.config.get("SUBJECT_MISSING_VALUE") in values:
+        if missing_field_value in values:
             filters = ~Q("exists", field=field)
 
         else:
