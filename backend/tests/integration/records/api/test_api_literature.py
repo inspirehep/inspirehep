@@ -2139,6 +2139,36 @@ def test_arxiv_url_also_supports_format_alias(inspire_app):
     assert response_cv.content_type == expected_cv_type
 
 
+def test_cv_format_regression(inspire_app):
+    expected_cv_type = "text/vnd+inspire.html+html; charset=utf-8"
+
+    data = {
+        "control_number": 102030,
+        "titles": [{"title": "Test"}],
+        "arxiv_eprints": [
+            {"value": "1607.06746", "categories": ["hep-th"]},
+        ],
+        "authors": [
+            {
+                "ids": [{"schema": "INSPIRE BAI", "value": "Joshua.Isaacson.1"}],
+                "full_name": "Test, test",
+            }
+        ],
+    }
+    lit_record = create_record("lit", data)
+
+    with inspire_app.test_client() as client:
+        url = "api/literature?format=cv&q=a%20Joshua.Isaacson.1"
+        response_cv = client.get(
+            url, headers={"Accept": "text/html,application/xhtml+xml,application/xml"}
+        )
+
+    assert response_cv.status_code == 200
+    response_data = response_cv.data.decode()
+    assert str(lit_record["control_number"]) in response_data
+    assert response_cv.content_type == expected_cv_type
+
+
 def test_literature_get_modified_authors_after_create(inspire_app):
     data = {
         "authors": [
