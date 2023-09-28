@@ -414,6 +414,8 @@ def test_jobs_field_of_interest_aggregation_and_filter(inspire_app, override_con
         expected_record = create_record("job", data)
         data = {"arxiv_categories": ["hep-ex"], "status": "open"}
         create_record("job", data)
+        data = {"status": "open"}
+        expected_record_without_arxiv_category = create_record("job", data)
         with inspire_app.test_client() as client:
             response = client.get("/jobs/facets").json
         expected_aggregation = {
@@ -421,6 +423,7 @@ def test_jobs_field_of_interest_aggregation_and_filter(inspire_app, override_con
             "doc_count_error_upper_bound": 0,
             "sum_other_doc_count": 0,
             "buckets": [
+                {"key": "Other", "doc_count": 1},
                 {"key": "hep-ex", "doc_count": 1},
                 {"key": "physics", "doc_count": 1},
             ],
@@ -434,6 +437,13 @@ def test_jobs_field_of_interest_aggregation_and_filter(inspire_app, override_con
             response["hits"]["hits"][0]["metadata"]["control_number"]
             == expected_record["control_number"]
         )
+        with inspire_app.test_client() as client:
+            response = client.get("/jobs?field_of_interest=Other").json
+            assert len(response["hits"]["hits"]) == 1
+            assert (
+                response["hits"]["hits"][0]["metadata"]["control_number"]
+                == expected_record_without_arxiv_category["control_number"]
+            )
 
 
 def test_jobs_rank_aggregation_and_filter(inspire_app, override_config):

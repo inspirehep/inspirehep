@@ -55,8 +55,8 @@ from inspirehep.search.facets import (
     hep_experiment_papers_cataloger,
     hep_institution_papers,
     hep_institution_papers_cataloger,
-    hep_subject_must_match_all_or_missing_filter,
     must_match_all_filter,
+    must_match_all_or_missing_filter,
     range_author_count_filter,
     records_conferences,
     records_experiments,
@@ -561,14 +561,14 @@ HEP_FILTERS = {
     "curation_collection": filter_from_filters_aggregation(
         hep_curation_collection_aggregation(order=1)
     ),
-    "subject": hep_subject_must_match_all_or_missing_filter("facet_inspire_categories"),
+    "subject": must_match_all_or_missing_filter("facet_inspire_categories", "Unknown"),
     "arxiv_categories": must_match_all_filter("facet_arxiv_categories"),
     "experiments": must_match_all_filter("facet_experiment"),
     "rpp": filter_from_filters_aggregation(hep_rpp(order=1)),
 }
 
 JOBS_FILTERS = {
-    "field_of_interest": terms_filter("arxiv_categories"),
+    "field_of_interest": must_match_all_or_missing_filter("arxiv_categories", "Other"),
     "rank": terms_filter("ranks"),
     "region": terms_filter("regions"),
     "status": terms_filter("status"),
