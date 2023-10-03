@@ -7,11 +7,6 @@ on:
         description: The reference to build
         type: string
         required: true
-      search:
-        description: Search engine name
-        type: string
-        default: 'elasticsearch'
-        required: false
     outputs:
       backend-image-id:
         description: The ID of image that has been buit
@@ -47,7 +42,6 @@ jobs:
     uses: ./.github/workflows/backend-tests.yml
     with:
       ref: ${{ inputs.ref }}
-      search: ${{ inputs.search }}
       image: "inspirehep/hep@${{ needs.build-backend.outputs.image-id }}"
       suite: ${{ matrix.suite }}
       splits: ${{ matrix.splits }}
@@ -114,7 +108,6 @@ jobs:
     needs: [ build-backend, build-ui, build-editor ]
     uses: ./.github/workflows/e2e-tests.yml
     with:
-      search: ${{ inputs.search }}
       ref: ${{ inputs.ref }}
       backend-image: "inspirehep/hep@${{ needs.build-backend.outputs.image-id }}"
       ui-image: "inspirehep/ui@${{ needs.build-ui.outputs.image-id }}"

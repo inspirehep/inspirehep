@@ -15,10 +15,6 @@ on:
         description: The editor image
         type: string
         required: true
-      search:
-        description: Search engine name
-        type: string
-        required: True
       ui-image:
         description: The UI image
         type: string
@@ -56,7 +52,7 @@ jobs:
           - 5672:5672
 
       elasticsearch:
-        image: registry.cern.ch/cern-sis/inspirehep/${{ inputs.search }}
+        image: registry.cern.ch/cern-sis/inspirehep/opensearch
         env:
           DISABLE_SECURITY_PLUGIN: true
           bootstrap.memory_lock: true
