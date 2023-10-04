@@ -38,8 +38,12 @@ describe('Conference Search', () => {
   });
 
 
+<<<<<<< HEAD
   onlyOn('headless').onlyOn('electron', () => {
 >>>>>>> 3c5b2fa4 (chain onlyOn)
+=======
+  onlyOn('electron', () => {
+>>>>>>> fcfa8605 (unchain onlyOn)
     it('matches image snapshot', () => {
       cy.registerRoute();
       cy.visit('/conferences?start_date=all');
@@ -61,7 +65,7 @@ describe('Conference Search', () => {
 });
 
 describe('Conference Detail', () => {
-  onlyOn('headless').onlyOn('electron', () => {
+  onlyOn('electron', () => {
     it('matches image snapshot', () => {
       cy.registerRoute();
       cy.visit('/conferences/1217045?ui-citation-summary=true');
@@ -116,7 +120,7 @@ describe('Conference Submission', () => {
     cy.login('cataloger');
   });
 
-  onlyOn('headless').onlyOn('electron', () => {
+  onlyOn('electron', () => {
     it('matches image snapshot', () => {
       cy.visit('/submissions/conferences');
       cy.get('form').should('be.visible');

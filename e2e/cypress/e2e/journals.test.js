@@ -1,7 +1,7 @@
 import { onlyOn, skipOn } from '@cypress/skip-test';
 
 describe('Journal Detail', () => {
-  onlyOn('headless').onlyOn('electron', () => {
+  onlyOn('electron', () => {
     it('matches image snapshot', () => {
       cy.registerRoute();
       cy.visit('/journals/1213103');
@@ -14,7 +14,7 @@ describe('Journal Detail', () => {
 });
 
 describe('Journal Search', () => {
-  onlyOn('headless').onlyOn('electron', () => {
+  onlyOn('electron', () => {
     it('matches image snapshot', () => {
       cy.registerRoute();
       cy.visit('/journals');

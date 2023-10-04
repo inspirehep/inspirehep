@@ -1,7 +1,7 @@
 import { onlyOn, skipOn } from '@cypress/skip-test';
 
 describe('Author Detail', () => {
-  onlyOn('headless').onlyOn('electron', () => {
+  onlyOn('electron', () => {
     it('matches image snapshot', () => {
       cy.registerRoute();
       cy.visit('/authors/1274753?ui-citation-summary=true');
@@ -14,7 +14,7 @@ describe('Author Detail', () => {
 });
 
 describe('Author Search', () => {
-  onlyOn('headless').onlyOn('electron', () => {
+  onlyOn('electron', () => {
     it('matches image snapshot', () => {
       cy.registerRoute();
       cy.visit('/authors');
@@ -49,7 +49,7 @@ describe('Author Search', () => {
 });
 
 describe('Author Submission', () => {
-  onlyOn('headless').onlyOn('electron', () => {
+  onlyOn('electron', () => {
     it('matches image snapshot', () => {
       cy.login('cataloger');
       cy.visit('/submissions/authors');

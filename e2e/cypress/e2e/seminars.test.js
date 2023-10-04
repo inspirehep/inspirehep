@@ -2,7 +2,7 @@ import { onlyOn, skipOn } from '@cypress/skip-test';
 import moment from 'moment';
 
 describe('Seminar Search', () => {
-  onlyOn('headless').onlyOn('electron', () => {
+  onlyOn('electron', () => {
     it('matches image snapshot', () => {
       cy.registerRoute();
       cy.visit('/seminars?start_date=all');
@@ -14,7 +14,7 @@ describe('Seminar Search', () => {
 });
 
 describe('Seminar Detail', () => {
-  onlyOn('headless').onlyOn('electron', () => {
+  onlyOn('electron', () => {
     it('matches image snapshot', () => {
       cy.registerRoute();
       cy.visit('/seminars/1799778');
@@ -29,7 +29,7 @@ describe('Seminar Submission', () => {
     cy.login('cataloger');
   });
 
-  onlyOn('headless').onlyOn('electron', () => {
+  onlyOn('electron', () => {
     it('matches image snapshot', () => {
       cy.visit('/submissions/seminars');
       cy.get('form').should('be.visible');

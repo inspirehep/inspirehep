@@ -1,7 +1,7 @@
 import { onlyOn, skipOn } from '@cypress/skip-test';
 
 describe('Institution Search', () => {
-  onlyOn('headless').onlyOn('electron', () => {
+  onlyOn('electron', () => {
     it('matches image snapshot', () => {
       cy.registerRoute();
       cy.visit('/institutions');
@@ -13,7 +13,7 @@ describe('Institution Search', () => {
 });
 
 describe('Institution Detail', () => {
-  onlyOn('headless').onlyOn('electron', () => {
+  onlyOn('electron', () => {
     it('matches image snapshot', () => {
       cy.registerRoute();
       cy.visit('/institutions/902858?ui-citation-summary=true');
@@ -29,7 +29,7 @@ describe('Institution Submission', () => {
     cy.login('cataloger');
   });
 
-  onlyOn('headless').onlyOn('electron', () => {
+  onlyOn('electron', () => {
     it('matches image snapshot', () => {
       cy.visit('/submissions/institutions');
       cy.get('form').should('be.visible');

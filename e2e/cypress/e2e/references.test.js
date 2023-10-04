@@ -2,7 +2,7 @@ import { onlyOn, skipOn } from '@cypress/skip-test';
 
 describe('References', () => {
   describe('Reference Search', () => {
-    onlyOn('headless').onlyOn('electron', () => {
+    onlyOn('electron', () => {
       it('matches image snapshot for reference search', () => {
         
         cy.registerRoute();
@@ -51,7 +51,7 @@ describe('References', () => {
   });
 
   describe('Reference container', () => {
-    onlyOn('headless').onlyOn('electron', () => {
+    onlyOn('electron', () => {
       it('number of references per page', () => {
         cy.on('uncaught:exception', (err, runnable) => {
           return false;

@@ -2,7 +2,7 @@ import { onlyOn, skipOn } from '@cypress/skip-test';
 import moment from 'moment';
 
 describe('Job Search', () => {
-  onlyOn('headless').onlyOn('electron', () => {
+  onlyOn('electron', () => {
     it('matches image snapshot', () => {
       cy.clock(1688594400000);
       cy.registerRoute();
@@ -15,7 +15,7 @@ describe('Job Search', () => {
 });
 
 describe('Job Detail', () => {
-  onlyOn('headless').onlyOn('electron', () => {
+  onlyOn('electron', () => {
     it('matches image snapshot', () => {
       cy.clock(1688594400000);
       cy.registerRoute();
@@ -31,7 +31,7 @@ describe('Job Submission', () => {
     cy.login('cataloger');
   });
 
-  onlyOn('headless').onlyOn('electron', () => {
+  onlyOn('electron', () => {
     it('matches image snapshot', () => {
       cy.visit('/submissions/jobs');
       cy.get('form').should('be.visible');

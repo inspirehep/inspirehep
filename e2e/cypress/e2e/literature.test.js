@@ -1,7 +1,7 @@
 import { onlyOn, skipOn } from '@cypress/skip-test';
 
 describe('Literature Search', () => {
-  onlyOn('headless').onlyOn('electron', () => {
+  onlyOn('electron', () => {
     it('matches image snapshot', () => {
       cy.registerRoute();
       cy.visit('/literature?ui-citation-summary=true');
@@ -35,7 +35,7 @@ describe('Literature Search', () => {
 });
 
 describe('Literature Detail', () => {
-  onlyOn('headless').onlyOn('electron', () => {
+  onlyOn('electron', () => {
     it('matches image snapshot', () => {
       cy.registerRoute();
       cy.visit('/literature/1235543');
@@ -50,7 +50,7 @@ describe('Literature Submission', () => {
     cy.login('cataloger');
   });
 
-  onlyOn('headless').onlyOn('electron', () => {
+  onlyOn('electron', () => {
     it('matches image snapshot for article form', () => {
       cy.visit('/submissions/literature');
       cy.selectLiteratureDocType('article');
