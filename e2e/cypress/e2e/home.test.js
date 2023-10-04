@@ -1,4 +1,4 @@
-import { onlyOn } from '@cypress/skip-test';
+import { onlyOn, skipOn } from '@cypress/skip-test';
 
 describe('Home Page', () => {
   onlyOn('headless', () => {
@@ -11,16 +11,18 @@ describe('Home Page', () => {
     });
   });
   
-  it('scrolls to How to Search section on button click', () => {
-    cy.on('uncaught:exception', () => {
-      return false;
+  skipOn('electron', () => {
+    it('scrolls to How to Search section on button click', () => {
+      cy.on('uncaught:exception', () => {
+        return false;
+      });
+      cy.registerRoute();
+      cy.visit('/');
+      cy.waitForRoute();
+  
+      cy.get('[data-test-id="scroll-button"]').click();
+      cy.get('[data-test-id="how-to-search"]').should('be.visible');
     });
-    cy.registerRoute();
-    cy.visit('/');
-    cy.waitForRoute();
-
-    cy.get('[data-test-id="scroll-button"]').click();
-    cy.get('[data-test-id="how-to-search"]').should('be.visible');
   });
 });
 

@@ -1,31 +1,33 @@
-import { onlyOn } from '@cypress/skip-test';
+import { onlyOn, skipOn } from '@cypress/skip-test';
 
 describe('user', () => {
-  it('logs in via local login form and then logs out', () => {
-    const username = `cataloger@inspirehep.net`;
-    const password = '123456';
-    cy.visit('/user/login/local');
-
-    cy.registerRoute({
-      url: '/api/accounts/login',
-      method: 'POST',
+  skipOn('electron', () => {
+    it('logs in via local login form and then logs out', () => {
+      const username = `cataloger@inspirehep.net`;
+      const password = '123456';
+      cy.visit('/user/login/local');
+  
+      cy.registerRoute({
+        url: '/api/accounts/login',
+        method: 'POST',
+      });
+  
+      cy.get('[data-test-id=email]')
+        .type(username)
+        .get('[data-test-id=password]')
+        .type(password)
+        .get('[data-test-id=login]')
+        .click();;
+  
+      cy.waitForRoute('/api/accounts/login').its('response.statusCode').should('equal', 200);
+  
+      cy.registerRoute('/api/accounts/logout');
+  
+      cy.get('.ant-menu-title-content').contains('Account').trigger('mouseover')
+      cy.get('[data-test-id="logout"]').children().first().click();
+  
+      cy.waitForRoute('/api/accounts/logout').its('response.statusCode').should('equal', 200);
     });
-
-    cy.get('[data-test-id=email]')
-      .type(username)
-      .get('[data-test-id=password]')
-      .type(password)
-      .get('[data-test-id=login]')
-      .click();;
-
-    cy.waitForRoute('/api/accounts/login').its('response.statusCode').should('equal', 200);
-
-    cy.registerRoute('/api/accounts/logout');
-
-    cy.get('.ant-menu-title-content').contains('Account').trigger('mouseover')
-    cy.get('[data-test-id="logout"]').children().first().click();
-
-    cy.waitForRoute('/api/accounts/logout').its('response.statusCode').should('equal', 200);
   });
 
   onlyOn('headless', () => {

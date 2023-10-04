@@ -1,56 +1,60 @@
-import { onlyOn } from '@cypress/skip-test';
+import { onlyOn, skipOn } from '@cypress/skip-test';
 import _ from 'lodash';
 
 describe('Literature and Authors', () => {
-  it('literature:search -> literautre:detail -> authors:detail -> authors:publications', () => {
-    cy.registerRoute('*/literature?*');
-    cy.visit('/literature?q=a%20Grit%20Hotzel');
-    cy.waitForRoute('*/literature?*');
-    cy.waitForSearchResults();
-
-    cy.get('[data-test-id="literature-result-title-link"]')
-      .first()
-      .click()
-      .text()
-      .as('literature-title');
-
-    cy.registerRoute('**/literature**search_type=hep-author-publication**');
-
-    cy.get('[data-test-id="author-link"]')
-      .contains('Grit Hotzel')
-      .click({ force: true });
-
-    cy.waitForRoute('**/literature**search_type=hep-author-publication**');
-    cy.waitForSearchResults();
-
-    cy.get('[data-test-id="literature-result-title-link"]')
-      .first()
-      .then((title$) => {
-        cy.get('@literature-title').should('equal', title$.text());
-      });
+  skipOn('electron', () => {
+    it('literature:search -> literautre:detail -> authors:detail -> authors:publications', () => {
+      cy.registerRoute('*/literature?*');
+      cy.visit('/literature?q=a%20Grit%20Hotzel');
+      cy.waitForRoute('*/literature?*');
+      cy.waitForSearchResults();
+  
+      cy.get('[data-test-id="literature-result-title-link"]')
+        .first()
+        .click()
+        .text()
+        .as('literature-title');
+  
+      cy.registerRoute('**/literature**search_type=hep-author-publication**');
+  
+      cy.get('[data-test-id="author-link"]')
+        .contains('Grit Hotzel')
+        .click({ force: true });
+  
+      cy.waitForRoute('**/literature**search_type=hep-author-publication**');
+      cy.waitForSearchResults();
+  
+      cy.get('[data-test-id="literature-result-title-link"]')
+        .first()
+        .then((title$) => {
+          cy.get('@literature-title').should('equal', title$.text());
+        });
+    });
   });
 });
 
 describe('Literature and Conferences', () => {
-  it('literature:detail -> conferences:detail -> conferences:contributions', () => {
-    cy.registerRoute('*/literature?*');
-
-    cy.visit('/literature/1787272');
-    cy.waitForLoading();
-
-    cy.get('[data-test-id="literature-detail-title"]')
-      .invoke('text')
-      .as('literature-title');
-
-    cy.registerRoute();
-
-    cy.get('[data-test-id="literature-conference-link"]', { timeout: 10000 }).click();
-
-    cy.waitForRoute();
-    cy.waitForSearchResults();
-    cy.get('[data-test-id="literature-result-title-link"]').then((titles$) => {
-      const titles = titles$.toArray().map((title) => title.text);
-      cy.get('@literature-title').should('be.oneOf', titles);
+  skipOn('electron', () => {
+    it('literature:detail -> conferences:detail -> conferences:contributions', () => {
+      cy.registerRoute('*/literature?*');
+  
+      cy.visit('/literature/1787272');
+      cy.waitForLoading();
+  
+      cy.get('[data-test-id="literature-detail-title"]')
+        .invoke('text')
+        .as('literature-title');
+  
+      cy.registerRoute();
+  
+      cy.get('[data-test-id="literature-conference-link"]', { timeout: 10000 }).click();
+  
+      cy.waitForRoute();
+      cy.waitForSearchResults();
+      cy.get('[data-test-id="literature-result-title-link"]').then((titles$) => {
+        const titles = titles$.toArray().map((title) => title.text);
+        cy.get('@literature-title').should('be.oneOf', titles);
+      });
     });
   });
 });
@@ -123,7 +127,7 @@ describe('Assign Conference', () => {
 });
 
 describe('Export to CDS', () => {
-  onlyOn('headless', () => {
+  skipOn('electron', () => {
     it('check if record has CDS:true', () => {
       cy.login('admin');
       cy.registerRoute();
