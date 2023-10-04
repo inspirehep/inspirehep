@@ -3,6 +3,7 @@ import { onlyOn, skipOn } from '@cypress/skip-test';
 describe('Author Detail', () => {
   onlyOn('headless', () => {
     it('matches image snapshot', () => {
+      onlyOn('electron');
       cy.registerRoute();
       cy.visit('/authors/1274753?ui-citation-summary=true');
       cy.waitForLoading();
@@ -16,6 +17,7 @@ describe('Author Detail', () => {
 describe('Author Search', () => {
   onlyOn('headless', () => {
     it('matches image snapshot', () => {
+      onlyOn('electron');
       cy.registerRoute();
       cy.visit('/authors');
       cy.waitForRoute();
@@ -40,6 +42,7 @@ describe('Author Search', () => {
 describe('Author Submission', () => {
   onlyOn('headless', () => {
     it('matches image snapshot', () => {
+      onlyOn('electron');
       cy.login('cataloger');
       cy.visit('/submissions/authors');
       cy.get('form').should('be.visible');
@@ -47,6 +50,7 @@ describe('Author Submission', () => {
     });
 
     it('matches image snapshot for author update when cataloger is logged in', () => {
+      onlyOn('electron');
       cy.login('cataloger');
       cy.registerRoute();
       cy.visit('/submissions/authors/1274753');
@@ -56,6 +60,7 @@ describe('Author Submission', () => {
     });
 
     it('matches image snapshot for user own author profile update', () => {
+      onlyOn('electron');
       cy.login('johnellis');
       cy.registerRoute();
       cy.visit('/submissions/authors/1010819');

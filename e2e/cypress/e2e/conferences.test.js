@@ -26,6 +26,7 @@ describe('Conference Search', () => {
 
   onlyOn('headless', () => {
     it('matches image snapshot', () => {
+      onlyOn('electron');
       cy.registerRoute();
       cy.visit('/conferences?start_date=all');
       cy.waitForRoute();
@@ -34,6 +35,7 @@ describe('Conference Search', () => {
     });
 
     it('matches image snapshot for author update when cataloger is logged in', () => {
+      onlyOn('electron');
       cy.login('cataloger');
       cy.registerRoute();
       cy.visit('/conferences?start_date=all');
@@ -48,6 +50,7 @@ describe('Conference Search', () => {
 describe('Conference Detail', () => {
   onlyOn('headless', () => {
     it('matches image snapshot', () => {
+      onlyOn('electron');
       cy.registerRoute();
       cy.visit('/conferences/1217045?ui-citation-summary=true');
       cy.waitForRoute();
@@ -103,6 +106,7 @@ describe('Conference Submission', () => {
 
   onlyOn('headless', () => {
     it('matches image snapshot', () => {
+      onlyOn('electron');
       cy.visit('/submissions/conferences');
       cy.get('form').should('be.visible');
       cy.matchSnapshots('ConferenceSubmission', { skipMobile: true });

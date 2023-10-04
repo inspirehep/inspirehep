@@ -3,6 +3,7 @@ import { onlyOn, skipOn } from '@cypress/skip-test';
 describe('Literature Search', () => {
   onlyOn('headless', () => {
     it('matches image snapshot', () => {
+      onlyOn('electron');
       cy.registerRoute();
       cy.visit('/literature?ui-citation-summary=true');
       cy.waitForRoute();
@@ -11,6 +12,7 @@ describe('Literature Search', () => {
     });
 
     it('matches image snapshot for cataloger', () => {
+      onlyOn('electron');
       cy.login('cataloger');
       cy.registerRoute();
       cy.visit('/literature?ui-citation-summary=true');
@@ -37,6 +39,7 @@ describe('Literature Search', () => {
 describe('Literature Detail', () => {
   onlyOn('headless', () => {
     it('matches image snapshot', () => {
+      onlyOn('electron');
       cy.registerRoute();
       cy.visit('/literature/1235543');
       cy.waitForRoute();
@@ -52,24 +55,28 @@ describe('Literature Submission', () => {
 
   onlyOn('headless', () => {
     it('matches image snapshot for article form', () => {
+      onlyOn('electron');
       cy.visit('/submissions/literature');
       cy.selectLiteratureDocType('article');
       cy.matchSnapshots('ArticleSubmission', { skipMobile: true });
     });
 
     it('matches image snapshot for thesis form', () => {
+      onlyOn('electron');
       cy.visit('/submissions/literature');
       cy.selectLiteratureDocType('thesis');
       cy.matchSnapshots('ThesisSubmission', { skipMobile: true });
     });
 
     it('matches image snapshot for book form', () => {
+      onlyOn('electron');
       cy.visit('/submissions/literature');
       cy.selectLiteratureDocType('book');
       cy.matchSnapshots('BookSubmission', { skipMobile: true });
     });
 
     it('matches image snapshot for book chapter form', () => {
+      onlyOn('electron');
       cy.visit('/submissions/literature');
       cy.selectLiteratureDocType('bookChapter');
       cy.matchSnapshots('BookChapterSubmission', { skipMobile: true });

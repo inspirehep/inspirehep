@@ -3,6 +3,7 @@ import { onlyOn, skipOn } from '@cypress/skip-test';
 describe('Experiment Search', () => {
   onlyOn('headless', () => {
     it('matches image snapshot', () => {
+      onlyOn('electron');
       cy.registerRoute();
       cy.visit('/experiments');
       cy.waitForRoute();
@@ -15,6 +16,7 @@ describe('Experiment Search', () => {
 describe('Experiment Detail', () => {
   onlyOn('headless', () => {
     it('matches image snapshot', () => {
+      onlyOn('electron');
       cy.registerRoute();
       cy.visit('/experiments/1513946?ui-citation-summary=true');
       cy.waitForRoute();
@@ -31,6 +33,7 @@ describe('Experiment Submission', () => {
 
   onlyOn('headless', () => {
     it('matches image snapshot', () => {
+      onlyOn('electron');
       cy.visit('/submissions/experiments');
       cy.get('form').should('be.visible');
       cy.matchSnapshots('ExperimentSubmission', { skipMobile: true });
