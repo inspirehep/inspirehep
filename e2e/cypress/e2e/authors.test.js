@@ -1,9 +1,8 @@
 import { onlyOn, skipOn } from '@cypress/skip-test';
 
 describe('Author Detail', () => {
-  onlyOn('headless', () => {
+  onlyOn('headless').onlyOn('electron', () => {
     it('matches image snapshot', () => {
-      onlyOn('electron');
       cy.registerRoute();
       cy.visit('/authors/1274753?ui-citation-summary=true');
       cy.waitForLoading();
@@ -15,9 +14,8 @@ describe('Author Detail', () => {
 });
 
 describe('Author Search', () => {
-  onlyOn('headless', () => {
+  onlyOn('headless').onlyOn('electron', () => {
     it('matches image snapshot', () => {
-      onlyOn('electron');
       cy.registerRoute();
       cy.visit('/authors');
       cy.waitForRoute();
@@ -26,6 +24,7 @@ describe('Author Search', () => {
     });
   });
 
+<<<<<<< HEAD
   skipOn('electron', () => {
     it('link to update own profile leads to submissions', () => {
       cy.login('johnellis');
@@ -36,13 +35,22 @@ describe('Author Search', () => {
       cy.waitForRoute();
       cy.contains('a', 'edit').should('have.attr', 'href', expectedUrl);
     });
+=======
+  it('link to update own profile leads to submissions', () => {
+    cy.login('johnellis');
+    const recordId = 1010819;
+    const expectedUrl = `/submissions/authors/${recordId}`;
+    cy.registerRoute();
+    cy.visit(`/authors?q=control_number:${recordId}`);
+    cy.waitForRoute();
+    cy.contains('a', 'edit').should('have.attr', 'href', expectedUrl);
+>>>>>>> 3c5b2fa4 (chain onlyOn)
   });
 });
 
 describe('Author Submission', () => {
-  onlyOn('headless', () => {
+  onlyOn('headless').onlyOn('electron', () => {
     it('matches image snapshot', () => {
-      onlyOn('electron');
       cy.login('cataloger');
       cy.visit('/submissions/authors');
       cy.get('form').should('be.visible');
@@ -50,7 +58,6 @@ describe('Author Submission', () => {
     });
 
     it('matches image snapshot for author update when cataloger is logged in', () => {
-      onlyOn('electron');
       cy.login('cataloger');
       cy.registerRoute();
       cy.visit('/submissions/authors/1274753');
@@ -60,7 +67,6 @@ describe('Author Submission', () => {
     });
 
     it('matches image snapshot for user own author profile update', () => {
-      onlyOn('electron');
       cy.login('johnellis');
       cy.registerRoute();
       cy.visit('/submissions/authors/1010819');

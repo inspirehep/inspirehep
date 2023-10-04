@@ -2,9 +2,9 @@ import { onlyOn, skipOn } from '@cypress/skip-test';
 
 describe('References', () => {
   describe('Reference Search', () => {
-    onlyOn('headless', () => {
+    onlyOn('headless').onlyOn('electron', () => {
       it('matches image snapshot for reference search', () => {
-        onlyOn('electron');
+        
         cy.registerRoute();
         cy.visit(
           '/literature?sort=mostrecent&size=25&page=1&q=citedby%3Arecid%3A1322719'
@@ -51,7 +51,7 @@ describe('References', () => {
   });
 
   describe('Reference container', () => {
-    onlyOn('headless', () => {
+    onlyOn('headless').onlyOn('electron', () => {
       it('number of references per page', () => {
         cy.on('uncaught:exception', (err, runnable) => {
           return false;

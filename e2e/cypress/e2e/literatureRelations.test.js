@@ -60,9 +60,8 @@ describe('Literature and Conferences', () => {
 });
 
 describe('Assign Conference', () => {
-  onlyOn('headless', () => {
+  onlyOn('headless').onlyOn('electron', () => {
     it('matches image snapshot', () => {
-      onlyOn('electron');
       cy.login('admin');
       cy.registerRoute();
       cy.visit('/literature');
@@ -128,6 +127,7 @@ describe('Assign Conference', () => {
 });
 
 describe('Export to CDS', () => {
+<<<<<<< HEAD
   skipOn('electron', () => {
     it('check if record has CDS:true', () => {
       cy.login('admin');
@@ -178,6 +178,56 @@ describe('Export to CDS', () => {
         expect(_.find(response.body.metadata._export_to, { CDS: true }));
       });
       cy.logout();
+=======
+  it('check if record has CDS:true', () => {
+    cy.login('admin');
+    cy.registerRoute();
+    cy.visit('/literature');
+    cy.waitForRoute();
+    cy.waitForSearchResults();
+    cy.get('[data-test-id="search-results"]')
+      .children()
+      .contains('Correlated Weyl Fermions in Oxides')
+      .parentsUntil('[data-test-id="search-results"]')
+      .find('[type="checkbox"]')
+      .check();
+    cy.get('[data-test-id="search-results"]')
+      .children()
+      .contains('Muon g – 2 theory: The hadronic part')
+      .parentsUntil('[data-test-id="search-results"]')
+      .find('[type="checkbox"]')
+      .check();
+    cy.get('[type="button"]')
+      .contains('tools')
+      .trigger('mouseover', { force: true });
+    cy.get('[data-test-id="export-to-CDS"]', { timeout: 5000 }).should(
+      'be.visible'
+    );
+    cy.get('[data-test-id="export-to-CDS"]').click();
+    cy.get('.ant-modal', { timeout: 5000 }).should('be.visible');
+    cy.get('.ant-modal')
+      .find('[type="button"]')
+      .contains('Confirm')
+      .click({ force: true });
+    cy.wait(3000);
+    cy.get('.ant-notification-notice')
+      .contains('Export successful!')
+      .should('be.visible');
+    cy.request({
+      url: '/api/literature/1787272',
+      failOnStatusCode: false,
+    }).then((response) => {
+      expect(response).property('status').to.equal(200);
+      expect(_.find(response.body.metadata._export_to, { CDS: true }));
+>>>>>>> 3c5b2fa4 (chain onlyOn)
     });
+    cy.request({
+      url: '/api/literature/1597429',
+      failOnStatusCode: false,
+    }).then((response) => {
+      expect(response).property('status').to.equal(200);
+      expect(_.find(response.body.metadata._export_to, { CDS: true }));
+    });
+    cy.logout();
   });
 });

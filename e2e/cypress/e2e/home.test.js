@@ -1,9 +1,8 @@
 import { onlyOn, skipOn } from '@cypress/skip-test';
 
 describe('Home Page', () => {
-  onlyOn('headless', () => {
+  onlyOn('headless').onlyOn('electron', () => {
     it('matches image snapshot', () => {
-      onlyOn('electron');
       cy.registerRoute();
       cy.visit('/');
       cy.waitForRoute();
@@ -28,18 +27,16 @@ describe('Home Page', () => {
 });
 
 describe('News and Updates', () => {
-  onlyOn('headless', () => {
-    it('renders 3 latest blog posts', () => {
-      cy.on('uncaught:exception', () => {
-        return false;
-      });
-      cy.registerRoute();
-      cy.visit('/');
-      cy.waitForRoute();
-      cy.waitForLoading(80000);
-
-      cy.get('[data-test-id="news-post"]').as('newsAndUpdates');
-      cy.get('@newsAndUpdates').should('have.length', 3);
+  it('renders 3 latest blog posts', () => {
+    cy.on('uncaught:exception', () => {
+      return false;
     });
+    cy.registerRoute();
+    cy.visit('/');
+    cy.waitForRoute();
+    cy.waitForLoading(80000);
+
+    cy.get('[data-test-id="news-post"]').as('newsAndUpdates');
+    cy.get('@newsAndUpdates').should('have.length', 3);
   });
 });

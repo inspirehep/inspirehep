@@ -8,9 +8,8 @@ describe('settings', () => {
     cy.visit('/user/settings');
   });
 
-  onlyOn('headless', () => {
+  onlyOn('headless').onlyOn('electron', () => {
     it('matches image snapshot', () => {
-      onlyOn('electron');
       cy.visit('/user/settings');
       cy.wait(2000);
       cy.matchSnapshots('Settings');
