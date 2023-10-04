@@ -1,4 +1,4 @@
-import { onlyOn } from '@cypress/skip-test';
+import { onlyOn, skipOn } from '@cypress/skip-test';
 
 describe('Author Detail', () => {
   onlyOn('headless', () => {
@@ -23,14 +23,17 @@ describe('Author Search', () => {
       cy.matchSnapshots('AuthorSearch');
     });
   });
-  it('link to update own profile leads to submissions', () => {
-    cy.login('johnellis');
-    const recordId = 1010819;
-    const expectedUrl = `/submissions/authors/${recordId}`;
-    cy.registerRoute();
-    cy.visit(`/authors?q=control_number:${recordId}`);
-    cy.waitForRoute();
-    cy.contains('a', 'edit').should('have.attr', 'href', expectedUrl);
+
+  skipOn('electron', () => {
+    it('link to update own profile leads to submissions', () => {
+      cy.login('johnellis');
+      const recordId = 1010819;
+      const expectedUrl = `/submissions/authors/${recordId}`;
+      cy.registerRoute();
+      cy.visit(`/authors?q=control_number:${recordId}`);
+      cy.waitForRoute();
+      cy.contains('a', 'edit').should('have.attr', 'href', expectedUrl);
+    });
   });
 });
 
@@ -62,91 +65,93 @@ describe('Author Submission', () => {
     });
   });
 
-  it('submits a new author', () => {
-    cy.login('cataloger');
-
-    const formData = {
-      given_name: 'Diego',
-      family_name: 'Martínez Santos',
-      display_name: 'Diego Martínez',
-      alternate_name: 'Santos, Diego Martinez',
-      status: 'retired',
-      arxiv_categories: ['hep-ex', 'hep-ph'],
-      emails: [
-        { value: 'diego@martinez.ch', current: true },
-        { value: 'private@martinez.ch', hidden: true },
-      ],
-      positions: [
-        {
-          institution: 'CERN',
-          start_date: '2015',
-          current: true,
-        },
-      ],
-      advisors: [
-        {
-          name: 'Urhan, Harun',
-        },
-      ],
-    };
-
-    cy.visit('/submissions/authors');
-    cy.testSubmission({
-      formData,
-      collection: 'authors',
-      submissionType: 'workflow',
+  skipOn('electron', () => {
+    it('submits a new author', () => {
+      cy.login('cataloger');
+  
+      const formData = {
+        given_name: 'Diego',
+        family_name: 'Martínez Santos',
+        display_name: 'Diego Martínez',
+        alternate_name: 'Santos, Diego Martinez',
+        status: 'retired',
+        arxiv_categories: ['hep-ex', 'hep-ph'],
+        emails: [
+          { value: 'diego@martinez.ch', current: true },
+          { value: 'private@martinez.ch', hidden: true },
+        ],
+        positions: [
+          {
+            institution: 'CERN',
+            start_date: '2015',
+            current: true,
+          },
+        ],
+        advisors: [
+          {
+            name: 'Urhan, Harun',
+          },
+        ],
+      };
+  
+      cy.visit('/submissions/authors');
+      cy.testSubmission({
+        formData,
+        collection: 'authors',
+        submissionType: 'workflow',
+      });
     });
-  });
-
-  it('does not submit a new author with existing orcid [authors/1078577]', () => {
-    cy.login('cataloger');
-    cy.visit('/submissions/authors');
-    cy.registerRoute();
-    cy.fillForm({
-      given_name: 'Matthias',
-      family_name: 'Wolf',
-      display_name: 'Matthias Wolf',
-      orcid: '0000-0002-6997-6330',
+  
+    it('does not submit a new author with existing orcid [authors/1078577]', () => {
+      cy.login('cataloger');
+      cy.visit('/submissions/authors');
+      cy.registerRoute();
+      cy.fillForm({
+        given_name: 'Matthias',
+        family_name: 'Wolf',
+        display_name: 'Matthias Wolf',
+        orcid: '0000-0002-6997-6330',
+      });
+      cy.getField('orcid').blur();
+      cy.waitForRoute();
+      cy.getFieldError('orcid')
+        .find('a')
+        .should('have.attr', 'href', '/submissions/authors/1078577');
     });
-    cy.getField('orcid').blur();
-    cy.waitForRoute();
-    cy.getFieldError('orcid')
-      .find('a')
-      .should('have.attr', 'href', '/submissions/authors/1078577');
-  });
-
-  it('updates its own author profile', () => {
-    const recordId = 1010819;
-    const expectedMetadata = {
-      name: {
-        value: 'John Richard Ellis',
-      },
-    };
-
-    cy.login('johnellis');
-    cy.visit(`/submissions/authors/${recordId}`);
-    cy.testUpdateSubmission({
-      collection: 'authors',
-      recordId,
-      formData: {
-        native_name: 'Updated',
-      },
-      expectedMetadata: {
+  
+    it('updates its own author profile', () => {
+      const recordId = 1010819;
+      const expectedMetadata = {
         name: {
-          value: 'Ellis, John Richard',
-          name_variants: ['Ellis, Jonathan Richard'],
-          preferred_name: expectedMetadata.name.native_name + 'Updated',
+          value: 'John Richard Ellis',
         },
-      },
+      };
+  
+      cy.login('johnellis');
+      cy.visit(`/submissions/authors/${recordId}`);
+      cy.testUpdateSubmission({
+        collection: 'authors',
+        recordId,
+        formData: {
+          native_name: 'Updated',
+        },
+        expectedMetadata: {
+          name: {
+            value: 'Ellis, John Richard',
+            name_variants: ['Ellis, Jonathan Richard'],
+            preferred_name: expectedMetadata.name.native_name + 'Updated',
+          },
+        },
+      });
     });
-  });
-
-  it('does not show update form if user is not the owner of the author record', () => {
-    cy.login('johnellis');
-    cy.registerRoute();
-    cy.visit('/submissions/authors/1274753');
-    cy.waitForRoute();
-    cy.contains('You are not allowed to edit').should('be.visible');
+  
+    it('does not show update form if user is not the owner of the author record', () => {
+      cy.login('johnellis');
+      cy.registerRoute();
+      cy.visit('/submissions/authors/1274753');
+      cy.waitForRoute();
+      cy.contains('You are not allowed to edit').should('be.visible');
+    });
   });
 
   afterEach(() => {
