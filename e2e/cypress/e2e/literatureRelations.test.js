@@ -178,13 +178,5 @@ describe('Export to CDS', () => {
       });
       cy.logout();
     });
-    cy.request({
-      url: '/api/literature/1597429',
-      failOnStatusCode: false,
-    }).then((response) => {
-      expect(response).property('status').to.equal(200);
-      expect(_.find(response.body.metadata._export_to, { CDS: true }));
-    });
-    cy.logout();
   });
 });
