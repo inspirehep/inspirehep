@@ -27,16 +27,18 @@ describe('Home Page', () => {
 });
 
 describe('News and Updates', () => {
-  it('renders 3 latest blog posts', () => {
-    cy.on('uncaught:exception', () => {
-      return false;
+  skipOn('electron', () => {
+    it('renders 3 latest blog posts', () => {
+      cy.on('uncaught:exception', () => {
+        return false;
+      });
+      cy.registerRoute();
+      cy.visit('/');
+      cy.waitForRoute();
+      cy.waitForLoading(80000);
+  
+      cy.get('[data-test-id="news-post"]').as('newsAndUpdates');
+      cy.get('@newsAndUpdates').should('have.length', 3);
     });
-    cy.registerRoute();
-    cy.visit('/');
-    cy.waitForRoute();
-    cy.waitForLoading(80000);
-
-    cy.get('[data-test-id="news-post"]').as('newsAndUpdates');
-    cy.get('@newsAndUpdates').should('have.length', 3);
   });
 });

@@ -51,7 +51,7 @@ describe('References', () => {
   });
 
   describe('Reference container', () => {
-    onlyOn('electron', () => {
+    skipOn('electron', () => {
       it('number of references per page', () => {
         cy.on('uncaught:exception', (err, runnable) => {
           return false;
