@@ -24,7 +24,6 @@ describe('Author Search', () => {
     });
   });
 
-<<<<<<< HEAD
   skipOn('electron', () => {
     it('link to update own profile leads to submissions', () => {
       cy.login('johnellis');
@@ -35,16 +34,6 @@ describe('Author Search', () => {
       cy.waitForRoute();
       cy.contains('a', 'edit').should('have.attr', 'href', expectedUrl);
     });
-=======
-  it('link to update own profile leads to submissions', () => {
-    cy.login('johnellis');
-    const recordId = 1010819;
-    const expectedUrl = `/submissions/authors/${recordId}`;
-    cy.registerRoute();
-    cy.visit(`/authors?q=control_number:${recordId}`);
-    cy.waitForRoute();
-    cy.contains('a', 'edit').should('have.attr', 'href', expectedUrl);
->>>>>>> 3c5b2fa4 (chain onlyOn)
   });
 });
 

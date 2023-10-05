@@ -30,7 +30,7 @@ describe('user', () => {
     });
   });
 
-  onlyOn('headless', () => {
+  onlyOn('electron', () => {
     it('user session timeout', () => {
       const username = `cataloger@inspirehep.net`;
       const password = '123456';

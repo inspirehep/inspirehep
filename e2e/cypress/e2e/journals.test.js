@@ -31,9 +31,8 @@ describe('Journal Submission', () => {
     cy.login('cataloger');
   });
 
-  onlyOn('headless', () => {
+  onlyOn('electron', () => {
     it('matches image snapshot', () => {
-      
       cy.visit('/submissions/journals');
       cy.get('form').should('be.visible');
       cy.matchSnapshots('JournalSubmission', { skipMobile: true });

@@ -60,7 +60,7 @@ describe('Literature and Conferences', () => {
 });
 
 describe('Assign Conference', () => {
-  onlyOn('headless').onlyOn('electron', () => {
+  onlyOn('electron', () => {
     it('matches image snapshot', () => {
       cy.login('admin');
       cy.registerRoute();

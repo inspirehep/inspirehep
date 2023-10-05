@@ -24,26 +24,7 @@ describe('Conference Search', () => {
     });
   });
 
-<<<<<<< HEAD
-  onlyOn('headless', () => {
-=======
-  it('has search results for upcoming conferences', () => {
-    cy.registerRoute();
-    cy.visit('/conferences?start_date=upcoming');
-    cy.waitForRoute();
-    cy.waitForSearchResults();
-    cy.get('[data-test-id="search-results"]')
-      .children()
-      .should('have.length', 1);
-  });
-
-
-<<<<<<< HEAD
-  onlyOn('headless').onlyOn('electron', () => {
->>>>>>> 3c5b2fa4 (chain onlyOn)
-=======
   onlyOn('electron', () => {
->>>>>>> fcfa8605 (unchain onlyOn)
     it('matches image snapshot', () => {
       cy.registerRoute();
       cy.visit('/conferences?start_date=all');
