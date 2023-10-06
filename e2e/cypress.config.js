@@ -5,7 +5,7 @@ module.exports = defineConfig({
   videosFolder: 'cypress/__videos__',
   screenshotsFolder: 'cypress/__screenshots__',
   env: {
-    inspirehep_url: 'http://host.docker.internal:8080',
+    inspirehep_url: 'localhost:8080',
     mobile_viewport_width: 375,
     mobile_viewport_height: 667,
   },

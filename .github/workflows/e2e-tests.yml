@@ -195,7 +195,6 @@ jobs:
           record: true
           parallel: false
           browser: ${{ matrix.browser }}
-          tag: Chrome
           env: inspirehep_url=http://localhost:8080
 
       - name: application logs

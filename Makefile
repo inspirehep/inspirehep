@@ -33,4 +33,4 @@ next-setup:
 	echo -e "\033[0;32m Inspire Next Setup. \033[0m"
 
 services:
-	docker-compose up -d cache db mq s3
+	docker-compose up -d cache db mq s3 es
