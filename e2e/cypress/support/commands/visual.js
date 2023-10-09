@@ -11,8 +11,6 @@ Cypress.Commands.add('matchSnapshots', (name, { skipMobile } = {}) => {
   // fixes unreliable scrolling when capturing full screen ss
   cy.get('html').invoke('css', 'height', 'initial');
   cy.get('body').invoke('css', 'height', 'initial');
-  cy.get('body').invoke('css', 'font-family', '"Helvetica"');
-  cy.get('body').should('have.css', 'font-family', 'Helvetica');
 
   // fullScreen capturing works by taking ss as it scrolls and stiching them together
   // and sticky elements appears in the final ss, multiple times.
