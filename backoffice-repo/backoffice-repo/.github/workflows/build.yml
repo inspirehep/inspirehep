@@ -49,4 +49,4 @@ jobs:
             type=ref,event=pr
             type=ref,event=tag
           username: ${{ secrets.HARBOR_USERNAME }}
-          password: ${{ secrets.HARBOR_SECRET }}
+          password: ${{ secrets.HARBOR_PASSWORD }}
