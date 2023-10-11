@@ -48,3 +48,7 @@ services:
     <<: *django
     image: backoffice_production_flower
     command: /start-flower
+
+networks:
+    djangonetwork:
+        driver: bridge
