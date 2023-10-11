@@ -16,9 +16,3 @@ jobs:
     with:
       ref: ${{ github.event.pull_request.head.sha }}
     secrets: inherit
-
-  pre-commit:
-    uses: ./.github/workflows/pre-commit.yml
-    with:
-      ref: ${{ github.event.pull_request.head.sha }}
-    secrets: inherit
