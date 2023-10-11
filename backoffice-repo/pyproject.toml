@@ -111,7 +111,7 @@ description = ""
 authors = ["Your Name <you@example.com>"]
 
 [tool.poetry.dependencies]
-python = "3.11"
+python = "~3.11"
 python-slugify = "8.0.1"
 Pillow = "10.0.1"
 argon2-cffi = "23.1.0"
