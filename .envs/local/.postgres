@@ -1,6 +1,6 @@
 # PostgreSQL
 # ------------------------------------------------------------------------------
-POSTGRES_HOST=localhost
+POSTGRES_HOST=postgres
 POSTGRES_PORT=5432
 POSTGRES_DB=inspire
 POSTGRES_USER=inspire

@@ -1,8 +1,8 @@
 version: '3'
 
 volumes:
-  backoffice_local_postgres_data: {}
-  backoffice_local_postgres_data_backups: {}
+  backoffice_postgres_data: {}
+  backoffice_postgres_data_backups: {}
 
 services:
   django: &django
@@ -17,11 +17,13 @@ services:
     volumes:
       - .:/app:z
     env_file:
-      - ./.envs/.local/.django
-      - ./.envs/.local/.postgres
+      - ./.envs/local/.django
+      - ./.envs/local/.postgres
     ports:
       - '8000:8000'
     command: /start
+    networks:
+      - djangonetwork
 
   postgres:
     build:
@@ -29,15 +31,21 @@ services:
       dockerfile: ./compose/production/postgres/Dockerfile
     image: backoffice_production_postgres
     container_name: backoffice_local_postgres
+    ports:
+      - '5432:5432'
     volumes:
-      - backoffice_local_postgres_data:/var/lib/postgresql/data
-      - backoffice_local_postgres_data_backups:/backups
+      - backoffice_postgres_data:/var/lib/postgresql/data
+      - backoffice_postgres_data_backups:/backups
     env_file:
-      - ./.envs/.local/.postgres
+      - ./.envs/local/.postgres
+    networks:
+      - djangonetwork
 
   redis:
     image: redis:6
     container_name: backoffice_local_redis
+    networks:
+      - djangonetwork
 
   celeryworker:
     <<: *django
@@ -47,7 +55,9 @@ services:
       - redis
       - postgres
     ports: []
-    command: /start-celeryworker
+    command: celery -A config.celery_app beat -l INFO
+    networks:
+      - djangonetwork
 
   celerybeat:
     <<: *django
@@ -57,12 +67,10 @@ services:
       - redis
       - postgres
     ports: []
-    command: /start-celerybeat
+    command: celery -A config.celery_app worker -l INFO
+    networks:
+      - djangonetwork
 
-  flower:
-    <<: *django
-    image: backoffice_local_flower
-    container_name: backoffice_local_flower
-    ports:
-      - '5555:5555'
-    command: /start-flower
+networks:
+  djangonetwork:
+      driver: bridge
