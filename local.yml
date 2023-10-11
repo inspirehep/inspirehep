@@ -55,7 +55,7 @@ services:
       - redis
       - postgres
     ports: []
-    command: celery -A config.celery_app beat -l INFO
+    command: celery -A config.celery_app worker -l INFO
     networks:
       - djangonetwork
 
@@ -67,9 +67,19 @@ services:
       - redis
       - postgres
     ports: []
-    command: celery -A config.celery_app worker -l INFO
+    command: celery -A config.celery_app beat -l INFO
     networks:
       - djangonetwork
+    
+  mq:
+    image: rabbitmq:3.9.11-management
+    restart: 'always'
+    container_name: backoffice_local_mq
+    ports:
+      - '5672:5672'
+    networks:
+      - djangonetwork
+
 
 networks:
   djangonetwork:
