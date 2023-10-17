@@ -511,9 +511,38 @@ def hep_curation_collection_aggregation(
         911366,
     ]
 
+    hal_incorrect_publication_info = {
+        "nested": {
+            "path": "publication_info",
+            "query": {
+                "bool": {"must_not": {"exists": {"field": "publication_info.year"}}}
+            },
+        }
+    }
+    hal_incorrect_authors = {
+        "nested": {
+            "path": "authors",
+            "query": {
+                "bool": {
+                    "must_not": {
+                        "wildcard": {"authors.full_name.raw": {"value": "*,*"}}
+                    }
+                }
+            },
+        }
+    }
+
     hal_incorrect_metadata_filter = {
         "bool": {
             "must": [
+                {
+                    "bool": {
+                        "should": [
+                            hal_incorrect_publication_info,
+                            hal_incorrect_authors,
+                        ],
+                    },
+                },
                 {
                     "nested": {
                         "path": "publication_info",
@@ -521,18 +550,6 @@ def hep_curation_collection_aggregation(
                             "range": {
                                 "publication_info.year": {
                                     "gte": "2016",
-                                }
-                            }
-                        },
-                    }
-                },
-                {
-                    "nested": {
-                        "path": "publication_info",
-                        "query": {
-                            "bool": {
-                                "must_not": {
-                                    "exists": {"field": "publication_info.year"}
                                 }
                             }
                         },
