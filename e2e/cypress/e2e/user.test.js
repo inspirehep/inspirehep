@@ -1,40 +1,10 @@
-import { onlyOn, skipOn } from '@cypress/skip-test';
+import { skipOn } from '@cypress/skip-test';
 
 describe('user', () => {
   skipOn('electron', () => {
     it('logs in via local login form and then logs out', () => {
       const username = `cataloger@inspirehep.net`;
       const password = '123456';
-      cy.visit('/user/login/local');
-  
-      cy.registerRoute({
-        url: '/api/accounts/login',
-        method: 'POST',
-      });
-  
-      cy.get('[data-test-id=email]')
-        .type(username)
-        .get('[data-test-id=password]')
-        .type(password)
-        .get('[data-test-id=login]')
-        .click();;
-  
-      cy.waitForRoute('/api/accounts/login').its('response.statusCode').should('equal', 200);
-  
-      cy.registerRoute('/api/accounts/logout');
-  
-      cy.get('.ant-menu-title-content').contains('Account').trigger('mouseover')
-      cy.get('[data-test-id="logout"]').children().first().click();
-  
-      cy.waitForRoute('/api/accounts/logout').its('response.statusCode').should('equal', 200);
-    });
-  });
-
-  onlyOn('electron', () => {
-    it('user session timeout', () => {
-      const username = `cataloger@inspirehep.net`;
-      const password = '123456';
-      cy.clock();
       cy.visit('/user/login/local');
 
       cy.registerRoute({
@@ -49,20 +19,56 @@ describe('user', () => {
         .get('[data-test-id=login]')
         .click();
 
-      cy.waitForRoute('/api/accounts/login').its('response.statusCode').should('equal', 200);
+      cy.waitForRoute('/api/accounts/login')
+        .its('response.statusCode')
+        .should('equal', 200);
 
-      cy.window().trigger('mouseover', 'topRight');
-      cy.tick(1800000);
-      cy.clock().invoke('restore');
-      cy.waitForLoading();
+      cy.registerRoute('/api/accounts/logout');
 
-      cy.clearCookies();
-      cy.request({
-        url: '/api/accounts/me',
-        failOnStatusCode: false,
-      })
-        .its('status')
-        .should('equal', 401);
+      cy.get('.ant-menu-title-content')
+        .contains('Account')
+        .trigger('mouseover');
+      cy.get('[data-test-id="logout"]').children().first().click();
+
+      cy.waitForRoute('/api/accounts/logout')
+        .its('response.statusCode')
+        .should('equal', 200);
     });
+  });
+
+  it('user session timeout', () => {
+    const username = `cataloger@inspirehep.net`;
+    const password = '123456';
+    cy.clock();
+    cy.visit('/user/login/local');
+
+    cy.registerRoute({
+      url: '/api/accounts/login',
+      method: 'POST',
+    });
+
+    cy.get('[data-test-id=email]')
+      .type(username)
+      .get('[data-test-id=password]')
+      .type(password)
+      .get('[data-test-id=login]')
+      .click();
+
+    cy.waitForRoute('/api/accounts/login')
+      .its('response.statusCode')
+      .should('equal', 200);
+
+    cy.window().trigger('mouseover', 'topRight');
+    cy.tick(1800000);
+    cy.clock().invoke('restore');
+    cy.waitForLoading();
+
+    cy.clearCookies();
+    cy.request({
+      url: '/api/accounts/me',
+      failOnStatusCode: false,
+    })
+      .its('status')
+      .should('equal', 401);
   });
 });

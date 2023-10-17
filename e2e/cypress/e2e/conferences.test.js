@@ -1,4 +1,4 @@
-import { onlyOn, skipOn } from '@cypress/skip-test';
+import { skipOn } from '@cypress/skip-test';
 import moment from 'moment';
 
 describe('Conference Search', () => {
@@ -12,7 +12,7 @@ describe('Conference Search', () => {
         .children()
         .should('have.length', 7);
     });
-  
+
     it('has search results for upcoming conferences', () => {
       cy.registerRoute();
       cy.visit('/conferences?start_date=upcoming');
@@ -24,36 +24,32 @@ describe('Conference Search', () => {
     });
   });
 
-  onlyOn('electron', () => {
-    it('matches image snapshot', () => {
-      cy.registerRoute();
-      cy.visit('/conferences?start_date=all');
-      cy.waitForRoute();
-      cy.waitForSearchResults();
-      cy.matchSnapshots('ConferenceSearch');
-    });
+  it('matches image snapshot', () => {
+    cy.registerRoute();
+    cy.visit('/conferences?start_date=all');
+    cy.waitForRoute();
+    cy.waitForSearchResults();
+    cy.matchSnapshots('ConferenceSearch');
+  });
 
-    it('matches image snapshot for author update when cataloger is logged in', () => {
-      cy.login('cataloger');
-      cy.registerRoute();
-      cy.visit('/conferences?start_date=all');
-      cy.waitForRoute();
-      cy.waitForSearchResults();
-      cy.matchSnapshots('ConferenceSearchByCataloger');
-      cy.logout();
-    });
+  it('matches image snapshot for author update when cataloger is logged in', () => {
+    cy.login('cataloger');
+    cy.registerRoute();
+    cy.visit('/conferences?start_date=all');
+    cy.waitForRoute();
+    cy.waitForSearchResults();
+    cy.matchSnapshots('ConferenceSearchByCataloger');
+    cy.logout();
   });
 });
 
 describe('Conference Detail', () => {
-  onlyOn('electron', () => {
-    it('matches image snapshot', () => {
-      cy.registerRoute();
-      cy.visit('/conferences/1217045?ui-citation-summary=true');
-      cy.waitForRoute();
-      cy.waitForSearchResults();
-      cy.matchSnapshots('ConferenceDetail');
-    });
+  it('matches image snapshot', () => {
+    cy.registerRoute();
+    cy.visit('/conferences/1217045?ui-citation-summary=true');
+    cy.waitForRoute();
+    cy.waitForSearchResults();
+    cy.matchSnapshots('ConferenceDetail');
   });
 });
 
@@ -71,26 +67,26 @@ describe('Conference Editor', () => {
       const RECORD_URL = '/conferences/1217045';
       const RECORD_API = `/api${RECORD_URL}`;
       const API = '/api/**';
-  
+
       cy.registerRoute(API);
-  
+
       cy.visit(`/editor/record${RECORD_URL}`);
-  
+
       cy.waitForRoute(API);
-  
+
       cy.registerRoute({
         url: RECORD_API,
         method: 'PUT',
       });
-  
+
       cy.get('[data-path="/titles/0/title"]').type(
         'Updated by Cypress Test{enter}'
       );
       cy.contains('button', 'Save').click();
-  
+
       cy.waitForRoute(RECORD_API);
       cy.waitForRoute(API);
-  
+
       cy.get('h2').should('contain.text', 'Updated by Cypress');
     });
   });
@@ -101,12 +97,10 @@ describe('Conference Submission', () => {
     cy.login('cataloger');
   });
 
-  onlyOn('electron', () => {
-    it('matches image snapshot', () => {
-      cy.visit('/submissions/conferences');
-      cy.get('form').should('be.visible');
-      cy.matchSnapshots('ConferenceSubmission', { skipMobile: true });
-    });
+  it('matches image snapshot', () => {
+    cy.visit('/submissions/conferences');
+    cy.get('form').should('be.visible');
+    cy.matchSnapshots('ConferenceSubmission', { skipMobile: true });
   });
 
   skipOn('electron', () => {
@@ -147,16 +141,16 @@ describe('Conference Submission', () => {
           },
         ],
       };
-  
+
       cy.visit('/submissions/conferences');
       cy.testSubmission({
         expectedMetadata: expectedMetadata.titles[0].title,
         formData,
         collection: 'conferences',
-        submissionType: 'record'
+        submissionType: 'record',
       });
     });
-  
+
     it('warns about already existing conference during selected dates [conferences/1794610]', () => {
       cy.visit('/submissions/conferences');
       cy.registerRoute();

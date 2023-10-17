@@ -1,24 +1,22 @@
-import { onlyOn, skipOn } from '@cypress/skip-test';
+import { skipOn } from '@cypress/skip-test';
 
 describe('Literature Search', () => {
-  onlyOn('electron', () => {
-    it('matches image snapshot', () => {
-      cy.registerRoute();
-      cy.visit('/literature?ui-citation-summary=true');
-      cy.waitForRoute();
-      cy.waitForSearchResults();
-      cy.matchSnapshots('LiteratureSearch');
-    });
+  it('matches image snapshot', () => {
+    cy.registerRoute();
+    cy.visit('/literature?ui-citation-summary=true');
+    cy.waitForRoute();
+    cy.waitForSearchResults();
+    cy.matchSnapshots('LiteratureSearch');
+  });
 
-    it('matches image snapshot for cataloger', () => {
-      cy.login('cataloger');
-      cy.registerRoute();
-      cy.visit('/literature?ui-citation-summary=true');
-      cy.waitForRoute();
-      cy.waitForSearchResults();
-      cy.matchSnapshots('LiteratureSearchCataloger');
-      cy.logout();
-    });
+  it('matches image snapshot for cataloger', () => {
+    cy.login('cataloger');
+    cy.registerRoute();
+    cy.visit('/literature?ui-citation-summary=true');
+    cy.waitForRoute();
+    cy.waitForSearchResults();
+    cy.matchSnapshots('LiteratureSearchCataloger');
+    cy.logout();
   });
 
   skipOn('electron', () => {
@@ -35,13 +33,11 @@ describe('Literature Search', () => {
 });
 
 describe('Literature Detail', () => {
-  onlyOn('electron', () => {
-    it('matches image snapshot', () => {
-      cy.registerRoute();
-      cy.visit('/literature/1235543');
-      cy.waitForRoute();
-      cy.matchSnapshots('LiteratureDetail');
-    });
+  it('matches image snapshot', () => {
+    cy.registerRoute();
+    cy.visit('/literature/1235543');
+    cy.waitForRoute();
+    cy.matchSnapshots('LiteratureDetail');
   });
 });
 
@@ -50,30 +46,28 @@ describe('Literature Submission', () => {
     cy.login('cataloger');
   });
 
-  onlyOn('electron', () => {
-    it('matches image snapshot for article form', () => {
-      cy.visit('/submissions/literature');
-      cy.selectLiteratureDocType('article');
-      cy.matchSnapshots('ArticleSubmission', { skipMobile: true });
-    });
+  it('matches image snapshot for article form', () => {
+    cy.visit('/submissions/literature');
+    cy.selectLiteratureDocType('article');
+    cy.matchSnapshots('ArticleSubmission', { skipMobile: true });
+  });
 
-    it('matches image snapshot for thesis form', () => {
-      cy.visit('/submissions/literature');
-      cy.selectLiteratureDocType('thesis');
-      cy.matchSnapshots('ThesisSubmission', { skipMobile: true });
-    });
+  it('matches image snapshot for thesis form', () => {
+    cy.visit('/submissions/literature');
+    cy.selectLiteratureDocType('thesis');
+    cy.matchSnapshots('ThesisSubmission', { skipMobile: true });
+  });
 
-    it('matches image snapshot for book form', () => {
-      cy.visit('/submissions/literature');
-      cy.selectLiteratureDocType('book');
-      cy.matchSnapshots('BookSubmission', { skipMobile: true });
-    });
+  it('matches image snapshot for book form', () => {
+    cy.visit('/submissions/literature');
+    cy.selectLiteratureDocType('book');
+    cy.matchSnapshots('BookSubmission', { skipMobile: true });
+  });
 
-    it('matches image snapshot for book chapter form', () => {
-      cy.visit('/submissions/literature');
-      cy.selectLiteratureDocType('bookChapter');
-      cy.matchSnapshots('BookChapterSubmission', { skipMobile: true });
-    });
+  it('matches image snapshot for book chapter form', () => {
+    cy.visit('/submissions/literature');
+    cy.selectLiteratureDocType('bookChapter');
+    cy.matchSnapshots('BookChapterSubmission', { skipMobile: true });
   });
 
   skipOn('electron', () => {
@@ -88,18 +82,20 @@ describe('Literature Submission', () => {
         submission_date: '2018-11',
         defense_date: '2019-01-01',
         institution: 'University of Geneva',
-        supervisors: [{ full_name: 'Tsanakoglu, Ioannis', affiliation: 'CERN' }],
+        supervisors: [
+          { full_name: 'Tsanakoglu, Ioannis', affiliation: 'CERN' },
+        ],
       };
-  
+
       cy.visit('/submissions/literature');
       cy.selectLiteratureDocType('thesis');
       cy.testSubmission({
         formData,
         collection: 'literature',
-        submissionType: 'workflow'
-      })
+        submissionType: 'workflow',
+      });
     });
-  
+
     it('submits a new article', () => {
       const formData = {
         pdf_link:
@@ -120,7 +116,7 @@ describe('Literature Submission', () => {
         proceedings_info: 'very private proceeding',
         conference_info: 'very private conference',
       };
-  
+
       cy.visit('/submissions/literature');
       cy.selectLiteratureDocType('article');
       cy.contains('Conference Info').click();
@@ -129,10 +125,10 @@ describe('Literature Submission', () => {
       cy.testSubmission({
         formData,
         collection: 'literature',
-        submissionType: 'workflow'
+        submissionType: 'workflow',
       });
     });
-  
+
     it('submits a new book', () => {
       const formData = {
         title: 'Nostalgic Rhythms',
@@ -142,16 +138,16 @@ describe('Literature Submission', () => {
         publication_date: '2018-06',
         publication_place: 'Geneva, Switzerland',
       };
-  
+
       cy.visit('/submissions/literature');
       cy.selectLiteratureDocType('book');
       cy.testSubmission({
         formData,
         collection: 'literature',
-        submissionType: 'workflow'
-      })
+        submissionType: 'workflow',
+      });
     });
-  
+
     it('submits a new book chapter', () => {
       const formData = {
         title: 'Cool Dev Livre: Chapitre 2',
@@ -161,14 +157,14 @@ describe('Literature Submission', () => {
         start_page: '200',
         end_page: '300',
       };
-  
+
       cy.visit('/submissions/literature');
       cy.selectLiteratureDocType('bookChapter');
       cy.testSubmission({
         formData,
         collection: 'literature',
-        submissionType: 'workflow'
-      })
+        submissionType: 'workflow',
+      });
     });
   });
 

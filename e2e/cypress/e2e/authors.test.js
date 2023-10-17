@@ -1,27 +1,13 @@
-import { onlyOn, skipOn } from '@cypress/skip-test';
+import { skipOn } from '@cypress/skip-test';
 
 describe('Author Detail', () => {
-  onlyOn('electron', () => {
-    it('matches image snapshot', () => {
-      cy.registerRoute();
-      cy.visit('/authors/1274753?ui-citation-summary=true');
-      cy.waitForLoading();
-      cy.waitForRoute();
-      cy.waitForSearchResults();
-      cy.matchSnapshots('AuthorDetail');
-    });
-  });
-});
-
-describe('Author Search', () => {
-  onlyOn('electron', () => {
-    it('matches image snapshot', () => {
-      cy.registerRoute();
-      cy.visit('/authors');
-      cy.waitForRoute();
-      cy.waitForSearchResults();
-      cy.matchSnapshots('AuthorSearch');
-    });
+  it('matches image snapshot', () => {
+    cy.registerRoute();
+    cy.visit('/authors/1274753?ui-citation-summary=true');
+    cy.waitForLoading();
+    cy.waitForRoute();
+    cy.waitForSearchResults();
+    cy.matchSnapshots('AuthorDetail');
   });
 
   skipOn('electron', () => {
@@ -37,32 +23,40 @@ describe('Author Search', () => {
   });
 });
 
+describe('Author Search', () => {
+  it('matches image snapshot', () => {
+    cy.registerRoute();
+    cy.visit('/authors');
+    cy.waitForRoute();
+    cy.waitForSearchResults();
+    cy.matchSnapshots('AuthorSearch');
+  });
+});
+
 describe('Author Submission', () => {
-  onlyOn('electron', () => {
-    it('matches image snapshot', () => {
-      cy.login('cataloger');
-      cy.visit('/submissions/authors');
-      cy.get('form').should('be.visible');
-      cy.matchSnapshots('AuthorSubmission', { skipMobile: true });
-    });
+  it('matches image snapshot', () => {
+    cy.login('cataloger');
+    cy.visit('/submissions/authors');
+    cy.get('form').should('be.visible');
+    cy.matchSnapshots('AuthorSubmission', { skipMobile: true });
+  });
 
-    it('matches image snapshot for author update when cataloger is logged in', () => {
-      cy.login('cataloger');
-      cy.registerRoute();
-      cy.visit('/submissions/authors/1274753');
-      cy.waitForRoute();
-      cy.get('form').should('be.visible');
-      cy.matchSnapshots('AuthorUpdateSubmission', { skipMobile: true });
-    });
+  it('matches image snapshot for author update when cataloger is logged in', () => {
+    cy.login('cataloger');
+    cy.registerRoute();
+    cy.visit('/submissions/authors/1274753');
+    cy.waitForRoute();
+    cy.get('form').should('be.visible');
+    cy.matchSnapshots('AuthorUpdateSubmission', { skipMobile: true });
+  });
 
-    it('matches image snapshot for user own author profile update', () => {
-      cy.login('johnellis');
-      cy.registerRoute();
-      cy.visit('/submissions/authors/1010819');
-      cy.waitForRoute();
-      cy.get('form').should('be.visible');
-      cy.matchSnapshots('AuthorUpdateSubmissionByOwner', { skipMobile: true });
-    });
+  it('matches image snapshot for user own author profile update', () => {
+    cy.login('johnellis');
+    cy.registerRoute();
+    cy.visit('/submissions/authors/1010819');
+    cy.waitForRoute();
+    cy.get('form').should('be.visible');
+    cy.matchSnapshots('AuthorUpdateSubmissionByOwner', { skipMobile: true });
   });
 
   skipOn('electron', () => {
@@ -151,7 +145,7 @@ describe('Author Submission', () => {
       cy.visit('/submissions/authors/1274753');
       cy.waitForRoute();
       cy.contains('You are not allowed to edit').should('be.visible');
-    });
+    });  
   });
 
   afterEach(() => {

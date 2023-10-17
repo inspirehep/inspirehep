@@ -1,28 +1,24 @@
-import { onlyOn, skipOn } from '@cypress/skip-test';
+import { skipOn } from '@cypress/skip-test';
 
 describe('Journal Detail', () => {
-  onlyOn('electron', () => {
-    it('matches image snapshot', () => {
-      cy.registerRoute();
-      cy.visit('/journals/1213103');
-      cy.waitForRoute();
-      cy.waitForSearchResults();
-      cy.waitForLoading();
-      cy.matchSnapshots('JournalDetail');
-    });
+  it('matches image snapshot', () => {
+    cy.registerRoute();
+    cy.visit('/journals/1213103');
+    cy.waitForRoute();
+    cy.waitForSearchResults();
+    cy.waitForLoading();
+    cy.matchSnapshots('JournalDetail');
   });
 });
 
 describe('Journal Search', () => {
-  onlyOn('electron', () => {
-    it('matches image snapshot', () => {
-      cy.registerRoute();
-      cy.visit('/journals');
-      cy.waitForRoute();
-      cy.waitForSearchResults();
-      cy.waitForLoading();
-      cy.matchSnapshots('JournalsSearch');
-    });
+  it('matches image snapshot', () => {
+    cy.registerRoute();
+    cy.visit('/journals');
+    cy.waitForRoute();
+    cy.waitForSearchResults();
+    cy.waitForLoading();
+    cy.matchSnapshots('JournalsSearch');
   });
 });
 
@@ -31,35 +27,33 @@ describe('Journal Submission', () => {
     cy.login('cataloger');
   });
 
-  onlyOn('electron', () => {
-    it('matches image snapshot', () => {
-      cy.visit('/submissions/journals');
-      cy.get('form').should('be.visible');
-      cy.matchSnapshots('JournalSubmission', { skipMobile: true });
-    });
+  it('matches image snapshot', () => {
+    cy.visit('/submissions/journals');
+    cy.get('form').should('be.visible');
+    cy.matchSnapshots('JournalSubmission', { skipMobile: true });
   });
 
   skipOn('electron', () => {
     it('submits a new journal', () => {
       const formData = {
         journal_title: 'Amazing Journal',
-        short_title: 'AJ'
+        short_title: 'AJ',
       };
       const expectedMetadata = {
         journal_title: 'Amazing Journal',
-        short_title: 'AJ'
+        short_title: 'AJ',
       };
       cy.visit('/submissions/journals');
       cy.testSubmission({
         expectedMetadata: expectedMetadata.short_title,
         formData,
         collection: 'journals',
-        submissionType: 'editor'
+        submissionType: 'editor',
       });
     });
-  });
 
-  afterEach(() => {
-    cy.logout();
+    afterEach(() => {
+      cy.logout();
+    });
   });
 });

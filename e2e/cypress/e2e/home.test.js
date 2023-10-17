@@ -1,16 +1,14 @@
-import { onlyOn, skipOn } from '@cypress/skip-test';
+import { skipOn } from '@cypress/skip-test';
 
 describe('Home Page', () => {
-  onlyOn('electron', () => {
-    it('matches image snapshot', () => {
-      cy.registerRoute();
-      cy.visit('/');
-      cy.waitForRoute();
-      cy.waitForLoading(80000);
-      cy.matchSnapshots('Homepage');
-    });
+  it('matches image snapshot', () => {
+    cy.registerRoute();
+    cy.visit('/');
+    cy.waitForRoute();
+    cy.waitForLoading(80000);
+    cy.matchSnapshots('Homepage');
   });
-  
+
   skipOn('electron', () => {
     it('scrolls to How to Search section on button click', () => {
       cy.on('uncaught:exception', () => {
@@ -19,7 +17,7 @@ describe('Home Page', () => {
       cy.registerRoute();
       cy.visit('/');
       cy.waitForRoute();
-  
+
       cy.get('[data-test-id="scroll-button"]').click();
       cy.get('[data-test-id="how-to-search"]').should('be.visible');
     });
@@ -36,7 +34,7 @@ describe('News and Updates', () => {
       cy.visit('/');
       cy.waitForRoute();
       cy.waitForLoading(80000);
-  
+
       cy.get('[data-test-id="news-post"]').as('newsAndUpdates');
       cy.get('@newsAndUpdates').should('have.length', 3);
     });

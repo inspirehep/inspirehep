@@ -1,26 +1,22 @@
-import { onlyOn, skipOn } from '@cypress/skip-test';
+import { skipOn } from '@cypress/skip-test';
 import moment from 'moment';
 
 describe('Seminar Search', () => {
-  onlyOn('electron', () => {
-    it('matches image snapshot', () => {
-      cy.registerRoute();
-      cy.visit('/seminars?start_date=all');
-      cy.waitForRoute();
-      cy.waitForSearchResults();
-      cy.matchSnapshots('SeminarSearch');
-    });
+  it('matches image snapshot', () => {
+    cy.registerRoute();
+    cy.visit('/seminars?start_date=all');
+    cy.waitForRoute();
+    cy.waitForSearchResults();
+    cy.matchSnapshots('SeminarSearch');
   });
 });
 
 describe('Seminar Detail', () => {
-  onlyOn('electron', () => {
-    it('matches image snapshot', () => {
-      cy.registerRoute();
-      cy.visit('/seminars/1799778');
-      cy.waitForRoute();
-      cy.matchSnapshots('SeminarDetail');
-    });
+  it('matches image snapshot', () => {
+    cy.registerRoute();
+    cy.visit('/seminars/1799778');
+    cy.waitForRoute();
+    cy.matchSnapshots('SeminarDetail');
   });
 });
 
@@ -29,20 +25,18 @@ describe('Seminar Submission', () => {
     cy.login('cataloger');
   });
 
-  onlyOn('electron', () => {
-    it('matches image snapshot', () => {
-      cy.visit('/submissions/seminars');
-      cy.get('form').should('be.visible');
-      cy.matchSnapshots('SeminarSubmission', { skipMobile: true });
-    });
+  it('matches image snapshot', () => {
+    cy.visit('/submissions/seminars');
+    cy.get('form').should('be.visible');
+    cy.matchSnapshots('SeminarSubmission', { skipMobile: true });
+  });
 
-    it('matches image snapshot for Seminar update', () => {
-      cy.registerRoute();
-      cy.visit('/submissions/seminars/1799778');
-      cy.waitForRoute();
-      cy.get('form').should('be.visible');
-      cy.matchSnapshots('SeminarUpdateSubmission', { skipMobile: true });
-    });
+  it('matches image snapshot for Seminar update', () => {
+    cy.registerRoute();
+    cy.visit('/submissions/seminars/1799778');
+    cy.waitForRoute();
+    cy.get('form').should('be.visible');
+    cy.matchSnapshots('SeminarUpdateSubmission', { skipMobile: true });
   });
 
   skipOn('electron', () => {
@@ -98,7 +92,7 @@ describe('Seminar Submission', () => {
         additional_info: 'A public note',
         literature_records: ['1787272'],
       };
-  
+
       cy.visit('/submissions/seminars');
       cy.testSubmission({
         expectedMetadata: 'The Cool Seminar',
@@ -107,14 +101,14 @@ describe('Seminar Submission', () => {
         submissionType: 'record',
       });
     });
-  
+
     it('updates a seminar', () => {
       const expectedMetadata = {
         title: {
           title: 'Primordial Black Holes, Gravitational Waves & Werewolves',
         },
       };
-  
+
       cy.visit('/submissions/seminars/1811750');
       cy.testUpdateSubmission({
         collection: 'seminars',

@@ -1,26 +1,22 @@
-import { onlyOn, skipOn } from '@cypress/skip-test';
+import { skipOn } from '@cypress/skip-test';
 
 describe('Experiment Search', () => {
-  onlyOn('electron', () => {
-    it('matches image snapshot', () => {
-      cy.registerRoute();
-      cy.visit('/experiments');
-      cy.waitForRoute();
-      cy.waitForSearchResults();
-      cy.matchSnapshots('ExperimentSearch');
-    });
+  it('matches image snapshot', () => {
+    cy.registerRoute();
+    cy.visit('/experiments');
+    cy.waitForRoute();
+    cy.waitForSearchResults();
+    cy.matchSnapshots('ExperimentSearch');
   });
 });
 
 describe('Experiment Detail', () => {
-  onlyOn('electron', () => {
-    it('matches image snapshot', () => {
-      cy.registerRoute();
-      cy.visit('/experiments/1513946?ui-citation-summary=true');
-      cy.waitForRoute();
-      cy.waitForSearchResults();
-      cy.matchSnapshots('ExperimentDetail');
-    });
+  it('matches image snapshot', () => {
+    cy.registerRoute();
+    cy.visit('/experiments/1513946?ui-citation-summary=true');
+    cy.waitForRoute();
+    cy.waitForSearchResults();
+    cy.matchSnapshots('ExperimentDetail');
   });
 });
 
@@ -29,12 +25,10 @@ describe('Experiment Submission', () => {
     cy.login('cataloger');
   });
 
-  onlyOn('electron', () => {
-    it('matches image snapshot', () => {
-      cy.visit('/submissions/experiments');
-      cy.get('form').should('be.visible');
-      cy.matchSnapshots('ExperimentSubmission', { skipMobile: true });
-    });
+  it('matches image snapshot', () => {
+    cy.visit('/submissions/experiments');
+    cy.get('form').should('be.visible');
+    cy.matchSnapshots('ExperimentSubmission', { skipMobile: true });
   });
 
   skipOn('electron', () => {
@@ -53,7 +47,7 @@ describe('Experiment Submission', () => {
         expectedMetadata: expectedMetadata.legacy_name,
         formData,
         collection: 'experiments',
-        submissionType: 'editor'
+        submissionType: 'editor',
       });
     });
   });
