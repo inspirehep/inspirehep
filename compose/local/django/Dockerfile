@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   libpq-dev
 
 ARG POETRY_VERSION
-ENV POETRY_VERSION="${POETRY_VERSION:-1.1.14}"
+ENV POETRY_VERSION="${POETRY_VERSION:-1.6.1}"
 RUN curl -sSL https://install.python-poetry.org \
   | python - --version "${POETRY_VERSION}" \
   && poetry --version
