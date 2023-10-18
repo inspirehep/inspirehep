@@ -102,6 +102,8 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "backoffice.users",
+    "backoffice.workflows",
+    "backoffice.management"
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -339,7 +341,7 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.TokenAuthentication",
     ),
-    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    "DEFAULT_PERMISSION_CLASSES": ('backoffice.management.permissions.IsAdminOrCuratorUser', ),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
