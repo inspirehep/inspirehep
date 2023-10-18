@@ -24,4 +24,4 @@ class PermissionCheckBase(permissions.BasePermission):
 
 
 class IsAdminOrCuratorUser(PermissionCheckBase):
-    required_groups = ['admin', 'curator']
+    required_groups = ["admin", "curator"]

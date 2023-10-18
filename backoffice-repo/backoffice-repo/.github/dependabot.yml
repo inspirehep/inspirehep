@@ -3,7 +3,7 @@
 
 version: 2
 updates:
-  - package-ecosystem: "pip"  # pip supports also poetry https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file#package-ecosystem
+  - package-ecosystem: "pip" # pip supports also poetry https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file#package-ecosystem
     directory: "/"
     schedule:
       interval: "monthly"
