@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 volumes:
   production_postgres_data: {}
@@ -57,13 +57,13 @@ services:
 
   mq:
     image: rabbitmq:3.9.11-management
-    restart: 'always'
+    restart: "always"
     container_name: backofficee_production_mq
     ports:
-      - '5672:5672'
+      - "5672:5672"
     networks:
       - djangonetwork
 
 networks:
-    djangonetwork:
-        driver: bridge
+  djangonetwork:
+    driver: bridge

@@ -1,10 +1,10 @@
 """
 Base settings to build other settings files upon.
 """
+import platform
 from pathlib import Path
 
 import environ
-import platform
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 # backoffice/
@@ -100,12 +100,7 @@ THIRD_PARTY_APPS = [
     "drf_spectacular",
 ]
 
-LOCAL_APPS = [
-    "backoffice.users",
-    "backoffice.workflows",
-    "backoffice.management"
-    # Your stuff: custom apps go here
-]
+LOCAL_APPS = ["backoffice.users", "backoffice.workflows", "backoffice.management"]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -341,7 +336,7 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.TokenAuthentication",
     ),
-    "DEFAULT_PERMISSION_CLASSES": ('backoffice.management.permissions.IsAdminOrCuratorUser', ),
+    "DEFAULT_PERMISSION_CLASSES": ("backoffice.management.permissions.IsAdminOrCuratorUser",),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
