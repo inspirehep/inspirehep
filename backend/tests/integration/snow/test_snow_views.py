@@ -183,6 +183,7 @@ def test_reply_ticket_with_template_view(
             data=orjson.dumps(
                 {
                     "ticket_id": ticket_id,
+                    "user_email": "test@test.com",
                     "template": "user_accepted",
                     "template_context": dict(
                         user_name="Test, User",
@@ -208,6 +209,7 @@ def test_reply_ticket_with_template_view_when_user_not_authenticated(
                 {
                     "ticket_id": "1234",
                     "template": "user_accepted",
+                    "user_email": "test@test.com",
                     "template_context": dict(
                         user_name="Test, User",
                         author_name="Test, Author",
@@ -241,6 +243,7 @@ def test_reply_ticket_with_template_view_when_edit_ticket_error(
                     "template": "user_accepted",
                     "template_context": dict(
                         user_name="Test, User",
+                        user_email="test@test.com",
                         author_name="Test, Author",
                         record_url="https://inspirebeta.net/api/authors/2621784",
                     ),
@@ -271,6 +274,7 @@ def test_reply_ticket_view(mocked_inspire_snow, teardown_cache, inspire_app):
                 {
                     "ticket_id": ticket_id,
                     "reply_message": "This is a test reply",
+                    "user_email": "test@test.com",
                 }
             ),
         )

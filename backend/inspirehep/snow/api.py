@@ -572,6 +572,16 @@ class InspireSnow(SnowTicketAPI):
         """
         self.edit_ticket(ticket_id, payload={"comments": message})
 
+    def add_user_to_watchlist(self, ticket_id, user_email):
+        """Adds user to the watchlist.
+        Remark: it overrides the existing watchlist and it is possible to add one user only.
+
+        Args:
+            ticket_id (str): existing ticket id.
+            user_email (str): email of the user that should be added to watchlist.
+        """
+        self.edit_ticket(ticket_id=ticket_id, payload={"watch_list": user_email})
+
     def comment_ticket_with_template(self, ticket_id, template_path, template_context):
         """Reply SNOW ticket with custom Jinja template
 
