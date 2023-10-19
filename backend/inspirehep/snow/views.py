@@ -74,6 +74,7 @@ def create_ticket_with_template(args):
 @parser.use_args(
     {
         "ticket_id": fields.String(required=True),
+        "user_email": fields.String(),
         "template": fields.String(),
         "template_context": fields.Dict(required=False),
     }
@@ -86,6 +87,8 @@ def reply_ticket_with_template(args):
         snow_instance.comment_ticket_with_template(
             args["ticket_id"], template_path, args.get("template_context", {})
         )
+        if args.get("user_email"):
+            snow_instance.add_user_to_watchlist(args["ticket_id"], args["user_email"])
         return jsonify({"message": "Ticket was updated with the reply"}), 200
     except EditTicketException as e:
         LOGGER.warning("Can't reply SNOW ticket", exception=str(e))
@@ -96,6 +99,7 @@ def reply_ticket_with_template(args):
 @parser.use_args(
     {
         "ticket_id": fields.String(required=True),
+        "user_email": fields.String(),
         "reply_message": fields.String(required=True),
     }
 )
@@ -104,6 +108,8 @@ def reply_ticket(args):
     snow_instance = InspireSnow()
     try:
         snow_instance.comment_ticket(args["ticket_id"], args["reply_message"])
+        if args.get("user_email"):
+            snow_instance.add_user_to_watchlist(args["ticket_id"], args["user_email"])
         return jsonify({"message": "Ticket was updated with the reply"}), 200
     except EditTicketException as e:
         LOGGER.warning("Can't reply SNOW ticket", exception=str(e))

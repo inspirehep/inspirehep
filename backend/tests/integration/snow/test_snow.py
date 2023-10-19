@@ -92,7 +92,7 @@ def test_get_ticket_by_recid(mocked_inspire_snow, inspire_app, teardown_cache):
         "subject",
         "description",
     ]
-    control_number = 3332212
+    control_number = 3332200
     ticket_id = InspireSnow().create_inspire_ticket(
         subject="This is a test description by Jessica Jones.",
         description="This is a test subject by Jessica Jones.",

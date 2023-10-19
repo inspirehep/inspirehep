@@ -16,8 +16,8 @@ interactions:
     uri: https://cerntraining.service-now.com/api/now/table/sys_user_grmember?sysparm_fields=user.name%2Cgroup.name%2Cuser.email%2Cuser.sys_id&sysparm_query=group.nameSTARTSWITHInspire+Information+system
   response:
     body:
-      string: '{"result":[{"group.name":"Inspire Information system 2nd Line Support","user.sys_id":"8a2d3dfadbeec810b80594dadb961904","user.email":"marcjanna.jedrych@cern.ch","user.name":"XXX"},{"group.name":"Inspire
-        Information system 2nd Line Support","user.sys_id":"ea4dfe1e0a0a8c0a016bddc2f2e5befc","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
+      string: '{"result":[{"group.name":"Inspire Information system 2nd Line Support","user.sys_id":"8a2d3dfadbeec810b80594dadb961904","user.email":"marcjanna.jedrych@cern.ch","user.name":"Marcjanna
+        Jedrych"},{"group.name":"Inspire Information system 2nd Line Support","user.sys_id":"ea4dfe1e0a0a8c0a016bddc2f2e5befc","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system 2nd Line Support","user.sys_id":"f06113500a0a8c08006fdd448147d73b","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system 2nd Line Support","user.sys_id":"f51c269e1bead910de8f42e6bb4bcb9b","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system 2nd Line Support","user.sys_id":"41ee6c8d873ed510eb5284030cbb35cc","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
@@ -38,8 +38,8 @@ interactions:
         Information system 2nd Line Support","user.sys_id":"da1c269e1bead910de8f42e6bb4bcbcd","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system 2nd Line Support","user.sys_id":"ed3a8f720a0a8c0a01fc90ad8487cc1b","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system Aggregated Group","user.sys_id":"5cdb7c8f49d770006d21ba2605c60735","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
-        Information system Aggregated Group","user.sys_id":"8a2d3dfadbeec810b80594dadb961904","user.email":"marcjanna.jedrych@cern.ch","user.name":"XXX"},{"group.name":"Inspire
-        Information system Aggregated Group","user.sys_id":"f51c269e1bead910de8f42e6bb4bcb9b","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
+        Information system Aggregated Group","user.sys_id":"8a2d3dfadbeec810b80594dadb961904","user.email":"marcjanna.jedrych@cern.ch","user.name":"Marcjanna
+        Jedrych"},{"group.name":"Inspire Information system Aggregated Group","user.sys_id":"f51c269e1bead910de8f42e6bb4bcb9b","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system Aggregated Group","user.sys_id":"41ee6c8d873ed510eb5284030cbb35cc","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system Aggregated Group","user.sys_id":"171c669e1bead910de8f42e6bb4bcbc6","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
         Information system Aggregated Group","user.sys_id":"e6dad0404f61c20093ecdf601310c797","user.email":"XXX","user.name":"XXX"},{"group.name":"Inspire
@@ -68,7 +68,7 @@ interactions:
       Content-Type:
       - application/json;charset=UTF-8
       Date:
-      - Tue, 23 May 2023 13:46:14 GMT
+      - Thu, 19 Oct 2023 13:26:18 GMT
       Expires:
       - '0'
       Pragma:
@@ -76,7 +76,7 @@ interactions:
       Server:
       - snow_adc
       Server-Timing:
-      - sem_wait;dur=1, sesh_wait;dur=0
+      - sem_wait;dur=0, sesh_wait;dur=0
       Strict-Transport-Security:
       - max-age=63072000; includeSubDomains
       Transfer-Encoding:
@@ -86,9 +86,9 @@ interactions:
       X-Total-Count:
       - '44'
       X-Transaction-ID:
-      - f12ff5688743
+      - e27f09601b0a
       content-length:
-      - '7814'
+      - '7762'
     status:
       code: 200
       message: OK
