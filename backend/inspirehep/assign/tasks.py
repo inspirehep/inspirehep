@@ -250,7 +250,7 @@ def create_rt_ticket_for_claiming_action(
     if already_claimed_papers:
         template_payload.update({"already_claimed_papers": already_claimed_papers})
 
-    rt_queue = "AUTHORS_claim_manual"
+    rt_queue = "Author claims"
     requestor = None
     to_author_preffered_name = (
         get_value(to_author_record, "name.preferred_name")

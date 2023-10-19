@@ -543,7 +543,7 @@ def test_author_assign_papers_different_profile(mock_create_ticket, inspire_app)
     response_status_code = response.status_code
 
     assert mock_create_ticket.mock_calls[0][1] == (
-        "AUTHORS_claim_manual",
+        "Author claims",
         None,
         "rt/assign_authors_from_different_profile.html",
         {
@@ -723,7 +723,7 @@ def test_author_assign_view_claimed_with_stub_author(mock_create_ticket, inspire
     response_status_code = response.status_code
 
     assert mock_create_ticket.mock_calls[0][1] == (
-        "AUTHORS_claim_manual",
+        "Author claims",
         None,
         "rt/assign_authors_from_different_profile.html",
         {
@@ -1103,7 +1103,7 @@ def test_assign_author_has_main_name(mock_create_ticket, inspire_app):
     response_status_code = response.status_code
 
     assert mock_create_ticket.mock_calls[0][1] == (
-        "AUTHORS_claim_manual",
+        "Author claims",
         None,
         "rt/assign_authors_from_different_profile.html",
         {
@@ -1222,7 +1222,7 @@ def test_assign_author_calls_create_rt_ticket_for_claiming_action_when_some_args
     response_status_code = response.status_code
 
     assert mock_create_ticket.mock_calls[0][1] == (
-        "AUTHORS_claim_manual",
+        "Author claims",
         None,
         "rt/assign_authors_from_different_profile.html",
         {
