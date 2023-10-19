@@ -202,7 +202,7 @@ class AuthorSubmissionsResource(BaseSubmissionsResource):
         author_form_url = f"{hep_url}/submissions/authors/{control_number}"
         # need to add author editor url?
 
-        rt_queue = "AUTHORS_cor_user"
+        rt_queue = "Author updates"
 
         requestor = current_user.email
         rt_template_context = {
@@ -248,7 +248,7 @@ class ConferenceSubmissionsResource(BaseSubmissionsResource):
         CONFERENCE_DETAILS = f"{INSPIREHEP_URL}/conferences/{control_number}"
         CONFERENCE_EDIT = f"{INSPIREHEP_URL}/submissions/conferences/{control_number}"
 
-        rt_queue = "CONF_add_user"
+        rt_queue = "Conferences"
 
         requestor = current_user.email
         rt_template_context = {
@@ -348,7 +348,7 @@ class SeminarSubmissionsResource(BaseSubmissionsResource):
         seminar_url = f"{hep_url}/seminars/{control_number}"
         seminar_edit_url = f"{hep_url}/submissions/seminars/{control_number}"
 
-        rt_queue = "SEMINARS"
+        rt_queue = "Seminars"
 
         requestor = current_user.email
         rt_template_context = {
@@ -539,7 +539,7 @@ class JobSubmissionsResource(BaseSubmissionsResource):
         JOB_DETAILS = f"{INSPIREHEP_URL}/jobs/{control_number}"
         JOB_EDIT = f"{INSPIREHEP_URL}/submissions/jobs/{control_number}"
 
-        rt_queue = "JOBS"
+        rt_queue = "Jobs"
         requestor = record["acquisition_source"]["email"] or record[
             "acquisition_source"
         ].get("name", "UNKNOWN")
