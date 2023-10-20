@@ -810,6 +810,21 @@ files = [
 ]
 
 [[package]]
+name = "dj-database-url"
+version = "2.1.0"
+description = "Use Database URLs in your Django Application."
+optional = false
+python-versions = "*"
+files = [
+    {file = "dj-database-url-2.1.0.tar.gz", hash = "sha256:f2042cefe1086e539c9da39fad5ad7f61173bf79665e69bf7e4de55fa88b135f"},
+    {file = "dj_database_url-2.1.0-py3-none-any.whl", hash = "sha256:04bc34b248d4c21aaa13e4ab419ae6575ef5f10f3df735ce7da97722caa356e0"},
+]
+
+[package.dependencies]
+Django = ">=3.2"
+typing-extensions = ">=3.10.0.0"
+
+[[package]]
 name = "django"
 version = "4.2.6"
 description = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
@@ -891,13 +906,13 @@ tzdata = "*"
 
 [[package]]
 name = "django-cors-headers"
-version = "4.3.0"
+version = "4.2.0"
 description = "django-cors-headers is a Django application for handling the server headers required for Cross-Origin Resource Sharing (CORS)."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "django_cors_headers-4.3.0-py3-none-any.whl", hash = "sha256:bd36c7aea0d070e462f3383f0dc9ef717e5fdc2b10a99c98c285f16da84ffba2"},
-    {file = "django_cors_headers-4.3.0.tar.gz", hash = "sha256:25aabc94d4837678c1edf442c7f68a5f5fd151f6767b0e0b01c61a2179d02711"},
+    {file = "django_cors_headers-4.2.0-py3-none-any.whl", hash = "sha256:9ada212b0e2efd4a5e339360ffc869cb21ac5605e810afe69f7308e577ea5bde"},
+    {file = "django_cors_headers-4.2.0.tar.gz", hash = "sha256:f9749c6410fe738278bc2b6ef17f05195bc7b251693c035752d8257026af024f"},
 ]
 
 [package.dependencies]
@@ -1047,7 +1062,7 @@ files = [
 django = "*"
 django-stubs-ext = ">=4.2.2"
 mypy = [
-    {version = ">=1.0.0"},
+    {version = ">=1.0.0", optional = true, markers = "extra != \"compatible-mypy\""},
     {version = "==1.5.*", optional = true, markers = "extra == \"compatible-mypy\""},
 ]
 types-pytz = "*"
@@ -1115,7 +1130,7 @@ files = [
 [package.dependencies]
 django-stubs = ">=4.2.4"
 mypy = [
-    {version = ">=0.991"},
+    {version = ">=0.991", optional = true, markers = "extra != \"compatible-mypy\""},
     {version = "==1.5.*", optional = true, markers = "extra == \"compatible-mypy\""},
 ]
 requests = ">=2.0.0"
@@ -3545,5 +3560,5 @@ files = [
 
 [metadata]
 lock-version = "2.0"
-python-versions = "3.11"
-content-hash = "81efdfc0346048d4d5d3f32887219b5f31db91f089b299c50f9af4bf2a94b5f7"
+python-versions = "~3.11"
+content-hash = "9e23d7a0f8b11684e35cc243d9b1d12f001525e837b2fba5a576b0e8a7a9d2a7"
