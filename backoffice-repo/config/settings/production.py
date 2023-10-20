@@ -1,5 +1,6 @@
 import logging
 
+import dj_database_url
 import sentry_sdk
 from sentry_sdk.integrations.celery import CeleryIntegration
 from sentry_sdk.integrations.django import DjangoIntegration
@@ -19,6 +20,9 @@ ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["*"])
 # DATABASES
 # ------------------------------------------------------------------------------
 DATABASES["default"]["CONN_MAX_AGE"] = env.int("CONN_MAX_AGE", default=60)  # noqa: F405
+
+if env("POSTGRES_URI"):
+    DATABASES = {"default": dj_database_url.config(default=env("POSTGRES_URI"))}
 
 # CACHES
 # ------------------------------------------------------------------------------
