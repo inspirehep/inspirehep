@@ -833,8 +833,9 @@ def test_documents_with_large_size(inspire_app, override_config):
             ],
         }
         data = faker.record("lit", data=data)
-        with pytest.raises(FileSizeExceededError):
+        with pytest.raises(FileSizeExceededError) as fs_error:
             LiteratureRecord.create(data)
+        assert fs_error.value.code == 413
 
 
 @pytest.mark.vcr()
@@ -2092,13 +2093,6 @@ def test_self_citations_on_collaborations_calculated_on_other_record_update(
 
 
 def test_arxiv_url_also_supports_format_alias_latex(inspire_app):
-    expected_links = {
-        "bibtex": "http://localhost:5000/api/arxiv/hep-ph/9709356?format=bibtex",
-        "json": "http://localhost:5000/api/arxiv/hep-ph/9709356?format=json",
-        "latex-eu": "http://localhost:5000/api/arxiv/hep-ph/9709356?format=latex-eu",
-        "latex-us": "http://localhost:5000/api/arxiv/hep-ph/9709356?format=latex-us",
-        "cv": "http://localhost:5000/api/arxiv/hep-ph/9709356?format=cv",
-    }
 
     expected_latex_us_type = "application/vnd+inspire.latex.us+x-latex"
     expected_latex_eu_type = "application/vnd+inspire.latex.eu+x-latex"
@@ -2124,13 +2118,6 @@ def test_arxiv_url_also_supports_format_alias_latex(inspire_app):
 
 
 def test_arxiv_url_also_supports_format_alias_bibtex(inspire_app):
-    expected_links = {
-        "bibtex": "http://localhost:5000/api/arxiv/hep-ph/9709356?format=bibtex",
-        "json": "http://localhost:5000/api/arxiv/hep-ph/9709356?format=json",
-        "latex-eu": "http://localhost:5000/api/arxiv/hep-ph/9709356?format=latex-eu",
-        "latex-us": "http://localhost:5000/api/arxiv/hep-ph/9709356?format=latex-us",
-        "cv": "http://localhost:5000/api/arxiv/hep-ph/9709356?format=cv",
-    }
 
     expected_bibtex_type = "application/x-bibtex"
 
@@ -2151,9 +2138,6 @@ def test_arxiv_url_also_supports_format_alias_bibtex(inspire_app):
 
 
 def test_arxiv_url_also_supports_format_alias_json(inspire_app):
-    expected_links = {
-        "json": "http://localhost:5000/api/arxiv/hep-ph/9709356?format=json"
-    }
 
     expected_bibtex_type = "application/json"
 
@@ -2174,13 +2158,6 @@ def test_arxiv_url_also_supports_format_alias_json(inspire_app):
 
 
 def test_arxiv_url_also_supports_format_alias_cv(inspire_app):
-    expected_links = {
-        "bibtex": "http://localhost:5000/api/arxiv/hep-ph/9709356?format=bibtex",
-        "json": "http://localhost:5000/api/arxiv/hep-ph/9709356?format=json",
-        "latex-eu": "http://localhost:5000/api/arxiv/hep-ph/9709356?format=latex-eu",
-        "latex-us": "http://localhost:5000/api/arxiv/hep-ph/9709356?format=latex-us",
-        "cv": "http://localhost:5000/api/arxiv/hep-ph/9709356?format=cv",
-    }
 
     expected_cv_type = "text/vnd+inspire.html+html; charset=utf-8"
 
