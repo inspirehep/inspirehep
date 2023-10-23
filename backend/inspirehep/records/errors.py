@@ -61,6 +61,8 @@ class FileSizeExceededError(RESTException):
         default_message = f"File size exceeded, maximum file size: {current_app.config['FILES_SIZE_LIMIT']} bytes"
         self.description = message or default_message
 
+    code = 413
+
 
 class UnsupportedFileError(RESTException):
     def __init__(self, mimetype="", **kwargs):
