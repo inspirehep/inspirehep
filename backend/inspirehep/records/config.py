@@ -65,6 +65,7 @@ from inspirehep.search.facets import (
     records_jobs,
     records_jobs_cataloger,
     records_seminars,
+    should_match_and_missing_filter,
 )
 from inspirehep.serializers import jsonify
 
@@ -568,7 +569,7 @@ HEP_FILTERS = {
 }
 
 JOBS_FILTERS = {
-    "field_of_interest": must_match_all_or_missing_filter("arxiv_categories", "Other"),
+    "field_of_interest": should_match_and_missing_filter("arxiv_categories", "Other"),
     "rank": terms_filter("ranks"),
     "region": terms_filter("regions"),
     "status": terms_filter("status"),
