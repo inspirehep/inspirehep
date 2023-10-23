@@ -411,9 +411,9 @@ def test_jobs_field_of_interest_aggregation_and_filter(inspire_app, override_con
 
     with override_config(**config):
         data = {"arxiv_categories": ["physics"], "status": "open"}
-        expected_record = create_record("job", data)
+        expected_record_phy = create_record("job", data)
         data = {"arxiv_categories": ["hep-ex"], "status": "open"}
-        create_record("job", data)
+        expected_record_hep = create_record("job", data)
         data = {"status": "open"}
         expected_record_without_arxiv_category = create_record("job", data)
         with inspire_app.test_client() as client:
@@ -432,11 +432,12 @@ def test_jobs_field_of_interest_aggregation_and_filter(inspire_app, override_con
 
         with inspire_app.test_client() as client:
             response = client.get("/jobs?field_of_interest=physics").json
-        assert len(response["hits"]["hits"]) == 1
-        assert (
-            response["hits"]["hits"][0]["metadata"]["control_number"]
-            == expected_record["control_number"]
-        )
+            assert len(response["hits"]["hits"]) == 1
+            assert (
+                response["hits"]["hits"][0]["metadata"]["control_number"]
+                == expected_record_phy["control_number"]
+            )
+
         with inspire_app.test_client() as client:
             response = client.get("/jobs?field_of_interest=Other").json
             assert len(response["hits"]["hits"]) == 1
@@ -444,6 +445,29 @@ def test_jobs_field_of_interest_aggregation_and_filter(inspire_app, override_con
                 response["hits"]["hits"][0]["metadata"]["control_number"]
                 == expected_record_without_arxiv_category["control_number"]
             )
+
+        with inspire_app.test_client() as client:
+            response = client.get(
+                "/jobs?field_of_interest=hep-ex&field_of_interest=physics"
+            ).json
+            assert len(response["hits"]["hits"]) == 2
+            assert set(
+                [
+                    response["hits"]["hits"][0]["metadata"]["control_number"],
+                    response["hits"]["hits"][1]["metadata"]["control_number"],
+                ]
+            ) == set(
+                [
+                    expected_record_phy["control_number"],
+                    expected_record_hep["control_number"],
+                ]
+            )
+
+        with inspire_app.test_client() as client:
+            response = client.get(
+                "/jobs?field_of_interest=hep-ex&field_of_interest=physics&field_of_interest=Other"
+            ).json
+            assert len(response["hits"]["hits"]) == 3
 
 
 def test_jobs_rank_aggregation_and_filter(inspire_app, override_config):

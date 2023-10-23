@@ -7,9 +7,9 @@
 from datetime import datetime
 from itertools import count
 
-from opensearch_dsl.query import Q, Range
 from flask import current_app, request
 from invenio_records_rest.facets import range_filter
+from opensearch_dsl.query import Q, Range
 
 from inspirehep.search.aggregations import (
     conf_series_aggregation,
@@ -93,6 +93,20 @@ def must_match_all_or_missing_filter(field, missing_field_value):
             filters = [Q("match", **{field: value}) for value in values]
 
         return Q("bool", filter=filters)
+
+    return inner
+
+
+def should_match_and_missing_filter(field, missing_field_value):
+    """Bool filter containing a list of should matches."""
+
+    def inner(values):
+        filters = []
+        if missing_field_value in values:
+            filters.append(~Q("exists", field=field))
+
+        filters.extend([Q("term", **{field: value}) for value in values])
+        return Q("bool", filter=[Q("bool", should=filters)])
 
     return inner
 
