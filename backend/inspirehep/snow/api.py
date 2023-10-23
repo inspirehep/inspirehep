@@ -483,6 +483,7 @@ class InspireSnow(SnowTicketAPI):
             "short_description": subject,
             "description": description,
             "assignment_group": self.functional_element_id,
+            "comments": description,
             **kwargs,
         }
         if not recid:
@@ -495,7 +496,6 @@ class InspireSnow(SnowTicketAPI):
                 self._update_ticket_with_inspire_recid(
                     ticket_id, str(recid), assignee=assignee_id
                 )
-            self.comment_ticket(ticket_id, description)
             return ticket_id
         except requests.exceptions.RequestException:
             raise CreateTicketException()
