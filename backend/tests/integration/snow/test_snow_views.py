@@ -49,6 +49,7 @@ def test_create_ticket_with_template_view(
         )
         assert response.status_code == 200
         assert "ticket_id" in response.json
+        assert "ticket_url" in response.json
         assert InspireSnow().get_tickets_by_recid("123")
 
 
@@ -105,6 +106,7 @@ def test_create_ticket_view(mocked_inspire_snow, teardown_cache, inspire_app):
         )
         assert response.status_code == 200
         assert "ticket_id" in response.json
+        assert "ticket_url" in response.json
 
 
 @pytest.mark.vcr(
