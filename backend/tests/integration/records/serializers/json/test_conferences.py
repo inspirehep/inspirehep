@@ -215,6 +215,7 @@ def test_proceedings_in_detail_page(inspire_app):
         "number_of_contributions": 1,
         "$schema": "http://localhost:5000/schemas/records/conferences.json",
         "control_number": conference["control_number"],
+        "titles": conference["titles"],
         "proceedings": [{"control_number": proceeding["control_number"]}],
         "self": {
             "$ref": f"http://localhost:5000/api/conferences/{conference_control_number}"
@@ -255,7 +256,7 @@ def test_conferences_json_search_doesnt_return_emails(inspire_app, datadir):
 
     data = {"contact_details": [{"name": "Test Name", "email": "test@test.com"}]}
 
-    record = create_record("con", data=data)
+    create_record("con", data=data)
 
     with inspire_app.test_client() as client:
         response = client.get("/conferences", headers=headers)

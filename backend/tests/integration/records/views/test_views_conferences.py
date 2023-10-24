@@ -145,18 +145,18 @@ def test_conferences_application_json_put_with_cataloger_logged_in(inspire_app):
     cataloger = create_user(role=Roles.cataloger.value)
     record = create_record("con")
     record_control_number = record["control_number"]
+    record_titles = record["titles"]
     expected_status_code = 200
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=cataloger.email)
         response = client.put(
             "/conferences/{}".format(record_control_number),
             content_type="application/json",
-            headers={
-                "If-Match": '"0"'
-            },
+            headers={"If-Match": '"0"'},
             data=orjson.dumps(
                 {
                     "control_number": record_control_number,
+                    "titles": record_titles,
                     "$schema": "http://localhost:5000/schemas/records/conferences.json",
                     "_collections": ["Conferences"],
                 }

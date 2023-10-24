@@ -142,6 +142,7 @@ class RecordProvider(BaseProvider):
         return {
             "$schema": "http://localhost:5000/schemas/records/conferences.json",
             "_collections": ["Conferences"],
+            "titles": [{"title": fake.sentence()}],
         }
 
     @staticmethod

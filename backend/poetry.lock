@@ -1508,7 +1508,7 @@ tests = ["flake8 (>=3.5.0,<4.0)", "mock (>=2.0.0,<3.0)", "pytest-cov (>=2.0,<=2.
 
 [[package]]
 name = "inspire-schemas"
-version = "61.5.24"
+version = "61.5.25"
 description = "Inspire JSON schemas and utilities to use them."
 category = "main"
 optional = false
@@ -1606,7 +1606,7 @@ all = ["Sphinx (>=3)", "cachelib (>=0.1)", "pytest-invenio (>=1.4.1)", "redis (>
 docs = ["Sphinx (>=3)"]
 mysql = ["invenio-db[versioning,mysql] (>=1.0.14)"]
 postgresql = ["invenio-db[versioning,postgresql] (>=1.0.14)"]
-sqlite = ["invenio-db[versioning,sqlite] (>=1.0.14)"]
+sqlite = ["invenio-db[sqlite,versioning] (>=1.0.14)"]
 tests = ["cachelib (>=0.1)", "pytest-invenio (>=1.4.1)", "redis (>=2.10.5)"]
 
 [package.source]
@@ -4324,7 +4324,7 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<3.9"
-content-hash = "45a613c2bd32454ffa539a31d61212c86fd9eb51660661c3759d582cdf143808"
+content-hash = "b5f8899e19254379746dbb473f50b4c0738a6e7599abb74bbf8042d46d68a72d"
 
 [metadata.files]
 alembic = [
@@ -5066,7 +5066,7 @@ inspire-query-parser = [
     {file = "inspire_query_parser-6.0.51-py3-none-any.whl", hash = "sha256:af5803db6d6e7b461e468486a37eea8723aea8a05cc9224bcebe10b5e214346b"},
 ]
 inspire-schemas = [
-    {file = "inspire_schemas-61.5.24-py2.py3-none-any.whl", hash = "sha256:06fa2f30bec675459e8dc8548369e9397be89ab4ada334e0ade81d2d62b44a15"},
+    {file = "inspire_schemas-61.5.25-py2.py3-none-any.whl", hash = "sha256:17c3a614121627c42d49b5e3923a0e0af10e1d0797196b623ddb46d71a83c076"},
 ]
 inspire-service-orcid = []
 inspire-utils = [
