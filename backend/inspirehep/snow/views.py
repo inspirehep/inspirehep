@@ -34,7 +34,8 @@ def create_ticket(args):
             subject=args.get("subject"),
             description=args.get("description"),
         )
-        return jsonify({"ticket_id": ticket}), 200
+        ticket_url = snow_instance.get_ticket_link(ticket)
+        return jsonify({"ticket_id": ticket, "ticket_url": ticket_url}), 200
     except (CreateTicketException, EditTicketException) as e:
         LOGGER.warning("Can't create SNOW ticket", exception=str(e))
         return jsonify({"message": "Can't create SNOW ticket!"}), 500
@@ -64,7 +65,8 @@ def create_ticket_with_template(args):
             subject=args.get("subject"),
             recid=args.get("recid"),
         )
-        return jsonify({"ticket_id": ticket}), 200
+        ticket_url = snow_instance.get_ticket_link(ticket)
+        return jsonify({"ticket_id": ticket, "ticket_url": ticket_url}), 200
     except (CreateTicketException, EditTicketException) as e:
         LOGGER.warning("Can't create SNOW ticket", exception=str(e))
         return jsonify({"message": "Can't create SNOW ticket!"}), 500
