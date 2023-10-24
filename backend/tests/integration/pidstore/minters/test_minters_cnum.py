@@ -73,6 +73,7 @@ def test_minter_change_opening_date_doesnt_change_cnum(inspire_app):
     data = {
         "$schema": "https://labs.inspirehep.net/schemas/records/conferences.json",
         "_collections": ["Conferences"],
+        "titles": [{"title": "Great conference for HEP"}],
         "opening_date": "2005-09-16",
     }
     record = ConferencesRecord.create(data)
@@ -94,6 +95,7 @@ def test_minter_deleting_record_removes_cnum_pid(inspire_app):
     data = {
         "$schema": "https://labs.inspirehep.net/schemas/records/conferences.json",
         "_collections": ["Conferences"],
+        "titles": [{"title": "Great conference for HEP"}],
         "opening_date": "2005-09-16",
     }
     record = ConferencesRecord.create(data)

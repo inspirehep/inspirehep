@@ -23,7 +23,7 @@ Flask = ">=1.0.2"
 msgpack = "==0.6.2"
 
 python = ">=3.8,<3.9"
-inspire-schemas = "^61.5.24"
+inspire-schemas = "^61.5.25"
 inspire-utils = "^3.0.28"
 inspire-service-orcid = {git = "https://github.com/inspirehep/inspire-service-orcid.git", rev = "1a0e762e58bc9cac65f7665b9831993c017fd8bb"}
 inspire-json-merger = "^11.0"
