@@ -47,11 +47,6 @@ LOCALE_PATHS = [str(BASE_DIR / "locale")]
 # DATABASES
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
-db_host = None
-if platform.system() == "Linux":
-    db_host = env("POSTGRES_HOST")
-else:
-    db_host = "localhost"
 
 DATABASES = {
     "default": {
@@ -59,7 +54,7 @@ DATABASES = {
         "NAME": env("POSTGRES_DB"),
         "USER": env("POSTGRES_USER"),
         "PASSWORD": env("POSTGRES_PASSWORD"),
-        "HOST": db_host,
+        "HOST": env("POSTGRES_HOST") if platform.system() == "Linux" else "localhost",
         "PORT": env("POSTGRES_PORT"),
     }
 }
