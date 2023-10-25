@@ -48,7 +48,7 @@ LOCALE_PATHS = [str(BASE_DIR / "locale")]
 # DATABASES
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
-if env("POSTGRES_URI", ""):
+if env("POSTGRES_URI", default=""):
     DATABASES = {"default": dj_database_url.config(default=env("POSTGRES_URI"))}
 else:
     DATABASES = {
