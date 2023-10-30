@@ -14,7 +14,6 @@ from flask import Blueprint, current_app, make_response, request
 from flask_login import current_user
 from inspire_schemas.api import load_schema
 from inspire_utils.dedupers import dedupe_list
-from inspirehep.curation.api import normalize_affiliations
 from invenio_db import db
 from invenio_records.models import RecordMetadata
 from invenio_records_rest.utils import set_headers_for_record_caching_and_concurrency
@@ -32,13 +31,11 @@ from inspirehep.matcher.api import get_affiliations_from_pdf, match_references
 from inspirehep.matcher.utils import create_journal_dict, map_refextract_to_schema
 from inspirehep.pidstore.api.base import PidStoreBase
 from inspirehep.records.api import InspireRecord
-from inspirehep.rt import tickets
 from inspirehep.serializers import jsonify
 from inspirehep.snow.api import InspireSnow
 from inspirehep.snow.errors import EditTicketException
 from inspirehep.utils import hash_data
 
-from ..rt.errors import EmptyResponseFromRT, NoUsersFound
 from .authorlist_utils import authorlist
 from .editor_soft_lock import EditorSoftLock
 from .errors import EditorGetRevisionError, EditorRevertToRevisionError
@@ -165,47 +162,26 @@ def get_revision(transaction_id, rec_uuid):
 def create_rt_ticket(endpoint, pid_value):
     """View to create an rt ticket"""
     json = request.json
-    # TODO: remove after testing snow
-    if current_app.config.get("FEATURE_FLAG_ENABLE_SNOW"):
-        try:
-            functional_category = current_app.config[
-                "SNOW_QUEUE_TO_FUNCTIONAL_CATEGORY_MAPPING"
-            ].get(json["queue"], json["queue"])
-            ticket_id = InspireSnow().create_inspire_ticket(
-                functional_category=functional_category,
-                user_email=current_user.email,
-                description=json.get("description", ""),
-                subject=json.get("subject"),
-                recid=pid_value,
-                assigned_to_name=json.get("owner"),
-            )
-            return jsonify(
-                success=True,
-                data={
-                    "id": str(ticket_id),
-                    "link": InspireSnow().get_ticket_link(ticket_id),
-                },
-            )
-        except requests.exceptions.RequestException:
-            return jsonify(success=False), 500
-
-    else:
-        ticket_id = tickets.create_ticket(
-            json["queue"],
-            current_user.email,
-            json.get("description"),
-            json.get("subject"),
-            pid_value,
-            Owner=json.get("owner"),
+    try:
+        functional_category = current_app.config[
+            "SNOW_QUEUE_TO_FUNCTIONAL_CATEGORY_MAPPING"
+        ].get(json["queue"], json["queue"])
+        ticket_id = InspireSnow().create_inspire_ticket(
+            functional_category=functional_category,
+            user_email=current_user.email,
+            description=json.get("description", ""),
+            subject=json.get("subject"),
+            recid=pid_value,
+            assigned_to_name=json.get("owner"),
         )
-        if ticket_id != -1:
-            return jsonify(
-                success=True,
-                data={
-                    "id": str(ticket_id),
-                    "link": tickets.get_rt_link_for_ticket(ticket_id),
-                },
-            )
+        return jsonify(
+            success=True,
+            data={
+                "id": str(ticket_id),
+                "link": InspireSnow().get_ticket_link(ticket_id),
+            },
+        )
+    except requests.exceptions.RequestException:
         return jsonify(success=False), 500
 
 
@@ -215,33 +191,11 @@ def create_rt_ticket(endpoint, pid_value):
 @login_required_with_roles([Roles.cataloger.value])
 def resolve_rt_ticket(endpoint, pid_value, ticket_id):
     """View to resolve an rt ticket"""
-    # TODO: remove it after implementing snow
-    if current_app.config.get("FEATURE_FLAG_ENABLE_SNOW"):
-        try:
-            InspireSnow().resolve_ticket(ticket_id, current_user.email)
-        except EditTicketException:
-            return jsonify(success=False), 500
-    else:
-        rt_username = None
-        try:
-            rt_user = tickets.get_rt_user_by_email(current_user.email)
-            rt_username = rt_user["Name"]
-        except EmptyResponseFromRT:
-            LOGGER.warning(
-                "RT did not return users list. ",
-                ticket_id=ticket_id,
-                pid_value=pid_value,
-                email=current_user.email,
-            )
-        except NoUsersFound:
-            LOGGER.warning(
-                "Cannot find user in RT",
-                ticket_id=ticket_id,
-                pid_value=pid_value,
-                email=current_user.email,
-            )
+    try:
+        InspireSnow().resolve_ticket(ticket_id, current_user.email)
+    except EditTicketException:
+        return jsonify(success=False), 500
 
-        tickets.resolve_ticket(ticket_id, rt_username)
     return jsonify(success=True)
 
 
@@ -249,14 +203,7 @@ def resolve_rt_ticket(endpoint, pid_value, ticket_id):
 @login_required_with_roles([Roles.cataloger.value])
 def get_tickets_for_record(endpoint, pid_value):
     """View to get rt ticket belongs to given record"""
-    # TODO: remove it after implementing snow
-    if current_app.config.get("FEATURE_FLAG_ENABLE_SNOW"):
-        simplified_tickets = InspireSnow().get_tickets_by_recid(pid_value)
-    else:
-        tickets_for_record = tickets.get_tickets_by_recid(pid_value)
-        simplified_tickets = [
-            _simplify_ticket_response(ticket) for ticket in tickets_for_record
-        ]
+    simplified_tickets = InspireSnow().get_tickets_by_recid(pid_value)
     return jsonify(simplified_tickets)
 
 
@@ -264,18 +211,14 @@ def get_tickets_for_record(endpoint, pid_value):
 @login_required_with_roles([Roles.cataloger.value])
 def get_rt_users():
     """View to get all rt users"""
-    if current_app.config.get("FEATURE_FLAG_ENABLE_SNOW"):
-        return jsonify(InspireSnow().get_formatted_user_list())
-    return jsonify(tickets.get_users())
+    return jsonify(InspireSnow().get_formatted_user_list())
 
 
 @blueprint.route("/rt/queues", methods=["GET"])
 @login_required_with_roles([Roles.cataloger.value])
 def get_rt_queues():
     """View to get all rt queues"""
-    if current_app.config.get("FEATURE_FLAG_ENABLE_SNOW"):
-        return jsonify(InspireSnow().get_formatted_functional_category_list())
-    return jsonify(tickets.get_queues())
+    return jsonify(InspireSnow().get_formatted_functional_category_list())
 
 
 def _simplify_ticket_response(ticket):
