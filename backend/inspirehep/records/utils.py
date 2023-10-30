@@ -181,7 +181,6 @@ def _create_ticket_self_curation(record_control_number, record_revision_id, user
         title=f"reference self-curation for record {record_control_number}",
         requestor=None,
         recid=record_control_number,
-        _override_snow_feature_flag_DO_NOT_USE=True,
     )
 
 
