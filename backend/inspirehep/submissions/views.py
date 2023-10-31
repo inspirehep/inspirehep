@@ -229,7 +229,7 @@ class ConferenceSubmissionsResource(BaseSubmissionsResource):
         record = ConferencesRecord.create(data)
         db.session.commit()
         if not is_superuser_or_cataloger_logged_in():
-            self.create_ticket(record, "rt/new_conference.html")
+            self.create_ticket(record, "snow/new_conference.html")
             send_conference_confirmation_email(current_user.email, record)
         return (
             jsonify(
@@ -292,7 +292,7 @@ class SeminarSubmissionsResource(BaseSubmissionsResource):
         db.session.commit()
 
         if not is_superuser_or_cataloger_logged_in():
-            self.create_ticket(record, "rt/new_seminar.html")
+            self.create_ticket(record, "snow/new_seminar.html")
             send_seminar_confirmation_email(current_user.email, record)
 
         return (jsonify({"pid_value": record["control_number"]}), 201)
@@ -323,7 +323,7 @@ class SeminarSubmissionsResource(BaseSubmissionsResource):
         db.session.commit()
 
         if not is_superuser_or_cataloger_logged_in():
-            self.create_ticket(record, "rt/update_seminar.html")
+            self.create_ticket(record, "snow/update_seminar.html")
 
         return jsonify({"pid_value": record["control_number"]})
 
@@ -427,7 +427,7 @@ class JobSubmissionsResource(BaseSubmissionsResource):
         data = self.get_valid_record_data_from_builder(builder)
         record = JobsRecord.create(data)
         db.session.commit()
-        self.create_ticket(record, "rt/new_job.html")
+        self.create_ticket(record, "snow/new_job.html")
         return jsonify({"pid_value": record["control_number"]}), 201
 
     def put(self, pid_value):
@@ -455,7 +455,7 @@ class JobSubmissionsResource(BaseSubmissionsResource):
         db.session.commit()
 
         if not is_superuser_or_cataloger_logged_in():
-            self.create_ticket(record, "rt/update_job.html")
+            self.create_ticket(record, "snow/update_job.html")
 
         return jsonify({"pid_value": record["control_number"]})
 
