@@ -24,14 +24,12 @@ from helpers.utils import (
 from inspire_schemas.api import load_schema, validate
 from inspire_utils.record import get_value
 from invenio_accounts.testutils import login_user_via_session
-from invenio_cache import current_cache
 from mock import patch
 from redis import StrictRedis
 from werkzeug.datastructures import FileStorage
 
 from inspirehep.accounts.roles import Roles
 from inspirehep.files import current_s3_instance
-from inspirehep.rt.errors import EmptyResponseFromRT, NoUsersFound
 from inspirehep.snow.api import InspireSnow
 
 
@@ -90,31 +88,6 @@ def test_get_record_and_schema_requires_cataloger_logged_in(inspire_app):
     assert response.status_code == 403
 
 
-@patch("inspirehep.editor.views.tickets")
-def test_create_rt_ticket(mock_tickets, inspire_app):
-    mock_tickets.create_ticket.return_value = 1
-    mock_tickets.get_rt_link_for_ticket.return_value = "http://rt_address"
-    user = create_user(role=Roles.cataloger.value)
-
-    with inspire_app.test_client() as client:
-        login_user_via_session(client, email=user.email)
-        response = client.post(
-            "api/editor/literature/1497201/rt/tickets/create",
-            content_type="application/json",
-            data=orjson.dumps(
-                {
-                    "description": "description",
-                    "owner": "owner",
-                    "queue": "queue",
-                    "recid": "4328",
-                    "subject": "subject",
-                }
-            ),
-        )
-
-    assert response.status_code == 200
-
-
 @pytest.mark.vcr(
     filter_headers=["authorization", "Set-Cookie"],
     before_record_request=filter_out_authentication,
@@ -148,23 +121,6 @@ def test_create_snow_ticket(
     assert "assigned_to" in ticket
 
 
-@patch("inspirehep.editor.views.tickets")
-def test_create_rt_ticket_only_needs_queue_and_recid(mock_tickets, inspire_app):
-    mock_tickets.create_ticket.return_value = 1
-    mock_tickets.get_rt_link_for_ticket.return_value = "http://rt_address"
-    user = create_user(role=Roles.cataloger.value)
-
-    with inspire_app.test_client() as client:
-        login_user_via_session(client, email=user.email)
-        response = client.post(
-            "api/editor/literature/1497201/rt/tickets/create",
-            content_type="application/json",
-            data=orjson.dumps({"queue": "queue", "recid": "4328"}),
-        )
-
-    assert response.status_code == 200
-
-
 @pytest.mark.vcr(
     filter_headers=["authorization", "Set-Cookie"],
     before_record_request=filter_out_authentication,
@@ -186,36 +142,6 @@ def test_create_snow_ticket_only_needs_queue_and_recid(
     assert response.status_code == 200
     assert "id" in response.json["data"]
     assert "link" in response.json["data"]
-
-
-@patch("inspirehep.editor.views.tickets")
-def test_create_rt_ticket_returns_500_on_error(mock_tickets, inspire_app):
-    mock_tickets.create_ticket.return_value = -1
-    mock_tickets.get_rt_link_for_ticket.return_value = "http://rt_address"
-    user = create_user(role=Roles.cataloger.value)
-
-    with inspire_app.test_client() as client:
-        login_user_via_session(client, email=user.email)
-        response = client.post(
-            "api/editor/literature/1497201/rt/tickets/create",
-            content_type="application/json",
-            data=orjson.dumps(
-                {
-                    "description": "description",
-                    "owner": "owner",
-                    "queue": "queue",
-                    "recid": "4328",
-                    "subject": "subject",
-                }
-            ),
-        )
-
-    assert response.status_code == 500
-
-    expected = {"success": False}
-    result = orjson.loads(response.data)
-
-    assert expected == result
 
 
 @pytest.mark.vcr(
@@ -261,36 +187,6 @@ def test_create_snow_ticket_returns_500_on_error(
         assert expected == result
 
 
-def test_create_rt_ticket_returns_403_on_authentication_error(inspire_app):
-    user = create_user()
-
-    with inspire_app.test_client() as client:
-        login_user_via_session(client, email=user.email)
-        response = client.post("api/editor/literature/1497201/rt/tickets/create")
-
-    assert response.status_code == 403
-
-
-@patch("inspirehep.editor.views.tickets")
-def test_resolve_rt_ticket(mock_tickets, inspire_app):
-    mock_tickets.get_rt_user_by_email.side_effect = NoUsersFound
-    mock_tickets.resolve_ticket.return_value = 1
-    user = create_user(role=Roles.cataloger.value)
-
-    with inspire_app.test_client() as client:
-        login_user_via_session(client, email=user.email)
-        response = client.get("api/editor/literature/1497201/rt/tickets/4328/resolve")
-
-    assert response.status_code == 200
-    mock_tickets.get_rt_user_by_email.assert_called_once_with(user.email)
-    mock_tickets.resolve_ticket.assert_called_once_with("4328", None)
-
-    expected = {"success": True}
-    result = orjson.loads(response.data)
-
-    assert expected == result
-
-
 @pytest.mark.vcr(
     filter_headers=["authorization", "Set-Cookie"],
     before_record_request=filter_out_authentication,
@@ -313,58 +209,6 @@ def test_resolve_snow_ticket(
     result = orjson.loads(response.data)
 
     assert expected == result
-
-
-@patch("inspirehep.editor.views.tickets")
-def test_resolve_rt_ticket_when_empty_response_on_get_users(mock_tickets, inspire_app):
-    mock_tickets.get_rt_user_by_email.side_effect = EmptyResponseFromRT
-    mock_tickets.resolve_ticket.return_value = 1
-
-    user = create_user(role=Roles.cataloger.value)
-
-    with inspire_app.test_client() as client:
-        login_user_via_session(client, email=user.email)
-        response = client.get("api/editor/literature/1497201/rt/tickets/4328/resolve")
-
-    assert response.status_code == 200
-    mock_tickets.get_rt_user_by_email.assert_called_once_with(user.email)
-    mock_tickets.resolve_ticket.assert_called_once_with("4328", None)
-
-    expected = {"success": True}
-    result = orjson.loads(response.data)
-
-    assert expected == result
-
-
-@patch("inspirehep.editor.views.tickets")
-def test_resolve_rt_ticket_with_user(mock_tickets, inspire_app):
-    mock_tickets.get_rt_user_by_email.return_value = {"Name": "TEST_USER"}
-    mock_tickets.resolve_ticket.return_value = 1
-
-    user = create_user(role=Roles.cataloger.value)
-
-    with inspire_app.test_client() as client:
-        login_user_via_session(client, email=user.email)
-        response = client.get("api/editor/literature/1497201/rt/tickets/4328/resolve")
-
-    assert response.status_code == 200
-    mock_tickets.get_rt_user_by_email.assert_called_once_with(user.email)
-    mock_tickets.resolve_ticket.assert_called_once_with("4328", "TEST_USER")
-
-    expected = {"success": True}
-    result = orjson.loads(response.data)
-
-    assert expected == result
-
-
-def test_resolve_rt_ticket_returns_403_on_authentication_error(inspire_app):
-    user = create_user()
-
-    with inspire_app.test_client() as client:
-        login_user_via_session(client, email=user.email)
-        response = client.get("api/editor/literature/1497201/rt/tickets/4328/resolve")
-
-    assert response.status_code == 403
 
 
 def test_resolve_snow_ticket_returns_403_on_authentication_error(
@@ -410,18 +254,6 @@ def test_get_snow_tickets_for_record(
     assert len(response.json) == 1
 
 
-@patch("inspirehep.editor.views.tickets")
-def test_get_tickets_for_record(mock_tickets, inspire_app):
-    mock_tickets.get_rt_link_for_ticket.return_value = "http://rt_address"
-    user = create_user(role=Roles.cataloger.value)
-
-    with inspire_app.test_client() as client:
-        login_user_via_session(client, email=user.email)
-        response = client.get("api/editor/literature/1497201/rt/tickets")
-
-    assert response.status_code == 200
-
-
 def test_get_tickets_for_record_returns_403_on_authentication_error(inspire_app):
     user = create_user()
 
@@ -430,18 +262,6 @@ def test_get_tickets_for_record_returns_403_on_authentication_error(inspire_app)
         response = client.get("api/editor/literature/1497201/rt/tickets")
 
     assert response.status_code == 403
-
-
-@patch("inspirehep.editor.views.tickets")
-def test_get_rt_users(mock_tickets, inspire_app):
-    mock_tickets.get_users.return_value = [{}]
-    user = create_user(role=Roles.cataloger.value)
-
-    with inspire_app.test_client() as client:
-        login_user_via_session(client, email=user.email)
-        response = client.get("api/editor/rt/users")
-
-    assert response.status_code == 200
 
 
 @pytest.mark.vcr(
@@ -461,32 +281,6 @@ def test_get_snow_users(
     assert response.status_code == 200
     assert len(response.json) > 1
     assert next((user.email == snow_user["email"] for snow_user in response.json), None)
-
-
-@patch("inspirehep.rt.tickets.query_rt")
-def test_rt_users_are_cached(mock_query_rt, inspire_app):
-    mock_query_rt.return_value = [
-        "10309: atkinson",
-        "1125438: bhecker",
-        "460354: Catherine",
-    ]
-    current_cache.delete("rt_users")
-    user = create_user(role=Roles.cataloger.value)
-
-    with inspire_app.test_client() as client:
-        login_user_via_session(client, email=user.email)
-        response = client.get("api/editor/rt/users")
-    assert current_cache.get("rt_users") == orjson.loads(response.data)
-
-
-def test_get_rt_users_returns_403_on_authentication_error(inspire_app):
-    user = create_user()
-
-    with inspire_app.test_client() as client:
-        login_user_via_session(client, email=user.email)
-        response = client.get("api/editor/rt/users")
-
-    assert response.status_code == 403
 
 
 def test_get_snow_users_returns_403_on_authentication_error(
@@ -512,18 +306,6 @@ def test_get_snow_functional_categories_returns_403_on_authentication_error(
     assert response.status_code == 403
 
 
-@patch("inspirehep.editor.views.tickets")
-def test_get_rt_queues(mock_tickets, inspire_app):
-    mock_tickets.get_queues.return_value = [{}]
-    user = create_user(role=Roles.cataloger.value)
-
-    with inspire_app.test_client() as client:
-        login_user_via_session(client, email=user.email)
-        response = client.get("api/editor/rt/queues")
-
-    assert response.status_code == 200
-
-
 @pytest.mark.vcr(
     filter_headers=["authorization", "Set-Cookie"],
     before_record_request=filter_out_authentication,
@@ -542,28 +324,6 @@ def test_get_snow_functional_categories(
     assert len(response.json) > 1
     assert "name" in response.json[0]
     assert "id" in response.json[1]
-
-
-@patch("inspirehep.rt.tickets.query_rt")
-def test_rt_queues_are_cached(mock_query_rt, inspire_app):
-    mock_query_rt.return_value = ["35: Admin", "63: Admin-curator", "60: Admin-Dev"]
-    current_cache.delete("rt_queues")
-    user = create_user(role=Roles.cataloger.value)
-
-    with inspire_app.test_client() as client:
-        login_user_via_session(client, email=user.email)
-        response = client.get("api/editor/rt/queues")
-    assert current_cache.get("rt_queues") == orjson.loads(response.data)
-
-
-def test_get_rt_queues_returns_403_on_authentication_error(inspire_app):
-    user = create_user()
-
-    with inspire_app.test_client() as client:
-        login_user_via_session(client, email=user.email)
-        response = client.get("api/editor/rt/queues")
-
-    assert response.status_code == 403
 
 
 def test_refextract_text_with_refextract_service(override_config, inspire_app):
