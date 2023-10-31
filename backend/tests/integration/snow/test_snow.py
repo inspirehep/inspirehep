@@ -47,7 +47,7 @@ def test_create_inspire_ticket(mocked_inspire_snow, inspire_app, teardown_cache)
 def test_create_inspire_ticket_with_template(
     mocked_inspire_snow, inspire_app, teardown_cache
 ):
-    template = "rt/dummy.html"
+    template = "snow/dummy.html"
     control_number = 121281
     template_context = {"email": "jessica@jones.com"}
     snow_instance = InspireSnow()
@@ -256,7 +256,7 @@ def test_comment_ticket_with_template(mocked_inspire_snow, inspire_app, teardown
         author_name="Test, Author",
         record_url="https://inspirebeta.net/api/authors/2621784",
     )
-    template_path = "rt/user_accepted.html"
+    template_path = "snow/user_accepted.html"
     snow_instance.comment_ticket_with_template(
         ticket_id, template_path=template_path, template_context=template_context
     )

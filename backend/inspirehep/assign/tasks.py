@@ -260,7 +260,7 @@ def create_rt_ticket_for_claiming_action(
     async_create_ticket_with_template.delay(
         rt_queue,
         requestor,
-        "rt/assign_authors_from_different_profile.html",
+        "snow/assign_authors_from_different_profile.html",
         template_payload,
         f"Claims by user {to_author_preffered_name} require curator action",
     )

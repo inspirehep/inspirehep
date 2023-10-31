@@ -9,7 +9,9 @@ from inspirehep.serializers import jsonify
 from inspirehep.snow.api import InspireSnow
 from inspirehep.snow.errors import CreateTicketException, EditTicketException
 
-blueprint = Blueprint("inspirehep_tickets", __name__, url_prefix="/tickets")
+blueprint = Blueprint(
+    "inspirehep_tickets", __name__, url_prefix="/tickets", template_folder="templates"
+)
 LOGGER = structlog.getLogger()
 parser = FlaskParser()
 
@@ -56,7 +58,7 @@ def create_ticket(args):
 def create_ticket_with_template(args):
     snow_instance = InspireSnow()
     try:
-        template_path = f"rt/{args['template']}.html"
+        template_path = f"snow/{args['template']}.html"
         ticket = snow_instance.create_inspire_ticket_with_template(
             template_context=args.get("template_context", {}),
             template_path=template_path,
@@ -85,7 +87,7 @@ def create_ticket_with_template(args):
 def reply_ticket_with_template(args):
     snow_instance = InspireSnow()
     try:
-        template_path = f"rt/{args['template']}.html"
+        template_path = f"snow/{args['template']}.html"
         if args.get("user_email"):
             snow_instance.add_user_to_watchlist(args["ticket_id"], args["user_email"])
         snow_instance.comment_ticket_with_template(

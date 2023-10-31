@@ -545,7 +545,7 @@ def test_author_assign_papers_different_profile(mock_create_ticket, inspire_app)
     assert mock_create_ticket.mock_calls[0][1] == (
         "Author claims",
         None,
-        "rt/assign_authors_from_different_profile.html",
+        "snow/assign_authors_from_different_profile.html",
         {
             "to_author_names": ["Matczak, Michal"],
             "from_author_url": "http://localhost:5000/authors/1",
@@ -725,7 +725,7 @@ def test_author_assign_view_claimed_with_stub_author(mock_create_ticket, inspire
     assert mock_create_ticket.mock_calls[0][1] == (
         "Author claims",
         None,
-        "rt/assign_authors_from_different_profile.html",
+        "snow/assign_authors_from_different_profile.html",
         {
             "to_author_names": ["Matczak, Michal"],
             "from_author_url": "http://localhost:5000/authors/1",
@@ -1105,7 +1105,7 @@ def test_assign_author_has_main_name(mock_create_ticket, inspire_app):
     assert mock_create_ticket.mock_calls[0][1] == (
         "Author claims",
         None,
-        "rt/assign_authors_from_different_profile.html",
+        "snow/assign_authors_from_different_profile.html",
         {
             "to_author_names": [
                 "Malta Michaela",
@@ -1224,7 +1224,7 @@ def test_assign_author_calls_create_rt_ticket_for_claiming_action_when_some_args
     assert mock_create_ticket.mock_calls[0][1] == (
         "Author claims",
         None,
-        "rt/assign_authors_from_different_profile.html",
+        "snow/assign_authors_from_different_profile.html",
         {
             "to_author_names": ["Viktor Axelsen", "Axelsen, Viktor"],
             "from_author_url": "http://localhost:5000/authors/1",
