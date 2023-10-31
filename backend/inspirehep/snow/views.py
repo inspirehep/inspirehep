@@ -10,7 +10,7 @@ from inspirehep.snow.api import InspireSnow
 from inspirehep.snow.errors import CreateTicketException, EditTicketException
 
 blueprint = Blueprint(
-    "inspirehep_tickets", __name__, url_prefix="/tickets", template_folder="templates"
+    "inspirehep_snow", __name__, url_prefix="/tickets", template_folder="templates"
 )
 LOGGER = structlog.getLogger()
 parser = FlaskParser()
