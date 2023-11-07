@@ -2,7 +2,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from django.urls import include, path, re_path
+from django.urls import include, path
 from django.views import defaults as default_views
 from django.views.generic import TemplateView
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
@@ -14,7 +14,6 @@ urlpatterns = [
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
     path("oauth2/", include("oauth2_provider.urls", namespace="oauth2_provider")),
-    re_path(r"^auth/", include("drf_social_oauth2.urls", namespace="drf")),
     # User management
     path("users/", include("backoffice.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
