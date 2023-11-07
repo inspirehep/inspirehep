@@ -98,6 +98,7 @@ THIRD_PARTY_APPS = [
     "drf_spectacular",
     "oauth2_provider",
     "social_django",
+    "allauth.socialaccount.providers.orcid",
 ]
 
 LOCAL_APPS = ["backoffice.users", "backoffice.workflows", "backoffice.management"]
@@ -356,11 +357,15 @@ SPECTACULAR_SETTINGS = {
     "SERVE_PERMISSIONS": ["rest_framework.permissions.IsAdminUser"],
 }
 # OAuth
-SOCIAL_AUTH_JSONFIELD_ENABLED = True
-SOCIAL_AUTH_AUTHENTICATION_BACKENDS = (
-    "social_core.backends.orcid.OrcidOAuth2",
-    "django.contrib.auth.backends.ModelBackend",
-)
-SOCIAL_AUTH_USER_MODEL = "users.User"
-SOCIAL_AUTH_ORCID_KEY = env("SOCIAL_AUTH_ORCID_KEY", default="")
-SOCIAL_AUTH_ORCID_SECRET = env("SOCIAL_AUTH_ORCID_SECRET", default="")
+SOCIALACCOUNT_PROVIDERS = {
+    "orcid": {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+        "APP": {
+            "client_id": env("ORCID_CLIENT_ID", default=""),
+            "secret": env("ORCID_CLIENT_SECRET", default=""),
+            "key": "",
+        }
+    }
+}
