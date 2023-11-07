@@ -143,6 +143,7 @@ django-anymail = "10.1"
 dj-database-url = "^2.1.0"
 django-oauth-toolkit = "2.3.0"
 whitenoise = "^6.6.0"
+social-auth-app-django = "^5.4.0"
 
 [tool.poetry.dev-dependencies]
 factory-boy = "3.3.0"
