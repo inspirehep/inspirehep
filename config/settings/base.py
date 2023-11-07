@@ -97,6 +97,7 @@ THIRD_PARTY_APPS = [
     "corsheaders",
     "drf_spectacular",
     "oauth2_provider",
+    "social_django",
 ]
 
 LOCAL_APPS = ["backoffice.users", "backoffice.workflows", "backoffice.management"]
@@ -201,6 +202,8 @@ TEMPLATES = [
                 "django.template.context_processors.tz",
                 "django.contrib.messages.context_processors.messages",
                 "backoffice.users.context_processors.allauth_settings",
+                "social_django.context_processors.backends",
+                "social_django.context_processors.login_redirect",
             ],
         },
     }
@@ -352,5 +355,10 @@ SPECTACULAR_SETTINGS = {
     "VERSION": "1.0.0",
     "SERVE_PERMISSIONS": ["rest_framework.permissions.IsAdminUser"],
 }
-# Your stuff...
-# ------------------------------------------------------------------------------
+# OAuth
+SOCIAL_AUTH_JSONFIELD_ENABLED = True
+SOCIAL_AUTH_AUTHENTICATION_BACKENDS = (
+    "social_core.backends.orcid.OrcidOAuth2",
+    "django.contrib.auth.backends.ModelBackend",
+)
+SOCIAL_AUTH_USER_MODEL = "users.User"
