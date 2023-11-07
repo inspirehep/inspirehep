@@ -362,3 +362,5 @@ SOCIAL_AUTH_AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
 )
 SOCIAL_AUTH_USER_MODEL = "users.User"
+SOCIAL_AUTH_ORCID_KEY = env("SOCIAL_AUTH_ORCID_KEY", default="")
+SOCIAL_AUTH_ORCID_SECRET = env("SOCIAL_AUTH_ORCID_SECRET", default="")
