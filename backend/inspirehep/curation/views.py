@@ -14,6 +14,7 @@ from webargs.flaskparser import FlaskParser
 from inspirehep.accounts.decorators import login_required_with_roles
 from inspirehep.accounts.roles import Roles
 from inspirehep.records.api import LiteratureRecord
+from inspirehep.search.api import JournalsSearch
 from inspirehep.serializers import jsonify
 
 from .api import (
@@ -130,3 +131,20 @@ def assign_institution(args):
                 author_affiliations, affiliations
             )
     return jsonify({"authors": authors})
+
+
+@blueprint.route("/literature/normalize-journal-titles")
+@login_required_with_roles([Roles.cataloger.value])
+@parser.use_args(
+    {"journal_titles_list": fields.List(fields.String, required=True)},
+    locations=("json",),
+)
+def normalize_journal_titles(args):
+    normalized_journal_titles_mapping = {}
+    for title in args["journal_titles_list"]:
+        normalized_title = JournalsSearch().normalize_title(title)
+        if not title:
+            continue
+        normalized_journal_titles_mapping[title] = normalized_title
+
+    return jsonify({"normalized_journal_titles": normalized_journal_titles_mapping})

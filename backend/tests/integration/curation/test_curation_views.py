@@ -397,3 +397,42 @@ def test_assign_institutions_returns_403_for_non_authorized(inspire_app):
             ),
         )
     assert response.status_code == 403
+
+
+def test_normalize_journal_titles(inspire_app):
+    create_record(
+        "jou",
+        data={
+            "short_title": "Technol.",
+            "_collections": ["Journals"],
+            "doi_prefixes": ["10.3390/technologies"],
+            "journal_title": {"title": "Technologies"},
+        },
+    )
+    user = create_user(role=Roles.cataloger.value)
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(
+            "/curation/literature/normalize-journal-titles",
+            content_type="application/json",
+            data=orjson.dumps({"journal_titles_list": ["Technologies"]}),
+        )
+        assert response.status_code == 200
+        assert response.json == {
+            "normalized_journal_titles": {"Technologies": "Technol."}
+        }
+
+
+def test_normalize_journal_titles_no_match(inspire_app):
+    user = create_user(role=Roles.cataloger.value)
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(
+            "/curation/literature/normalize-journal-titles",
+            content_type="application/json",
+            data=orjson.dumps({"journal_titles_list": ["Technologies"]}),
+        )
+        assert response.status_code == 200
+        assert response.json == {
+            "normalized_journal_titles": {"Technologies": "Technologies"}
+        }
