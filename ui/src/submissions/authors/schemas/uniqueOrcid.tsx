@@ -11,14 +11,14 @@ const ONLY_CONTROL_NUMBER_SERIALIZER_REQUEST_OPTIONS = {
   },
 };
 
-function fetchAuthorFromOrcid(orcid) {
+function fetchAuthorFromOrcid(orcid: string) {
   return http.get(
     `/orcid/${orcid}`,
     ONLY_CONTROL_NUMBER_SERIALIZER_REQUEST_OPTIONS
   );
 }
 
-function renderAuthorExistsMessageWithUpdateLink(authorId) {
+function renderAuthorExistsMessageWithUpdateLink(authorId: number) {
   const authorUpdateLink = `${SUBMISSIONS_AUTHOR}/${authorId}`;
   return (
     <span>
@@ -28,7 +28,7 @@ function renderAuthorExistsMessageWithUpdateLink(authorId) {
   );
 }
 
-async function isUniqueOrcid(orcid) {
+async function isUniqueOrcid(this: any, orcid: string) {
   if (!orcid) {
     return true;
   }
@@ -45,5 +45,5 @@ async function isUniqueOrcid(orcid) {
 }
 
 export default function uniqueOrcid() {
-  return string().trim().test('unique-orcid', null, isUniqueOrcid);
+  return string().trim().test('unique-orcid', null as any, isUniqueOrcid as any);
 }

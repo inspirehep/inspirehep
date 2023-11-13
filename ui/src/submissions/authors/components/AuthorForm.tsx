@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Field, Form } from 'formik';
 import { Col, Row, Tooltip } from 'antd';
 
@@ -34,15 +33,23 @@ const HiddenFieldLabel = (
   <LabelWithHelp label="Hidden" help={HIDDEN_FIELD_HELP} />
 );
 
-function getSuggestionSourceLegacyICN(suggestion) {
+function getSuggestionSourceLegacyICN(suggestion: Record<string, any>) {
   return suggestion._source.legacy_ICN;
 }
 
-function getSuggestionSourceLegacyName(suggestion) {
+function getSuggestionSourceLegacyName(suggestion: Record<string, any>) {
   return suggestion._source.legacy_name;
 }
 
-function AuthorForm({ values, isCatalogerLoggedIn, isUpdate }) {
+function AuthorForm({
+  values,
+  isCatalogerLoggedIn,
+  isUpdate,
+}: {
+  values: any;
+  isCatalogerLoggedIn: boolean;
+  isUpdate: boolean;
+}) {
   return (
     <Form>
       <CollapsableForm openSections={OPEN_SECTIONS}>
@@ -88,8 +95,8 @@ function AuthorForm({ values, isCatalogerLoggedIn, isUpdate }) {
             label="Emails"
             emptyItem={{}}
             allowItemDelete={isCatalogerLoggedIn || !isUpdate}
-            renderItem={(itemName) => (
-              <Row type="flex" justify="space-between">
+            renderItem={(itemName: string) => (
+              <Row justify="space-between">
                 <Col span={11}>
                   <Field
                     onlyChild
@@ -158,7 +165,7 @@ function AuthorForm({ values, isCatalogerLoggedIn, isUpdate }) {
             name="websites"
             label="Websites"
             emptyItem=""
-            renderItem={(itemName) => (
+            renderItem={(itemName: string) => (
               <Field onlyChild name={itemName} component={TextField} />
             )}
           />
@@ -195,8 +202,8 @@ function AuthorForm({ values, isCatalogerLoggedIn, isUpdate }) {
             name="positions"
             emptyItem={{}}
             allowItemDelete={isCatalogerLoggedIn || !isUpdate}
-            renderItem={(itemName) => (
-              <Row type="flex" justify="space-between">
+            renderItem={(itemName: string) => (
+              <Row justify="space-between">
                 <Col span={11}>
                   <Field
                     onlyChild
@@ -268,8 +275,8 @@ function AuthorForm({ values, isCatalogerLoggedIn, isUpdate }) {
             name="project_membership"
             allowItemDelete={isCatalogerLoggedIn || !isUpdate}
             emptyItem={{}}
-            renderItem={(itemName) => (
-              <Row type="flex" justify="space-between">
+            renderItem={(itemName: string) => (
+              <Row justify="space-between">
                 <Col span={11}>
                   <Field
                     onlyChild
@@ -332,8 +339,8 @@ function AuthorForm({ values, isCatalogerLoggedIn, isUpdate }) {
             name="advisors"
             allowItemDelete={isCatalogerLoggedIn || !isUpdate}
             emptyItem={{}}
-            renderItem={(itemName) => (
-              <Row type="flex" justify="space-between">
+            renderItem={(itemName: string) => (
+              <Row justify="space-between">
                 <Col span={11}>
                   <AuthorSuggesterField
                     onlyChild
@@ -378,17 +385,11 @@ function AuthorForm({ values, isCatalogerLoggedIn, isUpdate }) {
           />
         </CollapsableForm.Section>
       </CollapsableForm>
-      <Row type="flex" justify="end">
+      <Row justify="end">
         <SubmitButton />
       </Row>
     </Form>
   );
 }
-
-AuthorForm.propTypes = {
-  values: PropTypes.objectOf(PropTypes.any).isRequired, // current form data
-  isCatalogerLoggedIn: PropTypes.bool,
-  isUpdate: PropTypes.bool,
-};
 
 export default AuthorForm;
