@@ -86,3 +86,11 @@ The following details how to deploy this application.
 ### Docker
 
 See detailed [cookiecutter-django Docker documentation](http://cookiecutter-django.readthedocs.io/en/latest/deployment-with-docker.html).
+
+### Setting up groups & persmissions
+
+To set up groups and permissions execute following command:
+
+```bash
+python manage.py create_groups
+```
