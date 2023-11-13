@@ -1,4 +1,6 @@
-export function getEventTitle(seminar) {
+import { Map } from 'immutable';
+
+export function getEventTitle(seminar: Map<string, any>) {
   const seminarTitle = seminar.getIn(['title', 'title']);
   const speakers = seminar.get('speakers');
   const speaker = speakers.get(0);
