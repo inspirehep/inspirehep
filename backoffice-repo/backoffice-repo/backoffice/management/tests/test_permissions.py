@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
-from django.test import TestCase
+from django.test import TransactionTestCase
 from rest_framework.response import Response
 from rest_framework.test import APIRequestFactory, force_authenticate
 from rest_framework.views import APIView
@@ -17,12 +17,15 @@ class MockView(APIView):
         return Response("Test Response")
 
 
-class PermissionCheckTests(TestCase):
+class PermissionCheckTests(TransactionTestCase):
+    reset_sequences = True
+    fixtures = ["backoffice/fixtures/groups.json"]
+
     def setUp(self):
         self.user = User.objects.create_user(email="testuser@test.com", password="testpassword")
 
-        self.admin_group, _ = Group.objects.get_or_create(name="admin")
-        self.curator_group, _ = Group.objects.get_or_create(name="curator")
+        self.admin_group = Group.objects.get(name="admin")
+        self.curator_group = Group.objects.get(name="curator")
 
     def test_user_in_required_group(self):
         self.user.groups.add(self.admin_group)
