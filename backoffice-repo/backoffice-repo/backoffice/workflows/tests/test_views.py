@@ -1,19 +1,21 @@
 from django.apps import apps
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
-from django.test import TestCase
+from django.test import TransactionTestCase
 from rest_framework.test import APIClient
 
 User = get_user_model()
 Workflow = apps.get_model(app_label="workflows", model_name="Workflow")
 
 
-class TestWorkflowViewSet(TestCase):
+class TestWorkflowViewSet(TransactionTestCase):
     endpoint = "/api/workflows/"
+    reset_sequences = True
+    fixtures = ["backoffice/fixtures/groups.json"]
 
     def setUp(self):
-        self.curator_group = Group.objects.create(name="curator")
-        self.admin_group = Group.objects.create(name="admin")
+        self.curator_group = Group.objects.get(name="curator")
+        self.admin_group = Group.objects.get(name="admin")
 
         self.curator = User.objects.create_user(email="curator@test.com", password="12345")
         self.admin = User.objects.create_user(email="admin@test.com", password="12345")
