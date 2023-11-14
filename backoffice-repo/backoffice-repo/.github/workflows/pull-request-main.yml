@@ -11,7 +11,7 @@ jobs:
       ref: ${{ github.ref }}
       secrets: inherit
   test:
-    uses: ./.github/workflows/tests.yml
+    uses: ./.github/workflows/test.yml
     with:
       ref: ${{ github.event.pull_request.head.sha }}
     secrets: inherit
