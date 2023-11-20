@@ -19,6 +19,7 @@ urlpatterns = [
     # User management
     path("users/", include("backoffice.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
+    path("", include("django_prometheus.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 if settings.DEBUG:
     # Static file serving when using Gunicorn + Uvicorn for local web socket development
