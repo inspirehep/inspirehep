@@ -53,7 +53,7 @@ if env("POSTGRES_URI", default=""):
 else:
     DATABASES = {
         "default": {
-            "ENGINE": "django.db.backends.postgresql",
+            "ENGINE": "django_prometheus.db.backends.postgresql",
             "NAME": env("POSTGRES_DB"),
             "USER": env("POSTGRES_USER"),
             "PASSWORD": env("POSTGRES_PASSWORD"),
@@ -97,6 +97,7 @@ THIRD_PARTY_APPS = [
     "corsheaders",
     "drf_spectacular",
     "allauth.socialaccount.providers.orcid",
+    "django_prometheus",
 ]
 
 LOCAL_APPS = ["backoffice.users", "backoffice.workflows", "backoffice.management"]
@@ -144,6 +145,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#middleware
 MIDDLEWARE = [
+    "django_prometheus.middleware.PrometheusBeforeMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -155,6 +157,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
+    "django_prometheus.middleware.PrometheusAfterMiddleware",
 ]
 
 # STATIC
