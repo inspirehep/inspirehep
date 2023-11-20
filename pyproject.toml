@@ -142,6 +142,7 @@ django-storages = {version = "1.14.2", extras = ["s3"]}
 django-anymail = "10.1"
 dj-database-url = "^2.1.0"
 whitenoise = "^6.6.0"
+django-prometheus = "^2.3.1"
 
 [tool.poetry.dev-dependencies]
 factory-boy = "3.3.0"
