@@ -341,6 +341,15 @@ def test_recalculate_references_after_institution_record_merge_when_author_has_t
                 {
                     "affiliations": [
                         {
+                            "record": {"$ref": institution_extra_record_reference},
+                            "value": "Warsaw U.",
+                        },
+                    ],
+                    "full_name": "Jack Smith",
+                },
+                {
+                    "affiliations": [
+                        {
                             "record": {"$ref": new_institution_record_reference},
                             "value": "Beijing, Inst. High Energy Phys.",
                         },
@@ -430,19 +439,26 @@ def test_recalculate_references_after_institution_record_merge_when_author_has_t
         )
         assert len(job_record_from_es["institutions"]) == 2
         assert new_institution_record_reference in get_value(
-            literature_record_from_es["authors"][0]["affiliations"], "record.$ref"
+            literature_record_from_es["authors"][1]["affiliations"], "record.$ref"
         )
-        assert len(literature_record_from_es["authors"][0]["affiliations"]) == 2
+        assert len(literature_record_from_es["authors"][0]["affiliations"]) == 1
         assert institution_extra_record_reference in get_value(
             literature_record_from_es["authors"][0]["affiliations"], "record.$ref"
         )
-        assert new_institution_record_reference in get_value(
-            literature_record_from_es["authors"][1]["affiliations"], "record.$ref"
-        )
-        assert institution_extra_record_reference in get_value(
-            literature_record_from_es["authors"][1]["affiliations"], "record.$ref"
+        assert new_institution_record_reference not in get_value(
+            literature_record_from_es["authors"][0]["affiliations"], "record.$ref"
         )
         assert len(literature_record_from_es["authors"][1]["affiliations"]) == 2
+        assert institution_extra_record_reference in get_value(
+            literature_record_from_es["authors"][1]["affiliations"], "record.$ref"
+        )
+        assert new_institution_record_reference in get_value(
+            literature_record_from_es["authors"][2]["affiliations"], "record.$ref"
+        )
+        assert institution_extra_record_reference in get_value(
+            literature_record_from_es["authors"][2]["affiliations"], "record.$ref"
+        )
+        assert len(literature_record_from_es["authors"][2]["affiliations"]) == 2
         assert (
             literature_record_from_es["thesis_info"]["institutions"][0]["record"][
                 "$ref"
