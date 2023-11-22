@@ -7,10 +7,9 @@
 
 import structlog
 from celery import shared_task
-from dict_deep import deep_set
 from flask import current_app
 from inspire_schemas.utils import get_refs_to_schemas
-from inspire_utils.dedupers import dedupe_list_of_dicts
+from inspire_utils.dedupers import dedupe_all_lists
 from inspire_utils.helpers import maybe_int
 from inspire_utils.record import get_value
 from invenio_db import db
@@ -115,8 +114,13 @@ def update_references_pointing_to_merged_record(
                     referenced_record.update({"$ref": new_record_uri})
                     should_matched_record_be_updated = True
             if should_matched_record_be_updated:
-                remove_duplicate_refs_from_record(matched_inspire_record, path)
-                matched_inspire_record.update(dict(matched_inspire_record))
+                try:
+                    matched_inspire_record.update(dict(matched_inspire_record))
+                except ValidationError:  # might have duplicate keys after redirecting
+                    deduped_record = dedupe_all_lists(
+                        matched_inspire_record, exclude_keys=["authors"]
+                    )
+                    matched_inspire_record.update(deduped_record)
                 LOGGER.info(
                     "Updated reference for record", uuid=str(matched_inspire_record.id)
                 )
@@ -145,18 +149,6 @@ def regenerate_author_records_table_entries(uuids_to_regenerate):
         record.update_authors_records_table()
         record.update_self_citations()
         db.session.commit()
-
-
-def remove_duplicate_refs_from_record(matched_inspire_record, path):
-    references_path = ".".join(path.split(".")[:-2])
-    references = flatten_list(get_value(matched_inspire_record, references_path, []))
-
-    deduped_references = dedupe_list_of_dicts(references)
-    if len(references) == len(deduped_references):
-        return None
-
-    deep_set(matched_inspire_record, references_path, deduped_references)
-    return matched_inspire_record
 
 
 @shared_task(

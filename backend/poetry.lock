@@ -612,14 +612,6 @@ ordered-set = ">=3.1.1"
 murmur = ["mmh3"]
 
 [[package]]
-name = "dict-deep"
-version = "4.1.2"
-description = "Very simple deep_set and deep_get functions to access nested dicts (or any object) using 'dotted strings' as key."
-category = "main"
-optional = false
-python-versions = ">=3.5,<4.0"
-
-[[package]]
 name = "dictdiffer"
 version = "0.9.0"
 description = "Dictdiffer is a library that helps you to diff and patch dictionaries."
@@ -1553,7 +1545,7 @@ resolved_reference = "1a0e762e58bc9cac65f7665b9831993c017fd8bb"
 
 [[package]]
 name = "inspire-utils"
-version = "3.0.36"
+version = "3.0.37"
 description = "INSPIRE-specific utils."
 category = "main"
 optional = false
@@ -1606,7 +1598,7 @@ all = ["Sphinx (>=3)", "cachelib (>=0.1)", "pytest-invenio (>=1.4.1)", "redis (>
 docs = ["Sphinx (>=3)"]
 mysql = ["invenio-db[versioning,mysql] (>=1.0.14)"]
 postgresql = ["invenio-db[versioning,postgresql] (>=1.0.14)"]
-sqlite = ["invenio-db[sqlite,versioning] (>=1.0.14)"]
+sqlite = ["invenio-db[versioning,sqlite] (>=1.0.14)"]
 tests = ["cachelib (>=0.1)", "pytest-invenio (>=1.4.1)", "redis (>=2.10.5)"]
 
 [package.source]
@@ -4324,7 +4316,7 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<3.9"
-content-hash = "b5f8899e19254379746dbb473f50b4c0738a6e7599abb74bbf8042d46d68a72d"
+content-hash = "def7a804cc010312b169ceefe276ebde191f5b36a0fef1b2653803feb4fca7b0"
 
 [metadata.files]
 alembic = [
@@ -4740,10 +4732,6 @@ deepdiff = [
     {file = "deepdiff-4.3.2-py3-none-any.whl", hash = "sha256:59fc1e3e7a28dd0147b0f2b00e3e27181f0f0ef4286b251d5f214a5bcd9a9bc4"},
     {file = "deepdiff-4.3.2.tar.gz", hash = "sha256:91360be1d9d93b1d9c13ae9c5048fa83d9cff17a88eb30afaa0d7ff2d0fee17d"},
 ]
-dict-deep = [
-    {file = "dict-deep-4.1.2.tar.gz", hash = "sha256:73c3bef1fc45d271f5e508e957d383fd6438510f50132559374834430bca5401"},
-    {file = "dict_deep-4.1.2-py3-none-any.whl", hash = "sha256:186aeada606e251771b9e4530c1e89aed855b2ab40e7e8cca16c78bce895e2f5"},
-]
 dictdiffer = [
     {file = "dictdiffer-0.9.0-py2.py3-none-any.whl", hash = "sha256:442bfc693cfcadaf46674575d2eba1c53b42f5e404218ca2c2ff549f2df56595"},
     {file = "dictdiffer-0.9.0.tar.gz", hash = "sha256:17bacf5fbfe613ccf1b6d512bd766e6b21fb798822a133aa86098b8ac9997578"},
@@ -5070,8 +5058,8 @@ inspire-schemas = [
 ]
 inspire-service-orcid = []
 inspire-utils = [
-    {file = "inspire-utils-3.0.36.tar.gz", hash = "sha256:3c6cc05349674bbea11a37582c15c887a52ea96015a6f59d124013d864fdd458"},
-    {file = "inspire_utils-3.0.36-py3-none-any.whl", hash = "sha256:5e8c8b42b02ad24d28210cce663d452a329f16b146015a34e7fe78726f613a37"},
+    {file = "inspire-utils-3.0.37.tar.gz", hash = "sha256:72cb49214575237cc68cf6309abcb38121d73171eb34fa711d82856a6ee8c3e7"},
+    {file = "inspire_utils-3.0.37-py3-none-any.whl", hash = "sha256:1a1f79608df1d98093529f808c358ae58e571970548f40005eb97be080445278"},
 ]
 intervals = [
     {file = "intervals-0.8.1.tar.gz", hash = "sha256:37921da1407a5e9384e8e1350cfb8500f8d0d69fc43d03d01a4fdc6e7a7c7166"},

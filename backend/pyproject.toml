@@ -88,7 +88,6 @@ sword2 = {git = "https://github.com/inspirehep/python-client-sword2.git", rev = 
 sqlalchemy-continuum = {git = "https://github.com/inspirehep/sqlalchemy-continuum.git", rev = "021b59836eaa702fb2ee01f7192985e5bb632e43"}
 "zope.interface" = "~=5.4.0"
 backoff = "^1.10.0"
-dict-deep = "^4.1.2"
 pdfplumber = "^0.7.5"
 psycopg2-binary = "^2.9.5"
 freezegun = "^1.2.2"

@@ -33,7 +33,6 @@ cssselect==1.1.0; python_version >= "2.7" and python_full_version < "3.0.0" or p
 datefinder==0.7.1
 decorator==4.4.1; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.2.0" and python_version >= "3.6"
 deepdiff==4.3.2; python_version >= "3.5"
-dict-deep==4.1.2; python_version >= "3.5" and python_version < "4.0"
 dictdiffer==0.9.0
 dojson==1.4.0
 dulwich==0.19.14
@@ -88,7 +87,7 @@ inspire-matcher==9.0.27
 inspire-query-parser==6.0.51
 inspire-schemas==61.5.25
 inspire-service-orcid @ git+https://github.com/inspirehep/inspire-service-orcid.git@1a0e762e58bc9cac65f7665b9831993c017fd8bb
-inspire-utils==3.0.36
+inspire-utils==3.0.37
 intervals==0.8.1
 invenio-access @ git+https://github.com/inspirehep/invenio-access.git@1.4.3
 invenio-accounts @ git+https://github.com/inspirehep/invenio-accounts.git@rest-api
