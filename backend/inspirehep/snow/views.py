@@ -74,37 +74,14 @@ def create_ticket_with_template(args):
         return jsonify({"message": "Can't create SNOW ticket!"}), 500
 
 
-@blueprint.route("reply-with-template", methods=["POST"])
-@parser.use_args(
-    {
-        "ticket_id": fields.String(required=True),
-        "user_email": fields.String(),
-        "template": fields.String(),
-        "template_context": fields.Dict(required=False),
-    }
-)
-@login_required_with_roles([Roles.superuser.value])
-def reply_ticket_with_template(args):
-    snow_instance = InspireSnow()
-    try:
-        template_path = f"snow/{args['template']}.html"
-        if args.get("user_email"):
-            snow_instance.add_user_to_watchlist(args["ticket_id"], args["user_email"])
-        snow_instance.comment_ticket_with_template(
-            args["ticket_id"], template_path, args.get("template_context", {})
-        )
-        return jsonify({"message": "Ticket was updated with the reply"}), 200
-    except EditTicketException as e:
-        LOGGER.warning("Can't reply SNOW ticket", exception=str(e))
-        return jsonify({"message": "Can't reply SNOW ticket!"}), 500
-
-
 @blueprint.route("reply", methods=["POST"])
 @parser.use_args(
     {
         "ticket_id": fields.String(required=True),
         "user_email": fields.String(),
         "reply_message": fields.String(required=True),
+        "template": fields.String(required=False),
+        "template_context": fields.Dict(required=False),
     }
 )
 @login_required_with_roles([Roles.superuser.value])
@@ -113,7 +90,13 @@ def reply_ticket(args):
     try:
         if args.get("user_email"):
             snow_instance.add_user_to_watchlist(args["ticket_id"], args["user_email"])
-        snow_instance.comment_ticket(args["ticket_id"], args["reply_message"])
+        if args.get("template"):
+            template_path = f"snow/{args['template']}.html"
+            snow_instance.comment_ticket_with_template(
+                args["ticket_id"], template_path, args.get("template_context", {})
+            )
+        else:
+            snow_instance.comment_ticket(args["ticket_id"], args["reply_message"])
         return jsonify({"message": "Ticket was updated with the reply"}), 200
     except EditTicketException as e:
         LOGGER.warning("Can't reply SNOW ticket", exception=str(e))
@@ -124,13 +107,24 @@ def reply_ticket(args):
 @parser.use_args(
     {
         "ticket_id": fields.String(required=True),
+        "message": fields.String(required=False),
+        "template": fields.String(required=False),
+        "template_context": fields.Dict(required=False),
     }
 )
 @login_required_with_roles([Roles.superuser.value])
 def resolve_ticket(args):
     snow_instance = InspireSnow()
     try:
-        snow_instance.resolve_ticket(ticket_id=args["ticket_id"])
+        if args.get("template"):
+            template_path = f"snow/{args['template']}.html"
+            snow_instance.resolve_ticket_with_template(
+                args["ticket_id"], template_path, args.get("template_context", {})
+            )
+        else:
+            snow_instance.resolve_ticket(
+                ticket_id=args["ticket_id"], message=args["message"]
+            )
         return jsonify({"message": "Ticket resolved"}), 200
     except (CreateTicketException, EditTicketException) as e:
         LOGGER.warning("Can't resolve SNOW ticket", exception=str(e))

@@ -563,6 +563,21 @@ class InspireSnow(SnowTicketAPI):
             if ticket["u_current_task_state"] != self.ticket_status_mapping["resolved"]:
                 raise EditTicketException()
 
+    def resolve_ticket_with_template(
+        self, ticket_id, user_email=None, template_path=None, template_context=None
+    ):
+        """Resolves the given ticket with a custom Jinja template.
+
+        Args:
+            ticket_id (int): The ticket id.
+            user_email (str): Email of the user as which action should be performed.
+            template_path (str): relative path to template.
+            template_context (str): context used in jinja template.
+        """
+
+        message = render_template(template_path, **template_context).strip()
+        self.comment_ticket(ticket_id, user_email, message)
+
     def comment_ticket(self, ticket_id, message):
         """Reply SNOW ticket with a custom message.
 
