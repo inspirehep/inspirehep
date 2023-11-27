@@ -261,6 +261,22 @@ If you want to disable `testmon` test selection but still perform collection (to
 
 Note that `testmon` is only used locally to speed up tests and not in the CI to be completely sure _all_ tests pass before merging a commit.
 
+#### SNow integration tests
+
+If you wish to modify the SNow integration tests, you have to set the following variables in the SNow [config](https://github.com/inspirehep/inspirehep/blob/master/backend/inspirehep/snow/config.py)
+file:
+
+```
+ SNOW_CLIENT_ID
+ SNOW_CLIENT_SECRET
+ SNOW_AUTH_URL
+```
+
+The secrets can be found in the inspirehep QA or PROD sealed secrets.
+After setting the variables, run the tests, so the cassettes get generated.
+
+**Before you push dont forget to delete the secrets from the config file!**
+
 ### UI
 
 ```bash
