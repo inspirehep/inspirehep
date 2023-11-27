@@ -576,7 +576,7 @@ class InspireSnow(SnowTicketAPI):
         """
 
         message = render_template(template_path, **template_context).strip()
-        self.comment_ticket(ticket_id, user_email, message)
+        self.resolve_ticket(ticket_id, user_email, message)
 
     def comment_ticket(self, ticket_id, message):
         """Reply SNOW ticket with a custom message.
