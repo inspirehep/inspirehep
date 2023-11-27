@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2019 CERN. 
+# Copyright (C) 2019 CERN.
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
@@ -13,6 +13,7 @@ import boto3
 import mock
 import pytest
 from click.testing import CliRunner
+from flask import current_app
 from flask.cli import ScriptInfo
 from helpers.cleanups import db_cleanup, es_cleanup
 from helpers.factories.models.base import BaseFactory
@@ -220,15 +221,17 @@ def s3(inspire_app, enable_files):
 
 @pytest.fixture(scope="function")
 def mocked_inspire_snow(mocker):
-    mocker.patch(
-        "inspirehep.snow.api.InspireSnow.headers",
-        new_callable=mocker.PropertyMock,
-        return_value={
-            "Authorization": "Bearer abcd",
-            "Content-Type": "application/json",
-        },
-    )
-    mocker.patch("inspirehep.snow.api.InspireSnow.get_token", return_value="abcd")
+    # If SNOW_AUTH_URL (and SNOW_CLIENT_ID, SNOW_CLIENT_SECRET) is set, we dont need to mock the token
+    if not current_app.config.get("SNOW_AUTH_URL"):
+        mocker.patch(
+            "inspirehep.snow.api.InspireSnow.headers",
+            new_callable=mocker.PropertyMock,
+            return_value={
+                "Authorization": "Bearer abcd",
+                "Content-Type": "application/json",
+            },
+        )
+        mocker.patch("inspirehep.snow.api.InspireSnow.get_token", return_value="abcd")
 
 
 @pytest.fixture(scope="function")
