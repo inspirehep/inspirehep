@@ -4,7 +4,8 @@ export const PUBLISHED_BAR_TYPE = 'published';
 export const CITEABLE_BAR_TYPE = 'citeable';
 
 export const POST_DOC_RANK_VALUE = 'POSTDOC';
-export const CONTACT_URL = "https://help.inspirehep.net/knowledge-base/contact-us"
+export const CONTACT_URL =
+  'https://help.inspirehep.net/knowledge-base/contact-us';
 export const RANK_VALUE_TO_DISPLAY = {
   SENIOR: 'Senior (permanent)',
   JUNIOR: 'Junior (leads to Senior)',
@@ -72,4 +73,5 @@ export const CITATION_COUNT_WITHOUT_SELF_CITATIONS_PARAM =
 
 export const SEARCH_PAGE_GUTTER = { xs: 0, lg: 32 };
 
-export const LOCAL_TIMEZONE = Intl.DateTimeFormat().resolvedOptions().timeZone;
+export const LOCAL_TIMEZONE =
+  Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
