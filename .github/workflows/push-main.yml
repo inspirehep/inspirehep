@@ -27,5 +27,5 @@ jobs:
         with:
           event-type: update
           images: |
-            cern-sis/scoap3/scoap3-backend@${{ needs.test.outputs.image-id }}
+            cern-sis/inspire/backoffice@${{ needs.test.outputs.image-id }}
           token: ${{ secrets.PAT_FIRE_EVENTS_ON_CERN_SIS_KUBERNETES }}
