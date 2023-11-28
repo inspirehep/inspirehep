@@ -9,7 +9,6 @@ jobs:
     uses: ./.github/workflows/lint.yml
     with:
       ref: ${{ github.ref }}
-      secrets: inherit
   test:
     uses: ./.github/workflows/test.yml
     with:
