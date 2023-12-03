@@ -1,15 +1,18 @@
+import pytest
 from django.apps import apps
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.test import TransactionTestCase
 from rest_framework.test import APIClient
 
+from backoffice.workflows.api.serializers import WorkflowTicketSerializer
+from backoffice.workflows.models import WorkflowTicket
+
 User = get_user_model()
 Workflow = apps.get_model(app_label="workflows", model_name="Workflow")
 
 
-class TestWorkflowViewSet(TransactionTestCase):
-    endpoint = "/api/workflows/"
+class BaseTransactionTestCase(TransactionTestCase):
     reset_sequences = True
     fixtures = ["backoffice/fixtures/groups.json"]
 
@@ -25,7 +28,16 @@ class TestWorkflowViewSet(TransactionTestCase):
         self.admin.groups.add(self.admin_group)
 
         self.api_client = APIClient()
-        self.workflow = Workflow.objects.create(data={}, status="APPROVAL", core=True, is_update=False)
+
+
+class TestWorkflowViewSet(BaseTransactionTestCase):
+    endpoint = "/api/workflows/"
+    reset_sequences = True
+    fixtures = ["backoffice/fixtures/groups.json"]
+
+    def setUp(self):
+        super().setUp()
+        self.workflow = Workflow.objects.create(data={}, status="approval", core=True, is_update=False)
 
     def test_list_curator(self):
         self.api_client.force_authenticate(user=self.curator)
@@ -48,24 +60,14 @@ class TestWorkflowViewSet(TransactionTestCase):
         self.assertEqual(response.status_code, 403)
 
 
-class WorkflowPartialUpdateViewSet(TransactionTestCase):
+class TestWorkflowPartialUpdateViewSet(BaseTransactionTestCase):
     endpoint_base_url = "/api/workflow-update"
     reset_sequences = True
     fixtures = ["backoffice/fixtures/groups.json"]
 
     def setUp(self):
-        self.curator_group = Group.objects.get(name="curator")
-        self.admin_group = Group.objects.get(name="admin")
-
-        self.curator = User.objects.create_user(email="curator@test.com", password="12345")
-        self.admin = User.objects.create_user(email="admin@test.com", password="12345")
-        self.user = User.objects.create_user(email="testuser@test.com", password="12345")
-
-        self.curator.groups.add(self.curator_group)
-        self.admin.groups.add(self.admin_group)
-
-        self.api_client = APIClient()
-        self.workflow = Workflow.objects.create(data={}, status="APPROVAL", core=True, is_update=False)
+        super().setUp()
+        self.workflow = Workflow.objects.create(data={}, status="approval", core=True, is_update=False)
 
     @property
     def endpoint(self):
@@ -73,21 +75,21 @@ class WorkflowPartialUpdateViewSet(TransactionTestCase):
 
     def test_patch_curator(self):
         self.api_client.force_authenticate(user=self.curator)
-        response = self.api_client.patch(self.endpoint, format="json", data={"status": "POSTPROCESSING"})
+        response = self.api_client.patch(self.endpoint, format="json", data={"status": "running"})
 
         self.assertEqual(response.status_code, 200)
         workflow = Workflow.objects.filter(id=str(self.workflow.id))[0]
-        assert workflow.status == "POSTPROCESSING"
+        assert workflow.status == "running"
 
     def test_patch_admin(self):
         self.api_client.force_authenticate(user=self.admin)
         response = self.api_client.patch(
-            self.endpoint, format="json", data={"status": "PREPROCESSING", "data": {"test": "test"}}
+            self.endpoint, format="json", data={"status": "approval", "data": {"test": "test"}}
         )
 
         workflow = Workflow.objects.filter(id=str(self.workflow.id))[0]
         self.assertEqual(response.status_code, 200)
-        self.assertEquals(workflow.status, "PREPROCESSING")
+        self.assertEquals(workflow.status, "approval")
         self.assertEquals(workflow.data, {"test": "test"})
 
     def test_patch_anonymous(self):
@@ -95,3 +97,46 @@ class WorkflowPartialUpdateViewSet(TransactionTestCase):
         response = self.api_client.get(self.endpoint, format="json")
 
         self.assertEqual(response.status_code, 403)
+
+
+class TestWorkflowTicketViewSet(BaseTransactionTestCase):
+    endpoint = "/api/workflow-ticket"
+    reset_sequences = True
+    fixtures = ["backoffice/fixtures/groups.json"]
+
+    def setUp(self):
+        super().setUp()
+        self.workflow = Workflow.objects.create(data={}, status="running", core=True, is_update=False)
+        self.workflow_ticket = WorkflowTicket.objects.create(
+            workflow_id=self.workflow, ticket_id="123", ticket_type="author_create_user"
+        )
+
+    def test_get_missing_params(self):
+        self.api_client.force_authenticate(user=self.curator)
+        response = self.api_client.get(
+            f"{TestWorkflowTicketViewSet.endpoint}/{self.workflow.id}/", format="json", data={}
+        )
+
+        assert response.status_code == 400
+        assert response.data == {"error": "Both workflow_id and ticket_type are required."}
+
+    def test_get_ticket_not_found(self):
+        query_params = {"ticket_type": "test"}
+        self.api_client.force_authenticate(user=self.curator)
+        response = self.api_client.get(
+            f"{TestWorkflowTicketViewSet.endpoint}/{self.workflow.id}/", format="json", data=query_params
+        )
+
+        assert response.status_code == 404
+        assert response.data == {"error": "Workflow ticket not found."}
+
+    def test_get_ticket_happy_flow(self):
+        self.api_client.force_authenticate(user=self.curator)
+
+        query_params = {"ticket_type": self.workflow_ticket.ticket_type}
+        response = self.api_client.get(
+            f"{TestWorkflowTicketViewSet.endpoint}/{self.workflow.id}/", format="json", data=query_params
+        )
+
+        assert response.status_code == 200
+        assert response.data == WorkflowTicketSerializer(self.workflow_ticket).data
