@@ -1,10 +1,11 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import status, viewsets
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
-from backoffice.workflows.models import Workflow
+from backoffice.workflows.models import Workflow, WorkflowTicket
 
-from .serializers import WorkflowSerializer
+from .serializers import WorkflowSerializer, WorkflowTicketSerializer
 
 
 class WorkflowViewSet(viewsets.ModelViewSet):
@@ -27,3 +28,21 @@ class WorkflowPartialUpdateViewSet(viewsets.ViewSet):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class WorkflowTicketViewSet(viewsets.ViewSet):
+    def retrieve(self, request, *args, **kwargs):
+        workflow_id = kwargs.get("pk")
+        ticket_type = request.query_params.get("ticket_type")
+
+        if not workflow_id or not ticket_type:
+            return Response(
+                {"error": "Both workflow_id and ticket_type are required."}, status=status.HTTP_400_BAD_REQUEST
+            )
+
+        try:
+            workflow_ticket = WorkflowTicket.objects.get(workflow_id=workflow_id, ticket_type=ticket_type)
+            serializer = WorkflowTicketSerializer(workflow_ticket)
+            return Response(serializer.data)
+        except WorkflowTicket.DoesNotExist:
+            return Response({"error": "Workflow ticket not found."}, status=status.HTTP_404_NOT_FOUND)
