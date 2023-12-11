@@ -158,4 +158,9 @@ class TestWorkflowTicketViewSet(BaseTransactionTestCase):
         response = self.api_client.post(f"{TestWorkflowTicketViewSet.endpoint}/", format="json", data=data)
 
         assert response.status_code == 201
+
+        assert "workflow_id" in response.data
+        assert "ticket_id" in response.data
+        assert "ticket_type" in response.data
+
         assert response.data == WorkflowTicketSerializer(WorkflowTicket.objects.last()).data
