@@ -1,4 +1,3 @@
-import pytest
 from django.apps import apps
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
@@ -140,3 +139,19 @@ class TestWorkflowTicketViewSet(BaseTransactionTestCase):
 
         assert response.status_code == 200
         assert response.data == WorkflowTicketSerializer(self.workflow_ticket).data
+
+    def test_create_missing_params(self):
+        self.api_client.force_authenticate(user=self.curator)
+        response = self.api_client.post(f"{TestWorkflowTicketViewSet.endpoint}/", format="json", data={})
+
+        assert response.status_code == 400
+        assert response.data == {"error": "Both workflow_id and ticket_type are required."}
+
+    def test_create_happy_flow(self):
+        self.api_client.force_authenticate(user=self.curator)
+
+        data = {"workflow_id": self.workflow.id, "ticket_type": "author_create_user"}
+        response = self.api_client.post(f"{TestWorkflowTicketViewSet.endpoint}/", format="json", data=data)
+
+        assert response.status_code == 201
+        assert response.data == WorkflowTicketSerializer(WorkflowTicket.objects.last()).data

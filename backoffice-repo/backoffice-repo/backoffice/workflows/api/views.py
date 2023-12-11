@@ -1,7 +1,6 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import status, viewsets
 from rest_framework.response import Response
-from rest_framework.views import APIView
 
 from backoffice.workflows.models import Workflow, WorkflowTicket
 
@@ -46,3 +45,20 @@ class WorkflowTicketViewSet(viewsets.ViewSet):
             return Response(serializer.data)
         except WorkflowTicket.DoesNotExist:
             return Response({"error": "Workflow ticket not found."}, status=status.HTTP_404_NOT_FOUND)
+
+    def create(self, request, *args, **kwargs):
+        workflow_id = request.data.get("workflow_id")
+        ticket_type = request.data.get("ticket_type")
+
+        if not workflow_id or not ticket_type:
+            return Response(
+                {"error": "Both workflow_id and ticket_type are required."}, status=status.HTTP_400_BAD_REQUEST
+            )
+
+        try:
+            workflow = Workflow.objects.get(id=workflow_id)
+            workflow_ticket = WorkflowTicket.objects.create(workflow_id=workflow, ticket_type=ticket_type)
+            serializer = WorkflowTicketSerializer(workflow_ticket)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
