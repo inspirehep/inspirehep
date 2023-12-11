@@ -49,7 +49,7 @@ class WorkflowTicketViewSet(viewsets.ViewSet):
     def create(self, request, *args, **kwargs):
         workflow_id = request.data.get("workflow_id")
         ticket_type = request.data.get("ticket_type")
-        ticket_id = request.data.get("ticket_type")
+        ticket_id = request.data.get("ticket_id")
 
         if not all([workflow_id, ticket_type, ticket_id]):
             return Response(
