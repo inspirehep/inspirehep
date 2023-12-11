@@ -32,5 +32,5 @@ class Workflow(models.Model):
 
 class WorkflowTicket(models.Model):
     workflow_id = models.ForeignKey(Workflow, on_delete=models.CASCADE)
-    ticket_id = models.CharField(max_length=32)  # in SNOW it's GUID
+    ticket_id = models.CharField(max_length=32, null=False, blank=False)  # in SNOW it's GUID
     ticket_type = models.CharField(max_length=30, choices=TICKET_TYPES, default=DEFAULT_TICKET_TYPE)
