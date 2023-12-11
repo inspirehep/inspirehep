@@ -49,15 +49,18 @@ class WorkflowTicketViewSet(viewsets.ViewSet):
     def create(self, request, *args, **kwargs):
         workflow_id = request.data.get("workflow_id")
         ticket_type = request.data.get("ticket_type")
+        ticket_id = request.data.get("ticket_type")
 
-        if not workflow_id or not ticket_type:
+        if not all([workflow_id, ticket_type, ticket_id]):
             return Response(
-                {"error": "Both workflow_id and ticket_type are required."}, status=status.HTTP_400_BAD_REQUEST
+                {"error": "Workflow_id, ticket_id and ticket_type are required."}, status=status.HTTP_400_BAD_REQUEST
             )
 
         try:
             workflow = Workflow.objects.get(id=workflow_id)
-            workflow_ticket = WorkflowTicket.objects.create(workflow_id=workflow, ticket_type=ticket_type)
+            workflow_ticket = WorkflowTicket.objects.create(
+                workflow_id=workflow, ticket_id=ticket_id, ticket_type=ticket_type
+            )
             serializer = WorkflowTicketSerializer(workflow_ticket)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         except Exception as e:
