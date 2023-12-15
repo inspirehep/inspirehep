@@ -415,121 +415,114 @@ describe('Author collection', () => {
             body: {
               message: 'Success',
             },
-          }
-        ).as('getCheckNameSuccess');
+          }).as('getAssignSuccess');
 
-        cy.intercept('POST', '/api/assign/literature/assign', {
-          statusCode: 200,
-          body: {
-            message: 'Success',
-          },
-        }).as('getAssignSuccess');
+          cy.visit('/literature/1688995');
+          cy.waitForLoading();
 
-        cy.visit('/literature/1688995');
-        cy.waitForLoading();
+          cy.get('[data-test-id="btn-claiming-literature"]').trigger('mouseover');
+          cy.get('[data-test-id="assign-literature-item"]').click();
 
-        cy.get('[data-test-id="btn-claiming-literature"]').trigger('mouseover');
-        cy.get('[data-test-id="assign-literature-item"]').click();
+          cy.wait('@getCheckNameSuccess');
+          cy.wait('@getAssignSuccess');
 
-        cy.wait('@getCheckNameSuccess');
-        cy.wait('@getAssignSuccess');
+          cy.get('.ant-notification-notice-message').should(
+            'have.text',
+            'Assignment Successful!'
+          );
+          cy.get('.ant-notification-notice-description').should(
+            'have.text',
+            '1 paper added to your profile'
+          );
+        });
 
-        cy.get('.ant-notification-notice-message').should(
-          'have.text',
-          'Assignment Successful!'
-        );
-        cy.get('.ant-notification-notice-description').should(
-          'have.text',
-          '1 paper added to your profile'
-        );
-      });
+        it('shows error message when failed to move paper automatically', () => {
+          cy.intercept('POST', '/api/assign/literature/assign', {
+            statusCode: 500,
+          }).as('getAssignError');
 
-      it('shows error message when failed to move paper automatically', () => {
-        cy.intercept('POST', '/api/assign/literature/assign', {
-          statusCode: 500,
-        }).as('getAssignError');
+          cy.visit('/literature/1688995');
+          cy.waitForLoading();
 
-        cy.visit('/literature/1688995');
-        cy.waitForLoading();
+          cy.get('[data-test-id="btn-claiming-literature"]').trigger('mouseover');
+          cy.get('[data-test-id="assign-literature-item"]').click();
 
-        cy.get('[data-test-id="btn-claiming-literature"]').trigger('mouseover');
-        cy.get('[data-test-id="assign-literature-item"]').click();
+          cy.wait('@getAssignError');
 
-        cy.wait('@getAssignError');
+          cy.get('.ant-notification-notice-message').should(
+            'have.text',
+            'Assignment Error!'
+          );
+          cy.get('.ant-notification-notice-description').should(
+            'have.text',
+            'Something went wrong.'
+          );
+        });
 
-        cy.get('.ant-notification-notice-message').should(
-          'have.text',
-          'Assignment Error!'
-        );
-        cy.get('.ant-notification-notice-description').should(
-          'have.text',
-          'Something went wrong.'
-        );
-      });
+        it('moves paper from selected author to user profile successfully', () => {
+          cy.intercept('POST', '/api/assign/literature/assign-different-profile', {
+            statusCode: 200,
+            body: {
+              created_rt_ticket: true,
+            },
+          }).as('getAssignSuccess');
 
-      it('moves paper from selected author to user profile successfully', () => {
-        cy.intercept('POST', '/api/assign/literature/assign-different-profile', {
-          statusCode: 200,
-          body: {
-            created_rt_ticket: true,
-          },
-        }).as('getAssignSuccess');
+          cy.visit('/literature/1331798');
+          cy.waitForLoading();
 
-        cy.visit('/literature/1331798');
-        cy.waitForLoading();
+          cy.get('[data-test-id="btn-claiming-literature"]').trigger('mouseover');
+          cy.get('[data-test-id="assign-literature-item"]').click();
+          cy.get('[data-test-id="literature-drawer-radio-1274753"').click();
+          cy.get('[data-test-id="assign-literature-item-button"').click();
 
-        cy.get('[data-test-id="btn-claiming-literature"]').trigger('mouseover');
-        cy.get('[data-test-id="assign-literature-item"]').click();
-        cy.get('[data-test-id="literature-drawer-radio-1274753"').click();
-        cy.get('[data-test-id="assign-literature-item-button"').click();
+          cy.wait('@getAssignSuccess');
 
-        cy.wait('@getAssignSuccess');
+          cy.get('.ant-notification-notice-message').should(
+            'have.text',
+            'Some claims will be reviewed by our staff for approval.'
+          );
+        });
 
-        cy.get('.ant-notification-notice-message').should(
-          'have.text',
-          'Some claims will be reviewed by our staff for approval.'
-        );
-      });
+        it('displays empty author drawer if fetching all authors failed', () => {
+          cy.intercept('GET', '/api/literature/1331798?field=authors', {
+            statusCode: 500,
+          }).as('getAuthorsError');
 
-      it('displays empty author drawer if fetching all authors failed', () => {
-        cy.intercept('GET', '/api/literature/1331798?field=authors', {
-          statusCode: 500,
-        }).as('getAuthorsError');
+          cy.visit('/literature/1331798');
+          cy.waitForLoading();
 
-        cy.visit('/literature/1331798');
-        cy.waitForLoading();
+          cy.get('[data-test-id="btn-claiming-literature"]').trigger('mouseover');
+          cy.get('[data-test-id="assign-literature-item"]').click();
 
-        cy.get('[data-test-id="btn-claiming-literature"]').trigger('mouseover');
-        cy.get('[data-test-id="assign-literature-item"]').click();
+          cy.wait('@getAuthorsError');
 
-        cy.wait('@getAuthorsError');
+          cy.get('.ant-empty-image').should('be.visible');
+        });
 
-        cy.get('.ant-empty-image').should('be.visible');
-      });
+        it('shows error message when failed to move paper from selected author to user profile', () => {
+          cy.intercept('POST', '/api/assign/literature/assign-different-profile', {
+            statusCode: 500,
+          }).as('getAssignError');
 
-      it('shows error message when failed to move paper from selected author to user profile', () => {
-        cy.intercept('POST', '/api/assign/literature/assign-different-profile', {
-          statusCode: 500,
-        }).as('getAssignError');
+          cy.visit('/literature/1787272');
+          cy.waitForLoading();
 
-        cy.visit('/literature/1787272');
-        cy.waitForLoading();
+          cy.get('[data-test-id="btn-claiming-literature"]').trigger('mouseover');
+          cy.get('[data-test-id="assign-literature-item"]').click();
+          cy.get('[data-test-id="literature-drawer-radio-996285"').click();
+          cy.get('[data-test-id="assign-literature-item-button"').click();
 
-        cy.get('[data-test-id="btn-claiming-literature"]').trigger('mouseover');
-        cy.get('[data-test-id="assign-literature-item"]').click();
-        cy.get('[data-test-id="literature-drawer-radio-996285"').click();
-        cy.get('[data-test-id="assign-literature-item-button"').click();
+          cy.wait('@getAssignError');
 
-        cy.wait('@getAssignError');
-
-        cy.get('.ant-notification-notice-message').should(
-          'have.text',
-          'Assignment Error!'
-        );
-        cy.get('.ant-notification-notice-description').should(
-          'have.text',
-          'This paper cannot be claimed automatically. Please contact us'
-        );
+          cy.get('.ant-notification-notice-message').should(
+            'have.text',
+            'Assignment Error!'
+          );
+          cy.get('.ant-notification-notice-description').should(
+            'have.text',
+            'This paper cannot be claimed automatically. Please contact us at authors@inspirehep.net'
+          );
+        });
       });
     });
   });
