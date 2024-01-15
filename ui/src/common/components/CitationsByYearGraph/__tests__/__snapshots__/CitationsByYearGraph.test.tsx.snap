@@ -1485,7 +1485,7 @@ exports[`CitationsByYearGraph renders two citations graphs when current year cit
               </g>
               <g
                 class="rv-xy-plot__axis__tick"
-                transform="translate(-20, 0)"
+                transform="translate(-15, 0)"
               >
                 <line
                   class="rv-xy-plot__axis__tick__line"
@@ -1505,7 +1505,7 @@ exports[`CitationsByYearGraph renders two citations graphs when current year cit
               </g>
               <g
                 class="rv-xy-plot__axis__tick"
-                transform="translate(-40, 0)"
+                transform="translate(-30, 0)"
               >
                 <line
                   class="rv-xy-plot__axis__tick__line"
@@ -1525,7 +1525,7 @@ exports[`CitationsByYearGraph renders two citations graphs when current year cit
               </g>
               <g
                 class="rv-xy-plot__axis__tick"
-                transform="translate(-60, 0)"
+                transform="translate(-45, 0)"
               >
                 <line
                   class="rv-xy-plot__axis__tick__line"
@@ -1541,6 +1541,26 @@ exports[`CitationsByYearGraph renders two citations graphs when current year cit
                   transform="translate(0, 14)"
                 >
                   2023
+                </text>
+              </g>
+              <g
+                class="rv-xy-plot__axis__tick"
+                transform="translate(-60, 0)"
+              >
+                <line
+                  class="rv-xy-plot__axis__tick__line"
+                  x1="0"
+                  x2="0"
+                  y1="-6"
+                  y2="6"
+                />
+                <text
+                  class="rv-xy-plot__axis__tick__text"
+                  dy="0.72em"
+                  text-anchor="middle"
+                  transform="translate(0, 14)"
+                >
+                  2024
                 </text>
               </g>
             </g>
@@ -1644,13 +1664,13 @@ exports[`CitationsByYearGraph renders two citations graphs when current year cit
           </g>
           <path
             class="rv-xy-plot__series rv-xy-plot__series--line "
-            d="M0,169.6969696969697L-20,103.03030303030303L-40,0"
+            d="M0,169.6969696969697L-15,103.03030303030303L-30,0L-45,139.3939393939394"
             style="opacity: 1; stroke: #1890ff;"
             transform="translate(40,10)"
           />
           <path
             class="rv-xy-plot__series rv-xy-plot__series--line "
-            d="M-40,0L-60,139.3939393939394"
+            d="M-45,139.3939393939394L-60,139.3939393939394"
             style="opacity: 1; stroke-dasharray: 7 3; stroke: #1890FF99;"
             transform="translate(40,10)"
           />
@@ -1665,20 +1685,26 @@ exports[`CitationsByYearGraph renders two citations graphs when current year cit
               style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
             />
             <circle
-              cx="-20"
+              cx="-15"
               cy="103.03030303030303"
               r="3"
               style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
             />
             <circle
-              cx="-40"
+              cx="-30"
               cy="0"
               r="3"
               style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
             />
             <circle
-              cx="-40"
-              cy="0"
+              cx="-45"
+              cy="139.3939393939394"
+              r="3"
+              style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
+            />
+            <circle
+              cx="-45"
+              cy="139.3939393939394"
               r="3"
               style="opacity: 1; stroke: #1890ff; fill: #1890ff; stroke-width: 1;"
             />
