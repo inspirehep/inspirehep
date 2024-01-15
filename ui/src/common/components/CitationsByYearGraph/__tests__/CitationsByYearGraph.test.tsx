@@ -171,6 +171,7 @@ describe('CitationsByYearGraph', () => {
       2021: 16,
       2022: 33,
       2023: 10,
+      2024: 10,
     };
     const { asFragment } = render(
       <CitationsByYearGraph

@@ -55,7 +55,7 @@
     "history": "^4.7.2",
     "idlejs": "^3.0.0",
     "immutable": "^4.1.0",
-    "inspire-schemas": "^61.2.6-2-g90a8aaf",
+    "inspire-schemas": "61.5.26",
     "is-valid-orcid": "^1.2.0",
     "jest-environment-jsdom-sixteen": "^2.0.0",
     "jsondiffpatch": "^0.3.11",
