@@ -85,7 +85,7 @@ inspire-dojson @ git+https://github.com/inspirehep/inspire-dojson.git@master
 inspire-json-merger==11.0.29
 inspire-matcher==9.0.27
 inspire-query-parser==6.0.51
-inspire-schemas==61.5.25
+inspire-schemas==61.5.26
 inspire-service-orcid @ git+https://github.com/inspirehep/inspire-service-orcid.git@1a0e762e58bc9cac65f7665b9831993c017fd8bb
 inspire-utils==3.0.37
 intervals==0.8.1
