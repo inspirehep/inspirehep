@@ -29,7 +29,7 @@ def test_base_schema_with_historic_iso_3166_3_country_code():
             {
                 "cities": ["City Name"],
                 "country_code": "CS",
-                "country": "Serbia and Montenegro",
+                "country": "Czechoslovakia",
             }
         ]
     }

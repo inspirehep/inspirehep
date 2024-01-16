@@ -34,13 +34,13 @@ def test_base_schema_addresses():
     assert expected_result == result
 
 
-def test_base_schema_addresses_wrong_country_code():
+def test_base_schema_addresses_uses_override_country_code():
     expected_result = {
         "addresses": [
             {
                 "cities": ["City Name"],
                 "country_code": "CS",
-                "country": "Serbia and Montenegro",
+                "country": "Czechoslovakia",
             }
         ]
     }
