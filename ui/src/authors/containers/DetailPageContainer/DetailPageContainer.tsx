@@ -15,6 +15,7 @@ import {
   getCurrentAffiliationsFromPositions,
   getAuthorDisplayName,
   getAuthorMetaDescription,
+  getInspireId
 } from '../../utils';
 import PositionsTimeline from '../../components/PositionsTimeline';
 import ArxivCategoryList from '../../../common/components/ArxivCategoryList';
@@ -46,6 +47,7 @@ import IconText from '../../../common/components/IconText';
 import LinkWithTargetBlank from '../../../common/components/LinkWithTargetBlank';
 import UserAction from '../../../common/components/UserAction';
 import { APIButton } from '../../../common/components/APIButton';
+import InspireID from '../../components/InspireID';
 
 function DetailPage({
   record,
@@ -108,6 +110,7 @@ function DetailPage({
   const bai = metadata.get('bai');
   const advisors = metadata.get('advisors');
   const canEdit = metadata.get('can_edit', false);
+  const inspireId = getInspireId(metadata.get('ids'));
 
   const metaDescription = useMemo(
     () => getAuthorMetaDescription(metadata),
@@ -236,9 +239,10 @@ function DetailPage({
                 </h2>
                 <Row justify="space-between">
                   <Col xs={24} lg={12} className="mb3">
-                    <ArxivCategoryList arxivCategories={arxivCategories} />
-                    <ExperimentList experiments={experiments} />
+                    <ArxivCategoryList arxivCategories={arxivCategories} wrapperClassName='arxiv-category mb3' />
+                    <ExperimentList experiments={experiments} wrapperClassName='experiments' />
                     {bai && <AuthorBAI bai={bai} />}
+                    {!orcid && inspireId && <InspireID id={inspireId} />}
                     {advisors && (
                       <div className="mt2">
                         <Advisors advisors={advisors} />

@@ -4,7 +4,9 @@ import { makeCompliantMetaDescription } from '../common/utils';
 export function getCurrentAffiliationsFromPositions(
   positions: Map<string, string>
 ): Map<string, string> {
-  return positions.filter((position) => (position as unknown as Map<string, string>).get('current'));
+  return positions.filter((position) =>
+    (position as unknown as Map<string, string>).get('current')
+  );
 }
 
 export function getAuthorDisplayName(name: Map<string, string>) {
@@ -26,10 +28,7 @@ export function getAuthorMetaDescription(author: {
     arg: string[],
     list: List<string>
   ) => { get: (arg: string) => string }[];
-  get: (
-    arg: string,
-    list: List<string>
-  ) => Map<string, string>;
+  get: (arg: string, list: List<string>) => Map<string, string>;
 }) {
   const ITEM_SEPARATOR = ' and ';
 
@@ -40,7 +39,9 @@ export function getAuthorMetaDescription(author: {
   const affiliationsText = getCurrentAffiliationsFromPositions(
     author.get('positions', List([]))
   )
-    .map((position) => (position as unknown as Map<string, string>).get('institution'))
+    .map((position) =>
+      (position as unknown as Map<string, string>).get('institution')
+    )
     .filter(Boolean)
     .join(ITEM_SEPARATOR);
   const categoriesText = author
@@ -49,7 +50,9 @@ export function getAuthorMetaDescription(author: {
     .join(ITEM_SEPARATOR);
   const experimentsText = author
     .get('project_membership', List())
-    .map((experiment) => (experiment as unknown as Map<string, string>).get('name'))
+    .map((experiment) =>
+      (experiment as unknown as Map<string, string>).get('name')
+    )
     .filter(Boolean)
     .join(ITEM_SEPARATOR);
 
@@ -63,4 +66,11 @@ export function getAuthorMetaDescription(author: {
   const description = sentences.filter(Boolean).join('. ');
 
   return makeCompliantMetaDescription(description);
+}
+
+export function getInspireId(ids: List<Map<string, string>>) {
+  return ids
+    .filter((item) => item.get('schema') === 'INSPIRE ID')
+    ?.first()
+    ?.get('value');
 }

@@ -2,6 +2,7 @@ import { fromJS, List } from 'immutable';
 import {
   getCurrentAffiliationsFromPositions,
   getAuthorMetaDescription,
+  getInspireId
 } from '../utils';
 
 describe('utils', () => {
@@ -85,6 +86,37 @@ describe('utils', () => {
       });
       const result = getAuthorMetaDescription(author);
       expect(result).toBe('');
+    });
+  });
+
+  describe('getInspireId', () => {
+    it('returns inspire id if present', () => {
+      const ids = fromJS([
+        {
+          value: "David.Lyle.Burke.1",
+          schema: "INSPIRE BAI"
+      },
+      {
+          value: "INSPIRE-00070132",
+          schema: "INSPIRE ID"
+      },
+      ]);
+
+      const expected = "INSPIRE-00070132";
+      const inspireId = getInspireId(ids);
+      expect(inspireId).toEqual(expected);
+    });
+
+    it('returns empty if no Inspire id', () => {
+      const ids = fromJS([
+        {
+          value: "David.Lyle.Burke.1",
+          schema: "INSPIRE BAI"
+      }
+      ]);
+
+      const inspireId = getInspireId(ids);
+      expect(inspireId).toEqual(undefined);
     });
   });
 });

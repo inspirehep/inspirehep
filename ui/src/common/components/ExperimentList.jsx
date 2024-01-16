@@ -28,13 +28,14 @@ class ExperimentList extends Component {
   }
 
   render() {
-    const { experiments } = this.props;
+    const { experiments, wrapperClassName } = this.props;
     return (
       <InlineDataList
         label="Experiments"
         items={experiments}
         extractKey={ExperimentList.getExperimentName}
         renderItem={ExperimentList.renderExperiment}
+        wrapperClassName={wrapperClassName}
       />
     );
   }
