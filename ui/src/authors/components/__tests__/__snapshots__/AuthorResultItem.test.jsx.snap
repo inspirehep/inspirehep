@@ -63,6 +63,7 @@ exports[`AuthorResultItem renders full author result 1`] = `
           },
         ]
       }
+      wrapperClassName="mt2"
     />
   </div>
 </ResultItem>
@@ -100,6 +101,7 @@ exports[`AuthorResultItem renders with only name 1`] = `
     />
     <ExperimentList
       experiments={null}
+      wrapperClassName="mt2"
     />
   </div>
 </ResultItem>
