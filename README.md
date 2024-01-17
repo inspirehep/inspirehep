@@ -28,8 +28,8 @@ Please follow the instructions https://github.com/nvm-sh/nvm#installing-and-upda
 We're using `v16.16.0` (first version we install is the default)
 
 ```
-$ nvm install 16.16.0
-$ nvm use global 16.16.0
+$ nvm install 20.0.0
+$ nvm use global 20.0.0
 ```
 
 ### yarn
