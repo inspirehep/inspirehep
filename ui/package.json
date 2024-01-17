@@ -12,10 +12,10 @@
     ]
   },
   "scripts": {
-    "start": "craco start",
-    "build": "craco build",
+    "start": "NODE_OPTIONS=--openssl-legacy-provider craco start",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider craco build",
     "test:unit": "craco test --resetMocks=false",
-    "test:size": "yarn build && bundlemon",
+    "test:size": "NODE_OPTIONS=--openssl-legacy-provider yarn build && bundlemon",
     "test": "yarn lint && yarn test:unit --watchAll=false --resetMocks=false && yarn test:size",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "eject": "react-scripts eject",
