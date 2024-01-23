@@ -1,4 +1,4 @@
-FROM node:20.0.0 as development-stage
+FROM node:20.0.0-alpine as development-stage
 
 WORKDIR /usr/src/app
 
