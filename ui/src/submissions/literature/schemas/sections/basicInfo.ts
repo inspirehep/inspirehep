@@ -1,0 +1,33 @@
+import { string, array, object } from 'yup';
+
+import { languageValues } from '../constants';
+import { inspireCategoryValues } from '../../../common/schemas/constants';
+import emptyObjectOrShapeOf from '../../../common/schemas/emptyObjectOrShapeOf';
+
+export default {
+  title: string().required().label('Title'),
+  language: string().oneOf(languageValues).default(languageValues[0]),
+  subjects: array()
+    .of(string().oneOf(inspireCategoryValues))
+    .min(1)
+    .required()
+    .label('Subject'),
+  authors: array()
+    .of(
+      object().shape({
+        full_name: string().required().label('Full name'),
+        affiliation: string(),
+      })
+    )
+    .min(1)
+    .required()
+    .default([{} as { full_name: string; affiliation: string }])
+    .label('Author'),
+  collaboration: string(),
+  experiment: string(),
+  abstract: string(),
+  report_numbers: array().of(string().nullable()).default(['']),
+  doi: string()
+    .matches(new RegExp('^(doi:)?10\\.\\d+(\\.\\d+)?/\\S+$'))
+    .label('DOI'),
+};
