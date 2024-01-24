@@ -289,11 +289,17 @@ Note that `jest` automatically run tests that changed files (unstaged) affect.
 
 ### cypress (e2e)
 
-```bash
-$ sh cypress-tests.sh # runs everything from scratch, identical to CI
+Runs everything from scratch, identical to CI
 
+```bash
+$ sh cypress-tests-chrome.sh
+$ sh cypress-tests-firefox.sh
+```
+
+Opens cypress runner GUI runs them against local dev server (localhost:8080)
+```bash
 $ cd e2e
-$ yarn test:dev # open cypress runner GUI runs them against local dev server (localhost:3000)
+$ yarn test:dev
 $ yarn test:dev --env inspirehep_url=<any url that serves inspirehep ui>
 ```
 
@@ -308,12 +314,9 @@ If required, tests can run against `localhost:3000` by simply modifying `--host`
 
 #### working with (visual) tests more efficiently
 
-(TODO: improve DX)
-
 You may not always need to run tests exactly like on the CI environment.
 
 - To run specific suite, just change `test` script in `e2e/package.json` temporarily to `cypress run --spec cypress/integration/<spec.test.js>`
-- To enable mounting `backend` code and live update, just use `e2e/docker-compose.cypress.dev.yml` instead.
 
 ## How to import records
 
