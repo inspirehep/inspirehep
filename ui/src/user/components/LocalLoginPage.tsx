@@ -13,8 +13,8 @@ const LocalLoginPage = ({
   ) => void | Promise<any>) &
     Function;
 }) => {
-  function renderFormInput({ field, ...props }: { field: JSX.Element, props: any }) {
-    return <Input {...field} {...props} />;
+  function renderFormInput({ form, field, ...rest }: { form: any, field: JSX.Element, rest: any }) {
+    return <Input {...field} {...rest} />;
   }
 
   function renderLoginForm() {
