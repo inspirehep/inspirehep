@@ -127,36 +127,6 @@ jobs:
           --error-logfile "-"
           inspirehep.wsgi:application
 
-      - name: run next-worker
-        run: >
-          docker run
-          --detach
-          --network host
-          --env-file ./env.list
-          --name next-worker
-          --entrypoint celery
-          inspirehep/next:latest
-          worker
-          -E
-          -A inspirehep.celery
-          --loglevel=INFO
-          --purge
-          --queues celery,orcid_push,indexer_task
-
-      - name: run next-web
-        run: >
-          docker run
-          --detach
-          --network host
-          --env-file ./env.list
-          --name next-web
-          --entrypoint gunicorn
-          inspirehep/next-assets:latest
-          -b 0.0.0.0:5000
-          --access-logfile "-"
-          --log-level debug
-          inspirehep.wsgi
-
       - name: run editor
         run: >
           docker run
@@ -172,7 +142,6 @@ jobs:
           --network host
           --name ui
           --add-host=hep-web:127.0.0.1
-          --add-host=next-web:127.0.0.1
           --add-host=record-editor:127.0.0.1
           --mount type=bind,source=${{ github.workspace }}/ui/docker/nginx/config/local.conf,destination=/etc/nginx/conf.d/default.conf
           ${{ inputs.ui-image }}
@@ -180,7 +149,6 @@ jobs:
       - name: setup
         run: |
           docker exec hep-web ./scripts/setup
-          docker exec next-web inspirehep db create
 
       - name: import dataset
         run: >
@@ -206,12 +174,6 @@ jobs:
           echo "::endgroup::"
           echo "::group::hep-web"
           docker logs hep-web
-          echo "::endgroup::"
-          echo "::group::next-worker"
-          docker logs next-worker
-          echo "::endgroup::"
-          echo "::group::next-web"
-          docker logs next-web
           echo "::endgroup::"
           echo "::group::record-editor"
           docker logs record-editor

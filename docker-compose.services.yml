@@ -41,9 +41,6 @@ services:
       - 'POSTGRES_DB=inspirehep'
     ports:
       - '5432:5432'
-  mq-next:
-    image: rabbitmq:3.8-management-alpine
-    restart: 'always'
   mq:
     image: rabbitmq:3.9.11-management
     restart: 'always'
@@ -80,20 +77,6 @@ services:
   flower:
     image: mher/flower:0.9.5
     command: --broker=amqp://guest:guest@mq/ --broker_api=http://guest:guest@mq/api/
-  inspire-next:
-    image: 'inspirehep/next-assets'
-    environment:
-      - 'APP_DEBUG=True'
-      - 'APP_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://inspirehep:inspirehep@db:5432/inspirehep'
-      - 'APP_CELERY_BROKER_URL=amqp://guest:guest@mq-next/'
-      - 'APP_CELERY_RESULT_BACKEND=redis://cache:6379/2'
-      - 'APP_CACHE_REDIS_URL=redis://cache:6379/0'
-      - 'APP_ACCOUNTS_SESSION_REDIS_URL=redis://cache:6379/1'
-      - "APP_SEARCH_ELASTIC_HOSTS=['es:9200']"
-      - 'APP_ES_BULK_TIMEOUT=240'
-      - 'APP_DANGEROUSLY_ENABLE_LOCAL_LOGIN=True'
-      - 'APP_ENABLE_SECURE_HEADERS=False'
-      - 'APP_SECRET_KEY=CHANGE_ME'
   s3:
     image: localstack/localstack:1.2.0
     hostname: localstack

@@ -22,7 +22,6 @@ wait %4
 
 # import data
 docker-compose $files exec hep-web ./scripts/setup
-docker-compose $files exec next-web inspirehep db create
 docker-compose $files exec hep-web inspirehep importer demo-records
 
 # run tests

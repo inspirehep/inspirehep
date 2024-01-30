@@ -26,11 +26,5 @@ load-records:
 	echo -e "\033[0;32m Loading records. \033[0m"
 	docker-compose exec hep-web inspirehep importer demo-records
 
-next-setup:
-	docker-compose -f docker-compose.yml exec next-web inspirehep db create
-	docker-compose -f docker-compose.yml exec next-web inspirehep alembic upgrade
-	docker-compose -f docker-compose.yml exec next-web inspirehep index
-	echo -e "\033[0;32m Inspire Next Setup. \033[0m"
-
 services:
 	docker-compose up -d cache db mq s3 es

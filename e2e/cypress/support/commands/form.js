@@ -41,24 +41,34 @@ Cypress.Commands.add(
     const route = `/submissions/${collection}`;
     const apiRoute = `/api${route}`;
 
-    cy.registerRoute({
-      url: apiRoute,
-      method: 'POST',
-    });
-    cy.submitForm(formData);
+    if (submissionType === 'workflow') {
+      cy.intercept('POST', apiRoute, {
+        statusCode: 200,
+        body: {
+          message: 'Success',
+        },
+      }).as('getSubmissionSuccess');
+      cy.submitForm(formData);
+      cy.wait('@getSubmissionSuccess');
 
-    return cy.waitForRoute(apiRoute).then(() => {
-      if (submissionType === 'workflow') {
-        cy.testWorkflow();
-      }
-      if (submissionType === 'record') {
-        cy.testRecord(expectedMetadata);
-      }
-      if (submissionType === 'editor') {
-        cy.testEditor(expectedMetadata);
-      }
-      return null;
-    });
+      cy.testWorkflow();
+    } else {
+      cy.registerRoute({
+        url: apiRoute,
+        method: 'POST',
+      });
+      cy.submitForm(formData);
+
+      return cy.waitForRoute(apiRoute).then(() => {
+        if (submissionType === 'record') {
+          cy.testRecord(expectedMetadata);
+        }
+        if (submissionType === 'editor') {
+          cy.testEditor(expectedMetadata);
+        }
+        return null;
+      });
+    }
   }
 );
 

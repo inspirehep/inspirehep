@@ -1,4 +1,4 @@
-import { onlyOn, skipOn } from '@cypress/skip-test';
+import { onlyOn } from '@cypress/skip-test';
 
 describe('Literature Search', () => {
   onlyOn('headless', () => {
@@ -21,16 +21,14 @@ describe('Literature Search', () => {
     });
   });
 
-  skipOn('electron', () => {
-    it('displays correct searchRank', () => {
-      cy.registerRoute();
-      cy.visit('/literature?ui-citation-summary=true');
-      cy.waitForRoute();
-      cy.waitForSearchResults();
-      cy.get('[data-test-id="literature-result-rank"]')
-        .first()
-        .should('have.text', '#1');
-    });
+  it('displays correct searchRank', () => {
+    cy.registerRoute();
+    cy.visit('/literature?ui-citation-summary=true');
+    cy.waitForRoute();
+    cy.waitForSearchResults();
+    cy.get('[data-test-id="literature-result-rank"]')
+      .first()
+      .should('have.text', '#1');
   });
 });
 
@@ -74,9 +72,7 @@ describe('Literature Submission', () => {
       cy.selectLiteratureDocType('bookChapter');
       cy.matchSnapshots('BookChapterSubmission', { skipMobile: true });
     });
-  });
 
-  skipOn('electron', () => {
     it('submits a new thesis', () => {
       const formData = {
         pdf_link: 'https://uni.eu/docs/thesis.pdf',
@@ -88,18 +84,20 @@ describe('Literature Submission', () => {
         submission_date: '2018-11',
         defense_date: '2019-01-01',
         institution: 'University of Geneva',
-        supervisors: [{ full_name: 'Tsanakoglu, Ioannis', affiliation: 'CERN' }],
+        supervisors: [
+          { full_name: 'Tsanakoglu, Ioannis', affiliation: 'CERN' },
+        ],
       };
-  
+
       cy.visit('/submissions/literature');
       cy.selectLiteratureDocType('thesis');
       cy.testSubmission({
         formData,
         collection: 'literature',
-        submissionType: 'workflow'
-      })
+        submissionType: 'workflow',
+      });
     });
-  
+
     it('submits a new article', () => {
       const formData = {
         pdf_link:
@@ -120,7 +118,7 @@ describe('Literature Submission', () => {
         proceedings_info: 'very private proceeding',
         conference_info: 'very private conference',
       };
-  
+
       cy.visit('/submissions/literature');
       cy.selectLiteratureDocType('article');
       cy.contains('Conference Info').click();
@@ -129,10 +127,10 @@ describe('Literature Submission', () => {
       cy.testSubmission({
         formData,
         collection: 'literature',
-        submissionType: 'workflow'
+        submissionType: 'workflow',
       });
     });
-  
+
     it('submits a new book', () => {
       const formData = {
         title: 'Nostalgic Rhythms',
@@ -142,16 +140,16 @@ describe('Literature Submission', () => {
         publication_date: '2018-06',
         publication_place: 'Geneva, Switzerland',
       };
-  
+
       cy.visit('/submissions/literature');
       cy.selectLiteratureDocType('book');
       cy.testSubmission({
         formData,
         collection: 'literature',
-        submissionType: 'workflow'
-      })
+        submissionType: 'workflow',
+      });
     });
-  
+
     it('submits a new book chapter', () => {
       const formData = {
         title: 'Cool Dev Livre: Chapitre 2',
@@ -161,14 +159,14 @@ describe('Literature Submission', () => {
         start_page: '200',
         end_page: '300',
       };
-  
+
       cy.visit('/submissions/literature');
       cy.selectLiteratureDocType('bookChapter');
       cy.testSubmission({
         formData,
         collection: 'literature',
-        submissionType: 'workflow'
-      })
+        submissionType: 'workflow',
+      });
     });
   });
 

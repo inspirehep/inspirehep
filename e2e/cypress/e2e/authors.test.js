@@ -1,4 +1,4 @@
-import { onlyOn, skipOn } from '@cypress/skip-test';
+import { onlyOn } from '@cypress/skip-test';
 
 describe('Author Detail', () => {
   onlyOn('headless', () => {
@@ -24,16 +24,14 @@ describe('Author Search', () => {
     });
   });
 
-  skipOn('electron', () => {
-    it('link to update own profile leads to submissions', () => {
-      cy.login('johnellis');
-      const recordId = 1010819;
-      const expectedUrl = `/submissions/authors/${recordId}`;
-      cy.registerRoute();
-      cy.visit(`/authors?q=control_number:${recordId}`);
-      cy.waitForRoute();
-      cy.contains('a', 'edit').should('have.attr', 'href', expectedUrl);
-    });
+  it('link to update own profile leads to submissions', () => {
+    cy.login('johnellis');
+    const recordId = 1010819;
+    const expectedUrl = `/submissions/authors/${recordId}`;
+    cy.registerRoute();
+    cy.visit(`/authors?q=control_number:${recordId}`);
+    cy.waitForRoute();
+    cy.contains('a', 'edit').should('have.attr', 'href', expectedUrl);
   });
 });
 
@@ -63,12 +61,10 @@ describe('Author Submission', () => {
       cy.get('form').should('be.visible');
       cy.matchSnapshots('AuthorUpdateSubmissionByOwner', { skipMobile: true });
     });
-  });
 
-  skipOn('electron', () => {
     it('submits a new author', () => {
       cy.login('cataloger');
-  
+
       const formData = {
         given_name: 'Diego',
         family_name: 'Martínez Santos',
@@ -93,7 +89,7 @@ describe('Author Submission', () => {
           },
         ],
       };
-  
+
       cy.visit('/submissions/authors');
       cy.testSubmission({
         formData,
@@ -101,7 +97,7 @@ describe('Author Submission', () => {
         submissionType: 'workflow',
       });
     });
-  
+
     it('does not submit a new author with existing orcid [authors/1078577]', () => {
       cy.login('cataloger');
       cy.visit('/submissions/authors');
@@ -118,7 +114,7 @@ describe('Author Submission', () => {
         .find('a')
         .should('have.attr', 'href', '/submissions/authors/1078577');
     });
-  
+
     it('updates its own author profile', () => {
       const recordId = 1010819;
       const expectedMetadata = {
@@ -126,7 +122,7 @@ describe('Author Submission', () => {
           value: 'John Richard Ellis',
         },
       };
-  
+
       cy.login('johnellis');
       cy.visit(`/submissions/authors/${recordId}`);
       cy.testUpdateSubmission({
@@ -144,7 +140,7 @@ describe('Author Submission', () => {
         },
       });
     });
-  
+
     it('does not show update form if user is not the owner of the author record', () => {
       cy.login('johnellis');
       cy.registerRoute();

@@ -1,4 +1,4 @@
-import { onlyOn, skipOn } from '@cypress/skip-test';
+import { onlyOn } from '@cypress/skip-test';
 
 describe('Journal Detail', () => {
   onlyOn('headless', () => {
@@ -39,23 +39,21 @@ describe('Journal Submission', () => {
     });
   });
 
-  skipOn('electron', () => {
-    it('submits a new journal', () => {
-      const formData = {
-        journal_title: 'Amazing Journal',
-        short_title: 'AJ'
-      };
-      const expectedMetadata = {
-        journal_title: 'Amazing Journal',
-        short_title: 'AJ'
-      };
-      cy.visit('/submissions/journals');
-      cy.testSubmission({
-        expectedMetadata: expectedMetadata.short_title,
-        formData,
-        collection: 'journals',
-        submissionType: 'editor'
-      });
+  it('submits a new journal', () => {
+    const formData = {
+      journal_title: 'Amazing Journal',
+      short_title: 'AJ',
+    };
+    const expectedMetadata = {
+      journal_title: 'Amazing Journal',
+      short_title: 'AJ',
+    };
+    cy.visit('/submissions/journals');
+    cy.testSubmission({
+      expectedMetadata: expectedMetadata.short_title,
+      formData,
+      collection: 'journals',
+      submissionType: 'editor',
     });
   });
 

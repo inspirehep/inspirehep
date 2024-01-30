@@ -1,4 +1,4 @@
-import { onlyOn, skipOn } from '@cypress/skip-test';
+import { onlyOn } from '@cypress/skip-test';
 
 describe('Experiment Search', () => {
   onlyOn('headless', () => {
@@ -37,28 +37,26 @@ describe('Experiment Submission', () => {
     });
   });
 
-  skipOn('electron', () => {
-    it('submits a new experiments', () => {
-      const formData = {
-        project_type: 'collaboration',
-        legacy_name: 'Test name',
-      };
-      const expectedMetadata = {
-        project_type: 'collaboration',
-        legacy_name: 'Test name',
-      };
-      cy.visit('/submissions/experiments');
-      cy.wait(500);
-      cy.testSubmission({
-        expectedMetadata: expectedMetadata.legacy_name,
-        formData,
-        collection: 'experiments',
-        submissionType: 'editor'
-      });
+  it('submits a new experiments', () => {
+    const formData = {
+      project_type: 'collaboration',
+      legacy_name: 'Test name',
+    };
+    const expectedMetadata = {
+      project_type: 'collaboration',
+      legacy_name: 'Test name',
+    };
+    cy.visit('/submissions/experiments');
+    cy.wait(500);
+    cy.testSubmission({
+      expectedMetadata: expectedMetadata.legacy_name,
+      formData,
+      collection: 'experiments',
+      submissionType: 'editor',
     });
   });
+});
 
-  afterEach(() => {
-    cy.logout();
-  });
+afterEach(() => {
+  cy.logout();
 });
