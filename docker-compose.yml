@@ -29,10 +29,6 @@ services:
     ports:
       - '5672:5672'
       - '15672:15672'
-  mq-next:
-    extends:
-      file: docker-compose.services.yml
-      service: mq
   es:
     extends:
       file: docker-compose.services.yml
@@ -48,7 +44,6 @@ services:
     depends_on:
       - hep-ui
       - hep-web
-      - next-web
       - record-editor
   hep-ui:
     build:
@@ -92,29 +87,6 @@ services:
       - db
       - es
       - mq
-      - cache
-  next-web:
-    extends:
-      file: docker-compose.services.yml
-      service: inspire-next
-    command: gunicorn -b 0.0.0.0:5000 --access-logfile "-" --reload --log-level debug inspirehep.wsgi
-    ports:
-      - '5000:5000'
-    depends_on:
-      - next-worker
-  next-worker:
-    extends:
-      file: docker-compose.services.yml
-      service: inspire-next
-    command: celery worker -E -A inspirehep.celery --loglevel=INFO --purge --queues celery,orcid_push,indexer_task
-    healthcheck:
-      timeout: 5s
-      interval: 5s
-      retries: 5
-    depends_on:
-      - db
-      - es
-      - mq-next
       - cache
   flower:
     extends:

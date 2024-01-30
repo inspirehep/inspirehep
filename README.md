@@ -127,7 +127,6 @@ docker-compose up
 
 ```bash
 docker-compose exec hep-web ./scripts/setup
-docker-compose exec next-web inspirehep db create
 ```
 
 ### Step 3: Import records
