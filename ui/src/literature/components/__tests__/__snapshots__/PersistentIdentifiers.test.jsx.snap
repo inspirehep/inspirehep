@@ -33,9 +33,20 @@ exports[`PersistentIdentifiers renders with identifiers 1`] = `
     <li
       key="12345-2"
     >
-      <span>
-        12345
-      </span>
+      <EventTracker
+        eventAction="Link"
+        eventCategory="Literature detail"
+        eventId="URN link"
+        eventPropName="onClick"
+        extractEventArgsToForward={null}
+      >
+        <LinkWithTargetBlank
+          as="a"
+          href="https://nbn-resolving.org//12345"
+        >
+          12345
+        </LinkWithTargetBlank>
+      </EventTracker>
     </li>
   </ul>
 </div>
