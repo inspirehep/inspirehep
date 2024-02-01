@@ -404,7 +404,7 @@ class InspireSnow(SnowTicketAPI):
         if exclude_resolved:
             tickets_search_parameters[
                 "u_current_task_state"
-            ] = f"{self.ticket_status_mapping['waiting']}^ORu_current_task_state={self.ticket_status_mapping['assigned']}"
+            ] = f"{self.ticket_status_mapping['waiting']}^ORu_current_task_state={self.ticket_status_mapping['assigned']}^ORu_current_task_state={self.ticket_status_mapping['in progress']}"
         try:
             third_party_ticket = self.search(
                 self.third_party_ticket_endpoint, third_party_search_query_string
