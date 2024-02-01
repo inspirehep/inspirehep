@@ -8,12 +8,10 @@ describe('settings', () => {
     cy.visit('/user/settings');
   });
 
-  onlyOn('headless', () => {
-    it.skip('matches image snapshot', () => {
-      cy.visit('/user/settings');
-      cy.wait(2000);
-      cy.matchSnapshots('Settings');
-    });
+  it('matches image snapshot', () => {
+    cy.visit('/user/settings');
+    cy.wait(2000);
+    cy.matchSnapshots('Settings');
   });
 
   it('enables submit button when email is correct', () => {
@@ -29,7 +27,7 @@ describe('settings', () => {
 
   it('should display validation error when email is incorrect', () => {
     cy.visit('/user/settings');
-    cy.wait(2000);
+    cy.wait(5000);
 
     cy.get('[data-test-id=email]').clear().type('johnrellis@inspirehep').blur();
 

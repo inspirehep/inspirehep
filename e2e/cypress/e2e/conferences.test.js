@@ -22,36 +22,32 @@ describe('Conference Search', () => {
       .should('have.length', 1);
   });
 
-  onlyOn('headless', () => {
-    it.skip('matches image snapshot', () => {
-      cy.registerRoute();
-      cy.visit('/conferences?start_date=all');
-      cy.waitForRoute();
-      cy.waitForSearchResults();
-      cy.matchSnapshots('ConferenceSearch');
-    });
+  it('matches image snapshot', () => {
+    cy.registerRoute();
+    cy.visit('/conferences?start_date=all');
+    cy.waitForRoute();
+    cy.waitForSearchResults();
+    cy.matchSnapshots('ConferenceSearch');
+  });
 
-    it.skip('matches image snapshot for author update when cataloger is logged in', () => {
-      cy.login('cataloger');
-      cy.registerRoute();
-      cy.visit('/conferences?start_date=all');
-      cy.waitForRoute();
-      cy.waitForSearchResults();
-      cy.matchSnapshots('ConferenceSearchByCataloger');
-      cy.logout();
-    });
+  it('matches image snapshot for author update when cataloger is logged in', () => {
+    cy.login('cataloger');
+    cy.registerRoute();
+    cy.visit('/conferences?start_date=all');
+    cy.waitForRoute();
+    cy.waitForSearchResults();
+    cy.matchSnapshots('ConferenceSearchByCataloger');
+    cy.logout();
   });
 });
 
 describe('Conference Detail', () => {
-  onlyOn('headless', () => {
-    it.skip('matches image snapshot', () => {
-      cy.registerRoute();
-      cy.visit('/conferences/1217045?ui-citation-summary=true');
-      cy.waitForRoute();
-      cy.waitForSearchResults();
-      cy.matchSnapshots('ConferenceDetail');
-    });
+  it('matches image snapshot', () => {
+    cy.registerRoute();
+    cy.visit('/conferences/1217045?ui-citation-summary=true');
+    cy.waitForRoute();
+    cy.waitForSearchResults();
+    cy.matchSnapshots('ConferenceDetail');
   });
 });
 
@@ -97,12 +93,10 @@ describe('Conference Submission', () => {
     cy.login('cataloger');
   });
 
-  onlyOn('headless', () => {
-    it.skip('matches image snapshot', () => {
-      cy.visit('/submissions/conferences');
-      cy.get('form').should('be.visible');
-      cy.matchSnapshots('ConferenceSubmission', { skipMobile: true });
-    });
+  it('matches image snapshot', () => {
+    cy.visit('/submissions/conferences');
+    cy.get('form').should('be.visible');
+    cy.matchSnapshots('ConferenceSubmission', { skipMobile: true });
   });
 
   it('submits a new conference', () => {

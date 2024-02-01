@@ -2,25 +2,21 @@ import { onlyOn } from '@cypress/skip-test';
 import moment from 'moment';
 
 describe('Seminar Search', () => {
-  onlyOn('headless', () => {
-    it.skip('matches image snapshot', () => {
-      cy.registerRoute();
-      cy.visit('/seminars?start_date=all');
-      cy.waitForRoute();
-      cy.waitForSearchResults();
-      cy.matchSnapshots('SeminarSearch');
-    });
+  it('matches image snapshot', () => {
+    cy.registerRoute();
+    cy.visit('/seminars?start_date=all');
+    cy.waitForRoute();
+    cy.waitForSearchResults();
+    cy.matchSnapshots('SeminarSearch');
   });
 });
 
 describe('Seminar Detail', () => {
-  onlyOn('headless', () => {
-    it.skip('matches image snapshot', () => {
-      cy.registerRoute();
-      cy.visit('/seminars/1799778');
-      cy.waitForRoute();
-      cy.matchSnapshots('SeminarDetail');
-    });
+  it('matches image snapshot', () => {
+    cy.registerRoute();
+    cy.visit('/seminars/1799778');
+    cy.waitForRoute();
+    cy.matchSnapshots('SeminarDetail');
   });
 });
 
@@ -29,20 +25,18 @@ describe('Seminar Submission', () => {
     cy.login('cataloger');
   });
 
-  onlyOn('headless', () => {
-    it.skip('matches image snapshot', () => {
-      cy.visit('/submissions/seminars');
-      cy.get('form').should('be.visible');
-      cy.matchSnapshots('SeminarSubmission', { skipMobile: true });
-    });
+  it('matches image snapshot', () => {
+    cy.visit('/submissions/seminars');
+    cy.get('form').should('be.visible');
+    cy.matchSnapshots('SeminarSubmission', { skipMobile: true });
+  });
 
-    it.skip('matches image snapshot for Seminar update', () => {
-      cy.registerRoute();
-      cy.visit('/submissions/seminars/1799778');
-      cy.waitForRoute();
-      cy.get('form').should('be.visible');
-      cy.matchSnapshots('SeminarUpdateSubmission', { skipMobile: true });
-    });
+  it('matches image snapshot for Seminar update', () => {
+    cy.registerRoute();
+    cy.visit('/submissions/seminars/1799778');
+    cy.waitForRoute();
+    cy.get('form').should('be.visible');
+    cy.matchSnapshots('SeminarUpdateSubmission', { skipMobile: true });
   });
 
   it('submits a new seminar', () => {

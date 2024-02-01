@@ -58,69 +58,67 @@ describe('Literature and Conferences', () => {
 });
 
 describe('Assign Conference', () => {
-  onlyOn('headless', () => {
-    it.skip('matches image snapshot', () => {
-      cy.login('admin');
-      cy.registerRoute();
-      cy.visit('/literature');
-      cy.waitForRoute();
-      cy.waitForSearchResults();
-      cy.waitForLoading();
-      cy.get('[data-test-id="search-results"]')
-        .children()
-        .contains('Correlated Weyl Fermions in Oxides')
-        .parentsUntil('[data-test-id="search-results"]')
-        .find('[type="checkbox"]')
-        .check();
-      cy.get('[data-test-id="search-results"]')
-        .children()
-        .contains('Muon g – 2 theory: The hadronic part')
-        .parentsUntil('[data-test-id="search-results"]')
-        .find('[type="checkbox"]')
-        .check();
-      cy.matchSnapshots('assignConferenceChecked', { skipMobile: true });
-      cy.get('[type="button"]')
-        .contains('tools')
-        .trigger('mouseover', { force: true });
-      cy.get('[data-test-id="assign-conference"]', { timeout: 5000 }).should(
-        'be.visible'
-      );
-      cy.get('[data-test-id="assign-conference"]').click();
-      cy.get('.ant-drawer-content', { timeout: 5000 }).should('be.visible');
-      cy.get('.ant-drawer-content').find('[type="button"]').eq(1).click();
-      cy.get('.ant-drawer-content')
-        .get('[data-test-id="search-results"]', { timeout: 10000 })
-        .should('be.visible');
-      cy.get('.ant-drawer-content')
-        .find('[data-test-id="search-results"]')
-        .children()
-        .contains('HP2022')
-        .parentsUntil('[data-test-id="search-results"]')
-        .find('[type="radio"]')
-        .check();
-      cy.get('[data-test-id="assign-conference-button"]').click();
-      cy.wait(3000);
+  it('matches image snapshot', () => {
+    cy.login('admin');
+    cy.registerRoute();
+    cy.visit('/literature');
+    cy.waitForRoute();
+    cy.waitForSearchResults();
+    cy.waitForLoading();
+    cy.get('[data-test-id="search-results"]')
+      .children()
+      .contains('Correlated Weyl Fermions in Oxides')
+      .parentsUntil('[data-test-id="search-results"]')
+      .find('[type="checkbox"]')
+      .check();
+    cy.get('[data-test-id="search-results"]')
+      .children()
+      .contains('Muon g – 2 theory: The hadronic part')
+      .parentsUntil('[data-test-id="search-results"]')
+      .find('[type="checkbox"]')
+      .check();
+    cy.matchSnapshots('assignConferenceChecked', { skipMobile: true });
+    cy.get('[type="button"]')
+      .contains('tools')
+      .trigger('mouseover', { force: true });
+    cy.get('[data-test-id="assign-conference"]', { timeout: 5000 }).should(
+      'be.visible'
+    );
+    cy.get('[data-test-id="assign-conference"]').click();
+    cy.get('.ant-drawer-content', { timeout: 5000 }).should('be.visible');
+    cy.get('.ant-drawer-content').find('[type="button"]').eq(1).click();
+    cy.get('.ant-drawer-content')
+      .get('[data-test-id="search-results"]', { timeout: 10000 })
+      .should('be.visible');
+    cy.get('.ant-drawer-content')
+      .find('[data-test-id="search-results"]')
+      .children()
+      .contains('HP2022')
+      .parentsUntil('[data-test-id="search-results"]')
+      .find('[type="radio"]')
+      .check();
+    cy.get('[data-test-id="assign-conference-button"]').click();
+    cy.wait(3000);
 
-      cy.request({
-        url: '/api/literature/1787272',
-        failOnStatusCode: false,
-      }).then((response) => {
-        expect(response).property('status').to.equal(200);
-        expect(
-          _.find(response.body.metadata.publication_info, { cnum: 'C22-09-25' })
-        );
-      });
-      cy.request({
-        url: '/api/literature/1597429',
-        failOnStatusCode: false,
-      }).then((response) => {
-        expect(response).property('status').to.equal(200);
-        expect(
-          _.find(response.body.metadata.publication_info, { cnum: 'C22-09-25' })
-        );
-      });
-      cy.logout();
+    cy.request({
+      url: '/api/literature/1787272',
+      failOnStatusCode: false,
+    }).then((response) => {
+      expect(response).property('status').to.equal(200);
+      expect(
+        _.find(response.body.metadata.publication_info, { cnum: 'C22-09-25' })
+      );
     });
+    cy.request({
+      url: '/api/literature/1597429',
+      failOnStatusCode: false,
+    }).then((response) => {
+      expect(response).property('status').to.equal(200);
+      expect(
+        _.find(response.body.metadata.publication_info, { cnum: 'C22-09-25' })
+      );
+    });
+    cy.logout();
   });
 });
 
