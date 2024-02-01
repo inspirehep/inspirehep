@@ -35,7 +35,8 @@ from inspirehep.hal.core.sword import (
     HttpLib2LayerIgnoreCert,
     _new_connection,
 )
-from inspirehep.hal.tasks import _hal_push, update_record_with_new_ids
+from inspirehep.hal.errors import HALCreateException
+from inspirehep.hal.tasks import _hal_push, hal_push, update_record_with_new_ids
 from inspirehep.records.api import InspireRecord
 
 
@@ -135,6 +136,23 @@ def test_push_again_on_already_existing_exception(inspire_app, get_fixture):
         )[0]
         == hal_id
     )
+
+
+@mock.patch(
+    "inspirehep.hal.tasks._hal_create", side_effect=HALCreateException("Some error")
+)
+def test_exception_in_hal_create(mock_hal_create, inspire_app, get_fixture):
+    record_json = orjson.loads(get_fixture("hal_preprod_record.json"))
+    record_data = faker.record("lit", data=record_json)
+    record = InspireRecord.create(record_data)
+
+    institute_json = orjson.loads(get_fixture("hal_preprod_institute.json"))
+    institute_data = faker.record("ins", data=institute_json)
+    InspireRecord.create(institute_data)
+
+    with pytest.raises(HALCreateException) as excinfo:
+        hal_push(record["control_number"], 1)
+    assert str(excinfo.value) == "Some error"
 
 
 @pytest.mark.vcr()

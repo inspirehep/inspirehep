@@ -20,6 +20,7 @@ from inspirehep.editor.editor_soft_lock import EditorSoftLock
 from inspirehep.errors import DB_TASK_EXCEPTIONS, ES_TASK_EXCEPTIONS
 from inspirehep.hal.core.sword import create, update
 from inspirehep.hal.core.tei import convert_to_tei
+from inspirehep.hal.errors import HALCreateException
 from inspirehep.records.api import LiteratureRecord
 from inspirehep.utils import distributed_lock
 
@@ -108,6 +109,8 @@ def _hal_create(tei, record):
         if "duplicate-entry" in message:
             hal_id = re.findall("hal-[0-9]{8}", message)[0]
             receipt = _hal_update(tei, hal_id, record)
+        else:
+            raise HALCreateException(message)
     return receipt
 
 
