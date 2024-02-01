@@ -18,7 +18,12 @@ SNOW_OVERRIDE_FUNCTIONAL_CATEGORY = "1234"
 SNOW_CACHE_TIMEOUT = 86400
 SNOW_TICKETS_ENDPOINT = "u_request_fulfillment"
 SNOW_THIRD_PARTY_TICKET_ENDPOINT = "u_third_party_ticket_inspire"
-SNOW_TICKET_STATUS_MAPPING = {"resolved": "9", "waiting": "6", "assigned": "2"}
+SNOW_TICKET_STATUS_MAPPING = {
+    "resolved": "9",
+    "waiting": "6",
+    "in progress": "4",
+    "assigned": "2",
+}
 SNOW_QUEUE_TO_FUNCTIONAL_CATEGORY_MAPPING = {
     "HEP_add_user": "Literature submissions",
     "HAL_curation": "HAL curation",
