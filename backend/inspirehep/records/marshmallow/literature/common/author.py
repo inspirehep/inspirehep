@@ -68,11 +68,13 @@ class AuthorSchemaV1(FirstAuthorSchemaV1):
             author_record = AuthorsRecord.get_record_by_pid_value(
                 get_recid_from_ref(data["record"])
             )
+            bai = get_first_value_for_schema(
+                author_record.get("ids", []), "INSPIRE BAI"
+            )
+            if bai:
+                ids_from_lit_record.append({"schema": "INSPIRE BAI", "value": bai})
         except (PIDDoesNotExistError, KeyError):
-            return missing
-        bai = get_first_value_for_schema(author_record.get("ids", []), "INSPIRE BAI")
-        if bai:
-            ids_from_lit_record.append({"schema": "INSPIRE BAI", "value": bai})
+            pass
         return ids_from_lit_record or missing
 
     @pre_dump
