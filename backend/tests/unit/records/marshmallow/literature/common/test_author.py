@@ -140,3 +140,56 @@ def test_first_author():
     result = schema.dumps(dump).data
 
     assert expected == orjson.loads(result)
+
+
+def test_authors_ids():
+    schema = AuthorSchemaV1()
+
+    dump = {
+        "full_name": "Castle, Frank",
+        "ids": [
+            {"value": "0000-0002-6152-062X", "schema": "ORCID"},
+        ],
+    }
+    expected = {
+        "full_name": "Castle, Frank",
+        "first_name": "Frank",
+        "last_name": "Castle",
+        "ids": [
+            {"value": "0000-0002-6152-062X", "schema": "ORCID"},
+        ],
+    }
+    result = schema.dumps(dump).data
+    assert expected == orjson.loads(result)
+
+    dump = {
+        "full_name": "Castle, Frank",
+        "ids": [{"value": "G.Aad.1", "schema": "INSPIRE BAI"}],
+    }
+    expected = {
+        "full_name": "Castle, Frank",
+        "first_name": "Frank",
+        "last_name": "Castle",
+        "ids": [{"value": "G.Aad.1", "schema": "INSPIRE BAI"}],
+    }
+    result = schema.dumps(dump).data
+    assert expected == orjson.loads(result)
+
+    dump = {
+        "full_name": "Castle, Frank",
+        "ids": [
+            {"value": "0000-0002-6152-062X", "schema": "ORCID"},
+            {"value": "G.Aad.1", "schema": "INSPIRE BAI"},
+        ],
+    }
+    expected = {
+        "full_name": "Castle, Frank",
+        "first_name": "Frank",
+        "last_name": "Castle",
+        "ids": [
+            {"value": "0000-0002-6152-062X", "schema": "ORCID"},
+            {"value": "G.Aad.1", "schema": "INSPIRE BAI"},
+        ],
+    }
+    result = schema.dumps(dump).data
+    assert expected == orjson.loads(result)
