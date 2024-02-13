@@ -3,18 +3,21 @@ import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 
-import ConferenceContributions from '../ConferenceContributions';
+import ConferenceContributionLink from '../ConferenceContributionLink';
 import { getStore } from '../../../fixtures/store';
 
-describe('ConferenceContributions', () => {
-  it('renders', () => {
-    const { container } = render(
+describe('ConferenceContributionLink', () => {
+  it('renders ConferenceContributionLink', () => {
+    const { asFragment } = render(
       <Provider store={getStore()}>
         <MemoryRouter initialEntries={['/']} initialIndex={0}>
-          <ConferenceContributions conferenceRecordId="12345" />
+          <ConferenceContributionLink
+            recordId="123456"
+            contributionsCount={25}
+          />
         </MemoryRouter>
       </Provider>
     );
-    expect(container).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 });
