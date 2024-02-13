@@ -1,6 +1,6 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { Map, fromJS, List } from 'immutable';
+import { render, screen } from '@testing-library/react';
+import { Map, fromJS } from 'immutable';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 

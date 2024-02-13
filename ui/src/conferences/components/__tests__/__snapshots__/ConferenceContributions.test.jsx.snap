@@ -1,15 +1,143 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ConferenceContributions renders 1`] = `
-<Connect(LiteratureSearch)
-  baseQuery={
-    Object {
-      "q": "publication_info.conference_record.$ref:12345",
-    }
-  }
-  embedded={true}
-  namespace="conferenceContributions"
-  noResultsTitle="0 Contributions"
-  page="Conference details"
-/>
+<div>
+  <div
+    class="ant-row ant-row-center mt3"
+    style="margin-left: -16px; margin-right: -16px;"
+    type="flex"
+  >
+    <div
+      class="ant-col ant-col-xs-0 ant-col-lg-7"
+      style="padding-left: 16px; padding-right: 16px;"
+    />
+    <div
+      class="ant-col ant-col-xs-24 ant-col-lg-17"
+      style="padding-left: 16px; padding-right: 16px;"
+    >
+      <div
+        class="ant-row ant-row-end ant-row-middle"
+        type="flex"
+      >
+        <div
+          class="ant-col ant-col-xs-24 ant-col-lg-12"
+        >
+          <span>
+            <span>
+              0
+               
+              results
+            </span>
+          </span>
+          <div
+            class="ant-divider ant-divider-vertical __VerticalDivider__"
+            role="separator"
+          />
+          <span
+            class="__UserAction__"
+          >
+            <button
+              class="ant-btn ant-btn-default ant-dropdown-trigger"
+              type="button"
+            >
+              <span
+                class="__IconText__"
+              >
+                <span
+                  class="icon"
+                >
+                  <span
+                    aria-label="export"
+                    class="anticon anticon-export"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="export"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M888.3 757.4h-53.8c-4.2 0-7.7 3.5-7.7 7.7v61.8H197.1V197.1h629.8v61.8c0 4.2 3.5 7.7 7.7 7.7h53.8c4.2 0 7.7-3.4 7.7-7.7V158.7c0-17-13.7-30.7-30.7-30.7H158.7c-17 0-30.7 13.7-30.7 30.7v706.6c0 17 13.7 30.7 30.7 30.7h706.6c17 0 30.7-13.7 30.7-30.7V765.1c0-4.3-3.5-7.7-7.7-7.7zm18.6-251.7L765 393.7c-5.3-4.2-13-.4-13 6.3v76H438c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h314v76c0 6.7 7.8 10.5 13 6.3l141.9-112a8 8 0 000-12.6z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+                <span
+                  class="v-top"
+                >
+                  cite all
+                </span>
+              </span>
+            </button>
+          </span>
+        </div>
+        <div
+          class="ant-col ant-col-xs-8 ant-col-lg-0"
+        />
+        <div
+          class="ant-col tr ant-col-xs-16 ant-col-lg-12"
+        >
+          <span
+            class="mr2"
+          >
+            <span
+              class="pr2 dn di-m di-l"
+              style="vertical-align: middle;"
+            >
+              Citation Summary
+            </span>
+            <button
+              aria-checked="false"
+              class="ant-switch"
+              role="switch"
+              type="button"
+            >
+              <div
+                class="ant-switch-handle"
+              />
+              <span
+                class="ant-switch-inner"
+              >
+                <span
+                  aria-label="bar-chart"
+                  class="anticon anticon-bar-chart"
+                  role="img"
+                >
+                  <svg
+                    aria-hidden="true"
+                    data-icon="bar-chart"
+                    fill="currentColor"
+                    focusable="false"
+                    height="1em"
+                    viewBox="64 64 896 896"
+                    width="1em"
+                  >
+                    <path
+                      d="M888 792H200V168c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v688c0 4.4 3.6 8 8 8h752c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm-600-80h56c4.4 0 8-3.6 8-8V560c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v144c0 4.4 3.6 8 8 8zm152 0h56c4.4 0 8-3.6 8-8V384c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v320c0 4.4 3.6 8 8 8zm152 0h56c4.4 0 8-3.6 8-8V462c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v242c0 4.4 3.6 8 8 8zm152 0h56c4.4 0 8-3.6 8-8V304c0-4.4-3.6-8-8-8h-56c-4.4 0-8 3.6-8 8v400c0 4.4 3.6 8 8 8z"
+                    />
+                  </svg>
+                </span>
+              </span>
+            </button>
+          </span>
+        </div>
+      </div>
+      <div
+        class="ant-row"
+      >
+        <div
+          class="ant-col ant-col-24"
+        >
+          <div
+            data-test-id="search-results"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 `;

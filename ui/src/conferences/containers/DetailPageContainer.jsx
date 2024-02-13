@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 import { Row, Col } from 'antd';
+
 import DocumentHead from '../../common/components/DocumentHead';
 import ConferenceDates from '../components/ConferenceDates';
 import fetchConference from '../../actions/conferences';
@@ -27,6 +28,7 @@ import { CONFERENCES_PID_TYPE } from '../../common/constants';
 import UrlsAction from '../../literature/components/UrlsAction';
 import { isSuperUser } from '../../common/authorization';
 import { APIButton } from '../../common/components/APIButton';
+import ConferenceContributionLink from '../components/ConferenceContributionLink';
 
 function DetailPage({ record, isSuperUserLoggedIn }) {
   const metadata = record.get('metadata');
@@ -47,6 +49,7 @@ function DetailPage({ record, isSuperUserLoggedIn }) {
   const proceedings = metadata.get('proceedings');
   const canEdit = metadata.get('can_edit', false);
   const deleted = metadata.get('deleted', false);
+  const contributionsCount = metadata.get('number_of_contributions', 0);
 
   const metaDescription = makeCompliantMetaDescription(description);
 
@@ -57,6 +60,11 @@ function DetailPage({ record, isSuperUserLoggedIn }) {
         <Col className="mv3" xs={24} md={22} lg={21} xxl={18}>
           <ContentBox
             className="sm-pb3"
+            rightActions={
+              contributionsCount !== 0 && (
+                <ConferenceContributionLink recordId={controlNumber} contributionsCount={contributionsCount} />
+              )
+            }
             leftActions={
               <>
                 {urls && <UrlsAction urls={urls} page="Conferences detail" trackerEventId="Conferences website" />}

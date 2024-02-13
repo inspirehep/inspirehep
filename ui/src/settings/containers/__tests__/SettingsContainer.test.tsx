@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, within } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { fromJS, Map } from 'immutable';
 import { MemoryRouter } from 'react-router-dom';

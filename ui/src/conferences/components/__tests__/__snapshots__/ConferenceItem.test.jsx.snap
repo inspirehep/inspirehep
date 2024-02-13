@@ -39,21 +39,13 @@ exports[`ConferenceItem renders with all props set 1`] = `
     </React.Fragment>
   }
   rightActions={
-    <UserActionWrapper>
-      <Link
-        to="/literature?q=publication_info.conference_record.$ref:12345&doc_type=conference%20paper"
-      >
-        <IconText
-          icon={<ForwardRef(LoginOutlined) />}
-          text="3 contributions"
-        />
-      </Link>
-    </UserActionWrapper>
+    <ConferenceContributionLink
+      contributionsCount={3}
+      recordId={12345}
+    />
   }
 >
-  <Row
-    type="flex"
-  >
+  <Row>
     <Col>
       <Link
         className="result-item-title"
@@ -106,7 +98,6 @@ exports[`ConferenceItem renders with all props set 1`] = `
             },
           ]
         }
-        wrapperClassName="di"
       />
     </Col>
   </Row>
@@ -118,13 +109,10 @@ exports[`ConferenceItem renders with only needed props 1`] = `
   leftActions={<React.Fragment />}
   rightActions={false}
 >
-  <Row
-    type="flex"
-  >
+  <Row>
     <Col>
       <Link
         className="result-item-title"
-        target={null}
         to="/conferences/12345"
       >
         <EventTitle
@@ -148,9 +136,7 @@ exports[`ConferenceItem renders with only needed props 1`] = `
     className="mt2"
   >
     <Col>
-      <InspireCategoryList
-        wrapperClassName="di"
-      />
+      <InspireCategoryList />
     </Col>
   </Row>
 </ResultItem>
