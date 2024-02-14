@@ -12,8 +12,8 @@
   "license": "ISC",
   "dependencies": {
     "@cypress/skip-test": "^2.5.0",
+    "@cypress/snapshot": "^2.1.7",
     "cypress": "^13.0.0",
-    "cypress-image-snapshot": "^4.0.1",
     "moment": "^2.24.0"
   }
 }

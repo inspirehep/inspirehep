@@ -1,4 +1,3 @@
-import { onlyOn } from '@cypress/skip-test';
 import _ from 'lodash';
 
 describe('Literature and Authors', () => {
@@ -58,8 +57,7 @@ describe('Literature and Conferences', () => {
 });
 
 describe('Assign Conference', () => {
-  onlyOn('headless', () => {
-    it.skip('matches image snapshot', () => {
+    it('matches snapshot', () => {
       cy.login('admin');
       cy.registerRoute();
       cy.visit('/literature');
@@ -78,7 +76,7 @@ describe('Assign Conference', () => {
         .parentsUntil('[data-test-id="search-results"]')
         .find('[type="checkbox"]')
         .check();
-      cy.matchSnapshots('assignConferenceChecked', { skipMobile: true });
+      cy.matchSnapshot();
       cy.get('[type="button"]')
         .contains('tools')
         .trigger('mouseover', { force: true });
@@ -121,7 +119,6 @@ describe('Assign Conference', () => {
       });
       cy.logout();
     });
-  });
 });
 
 describe('Export to CDS', () => {

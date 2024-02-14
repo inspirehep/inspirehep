@@ -1,3 +1,5 @@
+import { onlyOn } from '@cypress/skip-test';
+
 Cypress.Commands.add('text', { prevSubject: true }, (subject) => {
   return subject.text();
 });
@@ -88,4 +90,17 @@ Cypress.Commands.add('waitForSearchResults', () => {
 
 Cypress.Commands.add('waitForLoading', (timeout = 20000) => {
   cy.get('[data-test-id="loading"]', { timeout }).should('not.exist');
+});
+
+
+Cypress.Commands.add('matchSnapshot', () => {
+  cy.waitForLoading();
+
+  onlyOn('chrome', () => {
+    cy.get('main.ant-layout-content').snapshot({name: 'chrome'});
+  });
+
+  onlyOn('firefox', () => {
+    cy.get('main.ant-layout-content').snapshot({name: 'firefox'});
+  });
 });

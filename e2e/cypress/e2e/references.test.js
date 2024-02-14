@@ -1,17 +1,13 @@
-import { onlyOn } from '@cypress/skip-test';
-
 describe('References', () => {
   describe('Reference Search', () => {
-    onlyOn('headless', () => {
-      it.skip('matches image snapshot for reference search', () => {
-        cy.registerRoute();
-        cy.visit(
-          '/literature?sort=mostrecent&size=25&page=1&q=citedby%3Arecid%3A1322719'
-        );
-        cy.waitForRoute();
-        cy.waitForLoading();
-        cy.matchSnapshots('LiteratureReferenceSearch');
-      });
+    it('matches snapshot for reference search', () => {
+      cy.registerRoute();
+      cy.visit(
+        '/literature?sort=mostrecent&size=25&page=1&q=citedby%3Arecid%3A1322719'
+      );
+      cy.waitForRoute();
+      cy.waitForLoading();
+      cy.matchSnapshot();
     });
 
     it('displays references search results if item has references in inspire', () => {
@@ -46,10 +42,8 @@ describe('References', () => {
       cy.get('.ant-empty').should('be.visible');
     });
   });
-});
 
-describe('Reference container', () => {
-  onlyOn('headless', () => {
+  describe('Reference container', () => {
     it('number of references per page', () => {
       cy.on('uncaught:exception', (err, runnable) => {
         return false;

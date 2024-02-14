@@ -1,28 +1,23 @@
-import { onlyOn } from '@cypress/skip-test';
 import moment from 'moment';
 
 describe('Job Search', () => {
-  onlyOn('headless', () => {
-    it.skip('matches image snapshot', () => {
-      cy.clock(1688594400000);
-      cy.registerRoute();
-      cy.visit('/jobs');
-      cy.waitForRoute();
-      cy.waitForSearchResults();
-      cy.matchSnapshots('JobSearch');
-    });
+  it('matches snapshot', () => {
+    cy.clock(1688594400000);
+    cy.registerRoute();
+    cy.visit('/jobs');
+    cy.waitForRoute();
+    cy.waitForSearchResults();
+    cy.matchSnapshot();
   });
 });
 
 describe('Job Detail', () => {
-  onlyOn('headless', () => {
-    it.skip('matches image snapshot', () => {
-      cy.clock(1688594400000);
-      cy.registerRoute();
-      cy.visit('/jobs/1812440');
-      cy.waitForRoute();
-      cy.matchSnapshots('JobDetail');
-    });
+  it('matches snapshot', () => {
+    cy.clock(1688594400000);
+    cy.registerRoute();
+    cy.visit('/jobs/1812440');
+    cy.waitForRoute();
+    cy.matchSnapshot();
   });
 });
 
@@ -31,20 +26,18 @@ describe('Job Submission', () => {
     cy.login('cataloger');
   });
 
-  onlyOn('headless', () => {
-    it.skip('matches image snapshot', () => {
-      cy.visit('/submissions/jobs');
-      cy.get('form').should('be.visible');
-      cy.matchSnapshots('JobSubmission', { skipMobile: true });
-    });
+  it('matches snapshot', () => {
+    cy.visit('/submissions/jobs');
+    cy.get('form').should('be.visible');
+    cy.matchSnapshot();
+  });
 
-    it.skip('matches image snapshot for Job update', () => {
-      cy.registerRoute();
-      cy.visit('/submissions/jobs/1812440');
-      cy.waitForRoute();
-      cy.get('form').should('be.visible');
-      cy.matchSnapshots('JobUpdateSubmission', { skipMobile: true });
-    });
+  it('matches snapshot for Job update', () => {
+    cy.registerRoute();
+    cy.visit('/submissions/jobs/1812440');
+    cy.waitForRoute();
+    cy.get('form').should('be.visible');
+    cy.matchSnapshot();
   });
 
   it('submits and new job', () => {

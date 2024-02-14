@@ -1,5 +1,3 @@
-import { onlyOn } from '@cypress/skip-test';
-
 describe('settings', () => {
   const email = `johnrellis@inspirehep.net`;
 
@@ -8,12 +6,10 @@ describe('settings', () => {
     cy.visit('/user/settings');
   });
 
-  onlyOn('headless', () => {
-    it.skip('matches image snapshot', () => {
-      cy.visit('/user/settings');
-      cy.wait(2000);
-      cy.matchSnapshots('Settings');
-    });
+  it('matches snapshot', () => {
+    cy.visit('/user/settings');
+    cy.wait(2000);
+    cy.matchSnapshot();
   });
 
   it('enables submit button when email is correct', () => {

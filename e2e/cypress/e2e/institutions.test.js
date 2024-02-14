@@ -1,26 +1,20 @@
-import { onlyOn } from '@cypress/skip-test';
-
 describe('Institution Search', () => {
-  onlyOn('headless', () => {
-    it.skip('matches image snapshot', () => {
-      cy.registerRoute();
-      cy.visit('/institutions');
-      cy.waitForRoute();
-      cy.waitForSearchResults();
-      cy.matchSnapshots('InstitutionSearch');
-    });
+  it('matches snapshot', () => {
+    cy.registerRoute();
+    cy.visit('/institutions');
+    cy.waitForRoute();
+    cy.waitForSearchResults();
+    cy.matchSnapshot();
   });
 });
 
 describe('Institution Detail', () => {
-  onlyOn('headless', () => {
-    it.skip('matches image snapshot', () => {
-      cy.registerRoute();
-      cy.visit('/institutions/902858?ui-citation-summary=true');
-      cy.waitForRoute();
-      cy.waitForSearchResults();
-      cy.matchSnapshots('InstitutionDetail');
-    });
+  it('matches snapshot', () => {
+    cy.registerRoute();
+    cy.visit('/institutions/902858?ui-citation-summary=true');
+    cy.waitForRoute();
+    cy.waitForSearchResults();
+    cy.matchSnapshot();
   });
 });
 
@@ -29,12 +23,10 @@ describe('Institution Submission', () => {
     cy.login('cataloger');
   });
 
-  onlyOn('headless', () => {
-    it.skip('matches image snapshot', () => {
-      cy.visit('/submissions/institutions');
-      cy.get('form').should('be.visible');
-      cy.matchSnapshots('InstitutionSubmission', { skipMobile: true });
-    });
+  it('matches snapshot', () => {
+    cy.visit('/submissions/institutions');
+    cy.get('form').should('be.visible');
+    cy.matchSnapshot();
   });
 
   it('submits a new institution', () => {

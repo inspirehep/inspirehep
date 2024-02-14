@@ -1,28 +1,22 @@
-import { onlyOn } from '@cypress/skip-test';
-
 describe('Journal Detail', () => {
-  onlyOn('headless', () => {
-    it.skip('matches image snapshot', () => {
-      cy.registerRoute();
-      cy.visit('/journals/1213103');
-      cy.waitForRoute();
-      cy.waitForSearchResults();
-      cy.waitForLoading();
-      cy.matchSnapshots('JournalDetail');
-    });
+  it('matches snapshot', () => {
+    cy.registerRoute();
+    cy.visit('/journals/1213103');
+    cy.waitForRoute();
+    cy.waitForSearchResults();
+    cy.waitForLoading();
+    cy.matchSnapshot();
   });
 });
 
 describe('Journal Search', () => {
-  onlyOn('headless', () => {
-    it.skip('matches image snapshot', () => {
-      cy.registerRoute();
-      cy.visit('/journals');
-      cy.waitForRoute();
-      cy.waitForSearchResults();
-      cy.waitForLoading();
-      cy.matchSnapshots('JournalsSearch');
-    });
+  it('matches snapshot', () => {
+    cy.registerRoute();
+    cy.visit('/journals');
+    cy.waitForRoute();
+    cy.waitForSearchResults();
+    cy.waitForLoading();
+    cy.matchSnapshot();
   });
 });
 
@@ -31,12 +25,10 @@ describe('Journal Submission', () => {
     cy.login('cataloger');
   });
 
-  onlyOn('headless', () => {
-    it.skip('matches image snapshot', () => {
-      cy.visit('/submissions/journals');
-      cy.get('form').should('be.visible');
-      cy.matchSnapshots('JournalSubmission', { skipMobile: true });
-    });
+  it('matches snapshot', () => {
+    cy.visit('/submissions/journals');
+    cy.get('form').should('be.visible');
+    cy.matchSnapshot();
   });
 
   it('submits a new journal', () => {
