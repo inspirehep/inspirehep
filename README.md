@@ -4,10 +4,10 @@
 
 ### Python
 
-Python `3.8`
+Python `3.10`
 
 You can also use [pyenv](https://github.com/pyenv/pyenv) for your python installations.
-Simply follow the [instructions](https://github.com/pyenv/pyenv#installation) and set the global version to 3.8.
+Simply follow the [instructions](https://github.com/pyenv/pyenv#installation) and set the global version to 3.10.
 
 #### Debian / Ubuntu
 
@@ -296,6 +296,7 @@ $ sh cypress-tests-firefox.sh
 ```
 
 Opens cypress runner GUI runs them against local dev server (localhost:8080)
+
 ```bash
 $ cd e2e
 $ yarn test:dev
