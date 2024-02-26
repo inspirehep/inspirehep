@@ -146,7 +146,7 @@ opensearch-py==2.2.0; (python_version >= "2.7" and python_full_version < "3.0.0"
 orcid==1.0.3
 ordered-set==3.1.1; python_version >= "3.5"
 orderedmultidict==1.0.1
-orjson==3.7.12; python_version >= "3.7"
+orjson==3.9.15; python_version >= "3.7"
 packaging==20.4; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.5.0"
 parsel==1.5.2; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.4.0"
 parso==0.5.2; python_version >= "3.6" and python_full_version < "3.0.0" or python_full_version >= "3.4.0" and python_version >= "3.6"
