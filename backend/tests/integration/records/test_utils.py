@@ -97,6 +97,8 @@ def test_get_parent_records(inspire_app):
     }
     rec = create_record("lit", data=data)
     extracted_parent_records = get_parent_records(rec)
+    print(extracted_parent_records)
+    print(parent_records)
     assert extracted_parent_records == parent_records
 
 
