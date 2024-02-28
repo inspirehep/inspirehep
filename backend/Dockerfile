@@ -5,7 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-FROM python:3.8
+FROM python:3.9
 
 WORKDIR /opt/inspire
 
@@ -27,7 +27,7 @@ RUN apt-get update && \
     pip config set global.cert "${REQUESTS_CA_BUNDLE}"
 
 ARG POETRY_VERSION
-ENV POETRY_VERSION="${POETRY_VERSION:-1.1.14}"
+ENV POETRY_VERSION="${POETRY_VERSION:-1.8.1}"
 RUN curl -sSL https://install.python-poetry.org \
   | python3 - --git https://github.com/python-poetry/poetry.git#{$POETRY_VERSION} \
  && poetry --version
