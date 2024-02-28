@@ -13,7 +13,7 @@ import requests_mock
 from helpers.utils import create_record
 
 from inspirehep.records.errors import DownloadFileError, FileSizeExceededError
-from inspirehep.records.marshmallow.literature.utils import get_parent_record
+from inspirehep.records.marshmallow.literature.utils import get_parent_record, get_parent_records
 from inspirehep.records.utils import (
     download_file_from_url,
     get_author_by_recid,
@@ -77,6 +77,27 @@ def test_get_pids_for_one_pid(inspire_app):
     expected_recid = str(rec["control_number"])
     recid = get_pid_for_pid("cnum", rec["cnum"], "recid")
     assert expected_recid == recid
+
+def test_get_parent_records(inspire_app):
+    parent_records = [create_record("lit"), create_record("lit")]
+
+    data = {
+        "publication_info": [
+            {
+                "parent_record": {
+                    "$ref": f"http://localhost:5000/api/literature/{parent_records[0]['control_number']}"
+                }
+            },
+            {
+                "parent_record": {
+                    "$ref": f"http://localhost:5000/api/literature/{parent_records[1]['control_number']}"
+                }
+            }
+        ]
+    }
+    rec = create_record("lit", data=data)
+    extracted_parent_records = get_parent_records(rec)
+    assert extracted_parent_records == parent_records
 
 
 def test_get_parent_record(inspire_app):

@@ -39,7 +39,7 @@ from .common import (
     PublicationInfoItemSchemaV1,
     ThesisInfoSchemaV1,
 )
-from .utils import get_authors_without_emails
+from .utils import get_authors_without_emails, get_parent_records
 from .pdg_identifiers import PDG_IDS_TO_DESCRIPTION_MAPPING
 
 DATASET_SCHEMA_TO_URL_PREFIX_MAP = {
@@ -102,8 +102,8 @@ class LiteratureDetailSchema(
     )
     fulltext_links = fields.Method("get_fulltext_links", dump_only=True)
     isbns = fields.List(fields.Nested(IsbnSchemaV1, dump_only=True))
-    linked_book = fields.Method(
-        "get_linked_book", dump_only=True, attribute="publication_info"
+    linked_books = fields.Method(
+        "get_linked_books", dump_only=True, attribute="publication_info"
     )
     number_of_authors = fields.Method("get_number_of_authors")
     number_of_references = fields.Method("get_number_of_references")
@@ -185,8 +185,8 @@ class LiteratureDetailSchema(
         references = data.get("references")
         return self.get_len_or_missing(references)
 
-    def get_linked_book(self, data):
-        parent = get_parent_record(data)
+    def get_linked_books(self, data):
+        parent = get_parent_records(data)
         if parent and "titles" in parent and "control_number" in parent:
             endpoint = PidStoreBase.get_endpoint_from_pid_type(
                 PidStoreBase.get_pid_type_from_schema(data["$schema"])
