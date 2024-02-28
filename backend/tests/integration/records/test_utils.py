@@ -79,27 +79,26 @@ def test_get_pids_for_one_pid(inspire_app):
     assert expected_recid == recid
 
 def test_get_parent_records(inspire_app):
-    parent_records = [create_record("lit"), create_record("lit")]
+    parent_record_1 = create_record("lit")
+    parent_record_2 = create_record("lit")
 
     data = {
         "publication_info": [
             {
                 "parent_record": {
-                    "$ref": f"http://localhost:5000/api/literature/{parent_records[0]['control_number']}"
+                    "$ref": f"http://localhost:5000/api/literature/{parent_record_1['control_number']}"
                 }
             },
             {
                 "parent_record": {
-                    "$ref": f"http://localhost:5000/api/literature/{parent_records[1]['control_number']}"
+                    "$ref": f"http://localhost:5000/api/literature/{parent_record_2['control_number']}"
                 }
             }
         ]
     }
     rec = create_record("lit", data=data)
     extracted_parent_records = get_parent_records(rec)
-    print(extracted_parent_records)
-    print(parent_records)
-    assert extracted_parent_records == parent_records
+    assert extracted_parent_records == [parent_record_1, parent_record_2]
 
 
 def test_get_parent_record(inspire_app):
