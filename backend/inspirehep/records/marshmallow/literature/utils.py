@@ -21,10 +21,12 @@ MATH_EXPRESSION_REGEX = re.compile(r"((?<!\\)\$.*?(?<!\\)\$|(?<!\\)\\\(.*?(?<!\\
 
 def get_parent_records(data):
     books = []
-    books_records = InspireRecord.get_linked_records_from_dict_field(
+    book_records = InspireRecord.get_linked_records_from_dict_field(
         data, "publication_info.parent_record"
     )
-    return books.append(books_records)
+    for book in book_records:
+        books.append(next(book, {}))
+    return books
 
 def get_parent_record(data):
     if data.get("doc_type") == "inproceedings":
