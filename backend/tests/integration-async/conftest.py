@@ -73,20 +73,20 @@ def clear_environment(app):
         es_cleanup(es)
 
 
-@pytest.fixture(scope="session")
-def celery_session_app(app, celery_session_app):
-    """
-    This fixtures monkey-patches the Task class in the celery_session_app to
-    properly run tasks in a Flask application context.
-    Note:
-        https://github.com/celery/celery/pull/5652
-        https://github.com/celery/celery/blob/master/docs/userguide/application.rst#abstract-tasks
-    """
+# @pytest.fixture(scope="session")
+# def celery_session_app(app, celery_session_app):
+#     """
+#     This fixtures monkey-patches the Task class in the celery_session_app to
+#     properly run tasks in a Flask application context.
+#     Note:
+#         https://github.com/celery/celery/pull/5652
+#         https://github.com/celery/celery/blob/master/docs/userguide/application.rst#abstract-tasks
+#     """
 
-    celery_session_app.Task = CeleryTask
-    celery_session_app.flask_app = app
+#     celery_session_app.Task = CeleryTask
+#     celery_session_app.flask_app = app
 
-    yield celery_session_app
+#     yield celery_session_app
 
 
 @pytest.fixture(scope="function")
