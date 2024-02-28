@@ -5,7 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-FROM python:3.8
+FROM python:3.9
 
 WORKDIR /opt/inspire
 
@@ -19,12 +19,7 @@ ENV PYTHONBUFFERED=0 \
 
 RUN apt update && apt install poppler-utils -y
 
-ARG POETRY_VERSION
-ENV POETRY_VERSION="${POETRY_VERSION:-1.1.14}"
-RUN curl -sSL https://install.python-poetry.org \
-  | python3 - --git https://github.com/python-poetry/poetry.git#{$POETRY_VERSION} \
- && poetry --version
-
+RUN curl -sSL https://install.python-poetry.org | python3.9 - --version 1.8.1 && poetry --version
 COPY poetry.lock pyproject.toml ./
 RUN poetry install --no-root
 
