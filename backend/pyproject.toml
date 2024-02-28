@@ -16,7 +16,7 @@ classifiers=[
 ]
 
 [tool.poetry.dependencies]
-celery = "~=4.4.7"
+celery = "^5.3.6"
 # Click in version 7 have broken progressbar in python 3
 # waiting for this PR to be merged https://github.com/pallets/click/pull/1163
 Flask = ">=1.0.2"
@@ -70,7 +70,7 @@ structlog-sentry = "^1.1"
 humanize = "^0.5.1"
 feedgen = "^0.8.0"
 flask-mail = "^0.9.1"
-hepcrawl = "13.0.31"
+hepcrawl = {git = "https://github.com/inspirehep/hepcrawl.git", rev = "test-deps"}
 prometheus_client = "^0.7.1"
 inspire-dojson = {git = "https://github.com/inspirehep/inspire-dojson.git"}
 boto3 = "^1.11.5"
