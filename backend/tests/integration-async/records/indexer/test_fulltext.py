@@ -319,7 +319,7 @@ def test_index_records_batch_fulltext_manually(
         task.get(timeout=5)
 
         assert task.result == {
-            "uuids": [str(lit_record.id), str(lit_record_2.id)],
+            "uuids": [lit_record.id, lit_record_2.id],
             "success_count": 2,
             "failures_count": 0,
             "failures": [],
