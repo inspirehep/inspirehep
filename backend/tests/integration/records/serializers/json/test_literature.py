@@ -998,17 +998,17 @@ def test_literature_detail_json_link_alias_format(inspire_app):
     assert response.content_type == expected_content_type
 
 
-def test_record_returns_linked_book(inspire_app):
+def test_record_returns_linked_books(inspire_app):
     parent_record = create_record("lit")
 
-    expected_linked_books = {
+    expected_linked_books = [{
         "record": {
             "$ref": f"http://localhost:5000/api/literature/{parent_record['control_number']}"
         },
         "title": parent_record["titles"][0]["title"],
         "page_start": "",
         "page_end": "",
-    }
+    }]
 
     data = {
         "publication_info": [
