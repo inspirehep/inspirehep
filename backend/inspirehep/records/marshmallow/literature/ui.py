@@ -186,17 +186,24 @@ class LiteratureDetailSchema(
         return self.get_len_or_missing(references)
 
     def get_linked_books(self, data):
-        parent = get_parent_records(data)
-        if parent and "titles" in parent and "control_number" in parent:
-            endpoint = PidStoreBase.get_endpoint_from_pid_type(
-                PidStoreBase.get_pid_type_from_schema(data["$schema"])
-            )
-            endpoint_item = f"invenio_records_rest.{endpoint}_item"
-            ref = get_value(parent, "self.$ref") or url_for(
-                endpoint_item, pid_value=parent["control_number"], _external=True
-            )
-            return {**parent["titles"][0], "record": {"$ref": ref}}
-        return None
+        parents = get_parent_records(data)
+        linked_books = []
+
+        for parent in parents:
+            if parent and "titles" in parent and "control_number" in parent:
+                endpoint = PidStoreBase.get_endpoint_from_pid_type(
+                    PidStoreBase.get_pid_type_from_schema(data["$schema"])
+                )
+                endpoint_item = f"invenio_records_rest.{endpoint}_item"
+                ref = get_value(parent, "self.$ref") or url_for(
+                    endpoint_item, pid_value=parent["control_number"], _external=True
+                )
+                page_start = get_value(parent, "self.page_start")
+                page_end = get_value(parent, "self.page_end")
+                return linked_books.append({**parent["titles"][0], "record": {"$ref": ref}, "page_start": page_start, "page_end": page_end})
+            return None
+        print(linked_books)
+        return linked_books or None
 
     @staticmethod
     def get_len_or_missing(maybe_none_list):
