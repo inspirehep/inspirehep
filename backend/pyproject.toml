@@ -83,7 +83,7 @@ pylatexenc = "^2.8"
 pypdf2 = "^1.26.0"
 refextract = "^1.0.3"
 invenio-oaiserver = {git = "https://github.com/inspirehep/invenio-oaiserver.git", rev = "33691ef9ba3f1a241a1c0adc9c3ca21319559bd2"}
-orjson = "^3.4.6"
+orjson = "^3.9.15"
 sword2 = {git = "https://github.com/inspirehep/python-client-sword2.git", rev = "python3"}
 sqlalchemy-continuum = {git = "https://github.com/inspirehep/sqlalchemy-continuum.git", rev = "021b59836eaa702fb2ee01f7192985e5bb632e43"}
 "zope.interface" = "~=5.4.0"
