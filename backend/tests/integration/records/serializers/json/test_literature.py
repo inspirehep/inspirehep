@@ -1001,11 +1001,13 @@ def test_literature_detail_json_link_alias_format(inspire_app):
 def test_record_returns_linked_book(inspire_app):
     parent_record = create_record("lit")
 
-    expected_linked_book = {
+    expected_linked_books = {
         "record": {
             "$ref": f"http://localhost:5000/api/literature/{parent_record['control_number']}"
         },
         "title": parent_record["titles"][0]["title"],
+        "page_start": "",
+        "page_end": "",
     }
 
     data = {
@@ -1022,8 +1024,8 @@ def test_record_returns_linked_book(inspire_app):
     with inspire_app.test_client() as client:
         response = client.get(f"/literature/{rec['control_number']}", headers=headers)
     assert response.status_code == 200
-    assert "linked_book" in response.json["metadata"]
-    assert response.json["metadata"]["linked_book"] == expected_linked_book
+    assert "linked_books" in response.json["metadata"]
+    assert response.json["metadata"]["linked_books"] == expected_linked_books
 
 
 def test_citation_pdf_urls(inspire_app):
