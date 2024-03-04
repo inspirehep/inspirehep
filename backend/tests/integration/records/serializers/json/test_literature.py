@@ -1017,7 +1017,6 @@ def test_record_returns_linked_books(inspire_app):
             {
                 "parent_record": {
                     "$ref": f"http://localhost:5000/api/literature/{parent_record['control_number']}"
-
                 }
             }
         ]
