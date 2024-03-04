@@ -1025,7 +1025,7 @@ def test_record_returns_linked_books(inspire_app):
         response = client.get(f"/literature/{rec['control_number']}", headers=headers)
     assert response.status_code == 200
     # assert "linked_books" in response.json["metadata"]
-    assert response.json["metadata"]["linked_books"] == expected_linked_books
+    assert response.json["metadata"] == expected_linked_books
 
 
 def test_citation_pdf_urls(inspire_app):
