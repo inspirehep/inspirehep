@@ -1002,19 +1002,19 @@ def test_record_returns_linked_books(inspire_app):
     parent_record = create_record("lit")
 
     expected_linked_books = [{
+        "title": parent_record["titles"][0]["title"],
         "record": {
             "$ref": f"http://localhost:5000/api/literature/{parent_record['control_number']}"
         },
-        "title": parent_record["titles"][0]["title"],
         "page_start": "123",
         "page_end": "321",
     }]
 
     data = {
+        "page_end": "321",
+        "page_start": "123",
         "publication_info": [
             {
-                "page_end": "321",
-                "page_start": "123",
                 "parent_record": {
                     "$ref": f"http://localhost:5000/api/literature/{parent_record['control_number']}"
 
