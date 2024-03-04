@@ -202,7 +202,7 @@ class LiteratureDetailSchema(
                 page_end = get_value(parent, "self.page_end")
                 return linked_books.append({**parent["titles"][0], "record": {"$ref": ref}, "page_start": page_start, "page_end": page_end})
             return None
-        return linked_books or None
+        return linked_books
 
     @staticmethod
     def get_len_or_missing(maybe_none_list):
