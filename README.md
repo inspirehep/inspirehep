@@ -4,7 +4,7 @@
 
 ### Python
 
-Python `3.8`
+Python `3.9`
 
 You can also use [pyenv](https://github.com/pyenv/pyenv) for your python installations.
 Simply follow the [instructions](https://github.com/pyenv/pyenv#installation) and set the global version to 3.8.
