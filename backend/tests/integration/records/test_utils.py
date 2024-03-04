@@ -8,6 +8,7 @@
 
 from io import BytesIO
 
+from operator import itemgetter
 import pytest
 import requests_mock
 from helpers.utils import create_record
@@ -98,7 +99,7 @@ def test_get_parent_records(inspire_app):
     }
     rec = create_record("lit", data=data)
     extracted_parent_records = get_parent_records(rec)
-    assert extracted_parent_records == list((parent_record_2, parent_record_1))
+    assert extracted_parent_records == sorted(list(parent_record_1, parent_record_2), key=itemgetter("control_number"))
 
 
 def test_get_parent_record(inspire_app):
