@@ -105,7 +105,7 @@ jobs:
           --volume $GITHUB_WORKSPACE/test_durations:/opt/inspire/test_durations
           --volume $GITHUB_WORKSPACE/test_async_durations:/opt/inspire/test_async_durations
           ${{ inputs.image }}
-          run py.test tests/${{ inputs.suite }}
+          run py.test tests/${{ inputs.suite }} -v
           --splits ${{ inputs.splits }}
           --group ${{ matrix.group }}
           --durations-path test_durations/durations.json
