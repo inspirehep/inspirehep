@@ -185,7 +185,7 @@ class LiteratureDetailSchema(
 
     def get_linked_books(self, data):
         parents = get_parent_records(data)
-        # pages = get_pages(data)
+        pages = get_pages(data)
         linked_books = []
 
         for parent in parents:
@@ -202,9 +202,9 @@ class LiteratureDetailSchema(
                     {**parent["titles"][0], "record": {"$ref": ref}}
                 )
         
-        # linked_books_with_pages = merge_values(pages["page_start"], pages["page_end"], linked_books)
-        print(linked_books)
-        return linked_books
+        linked_books_with_pages = merge_values(pages["page_start"], pages["page_end"], linked_books)
+        print(linked_books_with_pages)
+        return linked_books_with_pages
     
     @staticmethod
     def get_len_or_missing(maybe_none_list):
