@@ -21,7 +21,7 @@ MATH_EXPRESSION_REGEX = re.compile(r"((?<!\\)\$.*?(?<!\\)\$|(?<!\\)\\\(.*?(?<!\\
 
 def merge_values(page_start, page_end, records):
     result = []
-    for record, i in enumerate(records):
+    for i, record in enumerate(records):
         print(record, i)
         merged = {
             'page_start': page_start[i],
