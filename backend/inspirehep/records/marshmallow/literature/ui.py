@@ -204,7 +204,7 @@ class LiteratureDetailSchema(
                     {**parent["titles"][0], "record": {"$ref": ref}}
                 )
                 return linked_books
-
+            return linked_books
 
         for book, i in linked_books:
             book.update({"page_start": pages["page_start"][i], "page_end": pages["page_end"][i]})
