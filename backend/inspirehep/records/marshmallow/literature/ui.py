@@ -10,7 +10,7 @@ from flask import current_app, request, url_for
 from inspire_utils.date import format_date
 from inspire_utils.record import get_value, get_values_for_schema
 from marshmallow import fields, missing, pre_dump
-
+from helpers.utils import create_record
 from inspirehep.accounts.api import (
     check_permissions_for_private_collection_read_write,
     is_user_logged_in,
@@ -188,6 +188,7 @@ class LiteratureDetailSchema(
         parents = get_parent_records(data)
         pages = get_pages(data)
         linked_books = []
+        print(parents, pages)
 
         for parent in parents:
             if parent and "titles" in parent and "control_number" in parent:
@@ -207,7 +208,27 @@ class LiteratureDetailSchema(
         
         linked_books_with_pages = merge_values(pages["page_start"], pages["page_end"], linked_books)
         return linked_books_with_pages
-
+    
+    parent_record_1 = create_record("lit")
+    parent_record_2 = create_record("lit")
+    get_linked_books({
+        "publication_info": [
+            {
+                "page_end": "321",
+                "page_start": "123",
+                "parent_record": {
+                    "$ref": f"http://localhost:5000/api/literature/{parent_record_1['control_number']}"
+                }
+            },
+            {
+                "page_end": "2",
+                "page_start": "1",
+                "parent_record": {
+                    "$ref": f"http://localhost:5000/api/literature/{parent_record_2['control_number']}"
+                }
+            }
+        ]
+    })
     @staticmethod
     def get_len_or_missing(maybe_none_list):
         if maybe_none_list is None:
