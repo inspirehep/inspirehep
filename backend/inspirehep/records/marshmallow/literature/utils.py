@@ -26,7 +26,7 @@ def get_pages(data):
     page_end = InspireRecord.get_value(
         data, "publication_info.page_end"
     )
-    return {"page_start": page_start, "page_end": page_end}
+    return {"page_start": page_start[0], "page_end": page_end[0]}
 
 def get_parent_records(data):
     book_records = InspireRecord.get_linked_records_from_dict_field(
