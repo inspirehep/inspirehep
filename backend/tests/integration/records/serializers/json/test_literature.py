@@ -999,15 +999,24 @@ def test_literature_detail_json_link_alias_format(inspire_app):
 
 
 def test_record_returns_linked_books(inspire_app):
-    parent_record = create_record("lit")
+    parent_record_1 = create_record("lit")
+    parent_record_2 = create_record("lit")
 
     expected_linked_books = [{
-        "title": parent_record["titles"][0]["title"],
+        "title": parent_record_1["titles"][0]["title"],
         "record": {
-            "$ref": f"http://localhost:5000/api/literature/{parent_record['control_number']}"
+            "$ref": f"http://localhost:5000/api/literature/{parent_record_1['control_number']}"
         },
         "page_start": "123",
         "page_end": "321",
+    },
+    {
+        "title": parent_record_2["titles"][0]["title"],
+        "record": {
+            "$ref": f"http://localhost:5000/api/literature/{parent_record_2['control_number']}"
+        },
+        "page_start": "1",
+        "page_end": "2",
     }]
 
     data = {
@@ -1016,7 +1025,14 @@ def test_record_returns_linked_books(inspire_app):
                 "page_end": "321",
                 "page_start": "123",
                 "parent_record": {
-                    "$ref": f"http://localhost:5000/api/literature/{parent_record['control_number']}"
+                    "$ref": f"http://localhost:5000/api/literature/{parent_record_1['control_number']}"
+                }
+            },
+            {
+                "page_end": "2",
+                "page_start": "1",
+                "parent_record": {
+                    "$ref": f"http://localhost:5000/api/literature/{parent_record_2['control_number']}"
                 }
             }
         ]

@@ -22,11 +22,11 @@ MATH_EXPRESSION_REGEX = re.compile(r"((?<!\\)\$.*?(?<!\\)\$|(?<!\\)\\\(.*?(?<!\\
 def get_pages(data):
     page_start = InspireRecord.get_value(
         data, "publication_info.page_start"
-    )[0]
+    )
     page_end = InspireRecord.get_value(
         data, "publication_info.page_end"
-    )[0]
-    return {"page_start": page_start, "page_end": page_end}
+    )
+    return {"page_start": "".join(page_start), "page_end": "".join(page_end)}
 
 def get_parent_records(data):
     book_records = InspireRecord.get_linked_records_from_dict_field(
