@@ -1011,10 +1011,10 @@ def test_record_returns_linked_books(inspire_app):
     }]
 
     data = {
-        "page_end": "321",
-        "page_start": "123",
         "publication_info": [
             {
+                "page_end": "321",
+                "page_start": "123",
                 "parent_record": {
                     "$ref": f"http://localhost:5000/api/literature/{parent_record['control_number']}"
                 }
