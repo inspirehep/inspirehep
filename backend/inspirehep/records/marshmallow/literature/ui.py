@@ -21,7 +21,6 @@ from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.marshmallow.common.mixins import (
     CanEditByCollectionPermissionMixin,
 )
-from inspirehep.records.marshmallow.literature.utils import get_parent_record, get_pages
 from inspirehep.records.utils import get_literature_earliest_date
 
 from ..base import EnvelopeSchema
@@ -39,8 +38,8 @@ from .common import (
     PublicationInfoItemSchemaV1,
     ThesisInfoSchemaV1,
 )
-from .utils import get_authors_without_emails, get_parent_records
 from .pdg_identifiers import PDG_IDS_TO_DESCRIPTION_MAPPING
+from .utils import get_parent_records, get_pages, get_authors_without_emails, merge_values
 
 DATASET_SCHEMA_TO_URL_PREFIX_MAP = {
     "hepdata": "https://www.hepdata.net/record/",
@@ -190,7 +189,7 @@ class LiteratureDetailSchema(
         pages = get_pages(data)
         linked_books = []
 
-        for parent in parents:
+        for parent, i in parents:
             if parent and "titles" in parent and "control_number" in parent:
                 endpoint = PidStoreBase.get_endpoint_from_pid_type(
                     PidStoreBase.get_pid_type_from_schema(data["$schema"])
@@ -204,13 +203,9 @@ class LiteratureDetailSchema(
                     {**parent["titles"][0], "record": {"$ref": ref}}
                 )
                 return linked_books
-            return linked_books
-
-        for book, i in linked_books:
-            book.update({"page_start": pages["page_start"][i], "page_end": pages["page_end"][i]})
-            return linked_books
-        
-        return linked_books
+            
+        linked_books_with_pages = merge_values(pages["page_start"], pages["page_end"], linked_books)
+        return linked_books_with_pages
 
     @staticmethod
     def get_len_or_missing(maybe_none_list):

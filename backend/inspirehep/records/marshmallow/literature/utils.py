@@ -19,6 +19,18 @@ from inspirehep.records.api import InspireRecord
 # where the delimiters are not escaped
 MATH_EXPRESSION_REGEX = re.compile(r"((?<!\\)\$.*?(?<!\\)\$|(?<!\\)\\\(.*?(?<!\\)\\\))")
 
+def merge_values(page_start, page_end, records):
+    result = []
+    for i in range(len(records)):
+        record = records[i]
+        merged = {
+            'page_start': page_start[i],
+            'page_end': page_end[i],
+            **record
+        }
+        result.append(merged)
+    return result
+
 def get_pages(data):
     page_start = InspireRecord.get_value(
         data, "publication_info.page_start"
