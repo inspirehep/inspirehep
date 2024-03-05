@@ -19,6 +19,15 @@ from inspirehep.records.api import InspireRecord
 # where the delimiters are not escaped
 MATH_EXPRESSION_REGEX = re.compile(r"((?<!\\)\$.*?(?<!\\)\$|(?<!\\)\\\(.*?(?<!\\)\\\))")
 
+def get_pages(data):
+    page_start = InspireRecord.get_value(
+        data, "publication_info.page_start"
+    )
+    page_end = InspireRecord.get_value(
+        data, "publication_info.page_end"
+    )
+    return {page_start, page_end}
+
 def get_parent_records(data):
     book_records = InspireRecord.get_linked_records_from_dict_field(
         data, "publication_info.parent_record"

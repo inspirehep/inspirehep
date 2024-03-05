@@ -21,7 +21,7 @@ from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.marshmallow.common.mixins import (
     CanEditByCollectionPermissionMixin,
 )
-from inspirehep.records.marshmallow.literature.utils import get_parent_record
+from inspirehep.records.marshmallow.literature.utils import get_parent_record, get_pages
 from inspirehep.records.utils import get_literature_earliest_date
 
 from ..base import EnvelopeSchema
@@ -198,11 +198,10 @@ class LiteratureDetailSchema(
                 ref = get_value(parent, "self.$ref") or url_for(
                     endpoint_item, pid_value=parent["control_number"], _external=True
                 )
-                page_start = get_value(parent, "self.page_start")
-                page_end = get_value(parent, "self.page_end")
+                pages = get_pages(data)
 
                 linked_books.append(
-                    {**parent["titles"][0], "record": {"$ref": ref}, "page_start": page_start, "page_end": page_end}
+                    {**parent["titles"][0], "record": {"$ref": ref}, "page_start": pages["page_start"], "page_end": pages["page_end"]}
                 )
 
         return linked_books
