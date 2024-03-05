@@ -189,7 +189,7 @@ class LiteratureDetailSchema(
         pages = get_pages(data)
         linked_books = []
 
-        for parent, i in parents:
+        for parent in parents:
             if parent and "titles" in parent and "control_number" in parent:
                 endpoint = PidStoreBase.get_endpoint_from_pid_type(
                     PidStoreBase.get_pid_type_from_schema(data["$schema"])
