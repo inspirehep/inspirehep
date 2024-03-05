@@ -203,7 +203,8 @@ class LiteratureDetailSchema(
                     {**parent["titles"][0], "record": {"$ref": ref}}
                 )
                 return linked_books
-            
+            return linked_books
+        
         linked_books_with_pages = merge_values(pages["page_start"], pages["page_end"], linked_books)
         return linked_books_with_pages
 
