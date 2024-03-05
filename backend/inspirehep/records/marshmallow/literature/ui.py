@@ -187,7 +187,6 @@ class LiteratureDetailSchema(
         parents = get_parent_records(data)
         pages = get_pages(data)
         linked_books = []
-        print(parents, pages)
 
         for parent in parents:
             if parent and "titles" in parent and "control_number" in parent:
@@ -203,12 +202,9 @@ class LiteratureDetailSchema(
                     {**parent["titles"][0], "record": {"$ref": ref}}
                 )
                 print('1', linked_books)
-                return linked_books
-            print('2', linked_books)
-            return linked_books
         
         linked_books_with_pages = merge_values(pages["page_start"], pages["page_end"], linked_books)
-        print('3', linked_books, linked_books_with_pages)
+        print('2', linked_books, linked_books_with_pages)
         return linked_books_with_pages
     
     @staticmethod
