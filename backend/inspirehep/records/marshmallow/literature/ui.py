@@ -203,7 +203,7 @@ class LiteratureDetailSchema(
                 )
         
         linked_books_with_pages = merge_values(pages["page_start"], pages["page_end"], linked_books)
-        print(linked_books_with_pages)
+        print(pages)
         return linked_books_with_pages
     
     @staticmethod
