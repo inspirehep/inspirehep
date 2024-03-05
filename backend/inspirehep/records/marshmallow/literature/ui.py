@@ -201,10 +201,9 @@ class LiteratureDetailSchema(
                 linked_books.append(
                     {**parent["titles"][0], "record": {"$ref": ref}}
                 )
-                print('1', linked_books)
         
         linked_books_with_pages = merge_values(pages["page_start"], pages["page_end"], linked_books)
-        print('2', linked_books, linked_books_with_pages)
+        print(linked_books, linked_books_with_pages)
         return linked_books_with_pages
     
     @staticmethod
