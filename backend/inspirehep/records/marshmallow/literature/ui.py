@@ -201,7 +201,7 @@ class LiteratureDetailSchema(
                 pages = get_pages(data)
 
                 linked_books.append(
-                    {**parent["titles"][0], "record": {"$ref": ref}, "pages": pages}
+                    {**parent["titles"][0], "record": {"$ref": ref}, "page_start": pages["page_start"], "page_end": pages["page_end"]}
                 )
 
         return linked_books
