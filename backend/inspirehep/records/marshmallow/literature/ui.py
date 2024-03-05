@@ -187,6 +187,7 @@ class LiteratureDetailSchema(
 
     def get_linked_books(self, data):
         parents = get_parent_records(data)
+        pages = get_pages(data)
         linked_books = []
 
         for parent in parents:
@@ -198,11 +199,14 @@ class LiteratureDetailSchema(
                 ref = get_value(parent, "self.$ref") or url_for(
                     endpoint_item, pid_value=parent["control_number"], _external=True
                 )
-                pages = get_pages(data)
 
                 linked_books.append(
-                    {**parent["titles"][0], "record": {"$ref": ref}, "page_start": pages["page_start"], "page_end": pages["page_end"]}
+                    {**parent["titles"][0], "record": {"$ref": ref}}
                 )
+
+        for book, i in linked_books:
+            book.update({"page_start": pages["page_start"][i], "page_end": pages["page_end"][i]})
+        
 
         return linked_books
 
