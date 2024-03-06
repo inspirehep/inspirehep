@@ -1,0 +1,213 @@
+{
+    "_collections": [
+      "Literature"
+  ],
+    "publication_info": [
+      {
+        "year": 1938,
+        "page_end": "334",
+        "page_start": "333",
+        "journal_issue": "3564",
+        "journal_title": "Nature",
+        "journal_record": {
+          "$ref": "https://inspirehep.net/api/journals/1214565"
+        },
+        "journal_volume": "141",
+        "curated_relation": true
+      },
+      {
+        "year": 1937,
+        "page_end": "306",
+        "page_start": "305",
+        "journal_issue": "6",
+        "journal_title": "Compt.Rend.Acad.Sci.URSS",
+        "journal_record": {
+          "$ref": "https://inspirehep.net/api/journals/1213104"
+        },
+        "journal_volume": "17",
+        "curated_relation": true
+      },
+      {
+        "year": 1937,
+        "page_end": "302",
+        "page_start": "301",
+        "journal_issue": "6",
+        "journal_title": "Dokl.Akad.Nauk SSSR",
+        "journal_record": {
+          "$ref": "https://inspirehep.net/api/journals/1214770"
+        },
+        "journal_volume": "17",
+        "curated_relation": true
+      },
+      {
+        "year": 1965,
+        "page_end": "186",
+        "page_start": "185",
+        "parent_isbn": "9780080105864",
+        "parent_record": {
+          "$ref": "https://inspirehep.net/api/literature/1787272"
+        },
+        "curated_relation": true
+      },
+      {
+        "year": 1969,
+        "page_end": "226",
+        "page_start": "224",
+        "parent_record": {
+          "$ref": "https://inspirehep.net/api/literature/1649231"
+        },
+        "curated_relation": true
+      }
+    ],
+    "core": false,
+    "dois": [
+      {
+        "value": "10.1038/141333b0"
+      },
+      {
+        "value": "10.1016/b978-0-08-010586-4.50032-8"
+      }
+    ],
+    "titles": [
+      {
+        "title": "On the origin of stellar energy",
+        "source": "submitter"
+      }
+    ],
+    "$schema": "https://inspirehep.net/schemas/records/hep.json",
+    "authors": [
+      {
+        "ids": [
+          {
+            "value": "L.D.Landau.1",
+            "schema": "INSPIRE BAI"
+          },
+          {
+            "value": "INSPIRE-00147020",
+            "schema": "INSPIRE ID"
+          },
+          {
+            "value": "HEPNAMES-419974",
+            "schema": "SPIRES"
+          }
+        ],
+        "uuid": "82a5ac21-af55-4b6b-a09b-1f3630844d61",
+        "record": {
+          "$ref": "https://inspirehep.net/api/authors/1019139"
+        },
+        "full_name": "Landau, Lev Davidovich",
+        "signature_block": "LANDl",
+        "curated_relation": true,
+        "alternative_names": [
+          "Ландау, Л.Д."
+        ]
+      }
+    ],
+    "curated": true,
+    "texkeys": [
+      "Landau:1937fjr",
+      "Landau:1965ujg"
+    ],
+    "citeable": true,
+    "refereed": true,
+    "abstracts": [
+      {
+        "value": "It is well known that matter consists of nuclei and electrons. Nevertheless it can be shown that in bodies of very large mass, this usual 'electronic' state of matter can become unstable. The reason for this lies in the fact that the 'electronic' state of matter does not lead to extremely great densities, because at such densities electrons form a Fermi gas having an immense pressure. On the other hand, it is easy to see that matter can go into another state which is much more compressible—the state where all the nuclei and electrons have combined to form neutrons.1 Even if we assume that neutrons repel each other, this repulsion can become appreciable only at densities of the order of magnitude of nuclear densities, that is, $10^{14}$ gm/cm$^3$, and the pressure of a Fermi gas consisting of neutrons is much less than that of an electronic gas of the same density, because of the greater mass of the neutrons."
+      }
+    ],
+    "references": [
+      {
+        "raw_refs": [
+          {
+            "value": "1. Cf.",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "misc": [
+            "Cf."
+          ],
+          "label": "1"
+        }
+      },
+      {
+        "raw_refs": [
+          {
+            "value": "Hund, F., Erg. d. exakten Natwis. 15, 189 (1936).",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "label": "1",
+          "authors": [
+            {
+              "full_name": "Hund, F."
+            }
+          ],
+          "publication_info": {
+            "year": 1936,
+            "artid": "189",
+            "page_start": "189",
+            "journal_title": "Ergeb.Exakt.Naturwiss.",
+            "journal_volume": "15"
+          }
+        },
+        "curated_relation": true
+      },
+      {
+        "record": {
+          "$ref": "https://inspirehep.net/api/literature/2609859"
+        },
+        "raw_refs": [
+          {
+            "value": "2. Landau, L., Sov. Phys., 1, 285 (1932).",
+            "schema": "text"
+          }
+        ],
+        "reference": {
+          "label": "2",
+          "authors": [
+            {
+              "full_name": "Landau, L."
+            }
+          ],
+          "publication_info": {
+            "year": 1932,
+            "artid": "285",
+            "page_start": "285",
+            "journal_title": "Phys.Z.Sowjetunion",
+            "journal_volume": "1"
+          }
+        },
+        "curated_relation": true
+      }
+    ],
+    "public_notes": [
+      {
+        "value": "References drawn from Nature 141(1938)333. Reprinted (in Russian) in: Л. Д. Ландау [L. D. Landau]: Собрание трудов [Sobranie trudov], Vol. 1. Наука [Nauka], Moscow, 1969, item 26, pp. 224-226 (available online at the following site of the Russian Academy of Sciences: http://www.e-heritage.ru/Book/10079744 ). Reprint of the English translation [Nature 141(1938)333] in: D. ter Haar (Ed.): Collected Papers of L D Landau. Edited and with an introduction by D ter Haar. Pergamon Press, Oxford, 1965, item 27, pp. 185-186 (ISBN-13: 978-0-08-010586-4)."
+      }
+    ],
+    "document_type": [
+      "article",
+      "book chapter"
+    ],
+    "control_number": 2610328,
+    "number_of_pages": 2,
+    "inspire_categories": [
+      {
+        "term": "Phenomenology-HEP"
+      },
+      {
+        "term": "Astrophysics"
+      },
+      {
+        "term": "Theory-Nucl"
+      }
+    ],
+    "title_translations": [
+      {
+        "title": "Об источниках звездной энергии [Ob istochnikakh zvezdnoĭ ènergii]",
+        "language": "ru"
+      }
+    ]
+  }

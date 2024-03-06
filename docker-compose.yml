@@ -82,7 +82,7 @@ services:
     entrypoint: celery
     volumes:
       - ./backend:/opt/inspire
-    command: worker -E -A inspirehep.celery -l INFO --purge --queues celery,indexer_task,matcher,assign,redirect_references
+    command: -A inspirehep.celery worker -l INFO --purge --queues celery,indexer_task,matcher,assign,redirect_references
     depends_on:
       - db
       - es

@@ -20,6 +20,27 @@ from inspirehep.records.api import InspireRecord
 MATH_EXPRESSION_REGEX = re.compile(r"((?<!\\)\$.*?(?<!\\)\$|(?<!\\)\\\(.*?(?<!\\)\\\))")
 
 
+def get_pages(data):
+    pub_info = InspireRecord.get_value(data, "publication_info")
+    page_start_list = []
+    page_end_list = []
+
+    if pub_info:
+        for entry in pub_info:
+            if "parent_record" in entry:
+                page_start_list.append(entry.get("page_start", None))
+                page_end_list.append(entry.get("page_end", None))
+
+    return {"page_start": page_start_list, "page_end": page_end_list}
+
+
+def get_parent_records(data):
+    book_records = InspireRecord.get_linked_records_from_dict_field(
+        data, "publication_info.parent_record"
+    )
+    return list(book_records)
+
+
 def get_parent_record(data):
     if data.get("doc_type") == "inproceedings":
         conference_records = InspireRecord.get_linked_records_from_dict_field(

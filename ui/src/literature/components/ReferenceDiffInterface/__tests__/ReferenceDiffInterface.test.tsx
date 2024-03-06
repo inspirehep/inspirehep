@@ -30,7 +30,7 @@ describe('ReferenceDiffInterface', () => {
       urls: null,
       collaborations: [{ value: 'CMS' }],
       collaborations_with_suffix: [{ value: 'CMS' }],
-      linked_book: null,
+      linked_books: null,
       book_series: null,
       pdg_keywords: null,
       author_count: 1,
