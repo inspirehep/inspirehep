@@ -998,21 +998,49 @@ def test_literature_detail_json_link_alias_format(inspire_app):
     assert response.content_type == expected_content_type
 
 
-def test_record_returns_linked_book(inspire_app):
-    parent_record = create_record("lit")
+def test_record_returns_linked_books(inspire_app):
+    parent_record_1 = create_record("lit")
+    parent_record_2 = create_record("jou")
+    parent_record_3 = create_record("lit")
 
-    expected_linked_book = {
+    expected_linked_books = [{
+        "title": parent_record_1["titles"][0]["title"],
         "record": {
-            "$ref": f"http://localhost:5000/api/literature/{parent_record['control_number']}"
+            "$ref": f"http://localhost:5000/api/literature/{parent_record_1['control_number']}"
         },
-        "title": parent_record["titles"][0]["title"],
-    }
+        "page_start": "123",
+        "page_end": "321",
+    },
+    {
+        "title": parent_record_3["titles"][0]["title"],
+        "record": {
+            "$ref": f"http://localhost:5000/api/literature/{parent_record_3['control_number']}"
+        },
+        "page_start": "1",
+        "page_end": "2",
+    }]
 
     data = {
         "publication_info": [
             {
+                "page_end": "321",
+                "page_start": "123",
                 "parent_record": {
-                    "$ref": f"http://localhost:5000/api/literature/{parent_record['control_number']}"
+                    "$ref": f"http://localhost:5000/api/literature/{parent_record_1['control_number']}"
+                }
+            },
+            {
+                "page_end": "4",
+                "page_start": "3",
+                "journal_record": {
+                    "$ref": f"http://localhost:5000/api/journals/{parent_record_2['control_number']}"
+                }
+            },
+            {
+                "page_end": "2",
+                "page_start": "1",
+                "parent_record": {
+                    "$ref": f"http://localhost:5000/api/literature/{parent_record_3['control_number']}"
                 }
             }
         ]
@@ -1022,8 +1050,8 @@ def test_record_returns_linked_book(inspire_app):
     with inspire_app.test_client() as client:
         response = client.get(f"/literature/{rec['control_number']}", headers=headers)
     assert response.status_code == 200
-    assert "linked_book" in response.json["metadata"]
-    assert response.json["metadata"]["linked_book"] == expected_linked_book
+    assert "linked_books" in response.json["metadata"]
+    assert response.json["metadata"]["linked_books"] == expected_linked_books
 
 
 def test_citation_pdf_urls(inspire_app):

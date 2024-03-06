@@ -86,7 +86,7 @@ function ReferenceDiffInterface({
   const urls = metadata.get('urls');
   const collaborations = metadata.get('collaborations');
   const collaborationsWithSuffix = metadata.get('collaborations_with_suffix');
-  const linkedBook = metadata.get('linked_book');
+  const linkedBooks = metadata.get('linked_books');
   const bookSeries = metadata.get('book_series');
   const PDGkeywords = metadata.get('pdg_keywords');
   const authorCount = metadata.get('author_count');
@@ -214,10 +214,9 @@ function ReferenceDiffInterface({
                     page="Literature detail"
                   />
                   <ThesisInfo thesisInfo={thesisInfo} />
-                  {linkedBook && (
+                  {linkedBooks && (
                     <ParentRecordInfo
-                      parentRecord={linkedBook}
-                      publicationInfo={publicationInfo}
+                      parentRecord={linkedBooks}
                     />
                   )}
                   {bookSeries && <BookSeriesInfoList bookSeries={bookSeries} />}

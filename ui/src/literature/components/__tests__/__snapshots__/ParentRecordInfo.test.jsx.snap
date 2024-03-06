@@ -13,7 +13,7 @@ exports[`ParentRecordInfo renders with parent record 1`] = `
 </div>
 `;
 
-exports[`ParentRecordInfo renders with parent record 2`] = `
+exports[`ParentRecordInfo renders with subtitle and pages in parent record 1`] = `
 <div>
   <span>
     Part of 
@@ -27,5 +27,11 @@ exports[`ParentRecordInfo renders with parent record 2`] = `
       A subtitle
     </span>
   </Link>
+  <span>
+    , 
+    1
+    -
+    10
+  </span>
 </div>
 `;

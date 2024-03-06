@@ -47,7 +47,10 @@ import ReferenceSearchLinkAction from '../../../common/components/ReferenceSearc
 import { getPapersQueryString } from '../../utils';
 import ParentRecordInfo from '../../components/ParentRecordInfo';
 import BookSeriesInfoList from '../../components/BookSeriesInfoList';
-import { CURATE_REFERENCE_NS, LITERATURE_SEMINARS_NS } from '../../../search/constants';
+import {
+  CURATE_REFERENCE_NS,
+  LITERATURE_SEMINARS_NS,
+} from '../../../search/constants';
 import LiteratureSeminars from '../../components/LiteratureSeminars';
 import { newSearch, searchBaseQueriesUpdate } from '../../../actions/search';
 import ImprintInfo from '../../components/ImprintInfo';
@@ -103,7 +106,8 @@ function DetailPage({
   const urls = metadata.get('urls');
   const collaborations = metadata.get('collaborations');
   const collaborationsWithSuffix = metadata.get('collaborations_with_suffix');
-  const linkedBook = metadata.get('linked_book');
+  const linkedBooks = metadata.get('linked_books');
+
   const bookSeries = metadata.get('book_series');
   const hiddenCollection = metadata.get('is_collection_hidden');
   const keywords = metadata.get('keywords');
@@ -294,11 +298,8 @@ function DetailPage({
                     page="Literature detail"
                   />
                   <ThesisInfo thesisInfo={thesisInfo} />
-                  {linkedBook && (
-                    <ParentRecordInfo
-                      parentRecord={linkedBook}
-                      publicationInfo={publicationInfo}
-                    />
+                  {linkedBooks && (
+                    <ParentRecordInfo parentRecord={linkedBooks} />
                   )}
                   {bookSeries && <BookSeriesInfoList bookSeries={bookSeries} />}
                   {publicationInfoWithTitle &&

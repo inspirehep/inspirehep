@@ -13,7 +13,11 @@ import requests_mock
 from helpers.utils import create_record
 
 from inspirehep.records.errors import DownloadFileError, FileSizeExceededError
-from inspirehep.records.marshmallow.literature.utils import get_parent_record
+from inspirehep.records.marshmallow.literature.utils import (
+    get_pages,
+    get_parent_record,
+    get_parent_records,
+)
 from inspirehep.records.utils import (
     download_file_from_url,
     get_author_by_recid,
@@ -77,6 +81,57 @@ def test_get_pids_for_one_pid(inspire_app):
     expected_recid = str(rec["control_number"])
     recid = get_pid_for_pid("cnum", rec["cnum"], "recid")
     assert expected_recid == recid
+
+
+def test_get_pages(inspire_app):
+    parent_record_1 = create_record("lit")
+    parent_record_2 = create_record("lit")
+
+    data = {
+        "publication_info": [
+            {"page_end": "8", "page_start": "7"},
+            {
+                "parent_record": {
+                    "$ref": f"http://localhost:5000/api/literature/{parent_record_1['control_number']}"
+                },
+                "page_end": "321",
+                "page_start": "123",
+            },
+            {
+                "parent_record": {
+                    "$ref": f"http://localhost:5000/api/literature/{parent_record_2['control_number']}"
+                },
+                "page_end": "2",
+                "page_start": "1",
+            },
+        ]
+    }
+    rec = create_record("lit", data=data)
+    extracted_pages = get_pages(rec)
+    assert extracted_pages == {"page_start": ["123", "1"], "page_end": ["321", "2"]}
+
+
+def test_get_parent_records(inspire_app):
+    parent_record_1 = create_record("lit")
+    parent_record_2 = create_record("lit")
+
+    data = {
+        "publication_info": [
+            {
+                "parent_record": {
+                    "$ref": f"http://localhost:5000/api/literature/{parent_record_1['control_number']}"
+                },
+            },
+            {
+                "parent_record": {
+                    "$ref": f"http://localhost:5000/api/literature/{parent_record_2['control_number']}"
+                }
+            },
+        ]
+    }
+    rec = create_record("lit", data=data)
+    extracted_parent_records = get_parent_records(rec)
+    assert extracted_parent_records == [parent_record_1, parent_record_2]
 
 
 def test_get_parent_record(inspire_app):
