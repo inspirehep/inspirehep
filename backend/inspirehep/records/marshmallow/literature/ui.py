@@ -185,7 +185,6 @@ class LiteratureDetailSchema(
 
     def get_linked_books(self, data):
         parents = get_parent_records(data)
-        pages = get_pages(data)
         linked_books = []
 
         for parent in parents:
@@ -202,8 +201,9 @@ class LiteratureDetailSchema(
                     {**parent["titles"][0], "record": {"$ref": ref}}
                 )
         
+        pages = get_pages(data)
         linked_books_with_pages = merge_values(pages["page_start"], pages["page_end"], linked_books)
-        print(pages)
+        print('pages', pages)
         return linked_books_with_pages
     
     @staticmethod

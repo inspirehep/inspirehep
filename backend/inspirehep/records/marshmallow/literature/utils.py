@@ -32,6 +32,7 @@ def merge_values(page_start, page_end, records):
     return result
 
 def get_pages(data):
+    print('data', data)
     page_start = InspireRecord.get_value(
         data, "publication_info.page_start"
     )
