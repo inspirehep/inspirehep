@@ -6,4 +6,13 @@
       stroke: @hover-color !important;
     }
   }
+  &.squeeze .ant-slider-mark-text {
+    transform: translateX(-50%) translateY(50%) rotate(65deg) !important;
+  }
+  &.superSqueeze .ant-slider-mark-text:first-child {
+    transform: translateX(-75%) translateY(50%) rotate(65deg) !important;
+  }
+  &.superSqueeze .ant-slider-mark-text:last-child {
+    transform: translateX(-25%) translateY(50%) rotate(65deg) !important;
+  }
 }
