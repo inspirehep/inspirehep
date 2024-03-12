@@ -4,6 +4,7 @@ import { FlexibleWidthXYPlot, VerticalRectSeries, Hint } from 'react-vis';
 import { Slider } from 'antd';
 import { List } from 'immutable';
 import { MathInterval } from 'math-interval-2';
+import className from 'classnames';
 
 import { pluckMinMaxPair, toNumbers, addCommasToNumber } from '../../utils';
 import AggregationBox from '../AggregationBox';
@@ -224,9 +225,14 @@ function RangeAggregation({
     [onSliderChange, onSliderAfterChange]
   );
 
+  const rowClassName = className('__RangeAggregation__', {
+    squeeze: (sliderEndpoints[1] - sliderEndpoints[0]) < 11,
+    superSqueeze: (sliderEndpoints[1] - sliderEndpoints[0]) < 7,
+  });
+
   return (
     <AggregationBox name={name}>
-      <div className="__RangeAggregation__">
+      <div className={rowClassName}>
         <FlexibleWidthXYPlot height={HEIGHT} margin={NO_MARGIN}>
           <VerticalRectSeries
             className="pointer"
