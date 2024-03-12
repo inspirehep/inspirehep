@@ -526,11 +526,13 @@ class JobSubmissionsResource(BaseSubmissionsResource):
         return data
 
     def user_can_edit(self, record):
+        if is_superuser_or_cataloger_logged_in():
+            return True
+
         orcid = get_value(record, "acquisition_source.orcid")
-        email = get_value(record, "acquisition_source.email")
-        return is_superuser_or_cataloger_logged_in() or (
-            orcid == self.get_user_orcid() and email == current_user.email
-        )
+        if orcid:
+            return orcid == self.get_user_orcid()
+        return False
 
     def create_ticket(self, record, rt_template):
         control_number = record["control_number"]
