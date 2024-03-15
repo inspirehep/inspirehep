@@ -509,7 +509,6 @@ def test_cv_with_publication_info_with_publication_material(
 def test_cv_with_publication_info_with_only_page_start(inspire_app, shared_datadir):
     headers = {"Accept": "text/vnd+inspire.html+html"}
     data = {
-        "control_number": 637_275_237,
         "titles": [{"title": "This is a title."}],
         "publication_info": [
             {
@@ -528,6 +527,7 @@ def test_cv_with_publication_info_with_only_page_start(inspire_app, shared_datad
         (shared_datadir / "cv_with_publication_info_with_only_page_start.html")
         .read_text()
         .replace("\n", "")
+        .replace("RECORD_ID", str(record_control_number))
     )
     with inspire_app.test_client() as client:
         response = client.get(f"/literature/{record_control_number}", headers=headers)
@@ -567,7 +567,7 @@ def test_cv_with_arxiv_eprints(inspire_app, shared_datadir):
 def test_cv_search_with_more_complex_records(inspire_app, shared_datadir):
     headers = {"Accept": "text/vnd+inspire.html+html"}
     author = create_record(
-        "aut", data={"control_number": 1, "name": {"value": "Doe, John"}}
+        "aut", data={"control_number": 837_275_237, "name": {"value": "Doe, John"}}
     )
     data_1 = {
         "control_number": 637_275_237,
@@ -623,7 +623,6 @@ def test_cv_search_with_more_complex_records(inspire_app, shared_datadir):
 def test_cv_search_cached(inspire_app):
     headers = {"Accept": "text/vnd+inspire.html+html"}
     data = {
-        "control_number": 637275232,
         "titles": [{"title": "Yet another title"}],
     }
     record = create_record("lit", data=data)
@@ -634,9 +633,9 @@ def test_cv_search_cached(inspire_app):
     data["titles"] = [{"title": "Modified title"}]
 
     record.update(data)
-
+    record_control_number = record["control_number"]
     expected_status_code = 200
-    expected_result = '<!DOCTYPE html><html><body>  <p><b>    <a href="https://localhost:5000/literature/637275232">      Yet another title    </a>  </b></p>          <br></body></html>'
+    expected_result = f'<!DOCTYPE html><html><body>  <p><b>    <a href="https://localhost:5000/literature/{record_control_number}">      Yet another title    </a>  </b></p>          <br></body></html>'
     with inspire_app.test_client() as client:
         response = client.get("/literature", headers=headers)
 
@@ -651,13 +650,12 @@ def test_cv_search_cached(inspire_app):
 def test_literature_detail_cv_link_alias_format(inspire_app):
 
     data = {
-        "control_number": 637275232,
         "titles": [{"title": "Yet another title"}],
     }
     record = create_record("lit", data=data)
-
+    record_control_number = record["control_number"]
     expected_status_code = 200
-    expected_result = '<!DOCTYPE html><html><body>  <p><b>    <a href="https://localhost:5000/literature/637275232">      Yet another title    </a>  </b></p>          <br></body></html>'
+    expected_result = f'<!DOCTYPE html><html><body>  <p><b>    <a href="https://localhost:5000/literature/{record_control_number}">      Yet another title    </a>  </b></p>          <br></body></html>'
 
     with inspire_app.test_client() as client:
         response = client.get(f"/literature/{record['control_number']}?format=cv")

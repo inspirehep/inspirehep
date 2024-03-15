@@ -354,10 +354,10 @@ def test_hep_subject_aggregation_and_filter_unkown(inspire_app, override_config)
         with inspire_app.test_client() as client:
             response = client.get("/literature?subject=Unknown").json
         assert len(response["hits"]["hits"]) == 2
-        assert (
-            response["hits"]["hits"][0]["metadata"]["control_number"]
-            == expected_record["control_number"]
-        )
+        result_control_numbers = [
+            hit["metadata"]["control_number"] for hit in response["hits"]["hits"]
+        ]
+        assert expected_record["control_number"] in result_control_numbers
 
 
 def test_hep_arxiv_categories_aggregation_and_filter(inspire_app, override_config):

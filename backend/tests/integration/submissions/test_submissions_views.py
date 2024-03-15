@@ -35,6 +35,8 @@ from inspirehep.records.api import (
     SeminarsRecord,
 )
 
+FRANK_CASTLE_ORCID = "0000-0002-6152-062X"
+
 
 def test_author_submit_requires_authentication(inspire_app):
     with inspire_app.test_client() as client:
@@ -1110,7 +1112,7 @@ def test_new_job_submit_with_wrong_status_value(ticket_mock, inspire_app):
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_update_job(create_ticket_mock, inspire_app):
-    user = create_user()
+    user = create_user(orcid=FRANK_CASTLE_ORCID)
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
 
@@ -1144,7 +1146,7 @@ def test_update_job(create_ticket_mock, inspire_app):
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_update_job_status_from_pending_not_curator(ticket_mock, inspire_app):
-    user = create_user()
+    user = create_user(orcid=FRANK_CASTLE_ORCID)
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
 
@@ -1175,7 +1177,7 @@ def test_update_job_status_from_pending_not_curator(ticket_mock, inspire_app):
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_update_job_status_from_pending_curator(create_ticket_mock, inspire_app):
-    user = create_user()
+    user = create_user(orcid=FRANK_CASTLE_ORCID)
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
 
@@ -1214,8 +1216,8 @@ def test_update_job_status_from_pending_curator(create_ticket_mock, inspire_app)
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_update_job_data_from_different_user(ticket_mock, inspire_app):
-    user = create_user()
-    user2 = create_user()
+    user = create_user(orcid=FRANK_CASTLE_ORCID)
+    user2 = create_user(orcid="0000-0001-5109-3700")
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         data = {**DEFAULT_EXAMPLE_JOB_DATA}
@@ -1242,7 +1244,7 @@ def test_update_job_data_from_different_user(ticket_mock, inspire_app):
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_update_job_status_from_open(ticket_mock, inspire_app):
-    user = create_user()
+    user = create_user(orcid=FRANK_CASTLE_ORCID)
     curator = create_user(role="cataloger")
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
@@ -1283,7 +1285,7 @@ def test_update_job_status_from_open(ticket_mock, inspire_app):
 
 @freeze_time("2019-01-31")
 def test_job_update_data_30_days_after_deadline(inspire_app):
-    user = create_user()
+    user = create_user(orcid=FRANK_CASTLE_ORCID)
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
 
@@ -1327,7 +1329,7 @@ def test_job_update_data_30_days_after_deadline_with_cataloger(inspire_app):
 
 @freeze_time("2019-01-31")
 def test_job_update_data_less_than_30_days_after_deadline(inspire_app):
-    user = create_user()
+    user = create_user(orcid=FRANK_CASTLE_ORCID)
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
 
@@ -1351,7 +1353,7 @@ def test_job_update_data_less_than_30_days_after_deadline(inspire_app):
 def test_update_job_from_closed_less_than_30_days_after_deadline_by_user(
     ticket_mock, inspire_app
 ):
-    user = create_user()
+    user = create_user(orcid=FRANK_CASTLE_ORCID)
     curator = create_user(role="cataloger")
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
@@ -1396,7 +1398,7 @@ def test_update_job_from_closed_less_than_30_days_after_deadline_by_user(
 def test_update_job_status_update_more_than_30_days_after_deadline_by_user(
     ticket_mock, inspire_app
 ):
-    user = create_user()
+    user = create_user(orcid=FRANK_CASTLE_ORCID)
     curator = create_user(role="cataloger")
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
@@ -1437,7 +1439,7 @@ def test_update_job_status_update_more_than_30_days_after_deadline_by_user(
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_update_job_remove_not_compulsory_fields(ticket_mock, inspire_app):
-    user = create_user()
+    user = create_user(orcid=FRANK_CASTLE_ORCID)
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         data = {
