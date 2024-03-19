@@ -28,7 +28,7 @@ const HEIGHT = 100;
 
 function getInitialHistogramData(initialBuckets, [min, max]) {
   const data = initialBuckets
-    .map(item => {
+    .map((item) => {
       const key = Number(item.get(KEY_PROP_NAME));
       return {
         x0: key - HALF_BAR_WIDTH,
@@ -53,7 +53,7 @@ function getInitialHistogramData(initialBuckets, [min, max]) {
 
 function getHistogramData(initialData, keyToCountForBuckets, [lower, upper]) {
   const endpointsInterval = MathInterval.closed(lower, upper);
-  const data = initialData.map(item => {
+  const data = initialData.map((item) => {
     const { x0, x } = item;
     const bucketKey = x - HALF_BAR_WIDTH;
     const color = endpointsInterval.contains(bucketKey)
@@ -70,7 +70,9 @@ function getHistogramData(initialData, keyToCountForBuckets, [lower, upper]) {
 }
 
 function pluckMinMaxPairFromBuckets(buckets) {
-  return pluckMinMaxPair(buckets, bucket => Number(bucket.get(KEY_PROP_NAME)));
+  return pluckMinMaxPair(buckets, (bucket) =>
+    Number(bucket.get(KEY_PROP_NAME))
+  );
 }
 
 function getKeyToCountMapFromBuckets(buckets) {
@@ -102,7 +104,7 @@ function getSanitizedEndpointsFromSelections(selections, minMaxPair) {
 function getSliderMarks([lower, upper], [min, max]) {
   const totalRange = max - min;
   const selectionRange = upper - lower;
-  const selectionPercentage = selectionRange / totalRange * 100;
+  const selectionPercentage = (selectionRange / totalRange) * 100;
   const areEndpointsTooClose =
     selectionPercentage < 20 && selectionPercentage > 0;
 
@@ -157,9 +159,10 @@ function RangeAggregation({
     [initialBuckets]
   );
 
-  const [min, max] = useMemo(() => pluckMinMaxPairFromBuckets(buckets), [
-    buckets,
-  ]);
+  const [min, max] = useMemo(
+    () => pluckMinMaxPairFromBuckets(buckets),
+    [buckets]
+  );
   const sliderEndpointsFromProps = useMemo(
     () => getSanitizedEndpointsFromSelections(selections, [min, max]),
     [selections, min, max]
@@ -192,7 +195,7 @@ function RangeAggregation({
   );
 
   const onSliderChange = useCallback(
-    unsafeEndpoints => {
+    (unsafeEndpoints) => {
       const sanitizedSliderEndpoints = sanitizeEndpoints(unsafeEndpoints, [
         initialMin,
         initialMax,
@@ -213,7 +216,7 @@ function RangeAggregation({
     setHoveredBar(null);
   }, []);
 
-  const onBarMouseHover = useCallback(bar => setHoveredBar(bar), []);
+  const onBarMouseHover = useCallback((bar) => setHoveredBar(bar), []);
 
   const onBarClick = useCallback(
     ({ x }) => {
@@ -226,8 +229,8 @@ function RangeAggregation({
   );
 
   const rowClassName = className('__RangeAggregation__', {
-    squeeze: (sliderEndpoints[1] - sliderEndpoints[0]) < 11,
-    superSqueeze: (sliderEndpoints[1] - sliderEndpoints[0]) < 7,
+    squeeze: sliderEndpoints[1] - sliderEndpoints[0] < 20,
+    superSqueeze: sliderEndpoints[1] - sliderEndpoints[0] < 14,
   });
 
   return (
