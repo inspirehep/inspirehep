@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 
 import JsonDiff from '../JsonDiff';
 
@@ -14,7 +14,7 @@ describe('JsonDiff', () => {
       id: 2,
       foo: 'not bar',
     };
-    const wrapper = shallow(<JsonDiff first={first} second={second} />);
-    expect(wrapper).toMatchSnapshot();
+    const { container } = render(<JsonDiff first={first} second={second} />);
+    expect(container).toMatchSnapshot();
   });
 });
