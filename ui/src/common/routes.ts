@@ -23,10 +23,10 @@ export const USER_SIGNUP = `${USER}/signup`;
 export const USER_LOCAL_LOGIN = `${USER_LOGIN}/local`;
 export const USER_SETTINGS = `${USER}/settings`;
 
-// TODO: rename `holdingpen` to `admin`
 export const HOLDINGPEN = '/holdingpen';
 export const HOLDINGPEN_DASHBOARD = `${HOLDINGPEN}/dashboard`;
 export const HOLDINGPEN_INSPECT = `${HOLDINGPEN}/inspect`;
+export const HOLDINGPEN_SEARCH = `${HOLDINGPEN}/search`;
 
 export const ERRORS = '/errors';
 export const ERROR_401 = `${ERRORS}/401`;
