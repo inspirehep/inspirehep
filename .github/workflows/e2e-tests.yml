@@ -30,7 +30,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        browser: [ chrome ]
+        browser: [ chrome, firefox ]
     services:
       redis:
         image: redis
