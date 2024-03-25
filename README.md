@@ -25,7 +25,7 @@ $ brew install postgresql@14 libmagic openssl@3 openblas python
 
 Please follow the instructions https://github.com/nvm-sh/nvm#installing-and-updating
 
-We're using `v16.16.0` (first version we install is the default)
+We're using `v20.0.0` (first version we install is the default)
 
 ```
 $ nvm install 20.0.0
@@ -296,6 +296,7 @@ $ sh cypress-tests-firefox.sh
 ```
 
 Opens cypress runner GUI runs them against local dev server (localhost:8080)
+
 ```bash
 $ cd e2e
 $ yarn test:dev
