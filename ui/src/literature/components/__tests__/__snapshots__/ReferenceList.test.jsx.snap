@@ -2,7 +2,7 @@
 
 exports[`ReferenceList does not render the list if total 0 1`] = `
 <ContentBox
-  className=""
+  className="__ReferenceList__"
   leftActions={null}
   loading={false}
   rightActions={null}
@@ -36,7 +36,7 @@ exports[`ReferenceList does not render the list if total 0 1`] = `
 
 exports[`ReferenceList renders items with (page * index) key if title is absent 1`] = `
 <ContentBox
-  className=""
+  className="__ReferenceList__"
   leftActions={null}
   loading={false}
   rightActions={null}
@@ -106,7 +106,7 @@ exports[`ReferenceList renders items with (page * index) key if title is absent 
 
 exports[`ReferenceList renders with error 1`] = `
 <ContentBox
-  className=""
+  className="__ReferenceList__"
   leftActions={null}
   loading={false}
   rightActions={null}
@@ -134,7 +134,7 @@ exports[`ReferenceList renders with error 1`] = `
 
 exports[`ReferenceList renders with references 1`] = `
 <ContentBox
-  className=""
+  className="__ReferenceList__"
   leftActions={null}
   loading={false}
   rightActions={null}

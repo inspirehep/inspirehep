@@ -1,16 +1,22 @@
 import React, { useMemo } from 'react';
-import { List, Map, Set } from 'immutable';
+import { List, Set } from 'immutable';
 import { Checkbox } from 'antd';
 
-function getRecordId<T>(result: { getIn: (args: string[], arg?: boolean) => T }) {
+function getRecordId<T>(result: {
+  getIn: (args: string[], arg?: boolean) => T;
+}) {
   return result.getIn(['metadata', 'control_number']);
 }
 
-function getClaimed<T>(result: { getIn: (args: string[], arg?: boolean) => T }) {
+function getClaimed<T>(result: {
+  getIn: (args: string[], arg?: boolean) => T;
+}) {
   return result.getIn(['metadata', 'curated_relation'], false);
 }
 
-function getCanClaim<T>(result: { getIn: (args: string[], arg?: boolean) => T }) {
+function getCanClaim<T>(result: {
+  getIn: (args: string[], arg?: boolean) => T;
+}) {
   return result.getIn(['metadata', 'can_claim'], false);
 }
 
@@ -20,10 +26,10 @@ function PublicationsSelectAll<T>({
   onChange,
   disabled,
 }: {
-  publications: List<any>,
-  selection: Set<T>,
-  onChange: Function,
-  disabled: boolean,
+  publications: List<any>;
+  selection: Set<T>;
+  onChange: Function;
+  disabled?: boolean;
 }) {
   const checked = useMemo(
     () =>

@@ -6,7 +6,6 @@ import { render } from '@testing-library/react';
 import { getStore } from '../../fixtures/store';
 import Holdingpen from '..';
 import DashboardPageContainer from '../containers/DashboardPageContainer/DashboardPageContainer';
-import InspectPageContainer from '../containers/InspectPageContainer/InspectPageContainer';
 import SearchPageContainer from '../containers/SearchPageContainer/SearchPageContainer';
 import DetailPageContainer from '../containers/DetailPageContainer/DetailPageContainer';
 
@@ -14,7 +13,7 @@ describe('Holdingpen', () => {
   it('renders initial state', () => {
     const { container } = render(
       <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/holdingpen/dashboard']}>
+        <MemoryRouter initialEntries={['/holdingpen-new/dashboard']}>
           <Holdingpen />
         </MemoryRouter>
       </Provider>
@@ -22,12 +21,12 @@ describe('Holdingpen', () => {
     expect(container).toMatchSnapshot();
   });
 
-  it('navigates to DashboardPageContainer when /holdingpen/dashboard', () => {
+  it('navigates to DashboardPageContainer when /holdingpen-new/dashboard', () => {
     const { getByTestId } = render(
       <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/holdingpen/dashboard']}>
+        <MemoryRouter initialEntries={['/holdingpen-new/dashboard']}>
           <Route
-            path="/holdingpen/dashboard"
+            path="/holdingpen-new/dashboard"
             component={DashboardPageContainer}
           />
         </MemoryRouter>
@@ -37,28 +36,11 @@ describe('Holdingpen', () => {
     expect(getByTestId('holdingpen-dashboard-page')).toBeInTheDocument();
   });
 
-  it('navigates to InspectPageContainer when /holdingpen/inspect/:id', () => {
+  it('navigates to DetailPageContainer when /holdingpen-new/:id', () => {
     const { getByTestId } = render(
       <Provider store={getStore()}>
-        <MemoryRouter
-          initialEntries={['/holdingpen/inspect/1']}
-          initialIndex={0}
-        >
-          <Route
-            path="/holdingpen/inspect/1"
-            component={InspectPageContainer}
-          />
-        </MemoryRouter>
-      </Provider>
-    );
-    expect(getByTestId('holdingpen-inspect-page')).toBeInTheDocument();
-  });
-
-  it('navigates to DetailPageContainer when /holdingpen/:id', () => {
-    const { getByTestId } = render(
-      <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/holdingpen/1']}>
-          <Route path="/holdingpen/:id" component={DetailPageContainer} />
+        <MemoryRouter initialEntries={['/holdingpen-new/1']}>
+          <Route path="/holdingpen-new/:id" component={DetailPageContainer} />
         </MemoryRouter>
       </Provider>
     );
@@ -66,11 +48,14 @@ describe('Holdingpen', () => {
     expect(getByTestId('holdingpen-detail-page')).toBeInTheDocument();
   });
 
-  it('navigates to SearchPageContainer when /holdingpen/search', () => {
+  it('navigates to SearchPageContainer when /holdingpen-new/search', () => {
     const { getByTestId } = render(
       <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/holdingpen/search']}>
-          <Route path="/holdingpen/search" component={SearchPageContainer} />
+        <MemoryRouter initialEntries={['/holdingpen-new/search']}>
+          <Route
+            path="/holdingpen-new/search"
+            component={SearchPageContainer}
+          />
         </MemoryRouter>
       </Provider>
     );

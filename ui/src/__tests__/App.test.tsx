@@ -110,6 +110,53 @@ describe('App', () => {
     expect(holdingpen).not.toBeInTheDocument();
   });
 
+  it('navigates to new Holdingpen when /holdingpen-new if superuser logged in', async () => {
+    const store = getStoreWithState({
+      user: fromJS({
+        loggedIn: true,
+        data: {
+          roles: ['superuser'],
+        },
+      }),
+    });
+    const { getByTestId } = render(
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/holdingpen-new']} initialIndex={0}>
+          <App />
+        </MemoryRouter>
+      </Provider>
+    );
+    await Loadable.preloadAll();
+
+    const app = getByTestId('app');
+    const holdingpen = within(app).getByTestId('holdingpen-new');
+
+    expect(holdingpen).toBeInTheDocument();
+  });
+
+  it('does not navigate to Holdingpen when /holdingpen if not logged in', async () => {
+    const store = getStoreWithState({
+      user: fromJS({
+        loggedIn: false,
+        data: {
+          roles: [],
+        },
+      }),
+    });
+    const { getByTestId } = render(
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/holdingpen-new']} initialIndex={0}>
+          <App />
+        </MemoryRouter>
+      </Provider>
+    );
+    await Loadable.preloadAll();
+    const app = getByTestId('app');
+    const holdingpen = within(app).queryByTestId('holdingpen-new');
+
+    expect(holdingpen).not.toBeInTheDocument();
+  });
+
   it('navigates to User when /user', () => {
     const { getByTestId } = render(
       <Provider store={getStore()}>

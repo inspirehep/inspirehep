@@ -26,7 +26,7 @@ exports[`ReferenceDiffInterface should render 1`] = `
                 class="ant-card-body"
               >
                 <div
-                  class="pa2"
+                  class="pa2 md-pb3"
                 >
                   <div>
                     <div
@@ -287,7 +287,7 @@ exports[`ReferenceDiffInterface should render 1`] = `
           class="ant-col ant-col-24 mt3"
         >
           <div
-            class="__ContentBox__ h-100 "
+            class="__ContentBox__ h-100"
           >
             <div
               class="ant-card ant-card-bordered h-100"
@@ -450,7 +450,7 @@ exports[`ReferenceDiffInterface should render 1`] = `
           class="ant-col ant-col-24 mt3"
         >
           <div
-            class="__ContentBox__ h-100 "
+            class="__ContentBox__ h-100"
           >
             <div
               class="ant-card ant-card-bordered h-100"
@@ -650,7 +650,7 @@ exports[`ReferenceDiffInterface should render with error 1`] = `
                 class="ant-card-body"
               >
                 <div
-                  class="pa2"
+                  class="pa2 md-pb3"
                 >
                   <div>
                     <div
@@ -1002,7 +1002,7 @@ exports[`ReferenceDiffInterface should render without previous reference if it i
                 class="ant-card-body"
               >
                 <div
-                  class="pa2"
+                  class="pa2 md-pb3"
                 >
                   <div>
                     <div
@@ -1263,7 +1263,7 @@ exports[`ReferenceDiffInterface should render without previous reference if it i
           class="ant-col ant-col-24 mt3"
         >
           <div
-            class="__ContentBox__ h-100 "
+            class="__ContentBox__ h-100"
           >
             <div
               class="ant-card ant-card-bordered h-100"
@@ -1426,7 +1426,7 @@ exports[`ReferenceDiffInterface should render without previous reference if it i
           class="ant-col ant-col-24 mt3"
         >
           <div
-            class="__ContentBox__ h-100 "
+            class="__ContentBox__ h-100"
           >
             <div
               class="ant-card ant-card-bordered h-100"

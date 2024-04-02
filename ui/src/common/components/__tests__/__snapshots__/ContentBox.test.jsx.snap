@@ -4,7 +4,7 @@ exports[`ContentBox does not render ContentBox without children 1`] = `""`;
 
 exports[`ContentBox renders ContentBox with actions 1`] = `
 <div
-  className="__ContentBox__ h-100 "
+  className="__ContentBox__ h-100"
 >
   <ForwardRef
     className="h-100"
@@ -33,7 +33,7 @@ exports[`ContentBox renders ContentBox with actions 1`] = `
 
 exports[`ContentBox renders ContentBox with actions and title with loading 1`] = `
 <div
-  className="__ContentBox__ h-100 "
+  className="__ContentBox__ h-100"
 >
   <ForwardRef
     className="h-100"
@@ -62,7 +62,7 @@ exports[`ContentBox renders ContentBox with actions and title with loading 1`] =
 
 exports[`ContentBox renders ContentBox with actions and title without loading 1`] = `
 <div
-  className="__ContentBox__ h-100 "
+  className="__ContentBox__ h-100"
 >
   <ForwardRef
     className="h-100"
@@ -99,7 +99,7 @@ exports[`ContentBox renders ContentBox with subTitle and className 1`] = `
     title={null}
   >
     <div
-      className="pa2"
+      className="pa2 pa3"
     >
       <h3
         className="pb1"
@@ -125,7 +125,7 @@ exports[`ContentBox renders ContentBox with subTitle and className 1`] = `
 
 exports[`ContentBox renders ContentBox without actions 1`] = `
 <div
-  className="__ContentBox__ h-100 "
+  className="__ContentBox__ h-100"
 >
   <ForwardRef
     className="h-100"
