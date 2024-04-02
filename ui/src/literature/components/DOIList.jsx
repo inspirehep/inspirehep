@@ -19,13 +19,13 @@ class DOIList extends Component {
   }
 
   render() {
-    const { dois } = this.props;
+    const { dois, bold } = this.props;
 
     return (
       <InlineDataList
-        label="DOI"
+        label={bold ? <b>DOI</b> : 'DOI'}
         items={dois}
-        extractKey={doi => doi.get('value')}
+        extractKey={(doi) => doi.get('value')}
         renderItem={DOIList.renderDoiItem}
       />
     );

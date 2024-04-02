@@ -7,16 +7,16 @@ import PublicationInfo from './PublicationInfo';
 
 class PublicationInfoList extends Component {
   render() {
-    const { publicationInfo, labeled } = this.props;
+    const { publicationInfo, labeled, bold } = this.props;
     const label = labeled ? 'Published in' : null;
     return (
       <InlineDataList
-        label={label}
+        label={bold ? <b>{label}</b> : label}
         items={publicationInfo}
-        extractKey={info =>
+        extractKey={(info) =>
           info.get('journal_title') || info.get('pubinfo_freetext')
         }
-        renderItem={info => <PublicationInfo info={info} />}
+        renderItem={(info) => <PublicationInfo info={info} />}
       />
     );
   }

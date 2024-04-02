@@ -19,18 +19,20 @@ function ReferenceList({
   onEditReferenceClick,
   loggedIn,
   setScrollElement,
+  disableEdit,
 }: {
-  total?: number,
-  references?: any[],
-  error?: Map<string, any>,
-  loading?: boolean,
-  query?: any,
-  onPageChange?: Function,
-  onSizeChange?: Function,
-  children?: any
-  onEditReferenceClick?: Function,
-  loggedIn?: boolean,
-  setScrollElement?: Function,
+  total?: number;
+  references?: any[];
+  error?: Map<string, any>;
+  loading?: boolean;
+  query?: any;
+  onPageChange?: Function;
+  onSizeChange?: Function;
+  children?: any;
+  onEditReferenceClick?: Function;
+  loggedIn?: boolean;
+  setScrollElement?: Function;
+  disableEdit?: boolean;
 }) {
   const renderReferenceItem = useCallback(
     (reference, index) => (
@@ -43,9 +45,10 @@ function ReferenceList({
         onEditReferenceClick={onEditReferenceClick}
         loggedIn={loggedIn}
         setScrollElement={setScrollElement}
+        disableEdit={disableEdit}
       />
     ),
-    [onEditReferenceClick, loggedIn, setScrollElement]
+    [onEditReferenceClick, loggedIn, setScrollElement, disableEdit]
   );
 
   const renderList = useCallback(
@@ -60,7 +63,9 @@ function ReferenceList({
           page={query.page}
           pageSize={query.size}
         />
-      ): <></>,
+      ) : (
+        <></>
+      ),
     [
       query.page,
       query.size,
@@ -73,7 +78,7 @@ function ReferenceList({
   );
 
   return (
-    <ContentBox>
+    <ContentBox className="__ReferenceList__">
       <LoadingOrChildren loading={loading}>
         <ErrorAlertOrChildren error={error}>
           <EmptyOrChildren data={references} title="0 References">

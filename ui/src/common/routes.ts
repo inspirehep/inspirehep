@@ -26,7 +26,10 @@ export const USER_SETTINGS = `${USER}/settings`;
 export const HOLDINGPEN = '/holdingpen';
 export const HOLDINGPEN_DASHBOARD = `${HOLDINGPEN}/dashboard`;
 export const HOLDINGPEN_INSPECT = `${HOLDINGPEN}/inspect`;
-export const HOLDINGPEN_SEARCH = `${HOLDINGPEN}/search`;
+
+export const HOLDINGPEN_NEW = '/holdingpen-new';
+export const HOLDINGPEN_DASHBOARD_NEW = `${HOLDINGPEN_NEW}/dashboard`;
+export const HOLDINGPEN_SEARCH_NEW = `${HOLDINGPEN_NEW}/search`;
 
 export const ERRORS = '/errors';
 export const ERROR_401 = `${ERRORS}/401`;

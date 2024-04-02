@@ -1,10 +1,11 @@
 import React from 'react';
 import { Layout, Row, Col } from 'antd';
 import useResizeObserver from 'use-resize-observer';
+import classNames from 'classnames';
 
 import SearchBoxContainer from '../../containers/SearchBoxContainer';
 import './Header.less';
-import Logo from '../../components/Logo';
+import { Logo, LogoHoldingpen } from '../../components/Logo';
 import HeaderMenuContainer from './HeaderMenuContainer';
 import BetaRibbon from './BetaRibbon';
 import CollectionsMenu from '../CollectionsMenu';
@@ -13,23 +14,25 @@ import Banners from './Banners';
 function Header({
   isHomePage,
   isSubmissionsPage,
+  isHoldingpenPage,
   isBetaPage,
 }: {
   isHomePage: boolean;
   isSubmissionsPage: boolean;
+  isHoldingpenPage: boolean;
   isBetaPage: boolean;
 }) {
   const [stickyContainerRef, , stickyContainerHeight] = useResizeObserver();
 
   return (
-    <div className="__Header__">
+    <div className={classNames('__Header__', { holdingpen: isHoldingpenPage })}>
       <div ref={stickyContainerRef} className="sticky" data-test-id="sticky">
         <Banners />
         {isBetaPage && <BetaRibbon />}
         <Layout.Header className="header">
           <Row align="middle" gutter={{ xs: 8, sm: 16 }}>
             <Col xs={{ span: 13, order: 1 }} sm={{ span: 6, order: 1 }} lg={5}>
-              <Logo />
+              {isHoldingpenPage ? <LogoHoldingpen /> : <Logo />}
             </Col>
             <Col
               xs={{ span: 24, order: 3 }}
@@ -38,7 +41,7 @@ function Header({
               xl={13}
               xxl={14}
             >
-              {!isHomePage && !isSubmissionsPage && (
+              {!isHomePage && !isSubmissionsPage && !isHoldingpenPage && (
                 <SearchBoxContainer className="search-box" />
               )}
             </Col>
@@ -55,7 +58,11 @@ function Header({
         </Layout.Header>
       </div>
       <div className="non-sticky" style={{ marginTop: stickyContainerHeight }}>
-        <CollectionsMenu />
+        {isHoldingpenPage ? (
+          <div className="fake-collections-menu" />
+        ) : (
+          <CollectionsMenu />
+        )}
       </div>
     </div>
   );

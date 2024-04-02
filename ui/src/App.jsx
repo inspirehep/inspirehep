@@ -17,6 +17,7 @@ import {
   HOME,
   USER,
   HOLDINGPEN,
+  HOLDINGPEN_NEW,
   LITERATURE,
   AUTHORS,
   SUBMISSIONS,
@@ -27,7 +28,7 @@ import {
   SEMINARS,
   EXPERIMENTS,
   BIBLIOGRAPHY_GENERATOR,
-  JOURNALS
+  JOURNALS,
 } from './common/routes';
 import UserFeedback from './common/components/UserFeedback';
 import { setUserCategoryFromRoles, setClientId } from './tracker';
@@ -47,9 +48,14 @@ import Seminars from './seminars';
 import Experiments from './experiments';
 import Journals from './journals';
 import BibliographyGeneratorPageContainer from './bibliographyGenerator/BibliographyGeneratorPageContainer';
+import { SUPERUSER_OR_CATALOGER } from './common/authorization';
 
 const Holdingpen$ = Loadable({
   loader: () => import('./holdingpen'),
+  loading: Loading,
+});
+const HoldingpenNew$ = Loadable({
+  loader: () => import('./holdingpen-new'),
   loading: Loading,
 });
 const Submissions$ = Loadable({
@@ -58,45 +64,41 @@ const Submissions$ = Loadable({
 });
 
 function App({ userRoles, dispatch, guideModalVisibility }) {
-  useEffect(
-    () => {
-      dispatch(fetchLoggedInUser());
-    },
-    [dispatch]
-  );
+  useEffect(() => {
+    dispatch(fetchLoggedInUser());
+  }, [dispatch]);
 
-  useEffect(
-    () => {
-      const hasGuideModalBeenDisplayed = guideModalVisibility != null;
-      const shouldDisplayGuideOnStart = getConfigFor('DISPLAY_GUIDE_ON_START');
-      if (!hasGuideModalBeenDisplayed && shouldDisplayGuideOnStart) {
-        setTimeout(() => {
-          dispatch(changeGuideModalVisibility(true));
-        }, 3000);
-      }
-    },
-    [guideModalVisibility, dispatch]
-  );
+  useEffect(() => {
+    const hasGuideModalBeenDisplayed = guideModalVisibility != null;
+    const shouldDisplayGuideOnStart = getConfigFor('DISPLAY_GUIDE_ON_START');
+    if (!hasGuideModalBeenDisplayed && shouldDisplayGuideOnStart) {
+      setTimeout(() => {
+        dispatch(changeGuideModalVisibility(true));
+      }, 3000);
+    }
+  }, [guideModalVisibility, dispatch]);
 
-  useEffect(
-    () => {
-      setUserCategoryFromRoles(userRoles);
-    },
-    [userRoles]
-  );
+  useEffect(() => {
+    setUserCategoryFromRoles(userRoles);
+  }, [userRoles]);
 
   useEffect(() => {
     setClientId();
   }, []);
 
   return (
-    <Layout className="__App__" data-testid='app'>
+    <Layout className="__App__" data-testid="app">
       <Header />
       <Layout.Content className="content">
         <SafeSwitch id="main">
           <Route exact path={HOME} component={Home} />
           <Route path={USER} component={User} />
           <PrivateRoute path={HOLDINGPEN} component={Holdingpen$} />
+          <PrivateRoute
+            path={HOLDINGPEN_NEW}
+            component={HoldingpenNew$}
+            authorizedRoles={SUPERUSER_OR_CATALOGER}
+          />
           <Route path={LITERATURE} component={Literature} />
           <Route path={AUTHORS} component={Authors} />
           <Route path={JOBS} component={Jobs} />
@@ -126,12 +128,12 @@ App.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-const stateToProps = state => ({
+const stateToProps = (state) => ({
   guideModalVisibility: state.ui.get('guideModalVisibility'),
   userRoles: state.user.getIn(['data', 'roles']),
 });
 
-const dispatchToProps = dispatch => ({
+const dispatchToProps = (dispatch) => ({
   dispatch,
 });
 

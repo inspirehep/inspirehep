@@ -1,3 +1,4 @@
 import Logo from './Logo';
+import LogoHoldingpen from './LogoHoldingpen';
 
-export default Logo;
+export { Logo, LogoHoldingpen };

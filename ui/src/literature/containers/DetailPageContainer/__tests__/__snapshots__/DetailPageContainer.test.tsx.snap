@@ -33,7 +33,7 @@ exports[`DetailPageContainer renders initial state 1`] = `
                 class="ant-card-body"
               >
                 <div
-                  class="pa2"
+                  class="pa2 md-pb3"
                 >
                   <div>
                     <div
@@ -310,7 +310,7 @@ exports[`DetailPageContainer renders initial state 1`] = `
           style="padding-left: 16px; padding-right: 16px;"
         >
           <div
-            class="__ContentBox__ h-100 "
+            class="__ContentBox__ h-100"
           >
             <div
               class="ant-card ant-card-bordered h-100"
@@ -544,7 +544,7 @@ exports[`DetailPageContainer renders initial state 1`] = `
                   tabindex="0"
                 >
                   <div
-                    class="__ContentBox__ h-100 "
+                    class="__ContentBox__ h-100 __ReferenceList__"
                   >
                     <div
                       class="ant-card ant-card-bordered h-100"
@@ -553,7 +553,7 @@ exports[`DetailPageContainer renders initial state 1`] = `
                         class="ant-card-body"
                       >
                         <div
-                          class="pa2"
+                          class="pa2 __ReferenceList__"
                         >
                           <div>
                             <div
