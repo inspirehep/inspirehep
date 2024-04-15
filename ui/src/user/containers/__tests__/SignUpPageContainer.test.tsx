@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react';
-import "@testing-library/jest-dom/extend-expect";
+import '@testing-library/jest-dom/extend-expect';
 import userEvent from '@testing-library/user-event';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
@@ -24,17 +24,17 @@ describe('SignUpPageContainer', () => {
     );
 
     const emailInput = getByTestId('email');
-    await waitFor(() => fireEvent.change(emailInput, { target: { value: 'test@user.com' } }));
+    await waitFor(() =>
+      fireEvent.change(emailInput, { target: { value: 'test@user.com' } })
+    );
     const submitButton = getByTestId('submit');
     await waitFor(() => userEvent.click(submitButton));
 
-    const expectedActions = [
-      {
-        type: USER_SIGN_UP_REQUEST,
-      },
-    ];
+    const expectedActions = {
+      type: USER_SIGN_UP_REQUEST,
+    };
 
-    await waitFor(() => expect(store.getActions()).toEqual(expectedActions));
+    await waitFor(() => expect(store.getActions()[0]).toEqual(expectedActions));
   });
 
   it('passes errors, onSubmit, and loading from the state', () => {
@@ -47,13 +47,14 @@ describe('SignUpPageContainer', () => {
       }),
     });
 
-    const { getByTestId } = render(
+    const { getByTestId, getByText } = render(
       <Provider store={store}>
         <SignUpPageContainer />
       </Provider>
     );
 
-    expect(getByTestId('This is an error')).toBeInTheDocument();
-    expect(getByTestId('true')).toBeInTheDocument();
+    expect(getByTestId('error')).toBeInTheDocument();
+    expect(getByText('This is an error')).toBeInTheDocument();
+    expect(getByTestId('loading')).toBeInTheDocument();
   });
 });

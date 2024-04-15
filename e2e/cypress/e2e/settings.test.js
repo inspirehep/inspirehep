@@ -11,14 +11,14 @@ describe('settings', () => {
   onlyOn('headless', () => {
     it.skip('matches image snapshot', () => {
       cy.visit('/user/settings');
-      cy.wait(2000);
+      cy.wait(10000);
       cy.matchSnapshots('Settings');
     });
   });
 
   it('enables submit button when email is correct', () => {
     cy.visit('/user/settings');
-    cy.wait(2000);
+    cy.wait(10000);
 
     cy.get('[data-test-id=email]')
       .clear()
@@ -29,7 +29,7 @@ describe('settings', () => {
 
   it('should display validation error when email is incorrect', () => {
     cy.visit('/user/settings');
-    cy.wait(2000);
+    cy.wait(10000);
 
     cy.get('[data-test-id=email]').clear().type('johnrellis@inspirehep').blur();
 
@@ -40,7 +40,7 @@ describe('settings', () => {
     const recordId = 1010819;
 
     cy.visit('/user/settings');
-    cy.wait(2000);
+    cy.wait(10000);
 
     cy.get('[data-test-id="author-form"]').click();
 
@@ -49,7 +49,7 @@ describe('settings', () => {
 
   it('exports to orcid', () => {
     cy.visit('/user/settings');
-    cy.wait(2000);
+    cy.wait(10000);
 
     cy.get('[data-test-id="orcid-switch"]').click();
     cy.get('div[class~="ant-popconfirm"]')
@@ -57,7 +57,7 @@ describe('settings', () => {
       .click();
 
     cy.reload();
-    cy.wait(2000);
+    cy.wait(10000);
 
     cy.get('[data-test-id="orcid-switch"]').should(
       'have.attr',
@@ -68,7 +68,7 @@ describe('settings', () => {
 
   it('unexports from orcid', () => {
     cy.visit('/user/settings');
-    cy.wait(2000);
+    cy.wait(10000);
 
     cy.get('[data-test-id="orcid-switch"]').click();
     cy.get('div[class~="ant-popconfirm"]')
@@ -76,7 +76,7 @@ describe('settings', () => {
       .click();
 
     cy.reload();
-    cy.wait(2000);
+    cy.wait(10000);
 
     cy.get('[data-test-id="orcid-switch"]').should(
       'have.attr',

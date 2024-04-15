@@ -58,7 +58,7 @@ Cypress.Commands.add(
         method: 'POST',
       });
       cy.submitForm(formData);
-
+      cy.wait(5000);
       return cy.waitForRoute(apiRoute).then(() => {
         if (submissionType === 'record') {
           cy.testRecord(expectedMetadata);

@@ -16,7 +16,7 @@ exports[`SignUpPage renders page 1`] = `
           Please let us know your e-mail address to complete your account registration.
         </p>
         <div
-          data-testid="false"
+          data-testid=""
         >
           <form
             action="#"
@@ -94,7 +94,7 @@ exports[`SignUpPage renders page with errors 1`] = `
         </p>
         <div
           class="ant-row mb3"
-          data-testid="This is an error yo"
+          data-testid="error"
         >
           <div
             class="ant-col"
@@ -161,7 +161,7 @@ exports[`SignUpPage renders page with errors 1`] = `
           </div>
         </div>
         <div
-          data-testid="false"
+          data-testid=""
         >
           <form
             action="#"
@@ -238,7 +238,7 @@ exports[`SignUpPage renders page with loading 1`] = `
           Please let us know your e-mail address to complete your account registration.
         </p>
         <div
-          data-testid="true"
+          data-testid="loading"
         >
           <form
             action="#"
