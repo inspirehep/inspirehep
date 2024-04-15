@@ -293,7 +293,9 @@ describe('Reference container', () => {
         .find('[data-test-id="reference-title"]')
         .as('referenceTitle');
 
+      cy.wait(5000);
       cy.get('@editButton').click();
+      cy.wait(5000);
       cy.get('[data-test-id="reference-embedded-search')
         .find('.ant-input-search-button')
         .click();

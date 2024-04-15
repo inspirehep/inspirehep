@@ -29,13 +29,18 @@ const SignUpPage: React.FC<{
             registration.
           </p>
           {error && (
-            <Row className="mb3" data-testid={error.message}>
+            <Row className="mb3" data-testid="error">
               <Col>
-                <Alert message={error.message} type="error" showIcon closable />
+                <Alert
+                  message={error.message || 'Something went wrong'}
+                  type="error"
+                  showIcon
+                  closable
+                />
               </Col>
             </Row>
           )}
-          <div data-testid={loading}>
+          <div data-testid={loading ? 'loading' : ''}>
             <SingUpForm onSignUp={onSignUp} loading={loading} />
           </div>
         </Card>
