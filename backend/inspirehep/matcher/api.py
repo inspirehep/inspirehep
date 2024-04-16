@@ -233,7 +233,9 @@ def get_affiliations_from_pdf(url, **kwargs):
     data = {"input": document}
     data.update(kwargs)
     grobid_url = current_app.config["GROBID_URL"]
-    response = requests.post(urljoin(grobid_url, api_path), files=data)
+    response = requests.post(
+        urljoin(grobid_url, api_path), files=data, headers={"Accept": "application/xml"}
+    )
     response.raise_for_status()
 
     parsed_authors = [
