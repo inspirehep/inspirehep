@@ -60,7 +60,7 @@ fqn-decorators = "~=1.2,>=1.2.3"
 editdistance = "^0.5.3"
 munkres = "^1.0"
 rt = "^1.0"
-gunicorn = "^19.0.0"
+gunicorn = "^22.0.0"
 sentry-sdk = {version = "^0.10.2",extras = ["flask"]}
 prometheus-flask-exporter = "^0.15.0"
 numpy = ">=1.17.0"
