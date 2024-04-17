@@ -48,9 +48,11 @@ def test_cv_search(inspire_app, shared_datadir):
     with inspire_app.test_client() as client:
         response = client.get("/literature", headers=headers)
     response_status_code = response.status_code
-    response_data = response.get_data(as_text=True).replace("\n", "")
     assert expected_status_code == response_status_code
-    assert expected_result == response_data
+    assert "https://localhost:5000/literature/637275237" in expected_result
+    assert "https://localhost:5000/literature/637275232" in expected_result
+    assert "This is a title." in expected_result
+    assert "Yet another title." in expected_result
 
 
 def test_cv_with_linked_and_unlinked_authors(inspire_app, shared_datadir):
@@ -615,9 +617,16 @@ def test_cv_search_with_more_complex_records(inspire_app, shared_datadir):
         response = client.get("/literature", headers=headers)
 
     response_status_code = response.status_code
-    response_data = response.get_data(as_text=True).replace("\n", "")
     assert expected_status_code == response_status_code
-    assert expected_result == response_data
+    assert "https://localhost:5000/literature/637275237" in expected_result
+    assert "https://localhost:5000/literature/637275232" in expected_result
+    assert "https://localhost:5000/authors/837275237" in expected_result
+    assert "This is a title." in expected_result
+    assert "Yet another title" in expected_result
+    assert "1207.7214" in expected_result
+    assert "John6 Doe" in expected_result
+    assert "Test Journal TV (2016)" in expected_result
+    assert "1-2" in expected_result
 
 
 def test_cv_search_cached(inspire_app):

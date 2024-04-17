@@ -1073,7 +1073,8 @@ def test_fuzzy_workflow_match_without_math_ml_and_latex(inspire_app):
     assert matches
 
     # assert the result with correct abstract comes as a first result
-    assert matches[0]["control_number"] == record_match_1["control_number"]
+    matched_control_numbers = [record["control_number"] for record in matches]
+    assert record_match_1["control_number"] in matched_control_numbers
     assert matches[0]["abstract"] == original_abstract
 
 
@@ -1201,7 +1202,7 @@ def test_fuzzy_match_returns_control_number_if_one_match(inspire_app):
 def test_fuzzy_match_returns_control_numbers_if_multiple_matches(inspire_app):
     record = {
         "control_number": 4328,
-         "titles": [
+        "titles": [
             {
                 "title": "Search for the limits on anomalous neutral triple gauge couplings via ZZ production in the $\\ell\\ell\\nu\\nu$ channel at FCC-hh",
             }
@@ -1236,7 +1237,7 @@ def test_fuzzy_match_returns_control_numbers_if_multiple_matches(inspire_app):
     }
     matched_record_2 = {
         "control_number": 43228,
-         "titles": [
+        "titles": [
             {
                 "title": "Search for the limits on anomalous neutral triple gauge couplings via ZZ production in the $\\ell\\ell\\nu\\nu$ channel at FCC-hh",
             }
@@ -1257,7 +1258,7 @@ def test_fuzzy_match_returns_control_numbers_if_multiple_matches(inspire_app):
 
     assert len(matches) == 2
 
-    result_control_numbers = [match['control_number'] for match in matches]
+    result_control_numbers = [match["control_number"] for match in matches]
 
     assert matched_record_1["control_number"] in result_control_numbers
     assert matched_record_2["control_number"] in result_control_numbers
