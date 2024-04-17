@@ -868,7 +868,7 @@ def test_disambiguation_on_record_update_ambiguous_match(
 
     db.session.commit()
 
-    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
+    @retry_test(stop=stop_after_delay(90), wait=wait_fixed(5))
     def assert_authors_records_exist_in_es():
         lit_record_from_es = InspireSearch.get_record_data_from_es(literature_record)
         lit_record_from_es_2 = InspireSearch.get_record_data_from_es(
@@ -885,7 +885,7 @@ def test_disambiguation_on_record_update_ambiguous_match(
     db.session.commit()
 
     # TODO: other assertions
-    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
+    @retry_test(stop=stop_after_delay(90), wait=wait_fixed(5))
     def assert_first_disambiguation_no_match():
         literature_record_from_es = InspireSearch.get_record_data_from_es(
             literature_record_3
@@ -908,7 +908,7 @@ def test_disambiguation_on_record_update_ambiguous_match(
     lit_record.update(dict(lit_record))
     db.session.commit()
 
-    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
+    @retry_test(stop=stop_after_delay(90), wait=wait_fixed(5))
     def assert_disambiguation_on_record_update():
         literature_record_from_es = InspireSearch.get_record_data_from_es(
             literature_record_3

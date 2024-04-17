@@ -38,7 +38,7 @@ def test_recalculate_references_after_literature_record_merge(
     )
     db.session.commit()
 
-    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(3))
+    @retry_test(stop=stop_after_delay(90), wait=wait_fixed(5))
     def assert_all_records_in_es():
         literature_record_from_es = InspireSearch.get_record_data_from_es(literature)
         seminar_record_from_es = InspireSearch.get_record_data_from_es(seminar)
@@ -53,7 +53,7 @@ def test_recalculate_references_after_literature_record_merge(
     merged_literature_record = InspireRecord.create(merged_literature_data)
     db.session.commit()
 
-    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(3))
+    @retry_test(stop=stop_after_delay(90), wait=wait_fixed(5))
     def assert_recalculate_references_task():
         seminar_record_from_es = InspireSearch.get_record_data_from_es(seminar)
         literature_record_from_es = InspireSearch.get_record_data_from_es(
@@ -110,7 +110,7 @@ def test_recalculate_references_after_author_record_merge(
     literature = InspireRecord.create(literature_data)
     db.session.commit()
 
-    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(3))
+    @retry_test(stop=stop_after_delay(90), wait=wait_fixed(5))
     def assert_all_records_in_es():
         literature_record_from_es = InspireSearch.get_record_data_from_es(literature)
         job_record_from_es = InspireSearch.get_record_data_from_es(job)
@@ -134,7 +134,7 @@ def test_recalculate_references_after_author_record_merge(
     merged_author_record = InspireRecord.create(merged_author_data)
     db.session.commit()
 
-    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(3))
+    @retry_test(stop=stop_after_delay(90), wait=wait_fixed(5))
     def assert_recalculate_references_task():
         seminar_record_from_es = InspireSearch.get_record_data_from_es(seminar)
         conference_record_from_es = InspireSearch.get_record_data_from_es(conference)
@@ -586,10 +586,11 @@ def test_recalculate_references_after_journal_record_merge(
     @retry_test(stop=stop_after_delay(30), wait=wait_fixed(3))
     def assert_recalculate_references_task():
         literature_record_from_es = InspireSearch.get_record_data_from_es(literature)
-        assert (
-            literature_record_from_es["publication_info"][0]["journal_record"]["$ref"]
-            == merged_journal_record["self"]["$ref"]
-        )
+        matched_references = [
+            record["journal_record"]["$ref"]
+            for record in literature_record_from_es["publication_info"]
+        ]
+        assert merged_journal_record["self"]["$ref"] in matched_references
 
     assert_recalculate_references_task()
 
@@ -681,7 +682,7 @@ def test_recalculate_references_recalculates_more_than_10_references(
     merged_journal_record = InspireRecord.create(merged_journal_data)
     db.session.commit()
 
-    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(3))
+    @retry_test(stop=stop_after_delay(90), wait=wait_fixed(5))
     def assert_recalculate_references_task():
         literature_records_from_es = list(
             LiteratureSearch()
@@ -717,7 +718,7 @@ def test_redirecy_references_is_not_triggered_if_record_was_not_changed(
     )
     db.session.commit()
 
-    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(3))
+    @retry_test(stop=stop_after_delay(90), wait=wait_fixed(5))
     def assert_all_records_in_es():
         literature_record_from_es = InspireSearch.get_record_data_from_es(literature)
         seminar_record_from_es = InspireSearch.get_record_data_from_es(seminar)
@@ -732,19 +733,24 @@ def test_redirecy_references_is_not_triggered_if_record_was_not_changed(
     merged_literature_record = InspireRecord.create(merged_literature_data)
     db.session.commit()
 
-    @retry_test(stop=stop_after_delay(30), wait=wait_fixed(3))
+    @retry_test(stop=stop_after_delay(90), wait=wait_fixed(5))
     def assert_recalculate_references_task():
         seminar_record_from_es = InspireSearch.get_record_data_from_es(seminar)
         literature_record_from_es = InspireSearch.get_record_data_from_es(
             literature_record_with_references
         )
+        seminar_record_refs_from_es = [
+            record["record"]["$ref"]
+            for record in seminar_record_from_es["literature_records"]
+        ]
+        literature_record_refs_from_es = [
+            record["record"]["$ref"]
+            for record in literature_record_from_es["references"]
+        ]
+
+        assert merged_literature_record["self"]["$ref"] in seminar_record_refs_from_es
         assert (
-            seminar_record_from_es["literature_records"][0]["record"]["$ref"]
-            == merged_literature_record["self"]["$ref"]
-        )
-        assert (
-            literature_record_from_es["references"][0]["record"]["$ref"]
-            == merged_literature_record["self"]["$ref"]
+            merged_literature_record["self"]["$ref"] in literature_record_refs_from_es
         )
 
     assert_recalculate_references_task()

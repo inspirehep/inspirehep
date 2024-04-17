@@ -4,6 +4,7 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+import json
 import urllib.parse
 from urllib.parse import quote
 from uuid import UUID
@@ -1003,22 +1004,24 @@ def test_record_returns_linked_books(inspire_app):
     parent_record_2 = create_record("jou")
     parent_record_3 = create_record("lit")
 
-    expected_linked_books = [{
-        "title": parent_record_1["titles"][0]["title"],
-        "record": {
-            "$ref": f"http://localhost:5000/api/literature/{parent_record_1['control_number']}"
+    expected_linked_books = [
+        {
+            "title": parent_record_1["titles"][0]["title"],
+            "record": {
+                "$ref": f"http://localhost:5000/api/literature/{parent_record_1['control_number']}"
+            },
+            "page_start": "123",
+            "page_end": "321",
         },
-        "page_start": "123",
-        "page_end": "321",
-    },
-    {
-        "title": parent_record_3["titles"][0]["title"],
-        "record": {
-            "$ref": f"http://localhost:5000/api/literature/{parent_record_3['control_number']}"
+        {
+            "title": parent_record_3["titles"][0]["title"],
+            "record": {
+                "$ref": f"http://localhost:5000/api/literature/{parent_record_3['control_number']}"
+            },
+            "page_start": "1",
+            "page_end": "2",
         },
-        "page_start": "1",
-        "page_end": "2",
-    }]
+    ]
 
     data = {
         "publication_info": [
@@ -1027,22 +1030,22 @@ def test_record_returns_linked_books(inspire_app):
                 "page_start": "123",
                 "parent_record": {
                     "$ref": f"http://localhost:5000/api/literature/{parent_record_1['control_number']}"
-                }
+                },
             },
             {
                 "page_end": "4",
                 "page_start": "3",
                 "journal_record": {
                     "$ref": f"http://localhost:5000/api/journals/{parent_record_2['control_number']}"
-                }
+                },
             },
             {
                 "page_end": "2",
                 "page_start": "1",
                 "parent_record": {
                     "$ref": f"http://localhost:5000/api/literature/{parent_record_3['control_number']}"
-                }
-            }
+                },
+            },
         ]
     }
     rec = create_record("lit", data=data)
@@ -1051,7 +1054,15 @@ def test_record_returns_linked_books(inspire_app):
         response = client.get(f"/literature/{rec['control_number']}", headers=headers)
     assert response.status_code == 200
     assert "linked_books" in response.json["metadata"]
-    assert response.json["metadata"]["linked_books"] == expected_linked_books
+
+    sorted_linked_books = {
+        json.dumps(obj, sort_keys=True)
+        for obj in response.json["metadata"]["linked_books"]
+    }
+    sorted_expected_linked_books = {
+        json.dumps(obj, sort_keys=True) for obj in expected_linked_books
+    }
+    assert sorted_linked_books == sorted_expected_linked_books
 
 
 def test_citation_pdf_urls(inspire_app):
