@@ -695,7 +695,7 @@ export const coreHep: JsonEditorConfig = {
       getUrl: (record) => {
         let ePrints: Array<{ value: string }> = record['arxiv_eprints'];
         if (ePrints && ePrints.length > 0) {
-          return `//arxiv.org/pdf/${ePrints[0].value}.pdf#zoom=100`;
+          return `//arxiv.org/pdf/${ePrints[0].value}#zoom=100`;
         } else {
           return undefined;
         }
