@@ -27,6 +27,7 @@ def test_all_schema_types_except_kekscan():
             {"schema": "euclid", "value": "euclid-id"},
             {"schema": "hal", "value": "hal-id"},
             {"schema": "MSNET", "value": "msnet-id"},
+            {"schema": "NSR", "value": "nsr-id"},
             {"schema": "osti", "value": "osti-id"},
             {"schema": "zblatt", "value": "zblatt-id"},
         ]
@@ -52,6 +53,10 @@ def test_all_schema_types_except_kekscan():
             {
                 "url_link": "http://www.ams.org/mathscinet-getitem?mr=msnet-id",
                 "url_name": "AMS MathSciNet",
+            },
+            {
+                "url_link": "https://www.nndc.bnl.gov/nsr/nsrlink.jsp?nsr-id",
+                "url_name": "Nuclear Science References",
             },
             {
                 "url_link": "https://www.osti.gov/scitech/biblio/osti-id",

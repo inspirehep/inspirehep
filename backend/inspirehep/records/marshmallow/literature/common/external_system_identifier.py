@@ -20,6 +20,7 @@ class ExternalSystemIdentifierSchemaV1(Schema):
         "hal": "HAL Science Ouverte",
         "kekscan": "KEK scanned document",
         "msnet": "AMS MathSciNet",
+        "nsr": "Nuclear Science References",
         "osti": "OSTI Information Bridge Server",
         "zblatt": "zbMATH",
     }
@@ -31,6 +32,7 @@ class ExternalSystemIdentifierSchemaV1(Schema):
         "hal": "https://hal.science/",
         "kekscan": "https://lib-extopc.kek.jp/preprints/PDF/",
         "msnet": "http://www.ams.org/mathscinet-getitem?mr=",
+        "nsr": "https://www.nndc.bnl.gov/nsr/nsrlink.jsp?",
         "osti": "https://www.osti.gov/scitech/biblio/",
         "zblatt": "https://zbmath.org/?q=an%3A",
     }
