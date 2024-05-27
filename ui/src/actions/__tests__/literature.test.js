@@ -327,6 +327,33 @@ describe('literature - async action creators', () => {
       clear();
     });
 
+    it('successfully claims', async () => {
+      const to = 123456;
+      const from = 654321;
+      const literatureId = 159731;
+
+      const store = getStore();
+
+      mockHttp
+        .onPost('/assign/literature/assign-different-profile', {
+          from_author_recid: from,
+          to_author_recid: to,
+          literature_ids: [literatureId],
+        })
+        .replyOnce(200, { message: 'Success' });
+
+      const expectedActions = [setAssignLiteratureItemDrawerVisibility(null)];
+
+      const dispatchPromise = store.dispatch(
+        assignLiteratureItemNoNameMatch({ from, to, literatureId })
+      );
+      expect(assigning).toHaveBeenCalled();
+
+      await dispatchPromise;
+      expect(store.getActions()).toEqual(expectedActions);
+      expect(assignLiteratureItemSuccess).toHaveBeenCalled();
+    });
+
     it('successfully creates rt_ticket', async () => {
       const to = 123456;
       const from = 654321;
@@ -387,7 +414,7 @@ describe('literature - async action creators', () => {
       clear();
     });
 
-    it('returns matching authors recid if exists and calls assignLiteratureItemSuccess if recids dont match', async () => {
+    it('returns matching authors recid if exists and calls assignSuccessDifferentProfileClaimedPapers if recids dont match', async () => {
       const to = 123456;
       const literatureId = 159731;
 
