@@ -396,7 +396,7 @@ describe('Literature collection', () => {
       cy.login('johnellis');
     });
 
-    it('moves paper to user profile automatically successfully', () => {
+    it('moves paper to user profile automatically when names match', () => {
       cy.intercept(
         'GET',
         '/api/assign/check-names-compatibility?literature_recid=1688995',
@@ -434,6 +434,70 @@ describe('Literature collection', () => {
       );
     });
 
+    it('moves paper to user profile automatically when no names match', () => {
+      cy.intercept(
+        'GET',
+        '/api/assign/check-names-compatibility?literature_recid=1688995',
+        {
+          statusCode: 404,
+          message: {
+            body: 'Not found',
+          },
+        }
+      ).as('getCheckNameError');
+
+      cy.intercept('POST', '/api/assign/literature/assign-different-profile', {
+        statusCode: 200,
+        body: {
+          message: 'Success',
+        },
+      }).as('getAssignSuccess');
+
+      cy.visit('/literature/1331798');
+      cy.waitForLoading();
+
+      cy.get('[data-test-id="btn-claiming-literature"]').trigger('mouseover');
+      cy.get('[data-test-id="assign-literature-item"]').click();
+      cy.get('[data-test-id="literature-drawer-radio-1274753"').click();
+      cy.get('[data-test-id="assign-literature-item-button"').click();
+
+      cy.wait('@getAssignSuccess');
+
+      cy.get('.ant-notification-notice-message').should(
+        'have.text',
+        'Assignment Successful!'
+      );
+      cy.get('.ant-notification-notice-description').should(
+        'have.text',
+        '1 paper added to your profile'
+      );
+    });
+
+    it('moves paper from selected author to user profile successfully and creates ticket', () => {
+      cy.intercept('POST', '/api/assign/literature/assign-different-profile', {
+        statusCode: 200,
+        body: {
+          message: 'Success',
+          created_rt_ticket: true,
+        },
+      }).as('getAssignSuccess');
+
+      cy.visit('/literature/1331798');
+      cy.waitForLoading();
+
+      cy.get('[data-test-id="btn-claiming-literature"]').trigger('mouseover');
+      cy.get('[data-test-id="assign-literature-item"]').click();
+      cy.get('[data-test-id="literature-drawer-radio-1274753"').click();
+      cy.get('[data-test-id="assign-literature-item-button"').click();
+
+      cy.wait('@getAssignSuccess');
+
+      cy.get('.ant-notification-notice-message').should(
+        'have.text',
+        'Some claims will be reviewed by our staff for approval.'
+      );
+    });
+
     it('shows error message when failed to move paper automatically', () => {
       cy.intercept('POST', '/api/assign/literature/assign', {
         statusCode: 500,
@@ -454,30 +518,6 @@ describe('Literature collection', () => {
       cy.get('.ant-notification-notice-description').should(
         'have.text',
         'Something went wrong.'
-      );
-    });
-
-    it('moves paper from selected author to user profile successfully', () => {
-      cy.intercept('POST', '/api/assign/literature/assign-different-profile', {
-        statusCode: 200,
-        body: {
-          created_rt_ticket: true,
-        },
-      }).as('getAssignSuccess');
-
-      cy.visit('/literature/1331798');
-      cy.waitForLoading();
-
-      cy.get('[data-test-id="btn-claiming-literature"]').trigger('mouseover');
-      cy.get('[data-test-id="assign-literature-item"]').click();
-      cy.get('[data-test-id="literature-drawer-radio-1274753"').click();
-      cy.get('[data-test-id="assign-literature-item-button"').click();
-
-      cy.wait('@getAssignSuccess');
-
-      cy.get('.ant-notification-notice-message').should(
-        'have.text',
-        'Some claims will be reviewed by our staff for approval.'
       );
     });
 

@@ -162,7 +162,12 @@ export function fetchLiteratureReferences(
   http: HttpClientWrapper
 ) => Promise<void> {
   return async (dispatch, getState, http) => {
-    const query: { size?: number; q?: string; assigned?: number, page?: string } = {
+    const query: {
+      size?: number;
+      q?: string;
+      assigned?: number;
+      page?: string;
+    } = {
       ...{
         size: getState().search.getIn([
           'namespaces',
@@ -359,7 +364,7 @@ export function curateReference({
         const element = getState().ui.get('referenceListActiveElement');
         scrollToElement(element);
         dispatch(setScrollElement(null));
-      });            
+      });
     } catch (error) {
       curationError(CURATING_NOTIFICATION_KEY);
     }
@@ -418,7 +423,18 @@ export function assignLiteratureItemNoNameMatch({
           literature_ids: [literatureId],
         }
       );
-      if (Object.prototype.hasOwnProperty.call(data, 'created_rt_ticket')) {
+      if (
+        data &&
+        data.message === 'Success' &&
+        !Object.prototype.hasOwnProperty.call(data, 'created_rt_ticket')
+      ) {
+        assignLiteratureItemSuccess();
+        dispatch(setAssignLiteratureItemDrawerVisibility(null));
+      } else if (
+        data &&
+        data.message === 'Success' &&
+        Object.prototype.hasOwnProperty.call(data, 'created_rt_ticket')
+      ) {
         assignSuccessDifferentProfileClaimedPapers();
         dispatch(setAssignLiteratureItemDrawerVisibility(null));
       } else {
