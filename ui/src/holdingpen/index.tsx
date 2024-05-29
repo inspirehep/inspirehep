@@ -10,25 +10,32 @@ import {
   HOLDINGPEN_SEARCH,
 } from '../common/routes';
 import SafeSwitch from '../common/components/SafeSwitch';
+import DocumentHead from '../common/components/DocumentHead';
+
+const META_DESCRIPTION = 'Tool for curators to manage submissions and harvests';
+const TITLE = 'Holdingpen';
 
 const Holdingpen = () => {
   return (
-    <div className="w-100" data-testid="holdingpen">
-      <SafeSwitch>
-        <Redirect exact from={HOLDINGPEN} to={HOLDINGPEN_DASHBOARD} />
-        <Route exact path={HOLDINGPEN_DASHBOARD} component={DashboardPage} />
-        <Route
-          exact
-          path={`${HOLDINGPEN_SEARCH}`}
-          component={SearchPageContainer}
-        />
-        <Route
-          exact
-          path={`${HOLDINGPEN}/:id`}
-          component={DetailPageContainer}
-        />
-      </SafeSwitch>
-    </div>
+    <>
+      <DocumentHead title={TITLE} description={META_DESCRIPTION} />
+      <div className="w-100" data-testid="holdingpen">
+        <SafeSwitch>
+          <Redirect exact from={HOLDINGPEN} to={HOLDINGPEN_DASHBOARD} />
+          <Route exact path={HOLDINGPEN_DASHBOARD} component={DashboardPage} />
+          <Route
+            exact
+            path={`${HOLDINGPEN_SEARCH}`}
+            component={SearchPageContainer}
+          />
+          <Route
+            exact
+            path={`${HOLDINGPEN}/:id`}
+            component={DetailPageContainer}
+          />
+        </SafeSwitch>
+      </div>
+    </>
   );
 };
 
