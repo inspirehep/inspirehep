@@ -10,6 +10,7 @@ class DocumentHead extends Component {
         <title>{title} - INSPIRE</title>
         {description && <meta name="description" content={description} />}
         {children}
+        <meta name="robots" content="noarchive" />
       </Helmet>
     );
   }

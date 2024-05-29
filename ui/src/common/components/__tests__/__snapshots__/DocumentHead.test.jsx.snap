@@ -9,6 +9,10 @@ exports[`DocumentHead renders with only title 1`] = `
     Jessica Jones
      - INSPIRE
   </title>
+  <meta
+    content="noarchive"
+    name="robots"
+  />
 </HelmetWrapper>
 `;
 
@@ -28,6 +32,10 @@ exports[`DocumentHead renders with title, description and children 1`] = `
   <meta
     content="Page Title"
     name="citation_title"
+  />
+  <meta
+    content="noarchive"
+    name="robots"
   />
 </HelmetWrapper>
 `;
