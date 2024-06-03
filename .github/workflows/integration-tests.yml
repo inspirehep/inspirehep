@@ -20,6 +20,15 @@ jobs:
   test:
     runs-on: ubuntu-latest
     services:
+      opensearch:
+        image: registry.cern.ch/cern-sis/inspire/opensearch
+        env:
+          bootstrap.memory_lock: true
+          ES_JAVA_OPTS: -Xms1024m -Xmx1024m
+          discovery.type: single-node
+          DISABLE_SECURITY_PLUGIN: true
+        ports:
+          - 9200:9200
       rabbitmq:
         image: rabbitmq:3-management
         ports:
