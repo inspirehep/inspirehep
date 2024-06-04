@@ -9,11 +9,13 @@ describe('PDGKeywords', () => {
     const keywords = fromJS([
       {
         value: 'Q007TP',
-        description: 'Test description'
+        description:
+          // eslint-disable-next-line no-template-curly-in-string
+          '\\Gamma($  ${{\\mathit W}^{+}}$   $\\rightarrow$   ${{\\mathit \\ell}^{+}}{{\\mathit \\nu}})/\\Gamma_{\\text{total}}',
       },
       {
         value: '2137',
-        description: 'test'
+        description: 'test',
       },
     ]);
     const wrapper = shallow(<PDGKeywords keywords={keywords} />);

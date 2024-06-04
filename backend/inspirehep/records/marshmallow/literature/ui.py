@@ -43,7 +43,7 @@ from .common import (
     PublicationInfoItemSchemaV1,
     ThesisInfoSchemaV1,
 )
-from .pdg_identifiers import PDG_IDS_TO_DESCRIPTION_MAPPING
+from .pdg_identifiers_latex import PDG_IDS_TO_LATEX_DESCRIPTION_MAPPING
 
 DATASET_SCHEMA_TO_URL_PREFIX_MAP = {
     "hepdata": "https://www.hepdata.net/record/",
@@ -285,7 +285,7 @@ class LiteratureDetailSchema(
             pdg_keywords.append(
                 {
                     "value": pdg_identifier,
-                    "description": PDG_IDS_TO_DESCRIPTION_MAPPING[pdg_identifier],
+                    "description": PDG_IDS_TO_LATEX_DESCRIPTION_MAPPING[pdg_identifier],
                 }
             )
 

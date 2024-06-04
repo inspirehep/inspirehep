@@ -19,7 +19,7 @@ from inspirehep.search.api import LiteratureSearch
 
 
 @mock.patch(
-    "inspirehep.records.marshmallow.literature.ui.PDG_IDS_TO_DESCRIPTION_MAPPING",
+    "inspirehep.records.marshmallow.literature.ui.PDG_IDS_TO_LATEX_DESCRIPTION_MAPPING",
     {
         "S000": "gamma (photon)",
         "S000.99": "test",
@@ -134,7 +134,7 @@ def test_update_pdg_keywords(inspire_app, clean_celery_session, cli):
 
 
 @mock.patch(
-    "inspirehep.records.marshmallow.literature.ui.PDG_IDS_TO_DESCRIPTION_MAPPING",
+    "inspirehep.records.marshmallow.literature.ui.PDG_IDS_TO_LATEX_DESCRIPTION_MAPPING",
     {
         "S000": "gamma (photon)",
         "S000.99": "test",
