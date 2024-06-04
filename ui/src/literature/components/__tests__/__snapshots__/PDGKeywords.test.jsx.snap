@@ -8,7 +8,9 @@ exports[`PDGKeywords renders with keywords 1`] = `
     as="a"
     href="https://pdglive.lbl.gov/view/Q007TP"
   >
-    Test description
+    <Latex>
+      \\Gamma($  \${{\\mathit W}^{+}}$   $\\rightarrow$   \${{\\mathit \\ell}^{+}}{{\\mathit \\nu}})/\\Gamma_{\\text{total}}
+    </Latex>
   </LinkWithTargetBlank>
   <div
     className="di pl2"
@@ -38,7 +40,7 @@ exports[`PDGKeywords renders with keywords 1`] = `
         Immutable.List [
           Immutable.Map {
             "value": "Q007TP",
-            "description": "Test description",
+            "description": "\\\\Gamma($  \${{\\\\mathit W}^{+}}$   $\\\\rightarrow$   \${{\\\\mathit \\\\ell}^{+}}{{\\\\mathit \\\\nu}})/\\\\Gamma_{\\\\text{total}}",
           },
           Immutable.Map {
             "value": "2137",

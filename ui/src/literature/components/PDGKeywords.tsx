@@ -3,11 +3,12 @@ import { Modal, List } from 'antd';
 
 import SecondaryButton from '../../common/components/SecondaryButton';
 import LinkWithTargetBlank from '../../common/components/LinkWithTargetBlank';
+import Latex from '../../common/components/Latex';
 
 interface IKeyword {
   get: (arg: string) => string;
   size: number;
-  valueSeq: () => {get: (arg: number) => IKeyword}
+  valueSeq: () => { get: (arg: number) => IKeyword };
 }
 
 export const PDGKeywords = ({ keywords }: { keywords: IKeyword }) => {
@@ -26,10 +27,12 @@ export const PDGKeywords = ({ keywords }: { keywords: IKeyword }) => {
   const renderKeyword = (keyword: IKeyword) => {
     const keywordValue = keyword && keyword.get('value');
     const keywordDescription = keyword && keyword.get('description');
-    
+
     return (
-      <LinkWithTargetBlank href={`https://pdglive.lbl.gov/view/${keywordValue}`}>
-        {keywordDescription}
+      <LinkWithTargetBlank
+        href={`https://pdglive.lbl.gov/view/${keywordValue}`}
+      >
+        <Latex>{keywordDescription}</Latex>
       </LinkWithTargetBlank>
     );
   };
@@ -46,7 +49,7 @@ export const PDGKeywords = ({ keywords }: { keywords: IKeyword }) => {
           open={modalVisibility}
           footer={null}
           onCancel={toggleModal}
-          bodyStyle={{padding: '12px 24px 24px 24px'}}
+          bodyStyle={{ padding: '12px 24px 24px 24px' }}
         >
           <List
             // @ts-ignore
@@ -54,10 +57,12 @@ export const PDGKeywords = ({ keywords }: { keywords: IKeyword }) => {
             size="small"
             pagination={{
               pageSize: 10,
-              size: "small",
+              size: 'small',
               hideOnSinglePage: true,
             }}
-            renderItem={(keyword: IKeyword) => <List.Item>{renderKeyword(keyword)}</List.Item>}
+            renderItem={(keyword: IKeyword) => (
+              <List.Item>{renderKeyword(keyword)}</List.Item>
+            )}
           />
         </Modal>
       </>
