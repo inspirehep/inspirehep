@@ -4,9 +4,9 @@ Base settings to build other settings files upon.
 import platform
 from pathlib import Path
 
-from opensearch_dsl import connections
 import dj_database_url
 import environ
+from opensearch_dsl import connections
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 # backoffice/
@@ -100,7 +100,7 @@ THIRD_PARTY_APPS = [
     "allauth.socialaccount.providers.orcid",
     "django_prometheus",
     "django_opensearch_dsl",
-    "django_elasticsearch_dsl_drf"
+    "django_elasticsearch_dsl_drf",
 ]
 
 LOCAL_APPS = ["backoffice.users", "backoffice.workflows", "backoffice.management"]
@@ -371,8 +371,6 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
-
-
 
 
 # Opensearch
