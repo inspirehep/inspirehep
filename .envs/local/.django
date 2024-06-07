@@ -13,3 +13,7 @@ CELERY_RESULT_BACKEND=redis://redis:6379/2
 # Flower
 CELERY_FLOWER_USER=debug
 CELERY_FLOWER_PASSWORD=debug
+
+# Opensearch
+OPENSEARCH_HOST=opensearch:9200
+OPENSEARCH_INDEX_PREFIX=backoffice-backend-local

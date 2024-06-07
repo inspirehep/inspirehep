@@ -9,7 +9,7 @@ on:
         required: true
     outputs:
       image-id:
-        description: The ID of image that has been buit
+        description: The ID of image that has been built
         value: ${{ jobs.build.outputs.image-id }}
 
 jobs:

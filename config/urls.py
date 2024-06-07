@@ -37,6 +37,7 @@ urlpatterns += [
         SpectacularSwaggerView.as_view(url_name="api-schema"),
         name="api-docs",
     ),
+    path("api/search/", include("config.search_router")),
 ]
 
 if settings.DEBUG:
