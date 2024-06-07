@@ -22,7 +22,8 @@ RUN curl -sSL https://install.python-poetry.org \
   | python - --version "${POETRY_VERSION}" \
   && poetry --version
 
-COPY poetry.lock pyproject.toml .
+COPY poetry.lock ./poetry.lock
+COPY pyproject.toml ./pyproject.toml
 RUN poetry install --no-root
 
 COPY . ${APP_HOME}
