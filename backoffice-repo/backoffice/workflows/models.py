@@ -29,6 +29,9 @@ class Workflow(models.Model):
     core = models.BooleanField()
     is_update = models.BooleanField()
 
+    _created_at = models.DateTimeField(auto_now_add=True)
+    _updated_at = models.DateTimeField(auto_now=True)
+
 
 class WorkflowTicket(models.Model):
     workflow_id = models.ForeignKey(Workflow, on_delete=models.CASCADE)
