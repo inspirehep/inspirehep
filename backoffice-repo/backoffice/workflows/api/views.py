@@ -1,12 +1,13 @@
 from django.shortcuts import get_object_or_404
+from django_elasticsearch_dsl_drf.viewsets import BaseDocumentViewSet
 from rest_framework import status, viewsets
 from rest_framework.response import Response
-from django_elasticsearch_dsl_drf.viewsets import BaseDocumentViewSet
 
-from backoffice.workflows.models import Workflow, WorkflowTicket
-from backoffice.workflows.documents import WorkflowDocument
 from backoffice.utils.pagination import OSStandardResultsSetPagination
-from .serializers import WorkflowSerializer, WorkflowTicketSerializer, WorkflowDocumentSerializer
+from backoffice.workflows.documents import WorkflowDocument
+from backoffice.workflows.models import Workflow, WorkflowTicket
+
+from .serializers import WorkflowDocumentSerializer, WorkflowSerializer, WorkflowTicketSerializer
 
 
 class WorkflowViewSet(viewsets.ModelViewSet):
