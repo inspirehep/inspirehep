@@ -10,7 +10,7 @@ else:
 
 
 # Workflow
-router.register("workflow", WorkflowDocumentView, basename="workflow")
+router.register("workflows/search", WorkflowDocumentView, basename="workflow")
 
 app_name = "search"
 urlpatterns = router.urls

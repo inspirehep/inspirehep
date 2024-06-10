@@ -28,6 +28,7 @@ if settings.DEBUG:
 # API URLS
 urlpatterns += [
     # API base url
+    path("api/", include("config.search_router")),
     path("api/", include("config.api_router")),
     # DRF auth token
     path("auth-token/", obtain_auth_token),
@@ -37,7 +38,6 @@ urlpatterns += [
         SpectacularSwaggerView.as_view(url_name="api-schema"),
         name="api-docs",
     ),
-    path("api/search/", include("config.search_router")),
 ]
 
 if settings.DEBUG:
