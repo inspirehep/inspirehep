@@ -6,6 +6,7 @@ from pathlib import Path
 
 import dj_database_url
 import environ
+from opensearch_dsl import connections
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 # backoffice/
@@ -98,6 +99,8 @@ THIRD_PARTY_APPS = [
     "drf_spectacular",
     "allauth.socialaccount.providers.orcid",
     "django_prometheus",
+    "django_opensearch_dsl",
+    "django_elasticsearch_dsl_drf",
 ]
 
 LOCAL_APPS = ["backoffice.users", "backoffice.workflows", "backoffice.management"]
@@ -341,6 +344,7 @@ REST_FRAMEWORK = {
     ),
     "DEFAULT_PERMISSION_CLASSES": ("backoffice.management.permissions.IsAdminOrCuratorUser",),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
 }
 
 # django-cors-headers - https://github.com/adamchainz/django-cors-headers#setup
@@ -367,3 +371,18 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
+
+
+# Opensearch
+# ------------------------------------------------------------------------------
+# Name of the Opensearch index
+OPENSEARCH_INDEX_NAMES = {
+    "backoffice.workflows.documents": f'{env("OPENSEARCH_INDEX_PREFIX")}-workflows',
+}
+
+OPENSEARCH_DSL = {
+    "default": {"hosts": env("OPENSEARCH_HOST")},
+}
+
+# Workaround because it wont add the connection settings automatically
+connections.configure(default=OPENSEARCH_DSL["default"])

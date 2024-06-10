@@ -12,6 +12,8 @@ SECRET_KEY = env(
     "DJANGO_SECRET_KEY",
     default="0GcuNOm9KXvazfJKLWYOoTSIBznjRNj3qfioFMKtHBow8Sv7hOmjkBbOBRZDGZy2",
 )
+ALLOWED_HOSTS = ["127.0.0.1"]
+
 # https://docs.djangoproject.com/en/dev/ref/settings/#test-runner
 TEST_RUNNER = "django.test.runner.DiscoverRunner"
 
@@ -33,5 +35,21 @@ TEMPLATES[0]["OPTIONS"]["debug"] = True  # type: ignore # noqa: F405
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#media-url
 MEDIA_URL = "http://media.testserver"
-# Your stuff...
+# Opensearch
 # ------------------------------------------------------------------------------
+# Name of the Opensearch index
+OPENSEARCH_INDEX_NAMES = {
+    "backoffice.workflows.documents": "backoffice-backend-test-workflows",
+}
+# Force an index refresh with every save.
+OPENSEARCH_DSL_AUTO_REFRESH = True
+
+OPENSEARCH_DSL = {
+    "default": {
+        "hosts": [env("OPENSEARCH_HOST")],
+        "use_ssl": False,
+        "verify_certs": False,
+        "timeout": 30,
+    },
+}
+
