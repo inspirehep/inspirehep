@@ -2181,18 +2181,18 @@ tests = ["flake8 (>=3.5.0,<4.0)", "mock (>=2.0.0,<3.0)", "pytest (>=3.2.2,<4.0)"
 
 [[package]]
 name = "inspire-schemas"
-version = "61.5.27"
+version = "61.5.29"
 description = "Inspire JSON schemas and utilities to use them."
 optional = false
 python-versions = "*"
 files = [
-    {file = "inspire_schemas-61.5.27-py2.py3-none-any.whl", hash = "sha256:ea8148d536dfa41d01a784be2d9e83ccc02d8be4327b8cfc6f20e0fb8327fc84"},
+    {file = "inspire_schemas-61.5.29-py2.py3-none-any.whl", hash = "sha256:3c21c6890400fc7f3c48b43996127ca7eaffebb99859d7c90dcb4e4bcb6ec4b4"},
 ]
 
 [package.dependencies]
 bleach = ">=3.2.1,<4.0"
 bump2version = {version = ">=1.0,<2.0", markers = "python_version >= \"3\""}
-idutils = "1.2.1"
+idutils = {version = ">=1.2.1,<2.0", markers = "python_version >= \"3\""}
 inspire-utils = ">=3.0.0,<4.0"
 isbnid = "*"
 isodate = "*"
@@ -2206,7 +2206,7 @@ urllib3 = ">=1.21.1,<1.25.0 || >1.25.0,<1.25.1 || >1.25.1,<1.26"
 
 [package.extras]
 docs = ["Sphinx", "jsonschema2rst (>=0.1)"]
-tests = ["check-manifest", "coverage", "idutils (==1.2.1)", "isbnid", "isort (>=4.3.0,<5.0)", "mock", "pytest (>=3.6.0,<4.0)", "pytest-cache", "pytest-cov (==2.6.1)", "pytest-pep8", "unicode-string-literal (>=1.1,<2.0)"]
+tests = ["check-manifest", "coverage", "idutils (>=1.2.1,<2.0)", "inspire-idutils (==1.2.4)", "isbnid", "isort (>=4.3.0,<5.0)", "mock", "pytest (>=3.6.0,<4.0)", "pytest-cache", "pytest-cov (==2.6.1)", "pytest-pep8", "unicode-string-literal (>=1.1,<2.0)"]
 
 [[package]]
 name = "inspire-service-orcid"
