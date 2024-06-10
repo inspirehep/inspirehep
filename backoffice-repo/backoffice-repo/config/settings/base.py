@@ -344,7 +344,7 @@ REST_FRAMEWORK = {
     ),
     "DEFAULT_PERMISSION_CLASSES": ("backoffice.management.permissions.IsAdminOrCuratorUser",),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
-    "DEFAULT_PAGINATION_CLASS": "backoffice.utils.pagination.StandardResultsSetPagination",
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
 }
 
 # django-cors-headers - https://github.com/adamchainz/django-cors-headers#setup
