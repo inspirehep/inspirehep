@@ -1,6 +1,7 @@
 import logging
 
 import sentry_sdk
+from opensearch_dsl import connections
 from sentry_sdk.integrations.celery import CeleryIntegration
 from sentry_sdk.integrations.django import DjangoIntegration
 from sentry_sdk.integrations.logging import LoggingIntegration
@@ -197,5 +198,27 @@ sentry_sdk.init(
 SPECTACULAR_SETTINGS["SERVERS"] = [  # noqa: F405
     {"url": "https://example.com", "description": "Production server"},
 ]
+
+# Opensearch
+# ------------------------------------------------------------------------------
+OPENSEARCH_DSL = {
+    "default": {
+        "hosts": [env("OPENSEARCH_HOST")],
+        "http_auth": (
+            env("OPENSEARCH_USER"),
+            env("OPENSEARCH_PASSWORD"),
+        ),
+        "port": 443,
+        "use_ssl": True,
+        "verify_certs": False,
+        "timeout": 30,
+        "http_compress": True,
+        "url_prefix": "es",
+    },
+}
+
+# Workaround because it wont add the connection settings automatically
+connections.configure(default=OPENSEARCH_DSL["default"])
+
 # Your stuff...
 # ------------------------------------------------------------------------------
