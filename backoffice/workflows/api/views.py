@@ -1,10 +1,13 @@
 from django.shortcuts import get_object_or_404
+from django_elasticsearch_dsl_drf.viewsets import BaseDocumentViewSet
 from rest_framework import status, viewsets
 from rest_framework.response import Response
 
+from backoffice.utils.pagination import OSStandardResultsSetPagination
+from backoffice.workflows.documents import WorkflowDocument
 from backoffice.workflows.models import Workflow, WorkflowTicket
 
-from .serializers import WorkflowSerializer, WorkflowTicketSerializer
+from .serializers import WorkflowDocumentSerializer, WorkflowSerializer, WorkflowTicketSerializer
 
 
 class WorkflowViewSet(viewsets.ModelViewSet):
@@ -65,3 +68,23 @@ class WorkflowTicketViewSet(viewsets.ViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class WorkflowDocumentView(BaseDocumentViewSet):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.search = self.search.extra(track_total_hits=True)
+
+    document = WorkflowDocument
+    serializer_class = WorkflowSerializer
+    pagination_class = OSStandardResultsSetPagination
+
+    search_fields = {
+        "workflow_type",
+        "status",
+        "is_update",
+    }
+    ordering = ["_updated_at"]
+
+    def get_serializer_class(self):
+        return WorkflowDocumentSerializer

@@ -143,6 +143,11 @@ django-anymail = "10.1"
 dj-database-url = "^2.1.0"
 whitenoise = "^6.6.0"
 django-prometheus = "^2.3.1"
+django-opensearch-dsl = "^0.6.2"
+elasticsearch = "6.8.2"
+django-elasticsearch-dsl-drf = {git = "https://github.com/cern-sis/django-elasticsearch-dsl-drf.git", rev = "opensearch"}
+opensearch-dsl = "^2.1.0"
+opensearch-py = "2.6.0"
 
 [tool.poetry.dev-dependencies]
 factory-boy = "3.3.0"
