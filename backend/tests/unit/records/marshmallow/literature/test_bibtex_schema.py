@@ -5,10 +5,11 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-
 import mock
+import pytest
 from helpers.providers.faker import faker
 from inspire_schemas.api import load_schema, validate
+from isbnlib._exceptions import NotValidISBNError
 
 from inspirehep.records.marshmallow.literature.bibtex import BibTexCommonSchema
 
@@ -296,12 +297,10 @@ def test_isbn_invalid():
         "isbns": [{"value": "111-1-11-111111-0"}, {"value": "1111111111111"}],
     }
 
-    expected_isbn = "111-1-11-111111-0, 1111111111111"
     schema = BibTexCommonSchema()
 
-    result = schema.dump(record).data
-    result_isbn = result["isbn"]
-    assert expected_isbn == result_isbn
+    with pytest.raises(NotValidISBNError):
+        schema.dump(record).data
 
 
 def test_eprint():
