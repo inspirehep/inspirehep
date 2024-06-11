@@ -70,11 +70,11 @@ def test_return_record_for_publication_info_search_with_journal_title_without_do
         "titles": [{"title": "The Strongly-Interacting Light Higgs"}],
     }
 
-    record = create_record(
+    create_record(
         "jou",
         data={"short_title": "Phys.Lett.B", "journal_title": {"title": "Phys Lett B"}},
     )
-    create_record("lit", cited_record_json)
+    record = create_record("lit", cited_record_json)
 
     expected_control_number = record["control_number"]
 
