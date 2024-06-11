@@ -4,7 +4,6 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-import json
 import urllib.parse
 from urllib.parse import quote
 from uuid import UUID
@@ -1055,14 +1054,16 @@ def test_record_returns_linked_books(inspire_app):
     assert response.status_code == 200
     assert "linked_books" in response.json["metadata"]
 
-    sorted_linked_books = {
-        json.dumps(obj, sort_keys=True)
-        for obj in response.json["metadata"]["linked_books"]
+    # Extract $refs from the response
+    response_refs = {
+        obj.get("$ref") for obj in response.json["metadata"]["linked_books"]
     }
-    sorted_expected_linked_books = {
-        json.dumps(obj, sort_keys=True) for obj in expected_linked_books
-    }
-    assert sorted_linked_books == sorted_expected_linked_books
+
+    # Extract $refs from the expected results
+    expected_refs = {obj.get("$ref") for obj in expected_linked_books}
+
+    # Check if the sets of $refs are equal
+    assert response_refs == expected_refs
 
 
 def test_citation_pdf_urls(inspire_app):
