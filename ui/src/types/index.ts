@@ -1,3 +1,5 @@
+import { Moment } from 'moment';
+
 import {
   LITERATURE_PID_TYPE,
   JOBS_PID_TYPE,
@@ -11,6 +13,13 @@ import {
 declare global {
   interface Window {
     CONFIG: any;
+  }
+}
+
+declare global {
+  interface Date {
+    isAfter(date?: Moment): [Date, Date];
+    isBefore(date?: Moment): [Date, Date];
   }
 }
 
@@ -37,4 +46,13 @@ export interface User {
 export interface Credentials {
   email?: string;
   password?: string;
+}
+
+export interface Suggestion {
+  _source: {
+    short_title: string;
+    legacy_name: string;
+    legacy_ICN: string;
+    titles: { title: string }[];
+  };
 }

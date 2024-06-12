@@ -4,7 +4,8 @@ exports[`JobUpdateSubmissionSuccessPage renders 1`] = `
 <SubmissionSuccess
   message={
     <span>
-      Successfully submitted, thank you for the submission! See the updates 
+      Successfully submitted, thank you for the submission! See the updates
+       
       <Link
         className="submission-link"
         to="/jobs/1"
