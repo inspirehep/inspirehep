@@ -1,16 +1,16 @@
 import moment from 'moment';
-import { List } from 'immutable';
+import { List, Map } from 'immutable';
 
 import { SEMINARS } from '../../../common/routes';
 import { stripHtml } from '../../../common/utils';
 import { getEventTitle } from './common';
 
-function formatDateTime(datetimeString) {
+function formatDateTime(datetimeString: string) {
   const datetime = moment.utc(datetimeString);
   return datetime.format('YYYYMMDDTHHmmssZ').replace('+00:00', 'Z');
 }
 
-export default function getIcsFileContent(seminar) {
+export default function getIcsFileContent(seminar: Map<string, any>) {
   const controlNumber = seminar.get('control_number');
   const id = `inspirehep-seminar-${controlNumber}`;
   const location = seminar.getIn(['address', 'place_name']);
@@ -18,11 +18,11 @@ export default function getIcsFileContent(seminar) {
   const title = getEventTitle(seminar);
   const start = formatDateTime(seminar.get('start_datetime'));
   const end = formatDateTime(seminar.get('end_datetime'));
-  const description = stripHtml(seminar.getIn(['abstract', 'value'], ''));
+  const description = stripHtml(seminar.getIn(['abstract', 'value'], '') as string);
 
   const categories = seminar
     .get('inspire_categories', List())
-    .map(category => category.get('term'))
+    .map((category: Map<string, any>) => category.get('term'))
     .join(',');
 
   return [
