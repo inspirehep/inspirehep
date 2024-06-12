@@ -1,7 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { connect, RootStateOrAny } from 'react-redux';
 import { Map } from 'immutable';
+import { Action, ActionCreator } from 'redux';
 import { Link } from 'react-router-dom';
 
 import { submit } from '../../../actions/submissions';
@@ -10,7 +10,13 @@ import SeminarSubmission from '../components/SeminarSubmission';
 import { SEMINARS } from '../../../common/routes';
 import SubmissionPage from '../../common/components/SubmissionPage';
 
-function SeminarSubmissionPage({ error, onSubmit }) {
+function SeminarSubmissionPage({
+  error,
+  onSubmit,
+}: {
+  error: Map<string, any>;
+  onSubmit: Function;
+}) {
   return (
     <SubmissionPage
       title="Submit a new seminar"
@@ -26,17 +32,13 @@ function SeminarSubmissionPage({ error, onSubmit }) {
     </SubmissionPage>
   );
 }
-SeminarSubmissionPage.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  error: PropTypes.instanceOf(Map),
-};
 
-const stateToProps = state => ({
+const stateToProps = (state: RootStateOrAny) => ({
   error: state.submissions.get('submitError'),
 });
 
-const dispatchToProps = dispatch => ({
-  async onSubmit(formData) {
+const dispatchToProps = (dispatch: ActionCreator<Action<any>>) => ({
+  async onSubmit(formData: any) {
     await dispatch(submit(SEMINARS_PID_TYPE, formData));
   },
 });

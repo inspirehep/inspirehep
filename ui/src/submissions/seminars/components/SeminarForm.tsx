@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Field, Form } from 'formik';
 import { Col, Row, Form as AntForm } from 'antd';
 
@@ -23,7 +22,7 @@ import AuthorSuggesterField from '../../common/components/AuthorSuggesterField';
 import BooleanField from '../../common/components/BooleanField';
 import LabelWithHelp from '../../../common/components/LabelWithHelp';
 
-function getSuggestionSourceLegacyICN(suggestion) {
+function getSuggestionSourceLegacyICN(suggestion: any) {
   return suggestion._source.legacy_ICN;
 }
 
@@ -32,7 +31,7 @@ const TIME_PICKER_OPTIONS = {
   minuteStep: 5,
 };
 
-function SeminarForm({ values }) {
+function SeminarForm({ values }: { values: any }) {
   return (
     <Form className="bg-white pa3">
       <Field name="name" label="* Seminar Title" component={TextField} />
@@ -56,8 +55,8 @@ function SeminarForm({ values }) {
         name="speakers"
         label="* Speaker(s)"
         emptyItem={{}}
-        renderItem={(itemName) => (
-          <Row type="flex" justify="space-between">
+        renderItem={(itemName: string) => (
+          <Row justify="space-between">
             <Col span={11}>
               <AuthorSuggesterField
                 onlyChild
@@ -100,7 +99,7 @@ function SeminarForm({ values }) {
         name="websites"
         label="Seminar Website(s)"
         emptyItem=""
-        renderItem={(itemName) => (
+        renderItem={(itemName: string) => (
           <Field onlyChild name={itemName} component={TextField} />
         )}
       />
@@ -109,8 +108,8 @@ function SeminarForm({ values }) {
         name="material_urls"
         label="Material(s)"
         emptyItem={{}}
-        renderItem={(itemName) => (
-          <Row type="flex" justify="space-between">
+        renderItem={(itemName: string) => (
+          <Row justify="space-between">
             <Col span={11}>
               <Field
                 onlyChild
@@ -135,8 +134,8 @@ function SeminarForm({ values }) {
         name="join_urls"
         label="Join URL(s)"
         emptyItem={{}}
-        renderItem={(itemName) => (
-          <Row type="flex" justify="space-between">
+        renderItem={(itemName: string) => (
+          <Row justify="space-between">
             <Col span={11}>
               <Field
                 onlyChild
@@ -157,12 +156,12 @@ function SeminarForm({ values }) {
         )}
       />
       <Field name="captioned" label="Has captions" component={BooleanField} />
-      <AntForm.Item // TODO: create `ObjectOf` component
+      <AntForm.Item
         label="Address"
         labelCol={LABEL_COL}
         wrapperCol={WRAPPER_COL}
       >
-        <Row type="flex" justify="space-between">
+        <Row justify="space-between">
           <Col span={11}>
             <Field
               onlyChild
@@ -217,7 +216,7 @@ function SeminarForm({ values }) {
           />
         }
         emptyItem=""
-        renderItem={(itemName) => (
+        renderItem={(itemName: string) => (
           <Field
             onlyChild
             addonBefore="inspirehep.net/literature/"
@@ -237,19 +236,15 @@ function SeminarForm({ values }) {
         name="keywords"
         label="Keywords"
         emptyItem=""
-        renderItem={(itemName) => (
+        renderItem={(itemName: string) => (
           <Field onlyChild name={itemName} component={TextField} />
         )}
       />
-      <Row type="flex" justify="end">
+      <Row justify="end">
         <SubmitButton />
       </Row>
     </Form>
   );
 }
-
-SeminarForm.propTypes = {
-  values: PropTypes.objectOf(PropTypes.any).isRequired, // current form data
-};
 
 export default SeminarForm;

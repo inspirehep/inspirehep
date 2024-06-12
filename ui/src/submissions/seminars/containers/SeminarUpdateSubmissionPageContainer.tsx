@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { Action, ActionCreator } from 'redux';
+import { connect, RootStateOrAny } from 'react-redux';
 import { Map } from 'immutable';
 
 import {
@@ -20,20 +20,24 @@ function SeminarUpdateSubmissionPage({
   updateFormDataError,
   dispatch,
   match,
+}: {
+  error: Map<string, any>;
+  updateFormData: Map<string, any>;
+  loadingUpdateFormData: boolean;
+  updateFormDataError: Map<string, any>;
+  dispatch: ActionCreator<Action<any>>;
+  match: any;
 }) {
   const recordId = match.params.id;
   const onSubmit = useCallback(
-    async formData => {
+    async (formData) => {
       await dispatch(submitUpdate(SEMINARS_PID_TYPE, recordId, formData));
     },
     [dispatch, recordId]
   );
-  useEffect(
-    () => {
-      dispatch(fetchUpdateFormData(SEMINARS_PID_TYPE, recordId));
-    },
-    [dispatch, recordId]
-  );
+  useEffect(() => {
+    dispatch(fetchUpdateFormData(SEMINARS_PID_TYPE, recordId));
+  }, [dispatch, recordId]);
   return (
     <SubmissionPage
       title="Update a seminar"
@@ -52,24 +56,18 @@ function SeminarUpdateSubmissionPage({
   );
 }
 
-SeminarUpdateSubmissionPage.propTypes = {
-  match: PropTypes.objectOf(PropTypes.any).isRequired,
-  dispatch: PropTypes.func.isRequired,
-  error: PropTypes.instanceOf(Map),
-  updateFormData: PropTypes.instanceOf(Map),
-  updateFormDataError: PropTypes.instanceOf(Map),
-  loadingUpdateFormData: PropTypes.bool.isRequired,
-};
-
-const stateToProps = state => ({
+const stateToProps = (state: RootStateOrAny) => ({
   error: state.submissions.get('submitError'),
   updateFormData: state.submissions.get('initialData'),
   updateFormDataError: state.submissions.get('initialDataError'),
   loadingUpdateFormData: state.submissions.get('loadingInitialData'),
 });
 
-const dispatchToProps = dispatch => ({ dispatch });
+const dispatchToProps = (dispatch: ActionCreator<Action<any>>) => ({
+  dispatch,
+});
 
-export default connect(stateToProps, dispatchToProps)(
-  SeminarUpdateSubmissionPage
-);
+export default connect(
+  stateToProps,
+  dispatchToProps
+)(SeminarUpdateSubmissionPage);
