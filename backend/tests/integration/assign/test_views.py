@@ -479,25 +479,26 @@ def test_author_assign_papers_different_profile(mock_create_ticket, inspire_app)
     author_data = {
         "name": {"value": "Aad, Georges", "preferred_name": "Georges Aad"},
         "ids": [{"value": "G.Aad.1", "schema": "INSPIRE BAI"}],
-        "control_number": 1,
     }
     author_data_2 = {
         "name": {"value": "Matczak, Michal", "preferred_name": "Michal Mata"},
         "ids": [{"value": "M.Matczak.1", "schema": "INSPIRE BAI"}],
-        "control_number": 2,
     }
     from_author = create_record("aut", data=author_data)
+    from_author_control_number = from_author["control_number"]
+
     to_author = create_record("aut", data=author_data_2)
+    to_author_control_number = to_author["control_number"]
+
     literature_1 = create_record(
         "lit",
         data={
-            "control_number": 3,
             "authors": [
                 {
                     "curated_relation": False,
                     "full_name": "Aad, Georges",
                     "record": {
-                        "$ref": f"http://localhost:5000/api/authors/{from_author['control_number']}"
+                        "$ref": f"http://localhost:5000/api/authors/{from_author_control_number}"
                     },
                 },
                 {
@@ -507,22 +508,23 @@ def test_author_assign_papers_different_profile(mock_create_ticket, inspire_app)
             ],
         },
     )
+    literature_1_control_number = literature_1["control_number"]
+
     literature_2 = create_record(
         "lit",
         data={
-            "curated": True,
-            "control_number": 4,
             "authors": [
                 {
-                    "curated_relation": False,
+                    "curated_relation": True,
                     "full_name": "Aad, Georges",
                     "record": {
-                        "$ref": f"http://localhost:5000/api/authors/{from_author['control_number']}"
+                        "$ref": f"http://localhost:5000/api/authors/{from_author_control_number}"
                     },
                 }
             ],
         },
     )
+    literature_2_control_number = literature_2["control_number"]
 
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=cataloger.email)
@@ -531,11 +533,11 @@ def test_author_assign_papers_different_profile(mock_create_ticket, inspire_app)
             data=orjson.dumps(
                 {
                     "literature_ids": [
-                        literature_2["control_number"],
-                        literature_1["control_number"],
+                        literature_2_control_number,
+                        literature_1_control_number,
                     ],
-                    "from_author_recid": from_author["control_number"],
-                    "to_author_recid": to_author["control_number"],
+                    "from_author_recid": from_author_control_number,
+                    "to_author_recid": to_author_control_number,
                 }
             ),
             content_type="application/json",
@@ -548,13 +550,15 @@ def test_author_assign_papers_different_profile(mock_create_ticket, inspire_app)
         "snow/assign_authors_from_different_profile.html",
         {
             "to_author_names": ["Matczak, Michal"],
-            "from_author_url": "http://localhost:5000/authors/1",
-            "to_author_url": "http://localhost:5000/authors/2",
+            "from_author_url": f"http://localhost:5000/authors/{from_author_control_number}",
+            "to_author_url": f"http://localhost:5000/authors/{to_author_control_number}",
             "incompatibile_names_papers": {
-                "http://localhost:5000/literature/3": "Aad, Georges",
-                "http://localhost:5000/literature/4": "Aad, Georges",
+                f"http://localhost:5000/literature/{literature_1_control_number}": "Aad, Georges",
+                f"http://localhost:5000/literature/{literature_2_control_number}": "Aad, Georges",
             },
-            "already_claimed_papers": ["http://localhost:5000/literature/4"],
+            "already_claimed_papers": [
+                f"http://localhost:5000/literature/{literature_2_control_number}"
+            ],
         },
         "Claims by user Michal Mata require curator action",
     )
@@ -1035,7 +1039,6 @@ def test_assign_author_has_main_name(mock_create_ticket, inspire_app):
     author_data = {
         "name": {"value": "Aad, Georges", "preferred_name": "Georges Aad"},
         "ids": [{"value": "G.Aad.1", "schema": "INSPIRE BAI"}],
-        "control_number": 1,
     }
     author_data_2 = {
         "name": {
@@ -1044,14 +1047,16 @@ def test_assign_author_has_main_name(mock_create_ticket, inspire_app):
             "value": "Mata, Michaela",
         },
         "ids": [{"value": "M.Matczak.1", "schema": "INSPIRE BAI"}],
-        "control_number": 2,
     }
     from_author = create_record("aut", data=author_data)
+    from_author_control_number = from_author["control_number"]
+
     to_author = create_record("aut", data=author_data_2)
+    to_author_control_number = to_author["control_number"]
+
     literature_1 = create_record(
         "lit",
         data={
-            "control_number": 3,
             "authors": [
                 {
                     "curated_relation": False,
@@ -1067,14 +1072,13 @@ def test_assign_author_has_main_name(mock_create_ticket, inspire_app):
             ],
         },
     )
+    literature_1_control_number = literature_1["control_number"]
     literature_2 = create_record(
         "lit",
         data={
-            "curated": True,
-            "control_number": 4,
             "authors": [
                 {
-                    "curated_relation": False,
+                    "curated_relation": True,
                     "full_name": "Aad, Georges",
                     "record": {
                         "$ref": f"http://localhost:5000/api/authors/{from_author['control_number']}"
@@ -1083,6 +1087,7 @@ def test_assign_author_has_main_name(mock_create_ticket, inspire_app):
             ],
         },
     )
+    literature_2_control_number = literature_2["control_number"]
 
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=cataloger.email)
@@ -1091,8 +1096,8 @@ def test_assign_author_has_main_name(mock_create_ticket, inspire_app):
             data=orjson.dumps(
                 {
                     "literature_ids": [
-                        literature_1["control_number"],
-                        literature_2["control_number"],
+                        literature_1_control_number,
+                        literature_2_control_number,
                     ],
                     "from_author_recid": from_author["control_number"],
                     "to_author_recid": to_author["control_number"],
@@ -1101,8 +1106,7 @@ def test_assign_author_has_main_name(mock_create_ticket, inspire_app):
             content_type="application/json",
         )
     response_status_code = response.status_code
-
-    assert mock_create_ticket.mock_calls[0][1] == (
+    expected_result = (
         "Author claims",
         None,
         "snow/assign_authors_from_different_profile.html",
@@ -1111,16 +1115,19 @@ def test_assign_author_has_main_name(mock_create_ticket, inspire_app):
                 "Malta Michaela",
                 "Mata, Michaela",
             ],
-            "from_author_url": "http://localhost:5000/authors/1",
-            "to_author_url": "http://localhost:5000/authors/2",
+            "from_author_url": f"http://localhost:5000/authors/{from_author_control_number}",
+            "to_author_url": f"http://localhost:5000/authors/{to_author_control_number}",
             "incompatibile_names_papers": {
-                "http://localhost:5000/literature/3": "Aad, Georges",
-                "http://localhost:5000/literature/4": "Aad, Georges",
+                f"http://localhost:5000/literature/{literature_1_control_number}": "Aad, Georges",
+                f"http://localhost:5000/literature/{literature_2_control_number}": "Aad, Georges",
             },
-            "already_claimed_papers": ["http://localhost:5000/literature/4"],
+            "already_claimed_papers": [
+                f"http://localhost:5000/literature/{literature_2_control_number}"
+            ],
         },
         "Claims by user Michal Mata require curator action",
     )
+    assert mock_create_ticket.mock_calls[0][1] == expected_result
     assert response_status_code == 200
     assert "created_rt_ticket" in response.json
 

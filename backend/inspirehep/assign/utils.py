@@ -4,6 +4,7 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+
 import structlog
 from flask import request
 from inspire_dojson.utils import get_recid_from_ref
@@ -14,6 +15,7 @@ from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_records.models import RecordMetadata
 from sqlalchemy.orm.exc import NoResultFound
+from unidecode import unidecode
 
 from inspirehep.accounts.api import get_current_user_orcid
 from inspirehep.records.api import AuthorsRecord
@@ -108,30 +110,31 @@ def can_claim(data, author_profile_recid):
     if not lit_record:
         return False
 
-    author_parsed_name = ParsedName.loads(current_author_profile["name"]["value"])
-    author_names = {
-        current_author_profile["name"]["value"],
-        author_parsed_name.last,
-        str(author_parsed_name),  # removes ',' and puts it in normal order
-    }
-    author_names.update(
-        [
-            author_name.split(",")[0]
-            for author_name in get_value(
-                current_author_profile, "name.name_variants", []
-            )
-        ]
-    )
+    def get_last_names(name):
+        parsed_name = ParsedName.loads(name)
+        # corner case for single name (ie. "Smith")
+        if len(parsed_name) == 1:
+            return {unidecode(parsed_name.first)}
+        # corner case for full names without comma,
+        # we are treating them as last names (ie. "Smith Davis")
+        if "," not in name:
+            names = name.split()
+        else:
+            names = parsed_name.last_list
+
+        return {unidecode(name) for name in names}
+
+    author_last_names = set()
+    author_last_names.update(get_last_names(current_author_profile["name"]["value"]))
+    for variant in get_value(current_author_profile, "name.name_variants", []):
+        author_last_names.update(get_last_names(variant))
 
     lit_author = get_author_by_recid(lit_record, int(author_profile_recid))
-    lit_author_parsed_name = ParsedName.loads(lit_author.get("full_name", ""))
-    lit_author_names = {
-        lit_author.get("full_name", ""),
-        lit_author_parsed_name.last,
-        str(lit_author_parsed_name),
-    }
+    lit_author_last_names = set()
+    if lit_author:
+        lit_author_last_names.update(get_last_names(lit_author.get("full_name", "")))
 
-    return lit_author_names & author_names
+    return bool(author_last_names & lit_author_last_names)
 
 
 def _check_names_compability(lit_record, author_parsed_name, last_names_only=False):
@@ -141,7 +144,7 @@ def _check_names_compability(lit_record, author_parsed_name, last_names_only=Fal
     author_name_to_compare = (
         author_parsed_name.last
         if last_names_only
-        else f"{ author_parsed_name.last}, {author_parsed_name.first}".strip(", ")
+        else f"{author_parsed_name.last}, {author_parsed_name.first}".strip(", ")
     )
     matched_authors_recids = [
         recid

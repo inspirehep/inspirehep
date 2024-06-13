@@ -8,6 +8,7 @@
 import structlog
 from flask import Blueprint, request
 from flask_celeryext.app import current_celery_app
+from inspire_dojson.utils import get_recid_from_ref
 from invenio_db import db
 from webargs import fields
 from webargs.flaskparser import FlaskParser
@@ -166,11 +167,16 @@ def assign_different_profile(args):
 
     for literature_id in literature_ids:
         record = LiteratureRecord.get_record_by_pid_value(literature_id)
-        if record.get("curated") and not is_from_author_stub:
-            literature_ids_already_claimed.append(literature_id)
+        if not is_from_author_stub:
+            for author in record.get("authors", []):
+                record_author_recid = get_recid_from_ref(author.get("record"))
+                if from_author_recid == record_author_recid and author.get(
+                    "curated_relation"
+                ):
+                    literature_ids_already_claimed.append(literature_id)
+                    break
         if not can_claim(record, from_author_recid):
             literature_ids_not_compatible_name.append(literature_id)
-
     if literature_ids_already_claimed or literature_ids_not_compatible_name:
         create_rt_ticket_for_claiming_action.delay(
             from_author_recid,
