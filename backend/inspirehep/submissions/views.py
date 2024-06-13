@@ -79,14 +79,21 @@ class BaseSubmissionsResource(MethodView):
     def load_data_from_request(self):
         return request.get_json()
 
-    def send_post_request_to_inspire_next(self, endpoint, data):
+    def send_post_request_to_inspire_next(self, url, endpoint, data, token, bearer_keyword='Bearer'):
+        """Sends a post request to the backoffice/next
+
+        :param string endpoint: endpoint
+        :param object data: payload
+        :raises WorkflowStartError: error during workflow creation
+        :return: response content
+        """
 
         headers = {
             "content-type": "application/json",
-            "Authorization": f"Bearer {current_app.config['AUTHENTICATION_TOKEN']}",
+            "Authorization": f"{bearer_keyword} {token}",
         }
         response = requests.post(
-            f"{current_app.config['INSPIRE_NEXT_URL']}{endpoint}",
+            f"{url}{endpoint}",
             data=orjson.dumps(data),
             headers=headers,
         )
@@ -191,7 +198,19 @@ class AuthorSubmissionsResource(BaseSubmissionsResource):
     def start_workflow_for_submission(self, record):
         record["acquisition_source"] = self.get_acquisition_source()
         payload = {"data": record}
-        return self.send_post_request_to_inspire_next("/workflows/authors", payload)
+
+        payload_backoffice = {
+            "data":record,
+            "workflow_type":"AUTHOR_CREATE",
+            "status": "running",
+            "core": False,
+            "is_update":True
+        }
+        
+        if current_app.config.get("FEATURE_FLAG_ENABLE_SEND_TO_BACKOFFICE"):
+            self.send_post_request_to_inspire_next(current_app.config['INSPIRE_BACKOFFICE_URL'], '/api/workflows', payload_backoffice, current_app.config['AUTHENTICATION_TOKEN_BACKOFFICE'])
+        
+        return self.send_post_request_to_inspire_next(current_app.config['INSPIRE_NEXT_URL'],"/workflows/authors", payload, current_app.config['AUTHENTICATION_TOKEN'])
 
     def create_ticket(self, record, rt_template):
         control_number = record["control_number"]
@@ -386,8 +405,9 @@ class LiteratureSubmissionResource(BaseSubmissionsResource):
         }
         submission_data["acquisition_source"] = self.get_acquisition_source()
         payload = {"data": submission_data, "form_data": form_data}
-        return self.send_post_request_to_inspire_next("/workflows/literature", payload)
 
+        return self.send_post_request_to_inspire_next(current_app.config['INSPIRE_NEXT_URL'],"/workflows/literature", payload, current_app.config['AUTHENTICATION_TOKEN'])
+    
 
 class JobSubmissionsResource(BaseSubmissionsResource):
 
