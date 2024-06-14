@@ -202,26 +202,20 @@ class AuthorSubmissionsResource(BaseSubmissionsResource):
         payload = {"data": record}
 
         if current_app.config.get("FEATURE_FLAG_ENABLE_SEND_TO_BACKOFFICE"):
-            try:
-                payload_backoffice = {
-                    "data": record,
-                    "workflow_type": "AUTHOR_CREATE",
-                    "status": "running",
-                    "core": False,
-                    "is_update": True,
-                }
-                self.send_post_request_to_inspire_next(
-                    current_app.config["INSPIRE_BACKOFFICE_URL"],
-                    "/api/workflows/",
-                    payload_backoffice,
-                    current_app.config["BACKOFFICE_BEARER_TOKEN"],
-                    bearer_keyword="Token",
-                )
-            except WorkflowStartError:
-                print(
-                    f"Error creating record in {current_app.config['INSPIRE_BACKOFFICE_URL']} ",
-                    str(payload_backoffice),
-                )
+            payload_backoffice = {
+                "data": record,
+                "workflow_type": "AUTHOR_CREATE",
+                "status": "running",
+                "core": False,
+                "is_update": True,
+            }
+            self.send_post_request_to_inspire_next(
+                current_app.config["INSPIRE_BACKOFFICE_URL"],
+                "/api/workflows/",
+                payload_backoffice,
+                current_app.config["BACKOFFICE_BEARER_TOKEN"],
+                bearer_keyword="Token",
+            )
         return self.send_post_request_to_inspire_next(
             current_app.config["INSPIRE_NEXT_URL"],
             "/workflows/authors",

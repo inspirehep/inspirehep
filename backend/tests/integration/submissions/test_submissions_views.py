@@ -161,6 +161,10 @@ def test_new_author_submit_works_with_session_login(inspire_app, requests_mock):
         f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/authors",
         json={"workflow_object_id": 30},
     )
+    requests_mock.post(
+        f"{current_app.config['INSPIRE_BACKOFFICE_URL']}/api/workflows/",
+        json={"id": "1e309a22-07d6-46e3-8814-1e0d796f7b42"},
+    )
     user = create_user()
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
