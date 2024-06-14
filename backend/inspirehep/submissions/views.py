@@ -79,7 +79,9 @@ class BaseSubmissionsResource(MethodView):
     def load_data_from_request(self):
         return request.get_json()
 
-    def send_post_request_to_inspire_next(self, url, endpoint, data, token, bearer_keyword='Bearer'):
+    def send_post_request_to_inspire_next(
+        self, url, endpoint, data, token, bearer_keyword="Bearer"
+    ):
         """Sends a post request to the backoffice/next
 
         :param string endpoint: endpoint
@@ -97,10 +99,8 @@ class BaseSubmissionsResource(MethodView):
             data=orjson.dumps(data),
             headers=headers,
         )
-
         if response.status_code == 200:
             return response.content
-
         raise WorkflowStartError
 
     def get_acquisition_source(self):
@@ -204,16 +204,30 @@ class AuthorSubmissionsResource(BaseSubmissionsResource):
         if current_app.config.get("FEATURE_FLAG_ENABLE_SEND_TO_BACKOFFICE"):
             try:
                 payload_backoffice = {
-                    "data":record,
-                    "workflow_type":"AUTHOR_CREATE",
+                    "data": record,
+                    "workflow_type": "AUTHOR_CREATE",
                     "status": "running",
                     "core": False,
-                    "is_update":True
+                    "is_update": True,
                 }
-                self.send_post_request_to_inspire_next(current_app.config['INSPIRE_BACKOFFICE_URL'], '/api/workflows/', payload_backoffice, current_app.config['BACKOFFICE_BEARER_TOKEN'], bearer_keyword='Token')
-            except:
-                print(f"Error creating record in {current_app.config['INSPIRE_BACKOFFICE_URL']} ",str(payload_backoffice))
-        return self.send_post_request_to_inspire_next(current_app.config['INSPIRE_NEXT_URL'],"/workflows/authors", payload, current_app.config['AUTHENTICATION_TOKEN'])
+                self.send_post_request_to_inspire_next(
+                    current_app.config["INSPIRE_BACKOFFICE_URL"],
+                    "/api/workflows/",
+                    payload_backoffice,
+                    current_app.config["BACKOFFICE_BEARER_TOKEN"],
+                    bearer_keyword="Token",
+                )
+            except WorkflowStartError:
+                print(
+                    f"Error creating record in {current_app.config['INSPIRE_BACKOFFICE_URL']} ",
+                    str(payload_backoffice),
+                )
+        return self.send_post_request_to_inspire_next(
+            current_app.config["INSPIRE_NEXT_URL"],
+            "/workflows/authors",
+            payload,
+            current_app.config["AUTHENTICATION_TOKEN"],
+        )
 
     def create_ticket(self, record, rt_template):
         control_number = record["control_number"]
@@ -409,8 +423,13 @@ class LiteratureSubmissionResource(BaseSubmissionsResource):
         submission_data["acquisition_source"] = self.get_acquisition_source()
         payload = {"data": submission_data, "form_data": form_data}
 
-        return self.send_post_request_to_inspire_next(current_app.config['INSPIRE_NEXT_URL'],"/workflows/literature", payload, current_app.config['AUTHENTICATION_TOKEN'])
-    
+        return self.send_post_request_to_inspire_next(
+            current_app.config["INSPIRE_NEXT_URL"],
+            "/workflows/literature",
+            payload,
+            current_app.config["AUTHENTICATION_TOKEN"],
+        )
+
 
 class JobSubmissionsResource(BaseSubmissionsResource):
 

@@ -143,7 +143,7 @@ inspirehep should now be available under http://localhost:8080
 
 ## Run locally
 
-### 
+### Backend
 
 ```bash
 $ cd backend
