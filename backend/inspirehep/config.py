@@ -32,7 +32,7 @@ FEATURE_FLAG_ENABLE_FILES = False
 FEATURE_FLAG_ENABLE_ORCID_PUSH = False
 FEATURE_FLAG_ENABLE_REDIRECTION_OF_PIDS = False
 FEATURE_FLAG_ENABLE_ASSIGN_AUTHOR_PAPERS = False
-FEATURE_FLAG_ENABLE_SEND_TO_BACKOFFICE = True
+FEATURE_FLAG_ENABLE_SEND_TO_BACKOFFICE = False
 # Only push to ORCIDs that match this regex.
 # Examples:
 #   any ORCID -> ".*"
@@ -53,7 +53,7 @@ AUTHENTICATION_TOKEN = "CHANGE_ME"
 INSPIRE_NEXT_URL = "http://localhost:5000"
 LEGACY_BASE_URL = "https://old.inspirehep.net"
 LEGACY_RECORD_URL_PATTERN = "http://inspirehep.net/record/{recid}"
-INSPIRE_BACKOFFICE_URL= "https://backoffice.dev.inspirebeta.net"
+INSPIRE_BACKOFFICE_URL = "https://backoffice.dev.inspirebeta.net"
 BACKOFFICE_BEARER_TOKEN = "CHANGE_ME"
 MAX_API_RESULTS = 10000
 REST_MIMETYPE_QUERY_ARG_NAME = "format"
