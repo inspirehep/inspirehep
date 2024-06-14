@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Row, Col, Card, Checkbox, Select } from 'antd';
 import { List } from 'immutable';
 
 import './SearchPageContainer.less';
-import { data, facets } from '../../mocks/mockSearchData';
+import { facets } from '../../mocks/mockSearchData';
 import Breadcrumbs from '../../components/Breadcrumbs';
 import LoadingOrChildren from '../../../common/components/LoadingOrChildren';
 import { SEARCH_PAGE_GUTTER } from '../../../common/constants';
@@ -12,32 +12,46 @@ import NumberOfResults from '../../../common/components/NumberOfResults';
 import SearchPagination from '../../../common/components/SearchPagination';
 import PublicationsSelectAllContainer from '../../../authors/containers/PublicationsSelectAllContainer';
 import UnclickableTag from '../../../common/components/UnclickableTag';
-import ResultItemWithActions from '../../components/ResultItemWithActions';
-import ResultitemWithComparison from '../../components/ResultitemWithComparison';
 import AuthorResultItem from '../../components/AuthorResultItem';
+import { authToken } from '../../token';
+import { BACKOFFICE_API } from '../../../common/routes';
 
 interface SearchPageContainerProps {
   data?: any;
 }
 
 const renderResultItem = (item: any) => {
-  if (item.get('id') === 123456) {
-    return <AuthorResultItem item={item} />;
-  }
-  if (item.get('id') === 6) {
-    return <ResultitemWithComparison item={item} />;
-  }
-  return <ResultItemWithActions item={item} />;
+  return <AuthorResultItem item={item} />;
 };
 
 const SearchPageContainer: React.FC<SearchPageContainerProps> = () => {
   const [loading, setLoading] = useState(true);
+  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [count, setCount] = useState<number>(0);
+  const [page, setPage] = useState(1);
+  const [size, setSize] = useState(5);
 
   const resolveLoading = () => {
     setTimeout(() => setLoading(false), 2500);
   };
 
   resolveLoading();
+
+  const getSearchResults = async () => {
+    const res = await fetch(
+      `${BACKOFFICE_API}?page=${page}&size=${size}`,
+      authToken
+    );
+    const data = await res?.json();
+    return data || { results: [], count: 0 };
+  };
+
+  useEffect(() => {
+    (async () => {
+      setSearchResults((await getSearchResults())?.results || []);
+      setCount((await getSearchResults())?.count || 0);
+    })();
+  }, [page, size]);
 
   return (
     <div
@@ -82,7 +96,7 @@ const SearchPageContainer: React.FC<SearchPageContainerProps> = () => {
                   category: string;
                   filters: { name: string; doc_count: number }[];
                 }) => (
-                  <>
+                  <div key={facet.category}>
                     <Row>
                       <p className="facet-category">
                         Filter by {facet.category}
@@ -104,7 +118,7 @@ const SearchPageContainer: React.FC<SearchPageContainerProps> = () => {
                         </Col>
                       </Row>
                     ))}
-                  </>
+                  </div>
                 )
               )}
             </Card>
@@ -115,7 +129,7 @@ const SearchPageContainer: React.FC<SearchPageContainerProps> = () => {
             <PublicationsSelectAllContainer />
             <span className="mr2" />
             <Col style={{ width: '55%' }}>
-              <NumberOfResults numberOfResults={data?.size} />
+              <NumberOfResults numberOfResults={count} />
             </Col>
             <Col style={{ width: '29%', paddingLeft: '5px', fontWeight: 600 }}>
               Action & Status
@@ -128,15 +142,22 @@ const SearchPageContainer: React.FC<SearchPageContainerProps> = () => {
             </Col>
           </Row>
           <SearchResults
-            results={List(data)}
+            results={List(searchResults)}
             renderItem={renderResultItem}
-            page={1}
+            page={page}
             isCatalogerLoggedIn={false}
-            pageSize={5}
+            pageSize={size}
+            isHoldingpen
           />
           <br />
           <br />
-          <SearchPagination page={1} total={data?.size} pageSize={5} />
+          <SearchPagination
+            onPageChange={setPage}
+            onSizeChange={setSize}
+            page={page}
+            total={count}
+            pageSize={size}
+          />
         </Col>
       </Row>
     </div>

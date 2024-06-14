@@ -3,6 +3,7 @@ import { Breadcrumb, Input } from 'antd';
 import { HomeOutlined } from '@ant-design/icons';
 
 import './Breadcrumbs.less';
+import { HOLDINGPEN_NEW, HOLDINGPEN_SEARCH_NEW } from '../../common/routes';
 
 interface BreadcrumbItemProps {
   title1: string;
@@ -30,14 +31,16 @@ const Breadcrumbs: React.FC<BreadcrumbItemProps> = ({
           </a>
         </Breadcrumb.Item>
         <Breadcrumb.Item>
-          <a href="/holdingpen-new">Holdingpen</a>
+          <a href={HOLDINGPEN_NEW}>Holdingpen</a>
         </Breadcrumb.Item>
         <Breadcrumb.Item>
-          <a href={`/holdingpen-new/${title2 ? 'search' : href1}`}>{title1}</a>
+          <a href={`${HOLDINGPEN_NEW}/${title2 ? 'search' : href1}`}>
+            {title1}
+          </a>
         </Breadcrumb.Item>
         {title2 && (
           <Breadcrumb.Item>
-            <a href={`/holdingpen-new/${href2}`}>{title2}</a>
+            <a href={`${HOLDINGPEN_NEW}${href2}`}>{title2}</a>
           </Breadcrumb.Item>
         )}
       </Breadcrumb>
@@ -46,10 +49,10 @@ const Breadcrumbs: React.FC<BreadcrumbItemProps> = ({
           enterButton
           placeholder="Search Holdingpen"
           onPressEnter={() => {
-            window.location.assign('/holdingpen-new/search');
+            window.location.assign(HOLDINGPEN_SEARCH_NEW);
           }}
           onSearch={() => {
-            window.location.assign('/holdingpen-new/search');
+            window.location.assign(HOLDINGPEN_SEARCH_NEW);
           }}
           className="search-bar-small"
         />

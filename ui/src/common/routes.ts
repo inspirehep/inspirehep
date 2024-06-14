@@ -30,6 +30,8 @@ export const HOLDINGPEN_INSPECT = `${HOLDINGPEN}/inspect`;
 export const HOLDINGPEN_NEW = '/holdingpen-new';
 export const HOLDINGPEN_DASHBOARD_NEW = `${HOLDINGPEN_NEW}/dashboard`;
 export const HOLDINGPEN_SEARCH_NEW = `${HOLDINGPEN_NEW}/search`;
+export const BACKOFFICE_API =
+  'https://backoffice.dev.inspirebeta.net/api/workflows/search';
 
 export const ERRORS = '/errors';
 export const ERROR_401 = `${ERRORS}/401`;

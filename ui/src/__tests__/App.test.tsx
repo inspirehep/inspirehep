@@ -13,6 +13,7 @@ import {
 import App from '../App';
 import { setUserCategoryFromRoles } from '../tracker';
 import { userSignUp, fetchLoggedInUser } from '../actions/user';
+import { HOLDINGPEN_NEW } from '../common/routes';
 
 jest.mock('../tracker');
 jest.mock('../actions/user');
@@ -121,7 +122,7 @@ describe('App', () => {
     });
     const { getByTestId } = render(
       <Provider store={store}>
-        <MemoryRouter initialEntries={['/holdingpen-new']} initialIndex={0}>
+        <MemoryRouter initialEntries={[HOLDINGPEN_NEW]} initialIndex={0}>
           <App />
         </MemoryRouter>
       </Provider>
@@ -134,7 +135,7 @@ describe('App', () => {
     expect(holdingpen).toBeInTheDocument();
   });
 
-  it('does not navigate to Holdingpen when /holdingpen if not logged in', async () => {
+  it('does not navigate to Holdingpen when /holdingpen-new if not logged in', async () => {
     const store = getStoreWithState({
       user: fromJS({
         loggedIn: false,
@@ -145,7 +146,7 @@ describe('App', () => {
     });
     const { getByTestId } = render(
       <Provider store={store}>
-        <MemoryRouter initialEntries={['/holdingpen-new']} initialIndex={0}>
+        <MemoryRouter initialEntries={[HOLDINGPEN_NEW]} initialIndex={0}>
           <App />
         </MemoryRouter>
       </Provider>

@@ -5,12 +5,13 @@ import { render } from '@testing-library/react';
 
 import { getStore } from '../../../fixtures/store';
 import DashboardPageContainer from '../DashboardPageContainer/DashboardPageContainer';
+import { HOLDINGPEN_NEW } from '../../../common/routes';
 
 describe('DashboardPageContainer', () => {
   it('renders without crashing', () => {
     render(
       <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/holdingpen-new']}>
+        <MemoryRouter initialEntries={[HOLDINGPEN_NEW]}>
           <DashboardPageContainer />
         </MemoryRouter>
       </Provider>
@@ -20,7 +21,7 @@ describe('DashboardPageContainer', () => {
   it('renders the DashboardPage component', () => {
     const { getByTestId } = render(
       <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/holdingpen-new']}>
+        <MemoryRouter initialEntries={[HOLDINGPEN_NEW]}>
           <DashboardPageContainer />
         </MemoryRouter>
       </Provider>
