@@ -14,6 +14,7 @@ import { Link } from 'react-router-dom';
 import './DashboardPageContainer.less';
 import { tasks, actions } from './mockData';
 import Breadcrumbs from '../../components/Breadcrumbs';
+import { HOLDINGPEN_SEARCH_NEW } from '../../../common/routes';
 
 interface DashboardPageContainerProps {
   data?: any;
@@ -74,7 +75,7 @@ const DashboardPage: React.FC<DashboardPageContainerProps> = () => {
       key: '1',
       children: (
         <>
-          <Link to="/holdingpen-new/search" className="db w-100 tc f5 mt4">
+          <Link to={HOLDINGPEN_SEARCH_NEW} className="db w-100 tc f5 mt4">
             View all
           </Link>
           <div className="cards-container mt4">
@@ -84,7 +85,7 @@ const DashboardPage: React.FC<DashboardPageContainerProps> = () => {
                   <div>
                     <p>{item.title}</p>
                     <p className={classNames('f2 mb0 black')}>{item.total}</p>
-                    <Link to="/holdingpen-new/search" className="normal f6">
+                    <Link to={HOLDINGPEN_SEARCH_NEW} className="normal f6">
                       View all
                     </Link>
                   </div>
@@ -96,7 +97,7 @@ const DashboardPage: React.FC<DashboardPageContainerProps> = () => {
                 key={item.title}
               >
                 {item.actions.map((action: any) => (
-                  <a href="/holdingpen-new/search" key={action.action}>
+                  <a href={HOLDINGPEN_SEARCH_NEW} key={action.action}>
                     <div
                       className={classNames(
                         'flex justify-between',
@@ -122,7 +123,7 @@ const DashboardPage: React.FC<DashboardPageContainerProps> = () => {
       key: '2',
       children: (
         <>
-          <Link to="/holdingpen-new/search" className="db w-100 tc f5 mt4">
+          <Link to={HOLDINGPEN_SEARCH_NEW} className="db w-100 tc f5 mt4">
             View all
           </Link>
           <div className="cards-container mt4">
@@ -132,7 +133,7 @@ const DashboardPage: React.FC<DashboardPageContainerProps> = () => {
                   <div>
                     <p>{item.title}</p>
                     <p className={classNames('f2 mb0 black')}>{item.total}</p>
-                    <Link to="/holdingpen-new/search" className="normal f6">
+                    <Link to={HOLDINGPEN_SEARCH_NEW} className="normal f6">
                       View all
                     </Link>
                   </div>
@@ -144,7 +145,7 @@ const DashboardPage: React.FC<DashboardPageContainerProps> = () => {
                 key={item.title}
               >
                 {item.actions.map((action: any) => (
-                  <a href="/holdingpen-new/search" key={action.action}>
+                  <a href={HOLDINGPEN_SEARCH_NEW} key={action.action}>
                     <div
                       className={classNames(
                         'flex justify-between',
@@ -180,10 +181,10 @@ const DashboardPage: React.FC<DashboardPageContainerProps> = () => {
             addonBefore={selectBefore}
             enterButton
             onPressEnter={() => {
-              window.location.assign('/holdingpen-new/search');
+              window.location.assign(HOLDINGPEN_SEARCH_NEW);
             }}
             onSearch={() => {
-              window.location.assign('/holdingpen-new/search');
+              window.location.assign(HOLDINGPEN_SEARCH_NEW);
             }}
           />
         </div>

@@ -8,12 +8,16 @@ import Holdingpen from '..';
 import DashboardPageContainer from '../containers/DashboardPageContainer/DashboardPageContainer';
 import SearchPageContainer from '../containers/SearchPageContainer/SearchPageContainer';
 import DetailPageContainer from '../containers/DetailPageContainer/DetailPageContainer';
+import {
+  HOLDINGPEN_DASHBOARD_NEW,
+  HOLDINGPEN_SEARCH_NEW,
+} from '../../common/routes';
 
 describe('Holdingpen', () => {
   it('renders initial state', () => {
     const { container } = render(
       <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/holdingpen-new/dashboard']}>
+        <MemoryRouter initialEntries={[HOLDINGPEN_DASHBOARD_NEW]}>
           <Holdingpen />
         </MemoryRouter>
       </Provider>
@@ -24,9 +28,9 @@ describe('Holdingpen', () => {
   it('navigates to DashboardPageContainer when /holdingpen-new/dashboard', () => {
     const { getByTestId } = render(
       <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/holdingpen-new/dashboard']}>
+        <MemoryRouter initialEntries={[HOLDINGPEN_DASHBOARD_NEW]}>
           <Route
-            path="/holdingpen-new/dashboard"
+            path={HOLDINGPEN_DASHBOARD_NEW}
             component={DashboardPageContainer}
           />
         </MemoryRouter>
@@ -39,8 +43,11 @@ describe('Holdingpen', () => {
   it('navigates to DetailPageContainer when /holdingpen-new/:id', () => {
     const { getByTestId } = render(
       <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/holdingpen-new/1']}>
-          <Route path="/holdingpen-new/:id" component={DetailPageContainer} />
+        <MemoryRouter initialEntries={[`${HOLDINGPEN_DASHBOARD_NEW}/:id`]}>
+          <Route
+            path={`${HOLDINGPEN_DASHBOARD_NEW}/:id`}
+            component={DetailPageContainer}
+          />
         </MemoryRouter>
       </Provider>
     );
@@ -51,11 +58,8 @@ describe('Holdingpen', () => {
   it('navigates to SearchPageContainer when /holdingpen-new/search', () => {
     const { getByTestId } = render(
       <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/holdingpen-new/search']}>
-          <Route
-            path="/holdingpen-new/search"
-            component={SearchPageContainer}
-          />
+        <MemoryRouter initialEntries={[HOLDINGPEN_SEARCH_NEW]}>
+          <Route path={HOLDINGPEN_SEARCH_NEW} component={SearchPageContainer} />
         </MemoryRouter>
       </Provider>
     );

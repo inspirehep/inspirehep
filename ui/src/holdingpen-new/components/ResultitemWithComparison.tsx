@@ -7,6 +7,7 @@ import PublicationSelectContainer from '../../authors/containers/PublicationSele
 import AuthorList from '../../common/components/AuthorList';
 import ResultItem from '../../common/components/ResultItem';
 import UnclickableTag from '../../common/components/UnclickableTag';
+import { HOLDINGPEN_NEW } from '../../common/routes';
 
 const ResultitemWithComparison = ({ item }: { item: any }) => {
   return (
@@ -24,7 +25,7 @@ const ResultitemWithComparison = ({ item }: { item: any }) => {
           <ResultItem>
             <Link
               className="result-item-title"
-              to={`/holdingpen-new/${item.get('id')}`}
+              to={`${HOLDINGPEN_NEW}/${item.get('id')}`}
               target="_blank"
             >
               {item.get('title')}
@@ -86,7 +87,7 @@ const ResultitemWithComparison = ({ item }: { item: any }) => {
           <ResultItem>
             <Link
               className="result-item-title"
-              to={`/holdingpen-new/${item.get('id')}`}
+              to={`${HOLDINGPEN_NEW}/${item.get('id')}`}
               target="_blank"
             >
               {item.get('title')}
@@ -115,7 +116,7 @@ const ResultitemWithComparison = ({ item }: { item: any }) => {
           <ResultItem>
             <Link
               className="result-item-title"
-              to={`/holdingpen-new/${item.get('id')}`}
+              to={`${HOLDINGPEN_NEW}/${item.get('id')}`}
               target="_blank"
             >
               {item.get('title')}
