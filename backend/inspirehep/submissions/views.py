@@ -197,22 +197,13 @@ class AuthorSubmissionsResource(BaseSubmissionsResource):
     def load_data_from_request(self):
         return author_loader_v1()
 
-    def start_workflow_for_submission(self, record):
-        record["acquisition_source"] = self.get_acquisition_source()
-        payload = {"data": record}
+    def start_workflow_for_submission(self, payload):
 
         if current_app.config.get("FEATURE_FLAG_ENABLE_SEND_TO_BACKOFFICE"):
-            payload_backoffice = {
-                "data": record,
-                "workflow_type": "AUTHOR_CREATE",
-                "status": "running",
-                "core": False,
-                "is_update": True,
-            }
             self.send_post_request_to_inspire_next(
                 current_app.config["INSPIRE_BACKOFFICE_URL"],
                 "/api/workflows/",
-                payload_backoffice,
+                payload,
                 current_app.config["BACKOFFICE_BEARER_TOKEN"],
                 bearer_keyword="Token",
             )
