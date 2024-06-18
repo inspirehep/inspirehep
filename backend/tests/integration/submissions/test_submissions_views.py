@@ -127,7 +127,10 @@ def test_new_author_submit(inspire_app, requests_mock):
             },
             "name": {"value": "John", "preferred_name": "John Doe"},
             "status": "active",
-        }
+        },
+        "core": False,
+        "is_update": False,
+        "workflow_type": "AUTHOR_CREATE",
     }
     assert expected_data == post_data
 
@@ -521,7 +524,10 @@ def test_update_author_creates_new_workflow(inspire_app, override_config):
                 "self": {"$ref": "http://localhost:5000/api/authors/123"},
                 "status": "active",
                 "urls": [{"value": "http://test1.com"}, {"value": "http://test2.com"}],
-            }
+            },
+            "core": False,
+            "is_update": True,
+            "workflow_type": "AUTHOR_UPDATE",
         }
 
         request_mock.post(
