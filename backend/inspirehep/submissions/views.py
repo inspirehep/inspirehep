@@ -139,7 +139,13 @@ class AuthorSubmissionsResource(BaseSubmissionsResource):
 
     def post(self):
         data = self.load_data_from_request()
-        return self.start_workflow_for_submission(data)
+        payload = {
+            "data": data,
+            "workflow_type": "AUTHOR_CREATE",
+            "core": False,
+            "is_update": False,
+        }
+        return self.start_workflow_for_submission(payload)
 
     def put(self, pid_value):
         try:
@@ -157,7 +163,13 @@ class AuthorSubmissionsResource(BaseSubmissionsResource):
         db.session.commit()
 
         if current_app.config.get("FEATURE_FLAG_ENABLE_WORKFLOW_ON_AUTHOR_UPDATE"):
-            self.start_workflow_for_submission(record)
+            payload = {
+                "data": record,
+                "workflow_type": "AUTHOR_UPDATE",
+                "core": False,
+                "is_update": True,
+            }
+            self.start_workflow_for_submission(payload)
 
         return jsonify({"pid_value": record["control_number"]})
 
@@ -198,6 +210,13 @@ class AuthorSubmissionsResource(BaseSubmissionsResource):
         return author_loader_v1()
 
     def start_workflow_for_submission(self, payload):
+        """Sends workflow payload to the backoffice
+
+        :param object payload: dict with workflow model variables set
+        :return object: inspire next response
+        """
+
+        payload["data"]["acquisition_source"] = self.get_acquisition_source()
 
         if current_app.config.get("FEATURE_FLAG_ENABLE_SEND_TO_BACKOFFICE"):
             self.send_post_request_to_inspire_next(
