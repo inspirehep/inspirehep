@@ -139,13 +139,7 @@ class AuthorSubmissionsResource(BaseSubmissionsResource):
 
     def post(self):
         data = self.load_data_from_request()
-        payload = {
-            "data": data,
-            "workflow_type": "AUTHOR_CREATE",
-            "core": False,
-            "is_update": False,
-        }
-        return self.start_workflow_for_submission(payload)
+        return self.start_workflow_for_submission(data, "AUTHOR_CREATE")
 
     def put(self, pid_value):
         try:
@@ -163,13 +157,7 @@ class AuthorSubmissionsResource(BaseSubmissionsResource):
         db.session.commit()
 
         if current_app.config.get("FEATURE_FLAG_ENABLE_WORKFLOW_ON_AUTHOR_UPDATE"):
-            payload = {
-                "data": record,
-                "workflow_type": "AUTHOR_UPDATE",
-                "core": False,
-                "is_update": True,
-            }
-            self.start_workflow_for_submission(payload)
+            self.start_workflow_for_submission(record, "AUTHOR_UPDATE")
 
         return jsonify({"pid_value": record["control_number"]})
 
@@ -209,20 +197,22 @@ class AuthorSubmissionsResource(BaseSubmissionsResource):
     def load_data_from_request(self):
         return author_loader_v1()
 
-    def start_workflow_for_submission(self, payload):
+    def start_workflow_for_submission(self, record, workflow_type):
         """Sends workflow payload to the backoffice
 
-        :param object payload: dict with workflow model variables set
+        :param object record: dict with workflow model variables set
+        :param str workflow_type: distinguish between UPDATE and CREATE
         :return object: inspire next response
         """
-
-        payload["data"]["acquisition_source"] = self.get_acquisition_source()
+        record["acquisition_source"] = self.get_acquisition_source()
+        payload = {"data": record}
+        payload_backoffice = {"data": record, "workflow_type": workflow_type}
 
         if current_app.config.get("FEATURE_FLAG_ENABLE_SEND_TO_BACKOFFICE"):
             self.send_post_request_to_inspire_next(
                 current_app.config["INSPIRE_BACKOFFICE_URL"],
                 "/api/workflows/",
-                payload,
+                payload_backoffice,
                 current_app.config["BACKOFFICE_BEARER_TOKEN"],
                 bearer_keyword="Token",
             )
