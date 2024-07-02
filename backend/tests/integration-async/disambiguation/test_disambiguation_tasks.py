@@ -259,29 +259,26 @@ def test_disambiguation_doesnt_run_with_feature_flag_disabling_it(
 def test_disambiguation_runs_after_lit_record_update(
     inspire_app, clean_celery_session, enable_disambiguation
 ):
-    author_data = faker.record("aut")
+    author_data = faker.record("aut", with_control_number=True)
     author_data.update(
         {
-            "control_number": 1,
             "name": {"value": "Gross, Brian"},
             "email_addresses": [{"current": True, "value": "test@uw.edu.pl"}],
         }
     )
     author_record = InspireRecord.create(author_data)
 
-    author_data_2 = faker.record("aut")
+    author_data_2 = faker.record("aut", with_control_number=True)
     author_data_2.update(
         {
-            "control_number": 2,
             "name": {"value": "Test Author"},
             "email_addresses": [{"current": True, "value": "test123@uw.edu.pl"}],
         }
     )
     author_record_2 = InspireRecord.create(author_data_2)
-    author_data_3 = faker.record("aut")
+    author_data_3 = faker.record("aut", with_control_number=True)
     author_data_3.update(
         {
-            "control_number": 3,
             "name": {"value": "Another Author"},
             "email_addresses": [
                 {"current": True, "value": "testxx@uw.edu.pl"},
@@ -303,10 +300,9 @@ def test_disambiguation_runs_after_lit_record_update(
 
     assert_authors_records_exist_in_es()
 
-    literature_data = faker.record("lit")
+    literature_data = faker.record("lit", with_control_number=True)
     literature_data.update(
         {
-            "control_number": 4,
             "authors": [
                 {
                     "full_name": "Gross, Brian",
@@ -1409,10 +1405,9 @@ def test_editor_lock_is_created_when_disambiguation_runs(
 def test_disambiguation_deosnt_create_new_stub_author_if_theres_one(
     inspire_app, clean_celery_session, enable_disambiguation
 ):
-    author_1 = faker.record("aut")
+    author_1 = faker.record("aut", with_control_number=True)
     author_1.update(
         {
-            "control_number": 123456,
             "name": {
                 "value": "'t Hooft, Gerard",
             },
@@ -1424,10 +1419,9 @@ def test_disambiguation_deosnt_create_new_stub_author_if_theres_one(
 
     author_record_1 = InspireRecord.create(author_1)
 
-    author_2 = faker.record("aut")
+    author_2 = faker.record("aut", with_control_number=True)
     author_2.update(
         {
-            "control_number": 234567,
             "name": {
                 "value": "'t Hooft, Gerard",
             },

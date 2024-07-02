@@ -15,33 +15,32 @@ from inspirehep.cds.api import (
 
 
 @pytest.mark.parametrize(
-    "data, pid_value, pid_type, expected_control_number",
+    "data, pid_value, pid_type",
     [
         (
-            {"control_number": 12345},
-            12345,
+            {},
+            None,
             "lit",
-            12345,
         ),
         (
-            {"control_number": 12345, "arxiv_eprints": [{"value": "2105.04372"}]},
+            {"arxiv_eprints": [{"value": "2105.04372"}]},
             "2105.04372",
             "arxiv",
-            12345,
         ),
         (
-            {"control_number": 12345, "dois": [{"value": "10.1088/1361-6560/abf604"}]},
+            {"dois": [{"value": "10.1088/1361-6560/abf604"}]},
             "10.1088/1361-6560/abf604",
             "doi",
-            12345,
         ),
     ],
 )
 def test_get_record_for_pid_or_none_control_number_record_exists(
-    inspire_app, data, pid_value, pid_type, expected_control_number
+    inspire_app, data, pid_value, pid_type
 ):
-    create_record("lit", data=data)
-
+    record_created = create_record("lit", data=data)
+    expected_control_number = record_created["control_number"]
+    if pid_value is None:
+        pid_value = expected_control_number
     record = get_record_for_pid_or_none(pid_type, pid_value)
     assert expected_control_number == record.control_number
 
@@ -50,17 +49,17 @@ def test_get_record_for_pid_or_none_control_number_record_exists(
     "data, pid_value, pid_type",
     [
         (
-            {"control_number": 1234},
+            {},
             9999,
             "lit",
         ),
         (
-            {"control_number": 12345, "arxiv_eprints": [{"value": "2105.04372"}]},
+            {"arxiv_eprints": [{"value": "2105.04372"}]},
             "9999.99999",
             "arxiv",
         ),
         (
-            {"control_number": 12345, "dois": [{"value": "10.1088/1361-6560/abf604"}]},
+            {"dois": [{"value": "10.1088/1361-6560/abf604"}]},
             "99.9999/9999-9999/abc999",
             "doi",
         ),
@@ -77,16 +76,14 @@ def test_get_record_for_pid_or_none_control_number_record_missing(
 
 def test_query_report_number(inspire_app):
     report_number = "PI/UAN-2021-689FT"
-    expected_control_number = 12345
     data = {
-        "control_number": expected_control_number,
         "report_numbers": [{"value": report_number, "source": "arXiv"}],
     }
 
-    create_record("lit", data=data)
+    record = create_record("lit", data=data)
     rec = query_report_number(report_number)
 
-    assert rec.control_number == expected_control_number
+    assert rec.control_number == record["control_number"]
 
 
 def test_query_report_number_in_multiple_records(inspire_app):
@@ -102,9 +99,7 @@ def test_query_report_number_in_multiple_records(inspire_app):
 
 def test_query_missing_report_number(inspire_app):
     report_number = "PI/UAN-2021-689FT"
-    expected_control_number = 12345
     data = {
-        "control_number": expected_control_number,
         "report_numbers": [{"value": report_number}],
     }
 
@@ -115,63 +110,52 @@ def test_query_missing_report_number(inspire_app):
 
 
 @pytest.mark.parametrize(
-    "data, control_numbers, arxivs, dois, report_numbers, expected_control_number",
+    "data, arxivs, dois, report_numbers",
     [
         (
-            {"control_number": 12345},
-            [12345],
+            {},
             [],
             [],
             [],
-            12345,
         ),
         (
-            {"control_number": 12345, "arxiv_eprints": [{"value": "2105.04372"}]},
-            [],
+            {"arxiv_eprints": [{"value": "2105.04372"}]},
             ["2105.04372"],
             [],
             [],
-            12345,
         ),
         (
-            {"control_number": 12345, "dois": [{"value": "10.1088/1361-6560/abf604"}]},
-            [],
+            {"dois": [{"value": "10.1088/1361-6560/abf604"}]},
             [],
             ["10.1088/1361-6560/abf604"],
             [],
-            12345,
         ),
         (
-            {"control_number": 12345, "arxiv_eprints": [{"value": "2105.04372"}]},
-            [],
+            {"arxiv_eprints": [{"value": "2105.04372"}]},
             [],
             [],
             ["arXiv:2105.04372"],
-            12345,
         ),
         (
             {
-                "control_number": 12345,
                 "report_numbers": [{"value": "PI/UAN-2021-689FT"}],
             },
             [],
             [],
-            [],
             ["PI/UAN-2021-689FT"],
-            12345,
         ),
     ],
 )
 def test_record_for_provided_ids(
     inspire_app,
     data,
-    control_numbers,
     arxivs,
     dois,
     report_numbers,
-    expected_control_number,
 ):
-    create_record("lit", data=data)
-
-    record = get_record_for_provided_ids(control_numbers, arxivs, dois, report_numbers)
+    record_created = create_record("lit", data=data)
+    expected_control_number = record_created["control_number"]
+    record = get_record_for_provided_ids(
+        [record_created["control_number"]], arxivs, dois, report_numbers
+    )
     assert record.control_number == expected_control_number

@@ -33,8 +33,6 @@
       "country_code": "CH"
     }
   ],
-  "control_number": 902725,
-  "self": { "$ref": "http://labs.inspirehep.net/api/institutions/902725" },
   "name_variants": [
     { "value": "Centre Europ\u00e9en de Recherches Nucl\u00e9aires" }
   ],

@@ -40,19 +40,17 @@ def test_update_pdg_keywords(inspire_app, clean_celery_session, cli):
         faker.record(
             "lit",
             data={
-                "control_number": 48509,
                 "keywords": [{"schema": "PDG", "value": "S000"}, {"value": "a test"}],
             },
         )
     )
     rec_without_keywords_to_be_updated_with_pdg_keywords = LiteratureRecord.create(
-        faker.record("lit", data={"control_number": 48478})
+        faker.record("lit")
     )
     rec_with_pdg_keywords_not_on_pdg_list = LiteratureRecord.create(
         faker.record(
             "lit",
             data={
-                "control_number": 4444444,
                 "keywords": [{"schema": "PDG", "value": "S000"}],
             },
         )
@@ -62,7 +60,6 @@ def test_update_pdg_keywords(inspire_app, clean_celery_session, cli):
         faker.record(
             "lit",
             data={
-                "control_number": 48469,
                 "keywords": [
                     {"schema": "PDG", "value": "S000"},
                     {"schema": "PDG", "value": "S000.99"},
@@ -85,9 +82,22 @@ def test_update_pdg_keywords(inspire_app, clean_celery_session, cli):
             "GET",
             "https://pdg.lbl.gov/2022/pdgid/PDGIdentifiers-references-2022v0.json",
             json=[
-                {"inspireId": 48509, "pdgIdList": ["S027RHO"]},
-                {"inspireId": 48478, "pdgIdList": ["S024M"]},
-                {"inspireId": 48469, "pdgIdList": ["S009.1", "S009.2"]},
+                {
+                    "inspireId": rec_with_pdg_keywords["control_number"],
+                    "pdgIdList": ["S027RHO"],
+                },
+                {
+                    "inspireId": rec_without_keywords_to_be_updated_with_pdg_keywords[
+                        "control_number"
+                    ],
+                    "pdgIdList": ["S024M"],
+                },
+                {
+                    "inspireId": rec_with_pdg_one_keyword_not_on_pdg_list[
+                        "control_number"
+                    ],
+                    "pdgIdList": ["S009.1", "S009.2"],
+                },
             ],
         )
 
@@ -100,32 +110,32 @@ def test_update_pdg_keywords(inspire_app, clean_celery_session, cli):
             ]
         )
 
-        rec_48509 = LiteratureRecord.get_record_by_pid_value(
+        rec_1 = LiteratureRecord.get_record_by_pid_value(
             rec_with_pdg_keywords["control_number"]
         )
-        rec_48478 = LiteratureRecord.get_record_by_pid_value(
+        rec_2 = LiteratureRecord.get_record_by_pid_value(
             rec_without_keywords_to_be_updated_with_pdg_keywords["control_number"]
         )
-        rec_4444444 = LiteratureRecord.get_record_by_pid_value(
+        rec_3 = LiteratureRecord.get_record_by_pid_value(
             rec_with_pdg_keywords_not_on_pdg_list["control_number"]
         )
-        rec_4444445 = LiteratureRecord.get_record_by_pid_value(
+        rec_4 = LiteratureRecord.get_record_by_pid_value(
             rec_with_pdg_one_keyword_not_on_pdg_list["control_number"]
         )
 
         @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
         def assert_keywords_are_updated():
-            rec_48509_es = LiteratureSearch.get_record_data_from_es(rec_48509)
-            rec_48478_es = LiteratureSearch.get_record_data_from_es(rec_48478)
-            rec_4444444_es = LiteratureSearch.get_record_data_from_es(rec_4444444)
-            rec_4444445_es = LiteratureSearch.get_record_data_from_es(rec_4444445)
+            rec_1_es = LiteratureSearch.get_record_data_from_es(rec_1)
+            rec_2_es = LiteratureSearch.get_record_data_from_es(rec_2)
+            rec_3_es = LiteratureSearch.get_record_data_from_es(rec_3)
+            rec_4_es = LiteratureSearch.get_record_data_from_es(rec_4)
 
-            assert {"schema": "PDG", "value": "S027RHO"} in rec_48509_es["keywords"]
-            assert {"schema": "PDG", "value": "S000"} not in rec_48509_es["keywords"]
-            assert rec_48478_es["keywords"] == [{"schema": "PDG", "value": "S024M"}]
-            assert not rec_4444444_es.get("keywords")
-            assert len(rec_4444445_es["keywords"]) == 2
-            assert rec_4444445_es["keywords"] == [
+            assert {"schema": "PDG", "value": "S027RHO"} in rec_1_es["keywords"]
+            assert {"schema": "PDG", "value": "S000"} not in rec_2_es["keywords"]
+            assert rec_2_es["keywords"] == [{"schema": "PDG", "value": "S024M"}]
+            assert not rec_3_es.get("keywords")
+            assert len(rec_4_es["keywords"]) == 2
+            assert rec_4_es["keywords"] == [
                 {"schema": "PDG", "value": "S009.1"},
                 {"schema": "PDG", "value": "S009.2"},
             ]
@@ -158,7 +168,6 @@ def test_update_pdg_keywords_in_record_without_any_pdg_keywords(
         faker.record(
             "lit",
             data={
-                "control_number": 48468,
                 "keywords": [{"schema": "INSPIRE", "value": "a test"}],
             },
         )
@@ -177,7 +186,7 @@ def test_update_pdg_keywords_in_record_without_any_pdg_keywords(
             "https://pdg.lbl.gov/2022/pdgid/PDGIdentifiers-references-2022v0.json",
             json=[
                 {
-                    "inspireId": 48468,
+                    "inspireId": rec_without_pdg_keywords_on_pdg_list["control_number"],
                     "pdgIdList": ["S008.1", "S008.2", "S008.3", "S008.5"],
                 }
             ],
@@ -191,14 +200,14 @@ def test_update_pdg_keywords_in_record_without_any_pdg_keywords(
                 "https://pdg.lbl.gov/2022/pdgid/PDGIdentifiers-references-2022v0.json",
             ]
         )
-        rec_48468 = LiteratureRecord.get_record_by_pid_value(
+        rec = LiteratureRecord.get_record_by_pid_value(
             rec_without_pdg_keywords_on_pdg_list["control_number"]
         )
 
         @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
         def assert_keywords_are_updated():
-            rec_48468_es = LiteratureSearch.get_record_data_from_es(rec_48468)
+            rec_es = LiteratureSearch.get_record_data_from_es(rec)
 
-            assert len(get_values_for_schema(rec_48468_es["keywords"], "PDG")) == 4
+            assert len(get_values_for_schema(rec_es["keywords"], "PDG")) == 4
 
         assert_keywords_are_updated()

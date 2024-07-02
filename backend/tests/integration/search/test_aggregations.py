@@ -1,5 +1,6 @@
 from flask import current_app
 from freezegun.api import freeze_time
+from helpers.providers.faker import faker
 from helpers.utils import create_record, create_user
 from invenio_accounts.testutils import login_user_via_session
 
@@ -706,8 +707,8 @@ def test_hep_self_author_affiliations_aggregation_and_filter(
 
     config = {"RECORDS_REST_FACETS": {"records-hep": records_hep}}
     with override_config(**config):
-        data = {"control_number": 999107, "name": {"value": "Doe, John"}}
-        create_record("aut", data)
+        data = {"name": {"value": "Doe, John"}}
+        author_record = create_record("aut", data)
         data = {
             "authors": [
                 {
@@ -717,7 +718,9 @@ def test_hep_self_author_affiliations_aggregation_and_filter(
                 },
                 {
                     "full_name": "John Doe",
-                    "record": {"$ref": "http://labs.inspirehep.net/api/authors/999107"},
+                    "record": {
+                        "$ref": f"http://labs.inspirehep.net/api/authors/{author_record['control_number']}"
+                    },
                 },
             ]
         }
@@ -727,7 +730,9 @@ def test_hep_self_author_affiliations_aggregation_and_filter(
                 {
                     "affiliations": [{"value": "CERN"}],
                     "full_name": "John Doe",
-                    "record": {"$ref": "http://labs.inspirehep.net/api/authors/999107"},
+                    "record": {
+                        "$ref": f"http://labs.inspirehep.net/api/authors/{author_record['control_number']}"
+                    },
                 }
             ]
         }
@@ -746,7 +751,7 @@ def test_hep_self_author_affiliations_aggregation_and_filter(
         assert response["aggregations"]["self_affiliations"] == expected_aggregation
         with inspire_app.test_client() as client:
             response = client.get(
-                "/literature?author=999107_John%20Doe&self_affiliations=CERN"
+                f"/literature?author={author_record['control_number']}_John%20Doe&self_affiliations=CERN"
             ).json
         assert len(response["hits"]["hits"]) == 1
         assert (
@@ -764,18 +769,22 @@ def test_hep_author_affiliations_aggregation_and_filter(inspire_app, override_co
 
     config = {"RECORDS_REST_FACETS": {"records-hep": records_hep}}
     with override_config(**config):
-        data = {"control_number": 999107, "name": {"value": "Doe, John"}}
-        create_record("aut", data)
+        data = {"name": {"value": "Doe, John"}}
+        author_record = create_record("aut", data)
         data = {
             "authors": [
                 {
                     "affiliations": [{"value": "Princeton"}, {"value": "Harvard U."}],
                     "full_name": "Maldacena, Juan Martin",
-                    "record": {"$ref": "http://labs.inspirehep.net/api/authors/999108"},
+                    "record": {
+                        "$ref": f"http://labs.inspirehep.net/api/authors/{author_record['control_number']+1}"
+                    },
                 },
                 {
                     "full_name": "John Doe",
-                    "record": {"$ref": "http://labs.inspirehep.net/api/authors/999107"},
+                    "record": {
+                        "$ref": f"http://labs.inspirehep.net/api/authors/{author_record['control_number']}"
+                    },
                 },
             ]
         }
@@ -785,7 +794,9 @@ def test_hep_author_affiliations_aggregation_and_filter(inspire_app, override_co
                 {
                     "affiliations": [{"value": "CERN"}, {"value": "Princeton"}],
                     "full_name": "John Doe",
-                    "record": {"$ref": "http://labs.inspirehep.net/api/authors/999107"},
+                    "record": {
+                        "$ref": f"http://labs.inspirehep.net/api/authors/{author_record['control_number']}"
+                    },
                 }
             ]
         }
@@ -805,7 +816,7 @@ def test_hep_author_affiliations_aggregation_and_filter(inspire_app, override_co
         assert response["aggregations"]["affiliations"] == expected_aggregation
         with inspire_app.test_client() as client:
             response = client.get(
-                "/literature?author=999107_John%20Doe&affiliations=CERN"
+                f"/literature?author={author_record['control_number']}_John%20Doe&affiliations=CERN"
             ).json
         assert len(response["hits"]["hits"]) == 1
         assert (
@@ -815,25 +826,36 @@ def test_hep_author_affiliations_aggregation_and_filter(inspire_app, override_co
 
 
 def test_hep_self_author_names_aggregation_and_filter(inspire_app, override_config):
+    auth_data = faker.record(
+        "aut",
+        data={"name": {"value": "Maldacena, Juan Martin"}},
+        with_control_number=True,
+    )
+    auth_control_number = auth_data["control_number"]
+
     def records_hep():
         return {
             "filters": hep_filters(),
-            "aggs": {**hep_self_author_names_aggregation(1, "999108")},
+            "aggs": {**hep_self_author_names_aggregation(1, auth_control_number)},
         }
 
     config = {"RECORDS_REST_FACETS": {"records-hep": records_hep}}
     with override_config(**config):
-        data = {"control_number": 999108, "name": {"value": "Maldacena, Juan Martin"}}
-        create_record("aut", data)
+        create_record("aut", auth_data)
+
         data = {
             "authors": [
                 {
                     "full_name": "Maldacena, Juan Martin",
-                    "record": {"$ref": "http://labs.inspirehep.net/api/authors/999108"},
+                    "record": {
+                        "$ref": f"http://labs.inspirehep.net/api/authors/{auth_control_number}"
+                    },
                 },
                 {
                     "full_name": "John Doe",
-                    "record": {"$ref": "http://labs.inspirehep.net/api/authors/999107"},
+                    "record": {
+                        "$ref": f"http://labs.inspirehep.net/api/authors/{auth_control_number-1}"
+                    },
                 },
             ]
         }
@@ -842,7 +864,9 @@ def test_hep_self_author_names_aggregation_and_filter(inspire_app, override_conf
             "authors": [
                 {
                     "full_name": "Maldacena, Juan",
-                    "record": {"$ref": "http://labs.inspirehep.net/api/authors/999108"},
+                    "record": {
+                        "$ref": f"http://labs.inspirehep.net/api/authors/{auth_control_number}"
+                    },
                 }
             ]
         }
@@ -861,7 +885,7 @@ def test_hep_self_author_names_aggregation_and_filter(inspire_app, override_conf
         assert response["aggregations"]["self_author_names"] == expected_aggregation
         with inspire_app.test_client() as client:
             response = client.get(
-                "/literature?author=999108_Juan%20Martin%20Maldacena&self_author_names=Maldacena%2C%20Juan%20Martin"
+                f"/literature?author={auth_control_number}_Juan%20Martin%20Maldacena&self_author_names=Maldacena%2C%20Juan%20Martin"
             ).json
         assert len(response["hits"]["hits"]) == 1
         assert (

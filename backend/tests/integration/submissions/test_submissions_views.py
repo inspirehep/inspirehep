@@ -187,12 +187,13 @@ def test_new_author_submit_works_with_session_login(inspire_app, requests_mock):
 def test_get_author_update_data_fails_if_user_does_not_own_author_profile(inspire_app):
     user = create_user()
 
-    create_record_factory("aut", data={"control_number": 123})
+    rec = create_record_factory("aut")
 
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.get(
-            "/submissions/authors/123", headers={"Accept": "application/json"}
+            f"/submissions/authors/{rec.data['control_number']}",
+            headers={"Accept": "application/json"},
         )
 
     assert response.status_code == 403
@@ -203,7 +204,6 @@ def test_get_author_update_data_of_same_author(inspire_app):
     user = create_user(orcid=orcid)
 
     author_data = {
-        "control_number": 123,
         "name": {"value": "John", "preferred_name": "John Doe"},
         "ids": [{"schema": "ORCID", "value": orcid}],
         "email_addresses": [
@@ -212,7 +212,7 @@ def test_get_author_update_data_of_same_author(inspire_app):
         ],
         "status": "active",
     }
-    create_record_factory("aut", data=author_data)
+    rec = create_record_factory("aut", data=author_data)
 
     expected_data = {
         "data": {
@@ -230,7 +230,8 @@ def test_get_author_update_data_of_same_author(inspire_app):
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.get(
-            "/submissions/authors/123", headers={"Accept": "application/json"}
+            f"/submissions/authors/{rec.data['control_number']}",
+            headers={"Accept": "application/json"},
         )
     response_data = orjson.loads(response.data)
 
@@ -263,7 +264,6 @@ def test_update_author(inspire_app):
     orcid = "0000-0001-5109-3700"
     user = create_user(orcid=orcid)
     author_data = {
-        "control_number": 123,
         "name": {"value": "John"},
         "ids": [
             {"schema": "ORCID", "value": orcid},
@@ -275,12 +275,12 @@ def test_update_author(inspire_app):
         "urls": [{"value": "https://wrong-url"}],
         "_private_notes": [{"value": "A private note"}],
     }
-    create_record("aut", data=author_data)
+    rec = create_record("aut", data=author_data)
 
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.put(
-            "/submissions/authors/123",
+            f"/submissions/authors/{rec['control_number']}",
             content_type="application/json",
             data=orjson.dumps(
                 {
@@ -299,9 +299,9 @@ def test_update_author(inspire_app):
 
     expected_data = {
         "_collections": ["Authors"],
-        "self": {"$ref": "http://localhost:5000/api/authors/123"},
+        "self": {"$ref": f"http://localhost:5000/api/authors/{rec['control_number']}"},
         "$schema": "http://localhost:5000/schemas/records/authors.json",
-        "control_number": 123,
+        "control_number": rec["control_number"],
         "name": {"preferred_name": "Updated", "value": "John, Updated"},
         "status": "active",
         "ids": [
@@ -316,7 +316,7 @@ def test_update_author(inspire_app):
         ],
     }
 
-    updated_author = AuthorsRecord.get_record_by_pid_value(123)
+    updated_author = AuthorsRecord.get_record_by_pid_value(rec["control_number"])
 
     assert expected_data == updated_author
 
@@ -326,7 +326,6 @@ def test_update_author_with_new_orcid(inspire_app):
     orcid = "0000-0001-5109-3700"
     user = create_user(orcid=orcid)
     author_data = {
-        "control_number": 123,
         "name": {"value": "John"},
         "ids": [
             {"schema": "ORCID", "value": orcid},
@@ -335,12 +334,12 @@ def test_update_author_with_new_orcid(inspire_app):
         "status": "active",
         "urls": [{"value": "https://wrong-url"}],
     }
-    create_record("aut", data=author_data)
+    rec = create_record("aut", data=author_data)
 
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.put(
-            "/submissions/authors/123",
+            f"/submissions/authors/{rec['control_number']}",
             content_type="application/json",
             data=orjson.dumps(
                 {
@@ -359,9 +358,9 @@ def test_update_author_with_new_orcid(inspire_app):
 
     expected_data = {
         "_collections": ["Authors"],
-        "self": {"$ref": "http://localhost:5000/api/authors/123"},
+        "self": {"$ref": f"http://localhost:5000/api/authors/{rec['control_number']}"},
         "$schema": "http://localhost:5000/schemas/records/authors.json",
-        "control_number": 123,
+        "control_number": rec["control_number"],
         "name": {"preferred_name": "Updated", "value": "John, Updated"},
         "status": "active",
         "ids": [
@@ -372,7 +371,7 @@ def test_update_author_with_new_orcid(inspire_app):
             {"schema": "LINKEDIN", "value": "http://linkedin.com"},
         ],
     }
-    updated_author = AuthorsRecord.get_record_by_pid_value(123)
+    updated_author = AuthorsRecord.get_record_by_pid_value(rec["control_number"])
     assert ordered(expected_data) == ordered(updated_author)
 
 
@@ -381,18 +380,17 @@ def test_update_author_with_extra_data(inspire_app):
     orcid = "0000-0001-5109-3700"
     user = create_user(orcid=orcid)
     author_data = {
-        "control_number": 123,
         "name": {"value": "John"},
         "ids": [{"schema": "ORCID", "value": orcid}],
         "status": "active",
         "urls": [{"value": "https://wrong-url"}],
     }
-    create_record("aut", data=author_data)
+    rec = create_record("aut", data=author_data)
 
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.put(
-            "/submissions/authors/123",
+            f"/submissions/authors/{rec['control_number']}",
             content_type="application/json",
             data=orjson.dumps(
                 {
@@ -409,9 +407,9 @@ def test_update_author_with_extra_data(inspire_app):
 
     expected_data = {
         "_collections": ["Authors"],
-        "self": {"$ref": "http://localhost:5000/api/authors/123"},
+        "self": {"$ref": f"http://localhost:5000/api/authors/{rec['control_number']}"},
         "$schema": "http://localhost:5000/schemas/records/authors.json",
-        "control_number": 123,
+        "control_number": rec["control_number"],
         "name": {"preferred_name": "Updated", "value": "John, Updated"},
         "status": "active",
         "ids": [
@@ -420,7 +418,7 @@ def test_update_author_with_extra_data(inspire_app):
             {"schema": "ORCID", "value": orcid},
         ],
     }
-    updated_author = AuthorsRecord.get_record_by_pid_value(123)
+    updated_author = AuthorsRecord.get_record_by_pid_value(rec["control_number"])
     assert ordered(expected_data) == ordered(updated_author)
 
 
@@ -429,7 +427,6 @@ def test_update_author_with_new_bai(inspire_app):
     orcid = "0000-0001-5109-3700"
     user = create_user(orcid=orcid)
     author_data = {
-        "control_number": 123,
         "name": {"value": "John"},
         "ids": [
             {"schema": "ORCID", "value": orcid},
@@ -438,12 +435,12 @@ def test_update_author_with_new_bai(inspire_app):
         "status": "active",
         "urls": [{"value": "https://wrong-url"}],
     }
-    create_record("aut", data=author_data)
+    rec = create_record("aut", data=author_data)
 
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.put(
-            "/submissions/authors/123",
+            f"/submissions/authors/{rec['control_number']}",
             content_type="application/json",
             data=orjson.dumps(
                 {
@@ -461,9 +458,9 @@ def test_update_author_with_new_bai(inspire_app):
 
     expected_data = {
         "_collections": ["Authors"],
-        "self": {"$ref": "http://localhost:5000/api/authors/123"},
+        "self": {"$ref": f"http://localhost:5000/api/authors/{rec['control_number']}"},
         "$schema": "http://localhost:5000/schemas/records/authors.json",
-        "control_number": 123,
+        "control_number": rec["control_number"],
         "name": {"preferred_name": "Updated", "value": "John, Updated"},
         "status": "active",
         "ids": [
@@ -472,7 +469,7 @@ def test_update_author_with_new_bai(inspire_app):
             {"schema": "LINKEDIN", "value": "http://linkedin.com"},
         ],
     }
-    updated_author = AuthorsRecord.get_record_by_pid_value(123)
+    updated_author = AuthorsRecord.get_record_by_pid_value(rec["control_number"])
     assert expected_data == updated_author
 
 
@@ -482,7 +479,6 @@ def test_update_author_creates_new_workflow(inspire_app, override_config):
     orcid = "0000-0001-5109-3700"
     user = create_user(orcid=orcid)
     author_data = {
-        "control_number": 123,
         "name": {"value": "John"},
         "ids": [
             {"schema": "ORCID", "value": orcid},
@@ -492,7 +488,7 @@ def test_update_author_creates_new_workflow(inspire_app, override_config):
         "urls": [{"value": "https://wrong-url"}],
     }
 
-    create_record("aut", data=author_data)
+    rec = create_record("aut", data=author_data)
 
     with inspire_app.test_client() as client, requests_mock.Mocker() as request_mock, override_config(
         **config
@@ -511,14 +507,16 @@ def test_update_author_creates_new_workflow(inspire_app, override_config):
                     "orcid": "0000-0001-5109-3700",
                     "source": "submitter",
                 },
-                "control_number": 123,
+                "control_number": rec["control_number"],
                 "ids": [
                     {"schema": "ORCID", "value": "0000-0001-5109-3700"},
                     {"schema": "LINKEDIN", "value": "test_account"},
                     {"schema": "TWITTER", "value": "test_account"},
                 ],
                 "name": {"preferred_name": "Updated", "value": "John, Updated"},
-                "self": {"$ref": "http://localhost:5000/api/authors/123"},
+                "self": {
+                    "$ref": f"http://localhost:5000/api/authors/{rec['control_number']}"
+                },
                 "status": "active",
                 "urls": [{"value": "http://test1.com"}, {"value": "http://test2.com"}],
             }
@@ -529,7 +527,7 @@ def test_update_author_creates_new_workflow(inspire_app, override_config):
             status_code=200,
         )
         response = client.put(
-            "/submissions/authors/123",
+            f"/submissions/authors/{rec['control_number']}",
             content_type="application/json",
             data=orjson.dumps(
                 {
@@ -1499,14 +1497,13 @@ def test_regression_update_job_without_acquisition_source_doesnt_give_500(
     data = {
         "status": "open",
         "_collections": ["Jobs"],
-        "control_number": 1,
         "deadline_date": "2019-12-31",
         "description": "nice job",
         "position": "junior",
         "regions": ["Europe"],
     }
-    create_record("job", data=data)
-    pid_value = data["control_number"]
+    rec = create_record("job", data=data)
+    pid_value = rec["control_number"]
     job_record = JobsRecord.get_record_by_pid_value(pid_value)
 
     assert "acquisition_source" not in job_record
@@ -1864,15 +1861,16 @@ def test_get_seminar_update_data(form_data, record_data, inspire_app):
     record_data["literature_records"] = [
         {"record": {"$ref": "http://localhost:5000/api/literature/123"}}
     ]
-    seminar_data = {"control_number": 123, **record_data}
-    create_record_factory("sem", data=seminar_data)
+    seminar_data = {**record_data}
+    rec = create_record_factory("sem", data=seminar_data)
     form_data = deepcopy(form_data)
     form_data["literature_records"] = ["123"]
     expected_data = {"data": form_data}
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.get(
-            "/submissions/seminars/123", headers={"Accept": "application/json"}
+            f"/submissions/seminars/{rec.data['control_number']}",
+            headers={"Accept": "application/json"},
         )
     response_data = orjson.loads(response.data)
 
@@ -1993,11 +1991,10 @@ def test_seminar_update_submission(
     user = create_user(orcid=orcid)
 
     seminar_data = {
-        "control_number": 123,
         "acquisition_source": {"orcid": orcid},
         **record_data,
     }
-    create_record_factory("sem", data=seminar_data)
+    rec = create_record_factory("sem", data=seminar_data)
 
     update_form_data = deepcopy({**form_data, "name": "New name"})
     expected_record_data = {**record_data, "title": {"title": "New name"}}
@@ -2010,7 +2007,7 @@ def test_seminar_update_submission(
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.put(
-            "/submissions/seminars/123",
+            f"/submissions/seminars/{rec.data['control_number']}",
             content_type="application/json",
             data=orjson.dumps({"data": update_form_data}),
         )
@@ -2035,11 +2032,10 @@ def test_seminar_update_submission_with_cataloger_login(
     orcid = "0000-0001-5109-3700"
 
     seminar_data = {
-        "control_number": 123,
         "acquisition_source": {"orcid": orcid},
         **SEMINAR_RECORD_DATA,
     }
-    create_record_factory("sem", data=seminar_data)
+    rec = create_record_factory("sem", data=seminar_data)
 
     form_data = deepcopy({**SEMINAR_FORM_DATA, "name": "New name"})
     form_data.pop("address")
@@ -2049,7 +2045,7 @@ def test_seminar_update_submission_with_cataloger_login(
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=cataloger.email)
         response = client.put(
-            "/submissions/seminars/123",
+            f"/submissions/seminars/{rec.data['control_number']}",
             content_type="application/json",
             data=orjson.dumps({"data": form_data}),
         )
@@ -2072,16 +2068,15 @@ def test_seminar_update_submission_with_cataloger_login(
 
 def test_seminar_update_submission_without_login(inspire_app):
     seminar_data = {
-        "control_number": 123,
         "acquisition_source": {"orcid": "0000-0001-5109-3700"},
         **SEMINAR_RECORD_DATA,
     }
-    create_record_factory("sem", data=seminar_data)
+    rec = create_record_factory("sem", data=seminar_data)
 
     form_data = deepcopy({**SEMINAR_FORM_DATA, "name": "New name"})
     with inspire_app.test_client() as client:
         response = client.put(
-            "/submissions/seminars/123",
+            f"/submissions/seminars/{rec.data['control_number']}",
             content_type="application/json",
             data=orjson.dumps({"data": form_data}),
         )
@@ -2092,17 +2087,16 @@ def test_seminar_update_submission_with_different_user(inspire_app):
     user = create_user()
 
     seminar_data = {
-        "control_number": 123,
         "acquisition_source": {"orcid": "0000-0001-5109-3700"},
         **SEMINAR_RECORD_DATA,
     }
-    create_record_factory("sem", data=seminar_data)
+    rec = create_record_factory("sem", data=seminar_data)
 
     form_data = deepcopy({**SEMINAR_FORM_DATA, "name": "New name"})
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.put(
-            "/submissions/seminars/123",
+            f"/submissions/seminars/{rec.data['control_number']}",
             content_type="application/json",
             data=orjson.dumps({"data": form_data}),
         )

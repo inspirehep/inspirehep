@@ -35038,10 +35038,6 @@
           "value":"programming"
        }
     ],
-    "control_number":2171912,
-    "self":{
-       "$ref":"https://inspirehep.net/api/literature/2171912"
-    },
     "acquisition_source":{
        "datetime":"2022-10-27T18:29:03.284869",
        "email":"hoc@fnal.gov",

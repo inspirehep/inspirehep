@@ -120,7 +120,6 @@ def raw_record(inspire_app):
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "document_type": ["article"],
         "titles": [{"title": "Jessica Jones"}],
-        "control_number": 1608652,
         "_collections": ["Literature"],
         "references": [
             {"record": {"$ref": "http://localhost:5000/api/literature/1498589"}}
@@ -257,11 +256,11 @@ def test_orcid_push_triggered_on_create_record_with_allow_push(
         "inspirehep.orcid.api.get_orcids_for_push",
         return_value=["0000-0001-8829-5461", "0000-0002-2174-4493"],
     ):
-        InspireRecord.create(raw_record)
+        record = InspireRecord.create(raw_record)
         expected_kwargs = {
             "kwargs": {
                 "orcid": user_with_permission["orcid"],
-                "rec_id": 1608652,
+                "rec_id": record["control_number"],
                 "oauth_token": user_with_permission["token"],
                 "kwargs_to_pusher": {"record_db_version": mock.ANY},
             }
@@ -280,7 +279,7 @@ def test_orcid_push_triggered_on_record_update_with_allow_push(
     expected_kwargs = {
         "kwargs": {
             "orcid": user_with_permission["orcid"],
-            "rec_id": 1608652,
+            "rec_id": record["control_number"],
             "oauth_token": user_with_permission["token"],
             "kwargs_to_pusher": {"record_db_version": mock.ANY},
         }
@@ -306,12 +305,12 @@ def test_orcid_push_triggered_on_create_record_with_multiple_authors_with_allow_
         "inspirehep.orcid.api.get_orcids_for_push",
         return_value=["0000-0001-8829-5461", "0000-0002-2174-4493"],
     ):
-        InspireRecord.create(raw_record)
+        record = InspireRecord.create(raw_record)
 
     expected_kwargs_user1 = {
         "kwargs": {
             "orcid": two_users_with_permission[0]["orcid"],
-            "rec_id": 1608652,
+            "rec_id": record["control_number"],
             "oauth_token": two_users_with_permission[0]["token"],
             "kwargs_to_pusher": {"record_db_version": mock.ANY},
         }
@@ -319,7 +318,7 @@ def test_orcid_push_triggered_on_create_record_with_multiple_authors_with_allow_
     expected_kwargs_user2 = {
         "kwargs": {
             "orcid": two_users_with_permission[1]["orcid"],
-            "rec_id": 1608652,
+            "rec_id": record["control_number"],
             "oauth_token": two_users_with_permission[1]["token"],
             "kwargs_to_pusher": {"record_db_version": mock.ANY},
         }
@@ -356,7 +355,7 @@ class TestPushToOrcid(object):
         self.record = LiteratureRecord.create(data)
 
     def test_existing_record(self, override_config):
-        recid = 736770
+        recid = self.record["control_number"]
         inspire_record = LiteratureRecord.get_record_by_pid_value(recid)
         with override_config(
             FEATURE_FLAG_ENABLE_ORCID_PUSH=True,

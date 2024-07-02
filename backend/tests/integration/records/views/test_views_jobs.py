@@ -112,9 +112,9 @@ def test_jobs_facets_cataloger(inspire_app, datadir):
     assert expected_aggregations == response_aggregations
 
 
-def test_jobs_sort_options(inspire_app, datadir):
+def test_jobs_sort_options_1(inspire_app, datadir):
     data = orjson.loads((datadir / "1735925.json").read_text())
-    record = create_record("job", data=data)
+    create_record("job", data=data)
 
     with inspire_app.test_client() as client:
         response = client.get("/jobs")
@@ -132,13 +132,14 @@ def test_jobs_sort_options(inspire_app, datadir):
 
 def test_jobs_accelerator_experiments(inspire_app, datadir):
     data = orjson.loads((datadir / "1735925.json").read_text())
-    create_record("job", data=data)
-    exp1 = create_record(
-        "exp", data={"control_number": 1_108_209, "legacy_name": "FNAL-E-0973"}
-    )
+    exp1 = create_record("exp", data={"legacy_name": "FNAL-E-0973"})
+    data["accelerator_experiments"][0]["record"][
+        "$ref"
+    ] = f"http://localhost:5000/api/experiments/{exp1['control_number']}"
+    rec1 = create_record("job", data=data)
 
     with inspire_app.test_client() as client:
-        response = client.get("/jobs/1735925")
+        response = client.get(f"/jobs/{rec1['control_number']}")
     response_accelerator_experiments = response.json["metadata"][
         "accelerator_experiments"
     ]
@@ -147,7 +148,9 @@ def test_jobs_accelerator_experiments(inspire_app, datadir):
     expected_accelerator_experiments = [
         {
             "name": "FNAL-E-0973",
-            "record": {"$ref": "http://localhost:5000/api/experiments/1108209"},
+            "record": {
+                "$ref": f"http://localhost:5000/api/experiments/{exp1['control_number']}"
+            },
         },
         {"name": "LDMX"},
     ]
@@ -232,9 +235,9 @@ def test_jobs_search_permissions(inspire_app):
     assert response_data["hits"]["total"] == 1
 
 
-def test_jobs_sort_options(inspire_app, datadir):
+def test_jobs_sort_options_2(inspire_app, datadir):
     data = orjson.loads((datadir / "1735925.json").read_text())
-    record = create_record("job", data=data)
+    create_record("job", data=data)
 
     with inspire_app.test_client() as client:
         response = client.get("/jobs")
@@ -254,12 +257,12 @@ def test_jobs_sort_options(inspire_app, datadir):
 
 def test_jobs_sort_by_deadline(inspire_app, datadir):
     data = orjson.loads((datadir / "1735925.json").read_text())
-    create_record("job", data=data)
+    rec1 = create_record("job", data=data)
     data["deadline_date"] = "2020-12-31"
     data["control_number"] = 1_735_926
-    create_record("job", data=data)
-    expected_first_control_number = 1_735_925
-    expected_second_control_number = 1_735_926
+    rec2 = create_record("job", data=data)
+    expected_first_control_number = rec1["control_number"]
+    expected_second_control_number = rec2["control_number"]
 
     with inspire_app.test_client() as client:
         response = client.get("/jobs?sort=deadline")

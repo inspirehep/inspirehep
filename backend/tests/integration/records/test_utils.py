@@ -206,7 +206,7 @@ def test_is_document_scanned_with_not_scanned_pdf(inspire_app):
 
 
 def test_author_by_recid(inspire_app):
-    author = create_record("aut", data={"control_number": 1})
+    author = create_record("aut")
     literature = create_record(
         "lit",
         data={

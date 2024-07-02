@@ -48,10 +48,9 @@ def test_redirects_non_existing_records_from_legacy_url(inspire_app):
 
 def test_redirects_authors_from_legacy_url(inspire_app):
     author_data = {
-        "control_number": 333,
         "ids": [{"schema": "INSPIRE BAI", "value": "Frank.Castle.1"}],
     }
-    create_record("aut", data=author_data)
+    record = create_record("aut", data=author_data)
     with inspire_app.test_client() as client:
         response = client.get("/author/Frank.Castle.1")
 
@@ -59,17 +58,16 @@ def test_redirects_authors_from_legacy_url(inspire_app):
     response_location_header = response.headers.get("Location")
 
     expected_status_code = 301
-    expected_redirect_url = "/authors/333"
+    expected_redirect_url = f"/authors/{record['control_number']}"
     assert expected_status_code == response_status_code
     assert response_location_header == expected_redirect_url
 
 
 def test_redirects_author_profile_from_legacy_url(inspire_app):
     author_data = {
-        "control_number": 333,
         "ids": [{"schema": "INSPIRE BAI", "value": "Frank.Castle.1"}],
     }
-    create_record("aut", data=author_data)
+    record = create_record("aut", data=author_data)
     with inspire_app.test_client() as client:
         response = client.get("/author/profile/Frank.Castle.1")
 
@@ -77,7 +75,7 @@ def test_redirects_author_profile_from_legacy_url(inspire_app):
     response_location_header = response.headers.get("Location")
 
     expected_status_code = 301
-    expected_redirect_url = "/authors/333"
+    expected_redirect_url = f"/authors/{record['control_number']}"
     assert expected_status_code == response_status_code
     assert response_location_header == expected_redirect_url
 
@@ -91,10 +89,9 @@ def test_redirects_non_existing_authors_from_legacy_url(inspire_app):
 
 def test_redirects_claims_to_author_page(inspire_app):
     author_data = {
-        "control_number": 333,
         "ids": [{"schema": "INSPIRE BAI", "value": "G.Aad.1"}],
     }
-    create_record("aut", data=author_data)
+    record = create_record("aut", data=author_data)
 
     with inspire_app.test_client() as client:
         response = client.get("/author/claim/G.Aad.1")
@@ -103,7 +100,7 @@ def test_redirects_claims_to_author_page(inspire_app):
         response_location_header = response.headers.get("Location")
 
         expected_status_code = 302
-        expected_redirect_url = "/authors/333"
+        expected_redirect_url = f"/authors/{record['control_number']}"
         assert expected_status_code == response_status_code
         assert response_location_header == expected_redirect_url
 
@@ -172,10 +169,9 @@ def test_redirects_manage_profile_from_legacy_url(inspire_app):
 
 def test_redirects_manage_profile_to_author_page(inspire_app):
     author_data = {
-        "control_number": 333,
         "ids": [{"schema": "INSPIRE BAI", "value": "G.Aad.1"}],
     }
-    create_record("aut", data=author_data)
+    record = create_record("aut", data=author_data)
 
     with inspire_app.test_client() as client:
         response = client.get("/author/manage_profile/G.Aad.1")
@@ -184,7 +180,7 @@ def test_redirects_manage_profile_to_author_page(inspire_app):
     response_location_header = response.headers.get("Location")
 
     expected_status_code = 302
-    expected_redirect_url = "/authors/333"
+    expected_redirect_url = f"/authors/{record['control_number']}"
     assert expected_status_code == response_status_code
     assert response_location_header == expected_redirect_url
 
@@ -210,9 +206,7 @@ def test_redirects_query_from_legacy_url_to_hep_search(inspire_app):
     response_location_header = response.headers.get("Location")
 
     expected_status_code = 301
-    expected_redirect_url = (
-        "/literature?q=_collections:%22Slac%22%20and%20witten"
-    )
+    expected_redirect_url = "/literature?q=_collections:%22Slac%22%20and%20witten"
     assert expected_status_code == response_status_code
     assert response_location_header == expected_redirect_url
 
@@ -238,9 +232,7 @@ def test_redirects_query_from_legacy_url_with_empty_query_to_hep_search(inspire_
     response_location_header = response.headers.get("Location")
 
     expected_status_code = 301
-    expected_redirect_url = (
-        '/literature?q=_collections:"halhidden"'
-    )
+    expected_redirect_url = '/literature?q=_collections:"halhidden"'
     assert expected_status_code == response_status_code
     assert response_location_header == expected_redirect_url
 
@@ -253,7 +245,9 @@ def test_redirects_query_from_legacy_url_not_in_labs(inspire_app):
     response_location_header = response.headers.get("Location")
 
     expected_status_code = 301
-    expected_redirect_url = "/literature?q=_collections:%22SOME_COLLECTION%22%20and%20CERN"
+    expected_redirect_url = (
+        "/literature?q=_collections:%22SOME_COLLECTION%22%20and%20CERN"
+    )
     assert expected_status_code == response_status_code
     assert response_location_header == expected_redirect_url
 
@@ -281,9 +275,7 @@ def test_redirects_collections_from_legacy_url_to_hep_search(
     response_location_header = response.headers.get("Location")
 
     expected_status_code = 301
-    expected_redirect_url = (
-        '/literature?q=_collections:"halhidden"'
-    )
+    expected_redirect_url = '/literature?q=_collections:"halhidden"'
     assert expected_status_code == response_status_code
     assert response_location_header == expected_redirect_url
 
@@ -296,9 +288,7 @@ def test_redirects_collections_from_legacy_url_not_in_labs(inspire_app):
     response_location_header = response.headers.get("Location")
 
     expected_status_code = 301
-    expected_redirect_url = (
-        '/literature?q=_collections:"SOME_COLLECTION"'
-    )
+    expected_redirect_url = '/literature?q=_collections:"SOME_COLLECTION"'
     assert expected_status_code == response_status_code
     assert response_location_header == expected_redirect_url
 

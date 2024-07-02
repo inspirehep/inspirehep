@@ -237,33 +237,28 @@ def test_conferences_filters(inspire_app):
 
 def test_conferences_date_range_contains_other_conferences(inspire_app):
     conference_during_april_first_week = {
-        "control_number": 1,
         "opening_date": "2019-04-01",
         "closing_date": "2019-04-07",
     }
     conference_during_april_third_week = {
-        "control_number": 2,
         "opening_date": "2019-04-14",
         "closing_date": "2019-04-21",
     }
     conference_during_whole_april = {
-        "control_number": 3,
         "opening_date": "2019-04-01",
         "closing_date": "2019-04-30",
     }
     conference_during_january = {
-        "control_number": 4,
         "opening_date": "2019-01-01",
         "closing_date": "2019-01-30",
     }
     conference_during_june = {
-        "control_number": 5,
         "opening_date": "2019-06-01",
         "closing_date": "2019-06-30",
     }
-    create_record("con", data=conference_during_april_first_week)
-    create_record("con", data=conference_during_april_third_week)
-    create_record("con", data=conference_during_whole_april)
+    record_1 = create_record("con", data=conference_during_april_first_week)
+    record_2 = create_record("con", data=conference_during_april_third_week)
+    record_3 = create_record("con", data=conference_during_whole_april)
     create_record("con", data=conference_during_january)
     create_record("con", data=conference_during_june)
 
@@ -277,24 +272,24 @@ def test_conferences_date_range_contains_other_conferences(inspire_app):
     found_recids = [
         record["metadata"]["control_number"] for record in response_data["hits"]["hits"]
     ]
-    assert 1 in found_recids
-    assert 2 in found_recids
-    assert 3 in found_recids
+    assert record_1["control_number"] in found_recids
+    assert record_2["control_number"] in found_recids
+    assert record_3["control_number"] in found_recids
 
 
 @freeze_time("2019-9-15")
 def test_conferences_start_date_range_filter_all(inspire_app):
-    conference_in_april_2019 = {"control_number": 1, "opening_date": "2019-04-15"}
-    upcoming_conference_april_2020 = {"control_number": 2, "opening_date": "2020-04-15"}
+    conference_in_april_2019 = {"opening_date": "2019-04-15"}
+    upcoming_conference_april_2020 = {"opening_date": "2020-04-15"}
     upcoming_conference_january_2020 = {
-        "control_number": 3,
         "opening_date": "2020-01-15",
     }
-    conference_in_february_2019 = {"control_number": 4, "opening_date": "2019-02-15"}
-    create_record("con", data=conference_in_april_2019)
-    create_record("con", data=upcoming_conference_april_2020)
-    create_record("con", data=upcoming_conference_january_2020)
-    create_record("con", data=conference_in_february_2019)
+    conference_in_february_2019 = {"opening_date": "2019-02-15"}
+    records = []
+    records.append(create_record("con", data=conference_in_april_2019))
+    records.append(create_record("con", data=upcoming_conference_april_2020))
+    records.append(create_record("con", data=upcoming_conference_january_2020))
+    records.append(create_record("con", data=conference_in_february_2019))
 
     with inspire_app.test_client() as client:
         all_response = client.get("/conferences?start_date=all")
@@ -303,21 +298,20 @@ def test_conferences_start_date_range_filter_all(inspire_app):
     all_recids = sorted(
         [record["metadata"]["control_number"] for record in all_data["hits"]["hits"]]
     )
-    assert all_recids == [1, 2, 3, 4]
+    assert all_recids == [record["control_number"] for record in records]
 
 
 @freeze_time("2019-9-15")
 def test_conferences_start_date_range_filter_upcoming(inspire_app):
-    conference_in_april_2019 = {"control_number": 1, "opening_date": "2019-04-15"}
-    upcoming_conference_april_2020 = {"control_number": 2, "opening_date": "2020-04-15"}
+    conference_in_april_2019 = {"opening_date": "2019-04-15"}
+    upcoming_conference_april_2020 = {"opening_date": "2020-04-15"}
     upcoming_conference_january_2020 = {
-        "control_number": 3,
         "opening_date": "2020-01-15",
     }
-    conference_in_february_2019 = {"control_number": 4, "opening_date": "2019-02-15"}
+    conference_in_february_2019 = {"opening_date": "2019-02-15"}
     create_record("con", data=conference_in_april_2019)
-    create_record("con", data=upcoming_conference_april_2020)
-    create_record("con", data=upcoming_conference_january_2020)
+    record_2 = create_record("con", data=upcoming_conference_april_2020)
+    record_3 = create_record("con", data=upcoming_conference_january_2020)
     create_record("con", data=conference_in_february_2019)
 
     with inspire_app.test_client() as client:
@@ -330,21 +324,20 @@ def test_conferences_start_date_range_filter_upcoming(inspire_app):
             for record in upcoming_data["hits"]["hits"]
         ]
     )
-    assert upcoming_recids == [2, 3]
+    assert upcoming_recids == [record_2["control_number"], record_3["control_number"]]
 
 
 @freeze_time("2019-9-15")
 def test_conferences_start_date_range_filter_with_only_single_date(inspire_app):
-    conference_in_april_2019 = {"control_number": 1, "opening_date": "2019-04-15"}
-    upcoming_conference_april_2020 = {"control_number": 2, "opening_date": "2020-04-15"}
+    conference_in_april_2019 = {"opening_date": "2019-04-15"}
+    upcoming_conference_april_2020 = {"opening_date": "2020-04-15"}
     upcoming_conference_january_2020 = {
-        "control_number": 3,
         "opening_date": "2020-01-15",
     }
-    conference_in_february_2019 = {"control_number": 4, "opening_date": "2019-02-15"}
-    create_record("con", data=conference_in_april_2019)
-    create_record("con", data=upcoming_conference_april_2020)
-    create_record("con", data=upcoming_conference_january_2020)
+    conference_in_february_2019 = {"opening_date": "2019-02-15"}
+    record_1 = create_record("con", data=conference_in_april_2019)
+    record_2 = create_record("con", data=upcoming_conference_april_2020)
+    record_3 = create_record("con", data=upcoming_conference_january_2020)
     create_record("con", data=conference_in_february_2019)
 
     with inspire_app.test_client() as client:
@@ -356,21 +349,24 @@ def test_conferences_start_date_range_filter_with_only_single_date(inspire_app):
             for record in after_march_2019_data["hits"]["hits"]
         ]
     )
-    assert after_march_2019_recids == [1, 2, 3]
+    assert after_march_2019_recids == [
+        record_1["control_number"],
+        record_2["control_number"],
+        record_3["control_number"],
+    ]
 
 
 @freeze_time("2019-9-15")
 def test_conferences_start_date_range_filter_with_both_dates(inspire_app):
-    conference_in_april_2019 = {"control_number": 1, "opening_date": "2019-04-15"}
-    upcoming_conference_april_2020 = {"control_number": 2, "opening_date": "2020-04-15"}
+    conference_in_april_2019 = {"opening_date": "2019-04-15"}
+    upcoming_conference_april_2020 = {"opening_date": "2020-04-15"}
     upcoming_conference_january_2020 = {
-        "control_number": 3,
         "opening_date": "2020-01-15",
     }
-    conference_in_february_2019 = {"control_number": 4, "opening_date": "2019-02-15"}
-    create_record("con", data=conference_in_april_2019)
+    conference_in_february_2019 = {"opening_date": "2019-02-15"}
+    record_1 = create_record("con", data=conference_in_april_2019)
     create_record("con", data=upcoming_conference_april_2020)
-    create_record("con", data=upcoming_conference_january_2020)
+    record_3 = create_record("con", data=upcoming_conference_january_2020)
     create_record("con", data=conference_in_february_2019)
 
     with inspire_app.test_client() as client:
@@ -387,7 +383,10 @@ def test_conferences_start_date_range_filter_with_both_dates(inspire_app):
             for record in between_march_2019_and_february_2020_data["hits"]["hits"]
         ]
     )
-    assert between_march_2019_and_february_2020_recids == [1, 3]
+    assert between_march_2019_and_february_2020_recids == [
+        record_1["control_number"],
+        record_3["control_number"],
+    ]
 
 
 def test_conference_returns_301_when_pid_is_redirected(inspire_app):

@@ -35,10 +35,10 @@ def test_authors_detail(inspire_app, datadir):
             }
         ],
         "arxiv_categories": ["hep-th", "gr-qc"],
-        "control_number": 999_108,
+        "control_number": record_control_number,
         "deleted": False,
         "email_addresses": [{"current": True, "value": "malda@ias.edu"}],
-        "facet_author_name": "999108_Juan Martin Maldacena",
+        "facet_author_name": f"{record_control_number}_Juan Martin Maldacena",
         "ids": [
             {"schema": "INSPIRE ID", "value": "INSPIRE-00304313"},
             {"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"},

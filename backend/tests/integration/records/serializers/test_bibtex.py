@@ -11,12 +11,14 @@ from mock import patch
 
 def test_bibtex(inspire_app):
     headers = {"Accept": "application/x-bibtex"}
-    data = {"control_number": 637_275_237, "titles": [{"title": "This is a title."}]}
+    data = {"titles": [{"title": "This is a title."}]}
     record = create_record("lit", data=data)
     record_control_number = record["control_number"]
 
     expected_status_code = 200
-    expected_result = '@article{637275237,\n    title = "{This is a title.}"\n}\n'
+    expected_result = (
+        f'@article{{{record_control_number},\n    title = "{{This is a title.}}"\n}}\n'
+    )
     with inspire_app.test_client() as client:
         response = client.get(
             "/literature/{}".format(record_control_number), headers=headers
@@ -33,10 +35,9 @@ def test_bibtex_returns_all_expected_fields_for_conference_papers(inspire_app):
 
     conference_data = {
         "_collections": ["Conferences"],
-        "control_number": 73_415_311,
         "titles": [{"title": "This is the parent conference title"}],
     }
-    create_record("con", data=conference_data)
+    rec = create_record("con", data=conference_data)
 
     conf_paper_data = {
         "_collections": ["Literature"],
@@ -44,14 +45,13 @@ def test_bibtex_returns_all_expected_fields_for_conference_papers(inspire_app):
             {"full_name": "Smith, John", "inspire_roles": ["editor"]},
             {"full_name": "Rossi, Maria", "inspire_roles": ["author"]},
         ],
-        "control_number": 1_203_999,
         "titles": [{"title": "This is a conference paper title"}],
         "document_type": ["conference paper"],
         "texkeys": ["Smith:2019abc"],
         "publication_info": [
             {
                 "conference_record": {
-                    "$ref": "http://labs.inspirehep.net/api/conferences/73415311"
+                    "$ref": f"http://labs.inspirehep.net/api/conferences/{rec['control_number']}"
                 }
             }
         ],
@@ -77,10 +77,9 @@ def test_bibtex_returns_all_expected_fields_for_book_chapters(inspire_app):
 
     book_data = {
         "_collections": ["Literature"],
-        "control_number": 98_141_514,
         "titles": [{"title": "This is the parent book title"}],
     }
-    create_record("lit", data=book_data)
+    rec = create_record("lit", data=book_data)
 
     book_chapter_data = {
         "_collections": ["Literature"],
@@ -88,14 +87,13 @@ def test_bibtex_returns_all_expected_fields_for_book_chapters(inspire_app):
             {"full_name": "Smith, John", "inspire_roles": ["editor"]},
             {"full_name": "Rossi, Maria", "inspire_roles": ["author"]},
         ],
-        "control_number": 4_454_431,
         "titles": [{"title": "This is a book chapter title"}],
         "document_type": ["book chapter"],
         "texkeys": ["Smith:2019abc"],
         "publication_info": [
             {
                 "parent_record": {
-                    "$ref": "http://labs.inspirehep.net/api/literature/98141514"
+                    "$ref": f"http://labs.inspirehep.net/api/literature/{rec['control_number']}"
                 }
             }
         ],
@@ -118,20 +116,23 @@ def test_bibtex_returns_all_expected_fields_for_book_chapters(inspire_app):
 
 def test_bibtex_search(inspire_app):
     headers = {"Accept": "application/x-bibtex"}
-    data_1 = {"control_number": 637_275_237, "titles": [{"title": "This is a title."}]}
+    data_1 = {"titles": [{"title": "This is a title."}]}
     data_2 = {
-        "control_number": 637_275_232,
         "titles": [{"title": "Yet another title."}],
     }
-    create_record("lit", data=data_1)
-    create_record("lit", data=data_2)
+    rec1 = create_record("lit", data=data_1)
+    rec2 = create_record("lit", data=data_2)
 
     expected_status_code = 200
     expected_result_1 = (
-        "@article{637275237,\n" '    title = "{This is a title.}"\n' "}\n"
+        f"@article{{{rec1['control_number']},\n"
+        '    title = "{This is a title.}"\n'
+        "}\n"
     )
     expected_result_2 = (
-        "@article{637275232,\n" '    title = "{Yet another title.}"\n' "}\n"
+        f"@article{{{rec2['control_number']},\n"
+        '    title = "{Yet another title.}"\n'
+        "}\n"
     )
     with inspire_app.test_client() as client:
         response = client.get("/literature", headers=headers)
@@ -188,16 +189,15 @@ def test_literature_detail_bibtex_link_alias_format(inspire_app):
 
 def test_bibtex_strips_mathml(inspire_app):
     data = {
-        "control_number": 637_275_237,
         "titles": [
             {
                 "title": 'Inert Higgs Dark Matter for CDF II <math display="inline"><mi>W</mi></math>-Boson Mass and Detection Prospects'
             }
         ],
     }
-
-    expected_data = '@article{637275237,\n    title = "{Inert Higgs Dark Matter for CDF II W-Boson Mass and Detection Prospects}"\n}\n'
     record = create_record("lit", data=data)
+
+    expected_data = f'@article{{{record["control_number"]},\n    title = "{{Inert Higgs Dark Matter for CDF II W-Boson Mass and Detection Prospects}}"\n}}\n'
     with inspire_app.test_client() as client:
         response = client.get(f"/literature/{record['control_number']}?format=bibtex")
     assert response.get_data(as_text=True) == expected_data
@@ -205,16 +205,15 @@ def test_bibtex_strips_mathml(inspire_app):
 
 def test_bibtex_strips_mathml_with_and_in_title(inspire_app):
     data = {
-        "control_number": 637_275_237,
         "titles": [
             {
                 "title": 'Inert Higgs & Dark Matter for CDF II <math display="inline"><mi>W</mi></math>-Boson Mass and Detection Prospects'
             }
         ],
     }
-
-    expected_data = '@article{637275237,\n    title = "{Inert Higgs \& Dark Matter for CDF II W-Boson Mass and Detection Prospects}"\n}\n'  # noqa:W605
     record = create_record("lit", data=data)
+
+    expected_data = f'@article{{{record["control_number"]},\n    title = "{{Inert Higgs \& Dark Matter for CDF II W-Boson Mass and Detection Prospects}}"\n}}\n'  # noqa:W605
     with inspire_app.test_client() as client:
         response = client.get(f"/literature/{record['control_number']}?format=bibtex")
     assert response.get_data(as_text=True) == expected_data
@@ -226,20 +225,20 @@ def test_bibtex_leaves_mathml_in_title_when_conversion_error(
 ):
     class CustomException(XMLSyntaxError):
         def __init__(filename="test", lineno=1, msg="text", offset=1):
-            ...
+            pass
 
     mock_remove_tags.side_effect = CustomException
 
     data = {
-        "control_number": 637_275_237,
         "titles": [
             {
                 "title": 'Inert Higgs & Dark Matter for CDF II <math display="inline"><mi>W</mi></math>-Boson Mass and Detection Prospects'
             }
         ],
     }
-    expected_data = "@article{637275237,\n    title = \"{Inert Higgs \\& Dark Matter for CDF II \\ensuremath{<}math display=''inline''\\ensuremath{>}\\ensuremath{<}mi\\ensuremath{>}W\\ensuremath{<}/mi\\ensuremath{>}\\ensuremath{<}/math\\ensuremath{>}-Boson Mass and Detection Prospects}\"\n}\n"
     record = create_record("lit", data=data)
+
+    expected_data = f"@article{{{record['control_number']},\n    title = \"{{Inert Higgs \\& Dark Matter for CDF II \\ensuremath{{<}}math display=''inline''\\ensuremath{{>}}\\ensuremath{{<}}mi\\ensuremath{{>}}W\\ensuremath{{<}}/mi\\ensuremath{{>}}\\ensuremath{{<}}/math\\ensuremath{{>}}-Boson Mass and Detection Prospects}}\"\n}}\n"
     with inspire_app.test_client() as client:
 
         response = client.get(f"/literature/{record['control_number']}?format=bibtex")

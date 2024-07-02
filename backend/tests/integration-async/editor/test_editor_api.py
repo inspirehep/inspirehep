@@ -22,38 +22,40 @@ from inspirehep.records.api import LiteratureRecord
 def record_with_two_revisions(inspire_app, clean_celery_session):
     record_data = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
-        "control_number": 111,
         "document_type": ["article"],
         "titles": [{"title": "record rev0"}],
         "self": {"$ref": "http://localhost:5000/api/literature/1243"},
         "_collections": ["Literature"],
     }
 
-    record = create_record_async("lit", data=record_data, with_control_number=False)
+    record = create_record_async("lit", data=record_data, with_control_number=True)
 
     record_data["titles"][0]["title"] = "record rev1"
+    record_data["control_number"] = record["control_number"]
 
     record.update(record_data)
     db.session.commit()
+    return record["control_number"]
 
 
 @pytest.fixture(scope="function")
 def hidden_record_with_two_revisions(inspire_app, clean_celery_session):
     record_data = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
-        "control_number": 111,
         "document_type": ["article"],
         "titles": [{"title": "record rev0"}],
         "self": {"$ref": "http://localhost:5000/api/literature/1243"},
         "_collections": ["HEP Hidden"],
     }
 
-    record = create_record_async("lit", data=record_data, with_control_number=False)
+    record = create_record_async("lit", data=record_data, with_control_number=True)
 
     record_data["titles"][0]["title"] = "record rev1"
+    record_data["control_number"] = record["control_number"]
 
     record.update(record_data)
     db.session.commit()
+    return record["control_number"]
 
 
 def test_get_revisions_requires_authentication(
@@ -61,7 +63,8 @@ def test_get_revisions_requires_authentication(
 ):
     with inspire_app.test_client() as client:
         response = client.get(
-            "/api/editor/literature/111/revisions", content_type="application/json"
+            f"/api/editor/literature/{record_with_two_revisions}/revisions",
+            content_type="application/json",
         )
 
     assert response.status_code == 401
@@ -83,7 +86,8 @@ def test_get_revisions(inspire_app, clean_celery_session, record_with_two_revisi
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.get(
-            "/api/editor/literature/111/revisions", content_type="application/json"
+            f"/api/editor/literature/{record_with_two_revisions}/revisions",
+            content_type="application/json",
         )
 
     assert response.status_code == 200
@@ -104,7 +108,8 @@ def test_get_revisions_hidden_collection_user(
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.get(
-            "/api/editor/literature/111/revisions", content_type="application/json"
+            f"/api/editor/literature/{hidden_record_with_two_revisions}/revisions",
+            content_type="application/json",
         )
         assert response.status_code == 403
         logout(client)
@@ -117,7 +122,8 @@ def test_get_revisions_hidden_collection_user_read(
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user_read.email)
         response = client.get(
-            "/api/editor/literature/111/revisions", content_type="application/json"
+            f"/api/editor/literature/{hidden_record_with_two_revisions}/revisions",
+            content_type="application/json",
         )
         assert response.status_code == 200
         logout(client)
@@ -130,7 +136,8 @@ def test_get_revisions_hidden_collection_user_write(
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user_readwrite.email)
         response = client.get(
-            "/api/editor/literature/111/revisions", content_type="application/json"
+            f"/api/editor/literature/{hidden_record_with_two_revisions}/revisions",
+            content_type="application/json",
         )
         assert response.status_code == 200
         logout(client)
@@ -143,7 +150,8 @@ def test_get_revisions_hidden_collection_cataloger_write(
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user_readwrite.email)
         response = client.get(
-            "/api/editor/literature/111/revisions", content_type="application/json"
+            f"/api/editor/literature/{hidden_record_with_two_revisions}/revisions",
+            content_type="application/json",
         )
         assert response.status_code == 200
         logout(client)
@@ -154,7 +162,7 @@ def test_revert_to_revision_requires_authentication(
 ):
     with inspire_app.test_client() as client:
         response = client.put(
-            "/api/editor/literature/111/revisions/revert",
+            f"/api/editor/literature/{record_with_two_revisions}/revisions/revert",
             content_type="application/json",
             data=orjson.dumps({"revision_id": 2}),
         )
@@ -179,19 +187,19 @@ def test_revert_to_revision(
     inspire_app, clean_celery_session, record_with_two_revisions
 ):
     user = create_user(role=Roles.cataloger.value)
-    record = LiteratureRecord.get_record_by_pid_value(111)
+    record = LiteratureRecord.get_record_by_pid_value(record_with_two_revisions)
 
     assert record["titles"][0]["title"] == "record rev1"
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.put(
-            "/api/editor/literature/111/revisions/revert",
+            f"/api/editor/literature/{record_with_two_revisions}/revisions/revert",
             content_type="application/json",
             data=orjson.dumps({"revision_id": 0}),
         )
     assert response.status_code == 200
 
-    record = LiteratureRecord.get_record_by_pid_value(111)
+    record = LiteratureRecord.get_record_by_pid_value(record_with_two_revisions)
 
     assert record["titles"][0]["title"] == "record rev0"
 
@@ -204,12 +212,14 @@ def test_revert_to_revision_hidden_collection_user(
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.put(
-            "/api/editor/literature/111/revisions/revert",
+            f"/api/editor/literature/{hidden_record_with_two_revisions}/revisions/revert",
             content_type="application/json",
             data=orjson.dumps({"revision_id": 0}),
         )
         assert response.status_code == 403
-        record = LiteratureRecord.get_record_by_pid_value(111)
+        record = LiteratureRecord.get_record_by_pid_value(
+            hidden_record_with_two_revisions
+        )
         assert record["titles"][0]["title"] == "record rev1"
         logout(client)
 
@@ -222,12 +232,14 @@ def test_revert_to_revision_hidden_collection_user_read(
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user_read.email)
         response = client.put(
-            "/api/editor/literature/111/revisions/revert",
+            f"/api/editor/literature/{hidden_record_with_two_revisions}/revisions/revert",
             content_type="application/json",
             data=orjson.dumps({"revision_id": 0}),
         )
         assert response.status_code == 403
-        record = LiteratureRecord.get_record_by_pid_value(111)
+        record = LiteratureRecord.get_record_by_pid_value(
+            hidden_record_with_two_revisions
+        )
         assert record["titles"][0]["title"] == "record rev1"
         logout(client)
 
@@ -240,12 +252,14 @@ def test_revert_to_revision_hidden_collection_user_write(
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user_readwrite.email)
         response = client.put(
-            "/api/editor/literature/111/revisions/revert",
+            f"/api/editor/literature/{hidden_record_with_two_revisions}/revisions/revert",
             content_type="application/json",
             data=orjson.dumps({"revision_id": 0}),
         )
         assert response.status_code == 200
-        record = LiteratureRecord.get_record_by_pid_value(111)
+        record = LiteratureRecord.get_record_by_pid_value(
+            hidden_record_with_two_revisions
+        )
         assert record["titles"][0]["title"] == "record rev0"
         logout(client)
 
@@ -258,12 +272,14 @@ def test_revert_to_revision_hidden_collection_cataloger(
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user_readwrite.email)
         response = client.put(
-            "/api/editor/literature/111/revisions/revert",
+            f"/api/editor/literature/{hidden_record_with_two_revisions}/revisions/revert",
             content_type="application/json",
             data=orjson.dumps({"revision_id": 0}),
         )
         assert response.status_code == 200
-        record = LiteratureRecord.get_record_by_pid_value(111)
+        record = LiteratureRecord.get_record_by_pid_value(
+            hidden_record_with_two_revisions
+        )
         assert record["titles"][0]["title"] == "record rev0"
         logout(client)
 
@@ -271,7 +287,7 @@ def test_revert_to_revision_hidden_collection_cataloger(
 def test_get_revision_requires_authentication(
     inspire_app, clean_celery_session, record_with_two_revisions
 ):
-    record = LiteratureRecord.get_record_by_pid_value(111)
+    record = LiteratureRecord.get_record_by_pid_value(record_with_two_revisions)
 
     transaction_id_of_first_rev = record.revisions[1].model.transaction_id
     rec_uuid = record.id
@@ -291,7 +307,7 @@ def test_get_revision_with_error(
     inspire_app, clean_celery_session, record_with_two_revisions
 ):
     user = create_user(role=Roles.cataloger.value)
-    record = LiteratureRecord.get_record_by_pid_value(111)
+    record = LiteratureRecord.get_record_by_pid_value(record_with_two_revisions)
     rec_uuid = record.id
 
     wrong_transaction_id = 88888
@@ -307,7 +323,7 @@ def test_get_revision_with_error(
 
 def test_get_revision(inspire_app, clean_celery_session, record_with_two_revisions):
     user = create_user(role=Roles.cataloger.value)
-    record = LiteratureRecord.get_record_by_pid_value(111)
+    record = LiteratureRecord.get_record_by_pid_value(record_with_two_revisions)
 
     transaction_id_of_first_rev = record.revisions[0].model.transaction_id
     rec_uuid = record.id
@@ -343,7 +359,7 @@ def test_editor_locks_are_passed_in_payload_when_another_user_editing(
 
         user = create_user(role=Roles.cataloger.value)
 
-        record = LiteratureRecord.get_record_by_pid_value(111)
+        record = LiteratureRecord.get_record_by_pid_value(record_with_two_revisions)
         record["authors"] = [{"full_name": "An Author"}]
         record["_export_to"] = {"HAL": True}
         record["external_system_identifiers"] = [

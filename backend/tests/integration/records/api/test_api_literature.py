@@ -811,13 +811,11 @@ def test_get_modified_references(inspire_app):
 
 
 def test_record_cannot_cite_itself(inspire_app):
-    record_control_number = 12345
-    record_cited = create_record(
-        "lit",
-        data={"control_number": record_control_number},
-        literature_citations=[record_control_number],
+    data1 = faker.record("lit", with_control_number=True)
+    record = create_record(
+        "lit", data=data1, literature_citations=[data1["control_number"]]
     )
-    assert record_cited.citation_count == 0
+    assert record.citation_count == 0
 
 
 @pytest.mark.vcr()
@@ -1174,7 +1172,6 @@ def test_adding_deleted_record_with_documents_does_not_add_files(inspire_app, s3
     create_s3_bucket(expected_document_key)
     data = {
         "deleted": True,
-        "control_number": 888,
         "documents": [
             {
                 "source": "arxiv",
@@ -1645,15 +1642,15 @@ def test_adding_files_with_public_file_url_but_wrong_key(inspire_app, s3):
 
 
 def test_creating_record_updates_entries_in_authors_records_table(inspire_app):
+    author_1 = create_record("aut")
+    author_2 = create_record("aut")
     expected_authors_entries_count = 4
     expected_table_entries = [
-        ("1", "recid"),
-        ("2", "recid"),
+        (str(author_1["control_number"]), "recid"),
+        (str(author_2["control_number"]), "recid"),
         ("collaboration_1", "collaboration"),
         ("collaboration_2", "collaboration"),
     ]
-    author_1 = create_record("aut", data={"control_number": 1})
-    author_2 = create_record("aut", data={"control_number": 2})
     data = {
         "authors": [
             {"full_name": author_1["name"]["value"], "record": author_1["self"]},
@@ -1674,9 +1671,9 @@ def test_creating_record_updates_entries_in_authors_records_table(inspire_app):
 
 def test_updating_record_updates_entries_in_authors_records_table(inspire_app):
     expected_authors_entries_count = 3
-    author_1 = create_record("aut", data={"control_number": 1})
-    author_2 = create_record("aut", data={"control_number": 2})
-    author_3 = create_record("aut", data={"control_number": 3})
+    author_1 = create_record("aut")
+    author_2 = create_record("aut")
+    author_3 = create_record("aut")
     data = {
         "authors": [
             {"full_name": author_1["name"]["value"], "record": author_1["self"]},
@@ -1760,7 +1757,6 @@ def test_deleted_record_do_not_create_entries_in_authors_records_table(inspire_a
                 "ids": [{"value": "K.Janeway.1", "schema": "INSPIRE BAI"}],
             }
         ],
-        "control_number": 555,
         "deleted": True,
     }
 
@@ -2181,7 +2177,6 @@ def test_cv_format_regression(inspire_app):
     expected_cv_type = "text/vnd+inspire.html+html; charset=utf-8"
 
     data = {
-        "control_number": 102030,
         "titles": [{"title": "Test"}],
         "arxiv_eprints": [
             {"value": "1607.06746", "categories": ["hep-th"]},

@@ -55,7 +55,6 @@ def test_match_reference_for_jcap_and_jhep_config(inspire_app):
     cited_record_json = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Literature"],
-        "control_number": 1,
         "document_type": ["article"],
         "publication_info": [
             {
@@ -69,7 +68,7 @@ def test_match_reference_for_jcap_and_jhep_config(inspire_app):
         "titles": [{"title": "The Strongly-Interacting Light Higgs"}],
     }
 
-    create_record("lit", cited_record_json)
+    record = create_record("lit", cited_record_json)
     reference = {
         "reference": {
             "publication_info": {
@@ -88,10 +87,13 @@ def test_match_reference_for_jcap_and_jhep_config(inspire_app):
     assert validate([reference], subschema) is None
     reference = match_reference(reference)
 
-    assert reference["record"]["$ref"] == "http://localhost:5000/api/literature/1"
+    assert (
+        reference["record"]["$ref"]
+        == f"http://localhost:5000/api/literature/{record['control_number']}"
+    )
     assert validate([reference], subschema) is None
 
-    expected_control_number = [1]
+    expected_control_number = [record["control_number"]]
     result_control_number = match_reference_control_numbers_with_relaxed_journal_titles(
         reference
     )
@@ -105,11 +107,10 @@ def test_match_reference_for_data_config(inspire_app):
     cited_record_json = {
         "$schema": "http://localhost:5000/schemas/records/data.json",
         "_collections": ["Data"],
-        "control_number": 1,
         "dois": [{"value": "10.5281/zenodo.11020"}],
     }
 
-    create_record("dat", cited_record_json)
+    record = create_record("dat", cited_record_json)
 
     reference = {
         "reference": {
@@ -120,9 +121,12 @@ def test_match_reference_for_data_config(inspire_app):
 
     reference = match_reference(reference)
 
-    assert reference["record"]["$ref"] == "http://localhost:5000/api/data/1"
+    assert (
+        reference["record"]["$ref"]
+        == f"http://localhost:5000/api/data/{record['control_number']}"
+    )
 
-    expected_control_number = [1]
+    expected_control_number = [record["control_number"]]
     result_control_number = match_reference_control_numbers_with_relaxed_journal_titles(
         reference, with_data_records=True
     )
@@ -134,12 +138,11 @@ def test_match_reference_on_texkey(inspire_app):
     cited_record_json = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Literature"],
-        "control_number": 1,
         "document_type": ["article"],
         "texkeys": ["Giudice:2007fh"],
         "titles": [{"title": "The Strongly-Interacting Light Higgs"}],
     }
-    create_record("lit", cited_record_json)
+    record = create_record("lit", cited_record_json)
 
     reference = {"reference": {"texkey": "Giudice:2007fh"}}
 
@@ -149,10 +152,13 @@ def test_match_reference_on_texkey(inspire_app):
     assert validate([reference], subschema) is None
     reference = match_reference(reference)
 
-    assert reference["record"]["$ref"] == "http://localhost:5000/api/literature/1"
+    assert (
+        reference["record"]["$ref"]
+        == f"http://localhost:5000/api/literature/{record['control_number']}"
+    )
     assert validate([reference], subschema) is None
 
-    expected_control_number = [1]
+    expected_control_number = [record["control_number"]]
     result_control_number = match_reference_control_numbers_with_relaxed_journal_titles(
         reference
     )
@@ -164,18 +170,16 @@ def test_match_reference_on_texkey_has_lower_priority_than_pub_info(inspire_app)
     cited_record_with_texkey_json = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Literature"],
-        "control_number": 1,
         "document_type": ["article"],
         "texkeys": ["MyTexKey:2008fh"],
         "titles": [{"title": "The Strongly-Interacting Light Higgs"}],
     }
 
-    create_record("lit", cited_record_with_texkey_json)
+    record_1 = create_record("lit", cited_record_with_texkey_json)
 
     cited_record_with_pub_info_json = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Literature"],
-        "control_number": 2,
         "document_type": ["article"],
         "publication_info": [
             {
@@ -189,7 +193,7 @@ def test_match_reference_on_texkey_has_lower_priority_than_pub_info(inspire_app)
         "titles": [{"title": "The Strongly-Interacting Light Higgs"}],
     }
 
-    create_record("lit", cited_record_with_pub_info_json)
+    record_2 = create_record("lit", cited_record_with_pub_info_json)
 
     reference = {
         "reference": {
@@ -210,10 +214,13 @@ def test_match_reference_on_texkey_has_lower_priority_than_pub_info(inspire_app)
     assert validate([reference], subschema) is None
     reference = match_reference(reference)
 
-    assert reference["record"]["$ref"] == "http://localhost:5000/api/literature/2"
+    assert (
+        reference["record"]["$ref"]
+        == f"http://localhost:5000/api/literature/{record_2['control_number']}"
+    )
     assert validate([reference], subschema) is None
 
-    expected_control_number = [2, 1]
+    expected_control_number = [record_2["control_number"], record_1["control_number"]]
     result_control_number = match_reference_control_numbers_with_relaxed_journal_titles(
         reference
     )
@@ -226,23 +233,23 @@ def test_match_reference_on_reportnumber_has_lower_priority_than_dois(inspire_ap
     cited_record_with_report_number_json = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Literature"],
-        "control_number": 1,
         "document_type": ["article"],
         "report_numbers": [{"value": "CERN-100"}],
         "titles": [{"title": "The Strongly-Interacting Light Higgs"}],
     }
 
-    create_record("lit", cited_record_with_report_number_json)
+    record_1 = create_record("lit", cited_record_with_report_number_json)
+    record_1_control_number = record_1["control_number"]
 
     cited_record_with_dois_json = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Literature"],
-        "control_number": 2,
         "document_type": ["article"],
         "dois": [{"value": "10.5281/zenodo.11020"}],
     }
 
-    create_record("lit", cited_record_with_dois_json)
+    record_2 = create_record("lit", cited_record_with_dois_json)
+    record_2_control_number = record_2["control_number"]
 
     reference = {
         "reference": {
@@ -257,10 +264,13 @@ def test_match_reference_on_reportnumber_has_lower_priority_than_dois(inspire_ap
     assert validate([reference], subschema) is None
     reference = match_reference(reference)
 
-    assert reference["record"]["$ref"] == "http://localhost:5000/api/literature/2"
+    assert (
+        reference["record"]["$ref"]
+        == f"http://localhost:5000/api/literature/{record_2_control_number}"
+    )
     assert validate([reference], subschema) is None
 
-    expected_control_number = [2, 1]
+    expected_control_number = [record_2_control_number, record_1_control_number]
     result_control_number = match_reference_control_numbers_with_relaxed_journal_titles(
         reference
     )
@@ -273,7 +283,6 @@ def test_match_reference_ignores_hidden_collections(inspire_app):
     cited_record_json = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["HAL Hidden"],
-        "control_number": 1,
         "document_type": ["article"],
         "dois": [{"value": "10.1371/journal.pone.0188398"}],
     }
@@ -295,7 +304,6 @@ def test_match_reference_ignores_deleted(inspire_app):
     cited_record_json = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Literature"],
-        "control_number": 1,
         "document_type": ["article"],
         "deleted": True,
         "dois": [{"value": "10.1371/journal.pone.0188398"}],
@@ -318,7 +326,6 @@ def test_match_reference_doesnt_touch_curated(inspire_app):
     cited_record_json = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Literature"],
-        "control_number": 1,
         "document_type": ["article"],
         "dois": [{"value": "10.1371/journal.pone.0188398"}],
     }
@@ -350,7 +357,6 @@ def test_match_pubnote_info_when_journal_is_missing_a_letter(inspire_app):
     cited_record_with_pub_info_json = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Literature"],
-        "control_number": 1,
         "document_type": ["article"],
         "publication_info": [
             {
@@ -364,7 +370,7 @@ def test_match_pubnote_info_when_journal_is_missing_a_letter(inspire_app):
         "titles": [{"title": "The Strongly-Interacting Light Higgs"}],
     }
 
-    create_record("lit", cited_record_with_pub_info_json)
+    record = create_record("lit", cited_record_with_pub_info_json)
 
     reference = {
         "reference": {
@@ -376,7 +382,7 @@ def test_match_pubnote_info_when_journal_is_missing_a_letter(inspire_app):
         }
     }
 
-    expected_control_number = [1]
+    expected_control_number = [record["control_number"]]
     result_control_number = match_reference_control_numbers_with_relaxed_journal_titles(
         reference
     )
@@ -388,7 +394,6 @@ def test_match_pubnote_info_doesnt_match_when_only_journal_title_match(inspire_a
     cited_record_with_pub_info_json = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Literature"],
-        "control_number": 3,
         "document_type": ["article"],
         "publication_info": [
             {
@@ -421,7 +426,6 @@ def test_match_references_returns_five_references(inspire_app):
     cited_record_with_pub_info_json_1 = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Literature"],
-        "control_number": 1,
         "document_type": ["article"],
         "publication_info": [
             {
@@ -440,7 +444,6 @@ def test_match_references_returns_five_references(inspire_app):
     cited_record_with_pub_info_json_2 = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Literature"],
-        "control_number": 2,
         "document_type": ["article"],
         "publication_info": [
             {
@@ -459,7 +462,6 @@ def test_match_references_returns_five_references(inspire_app):
     cited_record_with_pub_info_json_3 = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Literature"],
-        "control_number": 3,
         "document_type": ["article"],
         "publication_info": [
             {
@@ -478,7 +480,6 @@ def test_match_references_returns_five_references(inspire_app):
     cited_record_with_pub_info_json_4 = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Literature"],
-        "control_number": 4,
         "document_type": ["article"],
         "publication_info": [
             {
@@ -497,7 +498,6 @@ def test_match_references_returns_five_references(inspire_app):
     cited_record_with_pub_info_json_5 = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Literature"],
-        "control_number": 5,
         "document_type": ["article"],
         "publication_info": [
             {
@@ -514,7 +514,6 @@ def test_match_references_returns_five_references(inspire_app):
     cited_record_with_pub_info_json_6 = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Literature"],
-        "control_number": 6,
         "document_type": ["article"],
         "publication_info": [
             {
@@ -551,7 +550,6 @@ def test_match_references_matches_when_multiple_match_if_same_as_previous(inspir
     original_cited_record_json = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Literature"],
-        "control_number": 1,
         "document_type": ["article"],
         "publication_info": [
             {
@@ -575,7 +573,6 @@ def test_match_references_matches_when_multiple_match_if_same_as_previous(inspir
     errata_cited_record_json = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Literature"],
-        "control_number": 2,
         "document_type": ["article"],
         "publication_info": [
             {
@@ -589,7 +586,7 @@ def test_match_references_matches_when_multiple_match_if_same_as_previous(inspir
         ],
     }
 
-    create_record("lit", data=original_cited_record_json)
+    record_1 = create_record("lit", data=original_cited_record_json)
     create_record("lit", data=errata_cited_record_json)
 
     references = [
@@ -627,12 +624,15 @@ def test_match_references_matches_when_multiple_match_if_same_as_previous(inspir
 
     assert (
         matched_references[1]["record"]["$ref"]
-        == "http://localhost:5000/api/literature/1"
+        == f"http://localhost:5000/api/literature/{record_1['control_number']}"
     )
     assert validate(matched_references, subschema) is None
 
     assert match_result["any_link_modified"]
-    assert match_result["added_recids"] == [1, 1]
+    assert match_result["added_recids"] == [
+        record_1["control_number"],
+        record_1["control_number"],
+    ]
     assert match_result["removed_recids"] == []
 
 
@@ -645,7 +645,6 @@ def test_match_references_no_match_when_multiple_match_different_from_previous(
     original_cited_record_json = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Literature"],
-        "control_number": 1,
         "document_type": ["article"],
         "publication_info": [
             {
@@ -669,7 +668,6 @@ def test_match_references_no_match_when_multiple_match_different_from_previous(
     errata_cited_record_json = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Literature"],
-        "control_number": 2,
         "document_type": ["article"],
         "publication_info": [
             {
@@ -773,12 +771,11 @@ def test_match_reference_finds_proper_ref_when_wrong_provided(inspire_app):
     cited_record_json = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Literature"],
-        "control_number": 1,
         "document_type": ["article"],
         "texkeys": ["Giudice:2007fh"],
         "titles": [{"title": "The Strongly-Interacting Light Higgs"}],
     }
-    create_record("lit", cited_record_json)
+    record = create_record("lit", cited_record_json)
 
     reference = {
         "reference": {"texkey": "Giudice:2007fh"},
@@ -791,10 +788,13 @@ def test_match_reference_finds_proper_ref_when_wrong_provided(inspire_app):
     assert validate([reference], subschema) is None
     reference = match_reference(reference)
 
-    assert reference["record"]["$ref"] == "http://localhost:5000/api/literature/1"
+    assert (
+        reference["record"]["$ref"]
+        == f"http://localhost:5000/api/literature/{record['control_number']}"
+    )
     assert validate([reference], subschema) is None
 
-    expected_control_number = [1]
+    expected_control_number = [record["control_number"]]
     result_control_number = match_reference_control_numbers_with_relaxed_journal_titles(
         reference
     )
@@ -822,7 +822,6 @@ def test_match_references_doesnt_use_relaxed_title_matching(inspire_app):
     non_cited_record_with_pub_info_json = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Literature"],
-        "control_number": 1,
         "document_type": ["article"],
         "publication_info": [
             {
@@ -840,13 +839,12 @@ def test_match_references_doesnt_use_relaxed_title_matching(inspire_app):
     cited_record_with_pub_info_json = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Literature"],
-        "control_number": 2,
         "document_type": ["article"],
         "texkeys": ["Shaikh:2022ynt"],
         "titles": [{"title": "The Strongly-Interacting Light Higgs"}],
     }
 
-    create_record("lit", cited_record_with_pub_info_json)
+    record_2 = create_record("lit", cited_record_with_pub_info_json)
 
     references = [
         {
@@ -861,7 +859,9 @@ def test_match_references_doesnt_use_relaxed_title_matching(inspire_app):
         }
     ]
 
-    expected_ref = {"$ref": "http://localhost:5000/api/literature/2"}
+    expected_ref = {
+        "$ref": f"http://localhost:5000/api/literature/{record_2['control_number']}"
+    }
     result = match_references(references)
 
     assert expected_ref == result["matched_references"][0]["record"]
@@ -869,7 +869,6 @@ def test_match_references_doesnt_use_relaxed_title_matching(inspire_app):
 
 def test_exact_match_literature_data_returns_matched_workflow(inspire_app):
     original_record_data = {
-        "control_number": 4328,
         "dois": [{"value": "10.1007/s10714-022-02939-y", "source": "Springer"}],
         "abstracts": [
             {
@@ -883,7 +882,6 @@ def test_exact_match_literature_data_returns_matched_workflow(inspire_app):
     }
 
     matched_record_data = {
-        "control_number": 4328,
         "dois": [{"value": "10.1007/s10714-022-02939-y", "source": "Springer"}],
         "abstracts": [
             {
@@ -927,7 +925,6 @@ def test_exact_match_literature_data_returns_matched_many_workflows(inspire_app)
     }
 
     matched_record_data = {
-        "control_number": 432821,
         "dois": [{"value": "10.1007/s10714-022-02939-y", "source": "Springer"}],
         "persistent_identifiers": [
             {
@@ -947,7 +944,6 @@ def test_exact_match_literature_data_returns_matched_many_workflows(inspire_app)
         ],
     }
     matched_record_data_1 = {
-        "control_number": 43282,
         "arxiv_eprints": [
             {"value": "2301.08708", "categories": ["gr-qc", "math-ph", "math.MP"]}
         ],
@@ -973,7 +969,6 @@ def test_exact_match_literature_data_returns_matched_many_workflows(inspire_app)
 
 def test_exact_match_literature_data_no_match(inspire_app):
     original_record_data = {
-        "control_number": 4328,
         "dois": [{"value": "10.1007/s10714-022-02939-y", "source": "Springer"}],
         "abstracts": [
             {
@@ -987,7 +982,6 @@ def test_exact_match_literature_data_no_match(inspire_app):
     }
 
     another_record_data = {
-        "control_number": 4328,
         "abstracts": [
             {
                 "value": "abstract",
@@ -1158,7 +1152,6 @@ def test_workflow_matching(inspire_app):
 
 def test_fuzzy_match_returns_control_number_if_one_match(inspire_app):
     record = {
-        "control_number": 4328,
         "titles": [
             {
                 "title": "Search for the limits on anomalous neutral triple gauge couplings via ZZ production in the $\\ell\\ell\\nu\\nu$ channel at FCC-hh",
@@ -1176,7 +1169,6 @@ def test_fuzzy_match_returns_control_number_if_one_match(inspire_app):
     }
 
     matched_record = {
-        "control_number": 4328,
         "titles": [
             {
                 "title": "Search for the limits on anomalous neutral triple gauge couplings via ZZ production in the $\\ell\\ell\\nu\\nu$ channel at FCC-hh",
@@ -1201,7 +1193,6 @@ def test_fuzzy_match_returns_control_number_if_one_match(inspire_app):
 
 def test_fuzzy_match_returns_control_numbers_if_multiple_matches(inspire_app):
     record = {
-        "control_number": 4328,
         "titles": [
             {
                 "title": "Search for the limits on anomalous neutral triple gauge couplings via ZZ production in the $\\ell\\ell\\nu\\nu$ channel at FCC-hh",
@@ -1219,7 +1210,6 @@ def test_fuzzy_match_returns_control_numbers_if_multiple_matches(inspire_app):
     }
 
     matched_record = {
-        "control_number": 4328,
         "titles": [
             {
                 "title": "Search for the limits on anomalous neutral triple gauge couplings via ZZ production in the $\\ell\\ell\\nu\\nu$ channel at FCC-hh",
@@ -1236,7 +1226,6 @@ def test_fuzzy_match_returns_control_numbers_if_multiple_matches(inspire_app):
         ],
     }
     matched_record_2 = {
-        "control_number": 43228,
         "titles": [
             {
                 "title": "Search for the limits on anomalous neutral triple gauge couplings via ZZ production in the $\\ell\\ell\\nu\\nu$ channel at FCC-hh",

@@ -571,12 +571,10 @@ def test_author_assign_validates_input_when_no_papers_passed(inspire_app):
     author_data = {
         "name": {"value": "Aad, Georges", "preferred_name": "Georges Aad"},
         "ids": [{"value": "G.Aad.1", "schema": "INSPIRE BAI"}],
-        "control_number": 1,
     }
     author_data_2 = {
         "name": {"value": "Matczak, Michal", "preferred_name": "Michal Mata"},
         "ids": [{"value": "M.Matczak.1", "schema": "INSPIRE BAI"}],
-        "control_number": 2,
     }
     from_author = create_record("aut", data=author_data)
     to_author = create_record("aut", data=author_data_2)
@@ -604,19 +602,16 @@ def test_author_assign_uses_parser_args(mock_assign, inspire_app):
     author_data = {
         "name": {"value": "Aad, Georges", "preferred_name": "Georges Aad"},
         "ids": [{"value": "G.Aad.1", "schema": "INSPIRE BAI"}],
-        "control_number": 1,
     }
     author_data_2 = {
         "name": {"value": "Matczak, Michal", "preferred_name": "Michal Mata"},
         "ids": [{"value": "M.Matczak.1", "schema": "INSPIRE BAI"}],
-        "control_number": 2,
     }
     from_author = create_record("aut", data=author_data)
     to_author = create_record("aut", data=author_data_2)
     literature_1 = create_record(
         "lit",
         data={
-            "control_number": 3,
             "authors": [
                 {
                     "curated_relation": False,
@@ -659,20 +654,17 @@ def test_author_assign_view_claimed_with_stub_author(mock_create_ticket, inspire
     author_data = {
         "name": {"value": "Aad, Georges", "preferred_name": "Georges Aad"},
         "ids": [{"value": "G.Aad.1", "schema": "INSPIRE BAI"}],
-        "control_number": 1,
         "stub": True,
     }
     author_data_2 = {
         "name": {"value": "Matczak, Michal", "preferred_name": "Michal Mata"},
         "ids": [{"value": "M.Matczak.1", "schema": "INSPIRE BAI"}],
-        "control_number": 2,
     }
     from_author = create_record("aut", data=author_data)
     to_author = create_record("aut", data=author_data_2)
     literature_1 = create_record(
         "lit",
         data={
-            "control_number": 3,
             "curated": True,
             "authors": [
                 {
@@ -693,7 +685,6 @@ def test_author_assign_view_claimed_with_stub_author(mock_create_ticket, inspire
         "lit",
         data={
             "curated": True,
-            "control_number": 4,
             "authors": [
                 {
                     "curated_relation": False,
@@ -732,11 +723,11 @@ def test_author_assign_view_claimed_with_stub_author(mock_create_ticket, inspire
         "snow/assign_authors_from_different_profile.html",
         {
             "to_author_names": ["Matczak, Michal"],
-            "from_author_url": "http://localhost:5000/authors/1",
-            "to_author_url": "http://localhost:5000/authors/2",
+            "from_author_url": f"http://localhost:5000/authors/{from_author['control_number']}",
+            "to_author_url": f"http://localhost:5000/authors/{to_author['control_number']}",
             "incompatibile_names_papers": {
-                "http://localhost:5000/literature/4": "Aad, Georges",
-                "http://localhost:5000/literature/3": "Aad, Georges",
+                f"http://localhost:5000/literature/{literature_2['control_number']}": "Aad, Georges",
+                f"http://localhost:5000/literature/{literature_1['control_number']}": "Aad, Georges",
             },
             "already_claimed_papers": [],
         },
@@ -754,7 +745,6 @@ def test_literature_assign_check_names_compatibility_unambiguous_last_name(inspi
             {"value": "V.Axelsen.1", "schema": "INSPIRE BAI"},
             {"schema": "ORCID", "value": author_profile_oricd},
         ],
-        "control_number": 1,
     }
 
     create_record("aut", data=author_profile_data)
@@ -762,14 +752,12 @@ def test_literature_assign_check_names_compatibility_unambiguous_last_name(inspi
     author_data = {
         "name": {"value": "Axelsen, Victor", "preferred_name": "Georges Aad"},
         "ids": [{"value": "G.Aad.1", "schema": "INSPIRE BAI"}],
-        "control_number": 2,
     }
 
     author = create_record("aut", data=author_data)
     literature_1 = create_record(
         "lit",
         data={
-            "control_number": 3,
             "authors": [
                 {
                     "curated_relation": False,
@@ -805,7 +793,6 @@ def test_literature_assign_check_names_compatibility_unambiguous_full_name(inspi
             {"value": "V.Axelsen.1", "schema": "INSPIRE BAI"},
             {"schema": "ORCID", "value": author_profile_oricd},
         ],
-        "control_number": 1,
     }
 
     create_record("aut", data=author_profile_data)
@@ -813,7 +800,6 @@ def test_literature_assign_check_names_compatibility_unambiguous_full_name(inspi
     author_data = {
         "name": {"value": "Axelsen, Victor"},
         "ids": [{"value": "V.Axelsen.2", "schema": "INSPIRE BAI"}],
-        "control_number": 2,
     }
 
     author = create_record("aut", data=author_data)
@@ -821,7 +807,6 @@ def test_literature_assign_check_names_compatibility_unambiguous_full_name(inspi
     author_data_2 = {
         "name": {"value": "Axelsen, Viktor"},
         "ids": [{"value": "V.Axelsen.3", "schema": "INSPIRE BAI"}],
-        "control_number": 3,
     }
 
     author_2 = create_record("aut", data=author_data_2)
@@ -829,7 +814,6 @@ def test_literature_assign_check_names_compatibility_unambiguous_full_name(inspi
     literature_1 = create_record(
         "lit",
         data={
-            "control_number": 4,
             "authors": [
                 {
                     "curated_relation": False,
@@ -869,7 +853,6 @@ def test_literature_assign_check_names_compatibility_unambiguous_with_initials(
             {"value": "V.Axelsen.1", "schema": "INSPIRE BAI"},
             {"schema": "ORCID", "value": author_profile_oricd},
         ],
-        "control_number": 1,
     }
 
     create_record("aut", data=author_profile_data)
@@ -877,7 +860,6 @@ def test_literature_assign_check_names_compatibility_unambiguous_with_initials(
     author_data = {
         "name": {"value": "Axelsen, Viktor Anders"},
         "ids": [{"value": "V.Axelsen.2", "schema": "INSPIRE BAI"}],
-        "control_number": 2,
     }
 
     author = create_record("aut", data=author_data)
@@ -885,7 +867,6 @@ def test_literature_assign_check_names_compatibility_unambiguous_with_initials(
     author_data_2 = {
         "name": {"value": "Axelsen, Viktor"},
         "ids": [{"value": "V.Axelsen.3", "schema": "INSPIRE BAI"}],
-        "control_number": 3,
     }
 
     author_2 = create_record("aut", data=author_data_2)
@@ -893,7 +874,6 @@ def test_literature_assign_check_names_compatibility_unambiguous_with_initials(
     literature_1 = create_record(
         "lit",
         data={
-            "control_number": 4,
             "authors": [
                 {
                     "curated_relation": False,
@@ -931,7 +911,6 @@ def test_literature_assign_check_names_compatibility_ambiguous_match(inspire_app
             {"value": "V.Axelsen.1", "schema": "INSPIRE BAI"},
             {"schema": "ORCID", "value": author_profile_oricd},
         ],
-        "control_number": 1,
     }
 
     create_record("aut", data=author_profile_data)
@@ -939,7 +918,6 @@ def test_literature_assign_check_names_compatibility_ambiguous_match(inspire_app
     author_data = {
         "name": {"value": "Axelsen, Viktor Anders"},
         "ids": [{"value": "V.Axelsen.2", "schema": "INSPIRE BAI"}],
-        "control_number": 2,
     }
 
     author = create_record("aut", data=author_data)
@@ -947,7 +925,6 @@ def test_literature_assign_check_names_compatibility_ambiguous_match(inspire_app
     author_data_2 = {
         "name": {"value": "Axelsen, Viktor Anton"},
         "ids": [{"value": "V.Axelsen.3", "schema": "INSPIRE BAI"}],
-        "control_number": 3,
     }
 
     author_2 = create_record("aut", data=author_data_2)
@@ -955,7 +932,6 @@ def test_literature_assign_check_names_compatibility_ambiguous_match(inspire_app
     literature_1 = create_record(
         "lit",
         data={
-            "control_number": 4,
             "authors": [
                 {
                     "curated_relation": False,
@@ -993,7 +969,6 @@ def test_literature_assign_check_names_compatibility_no_match(inspire_app):
             {"value": "V.Axelsen.1", "schema": "INSPIRE BAI"},
             {"schema": "ORCID", "value": author_profile_oricd},
         ],
-        "control_number": 1,
     }
 
     create_record("aut", data=author_profile_data)
@@ -1001,14 +976,12 @@ def test_literature_assign_check_names_compatibility_no_match(inspire_app):
     author_data = {
         "name": {"value": "Antonsen, Anders", "preferred_name": "Anders Antonsen"},
         "ids": [{"value": "A.Antonsen.1", "schema": "INSPIRE BAI"}],
-        "control_number": 2,
     }
 
     create_record("aut", data=author_data)
     literature_1 = create_record(
         "lit",
         data={
-            "control_number": 3,
             "authors": [
                 {
                     "curated_relation": False,
@@ -1142,7 +1115,6 @@ def test_literature_assign_check_names_compatibility_when_no_record_in_matched_a
         "ids": [
             {"schema": "ORCID", "value": author_profile_oricd},
         ],
-        "control_number": 1,
     }
 
     create_record("aut", data=author_profile_data, without_author_refs=True)
@@ -1151,7 +1123,6 @@ def test_literature_assign_check_names_compatibility_when_no_record_in_matched_a
         "lit",
         without_author_refs=True,
         data={
-            "control_number": 4,
             "authors": [
                 {
                     "curated_relation": False,
@@ -1179,7 +1150,6 @@ def test_assign_author_calls_create_rt_ticket_for_claiming_action_when_some_args
     author_data = {
         "name": {"value": "Aad, Georges", "preferred_name": "Georges Aad"},
         "ids": [{"value": "G.Aad.1", "schema": "INSPIRE BAI"}],
-        "control_number": 1,
     }
     author_data_2 = {
         "name": {
@@ -1188,14 +1158,12 @@ def test_assign_author_calls_create_rt_ticket_for_claiming_action_when_some_args
             "value": "Axelsen, Viktor",
         },
         "ids": [{"value": "M.Matczak.1", "schema": "INSPIRE BAI"}],
-        "control_number": 2,
     }
     from_author = create_record("aut", data=author_data)
     to_author = create_record("aut", data=author_data_2)
     literature_1 = create_record(
         "lit",
         data={
-            "control_number": 3,
             "authors": [
                 {
                     "full_name": "Aad, Georges",
@@ -1234,10 +1202,10 @@ def test_assign_author_calls_create_rt_ticket_for_claiming_action_when_some_args
         "snow/assign_authors_from_different_profile.html",
         {
             "to_author_names": ["Viktor Axelsen", "Axelsen, Viktor"],
-            "from_author_url": "http://localhost:5000/authors/1",
-            "to_author_url": "http://localhost:5000/authors/2",
+            "from_author_url": f"http://localhost:5000/authors/{from_author['control_number']}",
+            "to_author_url": f"http://localhost:5000/authors/{to_author['control_number']}",
             "incompatibile_names_papers": {
-                "http://localhost:5000/literature/3": "Aad, Georges"
+                f"http://localhost:5000/literature/{literature_1['control_number']}": "Aad, Georges"
             },
             "already_claimed_papers": [],
         },
@@ -1249,10 +1217,10 @@ def test_assign_author_calls_create_rt_ticket_for_claiming_action_when_some_args
 
 
 def test_assign_regression(inspire_app, override_config):
-    author = create_record("aut", data={"control_number": 1486131})
+    author = create_record("aut")
     create_record(
         "lit",
-        data={"control_number": 123456, "authors": [{"full_name": "Test, Author"}]},
+        data={"authors": [{"full_name": "Test, Author"}]},
     )
 
     with override_config(
@@ -1267,7 +1235,7 @@ def test_assign_regression(inspire_app, override_config):
                 data=orjson.dumps(
                     {
                         "literature_ids": [str(2171912)],
-                        "from_author_recid": 1486131,
+                        "from_author_recid": author["control_number"],
                     }
                 ),
                 content_type="application/json",

@@ -50,7 +50,7 @@ def test_cds_sync_checks_cds_server_url(inspire_app, cli, override_config):
 
 def test_cds_sync_determines_last_run_date_correctly(inspire_app_for_cds_sync, cli):
     expected_external_identifiers = [{"schema": "CDS", "value": "123123"}]
-    LiteratureRecord.create(faker.record("lit", data={"control_number": 321321}))
+    rec = LiteratureRecord.create(faker.record("lit", data={"control_number": 321321}))
     db.session.add(
         CDSRun(
             task_id=uuid.uuid4(),
@@ -76,5 +76,5 @@ def test_cds_sync_determines_last_run_date_correctly(inspire_app_for_cds_sync, c
 
     cli.invoke(["cds", "sync"])
 
-    record = LiteratureRecord.get_record_by_pid_value("321321")
+    record = LiteratureRecord.get_record_by_pid_value(rec["control_number"])
     assert record.get("external_system_identifiers") == expected_external_identifiers

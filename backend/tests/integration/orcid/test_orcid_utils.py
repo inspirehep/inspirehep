@@ -56,7 +56,6 @@ def author_in_isolated_app(inspire_app):
     record = {
         "$schema": "http://localhost:5000/schemas/records/authors.json",
         "_collections": ["Authors"],
-        "control_number": 123456789,  # FIXME remove when there is an easy way to insert new records
         "ids": [
             {"schema": "INSPIRE BAI", "value": "J.Smith.1"},
             {"schema": "ORCID", "value": "0000-0002-1825-0097"},
@@ -200,12 +199,20 @@ def test_orcid_for_push_orcid_in_author_with_claim_and_in_paper(author_in_isolat
 
 
 def test_get_literature_recids_for_orcid(inspire_app, datadir):
-    create_record("aut", data={"control_number": 994473})
-    data_author = orjson.loads((datadir / "1061000.json").read_text())
+    aut1 = create_record("aut")
+    data_author = orjson.loads(
+        (datadir / "1061000.json")
+        .read_text()
+        .replace("994473", str(aut1["control_number"]))
+    )
     create_record("aut", data=data_author)
-    data_literature = orjson.loads((datadir / "1496635.json").read_text())
-    create_record("lit", data=data_literature)
-    expected = [1496635]
+    data_literature = orjson.loads(
+        (datadir / "1496635.json")
+        .read_text()
+        .replace("994473", str(aut1["control_number"]))
+    )
+    rec = create_record("lit", data=data_literature)
+    expected = [rec["control_number"]]
     result = get_literature_recids_for_orcid("0000-0003-4792-9178")
 
     assert expected == result
@@ -220,12 +227,12 @@ def test_get_literature_recids_for_orcid_raises_if_two_authors_are_found(
 ):
     create_record("aut", data={"control_number": 994473})
     data = orjson.loads((datadir / "1061000.json").read_text())
-    create_record("aut", data=data)
-    record = InspireRecord.get_record_by_pid_value(1061000, pid_type="aut")
-    record["control_number"] = 1061001
+    rec1 = create_record("aut", data=data)
+    rec2 = InspireRecord.get_record_by_pid_value(rec1["control_number"], pid_type="aut")
+    rec2["control_number"] = rec1["control_number"] + 1
 
     with pytest.raises(PIDAlreadyExists):
-        record = InspireRecord.create_or_update(record)
+        rec2 = InspireRecord.create_or_update(rec2)
 
 
 def test_get_literature_recids_for_orcid_still_works_if_author_has_no_ids(
@@ -233,8 +240,10 @@ def test_get_literature_recids_for_orcid_still_works_if_author_has_no_ids(
 ):
     create_record("aut", data={"control_number": 994473})
     data = orjson.loads((datadir / "1061000.json").read_text())
-    create_record("aut", data=data)
-    record = InspireRecord.get_record_by_pid_value(1061000, pid_type="aut")
+    rec = create_record("aut", data=data)
+    record = InspireRecord.get_record_by_pid_value(
+        rec["control_number"], pid_type="aut"
+    )
     del record["ids"]
     record = InspireRecord.create_or_update(record)
 
@@ -246,8 +255,10 @@ def test_get_literature_recids_for_orcid_still_works_if_author_has_no_orcid_id(
 ):
     create_record("aut", data={"control_number": 994473})
     data = orjson.loads((datadir / "1061000.json").read_text())
-    create_record("aut", data=data)
-    record = InspireRecord.get_record_by_pid_value(1061000, pid_type="aut")
+    rec = create_record("aut", data=data)
+    record = InspireRecord.get_record_by_pid_value(
+        rec["control_number"], pid_type="aut"
+    )
     record["ids"] = [{"schema": "INSPIRE BAI", "value": "Maurizio.Martinelli.1"}]
     record = InspireRecord.create_or_update(record)
 
@@ -287,7 +298,6 @@ def test_orcid_is_updated_if_was_moved(inspire_app, user_remote_account):
     data = {
         "$schema": "http://localhost:5000/schemas/records/authors.json",
         "_collections": ["Authors"],
-        "control_number": 123456789,
         "ids": [
             {"schema": "INSPIRE BAI", "value": "J.Smith.1"},
             {"schema": "ORCID", "value": old_orcid},
@@ -310,7 +320,6 @@ def test_orcid_is_not_updated_if_was_moved_but_already_in_ids(
     data = {
         "$schema": "http://localhost:5000/schemas/records/authors.json",
         "_collections": ["Authors"],
-        "control_number": 123456789,
         "ids": [
             {"schema": "INSPIRE BAI", "value": "J.Smith.1"},
             {"schema": "ORCID", "value": new_orcid},

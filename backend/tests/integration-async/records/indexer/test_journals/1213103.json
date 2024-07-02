@@ -5,8 +5,6 @@
   "_collections": ["Journals"],
   "journal_title": { "title": "The Journal of High Energy Physics (JHEP)" },
   "public_notes": [{ "value": "Started with 1997, v.9701" }],
-  "self": { "$ref": "http://labs.inspirehep.net/api/journals/1213103" },
-  "control_number": 1213103,
   "short_title": "JHEP",
   "title_variants": [
     "JOURNAL OF HIGH ENERGY PHYSICS",
