@@ -138,7 +138,6 @@ def test_facets_for_publication_info_search(inspire_app):
     cited_record_json = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Literature"],
-        "control_number": 1,
         "document_type": ["article"],
         "publication_info": [
             {
@@ -277,7 +276,6 @@ def test_return_record_for_publication_info_search_example_2(inspire_app):
     cited_record_json = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Literature"],
-        "control_number": 1,
         "document_type": ["article"],
         "publication_info": [
             {
@@ -302,9 +300,9 @@ def test_return_record_for_publication_info_search_example_2(inspire_app):
             "journal_title": {"title": "Nucl. Phys. B"},
         },
     )
-    create_record("lit", cited_record_json)
+    record = create_record("lit", cited_record_json)
 
-    expected_control_number = 1
+    expected_control_number = record["control_number"]
 
     with inspire_app.test_client() as client:
 
@@ -325,7 +323,6 @@ def test_return_record_for_publication_info_search_example_3(inspire_app):
     cited_record_json = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Literature"],
-        "control_number": 1,
         "document_type": ["article"],
         "publication_info": [
             {
@@ -357,7 +354,7 @@ def test_return_record_for_publication_info_search_example_3(inspire_app):
         ],
     }
 
-    create_record("lit", cited_record_json)
+    record = create_record("lit", cited_record_json)
     create_record(
         "jou",
         data={
@@ -366,7 +363,7 @@ def test_return_record_for_publication_info_search_example_3(inspire_app):
         },
     )
 
-    expected_control_number = 1
+    expected_control_number = record["control_number"]
 
     with inspire_app.test_client() as client:
 
@@ -390,7 +387,6 @@ def test_return_record_for_publication_info_search_with_leading_zeros_in_page_ar
     cited_record_json = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Literature"],
-        "control_number": 1,
         "document_type": ["article"],
         "publication_info": [
             {
@@ -410,13 +406,13 @@ def test_return_record_for_publication_info_search_with_leading_zeros_in_page_ar
         ],
     }
 
-    create_record("lit", cited_record_json)
+    record = create_record("lit", cited_record_json)
     create_record(
         "jou",
         data={"short_title": "Phys.Rev.D", "journal_title": {"title": "Phys. Rev. D"}},
     )
 
-    expected_control_number = 1
+    expected_control_number = record["control_number"]
 
     with inspire_app.test_client() as client:
 
@@ -438,7 +434,6 @@ def test_return_record_for_publication_info_search_with_old_format(inspire_app):
     cited_record_json = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Literature"],
-        "control_number": 1,
         "document_type": ["article"],
         "publication_info": [
             {
@@ -459,8 +454,8 @@ def test_return_record_for_publication_info_search_with_old_format(inspire_app):
         ],
     }
 
-    create_record("lit", cited_record_json)
-    expected_control_number = 1
+    record = create_record("lit", cited_record_json)
+    expected_control_number = record["control_number"]
 
     with inspire_app.test_client() as client:
 
@@ -1332,8 +1327,10 @@ def test_highlighting_query(inspire_app):
 
 
 def test_citedby_query_simple(inspire_app):
-    rec = create_record("lit", data={"control_number": 12})
-    result = LiteratureSearch().query_from_iq("citedby:  recid 12")
+    rec = create_record("lit")
+    result = LiteratureSearch().query_from_iq(
+        f"citedby:  recid {rec['control_number']}"
+    )
     expected = {
         "bool": {
             "filter": [{"match_all": {}}, {"terms": {"_collections": ["Literature"]}}],
@@ -1355,10 +1352,12 @@ def test_citedby_query_simple(inspire_app):
 
 
 def test_citedby_bool_query(inspire_app):
-    rec_1 = create_record("lit", data={"control_number": 12})
-    rec_2 = create_record("lit", data={"control_number": 13})
+    rec_1 = create_record("lit")
+    rec_2 = create_record("lit")
 
-    result = LiteratureSearch().query_from_iq("citedby:  recid 12 or citedby:recid:13")
+    result = LiteratureSearch().query_from_iq(
+        f"citedby:  recid {rec_1['control_number']} or citedby:recid:{rec_2['control_number']}"
+    )
     expected = {
         "bool": {
             "filter": [{"match_all": {}}, {"terms": {"_collections": ["Literature"]}}],
@@ -1389,13 +1388,11 @@ def test_citedby_bool_query(inspire_app):
 
 
 def test_citedby_complex_query(inspire_app):
-    rec_1 = create_record("lit", data={"control_number": 12})
-    rec_2 = create_record(
-        "lit", data={"control_number": 13, "authors": [{"full_name": "Mata"}]}
-    )
+    rec_1 = create_record("lit")
+    rec_2 = create_record("lit", data={"authors": [{"full_name": "Mata"}]})
 
     result = LiteratureSearch().query_from_iq(
-        "citedby:  recid 12 or citedby:recid:13 and a Mata"
+        f"citedby:  recid {rec_1['control_number']} or citedby:recid:{rec_2['control_number']} and a Mata"
     )
     expected = {
         "bool": {
@@ -1543,7 +1540,6 @@ def test_search_doesnt_match_data_records_when_no_lit_records_found(inspire_app)
         "$schema": "https://inspirehep.net/schemas/records/data.json",
         "deleted": False,
         "_collections": ["Data"],
-        "control_number": 1399446,
         "legacy_version": "20151029133634.0",
     }
     create_record("dat", data=record_data)
@@ -1632,7 +1628,6 @@ def test_query_string_wit_default_field(inspire_app):
             "Nat., Inst., Nucl, Phys., Inst., Naz., Fis.",
         ],
         "name_variants": [{"value": "National Institute of Nuclear Physics"}],
-        "control_number": 906350,
         "legacy_version": "20181122151116.0",
         "historical_data": ["doesn't exist any more. Finished probably in 2005"],
         "institution_type": ["Research Center"],
@@ -1644,9 +1639,9 @@ def test_query_string_wit_default_field(inspire_app):
         "external_system_identifiers": [{"value": "INST-46051", "schema": "SPIRES"}],
     }
 
-    create_record("ins", data=data)
+    record = create_record("ins", data=data)
     result = InstitutionsSearch().query_from_iq("infn italy").execute()
-    assert result.hits[0]["control_number"] == 906350
+    assert result.hits[0]["control_number"] == record["control_number"]
 
 
 def test_institution_search_in_all_field(inspire_app):

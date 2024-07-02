@@ -17,14 +17,16 @@ from helpers.utils import (
 from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db
 
-from inspirehep.records.models import WorkflowsRecordSources
 from inspirehep.records.api import LiteratureRecord
+from inspirehep.records.models import WorkflowsRecordSources
+
 
 def test_error_message_on_pid_already_exists(inspire_app):
-    create_record_factory("lit", data={"control_number": 666})
+    rec = create_record_factory("lit")
+    rec_control_number = rec.data["control_number"]
     token = create_user_and_token()
     headers = {"Authorization": "BEARER " + token.access_token}
-    record = faker.record("lit", data={"control_number": 666})
+    record = faker.record("lit", data={"control_number": rec_control_number})
     with inspire_app.test_client() as client:
         response = client.post(
             "/literature",
@@ -37,7 +39,9 @@ def test_error_message_on_pid_already_exists(inspire_app):
     response_message = response.json["message"]
 
     expected_status_code = 400
-    expected_message = "PIDAlreadyExists: pid_type:'lit', pid_value:'666'."
+    expected_message = (
+        f"PIDAlreadyExists: pid_type:'lit', pid_value:'{rec_control_number}'."
+    )
     assert expected_status_code == response_status_code
     assert expected_message == response_message
 
@@ -449,7 +453,7 @@ def test_self_curation_returns_401_for_not_authenticated_user(inspire_app):
 @mock.patch("inspirehep.records.views._create_ticket_self_curation")
 def test_reference_self_curation(mock_create_ticket, inspire_app):
     user = create_user(email="test@cern.ch")
-    new_reference_record = create_record("lit", data={"control_number": 1})
+    new_reference_record = create_record("lit")
     literature_data = {
         "references": [
             {
@@ -481,7 +485,7 @@ def test_reference_self_curation(mock_create_ticket, inspire_app):
         "record_id": str(record.id),
         "revision_id": int(record.revision_id),
         "reference_index": 0,
-        "new_reference_recid": 1,
+        "new_reference_recid": new_reference_record["control_number"],
     }
 
     with inspire_app.test_client() as client:
@@ -491,7 +495,7 @@ def test_reference_self_curation(mock_create_ticket, inspire_app):
             content_type="application/json",
             data=orjson.dumps(data),
         )
-    record = LiteratureRecord.get_record_by_pid_value(record['control_number'])
+    record = LiteratureRecord.get_record_by_pid_value(record["control_number"])
     assert record["references"][0]["curated_relation"]
     assert record["references"][0]["record"] == new_reference_record["self"]
     assert (

@@ -9,7 +9,6 @@ def test_get_linked_refs(inspire_app):
     cited_record_json = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Literature"],
-        "control_number": 1,
         "document_type": ["article"],
         "publication_info": [
             {
@@ -22,7 +21,7 @@ def test_get_linked_refs(inspire_app):
         ],
         "titles": [{"title": "The Strongly-Interacting Light Higgs"}],
     }
-    create_record("lit", cited_record_json)
+    record = create_record("lit", cited_record_json)
 
     references = {
         "references": [
@@ -54,7 +53,7 @@ def test_get_linked_refs(inspire_app):
     linked_refs = orjson.loads(response.data)
     assert (
         linked_refs["references"][0]["record"]["$ref"]
-        == "http://localhost:5000/api/literature/1"
+        == f"http://localhost:5000/api/literature/{record['control_number']}"
     )
 
 
@@ -97,7 +96,6 @@ def test_get_linked_refs_bad_request(inspire_app):
 def test_exact_match(inspire_app):
     user = create_user(role=Roles.cataloger.value)
     record_data = {
-        "control_number": 4328,
         "abstracts": [
             {
                 "value": "abstract nb 1",
@@ -125,7 +123,6 @@ def test_exact_match(inspire_app):
 def test_exact_match_returns_403_for_non_authenticated(inspire_app):
     user = create_user()
     record_data = {
-        "control_number": 4328,
         "abstracts": [
             {
                 "value": "abstract nb 1",
@@ -149,8 +146,7 @@ def test_exact_match_returns_403_for_non_authenticated(inspire_app):
 def test_fuzzy_match(inspire_app):
     user = create_user(role=Roles.cataloger.value)
     record_data = {
-        "control_number": 4328,
-         "titles": [
+        "titles": [
             {
                 "title": "Search for the limits on anomalous neutral triple gauge couplings via ZZ production in the $\\ell\\ell\\nu\\nu$ channel at FCC-hh",
             }
@@ -181,7 +177,6 @@ def test_fuzzy_match(inspire_app):
 def test_fuzzy_match_returns_403_for_non_autheorized_users(inspire_app):
     user = create_user()
     record_data = {
-        "control_number": 4328,
         "abstracts": [
             {
                 "value": "abstract nb 1",

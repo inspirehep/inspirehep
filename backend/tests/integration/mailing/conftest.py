@@ -78,6 +78,16 @@ def create_jobs(inspire_app, shared_datadir):
     create_record("job", data=job_60_days_old)
 
     current_search.flush_and_refresh("records-jobs")
+    return {
+        "job_5_days_old": job_5_days_old,
+        "job_5_days_old_pending": job_5_days_old_pending,
+        "job_5_days_old_closed": job_5_days_old_closed,
+        "job_6_days_old": job_6_days_old,
+        "job_7_days_old": job_7_days_old,
+        "job_8_days_old": job_8_days_old,
+        "job_30_days_old": job_30_days_old,
+        "job_60_days_old": job_60_days_old,
+    }
 
 
 @pytest.fixture(autouse=True, scope="function")

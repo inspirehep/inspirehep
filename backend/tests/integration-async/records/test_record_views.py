@@ -311,10 +311,9 @@ def test_reference_diff_when_wrong_versions_passed(inspire_app, clean_celery_ses
 
 def test_reference_diff_when_stale_data(inspire_app, clean_celery_session):
     user = create_user(role="cataloger")
-    literature_data = faker.record("lit")
+    literature_data = faker.record("lit", with_control_number=True)
     literature_data.update(
         {
-            "control_number": 1234,
             "references": [
                 {
                     "reference": {

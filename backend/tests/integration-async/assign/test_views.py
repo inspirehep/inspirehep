@@ -32,7 +32,7 @@ def test_assign_regression(inspire_app, datadir, override_config, clean_celery_s
                 "/api/assign/literature/unassign",
                 data=orjson.dumps(
                     {
-                        "literature_ids": [str(2171912)],
+                        "literature_ids": [str(literature_control_number)],
                         "from_author_recid": 1486131,
                     }
                 ),

@@ -27,7 +27,9 @@ def test_index_literature_record(inspire_app, datadir):
     record = create_record("lit", data=data, without_author_refs=True)
 
     expected_count = 1
-    expected_metadata = orjson.loads((datadir / "es_1630825.json").read_text())
+    expected_metadata = orjson.loads(
+        (datadir / f"es_{record['control_number']}.json").read_text()
+    )
     expected_metadata_ui_display = orjson.loads(expected_metadata.pop("_ui_display"))
     expected_metadata_latex_us_display = expected_metadata.pop("_latex_us_display")
     expected_metadata_latex_eu_display = expected_metadata.pop("_latex_eu_display")

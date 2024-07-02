@@ -9,6 +9,7 @@ from copy import deepcopy
 import mock
 import orjson
 from freezegun import freeze_time
+from helpers.providers.faker import faker
 from helpers.utils import create_record, create_user
 from invenio_accounts.testutils import login_user_via_session
 from invenio_oauthclient import current_oauthclient
@@ -211,7 +212,7 @@ def test_jobs_search_json_can_edit(mock_current_user, inspire_app):
     jobs_author = create_user(role="user", orcid=user_orcid, allow_push=True)
     mock_current_user.return_value = jobs_author
     with inspire_app.test_client() as client:
-        response = client.get(f"/jobs/", headers=headers)
+        response = client.get("/jobs/", headers=headers)
 
     hits = response.json["hits"]["hits"]
 
@@ -253,11 +254,17 @@ def test_jobs_detail_json_link_alias_format(inspire_app):
 
 
 def test_jobs_detail_serialize_experiment_with_referenced_record(inspire_app):
+    rec_data = faker.record(
+        "exp", data={"institutions": [{"value": "LIGO"}]}, with_control_number=True
+    )
+    rec_data_control_number = rec_data["control_number"]
     expected_status_code = 200
     expected_accelerator_experiments = [
         {
             "name": "LIGO",
-            "record": {"$ref": "http://localhost:5000/api/experiments/1110623"},
+            "record": {
+                "$ref": f"http://localhost:5000/api/experiments/{rec_data_control_number}"
+            },
         }
     ]
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
@@ -268,16 +275,14 @@ def test_jobs_detail_serialize_experiment_with_referenced_record(inspire_app):
                 {
                     "legacy_name": "LIGO",
                     "record": {
-                        "$ref": "http://labs.inspirehep.net/api/experiments/1110623"
+                        "$ref": f"http://labs.inspirehep.net/api/experiments/{rec_data_control_number}"
                     },
                 }
             ]
         },
     )
 
-    experiment = create_record(
-        "exp", data={"control_number": 1_110_623, "institutions": [{"value": "LIGO"}]}
-    )
+    create_record("exp", data=rec_data)
     with inspire_app.test_client() as client:
         response = client.get(f"/jobs/{record['control_number']}", headers=headers)
 

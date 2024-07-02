@@ -66,14 +66,15 @@ def xml_compare(expected, result):
 
 def test_format_article(inspire_app, datadir):
     data = orjson.loads((datadir / "4328.json").read_text())
-    create_record("lit", data=data)
+    record = create_record("lit", data=data)
+    record_control_number = record["control_number"]
     with inspire_app.test_client() as client:
-        response = client.get("/literature/4328")
+        response = client.get(f"/literature/{record_control_number}")
     assert response.status_code == 200
     article = orjson.loads(response.data)
 
     expected = xml_parse(
-        """
+        f"""
     <work:work xmlns:common="http://www.orcid.org/ns/common" xmlns:work="http://www.orcid.org/ns/work">
         <work:title>
             <common:title>Partial Symmetries of Weak Interactions</common:title>
@@ -86,8 +87,8 @@ def test_format_article(inspire_app, datadir):
         <common:external-ids>
             <common:external-id>
               <common:external-id-type>other-id</common:external-id-type>
-              <common:external-id-value>4328</common:external-id-value>
-              <common:external-id-url>http://inspirehep.net/record/4328</common:external-id-url>
+              <common:external-id-value>{record_control_number}</common:external-id-value>
+              <common:external-id-url>http://inspirehep.net/record/{record_control_number}</common:external-id-url>
               <common:external-id-relationship>self</common:external-id-relationship>
             </common:external-id>
             <common:external-id>
@@ -97,7 +98,7 @@ def test_format_article(inspire_app, datadir):
                 <common:external-id-relationship>self</common:external-id-relationship>
             </common:external-id>
         </common:external-ids>
-        <work:url>http://inspirehep.net/record/4328</work:url>
+        <work:url>http://inspirehep.net/record/{record_control_number}</work:url>
         <work:contributors>
             <work:contributor>
                 <work:credit-name>Glashow, S.L.</work:credit-name>
@@ -124,17 +125,16 @@ def test_format_article(inspire_app, datadir):
 def test_format_conference_paper(inspire_app, datadir):
     data = orjson.loads((datadir / "524480.json").read_text())
     record = create_record("lit", data=data)
+    record_control_number = record["control_number"]
     data_conference = orjson.loads((datadir / "972464.json").read_text())
-    record_conference = create_record_factory(
-        "con", data=data_conference, with_indexing=True
-    )
+    create_record_factory("con", data=data_conference, with_indexing=True)
     with inspire_app.test_client() as client:
-        response = client.get("/literature/524480")
+        response = client.get(f"/literature/{record_control_number}")
     assert response.status_code == 200
     inproceedings = orjson.loads(response.data)
 
     expected = xml_parse(
-        """
+        f"""
     <work:work xmlns:common="http://www.orcid.org/ns/common" xmlns:work="http://www.orcid.org/ns/work">
         <work:title>
             <common:title>CMB anisotropies: A Decadal survey</common:title>
@@ -144,8 +144,8 @@ def test_format_conference_paper(inspire_app, datadir):
         <common:external-ids>
             <common:external-id>
               <common:external-id-type>other-id</common:external-id-type>
-              <common:external-id-value>524480</common:external-id-value>
-              <common:external-id-url>http://inspirehep.net/record/524480</common:external-id-url>
+              <common:external-id-value>{record_control_number}</common:external-id-value>
+              <common:external-id-url>http://inspirehep.net/record/{record_control_number}</common:external-id-url>
               <common:external-id-relationship>self</common:external-id-relationship>
             </common:external-id>
             <common:external-id>
@@ -155,7 +155,7 @@ def test_format_conference_paper(inspire_app, datadir):
                 <common:external-id-relationship>self</common:external-id-relationship>
             </common:external-id>
         </common:external-ids>
-        <work:url>http://inspirehep.net/record/524480</work:url>
+        <work:url>http://inspirehep.net/record/{record_control_number}</work:url>
         <work:contributors>
             <work:contributor>
                 <work:credit-name>Hu, Wayne</work:credit-name>
@@ -181,13 +181,14 @@ def test_format_conference_paper(inspire_app, datadir):
 def test_format_proceedings(inspire_app, datadir):
     data = orjson.loads((datadir / "701585.json").read_text())
     record = create_record("lit", data=data)
+    record_control_number = record["control_number"]
     with inspire_app.test_client() as client:
-        response = client.get("/literature/701585")
+        response = client.get(f"/literature/{record_control_number}")
     assert response.status_code == 200
     proceedings = orjson.loads(response.data)
 
     expected = xml_parse(
-        """
+        f"""
     <work:work xmlns:common="http://www.orcid.org/ns/common" xmlns:work="http://www.orcid.org/ns/work">
         <work:title>
             <common:title>HERA and the LHC: A Workshop on the implications of HERA for LHC physics: Proceedings Part A</common:title>
@@ -199,8 +200,8 @@ def test_format_proceedings(inspire_app, datadir):
         <common:external-ids>
             <common:external-id>
               <common:external-id-type>other-id</common:external-id-type>
-              <common:external-id-value>701585</common:external-id-value>
-              <common:external-id-url>http://inspirehep.net/record/701585</common:external-id-url>
+              <common:external-id-value>{record_control_number}</common:external-id-value>
+              <common:external-id-url>http://inspirehep.net/record/{record_control_number}</common:external-id-url>
               <common:external-id-relationship>self</common:external-id-relationship>
             </common:external-id>
             <common:external-id>
@@ -210,7 +211,7 @@ def test_format_proceedings(inspire_app, datadir):
                 <common:external-id-relationship>self</common:external-id-relationship>
             </common:external-id>
         </common:external-ids>
-        <work:url>http://inspirehep.net/record/701585</work:url>
+        <work:url>http://inspirehep.net/record/{record_control_number}</work:url>
         <work:contributors>
             <work:contributor>
                 <work:credit-name>De Roeck, A.</work:credit-name>
@@ -244,13 +245,14 @@ def test_format_proceedings(inspire_app, datadir):
 def test_format_thesis(inspire_app, datadir):
     data = orjson.loads((datadir / "1395663.json").read_text())
     record = create_record("lit", data=data)
+    record_control_number = record["control_number"]
     with inspire_app.test_client() as client:
-        response = client.get("/literature/1395663")
+        response = client.get(f"/literature/{record_control_number}")
     assert response.status_code == 200
     phdthesis = orjson.loads(response.data)
 
     expected = xml_parse(
-        """
+        f"""
     <work:work xmlns:common="http://www.orcid.org/ns/common" xmlns:work="http://www.orcid.org/ns/work">
         <work:title>
             <common:title>MAGIC $\\gamma$-ray observations of distant AGN and a study of source variability and the extragalactic background light using FERMI and air Cherenkov telescopes</common:title>
@@ -259,12 +261,12 @@ def test_format_thesis(inspire_app, datadir):
         <common:external-ids>
             <common:external-id>
               <common:external-id-type>other-id</common:external-id-type>
-              <common:external-id-value>1395663</common:external-id-value>
-              <common:external-id-url>http://inspirehep.net/record/1395663</common:external-id-url>
+              <common:external-id-value>{record_control_number}</common:external-id-value>
+              <common:external-id-url>http://inspirehep.net/record/{record_control_number}</common:external-id-url>
               <common:external-id-relationship>self</common:external-id-relationship>
             </common:external-id>
         </common:external-ids>
-        <work:url>http://inspirehep.net/record/1395663</work:url>
+        <work:url>http://inspirehep.net/record/{record_control_number}</work:url>
         <work:contributors>
             <work:contributor>
                 <work:credit-name>Mankuzhiyil, Nijil</work:credit-name>
@@ -291,13 +293,14 @@ def test_format_thesis(inspire_app, datadir):
 def test_format_book(inspire_app, datadir):
     data = orjson.loads((datadir / "736770.json").read_text())
     record = create_record("lit", data=data)
+    record_control_number = record["control_number"]
     with inspire_app.test_client() as client:
-        response = client.get("/literature/736770")
+        response = client.get(f"/literature/{record_control_number}")
     assert response.status_code == 200
     book = orjson.loads(response.data)
 
     expected = xml_parse(
-        """
+        f"""
     <work:work xmlns:common="http://www.orcid.org/ns/common" xmlns:work="http://www.orcid.org/ns/work">
         <work:title>
             <common:title>Differential geometry and Lie groups for physicists</common:title>
@@ -311,8 +314,8 @@ def test_format_book(inspire_app, datadir):
         <common:external-ids>
             <common:external-id>
               <common:external-id-type>other-id</common:external-id-type>
-              <common:external-id-value>736770</common:external-id-value>
-              <common:external-id-url>http://inspirehep.net/record/736770</common:external-id-url>
+              <common:external-id-value>{record_control_number}</common:external-id-value>
+              <common:external-id-url>http://inspirehep.net/record/{record_control_number}</common:external-id-url>
               <common:external-id-relationship>self</common:external-id-relationship>
             </common:external-id>
             <common:external-id>
@@ -328,7 +331,7 @@ def test_format_book(inspire_app, datadir):
                 <common:external-id-value>9780511242960</common:external-id-value>
             </common:external-id>
         </common:external-ids>
-        <work:url>http://inspirehep.net/record/736770</work:url>
+        <work:url>http://inspirehep.net/record/{record_control_number}</work:url>
         <work:contributors>
             <work:contributor>
                 <work:credit-name>Fecko, M.</work:credit-name>
@@ -356,13 +359,14 @@ def test_format_book_chapter(inspire_app, datadir):
     data = orjson.loads((datadir / "1375491.json").read_text())
     del data["deleted_records"]
     record = create_record("lit", data=data)
+    record_control_number = record["control_number"]
     with inspire_app.test_client() as client:
-        response = client.get("/literature/1375491")
+        response = client.get(f"/literature/{record_control_number}")
     assert response.status_code == 200
     inbook = orjson.loads(response.data)
 
     expected = xml_parse(
-        """
+        f"""
     <work:work xmlns:common="http://www.orcid.org/ns/common" xmlns:work="http://www.orcid.org/ns/work">
         <work:title>
             <common:title>Supersymmetry</common:title>
@@ -374,8 +378,8 @@ def test_format_book_chapter(inspire_app, datadir):
         <common:external-ids>
             <common:external-id>
               <common:external-id-type>other-id</common:external-id-type>
-              <common:external-id-value>1375491</common:external-id-value>
-              <common:external-id-url>http://inspirehep.net/record/1375491</common:external-id-url>
+              <common:external-id-value>{record_control_number}</common:external-id-value>
+              <common:external-id-url>http://inspirehep.net/record/{record_control_number}</common:external-id-url>
               <common:external-id-relationship>self</common:external-id-relationship>
             </common:external-id>
             <common:external-id>
@@ -391,7 +395,7 @@ def test_format_book_chapter(inspire_app, datadir):
                 <common:external-id-relationship>self</common:external-id-relationship>
             </common:external-id>
         </common:external-ids>
-        <work:url>http://inspirehep.net/record/1375491</work:url>
+        <work:url>http://inspirehep.net/record/{record_control_number}</work:url>
         <work:contributors>
             <work:contributor>
                 <work:credit-name>Bechtle, Philip</work:credit-name>
@@ -432,8 +436,9 @@ def test_format_book_chapter(inspire_app, datadir):
 def test_format_thesis_with_author_orcid(inspire_app, datadir):
     data = orjson.loads((datadir / "1395663.json").read_text())
     record = create_record("lit", data=data)
+    record_control_number = record["control_number"]
     with inspire_app.test_client() as client:
-        response = client.get("/literature/1395663")
+        response = client.get(f"/literature/{record_control_number}")
     assert response.status_code == 200
     phdthesis = orjson.loads(response.data)
 
@@ -443,7 +448,7 @@ def test_format_thesis_with_author_orcid(inspire_app, datadir):
     phdthesis["metadata"]["authors"][0]["emails"] = ["email@fake-domain.local"]
 
     expected = xml_parse(
-        """
+        f"""
     <work:work xmlns:common="http://www.orcid.org/ns/common" xmlns:work="http://www.orcid.org/ns/work">
         <work:title>
             <common:title>MAGIC $\\gamma$-ray observations of distant AGN and a study of source variability and the extragalactic background light using FERMI and air Cherenkov telescopes</common:title>
@@ -452,12 +457,12 @@ def test_format_thesis_with_author_orcid(inspire_app, datadir):
         <common:external-ids>
             <common:external-id>
               <common:external-id-type>other-id</common:external-id-type>
-              <common:external-id-value>1395663</common:external-id-value>
-              <common:external-id-url>http://inspirehep.net/record/1395663</common:external-id-url>
+              <common:external-id-value>{record_control_number}</common:external-id-value>
+              <common:external-id-url>http://inspirehep.net/record/{record_control_number}</common:external-id-url>
               <common:external-id-relationship>self</common:external-id-relationship>
             </common:external-id>
         </common:external-ids>
-        <work:url>http://inspirehep.net/record/1395663</work:url>
+        <work:url>http://inspirehep.net/record/{record_control_number}</work:url>
         <work:contributors>
             <work:contributor>
                 <common:contributor-orcid>
@@ -490,7 +495,7 @@ def test_format_thesis_with_author_orcid(inspire_app, datadir):
 def test_external_identifiers(inspire_app, datadir):
     data = orjson.loads((datadir / "1375491.json").read_text())
     del data["deleted_records"]
-    record = create_record("lit", data=data)
+    create_record("lit", data=data)
     with inspire_app.test_client() as client:
         response = client.get("/literature/1375491")
     assert response.status_code == 200
@@ -502,8 +507,8 @@ def test_external_identifiers(inspire_app, datadir):
     converter.get_xml()
     expected = [
         ExternalIdentifier(type="other-id", value="1375491"),
-        ExternalIdentifier(type="doi", value=u"10.1007/978-3-319-15001-7_10"),
-        ExternalIdentifier(type="arxiv", value=u"1506.03091"),
+        ExternalIdentifier(type="doi", value="10.1007/978-3-319-15001-7_10"),
+        ExternalIdentifier(type="arxiv", value="1506.03091"),
     ]
     assert converter.added_external_identifiers == expected
 

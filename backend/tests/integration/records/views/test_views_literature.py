@@ -27,7 +27,6 @@ from inspirehep.records.errors import MaxResultWindowRESTError
 def test_literature_search_application_json_get(inspire_app):
     data = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
-        "control_number": 666,
         "document_type": ["article"],
         "titles": [{"title": "Partner walk again seek job."}],
     }
@@ -38,7 +37,7 @@ def test_literature_search_application_json_get(inspire_app):
     expected_status_code = 200
     expected_data = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
-        "control_number": 666,
+        "control_number": record["control_number"],
         "document_type": ["article"],
         "earliest_date": record.created.strftime("%Y-%m-%d"),
         "titles": [{"title": "Partner walk again seek job."}],
@@ -58,17 +57,16 @@ def test_literature_search_application_json_get(inspire_app):
 
 def test_literature_search_application_json_ui_get(inspire_app):
     data = {
-        "control_number": 666,
         "titles": [{"title": "Partner walk again seek job."}],
         "preprint_date": "2019-07-02",
     }
-    create_record("lit", data=data)
+    record = create_record("lit", data=data)
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
     expected_status_code = 200
     expected_data = {
         "citation_count": 0,
         "citation_count_without_self_citations": 0,
-        "control_number": 666,
+        "control_number": record["control_number"],
         "document_type": ["article"],
         "titles": [{"title": "Partner walk again seek job."}],
         "preprint_date": "2019-07-02",
@@ -682,7 +680,6 @@ def test_literature_search_user_does_not_get_fermilab_collection(inspire_app):
     data = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Fermilab"],
-        "control_number": 666,
         "document_type": ["article"],
         "titles": [{"title": "Partner walk again seek job."}],
     }
@@ -704,7 +701,6 @@ def test_literature_search_cataloger_gets_fermilab_collection(inspire_app):
     data = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Fermilab"],
-        "control_number": 666,
         "document_type": ["article"],
         "titles": [{"title": "Partner walk again seek job."}],
     }
@@ -716,14 +712,16 @@ def test_literature_search_cataloger_gets_fermilab_collection(inspire_app):
     expected_data = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Fermilab"],
-        "control_number": 666,
+        "control_number": record["control_number"],
         "earliest_date": record.created.strftime("%Y-%m-%d"),
         "document_type": ["article"],
         "titles": [{"title": "Partner walk again seek job."}],
         "citation_count": 0,
         "citation_count_without_self_citations": 0,
         "author_count": 0,
-        "self": {"$ref": "http://localhost:5000/api/literature/666"},
+        "self": {
+            "$ref": f"http://localhost:5000/api/literature/{record['control_number']}"
+        },
     }
 
     with inspire_app.test_client() as client:

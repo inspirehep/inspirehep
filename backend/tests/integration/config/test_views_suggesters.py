@@ -22,7 +22,6 @@ def test_literature_suggesters_book_title(inspire_app):
     expected_title_suggestion = "Suggested title"
     data = {
         "authors": [{"full_name": "Weinberg, Steven"}],
-        "control_number": 406190,
         "titles": [{"title": expected_title_suggestion}],
     }
     lit = create_record("lit", data=data)
@@ -56,7 +55,7 @@ def test_literature_suggesters_abstract_source(inspire_app):
 
 
 def test_literature_suggesters_empty_result(inspire_app):
-    lit = create_record("lit", data={"titles": [{"title": "Suggested title"}]})
+    create_record("lit", data={"titles": [{"title": "Suggested title"}]})
     with inspire_app.test_client() as client:
         resp = client.get("/literature/_suggest?book_title=nope")
 
@@ -195,11 +194,6 @@ def test_seminars_series_name_suggester_ignores_duplicates(inspire_app):
 
 @pytest.mark.xfail
 def test_data_suggesters():
-    raise NotImplementedError("Missing serializer")
-
-
-@pytest.mark.xfail
-def test_journals_suggesters():
     raise NotImplementedError("Missing serializer")
 
 

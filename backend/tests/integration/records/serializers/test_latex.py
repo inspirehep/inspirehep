@@ -15,15 +15,15 @@ from mock import patch
 @freeze_time("1994-12-19")
 def test_latex_eu(inspire_app):
     headers = {"Accept": "application/vnd+inspire.latex.eu+x-latex"}
-    data = {"control_number": 637_275_237, "titles": [{"title": "This is a title."}]}
+    data = {"titles": [{"title": "This is a title."}]}
 
     record = create_record_factory("lit", data=data, with_indexing=True)
     record_control_number = record.json["control_number"]
 
     expected_status_code = 200
     expected_result = (
-        "%\\cite{637275237}\n"
-        "\\bibitem{637275237}\n"
+        f"%\\cite{{{record_control_number}}}\n"
+        f"\\bibitem{{{record_control_number}}}\n"
         "%``This is a title.,''\n"
         "%0 citations counted in INSPIRE as of 19 Dec 1994"
     )
@@ -40,15 +40,15 @@ def test_latex_eu(inspire_app):
 @freeze_time("1994-12-19")
 def test_latex_us(inspire_app):
     headers = {"Accept": "application/vnd+inspire.latex.us+x-latex"}
-    data = {"control_number": 637_275_237, "titles": [{"title": "This is a title."}]}
+    data = {"titles": [{"title": "This is a title."}]}
 
     record = create_record_factory("lit", data=data, with_indexing=True)
     record_control_number = record.json["control_number"]
 
     expected_status_code = 200
     expected_result = (
-        "%\\cite{637275237}\n"
-        "\\bibitem{637275237}\n"
+        f"%\\cite{{{record_control_number}}}\n"
+        f"\\bibitem{{{record_control_number}}}\n"
         "%``This is a title.,''\n"
         "%0 citations counted in INSPIRE as of 19 Dec 1994"
     )
@@ -66,7 +66,6 @@ def test_latex_us(inspire_app):
 def test_latex_eu_do_not_show_supervisors(inspire_app):
     headers = {"Accept": "application/vnd+inspire.latex.eu+x-latex"}
     data = {
-        "control_number": 637_275_237,
         "titles": [{"title": "This is a title."}],
         "authors": [
             {
@@ -84,7 +83,7 @@ def test_latex_eu_do_not_show_supervisors(inspire_app):
     record_control_number = record["control_number"]
 
     expected_status_code = 200
-    expected_result = "%\\cite{637275237}\n\\bibitem{637275237}\nA.~Normal,\n%``This is a title.,''\n%0 citations counted in INSPIRE as of 19 Dec 1994"
+    expected_result = f"%\\cite{{{record_control_number}}}\n\\bibitem{{{record_control_number}}}\nA.~Normal,\n%``This is a title.,''\n%0 citations counted in INSPIRE as of 19 Dec 1994"
     with inspire_app.test_client() as client:
         response = client.get(f"/literature/{record_control_number}", headers=headers)
 
@@ -96,7 +95,6 @@ def test_latex_eu_do_not_show_supervisors(inspire_app):
 def test_latex_us_do_not_show_supervisors(inspire_app):
     headers = {"Accept": "application/vnd+inspire.latex.us+x-latex"}
     data = {
-        "control_number": 637_275_237,
         "titles": [{"title": "This is a title."}],
         "authors": [
             {
@@ -114,7 +112,7 @@ def test_latex_us_do_not_show_supervisors(inspire_app):
     record_control_number = record["control_number"]
 
     expected_status_code = 200
-    expected_result = "%\\cite{637275237}\n\\bibitem{637275237}\nA.~Normal,\n%``This is a title.,''\n%0 citations counted in INSPIRE as of 19 Dec 1994"
+    expected_result = f"%\\cite{{{record_control_number}}}\n\\bibitem{{{record_control_number}}}\nA.~Normal,\n%``This is a title.,''\n%0 citations counted in INSPIRE as of 19 Dec 1994"
     with inspire_app.test_client() as client:
         response = client.get(f"/literature/{record_control_number}", headers=headers)
 
@@ -125,21 +123,21 @@ def test_latex_us_do_not_show_supervisors(inspire_app):
 @freeze_time("1994-12-19")
 def test_latex_eu_search_response(inspire_app):
     headers = {"Accept": "application/vnd+inspire.latex.eu+x-latex"}
-    data_1 = {"control_number": 637_275_237, "titles": [{"title": "This is a title."}]}
-    data_2 = {"control_number": 637_275_232, "titles": [{"title": "This is a title2."}]}
-    create_record("lit", data=data_1)
-    create_record("lit", data=data_2)
+    data_1 = {"titles": [{"title": "This is a title."}]}
+    data_2 = {"titles": [{"title": "This is a title2."}]}
+    record_1 = create_record("lit", data=data_1)
+    record_2 = create_record("lit", data=data_2)
 
     expected_status_code = 200
     expected_result_1 = (
-        "%\\cite{637275237}\n"
-        "\\bibitem{637275237}\n"
+        f"%\\cite{{{record_1['control_number']}}}\n"
+        f"\\bibitem{{{record_1['control_number']}}}\n"
         "%``This is a title.,''\n"
         "%0 citations counted in INSPIRE as of 19 Dec 1994"
     )
     expected_result_2 = (
-        "%\\cite{637275232}\n"
-        "\\bibitem{637275232}\n"
+        f"%\\cite{{{record_2['control_number']}}}\n"
+        f"\\bibitem{{{record_2['control_number']}}}\n"
         "%``This is a title2.,''\n"
         "%0 citations counted in INSPIRE as of 19 Dec 1994"
     )
@@ -206,21 +204,21 @@ def test_latex_eu_search_response_full_record(inspire_app):
 @freeze_time("1994-12-19")
 def test_latex_us_search_response(inspire_app):
     headers = {"Accept": "application/vnd+inspire.latex.us+x-latex"}
-    data_1 = {"control_number": 637_275_237, "titles": [{"title": "This is a title."}]}
-    data_2 = {"control_number": 637_275_232, "titles": [{"title": "This is a title2."}]}
-    create_record("lit", data=data_1)
-    create_record("lit", data=data_2)
+    data_1 = {"titles": [{"title": "This is a title."}]}
+    data_2 = {"titles": [{"title": "This is a title2."}]}
+    record_1 = create_record("lit", data=data_1)
+    record_2 = create_record("lit", data=data_2)
 
     expected_status_code = 200
     expected_result_1 = (
-        "%\\cite{637275237}\n"
-        "\\bibitem{637275237}\n"
+        f"%\\cite{{{record_1['control_number']}}}\n"
+        f"\\bibitem{{{record_1['control_number']}}}\n"
         "%``This is a title.,''\n"
         "%0 citations counted in INSPIRE as of 19 Dec 1994"
     )
     expected_result_2 = (
-        "%\\cite{637275232}\n"
-        "\\bibitem{637275232}\n"
+        f"%\\cite{{{record_2['control_number']}}}\n"
+        f"\\bibitem{{{record_2['control_number']}}}\n"
         "%``This is a title2.,''\n"
         "%0 citations counted in INSPIRE as of 19 Dec 1994"
     )
@@ -414,7 +412,6 @@ def test_latex_handle_multiple_erratums_with_missing_info(inspire_app):
 @freeze_time("2020-09-11")
 def test_latex_returns_limits_number_of_authors_to_10(inspire_app):
     data = {
-        "control_number": 637_275_237,
         "titles": [{"title": "This is a title."}],
         "authors": [
             {
@@ -464,14 +461,15 @@ def test_latex_returns_limits_number_of_authors_to_10(inspire_app):
         ],
     }
     record = create_record("lit", data)
+    record_control_number = record["control_number"]
     expected = (
-        "%\\cite{637275237}\n\\bibitem{637275237}\n"
+        f"%\\cite{{{record_control_number}}}\n\\bibitem{{{record_control_number}}}\n"
         "A.~First, A.~Second, A.~Third, A.~Fourth, A.~Fifth, A.~Sixth, A.~Seventh, A.~Eighth, A.~Ninth and A.~Tenth, \\textit{et al.}\n"
         "%``This is a title.,''\n%0 citations counted in INSPIRE as of 11 Sep 2020"
     )
 
     with inspire_app.test_client() as client:
-        response = client.get(f"/literature/{record['control_number']}?format=latex-us")
+        response = client.get(f"/literature/{record_control_number}?format=latex-us")
     response_data = response.get_data(as_text=True)
 
     assert response.status_code == 200
@@ -481,7 +479,6 @@ def test_latex_returns_limits_number_of_authors_to_10(inspire_app):
 @freeze_time("2020-09-11")
 def test_latex_not_returns_etal_when_authors_nb_less_than_10(inspire_app):
     data = {
-        "control_number": 637_275_237,
         "titles": [{"title": "This is a title."}],
         "authors": [
             {
@@ -507,13 +504,14 @@ def test_latex_not_returns_etal_when_authors_nb_less_than_10(inspire_app):
         ],
     }
     record = create_record("lit", data)
+    record_control_number = record["control_number"]
     expected = (
-        "%\\cite{637275237}\n\\bibitem{637275237}\nA.~First, A.~Second, A.~Third, A.~Fourth and A.~Fifth,\n"
+        f"%\\cite{{{record_control_number}}}\n\\bibitem{{{record_control_number}}}\nA.~First, A.~Second, A.~Third, A.~Fourth and A.~Fifth,\n"
         "%``This is a title.,''\n%0 citations counted in INSPIRE as of 11 Sep 2020"
     )
 
     with inspire_app.test_client() as client:
-        response = client.get(f"/literature/{record['control_number']}?format=latex-us")
+        response = client.get(f"/literature/{record_control_number}?format=latex-us")
     response_data = response.get_data(as_text=True)
 
     assert response.status_code == 200
@@ -559,7 +557,6 @@ def test_latex_encodes_non_latex_chars(inspire_app):
 )
 def test_latex_returns_names_correctly(input_author, expected_name, inspire_app):
     data = {
-        "control_number": 637_275_237,
         "titles": [{"title": "This is a title."}],
         "authors": [
             {
@@ -569,13 +566,14 @@ def test_latex_returns_names_correctly(input_author, expected_name, inspire_app)
         ],
     }
     record = create_record("lit", data)
+    record_control_number = record["control_number"]
     expected = (
-        f"%\\cite{{637275237}}\n\\bibitem{{637275237}}\n{expected_name}\n"
+        f"%\\cite{{{record_control_number}}}\n\\bibitem{{{record_control_number}}}\n{expected_name}\n"
         "%``This is a title.,''\n%0 citations counted in INSPIRE as of 11 Sep 2020"
     )
 
     with inspire_app.test_client() as client:
-        response = client.get(f"/literature/{record['control_number']}?format=latex-us")
+        response = client.get(f"/literature/{record_control_number}?format=latex-us")
     response_data = response.get_data(as_text=True)
 
     assert response.status_code == 200
@@ -1015,7 +1013,6 @@ def test_latex_us_search_response_full_book_record_with_missing_isbn(inspire_app
 def test_latex_strips_mathml(inspire_app):
     headers = {"Accept": "application/vnd+inspire.latex.eu+x-latex"}
     data = {
-        "control_number": 637_275_237,
         "titles": [
             {
                 "title": 'Inert Higgs Dark Matter for CDF II <math display="inline"><mi>W</mi></math>-Boson Mass and Detection Prospects'
@@ -1027,7 +1024,7 @@ def test_latex_strips_mathml(inspire_app):
     record_control_number = record.json["control_number"]
 
     expected_status_code = 200
-    expected_result = "%\\cite{637275237}\n\\bibitem{637275237}\n%``Inert Higgs Dark Matter for CDF II W-Boson Mass and Detection Prospects,''\n%0 citations counted in INSPIRE as of 19 Dec 1994"
+    expected_result = f"%\\cite{{{record_control_number}}}\n\\bibitem{{{record_control_number}}}\n%``Inert Higgs Dark Matter for CDF II W-Boson Mass and Detection Prospects,''\n%0 citations counted in INSPIRE as of 19 Dec 1994"
     with inspire_app.test_client() as client:
         response = client.get(f"/literature/{record_control_number}", headers=headers)
 
@@ -1042,7 +1039,6 @@ def test_latex_strips_mathml(inspire_app):
 def test_latex_strips_mathml_with_and_in_title(inspire_app):
     headers = {"Accept": "application/vnd+inspire.latex.eu+x-latex"}
     data = {
-        "control_number": 637_275_237,
         "titles": [
             {
                 "title": 'Inert Higgs & Dark Matter for CDF II <math display="inline"><mi>W</mi></math>-Boson Mass and Detection Prospects'
@@ -1050,12 +1046,11 @@ def test_latex_strips_mathml_with_and_in_title(inspire_app):
         ],
     }
 
-    expected_data = "%\\cite{637275237}\n\\bibitem{637275237}\n%``Inert Higgs \\& Dark Matter for CDF II W-Boson Mass and Detection Prospects,''\n%0 citations counted in INSPIRE as of 19 Dec 1994"
     record = create_record("lit", data=data)
+    record_control_number = record["control_number"]
+    expected_data = f"%\\cite{{{record_control_number}}}\n\\bibitem{{{record_control_number}}}\n%``Inert Higgs \\& Dark Matter for CDF II W-Boson Mass and Detection Prospects,''\n%0 citations counted in INSPIRE as of 19 Dec 1994"
     with inspire_app.test_client() as client:
-        response = client.get(
-            f"/literature/{record['control_number']}", headers=headers
-        )
+        response = client.get(f"/literature/{record_control_number}", headers=headers)
     assert response.get_data(as_text=True) == expected_data
 
 
@@ -1066,22 +1061,20 @@ def test_latex_leaves_mathml_in_title_when_conversion_error(
 ):
     class CustomException(XMLSyntaxError):
         def __init__(filename="test", lineno=1, msg="text", offset=1):
-            ...
+            pass
 
     mock_remove_tags.side_effect = CustomException
     headers = {"Accept": "application/vnd+inspire.latex.eu+x-latex"}
     data = {
-        "control_number": 637_275_237,
         "titles": [
             {
                 "title": 'Inert Higgs & Dark Matter for CDF II <math display="inline"><mi>W</mi></math>-Boson Mass and Detection Prospects'
             }
         ],
     }
-    expected_data = "%\\cite{637275237}\n\\bibitem{637275237}\n%``Inert Higgs \\& Dark Matter for CDF II \\ensuremath{<}math display=''inline''\\ensuremath{>}\\ensuremath{<}mi\\ensuremath{>}W\\ensuremath{<}/mi\\ensuremath{>}\\ensuremath{<}/math\\ensuremath{>}-Boson Mass and Detection Prospects,''\n%0 citations counted in INSPIRE as of 19 Dec 1994"
     record = create_record("lit", data=data)
+    record_control_number = record["control_number"]
+    expected_data = f"%\\cite{{{record_control_number}}}\n\\bibitem{{{record_control_number}}}\n%``Inert Higgs \\& Dark Matter for CDF II \\ensuremath{{<}}math display=''inline''\\ensuremath{{>}}\\ensuremath{{<}}mi\\ensuremath{{>}}W\\ensuremath{{<}}/mi\\ensuremath{{>}}\\ensuremath{{<}}/math\\ensuremath{{>}}-Boson Mass and Detection Prospects,''\n%0 citations counted in INSPIRE as of 19 Dec 1994"
     with inspire_app.test_client() as client:
-        response = client.get(
-            f"/literature/{record['control_number']}", headers=headers
-        )
+        response = client.get(f"/literature/{record_control_number}", headers=headers)
     assert response.get_data(as_text=True) == expected_data

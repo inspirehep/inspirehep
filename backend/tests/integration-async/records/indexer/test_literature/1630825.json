@@ -76094,7 +76094,6 @@
     { "value": "RATIR" },
     { "value": "SKA South Africa/MeerKAT" }
   ],
-  "control_number": 1630825,
   "core": true,
   "curated": true,
   "document_type": ["article"],
@@ -82103,7 +82102,6 @@
     { "value": "VIR-0802A-17" },
     { "value": "FERMILAB-PUB-17-478-A-AE-CD" }
   ],
-  "self": { "$ref": "http://labs.inspirehep.net/api/literature/1630825" },
   "texkeys": ["GBM:2017lvd"],
   "titles": [
     {

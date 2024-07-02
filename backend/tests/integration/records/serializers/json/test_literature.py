@@ -28,9 +28,7 @@ def test_literature_authors_json(mock_uuid4, inspire_app):
     ]
     headers = {"Accept": "application/json"}
     full_name_1 = "Tanner Walker"
-    author = create_record(
-        "aut", data={"control_number": 1, "name": {"value": "Walker, Tanner"}}
-    )
+    author = create_record("aut", data={"name": {"value": "Walker, Tanner"}})
     data = {
         "authors": [{"full_name": full_name_1, "record": author["self"]}],
         "collaborations": [{"value": "ATLAS"}],
@@ -45,7 +43,7 @@ def test_literature_authors_json(mock_uuid4, inspire_app):
                 "first_name": full_name_1,
                 "full_name": full_name_1,
                 "uuid": "727238f3-8ed6-40b6-97d2-dc3cd1429131",
-                "recid": 1,
+                "recid": author["control_number"],
                 "record": author["self"],
             }
         ],
@@ -72,7 +70,6 @@ def test_literature_json_without_login(inspire_app):
         "_collections": ["Literature"],
         "_private_notes": [{"value": "A private note"}],
         "document_type": ["article"],
-        "control_number": 12345,
         "titles": [{"title": "A Title"}],
         "publication_info": [
             {"pubinfo_freetext": "A public publication info"},
@@ -100,7 +97,7 @@ def test_literature_json_without_login(inspire_app):
     expected_metadata = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "document_type": ["article"],
-        "control_number": 12345,
+        "control_number": record_control_number,
         "titles": [{"title": "A Title"}],
         "publication_info": [{"pubinfo_freetext": "A public publication info"}],
         "report_numbers": [{"value": "PUBLIC", "hidden": False}],
@@ -133,7 +130,6 @@ def test_literature_json_with_logged_in_cataloger(inspire_app):
         "_collections": ["Literature"],
         "_private_notes": [{"value": "A private note"}],
         "document_type": ["article"],
-        "control_number": 12345,
         "titles": [{"title": "A Title"}],
         "publication_info": [
             {"pubinfo_freetext": "A public publication info"},
@@ -164,7 +160,7 @@ def test_literature_json_with_logged_in_cataloger(inspire_app):
         "_collections": ["Literature"],
         "_private_notes": [{"value": "A private note"}],
         "document_type": ["article"],
-        "control_number": 12345,
+        "control_number": record_control_number,
         "titles": [{"title": "A Title"}],
         "publication_info": [
             {"pubinfo_freetext": "A public publication info"},
@@ -184,7 +180,9 @@ def test_literature_json_with_logged_in_cataloger(inspire_app):
         ],
         "citation_count": 0,
         "citation_count_without_self_citations": 0,
-        "self": {"$ref": "http://localhost:5000/api/literature/12345"},
+        "self": {
+            "$ref": f"http://localhost:5000/api/literature/{record_control_number}"
+        },
     }
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
@@ -210,7 +208,6 @@ def test_literature_search_json_without_login(inspire_app):
         "_private_notes": [{"value": "A private note"}],
         "acquisition_source": {"method": "oai", "email": "test@test.com"},
         "document_type": ["article"],
-        "control_number": 12345,
         "titles": [{"title": "A Title"}],
         "publication_info": [
             {"pubinfo_freetext": "A public publication info"},
@@ -235,7 +232,7 @@ def test_literature_search_json_without_login(inspire_app):
     expected_metadata = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "document_type": ["article"],
-        "control_number": 12345,
+        "control_number": record["control_number"],
         "earliest_date": record.created.strftime("%Y-%m-%d"),
         "titles": [{"title": "A Title"}],
         "publication_info": [{"pubinfo_freetext": "A public publication info"}],
@@ -277,7 +274,6 @@ def test_literature_search_json_with_cataloger_login(inspire_app):
         "_collections": ["Literature"],
         "_private_notes": [{"value": "A private note"}],
         "document_type": ["article"],
-        "control_number": 12345,
         "titles": [{"title": "A Title"}],
         "publication_info": [
             {"pubinfo_freetext": "A public publication info"},
@@ -297,13 +293,14 @@ def test_literature_search_json_with_cataloger_login(inspire_app):
         ],
     }
     record = create_record("lit", data=data)
+    record_control_number = record["control_number"]
     expected_status_code = 200
     expected_result = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Literature"],
         "_private_notes": [{"value": "A private note"}],
         "document_type": ["article"],
-        "control_number": 12345,
+        "control_number": record_control_number,
         "earliest_date": record.created.strftime("%Y-%m-%d"),
         "titles": [{"title": "A Title"}],
         "publication_info": [
@@ -325,7 +322,9 @@ def test_literature_search_json_with_cataloger_login(inspire_app):
         "citation_count": 0,
         "citation_count_without_self_citations": 0,
         "author_count": 0,
-        "self": {"$ref": "http://localhost:5000/api/literature/12345"},
+        "self": {
+            "$ref": f"http://localhost:5000/api/literature/{record_control_number}"
+        },
     }
     expected_result_len = 1
     with inspire_app.test_client() as client:
@@ -801,7 +800,6 @@ def test_literature_detail_serialize_experiment_with_referenced_record(
 def test_literature_detail_serializes_conference_info(inspire_app):
     conference_data = {
         "acronyms": ["SAIP2016"],
-        "control_number": 1_423_473,
         "titles": [
             {
                 "title": "61st Annual Conference of the South African Institute of Physics"
@@ -815,14 +813,14 @@ def test_literature_detail_serializes_conference_info(inspire_app):
         ],
     }
 
-    create_record_factory("con", data=conference_data, with_indexing=True)
+    conf = create_record_factory("con", data=conference_data, with_indexing=True)
 
     literature_data = {
         "publication_info": [
             {
                 "cnum": "C16-07-04.5",
                 "conference_record": {
-                    "$ref": "http://labs.inspirehep.net/api/conferences/1423473"
+                    "$ref": f"http://labs.inspirehep.net/api/conferences/{conf.data['control_number']}"
                 },
                 "page_end": "517",
                 "page_start": "512",
@@ -839,7 +837,7 @@ def test_literature_detail_serializes_conference_info(inspire_app):
     expected_conference_info = [
         {
             "acronyms": ["SAIP2016"],
-            "control_number": 1_423_473,
+            "control_number": conf.data["control_number"],
             "page_end": "517",
             "page_start": "512",
             "titles": [
@@ -1296,7 +1294,6 @@ def test_literature_raw_json_with_logged_in_cataloger(inspire_app):
     data = {
         "_collections": ["Literature"],
         "document_type": ["article"],
-        "control_number": 12345,
         "titles": [{"title": "A Title"}],
     }
 
@@ -1333,7 +1330,6 @@ def test_literature_raw_json_without_logged_in_cataloger(inspire_app):
     data = {
         "_collections": ["Literature"],
         "document_type": ["article"],
-        "control_number": 12345,
         "titles": [{"title": "A Title"}],
     }
 
@@ -1354,11 +1350,10 @@ def test_literature_json_with_fields_filtering(inspire_app):
     user = create_user()
 
     headers = {"Accept": "application/json"}
-    aut = create_record("aut", data={"control_number": 637_275_238})
+    aut = create_record("aut")
     data = {
         "_collections": ["Literature"],
         "document_type": ["article"],
-        "control_number": 12345,
         "titles": [{"title": "A Title"}],
         "authors": [
             {
@@ -1396,11 +1391,10 @@ def test_literature_json_with_fields_filtering_ignores_wrong_fields(inspire_app)
     user = create_user()
 
     headers = {"Accept": "application/json"}
-    aut = create_record("aut", data={"control_number": 637_275_238})
+    aut = create_record("aut")
     data = {
         "_collections": ["Literature"],
         "document_type": ["article"],
-        "control_number": 12345,
         "titles": [{"title": "A Title"}],
         "authors": [
             {
@@ -1523,7 +1517,6 @@ def test_cv_format_doesnt_mutate_record(inspire_app):
     headers_json = {"Accept": "application/json"}
     institution_rec = create_record("ins")
     data_lit = {
-        "control_number": 637_275_238,
         "titles": [{"title": "This is a title."}],
         "collaborations": [{"value": "Particle Data Group"}],
         "authors": [

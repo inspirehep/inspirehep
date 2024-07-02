@@ -432,6 +432,10 @@ def test_get_enhanced_es_data_do_not_change_original_record(inspire_app, datadir
     original_data = deepcopy(data)
 
     record = LiteratureRecord.create(data=data)
+    original_data["control_number"] = record.control_number
+    original_data["self"] = {
+        "$ref": f"https://inspirehep.net/api/literature/{record.control_number}"
+    }
     record.get_enhanced_es_data()
 
     assert sorted(record) == sorted(original_data)
@@ -674,8 +678,10 @@ def test_feature_flag_for_redirection_disables_redirection_when_turned_off(
 def test_creating_record_with_deleted_key_registers_control_number_with_deleted_status(
     inspire_app,
 ):
-    create_record("lit", data={"deleted": True, "control_number": 12345})
-    pid = PersistentIdentifier.query.filter_by(pid_value="12345").one()
+    rec = create_record("lit", data={"deleted": True})
+    pid = PersistentIdentifier.query.filter_by(
+        pid_value=str(rec["control_number"])
+    ).one()
     assert pid.status == PIDStatus.DELETED
 
 
@@ -729,7 +735,6 @@ def test_create_record_which_redirects_non_existing_pid_when_redirection_is_turn
 def test_deleted_record_from_legacy_is_created_with_obj_uuid_and_recid(inspire_app):
     json_record = {
         "self": {"$ref": "https://inspirebeta.net/api/experiments/1775082"},
-        "control_number": 1_775_082,
         "legacy_version": "20200131230810.0",
         "urls": [{"value": "https://gambit.hepforge.org/"}],
         "legacy_creation_date": "2020-01-13",
@@ -750,16 +755,17 @@ def test_deleted_record_from_legacy_is_created_with_obj_uuid_and_recid(inspire_a
     record = cls.create_or_update(
         json_record, disable_external_push=True, disable_relations_update=True
     )
-    pid = PersistentIdentifier.query.filter_by(pid_value="1775082").one()
+    pid = PersistentIdentifier.query.filter_by(
+        pid_value=str(record["control_number"])
+    ).one()
     assert record.id
-    assert InspireRecord.get_record_by_pid_value("1775082", "exp")
+    assert InspireRecord.get_record_by_pid_value(str(record["control_number"]), "exp")
     assert pid.status == PIDStatus.DELETED
 
 
 def test_creating_record_with_id_provided_properly_mints_identifiers(inspire_app):
     record_data = {
         "$schema": "https://inspirebeta.net/schemas/records/hep.json",
-        "control_number": 1_234_567,
         "arxiv_eprints": [{"value": "2105.06728", "categories": ["astro-ph.IM"]}],
         "_collections": ["Literature"],
         "document_type": ["article"],
@@ -767,7 +773,7 @@ def test_creating_record_with_id_provided_properly_mints_identifiers(inspire_app
     }
 
     id_ = uuid.uuid4()
-    InspireRecord.create(data=record_data, id_=id_)
+    rec = InspireRecord.create(data=record_data, id_=id_)
 
     assert PersistentIdentifier.query.filter_by(object_uuid=id_).count() == 2
     assert (
@@ -779,7 +785,7 @@ def test_creating_record_with_id_provided_properly_mints_identifiers(inspire_app
     cn_minted = PersistentIdentifier.query.filter_by(
         pid_type="lit", object_uuid=id_
     ).one()
-    assert cn_minted.pid_value == str(record_data["control_number"])
+    assert cn_minted.pid_value == str(rec["control_number"])
 
 
 def test_creating_record_with_id_provided_but_without_control_number_properly_mints_identifiers(

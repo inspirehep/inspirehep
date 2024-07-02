@@ -75,7 +75,7 @@ def test_get_hal_id_map(inspire_app, get_fixture):
     institute_record = InspireRecord.create(institute_data)
 
     result = _get_hal_id_map(record)
-    expected = {912490: "53946"}
+    expected = {institute_record["control_number"]: "53946"}
 
     assert result == expected
 

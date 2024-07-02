@@ -27,13 +27,15 @@ def test_conferences_json_without_login(inspire_app, datadir):
         "closing_date": "2012-05-25",
         "cnum": "C12-05-21.5",
         "contact_details": [{"email": "fs4loc@konan-u.ac.jp"}],
-        "control_number": 1_185_692,
+        "control_number": record_control_number,
         "deleted": False,
         "inspire_categories": [{"term": "Astrophysics"}],
         "legacy_creation_date": "2012-09-17",
         "legacy_version": "20161101104659.0",
         "opening_date": "2012-05-21",
-        "self": {"$ref": "http://localhost:5000/api/conferences/1185692"},
+        "self": {
+            "$ref": f"http://localhost:5000/api/conferences/{record_control_number}"
+        },
         "series": [{"name": "First Stars", "number": 4}],
         "titles": [
             {"subtitle": "From Hayashi to the Future", "title": "First Stars IV"}
@@ -71,7 +73,6 @@ def test_conferences_json_with_logged_in_cataloger(inspire_app):
         "_collections": ["Conferences"],
         "_private_notes": [{"value": "A private note"}],
         "titles": [{"title": "Great conference for HEP"}],
-        "control_number": 1,
     }
 
     record = create_record("con", data=data)
@@ -81,10 +82,12 @@ def test_conferences_json_with_logged_in_cataloger(inspire_app):
         "$schema": "https://inspire/schemas/records/conferences.json",
         "_collections": ["Conferences"],
         "_private_notes": [{"value": "A private note"}],
-        "control_number": 1,
+        "control_number": record_control_number,
         "titles": [{"title": "Great conference for HEP"}],
         "number_of_contributions": 0,
-        "self": {"$ref": "http://localhost:5000/api/conferences/1"},
+        "self": {
+            "$ref": f"http://localhost:5000/api/conferences/{record_control_number}"
+        },
     }
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
@@ -110,13 +113,15 @@ def test_conferences_detail(inspire_app, datadir):
         "closing_date": "2012-05-25",
         "cnum": "C12-05-21.5",
         "contact_details": [{"email": "fs4loc@konan-u.ac.jp"}],
-        "control_number": 1_185_692,
+        "control_number": record_control_number,
         "deleted": False,
         "inspire_categories": [{"term": "Astrophysics"}],
         "legacy_creation_date": "2012-09-17",
         "legacy_version": "20161101104659.0",
         "opening_date": "2012-05-21",
-        "self": {"$ref": "http://localhost:5000/api/conferences/1185692"},
+        "self": {
+            "$ref": f"http://localhost:5000/api/conferences/{record_control_number}"
+        },
         "series": [{"name": "First Stars", "number": 4}],
         "titles": [
             {"subtitle": "From Hayashi to the Future", "title": "First Stars IV"}
@@ -150,6 +155,7 @@ def test_conferences_search_json(inspire_app, datadir):
     data = orjson.loads((datadir / "1185692.json").read_text())
 
     record = create_record("con", data=data)
+    record_control_number = record["control_number"]
 
     expected_result = {
         "addresses": [{"cities": ["Kyoto"], "country_code": "JP", "country": "Japan"}],
@@ -157,13 +163,15 @@ def test_conferences_search_json(inspire_app, datadir):
         "$schema": "https://labs.inspirehep.net/schemas/records/conferences.json",
         "closing_date": "2012-05-25",
         "cnum": "C12-05-21.5",
-        "control_number": 1_185_692,
+        "control_number": record_control_number,
         "deleted": False,
         "inspire_categories": [{"term": "Astrophysics"}],
         "legacy_creation_date": "2012-09-17",
         "legacy_version": "20161101104659.0",
         "opening_date": "2012-05-21",
-        "self": {"$ref": "http://localhost:5000/api/conferences/1185692"},
+        "self": {
+            "$ref": f"http://localhost:5000/api/conferences/{record_control_number}"
+        },
         "series": [{"name": "First Stars", "number": 4}],
         "titles": [
             {"subtitle": "From Hayashi to the Future", "title": "First Stars IV"}
