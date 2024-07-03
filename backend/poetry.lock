@@ -2109,13 +2109,12 @@ resolved_reference = "81cfdd5eec2c4ed73dee2aaadd78a40778ea5804"
 
 [[package]]
 name = "inspire-json-merger"
-version = "11.0.29"
+version = "11.0.35"
 description = "INSPIRE-specific configuration of the JSON Merger."
 optional = false
 python-versions = "*"
 files = [
-    {file = "inspire-json-merger-11.0.29.tar.gz", hash = "sha256:72bb26d2adf68f318c2f4b1e2381d623950a4b7577306ef6879aad13bd174541"},
-    {file = "inspire_json_merger-11.0.29-py2-none-any.whl", hash = "sha256:c070312d4190ae5156b0132a878f6dd4f31aa9b2663752b5c2af2af037d26c1f"},
+    {file = "inspire_json_merger-11.0.35-py2.py3-none-any.whl", hash = "sha256:9c1ea5e0e30452d748b5fdaeee3b895fa29eb5c624ed1c1bd5135bb70cec483f"},
 ]
 
 [package.dependencies]
@@ -6170,4 +6169,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<3.10"
-content-hash = "88058a75af0a740255ca53635cdaba0d9a500fedc3a4e66cc37f8851f999037f"
+content-hash = "5163ece9f023b50e9a426b398c2209e2a7800ad6337e78762e1d674fe69c2df5"
