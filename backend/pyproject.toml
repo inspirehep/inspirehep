@@ -26,7 +26,7 @@ python = ">=3.9,<3.10"
 inspire-schemas = "^61.5.25"
 inspire-utils = "^3.0.28"
 inspire-service-orcid = {git = "https://github.com/inspirehep/inspire-service-orcid.git", rev = "1a0e762e58bc9cac65f7665b9831993c017fd8bb"}
-inspire-json-merger = "^11.0"
+inspire-json-merger = "^11.0.35"
 
 invenio-access= {git = "https://github.com/inspirehep/invenio-access.git", rev = "1.4.3"}
 invenio-accounts = {git = "https://github.com/inspirehep/invenio-accounts.git", branch = "rest-api"}
