@@ -32,7 +32,7 @@ const SearchResults = ({
     }
     return (
       <div className="mv2" key={result?.data?.id}>
-        {renderItem(result?.data)}
+        {renderItem(result)}
       </div>
     );
   };

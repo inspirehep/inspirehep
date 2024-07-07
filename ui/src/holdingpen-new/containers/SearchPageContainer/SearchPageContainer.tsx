@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Card, Checkbox, Select } from 'antd';
 import { List } from 'immutable';
@@ -14,14 +15,14 @@ import PublicationsSelectAllContainer from '../../../authors/containers/Publicat
 import UnclickableTag from '../../../common/components/UnclickableTag';
 import AuthorResultItem from '../../components/AuthorResultItem';
 import { authToken } from '../../token';
-import { BACKOFFICE_API } from '../../../common/routes';
+import { BACKOFFICE_SEARCH_API } from '../../../common/routes';
 
 interface SearchPageContainerProps {
   data?: any;
 }
 
 const renderResultItem = (item: any) => {
-  return <AuthorResultItem item={item} />;
+  return <AuthorResultItem item={item} key={item?.id} />;
 };
 
 const SearchPageContainer: React.FC<SearchPageContainerProps> = () => {
@@ -29,7 +30,7 @@ const SearchPageContainer: React.FC<SearchPageContainerProps> = () => {
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [count, setCount] = useState<number>(0);
   const [page, setPage] = useState(1);
-  const [size, setSize] = useState(5);
+  const [size, setSize] = useState(10);
 
   const resolveLoading = () => {
     setTimeout(() => setLoading(false), 2500);
@@ -39,7 +40,7 @@ const SearchPageContainer: React.FC<SearchPageContainerProps> = () => {
 
   const getSearchResults = async () => {
     const res = await fetch(
-      `${BACKOFFICE_API}?page=${page}&size=${size}`,
+      `${BACKOFFICE_SEARCH_API}?page=${page}&size=${size}`,
       authToken
     );
     const data = await res?.json();
@@ -48,8 +49,12 @@ const SearchPageContainer: React.FC<SearchPageContainerProps> = () => {
 
   useEffect(() => {
     (async () => {
-      setSearchResults((await getSearchResults())?.results || []);
-      setCount((await getSearchResults())?.count || 0);
+      const data = await getSearchResults();
+      const filteredData = data?.results?.filter(
+        (result: any) => result?.data?.id
+      );
+      setSearchResults(filteredData || { results: [], count: 0 });
+      setCount(data?.count || 0);
     })();
   }, [page, size]);
 
