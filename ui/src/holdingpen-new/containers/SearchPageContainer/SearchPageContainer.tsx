@@ -53,7 +53,7 @@ const SearchPageContainer: React.FC<SearchPageContainerProps> = () => {
       const filteredData = data?.results?.filter(
         (result: any) => result?.data?.id
       );
-      setSearchResults(filteredData || { results: [], count: 0 });
+      setSearchResults(filteredData || []);
       setCount(data?.count || 0);
     })();
   }, [page, size]);
