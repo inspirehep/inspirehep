@@ -101,6 +101,7 @@ THIRD_PARTY_APPS = [
     "django_prometheus",
     "django_opensearch_dsl",
     "django_elasticsearch_dsl_drf",
+    "rest_framework_simplejwt",
 ]
 
 LOCAL_APPS = ["backoffice.users", "backoffice.workflows", "backoffice.management"]
@@ -341,6 +342,7 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.TokenAuthentication",
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     "DEFAULT_PERMISSION_CLASSES": ("backoffice.management.permissions.IsAdminOrCuratorUser",),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
