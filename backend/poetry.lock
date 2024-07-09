@@ -1824,7 +1824,7 @@ Unidecode = ">=0.04.14"
 
 [[package]]
 name = "hepcrawl"
-version = "13.0.77"
+version = "13.0.73"
 description = "Scrapy project for feeds into INSPIRE-HEP (http://inspirehep.net)."
 optional = false
 python-versions = "*"
@@ -1872,7 +1872,7 @@ tests = ["PyYAML", "check-manifest (>=0.25)", "coverage (>=4.0)", "deepdiff (==3
 [package.source]
 type = "git"
 url = "https://github.com/inspirehep/hepcrawl.git"
-reference = "celery-5"
+reference = "51af9ce742684a3de218ae02c0a963137b590a15"
 resolved_reference = "51af9ce742684a3de218ae02c0a963137b590a15"
 
 [[package]]
@@ -6169,4 +6169,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<3.10"
-content-hash = "5163ece9f023b50e9a426b398c2209e2a7800ad6337e78762e1d674fe69c2df5"
+content-hash = "66a5b8e20b00d0144e154ae6acc041edb8cc79bb2dfe7725fa854ade66dac8b3"
