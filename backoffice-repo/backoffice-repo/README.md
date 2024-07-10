@@ -11,6 +11,15 @@ License: MIT
 
 Moved to [settings](http://cookiecutter-django.readthedocs.io/en/latest/settings.html).
 
+## Quickstart
+
+1. `docker compose -f local.yml run -d`
+2. Enter django container backoffice-local-django and execute the following commands
+   a. `python manage.py create_groups` to create author and curator group definitions in the db
+   b. `python manage.py createsuperuser` to create a super user
+3. Navigate to http://localhost:8000/admin/authtoken/ login with the newly created user and assign a token to it
+4. Set your user to be in the admin group in here http://localhost:8000/admin/users/user/
+
 ## Basic Commands
 
 ### Setting Up Your Users

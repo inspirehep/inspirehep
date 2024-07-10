@@ -4,6 +4,8 @@ from rest_framework import serializers
 from backoffice.workflows.documents import WorkflowDocument
 from backoffice.workflows.models import Workflow, WorkflowTicket
 
+from ..constants import ResolutionDags
+
 
 class WorkflowSerializer(serializers.ModelSerializer):
     class Meta:
@@ -21,3 +23,8 @@ class WorkflowDocumentSerializer(DocumentSerializer):
     class Meta:
         document = WorkflowDocument
         fields = "__all__"
+
+
+class AuthorResolutionSerializer(serializers.Serializer):
+    value = serializers.ChoiceField(choices=ResolutionDags)
+    create_ticket = serializers.BooleanField(default=False)

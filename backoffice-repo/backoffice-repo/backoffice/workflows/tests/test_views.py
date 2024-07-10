@@ -1,11 +1,16 @@
+from unittest.mock import patch
+
 from django.apps import apps
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.test import TransactionTestCase
+from django.urls import reverse
 from opensearch_dsl import Index
+from rest_framework import status
 from rest_framework.test import APIClient
 
 from backoffice.workflows.api.serializers import WorkflowTicketSerializer
+from backoffice.workflows.constants import StatusChoices
 from backoffice.workflows.models import WorkflowTicket
 
 User = get_user_model()
@@ -37,7 +42,7 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
 
     def setUp(self):
         super().setUp()
-        self.workflow = Workflow.objects.create(data={}, status="approval", core=True, is_update=False)
+        self.workflow = Workflow.objects.create(data={}, status=StatusChoices.APPROVAL, core=True, is_update=False)
 
     def test_list_curator(self):
         self.api_client.force_authenticate(user=self.curator)
@@ -70,7 +75,7 @@ class TestWorkflowSearchViewSet(BaseTransactionTestCase):
         super().setUp()
         index = Index("backoffice-backend-test-workflows")
         index.delete(ignore=[400, 404])
-        self.workflow = Workflow.objects.create(data={}, status="approval", core=True, is_update=False)
+        self.workflow = Workflow.objects.create(data={}, status=StatusChoices.APPROVAL, core=True, is_update=False)
 
     def test_list_curator(self):
         self.api_client.force_authenticate(user=self.curator)
@@ -100,7 +105,7 @@ class TestWorkflowPartialUpdateViewSet(BaseTransactionTestCase):
 
     def setUp(self):
         super().setUp()
-        self.workflow = Workflow.objects.create(data={}, status="approval", core=True, is_update=False)
+        self.workflow = Workflow.objects.create(data={}, status=StatusChoices.APPROVAL, core=True, is_update=False)
 
     @property
     def endpoint(self):
@@ -198,3 +203,66 @@ class TestWorkflowTicketViewSet(BaseTransactionTestCase):
         assert "ticket_type" in response.data
 
         assert response.data == WorkflowTicketSerializer(WorkflowTicket.objects.last()).data
+
+
+class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
+    endpoint = "/api/authors/"
+    reset_sequences = True
+    fixtures = ["backoffice/fixtures/groups.json"]
+
+    @patch("backoffice.workflows.airflow_utils.requests.post")
+    def test_create_author(self, mock_post):
+        self.api_client.force_authenticate(user=self.curator)
+
+        mock_response = mock_post.return_value
+        mock_response.status_code = status.HTTP_200_OK
+        mock_response.json.return_value = {"key": "value"}
+
+        data = {
+            "workflow_type": "AUTHOR_CREATE",
+            "status": "running",
+            "data": {
+                "native_name": "NATIVE_NAME",
+                "alternate_name": "NAME",
+                "display_name": "FIRST_NAME",
+                "family_name": "LAST_NAME",
+                "given_name": "GIVEN_NAME",
+            },
+        }
+
+        url = reverse("api:workflows-authors-list")
+        response = self.api_client.post(url, format="json", data=data)
+
+        self.assertEqual(response.status_code, 200)
+
+    @patch("backoffice.workflows.airflow_utils.requests.post")
+    def test_accept_author(self, mock_post):
+        self.api_client.force_authenticate(user=self.curator)
+
+        mock_response = mock_post.return_value
+        mock_response.status_code = status.HTTP_200_OK
+        mock_response.json.return_value = {"key": "value"}
+
+        data = {"create_ticket": True, "value": "accept"}
+
+        response = self.api_client.post(
+            reverse("api:workflows-authors-resolve", kwargs={"pk": "WORKFLOW_ID"}), format="json", data=data
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+    @patch("backoffice.workflows.airflow_utils.requests.post")
+    def test_reject_author(self, mock_post):
+        self.api_client.force_authenticate(user=self.curator)
+
+        mock_response = mock_post.return_value
+        mock_response.status_code = status.HTTP_200_OK
+        mock_response.json.return_value = {"key": "value"}
+
+        data = {"create_ticket": True, "value": "reject"}
+
+        response = self.api_client.post(
+            reverse("api:workflows-authors-resolve", kwargs={"pk": "WORKFLOW_ID"}), format="json", data=data
+        )
+
+        self.assertEqual(response.status_code, 200)
