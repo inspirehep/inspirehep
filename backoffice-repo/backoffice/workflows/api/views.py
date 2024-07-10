@@ -1,13 +1,21 @@
 from django.shortcuts import get_object_or_404
 from django_elasticsearch_dsl_drf.viewsets import BaseDocumentViewSet
 from rest_framework import status, viewsets
+from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from backoffice.utils.pagination import OSStandardResultsSetPagination
+from backoffice.workflows import airflow_utils
 from backoffice.workflows.documents import WorkflowDocument
 from backoffice.workflows.models import Workflow, WorkflowTicket
 
-from .serializers import WorkflowDocumentSerializer, WorkflowSerializer, WorkflowTicketSerializer
+from ..constants import WORKFLOW_DAG, ResolutionDags
+from .serializers import (
+    AuthorResolutionSerializer,
+    WorkflowDocumentSerializer,
+    WorkflowSerializer,
+    WorkflowTicketSerializer,
+)
 
 
 class WorkflowViewSet(viewsets.ModelViewSet):
@@ -68,6 +76,27 @@ class WorkflowTicketViewSet(viewsets.ViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class AuthorWorkflowViewSet(viewsets.ViewSet):
+    serializer_class = WorkflowSerializer
+
+    def create(self, request):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            workflow = Workflow.objects.create(
+                data=serializer.validated_data["data"], workflow_type=serializer.validated_data["workflow_type"]
+            )
+        return airflow_utils.trigger_airflow_dag(WORKFLOW_DAG[workflow.workflow_type], str(workflow.id), workflow.data)
+
+    @action(detail=True, methods=["post"])
+    def resolve(self, request, pk=None):
+        serializer = AuthorResolutionSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            extra_data = {"create_ticket": serializer.validated_data["create_ticket"]}
+            return airflow_utils.trigger_airflow_dag(
+                ResolutionDags[serializer.validated_data["value"]].label, pk, extra_data
+            )
 
 
 class WorkflowDocumentView(BaseDocumentViewSet):
