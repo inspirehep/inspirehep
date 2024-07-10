@@ -6,9 +6,9 @@ from .constants import (
     DEFAULT_STATUS_CHOICE,
     DEFAULT_TICKET_TYPE,
     DEFAULT_WORKFLOW_TYPE,
-    STATUS_CHOICES,
     TICKET_TYPES,
-    WORKFLOW_TYPES,
+    StatusChoices,
+    WorkflowType,
 )
 
 
@@ -17,13 +17,13 @@ class Workflow(models.Model):
 
     workflow_type = models.CharField(
         max_length=30,
-        choices=WORKFLOW_TYPES,
+        choices=WorkflowType.choices,
         default=DEFAULT_WORKFLOW_TYPE,
     )
     data = models.JSONField()
     status = models.CharField(
         max_length=30,
-        choices=STATUS_CHOICES,
+        choices=StatusChoices.choices,
         default=DEFAULT_STATUS_CHOICE,
     )
     core = models.BooleanField(default=False)

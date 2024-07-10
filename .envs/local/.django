@@ -17,3 +17,7 @@ CELERY_FLOWER_PASSWORD=debug
 # Opensearch
 OPENSEARCH_HOST=opensearch:9200
 OPENSEARCH_INDEX_PREFIX=backoffice-backend-local
+
+# Airflow
+AIRFLOW_BASE_URL=http://host.docker.internal:8082
+AIRFLOW_TOKEN=CHANGE_ME
