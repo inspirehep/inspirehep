@@ -1,5 +1,4 @@
 /* eslint-disable no-underscore-dangle */
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Row, Col, Button, Table } from 'antd';
@@ -18,9 +17,8 @@ import './DetailPageContainer.less';
 import Breadcrumbs from '../../components/Breadcrumbs';
 import ContentBox from '../../../common/components/ContentBox';
 import CollapsableForm from '../../../submissions/common/components/CollapsableForm';
-import { BACKOFFICE_API } from '../../../common/routes';
-import { authToken } from '../../token';
 import LoadingOrChildren from '../../../common/components/LoadingOrChildren';
+import { getSearchResults } from '../../utils/utils';
 
 interface AuthorDetailPageContainerProps {
   item: any;
@@ -117,12 +115,6 @@ const columnsAdvisors = [
   },
 ];
 
-const fetchData = async (id: string) => {
-  const res = await fetch(`${BACKOFFICE_API}/${id}`, authToken);
-  const data = await res?.json();
-  return data || { results: [], count: 0 };
-};
-
 const AuthorDetailPageContainer: React.FC<
   AuthorDetailPageContainerProps
 > = () => {
@@ -131,7 +123,7 @@ const AuthorDetailPageContainer: React.FC<
 
   useEffect(() => {
     (async () => {
-      setResult(await fetchData(id));
+      setResult(await getSearchResults(id));
     })();
   }, [id]);
 
