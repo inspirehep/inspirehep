@@ -14,8 +14,7 @@ import SearchPagination from '../../../common/components/SearchPagination';
 import PublicationsSelectAllContainer from '../../../authors/containers/PublicationsSelectAllContainer';
 import UnclickableTag from '../../../common/components/UnclickableTag';
 import AuthorResultItem from '../../components/AuthorResultItem';
-import { authToken } from '../../token';
-import { BACKOFFICE_SEARCH_API } from '../../../common/routes';
+import { getSearchResults, refreshToken } from '../../utils/utils';
 
 interface SearchPageContainerProps {
   data?: any;
@@ -38,18 +37,9 @@ const SearchPageContainer: React.FC<SearchPageContainerProps> = () => {
 
   resolveLoading();
 
-  const getSearchResults = async () => {
-    const res = await fetch(
-      `${BACKOFFICE_SEARCH_API}?page=${page}&size=${size}`,
-      authToken
-    );
-    const data = await res?.json();
-    return data || { results: [], count: 0 };
-  };
-
   useEffect(() => {
     (async () => {
-      const data = await getSearchResults();
+      const data = await getSearchResults({ page: 1, size: 10 });
       const filteredData = data?.results?.filter(
         (result: any) => result?.data?.id
       );

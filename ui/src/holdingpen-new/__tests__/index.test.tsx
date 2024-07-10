@@ -1,9 +1,10 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { MemoryRouter, Route } from 'react-router-dom';
+import { fromJS } from 'immutable';
 import { render } from '@testing-library/react';
 
-import { getStore } from '../../fixtures/store';
+import { getStore, getStoreWithState } from '../../fixtures/store';
 import Holdingpen from '..';
 import DashboardPageContainer from '../containers/DashboardPageContainer/DashboardPageContainer';
 import SearchPageContainer from '../containers/SearchPageContainer/SearchPageContainer';
@@ -14,9 +15,18 @@ import {
 } from '../../common/routes';
 
 describe('Holdingpen', () => {
+  const store = getStoreWithState({
+    user: fromJS({
+      loggedIn: true,
+      data: {
+        roles: ['cataloger'],
+      },
+    }),
+  });
+
   it('renders initial state', () => {
     const { container } = render(
-      <Provider store={getStore()}>
+      <Provider store={store}>
         <MemoryRouter initialEntries={[HOLDINGPEN_DASHBOARD_NEW]}>
           <Holdingpen />
         </MemoryRouter>

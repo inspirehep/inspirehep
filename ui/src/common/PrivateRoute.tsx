@@ -4,18 +4,27 @@ import { List } from 'immutable';
 
 import RouteOrRedirect from './components/RouteOrRedirect';
 import { isAuthorized } from './authorization';
-import { ERROR_401, USER_LOGIN } from './routes';
+import { ERROR_401, HOLDINGPEN_LOGIN_NEW, USER_LOGIN } from './routes';
 
 interface PrivateRouteProps extends ComponentPropsWithoutRef<any> {
   loggedIn: boolean;
   userRoles: List<string>;
   authorizedRoles: List<string>;
   component?: JSX.Element | string | any;
+  isHoldinpen?: boolean;
+  loggedInToHoldinpen?: boolean;
 }
 
-function PrivateRoute(props: PrivateRouteProps) {
+function PrivateRoute({
+  isHoldinpen = false,
+  loggedInToHoldinpen = false,
+  ...props
+}: PrivateRouteProps) {
   if (props.loggedIn && props.authorizedRoles) {
-    const isUserAuthorized = isAuthorized(props.userRoles, props.authorizedRoles);
+    const isUserAuthorized = isAuthorized(
+      props.userRoles,
+      props.authorizedRoles
+    );
     return (
       <RouteOrRedirect
         redirectTo={ERROR_401}
@@ -25,10 +34,15 @@ function PrivateRoute(props: PrivateRouteProps) {
       />
     );
   }
+
+  const resolveLoggedIn = props.isHoldinpen
+    ? props.loggedInToHoldinpen && props.loggedIn
+    : props.loggedIn;
+
   return (
     <RouteOrRedirect
-      redirectTo={USER_LOGIN}
-      condition={props.loggedIn}
+      redirectTo={props.isHoldingpen ? HOLDINGPEN_LOGIN_NEW : USER_LOGIN}
+      condition={resolveLoggedIn}
       component={props.component}
       {...props}
     />
