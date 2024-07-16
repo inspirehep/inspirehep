@@ -1,6 +1,25 @@
 .__DetailPageContainer__ {
   width: 100%;
 
+  .ant-btn:hover,
+  .ant-btn:focus,
+  .ant-btn:active,
+  .ant-btn:focus-visible,
+  .ant-btn:focus-within {
+    &.bg-completed {
+      background-color: #16bb9a;
+      border: 1px solid #16bb9a;
+    }
+    &.bg-error {
+      background-color: #e3685b;
+      border: 1px solid #e3685b;
+    }
+    &.bg-halted {
+      background-color: #f7b852;
+      border: 1px solid #f7b852;
+    }
+  }
+
   .ant-collapse-content-box {
     padding-bottom: 1rem;
     .error-code {
@@ -17,22 +36,6 @@
   .__ReferenceList__ {
     .ant-card {
       border: none;
-    }
-  }
-
-  .ant-switch-checked {
-    background-color: #16a085;
-  }
-
-  .ant-btn:hover {
-    &.bg-completed {
-      background-color: #16bb9a;
-    }
-    &.bg-error {
-      background-color: #e3685b;
-    }
-    &.bg-halted {
-      background-color: #f7b852;
     }
   }
 }

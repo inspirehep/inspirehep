@@ -12,7 +12,6 @@ exports[`AssignNoProfileAction renders 1`] = `
              
             <a
               href="https://help.inspirehep.net/knowledge-base/contact-us"
-              rel="noreferrer"
               target="_blank"
             >
               contact us

@@ -17,7 +17,6 @@ const CAN_NOT_EDIT_AUTHOR_MESSAGE = (
     <a
       href="https://help.inspirehep.net/knowledge-base/contact-us"
       target="_blank"
-      rel="noreferrer"
     >
       contact us
     </a>

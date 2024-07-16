@@ -3,10 +3,8 @@ import classNames from 'classnames';
 import {
   WarningOutlined,
   CheckOutlined,
-  StopOutlined,
   HourglassOutlined,
   LoadingOutlined,
-  InfoCircleOutlined,
 } from '@ant-design/icons';
 import { Card, Input, Select, Tabs } from 'antd';
 import { Link } from 'react-router-dom';
@@ -52,20 +50,14 @@ const selectBefore = (
 
 const getIcon = (action: string) => {
   switch (action.toLowerCase()) {
-    case 'waiting':
-      return <HourglassOutlined className="mr2" />;
-    case 'awaiting decision':
+    case 'approval':
       return <HourglassOutlined className="mr2" />;
     case 'error':
       return <WarningOutlined className="mr2" />;
-    case 'halted':
-      return <StopOutlined className="mr2" />;
     case 'completed':
       return <CheckOutlined className="mr2" />;
     case 'running':
       return <LoadingOutlined className="mr2" />;
-    case 'initial':
-      return <InfoCircleOutlined className="mr2" />;
     default:
       return null;
   }

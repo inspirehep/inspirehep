@@ -12,6 +12,9 @@ import {
   HOLDINGPEN_AUTHOR_SUCCESS,
   HOLDINGPEN_SEARCH_QUERY_UPDATE,
   HOLDINGPEN_SEARCH_QUERY_RESET,
+  HOLDINGPEN_RESOLVE_ACTION_REQUEST,
+  HOLDINGPEN_RESOLVE_ACTION_SUCCESS,
+  HOLDINGPEN_RESOLVE_ACTION_ERROR,
 } from '../actions/actionTypes';
 
 export const initialState = fromJS({
@@ -21,6 +24,7 @@ export const initialState = fromJS({
   totalResults: 0,
   loading: false,
   author: [],
+  actionInProgress: false,
 });
 
 const HOLDINGPENReducer = (state = initialState, action) => {
@@ -40,7 +44,14 @@ const HOLDINGPENReducer = (state = initialState, action) => {
     case HOLDINGPEN_SEARCH_SUCCESS:
       return state
         .set('loading', false)
-        .set('searchResults', fromJS(action.payload.data.results))
+        .set(
+          'searchResults',
+          fromJS(
+            action.payload.data.results.filter(
+              (result) => result.workflow_type === 'AUTHOR_CREATE'
+            )
+          )
+        )
         .set('totalResults', action.payload.data.count);
     case HOLDINGPEN_AUTHOR_REQUEST:
       return state.set('loading', true);
@@ -56,6 +67,12 @@ const HOLDINGPENReducer = (state = initialState, action) => {
       return state.set('query', fromJS(action.payload));
     case HOLDINGPEN_SEARCH_QUERY_RESET:
       return state.set('query', fromJS({ page: 1, size: 10 }));
+    case HOLDINGPEN_RESOLVE_ACTION_REQUEST:
+      return state.set('actionInProgress', fromJS(action.payload.type));
+    case HOLDINGPEN_RESOLVE_ACTION_SUCCESS:
+      return state.set('actionInProgress', false);
+    case HOLDINGPEN_RESOLVE_ACTION_ERROR:
+      return state.set('actionInProgress', false);
     default:
       return state;
   }
