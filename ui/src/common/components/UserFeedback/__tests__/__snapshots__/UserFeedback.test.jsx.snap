@@ -172,7 +172,6 @@ exports[`UserFeedback renders when tracker is blocked 1`] = `
               or
               <a
                 href="https://help.inspirehep.net/knowledge-base/contact-us"
-                rel="noreferrer"
                 target="_blank"
               >
                 contact us

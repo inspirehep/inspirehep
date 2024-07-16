@@ -17,6 +17,9 @@ import {
   HOLDINGPEN_AUTHOR_REQUEST,
   HOLDINGPEN_AUTHOR_SUCCESS,
   HOLDINGPEN_SEARCH_QUERY_RESET,
+  HOLDINGPEN_RESOLVE_ACTION_REQUEST,
+  HOLDINGPEN_RESOLVE_ACTION_SUCCESS,
+  HOLDINGPEN_RESOLVE_ACTION_ERROR,
 } from './actionTypes';
 import {
   BACKOFFICE_API,
@@ -27,7 +30,11 @@ import {
 } from '../common/routes';
 import { Credentials } from '../types';
 import storage from '../common/storage';
-import { notifyLoginError } from '../holdingpen-new/notifications';
+import {
+  notifyLoginError,
+  notifyActionError,
+  notifyActionSuccess,
+} from '../holdingpen-new/notifications';
 import { refreshToken } from '../holdingpen-new/utils/utils';
 
 const httpClient = axios.create();
@@ -70,6 +77,7 @@ httpClient.interceptors.response.use(
   }
 );
 
+// LOGIN ACTIONS
 export function holdingpenLoginSuccess() {
   return {
     type: HOLDINGPEN_LOGIN_SUCCESS,
@@ -86,59 +94,6 @@ function holdingpenLoginError(error: { error: Error }) {
 function holdingpenLogoutSuccess() {
   return {
     type: HOLDINGPEN_LOGOUT_SUCCESS,
-  };
-}
-
-function searching() {
-  return {
-    type: HOLDINGPEN_SEARCH_REQUEST,
-  };
-}
-
-function searchSuccess(data: any) {
-  return {
-    type: HOLDINGPEN_SEARCH_SUCCESS,
-    payload: { data },
-  };
-}
-
-function searchError(errorPayload: { error: Error }) {
-  return {
-    type: HOLDINGPEN_SEARCH_ERROR,
-    payload: { ...errorPayload },
-  };
-}
-
-function fetchingAuthor() {
-  return {
-    type: HOLDINGPEN_AUTHOR_REQUEST,
-  };
-}
-
-function fetchAuthorSuccess(data: any) {
-  return {
-    type: HOLDINGPEN_AUTHOR_SUCCESS,
-    payload: { data },
-  };
-}
-
-function fetchAuthorError(errorPayload: { error: Error }) {
-  return {
-    type: HOLDINGPEN_AUTHOR_ERROR,
-    payload: { ...errorPayload },
-  };
-}
-
-function updateQuery(data: any) {
-  return {
-    type: HOLDINGPEN_SEARCH_QUERY_UPDATE,
-    payload: data,
-  };
-}
-
-function resetQuery() {
-  return {
-    type: HOLDINGPEN_SEARCH_QUERY_RESET,
   };
 }
 
@@ -192,6 +147,57 @@ export function holdingpenLogout(): (
   };
 }
 
+// SEARCH ACTIONS
+function searching() {
+  return {
+    type: HOLDINGPEN_SEARCH_REQUEST,
+  };
+}
+
+function searchSuccess(data: any) {
+  return {
+    type: HOLDINGPEN_SEARCH_SUCCESS,
+    payload: { data },
+  };
+}
+
+function searchError(errorPayload: { error: Error }) {
+  return {
+    type: HOLDINGPEN_SEARCH_ERROR,
+    payload: { ...errorPayload },
+  };
+}
+
+function updateQuery(data: any) {
+  return {
+    type: HOLDINGPEN_SEARCH_QUERY_UPDATE,
+    payload: data,
+  };
+}
+
+function resetQuery() {
+  return {
+    type: HOLDINGPEN_SEARCH_QUERY_RESET,
+  };
+}
+
+type QueryParams = { page: number; size: number; [key: string]: any };
+export function searchQueryUpdate(
+  query: QueryParams
+): (dispatch: ActionCreator<Action>) => Promise<void> {
+  return async (dispatch) => {
+    dispatch(updateQuery(query));
+  };
+}
+
+export function searchQueryReset(): (
+  dispatch: ActionCreator<Action>
+) => Promise<void> {
+  return async (dispatch) => {
+    dispatch(resetQuery());
+  };
+}
+
 export function fetchSearchResults(): (
   dispatch: ActionCreator<Action>,
   getState: () => RootStateOrAny
@@ -200,7 +206,6 @@ export function fetchSearchResults(): (
     dispatch(searching());
 
     const currentQuery = getState()?.holdingpen?.get('query')?.toJS() || {};
-
     const resolveQuery = `${BACKOFFICE_SEARCH_API}/?${
       Object.entries(currentQuery)
         ?.map(([key, value]: [string, any]) => `${key}=${value}`)
@@ -214,6 +219,27 @@ export function fetchSearchResults(): (
       const error = httpErrorToActionPayload(err);
       dispatch(searchError(error));
     }
+  };
+}
+
+// AUTHOR ACTIONS
+function fetchingAuthor() {
+  return {
+    type: HOLDINGPEN_AUTHOR_REQUEST,
+  };
+}
+
+function fetchAuthorSuccess(data: any) {
+  return {
+    type: HOLDINGPEN_AUTHOR_SUCCESS,
+    payload: { data },
+  };
+}
+
+function fetchAuthorError(errorPayload: { error: Error }) {
+  return {
+    type: HOLDINGPEN_AUTHOR_ERROR,
+    payload: { ...errorPayload },
   };
 }
 
@@ -234,19 +260,53 @@ export function fetchAuthor(
   };
 }
 
-type QueryParams = { page: number; size: number; [key: string]: any };
-export function searchQueryUpdate(
-  query: QueryParams
-): (dispatch: ActionCreator<Action>) => Promise<void> {
-  return async (dispatch) => {
-    dispatch(updateQuery(query));
+// DECISSION ACTIONS
+function resolvingAction(type: string) {
+  return {
+    type: HOLDINGPEN_RESOLVE_ACTION_REQUEST,
+    payload: { type },
   };
 }
 
-export function searchQueryReset(): (
-  dispatch: ActionCreator<Action>
-) => Promise<void> {
+function resolveActionSuccess() {
+  return {
+    type: HOLDINGPEN_RESOLVE_ACTION_SUCCESS,
+  };
+}
+
+function resolveActionError(errorPayload: { error: Error }) {
+  return {
+    type: HOLDINGPEN_RESOLVE_ACTION_ERROR,
+    payload: { ...errorPayload },
+  };
+}
+
+export function resolveAction(
+  id: string,
+  action: string,
+  payload: any
+): (dispatch: ActionCreator<Action>) => Promise<void> {
   return async (dispatch) => {
-    dispatch(resetQuery());
+    dispatch(resolvingAction(action));
+    try {
+      await httpClient.post(
+        `${BACKOFFICE_API}/authors/${id}/${action}/`,
+        payload
+      );
+
+      dispatch(resolveActionSuccess());
+      notifyActionSuccess(action);
+      setTimeout(() => {
+        window?.location?.reload();
+      }, 3000);
+    } catch (err) {
+      const { error } = httpErrorToActionPayload(err);
+      notifyActionError(
+        (typeof error?.error === 'string'
+          ? error?.error
+          : error?.error?.detail) || 'An error occurred'
+      );
+      dispatch(resolveActionError(error));
+    }
   };
 }

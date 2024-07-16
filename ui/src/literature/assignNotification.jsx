@@ -56,9 +56,7 @@ export function assignSuccess({ conferenceId, conferenceTitle, papers }) {
       <span>
         {papers.size} selected {pluralizeUnlessSingle('paper', papers.size)}{' '}
         assigned to{' '}
-        <LinkWithTargetBlank
-          href={`${CONFERENCES}/${conferenceId}`}
-        >
+        <LinkWithTargetBlank href={`${CONFERENCES}/${conferenceId}`}>
           {conferenceTitle}
         </LinkWithTargetBlank>
       </span>
@@ -86,7 +84,6 @@ export function assignLiteratureItemError(key) {
         <a
           href="https://help.inspirehep.net/knowledge-base/contact-us"
           target="_blank"
-          rel="noreferrer"
         >
           contact us
         </a>

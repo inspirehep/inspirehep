@@ -1,17 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-underscore-dangle */
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Row, Col, Button, Table } from 'antd';
 import {
-  LinkOutlined,
   EditOutlined,
   RedoOutlined,
   SyncOutlined,
-  CheckCircleOutlined,
-  CloseCircleOutlined,
   PlayCircleOutlined,
-  CloseOutlined,
 } from '@ant-design/icons';
 import { Action, ActionCreator } from 'redux';
 import { connect, RootStateOrAny } from 'react-redux';
@@ -22,109 +17,27 @@ import Breadcrumbs from '../../components/Breadcrumbs';
 import ContentBox from '../../../common/components/ContentBox';
 import CollapsableForm from '../../../submissions/common/components/CollapsableForm';
 import LoadingOrChildren from '../../../common/components/LoadingOrChildren';
-import { fetchAuthor } from '../../../actions/holdingpen';
+import { fetchAuthor, resolveAction } from '../../../actions/holdingpen';
+import Links from '../../components/Links';
+import {
+  columnsInstitutions,
+  columnsProjects,
+  columnsSubject,
+  columnsAdvisors,
+} from './columnData';
 
 interface AuthorDetailPageContainerProps {
   dispatch: ActionCreator<Action>;
   author: Map<string, any>;
   loading: boolean;
+  actionInProgress: string | false;
 }
-
-const columnsInstitutions = [
-  {
-    title: 'Institution',
-    dataIndex: 'institution',
-  },
-  {
-    title: 'Start date',
-    dataIndex: 'start_date',
-    render: (start: string) => (!start ? '-' : start),
-  },
-  {
-    title: 'End date',
-    dataIndex: 'end_date',
-    render: (end: string) => (!end ? 'Present' : end),
-  },
-  {
-    title: 'Rank',
-    dataIndex: 'rank',
-    render: (rank: string) => (!rank ? '-' : rank),
-  },
-  {
-    title: 'Current',
-    dataIndex: 'current',
-    render: (current: boolean) =>
-      current ? (
-        <CheckCircleOutlined style={{ color: 'green' }} />
-      ) : (
-        <CloseCircleOutlined style={{ color: 'red' }} />
-      ),
-    align: 'center' as const,
-  },
-];
-
-const columnsProjects = [
-  {
-    title: 'Project name',
-    dataIndex: 'name',
-  },
-  {
-    title: 'Current',
-    dataIndex: 'current',
-    render: (current: boolean) =>
-      current ? (
-        <CheckCircleOutlined style={{ color: 'green' }} />
-      ) : (
-        <CloseCircleOutlined style={{ color: 'red' }} />
-      ),
-    align: 'center' as const,
-  },
-  {
-    title: 'Start date',
-    dataIndex: 'start_date',
-    render: (start: string) => (!start ? '-' : start),
-  },
-  {
-    title: 'End date',
-    dataIndex: 'end_date',
-    render: (end: string) => (!end ? 'Present' : end),
-  },
-];
-
-const columnsSubject = [
-  {
-    title: 'Term',
-    dataIndex: 'term',
-  },
-  {
-    title: 'Action',
-    // TODO: Add action to remove term
-    render: () => (
-      <span className="blue b pointer">
-        <CloseOutlined />
-      </span>
-    ),
-    width: '10%',
-    align: 'center' as const,
-  },
-];
-
-const columnsAdvisors = [
-  {
-    title: 'Name',
-    dataIndex: 'name',
-  },
-  {
-    title: 'Position',
-    dataIndex: 'degree_type',
-    render: (deg: string) => (!deg ? '-' : deg),
-  },
-];
 
 const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
   dispatch,
   author,
   loading,
+  actionInProgress,
 }) => {
   const { id } = useParams<{ id: string }>();
 
@@ -167,12 +80,6 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
                   >
                     <p className="b f3 tc pv2">
                       {author?.get('status').toUpperCase()}
-                      {author?.get('status') !== 'completed'
-                        ? ` on: "${
-                            author?.get('_message') ||
-                            author?.get('_last_task_name')
-                          }"`
-                        : ''}
                     </p>
                   </div>
                 </Col>
@@ -202,7 +109,6 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
                           'orcid',
                         ])}`}
                         target="_blank"
-                        rel="noreferrer"
                       >
                         {data?.getIn(['acquisition_source', 'orcid'])}
                       </a>
@@ -236,42 +142,9 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
                       rowKey={(record) => `${record?.name}+${Math.random()}`}
                     />
                   </CollapsableForm.Section>
-                  {data?.get('urls') && (
+                  {(data?.get('urls') || data?.get('ids')) && (
                     <CollapsableForm.Section header="Links" key="links">
-                      {data?.get('ids')?.map((link: Map<string, any>) => (
-                        <p key={link?.get('value')}>
-                          <LinkOutlined />
-                          {link?.get('schema') && (
-                            <b className="dib ml1 ttc">
-                              {link?.get('schema').toLowerCase()}:
-                            </b>
-                          )}{' '}
-                          <a
-                            href={
-                              link?.get('schema') === 'LINKEDIN'
-                                ? `https://www.linkedin.com/in/${link?.get(
-                                    'value'
-                                  )}`
-                                : `https://orcid.org/my-orcid?orcid=${link?.get(
-                                    'value'
-                                  )}`
-                            }
-                          >
-                            {link?.get('value')}
-                          </a>
-                        </p>
-                      ))}
-                      {data?.get('urls')?.map((link: Map<string, any>) => (
-                        <p key={link?.get('value')}>
-                          <LinkOutlined />
-                          {link?.get('description') && (
-                            <b className="dib ml1 ttc">
-                              {link?.get('description')}:
-                            </b>
-                          )}{' '}
-                          <a href={link?.get('value')}>{link?.get('value')}</a>
-                        </p>
-                      ))}
+                      <Links urls={data?.get('urls')} ids={data?.get('ids')} />
                     </CollapsableForm.Section>
                   )}
                   <CollapsableForm.Section header="Other" key="other">
@@ -318,26 +191,60 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
                 </CollapsableForm>
               </Col>
               <Col xs={24} lg={8}>
-                <ContentBox
-                  className="mb3"
-                  fullHeight={false}
-                  subTitle="Decision"
-                >
-                  <div className="w-100 flex flex-column items-center">
-                    <Button type="primary" className="font-white w-75 mb2">
-                      Review submission
-                    </Button>
-                    <Button className="font-white bg-completed w-75 mb2">
-                      Accept
-                    </Button>
-                    <Button className="font-white bg-halted w-75 mb2">
-                      Accept + Curation
-                    </Button>
-                    <Button className="font-white bg-error w-75 mb2">
-                      Reject
-                    </Button>
-                  </div>
-                </ContentBox>
+                {author?.get('status') &&
+                  author?.get('status') === 'approval' && (
+                    <ContentBox
+                      className="mb3"
+                      fullHeight={false}
+                      subTitle="Decision"
+                    >
+                      <div className="w-100 flex flex-column items-center">
+                        <Button
+                          className="font-white bg-completed w-75 mb2"
+                          onClick={() =>
+                            dispatch(
+                              resolveAction(id, 'resolve', {
+                                value: 'accept',
+                                create_ticket: false,
+                              })
+                            )
+                          }
+                          loading={actionInProgress === 'resolve'}
+                        >
+                          Accept
+                        </Button>
+                        {/* TODO1: change to acceptSubmissionWithCuration once it's ready */}
+                        <Button
+                          className="font-white bg-halted w-75 mb2"
+                          onClick={() =>
+                            dispatch(
+                              resolveAction(id, 'resolve', {
+                                value: 'accept',
+                                create_ticket: false,
+                              })
+                            )
+                          }
+                          loading={actionInProgress === 'resolve'}
+                        >
+                          Accept + Curation
+                        </Button>
+                        <Button
+                          className="font-white bg-error w-75"
+                          onClick={() =>
+                            dispatch(
+                              resolveAction(id, 'resolve', {
+                                value: 'reject',
+                                create_ticket: false,
+                              })
+                            )
+                          }
+                          loading={actionInProgress === 'resolve'}
+                        >
+                          Reject
+                        </Button>
+                      </div>
+                    </ContentBox>
+                  )}
                 <ContentBox
                   className="mb3"
                   fullHeight={false}
@@ -352,14 +259,19 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
                   </b>
                   .
                 </ContentBox>
-                {/* TODO: find out how notes are stored in workflow */}
-                {data?.get('notes') && (
+                {data?.get('_private_notes') && (
                   <ContentBox
                     className="mb3"
                     fullHeight={false}
                     subTitle="Notes"
                   >
-                    <i>&quot;Thank you for reviewing my submission&quot;</i>
+                    <i>
+                      {data?.get('_private_notes')?.map((note: any) => (
+                        <p className="mb0" key={note?.get('value')}>
+                          &quot;{note?.get('value')}&quot;
+                        </p>
+                      ))}
+                    </i>
                   </ContentBox>
                 )}
                 <ContentBox
@@ -368,22 +280,36 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
                   subTitle="SNow information"
                 >
                   {author?.get('ticket_id') && (
-                    <a
-                      href={author?.get('ticket_url')}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
+                    <a href={author?.get('ticket_url')} target="_blank">
                       See related ticket #{author?.get('ticket_id')}
                     </a>
                   )}
                 </ContentBox>
-                <ContentBox fullHeight={false} subTitle="Actions">
+                <ContentBox
+                  fullHeight={false}
+                  subTitle="Actions"
+                  className="mb3"
+                >
                   <div className="flex flex-column items-center">
-                    <Button className="mb2 w-75">
+                    <Button
+                      className="mb2 w-75"
+                      onClick={() => dispatch(resolveAction(id, 'restart', {}))}
+                      loading={actionInProgress === 'restart'}
+                    >
                       <SyncOutlined />
                       Restart workflow
                     </Button>
-                    <Button className="mb2 w-75">
+                    <Button
+                      className="mb2 w-75"
+                      onClick={() =>
+                        dispatch(
+                          resolveAction(id, 'restart', {
+                            restart_current_task: true,
+                          })
+                        )
+                      }
+                      loading={actionInProgress === 'restart'}
+                    >
                       <RedoOutlined />
                       Restart current step
                     </Button>
@@ -391,14 +317,18 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
                       <a
                         href={`/editor/holdingpen/${data?.get('id')}`}
                         target="_blank"
-                        rel="noreferrer noopener"
                       >
                         <EditOutlined />
                         {'  '}
                         Open in Editor
                       </a>
                     </Button>
-                    <Button className="w-75">
+                    {/* TODO2: change to skip step once it's ready */}
+                    <Button
+                      className="w-75"
+                      onClick={() => {}}
+                      loading={actionInProgress === 'skip'}
+                    >
                       <PlayCircleOutlined />
                       Skip to next step
                     </Button>
@@ -416,6 +346,7 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
 const stateToProps = (state: RootStateOrAny) => ({
   author: state.holdingpen.get('author'),
   loading: state.holdingpen.get('loading'),
+  actionInProgress: state.holdingpen.get('actionInProgress'),
 });
 
 export default connect(stateToProps)(AuthorDetailPageContainer);

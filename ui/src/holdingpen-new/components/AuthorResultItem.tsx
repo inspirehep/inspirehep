@@ -2,6 +2,7 @@
 import React from 'react';
 import {
   CheckOutlined,
+  LoadingOutlined,
   StopOutlined,
   WarningOutlined,
 } from '@ant-design/icons';
@@ -34,7 +35,7 @@ const renderWorkflowStatus = (status: string) => {
     },
     approval: {
       icon: <StopOutlined className="mr2" />,
-      text: 'Halted',
+      text: 'Waiting for approval',
       description: 'This workflow has been halted until decision is made.',
     },
     error: {
@@ -42,6 +43,12 @@ const renderWorkflowStatus = (status: string) => {
       text: 'Error',
       description:
         'This record is in error state. View record details for more information.',
+    },
+    running: {
+      icon: <LoadingOutlined className="mr2" />,
+      text: 'Running',
+      description:
+        'This workflow is currently running. Please wait for it to complete.',
     },
   };
 
