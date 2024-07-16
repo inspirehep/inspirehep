@@ -1,5 +1,9 @@
 import storage from '../../common/storage';
-import { BACKOFFICE_LOGIN, HOLDINGPEN_LOGIN_NEW } from '../../common/routes';
+import {
+  BACKOFFICE_API,
+  BACKOFFICE_LOGIN,
+  HOLDINGPEN_LOGIN_NEW,
+} from '../../common/routes';
 
 export const refreshToken = async () => {
   try {

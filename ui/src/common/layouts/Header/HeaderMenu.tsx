@@ -206,7 +206,11 @@ const HeaderMenu = ({
     loggedInToHoldingpen && {
       key: 'logout-holdingpen',
       label: [
-        <LinkLikeButton color="white" onClick={() => onLogout()}>
+        <LinkLikeButton
+          color="white"
+          onClick={() => onLogout()}
+          key="logout-holdingpen"
+        >
           Logout Holdingpen
         </LinkLikeButton>,
       ],
