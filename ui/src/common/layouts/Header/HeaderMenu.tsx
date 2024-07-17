@@ -31,14 +31,18 @@ interface MenuItem {
 
 const HeaderMenu = ({
   loggedIn,
+  loggedInToHoldingpen,
   onLogoutClick,
   isCatalogerLoggedIn,
   profileControlNumber,
+  onLogout,
 }: {
   loggedIn: boolean;
   onLogoutClick: MouseEventHandler<HTMLElement>;
   isCatalogerLoggedIn?: boolean;
   profileControlNumber?: string;
+  onLogout: any;
+  loggedInToHoldingpen: boolean;
 }) => {
   const USER_PROFILE_URL = `/authors/${profileControlNumber}`;
 
@@ -46,7 +50,7 @@ const HeaderMenu = ({
     {
       key: 'submit.literature',
       label: [
-        <span key='submit.literature'>
+        <span key="submit.literature">
           <Link to={SUBMISSIONS_LITERATURE}>Literature</Link>
         </span>,
       ],
@@ -54,7 +58,7 @@ const HeaderMenu = ({
     {
       key: 'submit.author',
       label: [
-        <span key='submit.author'>
+        <span key="submit.author">
           <Link to={SUBMISSIONS_AUTHOR}>Author</Link>
         </span>,
       ],
@@ -62,7 +66,7 @@ const HeaderMenu = ({
     {
       key: 'submit.job',
       label: [
-        <span key='submit.job'>
+        <span key="submit.job">
           <Link to={SUBMISSIONS_JOB}>Job</Link>
         </span>,
       ],
@@ -70,7 +74,7 @@ const HeaderMenu = ({
     {
       key: 'submit.seminar',
       label: [
-        <span key='submit.seminar'>
+        <span key="submit.seminar">
           <Link to={SUBMISSIONS_SEMINAR}>Seminar</Link>
         </span>,
       ],
@@ -78,7 +82,7 @@ const HeaderMenu = ({
     {
       key: 'submit.conference',
       label: [
-        <span key='submit.conference'>
+        <span key="submit.conference">
           <Link to={SUBMISSIONS_CONFERENCE}>Conference</Link>
         </span>,
       ],
@@ -91,7 +95,7 @@ const HeaderMenu = ({
       {
         key: 'submit.institution',
         label: [
-          <span key='submit.institution'>
+          <span key="submit.institution">
             <Link to={SUBMISSIONS_INSTITUTION}>Institution</Link>
           </span>,
         ],
@@ -99,7 +103,7 @@ const HeaderMenu = ({
       {
         key: 'submit.experiment',
         label: [
-          <span key='submit.experiment'>
+          <span key="submit.experiment">
             <Link to={SUBMISSIONS_EXPERIMENT}>Experiment</Link>
           </span>,
         ],
@@ -107,7 +111,7 @@ const HeaderMenu = ({
       {
         key: 'submit.journal',
         label: [
-          <span key='submit.journal'>
+          <span key="submit.journal">
             <Link to={SUBMISSIONS_JOURNAL}>Journal</Link>
           </span>,
         ],
@@ -124,7 +128,7 @@ const HeaderMenu = ({
         {
           key: 'help.search-tips',
           label: [
-            <span key='help.search-tips'>
+            <span key="help.search-tips">
               <LinkWithTargetBlank href={PAPER_SEARCH_URL}>
                 Search Tips
               </LinkWithTargetBlank>
@@ -134,7 +138,7 @@ const HeaderMenu = ({
         {
           key: 'help.tour',
           label: [
-            <span key='help.tour'>
+            <span key="help.tour">
               <DisplayGuideButtonContainer color="white">
                 Take the tour
               </DisplayGuideButtonContainer>
@@ -144,8 +148,8 @@ const HeaderMenu = ({
         {
           key: 'help.help-center',
           label: [
-            <span key='help.help-center'>
-              <LinkWithTargetBlank  href={HELP_BLOG_URL}>
+            <span key="help.help-center">
+              <LinkWithTargetBlank href={HELP_BLOG_URL}>
                 Help Center
               </LinkWithTargetBlank>
             </span>,
@@ -165,9 +169,13 @@ const HeaderMenu = ({
     {
       key: 'my-profile',
       label: profileControlNumber
-        ? [<Link key='my-profile' to={USER_PROFILE_URL}>My profile</Link>]
+        ? [
+            <Link key="my-profile" to={USER_PROFILE_URL}>
+              My profile
+            </Link>,
+          ]
         : [
-            <Tooltip key='my-profile' title={CLAIMING_DISABLED_INFO}>
+            <Tooltip key="my-profile" title={CLAIMING_DISABLED_INFO}>
               <Button ghost disabled>
                 My profile
               </Button>
@@ -176,7 +184,11 @@ const HeaderMenu = ({
     },
     {
       key: 'settings',
-      label: [<Link key='settings' to={USER_SETTINGS}>Settings</Link>],
+      label: [
+        <Link key="settings" to={USER_SETTINGS}>
+          Settings
+        </Link>,
+      ],
     },
     {
       key: 'logout',
@@ -185,9 +197,17 @@ const HeaderMenu = ({
           onClick={onLogoutClick}
           dataTestId="logout"
           color="white"
-          key='logout'
+          key="logout"
         >
           Logout
+        </LinkLikeButton>,
+      ],
+    },
+    loggedInToHoldingpen && {
+      key: 'logout-holdingpen',
+      label: [
+        <LinkLikeButton color="white" onClick={() => onLogout()}>
+          Logout Holdingpen
         </LinkLikeButton>,
       ],
     },
@@ -208,7 +228,11 @@ const HeaderMenu = ({
       ...menuItems,
       {
         key: 'login',
-        label: <Link key='login' to={USER_LOGIN}>Login</Link>,
+        label: (
+          <Link key="login" to={USER_LOGIN}>
+            Login
+          </Link>
+        ),
       },
     ];
   }

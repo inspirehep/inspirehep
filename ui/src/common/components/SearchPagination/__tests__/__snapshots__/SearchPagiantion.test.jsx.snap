@@ -9,6 +9,7 @@ exports[`SearchPagination renders with all props set 1`] = `
   pageSize={10}
   pageSizeOptions={
     Array [
+      "10",
       "25",
       "50",
       "100",
@@ -35,6 +36,7 @@ exports[`SearchPagination renders with only required props set 1`] = `
   pageSize={25}
   pageSizeOptions={
     Array [
+      "10",
       "25",
       "50",
       "100",

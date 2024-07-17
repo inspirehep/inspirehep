@@ -11,15 +11,11 @@ interface PrivateRouteProps extends ComponentPropsWithoutRef<any> {
   userRoles: List<string>;
   authorizedRoles: List<string>;
   component?: JSX.Element | string | any;
-  isHoldinpen?: boolean;
-  loggedInToHoldinpen?: boolean;
+  holdingpen?: boolean;
+  loggedInToHoldingpen?: boolean;
 }
 
-function PrivateRoute({
-  isHoldinpen = false,
-  loggedInToHoldinpen = false,
-  ...props
-}: PrivateRouteProps) {
+function PrivateRoute({ ...props }: PrivateRouteProps) {
   if (props.loggedIn && props.authorizedRoles) {
     const isUserAuthorized = isAuthorized(
       props.userRoles,
@@ -35,14 +31,14 @@ function PrivateRoute({
     );
   }
 
-  const resolveLoggedIn = props.isHoldinpen
-    ? props.loggedInToHoldinpen && props.loggedIn
+  const resolveLoggedIn = props.holdingpen
+    ? props.loggedInToHoldingpen && props.loggedIn
     : props.loggedIn;
 
   return (
     <RouteOrRedirect
-      redirectTo={props.isHoldingpen ? HOLDINGPEN_LOGIN_NEW : USER_LOGIN}
-      condition={resolveLoggedIn}
+      redirectTo={props.holdingpen ? HOLDINGPEN_LOGIN_NEW : USER_LOGIN}
+      condition={resolveLoggedIn || false}
       component={props.component}
       {...props}
     />
@@ -50,11 +46,13 @@ function PrivateRoute({
 }
 
 PrivateRoute.defaultProps = {
+  holdingpen: false,
   authorizedRoles: null,
 };
 
 const stateToProps = (state: RootStateOrAny) => ({
   loggedIn: state.user.get('loggedIn'),
+  loggedInToHoldingpen: state.holdingpen.get('loggedIn'),
   userRoles: state.user.getIn(['data', 'roles']),
 });
 

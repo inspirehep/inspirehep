@@ -35,6 +35,6 @@ export interface User {
 }
 
 export interface Credentials {
-  email?: string;
-  password?: string;
+  email?: string | null;
+  password?: string | null;
 }

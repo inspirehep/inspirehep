@@ -169,6 +169,7 @@ exports[`HeaderMenu renders when logged in 1`] = `
               </LinkLikeButton>,
             ],
           },
+          undefined,
         ],
         "key": "account",
         "label": "Account",

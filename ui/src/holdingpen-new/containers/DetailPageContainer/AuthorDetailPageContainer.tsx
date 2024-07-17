@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-underscore-dangle */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Row, Col, Button, Table } from 'antd';
 import {
@@ -12,16 +13,21 @@ import {
   PlayCircleOutlined,
   CloseOutlined,
 } from '@ant-design/icons';
+import { Action, ActionCreator } from 'redux';
+import { connect, RootStateOrAny } from 'react-redux';
+import { Map } from 'immutable';
 
 import './DetailPageContainer.less';
 import Breadcrumbs from '../../components/Breadcrumbs';
 import ContentBox from '../../../common/components/ContentBox';
 import CollapsableForm from '../../../submissions/common/components/CollapsableForm';
 import LoadingOrChildren from '../../../common/components/LoadingOrChildren';
-import { getSearchResults } from '../../utils/utils';
+import { fetchAuthor } from '../../../actions/holdingpen';
 
 interface AuthorDetailPageContainerProps {
-  item: any;
+  dispatch: ActionCreator<Action>;
+  author: Map<string, any>;
+  loading: boolean;
 }
 
 const columnsInstitutions = [
@@ -115,30 +121,28 @@ const columnsAdvisors = [
   },
 ];
 
-const AuthorDetailPageContainer: React.FC<
-  AuthorDetailPageContainerProps
-> = () => {
-  const [result, setResult] = useState<any>({});
+const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
+  dispatch,
+  author,
+  loading,
+}) => {
   const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
-    (async () => {
-      setResult(await getSearchResults(id));
-    })();
-  }, [id]);
+    dispatch(fetchAuthor(id));
+  }, []);
 
-  const {
-    _workflow: workflow,
-    metadata,
-    _extra_data: extraData,
-  } = result?.data || {};
+  const workflow = author?.getIn(['data', '_workflow']) as Map<any, any>;
+  const metadata = author?.getIn(['data', 'metadata']) as Map<any, any>;
+  const extraData = author?.getIn(['data', '_extra_data']) as Map<any, any>;
 
   const OPEN_SECTIONS = [
-    metadata?.positions && 'institutions',
-    metadata?.project_membership && 'projects',
-    metadata?.urls && 'links',
-    (metadata?.arxiv_categories || metadata?.advisors) && 'other',
-    extraData?._error_msg && 'errors',
+    metadata?.get('positions') && 'institutions',
+    metadata?.get('project_membership') && 'projects',
+    metadata?.get('urls') && 'links',
+    (metadata?.get('arxiv_categories') || metadata?.get('.advisors')) &&
+      'other',
+    extraData?.get('_error_msg') && 'errors',
     'delete',
   ].filter(Boolean);
 
@@ -150,23 +154,26 @@ const AuthorDetailPageContainer: React.FC<
       <Breadcrumbs
         title1="Search"
         href1={`${document.referrer}`}
-        title2={metadata?.name?.value || 'Details'}
+        title2={(metadata?.getIn(['name', 'value']) as string) || 'Details'}
         href2={id}
       />
-      <LoadingOrChildren loading={!result?.data}>
+      <LoadingOrChildren loading={loading}>
         <Row justify="center">
           <Col xs={24} md={22} lg={21} xxl={18}>
-            {workflow?.status && (
+            {workflow?.get('status') && (
               <Row className="mv3" justify="center" gutter={35}>
                 <Col xs={24}>
                   <div
-                    className={`bg-${workflow?.status?.toLowerCase()} w-100`}
+                    className={`bg-${workflow
+                      ?.get('status')
+                      ?.toLowerCase()} w-100`}
                   >
                     <p className="b f3 tc pv2">
-                      {workflow?.status}
-                      {workflow?.status !== 'COMPLETED'
+                      {workflow?.get('status')}
+                      {workflow?.get('status') !== 'COMPLETED'
                         ? ` on: "${
-                            extraData?._message || extraData?._last_task_name
+                            extraData?.get('_message') ||
+                            extraData?.get('_last_task_name')
                           }"`
                         : ''}
                     </p>
@@ -177,26 +184,29 @@ const AuthorDetailPageContainer: React.FC<
             <Row className="mv3" justify="center" gutter={35}>
               <Col xs={24} lg={16}>
                 <ContentBox fullHeight={false} className="md-pb3 mb3">
-                  <h2>{metadata?.name?.value}</h2>
-                  {metadata?.name?.preferred_name && (
+                  <h2>{metadata?.getIn(['name', 'value'])}</h2>
+                  {metadata?.getIn(['name', 'preferred_name']) && (
                     <p>
-                      <b>Preferred name:</b> {metadata?.name?.preferred_name}
+                      <b>Preferred name:</b>{' '}
+                      {metadata?.getIn(['name', 'preferred_name'])}
                     </p>
                   )}
-                  {metadata?.status && (
+                  {metadata?.get('status') && (
                     <p>
-                      <b>Status:</b> {metadata?.status}
+                      <b>Status:</b> {metadata?.get('status')}
                     </p>
                   )}
-                  {metadata?.acquisition_source?.orcid && (
+                  {metadata?.getIn(['acquisition_source', 'orcid']) && (
                     <p className="mb0">
                       <b>ORCID:</b>{' '}
                       <a
-                        href={`https://orcid.org/my-orcid?orcid=${metadata?.acquisition_source?.orcid}`}
+                        href={`https://orcid.org/my-orcid?orcid=${metadata?.getIn(
+                          ['acquisition_source', 'orcid']
+                        )}`}
                         target="_blank"
                         rel="noreferrer"
                       >
-                        {metadata?.acquisition_source?.orcid}
+                        {metadata?.getIn(['acquisition_source', 'orcid'])}
                       </a>
                     </p>
                   )}
@@ -208,7 +218,7 @@ const AuthorDetailPageContainer: React.FC<
                   >
                     <Table
                       columns={columnsInstitutions}
-                      dataSource={metadata?.positions}
+                      dataSource={metadata?.get('positions')?.toJS()}
                       pagination={false}
                       size="small"
                       rowKey={(record) =>
@@ -222,27 +232,25 @@ const AuthorDetailPageContainer: React.FC<
                   >
                     <Table
                       columns={columnsProjects}
-                      dataSource={metadata?.project_membership}
+                      dataSource={metadata?.get('project_membership')?.toJS()}
                       pagination={false}
                       size="small"
                       rowKey={(record) => `${record?.name}+${Math.random()}`}
                     />
                   </CollapsableForm.Section>
-                  {metadata?.urls && (
+                  {metadata?.get('urls') && (
                     <CollapsableForm.Section header="Links" key="links">
-                      {metadata?.urls?.map(
-                        (link: { value: string; description: string }) => (
-                          <p key={link?.value}>
-                            <LinkOutlined />
-                            {link?.description && (
-                              <b className="dib ml1 ttc">
-                                {link?.description}:
-                              </b>
-                            )}{' '}
-                            <a href={link?.value}>{link?.value}</a>
-                          </p>
-                        )
-                      )}
+                      {metadata?.get('urls')?.map((link: Map<string, any>) => (
+                        <p key={link?.get('value')}>
+                          <LinkOutlined />
+                          {link?.get('description') && (
+                            <b className="dib ml1 ttc">
+                              {link?.get('description')}:
+                            </b>
+                          )}{' '}
+                          <a href={link?.get('value')}>{link?.get('value')}</a>
+                        </p>
+                      ))}
                     </CollapsableForm.Section>
                   )}
                   <CollapsableForm.Section header="Other" key="other">
@@ -251,9 +259,10 @@ const AuthorDetailPageContainer: React.FC<
                         <h3 className="mb3">Subject areas</h3>
                         <Table
                           columns={columnsSubject}
-                          dataSource={metadata?.arxiv_categories?.map(
-                            (term: string) => ({ term })
-                          )}
+                          dataSource={metadata
+                            ?.get('arxiv_categories')
+                            ?.toJS()
+                            ?.map((term: string) => ({ term }))}
                           pagination={false}
                           size="small"
                           rowKey={(record) =>
@@ -265,7 +274,7 @@ const AuthorDetailPageContainer: React.FC<
                         <h3 className="mb3">Advisors</h3>
                         <Table
                           columns={columnsAdvisors}
-                          dataSource={metadata?.advisors}
+                          dataSource={metadata?.get('advisors')?.toJS()}
                           pagination={false}
                           size="small"
                           rowKey={(record) =>
@@ -275,10 +284,10 @@ const AuthorDetailPageContainer: React.FC<
                       </Col>
                     </Row>
                   </CollapsableForm.Section>
-                  {extraData?._error_msg && (
+                  {extraData?.get('_error_msg') && (
                     <CollapsableForm.Section header="Errors" key="errors">
                       <div className="bg-waiting error-code">
-                        {extraData?._error_msg}
+                        {extraData?.get('_error_msg')}
                       </div>
                     </CollapsableForm.Section>
                   )}
@@ -313,16 +322,20 @@ const AuthorDetailPageContainer: React.FC<
                   fullHeight={false}
                   subTitle="Submission"
                 >
-                  Submitted by <i>{metadata?.acquisition_source?.email}</i> on{' '}
+                  Submitted by{' '}
+                  <i>{metadata?.getIn(['acquisition_source', 'email'])}</i> on{' '}
                   <b>
                     {new Date(
-                      metadata?.acquisition_source?.datetime
+                      metadata?.getIn([
+                        'acquisition_source',
+                        'datetime',
+                      ]) as Date
                     ).toLocaleDateString()}
                   </b>
                   .
                 </ContentBox>
                 {/* TODO: find out how notes are stored in workflow */}
-                {metadata?.notes && (
+                {metadata?.get('notes') && (
                   <ContentBox
                     className="mb3"
                     fullHeight={false}
@@ -336,13 +349,13 @@ const AuthorDetailPageContainer: React.FC<
                   fullHeight={false}
                   subTitle="SNow information"
                 >
-                  {extraData?.ticket_id && (
+                  {extraData?.get('ticket_id') && (
                     <a
-                      href={extraData?.ticket_url}
+                      href={extraData?.get('ticket_url')}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      See related ticket #{extraData?.ticket_id}
+                      See related ticket #{extraData?.get('ticket_id')}
                     </a>
                   )}
                 </ContentBox>
@@ -358,7 +371,7 @@ const AuthorDetailPageContainer: React.FC<
                     </Button>
                     <Button className="mb2 w-75" type="primary">
                       <a
-                        href={`/editor/holdingpen/${metadata?.id}`}
+                        href={`/editor/holdingpen/${metadata?.get('id')}`}
                         target="_blank"
                         rel="noreferrer noopener"
                       >
@@ -382,4 +395,9 @@ const AuthorDetailPageContainer: React.FC<
   );
 };
 
-export default AuthorDetailPageContainer;
+const stateToProps = (state: RootStateOrAny) => ({
+  author: state.holdingpen.get('author'),
+  loading: state.holdingpen.get('loading'),
+});
+
+export default connect(stateToProps)(AuthorDetailPageContainer);

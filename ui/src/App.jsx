@@ -98,6 +98,7 @@ function App({ userRoles, dispatch, guideModalVisibility }) {
             path={HOLDINGPEN_NEW}
             component={HoldingpenNew$}
             authorizedRoles={SUPERUSER_OR_CATALOGER}
+            holdingpen
           />
           <Route path={LITERATURE} component={Literature} />
           <Route path={AUTHORS} component={Authors} />
