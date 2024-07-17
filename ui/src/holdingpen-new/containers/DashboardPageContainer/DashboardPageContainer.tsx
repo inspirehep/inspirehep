@@ -10,6 +10,9 @@ import {
 } from '@ant-design/icons';
 import { Card, Input, Select, Tabs } from 'antd';
 import { Link } from 'react-router-dom';
+import { push } from 'connected-react-router';
+import { Action, ActionCreator } from 'redux';
+import { connect } from 'react-redux';
 
 import './DashboardPageContainer.less';
 import { tasks, actions } from './mockData';
@@ -17,7 +20,7 @@ import Breadcrumbs from '../../components/Breadcrumbs';
 import { HOLDINGPEN_SEARCH_NEW } from '../../../common/routes';
 
 interface DashboardPageContainerProps {
-  data?: any;
+  dispatch: ActionCreator<Action>;
 }
 
 const TEXT_CENTER: Record<string | number, string & {}> = {
@@ -68,7 +71,9 @@ const getIcon = (action: string) => {
   }
 };
 
-const DashboardPage: React.FC<DashboardPageContainerProps> = () => {
+const DashboardPageContainer: React.FC<DashboardPageContainerProps> = ({
+  dispatch,
+}) => {
   const tabItems = [
     {
       label: <h3>Tasks</h3>,
@@ -181,10 +186,10 @@ const DashboardPage: React.FC<DashboardPageContainerProps> = () => {
             addonBefore={selectBefore}
             enterButton
             onPressEnter={() => {
-              window.location.assign(HOLDINGPEN_SEARCH_NEW);
+              dispatch(push(HOLDINGPEN_SEARCH_NEW));
             }}
             onSearch={() => {
-              window.location.assign(HOLDINGPEN_SEARCH_NEW);
+              dispatch(push(HOLDINGPEN_SEARCH_NEW));
             }}
           />
         </div>
@@ -195,4 +200,4 @@ const DashboardPage: React.FC<DashboardPageContainerProps> = () => {
   );
 };
 
-export default DashboardPage;
+export default connect(null)(DashboardPageContainer);

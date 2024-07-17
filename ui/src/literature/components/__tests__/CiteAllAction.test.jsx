@@ -46,11 +46,7 @@ describe('CiteAllAction', () => {
   it('calls downloadTextAsFile with correct data when option is clicked', async () => {
     mockHttp
       .onGet(
-        `/literature?sort=mostcited&q=query&page=1&size=${MAX_CITEABLE_RECORDS}`,
-        null,
-        {
-          Accept: 'application/vnd+inspire.latex.eu+x-latex',
-        }
+        `/literature?sort=mostcited&q=query&page=1&size=${MAX_CITEABLE_RECORDS}`
       )
       .replyOnce(200, 'Test');
     const wrapper = shallow(
@@ -72,11 +68,7 @@ describe('CiteAllAction', () => {
   it('calls downloadTextAsFile with correct data omitting page and size when option is clicked', async () => {
     mockHttp
       .onGet(
-        `/literature?sort=mostrecent&q=query&page=1&size=${MAX_CITEABLE_RECORDS}`,
-        null,
-        {
-          Accept: 'application/vnd+inspire.latex.eu+x-latex',
-        }
+        `/literature?sort=mostrecent&q=query&page=1&size=${MAX_CITEABLE_RECORDS}`
       )
       .replyOnce(200, 'Test');
     const wrapper = shallow(

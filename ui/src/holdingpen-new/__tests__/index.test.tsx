@@ -9,10 +9,7 @@ import Holdingpen from '..';
 import DashboardPageContainer from '../containers/DashboardPageContainer/DashboardPageContainer';
 import SearchPageContainer from '../containers/SearchPageContainer/SearchPageContainer';
 import DetailPageContainer from '../containers/DetailPageContainer/DetailPageContainer';
-import {
-  HOLDINGPEN_DASHBOARD_NEW,
-  HOLDINGPEN_SEARCH_NEW,
-} from '../../common/routes';
+import { HOLDINGPEN_SEARCH_NEW, HOLDINGPEN_NEW } from '../../common/routes';
 
 describe('Holdingpen', () => {
   const store = getStoreWithState({
@@ -22,12 +19,15 @@ describe('Holdingpen', () => {
         roles: ['cataloger'],
       },
     }),
+    holdingpen: fromJS({
+      loggedIn: true,
+    }),
   });
 
   it('renders initial state', () => {
     const { container } = render(
       <Provider store={store}>
-        <MemoryRouter initialEntries={[HOLDINGPEN_DASHBOARD_NEW]}>
+        <MemoryRouter initialEntries={[HOLDINGPEN_NEW]}>
           <Holdingpen />
         </MemoryRouter>
       </Provider>
@@ -38,11 +38,8 @@ describe('Holdingpen', () => {
   it('navigates to DashboardPageContainer when /holdingpen-new/dashboard', () => {
     const { getByTestId } = render(
       <Provider store={getStore()}>
-        <MemoryRouter initialEntries={[HOLDINGPEN_DASHBOARD_NEW]}>
-          <Route
-            path={HOLDINGPEN_DASHBOARD_NEW}
-            component={DashboardPageContainer}
-          />
+        <MemoryRouter initialEntries={[HOLDINGPEN_NEW]}>
+          <Route path={HOLDINGPEN_NEW} component={DashboardPageContainer} />
         </MemoryRouter>
       </Provider>
     );
@@ -53,9 +50,9 @@ describe('Holdingpen', () => {
   it('navigates to DetailPageContainer when /holdingpen-new/:id', () => {
     const { getByTestId } = render(
       <Provider store={getStore()}>
-        <MemoryRouter initialEntries={[`${HOLDINGPEN_DASHBOARD_NEW}/:id`]}>
+        <MemoryRouter initialEntries={[`${HOLDINGPEN_NEW}/:id`]}>
           <Route
-            path={`${HOLDINGPEN_DASHBOARD_NEW}/:id`}
+            path={`${HOLDINGPEN_NEW}/:id`}
             component={DetailPageContainer}
           />
         </MemoryRouter>

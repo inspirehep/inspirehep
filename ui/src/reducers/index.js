@@ -18,6 +18,9 @@ import journals from './journals';
 import bibliographyGenerator from './bibliographyGenerator';
 import settings from './settings';
 import ui, { initialState as uiInitialState } from './ui';
+import holdingpen, {
+  initialState as holdingpenInitialState,
+} from './holdingpen';
 import { LITERATURE_NS, LITERATURE_REFERENCES_NS } from '../search/constants';
 
 export default function createRootReducer(history) {
@@ -39,7 +42,8 @@ export default function createRootReducer(history) {
     seminars,
     experiments,
     bibliographyGenerator,
-    journals
+    journals,
+    holdingpen,
   });
 }
 
@@ -56,4 +60,5 @@ export const REDUCERS_TO_PERSISTS = [
     initialState: searchInitialState,
     statePath: ['namespaces', LITERATURE_NS, 'query', 'size'],
   },
+  { name: 'holdingpen', initialState: holdingpenInitialState },
 ];

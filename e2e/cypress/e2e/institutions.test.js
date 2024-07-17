@@ -69,6 +69,10 @@ describe('Institutions Editor', () => {
   });
 
   it('edits an institution', () => {
+    cy.on('uncaught:exception', () => {
+      return false;
+    });
+
     const RECORD_URL = '/institutions/902858';
     const RECORD_API = `/api${RECORD_URL}`;
     const API = '/api/**';

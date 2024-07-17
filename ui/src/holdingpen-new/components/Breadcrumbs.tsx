@@ -1,11 +1,15 @@
 import React from 'react';
 import { Breadcrumb, Input } from 'antd';
 import { HomeOutlined } from '@ant-design/icons';
+import { push } from 'connected-react-router';
+import { Action, ActionCreator } from 'redux';
+import { connect } from 'react-redux';
 
 import './Breadcrumbs.less';
 import { HOLDINGPEN_NEW, HOLDINGPEN_SEARCH_NEW } from '../../common/routes';
 
 interface BreadcrumbItemProps {
+  dispatch: ActionCreator<Action>;
   title1: string;
   href1: string;
   title2?: string;
@@ -14,6 +18,7 @@ interface BreadcrumbItemProps {
 }
 
 const Breadcrumbs: React.FC<BreadcrumbItemProps> = ({
+  dispatch,
   title1,
   href1,
   title2,
@@ -49,10 +54,10 @@ const Breadcrumbs: React.FC<BreadcrumbItemProps> = ({
           enterButton
           placeholder="Search Holdingpen"
           onPressEnter={() => {
-            window.location.assign(HOLDINGPEN_SEARCH_NEW);
+            dispatch(push(HOLDINGPEN_SEARCH_NEW));
           }}
           onSearch={() => {
-            window.location.assign(HOLDINGPEN_SEARCH_NEW);
+            dispatch(push(HOLDINGPEN_SEARCH_NEW));
           }}
           className="search-bar-small"
         />
@@ -61,4 +66,8 @@ const Breadcrumbs: React.FC<BreadcrumbItemProps> = ({
   );
 };
 
-export default Breadcrumbs;
+const dispatchToProps = (dispatch: ActionCreator<Action>) => ({
+  dispatch,
+});
+
+export default connect(null, dispatchToProps)(Breadcrumbs);

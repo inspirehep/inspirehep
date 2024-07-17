@@ -57,66 +57,70 @@ const renderWorkflowStatus = (status: string) => {
   ) : null;
 };
 
-const AuthorResultItem = ({ item }: { item: any }) => {
-  const {
-    _workflow: workflow,
-    metadata,
-    _extra_data: extraData,
-  } = item?.data || {};
+const AuthorResultItem = ({ id, item }: { id: string; item: any }) => {
+  const workflow = item?.get('_workflow');
+  const metadata = item?.get('metadata');
+  const extraData = item?.get('_extra_data');
 
   return (
-    <div key={item?.id} className="result-item result-item-action mv2">
+    <div className="result-item result-item-action mv2">
       <Row justify="start" wrap={false}>
         <Col className="col-pub-select">
           <PublicationSelectContainer
             claimed={false}
             disabled={false}
             isOwnProfile={false}
-            recordId={item?.id}
+            recordId={Number(id)}
           />
         </Col>
         <Col className="col-details">
           <ResultItem>
             <Link
               className="result-item-title"
-              to={`${HOLDINGPEN_NEW}/author/${item?.id}`}
+              to={`${HOLDINGPEN_NEW}/${id}`}
               target="_blank"
             >
               <div className="flex">
                 <div style={{ marginTop: '-2px' }}>
                   <UnclickableTag>Author</UnclickableTag>
-                  {extraData?.user_action && (
+                  {extraData?.get('user_action') && (
                     <UnclickableTag
                       className={`decission-pill ${resolveDecision(
-                        extraData?.user_action
+                        extraData?.get('user_action')
                       )?.bg}`}
                     >
-                      {resolveDecision(extraData?.user_action)?.text}
+                      {resolveDecision(extraData?.get('user_action'))?.text}
                     </UnclickableTag>
                   )}
                 </div>
-                <span className="dib ml2">{metadata?.name?.value}</span>
+                <span className="dib ml2">
+                  {metadata?.getIn(['name', 'value'])}
+                </span>
               </div>
             </Link>
           </ResultItem>
         </Col>
         <Col className="col-actions">
-          <Card>{renderWorkflowStatus(workflow?.status)}</Card>
+          <Card>{renderWorkflowStatus(workflow?.get('status'))}</Card>
         </Col>
         <Col className="col-info">
           <Card>
             <p className="waiting">
               {new Date(
-                metadata?.acquisition_source?.datetime
+                metadata?.getIn(['acquisition_source', 'datetime'])
               ).toLocaleDateString()}
             </p>
-            <p className="waiting">{metadata?.acquisition_source?.source}</p>
-            <p className="waiting mb0">{metadata?.acquisition_source?.email}</p>
+            <p className="waiting">
+              {metadata?.getIn(['acquisition_source', 'source'])}
+            </p>
+            <p className="waiting mb0">
+              {metadata?.getIn(['acquisition_source', 'email'])}
+            </p>
           </Card>
         </Col>
         <Col className="col-subject">
           <Card>
-            {metadata?.arxiv_categories?.map((category: string) => (
+            {metadata?.get('arxiv_categories')?.map((category: string) => (
               <div className="mb2" key={category}>
                 <UnclickableTag color="blue">{category}</UnclickableTag>
               </div>

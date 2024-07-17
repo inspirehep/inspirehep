@@ -31,7 +31,7 @@ const SearchResults = ({
       );
     }
     return (
-      <div className="mv2" key={result?.data?.id}>
+      <div className="mv2" key={result?.get('id')}>
         {renderItem(result)}
       </div>
     );
