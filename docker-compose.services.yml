@@ -26,7 +26,7 @@ services:
       - 'INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://inspirehep:inspirehep@db:5432/inspirehep'
       - 'INVENIO_INSPIRE_NEXT_URL=http://ui:8080'
   cache:
-    image: redis
+    image: redis:5-alpine
     restart: 'always'
     read_only: true
     ports:
@@ -42,7 +42,7 @@ services:
     ports:
       - '5432:5432'
   mq:
-    image: rabbitmq:3.9.11-management
+    image: rabbitmq:3.12.0-management-alpine
     restart: 'always'
   es:
     build:

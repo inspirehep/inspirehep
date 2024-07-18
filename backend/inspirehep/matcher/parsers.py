@@ -7,6 +7,7 @@
 
 from inspire_dojson.utils import strip_empty_values
 from inspire_schemas.api import LiteratureBuilder, ReferenceBuilder
+from lxml.etree import XMLSyntaxError
 from parsel import Selector
 
 
@@ -15,7 +16,10 @@ class GrobidReferenceParser:
 
     def __init__(self, content):
         self.builder = ReferenceBuilder()
-        self.root = Selector(text=content, type="xml")
+        try:
+            self.root = Selector(text=content, type="xml")
+        except XMLSyntaxError:
+            self.root = Selector(text="", type="text")
 
     def parse(self):
         for report_number in self.report_numbers:
