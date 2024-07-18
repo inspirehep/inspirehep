@@ -12,10 +12,12 @@ from inspirehep.records.marshmallow.fields import NestedField
 
 
 class TestNestedSchema(Schema):
+    __test__ = False
     title = fields.Raw()
 
 
 class TestSchema(Schema):
+    __test__ = False
     list_of_items = NestedField(TestNestedSchema, many=True)
 
 

@@ -15,13 +15,13 @@ import orjson
 import requests
 import structlog
 from flask import current_app
-from hepcrawl.parsers import ArxivParser
-from hepcrawl.parsers.crossref import CrossrefParser
 from idutils import is_doi, normalize_doi
 from inspire_json_merger.api import merge
 from inspire_schemas.api import validate
 from inspire_schemas.builders import LiteratureBuilder
 from inspire_schemas.utils import is_arxiv, normalize_arxiv
+from inspire_utils.parsers.arxiv import ArxivParser
+from inspire_utils.parsers.crossref import CrossrefParser
 from inspire_utils.record import get_value
 from invenio_db import db
 from jsonschema import ValidationError

@@ -45,6 +45,7 @@ def test_create_ticket_with_template_view(
                     ),
                 }
             ),
+            headers={"Content-Type": "application/json"},
         )
         assert response.status_code == 200
         assert "ticket_id" in response.json
@@ -79,6 +80,7 @@ def test_create_ticket_with_template_view_not_authenticated(
                     ),
                 }
             ),
+            headers={"Content-Type": "application/json"},
         )
         assert response.status_code == 403
 
@@ -102,6 +104,7 @@ def test_create_ticket_view(mocked_inspire_snow, teardown_cache, inspire_app):
                     "description": "test test",
                 }
             ),
+            headers={"Content-Type": "application/json"},
         )
         assert response.status_code == 200
         assert "ticket_id" in response.json
@@ -129,6 +132,7 @@ def test_create_ticket_view_not_authenticated(
                     "description": "test test",
                 }
             ),
+            headers={"Content-Type": "application/json"},
         )
         assert response.status_code == 403
 
@@ -158,6 +162,7 @@ def test_create_ticket_view_when_create_ticket_error(
                     "description": "test test",
                 }
             ),
+            headers={"Content-Type": "application/json"},
         )
         assert response.status_code == 500
         assert response.json["message"] == "Can't create SNOW ticket!"
@@ -193,6 +198,7 @@ def test_reply_ticket_with_template_view(
                     ),
                 }
             ),
+            headers={"Content-Type": "application/json"},
         )
         assert response.status_code == 200
         assert response.json["message"] == "Ticket was updated with the reply"
@@ -218,6 +224,7 @@ def test_reply_ticket_with_template_view_when_user_not_authenticated(
                     ),
                 }
             ),
+            headers={"Content-Type": "application/json"},
         )
         assert response.status_code == 403
 
@@ -250,6 +257,7 @@ def test_reply_ticket_with_template_view_when_edit_ticket_error(
                     ),
                 }
             ),
+            headers={"Content-Type": "application/json"},
         )
         assert response.status_code == 500
         assert response.json["message"] == "Can't reply SNOW ticket!"
@@ -278,6 +286,7 @@ def test_reply_ticket_view(mocked_inspire_snow, teardown_cache, inspire_app):
                     "user_email": "test@test.com",
                 }
             ),
+            headers={"Content-Type": "application/json"},
         )
         assert response.status_code == 200
         assert response.json["message"] == "Ticket was updated with the reply"
@@ -305,6 +314,7 @@ def test_reply_ticket_view_when_record_edit_error(
                     "reply_message": "This is a test reply",
                 }
             ),
+            headers={"Content-Type": "application/json"},
         )
         assert response.status_code == 500
         assert response.json["message"] == "Can't reply SNOW ticket!"
@@ -324,6 +334,7 @@ def test_reply_ticket_view_when_user_not_authenticated(
                     "reply_message": "This is a test reply",
                 }
             ),
+            headers={"Content-Type": "application/json"},
         )
         assert response.status_code == 403
 
@@ -343,7 +354,9 @@ def test_resolve_ticket_view_when_edit_ticket_exception(
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.post(
-            "/api/tickets/resolve", data=orjson.dumps({"ticket_id": "123"})
+            "/api/tickets/resolve",
+            data=orjson.dumps({"ticket_id": "123"}),
+            headers={"Content-Type": "application/json"},
         )
         assert response.status_code == 500
         assert response.json["message"] == "Can't resolve SNOW ticket!"
@@ -364,7 +377,9 @@ def test_resolve_ticket_view(mocked_inspire_snow, teardown_cache, inspire_app):
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.post(
-            "/api/tickets/resolve", data=orjson.dumps({"ticket_id": ticket_id})
+            "/api/tickets/resolve",
+            data=orjson.dumps({"ticket_id": ticket_id}),
+            headers={"Content-Type": "application/json"},
         )
         assert response.status_code == 200
         assert response.json["message"] == "Ticket resolved"
@@ -377,7 +392,9 @@ def test_resolve_ticket_view_user_not_authenticated(
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
         response = client.post(
-            "/api/tickets/resolve", data=orjson.dumps({"ticket_id": "123"})
+            "/api/tickets/resolve",
+            data=orjson.dumps({"ticket_id": "123"}),
+            headers={"Content-Type": "application/json"},
         )
         assert response.status_code == 403
 
@@ -409,6 +426,7 @@ def test_resolve_ticket_with_template_view_when_edit_ticket_exception(
                     ),
                 }
             ),
+            headers={"Content-Type": "application/json"},
         )
         assert response.status_code == 500
         assert response.json["message"] == "Can't resolve SNOW ticket!"
@@ -443,6 +461,7 @@ def test_resolve_ticket_with_template_view(
                     ),
                 }
             ),
+            headers={"Content-Type": "application/json"},
         )
         assert response.status_code == 200
         assert response.json["message"] == "Ticket resolved"
@@ -468,5 +487,6 @@ def test_resolve_ticket_with_template_view_user_not_authenticated(
                     ),
                 }
             ),
+            headers={"Content-Type": "application/json"},
         )
         assert response.status_code == 403

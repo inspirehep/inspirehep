@@ -4,10 +4,10 @@
 
 ### Python
 
-Python `3.9`
+Python `3.11`
 
 You can also use [pyenv](https://github.com/pyenv/pyenv) for your python installations.
-Simply follow the [instructions](https://github.com/pyenv/pyenv#installation) and set the global version to 3.9.
+Simply follow the [instructions](https://github.com/pyenv/pyenv#installation) and set the global version to 3.11.
 
 #### Debian / Ubuntu
 

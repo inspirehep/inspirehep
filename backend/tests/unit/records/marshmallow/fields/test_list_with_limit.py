@@ -12,14 +12,17 @@ from inspirehep.records.marshmallow.fields import ListWithLimit
 
 
 class TestSchemaWithLimitFive(Schema):
+    __test__ = False
     list_of_items = ListWithLimit(fields.Raw(), limit=5)
 
 
 class TestSchemaWithLimitOne(Schema):
+    __test__ = False
     list_of_items = ListWithLimit(fields.Raw(), limit=1)
 
 
 class TestSchemaWithNoLimit(Schema):
+    __test__ = False
     list_of_items = ListWithLimit(fields.Raw())
 
 
