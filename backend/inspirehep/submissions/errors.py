@@ -22,7 +22,7 @@ class WorkflowStartError(RESTException):
 class LoaderDataError(RESTException):
     def __init__(
         self,
-        description="Something went wrong while proccessing your data, please try again later.",
+        description="Something went wrong while processing your data, please try again later.",
         **kwargs
     ):
         super().__init__(**kwargs)
