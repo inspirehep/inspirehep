@@ -125,6 +125,7 @@ describe('Author Submission', () => {
 
       cy.login('johnellis');
       cy.visit(`/submissions/authors/${recordId}`);
+
       cy.testUpdateSubmission({
         collection: 'authors',
         recordId,
@@ -138,6 +139,7 @@ describe('Author Submission', () => {
             preferred_name: expectedMetadata.name.native_name + 'Updated',
           },
         },
+        submissionType: 'workflow',
       });
     });
 

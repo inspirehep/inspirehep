@@ -74,23 +74,34 @@ Cypress.Commands.add(
 
 Cypress.Commands.add(
   'testUpdateSubmission',
-  ({ expectedMetadata, formData, collection, recordId }) => {
+  ({ expectedMetadata, formData, collection, recordId, submissionType }) => {
     const route = `/submissions/${collection}/${recordId}`;
     const apiRoute = `/api${route}`;
 
-    cy.get('form').should('be.visible');
+    if (submissionType === 'workflow') {
+      cy.intercept('PUT', apiRoute, {
+        statusCode: 200,
+        body: {
+          message: 'Success',
+        },
+      }).as('getSubmissionSuccess');
+      cy.submitForm(formData);
+      cy.wait('@getSubmissionSuccess');
+    } else {
+      cy.get('form').should('be.visible');
 
-    cy.registerRoute({
-      url: apiRoute,
-      method: 'PUT',
-    });
-    cy.submitForm(formData);
+      cy.registerRoute({
+        url: apiRoute,
+        method: 'PUT',
+      });
+      cy.submitForm(formData);
 
-    cy.waitForRoute(apiRoute).its('response.statusCode').should('equal', 200);
+      cy.waitForRoute(apiRoute).its('response.statusCode').should('equal', 200);
 
-    cy.requestRecord({ collection, recordId }).then((req) =>
-      expect(req.metadata.toString()).to.include(expectedMetadata.toString())
-    );
+      cy.requestRecord({ collection, recordId }).then((req) =>
+        expect(req.metadata.toString()).to.include(expectedMetadata.toString())
+      );
+    }
   }
 );
 

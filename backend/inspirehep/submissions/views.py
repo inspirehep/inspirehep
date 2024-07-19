@@ -18,6 +18,7 @@ from inspire_utils.record import get_value
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
 from jsonschema import SchemaError, ValidationError
+from requests.exceptions import RequestException
 
 from inspirehep.accounts.api import (
     can_user_edit_author_record,
@@ -79,7 +80,7 @@ class BaseSubmissionsResource(MethodView):
     def load_data_from_request(self):
         return request.get_json()
 
-    def send_post_request_to_inspire_next(
+    def send_post_request_to_workflows(
         self, url, endpoint, data, token, bearer_keyword="Bearer"
     ):
         """Sends a post request to the backoffice/next
@@ -90,6 +91,7 @@ class BaseSubmissionsResource(MethodView):
         :return: response content
         """
 
+        LOGGER.info("Sending post request to workflows", url=url, endpoint=endpoint)
         headers = {
             "content-type": "application/json",
             "Authorization": f"{bearer_keyword} {token}",
@@ -99,9 +101,20 @@ class BaseSubmissionsResource(MethodView):
             data=orjson.dumps(data),
             headers=headers,
         )
-        if response.status_code == 200:
-            return response.content
-        raise WorkflowStartError
+        try:
+            response.raise_for_status()
+        except RequestException:
+            LOGGER.exception(
+                "Error during workflow creation.",
+                response=response.text,
+                data=data,
+                url=url,
+                endpoint=endpoint,
+                bearer_keyword=bearer_keyword,
+            )
+            raise WorkflowStartError
+        LOGGER.info("Workflow creation successful", response=response.text)
+        return response.json()
 
     def get_acquisition_source(self):
         acquisition_source = dict(
@@ -197,7 +210,7 @@ class AuthorSubmissionsResource(BaseSubmissionsResource):
         return author_loader_v1()
 
     def start_workflow_for_submission(self, record, workflow_type):
-        """Sends workflow payload to the backoffice
+        """Sends workflow payload to the backoffice.
 
         :param object record: dict with workflow model variables set
         :param str workflow_type: distinguish between UPDATE and CREATE
@@ -208,14 +221,17 @@ class AuthorSubmissionsResource(BaseSubmissionsResource):
         payload_backoffice = {"data": record, "workflow_type": workflow_type}
 
         if current_app.config.get("FEATURE_FLAG_ENABLE_SEND_TO_BACKOFFICE"):
-            self.send_post_request_to_inspire_next(
+            LOGGER.info(
+                "Sending author submission to backoffice", data=payload_backoffice
+            )
+            self.send_post_request_to_workflows(
                 current_app.config["INSPIRE_BACKOFFICE_URL"],
                 "/api/workflows/",
                 payload_backoffice,
-                current_app.config["BACKOFFICE_BEARER_TOKEN"],
+                current_app.config["AUTHENTICATION_TOKEN_BACKOFFICE"],
                 bearer_keyword="Token",
             )
-        return self.send_post_request_to_inspire_next(
+        return self.send_post_request_to_workflows(
             current_app.config["INSPIRE_NEXT_URL"],
             "/workflows/authors",
             payload,
@@ -416,7 +432,7 @@ class LiteratureSubmissionResource(BaseSubmissionsResource):
         submission_data["acquisition_source"] = self.get_acquisition_source()
         payload = {"data": submission_data, "form_data": form_data}
 
-        return self.send_post_request_to_inspire_next(
+        return self.send_post_request_to_workflows(
             current_app.config["INSPIRE_NEXT_URL"],
             "/workflows/literature",
             payload,
