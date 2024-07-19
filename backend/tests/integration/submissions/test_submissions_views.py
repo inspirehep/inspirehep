@@ -277,8 +277,13 @@ def test_update_author(inspire_app):
     }
     rec = create_record("aut", data=author_data)
 
-    with inspire_app.test_client() as client:
+    with inspire_app.test_client() as client, requests_mock.Mocker() as request_mock:
         login_user_via_session(client, email=user.email)
+        request_mock.post(
+            f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/authors",
+            json={},
+            status_code=200,
+        )
         response = client.put(
             f"/submissions/authors/{rec['control_number']}",
             content_type="application/json",
@@ -336,8 +341,14 @@ def test_update_author_with_new_orcid(inspire_app):
     }
     rec = create_record("aut", data=author_data)
 
-    with inspire_app.test_client() as client:
+    with inspire_app.test_client() as client, requests_mock.Mocker() as request_mock:
         login_user_via_session(client, email=user.email)
+
+        request_mock.post(
+            f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/authors",
+            json={},
+            status_code=200,
+        )
         response = client.put(
             f"/submissions/authors/{rec['control_number']}",
             content_type="application/json",
@@ -387,8 +398,14 @@ def test_update_author_with_extra_data(inspire_app):
     }
     rec = create_record("aut", data=author_data)
 
-    with inspire_app.test_client() as client:
+    with inspire_app.test_client() as client, requests_mock.Mocker() as request_mock:
         login_user_via_session(client, email=user.email)
+
+        request_mock.post(
+            f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/authors",
+            json={},
+            status_code=200,
+        )
         response = client.put(
             f"/submissions/authors/{rec['control_number']}",
             content_type="application/json",
@@ -437,8 +454,13 @@ def test_update_author_with_new_bai(inspire_app):
     }
     rec = create_record("aut", data=author_data)
 
-    with inspire_app.test_client() as client:
+    with inspire_app.test_client() as client, requests_mock.Mocker() as request_mock:
         login_user_via_session(client, email=user.email)
+        request_mock.post(
+            f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/authors",
+            json={},
+            status_code=200,
+        )
         response = client.put(
             f"/submissions/authors/{rec['control_number']}",
             content_type="application/json",
@@ -521,6 +543,7 @@ def test_update_author_creates_new_workflow(inspire_app, override_config):
 
         request_mock.post(
             f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/authors",
+            json={},
             status_code=200,
         )
         response = client.put(
