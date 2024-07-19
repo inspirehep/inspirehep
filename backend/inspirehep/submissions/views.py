@@ -156,8 +156,7 @@ class AuthorSubmissionsResource(BaseSubmissionsResource):
         self.update_author_record(data, record)
         db.session.commit()
 
-        if current_app.config.get("FEATURE_FLAG_ENABLE_WORKFLOW_ON_AUTHOR_UPDATE"):
-            self.start_workflow_for_submission(record, "AUTHOR_UPDATE")
+        self.start_workflow_for_submission(record, "AUTHOR_UPDATE")
 
         return jsonify({"pid_value": record["control_number"]})
 

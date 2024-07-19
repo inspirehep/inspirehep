@@ -475,7 +475,6 @@ def test_update_author_with_new_bai(inspire_app):
 
 @freeze_time("2019-06-17")
 def test_update_author_creates_new_workflow(inspire_app, override_config):
-    config = {"FEATURE_FLAG_ENABLE_WORKFLOW_ON_AUTHOR_UPDATE": True}
     orcid = "0000-0001-5109-3700"
     user = create_user(orcid=orcid)
     author_data = {
@@ -490,9 +489,7 @@ def test_update_author_creates_new_workflow(inspire_app, override_config):
 
     rec = create_record("aut", data=author_data)
 
-    with inspire_app.test_client() as client, requests_mock.Mocker() as request_mock, override_config(
-        **config
-    ):
+    with inspire_app.test_client() as client, requests_mock.Mocker() as request_mock:
         login_user_via_session(client, email=user.email)
 
         expected_next_request = {
