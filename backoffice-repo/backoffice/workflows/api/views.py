@@ -1,3 +1,5 @@
+import logging
+
 from django.shortcuts import get_object_or_404
 from django_elasticsearch_dsl_drf.viewsets import BaseDocumentViewSet
 from rest_framework import status, viewsets
@@ -16,6 +18,8 @@ from .serializers import (
     WorkflowSerializer,
     WorkflowTicketSerializer,
 )
+
+logger = logging.getLogger(__name__)
 
 
 class WorkflowViewSet(viewsets.ModelViewSet):
@@ -82,18 +86,22 @@ class AuthorWorkflowViewSet(viewsets.ViewSet):
     serializer_class = WorkflowSerializer
 
     def create(self, request):
+        logger.info("Creating workflow with data: %s", request.data)
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid(raise_exception=True):
             workflow = Workflow.objects.create(
                 data=serializer.validated_data["data"], workflow_type=serializer.validated_data["workflow_type"]
             )
+        logger.info("Trigger Airflow DAG: %s for %s", WORKFLOW_DAG[workflow.workflow_type], workflow.id)
         return airflow_utils.trigger_airflow_dag(WORKFLOW_DAG[workflow.workflow_type], str(workflow.id), workflow.data)
 
     @action(detail=True, methods=["post"])
     def resolve(self, request, pk=None):
+        logger.info("Resolving data: %s", request.data)
         serializer = AuthorResolutionSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             extra_data = {"create_ticket": serializer.validated_data["create_ticket"]}
+            logger.info("Trigger Airflow DAG: %s for %s", ResolutionDags[serializer.validated_data["value"]], pk)
             return airflow_utils.trigger_airflow_dag(
                 ResolutionDags[serializer.validated_data["value"]].label, pk, extra_data
             )
