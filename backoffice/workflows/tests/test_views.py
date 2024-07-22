@@ -128,7 +128,12 @@ class TestWorkflowPartialUpdateViewSet(BaseTransactionTestCase):
         workflow = Workflow.objects.filter(id=str(self.workflow.id))[0]
         self.assertEqual(response.status_code, 200)
         self.assertEquals(workflow.status, "approval")
-        self.assertEquals(workflow.data, {"test": "test"})
+        self.assertEquals(
+            workflow.data,
+            {
+                "test": "test",
+            },
+        )
 
     def test_patch_anonymous(self):
         self.api_client.force_authenticate(user=self.user)

@@ -28,10 +28,24 @@ class WorkflowsAdminSite(admin.AdminSite):
         )
 
 
+@admin.register(Workflow)
 class WorkflowAdmin(admin.ModelAdmin):
     """
     Admin class for Workflow model. Define get, update and delete permissions.
     """
+
+    ordering = ("-_updated_at",)
+    search_fields = ["id", "data"]
+    list_display = (
+        "id",
+        "workflow_type",
+        "status",
+        "core",
+        "is_update",
+        "_created_at",
+        "_updated_at",
+    )
+    list_filter = ["workflow_type", "status", "core", "is_update", "_created_at", "_updated_at"]
 
     def has_view_permission(self, request, obj=None):
         """
@@ -53,8 +67,3 @@ class WorkflowAdmin(admin.ModelAdmin):
         """
         permission_check = IsAdminOrCuratorUser()
         return request.user.is_superuser or permission_check.has_permission(request, self)
-
-
-admin.site.register(Workflow)
-workflow_admin_site = WorkflowsAdminSite(name="backoffice_admin")
-workflow_admin_site.register(Workflow, WorkflowAdmin)
