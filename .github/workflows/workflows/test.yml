@@ -1,0 +1,57 @@
+name: Tests
+
+on:
+  workflow_call:
+    inputs:
+      ref:
+        description: The reference to build
+        type: string
+        required: true
+    outputs:
+      image-id:
+        description: The ID of image that has been built
+        value: ${{ jobs.build.outputs.image-id }}
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+    with:
+      ref: ${{ inputs.ref }}
+      image: cern-sis/inspire/workflows
+    secrets: inherit
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    services:
+      redis:
+        image: redis
+        ports:
+          - 6379:6379
+      postgres:
+        image: postgres:13
+        env:
+          POSTGRES_USER: airflow
+          POSTGRES_PASSWORD: airflow
+          POSTGRES_DB: airflow
+        ports:
+          - 5432:5432
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+
+      - name: Test
+        run: >
+          docker run
+          --network=host
+          -v "$(pwd)"/tests:/opt/airflow/tests
+          -v "$(pwd)"/airflow.cfg:/opt/airflow/airflow.cfg
+          -v "$(pwd)"/requirements-test.txt:/opt/airflow/requirements-test.txt
+          -v "$(pwd)"/data:/opt/airflow/data
+          registry.cern.ch/cern-sis/inspire/workflows@${{ needs.build.outputs.image-id }}
+          bash -c "pip install -r requirements-test.txt && airflow db init && pytest /opt/airflow/tests"

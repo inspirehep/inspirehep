@@ -1,18 +1,18 @@
 repos:
-  - repo: https://github.com/psf/black
-    rev: "22.8.0"
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
     hooks:
-      - id: black
-  - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: "v2.7.1"
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: fix-byte-order-marker
+      - id: mixed-line-ending
+      - id: name-tests-test
+        args: [ --pytest-test-first ]
+        exclude: '^(?!factories/)'
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.5.2
     hooks:
-      - id: prettier
-  - repo: https://github.com/pycqa/isort
-    rev: "5.12.0"
-    hooks:
-      - id: isort
-  - repo: https://github.com/pycqa/flake8
-    rev: "3.9.2"
-    hooks:
-      - id: flake8
-        args: ["--config=setup.cfg"]
+      - id: ruff
+        args: [ --fix, --unsafe-fixes ]
+      - id: ruff-format

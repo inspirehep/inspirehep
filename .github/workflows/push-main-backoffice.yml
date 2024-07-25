@@ -1,0 +1,34 @@
+name: Push main
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'backoffice/**'
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  lint:
+    uses: ./.github/workflows/lint.yml
+    with:
+      ref: ${{ github.ref }}
+  test:
+    needs: lint
+    uses: ./.github/workflows/backoffice/test.yml
+    with:
+      ref: ${{ github.ref }}
+    secrets: inherit
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: send event
+        uses: cern-sis/gh-workflows/.github/actions/kubernetes-project-new-images@v6.2.0
+        with:
+          event-type: update
+          images: |
+            cern-sis/inspire/backoffice@${{ needs.test.outputs.image-id }}
+          token: ${{ secrets.PAT_FIRE_EVENTS_ON_CERN_SIS_KUBERNETES }}

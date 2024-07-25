@@ -17,17 +17,5 @@ jobs:
         with:
           ref: ${{ inputs.ref }}
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.11"
-
-      - name: black
-        uses: psf/black@stable
-        with:
-          options: "--verbose"
-
-      - name: run flake8
-        uses: julianwachholz/flake8-action@v2
-        with:
-          checkName: "flake8"
+      - name: Pre-commit check
+        uses: pre-commit/action@v3.0.1
