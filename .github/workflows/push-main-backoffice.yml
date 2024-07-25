@@ -3,8 +3,6 @@ name: Push main
 on:
   push:
     branches: [main]
-    paths:
-      - 'backoffice/**'
 
 defaults:
   run:
