@@ -78,8 +78,6 @@ jobs:
           INVENIO_CACHE_TYPE=RedisCache
           INVENIO_CELERY_BROKER_URL=amqp://guest:guest@localhost:5672/
           INVENIO_CELERY_RESULT_BACKEND=redis://localhost:6379/1
-          INVENIO_SEARCH_ELASTIC_HOSTS=[localhost]
-          INVENIO_SECRET_KEY=CHANGE_ME
           INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://inspirehep:inspirehep@localhost:5432/inspirehep
           INVENIO_INSPIRE_NEXT_URL=http://localhost:5000
           APP_DEBUG=True
@@ -89,11 +87,9 @@ jobs:
           APP_CELERY_RESULT_BACKEND=redis://localhost:6379/1
           APP_CACHE_REDIS_URL=redis://localhost:6379/0
           APP_ACCOUNTS_SESSION_REDIS_URL=redis://localhost:6379/2
-          APP_SEARCH_ELASTIC_HOSTS=[localhost]
           APP_ES_BULK_TIMEOUT=240
           APP_DANGEROUSLY_ENABLE_LOCAL_LOGIN=True
           APP_ENABLE_SECURE_HEADERS=False
-          APP_SECRET_KEY=CHANGE_ME
           EOF
 
       - name: Run hep-worker
