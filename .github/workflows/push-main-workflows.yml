@@ -16,7 +16,7 @@ jobs:
     with:
       ref: ${{ github.ref }}
   test:
-    uses: ./.github/workflows/workflows/test.yml
+    uses: ./.github/workflows/test-workflows.yml
     with:
       ref: ${{ github.ref }}
     secrets: inherit

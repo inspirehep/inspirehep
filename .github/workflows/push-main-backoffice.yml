@@ -17,7 +17,7 @@ jobs:
       ref: ${{ github.ref }}
   test:
     needs: lint
-    uses: ./.github/workflows/backoffice/test.yml
+    uses: ./.github/workflows/test-backoffice.yml
     with:
       ref: ${{ github.ref }}
     secrets: inherit
