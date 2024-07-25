@@ -12,7 +12,7 @@ jobs:
     with:
       ref: ${{ github.ref }}
   test:
-    uses: ./.github/workflows//test-backoffice.yml
+    uses: ./.github/workflows/test-backoffice.yml
     with:
       ref: ${{ github.event.pull_request.head.sha }}
     secrets: inherit
