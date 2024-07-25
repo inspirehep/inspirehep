@@ -200,7 +200,7 @@ scrapy-sentry==0.9.0
 scrapy==1.6.0; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.4.0"
 scrapyd-client==1.1.0
 scrapyd==1.1.0
-sentry-sdk==0.10.2
+sentry-sdk==2.8.0
 service-identity==18.1.0; python_version >= "2.7" and python_full_version < "3.0.0" or python_full_version >= "3.4.0"
 sickle==0.6.5
 simplejson==3.17.0; python_version >= "2.5" and python_full_version < "3.0.0" or python_full_version >= "3.3.0"
