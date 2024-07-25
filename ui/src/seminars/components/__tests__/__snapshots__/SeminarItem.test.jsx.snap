@@ -94,9 +94,7 @@ exports[`SeminarItem renders with all props set 1`] = `
     </React.Fragment>
   }
 >
-  <Row
-    type="flex"
-  >
+  <Row>
     <Col>
       <Link
         className="result-item-title"
@@ -184,9 +182,7 @@ exports[`SeminarItem renders with only needed props 1`] = `
     </React.Fragment>
   }
 >
-  <Row
-    type="flex"
-  >
+  <Row>
     <Col>
       <Link
         className="result-item-title"
@@ -274,9 +270,7 @@ exports[`SeminarItem renders with selected timezone with a different time than l
     </React.Fragment>
   }
 >
-  <Row
-    type="flex"
-  >
+  <Row>
     <Col>
       <Link
         className="result-item-title"
@@ -374,9 +368,7 @@ exports[`SeminarItem renders with selected timezone with a same time as local ti
     </React.Fragment>
   }
 >
-  <Row
-    type="flex"
-  >
+  <Row>
     <Col>
       <Link
         className="result-item-title"

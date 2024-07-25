@@ -1,5 +1,4 @@
 import React, { useCallback } from 'react';
-import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 import { Button } from 'antd';
 import { CalendarOutlined } from '@ant-design/icons';
@@ -15,7 +14,13 @@ import EventTracker from '../../../common/components/EventTracker';
 
 const TITLE = <IconText icon={<CalendarOutlined />} text="export" />;
 
-function ExportToCalendarAction({ seminar, page }) {
+function ExportToCalendarAction({
+  seminar,
+  page,
+}: {
+  seminar: Map<string, any>;
+  page: string;
+}) {
   const onDownloadClick = useCallback(() => {
     const fileContent = getIcsFileContent(seminar);
     const controlNumber = seminar.get('control_number');
@@ -25,7 +30,7 @@ function ExportToCalendarAction({ seminar, page }) {
       'text/calendar'
     );
   }, [seminar]);
-  
+
   const menuItems = [
     {
       key: 'download',
@@ -63,9 +68,5 @@ function ExportToCalendarAction({ seminar, page }) {
     </UserAction>
   );
 }
-
-ExportToCalendarAction.propTypes = {
-  seminar: PropTypes.instanceOf(Map).isRequired,
-};
 
 export default ExportToCalendarAction;

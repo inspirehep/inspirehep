@@ -11,7 +11,7 @@ const stateToProps = (state: RootStateOrAny, { namespace }: { namespace: string 
 });
 
 export const dispatchToProps = (dispatch: ActionCreator<Action>, { namespace }: { namespace: string }) => ({
-  onSortChange(sort: boolean) {
+  onSortChange(sort: string) {
     dispatch(searchQueryUpdate(namespace, { sort, page: '1' }));
   },
 });
