@@ -1,0 +1,32 @@
+name: Tests
+
+on:
+  workflow_call:
+    inputs:
+      ref:
+        description: The reference to build
+        type: string
+        required: true
+    outputs:
+      image-id:
+        description: The ID of image that has been built
+        value: ${{ jobs.build.outputs.image-id }}
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+    with:
+      ref: ${{ inputs.ref }}
+      image: cern-sis/inspire/backoffice
+      context: ./backoffice
+      dockerfile: ./compose/production/django/Dockerfile
+    secrets: inherit
+
+  test:
+    needs: build
+    strategy:
+      fail-fast: false
+    uses: ./.github/workflows/backoffice/integration-tests.yml
+    with:
+      ref: ${{ inputs.ref }}
+      image: "registry.cern.ch/cern-sis/inspire/backoffice@${{ needs.build.outputs.image-id }}"

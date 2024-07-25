@@ -1,0 +1,18 @@
+name: Pull request main
+
+on:
+  pull_request_target:
+    branches: [main]
+    paths:
+      - 'backoffice/**'
+
+jobs:
+  lint:
+    uses: ./.github/workflows/lint.yml
+    with:
+      ref: ${{ github.ref }}
+  test:
+    uses: ./.github/workflows/backoffice/test.yml
+    with:
+      ref: ${{ github.event.pull_request.head.sha }}
+    secrets: inherit
