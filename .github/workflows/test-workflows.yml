@@ -23,7 +23,7 @@ jobs:
       ref: ${{ inputs.ref }}
       image: cern-sis/inspire/workflows
       context: ./workflows
-      dockerfile: Dockerfile
+      dockerfile: ./workflows/Dockerfile
     secrets: inherit
   test:
     needs: build
