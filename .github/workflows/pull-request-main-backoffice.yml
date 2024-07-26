@@ -12,6 +12,7 @@ jobs:
     with:
       ref: ${{ github.ref }}
   test:
+    needs: lint
     uses: ./.github/workflows/test-backoffice.yml
     with:
       ref: ${{ github.event.pull_request.head.sha }}
