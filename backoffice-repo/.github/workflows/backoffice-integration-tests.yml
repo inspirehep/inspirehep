@@ -52,6 +52,7 @@ jobs:
         with:
           ref: ${{ inputs.ref }}
       - name: Test
+        working-directory: ./backoffice
         run: >
           docker run
           --pull always
