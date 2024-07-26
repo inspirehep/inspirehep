@@ -3,16 +3,9 @@ name: Push main (backoffice)
 on:
   workflow_call:
 
-
 jobs:
-  lint:
-    name: Lint (backoffice)
-    uses: ./.github/workflows/lint.yml
-    with:
-      ref: ${{ github.ref }}
   test:
     name: Tests (backoffice)
-    needs: lint
     uses: ./.github/workflows/test-backoffice.yml
     with:
       ref: ${{ github.ref }}

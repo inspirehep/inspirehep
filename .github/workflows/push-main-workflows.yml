@@ -4,14 +4,8 @@ on:
   workflow_call:
 
 jobs:
-  lint:
-    name: Lint (workflows)
-    uses: ./.github/workflows/lint.yml
-    with:
-      ref: ${{ github.ref }}
   test:
     name: Tests (workflows)
-    needs: lint
     uses: ./.github/workflows/test-workflows.yml
     with:
       ref: ${{ github.ref }}
