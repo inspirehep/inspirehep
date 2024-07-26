@@ -47,6 +47,9 @@ jobs:
         with:
           ref: ${{ inputs.ref }}
 
+      - name: Current directory
+        run: echo $(pwd)
+
       - name: Test
         env:
           AIRFLOW__CORE__EXECUTOR: CeleryExecutor
