@@ -12,10 +12,6 @@ on:
         description: The ID of image that has been built
         value: ${{ jobs.build.outputs.image-id }}
 
-defaults:
-  run:
-    shell: bash
-
 jobs:
   build:
     uses: ./.github/workflows/build.yml
@@ -51,20 +47,20 @@ jobs:
         run: echo $(pwd)
 
       - name: Test
-        env:
-          AIRFLOW__CORE__EXECUTOR: CeleryExecutor
-          AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres-airflow/airflow
-          AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@postgres-airflow/airflow
-          AIRFLOW__CELERY__BROKER_URL: redis://:@redis:6379/0
-          AIRFLOW__CORE__FERNET_KEY: ""
-          AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "true"
-          AIRFLOW__CORE__LOAD_EXAMPLES: "false"
-          AIRFLOW__API__AUTH_BACKENDS: "airflow.api.auth.backend.basic_auth,airflow.api.auth.backend.session"
+        working-directory: ./workflows
         run: >
           docker run
           --network=host
           -v "$(pwd)"/tests:/opt/airflow/tests
           -v "$(pwd)"/requirements-test.txt:/opt/airflow/requirements-test.txt
           -v "$(pwd)"/data:/opt/airflow/data
+          -e AIRFLOW__CORE__EXECUTOR=CeleryExecutor
+          -e AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres-airflow/airflow
+          -e AIRFLOW__CELERY__RESULT_BACKEND=db+postgresql://airflow:airflow@postgres-airflow/airflow
+          -e AIRFLOW__CELERY__BROKER_URL=redis://:@redis:6379/0
+          -e AIRFLOW__CORE__FERNET_KEY=""
+          -e AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION="true"
+          -e AIRFLOW__CORE__LOAD_EXAMPLES="false"
+          -e AIRFLOW__API__AUTH_BACKENDS="airflow.api.auth.backend.basic_auth,airflow.api.auth.backend.session"
           registry.cern.ch/cern-sis/inspire/workflows@${{ needs.build.outputs.image-id }}
           bash -c "pip install -r requirements-test.txt && airflow db init && pytest /opt/airflow/tests"
