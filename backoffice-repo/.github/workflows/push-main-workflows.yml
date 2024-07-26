@@ -1,25 +1,23 @@
-name: Push main
+name: Push main (workflows)
 
 on:
-  push:
-    branches: [main]
-
-defaults:
-  run:
-    shell: bash
+  workflow_call:
 
 jobs:
   lint:
+    name: Lint (workflows)
     uses: ./.github/workflows/lint.yml
     with:
       ref: ${{ github.ref }}
   test:
+    name: Tests (workflows)
     needs: lint
     uses: ./.github/workflows/test-workflows.yml
     with:
       ref: ${{ github.ref }}
     secrets: inherit
   deploy:
+    name: Deploy (workflows)
     needs: test
     runs-on: ubuntu-latest
     steps:
