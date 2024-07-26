@@ -14,6 +14,7 @@ jobs:
     with:
       ref: ${{ github.ref }}
   test:
+    needs: lint
     uses: ./.github/workflows/test-workflows.yml
     with:
       ref: ${{ github.ref }}
