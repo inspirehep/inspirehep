@@ -1,25 +1,24 @@
-name: Push main
+name: Push main (backoffice)
 
 on:
-  push:
-    branches: [main]
+  workflow_call:
 
-defaults:
-  run:
-    shell: bash
 
 jobs:
   lint:
+    name: Lint (backoffice)
     uses: ./.github/workflows/lint.yml
     with:
       ref: ${{ github.ref }}
   test:
+    name: Tests (backoffice)
     needs: lint
     uses: ./.github/workflows/test-backoffice.yml
     with:
       ref: ${{ github.ref }}
     secrets: inherit
   deploy:
+    name: Deploy (backoffice)
     needs: test
     runs-on: ubuntu-latest
     steps:
