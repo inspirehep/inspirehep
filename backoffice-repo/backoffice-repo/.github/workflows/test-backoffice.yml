@@ -19,7 +19,7 @@ jobs:
       ref: ${{ inputs.ref }}
       image: cern-sis/inspire/backoffice
       context: ./backoffice
-      dockerfile: ./compose/production/django/Dockerfile
+      dockerfile: Dockerfile
     secrets: inherit
 
   test:
