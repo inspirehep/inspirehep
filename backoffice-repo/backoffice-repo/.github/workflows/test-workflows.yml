@@ -48,11 +48,19 @@ jobs:
           ref: ${{ inputs.ref }}
 
       - name: Test
+        env:
+          AIRFLOW__CORE__EXECUTOR: CeleryExecutor
+          AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres-airflow/airflow
+          AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@postgres-airflow/airflow
+          AIRFLOW__CELERY__BROKER_URL: redis://:@redis:6379/0
+          AIRFLOW__CORE__FERNET_KEY: ""
+          AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "true"
+          AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+          AIRFLOW__API__AUTH_BACKENDS: "airflow.api.auth.backend.basic_auth,airflow.api.auth.backend.session"
         run: >
           docker run
           --network=host
           -v "$(pwd)"/tests:/opt/airflow/tests
-          -v "$(pwd)"/airflow.cfg:/opt/airflow/airflow.cfg
           -v "$(pwd)"/requirements-test.txt:/opt/airflow/requirements-test.txt
           -v "$(pwd)"/data:/opt/airflow/data
           registry.cern.ch/cern-sis/inspire/workflows@${{ needs.build.outputs.image-id }}
