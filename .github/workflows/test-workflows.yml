@@ -43,9 +43,6 @@ jobs:
         with:
           ref: ${{ inputs.ref }}
 
-      - name: Current directory
-        run: echo $(pwd)
-
       - name: Test
         working-directory: ./workflows
         run: >
@@ -55,9 +52,9 @@ jobs:
           -v "$(pwd)"/requirements-test.txt:/opt/airflow/requirements-test.txt
           -v "$(pwd)"/data:/opt/airflow/data
           -e AIRFLOW__CORE__EXECUTOR=CeleryExecutor
-          -e AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres/airflow
-          -e AIRFLOW__CELERY__RESULT_BACKEND=db+postgresql://airflow:airflow@postgres/airflow
-          -e AIRFLOW__CELERY__BROKER_URL=redis://:@redis:6379/0
+          -e AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@127.0.0.1:5432/airflow
+          -e AIRFLOW__CELERY__RESULT_BACKEND=db+postgresql://airflow:airflow@127.0.0.1:5432/airflow
+          -e AIRFLOW__CELERY__BROKER_URL=redis://:@127.0.0.1:6379/0
           -e AIRFLOW__CORE__FERNET_KEY=""
           -e AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION="true"
           -e AIRFLOW__CORE__LOAD_EXAMPLES="false"
