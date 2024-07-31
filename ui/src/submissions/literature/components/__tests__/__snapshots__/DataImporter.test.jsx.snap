@@ -71,7 +71,6 @@ exports[`DataImporter renders with error with a message 1`] = `
   <Row
     align="middle"
     justify="space-between"
-    type="flex"
   >
     <Col>
       <LinkLikeButton
@@ -178,7 +177,6 @@ exports[`DataImporter renders with error with message and recid 1`] = `
   <Row
     align="middle"
     justify="space-between"
-    type="flex"
   >
     <Col>
       <LinkLikeButton
@@ -275,7 +273,6 @@ exports[`DataImporter renders with error without a message 1`] = `
   <Row
     align="middle"
     justify="space-between"
-    type="flex"
   >
     <Col>
       <LinkLikeButton
@@ -354,7 +351,6 @@ exports[`DataImporter renders without error while importing 1`] = `
   <Row
     align="middle"
     justify="space-between"
-    type="flex"
   >
     <Col>
       <LinkLikeButton
