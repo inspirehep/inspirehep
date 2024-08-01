@@ -14,7 +14,7 @@ from backoffice.workflows.api.serializers import (
     WorkflowSerializer,
     WorkflowTicketSerializer,
 )
-from backoffice.workflows.constants import WORKFLOW_DAG, ResolutionDags
+from backoffice.workflows.constants import WORKFLOW_DAGS, ResolutionDags
 from backoffice.workflows.documents import WorkflowDocument
 from backoffice.workflows.models import Workflow, WorkflowTicket
 
@@ -105,11 +105,13 @@ class AuthorWorkflowViewSet(viewsets.ViewSet):
             )
         logger.info(
             "Trigger Airflow DAG: %s for %s",
-            WORKFLOW_DAG[workflow.workflow_type],
+            WORKFLOW_DAGS[workflow.workflow_type].initialize,
             workflow.id,
         )
         return airflow_utils.trigger_airflow_dag(
-            WORKFLOW_DAG[workflow.workflow_type], str(workflow.id), workflow.data
+            WORKFLOW_DAGS[workflow.workflow_type].initialize,
+            str(workflow.id),
+            workflow.data,
         )
 
     @action(detail=True, methods=["post"])
@@ -123,9 +125,21 @@ class AuthorWorkflowViewSet(viewsets.ViewSet):
                 ResolutionDags[serializer.validated_data["value"]],
                 pk,
             )
+
             return airflow_utils.trigger_airflow_dag(
                 ResolutionDags[serializer.validated_data["value"]].label, pk, extra_data
             )
+
+    @action(detail=True, methods=["post"])
+    def restart(self, request, pk=None):
+        workflow = Workflow.objects.get(id=pk)
+
+        if request.data.get("restart_current_task"):
+            return airflow_utils.restart_failed_tasks(workflow)
+
+        return airflow_utils.restart_workflow_dags(
+            workflow.id, workflow.workflow_type, request.data.get("params")
+        )
 
 
 class WorkflowDocumentView(BaseDocumentViewSet):
