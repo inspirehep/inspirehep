@@ -1,16 +1,17 @@
-from unittest.mock import patch
+import uuid
 
+import pytest
 from django.apps import apps
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.test import TransactionTestCase
 from django.urls import reverse
 from opensearch_dsl import Index
-from rest_framework import status
 from rest_framework.test import APIClient
 
+from backoffice.workflows import airflow_utils
 from backoffice.workflows.api.serializers import WorkflowTicketSerializer
-from backoffice.workflows.constants import StatusChoices
+from backoffice.workflows.constants import WORKFLOW_DAGS, StatusChoices, WorkflowType
 from backoffice.workflows.models import WorkflowTicket
 
 User = get_user_model()
@@ -128,7 +129,7 @@ class TestWorkflowPartialUpdateViewSet(BaseTransactionTestCase):
         )
 
         self.assertEqual(response.status_code, 200)
-        workflow = Workflow.objects.filter(id=str(self.workflow.id))[0]
+        workflow = Workflow.objects.filter(id=self.workflow.id)[0]
         assert workflow.status == "running"
 
     def test_patch_admin(self):
@@ -139,7 +140,7 @@ class TestWorkflowPartialUpdateViewSet(BaseTransactionTestCase):
             data={"status": "approval", "data": {"test": "test"}},
         )
 
-        workflow = Workflow.objects.filter(id=str(self.workflow.id))[0]
+        workflow = Workflow.objects.filter(id=self.workflow.id)[0]
         self.assertEqual(response.status_code, 200)
         self.assertEqual(workflow.status, "approval")
         self.assertEqual(
@@ -248,16 +249,35 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
     reset_sequences = True
     fixtures = ["backoffice/fixtures/groups.json"]
 
-    @patch("backoffice.workflows.airflow_utils.requests.post")
-    def test_create_author(self, mock_post):
+    def setUp(self):
+        super().setUp()
+
+        self.workflow = Workflow.objects.create(
+            data={},
+            status="running",
+            core=True,
+            is_update=False,
+            workflow_type=WorkflowType.AUTHOR_CREATE,
+            id=uuid.UUID(int=0),
+        )
+        airflow_utils.trigger_airflow_dag(
+            WORKFLOW_DAGS[self.workflow.workflow_type].initialize,
+            self.workflow.id,
+            self.workflow.data,
+        )
+
+    def tearDown(self):
+        super().tearDown()
+        airflow_utils.delete_workflow_dag(
+            WORKFLOW_DAGS[self.workflow.workflow_type].initialize, self.workflow.id
+        )
+
+    @pytest.mark.vcr()
+    def test_create_author(self):
         self.api_client.force_authenticate(user=self.curator)
 
-        mock_response = mock_post.return_value
-        mock_response.status_code = status.HTTP_200_OK
-        mock_response.json.return_value = {"key": "value"}
-
         data = {
-            "workflow_type": "AUTHOR_CREATE",
+            "workflow_type": WorkflowType.AUTHOR_CREATE,
             "status": "running",
             "data": {
                 "native_name": "NATIVE_NAME",
@@ -273,38 +293,72 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
 
         self.assertEqual(response.status_code, 200)
 
-    @patch("backoffice.workflows.airflow_utils.requests.post")
-    def test_accept_author(self, mock_post):
+    @pytest.mark.vcr()
+    def test_accept_author(self):
         self.api_client.force_authenticate(user=self.curator)
-
-        mock_response = mock_post.return_value
-        mock_response.status_code = status.HTTP_200_OK
-        mock_response.json.return_value = {"key": "value"}
-
         data = {"create_ticket": True, "value": "accept"}
 
         response = self.api_client.post(
-            reverse("api:workflows-authors-resolve", kwargs={"pk": "WORKFLOW_ID"}),
+            reverse("api:workflows-authors-resolve", kwargs={"pk": self.workflow.id}),
             format="json",
             data=data,
         )
 
         self.assertEqual(response.status_code, 200)
 
-    @patch("backoffice.workflows.airflow_utils.requests.post")
-    def test_reject_author(self, mock_post):
+        airflow_utils.delete_workflow_dag(
+            WORKFLOW_DAGS[WorkflowType.AUTHOR_CREATE].approve, self.workflow.id
+        )
+
+    @pytest.mark.vcr()
+    def test_reject_author(self):
         self.api_client.force_authenticate(user=self.curator)
-
-        mock_response = mock_post.return_value
-        mock_response.status_code = status.HTTP_200_OK
-        mock_response.json.return_value = {"key": "value"}
-
         data = {"create_ticket": True, "value": "reject"}
 
         response = self.api_client.post(
-            reverse("api:workflows-authors-resolve", kwargs={"pk": "WORKFLOW_ID"}),
+            reverse("api:workflows-authors-resolve", kwargs={"pk": self.workflow.id}),
             format="json",
             data=data,
         )
 
+        self.assertEqual(response.status_code, 200)
+
+        airflow_utils.delete_workflow_dag(
+            WORKFLOW_DAGS[WorkflowType.AUTHOR_CREATE].reject, self.workflow.id
+        )
+
+    @pytest.mark.vcr()
+    def test_restart_full_dagrun(self):
+        self.api_client.force_authenticate(user=self.curator)
+        url = reverse(
+            "api:workflows-authors-restart",
+            kwargs={"pk": self.workflow.id},
+        )
+        response = self.api_client.post(url)
+
+        self.assertEqual(response.status_code, 200)
+
+    @pytest.mark.vcr()
+    def test_restart_a_task(self):
+        self.api_client.force_authenticate(user=self.curator)
+        url = reverse(
+            "api:workflows-authors-restart",
+            kwargs={"pk": self.workflow.id},
+        )
+        response = self.api_client.post(
+            url, json={"task_ids": ["set_workflow_status_to_running"]}
+        )
+        self.assertEqual(response.status_code, 200)
+
+    @pytest.mark.vcr()
+    def test_restart_with_params(self):
+        self.api_client.force_authenticate(user=self.curator)
+        url = reverse(
+            "api:workflows-authors-restart",
+            kwargs={"pk": self.workflow.id},
+        )
+
+        response = self.api_client.post(
+            url, json={"params": {"workflow_id": self.workflow.id}}
+        )
         self.assertEqual(response.status_code, 200)
