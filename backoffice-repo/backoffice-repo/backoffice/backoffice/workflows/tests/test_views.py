@@ -1,5 +1,7 @@
 import uuid
 
+import dateutil
+import dateutil.parser
 import pytest
 from django.apps import apps
 from django.contrib.auth import get_user_model
@@ -362,3 +364,102 @@ class TestAuthorWorkflowViewSet(BaseTransactionTestCase):
             url, json={"params": {"workflow_id": self.workflow.id}}
         )
         self.assertEqual(response.status_code, 200)
+
+
+class TestWorkflowSearchFilterViewSet(BaseTransactionTestCase):
+    endpoint = "/api/workflows/search/"
+    reset_sequences = True
+    fixtures = ["backoffice/fixtures/groups.json"]
+
+    def setUp(self):
+        super().setUp()
+
+        Workflow.objects.create(
+            data={},
+            status=StatusChoices.APPROVAL,
+            core=True,
+            is_update=False,
+            workflow_type=WorkflowType.AUTHOR_CREATE,
+        )
+        Workflow.objects.create(
+            data={},
+            status=StatusChoices.RUNNING,
+            core=True,
+            is_update=False,
+            workflow_type=WorkflowType.AUTHOR_CREATE,
+        )
+
+    def test_facets(self):
+        self.api_client.force_authenticate(user=self.admin)
+
+        response = self.api_client.get(reverse("search:workflow-list"))
+
+        assert "_filter_status" in response.json()["facets"]
+        assert "_filter_workflow_type" in response.json()["facets"]
+
+    def test_search_status(self):
+        self.api_client.force_authenticate(user=self.admin)
+
+        url = (
+            reverse("search:workflow-list") + f"?search=status:{StatusChoices.RUNNING}"
+        )
+
+        response = self.api_client.get(url)
+
+        for item in response.json()["results"]:
+            print(item["status"])
+            assert item["status"] == StatusChoices.RUNNING
+
+    def test_search_workflow_type(self):
+        self.api_client.force_authenticate(user=self.admin)
+
+        url = (
+            reverse("search:workflow-list")
+            + f"?search=workflow_type:{WorkflowType.HEP_CREATE}"
+        )
+
+        response = self.api_client.get(url)
+
+        for item in response.json()["results"]:
+            print(item["workflow_type"])
+            assert item["workflow_type"] == WorkflowType.HEP_CREATE
+
+    def test_filter_status(self):
+        self.api_client.force_authenticate(user=self.admin)
+
+        url = reverse("search:workflow-list") + f'?status="={StatusChoices.RUNNING}'
+
+        response = self.api_client.get(url)
+
+        for item in response.json()["results"]:
+            assert item["status"] == StatusChoices.RUNNING
+
+    def test_filter_workflow_type(self):
+        self.api_client.force_authenticate(user=self.admin)
+
+        url = (
+            reverse("search:workflow-list")
+            + f'?workflow_type="={WorkflowType.AUTHOR_CREATE}'
+        )
+
+        response = self.api_client.get(url)
+
+        for item in response.json()["results"]:
+            assert item["workflow_type"] == WorkflowType.AUTHOR_CREATE
+
+    def test_ordering(self):
+        self.api_client.force_authenticate(user=self.admin)
+
+        base_url = reverse("search:workflow-list")
+
+        urls = [base_url, base_url + "?ordering=-_updated_at"]
+
+        for url in urls:
+            response = self.api_client.get(url)
+
+            previous_date = None
+            for item in response.json()["results"]:
+                cur_date = dateutil.parser.parse(item["_updated_at"])
+                if previous_date is not None:
+                    assert cur_date < previous_date
+                previous_date = cur_date
