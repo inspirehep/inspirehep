@@ -132,17 +132,14 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
     dispatch(fetchAuthor(id));
   }, []);
 
-  const workflow = author?.getIn(['data', '_workflow']) as Map<any, any>;
-  const metadata = author?.getIn(['data', 'metadata']) as Map<any, any>;
-  const extraData = author?.getIn(['data', '_extra_data']) as Map<any, any>;
+  const data = author?.get('data') as Map<any, any>;
 
   const OPEN_SECTIONS = [
-    metadata?.get('positions') && 'institutions',
-    metadata?.get('project_membership') && 'projects',
-    metadata?.get('urls') && 'links',
-    (metadata?.get('arxiv_categories') || metadata?.get('.advisors')) &&
-      'other',
-    extraData?.get('_error_msg') && 'errors',
+    data?.get('positions') && 'institutions',
+    data?.get('project_membership') && 'projects',
+    (data?.get('urls') || data?.get('ids')) && 'links',
+    (data?.get('arxiv_categories') || data?.get('.advisors')) && 'other',
+    author?.get('_error_msg') && 'errors',
     'delete',
   ].filter(Boolean);
 
@@ -154,26 +151,26 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
       <Breadcrumbs
         title1="Search"
         href1={`${document.referrer}`}
-        title2={(metadata?.getIn(['name', 'value']) as string) || 'Details'}
+        title2={(data?.getIn(['name', 'value']) as string) || 'Details'}
         href2={id}
       />
       <LoadingOrChildren loading={loading}>
         <Row justify="center">
           <Col xs={24} md={22} lg={21} xxl={18}>
-            {workflow?.get('status') && (
+            {author?.get('status') && (
               <Row className="mv3" justify="center" gutter={35}>
                 <Col xs={24}>
                   <div
-                    className={`bg-${workflow
-                      ?.get('status')
-                      ?.toLowerCase()} w-100`}
+                    className={`bg-${author?.get('status')?.toLowerCase()} ${
+                      author?.get('status') === 'error' ? 'white' : ''
+                    } w-100`}
                   >
                     <p className="b f3 tc pv2">
-                      {workflow?.get('status')}
-                      {workflow?.get('status') !== 'COMPLETED'
+                      {author?.get('status').toUpperCase()}
+                      {author?.get('status') !== 'completed'
                         ? ` on: "${
-                            extraData?.get('_message') ||
-                            extraData?.get('_last_task_name')
+                            author?.get('_message') ||
+                            author?.get('_last_task_name')
                           }"`
                         : ''}
                     </p>
@@ -184,29 +181,30 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
             <Row className="mv3" justify="center" gutter={35}>
               <Col xs={24} lg={16}>
                 <ContentBox fullHeight={false} className="md-pb3 mb3">
-                  <h2>{metadata?.getIn(['name', 'value'])}</h2>
-                  {metadata?.getIn(['name', 'preferred_name']) && (
+                  <h2>{data?.getIn(['name', 'value'])}</h2>
+                  {data?.getIn(['name', 'preferred_name']) && (
                     <p>
                       <b>Preferred name:</b>{' '}
-                      {metadata?.getIn(['name', 'preferred_name'])}
+                      {data?.getIn(['name', 'preferred_name'])}
                     </p>
                   )}
-                  {metadata?.get('status') && (
+                  {data?.get('status') && (
                     <p>
-                      <b>Status:</b> {metadata?.get('status')}
+                      <b>Status:</b> {data?.get('status')}
                     </p>
                   )}
-                  {metadata?.getIn(['acquisition_source', 'orcid']) && (
+                  {data?.getIn(['acquisition_source', 'orcid']) && (
                     <p className="mb0">
                       <b>ORCID:</b>{' '}
                       <a
-                        href={`https://orcid.org/my-orcid?orcid=${metadata?.getIn(
-                          ['acquisition_source', 'orcid']
-                        )}`}
+                        href={`https://orcid.org/my-orcid?orcid=${data?.getIn([
+                          'acquisition_source',
+                          'orcid',
+                        ])}`}
                         target="_blank"
                         rel="noreferrer"
                       >
-                        {metadata?.getIn(['acquisition_source', 'orcid'])}
+                        {data?.getIn(['acquisition_source', 'orcid'])}
                       </a>
                     </p>
                   )}
@@ -218,7 +216,7 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
                   >
                     <Table
                       columns={columnsInstitutions}
-                      dataSource={metadata?.get('positions')?.toJS()}
+                      dataSource={data?.get('positions')?.toJS()}
                       pagination={false}
                       size="small"
                       rowKey={(record) =>
@@ -232,15 +230,38 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
                   >
                     <Table
                       columns={columnsProjects}
-                      dataSource={metadata?.get('project_membership')?.toJS()}
+                      dataSource={data?.get('project_membership')?.toJS()}
                       pagination={false}
                       size="small"
                       rowKey={(record) => `${record?.name}+${Math.random()}`}
                     />
                   </CollapsableForm.Section>
-                  {metadata?.get('urls') && (
+                  {data?.get('urls') && (
                     <CollapsableForm.Section header="Links" key="links">
-                      {metadata?.get('urls')?.map((link: Map<string, any>) => (
+                      {data?.get('ids')?.map((link: Map<string, any>) => (
+                        <p key={link?.get('value')}>
+                          <LinkOutlined />
+                          {link?.get('schema') && (
+                            <b className="dib ml1 ttc">
+                              {link?.get('schema').toLowerCase()}:
+                            </b>
+                          )}{' '}
+                          <a
+                            href={
+                              link?.get('schema') === 'LINKEDIN'
+                                ? `https://www.linkedin.com/in/${link?.get(
+                                    'value'
+                                  )}`
+                                : `https://orcid.org/my-orcid?orcid=${link?.get(
+                                    'value'
+                                  )}`
+                            }
+                          >
+                            {link?.get('value')}
+                          </a>
+                        </p>
+                      ))}
+                      {data?.get('urls')?.map((link: Map<string, any>) => (
                         <p key={link?.get('value')}>
                           <LinkOutlined />
                           {link?.get('description') && (
@@ -259,7 +280,7 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
                         <h3 className="mb3">Subject areas</h3>
                         <Table
                           columns={columnsSubject}
-                          dataSource={metadata
+                          dataSource={data
                             ?.get('arxiv_categories')
                             ?.toJS()
                             ?.map((term: string) => ({ term }))}
@@ -274,7 +295,7 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
                         <h3 className="mb3">Advisors</h3>
                         <Table
                           columns={columnsAdvisors}
-                          dataSource={metadata?.get('advisors')?.toJS()}
+                          dataSource={data?.get('advisors')?.toJS()}
                           pagination={false}
                           size="small"
                           rowKey={(record) =>
@@ -284,10 +305,10 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
                       </Col>
                     </Row>
                   </CollapsableForm.Section>
-                  {extraData?.get('_error_msg') && (
+                  {author?.get('_error_msg') && (
                     <CollapsableForm.Section header="Errors" key="errors">
                       <div className="bg-waiting error-code">
-                        {extraData?.get('_error_msg')}
+                        {author?.get('_error_msg')}
                       </div>
                     </CollapsableForm.Section>
                   )}
@@ -323,19 +344,16 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
                   subTitle="Submission"
                 >
                   Submitted by{' '}
-                  <i>{metadata?.getIn(['acquisition_source', 'email'])}</i> on{' '}
+                  <i>{data?.getIn(['acquisition_source', 'email'])}</i> on{' '}
                   <b>
                     {new Date(
-                      metadata?.getIn([
-                        'acquisition_source',
-                        'datetime',
-                      ]) as Date
+                      data?.getIn(['acquisition_source', 'datetime']) as Date
                     ).toLocaleDateString()}
                   </b>
                   .
                 </ContentBox>
                 {/* TODO: find out how notes are stored in workflow */}
-                {metadata?.get('notes') && (
+                {data?.get('notes') && (
                   <ContentBox
                     className="mb3"
                     fullHeight={false}
@@ -349,9 +367,13 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
                   fullHeight={false}
                   subTitle="SNow information"
                 >
-                  {extraData?.get('ticket_id') && (
-                    <a href={extraData?.get('ticket_url')} target="_blank">
-                      See related ticket #{extraData?.get('ticket_id')}
+                  {author?.get('ticket_id') && (
+                    <a
+                      href={author?.get('ticket_url')}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      See related ticket #{author?.get('ticket_id')}
                     </a>
                   )}
                 </ContentBox>
@@ -367,7 +389,7 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
                     </Button>
                     <Button className="mb2 w-75" type="primary">
                       <a
-                        href={`/editor/holdingpen/${metadata?.get('id')}`}
+                        href={`/editor/holdingpen/${data?.get('id')}`}
                         target="_blank"
                         rel="noreferrer noopener"
                       >
