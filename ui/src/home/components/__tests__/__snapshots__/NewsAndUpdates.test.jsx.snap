@@ -48,7 +48,6 @@ exports[`NewsAndUpdates renders 1`] = `
         />
         <a
           href="https://twitter.com/inspirehep"
-          rel="noopener noreferrer"
           target="_blank"
         >
           Follow us on Twitter

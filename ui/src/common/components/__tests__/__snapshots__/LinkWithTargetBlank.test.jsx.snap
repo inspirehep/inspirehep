@@ -3,7 +3,6 @@
 exports[`LinkWithTargetBlank renders as custom component 1`] = `
 <Button
   href="//example.com"
-  rel="noopener noreferrer"
   target="_blank"
 >
   button example
@@ -13,7 +12,6 @@ exports[`LinkWithTargetBlank renders as custom component 1`] = `
 exports[`LinkWithTargetBlank renders with only href and children 1`] = `
 <a
   href="//example.com"
-  rel="noopener noreferrer"
   target="_blank"
 >
   example
@@ -24,7 +22,6 @@ exports[`LinkWithTargetBlank renders with only href, children and extra props 1`
 <a
   className="test"
   href="//example.com"
-  rel="noopener noreferrer"
   target="_blank"
 >
   example
