@@ -31,13 +31,7 @@ interface SearchPageContainerProps {
 }
 
 const renderResultItem = (item: Map<string, any>) => {
-  return (
-    <AuthorResultItem
-      id={item.get('id')}
-      item={item?.get('data')}
-      key={item.get('id')}
-    />
-  );
+  return <AuthorResultItem item={item} key={item.get('id')} />;
 };
 
 const SearchPageContainer: React.FC<SearchPageContainerProps> = ({
