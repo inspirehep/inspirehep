@@ -1,7 +1,15 @@
 import logging
 
 from django.shortcuts import get_object_or_404
+from django_elasticsearch_dsl_drf.filter_backends import (
+    CompoundSearchFilterBackend,
+    DefaultOrderingFilterBackend,
+    FacetedSearchFilterBackend,
+    FilteringFilterBackend,
+    OrderingFilterBackend,
+)
 from django_elasticsearch_dsl_drf.viewsets import BaseDocumentViewSet
+from opensearch_dsl import TermsFacet
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -150,13 +158,49 @@ class WorkflowDocumentView(BaseDocumentViewSet):
     document = WorkflowDocument
     serializer_class = WorkflowSerializer
     pagination_class = OSStandardResultsSetPagination
-
+    filter_backends = [
+        DefaultOrderingFilterBackend,
+        CompoundSearchFilterBackend,
+        FacetedSearchFilterBackend,
+        FilteringFilterBackend,
+        OrderingFilterBackend,
+    ]
     search_fields = {
         "workflow_type",
         "status",
         "is_update",
     }
-    ordering = ["_updated_at"]
+
+    filter_fields = {"status": "status", "workflow_type": "workflow_type"}
+
+    ordering_fields = {"_updated_at": "_updated_at"}
+
+    ordering = ("-_updated_at",)
+
+    faceted_search_fields = {
+        "status": {
+            "field": "status.keyword",
+            "facet": TermsFacet,
+            "options": {
+                "size": 10,
+                "order": {
+                    "_key": "asc",
+                },
+            },
+            "enabled": True,
+        },
+        "workflow_type": {
+            "field": "workflow_type.keyword",
+            "facet": TermsFacet,
+            "options": {
+                "size": 10,
+                "order": {
+                    "_key": "asc",
+                },
+            },
+            "enabled": True,
+        },
+    }
 
     def get_serializer_class(self):
         return WorkflowDocumentSerializer
