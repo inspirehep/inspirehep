@@ -20,5 +20,5 @@ OPENSEARCH_HOST=opensearch:9200
 OPENSEARCH_INDEX_PREFIX=backoffice-backend-local
 
 # Airflow
-AIRFLOW_BASE_URL=http://host.docker.internal:8080
+AIRFLOW_BASE_URL=http://airflow-webserver:8080
 AIRFLOW_TOKEN=YWlyZmxvdzphaXJmbG93

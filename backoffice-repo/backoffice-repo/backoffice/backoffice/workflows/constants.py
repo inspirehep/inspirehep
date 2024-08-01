@@ -29,15 +29,25 @@ class WorkflowType(models.TextChoices):
 
 DEFAULT_WORKFLOW_TYPE = WorkflowType.HEP_CREATE
 
-# author dags for each workflow type
-WORKFLOW_DAG = {
-    WorkflowType.HEP_CREATE: "",
-    WorkflowType.HEP_UPDATE: "",
-    WorkflowType.AUTHOR_CREATE: "author_create_initialization_dag",
-    WorkflowType.AUTHOR_UPDATE: "author_update_dag",
-}
-
 
 class ResolutionDags(models.TextChoices):
     accept = "accept", "author_create_approved_dag"
     reject = "reject", "author_create_rejected_dag"
+
+
+class AuthorCreateDags(models.TextChoices):
+    initialize = "author_create_initialization_dag", "initialize"
+    approve = "author_create_approved_dag", "approve"
+    reject = "author_create_rejected_dag", "reject"
+
+
+class AuthorUpdateDags(models.TextChoices):
+    initialize = "author_update_dag", "initialize"
+
+
+WORKFLOW_DAGS = {
+    WorkflowType.HEP_CREATE: "",
+    WorkflowType.HEP_UPDATE: "",
+    WorkflowType.AUTHOR_CREATE: AuthorCreateDags,
+    WorkflowType.AUTHOR_UPDATE: AuthorUpdateDags,
+}
