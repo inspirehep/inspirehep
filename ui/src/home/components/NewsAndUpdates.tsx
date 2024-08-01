@@ -88,11 +88,7 @@ const NewsAndUpdates = () => {
         <Col className="mt5">
           <p className="tc">
             <img className="logo mr2" src={twitterLogo} alt="Twitter logo" />
-            <a
-              href="https://twitter.com/inspirehep"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href="https://twitter.com/inspirehep" target="_blank">
               Follow us on Twitter
             </a>
           </p>

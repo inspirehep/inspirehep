@@ -7,7 +7,6 @@ exports[`APIButton renders APIButton 1`] = `
   >
     <a
       href="https://inspirebeta.net/api/authors/1306569"
-      rel="noopener noreferrer"
       target="_blank"
     >
       <span

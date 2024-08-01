@@ -14,7 +14,6 @@ function LinkWithTargetBlank({ as, ...anchorProps }: LinkWithTargetBlankProps) {
   const externalLinkProps = {
     ...anchorProps,
     target: '_blank',
-    rel: 'noopener noreferrer',
   };
 
   return createElement(as, externalLinkProps);

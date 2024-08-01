@@ -350,11 +350,7 @@ const AuthorDetailPageContainer: React.FC<AuthorDetailPageContainerProps> = ({
                   subTitle="SNow information"
                 >
                   {extraData?.get('ticket_id') && (
-                    <a
-                      href={extraData?.get('ticket_url')}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
+                    <a href={extraData?.get('ticket_url')} target="_blank">
                       See related ticket #{extraData?.get('ticket_id')}
                     </a>
                   )}
