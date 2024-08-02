@@ -74,7 +74,6 @@ class TestWorkflowViewSet(BaseTransactionTestCase):
         self.assertEqual(response.status_code, 403)
 
 
-# @pytest.mark.usefixtures("rebuild_opensearch_index")
 class TestWorkflowSearchViewSet(BaseTransactionTestCase):
     endpoint = "/api/workflows/search/"
     reset_sequences = True
@@ -109,7 +108,7 @@ class TestWorkflowSearchViewSet(BaseTransactionTestCase):
         self.assertEqual(response.status_code, 403)
 
 
-class TestWorkflowPartialUpdateViewSet(BaseTransactionTestCase):
+class TestAuthorWorkflowPartialUpdateViewSet(BaseTransactionTestCase):
     endpoint_base_url = "/api/workflow-update"
     reset_sequences = True
     fixtures = ["backoffice/fixtures/groups.json"]
@@ -122,7 +121,10 @@ class TestWorkflowPartialUpdateViewSet(BaseTransactionTestCase):
 
     @property
     def endpoint(self):
-        return f"{self.endpoint_base_url}/{self.workflow.id}/"
+        return reverse(
+            "api:workflows-authors-detail",
+            kwargs={"pk": self.workflow.id},
+        )
 
     def test_patch_curator(self):
         self.api_client.force_authenticate(user=self.curator)
@@ -427,7 +429,7 @@ class TestWorkflowSearchFilterViewSet(BaseTransactionTestCase):
     def test_filter_status(self):
         self.api_client.force_authenticate(user=self.admin)
 
-        url = reverse("search:workflow-list") + f'?status="={StatusChoices.RUNNING}'
+        url = reverse("search:workflow-list") + f"?status={StatusChoices.RUNNING}"
 
         response = self.api_client.get(url)
 
