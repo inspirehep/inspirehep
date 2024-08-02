@@ -3,7 +3,7 @@ import logging
 
 from airflow.decorators import dag, task
 from airflow.models.param import Param
-from hooks.backoffice.workflow_management_hook import WorkflowManagementHook
+from hooks.backoffice.workflow_management_hook import AUTHORS, WorkflowManagementHook
 from hooks.backoffice.workflow_ticket_management_hook import (
     WorkflowTicketManagementHook,
 )
@@ -43,7 +43,9 @@ def author_create_initialization_dag():
     def set_workflow_status_to_running(**context):
         status_name = "running"
         workflow_management_hook.set_workflow_status(
-            status_name=status_name, workflow_id=context["params"]["workflow_id"]
+            status_name=status_name,
+            workflow_id=context["params"]["workflow_id"],
+            typ=AUTHORS,
         )
 
     @task()
@@ -52,6 +54,7 @@ def author_create_initialization_dag():
         workflow_management_hook.partial_update_workflow(
             workflow_id=context["params"]["workflow_id"],
             workflow_partial_update_data={"data": {"$schema": schema}},
+            typ=AUTHORS,
         )
 
     @task()
@@ -80,7 +83,9 @@ def author_create_initialization_dag():
     def set_author_create_workflow_status_to_approval(**context: dict) -> None:
         status_name = "approval"
         workflow_management_hook.set_workflow_status(
-            status_name=status_name, workflow_id=context["params"]["workflow_id"]
+            status_name=status_name,
+            workflow_id=context["params"]["workflow_id"],
+            typ=AUTHORS,
         )
 
     # task dependencies

@@ -2,7 +2,7 @@ import datetime
 
 from airflow.decorators import dag, task
 from airflow.models.param import Param
-from hooks.backoffice.workflow_management_hook import WorkflowManagementHook
+from hooks.backoffice.workflow_management_hook import AUTHORS, WorkflowManagementHook
 from hooks.backoffice.workflow_ticket_management_hook import (
     WorkflowTicketManagementHook,
 )
@@ -46,7 +46,9 @@ def author_update_dag():
     def set_author_update_workflow_status_to_running(**context):
         status_name = "running"
         workflow_management_hook.set_workflow_status(
-            status_name=status_name, workflow_id=context["params"]["workflow_id"]
+            status_name=status_name,
+            workflow_id=context["params"]["workflow_id"],
+            typ=AUTHORS,
         )
 
     @task()
@@ -92,7 +94,9 @@ def author_update_dag():
     def set_author_update_workflow_status_to_completed(**context):
         status_name = "completed"
         workflow_management_hook.set_workflow_status(
-            status_name=status_name, workflow_id=context["params"]["workflow_id"]
+            status_name=status_name,
+            workflow_id=context["params"]["workflow_id"],
+            typ=AUTHORS,
         )
 
     @task.branch(provide_context=True)
@@ -110,7 +114,9 @@ def author_update_dag():
         ti = context["ti"]
         status_name = ti.xcom_pull(task_ids="update_author_on_inspire")
         workflow_management_hook.set_workflow_status(
-            status_name=status_name, workflow_id=context["params"]["workflow_id"]
+            status_name=status_name,
+            workflow_id=context["params"]["workflow_id"],
+            typ=AUTHORS,
         )
 
     # task definitions
