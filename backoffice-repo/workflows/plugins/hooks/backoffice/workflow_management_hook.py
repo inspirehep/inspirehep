@@ -1,6 +1,9 @@
 from hooks.backoffice.base import BackofficeHook
 from requests import Response
 
+AUTHORS = "authors"
+LITERATURE = "literature"
+
 
 class WorkflowManagementHook(BackofficeHook):
     """
@@ -13,7 +16,9 @@ class WorkflowManagementHook(BackofficeHook):
     :type http_conn_id: str
     """
 
-    def set_workflow_status(self, status_name: str, workflow_id: str) -> Response:
+    def set_workflow_status(
+        self, status_name: str, workflow_id: str, typ: str
+    ) -> Response:
         """
         Updates the status of a workflow in the backoffice system.
 
@@ -21,12 +26,13 @@ class WorkflowManagementHook(BackofficeHook):
         :type status: str
         :param workflow_id: The ID of the workflow to update.
         :type workflow_id: str
+        :type typ: str - either authors or hep
         """
         request_data = {
             "status": status_name,
         }
         return self.partial_update_workflow(
-            workflow_partial_update_data=request_data, workflow_id=workflow_id
+            workflow_partial_update_data=request_data, workflow_id=workflow_id, typ=typ
         )
 
     def get_workflow(self, workflow_id: str) -> dict:
@@ -47,9 +53,9 @@ class WorkflowManagementHook(BackofficeHook):
         )
 
     def partial_update_workflow(
-        self, workflow_id: str, workflow_partial_update_data: dict
+        self, workflow_id: str, workflow_partial_update_data: dict, typ: str
     ) -> Response:
-        endpoint = f"api/workflow-update/{workflow_id}/"
+        endpoint = f"api/workflows/{typ}/{workflow_id}/"
         return self.run_with_advanced_retry(
             _retry_args=self.tenacity_retry_kwargs,
             method="PATCH",
