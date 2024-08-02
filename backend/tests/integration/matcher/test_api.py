@@ -1251,3 +1251,159 @@ def test_fuzzy_match_returns_control_numbers_if_multiple_matches(inspire_app):
 
     assert matched_record_1["control_number"] in result_control_numbers
     assert matched_record_2["control_number"] in result_control_numbers
+
+
+def test_fuzzy_match_only_matches_first_three_authors(inspire_app):
+    incorrect_match = {
+        "$schema": "https://inspirehep.net/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "titles": [
+            {
+                "title": "This is a test title",
+            },
+        ],
+        "authors": [
+            {"full_name": "Yilmaz, Ali"},
+        ],
+        "document_type": ["article"],
+        "abstracts": [
+            {
+                "value": "Test abstract",
+                "source": "Elsevier B.V.",
+            }
+        ],
+    }
+
+    create_record("lit", incorrect_match)
+
+    correct_match = {
+        "$schema": "https://inspirehep.net/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "titles": [
+            {
+                "title": "This is a test title",
+            },
+        ],
+        "authors": [
+            {"full_name": "Yilmaz, Ali"},
+            {
+                "full_name": "Yilmaz, Franz",
+            },
+            {"full_name": "Mueller, Marius", "inspire_roles": ["supervisor"]},
+        ],
+        "document_type": ["article"],
+        "abstracts": [
+            {
+                "value": "Test abstract",
+                "source": "Elsevier B.V.",
+            }
+        ],
+    }
+
+    record_match_2 = create_record("lit", correct_match)
+
+    record = {
+        "_collections": ["Literature"],
+        "titles": [
+            {
+                "title": "This is a test title",
+            },
+        ],
+        "authors": [
+            {"full_name": "Yilmaz, Ali"},
+            {"full_name": "Yilmaz, Franz"},
+            {"full_name": "Mueller, Marius", "inspire_roles": ["supervisor"]},
+        ],
+        "document_type": ["article"],
+        "abstracts": [
+            {
+                "value": "Test abstract",
+                "source": "Elsevier B.V.",
+            }
+        ],
+    }
+
+    matches = fuzzy_match_literature_data(record)
+    assert matches
+
+    # assert the result with all authors comes as a first result
+    matched_control_numbers = [record["control_number"] for record in matches]
+    assert record_match_2["control_number"] == matched_control_numbers[0]
+
+
+def test_fuzzy_match_only_matches_first_author_when_thesis(inspire_app):
+    correct_match = {
+        "$schema": "https://inspirehep.net/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "titles": [
+            {
+                "title": "This is a test title",
+            },
+        ],
+        "authors": [
+            {"full_name": "Yilmaz, Ali"},
+        ],
+        "document_type": ["article"],
+        "abstracts": [
+            {
+                "value": "Test abstract",
+                "source": "Elsevier B.V.",
+            }
+        ],
+    }
+
+    record_match_1 = create_record("lit", correct_match)
+
+    incorrect_match = {
+        "$schema": "https://inspirehep.net/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "titles": [
+            {
+                "title": "This is a test title",
+            },
+        ],
+        "authors": [
+            {"full_name": "Yilmaz, Ali"},
+            {
+                "full_name": "Yilmaz, Franz",
+            },
+            {"full_name": "Mueller, Marius", "inspire_roles": ["supervisor"]},
+        ],
+        "document_type": ["article"],
+        "abstracts": [
+            {
+                "value": "Test abstract",
+                "source": "Elsevier B.V.",
+            }
+        ],
+    }
+
+    create_record("lit", incorrect_match)
+
+    record = {
+        "_collections": ["Literature"],
+        "titles": [
+            {
+                "title": "This is a test title",
+            },
+        ],
+        "authors": [
+            {"full_name": "Yilmaz, Ali"},
+            {"full_name": "Yilmaz, Franz"},
+            {"full_name": "Mueller, Marius", "inspire_roles": ["supervisor"]},
+        ],
+        "document_type": ["thesis"],
+        "abstracts": [
+            {
+                "value": "Test abstract",
+                "source": "Elsevier B.V.",
+            }
+        ],
+    }
+
+    matches = fuzzy_match_literature_data(record)
+    assert matches
+
+    # assert the result with only the first author comes as a first result
+    matched_control_numbers = [record["control_number"] for record in matches]
+    assert record_match_1["control_number"] == matched_control_numbers[0]
