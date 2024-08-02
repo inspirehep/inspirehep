@@ -5,6 +5,8 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+from copy import deepcopy
+
 from inspire_matcher.config import MATCHER_DEFAULT_CONFIGURATION as exact_match
 
 from .validators import authors_validator
@@ -395,5 +397,28 @@ FUZZY_LITERATURE_MATCH_CONFIG = {
         "earliest_date",
     ],
 }
+
+
+FUZZY_LITERATURE_THESIS_MATCH_CONFIG = deepcopy(FUZZY_LITERATURE_MATCH_CONFIG)
+# We only consider the first author (as the following authors are usually supervisors who should not be considered for matching)
+# https://github.com/cern-sis/issues-inspire/issues/349
+FUZZY_LITERATURE_THESIS_MATCH_CONFIG["algorithm"][0]["queries"][0]["clauses"] = [
+    {
+        "boost": 20,
+        "path": "abstracts",
+    },
+    {
+        "boost": 10,
+        "path": "authors[:1]",
+    },
+    {
+        "boost": 20,
+        "path": "titles",
+    },
+    {
+        "boost": 10,
+        "path": "report_numbers",
+    },
+]
 
 EXACT_LITERATURE_MATCH_CONFIG = exact_match
