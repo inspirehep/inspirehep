@@ -45,7 +45,7 @@ def author_create_initialization_dag():
         workflow_management_hook.set_workflow_status(
             status_name=status_name,
             workflow_id=context["params"]["workflow_id"],
-            typ=AUTHORS,
+            collection=AUTHORS,
         )
 
     @task()
@@ -54,7 +54,7 @@ def author_create_initialization_dag():
         workflow_management_hook.partial_update_workflow(
             workflow_id=context["params"]["workflow_id"],
             workflow_partial_update_data={"data": {"$schema": schema}},
-            typ=AUTHORS,
+            collection=AUTHORS,
         )
 
     @task()
@@ -85,7 +85,7 @@ def author_create_initialization_dag():
         workflow_management_hook.set_workflow_status(
             status_name=status_name,
             workflow_id=context["params"]["workflow_id"],
-            typ=AUTHORS,
+            collection=AUTHORS,
         )
 
     # task dependencies

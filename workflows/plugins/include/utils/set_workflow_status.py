@@ -37,7 +37,9 @@ def set_workflow_status_to_error(context: dict) -> None:
     """
     logger.info("Setting workflow status to error")
     response = WorkflowManagementHook().set_workflow_status(
-        status_name="error", workflow_id=context["params"]["workflow_id"], typ=AUTHORS
+        status_name="error",
+        workflow_id=context["params"]["workflow_id"],
+        collection=AUTHORS,
     )
     try:
         response.raise_for_status()

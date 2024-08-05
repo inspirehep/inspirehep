@@ -17,7 +17,7 @@ class WorkflowManagementHook(BackofficeHook):
     """
 
     def set_workflow_status(
-        self, status_name: str, workflow_id: str, typ: str
+        self, status_name: str, workflow_id: str, collection: str
     ) -> Response:
         """
         Updates the status of a workflow in the backoffice system.
@@ -32,7 +32,9 @@ class WorkflowManagementHook(BackofficeHook):
             "status": status_name,
         }
         return self.partial_update_workflow(
-            workflow_partial_update_data=request_data, workflow_id=workflow_id, typ=typ
+            workflow_partial_update_data=request_data,
+            workflow_id=workflow_id,
+            collection=collection,
         )
 
     def get_workflow(self, workflow_id: str) -> dict:
@@ -53,9 +55,9 @@ class WorkflowManagementHook(BackofficeHook):
         )
 
     def partial_update_workflow(
-        self, workflow_id: str, workflow_partial_update_data: dict, typ: str
+        self, workflow_id: str, workflow_partial_update_data: dict, collection: str
     ) -> Response:
-        endpoint = f"api/workflows/{typ}/{workflow_id}/"
+        endpoint = f"api/workflows/{collection}/{workflow_id}/"
         return self.run_with_advanced_retry(
             _retry_args=self.tenacity_retry_kwargs,
             method="PATCH",
