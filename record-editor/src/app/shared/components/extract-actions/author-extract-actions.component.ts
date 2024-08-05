@@ -108,8 +108,16 @@ export class AuthorExtractActionsComponent {
     }
   }
 
-  get sourceType(): 'text' | 'url' {
+  get sourceType(): 'text' | 'url' | 'xml' {
     const isUrl = this.source.startsWith('http') && this.source.length < 2048;
-    return isUrl ? 'url' : 'text';
+    if (isUrl) {
+      return 'url';
+    }
+
+    const isXml = this.source.startsWith('<collaborationauthorlist');
+    if (isXml) {
+      return 'xml';
+    }
+    return 'text';
   }
 }

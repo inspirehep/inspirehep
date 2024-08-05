@@ -629,6 +629,108 @@ def test_authorlist_text(inspire_app):
     assert expected == result
 
 
+def test_authorlist_xml(inspire_app, datadir):
+    schema = load_schema("hep")
+    subschema = schema["properties"]["authors"]
+    user = create_user(role=Roles.cataloger.value)
+    xml_content = (datadir / "author_list.xml").read_text()
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/editor/authorlist/xml",
+            content_type="application/json",
+            data=orjson.dumps(
+                {
+                    "xml": xml_content,
+                }
+            ),
+        )
+
+    assert response.status_code == 200
+    expected = {
+        "authors": [
+            {
+                "full_name": "Finger, Michael, Jr.",
+                "affiliations": [{"value": "CERN"}],
+                "ids": [
+                    {"value": "INSPIRE-00171357", "schema": "INSPIRE ID"},
+                    {"value": "CERN-391883", "schema": "CERN"},
+                    {"value": "0000-0003-3155-2484", "schema": "ORCID"},
+                ],
+            }
+        ]
+    }
+    result = orjson.loads(response.data)
+
+    assert validate(result["authors"], subschema) is None
+    assert expected == result
+
+
+def test_authorlist_xml_normalizing_affiliations(inspire_app, datadir):
+    schema = load_schema("hep")
+    subschema = schema["properties"]["authors"]
+    user = create_user(role=Roles.cataloger.value)
+    xml_content = (datadir / "author_list.xml").read_text()
+    record = create_record("ins", data={"legacy_ICN": "CERN"})
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+
+        response = client.post(
+            "/editor/authorlist/xml",
+            content_type="application/json",
+            data=orjson.dumps({"xml": xml_content}),
+        )
+
+    assert response.status_code == 200
+
+    expected = {
+        "authors": [
+            {
+                "full_name": "Finger, Michael, Jr.",
+                "affiliations": [
+                    {
+                        "value": "CERN",
+                        "record": {
+                            "$ref": f"http://localhost:5000/api/institutions/{record['control_number']}"
+                        },
+                    }
+                ],
+                "ids": [
+                    {"value": "INSPIRE-00171357", "schema": "INSPIRE ID"},
+                    {"value": "CERN-391883", "schema": "CERN"},
+                    {"value": "0000-0003-3155-2484", "schema": "ORCID"},
+                ],
+            }
+        ]
+    }
+    result = orjson.loads(response.data)
+
+    assert validate(result["authors"], subschema) is None
+    assert expected == result
+
+
+def test_authorlist_xml_exceptions(inspire_app):
+    user = create_user(role=Roles.cataloger.value)
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+
+        response = client.post(
+            "/editor/authorlist/xml",
+            content_type="application/json",
+            data=orjson.dumps({"xml": ""}),
+        )
+
+    assert response.status_code == 400
+    expected = {
+        "message": "Document is empty, line 1, column 1",
+        "status": 400,
+    }
+    result = orjson.loads(response.data)
+
+    assert expected == result
+
+
 def test_authorlist_text_exception(inspire_app):
     user = create_user(role=Roles.cataloger.value)
 
