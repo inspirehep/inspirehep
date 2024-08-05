@@ -14,6 +14,7 @@ from flask import Blueprint, current_app, make_response, request
 from flask_login import current_user
 from inspire_schemas.api import load_schema
 from inspire_utils.dedupers import dedupe_list
+from inspire_utils.parsers.author_xml import AuthorXMLParser
 from invenio_db import db
 from invenio_records.models import RecordMetadata
 from invenio_records_rest.utils import set_headers_for_record_caching_and_concurrency
@@ -25,7 +26,10 @@ from inspirehep.accounts.api import (
 )
 from inspirehep.accounts.decorators import login_required, login_required_with_roles
 from inspirehep.accounts.roles import Roles
-from inspirehep.curation.api import normalize_affiliations
+from inspirehep.curation.api import (
+    assign_institution_reference_to_affiliations,
+    normalize_affiliations,
+)
 from inspirehep.files.api import current_s3_instance
 from inspirehep.matcher.api import get_affiliations_from_pdf, match_references
 from inspirehep.matcher.utils import create_journal_dict, map_refextract_to_schema
@@ -356,6 +360,24 @@ def authorlist_url():
         parsed_authors = get_affiliations_from_pdf(url, **kwargs_to_grobid)
         authors_normalized_affs = normalize_affiliations_for_authors(parsed_authors)
         return jsonify(authors_normalized_affs)
+    except Exception as err:
+        return jsonify(status=400, message=" / ".join(err.args)), 400
+
+
+@blueprint.route("/authorlist/xml", methods=["POST"])
+@login_required_with_roles([Roles.cataloger.value])
+def authorlist_xml():
+    """Normalize affiliations for author xml."""
+    try:
+        parsed_authors = AuthorXMLParser(request.json["xml"]).parse()
+        affiliations = {}
+        for author in parsed_authors:
+            author_affiliations = author.get("affiliations", [])
+            if author_affiliations:
+                assign_institution_reference_to_affiliations(
+                    author_affiliations, affiliations
+                )
+        return jsonify({"authors": parsed_authors})
     except Exception as err:
         return jsonify(status=400, message=" / ".join(err.args)), 400
 
