@@ -57,7 +57,7 @@ def author_create_approved_dag():
         workflow_management_hook.set_workflow_status(
             status_name=status_name,
             workflow_id=context["params"]["workflow_id"],
-            typ=AUTHORS,
+            collection=AUTHORS,
         )
 
     @task.branch()
@@ -134,7 +134,7 @@ def author_create_approved_dag():
         workflow_management_hook.set_workflow_status(
             status_name=status_name,
             workflow_id=context["params"]["workflow_id"],
-            typ=AUTHORS,
+            collection=AUTHORS,
         )
 
     @task
@@ -150,7 +150,7 @@ def author_create_approved_dag():
         workflow_management_hook.set_workflow_status(
             status_name=status_name,
             workflow_id=context["params"]["workflow_id"],
-            typ=AUTHORS,
+            collection=AUTHORS,
         )
 
     # task definitions
