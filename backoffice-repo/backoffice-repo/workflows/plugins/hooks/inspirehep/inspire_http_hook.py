@@ -1,4 +1,3 @@
-import json
 import logging
 
 import requests
@@ -60,6 +59,6 @@ class InspireHttpHook(HttpHook):
             _retry_args=self.tenacity_retry_kwargs,
             endpoint=endpoint,
             headers=self.headers,
-            data=json.dumps(data),
+            data=data,
             method=method,
         )
