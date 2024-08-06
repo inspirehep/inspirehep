@@ -1,4 +1,4 @@
-FROM apache/airflow:2.8.3-python3.11
+FROM apache/airflow:2.9.3-python3.11
 
 WORKDIR /opt/airflow
 
