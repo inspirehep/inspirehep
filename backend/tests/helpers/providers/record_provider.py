@@ -202,7 +202,7 @@ class RecordProvider(BaseProvider):
     def add_dois(cls, dois):
         return cls.generate_special_pids("dois", cls.doi, dois)
 
-    # flake8: noqa: C901
+    # flake8: noqa C901
     def record(
         self,
         record_type,

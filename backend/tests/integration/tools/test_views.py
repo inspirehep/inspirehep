@@ -91,8 +91,10 @@ def literature_records(inspire_app):
 
 def test_generate_bibliography(inspire_app, s3, literature_records, datadir):
     current_s3_instance.client.create_bucket(Bucket="inspire-tmp")
-    with inspire_app.test_client() as client:
-        f = open(f"{datadir}/bibliography_generator_test.tex", "rb")
+    with (
+        inspire_app.test_client() as client,
+        open(f"{datadir}/bibliography_generator_test.tex", "rb") as f,
+    ):
         bytes_file = FileStorage(f)
         data = {"file": bytes_file}
         response = client.post("/bibliography-generator?format=bibtex", data=data)
@@ -112,8 +114,10 @@ def test_generate_bibliography(inspire_app, s3, literature_records, datadir):
 
 def test_generate_bibliography_with_no_references_found(inspire_app, s3, datadir):
     current_s3_instance.client.create_bucket(Bucket="inspire-tmp")
-    with inspire_app.test_client() as client:
-        f = open(f"{datadir}/bibliography_generator_test.tex", "rb")
+    with (
+        inspire_app.test_client() as client,
+        open(f"{datadir}/bibliography_generator_test_no_references.tex", "rb") as f,
+    ):
         bytes_file = FileStorage(f)
         data = {"file": bytes_file}
         response = client.post("/bibliography-generator?format=bibtex", data=data)

@@ -43,7 +43,7 @@ def _split_lists(sequence, chunk_size):
         List[List[Any]]: the split list
     """
     return [
-        sequence[i : i + chunk_size]  # noqa:E203
+        sequence[i : i + chunk_size]  # noqaE203
         for i in range(0, len(sequence), chunk_size)
     ]
 

@@ -93,10 +93,11 @@ def test_facet_configuration_with_fallback_to_default_facet(
     expected = {
         "aggs": {"jessica-jones": {"terms": {"field": "defenders", "size": 20}}}
     }
-    with current_app.test_request_context("?facet_name=defenders"):
-        with override_config(**config):
-            result = get_facet_configuration("records-hep")
-            assert expected == result
+    with current_app.test_request_context("?facet_name=defenders") and override_config(
+        **config
+    ):
+        result = get_facet_configuration("records-hep")
+        assert expected == result
 
 
 def test_setting_recursion_limit():

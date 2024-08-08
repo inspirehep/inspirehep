@@ -204,7 +204,7 @@ def test_bibtex_strips_mathml_with_and_in_title(inspire_app):
     }
     record = create_record("lit", data=data)
 
-    expected_data = f'@article{{{record["control_number"]},\n    title = "{{Inert Higgs \& Dark Matter for CDF II W-Boson Mass and Detection Prospects}}"\n}}\n'  # noqa:W605
+    expected_data = f'@article{{{record["control_number"]},\n    title = "{{Inert Higgs \& Dark Matter for CDF II W-Boson Mass and Detection Prospects}}"\n}}\n'  # noqa W605
     with inspire_app.test_client() as client:
         response = client.get(f"/literature/{record['control_number']}?format=bibtex")
     assert response.get_data(as_text=True) == expected_data

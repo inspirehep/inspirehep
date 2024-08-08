@@ -21,6 +21,6 @@
 
 """ORCID integration module."""
 
-from inspirehep.orcid.builder import OrcidBuilder  # noqa: F401
-from inspirehep.orcid.converter import OrcidConverter  # noqa: F401
-from inspirehep.orcid.ext import InspireOrcid  # noqa: F401
+from inspirehep.orcid.builder import OrcidBuilder  # noqa F401
+from inspirehep.orcid.converter import OrcidConverter  # noqa F401
+from inspirehep.orcid.ext import InspireOrcid  # noqa F401

@@ -18,4 +18,4 @@ class InspireRecords:
     def init_app(self, app):
         """Flask application initialization."""
         app.extensions["inspirehep-records"] = self
-        from inspirehep.records import receivers  # noqa: F401
+        from inspirehep.records import receivers  # noqa F401

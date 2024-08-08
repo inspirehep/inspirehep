@@ -228,7 +228,7 @@ def close_expired_jobs(notify):
     only_jobs_collection = record_json["_collections"].contains(["Jobs"])
     only_not_closed = not_(record_json["status"].astext == "closed")
     only_not_deleted = or_(
-        not_(record_json.has_key("deleted")),  # noqa: W601
+        not_(record_json.has_key("deleted")),  # noqa W601
         not_(record_json["deleted"] == cast(True, JSONB)),
     )
     expired_jobs = RecordMetadata.query.filter(

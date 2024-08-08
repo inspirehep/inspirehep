@@ -169,7 +169,7 @@ def test_create_authors_with_invalid_affiliation():
     """Test case when an affiliation has no valid id."""
     text = "A. Einstein1, N. Bohr2\n" "\n" "ETH\n" "2 Københavns Universitet"
 
-    with pytest.raises(ValueError) as excinfo:
+    with pytest.raises(ValueError, match="idk") as excinfo:
         create_authors(text)
     assert "Cannot identify type of affiliations" in str(excinfo.value)
 
@@ -801,7 +801,7 @@ def test_create_authors_author_blocks_by_affiliation():
         "SLAC, Stanford, USA\n"
     )
 
-    with pytest.raises(ValueError) as excinfo:
+    with pytest.raises(ValueError, match="idk") as excinfo:
         create_authors(text)
     assert "Authors grouped by affiliation? - Comming soon" in str(excinfo.value)
 

@@ -180,7 +180,7 @@ def test_dump_volume():
     assert result == expected
 
 
-def test_dump_volume():
+def test_dump_issue():
     data = {**DEFAULT_DATA_TO_DUMP, "publication_info": [{"journal_issue": "1"}]}
     record = faker.record("lit", data=data)
 
@@ -190,7 +190,7 @@ def test_dump_volume():
     assert result == expected
 
 
-def test_dump_volume():
+def test_dump_year():
     data = {**DEFAULT_DATA_TO_DUMP, "publication_info": [{"year": 2000}]}
     record = faker.record("lit", data=data)
 

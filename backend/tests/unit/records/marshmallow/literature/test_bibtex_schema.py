@@ -298,7 +298,7 @@ def test_isbn_invalid():
     schema = BibTexCommonSchema()
 
     with pytest.raises(NotValidISBNError):
-        schema.dump(record).data
+        schema.dump(record)
 
 
 def test_eprint():
