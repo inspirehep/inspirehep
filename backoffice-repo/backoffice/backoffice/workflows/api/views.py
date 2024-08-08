@@ -194,7 +194,9 @@ class AuthorWorkflowViewSet(viewsets.ViewSet):
         workflow = Workflow.objects.get(id=pk)
 
         if request.data.get("restart_current_task"):
-            return airflow_utils.restart_failed_tasks(workflow)
+            return airflow_utils.restart_failed_tasks(
+                workflow.id, workflow.workflow_type
+            )
 
         return airflow_utils.restart_workflow_dags(
             workflow.id, workflow.workflow_type, request.data.get("params")
