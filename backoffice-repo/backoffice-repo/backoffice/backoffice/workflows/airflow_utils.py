@@ -55,13 +55,15 @@ def restart_failed_tasks(workflow_id, workflow_type):
     :param workflow_type: type of workflow to retrieve
     :returns: request response
     """
+    dag_id = find_failed_dag(str(workflow_id), workflow_type)
+    if dag_id is None:
+        return JsonResponse({"message": "There are no failing tasks, skipping restart"})
 
-    dag_id = find_failed_dag(workflow_id, workflow_type)
     #  assumes current task is one of the failed tasks
     data = {
         "dry_run": False,
         "dag_run_id": str(workflow_id),
-        "reset_dag_runs": False,
+        "reset_dag_runs": True,
         "only_failed": True,
     }
 
