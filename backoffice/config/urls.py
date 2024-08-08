@@ -43,10 +43,6 @@ urlpatterns += [
 ]
 
 
-def sentry_trigger_error(request):
-    division_by_zero = 1 / 0  # noqa
-
-
 if settings.DEBUG:
     # This allows the error pages to be debugged during development, just visit
     # these url in browser to see how these error pages look like.
@@ -67,7 +63,6 @@ if settings.DEBUG:
             kwargs={"exception": Exception("Page not Found")},
         ),
         path("500/", default_views.server_error),
-        path("sentry-debug/", sentry_trigger_error),
     ]
 
     if "debug_toolbar" in settings.INSTALLED_APPS:
