@@ -226,7 +226,7 @@ class AuthorSubmissionsResource(BaseSubmissionsResource):
             )
             self.send_post_request_to_workflows(
                 current_app.config["INSPIRE_BACKOFFICE_URL"],
-                "/api/workflows/",
+                "/api/workflows/authors/",
                 payload_backoffice,
                 current_app.config["AUTHENTICATION_TOKEN_BACKOFFICE"],
                 bearer_keyword="Token",
