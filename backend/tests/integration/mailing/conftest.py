@@ -35,7 +35,7 @@ def mock_job_create_and_update_time(date, data=None):
     return record
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def create_jobs(inspire_app, shared_datadir):
     now_utc = datetime.datetime.utcnow()
 
@@ -88,7 +88,7 @@ def create_jobs(inspire_app, shared_datadir):
     }
 
 
-@pytest.fixture(autouse=True, scope="function")
+@pytest.fixture(autouse=True)
 def assert_all_played(request, vcr_cassette):
     """
     Ensure that all all episodes have been played in the current test.

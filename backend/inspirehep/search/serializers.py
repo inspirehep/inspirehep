@@ -19,7 +19,7 @@ class ORJSONSerializerES(JSONSerializer):
             # this is only way to somehow serialize date during tests as Freezegun is replacing datetime
             # with itself and it's not possible to easily change type back to datetime
             return data.isoformat()
-        raise TypeError("Unable to serialize %r (type: %s)" % (data, type(data)))
+        raise TypeError(f"Unable to serialize {data!r} (type: {type(data)})")
 
     def dumps(self, data):
         if isinstance(data, string_types):

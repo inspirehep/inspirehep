@@ -78,7 +78,7 @@ def create_author_fullname(author_names):
     warnings = []
     fullname = " ".join(author_names)
     if len(author_names) == 1:
-        warnings.append("Author without firstname: %s" % fullname)
+        warnings.append(f"Author without firstname: {fullname}")
     return fullname, warnings
 
 
@@ -225,9 +225,8 @@ def determine_aff_type_character(char_list):
             if aff_type == "alpha":
                 if not char.isalpha():
                     return None
-            elif aff_type == "digit":
-                if not char.isdigit():
-                    return None
+            elif aff_type == "digit" and not char.isdigit():
+                return None
         else:
             if char.isalpha():
                 aff_type = "alpha"

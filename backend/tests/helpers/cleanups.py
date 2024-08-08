@@ -33,9 +33,7 @@ def es_cleanup(es):
         x["aliases"].keys() for x in es.indices.get_alias("*").values()
     )
     existing_mappings = set(chain.from_iterable(existing_mappings_nested))
-    required_mappings = {
-        get_index_alias(index) for index in current_search.mappings.keys()
-    }
+    required_mappings = {get_index_alias(index) for index in current_search.mappings}
     missing_mappings = required_mappings.difference(existing_mappings)
     try:
         if len(missing_mappings):

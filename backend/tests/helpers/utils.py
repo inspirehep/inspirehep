@@ -92,7 +92,9 @@ def create_record(record_type, data=None, **kwargs):
     return record
 
 
-def create_s3_file(bucket, key, data, metadata={}, **kwargs):
+def create_s3_file(bucket, key, data, metadata=None, **kwargs):
+    if metadata is None:
+        metadata = {}
     current_s3_instance.client.put_object(
         Bucket=bucket, Key=key, Body=data, Metadata=metadata, **kwargs
     )
@@ -142,11 +144,13 @@ def orcid_app_cli_runner():
 def generate_records(
     count=10,
     record_type=LiteratureRecord,
-    data={},
+    data=None,
     skip_validation=False,
     with_control_number=True,
 ):
-    for i in range(count):
+    if data is None:
+        data = {}
+    for _i in range(count):
         record_data = faker.record(
             record_type.pid_type,
             data=data,

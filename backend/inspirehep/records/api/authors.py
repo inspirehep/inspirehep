@@ -12,16 +12,15 @@ from invenio_records.api import RecordMetadata
 from sqlalchemy import cast, type_coerce
 from sqlalchemy.dialects.postgresql import JSONB
 
+from inspirehep.pidstore.api import PidStoreAuthors
 from inspirehep.pidstore.api.base import PidStoreBase
+from inspirehep.records.api.base import InspireRecord
 from inspirehep.records.api.mixins import StudentsAdvisorMixin
 from inspirehep.records.marshmallow.authors import AuthorsElasticSearchSchema
 from inspirehep.records.models import RecordCitations, RecordsAuthors
+from inspirehep.records.utils import get_author_by_recid
 from inspirehep.search.api import AuthorsSearch
 from inspirehep.utils import chunker
-
-from ...pidstore.api import PidStoreAuthors
-from ..utils import get_author_by_recid
-from .base import InspireRecord
 
 LOGGER = structlog.getLogger()
 
@@ -80,7 +79,7 @@ class AuthorsRecord(StudentsAdvisorMixin, InspireRecord):
         return record
 
     def assign_author_to_papers(self):
-        from .literature import LiteratureRecord
+        from inspirehep.records.api.literature import LiteratureRecord
 
         author_papers_ids = [
             str(record_control_number)

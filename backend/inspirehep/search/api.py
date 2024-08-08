@@ -24,11 +24,9 @@ from inspirehep.matcher.api import (
     match_reference_control_numbers_with_relaxed_journal_titles,
 )
 from inspirehep.pidstore.api import PidStoreBase
-from inspirehep.search.errors import MaximumSearchPageSizeExceeded
+from inspirehep.search.errors import MalformatedQuery, MaximumSearchPageSizeExceeded
 from inspirehep.search.factories import inspire_query_factory
 from inspirehep.search.utils import RecursionLimit
-
-from .errors import MalformatedQuery
 
 IQ = inspire_query_factory()
 LOGGER = structlog.getLogger()

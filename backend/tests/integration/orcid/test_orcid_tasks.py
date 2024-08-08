@@ -134,7 +134,7 @@ def test_push_account_literature_to_orcid(
     mock_get_literature_recids_for_orcid.return_value = [1]
     orcid = "0000-0001-8829-5461"
     token = "user-orcid-token"
-    user = create_user(role="user", orcid=orcid, allow_push=True, token=token)
+    create_user(role="user", orcid=orcid, allow_push=True, token=token)
 
     push_account_literature_to_orcid(orcid, token)
 

@@ -16,9 +16,9 @@ from lxml.etree import XMLSyntaxError
 from marshmallow import fields, missing
 from prometheus_client import Counter
 
-from ..base import BaseSchema
-from .bibtex import BibTexCommonSchema
-from .utils import latex_encode
+from inspirehep.records.marshmallow.base import BaseSchema
+from inspirehep.records.marshmallow.literature.bibtex import BibTexCommonSchema
+from inspirehep.records.marshmallow.literature.utils import latex_encode
 
 latex_conversion_success = Counter(
     "latex_title_serialization_success", "Latex title serialization success"

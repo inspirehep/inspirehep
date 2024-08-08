@@ -23,7 +23,7 @@ from flask import current_app
 from redis import StrictRedis
 
 
-@pytest.fixture(scope="function", autouse=True)
+@pytest.fixture(autouse=True)
 def clear_redis_editor_locks(inspire_app):
     with inspire_app.app_context():
         redis_url = current_app.config.get("CACHE_REDIS_URL")

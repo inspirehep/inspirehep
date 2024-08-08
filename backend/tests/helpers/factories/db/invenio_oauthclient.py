@@ -46,9 +46,7 @@ class TestUserIdentity(TestBaseModel):
             db.session.flush()
             updated_kwargs["id_user"] = instance.user.id
 
-        instance.user_identity = super(TestUserIdentity, cls).create_from_kwargs(
-            updated_kwargs
-        )
+        instance.user_identity = super().create_from_kwargs(updated_kwargs)
         return instance
 
     @classmethod
@@ -91,9 +89,7 @@ class TestRemoteAccount(TestBaseModel):
             db.session.flush()
             updated_kwargs["user_id"] = instance.user.id
 
-        instance.remote_account = super(TestRemoteAccount, cls).create_from_kwargs(
-            updated_kwargs
-        )
+        instance.remote_account = super().create_from_kwargs(updated_kwargs)
         return instance
 
     @classmethod
@@ -134,9 +130,7 @@ class TestRemoteToken(TestBaseModel):
             db.session.flush()
             updated_kwargs["remote_account"] = instance.remote_account
 
-        instance.remote_token = super(TestRemoteToken, cls).create_from_kwargs(
-            updated_kwargs
-        )
+        instance.remote_token = super().create_from_kwargs(updated_kwargs)
         return instance
 
     @classmethod

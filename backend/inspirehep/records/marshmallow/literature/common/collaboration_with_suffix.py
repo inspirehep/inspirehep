@@ -8,7 +8,9 @@ import re
 
 from marshmallow import pre_dump
 
-from .collaboration import CollaborationSchemaV1
+from inspirehep.records.marshmallow.literature.common.collaboration import (
+    CollaborationSchemaV1,
+)
 
 
 class CollaborationWithSuffixSchemaV1(CollaborationSchemaV1):

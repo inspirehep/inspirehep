@@ -6,10 +6,9 @@
 
 from invenio_records_rest.serializers.json import MarshmallowMixin, PreprocessorMixin
 
+from inspirehep.records.marshmallow.literature.latex import LatexSchema
+from inspirehep.records.serializers.jinja import jinja_latex_env
 from inspirehep.serializers import record_responsify, search_responsify
-
-from ..marshmallow.literature.latex import LatexSchema
-from .jinja import jinja_latex_env
 
 
 class LatexSerializer(MarshmallowMixin, PreprocessorMixin):
@@ -18,7 +17,7 @@ class LatexSerializer(MarshmallowMixin, PreprocessorMixin):
     def __init__(self, format, **kwargs):
         """Initialize record."""
         self.format = format
-        super(LatexSerializer, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     def serialize(self, pid, record, links_factory=None, **kwargs):
         """Serialize a single record and persistent identifier.

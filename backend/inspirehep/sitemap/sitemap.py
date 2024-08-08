@@ -5,9 +5,8 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from inspirehep.pidstore.api import PidStoreBase
+from inspirehep.sitemap.collections import get_indexable_record_searches
 from inspirehep.utils import get_inspirehep_url
-
-from .collections import get_indexable_record_searches
 
 
 # TODO: maybe move to PidStoreBase ?
@@ -32,5 +31,4 @@ def generate_sitemap_items_from_search(record_search):
 
 def generate_sitemap_items():
     for record_search in get_indexable_record_searches():
-        for sitemap_item in generate_sitemap_items_from_search(record_search):
-            yield sitemap_item
+        yield from generate_sitemap_items_from_search(record_search)

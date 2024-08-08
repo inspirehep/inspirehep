@@ -543,7 +543,7 @@ def test_latex_encodes_non_latex_chars(inspire_app):
 
 @freeze_time("2020-09-11")
 @pytest.mark.parametrize(
-    "input_author,expected_name",
+    ("input_author", "expected_name"),
     [
         ("Lieber, Ed", "E.~Lieber,"),
         ("Lieber, Ed Viktor", "E.~V.~Lieber,"),

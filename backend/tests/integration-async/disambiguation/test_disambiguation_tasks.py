@@ -101,7 +101,8 @@ def test_disambiguate_many_authors_runs_after_record_creation(
     def assert_authors_records_exist_in_es():
         author_record_1_from_es = InspireSearch.get_record_data_from_es(author_record_1)
         author_record_2_from_es = InspireSearch.get_record_data_from_es(author_record_2)
-        assert author_record_1_from_es and author_record_2_from_es
+        assert author_record_1_from_es
+        assert author_record_2_from_es
 
     assert_authors_records_exist_in_es()
 
@@ -431,7 +432,8 @@ def test_disambiguate_authors_on_first_last_name_and_initials(
         lit_record_2_from_es = InspireSearch.get_record_data_from_es(
             literature_record_2
         )
-        assert lit_record_1_from_es and lit_record_2_from_es
+        assert lit_record_1_from_es
+        assert lit_record_2_from_es
 
     assert_lit_records_exist_in_es()
 
@@ -511,7 +513,8 @@ def test_disambiguate_authors_on_collaboration(
         lit_record_2_from_es = InspireSearch.get_record_data_from_es(
             literature_record_2
         )
-        assert lit_record_1_from_es and lit_record_2_from_es
+        assert lit_record_1_from_es
+        assert lit_record_2_from_es
 
     assert_lit_records_exist_in_es()
 
@@ -601,7 +604,8 @@ def test_disambiguate_authors_on_affiliation(
         lit_record_2_from_es = InspireSearch.get_record_data_from_es(
             literature_record_2
         )
-        assert lit_record_1_from_es and lit_record_2_from_es
+        assert lit_record_1_from_es
+        assert lit_record_2_from_es
 
     assert_lit_records_exist_in_es()
 
@@ -992,7 +996,7 @@ def test_disambiguation_handle_deleted_records(
     try:
         db.session.commit()
     except Exception:
-        assert False
+        raise AssertionError()
 
 
 def test_disambiguation_races_assign(
@@ -1466,7 +1470,8 @@ def test_disambiguation_deosnt_create_new_stub_author_if_theres_one(
         lit_record_2_from_es = InspireSearch.get_record_data_from_es(
             literature_record_2
         )
-        assert lit_record_1_from_es and lit_record_2_from_es
+        assert lit_record_1_from_es
+        assert lit_record_2_from_es
 
     assert_lit_records_exist_in_es()
 

@@ -36,7 +36,7 @@ class UserFactory(BaseFactory):
         role = ds.find_or_create_role(role)
         user = ds.create_user(
             id=fake.random_number(digits=8, fix_len=True),
-            email=fake.email() if not email else email,
+            email=email if email else fake.email(),
             password=hash_password(fake.password()),
             active=True,
             roles=[role],
@@ -65,10 +65,7 @@ class AccessTokenFactory(BaseFactory):
 
     @classmethod
     def _create(cls, model_class, *args, **kwargs):
-        if "role" in kwargs:
-            user = UserFactory(role=kwargs["role"])
-        else:
-            user = UserFactory()
+        user = UserFactory(role=kwargs["role"]) if "role" in kwargs else UserFactory()
         user = User.query.filter(User.email == user.email).one_or_none()
         token = Token.create_personal(
             fake.first_name() + " " + fake.last_name(),

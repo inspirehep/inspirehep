@@ -5,7 +5,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
-from .base import ControlNumberMinter
+from inspirehep.pidstore.minters.base import ControlNumberMinter
 
 
 class LiteratureMinter(ControlNumberMinter):

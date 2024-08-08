@@ -50,31 +50,31 @@ def app_config(instance_path, app_config):
     return app_config
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def enable_files(inspire_app, override_config):
     with override_config(FEATURE_FLAG_ENABLE_FILES=True):
         yield inspire_app
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def disable_files(inspire_app, override_config):
     with override_config(FEATURE_FLAG_ENABLE_FILES=False):
         yield inspire_app
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def enable_self_citations(inspire_app, override_config):
     with override_config(FEATURE_FLAG_ENABLE_SELF_CITATIONS=True):
         yield inspire_app
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def enable_hal_push(inspire_app, override_config):
     with override_config(FEATURE_FLAG_ENABLE_HAL_PUSH=True):
         yield inspire_app
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def disable_hal_push(inspire_app, override_config):
     with override_config(FEATURE_FLAG_ENABLE_HAL_PUSH=False):
         yield inspire_app
@@ -95,7 +95,7 @@ def database(appctx):
     db_.session.remove()
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def db_(database):
     """Creates a new database session for a test.
     Scope: function
@@ -138,18 +138,18 @@ def db_(database):
     database.session = old_session
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def db(db_):
     return db_
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def es_clear(es):
     es_cleanup(es)
     return es
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def cli(inspire_app):
     """Click CLI runner inside the Flask application."""
     runner = CliRunner()
@@ -158,7 +158,7 @@ def cli(inspire_app):
     return runner
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def redis(inspire_app):
     redis_url = inspire_app.config.get("CACHE_REDIS_URL")
     redis = StrictRedis.from_url(redis_url, decode_responses=True)
@@ -168,14 +168,14 @@ def redis(inspire_app):
     redis.close()
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def inspire_app(base_app, db, es_clear, vcr_config):
     # Make sure the API app has the same config
     base_app.wsgi_app.mounts["/api"].config.update(base_app.config)
     return base_app
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def override_config(inspire_app):
     @contextmanager
     def _override_config(**kwargs):
@@ -219,7 +219,7 @@ def s3(inspire_app, enable_files):
     inspire_app.extensions["inspirehep-s3"] = real_inspirehep_s3
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def mocked_inspire_snow(mocker):
     # If SNOW_AUTH_URL (and SNOW_CLIENT_ID, SNOW_CLIENT_SECRET) is set, we dont need to mock the token
     if not current_app.config.get("SNOW_AUTH_URL"):
@@ -234,7 +234,7 @@ def mocked_inspire_snow(mocker):
         mocker.patch("inspirehep.snow.api.InspireSnow.get_token", return_value="abcd")
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def teardown_cache():
     yield
     current_cache.delete("snow_users")

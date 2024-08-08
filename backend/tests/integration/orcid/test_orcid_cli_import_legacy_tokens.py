@@ -91,7 +91,7 @@ def cleanup_record(record):
     User.query.filter_by(email=record["email"]).delete()
 
 
-@fixture(scope="function")
+@fixture()
 def teardown_sample_user(inspire_app):
     yield
 
@@ -99,7 +99,7 @@ def teardown_sample_user(inspire_app):
     assert_db_has_n_legacy_tokens(0, SAMPLE_USER)
 
 
-@fixture(scope="function")
+@fixture()
 def teardown_sample_user_2(inspire_app):
     yield
 
@@ -107,7 +107,7 @@ def teardown_sample_user_2(inspire_app):
     assert_db_has_n_legacy_tokens(0, SAMPLE_USER_2)
 
 
-@fixture(scope="function")
+@fixture()
 def teardown_sample_user_edited(inspire_app):
     yield
 
@@ -115,7 +115,7 @@ def teardown_sample_user_edited(inspire_app):
     assert_db_has_n_legacy_tokens(0, SAMPLE_USER_EDITED)
 
 
-@fixture(scope="function")
+@fixture()
 def redis_setup(inspire_app):
     redis_url = current_app.config.get("CACHE_REDIS_URL")
     r = StrictRedis.from_url(redis_url)
@@ -125,14 +125,14 @@ def redis_setup(inspire_app):
     r.delete("legacy_orcid_tokens")
 
 
-@fixture(scope="function")
+@fixture()
 def app_with_config(inspire_app, override_config):
     config = {"ORCID_APP_CREDENTIALS": {"consumer_key": "0000-0000-0000-0000"}}
     with override_config(**config):
         yield inspire_app
 
 
-@fixture(scope="function")
+@fixture()
 def app_without_config(inspire_app, override_config):
     config = {"ORCID_APP_CREDENTIALS": {"consumer_key": None}}
     with override_config(**config):
@@ -387,7 +387,7 @@ def test_unlinked_user_exists(app_with_config, teardown_sample_user):
 
 
 @mark.parametrize(
-    "orcid,email",
+    ("orcid", "email"),
     [
         ("0000-0002-1825-0097", "email.not@in.db"),
         ("9876-5432-0987-6543", "j.carberry@orcid.org"),
@@ -466,7 +466,7 @@ def test_empty_email(
         ("myotherorcid", "myothertoken", email, "othername"),
     )
 
-    result = cli.invoke(["orcid", "import-legacy-tokens"])
+    cli.invoke(["orcid", "import-legacy-tokens"])
 
     assert_user_and_token_models(
         orcid, token, USER_EMAIL_EMPTY_PATTERN.format(orcid), name
@@ -493,7 +493,7 @@ def test_empty_email_w_existing_user_w_empty_email(
     name = "myname"
     mock_legacy_orcid_arrays.return_value = ((orcid, token, email, name),)
 
-    result = cli.invoke(["orcid", "import-legacy-tokens"])
+    cli.invoke(["orcid", "import-legacy-tokens"])
 
     assert_user_and_token_models(
         orcid, token, USER_EMAIL_EMPTY_PATTERN.format(orcid), name
@@ -520,7 +520,7 @@ def test_2_entries_in_legacy_orcid_arrays_but_1_literature(
         ("myotherorcid", "myothertoken", "otheremail@me.com", "othername"),
     )
 
-    result = cli.invoke(["orcid", "import-legacy-tokens"])
+    cli.invoke(["orcid", "import-legacy-tokens"])
 
     mock_orcid_push.apply_async.assert_any_call(
         queue="orcid_push_legacy_tokens",

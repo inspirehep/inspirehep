@@ -187,7 +187,7 @@ class JSONSerializerFacets(ORJSONSerializerMixin, InvenioJSONSerializer):
                         "key": bucket_key,
                         "doc_count": agg_value["buckets"][bucket_key]["doc_count"],
                     }
-                    for bucket_key in agg_value["buckets"].keys()
+                    for bucket_key in agg_value["buckets"]
                     if agg_value["buckets"][bucket_key]["doc_count"] != 0
                 ]
                 new_aggs[agg_key] = agg_value
@@ -316,9 +316,8 @@ def dumps(obj, app=None, **kwargs):
     """
     encoding = kwargs.pop("encoding", None)
     rv = orjson.dumps(obj, option=orjson.OPT_NON_STR_KEYS).decode("utf-8")
-    if encoding is not None:
-        if isinstance(rv, str):
-            return rv.encode(encoding)
+    if encoding is not None and isinstance(rv, str):
+        return rv.encode(encoding)
 
     return rv
 

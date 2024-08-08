@@ -8,7 +8,7 @@ import click
 from flask import current_app
 from flask.cli import with_appcontext
 
-from .proxies import current_s3_instance
+from inspirehep.files.proxies import current_s3_instance
 
 
 @click.group()

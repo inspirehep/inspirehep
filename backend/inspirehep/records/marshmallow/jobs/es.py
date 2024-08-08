@@ -4,8 +4,8 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from ..base import ElasticSearchBaseSchema
-from .base import JobsRawSchema
+from inspirehep.records.marshmallow.base import ElasticSearchBaseSchema
+from inspirehep.records.marshmallow.jobs.base import JobsRawSchema
 
 
 class JobsElasticSearchSchema(ElasticSearchBaseSchema, JobsRawSchema):

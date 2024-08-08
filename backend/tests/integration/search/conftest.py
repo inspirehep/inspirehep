@@ -7,7 +7,7 @@
 import pytest
 
 
-@pytest.fixture(autouse=True, scope="function")
+@pytest.fixture(autouse=True)
 def assert_all_played(request, vcr_cassette):
     """
     Ensure that all all episodes have been played in the current test.

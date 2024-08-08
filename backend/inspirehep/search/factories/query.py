@@ -20,7 +20,7 @@ def replace_recid_in_citedby_query(query):
     def _replace_recid_in_citedby_query(obj):
         if isinstance(obj, dict):
             obj_keys = obj.keys()
-            for key, val in obj.items():
+            for _key, val in obj.items():
                 if isinstance(val, list):
                     _replace_recid_in_citedby_query(val)
                 elif isinstance(val, dict):

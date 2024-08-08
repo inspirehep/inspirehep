@@ -31,7 +31,7 @@ from invenio_oauthclient.models import RemoteAccount, RemoteToken, User, UserIde
 from invenio_oauthclient.utils import oauth_link_external_id
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def user_with_permission(inspire_app):
     _user_data = {
         "orcid": "0000-0001-8829-5461",
@@ -49,7 +49,7 @@ def user_with_permission(inspire_app):
     cleanup_user_record(_user_data)
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def two_users_with_permission(inspire_app):
     _user1_data = {
         "orcid": "0000-0001-8829-5461",
@@ -77,7 +77,7 @@ def two_users_with_permission(inspire_app):
     cleanup_user_record(_user2_data)
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def user_without_permission(inspire_app):
     _user_data = {
         "orcid": "0000-0001-8829-5461",
@@ -95,7 +95,7 @@ def user_without_permission(inspire_app):
     cleanup_user_record(_user_data)
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def user_without_token(inspire_app):
     _user_data = {
         "orcid": "0000-0001-8829-5461",
@@ -112,7 +112,7 @@ def user_without_token(inspire_app):
     cleanup_user_record(_user_data)
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def raw_record(inspire_app):
     data = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
@@ -126,7 +126,7 @@ def raw_record(inspire_app):
     return data
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def record(raw_record):
     with mock.patch("inspirehep.orcid.api._send_push_task") as mock_orcid_push:
         mock_orcid_push.return_value = mock_orcid_push

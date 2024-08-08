@@ -865,7 +865,7 @@ def test_validate_record(inspire_app):
 
 def test_get_records_batched(inspire_app):
     ids = []
-    for i in range(5):
+    for _i in range(5):
         rec = create_record("lit")
         ids.append(rec.id)
 
@@ -882,7 +882,7 @@ def test_get_records_batched(inspire_app):
 
 def test_get_records_batched_with_deleted(inspire_app):
     ids = []
-    for i in range(5):
+    for _i in range(5):
         rec = create_record("lit")
         ids.append(rec.id)
 

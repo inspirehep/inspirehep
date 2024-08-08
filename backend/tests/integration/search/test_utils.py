@@ -75,10 +75,9 @@ def test_facet_configuration_without_request_facet_name(inspire_app, override_co
     expected = {
         "aggs": {"jessica-jones": {"terms": {"field": "defenders", "size": 20}}}
     }
-    with current_app.test_request_context():
-        with override_config(**config):
-            result = get_facet_configuration("records-hep")
-            assert expected == result
+    with current_app.test_request_context(), override_config(**config):
+        result = get_facet_configuration("records-hep")
+        assert expected == result
 
 
 def test_facet_configuration_with_fallback_to_default_facet(
@@ -108,7 +107,6 @@ def test_setting_recursion_limit():
         return level
 
     assert recursion_test(100) == 100
-    with pytest.raises(RecursionError):
-        with RecursionLimit(50):
-            recursion_test(100)
+    with pytest.raises(RecursionError), RecursionLimit(50):
+        recursion_test(100)
     assert recursion_test(100) == 100

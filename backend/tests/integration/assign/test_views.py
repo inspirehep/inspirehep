@@ -468,7 +468,7 @@ def test_assign_doesnt_raise_resource_closed_error(inspire_app, override_config)
                     content_type="application/json",
                 )
         except ResourceClosedError:
-            assert False
+            raise AssertionError()
 
 
 @mock.patch("inspirehep.assign.tasks.async_create_ticket_with_template")

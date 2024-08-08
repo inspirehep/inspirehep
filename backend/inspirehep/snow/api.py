@@ -15,10 +15,13 @@ from flask import current_app, render_template
 from inspire_utils.record import get_value
 from invenio_cache import current_cache
 
+from inspirehep.snow.errors import (
+    CreateTicketException,
+    EditTicketException,
+    SnowAuthenticationError,
+)
+from inspirehep.snow.utils import get_response_result, strip_lines
 from inspirehep.utils import DistributedLockError, distributed_lock
-
-from .errors import CreateTicketException, EditTicketException, SnowAuthenticationError
-from .utils import get_response_result, strip_lines
 
 LOGGER = structlog.getLogger()
 
@@ -538,10 +541,7 @@ class InspireSnow(SnowTicketAPI):
             user_email (str): Email of the user as which action should be performed.
             message (str): message to be added when resolving the ticket.
         """
-        if user_email:
-            snow_user_id = self._get_user_by_email(user_email)
-        else:
-            snow_user_id = None
+        snow_user_id = self._get_user_by_email(user_email) if user_email else None
 
         try:
             unassign_payload = {"assigned_to": ""}

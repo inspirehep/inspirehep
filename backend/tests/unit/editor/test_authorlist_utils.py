@@ -99,7 +99,7 @@ def test_create_authors_with_affiliations():
     result = create_authors(text)
 
     assert expected == result["authors"]
-    assert "warnings" not in result.keys()
+    assert "warnings" not in result
 
 
 def test_create_authors_with_no_text():
@@ -874,7 +874,7 @@ def test_create_authors_with_affiliation_get_emails_and_orcid():
 
     result = authorlist(text)
     assert expected == result["authors"]
-    assert "warnings" not in result.keys()
+    assert "warnings" not in result
 
 
 def test_create_authors_with_affiliation_authorlist():
@@ -909,4 +909,4 @@ def test_create_authors_with_affiliation_authorlist():
     ]
     result = authorlist(text)
     assert expected == result["authors"]
-    assert "warnings" not in result.keys()
+    assert "warnings" not in result

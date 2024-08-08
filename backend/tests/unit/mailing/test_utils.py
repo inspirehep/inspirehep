@@ -12,7 +12,7 @@ from inspirehep.mailing.utils import humanize_date_to_natural_time, strip_html_t
 
 @freeze_time("2019-02-15")
 @pytest.mark.parametrize(
-    "test_value,expected",
+    ("test_value", "expected"),
     [
         ("2019-02-10", "5 days ago"),
         ("2019-02-05T00:00:00+00:00", "10 days ago"),

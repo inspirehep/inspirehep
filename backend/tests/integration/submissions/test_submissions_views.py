@@ -107,9 +107,9 @@ def test_new_author_submit(inspire_app, requests_mock):
     assert requests_mock.call_count == 1
     history = requests_mock.request_history[0]
     post_data = history.json()
+    assert "Authorization" in history.headers
     assert (
-        "Authorization" in history.headers
-        and f"Bearer {current_app.config['AUTHENTICATION_TOKEN']}"
+        f"Bearer {current_app.config['AUTHENTICATION_TOKEN']}"
         == history.headers["Authorization"]
     )
     assert history.url == f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/authors"
@@ -598,9 +598,9 @@ def test_new_literature_submit_no_merge(inspire_app, requests_mock):
     assert requests_mock.call_count == 1
     history = requests_mock.request_history[0]
     post_data = history.json()
+    assert "Authorization" in history.headers
     assert (
-        "Authorization" in history.headers
-        and f"Bearer {current_app.config['AUTHENTICATION_TOKEN']}"
+        f"Bearer {current_app.config['AUTHENTICATION_TOKEN']}"
         == history.headers["Authorization"]
     )
     assert (
@@ -667,9 +667,9 @@ def test_new_literature_submit_arxiv_urls(inspire_app, requests_mock):
     assert requests_mock.call_count == 1
     history = requests_mock.request_history[0]
     post_data = history.json()
+    assert "Authorization" in history.headers
     assert (
-        "Authorization" in history.headers
-        and f"Bearer {current_app.config['AUTHENTICATION_TOKEN']}"
+        f"Bearer {current_app.config['AUTHENTICATION_TOKEN']}"
         == history.headers["Authorization"]
     )
     assert (
@@ -808,9 +808,9 @@ def test_new_literature_submit_with_private_notes(inspire_app, requests_mock):
 
     history = requests_mock.request_history[0]
     post_data = history.json()
+    assert "Authorization" in history.headers
     assert (
-        "Authorization" in history.headers
-        and f"Bearer {current_app.config['AUTHENTICATION_TOKEN']}"
+        f"Bearer {current_app.config['AUTHENTICATION_TOKEN']}"
         == history.headers["Authorization"]
     )
     assert (
@@ -864,9 +864,9 @@ def test_new_literature_submit_with_private_notes_and_conference_record(
 
     history = requests_mock.request_history[0]
     post_data = history.json()
+    assert "Authorization" in history.headers
     assert (
-        "Authorization" in history.headers
-        and f"Bearer {current_app.config['AUTHENTICATION_TOKEN']}"
+        f"Bearer {current_app.config['AUTHENTICATION_TOKEN']}"
         == history.headers["Authorization"]
     )
     assert (
@@ -1866,7 +1866,7 @@ SEMINAR_FORM_DATA = {
 
 
 @pytest.mark.parametrize(
-    "form_data,record_data",
+    ("form_data", "record_data"),
     [
         (SEMINAR_FORM_DATA, SEMINAR_RECORD_DATA),
         (REQUIRED_SEMINAR_FORM_DATA, REQUIRED_SEMINAR_RECORD_DATA),
@@ -1917,7 +1917,7 @@ def test_get_seminar_update_data_requires_auth(inspire_app):
 
 
 @pytest.mark.parametrize(
-    "form_data,expected_record_data",
+    ("form_data", "expected_record_data"),
     [
         (deepcopy(SEMINAR_FORM_DATA), SEMINAR_RECORD_DATA),
         (deepcopy(REQUIRED_SEMINAR_FORM_DATA), REQUIRED_SEMINAR_RECORD_DATA),
@@ -1995,7 +1995,7 @@ def test_new_seminar_submission_with_cataloger_login(
 
 
 @pytest.mark.parametrize(
-    "form_data,record_data",
+    ("form_data", "record_data"),
     [
         (SEMINAR_FORM_DATA, SEMINAR_RECORD_DATA),
         (REQUIRED_SEMINAR_FORM_DATA, REQUIRED_SEMINAR_RECORD_DATA),
@@ -2185,7 +2185,7 @@ EXPERIMENT_FORM_DATA = {"legacy_name": "CERN-LHC-ATLAS", "project_type": ["exper
 
 
 @pytest.mark.parametrize(
-    "form_data,expected_record_data",
+    ("form_data", "expected_record_data"),
     [(deepcopy(EXPERIMENT_FORM_DATA), REQUIRED_EXPERIMENT_RECORD_DATA)],
 )
 def test_new_experiment_submission(form_data, expected_record_data, inspire_app):
@@ -2252,7 +2252,7 @@ INSTITUTION_FORM_DATA = {
 
 
 @pytest.mark.parametrize(
-    "form_data,expected_record_data",
+    ("form_data", "expected_record_data"),
     [(deepcopy(INSTITUTION_FORM_DATA), REQUIRED_INSTITUTION_RECORD_DATA)],
 )
 def test_new_institution_submission(form_data, expected_record_data, inspire_app):

@@ -18,7 +18,7 @@ def inspire_detail_links_factory(pid, record=None, record_hit=None, *args, **kwa
     serializers_endpoints = current_app.config[endpoint.upper()].get(
         "record_serializers_aliases", {}
     )
-    for serializer_endpoint in serializers_endpoints.keys():
+    for serializer_endpoint in serializers_endpoints:
         links[serializer_endpoint] = f"{self}?format={serializer_endpoint}"
 
     additional_endpoints = current_app.config.get("ADDITIONAL_LINKS", {}).get(

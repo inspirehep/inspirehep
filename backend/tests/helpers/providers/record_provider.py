@@ -189,7 +189,7 @@ class RecordProvider(BaseProvider):
         if not isinstance(count, int) or count <= 0:
             return {}
         data = {key: []}
-        for i in range(count):
+        for _i in range(count):
             data[key].append({"value": pid_generator()})
         return data
 
@@ -208,13 +208,19 @@ class RecordProvider(BaseProvider):
         record_type,
         data=None,
         with_control_number=False,
-        literature_citations=[],  # TODO: call `literature_references`
-        data_citations=[],
+        literature_citations=None,  # TODO: call `literature_references`
+        data_citations=None,
         skip_validation=False,
-        other_pids=[],
+        other_pids=None,
         arxiv_eprints=None,
         dois=None,
     ):
+        if other_pids is None:
+            other_pids = []
+        if data_citations is None:
+            data_citations = []
+        if literature_citations is None:
+            literature_citations = []
         if record_type == "lit":
             record = self.hep_record()
         elif record_type == "aut":

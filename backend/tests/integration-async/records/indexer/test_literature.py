@@ -258,7 +258,7 @@ def test_lit_record_reindexes_references_when_earliest_date_changed(
 
 def test_many_records_in_one_commit(inspire_app, clean_celery_session):
     record_recids = set()
-    for x in range(4):
+    for _x in range(4):
         data = faker.record("lit")
         record = LiteratureRecord.create(data)
         record_recids.add(record["control_number"])

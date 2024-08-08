@@ -11,7 +11,7 @@ import flask
 from flask import current_app as app
 from redis import StrictRedis
 
-from .converter import OrcidConverter
+from inspirehep.orcid.converter import OrcidConverter
 
 CACHE_PREFIX = None
 

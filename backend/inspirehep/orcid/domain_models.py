@@ -14,13 +14,12 @@ from inspire_service_orcid.client import OrcidClient
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
 
+from inspirehep.orcid import exceptions, push_access_tokens, utils
+from inspirehep.orcid.cache import OrcidCache
+from inspirehep.orcid.converter import OrcidConverter
+from inspirehep.orcid.putcode_getter import OrcidPutcodeGetter
 from inspirehep.records.api import LiteratureRecord
 from inspirehep.utils import distributed_lock
-
-from . import exceptions, push_access_tokens, utils
-from .cache import OrcidCache
-from .converter import OrcidConverter
-from .putcode_getter import OrcidPutcodeGetter
 
 LOGGER = structlog.getLogger()
 ORCID_REGEX = r"\d{4}-\d{4}-\d{4}-\d{3}[0-9X]"

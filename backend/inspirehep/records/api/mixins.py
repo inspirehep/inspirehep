@@ -463,7 +463,7 @@ class ConferencePaperAndProceedingsMixin:
         allowed_types = set(
             [option.value for option in list(ConferenceToLiteratureRelationshipType)]
         )
-        type_changed = True if doc_type_diff.intersection(allowed_types) else False
+        type_changed = bool(doc_type_diff.intersection(allowed_types))
 
         pids_previous = set(
             self._previous_version.get_linked_pids_from_field(

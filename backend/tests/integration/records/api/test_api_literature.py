@@ -557,7 +557,7 @@ def test_update_record_update_citation_table(inspire_app):
 
 def test_complex_records_interactions_in_citation_table(inspire_app):
     records_list = []
-    for i in range(6):
+    for _i in range(6):
         data = faker.record(
             "lit", literature_citations=[r["control_number"] for r in records_list]
         )

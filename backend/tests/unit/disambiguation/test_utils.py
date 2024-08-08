@@ -53,7 +53,7 @@ def test_update_author_names_doesnt_put_duplicate_name_variants():
 
 
 @pytest.mark.parametrize(
-    "lit_author_name,author_name,expected_normalized_name",
+    ("lit_author_name", "author_name", "expected_normalized_name"),
     [
         ("Smith, John Davis", "Smith, John", "Smith, John Davis"),
         ("Davis, John Smith", "Smith, John", "Smith Davis, John"),

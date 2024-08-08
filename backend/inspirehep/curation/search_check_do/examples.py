@@ -13,7 +13,7 @@ from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier
 from sqlalchemy.orm import aliased
 
-from . import SearchCheckDo
+from search_check_do import SearchCheckDo
 
 
 class SciPostSetRefereed(SearchCheckDo):

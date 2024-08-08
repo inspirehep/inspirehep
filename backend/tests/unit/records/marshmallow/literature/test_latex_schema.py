@@ -180,7 +180,7 @@ def test_publication_info_without_journal_title_schema():
         ],
     }
     result = orjson.loads(schema.dumps(record).data)
-    assert "publication_info" not in result.keys()
+    assert "publication_info" not in result
 
 
 def test_schema_takes_control_number_when_texkeys_not_present():

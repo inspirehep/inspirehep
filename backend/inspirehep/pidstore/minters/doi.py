@@ -5,7 +5,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
-from .base import Minter
+from inspirehep.pidstore.minters.base import Minter
 
 
 class DoiMinter(Minter):

@@ -345,7 +345,7 @@ def remove_bai_from_literature_records(
 @click.option("--pid-type", required=True)
 @with_appcontext
 def update_relationships_for_records(pid_type):
-    if pid_type not in current_app.config["PID_TYPES_TO_ENDPOINTS"].keys():
+    if pid_type not in current_app.config["PID_TYPES_TO_ENDPOINTS"]:
         click.echo("PID type not found")
         return
     records_ids_query = (

@@ -23,7 +23,7 @@ class TestSerializer:
 
     def serialize(self, pid, record, **kwargs):
         """Dummy method."""
-        return "{0}:{1}".format(pid, record["titles"][0]["title"])
+        return "{}:{}".format(pid, record["titles"][0]["title"])
 
     def serialize_search(self, fetcher, result, **kwargs):
         """Dummy method."""
@@ -61,7 +61,8 @@ def test_page_links(inspire_app):
         data = response.json["links"]
         assert data["self"] == next_url
         assert "next" not in data
-        assert "prev" in data and data["prev"] == first_url
+        assert "prev" in data
+        assert data["prev"] == first_url
 
 
 def test_record_responsify(inspire_app):

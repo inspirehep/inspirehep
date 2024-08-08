@@ -29,6 +29,9 @@ from inspirehep.curation.api import (
     assign_institution_reference_to_affiliations,
     normalize_affiliations,
 )
+from inspirehep.editor.authorlist_utils import authorlist
+from inspirehep.editor.editor_soft_lock import EditorSoftLock
+from inspirehep.editor.errors import EditorGetRevisionError, EditorRevertToRevisionError
 from inspirehep.files.api import current_s3_instance
 from inspirehep.matcher.api import get_affiliations_from_pdf, match_references
 from inspirehep.matcher.utils import create_journal_dict, map_refextract_to_schema
@@ -38,10 +41,6 @@ from inspirehep.serializers import jsonify
 from inspirehep.snow.api import InspireSnow
 from inspirehep.snow.errors import EditTicketException
 from inspirehep.utils import hash_data
-
-from .authorlist_utils import authorlist
-from .editor_soft_lock import EditorSoftLock
-from .errors import EditorGetRevisionError, EditorRevertToRevisionError
 
 blueprint = Blueprint("inspirehep_editor", __name__, url_prefix="/editor")
 LOGGER = structlog.getLogger()
@@ -120,10 +119,7 @@ def get_revisions(endpoint, pid_value):
             transaction_id = revision.model.transaction_id
 
             user = Transaction.query.filter(Transaction.id == transaction_id).one().user
-            if user:
-                user_email = user.email
-            else:
-                user_email = "system"
+            user_email = user.email if user else "system"
 
             revisions.append(
                 {

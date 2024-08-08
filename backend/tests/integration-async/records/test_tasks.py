@@ -569,7 +569,8 @@ def test_recalculate_references_after_journal_record_merge(
     def assert_all_records_in_es():
         literature_record_from_es = InspireSearch.get_record_data_from_es(literature)
         journal_record_from_es = InspireSearch.get_record_data_from_es(journal)
-        assert literature_record_from_es and journal_record_from_es
+        assert literature_record_from_es
+        assert journal_record_from_es
 
     assert_all_records_in_es()
 
@@ -616,7 +617,8 @@ def test_recalculate_references_after_conference_record_merge(
     def assert_all_records_in_es():
         literature_record_from_es = InspireSearch.get_record_data_from_es(literature)
         conference_record_from_es = InspireSearch.get_record_data_from_es(conference)
-        assert literature_record_from_es and conference_record_from_es
+        assert literature_record_from_es
+        assert conference_record_from_es
 
     assert_all_records_in_es()
 
@@ -652,7 +654,7 @@ def test_recalculate_references_recalculates_more_than_10_references(
     literature_data.update(
         {"publication_info": [{"journal_record": {"$ref": journal_record_reference}}]}
     )
-    for i in range(11):
+    for _i in range(11):
         InspireRecord.create(literature_data)
 
     db.session.commit()
@@ -668,7 +670,8 @@ def test_recalculate_references_recalculates_more_than_10_references(
         )
         journal_record_from_es = InspireSearch.get_record_data_from_es(journal)
 
-        assert len(literature_records_from_es) == 11 and journal_record_from_es
+        assert len(literature_records_from_es) == 11
+        assert journal_record_from_es
 
     assert_all_records_in_es()
 

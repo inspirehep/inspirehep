@@ -13,9 +13,8 @@ from flask import Blueprint, Response, current_app, request
 from redis import StrictRedis
 
 from inspirehep.mailing.api.jobs import subscribe_to_jobs_weekly_list
+from inspirehep.mailing.loaders import JobsWeeklySubscribeSchema
 from inspirehep.serializers import jsonify
-
-from .loaders import JobsWeeklySubscribeSchema
 
 LOGGER = structlog.getLogger()
 

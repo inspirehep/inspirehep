@@ -94,9 +94,7 @@ class TestRecordMetadata(TestBaseModel):
 
         updated_kwargs["json"] = json_
 
-        instance.record_metadata = super(TestRecordMetadata, cls).create_from_kwargs(
-            updated_kwargs
-        )
+        instance.record_metadata = super().create_from_kwargs(updated_kwargs)
 
         if index_name:
             instance.es_index_result = es.index(

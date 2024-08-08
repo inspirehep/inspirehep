@@ -241,7 +241,7 @@ def test_literature_detail_serializes_date_from_dictionary():
 
 
 @pytest.mark.parametrize(
-    "collections,expected_is_collection_hidden",
+    ("collections", "expected_is_collection_hidden"),
     [
         (["Literature", "FermiLab"], False),
         (["Literature"], False),

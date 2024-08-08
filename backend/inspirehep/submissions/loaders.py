@@ -10,8 +10,7 @@ from flask import request
 from invenio_records_rest.loaders.marshmallow import MarshmallowErrors
 
 from inspirehep.submissions.errors import LoaderDataError, RESTDataError
-
-from .marshmallow import (
+from inspirehep.submissions.marshmallow import (
     Author,
     Conference,
     Experiment,

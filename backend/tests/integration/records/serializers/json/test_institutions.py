@@ -289,7 +289,7 @@ def test_subsidiary_institutions_in_detail_page(inspire_app):
         ]
     }
 
-    record_with_predecessor_relation = create_record("ins", data=data)
+    create_record("ins", data=data)
     expected_subsidiary_records = [
         {
             "control_number": record_with_parent_relation_control_number,

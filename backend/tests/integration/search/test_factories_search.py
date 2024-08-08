@@ -36,28 +36,34 @@ def test_get_search_with_source_with_fields_query_param_and_wrong_formats(inspir
 
 
 def test_get_search_with_source_with_fields_query_param_and_wrong_mimetype(inspire_app):
-    with current_app.test_request_context(
-        "?fields=authors,ids", headers={"Accept": "application/x-bibtex"}
+    with (
+        current_app.test_request_context(
+            "?fields=authors,ids", headers={"Accept": "application/x-bibtex"}
+        ),
+        pytest.raises(FieldsParamForbidden),
     ):
-        with pytest.raises(FieldsParamForbidden):
-            search = LiteratureSearch()
-            get_search_with_source(search)
+        search = LiteratureSearch()
+        get_search_with_source(search)
 
-    with current_app.test_request_context(
-        "?fields=authors,ids",
-        headers={"Accept": "application/vnd+inspire.latex.eu+x-latex"},
+    with (
+        current_app.test_request_context(
+            "?fields=authors,ids",
+            headers={"Accept": "application/vnd+inspire.latex.eu+x-latex"},
+        ),
+        pytest.raises(FieldsParamForbidden),
     ):
-        with pytest.raises(FieldsParamForbidden):
-            search = LiteratureSearch()
-            get_search_with_source(search)
+        search = LiteratureSearch()
+        get_search_with_source(search)
 
-    with current_app.test_request_context(
-        "?fields=authors,ids",
-        headers={"Accept": "application/vnd+inspire.latex.us+x-latex"},
+    with (
+        current_app.test_request_context(
+            "?fields=authors,ids",
+            headers={"Accept": "application/vnd+inspire.latex.us+x-latex"},
+        ),
+        pytest.raises(FieldsParamForbidden),
     ):
-        with pytest.raises(FieldsParamForbidden):
-            search = LiteratureSearch()
-            get_search_with_source(search)
+        search = LiteratureSearch()
+        get_search_with_source(search)
 
 
 def test_get_search_with_source_with_fields_query_param(inspire_app):

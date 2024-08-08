@@ -10,7 +10,7 @@ from invenio_base.wsgi import wsgi_proxyfix
 from invenio_config import create_config_loader
 from werkzeug.middleware.dispatcher import DispatcherMiddleware
 
-from . import config
+from inspirehep import config
 
 env_prefix = "INVENIO"
 

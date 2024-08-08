@@ -11,8 +11,8 @@ from inspire_schemas.utils import normalize_collaboration_name
 from inspire_utils.helpers import force_list
 from marshmallow import fields
 
-from ..base import ElasticSearchBaseSchema
-from .base import ExperimentsRawSchema
+from inspirehep.records.marshmallow.base import ElasticSearchBaseSchema
+from inspirehep.records.marshmallow.experiments.base import ExperimentsRawSchema
 
 
 class ExperimentsElasticSearchSchema(ElasticSearchBaseSchema, ExperimentsRawSchema):

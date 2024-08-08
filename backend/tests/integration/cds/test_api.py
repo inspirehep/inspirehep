@@ -13,7 +13,7 @@ from inspirehep.cds.api import (
 
 
 @pytest.mark.parametrize(
-    "data, pid_value, pid_type",
+    ("data", "pid_value", "pid_type"),
     [
         (
             {},
@@ -44,7 +44,7 @@ def test_get_record_for_pid_or_none_control_number_record_exists(
 
 
 @pytest.mark.parametrize(
-    "data, pid_value, pid_type",
+    ("data", "pid_value", "pid_type"),
     [
         (
             {},
@@ -108,7 +108,7 @@ def test_query_missing_report_number(inspire_app):
 
 
 @pytest.mark.parametrize(
-    "data, arxivs, dois, report_numbers",
+    ("data", "arxivs", "dois", "report_numbers"),
     [
         (
             {},

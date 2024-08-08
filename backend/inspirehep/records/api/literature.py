@@ -31,6 +31,7 @@ from inspirehep.files.api import current_s3_instance
 from inspirehep.hal.api import push_to_hal
 from inspirehep.orcid.api import push_to_orcid
 from inspirehep.pidstore.api import PidStoreLiterature
+from inspirehep.records.api.base import InspireRecord
 from inspirehep.records.api.mixins import (
     CitationMixin,
     ConferencePaperAndProceedingsMixin,
@@ -59,8 +60,6 @@ from inspirehep.records.utils import (
 )
 from inspirehep.search.api import LiteratureSearch
 from inspirehep.utils import chunker, hash_data
-
-from .base import InspireRecord
 
 LOGGER = structlog.getLogger()
 

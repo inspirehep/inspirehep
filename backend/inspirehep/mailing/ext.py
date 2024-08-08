@@ -6,7 +6,7 @@
 
 from flask_mail import Mail
 
-from .utils import humanize_date_to_natural_time
+from inspirehep.mailing.utils import humanize_date_to_natural_time
 
 
 class InspireMailing:

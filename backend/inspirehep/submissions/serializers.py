@@ -8,9 +8,7 @@
 
 from invenio_records_rest.serializers.json import JSONSerializer
 
-from inspirehep.submissions.marshmallow.job import Job
-
-from .marshmallow import (
+from inspirehep.submissions.marshmallow import (
     Author,
     Conference,
     Experiment,
@@ -19,6 +17,7 @@ from .marshmallow import (
     Literature,
     Seminar,
 )
+from inspirehep.submissions.marshmallow.job import Job
 
 literature_v1 = JSONSerializer(Literature)
 author_v1 = JSONSerializer(Author)

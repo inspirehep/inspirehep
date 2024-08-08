@@ -34,12 +34,14 @@ from inspirehep.records.marshmallow.literature.references import (
     LiteratureReferencesSchema,
 )
 from inspirehep.records.models import WorkflowsRecordSources
-from inspirehep.records.utils import _create_ticket_self_curation
+from inspirehep.records.utils import (
+    _create_ticket_self_curation,
+    get_changed_reference,
+    get_ref_from_pid,
+)
+from inspirehep.search.api import LiteratureSearch
 from inspirehep.serializers import jsonify
 from inspirehep.submissions.serializers import literature_v1
-
-from ..search.api import LiteratureSearch
-from .utils import get_changed_reference, get_ref_from_pid
 
 LOGGER = structlog.getLogger()
 blueprint = Blueprint("inspirehep_records", __name__, url_prefix="")

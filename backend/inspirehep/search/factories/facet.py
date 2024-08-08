@@ -7,7 +7,7 @@
 from invenio_records_rest.facets import _aggregations
 from werkzeug.datastructures import MultiDict
 
-from ..utils import get_facet_configuration
+from inspirehep.search.utils import get_facet_configuration
 
 
 def inspire_facets_factory(search, index):

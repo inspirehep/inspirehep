@@ -216,12 +216,14 @@ class TestOrcidPusherPostNewWork(TestOrcidPusherBase):
         pusher = domain_models.OrcidPusher(self.orcid, self.recid, self.oauth_token)
         data = b'<work:work xmlns:common="http://www.orcid.org/ns/common" xmlns:work="http://www.orcid.orgsens/work"></work:work>'
         invalid_xml = etree.fromstringlist([data])
-        with pytest.raises(exceptions.InputDataInvalidException):
-            with mock.patch(
+        with (
+            pytest.raises(exceptions.InputDataInvalidException),
+            mock.patch(
                 "inspirehep.orcid.domain_models.OrcidConverter.get_xml",
                 return_value=invalid_xml,
-            ):
-                pusher.push()
+            ),
+        ):
+            pusher.push()
 
     def test_push_new_work_already_existing(self, override_config):
         # ORCID_APP_CREDENTIALS is required because ORCID adds it as source_client_id_path.

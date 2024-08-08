@@ -26,7 +26,8 @@ def test_populate_journal_literature_table(inspire_app, cli, clean_celery_sessio
         record_jou_es = (
             JournalsSearch().get_record(str(journal.id)).execute().hits.hits[0]
         )
-        assert record_lit_es and record_jou_es
+        assert record_lit_es
+        assert record_jou_es
 
     assert_records_added()
 

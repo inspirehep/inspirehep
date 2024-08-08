@@ -25,7 +25,7 @@ LOGGER = structlog.getLogger()
 class CeleryTask(AppContextTask):
     def on_failure(self, exc, task_id, args, kwargs, einfo):
         if isinstance(
-            exc, (InvalidRequestError, OperationalError, Psycopg2OperationalError)
+            exc, InvalidRequestError | OperationalError | Psycopg2OperationalError
         ):
             LOGGER.exception("Shutting down celery process")
             try:
