@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -7,10 +6,9 @@
 
 import orjson
 from helpers.utils import create_record, create_user
+from inspirehep.accounts.roles import Roles
 from invenio_accounts.testutils import login_user_via_session
 from marshmallow import utils
-
-from inspirehep.accounts.roles import Roles
 
 
 def test_conferences_json_without_login(inspire_app, datadir):

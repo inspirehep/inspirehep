@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # This file is part of Invenio.
 # Copyright (C) 2016-2018 CERN.
@@ -7,11 +6,9 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 """ORCID utils."""
 
-
 from itertools import chain
 
 import structlog
-from opensearch_dsl import Q
 from flask import current_app
 from inspire_dojson.utils import get_recid_from_ref
 from inspire_utils.record import get_value, get_values_for_schema
@@ -21,6 +18,7 @@ from invenio_oauthclient.models import RemoteAccount, RemoteToken, UserIdentity
 from invenio_oauthclient.utils import oauth_link_external_id
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_records.models import RecordMetadata
+from opensearch_dsl import Q
 from sqlalchemy import cast, type_coerce
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm.exc import NoResultFound
@@ -45,7 +43,7 @@ def _split_lists(sequence, chunk_size):
         List[List[Any]]: the split list
     """
     return [
-        sequence[i : i + chunk_size]  # noqa:E203
+        sequence[i : i + chunk_size]  # noqaE203
         for i in range(0, len(sequence), chunk_size)
     ]
 

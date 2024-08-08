@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -8,7 +7,6 @@
 import re
 
 import structlog
-from opensearch_dsl import MultiSearch, Q, Search
 from inspire_dojson.utils import get_recid_from_ref
 from inspire_schemas.utils import normalize_collaboration_name
 from inspire_utils.record import get_value
@@ -16,11 +14,11 @@ from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_search import current_search_client
 from invenio_search.utils import prefix_index
+from opensearch_dsl import MultiSearch, Q, Search
 
+from inspirehep.curation.errors import SubGroupNotFound
 from inspirehep.records.api import JournalsRecord
 from inspirehep.search.api import InstitutionsSearch, LiteratureSearch
-
-from .errors import SubGroupNotFound
 
 LOGGER = structlog.getLogger()
 
@@ -157,7 +155,9 @@ def find_subgroup(subgroup, experiment):
         normalize_collaboration_name(clean_special_characters.sub(" ", element.lower()))
         for element in subgroups
     ]
-    for subgroup, normalized_subgroup_from_list in zip(subgroups, normalized_subgroups):
+    for subgroup, normalized_subgroup_from_list in zip(
+        subgroups, normalized_subgroups, strict=False
+    ):
         if normalized_subgroup_from_list == normalized_subgroup:
             return subgroup
     raise SubGroupNotFound(experiment["control_number"], subgroup)
@@ -289,7 +289,7 @@ def extract_matched_aff_from_highlight(
     extracted_raw_aff = re.sub(
         "<em>|</em>", "", highlighted_raw_affs[longest_highlight_idx]
     )
-    for raw_aff, aff in zip(author_raw_affs, author_affs):
+    for raw_aff, aff in zip(author_raw_affs, author_affs, strict=False):
         if raw_aff["value"] == extracted_raw_aff:
             return [aff]
 

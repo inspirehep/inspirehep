@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2021 CERN.
 #
@@ -183,10 +182,9 @@ def fast_mint_bais(yes_i_know):
                     author_uuid=author_uuid,
                     control_number=author_record.get("control_number"),
                 )
-    if not yes_i_know:
-        if not click.confirm(
-            f"There are {length} Author records without BAI for which BAI will be created. Do you want to continue?"
-        ):
-            db.session.rollback()
-            return
+    if not yes_i_know and not click.confirm(
+        f"There are {length} Author records without BAI for which BAI will be created. Do you want to continue?"
+    ):
+        db.session.rollback()
+        return
     db.session.commit()

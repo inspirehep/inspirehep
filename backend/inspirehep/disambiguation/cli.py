@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2021 CERN.
 #
@@ -9,12 +8,8 @@ from itertools import islice
 
 import click
 import structlog
-from opensearch_dsl import Q
 from flask.cli import with_appcontext
 from flask_celeryext.app import current_celery_app
-from invenio_db import db
-from sqlalchemy.orm.exc import NoResultFound
-
 from inspirehep.disambiguation.tasks import disambiguate_authors
 from inspirehep.errors import DB_TASK_EXCEPTIONS
 from inspirehep.records.api import AuthorsRecord
@@ -22,6 +17,9 @@ from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.records.models import RecordsAuthors
 from inspirehep.search.api import AuthorsSearch, LiteratureSearch
 from inspirehep.utils import chunker
+from invenio_db import db
+from opensearch_dsl import Q
+from sqlalchemy.orm.exc import NoResultFound
 
 MAX_INDEXER_QUEUE_LEN = 100000
 MAX_DISAMBIGUATION_QUEUE_LEN = 10000

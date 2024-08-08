@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2023 CERN.
 #
@@ -9,13 +8,12 @@ import mock
 import orjson
 from helpers.providers.faker import faker
 from helpers.utils import create_user, retry_test
+from inspirehep.records.api import InspireRecord
+from inspirehep.search.api import InspireSearch
 from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db
 from sqlalchemy.orm.exc import StaleDataError
 from tenacity import stop_after_delay, wait_fixed
-
-from inspirehep.records.api import InspireRecord
-from inspirehep.search.api import InspireSearch
 
 
 def test_reference_diff(inspire_app, clean_celery_session):
@@ -362,17 +360,19 @@ def test_reference_diff_when_stale_data(inspire_app, clean_celery_session):
     assert_record_updated()
     new_record_revision = record.revision_id
 
-    with inspire_app.test_client() as client:
-        with mock.patch(
+    with (
+        inspire_app.test_client() as client,
+        mock.patch(
             "inspirehep.records.views.InspireRecord.get_record",
             side_effect=StaleDataError,
-        ):
-            login_user_via_session(client, email=user.email)
-            response = client.get(
-                f"/api/literature/{record['control_number']}/diff/{old_record_revision}..{new_record_revision}",
-            )
-            assert response.status_code == 400
-            assert response.json["message"] == "Record in given revision was not found"
+        ),
+    ):
+        login_user_via_session(client, email=user.email)
+        response = client.get(
+            f"/api/literature/{record['control_number']}/diff/{old_record_revision}..{new_record_revision}",
+        )
+        assert response.status_code == 400
+        assert response.json["message"] == "Record in given revision was not found"
 
 
 def test_reference_diff_when_user_not_authenticated(inspire_app, clean_celery_session):

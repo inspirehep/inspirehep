@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -24,16 +23,19 @@ def index_after_commit(sender, changes):
     has been really committed to the DB.
     """
     for model_instance, change in changes:
-        if isinstance(model_instance, RecordMetadata):
-            if change in ("insert", "update", "delete"):
-                LOGGER.debug(
-                    "Record commited, indexing.",
-                    change=change,
-                    uuid=str(model_instance.id),
-                )
-                force_delete = "delete" == change
-                InspireRecord(model_instance.json, model=model_instance).index(
-                    force_delete=force_delete
-                )
-                if "new_record" in model_instance.json:
-                    redirect_references_to_merged_record.delay(str(model_instance.id))
+        if isinstance(model_instance, RecordMetadata) and change in (
+            "insert",
+            "update",
+            "delete",
+        ):
+            LOGGER.debug(
+                "Record commited, indexing.",
+                change=change,
+                uuid=str(model_instance.id),
+            )
+            force_delete = change == "delete"
+            InspireRecord(model_instance.json, model=model_instance).index(
+                force_delete=force_delete
+            )
+            if "new_record" in model_instance.json:
+                redirect_references_to_merged_record.delay(str(model_instance.id))

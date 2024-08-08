@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2023 CERN.
 #
@@ -13,7 +12,6 @@ from helpers.utils import (
     filter_out_authentication,
     filter_out_user_data_and_cookie_headers,
 )
-
 from inspirehep.snow.api import InspireSnow
 from inspirehep.snow.errors import CreateTicketException
 
@@ -23,7 +21,8 @@ from inspirehep.snow.errors import CreateTicketException
     before_record_request=filter_out_authentication,
     before_record_response=filter_out_user_data_and_cookie_headers(),
 )
-def test_create_inspire_ticket(mocked_inspire_snow, inspire_app, teardown_cache):
+@pytest.mark.usefixtures("_mocked_inspire_snow", "_teardown_cache")
+def test_create_inspire_ticket(inspire_app):
     control_number = 232381
     snow_instance = InspireSnow()
     ticket_id = snow_instance.create_inspire_ticket(
@@ -44,9 +43,8 @@ def test_create_inspire_ticket(mocked_inspire_snow, inspire_app, teardown_cache)
     before_record_request=filter_out_authentication,
     before_record_response=filter_out_user_data_and_cookie_headers(),
 )
-def test_create_inspire_ticket_with_template(
-    mocked_inspire_snow, inspire_app, teardown_cache
-):
+@pytest.mark.usefixtures("_mocked_inspire_snow", "_teardown_cache")
+def test_create_inspire_ticket_with_template(inspire_app):
     template = "snow/dummy.html"
     control_number = 121281
     template_context = {"email": "jessica@jones.com"}
@@ -68,7 +66,8 @@ def test_create_inspire_ticket_with_template(
     before_record_request=filter_out_authentication,
     before_record_response=filter_out_user_data_and_cookie_headers(),
 )
-def test_get_ticket(mocked_inspire_snow, inspire_app, teardown_cache):
+@pytest.mark.usefixtures("_mocked_inspire_snow", "_teardown_cache")
+def test_get_ticket(inspire_app):
     ticket_id = InspireSnow().create_inspire_ticket(
         subject="This is a test description by Jessica Jones.",
         description="This is a test subject by Jessica Jones.",
@@ -82,7 +81,8 @@ def test_get_ticket(mocked_inspire_snow, inspire_app, teardown_cache):
     before_record_request=filter_out_authentication,
     before_record_response=filter_out_user_data_and_cookie_headers(),
 )
-def test_get_ticket_by_recid(mocked_inspire_snow, inspire_app, teardown_cache):
+@pytest.mark.usefixtures("_mocked_inspire_snow", "_teardown_cache")
+def test_get_ticket_by_recid(inspire_app):
     required_ticket_keys = [
         "u_functional_category",
         "assigned_to",
@@ -112,7 +112,8 @@ def test_get_ticket_by_recid(mocked_inspire_snow, inspire_app, teardown_cache):
     before_record_request=filter_out_authentication,
     before_record_response=filter_out_user_data_and_cookie_headers(),
 )
-def test_resolve_ticket(mocked_inspire_snow, inspire_app, teardown_cache):
+@pytest.mark.usefixtures("_mocked_inspire_snow", "_teardown_cache")
+def test_resolve_ticket(inspire_app):
     ticket_id = InspireSnow().create_inspire_ticket(
         subject="This is a test description by Jessica Jones.",
         description="This is a test subject by Jessica Jones.",
@@ -129,7 +130,8 @@ def test_resolve_ticket(mocked_inspire_snow, inspire_app, teardown_cache):
     before_record_request=filter_out_authentication,
     before_record_response=filter_out_user_data_and_cookie_headers(),
 )
-def test_get_functional_categories(mocked_inspire_snow, inspire_app, teardown_cache):
+@pytest.mark.usefixtures("_mocked_inspire_snow", "_teardown_cache")
+def test_get_functional_categories(inspire_app):
     categories = InspireSnow().get_formatted_functional_category_list()
     assert categories
 
@@ -143,7 +145,8 @@ def test_get_functional_categories(mocked_inspire_snow, inspire_app, teardown_ca
     before_record_request=filter_out_authentication,
     before_record_response=filter_out_user_data_and_cookie_headers(),
 )
-def test_get_users(mocked_inspire_snow, inspire_app, teardown_cache):
+@pytest.mark.usefixtures("_mocked_inspire_snow", "_teardown_cache")
+def test_get_users(inspire_app):
     users = InspireSnow().get_formatted_user_list()
     assert users
 
@@ -158,7 +161,8 @@ def test_get_users(mocked_inspire_snow, inspire_app, teardown_cache):
     before_record_request=filter_out_authentication,
     before_record_response=filter_out_user_data_and_cookie_headers(),
 )
-def test_get_user(mocked_inspire_snow, inspire_app, teardown_cache):
+@pytest.mark.usefixtures("_mocked_inspire_snow", "_teardown_cache")
+def test_get_user(inspire_app):
     inspire_app_user_id = inspire_app.config["SNOW_INSPIRE_USER_ID"]
     user = InspireSnow().get_user(inspire_app_user_id)
     assert user
@@ -169,7 +173,8 @@ def test_get_user(mocked_inspire_snow, inspire_app, teardown_cache):
     before_record_request=filter_out_authentication,
     before_record_response=filter_out_user_data_and_cookie_headers(),
 )
-def test_get_functional_category(mocked_inspire_snow, inspire_app, teardown_cache):
+@pytest.mark.usefixtures("_mocked_inspire_snow", "_teardown_cache")
+def test_get_functional_category(inspire_app):
     functional_category_id = "13d64fba1b6dd9107a83dc6a9b4bcb9d"
     category = InspireSnow().get_functional_category(functional_category_id)
     assert category
@@ -180,7 +185,8 @@ def test_get_functional_category(mocked_inspire_snow, inspire_app, teardown_cach
     before_record_request=filter_out_authentication,
     before_record_response=filter_out_user_data_and_cookie_headers(),
 )
-def test_edit_inspire_ticket(mocked_inspire_snow, inspire_app, teardown_cache):
+@pytest.mark.usefixtures("_mocked_inspire_snow", "_teardown_cache")
+def test_edit_inspire_ticket(inspire_app):
     control_number = 4542221
     ticket_id = InspireSnow().create_inspire_ticket(
         subject="This is a test description by Jessica Jones.",
@@ -202,11 +208,10 @@ def test_edit_inspire_ticket(mocked_inspire_snow, inspire_app, teardown_cache):
     before_record_response=filter_out_user_data_and_cookie_headers(),
 )
 @mock.patch("inspirehep.snow.api.requests.put")
+@pytest.mark.usefixtures("_mocked_inspire_snow", "_teardown_cache")
 def test_create_ticket_raises_create_ticket_exception(
     mocked_update_ticket_with_inspire_recid,
-    mocked_inspire_snow,
     inspire_app,
-    teardown_cache,
 ):
     recid = 111
     mocked_update_ticket_with_inspire_recid.side_effect = requests.exceptions.HTTPError
@@ -223,7 +228,8 @@ def test_create_ticket_raises_create_ticket_exception(
     before_record_request=filter_out_authentication,
     before_record_response=filter_out_user_data_and_cookie_headers(),
 )
-def test_comment_ticket(mocked_inspire_snow, inspire_app, teardown_cache):
+@pytest.mark.usefixtures("_mocked_inspire_snow", "_teardown_cache")
+def test_comment_ticket(inspire_app):
     snow_instance = InspireSnow()
     ticket_id = snow_instance.create_inspire_ticket(
         subject="This is a test description by Jessica Jones.",
@@ -242,7 +248,8 @@ def test_comment_ticket(mocked_inspire_snow, inspire_app, teardown_cache):
     before_record_request=filter_out_authentication,
     before_record_response=filter_out_user_data_and_cookie_headers(),
 )
-def test_comment_ticket_with_template(mocked_inspire_snow, inspire_app, teardown_cache):
+@pytest.mark.usefixtures("_mocked_inspire_snow", "_teardown_cache")
+def test_comment_ticket_with_template(inspire_app):
     snow_instance = InspireSnow()
     ticket_id = snow_instance.create_inspire_ticket(
         subject="This is a test description by Jessica Jones.",

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -6,6 +5,8 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 """Manage ORCID OAUTH token migration from INSPIRE legacy instance."""
+
+import contextlib
 import re
 
 import structlog
@@ -22,10 +23,9 @@ from requests.exceptions import RequestException
 from simplejson import loads
 from sqlalchemy.orm.exc import FlushError
 
+from inspirehep.orcid import domain_models, exceptions
 from inspirehep.orcid import exceptions as domain_exceptions
 from inspirehep.orcid.utils import get_literature_recids_for_orcid
-
-from . import domain_models, exceptions
 
 LOGGER = structlog.getLogger()
 USER_EMAIL_EMPTY_PATTERN = "{}@FAKEEMAILINSPIRE.FAKE"
@@ -66,13 +66,11 @@ def _link_user_and_token(user, name, orcid, access_token):
     Returns:
         str: the ORCID associated with the token newly created/enabled.
     """
-    try:
+    # Note: AlreadyLinkedError becomes FlushError when testing with isolated_app.
+    # If excpection: User already has their ORCID linked
+    with contextlib.suppress(AlreadyLinkedError, FlushError):
         # Link user and ORCID
         oauth_link_external_id(user, {"id": orcid, "method": "orcid"})
-    # Note: AlreadyLinkedError becomes FlushError when testing with isolated_app.
-    except (AlreadyLinkedError, FlushError):
-        # User already has their ORCID linked
-        pass
 
     # Search for existing tokens.
     # Note: there can be only 1 RemoteToken per given RemoteAccount.
@@ -143,7 +141,7 @@ class RemoteTokenOrcidMismatch(Exception):
             "A RemoteToken already exists for User={} and it is"
             " associated to a different ORCID: {}"
         ).format(user, " != ".join(orcids))
-        super(RemoteTokenOrcidMismatch, self).__init__(msg)
+        super().__init__(msg)
 
 
 def _register_user(name, email, orcid, token):
@@ -234,11 +232,9 @@ def orcid_push(self, orcid, rec_id, oauth_token, kwargs_to_pusher=None):
         # Enrich exception message.
         if isinstance(exc, RequestException):
             message = (exc.args[0:1] or ("",))[0]
-            try:
-                message += "\nResponse={}".format(exc.response.content)
-            except AttributeError:
-                pass
-            message += "\nRequest={} {}".format(exc.request.method, exc.request.url)
+            with contextlib.suppress(AttributeError):
+                message += f"\nResponse={exc.response.content}"
+            message += f"\nRequest={exc.request.method} {exc.request.url}"
             exc.args = (message,) + exc.args[1:]
 
         # If max_retries=3, then self.request.retries is: [0, 1, 2, 3]
@@ -250,7 +246,7 @@ def orcid_push(self, orcid, rec_id, oauth_token, kwargs_to_pusher=None):
             recid=rec_id,
             orcid=orcid,
         )
-        raise self.retry(max_retries=3, countdown=backoff, exc=exc)
+        raise self.retry(max_retries=3, countdown=backoff, exc=exc) from exc
     except (
         exceptions.DuplicatedExternalIdentifierPusherException,
         domain_exceptions.RecordNotFoundException,
@@ -259,7 +255,7 @@ def orcid_push(self, orcid, rec_id, oauth_token, kwargs_to_pusher=None):
         # If max_retries=4, then self.request.retries is: [0, 1, 2, 3, 4]
         # thus backoff power 5 is (secs): [5, 25, 125, 625]
         backoff = 5 ** (self.request.retries + 1)
-        raise self.retry(max_retries=4, countdown=backoff, exc=exc)
+        raise self.retry(max_retries=4, countdown=backoff, exc=exc) from exc
     except Exception:
         LOGGER.warning("Orcid_push task failed", recid=rec_id, orcid=orcid)
         raise

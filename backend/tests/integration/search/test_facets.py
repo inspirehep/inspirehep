@@ -1,5 +1,4 @@
 from flask import current_app
-
 from inspirehep.search.aggregations import (
     conf_series_aggregation,
     conf_subject_aggregation,
@@ -572,17 +571,13 @@ def test_all_facets_have_a_corresponding_filter_for_every_aggregation(inspire_ap
     with current_app.test_request_context():
         for facet in current_app.config["RECORDS_REST_FACETS"].values():
             aggregations = [
-                agg
-                for agg in facet()["aggs"].keys()
-                if agg not in excluded_aggregations
+                agg for agg in facet()["aggs"] if agg not in excluded_aggregations
             ]
             filters = list(facet()["filters"].keys())
             assert set(aggregations).issubset(filters)
         for facet in current_app.config["CATALOGER_RECORDS_REST_FACETS"].values():
             aggregations = [
-                agg
-                for agg in facet()["aggs"].keys()
-                if agg not in excluded_aggregations
+                agg for agg in facet()["aggs"] if agg not in excluded_aggregations
             ]
             filters = list(facet()["filters"].keys())
             assert set(aggregations).issubset(filters)

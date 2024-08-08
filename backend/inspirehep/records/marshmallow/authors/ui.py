@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -8,16 +7,15 @@
 from marshmallow import fields
 
 from inspirehep.accounts.api import can_user_edit_author_record
-
-from ..fields import NonHiddenNested
-from ..utils import (
+from inspirehep.records.marshmallow.authors.base import AuthorsPublicSchema
+from inspirehep.records.marshmallow.authors.common import PositionSchemaV1
+from inspirehep.records.marshmallow.authors.common.advisor import AdvisorSchemaV1
+from inspirehep.records.marshmallow.fields import NonHiddenNested
+from inspirehep.records.marshmallow.utils import (
     get_acquisition_source_without_email,
     get_facet_author_name_for_author,
     get_first_value_for_schema,
 )
-from .base import AuthorsPublicSchema
-from .common import PositionSchemaV1
-from .common.advisor import AdvisorSchemaV1
 
 
 class AuthorsBaseSchema(AuthorsPublicSchema):
@@ -61,7 +59,6 @@ class AuthorsDetailSchema(AuthorsBaseSchema):
 
     @staticmethod
     def get_all_urls_field(data):
-
         urls = data.get("urls", [])
         external_author_profiles = [
             {

@@ -1,12 +1,9 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 from helpers.utils import create_record, create_record_factory
-from invenio_pidstore.models import PersistentIdentifier, PIDStatus
-
 from inspirehep.pidstore.minters.control_number import (
     AuthorsMinter,
     ConferencesMinter,
@@ -18,6 +15,7 @@ from inspirehep.pidstore.minters.control_number import (
     LiteratureMinter,
     SeminarsMinter,
 )
+from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
 
 def test_control_number_literature_without_control_number(inspire_app):
@@ -330,4 +328,4 @@ def test_control_number_not_deleting_pid_when_record_removed(inspire_app):
     record.delete()
     cn_pid = PersistentIdentifier.query.filter_by(pid_type="lit").one()
 
-    cn_pid.status == PIDStatus.DELETED
+    assert cn_pid.status == PIDStatus.DELETED

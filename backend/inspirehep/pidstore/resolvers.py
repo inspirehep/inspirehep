@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2020 CERN.
 #
@@ -40,9 +39,8 @@ class InspireResolver(Resolver):
                 obj = None
             raise PIDDeletedError(pid, obj)
 
-        if pid.is_redirected():
-            if request.method != "PUT":
-                raise PIDRedirectedError(pid, InspireRedirect.get_redirect(pid))
+        if pid.is_redirected() and request.method != "PUT":
+            raise PIDRedirectedError(pid, InspireRedirect.get_redirect(pid))
 
         obj_id = pid.get_assigned_object(object_type=self.object_type)
         if not obj_id:

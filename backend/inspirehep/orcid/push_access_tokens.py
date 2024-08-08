@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # This file is part of Invenio.
 # Copyright (C) 2016-2018 CERN.
@@ -66,7 +65,7 @@ def is_access_token_invalid(token_plain):
     return cache.does_invalid_token_exist()
 
 
-class _OrcidInvalidTokensCache(object):
+class _OrcidInvalidTokensCache:
     def __init__(self, token_plain):
         self.token_plain = token_plain
 
@@ -83,8 +82,8 @@ class _OrcidInvalidTokensCache(object):
     def _key(self):
         prefix = ""
         if CACHE_PREFIX:
-            prefix = "{}:".format(CACHE_PREFIX)
-        return "{}orcidinvalidtoken:{}".format(prefix, self.token_plain)
+            prefix = f"{CACHE_PREFIX}:"
+        return f"{prefix}orcidinvalidtoken:{self.token_plain}"
 
     def write_invalid_token(self, orcid):
         data = {"orcid": orcid}

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -22,7 +21,6 @@ from inspirehep.records.marshmallow.utils import (
 
 
 class FirstAuthorSchemaV1(Schema):
-
     recid = fields.Method("get_recid", default=missing, attribute="record")
     emails = fields.Raw()
     full_name = fields.Raw()

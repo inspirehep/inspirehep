@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -46,10 +45,13 @@ class BAIMinter(Minter):
 
     def create(self, pid_value=None, **kwargs):
         bai = super().create(pid_value, data=self.data, **kwargs)
-        if current_app.config.get("FEATURE_FLAG_ENABLE_BAI_PROVIDER", False):
-            if bai and pid_value is None:
-                self.data.setdefault("ids", [])
-                self.data["ids"].append(
-                    {"schema": "INSPIRE BAI", "value": bai.pid.pid_value}
-                )
+        if (
+            current_app.config.get("FEATURE_FLAG_ENABLE_BAI_PROVIDER", False)
+            and bai
+            and pid_value is None
+        ):
+            self.data.setdefault("ids", [])
+            self.data["ids"].append(
+                {"schema": "INSPIRE BAI", "value": bai.pid.pid_value}
+            )
         return bai

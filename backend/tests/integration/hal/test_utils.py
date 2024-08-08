@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # This file is part of INSPIRE.
 # Copyright (C) 2014-2019 CERN.
@@ -23,7 +22,6 @@
 import orjson
 from helpers.providers.faker import faker
 from inspire_schemas.api import load_schema, validate
-
 from inspirehep.hal.utils import (
     _get_hal_id_map,
     get_conference_record,

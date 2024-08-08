@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # This file is part of INSPIRE.
 # Copyright (C) 2018 CERN.
@@ -22,29 +21,26 @@
 
 import logging
 import re
-import os
 from pathlib import Path
-from inspirehep.pidstore.errors import PIDAlreadyExistsError
-from inspirehep.records.api import LiteratureRecord, InspireRecord
+
 import mock
+import orjson
 import pytest
 from flask import current_app
 from fqn_decorators.decorators import get_fqn
-from helpers.factories.db.invenio_records import TestRecordMetadata
-from inspire_service_orcid.exceptions import MovedPermanentlyException
-from requests.exceptions import RequestException
-
 from helpers.utils import create_record
+from inspire_service_orcid.exceptions import MovedPermanentlyException
 from inspirehep.orcid import cache as cache_module
 from inspirehep.orcid import exceptions as domain_exceptions
 from inspirehep.orcid.cache import OrcidCache
 from inspirehep.orcid.tasks import orcid_push
-import orjson
+from requests.exceptions import RequestException
+
 # The tests are written in a specific order, disable random
 pytestmark = pytest.mark.random_order(disabled=True)
 
 
-class TestFeatureFlagOrcidPushWhitelistRegex(object):
+class TestFeatureFlagOrcidPushWhitelistRegex:
     def test_whitelist_regex_none(self):
         FEATURE_FLAG_ORCID_PUSH_WHITELIST_REGEX = "^$"
 
@@ -77,7 +73,7 @@ class TestFeatureFlagOrcidPushWhitelistRegex(object):
 
 
 @pytest.mark.usefixtures("inspire_app")
-class TestOrcidPushFeatureFlag(object):
+class TestOrcidPushFeatureFlag:
     def setup(self):
         self._patcher = mock.patch("inspirehep.orcid.domain_models.OrcidPusher")
         self.mock_pusher = self._patcher.start()
@@ -139,7 +135,7 @@ class TestOrcidPushFeatureFlag(object):
 
 
 @pytest.mark.usefixtures("inspire_app")
-class TestOrcidPushRetryTask(object):
+class TestOrcidPushRetryTask:
     def setup(self):
         self._patcher = mock.patch("inspirehep.orcid.domain_models.OrcidPusher")
         self.mock_pusher = self._patcher.start()
@@ -173,13 +169,15 @@ class TestOrcidPushRetryTask(object):
         exc.request = mock.Mock()
         self.mock_pusher.return_value.push.side_effect = exc
 
-        with override_config(
-            FEATURE_FLAG_ENABLE_ORCID_PUSH=True,
-            FEATURE_FLAG_ORCID_PUSH_WHITELIST_REGEX=".*",
-        ), mock.patch(
-            "inspirehep.orcid.tasks.orcid_push.retry", side_effect=RequestException
-        ) as mock_orcid_push_task_retry, pytest.raises(
-            RequestException
+        with (
+            override_config(
+                FEATURE_FLAG_ENABLE_ORCID_PUSH=True,
+                FEATURE_FLAG_ORCID_PUSH_WHITELIST_REGEX=".*",
+            ),
+            mock.patch(
+                "inspirehep.orcid.tasks.orcid_push.retry", side_effect=RequestException
+            ) as mock_orcid_push_task_retry,
+            pytest.raises(RequestException),
         ):
             orcid_push(self.orcid, self.recid, self.oauth_token)
 
@@ -192,13 +190,15 @@ class TestOrcidPushRetryTask(object):
     def test_retry_not_triggered(self, override_config):
         self.mock_pusher.return_value.push.side_effect = IOError
 
-        with override_config(
-            FEATURE_FLAG_ENABLE_ORCID_PUSH=True,
-            FEATURE_FLAG_ORCID_PUSH_WHITELIST_REGEX=".*",
-        ), mock.patch(
-            "inspirehep.orcid.tasks.orcid_push.retry"
-        ) as mock_orcid_push_task_retry, pytest.raises(
-            IOError
+        with (
+            override_config(
+                FEATURE_FLAG_ENABLE_ORCID_PUSH=True,
+                FEATURE_FLAG_ORCID_PUSH_WHITELIST_REGEX=".*",
+            ),
+            mock.patch(
+                "inspirehep.orcid.tasks.orcid_push.retry"
+            ) as mock_orcid_push_task_retry,
+            pytest.raises(OSError),  # noqa PT011
         ):
             orcid_push(self.orcid, self.recid, self.oauth_token)
 
@@ -219,15 +219,21 @@ def get_local_access_tokens(orcid):
     return None
 
 
-class TestOrcidPushTask(object):
+class TestOrcidPushTask:
     # NOTE: Only a few test here (1 happy flow and a few error flows). Exhaustive
     # testing is done in the domain model tests.
 
     @pytest.fixture(autouse=True)
-    def record(self, inspire_app):
-        record_data = orjson.loads((Path(__file__).parent / "fixtures" / "test_orcid_tasks_orcid_push_TestOrcidPush.json").read_text())
-        self.inspire_record = create_record('lit', data=record_data)
-        self.recid = self.inspire_record['control_number']
+    def _record(self, inspire_app):
+        record_data = orjson.loads(
+            (
+                Path(__file__).parent
+                / "fixtures"
+                / "test_orcid_tasks_orcid_push_TestOrcidPush.json"
+            ).read_text()
+        )
+        self.inspire_record = create_record("lit", data=record_data)
+        self.recid = self.inspire_record["control_number"]
 
     def setup(self, method):
         self.orcid = "0000-0003-1134-6827"
@@ -249,10 +255,13 @@ class TestOrcidPushTask(object):
         assert not self.cache.has_work_content_changed(self.inspire_record)
 
     def test_push_new_work_invalid_data_orcid(self, override_config):
-        with override_config(
-            FEATURE_FLAG_ENABLE_ORCID_PUSH=True,
-            FEATURE_FLAG_ORCID_PUSH_WHITELIST_REGEX=".*",
-        ), pytest.raises(domain_exceptions.InputDataInvalidException):
+        with (
+            override_config(
+                FEATURE_FLAG_ENABLE_ORCID_PUSH=True,
+                FEATURE_FLAG_ORCID_PUSH_WHITELIST_REGEX=".*",
+            ),
+            pytest.raises(domain_exceptions.InputDataInvalidException),
+        ):
             orcid_push("0000-0003-0000-XXXX", self.recid, self.oauth_token)
 
     def test_push_new_work_already_existing(self, override_config):
@@ -266,10 +275,13 @@ class TestOrcidPushTask(object):
         assert not self.cache.has_work_content_changed(self.inspire_record)
 
     def test_stale_record_db_version(self, override_config):
-        with override_config(
-            FEATURE_FLAG_ENABLE_ORCID_PUSH=True,
-            FEATURE_FLAG_ORCID_PUSH_WHITELIST_REGEX=".*",
-        ), pytest.raises(domain_exceptions.StaleRecordDBVersionException):
+        with (
+            override_config(
+                FEATURE_FLAG_ENABLE_ORCID_PUSH=True,
+                FEATURE_FLAG_ORCID_PUSH_WHITELIST_REGEX=".*",
+            ),
+            pytest.raises(domain_exceptions.StaleRecordDBVersionException),
+        ):
             orcid_push(
                 self.orcid,
                 self.recid,
@@ -289,13 +301,15 @@ class TestOrcidPushTask(object):
         )
         self.mock_pusher = self._patcher.start()
         self.mock_pusher.side_effect = exc
-        with override_config(
-            FEATURE_FLAG_ENABLE_ORCID_PUSH=True,
-            FEATURE_FLAG_ORCID_PUSH_WHITELIST_REGEX=".*",
-        ), mock.patch(
-            "inspirehep.orcid.domain_models.utils.update_moved_orcid"
-        ) as mock_update_orcid, pytest.raises(
-            MovedPermanentlyException
+        with (
+            override_config(
+                FEATURE_FLAG_ENABLE_ORCID_PUSH=True,
+                FEATURE_FLAG_ORCID_PUSH_WHITELIST_REGEX=".*",
+            ),
+            mock.patch(
+                "inspirehep.orcid.domain_models.utils.update_moved_orcid"
+            ) as mock_update_orcid,
+            pytest.raises(MovedPermanentlyException),
         ):
             orcid_push(self.orcid, self.recid, self.oauth_token)
 

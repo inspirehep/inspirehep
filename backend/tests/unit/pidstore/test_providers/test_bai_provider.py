@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2020 CERN.
 #
@@ -6,23 +5,23 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import mock
 import pytest
+from inspirehep.pidstore.errors import PIDAlreadyExistsError
+from inspirehep.pidstore.providers.bai import InspireBAIProvider
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from sqlalchemy.exc import IntegrityError
 
-from inspirehep.pidstore.errors import PIDAlreadyExistsError
-from inspirehep.pidstore.providers.bai import InspireBAIProvider
-
 
 def test_bai_create_fails_after_retrying_when_bai_changes():
-    with mock.patch(
-        "inspirehep.pidstore.providers.bai.current_app"
-    ) as mocked_app, mock.patch(
-        "inspirehep.pidstore.providers.bai.InspireBAIProvider.next_bai_number"
-    ) as next_bai_mock, mock.patch(
-        "inspirehep.pidstore.providers.bai.InspireBAIProvider.query_pid_value"
-    ) as query_pid_value_mock, mock.patch(
-        "inspirehep.pidstore.providers.bai.super"
-    ) as super_mock:
+    with (
+        mock.patch("inspirehep.pidstore.providers.bai.current_app") as mocked_app,
+        mock.patch(
+            "inspirehep.pidstore.providers.bai.InspireBAIProvider.next_bai_number"
+        ) as next_bai_mock,
+        mock.patch(
+            "inspirehep.pidstore.providers.bai.InspireBAIProvider.query_pid_value"
+        ) as query_pid_value_mock,
+        mock.patch("inspirehep.pidstore.providers.bai.super") as super_mock,
+    ):
         mocked_app.config = {
             "PIDSTORE_BAI_RETRY_DELAY": 0,
             "FEATURE_FLAG_ENABLE_BAI_CREATION": True,
@@ -36,13 +35,13 @@ def test_bai_create_fails_after_retrying_when_bai_changes():
 
 
 def test_bai_create_fails_on_existing_bai_when_bai_provided():
-    with mock.patch(
-        "inspirehep.pidstore.providers.bai.current_app"
-    ) as mocked_app, mock.patch(
-        "inspirehep.pidstore.providers.bai.InspireBAIProvider.query_pid_value"
-    ) as query_pid_value_mock, mock.patch(
-        "inspirehep.pidstore.providers.bai.super"
-    ) as super_mock:
+    with (
+        mock.patch("inspirehep.pidstore.providers.bai.current_app") as mocked_app,
+        mock.patch(
+            "inspirehep.pidstore.providers.bai.InspireBAIProvider.query_pid_value"
+        ) as query_pid_value_mock,
+        mock.patch("inspirehep.pidstore.providers.bai.super") as super_mock,
+    ):
         mocked_app.config = {"PIDSTORE_BAI_RETRY_DELAY": 0}
         super_mock.return_value.create.return_value = IntegrityError(None, None, None)
         query_pid_value_mock.return_value = PersistentIdentifier(
@@ -59,15 +58,16 @@ def test_bai_create_fails_on_existing_bai_when_bai_provided():
 
 
 def test_bai_create_retries_on_bais_in_db_change():
-    with mock.patch(
-        "inspirehep.pidstore.providers.bai.current_app"
-    ) as mocked_app, mock.patch(
-        "inspirehep.pidstore.providers.bai.InspireBAIProvider.next_bai_number"
-    ) as next_bai_mock, mock.patch(
-        "inspirehep.pidstore.providers.bai.InspireBAIProvider.query_pid_value"
-    ) as query_pid_value_mock, mock.patch(
-        "inspirehep.pidstore.providers.bai.super"
-    ) as super_mock:
+    with (
+        mock.patch("inspirehep.pidstore.providers.bai.current_app") as mocked_app,
+        mock.patch(
+            "inspirehep.pidstore.providers.bai.InspireBAIProvider.next_bai_number"
+        ) as next_bai_mock,
+        mock.patch(
+            "inspirehep.pidstore.providers.bai.InspireBAIProvider.query_pid_value"
+        ) as query_pid_value_mock,
+        mock.patch("inspirehep.pidstore.providers.bai.super") as super_mock,
+    ):
         mocked_app.config = {
             "PIDSTORE_BAI_RETRY_DELAY": 0,
             "FEATURE_FLAG_ENABLE_BAI_CREATION": True,

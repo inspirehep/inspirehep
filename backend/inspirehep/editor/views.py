@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2020 CERN.
 #
@@ -30,6 +29,9 @@ from inspirehep.curation.api import (
     assign_institution_reference_to_affiliations,
     normalize_affiliations,
 )
+from inspirehep.editor.authorlist_utils import authorlist
+from inspirehep.editor.editor_soft_lock import EditorSoftLock
+from inspirehep.editor.errors import EditorGetRevisionError, EditorRevertToRevisionError
 from inspirehep.files.api import current_s3_instance
 from inspirehep.matcher.api import get_affiliations_from_pdf, match_references
 from inspirehep.matcher.utils import create_journal_dict, map_refextract_to_schema
@@ -39,10 +41,6 @@ from inspirehep.serializers import jsonify
 from inspirehep.snow.api import InspireSnow
 from inspirehep.snow.errors import EditTicketException
 from inspirehep.utils import hash_data
-
-from .authorlist_utils import authorlist
-from .editor_soft_lock import EditorSoftLock
-from .errors import EditorGetRevisionError, EditorRevertToRevisionError
 
 blueprint = Blueprint("inspirehep_editor", __name__, url_prefix="/editor")
 LOGGER = structlog.getLogger()
@@ -67,8 +65,8 @@ def revert_to_revision(endpoint, pid_value):
         record.revert(revision_id)
         db.session.commit()
         return jsonify(success=True)
-    except Exception:
-        raise EditorRevertToRevisionError
+    except Exception as e:
+        raise EditorRevertToRevisionError from e
 
 
 @blueprint.route("/<endpoint>/<int:pid_value>", methods=["GET"])
@@ -121,10 +119,7 @@ def get_revisions(endpoint, pid_value):
             transaction_id = revision.model.transaction_id
 
             user = Transaction.query.filter(Transaction.id == transaction_id).one().user
-            if user:
-                user_email = user.email
-            else:
-                user_email = "system"
+            user_email = user.email if user else "system"
 
             revisions.append(
                 {
@@ -136,8 +131,8 @@ def get_revisions(endpoint, pid_value):
                 }
             )
         return jsonify(revisions)
-    except Exception:
-        raise EditorGetRevisionError
+    except Exception as e:
+        raise EditorGetRevisionError from e
 
 
 @blueprint.route("/revisions/<rec_uuid>/<int:transaction_id>", methods=["GET"])
@@ -156,8 +151,8 @@ def get_revision(transaction_id, rec_uuid):
             .one()
         )
         return jsonify(revision.json)
-    except Exception:
-        raise EditorGetRevisionError
+    except Exception as e:
+        raise EditorGetRevisionError from e
 
 
 # TODO: change endpoint name
@@ -388,6 +383,7 @@ def normalize_affiliations_for_authors(parsed_authors):
     for author, normalized_affiliation in zip(
         parsed_authors.get("authors", []),
         normalized_affiliations_result["normalized_affiliations"],
+        strict=False,
     ):
         if "affiliations" in author:
             continue

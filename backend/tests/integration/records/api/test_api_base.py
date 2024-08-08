@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -6,6 +5,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 """INSPIRE module that adds more fun to the platform."""
+
 import uuid
 from copy import copy, deepcopy
 from datetime import datetime
@@ -14,11 +14,6 @@ import orjson
 import pytest
 from helpers.providers.faker import faker
 from helpers.utils import create_pidstore, create_record, create_record_factory
-from invenio_pidstore.errors import PIDDoesNotExistError
-from invenio_pidstore.models import PersistentIdentifier, PIDStatus, RecordIdentifier
-from invenio_records.models import RecordMetadata
-from jsonschema import ValidationError
-
 from inspirehep.pidstore.errors import WrongRedirectionPidStatus
 from inspirehep.pidstore.models import InspireRedirect
 from inspirehep.records.api import InspireRecord, LiteratureRecord
@@ -28,6 +23,10 @@ from inspirehep.records.errors import (
     WrongRecordSubclass,
 )
 from inspirehep.records.marshmallow.literature.bibtex import BibTexCommonSchema
+from invenio_pidstore.errors import PIDDoesNotExistError
+from invenio_pidstore.models import PersistentIdentifier, PIDStatus, RecordIdentifier
+from invenio_records.models import RecordMetadata
+from jsonschema import ValidationError
 
 
 def test_base_get_record(inspire_app):
@@ -73,7 +72,7 @@ def test_soft_delete_record(inspire_app):
     record_pid = PersistentIdentifier.query.filter_by(object_uuid=record.id).one()
 
     assert "deleted" in record
-    assert PIDStatus.DELETED == record_pid.status
+    assert record_pid.status == PIDStatus.DELETED
 
 
 def test_hard_delete_record(inspire_app):
@@ -87,7 +86,7 @@ def test_hard_delete_record(inspire_app):
     record = InspireRecord.get_record(record_uuid)
     record_pids = PersistentIdentifier.query.filter_by(object_uuid=record.id).all()
 
-    assert 4 == len(record_pids)
+    assert len(record_pids) == 4
     assert record_factory.json == record
 
     record.hard_delete()
@@ -113,7 +112,7 @@ def test_regression_hard_delete_record_with_string_pid_value(inspire_app):
     record = InspireRecord.get_record(record_uuid)
     record_pids = PersistentIdentifier.query.filter_by(object_uuid=record.id).all()
 
-    assert 2 == len(record_pids)
+    assert len(record_pids) == 2
     assert record_factory.json == record
 
     record.hard_delete()
@@ -176,8 +175,8 @@ def test_get_records_by_pids_with_empty(inspire_app):
 def test_get_linked_records_in_field(inspire_app):
     record_reference = create_record_factory("lit")
     record_reference_control_number = record_reference.json["control_number"]
-    record_reference_uri = "http://localhost:5000/api/literature/{}".format(
-        record_reference_control_number
+    record_reference_uri = (
+        f"http://localhost:5000/api/literature/{record_reference_control_number}"
     )
 
     data = {"references": [{"record": {"$ref": record_reference_uri}}]}
@@ -208,7 +207,7 @@ def test_get_linked_records_in_field_empty(inspire_app):
 
 
 def test_get_linked_records_in_field_not_existing_linked_record(inspire_app):
-    record_reference_uri = "http://localhost:5000/api/literature/{}".format(123)
+    record_reference_uri = f"http://localhost:5000/api/literature/{123}"
 
     data = {"references": [{"record": {"$ref": record_reference_uri}}]}
 
@@ -229,14 +228,14 @@ def test_get_linked_records_in_field_not_existing_linked_record(inspire_app):
 def test_get_linked_records_in_field_with_different_pid_types(inspire_app):
     record_reference_lit = create_record_factory("lit")
     record_reference_lit_control_number = record_reference_lit.json["control_number"]
-    record_reference_lit_uri = "http://localhost:5000/api/literature/{}".format(
-        record_reference_lit_control_number
+    record_reference_lit_uri = (
+        f"http://localhost:5000/api/literature/{record_reference_lit_control_number}"
     )
 
     record_reference_aut = create_record_factory("aut")
     record_reference_aut_control_number = record_reference_aut.json["control_number"]
-    record_reference_aut_uri = "http://localhost:5000/api/authors/{}".format(
-        record_reference_aut_control_number
+    record_reference_aut_uri = (
+        f"http://localhost:5000/api/authors/{record_reference_aut_control_number}"
     )
 
     data = {
@@ -350,7 +349,7 @@ def test_update_record_without_control_number(inspire_app):
     rec = create_record("lit")
     data = copy(rec)
     del data["control_number"]
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="Missing control number in record update."):
         rec.update(data)
 
 
@@ -358,7 +357,7 @@ def test_update_record_with_different_control_number(inspire_app):
     data1 = faker.record("lit")
     data2 = faker.record("lit")
     record = InspireRecord.create(data1)
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="Missing control number in record update."):
         record.update(data2)
 
 
@@ -858,15 +857,15 @@ def test_get_all_ids_by_update_date(inspire_app):
 
 def test_validate_record(inspire_app):
     rec = create_record("lit")
+    rec["inspire_categories"] = ["Astrophysics", "Astrophysics", "Astrophysics"]
     with pytest.raises(ValidationError):
-        rec["inspire_categories"] = ["Astrophysics", "Astrophysics", "Astrophysics"]
         rec.update(dict(rec))
     assert rec.get_validation_errors()
 
 
 def test_get_records_batched(inspire_app):
     ids = []
-    for i in range(5):
+    for _i in range(5):
         rec = create_record("lit")
         ids.append(rec.id)
 
@@ -883,7 +882,7 @@ def test_get_records_batched(inspire_app):
 
 def test_get_records_batched_with_deleted(inspire_app):
     ids = []
-    for i in range(5):
+    for _i in range(5):
         rec = create_record("lit")
         ids.append(rec.id)
 

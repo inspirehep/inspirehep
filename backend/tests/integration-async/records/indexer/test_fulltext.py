@@ -5,15 +5,14 @@ import pytest
 from flask_sqlalchemy import models_committed
 from helpers.providers.faker import faker
 from helpers.utils import create_s3_bucket, create_s3_file, retry_test
-from invenio_db import db
-from invenio_search import current_search
-from tenacity import stop_after_delay, wait_fixed
-
 from inspirehep.files.api import current_s3_instance
 from inspirehep.indexer.tasks import batch_index
 from inspirehep.records.api import LiteratureRecord
 from inspirehep.records.receivers import index_after_commit
 from inspirehep.search.api import LiteratureSearch
+from invenio_db import db
+from invenio_search import current_search
+from tenacity import stop_after_delay, wait_fixed
 
 KEY = "b50c2ea2d26571e0c5a3411e320586289fd715c2"
 
@@ -38,7 +37,6 @@ def assert_record_not_in_es(recid):
             "key": "arXiv:nucl-th_9310030.pdf",
             "filename": "arXiv:nucl-th_9310030.pdf",
             "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-            "text": "e1xydGYxXGFuc2kNCkxvcmVtIGlwc3VtIGRvbG9yIHNpdCBhbWV0DQpccGFyIH0=",
             "text": "e1xydGYxXGFuc2kNCkxvcmVtIGlwc3VtIGRvbG9yIHNpdCBhbWV0DQpccGFyIH0=",
         }
     ],
@@ -162,7 +160,7 @@ def test_fulltext_indexer_updates_documents_when_record_changed(
             record_lit_es = (
                 LiteratureSearch().get_record(str(record.id)).execute().hits.hits[0]
             )
-            assert "new_doc.pdf" == record_lit_es._source["documents"][0]["key"]
+            assert record_lit_es._source["documents"][0]["key"] == "new_doc.pdf"
             assert (
                 record_first_attachment
                 != record_lit_es._source["documents"][0]["attachment"]
@@ -297,7 +295,8 @@ def test_index_records_batch_fulltext_manually(
             lit_record_from_es_2 = LiteratureSearch.get_record_data_from_es(
                 lit_record_2
             )
-            assert lit_record_from_es and lit_record_from_es_2
+            assert lit_record_from_es
+            assert lit_record_from_es_2
 
         assert_records_in_es()
 

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -10,12 +9,11 @@ from itertools import chain
 from inspire_utils.helpers import force_list
 from marshmallow import fields
 
-from ..base import ElasticSearchBaseSchema
-from .base import AuthorsRawSchema
+from inspirehep.records.marshmallow.authors.base import AuthorsRawSchema
+from inspirehep.records.marshmallow.base import ElasticSearchBaseSchema
 
 
 class AuthorsElasticSearchSchema(ElasticSearchBaseSchema, AuthorsRawSchema):
-
     author_suggest = fields.Method("get_author_suggest", dump_only=True)
     students = fields.Method("populate_students_field", dump_only=True)
 

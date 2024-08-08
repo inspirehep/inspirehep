@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2021 CERN.
 #
@@ -8,13 +7,13 @@ from urllib import parse
 
 import requests
 import structlog
-from opensearch_dsl import Q
 from flask import current_app
 from idutils import is_arxiv
 from inspire_schemas.builders import LiteratureBuilder
 from inspire_utils.record import get_value, get_values_for_schema
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
+from opensearch_dsl import Q
 from sqlalchemy.exc import SQLAlchemyError
 
 from inspirehep.cds.errors import CDSSyncError, MissingCDSServerConfig

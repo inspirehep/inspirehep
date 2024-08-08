@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2022 CERN.
 #
@@ -6,10 +5,9 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from helpers.utils import create_record, retry_test
+from inspirehep.search.api import LiteratureSearch
 from invenio_db import db
 from tenacity import stop_after_delay, wait_fixed
-
-from inspirehep.search.api import LiteratureSearch
 
 
 def test_disambiguate_all(inspire_app, cli, clean_celery_session, override_config):

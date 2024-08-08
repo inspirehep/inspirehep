@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -7,9 +6,8 @@
 
 import orjson
 from helpers.providers.faker import faker
-from mock import patch
-
 from inspirehep.records.marshmallow.literature import LiteratureElasticSearchSchema
+from mock import patch
 
 
 @patch(
@@ -23,7 +21,6 @@ from inspirehep.records.marshmallow.literature import LiteratureElasticSearchSch
 def test_es_schema_removes_supervisors_from_authors(
     mock_referenced_authors, mock_cv_format
 ):
-
     schema = LiteratureElasticSearchSchema()
     authors = [
         {"full_name": "Frank Castle"},
@@ -48,7 +45,6 @@ def test_es_schema_removes_supervisors_from_authors(
 def test_es_schema_removes_supervisors_from_facet_author_name(
     mock_referenced_authors, mock_cv_format
 ):
-
     schema = LiteratureElasticSearchSchema()
     authors = [
         {"full_name": "Frank Castle"},

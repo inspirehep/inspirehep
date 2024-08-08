@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -6,7 +5,6 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from helpers.utils import create_record
-
 from inspirehep.curation.utils import (
     assign_institution,
     set_refereed_and_fix_document_type,

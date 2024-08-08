@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2020 CERN.
 #
@@ -9,8 +8,6 @@ import pytest
 from helpers.utils import create_record
 from inspire_schemas.api import load_schema, validate
 from inspire_utils.record import get_value
-from mock import patch
-
 from inspirehep.matcher.api import (
     exact_match_literature_data,
     fuzzy_match_literature_data,
@@ -19,6 +16,7 @@ from inspirehep.matcher.api import (
     match_reference_control_numbers_with_relaxed_journal_titles,
     match_references,
 )
+from mock import patch
 
 
 @pytest.mark.vcr()

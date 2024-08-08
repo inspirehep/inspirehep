@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -7,13 +6,13 @@
 
 
 import structlog
-from opensearchpy import RequestError
-from opensearch_dsl.query import Match, Q
 from flask import current_app, request
 from inspire_schemas.utils import convert_old_publication_info_to_new
 from inspire_utils.record import get_value
 from invenio_search import current_search_client as es
 from invenio_search.api import DefaultFilter, RecordsSearch
+from opensearch_dsl.query import Match, Q
+from opensearchpy import RequestError
 from requests.exceptions import RequestException
 
 from inspirehep.accounts.api import (
@@ -25,17 +24,15 @@ from inspirehep.matcher.api import (
     match_reference_control_numbers_with_relaxed_journal_titles,
 )
 from inspirehep.pidstore.api import PidStoreBase
-from inspirehep.search.errors import MaximumSearchPageSizeExceeded
+from inspirehep.search.errors import MalformatedQuery, MaximumSearchPageSizeExceeded
 from inspirehep.search.factories import inspire_query_factory
 from inspirehep.search.utils import RecursionLimit
-
-from .errors import MalformatedQuery
 
 IQ = inspire_query_factory()
 LOGGER = structlog.getLogger()
 
 
-class SearchMixin(object):
+class SearchMixin:
     """Mixin that adds helper functions to ElasticSearch DSL classes."""
 
     @property
@@ -62,8 +59,8 @@ class SearchMixin(object):
                 default_field="_all",
                 default_operator="AND",
             )
-        except ValueError:
-            raise MalformatedQuery
+        except ValueError as e:
+            raise MalformatedQuery from e
 
     def get_source(self, uuid, **kwargs):
         """Get source from a given uuid.
@@ -179,9 +176,9 @@ class LiteratureSearch(InspireSearch):
             journal_title = get_value(
                 reference, "reference.publication_info.journal_title"
             )
-            reference["reference"]["publication_info"][
-                "journal_title"
-            ] = JournalsSearch().normalize_title(journal_title)
+            reference["reference"]["publication_info"]["journal_title"] = (
+                JournalsSearch().normalize_title(journal_title)
+            )
         except KeyError:
             pass
         return reference

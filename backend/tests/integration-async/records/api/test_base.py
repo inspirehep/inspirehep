@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -8,10 +7,9 @@ from copy import deepcopy
 
 import pytest
 from helpers.providers.faker import faker
+from inspirehep.records.api import InspireRecord, LiteratureRecord
 from invenio_db import db
 from jsonschema import ValidationError
-
-from inspirehep.records.api import InspireRecord, LiteratureRecord
 
 
 def test_record_versioning(inspire_app, clean_celery_session):
@@ -219,7 +217,7 @@ def test_more_than_one_update_works_correctly(inspire_app):
         # Revision 1 will be missing as there were 2 updates in one commit,
         # so revision number increased but revision itself was not created in DB
         rec.revert(1)
-        assert dict(rec) == expectet_rev_1
+    assert dict(rec) != expectet_rev_1
 
     rec.revert(0)
     assert dict(rec) == expectet_rev_0

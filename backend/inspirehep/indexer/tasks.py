@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -7,7 +6,6 @@
 
 import structlog
 from celery import shared_task
-from flask import current_app
 
 from inspirehep.errors import DB_TASK_EXCEPTIONS, ES_TASK_EXCEPTIONS
 from inspirehep.indexer.api import get_references_to_update

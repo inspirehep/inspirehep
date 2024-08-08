@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -6,7 +5,6 @@
 # the terms of the MIT License; see LICENSE file for more details.
 from flask_sqlalchemy import models_committed
 from helpers.utils import create_record
-
 from inspirehep.records.marshmallow.literature.common.author import CVAuthorSchemaV1
 from inspirehep.records.receivers import index_after_commit
 from inspirehep.search.api import LiteratureSearch
@@ -675,7 +673,6 @@ def test_cv_search_cached(inspire_app):
 
 
 def test_literature_detail_cv_link_alias_format(inspire_app):
-
     data = {
         "titles": [{"title": "Yet another title"}],
     }

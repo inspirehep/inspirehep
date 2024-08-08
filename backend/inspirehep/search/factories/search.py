@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -10,9 +9,9 @@ from flask import current_app, request
 from invenio_records_rest.errors import InvalidQueryRESTError
 from invenio_records_rest.sorter import default_sorter_factory
 
-from ..errors import FieldsParamForbidden
-from .facet import inspire_facets_factory
-from .filter import inspire_filter_factory
+from inspirehep.search.errors import FieldsParamForbidden
+from inspirehep.search.factories.facet import inspire_facets_factory
+from inspirehep.search.factories.filter import inspire_filter_factory
 
 LOGGER = structlog.getLogger()
 
@@ -26,9 +25,7 @@ def can_request_fields():
     ):
         return False
     requested_format = request.values.get("format", "json", type=str)
-    if requested_format != "json":
-        return False
-    return True
+    return requested_format == "json"
 
 
 def get_search_with_source(search):

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -12,8 +11,8 @@ from inspire_schemas.utils import normalize_collaboration_name
 from inspire_utils.helpers import force_list
 from marshmallow import fields
 
-from ..base import ElasticSearchBaseSchema
-from .base import ExperimentsRawSchema
+from inspirehep.records.marshmallow.base import ElasticSearchBaseSchema
+from inspirehep.records.marshmallow.experiments.base import ExperimentsRawSchema
 
 
 class ExperimentsElasticSearchSchema(ElasticSearchBaseSchema, ExperimentsRawSchema):
@@ -43,7 +42,6 @@ class ExperimentsElasticSearchSchema(ElasticSearchBaseSchema, ExperimentsRawSche
         return self.build_normalized_names(original_object, paths)
 
     def get_facet_inspire_classification(self, data):
-
         classifications = data.get("inspire_classification", [])
         cleaned_classifications = [
             re.sub(" [Ee]xperiments", "", classification)

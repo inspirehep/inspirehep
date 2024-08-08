@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # This file is part of Invenio.
 # Copyright (C) 2016-2018 CERN.
@@ -15,19 +14,18 @@ from inspire_service_orcid.client import OrcidClient
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
 
+from inspirehep.orcid import exceptions, push_access_tokens, utils
+from inspirehep.orcid.cache import OrcidCache
+from inspirehep.orcid.converter import OrcidConverter
+from inspirehep.orcid.putcode_getter import OrcidPutcodeGetter
 from inspirehep.records.api import LiteratureRecord
 from inspirehep.utils import distributed_lock
-
-from . import exceptions, push_access_tokens, utils
-from .cache import OrcidCache
-from .converter import OrcidConverter
-from .putcode_getter import OrcidPutcodeGetter
 
 LOGGER = structlog.getLogger()
 ORCID_REGEX = r"\d{4}-\d{4}-\d{4}-\d{3}[0-9X]"
 
 
-class OrcidPusher(object):
+class OrcidPusher:
     def __init__(
         self,
         orcid,
@@ -43,7 +41,7 @@ class OrcidPusher(object):
         self.record_db_version = record_db_version
         self.inspire_record = self._get_inspire_record()
         self.cache = OrcidCache(orcid, recid)
-        self.lock_name = "orcid:{}".format(self.orcid)
+        self.lock_name = f"orcid:{self.orcid}"
         self.client = OrcidClient(self.oauth_token, self.orcid)
         self.converter = None
         self.cached_author_putcodes = {}
@@ -55,8 +53,8 @@ class OrcidPusher(object):
             )
         except PIDDoesNotExistError as exc:
             raise exceptions.RecordNotFoundException(
-                "recid={} not found for pid_type=lit".format(self.recid), from_exc=exc
-            )
+                f"recid={self.recid} not found for pid_type=lit", from_exc=exc
+            ) from exc
 
         # If the record_db_version was given, then ensure we are about to push
         # the right record version.
@@ -71,10 +69,8 @@ class OrcidPusher(object):
             and inspire_record.model.version_id < self.record_db_version
         ):
             raise exceptions.StaleRecordDBVersionException(
-                "Requested push for db version={}, but actual record db"
-                " version={}".format(
-                    self.record_db_version, inspire_record.model.version_id
-                )
+                f"Requested push for db version={self.record_db_version}, but actual record db"
+                f" version={inspire_record.model.version_id}"
             )
         return inspire_record
 
@@ -102,7 +98,7 @@ class OrcidPusher(object):
                 return True
         return self.inspire_record.get("deleted", False)
 
-    def push(self):  # noqa: C901
+    def push(self):  # noqa C901
         putcode = None
         if not self._do_force_cache_miss:
             putcode = self.cache.read_work_putcode()
@@ -128,7 +124,7 @@ class OrcidPusher(object):
 
         try:
             putcode = self._post_or_put_work(putcode)
-        except orcid_client_exceptions.WorkAlreadyExistsException:
+        except orcid_client_exceptions.WorkAlreadyExistsException as e:
             # We POSTed the record as new work, but it failed because
             # a work with the same identifier is already in ORCID.
             # This can mean two things:
@@ -139,19 +135,19 @@ class OrcidPusher(object):
             # so we try to push once again works with clashing identifiers
             # to update them and resolve the potential conflict.
             if self.pushing_duplicated_identifier:
-                raise exceptions.DuplicatedExternalIdentifierPusherException
+                raise exceptions.DuplicatedExternalIdentifierPusherException from e
             putcode = self._cache_all_author_putcodes()
             if not putcode:
                 try:
                     self._push_work_with_clashing_identifier()
                     putcode = self._post_or_put_work(putcode)
-                except orcid_client_exceptions.WorkAlreadyExistsException:
+                except orcid_client_exceptions.WorkAlreadyExistsException as e:
                     # The PUT/POST failed despite pushing works with clashing identifiers
                     # and we can't do anything about this.
-                    raise exceptions.DuplicatedExternalIdentifierPusherException
+                    raise exceptions.DuplicatedExternalIdentifierPusherException from e
             else:
                 self._post_or_put_work(putcode)
-        except orcid_client_exceptions.DuplicatedExternalIdentifierException:
+        except orcid_client_exceptions.DuplicatedExternalIdentifierException as e:
             # We PUT a record changing its identifier, but there is another work
             # in ORCID with the same identifier. We need to find out the recid
             # of the clashing work in ORCID and push a fresh version of that
@@ -160,7 +156,7 @@ class OrcidPusher(object):
             if not self.pushing_duplicated_identifier:
                 self._push_work_with_clashing_identifier()
             # Raised exception will cause retry of celery task
-            raise exceptions.DuplicatedExternalIdentifierPusherException
+            raise exceptions.DuplicatedExternalIdentifierPusherException from e
         except orcid_client_exceptions.PutcodeNotFoundPutException:
             # We try to push the work with invalid putcode, so we delete
             # its putcode and push it without any putcode.
@@ -179,19 +175,19 @@ class OrcidPusher(object):
             orcid_client_exceptions.TokenInvalidException,
             orcid_client_exceptions.TokenMismatchException,
             orcid_client_exceptions.TokenWithWrongPermissionException,
-        ):
+        ) as e:
             LOGGER.info(
                 "Deleting Orcid push access", token=self.oauth_token, orcid=self.orcid
             )
             push_access_tokens.delete_access_token(self.oauth_token, self.orcid)
             db.session.commit()
-            raise exceptions.TokenInvalidDeletedException
+            raise exceptions.TokenInvalidDeletedException from e
         except orcid_client_exceptions.MovedPermanentlyException as exc:
             old_orcid, new_orcid = re.findall(ORCID_REGEX, exc.args[0])
             utils.update_moved_orcid(old_orcid, new_orcid)
             raise
         except orcid_client_exceptions.BaseOrcidClientJsonException as exc:
-            raise exceptions.InputDataInvalidException(from_exc=exc)
+            raise exceptions.InputDataInvalidException(from_exc=exc) from exc
 
         self.cache.write_work_putcode(putcode, self.inspire_record)
         return putcode
@@ -247,10 +243,8 @@ class OrcidPusher(object):
         # at this moment it helps isolate a potential issue.
         if putcode and not self.cache.read_work_putcode():
             raise exceptions.PutcodeNotFoundInCacheAfterCachingAllPutcodes(
-                "No putcode={} found in cache for recid={} after having"
-                " cached all author putcodes for orcid={}".format(
-                    self.putcode, self.recid, self.orcid
-                )
+                f"No putcode={self.putcode} found in cache for recid={self.recid} after having"
+                f" cached all author putcodes for orcid={self.orcid}"
             )
 
         return putcode
@@ -271,7 +265,7 @@ class OrcidPusher(object):
             # Such putcode does not exists (anymore?) in orcid.
             pass
         except orcid_client_exceptions.BaseOrcidClientJsonException as exc:
-            raise exceptions.InputDataInvalidException(from_exc=exc)
+            raise exceptions.InputDataInvalidException(from_exc=exc) from exc
 
         self.cache.delete_work_putcode()
 
@@ -286,8 +280,7 @@ class OrcidPusher(object):
             putcodes_recids
         )
 
-        for (recid, putcode) in updated_putcodes_recid.items():
-
+        for recid, putcode in updated_putcodes_recid.items():
             if not putcode or not recid:
                 continue
             if recid == self.recid:

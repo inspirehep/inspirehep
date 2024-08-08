@@ -2,8 +2,6 @@ from flask import current_app
 from freezegun.api import freeze_time
 from helpers.providers.faker import faker
 from helpers.utils import create_record, create_user
-from invenio_accounts.testutils import login_user_via_session
-
 from inspirehep.search.aggregations import (
     conf_series_aggregation,
     conf_subject_aggregation,
@@ -33,6 +31,7 @@ from inspirehep.search.aggregations import (
     seminar_subject_aggregation,
 )
 from inspirehep.search.facets import hep_filters
+from invenio_accounts.testutils import login_user_via_session
 
 
 def test_hep_rpp_aggregation_and_filter(inspire_app, override_config):

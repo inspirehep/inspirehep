@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2020 CERN.
 #
@@ -44,10 +43,7 @@ class InspireTexKeyProvider(InspireBaseProvider):
     @classmethod
     def build_texkey_first_part(cls, data):
         full_name = get_value(data, "authors[0].full_name")
-        if full_name:
-            last_name = full_name.split(",")[0]
-        else:
-            last_name = None
+        last_name = full_name.split(",")[0] if full_name else None
 
         if last_name and len(data["authors"]) < 10:
             return cls.sanitize(last_name)
@@ -66,7 +62,6 @@ class InspireTexKeyProvider(InspireBaseProvider):
         date = get_literature_earliest_date(data)
         if date:
             return date.split("-", 1)[0]
-        None
 
     @classmethod
     def get_texkey_with_random_part(cls, texkey):
@@ -177,5 +172,4 @@ class InspireTexKeyProvider(InspireBaseProvider):
 
     @classmethod
     def get(cls, pid_value, object_uuid=None):
-
         return cls(cls.query_pid(pid_value, object_uuid).one())

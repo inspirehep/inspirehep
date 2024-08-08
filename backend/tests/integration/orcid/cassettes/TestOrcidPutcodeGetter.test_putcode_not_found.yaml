@@ -8,7 +8,7 @@ interactions:
     method: GET
     uri: https://api.orcid.org/v2.0/0000-0002-0942-3697/works
   response:
-    body: {string: !!python/unicode "{\n  \"last-modified-date\" : {\n    \"value\"\
+    body: {string: "{\n  \"last-modified-date\" : {\n    \"value\"\
         \ : 1533562573198\n  },\n  \"group\" : [ {\n    \"last-modified-date\" : {\n\
         \      \"value\" : 1533562573198\n    },\n    \"external-ids\" : {\n     \
         \ \"external-id\" : [ {\n        \"external-id-type\" : \"doi\",\n       \
@@ -103,7 +103,7 @@ interactions:
     method: GET
     uri: https://api.orcid.org/v2.0/0000-0002-0942-3697/works/47160445,46674246,10000
   response:
-    body: {string: !!python/unicode "{\n  \"bulk\" : [ {\n    \"work\" : {\n     \
+    body: {string: "{\n  \"bulk\" : [ {\n    \"work\" : {\n     \
         \ \"created-date\" : {\n        \"value\" : 1531928587375\n      },\n    \
         \  \"last-modified-date\" : {\n        \"value\" : 1533117807329\n      },\n\
         \      \"source\" : {\n        \"source-orcid\" : null,\n        \"source-client-id\"\

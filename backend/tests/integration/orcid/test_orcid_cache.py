@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -10,19 +9,18 @@ import mock
 import pytest
 from fqn_decorators.decorators import get_fqn
 from helpers.factories.db.invenio_records import TestRecordMetadata
-from lxml import etree
-
 from inspirehep.orcid import cache as cache_module
 from inspirehep.orcid.cache import OrcidCache, _OrcidHasher
+from lxml import etree
 
 # The tests are written in a specific order, disable random
 pytestmark = pytest.mark.random_order(disabled=True)
 
 
 @pytest.mark.usefixtures("inspire_app")
-class TestOrcidCache(object):
+class TestOrcidCache:
     @pytest.fixture(autouse=True)
-    def setup(self):
+    def _setup(self):
         self.recid = "1936475"
         self.putcode = "myputcode"
         self.hash_value = "myhash"
@@ -100,9 +98,9 @@ class TestOrcidCache(object):
 
 
 @pytest.mark.usefixtures("inspire_app")
-class TestOrcidHasher(object):
+class TestOrcidHasher:
     @pytest.fixture(autouse=True)
-    def setup(self):
+    def _setup(self):
         factory = TestRecordMetadata.create_from_file(
             __name__, "test_orcid_hasher_record.json"
         )

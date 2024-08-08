@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -6,6 +5,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 """JSON Schemas."""
+
 from inspire_dojson.utils import get_recid_from_ref
 from inspire_schemas.builders.literature import LiteratureBuilder
 from inspire_schemas.utils import split_page_artid

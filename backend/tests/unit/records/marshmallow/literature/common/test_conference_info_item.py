@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -6,10 +5,9 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import orjson
+from inspirehep.records.marshmallow.literature.common import ConferenceInfoItemSchemaV1
 from invenio_pidstore.errors import PIDDoesNotExistError
 from mock import patch
-
-from inspirehep.records.marshmallow.literature.common import ConferenceInfoItemSchemaV1
 
 
 def test_returns_empty_if_conference_record_is_missing():

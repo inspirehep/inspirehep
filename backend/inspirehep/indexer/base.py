@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -6,15 +5,15 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import structlog
-from opensearchpy import ConflictError, NotFoundError, RequestError, TransportError
-from opensearchpy.helpers import streaming_bulk
 from flask import current_app
 from inspire_utils.record import get_value
 from invenio_indexer.api import RecordIndexer
 from invenio_indexer.signals import before_record_index
 from invenio_search import current_search_client as es
-from invenio_search.engine import dsl, search
+from invenio_search.engine import search
 from kombu.exceptions import EncodeError
+from opensearchpy import ConflictError, NotFoundError, RequestError, TransportError
+from opensearchpy.helpers import streaming_bulk
 from sqlalchemy.orm.exc import NoResultFound
 
 LOGGER = structlog.getLogger()
@@ -65,6 +64,7 @@ class InspireRecordIndexer(RecordIndexer):
 
         """
         from inspirehep.records.api import LiteratureRecord
+
         index_from_record = self.record_to_index(record)
         if not index:
             index = index_from_record
@@ -174,7 +174,9 @@ class InspireRecordIndexer(RecordIndexer):
             arguments = {
                 "pipeline": current_app.config["ES_FULLTEXT_PIPELINE_NAME"],
                 # TODO: when opensearch 2.2.1 is released, update package & change arg name to `timeout`
-                "request_timeout": int(current_app.config["FULLLTEXT_INDEXER_REQUEST_TIMEOUT"]),
+                "request_timeout": int(
+                    current_app.config["FULLLTEXT_INDEXER_REQUEST_TIMEOUT"]
+                ),
             }
             return arguments
 

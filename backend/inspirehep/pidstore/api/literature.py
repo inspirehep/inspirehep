@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -13,5 +12,4 @@ from inspirehep.pidstore.minters.texkey import TexKeyMinter
 
 
 class PidStoreLiterature(PidStoreBase):
-
     minters = [LiteratureMinter, ArxivMinter, DoiMinter, TexKeyMinter]

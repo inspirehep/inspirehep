@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2021 CERN.
 #
@@ -7,11 +6,10 @@
 
 import pytest
 from helpers.providers.faker import faker
-from invenio_db import db
-from sqlalchemy.orm.exc import StaleDataError
-
 from inspirehep.hal.tasks import hal_push
 from inspirehep.records.api import LiteratureRecord
+from invenio_db import db
+from sqlalchemy.orm.exc import StaleDataError
 
 
 def test_hal_push_retry_on_stale_data_error(inspire_app):

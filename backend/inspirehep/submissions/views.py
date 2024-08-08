@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -40,22 +39,20 @@ from inspirehep.records.api import (
     SeminarsRecord,
 )
 from inspirehep.serializers import jsonify
-from inspirehep.submissions.errors import RESTDataError
+from inspirehep.submissions.errors import RESTDataError, WorkflowStartError
+from inspirehep.submissions.loaders import author_v1 as author_loader_v1
+from inspirehep.submissions.loaders import conference_v1 as conference_loader_v1
+from inspirehep.submissions.loaders import experiment_v1 as experiment_loader_v1
+from inspirehep.submissions.loaders import institution_v1 as institution_loader_v1
+from inspirehep.submissions.loaders import job_v1 as job_loader_v1
+from inspirehep.submissions.loaders import journal_v1 as journal_loader_v1
+from inspirehep.submissions.loaders import literature_v1 as literature_loader_v1
+from inspirehep.submissions.loaders import seminar_v1 as seminar_loader_v1
+from inspirehep.submissions.serializers import author_v1, job_v1
+from inspirehep.submissions.serializers import seminar_v1 as seminar_serializer_v1
+from inspirehep.submissions.tasks import async_create_ticket_with_template
+from inspirehep.submissions.utils import has_30_days_passed_after_deadline
 from inspirehep.utils import get_inspirehep_url
-
-from .errors import WorkflowStartError
-from .loaders import author_v1 as author_loader_v1
-from .loaders import conference_v1 as conference_loader_v1
-from .loaders import experiment_v1 as experiment_loader_v1
-from .loaders import institution_v1 as institution_loader_v1
-from .loaders import job_v1 as job_loader_v1
-from .loaders import journal_v1 as journal_loader_v1
-from .loaders import literature_v1 as literature_loader_v1
-from .loaders import seminar_v1 as seminar_loader_v1
-from .serializers import author_v1, job_v1
-from .serializers import seminar_v1 as seminar_serializer_v1
-from .tasks import async_create_ticket_with_template
-from .utils import has_30_days_passed_after_deadline
 
 blueprint = Blueprint("inspirehep_submissions", __name__, url_prefix="/submissions")
 
@@ -103,7 +100,7 @@ class BaseSubmissionsResource(MethodView):
         )
         try:
             response.raise_for_status()
-        except RequestException:
+        except RequestException as e:
             LOGGER.exception(
                 "Error during workflow creation.",
                 response=response.text,
@@ -112,7 +109,7 @@ class BaseSubmissionsResource(MethodView):
                 endpoint=endpoint,
                 bearer_keyword=bearer_keyword,
             )
-            raise WorkflowStartError
+            raise WorkflowStartError from e
         LOGGER.info("Workflow creation successful", response=response.text)
         return response.json()
 
@@ -312,7 +309,6 @@ class ConferenceSubmissionsResource(BaseSubmissionsResource):
 
 
 class ExperimentSubmissionsResource(BaseSubmissionsResource):
-
     decorators = [login_required_with_roles([Roles.cataloger.value])]
 
     def load_data_from_request(self):
@@ -441,7 +437,6 @@ class LiteratureSubmissionResource(BaseSubmissionsResource):
 
 
 class JobSubmissionsResource(BaseSubmissionsResource):
-
     data_loader_from_request = job_loader_v1
 
     user_allowed_status_changes = {
@@ -569,7 +564,7 @@ class JobSubmissionsResource(BaseSubmissionsResource):
             builder.validate_record()
         except ValidationError as e:
             LOGGER.exception("Cannot process job submission")
-            raise RESTDataError(e.args[0])
+            raise RESTDataError(e.args[0]) from e
         except SchemaError as e:
             LOGGER.exception("Schema is broken")
             abort(500, str(e))
@@ -612,7 +607,6 @@ class JobSubmissionsResource(BaseSubmissionsResource):
 
 
 class InstitutionSubmissionsResource(BaseSubmissionsResource):
-
     decorators = [login_required_with_roles([Roles.cataloger.value])]
 
     def load_data_from_request(self):
@@ -629,7 +623,6 @@ class InstitutionSubmissionsResource(BaseSubmissionsResource):
 
 
 class JournalSubmissionsResource(BaseSubmissionsResource):
-
     decorators = [login_required_with_roles([Roles.cataloger.value])]
 
     def load_data_from_request(self):

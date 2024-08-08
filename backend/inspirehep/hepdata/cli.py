@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2021 CERN.
 #
@@ -11,9 +10,8 @@ import requests
 import structlog
 from flask.cli import with_appcontext
 from inspire_utils.record import get_values_for_schema
-from invenio_db import db
-
 from inspirehep.records.api import LiteratureRecord
+from invenio_db import db
 
 LOGGER = structlog.getLogger()
 HEPDATA_URL = "https://www.hepdata.net/search/ids"
@@ -37,10 +35,10 @@ def harvest(since):
     if since:
         try:
             since = datetime.strptime(since, "%Y-%m-%d").date()
-        except ValueError:
+        except ValueError as e:
             raise ValueError(
                 f"`since`: {since} is in wrong format. Should be in ISO format: YYYY-MM-DD."
-            )
+            ) from e
     else:
         since = (datetime.now() - timedelta(1)).strftime("%Y-%m-%d")
     payload = {"inspire_ids": True, "last_updated": since, "sort_by": "latest"}

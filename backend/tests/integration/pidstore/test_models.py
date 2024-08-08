@@ -1,14 +1,12 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 import pytest
-from invenio_pidstore.models import PersistentIdentifier, PIDStatus
-
 from inspirehep.pidstore.errors import PidRedirectionMissing
 from inspirehep.pidstore.models import InspireRedirect
+from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
 
 def test_get_redirected_pid(inspire_app):

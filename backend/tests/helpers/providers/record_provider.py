@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -30,17 +29,11 @@ class RecordProvider(BaseProvider):
 
     @staticmethod
     def doi():
-        return "10.{}/{}".format(
-            fake.random_number(digits=4, fix_len=True),
-            fake.random_number(digits=8, fix_len=True),
-        )
+        return f"10.{fake.random_number(digits=4, fix_len=True)}/{fake.random_number(digits=8, fix_len=True)}"
 
     @staticmethod
     def arxiv():
-        return "20{}.{}".format(
-            fake.random_number(digits=2, fix_len=True),
-            fake.random_number(digits=5, fix_len=True),
-        )
+        return f"20{fake.random_number(digits=2, fix_len=True)}.{fake.random_number(digits=5, fix_len=True)}"
 
     @staticmethod
     def orcid():
@@ -196,7 +189,7 @@ class RecordProvider(BaseProvider):
         if not isinstance(count, int) or count <= 0:
             return {}
         data = {key: []}
-        for i in range(count):
+        for _i in range(count):
             data[key].append({"value": pid_generator()})
         return data
 
@@ -209,19 +202,25 @@ class RecordProvider(BaseProvider):
     def add_dois(cls, dois):
         return cls.generate_special_pids("dois", cls.doi, dois)
 
-    # flake8: noqa: C901
+    # flake8: noqa C901
     def record(
         self,
         record_type,
         data=None,
         with_control_number=False,
-        literature_citations=[],  # TODO: call `literature_references`
-        data_citations=[],
+        literature_citations=None,  # TODO: call `literature_references`
+        data_citations=None,
         skip_validation=False,
-        other_pids=[],
+        other_pids=None,
         arxiv_eprints=None,
         dois=None,
     ):
+        if other_pids is None:
+            other_pids = []
+        if data_citations is None:
+            data_citations = []
+        if literature_citations is None:
+            literature_citations = []
         if record_type == "lit":
             record = self.hep_record()
         elif record_type == "aut":

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -9,10 +8,9 @@
 
 import sqlalchemy as sa
 from alembic import op
+from inspirehep.records.models import AuthorSchemaType
 from sqlalchemy.dialects.postgresql import ENUM
 from sqlalchemy_utils import UUIDType
-
-from inspirehep.records.models import AuthorSchemaType
 
 revision = "595c36d68964"
 down_revision = "cea5fa2e5d2c"

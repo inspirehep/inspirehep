@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -11,7 +10,6 @@ from inspirehep.records.marshmallow.utils import get_first_name, get_last_name
 
 
 class SpeakerSchemaV1(Schema):
-
     affiliations = fields.Raw()
     curated_relation = fields.Raw()
     ids = fields.Raw()

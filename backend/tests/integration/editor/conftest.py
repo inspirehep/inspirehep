@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # This file is part of INSPIRE.
 # Copyright (C) 2018 CERN.
@@ -24,8 +23,8 @@ from flask import current_app
 from redis import StrictRedis
 
 
-@pytest.fixture(scope="function", autouse=True)
-def clear_redis_editor_locks(inspire_app):
+@pytest.fixture(autouse=True)
+def _clear_redis_editor_locks(inspire_app):
     with inspire_app.app_context():
         redis_url = current_app.config.get("CACHE_REDIS_URL")
         redis = StrictRedis.from_url(redis_url)

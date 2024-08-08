@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2021 CERN.
 #
@@ -9,7 +8,7 @@ import click
 import structlog
 from flask.cli import with_appcontext
 
-from .tasks import create_sitemap
+from inspirehep.sitemap.tasks import create_sitemap
 
 LOGGER = structlog.getLogger()
 

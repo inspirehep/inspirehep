@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # This file is part of Invenio.
 # Copyright (C) 2016-2018 CERN.
@@ -16,10 +15,9 @@ from inspire_service_orcid import utils as inspire_service_orcid_utils
 from inspire_service_orcid.client import OrcidClient
 from invenio_db import db
 
+from inspirehep.orcid import exceptions, push_access_tokens
 from inspirehep.orcid.converter import ExternalIdentifier
 from inspirehep.pidstore.api.base import PidStoreBase
-
-from . import exceptions, push_access_tokens
 
 INSPIRE_WORK_URL_REGEX = re.compile(
     r"https?://(?:labs\.)?inspirehep\.net/(?:record|literature)/(\d+)", re.IGNORECASE
@@ -29,7 +27,7 @@ INSPIRE_WORK_URL_REGEX = re.compile(
 LOGGER = structlog.getLogger()
 
 
-class OrcidPutcodeGetter(object):
+class OrcidPutcodeGetter:
     def __init__(self, orcid, oauth_token):
         self.orcid = orcid
         self.oauth_token = oauth_token
@@ -77,7 +75,7 @@ class OrcidPutcodeGetter(object):
             orcid_client_exceptions.TokenInvalidException,
             orcid_client_exceptions.TokenMismatchException,
             orcid_client_exceptions.TokenWithWrongPermissionException,
-        ):
+        ) as e:
             LOGGER.info(
                 "OrcidPutcodeGetter: deleting Orcid push access",
                 token=self.oauth_token,
@@ -85,9 +83,9 @@ class OrcidPutcodeGetter(object):
             )
             push_access_tokens.delete_access_token(self.oauth_token, self.orcid)
             db.session.commit()
-            raise exceptions.TokenInvalidDeletedException
+            raise exceptions.TokenInvalidDeletedException from e
         except orcid_client_exceptions.BaseOrcidClientJsonException as exc:
-            raise exceptions.InputDataInvalidException(from_exc=exc)
+            raise exceptions.InputDataInvalidException(from_exc=exc) from exc
         return response
 
     def _get_putcodes_and_recids_iter(self, putcodes):
@@ -115,7 +113,7 @@ class OrcidPutcodeGetter(object):
             try:
                 response.raise_for_result()
             except orcid_client_exceptions.BaseOrcidClientJsonException as exc:
-                raise exceptions.InputDataInvalidException(from_exc=exc)
+                raise exceptions.InputDataInvalidException(from_exc=exc) from exc
 
             chained = itertools.chain(chained, response.get_putcodes_and_urls_iter())
         return chained

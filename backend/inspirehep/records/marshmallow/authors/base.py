@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -10,10 +9,9 @@ from invenio_db import db
 from invenio_records.api import RecordMetadata
 from marshmallow import Schema, fields
 
+from inspirehep.records.marshmallow.base import RecordBaseSchema
+from inspirehep.records.marshmallow.fields import NonHiddenRaw
 from inspirehep.records.models import StudentsAdvisors
-
-from ..base import RecordBaseSchema
-from ..fields import NonHiddenRaw
 
 
 class AuthorsRawSchema(RecordBaseSchema):

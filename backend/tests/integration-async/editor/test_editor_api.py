@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2020 CERN.
 #
@@ -10,15 +9,14 @@ import orjson
 import pytest
 from celery.app.annotations import MapAnnotation, resolve_all
 from helpers.utils import create_record_async, create_user, logout, retry_test
+from inspirehep.accounts.roles import Roles
+from inspirehep.records.api import LiteratureRecord
 from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db
 from tenacity import stop_after_delay, wait_fixed
 
-from inspirehep.accounts.roles import Roles
-from inspirehep.records.api import LiteratureRecord
 
-
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def record_with_two_revisions(inspire_app, clean_celery_session):
     record_data = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
@@ -38,7 +36,7 @@ def record_with_two_revisions(inspire_app, clean_celery_session):
     return record["control_number"]
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def hidden_record_with_two_revisions(inspire_app, clean_celery_session):
     record_data = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
@@ -354,7 +352,6 @@ def test_editor_locks_are_passed_in_payload_when_another_user_editing(
     from inspirehep.disambiguation.tasks import disambiguate_authors
 
     with override_config(FEATURE_FLAG_ENABLE_HAL_PUSH=True):
-
         celery_task_annotation = MapAnnotation({"countdown": 1.5})
 
         user = create_user(role=Roles.cataloger.value)

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -12,9 +11,8 @@ import orjson
 import pytest
 from helpers.providers.faker import faker
 from helpers.utils import create_record
-from invenio_search import current_search
-
 from inspirehep.records.api import InspireRecord
+from invenio_search import current_search
 
 
 @pytest.fixture(scope="module")
@@ -37,7 +35,7 @@ def mock_job_create_and_update_time(date, data=None):
     return record
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def create_jobs(inspire_app, shared_datadir):
     now_utc = datetime.datetime.utcnow()
 
@@ -90,8 +88,8 @@ def create_jobs(inspire_app, shared_datadir):
     }
 
 
-@pytest.fixture(autouse=True, scope="function")
-def assert_all_played(request, vcr_cassette):
+@pytest.fixture(autouse=True)
+def _assert_all_played(request, vcr_cassette):
     """
     Ensure that all all episodes have been played in the current test.
     Only if the current test has a cassette.

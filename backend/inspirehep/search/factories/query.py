@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -6,8 +5,8 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import inspire_query_parser
-from opensearch_dsl import Q
 from flask import current_app
+from opensearch_dsl import Q
 
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.search.errors import MalformatedQuery
@@ -15,14 +14,13 @@ from inspirehep.search.utils import RecursionLimit
 
 
 def replace_recid_in_citedby_query(query):
-
     citedby_query_fields = set(["index", "id", "path"])
     self_ref_field = "self.$ref.raw"
 
     def _replace_recid_in_citedby_query(obj):
         if isinstance(obj, dict):
             obj_keys = obj.keys()
-            for key, val in obj.items():
+            for _key, val in obj.items():
                 if isinstance(val, list):
                     _replace_recid_in_citedby_query(val)
                 elif isinstance(val, dict):
@@ -56,8 +54,8 @@ def inspire_query_factory():
         with RecursionLimit(current_app.config.get("SEARCH_MAX_RECURSION_LIMIT", 5000)):
             try:
                 query = Q(inspire_query_parser.parse_query(query_string))
-            except ValueError:
-                raise MalformatedQuery
+            except ValueError as e:
+                raise MalformatedQuery from e
             if "citedby" in query_string:
                 query = query.to_dict()
                 replace_recid_in_citedby_query(query)

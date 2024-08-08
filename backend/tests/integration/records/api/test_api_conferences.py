@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -10,13 +9,12 @@ from operator import itemgetter
 import pytest
 from helpers.providers.faker import faker
 from helpers.utils import create_pidstore, create_record
+from inspirehep.records.api import ConferencesRecord, InspireRecord
+from inspirehep.records.models import ConferenceLiterature
 from invenio_pidstore.errors import PIDAlreadyExists
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_records.models import RecordMetadata
 from jsonschema import ValidationError
-
-from inspirehep.records.api import ConferencesRecord, InspireRecord
-from inspirehep.records.models import ConferenceLiterature
 
 
 def test_conferences_create(inspire_app):
@@ -163,8 +161,7 @@ def test_aut_citation_count_property_blows_up_on_wrong_pid_type(inspire_app):
     data = faker.record("con")
     record = ConferencesRecord.create(data)
 
-    with pytest.raises(AttributeError):
-        record.citation_count
+    assert not hasattr(record, "citation_count")
 
 
 def test_deleted_conference_clears_entries_in_conference_literature_table(inspire_app):

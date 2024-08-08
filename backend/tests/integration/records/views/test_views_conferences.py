@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -9,9 +8,8 @@ from operator import itemgetter
 import orjson
 from freezegun import freeze_time
 from helpers.utils import create_record, create_record_factory, create_user
-from invenio_accounts.testutils import login_user_via_session
-
 from inspirehep.accounts.roles import Roles
+from invenio_accounts.testutils import login_user_via_session
 
 
 def test_conferences_application_json_get(inspire_app):
@@ -150,7 +148,7 @@ def test_conferences_application_json_put_with_cataloger_logged_in(inspire_app):
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=cataloger.email)
         response = client.put(
-            "/conferences/{}".format(record_control_number),
+            f"/conferences/{record_control_number}",
             content_type="application/json",
             headers={"If-Match": '"0"'},
             data=orjson.dumps(

@@ -1,7 +1,6 @@
 from helpers.providers.faker import faker
-from invenio_db import db
-
 from inspirehep.records.api import AuthorsRecord
+from invenio_db import db
 
 
 def test_get_linked_advisors_when_name_changes(inspire_app):

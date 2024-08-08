@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2020 CERN.
 #
@@ -8,13 +7,12 @@
 import pytest
 from freezegun import freeze_time
 from helpers.utils import create_record
-from werkzeug.datastructures import FileStorage
-
 from inspirehep.files import current_s3_instance
 from inspirehep.tools.utils import find_references
+from werkzeug.datastructures import FileStorage
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def literature_records(inspire_app):
     with freeze_time("2020-06-12"):
         aut1 = create_record("aut", data={"name": {"value": "Ellis, John R."}})
@@ -93,8 +91,10 @@ def literature_records(inspire_app):
 
 def test_generate_bibliography(inspire_app, s3, literature_records, datadir):
     current_s3_instance.client.create_bucket(Bucket="inspire-tmp")
-    with inspire_app.test_client() as client:
-        f = open(f"{datadir}/bibliography_generator_test.tex", "rb")
+    with (
+        inspire_app.test_client() as client,
+        open(f"{datadir}/bibliography_generator_test.tex", "rb") as f,
+    ):
         bytes_file = FileStorage(f)
         data = {"file": bytes_file}
         response = client.post("/bibliography-generator?format=bibtex", data=data)
@@ -114,8 +114,10 @@ def test_generate_bibliography(inspire_app, s3, literature_records, datadir):
 
 def test_generate_bibliography_with_no_references_found(inspire_app, s3, datadir):
     current_s3_instance.client.create_bucket(Bucket="inspire-tmp")
-    with inspire_app.test_client() as client:
-        f = open(f"{datadir}/bibliography_generator_test.tex", "rb")
+    with (
+        inspire_app.test_client() as client,
+        open(f"{datadir}/bibliography_generator_test.tex", "rb") as f,
+    ):
         bytes_file = FileStorage(f)
         data = {"file": bytes_file}
         response = client.post("/bibliography-generator?format=bibtex", data=data)

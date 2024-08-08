@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2021 CERN.
 #
@@ -10,10 +9,12 @@ from celery import shared_task
 from flask import current_app, render_template
 
 from inspirehep.errors import ES_TASK_EXCEPTIONS
+from inspirehep.sitemap.sitemap import generate_sitemap_items
+from inspirehep.sitemap.utils import (
+    get_sitemap_page_absolute_url,
+    write_sitemap_page_content,
+)
 from inspirehep.utils import chunker
-
-from .sitemap import generate_sitemap_items
-from .utils import get_sitemap_page_absolute_url, write_sitemap_page_content
 
 LOGGER = structlog.getLogger()
 

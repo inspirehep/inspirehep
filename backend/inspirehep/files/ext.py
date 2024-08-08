@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -13,7 +12,7 @@ from flask import current_app
 from inspirehep.files.api.s3 import S3
 
 
-class InspireS3(object):
+class InspireS3:
     """Store boto3 connectors inside Flask's application context
     for easier handling.
     """

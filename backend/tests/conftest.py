@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -40,4 +39,4 @@ def es(appctx):
     """Setup all registered Elasticsearch indices."""
     from invenio_search import current_search_client
 
-    yield current_search_client
+    return current_search_client

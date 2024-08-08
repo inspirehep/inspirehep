@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -14,7 +13,6 @@ LOGGER = structlog.getLogger()
 
 
 class InspireExternalIdProvider(InspireBaseProvider):
-
     pid_provider = "external"
     default_status = PIDStatus.REGISTERED
 

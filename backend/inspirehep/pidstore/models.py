@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -94,7 +93,7 @@ class InspireRedirect(db.Model, Timestamp):
                 old_pid.status = PIDStatus.REDIRECTED
                 db.session.add(old_pid)
         except IntegrityError as e:
-            raise PIDInvalidAction(e)
+            raise PIDInvalidAction(e) from e
         except SQLAlchemyError:
             LOGGER.exception(
                 "Failed to redirect record", old_pid=old_pid, new_pid=new_pid

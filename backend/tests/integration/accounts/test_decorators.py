@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -8,11 +7,10 @@
 """INSPIRE module that adds more fun to the platform."""
 
 import pytest
-from mock import Mock, patch
-from werkzeug.exceptions import Forbidden, Unauthorized
-
 from inspirehep.accounts.decorators import login_required_with_roles
 from inspirehep.accounts.roles import Roles
+from mock import Mock, patch
+from werkzeug.exceptions import Forbidden, Unauthorized
 
 
 class MockUserWithRoleA:
@@ -51,9 +49,12 @@ def test_login_required_with_roles_without_roles(mock_is_authenticated, inspire_
 def test_login_required_with_roles_unauthenticated(mock_is_authenticated, inspire_app):
     func = Mock()
     decorated_func = login_required_with_roles()(func)
-    with pytest.raises(Unauthorized):
+    with pytest.raises(
+        Unauthorized,
+        match="401 Unauthorized: The server could not verify that you are authorized to access the URL requested.",
+    ):
         decorated_func()
-        assert func.called
+    assert not func.called
 
 
 @patch(
@@ -64,9 +65,12 @@ def test_login_required_with_roles_unauthenticated(mock_is_authenticated, inspir
 def test_login_required_with_roles_unauthorized(mock_is_authenticated, inspire_app):
     func = Mock()
     decorated_func = login_required_with_roles(["role_a"])(func)
-    with pytest.raises(Forbidden):
+    with pytest.raises(
+        Forbidden,
+        match="403 Forbidden: You don't have the permission to access the requested resource.",
+    ):
         decorated_func()
-        assert func.called
+    assert not func.called
 
 
 @patch(

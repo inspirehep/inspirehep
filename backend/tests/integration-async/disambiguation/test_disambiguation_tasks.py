@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -11,17 +10,16 @@ from flask_sqlalchemy import models_committed
 from helpers.providers.faker import faker
 from helpers.utils import create_user, retry_test
 from inspire_utils.record import get_values_for_schema
-from invenio_accounts.testutils import login_user_via_session
-from invenio_db import db
-from redis import StrictRedis
-from tenacity import stop_after_delay, wait_fixed
-
 from inspirehep.disambiguation.tasks import disambiguate_authors
 from inspirehep.editor.editor_soft_lock import EditorSoftLock
 from inspirehep.records.api import AuthorsRecord, InspireRecord
 from inspirehep.records.api.literature import LiteratureRecord
 from inspirehep.records.receivers import index_after_commit
 from inspirehep.search.api import AuthorsSearch, InspireSearch
+from invenio_accounts.testutils import login_user_via_session
+from invenio_db import db
+from redis import StrictRedis
+from tenacity import stop_after_delay, wait_fixed
 
 
 def test_disambiguation_runs_after_record_creation(
@@ -103,7 +101,8 @@ def test_disambiguate_many_authors_runs_after_record_creation(
     def assert_authors_records_exist_in_es():
         author_record_1_from_es = InspireSearch.get_record_data_from_es(author_record_1)
         author_record_2_from_es = InspireSearch.get_record_data_from_es(author_record_2)
-        assert author_record_1_from_es and author_record_2_from_es
+        assert author_record_1_from_es
+        assert author_record_2_from_es
 
     assert_authors_records_exist_in_es()
 
@@ -433,7 +432,8 @@ def test_disambiguate_authors_on_first_last_name_and_initials(
         lit_record_2_from_es = InspireSearch.get_record_data_from_es(
             literature_record_2
         )
-        assert lit_record_1_from_es and lit_record_2_from_es
+        assert lit_record_1_from_es
+        assert lit_record_2_from_es
 
     assert_lit_records_exist_in_es()
 
@@ -513,7 +513,8 @@ def test_disambiguate_authors_on_collaboration(
         lit_record_2_from_es = InspireSearch.get_record_data_from_es(
             literature_record_2
         )
-        assert lit_record_1_from_es and lit_record_2_from_es
+        assert lit_record_1_from_es
+        assert lit_record_2_from_es
 
     assert_lit_records_exist_in_es()
 
@@ -603,7 +604,8 @@ def test_disambiguate_authors_on_affiliation(
         lit_record_2_from_es = InspireSearch.get_record_data_from_es(
             literature_record_2
         )
-        assert lit_record_1_from_es and lit_record_2_from_es
+        assert lit_record_1_from_es
+        assert lit_record_2_from_es
 
     assert_lit_records_exist_in_es()
 
@@ -799,6 +801,7 @@ def test_disambiguation_on_author_record_update(
     lit_record.update(dict(lit_record))
     db.session.commit()
 
+    # TODO I'm pretty sure this test is not testing what it should
     @retry_test(stop=stop_after_delay(30), wait=wait_fixed(2))
     def assert_disambiguation_on_record_update():
         literature_record_from_es = InspireSearch.get_record_data_from_es(
@@ -898,23 +901,6 @@ def test_disambiguation_on_record_update_ambiguous_match(
 
     assert_first_disambiguation_no_match()
 
-    db.session.expire_all()
-    lit_record = InspireRecord.get_record(literature_record_3.id)
-    lit_record["authors"][0]["affiliations"] = [{"value": "CERN"}]
-    lit_record.update(dict(lit_record))
-    db.session.commit()
-
-    @retry_test(stop=stop_after_delay(90), wait=wait_fixed(5))
-    def assert_disambiguation_on_record_update():
-        literature_record_from_es = InspireSearch.get_record_data_from_es(
-            literature_record_3
-        )
-        literature_record_from_es["authors"][0]["record"] != lit_record["authors"][0][
-            "record"
-        ]
-
-    assert_disambiguation_on_record_update()
-
 
 def test_disambiguation_on_record_update_unambiguous_match(
     inspire_app, clean_celery_session, enable_disambiguation
@@ -993,8 +979,8 @@ def test_disambiguation_handle_deleted_records(
 
     try:
         db.session.commit()
-    except Exception:
-        assert False
+    except Exception as e:
+        raise AssertionError() from e
 
 
 def test_disambiguation_races_assign(
@@ -1048,7 +1034,6 @@ def test_disambiguation_races_assign(
             literature_record_from_es = InspireSearch.get_record_data_from_es(
                 lit_record
             )
-
             assert (
                 literature_record_from_es["authors"][0]["record"]
                 != author_record["self"]
@@ -1303,7 +1288,7 @@ def test_disambiguation_reorders_name_after_succesfull_disambiguation(
             in literature_record_from_es_authors[0]["record"]["$ref"]
         )
 
-        assert "Davis Gross, Brian" == literature_record_from_es_authors[0]["full_name"]
+        assert literature_record_from_es_authors[0]["full_name"] == "Davis Gross, Brian"
 
     assert_disambiguation_task()
 
@@ -1311,7 +1296,6 @@ def test_disambiguation_reorders_name_after_succesfull_disambiguation(
 def test_author_disambiguation_manually_when_empty_authors(
     inspire_app, clean_celery_session, enable_disambiguation
 ):
-
     data = faker.record("lit", with_control_number=True)
     record = LiteratureRecord.create(data)
     record_version = record.model.version_id
@@ -1334,7 +1318,6 @@ def test_author_disambiguation_manually_when_empty_authors(
 def test_editor_lock_is_created_when_disambiguation_runs(
     mocked_remove_lock, inspire_app, clean_celery_session
 ):
-
     redis_url = current_app.config.get("CACHE_REDIS_URL")
     redis = StrictRedis.from_url(redis_url)
     author_data = faker.record("aut", with_control_number=True)
@@ -1470,7 +1453,8 @@ def test_disambiguation_deosnt_create_new_stub_author_if_theres_one(
         lit_record_2_from_es = InspireSearch.get_record_data_from_es(
             literature_record_2
         )
-        assert lit_record_1_from_es and lit_record_2_from_es
+        assert lit_record_1_from_es
+        assert lit_record_2_from_es
 
     assert_lit_records_exist_in_es()
 

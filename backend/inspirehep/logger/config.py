@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -72,6 +71,7 @@ root_logger = logging.getLogger()
 root_logger.addHandler(handler)
 root_logger.setLevel(logging.INFO)
 
+
 # Celery logging
 # ==============
 @task_prerun.connect
@@ -98,7 +98,7 @@ def log_error(
     traceback=None,
     einfo=None,
     *signal_args,
-    **signal_kwargs
+    **signal_kwargs,
 ):
     logger = structlog.get_logger()
     logger.error(

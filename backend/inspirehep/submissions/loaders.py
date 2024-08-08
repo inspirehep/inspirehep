@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -11,16 +10,15 @@ from flask import request
 from invenio_records_rest.loaders.marshmallow import MarshmallowErrors
 
 from inspirehep.submissions.errors import LoaderDataError, RESTDataError
-
-from .marshmallow import (
+from inspirehep.submissions.marshmallow import (
     Author,
     Conference,
     Experiment,
     Institution,
     Job,
+    Journal,
     Literature,
     Seminar,
-    Journal,
 )
 
 

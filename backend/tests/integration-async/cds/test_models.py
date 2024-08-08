@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2021 CERN.
 #
@@ -7,9 +6,8 @@
 import datetime
 import uuid
 
-from invenio_db import db
-
 from inspirehep.cds.models import CDSRun, CDSRunStatus
+from invenio_db import db
 
 
 def test_create_new_run(inspire_app):

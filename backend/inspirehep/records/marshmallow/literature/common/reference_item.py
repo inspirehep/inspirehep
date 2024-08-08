@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -11,11 +10,16 @@ from inspire_utils.record import get_value, get_values_for_schema
 from marshmallow import Schema, fields, missing, post_dump, pre_dump
 
 from inspirehep.records.marshmallow.fields import ListWithLimit, NestedField
-
-from .author import AuthorSchemaV1
-from .collaboration import CollaborationSchemaV1
-from .collaboration_with_suffix import CollaborationWithSuffixSchemaV1
-from .publication_info_item import PublicationInfoItemSchemaV1
+from inspirehep.records.marshmallow.literature.common.author import AuthorSchemaV1
+from inspirehep.records.marshmallow.literature.common.collaboration import (
+    CollaborationSchemaV1,
+)
+from inspirehep.records.marshmallow.literature.common.collaboration_with_suffix import (
+    CollaborationWithSuffixSchemaV1,
+)
+from inspirehep.records.marshmallow.literature.common.publication_info_item import (
+    PublicationInfoItemSchemaV1,
+)
 
 
 class ReferenceItemSchemaV1(Schema):

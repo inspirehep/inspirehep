@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -6,13 +5,11 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
+from helpers.factories.db.base import TestBaseModel
+from helpers.factories.db.invenio_accounts import TestUser
+from inspirehep.accounts.fixtures import generate_random_string
 from invenio_db import db
 from invenio_oauthclient.models import RemoteAccount, RemoteToken, UserIdentity
-
-from inspirehep.accounts.fixtures import generate_random_string
-
-from .base import TestBaseModel
-from .invenio_accounts import TestUser
 
 
 class TestUserIdentity(TestBaseModel):
@@ -48,9 +45,7 @@ class TestUserIdentity(TestBaseModel):
             db.session.flush()
             updated_kwargs["id_user"] = instance.user.id
 
-        instance.user_identity = super(TestUserIdentity, cls).create_from_kwargs(
-            updated_kwargs
-        )
+        instance.user_identity = super().create_from_kwargs(updated_kwargs)
         return instance
 
     @classmethod
@@ -93,9 +88,7 @@ class TestRemoteAccount(TestBaseModel):
             db.session.flush()
             updated_kwargs["user_id"] = instance.user.id
 
-        instance.remote_account = super(TestRemoteAccount, cls).create_from_kwargs(
-            updated_kwargs
-        )
+        instance.remote_account = super().create_from_kwargs(updated_kwargs)
         return instance
 
     @classmethod
@@ -136,9 +129,7 @@ class TestRemoteToken(TestBaseModel):
             db.session.flush()
             updated_kwargs["remote_account"] = instance.remote_account
 
-        instance.remote_token = super(TestRemoteToken, cls).create_from_kwargs(
-            updated_kwargs
-        )
+        instance.remote_token = super().create_from_kwargs(updated_kwargs)
         return instance
 
     @classmethod

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -117,7 +116,7 @@ class CitationMixin(PapersAuthorsExtensionMixin):
         Returns:
             query: Query containing all citations for this record
         """
-        query = RecordCitations.query.filter(RecordCitations.cited_id==self.id)
+        query = RecordCitations.query.filter(RecordCitations.cited_id == self.id)
         if exclude_self_citations and current_app.config.get(
             "FEATURE_FLAG_ENABLE_SELF_CITATIONS"
         ):
@@ -370,7 +369,9 @@ class CitationMixin(PapersAuthorsExtensionMixin):
         if diff:
             citers = {
                 citer[0]
-                for citer in RecordCitations.query.filter(RecordCitations.cited_id==self.id)
+                for citer in RecordCitations.query.filter(
+                    RecordCitations.cited_id == self.id
+                )
                 .with_entities(RecordCitations.citer_id)
                 .all()
             }
@@ -462,7 +463,7 @@ class ConferencePaperAndProceedingsMixin:
         allowed_types = set(
             [option.value for option in list(ConferenceToLiteratureRelationshipType)]
         )
-        type_changed = True if doc_type_diff.intersection(allowed_types) else False
+        type_changed = bool(doc_type_diff.intersection(allowed_types))
 
         pids_previous = set(
             self._previous_version.get_linked_pids_from_field(

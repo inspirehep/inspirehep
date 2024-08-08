@@ -1,12 +1,11 @@
 from helpers.providers.faker import faker
 from helpers.utils import retry_test
-from invenio_db import db
-from invenio_search import current_search
-from tenacity import stop_after_delay, wait_fixed
-
 from inspirehep.records.api import InspireRecord
 from inspirehep.records.models import JournalLiterature
 from inspirehep.search.api import JournalsSearch, LiteratureSearch
+from invenio_db import db
+from invenio_search import current_search
+from tenacity import stop_after_delay, wait_fixed
 
 
 def test_populate_journal_literature_table(inspire_app, cli, clean_celery_session):
@@ -27,7 +26,8 @@ def test_populate_journal_literature_table(inspire_app, cli, clean_celery_sessio
         record_jou_es = (
             JournalsSearch().get_record(str(journal.id)).execute().hits.hits[0]
         )
-        assert record_lit_es and record_jou_es
+        assert record_lit_es
+        assert record_jou_es
 
     assert_records_added()
 

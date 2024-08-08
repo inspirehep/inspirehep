@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2020 CERN.
 #
@@ -55,9 +54,7 @@ def find_references(references, requested_format):
             keyword = "external_system_identifiers.value"
         elif re.search(r".*\:\d{4}\w\w\w?", ref):
             keyword = "texkey"
-        elif re.search(r".*\/\d{7}", ref):
-            keyword = "eprint"
-        elif re.search(r"\d{4}\.\d{4,5}", ref):
+        elif re.search(r".*\/\d{7}", ref) or re.search(r"\d{4}\.\d{4,5}", ref):
             keyword = "eprint"
         elif re.search(r"\w\.\w+\.\w", ref):
             keyword = "j"

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2021 CERN.
 #
@@ -7,7 +6,6 @@
 
 import mock
 from helpers.providers.faker import faker
-
 from inspirehep.records.api import LiteratureRecord
 
 
