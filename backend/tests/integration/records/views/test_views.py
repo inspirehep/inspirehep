@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2020 CERN.
 #
@@ -14,11 +13,10 @@ from helpers.utils import (
     create_user,
     create_user_and_token,
 )
-from invenio_accounts.testutils import login_user_via_session
-from invenio_db import db
-
 from inspirehep.records.api import LiteratureRecord
 from inspirehep.records.models import WorkflowsRecordSources
+from invenio_accounts.testutils import login_user_via_session
+from invenio_db import db
 
 
 def test_error_message_on_pid_already_exists(inspire_app):
@@ -56,8 +54,8 @@ def test_does_not_return_deleted_pid_error_if_cataloger(inspire_app):
         response = client.get(f"/conferences/{record['control_number']}")
 
     response_status_code = response.status_code
-    response.json
 
+    assert hasattr(response, "json")
     assert response_status_code == 200
 
 
@@ -71,8 +69,8 @@ def test_returns_deleted_pid_error_if_not_cataloger(inspire_app):
         response = client.get(f"/conferences/{record['control_number']}")
 
     response_status_code = response.status_code
-    response.json
 
+    assert hasattr(response, "json")
     assert response_status_code == 410
 
 
@@ -87,7 +85,7 @@ def test_does_not_update_stale(inspire_app):
         etag = get_response.headers["ETag"]
 
         first_put_response = client.put(
-            "/conferences/{}".format(record_control_number),
+            f"/conferences/{record_control_number}",
             content_type="application/json",
             data=orjson.dumps(
                 faker.record("con", data={"control_number": record_control_number})
@@ -226,7 +224,7 @@ def test_literature_workflows_record_source_get_not_found(inspire_app):
             data=orjson.dumps({"record_uuid": str(record.id), "source": source}),
         )
         assert response.status_code == 404
-        assert "Workflow source not found" == response.json["message"]
+        assert response.json["message"] == "Workflow source not found"
 
 
 def test_literature_workflows_record_source_post_with_wrong_data(inspire_app):

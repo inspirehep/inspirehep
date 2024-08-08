@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -9,7 +8,6 @@ from copy import deepcopy
 
 import mock
 from helpers.providers.faker import faker
-
 from inspirehep.records.api import JournalsRecord
 from inspirehep.records.marshmallow.journals import JournalsElasticSearchSchema
 

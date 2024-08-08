@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -73,10 +72,7 @@ class InspireCNUMProvider(InspireBaseProvider):
             cnum_value = cnum_entry.pid_value.split(".")
             if len(cnum_value) > 1:
                 all_postfixes.append(int(cnum_value[-1]))
-        if all_postfixes:
-            postfix = sorted(all_postfixes)[-1] + 1
-        else:
-            postfix = 1
+        postfix = sorted(all_postfixes)[-1] + 1 if all_postfixes else 1
 
         full_cnum = f"{cnum}.{postfix}"
 

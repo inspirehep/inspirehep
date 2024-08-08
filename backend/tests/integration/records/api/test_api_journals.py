@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -11,12 +10,11 @@ import uuid
 import pytest
 from helpers.providers.faker import faker
 from helpers.utils import create_pidstore, create_record
+from inspirehep.records.api import InspireRecord, JournalsRecord
 from invenio_pidstore.errors import PIDAlreadyExists
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_records.models import RecordMetadata
 from jsonschema import ValidationError
-
-from inspirehep.records.api import InspireRecord, JournalsRecord
 
 
 def test_journals_create(inspire_app):
@@ -163,8 +161,7 @@ def test_aut_citation_count_property_blows_up_on_wrong_pid_type(inspire_app):
     data = faker.record("jou")
     record = JournalsRecord.create(data)
 
-    with pytest.raises(AttributeError):
-        record.citation_count
+    assert not hasattr(record, "citation_count")
 
 
 def test_cn_redirection_works_for_journals(inspire_app):

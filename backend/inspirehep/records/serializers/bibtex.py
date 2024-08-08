@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -8,9 +7,8 @@ import structlog
 from pybtex.database import BibliographyData, Entry, Person
 from pybtex.database.output.bibtex import Writer
 
+from inspirehep.records.marshmallow.literature.bibtex import BibTexCommonSchema
 from inspirehep.serializers import record_responsify, search_responsify
-
-from ..marshmallow.literature.bibtex import BibTexCommonSchema
 
 LOGGER = structlog.getLogger()
 
@@ -26,7 +24,7 @@ class BibtexWriter(Writer):
                 stream, role, self._format_name(stream, persons[0]) + " and others"
             )
         else:
-            super(BibtexWriter, self)._write_persons(stream, persons, role)
+            super()._write_persons(stream, persons, role)
 
 
 class BibTexSerializer:

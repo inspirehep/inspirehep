@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2020 CERN.
 #
@@ -16,14 +15,13 @@ from helpers.factories.models.pidstore import PersistentIdentifierFactory
 from helpers.factories.models.records import RecordMetadataFactory
 from helpers.factories.models.user_access_token import AccessTokenFactory, UserFactory
 from helpers.providers.faker import faker
+from inspirehep.files import current_s3_instance
+from inspirehep.records.api import InspireRecord, LiteratureRecord
+from inspirehep.utils import get_inspirehep_url
 from invenio_db import db
 from invenio_search import current_search
 from invenio_search.utils import build_alias_name
 from tenacity import retry
-
-from inspirehep.files import current_s3_instance
-from inspirehep.records.api import InspireRecord, LiteratureRecord
-from inspirehep.utils import get_inspirehep_url
 
 SENSITIVE_RESPONSE_KEYS = ["user.name", "user.email"]
 ENABLED_USER_DATA = ["marcjanna.jedrych@cern.ch", "Marcjanna Jedrych"]
@@ -94,7 +92,9 @@ def create_record(record_type, data=None, **kwargs):
     return record
 
 
-def create_s3_file(bucket, key, data, metadata={}, **kwargs):
+def create_s3_file(bucket, key, data, metadata=None, **kwargs):
+    if metadata is None:
+        metadata = {}
     current_s3_instance.client.put_object(
         Bucket=bucket, Key=key, Body=data, Metadata=metadata, **kwargs
     )
@@ -133,7 +133,7 @@ def logout(client):
             del sess["user_id"]
 
 
-def orcid_app_cli_runner():
+def orcid_app_cli_runner(inspire_app):
     """Click CLI runner inside the Flask application for orcid tests."""
     runner = CliRunner()
     obj = ScriptInfo(create_app=lambda: inspire_app)
@@ -144,11 +144,13 @@ def orcid_app_cli_runner():
 def generate_records(
     count=10,
     record_type=LiteratureRecord,
-    data={},
+    data=None,
     skip_validation=False,
     with_control_number=True,
 ):
-    for i in range(count):
+    if data is None:
+        data = {}
+    for _i in range(count):
         record_data = faker.record(
             record_type.pid_type,
             data=data,

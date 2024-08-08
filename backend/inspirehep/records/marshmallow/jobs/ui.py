@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2020 CERN.
 #
@@ -13,10 +12,11 @@ from inspirehep.accounts.api import (
 )
 from inspirehep.records.marshmallow.common import ContactDetailsItemWithoutEmail
 from inspirehep.records.marshmallow.jobs.base import JobsPublicSchema
+from inspirehep.records.marshmallow.jobs.utils import (
+    get_reference_letters_without_email,
+)
+from inspirehep.records.marshmallow.utils import get_acquisition_source_without_email
 from inspirehep.submissions.utils import has_30_days_passed_after_deadline
-
-from ..utils import get_acquisition_source_without_email
-from .utils import get_reference_letters_without_email
 
 
 class JobsBaseSchema(JobsPublicSchema):
@@ -48,9 +48,9 @@ class JobsBaseSchema(JobsPublicSchema):
             return True
 
         deadline = get_value(data, "deadline_date")
-        if status == "closed" and not has_30_days_passed_after_deadline(deadline):
-            return True
-        return False
+        return bool(
+            status == "closed" and not has_30_days_passed_after_deadline(deadline)
+        )
 
 
 class JobsDetailSchema(JobsBaseSchema):

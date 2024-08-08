@@ -1,15 +1,14 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 import orjson
+from flask import current_app
+from freezegun.api import FakeDatetime
 from opensearchpy import SerializationError
 from opensearchpy.compat import string_types
 from opensearchpy.serializer import JSONSerializer
-from flask import current_app
-from freezegun.api import FakeDatetime
 
 from inspirehep.search.utils import RecursionLimit
 
@@ -20,7 +19,7 @@ class ORJSONSerializerES(JSONSerializer):
             # this is only way to somehow serialize date during tests as Freezegun is replacing datetime
             # with itself and it's not possible to easily change type back to datetime
             return data.isoformat()
-        raise TypeError("Unable to serialize %r (type: %s)" % (data, type(data)))
+        raise TypeError(f"Unable to serialize {data!r} (type: {type(data)})")
 
     def dumps(self, data):
         if isinstance(data, string_types):
@@ -36,10 +35,10 @@ class ORJSONSerializerES(JSONSerializer):
                 # As currently we can only turn off recursion limit but we don't want that as
                 # then we should handle overflow error in rust
                 return super().dumps(data)
-            raise SerializationError(data, ex)
+            raise SerializationError(data, ex) from ex
 
     def loads(self, s):
         try:
             return orjson.loads(s)
         except (ValueError, TypeError) as ex:
-            raise SerializationError(s, ex)
+            raise SerializationError(s, ex) from ex

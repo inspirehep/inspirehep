@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -10,10 +9,9 @@ import pytest
 from helpers.providers.faker import faker
 from helpers.providers.record_provider import RecordProvider
 from helpers.utils import create_record, create_record_factory
-from invenio_pidstore.models import PersistentIdentifier, PIDStatus
-
 from inspirehep.pidstore.errors import MissingSchema, PIDAlreadyExists
 from inspirehep.pidstore.minters.doi import DoiMinter
+from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
 
 def test_minter_dois(inspire_app):

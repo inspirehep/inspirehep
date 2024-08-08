@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -8,14 +7,13 @@
 from datetime import datetime
 from unittest.mock import Mock
 
-from marshmallow import Schema, fields
-
 from inspirehep.records.marshmallow.base import (
     ElasticSearchBaseSchema,
     EnvelopeSchema,
     RecordBaseSchema,
     wrap_schema_class_with_metadata,
 )
+from marshmallow import Schema, fields
 
 
 def test_base_schema():

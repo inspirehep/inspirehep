@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -11,12 +10,11 @@ import orjson
 from freezegun import freeze_time
 from helpers.providers.faker import faker
 from helpers.utils import create_record, create_user
+from inspirehep.accounts.roles import Roles
+from inspirehep.records.marshmallow.jobs.base import JobsPublicListSchema
 from invenio_accounts.testutils import login_user_via_session
 from invenio_oauthclient import current_oauthclient
 from marshmallow import utils
-
-from inspirehep.accounts.roles import Roles
-from inspirehep.records.marshmallow.jobs.base import JobsPublicListSchema
 
 
 def test_jobs_json(inspire_app, datadir):

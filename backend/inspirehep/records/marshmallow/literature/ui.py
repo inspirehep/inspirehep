@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -18,21 +17,14 @@ from inspirehep.accounts.api import (
 )
 from inspirehep.assign.utils import can_claim, is_assign_view_enabled
 from inspirehep.files.api import current_s3_instance
+from inspirehep.records.marshmallow.base import EnvelopeSchema
+from inspirehep.records.marshmallow.common import AcceleratorExperimentSchemaV1
 from inspirehep.records.marshmallow.common.mixins import (
     CanEditByCollectionPermissionMixin,
 )
-from inspirehep.records.marshmallow.literature.utils import (
-    get_authors_without_emails,
-    get_pages,
-    get_parent_records,
-)
-from inspirehep.records.utils import get_literature_earliest_date
-
-from ..base import EnvelopeSchema
-from ..common import AcceleratorExperimentSchemaV1
-from ..fields import ListWithLimit, NonHiddenNested
-from .base import LiteraturePublicSchema
-from .common import (
+from inspirehep.records.marshmallow.fields import ListWithLimit, NonHiddenNested
+from inspirehep.records.marshmallow.literature.base import LiteraturePublicSchema
+from inspirehep.records.marshmallow.literature.common import (
     AuthorSchemaV1,
     CollaborationSchemaV1,
     CollaborationWithSuffixSchemaV1,
@@ -43,7 +35,15 @@ from .common import (
     PublicationInfoItemSchemaV1,
     ThesisInfoSchemaV1,
 )
-from .pdg_identifiers_latex import PDG_IDS_TO_LATEX_DESCRIPTION_MAPPING
+from inspirehep.records.marshmallow.literature.pdg_identifiers_latex import (
+    PDG_IDS_TO_LATEX_DESCRIPTION_MAPPING,
+)
+from inspirehep.records.marshmallow.literature.utils import (
+    get_authors_without_emails,
+    get_pages,
+    get_parent_records,
+)
+from inspirehep.records.utils import get_literature_earliest_date
 
 DATASET_SCHEMA_TO_URL_PREFIX_MAP = {
     "hepdata": "https://www.hepdata.net/record/",
@@ -163,7 +163,7 @@ class LiteratureDetailSchema(
         if arxiv_id:
             return {
                 "description": description,
-                "value": "https://arxiv.org/pdf/%s" % arxiv_id,
+                "value": f"https://arxiv.org/pdf/{arxiv_id}",
             }
         return missing
 
@@ -203,7 +203,7 @@ class LiteratureDetailSchema(
         merged_list = [
             {"page_start": start, "page_end": end, **record}
             for start, end, record in zip(
-                pages["page_start"], pages["page_end"], records
+                pages["page_start"], pages["page_end"], records, strict=False
             )
         ]
 

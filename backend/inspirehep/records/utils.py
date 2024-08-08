@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -83,14 +82,13 @@ def download_file_from_url(url, check_file_size=False):
             content_length = int(content_length)
 
         if check_file_size and content_length and content_length > file_size_limit:
-
             raise FileSizeExceededError(
                 f"Can't download file from url {download_url}. File size {content_length} is larger than the limit {file_size_limit}."
             )
     except requests.exceptions.RequestException as exc:
         raise DownloadFileError(
             f"Cannot download file from url {download_url}. Reason: {exc}"
-        )
+        ) from exc
     return request.content
 
 
@@ -187,7 +185,9 @@ def _create_ticket_self_curation(record_control_number, record_revision_id, user
 def get_changed_reference(old_record_version, new_record_version):
     old_references = old_record_version.get("references", [])
     new_references = new_record_version.get("references", [])
-    for idx, (old_ref, new_ref) in enumerate(zip(old_references, new_references)):
+    for idx, (old_ref, new_ref) in enumerate(
+        zip(old_references, new_references, strict=False)
+    ):
         if old_ref != new_ref:
             return {
                 "current_version": new_ref,

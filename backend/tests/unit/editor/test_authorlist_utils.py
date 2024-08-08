@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # This file is part of INSPIRE.
 # Copyright (C) 2014-2017 CERN.
@@ -20,10 +19,8 @@
 # granted to it by virtue of its status as an Intergovernmental Organization
 # or submit itself to any jurisdiction.
 
-from __future__ import absolute_import, division, print_function
 
 import pytest
-
 from inspirehep.editor.authorlist_utils import authorlist, create_authors
 
 
@@ -102,7 +99,7 @@ def test_create_authors_with_affiliations():
     result = create_authors(text)
 
     assert expected == result["authors"]
-    assert "warnings" not in result.keys()
+    assert "warnings" not in result
 
 
 def test_create_authors_with_no_text():
@@ -172,9 +169,8 @@ def test_create_authors_with_invalid_affiliation():
     """Test case when an affiliation has no valid id."""
     text = "A. Einstein1, N. Bohr2\n" "\n" "ETH\n" "2 Københavns Universitet"
 
-    with pytest.raises(ValueError) as excinfo:
+    with pytest.raises(ValueError, match="Cannot identify type of affiliations"):
         create_authors(text)
-    assert "Cannot identify type of affiliations" in str(excinfo.value)
 
 
 def test_create_authors_with_one_author_missing_affiliation():
@@ -804,9 +800,8 @@ def test_create_authors_author_blocks_by_affiliation():
         "SLAC, Stanford, USA\n"
     )
 
-    with pytest.raises(ValueError) as excinfo:
+    with pytest.raises(ValueError, match="Authors grouped by affiliation?"):
         create_authors(text)
-    assert "Authors grouped by affiliation? - Comming soon" in str(excinfo.value)
 
 
 def test_create_authors_with_affiliation_get_emails_and_orcid():
@@ -877,7 +872,7 @@ def test_create_authors_with_affiliation_get_emails_and_orcid():
 
     result = authorlist(text)
     assert expected == result["authors"]
-    assert "warnings" not in result.keys()
+    assert "warnings" not in result
 
 
 def test_create_authors_with_affiliation_authorlist():
@@ -912,4 +907,4 @@ def test_create_authors_with_affiliation_authorlist():
     ]
     result = authorlist(text)
     assert expected == result["authors"]
-    assert "warnings" not in result.keys()
+    assert "warnings" not in result

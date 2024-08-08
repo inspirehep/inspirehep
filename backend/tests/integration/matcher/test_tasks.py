@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2020 CERN.
 #
@@ -7,10 +6,9 @@
 import pytest
 from helpers.utils import create_record
 from inspire_utils.record import get_value
-from sqlalchemy.orm.exc import NoResultFound
-
 from inspirehep.matcher.tasks import match_references_by_uuids
 from inspirehep.records.api import LiteratureRecord
+from sqlalchemy.orm.exc import NoResultFound
 
 
 def test_match_references_by_uuids(inspire_app):

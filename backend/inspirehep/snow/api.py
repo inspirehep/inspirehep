@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2023 CERN.
 #
@@ -16,10 +15,13 @@ from flask import current_app, render_template
 from inspire_utils.record import get_value
 from invenio_cache import current_cache
 
+from inspirehep.snow.errors import (
+    CreateTicketException,
+    EditTicketException,
+    SnowAuthenticationError,
+)
+from inspirehep.snow.utils import get_response_result, strip_lines
 from inspirehep.utils import DistributedLockError, distributed_lock
-
-from .errors import CreateTicketException, EditTicketException, SnowAuthenticationError
-from .utils import get_response_result, strip_lines
 
 LOGGER = structlog.getLogger()
 
@@ -80,11 +82,11 @@ class SnowTicketAPI:
         try:
             with distributed_lock("snow-token-lock", blocking=False):
                 current_cache.set("snow-token-value", token)
-        except DistributedLockError:
+        except DistributedLockError as e:
             LOGGER.error(
                 "Can't acquire snow token from cache, other process acquired the lock."
             )
-            raise SnowAuthenticationError
+            raise SnowAuthenticationError from e
 
     def get_token(self):
         login_payload = {
@@ -100,8 +102,8 @@ class SnowTicketAPI:
             response = requests.post(self.auth_url, data=login_payload, headers=headers)
             response.raise_for_status()
             return response.json()["access_token"]
-        except (requests.exceptions.RequestException, KeyError):
-            raise SnowAuthenticationError
+        except (requests.exceptions.RequestException, KeyError) as e:
+            raise SnowAuthenticationError from e
 
     @relogin_if_needed
     def create_ticket(self, endpoint, payload):
@@ -402,9 +404,9 @@ class InspireSnow(SnowTicketAPI):
         third_party_search_query_string = f"u_third_party_ticket_id={recid}"
         tickets_search_parameters = dict(u_third_party="INSPIRE")
         if exclude_resolved:
-            tickets_search_parameters[
-                "u_current_task_state"
-            ] = f"{self.ticket_status_mapping['waiting']}^ORu_current_task_state={self.ticket_status_mapping['assigned']}^ORu_current_task_state={self.ticket_status_mapping['in progress']}"
+            tickets_search_parameters["u_current_task_state"] = (
+                f"{self.ticket_status_mapping['waiting']}^ORu_current_task_state={self.ticket_status_mapping['assigned']}^ORu_current_task_state={self.ticket_status_mapping['in progress']}"
+            )
         try:
             third_party_ticket = self.search(
                 self.third_party_ticket_endpoint, third_party_search_query_string
@@ -497,8 +499,8 @@ class InspireSnow(SnowTicketAPI):
                     ticket_id, str(recid), assignee=assignee_id
                 )
             return ticket_id
-        except requests.exceptions.RequestException:
-            raise CreateTicketException()
+        except requests.exceptions.RequestException as e:
+            raise CreateTicketException() from e
 
     def create_inspire_ticket_with_template(
         self,
@@ -539,10 +541,7 @@ class InspireSnow(SnowTicketAPI):
             user_email (str): Email of the user as which action should be performed.
             message (str): message to be added when resolving the ticket.
         """
-        if user_email:
-            snow_user_id = self._get_user_by_email(user_email)
-        else:
-            snow_user_id = None
+        snow_user_id = self._get_user_by_email(user_email) if user_email else None
 
         try:
             unassign_payload = {"assigned_to": ""}
@@ -557,11 +556,11 @@ class InspireSnow(SnowTicketAPI):
                 "comments": message or "Ticket has been closed",
             }
             self.edit_ticket(ticket_id, payload)
-        except requests.exceptions.RequestException:
+        except requests.exceptions.RequestException as e:
             # Raise exception only if ticket isn't already resolved
             ticket = self.get_ticket(ticket_id)
             if ticket["u_current_task_state"] != self.ticket_status_mapping["resolved"]:
-                raise EditTicketException()
+                raise EditTicketException() from e
 
     def resolve_ticket_with_template(
         self, ticket_id, user_email=None, template_path=None, template_context=None

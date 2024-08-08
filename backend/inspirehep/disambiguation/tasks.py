@@ -5,9 +5,6 @@ from inspire_dojson.utils import get_recid_from_ref
 from inspire_matcher.api import match
 from inspire_utils.name import ParsedName
 from inspire_utils.record import get_value, get_values_for_schema
-from invenio_db import db
-from sqlalchemy.orm.exc import StaleDataError
-
 from inspirehep.disambiguation.utils import (
     create_new_stub_author,
     reorder_lit_author_names,
@@ -20,6 +17,8 @@ from inspirehep.matcher.validators import (
 )
 from inspirehep.records.api import InspireRecord
 from inspirehep.records.api.authors import AuthorsRecord
+from invenio_db import db
+from sqlalchemy.orm.exc import StaleDataError
 
 LOGGER = structlog.getLogger()
 
@@ -74,7 +73,7 @@ def match_literature_author(author, record):
     }
     matched_authors_references = []
 
-    for config, validator in zip(configs, validators):
+    for config, validator in zip(configs, validators, strict=False):
         matched_records = match_literature_author_with_config(
             author_matcher_data, config
         )

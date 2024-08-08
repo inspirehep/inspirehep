@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2020 CERN.
 #
@@ -23,14 +22,13 @@ from helpers.utils import (
 )
 from inspire_schemas.api import load_schema, validate
 from inspire_utils.record import get_value
+from inspirehep.accounts.roles import Roles
+from inspirehep.files import current_s3_instance
+from inspirehep.snow.api import InspireSnow
 from invenio_accounts.testutils import login_user_via_session
 from mock import patch
 from redis import StrictRedis
 from werkzeug.datastructures import FileStorage
-
-from inspirehep.accounts.roles import Roles
-from inspirehep.files import current_s3_instance
-from inspirehep.snow.api import InspireSnow
 
 
 def test_get_record_and_schema(inspire_app):
@@ -93,9 +91,8 @@ def test_get_record_and_schema_requires_cataloger_logged_in(inspire_app):
     before_record_request=filter_out_authentication,
     before_record_response=filter_out_user_data_and_cookie_headers(),
 )
-def test_create_snow_ticket(
-    mocked_inspire_snow, inspire_app, override_config, teardown_cache
-):
+@pytest.mark.usefixtures("_mocked_inspire_snow", "_teardown_cache")
+def test_create_snow_ticket(inspire_app, override_config):
     user = create_user(role=Roles.cataloger.value, email="marcjanna.jedrych@cern.ch")
 
     with inspire_app.test_client() as client:
@@ -126,9 +123,8 @@ def test_create_snow_ticket(
     before_record_request=filter_out_authentication,
     before_record_response=filter_out_user_data_and_cookie_headers(),
 )
-def test_create_snow_ticket_only_needs_queue_and_recid(
-    mocked_inspire_snow, inspire_app, override_config, teardown_cache
-):
+@pytest.mark.usefixtures("_mocked_inspire_snow", "_teardown_cache")
+def test_create_snow_ticket_only_needs_queue_and_recid(inspire_app, override_config):
     user = create_user(role=Roles.cataloger.value, email="marcjanna.jedrych@cern.ch")
 
     with inspire_app.test_client() as client:
@@ -150,12 +146,11 @@ def test_create_snow_ticket_only_needs_queue_and_recid(
     before_record_response=filter_out_user_data_and_cookie_headers(),
 )
 @patch("inspirehep.snow.api.requests.put")
+@pytest.mark.usefixtures("_mocked_inspire_snow", "_teardown_cache")
 def test_create_snow_ticket_returns_500_on_error(
     mocked_update_ticket_with_inspire_recid,
-    mocked_inspire_snow,
     inspire_app,
     override_config,
-    teardown_cache,
 ):
     with override_config(SNOW_URL="https://non-existing-url.com"):
         user = create_user(role=Roles.cataloger.value)
@@ -192,9 +187,8 @@ def test_create_snow_ticket_returns_500_on_error(
     before_record_request=filter_out_authentication,
     before_record_response=filter_out_user_data_and_cookie_headers(),
 )
-def test_resolve_snow_ticket(
-    mocked_inspire_snow, inspire_app, override_config, teardown_cache
-):
+@pytest.mark.usefixtures("_mocked_inspire_snow", "_teardown_cache")
+def test_resolve_snow_ticket(inspire_app, override_config):
     user = create_user(role=Roles.cataloger.value, email="marcjanna.jedrych@cern.ch")
 
     with inspire_app.test_client() as client:
@@ -211,8 +205,9 @@ def test_resolve_snow_ticket(
     assert expected == result
 
 
+@pytest.mark.usefixtures("_mocked_inspire_snow")
 def test_resolve_snow_ticket_returns_403_on_authentication_error(
-    mocked_inspire_snow, inspire_app, override_config
+    inspire_app, override_config
 ):
     user = create_user()
 
@@ -228,9 +223,8 @@ def test_resolve_snow_ticket_returns_403_on_authentication_error(
     before_record_request=filter_out_authentication,
     before_record_response=filter_out_user_data_and_cookie_headers(),
 )
-def test_get_snow_tickets_for_record(
-    mocked_inspire_snow, inspire_app, override_config, teardown_cache
-):
+@pytest.mark.usefixtures("_mocked_inspire_snow", "_teardown_cache")
+def test_get_snow_tickets_for_record(inspire_app, override_config):
     user = create_user(role=Roles.cataloger.value, email="marcjanna.jedrych@cern.ch")
 
     with inspire_app.test_client() as client:
@@ -269,9 +263,8 @@ def test_get_tickets_for_record_returns_403_on_authentication_error(inspire_app)
     before_record_request=filter_out_authentication,
     before_record_response=filter_out_user_data_and_cookie_headers(),
 )
-def test_get_snow_users(
-    mocked_inspire_snow, inspire_app, override_config, teardown_cache
-):
+@pytest.mark.usefixtures("_mocked_inspire_snow", "_teardown_cache")
+def test_get_snow_users(inspire_app, override_config):
     user = create_user(role=Roles.cataloger.value, email="marcjanna.jedrych@cern.ch")
 
     with inspire_app.test_client() as client:
@@ -283,8 +276,9 @@ def test_get_snow_users(
     assert next((user.email == snow_user["email"] for snow_user in response.json), None)
 
 
+@pytest.mark.usefixtures("_mocked_inspire_snow")
 def test_get_snow_users_returns_403_on_authentication_error(
-    mocked_inspire_snow, inspire_app, override_config
+    inspire_app, override_config
 ):
     user = create_user()
     with inspire_app.test_client() as client:
@@ -294,8 +288,9 @@ def test_get_snow_users_returns_403_on_authentication_error(
     assert response.status_code == 403
 
 
+@pytest.mark.usefixtures("_mocked_inspire_snow")
 def test_get_snow_functional_categories_returns_403_on_authentication_error(
-    mocked_inspire_snow, inspire_app, override_config
+    inspire_app, override_config
 ):
     user = create_user()
 
@@ -311,9 +306,8 @@ def test_get_snow_functional_categories_returns_403_on_authentication_error(
     before_record_request=filter_out_authentication,
     before_record_response=filter_out_user_data_and_cookie_headers(),
 )
-def test_get_snow_functional_categories(
-    mocked_inspire_snow, inspire_app, override_config, teardown_cache
-):
+@pytest.mark.usefixtures("_mocked_inspire_snow", "_teardown_cache")
+def test_get_snow_functional_categories(inspire_app, override_config):
     user = create_user(role=Roles.cataloger.value, email="marcjanna.jedrych@cern.ch")
 
     with inspire_app.test_client() as client:
@@ -464,11 +458,12 @@ def test_file_upload(inspire_app, s3, datadir, override_config):
     current_s3_instance.client.create_bucket(Bucket="inspire-editor")
     user = create_user(role=Roles.cataloger.value)
     record = create_record("lit")
-    with override_config(
-        EDITOR_UPLOAD_ALLOWED_EXTENSIONS=".pdf"
-    ), inspire_app.test_client() as client:
+    with (
+        override_config(EDITOR_UPLOAD_ALLOWED_EXTENSIONS=".pdf"),
+        inspire_app.test_client() as client,
+        open(f"{datadir}/test.pdf", "rb") as file_pdf,
+    ):
         login_user_via_session(client, email=user.email)
-        file_pdf = open(f"{datadir}/test.pdf", "rb")
         bytes_file = FileStorage(file_pdf)
         data = {"file": bytes_file}
         response = client.post(
@@ -497,11 +492,12 @@ def test_file_upload_with_wrong_mimetype(inspire_app, s3, datadir, override_conf
     current_s3_instance.client.create_bucket(Bucket="inspire-editor")
     user = create_user(role=Roles.cataloger.value)
     record = create_record("lit")
-    with override_config(
-        EDITOR_UPLOAD_ALLOWED_EXTENSIONS=".pdf"
-    ), inspire_app.test_client() as client:
+    with (
+        override_config(EDITOR_UPLOAD_ALLOWED_EXTENSIONS=".pdf"),
+        inspire_app.test_client() as client,
+        open(f"{datadir}/test.txt", "rb") as file_txt,
+    ):
         login_user_via_session(client, email=user.email)
-        file_txt = open(f"{datadir}/test.txt", "rb")
         bytes_file = FileStorage(file_txt)
         data = {"file": bytes_file}
         response = client.post(
@@ -515,8 +511,10 @@ def test_file_upload_with_wrong_mimetype(inspire_app, s3, datadir, override_conf
 def test_file_upload_without_permissions(inspire_app, s3, datadir):
     current_s3_instance.client.create_bucket(Bucket="inspire-editor")
     record = create_record("lit")
-    with inspire_app.test_client() as client:
-        file_pdf = open(f"{datadir}/test.pdf", "rb")
+    with (
+        inspire_app.test_client() as client,
+        open(f"{datadir}/test.pdf", "rb") as file_pdf,
+    ):
         bytes_file = FileStorage(file_pdf)
         data = {"file": bytes_file}
         response = client.post(
@@ -541,18 +539,19 @@ def test_file_upload_with_read_write_access(inspire_app, s3, datadir, override_c
         "If-Match": '"0"',
     }
 
-    with override_config(
-        EDITOR_UPLOAD_ALLOWED_EXTENSIONS=".pdf"
-    ), inspire_app.test_client() as client:
+    with (
+        override_config(EDITOR_UPLOAD_ALLOWED_EXTENSIONS=".pdf"),
+        inspire_app.test_client() as client,
+    ):
         login_user_via_session(client, email=user.email)
-        file_pdf = open(f"{datadir}/test.pdf", "rb")
-        bytes_file = FileStorage(file_pdf)
-        data = {"file": bytes_file}
-        response = client.post(
-            "/editor/literature/{}/upload".format(record["control_number"]),
-            data=data,
-            headers=headers_readwrite,
-        )
+        with open(f"{datadir}/test.pdf", "rb") as file_pdf:
+            bytes_file = FileStorage(file_pdf)
+            data = {"file": bytes_file}
+            response = client.post(
+                "/editor/literature/{}/upload".format(record["control_number"]),
+                data=data,
+                headers=headers_readwrite,
+            )
 
         expected_status_code = 200
         assert expected_status_code == response.status_code
@@ -573,18 +572,19 @@ def test_file_upload_with_read_access(inspire_app, s3, datadir, override_config)
         "If-Match": '"0"',
     }
 
-    with override_config(
-        EDITOR_UPLOAD_ALLOWED_EXTENSIONS=".pdf"
-    ), inspire_app.test_client() as client:
+    with (
+        override_config(EDITOR_UPLOAD_ALLOWED_EXTENSIONS=".pdf"),
+        inspire_app.test_client() as client,
+    ):
         login_user_via_session(client, email=user.email)
-        file_pdf = open(f"{datadir}/test.pdf", "rb")
-        bytes_file = FileStorage(file_pdf)
-        data = {"file": bytes_file}
-        response = client.post(
-            "/editor/literature/{}/upload".format(record["control_number"]),
-            data=data,
-            headers=headers_readwrite,
-        )
+        with open(f"{datadir}/test.pdf", "rb") as file_pdf:
+            bytes_file = FileStorage(file_pdf)
+            data = {"file": bytes_file}
+            response = client.post(
+                "/editor/literature/{}/upload".format(record["control_number"]),
+                data=data,
+                headers=headers_readwrite,
+            )
 
         expected_status_code = 403
         assert expected_status_code == response.status_code

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2020 CERN.
 #
@@ -8,8 +7,8 @@
 import pytest
 
 
-@pytest.fixture(autouse=True, scope="function")
-def assert_all_played(request, vcr_cassette):
+@pytest.fixture(autouse=True)
+def _assert_all_played(request, vcr_cassette):
     """
     Ensure that all all episodes have been played in the current test.
     Only if the current test has a cassette.

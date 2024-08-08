@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	xmlns:sch="http://purl.oclc.org/dsdl/schematron" elementFormDefault="qualified"
 	targetNamespace="http://www.orcid.org/ns/common" xmlns:common="http://www.orcid.org/ns/common">
 	<xs:annotation>
@@ -55,7 +55,7 @@
 			</xs:simpleContent>
 		</xs:complexType>
 	</xs:element>
-	
+
 	<xs:element name="read-date">
         <xs:complexType>
             <xs:annotation>
@@ -67,7 +67,7 @@
             </xs:simpleContent>
         </xs:complexType>
     </xs:element>
-    
+
     <xs:element name="archived-date">
         <xs:complexType>
             <xs:annotation>
@@ -79,7 +79,7 @@
             </xs:simpleContent>
         </xs:complexType>
     </xs:element>
-    
+
     <xs:element name="sent-date">
         <xs:complexType>
             <xs:annotation>
@@ -244,10 +244,10 @@
 			</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
-			<xs:pattern value="[\s\S]*[^\s\n\r]+[\s\S]*" />			
-		</xs:restriction>		
+			<xs:pattern value="[\s\S]*[^\s\n\r]+[\s\S]*" />
+		</xs:restriction>
 	</xs:simpleType>
-		
+
 	<xs:complexType name="amount">
 		<xs:annotation>
 			<xs:documentation>The funding amount.
@@ -882,7 +882,7 @@
 		<xs:restriction base="xs:integer">
 		</xs:restriction>
 	</xs:simpleType>
-	
+
 	<xs:simpleType name="element-path">
 	<xs:annotation>
 		<xs:documentation>The activity-path attribute is present only when
@@ -892,7 +892,7 @@
 	</xs:annotation>
 	<xs:restriction base="xs:string">
 	</xs:restriction>
-</xs:simpleType>	
+</xs:simpleType>
 
 	<xs:simpleType name="visibility">
 		<xs:annotation>
@@ -1043,7 +1043,7 @@
 				</xs:element>
 			</xs:sequence>
 		</xs:sequence>
-	</xs:complexType>	
+	</xs:complexType>
 
 	<xs:simpleType name="iso-3166-country">
 		<xs:annotation>
@@ -1342,7 +1342,7 @@
 			</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="common:non-empty-string">
-			<xs:maxLength value="150" />	
+			<xs:maxLength value="150" />
 		</xs:restriction>
 	</xs:simpleType>
 
@@ -1350,7 +1350,7 @@
 		<xs:annotation>
 			<xs:documentation>A non-empty string that has a maximum size of 200
 				characters
-			</xs:documentation> 
+			</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:maxLength value="200" />
@@ -1399,7 +1399,7 @@
 		<xs:restriction base="common:non-empty-string">
 			<xs:maxLength value="2084" />
 		</xs:restriction>
-	</xs:simpleType>	
+	</xs:simpleType>
 
 	<xs:complexType name="string-with-lang-code">
 		<xs:annotation>
@@ -1432,9 +1432,9 @@
 				space, carriage return or linefeed
 			</xs:documentation>
 		</xs:annotation>
-		<xs:restriction base="common:non-empty-string">			
-			<xs:maxLength value="4000" />					
-		</xs:restriction>		
+		<xs:restriction base="common:non-empty-string">
+			<xs:maxLength value="4000" />
+		</xs:restriction>
 	</xs:simpleType>
 
 	<xs:complexType name="credit-name">
@@ -1465,14 +1465,14 @@
 		</xs:annotation>
 	</xs:element>
 
-	<xs:element name="subtitle">		
+	<xs:element name="subtitle">
 		<xs:annotation>
 			<xs:documentation>If the work has a subtitle, include it here.
 			</xs:documentation>
-		</xs:annotation>		
+		</xs:annotation>
 		<xs:simpleType>
 			<xs:restriction base="xs:string">
-				<xs:maxLength value="1000"/>			
+				<xs:maxLength value="1000"/>
 			</xs:restriction>
 		</xs:simpleType>
 	</xs:element>
@@ -1593,7 +1593,7 @@
 		<xs:attribute name="display-index" type="xs:string" use="optional" />
 		<xs:attribute name="path" type="common:element-path" use="optional" />
 	</xs:complexType>
-	
+
 	<xs:simpleType name="relationship-type">
 		<xs:annotation>
 			<xs:documentation>Indicates the relationship type.
@@ -1604,7 +1604,7 @@
 			<xs:enumeration value="part-of" />
 		</xs:restriction>
 	</xs:simpleType>
-	 
+
 	<xs:complexType name="external-id">
 		<xs:annotation>
 			<xs:documentation>A reference to an external identifier, suitable for works, people and funding</xs:documentation>
@@ -1613,14 +1613,14 @@
 			<xs:extension base="common:element-summary">
 				<xs:sequence>
 					<xs:element name="external-id-type" type="common:non-empty-string" minOccurs="1" maxOccurs="1" />
-					<xs:element name="external-id-value" type="common:non-empty-string" minOccurs="1" maxOccurs="1" />		
+					<xs:element name="external-id-value" type="common:non-empty-string" minOccurs="1" maxOccurs="1" />
 					<xs:element name="external-id-url" type="xs:anyURI" minOccurs="0" maxOccurs="1" />
 					<xs:element name="external-id-relationship" minOccurs="0" maxOccurs="1" type="common:relationship-type" />
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	 
+
 	 <xs:complexType name="external-ids">
 		<xs:annotation>
 			<xs:documentation>Container for storing external ids</xs:documentation>
@@ -1629,15 +1629,15 @@
 			<xs:element maxOccurs="unbounded" minOccurs="0" name="external-id" type="common:external-id" />
 		</xs:sequence>
 	</xs:complexType>
-	
+
 	<xs:simpleType name="group-id">
 		<xs:annotation>
 			<xs:documentation>Identifier for the group that this review should be a part of for aggregation purposes
 			</xs:documentation>
-		</xs:annotation>		
+		</xs:annotation>
 		<xs:restriction base="common:string-1000">
 			<xs:pattern value="(ringgold:|issn:|orcid-generated:|fundref:|publons:)([0-9a-zA-Z\^._~:/?#\[\]@!$&amp;'()*+,;=-]){2,}" />
-		</xs:restriction>    		
-	</xs:simpleType>		
-	
+		</xs:restriction>
+	</xs:simpleType>
+
 </xs:schema>

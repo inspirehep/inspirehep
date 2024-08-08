@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -8,9 +7,8 @@
 import orjson
 from helpers.providers.faker import faker
 from helpers.utils import create_record, create_user, create_user_and_token
-from invenio_accounts.testutils import login_user_via_session
-
 from inspirehep.accounts.roles import Roles
+from invenio_accounts.testutils import login_user_via_session
 
 
 def test_author_facets(inspire_app):
@@ -85,7 +83,7 @@ def test_authors_application_json_put_without_token(inspire_app):
 
     expected_status_code = 401
     with inspire_app.test_client() as client:
-        response = client.put("/authors/{}".format(record_control_number))
+        response = client.put(f"/authors/{record_control_number}")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
@@ -97,7 +95,7 @@ def test_authors_application_json_delete_without_token(inspire_app):
 
     expected_status_code = 401
     with inspire_app.test_client() as client:
-        response = client.delete("/authors/{}".format(record_control_number))
+        response = client.delete(f"/authors/{record_control_number}")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
@@ -122,7 +120,7 @@ def test_authors_application_json_put_with_token(inspire_app):
     headers = {"Authorization": "BEARER " + token.access_token, "If-Match": '"0"'}
     with inspire_app.test_client() as client:
         response = client.put(
-            "/authors/{}".format(record_control_number), headers=headers, json=record
+            f"/authors/{record_control_number}", headers=headers, json=record
         )
     response_status_code = response.status_code
 
@@ -138,9 +136,7 @@ def test_authors_application_json_delete_with_token(inspire_app):
 
     headers = {"Authorization": "BEARER " + token.access_token}
     with inspire_app.test_client() as client:
-        response = client.delete(
-            "/authors/{}".format(record_control_number), headers=headers
-        )
+        response = client.delete(f"/authors/{record_control_number}", headers=headers)
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code

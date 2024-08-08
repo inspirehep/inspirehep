@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -110,7 +109,7 @@ def _hal_create(tei, record):
             hal_id = re.findall("hal-[0-9]{8}", message)[0]
             receipt = _hal_update(tei, hal_id, record)
         else:
-            raise HALCreateException(message)
+            raise HALCreateException(message) from e
     return receipt
 
 

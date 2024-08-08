@@ -1,9 +1,8 @@
 import mock
 from helpers.providers.faker import faker
+from inspirehep.records.api import AuthorsRecord
 from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier
-
-from inspirehep.records.api import AuthorsRecord
 
 
 def test_session_still_works_after_integrity_error_on_bai_provider(

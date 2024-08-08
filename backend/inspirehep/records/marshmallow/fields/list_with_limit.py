@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -14,5 +13,5 @@ class ListWithLimit(fields.List):
             limit = self.metadata.get("limit")
             value = [item for item in value if item]
             if limit:
-                return super(ListWithLimit, self)._serialize(value[:limit], attr, obj)
-        return super(ListWithLimit, self)._serialize(value, attr, obj)
+                return super()._serialize(value[:limit], attr, obj)
+        return super()._serialize(value, attr, obj)

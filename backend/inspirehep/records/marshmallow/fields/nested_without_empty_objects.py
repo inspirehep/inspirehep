@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -10,7 +9,7 @@ from marshmallow import fields, missing
 
 class NestedField(fields.Nested):
     def _serialize(self, nested_obj, attr, obj):
-        result = super(NestedField, self)._serialize(nested_obj, attr, obj)
+        result = super()._serialize(nested_obj, attr, obj)
         if result is None:
             return self.default if self.default is not missing else None
         return result

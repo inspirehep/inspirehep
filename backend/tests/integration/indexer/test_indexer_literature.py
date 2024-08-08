@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -11,7 +10,6 @@ from deepdiff import DeepDiff
 from freezegun import freeze_time
 from helpers.providers.faker import faker
 from helpers.utils import create_record, create_s3_bucket, es_search
-
 from inspirehep.records.api import LiteratureRecord
 from inspirehep.search.api import LiteratureSearch
 
@@ -181,7 +179,6 @@ def test_indexer_creates_proper_fulltext_links_in_ui_display_files_disabled(
 
 
 def test_indexer_not_fulltext_links_in_ui_display_when_no_fulltext_links(inspire_app):
-
     data = {
         "external_system_identifiers": [
             {"schema": "OSTI", "value": "7224300"},

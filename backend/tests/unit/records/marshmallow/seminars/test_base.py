@@ -1,5 +1,4 @@
 from helpers.providers.faker import faker
-
 from inspirehep.records.marshmallow.seminars.base import SeminarsPublicListSchema
 
 

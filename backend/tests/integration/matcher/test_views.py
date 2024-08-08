@@ -1,8 +1,7 @@
 import orjson
 from helpers.utils import create_record, create_user
-from invenio_accounts.testutils import login_user_via_session
-
 from inspirehep.accounts.roles import Roles
+from invenio_accounts.testutils import login_user_via_session
 
 
 def test_get_linked_refs(inspire_app):

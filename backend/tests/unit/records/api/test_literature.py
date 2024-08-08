@@ -2,7 +2,6 @@ from datetime import datetime
 
 import mock
 from helpers.providers.faker import faker
-
 from inspirehep.records.api import LiteratureRecord
 
 

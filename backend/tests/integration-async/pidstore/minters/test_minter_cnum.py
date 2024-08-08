@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -7,11 +6,10 @@
 
 import pytest
 from helpers.providers.faker import faker
-from invenio_db import db
-from invenio_pidstore.models import PersistentIdentifier, PIDStatus
-
 from inspirehep.pidstore.errors import CNUMChanged
 from inspirehep.records.api import ConferencesRecord
+from invenio_db import db
+from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
 
 def test_minter_update_conference_record_with_different_cnum_raises_error(

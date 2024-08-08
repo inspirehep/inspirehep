@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2023 CERN.
 #
@@ -11,7 +10,6 @@ import mock
 import orjson
 import pytest
 from helpers.utils import create_record
-
 from inspirehep.curation.api import (
     assign_institution_reference_to_affiliations,
     normalize_affiliations,
@@ -26,16 +24,16 @@ def create_records_from_datadir(datadir, record_type, path_in_datadir):
         create_record(record_type, data=data)
 
 
-@pytest.fixture(scope="function")
-def insert_experiments_into_db(inspire_app, datadir):
+@pytest.fixture()
+def _insert_experiments_into_db(inspire_app, datadir):
     experiments_path = os.path.join(datadir, "experiments")
     for record_filename in os.listdir(experiments_path):
         data = orjson.loads((datadir / "experiments" / record_filename).read_text())
         create_record("exp", data=data)
 
 
-@pytest.fixture(scope="function")
-def insert_ambiguous_experiments_into_db(inspire_app, datadir):
+@pytest.fixture()
+def _insert_ambiguous_experiments_into_db(inspire_app, datadir):
     ambiguous_experiments_path = os.path.join(datadir, "ambiguous_experiments")
     for record_filename in os.listdir(ambiguous_experiments_path):
         data = orjson.loads(
@@ -44,17 +42,18 @@ def insert_ambiguous_experiments_into_db(inspire_app, datadir):
         create_record("exp", data=data)
 
 
-@pytest.fixture(scope="function")
-def insert_literature_in_db(inspire_app, datadir):
+@pytest.fixture()
+def _insert_literature_in_db(inspire_app, datadir):
     create_records_from_datadir(datadir, "lit", "literature")
 
 
-@pytest.fixture(scope="function")
-def insert_institutions_in_db(inspire_app, datadir):
+@pytest.fixture()
+def _insert_institutions_in_db(inspire_app, datadir):
     create_records_from_datadir(datadir, "ins", "institutions")
 
 
-def test_normalize_collaborations(inspire_app, insert_experiments_into_db):
+@pytest.mark.usefixtures("_insert_experiments_into_db")
+def test_normalize_collaborations(inspire_app):
     record = {
         "_collections": ["Literature"],
         "titles": ["A title"],
@@ -91,8 +90,9 @@ def test_normalize_collaborations(inspire_app, insert_experiments_into_db):
     assert result["accelerator_experiments"] == expected_accelerator_experiments
 
 
+@pytest.mark.usefixtures("_insert_experiments_into_db")
 def test_normalize_collaborations_with_different_name_variants(
-    inspire_app, insert_experiments_into_db
+    inspire_app,
 ):
     record = {
         "_collections": ["Literature"],
@@ -133,8 +133,9 @@ def test_normalize_collaborations_with_different_name_variants(
     assert result["accelerator_experiments"] == expected_accelerator_experiments
 
 
+@pytest.mark.usefixtures("_insert_ambiguous_experiments_into_db")
 def test_normalize_collaborations_doesnt_link_experiment_when_ambiguous_collaboration_names(
-    inspire_app, insert_ambiguous_experiments_into_db, caplog
+    inspire_app, caplog
 ):
     record = {
         "_collections": ["Literature"],
@@ -156,8 +157,9 @@ def test_normalize_collaborations_doesnt_link_experiment_when_ambiguous_collabor
     assert "'Ambiguous match for collaboration'" in caplog.text
 
 
+@pytest.mark.usefixtures("_insert_ambiguous_experiments_into_db")
 def test_normalize_collaborations_doesnt_link_experiment_when_ambiguous_subgroup(
-    inspire_app, insert_ambiguous_experiments_into_db, caplog
+    inspire_app, caplog
 ):
     record = {
         "_collections": ["Literature"],
@@ -178,9 +180,8 @@ def test_normalize_collaborations_doesnt_link_experiment_when_ambiguous_subgroup
     assert "Ambiguous match for collaboration" in caplog.text
 
 
-def test_normalize_affiliations_happy_flow(
-    inspire_app, insert_literature_in_db, insert_institutions_in_db, caplog
-):
+@pytest.mark.usefixtures("_insert_literature_in_db", "_insert_institutions_in_db")
+def test_normalize_affiliations_happy_flow(inspire_app, caplog):
     record = {
         "_collections": ["Literature"],
         "titles": ["A title"],
@@ -216,9 +217,8 @@ def test_normalize_affiliations_happy_flow(
     assert "Found matching affiliation" in caplog.text
 
 
-def test_normalize_affiliations_when_authors_has_two_happy_flow(
-    inspire_app, insert_literature_in_db
-):
+@pytest.mark.usefixtures("_insert_literature_in_db")
+def test_normalize_affiliations_when_authors_has_two_happy_flow(inspire_app):
     record = {
         "_collections": ["Literature"],
         "titles": ["A title"],
@@ -249,8 +249,9 @@ def test_normalize_affiliations_when_authors_has_two_happy_flow(
     } in data["normalized_affiliations"][0]
 
 
+@pytest.mark.usefixtures("_insert_literature_in_db", "_insert_institutions_in_db")
 def test_normalize_affiliations_when_lit_affiliation_missing_institution_ref(
-    inspire_app, insert_literature_in_db, insert_institutions_in_db
+    inspire_app,
 ):
     record = {
         "_collections": ["Literature"],
@@ -280,8 +281,9 @@ def test_normalize_affiliations_when_lit_affiliation_missing_institution_ref(
     "inspirehep.curation.utils.find_unambiguous_affiliation",
     return_value={"value": "CERN"},
 )
+@pytest.mark.usefixtures("_insert_literature_in_db")
 def test_normalize_affiliations_run_query_only_once_when_authors_have_same_raw_aff(
-    mock_assign_matched_affiliation_to_author, inspire_app, insert_literature_in_db
+    mock_assign_matched_affiliation_to_author, inspire_app
 ):
     record = {
         "_collections": ["Literature"],
@@ -308,9 +310,8 @@ def test_normalize_affiliations_run_query_only_once_when_authors_have_same_raw_a
     assert mock_assign_matched_affiliation_to_author.called_once()
 
 
-def test_normalize_affiliations_handle_not_found_affiliations(
-    inspire_app, insert_literature_in_db
-):
+@pytest.mark.usefixtures("_insert_literature_in_db")
+def test_normalize_affiliations_handle_not_found_affiliations(inspire_app):
     record = {
         "_collections": ["Literature"],
         "titles": ["A title"],
@@ -329,9 +330,9 @@ def test_normalize_affiliations_handle_not_found_affiliations(
     assert "Non existing aff" in data["ambiguous_affiliations"]
 
 
+@pytest.mark.usefixtures("_insert_literature_in_db")
 def test_normalize_affiliations_doesnt_return_nested_affiliations_if_using_memoized(
     inspire_app,
-    insert_literature_in_db,
 ):
     record = {
         "_collections": ["Literature"],
@@ -369,9 +370,9 @@ def test_normalize_affiliations_doesnt_return_nested_affiliations_if_using_memoi
     ]
 
 
+@pytest.mark.usefixtures("_insert_literature_in_db")
 def test_normalize_affiliations_doesnt_add_duplicated_affiliations(
     inspire_app,
-    insert_literature_in_db,
 ):
     record = {
         "_collections": ["Literature"],
@@ -397,8 +398,9 @@ def test_normalize_affiliations_doesnt_add_duplicated_affiliations(
     }
 
 
+@pytest.mark.usefixtures("_insert_literature_in_db")
 def test_aff_normalization_if_no_match_from_highlighting_and_no_other_matches(
-    inspire_app, insert_literature_in_db
+    inspire_app,
 ):
     record = {
         "_collections": ["Literature"],
@@ -421,9 +423,9 @@ def test_aff_normalization_if_no_match_from_highlighting_and_no_other_matches(
     assert not data["normalized_affiliations"][0]
 
 
+@pytest.mark.usefixtures("_insert_literature_in_db")
 def test_normalize_affiliations_assign_only_matching_affiliation_when_multiple_raw_affs_in_matched_author(
     inspire_app,
-    insert_literature_in_db,
 ):
     record = {
         "_collections": ["Literature"],
@@ -451,9 +453,9 @@ def test_normalize_affiliations_assign_only_matching_affiliation_when_multiple_r
     ]
 
 
+@pytest.mark.usefixtures("_insert_literature_in_db")
 def test_normalize_affiliations_doesnt_add_not_valid_stuff_to_affiliation(
     inspire_app,
-    insert_literature_in_db,
 ):
     record = {
         "_collections": ["Literature"],
@@ -487,9 +489,9 @@ def test_normalize_affiliations_doesnt_add_not_valid_stuff_to_affiliation(
     ]
 
 
+@pytest.mark.usefixtures("_insert_literature_in_db")
 def test_normalize_affiliations_assign_all_affiliations_if_one_raw_aff_in_matched_lit_author(
     inspire_app,
-    insert_literature_in_db,
 ):
     record = {
         "_collections": ["Literature"],
@@ -526,9 +528,8 @@ def test_normalize_affiliations_assign_all_affiliations_if_one_raw_aff_in_matche
     ]
 
 
-def test_assign_institution_reference_to_affiliations(
-    inspire_app, insert_institutions_in_db
-):
+@pytest.mark.usefixtures("_insert_institutions_in_db")
+def test_assign_institution_reference_to_affiliations(inspire_app):
     affiliations = [{"value": "CERN"}, {"value": "Warsaw U."}]
     assign_institution_reference_to_affiliations(affiliations, {})
     assert ["record" in affiliation for affiliation in affiliations]

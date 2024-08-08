@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -84,8 +83,8 @@ def get_current_user_remote_orcid_account():
 
 
 def get_allowed_roles_for_collections(collections, read_only=True):
-    private_collections = set(collections) - (
-        current_app.config["NON_PRIVATE_LITERATURE_COLLECTIONS"]
+    private_collections = (
+        set(collections) - (current_app.config["NON_PRIVATE_LITERATURE_COLLECTIONS"])
     )
     roles = set()
     for col in private_collections:

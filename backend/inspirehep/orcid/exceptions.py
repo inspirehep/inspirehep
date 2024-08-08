@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # This file is part of Invenio.
 # Copyright (C) 2016-2018 CERN.
@@ -12,15 +11,13 @@ class BaseOrcidPusherException(Exception):
         # kwargs['from_exc'] used as a sort of exception chaining in Python 2.
         # No need in Python 3 with the statement: raise exc from cause
         self.from_exc = kwargs.get("from_exc")
-        super(BaseOrcidPusherException, self).__init__(*args)
+        super().__init__(*args)
 
     def __str__(self, *args, **kwargs):
-        output = super(BaseOrcidPusherException, self).__str__(*args, **kwargs)
+        output = super().__str__(*args, **kwargs)
         if not self.from_exc:
             return output
-        output += "\nThis exception was directly caused by the following exception:\n{}".format(
-            repr(self.from_exc)
-        )
+        output += f"\nThis exception was directly caused by the following exception:\n{repr(self.from_exc)}"
         return output
 
 

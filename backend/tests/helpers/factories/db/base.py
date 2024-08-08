@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -13,7 +12,7 @@ from invenio_db import db
 
 
 @six.add_metaclass(abc.ABCMeta)
-class TestBaseModel(object):
+class TestBaseModel:
     model_class = None
 
     @classmethod

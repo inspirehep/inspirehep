@@ -1,15 +1,13 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from opensearch_dsl import Search
 from flask import current_app
-from mock import patch
-
 from inspirehep.search.factories.query import inspire_query_factory
+from mock import patch
+from opensearch_dsl import Search
 
 
 @patch("inspirehep.search.factories.query.inspire_query_parser.parse_query")

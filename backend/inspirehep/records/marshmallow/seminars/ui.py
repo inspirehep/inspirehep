@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2020 CERN.
 #
@@ -13,8 +12,7 @@ from inspirehep.records.marshmallow.seminars.common.literature_record import (
     LiteratureRecordSchemaV1,
 )
 from inspirehep.records.marshmallow.seminars.common.speaker import SpeakerSchemaV1
-
-from ..utils import get_acquisition_source_without_email
+from inspirehep.records.marshmallow.utils import get_acquisition_source_without_email
 
 
 class SeminarsBaseSchema(SeminarsPublicSchema):

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2023 CERN.
 #
@@ -9,7 +8,7 @@ import structlog
 from inspire_utils.dedupers import dedupe_list
 from inspire_utils.record import get_value
 
-from .utils import (
+from inspirehep.curation.utils import (
     assign_institution,
     collaboration_multi_search_query,
     create_accelerator_experiment_from_collaboration_match,
@@ -33,7 +32,7 @@ def normalize_collaborations(collaborations, wf_id):
             workflow_id=wf_id,
         )
         return
-    if not len(search_responses) == len(collaborations) * 2:
+    if len(search_responses) != len(collaborations) * 2:
         LOGGER.exception(
             "Results count does not match collaborations count",
             record_collaboration_number=len(collaborations),
@@ -43,7 +42,7 @@ def normalize_collaborations(collaborations, wf_id):
         return
 
     for collaboration, collaboration_response, subgroup_response in zip(
-        collaborations, search_responses[::2], search_responses[1::2]
+        collaborations, search_responses[::2], search_responses[1::2], strict=False
     ):
         if "record" in collaboration:
             continue
@@ -121,6 +120,6 @@ def assign_institution_reference_to_affiliations(
         else:
             complete_affiliation = assign_institution(affiliation)
             if complete_affiliation:
-                already_matched_affiliations_refs[
-                    complete_affiliation["value"]
-                ] = complete_affiliation["record"]
+                already_matched_affiliations_refs[complete_affiliation["value"]] = (
+                    complete_affiliation["record"]
+                )

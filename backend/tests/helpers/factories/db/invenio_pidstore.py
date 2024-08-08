@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -10,9 +9,8 @@ import copy
 import random
 import uuid
 
+from helpers.factories.db.base import TestBaseModel
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
-
-from .base import TestBaseModel
 
 
 class TestPersistentIdentifier(TestBaseModel):
@@ -44,8 +42,6 @@ class TestPersistentIdentifier(TestBaseModel):
         if not kwargs.pop("status", None):
             updated_kwargs["status"] = PIDStatus.REGISTERED
 
-        instance.persistent_identifier = super(
-            TestPersistentIdentifier, cls
-        ).create_from_kwargs(updated_kwargs)
+        instance.persistent_identifier = super().create_from_kwargs(updated_kwargs)
 
         return instance

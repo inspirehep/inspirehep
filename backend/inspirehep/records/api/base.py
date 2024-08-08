@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -12,7 +11,6 @@ from datetime import datetime
 from itertools import chain
 
 import structlog
-from opensearchpy import NotFoundError
 from flask import current_app
 from inspire_dojson.utils import strip_empty_values
 from inspire_schemas.utils import get_validation_errors
@@ -25,6 +23,7 @@ from invenio_records.errors import MissingModelError
 from invenio_records.models import RecordMetadata
 from invenio_records.signals import after_record_revert, before_record_revert
 from jsonschema import ValidationError
+from opensearchpy import NotFoundError
 from sqlalchemy import tuple_
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm.attributes import flag_modified
@@ -117,8 +116,8 @@ class InspireRecord(Record):
         with_deleted = original_record or with_deleted
         try:
             return cls.get_record(record_uuid, with_deleted=with_deleted)
-        except NoResultFound:
-            raise PIDDoesNotExistError(pid_type, pid_value)
+        except NoResultFound as e:
+            raise PIDDoesNotExistError(pid_type, pid_value) from e
 
     @classmethod
     def get_subclasses(cls):
@@ -136,13 +135,13 @@ class InspireRecord(Record):
             record = RecordMetadataVersion.query.filter_by(
                 id=record_uuid, version_id=record_version
             ).one()
-        except NoResultFound:
+        except NoResultFound as e:
             LOGGER.warning(
                 "Reading stale data",
                 uuid=str(record_uuid),
                 version=record_version,
             )
-            raise StaleDataError()
+            raise StaleDataError() from e
         record_class = InspireRecord.get_class_for_record(record.json)
         if record_class != cls:
             record = record_class(record.json, model=record)
@@ -244,7 +243,7 @@ class InspireRecord(Record):
     def create(cls, data, id_=None, *args, **kwargs):
         record_class = cls.get_class_for_record(data)
         if record_class != cls:
-            return record_class.create(data, id_=id_, *args, **kwargs)
+            return record_class.create(data, *args, id_=id_, **kwargs)
         data = cls.strip_empty_values(data)
 
         deleted = data.get("deleted", False)

@@ -1,14 +1,12 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+from inspirehep.pidstore.api import PidStoreExperiments
+from inspirehep.records.api.base import InspireRecord
 from inspirehep.records.marshmallow.experiments import ExperimentsElasticSearchSchema
-
-from ...pidstore.api import PidStoreExperiments
-from ..models import ExperimentLiterature
-from .base import InspireRecord
+from inspirehep.records.models import ExperimentLiterature
 
 
 class ExperimentsRecord(InspireRecord):

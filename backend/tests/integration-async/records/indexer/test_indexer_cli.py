@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -7,9 +6,6 @@
 
 import pytest
 from helpers.utils import generate_records
-from invenio_records.models import RecordMetadata
-from mock import patch
-
 from inspirehep.indexer.cli import get_query_records_to_index
 from inspirehep.records.api import (
     AuthorsRecord,
@@ -21,6 +17,8 @@ from inspirehep.records.api import (
     JournalsRecord,
     LiteratureRecord,
 )
+from invenio_records.models import RecordMetadata
+from mock import patch
 
 
 def check_n_records_reindex_for_pidtype(
@@ -56,9 +54,11 @@ def test_reindex_record_lit_fails_with_invalid_record(
     inspire_app, clean_celery_session, cli
 ):
     broken_field = {"_desy_bookkeeping": {"date": '"2013-01-14_final'}}
-    with patch("inspirehep.indexer.base.InspireRecordIndexer"):
-        with patch("inspirehep.records.api.base.get_validation_errors"):
-            generate_records(count=1, data=broken_field, skip_validation=True)
+    with (
+        patch("inspirehep.indexer.base.InspireRecordIndexer"),
+        patch("inspirehep.records.api.base.get_validation_errors"),
+    ):
+        generate_records(count=1, data=broken_field, skip_validation=True)
 
     check_n_records_reindex_for_pidtype(inspire_app, cli, "lit", n_fail=1)
 
@@ -68,9 +68,11 @@ def test_reindex_record_lit_fails_with_invalid_field_content(
 ):
     invalid_field = {"keywords": ["17B05"]}
 
-    with patch("inspirehep.indexer.base.InspireRecordIndexer"):
-        with patch("inspirehep.records.api.base.get_validation_errors"):
-            generate_records(count=1, data=invalid_field, skip_validation=True)
+    with (
+        patch("inspirehep.indexer.base.InspireRecordIndexer"),
+        patch("inspirehep.records.api.base.get_validation_errors"),
+    ):
+        generate_records(count=1, data=invalid_field, skip_validation=True)
 
     check_n_records_reindex_for_pidtype(inspire_app, cli, "lit", n_fail=1)
 
@@ -81,9 +83,11 @@ def test_reindex_records_lit_one_fails_and_two_ok(
     invalid_field = {"keywords": ["17B05"]}
 
     generate_records(count=2)
-    with patch("inspirehep.indexer.base.InspireRecordIndexer"):
-        with patch("inspirehep.records.api.base.get_validation_errors"):
-            generate_records(count=1, data=invalid_field, skip_validation=True)
+    with (
+        patch("inspirehep.indexer.base.InspireRecordIndexer"),
+        patch("inspirehep.records.api.base.get_validation_errors"),
+    ):
+        generate_records(count=1, data=invalid_field, skip_validation=True)
 
     check_n_records_reindex_for_pidtype(inspire_app, cli, "lit", n_success=2, n_fail=1)
 

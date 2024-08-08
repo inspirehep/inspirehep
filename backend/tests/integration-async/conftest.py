@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -14,14 +13,13 @@ import structlog
 from click.testing import CliRunner
 from flask.cli import ScriptInfo
 from helpers.cleanups import db_cleanup, es_cleanup
-from invenio_search import current_search_client as es
-from moto import mock_s3
-from redis import StrictRedis
-
 from inspirehep.celery import CeleryTask
 from inspirehep.cli import cli as inspire_cli
 from inspirehep.factory import create_app as inspire_create_app
 from inspirehep.files.api.s3 import S3
+from invenio_search import current_search_client as es
+from moto import mock_s3
+from redis import StrictRedis
 
 LOGGER = structlog.getLogger()
 
@@ -36,9 +34,9 @@ def app():
     app_config["CELERY_TASK_EAGER_PROPAGATES"] = False
     app_config["TESTING"] = True
     app_config["SEARCH_INDEX_PREFIX"] = "test-integration-async-"
-    app_config[
-        "SQLALCHEMY_DATABASE_URI"
-    ] = "postgresql+psycopg2://inspirehep:inspirehep@localhost/test-inspirehep-async"
+    app_config["SQLALCHEMY_DATABASE_URI"] = (
+        "postgresql+psycopg2://inspirehep:inspirehep@localhost/test-inspirehep-async"
+    )
     app_config["FEATURE_FLAG_ENABLE_REDIRECTION_OF_PIDS"] = True
     app.wsgi_app.mounts["/api"].config.update(app_config)
     # We cannot have `api` app with the same SERVER_NAME
@@ -64,8 +62,8 @@ def celery_worker_parameters():
     }
 
 
-@pytest.fixture(scope="function", autouse=True)
-def clear_environment(app):
+@pytest.fixture(autouse=True)
+def _clear_environment(app):
     from invenio_db import db as db_
 
     with app.app_context():
@@ -86,10 +84,10 @@ def celery_session_app(app, celery_session_app):
     celery_session_app.Task = CeleryTask
     celery_session_app.flask_app = app
 
-    yield celery_session_app
+    return celery_session_app
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def clean_celery_session(celery_session_app, celery_session_worker):
     celery_session_app.control.purge()
     yield celery_session_worker
@@ -101,16 +99,16 @@ def celery_config():
     return {}
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def cli(inspire_app):
     """Click CLI runner inside the Flask application."""
     runner = CliRunner()
     obj = ScriptInfo(create_app=lambda: inspire_app)
     runner.invoke = partial(runner.invoke, inspire_cli, obj=obj)
-    yield runner
+    return runner
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def redis(inspire_app):
     redis_url = inspire_app.config.get("CACHE_REDIS_URL")
     redis = StrictRedis.from_url(redis_url, decode_responses=True)
@@ -120,7 +118,7 @@ def redis(inspire_app):
     redis.close()
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def override_config(inspire_app):
     @contextmanager
     def _override_config(**kwargs):
@@ -136,26 +134,27 @@ def override_config(inspire_app):
             ):
                 ...
         """
-        with mock.patch.dict(inspire_app.config, kwargs), mock.patch.dict(
-            inspire_app.wsgi_app.mounts["/api"].config, kwargs
+        with (
+            mock.patch.dict(inspire_app.config, kwargs),
+            mock.patch.dict(inspire_app.wsgi_app.mounts["/api"].config, kwargs),
         ):
             yield
 
     return _override_config
 
 
-@pytest.fixture(scope="function")
-def inspire_app(app, cache, clear_environment):
-    yield app
+@pytest.fixture()
+def inspire_app(app, cache):
+    return app
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def enable_self_citations(inspire_app, override_config):
     with override_config(FEATURE_FLAG_ENABLE_SELF_CITATIONS=True):
         yield inspire_app
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def enable_disambiguation(inspire_app, override_config):
     with override_config(
         FEATURE_FLAG_ENABLE_AUTHOR_DISAMBIGUATION=True,
@@ -165,7 +164,7 @@ def enable_disambiguation(inspire_app, override_config):
         yield inspire_app
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def enable_files(inspire_app, override_config):
     with override_config(FEATURE_FLAG_ENABLE_FILES=True):
         yield inspire_app

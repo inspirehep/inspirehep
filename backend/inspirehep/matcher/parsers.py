@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2020 CERN.
 #
@@ -89,7 +88,7 @@ class GrobidReferenceParser:
         ).get()
 
 
-class GrobidAuthors(object):
+class GrobidAuthors:
     def __init__(self, xml_text):
         self._xml = Selector(text=xml_text, type="xml")
         self._xml.remove_namespaces()
@@ -122,7 +121,7 @@ class GrobidAuthors(object):
         return list(self.parse_one())
 
 
-class GrobidAuthor(object):
+class GrobidAuthor:
     def __init__(self, author_selector):
         self._author = author_selector
 
@@ -130,7 +129,7 @@ class GrobidAuthor(object):
     def _extract(source, path, type=None, text=False):
         path += "[string-length(normalize-space()) > 0]"
         if type:
-            path += "[@type='{type}']".format(type=type)
+            path += f"[@type='{type}']"
         if text:
             path += "/text()"
             return source.xpath(path)

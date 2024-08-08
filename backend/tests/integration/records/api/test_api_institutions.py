@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -11,13 +10,12 @@ import uuid
 import pytest
 from helpers.providers.faker import faker
 from helpers.utils import create_pidstore, create_record
+from inspirehep.records.api import InspireRecord, InstitutionsRecord
+from inspirehep.records.models import InstitutionLiterature
 from invenio_pidstore.errors import PIDAlreadyExists
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_records.models import RecordMetadata
 from jsonschema import ValidationError
-
-from inspirehep.records.api import InspireRecord, InstitutionsRecord
-from inspirehep.records.models import InstitutionLiterature
 
 
 def test_institutions_create(inspire_app):
@@ -164,8 +162,7 @@ def test_aut_citation_count_property_blows_up_on_wrong_pid_type(inspire_app):
     data = faker.record("ins")
     record = InstitutionsRecord.create(data)
 
-    with pytest.raises(AttributeError):
-        record.citation_count
+    assert not hasattr(record, "citation_count")
 
 
 def test_deleted_institution_deletes_relations_in_institution_literature_table(

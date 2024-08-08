@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -10,6 +9,5 @@
 This file is imported by ``inspirehep.__init__``,
 and parsed by ``setup.py``.
 """
-
 
 __version__ = "1.0.0"

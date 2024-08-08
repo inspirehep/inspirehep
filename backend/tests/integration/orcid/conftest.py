@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # This file is part of INSPIRE.
 # Copyright (C) 2018 CERN.
@@ -29,10 +28,7 @@ IS_VCR_EPISODE_OR_ERROR = False  # False to record new cassettes.
 
 @pytest.fixture(scope="session")
 def vcr_config():
-    if IS_VCR_EPISODE_OR_ERROR:
-        record_mode = "none"
-    else:
-        record_mode = "new_episodes"
+    record_mode = "none" if IS_VCR_EPISODE_OR_ERROR else "new_episodes"
 
     if not IS_VCR_ENABLED:
         # Trick to disable VCR.
@@ -61,7 +57,7 @@ def vcr_config():
     }
 
 
-@pytest.fixture
+@pytest.fixture()
 def vcr(vcr):
     vcr.register_matcher(
         "accept", lambda r1, r2: r1.headers.get("Accept") == r2.headers.get("Accept")
@@ -83,10 +79,10 @@ def vcr(vcr):
 # in all tests, no need to mark them with: @pytest.mark.vcr()
 # This effect is desired to avoid any network interaction apart from those
 # to the listed in vcr_config > ignore_hosts.
-@pytest.fixture(autouse=True, scope="function")
-def assert_all_played(request, vcr_cassette):
+@pytest.fixture(autouse=True)
+def _assert_all_played(request, vcr_cassette):
     """
     Ensure that all all episodes have been played in the current test.
     Only if the current test has a cassette.
     """
-    yield
+    return

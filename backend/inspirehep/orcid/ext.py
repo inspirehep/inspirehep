@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -7,11 +6,10 @@
 
 """Search extension."""
 
-
 import inspire_service_orcid.conf
 
 
-class InspireOrcid(object):
+class InspireOrcid:
     def __init__(self, app=None):
         if app:
             self.init_app(app)

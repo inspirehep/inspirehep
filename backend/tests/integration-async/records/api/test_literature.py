@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -8,12 +7,11 @@ import copy
 
 from helpers.providers.faker import faker
 from helpers.utils import retry_test
-from invenio_db import db
-from tenacity import stop_after_delay, wait_fixed
-
 from inspirehep.records.api import ConferencesRecord, LiteratureRecord
 from inspirehep.records.api.base import InspireRecord
 from inspirehep.records.models import RecordsAuthors
+from invenio_db import db
+from tenacity import stop_after_delay, wait_fixed
 
 
 def test_authors_uuids_added_after_create_and_update(inspire_app, clean_celery_session):

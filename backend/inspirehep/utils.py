@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -22,9 +21,9 @@ LOGGER = structlog.getLogger()
 
 
 def include_table_check(object, name, type_, *args, **kwargs):
-    if type_ == "table" and name in current_app.config.get("ALEMBIC_SKIP_TABLES"):
-        return False
-    return True
+    return not (
+        type_ == "table" and name in current_app.config.get("ALEMBIC_SKIP_TABLES")
+    )
 
 
 def get_inspirehep_url():
@@ -68,7 +67,7 @@ def chunker(iterable, max_chunk_size, min_num_chunks=0):
 
 
 def flatten_list(input_list):
-    if isinstance(input_list, (list, tuple)):
+    if isinstance(input_list, list | tuple):
         return [
             element for innerList in input_list for element in flatten_list(innerList)
         ]
@@ -153,7 +152,7 @@ def next_batch(iterator, batch_size):
     batch = []
 
     try:
-        for idx in range(batch_size):
+        for _idx in range(batch_size):
             batch.append(next(iterator))
     except StopIteration:
         pass

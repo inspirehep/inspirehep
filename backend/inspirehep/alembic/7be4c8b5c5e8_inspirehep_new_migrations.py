@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -7,7 +6,6 @@
 
 """Inspirehep initial revision of migrations
 which makes db identical like in inspire-next"""
-
 
 # revision identifiers, used by Alembic.
 revision = "7be4c8b5c5e8"

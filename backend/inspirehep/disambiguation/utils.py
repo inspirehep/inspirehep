@@ -4,10 +4,9 @@ from collections import Counter
 import structlog
 from flask import url_for
 from inspire_dojson.utils import get_record_ref
+from inspirehep.records.api.authors import AuthorsRecord
 from prometheus_client import Counter as metrics_counter
 from unidecode import unidecode
-
-from inspirehep.records.api.authors import AuthorsRecord
 
 LOGGER = structlog.getLogger()
 
@@ -139,7 +138,9 @@ def reorder_lit_author_names(lit_author_name, author_name):
         unidecode(name).lower() for name in lit_author_first_names.split(" ")
     )
 
+    last_idx = 0
     for nb, name in enumerate(lit_author_first_last_name_tokens):
+        last_idx = nb
         normalized_name = unidecode(name).lower()
         name_only_in_author_last_names = (
             normalized_name in author_last_names_normalized
@@ -160,6 +161,6 @@ def reorder_lit_author_names(lit_author_name, author_name):
             and name_only_in_author_last_names
         ):
             break
-    lit_author_first_names = " ".join(lit_author_first_last_name_tokens[:nb])
-    lit_author_last_names = " ".join(lit_author_first_last_name_tokens[nb:])
+    lit_author_first_names = " ".join(lit_author_first_last_name_tokens[:last_idx])
+    lit_author_last_names = " ".join(lit_author_first_last_name_tokens[last_idx:])
     return f"{lit_author_last_names}, {lit_author_first_names}".strip(" ,")

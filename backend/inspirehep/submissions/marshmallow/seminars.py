@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -190,10 +189,10 @@ class Seminar(Schema):
         for literature_record_pid in data.get("literature_records", []):
             try:
                 LiteratureRecord.get_record_by_pid_value(literature_record_pid)
-            except PIDDoesNotExistError:
+            except PIDDoesNotExistError as e:
                 raise InvalidDataError(
                     f"{literature_record_pid} is not a valid literature record."
-                )
+                ) from e
             record = {
                 "$ref": f"{get_inspirehep_url()}/api/literature/{literature_record_pid}"
             }

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -20,13 +19,13 @@ class PositionSchemaV1(Schema):
         start_date = data.get("start_date")
         end_date = data.get("end_date")
 
-        suffixed_start_date = "{}-".format(start_date) if start_date else ""
+        suffixed_start_date = f"{start_date}-" if start_date else ""
 
         if current:
-            return "{}present".format(suffixed_start_date)
+            return f"{suffixed_start_date}present"
 
         if end_date:
-            return "{}{}".format(suffixed_start_date, end_date)
+            return f"{suffixed_start_date}{end_date}"
 
         if start_date:
             return start_date

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # This file is part of INSPIRE.
 # Copyright (C) 2018 CERN.
@@ -35,10 +34,6 @@ from helpers.utils import create_record
 from inspire_dojson.utils import get_record_ref
 from inspire_schemas.api import validate
 from inspire_utils.record import get_values_for_schema
-from invenio_db import db
-from invenio_pidstore.errors import PIDAlreadyExists
-from mock import patch
-
 from inspirehep.orcid.push_access_tokens import get_access_tokens
 from inspirehep.orcid.utils import (
     get_literature_recids_for_orcid,
@@ -46,12 +41,15 @@ from inspirehep.orcid.utils import (
     update_moved_orcid,
 )
 from inspirehep.records.api import InspireRecord
+from invenio_db import db
+from invenio_pidstore.errors import PIDAlreadyExists
+from mock import patch
 
 # The tests are written in a specific order, disable random
 pytestmark = pytest.mark.random_order(disabled=True)
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def author_in_isolated_app(inspire_app):
     record = {
         "$schema": "http://localhost:5000/schemas/records/authors.json",
@@ -66,10 +64,10 @@ def author_in_isolated_app(inspire_app):
     assert validate(record, "authors") is None
 
     record = InspireRecord.create_or_update(record)
-    yield record["control_number"]
+    return record["control_number"]
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def user_remote_account(inspire_app):
     orcid = "0000-0003-4792-9178"
     test_user = TestUserIdentity.create_for_orcid(orcid)
@@ -77,10 +75,13 @@ def user_remote_account(inspire_app):
     test_user_remote_account = TestRemoteAccount.create_from_kwargs(
         user_id=test_user.user.id, extra_data={"orcid": orcid, "allow_push": True}
     )
-    TestRemoteToken.create_from_kwargs(
-        remote_account=test_user_remote_account.remote_account
-    ).remote_token
-    yield test_user_remote_account
+    assert hasattr(
+        TestRemoteToken.create_from_kwargs(
+            remote_account=test_user_remote_account.remote_account
+        ),
+        "remote_token",
+    )
+    return test_user_remote_account
 
 
 def test_orcids_for_push_no_authors(inspire_app):
@@ -289,8 +290,8 @@ def get_full_name_test_task(
         exception = exc
         if not original_exc:
             exception = None
-        raise self.retry(max_retries=3, countdown=5, exc=exception)
-    return "{} {} {}".format(first_name, nick_name, last_name)
+        raise self.retry(max_retries=3, countdown=5, exc=exception) from exc
+    return f"{first_name} {nick_name} {last_name}"
 
 
 def test_orcid_is_updated_if_was_moved(inspire_app, user_remote_account):

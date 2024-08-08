@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -8,6 +7,7 @@
 import mock
 import pytest
 from celery.exceptions import Retry
+from inspirehep.indexer.tasks import index_record
 from sqlalchemy.exc import (
     DisconnectionError,
     InvalidatePoolError,
@@ -15,8 +15,6 @@ from sqlalchemy.exc import (
     TimeoutError,
     UnboundExecutionError,
 )
-
-from inspirehep.indexer.tasks import index_record
 
 
 @mock.patch(

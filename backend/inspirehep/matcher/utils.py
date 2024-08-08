@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2020 CERN.
 #
@@ -34,7 +33,10 @@ def map_refextract_to_schema(extracted_references, source=None):
             ("linemarker", rb.set_label),
             ("misc", rb.add_misc),
             ("publisher", rb.set_publisher),
-            ("raw_ref", lambda raw_ref: rb.add_raw_reference(raw_ref, source=source)),
+            (
+                "raw_ref",
+                lambda raw_ref, rb=rb: rb.add_raw_reference(raw_ref, source=source),
+            ),
             ("reportnumber", rb.add_report_number),
             ("texkey", rb.set_texkey),
             ("title", rb.add_title),
@@ -92,11 +94,11 @@ def create_journal_dict():
 
     title_dict = {}
 
-    for (short_title, journal_title) in titles_query.all():
+    for short_title, journal_title in titles_query.all():
         title_dict[normalize_title(short_title)] = short_title
         title_dict[normalize_title(journal_title)] = short_title
 
-    for (short_title, title_variants) in title_variants_query.all():
+    for short_title, title_variants in title_variants_query.all():
         if title_variants is None:
             continue
 

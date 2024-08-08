@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -17,9 +16,9 @@ from lxml.etree import XMLSyntaxError
 from marshmallow import fields, missing
 from prometheus_client import Counter
 
-from ..base import BaseSchema
-from .bibtex import BibTexCommonSchema
-from .utils import latex_encode
+from inspirehep.records.marshmallow.base import BaseSchema
+from inspirehep.records.marshmallow.literature.bibtex import BibTexCommonSchema
+from inspirehep.records.marshmallow.literature.utils import latex_encode
 
 latex_conversion_success = Counter(
     "latex_title_serialization_success", "Latex title serialization success"
@@ -70,7 +69,6 @@ class LatexSchema(BaseSchema):
         return publication_info
 
     def get_author_names(self, data):
-
         authors = data.get("authors")
 
         if not authors:
@@ -144,7 +142,6 @@ class LatexSchema(BaseSchema):
         return [latex_encode(collab["value"]) for collab in data.get("collaborations")]
 
     def get_note(self, data):
-
         erratums = [
             self.cleanup_publication_info(publication)
             for publication in get_value(data, "publication_info", [])
@@ -178,7 +175,6 @@ class LatexSchema(BaseSchema):
         return missing
 
     def get_isbn(self, data):
-
         isbns = get_value(data, "isbns.value")
         if not isbns:
             return missing

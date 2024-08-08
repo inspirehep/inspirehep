@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -8,25 +7,22 @@
 import pytest
 from flask import current_app
 from helpers.factories.db.invenio_records import TestRecordMetadata
-from helpers.utils import get_index_alias, orcid_app_cli_runner
-from invenio_db import db
-from invenio_oauthclient.models import RemoteAccount, RemoteToken, User, UserIdentity
-from mock import patch
-from pytest import fixture, mark
-from redis import StrictRedis
-from simplejson import dumps
-
+from helpers.utils import get_index_alias
 from inspirehep.orcid import push_access_tokens
-from inspirehep.orcid.cli import import_legacy_orcid_tokens
 from inspirehep.orcid.tasks import (
     USER_EMAIL_EMPTY_PATTERN,
     _find_user_matching,
     _register_user,
     legacy_orcid_arrays,
 )
+from invenio_db import db
+from invenio_oauthclient.models import RemoteAccount, RemoteToken, User, UserIdentity
+from mock import patch
+from redis import StrictRedis
+from simplejson import dumps
 
 # The tests are written in a specific order, disable random
-pytestmark = mark.random_order(disabled=True)
+pytestmark = pytest.mark.random_order(disabled=True)
 
 SAMPLE_USER = {
     "orcid": "0000-0002-1825-0097",
@@ -94,31 +90,31 @@ def cleanup_record(record):
     User.query.filter_by(email=record["email"]).delete()
 
 
-@fixture(scope="function")
-def teardown_sample_user(inspire_app):
+@pytest.fixture()
+def _teardown_sample_user(inspire_app):
     yield
 
     cleanup_record(SAMPLE_USER)
     assert_db_has_n_legacy_tokens(0, SAMPLE_USER)
 
 
-@fixture(scope="function")
-def teardown_sample_user_2(inspire_app):
+@pytest.fixture()
+def _teardown_sample_user_2(inspire_app):
     yield
 
     cleanup_record(SAMPLE_USER_2)
     assert_db_has_n_legacy_tokens(0, SAMPLE_USER_2)
 
 
-@fixture(scope="function")
-def teardown_sample_user_edited(inspire_app):
+@pytest.fixture()
+def _teardown_sample_user_edited(inspire_app):
     yield
 
     cleanup_record(SAMPLE_USER_EDITED)
     assert_db_has_n_legacy_tokens(0, SAMPLE_USER_EDITED)
 
 
-@fixture(scope="function")
+@pytest.fixture()
 def redis_setup(inspire_app):
     redis_url = current_app.config.get("CACHE_REDIS_URL")
     r = StrictRedis.from_url(redis_url)
@@ -128,21 +124,21 @@ def redis_setup(inspire_app):
     r.delete("legacy_orcid_tokens")
 
 
-@fixture(scope="function")
+@pytest.fixture()
 def app_with_config(inspire_app, override_config):
     config = {"ORCID_APP_CREDENTIALS": {"consumer_key": "0000-0000-0000-0000"}}
     with override_config(**config):
         yield inspire_app
 
 
-@fixture(scope="function")
+@pytest.fixture()
 def app_without_config(inspire_app, override_config):
     config = {"ORCID_APP_CREDENTIALS": {"consumer_key": None}}
     with override_config(**config):
         yield inspire_app
 
 
-@pytest.fixture
+@pytest.fixture()
 def inspire_record_author():
     factory_author = TestRecordMetadata.create_from_file(
         __name__,
@@ -152,7 +148,7 @@ def inspire_record_author():
     return factory_author.inspire_record
 
 
-@pytest.fixture
+@pytest.fixture()
 def inspire_record_literature():
     factory_literature = TestRecordMetadata.create_from_file(
         __name__,
@@ -162,7 +158,7 @@ def inspire_record_literature():
     return factory_literature.inspire_record
 
 
-@pytest.fixture
+@pytest.fixture()
 def assert_user_and_token_models():
     def _assert_user_and_token_models(orcid, token, email, name):
         user = User.query.filter_by(email=email).one_or_none()
@@ -182,8 +178,8 @@ def assert_user_and_token_models():
     return _assert_user_and_token_models
 
 
-@pytest.fixture
-def cache_fixture():
+@pytest.fixture()
+def _cache_fixture():
     CACHE_EXPIRE_ORIG = push_access_tokens.CACHE_EXPIRE
     push_access_tokens.CACHE_EXPIRE = 2  # Sec.
     yield
@@ -207,9 +203,8 @@ def test_legacy_orcid_arrays(inspire_app, redis_setup):
     assert redis_setup.llen("legacy_orcid_tokens") == 0
 
 
-def test_import_multiple_orcid_tokens_no_user_exists(
-    inspire_app, redis_setup, cli, teardown_sample_user, teardown_sample_user_2
-):
+@pytest.mark.usefixtures("_teardown_sample_user", "_teardown_sample_user_2")
+def test_import_multiple_orcid_tokens_no_user_exists(inspire_app, redis_setup, cli):
     """Create two users and all the associate entries."""
     push_to_redis(SAMPLE_USER_2)
     push_to_redis(SAMPLE_USER)
@@ -249,7 +244,6 @@ def test_empty_name(
 
     result = cli.invoke(["orcid", "import-legacy-tokens"])
 
-
     assert "Pushing orcid" in result.output
     mock_orcid_push.apply_async.assert_any_call(
         queue="orcid_push_legacy_tokens",
@@ -265,13 +259,13 @@ def test_empty_name(
 
 @patch("inspirehep.orcid.cli.orcid_push")
 @patch("inspirehep.orcid.cli.get_literature_recids_for_orcid")
+@pytest.mark.usefixtures("_teardown_sample_user")
 def test_import_legacy_orcid_tokens_pushes_on_new_user(
     mock_get_literature_recids_for_orcid,
     mock_orcid_push,
     app_with_config,
     cli,
     redis_setup,
-    teardown_sample_user,
 ):
     mock_get_literature_recids_for_orcid.return_value = [4328]
 
@@ -300,8 +294,9 @@ def test_import_legacy_orcid_tokens_pushes_on_new_user(
     )
 
 
+@pytest.mark.usefixtures("_teardown_sample_user", "_teardown_sample_user_2")
 def test_import_multiple_orcid_tokens_no_configuration(
-    app_without_config, cli, redis_setup, teardown_sample_user, teardown_sample_user_2
+    app_without_config, cli, redis_setup
 ):
     """Attempt and fail to create new users when configuration missing."""
     push_to_redis(SAMPLE_USER_2)
@@ -322,7 +317,8 @@ def test_import_multiple_orcid_tokens_no_configuration(
     assert_db_has_n_legacy_tokens(0, SAMPLE_USER_2)
 
 
-def test_linked_user_with_token_exists(app_with_config, teardown_sample_user):
+@pytest.mark.usefixtures("_teardown_sample_user")
+def test_linked_user_with_token_exists(app_with_config):
     """Ignore token, if already has one."""
     assert_db_has_n_legacy_tokens(0, SAMPLE_USER)
 
@@ -339,10 +335,11 @@ def test_linked_user_with_token_exists(app_with_config, teardown_sample_user):
 
     # Assert token unchanged
     assert_db_has_n_legacy_tokens(1, SAMPLE_USER)
-    assert 0 == RemoteToken.query.filter_by(token=SAMPLE_USER_EDITED).count()
+    assert RemoteToken.query.filter_by(token=SAMPLE_USER_EDITED).count() == 0
 
 
-def test_linked_user_without_token_exists(app_with_config, teardown_sample_user_edited):
+@pytest.mark.usefixtures("_teardown_sample_user_edited")
+def test_linked_user_without_token_exists(app_with_config):
     """Add a token to an existing user with an ORCID paired."""
     assert_db_has_n_legacy_tokens(0, SAMPLE_USER)
 
@@ -372,7 +369,8 @@ def test_linked_user_without_token_exists(app_with_config, teardown_sample_user_
     assert_db_has_n_legacy_tokens(1, SAMPLE_USER_EDITED)
 
 
-def test_unlinked_user_exists(app_with_config, teardown_sample_user):
+@pytest.mark.usefixtures("_teardown_sample_user")
+def test_unlinked_user_exists(app_with_config):
     """Add a token to an existing user without a paired ORCID."""
     assert_db_has_n_legacy_tokens(0, SAMPLE_USER)
 
@@ -390,8 +388,8 @@ def test_unlinked_user_exists(app_with_config, teardown_sample_user):
     assert_db_has_n_legacy_tokens(1, SAMPLE_USER)
 
 
-@mark.parametrize(
-    "orcid,email",
+@pytest.mark.parametrize(
+    ("orcid", "email"),
     [
         ("0000-0002-1825-0097", "email.not@in.db"),
         ("9876-5432-0987-6543", "j.carberry@orcid.org"),
@@ -399,7 +397,8 @@ def test_unlinked_user_exists(app_with_config, teardown_sample_user):
     ],
     ids=["verify match on orcid", "verify match on email", "verify match on both"],
 )
-def test_find_user_matching(app_with_config, teardown_sample_user, orcid, email):
+@pytest.mark.usefixtures("_teardown_sample_user")
+def test_find_user_matching(app_with_config, orcid, email):
     """Add a token to an existing user with an ORCID paired."""
     assert_db_has_n_legacy_tokens(0, SAMPLE_USER)
 
@@ -423,7 +422,7 @@ def test_find_user_matching(app_with_config, teardown_sample_user, orcid, email)
 def test_orcid_happy_flow(
     mock_legacy_orcid_arrays,
     mock_orcid_push,
-    cli, 
+    cli,
     assert_user_and_token_models,
     redis_setup,
     inspire_record_author,
@@ -470,7 +469,7 @@ def test_empty_email(
         ("myotherorcid", "myothertoken", email, "othername"),
     )
 
-    result = cli.invoke(["orcid", "import-legacy-tokens"])
+    cli.invoke(["orcid", "import-legacy-tokens"])
 
     assert_user_and_token_models(
         orcid, token, USER_EMAIL_EMPTY_PATTERN.format(orcid), name
@@ -497,7 +496,7 @@ def test_empty_email_w_existing_user_w_empty_email(
     name = "myname"
     mock_legacy_orcid_arrays.return_value = ((orcid, token, email, name),)
 
-    result = cli.invoke(["orcid", "import-legacy-tokens"])
+    cli.invoke(["orcid", "import-legacy-tokens"])
 
     assert_user_and_token_models(
         orcid, token, USER_EMAIL_EMPTY_PATTERN.format(orcid), name
@@ -524,7 +523,7 @@ def test_2_entries_in_legacy_orcid_arrays_but_1_literature(
         ("myotherorcid", "myothertoken", "otheremail@me.com", "othername"),
     )
 
-    result = cli.invoke(["orcid", "import-legacy-tokens"])
+    cli.invoke(["orcid", "import-legacy-tokens"])
 
     mock_orcid_push.apply_async.assert_any_call(
         queue="orcid_push_legacy_tokens",
@@ -540,6 +539,7 @@ def test_2_entries_in_legacy_orcid_arrays_but_1_literature(
 
 @patch("inspirehep.orcid.cli.orcid_push")
 @patch("inspirehep.orcid.cli.legacy_orcid_arrays")
+@pytest.mark.usefixtures("_cache_fixture")
 def test_invalid_token(
     mock_legacy_orcid_arrays,
     mock_orcid_push,
@@ -547,7 +547,6 @@ def test_invalid_token(
     cli,
     inspire_record_author,
     inspire_record_literature,
-    cache_fixture,
 ):
     orcid = "0000-0002-0942-3697"
     token = "mytoken"

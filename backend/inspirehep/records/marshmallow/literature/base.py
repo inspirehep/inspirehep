@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -7,10 +6,10 @@
 
 from marshmallow import fields
 
-from ..base import RecordBaseSchema
-from ..fields import NonHiddenRaw
-from ..utils import get_acquisition_source_without_email
-from .utils import get_authors_without_emails
+from inspirehep.records.marshmallow.base import RecordBaseSchema
+from inspirehep.records.marshmallow.fields import NonHiddenRaw
+from inspirehep.records.marshmallow.literature.utils import get_authors_without_emails
+from inspirehep.records.marshmallow.utils import get_acquisition_source_without_email
 
 
 class LiteratureRawSchema(RecordBaseSchema):

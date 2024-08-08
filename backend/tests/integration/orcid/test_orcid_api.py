@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # This file is part of INSPIRE.
 # Copyright (C) 2018 CERN.
@@ -26,14 +25,13 @@ import mock
 import orjson
 import pkg_resources
 import pytest
+from inspirehep.records.api import InspireRecord, LiteratureRecord
 from invenio_db import db
 from invenio_oauthclient.models import RemoteAccount, RemoteToken, User, UserIdentity
 from invenio_oauthclient.utils import oauth_link_external_id
 
-from inspirehep.records.api import InspireRecord, LiteratureRecord
 
-
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def user_with_permission(inspire_app):
     _user_data = {
         "orcid": "0000-0001-8829-5461",
@@ -51,7 +49,7 @@ def user_with_permission(inspire_app):
     cleanup_user_record(_user_data)
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def two_users_with_permission(inspire_app):
     _user1_data = {
         "orcid": "0000-0001-8829-5461",
@@ -79,7 +77,7 @@ def two_users_with_permission(inspire_app):
     cleanup_user_record(_user2_data)
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def user_without_permission(inspire_app):
     _user_data = {
         "orcid": "0000-0001-8829-5461",
@@ -97,7 +95,7 @@ def user_without_permission(inspire_app):
     cleanup_user_record(_user_data)
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def user_without_token(inspire_app):
     _user_data = {
         "orcid": "0000-0001-8829-5461",
@@ -114,7 +112,7 @@ def user_without_token(inspire_app):
     cleanup_user_record(_user_data)
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def raw_record(inspire_app):
     data = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
@@ -128,7 +126,7 @@ def raw_record(inspire_app):
     return data
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def record(raw_record):
     with mock.patch("inspirehep.orcid.api._send_push_task") as mock_orcid_push:
         mock_orcid_push.return_value = mock_orcid_push
@@ -141,8 +139,8 @@ def record(raw_record):
     return _record
 
 
-@pytest.fixture
-def enable_orcid_push_feature(inspire_app, override_config):
+@pytest.fixture()
+def _enable_orcid_push_feature(inspire_app, override_config):
     with override_config(**{"FEATURE_FLAG_ENABLE_ORCID_PUSH": True}):
         yield
 
@@ -243,15 +241,14 @@ def test_orcid_push_not_triggered_on_create_record_without_token(
 
 
 @mock.patch("inspirehep.orcid.api._send_push_task")
+@pytest.mark.usefixtures("_enable_orcid_push_feature")
 def test_orcid_push_triggered_on_create_record_with_allow_push(
     mock_orcid_push_task,
     inspire_app,
     raw_record,
     user_with_permission,
-    enable_orcid_push_feature,
     override_config,
 ):
-
     with mock.patch(
         "inspirehep.orcid.api.get_orcids_for_push",
         return_value=["0000-0001-8829-5461", "0000-0002-2174-4493"],
@@ -269,12 +266,12 @@ def test_orcid_push_triggered_on_create_record_with_allow_push(
 
 
 @mock.patch("inspirehep.orcid.api._send_push_task")
+@pytest.mark.usefixtures("_enable_orcid_push_feature")
 def test_orcid_push_triggered_on_record_update_with_allow_push(
     mock_orcid_push_task,
     inspire_app,
     record,
     user_with_permission,
-    enable_orcid_push_feature,
 ):
     expected_kwargs = {
         "kwargs": {
@@ -294,12 +291,12 @@ def test_orcid_push_triggered_on_record_update_with_allow_push(
 
 
 @mock.patch("inspirehep.orcid.api._send_push_task")
+@pytest.mark.usefixtures("_enable_orcid_push_feature")
 def test_orcid_push_triggered_on_create_record_with_multiple_authors_with_allow_push(
     mock_orcid_push_task,
     inspire_app,
     raw_record,
     two_users_with_permission,
-    enable_orcid_push_feature,
 ):
     with mock.patch(
         "inspirehep.orcid.api.get_orcids_for_push",
@@ -343,9 +340,9 @@ def test_orcid_push_not_triggered_on_create_record_no_feat_flag(
 
 
 @pytest.mark.usefixtures("inspire_app")
-class TestPushToOrcid(object):
+class TestPushToOrcid:
     @pytest.fixture(autouse=True)
-    def setup(self, inspire_app):
+    def _setup(self, inspire_app):
         # record 736770
         record_fixture_path = pkg_resources.resource_filename(
             __name__, os.path.join("fixtures", "736770.json")
@@ -357,15 +354,17 @@ class TestPushToOrcid(object):
     def test_existing_record(self, override_config):
         recid = self.record["control_number"]
         inspire_record = LiteratureRecord.get_record_by_pid_value(recid)
-        with override_config(
-            FEATURE_FLAG_ENABLE_ORCID_PUSH=True,
-            FEATURE_FLAG_ORCID_PUSH_WHITELIST_REGEX=".*",
-            ORCID_APP_CREDENTIALS={"consumer_key": "0000-0001-8607-8906"},
-        ), mock.patch(
-            "inspirehep.orcid.api.push_access_tokens"
-        ) as mock_push_access_tokens, mock.patch(
-            "inspirehep.orcid.api._send_push_task"
-        ) as mock_send_push_task:
+        with (
+            override_config(
+                FEATURE_FLAG_ENABLE_ORCID_PUSH=True,
+                FEATURE_FLAG_ORCID_PUSH_WHITELIST_REGEX=".*",
+                ORCID_APP_CREDENTIALS={"consumer_key": "0000-0001-8607-8906"},
+            ),
+            mock.patch(
+                "inspirehep.orcid.api.push_access_tokens"
+            ) as mock_push_access_tokens,
+            mock.patch("inspirehep.orcid.api._send_push_task") as mock_send_push_task,
+        ):
             mock_push_access_tokens.get_access_tokens.return_value = [
                 ("myorcid", "mytoken")
             ]
@@ -392,15 +391,17 @@ class TestPushToOrcid(object):
             ],
         }
         inspire_record = InspireRecord.create(record_json)
-        with override_config(
-            FEATURE_FLAG_ENABLE_ORCID_PUSH=True,
-            FEATURE_FLAG_ORCID_PUSH_WHITELIST_REGEX=".*",
-            ORCID_APP_CREDENTIALS={"consumer_key": "0000-0001-8607-8906"},
-        ), mock.patch(
-            "inspirehep.orcid.api.push_access_tokens"
-        ) as mock_push_access_tokens, mock.patch(
-            "inspirehep.orcid.api._send_push_task"
-        ) as mock_send_push_task:
+        with (
+            override_config(
+                FEATURE_FLAG_ENABLE_ORCID_PUSH=True,
+                FEATURE_FLAG_ORCID_PUSH_WHITELIST_REGEX=".*",
+                ORCID_APP_CREDENTIALS={"consumer_key": "0000-0001-8607-8906"},
+            ),
+            mock.patch(
+                "inspirehep.orcid.api.push_access_tokens"
+            ) as mock_push_access_tokens,
+            mock.patch("inspirehep.orcid.api._send_push_task") as mock_send_push_task,
+        ):
             mock_push_access_tokens.get_access_tokens.return_value = [
                 ("myorcid", "mytoken")
             ]

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2020 CERN.
 #
@@ -15,12 +14,11 @@ from sqlalchemy.exc import IntegrityError
 from webargs import fields
 from webargs.flaskparser import FlaskParser
 
+from inspirehep.accounts.api import get_current_user_remote_orcid_account
+from inspirehep.accounts.decorators import login_required
+from inspirehep.accounts.handlers import get_current_user_data
 from inspirehep.orcid.tasks import push_account_literature_to_orcid
 from inspirehep.serializers import jsonify
-
-from .api import get_current_user_remote_orcid_account
-from .decorators import login_required
-from .handlers import get_current_user_data
 
 parser = FlaskParser()
 

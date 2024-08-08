@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -7,10 +6,9 @@
 import uuid
 
 import pytest
-from invenio_pidstore.models import PersistentIdentifier, PIDStatus
-
 from inspirehep.pidstore.errors import PidRedirectionMissing
 from inspirehep.pidstore.models import InspireRedirect
+from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
 
 def test_redirection_invalidates_correctly_pid_objects(inspire_app):

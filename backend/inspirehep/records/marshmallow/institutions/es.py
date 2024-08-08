@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -10,8 +9,8 @@ import re
 from inspire_utils.helpers import force_list
 from marshmallow import fields
 
-from ..base import ElasticSearchBaseSchema
-from .base import InstitutionsRawSchema
+from inspirehep.records.marshmallow.base import ElasticSearchBaseSchema
+from inspirehep.records.marshmallow.institutions.base import InstitutionsRawSchema
 
 
 class InstitutionsElasticSearchSchema(ElasticSearchBaseSchema, InstitutionsRawSchema):

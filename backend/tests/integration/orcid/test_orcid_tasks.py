@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # This file is part of INSPIRE.
 # Copyright (C) 2018 CERN.
@@ -24,24 +23,23 @@ import mock
 import pytest
 from flask import current_app
 from helpers.utils import create_user
-from invenio_db import db
-from invenio_oauthclient.errors import AlreadyLinkedError
-from invenio_oauthclient.models import RemoteToken, User, UserIdentity
-
 from inspirehep.orcid.tasks import (
     RemoteTokenOrcidMismatch,
     _link_user_and_token,
     push_account_literature_to_orcid,
 )
+from invenio_db import db
+from invenio_oauthclient.errors import AlreadyLinkedError
+from invenio_oauthclient.models import RemoteToken, User, UserIdentity
 
 # The tests are written in a specific order, disable random
 pytestmark = pytest.mark.random_order(disabled=True)
 
 
 @pytest.mark.usefixtures("inspire_app")
-class TestLinkUserAndToken(object):
+class TestLinkUserAndToken:
     @pytest.fixture(autouse=True)
-    def setup(self, inspire_app):
+    def _setup(self, inspire_app):
         self.orcid = "myorcid"
         self.token = "mytoken"
         self.name = "myname"
@@ -66,7 +64,7 @@ class TestLinkUserAndToken(object):
     def test_new_user_new_token(self):
         _link_user_and_token(self.user, self.name, self.orcid, self.token)
 
-        self._assert_remote_account_and_remote_token_and_user_identity
+        self._assert_remote_account_and_remote_token_and_user_identity()
 
     def test_existent_token(self):
         # Create existing token: RemoteToken, RemoteAccount, UserIdentity.
@@ -136,7 +134,7 @@ def test_push_account_literature_to_orcid(
     mock_get_literature_recids_for_orcid.return_value = [1]
     orcid = "0000-0001-8829-5461"
     token = "user-orcid-token"
-    user = create_user(role="user", orcid=orcid, allow_push=True, token=token)
+    create_user(role="user", orcid=orcid, allow_push=True, token=token)
 
     push_account_literature_to_orcid(orcid, token)
 

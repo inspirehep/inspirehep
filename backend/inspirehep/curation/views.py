@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -13,15 +12,14 @@ from webargs.flaskparser import FlaskParser
 
 from inspirehep.accounts.decorators import login_required_with_roles
 from inspirehep.accounts.roles import Roles
-from inspirehep.records.api import LiteratureRecord
-from inspirehep.search.api import JournalsSearch
-from inspirehep.serializers import jsonify
-
-from .api import (
+from inspirehep.curation.api import (
     assign_institution_reference_to_affiliations,
     normalize_affiliations,
     normalize_collaborations,
 )
+from inspirehep.records.api import LiteratureRecord
+from inspirehep.search.api import JournalsSearch
+from inspirehep.serializers import jsonify
 
 blueprint = Blueprint("inspirehep_curation", __name__, url_prefix="/curation")
 parser = FlaskParser()

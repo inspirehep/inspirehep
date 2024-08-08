@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # This file is part of INSPIRE.
 # Copyright (C) 2014-2019 CERN.
@@ -21,7 +20,6 @@
 # or submit itself to any jurisdiction.
 
 from inspire_schemas.api import load_schema, validate
-
 from inspirehep.hal.core.tei import _is_art, _is_comm, _is_preprint
 
 

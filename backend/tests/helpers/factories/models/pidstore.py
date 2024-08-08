@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -6,7 +5,6 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 """INSPIRE module that adds more fun to the platform."""
-
 
 from helpers.factories.models.base import BaseFactory
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus

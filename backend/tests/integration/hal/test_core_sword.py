@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # This file is part of INSPIRE.
 # Copyright (C) 2014-2019 CERN.
@@ -26,10 +25,6 @@ import pytest
 from flask import current_app
 from helpers.providers.faker import faker
 from inspire_utils.record import get_value, get_values_for_schema
-from mock import patch
-from sqlalchemy.orm.exc import StaleDataError
-from sword2.deposit_receipt import Deposit_Receipt
-
 from inspirehep.hal.core.sword import (
     Connection,
     HttpLib2LayerIgnoreCert,
@@ -38,6 +33,9 @@ from inspirehep.hal.core.sword import (
 from inspirehep.hal.errors import HALCreateException
 from inspirehep.hal.tasks import _hal_push, hal_push, update_record_with_new_ids
 from inspirehep.records.api import InspireRecord
+from mock import patch
+from sqlalchemy.orm.exc import StaleDataError
+from sword2.deposit_receipt import Deposit_Receipt
 
 
 def test_new_connection_is_secure_by_default(inspire_app):
@@ -70,7 +68,7 @@ def test_service_document(inspire_app):
         sd_iri, user_name=user_name, user_pass=user_pass, http_impl=http_impl
     )
     conn.get_service_document()
-    conn.workspaces
+    assert hasattr(conn, "workspaces")
     hrefs = sum([[sdcol.href for sdcol in v] for k, v in conn.workspaces], [])
     assert inspire_app.config["HAL_COL_IRI"] in hrefs
 

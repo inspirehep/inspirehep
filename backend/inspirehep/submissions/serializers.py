@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -9,17 +8,16 @@
 
 from invenio_records_rest.serializers.json import JSONSerializer
 
-from inspirehep.submissions.marshmallow.job import Job
-
-from .marshmallow import (
+from inspirehep.submissions.marshmallow import (
     Author,
     Conference,
     Experiment,
     Institution,
+    Journal,
     Literature,
     Seminar,
-    Journal,
 )
+from inspirehep.submissions.marshmallow.job import Job
 
 literature_v1 = JSONSerializer(Literature)
 author_v1 = JSONSerializer(Author)

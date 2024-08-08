@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -13,11 +12,6 @@ import mock
 import orjson
 import pytest
 from helpers.utils import create_record, create_user
-from invenio_accounts.testutils import login_user_via_session
-from invenio_search.utils import prefix_index
-from requests.exceptions import RequestException
-from sqlalchemy.exc import OperationalError
-
 from inspirehep.search.api import (
     AuthorsSearch,
     InstitutionsSearch,
@@ -25,6 +19,10 @@ from inspirehep.search.api import (
     JournalsSearch,
     LiteratureSearch,
 )
+from invenio_accounts.testutils import login_user_via_session
+from invenio_search.utils import prefix_index
+from requests.exceptions import RequestException
+from sqlalchemy.exc import OperationalError
 
 
 def test_literature_get_records_by_pids_returns_correct_record(inspire_app):
@@ -52,7 +50,6 @@ def test_literature_get_records_by_pids_returns_correct_record(inspire_app):
 def test_return_record_for_publication_info_search_with_journal_title_without_dots(
     inspire_app,
 ):
-
     query = "Phys. Lett. B 704 (2011) 223"
 
     cited_record_json = {
@@ -79,7 +76,6 @@ def test_return_record_for_publication_info_search_with_journal_title_without_do
     expected_control_number = record["control_number"]
 
     with inspire_app.test_client() as client:
-
         response = client.get("api/literature", query_string={"q": query})
 
     response_record = response.json
@@ -88,13 +84,12 @@ def test_return_record_for_publication_info_search_with_journal_title_without_do
     ]
 
     assert expected_control_number == response_record_control_number
-    assert 200 == response.status_code
+    assert response.status_code == 200
 
 
 def test_return_record_for_journal_info_search_with_journal_title_with_dots_and_spaces(
     inspire_app,
 ):
-
     queries = ["Phys.Lett.B", "Phys. Lett. B"]
 
     cited_record_json = {
@@ -121,7 +116,6 @@ def test_return_record_for_journal_info_search_with_journal_title_with_dots_and_
     expected_control_number = record["control_number"]
 
     for query in queries:
-
         response = LiteratureSearch().query_from_iq(query).execute()
 
         response_record_control_number = response["hits"]["hits"][0]["_source"][
@@ -132,7 +126,6 @@ def test_return_record_for_journal_info_search_with_journal_title_with_dots_and_
 
 
 def test_facets_for_publication_info_search(inspire_app):
-
     query = "Phys. Lett. B 704 (2011) 223"
 
     cited_record_json = {
@@ -157,7 +150,6 @@ def test_facets_for_publication_info_search(inspire_app):
     create_record("lit", cited_record_json)
 
     with inspire_app.test_client() as client:
-
         response = client.get("api/literature/facets", query_string={"q": query})
     response_record = response.json
     assert len(response_record["hits"]["hits"]) == 0
@@ -165,7 +157,6 @@ def test_facets_for_publication_info_search(inspire_app):
 
 
 def test_return_record_for_publication_info_search_example_1(inspire_app):
-
     query = "Phys. Lett. B 704 (2011) 223"
 
     cited_record_json = {
@@ -195,7 +186,6 @@ def test_return_record_for_publication_info_search_example_1(inspire_app):
     expected_control_number = record["control_number"]
 
     with inspire_app.test_client() as client:
-
         response = client.get("api/literature", query_string={"q": query})
 
     response_record = response.json
@@ -204,13 +194,12 @@ def test_return_record_for_publication_info_search_example_1(inspire_app):
     ]
 
     assert expected_control_number == response_record_control_number
-    assert 200 == response.status_code
+    assert response.status_code == 200
 
 
 def test_return_record_for_publication_info_search_with_multiple_records_with_the_same_journal_title(
     inspire_app,
 ):
-
     query = "Phys. Lett. B 704 (2011) 223"
 
     cited_record_json = {
@@ -256,7 +245,6 @@ def test_return_record_for_publication_info_search_with_multiple_records_with_th
     expected_control_number = record_1["control_number"]
 
     with inspire_app.test_client() as client:
-
         response = client.get("api/literature", query_string={"q": query})
 
     response_record = response.json
@@ -265,12 +253,11 @@ def test_return_record_for_publication_info_search_with_multiple_records_with_th
     ]
 
     assert expected_control_number == response_record_control_number
-    assert 200 == response.status_code
+    assert response.status_code == 200
 
 
 @pytest.mark.vcr()
 def test_return_record_for_publication_info_search_example_2(inspire_app):
-
     query = "W. Buchmüller and O. Philipsen, Nucl. Phys. B 443 (1995) 47"
 
     cited_record_json = {
@@ -305,7 +292,6 @@ def test_return_record_for_publication_info_search_example_2(inspire_app):
     expected_control_number = record["control_number"]
 
     with inspire_app.test_client() as client:
-
         response = client.get("api/literature", query_string={"q": query})
 
     response_record = response.json
@@ -314,7 +300,7 @@ def test_return_record_for_publication_info_search_example_2(inspire_app):
     ]
 
     assert expected_control_number == response_record_control_number
-    assert 200 == response.status_code
+    assert response.status_code == 200
 
 
 def test_return_record_for_publication_info_search_example_3(inspire_app):
@@ -366,7 +352,6 @@ def test_return_record_for_publication_info_search_example_3(inspire_app):
     expected_control_number = record["control_number"]
 
     with inspire_app.test_client() as client:
-
         response = client.get("api/literature", query_string={"q": query})
 
     response_record = response.json
@@ -375,7 +360,7 @@ def test_return_record_for_publication_info_search_example_3(inspire_app):
     ]
 
     assert expected_control_number == response_record_control_number
-    assert 200 == response.status_code
+    assert response.status_code == 200
 
 
 @pytest.mark.vcr()
@@ -415,7 +400,6 @@ def test_return_record_for_publication_info_search_with_leading_zeros_in_page_ar
     expected_control_number = record["control_number"]
 
     with inspire_app.test_client() as client:
-
         response = client.get("api/literature", query_string={"q": query})
 
     response_record = response.json
@@ -424,7 +408,7 @@ def test_return_record_for_publication_info_search_with_leading_zeros_in_page_ar
     ]
 
     assert expected_control_number == response_record_control_number
-    assert 200 == response.status_code
+    assert response.status_code == 200
 
 
 @pytest.mark.vcr()
@@ -458,7 +442,6 @@ def test_return_record_for_publication_info_search_with_old_format(inspire_app):
     expected_control_number = record["control_number"]
 
     with inspire_app.test_client() as client:
-
         response = client.get("api/literature", query_string={"q": query})
 
     response_record = response.json
@@ -467,7 +450,7 @@ def test_return_record_for_publication_info_search_with_old_format(inspire_app):
     ]
 
     assert expected_control_number == response_record_control_number
-    assert 200 == response.status_code
+    assert response.status_code == 200
 
 
 @mock.patch("inspirehep.search.api.get_reference_from_grobid")
@@ -479,7 +462,7 @@ def test_reference_search_with_request_exception(
     with inspire_app.test_client() as client:
         response = client.get("api/literature", query_string={"q": query})
 
-    assert 200 == response.status_code
+    assert response.status_code == 200
 
 
 @mock.patch("inspirehep.search.api.get_reference_from_grobid")
@@ -488,7 +471,7 @@ def test_reference_search_with_exception(mock_get_reference_from_grobid, inspire
     mock_get_reference_from_grobid.side_effect = Exception()
     with inspire_app.test_client() as client:
         response = client.get("api/literature", query_string={"q": query})
-    assert 200 == response.status_code
+    assert response.status_code == 200
 
 
 @pytest.mark.vcr()
@@ -497,7 +480,7 @@ def test_reference_search_without_journal_title(inspire_app):
     with inspire_app.test_client() as client:
         response = client.get("api/literature", query_string={"q": query})
 
-    assert 200 == response.status_code
+    assert response.status_code == 200
 
 
 def test_reference_convert_old_publication_info_to_new_with_empty_reference(
@@ -741,10 +724,10 @@ def test_conferences_search_with_parameter(inspire_app):
 
 
 def test_conferences_search_queries(inspire_app, datadir):
-    with os.scandir((datadir / "conferences")) as it:
+    with os.scandir(datadir / "conferences") as it:
         for entry in it:
             if entry.is_file():
-                with open(entry.path, "r") as j:
+                with open(entry.path) as j:
                     data = orjson.loads(j.read())
                     create_record("con", data=data)
 
@@ -819,7 +802,6 @@ def test_citations_query_result(inspire_app):
 @pytest.mark.vcr()
 def test_big_query_execute_without_recursion_depth_exception(inspire_app):
     with inspire_app.test_client() as client:
-
         response = client.get(
             "api/literature", query_string={"q": "find a name" + " or a name" * 100}
         )
@@ -1570,7 +1552,7 @@ def test_search_serializer_handles_db_exceptions(mocked_get_pid_type, inspire_ap
 
     expected_json = {"message": "The search result can't be serialized", "status": 400}
 
-    assert 400 == response.status_code
+    assert response.status_code == 400
     assert response.json == expected_json
 
 

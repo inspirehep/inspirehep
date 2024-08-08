@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -8,11 +7,17 @@
 from inspire_dojson.utils import strip_empty_values
 from marshmallow import Schema, fields, post_dump
 
-from ...fields import ListWithLimit, NestedField
-from .author import AuthorSchemaV1
-from .collaboration import CollaborationSchemaV1
-from .collaboration_with_suffix import CollaborationWithSuffixSchemaV1
-from .publication_info_item import PublicationInfoItemSchemaV1
+from inspirehep.records.marshmallow.fields import ListWithLimit, NestedField
+from inspirehep.records.marshmallow.literature.common.author import AuthorSchemaV1
+from inspirehep.records.marshmallow.literature.common.collaboration import (
+    CollaborationSchemaV1,
+)
+from inspirehep.records.marshmallow.literature.common.collaboration_with_suffix import (
+    CollaborationWithSuffixSchemaV1,
+)
+from inspirehep.records.marshmallow.literature.common.publication_info_item import (
+    PublicationInfoItemSchemaV1,
+)
 
 
 class CitationItemSchemaV1(Schema):

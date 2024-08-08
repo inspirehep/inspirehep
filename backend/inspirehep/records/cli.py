@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -229,7 +228,7 @@ def close_expired_jobs(notify):
     only_jobs_collection = record_json["_collections"].contains(["Jobs"])
     only_not_closed = not_(record_json["status"].astext == "closed")
     only_not_deleted = or_(
-        not_(record_json.has_key("deleted")),  # noqa: W601
+        not_(record_json.has_key("deleted")),  # noqa W601
         not_(record_json["deleted"] == cast(True, JSONB)),
     )
     expired_jobs = RecordMetadata.query.filter(
@@ -346,7 +345,7 @@ def remove_bai_from_literature_records(
 @click.option("--pid-type", required=True)
 @with_appcontext
 def update_relationships_for_records(pid_type):
-    if pid_type not in current_app.config["PID_TYPES_TO_ENDPOINTS"].keys():
+    if pid_type not in current_app.config["PID_TYPES_TO_ENDPOINTS"]:
         click.echo("PID type not found")
         return
     records_ids_query = (

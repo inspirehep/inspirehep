@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -7,7 +6,7 @@
 
 from inspire_utils.record import get_values_for_schema
 
-from .base import Minter
+from inspirehep.pidstore.minters.base import Minter
 
 
 class OrcidMinter(Minter):

@@ -1,7 +1,7 @@
 import click
 import requests
-from opensearch_dsl import Q
 from flask.cli import with_appcontext
+from opensearch_dsl import Q
 
 from inspirehep.curation.tasks import update_pdg_keywords_in_records
 from inspirehep.search.api import LiteratureSearch

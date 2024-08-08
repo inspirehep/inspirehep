@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -6,9 +5,8 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import pytest
 from flask import current_app
-from mock import Mock, patch
-
 from inspirehep.search.utils import RecursionLimit, get_facet_configuration
+from mock import Mock, patch
 
 
 @patch("inspirehep.records.config.RECORDS_REST_ENDPOINTS")
@@ -26,11 +24,13 @@ def test_facet_configuration_with_existing_facet_import_string(
     expected = {
         "aggs": {"jessica-jones": {"terms": {"field": "defenders", "size": 20}}}
     }
-    with current_app.test_request_context("?facet_name=defenders"):
-        with override_config(**config):
-            result = get_facet_configuration("records-hep")
-            facet_mock.assert_called_once()
-            assert expected == result
+    with (
+        current_app.test_request_context("?facet_name=defenders"),
+        override_config(**config),
+    ):
+        result = get_facet_configuration("records-hep")
+        facet_mock.assert_called_once()
+        assert expected == result
 
 
 def test_facet_configuration_with_existing_facet_callable(inspire_app, override_config):
@@ -42,11 +42,13 @@ def test_facet_configuration_with_existing_facet_callable(inspire_app, override_
     expected = {
         "aggs": {"jessica-jones": {"terms": {"field": "defenders", "size": 20}}}
     }
-    with current_app.test_request_context("?facet_name=defenders"):
-        with override_config(**config):
-            result = get_facet_configuration("records-hep")
-            facet_mock.assert_called_once()
-            assert expected == result
+    with (
+        current_app.test_request_context("?facet_name=defenders"),
+        override_config(**config),
+    ):
+        result = get_facet_configuration("records-hep")
+        facet_mock.assert_called_once()
+        assert expected == result
 
 
 def test_facet_configuration_with_existing_facet_dict(inspire_app, override_config):
@@ -60,10 +62,12 @@ def test_facet_configuration_with_existing_facet_dict(inspire_app, override_conf
     expected = {
         "aggs": {"jessica-jones": {"terms": {"field": "defenders", "size": 20}}}
     }
-    with current_app.test_request_context("?facet_name=defenders"):
-        with override_config(**config):
-            result = get_facet_configuration("records-hep")
-            assert expected == result
+    with (
+        current_app.test_request_context("?facet_name=defenders"),
+        override_config(**config),
+    ):
+        result = get_facet_configuration("records-hep")
+        assert expected == result
 
 
 def test_facet_configuration_without_request_facet_name(inspire_app, override_config):
@@ -77,10 +81,9 @@ def test_facet_configuration_without_request_facet_name(inspire_app, override_co
     expected = {
         "aggs": {"jessica-jones": {"terms": {"field": "defenders", "size": 20}}}
     }
-    with current_app.test_request_context():
-        with override_config(**config):
-            result = get_facet_configuration("records-hep")
-            assert expected == result
+    with current_app.test_request_context(), override_config(**config):
+        result = get_facet_configuration("records-hep")
+        assert expected == result
 
 
 def test_facet_configuration_with_fallback_to_default_facet(
@@ -96,10 +99,12 @@ def test_facet_configuration_with_fallback_to_default_facet(
     expected = {
         "aggs": {"jessica-jones": {"terms": {"field": "defenders", "size": 20}}}
     }
-    with current_app.test_request_context("?facet_name=defenders"):
-        with override_config(**config):
-            result = get_facet_configuration("records-hep")
-            assert expected == result
+    with (
+        current_app.test_request_context("?facet_name=defenders"),
+        override_config(**config),
+    ):
+        result = get_facet_configuration("records-hep")
+        assert expected == result
 
 
 def test_setting_recursion_limit():
@@ -110,7 +115,6 @@ def test_setting_recursion_limit():
         return level
 
     assert recursion_test(100) == 100
-    with pytest.raises(RecursionError):
-        with RecursionLimit(50):
-            recursion_test(100)
+    with pytest.raises(RecursionError), RecursionLimit(50):
+        recursion_test(100)
     assert recursion_test(100) == 100

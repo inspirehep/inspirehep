@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # This file is part of INSPIRE.
 # Copyright (C) 2017-2018 CERN.
@@ -22,7 +21,6 @@
 
 """ORCID integration module."""
 
-
-from .builder import OrcidBuilder  # noqa: F401
-from .converter import OrcidConverter  # noqa: F401
-from .ext import InspireOrcid  # noqa: F401
+from inspirehep.orcid.builder import OrcidBuilder  # noqa F401
+from inspirehep.orcid.converter import OrcidConverter  # noqa F401
+from inspirehep.orcid.ext import InspireOrcid  # noqa F401

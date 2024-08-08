@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -8,9 +7,9 @@
 from inspire_dojson.utils import strip_empty_values
 from marshmallow import Schema, fields, post_dump
 
-from ..fields import NestedField
-from .common import AuthorSchemaV1
-from .common.author import SupervisorSchema
+from inspirehep.records.marshmallow.fields import NestedField
+from inspirehep.records.marshmallow.literature.common import AuthorSchemaV1
+from inspirehep.records.marshmallow.literature.common.author import SupervisorSchema
 
 
 class LiteratureAuthorsSchema(Schema):

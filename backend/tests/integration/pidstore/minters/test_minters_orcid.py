@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -11,10 +10,9 @@ from helpers.providers.faker import faker
 from helpers.providers.record_provider import RecordProvider
 from helpers.utils import create_record, create_record_factory
 from idutils import is_isni, is_orcid
-from invenio_pidstore.models import PersistentIdentifier, PIDStatus
-
 from inspirehep.pidstore.errors import MissingSchema, PIDAlreadyExists
 from inspirehep.pidstore.minters.orcid import OrcidMinter
+from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
 
 def test_minter_orcid(inspire_app):

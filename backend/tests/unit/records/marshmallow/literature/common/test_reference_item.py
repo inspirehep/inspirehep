@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -8,18 +7,16 @@
 import mock
 import orjson
 from inspire_schemas.api import load_schema, validate
-from marshmallow import Schema, fields
-
 from inspirehep.records.api import InspireRecord, LiteratureRecord
 from inspirehep.records.marshmallow.literature.common import (
     ReferenceItemSchemaV1,
     ReferenceItemSchemaV2,
 )
+from marshmallow import Schema, fields
 
 
 @mock.patch("inspirehep.records.api.base.InspireRecord.get_records_by_pids")
 def test_returns_non_empty_fields(get_records_mock):
-
     schema = ReferenceItemSchemaV1()
     dump = {
         "reference": {
@@ -119,7 +116,6 @@ def test_returns_empty_if_empty_reference_or_record_field(get_records_mock):
 def test_returns_non_empty_fields_if_some_fields_missing(
     get_records_mock,
 ):
-
     schema = ReferenceItemSchemaV1()
     dump = {"reference": {"label": "123", "control_number": 123}}
     expected = {"label": "123", "control_number": 123}
@@ -147,7 +143,7 @@ def test_returns_no_misc_if_title_persent(get_records_mock):
 
 
 @mock.patch(
-    ("inspirehep.records.api.literature.LiteratureRecord.get_es_linked_references")
+    "inspirehep.records.api.literature.LiteratureRecord.get_es_linked_references"
 )
 def test_returns_no_misc_if_titles_persent_in_the_resolved_record(
     mock_get_linked_records_in_field,
@@ -201,7 +197,7 @@ def test_returns_only_first_misc(get_records_mock):
 
 
 @mock.patch(
-    ("inspirehep.records.api.literature.LiteratureRecord.get_es_linked_references")
+    "inspirehep.records.api.literature.LiteratureRecord.get_es_linked_references"
 )
 def test_returns_dois_from_the_resolved_record(mock_get_linked_records_in_field):
     mock_get_linked_records_in_field.return_value = [
@@ -225,7 +221,7 @@ def test_returns_dois_from_the_resolved_record(mock_get_linked_records_in_field)
 
 
 @mock.patch(
-    ("inspirehep.records.api.literature.LiteratureRecord.get_es_linked_references")
+    "inspirehep.records.api.literature.LiteratureRecord.get_es_linked_references"
 )
 def test_returns_arxiv_eprints_from_the_resolved_record(
     mock_get_linked_records_in_field,
@@ -251,7 +247,7 @@ def test_returns_arxiv_eprints_from_the_resolved_record(
 
 
 @mock.patch(
-    ("inspirehep.records.api.literature.LiteratureRecord.get_es_linked_references")
+    "inspirehep.records.api.literature.LiteratureRecord.get_es_linked_references"
 )
 def test_schema_v2_returns_raw_ref(
     mock_get_linked_records_in_field,

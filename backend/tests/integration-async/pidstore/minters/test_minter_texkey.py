@@ -1,7 +1,6 @@
 from helpers.providers.faker import faker
-from invenio_db import db
-
 from inspirehep.records.api import LiteratureRecord
+from invenio_db import db
 
 
 def test_minter_saves_texkey_on_hidden_collection(inspire_app, override_config):

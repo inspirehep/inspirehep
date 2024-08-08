@@ -1,12 +1,11 @@
 import orjson
-from invenio_pidstore.models import PersistentIdentifier
-from marshmallow import Schema, fields
-
 from inspirehep.records.api import InspireRecord
 from inspirehep.serializers import (
     ConditionalMultiSchemaJSONSerializer,
     JSONSerializerFacets,
 )
+from invenio_pidstore.models import PersistentIdentifier
+from marshmallow import Schema, fields
 
 
 def test_uses_first_schema_that_returns_true_for_condition_that_uses_data():

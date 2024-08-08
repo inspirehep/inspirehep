@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -8,11 +7,10 @@
 import mock
 import orjson
 from helpers.utils import create_record, create_user
-from invenio_accounts.testutils import login_user_via_session
-from sqlalchemy.exc import ResourceClosedError
-
 from inspirehep.accounts.roles import Roles
 from inspirehep.records.api import AuthorsRecord, LiteratureRecord
+from invenio_accounts.testutils import login_user_via_session
+from sqlalchemy.exc import ResourceClosedError
 
 
 def test_assign_without_login(inspire_app):
@@ -469,8 +467,8 @@ def test_assign_doesnt_raise_resource_closed_error(inspire_app, override_config)
                     ),
                     content_type="application/json",
                 )
-        except ResourceClosedError:
-            assert False
+        except ResourceClosedError as e:
+            raise AssertionError() from e
 
 
 @mock.patch("inspirehep.assign.tasks.async_create_ticket_with_template")

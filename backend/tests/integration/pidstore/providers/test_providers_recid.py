@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -7,11 +6,9 @@
 
 """INSPIRE module that adds more fun to the platform."""
 
-
 from helpers.factories.models.records import RecordMetadataFactory
-from invenio_pidstore.models import PIDStatus
-
 from inspirehep.pidstore.providers.recid import InspireRecordIdProvider
+from invenio_pidstore.models import PIDStatus
 
 
 def test_provider_without_pid_value(inspire_app):
@@ -21,8 +18,8 @@ def test_provider_without_pid_value(inspire_app):
     provider = InspireRecordIdProvider.create(**provide)
 
     assert provider.pid.pid_value
-    assert "pid" == provider.pid.pid_type
-    assert PIDStatus.REGISTERED == provider.pid.status
+    assert provider.pid.pid_type == "pid"
+    assert provider.pid.status == PIDStatus.REGISTERED
 
 
 def test_provider_with_pid_value(inspire_app):
@@ -37,5 +34,5 @@ def test_provider_with_pid_value(inspire_app):
     provider = InspireRecordIdProvider.create(**provide)
 
     assert provider.pid.pid_value == 1
-    assert "pid" == provider.pid.pid_type
-    assert PIDStatus.REGISTERED == provider.pid.status
+    assert provider.pid.pid_type == "pid"
+    assert provider.pid.status == PIDStatus.REGISTERED

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -6,7 +5,6 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import pytest
-
 from inspirehep.disambiguation.utils import (
     reorder_lit_author_names,
     update_author_names,
@@ -55,7 +53,7 @@ def test_update_author_names_doesnt_put_duplicate_name_variants():
 
 
 @pytest.mark.parametrize(
-    "lit_author_name,author_name,expected_normalized_name",
+    ("lit_author_name", "author_name", "expected_normalized_name"),
     [
         ("Smith, John Davis", "Smith, John", "Smith, John Davis"),
         ("Davis, John Smith", "Smith, John", "Smith Davis, John"),

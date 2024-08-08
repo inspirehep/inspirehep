@@ -11,9 +11,7 @@ class Experiment(Schema):
 
     @post_load
     def build_experiment(self, data):
-
         if get_value(data, "legacy_name") and get_value(data, "project_type"):
-
             return {
                 "_collections": ["Experiments"],
                 "$schema": url_for(

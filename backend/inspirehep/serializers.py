@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -9,7 +8,6 @@ from builtins import TypeError
 import orjson
 import pytz
 import structlog
-from opensearch_dsl import Q
 from flask import current_app, request
 from inspire_utils.record import get_value
 from invenio_records_rest.serializers.json import (
@@ -17,6 +15,7 @@ from invenio_records_rest.serializers.json import (
 )
 from invenio_records_rest.utils import set_headers_for_record_caching_and_concurrency
 from invenio_search.utils import build_alias_name
+from opensearch_dsl import Q
 
 from inspirehep.accounts.api import is_user_logged_in
 from inspirehep.errors import DB_TASK_EXCEPTIONS, ES_TASK_EXCEPTIONS
@@ -96,8 +95,8 @@ class JSONSerializer(ORJSONSerializerMixin, InvenioJSONSerializer):
                 ),
                 links=links,
             )
-        except (ValueError, *DB_TASK_EXCEPTIONS, *ES_TASK_EXCEPTIONS):
-            raise NonSerializableSearchResult
+        except (ValueError, *DB_TASK_EXCEPTIONS, *ES_TASK_EXCEPTIONS) as e:
+            raise NonSerializableSearchResult from e
         sort_options = self._get_sort_options()
         if sort_options:
             data["sort_options"] = sort_options
@@ -188,7 +187,7 @@ class JSONSerializerFacets(ORJSONSerializerMixin, InvenioJSONSerializer):
                         "key": bucket_key,
                         "doc_count": agg_value["buckets"][bucket_key]["doc_count"],
                     }
-                    for bucket_key in agg_value["buckets"].keys()
+                    for bucket_key in agg_value["buckets"]
                     if agg_value["buckets"][bucket_key]["doc_count"] != 0
                 ]
                 new_aggs[agg_key] = agg_value
@@ -317,9 +316,8 @@ def dumps(obj, app=None, **kwargs):
     """
     encoding = kwargs.pop("encoding", None)
     rv = orjson.dumps(obj, option=orjson.OPT_NON_STR_KEYS).decode("utf-8")
-    if encoding is not None:
-        if isinstance(rv, str):
-            return rv.encode(encoding)
+    if encoding is not None and isinstance(rv, str):
+        return rv.encode(encoding)
 
     return rv
 
@@ -393,5 +391,5 @@ def add_link_header(response, links):
     """
     if links is not None:
         response.headers.extend(
-            {"Link": ", ".join([f'<{r}>; rel="{l}"' for r, l in links.items()])}
+            {"Link": ", ".join([f'<{r}>; rel="{link}"' for r, link in links.items()])}
         )

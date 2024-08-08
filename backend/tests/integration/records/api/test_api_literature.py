@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2019 CERN.
 #
@@ -19,12 +18,6 @@ from helpers.utils import (
     create_s3_bucket,
     create_s3_file,
 )
-from invenio_db import db
-from invenio_pidstore.errors import PIDAlreadyExists
-from invenio_pidstore.models import PersistentIdentifier, PIDStatus
-from invenio_records.models import RecordMetadata
-from jsonschema import ValidationError
-
 from inspirehep.files.api import current_s3_instance
 from inspirehep.records.api import InspireRecord, LiteratureRecord
 from inspirehep.records.api.literature import import_article
@@ -35,6 +28,11 @@ from inspirehep.records.errors import (
     UnsupportedFileError,
 )
 from inspirehep.records.models import RecordCitations, RecordsAuthors
+from invenio_db import db
+from invenio_pidstore.errors import PIDAlreadyExists
+from invenio_pidstore.models import PersistentIdentifier, PIDStatus
+from invenio_records.models import RecordMetadata
+from jsonschema import ValidationError
 
 KEY = "b50c2ea2d26571e0c5a3411e320586289fd715c2"
 
@@ -157,7 +155,7 @@ def test_literature_on_delete(inspire_app):
 
     assert None is record_arxiv_pid
     assert None is record_doi_pid
-    assert PIDStatus.DELETED == record_lit_pid.status
+    assert record_lit_pid.status == PIDStatus.DELETED
 
 
 def test_literature_on_delete_through_metadata_update(inspire_app):
@@ -190,7 +188,7 @@ def test_literature_on_delete_through_metadata_update(inspire_app):
 
     assert None is record_arxiv_pid
     assert None is record_doi_pid
-    assert PIDStatus.DELETED == record_lit_pid.status
+    assert record_lit_pid.status == PIDStatus.DELETED
 
 
 def test_literature_create_with_existing_control_number(inspire_app):
@@ -559,7 +557,7 @@ def test_update_record_update_citation_table(inspire_app):
 
 def test_complex_records_interactions_in_citation_table(inspire_app):
     records_list = []
-    for i in range(6):
+    for _i in range(6):
         data = faker.record(
             "lit", literature_citations=[r["control_number"] for r in records_list]
         )
@@ -1571,12 +1569,14 @@ def test_files_metadata_is_replaced_when_replacing_metadata_is_enabled(
 
         record_data = dict(record)
         files_count = 2
-        with override_config(**{"UPDATE_S3_FILES_METADATA": True}):
-            with mock.patch.object(
+        with (
+            override_config(**{"UPDATE_S3_FILES_METADATA": True}),
+            mock.patch.object(
                 current_s3_instance, "replace_file_metadata"
-            ) as mocked_s3_replace_metadata:
-                record.update(record_data)
-                assert mocked_s3_replace_metadata.call_count == files_count
+            ) as mocked_s3_replace_metadata,
+        ):
+            record.update(record_data)
+            assert mocked_s3_replace_metadata.call_count == files_count
 
 
 def test_adding_files_with_public_file_url_but_wrong_key(inspire_app, s3):
@@ -2089,7 +2089,6 @@ def test_self_citations_on_collaborations_calculated_on_other_record_update(
 
 
 def test_arxiv_url_also_supports_format_alias_latex(inspire_app):
-
     expected_latex_us_type = "application/vnd+inspire.latex.us+x-latex"
     expected_latex_eu_type = "application/vnd+inspire.latex.eu+x-latex"
 
@@ -2114,7 +2113,6 @@ def test_arxiv_url_also_supports_format_alias_latex(inspire_app):
 
 
 def test_arxiv_url_also_supports_format_alias_bibtex(inspire_app):
-
     expected_bibtex_type = "application/x-bibtex"
 
     data = {
@@ -2134,7 +2132,6 @@ def test_arxiv_url_also_supports_format_alias_bibtex(inspire_app):
 
 
 def test_arxiv_url_also_supports_format_alias_json(inspire_app):
-
     expected_bibtex_type = "application/json"
 
     data = {
@@ -2154,7 +2151,6 @@ def test_arxiv_url_also_supports_format_alias_json(inspire_app):
 
 
 def test_arxiv_url_also_supports_format_alias_cv(inspire_app):
-
     expected_cv_type = "text/vnd+inspire.html+html; charset=utf-8"
 
     data = {

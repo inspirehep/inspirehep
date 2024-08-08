@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # This file is part of INSPIRE.
 # Copyright (C) 2018 CERN.
@@ -32,24 +31,19 @@ from celery.exceptions import Retry
 from fqn_decorators.decorators import get_fqn
 from helpers.factories.db.invenio_oauthclient import TestRemoteToken
 from helpers.factories.db.invenio_records import TestRecordMetadata
-from inspirehep.records.api import LiteratureRecord
 
 # The tests are written in a specific order, disable random
 from helpers.utils import create_record
 from inspire_service_orcid.client import OrcidClient
-from lxml import etree
-
 from inspirehep.orcid import cache as cache_module
 from inspirehep.orcid import domain_models, exceptions, push_access_tokens, tasks
 from inspirehep.orcid.cache import OrcidCache
-import orjson
-from pathlib import Path
+from lxml import etree
 
 pytestmark = pytest.mark.random_order(disabled=True)
 
 
-class TestOrcidPusherBase(object):
-
+class TestOrcidPusherBase:
     ORCID_1 = "0000-0003-1134-6827"
     ORCID_2 = "0000-0001-8627-769X"
     CACHE_EXPIRE_ORIG = push_access_tokens.CACHE_EXPIRE
@@ -133,10 +127,9 @@ class TestOrcidPusherCache(TestOrcidPusherBase):
         logging.getLogger("inspirehep.orcid.domain_models").disabled = logging.CRITICAL
 
     @pytest.fixture(autouse=True)
-    def load_records(self, inspire_app):
+    def _load_records(self, inspire_app):
         self.factory = TestRecordMetadata.create_from_file(
-            __name__,
-            "test_orcid_domain_models_TestOrcidPusher.json"
+            __name__, "test_orcid_domain_models_TestOrcidPusher.json"
         )
 
     def test_push_cache_hit_content_not_changed(self):
@@ -185,7 +178,7 @@ class TestOrcidPusherPostNewWork(TestOrcidPusherBase):
         logging.getLogger("inspirehep.orcid.domain_models").disabled = logging.CRITICAL
 
     @pytest.fixture(autouse=True)
-    def load_records(self, inspire_app):
+    def _load_records(self, inspire_app):
         self.factory = TestRecordMetadata.create_from_file(
             __name__,
             "test_orcid_domain_models_TestOrcidPusherPostNewWork.json",
@@ -199,7 +192,9 @@ class TestOrcidPusherPostNewWork(TestOrcidPusherBase):
         self.delete_all_work()
         pusher = domain_models.OrcidPusher(self.orcid, self.recid, self.oauth_token)
         pusher.push()
-        assert not self.cache.has_work_content_changed(self.factory.record_metadata.json)
+        assert not self.cache.has_work_content_changed(
+            self.factory.record_metadata.json
+        )
 
     def test_push_new_work_invalid_data_orcid(self):
         orcid = "0000-0002-0000-XXXX"
@@ -220,17 +215,15 @@ class TestOrcidPusherPostNewWork(TestOrcidPusherBase):
         # Note: the recorded cassette returns (magically) a proper error.
         pusher = domain_models.OrcidPusher(self.orcid, self.recid, self.oauth_token)
         data = b'<work:work xmlns:common="http://www.orcid.org/ns/common" xmlns:work="http://www.orcid.orgsens/work"></work:work>'
-        invalid_xml = etree.fromstringlist(
-            [
-               data
-            ]
-        )
-        with pytest.raises(exceptions.InputDataInvalidException):
-            with mock.patch(
+        invalid_xml = etree.fromstringlist([data])
+        with (
+            pytest.raises(exceptions.InputDataInvalidException),
+            mock.patch(
                 "inspirehep.orcid.domain_models.OrcidConverter.get_xml",
                 return_value=invalid_xml,
-            ):
-                pusher.push()
+            ),
+        ):
+            pusher.push()
 
     def test_push_new_work_already_existing(self, override_config):
         # ORCID_APP_CREDENTIALS is required because ORCID adds it as source_client_id_path.
@@ -239,7 +232,9 @@ class TestOrcidPusherPostNewWork(TestOrcidPusherBase):
         ):
             pusher = domain_models.OrcidPusher(self.orcid, self.recid, self.oauth_token)
             pusher.push()
-        assert not self.cache.has_work_content_changed(self.factory.record_metadata.json)
+        assert not self.cache.has_work_content_changed(
+            self.factory.record_metadata.json
+        )
 
     def test_push_new_work_already_existing_with_recids(self, override_config):
         self.orcid = self.ORCID_2
@@ -250,21 +245,28 @@ class TestOrcidPusherPostNewWork(TestOrcidPusherBase):
         ):
             pusher = domain_models.OrcidPusher(self.orcid, self.recid, self.oauth_token)
             pusher.push()
-        assert not self.cache.has_work_content_changed(self.factory.record_metadata.json)
+        assert not self.cache.has_work_content_changed(
+            self.factory.record_metadata.json
+        )
 
     def test_push_new_work_already_existing_duplicated_external_identifier_exception(
         self, override_config
     ):
         # ORCID_APP_CREDENTIALS is required because ORCID adds it as source_client_id_path.
         self.recid = self.conflicting_recid
-        with override_config(
-            ORCID_APP_CREDENTIALS={"consumer_key": "0000-0001-8607-8906"}
-        ), pytest.raises(exceptions.DuplicatedExternalIdentifierPusherException):
+        with (
+            override_config(
+                ORCID_APP_CREDENTIALS={"consumer_key": "0000-0001-8607-8906"}
+            ),
+        ):
             pusher = domain_models.OrcidPusher(
                 self.orcid, self.conflicting_recid, self.oauth_token
             )
-            pusher.push()
-        assert self.cache.has_work_content_changed(self.conflicting_factory.record_metadata.json)
+            with pytest.raises(exceptions.DuplicatedExternalIdentifierPusherException):
+                pusher.push()
+        assert self.cache.has_work_content_changed(
+            self.conflicting_factory.record_metadata.json
+        )
 
     def test_push_new_work_already_existing_and_delete_duplicated_records_different_putcodes(
         self, override_config
@@ -277,7 +279,9 @@ class TestOrcidPusherPostNewWork(TestOrcidPusherBase):
             )
             pusher = domain_models.OrcidPusher(self.orcid, self.recid, self.oauth_token)
             pusher.push()
-            assert not self.cache.has_work_content_changed(self.factory.record_metadata.json)
+            assert not self.cache.has_work_content_changed(
+                self.factory.record_metadata.json
+            )
 
 
 @pytest.mark.usefixtures("inspire_app")
@@ -290,12 +294,12 @@ class TestOrcidPusherPutUpdatedWork(TestOrcidPusherBase):
         logging.getLogger("inspirehep.orcid.domain_models").disabled = logging.CRITICAL
 
     @pytest.fixture(autouse=True)
-    def load_records(self, inspire_app):
+    def _load_records(self, inspire_app):
         self.factory = TestRecordMetadata.create_from_file(
             __name__,
             "test_orcid_domain_models_TestOrcidPusher.json",
         )
-    
+
     def test_push_updated_work_happy_flow(self):
         self.putcode = self.add_work("test_orcid_domain_models_TestOrcidPusher.xml")
         self.cache.write_work_putcode(self.putcode)
@@ -304,7 +308,9 @@ class TestOrcidPusherPutUpdatedWork(TestOrcidPusherBase):
         result_putcode = pusher.push()
 
         assert int(result_putcode) == self.putcode
-        assert not self.cache.has_work_content_changed(self.factory.record_metadata.json)
+        assert not self.cache.has_work_content_changed(
+            self.factory.record_metadata.json
+        )
 
     def test_push_updated_work_invalid_data_putcode(self, override_config):
         self.cache.write_work_putcode("00000")
@@ -317,7 +323,9 @@ class TestOrcidPusherPutUpdatedWork(TestOrcidPusherBase):
         # don't care to check the value, it's pain to keep it with
         # repeatability of the tests
         assert result_putcode
-        assert not self.cache.has_work_content_changed(self.factory.record_metadata.json)
+        assert not self.cache.has_work_content_changed(
+            self.factory.record_metadata.json
+        )
 
     def test_push_updated_work_no_cache(self, override_config):
         self.cache.delete_work_putcode()
@@ -328,7 +336,9 @@ class TestOrcidPusherPutUpdatedWork(TestOrcidPusherBase):
             pusher = domain_models.OrcidPusher(self.orcid, self.recid, self.oauth_token)
             result_putcode = pusher.push()
             self.cache.write_work_putcode(result_putcode)
-        assert not self.cache.has_work_content_changed(self.factory.record_metadata.json)
+        assert not self.cache.has_work_content_changed(
+            self.factory.record_metadata.json
+        )
 
     def test_push_updated_work_invalid_data_orcid(self):
         self.orcid = "0000-0002-0000-XXXX"
@@ -359,7 +369,7 @@ class TestOrcidPusherDeleteWork(TestOrcidPusherBase):
         logging.getLogger("inspirehep.orcid.domain_models").disabled = logging.CRITICAL
 
     @pytest.fixture(autouse=True)
-    def load_records(self, inspire_app):
+    def _load_records(self, inspire_app):
         self.factory = TestRecordMetadata.create_from_file(
             __name__,
             "test_orcid_domain_models_TestOrcidPusherDeleteWork.json",
@@ -409,9 +419,12 @@ class TestOrcidPusherDeleteWork(TestOrcidPusherBase):
         TestRemoteToken.create_for_orcid(self.orcid, access_token=access_token)
         pusher = domain_models.OrcidPusher(self.orcid, self.recid, access_token)
         # ORCID_APP_CREDENTIALS is required because ORCID adds it as source_client_id_path.
-        with override_config(
-            ORCID_APP_CREDENTIALS={"consumer_key": "0000-0001-8607-8906"}
-        ), pytest.raises(exceptions.TokenInvalidDeletedException):
+        with (
+            override_config(
+                ORCID_APP_CREDENTIALS={"consumer_key": "0000-0001-8607-8906"}
+            ),
+            pytest.raises(exceptions.TokenInvalidDeletedException),
+        ):
             pusher.push()
         assert not push_access_tokens.get_access_tokens([self.orcid])
         assert push_access_tokens.is_access_token_invalid(access_token)
@@ -432,7 +445,7 @@ class TestOrcidPusherDuplicatedIdentifier(TestOrcidPusherBase):
         logging.getLogger("inspirehep.orcid.domain_models").disabled = logging.CRITICAL
 
     @pytest.fixture(autouse=True)
-    def load_records(self, inspire_app):
+    def _load_records(self, inspire_app):
         self.factory = TestRecordMetadata.create_from_file(
             __name__,
             "test_orcid_domain_models_TestOrcidPusherDuplicatedIdentifier.json",
@@ -441,6 +454,7 @@ class TestOrcidPusherDuplicatedIdentifier(TestOrcidPusherBase):
             __name__,
             "test_orcid_domain_models_TestOrcidPusherDuplicatedIdentifier_clashing.json",
         )
+
     def teardown_method(self, method):
         self.cache.delete_work_putcode()
         self.cache_clashing.delete_work_putcode()
@@ -460,7 +474,9 @@ class TestOrcidPusherDuplicatedIdentifier(TestOrcidPusherBase):
             self.clashing_putcode = pusher.push()
 
         assert self.clashing_putcode
-        assert not self.cache_clashing.has_work_content_changed(self.factory_clashing.record_metadata.json)
+        assert not self.cache_clashing.has_work_content_changed(
+            self.factory_clashing.record_metadata.json
+        )
 
     def test_happy_flow_put(self, override_config):
         with override_config(
@@ -513,11 +529,10 @@ class TestOrcidPusherDuplicatedIdentifier(TestOrcidPusherBase):
 
             pusher = domain_models.OrcidPusher(self.orcid, self.recid, self.oauth_token)
             pusher.push()
-
+            pusher = domain_models.OrcidPusher(
+                self.orcid, self.clashing_recid, self.oauth_token
+            )
             with pytest.raises(exceptions.DuplicatedExternalIdentifierPusherException):
-                pusher = domain_models.OrcidPusher(
-                    self.orcid, self.clashing_recid, self.oauth_token
-                )
                 pusher.push()
 
 
@@ -532,7 +547,7 @@ class TestOrcidPusherRecordDBVersion(TestOrcidPusherBase):
         logging.getLogger("inspirehep.orcid.domain_models").disabled = logging.CRITICAL
 
     @pytest.fixture(autouse=True)
-    def load_records(self, inspire_app):
+    def _load_records(self, inspire_app):
         self.factory = TestRecordMetadata.create_from_file(
             __name__, "test_orcid_domain_models_TestOrcidPusherRecordExceptions.json"
         )
@@ -566,7 +581,7 @@ class TestOrcidPusherRecordRedirected(TestOrcidPusherBase):
         logging.getLogger("inspirehep.orcid.domain_models").disabled = logging.CRITICAL
 
     @pytest.fixture(autouse=True)
-    def load_records(self, inspire_app):
+    def _load_records(self, inspire_app):
         redirected_record = create_record("lit")
         self.recid = redirected_record["control_number"]
         create_record("lit", data={"deleted_records": [redirected_record["self"]]})

@@ -11,10 +11,9 @@ from helpers.utils import (
     filter_out_authentication,
     filter_out_user_data_and_cookie_headers,
 )
-from invenio_accounts.testutils import login_user_via_session
-
 from inspirehep.snow.api import InspireSnow
 from inspirehep.snow.errors import CreateTicketException, EditTicketException
+from invenio_accounts.testutils import login_user_via_session
 
 
 @pytest.mark.vcr(
@@ -22,9 +21,8 @@ from inspirehep.snow.errors import CreateTicketException, EditTicketException
     before_record_request=filter_out_authentication,
     before_record_response=filter_out_user_data_and_cookie_headers(),
 )
-def test_create_ticket_with_template_view(
-    mocked_inspire_snow, teardown_cache, inspire_app
-):
+@pytest.mark.usefixtures("_mocked_inspire_snow", "_teardown_cache")
+def test_create_ticket_with_template_view(inspire_app):
     user = create_user(role="superuser")
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
@@ -58,9 +56,8 @@ def test_create_ticket_with_template_view(
     before_record_request=filter_out_authentication,
     before_record_response=filter_out_user_data_and_cookie_headers(),
 )
-def test_create_ticket_with_template_view_not_authenticated(
-    mocked_inspire_snow, teardown_cache, inspire_app
-):
+@pytest.mark.usefixtures("_mocked_inspire_snow", "_teardown_cache")
+def test_create_ticket_with_template_view_not_authenticated(inspire_app):
     user = create_user()
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
@@ -90,7 +87,8 @@ def test_create_ticket_with_template_view_not_authenticated(
     before_record_request=filter_out_authentication,
     before_record_response=filter_out_user_data_and_cookie_headers(),
 )
-def test_create_ticket_view(mocked_inspire_snow, teardown_cache, inspire_app):
+@pytest.mark.usefixtures("_mocked_inspire_snow", "_teardown_cache")
+def test_create_ticket_view(inspire_app):
     user = create_user(role="superuser")
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
@@ -116,9 +114,8 @@ def test_create_ticket_view(mocked_inspire_snow, teardown_cache, inspire_app):
     before_record_request=filter_out_authentication,
     before_record_response=filter_out_user_data_and_cookie_headers(),
 )
-def test_create_ticket_view_not_authenticated(
-    mocked_inspire_snow, teardown_cache, inspire_app
-):
+@pytest.mark.usefixtures("_mocked_inspire_snow", "_teardown_cache")
+def test_create_ticket_view_not_authenticated(inspire_app):
     user = create_user()
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
@@ -146,9 +143,8 @@ def test_create_ticket_view_not_authenticated(
     "inspirehep.snow.api.InspireSnow.create_inspire_ticket",
     side_effect=CreateTicketException,
 )
-def test_create_ticket_view_when_create_ticket_error(
-    mock_create_ticket, mocked_inspire_snow, teardown_cache, inspire_app
-):
+@pytest.mark.usefixtures("_mocked_inspire_snow", "_teardown_cache")
+def test_create_ticket_view_when_create_ticket_error(mock_create_ticket, inspire_app):
     user = create_user(role="superuser")
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
@@ -173,9 +169,8 @@ def test_create_ticket_view_when_create_ticket_error(
     before_record_request=filter_out_authentication,
     before_record_response=filter_out_user_data_and_cookie_headers(),
 )
-def test_reply_ticket_with_template_view(
-    mocked_inspire_snow, teardown_cache, inspire_app
-):
+@pytest.mark.usefixtures("_mocked_inspire_snow", "_teardown_cache")
+def test_reply_ticket_with_template_view(inspire_app):
     snow_instance = InspireSnow()
     ticket_id = snow_instance.create_inspire_ticket(
         subject="This is a reply test",
@@ -204,9 +199,8 @@ def test_reply_ticket_with_template_view(
         assert response.json["message"] == "Ticket was updated with the reply"
 
 
-def test_reply_ticket_with_template_view_when_user_not_authenticated(
-    mocked_inspire_snow, teardown_cache, inspire_app
-):
+@pytest.mark.usefixtures("_mocked_inspire_snow", "_teardown_cache")
+def test_reply_ticket_with_template_view_when_user_not_authenticated(inspire_app):
     user = create_user()
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
@@ -268,7 +262,8 @@ def test_reply_ticket_with_template_view_when_edit_ticket_error(
     before_record_request=filter_out_authentication,
     before_record_response=filter_out_user_data_and_cookie_headers(),
 )
-def test_reply_ticket_view(mocked_inspire_snow, teardown_cache, inspire_app):
+@pytest.mark.usefixtures("_mocked_inspire_snow", "_teardown_cache")
+def test_reply_ticket_view(inspire_app):
     snow_instance = InspireSnow()
     ticket_id = snow_instance.create_inspire_ticket(
         subject="This is a reply test",
@@ -300,9 +295,8 @@ def test_reply_ticket_view(mocked_inspire_snow, teardown_cache, inspire_app):
 @mock.patch(
     "inspirehep.snow.api.InspireSnow.edit_ticket", side_effect=EditTicketException
 )
-def test_reply_ticket_view_when_record_edit_error(
-    mocked_inspire_snow, teardown_cache, inspire_app
-):
+@pytest.mark.usefixtures("_teardown_cache")
+def test_reply_ticket_view_when_record_edit_error(mocked_inspire_snow, inspire_app):
     user = create_user(role="superuser")
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
@@ -320,9 +314,8 @@ def test_reply_ticket_view_when_record_edit_error(
         assert response.json["message"] == "Can't reply SNOW ticket!"
 
 
-def test_reply_ticket_view_when_user_not_authenticated(
-    mocked_inspire_snow, teardown_cache, inspire_app
-):
+@pytest.mark.usefixtures("_mocked_inspire_snow", "_teardown_cache")
+def test_reply_ticket_view_when_user_not_authenticated(inspire_app):
     user = create_user()
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
@@ -347,9 +340,8 @@ def test_reply_ticket_view_when_user_not_authenticated(
 @mock.patch(
     "inspirehep.snow.api.InspireSnow.edit_ticket", side_effect=EditTicketException
 )
-def test_resolve_ticket_view_when_edit_ticket_exception(
-    mock_edit_ticket, mocked_inspire_snow, teardown_cache, inspire_app
-):
+@pytest.mark.usefixtures("_mocked_inspire_snow", "_teardown_cache")
+def test_resolve_ticket_view_when_edit_ticket_exception(mock_edit_ticket, inspire_app):
     user = create_user(role="superuser")
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
@@ -367,7 +359,8 @@ def test_resolve_ticket_view_when_edit_ticket_exception(
     before_record_request=filter_out_authentication,
     before_record_response=filter_out_user_data_and_cookie_headers(),
 )
-def test_resolve_ticket_view(mocked_inspire_snow, teardown_cache, inspire_app):
+@pytest.mark.usefixtures("_mocked_inspire_snow", "_teardown_cache")
+def test_resolve_ticket_view(inspire_app):
     snow_instance = InspireSnow()
     ticket_id = snow_instance.create_inspire_ticket(
         subject="This is a reply test",
@@ -385,9 +378,8 @@ def test_resolve_ticket_view(mocked_inspire_snow, teardown_cache, inspire_app):
         assert response.json["message"] == "Ticket resolved"
 
 
-def test_resolve_ticket_view_user_not_authenticated(
-    mocked_inspire_snow, teardown_cache, inspire_app
-):
+@pytest.mark.usefixtures("_mocked_inspire_snow", "_teardown_cache")
+def test_resolve_ticket_view_user_not_authenticated(inspire_app):
     user = create_user()
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
@@ -407,8 +399,9 @@ def test_resolve_ticket_view_user_not_authenticated(
 @mock.patch(
     "inspirehep.snow.api.InspireSnow.edit_ticket", side_effect=EditTicketException
 )
+@pytest.mark.usefixtures("_mocked_inspire_snow", "_teardown_cache")
 def test_resolve_ticket_with_template_view_when_edit_ticket_exception(
-    mock_edit_ticket, mocked_inspire_snow, teardown_cache, inspire_app
+    mock_edit_ticket, inspire_app
 ):
     user = create_user(role="superuser")
     with inspire_app.test_client() as client:
@@ -437,9 +430,8 @@ def test_resolve_ticket_with_template_view_when_edit_ticket_exception(
     before_record_request=filter_out_authentication,
     before_record_response=filter_out_user_data_and_cookie_headers(),
 )
-def test_resolve_ticket_with_template_view(
-    mocked_inspire_snow, teardown_cache, inspire_app
-):
+@pytest.mark.usefixtures("_mocked_inspire_snow", "_teardown_cache")
+def test_resolve_ticket_with_template_view(inspire_app):
     snow_instance = InspireSnow()
     ticket_id = snow_instance.create_inspire_ticket(
         subject="This is a reply test",
@@ -467,9 +459,8 @@ def test_resolve_ticket_with_template_view(
         assert response.json["message"] == "Ticket resolved"
 
 
-def test_resolve_ticket_with_template_view_user_not_authenticated(
-    mocked_inspire_snow, teardown_cache, inspire_app
-):
+@pytest.mark.usefixtures("_mocked_inspire_snow", "_teardown_cache")
+def test_resolve_ticket_with_template_view_user_not_authenticated(inspire_app):
     user = create_user()
     with inspire_app.test_client() as client:
         login_user_via_session(client, email=user.email)
