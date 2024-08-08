@@ -34,6 +34,13 @@ class TestAirflowUtils(TransactionTestCase):
         self.assertEqual(response.status_code, 200)
 
     @pytest.mark.vcr()
+    def test_restart_failed_tasks_no_tasks(self):
+        response = airflow_utils.restart_failed_tasks(
+            self.workflow_id, self.workflow_type
+        )
+        self.assertEqual(response.status_code, 200)
+
+    @pytest.mark.vcr()
     def test_find_executed_dags(self):
         executed_dags_for_workflow = airflow_utils.find_executed_dags(
             self.workflow_id, self.workflow_type
